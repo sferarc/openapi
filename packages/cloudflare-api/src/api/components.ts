@@ -196102,7 +196102,7 @@ export type SchemaValidationListSchemasPaginatedQueryParams = {
 
 export type SchemaValidationListSchemasPaginatedError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationListSchemasPaginatedVariables = {
@@ -196184,7 +196184,7 @@ export type SchemaValidationListSchemaHostsQueryParams = {
 
 export type SchemaValidationListSchemaHostsError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationListSchemaHostsVariables = {
@@ -196222,7 +196222,7 @@ export type SchemaValidationDeleteSchemaPathParams = {
 
 export type SchemaValidationDeleteSchemaError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationDeleteSchemaVariables = {
@@ -196268,7 +196268,7 @@ export type SchemaValidationGetSchemaQueryParams = {
 
 export type SchemaValidationGetSchemaError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationGetSchemaVariables = {
@@ -196306,7 +196306,7 @@ export type SchemaValidationEditSchemaPathParams = {
 
 export type SchemaValidationEditSchemaError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationEditSchemaVariables = {
@@ -196387,7 +196387,7 @@ export type SchemaValidationExtractOperationsFromSchemaQueryParams = {
 
 export type SchemaValidationExtractOperationsFromSchemaError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationExtractOperationsFromSchemaVariables = {
@@ -196422,7 +196422,7 @@ export type SchemaValidationGetSettingsPathParams = {
 
 export type SchemaValidationGetSettingsError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationGetSettingsVariables = {
@@ -196453,7 +196453,7 @@ export type SchemaValidationEditSettingsPathParams = {
 
 export type SchemaValidationEditSettingsError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationEditSettingsVariables = {
@@ -196485,7 +196485,7 @@ export type SchemaValidationUpdateSettingsPathParams = {
 
 export type SchemaValidationUpdateSettingsError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationUpdateSettingsVariables = {
@@ -196535,7 +196535,7 @@ export type SchemaValidationListPerOperationSettingsQueryParams = {
 
 export type SchemaValidationListPerOperationSettingsError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationListPerOperationSettingsVariables = {
@@ -196567,7 +196567,7 @@ export type SchemaValidationBulkEditPerOperationSettingsPathParams = {
 
 export type SchemaValidationBulkEditPerOperationSettingsError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationBulkEditPerOperationSettingsVariables = {
@@ -196600,7 +196600,7 @@ export type SchemaValidationDeletePerOperationSettingPathParams = {
 
 export type SchemaValidationDeletePerOperationSettingError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationDeletePerOperationSettingVariables = {
@@ -196632,7 +196632,7 @@ export type SchemaValidationGetPerOperationSettingPathParams = {
 
 export type SchemaValidationGetPerOperationSettingError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationGetPerOperationSettingVariables = {
@@ -196664,7 +196664,7 @@ export type SchemaValidationUpdatePerOperationSettingPathParams = {
 
 export type SchemaValidationUpdatePerOperationSettingError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type SchemaValidationUpdatePerOperationSettingVariables = {
@@ -200687,7 +200687,7 @@ export type TokenValidationConfigListQueryParams = {
 
 export type TokenValidationConfigListError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationConfigListVariables = {
@@ -200722,7 +200722,7 @@ export type TokenValidationConfigCreatePathParams = {
 
 export type TokenValidationConfigCreateError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationConfigCreateVariables = {
@@ -200758,7 +200758,7 @@ export type TokenValidationConfigDeletePathParams = {
 
 export type TokenValidationConfigDeleteError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationConfigDeleteVariables = {
@@ -200793,7 +200793,7 @@ export type TokenValidationConfigGetPathParams = {
 
 export type TokenValidationConfigGetError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationConfigGetVariables = {
@@ -200828,7 +200828,7 @@ export type TokenValidationConfigEditPathParams = {
 
 export type TokenValidationConfigEditError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationConfigEditVariables = {
@@ -200864,7 +200864,7 @@ export type TokenValidationConfigCredentialsUpdatePathParams = {
 
 export type TokenValidationConfigCredentialsUpdateError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationConfigCredentialsUpdateVariables = {
@@ -200927,7 +200927,7 @@ export type TokenValidationRulesListQueryParams = {
 
 export type TokenValidationRulesListError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationRulesListVariables = {
@@ -200962,7 +200962,7 @@ export type TokenValidationRulesCreatePathParams = {
 
 export type TokenValidationRulesCreateError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationRulesCreateVariables = {
@@ -200997,7 +200997,7 @@ export type TokenValidationRulesBulkEditPathParams = {
 
 export type TokenValidationRulesBulkEditError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationRulesBulkEditVariables = {
@@ -201038,7 +201038,7 @@ export type TokenValidationRulesBulkCreatePathParams = {
 
 export type TokenValidationRulesBulkCreateError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationRulesBulkCreateVariables = {
@@ -201110,7 +201110,7 @@ export type TokenValidationRulesPreviewQueryParams = {
 
 export type TokenValidationRulesPreviewError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationRulesPreviewVariables = {
@@ -201150,7 +201150,7 @@ export type TokenValidationRulesDeletePathParams = {
 
 export type TokenValidationRulesDeleteError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationRulesDeleteVariables = {
@@ -201185,7 +201185,7 @@ export type TokenValidationRulesGetPathParams = {
 
 export type TokenValidationRulesGetError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationRulesGetVariables = {
@@ -201220,7 +201220,7 @@ export type TokenValidationRulesEditPathParams = {
 
 export type TokenValidationRulesEditError = Fetcher.ErrorWrapper<{
 	status: 400;
-	payload: Responses.ApiShieldGenericFailure;
+	payload: Responses.ApiShieldGenericFailure2;
 }>;
 
 export type TokenValidationRulesEditVariables = {
