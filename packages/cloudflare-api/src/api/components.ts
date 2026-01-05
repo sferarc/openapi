@@ -12469,6 +12469,26 @@ export type AiSearchListInstancesResponse = {
 		 * @default false
 		 */
 		paused?: boolean;
+		public_endpoint_id?: string;
+		public_endpoint_params?: {
+			authorized_hosts?: string[];
+			/**
+			 * @default false
+			 */
+			enabled?: boolean;
+			rate_limit?: {
+				/**
+				 * @maximum 3600000
+				 * @minimum 60000
+				 */
+				period_ms?: number;
+				/**
+				 * @minimum 1
+				 */
+				requests?: number;
+				technique?: "fixed" | "sliding";
+			};
+		};
 		/**
 		 * @default false
 		 */
@@ -12791,6 +12811,26 @@ export type AiSearchCreateInstancesResponse = {
 		 * @default false
 		 */
 		paused?: boolean;
+		public_endpoint_id?: string;
+		public_endpoint_params?: {
+			authorized_hosts?: string[];
+			/**
+			 * @default false
+			 */
+			enabled?: boolean;
+			rate_limit?: {
+				/**
+				 * @maximum 3600000
+				 * @minimum 60000
+				 */
+				period_ms?: number;
+				/**
+				 * @minimum 1
+				 */
+				requests?: number;
+				technique?: "fixed" | "sliding";
+			};
+		};
 		/**
 		 * @default false
 		 */
@@ -13023,6 +13063,25 @@ export type AiSearchCreateInstancesRequestBody = {
 	metadata?: {
 		created_from_aisearch_wizard?: boolean;
 		worker_domain?: string;
+	};
+	public_endpoint_params?: {
+		authorized_hosts?: string[];
+		/**
+		 * @default false
+		 */
+		enabled?: boolean;
+		rate_limit?: {
+			/**
+			 * @maximum 3600000
+			 * @minimum 60000
+			 */
+			period_ms?: number;
+			/**
+			 * @minimum 1
+			 */
+			requests?: number;
+			technique?: "fixed" | "sliding";
+		};
 	};
 	/**
 	 * @default false
@@ -13310,6 +13369,26 @@ export type AiSearchDeleteInstancesResponse = {
 		 * @default false
 		 */
 		paused?: boolean;
+		public_endpoint_id?: string;
+		public_endpoint_params?: {
+			authorized_hosts?: string[];
+			/**
+			 * @default false
+			 */
+			enabled?: boolean;
+			rate_limit?: {
+				/**
+				 * @maximum 3600000
+				 * @minimum 60000
+				 */
+				period_ms?: number;
+				/**
+				 * @minimum 1
+				 */
+				requests?: number;
+				technique?: "fixed" | "sliding";
+			};
+		};
 		/**
 		 * @default false
 		 */
@@ -13639,6 +13718,26 @@ export type AiSearchFetchInstancesResponse = {
 		 * @default false
 		 */
 		paused?: boolean;
+		public_endpoint_id?: string;
+		public_endpoint_params?: {
+			authorized_hosts?: string[];
+			/**
+			 * @default false
+			 */
+			enabled?: boolean;
+			rate_limit?: {
+				/**
+				 * @maximum 3600000
+				 * @minimum 60000
+				 */
+				period_ms?: number;
+				/**
+				 * @minimum 1
+				 */
+				requests?: number;
+				technique?: "fixed" | "sliding";
+			};
+		};
 		/**
 		 * @default false
 		 */
@@ -13987,6 +14086,26 @@ export type AiSearchUpdateInstancesResponse = {
 		 * @default false
 		 */
 		paused?: boolean;
+		public_endpoint_id?: string;
+		public_endpoint_params?: {
+			authorized_hosts?: string[];
+			/**
+			 * @default false
+			 */
+			enabled?: boolean;
+			rate_limit?: {
+				/**
+				 * @maximum 3600000
+				 * @minimum 60000
+				 */
+				period_ms?: number;
+				/**
+				 * @minimum 1
+				 */
+				requests?: number;
+				technique?: "fixed" | "sliding";
+			};
+		};
 		/**
 		 * @default false
 		 */
@@ -14223,6 +14342,25 @@ export type AiSearchUpdateInstancesRequestBody = {
 	 * @default false
 	 */
 	paused?: boolean;
+	public_endpoint_params?: {
+		authorized_hosts?: string[];
+		/**
+		 * @default false
+		 */
+		enabled?: boolean;
+		rate_limit?: {
+			/**
+			 * @maximum 3600000
+			 * @minimum 60000
+			 */
+			period_ms?: number;
+			/**
+			 * @minimum 1
+			 */
+			requests?: number;
+			technique?: "fixed" | "sliding";
+		};
+	};
 	/**
 	 * @default false
 	 */
@@ -48447,15 +48585,17 @@ export type PostEventCreateBulkError = Fetcher.ErrorWrapper<{
 
 export type PostEventCreateBulkResponse = {
 	/**
+	 * Correlation ID for async indicator processing
+	 *
+	 * @format uuid
+	 */
+	createBulkEventsRequestId?: string;
+	/**
 	 * Number of events created
 	 */
 	createdEventsCount: number;
 	/**
-	 * Number of indicators created
-	 */
-	createdIndicatorsCount: number;
-	/**
-	 * Number of tags created in SoT
+	 * Number of new tags created in SoT
 	 */
 	createdTagsCount: number;
 	/**
@@ -48475,6 +48615,10 @@ export type PostEventCreateBulkResponse = {
 		 */
 		eventIndex: number;
 	}[];
+	/**
+	 * Number of indicators queued for async processing
+	 */
+	queuedIndicatorsCount: number;
 };
 
 export type PostEventCreateBulkRequestBody = {
@@ -50922,6 +51066,14 @@ export type GetIndicatorListQueryParams = {
 	 * @example 2
 	 */
 	relatedEventsLimit?: number;
+	/**
+	 * Whether to include full tag details for each indicator. Defaults to false for performance.
+	 */
+	includeTags?: boolean;
+	/**
+	 * Whether to compute accurate total count via COUNT(*). Defaults to false for performance. When false, total_count is an approximation.
+	 */
+	includeTotalCount?: boolean;
 };
 
 export type GetIndicatorListError = Fetcher.ErrorWrapper<{
@@ -51433,6 +51585,10 @@ export type GetTagListResponse = {
 		 * @example Nation State
 		 */
 		categoryName?: string;
+		/**
+		 * @example 12345678-1234-1234-1234-1234567890ab
+		 */
+		categoryUuid?: string;
 		externalReferenceLinks?: string[];
 		internalDescription?: string;
 		motive?: string;
@@ -51840,6 +51996,10 @@ export type PostTagCreateResponse = {
 	 * @example Nation State
 	 */
 	categoryName?: string;
+	/**
+	 * @example 12345678-1234-1234-1234-1234567890ab
+	 */
+	categoryUuid?: string;
 	externalReferenceLinks?: string[];
 	internalDescription?: string;
 	motive?: string;
@@ -52026,6 +52186,10 @@ export type PatchTagUpdateResponse = {
 	 * @example Nation State
 	 */
 	categoryName?: string;
+	/**
+	 * @example 12345678-1234-1234-1234-1234567890ab
+	 */
+	categoryUuid?: string;
 	externalReferenceLinks?: string[];
 	internalDescription?: string;
 	motive?: string;
@@ -52264,6 +52428,100 @@ export const deleteEventDeleteDO = (
 	>({
 		url: "/accounts/{accountId}/cloudforce-one/events/{datasetId}/delete",
 		method: "delete",
+		...variables,
+		signal,
+	});
+
+export type PostEventDoRevertPathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+	/**
+	 * Dataset UUID.
+	 *
+	 * @format uuid
+	 */
+	datasetId: string;
+};
+
+export type PostEventDoRevertError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: {
+		errors: {
+			/**
+			 * @example An error occurred.
+			 */
+			message: string;
+		}[];
+		result: Record<string, any>;
+		success: boolean;
+	};
+}>;
+
+export type PostEventDoRevertResponse = {
+	properties: {
+		datasetId: {
+			/**
+			 * @example string
+			 */
+			type: string;
+		};
+		minutesAgo: {
+			/**
+			 * @example number
+			 */
+			type: string;
+		};
+		revertBookmark: {
+			/**
+			 * @example string
+			 */
+			type: string;
+		};
+		targetTimestamp: {
+			/**
+			 * @example string
+			 */
+			type: string;
+		};
+		undoBookmark: {
+			/**
+			 * @example string
+			 */
+			type: string;
+		};
+	};
+	required: string[];
+	/**
+	 * @example object
+	 */
+	type: string;
+};
+
+export type PostEventDoRevertRequestBody = {
+	/**
+	 * @example 120
+	 */
+	minutesAgo: number;
+};
+
+export type PostEventDoRevertVariables = {
+	body: PostEventDoRevertRequestBody;
+	pathParams: PostEventDoRevertPathParams;
+} & FetcherExtraProps;
+
+export const postEventDoRevert = (variables: PostEventDoRevertVariables, signal?: AbortSignal) =>
+	fetch<
+		PostEventDoRevertResponse,
+		PostEventDoRevertError,
+		PostEventDoRevertRequestBody,
+		{},
+		{},
+		PostEventDoRevertPathParams
+	>({
+		url: "/accounts/{accountId}/cloudforce-one/events/{datasetId}/revert-do",
+		method: "post",
 		...variables,
 		signal,
 	});
@@ -52545,6 +52803,15 @@ export type PatchEventUpdateRequestBody = {
 	 */
 	category?: string;
 	/**
+	 * @example 2025-12-19T00:00:00Z
+	 * @format date-time
+	 */
+	createdAt?: string;
+	/**
+	 * @example 9b769969-a211-466c-8ac3-cb91266a066a
+	 */
+	datasetId?: string;
+	/**
 	 * @example 2022-04-01T00:00:00Z
 	 * @format date-time
 	 */
@@ -52717,6 +52984,15 @@ export type PostEventUpdateRequestBody = {
 	 * @example Domain Resolution
 	 */
 	category?: string;
+	/**
+	 * @example 2025-12-19T00:00:00Z
+	 * @format date-time
+	 */
+	createdAt?: string;
+	/**
+	 * @example 9b769969-a211-466c-8ac3-cb91266a066a
+	 */
+	datasetId?: string;
 	/**
 	 * @example 2022-04-01T00:00:00Z
 	 * @format date-time
@@ -54872,6 +55148,118 @@ export const connectivityServicesPut = (
 		signal,
 	});
 
+export type PublicListApplicationsPathParams = {
+	/**
+	 * Account identifier.
+	 *
+	 * @example account-123
+	 */
+	accountId: string;
+};
+
+export type PublicListApplicationsQueryParams = {
+	/**
+	 * Filter containers by name
+	 */
+	name?: string;
+	/**
+	 * Filter containers by image
+	 */
+	image?: string;
+};
+
+export type PublicListApplicationsError = Fetcher.ErrorWrapper<
+	| {
+			status: 401;
+			payload: Responses.CcPublicUnauthorized401;
+	  }
+	| {
+			status: 500;
+			payload: Responses.CcPublicInternalError500;
+	  }
+>;
+
+export type PublicListApplicationsVariables = {
+	pathParams: PublicListApplicationsPathParams;
+	queryParams?: PublicListApplicationsQueryParams;
+} & FetcherExtraProps;
+
+/**
+ * Lists all the container applications that are associated with your account.
+ */
+export const publicListApplications = (
+	variables: PublicListApplicationsVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Responses.CcPublicListApplicationsResponse200,
+		PublicListApplicationsError,
+		undefined,
+		{},
+		PublicListApplicationsQueryParams,
+		PublicListApplicationsPathParams
+	>({
+		url: "/accounts/{accountId}/containers",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type GenerateImageRegistryCredentialsPathParams = {
+	/**
+	 * Account identifier.
+	 *
+	 * @example account-123
+	 */
+	accountId: string;
+	/**
+	 * @example registry.cloudflare.com
+	 */
+	domain: string;
+};
+
+export type GenerateImageRegistryCredentialsError = Fetcher.ErrorWrapper<
+	| {
+			status: 400;
+			payload: Responses.CcPublicBadRequest400;
+	  }
+	| {
+			status: 404;
+			payload: Responses.CcImageRegistryNotFoundResponse404;
+	  }
+	| {
+			status: 409;
+			payload: Responses.CcGenerateImageRegistryCredentialsResponse409;
+	  }
+	| {
+			status: 500;
+			payload: Responses.CcPublicInternalError500;
+	  }
+>;
+
+export type GenerateImageRegistryCredentialsVariables = {
+	body: Schemas.CcImageRegistryCredentialsConfiguration;
+	pathParams: GenerateImageRegistryCredentialsPathParams;
+} & FetcherExtraProps;
+
+export const generateImageRegistryCredentials = (
+	variables: GenerateImageRegistryCredentialsVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Responses.CcGenerateImageRegistryCredentialsResponse201,
+		GenerateImageRegistryCredentialsError,
+		Schemas.CcImageRegistryCredentialsConfiguration,
+		{},
+		{},
+		GenerateImageRegistryCredentialsPathParams
+	>({
+		url: "/accounts/{accountId}/containers/registries/{domain}/credentials",
+		method: "post",
+		...variables,
+		signal,
+	});
+
 export type AccountLevelCustomNameserversListAccountCustomNameserversPathParams = {
 	accountId: Schemas.DnsCustomNameserversIdentifier;
 };
@@ -55550,7 +55938,7 @@ export type CloudflareD1ImportDatabaseResponse =
 			messages: Schemas.D1Messages;
 			result: {
 				/**
-				 * The current time-travel bookmark for your D1, used to poll for updates. Will not change for the duration of the import.
+				 * The current bookmark for your D1, used to poll for updates. Will not change for the duration of the import.
 				 *
 				 * @x-auditable true
 				 */
@@ -55748,6 +56136,114 @@ export const cloudflareD1RawDatabaseQuery = (
 		CloudflareD1RawDatabaseQueryPathParams
 	>({
 		url: "/accounts/{accountId}/d1/database/{databaseId}/raw",
+		method: "post",
+		...variables,
+		signal,
+	});
+
+export type CloudflareD1TimeTravelGetBookmarkPathParams = {
+	accountId: Schemas.D1AccountIdentifier;
+	databaseId: Schemas.D1DatabaseIdentifier;
+};
+
+export type CloudflareD1TimeTravelGetBookmarkQueryParams = {
+	timestamp?: Schemas.D1TimeTravelTimestamp;
+};
+
+export type CloudflareD1TimeTravelGetBookmarkError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.D1ApiResponseCommonFailure;
+}>;
+
+export type CloudflareD1TimeTravelGetBookmarkResponse = {
+	errors: Schemas.D1Messages;
+	messages: Schemas.D1Messages;
+	result: {
+		bookmark?: Schemas.D1TimeTravelBookmark;
+	};
+	/**
+	 * Whether the API call was successful
+	 *
+	 * @example true
+	 */
+	success: true;
+};
+
+export type CloudflareD1TimeTravelGetBookmarkVariables = {
+	pathParams: CloudflareD1TimeTravelGetBookmarkPathParams;
+	queryParams?: CloudflareD1TimeTravelGetBookmarkQueryParams;
+} & FetcherExtraProps;
+
+/**
+ * Retrieves the current bookmark, or the nearest bookmark at or before a provided timestamp.
+ * Bookmarks can be used with the restore endpoint to revert the database to a previous point in time.
+ */
+export const cloudflareD1TimeTravelGetBookmark = (
+	variables: CloudflareD1TimeTravelGetBookmarkVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		CloudflareD1TimeTravelGetBookmarkResponse,
+		CloudflareD1TimeTravelGetBookmarkError,
+		undefined,
+		{},
+		CloudflareD1TimeTravelGetBookmarkQueryParams,
+		CloudflareD1TimeTravelGetBookmarkPathParams
+	>({
+		url: "/accounts/{accountId}/d1/database/{databaseId}/time_travel/bookmark",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type CloudflareD1TimeTravelRestorePathParams = {
+	accountId: Schemas.D1AccountIdentifier;
+	databaseId: Schemas.D1DatabaseIdentifier;
+};
+
+export type CloudflareD1TimeTravelRestoreQueryParams = {
+	bookmark?: Schemas.D1TimeTravelBookmark;
+	timestamp?: Schemas.D1TimeTravelTimestamp;
+};
+
+export type CloudflareD1TimeTravelRestoreError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.D1ApiResponseCommonFailure;
+}>;
+
+export type CloudflareD1TimeTravelRestoreResponse = {
+	errors: Schemas.D1Messages;
+	messages: Schemas.D1Messages;
+	result: Schemas.D1TimeTravelRestoreResponse;
+	/**
+	 * Whether the API call was successful
+	 *
+	 * @example true
+	 */
+	success: true;
+};
+
+export type CloudflareD1TimeTravelRestoreVariables = {
+	pathParams: CloudflareD1TimeTravelRestorePathParams;
+	queryParams?: CloudflareD1TimeTravelRestoreQueryParams;
+} & FetcherExtraProps;
+
+/**
+ * Restores a D1 database to a previous point in time either via a bookmark or a timestamp.
+ */
+export const cloudflareD1TimeTravelRestore = (
+	variables: CloudflareD1TimeTravelRestoreVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		CloudflareD1TimeTravelRestoreResponse,
+		CloudflareD1TimeTravelRestoreError,
+		undefined,
+		{},
+		CloudflareD1TimeTravelRestoreQueryParams,
+		CloudflareD1TimeTravelRestorePathParams
+	>({
+		url: "/accounts/{accountId}/d1/database/{databaseId}/time_travel/restore",
 		method: "post",
 		...variables,
 		signal,
@@ -200557,7 +201053,7 @@ export const sslVerificationEditSslCertificatePackValidationMethod = (
 	});
 
 export type ZoneSubscriptionZoneSubscriptionDetailsPathParams = {
-	zoneId: Schemas.BillSubsApiSchemasIdentifier;
+	zoneId: Schemas.BillSubsApiIdentifier;
 };
 
 export type ZoneSubscriptionZoneSubscriptionDetailsError = Fetcher.ErrorWrapper<{
@@ -200592,7 +201088,7 @@ export const zoneSubscriptionZoneSubscriptionDetails = (
 	});
 
 export type ZoneSubscriptionCreateZoneSubscriptionPathParams = {
-	zoneId: Schemas.BillSubsApiSchemasIdentifier;
+	zoneId: Schemas.BillSubsApiIdentifier;
 };
 
 export type ZoneSubscriptionCreateZoneSubscriptionError = Fetcher.ErrorWrapper<{
@@ -200628,7 +201124,7 @@ export const zoneSubscriptionCreateZoneSubscription = (
 	});
 
 export type ZoneSubscriptionUpdateZoneSubscriptionPathParams = {
-	zoneId: Schemas.BillSubsApiSchemasIdentifier;
+	zoneId: Schemas.BillSubsApiIdentifier;
 };
 
 export type ZoneSubscriptionUpdateZoneSubscriptionError = Fetcher.ErrorWrapper<{
@@ -203518,6 +204014,7 @@ export const operationsByTag = {
 		postEventReferenceCreate,
 		postCreateEventRelationship,
 		deleteEventDeleteDO,
+		postEventDoRevert,
 		deleteEventDelete,
 		getEventReadDeprecated,
 		patchEventUpdate,
@@ -203630,6 +204127,8 @@ export const operationsByTag = {
 		connectivityServicesGet,
 		connectivityServicesPut,
 	},
+	containers: { publicListApplications },
+	imageRegistries: { generateImageRegistryCredentials },
 	accountLevelCustomNameservers: {
 		accountLevelCustomNameserversListAccountCustomNameservers,
 		accountLevelCustomNameserversAddAccountCustomNameserver,
@@ -203646,6 +204145,8 @@ export const operationsByTag = {
 		cloudflareD1ImportDatabase,
 		cloudflareD1QueryDatabase,
 		cloudflareD1RawDatabaseQuery,
+		cloudflareD1TimeTravelGetBookmark,
+		cloudflareD1TimeTravelRestore,
 	},
 	devices: {
 		devicesListDevices,
