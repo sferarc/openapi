@@ -42151,7 +42151,7 @@ export type BrapiPostContentError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -42170,7 +42170,7 @@ export type BrapiPostContentError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -42189,7 +42189,7 @@ export type BrapiPostContentError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -42208,7 +42208,7 @@ export type BrapiPostContentError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 >;
@@ -42235,199 +42235,378 @@ export type BrapiPostContentResponse = {
 	/**
 	 * Response status
 	 */
-	status: boolean;
+	success: boolean;
 };
 
-export type BrapiPostContentRequestBody = {
-	/**
-	 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-	 *
-	 * @maximum 120000
-	 */
-	actionTimeout?: number;
-	/**
-	 * Adds a `<script>` tag into the page with the desired URL or content.
-	 */
-	addScriptTag?: {
-		content?: string;
-		id?: string;
-		type?: string;
-		url?: string;
-	}[];
-	/**
-	 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-	 */
-	addStyleTag?: {
-		content?: string;
-		url?: string;
-	}[];
-	/**
-	 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	allowRequestPattern?: string[];
-	/**
-	 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	allowResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	/**
-	 * Provide credentials for HTTP authentication.
-	 */
-	authenticate?: {
-		/**
-		 * @minLength 1
-		 * @x-sensitive true
-		 */
-		password: string;
-		/**
-		 * @minLength 1
-		 */
-		username: string;
-	};
-	/**
-	 * Attempt to proceed when 'awaited' events fail or timeout.
-	 */
-	bestAttempt?: boolean;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-	 */
-	cookies?: {
-		domain?: string;
-		expires?: number;
-		httpOnly?: boolean;
-		name: string;
-		partitionKey?: string;
-		path?: string;
-		priority?: "Low" | "Medium" | "High";
-		sameParty?: boolean;
-		sameSite?: "Strict" | "Lax" | "None";
-		secure?: boolean;
-		sourcePort?: number;
-		sourceScheme?: "Unset" | "NonSecure" | "Secure";
-		url?: string;
-		value: string;
-	}[];
-	emulateMediaType?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-	 *
-	 * @default {}
-	 */
-	gotoOptions?: {
-		referer?: string;
-		referrerPolicy?: string;
-		/**
-		 * @default 30000
-		 * @maximum 60000
-		 */
-		timeout?: number;
-		/**
-		 * @default domcontentloaded
-		 */
-		waitUntil?:
-			| "load"
-			| "domcontentloaded"
-			| "networkidle0"
-			| "networkidle2"
-			| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
-	};
-	/**
-	 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
-	 *
-	 * @minLength 1
-	 */
-	html?: string;
-	/**
-	 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	rejectRequestPattern?: string[];
-	/**
-	 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	rejectResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	setExtraHTTPHeaders?: {
-		[key: string]: string;
-	};
-	setJavaScriptEnabled?: boolean;
-	/**
-	 * URL to navigate to, eg. `https://example.com`.
-	 *
-	 * @format uri
-	 */
-	url?: string;
-	/**
-	 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
-	 */
-	userAgent?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-	 *
-	 * @default {"height":1080,"width":1920}
-	 */
-	viewport?: {
-		deviceScaleFactor?: number;
-		hasTouch?: boolean;
-		height: number;
-		isLandscape?: boolean;
-		isMobile?: boolean;
-		width: number;
-	};
-	/**
-	 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-	 */
-	waitForSelector?: {
-		hidden?: true;
-		selector: string;
-		/**
-		 * @maximum 120000
-		 */
-		timeout?: number;
-		visible?: true;
-	};
-	/**
-	 * Waits for a specified timeout before continuing.
-	 *
-	 * @maximum 120000
-	 */
-	waitForTimeout?: number;
-};
+export type BrapiPostContentRequestBody =
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * URL to navigate to, eg. `https://example.com`.
+			 *
+			 * @format uri
+			 */
+			url: string;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  }
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
+			 *
+			 * @minLength 1
+			 */
+			html: string;
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  };
 
 export type BrapiPostContentVariables = {
 	body?: BrapiPostContentRequestBody;
@@ -42487,7 +42666,7 @@ export type BrapiPostJsonError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -42510,7 +42689,7 @@ export type BrapiPostJsonError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -42529,7 +42708,7 @@ export type BrapiPostJsonError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -42548,7 +42727,7 @@ export type BrapiPostJsonError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 >;
@@ -42570,222 +42749,424 @@ export type BrapiPostJsonResponse = {
 	/**
 	 * Response status
 	 */
-	status: boolean;
+	success: boolean;
 };
 
-export type BrapiPostJsonRequestBody = {
-	/**
-	 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-	 *
-	 * @maximum 120000
-	 */
-	actionTimeout?: number;
-	/**
-	 * Adds a `<script>` tag into the page with the desired URL or content.
-	 */
-	addScriptTag?: {
-		content?: string;
-		id?: string;
-		type?: string;
-		url?: string;
-	}[];
-	/**
-	 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-	 */
-	addStyleTag?: {
-		content?: string;
-		url?: string;
-	}[];
-	/**
-	 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	allowRequestPattern?: string[];
-	/**
-	 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	allowResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	/**
-	 * Provide credentials for HTTP authentication.
-	 */
-	authenticate?: {
-		/**
-		 * @minLength 1
-		 * @x-sensitive true
-		 */
-		password: string;
-		/**
-		 * @minLength 1
-		 */
-		username: string;
-	};
-	/**
-	 * Attempt to proceed when 'awaited' events fail or timeout.
-	 */
-	bestAttempt?: boolean;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-	 */
-	cookies?: {
-		domain?: string;
-		expires?: number;
-		httpOnly?: boolean;
-		name: string;
-		partitionKey?: string;
-		path?: string;
-		priority?: "Low" | "Medium" | "High";
-		sameParty?: boolean;
-		sameSite?: "Strict" | "Lax" | "None";
-		secure?: boolean;
-		sourcePort?: number;
-		sourceScheme?: "Unset" | "NonSecure" | "Secure";
-		url?: string;
-		value: string;
-	}[];
-	/**
-	 * Optional list of custom AI models to use for the request. The models will be tried in the order provided, and in case a model returns an error, the next one will be used as fallback.
-	 */
-	custom_ai?: {
-		/**
-		 * Authorization token for the AI model: `Bearer <token>`.
-		 */
-		authorization: string;
-		/**
-		 * AI model to use for the request. Must be formed as `<provider>/<model_name>`, e.g. `workers-ai/@cf/meta/llama-3.3-70b-instruct-fp8-fast`
-		 */
-		model: string;
-	}[];
-	emulateMediaType?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-	 *
-	 * @default {}
-	 */
-	gotoOptions?: {
-		referer?: string;
-		referrerPolicy?: string;
-		/**
-		 * @default 30000
-		 * @maximum 60000
-		 */
-		timeout?: number;
-		/**
-		 * @default domcontentloaded
-		 */
-		waitUntil?:
-			| "load"
-			| "domcontentloaded"
-			| "networkidle0"
-			| "networkidle2"
-			| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
-	};
-	/**
-	 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
-	 *
-	 * @minLength 1
-	 */
-	html?: string;
-	prompt?: string;
-	/**
-	 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	rejectRequestPattern?: string[];
-	/**
-	 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	rejectResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	response_format?: {
-		/**
-		 * Schema for the response format. More information here: https://developers.cloudflare.com/workers-ai/json-mode/
-		 */
-		json_schema?: {
-			[key: string]: string | number | boolean | Record<string, any> | string[];
-		} | null;
-		type: string;
-	};
-	setExtraHTTPHeaders?: {
-		[key: string]: string;
-	};
-	setJavaScriptEnabled?: boolean;
-	/**
-	 * URL to navigate to, eg. `https://example.com`.
-	 *
-	 * @format uri
-	 */
-	url?: string;
-	/**
-	 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
-	 */
-	userAgent?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-	 *
-	 * @default {"height":1080,"width":1920}
-	 */
-	viewport?: {
-		deviceScaleFactor?: number;
-		hasTouch?: boolean;
-		height: number;
-		isLandscape?: boolean;
-		isMobile?: boolean;
-		width: number;
-	};
-	/**
-	 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-	 */
-	waitForSelector?: {
-		hidden?: true;
-		selector: string;
-		/**
-		 * @maximum 120000
-		 */
-		timeout?: number;
-		visible?: true;
-	};
-	/**
-	 * Waits for a specified timeout before continuing.
-	 *
-	 * @maximum 120000
-	 */
-	waitForTimeout?: number;
-};
+export type BrapiPostJsonRequestBody =
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			/**
+			 * Optional list of custom AI models to use for the request. The models will be tried in the order provided, and in case a model returns an error, the next one will be used as fallback.
+			 */
+			custom_ai?: {
+				/**
+				 * Authorization token for the AI model: `Bearer <token>`.
+				 */
+				authorization: string;
+				/**
+				 * AI model to use for the request. Must be formed as `<provider>/<model_name>`, e.g. `workers-ai/@cf/meta/llama-3.3-70b-instruct-fp8-fast`
+				 */
+				model: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
+			 *
+			 * @minLength 1
+			 */
+			html: string;
+			prompt?: string;
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			response_format?: {
+				/**
+				 * Schema for the response format. More information here: https://developers.cloudflare.com/workers-ai/json-mode/
+				 */
+				json_schema?: {
+					[key: string]: string | number | boolean | Record<string, any> | string[];
+				} | null;
+				type: string;
+			};
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  }
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			/**
+			 * Optional list of custom AI models to use for the request. The models will be tried in the order provided, and in case a model returns an error, the next one will be used as fallback.
+			 */
+			custom_ai?: {
+				/**
+				 * Authorization token for the AI model: `Bearer <token>`.
+				 */
+				authorization: string;
+				/**
+				 * AI model to use for the request. Must be formed as `<provider>/<model_name>`, e.g. `workers-ai/@cf/meta/llama-3.3-70b-instruct-fp8-fast`
+				 */
+				model: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			prompt?: string;
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			response_format?: {
+				/**
+				 * Schema for the response format. More information here: https://developers.cloudflare.com/workers-ai/json-mode/
+				 */
+				json_schema?: {
+					[key: string]: string | number | boolean | Record<string, any> | string[];
+				} | null;
+				type: string;
+			};
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * URL to navigate to, eg. `https://example.com`.
+			 *
+			 * @format uri
+			 */
+			url: string;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  };
 
 export type BrapiPostJsonVariables = {
 	body?: BrapiPostJsonRequestBody;
@@ -42845,7 +43226,7 @@ export type BrapiPostLinksError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -42864,7 +43245,7 @@ export type BrapiPostLinksError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -42883,7 +43264,7 @@ export type BrapiPostLinksError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -42902,7 +43283,7 @@ export type BrapiPostLinksError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 >;
@@ -42922,207 +43303,394 @@ export type BrapiPostLinksResponse = {
 	/**
 	 * Response status
 	 */
-	status: boolean;
+	success: boolean;
 };
 
-export type BrapiPostLinksRequestBody = {
-	/**
-	 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-	 *
-	 * @maximum 120000
-	 */
-	actionTimeout?: number;
-	/**
-	 * Adds a `<script>` tag into the page with the desired URL or content.
-	 */
-	addScriptTag?: {
-		content?: string;
-		id?: string;
-		type?: string;
-		url?: string;
-	}[];
-	/**
-	 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-	 */
-	addStyleTag?: {
-		content?: string;
-		url?: string;
-	}[];
-	/**
-	 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	allowRequestPattern?: string[];
-	/**
-	 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	allowResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	/**
-	 * Provide credentials for HTTP authentication.
-	 */
-	authenticate?: {
-		/**
-		 * @minLength 1
-		 * @x-sensitive true
-		 */
-		password: string;
-		/**
-		 * @minLength 1
-		 */
-		username: string;
-	};
-	/**
-	 * Attempt to proceed when 'awaited' events fail or timeout.
-	 */
-	bestAttempt?: boolean;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-	 */
-	cookies?: {
-		domain?: string;
-		expires?: number;
-		httpOnly?: boolean;
-		name: string;
-		partitionKey?: string;
-		path?: string;
-		priority?: "Low" | "Medium" | "High";
-		sameParty?: boolean;
-		sameSite?: "Strict" | "Lax" | "None";
-		secure?: boolean;
-		sourcePort?: number;
-		sourceScheme?: "Unset" | "NonSecure" | "Secure";
-		url?: string;
-		value: string;
-	}[];
-	emulateMediaType?: string;
-	/**
-	 * @default false
-	 */
-	excludeExternalLinks?: boolean;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-	 *
-	 * @default {}
-	 */
-	gotoOptions?: {
-		referer?: string;
-		referrerPolicy?: string;
-		/**
-		 * @default 30000
-		 * @maximum 60000
-		 */
-		timeout?: number;
-		/**
-		 * @default domcontentloaded
-		 */
-		waitUntil?:
-			| "load"
-			| "domcontentloaded"
-			| "networkidle0"
-			| "networkidle2"
-			| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
-	};
-	/**
-	 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
-	 *
-	 * @minLength 1
-	 */
-	html?: string;
-	/**
-	 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	rejectRequestPattern?: string[];
-	/**
-	 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	rejectResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	setExtraHTTPHeaders?: {
-		[key: string]: string;
-	};
-	setJavaScriptEnabled?: boolean;
-	/**
-	 * URL to navigate to, eg. `https://example.com`.
-	 *
-	 * @format uri
-	 */
-	url?: string;
-	/**
-	 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
-	 */
-	userAgent?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-	 *
-	 * @default {"height":1080,"width":1920}
-	 */
-	viewport?: {
-		deviceScaleFactor?: number;
-		hasTouch?: boolean;
-		height: number;
-		isLandscape?: boolean;
-		isMobile?: boolean;
-		width: number;
-	};
-	/**
-	 * @default false
-	 */
-	visibleLinksOnly?: boolean;
-	/**
-	 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-	 */
-	waitForSelector?: {
-		hidden?: true;
-		selector: string;
-		/**
-		 * @maximum 120000
-		 */
-		timeout?: number;
-		visible?: true;
-	};
-	/**
-	 * Waits for a specified timeout before continuing.
-	 *
-	 * @maximum 120000
-	 */
-	waitForTimeout?: number;
-};
+export type BrapiPostLinksRequestBody =
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * @default false
+			 */
+			excludeExternalLinks?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
+			 *
+			 * @minLength 1
+			 */
+			html: string;
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * @default false
+			 */
+			visibleLinksOnly?: boolean;
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  }
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * @default false
+			 */
+			excludeExternalLinks?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * URL to navigate to, eg. `https://example.com`.
+			 *
+			 * @format uri
+			 */
+			url: string;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * @default false
+			 */
+			visibleLinksOnly?: boolean;
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  };
 
 export type BrapiPostLinksVariables = {
 	body?: BrapiPostLinksRequestBody;
@@ -43182,7 +43750,7 @@ export type BrapiPostMarkdownError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -43201,7 +43769,7 @@ export type BrapiPostMarkdownError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -43220,7 +43788,7 @@ export type BrapiPostMarkdownError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -43239,7 +43807,7 @@ export type BrapiPostMarkdownError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 >;
@@ -43262,199 +43830,378 @@ export type BrapiPostMarkdownResponse = {
 	/**
 	 * Response status
 	 */
-	status: boolean;
+	success: boolean;
 };
 
-export type BrapiPostMarkdownRequestBody = {
-	/**
-	 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-	 *
-	 * @maximum 120000
-	 */
-	actionTimeout?: number;
-	/**
-	 * Adds a `<script>` tag into the page with the desired URL or content.
-	 */
-	addScriptTag?: {
-		content?: string;
-		id?: string;
-		type?: string;
-		url?: string;
-	}[];
-	/**
-	 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-	 */
-	addStyleTag?: {
-		content?: string;
-		url?: string;
-	}[];
-	/**
-	 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	allowRequestPattern?: string[];
-	/**
-	 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	allowResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	/**
-	 * Provide credentials for HTTP authentication.
-	 */
-	authenticate?: {
-		/**
-		 * @minLength 1
-		 * @x-sensitive true
-		 */
-		password: string;
-		/**
-		 * @minLength 1
-		 */
-		username: string;
-	};
-	/**
-	 * Attempt to proceed when 'awaited' events fail or timeout.
-	 */
-	bestAttempt?: boolean;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-	 */
-	cookies?: {
-		domain?: string;
-		expires?: number;
-		httpOnly?: boolean;
-		name: string;
-		partitionKey?: string;
-		path?: string;
-		priority?: "Low" | "Medium" | "High";
-		sameParty?: boolean;
-		sameSite?: "Strict" | "Lax" | "None";
-		secure?: boolean;
-		sourcePort?: number;
-		sourceScheme?: "Unset" | "NonSecure" | "Secure";
-		url?: string;
-		value: string;
-	}[];
-	emulateMediaType?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-	 *
-	 * @default {}
-	 */
-	gotoOptions?: {
-		referer?: string;
-		referrerPolicy?: string;
-		/**
-		 * @default 30000
-		 * @maximum 60000
-		 */
-		timeout?: number;
-		/**
-		 * @default domcontentloaded
-		 */
-		waitUntil?:
-			| "load"
-			| "domcontentloaded"
-			| "networkidle0"
-			| "networkidle2"
-			| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
-	};
-	/**
-	 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
-	 *
-	 * @minLength 1
-	 */
-	html?: string;
-	/**
-	 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	rejectRequestPattern?: string[];
-	/**
-	 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	rejectResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	setExtraHTTPHeaders?: {
-		[key: string]: string;
-	};
-	setJavaScriptEnabled?: boolean;
-	/**
-	 * URL to navigate to, eg. `https://example.com`.
-	 *
-	 * @format uri
-	 */
-	url?: string;
-	/**
-	 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
-	 */
-	userAgent?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-	 *
-	 * @default {"height":1080,"width":1920}
-	 */
-	viewport?: {
-		deviceScaleFactor?: number;
-		hasTouch?: boolean;
-		height: number;
-		isLandscape?: boolean;
-		isMobile?: boolean;
-		width: number;
-	};
-	/**
-	 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-	 */
-	waitForSelector?: {
-		hidden?: true;
-		selector: string;
-		/**
-		 * @maximum 120000
-		 */
-		timeout?: number;
-		visible?: true;
-	};
-	/**
-	 * Waits for a specified timeout before continuing.
-	 *
-	 * @maximum 120000
-	 */
-	waitForTimeout?: number;
-};
+export type BrapiPostMarkdownRequestBody =
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * URL to navigate to, eg. `https://example.com`.
+			 *
+			 * @format uri
+			 */
+			url: string;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  }
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
+			 *
+			 * @minLength 1
+			 */
+			html: string;
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  };
 
 export type BrapiPostMarkdownVariables = {
 	body?: BrapiPostMarkdownRequestBody;
@@ -43514,7 +44261,7 @@ export type BrapiPostPdfError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -43533,7 +44280,7 @@ export type BrapiPostPdfError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -43552,7 +44299,7 @@ export type BrapiPostPdfError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -43571,310 +44318,598 @@ export type BrapiPostPdfError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 >;
 
-export type BrapiPostPdfRequestBody = {
-	/**
-	 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-	 *
-	 * @maximum 120000
-	 */
-	actionTimeout?: number;
-	/**
-	 * Adds a `<script>` tag into the page with the desired URL or content.
-	 */
-	addScriptTag?: {
-		content?: string;
-		id?: string;
-		type?: string;
-		url?: string;
-	}[];
-	/**
-	 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-	 */
-	addStyleTag?: {
-		content?: string;
-		url?: string;
-	}[];
-	/**
-	 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	allowRequestPattern?: string[];
-	/**
-	 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	allowResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	/**
-	 * Provide credentials for HTTP authentication.
-	 */
-	authenticate?: {
-		/**
-		 * @minLength 1
-		 * @x-sensitive true
-		 */
-		password: string;
-		/**
-		 * @minLength 1
-		 */
-		username: string;
-	};
-	/**
-	 * Attempt to proceed when 'awaited' events fail or timeout.
-	 */
-	bestAttempt?: boolean;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-	 */
-	cookies?: {
-		domain?: string;
-		expires?: number;
-		httpOnly?: boolean;
-		name: string;
-		partitionKey?: string;
-		path?: string;
-		priority?: "Low" | "Medium" | "High";
-		sameParty?: boolean;
-		sameSite?: "Strict" | "Lax" | "None";
-		secure?: boolean;
-		sourcePort?: number;
-		sourceScheme?: "Unset" | "NonSecure" | "Secure";
-		url?: string;
-		value: string;
-	}[];
-	emulateMediaType?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-	 *
-	 * @default {}
-	 */
-	gotoOptions?: {
-		referer?: string;
-		referrerPolicy?: string;
-		/**
-		 * @default 30000
-		 * @maximum 60000
-		 */
-		timeout?: number;
-		/**
-		 * @default domcontentloaded
-		 */
-		waitUntil?:
-			| "load"
-			| "domcontentloaded"
-			| "networkidle0"
-			| "networkidle2"
-			| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
-	};
-	/**
-	 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
-	 *
-	 * @minLength 1
-	 */
-	html?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.pdfoptions).
-	 *
-	 * @default {}
-	 */
-	pdfOptions?: {
-		/**
-		 * Whether to show the header and footer.
-		 *
-		 * @default false
-		 */
-		displayHeaderFooter?: boolean;
-		/**
-		 * HTML template for the print footer.
-		 */
-		footerTemplate?: string;
-		/**
-		 * Paper format. Takes priority over width and height if set.
-		 *
-		 * @default letter
-		 */
-		format?:
-			| "letter"
-			| "legal"
-			| "tabloid"
-			| "ledger"
-			| "a0"
-			| "a1"
-			| "a2"
-			| "a3"
-			| "a4"
-			| "a5"
-			| "a6";
-		/**
-		 * HTML template for the print header.
-		 */
-		headerTemplate?: string;
-		/**
-		 * Sets the height of paper. Can be a number or string with unit.
-		 */
-		height?: string | number;
-		/**
-		 * Whether to print in landscape orientation.
-		 *
-		 * @default false
-		 */
-		landscape?: boolean;
-		/**
-		 * Set the PDF margins. Useful when setting header and footer.
-		 */
-		margin?: {
-			bottom?: string | number;
-			left?: string | number;
-			right?: string | number;
-			top?: string | number;
-		};
-		/**
-		 * Hides default white background and allows generating pdfs with transparency.
-		 *
-		 * @default false
-		 */
-		omitBackground?: boolean;
-		/**
-		 * Generate document outline.
-		 *
-		 * @default false
-		 */
-		outline?: boolean;
-		/**
-		 * Paper ranges to print, e.g. '1-5, 8, 11-13'.
-		 */
-		pageRanges?: string;
-		/**
-		 * Give CSS @page size priority over other size declarations.
-		 *
-		 * @default false
-		 */
-		preferCSSPageSize?: boolean;
-		/**
-		 * Set to true to print background graphics.
-		 *
-		 * @default false
-		 */
-		printBackground?: boolean;
-		/**
-		 * Scales the rendering of the web page. Amount must be between 0.1 and 2.
-		 *
-		 * @default 1
-		 * @maximum 2
-		 * @minimum 0.1
-		 */
-		scale?: number;
-		/**
-		 * Generate tagged (accessible) PDF.
-		 *
-		 * @default true
-		 */
-		tagged?: boolean;
-		/**
-		 * Timeout in milliseconds.
-		 *
-		 * @default 30000
-		 */
-		timeout?: number;
-		/**
-		 * Sets the width of paper. Can be a number or string with unit.
-		 */
-		width?: string | number;
-	};
-	/**
-	 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	rejectRequestPattern?: string[];
-	/**
-	 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	rejectResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	setExtraHTTPHeaders?: {
-		[key: string]: string;
-	};
-	setJavaScriptEnabled?: boolean;
-	/**
-	 * URL to navigate to, eg. `https://example.com`.
-	 *
-	 * @format uri
-	 */
-	url?: string;
-	/**
-	 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
-	 */
-	userAgent?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-	 *
-	 * @default {"height":1080,"width":1920}
-	 */
-	viewport?: {
-		deviceScaleFactor?: number;
-		hasTouch?: boolean;
-		height: number;
-		isLandscape?: boolean;
-		isMobile?: boolean;
-		width: number;
-	};
-	/**
-	 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-	 */
-	waitForSelector?: {
-		hidden?: true;
-		selector: string;
-		/**
-		 * @maximum 120000
-		 */
-		timeout?: number;
-		visible?: true;
-	};
-	/**
-	 * Waits for a specified timeout before continuing.
-	 *
-	 * @maximum 120000
-	 */
-	waitForTimeout?: number;
-};
+export type BrapiPostPdfRequestBody =
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
+			 *
+			 * @minLength 1
+			 */
+			html: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.pdfoptions).
+			 *
+			 * @default {}
+			 */
+			pdfOptions?: {
+				/**
+				 * Whether to show the header and footer.
+				 *
+				 * @default false
+				 */
+				displayHeaderFooter?: boolean;
+				/**
+				 * HTML template for the print footer.
+				 */
+				footerTemplate?: string;
+				/**
+				 * Paper format. Takes priority over width and height if set.
+				 *
+				 * @default letter
+				 */
+				format?:
+					| "letter"
+					| "legal"
+					| "tabloid"
+					| "ledger"
+					| "a0"
+					| "a1"
+					| "a2"
+					| "a3"
+					| "a4"
+					| "a5"
+					| "a6";
+				/**
+				 * HTML template for the print header.
+				 */
+				headerTemplate?: string;
+				/**
+				 * Sets the height of paper. Can be a number or string with unit.
+				 */
+				height?: string | number;
+				/**
+				 * Whether to print in landscape orientation.
+				 *
+				 * @default false
+				 */
+				landscape?: boolean;
+				/**
+				 * Set the PDF margins. Useful when setting header and footer.
+				 */
+				margin?: {
+					bottom?: string | number;
+					left?: string | number;
+					right?: string | number;
+					top?: string | number;
+				};
+				/**
+				 * Hides default white background and allows generating pdfs with transparency.
+				 *
+				 * @default false
+				 */
+				omitBackground?: boolean;
+				/**
+				 * Generate document outline.
+				 *
+				 * @default false
+				 */
+				outline?: boolean;
+				/**
+				 * Paper ranges to print, e.g. '1-5, 8, 11-13'.
+				 */
+				pageRanges?: string;
+				/**
+				 * Give CSS @page size priority over other size declarations.
+				 *
+				 * @default false
+				 */
+				preferCSSPageSize?: boolean;
+				/**
+				 * Set to true to print background graphics.
+				 *
+				 * @default false
+				 */
+				printBackground?: boolean;
+				/**
+				 * Scales the rendering of the web page. Amount must be between 0.1 and 2.
+				 *
+				 * @default 1
+				 * @maximum 2
+				 * @minimum 0.1
+				 */
+				scale?: number;
+				/**
+				 * Generate tagged (accessible) PDF.
+				 *
+				 * @default true
+				 */
+				tagged?: boolean;
+				/**
+				 * Timeout in milliseconds.
+				 *
+				 * @default 30000
+				 */
+				timeout?: number;
+				/**
+				 * Sets the width of paper. Can be a number or string with unit.
+				 */
+				width?: string | number;
+			};
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  }
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.pdfoptions).
+			 *
+			 * @default {}
+			 */
+			pdfOptions?: {
+				/**
+				 * Whether to show the header and footer.
+				 *
+				 * @default false
+				 */
+				displayHeaderFooter?: boolean;
+				/**
+				 * HTML template for the print footer.
+				 */
+				footerTemplate?: string;
+				/**
+				 * Paper format. Takes priority over width and height if set.
+				 *
+				 * @default letter
+				 */
+				format?:
+					| "letter"
+					| "legal"
+					| "tabloid"
+					| "ledger"
+					| "a0"
+					| "a1"
+					| "a2"
+					| "a3"
+					| "a4"
+					| "a5"
+					| "a6";
+				/**
+				 * HTML template for the print header.
+				 */
+				headerTemplate?: string;
+				/**
+				 * Sets the height of paper. Can be a number or string with unit.
+				 */
+				height?: string | number;
+				/**
+				 * Whether to print in landscape orientation.
+				 *
+				 * @default false
+				 */
+				landscape?: boolean;
+				/**
+				 * Set the PDF margins. Useful when setting header and footer.
+				 */
+				margin?: {
+					bottom?: string | number;
+					left?: string | number;
+					right?: string | number;
+					top?: string | number;
+				};
+				/**
+				 * Hides default white background and allows generating pdfs with transparency.
+				 *
+				 * @default false
+				 */
+				omitBackground?: boolean;
+				/**
+				 * Generate document outline.
+				 *
+				 * @default false
+				 */
+				outline?: boolean;
+				/**
+				 * Paper ranges to print, e.g. '1-5, 8, 11-13'.
+				 */
+				pageRanges?: string;
+				/**
+				 * Give CSS @page size priority over other size declarations.
+				 *
+				 * @default false
+				 */
+				preferCSSPageSize?: boolean;
+				/**
+				 * Set to true to print background graphics.
+				 *
+				 * @default false
+				 */
+				printBackground?: boolean;
+				/**
+				 * Scales the rendering of the web page. Amount must be between 0.1 and 2.
+				 *
+				 * @default 1
+				 * @maximum 2
+				 * @minimum 0.1
+				 */
+				scale?: number;
+				/**
+				 * Generate tagged (accessible) PDF.
+				 *
+				 * @default true
+				 */
+				tagged?: boolean;
+				/**
+				 * Timeout in milliseconds.
+				 *
+				 * @default 30000
+				 */
+				timeout?: number;
+				/**
+				 * Sets the width of paper. Can be a number or string with unit.
+				 */
+				width?: string | number;
+			};
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * URL to navigate to, eg. `https://example.com`.
+			 *
+			 * @format uri
+			 */
+			url: string;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  };
 
 export type BrapiPostPdfVariables = {
 	body?: BrapiPostPdfRequestBody;
@@ -43934,7 +44969,7 @@ export type BrapiPostScrapeError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -43953,7 +44988,7 @@ export type BrapiPostScrapeError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -43972,7 +45007,7 @@ export type BrapiPostScrapeError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -43991,7 +45026,7 @@ export type BrapiPostScrapeError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 >;
@@ -44052,205 +45087,390 @@ export type BrapiPostScrapeResponse = {
 	/**
 	 * Response status
 	 */
-	status: boolean;
+	success: boolean;
 };
 
-export type BrapiPostScrapeRequestBody = {
-	/**
-	 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-	 *
-	 * @maximum 120000
-	 */
-	actionTimeout?: number;
-	/**
-	 * Adds a `<script>` tag into the page with the desired URL or content.
-	 */
-	addScriptTag?: {
-		content?: string;
-		id?: string;
-		type?: string;
-		url?: string;
-	}[];
-	/**
-	 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-	 */
-	addStyleTag?: {
-		content?: string;
-		url?: string;
-	}[];
-	/**
-	 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	allowRequestPattern?: string[];
-	/**
-	 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	allowResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	/**
-	 * Provide credentials for HTTP authentication.
-	 */
-	authenticate?: {
-		/**
-		 * @minLength 1
-		 * @x-sensitive true
-		 */
-		password: string;
-		/**
-		 * @minLength 1
-		 */
-		username: string;
-	};
-	/**
-	 * Attempt to proceed when 'awaited' events fail or timeout.
-	 */
-	bestAttempt?: boolean;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-	 */
-	cookies?: {
-		domain?: string;
-		expires?: number;
-		httpOnly?: boolean;
-		name: string;
-		partitionKey?: string;
-		path?: string;
-		priority?: "Low" | "Medium" | "High";
-		sameParty?: boolean;
-		sameSite?: "Strict" | "Lax" | "None";
-		secure?: boolean;
-		sourcePort?: number;
-		sourceScheme?: "Unset" | "NonSecure" | "Secure";
-		url?: string;
-		value: string;
-	}[];
-	/**
-	 * @minItems 1
-	 */
-	elements: {
-		selector: string;
-	}[];
-	emulateMediaType?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-	 *
-	 * @default {}
-	 */
-	gotoOptions?: {
-		referer?: string;
-		referrerPolicy?: string;
-		/**
-		 * @default 30000
-		 * @maximum 60000
-		 */
-		timeout?: number;
-		/**
-		 * @default domcontentloaded
-		 */
-		waitUntil?:
-			| "load"
-			| "domcontentloaded"
-			| "networkidle0"
-			| "networkidle2"
-			| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
-	};
-	/**
-	 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
-	 *
-	 * @minLength 1
-	 */
-	html?: string;
-	/**
-	 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	rejectRequestPattern?: string[];
-	/**
-	 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	rejectResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	setExtraHTTPHeaders?: {
-		[key: string]: string;
-	};
-	setJavaScriptEnabled?: boolean;
-	/**
-	 * URL to navigate to, eg. `https://example.com`.
-	 *
-	 * @format uri
-	 */
-	url?: string;
-	/**
-	 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
-	 */
-	userAgent?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-	 *
-	 * @default {"height":1080,"width":1920}
-	 */
-	viewport?: {
-		deviceScaleFactor?: number;
-		hasTouch?: boolean;
-		height: number;
-		isLandscape?: boolean;
-		isMobile?: boolean;
-		width: number;
-	};
-	/**
-	 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-	 */
-	waitForSelector?: {
-		hidden?: true;
-		selector: string;
-		/**
-		 * @maximum 120000
-		 */
-		timeout?: number;
-		visible?: true;
-	};
-	/**
-	 * Waits for a specified timeout before continuing.
-	 *
-	 * @maximum 120000
-	 */
-	waitForTimeout?: number;
-};
+export type BrapiPostScrapeRequestBody =
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			/**
+			 * @minItems 1
+			 */
+			elements: {
+				selector: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
+			 *
+			 * @minLength 1
+			 */
+			html: string;
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  }
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			/**
+			 * @minItems 1
+			 */
+			elements: {
+				selector: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * URL to navigate to, eg. `https://example.com`.
+			 *
+			 * @format uri
+			 */
+			url: string;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  };
 
 export type BrapiPostScrapeVariables = {
 	body?: BrapiPostScrapeRequestBody;
@@ -44310,7 +45530,7 @@ export type BrapiPostScreenshotError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -44329,7 +45549,7 @@ export type BrapiPostScreenshotError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -44348,7 +45568,7 @@ export type BrapiPostScreenshotError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -44367,7 +45587,7 @@ export type BrapiPostScreenshotError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 >;
@@ -44386,229 +45606,438 @@ export type BrapiPostScreenshotResponse = {
 	/**
 	 * Response status
 	 */
-	status: boolean;
+	success: boolean;
 };
 
-export type BrapiPostScreenshotRequestBody = {
-	/**
-	 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-	 *
-	 * @maximum 120000
-	 */
-	actionTimeout?: number;
-	/**
-	 * Adds a `<script>` tag into the page with the desired URL or content.
-	 */
-	addScriptTag?: {
-		content?: string;
-		id?: string;
-		type?: string;
-		url?: string;
-	}[];
-	/**
-	 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-	 */
-	addStyleTag?: {
-		content?: string;
-		url?: string;
-	}[];
-	/**
-	 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	allowRequestPattern?: string[];
-	/**
-	 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	allowResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	/**
-	 * Provide credentials for HTTP authentication.
-	 */
-	authenticate?: {
-		/**
-		 * @minLength 1
-		 * @x-sensitive true
-		 */
-		password: string;
-		/**
-		 * @minLength 1
-		 */
-		username: string;
-	};
-	/**
-	 * Attempt to proceed when 'awaited' events fail or timeout.
-	 */
-	bestAttempt?: boolean;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-	 */
-	cookies?: {
-		domain?: string;
-		expires?: number;
-		httpOnly?: boolean;
-		name: string;
-		partitionKey?: string;
-		path?: string;
-		priority?: "Low" | "Medium" | "High";
-		sameParty?: boolean;
-		sameSite?: "Strict" | "Lax" | "None";
-		secure?: boolean;
-		sourcePort?: number;
-		sourceScheme?: "Unset" | "NonSecure" | "Secure";
-		url?: string;
-		value: string;
-	}[];
-	emulateMediaType?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-	 *
-	 * @default {}
-	 */
-	gotoOptions?: {
-		referer?: string;
-		referrerPolicy?: string;
-		/**
-		 * @default 30000
-		 * @maximum 60000
-		 */
-		timeout?: number;
-		/**
-		 * @default domcontentloaded
-		 */
-		waitUntil?:
-			| "load"
-			| "domcontentloaded"
-			| "networkidle0"
-			| "networkidle2"
-			| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
-	};
-	/**
-	 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
-	 *
-	 * @minLength 1
-	 */
-	html?: string;
-	/**
-	 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	rejectRequestPattern?: string[];
-	/**
-	 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	rejectResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.screenshotoptions).
-	 *
-	 * @default {}
-	 */
-	screenshotOptions?: {
-		captureBeyondViewport?: boolean;
-		clip?: {
-			height: number;
-			scale?: number;
-			width: number;
-			x: number;
-			y: number;
-		};
-		/**
-		 * @default binary
-		 */
-		encoding?: "binary" | "base64";
-		fromSurface?: boolean;
-		fullPage?: boolean;
-		omitBackground?: boolean;
-		optimizeForSpeed?: boolean;
-		quality?: number;
-		/**
-		 * @default png
-		 */
-		type?: "png" | "jpeg" | "webp";
-	};
-	scrollPage?: boolean;
-	selector?: string;
-	setExtraHTTPHeaders?: {
-		[key: string]: string;
-	};
-	setJavaScriptEnabled?: boolean;
-	/**
-	 * URL to navigate to, eg. `https://example.com`.
-	 *
-	 * @format uri
-	 */
-	url?: string;
-	/**
-	 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
-	 */
-	userAgent?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-	 *
-	 * @default {"height":1080,"width":1920}
-	 */
-	viewport?: {
-		deviceScaleFactor?: number;
-		hasTouch?: boolean;
-		height: number;
-		isLandscape?: boolean;
-		isMobile?: boolean;
-		width: number;
-	};
-	/**
-	 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-	 */
-	waitForSelector?: {
-		hidden?: true;
-		selector: string;
-		/**
-		 * @maximum 120000
-		 */
-		timeout?: number;
-		visible?: true;
-	};
-	/**
-	 * Waits for a specified timeout before continuing.
-	 *
-	 * @maximum 120000
-	 */
-	waitForTimeout?: number;
-};
+export type BrapiPostScreenshotRequestBody =
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
+			 *
+			 * @minLength 1
+			 */
+			html: string;
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.screenshotoptions).
+			 *
+			 * @default {}
+			 */
+			screenshotOptions?: {
+				captureBeyondViewport?: boolean;
+				clip?: {
+					height: number;
+					scale?: number;
+					width: number;
+					x: number;
+					y: number;
+				};
+				/**
+				 * @default binary
+				 */
+				encoding?: "binary" | "base64";
+				fromSurface?: boolean;
+				fullPage?: boolean;
+				omitBackground?: boolean;
+				optimizeForSpeed?: boolean;
+				quality?: number;
+				/**
+				 * @default png
+				 */
+				type?: "png" | "jpeg" | "webp";
+			};
+			scrollPage?: boolean;
+			selector?: string;
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  }
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.screenshotoptions).
+			 *
+			 * @default {}
+			 */
+			screenshotOptions?: {
+				captureBeyondViewport?: boolean;
+				clip?: {
+					height: number;
+					scale?: number;
+					width: number;
+					x: number;
+					y: number;
+				};
+				/**
+				 * @default binary
+				 */
+				encoding?: "binary" | "base64";
+				fromSurface?: boolean;
+				fullPage?: boolean;
+				omitBackground?: boolean;
+				optimizeForSpeed?: boolean;
+				quality?: number;
+				/**
+				 * @default png
+				 */
+				type?: "png" | "jpeg" | "webp";
+			};
+			scrollPage?: boolean;
+			selector?: string;
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * URL to navigate to, eg. `https://example.com`.
+			 *
+			 * @format uri
+			 */
+			url: string;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  };
 
 export type BrapiPostScreenshotVariables = {
 	body?: BrapiPostScreenshotRequestBody;
@@ -44671,7 +46100,7 @@ export type BrapiPostSnapshotError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -44690,7 +46119,7 @@ export type BrapiPostSnapshotError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -44709,7 +46138,7 @@ export type BrapiPostSnapshotError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 	| {
@@ -44728,7 +46157,7 @@ export type BrapiPostSnapshotError = Fetcher.ErrorWrapper<
 				/**
 				 * Response status
 				 */
-				status: boolean;
+				success: boolean;
 			};
 	  }
 >;
@@ -44761,221 +46190,422 @@ export type BrapiPostSnapshotResponse = {
 	/**
 	 * Response status
 	 */
-	status: boolean;
+	success: boolean;
 };
 
-export type BrapiPostSnapshotRequestBody = {
-	/**
-	 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-	 *
-	 * @maximum 120000
-	 */
-	actionTimeout?: number;
-	/**
-	 * Adds a `<script>` tag into the page with the desired URL or content.
-	 */
-	addScriptTag?: {
-		content?: string;
-		id?: string;
-		type?: string;
-		url?: string;
-	}[];
-	/**
-	 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-	 */
-	addStyleTag?: {
-		content?: string;
-		url?: string;
-	}[];
-	/**
-	 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	allowRequestPattern?: string[];
-	/**
-	 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	allowResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	/**
-	 * Provide credentials for HTTP authentication.
-	 */
-	authenticate?: {
-		/**
-		 * @minLength 1
-		 * @x-sensitive true
-		 */
-		password: string;
-		/**
-		 * @minLength 1
-		 */
-		username: string;
-	};
-	/**
-	 * Attempt to proceed when 'awaited' events fail or timeout.
-	 */
-	bestAttempt?: boolean;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-	 */
-	cookies?: {
-		domain?: string;
-		expires?: number;
-		httpOnly?: boolean;
-		name: string;
-		partitionKey?: string;
-		path?: string;
-		priority?: "Low" | "Medium" | "High";
-		sameParty?: boolean;
-		sameSite?: "Strict" | "Lax" | "None";
-		secure?: boolean;
-		sourcePort?: number;
-		sourceScheme?: "Unset" | "NonSecure" | "Secure";
-		url?: string;
-		value: string;
-	}[];
-	emulateMediaType?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-	 *
-	 * @default {}
-	 */
-	gotoOptions?: {
-		referer?: string;
-		referrerPolicy?: string;
-		/**
-		 * @default 30000
-		 * @maximum 60000
-		 */
-		timeout?: number;
-		/**
-		 * @default domcontentloaded
-		 */
-		waitUntil?:
-			| "load"
-			| "domcontentloaded"
-			| "networkidle0"
-			| "networkidle2"
-			| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
-	};
-	/**
-	 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
-	 *
-	 * @minLength 1
-	 */
-	html?: string;
-	/**
-	 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-	 */
-	rejectRequestPattern?: string[];
-	/**
-	 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-	 */
-	rejectResourceTypes?: (
-		| "document"
-		| "stylesheet"
-		| "image"
-		| "media"
-		| "font"
-		| "script"
-		| "texttrack"
-		| "xhr"
-		| "fetch"
-		| "prefetch"
-		| "eventsource"
-		| "websocket"
-		| "manifest"
-		| "signedexchange"
-		| "ping"
-		| "cspviolationreport"
-		| "preflight"
-		| "other"
-	)[];
-	/**
-	 * @default {}
-	 */
-	screenshotOptions?: {
-		captureBeyondViewport?: boolean;
-		clip?: {
-			height: number;
-			scale?: number;
-			width: number;
-			x: number;
-			y: number;
-		};
-		fromSurface?: boolean;
-		fullPage?: boolean;
-		omitBackground?: boolean;
-		optimizeForSpeed?: boolean;
-		quality?: number;
-		/**
-		 * @default png
-		 */
-		type?: "png" | "jpeg" | "webp";
-	};
-	setExtraHTTPHeaders?: {
-		[key: string]: string;
-	};
-	setJavaScriptEnabled?: boolean;
-	/**
-	 * URL to navigate to, eg. `https://example.com`.
-	 *
-	 * @format uri
-	 */
-	url?: string;
-	/**
-	 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
-	 */
-	userAgent?: string;
-	/**
-	 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-	 *
-	 * @default {"height":1080,"width":1920}
-	 */
-	viewport?: {
-		deviceScaleFactor?: number;
-		hasTouch?: boolean;
-		height: number;
-		isLandscape?: boolean;
-		isMobile?: boolean;
-		width: number;
-	};
-	/**
-	 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-	 */
-	waitForSelector?: {
-		hidden?: true;
-		selector: string;
-		/**
-		 * @maximum 120000
-		 */
-		timeout?: number;
-		visible?: true;
-	};
-	/**
-	 * Waits for a specified timeout before continuing.
-	 *
-	 * @maximum 120000
-	 */
-	waitForTimeout?: number;
-};
+export type BrapiPostSnapshotRequestBody =
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
+			 *
+			 * @minLength 1
+			 */
+			html: string;
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * @default {}
+			 */
+			screenshotOptions?: {
+				captureBeyondViewport?: boolean;
+				clip?: {
+					height: number;
+					scale?: number;
+					width: number;
+					x: number;
+					y: number;
+				};
+				fromSurface?: boolean;
+				fullPage?: boolean;
+				omitBackground?: boolean;
+				optimizeForSpeed?: boolean;
+				quality?: number;
+				/**
+				 * @default png
+				 */
+				type?: "png" | "jpeg" | "webp";
+			};
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  }
+	| {
+			/**
+			 * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+			 *
+			 * @maximum 120000
+			 */
+			actionTimeout?: number;
+			/**
+			 * Adds a `<script>` tag into the page with the desired URL or content.
+			 */
+			addScriptTag?: {
+				content?: string;
+				id?: string;
+				type?: string;
+				url?: string;
+			}[];
+			/**
+			 * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+			 */
+			addStyleTag?: {
+				content?: string;
+				url?: string;
+			}[];
+			/**
+			 * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			allowRequestPattern?: string[];
+			/**
+			 * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			allowResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * Provide credentials for HTTP authentication.
+			 */
+			authenticate?: {
+				/**
+				 * @minLength 1
+				 * @x-sensitive true
+				 */
+				password: string;
+				/**
+				 * @minLength 1
+				 */
+				username: string;
+			};
+			/**
+			 * Attempt to proceed when 'awaited' events fail or timeout.
+			 */
+			bestAttempt?: boolean;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+			 */
+			cookies?: {
+				domain?: string;
+				expires?: number;
+				httpOnly?: boolean;
+				name: string;
+				partitionKey?: string;
+				path?: string;
+				priority?: "Low" | "Medium" | "High";
+				sameParty?: boolean;
+				sameSite?: "Strict" | "Lax" | "None";
+				secure?: boolean;
+				sourcePort?: number;
+				sourceScheme?: "Unset" | "NonSecure" | "Secure";
+				url?: string;
+				value: string;
+			}[];
+			emulateMediaType?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+			 *
+			 * @default {}
+			 */
+			gotoOptions?: {
+				referer?: string;
+				referrerPolicy?: string;
+				/**
+				 * @default 30000
+				 * @maximum 60000
+				 */
+				timeout?: number;
+				/**
+				 * @default domcontentloaded
+				 */
+				waitUntil?:
+					| "load"
+					| "domcontentloaded"
+					| "networkidle0"
+					| "networkidle2"
+					| ("load" | "domcontentloaded" | "networkidle0" | "networkidle2")[];
+			};
+			/**
+			 * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+			 */
+			rejectRequestPattern?: string[];
+			/**
+			 * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+			 */
+			rejectResourceTypes?: (
+				| "document"
+				| "stylesheet"
+				| "image"
+				| "media"
+				| "font"
+				| "script"
+				| "texttrack"
+				| "xhr"
+				| "fetch"
+				| "prefetch"
+				| "eventsource"
+				| "websocket"
+				| "manifest"
+				| "signedexchange"
+				| "ping"
+				| "cspviolationreport"
+				| "preflight"
+				| "other"
+			)[];
+			/**
+			 * @default {}
+			 */
+			screenshotOptions?: {
+				captureBeyondViewport?: boolean;
+				clip?: {
+					height: number;
+					scale?: number;
+					width: number;
+					x: number;
+					y: number;
+				};
+				fromSurface?: boolean;
+				fullPage?: boolean;
+				omitBackground?: boolean;
+				optimizeForSpeed?: boolean;
+				quality?: number;
+				/**
+				 * @default png
+				 */
+				type?: "png" | "jpeg" | "webp";
+			};
+			setExtraHTTPHeaders?: {
+				[key: string]: string;
+			};
+			setJavaScriptEnabled?: boolean;
+			/**
+			 * URL to navigate to, eg. `https://example.com`.
+			 *
+			 * @format uri
+			 */
+			url: string;
+			/**
+			 * @default Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+			 */
+			userAgent?: string;
+			/**
+			 * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+			 *
+			 * @default {"height":1080,"width":1920}
+			 */
+			viewport?: {
+				deviceScaleFactor?: number;
+				hasTouch?: boolean;
+				height: number;
+				isLandscape?: boolean;
+				isMobile?: boolean;
+				width: number;
+			};
+			/**
+			 * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+			 */
+			waitForSelector?: {
+				hidden?: true;
+				selector: string;
+				/**
+				 * @maximum 120000
+				 */
+				timeout?: number;
+				visible?: true;
+			};
+			/**
+			 * Waits for a specified timeout before continuing.
+			 *
+			 * @maximum 120000
+			 */
+			waitForTimeout?: number;
+	  };
 
 export type BrapiPostSnapshotVariables = {
 	body?: BrapiPostSnapshotRequestBody;
