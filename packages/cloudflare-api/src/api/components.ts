@@ -49199,6 +49199,7 @@ export type GetEventListGetQueryParams = {
 	order?: "asc" | "desc";
 	datasetId?: string[];
 	forceRefresh?: boolean;
+	format?: "json" | "stix2";
 };
 
 export type GetEventListGetError = Fetcher.ErrorWrapper<{
@@ -50167,6 +50168,12 @@ export type PostEventCreateRequestBody = {
 	 * @example amber
 	 */
 	tlp: string;
+	/**
+	 * Optional UUID for the event. Only used when preserveUuid=true in bulk create. Must be a valid UUID format.
+	 *
+	 * @example 12345678-1234-1234-1234-1234567890ab
+	 */
+	uuid?: string;
 };
 
 export type PostEventCreateVariables = {
@@ -50249,6 +50256,10 @@ export type PostEventCreateBulkResponse = {
 	 * Number of indicators queued for async processing
 	 */
 	queuedIndicatorsCount: number;
+	/**
+	 * Number of events skipped due to duplicate UUID (only when preserveUuid=true)
+	 */
+	skippedEventsCount: number;
 };
 
 export type PostEventCreateBulkRequestBody = {
@@ -50337,11 +50348,21 @@ export type PostEventCreateBulkRequestBody = {
 		 * @example amber
 		 */
 		tlp: string;
+		/**
+		 * Optional UUID for the event. Only used when preserveUuid=true in bulk create. Must be a valid UUID format.
+		 *
+		 * @example 12345678-1234-1234-1234-1234567890ab
+		 */
+		uuid?: string;
 	}[];
 	/**
 	 * @example durableObjectName
 	 */
 	datasetId: string;
+	/**
+	 * When true, use provided UUIDs from event data instead of generating new ones. Used for migration scenarios where original UUIDs must be preserved. Duplicate UUIDs will be skipped.
+	 */
+	preserveUuid?: boolean;
 };
 
 export type PostEventCreateBulkVariables = {
@@ -50509,6 +50530,12 @@ export type PostDOSEventCreateBulkWithRelationshipsRequestBody = {
 		 * @example amber
 		 */
 		tlp: string;
+		/**
+		 * Optional UUID for the event. Only used when preserveUuid=true in bulk create. Must be a valid UUID format.
+		 *
+		 * @example 12345678-1234-1234-1234-1234567890ab
+		 */
+		uuid?: string;
 	}[];
 	/**
 	 * @example durableObjectName
@@ -52704,6 +52731,12 @@ export type GetIndicatorListQueryParams = {
 	 * Whether to compute accurate total count via COUNT(*). Defaults to false for performance. When false, total_count is an approximation.
 	 */
 	includeTotalCount?: boolean;
+	/**
+	 * Output format for indicator data. 'json' returns the default format, 'stix2' returns STIX 2.1 Indicator SDOs.
+	 *
+	 * @example json
+	 */
+	format?: "json" | "stix2";
 };
 
 export type GetIndicatorListError = Fetcher.ErrorWrapper<{
@@ -65568,6 +65601,8 @@ export type EmailSecurityInvestigateVariables = {
 
 /**
  * Returns information for each email that matches the search parameter(s).
+ * If the search takes too long, the endpoint returns 202 with a Location header
+ * pointing to a polling endpoint where results can be retrieved once ready.
  */
 export const emailSecurityInvestigate = (
 	variables: EmailSecurityInvestigateVariables,
@@ -65597,7 +65632,7 @@ export type EmailSecurityPostBulkMessageMoveError = Fetcher.ErrorWrapper<{
 }>;
 
 export type EmailSecurityPostBulkMessageMoveResponse = Schemas.EmailSecurityApiResponseCommon & {
-	result: Schemas.EmailSecurityRetractionResponseItem[];
+	result: Schemas.EmailSecurityMoveResponseItem[];
 };
 
 export type EmailSecurityPostBulkMessageMoveRequestBody = {
@@ -65734,7 +65769,7 @@ export type EmailSecurityGetMessageError = Fetcher.ErrorWrapper<{
 
 export type EmailSecurityGetMessageResponse = Schemas.EmailSecurityApiResponseCommon & {
 	/**
-	 * @example {"action_log":[],"alert_id":"4Njp3P0STMz2c02Q-2022-12-30T02:44:49","client_recipients":["email@example.com"],"delivery_mode":"DIRECT","detection_reasons":["Selector is a source of spam/uce : Smtp-Helo-Server-Ip=<b>127.0.0[dot]186</b>"],"edf_hash":null,"envelope_from":"d1994@example.com","envelope_to":["email@example.com"],"final_disposition":"MALICIOUS","findings":null,"from":"d1994@example.com","from_name":"Sender Name","htmltext_structure_hash":null,"id":"47JJcT1w6GztQV7-email@example.com","is_phish_submission":false,"is_quarantined":false,"message_id":"<4VAZPrAdg7IGNxdt1DWRNu0gvOeL_iZiwP4BQfo4DaE.Yw-woXuugQbeFhBpzwFQtqq_v2v1HOKznoMBqbciQpE@example.com>","postfix_id":"47JJcT1w6GztQV7","postfix_id_outbound":null,"properties":{},"replyto":"email@example.com","sent_date":"2019-11-21T00:22:01","subject":"listen, I highly recommend u to read that email, just to ensure not a thing will take place","threat_categories":["IPReputation","ASNReputation"],"to":["email@example.com"],"to_name":["Recipient Name"],"ts":"2019-11-20T23:22:01","validation":{"comment":null,"dkim":"pass","dmarc":"none","spf":"fail"}}
+	 * @example {"action_log":[],"alert_id":"4Njp3P0STMz2c02Q-2022-12-30T02:44:49","client_recipients":["email@example.com"],"delivery_mode":"DIRECT","detection_reasons":["Selector is a source of spam/uce : Smtp-Helo-Server-Ip=<b>127.0.0[dot]186</b>"],"edf_hash":null,"envelope_from":"d1994@example.com","envelope_to":["email@example.com"],"final_disposition":"MALICIOUS","findings":null,"from":"d1994@example.com","from_name":"Sender Name","htmltext_structure_hash":null,"id":"4Njp3P0STMz2c02Q-2022-12-30T02:44:49-email@example.com","is_phish_submission":false,"is_quarantined":false,"message_id":"<4VAZPrAdg7IGNxdt1DWRNu0gvOeL_iZiwP4BQfo4DaE.Yw-woXuugQbeFhBpzwFQtqq_v2v1HOKznoMBqbciQpE@example.com>","postfix_id":"47JJcT1w6GztQV7","postfix_id_outbound":null,"properties":{},"replyto":"email@example.com","sent_date":"2019-11-21T00:22:01","subject":"listen, I highly recommend u to read that email, just to ensure not a thing will take place","threat_categories":["IPReputation","ASNReputation"],"to":["email@example.com"],"to_name":["Recipient Name"],"ts":"2019-11-20T23:22:01","validation":{"comment":null,"dkim":"pass","dmarc":"none","spf":"fail"}}
 	 */
 	result: {
 		action_log: void;
@@ -65922,7 +65957,7 @@ export type EmailSecurityPostMessageMoveError = Fetcher.ErrorWrapper<{
 }>;
 
 export type EmailSecurityPostMessageMoveResponse = Schemas.EmailSecurityApiResponseCommon & {
-	result: Schemas.EmailSecurityRetractionResponseItem[];
+	result: Schemas.EmailSecurityMoveResponseItem[];
 };
 
 export type EmailSecurityPostMessageMoveRequestBody = {
