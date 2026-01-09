@@ -108538,6 +108538,44 @@ export const telemetryValuesList = (
 		signal,
 	});
 
+export type WorkerPlacementListRegionsPathParams = {
+	accountId: Schemas.WorkersIdentifier;
+};
+
+export type WorkerPlacementListRegionsError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.WorkersApiResponseCommonFailure;
+}>;
+
+export type WorkerPlacementListRegionsResponse = Schemas.WorkersApiResponseCommon & {
+	result: Schemas.WorkersPlacementRegionsResponse;
+};
+
+export type WorkerPlacementListRegionsVariables = {
+	pathParams: WorkerPlacementListRegionsPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Returns a list of available placement regions organized by cloud provider. These regions can be used to configure Smart Placement for Workers.
+ */
+export const workerPlacementListRegions = (
+	variables: WorkerPlacementListRegionsVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		WorkerPlacementListRegionsResponse,
+		WorkerPlacementListRegionsError,
+		undefined,
+		{},
+		{},
+		WorkerPlacementListRegionsPathParams
+	>({
+		url: "/accounts/{accountId}/workers/placement/regions",
+		method: "get",
+		...variables,
+		signal,
+	});
+
 export type WorkerScriptListWorkersPathParams = {
 	accountId: Schemas.WorkersIdentifier;
 };
@@ -207165,6 +207203,7 @@ export const operationsByTag = {
 	keys: { telemetryKeysList },
 	queryRun: { telemetryQuery },
 	values: { telemetryValuesList },
+	workerPlacement: { workerPlacementListRegions },
 	workerDeployments: {
 		workerDeploymentsListDeployments,
 		workerDeploymentsCreateDeployment,
