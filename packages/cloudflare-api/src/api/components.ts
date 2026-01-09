@@ -42384,6 +42384,7 @@ export type BrapiPostContentRequestBody =
 			/**
 			 * URL to navigate to, eg. `https://example.com`.
 			 *
+			 * @example https://example.com/
 			 * @format uri
 			 */
 			url: string;
@@ -42537,6 +42538,7 @@ export type BrapiPostContentRequestBody =
 			/**
 			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
 			 *
+			 * @example <h1>Hello World!</h1>
 			 * @minLength 1
 			 */
 			html: string;
@@ -42880,6 +42882,7 @@ export type BrapiPostJsonRequestBody =
 			/**
 			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
 			 *
+			 * @example <h1>Hello World!</h1>
 			 * @minLength 1
 			 */
 			html: string;
@@ -43128,6 +43131,7 @@ export type BrapiPostJsonRequestBody =
 			/**
 			 * URL to navigate to, eg. `https://example.com`.
 			 *
+			 * @example https://example.com/
 			 * @format uri
 			 */
 			url: string;
@@ -43425,6 +43429,7 @@ export type BrapiPostLinksRequestBody =
 			/**
 			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
 			 *
+			 * @example <h1>Hello World!</h1>
 			 * @minLength 1
 			 */
 			html: string;
@@ -43648,6 +43653,7 @@ export type BrapiPostLinksRequestBody =
 			/**
 			 * URL to navigate to, eg. `https://example.com`.
 			 *
+			 * @example https://example.com/
 			 * @format uri
 			 */
 			url: string;
@@ -43979,6 +43985,7 @@ export type BrapiPostMarkdownRequestBody =
 			/**
 			 * URL to navigate to, eg. `https://example.com`.
 			 *
+			 * @example https://example.com/
 			 * @format uri
 			 */
 			url: string;
@@ -44132,6 +44139,7 @@ export type BrapiPostMarkdownRequestBody =
 			/**
 			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
 			 *
+			 * @example <h1>Hello World!</h1>
 			 * @minLength 1
 			 */
 			html: string;
@@ -44438,6 +44446,7 @@ export type BrapiPostPdfRequestBody =
 			/**
 			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
 			 *
+			 * @example <h1>Hello World!</h1>
 			 * @minLength 1
 			 */
 			html: string;
@@ -44871,6 +44880,7 @@ export type BrapiPostPdfRequestBody =
 			/**
 			 * URL to navigate to, eg. `https://example.com`.
 			 *
+			 * @example https://example.com/
 			 * @format uri
 			 */
 			url: string;
@@ -45211,6 +45221,7 @@ export type BrapiPostScrapeRequestBody =
 			/**
 			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
 			 *
+			 * @example <h1>Hello World!</h1>
 			 * @minLength 1
 			 */
 			html: string;
@@ -45432,6 +45443,7 @@ export type BrapiPostScrapeRequestBody =
 			/**
 			 * URL to navigate to, eg. `https://example.com`.
 			 *
+			 * @example https://example.com/
 			 * @format uri
 			 */
 			url: string;
@@ -45724,6 +45736,7 @@ export type BrapiPostScreenshotRequestBody =
 			/**
 			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
 			 *
+			 * @example <h1>Hello World!</h1>
 			 * @minLength 1
 			 */
 			html: string;
@@ -45999,6 +46012,7 @@ export type BrapiPostScreenshotRequestBody =
 			/**
 			 * URL to navigate to, eg. `https://example.com`.
 			 *
+			 * @example https://example.com/
 			 * @format uri
 			 */
 			url: string;
@@ -46308,6 +46322,7 @@ export type BrapiPostSnapshotRequestBody =
 			/**
 			 * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
 			 *
+			 * @example <h1>Hello World!</h1>
 			 * @minLength 1
 			 */
 			html: string;
@@ -46567,6 +46582,7 @@ export type BrapiPostSnapshotRequestBody =
 			/**
 			 * URL to navigate to, eg. `https://example.com`.
 			 *
+			 * @example https://example.com/
 			 * @format uri
 			 */
 			url: string;
@@ -112054,7 +112070,16 @@ export type WorCreateNewWorkflowInstanceRequestBody = {
 	 * @pattern ^[a-zA-Z0-9_][a-zA-Z0-9-_]*$
 	 */
 	instance_id?: string;
-	instance_retention?: Record<string, any>;
+	instance_retention?: {
+		/**
+		 * Duration in milliseconds or as a string like '5 minutes'
+		 */
+		error_retention?: (number | string) | (number | string);
+		/**
+		 * Duration in milliseconds or as a string like '5 minutes'
+		 */
+		success_retention?: (number | string) | (number | string);
+	};
 	params?: Record<string, any>;
 };
 
@@ -112169,7 +112194,16 @@ export type WorBatchCreateWorkflowInstanceRequestBody = {
 	 * @pattern ^[a-zA-Z0-9_][a-zA-Z0-9-_]*$
 	 */
 	instance_id?: string;
-	instance_retention?: Record<string, any>;
+	instance_retention?: {
+		/**
+		 * Duration in milliseconds or as a string like '5 minutes'
+		 */
+		error_retention?: (number | string) | (number | string);
+		/**
+		 * Duration in milliseconds or as a string like '5 minutes'
+		 */
+		success_retention?: (number | string) | (number | string);
+	};
 	params?: Record<string, any>;
 }[];
 
