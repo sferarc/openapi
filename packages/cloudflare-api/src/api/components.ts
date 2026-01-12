@@ -12434,6 +12434,10 @@ export type AiSearchListInstancesResponse = {
 		 */
 		engine_version?: number;
 		/**
+		 * @default false
+		 */
+		hybrid_search_enabled?: boolean;
+		/**
 		 * Use your AI Search ID.
 		 *
 		 * @example my-ai-search
@@ -12776,6 +12780,10 @@ export type AiSearchCreateInstancesResponse = {
 		 */
 		engine_version?: number;
 		/**
+		 * @default false
+		 */
+		hybrid_search_enabled?: boolean;
+		/**
 		 * Use your AI Search ID.
 		 *
 		 * @example my-ai-search
@@ -13045,6 +13053,10 @@ export type AiSearchCreateInstancesRequestBody = {
 				| "openai/text-embedding-3-large"
 		  )
 		| "";
+	/**
+	 * @default false
+	 */
+	hybrid_search_enabled?: boolean;
 	/**
 	 * Use your AI Search ID.
 	 *
@@ -13333,6 +13345,10 @@ export type AiSearchDeleteInstancesResponse = {
 		 * @default 1
 		 */
 		engine_version?: number;
+		/**
+		 * @default false
+		 */
+		hybrid_search_enabled?: boolean;
 		/**
 		 * Use your AI Search ID.
 		 *
@@ -13682,6 +13698,10 @@ export type AiSearchFetchInstancesResponse = {
 		 * @default 1
 		 */
 		engine_version?: number;
+		/**
+		 * @default false
+		 */
+		hybrid_search_enabled?: boolean;
 		/**
 		 * Use your AI Search ID.
 		 *
@@ -14051,6 +14071,10 @@ export type AiSearchUpdateInstancesResponse = {
 		 */
 		engine_version?: number;
 		/**
+		 * @default false
+		 */
+		hybrid_search_enabled?: boolean;
+		/**
 		 * Use your AI Search ID.
 		 *
 		 * @example my-ai-search
@@ -14328,6 +14352,10 @@ export type AiSearchUpdateInstancesRequestBody = {
 				| "openai/text-embedding-3-large"
 		  )
 		| "";
+	/**
+	 * @default false
+	 */
+	hybrid_search_enabled?: boolean;
 	/**
 	 * @default 10
 	 * @maximum 50
