@@ -58728,7 +58728,14 @@ export type DevicesCreateDeviceSettingsPolicyRequestBody = {
 	allowed_to_leave?: Schemas.TeamsDevicesAllowedToLeave;
 	auto_connect?: Schemas.TeamsDevicesAutoConnect;
 	captive_portal?: Schemas.TeamsDevicesCaptivePortal;
-	description?: Schemas.TeamsDevicesSchemasDescription;
+	/**
+	 * A description of the policy.
+	 *
+	 * @example Policy for test teams.
+	 * @maxLength 500
+	 * @default
+	 */
+	description?: Schemas.TeamsDevicesSchemasDescription & void;
 	disable_auto_fallback?: Schemas.TeamsDevicesDisableAutoFallback;
 	/**
 	 * Whether the policy will be applied to matching devices.
@@ -99836,7 +99843,7 @@ export const streamMP4DownloadsCreateDownloads = (
 	signal?: AbortSignal,
 ) =>
 	fetch<
-		Schemas.StreamDownloadsResponse,
+		Schemas.StreamDownloadsResponseSingle,
 		StreamMP4DownloadsCreateDownloadsError,
 		undefined,
 		{},
