@@ -7092,6 +7092,10 @@ export type AigConfigListGatewayResponse = {
 		 */
 		internal_id: string;
 		/**
+		 * @x-auditable true
+		 */
+		is_default?: boolean;
+		/**
 		 * @maximum 10000000
 		 * @minimum 10000
 		 * @x-auditable true
@@ -7263,6 +7267,10 @@ export type AigConfigCreateGatewayResponse = {
 		 */
 		internal_id: string;
 		/**
+		 * @x-auditable true
+		 */
+		is_default?: boolean;
+		/**
 		 * @maximum 10000000
 		 * @minimum 10000
 		 * @x-auditable true
@@ -7358,6 +7366,10 @@ export type AigConfigCreateGatewayRequestBody = {
 	 * @x-auditable true
 	 */
 	id: string;
+	/**
+	 * @x-auditable true
+	 */
+	is_default?: boolean;
 	/**
 	 * @maximum 10000000
 	 * @minimum 10000
@@ -11754,6 +11766,10 @@ export type AigConfigDeleteGatewayResponse = {
 		 */
 		internal_id: string;
 		/**
+		 * @x-auditable true
+		 */
+		is_default?: boolean;
+		/**
 		 * @maximum 10000000
 		 * @minimum 10000
 		 * @x-auditable true
@@ -11930,6 +11946,10 @@ export type AigConfigFetchGatewayResponse = {
 		 * @format uuid
 		 */
 		internal_id: string;
+		/**
+		 * @x-auditable true
+		 */
+		is_default?: boolean;
 		/**
 		 * @maximum 10000000
 		 * @minimum 10000
@@ -12127,6 +12147,10 @@ export type AigConfigUpdateGatewayResponse = {
 		 */
 		internal_id: string;
 		/**
+		 * @x-auditable true
+		 */
+		is_default?: boolean;
+		/**
 		 * @maximum 10000000
 		 * @minimum 10000
 		 * @x-auditable true
@@ -12228,6 +12252,10 @@ export type AigConfigUpdateGatewayRequestBody = {
 					profiles: string[];
 				}[];
 		  };
+	/**
+	 * @x-auditable true
+	 */
+	is_default?: boolean;
 	/**
 	 * @maximum 10000000
 	 * @minimum 10000
@@ -12476,10 +12504,26 @@ export type AiSearchListInstancesResponse = {
 		public_endpoint_id?: string;
 		public_endpoint_params?: {
 			authorized_hosts?: string[];
+			chat_completions_endpoint?: {
+				/**
+				 * Disable chat completions endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
+			};
 			/**
 			 * @default false
 			 */
 			enabled?: boolean;
+			mcp?: {
+				/**
+				 * Disable MCP endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
+			};
 			rate_limit?: {
 				/**
 				 * @maximum 3600000
@@ -12491,6 +12535,14 @@ export type AiSearchListInstancesResponse = {
 				 */
 				requests?: number;
 				technique?: "fixed" | "sliding";
+			};
+			search_endpoint?: {
+				/**
+				 * Disable search endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
 			};
 		};
 		/**
@@ -12822,10 +12874,26 @@ export type AiSearchCreateInstancesResponse = {
 		public_endpoint_id?: string;
 		public_endpoint_params?: {
 			authorized_hosts?: string[];
+			chat_completions_endpoint?: {
+				/**
+				 * Disable chat completions endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
+			};
 			/**
 			 * @default false
 			 */
 			enabled?: boolean;
+			mcp?: {
+				/**
+				 * Disable MCP endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
+			};
 			rate_limit?: {
 				/**
 				 * @maximum 3600000
@@ -12837,6 +12905,14 @@ export type AiSearchCreateInstancesResponse = {
 				 */
 				requests?: number;
 				technique?: "fixed" | "sliding";
+			};
+			search_endpoint?: {
+				/**
+				 * Disable search endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
 			};
 		};
 		/**
@@ -13078,10 +13154,26 @@ export type AiSearchCreateInstancesRequestBody = {
 	};
 	public_endpoint_params?: {
 		authorized_hosts?: string[];
+		chat_completions_endpoint?: {
+			/**
+			 * Disable chat completions endpoint for this public endpoint
+			 *
+			 * @default false
+			 */
+			disabled?: boolean;
+		};
 		/**
 		 * @default false
 		 */
 		enabled?: boolean;
+		mcp?: {
+			/**
+			 * Disable MCP endpoint for this public endpoint
+			 *
+			 * @default false
+			 */
+			disabled?: boolean;
+		};
 		rate_limit?: {
 			/**
 			 * @maximum 3600000
@@ -13093,6 +13185,14 @@ export type AiSearchCreateInstancesRequestBody = {
 			 */
 			requests?: number;
 			technique?: "fixed" | "sliding";
+		};
+		search_endpoint?: {
+			/**
+			 * Disable search endpoint for this public endpoint
+			 *
+			 * @default false
+			 */
+			disabled?: boolean;
 		};
 	};
 	/**
@@ -13388,10 +13488,26 @@ export type AiSearchDeleteInstancesResponse = {
 		public_endpoint_id?: string;
 		public_endpoint_params?: {
 			authorized_hosts?: string[];
+			chat_completions_endpoint?: {
+				/**
+				 * Disable chat completions endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
+			};
 			/**
 			 * @default false
 			 */
 			enabled?: boolean;
+			mcp?: {
+				/**
+				 * Disable MCP endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
+			};
 			rate_limit?: {
 				/**
 				 * @maximum 3600000
@@ -13403,6 +13519,14 @@ export type AiSearchDeleteInstancesResponse = {
 				 */
 				requests?: number;
 				technique?: "fixed" | "sliding";
+			};
+			search_endpoint?: {
+				/**
+				 * Disable search endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
 			};
 		};
 		/**
@@ -13741,10 +13865,26 @@ export type AiSearchFetchInstancesResponse = {
 		public_endpoint_id?: string;
 		public_endpoint_params?: {
 			authorized_hosts?: string[];
+			chat_completions_endpoint?: {
+				/**
+				 * Disable chat completions endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
+			};
 			/**
 			 * @default false
 			 */
 			enabled?: boolean;
+			mcp?: {
+				/**
+				 * Disable MCP endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
+			};
 			rate_limit?: {
 				/**
 				 * @maximum 3600000
@@ -13756,6 +13896,14 @@ export type AiSearchFetchInstancesResponse = {
 				 */
 				requests?: number;
 				technique?: "fixed" | "sliding";
+			};
+			search_endpoint?: {
+				/**
+				 * Disable search endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
 			};
 		};
 		/**
@@ -14113,10 +14261,26 @@ export type AiSearchUpdateInstancesResponse = {
 		public_endpoint_id?: string;
 		public_endpoint_params?: {
 			authorized_hosts?: string[];
+			chat_completions_endpoint?: {
+				/**
+				 * Disable chat completions endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
+			};
 			/**
 			 * @default false
 			 */
 			enabled?: boolean;
+			mcp?: {
+				/**
+				 * Disable MCP endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
+			};
 			rate_limit?: {
 				/**
 				 * @maximum 3600000
@@ -14128,6 +14292,14 @@ export type AiSearchUpdateInstancesResponse = {
 				 */
 				requests?: number;
 				technique?: "fixed" | "sliding";
+			};
+			search_endpoint?: {
+				/**
+				 * Disable search endpoint for this public endpoint
+				 *
+				 * @default false
+				 */
+				disabled?: boolean;
 			};
 		};
 		/**
@@ -14372,10 +14544,26 @@ export type AiSearchUpdateInstancesRequestBody = {
 	paused?: boolean;
 	public_endpoint_params?: {
 		authorized_hosts?: string[];
+		chat_completions_endpoint?: {
+			/**
+			 * Disable chat completions endpoint for this public endpoint
+			 *
+			 * @default false
+			 */
+			disabled?: boolean;
+		};
 		/**
 		 * @default false
 		 */
 		enabled?: boolean;
+		mcp?: {
+			/**
+			 * Disable MCP endpoint for this public endpoint
+			 *
+			 * @default false
+			 */
+			disabled?: boolean;
+		};
 		rate_limit?: {
 			/**
 			 * @maximum 3600000
@@ -14387,6 +14575,14 @@ export type AiSearchUpdateInstancesRequestBody = {
 			 */
 			requests?: number;
 			technique?: "fixed" | "sliding";
+		};
+		search_endpoint?: {
+			/**
+			 * Disable search endpoint for this public endpoint
+			 *
+			 * @default false
+			 */
+			disabled?: boolean;
 		};
 	};
 	/**
