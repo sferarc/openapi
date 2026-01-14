@@ -189616,7 +189616,7 @@ export type CustomHostnameForAZoneCreateCustomHostnameError = Fetcher.ErrorWrapp
 export type CustomHostnameForAZoneCreateCustomHostnameRequestBody = {
 	custom_metadata?: Schemas.TlsCertificatesAndHostnamesCustomMetadata;
 	hostname: Schemas.TlsCertificatesAndHostnamesHostnamePost;
-	ssl: Schemas.TlsCertificatesAndHostnamesSslpost;
+	ssl?: Schemas.TlsCertificatesAndHostnamesSslpost;
 };
 
 export type CustomHostnameForAZoneCreateCustomHostnameVariables = {
