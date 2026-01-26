@@ -91599,6 +91599,99 @@ export const r2PutBucketLifecycleConfiguration = (
 		signal,
 	});
 
+export type R2GetBucketLocalUploadsConfigurationPathParams = {
+	bucketName: Schemas.R2BucketName;
+	accountId: Schemas.R2AccountIdentifier;
+};
+
+export type R2GetBucketLocalUploadsConfigurationError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.R2V4ResponseFailure;
+}>;
+
+export type R2GetBucketLocalUploadsConfigurationResponse = {
+	errors: Schemas.R2Errors;
+	messages: Schemas.R2Messages;
+	result: Schemas.R2LocalUploadsConfiguration;
+	/**
+	 * Whether the API call was successful.
+	 */
+	success: true;
+};
+
+export type R2GetBucketLocalUploadsConfigurationVariables = {
+	pathParams: R2GetBucketLocalUploadsConfigurationPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Get the local uploads configuration for a bucket. When enabled, object's data is written to the nearest region first, then asynchronously replicated to the bucket's primary region.
+ */
+export const r2GetBucketLocalUploadsConfiguration = (
+	variables: R2GetBucketLocalUploadsConfigurationVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		R2GetBucketLocalUploadsConfigurationResponse,
+		R2GetBucketLocalUploadsConfigurationError,
+		undefined,
+		{},
+		{},
+		R2GetBucketLocalUploadsConfigurationPathParams
+	>({
+		url: "/accounts/{accountId}/r2/buckets/{bucketName}/local-uploads",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type R2PutBucketLocalUploadsConfigurationPathParams = {
+	bucketName: Schemas.R2BucketName;
+	accountId: Schemas.R2AccountIdentifier;
+};
+
+export type R2PutBucketLocalUploadsConfigurationError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.R2V4ResponseFailure;
+}>;
+
+export type R2PutBucketLocalUploadsConfigurationResponse = Schemas.R2V4Response &
+	Record<string, any>;
+
+export type R2PutBucketLocalUploadsConfigurationRequestBody = {
+	/**
+	 * Whether to enable local uploads for this bucket.
+	 *
+	 * @x-auditable true
+	 */
+	enabled: boolean;
+};
+
+export type R2PutBucketLocalUploadsConfigurationVariables = {
+	body: R2PutBucketLocalUploadsConfigurationRequestBody;
+	pathParams: R2PutBucketLocalUploadsConfigurationPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Set the local uploads configuration for a bucket. When enabled, object's data is written to the nearest region first, then asynchronously replicated to the bucket's primary region.
+ */
+export const r2PutBucketLocalUploadsConfiguration = (
+	variables: R2PutBucketLocalUploadsConfigurationVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		R2PutBucketLocalUploadsConfigurationResponse,
+		R2PutBucketLocalUploadsConfigurationError,
+		R2PutBucketLocalUploadsConfigurationRequestBody,
+		{},
+		{},
+		R2PutBucketLocalUploadsConfigurationPathParams
+	>({
+		url: "/accounts/{accountId}/r2/buckets/{bucketName}/local-uploads",
+		method: "put",
+		...variables,
+		signal,
+	});
+
 export type R2GetBucketLockConfigurationPathParams = {
 	bucketName: Schemas.R2BucketName;
 	accountId: Schemas.R2AccountIdentifier;
@@ -208592,6 +208685,8 @@ export const operationsByTag = {
 		r2PutBucketPublicPolicy,
 		r2GetBucketLifecycleConfiguration,
 		r2PutBucketLifecycleConfiguration,
+		r2GetBucketLocalUploadsConfiguration,
+		r2PutBucketLocalUploadsConfiguration,
 		r2GetBucketLockConfiguration,
 		r2PutBucketLockConfiguration,
 		r2DeleteBucketSippyConfig,
