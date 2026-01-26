@@ -732,6 +732,12 @@ export type McpPortalsApiListPortalsResponse = {
 		 * @maxLength 350
 		 */
 		name: string;
+		/**
+		 * Route outbound MCP traffic through Zero Trust Secure Web Gateway
+		 *
+		 * @example false
+		 */
+		secure_web_gateway?: boolean;
 	}[];
 	success: boolean;
 };
@@ -820,6 +826,12 @@ export type McpPortalsApiCreatePortalsResponse = {
 		 * @maxLength 350
 		 */
 		name: string;
+		/**
+		 * Route outbound MCP traffic through Zero Trust Secure Web Gateway
+		 *
+		 * @example false
+		 */
+		secure_web_gateway?: boolean;
 	};
 	success: boolean;
 };
@@ -849,6 +861,12 @@ export type McpPortalsApiCreatePortalsRequestBody = {
 	 * @maxLength 350
 	 */
 	name: string;
+	/**
+	 * Route outbound MCP traffic through Zero Trust Secure Web Gateway
+	 *
+	 * @example false
+	 */
+	secure_web_gateway?: boolean;
 	/**
 	 * @maxItems 20
 	 */
@@ -973,6 +991,12 @@ export type McpPortalsApiDeletePortalsResponse = {
 		 * @maxLength 350
 		 */
 		name: string;
+		/**
+		 * Route outbound MCP traffic through Zero Trust Secure Web Gateway
+		 *
+		 * @example false
+		 */
+		secure_web_gateway?: boolean;
 	};
 	success: boolean;
 };
@@ -1066,6 +1090,12 @@ export type McpPortalsApiFetchGatewaysResponse = {
 		 * @maxLength 350
 		 */
 		name: string;
+		/**
+		 * Route outbound MCP traffic through Zero Trust Secure Web Gateway
+		 *
+		 * @example false
+		 */
+		secure_web_gateway?: boolean;
 		servers: {
 			/**
 			 * @example unauthenticated
@@ -1100,6 +1130,10 @@ export type McpPortalsApiFetchGatewaysResponse = {
 			 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
 			 */
 			id: string;
+			/**
+			 * @format date-time
+			 */
+			last_successful_sync?: string;
 			/**
 			 * @format date-time
 			 */
@@ -1247,6 +1281,12 @@ export type McpPortalsApiUpdatePortalsResponse = {
 		 * @maxLength 350
 		 */
 		name: string;
+		/**
+		 * Route outbound MCP traffic through Zero Trust Secure Web Gateway
+		 *
+		 * @example false
+		 */
+		secure_web_gateway?: boolean;
 	};
 	success: boolean;
 };
@@ -1267,6 +1307,12 @@ export type McpPortalsApiUpdatePortalsRequestBody = {
 	 * @maxLength 350
 	 */
 	name?: string;
+	/**
+	 * Route outbound MCP traffic through Zero Trust Secure Web Gateway
+	 *
+	 * @example false
+	 */
+	secure_web_gateway?: boolean;
 	/**
 	 * @maxItems 20
 	 */
@@ -1394,6 +1440,10 @@ export type McpPortalsApiListServersResponse = {
 		/**
 		 * @format date-time
 		 */
+		last_successful_sync?: string;
+		/**
+		 * @format date-time
+		 */
 		last_synced?: string;
 		/**
 		 * @format date-time
@@ -1498,6 +1548,10 @@ export type McpPortalsApiCreateServersResponse = {
 		 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
 		 */
 		id: string;
+		/**
+		 * @format date-time
+		 */
+		last_successful_sync?: string;
 		/**
 		 * @format date-time
 		 */
@@ -1646,6 +1700,10 @@ export type McpPortalsApiDeleteServersResponse = {
 		/**
 		 * @format date-time
 		 */
+		last_successful_sync?: string;
+		/**
+		 * @format date-time
+		 */
 		last_synced?: string;
 		/**
 		 * @format date-time
@@ -1755,6 +1813,10 @@ export type McpPortalsApiFetchServersResponse = {
 		 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
 		 */
 		id: string;
+		/**
+		 * @format date-time
+		 */
+		last_successful_sync?: string;
 		/**
 		 * @format date-time
 		 */
@@ -1886,6 +1948,10 @@ export type McpPortalsApiUpdateServersResponse = {
 		 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
 		 */
 		id: string;
+		/**
+		 * @format date-time
+		 */
+		last_successful_sync?: string;
 		/**
 		 * @format date-time
 		 */
@@ -4280,6 +4346,8 @@ export type ZeroTrustOrganizationCreateYourZeroTrustOrganizationRequestBody = {
 	allow_authenticate_via_warp?: Schemas.AccessAllowAuthenticateViaWarp;
 	auth_domain: Schemas.AccessAuthDomain;
 	auto_redirect_to_identity?: Schemas.AccessAutoRedirectToIdentity;
+	deny_unmatched_requests?: Schemas.AccessDenyUnmatchedRequests;
+	deny_unmatched_requests_exempted_zone_names?: Schemas.AccessDenyUnmatchedRequestsExemptedZoneNames;
 	is_ui_read_only?: Schemas.AccessIsUiReadOnly;
 	login_design?: Schemas.AccessLoginDesign;
 	name: Schemas.AccessName;
@@ -4329,6 +4397,8 @@ export type ZeroTrustOrganizationUpdateYourZeroTrustOrganizationRequestBody = {
 	auth_domain?: Schemas.AccessAuthDomain;
 	auto_redirect_to_identity?: Schemas.AccessAutoRedirectToIdentity;
 	custom_pages?: Schemas.AccessCustomPages;
+	deny_unmatched_requests?: Schemas.AccessDenyUnmatchedRequests;
+	deny_unmatched_requests_exempted_zone_names?: Schemas.AccessDenyUnmatchedRequestsExemptedZoneNames;
 	is_ui_read_only?: Schemas.AccessIsUiReadOnly;
 	login_design?: Schemas.AccessLoginDesign;
 	name?: Schemas.AccessName;
@@ -5389,6 +5459,46 @@ export const zeroTrustUsersGetUsers = (
 	>({
 		url: "/accounts/{accountId}/access/users",
 		method: "get",
+		...variables,
+		signal,
+	});
+
+export type ZeroTrustUsersCreateUserPathParams = {
+	accountId: Schemas.AccessIdentifier;
+};
+
+export type ZeroTrustUsersCreateUserError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.AccessApiResponseCommonFailure;
+}>;
+
+export type ZeroTrustUsersCreateUserRequestBody = {
+	email: Schemas.AccessSchemasEmail;
+	name?: Schemas.AccessUsersComponentsSchemasName;
+};
+
+export type ZeroTrustUsersCreateUserVariables = {
+	body: ZeroTrustUsersCreateUserRequestBody;
+	pathParams: ZeroTrustUsersCreateUserPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Creates a new user.
+ */
+export const zeroTrustUsersCreateUser = (
+	variables: ZeroTrustUsersCreateUserVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.AccessSingleUserResponse,
+		ZeroTrustUsersCreateUserError,
+		ZeroTrustUsersCreateUserRequestBody,
+		{},
+		{},
+		ZeroTrustUsersCreateUserPathParams
+	>({
+		url: "/accounts/{accountId}/access/users",
+		method: "post",
 		...variables,
 		signal,
 	});
@@ -12384,7 +12494,13 @@ export type AiSearchListInstancesResponse = {
 	result: {
 		account_id: string;
 		account_tag: string;
+		/**
+		 * @x-auditable true
+		 */
 		ai_gateway_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		ai_search_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -12416,25 +12532,30 @@ export type AiSearchListInstancesResponse = {
 			| "";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		cache?: boolean;
 		/**
 		 * @default close_enough
+		 * @x-auditable true
 		 */
 		cache_threshold?: "super_strict_match" | "close_enough" | "flexible_friend" | "anything_goes";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		chunk?: boolean;
 		/**
 		 * @default 10
 		 * @maximum 30
 		 * @minimum 0
+		 * @x-auditable true
 		 */
 		chunk_overlap?: number;
 		/**
 		 * @default 256
 		 * @minimum 64
+		 * @x-auditable true
 		 */
 		chunk_size?: number;
 		/**
@@ -12442,12 +12563,15 @@ export type AiSearchListInstancesResponse = {
 		 */
 		created_at: string;
 		created_by?: string;
+		/**
+		 * @x-auditable true
+		 */
 		embedding_model?:
 			| (
+					| "@cf/qwen/qwen3-embedding-0.6b"
 					| "@cf/baai/bge-m3"
 					| "@cf/baai/bge-large-en-v1.5"
 					| "@cf/google/embeddinggemma-300m"
-					| "@cf/qwen/qwen3-embedding-0.6b"
 					| "google-ai-studio/gemini-embedding-001"
 					| "openai/text-embedding-3-small"
 					| "openai/text-embedding-3-large"
@@ -12455,6 +12579,7 @@ export type AiSearchListInstancesResponse = {
 			| "";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		enable?: boolean;
 		/**
@@ -12463,6 +12588,7 @@ export type AiSearchListInstancesResponse = {
 		engine_version?: number;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		hybrid_search_enabled?: boolean;
 		/**
@@ -12472,6 +12598,7 @@ export type AiSearchListInstancesResponse = {
 		 * @maxLength 32
 		 * @minLength 1
 		 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+		 * @x-auditable true
 		 */
 		id: string;
 		/**
@@ -12486,8 +12613,12 @@ export type AiSearchListInstancesResponse = {
 		 * @default 10
 		 * @maximum 50
 		 * @minimum 1
+		 * @x-auditable true
 		 */
 		max_num_results?: number;
+		/**
+		 * @x-auditable true
+		 */
 		metadata?: {
 			created_from_aisearch_wizard?: boolean;
 			worker_domain?: string;
@@ -12499,9 +12630,16 @@ export type AiSearchListInstancesResponse = {
 		modified_by?: string;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		paused?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		public_endpoint_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		public_endpoint_params?: {
 			authorized_hosts?: string[];
 			chat_completions_endpoint?: {
@@ -12547,9 +12685,16 @@ export type AiSearchListInstancesResponse = {
 		};
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		reranking?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		reranking_model?: "@cf/baai/bge-reranker-base" | "";
+		/**
+		 * @x-auditable true
+		 */
 		rewrite_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -12581,34 +12726,40 @@ export type AiSearchListInstancesResponse = {
 			| "";
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		rewrite_query?: boolean;
 		/**
 		 * @default 0.4
 		 * @maximum 1
 		 * @minimum 0
+		 * @x-auditable true
 		 */
 		score_threshold?: number;
+		/**
+		 * @x-auditable true
+		 */
 		source: string;
 		/**
 		 * @default {"r2_jurisdiction":"default"}
+		 * @x-auditable true
 		 */
 		source_params?: {
 			/**
-			 * [see original specs]
+			 * List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced)
 			 *
-			 * @example /admin/*
+			 * @example /admin/**
 			 * @example /private/**
-			 * @example *\temp\*
+			 * @example **\temp\**
 			 * @maxItems 10
 			 */
 			exclude_items?: string[];
 			/**
-			 * [see original specs]
+			 * List of path patterns to include. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /blog/** matches /blog/post and /blog/2024/post)
 			 *
-			 * @example /blog/*
+			 * @example /blog/**
 			 * @example [see original specs]
-			 * @example *\blog\*.html
+			 * @example **\blog\**.html
 			 * @maxItems 10
 			 */
 			include_items?: string[];
@@ -12629,6 +12780,14 @@ export type AiSearchListInstancesResponse = {
 					 * @default false
 					 */
 					include_images?: boolean;
+					/**
+					 * List of specific sitemap URLs to use for crawling. Only valid when parse_type is 'sitemap'.
+					 *
+					 * @example https://example.com/sitemap.xml
+					 * @example https://example.com/blog-sitemap.xml
+					 * @maxItems 10
+					 */
+					specific_sitemaps?: string[];
 					/**
 					 * @default false
 					 */
@@ -12657,8 +12816,12 @@ export type AiSearchListInstancesResponse = {
 		status?: string;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		summarization?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		summarization_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -12688,13 +12851,26 @@ export type AiSearchListInstancesResponse = {
 					| "openai/gpt-5-nano"
 			  )
 			| "";
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_ai_search?: string;
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_index_summarization?: string;
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_rewrite_query?: string;
 		/**
 		 * @format uuid
+		 * @x-auditable true
 		 */
-		token_id: string;
+		token_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		type: "r2" | "web-crawler";
 		vectorize_active_namespace?: string;
 		vectorize_name: string;
@@ -12754,7 +12930,13 @@ export type AiSearchCreateInstancesResponse = {
 	result: {
 		account_id: string;
 		account_tag: string;
+		/**
+		 * @x-auditable true
+		 */
 		ai_gateway_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		ai_search_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -12786,25 +12968,30 @@ export type AiSearchCreateInstancesResponse = {
 			| "";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		cache?: boolean;
 		/**
 		 * @default close_enough
+		 * @x-auditable true
 		 */
 		cache_threshold?: "super_strict_match" | "close_enough" | "flexible_friend" | "anything_goes";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		chunk?: boolean;
 		/**
 		 * @default 10
 		 * @maximum 30
 		 * @minimum 0
+		 * @x-auditable true
 		 */
 		chunk_overlap?: number;
 		/**
 		 * @default 256
 		 * @minimum 64
+		 * @x-auditable true
 		 */
 		chunk_size?: number;
 		/**
@@ -12812,12 +12999,15 @@ export type AiSearchCreateInstancesResponse = {
 		 */
 		created_at: string;
 		created_by?: string;
+		/**
+		 * @x-auditable true
+		 */
 		embedding_model?:
 			| (
+					| "@cf/qwen/qwen3-embedding-0.6b"
 					| "@cf/baai/bge-m3"
 					| "@cf/baai/bge-large-en-v1.5"
 					| "@cf/google/embeddinggemma-300m"
-					| "@cf/qwen/qwen3-embedding-0.6b"
 					| "google-ai-studio/gemini-embedding-001"
 					| "openai/text-embedding-3-small"
 					| "openai/text-embedding-3-large"
@@ -12825,6 +13015,7 @@ export type AiSearchCreateInstancesResponse = {
 			| "";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		enable?: boolean;
 		/**
@@ -12833,6 +13024,7 @@ export type AiSearchCreateInstancesResponse = {
 		engine_version?: number;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		hybrid_search_enabled?: boolean;
 		/**
@@ -12842,6 +13034,7 @@ export type AiSearchCreateInstancesResponse = {
 		 * @maxLength 32
 		 * @minLength 1
 		 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+		 * @x-auditable true
 		 */
 		id: string;
 		/**
@@ -12856,8 +13049,12 @@ export type AiSearchCreateInstancesResponse = {
 		 * @default 10
 		 * @maximum 50
 		 * @minimum 1
+		 * @x-auditable true
 		 */
 		max_num_results?: number;
+		/**
+		 * @x-auditable true
+		 */
 		metadata?: {
 			created_from_aisearch_wizard?: boolean;
 			worker_domain?: string;
@@ -12869,9 +13066,16 @@ export type AiSearchCreateInstancesResponse = {
 		modified_by?: string;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		paused?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		public_endpoint_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		public_endpoint_params?: {
 			authorized_hosts?: string[];
 			chat_completions_endpoint?: {
@@ -12917,9 +13121,16 @@ export type AiSearchCreateInstancesResponse = {
 		};
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		reranking?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		reranking_model?: "@cf/baai/bge-reranker-base" | "";
+		/**
+		 * @x-auditable true
+		 */
 		rewrite_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -12951,34 +13162,40 @@ export type AiSearchCreateInstancesResponse = {
 			| "";
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		rewrite_query?: boolean;
 		/**
 		 * @default 0.4
 		 * @maximum 1
 		 * @minimum 0
+		 * @x-auditable true
 		 */
 		score_threshold?: number;
+		/**
+		 * @x-auditable true
+		 */
 		source: string;
 		/**
 		 * @default {"r2_jurisdiction":"default"}
+		 * @x-auditable true
 		 */
 		source_params?: {
 			/**
-			 * [see original specs]
+			 * List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced)
 			 *
-			 * @example /admin/*
+			 * @example /admin/**
 			 * @example /private/**
-			 * @example *\temp\*
+			 * @example **\temp\**
 			 * @maxItems 10
 			 */
 			exclude_items?: string[];
 			/**
-			 * [see original specs]
+			 * List of path patterns to include. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /blog/** matches /blog/post and /blog/2024/post)
 			 *
-			 * @example /blog/*
+			 * @example /blog/**
 			 * @example [see original specs]
-			 * @example *\blog\*.html
+			 * @example **\blog\**.html
 			 * @maxItems 10
 			 */
 			include_items?: string[];
@@ -12999,6 +13216,14 @@ export type AiSearchCreateInstancesResponse = {
 					 * @default false
 					 */
 					include_images?: boolean;
+					/**
+					 * List of specific sitemap URLs to use for crawling. Only valid when parse_type is 'sitemap'.
+					 *
+					 * @example https://example.com/sitemap.xml
+					 * @example https://example.com/blog-sitemap.xml
+					 * @maxItems 10
+					 */
+					specific_sitemaps?: string[];
 					/**
 					 * @default false
 					 */
@@ -13027,8 +13252,12 @@ export type AiSearchCreateInstancesResponse = {
 		status?: string;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		summarization?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		summarization_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -13058,13 +13287,26 @@ export type AiSearchCreateInstancesResponse = {
 					| "openai/gpt-5-nano"
 			  )
 			| "";
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_ai_search?: string;
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_index_summarization?: string;
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_rewrite_query?: string;
 		/**
 		 * @format uuid
+		 * @x-auditable true
 		 */
-		token_id: string;
+		token_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		type: "r2" | "web-crawler";
 		vectorize_active_namespace?: string;
 		vectorize_name: string;
@@ -13073,7 +13315,13 @@ export type AiSearchCreateInstancesResponse = {
 };
 
 export type AiSearchCreateInstancesRequestBody = {
+	/**
+	 * @x-auditable true
+	 */
 	ai_gateway_id?: string;
+	/**
+	 * @x-auditable true
+	 */
 	ai_search_model?:
 		| (
 				| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -13105,25 +13353,31 @@ export type AiSearchCreateInstancesRequestBody = {
 		| "";
 	/**
 	 * @default true
+	 * @x-auditable true
 	 */
 	chunk?: boolean;
 	/**
 	 * @default 10
 	 * @maximum 30
 	 * @minimum 0
+	 * @x-auditable true
 	 */
 	chunk_overlap?: number;
 	/**
 	 * @default 256
 	 * @minimum 64
+	 * @x-auditable true
 	 */
 	chunk_size?: number;
+	/**
+	 * @x-auditable true
+	 */
 	embedding_model?:
 		| (
+				| "@cf/qwen/qwen3-embedding-0.6b"
 				| "@cf/baai/bge-m3"
 				| "@cf/baai/bge-large-en-v1.5"
 				| "@cf/google/embeddinggemma-300m"
-				| "@cf/qwen/qwen3-embedding-0.6b"
 				| "google-ai-studio/gemini-embedding-001"
 				| "openai/text-embedding-3-small"
 				| "openai/text-embedding-3-large"
@@ -13131,6 +13385,7 @@ export type AiSearchCreateInstancesRequestBody = {
 		| "";
 	/**
 	 * @default false
+	 * @x-auditable true
 	 */
 	hybrid_search_enabled?: boolean;
 	/**
@@ -13140,18 +13395,26 @@ export type AiSearchCreateInstancesRequestBody = {
 	 * @maxLength 32
 	 * @minLength 1
 	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
 	 */
 	id: string;
 	/**
 	 * @default 10
 	 * @maximum 50
 	 * @minimum 1
+	 * @x-auditable true
 	 */
 	max_num_results?: number;
+	/**
+	 * @x-auditable true
+	 */
 	metadata?: {
 		created_from_aisearch_wizard?: boolean;
 		worker_domain?: string;
 	};
+	/**
+	 * @x-auditable true
+	 */
 	public_endpoint_params?: {
 		authorized_hosts?: string[];
 		chat_completions_endpoint?: {
@@ -13197,9 +13460,16 @@ export type AiSearchCreateInstancesRequestBody = {
 	};
 	/**
 	 * @default false
+	 * @x-auditable true
 	 */
 	reranking?: boolean;
+	/**
+	 * @x-auditable true
+	 */
 	reranking_model?: "@cf/baai/bge-reranker-base" | "";
+	/**
+	 * @x-auditable true
+	 */
 	rewrite_model?:
 		| (
 				| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -13231,34 +13501,40 @@ export type AiSearchCreateInstancesRequestBody = {
 		| "";
 	/**
 	 * @default false
+	 * @x-auditable true
 	 */
 	rewrite_query?: boolean;
 	/**
 	 * @default 0.4
 	 * @maximum 1
 	 * @minimum 0
+	 * @x-auditable true
 	 */
 	score_threshold?: number;
+	/**
+	 * @x-auditable true
+	 */
 	source: string;
 	/**
 	 * @default {"r2_jurisdiction":"default"}
+	 * @x-auditable true
 	 */
 	source_params?: {
 		/**
-		 * [see original specs]
+		 * List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced)
 		 *
-		 * @example /admin/*
+		 * @example /admin/**
 		 * @example /private/**
-		 * @example *\temp\*
+		 * @example **\temp\**
 		 * @maxItems 10
 		 */
 		exclude_items?: string[];
 		/**
-		 * [see original specs]
+		 * List of path patterns to include. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /blog/** matches /blog/post and /blog/2024/post)
 		 *
-		 * @example /blog/*
+		 * @example /blog/**
 		 * @example [see original specs]
-		 * @example *\blog\*.html
+		 * @example **\blog\**.html
 		 * @maxItems 10
 		 */
 		include_items?: string[];
@@ -13279,6 +13555,14 @@ export type AiSearchCreateInstancesRequestBody = {
 				 * @default false
 				 */
 				include_images?: boolean;
+				/**
+				 * List of specific sitemap URLs to use for crawling. Only valid when parse_type is 'sitemap'.
+				 *
+				 * @example https://example.com/sitemap.xml
+				 * @example https://example.com/blog-sitemap.xml
+				 * @maxItems 10
+				 */
+				specific_sitemaps?: string[];
 				/**
 				 * @default false
 				 */
@@ -13303,8 +13587,12 @@ export type AiSearchCreateInstancesRequestBody = {
 	};
 	/**
 	 * @format uuid
+	 * @x-auditable true
 	 */
-	token_id: string;
+	token_id?: string;
+	/**
+	 * @x-auditable true
+	 */
 	type: "r2" | "web-crawler";
 };
 
@@ -13343,6 +13631,7 @@ export type AiSearchDeleteInstancesPathParams = {
 	 * @maxLength 32
 	 * @minLength 1
 	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
 	 */
 	id: string;
 };
@@ -13368,7 +13657,13 @@ export type AiSearchDeleteInstancesResponse = {
 	result: {
 		account_id: string;
 		account_tag: string;
+		/**
+		 * @x-auditable true
+		 */
 		ai_gateway_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		ai_search_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -13400,25 +13695,30 @@ export type AiSearchDeleteInstancesResponse = {
 			| "";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		cache?: boolean;
 		/**
 		 * @default close_enough
+		 * @x-auditable true
 		 */
 		cache_threshold?: "super_strict_match" | "close_enough" | "flexible_friend" | "anything_goes";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		chunk?: boolean;
 		/**
 		 * @default 10
 		 * @maximum 30
 		 * @minimum 0
+		 * @x-auditable true
 		 */
 		chunk_overlap?: number;
 		/**
 		 * @default 256
 		 * @minimum 64
+		 * @x-auditable true
 		 */
 		chunk_size?: number;
 		/**
@@ -13426,12 +13726,15 @@ export type AiSearchDeleteInstancesResponse = {
 		 */
 		created_at: string;
 		created_by?: string;
+		/**
+		 * @x-auditable true
+		 */
 		embedding_model?:
 			| (
+					| "@cf/qwen/qwen3-embedding-0.6b"
 					| "@cf/baai/bge-m3"
 					| "@cf/baai/bge-large-en-v1.5"
 					| "@cf/google/embeddinggemma-300m"
-					| "@cf/qwen/qwen3-embedding-0.6b"
 					| "google-ai-studio/gemini-embedding-001"
 					| "openai/text-embedding-3-small"
 					| "openai/text-embedding-3-large"
@@ -13439,6 +13742,7 @@ export type AiSearchDeleteInstancesResponse = {
 			| "";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		enable?: boolean;
 		/**
@@ -13447,6 +13751,7 @@ export type AiSearchDeleteInstancesResponse = {
 		engine_version?: number;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		hybrid_search_enabled?: boolean;
 		/**
@@ -13456,6 +13761,7 @@ export type AiSearchDeleteInstancesResponse = {
 		 * @maxLength 32
 		 * @minLength 1
 		 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+		 * @x-auditable true
 		 */
 		id: string;
 		/**
@@ -13470,8 +13776,12 @@ export type AiSearchDeleteInstancesResponse = {
 		 * @default 10
 		 * @maximum 50
 		 * @minimum 1
+		 * @x-auditable true
 		 */
 		max_num_results?: number;
+		/**
+		 * @x-auditable true
+		 */
 		metadata?: {
 			created_from_aisearch_wizard?: boolean;
 			worker_domain?: string;
@@ -13483,9 +13793,16 @@ export type AiSearchDeleteInstancesResponse = {
 		modified_by?: string;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		paused?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		public_endpoint_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		public_endpoint_params?: {
 			authorized_hosts?: string[];
 			chat_completions_endpoint?: {
@@ -13531,9 +13848,16 @@ export type AiSearchDeleteInstancesResponse = {
 		};
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		reranking?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		reranking_model?: "@cf/baai/bge-reranker-base" | "";
+		/**
+		 * @x-auditable true
+		 */
 		rewrite_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -13565,34 +13889,40 @@ export type AiSearchDeleteInstancesResponse = {
 			| "";
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		rewrite_query?: boolean;
 		/**
 		 * @default 0.4
 		 * @maximum 1
 		 * @minimum 0
+		 * @x-auditable true
 		 */
 		score_threshold?: number;
+		/**
+		 * @x-auditable true
+		 */
 		source: string;
 		/**
 		 * @default {"r2_jurisdiction":"default"}
+		 * @x-auditable true
 		 */
 		source_params?: {
 			/**
-			 * [see original specs]
+			 * List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced)
 			 *
-			 * @example /admin/*
+			 * @example /admin/**
 			 * @example /private/**
-			 * @example *\temp\*
+			 * @example **\temp\**
 			 * @maxItems 10
 			 */
 			exclude_items?: string[];
 			/**
-			 * [see original specs]
+			 * List of path patterns to include. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /blog/** matches /blog/post and /blog/2024/post)
 			 *
-			 * @example /blog/*
+			 * @example /blog/**
 			 * @example [see original specs]
-			 * @example *\blog\*.html
+			 * @example **\blog\**.html
 			 * @maxItems 10
 			 */
 			include_items?: string[];
@@ -13613,6 +13943,14 @@ export type AiSearchDeleteInstancesResponse = {
 					 * @default false
 					 */
 					include_images?: boolean;
+					/**
+					 * List of specific sitemap URLs to use for crawling. Only valid when parse_type is 'sitemap'.
+					 *
+					 * @example https://example.com/sitemap.xml
+					 * @example https://example.com/blog-sitemap.xml
+					 * @maxItems 10
+					 */
+					specific_sitemaps?: string[];
 					/**
 					 * @default false
 					 */
@@ -13641,8 +13979,12 @@ export type AiSearchDeleteInstancesResponse = {
 		status?: string;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		summarization?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		summarization_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -13672,13 +14014,26 @@ export type AiSearchDeleteInstancesResponse = {
 					| "openai/gpt-5-nano"
 			  )
 			| "";
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_ai_search?: string;
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_index_summarization?: string;
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_rewrite_query?: string;
 		/**
 		 * @format uuid
+		 * @x-auditable true
 		 */
-		token_id: string;
+		token_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		type: "r2" | "web-crawler";
 		vectorize_active_namespace?: string;
 		vectorize_name: string;
@@ -13720,6 +14075,7 @@ export type AiSearchFetchInstancesPathParams = {
 	 * @maxLength 32
 	 * @minLength 1
 	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
 	 */
 	id: string;
 };
@@ -13745,7 +14101,13 @@ export type AiSearchFetchInstancesResponse = {
 	result: {
 		account_id: string;
 		account_tag: string;
+		/**
+		 * @x-auditable true
+		 */
 		ai_gateway_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		ai_search_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -13777,25 +14139,30 @@ export type AiSearchFetchInstancesResponse = {
 			| "";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		cache?: boolean;
 		/**
 		 * @default close_enough
+		 * @x-auditable true
 		 */
 		cache_threshold?: "super_strict_match" | "close_enough" | "flexible_friend" | "anything_goes";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		chunk?: boolean;
 		/**
 		 * @default 10
 		 * @maximum 30
 		 * @minimum 0
+		 * @x-auditable true
 		 */
 		chunk_overlap?: number;
 		/**
 		 * @default 256
 		 * @minimum 64
+		 * @x-auditable true
 		 */
 		chunk_size?: number;
 		/**
@@ -13803,12 +14170,15 @@ export type AiSearchFetchInstancesResponse = {
 		 */
 		created_at: string;
 		created_by?: string;
+		/**
+		 * @x-auditable true
+		 */
 		embedding_model?:
 			| (
+					| "@cf/qwen/qwen3-embedding-0.6b"
 					| "@cf/baai/bge-m3"
 					| "@cf/baai/bge-large-en-v1.5"
 					| "@cf/google/embeddinggemma-300m"
-					| "@cf/qwen/qwen3-embedding-0.6b"
 					| "google-ai-studio/gemini-embedding-001"
 					| "openai/text-embedding-3-small"
 					| "openai/text-embedding-3-large"
@@ -13816,6 +14186,7 @@ export type AiSearchFetchInstancesResponse = {
 			| "";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		enable?: boolean;
 		/**
@@ -13824,6 +14195,7 @@ export type AiSearchFetchInstancesResponse = {
 		engine_version?: number;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		hybrid_search_enabled?: boolean;
 		/**
@@ -13833,6 +14205,7 @@ export type AiSearchFetchInstancesResponse = {
 		 * @maxLength 32
 		 * @minLength 1
 		 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+		 * @x-auditable true
 		 */
 		id: string;
 		/**
@@ -13847,8 +14220,12 @@ export type AiSearchFetchInstancesResponse = {
 		 * @default 10
 		 * @maximum 50
 		 * @minimum 1
+		 * @x-auditable true
 		 */
 		max_num_results?: number;
+		/**
+		 * @x-auditable true
+		 */
 		metadata?: {
 			created_from_aisearch_wizard?: boolean;
 			worker_domain?: string;
@@ -13860,9 +14237,16 @@ export type AiSearchFetchInstancesResponse = {
 		modified_by?: string;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		paused?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		public_endpoint_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		public_endpoint_params?: {
 			authorized_hosts?: string[];
 			chat_completions_endpoint?: {
@@ -13908,9 +14292,16 @@ export type AiSearchFetchInstancesResponse = {
 		};
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		reranking?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		reranking_model?: "@cf/baai/bge-reranker-base" | "";
+		/**
+		 * @x-auditable true
+		 */
 		rewrite_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -13942,34 +14333,40 @@ export type AiSearchFetchInstancesResponse = {
 			| "";
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		rewrite_query?: boolean;
 		/**
 		 * @default 0.4
 		 * @maximum 1
 		 * @minimum 0
+		 * @x-auditable true
 		 */
 		score_threshold?: number;
+		/**
+		 * @x-auditable true
+		 */
 		source: string;
 		/**
 		 * @default {"r2_jurisdiction":"default"}
+		 * @x-auditable true
 		 */
 		source_params?: {
 			/**
-			 * [see original specs]
+			 * List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced)
 			 *
-			 * @example /admin/*
+			 * @example /admin/**
 			 * @example /private/**
-			 * @example *\temp\*
+			 * @example **\temp\**
 			 * @maxItems 10
 			 */
 			exclude_items?: string[];
 			/**
-			 * [see original specs]
+			 * List of path patterns to include. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /blog/** matches /blog/post and /blog/2024/post)
 			 *
-			 * @example /blog/*
+			 * @example /blog/**
 			 * @example [see original specs]
-			 * @example *\blog\*.html
+			 * @example **\blog\**.html
 			 * @maxItems 10
 			 */
 			include_items?: string[];
@@ -13990,6 +14387,14 @@ export type AiSearchFetchInstancesResponse = {
 					 * @default false
 					 */
 					include_images?: boolean;
+					/**
+					 * List of specific sitemap URLs to use for crawling. Only valid when parse_type is 'sitemap'.
+					 *
+					 * @example https://example.com/sitemap.xml
+					 * @example https://example.com/blog-sitemap.xml
+					 * @maxItems 10
+					 */
+					specific_sitemaps?: string[];
 					/**
 					 * @default false
 					 */
@@ -14018,8 +14423,12 @@ export type AiSearchFetchInstancesResponse = {
 		status?: string;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		summarization?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		summarization_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -14049,13 +14458,26 @@ export type AiSearchFetchInstancesResponse = {
 					| "openai/gpt-5-nano"
 			  )
 			| "";
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_ai_search?: string;
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_index_summarization?: string;
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_rewrite_query?: string;
 		/**
 		 * @format uuid
+		 * @x-auditable true
 		 */
-		token_id: string;
+		token_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		type: "r2" | "web-crawler";
 		vectorize_active_namespace?: string;
 		vectorize_name: string;
@@ -14097,6 +14519,7 @@ export type AiSearchUpdateInstancesPathParams = {
 	 * @maxLength 32
 	 * @minLength 1
 	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
 	 */
 	id: string;
 };
@@ -14141,7 +14564,13 @@ export type AiSearchUpdateInstancesResponse = {
 	result: {
 		account_id: string;
 		account_tag: string;
+		/**
+		 * @x-auditable true
+		 */
 		ai_gateway_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		ai_search_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -14173,25 +14602,30 @@ export type AiSearchUpdateInstancesResponse = {
 			| "";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		cache?: boolean;
 		/**
 		 * @default close_enough
+		 * @x-auditable true
 		 */
 		cache_threshold?: "super_strict_match" | "close_enough" | "flexible_friend" | "anything_goes";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		chunk?: boolean;
 		/**
 		 * @default 10
 		 * @maximum 30
 		 * @minimum 0
+		 * @x-auditable true
 		 */
 		chunk_overlap?: number;
 		/**
 		 * @default 256
 		 * @minimum 64
+		 * @x-auditable true
 		 */
 		chunk_size?: number;
 		/**
@@ -14199,12 +14633,15 @@ export type AiSearchUpdateInstancesResponse = {
 		 */
 		created_at: string;
 		created_by?: string;
+		/**
+		 * @x-auditable true
+		 */
 		embedding_model?:
 			| (
+					| "@cf/qwen/qwen3-embedding-0.6b"
 					| "@cf/baai/bge-m3"
 					| "@cf/baai/bge-large-en-v1.5"
 					| "@cf/google/embeddinggemma-300m"
-					| "@cf/qwen/qwen3-embedding-0.6b"
 					| "google-ai-studio/gemini-embedding-001"
 					| "openai/text-embedding-3-small"
 					| "openai/text-embedding-3-large"
@@ -14212,6 +14649,7 @@ export type AiSearchUpdateInstancesResponse = {
 			| "";
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		enable?: boolean;
 		/**
@@ -14220,6 +14658,7 @@ export type AiSearchUpdateInstancesResponse = {
 		engine_version?: number;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		hybrid_search_enabled?: boolean;
 		/**
@@ -14229,6 +14668,7 @@ export type AiSearchUpdateInstancesResponse = {
 		 * @maxLength 32
 		 * @minLength 1
 		 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+		 * @x-auditable true
 		 */
 		id: string;
 		/**
@@ -14243,8 +14683,12 @@ export type AiSearchUpdateInstancesResponse = {
 		 * @default 10
 		 * @maximum 50
 		 * @minimum 1
+		 * @x-auditable true
 		 */
 		max_num_results?: number;
+		/**
+		 * @x-auditable true
+		 */
 		metadata?: {
 			created_from_aisearch_wizard?: boolean;
 			worker_domain?: string;
@@ -14256,9 +14700,16 @@ export type AiSearchUpdateInstancesResponse = {
 		modified_by?: string;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		paused?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		public_endpoint_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		public_endpoint_params?: {
 			authorized_hosts?: string[];
 			chat_completions_endpoint?: {
@@ -14304,9 +14755,16 @@ export type AiSearchUpdateInstancesResponse = {
 		};
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		reranking?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		reranking_model?: "@cf/baai/bge-reranker-base" | "";
+		/**
+		 * @x-auditable true
+		 */
 		rewrite_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -14338,34 +14796,40 @@ export type AiSearchUpdateInstancesResponse = {
 			| "";
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		rewrite_query?: boolean;
 		/**
 		 * @default 0.4
 		 * @maximum 1
 		 * @minimum 0
+		 * @x-auditable true
 		 */
 		score_threshold?: number;
+		/**
+		 * @x-auditable true
+		 */
 		source: string;
 		/**
 		 * @default {"r2_jurisdiction":"default"}
+		 * @x-auditable true
 		 */
 		source_params?: {
 			/**
-			 * [see original specs]
+			 * List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced)
 			 *
-			 * @example /admin/*
+			 * @example /admin/**
 			 * @example /private/**
-			 * @example *\temp\*
+			 * @example **\temp\**
 			 * @maxItems 10
 			 */
 			exclude_items?: string[];
 			/**
-			 * [see original specs]
+			 * List of path patterns to include. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /blog/** matches /blog/post and /blog/2024/post)
 			 *
-			 * @example /blog/*
+			 * @example /blog/**
 			 * @example [see original specs]
-			 * @example *\blog\*.html
+			 * @example **\blog\**.html
 			 * @maxItems 10
 			 */
 			include_items?: string[];
@@ -14386,6 +14850,14 @@ export type AiSearchUpdateInstancesResponse = {
 					 * @default false
 					 */
 					include_images?: boolean;
+					/**
+					 * List of specific sitemap URLs to use for crawling. Only valid when parse_type is 'sitemap'.
+					 *
+					 * @example https://example.com/sitemap.xml
+					 * @example https://example.com/blog-sitemap.xml
+					 * @maxItems 10
+					 */
+					specific_sitemaps?: string[];
 					/**
 					 * @default false
 					 */
@@ -14414,8 +14886,12 @@ export type AiSearchUpdateInstancesResponse = {
 		status?: string;
 		/**
 		 * @default false
+		 * @x-auditable true
 		 */
 		summarization?: boolean;
+		/**
+		 * @x-auditable true
+		 */
 		summarization_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -14445,13 +14921,26 @@ export type AiSearchUpdateInstancesResponse = {
 					| "openai/gpt-5-nano"
 			  )
 			| "";
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_ai_search?: string;
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_index_summarization?: string;
+		/**
+		 * @x-auditable true
+		 */
 		system_prompt_rewrite_query?: string;
 		/**
 		 * @format uuid
+		 * @x-auditable true
 		 */
-		token_id: string;
+		token_id?: string;
+		/**
+		 * @x-auditable true
+		 */
 		type: "r2" | "web-crawler";
 		vectorize_active_namespace?: string;
 		vectorize_name: string;
@@ -14460,7 +14949,13 @@ export type AiSearchUpdateInstancesResponse = {
 };
 
 export type AiSearchUpdateInstancesRequestBody = {
+	/**
+	 * @x-auditable true
+	 */
 	ai_gateway_id?: string;
+	/**
+	 * @x-auditable true
+	 */
 	ai_search_model?:
 		| (
 				| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -14492,33 +14987,41 @@ export type AiSearchUpdateInstancesRequestBody = {
 		| "";
 	/**
 	 * @default true
+	 * @x-auditable true
 	 */
 	cache?: boolean;
 	/**
 	 * @default close_enough
+	 * @x-auditable true
 	 */
 	cache_threshold?: "super_strict_match" | "close_enough" | "flexible_friend" | "anything_goes";
 	/**
 	 * @default true
+	 * @x-auditable true
 	 */
 	chunk?: boolean;
 	/**
 	 * @default 10
 	 * @maximum 30
 	 * @minimum 0
+	 * @x-auditable true
 	 */
 	chunk_overlap?: number;
 	/**
 	 * @default 256
 	 * @minimum 64
+	 * @x-auditable true
 	 */
 	chunk_size?: number;
+	/**
+	 * @x-auditable true
+	 */
 	embedding_model?:
 		| (
+				| "@cf/qwen/qwen3-embedding-0.6b"
 				| "@cf/baai/bge-m3"
 				| "@cf/baai/bge-large-en-v1.5"
 				| "@cf/google/embeddinggemma-300m"
-				| "@cf/qwen/qwen3-embedding-0.6b"
 				| "google-ai-studio/gemini-embedding-001"
 				| "openai/text-embedding-3-small"
 				| "openai/text-embedding-3-large"
@@ -14526,22 +15029,31 @@ export type AiSearchUpdateInstancesRequestBody = {
 		| "";
 	/**
 	 * @default false
+	 * @x-auditable true
 	 */
 	hybrid_search_enabled?: boolean;
 	/**
 	 * @default 10
 	 * @maximum 50
 	 * @minimum 1
+	 * @x-auditable true
 	 */
 	max_num_results?: number;
+	/**
+	 * @x-auditable true
+	 */
 	metadata?: {
 		created_from_aisearch_wizard?: boolean;
 		worker_domain?: string;
 	};
 	/**
 	 * @default false
+	 * @x-auditable true
 	 */
 	paused?: boolean;
+	/**
+	 * @x-auditable true
+	 */
 	public_endpoint_params?: {
 		authorized_hosts?: string[];
 		chat_completions_endpoint?: {
@@ -14587,9 +15099,16 @@ export type AiSearchUpdateInstancesRequestBody = {
 	};
 	/**
 	 * @default false
+	 * @x-auditable true
 	 */
 	reranking?: boolean;
+	/**
+	 * @x-auditable true
+	 */
 	reranking_model?: "@cf/baai/bge-reranker-base" | "";
+	/**
+	 * @x-auditable true
+	 */
 	rewrite_model?:
 		| (
 				| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -14621,33 +15140,36 @@ export type AiSearchUpdateInstancesRequestBody = {
 		| "";
 	/**
 	 * @default false
+	 * @x-auditable true
 	 */
 	rewrite_query?: boolean;
 	/**
 	 * @default 0.4
 	 * @maximum 1
 	 * @minimum 0
+	 * @x-auditable true
 	 */
 	score_threshold?: number;
 	/**
 	 * @default {"r2_jurisdiction":"default"}
+	 * @x-auditable true
 	 */
 	source_params?: {
 		/**
-		 * [see original specs]
+		 * List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced)
 		 *
-		 * @example /admin/*
+		 * @example /admin/**
 		 * @example /private/**
-		 * @example *\temp\*
+		 * @example **\temp\**
 		 * @maxItems 10
 		 */
 		exclude_items?: string[];
 		/**
-		 * [see original specs]
+		 * List of path patterns to include. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /blog/** matches /blog/post and /blog/2024/post)
 		 *
-		 * @example /blog/*
+		 * @example /blog/**
 		 * @example [see original specs]
-		 * @example *\blog\*.html
+		 * @example **\blog\**.html
 		 * @maxItems 10
 		 */
 		include_items?: string[];
@@ -14668,6 +15190,14 @@ export type AiSearchUpdateInstancesRequestBody = {
 				 * @default false
 				 */
 				include_images?: boolean;
+				/**
+				 * List of specific sitemap URLs to use for crawling. Only valid when parse_type is 'sitemap'.
+				 *
+				 * @example https://example.com/sitemap.xml
+				 * @example https://example.com/blog-sitemap.xml
+				 * @maxItems 10
+				 */
+				specific_sitemaps?: string[];
 				/**
 				 * @default false
 				 */
@@ -14692,8 +15222,12 @@ export type AiSearchUpdateInstancesRequestBody = {
 	};
 	/**
 	 * @default false
+	 * @x-auditable true
 	 */
 	summarization?: boolean;
+	/**
+	 * @x-auditable true
+	 */
 	summarization_model?:
 		| (
 				| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
@@ -14723,11 +15257,21 @@ export type AiSearchUpdateInstancesRequestBody = {
 				| "openai/gpt-5-nano"
 		  )
 		| "";
+	/**
+	 * @x-auditable true
+	 */
 	system_prompt_ai_search?: string;
+	/**
+	 * @x-auditable true
+	 */
 	system_prompt_index_summarization?: string;
+	/**
+	 * @x-auditable true
+	 */
 	system_prompt_rewrite_query?: string;
 	/**
 	 * @format uuid
+	 * @x-auditable true
 	 */
 	token_id?: string;
 };
@@ -14763,6 +15307,7 @@ export type AiSearchInstanceListItemsPathParams = {
 	 * @maxLength 32
 	 * @minLength 1
 	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
 	 */
 	id: string;
 	/**
@@ -14879,6 +15424,7 @@ export type AiSearchInstanceGetItemPathParams = {
 	 * @maxLength 32
 	 * @minLength 1
 	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
 	 */
 	id: string;
 	itemId: string;
@@ -14957,6 +15503,98 @@ export const aiSearchInstanceGetItem = (
 		signal,
 	});
 
+export type AiSearchInstanceSyncItemPathParams = {
+	/**
+	 * Use your AI Search ID.
+	 *
+	 * @example my-ai-search
+	 * @maxLength 32
+	 * @minLength 1
+	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
+	 */
+	id: string;
+	itemId: string;
+	/**
+	 * @example c3dc5f0b34a14ff8e1b3ec04895e1b22
+	 */
+	accountId: string;
+};
+
+export type AiSearchInstanceSyncItemError = Fetcher.ErrorWrapper<
+	| {
+			status: 400;
+			payload: {
+				errors: {
+					message: string;
+				}[];
+				result: Record<string, any>;
+				/**
+				 * @example false
+				 */
+				success: boolean;
+			};
+	  }
+	| {
+			status: 500;
+			payload: {
+				errors: {
+					/**
+					 * @example 7000
+					 */
+					code: number;
+					/**
+					 * @example Internal Error
+					 */
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+>;
+
+export type AiSearchInstanceSyncItemResponse = {
+	result: {
+		error?: string;
+		id: string;
+		key: string;
+		/**
+		 * @format date-time
+		 */
+		last_seen_at?: string;
+		next_action?: string;
+		status: "queued" | "running" | "completed" | "error" | "skipped";
+	};
+	success: boolean;
+};
+
+export type AiSearchInstanceSyncItemRequestBody = {
+	next_action: "INDEX";
+};
+
+export type AiSearchInstanceSyncItemVariables = {
+	body: AiSearchInstanceSyncItemRequestBody;
+	pathParams: AiSearchInstanceSyncItemPathParams;
+} & FetcherExtraProps;
+
+export const aiSearchInstanceSyncItem = (
+	variables: AiSearchInstanceSyncItemVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		AiSearchInstanceSyncItemResponse,
+		AiSearchInstanceSyncItemError,
+		AiSearchInstanceSyncItemRequestBody,
+		{},
+		{},
+		AiSearchInstanceSyncItemPathParams
+	>({
+		url: "/accounts/{accountId}/ai-search/instances/{id}/items/{itemId}",
+		method: "patch",
+		...variables,
+		signal,
+	});
+
 export type AiSearchInstanceListJobsPathParams = {
 	/**
 	 * Use your AI Search ID.
@@ -14965,6 +15603,7 @@ export type AiSearchInstanceListJobsPathParams = {
 	 * @maxLength 32
 	 * @minLength 1
 	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
 	 */
 	id: string;
 	/**
@@ -15023,8 +15662,14 @@ export type AiSearchInstanceListJobsResponse = {
 	result: {
 		end_reason?: string;
 		ended_at?: string;
+		/**
+		 * @x-auditable true
+		 */
 		id: string;
 		last_seen_at?: string;
+		/**
+		 * @x-auditable true
+		 */
 		source: "user" | "schedule";
 		started_at?: string;
 	}[];
@@ -15068,6 +15713,7 @@ export type AiSearchInstanceCreateJobPathParams = {
 	 * @maxLength 32
 	 * @minLength 1
 	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
 	 */
 	id: string;
 	/**
@@ -15112,8 +15758,14 @@ export type AiSearchInstanceCreateJobResponse = {
 	result: {
 		end_reason?: string;
 		ended_at?: string;
+		/**
+		 * @x-auditable true
+		 */
 		id: string;
 		last_seen_at?: string;
+		/**
+		 * @x-auditable true
+		 */
 		source: "user" | "schedule";
 		started_at?: string;
 	};
@@ -15150,6 +15802,7 @@ export type AiSearchInstanceGetJobPathParams = {
 	 * @maxLength 32
 	 * @minLength 1
 	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
 	 */
 	id: string;
 	jobId: string;
@@ -15195,8 +15848,14 @@ export type AiSearchInstanceGetJobResponse = {
 	result: {
 		end_reason?: string;
 		ended_at?: string;
+		/**
+		 * @x-auditable true
+		 */
 		id: string;
 		last_seen_at?: string;
+		/**
+		 * @x-auditable true
+		 */
 		source: "user" | "schedule";
 		started_at?: string;
 	};
@@ -15225,6 +15884,101 @@ export const aiSearchInstanceGetJob = (
 		signal,
 	});
 
+export type AiSearchInstanceChangeJobStatusPathParams = {
+	/**
+	 * Use your AI Search ID.
+	 *
+	 * @example my-ai-search
+	 * @maxLength 32
+	 * @minLength 1
+	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
+	 */
+	id: string;
+	jobId: string;
+	/**
+	 * @example c3dc5f0b34a14ff8e1b3ec04895e1b22
+	 */
+	accountId: string;
+};
+
+export type AiSearchInstanceChangeJobStatusError = Fetcher.ErrorWrapper<
+	| {
+			status: 400;
+			payload: {
+				errors: {
+					message: string;
+				}[];
+				result: Record<string, any>;
+				/**
+				 * @example false
+				 */
+				success: boolean;
+			};
+	  }
+	| {
+			status: 500;
+			payload: {
+				errors: {
+					/**
+					 * @example 7000
+					 */
+					code: number;
+					/**
+					 * @example Internal Error
+					 */
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+>;
+
+export type AiSearchInstanceChangeJobStatusResponse = {
+	result: {
+		end_reason?: string;
+		ended_at?: string;
+		/**
+		 * @x-auditable true
+		 */
+		id: string;
+		last_seen_at?: string;
+		/**
+		 * @x-auditable true
+		 */
+		source: "user" | "schedule";
+		started_at?: string;
+	};
+	success: boolean;
+};
+
+export type AiSearchInstanceChangeJobStatusRequestBody = {
+	action: "cancel";
+};
+
+export type AiSearchInstanceChangeJobStatusVariables = {
+	body: AiSearchInstanceChangeJobStatusRequestBody;
+	pathParams: AiSearchInstanceChangeJobStatusPathParams;
+} & FetcherExtraProps;
+
+export const aiSearchInstanceChangeJobStatus = (
+	variables: AiSearchInstanceChangeJobStatusVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		AiSearchInstanceChangeJobStatusResponse,
+		AiSearchInstanceChangeJobStatusError,
+		AiSearchInstanceChangeJobStatusRequestBody,
+		{},
+		{},
+		AiSearchInstanceChangeJobStatusPathParams
+	>({
+		url: "/accounts/{accountId}/ai-search/instances/{id}/jobs/{jobId}",
+		method: "patch",
+		...variables,
+		signal,
+	});
+
 export type AiSearchInstanceListJobLogsPathParams = {
 	/**
 	 * Use your AI Search ID.
@@ -15233,6 +15987,7 @@ export type AiSearchInstanceListJobLogsPathParams = {
 	 * @maxLength 32
 	 * @minLength 1
 	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
 	 */
 	id: string;
 	jobId: string;
@@ -15335,6 +16090,7 @@ export type AiSearchStatsPathParams = {
 	 * @maxLength 32
 	 * @minLength 1
 	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
 	 */
 	id: string;
 	/**
@@ -15432,6 +16188,9 @@ export type AiSearchListTokensResponse = {
 	result: {
 		account_id: string;
 		account_tag: string;
+		/**
+		 * @x-auditable true
+		 */
 		cf_api_id: string;
 		cf_api_key: string;
 		/**
@@ -15441,10 +16200,12 @@ export type AiSearchListTokensResponse = {
 		created_by?: string;
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		enabled?: boolean;
 		/**
 		 * @format uuid
+		 * @x-auditable true
 		 */
 		id: string;
 		/**
@@ -15456,6 +16217,9 @@ export type AiSearchListTokensResponse = {
 		 */
 		modified_at: string;
 		modified_by?: string;
+		/**
+		 * @x-auditable true
+		 */
 		name: string;
 		/**
 		 * @format date-time
@@ -15514,6 +16278,9 @@ export type AiSearchCreateTokensResponse = {
 	result: {
 		account_id: string;
 		account_tag: string;
+		/**
+		 * @x-auditable true
+		 */
 		cf_api_id: string;
 		cf_api_key: string;
 		/**
@@ -15523,10 +16290,12 @@ export type AiSearchCreateTokensResponse = {
 		created_by?: string;
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		enabled?: boolean;
 		/**
 		 * @format uuid
+		 * @x-auditable true
 		 */
 		id: string;
 		/**
@@ -15538,6 +16307,9 @@ export type AiSearchCreateTokensResponse = {
 		 */
 		modified_at: string;
 		modified_by?: string;
+		/**
+		 * @x-auditable true
+		 */
 		name: string;
 		/**
 		 * @format date-time
@@ -15548,12 +16320,18 @@ export type AiSearchCreateTokensResponse = {
 };
 
 export type AiSearchCreateTokensRequestBody = {
+	/**
+	 * @x-auditable true
+	 */
 	cf_api_id: string;
 	cf_api_key: string;
 	/**
 	 * @default true
 	 */
 	legacy?: boolean;
+	/**
+	 * @x-auditable true
+	 */
 	name: string;
 };
 
@@ -15587,6 +16365,7 @@ export type AiSearchDeleteTokensPathParams = {
 	accountId: string;
 	/**
 	 * @format uuid
+	 * @x-auditable true
 	 */
 	id: string;
 };
@@ -15612,6 +16391,9 @@ export type AiSearchDeleteTokensResponse = {
 	result: {
 		account_id: string;
 		account_tag: string;
+		/**
+		 * @x-auditable true
+		 */
 		cf_api_id: string;
 		cf_api_key: string;
 		/**
@@ -15621,10 +16403,12 @@ export type AiSearchDeleteTokensResponse = {
 		created_by?: string;
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		enabled?: boolean;
 		/**
 		 * @format uuid
+		 * @x-auditable true
 		 */
 		id: string;
 		/**
@@ -15636,6 +16420,9 @@ export type AiSearchDeleteTokensResponse = {
 		 */
 		modified_at: string;
 		modified_by?: string;
+		/**
+		 * @x-auditable true
+		 */
 		name: string;
 		/**
 		 * @format date-time
@@ -15674,6 +16461,7 @@ export type AiSearchFetchTokensPathParams = {
 	accountId: string;
 	/**
 	 * @format uuid
+	 * @x-auditable true
 	 */
 	id: string;
 };
@@ -15699,6 +16487,9 @@ export type AiSearchFetchTokensResponse = {
 	result: {
 		account_id: string;
 		account_tag: string;
+		/**
+		 * @x-auditable true
+		 */
 		cf_api_id: string;
 		cf_api_key: string;
 		/**
@@ -15708,10 +16499,12 @@ export type AiSearchFetchTokensResponse = {
 		created_by?: string;
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		enabled?: boolean;
 		/**
 		 * @format uuid
+		 * @x-auditable true
 		 */
 		id: string;
 		/**
@@ -15723,6 +16516,9 @@ export type AiSearchFetchTokensResponse = {
 		 */
 		modified_at: string;
 		modified_by?: string;
+		/**
+		 * @x-auditable true
+		 */
 		name: string;
 		/**
 		 * @format date-time
@@ -15761,6 +16557,7 @@ export type AiSearchUpdateTokensPathParams = {
 	accountId: string;
 	/**
 	 * @format uuid
+	 * @x-auditable true
 	 */
 	id: string;
 };
@@ -15805,6 +16602,9 @@ export type AiSearchUpdateTokensResponse = {
 	result: {
 		account_id: string;
 		account_tag: string;
+		/**
+		 * @x-auditable true
+		 */
 		cf_api_id: string;
 		cf_api_key: string;
 		/**
@@ -15814,10 +16614,12 @@ export type AiSearchUpdateTokensResponse = {
 		created_by?: string;
 		/**
 		 * @default true
+		 * @x-auditable true
 		 */
 		enabled?: boolean;
 		/**
 		 * @format uuid
+		 * @x-auditable true
 		 */
 		id: string;
 		/**
@@ -15829,6 +16631,9 @@ export type AiSearchUpdateTokensResponse = {
 		 */
 		modified_at: string;
 		modified_by?: string;
+		/**
+		 * @x-auditable true
+		 */
 		name: string;
 		/**
 		 * @format date-time
@@ -15839,12 +16644,18 @@ export type AiSearchUpdateTokensResponse = {
 };
 
 export type AiSearchUpdateTokensRequestBody = {
+	/**
+	 * @x-auditable true
+	 */
 	cf_api_id: string;
 	cf_api_key: string;
 	/**
 	 * @default true
 	 */
 	legacy?: boolean;
+	/**
+	 * @x-auditable true
+	 */
 	name: string;
 };
 
@@ -18093,6 +18904,69 @@ export const workersAiPostRunCfBlackForestLabsFlux2Dev = (
 		WorkersAiPostRunCfBlackForestLabsFlux2DevPathParams
 	>({
 		url: "/accounts/{accountId}/ai/run/@cf/black-forest-labs/flux-2-dev",
+		method: "post",
+		...variables,
+		signal,
+	});
+
+export type WorkersAiPostRunCfBlackForestLabsFlux2Klein4bPathParams = {
+	/**
+	 * @example 023e105f4ecef8ad9ca31a8372d0c353
+	 * @x-auditable true
+	 */
+	accountId: string;
+};
+
+export type WorkersAiPostRunCfBlackForestLabsFlux2Klein4bQueryParams = {
+	/**
+	 * @example true
+	 * @x-auditable true
+	 */
+	queueRequest?: string;
+	/**
+	 * @example tag1,tag2,tag3
+	 */
+	tags?: string;
+};
+
+export type WorkersAiPostRunCfBlackForestLabsFlux2Klein4bError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: {
+		errors: {
+			code: string;
+			message: string;
+		}[];
+		result: Record<string, any>;
+		success: boolean;
+	};
+}>;
+
+export type WorkersAiPostRunCfBlackForestLabsFlux2Klein4bRequestBody = {
+	multipart: {
+		body?: Record<string, any>;
+		contentType?: string;
+	};
+};
+
+export type WorkersAiPostRunCfBlackForestLabsFlux2Klein4bVariables = {
+	body: WorkersAiPostRunCfBlackForestLabsFlux2Klein4bRequestBody;
+	pathParams: WorkersAiPostRunCfBlackForestLabsFlux2Klein4bPathParams;
+	queryParams?: WorkersAiPostRunCfBlackForestLabsFlux2Klein4bQueryParams;
+} & FetcherExtraProps;
+
+export const workersAiPostRunCfBlackForestLabsFlux2Klein4b = (
+	variables: WorkersAiPostRunCfBlackForestLabsFlux2Klein4bVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Record<string, any>,
+		WorkersAiPostRunCfBlackForestLabsFlux2Klein4bError,
+		WorkersAiPostRunCfBlackForestLabsFlux2Klein4bRequestBody,
+		{},
+		WorkersAiPostRunCfBlackForestLabsFlux2Klein4bQueryParams,
+		WorkersAiPostRunCfBlackForestLabsFlux2Klein4bPathParams
+	>({
+		url: "/accounts/{accountId}/ai/run/@cf/black-forest-labs/flux-2-klein-4b",
 		method: "post",
 		...variables,
 		signal,
@@ -29251,6 +30125,273 @@ export type WorkersAiPostRunCfOpenaiGptOss120bError = Fetcher.ErrorWrapper<{
 }>;
 
 export type WorkersAiPostRunCfOpenaiGptOss120bRequestBody =
+	| (
+			| {
+					/**
+					 * Decreases the likelihood of the model repeating the same lines verbatim.
+					 *
+					 * @maximum 2
+					 * @minimum -2
+					 */
+					frequency_penalty?: number;
+					/**
+					 * Name of the LoRA (Low-Rank Adaptation) model to fine-tune the base model.
+					 */
+					lora?: string;
+					/**
+					 * The maximum number of tokens to generate in the response.
+					 *
+					 * @default 256
+					 */
+					max_tokens?: number;
+					/**
+					 * Increases the likelihood of the model introducing new topics.
+					 *
+					 * @maximum 2
+					 * @minimum -2
+					 */
+					presence_penalty?: number;
+					/**
+					 * The input text prompt for the model to generate a response.
+					 *
+					 * @minLength 1
+					 */
+					prompt: string;
+					/**
+					 * If true, a chat template is not applied and you must adhere to the specific model's expected formatting.
+					 *
+					 * @default false
+					 */
+					raw?: boolean;
+					/**
+					 * Penalty for repeated tokens; higher values discourage repetition.
+					 *
+					 * @maximum 2
+					 * @minimum 0
+					 */
+					repetition_penalty?: number;
+					response_format?: {
+						json_schema?: void;
+						type?: "json_object" | "json_schema";
+					};
+					/**
+					 * Random seed for reproducibility of the generation.
+					 *
+					 * @maximum 9999999999
+					 * @minimum 1
+					 */
+					seed?: number;
+					/**
+					 * If true, the response will be streamed back incrementally using SSE, Server Sent Events.
+					 *
+					 * @default false
+					 */
+					stream?: boolean;
+					/**
+					 * Controls the randomness of the output; higher values produce more random results.
+					 *
+					 * @default 0.6
+					 * @maximum 5
+					 * @minimum 0
+					 */
+					temperature?: number;
+					/**
+					 * Limits the AI to choose from the top 'k' most probable words. Lower values make responses more focused; higher values introduce more variety and potential surprises.
+					 *
+					 * @maximum 50
+					 * @minimum 1
+					 */
+					top_k?: number;
+					/**
+					 * Adjusts the creativity of the AI's responses by controlling how many possible words it considers. Lower values make outputs more predictable; higher values allow for more varied and creative responses.
+					 *
+					 * @maximum 1
+					 * @minimum 0.001
+					 */
+					top_p?: number;
+			  }
+			| {
+					/**
+					 * Decreases the likelihood of the model repeating the same lines verbatim.
+					 *
+					 * @maximum 2
+					 * @minimum -2
+					 */
+					frequency_penalty?: number;
+					functions?: {
+						code: string;
+						name: string;
+					}[];
+					/**
+					 * The maximum number of tokens to generate in the response.
+					 *
+					 * @default 256
+					 */
+					max_tokens?: number;
+					/**
+					 * An array of message objects representing the conversation history.
+					 */
+					messages: {
+						/**
+						 * The content of the message as a string.
+						 */
+						content: string;
+						/**
+						 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
+						 */
+						role: string;
+					}[];
+					/**
+					 * Increases the likelihood of the model introducing new topics.
+					 *
+					 * @maximum 2
+					 * @minimum -2
+					 */
+					presence_penalty?: number;
+					/**
+					 * If true, a chat template is not applied and you must adhere to the specific model's expected formatting.
+					 *
+					 * @default false
+					 */
+					raw?: boolean;
+					/**
+					 * Penalty for repeated tokens; higher values discourage repetition.
+					 *
+					 * @maximum 2
+					 * @minimum 0
+					 */
+					repetition_penalty?: number;
+					response_format?: {
+						json_schema?: void;
+						type?: "json_object" | "json_schema";
+					};
+					/**
+					 * Random seed for reproducibility of the generation.
+					 *
+					 * @maximum 9999999999
+					 * @minimum 1
+					 */
+					seed?: number;
+					/**
+					 * If true, the response will be streamed back incrementally using SSE, Server Sent Events.
+					 *
+					 * @default false
+					 */
+					stream?: boolean;
+					/**
+					 * Controls the randomness of the output; higher values produce more random results.
+					 *
+					 * @default 0.6
+					 * @maximum 5
+					 * @minimum 0
+					 */
+					temperature?: number;
+					/**
+					 * A list of tools available for the assistant to use.
+					 */
+					tools?: (
+						| {
+								/**
+								 * A brief description of what the tool does.
+								 */
+								description: string;
+								/**
+								 * The name of the tool. More descriptive the better.
+								 */
+								name: string;
+								/**
+								 * Schema defining the parameters accepted by the tool.
+								 */
+								parameters: {
+									/**
+									 * Definitions of each parameter.
+									 */
+									properties: {
+										[key: string]: {
+											/**
+											 * A description of the expected parameter.
+											 */
+											description: string;
+											/**
+											 * The data type of the parameter.
+											 */
+											type: string;
+										};
+									};
+									/**
+									 * List of required parameter names.
+									 */
+									required?: string[];
+									/**
+									 * The type of the parameters object (usually 'object').
+									 */
+									type: string;
+								};
+						  }
+						| {
+								/**
+								 * Details of the function tool.
+								 */
+								["function"]: {
+									/**
+									 * A brief description of what the function does.
+									 */
+									description: string;
+									/**
+									 * The name of the function.
+									 */
+									name: string;
+									/**
+									 * Schema defining the parameters accepted by the function.
+									 */
+									parameters: {
+										/**
+										 * Definitions of each parameter.
+										 */
+										properties: {
+											[key: string]: {
+												/**
+												 * A description of the expected parameter.
+												 */
+												description: string;
+												/**
+												 * The data type of the parameter.
+												 */
+												type: string;
+											};
+										};
+										/**
+										 * List of required parameter names.
+										 */
+										required?: string[];
+										/**
+										 * The type of the parameters object (usually 'object').
+										 */
+										type: string;
+									};
+								};
+								/**
+								 * Specifies the type of tool (e.g., 'function').
+								 */
+								type: string;
+						  }
+					)[];
+					/**
+					 * Limits the AI to choose from the top 'k' most probable words. Lower values make responses more focused; higher values introduce more variety and potential surprises.
+					 *
+					 * @maximum 50
+					 * @minimum 1
+					 */
+					top_k?: number;
+					/**
+					 * Adjusts the creativity of the AI's responses by controlling how many possible words it considers. Lower values make outputs more predictable; higher values allow for more varied and creative responses.
+					 *
+					 * @maximum 1
+					 * @minimum 0.001
+					 */
+					top_p?: number;
+			  }
+	  )
 	| {
 			/**
 			 * Responses API Input messages. Refer to OpenAI Responses API docs to learn more about supported content types
@@ -29343,6 +30484,273 @@ export type WorkersAiPostRunCfOpenaiGptOss20bError = Fetcher.ErrorWrapper<{
 }>;
 
 export type WorkersAiPostRunCfOpenaiGptOss20bRequestBody =
+	| (
+			| {
+					/**
+					 * Decreases the likelihood of the model repeating the same lines verbatim.
+					 *
+					 * @maximum 2
+					 * @minimum -2
+					 */
+					frequency_penalty?: number;
+					/**
+					 * Name of the LoRA (Low-Rank Adaptation) model to fine-tune the base model.
+					 */
+					lora?: string;
+					/**
+					 * The maximum number of tokens to generate in the response.
+					 *
+					 * @default 256
+					 */
+					max_tokens?: number;
+					/**
+					 * Increases the likelihood of the model introducing new topics.
+					 *
+					 * @maximum 2
+					 * @minimum -2
+					 */
+					presence_penalty?: number;
+					/**
+					 * The input text prompt for the model to generate a response.
+					 *
+					 * @minLength 1
+					 */
+					prompt: string;
+					/**
+					 * If true, a chat template is not applied and you must adhere to the specific model's expected formatting.
+					 *
+					 * @default false
+					 */
+					raw?: boolean;
+					/**
+					 * Penalty for repeated tokens; higher values discourage repetition.
+					 *
+					 * @maximum 2
+					 * @minimum 0
+					 */
+					repetition_penalty?: number;
+					response_format?: {
+						json_schema?: void;
+						type?: "json_object" | "json_schema";
+					};
+					/**
+					 * Random seed for reproducibility of the generation.
+					 *
+					 * @maximum 9999999999
+					 * @minimum 1
+					 */
+					seed?: number;
+					/**
+					 * If true, the response will be streamed back incrementally using SSE, Server Sent Events.
+					 *
+					 * @default false
+					 */
+					stream?: boolean;
+					/**
+					 * Controls the randomness of the output; higher values produce more random results.
+					 *
+					 * @default 0.6
+					 * @maximum 5
+					 * @minimum 0
+					 */
+					temperature?: number;
+					/**
+					 * Limits the AI to choose from the top 'k' most probable words. Lower values make responses more focused; higher values introduce more variety and potential surprises.
+					 *
+					 * @maximum 50
+					 * @minimum 1
+					 */
+					top_k?: number;
+					/**
+					 * Adjusts the creativity of the AI's responses by controlling how many possible words it considers. Lower values make outputs more predictable; higher values allow for more varied and creative responses.
+					 *
+					 * @maximum 1
+					 * @minimum 0.001
+					 */
+					top_p?: number;
+			  }
+			| {
+					/**
+					 * Decreases the likelihood of the model repeating the same lines verbatim.
+					 *
+					 * @maximum 2
+					 * @minimum -2
+					 */
+					frequency_penalty?: number;
+					functions?: {
+						code: string;
+						name: string;
+					}[];
+					/**
+					 * The maximum number of tokens to generate in the response.
+					 *
+					 * @default 256
+					 */
+					max_tokens?: number;
+					/**
+					 * An array of message objects representing the conversation history.
+					 */
+					messages: {
+						/**
+						 * The content of the message as a string.
+						 */
+						content: string;
+						/**
+						 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
+						 */
+						role: string;
+					}[];
+					/**
+					 * Increases the likelihood of the model introducing new topics.
+					 *
+					 * @maximum 2
+					 * @minimum -2
+					 */
+					presence_penalty?: number;
+					/**
+					 * If true, a chat template is not applied and you must adhere to the specific model's expected formatting.
+					 *
+					 * @default false
+					 */
+					raw?: boolean;
+					/**
+					 * Penalty for repeated tokens; higher values discourage repetition.
+					 *
+					 * @maximum 2
+					 * @minimum 0
+					 */
+					repetition_penalty?: number;
+					response_format?: {
+						json_schema?: void;
+						type?: "json_object" | "json_schema";
+					};
+					/**
+					 * Random seed for reproducibility of the generation.
+					 *
+					 * @maximum 9999999999
+					 * @minimum 1
+					 */
+					seed?: number;
+					/**
+					 * If true, the response will be streamed back incrementally using SSE, Server Sent Events.
+					 *
+					 * @default false
+					 */
+					stream?: boolean;
+					/**
+					 * Controls the randomness of the output; higher values produce more random results.
+					 *
+					 * @default 0.6
+					 * @maximum 5
+					 * @minimum 0
+					 */
+					temperature?: number;
+					/**
+					 * A list of tools available for the assistant to use.
+					 */
+					tools?: (
+						| {
+								/**
+								 * A brief description of what the tool does.
+								 */
+								description: string;
+								/**
+								 * The name of the tool. More descriptive the better.
+								 */
+								name: string;
+								/**
+								 * Schema defining the parameters accepted by the tool.
+								 */
+								parameters: {
+									/**
+									 * Definitions of each parameter.
+									 */
+									properties: {
+										[key: string]: {
+											/**
+											 * A description of the expected parameter.
+											 */
+											description: string;
+											/**
+											 * The data type of the parameter.
+											 */
+											type: string;
+										};
+									};
+									/**
+									 * List of required parameter names.
+									 */
+									required?: string[];
+									/**
+									 * The type of the parameters object (usually 'object').
+									 */
+									type: string;
+								};
+						  }
+						| {
+								/**
+								 * Details of the function tool.
+								 */
+								["function"]: {
+									/**
+									 * A brief description of what the function does.
+									 */
+									description: string;
+									/**
+									 * The name of the function.
+									 */
+									name: string;
+									/**
+									 * Schema defining the parameters accepted by the function.
+									 */
+									parameters: {
+										/**
+										 * Definitions of each parameter.
+										 */
+										properties: {
+											[key: string]: {
+												/**
+												 * A description of the expected parameter.
+												 */
+												description: string;
+												/**
+												 * The data type of the parameter.
+												 */
+												type: string;
+											};
+										};
+										/**
+										 * List of required parameter names.
+										 */
+										required?: string[];
+										/**
+										 * The type of the parameters object (usually 'object').
+										 */
+										type: string;
+									};
+								};
+								/**
+								 * Specifies the type of tool (e.g., 'function').
+								 */
+								type: string;
+						  }
+					)[];
+					/**
+					 * Limits the AI to choose from the top 'k' most probable words. Lower values make responses more focused; higher values introduce more variety and potential surprises.
+					 *
+					 * @maximum 50
+					 * @minimum 1
+					 */
+					top_k?: number;
+					/**
+					 * Adjusts the creativity of the AI's responses by controlling how many possible words it considers. Lower values make outputs more predictable; higher values allow for more varied and creative responses.
+					 *
+					 * @maximum 1
+					 * @minimum 0.001
+					 */
+					top_p?: number;
+			  }
+	  )
 	| {
 			/**
 			 * Responses API Input messages. Refer to OpenAI Responses API docs to learn more about supported content types
@@ -33101,6 +34509,50 @@ export const workersAiPostWebsocketRunCfSvenTestPipeHttp = (
 		signal,
 	});
 
+export type WorkersAiPostWebsocketRunCfTestHelloWorldCogPathParams = {
+	/**
+	 * @example 023e105f4ecef8ad9ca31a8372d0c353
+	 * @x-auditable true
+	 */
+	accountId: string;
+};
+
+export type WorkersAiPostWebsocketRunCfTestHelloWorldCogError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: {
+		errors: {
+			message: string;
+		}[];
+		result: Record<string, any>;
+		/**
+		 * @example false
+		 */
+		success: boolean;
+	};
+}>;
+
+export type WorkersAiPostWebsocketRunCfTestHelloWorldCogVariables = {
+	pathParams: WorkersAiPostWebsocketRunCfTestHelloWorldCogPathParams;
+} & FetcherExtraProps;
+
+export const workersAiPostWebsocketRunCfTestHelloWorldCog = (
+	variables: WorkersAiPostWebsocketRunCfTestHelloWorldCogVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		undefined,
+		WorkersAiPostWebsocketRunCfTestHelloWorldCogError,
+		undefined,
+		{},
+		{},
+		WorkersAiPostWebsocketRunCfTestHelloWorldCogPathParams
+	>({
+		url: "/accounts/{accountId}/ai/run/@cf/test/hello-world-cog",
+		method: "get",
+		...variables,
+		signal,
+	});
+
 export type WorkersAiPostRunCfTheblokeDiscolmGerman7bV1AwqPathParams = {
 	/**
 	 * @example 023e105f4ecef8ad9ca31a8372d0c353
@@ -36326,329 +37778,6 @@ export const workersAiPostRunHfTheblokeLlama213bChatAwq = (
 		WorkersAiPostRunHfTheblokeLlama213bChatAwqPathParams
 	>({
 		url: "/accounts/{accountId}/ai/run/@hf/thebloke/llama-2-13b-chat-awq",
-		method: "post",
-		...variables,
-		signal,
-	});
-
-export type WorkersAiPostRunHfTheblokeLlamaguard7bAwqPathParams = {
-	/**
-	 * @example 023e105f4ecef8ad9ca31a8372d0c353
-	 * @x-auditable true
-	 */
-	accountId: string;
-};
-
-export type WorkersAiPostRunHfTheblokeLlamaguard7bAwqQueryParams = {
-	/**
-	 * @example true
-	 * @x-auditable true
-	 */
-	queueRequest?: string;
-	/**
-	 * @example tag1,tag2,tag3
-	 */
-	tags?: string;
-};
-
-export type WorkersAiPostRunHfTheblokeLlamaguard7bAwqError = Fetcher.ErrorWrapper<{
-	status: 400;
-	payload: {
-		errors: {
-			code: string;
-			message: string;
-		}[];
-		result: Record<string, any>;
-		success: boolean;
-	};
-}>;
-
-export type WorkersAiPostRunHfTheblokeLlamaguard7bAwqRequestBody =
-	| {
-			/**
-			 * Decreases the likelihood of the model repeating the same lines verbatim.
-			 *
-			 * @maximum 2
-			 * @minimum -2
-			 */
-			frequency_penalty?: number;
-			/**
-			 * Name of the LoRA (Low-Rank Adaptation) model to fine-tune the base model.
-			 */
-			lora?: string;
-			/**
-			 * The maximum number of tokens to generate in the response.
-			 *
-			 * @default 256
-			 */
-			max_tokens?: number;
-			/**
-			 * Increases the likelihood of the model introducing new topics.
-			 *
-			 * @maximum 2
-			 * @minimum -2
-			 */
-			presence_penalty?: number;
-			/**
-			 * The input text prompt for the model to generate a response.
-			 *
-			 * @minLength 1
-			 */
-			prompt: string;
-			/**
-			 * If true, a chat template is not applied and you must adhere to the specific model's expected formatting.
-			 *
-			 * @default false
-			 */
-			raw?: boolean;
-			/**
-			 * Penalty for repeated tokens; higher values discourage repetition.
-			 *
-			 * @maximum 2
-			 * @minimum 0
-			 */
-			repetition_penalty?: number;
-			response_format?: {
-				json_schema?: void;
-				type?: "json_object" | "json_schema";
-			};
-			/**
-			 * Random seed for reproducibility of the generation.
-			 *
-			 * @maximum 9999999999
-			 * @minimum 1
-			 */
-			seed?: number;
-			/**
-			 * If true, the response will be streamed back incrementally using SSE, Server Sent Events.
-			 *
-			 * @default false
-			 */
-			stream?: boolean;
-			/**
-			 * Controls the randomness of the output; higher values produce more random results.
-			 *
-			 * @default 0.6
-			 * @maximum 5
-			 * @minimum 0
-			 */
-			temperature?: number;
-			/**
-			 * Limits the AI to choose from the top 'k' most probable words. Lower values make responses more focused; higher values introduce more variety and potential surprises.
-			 *
-			 * @maximum 50
-			 * @minimum 1
-			 */
-			top_k?: number;
-			/**
-			 * Adjusts the creativity of the AI's responses by controlling how many possible words it considers. Lower values make outputs more predictable; higher values allow for more varied and creative responses.
-			 *
-			 * @maximum 1
-			 * @minimum 0.001
-			 */
-			top_p?: number;
-	  }
-	| {
-			/**
-			 * Decreases the likelihood of the model repeating the same lines verbatim.
-			 *
-			 * @maximum 2
-			 * @minimum -2
-			 */
-			frequency_penalty?: number;
-			functions?: {
-				code: string;
-				name: string;
-			}[];
-			/**
-			 * The maximum number of tokens to generate in the response.
-			 *
-			 * @default 256
-			 */
-			max_tokens?: number;
-			/**
-			 * An array of message objects representing the conversation history.
-			 */
-			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
-				/**
-				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
-				 */
-				role: string;
-			}[];
-			/**
-			 * Increases the likelihood of the model introducing new topics.
-			 *
-			 * @maximum 2
-			 * @minimum -2
-			 */
-			presence_penalty?: number;
-			/**
-			 * If true, a chat template is not applied and you must adhere to the specific model's expected formatting.
-			 *
-			 * @default false
-			 */
-			raw?: boolean;
-			/**
-			 * Penalty for repeated tokens; higher values discourage repetition.
-			 *
-			 * @maximum 2
-			 * @minimum 0
-			 */
-			repetition_penalty?: number;
-			response_format?: {
-				json_schema?: void;
-				type?: "json_object" | "json_schema";
-			};
-			/**
-			 * Random seed for reproducibility of the generation.
-			 *
-			 * @maximum 9999999999
-			 * @minimum 1
-			 */
-			seed?: number;
-			/**
-			 * If true, the response will be streamed back incrementally using SSE, Server Sent Events.
-			 *
-			 * @default false
-			 */
-			stream?: boolean;
-			/**
-			 * Controls the randomness of the output; higher values produce more random results.
-			 *
-			 * @default 0.6
-			 * @maximum 5
-			 * @minimum 0
-			 */
-			temperature?: number;
-			/**
-			 * A list of tools available for the assistant to use.
-			 */
-			tools?: (
-				| {
-						/**
-						 * A brief description of what the tool does.
-						 */
-						description: string;
-						/**
-						 * The name of the tool. More descriptive the better.
-						 */
-						name: string;
-						/**
-						 * Schema defining the parameters accepted by the tool.
-						 */
-						parameters: {
-							/**
-							 * Definitions of each parameter.
-							 */
-							properties: {
-								[key: string]: {
-									/**
-									 * A description of the expected parameter.
-									 */
-									description: string;
-									/**
-									 * The data type of the parameter.
-									 */
-									type: string;
-								};
-							};
-							/**
-							 * List of required parameter names.
-							 */
-							required?: string[];
-							/**
-							 * The type of the parameters object (usually 'object').
-							 */
-							type: string;
-						};
-				  }
-				| {
-						/**
-						 * Details of the function tool.
-						 */
-						["function"]: {
-							/**
-							 * A brief description of what the function does.
-							 */
-							description: string;
-							/**
-							 * The name of the function.
-							 */
-							name: string;
-							/**
-							 * Schema defining the parameters accepted by the function.
-							 */
-							parameters: {
-								/**
-								 * Definitions of each parameter.
-								 */
-								properties: {
-									[key: string]: {
-										/**
-										 * A description of the expected parameter.
-										 */
-										description: string;
-										/**
-										 * The data type of the parameter.
-										 */
-										type: string;
-									};
-								};
-								/**
-								 * List of required parameter names.
-								 */
-								required?: string[];
-								/**
-								 * The type of the parameters object (usually 'object').
-								 */
-								type: string;
-							};
-						};
-						/**
-						 * Specifies the type of tool (e.g., 'function').
-						 */
-						type: string;
-				  }
-			)[];
-			/**
-			 * Limits the AI to choose from the top 'k' most probable words. Lower values make responses more focused; higher values introduce more variety and potential surprises.
-			 *
-			 * @maximum 50
-			 * @minimum 1
-			 */
-			top_k?: number;
-			/**
-			 * Adjusts the creativity of the AI's responses by controlling how many possible words it considers. Lower values make outputs more predictable; higher values allow for more varied and creative responses.
-			 *
-			 * @maximum 1
-			 * @minimum 0.001
-			 */
-			top_p?: number;
-	  };
-
-export type WorkersAiPostRunHfTheblokeLlamaguard7bAwqVariables = {
-	body?: WorkersAiPostRunHfTheblokeLlamaguard7bAwqRequestBody;
-	pathParams: WorkersAiPostRunHfTheblokeLlamaguard7bAwqPathParams;
-	queryParams?: WorkersAiPostRunHfTheblokeLlamaguard7bAwqQueryParams;
-} & FetcherExtraProps;
-
-export const workersAiPostRunHfTheblokeLlamaguard7bAwq = (
-	variables: WorkersAiPostRunHfTheblokeLlamaguard7bAwqVariables,
-	signal?: AbortSignal,
-) =>
-	fetch<
-		Record<string, any>,
-		WorkersAiPostRunHfTheblokeLlamaguard7bAwqError,
-		WorkersAiPostRunHfTheblokeLlamaguard7bAwqRequestBody,
-		{},
-		WorkersAiPostRunHfTheblokeLlamaguard7bAwqQueryParams,
-		WorkersAiPostRunHfTheblokeLlamaguard7bAwqPathParams
-	>({
-		url: "/accounts/{accountId}/ai/run/@hf/thebloke/llamaguard-7b-awq",
 		method: "post",
 		...variables,
 		signal,
@@ -49410,6 +50539,10 @@ export type GetEventListGetPathParams = {
 };
 
 export type GetEventListGetQueryParams = {
+	/**
+	 * @example eyJ2ZXJzaW9uIjoxLCJwb3NpdGlvbiI6eyJkYXRlIjoiMjAyNC0wMS0xMlQxMDowMDowMFoiLCJ1dWlkIjoiYWJjMTIzIn19
+	 */
+	cursor?: string;
 	search?: {
 		/**
 		 * @example attackerCountry
@@ -49469,6 +50602,10 @@ export type GetEventListGetResponse = {
 	 * @example Domain Resolution
 	 */
 	category: string;
+	/**
+	 * @example dataset-example-id
+	 */
+	datasetId: string;
 	/**
 	 * @example 2022-04-01T00:00:00Z
 	 */
@@ -50270,6 +51407,10 @@ export type PostEventCreateResponse = {
 	 */
 	category: string;
 	/**
+	 * @example dataset-example-id
+	 */
+	datasetId: string;
+	/**
 	 * @example 2022-04-01T00:00:00Z
 	 */
 	date: string;
@@ -50408,12 +51549,6 @@ export type PostEventCreateRequestBody = {
 	 * @example amber
 	 */
 	tlp: string;
-	/**
-	 * Optional UUID for the event. Only used when preserveUuid=true in bulk create. Must be a valid UUID format.
-	 *
-	 * @example 12345678-1234-1234-1234-1234567890ab
-	 */
-	uuid?: string;
 };
 
 export type PostEventCreateVariables = {
@@ -50468,6 +51603,25 @@ export type PostEventCreateBulkResponse = {
 	 */
 	createBulkEventsRequestId?: string;
 	/**
+	 * Array of created events with UUIDs and shard locations. Only present when includeCreatedEvents=true
+	 */
+	createdEvents?: {
+		/**
+		 * Original index in the input data array
+		 */
+		eventIndex: number;
+		/**
+		 * Dataset ID of the shard where the event was created
+		 */
+		shardId: string;
+		/**
+		 * UUID of the created event
+		 *
+		 * @format uuid
+		 */
+		uuid: string;
+	}[];
+	/**
 	 * Number of events created
 	 */
 	createdEventsCount: number;
@@ -50496,10 +51650,6 @@ export type PostEventCreateBulkResponse = {
 	 * Number of indicators queued for async processing
 	 */
 	queuedIndicatorsCount: number;
-	/**
-	 * Number of events skipped due to duplicate UUID (only when preserveUuid=true)
-	 */
-	skippedEventsCount: number;
 };
 
 export type PostEventCreateBulkRequestBody = {
@@ -50588,21 +51738,15 @@ export type PostEventCreateBulkRequestBody = {
 		 * @example amber
 		 */
 		tlp: string;
-		/**
-		 * Optional UUID for the event. Only used when preserveUuid=true in bulk create. Must be a valid UUID format.
-		 *
-		 * @example 12345678-1234-1234-1234-1234567890ab
-		 */
-		uuid?: string;
 	}[];
 	/**
 	 * @example durableObjectName
 	 */
 	datasetId: string;
 	/**
-	 * When true, use provided UUIDs from event data instead of generating new ones. Used for migration scenarios where original UUIDs must be preserved. Duplicate UUIDs will be skipped.
+	 * When true, response includes array of created event UUIDs and shard IDs. Useful for tracking which events were created and where.
 	 */
-	preserveUuid?: boolean;
+	includeCreatedEvents?: boolean;
 };
 
 export type PostEventCreateBulkVariables = {
@@ -50770,12 +51914,6 @@ export type PostDOSEventCreateBulkWithRelationshipsRequestBody = {
 		 * @example amber
 		 */
 		tlp: string;
-		/**
-		 * Optional UUID for the event. Only used when preserveUuid=true in bulk create. Must be a valid UUID format.
-		 *
-		 * @example 12345678-1234-1234-1234-1234567890ab
-		 */
-		uuid?: string;
 	}[];
 	/**
 	 * @example durableObjectName
@@ -51248,6 +52386,10 @@ export type GetEventReadResponse = {
 	 * @example Domain Resolution
 	 */
 	category: string;
+	/**
+	 * @example dataset-example-id
+	 */
+	datasetId: string;
 	/**
 	 * @example 2022-04-01T00:00:00Z
 	 */
@@ -53102,6 +54244,361 @@ export const getIndicatorList = (variables: GetIndicatorListVariables, signal?: 
 		signal,
 	});
 
+export type GetEventQueryListPathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+};
+
+export type GetEventQueryListError = Fetcher.ErrorWrapper<{
+	status: 500;
+	payload: {
+		errors: {
+			/**
+			 * @example An error occurred.
+			 */
+			message: string;
+		}[];
+		result: Record<string, any>;
+		success: boolean;
+	};
+}>;
+
+export type GetEventQueryListResponse = {
+	/**
+	 * Account ID
+	 */
+	account_id: number;
+	/**
+	 * Whether alerts are enabled
+	 */
+	alert_enabled: boolean;
+	/**
+	 * Whether alert rollup is enabled
+	 */
+	alert_rollup_enabled: boolean;
+	/**
+	 * Creation timestamp
+	 */
+	created_at: string;
+	/**
+	 * Unique identifier for the saved query
+	 */
+	id: number;
+	/**
+	 * Name of the saved query
+	 */
+	name: string;
+	/**
+	 * JSON string containing the query parameters
+	 */
+	query_json: string;
+	/**
+	 * Whether rule is enabled
+	 */
+	rule_enabled: boolean;
+	/**
+	 * Scope for the rule
+	 */
+	rule_scope?: string;
+	/**
+	 * Last update timestamp
+	 */
+	updated_at: string;
+	/**
+	 * Email of the user who created the query
+	 */
+	user_email: string;
+}[];
+
+export type GetEventQueryListVariables = {
+	pathParams: GetEventQueryListPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Retrieve all saved event queries for the account
+ */
+export const getEventQueryList = (variables: GetEventQueryListVariables, signal?: AbortSignal) =>
+	fetch<
+		GetEventQueryListResponse,
+		GetEventQueryListError,
+		undefined,
+		{},
+		{},
+		GetEventQueryListPathParams
+	>({
+		url: "/accounts/{accountId}/cloudforce-one/events/queries",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type PostEventQueryCreatePathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+};
+
+export type PostEventQueryCreateError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: {
+		errors: {
+			/**
+			 * @example An error occurred.
+			 */
+			message: string;
+		}[];
+		result: Record<string, any>;
+		success: boolean;
+	};
+}>;
+
+export type PostEventQueryCreateResponse = {
+	/**
+	 * Account ID
+	 */
+	account_id: number;
+	/**
+	 * Whether alerts are enabled
+	 */
+	alert_enabled: boolean;
+	/**
+	 * Whether alert rollup is enabled
+	 */
+	alert_rollup_enabled: boolean;
+	/**
+	 * Creation timestamp
+	 */
+	created_at: string;
+	/**
+	 * Unique identifier for the saved query
+	 */
+	id: number;
+	/**
+	 * Name of the saved query
+	 */
+	name: string;
+	/**
+	 * JSON string containing the query parameters
+	 */
+	query_json: string;
+	/**
+	 * Whether rule is enabled
+	 */
+	rule_enabled: boolean;
+	/**
+	 * Scope for the rule
+	 */
+	rule_scope?: string;
+	/**
+	 * Last update timestamp
+	 */
+	updated_at: string;
+	/**
+	 * Email of the user who created the query
+	 */
+	user_email: string;
+};
+
+export type PostEventQueryCreateRequestBody = {
+	/**
+	 * Enable alerts for this query
+	 */
+	alert_enabled: boolean;
+	/**
+	 * Enable alert rollup for this query
+	 */
+	alert_rollup_enabled: boolean;
+	/**
+	 * Unique name for the saved query
+	 */
+	name: string;
+	/**
+	 * JSON string containing the query parameters
+	 */
+	query_json: string;
+	/**
+	 * Enable rule for this query
+	 */
+	rule_enabled: boolean;
+	/**
+	 * Scope for the rule
+	 */
+	rule_scope?: string;
+};
+
+export type PostEventQueryCreateVariables = {
+	body: PostEventQueryCreateRequestBody;
+	pathParams: PostEventQueryCreatePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Create a new saved event query for the account
+ */
+export const postEventQueryCreate = (
+	variables: PostEventQueryCreateVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		PostEventQueryCreateResponse,
+		PostEventQueryCreateError,
+		PostEventQueryCreateRequestBody,
+		{},
+		{},
+		PostEventQueryCreatePathParams
+	>({
+		url: "/accounts/{accountId}/cloudforce-one/events/queries/create",
+		method: "post",
+		...variables,
+		signal,
+	});
+
+export type DeleteEventQueryDeletePathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+	/**
+	 * Event query ID
+	 */
+	queryId: number;
+};
+
+export type DeleteEventQueryDeleteError = Fetcher.ErrorWrapper<{
+	status: 404;
+	payload: {
+		errors: {
+			/**
+			 * @example An error occurred.
+			 */
+			message: string;
+		}[];
+		result: Record<string, any>;
+		success: boolean;
+	};
+}>;
+
+export type DeleteEventQueryDeleteVariables = {
+	pathParams: DeleteEventQueryDeletePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Delete a saved event query by its ID
+ */
+export const deleteEventQueryDelete = (
+	variables: DeleteEventQueryDeleteVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		undefined,
+		DeleteEventQueryDeleteError,
+		undefined,
+		{},
+		{},
+		DeleteEventQueryDeletePathParams
+	>({
+		url: "/accounts/{accountId}/cloudforce-one/events/queries/{queryId}",
+		method: "delete",
+		...variables,
+		signal,
+	});
+
+export type GetEventQueryReadPathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+	/**
+	 * Event query ID
+	 */
+	queryId: number;
+};
+
+export type GetEventQueryReadError = Fetcher.ErrorWrapper<{
+	status: 404;
+	payload: {
+		errors: {
+			/**
+			 * @example An error occurred.
+			 */
+			message: string;
+		}[];
+		result: Record<string, any>;
+		success: boolean;
+	};
+}>;
+
+export type GetEventQueryReadResponse = {
+	/**
+	 * Account ID
+	 */
+	account_id: number;
+	/**
+	 * Whether alerts are enabled
+	 */
+	alert_enabled: boolean;
+	/**
+	 * Whether alert rollup is enabled
+	 */
+	alert_rollup_enabled: boolean;
+	/**
+	 * Creation timestamp
+	 */
+	created_at: string;
+	/**
+	 * Unique identifier for the saved query
+	 */
+	id: number;
+	/**
+	 * Name of the saved query
+	 */
+	name: string;
+	/**
+	 * JSON string containing the query parameters
+	 */
+	query_json: string;
+	/**
+	 * Whether rule is enabled
+	 */
+	rule_enabled: boolean;
+	/**
+	 * Scope for the rule
+	 */
+	rule_scope?: string;
+	/**
+	 * Last update timestamp
+	 */
+	updated_at: string;
+	/**
+	 * Email of the user who created the query
+	 */
+	user_email: string;
+};
+
+export type GetEventQueryReadVariables = {
+	pathParams: GetEventQueryReadPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Retrieve a saved event query by its ID
+ */
+export const getEventQueryRead = (variables: GetEventQueryReadVariables, signal?: AbortSignal) =>
+	fetch<
+		GetEventQueryReadResponse,
+		GetEventQueryReadError,
+		undefined,
+		{},
+		{},
+		GetEventQueryReadPathParams
+	>({
+		url: "/accounts/{accountId}/cloudforce-one/events/queries/{queryId}",
+		method: "get",
+		...variables,
+		signal,
+	});
+
 export type GetEventRawReadDSPathParams = {
 	/**
 	 * Account ID.
@@ -54522,6 +56019,10 @@ export type GetEventReadDeprecatedResponse = {
 	 */
 	category: string;
 	/**
+	 * @example dataset-example-id
+	 */
+	datasetId: string;
+	/**
 	 * @example 2022-04-01T00:00:00Z
 	 */
 	date: string;
@@ -54638,6 +56139,10 @@ export type PatchEventUpdateResponse = {
 	 * @example Domain Resolution
 	 */
 	category: string;
+	/**
+	 * @example dataset-example-id
+	 */
+	datasetId: string;
 	/**
 	 * @example 2022-04-01T00:00:00Z
 	 */
@@ -54820,6 +56325,10 @@ export type PostEventUpdateResponse = {
 	 * @example Domain Resolution
 	 */
 	category: string;
+	/**
+	 * @example dataset-example-id
+	 */
+	datasetId: string;
 	/**
 	 * @example 2022-04-01T00:00:00Z
 	 */
@@ -55248,6 +56757,10 @@ export type GetEventRelationshipsResponse = {
 	 * @example Domain Resolution
 	 */
 	category: string;
+	/**
+	 * @example dataset-example-id
+	 */
+	datasetId: string;
 	/**
 	 * @example 2022-04-01T00:00:00Z
 	 */
@@ -64699,8 +66212,13 @@ export type DlpProfilesGetPredefinedProfileConfigResponse = Schemas.DlpApiRespon
 		 * @default low
 		 */
 		confidence_threshold: string | null;
+		/**
+		 * Entries to enable for this predefined profile. Any entries not provided will be disabled.
+		 */
 		enabled_entries: string[];
 		/**
+		 * This field has been deprecated for `enabled_entries`.
+		 *
 		 * @deprecated true
 		 */
 		entries: Schemas.DlpEntry[];
@@ -64779,8 +66297,13 @@ export type DlpProfilesCreatePredefinedProfileConfigResponse = Schemas.DlpApiRes
 		 * @default low
 		 */
 		confidence_threshold: string | null;
+		/**
+		 * Entries to enable for this predefined profile. Any entries not provided will be disabled.
+		 */
 		enabled_entries: string[];
 		/**
+		 * This field has been deprecated for `enabled_entries`.
+		 *
 		 * @deprecated true
 		 */
 		entries: Schemas.DlpEntry[];
@@ -64860,8 +66383,13 @@ export type DlpProfilesUpdatePredefinedProfileConfigResponse = Schemas.DlpApiRes
 		 * @default low
 		 */
 		confidence_threshold: string | null;
+		/**
+		 * Entries to enable for this predefined profile. Any entries not provided will be disabled.
+		 */
 		enabled_entries: string[];
 		/**
+		 * This field has been deprecated for `enabled_entries`.
+		 *
 		 * @deprecated true
 		 */
 		entries: Schemas.DlpEntry[];
@@ -65889,7 +67417,16 @@ export type EmailSecurityPostBulkMessageMoveRequestBody = {
 		| "DeletedItems"
 		| "RecoverableItemsDeletions"
 		| "RecoverableItemsPurges";
-	postfix_ids: Schemas.EmailSecurityPostfixId[];
+	/**
+	 * List of message IDs to move.
+	 */
+	ids?: string[];
+	/**
+	 * Deprecated: Use `ids` instead. List of message IDs to move.
+	 *
+	 * @deprecated true
+	 */
+	postfix_ids?: Schemas.EmailSecurityPostfixId[];
 };
 
 export type EmailSecurityPostBulkMessageMoveVariables = {
@@ -66003,10 +67540,7 @@ export const emailSecurityPostRelease = (
 
 export type EmailSecurityGetMessagePathParams = {
 	accountId: Schemas.EmailSecurityAccountId;
-	/**
-	 * @example 4Njp3P0STMz2c02Q
-	 */
-	postfixId: string;
+	postfixId: Schemas.EmailSecurityPostfixId;
 };
 
 export type EmailSecurityGetMessageError = Fetcher.ErrorWrapper<{
@@ -66016,7 +67550,7 @@ export type EmailSecurityGetMessageError = Fetcher.ErrorWrapper<{
 
 export type EmailSecurityGetMessageResponse = Schemas.EmailSecurityApiResponseCommon & {
 	/**
-	 * @example {"action_log":[],"alert_id":"4Njp3P0STMz2c02Q-2022-12-30T02:44:49","client_recipients":["email@example.com"],"delivery_mode":"DIRECT","detection_reasons":["Selector is a source of spam/uce : Smtp-Helo-Server-Ip=<b>127.0.0[dot]186</b>"],"edf_hash":null,"envelope_from":"d1994@example.com","envelope_to":["email@example.com"],"final_disposition":"MALICIOUS","findings":null,"from":"d1994@example.com","from_name":"Sender Name","htmltext_structure_hash":null,"id":"4Njp3P0STMz2c02Q-2022-12-30T02:44:49-email@example.com","is_phish_submission":false,"is_quarantined":false,"message_id":"<4VAZPrAdg7IGNxdt1DWRNu0gvOeL_iZiwP4BQfo4DaE.Yw-woXuugQbeFhBpzwFQtqq_v2v1HOKznoMBqbciQpE@example.com>","postfix_id":"47JJcT1w6GztQV7","postfix_id_outbound":null,"properties":{},"replyto":"email@example.com","sent_date":"2019-11-21T00:22:01","subject":"listen, I highly recommend u to read that email, just to ensure not a thing will take place","threat_categories":["IPReputation","ASNReputation"],"to":["email@example.com"],"to_name":["Recipient Name"],"ts":"2019-11-20T23:22:01","validation":{"comment":null,"dkim":"pass","dmarc":"none","spf":"fail"}}
+	 * @example {"action_log":[],"alert_id":"4Njp3P0STMz2c02Q-2022-12-30T02:44:49","client_recipients":["email@example.com"],"delivery_mode":"DIRECT","detection_reasons":["Selector is a source of spam/uce : Smtp-Helo-Server-Ip=<b>127.0.0[dot]186</b>"],"edf_hash":null,"envelope_from":"d1994@example.com","envelope_to":["email@example.com"],"final_disposition":"MALICIOUS","findings":null,"from":"d1994@example.com","from_name":"Sender Name","htmltext_structure_hash":null,"id":"4Njp3P0STMz2c02Q-2022-12-30T02:44:49-2a539d65","is_phish_submission":false,"is_quarantined":false,"message_id":"<4VAZPrAdg7IGNxdt1DWRNu0gvOeL_iZiwP4BQfo4DaE.Yw-woXuugQbeFhBpzwFQtqq_v2v1HOKznoMBqbciQpE@example.com>","postfix_id":"47JJcT1w6GztQV7","postfix_id_outbound":null,"properties":{},"replyto":"email@example.com","sent_date":"2019-11-21T00:22:01","subject":"listen, I highly recommend u to read that email, just to ensure not a thing will take place","threat_categories":["IPReputation","ASNReputation"],"to":["email@example.com"],"to_name":["Recipient Name"],"ts":"2019-11-20T23:22:01","validation":{"comment":null,"dkim":"pass","dmarc":"none","spf":"fail"}}
 	 */
 	result: {
 		action_log: void;
@@ -66119,10 +67653,7 @@ export const emailSecurityGetMessage = (
 
 export type EmailSecurityGetMessageDetectionsPathParams = {
 	accountId: Schemas.EmailSecurityAccountId;
-	/**
-	 * @example 4Njp3P0STMz2c02Q
-	 */
-	postfixId: string;
+	postfixId: Schemas.EmailSecurityPostfixId;
 };
 
 export type EmailSecurityGetMessageDetectionsError = Fetcher.ErrorWrapper<{
@@ -66192,10 +67723,7 @@ export const emailSecurityGetMessageDetections = (
 
 export type EmailSecurityPostMessageMovePathParams = {
 	accountId: Schemas.EmailSecurityAccountId;
-	/**
-	 * @example 4Njp3P0STMz2c02Q
-	 */
-	postfixId: string;
+	postfixId: Schemas.EmailSecurityPostfixId;
 };
 
 export type EmailSecurityPostMessageMoveError = Fetcher.ErrorWrapper<{
@@ -66241,10 +67769,7 @@ export const emailSecurityPostMessageMove = (
 
 export type EmailSecurityGetMessagePreviewPathParams = {
 	accountId: Schemas.EmailSecurityAccountId;
-	/**
-	 * @example 4Njp3P0STMz2c02Q
-	 */
-	postfixId: string;
+	postfixId: Schemas.EmailSecurityPostfixId;
 };
 
 export type EmailSecurityGetMessagePreviewError = Fetcher.ErrorWrapper<{
@@ -66291,10 +67816,7 @@ export const emailSecurityGetMessagePreview = (
 
 export type EmailSecurityGetMessageRawPathParams = {
 	accountId: Schemas.EmailSecurityAccountId;
-	/**
-	 * @example 4Njp3P0STMz2c02Q
-	 */
-	postfixId: string;
+	postfixId: Schemas.EmailSecurityPostfixId;
 };
 
 export type EmailSecurityGetMessageRawError = Fetcher.ErrorWrapper<{
@@ -66341,10 +67863,7 @@ export const emailSecurityGetMessageRaw = (
 
 export type EmailSecurityPostReclassifyPathParams = {
 	accountId: Schemas.EmailSecurityAccountId;
-	/**
-	 * @example 4Njp3P0STMz2c02Q
-	 */
-	postfixId: string;
+	postfixId: Schemas.EmailSecurityPostfixId;
 };
 
 export type EmailSecurityPostReclassifyError = Fetcher.ErrorWrapper<{
@@ -66393,10 +67912,7 @@ export const emailSecurityPostReclassify = (
 
 export type EmailSecurityGetMessageTracePathParams = {
 	accountId: Schemas.EmailSecurityAccountId;
-	/**
-	 * @example 4Njp3P0STMz2c02Q
-	 */
-	postfixId: string;
+	postfixId: Schemas.EmailSecurityPostfixId;
 };
 
 export type EmailSecurityGetMessageTraceError = Fetcher.ErrorWrapper<{
@@ -72975,7 +74491,7 @@ export type CloudflareImagesListImagesV2PathParams = {
 };
 
 export type CloudflareImagesListImagesV2QueryParams = {
-	continuation_token?: string | null;
+	continuation_token?: Schemas.ImagesImagesListContinuationToken;
 	/**
 	 * @default 1000
 	 * @maximum 10000
@@ -72987,6 +74503,20 @@ export type CloudflareImagesListImagesV2QueryParams = {
 	 */
 	sort_order?: "asc" | "desc";
 	creator?: string | null;
+	/**
+	 * Optional metadata filter(s). Multiple filters can be combined with AND logic.
+	 *
+	 * **Operators:**
+	 * - `eq`, `eq:string`, `eq:number`, `eq:boolean` - Exact match
+	 * - `in`, `in:string`, `in:number` - Match any value in pipe-separated list
+	 *
+	 * **Examples:**
+	 * - `meta.status[eq]=active`
+	 * - `meta.priority[eq:number]=5`
+	 * - `meta.enabled[eq:boolean]=true`
+	 * - `meta.region[in]=us-east|us-west|eu-west`
+	 */
+	["meta.<field>[<operator>]"]?: string;
 };
 
 export type CloudflareImagesListImagesV2Error = Fetcher.ErrorWrapper<{
@@ -73000,8 +74530,40 @@ export type CloudflareImagesListImagesV2Variables = {
 } & FetcherExtraProps;
 
 /**
- * List up to 10000 images with one request. Use the optional parameters below to get a specific range of images.
- * Endpoint returns continuation_token if more images are present.
+ * List up to 10000 images with up to 1000 results per page. Use the optional parameters below to get a specific range of images.
+ * Pagination is supported via continuation_token.
+ *
+ * **Metadata Filtering (Optional):**
+ *
+ * You can optionally filter images by custom metadata fields using the `meta.<field>[<operator>]=<value>` syntax.
+ *
+ * **Supported Operators:**
+ * - `eq` / `eq:string` / `eq:number` / `eq:boolean` - Exact match
+ * - `in` / `in:string` / `in:number` - Match any value in list (pipe-separated)
+ *
+ * **Metadata Filter Constraints:**
+ * - Maximum 5 metadata filters per request
+ * - Maximum 5 levels of nesting (e.g., `meta.first.second.third.fourth.fifth`)
+ * - Maximum 10 elements for list operators (`in`)
+ * - Supports string, number, and boolean value types
+ *
+ * **Examples:**
+ * ```
+ * # List all images
+ * /v2/images
+ *
+ * # Filter by metadata
+ * /v2/images?meta.status[eq]=active
+ *
+ * # Filter by nested metadata
+ * /v2/images?meta.region.name[eq]=eu-west
+ *
+ * # Combine metadata filters with creator
+ * /v2/images?meta.status[eq]=active&creator=user123
+ *
+ * # Multiple metadata filters (AND logic)
+ * /v2/images?meta.status[eq]=active&meta.priority[eq:number]=5
+ * ```
  */
 export const cloudflareImagesListImagesV2 = (
 	variables: CloudflareImagesListImagesV2Variables,
@@ -73636,14 +75198,14 @@ export type GetSecurityCenterIssuesQueryParams = {
 	["severity~neq"]?: Schemas.SecurityCenterSeverityQueryParam;
 	["subject~neq"]?: Schemas.SecurityCenterSubjects;
 	/**
-	 * Current page within paginated list of results
+	 * Specifies the current page within paginated list of results.
 	 *
 	 * @default 1
 	 * @example 1
 	 */
 	page?: Schemas.SecurityCenterPage;
 	/**
-	 * Number of results per page of results
+	 * Sets the number of results per page of results.
 	 *
 	 * @default 25
 	 * @example 25
@@ -74433,7 +75995,7 @@ export type IpListGetIpListsVariables = {
 } & FetcherExtraProps;
 
 /**
- * Get IP Lists.
+ * Returns a list of available IP list categories (e.g., anonymizer, botnetcc, malware, tor, vpn, open_proxies). This endpoint provides metadata about which IP lists are available in the system.
  */
 export const ipListGetIpLists = (variables: IpListGetIpListsVariables, signal?: AbortSignal) =>
 	fetch<
@@ -74444,7 +76006,7 @@ export const ipListGetIpLists = (variables: IpListGetIpListsVariables, signal?: 
 		{},
 		IpListGetIpListsPathParams
 	>({
-		url: "/accounts/{accountId}/intel/ip-list",
+		url: "/accounts/{accountId}/intel/ip-lists",
 		method: "get",
 		...variables,
 		signal,
@@ -82518,7 +84080,7 @@ export type MagicSiteLansCreateLanError = Fetcher.ErrorWrapper<{
 }>;
 
 export type MagicSiteLansCreateLanVariables = {
-	body: Schemas.MagicLansAddSingleRequest;
+	body?: Schemas.MagicLansAddSingleRequest;
 	pathParams: MagicSiteLansCreateLanPathParams;
 } & FetcherExtraProps;
 
@@ -96167,14 +97729,14 @@ export type GetSecurityCenterInsightsQueryParams = {
 	["severity~neq"]?: Schemas.SecurityCenterSeverityQueryParam;
 	["subject~neq"]?: Schemas.SecurityCenterSubjects;
 	/**
-	 * Current page within paginated list of results
+	 * Specifies the current page within paginated list of results.
 	 *
 	 * @default 1
 	 * @example 1
 	 */
 	page?: Schemas.SecurityCenterPage;
 	/**
-	 * Number of results per page of results
+	 * Sets the number of results per page of results.
 	 *
 	 * @default 25
 	 * @example 25
@@ -98178,15 +99740,7 @@ export type WorkersKvNamespaceListANamespaceSKeysError = Fetcher.ErrorWrapper<{
 
 export type WorkersKvNamespaceListANamespaceSKeysResponse = Schemas.WorkersKvApiResponseCommon & {
 	result?: Schemas.WorkersKvKey[];
-	result_info?: {
-		/**
-		 * Total results returned based on your list parameters.
-		 *
-		 * @example 1
-		 */
-		count?: number;
-		cursor?: Schemas.WorkersKvCursor;
-	};
+	result_info?: Schemas.WorkersKvCursorResultInfo;
 };
 
 export type WorkersKvNamespaceListANamespaceSKeysVariables = {
@@ -112341,11 +113895,11 @@ export type WorCreateNewWorkflowInstanceRequestBody = {
 	instance_id?: string;
 	instance_retention?: {
 		/**
-		 * Duration in milliseconds or as a string like '5 minutes'
+		 * Specifies the duration in milliseconds or as a string like '5 minutes'.
 		 */
 		error_retention?: (number | string) | (number | string);
 		/**
-		 * Duration in milliseconds or as a string like '5 minutes'
+		 * Specifies the duration in milliseconds or as a string like '5 minutes'.
 		 */
 		success_retention?: (number | string) | (number | string);
 	};
@@ -112465,11 +114019,11 @@ export type WorBatchCreateWorkflowInstanceRequestBody = {
 	instance_id?: string;
 	instance_retention?: {
 		/**
-		 * Duration in milliseconds or as a string like '5 minutes'
+		 * Specifies the duration in milliseconds or as a string like '5 minutes'.
 		 */
 		error_retention?: (number | string) | (number | string);
 		/**
-		 * Duration in milliseconds or as a string like '5 minutes'
+		 * Specifies the duration in milliseconds or as a string like '5 minutes'.
 		 */
 		success_retention?: (number | string) | (number | string);
 	};
@@ -112765,10 +114319,16 @@ export type WorDescribeWorkflowInstanceResponse = {
 					config: {
 						retries: {
 							backoff?: "constant" | "linear" | "exponential";
-							delay: void | number;
+							/**
+							 * Specifies the delay duration.
+							 */
+							delay: string | number;
 							limit: number;
 						};
-						timeout: void | number;
+						/**
+						 * Specifies the timeout duration.
+						 */
+						timeout: string | number;
 					};
 					/**
 					 * @format date-time
@@ -113273,6 +114833,94 @@ export const worDescribeWorkflowVersions = (
 		WorDescribeWorkflowVersionsPathParams
 	>({
 		url: "/accounts/{accountId}/workflows/{workflowName}/versions/{versionId}",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type WorDescribeWorkflowVersionsDagPathParams = {
+	/**
+	 * @maxLength 64
+	 * @minLength 1
+	 * @pattern ^[a-zA-Z0-9_][a-zA-Z0-9-_]*$
+	 */
+	workflowName: string;
+	/**
+	 * @format uuid
+	 */
+	versionId: string;
+	accountId: string;
+};
+
+export type WorDescribeWorkflowVersionsDagError = Fetcher.ErrorWrapper<{
+	status: 404;
+	payload: {
+		errors: {
+			code: number;
+			message: string;
+		}[];
+		messages: string[];
+		result: any | null;
+		success: false;
+	};
+}>;
+
+export type WorDescribeWorkflowVersionsDagResponse = {
+	errors: {
+		code: number;
+		message: string;
+	}[];
+	messages: {
+		code: number;
+		message: string;
+	}[];
+	result: {
+		class_name: string;
+		/**
+		 * @format date-time
+		 */
+		created_on: string;
+		dag: Record<string, any> | null;
+		/**
+		 * @format uuid
+		 */
+		id: string;
+		/**
+		 * @format date-time
+		 */
+		modified_on: string;
+		/**
+		 * @format uuid
+		 */
+		workflow_id: string;
+	};
+	result_info?: {
+		count: number;
+		cursor?: string;
+		page?: number;
+		per_page: number;
+		total_count: number;
+	};
+	success: true;
+};
+
+export type WorDescribeWorkflowVersionsDagVariables = {
+	pathParams: WorDescribeWorkflowVersionsDagPathParams;
+} & FetcherExtraProps;
+
+export const worDescribeWorkflowVersionsDag = (
+	variables: WorDescribeWorkflowVersionsDagVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		WorDescribeWorkflowVersionsDagResponse,
+		WorDescribeWorkflowVersionsDagError,
+		undefined,
+		{},
+		{},
+		WorDescribeWorkflowVersionsDagPathParams
+	>({
+		url: "/accounts/{accountId}/workflows/{workflowName}/versions/{versionId}/dag",
 		method: "get",
 		...variables,
 		signal,
@@ -136976,6 +138624,10 @@ export type RadarGetBgpHijacksEventsQueryParams = {
 	involvedAsn?: number;
 	/**
 	 * The country code of the potential hijacker or victim AS of a BGP hijack event.
+	 *
+	 * @example PT
+	 * @maxLength 2
+	 * @minLength 2
 	 */
 	involvedCountry?: string;
 	/**
@@ -137387,6 +139039,10 @@ export type RadarGetBgpRouteLeakEventsQueryParams = {
 	involvedAsn?: number;
 	/**
 	 * Country code of a involved ASN in a route leak event.
+	 *
+	 * @example PT
+	 * @maxLength 2
+	 * @minLength 2
 	 */
 	involvedCountry?: string;
 	/**
@@ -140255,6 +141911,7 @@ export type RadarGetCertificateAuthorityDetailsPathParams = {
 	 * Certificate authority SHA256 fingerprint.
 	 *
 	 * @example 24EDD4E503A8D3FDB5FFB4AF66C887359901CBE687A5A0760D10A08EED99A7C3
+	 * @pattern ^[A-F0-9]{64}$
 	 */
 	caSlug: string;
 };
@@ -181969,6 +183626,452 @@ export const getSignedUrl = (variables: GetSignedUrlVariables, signal?: AbortSig
 		signal,
 	});
 
+export type SecretsStoreSystemListPathParams = {
+	accountTag: Schemas.SecretsStoreAccountTag;
+};
+
+export type SecretsStoreSystemListQueryParams = {
+	/**
+	 * Direction to sort objects
+	 *
+	 * @default desc
+	 */
+	direction?: "asc" | "desc";
+	/**
+	 * Page number
+	 *
+	 * @example 2
+	 * @minimum 0
+	 * @multipleOf 1
+	 */
+	page?: number;
+	/**
+	 * Number of objects to return per page
+	 *
+	 * @example 20
+	 * @maximum 100
+	 * @minimum 0
+	 * @multipleOf 1
+	 */
+	per_page?: number;
+	/**
+	 * Order secrets by values in the given field
+	 *
+	 * @default created
+	 */
+	order?: "name" | "comment" | "created" | "modified" | "status";
+};
+
+export type SecretsStoreSystemListError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.SecretsStoreApiResponseCommonFailure;
+}>;
+
+export type SecretsStoreSystemListVariables = {
+	pathParams: SecretsStoreSystemListPathParams;
+	queryParams?: SecretsStoreSystemListQueryParams;
+} & FetcherExtraProps;
+
+/**
+ * Lists all stores in an account that are managed by the calling service.
+ * Only returns stores where managed_by matches the authenticated service.
+ */
+export const secretsStoreSystemList = (
+	variables: SecretsStoreSystemListVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.SecretsStoreStoresResponseCollection,
+		SecretsStoreSystemListError,
+		undefined,
+		{},
+		SecretsStoreSystemListQueryParams,
+		SecretsStoreSystemListPathParams
+	>({
+		url: "/system/accounts/{accountTag}/stores",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type SecretsStoreSystemCreatePathParams = {
+	accountTag: Schemas.SecretsStoreAccountTag;
+};
+
+export type SecretsStoreSystemCreateError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.SecretsStoreApiResponseCommonFailure;
+}>;
+
+export type SecretsStoreSystemCreateVariables = {
+	body: Schemas.SecretsStoreCreateStoreObjectSystem;
+	pathParams: SecretsStoreSystemCreatePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Creates a store in the account on behalf of the calling service.
+ * The store will be marked as managed by the authenticated service.
+ * Requires account_id in the request body.
+ */
+export const secretsStoreSystemCreate = (
+	variables: SecretsStoreSystemCreateVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.SecretsStoreStoreResponse,
+		SecretsStoreSystemCreateError,
+		Schemas.SecretsStoreCreateStoreObjectSystem,
+		{},
+		{},
+		SecretsStoreSystemCreatePathParams
+	>({
+		url: "/system/accounts/{accountTag}/stores",
+		method: "post",
+		...variables,
+		signal,
+	});
+
+export type SecretsStoreSystemDeleteByIdPathParams = {
+	accountTag: Schemas.SecretsStoreAccountTag;
+	storeId: Schemas.SecretsStoreStoreIdentifier;
+};
+
+export type SecretsStoreSystemDeleteByIdError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.SecretsStoreApiResponseCommonFailure;
+}>;
+
+export type SecretsStoreSystemDeleteByIdVariables = {
+	pathParams: SecretsStoreSystemDeleteByIdPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Deletes a store managed by the calling service.
+ * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
+ */
+export const secretsStoreSystemDeleteById = (
+	variables: SecretsStoreSystemDeleteByIdVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.SecretsStoreStoreResponse,
+		SecretsStoreSystemDeleteByIdError,
+		undefined,
+		{},
+		{},
+		SecretsStoreSystemDeleteByIdPathParams
+	>({
+		url: "/system/accounts/{accountTag}/stores/{storeId}",
+		method: "delete",
+		...variables,
+		signal,
+	});
+
+export type SecretsStoreSystemDeleteBulkPathParams = {
+	accountTag: Schemas.SecretsStoreAccountTag;
+	storeId: Schemas.SecretsStoreStoreIdentifier;
+};
+
+export type SecretsStoreSystemDeleteBulkError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.SecretsStoreApiResponseCommonFailure;
+}>;
+
+export type SecretsStoreSystemDeleteBulkRequestBody = Schemas.SecretsStoreDeleteSecretObject[];
+
+export type SecretsStoreSystemDeleteBulkVariables = {
+	body?: SecretsStoreSystemDeleteBulkRequestBody;
+	pathParams: SecretsStoreSystemDeleteBulkPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Deletes one or more secrets from a store managed by the calling service.
+ * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
+ */
+export const secretsStoreSystemDeleteBulk = (
+	variables: SecretsStoreSystemDeleteBulkVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.SecretsStoreSecretsResponseCollection,
+		SecretsStoreSystemDeleteBulkError,
+		SecretsStoreSystemDeleteBulkRequestBody,
+		{},
+		{},
+		SecretsStoreSystemDeleteBulkPathParams
+	>({
+		url: "/system/accounts/{accountTag}/stores/{storeId}/secrets",
+		method: "delete",
+		...variables,
+		signal,
+	});
+
+export type SecretsStoreSystemSecretsListPathParams = {
+	accountTag: Schemas.SecretsStoreAccountTag;
+	storeId: Schemas.SecretsStoreStoreIdentifier;
+};
+
+export type SecretsStoreSystemSecretsListQueryParams = {
+	/**
+	 * Direction to sort objects
+	 *
+	 * @default desc
+	 */
+	direction?: "asc" | "desc";
+	/**
+	 * Page number
+	 *
+	 * @example 2
+	 * @minimum 0
+	 * @multipleOf 1
+	 */
+	page?: number;
+	/**
+	 * Number of objects to return per page
+	 *
+	 * @example 20
+	 * @maximum 100
+	 * @minimum 0
+	 * @multipleOf 1
+	 */
+	per_page?: number;
+	/**
+	 * Search secrets using a filter string, filtering across name and comment
+	 */
+	search?: string;
+	/**
+	 * Order secrets by values in the given field
+	 *
+	 * @default created
+	 */
+	order?: "name" | "comment" | "created" | "modified" | "status";
+	/**
+	 * Only secrets with the given scopes will be returned
+	 */
+	scopes?: Schemas.SecretsStoreScopes[];
+};
+
+export type SecretsStoreSystemSecretsListError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.SecretsStoreApiResponseCommonFailure;
+}>;
+
+export type SecretsStoreSystemSecretsListVariables = {
+	pathParams: SecretsStoreSystemSecretsListPathParams;
+	queryParams?: SecretsStoreSystemSecretsListQueryParams;
+} & FetcherExtraProps;
+
+/**
+ * Lists all secrets in a store managed by the calling service.
+ * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
+ */
+export const secretsStoreSystemSecretsList = (
+	variables: SecretsStoreSystemSecretsListVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.SecretsStoreSecretsResponseCollection,
+		SecretsStoreSystemSecretsListError,
+		undefined,
+		{},
+		SecretsStoreSystemSecretsListQueryParams,
+		SecretsStoreSystemSecretsListPathParams
+	>({
+		url: "/system/accounts/{accountTag}/stores/{storeId}/secrets",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type SecretsStoreSystemSecretCreatePathParams = {
+	accountTag: Schemas.SecretsStoreAccountTag;
+	storeId: Schemas.SecretsStoreStoreIdentifier;
+};
+
+export type SecretsStoreSystemSecretCreateError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.SecretsStoreApiResponseCommonFailure;
+}>;
+
+export type SecretsStoreSystemSecretCreateRequestBody = Schemas.SecretsStoreCreateSecretObject[];
+
+export type SecretsStoreSystemSecretCreateVariables = {
+	body?: SecretsStoreSystemSecretCreateRequestBody;
+	pathParams: SecretsStoreSystemSecretCreatePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Creates one or more secrets in a store managed by the calling service.
+ * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
+ */
+export const secretsStoreSystemSecretCreate = (
+	variables: SecretsStoreSystemSecretCreateVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.SecretsStoreSecretsResponseCollection,
+		SecretsStoreSystemSecretCreateError,
+		SecretsStoreSystemSecretCreateRequestBody,
+		{},
+		{},
+		SecretsStoreSystemSecretCreatePathParams
+	>({
+		url: "/system/accounts/{accountTag}/stores/{storeId}/secrets",
+		method: "post",
+		...variables,
+		signal,
+	});
+
+export type SecretsStoreSystemSecretDeleteByIdPathParams = {
+	accountTag: Schemas.SecretsStoreAccountTag;
+	storeId: Schemas.SecretsStoreStoreIdentifier;
+	secretId: Schemas.SecretsStoreIdentifier;
+};
+
+export type SecretsStoreSystemSecretDeleteByIdError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.SecretsStoreApiResponseCommonFailure;
+}>;
+
+export type SecretsStoreSystemSecretDeleteByIdVariables = {
+	pathParams: SecretsStoreSystemSecretDeleteByIdPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Deletes a single secret from a store managed by the calling service.
+ * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
+ */
+export const secretsStoreSystemSecretDeleteById = (
+	variables: SecretsStoreSystemSecretDeleteByIdVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.SecretsStoreSecretResponse,
+		SecretsStoreSystemSecretDeleteByIdError,
+		undefined,
+		{},
+		{},
+		SecretsStoreSystemSecretDeleteByIdPathParams
+	>({
+		url: "/system/accounts/{accountTag}/stores/{storeId}/secrets/{secretId}",
+		method: "delete",
+		...variables,
+		signal,
+	});
+
+export type SecretsStoreSystemGetByIdPathParams = {
+	accountTag: Schemas.SecretsStoreAccountTag;
+	storeId: Schemas.SecretsStoreStoreIdentifier;
+	secretId: Schemas.SecretsStoreIdentifier;
+};
+
+export type SecretsStoreSystemGetByIdError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.SecretsStoreApiResponseCommonFailure;
+}>;
+
+export type SecretsStoreSystemGetByIdVariables = {
+	pathParams: SecretsStoreSystemGetByIdPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Returns details of a single secret from a store managed by the calling service.
+ * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
+ */
+export const secretsStoreSystemGetById = (
+	variables: SecretsStoreSystemGetByIdVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.SecretsStoreSecretResponse,
+		SecretsStoreSystemGetByIdError,
+		undefined,
+		{},
+		{},
+		SecretsStoreSystemGetByIdPathParams
+	>({
+		url: "/system/accounts/{accountTag}/stores/{storeId}/secrets/{secretId}",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type SecretsStoreSystemPatchByIdPathParams = {
+	accountTag: Schemas.SecretsStoreAccountTag;
+	storeId: Schemas.SecretsStoreStoreIdentifier;
+	secretId: Schemas.SecretsStoreIdentifier;
+};
+
+export type SecretsStoreSystemPatchByIdError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.SecretsStoreApiResponseCommonFailure;
+}>;
+
+export type SecretsStoreSystemPatchByIdVariables = {
+	body: Schemas.SecretsStorePatchSecretObject;
+	pathParams: SecretsStoreSystemPatchByIdPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Updates a single secret in a store managed by the calling service.
+ * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
+ */
+export const secretsStoreSystemPatchById = (
+	variables: SecretsStoreSystemPatchByIdVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.SecretsStoreSecretResponse,
+		SecretsStoreSystemPatchByIdError,
+		Schemas.SecretsStorePatchSecretObject,
+		{},
+		{},
+		SecretsStoreSystemPatchByIdPathParams
+	>({
+		url: "/system/accounts/{accountTag}/stores/{storeId}/secrets/{secretId}",
+		method: "patch",
+		...variables,
+		signal,
+	});
+
+export type SecretsStoreSystemDuplicateByIdPathParams = {
+	accountTag: Schemas.SecretsStoreAccountTag;
+	storeId: Schemas.SecretsStoreStoreIdentifier;
+	secretId: Schemas.SecretsStoreIdentifier;
+};
+
+export type SecretsStoreSystemDuplicateByIdError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.SecretsStoreApiResponseCommonFailure;
+}>;
+
+export type SecretsStoreSystemDuplicateByIdVariables = {
+	body: Schemas.SecretsStoreDuplicateSecretObject;
+	pathParams: SecretsStoreSystemDuplicateByIdPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Duplicates a secret in a store managed by the calling service, keeping the value.
+ * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
+ */
+export const secretsStoreSystemDuplicateById = (
+	variables: SecretsStoreSystemDuplicateByIdVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.SecretsStoreSecretResponse,
+		SecretsStoreSystemDuplicateByIdError,
+		Schemas.SecretsStoreDuplicateSecretObject,
+		{},
+		{},
+		SecretsStoreSystemDuplicateByIdPathParams
+	>({
+		url: "/system/accounts/{accountTag}/stores/{storeId}/secrets/{secretId}/duplicate",
+		method: "post",
+		...variables,
+		signal,
+	});
+
 export type TenantsRetrieveTenantPathParams = {
 	tenantId: string;
 };
@@ -189698,13 +191801,17 @@ export type CustomSslForAZoneEditSslConfigurationError = Fetcher.ErrorWrapper<{
 		Schemas.TlsCertificatesAndHostnamesApiResponseCommonFailure;
 }>;
 
-export type CustomSslForAZoneEditSslConfigurationRequestBody = {
-	bundle_method?: Schemas.TlsCertificatesAndHostnamesBundleMethod;
-	certificate?: Schemas.TlsCertificatesAndHostnamesCertificate;
-	geo_restrictions?: Schemas.TlsCertificatesAndHostnamesGeoRestrictions;
-	policy?: Schemas.TlsCertificatesAndHostnamesPolicy;
-	private_key?: Schemas.TlsCertificatesAndHostnamesPrivateKey;
-};
+export type CustomSslForAZoneEditSslConfigurationRequestBody =
+	| {
+			bundle_method?: Schemas.TlsCertificatesAndHostnamesBundleMethod;
+	  }
+	| {
+			bundle_method?: Schemas.TlsCertificatesAndHostnamesBundleMethod;
+			certificate: Schemas.TlsCertificatesAndHostnamesCertificate;
+			geo_restrictions?: Schemas.TlsCertificatesAndHostnamesGeoRestrictions;
+			policy?: Schemas.TlsCertificatesAndHostnamesPolicy;
+			private_key: Schemas.TlsCertificatesAndHostnamesPrivateKey;
+	  };
 
 export type CustomSslForAZoneEditSslConfigurationVariables = {
 	body?: CustomSslForAZoneEditSslConfigurationRequestBody;
@@ -193890,6 +195997,79 @@ export const wafRulesUpdateAWafRule = (
 	>({
 		url: "/zones/{zoneId}/firewall/waf/packages/{packageId}/rules/{ruleId}",
 		method: "patch",
+		...variables,
+		signal,
+	});
+
+export type FraudDetectionZoneGetSettingsPathParams = {
+	zoneId: Schemas.FraudIdentifier;
+};
+
+export type FraudDetectionZoneGetSettingsError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.FraudFraudSettingsResponseBody & Schemas.FraudApiResponseCommonFailure;
+}>;
+
+export type FraudDetectionZoneGetSettingsVariables = {
+	pathParams: FraudDetectionZoneGetSettingsPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Retrieve Fraud Detection settings for a zone.
+ */
+export const fraudDetectionZoneGetSettings = (
+	variables: FraudDetectionZoneGetSettingsVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.FraudFraudSettingsResponseBody,
+		FraudDetectionZoneGetSettingsError,
+		undefined,
+		{},
+		{},
+		FraudDetectionZoneGetSettingsPathParams
+	>({
+		url: "/zones/{zoneId}/fraud_detection/settings",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type FraudDetectionZoneUpdateSettingsPathParams = {
+	zoneId: Schemas.FraudIdentifier;
+};
+
+export type FraudDetectionZoneUpdateSettingsError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.FraudFraudSettingsResponseBody & Schemas.FraudApiResponseCommonFailure;
+}>;
+
+export type FraudDetectionZoneUpdateSettingsVariables = {
+	body?: Schemas.FraudFraudSettings;
+	pathParams: FraudDetectionZoneUpdateSettingsPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Update Fraud Detection settings for a zone.
+ *
+ * Notes on `username_expressions` behavior:
+ * - If omitted or set to null, expressions are not modified.
+ * - If provided as an empty array `[]`, all expressions will be cleared.
+ */
+export const fraudDetectionZoneUpdateSettings = (
+	variables: FraudDetectionZoneUpdateSettingsVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.FraudFraudSettingsResponseBody,
+		FraudDetectionZoneUpdateSettingsError,
+		Schemas.FraudFraudSettings,
+		{},
+		{},
+		FraudDetectionZoneUpdateSettingsPathParams
+	>({
+		url: "/zones/{zoneId}/fraud_detection/settings",
+		method: "put",
 		...variables,
 		signal,
 	});
@@ -199626,14 +201806,14 @@ export type GetZoneSecurityCenterInsightsQueryParams = {
 	["severity~neq"]?: Schemas.SecurityCenterSeverityQueryParam;
 	["subject~neq"]?: Schemas.SecurityCenterSubjects;
 	/**
-	 * Current page within paginated list of results
+	 * Specifies the current page within paginated list of results.
 	 *
 	 * @default 1
 	 * @example 1
 	 */
 	page?: Schemas.SecurityCenterPage;
 	/**
-	 * Number of results per page of results
+	 * Sets the number of results per page of results.
 	 *
 	 * @default 25
 	 * @example 25
@@ -205507,6 +207687,7 @@ export const operationsByTag = {
 	},
 	zeroTrustUsers: {
 		zeroTrustUsersGetUsers,
+		zeroTrustUsersCreateUser,
 		zeroTrustUsersGetActiveSessions,
 		zeroTrustUsersGetActiveSession,
 		zeroTrustUsersGetFailedLogins,
@@ -205626,11 +207807,13 @@ export const operationsByTag = {
 	aISearchInstancesItems: {
 		aiSearchInstanceListItems,
 		aiSearchInstanceGetItem,
+		aiSearchInstanceSyncItem,
 	},
 	aISearchInstancesJobs: {
 		aiSearchInstanceListJobs,
 		aiSearchInstanceCreateJob,
 		aiSearchInstanceGetJob,
+		aiSearchInstanceChangeJobStatus,
 		aiSearchInstanceListJobLogs,
 	},
 	aISearchTokens: {
@@ -205708,7 +207891,6 @@ export const operationsByTag = {
 		workersAiPostRunHfTheblokeDeepseekCoder67bBaseAwq,
 		workersAiPostRunHfTheblokeDeepseekCoder67bInstructAwq,
 		workersAiPostRunHfTheblokeLlama213bChatAwq,
-		workersAiPostRunHfTheblokeLlamaguard7bAwq,
 		workersAiPostRunHfTheblokeMistral7bInstructV01Awq,
 		workersAiPostRunHfTheblokeNeuralChat7bV31Awq,
 		workersAiPostRunHfTheblokeOpenhermes25Mistral7bAwq,
@@ -205737,6 +207919,7 @@ export const operationsByTag = {
 	workersAITextToImage: {
 		workersAiPostRunCfBlackForestLabsFlux1Schnell,
 		workersAiPostRunCfBlackForestLabsFlux2Dev,
+		workersAiPostRunCfBlackForestLabsFlux2Klein4b,
 		workersAiPostRunCfBytedanceStableDiffusionXlLightning,
 		workersAiPostRunCfLeonardoLucidOrigin,
 		workersAiPostRunCfLeonardoPhoenix10,
@@ -205777,6 +207960,7 @@ export const operationsByTag = {
 	workersAIDumbPipe: {
 		workersAiPostWebsocketRunCfPipecatAiSmartTurnV2,
 		workersAiPostWebsocketRunCfPipecatAiSmartTurnV3,
+		workersAiPostWebsocketRunCfTestHelloWorldCog,
 	},
 	notificationAlertTypes: { notificationAlertTypesGetAlertTypes },
 	notificationMechanismEligibility: {
@@ -205977,6 +208161,10 @@ export const operationsByTag = {
 		postEventMoveToNewDS,
 		deleteEventTagDelete,
 		postEventTagCreate,
+		getEventQueryList,
+		postEventQueryCreate,
+		deleteEventQueryDelete,
+		getEventQueryRead,
 		getEventRawReadDS,
 		deleteEventReferenceDelete,
 		postEventReferenceCreate,
@@ -207137,6 +209325,16 @@ export const operationsByTag = {
 		secretsStoreGetById,
 		secretsStorePatchById,
 		secretsStoreDuplicateById,
+		secretsStoreSystemList,
+		secretsStoreSystemCreate,
+		secretsStoreSystemDeleteById,
+		secretsStoreSystemDeleteBulk,
+		secretsStoreSystemSecretsList,
+		secretsStoreSystemSecretCreate,
+		secretsStoreSystemSecretDeleteById,
+		secretsStoreSystemGetById,
+		secretsStoreSystemPatchById,
+		secretsStoreSystemDuplicateById,
 	},
 	resourceSharing: {
 		sharesList,
@@ -207487,6 +209685,7 @@ export const operationsByTag = {
 		worChangeStatusWorkflowInstance,
 		worListWorkflowVersions,
 		worDescribeWorkflowVersions,
+		worDescribeWorkflowVersionsDag,
 	},
 	zeroTrustConnectivitySettings: {
 		zeroTrustAccountsGetConnectivitySettings,
@@ -208235,6 +210434,10 @@ export const operationsByTag = {
 		wafRulesListWafRules,
 		wafRulesGetAWafRule,
 		wafRulesUpdateAWafRule,
+	},
+	fraudDetection: {
+		fraudDetectionZoneGetSettings,
+		fraudDetectionZoneUpdateSettings,
 	},
 	healthChecks: {
 		healthChecksListHealthChecks,
