@@ -15299,6 +15299,235 @@ export const aiSearchUpdateInstances = (
 		signal,
 	});
 
+export type AiSearchInstanceChatCompletionPathParams = {
+	/**
+	 * Use your AI Search ID.
+	 *
+	 * @example my-ai-search
+	 * @maxLength 32
+	 * @minLength 1
+	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
+	 */
+	id: string;
+	/**
+	 * @example c3dc5f0b34a14ff8e1b3ec04895e1b22
+	 */
+	accountId: string;
+};
+
+export type AiSearchInstanceChatCompletionError = Fetcher.ErrorWrapper<{
+	status: 404;
+	payload: {
+		errors: {
+			/**
+			 * @example 7002
+			 */
+			code: number;
+			/**
+			 * @example Not Found
+			 */
+			message: string;
+		}[];
+		success: false;
+	};
+}>;
+
+export type AiSearchInstanceChatCompletionResponse = {
+	choices: {
+		index?: number;
+		message: {
+			content: string | null;
+			role: "system" | "developer" | "user" | "assistant" | "tool";
+		} & {
+			[key: string]: any;
+		};
+	}[];
+	chunks: {
+		id: string;
+		item?: {
+			key: string;
+			metadata?: {
+				[key: string]: any;
+			};
+			timestamp?: number;
+		};
+		/**
+		 * @maximum 1
+		 * @minimum 0
+		 */
+		score: number;
+		scoring_details?: {
+			keyword_rank?: number;
+			/**
+			 * @maximum 1
+			 * @minimum 0
+			 */
+			keyword_score?: number;
+			vector_rank?: number;
+			/**
+			 * @maximum 1
+			 * @minimum 0
+			 */
+			vector_score?: number;
+		};
+		text: string;
+		type: string;
+	}[];
+	id?: string;
+	model?: string;
+	object?: string;
+} & {
+	[key: string]: any;
+};
+
+export type AiSearchInstanceChatCompletionRequestBody = {
+	ai_search_options?: {
+		query_rewrite?: {
+			enabled?: boolean;
+			model?:
+				| (
+						| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+						| "@cf/meta/llama-3.1-8b-instruct-fast"
+						| "@cf/meta/llama-3.1-8b-instruct-fp8"
+						| "@cf/meta/llama-4-scout-17b-16e-instruct"
+						| "@cf/qwen/qwen3-30b-a3b-fp8"
+						| "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"
+						| "@cf/moonshotai/kimi-k2-instruct"
+						| "anthropic/claude-3-7-sonnet"
+						| "anthropic/claude-sonnet-4"
+						| "anthropic/claude-opus-4"
+						| "anthropic/claude-3-5-haiku"
+						| "cerebras/qwen-3-235b-a22b-instruct"
+						| "cerebras/qwen-3-235b-a22b-thinking"
+						| "cerebras/llama-3.3-70b"
+						| "cerebras/llama-4-maverick-17b-128e-instruct"
+						| "cerebras/llama-4-scout-17b-16e-instruct"
+						| "cerebras/gpt-oss-120b"
+						| "google-ai-studio/gemini-2.5-flash"
+						| "google-ai-studio/gemini-2.5-pro"
+						| "grok/grok-4"
+						| "groq/llama-3.3-70b-versatile"
+						| "groq/llama-3.1-8b-instant"
+						| "openai/gpt-5"
+						| "openai/gpt-5-mini"
+						| "openai/gpt-5-nano"
+				  )
+				| "";
+			rewrite_prompt?: string;
+		};
+		reranking?: {
+			enabled?: boolean;
+			/**
+			 * @default 0.4
+			 * @maximum 1
+			 * @minimum 0
+			 */
+			match_threshold?: number;
+			model?: "@cf/baai/bge-reranker-base" | "";
+		};
+		retrieval?: {
+			/**
+			 * @default 0
+			 * @maximum 3
+			 * @minimum 0
+			 */
+			context_expansion?: number;
+			filters?:
+				| {
+						key: string;
+						type: "eq" | "ne" | "gt" | "gte" | "lt" | "lte";
+						value: string | number | boolean;
+				  }
+				| {
+						filters: {
+							key: string;
+							type: "eq" | "ne" | "gt" | "gte" | "lt" | "lte";
+							value: string | number | boolean;
+						}[];
+						type: "and" | "or";
+				  };
+			/**
+			 * @default 0.4
+			 * @maximum 1
+			 * @minimum 0
+			 */
+			match_threshold?: number;
+			/**
+			 * @default 10
+			 * @maximum 50
+			 * @minimum 1
+			 */
+			max_num_results?: number;
+			retrieval_type?: "vector" | "keyword" | "hybrid";
+		};
+	};
+	/**
+	 * @minItems 1
+	 */
+	messages: ({
+		content: string | null;
+		role: "system" | "developer" | "user" | "assistant" | "tool";
+	} & {
+		[key: string]: any;
+	})[];
+	model?:
+		| (
+				| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+				| "@cf/meta/llama-3.1-8b-instruct-fast"
+				| "@cf/meta/llama-3.1-8b-instruct-fp8"
+				| "@cf/meta/llama-4-scout-17b-16e-instruct"
+				| "@cf/qwen/qwen3-30b-a3b-fp8"
+				| "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"
+				| "@cf/moonshotai/kimi-k2-instruct"
+				| "anthropic/claude-3-7-sonnet"
+				| "anthropic/claude-sonnet-4"
+				| "anthropic/claude-opus-4"
+				| "anthropic/claude-3-5-haiku"
+				| "cerebras/qwen-3-235b-a22b-instruct"
+				| "cerebras/qwen-3-235b-a22b-thinking"
+				| "cerebras/llama-3.3-70b"
+				| "cerebras/llama-4-maverick-17b-128e-instruct"
+				| "cerebras/llama-4-scout-17b-16e-instruct"
+				| "cerebras/gpt-oss-120b"
+				| "google-ai-studio/gemini-2.5-flash"
+				| "google-ai-studio/gemini-2.5-pro"
+				| "grok/grok-4"
+				| "groq/llama-3.3-70b-versatile"
+				| "groq/llama-3.1-8b-instant"
+				| "openai/gpt-5"
+				| "openai/gpt-5-mini"
+				| "openai/gpt-5-nano"
+		  )
+		| "";
+	stream?: boolean;
+} & {
+	[key: string]: any;
+};
+
+export type AiSearchInstanceChatCompletionVariables = {
+	body: AiSearchInstanceChatCompletionRequestBody;
+	pathParams: AiSearchInstanceChatCompletionPathParams;
+} & FetcherExtraProps;
+
+export const aiSearchInstanceChatCompletion = (
+	variables: AiSearchInstanceChatCompletionVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		AiSearchInstanceChatCompletionResponse,
+		AiSearchInstanceChatCompletionError,
+		AiSearchInstanceChatCompletionRequestBody,
+		{},
+		{},
+		AiSearchInstanceChatCompletionPathParams
+	>({
+		url: "/accounts/{accountId}/ai-search/instances/{id}/chat/completions",
+		method: "post",
+		...variables,
+		signal,
+	});
+
 export type AiSearchInstanceListItemsPathParams = {
 	/**
 	 * Use your AI Search ID.
@@ -16078,6 +16307,193 @@ export const aiSearchInstanceListJobLogs = (
 	>({
 		url: "/accounts/{accountId}/ai-search/instances/{id}/jobs/{jobId}/logs",
 		method: "get",
+		...variables,
+		signal,
+	});
+
+export type AiSearchInstanceSearchPathParams = {
+	/**
+	 * Use your AI Search ID.
+	 *
+	 * @example my-ai-search
+	 * @maxLength 32
+	 * @minLength 1
+	 * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+	 * @x-auditable true
+	 */
+	id: string;
+	/**
+	 * @example c3dc5f0b34a14ff8e1b3ec04895e1b22
+	 */
+	accountId: string;
+};
+
+export type AiSearchInstanceSearchError = Fetcher.ErrorWrapper<{
+	status: 404;
+	payload: {
+		errors: {
+			/**
+			 * @example 7002
+			 */
+			code: number;
+			/**
+			 * @example Not Found
+			 */
+			message: string;
+		}[];
+		success: false;
+	};
+}>;
+
+export type AiSearchInstanceSearchResponse = {
+	result: {
+		chunks: {
+			id: string;
+			item?: {
+				key: string;
+				metadata?: {
+					[key: string]: any;
+				};
+				timestamp?: number;
+			};
+			/**
+			 * @maximum 1
+			 * @minimum 0
+			 */
+			score: number;
+			scoring_details?: {
+				keyword_rank?: number;
+				/**
+				 * @maximum 1
+				 * @minimum 0
+				 */
+				keyword_score?: number;
+				vector_rank?: number;
+				/**
+				 * @maximum 1
+				 * @minimum 0
+				 */
+				vector_score?: number;
+			};
+			text: string;
+			type: string;
+		}[];
+		search_query: string;
+	};
+	success: boolean;
+};
+
+export type AiSearchInstanceSearchRequestBody = {
+	ai_search_options?: {
+		query_rewrite?: {
+			enabled?: boolean;
+			model?:
+				| (
+						| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+						| "@cf/meta/llama-3.1-8b-instruct-fast"
+						| "@cf/meta/llama-3.1-8b-instruct-fp8"
+						| "@cf/meta/llama-4-scout-17b-16e-instruct"
+						| "@cf/qwen/qwen3-30b-a3b-fp8"
+						| "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"
+						| "@cf/moonshotai/kimi-k2-instruct"
+						| "anthropic/claude-3-7-sonnet"
+						| "anthropic/claude-sonnet-4"
+						| "anthropic/claude-opus-4"
+						| "anthropic/claude-3-5-haiku"
+						| "cerebras/qwen-3-235b-a22b-instruct"
+						| "cerebras/qwen-3-235b-a22b-thinking"
+						| "cerebras/llama-3.3-70b"
+						| "cerebras/llama-4-maverick-17b-128e-instruct"
+						| "cerebras/llama-4-scout-17b-16e-instruct"
+						| "cerebras/gpt-oss-120b"
+						| "google-ai-studio/gemini-2.5-flash"
+						| "google-ai-studio/gemini-2.5-pro"
+						| "grok/grok-4"
+						| "groq/llama-3.3-70b-versatile"
+						| "groq/llama-3.1-8b-instant"
+						| "openai/gpt-5"
+						| "openai/gpt-5-mini"
+						| "openai/gpt-5-nano"
+				  )
+				| "";
+			rewrite_prompt?: string;
+		};
+		reranking?: {
+			enabled?: boolean;
+			/**
+			 * @default 0.4
+			 * @maximum 1
+			 * @minimum 0
+			 */
+			match_threshold?: number;
+			model?: "@cf/baai/bge-reranker-base" | "";
+		};
+		retrieval?: {
+			/**
+			 * @default 0
+			 * @maximum 3
+			 * @minimum 0
+			 */
+			context_expansion?: number;
+			filters?:
+				| {
+						key: string;
+						type: "eq" | "ne" | "gt" | "gte" | "lt" | "lte";
+						value: string | number | boolean;
+				  }
+				| {
+						filters: {
+							key: string;
+							type: "eq" | "ne" | "gt" | "gte" | "lt" | "lte";
+							value: string | number | boolean;
+						}[];
+						type: "and" | "or";
+				  };
+			/**
+			 * @default 0.4
+			 * @maximum 1
+			 * @minimum 0
+			 */
+			match_threshold?: number;
+			/**
+			 * @default 10
+			 * @maximum 50
+			 * @minimum 1
+			 */
+			max_num_results?: number;
+			retrieval_type?: "vector" | "keyword" | "hybrid";
+		};
+	};
+	/**
+	 * @minItems 1
+	 */
+	messages: ({
+		content: string | null;
+		role: "system" | "developer" | "user" | "assistant" | "tool";
+	} & {
+		[key: string]: any;
+	})[];
+};
+
+export type AiSearchInstanceSearchVariables = {
+	body: AiSearchInstanceSearchRequestBody;
+	pathParams: AiSearchInstanceSearchPathParams;
+} & FetcherExtraProps;
+
+export const aiSearchInstanceSearch = (
+	variables: AiSearchInstanceSearchVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		AiSearchInstanceSearchResponse,
+		AiSearchInstanceSearchError,
+		AiSearchInstanceSearchRequestBody,
+		{},
+		{},
+		AiSearchInstanceSearchPathParams
+	>({
+		url: "/accounts/{accountId}/ai-search/instances/{id}/search",
+		method: "post",
 		...variables,
 		signal,
 	});
@@ -207895,6 +208311,8 @@ export const operationsByTag = {
 		aiSearchDeleteInstances,
 		aiSearchFetchInstances,
 		aiSearchUpdateInstances,
+		aiSearchInstanceChatCompletion,
+		aiSearchInstanceSearch,
 		aiSearchStats,
 	},
 	aISearchInstancesItems: {
