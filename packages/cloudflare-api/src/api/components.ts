@@ -117414,16 +117414,6 @@ export type OrganizationsGetProfileError = Fetcher.ErrorWrapper<{
 	payload: Schemas.OrganizationsApiV4ErrorResponse;
 }>;
 
-export type OrganizationsGetProfileResponse = {
-	/**
-	 * @maxItems 0
-	 */
-	errors: Record<string, any>[];
-	messages: Schemas.OrganizationsApiV4Message[];
-	result: Schemas.OrganizationsApiProfile;
-	success: true;
-};
-
 export type OrganizationsGetProfileVariables = {
 	pathParams: OrganizationsGetProfilePathParams;
 } & FetcherExtraProps;
@@ -117436,7 +117426,7 @@ export const organizationsGetProfile = (
 	signal?: AbortSignal,
 ) =>
 	fetch<
-		OrganizationsGetProfileResponse,
+		Schemas.OrganizationsApiProfileResponse,
 		OrganizationsGetProfileError,
 		undefined,
 		{},
