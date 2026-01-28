@@ -55330,6 +55330,286 @@ export const getEventQueryRead = (variables: GetEventQueryReadVariables, signal?
 		signal,
 	});
 
+export type PatchEventQueryUpdatePathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+	/**
+	 * Event query ID
+	 */
+	queryId: number;
+};
+
+export type PatchEventQueryUpdateError = Fetcher.ErrorWrapper<
+	| {
+			status: 400;
+			payload: {
+				errors: {
+					/**
+					 * @example An error occurred.
+					 */
+					message: string;
+				}[];
+				result: Record<string, any>;
+				success: boolean;
+			};
+	  }
+	| {
+			status: 404;
+			payload: {
+				errors: {
+					/**
+					 * @example An error occurred.
+					 */
+					message: string;
+				}[];
+				result: Record<string, any>;
+				success: boolean;
+			};
+	  }
+>;
+
+export type PatchEventQueryUpdateResponse = {
+	/**
+	 * Account ID
+	 */
+	account_id: number;
+	/**
+	 * Whether alerts are enabled
+	 */
+	alert_enabled: boolean;
+	/**
+	 * Whether alert rollup is enabled
+	 */
+	alert_rollup_enabled: boolean;
+	/**
+	 * Creation timestamp
+	 */
+	created_at: string;
+	/**
+	 * Unique identifier for the saved query
+	 */
+	id: number;
+	/**
+	 * Name of the saved query
+	 */
+	name: string;
+	/**
+	 * JSON string containing the query parameters
+	 */
+	query_json: string;
+	/**
+	 * Whether rule is enabled
+	 */
+	rule_enabled: boolean;
+	/**
+	 * Scope for the rule
+	 */
+	rule_scope?: string;
+	/**
+	 * Last update timestamp
+	 */
+	updated_at: string;
+	/**
+	 * Email of the user who created the query
+	 */
+	user_email: string;
+};
+
+export type PatchEventQueryUpdateRequestBody = {
+	/**
+	 * Enable alerts for this query
+	 */
+	alert_enabled?: boolean;
+	/**
+	 * Enable alert rollup for this query
+	 */
+	alert_rollup_enabled?: boolean;
+	/**
+	 * Unique name for the saved query
+	 */
+	name?: string;
+	/**
+	 * JSON string containing the query parameters
+	 */
+	query_json?: string;
+	/**
+	 * Enable rule for this query
+	 */
+	rule_enabled?: boolean;
+	/**
+	 * Scope for the rule
+	 */
+	rule_scope?: string;
+};
+
+export type PatchEventQueryUpdateVariables = {
+	body?: PatchEventQueryUpdateRequestBody;
+	pathParams: PatchEventQueryUpdatePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Update an existing saved event query by its ID
+ */
+export const patchEventQueryUpdate = (
+	variables: PatchEventQueryUpdateVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		PatchEventQueryUpdateResponse,
+		PatchEventQueryUpdateError,
+		PatchEventQueryUpdateRequestBody,
+		{},
+		{},
+		PatchEventQueryUpdatePathParams
+	>({
+		url: "/accounts/{accountId}/cloudforce-one/events/queries/{queryId}",
+		method: "patch",
+		...variables,
+		signal,
+	});
+
+export type PostEventQueryUpdatePathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+	/**
+	 * Event query ID
+	 */
+	queryId: number;
+};
+
+export type PostEventQueryUpdateError = Fetcher.ErrorWrapper<
+	| {
+			status: 400;
+			payload: {
+				errors: {
+					/**
+					 * @example An error occurred.
+					 */
+					message: string;
+				}[];
+				result: Record<string, any>;
+				success: boolean;
+			};
+	  }
+	| {
+			status: 404;
+			payload: {
+				errors: {
+					/**
+					 * @example An error occurred.
+					 */
+					message: string;
+				}[];
+				result: Record<string, any>;
+				success: boolean;
+			};
+	  }
+>;
+
+export type PostEventQueryUpdateResponse = {
+	/**
+	 * Account ID
+	 */
+	account_id: number;
+	/**
+	 * Whether alerts are enabled
+	 */
+	alert_enabled: boolean;
+	/**
+	 * Whether alert rollup is enabled
+	 */
+	alert_rollup_enabled: boolean;
+	/**
+	 * Creation timestamp
+	 */
+	created_at: string;
+	/**
+	 * Unique identifier for the saved query
+	 */
+	id: number;
+	/**
+	 * Name of the saved query
+	 */
+	name: string;
+	/**
+	 * JSON string containing the query parameters
+	 */
+	query_json: string;
+	/**
+	 * Whether rule is enabled
+	 */
+	rule_enabled: boolean;
+	/**
+	 * Scope for the rule
+	 */
+	rule_scope?: string;
+	/**
+	 * Last update timestamp
+	 */
+	updated_at: string;
+	/**
+	 * Email of the user who created the query
+	 */
+	user_email: string;
+};
+
+export type PostEventQueryUpdateRequestBody = {
+	/**
+	 * Enable alerts for this query
+	 */
+	alert_enabled?: boolean;
+	/**
+	 * Enable alert rollup for this query
+	 */
+	alert_rollup_enabled?: boolean;
+	/**
+	 * Unique name for the saved query
+	 */
+	name?: string;
+	/**
+	 * JSON string containing the query parameters
+	 */
+	query_json?: string;
+	/**
+	 * Enable rule for this query
+	 */
+	rule_enabled?: boolean;
+	/**
+	 * Scope for the rule
+	 */
+	rule_scope?: string;
+};
+
+export type PostEventQueryUpdateVariables = {
+	body?: PostEventQueryUpdateRequestBody;
+	pathParams: PostEventQueryUpdatePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Update an existing saved event query by its ID
+ */
+export const postEventQueryUpdate = (
+	variables: PostEventQueryUpdateVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		PostEventQueryUpdateResponse,
+		PostEventQueryUpdateError,
+		PostEventQueryUpdateRequestBody,
+		{},
+		{},
+		PostEventQueryUpdatePathParams
+	>({
+		url: "/accounts/{accountId}/cloudforce-one/events/queries/{queryId}",
+		method: "post",
+		...variables,
+		signal,
+	});
+
 export type GetEventRawReadDSPathParams = {
 	/**
 	 * Account ID.
@@ -209005,6 +209285,8 @@ export const operationsByTag = {
 		postEventQueryCreate,
 		deleteEventQueryDelete,
 		getEventQueryRead,
+		patchEventQueryUpdate,
+		postEventQueryUpdate,
 		getEventRawReadDS,
 		deleteEventReferenceDelete,
 		postEventReferenceCreate,
