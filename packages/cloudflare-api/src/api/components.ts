@@ -125,6 +125,258 @@ export const accountsBatchMoveAccounts = (
 		{}
 	>({ url: "/accounts/move", method: "post", ...variables, signal });
 
+export type GetApplicationsPathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+};
+
+export type GetApplicationsQueryParams = {
+	/**
+	 * Filter applications using key:value format. Supported filter keys:
+	 * - name: Filter by application name (e.g., name:HR)
+	 * - id: Filter by application ID (e.g., id:0b63249c-95bf-4cc0-a7cc-d7faaaf1dac0)
+	 * - human_id: Filter by human-readable ID (e.g., human_id:HR)
+	 * - hostname: Filter by hostname or support domain (e.g., hostname:portal.example.com)
+	 * - source: Filter by application source name (e.g., source:cloudflare)
+	 * - ip_subnet: Filter by IP subnet in CIDR notation (e.g., ip_subnet:192.168.1.0/24).
+	 * .
+	 */
+	filter?: string;
+	/**
+	 * Limit of number of results to return.
+	 *
+	 * @default 10
+	 */
+	limit?: number;
+	/**
+	 * Offset of results to return.
+	 *
+	 * @default 0
+	 */
+	offset?: number;
+	/**
+	 * Order by result by field name and order (e.g., name:asc).
+	 */
+	order_by?: string;
+};
+
+export type GetApplicationsError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.AlexandriaGetApplicationsResponse & Schemas.AlexandriaApiResponseCommonFailure;
+}>;
+
+export type GetApplicationsVariables = {
+	pathParams: GetApplicationsPathParams;
+	queryParams?: GetApplicationsQueryParams;
+} & FetcherExtraProps;
+
+/**
+ * Get applications with different filters.
+ */
+export const getApplications = (variables: GetApplicationsVariables, signal?: AbortSignal) =>
+	fetch<
+		Schemas.AlexandriaGetApplicationsResponse,
+		GetApplicationsError,
+		undefined,
+		{},
+		GetApplicationsQueryParams,
+		GetApplicationsPathParams
+	>({
+		url: "/accounts/{accountId}/resource-library/applications",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type CreateApplicationPathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+};
+
+export type CreateApplicationError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.AlexandriaGetApplicationResponse & Schemas.AlexandriaApiResponseCommonFailure;
+}>;
+
+export type CreateApplicationVariables = {
+	body: Schemas.AlexandriaCreateApplicationRequest;
+	pathParams: CreateApplicationPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Create application.
+ */
+export const createApplication = (variables: CreateApplicationVariables, signal?: AbortSignal) =>
+	fetch<
+		Schemas.AlexandriaGetApplicationResponse,
+		CreateApplicationError,
+		Schemas.AlexandriaCreateApplicationRequest,
+		{},
+		{},
+		CreateApplicationPathParams
+	>({
+		url: "/accounts/{accountId}/resource-library/applications",
+		method: "post",
+		...variables,
+		signal,
+	});
+
+export type GetApplicationByIdPathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+	/**
+	 * Application ID.
+	 */
+	id: string;
+};
+
+export type GetApplicationByIdError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.AlexandriaGetApplicationResponse & Schemas.AlexandriaApiResponseCommonFailure;
+}>;
+
+export type GetApplicationByIdVariables = {
+	pathParams: GetApplicationByIdPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Get application by ID.
+ */
+export const getApplicationById = (variables: GetApplicationByIdVariables, signal?: AbortSignal) =>
+	fetch<
+		Schemas.AlexandriaGetApplicationResponse,
+		GetApplicationByIdError,
+		undefined,
+		{},
+		{},
+		GetApplicationByIdPathParams
+	>({
+		url: "/accounts/{accountId}/resource-library/applications/{id}",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type UpdateApplicationVersionPathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+	/**
+	 * Application ID.
+	 */
+	id: string;
+};
+
+export type UpdateApplicationVersionError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.AlexandriaGetApplicationResponse & Schemas.AlexandriaApiResponseCommonFailure;
+}>;
+
+export type UpdateApplicationVersionVariables = {
+	body?: Schemas.AlexandriaUpdateApplicationVersionRequest;
+	pathParams: UpdateApplicationVersionPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Update application version.
+ */
+export const updateApplicationVersion = (
+	variables: UpdateApplicationVersionVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.AlexandriaGetApplicationResponse,
+		UpdateApplicationVersionError,
+		Schemas.AlexandriaUpdateApplicationVersionRequest,
+		{},
+		{},
+		UpdateApplicationVersionPathParams
+	>({
+		url: "/accounts/{accountId}/resource-library/applications/{id}",
+		method: "patch",
+		...variables,
+		signal,
+	});
+
+export type GetCategoriesPathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+};
+
+export type GetCategoriesError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.AlexandriaGetCategoriesResponse & Schemas.AlexandriaApiResponseCommonFailure;
+}>;
+
+export type GetCategoriesVariables = {
+	pathParams: GetCategoriesPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Get all application categories.
+ */
+export const getCategories = (variables: GetCategoriesVariables, signal?: AbortSignal) =>
+	fetch<
+		Schemas.AlexandriaGetCategoriesResponse,
+		GetCategoriesError,
+		undefined,
+		{},
+		{},
+		GetCategoriesPathParams
+	>({
+		url: "/accounts/{accountId}/resource-library/categories",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type GetCategoryByIdPathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+	/**
+	 * Application category ID.
+	 */
+	id: string;
+};
+
+export type GetCategoryByIdError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.AlexandriaGetCategoryResponse & Schemas.AlexandriaApiResponseCommonFailure;
+}>;
+
+export type GetCategoryByIdVariables = {
+	pathParams: GetCategoryByIdPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Get application category by ID.
+ */
+export const getCategoryById = (variables: GetCategoryByIdVariables, signal?: AbortSignal) =>
+	fetch<
+		Schemas.AlexandriaGetCategoryResponse,
+		GetCategoryByIdError,
+		undefined,
+		{},
+		{},
+		GetCategoryByIdPathParams
+	>({
+		url: "/accounts/{accountId}/resource-library/categories/{id}",
+		method: "get",
+		...variables,
+		signal,
+	});
+
 export type CustomPagesForAnAccountListCustomPagesPathParams = {
 	accountIdentifier: Schemas.CustomPagesIdentifier;
 };
@@ -19383,6 +19635,69 @@ export const workersAiPostRunCfBlackForestLabsFlux2Klein4b = (
 		WorkersAiPostRunCfBlackForestLabsFlux2Klein4bPathParams
 	>({
 		url: "/accounts/{accountId}/ai/run/@cf/black-forest-labs/flux-2-klein-4b",
+		method: "post",
+		...variables,
+		signal,
+	});
+
+export type WorkersAiPostRunCfBlackForestLabsFlux2Klein9bPathParams = {
+	/**
+	 * @example 023e105f4ecef8ad9ca31a8372d0c353
+	 * @x-auditable true
+	 */
+	accountId: string;
+};
+
+export type WorkersAiPostRunCfBlackForestLabsFlux2Klein9bQueryParams = {
+	/**
+	 * @example true
+	 * @x-auditable true
+	 */
+	queueRequest?: string;
+	/**
+	 * @example tag1,tag2,tag3
+	 */
+	tags?: string;
+};
+
+export type WorkersAiPostRunCfBlackForestLabsFlux2Klein9bError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: {
+		errors: {
+			code: string;
+			message: string;
+		}[];
+		result: Record<string, any>;
+		success: boolean;
+	};
+}>;
+
+export type WorkersAiPostRunCfBlackForestLabsFlux2Klein9bRequestBody = {
+	multipart: {
+		body?: Record<string, any>;
+		contentType?: string;
+	};
+};
+
+export type WorkersAiPostRunCfBlackForestLabsFlux2Klein9bVariables = {
+	body: WorkersAiPostRunCfBlackForestLabsFlux2Klein9bRequestBody;
+	pathParams: WorkersAiPostRunCfBlackForestLabsFlux2Klein9bPathParams;
+	queryParams?: WorkersAiPostRunCfBlackForestLabsFlux2Klein9bQueryParams;
+} & FetcherExtraProps;
+
+export const workersAiPostRunCfBlackForestLabsFlux2Klein9b = (
+	variables: WorkersAiPostRunCfBlackForestLabsFlux2Klein9bVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Record<string, any>,
+		WorkersAiPostRunCfBlackForestLabsFlux2Klein9bError,
+		WorkersAiPostRunCfBlackForestLabsFlux2Klein9bRequestBody,
+		{},
+		WorkersAiPostRunCfBlackForestLabsFlux2Klein9bQueryParams,
+		WorkersAiPostRunCfBlackForestLabsFlux2Klein9bPathParams
+	>({
+		url: "/accounts/{accountId}/ai/run/@cf/black-forest-labs/flux-2-klein-9b",
 		method: "post",
 		...variables,
 		signal,
@@ -74966,19 +75281,25 @@ export type CloudflareImagesListImagesV2Variables = {
  * **Examples:**
  * ```
  * # List all images
- * /v2/images
+ * /images/v2
  *
- * # Filter by metadata
- * /v2/images?meta.status[eq]=active
+ * # Filter by metadata [eq]
+ * /images/v2?meta.status[eq:string]=active
+ *
+ * # Filter by metadata [in]
+ * /images/v2?meta.status[in]=pending|deleted|flagged
+ *
+ * # Filter by metadata [in:number]
+ * /images/v2?meta.ratings[in:number]=4|5
  *
  * # Filter by nested metadata
- * /v2/images?meta.region.name[eq]=eu-west
+ * /images/v2?meta.region.name[eq]=eu-west
  *
  * # Combine metadata filters with creator
- * /v2/images?meta.status[eq]=active&creator=user123
+ * /images/v2?meta.status[eq]=active&creator=user123
  *
  * # Multiple metadata filters (AND logic)
- * /v2/images?meta.status[eq]=active&meta.priority[eq:number]=5
+ * /images/v2?meta.status[eq]=active&meta.priority[eq:number]=5
  * ```
  */
 export const cloudflareImagesListImagesV2 = (
@@ -208042,6 +208363,23 @@ export const operationsByTag = {
 		accountsGetAccountProfile,
 		accountsModifyAccountProfile,
 	},
+	applications: {
+		getApplications,
+		createApplication,
+		getApplicationById,
+		updateApplicationVersion,
+	},
+	category: {
+		getCategories,
+		getCategoryById,
+		getCategoryList,
+		getCategoryListComplete,
+		postCategoryCreate,
+		deleteCategoryDelete,
+		getCategoryRead,
+		patchCategoryUpdate,
+		postCategoryUpdate,
+	},
 	customPagesForAnAccount: {
 		customPagesForAnAccountListCustomPages,
 		customPagesForAnAccountGetACustomPage,
@@ -208421,6 +208759,7 @@ export const operationsByTag = {
 		workersAiPostRunCfBlackForestLabsFlux1Schnell,
 		workersAiPostRunCfBlackForestLabsFlux2Dev,
 		workersAiPostRunCfBlackForestLabsFlux2Klein4b,
+		workersAiPostRunCfBlackForestLabsFlux2Klein9b,
 		workersAiPostRunCfBytedanceStableDiffusionXlLightning,
 		workersAiPostRunCfLeonardoLucidOrigin,
 		workersAiPostRunCfLeonardoPhoenix10,
@@ -208683,15 +209022,6 @@ export const operationsByTag = {
 		postEventGraphQL,
 	},
 	attacker: { getAttackerList },
-	category: {
-		getCategoryList,
-		getCategoryListComplete,
-		postCategoryCreate,
-		deleteCategoryDelete,
-		getCategoryRead,
-		patchCategoryUpdate,
-		postCategoryUpdate,
-	},
 	country: { getCountryRead },
 	dataset: {
 		getDatasetList,
