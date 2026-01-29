@@ -73565,6 +73565,120 @@ export const zeroTrustGatewayPacfilesCreatePacfile = (
 		signal,
 	});
 
+export type ZeroTrustGatewayPacfilesDeletePathParams = {
+	pacfileId: Schemas.ZeroTrustGatewayComponentsSchemasUuid;
+	accountId: Schemas.ZeroTrustGatewaySchemasIdentifier;
+};
+
+export type ZeroTrustGatewayPacfilesDeleteError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.ZeroTrustGatewayEmptyResponse & Schemas.ZeroTrustGatewayApiResponseCommonFailure;
+}>;
+
+export type ZeroTrustGatewayPacfilesDeleteVariables = {
+	pathParams: ZeroTrustGatewayPacfilesDeletePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Delete a configured Zero Trust Gateway PAC file.
+ */
+export const zeroTrustGatewayPacfilesDelete = (
+	variables: ZeroTrustGatewayPacfilesDeleteVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.ZeroTrustGatewayEmptyResponse,
+		ZeroTrustGatewayPacfilesDeleteError,
+		undefined,
+		{},
+		{},
+		ZeroTrustGatewayPacfilesDeletePathParams
+	>({
+		url: "/accounts/{accountId}/gateway/pacfiles/{pacfileId}",
+		method: "delete",
+		...variables,
+		signal,
+	});
+
+export type ZeroTrustGatewayPacfilesDetailsPathParams = {
+	pacfileId: Schemas.ZeroTrustGatewayComponentsSchemasUuid;
+	accountId: Schemas.ZeroTrustGatewaySchemasIdentifier;
+};
+
+export type ZeroTrustGatewayPacfilesDetailsError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.ZeroTrustGatewayPacfilesComponentsSchemasSingleResponse &
+		Schemas.ZeroTrustGatewayApiResponseCommonFailure;
+}>;
+
+export type ZeroTrustGatewayPacfilesDetailsVariables = {
+	pathParams: ZeroTrustGatewayPacfilesDetailsPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Get a single Zero Trust Gateway PAC file.
+ */
+export const zeroTrustGatewayPacfilesDetails = (
+	variables: ZeroTrustGatewayPacfilesDetailsVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.ZeroTrustGatewayPacfilesComponentsSchemasSingleResponse,
+		ZeroTrustGatewayPacfilesDetailsError,
+		undefined,
+		{},
+		{},
+		ZeroTrustGatewayPacfilesDetailsPathParams
+	>({
+		url: "/accounts/{accountId}/gateway/pacfiles/{pacfileId}",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type ZeroTrustGatewayPacfilesUpdatePathParams = {
+	pacfileId: Schemas.ZeroTrustGatewayComponentsSchemasUuid;
+	accountId: Schemas.ZeroTrustGatewaySchemasIdentifier;
+};
+
+export type ZeroTrustGatewayPacfilesUpdateError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.ZeroTrustGatewayPacfilesComponentsSchemasSingleResponse &
+		Schemas.ZeroTrustGatewayApiResponseCommonFailure;
+}>;
+
+export type ZeroTrustGatewayPacfilesUpdateRequestBody = {
+	contents: Schemas.ZeroTrustGatewayContents;
+	description: Schemas.ZeroTrustGatewayPacfilesComponentsSchemasDescription;
+	name: Schemas.ZeroTrustGatewayPacfilesComponentsSchemasName;
+};
+
+export type ZeroTrustGatewayPacfilesUpdateVariables = {
+	body: ZeroTrustGatewayPacfilesUpdateRequestBody;
+	pathParams: ZeroTrustGatewayPacfilesUpdatePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Update a configured Zero Trust Gateway PAC file.
+ */
+export const zeroTrustGatewayPacfilesUpdate = (
+	variables: ZeroTrustGatewayPacfilesUpdateVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.ZeroTrustGatewayPacfilesComponentsSchemasSingleResponse,
+		ZeroTrustGatewayPacfilesUpdateError,
+		ZeroTrustGatewayPacfilesUpdateRequestBody,
+		{},
+		{},
+		ZeroTrustGatewayPacfilesUpdatePathParams
+	>({
+		url: "/accounts/{accountId}/gateway/pacfiles/{pacfileId}",
+		method: "put",
+		...variables,
+		signal,
+	});
+
 export type ZeroTrustGatewayProxyEndpointsListProxyEndpointsPathParams = {
 	accountId: Schemas.ZeroTrustGatewaySchemasIdentifier;
 };
@@ -210158,6 +210272,9 @@ export const operationsByTag = {
 	zeroTrustGatewayPACFiles: {
 		zeroTrustGatewayPacfilesList,
 		zeroTrustGatewayPacfilesCreatePacfile,
+		zeroTrustGatewayPacfilesDelete,
+		zeroTrustGatewayPacfilesDetails,
+		zeroTrustGatewayPacfilesUpdate,
 	},
 	zeroTrustGatewayProxyEndpoints: {
 		zeroTrustGatewayProxyEndpointsListProxyEndpoints,
