@@ -140811,6 +140811,379 @@ export const radarGetBgpRoutesStats = (
 		{}
 	>({ url: "/radar/bgp/routes/stats", method: "get", ...variables, signal });
 
+export type RadarGetBgpRpkiAspaChangesQueryParams = {
+	/**
+	 * Start of the date range (inclusive).
+	 *
+	 * @example 2023-09-01T11:41:33.782Z
+	 * @format date-time
+	 */
+	dateStart?: string;
+	/**
+	 * End of the date range (inclusive).
+	 *
+	 * @example 2023-09-01T11:41:33.782Z
+	 * @format date-time
+	 */
+	dateEnd?: string;
+	/**
+	 * Filter changes involving this ASN (as customer or provider).
+	 *
+	 * @example 13335
+	 */
+	asn?: number;
+	/**
+	 * Include ASN metadata (name, country) in response.
+	 */
+	includeAsnInfo?: boolean;
+	/**
+	 * Format in which results will be returned.
+	 *
+	 * @example json
+	 */
+	format?: "JSON" | "CSV";
+};
+
+export type RadarGetBgpRpkiAspaChangesError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: {
+		errors: {
+			message: string;
+		}[];
+		result: Record<string, any>;
+		/**
+		 * @example false
+		 */
+		success: boolean;
+	};
+}>;
+
+export type RadarGetBgpRpkiAspaChangesResponse = {
+	result: {
+		asnInfo: {
+			["13335"]: {
+				/**
+				 * ASN number.
+				 */
+				asn: number;
+				/**
+				 * Alpha-2 country code.
+				 */
+				country: string;
+				/**
+				 * AS name.
+				 */
+				name: string;
+			};
+		};
+		changes: {
+			/**
+			 * Number of new ASPA objects created.
+			 */
+			customersAdded: number;
+			/**
+			 * Number of ASPA objects deleted.
+			 */
+			customersRemoved: number;
+			/**
+			 * Date of the changes in ISO 8601 format.
+			 *
+			 * @format date-time
+			 */
+			date: string;
+			entries: {
+				/**
+				 * The customer ASN affected.
+				 */
+				customerAsn: number;
+				providers: number[];
+				type: "CustomerAdded" | "CustomerRemoved" | "ProvidersAdded" | "ProvidersRemoved";
+			}[];
+			/**
+			 * Number of providers added to existing objects.
+			 */
+			providersAdded: number;
+			/**
+			 * Number of providers removed from existing objects.
+			 */
+			providersRemoved: number;
+			/**
+			 * Running total of active ASPA objects after this day.
+			 */
+			totalCount: number;
+		}[];
+		meta: {
+			/**
+			 * Timestamp of the underlying data.
+			 *
+			 * @format date-time
+			 */
+			dataTime: string;
+			/**
+			 * Timestamp when the query was executed.
+			 *
+			 * @format date-time
+			 */
+			queryTime: string;
+		};
+	};
+	/**
+	 * @example true
+	 */
+	success: boolean;
+};
+
+export type RadarGetBgpRpkiAspaChangesVariables = {
+	queryParams?: RadarGetBgpRpkiAspaChangesQueryParams;
+} & FetcherExtraProps;
+
+/**
+ * Retrieves ASPA (Autonomous System Provider Authorization) changes over time. Returns daily aggregated changes including additions, removals, and modifications of ASPA objects.
+ */
+export const radarGetBgpRpkiAspaChanges = (
+	variables: RadarGetBgpRpkiAspaChangesVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		RadarGetBgpRpkiAspaChangesResponse,
+		RadarGetBgpRpkiAspaChangesError,
+		undefined,
+		{},
+		RadarGetBgpRpkiAspaChangesQueryParams,
+		{}
+	>({
+		url: "/radar/bgp/rpki/aspa/changes",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type RadarGetBgpRpkiAspaSnapshotQueryParams = {
+	/**
+	 * Filter by customer ASN (the ASN publishing the ASPA object).
+	 *
+	 * @example 13335
+	 */
+	customerAsn?: number;
+	/**
+	 * Filter by provider ASN (an authorized upstream provider in ASPA objects).
+	 *
+	 * @example 174
+	 */
+	providerAsn?: number;
+	/**
+	 * Filters results by the specified datetime (ISO 8601).
+	 *
+	 * @example 2024-09-19T00:00:00Z
+	 * @format date-time
+	 */
+	date?: string;
+	/**
+	 * Include ASN metadata (name, country) in response.
+	 */
+	includeAsnInfo?: boolean;
+	/**
+	 * Format in which results will be returned.
+	 *
+	 * @example json
+	 */
+	format?: "JSON" | "CSV";
+};
+
+export type RadarGetBgpRpkiAspaSnapshotError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: {
+		errors: {
+			message: string;
+		}[];
+		result: Record<string, any>;
+		/**
+		 * @example false
+		 */
+		success: boolean;
+	};
+}>;
+
+export type RadarGetBgpRpkiAspaSnapshotResponse = {
+	result: {
+		asnInfo: {
+			["13335"]: {
+				/**
+				 * ASN number.
+				 */
+				asn: number;
+				/**
+				 * Alpha-2 country code.
+				 */
+				country: string;
+				/**
+				 * AS name.
+				 */
+				name: string;
+			};
+		};
+		aspaObjects: {
+			/**
+			 * The customer ASN publishing the ASPA object.
+			 */
+			customerAsn: number;
+			providers: number[];
+		}[];
+		meta: {
+			/**
+			 * Timestamp of the underlying data.
+			 *
+			 * @format date-time
+			 */
+			dataTime: string;
+			/**
+			 * Timestamp when the query was executed.
+			 *
+			 * @format date-time
+			 */
+			queryTime: string;
+			/**
+			 * Total number of ASPA objects.
+			 */
+			totalCount: number;
+		};
+	};
+	/**
+	 * @example true
+	 */
+	success: boolean;
+};
+
+export type RadarGetBgpRpkiAspaSnapshotVariables = {
+	queryParams?: RadarGetBgpRpkiAspaSnapshotQueryParams;
+} & FetcherExtraProps;
+
+/**
+ * Retrieves current or historical ASPA (Autonomous System Provider Authorization) objects. ASPA objects define which ASNs are authorized upstream providers for a customer ASN.
+ */
+export const radarGetBgpRpkiAspaSnapshot = (
+	variables: RadarGetBgpRpkiAspaSnapshotVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		RadarGetBgpRpkiAspaSnapshotResponse,
+		RadarGetBgpRpkiAspaSnapshotError,
+		undefined,
+		{},
+		RadarGetBgpRpkiAspaSnapshotQueryParams,
+		{}
+	>({
+		url: "/radar/bgp/rpki/aspa/snapshot",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type RadarGetBgpRpkiAspaTimeseriesQueryParams = {
+	/**
+	 * Start of the date range (inclusive).
+	 *
+	 * @example 2023-09-01T11:41:33.782Z
+	 * @format date-time
+	 */
+	dateStart?: string;
+	/**
+	 * End of the date range (inclusive).
+	 *
+	 * @example 2023-09-01T11:41:33.782Z
+	 * @format date-time
+	 */
+	dateEnd?: string;
+	/**
+	 * Array of names used to label the series in the response.
+	 */
+	name?: string[];
+	/**
+	 * Filter by Regional Internet Registry (RIR). Multiple RIRs generate multiple series.
+	 *
+	 * @example RIPE_NCC
+	 */
+	rir?: ("RIPE_NCC" | "ARIN" | "APNIC" | "LACNIC" | "AFRINIC")[];
+	/**
+	 * Filters results by location. Specify a comma-separated list of alpha-2 location codes.
+	 *
+	 * @example US
+	 */
+	location?: string[];
+	/**
+	 * Format in which results will be returned.
+	 *
+	 * @example json
+	 */
+	format?: "JSON" | "CSV";
+};
+
+export type RadarGetBgpRpkiAspaTimeseriesError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: {
+		errors: {
+			message: string;
+		}[];
+		result: Record<string, any>;
+		/**
+		 * @example false
+		 */
+		success: boolean;
+	};
+}>;
+
+export type RadarGetBgpRpkiAspaTimeseriesResponse = {
+	result: {
+		meta: {
+			/**
+			 * Timestamp of the underlying data.
+			 *
+			 * @format date-time
+			 */
+			dataTime: string;
+			/**
+			 * Timestamp when the query was executed.
+			 *
+			 * @format date-time
+			 */
+			queryTime: string;
+		};
+		serie_0: {
+			timestamps: string[];
+			values: string[];
+		};
+	};
+	/**
+	 * @example true
+	 */
+	success: boolean;
+};
+
+export type RadarGetBgpRpkiAspaTimeseriesVariables = {
+	queryParams?: RadarGetBgpRpkiAspaTimeseriesQueryParams;
+} & FetcherExtraProps;
+
+/**
+ * Retrieves ASPA (Autonomous System Provider Authorization) object count over time. Supports filtering by RIR or location (country code) to generate multiple named series. If no RIR or location filter is specified, returns total count.
+ */
+export const radarGetBgpRpkiAspaTimeseries = (
+	variables: RadarGetBgpRpkiAspaTimeseriesVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		RadarGetBgpRpkiAspaTimeseriesResponse,
+		RadarGetBgpRpkiAspaTimeseriesError,
+		undefined,
+		{},
+		RadarGetBgpRpkiAspaTimeseriesQueryParams,
+		{}
+	>({
+		url: "/radar/bgp/rpki/aspa/timeseries",
+		method: "get",
+		...variables,
+		signal,
+	});
+
 export type RadarGetBgpTimeseriesQueryParams = {
 	/**
 	 * Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/).
@@ -210951,6 +211324,9 @@ export const operationsByTag = {
 		radarGetBgpPfx2as,
 		radarGetBgpRoutesRealtime,
 		radarGetBgpRoutesStats,
+		radarGetBgpRpkiAspaChanges,
+		radarGetBgpRpkiAspaSnapshot,
+		radarGetBgpRpkiAspaTimeseries,
 		radarGetBgpTimeseries,
 		radarGetBgpTopAses,
 		radarGetBgpTopAsnsByPrefixes,
