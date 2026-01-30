@@ -68445,6 +68445,9 @@ export type EmailSecurityPostBulkMessageMoveVariables = {
 	pathParams: EmailSecurityPostBulkMessageMovePathParams;
 } & FetcherExtraProps;
 
+/**
+ * Maximum batch size: 100 messages per request
+ */
 export const emailSecurityPostBulkMessageMove = (
 	variables: EmailSecurityPostBulkMessageMoveVariables,
 	signal?: AbortSignal,
