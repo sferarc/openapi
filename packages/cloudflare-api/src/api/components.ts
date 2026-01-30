@@ -63053,10 +63053,9 @@ export type DexEndpointsListColosError = Fetcher.ErrorWrapper<{
 	payload: Schemas.DigitalExperienceMonitoringApiResponseCommonFailure;
 }>;
 
-export type DexEndpointsListColosResponse =
-	Schemas.DigitalExperienceMonitoringApiResponseCollection & {
-		result?: Schemas.DigitalExperienceMonitoringColosResponse;
-	};
+export type DexEndpointsListColosResponse = Schemas.DigitalExperienceMonitoringApiResponseCommon & {
+	result?: Schemas.DigitalExperienceMonitoringColosResponse;
+};
 
 export type DexEndpointsListColosVariables = {
 	pathParams: DexEndpointsListColosPathParams;
@@ -63400,6 +63399,32 @@ export type DeviceDexTestDetailsPathParams = {
 	accountId: Schemas.DigitalExperienceMonitoringAccountIdentifier;
 };
 
+export type DeviceDexTestDetailsQueryParams = {
+	/**
+	 * Page number of paginated results
+	 *
+	 * @default 1
+	 * @minimum 1
+	 */
+	page?: number;
+	/**
+	 * Number of items per page
+	 *
+	 * @default 10
+	 * @maximum 50
+	 * @minimum 1
+	 */
+	per_page?: number;
+	/**
+	 * Filter by test name
+	 */
+	testName?: string;
+	/**
+	 * Filter by test type
+	 */
+	kind?: "http" | "traceroute";
+};
+
 export type DeviceDexTestDetailsError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: Schemas.DigitalExperienceMonitoringDexSingleResponse &
@@ -63408,6 +63433,7 @@ export type DeviceDexTestDetailsError = Fetcher.ErrorWrapper<{
 
 export type DeviceDexTestDetailsVariables = {
 	pathParams: DeviceDexTestDetailsPathParams;
+	queryParams?: DeviceDexTestDetailsQueryParams;
 } & FetcherExtraProps;
 
 /**
@@ -63422,7 +63448,7 @@ export const deviceDexTestDetails = (
 		DeviceDexTestDetailsError,
 		undefined,
 		{},
-		{},
+		DeviceDexTestDetailsQueryParams,
 		DeviceDexTestDetailsPathParams
 	>({
 		url: "/accounts/{accountId}/dex/devices/dex_tests",
@@ -63734,7 +63760,7 @@ export const dexFleetStatusOverTime = (
 	signal?: AbortSignal,
 ) =>
 	fetch<
-		undefined,
+		Schemas.DigitalExperienceMonitoringFleetStatusOverTimeResponse,
 		DexFleetStatusOverTimeError,
 		undefined,
 		{},
@@ -63879,6 +63905,205 @@ export const dexEndpointsHttpTestPercentiles = (
 		signal,
 	});
 
+export type ListDexRulesPathParams = {
+	accountId: Schemas.DigitalExperienceMonitoringAccountIdentifier;
+};
+
+export type ListDexRulesQueryParams = {
+	/**
+	 * Page number of paginated results
+	 *
+	 * @minimum 1
+	 */
+	page: number;
+	/**
+	 * Number of items per page
+	 *
+	 * @maximum 50
+	 * @minimum 1
+	 */
+	per_page: number;
+	/**
+	 * Sort direction for sort_by property
+	 *
+	 * @default ASC
+	 */
+	sort_order?: "ASC" | "DESC";
+	/**
+	 * Which property to sort results by
+	 *
+	 * @default name
+	 */
+	sort_by?: "name" | "created_at" | "updated_at";
+	/**
+	 * Filter results by rule name
+	 */
+	name?: string;
+};
+
+export type ListDexRulesError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.DigitalExperienceMonitoringApiResponseCommonFailure;
+}>;
+
+export type ListDexRulesResponse = Schemas.DigitalExperienceMonitoringApiResponseCollection & {
+	result?: Schemas.DigitalExperienceMonitoringListRulesResponse;
+};
+
+export type ListDexRulesVariables = {
+	pathParams: ListDexRulesPathParams;
+	queryParams: ListDexRulesQueryParams;
+} & FetcherExtraProps;
+
+/**
+ * List DEX Rules
+ */
+export const listDexRules = (variables: ListDexRulesVariables, signal?: AbortSignal) =>
+	fetch<
+		ListDexRulesResponse,
+		ListDexRulesError,
+		undefined,
+		{},
+		ListDexRulesQueryParams,
+		ListDexRulesPathParams
+	>({
+		url: "/accounts/{accountId}/dex/rules",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type CreateDexRulePathParams = {
+	accountId: Schemas.DigitalExperienceMonitoringAccountIdentifier;
+};
+
+export type CreateDexRuleError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.DigitalExperienceMonitoringApiResponseCommonFailure;
+}>;
+
+export type CreateDexRuleResponse = Schemas.DigitalExperienceMonitoringApiResponseSingle & {
+	result?: Schemas.DigitalExperienceMonitoringDexRule;
+};
+
+export type CreateDexRuleVariables = {
+	body: Schemas.DigitalExperienceMonitoringCreateRuleBody;
+	pathParams: CreateDexRulePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Create a DEX Rule
+ */
+export const createDexRule = (variables: CreateDexRuleVariables, signal?: AbortSignal) =>
+	fetch<
+		CreateDexRuleResponse,
+		CreateDexRuleError,
+		Schemas.DigitalExperienceMonitoringCreateRuleBody,
+		{},
+		{},
+		CreateDexRulePathParams
+	>({
+		url: "/accounts/{accountId}/dex/rules",
+		method: "post",
+		...variables,
+		signal,
+	});
+
+export type DeleteDexRulePathParams = {
+	accountId: Schemas.DigitalExperienceMonitoringAccountIdentifier;
+	ruleId: Schemas.DigitalExperienceMonitoringUuid;
+};
+
+export type DeleteDexRuleError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.DigitalExperienceMonitoringApiResponseCommonFailure;
+}>;
+
+export type DeleteDexRuleResponse = Schemas.DigitalExperienceMonitoringApiResponseSingle & {
+	result?: boolean | null;
+};
+
+export type DeleteDexRuleVariables = {
+	pathParams: DeleteDexRulePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Delete a DEX Rule
+ */
+export const deleteDexRule = (variables: DeleteDexRuleVariables, signal?: AbortSignal) =>
+	fetch<DeleteDexRuleResponse, DeleteDexRuleError, undefined, {}, {}, DeleteDexRulePathParams>({
+		url: "/accounts/{accountId}/dex/rules/{ruleId}",
+		method: "delete",
+		...variables,
+		signal,
+	});
+
+export type GetDexRulePathParams = {
+	accountId: Schemas.DigitalExperienceMonitoringAccountIdentifier;
+	ruleId: Schemas.DigitalExperienceMonitoringUuid;
+};
+
+export type GetDexRuleError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.DigitalExperienceMonitoringApiResponseCommonFailure;
+}>;
+
+export type GetDexRuleResponse = Schemas.DigitalExperienceMonitoringApiResponseSingle & {
+	result?: Schemas.DigitalExperienceMonitoringDexRule;
+};
+
+export type GetDexRuleVariables = {
+	pathParams: GetDexRulePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Get details for a DEX Rule
+ */
+export const getDexRule = (variables: GetDexRuleVariables, signal?: AbortSignal) =>
+	fetch<GetDexRuleResponse, GetDexRuleError, undefined, {}, {}, GetDexRulePathParams>({
+		url: "/accounts/{accountId}/dex/rules/{ruleId}",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type UpdateDexRulePathParams = {
+	accountId: Schemas.DigitalExperienceMonitoringAccountIdentifier;
+	ruleId: Schemas.DigitalExperienceMonitoringUuid;
+};
+
+export type UpdateDexRuleError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.DigitalExperienceMonitoringApiResponseCommonFailure;
+}>;
+
+export type UpdateDexRuleResponse = Schemas.DigitalExperienceMonitoringApiResponseSingle & {
+	result?: Schemas.DigitalExperienceMonitoringDexRule;
+};
+
+export type UpdateDexRuleVariables = {
+	body?: Schemas.DigitalExperienceMonitoringPatchRuleBody;
+	pathParams: UpdateDexRulePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Update a DEX Rule
+ */
+export const updateDexRule = (variables: UpdateDexRuleVariables, signal?: AbortSignal) =>
+	fetch<
+		UpdateDexRuleResponse,
+		UpdateDexRuleError,
+		Schemas.DigitalExperienceMonitoringPatchRuleBody,
+		{},
+		{},
+		UpdateDexRulePathParams
+	>({
+		url: "/accounts/{accountId}/dex/rules/{ruleId}",
+		method: "patch",
+		...variables,
+		signal,
+	});
+
 export type DexEndpointsListTestsOverviewPathParams = {
 	accountId: Schemas.DigitalExperienceMonitoringAccountIdentifier;
 };
@@ -63911,6 +64136,10 @@ export type DexEndpointsListTestsOverviewQueryParams = {
 	 * @minimum 1
 	 */
 	per_page?: number;
+	/**
+	 * Filter by test type
+	 */
+	kind?: "http" | "traceroute";
 };
 
 export type DexEndpointsListTestsOverviewError = Fetcher.ErrorWrapper<{
@@ -210017,6 +210246,13 @@ export const operationsByTag = {
 		deviceDexTestDeleteDeviceDexTest,
 		deviceDexTestGetDeviceDexTest,
 		deviceDexTestUpdateDeviceDexTest,
+	},
+	dEXRules: {
+		listDexRules,
+		createDexRule,
+		deleteDexRule,
+		getDexRule,
+		updateDexRule,
 	},
 	wARPChangeEvents: { listWarpChangeEvents },
 	endpointHealthChecks: {
