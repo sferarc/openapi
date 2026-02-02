@@ -116479,6 +116479,94 @@ export const worDescribeWorkflowVersionsDag = (
 		signal,
 	});
 
+export type WorDescribeWorkflowVersionsGraphPathParams = {
+	/**
+	 * @maxLength 64
+	 * @minLength 1
+	 * @pattern ^[a-zA-Z0-9_][a-zA-Z0-9-_]*$
+	 */
+	workflowName: string;
+	/**
+	 * @format uuid
+	 */
+	versionId: string;
+	accountId: string;
+};
+
+export type WorDescribeWorkflowVersionsGraphError = Fetcher.ErrorWrapper<{
+	status: 404;
+	payload: {
+		errors: {
+			code: number;
+			message: string;
+		}[];
+		messages: string[];
+		result: any | null;
+		success: false;
+	};
+}>;
+
+export type WorDescribeWorkflowVersionsGraphResponse = {
+	errors: {
+		code: number;
+		message: string;
+	}[];
+	messages: {
+		code: number;
+		message: string;
+	}[];
+	result: {
+		class_name: string;
+		/**
+		 * @format date-time
+		 */
+		created_on: string;
+		dag: Record<string, any> | null;
+		/**
+		 * @format uuid
+		 */
+		id: string;
+		/**
+		 * @format date-time
+		 */
+		modified_on: string;
+		/**
+		 * @format uuid
+		 */
+		workflow_id: string;
+	};
+	result_info?: {
+		count: number;
+		cursor?: string;
+		page?: number;
+		per_page: number;
+		total_count: number;
+	};
+	success: true;
+};
+
+export type WorDescribeWorkflowVersionsGraphVariables = {
+	pathParams: WorDescribeWorkflowVersionsGraphPathParams;
+} & FetcherExtraProps;
+
+export const worDescribeWorkflowVersionsGraph = (
+	variables: WorDescribeWorkflowVersionsGraphVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		WorDescribeWorkflowVersionsGraphResponse,
+		WorDescribeWorkflowVersionsGraphError,
+		undefined,
+		{},
+		{},
+		WorDescribeWorkflowVersionsGraphPathParams
+	>({
+		url: "/accounts/{accountId}/workflows/{workflowName}/versions/{versionId}/graph",
+		method: "get",
+		...variables,
+		signal,
+	});
+
 export type ZeroTrustAccountsGetConnectivitySettingsPathParams = {
 	accountId: Schemas.TunnelAccountId;
 };
@@ -211627,6 +211715,7 @@ export const operationsByTag = {
 		worListWorkflowVersions,
 		worDescribeWorkflowVersions,
 		worDescribeWorkflowVersionsDag,
+		worDescribeWorkflowVersionsGraph,
 	},
 	zeroTrustConnectivitySettings: {
 		zeroTrustAccountsGetConnectivitySettings,
