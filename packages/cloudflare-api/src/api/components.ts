@@ -50866,6 +50866,20 @@ export type AccountsTurnstileWidgetsListQueryParams = {
 	 * @example asc
 	 */
 	direction?: "asc" | "desc";
+	/**
+	 * Filter widgets by field using case-insensitive substring matching.
+	 * Format: `field:value`
+	 *
+	 * Supported fields:
+	 * - `name` - Filter by widget name (e.g., `filter=name:login-form`)
+	 * - `sitekey` - Filter by sitekey (e.g., `filter=sitekey:0x4AAA`)
+	 *
+	 * Returns 400 Bad Request if the field is unsupported or format is invalid.
+	 * An empty filter value returns all results.
+	 *
+	 * @example name:my-widget
+	 */
+	filter?: string;
 };
 
 export type AccountsTurnstileWidgetsListError = Fetcher.ErrorWrapper<{
@@ -50929,6 +50943,20 @@ export type AccountsTurnstileWidgetCreateQueryParams = {
 	 * @example asc
 	 */
 	direction?: "asc" | "desc";
+	/**
+	 * Filter widgets by field using case-insensitive substring matching.
+	 * Format: `field:value`
+	 *
+	 * Supported fields:
+	 * - `name` - Filter by widget name (e.g., `filter=name:login-form`)
+	 * - `sitekey` - Filter by sitekey (e.g., `filter=sitekey:0x4AAA`)
+	 *
+	 * Returns 400 Bad Request if the field is unsupported or format is invalid.
+	 * An empty filter value returns all results.
+	 *
+	 * @example name:my-widget
+	 */
+	filter?: string;
 };
 
 export type AccountsTurnstileWidgetCreateError = Fetcher.ErrorWrapper<{
