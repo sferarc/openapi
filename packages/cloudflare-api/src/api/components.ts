@@ -12816,6 +12816,18 @@ export type AiSearchListInstancesResponse = {
 		created_at: string;
 		created_by?: string;
 		/**
+		 * @maxItems 5
+		 * @x-auditable true
+		 */
+		custom_metadata?: {
+			data_type: "text" | "number" | "boolean";
+			/**
+			 * @maxLength 64
+			 * @minLength 1
+			 */
+			field_name: string;
+		}[];
+		/**
 		 * @x-auditable true
 		 */
 		embedding_model?:
@@ -12885,9 +12897,6 @@ export type AiSearchListInstancesResponse = {
 		 * @x-auditable true
 		 */
 		paused?: boolean;
-		/**
-		 * @x-auditable true
-		 */
 		public_endpoint_id?: string;
 		/**
 		 * @x-auditable true
@@ -13252,6 +13261,18 @@ export type AiSearchCreateInstancesResponse = {
 		created_at: string;
 		created_by?: string;
 		/**
+		 * @maxItems 5
+		 * @x-auditable true
+		 */
+		custom_metadata?: {
+			data_type: "text" | "number" | "boolean";
+			/**
+			 * @maxLength 64
+			 * @minLength 1
+			 */
+			field_name: string;
+		}[];
+		/**
 		 * @x-auditable true
 		 */
 		embedding_model?:
@@ -13321,9 +13342,6 @@ export type AiSearchCreateInstancesResponse = {
 		 * @x-auditable true
 		 */
 		paused?: boolean;
-		/**
-		 * @x-auditable true
-		 */
 		public_endpoint_id?: string;
 		/**
 		 * @x-auditable true
@@ -13621,6 +13639,18 @@ export type AiSearchCreateInstancesRequestBody = {
 	 * @x-auditable true
 	 */
 	chunk_size?: number;
+	/**
+	 * @maxItems 5
+	 * @x-auditable true
+	 */
+	custom_metadata?: {
+		data_type: "text" | "number" | "boolean";
+		/**
+		 * @maxLength 64
+		 * @minLength 1
+		 */
+		field_name: string;
+	}[];
 	/**
 	 * @x-auditable true
 	 */
@@ -13979,6 +14009,18 @@ export type AiSearchDeleteInstancesResponse = {
 		created_at: string;
 		created_by?: string;
 		/**
+		 * @maxItems 5
+		 * @x-auditable true
+		 */
+		custom_metadata?: {
+			data_type: "text" | "number" | "boolean";
+			/**
+			 * @maxLength 64
+			 * @minLength 1
+			 */
+			field_name: string;
+		}[];
+		/**
 		 * @x-auditable true
 		 */
 		embedding_model?:
@@ -14048,9 +14090,6 @@ export type AiSearchDeleteInstancesResponse = {
 		 * @x-auditable true
 		 */
 		paused?: boolean;
-		/**
-		 * @x-auditable true
-		 */
 		public_endpoint_id?: string;
 		/**
 		 * @x-auditable true
@@ -14423,6 +14462,18 @@ export type AiSearchFetchInstancesResponse = {
 		created_at: string;
 		created_by?: string;
 		/**
+		 * @maxItems 5
+		 * @x-auditable true
+		 */
+		custom_metadata?: {
+			data_type: "text" | "number" | "boolean";
+			/**
+			 * @maxLength 64
+			 * @minLength 1
+			 */
+			field_name: string;
+		}[];
+		/**
 		 * @x-auditable true
 		 */
 		embedding_model?:
@@ -14492,9 +14543,6 @@ export type AiSearchFetchInstancesResponse = {
 		 * @x-auditable true
 		 */
 		paused?: boolean;
-		/**
-		 * @x-auditable true
-		 */
 		public_endpoint_id?: string;
 		/**
 		 * @x-auditable true
@@ -14886,6 +14934,18 @@ export type AiSearchUpdateInstancesResponse = {
 		created_at: string;
 		created_by?: string;
 		/**
+		 * @maxItems 5
+		 * @x-auditable true
+		 */
+		custom_metadata?: {
+			data_type: "text" | "number" | "boolean";
+			/**
+			 * @maxLength 64
+			 * @minLength 1
+			 */
+			field_name: string;
+		}[];
+		/**
 		 * @x-auditable true
 		 */
 		embedding_model?:
@@ -14955,9 +15015,6 @@ export type AiSearchUpdateInstancesResponse = {
 		 * @x-auditable true
 		 */
 		paused?: boolean;
-		/**
-		 * @x-auditable true
-		 */
 		public_endpoint_id?: string;
 		/**
 		 * @x-auditable true
@@ -15265,6 +15322,18 @@ export type AiSearchUpdateInstancesRequestBody = {
 	 * @x-auditable true
 	 */
 	chunk_size?: number;
+	/**
+	 * @maxItems 5
+	 * @x-auditable true
+	 */
+	custom_metadata?: {
+		data_type: "text" | "number" | "boolean";
+		/**
+		 * @maxLength 64
+		 * @minLength 1
+		 */
+		field_name: string;
+	}[];
 	/**
 	 * @x-auditable true
 	 */
