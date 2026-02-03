@@ -40770,8 +40770,12 @@ export type WorkersAiPostToMarkdownResponse = {
 	success: boolean;
 };
 
+export type WorkersAiPostToMarkdownRequestBody = {
+	files: Blob[];
+};
+
 export type WorkersAiPostToMarkdownVariables = {
-	body?: Blob;
+	body: WorkersAiPostToMarkdownRequestBody;
 	pathParams: WorkersAiPostToMarkdownPathParams;
 } & FetcherExtraProps;
 
@@ -40782,7 +40786,7 @@ export const workersAiPostToMarkdown = (
 	fetch<
 		WorkersAiPostToMarkdownResponse,
 		WorkersAiPostToMarkdownError,
-		Blob,
+		WorkersAiPostToMarkdownRequestBody,
 		{},
 		{},
 		WorkersAiPostToMarkdownPathParams
