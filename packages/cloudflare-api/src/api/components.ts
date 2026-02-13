@@ -664,6 +664,89 @@ export const listAbuseReports = (variables: ListAbuseReportsVariables, signal?: 
 		signal,
 	});
 
+export type ListEmailsPathParams = {
+	/**
+	 * Cloudflare Account ID
+	 *
+	 * @example 023e105f4ecef8ad9ca31a8372d0c353
+	 * @maxLength 32
+	 */
+	accountId: string;
+	/**
+	 * Abuse Report ID
+	 */
+	reportId: string;
+};
+
+export type ListEmailsQueryParams = {
+	/**
+	 * Page number to retrieve (default 1)
+	 */
+	page?: number;
+	/**
+	 * Number of emails per page (default 20, max 100)
+	 */
+	per_page?: number;
+};
+
+export type ListEmailsError = Fetcher.ErrorWrapper<
+	| {
+			status: 400;
+			payload: {
+				errors?: Schemas.AbuseReportsMessage[];
+				messages?: Schemas.AbuseReportsMessage[];
+				success: boolean;
+			};
+	  }
+	| {
+			status: 500;
+			payload: {
+				errors?: Schemas.AbuseReportsMessage[];
+				messages?: Schemas.AbuseReportsMessage[];
+				success: boolean;
+			};
+	  }
+>;
+
+export type ListEmailsResponse = {
+	errors?: Schemas.AbuseReportsMessage[];
+	messages?: Schemas.AbuseReportsMessage[];
+	result?: {
+		emails: Schemas.AbuseReportsEmailListItem[];
+	};
+	result_info?: {
+		count: number;
+		page: number;
+		per_page: number;
+		total_count: number;
+		total_pages: number;
+	};
+	success: boolean;
+};
+
+export type ListEmailsVariables = {
+	pathParams: ListEmailsPathParams;
+	queryParams?: ListEmailsQueryParams;
+} & FetcherExtraProps;
+
+/**
+ * List emails sent to the customer for an abuse report. Returns all successful customer emails sent for the specified abuse report. Does not include emails sent to hosts or submitters.
+ */
+export const listEmails = (variables: ListEmailsVariables, signal?: AbortSignal) =>
+	fetch<
+		ListEmailsResponse,
+		ListEmailsError,
+		undefined,
+		{},
+		ListEmailsQueryParams,
+		ListEmailsPathParams
+	>({
+		url: "/accounts/{accountId}/abuse-reports/{reportId}/emails",
+		method: "get",
+		...variables,
+		signal,
+	});
+
 export type ListMitigationsPathParams = {
 	/**
 	 * Cloudflare Account ID
@@ -12744,18 +12827,17 @@ export type AiSearchListInstancesError = Fetcher.ErrorWrapper<{
 
 export type AiSearchListInstancesResponse = {
 	result: {
-		account_id: string;
-		account_tag: string;
 		/**
 		 * @x-auditable true
 		 */
-		ai_gateway_id?: string;
+		ai_gateway_id?: string | null;
 		/**
 		 * @x-auditable true
 		 */
 		ai_search_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+					| "@cf/zai-org/glm-4.7-flash"
 					| "@cf/meta/llama-3.1-8b-instruct-fast"
 					| "@cf/meta/llama-3.1-8b-instruct-fp8"
 					| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -12793,11 +12875,6 @@ export type AiSearchListInstancesResponse = {
 		 */
 		cache_threshold?: "super_strict_match" | "close_enough" | "flexible_friend" | "anything_goes";
 		/**
-		 * @default true
-		 * @x-auditable true
-		 */
-		chunk?: boolean;
-		/**
 		 * @default 10
 		 * @maximum 30
 		 * @minimum 0
@@ -12814,7 +12891,7 @@ export type AiSearchListInstancesResponse = {
 		 * @format date-time
 		 */
 		created_at: string;
-		created_by?: string;
+		created_by?: string | null;
 		/**
 		 * @maxItems 5
 		 * @x-auditable true
@@ -12847,10 +12924,6 @@ export type AiSearchListInstancesResponse = {
 		 */
 		enable?: boolean;
 		/**
-		 * @default 1
-		 */
-		engine_version?: number;
-		/**
 		 * @default false
 		 * @x-auditable true
 		 */
@@ -12866,13 +12939,9 @@ export type AiSearchListInstancesResponse = {
 		 */
 		id: string;
 		/**
-		 * @format uuid
-		 */
-		internal_id: string;
-		/**
 		 * @format date-time
 		 */
-		last_activity?: string;
+		last_activity?: string | null;
 		/**
 		 * @default 10
 		 * @maximum 50
@@ -12891,13 +12960,13 @@ export type AiSearchListInstancesResponse = {
 		 * @format date-time
 		 */
 		modified_at: string;
-		modified_by?: string;
+		modified_by?: string | null;
 		/**
 		 * @default false
 		 * @x-auditable true
 		 */
 		paused?: boolean;
-		public_endpoint_id?: string;
+		public_endpoint_id?: string | null;
 		/**
 		 * @x-auditable true
 		 */
@@ -12916,6 +12985,10 @@ export type AiSearchListInstancesResponse = {
 			 */
 			enabled?: boolean;
 			mcp?: {
+				/**
+				 * @default Finds exactly what you're looking for
+				 */
+				description?: string;
 				/**
 				 * Disable MCP endpoint for this public endpoint
 				 *
@@ -12959,6 +13032,7 @@ export type AiSearchListInstancesResponse = {
 		rewrite_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+					| "@cf/zai-org/glm-4.7-flash"
 					| "@cf/meta/llama-3.1-8b-instruct-fast"
 					| "@cf/meta/llama-3.1-8b-instruct-fp8"
 					| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -13076,55 +13150,6 @@ export type AiSearchListInstancesResponse = {
 		 */
 		status?: string;
 		/**
-		 * @default false
-		 * @x-auditable true
-		 */
-		summarization?: boolean;
-		/**
-		 * @x-auditable true
-		 */
-		summarization_model?:
-			| (
-					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
-					| "@cf/meta/llama-3.1-8b-instruct-fast"
-					| "@cf/meta/llama-3.1-8b-instruct-fp8"
-					| "@cf/meta/llama-4-scout-17b-16e-instruct"
-					| "@cf/qwen/qwen3-30b-a3b-fp8"
-					| "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"
-					| "@cf/moonshotai/kimi-k2-instruct"
-					| "anthropic/claude-3-7-sonnet"
-					| "anthropic/claude-sonnet-4"
-					| "anthropic/claude-opus-4"
-					| "anthropic/claude-3-5-haiku"
-					| "cerebras/qwen-3-235b-a22b-instruct"
-					| "cerebras/qwen-3-235b-a22b-thinking"
-					| "cerebras/llama-3.3-70b"
-					| "cerebras/llama-4-maverick-17b-128e-instruct"
-					| "cerebras/llama-4-scout-17b-16e-instruct"
-					| "cerebras/gpt-oss-120b"
-					| "google-ai-studio/gemini-2.5-flash"
-					| "google-ai-studio/gemini-2.5-pro"
-					| "grok/grok-4"
-					| "groq/llama-3.3-70b-versatile"
-					| "groq/llama-3.1-8b-instant"
-					| "openai/gpt-5"
-					| "openai/gpt-5-mini"
-					| "openai/gpt-5-nano"
-			  )
-			| "";
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_ai_search?: string;
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_index_summarization?: string;
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_rewrite_query?: string;
-		/**
 		 * @format uuid
 		 * @x-auditable true
 		 */
@@ -13133,7 +13158,6 @@ export type AiSearchListInstancesResponse = {
 		 * @x-auditable true
 		 */
 		type: "r2" | "web-crawler";
-		vectorize_active_namespace?: string;
 		vectorize_name: string;
 	}[];
 	success: boolean;
@@ -13189,18 +13213,17 @@ export type AiSearchCreateInstancesError = Fetcher.ErrorWrapper<{
 
 export type AiSearchCreateInstancesResponse = {
 	result: {
-		account_id: string;
-		account_tag: string;
 		/**
 		 * @x-auditable true
 		 */
-		ai_gateway_id?: string;
+		ai_gateway_id?: string | null;
 		/**
 		 * @x-auditable true
 		 */
 		ai_search_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+					| "@cf/zai-org/glm-4.7-flash"
 					| "@cf/meta/llama-3.1-8b-instruct-fast"
 					| "@cf/meta/llama-3.1-8b-instruct-fp8"
 					| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -13238,11 +13261,6 @@ export type AiSearchCreateInstancesResponse = {
 		 */
 		cache_threshold?: "super_strict_match" | "close_enough" | "flexible_friend" | "anything_goes";
 		/**
-		 * @default true
-		 * @x-auditable true
-		 */
-		chunk?: boolean;
-		/**
 		 * @default 10
 		 * @maximum 30
 		 * @minimum 0
@@ -13259,7 +13277,7 @@ export type AiSearchCreateInstancesResponse = {
 		 * @format date-time
 		 */
 		created_at: string;
-		created_by?: string;
+		created_by?: string | null;
 		/**
 		 * @maxItems 5
 		 * @x-auditable true
@@ -13292,10 +13310,6 @@ export type AiSearchCreateInstancesResponse = {
 		 */
 		enable?: boolean;
 		/**
-		 * @default 1
-		 */
-		engine_version?: number;
-		/**
 		 * @default false
 		 * @x-auditable true
 		 */
@@ -13311,13 +13325,9 @@ export type AiSearchCreateInstancesResponse = {
 		 */
 		id: string;
 		/**
-		 * @format uuid
-		 */
-		internal_id: string;
-		/**
 		 * @format date-time
 		 */
-		last_activity?: string;
+		last_activity?: string | null;
 		/**
 		 * @default 10
 		 * @maximum 50
@@ -13336,13 +13346,13 @@ export type AiSearchCreateInstancesResponse = {
 		 * @format date-time
 		 */
 		modified_at: string;
-		modified_by?: string;
+		modified_by?: string | null;
 		/**
 		 * @default false
 		 * @x-auditable true
 		 */
 		paused?: boolean;
-		public_endpoint_id?: string;
+		public_endpoint_id?: string | null;
 		/**
 		 * @x-auditable true
 		 */
@@ -13361,6 +13371,10 @@ export type AiSearchCreateInstancesResponse = {
 			 */
 			enabled?: boolean;
 			mcp?: {
+				/**
+				 * @default Finds exactly what you're looking for
+				 */
+				description?: string;
 				/**
 				 * Disable MCP endpoint for this public endpoint
 				 *
@@ -13404,6 +13418,7 @@ export type AiSearchCreateInstancesResponse = {
 		rewrite_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+					| "@cf/zai-org/glm-4.7-flash"
 					| "@cf/meta/llama-3.1-8b-instruct-fast"
 					| "@cf/meta/llama-3.1-8b-instruct-fp8"
 					| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -13521,55 +13536,6 @@ export type AiSearchCreateInstancesResponse = {
 		 */
 		status?: string;
 		/**
-		 * @default false
-		 * @x-auditable true
-		 */
-		summarization?: boolean;
-		/**
-		 * @x-auditable true
-		 */
-		summarization_model?:
-			| (
-					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
-					| "@cf/meta/llama-3.1-8b-instruct-fast"
-					| "@cf/meta/llama-3.1-8b-instruct-fp8"
-					| "@cf/meta/llama-4-scout-17b-16e-instruct"
-					| "@cf/qwen/qwen3-30b-a3b-fp8"
-					| "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"
-					| "@cf/moonshotai/kimi-k2-instruct"
-					| "anthropic/claude-3-7-sonnet"
-					| "anthropic/claude-sonnet-4"
-					| "anthropic/claude-opus-4"
-					| "anthropic/claude-3-5-haiku"
-					| "cerebras/qwen-3-235b-a22b-instruct"
-					| "cerebras/qwen-3-235b-a22b-thinking"
-					| "cerebras/llama-3.3-70b"
-					| "cerebras/llama-4-maverick-17b-128e-instruct"
-					| "cerebras/llama-4-scout-17b-16e-instruct"
-					| "cerebras/gpt-oss-120b"
-					| "google-ai-studio/gemini-2.5-flash"
-					| "google-ai-studio/gemini-2.5-pro"
-					| "grok/grok-4"
-					| "groq/llama-3.3-70b-versatile"
-					| "groq/llama-3.1-8b-instant"
-					| "openai/gpt-5"
-					| "openai/gpt-5-mini"
-					| "openai/gpt-5-nano"
-			  )
-			| "";
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_ai_search?: string;
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_index_summarization?: string;
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_rewrite_query?: string;
-		/**
 		 * @format uuid
 		 * @x-auditable true
 		 */
@@ -13578,7 +13544,6 @@ export type AiSearchCreateInstancesResponse = {
 		 * @x-auditable true
 		 */
 		type: "r2" | "web-crawler";
-		vectorize_active_namespace?: string;
 		vectorize_name: string;
 	};
 	success: boolean;
@@ -13588,13 +13553,14 @@ export type AiSearchCreateInstancesRequestBody = {
 	/**
 	 * @x-auditable true
 	 */
-	ai_gateway_id?: string;
+	ai_gateway_id?: string | null;
 	/**
 	 * @x-auditable true
 	 */
 	ai_search_model?:
 		| (
 				| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+				| "@cf/zai-org/glm-4.7-flash"
 				| "@cf/meta/llama-3.1-8b-instruct-fast"
 				| "@cf/meta/llama-3.1-8b-instruct-fp8"
 				| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -13713,6 +13679,10 @@ export type AiSearchCreateInstancesRequestBody = {
 		enabled?: boolean;
 		mcp?: {
 			/**
+			 * @default Finds exactly what you're looking for
+			 */
+			description?: string;
+			/**
 			 * Disable MCP endpoint for this public endpoint
 			 *
 			 * @default false
@@ -13755,6 +13725,7 @@ export type AiSearchCreateInstancesRequestBody = {
 	rewrite_model?:
 		| (
 				| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+				| "@cf/zai-org/glm-4.7-flash"
 				| "@cf/meta/llama-3.1-8b-instruct-fast"
 				| "@cf/meta/llama-3.1-8b-instruct-fp8"
 				| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -13937,18 +13908,17 @@ export type AiSearchDeleteInstancesError = Fetcher.ErrorWrapper<{
 
 export type AiSearchDeleteInstancesResponse = {
 	result: {
-		account_id: string;
-		account_tag: string;
 		/**
 		 * @x-auditable true
 		 */
-		ai_gateway_id?: string;
+		ai_gateway_id?: string | null;
 		/**
 		 * @x-auditable true
 		 */
 		ai_search_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+					| "@cf/zai-org/glm-4.7-flash"
 					| "@cf/meta/llama-3.1-8b-instruct-fast"
 					| "@cf/meta/llama-3.1-8b-instruct-fp8"
 					| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -13986,11 +13956,6 @@ export type AiSearchDeleteInstancesResponse = {
 		 */
 		cache_threshold?: "super_strict_match" | "close_enough" | "flexible_friend" | "anything_goes";
 		/**
-		 * @default true
-		 * @x-auditable true
-		 */
-		chunk?: boolean;
-		/**
 		 * @default 10
 		 * @maximum 30
 		 * @minimum 0
@@ -14007,7 +13972,7 @@ export type AiSearchDeleteInstancesResponse = {
 		 * @format date-time
 		 */
 		created_at: string;
-		created_by?: string;
+		created_by?: string | null;
 		/**
 		 * @maxItems 5
 		 * @x-auditable true
@@ -14040,10 +14005,6 @@ export type AiSearchDeleteInstancesResponse = {
 		 */
 		enable?: boolean;
 		/**
-		 * @default 1
-		 */
-		engine_version?: number;
-		/**
 		 * @default false
 		 * @x-auditable true
 		 */
@@ -14059,13 +14020,9 @@ export type AiSearchDeleteInstancesResponse = {
 		 */
 		id: string;
 		/**
-		 * @format uuid
-		 */
-		internal_id: string;
-		/**
 		 * @format date-time
 		 */
-		last_activity?: string;
+		last_activity?: string | null;
 		/**
 		 * @default 10
 		 * @maximum 50
@@ -14084,13 +14041,13 @@ export type AiSearchDeleteInstancesResponse = {
 		 * @format date-time
 		 */
 		modified_at: string;
-		modified_by?: string;
+		modified_by?: string | null;
 		/**
 		 * @default false
 		 * @x-auditable true
 		 */
 		paused?: boolean;
-		public_endpoint_id?: string;
+		public_endpoint_id?: string | null;
 		/**
 		 * @x-auditable true
 		 */
@@ -14109,6 +14066,10 @@ export type AiSearchDeleteInstancesResponse = {
 			 */
 			enabled?: boolean;
 			mcp?: {
+				/**
+				 * @default Finds exactly what you're looking for
+				 */
+				description?: string;
 				/**
 				 * Disable MCP endpoint for this public endpoint
 				 *
@@ -14152,6 +14113,7 @@ export type AiSearchDeleteInstancesResponse = {
 		rewrite_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+					| "@cf/zai-org/glm-4.7-flash"
 					| "@cf/meta/llama-3.1-8b-instruct-fast"
 					| "@cf/meta/llama-3.1-8b-instruct-fp8"
 					| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -14269,55 +14231,6 @@ export type AiSearchDeleteInstancesResponse = {
 		 */
 		status?: string;
 		/**
-		 * @default false
-		 * @x-auditable true
-		 */
-		summarization?: boolean;
-		/**
-		 * @x-auditable true
-		 */
-		summarization_model?:
-			| (
-					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
-					| "@cf/meta/llama-3.1-8b-instruct-fast"
-					| "@cf/meta/llama-3.1-8b-instruct-fp8"
-					| "@cf/meta/llama-4-scout-17b-16e-instruct"
-					| "@cf/qwen/qwen3-30b-a3b-fp8"
-					| "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"
-					| "@cf/moonshotai/kimi-k2-instruct"
-					| "anthropic/claude-3-7-sonnet"
-					| "anthropic/claude-sonnet-4"
-					| "anthropic/claude-opus-4"
-					| "anthropic/claude-3-5-haiku"
-					| "cerebras/qwen-3-235b-a22b-instruct"
-					| "cerebras/qwen-3-235b-a22b-thinking"
-					| "cerebras/llama-3.3-70b"
-					| "cerebras/llama-4-maverick-17b-128e-instruct"
-					| "cerebras/llama-4-scout-17b-16e-instruct"
-					| "cerebras/gpt-oss-120b"
-					| "google-ai-studio/gemini-2.5-flash"
-					| "google-ai-studio/gemini-2.5-pro"
-					| "grok/grok-4"
-					| "groq/llama-3.3-70b-versatile"
-					| "groq/llama-3.1-8b-instant"
-					| "openai/gpt-5"
-					| "openai/gpt-5-mini"
-					| "openai/gpt-5-nano"
-			  )
-			| "";
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_ai_search?: string;
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_index_summarization?: string;
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_rewrite_query?: string;
-		/**
 		 * @format uuid
 		 * @x-auditable true
 		 */
@@ -14326,7 +14239,6 @@ export type AiSearchDeleteInstancesResponse = {
 		 * @x-auditable true
 		 */
 		type: "r2" | "web-crawler";
-		vectorize_active_namespace?: string;
 		vectorize_name: string;
 	};
 	success: boolean;
@@ -14390,18 +14302,17 @@ export type AiSearchFetchInstancesError = Fetcher.ErrorWrapper<{
 
 export type AiSearchFetchInstancesResponse = {
 	result: {
-		account_id: string;
-		account_tag: string;
 		/**
 		 * @x-auditable true
 		 */
-		ai_gateway_id?: string;
+		ai_gateway_id?: string | null;
 		/**
 		 * @x-auditable true
 		 */
 		ai_search_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+					| "@cf/zai-org/glm-4.7-flash"
 					| "@cf/meta/llama-3.1-8b-instruct-fast"
 					| "@cf/meta/llama-3.1-8b-instruct-fp8"
 					| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -14439,11 +14350,6 @@ export type AiSearchFetchInstancesResponse = {
 		 */
 		cache_threshold?: "super_strict_match" | "close_enough" | "flexible_friend" | "anything_goes";
 		/**
-		 * @default true
-		 * @x-auditable true
-		 */
-		chunk?: boolean;
-		/**
 		 * @default 10
 		 * @maximum 30
 		 * @minimum 0
@@ -14460,7 +14366,7 @@ export type AiSearchFetchInstancesResponse = {
 		 * @format date-time
 		 */
 		created_at: string;
-		created_by?: string;
+		created_by?: string | null;
 		/**
 		 * @maxItems 5
 		 * @x-auditable true
@@ -14493,10 +14399,6 @@ export type AiSearchFetchInstancesResponse = {
 		 */
 		enable?: boolean;
 		/**
-		 * @default 1
-		 */
-		engine_version?: number;
-		/**
 		 * @default false
 		 * @x-auditable true
 		 */
@@ -14512,13 +14414,9 @@ export type AiSearchFetchInstancesResponse = {
 		 */
 		id: string;
 		/**
-		 * @format uuid
-		 */
-		internal_id: string;
-		/**
 		 * @format date-time
 		 */
-		last_activity?: string;
+		last_activity?: string | null;
 		/**
 		 * @default 10
 		 * @maximum 50
@@ -14537,13 +14435,13 @@ export type AiSearchFetchInstancesResponse = {
 		 * @format date-time
 		 */
 		modified_at: string;
-		modified_by?: string;
+		modified_by?: string | null;
 		/**
 		 * @default false
 		 * @x-auditable true
 		 */
 		paused?: boolean;
-		public_endpoint_id?: string;
+		public_endpoint_id?: string | null;
 		/**
 		 * @x-auditable true
 		 */
@@ -14562,6 +14460,10 @@ export type AiSearchFetchInstancesResponse = {
 			 */
 			enabled?: boolean;
 			mcp?: {
+				/**
+				 * @default Finds exactly what you're looking for
+				 */
+				description?: string;
 				/**
 				 * Disable MCP endpoint for this public endpoint
 				 *
@@ -14605,6 +14507,7 @@ export type AiSearchFetchInstancesResponse = {
 		rewrite_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+					| "@cf/zai-org/glm-4.7-flash"
 					| "@cf/meta/llama-3.1-8b-instruct-fast"
 					| "@cf/meta/llama-3.1-8b-instruct-fp8"
 					| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -14722,55 +14625,6 @@ export type AiSearchFetchInstancesResponse = {
 		 */
 		status?: string;
 		/**
-		 * @default false
-		 * @x-auditable true
-		 */
-		summarization?: boolean;
-		/**
-		 * @x-auditable true
-		 */
-		summarization_model?:
-			| (
-					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
-					| "@cf/meta/llama-3.1-8b-instruct-fast"
-					| "@cf/meta/llama-3.1-8b-instruct-fp8"
-					| "@cf/meta/llama-4-scout-17b-16e-instruct"
-					| "@cf/qwen/qwen3-30b-a3b-fp8"
-					| "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"
-					| "@cf/moonshotai/kimi-k2-instruct"
-					| "anthropic/claude-3-7-sonnet"
-					| "anthropic/claude-sonnet-4"
-					| "anthropic/claude-opus-4"
-					| "anthropic/claude-3-5-haiku"
-					| "cerebras/qwen-3-235b-a22b-instruct"
-					| "cerebras/qwen-3-235b-a22b-thinking"
-					| "cerebras/llama-3.3-70b"
-					| "cerebras/llama-4-maverick-17b-128e-instruct"
-					| "cerebras/llama-4-scout-17b-16e-instruct"
-					| "cerebras/gpt-oss-120b"
-					| "google-ai-studio/gemini-2.5-flash"
-					| "google-ai-studio/gemini-2.5-pro"
-					| "grok/grok-4"
-					| "groq/llama-3.3-70b-versatile"
-					| "groq/llama-3.1-8b-instant"
-					| "openai/gpt-5"
-					| "openai/gpt-5-mini"
-					| "openai/gpt-5-nano"
-			  )
-			| "";
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_ai_search?: string;
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_index_summarization?: string;
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_rewrite_query?: string;
-		/**
 		 * @format uuid
 		 * @x-auditable true
 		 */
@@ -14779,7 +14633,6 @@ export type AiSearchFetchInstancesResponse = {
 		 * @x-auditable true
 		 */
 		type: "r2" | "web-crawler";
-		vectorize_active_namespace?: string;
 		vectorize_name: string;
 	};
 	success: boolean;
@@ -14862,18 +14715,17 @@ export type AiSearchUpdateInstancesError = Fetcher.ErrorWrapper<
 
 export type AiSearchUpdateInstancesResponse = {
 	result: {
-		account_id: string;
-		account_tag: string;
 		/**
 		 * @x-auditable true
 		 */
-		ai_gateway_id?: string;
+		ai_gateway_id?: string | null;
 		/**
 		 * @x-auditable true
 		 */
 		ai_search_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+					| "@cf/zai-org/glm-4.7-flash"
 					| "@cf/meta/llama-3.1-8b-instruct-fast"
 					| "@cf/meta/llama-3.1-8b-instruct-fp8"
 					| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -14911,11 +14763,6 @@ export type AiSearchUpdateInstancesResponse = {
 		 */
 		cache_threshold?: "super_strict_match" | "close_enough" | "flexible_friend" | "anything_goes";
 		/**
-		 * @default true
-		 * @x-auditable true
-		 */
-		chunk?: boolean;
-		/**
 		 * @default 10
 		 * @maximum 30
 		 * @minimum 0
@@ -14932,7 +14779,7 @@ export type AiSearchUpdateInstancesResponse = {
 		 * @format date-time
 		 */
 		created_at: string;
-		created_by?: string;
+		created_by?: string | null;
 		/**
 		 * @maxItems 5
 		 * @x-auditable true
@@ -14965,10 +14812,6 @@ export type AiSearchUpdateInstancesResponse = {
 		 */
 		enable?: boolean;
 		/**
-		 * @default 1
-		 */
-		engine_version?: number;
-		/**
 		 * @default false
 		 * @x-auditable true
 		 */
@@ -14984,13 +14827,9 @@ export type AiSearchUpdateInstancesResponse = {
 		 */
 		id: string;
 		/**
-		 * @format uuid
-		 */
-		internal_id: string;
-		/**
 		 * @format date-time
 		 */
-		last_activity?: string;
+		last_activity?: string | null;
 		/**
 		 * @default 10
 		 * @maximum 50
@@ -15009,13 +14848,13 @@ export type AiSearchUpdateInstancesResponse = {
 		 * @format date-time
 		 */
 		modified_at: string;
-		modified_by?: string;
+		modified_by?: string | null;
 		/**
 		 * @default false
 		 * @x-auditable true
 		 */
 		paused?: boolean;
-		public_endpoint_id?: string;
+		public_endpoint_id?: string | null;
 		/**
 		 * @x-auditable true
 		 */
@@ -15034,6 +14873,10 @@ export type AiSearchUpdateInstancesResponse = {
 			 */
 			enabled?: boolean;
 			mcp?: {
+				/**
+				 * @default Finds exactly what you're looking for
+				 */
+				description?: string;
 				/**
 				 * Disable MCP endpoint for this public endpoint
 				 *
@@ -15077,6 +14920,7 @@ export type AiSearchUpdateInstancesResponse = {
 		rewrite_model?:
 			| (
 					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+					| "@cf/zai-org/glm-4.7-flash"
 					| "@cf/meta/llama-3.1-8b-instruct-fast"
 					| "@cf/meta/llama-3.1-8b-instruct-fp8"
 					| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -15194,55 +15038,6 @@ export type AiSearchUpdateInstancesResponse = {
 		 */
 		status?: string;
 		/**
-		 * @default false
-		 * @x-auditable true
-		 */
-		summarization?: boolean;
-		/**
-		 * @x-auditable true
-		 */
-		summarization_model?:
-			| (
-					| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
-					| "@cf/meta/llama-3.1-8b-instruct-fast"
-					| "@cf/meta/llama-3.1-8b-instruct-fp8"
-					| "@cf/meta/llama-4-scout-17b-16e-instruct"
-					| "@cf/qwen/qwen3-30b-a3b-fp8"
-					| "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"
-					| "@cf/moonshotai/kimi-k2-instruct"
-					| "anthropic/claude-3-7-sonnet"
-					| "anthropic/claude-sonnet-4"
-					| "anthropic/claude-opus-4"
-					| "anthropic/claude-3-5-haiku"
-					| "cerebras/qwen-3-235b-a22b-instruct"
-					| "cerebras/qwen-3-235b-a22b-thinking"
-					| "cerebras/llama-3.3-70b"
-					| "cerebras/llama-4-maverick-17b-128e-instruct"
-					| "cerebras/llama-4-scout-17b-16e-instruct"
-					| "cerebras/gpt-oss-120b"
-					| "google-ai-studio/gemini-2.5-flash"
-					| "google-ai-studio/gemini-2.5-pro"
-					| "grok/grok-4"
-					| "groq/llama-3.3-70b-versatile"
-					| "groq/llama-3.1-8b-instant"
-					| "openai/gpt-5"
-					| "openai/gpt-5-mini"
-					| "openai/gpt-5-nano"
-			  )
-			| "";
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_ai_search?: string;
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_index_summarization?: string;
-		/**
-		 * @x-auditable true
-		 */
-		system_prompt_rewrite_query?: string;
-		/**
 		 * @format uuid
 		 * @x-auditable true
 		 */
@@ -15251,7 +15046,6 @@ export type AiSearchUpdateInstancesResponse = {
 		 * @x-auditable true
 		 */
 		type: "r2" | "web-crawler";
-		vectorize_active_namespace?: string;
 		vectorize_name: string;
 	};
 	success: boolean;
@@ -15261,13 +15055,14 @@ export type AiSearchUpdateInstancesRequestBody = {
 	/**
 	 * @x-auditable true
 	 */
-	ai_gateway_id?: string;
+	ai_gateway_id?: string | null;
 	/**
 	 * @x-auditable true
 	 */
 	ai_search_model?:
 		| (
 				| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+				| "@cf/zai-org/glm-4.7-flash"
 				| "@cf/meta/llama-3.1-8b-instruct-fast"
 				| "@cf/meta/llama-3.1-8b-instruct-fp8"
 				| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -15391,6 +15186,10 @@ export type AiSearchUpdateInstancesRequestBody = {
 		enabled?: boolean;
 		mcp?: {
 			/**
+			 * @default Finds exactly what you're looking for
+			 */
+			description?: string;
+			/**
 			 * Disable MCP endpoint for this public endpoint
 			 *
 			 * @default false
@@ -15433,6 +15232,7 @@ export type AiSearchUpdateInstancesRequestBody = {
 	rewrite_model?:
 		| (
 				| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+				| "@cf/zai-org/glm-4.7-flash"
 				| "@cf/meta/llama-3.1-8b-instruct-fast"
 				| "@cf/meta/llama-3.1-8b-instruct-fp8"
 				| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -15552,6 +15352,7 @@ export type AiSearchUpdateInstancesRequestBody = {
 	summarization_model?:
 		| (
 				| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+				| "@cf/zai-org/glm-4.7-flash"
 				| "@cf/meta/llama-3.1-8b-instruct-fast"
 				| "@cf/meta/llama-3.1-8b-instruct-fp8"
 				| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -15581,15 +15382,15 @@ export type AiSearchUpdateInstancesRequestBody = {
 	/**
 	 * @x-auditable true
 	 */
-	system_prompt_ai_search?: string;
+	system_prompt_ai_search?: string | null;
 	/**
 	 * @x-auditable true
 	 */
-	system_prompt_index_summarization?: string;
+	system_prompt_index_summarization?: string | null;
 	/**
 	 * @x-auditable true
 	 */
-	system_prompt_rewrite_query?: string;
+	system_prompt_rewrite_query?: string | null;
 	/**
 	 * @format uuid
 	 * @x-auditable true
@@ -15681,7 +15482,6 @@ export type AiSearchInstanceChatCompletionResponse = {
 		scoring_details?: {
 			keyword_rank?: number;
 			/**
-			 * @maximum 1
 			 * @minimum 0
 			 */
 			keyword_score?: number;
@@ -15709,6 +15509,7 @@ export type AiSearchInstanceChatCompletionRequestBody = {
 			model?:
 				| (
 						| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+						| "@cf/zai-org/glm-4.7-flash"
 						| "@cf/meta/llama-3.1-8b-instruct-fast"
 						| "@cf/meta/llama-3.1-8b-instruct-fp8"
 						| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -15754,20 +15555,9 @@ export type AiSearchInstanceChatCompletionRequestBody = {
 			 * @minimum 0
 			 */
 			context_expansion?: number;
-			filters?:
-				| {
-						key: string;
-						type: "eq" | "ne" | "gt" | "gte" | "lt" | "lte";
-						value: string | number | boolean;
-				  }
-				| {
-						filters: {
-							key: string;
-							type: "eq" | "ne" | "gt" | "gte" | "lt" | "lte";
-							value: string | number | boolean;
-						}[];
-						type: "and" | "or";
-				  };
+			filters?: {
+				[key: string]: any;
+			};
 			/**
 			 * @default 0.4
 			 * @maximum 1
@@ -15781,6 +15571,10 @@ export type AiSearchInstanceChatCompletionRequestBody = {
 			 */
 			max_num_results?: number;
 			retrieval_type?: "vector" | "keyword" | "hybrid";
+			/**
+			 * @default true
+			 */
+			return_on_failure?: boolean;
 		};
 	};
 	/**
@@ -15795,6 +15589,7 @@ export type AiSearchInstanceChatCompletionRequestBody = {
 	model?:
 		| (
 				| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+				| "@cf/zai-org/glm-4.7-flash"
 				| "@cf/meta/llama-3.1-8b-instruct-fast"
 				| "@cf/meta/llama-3.1-8b-instruct-fp8"
 				| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -16685,7 +16480,6 @@ export type AiSearchInstanceSearchResponse = {
 			scoring_details?: {
 				keyword_rank?: number;
 				/**
-				 * @maximum 1
 				 * @minimum 0
 				 */
 				keyword_score?: number;
@@ -16711,6 +16505,7 @@ export type AiSearchInstanceSearchRequestBody = {
 			model?:
 				| (
 						| "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+						| "@cf/zai-org/glm-4.7-flash"
 						| "@cf/meta/llama-3.1-8b-instruct-fast"
 						| "@cf/meta/llama-3.1-8b-instruct-fp8"
 						| "@cf/meta/llama-4-scout-17b-16e-instruct"
@@ -16756,20 +16551,9 @@ export type AiSearchInstanceSearchRequestBody = {
 			 * @minimum 0
 			 */
 			context_expansion?: number;
-			filters?:
-				| {
-						key: string;
-						type: "eq" | "ne" | "gt" | "gte" | "lt" | "lte";
-						value: string | number | boolean;
-				  }
-				| {
-						filters: {
-							key: string;
-							type: "eq" | "ne" | "gt" | "gte" | "lt" | "lte";
-							value: string | number | boolean;
-						}[];
-						type: "and" | "or";
-				  };
+			filters?: {
+				[key: string]: any;
+			};
 			/**
 			 * @default 0.4
 			 * @maximum 1
@@ -16783,6 +16567,10 @@ export type AiSearchInstanceSearchRequestBody = {
 			 */
 			max_num_results?: number;
 			retrieval_type?: "vector" | "keyword" | "hybrid";
+			/**
+			 * @default true
+			 */
+			return_on_failure?: boolean;
 		};
 	};
 	/**
@@ -16923,18 +16711,15 @@ export type AiSearchListTokensError = Fetcher.ErrorWrapper<{
 
 export type AiSearchListTokensResponse = {
 	result: {
-		account_id: string;
-		account_tag: string;
 		/**
 		 * @x-auditable true
 		 */
 		cf_api_id: string;
-		cf_api_key: string;
 		/**
 		 * @format date-time
 		 */
 		created_at: string;
-		created_by?: string;
+		created_by?: string | null;
 		/**
 		 * @default true
 		 * @x-auditable true
@@ -16953,15 +16738,11 @@ export type AiSearchListTokensResponse = {
 		 * @format date-time
 		 */
 		modified_at: string;
-		modified_by?: string;
+		modified_by?: string | null;
 		/**
 		 * @x-auditable true
 		 */
 		name: string;
-		/**
-		 * @format date-time
-		 */
-		synced_at?: string;
 	}[];
 	success: boolean;
 };
@@ -17013,18 +16794,15 @@ export type AiSearchCreateTokensError = Fetcher.ErrorWrapper<{
 
 export type AiSearchCreateTokensResponse = {
 	result: {
-		account_id: string;
-		account_tag: string;
 		/**
 		 * @x-auditable true
 		 */
 		cf_api_id: string;
-		cf_api_key: string;
 		/**
 		 * @format date-time
 		 */
 		created_at: string;
-		created_by?: string;
+		created_by?: string | null;
 		/**
 		 * @default true
 		 * @x-auditable true
@@ -17043,15 +16821,11 @@ export type AiSearchCreateTokensResponse = {
 		 * @format date-time
 		 */
 		modified_at: string;
-		modified_by?: string;
+		modified_by?: string | null;
 		/**
 		 * @x-auditable true
 		 */
 		name: string;
-		/**
-		 * @format date-time
-		 */
-		synced_at?: string;
 	};
 	success: boolean;
 };
@@ -17061,6 +16835,9 @@ export type AiSearchCreateTokensRequestBody = {
 	 * @x-auditable true
 	 */
 	cf_api_id: string;
+	/**
+	 * @x-sensitive true
+	 */
 	cf_api_key: string;
 	/**
 	 * @default true
@@ -17126,18 +16903,15 @@ export type AiSearchDeleteTokensError = Fetcher.ErrorWrapper<{
 
 export type AiSearchDeleteTokensResponse = {
 	result: {
-		account_id: string;
-		account_tag: string;
 		/**
 		 * @x-auditable true
 		 */
 		cf_api_id: string;
-		cf_api_key: string;
 		/**
 		 * @format date-time
 		 */
 		created_at: string;
-		created_by?: string;
+		created_by?: string | null;
 		/**
 		 * @default true
 		 * @x-auditable true
@@ -17156,15 +16930,11 @@ export type AiSearchDeleteTokensResponse = {
 		 * @format date-time
 		 */
 		modified_at: string;
-		modified_by?: string;
+		modified_by?: string | null;
 		/**
 		 * @x-auditable true
 		 */
 		name: string;
-		/**
-		 * @format date-time
-		 */
-		synced_at?: string;
 	};
 	success: boolean;
 };
@@ -17222,18 +16992,15 @@ export type AiSearchFetchTokensError = Fetcher.ErrorWrapper<{
 
 export type AiSearchFetchTokensResponse = {
 	result: {
-		account_id: string;
-		account_tag: string;
 		/**
 		 * @x-auditable true
 		 */
 		cf_api_id: string;
-		cf_api_key: string;
 		/**
 		 * @format date-time
 		 */
 		created_at: string;
-		created_by?: string;
+		created_by?: string | null;
 		/**
 		 * @default true
 		 * @x-auditable true
@@ -17252,15 +17019,11 @@ export type AiSearchFetchTokensResponse = {
 		 * @format date-time
 		 */
 		modified_at: string;
-		modified_by?: string;
+		modified_by?: string | null;
 		/**
 		 * @x-auditable true
 		 */
 		name: string;
-		/**
-		 * @format date-time
-		 */
-		synced_at?: string;
 	};
 	success: boolean;
 };
@@ -17337,18 +17100,15 @@ export type AiSearchUpdateTokensError = Fetcher.ErrorWrapper<
 
 export type AiSearchUpdateTokensResponse = {
 	result: {
-		account_id: string;
-		account_tag: string;
 		/**
 		 * @x-auditable true
 		 */
 		cf_api_id: string;
-		cf_api_key: string;
 		/**
 		 * @format date-time
 		 */
 		created_at: string;
-		created_by?: string;
+		created_by?: string | null;
 		/**
 		 * @default true
 		 * @x-auditable true
@@ -17367,15 +17127,11 @@ export type AiSearchUpdateTokensResponse = {
 		 * @format date-time
 		 */
 		modified_at: string;
-		modified_by?: string;
+		modified_by?: string | null;
 		/**
 		 * @x-auditable true
 		 */
 		name: string;
-		/**
-		 * @format date-time
-		 */
-		synced_at?: string;
 	};
 	success: boolean;
 };
@@ -17385,6 +17141,9 @@ export type AiSearchUpdateTokensRequestBody = {
 	 * @x-auditable true
 	 */
 	cf_api_id: string;
+	/**
+	 * @x-sensitive true
+	 */
 	cf_api_key: string;
 	/**
 	 * @default true
@@ -17801,7 +17560,36 @@ export type WorkersAiGetModelSchemaError = Fetcher.ErrorWrapper<{
 }>;
 
 export type WorkersAiGetModelSchemaResponse = {
-	result: Record<string, any>;
+	result: {
+		input: {
+			/**
+			 * @example true
+			 */
+			additionalProperties: boolean;
+			/**
+			 * @example JSON Schema definition for the model's input parameters
+			 */
+			description: string;
+			/**
+			 * @example object
+			 */
+			type: string;
+		};
+		output: {
+			/**
+			 * @example true
+			 */
+			additionalProperties: boolean;
+			/**
+			 * @example JSON Schema definition for the model's output format
+			 */
+			description: string;
+			/**
+			 * @example object
+			 */
+			type: string;
+		};
+	};
 	success: boolean;
 };
 
@@ -18003,6 +17791,109 @@ export const workersAiPostRunCfAi4bharatIndictrans2EnIndic1B = (
 		signal,
 	});
 
+export type WorkersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1bPathParams = {
+	/**
+	 * @example 023e105f4ecef8ad9ca31a8372d0c353
+	 * @x-auditable true
+	 */
+	accountId: string;
+};
+
+export type WorkersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1bQueryParams = {
+	/**
+	 * @example true
+	 * @x-auditable true
+	 */
+	queueRequest?: string;
+	/**
+	 * @example tag1,tag2,tag3
+	 */
+	tags?: string;
+};
+
+export type WorkersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1bError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: {
+		errors: {
+			code: string;
+			message: string;
+		}[];
+		result: Record<string, any>;
+		success: boolean;
+	};
+}>;
+
+export type WorkersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1bRequestBody = {
+	/**
+	 * Target langauge to translate to
+	 *
+	 * @default hin_Deva
+	 */
+	target_language:
+		| "asm_Beng"
+		| "awa_Deva"
+		| "ben_Beng"
+		| "bho_Deva"
+		| "brx_Deva"
+		| "doi_Deva"
+		| "eng_Latn"
+		| "gom_Deva"
+		| "gon_Deva"
+		| "guj_Gujr"
+		| "hin_Deva"
+		| "hne_Deva"
+		| "kan_Knda"
+		| "kas_Arab"
+		| "kas_Deva"
+		| "kha_Latn"
+		| "lus_Latn"
+		| "mag_Deva"
+		| "mai_Deva"
+		| "mal_Mlym"
+		| "mar_Deva"
+		| "mni_Beng"
+		| "mni_Mtei"
+		| "npi_Deva"
+		| "ory_Orya"
+		| "pan_Guru"
+		| "san_Deva"
+		| "sat_Olck"
+		| "snd_Arab"
+		| "snd_Deva"
+		| "tam_Taml"
+		| "tel_Telu"
+		| "urd_Arab"
+		| "unr_Deva";
+	/**
+	 * Input text to translate. Can be a single string or a list of strings.
+	 */
+	text: string | string[];
+};
+
+export type WorkersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1bVariables = {
+	body: WorkersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1bRequestBody;
+	pathParams: WorkersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1bPathParams;
+	queryParams?: WorkersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1bQueryParams;
+} & FetcherExtraProps;
+
+export const workersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1b = (
+	variables: WorkersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1bVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Record<string, any>,
+		WorkersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1bError,
+		WorkersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1bRequestBody,
+		{},
+		WorkersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1bQueryParams,
+		WorkersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1bPathParams
+	>({
+		url: "/accounts/{accountId}/ai/run/@cf/ai4bharat/omni-indictrans2-en-indic-1b",
+		method: "post",
+		...variables,
+		signal,
+	});
+
 export type WorkersAiPostRunCfAisingaporeGemmaSeaLionV427bItPathParams = {
 	/**
 	 * @example 023e105f4ecef8ad9ca31a8372d0c353
@@ -18142,10 +18033,18 @@ export type WorkersAiPostRunCfAisingaporeGemmaSeaLionV427bItRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -18409,10 +18308,18 @@ export type WorkersAiPostRunCfAisingaporeGemmaSeaLionV427bItRequestBody =
 						 * An array of message objects representing the conversation history.
 						 */
 						messages: {
-							/**
-							 * The content of the message as a string.
-							 */
-							content: string;
+							content:
+								| string
+								| {
+										/**
+										 * Text content
+										 */
+										text?: string;
+										/**
+										 * Type of the content (text)
+										 */
+										type?: string;
+								  }[];
 							/**
 							 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 							 */
@@ -21045,10 +20952,18 @@ export type WorkersAiPostRunCfDeepseekAiDeepseekMath7bInstructRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -21368,10 +21283,18 @@ export type WorkersAiPostRunCfDeepseekAiDeepseekR1DistillQwen32bRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -21691,10 +21614,18 @@ export type WorkersAiPostRunCfDefogSqlcoder7b2RequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -22212,10 +22143,18 @@ export type WorkersAiPostRunCfFblgitUnaCybertron7bV2Bf16RequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -22595,10 +22534,18 @@ export type WorkersAiPostRunCfGoogleGemma2bItLoraRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -23250,10 +23197,18 @@ export type WorkersAiPostRunCfGoogleGemma7bItLoraRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -23766,10 +23721,18 @@ export type WorkersAiPostRunCfIbmGraniteGranite40HMicroRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -24425,10 +24388,18 @@ export type WorkersAiPostRunCfMetaLlamaLlama27bChatHfLoraRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -24748,10 +24719,18 @@ export type WorkersAiPostRunCfMetaLlama27bChatFp16RequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -25071,10 +25050,18 @@ export type WorkersAiPostRunCfMetaLlama27bChatInt8RequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -25394,10 +25381,18 @@ export type WorkersAiPostRunCfMetaLlama38bInstructRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -25717,10 +25712,18 @@ export type WorkersAiPostRunCfMetaLlama38bInstructAwqRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -26040,10 +26043,18 @@ export type WorkersAiPostRunCfMetaLlama3170bInstructFp8FastRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -26363,10 +26374,18 @@ export type WorkersAiPostRunCfMetaLlama318bInstructAwqRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -26686,10 +26705,18 @@ export type WorkersAiPostRunCfMetaLlama318bInstructFp8RequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -27009,10 +27036,18 @@ export type WorkersAiPostRunCfMetaLlama318bInstructFp8FastRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -27678,10 +27713,18 @@ export type WorkersAiPostRunCfMetaLlama321bInstructRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -28001,10 +28044,18 @@ export type WorkersAiPostRunCfMetaLlama323bInstructRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -28324,10 +28375,18 @@ export type WorkersAiPostRunCfMetaLlama3370bInstructFp8FastRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -29582,10 +29641,18 @@ export type WorkersAiPostRunCfMicrosoftPhi2RequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -29961,10 +30028,18 @@ export type WorkersAiPostRunCfMistralMistral7bInstructV01RequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -30284,10 +30359,18 @@ export type WorkersAiPostRunCfMistralMistral7bInstructV02LoraRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -31032,10 +31115,18 @@ export type WorkersAiPostRunCfOpenaiGptOss120bRequestBody =
 					 * An array of message objects representing the conversation history.
 					 */
 					messages: {
-						/**
-						 * The content of the message as a string.
-						 */
-						content: string;
+						content:
+							| string
+							| {
+									/**
+									 * Text content
+									 */
+									text?: string;
+									/**
+									 * Type of the content (text)
+									 */
+									type?: string;
+							  }[];
 						/**
 						 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 						 */
@@ -31391,10 +31482,18 @@ export type WorkersAiPostRunCfOpenaiGptOss20bRequestBody =
 					 * An array of message objects representing the conversation history.
 					 */
 					messages: {
-						/**
-						 * The content of the message as a string.
-						 */
-						content: string;
+						content:
+							| string
+							| {
+									/**
+									 * Text content
+									 */
+									text?: string;
+									/**
+									 * Type of the content (text)
+									 */
+									type?: string;
+							  }[];
 						/**
 						 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 						 */
@@ -31948,10 +32047,18 @@ export type WorkersAiPostRunCfOpenchatOpenchat350106RequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -32422,10 +32529,18 @@ export type WorkersAiPostRunCfQwenQwen1505bChatRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -32745,10 +32860,18 @@ export type WorkersAiPostRunCfQwenQwen1518bChatRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -33068,10 +33191,18 @@ export type WorkersAiPostRunCfQwenQwen1514bChatAwqRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -33391,10 +33522,18 @@ export type WorkersAiPostRunCfQwenQwen157bChatAwqRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -34037,10 +34176,18 @@ export type WorkersAiPostRunCfQwenQwen330bA3bFp8RequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -34304,10 +34451,18 @@ export type WorkersAiPostRunCfQwenQwen330bA3bFp8RequestBody =
 						 * An array of message objects representing the conversation history.
 						 */
 						messages: {
-							/**
-							 * The content of the message as a string.
-							 */
-							content: string;
+							content:
+								| string
+								| {
+										/**
+										 * Text content
+										 */
+										text?: string;
+										/**
+										 * Type of the content (text)
+										 */
+										type?: string;
+								  }[];
 							/**
 							 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 							 */
@@ -35492,10 +35647,18 @@ export type WorkersAiPostRunCfTheblokeDiscolmGerman7bV1AwqRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -35815,10 +35978,18 @@ export type WorkersAiPostRunCfTiiuaeFalcon7bInstructRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -36138,10 +36309,18 @@ export type WorkersAiPostRunCfTinyllamaTinyllama11bChatV10RequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -36461,10 +36640,18 @@ export type WorkersAiPostRunHfGoogleGemma7bItRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -36784,10 +36971,18 @@ export type WorkersAiPostRunHfMistralMistral7bInstructV02RequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -37107,10 +37302,18 @@ export type WorkersAiPostRunHfNexusflowStarlingLm7bBetaRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -37430,10 +37633,18 @@ export type WorkersAiPostRunHfNousresearchHermes2ProMistral7bRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -37753,10 +37964,18 @@ export type WorkersAiPostRunHfTheblokeDeepseekCoder67bBaseAwqRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -38076,10 +38295,18 @@ export type WorkersAiPostRunHfTheblokeDeepseekCoder67bInstructAwqRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -38399,10 +38626,18 @@ export type WorkersAiPostRunHfTheblokeLlama213bChatAwqRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -38722,10 +38957,18 @@ export type WorkersAiPostRunHfTheblokeMistral7bInstructV01AwqRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -39045,10 +39288,18 @@ export type WorkersAiPostRunHfTheblokeNeuralChat7bV31AwqRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -39368,10 +39619,18 @@ export type WorkersAiPostRunHfTheblokeOpenhermes25Mistral7bAwqRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -39691,10 +39950,18 @@ export type WorkersAiPostRunHfTheblokeZephyr7bBetaAwqRequestBody =
 			 * An array of message objects representing the conversation history.
 			 */
 			messages: {
-				/**
-				 * The content of the message as a string.
-				 */
-				content: string;
+				content:
+					| string
+					| {
+							/**
+							 * Text content
+							 */
+							text?: string;
+							/**
+							 * Type of the content (text)
+							 */
+							type?: string;
+					  }[];
 				/**
 				 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 				 */
@@ -40284,10 +40551,18 @@ export type WorkersAiPostRunModelRequestBody =
 					 * An array of message objects representing the conversation history.
 					 */
 					messages: {
-						/**
-						 * The content of the message as a string.
-						 */
-						content: string;
+						content:
+							| string
+							| {
+									/**
+									 * Text content
+									 */
+									text?: string;
+									/**
+									 * Type of the content (text)
+									 */
+									type?: string;
+							  }[];
 						/**
 						 * The role of the message sender (e.g., 'user', 'assistant', 'system', 'tool').
 						 */
@@ -53440,6 +53715,12 @@ export type GetIndicatorListLegacyResponse = {
 		 */
 		createdAt: string;
 		/**
+		 * The dataset ID this indicator belongs to. Included in list responses.
+		 *
+		 * @example dataset-uuid-123
+		 */
+		datasetId?: string;
+		/**
 		 * @example domain
 		 */
 		indicatorType: string;
@@ -53630,6 +53911,12 @@ export type PostIndicatorCreateResponse = {
 	 * @format date-time
 	 */
 	createdAt: string;
+	/**
+	 * The dataset ID this indicator belongs to. Included in list responses.
+	 *
+	 * @example dataset-uuid-123
+	 */
+	datasetId?: string;
 	/**
 	 * @example domain
 	 */
@@ -53897,6 +54184,12 @@ export type GetIndicatorReadResponse = {
 	 */
 	createdAt: string;
 	/**
+	 * The dataset ID this indicator belongs to. Included in list responses.
+	 *
+	 * @example dataset-uuid-123
+	 */
+	datasetId?: string;
+	/**
 	 * @example domain
 	 */
 	indicatorType: string;
@@ -54002,6 +54295,12 @@ export type PatchIndicatorUpdateResponse = {
 	 * @format date-time
 	 */
 	createdAt: string;
+	/**
+	 * The dataset ID this indicator belongs to. Included in list responses.
+	 *
+	 * @example dataset-uuid-123
+	 */
+	datasetId?: string;
 	/**
 	 * @example domain
 	 */
@@ -54224,6 +54523,12 @@ export type GetTagIndicatorsListResponse = {
 		 * @format date-time
 		 */
 		createdAt: string;
+		/**
+		 * The dataset ID this indicator belongs to. Included in list responses.
+		 *
+		 * @example dataset-uuid-123
+		 */
+		datasetId?: string;
 		/**
 		 * @example domain
 		 */
@@ -54938,7 +55243,7 @@ export type GetIndicatorListQueryParams = {
 	 */
 	relatedEventsLimit?: number;
 	/**
-	 * Whether to include full tag details for each indicator. Defaults to false for performance.
+	 * Whether to include full tag details for each indicator. Defaults to true.
 	 */
 	includeTags?: boolean;
 	/**
@@ -54976,6 +55281,12 @@ export type GetIndicatorListResponse = {
 				 * @format date-time
 				 */
 				createdAt: string;
+				/**
+				 * The dataset ID this indicator belongs to. Included in list responses.
+				 *
+				 * @example dataset-uuid-123
+				 */
+				datasetId?: string;
 				/**
 				 * @example domain
 				 */
@@ -55162,6 +55473,599 @@ export const getEventQueryList = (variables: GetEventQueryListVariables, signal?
 	>({
 		url: "/accounts/{accountId}/cloudforce-one/events/queries",
 		method: "get",
+		...variables,
+		signal,
+	});
+
+export type GetEventQueryAlertListPathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+};
+
+export type GetEventQueryAlertListError = Fetcher.ErrorWrapper<{
+	status: 500;
+	payload: {
+		errors: {
+			/**
+			 * @example An error occurred.
+			 */
+			message: string;
+		}[];
+		result: Record<string, any>;
+		success: boolean;
+	};
+}>;
+
+export type GetEventQueryAlertListResponse = {
+	/**
+	 * Account ID
+	 */
+	account_id: number;
+	/**
+	 * Creation timestamp
+	 */
+	created_at: string;
+	/**
+	 * Whether the alert is enabled
+	 */
+	enabled: boolean;
+	/**
+	 * Alert frequency (immediate or daily)
+	 */
+	frequency: "immediate" | "daily";
+	/**
+	 * Unique identifier for the event query alert
+	 */
+	id: number;
+	/**
+	 * Last time the alert was sent
+	 */
+	last_sent_at?: string;
+	/**
+	 * Type of notification
+	 */
+	notification_type: string;
+	/**
+	 * ID of the associated event query
+	 */
+	query_id: number;
+	/**
+	 * Last update timestamp
+	 */
+	updated_at: string;
+	/**
+	 * Email of the user who created the alert
+	 */
+	user_email: string;
+}[];
+
+export type GetEventQueryAlertListVariables = {
+	pathParams: GetEventQueryAlertListPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Retrieve all event query alerts for the account
+ */
+export const getEventQueryAlertList = (
+	variables: GetEventQueryAlertListVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		GetEventQueryAlertListResponse,
+		GetEventQueryAlertListError,
+		undefined,
+		{},
+		{},
+		GetEventQueryAlertListPathParams
+	>({
+		url: "/accounts/{accountId}/cloudforce-one/events/queries/alerts",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type PostEventQueryAlertCreatePathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+};
+
+export type PostEventQueryAlertCreateError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: {
+		errors: {
+			/**
+			 * @example An error occurred.
+			 */
+			message: string;
+		}[];
+		result: Record<string, any>;
+		success: boolean;
+	};
+}>;
+
+export type PostEventQueryAlertCreateResponse = {
+	/**
+	 * Account ID
+	 */
+	account_id: number;
+	/**
+	 * Creation timestamp
+	 */
+	created_at: string;
+	/**
+	 * Whether the alert is enabled
+	 */
+	enabled: boolean;
+	/**
+	 * Alert frequency (immediate or daily)
+	 */
+	frequency: "immediate" | "daily";
+	/**
+	 * Unique identifier for the event query alert
+	 */
+	id: number;
+	/**
+	 * Last time the alert was sent
+	 */
+	last_sent_at?: string;
+	/**
+	 * Type of notification
+	 */
+	notification_type: string;
+	/**
+	 * ID of the associated event query
+	 */
+	query_id: number;
+	/**
+	 * Last update timestamp
+	 */
+	updated_at: string;
+	/**
+	 * Email of the user who created the alert
+	 */
+	user_email: string;
+};
+
+export type PostEventQueryAlertCreateRequestBody = {
+	/**
+	 * Whether the alert is enabled
+	 */
+	enabled?: boolean;
+	/**
+	 * Alert frequency (immediate or daily)
+	 *
+	 * @default daily
+	 */
+	frequency?: "immediate" | "daily";
+	/**
+	 * Type of notification (e.g., ans)
+	 *
+	 * @default ans
+	 */
+	notification_type?: string;
+	/**
+	 * ID of the event query to create an alert for
+	 */
+	query_id: number;
+};
+
+export type PostEventQueryAlertCreateVariables = {
+	body: PostEventQueryAlertCreateRequestBody;
+	pathParams: PostEventQueryAlertCreatePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Create a new alert subscription for an event query
+ */
+export const postEventQueryAlertCreate = (
+	variables: PostEventQueryAlertCreateVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		PostEventQueryAlertCreateResponse,
+		PostEventQueryAlertCreateError,
+		PostEventQueryAlertCreateRequestBody,
+		{},
+		{},
+		PostEventQueryAlertCreatePathParams
+	>({
+		url: "/accounts/{accountId}/cloudforce-one/events/queries/alerts/create",
+		method: "post",
+		...variables,
+		signal,
+	});
+
+export type DeleteEventQueryAlertDeletePathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+	/**
+	 * Event query alert ID
+	 */
+	alertId: number;
+};
+
+export type DeleteEventQueryAlertDeleteError = Fetcher.ErrorWrapper<{
+	status: 404;
+	payload: {
+		errors: {
+			/**
+			 * @example An error occurred.
+			 */
+			message: string;
+		}[];
+		result: Record<string, any>;
+		success: boolean;
+	};
+}>;
+
+export type DeleteEventQueryAlertDeleteVariables = {
+	pathParams: DeleteEventQueryAlertDeletePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Delete an event query alert subscription by its ID
+ */
+export const deleteEventQueryAlertDelete = (
+	variables: DeleteEventQueryAlertDeleteVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		undefined,
+		DeleteEventQueryAlertDeleteError,
+		undefined,
+		{},
+		{},
+		DeleteEventQueryAlertDeletePathParams
+	>({
+		url: "/accounts/{accountId}/cloudforce-one/events/queries/alerts/{alertId}",
+		method: "delete",
+		...variables,
+		signal,
+	});
+
+export type GetEventQueryAlertReadPathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+	/**
+	 * Event query alert ID
+	 */
+	alertId: number;
+};
+
+export type GetEventQueryAlertReadError = Fetcher.ErrorWrapper<{
+	status: 404;
+	payload: {
+		errors: {
+			/**
+			 * @example An error occurred.
+			 */
+			message: string;
+		}[];
+		result: Record<string, any>;
+		success: boolean;
+	};
+}>;
+
+export type GetEventQueryAlertReadResponse = {
+	/**
+	 * Account ID
+	 */
+	account_id: number;
+	/**
+	 * Creation timestamp
+	 */
+	created_at: string;
+	/**
+	 * Whether the alert is enabled
+	 */
+	enabled: boolean;
+	/**
+	 * Alert frequency (immediate or daily)
+	 */
+	frequency: "immediate" | "daily";
+	/**
+	 * Unique identifier for the event query alert
+	 */
+	id: number;
+	/**
+	 * Last time the alert was sent
+	 */
+	last_sent_at?: string;
+	/**
+	 * Type of notification
+	 */
+	notification_type: string;
+	/**
+	 * ID of the associated event query
+	 */
+	query_id: number;
+	/**
+	 * Last update timestamp
+	 */
+	updated_at: string;
+	/**
+	 * Email of the user who created the alert
+	 */
+	user_email: string;
+};
+
+export type GetEventQueryAlertReadVariables = {
+	pathParams: GetEventQueryAlertReadPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Retrieve an event query alert by its ID
+ */
+export const getEventQueryAlertRead = (
+	variables: GetEventQueryAlertReadVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		GetEventQueryAlertReadResponse,
+		GetEventQueryAlertReadError,
+		undefined,
+		{},
+		{},
+		GetEventQueryAlertReadPathParams
+	>({
+		url: "/accounts/{accountId}/cloudforce-one/events/queries/alerts/{alertId}",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type PatchEventQueryAlertUpdatePathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+	/**
+	 * Event query alert ID
+	 */
+	alertId: number;
+};
+
+export type PatchEventQueryAlertUpdateError = Fetcher.ErrorWrapper<
+	| {
+			status: 400;
+			payload: {
+				errors: {
+					/**
+					 * @example An error occurred.
+					 */
+					message: string;
+				}[];
+				result: Record<string, any>;
+				success: boolean;
+			};
+	  }
+	| {
+			status: 404;
+			payload: {
+				errors: {
+					/**
+					 * @example An error occurred.
+					 */
+					message: string;
+				}[];
+				result: Record<string, any>;
+				success: boolean;
+			};
+	  }
+>;
+
+export type PatchEventQueryAlertUpdateResponse = {
+	/**
+	 * Account ID
+	 */
+	account_id: number;
+	/**
+	 * Creation timestamp
+	 */
+	created_at: string;
+	/**
+	 * Whether the alert is enabled
+	 */
+	enabled: boolean;
+	/**
+	 * Alert frequency (immediate or daily)
+	 */
+	frequency: "immediate" | "daily";
+	/**
+	 * Unique identifier for the event query alert
+	 */
+	id: number;
+	/**
+	 * Last time the alert was sent
+	 */
+	last_sent_at?: string;
+	/**
+	 * Type of notification
+	 */
+	notification_type: string;
+	/**
+	 * ID of the associated event query
+	 */
+	query_id: number;
+	/**
+	 * Last update timestamp
+	 */
+	updated_at: string;
+	/**
+	 * Email of the user who created the alert
+	 */
+	user_email: string;
+};
+
+export type PatchEventQueryAlertUpdateRequestBody = {
+	/**
+	 * Whether the alert is enabled
+	 */
+	enabled?: boolean;
+	/**
+	 * Alert frequency (immediate or daily)
+	 */
+	frequency?: "immediate" | "daily";
+	/**
+	 * Type of notification (e.g., ans)
+	 */
+	notification_type?: string;
+};
+
+export type PatchEventQueryAlertUpdateVariables = {
+	body?: PatchEventQueryAlertUpdateRequestBody;
+	pathParams: PatchEventQueryAlertUpdatePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Update an existing event query alert by its ID
+ */
+export const patchEventQueryAlertUpdate = (
+	variables: PatchEventQueryAlertUpdateVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		PatchEventQueryAlertUpdateResponse,
+		PatchEventQueryAlertUpdateError,
+		PatchEventQueryAlertUpdateRequestBody,
+		{},
+		{},
+		PatchEventQueryAlertUpdatePathParams
+	>({
+		url: "/accounts/{accountId}/cloudforce-one/events/queries/alerts/{alertId}",
+		method: "patch",
+		...variables,
+		signal,
+	});
+
+export type PostEventQueryAlertUpdatePathParams = {
+	/**
+	 * Account ID.
+	 */
+	accountId: string;
+	/**
+	 * Event query alert ID
+	 */
+	alertId: number;
+};
+
+export type PostEventQueryAlertUpdateError = Fetcher.ErrorWrapper<
+	| {
+			status: 400;
+			payload: {
+				errors: {
+					/**
+					 * @example An error occurred.
+					 */
+					message: string;
+				}[];
+				result: Record<string, any>;
+				success: boolean;
+			};
+	  }
+	| {
+			status: 404;
+			payload: {
+				errors: {
+					/**
+					 * @example An error occurred.
+					 */
+					message: string;
+				}[];
+				result: Record<string, any>;
+				success: boolean;
+			};
+	  }
+>;
+
+export type PostEventQueryAlertUpdateResponse = {
+	/**
+	 * Account ID
+	 */
+	account_id: number;
+	/**
+	 * Creation timestamp
+	 */
+	created_at: string;
+	/**
+	 * Whether the alert is enabled
+	 */
+	enabled: boolean;
+	/**
+	 * Alert frequency (immediate or daily)
+	 */
+	frequency: "immediate" | "daily";
+	/**
+	 * Unique identifier for the event query alert
+	 */
+	id: number;
+	/**
+	 * Last time the alert was sent
+	 */
+	last_sent_at?: string;
+	/**
+	 * Type of notification
+	 */
+	notification_type: string;
+	/**
+	 * ID of the associated event query
+	 */
+	query_id: number;
+	/**
+	 * Last update timestamp
+	 */
+	updated_at: string;
+	/**
+	 * Email of the user who created the alert
+	 */
+	user_email: string;
+};
+
+export type PostEventQueryAlertUpdateRequestBody = {
+	/**
+	 * Whether the alert is enabled
+	 */
+	enabled?: boolean;
+	/**
+	 * Alert frequency (immediate or daily)
+	 */
+	frequency?: "immediate" | "daily";
+	/**
+	 * Type of notification (e.g., ans)
+	 */
+	notification_type?: string;
+};
+
+export type PostEventQueryAlertUpdateVariables = {
+	body?: PostEventQueryAlertUpdateRequestBody;
+	pathParams: PostEventQueryAlertUpdatePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Update an existing event query alert by its ID
+ */
+export const postEventQueryAlertUpdate = (
+	variables: PostEventQueryAlertUpdateVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		PostEventQueryAlertUpdateResponse,
+		PostEventQueryAlertUpdateError,
+		PostEventQueryAlertUpdateRequestBody,
+		{},
+		{},
+		PostEventQueryAlertUpdatePathParams
+	>({
+		url: "/accounts/{accountId}/cloudforce-one/events/queries/alerts/{alertId}",
+		method: "post",
 		...variables,
 		signal,
 	});
@@ -56887,7 +57791,7 @@ export const getTargetIndustryListComplete = (
 		signal,
 	});
 
-export type DeleteEventDeleteDOPathParams = {
+export type DeleteEventDeletePathParams = {
 	/**
 	 * Account ID.
 	 */
@@ -56900,14 +57804,14 @@ export type DeleteEventDeleteDOPathParams = {
 	datasetId: string;
 };
 
-export type DeleteEventDeleteDOQueryParams = {
+export type DeleteEventDeleteQueryParams = {
 	/**
 	 * Array of Event IDs to delete.
 	 */
 	eventIds: string[];
 };
 
-export type DeleteEventDeleteDOError = Fetcher.ErrorWrapper<{
+export type DeleteEventDeleteError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: {
 		errors: {
@@ -56921,22 +57825,19 @@ export type DeleteEventDeleteDOError = Fetcher.ErrorWrapper<{
 	};
 }>;
 
-export type DeleteEventDeleteDOVariables = {
-	pathParams: DeleteEventDeleteDOPathParams;
-	queryParams: DeleteEventDeleteDOQueryParams;
+export type DeleteEventDeleteVariables = {
+	pathParams: DeleteEventDeletePathParams;
+	queryParams: DeleteEventDeleteQueryParams;
 } & FetcherExtraProps;
 
-export const deleteEventDeleteDO = (
-	variables: DeleteEventDeleteDOVariables,
-	signal?: AbortSignal,
-) =>
+export const deleteEventDelete = (variables: DeleteEventDeleteVariables, signal?: AbortSignal) =>
 	fetch<
 		number,
-		DeleteEventDeleteDOError,
+		DeleteEventDeleteError,
 		undefined,
 		{},
-		DeleteEventDeleteDOQueryParams,
-		DeleteEventDeleteDOPathParams
+		DeleteEventDeleteQueryParams,
+		DeleteEventDeletePathParams
 	>({
 		url: "/accounts/{accountId}/cloudforce-one/events/{datasetId}/delete",
 		method: "delete",
@@ -57034,60 +57935,6 @@ export const postEventDoRevert = (variables: PostEventDoRevertVariables, signal?
 	>({
 		url: "/accounts/{accountId}/cloudforce-one/events/{datasetId}/revert-do",
 		method: "post",
-		...variables,
-		signal,
-	});
-
-export type DeleteEventDeletePathParams = {
-	/**
-	 * Account ID.
-	 */
-	accountId: string;
-	/**
-	 * Event UUID.
-	 */
-	eventId: string;
-};
-
-export type DeleteEventDeleteError = Fetcher.ErrorWrapper<{
-	status: 400;
-	payload: {
-		errors: {
-			/**
-			 * @example An error occurred.
-			 */
-			message: string;
-		}[];
-		result: Record<string, any>;
-		success: boolean;
-	};
-}>;
-
-export type DeleteEventDeleteResponse = {
-	/**
-	 * @example 12345678-1234-1234-1234-1234567890ab
-	 */
-	uuid: string;
-};
-
-export type DeleteEventDeleteVariables = {
-	pathParams: DeleteEventDeletePathParams;
-} & FetcherExtraProps;
-
-/**
- * The `datasetId` parameter must be defined. To list existing datasets (and their IDs) in your account, use the [`List Datasets`](https://developers.cloudflare.com/api/resources/cloudforce_one/subresources/threat_events/subresources/datasets/methods/list/) endpoint.
- */
-export const deleteEventDelete = (variables: DeleteEventDeleteVariables, signal?: AbortSignal) =>
-	fetch<
-		DeleteEventDeleteResponse,
-		DeleteEventDeleteError,
-		undefined,
-		{},
-		{},
-		DeleteEventDeletePathParams
-	>({
-		url: "/accounts/{accountId}/cloudforce-one/events/{eventId}",
-		method: "delete",
 		...variables,
 		signal,
 	});
@@ -59889,11 +60736,11 @@ export const accountLevelCustomNameserversDeleteAccountCustomNameserver = (
 		signal,
 	});
 
-export type CloudflareD1ListDatabasesPathParams = {
+export type D1ListDatabasesPathParams = {
 	accountId: Schemas.D1AccountIdentifier;
 };
 
-export type CloudflareD1ListDatabasesQueryParams = {
+export type D1ListDatabasesQueryParams = {
 	name?: string;
 	/**
 	 * @default 1
@@ -59908,12 +60755,12 @@ export type CloudflareD1ListDatabasesQueryParams = {
 	per_page?: number;
 };
 
-export type CloudflareD1ListDatabasesError = Fetcher.ErrorWrapper<{
+export type D1ListDatabasesError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: Schemas.D1ApiResponseCommonFailure;
 }>;
 
-export type CloudflareD1ListDatabasesResponse = {
+export type D1ListDatabasesResponse = {
 	errors: Schemas.D1Messages;
 	messages: Schemas.D1Messages;
 	result: never;
@@ -59951,25 +60798,22 @@ export type CloudflareD1ListDatabasesResponse = {
 	};
 };
 
-export type CloudflareD1ListDatabasesVariables = {
-	pathParams: CloudflareD1ListDatabasesPathParams;
-	queryParams?: CloudflareD1ListDatabasesQueryParams;
+export type D1ListDatabasesVariables = {
+	pathParams: D1ListDatabasesPathParams;
+	queryParams?: D1ListDatabasesQueryParams;
 } & FetcherExtraProps;
 
 /**
  * Returns a list of D1 databases.
  */
-export const cloudflareD1ListDatabases = (
-	variables: CloudflareD1ListDatabasesVariables,
-	signal?: AbortSignal,
-) =>
+export const d1ListDatabases = (variables: D1ListDatabasesVariables, signal?: AbortSignal) =>
 	fetch<
-		CloudflareD1ListDatabasesResponse,
-		CloudflareD1ListDatabasesError,
+		D1ListDatabasesResponse,
+		D1ListDatabasesError,
 		undefined,
 		{},
-		CloudflareD1ListDatabasesQueryParams,
-		CloudflareD1ListDatabasesPathParams
+		D1ListDatabasesQueryParams,
+		D1ListDatabasesPathParams
 	>({
 		url: "/accounts/{accountId}/d1/database",
 		method: "get",
@@ -59977,16 +60821,16 @@ export const cloudflareD1ListDatabases = (
 		signal,
 	});
 
-export type CloudflareD1CreateDatabasePathParams = {
+export type D1CreateDatabasePathParams = {
 	accountId: Schemas.D1AccountIdentifier;
 };
 
-export type CloudflareD1CreateDatabaseError = Fetcher.ErrorWrapper<{
+export type D1CreateDatabaseError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: Schemas.D1ApiResponseCommonFailure;
 }>;
 
-export type CloudflareD1CreateDatabaseResponse = {
+export type D1CreateDatabaseResponse = {
 	errors: Schemas.D1Messages;
 	messages: Schemas.D1Messages;
 	result: Schemas.D1DatabaseDetailsResponse;
@@ -59998,31 +60842,28 @@ export type CloudflareD1CreateDatabaseResponse = {
 	success: true;
 };
 
-export type CloudflareD1CreateDatabaseRequestBody = {
+export type D1CreateDatabaseRequestBody = {
 	jurisdiction?: Schemas.D1Jurisdiction;
 	name: Schemas.D1DatabaseName;
 	primary_location_hint?: Schemas.D1PrimaryLocationHint;
 };
 
-export type CloudflareD1CreateDatabaseVariables = {
-	body: CloudflareD1CreateDatabaseRequestBody;
-	pathParams: CloudflareD1CreateDatabasePathParams;
+export type D1CreateDatabaseVariables = {
+	body: D1CreateDatabaseRequestBody;
+	pathParams: D1CreateDatabasePathParams;
 } & FetcherExtraProps;
 
 /**
  * Returns the created D1 database.
  */
-export const cloudflareD1CreateDatabase = (
-	variables: CloudflareD1CreateDatabaseVariables,
-	signal?: AbortSignal,
-) =>
+export const d1CreateDatabase = (variables: D1CreateDatabaseVariables, signal?: AbortSignal) =>
 	fetch<
-		CloudflareD1CreateDatabaseResponse,
-		CloudflareD1CreateDatabaseError,
-		CloudflareD1CreateDatabaseRequestBody,
+		D1CreateDatabaseResponse,
+		D1CreateDatabaseError,
+		D1CreateDatabaseRequestBody,
 		{},
 		{},
-		CloudflareD1CreateDatabasePathParams
+		D1CreateDatabasePathParams
 	>({
 		url: "/accounts/{accountId}/d1/database",
 		method: "post",
@@ -60030,17 +60871,17 @@ export const cloudflareD1CreateDatabase = (
 		signal,
 	});
 
-export type CloudflareD1DeleteDatabasePathParams = {
+export type D1DeleteDatabasePathParams = {
 	accountId: Schemas.D1AccountIdentifier;
 	databaseId: Schemas.D1DatabaseIdentifier;
 };
 
-export type CloudflareD1DeleteDatabaseError = Fetcher.ErrorWrapper<{
+export type D1DeleteDatabaseError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: Schemas.D1ApiResponseCommonFailure;
 }>;
 
-export type CloudflareD1DeleteDatabaseResponse = {
+export type D1DeleteDatabaseResponse = {
 	errors: Schemas.D1Messages;
 	messages: Schemas.D1Messages;
 	result: any | null;
@@ -60052,24 +60893,21 @@ export type CloudflareD1DeleteDatabaseResponse = {
 	success: true;
 };
 
-export type CloudflareD1DeleteDatabaseVariables = {
-	pathParams: CloudflareD1DeleteDatabasePathParams;
+export type D1DeleteDatabaseVariables = {
+	pathParams: D1DeleteDatabasePathParams;
 } & FetcherExtraProps;
 
 /**
  * Deletes the specified D1 database.
  */
-export const cloudflareD1DeleteDatabase = (
-	variables: CloudflareD1DeleteDatabaseVariables,
-	signal?: AbortSignal,
-) =>
+export const d1DeleteDatabase = (variables: D1DeleteDatabaseVariables, signal?: AbortSignal) =>
 	fetch<
-		CloudflareD1DeleteDatabaseResponse,
-		CloudflareD1DeleteDatabaseError,
+		D1DeleteDatabaseResponse,
+		D1DeleteDatabaseError,
 		undefined,
 		{},
 		{},
-		CloudflareD1DeleteDatabasePathParams
+		D1DeleteDatabasePathParams
 	>({
 		url: "/accounts/{accountId}/d1/database/{databaseId}",
 		method: "delete",
@@ -60077,17 +60915,17 @@ export const cloudflareD1DeleteDatabase = (
 		signal,
 	});
 
-export type CloudflareD1GetDatabasePathParams = {
+export type D1GetDatabasePathParams = {
 	accountId: Schemas.D1AccountIdentifier;
 	databaseId: Schemas.D1DatabaseIdentifier | Schemas.D1DatabaseName;
 };
 
-export type CloudflareD1GetDatabaseError = Fetcher.ErrorWrapper<{
+export type D1GetDatabaseError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: Schemas.D1ApiResponseCommonFailure;
 }>;
 
-export type CloudflareD1GetDatabaseResponse = {
+export type D1GetDatabaseResponse = {
 	errors: Schemas.D1Messages;
 	messages: Schemas.D1Messages;
 	result: Schemas.D1DatabaseDetailsResponse;
@@ -60099,42 +60937,32 @@ export type CloudflareD1GetDatabaseResponse = {
 	success: true;
 };
 
-export type CloudflareD1GetDatabaseVariables = {
-	pathParams: CloudflareD1GetDatabasePathParams;
+export type D1GetDatabaseVariables = {
+	pathParams: D1GetDatabasePathParams;
 } & FetcherExtraProps;
 
 /**
  * Returns the specified D1 database.
  */
-export const cloudflareD1GetDatabase = (
-	variables: CloudflareD1GetDatabaseVariables,
-	signal?: AbortSignal,
-) =>
-	fetch<
-		CloudflareD1GetDatabaseResponse,
-		CloudflareD1GetDatabaseError,
-		undefined,
-		{},
-		{},
-		CloudflareD1GetDatabasePathParams
-	>({
+export const d1GetDatabase = (variables: D1GetDatabaseVariables, signal?: AbortSignal) =>
+	fetch<D1GetDatabaseResponse, D1GetDatabaseError, undefined, {}, {}, D1GetDatabasePathParams>({
 		url: "/accounts/{accountId}/d1/database/{databaseId}",
 		method: "get",
 		...variables,
 		signal,
 	});
 
-export type CloudflareD1UpdatePartialDatabasePathParams = {
+export type D1UpdatePartialDatabasePathParams = {
 	accountId: Schemas.D1AccountIdentifier;
 	databaseId: Schemas.D1DatabaseIdentifier;
 };
 
-export type CloudflareD1UpdatePartialDatabaseError = Fetcher.ErrorWrapper<{
+export type D1UpdatePartialDatabaseError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: Schemas.D1ApiResponseCommonFailure;
 }>;
 
-export type CloudflareD1UpdatePartialDatabaseResponse = {
+export type D1UpdatePartialDatabaseResponse = {
 	errors: Schemas.D1Messages;
 	messages: Schemas.D1Messages;
 	result: Schemas.D1DatabaseDetailsResponse;
@@ -60146,25 +60974,25 @@ export type CloudflareD1UpdatePartialDatabaseResponse = {
 	success: true;
 };
 
-export type CloudflareD1UpdatePartialDatabaseVariables = {
+export type D1UpdatePartialDatabaseVariables = {
 	body?: Schemas.D1DatabaseUpdatePartialRequestBody;
-	pathParams: CloudflareD1UpdatePartialDatabasePathParams;
+	pathParams: D1UpdatePartialDatabasePathParams;
 } & FetcherExtraProps;
 
 /**
  * Updates partially the specified D1 database.
  */
-export const cloudflareD1UpdatePartialDatabase = (
-	variables: CloudflareD1UpdatePartialDatabaseVariables,
+export const d1UpdatePartialDatabase = (
+	variables: D1UpdatePartialDatabaseVariables,
 	signal?: AbortSignal,
 ) =>
 	fetch<
-		CloudflareD1UpdatePartialDatabaseResponse,
-		CloudflareD1UpdatePartialDatabaseError,
+		D1UpdatePartialDatabaseResponse,
+		D1UpdatePartialDatabaseError,
 		Schemas.D1DatabaseUpdatePartialRequestBody,
 		{},
 		{},
-		CloudflareD1UpdatePartialDatabasePathParams
+		D1UpdatePartialDatabasePathParams
 	>({
 		url: "/accounts/{accountId}/d1/database/{databaseId}",
 		method: "patch",
@@ -60172,17 +61000,17 @@ export const cloudflareD1UpdatePartialDatabase = (
 		signal,
 	});
 
-export type CloudflareD1UpdateDatabasePathParams = {
+export type D1UpdateDatabasePathParams = {
 	accountId: Schemas.D1AccountIdentifier;
 	databaseId: Schemas.D1DatabaseIdentifier;
 };
 
-export type CloudflareD1UpdateDatabaseError = Fetcher.ErrorWrapper<{
+export type D1UpdateDatabaseError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: Schemas.D1ApiResponseCommonFailure;
 }>;
 
-export type CloudflareD1UpdateDatabaseResponse = {
+export type D1UpdateDatabaseResponse = {
 	errors: Schemas.D1Messages;
 	messages: Schemas.D1Messages;
 	result: Schemas.D1DatabaseDetailsResponse;
@@ -60194,25 +61022,22 @@ export type CloudflareD1UpdateDatabaseResponse = {
 	success: true;
 };
 
-export type CloudflareD1UpdateDatabaseVariables = {
+export type D1UpdateDatabaseVariables = {
 	body: Schemas.D1DatabaseUpdateRequestBody;
-	pathParams: CloudflareD1UpdateDatabasePathParams;
+	pathParams: D1UpdateDatabasePathParams;
 } & FetcherExtraProps;
 
 /**
  * Updates the specified D1 database.
  */
-export const cloudflareD1UpdateDatabase = (
-	variables: CloudflareD1UpdateDatabaseVariables,
-	signal?: AbortSignal,
-) =>
+export const d1UpdateDatabase = (variables: D1UpdateDatabaseVariables, signal?: AbortSignal) =>
 	fetch<
-		CloudflareD1UpdateDatabaseResponse,
-		CloudflareD1UpdateDatabaseError,
+		D1UpdateDatabaseResponse,
+		D1UpdateDatabaseError,
 		Schemas.D1DatabaseUpdateRequestBody,
 		{},
 		{},
-		CloudflareD1UpdateDatabasePathParams
+		D1UpdateDatabasePathParams
 	>({
 		url: "/accounts/{accountId}/d1/database/{databaseId}",
 		method: "put",
@@ -60220,17 +61045,17 @@ export const cloudflareD1UpdateDatabase = (
 		signal,
 	});
 
-export type CloudflareD1ExportDatabasePathParams = {
+export type D1ExportDatabasePathParams = {
 	accountId: Schemas.D1AccountIdentifier;
 	databaseId: Schemas.D1DatabaseIdentifier;
 };
 
-export type CloudflareD1ExportDatabaseError = Fetcher.ErrorWrapper<{
+export type D1ExportDatabaseError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: Schemas.D1ApiResponseCommonFailure;
 }>;
 
-export type CloudflareD1ExportDatabaseResponse =
+export type D1ExportDatabaseResponse =
 	| {
 			errors: Schemas.D1Messages;
 			messages: Schemas.D1Messages;
@@ -60321,7 +61146,7 @@ export type CloudflareD1ExportDatabaseResponse =
 			success: true;
 	  };
 
-export type CloudflareD1ExportDatabaseRequestBody = {
+export type D1ExportDatabaseRequestBody = {
 	/**
 	 * To poll an in-progress export, provide the current bookmark (returned by your first polling response)
 	 *
@@ -60354,9 +61179,9 @@ export type CloudflareD1ExportDatabaseRequestBody = {
 	output_format: "polling";
 };
 
-export type CloudflareD1ExportDatabaseVariables = {
-	body: CloudflareD1ExportDatabaseRequestBody;
-	pathParams: CloudflareD1ExportDatabasePathParams;
+export type D1ExportDatabaseVariables = {
+	body: D1ExportDatabaseRequestBody;
+	pathParams: D1ExportDatabasePathParams;
 } & FetcherExtraProps;
 
 /**
@@ -60364,17 +61189,14 @@ export type CloudflareD1ExportDatabaseVariables = {
  * some time for larger DBs, during which your D1 will be unavailable to serve queries. To avoid
  * blocking your DB unnecessarily, an in-progress export must be continually polled or will automatically cancel.
  */
-export const cloudflareD1ExportDatabase = (
-	variables: CloudflareD1ExportDatabaseVariables,
-	signal?: AbortSignal,
-) =>
+export const d1ExportDatabase = (variables: D1ExportDatabaseVariables, signal?: AbortSignal) =>
 	fetch<
-		CloudflareD1ExportDatabaseResponse,
-		CloudflareD1ExportDatabaseError,
-		CloudflareD1ExportDatabaseRequestBody,
+		D1ExportDatabaseResponse,
+		D1ExportDatabaseError,
+		D1ExportDatabaseRequestBody,
 		{},
 		{},
-		CloudflareD1ExportDatabasePathParams
+		D1ExportDatabasePathParams
 	>({
 		url: "/accounts/{accountId}/d1/database/{databaseId}/export",
 		method: "post",
@@ -60382,17 +61204,17 @@ export const cloudflareD1ExportDatabase = (
 		signal,
 	});
 
-export type CloudflareD1ImportDatabasePathParams = {
+export type D1ImportDatabasePathParams = {
 	accountId: Schemas.D1AccountIdentifier;
 	databaseId: Schemas.D1DatabaseIdentifier;
 };
 
-export type CloudflareD1ImportDatabaseError = Fetcher.ErrorWrapper<{
+export type D1ImportDatabaseError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: Schemas.D1ApiResponseCommonFailure;
 }>;
 
-export type CloudflareD1ImportDatabaseResponse =
+export type D1ImportDatabaseResponse =
 	| {
 			errors: Schemas.D1Messages;
 			messages: Schemas.D1Messages;
@@ -60496,7 +61318,7 @@ export type CloudflareD1ImportDatabaseResponse =
 			success: true;
 	  };
 
-export type CloudflareD1ImportDatabaseRequestBody =
+export type D1ImportDatabaseRequestBody =
 	| {
 			/**
 			 * Indicates you have a new SQL file to upload.
@@ -60546,26 +61368,23 @@ export type CloudflareD1ImportDatabaseRequestBody =
 			current_bookmark: string;
 	  };
 
-export type CloudflareD1ImportDatabaseVariables = {
-	body?: CloudflareD1ImportDatabaseRequestBody;
-	pathParams: CloudflareD1ImportDatabasePathParams;
+export type D1ImportDatabaseVariables = {
+	body?: D1ImportDatabaseRequestBody;
+	pathParams: D1ImportDatabasePathParams;
 } & FetcherExtraProps;
 
 /**
  * Generates a temporary URL for uploading an SQL file to, then instructing the D1 to import it
  * and polling it for status updates. Imports block the D1 for their duration.
  */
-export const cloudflareD1ImportDatabase = (
-	variables: CloudflareD1ImportDatabaseVariables,
-	signal?: AbortSignal,
-) =>
+export const d1ImportDatabase = (variables: D1ImportDatabaseVariables, signal?: AbortSignal) =>
 	fetch<
-		CloudflareD1ImportDatabaseResponse,
-		CloudflareD1ImportDatabaseError,
-		CloudflareD1ImportDatabaseRequestBody,
+		D1ImportDatabaseResponse,
+		D1ImportDatabaseError,
+		D1ImportDatabaseRequestBody,
 		{},
 		{},
-		CloudflareD1ImportDatabasePathParams
+		D1ImportDatabasePathParams
 	>({
 		url: "/accounts/{accountId}/d1/database/{databaseId}/import",
 		method: "post",
@@ -60573,17 +61392,17 @@ export const cloudflareD1ImportDatabase = (
 		signal,
 	});
 
-export type CloudflareD1QueryDatabasePathParams = {
+export type D1QueryDatabasePathParams = {
 	accountId: Schemas.D1AccountIdentifier;
 	databaseId: Schemas.D1DatabaseIdentifier;
 };
 
-export type CloudflareD1QueryDatabaseError = Fetcher.ErrorWrapper<{
+export type D1QueryDatabaseError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: Schemas.D1ApiResponseCommonFailure;
 }>;
 
-export type CloudflareD1QueryDatabaseResponse = {
+export type D1QueryDatabaseResponse = {
 	errors: Schemas.D1Messages;
 	messages: Schemas.D1Messages;
 	result: never;
@@ -60595,25 +61414,22 @@ export type CloudflareD1QueryDatabaseResponse = {
 	success: true;
 };
 
-export type CloudflareD1QueryDatabaseVariables = {
+export type D1QueryDatabaseVariables = {
 	body?: Schemas.D1BatchQuery;
-	pathParams: CloudflareD1QueryDatabasePathParams;
+	pathParams: D1QueryDatabasePathParams;
 } & FetcherExtraProps;
 
 /**
  * Returns the query result as an object.
  */
-export const cloudflareD1QueryDatabase = (
-	variables: CloudflareD1QueryDatabaseVariables,
-	signal?: AbortSignal,
-) =>
+export const d1QueryDatabase = (variables: D1QueryDatabaseVariables, signal?: AbortSignal) =>
 	fetch<
-		CloudflareD1QueryDatabaseResponse,
-		CloudflareD1QueryDatabaseError,
+		D1QueryDatabaseResponse,
+		D1QueryDatabaseError,
 		Schemas.D1BatchQuery,
 		{},
 		{},
-		CloudflareD1QueryDatabasePathParams
+		D1QueryDatabasePathParams
 	>({
 		url: "/accounts/{accountId}/d1/database/{databaseId}/query",
 		method: "post",
@@ -60621,17 +61437,17 @@ export const cloudflareD1QueryDatabase = (
 		signal,
 	});
 
-export type CloudflareD1RawDatabaseQueryPathParams = {
+export type D1RawDatabaseQueryPathParams = {
 	accountId: Schemas.D1AccountIdentifier;
 	databaseId: Schemas.D1DatabaseIdentifier;
 };
 
-export type CloudflareD1RawDatabaseQueryError = Fetcher.ErrorWrapper<{
+export type D1RawDatabaseQueryError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: Schemas.D1ApiResponseCommonFailure;
 }>;
 
-export type CloudflareD1RawDatabaseQueryResponse = {
+export type D1RawDatabaseQueryResponse = {
 	errors: Schemas.D1Messages;
 	messages: Schemas.D1Messages;
 	result: never;
@@ -60643,25 +61459,22 @@ export type CloudflareD1RawDatabaseQueryResponse = {
 	success: true;
 };
 
-export type CloudflareD1RawDatabaseQueryVariables = {
+export type D1RawDatabaseQueryVariables = {
 	body?: Schemas.D1BatchQuery;
-	pathParams: CloudflareD1RawDatabaseQueryPathParams;
+	pathParams: D1RawDatabaseQueryPathParams;
 } & FetcherExtraProps;
 
 /**
  * Returns the query result rows as arrays rather than objects. This is a performance-optimized version of the /query endpoint.
  */
-export const cloudflareD1RawDatabaseQuery = (
-	variables: CloudflareD1RawDatabaseQueryVariables,
-	signal?: AbortSignal,
-) =>
+export const d1RawDatabaseQuery = (variables: D1RawDatabaseQueryVariables, signal?: AbortSignal) =>
 	fetch<
-		CloudflareD1RawDatabaseQueryResponse,
-		CloudflareD1RawDatabaseQueryError,
+		D1RawDatabaseQueryResponse,
+		D1RawDatabaseQueryError,
 		Schemas.D1BatchQuery,
 		{},
 		{},
-		CloudflareD1RawDatabaseQueryPathParams
+		D1RawDatabaseQueryPathParams
 	>({
 		url: "/accounts/{accountId}/d1/database/{databaseId}/raw",
 		method: "post",
@@ -60669,21 +61482,21 @@ export const cloudflareD1RawDatabaseQuery = (
 		signal,
 	});
 
-export type CloudflareD1TimeTravelGetBookmarkPathParams = {
+export type D1TimeTravelGetBookmarkPathParams = {
 	accountId: Schemas.D1AccountIdentifier;
 	databaseId: Schemas.D1DatabaseIdentifier;
 };
 
-export type CloudflareD1TimeTravelGetBookmarkQueryParams = {
+export type D1TimeTravelGetBookmarkQueryParams = {
 	timestamp?: Schemas.D1TimeTravelTimestamp;
 };
 
-export type CloudflareD1TimeTravelGetBookmarkError = Fetcher.ErrorWrapper<{
+export type D1TimeTravelGetBookmarkError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: Schemas.D1ApiResponseCommonFailure;
 }>;
 
-export type CloudflareD1TimeTravelGetBookmarkResponse = {
+export type D1TimeTravelGetBookmarkResponse = {
 	errors: Schemas.D1Messages;
 	messages: Schemas.D1Messages;
 	result: {
@@ -60697,26 +61510,26 @@ export type CloudflareD1TimeTravelGetBookmarkResponse = {
 	success: true;
 };
 
-export type CloudflareD1TimeTravelGetBookmarkVariables = {
-	pathParams: CloudflareD1TimeTravelGetBookmarkPathParams;
-	queryParams?: CloudflareD1TimeTravelGetBookmarkQueryParams;
+export type D1TimeTravelGetBookmarkVariables = {
+	pathParams: D1TimeTravelGetBookmarkPathParams;
+	queryParams?: D1TimeTravelGetBookmarkQueryParams;
 } & FetcherExtraProps;
 
 /**
  * Retrieves the current bookmark, or the nearest bookmark at or before a provided timestamp.
  * Bookmarks can be used with the restore endpoint to revert the database to a previous point in time.
  */
-export const cloudflareD1TimeTravelGetBookmark = (
-	variables: CloudflareD1TimeTravelGetBookmarkVariables,
+export const d1TimeTravelGetBookmark = (
+	variables: D1TimeTravelGetBookmarkVariables,
 	signal?: AbortSignal,
 ) =>
 	fetch<
-		CloudflareD1TimeTravelGetBookmarkResponse,
-		CloudflareD1TimeTravelGetBookmarkError,
+		D1TimeTravelGetBookmarkResponse,
+		D1TimeTravelGetBookmarkError,
 		undefined,
 		{},
-		CloudflareD1TimeTravelGetBookmarkQueryParams,
-		CloudflareD1TimeTravelGetBookmarkPathParams
+		D1TimeTravelGetBookmarkQueryParams,
+		D1TimeTravelGetBookmarkPathParams
 	>({
 		url: "/accounts/{accountId}/d1/database/{databaseId}/time_travel/bookmark",
 		method: "get",
@@ -60724,22 +61537,22 @@ export const cloudflareD1TimeTravelGetBookmark = (
 		signal,
 	});
 
-export type CloudflareD1TimeTravelRestorePathParams = {
+export type D1TimeTravelRestorePathParams = {
 	accountId: Schemas.D1AccountIdentifier;
 	databaseId: Schemas.D1DatabaseIdentifier;
 };
 
-export type CloudflareD1TimeTravelRestoreQueryParams = {
+export type D1TimeTravelRestoreQueryParams = {
 	bookmark?: Schemas.D1TimeTravelBookmark;
 	timestamp?: Schemas.D1TimeTravelTimestamp;
 };
 
-export type CloudflareD1TimeTravelRestoreError = Fetcher.ErrorWrapper<{
+export type D1TimeTravelRestoreError = Fetcher.ErrorWrapper<{
 	status: 400;
 	payload: Schemas.D1ApiResponseCommonFailure;
 }>;
 
-export type CloudflareD1TimeTravelRestoreResponse = {
+export type D1TimeTravelRestoreResponse = {
 	errors: Schemas.D1Messages;
 	messages: Schemas.D1Messages;
 	result: Schemas.D1TimeTravelRestoreResponse;
@@ -60751,25 +61564,25 @@ export type CloudflareD1TimeTravelRestoreResponse = {
 	success: true;
 };
 
-export type CloudflareD1TimeTravelRestoreVariables = {
-	pathParams: CloudflareD1TimeTravelRestorePathParams;
-	queryParams?: CloudflareD1TimeTravelRestoreQueryParams;
+export type D1TimeTravelRestoreVariables = {
+	pathParams: D1TimeTravelRestorePathParams;
+	queryParams?: D1TimeTravelRestoreQueryParams;
 } & FetcherExtraProps;
 
 /**
  * Restores a D1 database to a previous point in time either via a bookmark or a timestamp.
  */
-export const cloudflareD1TimeTravelRestore = (
-	variables: CloudflareD1TimeTravelRestoreVariables,
+export const d1TimeTravelRestore = (
+	variables: D1TimeTravelRestoreVariables,
 	signal?: AbortSignal,
 ) =>
 	fetch<
-		CloudflareD1TimeTravelRestoreResponse,
-		CloudflareD1TimeTravelRestoreError,
+		D1TimeTravelRestoreResponse,
+		D1TimeTravelRestoreError,
 		undefined,
 		{},
-		CloudflareD1TimeTravelRestoreQueryParams,
-		CloudflareD1TimeTravelRestorePathParams
+		D1TimeTravelRestoreQueryParams,
+		D1TimeTravelRestorePathParams
 	>({
 		url: "/accounts/{accountId}/d1/database/{databaseId}/time_travel/restore",
 		method: "post",
@@ -60808,6 +61621,215 @@ export const devicesListDevices = (variables: DevicesListDevicesVariables, signa
 	>({
 		url: "/accounts/{accountId}/devices",
 		method: "get",
+		...variables,
+		signal,
+	});
+
+export type ListIpProfilesPathParams = {
+	accountId: string;
+};
+
+export type ListIpProfilesQueryParams = {
+	/**
+	 * The number of IP profiles to return per page.
+	 *
+	 * @default 50
+	 * @maximum 100
+	 * @minimum 1
+	 */
+	per_page?: number;
+};
+
+export type ListIpProfilesError = Fetcher.ErrorWrapper<undefined>;
+
+export type ListIpProfilesResponse = {
+	errors: Schemas.TeamsDevicesV4ResponseMessage[];
+	messages: Schemas.TeamsDevicesV4ResponseMessage[];
+	result: Schemas.TeamsDevicesIpProfile[];
+	result_info?: Schemas.TeamsDevicesPaginationInfo;
+	/**
+	 * Whether the API call was successful.
+	 */
+	success: boolean;
+};
+
+export type ListIpProfilesVariables = {
+	pathParams: ListIpProfilesPathParams;
+	queryParams?: ListIpProfilesQueryParams;
+} & FetcherExtraProps;
+
+/**
+ * Lists WARP Device IP profiles.
+ */
+export const listIpProfiles = (variables: ListIpProfilesVariables, signal?: AbortSignal) =>
+	fetch<
+		ListIpProfilesResponse,
+		ListIpProfilesError,
+		undefined,
+		{},
+		ListIpProfilesQueryParams,
+		ListIpProfilesPathParams
+	>({
+		url: "/accounts/{accountId}/devices/ip-profiles",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type CreateIpProfilePathParams = {
+	accountId: string;
+};
+
+export type CreateIpProfileError = Fetcher.ErrorWrapper<undefined>;
+
+export type CreateIpProfileResponse = {
+	errors: Schemas.TeamsDevicesV4ResponseMessage[];
+	messages: Schemas.TeamsDevicesV4ResponseMessage[];
+	result: Schemas.TeamsDevicesIpProfile;
+	/**
+	 * Whether the API call was successful.
+	 */
+	success: boolean;
+};
+
+export type CreateIpProfileVariables = {
+	body: Schemas.TeamsDevicesIpProfileCreateRequest;
+	pathParams: CreateIpProfilePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Creates a WARP Device IP profile. Currently, only IPv4 Device subnets can be associated.
+ */
+export const createIpProfile = (variables: CreateIpProfileVariables, signal?: AbortSignal) =>
+	fetch<
+		CreateIpProfileResponse,
+		CreateIpProfileError,
+		Schemas.TeamsDevicesIpProfileCreateRequest,
+		{},
+		{},
+		CreateIpProfilePathParams
+	>({
+		url: "/accounts/{accountId}/devices/ip-profiles",
+		method: "post",
+		...variables,
+		signal,
+	});
+
+export type DeleteIpProfilePathParams = {
+	accountId: string;
+	profileId: string;
+};
+
+export type DeleteIpProfileError = Fetcher.ErrorWrapper<undefined>;
+
+export type DeleteIpProfileResponse = {
+	errors: Schemas.TeamsDevicesV4ResponseMessage[];
+	messages: Schemas.TeamsDevicesV4ResponseMessage[];
+	result: {
+		/**
+		 * ID of the deleted Device IP profile.
+		 *
+		 * @example f70ff985-a4ef-4643-bbbc-4a0ed4fc8415
+		 * @x-auditable true
+		 */
+		id?: string;
+	};
+	/**
+	 * Whether the API call was successful.
+	 */
+	success: boolean;
+};
+
+export type DeleteIpProfileVariables = {
+	pathParams: DeleteIpProfilePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Delete a WARP Device IP profile.
+ */
+export const deleteIpProfile = (variables: DeleteIpProfileVariables, signal?: AbortSignal) =>
+	fetch<
+		DeleteIpProfileResponse,
+		DeleteIpProfileError,
+		undefined,
+		{},
+		{},
+		DeleteIpProfilePathParams
+	>({
+		url: "/accounts/{accountId}/devices/ip-profiles/{profileId}",
+		method: "delete",
+		...variables,
+		signal,
+	});
+
+export type GetIpProfilePathParams = {
+	accountId: string;
+	profileId: string;
+};
+
+export type GetIpProfileError = Fetcher.ErrorWrapper<undefined>;
+
+export type GetIpProfileResponse = {
+	errors: Schemas.TeamsDevicesV4ResponseMessage[];
+	messages: Schemas.TeamsDevicesV4ResponseMessage[];
+	result: Schemas.TeamsDevicesIpProfile;
+	/**
+	 * Whether the API call was successful.
+	 */
+	success: boolean;
+};
+
+export type GetIpProfileVariables = {
+	pathParams: GetIpProfilePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Fetches a single WARP Device IP profile.
+ */
+export const getIpProfile = (variables: GetIpProfileVariables, signal?: AbortSignal) =>
+	fetch<GetIpProfileResponse, GetIpProfileError, undefined, {}, {}, GetIpProfilePathParams>({
+		url: "/accounts/{accountId}/devices/ip-profiles/{profileId}",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type UpdateIpProfilePathParams = {
+	accountId: string;
+	profileId: string;
+};
+
+export type UpdateIpProfileError = Fetcher.ErrorWrapper<undefined>;
+
+export type UpdateIpProfileResponse = {
+	errors: Schemas.TeamsDevicesV4ResponseMessage[];
+	messages: Schemas.TeamsDevicesV4ResponseMessage[];
+	result: Schemas.TeamsDevicesIpProfile;
+	/**
+	 * Whether the API call was successful.
+	 */
+	success: boolean;
+};
+
+export type UpdateIpProfileVariables = {
+	body?: Schemas.TeamsDevicesIpProfileUpdateRequest;
+	pathParams: UpdateIpProfilePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Updates a WARP Device IP profile. Currently, only IPv4 Device subnets can be associated.
+ */
+export const updateIpProfile = (variables: UpdateIpProfileVariables, signal?: AbortSignal) =>
+	fetch<
+		UpdateIpProfileResponse,
+		UpdateIpProfileError,
+		Schemas.TeamsDevicesIpProfileUpdateRequest,
+		{},
+		{},
+		UpdateIpProfilePathParams
+	>({
+		url: "/accounts/{accountId}/devices/ip-profiles/{profileId}",
+		method: "patch",
 		...variables,
 		signal,
 	});
@@ -66333,6 +67355,10 @@ export type DlpEntriesCreateEntryResponse = Schemas.DlpApiResponseSingle & {
 		 * @format date-time
 		 */
 		created_at: string;
+		description?: string | null;
+		/**
+		 * @deprecated true
+		 */
 		enabled: boolean;
 		/**
 		 * @format uuid
@@ -66341,6 +67367,7 @@ export type DlpEntriesCreateEntryResponse = Schemas.DlpApiResponseSingle & {
 		name: string;
 		pattern: Schemas.DlpPattern;
 		/**
+		 * @deprecated true
 		 * @format uuid
 		 */
 		profile_id?: string | null;
@@ -66396,6 +67423,10 @@ export type DlpEntriesUpdateCustomEntryResponse = Schemas.DlpApiResponseSingle &
 		 * @format date-time
 		 */
 		created_at: string;
+		description?: string | null;
+		/**
+		 * @deprecated true
+		 */
 		enabled: boolean;
 		/**
 		 * @format uuid
@@ -66404,6 +67435,7 @@ export type DlpEntriesUpdateCustomEntryResponse = Schemas.DlpApiResponseSingle &
 		name: string;
 		pattern: Schemas.DlpPattern;
 		/**
+		 * @deprecated true
 		 * @format uuid
 		 */
 		profile_id?: string | null;
@@ -66622,6 +67654,7 @@ export type DlpEntriesCreatePredefinedEntryResponse = Schemas.DlpApiResponseSing
 		id: string;
 		name: string;
 		/**
+		 * @deprecated true
 		 * @format uuid
 		 */
 		profile_id?: string | null;
@@ -66721,6 +67754,7 @@ export type DlpEntriesUpdatePredefinedEntryResponse = Schemas.DlpApiResponseSing
 		id: string;
 		name: string;
 		/**
+		 * @deprecated true
 		 * @format uuid
 		 */
 		profile_id?: string | null;
@@ -68613,14 +69647,14 @@ export type EmailSecurityInvestigatePathParams = {
 export type EmailSecurityInvestigateQueryParams = {
 	/**
 	 * The beginning of the search date range.
-	 * Defaults to `now - 30 days`.
+	 * Defaults to `now - 30 days` if not provided.
 	 *
 	 * @format date-time
 	 */
 	start?: string;
 	/**
 	 * The end of the search date range.
-	 * Defaults to `now`.
+	 * Defaults to `now` if not provided.
 	 *
 	 * @format date-time
 	 */
@@ -68776,7 +69810,7 @@ export type EmailSecurityPostBulkMessageMoveVariables = {
 } & FetcherExtraProps;
 
 /**
- * Maximum batch size: 100 messages per request
+ * Maximum batch size: 1000 messages per request
  */
 export const emailSecurityPostBulkMessageMove = (
 	variables: EmailSecurityPostBulkMessageMoveVariables,
@@ -71597,14 +72631,14 @@ export type EmailSecuritySubmissionsPathParams = {
 export type EmailSecuritySubmissionsQueryParams = {
 	/**
 	 * The beginning of the search date range.
-	 * Defaults to `now - 30 days`.
+	 * Defaults to `now - 30 days` if not provided.
 	 *
 	 * @format date-time
 	 */
 	start?: string;
 	/**
 	 * The end of the search date range.
-	 * Defaults to `now`.
+	 * Defaults to `now` if not provided.
 	 *
 	 * @format date-time
 	 */
@@ -91067,7 +92101,7 @@ export type QueuesListConsumersError = Fetcher.ErrorWrapper<{
 }>;
 
 export type QueuesListConsumersResponse = Schemas.MqApiV4Success & {
-	result?: Schemas.MqConsumer[];
+	result?: Schemas.MqConsumerResponse[];
 };
 
 export type QueuesListConsumersVariables = {
@@ -91106,15 +92140,11 @@ export type QueuesCreateConsumerError = Fetcher.ErrorWrapper<{
 }>;
 
 export type QueuesCreateConsumerResponse = Schemas.MqApiV4Success & {
-	result?: Schemas.MqConsumer;
-};
-
-export type QueuesCreateConsumerRequestBody = Schemas.MqConsumer & {
-	dead_letter_queue?: Schemas.MqQueueName;
+	result?: Schemas.MqConsumerResponse;
 };
 
 export type QueuesCreateConsumerVariables = {
-	body?: QueuesCreateConsumerRequestBody;
+	body?: Schemas.MqConsumerRequest;
 	pathParams: QueuesCreateConsumerPathParams;
 } & FetcherExtraProps;
 
@@ -91128,7 +92158,7 @@ export const queuesCreateConsumer = (
 	fetch<
 		QueuesCreateConsumerResponse,
 		QueuesCreateConsumerError,
-		QueuesCreateConsumerRequestBody,
+		Schemas.MqConsumerRequest,
 		{},
 		{},
 		QueuesCreateConsumerPathParams
@@ -91187,7 +92217,7 @@ export type QueuesGetConsumerError = Fetcher.ErrorWrapper<{
 }>;
 
 export type QueuesGetConsumerResponse = Schemas.MqApiV4Success & {
-	result?: Schemas.MqConsumer;
+	result?: Schemas.MqConsumerResponse;
 };
 
 export type QueuesGetConsumerVariables = {
@@ -91224,15 +92254,11 @@ export type QueuesUpdateConsumerError = Fetcher.ErrorWrapper<{
 }>;
 
 export type QueuesUpdateConsumerResponse = Schemas.MqApiV4Success & {
-	result?: Schemas.MqConsumer;
-};
-
-export type QueuesUpdateConsumerRequestBody = Schemas.MqConsumer & {
-	dead_letter_queue?: Schemas.MqQueueName;
+	result?: Schemas.MqConsumerResponse;
 };
 
 export type QueuesUpdateConsumerVariables = {
-	body?: QueuesUpdateConsumerRequestBody;
+	body?: Schemas.MqConsumerRequest;
 	pathParams: QueuesUpdateConsumerPathParams;
 } & FetcherExtraProps;
 
@@ -91246,7 +92272,7 @@ export const queuesUpdateConsumer = (
 	fetch<
 		QueuesUpdateConsumerResponse,
 		QueuesUpdateConsumerError,
-		QueuesUpdateConsumerRequestBody,
+		Schemas.MqConsumerRequest,
 		{},
 		{},
 		QueuesUpdateConsumerPathParams
@@ -100696,6 +101722,7 @@ export type InitNewSsoConnectorRequestBody = {
 	 *
 	 * @default true
 	 * @example true
+	 * @x-stainless-terraform-configurability computed_optional
 	 */
 	begin_verification?: boolean;
 	/**
@@ -116248,6 +117275,7 @@ export type WorListWorkflowVersionsResponse = {
 		 * @format date-time
 		 */
 		created_on: string;
+		has_dag: boolean;
 		/**
 		 * @format uuid
 		 */
@@ -116350,6 +117378,7 @@ export type WorDescribeWorkflowVersionsResponse = {
 		 * @format date-time
 		 */
 		created_on: string;
+		has_dag: boolean;
 		/**
 		 * @format uuid
 		 */
@@ -116942,6 +117971,173 @@ export const zeroTrustNetworksSubnetUpdateCloudflareSource = (
 		ZeroTrustNetworksSubnetUpdateCloudflareSourcePathParams
 	>({
 		url: "/accounts/{accountId}/zerotrust/subnets/cloudflare_source/{addressFamily}",
+		method: "patch",
+		...variables,
+		signal,
+	});
+
+export type ZeroTrustNetworksSubnetCreateWarpPathParams = {
+	accountId: Schemas.TunnelAccountId;
+};
+
+export type ZeroTrustNetworksSubnetCreateWarpError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.TunnelSubnetResponseSingle & Schemas.TunnelApiResponseCommonFailure;
+}>;
+
+export type ZeroTrustNetworksSubnetCreateWarpRequestBody = {
+	comment?: Schemas.TunnelSubnetComment;
+	is_default_network?: Schemas.TunnelSubnetIsDefaultNetwork;
+	name: Schemas.TunnelSubnetName;
+	network: Schemas.TunnelSubnetIpNetwork;
+};
+
+export type ZeroTrustNetworksSubnetCreateWarpVariables = {
+	body: ZeroTrustNetworksSubnetCreateWarpRequestBody;
+	pathParams: ZeroTrustNetworksSubnetCreateWarpPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Create a WARP IP assignment subnet. Currently, only IPv4 subnets can be created.
+ *
+ * **Network constraints:**
+ * - The network must be within one of the following private IP ranges:
+ *   - `10.0.0.0/8` (RFC 1918)
+ *   - `172.16.0.0/12` (RFC 1918)
+ *   - `192.168.0.0/16` (RFC 1918)
+ *   - `100.64.0.0/10` (RFC 6598 - CGNAT)
+ * - The subnet must have a prefix length of `/24` or larger (e.g., `/16`, `/20`, `/24` are valid; `/25`, `/28` are not)
+ */
+export const zeroTrustNetworksSubnetCreateWarp = (
+	variables: ZeroTrustNetworksSubnetCreateWarpVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.TunnelSubnetResponseSingle,
+		ZeroTrustNetworksSubnetCreateWarpError,
+		ZeroTrustNetworksSubnetCreateWarpRequestBody,
+		{},
+		{},
+		ZeroTrustNetworksSubnetCreateWarpPathParams
+	>({
+		url: "/accounts/{accountId}/zerotrust/subnets/warp",
+		method: "post",
+		...variables,
+		signal,
+	});
+
+export type ZeroTrustNetworksSubnetDeleteWarpPathParams = {
+	accountId: Schemas.TunnelAccountId;
+	subnetId: Schemas.TunnelSubnetId;
+};
+
+export type ZeroTrustNetworksSubnetDeleteWarpError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.TunnelSubnetResponseSingleNullable & Schemas.TunnelApiResponseCommonFailure;
+}>;
+
+export type ZeroTrustNetworksSubnetDeleteWarpVariables = {
+	pathParams: ZeroTrustNetworksSubnetDeleteWarpPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Delete a WARP IP assignment subnet. This operation is idempotent - deleting an already-deleted or non-existent subnet will return success with a null result.
+ */
+export const zeroTrustNetworksSubnetDeleteWarp = (
+	variables: ZeroTrustNetworksSubnetDeleteWarpVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.TunnelSubnetResponseSingleNullable,
+		ZeroTrustNetworksSubnetDeleteWarpError,
+		undefined,
+		{},
+		{},
+		ZeroTrustNetworksSubnetDeleteWarpPathParams
+	>({
+		url: "/accounts/{accountId}/zerotrust/subnets/warp/{subnetId}",
+		method: "delete",
+		...variables,
+		signal,
+	});
+
+export type ZeroTrustNetworksSubnetGetWarpPathParams = {
+	accountId: Schemas.TunnelAccountId;
+	subnetId: Schemas.TunnelSubnetId;
+};
+
+export type ZeroTrustNetworksSubnetGetWarpError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.TunnelSubnetResponseSingle & Schemas.TunnelApiResponseCommonFailure;
+}>;
+
+export type ZeroTrustNetworksSubnetGetWarpVariables = {
+	pathParams: ZeroTrustNetworksSubnetGetWarpPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Get a WARP IP assignment subnet.
+ */
+export const zeroTrustNetworksSubnetGetWarp = (
+	variables: ZeroTrustNetworksSubnetGetWarpVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.TunnelSubnetResponseSingle,
+		ZeroTrustNetworksSubnetGetWarpError,
+		undefined,
+		{},
+		{},
+		ZeroTrustNetworksSubnetGetWarpPathParams
+	>({
+		url: "/accounts/{accountId}/zerotrust/subnets/warp/{subnetId}",
+		method: "get",
+		...variables,
+		signal,
+	});
+
+export type ZeroTrustNetworksSubnetUpdateWarpPathParams = {
+	accountId: Schemas.TunnelAccountId;
+	subnetId: Schemas.TunnelSubnetId;
+};
+
+export type ZeroTrustNetworksSubnetUpdateWarpError = Fetcher.ErrorWrapper<{
+	status: 400;
+	payload: Schemas.TunnelSubnetResponseSingle & Schemas.TunnelApiResponseCommonFailure;
+}>;
+
+export type ZeroTrustNetworksSubnetUpdateWarpRequestBody = {
+	comment?: Schemas.TunnelSubnetComment;
+	is_default_network?: Schemas.TunnelSubnetIsDefaultNetwork;
+	name?: Schemas.TunnelSubnetName;
+	network?: Schemas.TunnelSubnetIpNetwork;
+};
+
+export type ZeroTrustNetworksSubnetUpdateWarpVariables = {
+	body?: ZeroTrustNetworksSubnetUpdateWarpRequestBody;
+	pathParams: ZeroTrustNetworksSubnetUpdateWarpPathParams;
+} & FetcherExtraProps;
+
+/**
+ * Updates a WARP IP assignment subnet.
+ *
+ * **Update constraints:**
+ * - The `network` field cannot be modified for WARP subnets. Only `name`, `comment`, and `is_default_network` can be updated.
+ * - IPv6 subnets cannot be updated
+ */
+export const zeroTrustNetworksSubnetUpdateWarp = (
+	variables: ZeroTrustNetworksSubnetUpdateWarpVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		Schemas.TunnelSubnetResponseSingle,
+		ZeroTrustNetworksSubnetUpdateWarpError,
+		ZeroTrustNetworksSubnetUpdateWarpRequestBody,
+		{},
+		{},
+		ZeroTrustNetworksSubnetUpdateWarpPathParams
+	>({
+		url: "/accounts/{accountId}/zerotrust/subnets/warp/{subnetId}",
 		method: "patch",
 		...variables,
 		signal,
@@ -118922,7 +120118,7 @@ export type RadarGetAiBotsSummaryPathParams = {
 	/**
 	 * Specifies the attribute by which to group the results.
 	 */
-	dimension: "USER_AGENT" | "CRAWL_PURPOSE" | "INDUSTRY" | "VERTICAL";
+	dimension: "USER_AGENT" | "CRAWL_PURPOSE" | "INDUSTRY" | "VERTICAL" | "CONTENT_TYPE";
 };
 
 export type RadarGetAiBotsSummaryQueryParams = {
@@ -118971,6 +120167,10 @@ export type RadarGetAiBotsSummaryQueryParams = {
 	 */
 	crawlPurpose?: string[];
 	/**
+	 * Filters results by user agent.
+	 */
+	userAgent?: string[];
+	/**
 	 * Filters results by vertical.
 	 */
 	vertical?: string[];
@@ -118978,6 +120178,27 @@ export type RadarGetAiBotsSummaryQueryParams = {
 	 * Filters results by industry.
 	 */
 	industry?: string[];
+	/**
+	 * Filters results by content type category.
+	 */
+	contentType?: (
+		| "HTML"
+		| "IMAGES"
+		| "JSON"
+		| "JAVASCRIPT"
+		| "CSS"
+		| "PLAIN_TEXT"
+		| "FONTS"
+		| "XML"
+		| "YAML"
+		| "VIDEO"
+		| "AUDIO"
+		| "MARKDOWN"
+		| "DOCUMENTS"
+		| "BINARY"
+		| "SERIALIZATION"
+		| "OTHER"
+	)[];
 	/**
 	 * Limits the number of objects per group to the top items within the specified time range. When item count exceeds the limit, extra items appear grouped under an "other" category.
 	 *
@@ -119229,6 +120450,27 @@ export type RadarGetAiBotsTimeseriesQueryParams = {
 	 * Filters results by vertical.
 	 */
 	vertical?: string[];
+	/**
+	 * Filters results by content type category.
+	 */
+	contentType?: (
+		| "HTML"
+		| "IMAGES"
+		| "JSON"
+		| "JAVASCRIPT"
+		| "CSS"
+		| "PLAIN_TEXT"
+		| "FONTS"
+		| "XML"
+		| "YAML"
+		| "VIDEO"
+		| "AUDIO"
+		| "MARKDOWN"
+		| "DOCUMENTS"
+		| "BINARY"
+		| "SERIALIZATION"
+		| "OTHER"
+	)[];
 	/**
 	 * Limits the number of objects per group to the top items within the specified time range. When item count exceeds the limit, extra items appear grouped under an "other" category.
 	 *
@@ -119658,7 +120900,7 @@ export type RadarGetAiBotsTimeseriesGroupPathParams = {
 	/**
 	 * Specifies the attribute by which to group the results.
 	 */
-	dimension: "USER_AGENT" | "CRAWL_PURPOSE" | "INDUSTRY" | "VERTICAL";
+	dimension: "USER_AGENT" | "CRAWL_PURPOSE" | "INDUSTRY" | "VERTICAL" | "CONTENT_TYPE";
 };
 
 export type RadarGetAiBotsTimeseriesGroupQueryParams = {
@@ -119713,6 +120955,10 @@ export type RadarGetAiBotsTimeseriesGroupQueryParams = {
 	 */
 	crawlPurpose?: string[];
 	/**
+	 * Filters results by user agent.
+	 */
+	userAgent?: string[];
+	/**
 	 * Filters results by industry.
 	 */
 	industry?: string[];
@@ -119720,6 +120966,27 @@ export type RadarGetAiBotsTimeseriesGroupQueryParams = {
 	 * Filters results by vertical.
 	 */
 	vertical?: string[];
+	/**
+	 * Filters results by content type category.
+	 */
+	contentType?: (
+		| "HTML"
+		| "IMAGES"
+		| "JSON"
+		| "JAVASCRIPT"
+		| "CSS"
+		| "PLAIN_TEXT"
+		| "FONTS"
+		| "XML"
+		| "YAML"
+		| "VIDEO"
+		| "AUDIO"
+		| "MARKDOWN"
+		| "DOCUMENTS"
+		| "BINARY"
+		| "SERIALIZATION"
+		| "OTHER"
+	)[];
 	/**
 	 * Limits the number of objects per group to the top items within the specified time range. When item count exceeds the limit, extra items appear grouped under an "other" category.
 	 *
@@ -119729,9 +120996,10 @@ export type RadarGetAiBotsTimeseriesGroupQueryParams = {
 	/**
 	 * Normalization method applied to the results. Refer to [Normalization methods](https://developers.cloudflare.com/radar/concepts/normalization/).
 	 *
-	 * @example MIN0_MAX
+	 * @default PERCENTAGE
+	 * @example PERCENTAGE
 	 */
-	normalization?: "PERCENTAGE_CHANGE" | "MIN0_MAX";
+	normalization?: "PERCENTAGE" | "MIN0_MAX";
 	/**
 	 * Format in which results will be returned.
 	 *
@@ -119900,7 +121168,7 @@ export type RadarGetAiBotsTimeseriesGroupVariables = {
 } & FetcherExtraProps;
 
 /**
- * Retrieves the distribution of HTTP requests from AI bots, grouped by chosen the specified dimension over time.
+ * Retrieves the distribution of HTTP requests from AI bots, grouped by the specified dimension over time.
  */
 export const radarGetAiBotsTimeseriesGroup = (
 	variables: RadarGetAiBotsTimeseriesGroupVariables,
@@ -142852,7 +144120,7 @@ export type RadarGetCrawlersTimeseriesGroupVariables = {
 } & FetcherExtraProps;
 
 /**
- * Retrieves the distribution of HTTP requests from crawlers, grouped by chosen the specified dimension over time.
+ * Retrieves the distribution of HTTP requests from crawlers, grouped by the specified dimension over time.
  */
 export const radarGetCrawlersTimeseriesGroup = (
 	variables: RadarGetCrawlersTimeseriesGroupVariables,
@@ -143673,7 +144941,7 @@ export type RadarGetBotsTimeseriesGroupVariables = {
 } & FetcherExtraProps;
 
 /**
- * Retrieves the distribution of HTTP requests from bots, grouped by chosen the specified dimension over time.
+ * Retrieves the distribution of HTTP requests from bots, grouped by the specified dimension over time.
  */
 export const radarGetBotsTimeseriesGroup = (
 	variables: RadarGetBotsTimeseriesGroupVariables,
@@ -145440,7 +146708,7 @@ export type RadarGetCtTimeseriesGroupVariables = {
 } & FetcherExtraProps;
 
 /**
- * Retrieves the distribution of certificates grouped by chosen the specified dimension over time.
+ * Retrieves the distribution of certificates grouped by the specified dimension over time.
  */
 export const radarGetCtTimeseriesGroup = (
 	variables: RadarGetCtTimeseriesGroupVariables,
@@ -179630,7 +180898,7 @@ export type RadarGetNetflowsTimeseriesGroupVariables = {
 } & FetcherExtraProps;
 
 /**
- * Retrieves the distribution of NetFlows traffic, grouped by chosen the specified dimension over time.
+ * Retrieves the distribution of NetFlows traffic, grouped by the specified dimension over time.
  */
 export const radarGetNetflowsTimeseriesGroup = (
 	variables: RadarGetNetflowsTimeseriesGroupVariables,
@@ -193648,6 +194916,7 @@ export type CustomSslForAZoneCreateSslConfigurationError = Fetcher.ErrorWrapper<
 export type CustomSslForAZoneCreateSslConfigurationRequestBody = {
 	bundle_method?: Schemas.TlsCertificatesAndHostnamesBundleMethod;
 	certificate: Schemas.TlsCertificatesAndHostnamesCertificate;
+	deploy?: Schemas.TlsCertificatesAndHostnamesDeploy;
 	geo_restrictions?: Schemas.TlsCertificatesAndHostnamesGeoRestrictions;
 	policy?: Schemas.TlsCertificatesAndHostnamesPolicy;
 	private_key: Schemas.TlsCertificatesAndHostnamesPrivateKey;
@@ -193809,17 +195078,14 @@ export type CustomSslForAZoneEditSslConfigurationError = Fetcher.ErrorWrapper<{
 		Schemas.TlsCertificatesAndHostnamesApiResponseCommonFailure;
 }>;
 
-export type CustomSslForAZoneEditSslConfigurationRequestBody =
-	| {
-			bundle_method?: Schemas.TlsCertificatesAndHostnamesBundleMethod;
-	  }
-	| {
-			bundle_method?: Schemas.TlsCertificatesAndHostnamesBundleMethod;
-			certificate: Schemas.TlsCertificatesAndHostnamesCertificate;
-			geo_restrictions?: Schemas.TlsCertificatesAndHostnamesGeoRestrictions;
-			policy?: Schemas.TlsCertificatesAndHostnamesPolicy;
-			private_key: Schemas.TlsCertificatesAndHostnamesPrivateKey;
-	  };
+export type CustomSslForAZoneEditSslConfigurationRequestBody = {
+	bundle_method?: Schemas.TlsCertificatesAndHostnamesBundleMethod;
+	certificate?: Schemas.TlsCertificatesAndHostnamesCertificate;
+	deploy?: Schemas.TlsCertificatesAndHostnamesDeploy;
+	geo_restrictions?: Schemas.TlsCertificatesAndHostnamesGeoRestrictions;
+	policy?: Schemas.TlsCertificatesAndHostnamesPolicy;
+	private_key?: Schemas.TlsCertificatesAndHostnamesPrivateKey;
+};
 
 export type CustomSslForAZoneEditSslConfigurationVariables = {
 	body?: CustomSslForAZoneEditSslConfigurationRequestBody;
@@ -209575,6 +210841,7 @@ export const operationsByTag = {
 	},
 	tsengAbuseComplaintProcessorOther: {
 		listAbuseReports,
+		listEmails,
 		listMitigations,
 		requestReview,
 		getAbuseReport,
@@ -209867,6 +211134,7 @@ export const operationsByTag = {
 	},
 	workersAITranslation: {
 		workersAiPostRunCfAi4bharatIndictrans2EnIndic1B,
+		workersAiPostRunCfAi4bharatOmniIndictrans2EnIndic1b,
 		workersAiPostRunCfMetaM2m10012b,
 	},
 	workersAITextGeneration: {
@@ -210190,6 +211458,12 @@ export const operationsByTag = {
 		deleteEventTagDelete,
 		postEventTagCreate,
 		getEventQueryList,
+		getEventQueryAlertList,
+		postEventQueryAlertCreate,
+		deleteEventQueryAlertDelete,
+		getEventQueryAlertRead,
+		patchEventQueryAlertUpdate,
+		postEventQueryAlertUpdate,
 		postEventQueryCreate,
 		deleteEventQueryDelete,
 		getEventQueryRead,
@@ -210199,9 +211473,8 @@ export const operationsByTag = {
 		deleteEventReferenceDelete,
 		postEventReferenceCreate,
 		postCreateEventRelationship,
-		deleteEventDeleteDO,
-		postEventDoRevert,
 		deleteEventDelete,
+		postEventDoRevert,
 		getEventReadDeprecated,
 		patchEventUpdate,
 		postEventUpdate,
@@ -210312,18 +211585,18 @@ export const operationsByTag = {
 		accountLevelCustomNameserversDeleteAccountCustomNameserver,
 	},
 	d1: {
-		cloudflareD1ListDatabases,
-		cloudflareD1CreateDatabase,
-		cloudflareD1DeleteDatabase,
-		cloudflareD1GetDatabase,
-		cloudflareD1UpdatePartialDatabase,
-		cloudflareD1UpdateDatabase,
-		cloudflareD1ExportDatabase,
-		cloudflareD1ImportDatabase,
-		cloudflareD1QueryDatabase,
-		cloudflareD1RawDatabaseQuery,
-		cloudflareD1TimeTravelGetBookmark,
-		cloudflareD1TimeTravelRestore,
+		d1ListDatabases,
+		d1CreateDatabase,
+		d1DeleteDatabase,
+		d1GetDatabase,
+		d1UpdatePartialDatabase,
+		d1UpdateDatabase,
+		d1ExportDatabase,
+		d1ImportDatabase,
+		d1QueryDatabase,
+		d1RawDatabaseQuery,
+		d1TimeTravelGetBookmark,
+		d1TimeTravelRestore,
 	},
 	devices: {
 		devicesListDevices,
@@ -210352,6 +211625,14 @@ export const operationsByTag = {
 		devicesListAdminOverrideCodeForDevice,
 		devicesGetPolicyCertificates,
 		devicesUpdatePolicyCertificates,
+	},
+	warpTeamsDeviceApiOther: {
+		listIpProfiles,
+		createIpProfile,
+		deleteIpProfile,
+		getIpProfile,
+		updateIpProfile,
+		getRegistrationOverrideCodes,
 	},
 	deviceManagedNetworks: {
 		deviceManagedNetworksListDeviceManagedNetworks,
@@ -210388,7 +211669,6 @@ export const operationsByTag = {
 		deleteRegistration,
 		getRegistration,
 	},
-	warpTeamsDeviceApiOther: { getRegistrationOverrideCodes },
 	devicesResilience: {
 		devicesResilienceRetrieveGlobalWarpOverride,
 		devicesResilienceSetGlobalWarpOverride,
@@ -211735,6 +213015,10 @@ export const operationsByTag = {
 	zeroTrustSubnets: {
 		zeroTrustNetworksSubnetsList,
 		zeroTrustNetworksSubnetUpdateCloudflareSource,
+		zeroTrustNetworksSubnetCreateWarp,
+		zeroTrustNetworksSubnetDeleteWarp,
+		zeroTrustNetworksSubnetGetWarp,
+		zeroTrustNetworksSubnetUpdateWarp,
 	},
 	zeroTrustRiskScoring: {
 		dlpRiskScoreBehaviorsGet,
