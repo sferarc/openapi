@@ -87973,7 +87973,7 @@ export type MTlsCertificateManagementListMTlsCertificatesVariables = {
 } & FetcherExtraProps;
 
 /**
- * Lists all mTLS certificates.
+ * Lists all mTLS certificates uploaded to your account, such as Bring Your Own CA (BYO-CA) for mTLS. To list certificates issued by the Cloudflare managed CA, use the [List Client Certificates endpoint](/api/resources/client_certificates/methods/list/).
  */
 export const mTlsCertificateManagementListMTlsCertificates = (
 	variables: MTlsCertificateManagementListMTlsCertificatesVariables,
@@ -88016,7 +88016,7 @@ export type MTlsCertificateManagementUploadMTlsCertificateVariables = {
 } & FetcherExtraProps;
 
 /**
- * Upload a certificate that you want to use with mTLS-enabled Cloudflare services.
+ * Upload a certificate that you want to use with mTLS-enabled Cloudflare services, such as Bring Your Own CA (BYO-CA) for mTLS. To create certificates issued by the Cloudflare managed CA, use the [Create Client Certificate endpoint](/api/resources/client_certificates/methods/create/).
  */
 export const mTlsCertificateManagementUploadMTlsCertificate = (
 	variables: MTlsCertificateManagementUploadMTlsCertificateVariables,
@@ -88088,7 +88088,7 @@ export type MTlsCertificateManagementGetMTlsCertificateVariables = {
 } & FetcherExtraProps;
 
 /**
- * Fetches a single mTLS certificate.
+ * Fetches a single mTLS certificate uploaded to your account. To get a certificate issued by the Cloudflare managed CA, use the [Client Certificate Details endpoint](/api/resources/client_certificates/methods/get/).
  */
 export const mTlsCertificateManagementGetMTlsCertificate = (
 	variables: MTlsCertificateManagementGetMTlsCertificateVariables,
@@ -208053,9 +208053,21 @@ export type CertificatePacksListCertificatePacksPathParams = {
 
 export type CertificatePacksListCertificatePacksQueryParams = {
 	/**
+	 * @default 1
+	 * @minimum 1
+	 */
+	page?: number;
+	/**
+	 * @default 20
+	 * @maximum 50
+	 * @minimum 5
+	 */
+	per_page?: number;
+	/**
 	 * @example all
 	 */
 	status?: "all";
+	deploy?: "staging" | "production";
 };
 
 export type CertificatePacksListCertificatePacksError = Fetcher.ErrorWrapper<{
