@@ -108162,6 +108162,33 @@ export type UrlscannerGetScanV2Response = {
 					rank?: number;
 				}[];
 			};
+			robotsTxt?: {
+				data: {
+					hash?: string;
+					rules: {
+						["*"]: {
+							allow: string[];
+							contentSignal?: {
+								/**
+								 * @example no
+								 */
+								["ai-input"]?: string;
+								/**
+								 * @example yes
+								 */
+								["ai-train"]?: string;
+								/**
+								 * @example yes
+								 */
+								search?: string;
+							};
+							crawlDelay?: number;
+							disallow: string[];
+						};
+					};
+					sitemaps: string[];
+				}[];
+			};
 			urlCategories?: {
 				data: {
 					content: {
