@@ -200008,12 +200008,7 @@ export type PerHostnameTlsSettingsGetError = Fetcher.ErrorWrapper<{
 		Schemas.TlsCertificatesAndHostnamesApiResponseCommonFailure;
 }>;
 
-export type PerHostnameTlsSettingsGetRequestBody = {
-	value: Schemas.TlsCertificatesAndHostnamesValue;
-};
-
 export type PerHostnameTlsSettingsGetVariables = {
-	body: PerHostnameTlsSettingsGetRequestBody;
 	pathParams: PerHostnameTlsSettingsGetPathParams;
 } & FetcherExtraProps;
 
@@ -200027,7 +200022,7 @@ export const perHostnameTlsSettingsGet = (
 	fetch<
 		Schemas.TlsCertificatesAndHostnamesPerHostnameSettingsResponse,
 		PerHostnameTlsSettingsGetError,
-		PerHostnameTlsSettingsGetRequestBody,
+		undefined,
 		{},
 		{},
 		PerHostnameTlsSettingsGetPathParams
