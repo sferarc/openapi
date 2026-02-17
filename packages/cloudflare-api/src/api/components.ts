@@ -111899,1041 +111899,6 @@ export const durableObjectsNamespaceListObjects = (
 		signal,
 	});
 
-export type DestinationListPathParams = {
-	/**
-	 * Your Cloudflare account ID.
-	 */
-	accountId: string;
-};
-
-export type DestinationListQueryParams = {
-	/**
-	 * @default 1
-	 * @minimum 1
-	 */
-	page?: number;
-	/**
-	 * @default 20
-	 * @maximum 50
-	 * @minimum 5
-	 */
-	perPage?: number;
-	/**
-	 * @default desc
-	 */
-	order?: "asc" | "desc";
-	/**
-	 * @default updated
-	 */
-	orderBy?: "created" | "updated";
-};
-
-export type DestinationListError = Fetcher.ErrorWrapper<
-	| {
-			status: 401;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Unauthorized";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
-	| {
-			status: 404;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Not found";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
-	| {
-			status: 500;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Internal error";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
->;
-
-export type DestinationListResponse = {
-	errors: {
-		message: string;
-	}[];
-	messages: {
-		message: "Successful request";
-	}[];
-	result: {
-		configuration: {
-			destination_conf: string;
-			headers: {
-				[key: string]: string;
-			};
-			jobStatus: {
-				error_message: string;
-				last_complete: string;
-				last_error: string;
-			};
-			logpushDataset: "opentelemetry-traces" | "opentelemetry-logs";
-			type: "logpush";
-			url: string;
-		};
-		enabled: boolean;
-		/**
-		 * @pattern ^[a-z0-9][a-z0-9-]*[a-z0-9]$
-		 */
-		name: string;
-		scripts: string[];
-		slug: string;
-	}[];
-	success: true;
-};
-
-export type DestinationListVariables = {
-	pathParams: DestinationListPathParams;
-	queryParams?: DestinationListQueryParams;
-} & FetcherExtraProps;
-
-/**
- * List your Workers Observability Telemetry Destinations
- */
-export const destinationList = (variables: DestinationListVariables, signal?: AbortSignal) =>
-	fetch<
-		DestinationListResponse,
-		DestinationListError,
-		undefined,
-		{},
-		DestinationListQueryParams,
-		DestinationListPathParams
-	>({
-		url: "/accounts/{accountId}/workers/observability/destinations",
-		method: "get",
-		...variables,
-		signal,
-	});
-
-export type DestinationCreatePathParams = {
-	/**
-	 * Your Cloudflare account ID.
-	 */
-	accountId: string;
-};
-
-export type DestinationCreateError = Fetcher.ErrorWrapper<
-	| {
-			status: 400;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Bad Request";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
-	| {
-			status: 401;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Unauthorized";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
-	| {
-			status: 500;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Internal error";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
->;
-
-export type DestinationCreateResponse = {
-	errors: {
-		message: string;
-	}[];
-	messages: {
-		message: "Resource created";
-	}[];
-	result: {
-		configuration: {
-			destination_conf: string;
-			logpushDataset: "opentelemetry-traces" | "opentelemetry-logs";
-			logpushJob: number;
-			type: "logpush";
-			url: string;
-		};
-		enabled: boolean;
-		/**
-		 * @pattern ^[a-z0-9][a-z0-9-]*[a-z0-9]$
-		 */
-		name: string;
-		scripts: string[];
-		slug: string;
-	};
-	success: true;
-};
-
-export type DestinationCreateRequestBody = {
-	configuration: {
-		headers: {
-			[key: string]: string;
-		};
-		logpushDataset: "opentelemetry-traces" | "opentelemetry-logs";
-		type: "logpush";
-		url: string;
-	};
-	enabled: boolean;
-	/**
-	 * @pattern ^[a-z0-9][a-z0-9-]*[a-z0-9]$
-	 */
-	name: string;
-};
-
-export type DestinationCreateVariables = {
-	body: DestinationCreateRequestBody;
-	pathParams: DestinationCreatePathParams;
-} & FetcherExtraProps;
-
-/**
- * Create a new Workers Observability Telemetry Destination
- */
-export const destinationCreate = (variables: DestinationCreateVariables, signal?: AbortSignal) =>
-	fetch<
-		DestinationCreateResponse,
-		DestinationCreateError,
-		DestinationCreateRequestBody,
-		{},
-		{},
-		DestinationCreatePathParams
-	>({
-		url: "/accounts/{accountId}/workers/observability/destinations",
-		method: "post",
-		...variables,
-		signal,
-	});
-
-export type DestinationsDeletePathParams = {
-	/**
-	 * Your Cloudflare account ID.
-	 */
-	accountId: string;
-	slug: string;
-};
-
-export type DestinationsDeleteError = Fetcher.ErrorWrapper<
-	| {
-			status: 401;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Unauthorized";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
-	| {
-			status: 404;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Not found";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
-	| {
-			status: 500;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Internal error";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
->;
-
-export type DestinationsDeleteResponse = {
-	errors: {
-		message: string;
-	}[];
-	messages: {
-		message: "Successful request";
-	}[];
-	result?: {
-		configuration: {
-			destination_conf: string;
-			logpushDataset: "opentelemetry-traces" | "opentelemetry-logs";
-			logpushJob: number;
-			type: "logpush";
-			url: string;
-		};
-		enabled: boolean;
-		/**
-		 * @pattern ^[a-z0-9][a-z0-9-]*[a-z0-9]$
-		 */
-		name: string;
-		scripts: string[];
-		slug: string;
-	};
-	success: true;
-};
-
-export type DestinationsDeleteVariables = {
-	pathParams: DestinationsDeletePathParams;
-} & FetcherExtraProps;
-
-/**
- * Delete a Workers Observability Telemetry Destination
- */
-export const destinationsDelete = (variables: DestinationsDeleteVariables, signal?: AbortSignal) =>
-	fetch<
-		DestinationsDeleteResponse,
-		DestinationsDeleteError,
-		undefined,
-		{},
-		{},
-		DestinationsDeletePathParams
-	>({
-		url: "/accounts/{accountId}/workers/observability/destinations/{slug}",
-		method: "delete",
-		...variables,
-		signal,
-	});
-
-export type DestinationUpdatePathParams = {
-	/**
-	 * Your Cloudflare account ID.
-	 */
-	accountId: string;
-	slug: string;
-};
-
-export type DestinationUpdateError = Fetcher.ErrorWrapper<
-	| {
-			status: 400;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Bad Request";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
-	| {
-			status: 401;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Unauthorized";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
-	| {
-			status: 404;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Not found";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
-	| {
-			status: 500;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Internal error";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
->;
-
-export type DestinationUpdateResponse = {
-	errors: {
-		message: string;
-	}[];
-	messages: {
-		message: "Successful request";
-	}[];
-	result: {
-		configuration: {
-			destination_conf: string;
-			logpushDataset: "opentelemetry-traces" | "opentelemetry-logs";
-			logpushJob: number;
-			type: "logpush";
-			url: string;
-		};
-		enabled: boolean;
-		/**
-		 * @pattern ^[a-z0-9][a-z0-9-]*[a-z0-9]$
-		 */
-		name: string;
-		scripts: string[];
-		slug: string;
-	};
-	success: true;
-};
-
-export type DestinationUpdateRequestBody = {
-	configuration: {
-		headers: {
-			[key: string]: string;
-		};
-		type: "logpush";
-		url: string;
-	};
-	enabled: boolean;
-};
-
-export type DestinationUpdateVariables = {
-	body: DestinationUpdateRequestBody;
-	pathParams: DestinationUpdatePathParams;
-} & FetcherExtraProps;
-
-/**
- * Update an existing Workers Observability Telemetry Destination
- */
-export const destinationUpdate = (variables: DestinationUpdateVariables, signal?: AbortSignal) =>
-	fetch<
-		DestinationUpdateResponse,
-		DestinationUpdateError,
-		DestinationUpdateRequestBody,
-		{},
-		{},
-		DestinationUpdatePathParams
-	>({
-		url: "/accounts/{accountId}/workers/observability/destinations/{slug}",
-		method: "patch",
-		...variables,
-		signal,
-	});
-
-export type TelemetryKeysListPathParams = {
-	/**
-	 * Your Cloudflare account ID.
-	 */
-	accountId: string;
-};
-
-export type TelemetryKeysListError = Fetcher.ErrorWrapper<
-	| {
-			status: 401;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Unauthorized";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
-	| {
-			status: 500;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Internal error";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
->;
-
-export type TelemetryKeysListResponse = {
-	errors: {
-		message: string;
-	}[];
-	messages: {
-		message: "Successful request";
-	}[];
-	result: {
-		key: string;
-		lastSeenAt: number;
-		type: "string" | "boolean" | "number";
-	}[];
-	success: true;
-};
-
-export type TelemetryKeysListRequestBody = {
-	datasets?: string[];
-	filters?: {
-		key: string;
-		operation:
-			| "includes"
-			| "not_includes"
-			| "starts_with"
-			| "regex"
-			| "exists"
-			| "is_null"
-			| "in"
-			| "not_in"
-			| "eq"
-			| "neq"
-			| "gt"
-			| "gte"
-			| "lt"
-			| "lte"
-			| "="
-			| "!="
-			| ">"
-			| ">="
-			| "<"
-			| "<="
-			| "INCLUDES"
-			| "DOES_NOT_INCLUDE"
-			| "MATCH_REGEX"
-			| "EXISTS"
-			| "DOES_NOT_EXIST"
-			| "IN"
-			| "NOT_IN"
-			| "STARTS_WITH";
-		type: "string" | "number" | "boolean";
-		value?: string | number | boolean;
-	}[];
-	from?: number;
-	/**
-	 * Search for a specific substring in the keys.
-	 */
-	keyNeedle?: {
-		isRegex?: boolean;
-		matchCase?: boolean;
-		/**
-		 * @maxLength 1000
-		 */
-		value: string | number | boolean;
-	};
-	limit?: number;
-	/**
-	 * Search for a specific substring in any of the events
-	 */
-	needle?: {
-		isRegex?: boolean;
-		matchCase?: boolean;
-		/**
-		 * @maxLength 1000
-		 */
-		value: string | number | boolean;
-	};
-	to?: number;
-};
-
-export type TelemetryKeysListVariables = {
-	body?: TelemetryKeysListRequestBody;
-	pathParams: TelemetryKeysListPathParams;
-} & FetcherExtraProps;
-
-/**
- * List all the keys in your telemetry events.
- */
-export const telemetryKeysList = (variables: TelemetryKeysListVariables, signal?: AbortSignal) =>
-	fetch<
-		TelemetryKeysListResponse,
-		TelemetryKeysListError,
-		TelemetryKeysListRequestBody,
-		{},
-		{},
-		TelemetryKeysListPathParams
-	>({
-		url: "/accounts/{accountId}/workers/observability/telemetry/keys",
-		method: "post",
-		...variables,
-		signal,
-	});
-
-export type TelemetryQueryPathParams = {
-	/**
-	 * Your Cloudflare account ID.
-	 */
-	accountId: string;
-};
-
-export type TelemetryQueryError = Fetcher.ErrorWrapper<
-	| {
-			status: 400;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Bad Request";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
-	| {
-			status: 401;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Unauthorized";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
-	| {
-			status: 500;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Internal error";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
->;
-
-export type TelemetryQueryResponse = {
-	errors: {
-		message: string;
-	}[];
-	messages: {
-		message: "Successful request";
-	}[];
-	result: Schemas.WorkersObservabilityQueryResults;
-	success: true;
-};
-
-export type TelemetryQueryRequestBody = {
-	/**
-	 * Whether to include timeseties data in the response
-	 */
-	chart?: boolean;
-	/**
-	 * Whether to include comparison data with previous time periods
-	 */
-	compare?: boolean;
-	/**
-	 * Whether to perform a dry run without saving the results of the query. Useful for validation
-	 *
-	 * @default false
-	 */
-	dry?: boolean;
-	/**
-	 * Time granularity for aggregating results (in milliseconds). Controls the bucketing of time-series data
-	 */
-	granularity?: number;
-	/**
-	 * Whether to ignore time-series data in the results and return only aggregated values
-	 *
-	 * @default false
-	 */
-	ignoreSeries?: boolean;
-	/**
-	 * Maximum number of events to return.
-	 *
-	 * @default 50
-	 * @maximum 2000
-	 */
-	limit?: number;
-	/**
-	 * Cursor for pagination to retrieve the next set of results
-	 */
-	offset?: string;
-	/**
-	 * Number of events to skip for pagination. Used in conjunction with offset
-	 */
-	offsetBy?: number;
-	/**
-	 * Direction for offset-based pagination (e.g., 'next', 'prev')
-	 */
-	offsetDirection?: string;
-	/**
-	 * Optional parameters to pass to the query execution
-	 */
-	parameters?: {
-		/**
-		 * Create Calculations to compute as part of the query.
-		 */
-		calculations?: {
-			alias?: string;
-			key?: string;
-			keyType?: "string" | "number" | "boolean";
-			operator:
-				| "uniq"
-				| "count"
-				| "max"
-				| "min"
-				| "sum"
-				| "avg"
-				| "median"
-				| "p001"
-				| "p01"
-				| "p05"
-				| "p10"
-				| "p25"
-				| "p75"
-				| "p90"
-				| "p95"
-				| "p99"
-				| "p999"
-				| "stddev"
-				| "variance"
-				| "COUNT_DISTINCT"
-				| "COUNT"
-				| "MAX"
-				| "MIN"
-				| "SUM"
-				| "AVG"
-				| "MEDIAN"
-				| "P001"
-				| "P01"
-				| "P05"
-				| "P10"
-				| "P25"
-				| "P75"
-				| "P90"
-				| "P95"
-				| "P99"
-				| "P999"
-				| "STDDEV"
-				| "VARIANCE";
-		}[];
-		/**
-		 * Set the Datasets to query. Leave it empty to query all the datasets.
-		 */
-		datasets?: string[];
-		/**
-		 * Set a Flag to describe how to combine the filters on the query.
-		 */
-		filterCombination?: "and" | "or" | "AND" | "OR";
-		/**
-		 * Configure the Filters to apply to the query.
-		 */
-		filters?: {
-			key: string;
-			operation:
-				| "includes"
-				| "not_includes"
-				| "starts_with"
-				| "regex"
-				| "exists"
-				| "is_null"
-				| "in"
-				| "not_in"
-				| "eq"
-				| "neq"
-				| "gt"
-				| "gte"
-				| "lt"
-				| "lte"
-				| "="
-				| "!="
-				| ">"
-				| ">="
-				| "<"
-				| "<="
-				| "INCLUDES"
-				| "DOES_NOT_INCLUDE"
-				| "MATCH_REGEX"
-				| "EXISTS"
-				| "DOES_NOT_EXIST"
-				| "IN"
-				| "NOT_IN"
-				| "STARTS_WITH";
-			type: "string" | "number" | "boolean";
-			value?: string | number | boolean;
-		}[];
-		/**
-		 * Define how to group the results of the query.
-		 */
-		groupBys?: {
-			type: "string" | "number" | "boolean";
-			value: string;
-		}[];
-		/**
-		 * Configure the Having clauses that filter on calculations in the query result.
-		 */
-		havings?: {
-			key: string;
-			operation: "eq" | "neq" | "gt" | "gte" | "lt" | "lte";
-			value: number;
-		}[];
-		/**
-		 * Set a limit on the number of results / records returned by the query
-		 *
-		 * @maximum 2000
-		 * @minimum 0
-		 */
-		limit?: number;
-		/**
-		 * Define an expression to search using full-text search.
-		 */
-		needle?: {
-			isRegex?: boolean;
-			matchCase?: boolean;
-			/**
-			 * @maxLength 1000
-			 */
-			value: string | number | boolean;
-		};
-		/**
-		 * Configure the order of the results returned by the query.
-		 */
-		orderBy?: {
-			/**
-			 * Set the order of the results
-			 */
-			order?: "asc" | "desc";
-			/**
-			 * Configure which Calculation to order the results by.
-			 */
-			value: string;
-		};
-	};
-	/**
-	 * Type of pattern to search for when using pattern-based views
-	 */
-	patternType?: "message" | "error";
-	/**
-	 * Unique identifier for the query to execute
-	 */
-	queryId: string;
-	/**
-	 * Time range for the query execution
-	 */
-	timeframe: {
-		/**
-		 * Start timestamp for the query timeframe (Unix timestamp in milliseconds)
-		 */
-		from: number;
-		/**
-		 * End timestamp for the query timeframe (Unix timestamp in milliseconds)
-		 */
-		to: number;
-	};
-	/**
-	 * View type for presenting the query results.
-	 *
-	 * @default calculations
-	 */
-	view?: "traces" | "events" | "calculations" | "invocations" | "requests" | "patterns";
-};
-
-export type TelemetryQueryVariables = {
-	body: TelemetryQueryRequestBody;
-	pathParams: TelemetryQueryPathParams;
-} & FetcherExtraProps;
-
-/**
- * Runs a temporary or saved query
- */
-export const telemetryQuery = (variables: TelemetryQueryVariables, signal?: AbortSignal) =>
-	fetch<
-		TelemetryQueryResponse,
-		TelemetryQueryError,
-		TelemetryQueryRequestBody,
-		{},
-		{},
-		TelemetryQueryPathParams
-	>({
-		url: "/accounts/{accountId}/workers/observability/telemetry/query",
-		method: "post",
-		...variables,
-		signal,
-	});
-
-export type TelemetryValuesListPathParams = {
-	/**
-	 * Your Cloudflare account ID.
-	 */
-	accountId: string;
-};
-
-export type TelemetryValuesListError = Fetcher.ErrorWrapper<
-	| {
-			status: 401;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Unauthorized";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
-	| {
-			status: 500;
-			payload: {
-				errors: {
-					detail?: string;
-					message: "Internal error";
-				}[];
-				messages: {
-					message: string;
-				}[];
-				success: false;
-			};
-	  }
->;
-
-export type TelemetryValuesListResponse = {
-	errors: {
-		message: string;
-	}[];
-	messages: {
-		message: "Successful request";
-	}[];
-	result: {
-		dataset: string;
-		key: string;
-		type: "string" | "boolean" | "number";
-		value: string | number | boolean;
-	}[];
-	success: true;
-};
-
-export type TelemetryValuesListRequestBody = {
-	datasets: string[];
-	filters?: {
-		key: string;
-		operation:
-			| "includes"
-			| "not_includes"
-			| "starts_with"
-			| "regex"
-			| "exists"
-			| "is_null"
-			| "in"
-			| "not_in"
-			| "eq"
-			| "neq"
-			| "gt"
-			| "gte"
-			| "lt"
-			| "lte"
-			| "="
-			| "!="
-			| ">"
-			| ">="
-			| "<"
-			| "<="
-			| "INCLUDES"
-			| "DOES_NOT_INCLUDE"
-			| "MATCH_REGEX"
-			| "EXISTS"
-			| "DOES_NOT_EXIST"
-			| "IN"
-			| "NOT_IN"
-			| "STARTS_WITH";
-		type: "string" | "number" | "boolean";
-		value?: string | number | boolean;
-	}[];
-	key: string;
-	/**
-	 * @default 50
-	 */
-	limit?: number;
-	/**
-	 * Search for a specific substring in the event.
-	 */
-	needle?: {
-		isRegex?: boolean;
-		matchCase?: boolean;
-		/**
-		 * @maxLength 1000
-		 */
-		value: string | number | boolean;
-	};
-	timeframe: {
-		from: number;
-		to: number;
-	};
-	type: "string" | "boolean" | "number";
-};
-
-export type TelemetryValuesListVariables = {
-	body: TelemetryValuesListRequestBody;
-	pathParams: TelemetryValuesListPathParams;
-} & FetcherExtraProps;
-
-/**
- * List unique values found in your events
- */
-export const telemetryValuesList = (
-	variables: TelemetryValuesListVariables,
-	signal?: AbortSignal,
-) =>
-	fetch<
-		TelemetryValuesListResponse,
-		TelemetryValuesListError,
-		TelemetryValuesListRequestBody,
-		{},
-		{},
-		TelemetryValuesListPathParams
-	>({
-		url: "/accounts/{accountId}/workers/observability/telemetry/values",
-		method: "post",
-		...variables,
-		signal,
-	});
-
 export type WorkerPlacementListRegionsPathParams = {
 	accountId: Schemas.WorkersIdentifier;
 };
@@ -113071,9 +112036,9 @@ export type WorkerScriptSearchWorkersResponse = Schemas.WorkersApiResponseCollec
 		 * @example production
 		 */
 		environment_name?: string;
+		id: Schemas.WorkersIdentifier;
 		modified_on: Schemas.WorkersModifiedOn;
 		script_name: Schemas.WorkersScriptName;
-		script_tag: Schemas.WorkersIdentifier;
 		/**
 		 * Name of the service.
 		 *
@@ -118899,6 +117864,425 @@ export const originCaGetCertificate = (
 		...variables,
 		signal,
 	});
+
+export type DestinationListQueryParams = {
+	/**
+	 * @default 1
+	 * @minimum 1
+	 */
+	page?: number;
+	/**
+	 * @default 20
+	 * @maximum 50
+	 * @minimum 5
+	 */
+	perPage?: number;
+	/**
+	 * @default desc
+	 */
+	order?: "asc" | "desc";
+	/**
+	 * @default updated
+	 */
+	orderBy?: "created" | "updated";
+};
+
+export type DestinationListError = Fetcher.ErrorWrapper<
+	| {
+			status: 401;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Unauthorized";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+	| {
+			status: 404;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Not found";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+	| {
+			status: 500;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Internal error";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+>;
+
+export type DestinationListResponse = {
+	errors: {
+		message: string;
+	}[];
+	messages: {
+		message: "Successful request";
+	}[];
+	result: {
+		configuration: {
+			destination_conf: string;
+			headers: {
+				[key: string]: any;
+			};
+			jobStatus: {
+				error_message: string;
+				last_complete: string;
+				last_error: string;
+			};
+			logpushDataset: "opentelemetry-traces" | "opentelemetry-logs";
+			type: "logpush";
+			url: string;
+		};
+		enabled: boolean;
+		/**
+		 * @pattern ^[a-z0-9][a-z0-9-]*[a-z0-9]$
+		 */
+		name: string;
+		scripts: string[];
+		slug: string;
+	}[];
+	success: true;
+};
+
+export type DestinationListVariables = {
+	queryParams?: DestinationListQueryParams;
+} & FetcherExtraProps;
+
+/**
+ * List your Workers Observability Telemetry Destinations.
+ */
+export const destinationList = (variables: DestinationListVariables, signal?: AbortSignal) =>
+	fetch<
+		DestinationListResponse,
+		DestinationListError,
+		undefined,
+		{},
+		DestinationListQueryParams,
+		{}
+	>({ url: "/destinations", method: "get", ...variables, signal });
+
+export type DestinationCreateError = Fetcher.ErrorWrapper<
+	| {
+			status: 400;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Bad Request";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+	| {
+			status: 401;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Unauthorized";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+	| {
+			status: 500;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Internal error";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+>;
+
+export type DestinationCreateResponse = {
+	errors: {
+		message: string;
+	}[];
+	messages: {
+		message: "Resource created";
+	}[];
+	result: {
+		configuration: {
+			destination_conf: string;
+			logpushDataset: "opentelemetry-traces" | "opentelemetry-logs";
+			logpushJob: number;
+			type: "logpush";
+			url: string;
+		};
+		enabled: boolean;
+		/**
+		 * @pattern ^[a-z0-9][a-z0-9-]*[a-z0-9]$
+		 */
+		name: string;
+		scripts: string[];
+		slug: string;
+	};
+	success: true;
+};
+
+export type DestinationCreateRequestBody = {
+	configuration: {
+		headers: {
+			[key: string]: any;
+		};
+		logpushDataset: "opentelemetry-traces" | "opentelemetry-logs";
+		type: "logpush";
+		url: string;
+	};
+	enabled: boolean;
+	/**
+	 * @pattern ^[a-z0-9][a-z0-9-]*[a-z0-9]$
+	 */
+	name: string;
+	skipPreflightCheck?: boolean;
+};
+
+export type DestinationCreateVariables = {
+	body: DestinationCreateRequestBody;
+} & FetcherExtraProps;
+
+/**
+ * Create a new Workers Observability Telemetry Destination.
+ */
+export const destinationCreate = (variables: DestinationCreateVariables, signal?: AbortSignal) =>
+	fetch<
+		DestinationCreateResponse,
+		DestinationCreateError,
+		DestinationCreateRequestBody,
+		{},
+		{},
+		{}
+	>({ url: "/destinations", method: "post", ...variables, signal });
+
+export type DestinationsDeletePathParams = {
+	slug: string;
+};
+
+export type DestinationsDeleteError = Fetcher.ErrorWrapper<
+	| {
+			status: 401;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Unauthorized";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+	| {
+			status: 404;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Not found";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+	| {
+			status: 500;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Internal error";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+>;
+
+export type DestinationsDeleteResponse = {
+	errors: {
+		message: string;
+	}[];
+	messages: {
+		message: "Successful request";
+	}[];
+	result?: {
+		configuration: {
+			destination_conf: string;
+			logpushDataset: "opentelemetry-traces" | "opentelemetry-logs";
+			logpushJob: number;
+			type: "logpush";
+			url: string;
+		};
+		enabled: boolean;
+		/**
+		 * @pattern ^[a-z0-9][a-z0-9-]*[a-z0-9]$
+		 */
+		name: string;
+		scripts: string[];
+		slug: string;
+	};
+	success: true;
+};
+
+export type DestinationsDeleteVariables = {
+	pathParams: DestinationsDeletePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Delete a Workers Observability Telemetry Destination.
+ */
+export const destinationsDelete = (variables: DestinationsDeleteVariables, signal?: AbortSignal) =>
+	fetch<
+		DestinationsDeleteResponse,
+		DestinationsDeleteError,
+		undefined,
+		{},
+		{},
+		DestinationsDeletePathParams
+	>({ url: "/destinations/{slug}", method: "delete", ...variables, signal });
+
+export type DestinationUpdatePathParams = {
+	slug: string;
+};
+
+export type DestinationUpdateError = Fetcher.ErrorWrapper<
+	| {
+			status: 400;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Bad Request";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+	| {
+			status: 401;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Unauthorized";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+	| {
+			status: 404;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Not found";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+	| {
+			status: 500;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Internal error";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+>;
+
+export type DestinationUpdateResponse = {
+	errors: {
+		message: string;
+	}[];
+	messages: {
+		message: "Successful request";
+	}[];
+	result: {
+		configuration: {
+			destination_conf: string;
+			logpushDataset: "opentelemetry-traces" | "opentelemetry-logs";
+			logpushJob: number;
+			type: "logpush";
+			url: string;
+		};
+		enabled: boolean;
+		/**
+		 * @pattern ^[a-z0-9][a-z0-9-]*[a-z0-9]$
+		 */
+		name: string;
+		scripts: string[];
+		slug: string;
+	};
+	success: true;
+};
+
+export type DestinationUpdateRequestBody = {
+	configuration: {
+		headers: {
+			[key: string]: any;
+		};
+		type: "logpush";
+		url: string;
+	};
+	enabled: boolean;
+};
+
+export type DestinationUpdateVariables = {
+	body: DestinationUpdateRequestBody;
+	pathParams: DestinationUpdatePathParams;
+} & FetcherExtraProps;
+
+/**
+ * Update an existing Workers Observability Telemetry Destination.
+ */
+export const destinationUpdate = (variables: DestinationUpdateVariables, signal?: AbortSignal) =>
+	fetch<
+		DestinationUpdateResponse,
+		DestinationUpdateError,
+		DestinationUpdateRequestBody,
+		{},
+		{},
+		DestinationUpdatePathParams
+	>({ url: "/destinations/{slug}", method: "patch", ...variables, signal });
 
 export type PostInternalSubmitError = Fetcher.ErrorWrapper<{
 	status: ClientErrorStatus | ServerErrorStatus;
@@ -187375,6 +186759,538 @@ export const secretsStoreSystemDuplicateById = (
 		signal,
 	});
 
+export type TelemetryKeysListError = Fetcher.ErrorWrapper<
+	| {
+			status: 401;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Unauthorized";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+	| {
+			status: 500;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Internal error";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+>;
+
+export type TelemetryKeysListResponse = {
+	errors: {
+		message: string;
+	}[];
+	messages: {
+		message: "Successful request";
+	}[];
+	result: {
+		key: string;
+		lastSeenAt: number;
+		type: "string" | "boolean" | "number";
+	}[];
+	success: true;
+};
+
+export type TelemetryKeysListRequestBody = {
+	datasets?: string[];
+	filters?: {
+		key: string;
+		operation:
+			| "includes"
+			| "not_includes"
+			| "starts_with"
+			| "regex"
+			| "exists"
+			| "is_null"
+			| "in"
+			| "not_in"
+			| "eq"
+			| "neq"
+			| "gt"
+			| "gte"
+			| "lt"
+			| "lte"
+			| "="
+			| "!="
+			| ">"
+			| ">="
+			| "<"
+			| "<="
+			| "INCLUDES"
+			| "DOES_NOT_INCLUDE"
+			| "MATCH_REGEX"
+			| "EXISTS"
+			| "DOES_NOT_EXIST"
+			| "IN"
+			| "NOT_IN"
+			| "STARTS_WITH";
+		type: "string" | "number" | "boolean";
+		value?: string | number | boolean;
+	}[];
+	from?: number;
+	/**
+	 * Search for a specific substring in the keys.
+	 */
+	keyNeedle?: {
+		isRegex?: boolean;
+		matchCase?: boolean;
+		/**
+		 * @maxLength 1000
+		 */
+		value: string | number | boolean;
+	};
+	limit?: number;
+	/**
+	 * Search for a specific substring in any of the events
+	 */
+	needle?: {
+		isRegex?: boolean;
+		matchCase?: boolean;
+		/**
+		 * @maxLength 1000
+		 */
+		value: string | number | boolean;
+	};
+	to?: number;
+};
+
+export type TelemetryKeysListVariables = {
+	body?: TelemetryKeysListRequestBody;
+} & FetcherExtraProps;
+
+/**
+ * List all the keys in your telemetry events.
+ */
+export const telemetryKeysList = (variables: TelemetryKeysListVariables, signal?: AbortSignal) =>
+	fetch<
+		TelemetryKeysListResponse,
+		TelemetryKeysListError,
+		TelemetryKeysListRequestBody,
+		{},
+		{},
+		{}
+	>({ url: "/telemetry/keys", method: "post", ...variables, signal });
+
+export type TelemetryQueryError = Fetcher.ErrorWrapper<
+	| {
+			status: 400;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Bad Request";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+	| {
+			status: 401;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Unauthorized";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+	| {
+			status: 500;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Internal error";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+>;
+
+export type TelemetryQueryResponse = {
+	errors: {
+		message: string;
+	}[];
+	messages: {
+		message: "Successful request";
+	}[];
+	result: Schemas.WorkersObservabilityQueryResults;
+	success: true;
+};
+
+export type TelemetryQueryRequestBody = {
+	/**
+	 * Whether to include timeseties data in the response
+	 */
+	chart?: boolean;
+	/**
+	 * Whether to include comparison data with previous time periods
+	 */
+	compare?: boolean;
+	/**
+	 * Whether to perform a dry run without saving the results of the query. Useful for validation
+	 *
+	 * @default false
+	 */
+	dry?: boolean;
+	/**
+	 * Time granularity for aggregating results (in milliseconds). Controls the bucketing of time-series data
+	 */
+	granularity?: number;
+	/**
+	 * Whether to ignore time-series data in the results and return only aggregated values
+	 *
+	 * @default false
+	 */
+	ignoreSeries?: boolean;
+	/**
+	 * Maximum number of events to return.
+	 *
+	 * @default 50
+	 * @maximum 2000
+	 */
+	limit?: number;
+	/**
+	 * Cursor for pagination to retrieve the next set of results
+	 */
+	offset?: string;
+	/**
+	 * Number of events to skip for pagination. Used in conjunction with offset
+	 */
+	offsetBy?: number;
+	/**
+	 * Direction for offset-based pagination (e.g., 'next', 'prev')
+	 */
+	offsetDirection?: string;
+	/**
+	 * Optional parameters to pass to the query execution
+	 */
+	parameters?: {
+		/**
+		 * Create Calculations to compute as part of the query.
+		 */
+		calculations?: {
+			alias?: string;
+			key?: string;
+			keyType?: "string" | "number" | "boolean";
+			operator:
+				| "uniq"
+				| "count"
+				| "max"
+				| "min"
+				| "sum"
+				| "avg"
+				| "median"
+				| "p001"
+				| "p01"
+				| "p05"
+				| "p10"
+				| "p25"
+				| "p75"
+				| "p90"
+				| "p95"
+				| "p99"
+				| "p999"
+				| "stddev"
+				| "variance"
+				| "COUNT_DISTINCT"
+				| "COUNT"
+				| "MAX"
+				| "MIN"
+				| "SUM"
+				| "AVG"
+				| "MEDIAN"
+				| "P001"
+				| "P01"
+				| "P05"
+				| "P10"
+				| "P25"
+				| "P75"
+				| "P90"
+				| "P95"
+				| "P99"
+				| "P999"
+				| "STDDEV"
+				| "VARIANCE";
+		}[];
+		/**
+		 * Set the Datasets to query. Leave it empty to query all the datasets.
+		 */
+		datasets?: string[];
+		/**
+		 * Set a Flag to describe how to combine the filters on the query.
+		 */
+		filterCombination?: "and" | "or" | "AND" | "OR";
+		/**
+		 * Configure the Filters to apply to the query.
+		 */
+		filters?: {
+			key: string;
+			operation:
+				| "includes"
+				| "not_includes"
+				| "starts_with"
+				| "regex"
+				| "exists"
+				| "is_null"
+				| "in"
+				| "not_in"
+				| "eq"
+				| "neq"
+				| "gt"
+				| "gte"
+				| "lt"
+				| "lte"
+				| "="
+				| "!="
+				| ">"
+				| ">="
+				| "<"
+				| "<="
+				| "INCLUDES"
+				| "DOES_NOT_INCLUDE"
+				| "MATCH_REGEX"
+				| "EXISTS"
+				| "DOES_NOT_EXIST"
+				| "IN"
+				| "NOT_IN"
+				| "STARTS_WITH";
+			type: "string" | "number" | "boolean";
+			value?: string | number | boolean;
+		}[];
+		/**
+		 * Define how to group the results of the query.
+		 */
+		groupBys?: {
+			type: "string" | "number" | "boolean";
+			value: string;
+		}[];
+		/**
+		 * Configure the Having clauses that filter on calculations in the query result.
+		 */
+		havings?: {
+			key: string;
+			operation: "eq" | "neq" | "gt" | "gte" | "lt" | "lte";
+			value: number;
+		}[];
+		/**
+		 * Set a limit on the number of results / records returned by the query
+		 *
+		 * @maximum 2000
+		 * @minimum 0
+		 */
+		limit?: number;
+		/**
+		 * Define an expression to search using full-text search.
+		 */
+		needle?: {
+			isRegex?: boolean;
+			matchCase?: boolean;
+			/**
+			 * @maxLength 1000
+			 */
+			value: string | number | boolean;
+		};
+		/**
+		 * Configure the order of the results returned by the query.
+		 */
+		orderBy?: {
+			/**
+			 * Set the order of the results
+			 */
+			order?: "asc" | "desc";
+			/**
+			 * Configure which Calculation to order the results by.
+			 */
+			value: string;
+		};
+	};
+	/**
+	 * Type of pattern to search for when using pattern-based views
+	 */
+	patternType?: "message" | "error";
+	/**
+	 * Unique identifier for the query to execute
+	 */
+	queryId: string;
+	/**
+	 * Time range for the query execution
+	 */
+	timeframe: {
+		/**
+		 * Start timestamp for the query timeframe (Unix timestamp in milliseconds)
+		 */
+		from: number;
+		/**
+		 * End timestamp for the query timeframe (Unix timestamp in milliseconds)
+		 */
+		to: number;
+	};
+	/**
+	 * View type for presenting the query results.
+	 *
+	 * @default calculations
+	 */
+	view?: "traces" | "events" | "calculations" | "invocations" | "requests" | "patterns";
+};
+
+export type TelemetryQueryVariables = {
+	body: TelemetryQueryRequestBody;
+} & FetcherExtraProps;
+
+/**
+ * Run a temporary or saved query.
+ */
+export const telemetryQuery = (variables: TelemetryQueryVariables, signal?: AbortSignal) =>
+	fetch<TelemetryQueryResponse, TelemetryQueryError, TelemetryQueryRequestBody, {}, {}, {}>({
+		url: "/telemetry/query",
+		method: "post",
+		...variables,
+		signal,
+	});
+
+export type TelemetryValuesListError = Fetcher.ErrorWrapper<
+	| {
+			status: 401;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Unauthorized";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+	| {
+			status: 500;
+			payload: {
+				errors: {
+					detail?: string;
+					message: "Internal error";
+				}[];
+				messages: {
+					message: string;
+				}[];
+				success: false;
+			};
+	  }
+>;
+
+export type TelemetryValuesListResponse = {
+	errors: {
+		message: string;
+	}[];
+	messages: {
+		message: "Successful request";
+	}[];
+	result: {
+		dataset: string;
+		key: string;
+		type: "string" | "boolean" | "number";
+		value: string | number | boolean;
+	}[];
+	success: true;
+};
+
+export type TelemetryValuesListRequestBody = {
+	datasets: string[];
+	filters?: {
+		key: string;
+		operation:
+			| "includes"
+			| "not_includes"
+			| "starts_with"
+			| "regex"
+			| "exists"
+			| "is_null"
+			| "in"
+			| "not_in"
+			| "eq"
+			| "neq"
+			| "gt"
+			| "gte"
+			| "lt"
+			| "lte"
+			| "="
+			| "!="
+			| ">"
+			| ">="
+			| "<"
+			| "<="
+			| "INCLUDES"
+			| "DOES_NOT_INCLUDE"
+			| "MATCH_REGEX"
+			| "EXISTS"
+			| "DOES_NOT_EXIST"
+			| "IN"
+			| "NOT_IN"
+			| "STARTS_WITH";
+		type: "string" | "number" | "boolean";
+		value?: string | number | boolean;
+	}[];
+	key: string;
+	/**
+	 * @default 50
+	 */
+	limit?: number;
+	/**
+	 * Search for a specific substring in the event.
+	 */
+	needle?: {
+		isRegex?: boolean;
+		matchCase?: boolean;
+		/**
+		 * @maxLength 1000
+		 */
+		value: string | number | boolean;
+	};
+	timeframe: {
+		from: number;
+		to: number;
+	};
+	type: "string" | "boolean" | "number";
+};
+
+export type TelemetryValuesListVariables = {
+	body: TelemetryValuesListRequestBody;
+} & FetcherExtraProps;
+
+/**
+ * List unique values found in your events.
+ */
+export const telemetryValuesList = (
+	variables: TelemetryValuesListVariables,
+	signal?: AbortSignal,
+) =>
+	fetch<
+		TelemetryValuesListResponse,
+		TelemetryValuesListError,
+		TelemetryValuesListRequestBody,
+		{},
+		{},
+		{}
+	>({ url: "/telemetry/values", method: "post", ...variables, signal });
+
 export type TenantsRetrieveTenantPathParams = {
 	tenantId: string;
 };
@@ -212970,15 +212886,6 @@ export const operationsByTag = {
 		durableObjectsNamespaceListNamespaces,
 		durableObjectsNamespaceListObjects,
 	},
-	destinations: {
-		destinationList,
-		destinationCreate,
-		destinationsDelete,
-		destinationUpdate,
-	},
-	keys: { telemetryKeysList },
-	queryRun: { telemetryQuery },
-	values: { telemetryValuesList },
 	workerPlacement: { workerPlacementListRegions },
 	workerDeployments: {
 		workerDeploymentsListDeployments,
@@ -213074,6 +212981,12 @@ export const operationsByTag = {
 		originCaCreateCertificate,
 		originCaRevokeCertificate,
 		originCaGetCertificate,
+	},
+	destinations: {
+		destinationList,
+		destinationCreate,
+		destinationsDelete,
+		destinationUpdate,
 	},
 	cloudflareIPs: { cloudflareIpsCloudflareIpDetails },
 	usersAccountMemberships: {
@@ -213405,6 +213318,9 @@ export const operationsByTag = {
 		radarGetVerifiedBotsTopByHttpRequests,
 		radarGetVerifiedBotsTopCategoriesByHttpRequests,
 	},
+	keys: { telemetryKeysList },
+	queryRun: { telemetryQuery },
+	values: { telemetryValuesList },
 	tenants: {
 		tenantsRetrieveTenant,
 		tenantsValidAccountTypes,
