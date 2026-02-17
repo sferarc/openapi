@@ -68024,6 +68024,10 @@ export type DlpPayloadLogGetError = Fetcher.ErrorWrapper<{
 
 export type DlpPayloadLogGetResponse = Schemas.DlpApiResponseSingle & {
 	result?: {
+		masking_level: Schemas.DlpPayloadLogMaskingLevel;
+		/**
+		 * Base64-encoded public key for encrypting payload logs. Null when payload logging is disabled.
+		 */
 		public_key?: string | null;
 		/**
 		 * @format date-time
@@ -68062,6 +68066,10 @@ export type DlpPayloadLogPutError = Fetcher.ErrorWrapper<{
 
 export type DlpPayloadLogPutResponse = Schemas.DlpApiResponseSingle & {
 	result?: {
+		masking_level: Schemas.DlpPayloadLogMaskingLevel;
+		/**
+		 * Base64-encoded public key for encrypting payload logs. Null when payload logging is disabled.
+		 */
 		public_key?: string | null;
 		/**
 		 * @format date-time
