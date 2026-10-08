@@ -16,7 +16,7 @@
 	"homepage": "https://github.com/sferarc/openapi/tree/main/packages/v0-api#readme",
 	"scripts": {
 		"tsc": "tsc --noEmit",
-		"build": "bunchee",
+		"build": "bunchee --dts-bundle",
 		"generate": "rimraf ./src/generated && kubb generate",
 		"is-tree-shakable": "is-tree-shakable"
 	},
