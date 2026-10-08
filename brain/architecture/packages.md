@@ -19,7 +19,7 @@ Variations: `keycloak-api` has `src/admin/` and `src/account/`, each with its ow
 
 ## Build and exports
 
-`bunchee` builds each client into `dist/` with ESM, CJS and declarations; `exports` maps `.`, `./types`, `./schemas`, `./components` and `./effect` where present (`packages/clickhouse-cloud/package.json`). Runtime dependencies are `zod` only, with `effect ^3` as an optional peer. `is-tree-shakable` runs on every package in `pnpm check` (`package.json`).
+`bunchee` builds each client into `dist/` with ESM, CJS and declarations, with `--dts-bundle` for the clients that have an `effect` entry so the shared Effect types are inlined (#4); `exports` maps `.`, `./types`, `./schemas`, `./components` and `./effect` where present (`packages/clickhouse-cloud/package.json`). Runtime dependencies are `zod` only, with `effect ^4` as an optional peer ([[decisions/2026-10-08-effect-4-major]]). `is-tree-shakable` runs on every package in `pnpm check` (`package.json`).
 
 `@sferadev/openapi-utils` is a devDependency of every client and is bundled into `dist/` rather than resolved at install time (#1, [[decisions/2026-10-08-bundle-openapi-utils]]).
 

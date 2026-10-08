@@ -14,4 +14,4 @@
 
 ## Why it matters
 
-A change here reaches every client at the next generation, and a change to `src/effect/` reaches every client's published `effect` entry at the next build. The `effect` peer is pinned to major 3 for the reason in [[decisions/2026-10-08-effect-3-kept-back]].
+A change here reaches every client at the next generation, and a change to `src/effect/` reaches every client's published `effect` entry at the next build. The `effect` peer is `^4.0.0` since [[decisions/2026-10-08-effect-4-major]].
