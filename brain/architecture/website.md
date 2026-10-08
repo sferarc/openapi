@@ -8,4 +8,4 @@
 
 ## Hosting
 
-The root `README.md` links the site at `openapi.sferadev.com`, and the repository's homepage field names a `vercel.app` address. No deploy configuration or deploy workflow is in the repository; the old `preview.yml` published package previews, not the site, and was removed in 8ff9fa1. How the site is deployed from this repository is unknown.
+The root `README.md` links the site at `openapi.sferadev.com`, and the repository's homepage field names a `vercel.app` address. Pull requests get a `Vercel` status that deploys a preview (for example #5), so the site deploys through Vercel's Git integration rather than a workflow in this repository; its project settings and environment live in Vercel, not here. The old `preview.yml` published package previews, not the site, and was removed in 8ff9fa1.
