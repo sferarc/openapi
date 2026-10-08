@@ -35,7 +35,7 @@
 		"@sferadev/openapi-utils": "workspace:*"
 	},
 	"peerDependencies": {
-		"effect": "^3.0.0"
+		"effect": "^4.0.0"
 	},
 	"peerDependenciesMeta": {
 		"effect": {

@@ -48,14 +48,14 @@ export class NetworkError extends Data.TaggedError("NetworkError")<{
 }
 
 // ============================================================================
-// ApiConfig — Lightweight context tag for proxy-based Effect APIs
+// ApiConfig: service key for proxy-based Effect APIs
 // ============================================================================
 
 /**
- * Effect Context tag for API configuration.
+ * Effect service key for API configuration.
  * Used by the proxy-based Effect API to inject config into operations.
  */
-export class ApiConfig extends Context.Tag("ApiConfig")<
+export class ApiConfig extends Context.Service<
 	ApiConfig,
 	{
 		token?: string;
@@ -63,7 +63,7 @@ export class ApiConfig extends Context.Tag("ApiConfig")<
 		fetchImpl?: (url: string, init?: any) => Promise<any>;
 		headers?: Record<string, string>;
 	}
->() {}
+>()("ApiConfig") {}
 
 /**
  * Create a Layer providing ApiConfig values.
