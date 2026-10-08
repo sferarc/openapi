@@ -18,7 +18,8 @@
 		"tsc": "tsc --noEmit",
 		"build": "bunchee",
 		"generate": "rimraf ./src/generated && kubb generate",
-		"is-tree-shakable": "is-tree-shakable"
+		"is-tree-shakable": "is-tree-shakable",
+		"test": "vitest run"
 	},
 	"dependencies": {
 		"zod": "catalog:"
@@ -31,7 +32,8 @@
 		"bunchee": "catalog:",
 		"openapi3-ts": "catalog:",
 		"rimraf": "catalog:",
-		"typescript": "catalog:"
+		"typescript": "catalog:",
+		"vitest": "catalog:"
 	},
 	"files": [
 		"dist"

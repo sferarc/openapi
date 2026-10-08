@@ -18,7 +18,8 @@
 		"tsc": "tsc --noEmit",
 		"build": "bunchee --dts-bundle",
 		"generate": "rimraf ./src/generated && kubb generate",
-		"is-tree-shakable": "is-tree-shakable"
+		"is-tree-shakable": "is-tree-shakable",
+		"test": "vitest run"
 	},
 	"dependencies": {
 		"zod": "catalog:"
@@ -31,7 +32,8 @@
 		"bunchee": "catalog:",
 		"rimraf": "catalog:",
 		"typescript": "catalog:",
-		"@sferadev/openapi-utils": "workspace:*"
+		"@sferadev/openapi-utils": "workspace:*",
+		"vitest": "catalog:"
 	},
 	"peerDependencies": {
 		"effect": "^4.0.0"
