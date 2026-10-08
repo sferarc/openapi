@@ -10,9 +10,10 @@
 
 ## Branch rules
 
-The `main` ruleset requires a pull request, linear history, and squash or rebase merges, and blocks deletion and force pushes. Required statuses are `Check`, `Approved stack` and `No Claude attribution`; the last two come from a workflow proposed in #3, not yet on `main` (repository ruleset `main-default`, read through the GitHub API on 2026-10-08).
+The `main` ruleset requires a pull request, linear history, and squash or rebase merges, and blocks deletion and force pushes. Required statuses are `Check`, `Approved stack` and `No Claude attribution` (repository ruleset `main-default`, read through the GitHub API on 2026-10-08).
 
 ## Other workflows
 
 - `release.yml`: see [[release]].
 - `update-openapi.yml`: see [[architecture/pipeline]].
+- `hq-stack.yml`: the `Approved stack` and `No Claude attribution` jobs (#3). Its header says it is a rendered copy that is not edited here.

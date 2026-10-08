@@ -13,7 +13,7 @@ Five published clients declared the private package as a runtime dependency. pnp
 ## Consequences
 
 - The fix reaches npm only with the next release, which waits on `RELEASE_ENABLED` ([[development/release]]).
-- The `effect` entry's declaration file still re-exports types from `@sferadev/openapi-utils/effect`, so those types stay unresolved for consumers until the types are inlined or the package is published (#1). See [[plans/index]].
+- After #1 the `effect` entry's declarations still imported types from `@sferadev/openapi-utils/effect`. #4 inlines them: the Effect clients build with `bunchee --dts-bundle`, and `openapi-utils` maps that subpath in `typesVersions` so the bundler can resolve it. A new Effect client needs both.
 - A new client must list `@sferadev/openapi-utils` under `devDependencies`, never `dependencies` (`packages/clickhouse-cloud/package.json` is the current example).
 
 ## What would reopen it

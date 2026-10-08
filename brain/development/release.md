@@ -19,5 +19,5 @@ The release job only runs when the repository variable `RELEASE_ENABLED` is `tru
 As of 2026-10-08 (`npm view <package> version`):
 
 - Eight clients are on npm at the versions in their `package.json`. Those versions were published from the earlier monorepo (`repository.url` on npm still names it).
-- `vercel-api-js` and `netlify-api` on npm declare `@sferadev/openapi-utils@0.0.1` as a dependency, which does not exist on npm, so installing them fails. The pending changeset from #1 fixes this for the five affected clients at their next release.
+- `vercel-api-js` and `netlify-api` on npm declare `@sferadev/openapi-utils@0.0.1` as a dependency, which does not exist on npm, so installing them fails. The pending changeset from #1 fixes this for the five affected clients at their next release, which is also a major release for them because of [[decisions/2026-10-08-effect-4-major]].
 - `clickhouse-cloud` is not on npm; its `package.json` is `0.0.0` with a pending `minor` changeset (#2). Whether its first publish can go through trusted publishing, which npm configures per existing package, is unknown until it is tried.
