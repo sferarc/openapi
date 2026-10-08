@@ -8,7 +8,8 @@ export type FetcherConfig = {
 	headers?: Record<string, any>;
 };
 
-export type ErrorWrapper<TError> = TError | { status: "unknown"; payload: string };
+/** What a failed request rejects with: the HTTP status and the parsed error body, or a description when the body is not JSON. */
+export type ErrorWrapper<TError> = { status: number; payload: TError | string };
 
 export type FetcherOptions<TBody, THeaders, TQueryParams, TPathParams> = {
 	url: string;
@@ -19,6 +20,10 @@ export type FetcherOptions<TBody, THeaders, TQueryParams, TPathParams> = {
 	pathParams?: TPathParams | undefined;
 	signal?: AbortSignal | undefined;
 } & FetcherConfig;
+
+class ResponseError {
+	constructor(readonly error: ErrorWrapper<unknown>) {}
+}
 
 async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>({
 	url,
@@ -60,16 +65,13 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 		});
 
 		if (!response.ok) {
-			let error: ErrorWrapper<TError>;
+			let payload: TError | string;
 			try {
-				error = await response.json();
+				payload = await response.json();
 			} catch (e) {
-				error = {
-					status: "unknown" as const,
-					payload: e instanceof Error ? `Unexpected error (${e.message})` : "Unexpected error",
-				};
+				payload = e instanceof Error ? `Unexpected error (${e.message})` : "Unexpected error";
 			}
-			throw error;
+			throw new ResponseError({ status: response.status, payload });
 		}
 
 		if (response.headers?.get("content-type")?.includes("json")) {
@@ -78,6 +80,9 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 			return (await response.text()) as unknown as TData;
 		}
 	} catch (e) {
+		// Rethrown as is so the HTTP status survives; the Effect bindings map it to ApiError.
+		if (e instanceof ResponseError) throw e.error;
+
 		const errorObject: Error = {
 			name: "unknown" as const,
 			message: e instanceof Error ? `Network error (${e.message})` : "Network error",
