@@ -38,7 +38,7 @@ const client = new VercelApi({
 
 ## Effect
 
-The `effect` entrypoint exposes every operation as an `Effect`. It requires `effect` as a peer dependency.
+The `effect` entrypoint exposes every operation as an `Effect`. It requires `effect` 4 as a peer dependency.
 
 ```ts
 import { Effect } from "effect";

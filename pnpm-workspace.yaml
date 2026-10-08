@@ -25,10 +25,7 @@ catalog:
   dotenv: 18.0.5
   drizzle-kit: 0.31.11
   drizzle-orm: 0.45.3
-  # KEEP-BACK: effect 4 replaces Context.Tag with Context.Service, and the published clients
-  # declare `effect: "^3.0.0"` as a peer. Moving needs a code migration plus a major release of
-  # every client, so it ships as its own change, not inside a dependency bump.
-  effect: 3.22.2
+  effect: 4.0.0
   is-tree-shakable: 0.5.0
   knip: 6.39.0
   kubb: 5.4.5
