@@ -113,6 +113,19 @@
 			"ignore": ["src/generated/**"],
 			"includeEntryExports": false
 		},
+		"packages/clickhouse-cloud": {
+			"entry": [
+				"src/index.ts",
+				"src/types.ts",
+				"src/schemas.ts",
+				"src/components.ts",
+				"src/effect.ts",
+				"kubb.config.ts"
+			],
+			"project": ["src/**/*.ts"],
+			"ignore": ["src/generated/**"],
+			"includeEntryExports": false
+		},
 		"configs/tsconfig": {}
 	},
 	"ignoreWorkspaces": ["configs/tsconfig"],

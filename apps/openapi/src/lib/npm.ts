@@ -7,6 +7,7 @@ const packages = [
 	"nuki-api-js",
 	"litellm-api",
 	"v0-api",
+	"clickhouse-cloud",
 ];
 
 async function fetchPackageVersion(packageName: string): Promise<Record<string, string>> {

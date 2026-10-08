@@ -4,6 +4,7 @@ Type-safe TypeScript clients generated from public OpenAPI specs, plus the site 
 
 | Package | API |
 | --- | --- |
+| [`clickhouse-cloud`](packages/clickhouse-cloud) | ClickHouse Cloud |
 | [`cloudflare-api-js`](packages/cloudflare-api-js) | Cloudflare |
 | [`keycloak-api`](packages/keycloak-api) | Keycloak |
 | [`litellm-api`](packages/litellm-api) | LiteLLM |

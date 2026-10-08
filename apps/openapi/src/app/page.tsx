@@ -90,6 +90,16 @@ const smartLocks = await api.api.smartLocks.getSmartLocks();`,
 const api = new LiteLLMApi({ baseUrl: 'https://api.litellm.ai', token: null });
 const models = await api.request('GET /model_catalog', {});`,
 		},
+		{
+			id: "clickhouse-cloud",
+			name: "ClickHouse Cloud",
+			packageName: "clickhouse-cloud",
+			version: versions["clickhouse-cloud"],
+			usage: `import { ClickHouseCloudApi } from 'clickhouse-cloud';
+
+const api = new ClickHouseCloudApi({ keyId: '...', keySecret: '...' });
+const { result } = await api.api.organization.organizationGetList();`,
+		},
 	] satisfies Provider[];
 
 export default async function HomePage() {
