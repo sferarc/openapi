@@ -21,7 +21,6 @@
 		"is-tree-shakable": "is-tree-shakable"
 	},
 	"dependencies": {
-		"@sferadev/openapi-utils": "workspace:*",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
@@ -32,7 +31,8 @@
 		"bunchee": "catalog:",
 		"effect": "catalog:",
 		"rimraf": "catalog:",
-		"typescript": "catalog:"
+		"typescript": "catalog:",
+		"@sferadev/openapi-utils": "workspace:*"
 	},
 	"peerDependencies": {
 		"effect": "^3.0.0"
