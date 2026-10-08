@@ -51,7 +51,9 @@
 		"tsc": {
 			"dependsOn": ["^build"]
 		},
-		"test": {},
+		"test": {
+			"dependsOn": ["^build"]
+		},
 		"is-tree-shakable": {
 			"dependsOn": ["build"]
 		},

@@ -30,6 +30,7 @@ jobs:
           - nuki-api-js
           - litellm-api
           - v0-api
+          - clickhouse-cloud
 
     steps:
       - name: Checkout repo
