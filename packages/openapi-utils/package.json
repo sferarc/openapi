@@ -74,5 +74,12 @@
 				"default": "./dist/effect/index.cjs"
 			}
 		}
+	},
+	"typesVersions": {
+		"*": {
+			"effect": [
+				"./dist/effect/index.d.mts"
+			]
+		}
 	}
 }
