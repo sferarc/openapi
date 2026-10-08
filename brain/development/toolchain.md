@@ -24,7 +24,7 @@ Biome checks only `.ts`, `.tsx`, `.js`, `.jsx` and `.json` files (`biome.json`),
 
 ## Dependencies
 
-`pnpm-workspace.yaml` uses a strict catalog with exact versions: every workspace dependency is `catalog:`. Two entries carry comments that explain why they must not move freely: `effect` ([[decisions/2026-10-08-effect-3-kept-back]]) and the `typescript` 7 and `@typescript/typescript6` pair, which bunchee needs to emit declarations. `overrides` pins patched versions of transitive dependencies, and `minimumReleaseAgeExclude` is kept empty on purpose (comment above it).
+`pnpm-workspace.yaml` uses a strict catalog with exact versions: every workspace dependency is `catalog:`. One entry carries a comment that explains why it must not move freely: the `typescript` 7 and `@typescript/typescript6` pair, which bunchee needs to emit declarations. `overrides` pins patched versions of transitive dependencies, and `minimumReleaseAgeExclude` is kept empty on purpose (comment above it).
 
 ## Hooks
 
