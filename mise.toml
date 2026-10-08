@@ -1,19 +1,7 @@
-# Toolchain pinned for CI and local development. Bumped automatically each week by
-# the "Update Dependencies" workflow so upgrades land in a reviewed PR. The pnpm
-# version is mirrored into package.json `packageManager`; keep the two in sync (the
-# update workflow does that automatically).
-#
-# pnpm is deliberately tracked on a major line rather than pinned exactly, so the weekly
-# job picks up releases within the major but never crosses one on its own. A pnpm major
-# is a migration: v11 alone moved `overrides` out of package.json (silently dropping
-# every security override if you don't relocate them), replaced `onlyBuiltDependencies`
-# with `allowBuilds`, and made ignored build scripts fail the install rather than warn.
-# Cross the next major by hand, with the security overrides re-verified afterwards.
+# Toolchain pinned for CI and local development; mise.lock carries the checksums.
 [tools]
 node = "26.10.0"
-pnpm = "11"
-yq = "4.54.1"
-"aqua:suzuki-shunsuke/pinact" = "5.0.0"
+pnpm = "12.10.1"
 
 [settings]
 lockfile = true

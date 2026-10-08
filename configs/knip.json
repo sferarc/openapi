@@ -1,31 +1,14 @@
 {
-	"$schema": "https://unpkg.com/knip@5/schema.json",
+	"$schema": "https://unpkg.com/knip@6/schema.json",
 	"workspaces": {
 		".": {
 			"entry": ["turbo.json", ".github/workflows/scripts/*.ts"],
 			"ignoreDependencies": ["@typescript/typescript6"]
 		},
-		"apps/website": {
-			"entry": ["app/**/*.{ts,tsx}", "lib/**/*.ts", "components/**/*.tsx"],
-			"project": ["**/*.{ts,tsx}"],
-			"ignoreDependencies": ["@tailwindcss/typography", "tailwindcss", "tw-animate-css"]
-		},
 		"apps/openapi": {
 			"entry": ["src/app/**/*.{ts,tsx}", "src/lib/**/*.ts", "src/components/**/*.tsx"],
 			"project": ["src/**/*.{ts,tsx}"],
 			"ignoreDependencies": ["tailwindcss", "tw-animate-css"]
-		},
-		"apps/vscode-ai-gateway": {
-			"project": ["src/**/*.ts"],
-			"ignoreDependencies": ["@types/json-schema"]
-		},
-		"packages/ai-gateway-proxy": {
-			"entry": ["src/index.ts"],
-			"project": ["src/**/*.{ts,tsx}"]
-		},
-		"packages/rollup-plugin-import-cdn": {
-			"entry": ["src/index.ts"],
-			"project": ["src/**/*.ts"]
 		},
 		"packages/openapi-utils": {
 			"entry": ["src/index.ts", "src/effect/index.ts"],

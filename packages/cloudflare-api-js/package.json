@@ -7,12 +7,13 @@
 	"license": "ISC",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/SferaDev/SferaDev.git"
+		"url": "git+https://github.com/sferarc/openapi.git",
+		"directory": "packages/cloudflare-api-js"
 	},
 	"bugs": {
-		"url": "https://github.com/SferaDev/SferaDev/issues"
+		"url": "https://github.com/sferarc/openapi/issues"
 	},
-	"homepage": "https://github.com/SferaDev/SferaDev#readme",
+	"homepage": "https://github.com/sferarc/openapi/tree/main/packages/cloudflare-api-js#readme",
 	"scripts": {
 		"tsc": "tsc --noEmit",
 		"build": "bunchee",

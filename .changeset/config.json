@@ -7,6 +7,9 @@
 	"linked": [],
 	"access": "public",
 	"updateInternalDependencies": "patch",
-	"ignore": ["@sferadev/website", "@sferadev/openapi-website"],
-	"privatePackages": { "version": true, "tag": false }
+	"ignore": ["@sferadev/openapi-website"],
+	"privatePackages": {
+		"version": true,
+		"tag": false
+	}
 }

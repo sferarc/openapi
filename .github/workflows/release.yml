@@ -1,61 +1,52 @@
 name: Release
 
+# Changesets flow: pending changesets on main open a version PR, and merging
+# that PR publishes. Nothing runs until the repository variable RELEASE_ENABLED
+# is `true`, so the first release from this repository is the owner's decision.
+
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 permissions:
-  contents: write
-  pull-requests: write
-  id-token: write
+  contents: read
 
 jobs:
   release:
     name: Release
+    if: vars.RELEASE_ENABLED == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      # npm trusted publishing exchanges this OIDC token for a publish credential,
+      # so no npm token is stored anywhere. Each package's trusted publisher on
+      # npmjs.com must name sferarc/openapi and release.yml.
+      id-token: write
     steps:
-      - name: Checkout Repo
+      - name: Checkout repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      # This job publishes to npm via OIDC trusted publishing (permissions.id-token:
-      # write), so it stays on setup-node rather than the mise composite. We deliberately
-      # do NOT set `registry-url`: setup-node would then write an ~/.npmrc containing
-      # `_authToken=${NODE_AUTH_TOKEN}`, and since we pass no token that resolves to an
-      # empty credential which npm sends instead of performing the OIDC token exchange —
-      # the publish then 404s. With no token in .npmrc, npm (>= 11.5, from Node 24) uses
-      # the Trusted Publisher configured for each package on npmjs.org (GitHub Actions →
-      # SferaDev/SferaDev → release.yml). pnpm still comes from the `packageManager` field.
-      - name: Install pnpm
-        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      # Node comes from mise.toml, and its bundled npm (11.5.1 or newer) is what
+      # performs the trusted-publishing exchange. Nothing writes an ~/.npmrc: an
+      # empty _authToken there would be sent instead of the OIDC exchange.
+      - name: Setup and install
+        uses: ./.github/actions/setup
 
-      - name: Setup Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-        with:
-          node-version: 24
-
-      - name: Install Dependencies
-        run: pnpm i
-
-      - name: Create Release Pull Request or Publish
+      # GIT_TOKEN rather than github.token: a version PR merged by the Actions
+      # bot pushes to main without triggering this workflow, so it would never publish.
+      - name: Create version PR or publish
         id: changesets
         uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
           publish-script: pnpm release
           github-token: ${{ secrets.GIT_TOKEN }}
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
-      # The version PR only ever contains what `changeset version` generated — bumped
-      # manifests and the assembled changelogs — so there is nothing here for a human to
-      # decide beyond "did it still build", which is exactly what the required `Check` job
-      # answers. Merging it publishes, so releases follow changesets landing on main.
-      #
-      # Uses the PAT rather than `github.token` for the same reason the PR itself does:
-      # a merge attributed to the Actions bot pushes to main without triggering this
-      # workflow, and the publish would never run.
+      # The version PR only carries what `changeset version` generated, so the
+      # required Check job is the whole review. Merging it publishes.
       - name: Enable auto-merge on the version PR
         if: steps.changesets.outputs.pr-number
         env:

@@ -8,6 +8,9 @@ on:
 jobs:
   openapi-gen:
     name: Update ${{ matrix.package }}
+    # The hourly run needs GIT_TOKEN and OPENAI_API_KEY, so it stays off until the
+    # repository variable SPEC_UPDATES_ENABLED is `true`. A manual run always works.
+    if: github.event_name == 'workflow_dispatch' || vars.SPEC_UPDATES_ENABLED == 'true'
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.workflow }}-${{ matrix.package }}

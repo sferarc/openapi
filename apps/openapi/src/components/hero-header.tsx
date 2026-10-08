@@ -65,7 +65,7 @@ export function HeroHeader() {
 						<div className="flex items-center space-x-4">
 							<Button variant="outline" size="sm" asChild>
 								<Link
-									href="https://github.com/SferaDev/openapi-clients"
+									href="https://github.com/sferarc/openapi"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
