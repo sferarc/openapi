@@ -559,13 +559,13 @@ importers:
 
   packages/netlify-api:
     dependencies:
-      '@sferadev/openapi-utils':
-        specifier: workspace:*
-        version: link:../openapi-utils
       zod:
         specifier: 'catalog:'
         version: 4.6.5
     devDependencies:
+      '@sferadev/openapi-utils':
+        specifier: workspace:*
+        version: link:../openapi-utils
       '@sferadev/tsconfig':
         specifier: workspace:*
         version: link:../../configs/tsconfig
@@ -590,13 +590,13 @@ importers:
 
   packages/nuki-api-js:
     dependencies:
-      '@sferadev/openapi-utils':
-        specifier: workspace:*
-        version: link:../openapi-utils
       zod:
         specifier: 'catalog:'
         version: 4.6.5
     devDependencies:
+      '@sferadev/openapi-utils':
+        specifier: workspace:*
+        version: link:../openapi-utils
       '@sferadev/tsconfig':
         specifier: workspace:*
         version: link:../../configs/tsconfig
@@ -676,13 +676,13 @@ importers:
 
   packages/v0-api:
     dependencies:
-      '@sferadev/openapi-utils':
-        specifier: workspace:*
-        version: link:../openapi-utils
       zod:
         specifier: 'catalog:'
         version: 4.6.5
     devDependencies:
+      '@sferadev/openapi-utils':
+        specifier: workspace:*
+        version: link:../openapi-utils
       '@sferadev/tsconfig':
         specifier: workspace:*
         version: link:../../configs/tsconfig
@@ -710,13 +710,13 @@ importers:
 
   packages/vercel-api-js:
     dependencies:
-      '@sferadev/openapi-utils':
-        specifier: workspace:*
-        version: link:../openapi-utils
       zod:
         specifier: 'catalog:'
         version: 4.6.5
     devDependencies:
+      '@sferadev/openapi-utils':
+        specifier: workspace:*
+        version: link:../openapi-utils
       '@sferadev/tsconfig':
         specifier: workspace:*
         version: link:../../configs/tsconfig
@@ -744,13 +744,13 @@ importers:
 
   packages/zoom-api-js:
     dependencies:
-      '@sferadev/openapi-utils':
-        specifier: workspace:*
-        version: link:../openapi-utils
       zod:
         specifier: 'catalog:'
         version: 4.6.5
     devDependencies:
+      '@sferadev/openapi-utils':
+        specifier: workspace:*
+        version: link:../openapi-utils
       '@sferadev/tsconfig':
         specifier: workspace:*
         version: link:../../configs/tsconfig
