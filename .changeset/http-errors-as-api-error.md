@@ -1,12 +1,12 @@
 ---
-"cloudflare-api-js": patch
-"keycloak-api": patch
-"litellm-api": patch
-"netlify-api": patch
-"nuki-api-js": patch
-"v0-api": patch
-"vercel-api-js": patch
-"zoom-api-js": patch
+"cloudflare-api-js": major
+"keycloak-api": major
+"litellm-api": major
+"netlify-api": major
+"nuki-api-js": major
+"v0-api": major
+"vercel-api-js": major
+"zoom-api-js": major
 ---
 
-Report HTTP error responses with their status. A failed response used to be caught by the fetcher's own network-error handler, so callers got `{ name: "unknown", message }` with the status and body lost, and the Effect bindings reported a `NetworkError`. Requests now reject with `{ status, payload }`, where `payload` is the parsed error body, and the Effect bindings fail with an `ApiError` carrying that status, as `clickhouse-cloud` already does. Requests that never get a response still reject as before.
+Breaking: a failed HTTP response now rejects with `{ status, payload }`, where `status` is the HTTP status code and `payload` is the parsed error body (or a description string when the body is not JSON). It used to reject with `{ name: "unknown", message }`, losing both. Code that reads `error.message` from a rejected call should read `error.status` and `error.payload` instead. Requests that never get a response still reject with `{ name: "unknown", message }`. In the Effect bindings, HTTP errors now fail with `ApiError` carrying the status instead of `NetworkError`.
