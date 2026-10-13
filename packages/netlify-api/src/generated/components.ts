@@ -366,7 +366,11 @@ export async function getSite(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -378,7 +382,7 @@ export async function getSite(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -404,7 +408,11 @@ export async function updateSite(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -416,7 +424,7 @@ export async function updateSite(
 		{ site_id: string }
 	>({
 		method: "PATCH",
-		url: `/sites/${pathParams.site_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -439,7 +447,11 @@ export async function deleteSite(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -451,7 +463,7 @@ export async function deleteSite(
 		{ site_id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -482,7 +494,11 @@ export async function provisionSiteTLSCertificate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -494,7 +510,7 @@ export async function provisionSiteTLSCertificate(
 		{ site_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/ssl`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/ssl`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -517,7 +533,11 @@ export async function showSiteTLSCertificate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -529,7 +549,7 @@ export async function showSiteTLSCertificate(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/ssl`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/ssl`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -553,7 +573,11 @@ export async function getAllCertificates(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -565,7 +589,7 @@ export async function getAllCertificates(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/ssl/certificates`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/ssl/certificates`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -601,7 +625,11 @@ export async function getEnvVars(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_id) {
+	if (
+		pathParams.account_id === undefined ||
+		pathParams.account_id === null ||
+		String(pathParams.account_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_id`);
 	}
 	const data = await request<
@@ -623,7 +651,7 @@ export async function getEnvVars(
 		{ account_id: string }
 	>({
 		method: "GET",
-		url: `/accounts/${pathParams.account_id}/env`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -651,7 +679,11 @@ export async function createEnvVars(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_id) {
+	if (
+		pathParams.account_id === undefined ||
+		pathParams.account_id === null ||
+		String(pathParams.account_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_id`);
 	}
 	const data = await request<
@@ -663,7 +695,7 @@ export async function createEnvVars(
 		{ account_id: string }
 	>({
 		method: "POST",
-		url: `/accounts/${pathParams.account_id}/env`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env`,
 		queryParams,
 		body: body,
 		...requestConfig,
@@ -699,7 +731,11 @@ export async function getSiteEnvVars(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -720,7 +756,7 @@ export async function getSiteEnvVars(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/api/v1/sites/${pathParams.site_id}/env`,
+		url: `/api/v1/sites/${encodeURIComponent(String(pathParams.site_id))}/env`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -746,11 +782,15 @@ export async function getEnvVar(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_id) {
+	if (
+		pathParams.account_id === undefined ||
+		pathParams.account_id === null ||
+		String(pathParams.account_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_id`);
 	}
 
-	if (!pathParams.key) {
+	if (pathParams.key === undefined || pathParams.key === null || String(pathParams.key) === "") {
 		throw new Error(`Missing required path parameter: key`);
 	}
 	const data = await request<
@@ -762,7 +802,7 @@ export async function getEnvVar(
 		{ account_id: string; key: string }
 	>({
 		method: "GET",
-		url: `/accounts/${pathParams.account_id}/env/${pathParams.key}`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env/${encodeURIComponent(String(pathParams.key))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -790,11 +830,15 @@ export async function updateEnvVar(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_id) {
+	if (
+		pathParams.account_id === undefined ||
+		pathParams.account_id === null ||
+		String(pathParams.account_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_id`);
 	}
 
-	if (!pathParams.key) {
+	if (pathParams.key === undefined || pathParams.key === null || String(pathParams.key) === "") {
 		throw new Error(`Missing required path parameter: key`);
 	}
 	const data = await request<
@@ -806,7 +850,7 @@ export async function updateEnvVar(
 		{ account_id: string; key: string }
 	>({
 		method: "PUT",
-		url: `/accounts/${pathParams.account_id}/env/${pathParams.key}`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env/${encodeURIComponent(String(pathParams.key))}`,
 		queryParams,
 		body: body,
 		...requestConfig,
@@ -835,11 +879,15 @@ export async function setEnvVarValue(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_id) {
+	if (
+		pathParams.account_id === undefined ||
+		pathParams.account_id === null ||
+		String(pathParams.account_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_id`);
 	}
 
-	if (!pathParams.key) {
+	if (pathParams.key === undefined || pathParams.key === null || String(pathParams.key) === "") {
 		throw new Error(`Missing required path parameter: key`);
 	}
 	const data = await request<
@@ -851,7 +899,7 @@ export async function setEnvVarValue(
 		{ account_id: string; key: string }
 	>({
 		method: "PATCH",
-		url: `/accounts/${pathParams.account_id}/env/${pathParams.key}`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env/${encodeURIComponent(String(pathParams.key))}`,
 		queryParams,
 		body: body,
 		...requestConfig,
@@ -878,11 +926,15 @@ export async function deleteEnvVar(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_id) {
+	if (
+		pathParams.account_id === undefined ||
+		pathParams.account_id === null ||
+		String(pathParams.account_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_id`);
 	}
 
-	if (!pathParams.key) {
+	if (pathParams.key === undefined || pathParams.key === null || String(pathParams.key) === "") {
 		throw new Error(`Missing required path parameter: key`);
 	}
 	const data = await request<
@@ -894,7 +946,7 @@ export async function deleteEnvVar(
 		{ account_id: string; key: string }
 	>({
 		method: "DELETE",
-		url: `/accounts/${pathParams.account_id}/env/${pathParams.key}`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env/${encodeURIComponent(String(pathParams.key))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -920,15 +972,19 @@ export async function deleteEnvVarValue(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_id) {
+	if (
+		pathParams.account_id === undefined ||
+		pathParams.account_id === null ||
+		String(pathParams.account_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_id`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 
-	if (!pathParams.key) {
+	if (pathParams.key === undefined || pathParams.key === null || String(pathParams.key) === "") {
 		throw new Error(`Missing required path parameter: key`);
 	}
 	const data = await request<
@@ -940,7 +996,7 @@ export async function deleteEnvVarValue(
 		{ account_id: string; id: string; key: string }
 	>({
 		method: "DELETE",
-		url: `/accounts/${pathParams.account_id}/env/${pathParams.key}/value/${pathParams.id}`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env/${encodeURIComponent(String(pathParams.key))}/value/${encodeURIComponent(String(pathParams.id))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -965,7 +1021,11 @@ export async function searchSiteFunctions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -977,7 +1037,7 @@ export async function searchSiteFunctions(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/functions`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/functions`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1000,7 +1060,11 @@ export async function listSiteForms(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -1012,7 +1076,7 @@ export async function listSiteForms(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/forms`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/forms`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1034,11 +1098,19 @@ export async function deleteSiteForm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.form_id) {
+	if (
+		pathParams.form_id === undefined ||
+		pathParams.form_id === null ||
+		String(pathParams.form_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: form_id`);
 	}
 	const data = await request<
@@ -1050,7 +1122,7 @@ export async function deleteSiteForm(
 		{ site_id: string; form_id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}/forms/${pathParams.form_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/forms/${encodeURIComponent(String(pathParams.form_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1074,7 +1146,11 @@ export async function listSiteSubmissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -1086,7 +1162,7 @@ export async function listSiteSubmissions(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/submissions`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/submissions`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1109,7 +1185,11 @@ export async function listSiteFiles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -1121,7 +1201,7 @@ export async function listSiteFiles(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/files`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/files`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1143,7 +1223,11 @@ export async function listSiteAssets(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -1155,7 +1239,7 @@ export async function listSiteAssets(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/assets`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/assets`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1179,7 +1263,11 @@ export async function createSiteAsset(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -1191,7 +1279,7 @@ export async function createSiteAsset(
 		{ site_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/assets`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/assets`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1214,11 +1302,19 @@ export async function getSiteAssetInfo(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.asset_id) {
+	if (
+		pathParams.asset_id === undefined ||
+		pathParams.asset_id === null ||
+		String(pathParams.asset_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: asset_id`);
 	}
 	const data = await request<
@@ -1230,7 +1326,7 @@ export async function getSiteAssetInfo(
 		{ site_id: string; asset_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/assets/${pathParams.asset_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/assets/${encodeURIComponent(String(pathParams.asset_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1254,11 +1350,19 @@ export async function updateSiteAsset(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.asset_id) {
+	if (
+		pathParams.asset_id === undefined ||
+		pathParams.asset_id === null ||
+		String(pathParams.asset_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: asset_id`);
 	}
 	const data = await request<
@@ -1270,7 +1374,7 @@ export async function updateSiteAsset(
 		{ site_id: string; asset_id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/assets/${pathParams.asset_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/assets/${encodeURIComponent(String(pathParams.asset_id))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1293,11 +1397,19 @@ export async function deleteSiteAsset(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.asset_id) {
+	if (
+		pathParams.asset_id === undefined ||
+		pathParams.asset_id === null ||
+		String(pathParams.asset_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: asset_id`);
 	}
 	const data = await request<
@@ -1309,7 +1421,7 @@ export async function deleteSiteAsset(
 		{ site_id: string; asset_id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}/assets/${pathParams.asset_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/assets/${encodeURIComponent(String(pathParams.asset_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1331,11 +1443,19 @@ export async function getSiteAssetPublicSignature(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.asset_id) {
+	if (
+		pathParams.asset_id === undefined ||
+		pathParams.asset_id === null ||
+		String(pathParams.asset_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: asset_id`);
 	}
 	const data = await request<
@@ -1347,7 +1467,7 @@ export async function getSiteAssetPublicSignature(
 		{ site_id: string; asset_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/assets/${pathParams.asset_id}/public_signature`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/assets/${encodeURIComponent(String(pathParams.asset_id))}/public_signature`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1369,11 +1489,19 @@ export async function getSiteFileByPathName(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.file_path) {
+	if (
+		pathParams.file_path === undefined ||
+		pathParams.file_path === null ||
+		String(pathParams.file_path) === ""
+	) {
 		throw new Error(`Missing required path parameter: file_path`);
 	}
 	const data = await request<
@@ -1385,7 +1513,7 @@ export async function getSiteFileByPathName(
 		{ site_id: string; file_path: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/files/${pathParams.file_path}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/files/${encodeURIComponent(String(pathParams.file_path))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1440,7 +1568,11 @@ export async function listSiteSnippets(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -1452,7 +1584,7 @@ export async function listSiteSnippets(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/snippets`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/snippets`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1476,7 +1608,11 @@ export async function createSiteSnippet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -1488,7 +1624,7 @@ export async function createSiteSnippet(
 		{ site_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/snippets`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/snippets`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1511,11 +1647,19 @@ export async function getSiteSnippet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.snippet_id) {
+	if (
+		pathParams.snippet_id === undefined ||
+		pathParams.snippet_id === null ||
+		String(pathParams.snippet_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: snippet_id`);
 	}
 	const data = await request<
@@ -1527,7 +1671,7 @@ export async function getSiteSnippet(
 		{ site_id: string; snippet_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/snippets/${pathParams.snippet_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/snippets/${encodeURIComponent(String(pathParams.snippet_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1551,11 +1695,19 @@ export async function updateSiteSnippet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.snippet_id) {
+	if (
+		pathParams.snippet_id === undefined ||
+		pathParams.snippet_id === null ||
+		String(pathParams.snippet_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: snippet_id`);
 	}
 	const data = await request<
@@ -1567,7 +1719,7 @@ export async function updateSiteSnippet(
 		{ site_id: string; snippet_id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/snippets/${pathParams.snippet_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/snippets/${encodeURIComponent(String(pathParams.snippet_id))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1590,11 +1742,19 @@ export async function deleteSiteSnippet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.snippet_id) {
+	if (
+		pathParams.snippet_id === undefined ||
+		pathParams.snippet_id === null ||
+		String(pathParams.snippet_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: snippet_id`);
 	}
 	const data = await request<
@@ -1606,7 +1766,7 @@ export async function deleteSiteSnippet(
 		{ site_id: string; snippet_id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}/snippets/${pathParams.snippet_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/snippets/${encodeURIComponent(String(pathParams.snippet_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1628,7 +1788,11 @@ export async function getSiteMetadata(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -1640,7 +1804,7 @@ export async function getSiteMetadata(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/metadata`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/metadata`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1664,7 +1828,11 @@ export async function updateSiteMetadata(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -1676,7 +1844,7 @@ export async function updateSiteMetadata(
 		{ site_id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/metadata`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/metadata`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1699,7 +1867,11 @@ export async function listSiteBuildHooks(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -1711,7 +1883,7 @@ export async function listSiteBuildHooks(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/build_hooks`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/build_hooks`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1735,7 +1907,11 @@ export async function createSiteBuildHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -1747,7 +1923,7 @@ export async function createSiteBuildHook(
 		{ site_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/build_hooks`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/build_hooks`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1770,11 +1946,15 @@ export async function getSiteBuildHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1786,7 +1966,7 @@ export async function getSiteBuildHook(
 		{ site_id: string; id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/build_hooks/${pathParams.id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/build_hooks/${encodeURIComponent(String(pathParams.id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1810,11 +1990,15 @@ export async function updateSiteBuildHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1826,7 +2010,7 @@ export async function updateSiteBuildHook(
 		{ site_id: string; id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/build_hooks/${pathParams.id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/build_hooks/${encodeURIComponent(String(pathParams.id))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1849,11 +2033,15 @@ export async function deleteSiteBuildHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1865,7 +2053,7 @@ export async function deleteSiteBuildHook(
 		{ site_id: string; id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}/build_hooks/${pathParams.id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/build_hooks/${encodeURIComponent(String(pathParams.id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1912,7 +2100,11 @@ export async function listSiteDeploys(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -1947,7 +2139,7 @@ export async function listSiteDeploys(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/deploys`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deploys`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1996,7 +2188,11 @@ export async function createSiteDeploy(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -2030,7 +2226,7 @@ export async function createSiteDeploy(
 		{ site_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/deploys`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deploys`,
 		queryParams,
 		body: body,
 		...requestConfig,
@@ -2054,11 +2250,19 @@ export async function getSiteDeploy(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 	const data = await request<
@@ -2070,7 +2274,7 @@ export async function getSiteDeploy(
 		{ site_id: string; deploy_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/deploys/${pathParams.deploy_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deploys/${encodeURIComponent(String(pathParams.deploy_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2096,11 +2300,19 @@ export async function updateSiteDeploy(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 	const data = await request<
@@ -2112,7 +2324,7 @@ export async function updateSiteDeploy(
 		{ site_id: string; deploy_id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/deploys/${pathParams.deploy_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deploys/${encodeURIComponent(String(pathParams.deploy_id))}`,
 		queryParams,
 		body: body,
 		...requestConfig,
@@ -2136,11 +2348,19 @@ export async function deleteSiteDeploy(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -2152,7 +2372,7 @@ export async function deleteSiteDeploy(
 		{ deploy_id: string; site_id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}/deploys/${pathParams.deploy_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deploys/${encodeURIComponent(String(pathParams.deploy_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2174,7 +2394,11 @@ export async function cancelSiteDeploy(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 	const data = await request<
@@ -2186,7 +2410,7 @@ export async function cancelSiteDeploy(
 		{ deploy_id: string }
 	>({
 		method: "POST",
-		url: `/deploys/${pathParams.deploy_id}/cancel`,
+		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/cancel`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2208,11 +2432,19 @@ export async function restoreSiteDeploy(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 	const data = await request<
@@ -2224,7 +2456,7 @@ export async function restoreSiteDeploy(
 		{ site_id: string; deploy_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/deploys/${pathParams.deploy_id}/restore`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/restore`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2248,7 +2480,11 @@ export async function listSiteBuilds(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -2260,7 +2496,7 @@ export async function listSiteBuilds(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/builds`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/builds`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2295,7 +2531,11 @@ export async function createSiteBuild(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -2313,7 +2553,7 @@ export async function createSiteBuild(
 		{ site_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/builds`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/builds`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2336,7 +2576,11 @@ export async function listSiteDeployedBranches(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -2348,7 +2592,7 @@ export async function listSiteDeployedBranches(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/deployed-branches`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deployed-branches`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2375,7 +2619,11 @@ export async function unlinkSiteRepo(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -2387,7 +2635,7 @@ export async function unlinkSiteRepo(
 		{ site_id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/unlink_repo`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/unlink_repo`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2410,7 +2658,11 @@ export async function enableSite(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -2422,7 +2674,7 @@ export async function enableSite(
 		{ site_id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/enable`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/enable`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2447,7 +2699,11 @@ export async function disableSite(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -2459,7 +2715,7 @@ export async function disableSite(
 		{ site_id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/disable`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/disable`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2482,7 +2738,11 @@ export async function getSiteBuild(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.build_id) {
+	if (
+		pathParams.build_id === undefined ||
+		pathParams.build_id === null ||
+		String(pathParams.build_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: build_id`);
 	}
 	const data = await request<
@@ -2494,7 +2754,7 @@ export async function getSiteBuild(
 		{ build_id: string }
 	>({
 		method: "GET",
-		url: `/builds/${pathParams.build_id}`,
+		url: `/builds/${encodeURIComponent(String(pathParams.build_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2518,7 +2778,11 @@ export async function updateSiteBuildLog(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.build_id) {
+	if (
+		pathParams.build_id === undefined ||
+		pathParams.build_id === null ||
+		String(pathParams.build_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: build_id`);
 	}
 	const data = await request<
@@ -2530,7 +2794,7 @@ export async function updateSiteBuildLog(
 		{ build_id: string }
 	>({
 		method: "POST",
-		url: `/builds/${pathParams.build_id}/log`,
+		url: `/builds/${encodeURIComponent(String(pathParams.build_id))}/log`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2555,7 +2819,11 @@ export async function notifyBuildStart(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.build_id) {
+	if (
+		pathParams.build_id === undefined ||
+		pathParams.build_id === null ||
+		String(pathParams.build_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: build_id`);
 	}
 	const data = await request<
@@ -2567,7 +2835,7 @@ export async function notifyBuildStart(
 		{ build_id: string }
 	>({
 		method: "POST",
-		url: `/builds/${pathParams.build_id}/start`,
+		url: `/builds/${encodeURIComponent(String(pathParams.build_id))}/start`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2590,7 +2858,11 @@ export async function getAccountBuildStatus(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_id) {
+	if (
+		pathParams.account_id === undefined ||
+		pathParams.account_id === null ||
+		String(pathParams.account_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_id`);
 	}
 	const data = await request<
@@ -2602,7 +2874,7 @@ export async function getAccountBuildStatus(
 		{ account_id: string }
 	>({
 		method: "GET",
-		url: `/${pathParams.account_id}/builds/status`,
+		url: `/${encodeURIComponent(String(pathParams.account_id))}/builds/status`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2624,7 +2896,11 @@ export async function getDNSForSite(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -2636,7 +2912,7 @@ export async function getDNSForSite(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/dns`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dns`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2658,7 +2934,11 @@ export async function configureDNSForSite(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -2670,7 +2950,7 @@ export async function configureDNSForSite(
 		{ site_id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/dns`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dns`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2692,7 +2972,11 @@ export async function rollbackSiteDeploy(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -2704,7 +2988,7 @@ export async function rollbackSiteDeploy(
 		{ site_id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/rollback`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/rollback`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2726,7 +3010,11 @@ export async function getDeploy(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 	const data = await request<
@@ -2738,7 +3026,7 @@ export async function getDeploy(
 		{ deploy_id: string }
 	>({
 		method: "GET",
-		url: `/deploys/${pathParams.deploy_id}`,
+		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2760,7 +3048,11 @@ export async function deleteDeploy(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 	const data = await request<
@@ -2772,7 +3064,7 @@ export async function deleteDeploy(
 		{ deploy_id: string }
 	>({
 		method: "DELETE",
-		url: `/deploys/${pathParams.deploy_id}`,
+		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2797,7 +3089,11 @@ export async function updateDeployValidations(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 	const data = await request<
@@ -2809,7 +3105,7 @@ export async function updateDeployValidations(
 		{ deploy_id: string }
 	>({
 		method: "PATCH",
-		url: `/deploys/${pathParams.deploy_id}/validations_report`,
+		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/validations_report`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2832,7 +3128,11 @@ export async function lockDeploy(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 	const data = await request<
@@ -2844,7 +3144,7 @@ export async function lockDeploy(
 		{ deploy_id: string }
 	>({
 		method: "POST",
-		url: `/deploys/${pathParams.deploy_id}/lock`,
+		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/lock`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2866,7 +3166,11 @@ export async function unlockDeploy(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 	const data = await request<
@@ -2878,7 +3182,7 @@ export async function unlockDeploy(
 		{ deploy_id: string }
 	>({
 		method: "POST",
-		url: `/deploys/${pathParams.deploy_id}/unlock`,
+		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/unlock`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2902,11 +3206,15 @@ export async function uploadDeployFile(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 
-	if (!pathParams.path) {
+	if (pathParams.path === undefined || pathParams.path === null || String(pathParams.path) === "") {
 		throw new Error(`Missing required path parameter: path`);
 	}
 	const data = await request<
@@ -2918,7 +3226,7 @@ export async function uploadDeployFile(
 		{ deploy_id: string; path: string }
 	>({
 		method: "PUT",
-		url: `/deploys/${pathParams.deploy_id}/files/${pathParams.path}`,
+		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/files/${encodeURIComponent(String(pathParams.path))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2945,11 +3253,15 @@ export async function uploadDeployFunction(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 
-	if (!pathParams.name) {
+	if (pathParams.name === undefined || pathParams.name === null || String(pathParams.name) === "") {
 		throw new Error(`Missing required path parameter: name`);
 	}
 	const data = await request<
@@ -2961,7 +3273,7 @@ export async function uploadDeployFunction(
 		{ deploy_id: string; name: string }
 	>({
 		method: "PUT",
-		url: `/deploys/${pathParams.deploy_id}/functions/${pathParams.name}`,
+		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/functions/${encodeURIComponent(String(pathParams.name))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...headers, ...requestConfig.headers },
@@ -2990,11 +3302,19 @@ export async function uploadDeployServer(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 
-	if (!pathParams.code_sha) {
+	if (
+		pathParams.code_sha === undefined ||
+		pathParams.code_sha === null ||
+		String(pathParams.code_sha) === ""
+	) {
 		throw new Error(`Missing required path parameter: code_sha`);
 	}
 	const data = await request<
@@ -3006,7 +3326,7 @@ export async function uploadDeployServer(
 		{ deploy_id: string; code_sha: string }
 	>({
 		method: "PUT",
-		url: `/deploys/${pathParams.deploy_id}/server/${pathParams.code_sha}`,
+		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/server/${encodeURIComponent(String(pathParams.code_sha))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...headers, ...requestConfig.headers },
@@ -3031,11 +3351,19 @@ export async function uploadDeployEdgeFunction(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 
-	if (!pathParams.code_sha) {
+	if (
+		pathParams.code_sha === undefined ||
+		pathParams.code_sha === null ||
+		String(pathParams.code_sha) === ""
+	) {
 		throw new Error(`Missing required path parameter: code_sha`);
 	}
 	const data = await request<
@@ -3047,7 +3375,7 @@ export async function uploadDeployEdgeFunction(
 		{ deploy_id: string; code_sha: string }
 	>({
 		method: "PUT",
-		url: `/deploys/${pathParams.deploy_id}/edge_functions/${pathParams.code_sha}`,
+		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/edge_functions/${encodeURIComponent(String(pathParams.code_sha))}`,
 		...requestConfig,
 		headers: { ...headers, ...requestConfig.headers },
 	});
@@ -3072,7 +3400,11 @@ export async function getLatestPluginRuns(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -3084,7 +3416,7 @@ export async function getLatestPluginRuns(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/plugin_runs/latest`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/plugin_runs/latest`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3110,7 +3442,11 @@ export async function createPluginRun(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 	const data = await request<
@@ -3122,7 +3458,7 @@ export async function createPluginRun(
 		{ deploy_id: string }
 	>({
 		method: "POST",
-		url: `/deploys/${pathParams.deploy_id}/plugin_runs`,
+		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/plugin_runs`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3147,7 +3483,11 @@ export async function listFormSubmissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.form_id) {
+	if (
+		pathParams.form_id === undefined ||
+		pathParams.form_id === null ||
+		String(pathParams.form_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: form_id`);
 	}
 	const data = await request<
@@ -3159,7 +3499,7 @@ export async function listFormSubmissions(
 		{ form_id: string }
 	>({
 		method: "GET",
-		url: `/forms/${pathParams.form_id}/submissions`,
+		url: `/forms/${encodeURIComponent(String(pathParams.form_id))}/submissions`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3249,7 +3589,11 @@ export async function getHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.hook_id) {
+	if (
+		pathParams.hook_id === undefined ||
+		pathParams.hook_id === null ||
+		String(pathParams.hook_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: hook_id`);
 	}
 	const data = await request<
@@ -3261,7 +3605,7 @@ export async function getHook(
 		{ hook_id: string }
 	>({
 		method: "GET",
-		url: `/hooks/${pathParams.hook_id}`,
+		url: `/hooks/${encodeURIComponent(String(pathParams.hook_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3285,7 +3629,11 @@ export async function updateHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.hook_id) {
+	if (
+		pathParams.hook_id === undefined ||
+		pathParams.hook_id === null ||
+		String(pathParams.hook_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: hook_id`);
 	}
 	const data = await request<
@@ -3297,7 +3645,7 @@ export async function updateHook(
 		{ hook_id: string }
 	>({
 		method: "PUT",
-		url: `/hooks/${pathParams.hook_id}`,
+		url: `/hooks/${encodeURIComponent(String(pathParams.hook_id))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3320,7 +3668,11 @@ export async function deleteHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.hook_id) {
+	if (
+		pathParams.hook_id === undefined ||
+		pathParams.hook_id === null ||
+		String(pathParams.hook_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: hook_id`);
 	}
 	const data = await request<
@@ -3332,7 +3684,7 @@ export async function deleteHook(
 		{ hook_id: string }
 	>({
 		method: "DELETE",
-		url: `/hooks/${pathParams.hook_id}`,
+		url: `/hooks/${encodeURIComponent(String(pathParams.hook_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3354,7 +3706,11 @@ export async function enableHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.hook_id) {
+	if (
+		pathParams.hook_id === undefined ||
+		pathParams.hook_id === null ||
+		String(pathParams.hook_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: hook_id`);
 	}
 	const data = await request<
@@ -3366,7 +3722,7 @@ export async function enableHook(
 		{ hook_id: string }
 	>({
 		method: "POST",
-		url: `/hooks/${pathParams.hook_id}/enable`,
+		url: `/hooks/${encodeURIComponent(String(pathParams.hook_id))}/enable`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3448,7 +3804,11 @@ export async function showTicket(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.ticket_id) {
+	if (
+		pathParams.ticket_id === undefined ||
+		pathParams.ticket_id === null ||
+		String(pathParams.ticket_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: ticket_id`);
 	}
 	const data = await request<
@@ -3460,7 +3820,7 @@ export async function showTicket(
 		{ ticket_id: string }
 	>({
 		method: "GET",
-		url: `/oauth/tickets/${pathParams.ticket_id}`,
+		url: `/oauth/tickets/${encodeURIComponent(String(pathParams.ticket_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3482,7 +3842,11 @@ export async function exchangeTicket(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.ticket_id) {
+	if (
+		pathParams.ticket_id === undefined ||
+		pathParams.ticket_id === null ||
+		String(pathParams.ticket_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: ticket_id`);
 	}
 	const data = await request<
@@ -3494,7 +3858,7 @@ export async function exchangeTicket(
 		{ ticket_id: string }
 	>({
 		method: "POST",
-		url: `/oauth/tickets/${pathParams.ticket_id}/exchange`,
+		url: `/oauth/tickets/${encodeURIComponent(String(pathParams.ticket_id))}/exchange`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3566,7 +3930,11 @@ export async function getDeployKey(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.key_id) {
+	if (
+		pathParams.key_id === undefined ||
+		pathParams.key_id === null ||
+		String(pathParams.key_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: key_id`);
 	}
 	const data = await request<
@@ -3578,7 +3946,7 @@ export async function getDeployKey(
 		{ key_id: string }
 	>({
 		method: "GET",
-		url: `/deploy_keys/${pathParams.key_id}`,
+		url: `/deploy_keys/${encodeURIComponent(String(pathParams.key_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3600,7 +3968,11 @@ export async function deleteDeployKey(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.key_id) {
+	if (
+		pathParams.key_id === undefined ||
+		pathParams.key_id === null ||
+		String(pathParams.key_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: key_id`);
 	}
 	const data = await request<
@@ -3612,7 +3984,7 @@ export async function deleteDeployKey(
 		{ key_id: string }
 	>({
 		method: "DELETE",
-		url: `/deploy_keys/${pathParams.key_id}`,
+		url: `/deploy_keys/${encodeURIComponent(String(pathParams.key_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3639,7 +4011,11 @@ export async function createSiteInTeam(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_slug) {
+	if (
+		pathParams.account_slug === undefined ||
+		pathParams.account_slug === null ||
+		String(pathParams.account_slug) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_slug`);
 	}
 	const data = await request<
@@ -3651,7 +4027,7 @@ export async function createSiteInTeam(
 		{ account_slug: string }
 	>({
 		method: "POST",
-		url: `/${pathParams.account_slug}/sites`,
+		url: `/${encodeURIComponent(String(pathParams.account_slug))}/sites`,
 		queryParams,
 		body: body,
 		...requestConfig,
@@ -3678,7 +4054,11 @@ export async function listSitesForAccount(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_slug) {
+	if (
+		pathParams.account_slug === undefined ||
+		pathParams.account_slug === null ||
+		String(pathParams.account_slug) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_slug`);
 	}
 	const data = await request<
@@ -3690,7 +4070,7 @@ export async function listSitesForAccount(
 		{ account_slug: string }
 	>({
 		method: "GET",
-		url: `/${pathParams.account_slug}/sites`,
+		url: `/${encodeURIComponent(String(pathParams.account_slug))}/sites`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3713,7 +4093,11 @@ export async function listMembersForAccount(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_slug) {
+	if (
+		pathParams.account_slug === undefined ||
+		pathParams.account_slug === null ||
+		String(pathParams.account_slug) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_slug`);
 	}
 	const data = await request<
@@ -3725,7 +4109,7 @@ export async function listMembersForAccount(
 		{ account_slug: string }
 	>({
 		method: "GET",
-		url: `/${pathParams.account_slug}/members`,
+		url: `/${encodeURIComponent(String(pathParams.account_slug))}/members`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3749,7 +4133,11 @@ export async function addMemberToAccount(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_slug) {
+	if (
+		pathParams.account_slug === undefined ||
+		pathParams.account_slug === null ||
+		String(pathParams.account_slug) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_slug`);
 	}
 	const data = await request<
@@ -3761,7 +4149,7 @@ export async function addMemberToAccount(
 		{ account_slug: string }
 	>({
 		method: "POST",
-		url: `/${pathParams.account_slug}/members`,
+		url: `/${encodeURIComponent(String(pathParams.account_slug))}/members`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3784,11 +4172,19 @@ export async function getAccountMember(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_slug) {
+	if (
+		pathParams.account_slug === undefined ||
+		pathParams.account_slug === null ||
+		String(pathParams.account_slug) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_slug`);
 	}
 
-	if (!pathParams.member_id) {
+	if (
+		pathParams.member_id === undefined ||
+		pathParams.member_id === null ||
+		String(pathParams.member_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: member_id`);
 	}
 	const data = await request<
@@ -3800,7 +4196,7 @@ export async function getAccountMember(
 		{ account_slug: string; member_id: string }
 	>({
 		method: "GET",
-		url: `/${pathParams.account_slug}/members/${pathParams.member_id}`,
+		url: `/${encodeURIComponent(String(pathParams.account_slug))}/members/${encodeURIComponent(String(pathParams.member_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3824,11 +4220,19 @@ export async function updateAccountMember(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_slug) {
+	if (
+		pathParams.account_slug === undefined ||
+		pathParams.account_slug === null ||
+		String(pathParams.account_slug) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_slug`);
 	}
 
-	if (!pathParams.member_id) {
+	if (
+		pathParams.member_id === undefined ||
+		pathParams.member_id === null ||
+		String(pathParams.member_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: member_id`);
 	}
 	const data = await request<
@@ -3840,7 +4244,7 @@ export async function updateAccountMember(
 		{ account_slug: string; member_id: string }
 	>({
 		method: "PUT",
-		url: `/${pathParams.account_slug}/members/${pathParams.member_id}`,
+		url: `/${encodeURIComponent(String(pathParams.account_slug))}/members/${encodeURIComponent(String(pathParams.member_id))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3863,11 +4267,19 @@ export async function removeAccountMember(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_slug) {
+	if (
+		pathParams.account_slug === undefined ||
+		pathParams.account_slug === null ||
+		String(pathParams.account_slug) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_slug`);
 	}
 
-	if (!pathParams.member_id) {
+	if (
+		pathParams.member_id === undefined ||
+		pathParams.member_id === null ||
+		String(pathParams.member_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: member_id`);
 	}
 	const data = await request<
@@ -3879,7 +4291,7 @@ export async function removeAccountMember(
 		{ account_slug: string; member_id: string }
 	>({
 		method: "DELETE",
-		url: `/${pathParams.account_slug}/members/${pathParams.member_id}`,
+		url: `/${encodeURIComponent(String(pathParams.account_slug))}/members/${encodeURIComponent(String(pathParams.member_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4015,7 +4427,11 @@ export async function getAccount(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_id) {
+	if (
+		pathParams.account_id === undefined ||
+		pathParams.account_id === null ||
+		String(pathParams.account_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_id`);
 	}
 	const data = await request<
@@ -4027,7 +4443,7 @@ export async function getAccount(
 		{ account_id: string }
 	>({
 		method: "GET",
-		url: `/accounts/${pathParams.account_id}`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4051,7 +4467,11 @@ export async function updateAccount(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_id) {
+	if (
+		pathParams.account_id === undefined ||
+		pathParams.account_id === null ||
+		String(pathParams.account_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_id`);
 	}
 	const data = await request<
@@ -4063,7 +4483,7 @@ export async function updateAccount(
 		{ account_id: string }
 	>({
 		method: "PUT",
-		url: `/accounts/${pathParams.account_id}`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4086,7 +4506,11 @@ export async function cancelAccount(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_id) {
+	if (
+		pathParams.account_id === undefined ||
+		pathParams.account_id === null ||
+		String(pathParams.account_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_id`);
 	}
 	const data = await request<
@@ -4098,7 +4522,7 @@ export async function cancelAccount(
 		{ account_id: string }
 	>({
 		method: "DELETE",
-		url: `/accounts/${pathParams.account_id}`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4122,7 +4546,11 @@ export async function listAccountAuditEvents(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_id) {
+	if (
+		pathParams.account_id === undefined ||
+		pathParams.account_id === null ||
+		String(pathParams.account_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_id`);
 	}
 	const data = await request<
@@ -4134,7 +4562,7 @@ export async function listAccountAuditEvents(
 		{ account_id: string }
 	>({
 		method: "GET",
-		url: `/accounts/${pathParams.account_id}/audit`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/audit`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4295,7 +4723,11 @@ export async function getAgentRunner(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.agent_runner_id) {
+	if (
+		pathParams.agent_runner_id === undefined ||
+		pathParams.agent_runner_id === null ||
+		String(pathParams.agent_runner_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_id`);
 	}
 	const data = await request<
@@ -4307,7 +4739,7 @@ export async function getAgentRunner(
 		{ agent_runner_id: string }
 	>({
 		method: "GET",
-		url: `/agent_runners/${pathParams.agent_runner_id}`,
+		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4329,7 +4761,11 @@ export async function updateAgentRunner(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.agent_runner_id) {
+	if (
+		pathParams.agent_runner_id === undefined ||
+		pathParams.agent_runner_id === null ||
+		String(pathParams.agent_runner_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_id`);
 	}
 	const data = await request<
@@ -4341,7 +4777,7 @@ export async function updateAgentRunner(
 		{ agent_runner_id: string }
 	>({
 		method: "PATCH",
-		url: `/agent_runners/${pathParams.agent_runner_id}`,
+		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4363,7 +4799,11 @@ export async function deleteAgentRunner(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.agent_runner_id) {
+	if (
+		pathParams.agent_runner_id === undefined ||
+		pathParams.agent_runner_id === null ||
+		String(pathParams.agent_runner_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_id`);
 	}
 	const data = await request<
@@ -4375,7 +4815,7 @@ export async function deleteAgentRunner(
 		{ agent_runner_id: string }
 	>({
 		method: "DELETE",
-		url: `/agent_runners/${pathParams.agent_runner_id}`,
+		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4397,7 +4837,11 @@ export async function archiveAgentRunner(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.agent_runner_id) {
+	if (
+		pathParams.agent_runner_id === undefined ||
+		pathParams.agent_runner_id === null ||
+		String(pathParams.agent_runner_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_id`);
 	}
 	const data = await request<
@@ -4409,7 +4853,7 @@ export async function archiveAgentRunner(
 		{ agent_runner_id: string }
 	>({
 		method: "POST",
-		url: `/agent_runners/${pathParams.agent_runner_id}/archive`,
+		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/archive`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4431,7 +4875,11 @@ export async function agentRunnerPullRequest(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.agent_runner_id) {
+	if (
+		pathParams.agent_runner_id === undefined ||
+		pathParams.agent_runner_id === null ||
+		String(pathParams.agent_runner_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_id`);
 	}
 	const data = await request<
@@ -4447,7 +4895,7 @@ export async function agentRunnerPullRequest(
 		{ agent_runner_id: string }
 	>({
 		method: "POST",
-		url: `/agent_runners/${pathParams.agent_runner_id}/pull_request`,
+		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/pull_request`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4471,7 +4919,11 @@ export async function agentRunnerCommitToBranch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.agent_runner_id) {
+	if (
+		pathParams.agent_runner_id === undefined ||
+		pathParams.agent_runner_id === null ||
+		String(pathParams.agent_runner_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_id`);
 	}
 	const data = await request<
@@ -4487,7 +4939,7 @@ export async function agentRunnerCommitToBranch(
 		{ agent_runner_id: string }
 	>({
 		method: "POST",
-		url: `/agent_runners/${pathParams.agent_runner_id}/commit`,
+		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/commit`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4519,7 +4971,11 @@ export async function listAgentRunnerSessions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.agent_runner_id) {
+	if (
+		pathParams.agent_runner_id === undefined ||
+		pathParams.agent_runner_id === null ||
+		String(pathParams.agent_runner_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_id`);
 	}
 	const data = await request<
@@ -4538,7 +4994,7 @@ export async function listAgentRunnerSessions(
 		{ agent_runner_id: string }
 	>({
 		method: "GET",
-		url: `/agent_runners/${pathParams.agent_runner_id}/sessions`,
+		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/sessions`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4563,7 +5019,11 @@ export async function createAgentRunnerSession(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.agent_runner_id) {
+	if (
+		pathParams.agent_runner_id === undefined ||
+		pathParams.agent_runner_id === null ||
+		String(pathParams.agent_runner_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_id`);
 	}
 	const data = await request<
@@ -4575,7 +5035,7 @@ export async function createAgentRunnerSession(
 		{ agent_runner_id: string }
 	>({
 		method: "POST",
-		url: `/agent_runners/${pathParams.agent_runner_id}/sessions`,
+		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/sessions`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4598,11 +5058,19 @@ export async function getAgentRunnerSession(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.agent_runner_id) {
+	if (
+		pathParams.agent_runner_id === undefined ||
+		pathParams.agent_runner_id === null ||
+		String(pathParams.agent_runner_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_id`);
 	}
 
-	if (!pathParams.agent_runner_session_id) {
+	if (
+		pathParams.agent_runner_session_id === undefined ||
+		pathParams.agent_runner_session_id === null ||
+		String(pathParams.agent_runner_session_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_session_id`);
 	}
 	const data = await request<
@@ -4614,7 +5082,7 @@ export async function getAgentRunnerSession(
 		{ agent_runner_id: string; agent_runner_session_id: string }
 	>({
 		method: "GET",
-		url: `/agent_runners/${pathParams.agent_runner_id}/sessions/${pathParams.agent_runner_session_id}`,
+		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/sessions/${encodeURIComponent(String(pathParams.agent_runner_session_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4638,11 +5106,19 @@ export async function updateAgentRunnerSession(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.agent_runner_id) {
+	if (
+		pathParams.agent_runner_id === undefined ||
+		pathParams.agent_runner_id === null ||
+		String(pathParams.agent_runner_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_id`);
 	}
 
-	if (!pathParams.agent_runner_session_id) {
+	if (
+		pathParams.agent_runner_session_id === undefined ||
+		pathParams.agent_runner_session_id === null ||
+		String(pathParams.agent_runner_session_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_session_id`);
 	}
 	const data = await request<
@@ -4654,7 +5130,7 @@ export async function updateAgentRunnerSession(
 		{ agent_runner_id: string; agent_runner_session_id: string }
 	>({
 		method: "PATCH",
-		url: `/agent_runners/${pathParams.agent_runner_id}/sessions/${pathParams.agent_runner_session_id}`,
+		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/sessions/${encodeURIComponent(String(pathParams.agent_runner_session_id))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4677,11 +5153,19 @@ export async function deleteAgentRunnerSession(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.agent_runner_id) {
+	if (
+		pathParams.agent_runner_id === undefined ||
+		pathParams.agent_runner_id === null ||
+		String(pathParams.agent_runner_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_id`);
 	}
 
-	if (!pathParams.agent_runner_session_id) {
+	if (
+		pathParams.agent_runner_session_id === undefined ||
+		pathParams.agent_runner_session_id === null ||
+		String(pathParams.agent_runner_session_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: agent_runner_session_id`);
 	}
 	const data = await request<
@@ -4693,7 +5177,7 @@ export async function deleteAgentRunnerSession(
 		{ agent_runner_id: string; agent_runner_session_id: string }
 	>({
 		method: "DELETE",
-		url: `/agent_runners/${pathParams.agent_runner_id}/sessions/${pathParams.agent_runner_session_id}`,
+		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/sessions/${encodeURIComponent(String(pathParams.agent_runner_session_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4717,7 +5201,11 @@ export async function listFormSubmission(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.submission_id) {
+	if (
+		pathParams.submission_id === undefined ||
+		pathParams.submission_id === null ||
+		String(pathParams.submission_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: submission_id`);
 	}
 	const data = await request<
@@ -4729,7 +5217,7 @@ export async function listFormSubmission(
 		{ submission_id: string }
 	>({
 		method: "GET",
-		url: `/submissions/${pathParams.submission_id}`,
+		url: `/submissions/${encodeURIComponent(String(pathParams.submission_id))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4752,7 +5240,11 @@ export async function deleteSubmission(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.submission_id) {
+	if (
+		pathParams.submission_id === undefined ||
+		pathParams.submission_id === null ||
+		String(pathParams.submission_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: submission_id`);
 	}
 	const data = await request<
@@ -4764,7 +5256,7 @@ export async function deleteSubmission(
 		{ submission_id: string }
 	>({
 		method: "DELETE",
-		url: `/submissions/${pathParams.submission_id}`,
+		url: `/submissions/${encodeURIComponent(String(pathParams.submission_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4786,7 +5278,11 @@ export async function listServiceInstancesForSite(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -4798,7 +5294,7 @@ export async function listServiceInstancesForSite(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/service-instances`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/service-instances`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4822,11 +5318,19 @@ export async function createServiceInstance(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.addon) {
+	if (
+		pathParams.addon === undefined ||
+		pathParams.addon === null ||
+		String(pathParams.addon) === ""
+	) {
 		throw new Error(`Missing required path parameter: addon`);
 	}
 	const data = await request<
@@ -4838,7 +5342,7 @@ export async function createServiceInstance(
 		{ site_id: string; addon: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/services/${pathParams.addon}/instances`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/services/${encodeURIComponent(String(pathParams.addon))}/instances`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4861,15 +5365,27 @@ export async function showServiceInstance(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.addon) {
+	if (
+		pathParams.addon === undefined ||
+		pathParams.addon === null ||
+		String(pathParams.addon) === ""
+	) {
 		throw new Error(`Missing required path parameter: addon`);
 	}
 
-	if (!pathParams.instance_id) {
+	if (
+		pathParams.instance_id === undefined ||
+		pathParams.instance_id === null ||
+		String(pathParams.instance_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: instance_id`);
 	}
 	const data = await request<
@@ -4881,7 +5397,7 @@ export async function showServiceInstance(
 		{ site_id: string; addon: string; instance_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/services/${pathParams.addon}/instances/${pathParams.instance_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/services/${encodeURIComponent(String(pathParams.addon))}/instances/${encodeURIComponent(String(pathParams.instance_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4905,15 +5421,27 @@ export async function updateServiceInstance(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.addon) {
+	if (
+		pathParams.addon === undefined ||
+		pathParams.addon === null ||
+		String(pathParams.addon) === ""
+	) {
 		throw new Error(`Missing required path parameter: addon`);
 	}
 
-	if (!pathParams.instance_id) {
+	if (
+		pathParams.instance_id === undefined ||
+		pathParams.instance_id === null ||
+		String(pathParams.instance_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: instance_id`);
 	}
 	const data = await request<
@@ -4925,7 +5453,7 @@ export async function updateServiceInstance(
 		{ site_id: string; addon: string; instance_id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/services/${pathParams.addon}/instances/${pathParams.instance_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/services/${encodeURIComponent(String(pathParams.addon))}/instances/${encodeURIComponent(String(pathParams.instance_id))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4948,15 +5476,27 @@ export async function deleteServiceInstance(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.addon) {
+	if (
+		pathParams.addon === undefined ||
+		pathParams.addon === null ||
+		String(pathParams.addon) === ""
+	) {
 		throw new Error(`Missing required path parameter: addon`);
 	}
 
-	if (!pathParams.instance_id) {
+	if (
+		pathParams.instance_id === undefined ||
+		pathParams.instance_id === null ||
+		String(pathParams.instance_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: instance_id`);
 	}
 	const data = await request<
@@ -4968,7 +5508,7 @@ export async function deleteServiceInstance(
 		{ site_id: string; addon: string; instance_id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}/services/${pathParams.addon}/instances/${pathParams.instance_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/services/${encodeURIComponent(String(pathParams.addon))}/instances/${encodeURIComponent(String(pathParams.instance_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5022,7 +5562,11 @@ export async function showService(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.addonName) {
+	if (
+		pathParams.addonName === undefined ||
+		pathParams.addonName === null ||
+		String(pathParams.addonName) === ""
+	) {
 		throw new Error(`Missing required path parameter: addonName`);
 	}
 	const data = await request<
@@ -5034,7 +5578,7 @@ export async function showService(
 		{ addonName: string }
 	>({
 		method: "GET",
-		url: `/services/${pathParams.addonName}`,
+		url: `/services/${encodeURIComponent(String(pathParams.addonName))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5056,7 +5600,11 @@ export async function showServiceManifest(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.addonName) {
+	if (
+		pathParams.addonName === undefined ||
+		pathParams.addonName === null ||
+		String(pathParams.addonName) === ""
+	) {
 		throw new Error(`Missing required path parameter: addonName`);
 	}
 	const data = await request<
@@ -5068,7 +5616,7 @@ export async function showServiceManifest(
 		{ addonName: string }
 	>({
 		method: "GET",
-		url: `/services/${pathParams.addonName}/manifest`,
+		url: `/services/${encodeURIComponent(String(pathParams.addonName))}/manifest`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5117,7 +5665,11 @@ export async function createSplitTest(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -5129,7 +5681,7 @@ export async function createSplitTest(
 		{ site_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/traffic_splits`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/traffic_splits`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5152,7 +5704,11 @@ export async function getSplitTests(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -5164,7 +5720,7 @@ export async function getSplitTests(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/traffic_splits`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/traffic_splits`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5188,11 +5744,19 @@ export async function updateSplitTest(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.split_test_id) {
+	if (
+		pathParams.split_test_id === undefined ||
+		pathParams.split_test_id === null ||
+		String(pathParams.split_test_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: split_test_id`);
 	}
 	const data = await request<
@@ -5204,7 +5768,7 @@ export async function updateSplitTest(
 		{ site_id: string; split_test_id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/traffic_splits/${pathParams.split_test_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/traffic_splits/${encodeURIComponent(String(pathParams.split_test_id))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5227,11 +5791,19 @@ export async function getSplitTest(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.split_test_id) {
+	if (
+		pathParams.split_test_id === undefined ||
+		pathParams.split_test_id === null ||
+		String(pathParams.split_test_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: split_test_id`);
 	}
 	const data = await request<
@@ -5243,7 +5815,7 @@ export async function getSplitTest(
 		{ site_id: string; split_test_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/traffic_splits/${pathParams.split_test_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/traffic_splits/${encodeURIComponent(String(pathParams.split_test_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5265,11 +5837,19 @@ export async function enableSplitTest(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.split_test_id) {
+	if (
+		pathParams.split_test_id === undefined ||
+		pathParams.split_test_id === null ||
+		String(pathParams.split_test_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: split_test_id`);
 	}
 	const data = await request<
@@ -5281,7 +5861,7 @@ export async function enableSplitTest(
 		{ site_id: string; split_test_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/traffic_splits/${pathParams.split_test_id}/publish`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/traffic_splits/${encodeURIComponent(String(pathParams.split_test_id))}/publish`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5303,11 +5883,19 @@ export async function disableSplitTest(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.split_test_id) {
+	if (
+		pathParams.split_test_id === undefined ||
+		pathParams.split_test_id === null ||
+		String(pathParams.split_test_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: split_test_id`);
 	}
 	const data = await request<
@@ -5319,7 +5907,7 @@ export async function disableSplitTest(
 		{ site_id: string; split_test_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/traffic_splits/${pathParams.split_test_id}/unpublish`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/traffic_splits/${encodeURIComponent(String(pathParams.split_test_id))}/unpublish`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5405,7 +5993,11 @@ export async function getDnsZone(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.zone_id) {
+	if (
+		pathParams.zone_id === undefined ||
+		pathParams.zone_id === null ||
+		String(pathParams.zone_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: zone_id`);
 	}
 	const data = await request<
@@ -5417,7 +6009,7 @@ export async function getDnsZone(
 		{ zone_id: string }
 	>({
 		method: "GET",
-		url: `/dns_zones/${pathParams.zone_id}`,
+		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5439,7 +6031,11 @@ export async function deleteDnsZone(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.zone_id) {
+	if (
+		pathParams.zone_id === undefined ||
+		pathParams.zone_id === null ||
+		String(pathParams.zone_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: zone_id`);
 	}
 	const data = await request<
@@ -5451,7 +6047,7 @@ export async function deleteDnsZone(
 		{ zone_id: string }
 	>({
 		method: "DELETE",
-		url: `/dns_zones/${pathParams.zone_id}`,
+		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5475,7 +6071,11 @@ export async function transferDnsZone(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.zone_id) {
+	if (
+		pathParams.zone_id === undefined ||
+		pathParams.zone_id === null ||
+		String(pathParams.zone_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: zone_id`);
 	}
 	const data = await request<
@@ -5487,7 +6087,7 @@ export async function transferDnsZone(
 		{ zone_id: string }
 	>({
 		method: "PUT",
-		url: `/dns_zones/${pathParams.zone_id}/transfer`,
+		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}/transfer`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5510,7 +6110,11 @@ export async function getDnsRecords(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.zone_id) {
+	if (
+		pathParams.zone_id === undefined ||
+		pathParams.zone_id === null ||
+		String(pathParams.zone_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: zone_id`);
 	}
 	const data = await request<
@@ -5522,7 +6126,7 @@ export async function getDnsRecords(
 		{ zone_id: string }
 	>({
 		method: "GET",
-		url: `/dns_zones/${pathParams.zone_id}/dns_records`,
+		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}/dns_records`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5546,7 +6150,11 @@ export async function createDnsRecord(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.zone_id) {
+	if (
+		pathParams.zone_id === undefined ||
+		pathParams.zone_id === null ||
+		String(pathParams.zone_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: zone_id`);
 	}
 	const data = await request<
@@ -5558,7 +6166,7 @@ export async function createDnsRecord(
 		{ zone_id: string }
 	>({
 		method: "POST",
-		url: `/dns_zones/${pathParams.zone_id}/dns_records`,
+		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}/dns_records`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5581,11 +6189,19 @@ export async function getIndividualDnsRecord(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.zone_id) {
+	if (
+		pathParams.zone_id === undefined ||
+		pathParams.zone_id === null ||
+		String(pathParams.zone_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: zone_id`);
 	}
 
-	if (!pathParams.dns_record_id) {
+	if (
+		pathParams.dns_record_id === undefined ||
+		pathParams.dns_record_id === null ||
+		String(pathParams.dns_record_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: dns_record_id`);
 	}
 	const data = await request<
@@ -5597,7 +6213,7 @@ export async function getIndividualDnsRecord(
 		{ zone_id: string; dns_record_id: string }
 	>({
 		method: "GET",
-		url: `/dns_zones/${pathParams.zone_id}/dns_records/${pathParams.dns_record_id}`,
+		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}/dns_records/${encodeURIComponent(String(pathParams.dns_record_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5619,11 +6235,19 @@ export async function deleteDnsRecord(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.zone_id) {
+	if (
+		pathParams.zone_id === undefined ||
+		pathParams.zone_id === null ||
+		String(pathParams.zone_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: zone_id`);
 	}
 
-	if (!pathParams.dns_record_id) {
+	if (
+		pathParams.dns_record_id === undefined ||
+		pathParams.dns_record_id === null ||
+		String(pathParams.dns_record_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: dns_record_id`);
 	}
 	const data = await request<
@@ -5635,7 +6259,7 @@ export async function deleteDnsRecord(
 		{ zone_id: string; dns_record_id: string }
 	>({
 		method: "DELETE",
-		url: `/dns_zones/${pathParams.zone_id}/dns_records/${pathParams.dns_record_id}`,
+		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}/dns_records/${encodeURIComponent(String(pathParams.dns_record_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5659,7 +6283,11 @@ export async function listSiteDevServers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -5671,7 +6299,7 @@ export async function listSiteDevServers(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/dev_servers`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_servers`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5696,7 +6324,11 @@ export async function createSiteDevServer(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -5708,7 +6340,7 @@ export async function createSiteDevServer(
 		{ site_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/dev_servers`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_servers`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5733,7 +6365,11 @@ export async function deleteSiteDevServers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -5745,7 +6381,7 @@ export async function deleteSiteDevServers(
 		{ site_id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}/dev_servers`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_servers`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5768,11 +6404,19 @@ export async function getSiteDevServer(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.dev_server_id) {
+	if (
+		pathParams.dev_server_id === undefined ||
+		pathParams.dev_server_id === null ||
+		String(pathParams.dev_server_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: dev_server_id`);
 	}
 	const data = await request<
@@ -5784,7 +6428,7 @@ export async function getSiteDevServer(
 		{ site_id: string; dev_server_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/dev_servers/${pathParams.dev_server_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_servers/${encodeURIComponent(String(pathParams.dev_server_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5806,11 +6450,19 @@ export async function markDevServerActivity(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.dev_server_id) {
+	if (
+		pathParams.dev_server_id === undefined ||
+		pathParams.dev_server_id === null ||
+		String(pathParams.dev_server_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: dev_server_id`);
 	}
 	const data = await request<
@@ -5822,7 +6474,7 @@ export async function markDevServerActivity(
 		{ site_id: string; dev_server_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/dev_servers/${pathParams.dev_server_id}/activity`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_servers/${encodeURIComponent(String(pathParams.dev_server_id))}/activity`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5846,11 +6498,19 @@ export async function updateDevServerState(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.dev_server_id) {
+	if (
+		pathParams.dev_server_id === undefined ||
+		pathParams.dev_server_id === null ||
+		String(pathParams.dev_server_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: dev_server_id`);
 	}
 	const data = await request<
@@ -5862,7 +6522,7 @@ export async function updateDevServerState(
 		{ site_id: string; dev_server_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/dev_servers/${pathParams.dev_server_id}/state`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_servers/${encodeURIComponent(String(pathParams.dev_server_id))}/state`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5885,7 +6545,11 @@ export async function listSiteDevServerHooks(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -5897,7 +6561,7 @@ export async function listSiteDevServerHooks(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/dev_server_hooks`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_server_hooks`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5921,7 +6585,11 @@ export async function createSiteDevServerHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -5933,7 +6601,7 @@ export async function createSiteDevServerHook(
 		{ site_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/dev_server_hooks`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_server_hooks`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5956,11 +6624,15 @@ export async function getSiteDevServerHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -5972,7 +6644,7 @@ export async function getSiteDevServerHook(
 		{ site_id: string; id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/dev_server_hooks/${pathParams.id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_server_hooks/${encodeURIComponent(String(pathParams.id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5996,11 +6668,15 @@ export async function updateSiteDevServerHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -6012,7 +6688,7 @@ export async function updateSiteDevServerHook(
 		{ site_id: string; id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/dev_server_hooks/${pathParams.id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_server_hooks/${encodeURIComponent(String(pathParams.id))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6035,11 +6711,15 @@ export async function deleteSiteDevServerHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -6051,7 +6731,7 @@ export async function deleteSiteDevServerHook(
 		{ site_id: string; id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}/dev_server_hooks/${pathParams.id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_server_hooks/${encodeURIComponent(String(pathParams.id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6073,7 +6753,11 @@ export async function listSiteAgentRunnerHooks(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6085,7 +6769,7 @@ export async function listSiteAgentRunnerHooks(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/agent_runner_hooks`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/agent_runner_hooks`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6109,7 +6793,11 @@ export async function createSiteAgentRunnerHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6121,7 +6809,7 @@ export async function createSiteAgentRunnerHook(
 		{ site_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/agent_runner_hooks`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/agent_runner_hooks`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6144,11 +6832,15 @@ export async function getSiteAgentRunnerHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -6160,7 +6852,7 @@ export async function getSiteAgentRunnerHook(
 		{ site_id: string; id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/agent_runner_hooks/${pathParams.id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/agent_runner_hooks/${encodeURIComponent(String(pathParams.id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6184,11 +6876,15 @@ export async function updateSiteAgentRunnerHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -6200,7 +6896,7 @@ export async function updateSiteAgentRunnerHook(
 		{ site_id: string; id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/agent_runner_hooks/${pathParams.id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/agent_runner_hooks/${encodeURIComponent(String(pathParams.id))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6223,11 +6919,15 @@ export async function deleteSiteAgentRunnerHook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -6239,7 +6939,7 @@ export async function deleteSiteAgentRunnerHook(
 		{ site_id: string; id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}/agent_runner_hooks/${pathParams.id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/agent_runner_hooks/${encodeURIComponent(String(pathParams.id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6287,7 +6987,11 @@ export async function getAIGatewayToken(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6299,7 +7003,7 @@ export async function getAIGatewayToken(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/ai-gateway/token`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/ai-gateway/token`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6322,7 +7026,11 @@ export async function getAccountAIGatewayToken(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.account_id) {
+	if (
+		pathParams.account_id === undefined ||
+		pathParams.account_id === null ||
+		String(pathParams.account_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: account_id`);
 	}
 	const data = await request<
@@ -6334,7 +7042,7 @@ export async function getAccountAIGatewayToken(
 		{ account_id: string }
 	>({
 		method: "GET",
-		url: `/accounts/${pathParams.account_id}/ai-gateway/token`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/ai-gateway/token`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6359,7 +7067,11 @@ export async function createSiteDatabase(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6371,7 +7083,7 @@ export async function createSiteDatabase(
 		{ site_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/database`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6397,7 +7109,11 @@ export async function getSiteDatabase(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6409,7 +7125,7 @@ export async function getSiteDatabase(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/database`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6433,7 +7149,11 @@ export async function deleteSiteDatabase(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6445,7 +7165,7 @@ export async function deleteSiteDatabase(
 		{ site_id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}/database`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6470,7 +7190,11 @@ export async function createSiteDatabaseBranch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6482,7 +7206,7 @@ export async function createSiteDatabaseBranch(
 		{ site_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/database/branch`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/branch`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6506,7 +7230,11 @@ export async function listSiteDatabaseBranches(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6518,7 +7246,7 @@ export async function listSiteDatabaseBranches(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/database/branches`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/branches`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6543,11 +7271,19 @@ export async function getSiteDatabaseBranch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.branch_id) {
+	if (
+		pathParams.branch_id === undefined ||
+		pathParams.branch_id === null ||
+		String(pathParams.branch_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: branch_id`);
 	}
 	const data = await request<
@@ -6559,7 +7295,7 @@ export async function getSiteDatabaseBranch(
 		{ site_id: string; branch_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/database/branch/${pathParams.branch_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/branch/${encodeURIComponent(String(pathParams.branch_id))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6583,11 +7319,19 @@ export async function deleteSiteDatabaseBranch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.branch_id) {
+	if (
+		pathParams.branch_id === undefined ||
+		pathParams.branch_id === null ||
+		String(pathParams.branch_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: branch_id`);
 	}
 	const data = await request<
@@ -6599,7 +7343,7 @@ export async function deleteSiteDatabaseBranch(
 		{ site_id: string; branch_id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}/database/branch/${pathParams.branch_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/branch/${encodeURIComponent(String(pathParams.branch_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6626,11 +7370,19 @@ export async function resetSiteDatabaseBranch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.branch_id) {
+	if (
+		pathParams.branch_id === undefined ||
+		pathParams.branch_id === null ||
+		String(pathParams.branch_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: branch_id`);
 	}
 	const data = await request<
@@ -6642,7 +7394,7 @@ export async function resetSiteDatabaseBranch(
 		{ site_id: string; branch_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/database/branch/${pathParams.branch_id}/reset`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/branch/${encodeURIComponent(String(pathParams.branch_id))}/reset`,
 		queryParams,
 		body: body,
 		...requestConfig,
@@ -6669,11 +7421,19 @@ export async function setSiteDatabaseBranchComputeSettings(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.branch_id) {
+	if (
+		pathParams.branch_id === undefined ||
+		pathParams.branch_id === null ||
+		String(pathParams.branch_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: branch_id`);
 	}
 	const data = await request<
@@ -6685,7 +7445,7 @@ export async function setSiteDatabaseBranchComputeSettings(
 		{ site_id: string; branch_id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/database/branch/${pathParams.branch_id}/compute/settings`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/branch/${encodeURIComponent(String(pathParams.branch_id))}/compute/settings`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6711,7 +7471,11 @@ export async function setSiteDatabaseComputeSettings(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6723,7 +7487,7 @@ export async function setSiteDatabaseComputeSettings(
 		{ site_id: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/database/compute/settings`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/compute/settings`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6747,7 +7511,11 @@ export async function getSiteDatabaseComputeSettings(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6759,7 +7527,7 @@ export async function getSiteDatabaseComputeSettings(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/database/compute/settings`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/compute/settings`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6782,7 +7550,11 @@ export async function clearSiteDatabaseComputeSettings(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6794,7 +7566,7 @@ export async function clearSiteDatabaseComputeSettings(
 		{ site_id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}/database/compute/settings`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/compute/settings`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6819,7 +7591,11 @@ export async function listSiteDatabaseMigrations(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6831,7 +7607,7 @@ export async function listSiteDatabaseMigrations(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/database/migrations`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/migrations`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6857,11 +7633,15 @@ export async function getSiteDatabaseMigration(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.name) {
+	if (pathParams.name === undefined || pathParams.name === null || String(pathParams.name) === "") {
 		throw new Error(`Missing required path parameter: name`);
 	}
 	const data = await request<
@@ -6873,7 +7653,7 @@ export async function getSiteDatabaseMigration(
 		{ site_id: string; name: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/database/migrations/${pathParams.name}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/migrations/${encodeURIComponent(String(pathParams.name))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6899,11 +7679,19 @@ export async function runSiteDatabaseMigrations(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.deploy_id) {
+	if (
+		pathParams.deploy_id === undefined ||
+		pathParams.deploy_id === null ||
+		String(pathParams.deploy_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploy_id`);
 	}
 	const data = await request<
@@ -6915,7 +7703,7 @@ export async function runSiteDatabaseMigrations(
 		{ site_id: string; deploy_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/database/migrations/${pathParams.deploy_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/migrations/${encodeURIComponent(String(pathParams.deploy_id))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6941,7 +7729,11 @@ export async function createSiteDatabaseSnapshot(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6953,7 +7745,7 @@ export async function createSiteDatabaseSnapshot(
 		{ site_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/database/snapshot`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/snapshot`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6977,7 +7769,11 @@ export async function listSiteDatabaseSnapshots(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 	const data = await request<
@@ -6989,7 +7785,7 @@ export async function listSiteDatabaseSnapshots(
 		{ site_id: string }
 	>({
 		method: "GET",
-		url: `/sites/${pathParams.site_id}/database/snapshots`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/snapshots`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7012,11 +7808,19 @@ export async function deleteSiteDatabaseSnapshot(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.snapshot_id) {
+	if (
+		pathParams.snapshot_id === undefined ||
+		pathParams.snapshot_id === null ||
+		String(pathParams.snapshot_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: snapshot_id`);
 	}
 	const data = await request<
@@ -7028,7 +7832,7 @@ export async function deleteSiteDatabaseSnapshot(
 		{ site_id: string; snapshot_id: string }
 	>({
 		method: "DELETE",
-		url: `/sites/${pathParams.site_id}/database/snapshot/${pathParams.snapshot_id}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/snapshot/${encodeURIComponent(String(pathParams.snapshot_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7053,11 +7857,19 @@ export async function restoreSiteDatabaseSnapshot(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams.snapshot_id) {
+	if (
+		pathParams.snapshot_id === undefined ||
+		pathParams.snapshot_id === null ||
+		String(pathParams.snapshot_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: snapshot_id`);
 	}
 	const data = await request<
@@ -7069,7 +7881,7 @@ export async function restoreSiteDatabaseSnapshot(
 		{ site_id: string; snapshot_id: string }
 	>({
 		method: "POST",
-		url: `/sites/${pathParams.site_id}/database/snapshot/${pathParams.snapshot_id}/restore`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/snapshot/${encodeURIComponent(String(pathParams.snapshot_id))}/restore`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7095,11 +7907,19 @@ export async function updatePlugin(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.site_id) {
+	if (
+		pathParams.site_id === undefined ||
+		pathParams.site_id === null ||
+		String(pathParams.site_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
 
-	if (!pathParams._package) {
+	if (
+		pathParams._package === undefined ||
+		pathParams._package === null ||
+		String(pathParams._package) === ""
+	) {
 		throw new Error(`Missing required path parameter: _package`);
 	}
 	const data = await request<
@@ -7111,7 +7931,7 @@ export async function updatePlugin(
 		{ site_id: string; _package: string }
 	>({
 		method: "PUT",
-		url: `/sites/${pathParams.site_id}/plugins/${pathParams._package}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/plugins/${encodeURIComponent(String(pathParams._package))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },

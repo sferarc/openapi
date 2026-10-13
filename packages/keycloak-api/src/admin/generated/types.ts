@@ -2465,7 +2465,7 @@ export type GETAdminRealmsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsResponse = GETAdminRealmsStatus200 | GETAdminRealmsStatus403;
+export type GETAdminRealmsResponse = GETAdminRealmsStatus200;
 
 export type POSTAdminRealmsStatus201 = unknown;
 
@@ -2497,12 +2497,7 @@ export type POSTAdminRealmsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type POSTAdminRealmsResponse =
-	| POSTAdminRealmsStatus201
-	| POSTAdminRealmsStatus400
-	| POSTAdminRealmsStatus403
-	| POSTAdminRealmsStatus409
-	| POSTAdminRealmsStatus500;
+export type POSTAdminRealmsResponse = POSTAdminRealmsStatus201;
 
 export type GETAdminRealmsRealmPath = {
 	/**
@@ -2531,9 +2526,7 @@ export type GETAdminRealmsRealmResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmResponse =
-	| GETAdminRealmsRealmStatus200
-	| GETAdminRealmsRealmStatus403;
+export type GETAdminRealmsRealmResponse = GETAdminRealmsRealmStatus200;
 
 export type PUTAdminRealmsRealmPath = {
 	/**
@@ -2576,13 +2569,7 @@ export type PUTAdminRealmsRealmResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PUTAdminRealmsRealmResponse =
-	| PUTAdminRealmsRealmStatus204
-	| PUTAdminRealmsRealmStatus400
-	| PUTAdminRealmsRealmStatus403
-	| PUTAdminRealmsRealmStatus404
-	| PUTAdminRealmsRealmStatus409
-	| PUTAdminRealmsRealmStatus500;
+export type PUTAdminRealmsRealmResponse = PUTAdminRealmsRealmStatus204;
 
 export type DELETEAdminRealmsRealmPath = {
 	/**
@@ -2617,11 +2604,7 @@ export type DELETEAdminRealmsRealmResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DELETEAdminRealmsRealmResponse =
-	| DELETEAdminRealmsRealmStatus204
-	| DELETEAdminRealmsRealmStatus400
-	| DELETEAdminRealmsRealmStatus403
-	| DELETEAdminRealmsRealmStatus404;
+export type DELETEAdminRealmsRealmResponse = DELETEAdminRealmsRealmStatus204;
 
 export type GETAdminRealmsRealmAdminEventsPath = {
 	/**
@@ -2695,10 +2678,7 @@ export type GETAdminRealmsRealmAdminEventsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmAdminEventsResponse =
-	| GETAdminRealmsRealmAdminEventsStatus200
-	| GETAdminRealmsRealmAdminEventsStatus400
-	| GETAdminRealmsRealmAdminEventsStatus403;
+export type GETAdminRealmsRealmAdminEventsResponse = GETAdminRealmsRealmAdminEventsStatus200;
 
 export type DELETEAdminRealmsRealmAdminEventsPath = {
 	/**
@@ -2727,9 +2707,7 @@ export type DELETEAdminRealmsRealmAdminEventsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DELETEAdminRealmsRealmAdminEventsResponse =
-	| DELETEAdminRealmsRealmAdminEventsStatus204
-	| DELETEAdminRealmsRealmAdminEventsStatus403;
+export type DELETEAdminRealmsRealmAdminEventsResponse = DELETEAdminRealmsRealmAdminEventsStatus204;
 
 export type DELETEAdminRealmsRealmAttackDetectionBruteForceUsersPath = {
 	/**
@@ -2910,8 +2888,7 @@ export type POSTAdminRealmsRealmAuthenticationConfigResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmAuthenticationConfigResponse =
-	| POSTAdminRealmsRealmAuthenticationConfigStatus201
-	| POSTAdminRealmsRealmAuthenticationConfigStatus409;
+	POSTAdminRealmsRealmAuthenticationConfigStatus201;
 
 export type GETAdminRealmsRealmAuthenticationConfigDescriptionProviderIdPath = {
 	/**
@@ -3171,8 +3148,7 @@ export type POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigRespons
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigResponse =
-	| POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigStatus201
-	| POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigStatus409;
+	POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigStatus201;
 
 export type GETAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigIdPath = {
 	/**
@@ -3339,8 +3315,7 @@ export type POSTAdminRealmsRealmAuthenticationFlowsResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmAuthenticationFlowsResponse =
-	| POSTAdminRealmsRealmAuthenticationFlowsStatus201
-	| POSTAdminRealmsRealmAuthenticationFlowsStatus409;
+	POSTAdminRealmsRealmAuthenticationFlowsStatus201;
 
 export type POSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyPath = {
 	/**
@@ -3381,8 +3356,7 @@ export type POSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyResponse =
-	| POSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyStatus201
-	| POSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyStatus409;
+	POSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyStatus201;
 
 export type GETAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsPath = {
 	/**
@@ -3454,8 +3428,7 @@ export type PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsResponses =
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsResponse =
-	| PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsStatus204
-	| PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsStatus409;
+	PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsStatus204;
 
 export type POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsExecutionPath = {
 	/**
@@ -3534,8 +3507,7 @@ export type POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowRespon
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowResponse =
-	| POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowStatus201
-	| POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowStatus409;
+	POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowStatus201;
 
 export type GETAdminRealmsRealmAuthenticationFlowsIdPath = {
 	/**
@@ -3602,8 +3574,7 @@ export type PUTAdminRealmsRealmAuthenticationFlowsIdResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmAuthenticationFlowsIdResponse =
-	| PUTAdminRealmsRealmAuthenticationFlowsIdStatus204
-	| PUTAdminRealmsRealmAuthenticationFlowsIdStatus409;
+	PUTAdminRealmsRealmAuthenticationFlowsIdStatus204;
 
 export type DELETEAdminRealmsRealmAuthenticationFlowsIdPath = {
 	/**
@@ -4146,9 +4117,7 @@ export type POSTAdminRealmsRealmClientDescriptionConverterResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmClientDescriptionConverterResponse =
-	| POSTAdminRealmsRealmClientDescriptionConverterStatus200
-	| POSTAdminRealmsRealmClientDescriptionConverterStatus403
-	| POSTAdminRealmsRealmClientDescriptionConverterStatus404;
+	POSTAdminRealmsRealmClientDescriptionConverterStatus200;
 
 export type GETAdminRealmsRealmClientPoliciesPoliciesPath = {
 	/**
@@ -4329,9 +4298,7 @@ export type GETAdminRealmsRealmClientScopesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmClientScopesResponse =
-	| GETAdminRealmsRealmClientScopesStatus200
-	| GETAdminRealmsRealmClientScopesStatus403;
+export type GETAdminRealmsRealmClientScopesResponse = GETAdminRealmsRealmClientScopesStatus200;
 
 export type POSTAdminRealmsRealmClientScopesPath = {
 	/**
@@ -4365,10 +4332,7 @@ export type POSTAdminRealmsRealmClientScopesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type POSTAdminRealmsRealmClientScopesResponse =
-	| POSTAdminRealmsRealmClientScopesStatus201
-	| POSTAdminRealmsRealmClientScopesStatus403
-	| POSTAdminRealmsRealmClientScopesStatus409;
+export type POSTAdminRealmsRealmClientScopesResponse = POSTAdminRealmsRealmClientScopesStatus201;
 
 export type GETAdminRealmsRealmClientSessionStatsPath = {
 	/**
@@ -4400,8 +4364,7 @@ export type GETAdminRealmsRealmClientSessionStatsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientSessionStatsResponse =
-	| GETAdminRealmsRealmClientSessionStatsStatus200
-	| GETAdminRealmsRealmClientSessionStatsStatus403;
+	GETAdminRealmsRealmClientSessionStatsStatus200;
 
 export type GETAdminRealmsRealmClientTemplatesPath = {
 	/**
@@ -4431,8 +4394,7 @@ export type GETAdminRealmsRealmClientTemplatesResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientTemplatesResponse =
-	| GETAdminRealmsRealmClientTemplatesStatus200
-	| GETAdminRealmsRealmClientTemplatesStatus403;
+	GETAdminRealmsRealmClientTemplatesStatus200;
 
 export type POSTAdminRealmsRealmClientTemplatesPath = {
 	/**
@@ -4467,9 +4429,7 @@ export type POSTAdminRealmsRealmClientTemplatesResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmClientTemplatesResponse =
-	| POSTAdminRealmsRealmClientTemplatesStatus201
-	| POSTAdminRealmsRealmClientTemplatesStatus403
-	| POSTAdminRealmsRealmClientTemplatesStatus409;
+	POSTAdminRealmsRealmClientTemplatesStatus201;
 
 export type GETAdminRealmsRealmClientTypesPath = {
 	/**
@@ -4615,9 +4575,7 @@ export type POSTAdminRealmsRealmClientsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type POSTAdminRealmsRealmClientsResponse =
-	| POSTAdminRealmsRealmClientsStatus201
-	| POSTAdminRealmsRealmClientsStatus409;
+export type POSTAdminRealmsRealmClientsResponse = POSTAdminRealmsRealmClientsStatus201;
 
 export type GETAdminRealmsRealmClientsInitialAccessPath = {
 	/**
@@ -4912,8 +4870,7 @@ export type GETAdminRealmsRealmCredentialRegistratorsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmCredentialRegistratorsResponse =
-	| GETAdminRealmsRealmCredentialRegistratorsStatus200
-	| GETAdminRealmsRealmCredentialRegistratorsStatus403;
+	GETAdminRealmsRealmCredentialRegistratorsStatus200;
 
 export type GETAdminRealmsRealmDefaultDefaultClientScopesPath = {
 	/**
@@ -4943,8 +4900,7 @@ export type GETAdminRealmsRealmDefaultDefaultClientScopesResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmDefaultDefaultClientScopesResponse =
-	| GETAdminRealmsRealmDefaultDefaultClientScopesStatus200
-	| GETAdminRealmsRealmDefaultDefaultClientScopesStatus403;
+	GETAdminRealmsRealmDefaultDefaultClientScopesStatus200;
 
 export type PUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdPath = {
 	/**
@@ -4978,9 +4934,7 @@ export type PUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdResponses 
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdResponse =
-	| PUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus204
-	| PUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus403
-	| PUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus404;
+	PUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus204;
 
 export type DELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdPath = {
 	/**
@@ -5014,9 +4968,7 @@ export type DELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdRespons
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdResponse =
-	| DELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus204
-	| DELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus403
-	| DELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus404;
+	DELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus204;
 
 export type GETAdminRealmsRealmDefaultGroupsPath = {
 	/**
@@ -5045,9 +4997,7 @@ export type GETAdminRealmsRealmDefaultGroupsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmDefaultGroupsResponse =
-	| GETAdminRealmsRealmDefaultGroupsStatus200
-	| GETAdminRealmsRealmDefaultGroupsStatus403;
+export type GETAdminRealmsRealmDefaultGroupsResponse = GETAdminRealmsRealmDefaultGroupsStatus200;
 
 export type PUTAdminRealmsRealmDefaultGroupsGroupIdPath = {
 	/**
@@ -5081,9 +5031,7 @@ export type PUTAdminRealmsRealmDefaultGroupsGroupIdResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmDefaultGroupsGroupIdResponse =
-	| PUTAdminRealmsRealmDefaultGroupsGroupIdStatus204
-	| PUTAdminRealmsRealmDefaultGroupsGroupIdStatus403
-	| PUTAdminRealmsRealmDefaultGroupsGroupIdStatus404;
+	PUTAdminRealmsRealmDefaultGroupsGroupIdStatus204;
 
 export type DELETEAdminRealmsRealmDefaultGroupsGroupIdPath = {
 	/**
@@ -5117,9 +5065,7 @@ export type DELETEAdminRealmsRealmDefaultGroupsGroupIdResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmDefaultGroupsGroupIdResponse =
-	| DELETEAdminRealmsRealmDefaultGroupsGroupIdStatus204
-	| DELETEAdminRealmsRealmDefaultGroupsGroupIdStatus403
-	| DELETEAdminRealmsRealmDefaultGroupsGroupIdStatus404;
+	DELETEAdminRealmsRealmDefaultGroupsGroupIdStatus204;
 
 export type GETAdminRealmsRealmDefaultOptionalClientScopesPath = {
 	/**
@@ -5149,8 +5095,7 @@ export type GETAdminRealmsRealmDefaultOptionalClientScopesResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmDefaultOptionalClientScopesResponse =
-	| GETAdminRealmsRealmDefaultOptionalClientScopesStatus200
-	| GETAdminRealmsRealmDefaultOptionalClientScopesStatus403;
+	GETAdminRealmsRealmDefaultOptionalClientScopesStatus200;
 
 export type PUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdPath = {
 	/**
@@ -5184,9 +5129,7 @@ export type PUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdResponses
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdResponse =
-	| PUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus204
-	| PUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus403
-	| PUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus404;
+	PUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus204;
 
 export type DELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdPath = {
 	/**
@@ -5220,9 +5163,7 @@ export type DELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdRespon
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdResponse =
-	| DELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus204
-	| DELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus403
-	| DELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus404;
+	DELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus204;
 
 export type GETAdminRealmsRealmEventsPath = {
 	/**
@@ -5307,10 +5248,7 @@ export type GETAdminRealmsRealmEventsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmEventsResponse =
-	| GETAdminRealmsRealmEventsStatus200
-	| GETAdminRealmsRealmEventsStatus400
-	| GETAdminRealmsRealmEventsStatus403;
+export type GETAdminRealmsRealmEventsResponse = GETAdminRealmsRealmEventsStatus200;
 
 export type DELETEAdminRealmsRealmEventsPath = {
 	/**
@@ -5339,9 +5277,7 @@ export type DELETEAdminRealmsRealmEventsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DELETEAdminRealmsRealmEventsResponse =
-	| DELETEAdminRealmsRealmEventsStatus204
-	| DELETEAdminRealmsRealmEventsStatus403;
+export type DELETEAdminRealmsRealmEventsResponse = DELETEAdminRealmsRealmEventsStatus204;
 
 export type GETAdminRealmsRealmEventsConfigPath = {
 	/**
@@ -5370,9 +5306,7 @@ export type GETAdminRealmsRealmEventsConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmEventsConfigResponse =
-	| GETAdminRealmsRealmEventsConfigStatus200
-	| GETAdminRealmsRealmEventsConfigStatus403;
+export type GETAdminRealmsRealmEventsConfigResponse = GETAdminRealmsRealmEventsConfigStatus200;
 
 export type PUTAdminRealmsRealmEventsConfigPath = {
 	/**
@@ -5403,9 +5337,7 @@ export type PUTAdminRealmsRealmEventsConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PUTAdminRealmsRealmEventsConfigResponse =
-	| PUTAdminRealmsRealmEventsConfigStatus204
-	| PUTAdminRealmsRealmEventsConfigStatus403;
+export type PUTAdminRealmsRealmEventsConfigResponse = PUTAdminRealmsRealmEventsConfigStatus204;
 
 export type GETAdminRealmsRealmGroupByPathPathPath = {
 	/**
@@ -5443,9 +5375,7 @@ export type GETAdminRealmsRealmGroupByPathPathResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmGroupByPathPathResponse =
-	| GETAdminRealmsRealmGroupByPathPathStatus200
-	| GETAdminRealmsRealmGroupByPathPathStatus403
-	| GETAdminRealmsRealmGroupByPathPathStatus404;
+	GETAdminRealmsRealmGroupByPathPathStatus200;
 
 export type GETAdminRealmsRealmGroupsPath = {
 	/**
@@ -5548,9 +5478,7 @@ export type POSTAdminRealmsRealmGroupsResponses = {
  */
 export type POSTAdminRealmsRealmGroupsResponse =
 	| POSTAdminRealmsRealmGroupsStatus201
-	| POSTAdminRealmsRealmGroupsStatus204
-	| POSTAdminRealmsRealmGroupsStatus400
-	| POSTAdminRealmsRealmGroupsStatus409;
+	| POSTAdminRealmsRealmGroupsStatus204;
 
 export type GETAdminRealmsRealmGroupsCountPath = {
 	/**
@@ -5729,9 +5657,7 @@ export type POSTAdminRealmsRealmIdentityProviderInstancesResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmIdentityProviderInstancesResponse =
-	| POSTAdminRealmsRealmIdentityProviderInstancesStatus201
-	| POSTAdminRealmsRealmIdentityProviderInstancesStatus400
-	| POSTAdminRealmsRealmIdentityProviderInstancesStatus409;
+	POSTAdminRealmsRealmIdentityProviderInstancesStatus201;
 
 export type GETAdminRealmsRealmIdentityProviderInstancesAliasPath = {
 	/**
@@ -5800,9 +5726,7 @@ export type PUTAdminRealmsRealmIdentityProviderInstancesAliasResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmIdentityProviderInstancesAliasResponse =
-	| PUTAdminRealmsRealmIdentityProviderInstancesAliasStatus204
-	| PUTAdminRealmsRealmIdentityProviderInstancesAliasStatus400
-	| PUTAdminRealmsRealmIdentityProviderInstancesAliasStatus409;
+	PUTAdminRealmsRealmIdentityProviderInstancesAliasStatus204;
 
 export type DELETEAdminRealmsRealmIdentityProviderInstancesAliasPath = {
 	/**
@@ -6228,9 +6152,7 @@ export type GETAdminRealmsRealmLocalizationResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmLocalizationResponse =
-	| GETAdminRealmsRealmLocalizationStatus200
-	| GETAdminRealmsRealmLocalizationStatus403;
+export type GETAdminRealmsRealmLocalizationResponse = GETAdminRealmsRealmLocalizationStatus200;
 
 export type GETAdminRealmsRealmLocalizationLocalePath = {
 	/**
@@ -6267,8 +6189,7 @@ export type GETAdminRealmsRealmLocalizationLocaleResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmLocalizationLocaleResponse =
-	| GETAdminRealmsRealmLocalizationLocaleStatus200
-	| GETAdminRealmsRealmLocalizationLocaleStatus403;
+	GETAdminRealmsRealmLocalizationLocaleStatus200;
 
 export type POSTAdminRealmsRealmLocalizationLocalePath = {
 	/**
@@ -6308,9 +6229,7 @@ export type POSTAdminRealmsRealmLocalizationLocaleResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmLocalizationLocaleResponse =
-	| POSTAdminRealmsRealmLocalizationLocaleStatus204
-	| POSTAdminRealmsRealmLocalizationLocaleStatus400
-	| POSTAdminRealmsRealmLocalizationLocaleStatus403;
+	POSTAdminRealmsRealmLocalizationLocaleStatus204;
 
 export type DELETEAdminRealmsRealmLocalizationLocalePath = {
 	/**
@@ -6344,9 +6263,7 @@ export type DELETEAdminRealmsRealmLocalizationLocaleResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmLocalizationLocaleResponse =
-	| DELETEAdminRealmsRealmLocalizationLocaleStatus204
-	| DELETEAdminRealmsRealmLocalizationLocaleStatus403
-	| DELETEAdminRealmsRealmLocalizationLocaleStatus404;
+	DELETEAdminRealmsRealmLocalizationLocaleStatus204;
 
 export type GETAdminRealmsRealmLocalizationLocaleKeyPath = {
 	/**
@@ -6381,9 +6298,7 @@ export type GETAdminRealmsRealmLocalizationLocaleKeyResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmLocalizationLocaleKeyResponse =
-	| GETAdminRealmsRealmLocalizationLocaleKeyStatus200
-	| GETAdminRealmsRealmLocalizationLocaleKeyStatus403
-	| GETAdminRealmsRealmLocalizationLocaleKeyStatus404;
+	GETAdminRealmsRealmLocalizationLocaleKeyStatus200;
 
 export type PUTAdminRealmsRealmLocalizationLocaleKeyPath = {
 	/**
@@ -6418,9 +6333,7 @@ export type PUTAdminRealmsRealmLocalizationLocaleKeyResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmLocalizationLocaleKeyResponse =
-	| PUTAdminRealmsRealmLocalizationLocaleKeyStatus204
-	| PUTAdminRealmsRealmLocalizationLocaleKeyStatus400
-	| PUTAdminRealmsRealmLocalizationLocaleKeyStatus403;
+	PUTAdminRealmsRealmLocalizationLocaleKeyStatus204;
 
 export type DELETEAdminRealmsRealmLocalizationLocaleKeyPath = {
 	/**
@@ -6455,9 +6368,7 @@ export type DELETEAdminRealmsRealmLocalizationLocaleKeyResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmLocalizationLocaleKeyResponse =
-	| DELETEAdminRealmsRealmLocalizationLocaleKeyStatus204
-	| DELETEAdminRealmsRealmLocalizationLocaleKeyStatus403
-	| DELETEAdminRealmsRealmLocalizationLocaleKeyStatus404;
+	DELETEAdminRealmsRealmLocalizationLocaleKeyStatus204;
 
 export type POSTAdminRealmsRealmLogoutAllPath = {
 	/**
@@ -6486,9 +6397,7 @@ export type POSTAdminRealmsRealmLogoutAllResponses = {
 /**
  * @description Union of all possible responses
  */
-export type POSTAdminRealmsRealmLogoutAllResponse =
-	| POSTAdminRealmsRealmLogoutAllStatus200
-	| POSTAdminRealmsRealmLogoutAllStatus403;
+export type POSTAdminRealmsRealmLogoutAllResponse = POSTAdminRealmsRealmLogoutAllStatus200;
 
 export type GETAdminRealmsRealmOrganizationsPath = {
 	/**
@@ -6565,10 +6474,7 @@ export type GETAdminRealmsRealmOrganizationsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmOrganizationsResponse =
-	| GETAdminRealmsRealmOrganizationsStatus200
-	| GETAdminRealmsRealmOrganizationsStatus403
-	| GETAdminRealmsRealmOrganizationsStatus404;
+export type GETAdminRealmsRealmOrganizationsResponse = GETAdminRealmsRealmOrganizationsStatus200;
 
 export type POSTAdminRealmsRealmOrganizationsPath = {
 	/**
@@ -6602,10 +6508,7 @@ export type POSTAdminRealmsRealmOrganizationsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type POSTAdminRealmsRealmOrganizationsResponse =
-	| POSTAdminRealmsRealmOrganizationsStatus201
-	| POSTAdminRealmsRealmOrganizationsStatus400
-	| POSTAdminRealmsRealmOrganizationsStatus403;
+export type POSTAdminRealmsRealmOrganizationsResponse = POSTAdminRealmsRealmOrganizationsStatus201;
 
 export type GETAdminRealmsRealmOrganizationsCountPath = {
 	/**
@@ -6663,8 +6566,7 @@ export type GETAdminRealmsRealmOrganizationsCountResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsCountResponse =
-	| GETAdminRealmsRealmOrganizationsCountStatus200
-	| GETAdminRealmsRealmOrganizationsCountStatus403;
+	GETAdminRealmsRealmOrganizationsCountStatus200;
 
 export type POSTAdminRealmsRealmPartialExportPath = {
 	/**
@@ -6698,9 +6600,7 @@ export type POSTAdminRealmsRealmPartialExportResponses = {
 /**
  * @description Union of all possible responses
  */
-export type POSTAdminRealmsRealmPartialExportResponse =
-	| POSTAdminRealmsRealmPartialExportStatus200
-	| POSTAdminRealmsRealmPartialExportStatus403;
+export type POSTAdminRealmsRealmPartialExportResponse = POSTAdminRealmsRealmPartialExportStatus200;
 
 export type POSTAdminRealmsRealmPartialImportPath = {
 	/**
@@ -6734,10 +6634,7 @@ export type POSTAdminRealmsRealmPartialImportResponses = {
 /**
  * @description Union of all possible responses
  */
-export type POSTAdminRealmsRealmPartialImportResponse =
-	| POSTAdminRealmsRealmPartialImportStatus200
-	| POSTAdminRealmsRealmPartialImportStatus403
-	| POSTAdminRealmsRealmPartialImportStatus409;
+export type POSTAdminRealmsRealmPartialImportResponse = POSTAdminRealmsRealmPartialImportStatus200;
 
 export type POSTAdminRealmsRealmPushRevocationPath = {
 	/**
@@ -6767,8 +6664,7 @@ export type POSTAdminRealmsRealmPushRevocationResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmPushRevocationResponse =
-	| POSTAdminRealmsRealmPushRevocationStatus200
-	| POSTAdminRealmsRealmPushRevocationStatus403;
+	POSTAdminRealmsRealmPushRevocationStatus200;
 
 export type GETAdminRealmsRealmRolesPath = {
 	/**
@@ -6822,9 +6718,7 @@ export type GETAdminRealmsRealmRolesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmRolesResponse =
-	| GETAdminRealmsRealmRolesStatus200
-	| GETAdminRealmsRealmRolesStatus403;
+export type GETAdminRealmsRealmRolesResponse = GETAdminRealmsRealmRolesStatus200;
 
 export type POSTAdminRealmsRealmRolesPath = {
 	/**
@@ -6867,13 +6761,7 @@ export type POSTAdminRealmsRealmRolesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type POSTAdminRealmsRealmRolesResponse =
-	| POSTAdminRealmsRealmRolesStatus201
-	| POSTAdminRealmsRealmRolesStatus400
-	| POSTAdminRealmsRealmRolesStatus403
-	| POSTAdminRealmsRealmRolesStatus404
-	| POSTAdminRealmsRealmRolesStatus409
-	| POSTAdminRealmsRealmRolesStatus500;
+export type POSTAdminRealmsRealmRolesResponse = POSTAdminRealmsRealmRolesStatus201;
 
 export type DELETEAdminRealmsRealmSessionsSessionPath = {
 	/**
@@ -6915,9 +6803,7 @@ export type DELETEAdminRealmsRealmSessionsSessionResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmSessionsSessionResponse =
-	| DELETEAdminRealmsRealmSessionsSessionStatus204
-	| DELETEAdminRealmsRealmSessionsSessionStatus403
-	| DELETEAdminRealmsRealmSessionsSessionStatus404;
+	DELETEAdminRealmsRealmSessionsSessionStatus204;
 
 export type POSTAdminRealmsRealmTestSMTPConnectionPath = {
 	/**
@@ -6957,8 +6843,7 @@ export type POSTAdminRealmsRealmTestSMTPConnectionResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmTestSMTPConnectionResponse =
-	| POSTAdminRealmsRealmTestSMTPConnectionStatus204
-	| POSTAdminRealmsRealmTestSMTPConnectionStatus500;
+	POSTAdminRealmsRealmTestSMTPConnectionStatus204;
 
 export type GETAdminRealmsRealmUsersPath = {
 	/**
@@ -7074,9 +6959,7 @@ export type GETAdminRealmsRealmUsersResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmUsersResponse =
-	| GETAdminRealmsRealmUsersStatus200
-	| GETAdminRealmsRealmUsersStatus403;
+export type GETAdminRealmsRealmUsersResponse = GETAdminRealmsRealmUsersStatus200;
 
 export type POSTAdminRealmsRealmUsersPath = {
 	/**
@@ -7116,12 +6999,7 @@ export type POSTAdminRealmsRealmUsersResponses = {
 /**
  * @description Union of all possible responses
  */
-export type POSTAdminRealmsRealmUsersResponse =
-	| POSTAdminRealmsRealmUsersStatus201
-	| POSTAdminRealmsRealmUsersStatus400
-	| POSTAdminRealmsRealmUsersStatus403
-	| POSTAdminRealmsRealmUsersStatus409
-	| POSTAdminRealmsRealmUsersStatus500;
+export type POSTAdminRealmsRealmUsersResponse = POSTAdminRealmsRealmUsersStatus201;
 
 export type GETAdminRealmsRealmUsersManagementPermissionsPath = {
 	/**
@@ -7151,8 +7029,7 @@ export type GETAdminRealmsRealmUsersManagementPermissionsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersManagementPermissionsResponse =
-	| GETAdminRealmsRealmUsersManagementPermissionsStatus200
-	| GETAdminRealmsRealmUsersManagementPermissionsStatus403;
+	GETAdminRealmsRealmUsersManagementPermissionsStatus200;
 
 export type PUTAdminRealmsRealmUsersManagementPermissionsPath = {
 	/**
@@ -7186,8 +7063,7 @@ export type PUTAdminRealmsRealmUsersManagementPermissionsResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmUsersManagementPermissionsResponse =
-	| PUTAdminRealmsRealmUsersManagementPermissionsStatus200
-	| PUTAdminRealmsRealmUsersManagementPermissionsStatus403;
+	PUTAdminRealmsRealmUsersManagementPermissionsStatus200;
 
 export type GETAdminRealmsRealmUsersCountPath = {
 	/**
@@ -7289,9 +7165,7 @@ export type GETAdminRealmsRealmUsersCountResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmUsersCountResponse =
-	| GETAdminRealmsRealmUsersCountStatus200
-	| GETAdminRealmsRealmUsersCountStatus403;
+export type GETAdminRealmsRealmUsersCountResponse = GETAdminRealmsRealmUsersCountStatus200;
 
 export type GETAdminRealmsRealmUsersProfilePath = {
 	/**
@@ -7320,9 +7194,7 @@ export type GETAdminRealmsRealmUsersProfileResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmUsersProfileResponse =
-	| GETAdminRealmsRealmUsersProfileStatus200
-	| GETAdminRealmsRealmUsersProfileStatus403;
+export type GETAdminRealmsRealmUsersProfileResponse = GETAdminRealmsRealmUsersProfileStatus200;
 
 export type PUTAdminRealmsRealmUsersProfilePath = {
 	/**
@@ -7353,9 +7225,7 @@ export type PUTAdminRealmsRealmUsersProfileResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PUTAdminRealmsRealmUsersProfileResponse =
-	| PUTAdminRealmsRealmUsersProfileStatus200
-	| PUTAdminRealmsRealmUsersProfileStatus403;
+export type PUTAdminRealmsRealmUsersProfileResponse = PUTAdminRealmsRealmUsersProfileStatus200;
 
 export type GETAdminRealmsRealmUsersProfileMetadataPath = {
 	/**
@@ -7385,8 +7255,7 @@ export type GETAdminRealmsRealmUsersProfileMetadataResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersProfileMetadataResponse =
-	| GETAdminRealmsRealmUsersProfileMetadataStatus200
-	| GETAdminRealmsRealmUsersProfileMetadataStatus403;
+	GETAdminRealmsRealmUsersProfileMetadataStatus200;
 
 export type GETAdminRealmsRealmWorkflowsPath = {
 	/**
@@ -7444,9 +7313,7 @@ export type GETAdminRealmsRealmWorkflowsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmWorkflowsResponse =
-	| GETAdminRealmsRealmWorkflowsStatus200
-	| GETAdminRealmsRealmWorkflowsStatus400;
+export type GETAdminRealmsRealmWorkflowsResponse = GETAdminRealmsRealmWorkflowsStatus200;
 
 export type POSTAdminRealmsRealmWorkflowsPath = {
 	/**
@@ -7477,9 +7344,7 @@ export type POSTAdminRealmsRealmWorkflowsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type POSTAdminRealmsRealmWorkflowsResponse =
-	| POSTAdminRealmsRealmWorkflowsStatus201
-	| POSTAdminRealmsRealmWorkflowsStatus400;
+export type POSTAdminRealmsRealmWorkflowsResponse = POSTAdminRealmsRealmWorkflowsStatus201;
 
 export type POSTAdminRealmsRealmWorkflowsMigratePath = {
 	/**
@@ -7522,8 +7387,7 @@ export type POSTAdminRealmsRealmWorkflowsMigrateResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmWorkflowsMigrateResponse =
-	| POSTAdminRealmsRealmWorkflowsMigrateStatus204
-	| POSTAdminRealmsRealmWorkflowsMigrateStatus400;
+	POSTAdminRealmsRealmWorkflowsMigrateStatus204;
 
 export type GETAdminRealmsRealmWorkflowsIdPath = {
 	/**
@@ -7565,9 +7429,7 @@ export type GETAdminRealmsRealmWorkflowsIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmWorkflowsIdResponse =
-	| GETAdminRealmsRealmWorkflowsIdStatus200
-	| GETAdminRealmsRealmWorkflowsIdStatus400;
+export type GETAdminRealmsRealmWorkflowsIdResponse = GETAdminRealmsRealmWorkflowsIdStatus200;
 
 export type PUTAdminRealmsRealmWorkflowsIdPath = {
 	/**
@@ -7603,9 +7465,7 @@ export type PUTAdminRealmsRealmWorkflowsIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PUTAdminRealmsRealmWorkflowsIdResponse =
-	| PUTAdminRealmsRealmWorkflowsIdStatus204
-	| PUTAdminRealmsRealmWorkflowsIdStatus400;
+export type PUTAdminRealmsRealmWorkflowsIdResponse = PUTAdminRealmsRealmWorkflowsIdStatus204;
 
 export type DELETEAdminRealmsRealmWorkflowsIdPath = {
 	/**
@@ -7639,9 +7499,7 @@ export type DELETEAdminRealmsRealmWorkflowsIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DELETEAdminRealmsRealmWorkflowsIdResponse =
-	| DELETEAdminRealmsRealmWorkflowsIdStatus204
-	| DELETEAdminRealmsRealmWorkflowsIdStatus400;
+export type DELETEAdminRealmsRealmWorkflowsIdResponse = DELETEAdminRealmsRealmWorkflowsIdStatus204;
 
 export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdPath = {
 	/**
@@ -7694,8 +7552,7 @@ export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdResponse =
-	| POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdStatus204
-	| POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdStatus400;
+	POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdStatus204;
 
 export type POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdPath = {
 	/**
@@ -7740,8 +7597,7 @@ export type POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdResponse =
-	| POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdStatus204
-	| POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdStatus400;
+	POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdStatus204;
 
 export type GETAdminRealmsRealmClientScopesClientScopeIdPath = {
 	/**
@@ -7772,8 +7628,7 @@ export type GETAdminRealmsRealmClientScopesClientScopeIdResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientScopesClientScopeIdResponse =
-	| GETAdminRealmsRealmClientScopesClientScopeIdStatus200
-	| GETAdminRealmsRealmClientScopesClientScopeIdStatus403;
+	GETAdminRealmsRealmClientScopesClientScopeIdStatus200;
 
 export type PUTAdminRealmsRealmClientScopesClientScopeIdPath = {
 	/**
@@ -7814,10 +7669,7 @@ export type PUTAdminRealmsRealmClientScopesClientScopeIdResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmClientScopesClientScopeIdResponse =
-	| PUTAdminRealmsRealmClientScopesClientScopeIdStatus204
-	| PUTAdminRealmsRealmClientScopesClientScopeIdStatus400
-	| PUTAdminRealmsRealmClientScopesClientScopeIdStatus403
-	| PUTAdminRealmsRealmClientScopesClientScopeIdStatus409;
+	PUTAdminRealmsRealmClientScopesClientScopeIdStatus204;
 
 export type DELETEAdminRealmsRealmClientScopesClientScopeIdPath = {
 	/**
@@ -7854,10 +7706,7 @@ export type DELETEAdminRealmsRealmClientScopesClientScopeIdResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmClientScopesClientScopeIdResponse =
-	| DELETEAdminRealmsRealmClientScopesClientScopeIdStatus204
-	| DELETEAdminRealmsRealmClientScopesClientScopeIdStatus400
-	| DELETEAdminRealmsRealmClientScopesClientScopeIdStatus403
-	| DELETEAdminRealmsRealmClientScopesClientScopeIdStatus500;
+	DELETEAdminRealmsRealmClientScopesClientScopeIdStatus204;
 
 export type POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModelsPath = {
 	/**
@@ -7954,8 +7803,7 @@ export type POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsRe
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsResponse =
-	| POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsStatus201
-	| POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsStatus409;
+	POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsStatus201;
 
 export type GETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdPath = {
 	/**
@@ -8487,8 +8335,7 @@ export type GETAdminRealmsRealmClientTemplatesClientScopeIdResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientTemplatesClientScopeIdResponse =
-	| GETAdminRealmsRealmClientTemplatesClientScopeIdStatus200
-	| GETAdminRealmsRealmClientTemplatesClientScopeIdStatus403;
+	GETAdminRealmsRealmClientTemplatesClientScopeIdStatus200;
 
 export type PUTAdminRealmsRealmClientTemplatesClientScopeIdPath = {
 	/**
@@ -8529,10 +8376,7 @@ export type PUTAdminRealmsRealmClientTemplatesClientScopeIdResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmClientTemplatesClientScopeIdResponse =
-	| PUTAdminRealmsRealmClientTemplatesClientScopeIdStatus204
-	| PUTAdminRealmsRealmClientTemplatesClientScopeIdStatus400
-	| PUTAdminRealmsRealmClientTemplatesClientScopeIdStatus403
-	| PUTAdminRealmsRealmClientTemplatesClientScopeIdStatus409;
+	PUTAdminRealmsRealmClientTemplatesClientScopeIdStatus204;
 
 export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdPath = {
 	/**
@@ -8569,10 +8413,7 @@ export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdResponse =
-	| DELETEAdminRealmsRealmClientTemplatesClientScopeIdStatus204
-	| DELETEAdminRealmsRealmClientTemplatesClientScopeIdStatus400
-	| DELETEAdminRealmsRealmClientTemplatesClientScopeIdStatus403
-	| DELETEAdminRealmsRealmClientTemplatesClientScopeIdStatus500;
+	DELETEAdminRealmsRealmClientTemplatesClientScopeIdStatus204;
 
 export type POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddModelsPath = {
 	/**
@@ -8671,8 +8512,7 @@ export type POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModel
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsResponse =
-	| POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsStatus201
-	| POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsStatus409;
+	POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsStatus201;
 
 export type GETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdPath = {
 	/**
@@ -9254,9 +9094,7 @@ export type PUTAdminRealmsRealmClientsClientUuidResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmClientsClientUuidResponse =
-	| PUTAdminRealmsRealmClientsClientUuidStatus204
-	| PUTAdminRealmsRealmClientsClientUuidStatus400
-	| PUTAdminRealmsRealmClientsClientUuidStatus409;
+	PUTAdminRealmsRealmClientsClientUuidStatus204;
 
 export type DELETEAdminRealmsRealmClientsClientUuidPath = {
 	/**
@@ -9509,6 +9347,9 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEv
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus200 =
 	PolicyEvaluationResponse;
 
+export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus403 =
+	unknown;
+
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus500 =
 	unknown;
 
@@ -9525,6 +9366,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEv
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateResponses = {
 	"200": POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus200;
+	"403": POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus403;
 	"500": POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus500;
 };
 
@@ -9532,8 +9374,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEv
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateResponse =
-	| POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus200
-	| POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus500;
+	POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionProvidersPath = {
 	/**
@@ -9613,8 +9454,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSea
  */
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchResponse =
 	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchStatus200
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchStatus204
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchStatus400;
+	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchStatus204;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyPath = {
 	/**
@@ -9728,6 +9568,9 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvalua
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus200 =
 	PolicyEvaluationResponse;
 
+export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus403 =
+	unknown;
+
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus500 =
 	unknown;
 
@@ -9744,6 +9587,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvalua
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateResponses = {
 	"200": POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus200;
+	"403": POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus403;
 	"500": POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus500;
 };
 
@@ -9751,8 +9595,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvalua
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateResponse =
-	| POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus200
-	| POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus500;
+	POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyProvidersPath = {
 	/**
@@ -9830,8 +9673,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchR
  */
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchResponse =
 	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchStatus200
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchStatus204
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchStatus400;
+	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchStatus204;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourcePath = {
 	/**
@@ -9956,8 +9798,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResp
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResponse =
-	| POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceStatus201
-	| POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceStatus400;
+	POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceStatus201;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchPath = {
 	/**
@@ -10026,8 +9867,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearc
  */
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchResponse =
 	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchStatus200
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchStatus204
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchStatus400;
+	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchStatus204;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPath = {
 	/**
@@ -10092,8 +9932,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResou
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdResponse =
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus200
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus404;
+	GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus200;
 
 export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPath = {
 	/**
@@ -10162,8 +10001,7 @@ export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResou
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdResponse =
-	| PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus204
-	| PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus404;
+	PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus204;
 
 export type DELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPath = {
 	/**
@@ -10229,8 +10067,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceRe
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdResponse =
-	| DELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus204
-	| DELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus404;
+	DELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus204;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdAttributesPath =
 	{
@@ -10364,8 +10201,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResou
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPermissionsResponse =
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPermissionsStatus200
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPermissionsStatus404;
+	GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPermissionsStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdScopesPath = {
 	/**
@@ -10432,8 +10268,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResou
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdScopesResponse =
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdScopesStatus200
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdScopesStatus404;
+	GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdScopesStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopePath = {
 	/**
@@ -10563,8 +10398,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchRe
  */
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchResponse =
 	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchStatus200
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchStatus204
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchStatus400;
+	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchStatus204;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPath = {
 	/**
@@ -10601,8 +10435,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdR
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdResponse =
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdStatus200
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdStatus404;
+	GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdStatus200;
 
 export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPath = {
 	/**
@@ -10713,8 +10546,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdP
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPermissionsResponse =
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPermissionsStatus200
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPermissionsStatus404;
+	GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPermissionsStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdResourcesPath = {
 	/**
@@ -10753,8 +10585,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdR
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdResourcesResponse =
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdResourcesStatus200
-	| GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdResourcesStatus404;
+	GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdResourcesStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerSettingsPath = {
 	/**
@@ -11293,9 +11124,7 @@ export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleAcc
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleAccessTokenResponse =
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleAccessTokenStatus200
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleAccessTokenStatus403
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleAccessTokenStatus404;
+	GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleAccessTokenStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleIdTokenPath = {
 	/**
@@ -11342,9 +11171,7 @@ export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleIdT
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleIdTokenResponse =
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleIdTokenStatus200
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleIdTokenStatus403
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleIdTokenStatus404;
+	GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleIdTokenStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleSamlResponsePath = {
 	/**
@@ -11430,8 +11257,7 @@ export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleUse
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleUserinfoResponse =
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleUserinfoStatus200
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleUserinfoStatus403;
+	GETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleUserinfoStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesProtocolMappersPath = {
 	/**
@@ -11471,8 +11297,7 @@ export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesProtocolMappersRes
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesProtocolMappersResponse =
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesProtocolMappersStatus200
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesProtocolMappersStatus403;
+	GETAdminRealmsRealmClientsClientUuidEvaluateScopesProtocolMappersStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdGrantedPath =
 	{
@@ -11524,8 +11349,7 @@ export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleC
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdGrantedResponse =
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdGrantedStatus200
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdGrantedStatus403;
+	GETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdGrantedStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdNotGrantedPath =
 	{
@@ -11577,8 +11401,7 @@ export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleC
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdNotGrantedResponse =
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdNotGrantedStatus200
-	| GETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdNotGrantedStatus403;
+	GETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdNotGrantedStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidInstallationProvidersProviderIdPath = {
 	/**
@@ -11722,8 +11545,7 @@ export type POSTAdminRealmsRealmClientsClientUuidNodesResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmClientsClientUuidNodesResponse =
-	| POSTAdminRealmsRealmClientsClientUuidNodesStatus204
-	| POSTAdminRealmsRealmClientsClientUuidNodesStatus400;
+	POSTAdminRealmsRealmClientsClientUuidNodesStatus204;
 
 export type DELETEAdminRealmsRealmClientsClientUuidNodesNodePath = {
 	/**
@@ -12050,8 +11872,7 @@ export type POSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsResponses 
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsResponse =
-	| POSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsStatus201
-	| POSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsStatus409;
+	POSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsStatus201;
 
 export type GETAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdPath = {
 	/**
@@ -12326,8 +12147,7 @@ export type GETAdminRealmsRealmClientsClientUuidRolesResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidRolesResponse =
-	| GETAdminRealmsRealmClientsClientUuidRolesStatus200
-	| GETAdminRealmsRealmClientsClientUuidRolesStatus403;
+	GETAdminRealmsRealmClientsClientUuidRolesStatus200;
 
 export type POSTAdminRealmsRealmClientsClientUuidRolesPath = {
 	/**
@@ -12376,12 +12196,7 @@ export type POSTAdminRealmsRealmClientsClientUuidRolesResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmClientsClientUuidRolesResponse =
-	| POSTAdminRealmsRealmClientsClientUuidRolesStatus201
-	| POSTAdminRealmsRealmClientsClientUuidRolesStatus400
-	| POSTAdminRealmsRealmClientsClientUuidRolesStatus403
-	| POSTAdminRealmsRealmClientsClientUuidRolesStatus404
-	| POSTAdminRealmsRealmClientsClientUuidRolesStatus409
-	| POSTAdminRealmsRealmClientsClientUuidRolesStatus500;
+	POSTAdminRealmsRealmClientsClientUuidRolesStatus201;
 
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNamePath = {
 	/**
@@ -12424,9 +12239,7 @@ export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameResponse =
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameStatus200
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameStatus403
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameStatus404;
+	GETAdminRealmsRealmClientsClientUuidRolesRoleNameStatus200;
 
 export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNamePath = {
 	/**
@@ -12477,11 +12290,7 @@ export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNameResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNameResponse =
-	| PUTAdminRealmsRealmClientsClientUuidRolesRoleNameStatus204
-	| PUTAdminRealmsRealmClientsClientUuidRolesRoleNameStatus400
-	| PUTAdminRealmsRealmClientsClientUuidRolesRoleNameStatus403
-	| PUTAdminRealmsRealmClientsClientUuidRolesRoleNameStatus404
-	| PUTAdminRealmsRealmClientsClientUuidRolesRoleNameStatus409;
+	PUTAdminRealmsRealmClientsClientUuidRolesRoleNameStatus204;
 
 export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNamePath = {
 	/**
@@ -12527,10 +12336,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameResponse =
-	| DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameStatus204
-	| DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameStatus400
-	| DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameStatus403
-	| DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameStatus404;
+	DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameStatus204;
 
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPath = {
 	/**
@@ -12574,9 +12380,7 @@ export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesResponses
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesResponse =
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus200
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus403
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus404;
+	GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus200;
 
 export type POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPath = {
 	/**
@@ -12623,9 +12427,7 @@ export type POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesResponse
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesResponse =
-	| POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus204
-	| POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus403
-	| POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus404;
+	POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus204;
 
 export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPath = {
 	/**
@@ -12672,9 +12474,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRespon
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesResponse =
-	| DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus204
-	| DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus403
-	| DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus404;
+	DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus204;
 
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesClientsTargetClientUuidPath =
 	{
@@ -12724,9 +12524,7 @@ export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesClientsTa
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesClientsTargetClientUuidResponse =
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesClientsTargetClientUuidStatus200
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesClientsTargetClientUuidStatus403
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesClientsTargetClientUuidStatus404;
+	GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesClientsTargetClientUuidStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRealmPath = {
 	/**
@@ -12770,9 +12568,7 @@ export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRealmResp
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRealmResponse =
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRealmStatus200
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRealmStatus403
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRealmStatus404;
+	GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRealmStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameGroupsPath = {
 	/**
@@ -12840,9 +12636,7 @@ export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameGroupsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameGroupsResponse =
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameGroupsStatus200
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameGroupsStatus403
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameGroupsStatus404;
+	GETAdminRealmsRealmClientsClientUuidRolesRoleNameGroupsStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsPath = {
 	/**
@@ -12884,9 +12678,7 @@ export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissio
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsResponse =
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsStatus200
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsStatus403
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsStatus404;
+	GETAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsStatus200;
 
 export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsPath = {
 	/**
@@ -12932,9 +12724,7 @@ export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissio
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsResponse =
-	| PUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsStatus200
-	| PUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsStatus403
-	| PUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsStatus404;
+	PUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameUsersPath = {
 	/**
@@ -13000,9 +12790,7 @@ export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameUsersResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameUsersResponse =
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameUsersStatus200
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameUsersStatus403
-	| GETAdminRealmsRealmClientsClientUuidRolesRoleNameUsersStatus404;
+	GETAdminRealmsRealmClientsClientUuidRolesRoleNameUsersStatus200;
 
 export type GETAdminRealmsRealmClientsClientUuidScopeMappingsPath = {
 	/**
@@ -13612,10 +13400,7 @@ export type PUTAdminRealmsRealmGroupsGroupIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PUTAdminRealmsRealmGroupsGroupIdResponse =
-	| PUTAdminRealmsRealmGroupsGroupIdStatus204
-	| PUTAdminRealmsRealmGroupsGroupIdStatus400
-	| PUTAdminRealmsRealmGroupsGroupIdStatus409;
+export type PUTAdminRealmsRealmGroupsGroupIdResponse = PUTAdminRealmsRealmGroupsGroupIdStatus204;
 
 export type DELETEAdminRealmsRealmGroupsGroupIdPath = {
 	/**
@@ -13752,9 +13537,7 @@ export type POSTAdminRealmsRealmGroupsGroupIdChildrenResponses = {
  */
 export type POSTAdminRealmsRealmGroupsGroupIdChildrenResponse =
 	| POSTAdminRealmsRealmGroupsGroupIdChildrenStatus201
-	| POSTAdminRealmsRealmGroupsGroupIdChildrenStatus204
-	| POSTAdminRealmsRealmGroupsGroupIdChildrenStatus400
-	| POSTAdminRealmsRealmGroupsGroupIdChildrenStatus409;
+	| POSTAdminRealmsRealmGroupsGroupIdChildrenStatus204;
 
 export type GETAdminRealmsRealmGroupsGroupIdManagementPermissionsPath = {
 	/**
@@ -13897,8 +13680,7 @@ export type GETAdminRealmsRealmGroupsGroupIdRoleMappingsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmGroupsGroupIdRoleMappingsResponse =
-	| GETAdminRealmsRealmGroupsGroupIdRoleMappingsStatus200
-	| GETAdminRealmsRealmGroupsGroupIdRoleMappingsStatus403;
+	GETAdminRealmsRealmGroupsGroupIdRoleMappingsStatus200;
 
 export type GETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdPath = {
 	/**
@@ -14114,8 +13896,7 @@ export type GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmResponse =
-	| GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus200
-	| GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus403;
+	GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus200;
 
 export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPath = {
 	/**
@@ -14159,11 +13940,7 @@ export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmResponse =
-	| POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus204
-	| POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus400
-	| POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus403
-	| POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus404
-	| POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus500;
+	POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus204;
 
 export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPath = {
 	/**
@@ -14207,11 +13984,7 @@ export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmResponse =
-	| DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus204
-	| DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus400
-	| DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus403
-	| DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus404
-	| DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus500;
+	DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus204;
 
 export type GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmAvailablePath = {
 	/**
@@ -14243,8 +14016,7 @@ export type GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmAvailableResponses 
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmAvailableResponse =
-	| GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmAvailableStatus200
-	| GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmAvailableStatus403;
+	GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmAvailableStatus200;
 
 export type GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmCompositePath = {
 	/**
@@ -14285,8 +14057,7 @@ export type GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmCompositeResponses 
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmCompositeResponse =
-	| GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmCompositeStatus200
-	| GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmCompositeStatus403;
+	GETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmCompositeStatus200;
 
 export type GETAdminRealmsRealmIdentityProviderProvidersProviderIdPath = {
 	/**
@@ -14362,9 +14133,7 @@ export type GETAdminRealmsRealmOrganizationsMembersMemberIdOrganizationsResponse
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsMembersMemberIdOrganizationsResponse =
-	| GETAdminRealmsRealmOrganizationsMembersMemberIdOrganizationsStatus200
-	| GETAdminRealmsRealmOrganizationsMembersMemberIdOrganizationsStatus400
-	| GETAdminRealmsRealmOrganizationsMembersMemberIdOrganizationsStatus403;
+	GETAdminRealmsRealmOrganizationsMembersMemberIdOrganizationsStatus200;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdPath = {
 	/**
@@ -14395,8 +14164,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdStatus200;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdPath = {
 	/**
@@ -14435,10 +14203,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmOrganizationsOrgIdResponse =
-	| PUTAdminRealmsRealmOrganizationsOrgIdStatus204
-	| PUTAdminRealmsRealmOrganizationsOrgIdStatus400
-	| PUTAdminRealmsRealmOrganizationsOrgIdStatus403
-	| PUTAdminRealmsRealmOrganizationsOrgIdStatus409;
+	PUTAdminRealmsRealmOrganizationsOrgIdStatus204;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdPath = {
 	/**
@@ -14472,9 +14237,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmOrganizationsOrgIdResponse =
-	| DELETEAdminRealmsRealmOrganizationsOrgIdStatus204
-	| DELETEAdminRealmsRealmOrganizationsOrgIdStatus400
-	| DELETEAdminRealmsRealmOrganizationsOrgIdStatus403;
+	DELETEAdminRealmsRealmOrganizationsOrgIdStatus204;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsPath = {
 	/**
@@ -14542,8 +14305,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdGroupsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdGroupsStatus200;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsPath = {
 	/**
@@ -14589,11 +14351,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsResponses = {
  */
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsResponse =
 	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus201
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus204
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus400
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus403
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus404
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus409;
+	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus204;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPathPath = {
 	/**
@@ -14648,9 +14406,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPathResponses 
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPathResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPathStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPathStatus403
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPathStatus404;
+	GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPathStatus200;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPath = {
 	/**
@@ -14691,8 +14447,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus200;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPath = {
 	/**
@@ -14734,10 +14489,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdResponse =
-	| PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus204
-	| PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus400
-	| PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus403
-	| PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus409;
+	PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus204;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPath = {
 	/**
@@ -14772,9 +14524,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdResponse =
-	| DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus204
-	| DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus403
-	| DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus404;
+	DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus204;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenPath = {
 	/**
@@ -14841,8 +14591,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenResponses 
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus200;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenPath = {
 	/**
@@ -14891,11 +14640,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenResponses
  */
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenResponse =
 	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus201
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus204
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus400
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus403
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus404
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus409;
+	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus204;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersPath = {
 	/**
@@ -14950,8 +14695,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersResponses =
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersStatus200;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdPath = {
 	/**
@@ -14993,11 +14737,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdRespo
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdResponse =
-	| PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus204
-	| PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus400
-	| PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus403
-	| PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus404
-	| PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus409;
+	PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus204;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdPath = {
 	/**
@@ -15036,10 +14776,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdRe
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdResponse =
-	| DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus204
-	| DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus400
-	| DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus403
-	| DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus404;
+	DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus204;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsPath = {
 	/**
@@ -15072,8 +14809,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRespon
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsStatus200;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdPath = {
 	/**
@@ -15312,8 +15048,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmR
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus200;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmPath = {
 	/**
@@ -15358,11 +15093,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealm
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmResponse =
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus204
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus400
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus403
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus404
-	| POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus500;
+	POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus204;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmPath = {
 	/**
@@ -15412,11 +15143,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRea
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmResponse =
-	| DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus204
-	| DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus400
-	| DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus403
-	| DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus404
-	| DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus500;
+	DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus204;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmAvailablePath = {
 	/**
@@ -15451,8 +15178,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmA
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmAvailableResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmAvailableStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmAvailableStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmAvailableStatus200;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmCompositePath = {
 	/**
@@ -15498,8 +15224,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmC
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmCompositeResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmCompositeStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmCompositeStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmCompositeStatus200;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersPath = {
 	/**
@@ -15531,8 +15256,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus200;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersPath = {
 	/**
@@ -15575,10 +15299,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersResponse =
-	| POSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus204
-	| POSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus400
-	| POSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus403
-	| POSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus409;
+	POSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus204;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPath = {
 	/**
@@ -15616,9 +15337,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasResponses
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus403
-	| GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus404;
+	GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus200;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPath = {
 	/**
@@ -15660,10 +15379,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasResponses
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasResponse =
-	| PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus204
-	| PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus400
-	| PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus403
-	| PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus404;
+	PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus204;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPath = {
 	/**
@@ -15701,10 +15417,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasRespon
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasResponse =
-	| DELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus204
-	| DELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus400
-	| DELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus403
-	| DELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus404;
+	DELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus204;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasGroupsPath = {
 	/**
@@ -15789,9 +15502,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasGroupsRes
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasGroupsResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasGroupsStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasGroupsStatus403
-	| GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasGroupsStatus404;
+	GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasGroupsStatus200;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdInvitationsPath = {
 	/**
@@ -15843,8 +15554,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdInvitationsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdInvitationsResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdInvitationsStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdInvitationsStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdInvitationsStatus200;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdInvitationsIdPath = {
 	/**
@@ -15880,9 +15590,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdInvitationsIdResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdInvitationsIdResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus403
-	| GETAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus404;
+	GETAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus200;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdPath = {
 	/**
@@ -15917,9 +15625,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdResponse =
-	| DELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus204
-	| DELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus403
-	| DELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus404;
+	DELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus204;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendPath = {
 	/**
@@ -15954,9 +15660,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendResponses =
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendResponse =
-	| POSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus204
-	| POSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus403
-	| POSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus404;
+	POSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus204;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdMembersPath = {
 	/**
@@ -16027,8 +15731,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdMembersResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdMembersResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdMembersStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdMembersStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdMembersStatus200;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersPath = {
 	/**
@@ -16071,10 +15774,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdMembersResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersResponse =
-	| POSTAdminRealmsRealmOrganizationsOrgIdMembersStatus201
-	| POSTAdminRealmsRealmOrganizationsOrgIdMembersStatus400
-	| POSTAdminRealmsRealmOrganizationsOrgIdMembersStatus403
-	| POSTAdminRealmsRealmOrganizationsOrgIdMembersStatus409;
+	POSTAdminRealmsRealmOrganizationsOrgIdMembersStatus201;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdMembersCountPath = {
 	/**
@@ -16110,8 +15810,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdMembersCountResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdMembersCountResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdMembersCountStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdMembersCountStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdMembersCountStatus200;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserPath = {
 	/**
@@ -16148,10 +15847,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserRespo
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserResponse =
-	| POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus204
-	| POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus400
-	| POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus403
-	| POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus500;
+	POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus204;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserPath = {
 	/**
@@ -16199,11 +15895,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserResponse =
-	| POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus204
-	| POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus400
-	| POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus403
-	| POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus409
-	| POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus500;
+	POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus204;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdPath = {
 	/**
@@ -16238,9 +15930,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus400
-	| GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus200;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdPath = {
 	/**
@@ -16275,9 +15965,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdResponse =
-	| DELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus204
-	| DELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus400
-	| DELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus403;
+	DELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus204;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdGroupsPath = {
 	/**
@@ -16334,9 +16022,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdGroupsResponses 
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdGroupsResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdGroupsStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdGroupsStatus400
-	| GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdGroupsStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdGroupsStatus200;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypePath = {
 	/**
@@ -16378,10 +16064,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeRe
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeResponse =
-	| PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeStatus204
-	| PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeStatus400
-	| PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeStatus403
-	| PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeStatus404;
+	PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeStatus204;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdOrganizationsPath = {
 	/**
@@ -16426,9 +16109,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdOrganizationsRes
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdOrganizationsResponse =
-	| GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdOrganizationsStatus200
-	| GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdOrganizationsStatus400
-	| GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdOrganizationsStatus403;
+	GETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdOrganizationsStatus200;
 
 export type GETAdminRealmsRealmRolesByIdRoleIdPath = {
 	/**
@@ -16463,8 +16144,7 @@ export type GETAdminRealmsRealmRolesByIdRoleIdResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmRolesByIdRoleIdResponse =
-	| GETAdminRealmsRealmRolesByIdRoleIdStatus200
-	| GETAdminRealmsRealmRolesByIdRoleIdStatus403;
+	GETAdminRealmsRealmRolesByIdRoleIdStatus200;
 
 export type PUTAdminRealmsRealmRolesByIdRoleIdPath = {
 	/**
@@ -16504,9 +16184,7 @@ export type PUTAdminRealmsRealmRolesByIdRoleIdResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmRolesByIdRoleIdResponse =
-	| PUTAdminRealmsRealmRolesByIdRoleIdStatus204
-	| PUTAdminRealmsRealmRolesByIdRoleIdStatus400
-	| PUTAdminRealmsRealmRolesByIdRoleIdStatus403;
+	PUTAdminRealmsRealmRolesByIdRoleIdStatus204;
 
 export type DELETEAdminRealmsRealmRolesByIdRoleIdPath = {
 	/**
@@ -16544,9 +16222,7 @@ export type DELETEAdminRealmsRealmRolesByIdRoleIdResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmRolesByIdRoleIdResponse =
-	| DELETEAdminRealmsRealmRolesByIdRoleIdStatus204
-	| DELETEAdminRealmsRealmRolesByIdRoleIdStatus400
-	| DELETEAdminRealmsRealmRolesByIdRoleIdStatus403;
+	DELETEAdminRealmsRealmRolesByIdRoleIdStatus204;
 
 export type GETAdminRealmsRealmRolesByIdRoleIdCompositesPath = {
 	/**
@@ -16593,8 +16269,7 @@ export type GETAdminRealmsRealmRolesByIdRoleIdCompositesResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmRolesByIdRoleIdCompositesResponse =
-	| GETAdminRealmsRealmRolesByIdRoleIdCompositesStatus200
-	| GETAdminRealmsRealmRolesByIdRoleIdCompositesStatus403;
+	GETAdminRealmsRealmRolesByIdRoleIdCompositesStatus200;
 
 export type POSTAdminRealmsRealmRolesByIdRoleIdCompositesPath = {
 	/**
@@ -16627,8 +16302,7 @@ export type POSTAdminRealmsRealmRolesByIdRoleIdCompositesResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmRolesByIdRoleIdCompositesResponse =
-	| POSTAdminRealmsRealmRolesByIdRoleIdCompositesStatus204
-	| POSTAdminRealmsRealmRolesByIdRoleIdCompositesStatus403;
+	POSTAdminRealmsRealmRolesByIdRoleIdCompositesStatus204;
 
 export type DELETEAdminRealmsRealmRolesByIdRoleIdCompositesPath = {
 	/**
@@ -16665,8 +16339,7 @@ export type DELETEAdminRealmsRealmRolesByIdRoleIdCompositesResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmRolesByIdRoleIdCompositesResponse =
-	| DELETEAdminRealmsRealmRolesByIdRoleIdCompositesStatus204
-	| DELETEAdminRealmsRealmRolesByIdRoleIdCompositesStatus403;
+	DELETEAdminRealmsRealmRolesByIdRoleIdCompositesStatus204;
 
 export type GETAdminRealmsRealmRolesByIdRoleIdCompositesClientsClientUuidPath = {
 	/**
@@ -16702,9 +16375,7 @@ export type GETAdminRealmsRealmRolesByIdRoleIdCompositesClientsClientUuidRespons
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmRolesByIdRoleIdCompositesClientsClientUuidResponse =
-	| GETAdminRealmsRealmRolesByIdRoleIdCompositesClientsClientUuidStatus200
-	| GETAdminRealmsRealmRolesByIdRoleIdCompositesClientsClientUuidStatus403
-	| GETAdminRealmsRealmRolesByIdRoleIdCompositesClientsClientUuidStatus404;
+	GETAdminRealmsRealmRolesByIdRoleIdCompositesClientsClientUuidStatus200;
 
 export type GETAdminRealmsRealmRolesByIdRoleIdCompositesRealmPath = {
 	/**
@@ -16735,8 +16406,7 @@ export type GETAdminRealmsRealmRolesByIdRoleIdCompositesRealmResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmRolesByIdRoleIdCompositesRealmResponse =
-	| GETAdminRealmsRealmRolesByIdRoleIdCompositesRealmStatus200
-	| GETAdminRealmsRealmRolesByIdRoleIdCompositesRealmStatus403;
+	GETAdminRealmsRealmRolesByIdRoleIdCompositesRealmStatus200;
 
 export type GETAdminRealmsRealmRolesByIdRoleIdManagementPermissionsPath = {
 	/**
@@ -16768,8 +16438,7 @@ export type GETAdminRealmsRealmRolesByIdRoleIdManagementPermissionsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmRolesByIdRoleIdManagementPermissionsResponse =
-	| GETAdminRealmsRealmRolesByIdRoleIdManagementPermissionsStatus200
-	| GETAdminRealmsRealmRolesByIdRoleIdManagementPermissionsStatus403;
+	GETAdminRealmsRealmRolesByIdRoleIdManagementPermissionsStatus200;
 
 export type PUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsPath = {
 	/**
@@ -16805,8 +16474,7 @@ export type PUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsResponse =
-	| PUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsStatus200
-	| PUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsStatus403;
+	PUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsStatus200;
 
 export type GETAdminRealmsRealmRolesRoleNamePath = {
 	/**
@@ -16843,10 +16511,7 @@ export type GETAdminRealmsRealmRolesRoleNameResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmRolesRoleNameResponse =
-	| GETAdminRealmsRealmRolesRoleNameStatus200
-	| GETAdminRealmsRealmRolesRoleNameStatus403
-	| GETAdminRealmsRealmRolesRoleNameStatus404;
+export type GETAdminRealmsRealmRolesRoleNameResponse = GETAdminRealmsRealmRolesRoleNameStatus200;
 
 export type PUTAdminRealmsRealmRolesRoleNamePath = {
 	/**
@@ -16891,12 +16556,7 @@ export type PUTAdminRealmsRealmRolesRoleNameResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PUTAdminRealmsRealmRolesRoleNameResponse =
-	| PUTAdminRealmsRealmRolesRoleNameStatus204
-	| PUTAdminRealmsRealmRolesRoleNameStatus400
-	| PUTAdminRealmsRealmRolesRoleNameStatus403
-	| PUTAdminRealmsRealmRolesRoleNameStatus404
-	| PUTAdminRealmsRealmRolesRoleNameStatus409;
+export type PUTAdminRealmsRealmRolesRoleNameResponse = PUTAdminRealmsRealmRolesRoleNameStatus204;
 
 export type DELETEAdminRealmsRealmRolesRoleNamePath = {
 	/**
@@ -16937,10 +16597,7 @@ export type DELETEAdminRealmsRealmRolesRoleNameResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmRolesRoleNameResponse =
-	| DELETEAdminRealmsRealmRolesRoleNameStatus204
-	| DELETEAdminRealmsRealmRolesRoleNameStatus400
-	| DELETEAdminRealmsRealmRolesRoleNameStatus403
-	| DELETEAdminRealmsRealmRolesRoleNameStatus404;
+	DELETEAdminRealmsRealmRolesRoleNameStatus204;
 
 export type GETAdminRealmsRealmRolesRoleNameCompositesPath = {
 	/**
@@ -16978,9 +16635,7 @@ export type GETAdminRealmsRealmRolesRoleNameCompositesResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmRolesRoleNameCompositesResponse =
-	| GETAdminRealmsRealmRolesRoleNameCompositesStatus200
-	| GETAdminRealmsRealmRolesRoleNameCompositesStatus403
-	| GETAdminRealmsRealmRolesRoleNameCompositesStatus404;
+	GETAdminRealmsRealmRolesRoleNameCompositesStatus200;
 
 export type POSTAdminRealmsRealmRolesRoleNameCompositesPath = {
 	/**
@@ -17020,9 +16675,7 @@ export type POSTAdminRealmsRealmRolesRoleNameCompositesResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmRolesRoleNameCompositesResponse =
-	| POSTAdminRealmsRealmRolesRoleNameCompositesStatus204
-	| POSTAdminRealmsRealmRolesRoleNameCompositesStatus403
-	| POSTAdminRealmsRealmRolesRoleNameCompositesStatus404;
+	POSTAdminRealmsRealmRolesRoleNameCompositesStatus204;
 
 export type DELETEAdminRealmsRealmRolesRoleNameCompositesPath = {
 	/**
@@ -17062,9 +16715,7 @@ export type DELETEAdminRealmsRealmRolesRoleNameCompositesResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmRolesRoleNameCompositesResponse =
-	| DELETEAdminRealmsRealmRolesRoleNameCompositesStatus204
-	| DELETEAdminRealmsRealmRolesRoleNameCompositesStatus403
-	| DELETEAdminRealmsRealmRolesRoleNameCompositesStatus404;
+	DELETEAdminRealmsRealmRolesRoleNameCompositesStatus204;
 
 export type GETAdminRealmsRealmRolesRoleNameCompositesClientsTargetClientUuidPath = {
 	/**
@@ -17104,9 +16755,7 @@ export type GETAdminRealmsRealmRolesRoleNameCompositesClientsTargetClientUuidRes
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmRolesRoleNameCompositesClientsTargetClientUuidResponse =
-	| GETAdminRealmsRealmRolesRoleNameCompositesClientsTargetClientUuidStatus200
-	| GETAdminRealmsRealmRolesRoleNameCompositesClientsTargetClientUuidStatus403
-	| GETAdminRealmsRealmRolesRoleNameCompositesClientsTargetClientUuidStatus404;
+	GETAdminRealmsRealmRolesRoleNameCompositesClientsTargetClientUuidStatus200;
 
 export type GETAdminRealmsRealmRolesRoleNameCompositesRealmPath = {
 	/**
@@ -17144,9 +16793,7 @@ export type GETAdminRealmsRealmRolesRoleNameCompositesRealmResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmRolesRoleNameCompositesRealmResponse =
-	| GETAdminRealmsRealmRolesRoleNameCompositesRealmStatus200
-	| GETAdminRealmsRealmRolesRoleNameCompositesRealmStatus403
-	| GETAdminRealmsRealmRolesRoleNameCompositesRealmStatus404;
+	GETAdminRealmsRealmRolesRoleNameCompositesRealmStatus200;
 
 export type GETAdminRealmsRealmRolesRoleNameGroupsPath = {
 	/**
@@ -17208,9 +16855,7 @@ export type GETAdminRealmsRealmRolesRoleNameGroupsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmRolesRoleNameGroupsResponse =
-	| GETAdminRealmsRealmRolesRoleNameGroupsStatus200
-	| GETAdminRealmsRealmRolesRoleNameGroupsStatus403
-	| GETAdminRealmsRealmRolesRoleNameGroupsStatus404;
+	GETAdminRealmsRealmRolesRoleNameGroupsStatus200;
 
 export type GETAdminRealmsRealmRolesRoleNameManagementPermissionsPath = {
 	/**
@@ -17245,9 +16890,7 @@ export type GETAdminRealmsRealmRolesRoleNameManagementPermissionsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmRolesRoleNameManagementPermissionsResponse =
-	| GETAdminRealmsRealmRolesRoleNameManagementPermissionsStatus200
-	| GETAdminRealmsRealmRolesRoleNameManagementPermissionsStatus403
-	| GETAdminRealmsRealmRolesRoleNameManagementPermissionsStatus404;
+	GETAdminRealmsRealmRolesRoleNameManagementPermissionsStatus200;
 
 export type PUTAdminRealmsRealmRolesRoleNameManagementPermissionsPath = {
 	/**
@@ -17286,9 +16929,7 @@ export type PUTAdminRealmsRealmRolesRoleNameManagementPermissionsResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmRolesRoleNameManagementPermissionsResponse =
-	| PUTAdminRealmsRealmRolesRoleNameManagementPermissionsStatus200
-	| PUTAdminRealmsRealmRolesRoleNameManagementPermissionsStatus403
-	| PUTAdminRealmsRealmRolesRoleNameManagementPermissionsStatus404;
+	PUTAdminRealmsRealmRolesRoleNameManagementPermissionsStatus200;
 
 export type GETAdminRealmsRealmRolesRoleNameUsersPath = {
 	/**
@@ -17349,9 +16990,7 @@ export type GETAdminRealmsRealmRolesRoleNameUsersResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmRolesRoleNameUsersResponse =
-	| GETAdminRealmsRealmRolesRoleNameUsersStatus200
-	| GETAdminRealmsRealmRolesRoleNameUsersStatus403
-	| GETAdminRealmsRealmRolesRoleNameUsersStatus404;
+	GETAdminRealmsRealmRolesRoleNameUsersStatus200;
 
 export type GETAdminRealmsRealmUsersUserIdPath = {
 	/**
@@ -17389,9 +17028,7 @@ export type GETAdminRealmsRealmUsersUserIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GETAdminRealmsRealmUsersUserIdResponse =
-	| GETAdminRealmsRealmUsersUserIdStatus200
-	| GETAdminRealmsRealmUsersUserIdStatus403;
+export type GETAdminRealmsRealmUsersUserIdResponse = GETAdminRealmsRealmUsersUserIdStatus200;
 
 export type PUTAdminRealmsRealmUsersUserIdPath = {
 	/**
@@ -17432,12 +17069,7 @@ export type PUTAdminRealmsRealmUsersUserIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PUTAdminRealmsRealmUsersUserIdResponse =
-	| PUTAdminRealmsRealmUsersUserIdStatus204
-	| PUTAdminRealmsRealmUsersUserIdStatus400
-	| PUTAdminRealmsRealmUsersUserIdStatus403
-	| PUTAdminRealmsRealmUsersUserIdStatus409
-	| PUTAdminRealmsRealmUsersUserIdStatus500;
+export type PUTAdminRealmsRealmUsersUserIdResponse = PUTAdminRealmsRealmUsersUserIdStatus204;
 
 export type DELETEAdminRealmsRealmUsersUserIdPath = {
 	/**
@@ -17470,10 +17102,7 @@ export type DELETEAdminRealmsRealmUsersUserIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DELETEAdminRealmsRealmUsersUserIdResponse =
-	| DELETEAdminRealmsRealmUsersUserIdStatus204
-	| DELETEAdminRealmsRealmUsersUserIdStatus400
-	| DELETEAdminRealmsRealmUsersUserIdStatus403;
+export type DELETEAdminRealmsRealmUsersUserIdResponse = DELETEAdminRealmsRealmUsersUserIdStatus204;
 
 export type GETAdminRealmsRealmUsersUserIdConfiguredUserStorageCredentialTypesPath = {
 	/**
@@ -17504,8 +17133,7 @@ export type GETAdminRealmsRealmUsersUserIdConfiguredUserStorageCredentialTypesRe
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersUserIdConfiguredUserStorageCredentialTypesResponse =
-	| GETAdminRealmsRealmUsersUserIdConfiguredUserStorageCredentialTypesStatus200
-	| GETAdminRealmsRealmUsersUserIdConfiguredUserStorageCredentialTypesStatus403;
+	GETAdminRealmsRealmUsersUserIdConfiguredUserStorageCredentialTypesStatus200;
 
 export type GETAdminRealmsRealmUsersUserIdConsentsPath = {
 	/**
@@ -17538,8 +17166,7 @@ export type GETAdminRealmsRealmUsersUserIdConsentsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersUserIdConsentsResponse =
-	| GETAdminRealmsRealmUsersUserIdConsentsStatus200
-	| GETAdminRealmsRealmUsersUserIdConsentsStatus403;
+	GETAdminRealmsRealmUsersUserIdConsentsStatus200;
 
 export type DELETEAdminRealmsRealmUsersUserIdConsentsClientPath = {
 	/**
@@ -17578,9 +17205,7 @@ export type DELETEAdminRealmsRealmUsersUserIdConsentsClientResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmUsersUserIdConsentsClientResponse =
-	| DELETEAdminRealmsRealmUsersUserIdConsentsClientStatus204
-	| DELETEAdminRealmsRealmUsersUserIdConsentsClientStatus403
-	| DELETEAdminRealmsRealmUsersUserIdConsentsClientStatus404;
+	DELETEAdminRealmsRealmUsersUserIdConsentsClientStatus204;
 
 export type GETAdminRealmsRealmUsersUserIdCredentialsPath = {
 	/**
@@ -17611,8 +17236,7 @@ export type GETAdminRealmsRealmUsersUserIdCredentialsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersUserIdCredentialsResponse =
-	| GETAdminRealmsRealmUsersUserIdCredentialsStatus200
-	| GETAdminRealmsRealmUsersUserIdCredentialsStatus403;
+	GETAdminRealmsRealmUsersUserIdCredentialsStatus200;
 
 export type DELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdPath = {
 	/**
@@ -17647,9 +17271,7 @@ export type DELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdResponses = 
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdResponse =
-	| DELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdStatus204
-	| DELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdStatus403
-	| DELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdStatus404;
+	DELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdStatus204;
 
 export type POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPreviousCredentialIdPath =
 	{
@@ -17699,9 +17321,7 @@ export type POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPr
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPreviousCredentialIdResponse =
-	| POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPreviousCredentialIdStatus204
-	| POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPreviousCredentialIdStatus403
-	| POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPreviousCredentialIdStatus404;
+	POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPreviousCredentialIdStatus204;
 
 export type POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstPath = {
 	/**
@@ -17740,9 +17360,7 @@ export type POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstRes
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstResponse =
-	| POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstStatus204
-	| POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstStatus403
-	| POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstStatus404;
+	POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstStatus204;
 
 export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelPath = {
 	/**
@@ -17777,9 +17395,7 @@ export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelRespon
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelResponse =
-	| PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus204
-	| PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus403
-	| PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus404;
+	PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus204;
 
 export type PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesPath = {
 	/**
@@ -17812,8 +17428,7 @@ export type PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesResponse =
-	| PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesStatus204
-	| PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesStatus403;
+	PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesStatus204;
 
 export type PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailPath = {
 	/**
@@ -17875,11 +17490,7 @@ export type PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailResponse =
-	| PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailStatus204
-	| PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailStatus400
-	| PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailStatus403
-	| PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailStatus404
-	| PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailStatus500;
+	PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailStatus204;
 
 export type GETAdminRealmsRealmUsersUserIdFederatedIdentityPath = {
 	/**
@@ -17911,8 +17522,7 @@ export type GETAdminRealmsRealmUsersUserIdFederatedIdentityResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersUserIdFederatedIdentityResponse =
-	| GETAdminRealmsRealmUsersUserIdFederatedIdentityStatus200
-	| GETAdminRealmsRealmUsersUserIdFederatedIdentityStatus403;
+	GETAdminRealmsRealmUsersUserIdFederatedIdentityStatus200;
 
 export type POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderPath = {
 	/**
@@ -17955,9 +17565,7 @@ export type POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderResponses = 
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderResponse =
-	| POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus204
-	| POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus403
-	| POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus409;
+	POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus204;
 
 export type DELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderPath = {
 	/**
@@ -17996,9 +17604,7 @@ export type DELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderResponses 
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderResponse =
-	| DELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus204
-	| DELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus403
-	| DELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus404;
+	DELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus204;
 
 export type GETAdminRealmsRealmUsersUserIdGroupsPath = {
 	/**
@@ -18050,8 +17656,7 @@ export type GETAdminRealmsRealmUsersUserIdGroupsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersUserIdGroupsResponse =
-	| GETAdminRealmsRealmUsersUserIdGroupsStatus200
-	| GETAdminRealmsRealmUsersUserIdGroupsStatus403;
+	GETAdminRealmsRealmUsersUserIdGroupsStatus200;
 
 export type GETAdminRealmsRealmUsersUserIdGroupsCountPath = {
 	/**
@@ -18088,8 +17693,7 @@ export type GETAdminRealmsRealmUsersUserIdGroupsCountResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersUserIdGroupsCountResponse =
-	| GETAdminRealmsRealmUsersUserIdGroupsCountStatus200
-	| GETAdminRealmsRealmUsersUserIdGroupsCountStatus403;
+	GETAdminRealmsRealmUsersUserIdGroupsCountStatus200;
 
 export type PUTAdminRealmsRealmUsersUserIdGroupsGroupIdPath = {
 	/**
@@ -18124,9 +17728,7 @@ export type PUTAdminRealmsRealmUsersUserIdGroupsGroupIdResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmUsersUserIdGroupsGroupIdResponse =
-	| PUTAdminRealmsRealmUsersUserIdGroupsGroupIdStatus204
-	| PUTAdminRealmsRealmUsersUserIdGroupsGroupIdStatus403
-	| PUTAdminRealmsRealmUsersUserIdGroupsGroupIdStatus404;
+	PUTAdminRealmsRealmUsersUserIdGroupsGroupIdStatus204;
 
 export type DELETEAdminRealmsRealmUsersUserIdGroupsGroupIdPath = {
 	/**
@@ -18167,11 +17769,7 @@ export type DELETEAdminRealmsRealmUsersUserIdGroupsGroupIdResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmUsersUserIdGroupsGroupIdResponse =
-	| DELETEAdminRealmsRealmUsersUserIdGroupsGroupIdStatus204
-	| DELETEAdminRealmsRealmUsersUserIdGroupsGroupIdStatus400
-	| DELETEAdminRealmsRealmUsersUserIdGroupsGroupIdStatus403
-	| DELETEAdminRealmsRealmUsersUserIdGroupsGroupIdStatus404
-	| DELETEAdminRealmsRealmUsersUserIdGroupsGroupIdStatus500;
+	DELETEAdminRealmsRealmUsersUserIdGroupsGroupIdStatus204;
 
 export type POSTAdminRealmsRealmUsersUserIdImpersonationPath = {
 	/**
@@ -18207,9 +17805,7 @@ export type POSTAdminRealmsRealmUsersUserIdImpersonationResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmUsersUserIdImpersonationResponse =
-	| POSTAdminRealmsRealmUsersUserIdImpersonationStatus200
-	| POSTAdminRealmsRealmUsersUserIdImpersonationStatus400
-	| POSTAdminRealmsRealmUsersUserIdImpersonationStatus403;
+	POSTAdminRealmsRealmUsersUserIdImpersonationStatus200;
 
 export type POSTAdminRealmsRealmUsersUserIdLogoutPath = {
 	/**
@@ -18240,8 +17836,7 @@ export type POSTAdminRealmsRealmUsersUserIdLogoutResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmUsersUserIdLogoutResponse =
-	| POSTAdminRealmsRealmUsersUserIdLogoutStatus204
-	| POSTAdminRealmsRealmUsersUserIdLogoutStatus403;
+	POSTAdminRealmsRealmUsersUserIdLogoutStatus204;
 
 export type GETAdminRealmsRealmUsersUserIdOfflineSessionsClientUuidPath = {
 	/**
@@ -18277,9 +17872,7 @@ export type GETAdminRealmsRealmUsersUserIdOfflineSessionsClientUuidResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersUserIdOfflineSessionsClientUuidResponse =
-	| GETAdminRealmsRealmUsersUserIdOfflineSessionsClientUuidStatus200
-	| GETAdminRealmsRealmUsersUserIdOfflineSessionsClientUuidStatus403
-	| GETAdminRealmsRealmUsersUserIdOfflineSessionsClientUuidStatus404;
+	GETAdminRealmsRealmUsersUserIdOfflineSessionsClientUuidStatus200;
 
 export type PUTAdminRealmsRealmUsersUserIdResetPasswordPath = {
 	/**
@@ -18318,10 +17911,7 @@ export type PUTAdminRealmsRealmUsersUserIdResetPasswordResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmUsersUserIdResetPasswordResponse =
-	| PUTAdminRealmsRealmUsersUserIdResetPasswordStatus204
-	| PUTAdminRealmsRealmUsersUserIdResetPasswordStatus400
-	| PUTAdminRealmsRealmUsersUserIdResetPasswordStatus403
-	| PUTAdminRealmsRealmUsersUserIdResetPasswordStatus500;
+	PUTAdminRealmsRealmUsersUserIdResetPasswordStatus204;
 
 export type PUTAdminRealmsRealmUsersUserIdResetPasswordEmailPath = {
 	/**
@@ -18378,11 +17968,7 @@ export type PUTAdminRealmsRealmUsersUserIdResetPasswordEmailResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmUsersUserIdResetPasswordEmailResponse =
-	| PUTAdminRealmsRealmUsersUserIdResetPasswordEmailStatus204
-	| PUTAdminRealmsRealmUsersUserIdResetPasswordEmailStatus400
-	| PUTAdminRealmsRealmUsersUserIdResetPasswordEmailStatus403
-	| PUTAdminRealmsRealmUsersUserIdResetPasswordEmailStatus404
-	| PUTAdminRealmsRealmUsersUserIdResetPasswordEmailStatus500;
+	PUTAdminRealmsRealmUsersUserIdResetPasswordEmailStatus204;
 
 export type GETAdminRealmsRealmUsersUserIdRoleMappingsPath = {
 	/**
@@ -18413,8 +17999,7 @@ export type GETAdminRealmsRealmUsersUserIdRoleMappingsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersUserIdRoleMappingsResponse =
-	| GETAdminRealmsRealmUsersUserIdRoleMappingsStatus200
-	| GETAdminRealmsRealmUsersUserIdRoleMappingsStatus403;
+	GETAdminRealmsRealmUsersUserIdRoleMappingsStatus200;
 
 export type GETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdPath = {
 	/**
@@ -18630,8 +18215,7 @@ export type GETAdminRealmsRealmUsersUserIdRoleMappingsRealmResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersUserIdRoleMappingsRealmResponse =
-	| GETAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus200
-	| GETAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus403;
+	GETAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus200;
 
 export type POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmPath = {
 	/**
@@ -18673,11 +18257,7 @@ export type POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmResponses = {
  * @description Union of all possible responses
  */
 export type POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmResponse =
-	| POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus204
-	| POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus400
-	| POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus403
-	| POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus404
-	| POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus500;
+	POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus204;
 
 export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmPath = {
 	/**
@@ -18721,11 +18301,7 @@ export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmResponses = {
  * @description Union of all possible responses
  */
 export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmResponse =
-	| DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus204
-	| DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus400
-	| DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus403
-	| DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus404
-	| DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus500;
+	DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus204;
 
 export type GETAdminRealmsRealmUsersUserIdRoleMappingsRealmAvailablePath = {
 	/**
@@ -18757,8 +18333,7 @@ export type GETAdminRealmsRealmUsersUserIdRoleMappingsRealmAvailableResponses = 
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersUserIdRoleMappingsRealmAvailableResponse =
-	| GETAdminRealmsRealmUsersUserIdRoleMappingsRealmAvailableStatus200
-	| GETAdminRealmsRealmUsersUserIdRoleMappingsRealmAvailableStatus403;
+	GETAdminRealmsRealmUsersUserIdRoleMappingsRealmAvailableStatus200;
 
 export type GETAdminRealmsRealmUsersUserIdRoleMappingsRealmCompositePath = {
 	/**
@@ -18799,8 +18374,7 @@ export type GETAdminRealmsRealmUsersUserIdRoleMappingsRealmCompositeResponses = 
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersUserIdRoleMappingsRealmCompositeResponse =
-	| GETAdminRealmsRealmUsersUserIdRoleMappingsRealmCompositeStatus200
-	| GETAdminRealmsRealmUsersUserIdRoleMappingsRealmCompositeStatus403;
+	GETAdminRealmsRealmUsersUserIdRoleMappingsRealmCompositeStatus200;
 
 export type PUTAdminRealmsRealmUsersUserIdSendVerifyEmailPath = {
 	/**
@@ -18857,10 +18431,7 @@ export type PUTAdminRealmsRealmUsersUserIdSendVerifyEmailResponses = {
  * @description Union of all possible responses
  */
 export type PUTAdminRealmsRealmUsersUserIdSendVerifyEmailResponse =
-	| PUTAdminRealmsRealmUsersUserIdSendVerifyEmailStatus204
-	| PUTAdminRealmsRealmUsersUserIdSendVerifyEmailStatus400
-	| PUTAdminRealmsRealmUsersUserIdSendVerifyEmailStatus403
-	| PUTAdminRealmsRealmUsersUserIdSendVerifyEmailStatus500;
+	PUTAdminRealmsRealmUsersUserIdSendVerifyEmailStatus204;
 
 export type GETAdminRealmsRealmUsersUserIdSessionsPath = {
 	/**
@@ -18891,8 +18462,7 @@ export type GETAdminRealmsRealmUsersUserIdSessionsResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersUserIdSessionsResponse =
-	| GETAdminRealmsRealmUsersUserIdSessionsStatus200
-	| GETAdminRealmsRealmUsersUserIdSessionsStatus403;
+	GETAdminRealmsRealmUsersUserIdSessionsStatus200;
 
 export type GETAdminRealmsRealmUsersUserIdUnmanagedAttributesPath = {
 	/**
@@ -18925,8 +18495,7 @@ export type GETAdminRealmsRealmUsersUserIdUnmanagedAttributesResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmUsersUserIdUnmanagedAttributesResponse =
-	| GETAdminRealmsRealmUsersUserIdUnmanagedAttributesStatus200
-	| GETAdminRealmsRealmUsersUserIdUnmanagedAttributesStatus403;
+	GETAdminRealmsRealmUsersUserIdUnmanagedAttributesStatus200;
 
 export type GETAdminRealmsRealmWorkflowsScheduledResourceIdPath = {
 	/**
@@ -18961,5 +18530,4 @@ export type GETAdminRealmsRealmWorkflowsScheduledResourceIdResponses = {
  * @description Union of all possible responses
  */
 export type GETAdminRealmsRealmWorkflowsScheduledResourceIdResponse =
-	| GETAdminRealmsRealmWorkflowsScheduledResourceIdStatus200
-	| GETAdminRealmsRealmWorkflowsScheduledResourceIdStatus400;
+	GETAdminRealmsRealmWorkflowsScheduledResourceIdStatus200;
