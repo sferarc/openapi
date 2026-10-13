@@ -55886,7 +55886,7 @@ export async function artifactsReposRawGet(
 		{ accountId: string; namespace: string; name: string; ref: string; path: string }
 	>({
 		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/artifacts/namespaces/${encodeURIComponent(String(pathParams.namespace))}/repos/${encodeURIComponent(String(pathParams.name))}/raw/${encodeURIComponent(String(pathParams.ref))}/${encodeURIComponent(String(pathParams.path))}`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/artifacts/namespaces/${encodeURIComponent(String(pathParams.namespace))}/repos/${encodeURIComponent(String(pathParams.name))}/raw/${encodeURIComponent(String(pathParams.ref))}/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
