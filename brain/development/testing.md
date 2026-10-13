@@ -1,6 +1,8 @@
 # Testing
 
-Only `clickhouse-cloud` has tests: `packages/clickhouse-cloud/src/client.test.ts`, run with vitest and offline through an injected `fetch`. It covers the client, basic auth and the Effect bindings (#2). No other package defines a `test` script.
+`clickhouse-cloud` has tests: `packages/clickhouse-cloud/src/client.test.ts`, run with vitest and offline through an injected `fetch`. It covers the client, basic auth and the Effect bindings (#2).
+
+`@sferadev/openapi-utils` unit-tests the spec transforms in `packages/openapi-utils/src/kubb/spec-transforms.test.ts` with vitest, stubbing the global `fetch` for `fetchSpec`. Run it alone with `pnpm test --filter=@sferadev/openapi-utils`.
 
 For the other clients the checks are type-level and structural: `pnpm tsc` over the generated code and the hand-written client, `knip` for unused exports and dependencies, and `is-tree-shakable` on each built package ([[toolchain]]).
 
