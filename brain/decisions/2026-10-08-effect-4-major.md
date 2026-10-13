@@ -13,7 +13,7 @@ The catalog had held `effect` on 3.x with a comment saying the move needs a code
 ## Consequences
 
 - Projects on Effect 3 stay on the previous major of each client (`.changeset/effect-v4.md`).
-- An HTTP error status still surfaces as `NetworkError` rather than `ApiError` in the older clients' fetchers; `clickhouse-cloud`'s fetcher returns `ApiError` (#6).
+- An HTTP error status still surfaces as `NetworkError` rather than `ApiError` in the older clients' fetchers; `clickhouse-cloud`'s fetcher returns `ApiError` (#6). Fixed afterwards by #8, which made the older fetchers throw an error carrying the HTTP status.
 
 ## What would reopen it
 
