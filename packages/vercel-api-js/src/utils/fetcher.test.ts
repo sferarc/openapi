@@ -57,4 +57,31 @@ describe("fetcher", () => {
 		await readAccessGroup({ pathParams: { idOrName: "../v2/user" }, config: { fetchImpl } });
 		expect(calledUrl).toContain("/v1/access-groups/..%2Fv2%2Fuser");
 	});
+
+	describe("query string", () => {
+		const searchOf = async (queryParams: Record<string, unknown>) => {
+			let requested = "";
+			const fetchImpl: FetchImpl = async (url) => {
+				requested = String(url);
+				return new Response("{}", {
+					status: 200,
+					headers: { "content-type": "application/json" },
+				}) as never;
+			};
+			await client({ url: "/thing", method: "get", queryParams, fetchImpl });
+			return new URL(requested, "http://localhost").search;
+		};
+
+		it("omits undefined and null values", async () => {
+			expect(await searchOf({ teamId: undefined, slug: null, limit: 5 })).toBe("?limit=5");
+		});
+
+		it("sends an array as repeated keys", async () => {
+			expect(await searchOf({ ids: ["a", "b"] })).toBe("?ids=a&ids=b");
+		});
+
+		it("encodes reserved characters and spaces", async () => {
+			expect(await searchOf({ q: "a&b c" })).toBe("?q=a%26b+c");
+		});
+	});
 });
