@@ -95,8 +95,12 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 }
 
 const resolveUrl = (url: string, queryParams: any = {}, pathParams: any = {}) => {
-	let query = new URLSearchParams(queryParams).toString();
-	if (query) query = `?${query}`;
+	const search = new URLSearchParams();
+	for (const [key, value] of Object.entries(queryParams ?? {})) {
+		if (value === undefined || value === null) continue;
+		for (const item of Array.isArray(value) ? value : [value]) search.append(key, String(item));
+	}
+	const query = search.toString() ? `?${search.toString()}` : "";
 	return url.replace(/\{\w*\}/g, (key) => pathParams[key.slice(1, -1)] ?? "") + query;
 };
 
