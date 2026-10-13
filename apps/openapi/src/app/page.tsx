@@ -7,7 +7,6 @@ import type { Provider } from "@/lib/types";
 // ISR: Revalidate every 6 hours
 export const revalidate = 21600;
 
-// This will be replaced by server-side data
 const getProviders = (versions: Record<string, string>) =>
 	[
 		{
@@ -18,7 +17,7 @@ const getProviders = (versions: Record<string, string>) =>
 			usage: `import { VercelApi } from 'vercel-api-js';
 
 const vercel = new VercelApi({ token: "token" });
-const { projects } = await vercel.api.projects.getProjects();`,
+const projects = await vercel.api.projects.getProjects({});`,
 		},
 		{
 			id: "v0",
@@ -28,7 +27,7 @@ const { projects } = await vercel.api.projects.getProjects();`,
 			usage: `import { V0Api } from 'v0-api';
 
 const api = new V0Api({ token: '...' });
-const projects = await api.api.projects.getProjects();`,
+const projects = await api.api.projects.projectsFind({});`,
 		},
 		{
 			id: "cloudflare",
@@ -37,8 +36,8 @@ const projects = await api.api.projects.getProjects();`,
 			version: versions["cloudflare-api-js"],
 			usage: `import { CloudflareApi } from 'cloudflare-api-js';
 
-const api = new CloudflareApi({ apiKey: '...', email: '...' });
-const zones = await api.zones.getZones({});`,
+const api = new CloudflareApi({ token: '...' });
+const zones = await api.api.zone.zonesGet({});`,
 		},
 		{
 			id: "netlify",
@@ -47,18 +46,18 @@ const zones = await api.zones.getZones({});`,
 			version: versions["netlify-api"],
 			usage: `import { NetlifyApi } from 'netlify-api';
 
-const api = new NetlifyApi({ accessToken: '...' });
-const sites = await api.sites.listSites({});`,
+const api = new NetlifyApi({ token: '...' });
+const sites = await api.api.site.listSites({});`,
 		},
 		{
 			id: "keycloak",
 			name: "Keycloak",
 			packageName: "keycloak-api",
 			version: versions["keycloak-api"],
-			usage: `import { KeycloakApi } from 'keycloak-api';
+			usage: `import { KeycloakAdminApi } from 'keycloak-api';
 
-const api = new KeycloakApi({ basePath: '...' });
-const realms = await api.admin.realms.getRealms({});`,
+const api = new KeycloakAdminApi({ baseUrl: 'https://keycloak.example.com', token: '...' });
+const realms = await api.request('GET /admin/realms', {});`,
 		},
 		{
 			id: "zoom",
@@ -67,8 +66,8 @@ const realms = await api.admin.realms.getRealms({});`,
 			version: versions["zoom-api-js"],
 			usage: `import { ZoomApi } from 'zoom-api-js';
 
-const api = new ZoomApi({ bearer: '...' });
-const users = await api.meeting.users.getUsers({});`,
+const api = new ZoomApi({ token: '...' });
+const files = await api.api.archiving.listArchivedFiles({});`,
 		},
 		{
 			id: "nuki",
@@ -77,8 +76,8 @@ const users = await api.meeting.users.getUsers({});`,
 			version: versions["nuki-api-js"],
 			usage: `import { NukiApi } from 'nuki-api-js';
 
-const api = new NukiApi({ apiKey: '...' });
-const smartLocks = await api.api.smartLocks.getSmartLocks();`,
+const api = new NukiApi({ token: '...' });
+const smartLocks = await api.api.smartlock.getSmartlocksResource({});`,
 		},
 		{
 			id: "litellm",
@@ -87,7 +86,7 @@ const smartLocks = await api.api.smartLocks.getSmartLocks();`,
 			version: versions["litellm-api"],
 			usage: `import { LiteLLMApi } from 'litellm-api';
 
-const api = new LiteLLMApi({ baseUrl: 'https://api.litellm.ai', token: null });
+const api = new LiteLLMApi({ baseUrl: 'http://localhost:4000', token: '...' });
 const models = await api.request('GET /model_catalog', {});`,
 		},
 	] satisfies Provider[];
