@@ -12,9 +12,9 @@ export const organizationRepresentationSchema = z.object({
 });
 
 export const groupRepresentationSchema = z.object({
-	access: z.object({}).catchall(z.unknown()).optional(),
-	attributes: z.object({}).catchall(z.unknown()).optional(),
-	clientRoles: z.object({}).catchall(z.unknown()).optional(),
+	access: z.looseObject({}).optional(),
+	attributes: z.looseObject({}).optional(),
+	clientRoles: z.looseObject({}).optional(),
 	id: z.string().optional(),
 	name: z.string().optional(),
 	path: z.string().optional(),

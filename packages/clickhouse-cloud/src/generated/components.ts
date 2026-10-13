@@ -470,6 +470,13 @@ import type {
 	QueryApiEndpointUpdateStatus404,
 	QueryApiEndpointUpdateStatus409,
 	QueryApiEndpointUpdateStatus500,
+	ReplicaAwareRoutingGetResponse,
+	ReplicaAwareRoutingGetStatus400,
+	ReplicaAwareRoutingGetStatus500,
+	ReplicaAwareRoutingUpdateBody,
+	ReplicaAwareRoutingUpdateResponse,
+	ReplicaAwareRoutingUpdateStatus400,
+	ReplicaAwareRoutingUpdateStatus500,
 	SavedQueryCreateBody,
 	SavedQueryCreateResponse,
 	SavedQueryCreateStatus400,
@@ -655,11 +662,17 @@ export async function whoamiGet(
 
 /**
  * @summary Get list of available organizations
- * @description Returns a list with a single organization associated with the API key in the request.
+ * @description Returns the organizations available to the caller, oldest first. An API key resolves to the single organization it belongs to; a user token returns every organization the user is a member of. Results are capped at `limit` (default 250) per page; the server may return fewer and caps the value at its own maximum. Every response carries `limit` and `nextCursor`; pass `nextCursor` as the `cursor` query parameter to fetch the next page, repeating until it is null.
  * @link /v1/organizations
  */
 export async function organizationGetList(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: { limit?: number; cursor?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -668,11 +681,12 @@ export async function organizationGetList(
 		ErrorWrapper<OrganizationGetListStatus400 | OrganizationGetListStatus500>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		{ limit?: number; cursor?: string },
 		Record<string, string>
 	>({
 		method: "GET",
 		url: `/v1/organizations`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -696,7 +710,11 @@ export async function organizationGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -708,7 +726,7 @@ export async function organizationGet(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -734,7 +752,11 @@ export async function organizationUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -746,7 +768,7 @@ export async function organizationUpdate(
 		{ organizationId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -777,7 +799,11 @@ export async function organizationPrometheusGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -789,7 +815,7 @@ export async function organizationPrometheusGet(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/prometheus`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/prometheus`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -799,9 +825,10 @@ export async function organizationPrometheusGet(
 }
 
 /**
- * @summary List Prometheus scrape targets
+ * @summary Get Prometheus service discovery targets
  * @description Returns one Prometheus scrape target per service in the organization, in the [HTTP service discovery](https://prometheus.io/docs/prometheus/latest/http_sd/) (`http_sd`) format. Only services the API key is authorized to view are included; services that are being deleted or have been deleted are omitted.
  * Point an [`http_sd_configs`](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#http_sd_config) job at this endpoint to discover and scrape all services in the organization automatically. Prometheus refreshes the target list on every discovery poll, so newly created and deleted services are picked up without configuration changes.
+ * Filter targets in `relabel_configs` by `__meta_clickhouse_region`, `__meta_clickhouse_provider` or `__meta_clickhouse_tag_<key>`. Invalid label name characters in tag keys become `_`. `__meta_clickhouse_tagpresent_<key>` is `true` for every tag, including tags without a value.
  * Discovered targets scrape with `filtered_metrics=true` by default; pass `?filtered_metrics=false` to this endpoint to discover unfiltered targets. See the [Prometheus integration guide](https://clickhouse.com/docs/integrations/prometheus) for more on the exported metrics.
  * @link /v1/organizations/{organizationId}/prometheus/discovery
  */
@@ -818,7 +845,11 @@ export async function organizationPrometheusDiscoveryGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -832,7 +863,7 @@ export async function organizationPrometheusDiscoveryGet(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/prometheus/discovery`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/prometheus/discovery`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -857,7 +888,11 @@ export async function organizationRolesGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -869,7 +904,7 @@ export async function organizationRolesGetList(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/roles`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/roles`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -895,7 +930,11 @@ export async function organizationRolePost(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -907,7 +946,7 @@ export async function organizationRolePost(
 		{ organizationId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/roles`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/roles`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -932,11 +971,19 @@ export async function organizationRoleGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.roleId) {
+	if (
+		pathParams.roleId === undefined ||
+		pathParams.roleId === null ||
+		String(pathParams.roleId) === ""
+	) {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -948,7 +995,7 @@ export async function organizationRoleGet(
 		{ organizationId: string; roleId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/roles/${pathParams.roleId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/roles/${encodeURIComponent(String(pathParams.roleId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -974,11 +1021,19 @@ export async function organizationRolePatch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.roleId) {
+	if (
+		pathParams.roleId === undefined ||
+		pathParams.roleId === null ||
+		String(pathParams.roleId) === ""
+	) {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -990,7 +1045,7 @@ export async function organizationRolePatch(
 		{ organizationId: string; roleId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/roles/${pathParams.roleId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/roles/${encodeURIComponent(String(pathParams.roleId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1015,11 +1070,19 @@ export async function organizationRoleDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.roleId) {
+	if (
+		pathParams.roleId === undefined ||
+		pathParams.roleId === null ||
+		String(pathParams.roleId) === ""
+	) {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -1031,7 +1094,7 @@ export async function organizationRoleDelete(
 		{ organizationId: string; roleId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/roles/${pathParams.roleId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/roles/${encodeURIComponent(String(pathParams.roleId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1055,7 +1118,11 @@ export async function organizationQuotasGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -1067,7 +1134,7 @@ export async function organizationQuotasGetList(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/quotas`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/quotas`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1091,11 +1158,19 @@ export async function organizationQuotaGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.quotaCode) {
+	if (
+		pathParams.quotaCode === undefined ||
+		pathParams.quotaCode === null ||
+		String(pathParams.quotaCode) === ""
+	) {
 		throw new Error(`Missing required path parameter: quotaCode`);
 	}
 	const data = await request<
@@ -1107,7 +1182,7 @@ export async function organizationQuotaGet(
 		{ organizationId: string; quotaCode: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/quotas/${pathParams.quotaCode}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/quotas/${encodeURIComponent(String(pathParams.quotaCode))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1133,7 +1208,11 @@ export async function serviceProfilesList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -1145,7 +1224,7 @@ export async function serviceProfilesList(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/serviceProfiles`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/serviceProfiles`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1172,7 +1251,11 @@ export async function instanceGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -1184,7 +1267,7 @@ export async function instanceGetList(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1211,7 +1294,11 @@ export async function instanceCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -1223,7 +1310,7 @@ export async function instanceCreate(
 		{ organizationId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1248,11 +1335,19 @@ export async function instanceGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1264,7 +1359,7 @@ export async function instanceGet(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1290,11 +1385,19 @@ export async function instanceUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1306,7 +1409,7 @@ export async function instanceUpdate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1331,11 +1434,19 @@ export async function instanceDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1347,7 +1458,7 @@ export async function instanceDelete(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1371,11 +1482,19 @@ export async function instancePrivateEndpointConfigGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1389,7 +1508,7 @@ export async function instancePrivateEndpointConfigGet(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/privateEndpointConfig`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/privateEndpointConfig`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1413,11 +1532,19 @@ export async function instanceQueryEndpointGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1429,7 +1556,7 @@ export async function instanceQueryEndpointGet(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/serviceQueryEndpoint`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/serviceQueryEndpoint`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1453,11 +1580,19 @@ export async function instanceQueryEndpointDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1469,7 +1604,7 @@ export async function instanceQueryEndpointDelete(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/serviceQueryEndpoint`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/serviceQueryEndpoint`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1495,11 +1630,19 @@ export async function instanceQueryEndpointUpsert(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1511,7 +1654,7 @@ export async function instanceQueryEndpointUpsert(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/serviceQueryEndpoint`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/serviceQueryEndpoint`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1538,11 +1681,19 @@ export async function instanceStateUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1554,7 +1705,7 @@ export async function instanceStateUpdate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/state`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/state`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1582,11 +1733,19 @@ export async function instanceScalingUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1598,7 +1757,7 @@ export async function instanceScalingUpdate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/scaling`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/scaling`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1625,11 +1784,19 @@ export async function instanceReplicaScalingUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1641,7 +1808,7 @@ export async function instanceReplicaScalingUpdate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/replicaScaling`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/replicaScaling`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1668,11 +1835,19 @@ export async function instancePasswordUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1684,7 +1859,7 @@ export async function instancePasswordUpdate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/password`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/password`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1711,11 +1886,19 @@ export async function instancePrivateEndpointCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1727,7 +1910,7 @@ export async function instancePrivateEndpointCreate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/privateEndpoint`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/privateEndpoint`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1754,11 +1937,19 @@ export async function instancePrometheusGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1770,7 +1961,7 @@ export async function instancePrometheusGet(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/prometheus`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/prometheus`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1781,7 +1972,7 @@ export async function instancePrometheusGet(
 
 /**
  * @summary Get service autoscaling schedule
- * @description **Disclaimer:** This beta endpoint is evolving; the API contract may change. <br /><br /> Returns the autoscaling schedule for a service. Returns 404 if no schedule has been configured or if the schedule was cleared. Requires the scheduled autoscaling feature to be enabled for the organization.
+ * @description Returns the autoscaling schedule for a service. Returns 404 if no schedule has been configured or if the schedule was cleared. Requires the scheduled autoscaling feature to be enabled for the organization.
  * @link /v1/organizations/{organizationId}/services/{serviceId}/scalingSchedule
  */
 export async function scalingScheduleGet(
@@ -1795,11 +1986,19 @@ export async function scalingScheduleGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1811,7 +2010,7 @@ export async function scalingScheduleGet(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/scalingSchedule`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/scalingSchedule`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1821,7 +2020,7 @@ export async function scalingScheduleGet(
 
 /**
  * @summary Create or replace service autoscaling schedule
- * @description **Disclaimer:** This beta endpoint is evolving; the API contract may change. <br /><br /> Creates or fully replaces the autoscaling schedule for a service. Pass an empty `entries` array to clear the schedule — a subsequent GET will return 404, and the response will contain an empty `baseConfig` (all fields absent). The base scaling config (applied when no entry is active) is managed separately via the `replicaScaling` endpoint. Requires the scheduled autoscaling feature to be enabled for the organization.
+ * @description Creates or fully replaces the autoscaling schedule for a service. Pass an empty `entries` array to clear the schedule — a subsequent GET will return 404, and the response will contain an empty `baseConfig` (all fields absent). The base scaling config (applied when no entry is active) is managed separately via the `replicaScaling` endpoint. Requires the scheduled autoscaling feature to be enabled for the organization.
  * @link /v1/organizations/{organizationId}/services/{serviceId}/scalingSchedule
  */
 export async function scalingScheduleUpsert(
@@ -1837,11 +2036,19 @@ export async function scalingScheduleUpsert(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1853,7 +2060,7 @@ export async function scalingScheduleUpsert(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/scalingSchedule`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/scalingSchedule`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1864,7 +2071,7 @@ export async function scalingScheduleUpsert(
 
 /**
  * @summary Delete service scheduled scaling
- * @description **Disclaimer:** This beta endpoint is evolving; the API contract may change. <br /><br /> Deletes the autoscaling schedule for a service. If a schedule entry is currently active, the base scaling config is restored to the instance before the schedule is removed. Returns 404 if no schedule exists. Requires the scheduled autoscaling feature to be enabled for the organization.
+ * @description Deletes the autoscaling schedule for a service. If a schedule entry is currently active, the base scaling config is restored to the instance before the schedule is removed. Returns 404 if no schedule exists. Requires the scheduled autoscaling feature to be enabled for the organization.
  * @link /v1/organizations/{organizationId}/services/{serviceId}/scalingSchedule
  */
 export async function scalingScheduleDelete(
@@ -1878,11 +2085,19 @@ export async function scalingScheduleDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1894,7 +2109,7 @@ export async function scalingScheduleDelete(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/scalingSchedule`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/scalingSchedule`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1922,11 +2137,19 @@ export async function upgradeWindowGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1938,7 +2161,7 @@ export async function upgradeWindowGet(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/upgradeWindow`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/upgradeWindow`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1969,11 +2192,19 @@ export async function upgradeWindowUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1985,7 +2216,7 @@ export async function upgradeWindowUpdate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "PUT",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/upgradeWindow`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/upgradeWindow`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2015,11 +2246,19 @@ export async function upgradeWindowDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2031,7 +2270,7 @@ export async function upgradeWindowDelete(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/upgradeWindow`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/upgradeWindow`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2055,11 +2294,19 @@ export async function serviceClickhouseSettingsListGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2073,7 +2320,7 @@ export async function serviceClickhouseSettingsListGet(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickhouseSettings`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickhouseSettings`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2099,11 +2346,19 @@ export async function serviceClickhouseSettingsUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2117,7 +2372,7 @@ export async function serviceClickhouseSettingsUpdate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickhouseSettings`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickhouseSettings`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2142,11 +2397,19 @@ export async function serviceClickhouseSettingsSchemaGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2160,7 +2423,7 @@ export async function serviceClickhouseSettingsSchemaGet(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickhouseSettings/schema`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickhouseSettings/schema`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2184,15 +2447,27 @@ export async function serviceClickhouseSettingGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.settingName) {
+	if (
+		pathParams.settingName === undefined ||
+		pathParams.settingName === null ||
+		String(pathParams.settingName) === ""
+	) {
 		throw new Error(`Missing required path parameter: settingName`);
 	}
 	const data = await request<
@@ -2204,7 +2479,7 @@ export async function serviceClickhouseSettingGet(
 		{ organizationId: string; serviceId: string; settingName: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickhouseSettings/${pathParams.settingName}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickhouseSettings/${encodeURIComponent(String(pathParams.settingName))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2228,15 +2503,27 @@ export async function serviceClickhouseSettingDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.settingName) {
+	if (
+		pathParams.settingName === undefined ||
+		pathParams.settingName === null ||
+		String(pathParams.settingName) === ""
+	) {
 		throw new Error(`Missing required path parameter: settingName`);
 	}
 	const data = await request<
@@ -2248,7 +2535,7 @@ export async function serviceClickhouseSettingDelete(
 		{ organizationId: string; serviceId: string; settingName: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickhouseSettings/${pathParams.settingName}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickhouseSettings/${encodeURIComponent(String(pathParams.settingName))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2272,11 +2559,19 @@ export async function backupGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2288,7 +2583,7 @@ export async function backupGetList(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/backups`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/backups`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2312,15 +2607,27 @@ export async function backupGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.backupId) {
+	if (
+		pathParams.backupId === undefined ||
+		pathParams.backupId === null ||
+		String(pathParams.backupId) === ""
+	) {
 		throw new Error(`Missing required path parameter: backupId`);
 	}
 	const data = await request<
@@ -2332,7 +2639,7 @@ export async function backupGet(
 		{ organizationId: string; serviceId: string; backupId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/backups/${pathParams.backupId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/backups/${encodeURIComponent(String(pathParams.backupId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2342,25 +2649,35 @@ export async function backupGet(
 
 /**
  * @summary List of service snapshots
- * @description **This endpoint is in beta.** API contract is stable, and no breaking changes are expected in the future. <br /><br /> Returns a list of all snapshots for the service. The most recent snapshots come first in the list.
+ * @description **This endpoint is in beta.** API contract is stable, and no breaking changes are expected in the future. <br /><br /> Returns a list of snapshots for the service, most recent first. Results are capped at `limit` (default 250) per page; the server may return fewer and caps the value at its own maximum. Every response carries `limit`, `totalCount` and `nextCursor`; pass `nextCursor` as the `cursor` query parameter to fetch the next page, repeating until it is null.
  * @link /v1/organizations/{organizationId}/services/{serviceId}/snapshots
  */
 export async function snapshotGetList(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: { organizationId: string; serviceId: string };
+		queryParams?: { limit?: number; cursor?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2368,11 +2685,12 @@ export async function snapshotGetList(
 		ErrorWrapper<SnapshotGetListStatus400 | SnapshotGetListStatus500>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		{ limit?: number; cursor?: string },
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/snapshots`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/snapshots`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2396,15 +2714,27 @@ export async function snapshotGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.snapshotId) {
+	if (
+		pathParams.snapshotId === undefined ||
+		pathParams.snapshotId === null ||
+		String(pathParams.snapshotId) === ""
+	) {
 		throw new Error(`Missing required path parameter: snapshotId`);
 	}
 	const data = await request<
@@ -2416,7 +2746,7 @@ export async function snapshotGet(
 		{ organizationId: string; serviceId: string; snapshotId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/snapshots/${pathParams.snapshotId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/snapshots/${encodeURIComponent(String(pathParams.snapshotId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2440,11 +2770,19 @@ export async function backupConfigurationGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2456,7 +2794,7 @@ export async function backupConfigurationGet(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/backupConfiguration`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/backupConfiguration`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2482,11 +2820,19 @@ export async function backupConfigurationUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2498,7 +2844,7 @@ export async function backupConfigurationUpdate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/backupConfiguration`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/backupConfiguration`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2523,11 +2869,19 @@ export async function snapshotConfigurationGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2539,7 +2893,7 @@ export async function snapshotConfigurationGet(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/snapshotConfiguration`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/snapshotConfiguration`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2565,11 +2919,19 @@ export async function snapshotConfigurationUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2581,7 +2943,106 @@ export async function snapshotConfigurationUpdate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/snapshotConfiguration`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/snapshotConfiguration`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get replica aware routing
+ * @description **This endpoint is in beta.** API contract is stable, and no breaking changes are expected in the future. <br /><br /> Returns whether replica aware routing (sticky routing) is enabled for HTTP and native connections on the service.
+ * @link /v1/organizations/{organizationId}/services/{serviceId}/replicaAwareRouting
+ */
+export async function replicaAwareRoutingGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: { organizationId: string; serviceId: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
+		throw new Error(`Missing required path parameter: serviceId`);
+	}
+	const data = await request<
+		ReplicaAwareRoutingGetResponse,
+		ErrorWrapper<ReplicaAwareRoutingGetStatus400 | ReplicaAwareRoutingGetStatus500>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		{ organizationId: string; serviceId: string }
+	>({
+		method: "GET",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/replicaAwareRouting`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update replica aware routing
+ * @description **This endpoint is in beta.** API contract is stable, and no breaking changes are expected in the future. <br /><br /> Updates replica aware routing (sticky routing) for the service. Requires the organization feature to be enabled. Provide at least one of httpEnabled, nativeEnabled; omit a field to leave it unchanged.
+ * @link /v1/organizations/{organizationId}/services/{serviceId}/replicaAwareRouting
+ */
+export async function replicaAwareRoutingUpdate(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: { organizationId: string; serviceId: string };
+		body?: ReplicaAwareRoutingUpdateBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
+		throw new Error(`Missing required path parameter: serviceId`);
+	}
+	const data = await request<
+		ReplicaAwareRoutingUpdateResponse,
+		ErrorWrapper<ReplicaAwareRoutingUpdateStatus400 | ReplicaAwareRoutingUpdateStatus500>,
+		ReplicaAwareRoutingUpdateBody,
+		Record<string, string>,
+		Record<string, string>,
+		{ organizationId: string; serviceId: string }
+	>({
+		method: "PATCH",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/replicaAwareRouting`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2606,11 +3067,19 @@ export async function backupBucketGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2622,7 +3091,7 @@ export async function backupBucketGet(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/backupBucket`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/backupBucket`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2648,11 +3117,19 @@ export async function backupBucketCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2664,7 +3141,7 @@ export async function backupBucketCreate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/backupBucket`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/backupBucket`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2691,11 +3168,19 @@ export async function backupBucketUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2707,7 +3192,7 @@ export async function backupBucketUpdate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/backupBucket`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/backupBucket`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2732,11 +3217,19 @@ export async function backupBucketDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2748,7 +3241,7 @@ export async function backupBucketDelete(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/backupBucket`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/backupBucket`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2758,7 +3251,7 @@ export async function backupBucketDelete(
 
 /**
  * @summary Get list of keys
- * @description Returns a list of keys in the organization, ordered by creation date, oldest first. Results are capped at `limit` (default and maximum 250) per page. Every response carries `limit`, `totalCount` and `nextCursor`; pass `nextCursor` as the `cursor` query parameter to fetch the next page, repeating until it is null.
+ * @description Returns a list of keys in the organization, ordered by creation date, oldest first. Results are capped at `limit` (default 250) per page; the server may return fewer and caps the value at its own maximum. Every response carries `limit`, `totalCount` and `nextCursor`; pass `nextCursor` as the `cursor` query parameter to fetch the next page, repeating until it is null.
  * @link /v1/organizations/{organizationId}/keys
  */
 export async function openapiKeyGetList(
@@ -2774,7 +3267,11 @@ export async function openapiKeyGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -2786,7 +3283,7 @@ export async function openapiKeyGetList(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/keys`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/keys`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2813,7 +3310,11 @@ export async function openapiKeyCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -2825,7 +3326,7 @@ export async function openapiKeyCreate(
 		{ organizationId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/keys`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/keys`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2850,11 +3351,19 @@ export async function openapiKeyGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.keyId) {
+	if (
+		pathParams.keyId === undefined ||
+		pathParams.keyId === null ||
+		String(pathParams.keyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: keyId`);
 	}
 	const data = await request<
@@ -2866,7 +3375,7 @@ export async function openapiKeyGet(
 		{ organizationId: string; keyId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/keys/${pathParams.keyId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/keys/${encodeURIComponent(String(pathParams.keyId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2892,11 +3401,19 @@ export async function openapiKeyUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.keyId) {
+	if (
+		pathParams.keyId === undefined ||
+		pathParams.keyId === null ||
+		String(pathParams.keyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: keyId`);
 	}
 	const data = await request<
@@ -2908,7 +3425,7 @@ export async function openapiKeyUpdate(
 		{ organizationId: string; keyId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/keys/${pathParams.keyId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/keys/${encodeURIComponent(String(pathParams.keyId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2933,11 +3450,19 @@ export async function openapiKeyDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.keyId) {
+	if (
+		pathParams.keyId === undefined ||
+		pathParams.keyId === null ||
+		String(pathParams.keyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: keyId`);
 	}
 	const data = await request<
@@ -2949,7 +3474,7 @@ export async function openapiKeyDelete(
 		{ organizationId: string; keyId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/keys/${pathParams.keyId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/keys/${encodeURIComponent(String(pathParams.keyId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2973,7 +3498,11 @@ export async function memberGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -2985,7 +3514,7 @@ export async function memberGetList(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/members`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/members`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3009,11 +3538,19 @@ export async function memberGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.userId) {
+	if (
+		pathParams.userId === undefined ||
+		pathParams.userId === null ||
+		String(pathParams.userId) === ""
+	) {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -3025,7 +3562,7 @@ export async function memberGet(
 		{ organizationId: string; userId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/members/${pathParams.userId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/members/${encodeURIComponent(String(pathParams.userId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3051,11 +3588,19 @@ export async function memberUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.userId) {
+	if (
+		pathParams.userId === undefined ||
+		pathParams.userId === null ||
+		String(pathParams.userId) === ""
+	) {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -3067,7 +3612,7 @@ export async function memberUpdate(
 		{ organizationId: string; userId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/members/${pathParams.userId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/members/${encodeURIComponent(String(pathParams.userId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3092,11 +3637,19 @@ export async function memberDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.userId) {
+	if (
+		pathParams.userId === undefined ||
+		pathParams.userId === null ||
+		String(pathParams.userId) === ""
+	) {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -3108,7 +3661,7 @@ export async function memberDelete(
 		{ organizationId: string; userId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/members/${pathParams.userId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/members/${encodeURIComponent(String(pathParams.userId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3132,7 +3685,11 @@ export async function invitationGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3144,7 +3701,7 @@ export async function invitationGetList(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/invitations`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/invitations`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3170,7 +3727,11 @@ export async function invitationCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3182,7 +3743,7 @@ export async function invitationCreate(
 		{ organizationId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/invitations`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/invitations`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3207,11 +3768,19 @@ export async function invitationGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.invitationId) {
+	if (
+		pathParams.invitationId === undefined ||
+		pathParams.invitationId === null ||
+		String(pathParams.invitationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: invitationId`);
 	}
 	const data = await request<
@@ -3223,7 +3792,7 @@ export async function invitationGet(
 		{ organizationId: string; invitationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/invitations/${pathParams.invitationId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/invitations/${encodeURIComponent(String(pathParams.invitationId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3247,11 +3816,19 @@ export async function invitationDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.invitationId) {
+	if (
+		pathParams.invitationId === undefined ||
+		pathParams.invitationId === null ||
+		String(pathParams.invitationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: invitationId`);
 	}
 	const data = await request<
@@ -3263,7 +3840,7 @@ export async function invitationDelete(
 		{ organizationId: string; invitationId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/invitations/${pathParams.invitationId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/invitations/${encodeURIComponent(String(pathParams.invitationId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3289,7 +3866,11 @@ export async function activityGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3301,7 +3882,7 @@ export async function activityGetList(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/activities`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/activities`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3326,11 +3907,19 @@ export async function activityGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.activityId) {
+	if (
+		pathParams.activityId === undefined ||
+		pathParams.activityId === null ||
+		String(pathParams.activityId) === ""
+	) {
 		throw new Error(`Missing required path parameter: activityId`);
 	}
 	const data = await request<
@@ -3342,7 +3931,7 @@ export async function activityGet(
 		{ organizationId: string; activityId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/activities/${pathParams.activityId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/activities/${encodeURIComponent(String(pathParams.activityId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3366,7 +3955,11 @@ export async function notificationTypesGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3378,7 +3971,7 @@ export async function notificationTypesGetList(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/notificationTypes`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/notificationTypes`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3404,7 +3997,11 @@ export async function usageCostGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3416,7 +4013,7 @@ export async function usageCostGet(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/usageCost`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/usageCost`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3444,7 +4041,11 @@ export async function activeBalancesGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3456,7 +4057,7 @@ export async function activeBalancesGet(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/activeBalances`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/activeBalances`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3481,7 +4082,11 @@ export async function creditBalancesGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3493,7 +4098,7 @@ export async function creditBalancesGet(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/creditBalances`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/creditBalances`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3517,11 +4122,19 @@ export async function clickPipeGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -3533,7 +4146,7 @@ export async function clickPipeGetList(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipes`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipes`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3559,11 +4172,19 @@ export async function clickPipeCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -3575,7 +4196,7 @@ export async function clickPipeCreate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipes`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipes`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3600,11 +4221,19 @@ export async function clickPipesServiceContextGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -3616,7 +4245,7 @@ export async function clickPipesServiceContextGet(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipes/context`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipes/context`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3640,15 +4269,27 @@ export async function clickPipeGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickPipeId) {
+	if (
+		pathParams.clickPipeId === undefined ||
+		pathParams.clickPipeId === null ||
+		String(pathParams.clickPipeId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -3660,7 +4301,7 @@ export async function clickPipeGet(
 		{ organizationId: string; serviceId: string; clickPipeId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipes/${pathParams.clickPipeId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipes/${encodeURIComponent(String(pathParams.clickPipeId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3686,15 +4327,27 @@ export async function clickPipeUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickPipeId) {
+	if (
+		pathParams.clickPipeId === undefined ||
+		pathParams.clickPipeId === null ||
+		String(pathParams.clickPipeId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -3706,7 +4359,7 @@ export async function clickPipeUpdate(
 		{ organizationId: string; serviceId: string; clickPipeId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipes/${pathParams.clickPipeId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipes/${encodeURIComponent(String(pathParams.clickPipeId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3731,15 +4384,27 @@ export async function clickPipeDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickPipeId) {
+	if (
+		pathParams.clickPipeId === undefined ||
+		pathParams.clickPipeId === null ||
+		String(pathParams.clickPipeId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -3751,7 +4416,7 @@ export async function clickPipeDelete(
 		{ organizationId: string; serviceId: string; clickPipeId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipes/${pathParams.clickPipeId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipes/${encodeURIComponent(String(pathParams.clickPipeId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3775,15 +4440,27 @@ export async function clickPipeSettingsGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickPipeId) {
+	if (
+		pathParams.clickPipeId === undefined ||
+		pathParams.clickPipeId === null ||
+		String(pathParams.clickPipeId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -3795,7 +4472,7 @@ export async function clickPipeSettingsGet(
 		{ organizationId: string; serviceId: string; clickPipeId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipes/${pathParams.clickPipeId}/settings`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipes/${encodeURIComponent(String(pathParams.clickPipeId))}/settings`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3821,15 +4498,27 @@ export async function clickPipeSettingsUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickPipeId) {
+	if (
+		pathParams.clickPipeId === undefined ||
+		pathParams.clickPipeId === null ||
+		String(pathParams.clickPipeId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -3841,7 +4530,7 @@ export async function clickPipeSettingsUpdate(
 		{ organizationId: string; serviceId: string; clickPipeId: string }
 	>({
 		method: "PUT",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipes/${pathParams.clickPipeId}/settings`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipes/${encodeURIComponent(String(pathParams.clickPipeId))}/settings`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3868,11 +4557,19 @@ export async function clickPipeSchemaDiscovery(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -3884,7 +4581,7 @@ export async function clickPipeSchemaDiscovery(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipes/schemaDiscovery`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipes/schemaDiscovery`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3912,15 +4609,27 @@ export async function clickPipeScalingUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickPipeId) {
+	if (
+		pathParams.clickPipeId === undefined ||
+		pathParams.clickPipeId === null ||
+		String(pathParams.clickPipeId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -3932,7 +4641,7 @@ export async function clickPipeScalingUpdate(
 		{ organizationId: string; serviceId: string; clickPipeId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipes/${pathParams.clickPipeId}/scaling`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipes/${encodeURIComponent(String(pathParams.clickPipeId))}/scaling`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3959,15 +4668,27 @@ export async function clickPipeStateUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickPipeId) {
+	if (
+		pathParams.clickPipeId === undefined ||
+		pathParams.clickPipeId === null ||
+		String(pathParams.clickPipeId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -3979,7 +4700,7 @@ export async function clickPipeStateUpdate(
 		{ organizationId: string; serviceId: string; clickPipeId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipes/${pathParams.clickPipeId}/state`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipes/${encodeURIComponent(String(pathParams.clickPipeId))}/state`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4007,11 +4728,19 @@ export async function clickPipeCdcScalingGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4023,7 +4752,7 @@ export async function clickPipeCdcScalingGet(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipesCdcScaling`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipesCdcScaling`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4053,11 +4782,19 @@ export async function clickPipeCdcScalingUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4069,7 +4806,7 @@ export async function clickPipeCdcScalingUpdate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipesCdcScaling`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipesCdcScaling`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4094,11 +4831,19 @@ export async function clickStackListDashboards(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4110,7 +4855,7 @@ export async function clickStackListDashboards(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/dashboards`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/dashboards`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4136,11 +4881,19 @@ export async function clickStackCreateDashboard(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4152,7 +4905,7 @@ export async function clickStackCreateDashboard(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/dashboards`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/dashboards`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4177,15 +4930,27 @@ export async function clickStackGetDashboard(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackDashboardId) {
+	if (
+		pathParams.clickStackDashboardId === undefined ||
+		pathParams.clickStackDashboardId === null ||
+		String(pathParams.clickStackDashboardId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackDashboardId`);
 	}
 	const data = await request<
@@ -4197,7 +4962,7 @@ export async function clickStackGetDashboard(
 		{ organizationId: string; serviceId: string; clickStackDashboardId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/dashboards/${pathParams.clickStackDashboardId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/dashboards/${encodeURIComponent(String(pathParams.clickStackDashboardId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4223,15 +4988,27 @@ export async function clickStackUpdateDashboard(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackDashboardId) {
+	if (
+		pathParams.clickStackDashboardId === undefined ||
+		pathParams.clickStackDashboardId === null ||
+		String(pathParams.clickStackDashboardId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackDashboardId`);
 	}
 	const data = await request<
@@ -4243,7 +5020,7 @@ export async function clickStackUpdateDashboard(
 		{ organizationId: string; serviceId: string; clickStackDashboardId: string }
 	>({
 		method: "PUT",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/dashboards/${pathParams.clickStackDashboardId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/dashboards/${encodeURIComponent(String(pathParams.clickStackDashboardId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4268,15 +5045,27 @@ export async function clickStackDeleteDashboard(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackDashboardId) {
+	if (
+		pathParams.clickStackDashboardId === undefined ||
+		pathParams.clickStackDashboardId === null ||
+		String(pathParams.clickStackDashboardId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackDashboardId`);
 	}
 	const data = await request<
@@ -4288,7 +5077,7 @@ export async function clickStackDeleteDashboard(
 		{ organizationId: string; serviceId: string; clickStackDashboardId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/dashboards/${pathParams.clickStackDashboardId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/dashboards/${encodeURIComponent(String(pathParams.clickStackDashboardId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4314,11 +5103,19 @@ export async function clickStackValidateDashboard(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4330,7 +5127,7 @@ export async function clickStackValidateDashboard(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/dashboards/validate`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/dashboards/validate`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4357,11 +5154,19 @@ export async function clickStackListAlerts(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4373,7 +5178,7 @@ export async function clickStackListAlerts(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/alerts`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/alerts`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4400,11 +5205,19 @@ export async function clickStackCreateAlert(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4416,7 +5229,7 @@ export async function clickStackCreateAlert(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/alerts`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/alerts`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4441,11 +5254,19 @@ export async function clickStackListSources(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4457,7 +5278,7 @@ export async function clickStackListSources(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/sources`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/sources`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4483,11 +5304,19 @@ export async function clickStackCreateSource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4499,7 +5328,7 @@ export async function clickStackCreateSource(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/sources`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/sources`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4524,15 +5353,27 @@ export async function clickStackGetSource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackSourceId) {
+	if (
+		pathParams.clickStackSourceId === undefined ||
+		pathParams.clickStackSourceId === null ||
+		String(pathParams.clickStackSourceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackSourceId`);
 	}
 	const data = await request<
@@ -4544,7 +5385,7 @@ export async function clickStackGetSource(
 		{ organizationId: string; serviceId: string; clickStackSourceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/sources/${pathParams.clickStackSourceId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/sources/${encodeURIComponent(String(pathParams.clickStackSourceId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4570,15 +5411,27 @@ export async function clickStackUpdateSource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackSourceId) {
+	if (
+		pathParams.clickStackSourceId === undefined ||
+		pathParams.clickStackSourceId === null ||
+		String(pathParams.clickStackSourceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackSourceId`);
 	}
 	const data = await request<
@@ -4590,7 +5443,7 @@ export async function clickStackUpdateSource(
 		{ organizationId: string; serviceId: string; clickStackSourceId: string }
 	>({
 		method: "PUT",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/sources/${pathParams.clickStackSourceId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/sources/${encodeURIComponent(String(pathParams.clickStackSourceId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4615,15 +5468,27 @@ export async function clickStackDeleteSource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackSourceId) {
+	if (
+		pathParams.clickStackSourceId === undefined ||
+		pathParams.clickStackSourceId === null ||
+		String(pathParams.clickStackSourceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackSourceId`);
 	}
 	const data = await request<
@@ -4635,7 +5500,7 @@ export async function clickStackDeleteSource(
 		{ organizationId: string; serviceId: string; clickStackSourceId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/sources/${pathParams.clickStackSourceId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/sources/${encodeURIComponent(String(pathParams.clickStackSourceId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4659,15 +5524,27 @@ export async function clickStackGetAlert(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackAlertId) {
+	if (
+		pathParams.clickStackAlertId === undefined ||
+		pathParams.clickStackAlertId === null ||
+		String(pathParams.clickStackAlertId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackAlertId`);
 	}
 	const data = await request<
@@ -4679,7 +5556,7 @@ export async function clickStackGetAlert(
 		{ organizationId: string; serviceId: string; clickStackAlertId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/alerts/${pathParams.clickStackAlertId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/alerts/${encodeURIComponent(String(pathParams.clickStackAlertId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4705,15 +5582,27 @@ export async function clickStackUpdateAlert(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackAlertId) {
+	if (
+		pathParams.clickStackAlertId === undefined ||
+		pathParams.clickStackAlertId === null ||
+		String(pathParams.clickStackAlertId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackAlertId`);
 	}
 	const data = await request<
@@ -4725,7 +5614,7 @@ export async function clickStackUpdateAlert(
 		{ organizationId: string; serviceId: string; clickStackAlertId: string }
 	>({
 		method: "PUT",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/alerts/${pathParams.clickStackAlertId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/alerts/${encodeURIComponent(String(pathParams.clickStackAlertId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4750,15 +5639,27 @@ export async function clickStackDeleteAlert(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackAlertId) {
+	if (
+		pathParams.clickStackAlertId === undefined ||
+		pathParams.clickStackAlertId === null ||
+		String(pathParams.clickStackAlertId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackAlertId`);
 	}
 	const data = await request<
@@ -4770,7 +5671,7 @@ export async function clickStackDeleteAlert(
 		{ organizationId: string; serviceId: string; clickStackAlertId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/alerts/${pathParams.clickStackAlertId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/alerts/${encodeURIComponent(String(pathParams.clickStackAlertId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4796,11 +5697,19 @@ export async function clickStackListWebhooks(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4812,7 +5721,7 @@ export async function clickStackListWebhooks(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/webhooks`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/webhooks`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4839,11 +5748,19 @@ export async function clickStackCreateWebhook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4855,7 +5772,7 @@ export async function clickStackCreateWebhook(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/webhooks`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/webhooks`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4882,15 +5799,27 @@ export async function clickStackUpdateWebhook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackWebhookId) {
+	if (
+		pathParams.clickStackWebhookId === undefined ||
+		pathParams.clickStackWebhookId === null ||
+		String(pathParams.clickStackWebhookId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackWebhookId`);
 	}
 	const data = await request<
@@ -4902,7 +5831,7 @@ export async function clickStackUpdateWebhook(
 		{ organizationId: string; serviceId: string; clickStackWebhookId: string }
 	>({
 		method: "PUT",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/webhooks/${pathParams.clickStackWebhookId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/webhooks/${encodeURIComponent(String(pathParams.clickStackWebhookId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4927,15 +5856,27 @@ export async function clickStackDeleteWebhook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackWebhookId) {
+	if (
+		pathParams.clickStackWebhookId === undefined ||
+		pathParams.clickStackWebhookId === null ||
+		String(pathParams.clickStackWebhookId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackWebhookId`);
 	}
 	const data = await request<
@@ -4947,7 +5888,7 @@ export async function clickStackDeleteWebhook(
 		{ organizationId: string; serviceId: string; clickStackWebhookId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/webhooks/${pathParams.clickStackWebhookId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/webhooks/${encodeURIComponent(String(pathParams.clickStackWebhookId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4971,11 +5912,19 @@ export async function clickStackListRoles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4987,7 +5936,7 @@ export async function clickStackListRoles(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/roles`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/roles`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5013,11 +5962,19 @@ export async function clickStackCreateRole(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -5029,7 +5986,7 @@ export async function clickStackCreateRole(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/roles`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/roles`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5054,15 +6011,27 @@ export async function clickStackGetRole(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackRoleId) {
+	if (
+		pathParams.clickStackRoleId === undefined ||
+		pathParams.clickStackRoleId === null ||
+		String(pathParams.clickStackRoleId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackRoleId`);
 	}
 	const data = await request<
@@ -5074,7 +6043,7 @@ export async function clickStackGetRole(
 		{ organizationId: string; serviceId: string; clickStackRoleId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/roles/${pathParams.clickStackRoleId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/roles/${encodeURIComponent(String(pathParams.clickStackRoleId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5100,15 +6069,27 @@ export async function clickStackUpdateRole(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackRoleId) {
+	if (
+		pathParams.clickStackRoleId === undefined ||
+		pathParams.clickStackRoleId === null ||
+		String(pathParams.clickStackRoleId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackRoleId`);
 	}
 	const data = await request<
@@ -5120,7 +6101,7 @@ export async function clickStackUpdateRole(
 		{ organizationId: string; serviceId: string; clickStackRoleId: string }
 	>({
 		method: "PUT",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/roles/${pathParams.clickStackRoleId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/roles/${encodeURIComponent(String(pathParams.clickStackRoleId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5145,15 +6126,27 @@ export async function clickStackDeleteRole(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackRoleId) {
+	if (
+		pathParams.clickStackRoleId === undefined ||
+		pathParams.clickStackRoleId === null ||
+		String(pathParams.clickStackRoleId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackRoleId`);
 	}
 	const data = await request<
@@ -5165,7 +6158,7 @@ export async function clickStackDeleteRole(
 		{ organizationId: string; serviceId: string; clickStackRoleId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/roles/${pathParams.clickStackRoleId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/roles/${encodeURIComponent(String(pathParams.clickStackRoleId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5191,11 +6184,19 @@ export async function clickStackListSavedSearches(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -5207,7 +6208,7 @@ export async function clickStackListSavedSearches(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/saved-searches`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/saved-searches`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5234,11 +6235,19 @@ export async function clickStackCreateSavedSearch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -5250,7 +6259,7 @@ export async function clickStackCreateSavedSearch(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/saved-searches`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/saved-searches`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5275,15 +6284,27 @@ export async function clickStackGetSavedSearch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackSavedSearchId) {
+	if (
+		pathParams.clickStackSavedSearchId === undefined ||
+		pathParams.clickStackSavedSearchId === null ||
+		String(pathParams.clickStackSavedSearchId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackSavedSearchId`);
 	}
 	const data = await request<
@@ -5295,7 +6316,7 @@ export async function clickStackGetSavedSearch(
 		{ organizationId: string; serviceId: string; clickStackSavedSearchId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/saved-searches/${pathParams.clickStackSavedSearchId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/saved-searches/${encodeURIComponent(String(pathParams.clickStackSavedSearchId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5321,15 +6342,27 @@ export async function clickStackUpdateSavedSearch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackSavedSearchId) {
+	if (
+		pathParams.clickStackSavedSearchId === undefined ||
+		pathParams.clickStackSavedSearchId === null ||
+		String(pathParams.clickStackSavedSearchId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackSavedSearchId`);
 	}
 	const data = await request<
@@ -5341,7 +6374,7 @@ export async function clickStackUpdateSavedSearch(
 		{ organizationId: string; serviceId: string; clickStackSavedSearchId: string }
 	>({
 		method: "PUT",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/saved-searches/${pathParams.clickStackSavedSearchId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/saved-searches/${encodeURIComponent(String(pathParams.clickStackSavedSearchId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5366,15 +6399,27 @@ export async function clickStackDeleteSavedSearch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.clickStackSavedSearchId) {
+	if (
+		pathParams.clickStackSavedSearchId === undefined ||
+		pathParams.clickStackSavedSearchId === null ||
+		String(pathParams.clickStackSavedSearchId) === ""
+	) {
 		throw new Error(`Missing required path parameter: clickStackSavedSearchId`);
 	}
 	const data = await request<
@@ -5386,7 +6431,7 @@ export async function clickStackDeleteSavedSearch(
 		{ organizationId: string; serviceId: string; clickStackSavedSearchId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickstack/saved-searches/${pathParams.clickStackSavedSearchId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/saved-searches/${encodeURIComponent(String(pathParams.clickStackSavedSearchId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5412,7 +6457,11 @@ export async function postgresServiceCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -5424,7 +6473,7 @@ export async function postgresServiceCreate(
 		{ organizationId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5449,7 +6498,11 @@ export async function postgresServiceGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -5461,7 +6514,7 @@ export async function postgresServiceGetList(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5485,7 +6538,11 @@ export async function postgresOrgPrometheusGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -5497,7 +6554,7 @@ export async function postgresOrgPrometheusGet(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/prometheus`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/prometheus`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5521,11 +6578,19 @@ export async function postgresServiceGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -5537,7 +6602,7 @@ export async function postgresServiceGet(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5561,11 +6626,19 @@ export async function postgresServiceDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -5577,7 +6650,7 @@ export async function postgresServiceDelete(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5603,11 +6676,19 @@ export async function postgresServicePatch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -5619,7 +6700,7 @@ export async function postgresServicePatch(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5644,11 +6725,19 @@ export async function postgresServiceCertsGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -5660,7 +6749,7 @@ export async function postgresServiceCertsGet(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/caCertificates`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/caCertificates`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5686,11 +6775,19 @@ export async function postgresInstanceRestore(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -5702,7 +6799,7 @@ export async function postgresInstanceRestore(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/restoredService`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/restoredService`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5729,11 +6826,19 @@ export async function postgresServiceSetPassword(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -5745,7 +6850,7 @@ export async function postgresServiceSetPassword(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/password`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/password`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5775,11 +6880,19 @@ export async function postgresServicePatchState(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -5791,7 +6904,7 @@ export async function postgresServicePatchState(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/state`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/state`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5818,11 +6931,19 @@ export async function postgresInstanceCreateReadReplica(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -5836,7 +6957,7 @@ export async function postgresInstanceCreateReadReplica(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/readReplica`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/readReplica`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5861,11 +6982,19 @@ export async function postgresInstanceConfigGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -5877,7 +7006,7 @@ export async function postgresInstanceConfigGet(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/config`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/config`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5903,11 +7032,19 @@ export async function postgresInstanceConfigPost(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -5919,7 +7056,7 @@ export async function postgresInstanceConfigPost(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/config`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/config`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5946,11 +7083,19 @@ export async function postgresInstanceConfigPatch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -5962,7 +7107,7 @@ export async function postgresInstanceConfigPatch(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/config`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/config`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5987,11 +7132,19 @@ export async function postgresInstancePrometheusGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -6003,7 +7156,7 @@ export async function postgresInstancePrometheusGet(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/prometheus`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/prometheus`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6029,11 +7182,19 @@ export async function postgresInstanceMetricsGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -6045,7 +7206,7 @@ export async function postgresInstanceMetricsGet(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/metrics`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/metrics`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6072,11 +7233,19 @@ export async function postgresServiceBackupGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -6088,7 +7257,7 @@ export async function postgresServiceBackupGetList(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/backups`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/backups`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6139,11 +7308,19 @@ export async function slowQueryPatternsGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -6179,7 +7356,7 @@ export async function slowQueryPatternsGetList(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/slowQueryPatterns`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/slowQueryPatterns`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6212,15 +7389,27 @@ export async function slowQueryPatternGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 
-	if (!pathParams.queryId) {
+	if (
+		pathParams.queryId === undefined ||
+		pathParams.queryId === null ||
+		String(pathParams.queryId) === ""
+	) {
 		throw new Error(`Missing required path parameter: queryId`);
 	}
 	const data = await request<
@@ -6232,7 +7421,7 @@ export async function slowQueryPatternGet(
 		{ organizationId: string; postgresId: string; queryId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/slowQueryPatterns/${pathParams.queryId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/slowQueryPatterns/${encodeURIComponent(String(pathParams.queryId))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6267,11 +7456,19 @@ export async function postgresLogsGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.postgresId) {
+	if (
+		pathParams.postgresId === undefined ||
+		pathParams.postgresId === null ||
+		String(pathParams.postgresId) === ""
+	) {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -6291,7 +7488,7 @@ export async function postgresLogsGetList(
 		{ organizationId: string; postgresId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/postgres/${pathParams.postgresId}/logs`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/postgres/${encodeURIComponent(String(pathParams.postgresId))}/logs`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6319,7 +7516,11 @@ export async function organizationPrivateEndpointConfigGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -6334,7 +7535,7 @@ export async function organizationPrivateEndpointConfigGetList(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/privateEndpointConfig`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/privateEndpointConfig`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6361,7 +7562,11 @@ export async function organizationByocInfrastructureCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -6375,7 +7580,7 @@ export async function organizationByocInfrastructureCreate(
 		{ organizationId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/byocInfrastructure`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/byocInfrastructure`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6402,7 +7607,11 @@ export async function organizationByocInfrastructureValidate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -6417,7 +7626,7 @@ export async function organizationByocInfrastructureValidate(
 		{ organizationId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/byocInfrastructure/validate`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/byocInfrastructure/validate`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6442,11 +7651,19 @@ export async function organizationByocInfrastructureGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.byocInfrastructureId) {
+	if (
+		pathParams.byocInfrastructureId === undefined ||
+		pathParams.byocInfrastructureId === null ||
+		String(pathParams.byocInfrastructureId) === ""
+	) {
 		throw new Error(`Missing required path parameter: byocInfrastructureId`);
 	}
 	const data = await request<
@@ -6460,7 +7677,7 @@ export async function organizationByocInfrastructureGet(
 		{ organizationId: string; byocInfrastructureId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/byocInfrastructure/${pathParams.byocInfrastructureId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/byocInfrastructure/${encodeURIComponent(String(pathParams.byocInfrastructureId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6484,11 +7701,19 @@ export async function organizationByocInfrastructureDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.byocInfrastructureId) {
+	if (
+		pathParams.byocInfrastructureId === undefined ||
+		pathParams.byocInfrastructureId === null ||
+		String(pathParams.byocInfrastructureId) === ""
+	) {
 		throw new Error(`Missing required path parameter: byocInfrastructureId`);
 	}
 	const data = await request<
@@ -6502,7 +7727,7 @@ export async function organizationByocInfrastructureDelete(
 		{ organizationId: string; byocInfrastructureId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/byocInfrastructure/${pathParams.byocInfrastructureId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/byocInfrastructure/${encodeURIComponent(String(pathParams.byocInfrastructureId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6528,11 +7753,19 @@ export async function organizationByocInfrastructureUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.byocInfrastructureId) {
+	if (
+		pathParams.byocInfrastructureId === undefined ||
+		pathParams.byocInfrastructureId === null ||
+		String(pathParams.byocInfrastructureId) === ""
+	) {
 		throw new Error(`Missing required path parameter: byocInfrastructureId`);
 	}
 	const data = await request<
@@ -6546,7 +7779,7 @@ export async function organizationByocInfrastructureUpdate(
 		{ organizationId: string; byocInfrastructureId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/byocInfrastructure/${pathParams.byocInfrastructureId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/byocInfrastructure/${encodeURIComponent(String(pathParams.byocInfrastructureId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6571,11 +7804,19 @@ export async function organizationByocInfrastructureProgressGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.byocInfrastructureId) {
+	if (
+		pathParams.byocInfrastructureId === undefined ||
+		pathParams.byocInfrastructureId === null ||
+		String(pathParams.byocInfrastructureId) === ""
+	) {
 		throw new Error(`Missing required path parameter: byocInfrastructureId`);
 	}
 	const data = await request<
@@ -6590,7 +7831,7 @@ export async function organizationByocInfrastructureProgressGet(
 		{ organizationId: string; byocInfrastructureId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/byocInfrastructure/${pathParams.byocInfrastructureId}/progress`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/byocInfrastructure/${encodeURIComponent(String(pathParams.byocInfrastructureId))}/progress`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6614,11 +7855,19 @@ export async function organizationByocInfrastructureTagsGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.byocInfrastructureId) {
+	if (
+		pathParams.byocInfrastructureId === undefined ||
+		pathParams.byocInfrastructureId === null ||
+		String(pathParams.byocInfrastructureId) === ""
+	) {
 		throw new Error(`Missing required path parameter: byocInfrastructureId`);
 	}
 	const data = await request<
@@ -6633,7 +7882,7 @@ export async function organizationByocInfrastructureTagsGet(
 		{ organizationId: string; byocInfrastructureId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/byocInfrastructure/${pathParams.byocInfrastructureId}/tags`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/byocInfrastructure/${encodeURIComponent(String(pathParams.byocInfrastructureId))}/tags`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6657,11 +7906,19 @@ export async function organizationByocInfrastructurePrivateEndpointConfigGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.byocInfrastructureId) {
+	if (
+		pathParams.byocInfrastructureId === undefined ||
+		pathParams.byocInfrastructureId === null ||
+		String(pathParams.byocInfrastructureId) === ""
+	) {
 		throw new Error(`Missing required path parameter: byocInfrastructureId`);
 	}
 	const data = await request<
@@ -6676,7 +7933,7 @@ export async function organizationByocInfrastructurePrivateEndpointConfigGet(
 		{ organizationId: string; byocInfrastructureId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/byocInfrastructure/${pathParams.byocInfrastructureId}/privateEndpointConfig`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/byocInfrastructure/${encodeURIComponent(String(pathParams.byocInfrastructureId))}/privateEndpointConfig`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6700,11 +7957,19 @@ export async function clickPipeReversePrivateEndpointGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -6719,7 +7984,7 @@ export async function clickPipeReversePrivateEndpointGetList(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipesReversePrivateEndpoints`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipesReversePrivateEndpoints`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6745,11 +8010,19 @@ export async function clickPipeReversePrivateEndpointCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -6764,7 +8037,7 @@ export async function clickPipeReversePrivateEndpointCreate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipesReversePrivateEndpoints`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipesReversePrivateEndpoints`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6789,15 +8062,27 @@ export async function clickPipeReversePrivateEndpointGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.reversePrivateEndpointId) {
+	if (
+		pathParams.reversePrivateEndpointId === undefined ||
+		pathParams.reversePrivateEndpointId === null ||
+		String(pathParams.reversePrivateEndpointId) === ""
+	) {
 		throw new Error(`Missing required path parameter: reversePrivateEndpointId`);
 	}
 	const data = await request<
@@ -6811,7 +8096,7 @@ export async function clickPipeReversePrivateEndpointGet(
 		{ organizationId: string; serviceId: string; reversePrivateEndpointId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipesReversePrivateEndpoints/${pathParams.reversePrivateEndpointId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipesReversePrivateEndpoints/${encodeURIComponent(String(pathParams.reversePrivateEndpointId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6835,15 +8120,27 @@ export async function clickPipeReversePrivateEndpointDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.reversePrivateEndpointId) {
+	if (
+		pathParams.reversePrivateEndpointId === undefined ||
+		pathParams.reversePrivateEndpointId === null ||
+		String(pathParams.reversePrivateEndpointId) === ""
+	) {
 		throw new Error(`Missing required path parameter: reversePrivateEndpointId`);
 	}
 	const data = await request<
@@ -6858,7 +8155,7 @@ export async function clickPipeReversePrivateEndpointDelete(
 		{ organizationId: string; serviceId: string; reversePrivateEndpointId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipesReversePrivateEndpoints/${pathParams.reversePrivateEndpointId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipesReversePrivateEndpoints/${encodeURIComponent(String(pathParams.reversePrivateEndpointId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -6884,15 +8181,27 @@ export async function clickPipeReversePrivateEndpointUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.reversePrivateEndpointId) {
+	if (
+		pathParams.reversePrivateEndpointId === undefined ||
+		pathParams.reversePrivateEndpointId === null ||
+		String(pathParams.reversePrivateEndpointId) === ""
+	) {
 		throw new Error(`Missing required path parameter: reversePrivateEndpointId`);
 	}
 	const data = await request<
@@ -6907,7 +8216,7 @@ export async function clickPipeReversePrivateEndpointUpdate(
 		{ organizationId: string; serviceId: string; reversePrivateEndpointId: string }
 	>({
 		method: "PATCH",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/clickpipesReversePrivateEndpoints/${pathParams.reversePrivateEndpointId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickpipesReversePrivateEndpoints/${encodeURIComponent(String(pathParams.reversePrivateEndpointId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6934,11 +8243,19 @@ export async function queryApiEndpointList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -6955,7 +8272,7 @@ export async function queryApiEndpointList(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/query-api-endpoints`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/query-api-endpoints`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -6982,11 +8299,19 @@ export async function queryApiEndpointCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -7003,7 +8328,7 @@ export async function queryApiEndpointCreate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/query-api-endpoints`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/query-api-endpoints`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7028,15 +8353,27 @@ export async function queryApiEndpointDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.endpointId) {
+	if (
+		pathParams.endpointId === undefined ||
+		pathParams.endpointId === null ||
+		String(pathParams.endpointId) === ""
+	) {
 		throw new Error(`Missing required path parameter: endpointId`);
 	}
 	const data = await request<
@@ -7054,7 +8391,7 @@ export async function queryApiEndpointDelete(
 		{ organizationId: string; serviceId: string; endpointId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/query-api-endpoints/${pathParams.endpointId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/query-api-endpoints/${encodeURIComponent(String(pathParams.endpointId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7078,15 +8415,27 @@ export async function queryApiEndpointGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.endpointId) {
+	if (
+		pathParams.endpointId === undefined ||
+		pathParams.endpointId === null ||
+		String(pathParams.endpointId) === ""
+	) {
 		throw new Error(`Missing required path parameter: endpointId`);
 	}
 	const data = await request<
@@ -7103,7 +8452,7 @@ export async function queryApiEndpointGet(
 		{ organizationId: string; serviceId: string; endpointId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/query-api-endpoints/${pathParams.endpointId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/query-api-endpoints/${encodeURIComponent(String(pathParams.endpointId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7129,15 +8478,27 @@ export async function queryApiEndpointUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.endpointId) {
+	if (
+		pathParams.endpointId === undefined ||
+		pathParams.endpointId === null ||
+		String(pathParams.endpointId) === ""
+	) {
 		throw new Error(`Missing required path parameter: endpointId`);
 	}
 	const data = await request<
@@ -7155,7 +8516,7 @@ export async function queryApiEndpointUpdate(
 		{ organizationId: string; serviceId: string; endpointId: string }
 	>({
 		method: "PUT",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/query-api-endpoints/${pathParams.endpointId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/query-api-endpoints/${encodeURIComponent(String(pathParams.endpointId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7166,7 +8527,7 @@ export async function queryApiEndpointUpdate(
 
 /**
  * @summary List saved queries
- * @description **Disclaimer:** This beta endpoint is evolving; the API contract may change. <br /><br /> Returns saved queries for the service.
+ * @description Returns saved queries for the service.
  * @link /v1/organizations/{organizationId}/services/{serviceId}/saved-queries
  */
 export async function savedQueryList(
@@ -7182,11 +8543,19 @@ export async function savedQueryList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -7203,7 +8572,7 @@ export async function savedQueryList(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/saved-queries`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/saved-queries`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7214,7 +8583,7 @@ export async function savedQueryList(
 
 /**
  * @summary Create a saved query
- * @description **Disclaimer:** This beta endpoint is evolving; the API contract may change. <br /><br /> Creates a saved query.
+ * @description Creates a saved query.
  * @link /v1/organizations/{organizationId}/services/{serviceId}/saved-queries
  */
 export async function savedQueryCreate(
@@ -7230,11 +8599,19 @@ export async function savedQueryCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -7252,7 +8629,7 @@ export async function savedQueryCreate(
 		{ organizationId: string; serviceId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/saved-queries`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/saved-queries`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7263,7 +8640,7 @@ export async function savedQueryCreate(
 
 /**
  * @summary Delete a saved query
- * @description **Disclaimer:** This beta endpoint is evolving; the API contract may change. <br /><br /> Deletes a saved query.
+ * @description Deletes a saved query.
  * @link /v1/organizations/{organizationId}/services/{serviceId}/saved-queries/{queryId}
  */
 export async function savedQueryDelete(
@@ -7277,15 +8654,27 @@ export async function savedQueryDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.queryId) {
+	if (
+		pathParams.queryId === undefined ||
+		pathParams.queryId === null ||
+		String(pathParams.queryId) === ""
+	) {
 		throw new Error(`Missing required path parameter: queryId`);
 	}
 	const data = await request<
@@ -7303,7 +8692,7 @@ export async function savedQueryDelete(
 		{ organizationId: string; serviceId: string; queryId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/saved-queries/${pathParams.queryId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/saved-queries/${encodeURIComponent(String(pathParams.queryId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7313,7 +8702,7 @@ export async function savedQueryDelete(
 
 /**
  * @summary Get a saved query
- * @description **Disclaimer:** This beta endpoint is evolving; the API contract may change. <br /><br /> Returns a saved query.
+ * @description Returns a saved query.
  * @link /v1/organizations/{organizationId}/services/{serviceId}/saved-queries/{queryId}
  */
 export async function savedQueryGet(
@@ -7327,15 +8716,27 @@ export async function savedQueryGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.queryId) {
+	if (
+		pathParams.queryId === undefined ||
+		pathParams.queryId === null ||
+		String(pathParams.queryId) === ""
+	) {
 		throw new Error(`Missing required path parameter: queryId`);
 	}
 	const data = await request<
@@ -7352,7 +8753,7 @@ export async function savedQueryGet(
 		{ organizationId: string; serviceId: string; queryId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/saved-queries/${pathParams.queryId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/saved-queries/${encodeURIComponent(String(pathParams.queryId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7362,7 +8763,7 @@ export async function savedQueryGet(
 
 /**
  * @summary Update a saved query
- * @description **Disclaimer:** This beta endpoint is evolving; the API contract may change. <br /><br /> Updates a saved query.
+ * @description Updates a saved query.
  * @link /v1/organizations/{organizationId}/services/{serviceId}/saved-queries/{queryId}
  */
 export async function savedQueryUpdate(
@@ -7378,15 +8779,27 @@ export async function savedQueryUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (!pathParams.queryId) {
+	if (
+		pathParams.queryId === undefined ||
+		pathParams.queryId === null ||
+		String(pathParams.queryId) === ""
+	) {
 		throw new Error(`Missing required path parameter: queryId`);
 	}
 	const data = await request<
@@ -7404,7 +8817,7 @@ export async function savedQueryUpdate(
 		{ organizationId: string; serviceId: string; queryId: string }
 	>({
 		method: "PUT",
-		url: `/v1/organizations/${pathParams.organizationId}/services/${pathParams.serviceId}/saved-queries/${pathParams.queryId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/saved-queries/${encodeURIComponent(String(pathParams.queryId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7429,7 +8842,11 @@ export async function udfUploadSessionCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -7441,7 +8858,7 @@ export async function udfUploadSessionCreate(
 		{ organizationId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/udfUploads/url`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/udfUploads/url`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7467,7 +8884,11 @@ export async function udfList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -7479,7 +8900,7 @@ export async function udfList(
 		{ organizationId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/udfs`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/udfs`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7506,7 +8927,11 @@ export async function udfCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -7524,7 +8949,7 @@ export async function udfCreate(
 		{ organizationId: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/udfs`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/udfs`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7549,11 +8974,19 @@ export async function udfDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.functionName) {
+	if (
+		pathParams.functionName === undefined ||
+		pathParams.functionName === null ||
+		String(pathParams.functionName) === ""
+	) {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 	const data = await request<
@@ -7565,7 +8998,7 @@ export async function udfDelete(
 		{ organizationId: string; functionName: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/udfs/${pathParams.functionName}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/udfs/${encodeURIComponent(String(pathParams.functionName))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7589,11 +9022,19 @@ export async function udfGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.functionName) {
+	if (
+		pathParams.functionName === undefined ||
+		pathParams.functionName === null ||
+		String(pathParams.functionName) === ""
+	) {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 	const data = await request<
@@ -7605,7 +9046,7 @@ export async function udfGet(
 		{ organizationId: string; functionName: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/udfs/${pathParams.functionName}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/udfs/${encodeURIComponent(String(pathParams.functionName))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7631,11 +9072,19 @@ export async function udfAttachmentList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.functionName) {
+	if (
+		pathParams.functionName === undefined ||
+		pathParams.functionName === null ||
+		String(pathParams.functionName) === ""
+	) {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 	const data = await request<
@@ -7649,7 +9098,7 @@ export async function udfAttachmentList(
 		{ organizationId: string; functionName: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/udfs/${pathParams.functionName}/attachments`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/udfs/${encodeURIComponent(String(pathParams.functionName))}/attachments`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7674,15 +9123,27 @@ export async function udfDetach(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.functionName) {
+	if (
+		pathParams.functionName === undefined ||
+		pathParams.functionName === null ||
+		String(pathParams.functionName) === ""
+	) {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -7694,7 +9155,7 @@ export async function udfDetach(
 		{ organizationId: string; functionName: string; serviceId: string }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/udfs/${pathParams.functionName}/attachments/${pathParams.serviceId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/udfs/${encodeURIComponent(String(pathParams.functionName))}/attachments/${encodeURIComponent(String(pathParams.serviceId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7718,15 +9179,27 @@ export async function udfAttachmentGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.functionName) {
+	if (
+		pathParams.functionName === undefined ||
+		pathParams.functionName === null ||
+		String(pathParams.functionName) === ""
+	) {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -7738,7 +9211,7 @@ export async function udfAttachmentGet(
 		{ organizationId: string; functionName: string; serviceId: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/udfs/${pathParams.functionName}/attachments/${pathParams.serviceId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/udfs/${encodeURIComponent(String(pathParams.functionName))}/attachments/${encodeURIComponent(String(pathParams.serviceId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7764,15 +9237,27 @@ export async function udfAttach(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.functionName) {
+	if (
+		pathParams.functionName === undefined ||
+		pathParams.functionName === null ||
+		String(pathParams.functionName) === ""
+	) {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -7791,7 +9276,7 @@ export async function udfAttach(
 		{ organizationId: string; functionName: string; serviceId: string }
 	>({
 		method: "PUT",
-		url: `/v1/organizations/${pathParams.organizationId}/udfs/${pathParams.functionName}/attachments/${pathParams.serviceId}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/udfs/${encodeURIComponent(String(pathParams.functionName))}/attachments/${encodeURIComponent(String(pathParams.serviceId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7818,11 +9303,19 @@ export async function udfVersionList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.functionName) {
+	if (
+		pathParams.functionName === undefined ||
+		pathParams.functionName === null ||
+		String(pathParams.functionName) === ""
+	) {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 	const data = await request<
@@ -7834,7 +9327,7 @@ export async function udfVersionList(
 		{ organizationId: string; functionName: string }
 	>({
 		method: "GET",
-		url: `/v1/organizations/${pathParams.organizationId}/udfs/${pathParams.functionName}/versions`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/udfs/${encodeURIComponent(String(pathParams.functionName))}/versions`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7861,11 +9354,19 @@ export async function udfVersionCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.functionName) {
+	if (
+		pathParams.functionName === undefined ||
+		pathParams.functionName === null ||
+		String(pathParams.functionName) === ""
+	) {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 	const data = await request<
@@ -7884,7 +9385,7 @@ export async function udfVersionCreate(
 		{ organizationId: string; functionName: string }
 	>({
 		method: "POST",
-		url: `/v1/organizations/${pathParams.organizationId}/udfs/${pathParams.functionName}/versions`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/udfs/${encodeURIComponent(String(pathParams.functionName))}/versions`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7909,15 +9410,27 @@ export async function udfVersionDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.organizationId) {
+	if (
+		pathParams.organizationId === undefined ||
+		pathParams.organizationId === null ||
+		String(pathParams.organizationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (!pathParams.functionName) {
+	if (
+		pathParams.functionName === undefined ||
+		pathParams.functionName === null ||
+		String(pathParams.functionName) === ""
+	) {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 
-	if (!pathParams.version) {
+	if (
+		pathParams.version === undefined ||
+		pathParams.version === null ||
+		String(pathParams.version) === ""
+	) {
 		throw new Error(`Missing required path parameter: version`);
 	}
 	const data = await request<
@@ -7934,7 +9447,7 @@ export async function udfVersionDelete(
 		{ organizationId: string; functionName: string; version: number }
 	>({
 		method: "DELETE",
-		url: `/v1/organizations/${pathParams.organizationId}/udfs/${pathParams.functionName}/versions/${pathParams.version}`,
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/udfs/${encodeURIComponent(String(pathParams.functionName))}/versions/${encodeURIComponent(String(pathParams.version))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -8009,6 +9522,10 @@ export const operationsByPath = {
 		snapshotConfigurationGet,
 	"PATCH /v1/organizations/{organizationId}/services/{serviceId}/snapshotConfiguration":
 		snapshotConfigurationUpdate,
+	"GET /v1/organizations/{organizationId}/services/{serviceId}/replicaAwareRouting":
+		replicaAwareRoutingGet,
+	"PATCH /v1/organizations/{organizationId}/services/{serviceId}/replicaAwareRouting":
+		replicaAwareRoutingUpdate,
 	"GET /v1/organizations/{organizationId}/services/{serviceId}/backupBucket": backupBucketGet,
 	"POST /v1/organizations/{organizationId}/services/{serviceId}/backupBucket": backupBucketCreate,
 	"PATCH /v1/organizations/{organizationId}/services/{serviceId}/backupBucket": backupBucketUpdate,
@@ -8281,6 +9798,8 @@ export const operationsByTag = {
 		serviceClickhouseSettingsSchemaGet,
 		serviceClickhouseSettingGet,
 		serviceClickhouseSettingDelete,
+		replicaAwareRoutingGet,
+		replicaAwareRoutingUpdate,
 	},
 	backup: {
 		backupGetList,
@@ -8467,6 +9986,7 @@ export const tagDictionary = {
 			"serviceClickhouseSettingsListGet",
 			"serviceClickhouseSettingsSchemaGet",
 			"serviceClickhouseSettingGet",
+			"replicaAwareRoutingGet",
 		],
 		POST: [
 			"instanceCreate",
@@ -8481,6 +10001,7 @@ export const tagDictionary = {
 			"instanceReplicaScalingUpdate",
 			"instancePasswordUpdate",
 			"serviceClickhouseSettingsUpdate",
+			"replicaAwareRoutingUpdate",
 		],
 		DELETE: [
 			"instanceDelete",

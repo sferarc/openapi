@@ -71,8 +71,7 @@ export const chatDetailSchema = z
 			.optional()
 			.describe("Full details of the most recent generated version, if available."),
 		metadata: z
-			.object({})
-			.catchall(z.string())
+			.record(z.string(), z.string())
 			.describe("Arbitrary key-value data associated with this chat."),
 		url: z.string().describe("The canonical URL to access this chat."),
 		messages: z
@@ -230,8 +229,7 @@ export const chatDetailSchema = z
 						.string()
 						.describe("Programming language used in the file (e.g., JavaScript, Python)."),
 					meta: z
-						.object({})
-						.catchall(z.string())
+						.record(z.string(), z.string())
 						.describe("A key-value map of metadata associated with the file (e.g., path, type)."),
 					source: z
 						.string()
@@ -342,8 +340,7 @@ export const chatSummarySchema = z
 			.optional()
 			.describe("The most recent generated version of the chat, if available."),
 		metadata: z
-			.object({})
-			.catchall(z.string())
+			.record(z.string(), z.string())
 			.describe("Arbitrary key-value data associated with this chat."),
 	})
 	.describe(
@@ -530,8 +527,7 @@ export const integrationConnectionDetailSchemaSchema = z
 			})
 			.describe("Information about the connected integration."),
 		metadata: z
-			.object({})
-			.catchall(z.unknown())
+			.record(z.string(), z.unknown())
 			.optional()
 			.describe("Additional metadata about the integration connection."),
 	})
@@ -1229,8 +1225,7 @@ export const projectDetailSchema = z
 						.optional()
 						.describe("The most recent generated version of the chat, if available."),
 					metadata: z
-						.object({})
-						.catchall(z.string())
+						.record(z.string(), z.string())
 						.describe("Arbitrary key-value data associated with this chat."),
 				}),
 			)
@@ -1619,8 +1614,7 @@ export const chatsFindQueryBranchSchema = z
 	);
 
 export const chatsFindQueryMetadataSchema = z
-	.object({})
-	.catchall(z.string().max(500))
+	.record(z.string(), z.string().max(500))
 	.optional()
 	.describe("Filters chats by metadata. Returns chats matching every supplied key-value pair.");
 

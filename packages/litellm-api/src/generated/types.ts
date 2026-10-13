@@ -198,9 +198,7 @@ export type ListModelCatalogModelCatalogGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListModelCatalogModelCatalogGetResponse =
-	| ListModelCatalogModelCatalogGetStatus200
-	| ListModelCatalogModelCatalogGetStatus422;
+export type ListModelCatalogModelCatalogGetResponse = ListModelCatalogModelCatalogGetStatus200;
 
 export type GetModelCatalogEntryModelCatalogModelIdGetPath = {
 	model_id: string;
@@ -230,5 +228,4 @@ export type GetModelCatalogEntryModelCatalogModelIdGetResponses = {
  * @description Union of all possible responses
  */
 export type GetModelCatalogEntryModelCatalogModelIdGetResponse =
-	| GetModelCatalogEntryModelCatalogModelIdGetStatus200
-	| GetModelCatalogEntryModelCatalogModelIdGetStatus422;
+	GetModelCatalogEntryModelCatalogModelIdGetStatus200;

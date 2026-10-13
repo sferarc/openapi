@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { readAccessGroup } from "../generated/components";
 import type { FetchImpl } from "./fetch";
 import client from "./fetcher";
 
@@ -42,6 +43,19 @@ describe("fetcher", () => {
 				fetchImpl: respond(200, JSON.stringify({ ok: true })),
 			}),
 		).resolves.toEqual({ ok: true });
+	});
+
+	it("percent-encodes path parameters in generated operations", async () => {
+		let calledUrl = "";
+		const fetchImpl: FetchImpl = async (url) => {
+			calledUrl = String(url);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		await readAccessGroup({ pathParams: { idOrName: "../v2/user" }, config: { fetchImpl } });
+		expect(calledUrl).toContain("/v1/access-groups/..%2Fv2%2Fuser");
 	});
 
 	describe("query string", () => {

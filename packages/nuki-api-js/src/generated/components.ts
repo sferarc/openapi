@@ -876,7 +876,11 @@ export async function getAccountSubResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.accountId) {
+	if (
+		pathParams.accountId === undefined ||
+		pathParams.accountId === null ||
+		String(pathParams.accountId) === ""
+	) {
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
@@ -888,7 +892,7 @@ export async function getAccountSubResource(
 		{ accountId: number }
 	>({
 		method: "GET",
-		url: `/account/sub/${pathParams.accountId}`,
+		url: `/account/sub/${encodeURIComponent(String(pathParams.accountId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -913,7 +917,11 @@ export async function postAccountSubResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.accountId) {
+	if (
+		pathParams.accountId === undefined ||
+		pathParams.accountId === null ||
+		String(pathParams.accountId) === ""
+	) {
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
@@ -929,7 +937,7 @@ export async function postAccountSubResource(
 		{ accountId: number }
 	>({
 		method: "POST",
-		url: `/account/sub/${pathParams.accountId}`,
+		url: `/account/sub/${encodeURIComponent(String(pathParams.accountId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -953,7 +961,11 @@ export async function deleteAccountSubResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.accountId) {
+	if (
+		pathParams.accountId === undefined ||
+		pathParams.accountId === null ||
+		String(pathParams.accountId) === ""
+	) {
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
@@ -965,7 +977,7 @@ export async function deleteAccountSubResource(
 		{ accountId: number }
 	>({
 		method: "DELETE",
-		url: `/account/sub/${pathParams.accountId}`,
+		url: `/account/sub/${encodeURIComponent(String(pathParams.accountId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1054,7 +1066,11 @@ export async function getAccountUserResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.accountUserId) {
+	if (
+		pathParams.accountUserId === undefined ||
+		pathParams.accountUserId === null ||
+		String(pathParams.accountUserId) === ""
+	) {
 		throw new Error(`Missing required path parameter: accountUserId`);
 	}
 	const data = await request<
@@ -1066,7 +1082,7 @@ export async function getAccountUserResource(
 		{ accountUserId: number }
 	>({
 		method: "GET",
-		url: `/account/user/${pathParams.accountUserId}`,
+		url: `/account/user/${encodeURIComponent(String(pathParams.accountUserId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1091,7 +1107,11 @@ export async function postAccountUserResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.accountUserId) {
+	if (
+		pathParams.accountUserId === undefined ||
+		pathParams.accountUserId === null ||
+		String(pathParams.accountUserId) === ""
+	) {
 		throw new Error(`Missing required path parameter: accountUserId`);
 	}
 	const data = await request<
@@ -1107,7 +1127,7 @@ export async function postAccountUserResource(
 		{ accountUserId: number }
 	>({
 		method: "POST",
-		url: `/account/user/${pathParams.accountUserId}`,
+		url: `/account/user/${encodeURIComponent(String(pathParams.accountUserId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1131,7 +1151,11 @@ export async function deleteAccountUserResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.accountUserId) {
+	if (
+		pathParams.accountUserId === undefined ||
+		pathParams.accountUserId === null ||
+		String(pathParams.accountUserId) === ""
+	) {
 		throw new Error(`Missing required path parameter: accountUserId`);
 	}
 	const data = await request<
@@ -1143,7 +1167,7 @@ export async function deleteAccountUserResource(
 		{ accountUserId: number }
 	>({
 		method: "DELETE",
-		url: `/account/user/${pathParams.accountUserId}`,
+		url: `/account/user/${encodeURIComponent(String(pathParams.accountUserId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1225,7 +1249,7 @@ export async function getAddressTokenResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1237,7 +1261,7 @@ export async function getAddressTokenResource(
 		{ id: string }
 	>({
 		method: "GET",
-		url: `/address/token/${pathParams.id}`,
+		url: `/address/token/${encodeURIComponent(String(pathParams.id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1260,7 +1284,7 @@ export async function getAddressTokenRedeemResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1272,7 +1296,7 @@ export async function getAddressTokenRedeemResource(
 		{ id: string }
 	>({
 		method: "GET",
-		url: `/address/token/${pathParams.id}/redeem`,
+		url: `/address/token/${encodeURIComponent(String(pathParams.id))}/redeem`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1297,7 +1321,7 @@ export async function postAddressTokenRedeemResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1313,7 +1337,7 @@ export async function postAddressTokenRedeemResource(
 		{ id: string }
 	>({
 		method: "POST",
-		url: `/address/token/${pathParams.id}/redeem`,
+		url: `/address/token/${encodeURIComponent(String(pathParams.id))}/redeem`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1339,7 +1363,11 @@ export async function postAddressResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.addressId) {
+	if (
+		pathParams.addressId === undefined ||
+		pathParams.addressId === null ||
+		String(pathParams.addressId) === ""
+	) {
 		throw new Error(`Missing required path parameter: addressId`);
 	}
 	const data = await request<
@@ -1353,7 +1381,7 @@ export async function postAddressResource(
 		{ addressId: number }
 	>({
 		method: "POST",
-		url: `/address/${pathParams.addressId}`,
+		url: `/address/${encodeURIComponent(String(pathParams.addressId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1377,7 +1405,11 @@ export async function deleteAddressResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.addressId) {
+	if (
+		pathParams.addressId === undefined ||
+		pathParams.addressId === null ||
+		String(pathParams.addressId) === ""
+	) {
 		throw new Error(`Missing required path parameter: addressId`);
 	}
 	const data = await request<
@@ -1389,7 +1421,7 @@ export async function deleteAddressResource(
 		{ addressId: number }
 	>({
 		method: "DELETE",
-		url: `/address/${pathParams.addressId}`,
+		url: `/address/${encodeURIComponent(String(pathParams.addressId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1412,7 +1444,11 @@ export async function getAddressReservationsResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.addressId) {
+	if (
+		pathParams.addressId === undefined ||
+		pathParams.addressId === null ||
+		String(pathParams.addressId) === ""
+	) {
 		throw new Error(`Missing required path parameter: addressId`);
 	}
 	const data = await request<
@@ -1424,7 +1460,7 @@ export async function getAddressReservationsResource(
 		{ addressId: number }
 	>({
 		method: "GET",
-		url: `/address/${pathParams.addressId}/reservation`,
+		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/reservation`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1447,11 +1483,15 @@ export async function postAddressReservationIssueResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.addressId) {
+	if (
+		pathParams.addressId === undefined ||
+		pathParams.addressId === null ||
+		String(pathParams.addressId) === ""
+	) {
 		throw new Error(`Missing required path parameter: addressId`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1465,7 +1505,7 @@ export async function postAddressReservationIssueResource(
 		{ addressId: number; id: string }
 	>({
 		method: "POST",
-		url: `/address/${pathParams.addressId}/reservation/${pathParams.id}/issue`,
+		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/reservation/${encodeURIComponent(String(pathParams.id))}/issue`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1488,11 +1528,15 @@ export async function postAddressReservationRevokeResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.addressId) {
+	if (
+		pathParams.addressId === undefined ||
+		pathParams.addressId === null ||
+		String(pathParams.addressId) === ""
+	) {
 		throw new Error(`Missing required path parameter: addressId`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1506,7 +1550,7 @@ export async function postAddressReservationRevokeResource(
 		{ addressId: number; id: string }
 	>({
 		method: "POST",
-		url: `/address/${pathParams.addressId}/reservation/${pathParams.id}/revoke`,
+		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/reservation/${encodeURIComponent(String(pathParams.id))}/revoke`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1531,11 +1575,15 @@ export async function postReservationAccessTimesUpdateResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.addressId) {
+	if (
+		pathParams.addressId === undefined ||
+		pathParams.addressId === null ||
+		String(pathParams.addressId) === ""
+	) {
 		throw new Error(`Missing required path parameter: addressId`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1550,7 +1598,7 @@ export async function postReservationAccessTimesUpdateResource(
 		{ addressId: number; id: string }
 	>({
 		method: "POST",
-		url: `/address/${pathParams.addressId}/reservation/${pathParams.id}/update/accesstimes`,
+		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/reservation/${encodeURIComponent(String(pathParams.id))}/update/accesstimes`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1574,7 +1622,11 @@ export async function getAddressTokensResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.addressId) {
+	if (
+		pathParams.addressId === undefined ||
+		pathParams.addressId === null ||
+		String(pathParams.addressId) === ""
+	) {
 		throw new Error(`Missing required path parameter: addressId`);
 	}
 	const data = await request<
@@ -1586,7 +1638,7 @@ export async function getAddressTokensResource(
 		{ addressId: number }
 	>({
 		method: "GET",
-		url: `/address/${pathParams.addressId}/token`,
+		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/token`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1609,7 +1661,11 @@ export async function getAddressUnitsResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.addressId) {
+	if (
+		pathParams.addressId === undefined ||
+		pathParams.addressId === null ||
+		String(pathParams.addressId) === ""
+	) {
 		throw new Error(`Missing required path parameter: addressId`);
 	}
 	const data = await request<
@@ -1621,7 +1677,7 @@ export async function getAddressUnitsResource(
 		{ addressId: number }
 	>({
 		method: "GET",
-		url: `/address/${pathParams.addressId}/unit`,
+		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/unit`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1646,7 +1702,11 @@ export async function putAddressUnitsResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.addressId) {
+	if (
+		pathParams.addressId === undefined ||
+		pathParams.addressId === null ||
+		String(pathParams.addressId) === ""
+	) {
 		throw new Error(`Missing required path parameter: addressId`);
 	}
 	const data = await request<
@@ -1662,7 +1722,7 @@ export async function putAddressUnitsResource(
 		{ addressId: number }
 	>({
 		method: "PUT",
-		url: `/address/${pathParams.addressId}/unit`,
+		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/unit`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1688,7 +1748,11 @@ export async function deleteAddressUnitsResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.addressId) {
+	if (
+		pathParams.addressId === undefined ||
+		pathParams.addressId === null ||
+		String(pathParams.addressId) === ""
+	) {
 		throw new Error(`Missing required path parameter: addressId`);
 	}
 	const data = await request<
@@ -1705,7 +1769,7 @@ export async function deleteAddressUnitsResource(
 		{ addressId: number }
 	>({
 		method: "DELETE",
-		url: `/address/${pathParams.addressId}/unit`,
+		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/unit`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1729,11 +1793,15 @@ export async function deleteAddressUnitResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.addressId) {
+	if (
+		pathParams.addressId === undefined ||
+		pathParams.addressId === null ||
+		String(pathParams.addressId) === ""
+	) {
 		throw new Error(`Missing required path parameter: addressId`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1749,7 +1817,7 @@ export async function deleteAddressUnitResource(
 		{ addressId: number; id: string }
 	>({
 		method: "DELETE",
-		url: `/address/${pathParams.addressId}/unit/${pathParams.id}`,
+		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/unit/${encodeURIComponent(String(pathParams.id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1835,7 +1903,7 @@ export async function deleteDecentralWebhookResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1847,7 +1915,7 @@ export async function deleteDecentralWebhookResource(
 		{ id: number }
 	>({
 		method: "DELETE",
-		url: `/api/decentralWebhook/${pathParams.id}`,
+		url: `/api/decentralWebhook/${encodeURIComponent(String(pathParams.id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1931,7 +1999,11 @@ export async function postApiKeyResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.apiKeyId) {
+	if (
+		pathParams.apiKeyId === undefined ||
+		pathParams.apiKeyId === null ||
+		String(pathParams.apiKeyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: apiKeyId`);
 	}
 	const data = await request<
@@ -1945,7 +2017,7 @@ export async function postApiKeyResource(
 		{ apiKeyId: number }
 	>({
 		method: "POST",
-		url: `/api/key/${pathParams.apiKeyId}`,
+		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1969,7 +2041,11 @@ export async function deleteApiKeyResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.apiKeyId) {
+	if (
+		pathParams.apiKeyId === undefined ||
+		pathParams.apiKeyId === null ||
+		String(pathParams.apiKeyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: apiKeyId`);
 	}
 	const data = await request<
@@ -1981,7 +2057,7 @@ export async function deleteApiKeyResource(
 		{ apiKeyId: number }
 	>({
 		method: "DELETE",
-		url: `/api/key/${pathParams.apiKeyId}`,
+		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2004,7 +2080,11 @@ export async function getApiKeyAdvancedResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.apiKeyId) {
+	if (
+		pathParams.apiKeyId === undefined ||
+		pathParams.apiKeyId === null ||
+		String(pathParams.apiKeyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: apiKeyId`);
 	}
 	const data = await request<
@@ -2020,7 +2100,7 @@ export async function getApiKeyAdvancedResource(
 		{ apiKeyId: number }
 	>({
 		method: "GET",
-		url: `/api/key/${pathParams.apiKeyId}/advanced`,
+		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/advanced`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2045,7 +2125,11 @@ export async function postApiKeyAdvancedResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.apiKeyId) {
+	if (
+		pathParams.apiKeyId === undefined ||
+		pathParams.apiKeyId === null ||
+		String(pathParams.apiKeyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: apiKeyId`);
 	}
 	const data = await request<
@@ -2057,7 +2141,7 @@ export async function postApiKeyAdvancedResource(
 		{ apiKeyId: number }
 	>({
 		method: "POST",
-		url: `/api/key/${pathParams.apiKeyId}/advanced`,
+		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/advanced`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2083,7 +2167,11 @@ export async function putApiKeyAdvancedResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.apiKeyId) {
+	if (
+		pathParams.apiKeyId === undefined ||
+		pathParams.apiKeyId === null ||
+		String(pathParams.apiKeyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: apiKeyId`);
 	}
 	const data = await request<
@@ -2095,7 +2183,7 @@ export async function putApiKeyAdvancedResource(
 		{ apiKeyId: number }
 	>({
 		method: "PUT",
-		url: `/api/key/${pathParams.apiKeyId}/advanced`,
+		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/advanced`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2119,7 +2207,11 @@ export async function deleteApiKeyAdvancedResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.apiKeyId) {
+	if (
+		pathParams.apiKeyId === undefined ||
+		pathParams.apiKeyId === null ||
+		String(pathParams.apiKeyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: apiKeyId`);
 	}
 	const data = await request<
@@ -2131,7 +2223,7 @@ export async function deleteApiKeyAdvancedResource(
 		{ apiKeyId: number }
 	>({
 		method: "DELETE",
-		url: `/api/key/${pathParams.apiKeyId}/advanced`,
+		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/advanced`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2154,7 +2246,11 @@ export async function postApiKeyAdvancedReactivateResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.apiKeyId) {
+	if (
+		pathParams.apiKeyId === undefined ||
+		pathParams.apiKeyId === null ||
+		String(pathParams.apiKeyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: apiKeyId`);
 	}
 	const data = await request<
@@ -2168,7 +2264,7 @@ export async function postApiKeyAdvancedReactivateResource(
 		{ apiKeyId: number }
 	>({
 		method: "POST",
-		url: `/api/key/${pathParams.apiKeyId}/advanced/reactivate`,
+		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/advanced/reactivate`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2191,7 +2287,11 @@ export async function getApiKeyTokensResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.apiKeyId) {
+	if (
+		pathParams.apiKeyId === undefined ||
+		pathParams.apiKeyId === null ||
+		String(pathParams.apiKeyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: apiKeyId`);
 	}
 	const data = await request<
@@ -2203,7 +2303,7 @@ export async function getApiKeyTokensResource(
 		{ apiKeyId: number }
 	>({
 		method: "GET",
-		url: `/api/key/${pathParams.apiKeyId}/token`,
+		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/token`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2228,7 +2328,11 @@ export async function putApiKeyTokensResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.apiKeyId) {
+	if (
+		pathParams.apiKeyId === undefined ||
+		pathParams.apiKeyId === null ||
+		String(pathParams.apiKeyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: apiKeyId`);
 	}
 	const data = await request<
@@ -2240,7 +2344,7 @@ export async function putApiKeyTokensResource(
 		{ apiKeyId: number }
 	>({
 		method: "PUT",
-		url: `/api/key/${pathParams.apiKeyId}/token`,
+		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/token`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2266,11 +2370,15 @@ export async function postApiKeyTokenResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.apiKeyId) {
+	if (
+		pathParams.apiKeyId === undefined ||
+		pathParams.apiKeyId === null ||
+		String(pathParams.apiKeyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: apiKeyId`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -2282,7 +2390,7 @@ export async function postApiKeyTokenResource(
 		{ apiKeyId: number; id: string }
 	>({
 		method: "POST",
-		url: `/api/key/${pathParams.apiKeyId}/token/${pathParams.id}`,
+		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/token/${encodeURIComponent(String(pathParams.id))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2306,11 +2414,15 @@ export async function deleteApiKeyTokenResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.apiKeyId) {
+	if (
+		pathParams.apiKeyId === undefined ||
+		pathParams.apiKeyId === null ||
+		String(pathParams.apiKeyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: apiKeyId`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -2322,7 +2434,7 @@ export async function deleteApiKeyTokenResource(
 		{ apiKeyId: number; id: string }
 	>({
 		method: "DELETE",
-		url: `/api/key/${pathParams.apiKeyId}/token/${pathParams.id}`,
+		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/token/${encodeURIComponent(String(pathParams.id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2347,7 +2459,11 @@ export async function getWebhookLogsResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.apiKeyId) {
+	if (
+		pathParams.apiKeyId === undefined ||
+		pathParams.apiKeyId === null ||
+		String(pathParams.apiKeyId) === ""
+	) {
 		throw new Error(`Missing required path parameter: apiKeyId`);
 	}
 	const data = await request<
@@ -2359,7 +2475,7 @@ export async function getWebhookLogsResource(
 		{ apiKeyId: number }
 	>({
 		method: "GET",
-		url: `/api/key/${pathParams.apiKeyId}/webhook/logs`,
+		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/webhook/logs`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2514,7 +2630,11 @@ export async function getNotificationResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.notificationId) {
+	if (
+		pathParams.notificationId === undefined ||
+		pathParams.notificationId === null ||
+		String(pathParams.notificationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: notificationId`);
 	}
 	const data = await request<
@@ -2530,7 +2650,7 @@ export async function getNotificationResource(
 		{ notificationId: string }
 	>({
 		method: "GET",
-		url: `/notification/${pathParams.notificationId}`,
+		url: `/notification/${encodeURIComponent(String(pathParams.notificationId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2555,7 +2675,11 @@ export async function postNotificationResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.notificationId) {
+	if (
+		pathParams.notificationId === undefined ||
+		pathParams.notificationId === null ||
+		String(pathParams.notificationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: notificationId`);
 	}
 	const data = await request<
@@ -2571,7 +2695,7 @@ export async function postNotificationResource(
 		{ notificationId: string }
 	>({
 		method: "POST",
-		url: `/notification/${pathParams.notificationId}`,
+		url: `/notification/${encodeURIComponent(String(pathParams.notificationId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2595,7 +2719,11 @@ export async function deleteNotificationResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.notificationId) {
+	if (
+		pathParams.notificationId === undefined ||
+		pathParams.notificationId === null ||
+		String(pathParams.notificationId) === ""
+	) {
 		throw new Error(`Missing required path parameter: notificationId`);
 	}
 	const data = await request<
@@ -2611,7 +2739,7 @@ export async function deleteNotificationResource(
 		{ notificationId: string }
 	>({
 		method: "DELETE",
-		url: `/notification/${pathParams.notificationId}`,
+		url: `/notification/${encodeURIComponent(String(pathParams.notificationId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2660,7 +2788,11 @@ export async function getOpenerBrandResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.brandId) {
+	if (
+		pathParams.brandId === undefined ||
+		pathParams.brandId === null ||
+		String(pathParams.brandId) === ""
+	) {
 		throw new Error(`Missing required path parameter: brandId`);
 	}
 	const data = await request<
@@ -2672,7 +2804,7 @@ export async function getOpenerBrandResource(
 		{ brandId: number }
 	>({
 		method: "GET",
-		url: `/opener/brand/${pathParams.brandId}`,
+		url: `/opener/brand/${encodeURIComponent(String(pathParams.brandId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2728,7 +2860,11 @@ export async function getOpenerIntercomResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.intercomId) {
+	if (
+		pathParams.intercomId === undefined ||
+		pathParams.intercomId === null ||
+		String(pathParams.intercomId) === ""
+	) {
 		throw new Error(`Missing required path parameter: intercomId`);
 	}
 	const data = await request<
@@ -2740,7 +2876,7 @@ export async function getOpenerIntercomResource(
 		{ intercomId: number }
 	>({
 		method: "GET",
-		url: `/opener/intercom/${pathParams.intercomId}`,
+		url: `/opener/intercom/${encodeURIComponent(String(pathParams.intercomId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2796,7 +2932,11 @@ export async function getServiceResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2808,7 +2948,7 @@ export async function getServiceResource(
 		{ serviceId: string }
 	>({
 		method: "GET",
-		url: `/service/${pathParams.serviceId}`,
+		url: `/service/${encodeURIComponent(String(pathParams.serviceId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2831,7 +2971,11 @@ export async function postServiceLinkResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2843,7 +2987,7 @@ export async function postServiceLinkResource(
 		{ serviceId: string }
 	>({
 		method: "POST",
-		url: `/service/${pathParams.serviceId}/link`,
+		url: `/service/${encodeURIComponent(String(pathParams.serviceId))}/link`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2866,7 +3010,11 @@ export async function postServiceSyncResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2878,7 +3026,7 @@ export async function postServiceSyncResource(
 		{ serviceId: string }
 	>({
 		method: "POST",
-		url: `/service/${pathParams.serviceId}/sync`,
+		url: `/service/${encodeURIComponent(String(pathParams.serviceId))}/sync`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2901,7 +3049,11 @@ export async function postServiceUnlinkResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.serviceId) {
+	if (
+		pathParams.serviceId === undefined ||
+		pathParams.serviceId === null ||
+		String(pathParams.serviceId) === ""
+	) {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2913,7 +3065,7 @@ export async function postServiceUnlinkResource(
 		{ serviceId: string }
 	>({
 		method: "POST",
-		url: `/service/${pathParams.serviceId}/unlink`,
+		url: `/service/${encodeURIComponent(String(pathParams.serviceId))}/unlink`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3235,7 +3387,11 @@ export async function getSmartlockResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3249,7 +3405,7 @@ export async function getSmartlockResource(
 		{ smartlockId: number }
 	>({
 		method: "GET",
-		url: `/smartlock/${pathParams.smartlockId}`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3274,7 +3430,11 @@ export async function postSmartlockResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3290,7 +3450,7 @@ export async function postSmartlockResource(
 		{ smartlockId: number }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3314,7 +3474,11 @@ export async function deleteSmartlockResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3330,7 +3494,7 @@ export async function deleteSmartlockResource(
 		{ smartlockId: number }
 	>({
 		method: "DELETE",
-		url: `/smartlock/${pathParams.smartlockId}`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3355,7 +3519,11 @@ export async function postSmartlockActionResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3371,7 +3539,7 @@ export async function postSmartlockActionResource(
 		{ smartlockId: string }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/action`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/action`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3397,7 +3565,11 @@ export async function postSmartlockActionAdvancedResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3414,7 +3586,7 @@ export async function postSmartlockActionAdvancedResource(
 		{ smartlockId: string }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/action/advanced`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/action/advanced`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3438,7 +3610,11 @@ export async function postSmartlockLockActionResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3454,7 +3630,7 @@ export async function postSmartlockLockActionResource(
 		{ smartlockId: string }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/action/lock`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/action/lock`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3477,7 +3653,11 @@ export async function postSmartlockLockActionAdvancedResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3493,7 +3673,7 @@ export async function postSmartlockLockActionAdvancedResource(
 		{ smartlockId: string }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/action/lock/advanced`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/action/lock/advanced`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3516,7 +3696,11 @@ export async function postSmartlockUnlockActionResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3532,7 +3716,7 @@ export async function postSmartlockUnlockActionResource(
 		{ smartlockId: string }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/action/unlock`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/action/unlock`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3555,7 +3739,11 @@ export async function postSmartlockUnlockActionAdvancedResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3571,7 +3759,7 @@ export async function postSmartlockUnlockActionAdvancedResource(
 		{ smartlockId: string }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/action/unlock/advanced`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/action/unlock/advanced`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3596,7 +3784,11 @@ export async function postSmartlockAdminPinResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3608,7 +3800,7 @@ export async function postSmartlockAdminPinResource(
 		{ smartlockId: number }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/admin/pin`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/admin/pin`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3634,7 +3826,11 @@ export async function postSmartlockAdvancedConfigResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3648,7 +3844,7 @@ export async function postSmartlockAdvancedConfigResource(
 		{ smartlockId: number }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/advanced/config`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/advanced/config`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3674,7 +3870,11 @@ export async function postSmartlockOpenerAdvancedConfigResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3689,7 +3889,7 @@ export async function postSmartlockOpenerAdvancedConfigResource(
 		{ smartlockId: number }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/advanced/openerconfig`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/advanced/openerconfig`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3715,7 +3915,11 @@ export async function postSmartdoorAdvancedConfigResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3729,7 +3933,7 @@ export async function postSmartdoorAdvancedConfigResource(
 		{ smartlockId: number }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/advanced/smartdoorconfig`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/advanced/smartdoorconfig`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3755,7 +3959,11 @@ export async function getSmartlockAuthsResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3767,7 +3975,7 @@ export async function getSmartlockAuthsResource(
 		{ smartlockId: number }
 	>({
 		method: "GET",
-		url: `/smartlock/${pathParams.smartlockId}/auth`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/auth`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3793,7 +4001,11 @@ export async function putSmartlockAuthsResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3810,7 +4022,7 @@ export async function putSmartlockAuthsResource(
 		{ smartlockId: number }
 	>({
 		method: "PUT",
-		url: `/smartlock/${pathParams.smartlockId}/auth`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/auth`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3836,7 +4048,11 @@ export async function postSmartlockAuthWithSharedKeyResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -3852,7 +4068,7 @@ export async function postSmartlockAuthWithSharedKeyResource(
 		{ smartlockId: number }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/auth/advanced/sharedkey`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/auth/advanced/sharedkey`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3876,11 +4092,15 @@ export async function getSmartlockAuthResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -3892,7 +4112,7 @@ export async function getSmartlockAuthResource(
 		{ smartlockId: number; id: string }
 	>({
 		method: "GET",
-		url: `/smartlock/${pathParams.smartlockId}/auth/${pathParams.id}`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/auth/${encodeURIComponent(String(pathParams.id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3917,11 +4137,15 @@ export async function postSmartlockAuthResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -3939,7 +4163,7 @@ export async function postSmartlockAuthResource(
 		{ smartlockId: number; id: string }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/auth/${pathParams.id}`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/auth/${encodeURIComponent(String(pathParams.id))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -3963,11 +4187,15 @@ export async function deleteSmartlockAuthResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 
-	if (!pathParams.id) {
+	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -3983,7 +4211,7 @@ export async function deleteSmartlockAuthResource(
 		{ smartlockId: number; id: string }
 	>({
 		method: "DELETE",
-		url: `/smartlock/${pathParams.smartlockId}/auth/${pathParams.id}`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/auth/${encodeURIComponent(String(pathParams.id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4008,7 +4236,11 @@ export async function postSmartlockConfigResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -4020,7 +4252,7 @@ export async function postSmartlockConfigResource(
 		{ smartlockId: number }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/config`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/config`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4054,7 +4286,11 @@ export async function getSmartlockLogsResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -4074,7 +4310,7 @@ export async function getSmartlockLogsResource(
 		{ smartlockId: number }
 	>({
 		method: "GET",
-		url: `/smartlock/${pathParams.smartlockId}/log`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/log`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4098,7 +4334,11 @@ export async function postSmartlockSyncResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -4110,7 +4350,7 @@ export async function postSmartlockSyncResource(
 		{ smartlockId: string }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/sync`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/sync`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4135,7 +4375,11 @@ export async function postSmartlockWebConfigResource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.smartlockId) {
+	if (
+		pathParams.smartlockId === undefined ||
+		pathParams.smartlockId === null ||
+		String(pathParams.smartlockId) === ""
+	) {
 		throw new Error(`Missing required path parameter: smartlockId`);
 	}
 	const data = await request<
@@ -4147,7 +4391,7 @@ export async function postSmartlockWebConfigResource(
 		{ smartlockId: number }
 	>({
 		method: "POST",
-		url: `/smartlock/${pathParams.smartlockId}/web/config`,
+		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/web/config`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },

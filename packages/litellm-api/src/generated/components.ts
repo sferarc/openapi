@@ -144,7 +144,11 @@ export async function getModelCatalogEntryModelCatalogModelIdGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.model_id) {
+	if (
+		pathParams.model_id === undefined ||
+		pathParams.model_id === null ||
+		String(pathParams.model_id) === ""
+	) {
 		throw new Error(`Missing required path parameter: model_id`);
 	}
 	const data = await request<
@@ -156,7 +160,7 @@ export async function getModelCatalogEntryModelCatalogModelIdGet(
 		{ model_id: string }
 	>({
 		method: "GET",
-		url: `/model_catalog/${pathParams.model_id}`,
+		url: `/model_catalog/${encodeURIComponent(String(pathParams.model_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});

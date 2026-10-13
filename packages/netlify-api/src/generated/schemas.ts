@@ -29,8 +29,7 @@ export const createDatabaseBranchRequestSchema = z
 			),
 		branch_id: z.string().describe("The branch identifier"),
 		metadata: z
-			.object({})
-			.catchall(z.unknown())
+			.looseObject({})
 			.optional()
 			.describe("Arbitrary metadata to associate with the branch"),
 	})
@@ -42,11 +41,7 @@ export const databaseBranchResponseSchema = z
 			.string()
 			.optional()
 			.describe("The connection string for the database branch"),
-		metadata: z
-			.object({})
-			.catchall(z.unknown())
-			.optional()
-			.describe("Metadata associated with the branch"),
+		metadata: z.looseObject({}).optional().describe("Metadata associated with the branch"),
 	})
 	.describe("Response containing the database branch connection string");
 
@@ -94,11 +89,7 @@ export const databaseBranchesResponseSchema = z
 						})
 						.optional()
 						.describe("Compute endpoint status for a branch"),
-					metadata: z
-						.object({})
-						.catchall(z.unknown())
-						.optional()
-						.describe("Metadata associated with the branch"),
+					metadata: z.looseObject({}).optional().describe("Metadata associated with the branch"),
 				}),
 			)
 			.optional()
@@ -144,11 +135,7 @@ export const databaseBranchDetailSchema = z
 			})
 			.optional()
 			.describe("Compute endpoint status for a branch"),
-		metadata: z
-			.object({})
-			.catchall(z.unknown())
-			.optional()
-			.describe("Metadata associated with the branch"),
+		metadata: z.looseObject({}).optional().describe("Metadata associated with the branch"),
 	})
 	.describe("Detailed information about a database branch");
 
@@ -184,8 +171,7 @@ export const createDatabaseSnapshotRequestSchema = z
 		metadata: z
 			.object({
 				deploy: z
-					.object({})
-					.catchall(z.unknown())
+					.looseObject({})
 					.optional()
 					.describe("Deploy information associated with the snapshot"),
 				source: z.string().optional().describe("The source that created the snapshot"),
@@ -206,8 +192,7 @@ export const databaseSnapshotSchema = z
 		metadata: z
 			.object({
 				deploy: z
-					.object({})
-					.catchall(z.unknown())
+					.looseObject({})
 					.optional()
 					.describe("Deploy information associated with the snapshot"),
 				source: z.string().optional().describe("The source that created the snapshot"),
@@ -220,8 +205,7 @@ export const databaseSnapshotSchema = z
 export const databaseSnapshotMetadataSchema = z
 	.object({
 		deploy: z
-			.object({})
-			.catchall(z.unknown())
+			.looseObject({})
 			.optional()
 			.describe("Deploy information associated with the snapshot"),
 		source: z.string().optional().describe("The source that created the snapshot"),
@@ -245,8 +229,7 @@ export const databaseSnapshotsResponseSchema = z
 					metadata: z
 						.object({
 							deploy: z
-								.object({})
-								.catchall(z.unknown())
+								.looseObject({})
 								.optional()
 								.describe("Deploy information associated with the snapshot"),
 							source: z.string().optional().describe("The source that created the snapshot"),
@@ -275,10 +258,14 @@ export const databaseComputeSettingsRequestSchema = z
 	.object({
 		min_cu: z
 			.number()
+			.min(0.25)
+			.max(16)
 			.nullish()
 			.describe("Minimum compute units (0.25 to 16.0). Must be less than or equal to max_cu."),
 		max_cu: z
 			.number()
+			.min(0.25)
+			.max(16)
 			.nullish()
 			.describe(
 				"Maximum compute units (0.25 to 16.0). Must be greater than or equal to min_cu. max_cu - min_cu must not exceed 8.0.",
@@ -337,11 +324,7 @@ export const resetDatabaseBranchResponseSchema = z
 			.string()
 			.optional()
 			.describe("The connection string for the reset (or unchanged) branch"),
-		metadata: z
-			.object({})
-			.catchall(z.unknown())
-			.optional()
-			.describe("Metadata associated with the branch"),
+		metadata: z.looseObject({}).optional().describe("Metadata associated with the branch"),
 	})
 	.describe("Response for a database branch reset");
 
@@ -565,7 +548,7 @@ export const siteSchema = z.object({
 	account_slug: z.string().optional(),
 	git_provider: z.string().optional(),
 	deploy_hook: z.string().optional(),
-	capabilities: z.object({}).catchall(z.object({})).optional(),
+	capabilities: z.record(z.string(), z.object({})).optional(),
 	processing_settings: z
 		.object({
 			html: z
@@ -599,7 +582,7 @@ export const siteSchema = z.object({
 			public_repo: z.boolean().optional(),
 			private_logs: z.boolean().optional(),
 			repo_url: z.string().optional(),
-			env: z.object({}).catchall(z.string()).optional(),
+			env: z.record(z.string(), z.string()).optional(),
 			installation_id: z.int().optional(),
 			stop_builds: z
 				.boolean()
@@ -719,7 +702,7 @@ export const siteSetupSchema = z
 		account_slug: z.string().optional(),
 		git_provider: z.string().optional(),
 		deploy_hook: z.string().optional(),
-		capabilities: z.object({}).catchall(z.object({})).optional(),
+		capabilities: z.record(z.string(), z.object({})).optional(),
 		processing_settings: z
 			.object({
 				html: z
@@ -753,7 +736,7 @@ export const siteSetupSchema = z
 				public_repo: z.boolean().optional(),
 				private_logs: z.boolean().optional(),
 				repo_url: z.string().optional(),
-				env: z.object({}).catchall(z.string()).optional(),
+				env: z.record(z.string(), z.string()).optional(),
 				installation_id: z.int().optional(),
 				stop_builds: z
 					.boolean()
@@ -799,7 +782,7 @@ export const siteSetupSchema = z
 				public_repo: z.boolean().optional(),
 				private_logs: z.boolean().optional(),
 				repo_url: z.string().optional(),
-				env: z.object({}).catchall(z.string()).optional(),
+				env: z.record(z.string(), z.string()).optional(),
 				installation_id: z.int().optional(),
 				stop_builds: z
 					.boolean()
@@ -834,7 +817,7 @@ export const repoInfoSchema = z.object({
 	public_repo: z.boolean().optional(),
 	private_logs: z.boolean().optional(),
 	repo_url: z.string().optional(),
-	env: z.object({}).catchall(z.string()).optional(),
+	env: z.record(z.string(), z.string()).optional(),
 	installation_id: z.int().optional(),
 	stop_builds: z
 		.boolean()
@@ -1125,8 +1108,8 @@ export const deployFilesSchema = z
 			)
 			.optional(),
 		functions_config: z
-			.object({})
-			.catchall(
+			.record(
+				z.string(),
 				z.object({
 					display_name: z.string().optional(),
 					generator: z.string().optional(),
@@ -1451,14 +1434,14 @@ export const assetSchema = z.object({
 
 export const assetFormSchema = z.object({
 	url: z.string().optional(),
-	fields: z.object({}).catchall(z.string()).optional(),
+	fields: z.record(z.string(), z.string()).optional(),
 });
 
 export const assetSignatureSchema = z.object({
 	form: z
 		.object({
 			url: z.string().optional(),
-			fields: z.object({}).catchall(z.string()).optional(),
+			fields: z.record(z.string(), z.string()).optional(),
 		})
 		.optional(),
 	asset: z
@@ -2090,7 +2073,7 @@ export const listSitesStatus200Schema = z.array(
 		account_slug: z.string().optional(),
 		git_provider: z.string().optional(),
 		deploy_hook: z.string().optional(),
-		capabilities: z.object({}).catchall(z.object({})).optional(),
+		capabilities: z.record(z.string(), z.object({})).optional(),
 		processing_settings: z
 			.object({
 				html: z
@@ -2124,7 +2107,7 @@ export const listSitesStatus200Schema = z.array(
 				public_repo: z.boolean().optional(),
 				private_logs: z.boolean().optional(),
 				repo_url: z.string().optional(),
-				env: z.object({}).catchall(z.string()).optional(),
+				env: z.record(z.string(), z.string()).optional(),
 				installation_id: z.int().optional(),
 				stop_builds: z
 					.boolean()
@@ -2255,7 +2238,7 @@ export const createSiteStatus201Schema = z.object({
 	account_slug: z.string().optional(),
 	git_provider: z.string().optional(),
 	deploy_hook: z.string().optional(),
-	capabilities: z.object({}).catchall(z.object({})).optional(),
+	capabilities: z.record(z.string(), z.object({})).optional(),
 	processing_settings: z
 		.object({
 			html: z
@@ -2289,7 +2272,7 @@ export const createSiteStatus201Schema = z.object({
 			public_repo: z.boolean().optional(),
 			private_logs: z.boolean().optional(),
 			repo_url: z.string().optional(),
-			env: z.object({}).catchall(z.string()).optional(),
+			env: z.record(z.string(), z.string()).optional(),
 			installation_id: z.int().optional(),
 			stop_builds: z
 				.boolean()
@@ -2418,7 +2401,7 @@ export const createSiteBodySchema = z
 		account_slug: z.string().optional(),
 		git_provider: z.string().optional(),
 		deploy_hook: z.string().optional(),
-		capabilities: z.object({}).catchall(z.object({})).optional(),
+		capabilities: z.record(z.string(), z.object({})).optional(),
 		processing_settings: z
 			.object({
 				html: z
@@ -2452,7 +2435,7 @@ export const createSiteBodySchema = z
 				public_repo: z.boolean().optional(),
 				private_logs: z.boolean().optional(),
 				repo_url: z.string().optional(),
-				env: z.object({}).catchall(z.string()).optional(),
+				env: z.record(z.string(), z.string()).optional(),
 				installation_id: z.int().optional(),
 				stop_builds: z
 					.boolean()
@@ -2498,7 +2481,7 @@ export const createSiteBodySchema = z
 				public_repo: z.boolean().optional(),
 				private_logs: z.boolean().optional(),
 				repo_url: z.string().optional(),
-				env: z.object({}).catchall(z.string()).optional(),
+				env: z.record(z.string(), z.string()).optional(),
 				installation_id: z.int().optional(),
 				stop_builds: z
 					.boolean()
@@ -2611,7 +2594,7 @@ export const getSiteStatus200Schema = z.object({
 	account_slug: z.string().optional(),
 	git_provider: z.string().optional(),
 	deploy_hook: z.string().optional(),
-	capabilities: z.object({}).catchall(z.object({})).optional(),
+	capabilities: z.record(z.string(), z.object({})).optional(),
 	processing_settings: z
 		.object({
 			html: z
@@ -2645,7 +2628,7 @@ export const getSiteStatus200Schema = z.object({
 			public_repo: z.boolean().optional(),
 			private_logs: z.boolean().optional(),
 			repo_url: z.string().optional(),
-			env: z.object({}).catchall(z.string()).optional(),
+			env: z.record(z.string(), z.string()).optional(),
 			installation_id: z.int().optional(),
 			stop_builds: z
 				.boolean()
@@ -2775,7 +2758,7 @@ export const updateSiteStatus200Schema = z.object({
 	account_slug: z.string().optional(),
 	git_provider: z.string().optional(),
 	deploy_hook: z.string().optional(),
-	capabilities: z.object({}).catchall(z.object({})).optional(),
+	capabilities: z.record(z.string(), z.object({})).optional(),
 	processing_settings: z
 		.object({
 			html: z
@@ -2809,7 +2792,7 @@ export const updateSiteStatus200Schema = z.object({
 			public_repo: z.boolean().optional(),
 			private_logs: z.boolean().optional(),
 			repo_url: z.string().optional(),
-			env: z.object({}).catchall(z.string()).optional(),
+			env: z.record(z.string(), z.string()).optional(),
 			installation_id: z.int().optional(),
 			stop_builds: z
 				.boolean()
@@ -2938,7 +2921,7 @@ export const updateSiteBodySchema = z
 		account_slug: z.string().optional(),
 		git_provider: z.string().optional(),
 		deploy_hook: z.string().optional(),
-		capabilities: z.object({}).catchall(z.object({})).optional(),
+		capabilities: z.record(z.string(), z.object({})).optional(),
 		processing_settings: z
 			.object({
 				html: z
@@ -2972,7 +2955,7 @@ export const updateSiteBodySchema = z
 				public_repo: z.boolean().optional(),
 				private_logs: z.boolean().optional(),
 				repo_url: z.string().optional(),
-				env: z.object({}).catchall(z.string()).optional(),
+				env: z.record(z.string(), z.string()).optional(),
 				installation_id: z.int().optional(),
 				stop_builds: z
 					.boolean()
@@ -3018,7 +3001,7 @@ export const updateSiteBodySchema = z
 				public_repo: z.boolean().optional(),
 				private_logs: z.boolean().optional(),
 				repo_url: z.string().optional(),
-				env: z.object({}).catchall(z.string()).optional(),
+				env: z.record(z.string(), z.string()).optional(),
 				installation_id: z.int().optional(),
 				stop_builds: z
 					.boolean()
@@ -3958,7 +3941,7 @@ export const createSiteAssetStatus201Schema = z.object({
 	form: z
 		.object({
 			url: z.string().optional(),
-			fields: z.object({}).catchall(z.string()).optional(),
+			fields: z.record(z.string(), z.string()).optional(),
 		})
 		.optional(),
 	asset: z
@@ -4634,8 +4617,8 @@ export const createSiteDeployBodySchema = z
 			)
 			.optional(),
 		functions_config: z
-			.object({})
-			.catchall(
+			.record(
+				z.string(),
 				z.object({
 					display_name: z.string().optional(),
 					generator: z.string().optional(),
@@ -4937,8 +4920,8 @@ export const updateSiteDeployBodySchema = z
 			)
 			.optional(),
 		functions_config: z
-			.object({})
-			.catchall(
+			.record(
+				z.string(),
 				z.object({
 					display_name: z.string().optional(),
 					generator: z.string().optional(),
@@ -5412,7 +5395,7 @@ export const unlinkSiteRepoStatus200Schema = z.object({
 	account_slug: z.string().optional(),
 	git_provider: z.string().optional(),
 	deploy_hook: z.string().optional(),
-	capabilities: z.object({}).catchall(z.object({})).optional(),
+	capabilities: z.record(z.string(), z.object({})).optional(),
 	processing_settings: z
 		.object({
 			html: z
@@ -5446,7 +5429,7 @@ export const unlinkSiteRepoStatus200Schema = z.object({
 			public_repo: z.boolean().optional(),
 			private_logs: z.boolean().optional(),
 			repo_url: z.string().optional(),
-			env: z.object({}).catchall(z.string()).optional(),
+			env: z.record(z.string(), z.string()).optional(),
 			installation_id: z.int().optional(),
 			stop_builds: z
 				.boolean()
@@ -6569,7 +6552,7 @@ export const createSiteInTeamStatus201Schema = z.object({
 	account_slug: z.string().optional(),
 	git_provider: z.string().optional(),
 	deploy_hook: z.string().optional(),
-	capabilities: z.object({}).catchall(z.object({})).optional(),
+	capabilities: z.record(z.string(), z.object({})).optional(),
 	processing_settings: z
 		.object({
 			html: z
@@ -6603,7 +6586,7 @@ export const createSiteInTeamStatus201Schema = z.object({
 			public_repo: z.boolean().optional(),
 			private_logs: z.boolean().optional(),
 			repo_url: z.string().optional(),
-			env: z.object({}).catchall(z.string()).optional(),
+			env: z.record(z.string(), z.string()).optional(),
 			installation_id: z.int().optional(),
 			stop_builds: z
 				.boolean()
@@ -6732,7 +6715,7 @@ export const createSiteInTeamBodySchema = z
 		account_slug: z.string().optional(),
 		git_provider: z.string().optional(),
 		deploy_hook: z.string().optional(),
-		capabilities: z.object({}).catchall(z.object({})).optional(),
+		capabilities: z.record(z.string(), z.object({})).optional(),
 		processing_settings: z
 			.object({
 				html: z
@@ -6766,7 +6749,7 @@ export const createSiteInTeamBodySchema = z
 				public_repo: z.boolean().optional(),
 				private_logs: z.boolean().optional(),
 				repo_url: z.string().optional(),
-				env: z.object({}).catchall(z.string()).optional(),
+				env: z.record(z.string(), z.string()).optional(),
 				installation_id: z.int().optional(),
 				stop_builds: z
 					.boolean()
@@ -6812,7 +6795,7 @@ export const createSiteInTeamBodySchema = z
 				public_repo: z.boolean().optional(),
 				private_logs: z.boolean().optional(),
 				repo_url: z.string().optional(),
-				env: z.object({}).catchall(z.string()).optional(),
+				env: z.record(z.string(), z.string()).optional(),
 				installation_id: z.int().optional(),
 				stop_builds: z
 					.boolean()
@@ -6931,7 +6914,7 @@ export const listSitesForAccountStatus200Schema = z.array(
 		account_slug: z.string().optional(),
 		git_provider: z.string().optional(),
 		deploy_hook: z.string().optional(),
-		capabilities: z.object({}).catchall(z.object({})).optional(),
+		capabilities: z.record(z.string(), z.object({})).optional(),
 		processing_settings: z
 			.object({
 				html: z
@@ -6965,7 +6948,7 @@ export const listSitesForAccountStatus200Schema = z.array(
 				public_repo: z.boolean().optional(),
 				private_logs: z.boolean().optional(),
 				repo_url: z.string().optional(),
-				env: z.object({}).catchall(z.string()).optional(),
+				env: z.record(z.string(), z.string()).optional(),
 				installation_id: z.int().optional(),
 				stop_builds: z
 					.boolean()
@@ -9116,8 +9099,8 @@ export const deleteSiteAgentRunnerHookErrorSchema = deleteSiteAgentRunnerHookSta
 
 export const getAIGatewayProvidersStatus200Schema = z.object({
 	providers: z
-		.object({})
-		.catchall(
+		.record(
+			z.string(),
 			z.object({
 				token_env_var: z.string().optional(),
 				url_env_var: z.string().optional(),
@@ -9263,11 +9246,7 @@ export const createSiteDatabaseBranchStatus200Schema = z
 			.string()
 			.optional()
 			.describe("The connection string for the database branch"),
-		metadata: z
-			.object({})
-			.catchall(z.unknown())
-			.optional()
-			.describe("Metadata associated with the branch"),
+		metadata: z.looseObject({}).optional().describe("Metadata associated with the branch"),
 	})
 	.describe("Response containing the database branch connection string");
 
@@ -9277,11 +9256,7 @@ export const createSiteDatabaseBranchStatus201Schema = z
 			.string()
 			.optional()
 			.describe("The connection string for the database branch"),
-		metadata: z
-			.object({})
-			.catchall(z.unknown())
-			.optional()
-			.describe("Metadata associated with the branch"),
+		metadata: z.looseObject({}).optional().describe("Metadata associated with the branch"),
 	})
 	.describe("Response containing the database branch connection string");
 
@@ -9307,8 +9282,7 @@ export const createSiteDatabaseBranchBodySchema = z
 			),
 		branch_id: z.string().describe("The branch identifier"),
 		metadata: z
-			.object({})
-			.catchall(z.unknown())
+			.looseObject({})
 			.optional()
 			.describe("Arbitrary metadata to associate with the branch"),
 	})
@@ -9360,11 +9334,7 @@ export const listSiteDatabaseBranchesStatus200Schema = z
 						})
 						.optional()
 						.describe("Compute endpoint status for a branch"),
-					metadata: z
-						.object({})
-						.catchall(z.unknown())
-						.optional()
-						.describe("Metadata associated with the branch"),
+					metadata: z.looseObject({}).optional().describe("Metadata associated with the branch"),
 				}),
 			)
 			.optional()
@@ -9398,11 +9368,7 @@ export const getSiteDatabaseBranchStatus200Schema = z
 			.string()
 			.optional()
 			.describe("The connection string for the database branch"),
-		metadata: z
-			.object({})
-			.catchall(z.unknown())
-			.optional()
-			.describe("Metadata associated with the branch"),
+		metadata: z.looseObject({}).optional().describe("Metadata associated with the branch"),
 	})
 	.describe("Response containing the database branch connection string");
 
@@ -9465,11 +9431,7 @@ export const resetSiteDatabaseBranchStatus200Schema = z
 			.string()
 			.optional()
 			.describe("The connection string for the reset (or unchanged) branch"),
-		metadata: z
-			.object({})
-			.catchall(z.unknown())
-			.optional()
-			.describe("Metadata associated with the branch"),
+		metadata: z.looseObject({}).optional().describe("Metadata associated with the branch"),
 	})
 	.describe("Response for a database branch reset");
 
@@ -9538,10 +9500,14 @@ export const setSiteDatabaseBranchComputeSettingsBodySchema = z
 	.object({
 		min_cu: z
 			.number()
+			.min(0.25)
+			.max(16)
 			.nullish()
 			.describe("Minimum compute units (0.25 to 16.0). Must be less than or equal to max_cu."),
 		max_cu: z
 			.number()
+			.min(0.25)
+			.max(16)
 			.nullish()
 			.describe(
 				"Maximum compute units (0.25 to 16.0). Must be greater than or equal to min_cu. max_cu - min_cu must not exceed 8.0.",
@@ -9589,10 +9555,14 @@ export const setSiteDatabaseComputeSettingsBodySchema = z
 	.object({
 		min_cu: z
 			.number()
+			.min(0.25)
+			.max(16)
 			.nullish()
 			.describe("Minimum compute units (0.25 to 16.0). Must be less than or equal to max_cu."),
 		max_cu: z
 			.number()
+			.min(0.25)
+			.max(16)
 			.nullish()
 			.describe(
 				"Maximum compute units (0.25 to 16.0). Must be greater than or equal to min_cu. max_cu - min_cu must not exceed 8.0.",
@@ -9786,8 +9756,7 @@ export const createSiteDatabaseSnapshotStatus201Schema = z
 		metadata: z
 			.object({
 				deploy: z
-					.object({})
-					.catchall(z.unknown())
+					.looseObject({})
 					.optional()
 					.describe("Deploy information associated with the snapshot"),
 				source: z.string().optional().describe("The source that created the snapshot"),
@@ -9816,8 +9785,7 @@ export const createSiteDatabaseSnapshotBodySchema = z
 		metadata: z
 			.object({
 				deploy: z
-					.object({})
-					.catchall(z.unknown())
+					.looseObject({})
 					.optional()
 					.describe("Deploy information associated with the snapshot"),
 				source: z.string().optional().describe("The source that created the snapshot"),
@@ -9847,8 +9815,7 @@ export const listSiteDatabaseSnapshotsStatus200Schema = z
 					metadata: z
 						.object({
 							deploy: z
-								.object({})
-								.catchall(z.unknown())
+								.looseObject({})
 								.optional()
 								.describe("Deploy information associated with the snapshot"),
 							source: z.string().optional().describe("The source that created the snapshot"),
