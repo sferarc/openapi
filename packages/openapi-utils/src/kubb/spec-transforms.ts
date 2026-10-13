@@ -51,7 +51,27 @@ const JS_RESERVED_WORDS = new Set([
 
 export async function fetchSpec(url: string, timeout = FETCH_TIMEOUT_MS): Promise<OpenAPIObject> {
 	const response = await fetch(url, { signal: AbortSignal.timeout(timeout) });
-	return response.json();
+	if (!response.ok) {
+		throw new Error(`Failed to fetch OpenAPI spec from ${url}: HTTP ${response.status}`);
+	}
+
+	const document = await response.json();
+	if (!isOpenAPIDocument(document)) {
+		throw new Error(`Response from ${url} is not an OpenAPI document with paths`);
+	}
+	return document;
+}
+
+function isOpenAPIDocument(value: unknown): value is OpenAPIObject {
+	if (value === null || typeof value !== "object") return false;
+	const { openapi, swagger, paths } = value as Record<string, unknown>;
+	const hasVersion = typeof openapi === "string" || typeof swagger === "string";
+	const hasPaths =
+		paths !== null &&
+		typeof paths === "object" &&
+		!Array.isArray(paths) &&
+		Object.keys(paths).length > 0;
+	return hasVersion && hasPaths;
 }
 
 export function cleanOperationIds(
@@ -283,13 +303,18 @@ export function renameReservedWords(openAPIDocument: OpenAPIObject): OpenAPIObje
 			delete openAPIDocument.paths[pathKey];
 		}
 
-		// Rename in operation parameters
-		for (const method of HTTP_METHODS) {
-			const operation = (pathItem as any)?.[method] as OperationObject | undefined;
-			if (!operation?.parameters) continue;
-			for (const param of operation.parameters) {
-				if ((param as any).in === "path" && renames.has((param as any).name)) {
-					(param as any).name = renames.get((param as any).name);
+		const pathItemObj = pathItem as any;
+		const parameterLists = [
+			pathItemObj?.parameters,
+			...HTTP_METHODS.map(
+				(method) => (pathItemObj?.[method] as OperationObject | undefined)?.parameters,
+			),
+		];
+		for (const parameters of parameterLists) {
+			if (!parameters) continue;
+			for (const param of parameters) {
+				if (param.in === "path" && renames.has(param.name)) {
+					param.name = renames.get(param.name);
 				}
 			}
 		}
