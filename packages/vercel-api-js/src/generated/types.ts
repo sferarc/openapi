@@ -100,7 +100,7 @@ export type AiGatewayVirtualModelConfigSortEnumKey =
 	(typeof aiGatewayVirtualModelConfigSortEnum)[keyof typeof aiGatewayVirtualModelConfigSortEnum];
 
 /**
- * @description Public response shape for virtual model configs. Used so OpenAPI generation can avoid ElectroDB\'s recursive EntityItem types.
+ * @description Active and archived router configurations owned by the authenticated team.
  * @type object
  */
 export type AiGatewayVirtualModelConfig = {
@@ -364,6 +364,14 @@ export type AiGatewayVirtualModelConfigList = {
 	 * @type array
 	 */
 	virtualModelConfigs: unknown[];
+};
+
+export type AiGatewayRouterList = {
+	/**
+	 * @description Active and archived router configurations owned by the authenticated team.
+	 * @type array
+	 */
+	routers: unknown[];
 };
 
 export const aiGatewayRuleTypeEnum = {
@@ -765,6 +773,7 @@ export const connectConnectorTypeEnum = {
 	slack: "slack",
 	snowflake: "snowflake",
 	"snowflake-wif": "snowflake-wif",
+	"stripe-api-key": "stripe-api-key",
 } as const;
 
 export type ConnectConnectorTypeEnumKey =
@@ -1174,6 +1183,7 @@ export const connectConnectorCreateResultTypeEnum = {
 	slack: "slack",
 	snowflake: "snowflake",
 	"snowflake-wif": "snowflake-wif",
+	"stripe-api-key": "stripe-api-key",
 } as const;
 
 export type ConnectConnectorCreateResultTypeEnumKey =
@@ -2513,7 +2523,28 @@ export type ConnectConnectorCreateData =
 /**
  * @description Create a connector with full provider configuration or with a known service connection method.
  */
-export type ConnectCreateConnectorRequest = (unknown | unknown) & {
+export type ConnectCreateConnectorRequest = (
+	| {
+			/**
+			 * @description Connector implementation type for full configuration. Known types: api-key, discord, github, linear, linq, microsoft-entra, oauth, photon, salesforce, sendblue, slack, snowflake, snowflake-wif. Optional when service and connectionMethod select the type.
+			 * @type string
+			 */
+			type: string;
+	  }
+	| {
+			/**
+			 * @description Service slug or URL for which the connector is used. Required when connectionMethod is set. Service alone does not enable preset configuration.
+			 * @type string
+			 */
+			service: string;
+			/**
+			 * @description Connection method slug of the service. Use it with service to select preset configuration.
+			 * @maxLength 64
+			 * @type string
+			 */
+			connectionMethod: string;
+	  }
+) & {
 	/**
 	 * @description Provider configuration for the selected connector type or connection method.
 	 * @type unknown
@@ -4101,6 +4132,7 @@ export type PropertyKey =
 	| {
 			tag?: "symbol" | undefined;
 			key: string;
+			_tag: unknown;
 	  };
 
 export type TooManyRequests = {
@@ -4189,6 +4221,7 @@ export type RegistrantField =
 						| string
 						| {
 								valueIn?: string[] | undefined;
+								value_in: unknown;
 						  }
 				  )
 				| undefined;
@@ -4212,6 +4245,7 @@ export type RegistrantField =
 						| string
 						| {
 								valueIn?: string[] | undefined;
+								value_in: unknown;
 						  }
 				  )
 				| undefined;
@@ -4233,6 +4267,7 @@ export type RegistrantField =
 						| string
 						| {
 								valueIn?: string[] | undefined;
+								value_in: unknown;
 						  }
 				  )
 				| undefined;
@@ -4249,6 +4284,7 @@ export type RegistrantField =
 						| string
 						| {
 								valueIn?: string[] | undefined;
+								value_in: unknown;
 						  }
 				  )
 				| undefined;
@@ -5447,14 +5483,6 @@ export const userEventPayloadFactorsOriginEnum = {
 export type UserEventPayloadFactorsOriginEnumKey =
 	(typeof userEventPayloadFactorsOriginEnum)[keyof typeof userEventPayloadFactorsOriginEnum];
 
-export const userEventPayloadNextOrganizationPermissionsEnum = {
-	OrgAdmin: "OrgAdmin",
-	OrgViewer: "OrgViewer",
-} as const;
-
-export type UserEventPayloadNextOrganizationPermissionsEnumKey =
-	(typeof userEventPayloadNextOrganizationPermissionsEnum)[keyof typeof userEventPayloadNextOrganizationPermissionsEnum];
-
 export const userEventPayloadNextTeamRolesEnum = {
 	BILLING: "BILLING",
 	CONTRIBUTOR: "CONTRIBUTOR",
@@ -6276,6 +6304,14 @@ export const userEventPayloadProjectScopeEnum = {
 export type UserEventPayloadProjectScopeEnumKey =
 	(typeof userEventPayloadProjectScopeEnum)[keyof typeof userEventPayloadProjectScopeEnum];
 
+export const userEventPayloadLogoutSourceEnum = {
+	v0: "v0",
+	vercel: "vercel",
+} as const;
+
+export type UserEventPayloadLogoutSourceEnumKey =
+	(typeof userEventPayloadLogoutSourceEnum)[keyof typeof userEventPayloadLogoutSourceEnum];
+
 export const userEventTypeEnum = {
 	"access-group-created": "access-group-created",
 	"access-group-deleted": "access-group-deleted",
@@ -6286,6 +6322,10 @@ export const userEventTypeEnum = {
 	"admin-agentic-provisioning-account-unlinked": "admin-agentic-provisioning-account-unlinked",
 	"admin-plan-updated": "admin-plan-updated",
 	"admin-preview-deployment-suffix-clear": "admin-preview-deployment-suffix-clear",
+	"admin-saml-idp-material-deleted": "admin-saml-idp-material-deleted",
+	"admin-saml-idp-material-set": "admin-saml-idp-material-set",
+	"admin-saml-sp-signing-key-created": "admin-saml-sp-signing-key-created",
+	"admin-saml-sp-signing-key-updated": "admin-saml-sp-signing-key-updated",
 	"admin-secondary-email-added": "admin-secondary-email-added",
 	"admin-secondary-email-removed": "admin-secondary-email-removed",
 	"admin-team-name-update": "admin-team-name-update",
@@ -6636,8 +6676,10 @@ export const userEventTypeEnum = {
 	"organization-avatar-update": "organization-avatar-update",
 	"organization-create": "organization-create",
 	"organization-delete": "organization-delete",
+	"organization-dsync-delete": "organization-dsync-delete",
 	"organization-dsync-group-delete": "organization-dsync-group-delete",
 	"organization-dsync-group-upsert": "organization-dsync-group-upsert",
+	"organization-dsync-sync-start": "organization-dsync-sync-start",
 	"organization-emu-domains-merged": "organization-emu-domains-merged",
 	"organization-emu-team-updated": "organization-emu-team-updated",
 	"organization-emu-updated": "organization-emu-updated",
@@ -6821,6 +6863,8 @@ export const userEventTypeEnum = {
 	"sandbox-alias-delete": "sandbox-alias-delete",
 	"sandbox-drive-created": "sandbox-drive-created",
 	"sandbox-drive-deleted": "sandbox-drive-deleted",
+	"sandbox-drive-snapshot-created": "sandbox-drive-snapshot-created",
+	"sandbox-drive-snapshot-deleted": "sandbox-drive-snapshot-deleted",
 	"sandbox-signed-commit-identity-configured": "sandbox-signed-commit-identity-configured",
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
 	scale: "scale",
@@ -6995,6 +7039,7 @@ export const userEventTypeEnum = {
 	"vercel-app-installed": "vercel-app-installed",
 	"vercel-app-tokens-revoked": "vercel-app-tokens-revoked",
 	"vercel-app-uninstalled": "vercel-app-uninstalled",
+	"vercel-ci-repository-settings-updated": "vercel-ci-repository-settings-updated",
 	"vercel-toolbar": "vercel-toolbar",
 	"vpc-peering-connection-accepted": "vpc-peering-connection-accepted",
 	"vpc-peering-connection-deleted": "vpc-peering-connection-deleted",
@@ -10525,11 +10570,15 @@ export type UserEvent = {
 						slug: string;
 				  }
 				| {
+						directoryId: string;
+						organizationId: string;
+				  }
+				| {
 						directoryGroupId: string;
 						directoryId: string;
 						groupName: string;
 						next: {
-							organizationPermissions: UserEventPayloadNextOrganizationPermissionsEnumKey[];
+							organizationPermissions: "OrgAdmin"[];
 							teamRoles: UserEventPayloadNextTeamRolesEnumKey[];
 							teams: {
 								[key: string]: {
@@ -11808,6 +11857,31 @@ export type UserEvent = {
 						connectionType: string;
 				  }
 				| {
+						connectionId: string;
+						actorName?: string | undefined;
+						actorType: "admin";
+				  }
+				| {
+						connectionId: string;
+						actorName?: string | undefined;
+						actorType: "admin";
+						created: false | true;
+				  }
+				| {
+						connectionId: string;
+						actorName?: string | undefined;
+						actorType: "admin";
+						keyId: string;
+				  }
+				| {
+						connectionId: string;
+						actorName?: string | undefined;
+						actorType: "admin";
+						keyId: string;
+						signingEnabled: false | true;
+						signingKeyId: string | null;
+				  }
+				| {
 						alias: string;
 						projectId?: string | undefined;
 						sandboxId?: string | undefined;
@@ -11818,6 +11892,14 @@ export type UserEvent = {
 						projectId: string;
 						projectName: string;
 						region: string;
+				  }
+				| {
+						driveName: string;
+						projectId: string;
+						projectName: string;
+						region: string;
+						snapshotId: string;
+						snapshotName: string;
 				  }
 				| {
 						projectId: string;
@@ -13252,6 +13334,11 @@ export type UserEvent = {
 						customAlertTitle: string;
 				  }
 				| {
+						ciEnabled: false | true;
+						organizationId: string;
+						repository: string;
+				  }
+				| {
 						protectedProjectCount: number;
 						protectionEnabled: false | true;
 						vulnerabilities: string[];
@@ -13751,7 +13838,9 @@ export type UserEvent = {
 							| undefined;
 						ip?: (string | null) | undefined;
 						leaked?: (false | true) | undefined;
+						logoutSource?: UserEventPayloadLogoutSourceEnumKey | undefined;
 						origin?: UserEventPayloadOriginEnumKey | undefined;
+						reason?: "logout" | undefined;
 						reqId?: string | undefined;
 						reqUrl?: string | undefined;
 						revoked?: (false | true) | undefined;
@@ -13966,6 +14055,10 @@ export const listEventTypeNameEnum = {
 	"admin-agentic-provisioning-account-unlinked": "admin-agentic-provisioning-account-unlinked",
 	"admin-plan-updated": "admin-plan-updated",
 	"admin-preview-deployment-suffix-clear": "admin-preview-deployment-suffix-clear",
+	"admin-saml-idp-material-deleted": "admin-saml-idp-material-deleted",
+	"admin-saml-idp-material-set": "admin-saml-idp-material-set",
+	"admin-saml-sp-signing-key-created": "admin-saml-sp-signing-key-created",
+	"admin-saml-sp-signing-key-updated": "admin-saml-sp-signing-key-updated",
 	"admin-secondary-email-added": "admin-secondary-email-added",
 	"admin-secondary-email-removed": "admin-secondary-email-removed",
 	"admin-team-name-update": "admin-team-name-update",
@@ -14316,8 +14409,10 @@ export const listEventTypeNameEnum = {
 	"organization-avatar-update": "organization-avatar-update",
 	"organization-create": "organization-create",
 	"organization-delete": "organization-delete",
+	"organization-dsync-delete": "organization-dsync-delete",
 	"organization-dsync-group-delete": "organization-dsync-group-delete",
 	"organization-dsync-group-upsert": "organization-dsync-group-upsert",
+	"organization-dsync-sync-start": "organization-dsync-sync-start",
 	"organization-emu-domains-merged": "organization-emu-domains-merged",
 	"organization-emu-team-updated": "organization-emu-team-updated",
 	"organization-emu-updated": "organization-emu-updated",
@@ -14501,6 +14596,8 @@ export const listEventTypeNameEnum = {
 	"sandbox-alias-delete": "sandbox-alias-delete",
 	"sandbox-drive-created": "sandbox-drive-created",
 	"sandbox-drive-deleted": "sandbox-drive-deleted",
+	"sandbox-drive-snapshot-created": "sandbox-drive-snapshot-created",
+	"sandbox-drive-snapshot-deleted": "sandbox-drive-snapshot-deleted",
 	"sandbox-signed-commit-identity-configured": "sandbox-signed-commit-identity-configured",
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
 	scale: "scale",
@@ -14675,6 +14772,7 @@ export const listEventTypeNameEnum = {
 	"vercel-app-installed": "vercel-app-installed",
 	"vercel-app-tokens-revoked": "vercel-app-tokens-revoked",
 	"vercel-app-uninstalled": "vercel-app-uninstalled",
+	"vercel-ci-repository-settings-updated": "vercel-ci-repository-settings-updated",
 	"vercel-toolbar": "vercel-toolbar",
 	"vpc-peering-connection-accepted": "vpc-peering-connection-accepted",
 	"vpc-peering-connection-deleted": "vpc-peering-connection-deleted",
@@ -14701,6 +14799,10 @@ export const listEventTypeReplacedByEnum = {
 	"admin-agentic-provisioning-account-unlinked": "admin-agentic-provisioning-account-unlinked",
 	"admin-plan-updated": "admin-plan-updated",
 	"admin-preview-deployment-suffix-clear": "admin-preview-deployment-suffix-clear",
+	"admin-saml-idp-material-deleted": "admin-saml-idp-material-deleted",
+	"admin-saml-idp-material-set": "admin-saml-idp-material-set",
+	"admin-saml-sp-signing-key-created": "admin-saml-sp-signing-key-created",
+	"admin-saml-sp-signing-key-updated": "admin-saml-sp-signing-key-updated",
 	"admin-secondary-email-added": "admin-secondary-email-added",
 	"admin-secondary-email-removed": "admin-secondary-email-removed",
 	"admin-team-name-update": "admin-team-name-update",
@@ -15051,8 +15153,10 @@ export const listEventTypeReplacedByEnum = {
 	"organization-avatar-update": "organization-avatar-update",
 	"organization-create": "organization-create",
 	"organization-delete": "organization-delete",
+	"organization-dsync-delete": "organization-dsync-delete",
 	"organization-dsync-group-delete": "organization-dsync-group-delete",
 	"organization-dsync-group-upsert": "organization-dsync-group-upsert",
+	"organization-dsync-sync-start": "organization-dsync-sync-start",
 	"organization-emu-domains-merged": "organization-emu-domains-merged",
 	"organization-emu-team-updated": "organization-emu-team-updated",
 	"organization-emu-updated": "organization-emu-updated",
@@ -15236,6 +15340,8 @@ export const listEventTypeReplacedByEnum = {
 	"sandbox-alias-delete": "sandbox-alias-delete",
 	"sandbox-drive-created": "sandbox-drive-created",
 	"sandbox-drive-deleted": "sandbox-drive-deleted",
+	"sandbox-drive-snapshot-created": "sandbox-drive-snapshot-created",
+	"sandbox-drive-snapshot-deleted": "sandbox-drive-snapshot-deleted",
 	"sandbox-signed-commit-identity-configured": "sandbox-signed-commit-identity-configured",
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
 	scale: "scale",
@@ -15410,6 +15516,7 @@ export const listEventTypeReplacedByEnum = {
 	"vercel-app-installed": "vercel-app-installed",
 	"vercel-app-tokens-revoked": "vercel-app-tokens-revoked",
 	"vercel-app-uninstalled": "vercel-app-uninstalled",
+	"vercel-ci-repository-settings-updated": "vercel-ci-repository-settings-updated",
 	"vercel-toolbar": "vercel-toolbar",
 	"vpc-peering-connection-accepted": "vpc-peering-connection-accepted",
 	"vpc-peering-connection-deleted": "vpc-peering-connection-deleted",
@@ -16284,6 +16391,7 @@ export type NamedSandbox = {
 				[key: string]: {
 					drive: string;
 					mode?: ModeEnumKey | undefined;
+					snapshot?: string | undefined;
 				};
 		  }
 		| undefined;
@@ -18954,6 +19062,26 @@ export type AuthUser = {
 					 * @type number | undefined
 					 */
 					rateLimit?: number | undefined;
+					/**
+					 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
+					 * @type number | undefined
+					 */
+					securityLists?: number | undefined;
+					/**
+					 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
+					 * @type number | undefined
+					 */
+					teamLevelConditions?: number | undefined;
+					/**
+					 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
+					 * @type number | undefined
+					 */
+					teamLevelRules?: number | undefined;
+					/**
+					 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
+					 * @type number | undefined
+					 */
+					teamLevelRulesets?: number | undefined;
 			  }
 			| undefined;
 		/**
@@ -19684,13 +19812,7 @@ export type ReadAccessGroupResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReadAccessGroupResponse =
-	| ReadAccessGroupStatus200
-	| ReadAccessGroupStatus400
-	| ReadAccessGroupStatus401
-	| ReadAccessGroupStatus403
-	| ReadAccessGroupStatus404
-	| ReadAccessGroupStatus410;
+export type ReadAccessGroupResponse = ReadAccessGroupStatus200;
 
 export type UpdateAccessGroupPath = {
 	idOrName: string;
@@ -19742,13 +19864,7 @@ export type UpdateAccessGroupResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateAccessGroupResponse =
-	| UpdateAccessGroupStatus200
-	| UpdateAccessGroupStatus400
-	| UpdateAccessGroupStatus401
-	| UpdateAccessGroupStatus403
-	| UpdateAccessGroupStatus404
-	| UpdateAccessGroupStatus410;
+export type UpdateAccessGroupResponse = UpdateAccessGroupStatus200;
 
 export type DeleteAccessGroupPath = {
 	idOrName: string;
@@ -19800,13 +19916,7 @@ export type DeleteAccessGroupResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAccessGroupResponse =
-	| DeleteAccessGroupStatus200
-	| DeleteAccessGroupStatus400
-	| DeleteAccessGroupStatus401
-	| DeleteAccessGroupStatus403
-	| DeleteAccessGroupStatus404
-	| DeleteAccessGroupStatus410;
+export type DeleteAccessGroupResponse = DeleteAccessGroupStatus200;
 
 export type ListAccessGroupMembersPath = {
 	/**
@@ -19881,13 +19991,7 @@ export type ListAccessGroupMembersResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAccessGroupMembersResponse =
-	| ListAccessGroupMembersStatus200
-	| ListAccessGroupMembersStatus400
-	| ListAccessGroupMembersStatus401
-	| ListAccessGroupMembersStatus403
-	| ListAccessGroupMembersStatus404
-	| ListAccessGroupMembersStatus410;
+export type ListAccessGroupMembersResponse = ListAccessGroupMembersStatus200;
 
 export type ListAccessGroupsQuery = {
 	/**
@@ -19976,13 +20080,7 @@ export type ListAccessGroupsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAccessGroupsResponse =
-	| ListAccessGroupsStatus200
-	| ListAccessGroupsStatus400
-	| ListAccessGroupsStatus401
-	| ListAccessGroupsStatus403
-	| ListAccessGroupsStatus404
-	| ListAccessGroupsStatus410;
+export type ListAccessGroupsResponse = ListAccessGroupsStatus200;
 
 export type CreateAccessGroupQuery = {
 	/**
@@ -20030,13 +20128,7 @@ export type CreateAccessGroupResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateAccessGroupResponse =
-	| CreateAccessGroupStatus200
-	| CreateAccessGroupStatus400
-	| CreateAccessGroupStatus401
-	| CreateAccessGroupStatus403
-	| CreateAccessGroupStatus404
-	| CreateAccessGroupStatus410;
+export type CreateAccessGroupResponse = CreateAccessGroupStatus200;
 
 export type ListAccessGroupProjectsPath = {
 	/**
@@ -20106,13 +20198,7 @@ export type ListAccessGroupProjectsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAccessGroupProjectsResponse =
-	| ListAccessGroupProjectsStatus200
-	| ListAccessGroupProjectsStatus400
-	| ListAccessGroupProjectsStatus401
-	| ListAccessGroupProjectsStatus403
-	| ListAccessGroupProjectsStatus404
-	| ListAccessGroupProjectsStatus410;
+export type ListAccessGroupProjectsResponse = ListAccessGroupProjectsStatus200;
 
 export type CreateAccessGroupProjectPath = {
 	accessGroupIdOrName: string;
@@ -20164,13 +20250,7 @@ export type CreateAccessGroupProjectResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateAccessGroupProjectResponse =
-	| CreateAccessGroupProjectStatus200
-	| CreateAccessGroupProjectStatus400
-	| CreateAccessGroupProjectStatus401
-	| CreateAccessGroupProjectStatus403
-	| CreateAccessGroupProjectStatus404
-	| CreateAccessGroupProjectStatus410;
+export type CreateAccessGroupProjectResponse = CreateAccessGroupProjectStatus200;
 
 export type ReadAccessGroupProjectPath = {
 	accessGroupIdOrName: string;
@@ -20223,13 +20303,7 @@ export type ReadAccessGroupProjectResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReadAccessGroupProjectResponse =
-	| ReadAccessGroupProjectStatus200
-	| ReadAccessGroupProjectStatus400
-	| ReadAccessGroupProjectStatus401
-	| ReadAccessGroupProjectStatus403
-	| ReadAccessGroupProjectStatus404
-	| ReadAccessGroupProjectStatus410;
+export type ReadAccessGroupProjectResponse = ReadAccessGroupProjectStatus200;
 
 export type UpdateAccessGroupProjectPath = {
 	accessGroupIdOrName: string;
@@ -20282,13 +20356,7 @@ export type UpdateAccessGroupProjectResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateAccessGroupProjectResponse =
-	| UpdateAccessGroupProjectStatus200
-	| UpdateAccessGroupProjectStatus400
-	| UpdateAccessGroupProjectStatus401
-	| UpdateAccessGroupProjectStatus403
-	| UpdateAccessGroupProjectStatus404
-	| UpdateAccessGroupProjectStatus410;
+export type UpdateAccessGroupProjectResponse = UpdateAccessGroupProjectStatus200;
 
 export type DeleteAccessGroupProjectPath = {
 	accessGroupIdOrName: string;
@@ -20341,13 +20409,7 @@ export type DeleteAccessGroupProjectResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAccessGroupProjectResponse =
-	| DeleteAccessGroupProjectStatus200
-	| DeleteAccessGroupProjectStatus400
-	| DeleteAccessGroupProjectStatus401
-	| DeleteAccessGroupProjectStatus403
-	| DeleteAccessGroupProjectStatus404
-	| DeleteAccessGroupProjectStatus410;
+export type DeleteAccessGroupProjectResponse = DeleteAccessGroupProjectStatus200;
 
 export type CreateAiGatewayVirtualModelConfigQuery = {
 	/**
@@ -20404,16 +20466,7 @@ export type CreateAiGatewayVirtualModelConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateAiGatewayVirtualModelConfigResponse =
-	| CreateAiGatewayVirtualModelConfigStatus201
-	| CreateAiGatewayVirtualModelConfigStatus400
-	| CreateAiGatewayVirtualModelConfigStatus401
-	| CreateAiGatewayVirtualModelConfigStatus403
-	| CreateAiGatewayVirtualModelConfigStatus404
-	| CreateAiGatewayVirtualModelConfigStatus409
-	| CreateAiGatewayVirtualModelConfigStatus410
-	| CreateAiGatewayVirtualModelConfigStatus429
-	| CreateAiGatewayVirtualModelConfigStatus500;
+export type CreateAiGatewayVirtualModelConfigResponse = CreateAiGatewayVirtualModelConfigStatus201;
 
 export type GetAiGatewayVirtualModelConfigQuery = {
 	ownerId?: string | undefined;
@@ -20472,14 +20525,7 @@ export type GetAiGatewayVirtualModelConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAiGatewayVirtualModelConfigResponse =
-	| GetAiGatewayVirtualModelConfigStatus200
-	| GetAiGatewayVirtualModelConfigStatus400
-	| GetAiGatewayVirtualModelConfigStatus401
-	| GetAiGatewayVirtualModelConfigStatus403
-	| GetAiGatewayVirtualModelConfigStatus404
-	| GetAiGatewayVirtualModelConfigStatus410
-	| GetAiGatewayVirtualModelConfigStatus500;
+export type GetAiGatewayVirtualModelConfigResponse = GetAiGatewayVirtualModelConfigStatus200;
 
 export type UpdateAiGatewayVirtualModelConfigQuery = {
 	/**
@@ -20533,15 +20579,7 @@ export type UpdateAiGatewayVirtualModelConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateAiGatewayVirtualModelConfigResponse =
-	| UpdateAiGatewayVirtualModelConfigStatus200
-	| UpdateAiGatewayVirtualModelConfigStatus400
-	| UpdateAiGatewayVirtualModelConfigStatus401
-	| UpdateAiGatewayVirtualModelConfigStatus403
-	| UpdateAiGatewayVirtualModelConfigStatus404
-	| UpdateAiGatewayVirtualModelConfigStatus410
-	| UpdateAiGatewayVirtualModelConfigStatus429
-	| UpdateAiGatewayVirtualModelConfigStatus500;
+export type UpdateAiGatewayVirtualModelConfigResponse = UpdateAiGatewayVirtualModelConfigStatus200;
 
 export type DeleteAiGatewayVirtualModelConfigQuery = {
 	ownerId?: string | undefined;
@@ -20597,14 +20635,7 @@ export type DeleteAiGatewayVirtualModelConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAiGatewayVirtualModelConfigResponse =
-	| DeleteAiGatewayVirtualModelConfigStatus204
-	| DeleteAiGatewayVirtualModelConfigStatus400
-	| DeleteAiGatewayVirtualModelConfigStatus401
-	| DeleteAiGatewayVirtualModelConfigStatus403
-	| DeleteAiGatewayVirtualModelConfigStatus404
-	| DeleteAiGatewayVirtualModelConfigStatus410
-	| DeleteAiGatewayVirtualModelConfigStatus500;
+export type DeleteAiGatewayVirtualModelConfigResponse = DeleteAiGatewayVirtualModelConfigStatus204;
 
 export type ListAiGatewayVirtualModelConfigsQuery = {
 	ownerId?: string | undefined;
@@ -20662,14 +20693,7 @@ export type ListAiGatewayVirtualModelConfigsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAiGatewayVirtualModelConfigsResponse =
-	| ListAiGatewayVirtualModelConfigsStatus200
-	| ListAiGatewayVirtualModelConfigsStatus400
-	| ListAiGatewayVirtualModelConfigsStatus401
-	| ListAiGatewayVirtualModelConfigsStatus403
-	| ListAiGatewayVirtualModelConfigsStatus404
-	| ListAiGatewayVirtualModelConfigsStatus410
-	| ListAiGatewayVirtualModelConfigsStatus500;
+export type ListAiGatewayVirtualModelConfigsResponse = ListAiGatewayVirtualModelConfigsStatus200;
 
 export type GetAiGatewayVirtualModelConfigBySlugPath = {
 	vmcSlug: string;
@@ -20726,13 +20750,7 @@ export type GetAiGatewayVirtualModelConfigBySlugResponses = {
  * @description Union of all possible responses
  */
 export type GetAiGatewayVirtualModelConfigBySlugResponse =
-	| GetAiGatewayVirtualModelConfigBySlugStatus200
-	| GetAiGatewayVirtualModelConfigBySlugStatus400
-	| GetAiGatewayVirtualModelConfigBySlugStatus401
-	| GetAiGatewayVirtualModelConfigBySlugStatus403
-	| GetAiGatewayVirtualModelConfigBySlugStatus404
-	| GetAiGatewayVirtualModelConfigBySlugStatus410
-	| GetAiGatewayVirtualModelConfigBySlugStatus500;
+	GetAiGatewayVirtualModelConfigBySlugStatus200;
 
 export type UpdateAiGatewayVirtualModelConfigBySlugPath = {
 	vmcSlug: string;
@@ -20791,14 +20809,7 @@ export type UpdateAiGatewayVirtualModelConfigBySlugResponses = {
  * @description Union of all possible responses
  */
 export type UpdateAiGatewayVirtualModelConfigBySlugResponse =
-	| UpdateAiGatewayVirtualModelConfigBySlugStatus200
-	| UpdateAiGatewayVirtualModelConfigBySlugStatus400
-	| UpdateAiGatewayVirtualModelConfigBySlugStatus401
-	| UpdateAiGatewayVirtualModelConfigBySlugStatus403
-	| UpdateAiGatewayVirtualModelConfigBySlugStatus404
-	| UpdateAiGatewayVirtualModelConfigBySlugStatus410
-	| UpdateAiGatewayVirtualModelConfigBySlugStatus429
-	| UpdateAiGatewayVirtualModelConfigBySlugStatus500;
+	UpdateAiGatewayVirtualModelConfigBySlugStatus200;
 
 export type DeleteAiGatewayVirtualModelConfigBySlugPath = {
 	vmcSlug: string;
@@ -20858,13 +20869,63 @@ export type DeleteAiGatewayVirtualModelConfigBySlugResponses = {
  * @description Union of all possible responses
  */
 export type DeleteAiGatewayVirtualModelConfigBySlugResponse =
-	| DeleteAiGatewayVirtualModelConfigBySlugStatus204
-	| DeleteAiGatewayVirtualModelConfigBySlugStatus400
-	| DeleteAiGatewayVirtualModelConfigBySlugStatus401
-	| DeleteAiGatewayVirtualModelConfigBySlugStatus403
-	| DeleteAiGatewayVirtualModelConfigBySlugStatus404
-	| DeleteAiGatewayVirtualModelConfigBySlugStatus410
-	| DeleteAiGatewayVirtualModelConfigBySlugStatus500;
+	DeleteAiGatewayVirtualModelConfigBySlugStatus204;
+
+export type ListAiGatewayRoutersQuery = {
+	/**
+	 * @description The owner (team) ID to list routers for. Only trusted-origin callers use this. Public callers select their team with `teamId` or `slug`, and a supplied ownerId never overrides the authenticated team.
+	 * @type string | undefined
+	 */
+	ownerId?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type ListAiGatewayRoutersStatus200 = unknown;
+
+export type ListAiGatewayRoutersStatus400 = unknown;
+
+export type ListAiGatewayRoutersStatus401 = unknown;
+
+export type ListAiGatewayRoutersStatus403 = unknown;
+
+export type ListAiGatewayRoutersStatus404 = unknown;
+
+export type ListAiGatewayRoutersStatus410 = unknown;
+
+export type ListAiGatewayRoutersStatus500 = unknown;
+
+export type ListAiGatewayRoutersOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: ListAiGatewayRoutersQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ListAiGatewayRoutersResponses = {
+	"200": ListAiGatewayRoutersStatus200;
+	"400": ListAiGatewayRoutersStatus400;
+	"401": ListAiGatewayRoutersStatus401;
+	"403": ListAiGatewayRoutersStatus403;
+	"404": ListAiGatewayRoutersStatus404;
+	"410": ListAiGatewayRoutersStatus410;
+	"500": ListAiGatewayRoutersStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListAiGatewayRoutersResponse = ListAiGatewayRoutersStatus200;
 
 export type CreateAiGatewayRuleQuery = {
 	/**
@@ -20918,15 +20979,7 @@ export type CreateAiGatewayRuleResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateAiGatewayRuleResponse =
-	| CreateAiGatewayRuleStatus201
-	| CreateAiGatewayRuleStatus400
-	| CreateAiGatewayRuleStatus401
-	| CreateAiGatewayRuleStatus403
-	| CreateAiGatewayRuleStatus404
-	| CreateAiGatewayRuleStatus409
-	| CreateAiGatewayRuleStatus410
-	| CreateAiGatewayRuleStatus500;
+export type CreateAiGatewayRuleResponse = CreateAiGatewayRuleStatus201;
 
 export const listAiGatewayRulesIncludeDisabled = {
 	true: "true",
@@ -20986,14 +21039,7 @@ export type ListAiGatewayRulesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAiGatewayRulesResponse =
-	| ListAiGatewayRulesStatus200
-	| ListAiGatewayRulesStatus400
-	| ListAiGatewayRulesStatus401
-	| ListAiGatewayRulesStatus403
-	| ListAiGatewayRulesStatus404
-	| ListAiGatewayRulesStatus410
-	| ListAiGatewayRulesStatus500;
+export type ListAiGatewayRulesResponse = ListAiGatewayRulesStatus200;
 
 export type UpdateAiGatewayRuleQuery = {
 	/**
@@ -21044,14 +21090,7 @@ export type UpdateAiGatewayRuleResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateAiGatewayRuleResponse =
-	| UpdateAiGatewayRuleStatus200
-	| UpdateAiGatewayRuleStatus400
-	| UpdateAiGatewayRuleStatus401
-	| UpdateAiGatewayRuleStatus403
-	| UpdateAiGatewayRuleStatus404
-	| UpdateAiGatewayRuleStatus410
-	| UpdateAiGatewayRuleStatus500;
+export type UpdateAiGatewayRuleResponse = UpdateAiGatewayRuleStatus200;
 
 export type DeleteAiGatewayRuleQuery = {
 	ruleId: string;
@@ -21103,14 +21142,7 @@ export type DeleteAiGatewayRuleResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAiGatewayRuleResponse =
-	| DeleteAiGatewayRuleStatus204
-	| DeleteAiGatewayRuleStatus400
-	| DeleteAiGatewayRuleStatus401
-	| DeleteAiGatewayRuleStatus403
-	| DeleteAiGatewayRuleStatus404
-	| DeleteAiGatewayRuleStatus410
-	| DeleteAiGatewayRuleStatus500;
+export type DeleteAiGatewayRuleResponse = DeleteAiGatewayRuleStatus204;
 
 export const listAiGatewayBudgetsScopeType = {
 	team: "team",
@@ -21176,14 +21208,7 @@ export type ListAiGatewayBudgetsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAiGatewayBudgetsResponse =
-	| ListAiGatewayBudgetsStatus200
-	| ListAiGatewayBudgetsStatus400
-	| ListAiGatewayBudgetsStatus401
-	| ListAiGatewayBudgetsStatus403
-	| ListAiGatewayBudgetsStatus404
-	| ListAiGatewayBudgetsStatus410
-	| ListAiGatewayBudgetsStatus500;
+export type ListAiGatewayBudgetsResponse = ListAiGatewayBudgetsStatus200;
 
 export type UpsertAiGatewayBudgetQuery = {
 	/**
@@ -21234,14 +21259,7 @@ export type UpsertAiGatewayBudgetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpsertAiGatewayBudgetResponse =
-	| UpsertAiGatewayBudgetStatus200
-	| UpsertAiGatewayBudgetStatus400
-	| UpsertAiGatewayBudgetStatus401
-	| UpsertAiGatewayBudgetStatus403
-	| UpsertAiGatewayBudgetStatus404
-	| UpsertAiGatewayBudgetStatus410
-	| UpsertAiGatewayBudgetStatus500;
+export type UpsertAiGatewayBudgetResponse = UpsertAiGatewayBudgetStatus200;
 
 export const archiveAiGatewayBudgetScopeType = {
 	team: "team",
@@ -21316,14 +21334,7 @@ export type ArchiveAiGatewayBudgetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ArchiveAiGatewayBudgetResponse =
-	| ArchiveAiGatewayBudgetStatus200
-	| ArchiveAiGatewayBudgetStatus400
-	| ArchiveAiGatewayBudgetStatus401
-	| ArchiveAiGatewayBudgetStatus403
-	| ArchiveAiGatewayBudgetStatus404
-	| ArchiveAiGatewayBudgetStatus410
-	| ArchiveAiGatewayBudgetStatus500;
+export type ArchiveAiGatewayBudgetResponse = ArchiveAiGatewayBudgetStatus200;
 
 export type ListAiGatewayBudgetDefaultsQuery = {
 	/**
@@ -21374,14 +21385,7 @@ export type ListAiGatewayBudgetDefaultsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAiGatewayBudgetDefaultsResponse =
-	| ListAiGatewayBudgetDefaultsStatus200
-	| ListAiGatewayBudgetDefaultsStatus400
-	| ListAiGatewayBudgetDefaultsStatus401
-	| ListAiGatewayBudgetDefaultsStatus403
-	| ListAiGatewayBudgetDefaultsStatus404
-	| ListAiGatewayBudgetDefaultsStatus410
-	| ListAiGatewayBudgetDefaultsStatus500;
+export type ListAiGatewayBudgetDefaultsResponse = ListAiGatewayBudgetDefaultsStatus200;
 
 export type UpsertAiGatewayBudgetDefaultQuery = {
 	/**
@@ -21432,14 +21436,7 @@ export type UpsertAiGatewayBudgetDefaultResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpsertAiGatewayBudgetDefaultResponse =
-	| UpsertAiGatewayBudgetDefaultStatus200
-	| UpsertAiGatewayBudgetDefaultStatus400
-	| UpsertAiGatewayBudgetDefaultStatus401
-	| UpsertAiGatewayBudgetDefaultStatus403
-	| UpsertAiGatewayBudgetDefaultStatus404
-	| UpsertAiGatewayBudgetDefaultStatus410
-	| UpsertAiGatewayBudgetDefaultStatus500;
+export type UpsertAiGatewayBudgetDefaultResponse = UpsertAiGatewayBudgetDefaultStatus200;
 
 export const archiveAiGatewayBudgetDefaultScopeType = {
 	team: "team",
@@ -21505,14 +21502,7 @@ export type ArchiveAiGatewayBudgetDefaultResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ArchiveAiGatewayBudgetDefaultResponse =
-	| ArchiveAiGatewayBudgetDefaultStatus204
-	| ArchiveAiGatewayBudgetDefaultStatus400
-	| ArchiveAiGatewayBudgetDefaultStatus401
-	| ArchiveAiGatewayBudgetDefaultStatus403
-	| ArchiveAiGatewayBudgetDefaultStatus404
-	| ArchiveAiGatewayBudgetDefaultStatus410
-	| ArchiveAiGatewayBudgetDefaultStatus500;
+export type ArchiveAiGatewayBudgetDefaultResponse = ArchiveAiGatewayBudgetDefaultStatus204;
 
 export type RecordEventsQuery = {
 	/**
@@ -21581,14 +21571,7 @@ export type RecordEventsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RecordEventsResponse =
-	| RecordEventsStatus200
-	| RecordEventsStatus400
-	| RecordEventsStatus401
-	| RecordEventsStatus402
-	| RecordEventsStatus403
-	| RecordEventsStatus404
-	| RecordEventsStatus410;
+export type RecordEventsResponse = RecordEventsStatus200;
 
 export type StatusQuery = {
 	/**
@@ -21639,14 +21622,7 @@ export type StatusResponses = {
 /**
  * @description Union of all possible responses
  */
-export type StatusResponse =
-	| StatusStatus200
-	| StatusStatus400
-	| StatusStatus401
-	| StatusStatus402
-	| StatusStatus403
-	| StatusStatus404
-	| StatusStatus410;
+export type StatusResponse = StatusStatus200;
 
 export type UploadArtifactPath = {
 	/**
@@ -21754,14 +21730,7 @@ export type UploadArtifactResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UploadArtifactResponse =
-	| UploadArtifactStatus202
-	| UploadArtifactStatus400
-	| UploadArtifactStatus401
-	| UploadArtifactStatus402
-	| UploadArtifactStatus403
-	| UploadArtifactStatus404
-	| UploadArtifactStatus410;
+export type UploadArtifactResponse = UploadArtifactStatus202;
 
 export type DownloadArtifactPath = {
 	/**
@@ -21839,14 +21808,7 @@ export type DownloadArtifactResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DownloadArtifactResponse =
-	| DownloadArtifactStatus200
-	| DownloadArtifactStatus400
-	| DownloadArtifactStatus401
-	| DownloadArtifactStatus402
-	| DownloadArtifactStatus403
-	| DownloadArtifactStatus404
-	| DownloadArtifactStatus410;
+export type DownloadArtifactResponse = DownloadArtifactStatus200;
 
 export type ArtifactQueryQuery = {
 	/**
@@ -21897,14 +21859,7 @@ export type ArtifactQueryResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ArtifactQueryResponse =
-	| ArtifactQueryStatus200
-	| ArtifactQueryStatus400
-	| ArtifactQueryStatus401
-	| ArtifactQueryStatus402
-	| ArtifactQueryStatus403
-	| ArtifactQueryStatus404
-	| ArtifactQueryStatus410;
+export type ArtifactQueryResponse = ArtifactQueryStatus200;
 
 export type DeleteAllArtifactsQuery = {
 	/**
@@ -21952,13 +21907,7 @@ export type DeleteAllArtifactsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAllArtifactsResponse =
-	| DeleteAllArtifactsStatus200
-	| DeleteAllArtifactsStatus400
-	| DeleteAllArtifactsStatus401
-	| DeleteAllArtifactsStatus403
-	| DeleteAllArtifactsStatus404
-	| DeleteAllArtifactsStatus410;
+export type DeleteAllArtifactsResponse = DeleteAllArtifactsStatus200;
 
 export type ListBillingChargesQuery = {
 	/**
@@ -22024,15 +21973,7 @@ export type ListBillingChargesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListBillingChargesResponse =
-	| ListBillingChargesStatus200
-	| ListBillingChargesStatus400
-	| ListBillingChargesStatus401
-	| ListBillingChargesStatus403
-	| ListBillingChargesStatus404
-	| ListBillingChargesStatus410
-	| ListBillingChargesStatus500
-	| ListBillingChargesStatus503;
+export type ListBillingChargesResponse = ListBillingChargesStatus200;
 
 export type ListContractCommitmentsQuery = {
 	/**
@@ -22080,13 +22021,7 @@ export type ListContractCommitmentsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListContractCommitmentsResponse =
-	| ListContractCommitmentsStatus200
-	| ListContractCommitmentsStatus400
-	| ListContractCommitmentsStatus401
-	| ListContractCommitmentsStatus403
-	| ListContractCommitmentsStatus404
-	| ListContractCommitmentsStatus410;
+export type ListContractCommitmentsResponse = ListContractCommitmentsStatus200;
 
 export type BuyCreditsQuery = {
 	/**
@@ -22148,16 +22083,7 @@ export type BuyCreditsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type BuyCreditsResponse =
-	| BuyCreditsStatus200
-	| BuyCreditsStatus400
-	| BuyCreditsStatus401
-	| BuyCreditsStatus402
-	| BuyCreditsStatus403
-	| BuyCreditsStatus404
-	| BuyCreditsStatus409
-	| BuyCreditsStatus410
-	| BuyCreditsStatus500;
+export type BuyCreditsResponse = BuyCreditsStatus200;
 
 export type StageRedirectsQuery = {
 	/**
@@ -22208,14 +22134,7 @@ export type StageRedirectsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type StageRedirectsResponse =
-	| StageRedirectsStatus200
-	| StageRedirectsStatus400
-	| StageRedirectsStatus401
-	| StageRedirectsStatus403
-	| StageRedirectsStatus404
-	| StageRedirectsStatus410
-	| StageRedirectsStatus500;
+export type StageRedirectsResponse = StageRedirectsStatus200;
 
 export const getRedirectsSortBy = {
 	source: "source",
@@ -22296,13 +22215,7 @@ export type GetRedirectsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetRedirectsResponse =
-	| GetRedirectsStatus200
-	| GetRedirectsStatus400
-	| GetRedirectsStatus401
-	| GetRedirectsStatus403
-	| GetRedirectsStatus404
-	| GetRedirectsStatus410;
+export type GetRedirectsResponse = GetRedirectsStatus200;
 
 export type DeleteRedirectsQuery = {
 	projectId: string;
@@ -22354,14 +22267,7 @@ export type DeleteRedirectsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteRedirectsResponse =
-	| DeleteRedirectsStatus200
-	| DeleteRedirectsStatus400
-	| DeleteRedirectsStatus401
-	| DeleteRedirectsStatus403
-	| DeleteRedirectsStatus404
-	| DeleteRedirectsStatus410
-	| DeleteRedirectsStatus500;
+export type DeleteRedirectsResponse = DeleteRedirectsStatus200;
 
 export type EditRedirectQuery = {
 	projectId: string;
@@ -22413,14 +22319,7 @@ export type EditRedirectResponses = {
 /**
  * @description Union of all possible responses
  */
-export type EditRedirectResponse =
-	| EditRedirectStatus200
-	| EditRedirectStatus400
-	| EditRedirectStatus401
-	| EditRedirectStatus403
-	| EditRedirectStatus404
-	| EditRedirectStatus410
-	| EditRedirectStatus500;
+export type EditRedirectResponse = EditRedirectStatus200;
 
 export type RestoreRedirectsQuery = {
 	projectId: string;
@@ -22472,14 +22371,7 @@ export type RestoreRedirectsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RestoreRedirectsResponse =
-	| RestoreRedirectsStatus200
-	| RestoreRedirectsStatus400
-	| RestoreRedirectsStatus401
-	| RestoreRedirectsStatus403
-	| RestoreRedirectsStatus404
-	| RestoreRedirectsStatus410
-	| RestoreRedirectsStatus500;
+export type RestoreRedirectsResponse = RestoreRedirectsStatus200;
 
 export type GetVersionsQuery = {
 	projectId: string;
@@ -22531,14 +22423,7 @@ export type GetVersionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetVersionsResponse =
-	| GetVersionsStatus200
-	| GetVersionsStatus400
-	| GetVersionsStatus401
-	| GetVersionsStatus403
-	| GetVersionsStatus404
-	| GetVersionsStatus410
-	| GetVersionsStatus500;
+export type GetVersionsResponse = GetVersionsStatus200;
 
 export type UpdateVersionQuery = {
 	projectId: string;
@@ -22590,14 +22475,7 @@ export type UpdateVersionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateVersionResponse =
-	| UpdateVersionStatus200
-	| UpdateVersionStatus400
-	| UpdateVersionStatus401
-	| UpdateVersionStatus403
-	| UpdateVersionStatus404
-	| UpdateVersionStatus410
-	| UpdateVersionStatus500;
+export type UpdateVersionResponse = UpdateVersionStatus200;
 
 export type ListProjectChecksPath = {
 	projectIdOrName: string;
@@ -22664,14 +22542,7 @@ export type ListProjectChecksResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListProjectChecksResponse =
-	| ListProjectChecksStatus200
-	| ListProjectChecksStatus400
-	| ListProjectChecksStatus401
-	| ListProjectChecksStatus403
-	| ListProjectChecksStatus404
-	| ListProjectChecksStatus410
-	| ListProjectChecksStatus500;
+export type ListProjectChecksResponse = ListProjectChecksStatus200;
 
 export type CreateProjectCheckPath = {
 	projectIdOrName: string;
@@ -22726,14 +22597,7 @@ export type CreateProjectCheckResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateProjectCheckResponse =
-	| CreateProjectCheckStatus200
-	| CreateProjectCheckStatus400
-	| CreateProjectCheckStatus401
-	| CreateProjectCheckStatus403
-	| CreateProjectCheckStatus404
-	| CreateProjectCheckStatus410
-	| CreateProjectCheckStatus500;
+export type CreateProjectCheckResponse = CreateProjectCheckStatus200;
 
 export type GetProjectCheckPath = {
 	projectIdOrName: string;
@@ -22794,14 +22658,7 @@ export type GetProjectCheckResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetProjectCheckResponse =
-	| GetProjectCheckStatus200
-	| GetProjectCheckStatus400
-	| GetProjectCheckStatus401
-	| GetProjectCheckStatus403
-	| GetProjectCheckStatus404
-	| GetProjectCheckStatus410
-	| GetProjectCheckStatus500;
+export type GetProjectCheckResponse = GetProjectCheckStatus200;
 
 export type UpdateProjectCheckPath = {
 	projectIdOrName: string;
@@ -22857,14 +22714,7 @@ export type UpdateProjectCheckResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateProjectCheckResponse =
-	| UpdateProjectCheckStatus200
-	| UpdateProjectCheckStatus400
-	| UpdateProjectCheckStatus401
-	| UpdateProjectCheckStatus403
-	| UpdateProjectCheckStatus404
-	| UpdateProjectCheckStatus410
-	| UpdateProjectCheckStatus500;
+export type UpdateProjectCheckResponse = UpdateProjectCheckStatus200;
 
 export type DeleteProjectCheckPath = {
 	projectIdOrName: string;
@@ -22920,14 +22770,7 @@ export type DeleteProjectCheckResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteProjectCheckResponse =
-	| DeleteProjectCheckStatus200
-	| DeleteProjectCheckStatus400
-	| DeleteProjectCheckStatus401
-	| DeleteProjectCheckStatus403
-	| DeleteProjectCheckStatus404
-	| DeleteProjectCheckStatus410
-	| DeleteProjectCheckStatus500;
+export type DeleteProjectCheckResponse = DeleteProjectCheckStatus200;
 
 export type ListCheckRunsPath = {
 	projectIdOrName: string;
@@ -22988,14 +22831,7 @@ export type ListCheckRunsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListCheckRunsResponse =
-	| ListCheckRunsStatus200
-	| ListCheckRunsStatus400
-	| ListCheckRunsStatus401
-	| ListCheckRunsStatus403
-	| ListCheckRunsStatus404
-	| ListCheckRunsStatus410
-	| ListCheckRunsStatus500;
+export type ListCheckRunsResponse = ListCheckRunsStatus200;
 
 export type ListDeploymentCheckRunsPath = {
 	deploymentId: string;
@@ -23050,14 +22886,7 @@ export type ListDeploymentCheckRunsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListDeploymentCheckRunsResponse =
-	| ListDeploymentCheckRunsStatus200
-	| ListDeploymentCheckRunsStatus400
-	| ListDeploymentCheckRunsStatus401
-	| ListDeploymentCheckRunsStatus403
-	| ListDeploymentCheckRunsStatus404
-	| ListDeploymentCheckRunsStatus410
-	| ListDeploymentCheckRunsStatus500;
+export type ListDeploymentCheckRunsResponse = ListDeploymentCheckRunsStatus200;
 
 export type CreateDeploymentCheckRunPath = {
 	deploymentId: string;
@@ -23112,14 +22941,7 @@ export type CreateDeploymentCheckRunResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateDeploymentCheckRunResponse =
-	| CreateDeploymentCheckRunStatus200
-	| CreateDeploymentCheckRunStatus400
-	| CreateDeploymentCheckRunStatus401
-	| CreateDeploymentCheckRunStatus403
-	| CreateDeploymentCheckRunStatus404
-	| CreateDeploymentCheckRunStatus410
-	| CreateDeploymentCheckRunStatus500;
+export type CreateDeploymentCheckRunResponse = CreateDeploymentCheckRunStatus200;
 
 export type GetDeploymentCheckRunPath = {
 	deploymentId: string;
@@ -23180,14 +23002,7 @@ export type GetDeploymentCheckRunResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDeploymentCheckRunResponse =
-	| GetDeploymentCheckRunStatus200
-	| GetDeploymentCheckRunStatus400
-	| GetDeploymentCheckRunStatus401
-	| GetDeploymentCheckRunStatus403
-	| GetDeploymentCheckRunStatus404
-	| GetDeploymentCheckRunStatus410
-	| GetDeploymentCheckRunStatus500;
+export type GetDeploymentCheckRunResponse = GetDeploymentCheckRunStatus200;
 
 export type UpdateDeploymentCheckRunPath = {
 	deploymentId: string;
@@ -23246,15 +23061,7 @@ export type UpdateDeploymentCheckRunResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateDeploymentCheckRunResponse =
-	| UpdateDeploymentCheckRunStatus200
-	| UpdateDeploymentCheckRunStatus400
-	| UpdateDeploymentCheckRunStatus401
-	| UpdateDeploymentCheckRunStatus403
-	| UpdateDeploymentCheckRunStatus404
-	| UpdateDeploymentCheckRunStatus410
-	| UpdateDeploymentCheckRunStatus413
-	| UpdateDeploymentCheckRunStatus500;
+export type UpdateDeploymentCheckRunResponse = UpdateDeploymentCheckRunStatus200;
 
 export type CreateCheckPath = {
 	/**
@@ -23315,13 +23122,7 @@ export type CreateCheckResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateCheckResponse =
-	| CreateCheckStatus200
-	| CreateCheckStatus400
-	| CreateCheckStatus401
-	| CreateCheckStatus403
-	| CreateCheckStatus404
-	| CreateCheckStatus410;
+export type CreateCheckResponse = CreateCheckStatus200;
 
 export type GetAllChecksPath = {
 	/**
@@ -23382,13 +23183,7 @@ export type GetAllChecksResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAllChecksResponse =
-	| GetAllChecksStatus200
-	| GetAllChecksStatus400
-	| GetAllChecksStatus401
-	| GetAllChecksStatus403
-	| GetAllChecksStatus404
-	| GetAllChecksStatus410;
+export type GetAllChecksResponse = GetAllChecksStatus200;
 
 export type GetCheckPath = {
 	/**
@@ -23455,13 +23250,7 @@ export type GetCheckResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetCheckResponse =
-	| GetCheckStatus200
-	| GetCheckStatus400
-	| GetCheckStatus401
-	| GetCheckStatus403
-	| GetCheckStatus404
-	| GetCheckStatus410;
+export type GetCheckResponse = GetCheckStatus200;
 
 export type UpdateCheckPath = {
 	/**
@@ -23531,14 +23320,7 @@ export type UpdateCheckResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateCheckResponse =
-	| UpdateCheckStatus200
-	| UpdateCheckStatus400
-	| UpdateCheckStatus401
-	| UpdateCheckStatus403
-	| UpdateCheckStatus404
-	| UpdateCheckStatus410
-	| UpdateCheckStatus413;
+export type UpdateCheckResponse = UpdateCheckStatus200;
 
 export type RerequestCheckPath = {
 	/**
@@ -23610,13 +23392,7 @@ export type RerequestCheckResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RerequestCheckResponse =
-	| RerequestCheckStatus200
-	| RerequestCheckStatus400
-	| RerequestCheckStatus401
-	| RerequestCheckStatus403
-	| RerequestCheckStatus404
-	| RerequestCheckStatus410;
+export type RerequestCheckResponse = RerequestCheckStatus200;
 
 export type ListNetworksQuery = {
 	/**
@@ -23688,13 +23464,7 @@ export type ListNetworksResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListNetworksResponse =
-	| ListNetworksStatus200
-	| ListNetworksStatus400
-	| ListNetworksStatus401
-	| ListNetworksStatus403
-	| ListNetworksStatus404
-	| ListNetworksStatus410;
+export type ListNetworksResponse = ListNetworksStatus200;
 
 export type CreateNetworkQuery = {
 	/**
@@ -23748,15 +23518,7 @@ export type CreateNetworkResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateNetworkResponse =
-	| CreateNetworkStatus201
-	| CreateNetworkStatus400
-	| CreateNetworkStatus401
-	| CreateNetworkStatus402
-	| CreateNetworkStatus403
-	| CreateNetworkStatus404
-	| CreateNetworkStatus409
-	| CreateNetworkStatus410;
+export type CreateNetworkResponse = CreateNetworkStatus201;
 
 export type DeleteNetworkPath = {
 	/**
@@ -23819,15 +23581,7 @@ export type DeleteNetworkResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteNetworkResponse =
-	| DeleteNetworkStatus204
-	| DeleteNetworkStatus400
-	| DeleteNetworkStatus401
-	| DeleteNetworkStatus402
-	| DeleteNetworkStatus403
-	| DeleteNetworkStatus404
-	| DeleteNetworkStatus409
-	| DeleteNetworkStatus410;
+export type DeleteNetworkResponse = DeleteNetworkStatus204;
 
 export type UpdateNetworkPath = {
 	/**
@@ -23884,13 +23638,7 @@ export type UpdateNetworkResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateNetworkResponse =
-	| UpdateNetworkStatus200
-	| UpdateNetworkStatus400
-	| UpdateNetworkStatus401
-	| UpdateNetworkStatus403
-	| UpdateNetworkStatus404
-	| UpdateNetworkStatus410;
+export type UpdateNetworkResponse = UpdateNetworkStatus200;
 
 export type ReadNetworkPath = {
 	/**
@@ -23947,13 +23695,7 @@ export type ReadNetworkResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReadNetworkResponse =
-	| ReadNetworkStatus200
-	| ReadNetworkStatus400
-	| ReadNetworkStatus401
-	| ReadNetworkStatus403
-	| ReadNetworkStatus404
-	| ReadNetworkStatus410;
+export type ReadNetworkResponse = ReadNetworkStatus200;
 
 export type CreatePrivateLinkEndpointQuery = {
 	/**
@@ -24004,14 +23746,7 @@ export type CreatePrivateLinkEndpointResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreatePrivateLinkEndpointResponse =
-	| CreatePrivateLinkEndpointStatus201
-	| CreatePrivateLinkEndpointStatus400
-	| CreatePrivateLinkEndpointStatus401
-	| CreatePrivateLinkEndpointStatus403
-	| CreatePrivateLinkEndpointStatus404
-	| CreatePrivateLinkEndpointStatus409
-	| CreatePrivateLinkEndpointStatus410;
+export type CreatePrivateLinkEndpointResponse = CreatePrivateLinkEndpointStatus201;
 
 export type ListPrivateLinkEndpointsQuery = {
 	/**
@@ -24065,13 +23800,7 @@ export type ListPrivateLinkEndpointsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListPrivateLinkEndpointsResponse =
-	| ListPrivateLinkEndpointsStatus200
-	| ListPrivateLinkEndpointsStatus400
-	| ListPrivateLinkEndpointsStatus401
-	| ListPrivateLinkEndpointsStatus403
-	| ListPrivateLinkEndpointsStatus404
-	| ListPrivateLinkEndpointsStatus410;
+export type ListPrivateLinkEndpointsResponse = ListPrivateLinkEndpointsStatus200;
 
 export type ReadPrivateLinkEndpointPath = {
 	/**
@@ -24134,13 +23863,7 @@ export type ReadPrivateLinkEndpointResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReadPrivateLinkEndpointResponse =
-	| ReadPrivateLinkEndpointStatus200
-	| ReadPrivateLinkEndpointStatus400
-	| ReadPrivateLinkEndpointStatus401
-	| ReadPrivateLinkEndpointStatus403
-	| ReadPrivateLinkEndpointStatus404
-	| ReadPrivateLinkEndpointStatus410;
+export type ReadPrivateLinkEndpointResponse = ReadPrivateLinkEndpointStatus200;
 
 export type DeletePrivateLinkEndpointPath = {
 	/**
@@ -24206,14 +23929,7 @@ export type DeletePrivateLinkEndpointResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeletePrivateLinkEndpointResponse =
-	| DeletePrivateLinkEndpointStatus204
-	| DeletePrivateLinkEndpointStatus400
-	| DeletePrivateLinkEndpointStatus401
-	| DeletePrivateLinkEndpointStatus403
-	| DeletePrivateLinkEndpointStatus404
-	| DeletePrivateLinkEndpointStatus409
-	| DeletePrivateLinkEndpointStatus410;
+export type DeletePrivateLinkEndpointResponse = DeletePrivateLinkEndpointStatus204;
 
 export type UpdatePrivateLinkEndpointPath = {
 	/**
@@ -24279,14 +23995,7 @@ export type UpdatePrivateLinkEndpointResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdatePrivateLinkEndpointResponse =
-	| UpdatePrivateLinkEndpointStatus200
-	| UpdatePrivateLinkEndpointStatus400
-	| UpdatePrivateLinkEndpointStatus401
-	| UpdatePrivateLinkEndpointStatus403
-	| UpdatePrivateLinkEndpointStatus404
-	| UpdatePrivateLinkEndpointStatus409
-	| UpdatePrivateLinkEndpointStatus410;
+export type UpdatePrivateLinkEndpointResponse = UpdatePrivateLinkEndpointStatus200;
 
 export const listConnectorsSort = {
 	name: "name",
@@ -24392,17 +24101,7 @@ export type ListConnectorsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListConnectorsResponse =
-	| ListConnectorsStatus200
-	| ListConnectorsStatus400
-	| ListConnectorsStatus401
-	| ListConnectorsStatus403
-	| ListConnectorsStatus404
-	| ListConnectorsStatus409
-	| ListConnectorsStatus410
-	| ListConnectorsStatus422
-	| ListConnectorsStatus501
-	| ListConnectorsStatus504;
+export type ListConnectorsResponse = ListConnectorsStatus200;
 
 export type GetConnectorPath = {
 	/**
@@ -24470,17 +24169,7 @@ export type GetConnectorResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetConnectorResponse =
-	| GetConnectorStatus200
-	| GetConnectorStatus400
-	| GetConnectorStatus401
-	| GetConnectorStatus403
-	| GetConnectorStatus404
-	| GetConnectorStatus409
-	| GetConnectorStatus410
-	| GetConnectorStatus422
-	| GetConnectorStatus501
-	| GetConnectorStatus504;
+export type GetConnectorResponse = GetConnectorStatus200;
 
 export type DeleteConnectorPath = {
 	/**
@@ -24525,6 +24214,8 @@ export type DeleteConnectorStatus501 = unknown;
 
 export type DeleteConnectorStatus502 = unknown;
 
+export type DeleteConnectorStatus503 = unknown;
+
 export type DeleteConnectorStatus504 = unknown;
 
 export type DeleteConnectorOptions = {
@@ -24545,24 +24236,14 @@ export type DeleteConnectorResponses = {
 	"422": DeleteConnectorStatus422;
 	"501": DeleteConnectorStatus501;
 	"502": DeleteConnectorStatus502;
+	"503": DeleteConnectorStatus503;
 	"504": DeleteConnectorStatus504;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type DeleteConnectorResponse =
-	| DeleteConnectorStatus204
-	| DeleteConnectorStatus400
-	| DeleteConnectorStatus401
-	| DeleteConnectorStatus403
-	| DeleteConnectorStatus404
-	| DeleteConnectorStatus409
-	| DeleteConnectorStatus410
-	| DeleteConnectorStatus422
-	| DeleteConnectorStatus501
-	| DeleteConnectorStatus502
-	| DeleteConnectorStatus504;
+export type DeleteConnectorResponse = DeleteConnectorStatus204;
 
 export type CreateConnectorQuery = {
 	/**
@@ -24628,19 +24309,7 @@ export type CreateConnectorResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateConnectorResponse =
-	| CreateConnectorStatus201
-	| CreateConnectorStatus400
-	| CreateConnectorStatus401
-	| CreateConnectorStatus403
-	| CreateConnectorStatus404
-	| CreateConnectorStatus409
-	| CreateConnectorStatus410
-	| CreateConnectorStatus422
-	| CreateConnectorStatus500
-	| CreateConnectorStatus501
-	| CreateConnectorStatus502
-	| CreateConnectorStatus504;
+export type CreateConnectorResponse = CreateConnectorStatus201;
 
 export type UpdateConnectorPath = {
 	/**
@@ -24714,19 +24383,7 @@ export type UpdateConnectorResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateConnectorResponse =
-	| UpdateConnectorStatus200
-	| UpdateConnectorStatus400
-	| UpdateConnectorStatus401
-	| UpdateConnectorStatus403
-	| UpdateConnectorStatus404
-	| UpdateConnectorStatus409
-	| UpdateConnectorStatus410
-	| UpdateConnectorStatus422
-	| UpdateConnectorStatus500
-	| UpdateConnectorStatus501
-	| UpdateConnectorStatus502
-	| UpdateConnectorStatus504;
+export type UpdateConnectorResponse = UpdateConnectorStatus200;
 
 export type ReplaceConnectorTriggerDestinationsPath = {
 	/**
@@ -24795,16 +24452,7 @@ export type ReplaceConnectorTriggerDestinationsResponses = {
  * @description Union of all possible responses
  */
 export type ReplaceConnectorTriggerDestinationsResponse =
-	| ReplaceConnectorTriggerDestinationsStatus200
-	| ReplaceConnectorTriggerDestinationsStatus400
-	| ReplaceConnectorTriggerDestinationsStatus401
-	| ReplaceConnectorTriggerDestinationsStatus403
-	| ReplaceConnectorTriggerDestinationsStatus404
-	| ReplaceConnectorTriggerDestinationsStatus409
-	| ReplaceConnectorTriggerDestinationsStatus410
-	| ReplaceConnectorTriggerDestinationsStatus422
-	| ReplaceConnectorTriggerDestinationsStatus501
-	| ReplaceConnectorTriggerDestinationsStatus504;
+	ReplaceConnectorTriggerDestinationsStatus200;
 
 export type EjectManagedConnectorPath = {
 	/**
@@ -24865,17 +24513,7 @@ export type EjectManagedConnectorResponses = {
 /**
  * @description Union of all possible responses
  */
-export type EjectManagedConnectorResponse =
-	| EjectManagedConnectorStatus200
-	| EjectManagedConnectorStatus400
-	| EjectManagedConnectorStatus401
-	| EjectManagedConnectorStatus403
-	| EjectManagedConnectorStatus404
-	| EjectManagedConnectorStatus409
-	| EjectManagedConnectorStatus410
-	| EjectManagedConnectorStatus422
-	| EjectManagedConnectorStatus501
-	| EjectManagedConnectorStatus504;
+export type EjectManagedConnectorResponse = EjectManagedConnectorStatus200;
 
 export type ListConnectorProjectConnectionsPath = {
 	/**
@@ -24946,14 +24584,7 @@ export type ListConnectorProjectConnectionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListConnectorProjectConnectionsResponse =
-	| ListConnectorProjectConnectionsStatus200
-	| ListConnectorProjectConnectionsStatus400
-	| ListConnectorProjectConnectionsStatus401
-	| ListConnectorProjectConnectionsStatus403
-	| ListConnectorProjectConnectionsStatus404
-	| ListConnectorProjectConnectionsStatus409
-	| ListConnectorProjectConnectionsStatus410;
+export type ListConnectorProjectConnectionsResponse = ListConnectorProjectConnectionsStatus200;
 
 export type GetConnectorProjectConnectionPath = {
 	/**
@@ -25017,14 +24648,7 @@ export type GetConnectorProjectConnectionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetConnectorProjectConnectionResponse =
-	| GetConnectorProjectConnectionStatus200
-	| GetConnectorProjectConnectionStatus400
-	| GetConnectorProjectConnectionStatus401
-	| GetConnectorProjectConnectionStatus403
-	| GetConnectorProjectConnectionStatus404
-	| GetConnectorProjectConnectionStatus409
-	| GetConnectorProjectConnectionStatus410;
+export type GetConnectorProjectConnectionResponse = GetConnectorProjectConnectionStatus200;
 
 export type UpsertConnectorProjectConnectionPath = {
 	/**
@@ -25088,14 +24712,7 @@ export type UpsertConnectorProjectConnectionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpsertConnectorProjectConnectionResponse =
-	| UpsertConnectorProjectConnectionStatus200
-	| UpsertConnectorProjectConnectionStatus400
-	| UpsertConnectorProjectConnectionStatus401
-	| UpsertConnectorProjectConnectionStatus403
-	| UpsertConnectorProjectConnectionStatus404
-	| UpsertConnectorProjectConnectionStatus409
-	| UpsertConnectorProjectConnectionStatus410;
+export type UpsertConnectorProjectConnectionResponse = UpsertConnectorProjectConnectionStatus200;
 
 export type DeleteConnectorProjectConnectionPath = {
 	/**
@@ -25159,14 +24776,7 @@ export type DeleteConnectorProjectConnectionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteConnectorProjectConnectionResponse =
-	| DeleteConnectorProjectConnectionStatus204
-	| DeleteConnectorProjectConnectionStatus400
-	| DeleteConnectorProjectConnectionStatus401
-	| DeleteConnectorProjectConnectionStatus403
-	| DeleteConnectorProjectConnectionStatus404
-	| DeleteConnectorProjectConnectionStatus409
-	| DeleteConnectorProjectConnectionStatus410;
+export type DeleteConnectorProjectConnectionResponse = DeleteConnectorProjectConnectionStatus204;
 
 export type ListProjectConnectorConnectionsPath = {
 	/**
@@ -25234,13 +24844,7 @@ export type ListProjectConnectorConnectionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListProjectConnectorConnectionsResponse =
-	| ListProjectConnectorConnectionsStatus200
-	| ListProjectConnectorConnectionsStatus400
-	| ListProjectConnectorConnectionsStatus401
-	| ListProjectConnectorConnectionsStatus403
-	| ListProjectConnectorConnectionsStatus404
-	| ListProjectConnectorConnectionsStatus410;
+export type ListProjectConnectorConnectionsResponse = ListProjectConnectorConnectionsStatus200;
 
 export type GetConnectorTokenPath = {
 	connector: string;
@@ -25286,16 +24890,7 @@ export type GetConnectorTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetConnectorTokenResponse =
-	| GetConnectorTokenStatus200
-	| GetConnectorTokenStatus400
-	| GetConnectorTokenStatus401
-	| GetConnectorTokenStatus403
-	| GetConnectorTokenStatus404
-	| GetConnectorTokenStatus409
-	| GetConnectorTokenStatus410
-	| GetConnectorTokenStatus422
-	| GetConnectorTokenStatus429;
+export type GetConnectorTokenResponse = GetConnectorTokenStatus200;
 
 export type CreateConnectorAuthorizationRequestPath = {
 	connector: string;
@@ -25339,14 +24934,7 @@ export type CreateConnectorAuthorizationRequestResponses = {
  * @description Union of all possible responses
  */
 export type CreateConnectorAuthorizationRequestResponse =
-	| CreateConnectorAuthorizationRequestStatus200
-	| CreateConnectorAuthorizationRequestStatus400
-	| CreateConnectorAuthorizationRequestStatus401
-	| CreateConnectorAuthorizationRequestStatus403
-	| CreateConnectorAuthorizationRequestStatus404
-	| CreateConnectorAuthorizationRequestStatus409
-	| CreateConnectorAuthorizationRequestStatus410
-	| CreateConnectorAuthorizationRequestStatus422;
+	CreateConnectorAuthorizationRequestStatus200;
 
 export type GetDeploymentEventsPath = {
 	/**
@@ -25490,14 +25078,7 @@ export type GetDeploymentEventsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDeploymentEventsResponse =
-	| GetDeploymentEventsStatus200
-	| GetDeploymentEventsStatus400
-	| GetDeploymentEventsStatus401
-	| GetDeploymentEventsStatus403
-	| GetDeploymentEventsStatus404
-	| GetDeploymentEventsStatus410
-	| GetDeploymentEventsStatus500;
+export type GetDeploymentEventsResponse = GetDeploymentEventsStatus200;
 
 export type UpdateIntegrationDeploymentActionPath = {
 	deploymentId: string;
@@ -25537,13 +25118,7 @@ export type UpdateIntegrationDeploymentActionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateIntegrationDeploymentActionResponse =
-	| UpdateIntegrationDeploymentActionStatus202
-	| UpdateIntegrationDeploymentActionStatus400
-	| UpdateIntegrationDeploymentActionStatus401
-	| UpdateIntegrationDeploymentActionStatus403
-	| UpdateIntegrationDeploymentActionStatus404
-	| UpdateIntegrationDeploymentActionStatus410;
+export type UpdateIntegrationDeploymentActionResponse = UpdateIntegrationDeploymentActionStatus202;
 
 export type GetDeploymentPath = {
 	/**
@@ -25606,22 +25181,18 @@ export type GetDeploymentResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDeploymentResponse =
-	| GetDeploymentStatus200
-	| GetDeploymentStatus400
-	| GetDeploymentStatus403
-	| GetDeploymentStatus404
-	| GetDeploymentStatus410
-	| GetDeploymentStatus429;
+export type GetDeploymentResponse = GetDeploymentStatus200;
 
 export type CreateDeploymentQuery = {
 	/**
 	 * @description Forces a new deployment even if there is a previous similar deployment. Set to `1` to bypass deployment deduplication and always trigger a fresh build.
+	 * @example 1
 	 * @type unknown | undefined
 	 */
 	forceNew?: unknown | undefined;
 	/**
 	 * @description Set to `1` to skip framework auto-detection and proceed without confirmation. By default, if Vercel detects a framework that differs from the project setting, the API returns a `400` asking you to confirm. Use this to suppress that check in automated pipelines.
+	 * @example 1
 	 * @type unknown | undefined
 	 */
 	skipAutoDetectionConfirmation?: unknown | undefined;
@@ -25688,19 +25259,7 @@ export type CreateDeploymentResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateDeploymentResponse =
-	| CreateDeploymentStatus200
-	| CreateDeploymentStatus400
-	| CreateDeploymentStatus401
-	| CreateDeploymentStatus402
-	| CreateDeploymentStatus403
-	| CreateDeploymentStatus404
-	| CreateDeploymentStatus409
-	| CreateDeploymentStatus410
-	| CreateDeploymentStatus426
-	| CreateDeploymentStatus429
-	| CreateDeploymentStatus500
-	| CreateDeploymentStatus503;
+export type CreateDeploymentResponse = CreateDeploymentStatus200;
 
 export type CancelDeploymentPath = {
 	/**
@@ -25757,13 +25316,7 @@ export type CancelDeploymentResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CancelDeploymentResponse =
-	| CancelDeploymentStatus200
-	| CancelDeploymentStatus400
-	| CancelDeploymentStatus401
-	| CancelDeploymentStatus403
-	| CancelDeploymentStatus404
-	| CancelDeploymentStatus410;
+export type CancelDeploymentResponse = CancelDeploymentStatus200;
 
 export type GetRecordsPath = {
 	/**
@@ -25837,13 +25390,7 @@ export type GetRecordsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetRecordsResponse =
-	| GetRecordsStatus200
-	| GetRecordsStatus400
-	| GetRecordsStatus401
-	| GetRecordsStatus403
-	| GetRecordsStatus404
-	| GetRecordsStatus410;
+export type GetRecordsResponse = GetRecordsStatus200;
 
 export type CreateRecordPath = {
 	/**
@@ -25906,15 +25453,7 @@ export type CreateRecordResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateRecordResponse =
-	| CreateRecordStatus200
-	| CreateRecordStatus400
-	| CreateRecordStatus401
-	| CreateRecordStatus402
-	| CreateRecordStatus403
-	| CreateRecordStatus404
-	| CreateRecordStatus409
-	| CreateRecordStatus410;
+export type CreateRecordResponse = CreateRecordStatus200;
 
 export type UpdateRecordPath = {
 	/**
@@ -25977,15 +25516,7 @@ export type UpdateRecordResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateRecordResponse =
-	| UpdateRecordStatus200
-	| UpdateRecordStatus400
-	| UpdateRecordStatus401
-	| UpdateRecordStatus402
-	| UpdateRecordStatus403
-	| UpdateRecordStatus404
-	| UpdateRecordStatus409
-	| UpdateRecordStatus410;
+export type UpdateRecordResponse = UpdateRecordStatus200;
 
 export type ReplaceDomainsByDomainRecordsPath = {
 	/**
@@ -26033,15 +25564,7 @@ export type ReplaceDomainsByDomainRecordsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReplaceDomainsByDomainRecordsResponse =
-	| ReplaceDomainsByDomainRecordsStatus200
-	| ReplaceDomainsByDomainRecordsStatus400
-	| ReplaceDomainsByDomainRecordsStatus401
-	| ReplaceDomainsByDomainRecordsStatus403
-	| ReplaceDomainsByDomainRecordsStatus404
-	| ReplaceDomainsByDomainRecordsStatus409
-	| ReplaceDomainsByDomainRecordsStatus410
-	| ReplaceDomainsByDomainRecordsStatus415;
+export type ReplaceDomainsByDomainRecordsResponse = ReplaceDomainsByDomainRecordsStatus200;
 
 export type GetDomainsRecordsByRecordIdPath = {
 	/**
@@ -26082,13 +25605,7 @@ export type GetDomainsRecordsByRecordIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDomainsRecordsByRecordIdResponse =
-	| GetDomainsRecordsByRecordIdStatus200
-	| GetDomainsRecordsByRecordIdStatus400
-	| GetDomainsRecordsByRecordIdStatus401
-	| GetDomainsRecordsByRecordIdStatus403
-	| GetDomainsRecordsByRecordIdStatus404
-	| GetDomainsRecordsByRecordIdStatus410;
+export type GetDomainsRecordsByRecordIdResponse = GetDomainsRecordsByRecordIdStatus200;
 
 export type RemoveRecordPath = {
 	/**
@@ -26149,13 +25666,7 @@ export type RemoveRecordResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RemoveRecordResponse =
-	| RemoveRecordStatus200
-	| RemoveRecordStatus400
-	| RemoveRecordStatus401
-	| RemoveRecordStatus403
-	| RemoveRecordStatus404
-	| RemoveRecordStatus410;
+export type RemoveRecordResponse = RemoveRecordStatus200;
 
 export type SearchDomainsQuery = {
 	/**
@@ -26196,13 +25707,7 @@ export type SearchDomainsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SearchDomainsResponse =
-	| SearchDomainsStatus200
-	| SearchDomainsStatus400
-	| SearchDomainsStatus401
-	| SearchDomainsStatus403
-	| SearchDomainsStatus429
-	| SearchDomainsStatus500;
+export type SearchDomainsResponse = SearchDomainsStatus200;
 
 export type GetSupportedTldsQuery = {
 	/**
@@ -26243,13 +25748,7 @@ export type GetSupportedTldsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSupportedTldsResponse =
-	| GetSupportedTldsStatus200
-	| GetSupportedTldsStatus400
-	| GetSupportedTldsStatus401
-	| GetSupportedTldsStatus403
-	| GetSupportedTldsStatus429
-	| GetSupportedTldsStatus500;
+export type GetSupportedTldsResponse = GetSupportedTldsStatus200;
 
 export type GetTldPath = {
 	tld: unknown;
@@ -26294,13 +25793,7 @@ export type GetTldResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetTldResponse =
-	| GetTldStatus200
-	| GetTldStatus400
-	| GetTldStatus401
-	| GetTldStatus403
-	| GetTldStatus429
-	| GetTldStatus500;
+export type GetTldResponse = GetTldStatus200;
 
 export type GetTldPricePath = {
 	tld: unknown;
@@ -26350,13 +25843,7 @@ export type GetTldPriceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetTldPriceResponse =
-	| GetTldPriceStatus200
-	| GetTldPriceStatus400
-	| GetTldPriceStatus401
-	| GetTldPriceStatus403
-	| GetTldPriceStatus429
-	| GetTldPriceStatus500;
+export type GetTldPriceResponse = GetTldPriceStatus200;
 
 export type GetDomainAvailabilityPath = {
 	domain: unknown;
@@ -26404,14 +25891,7 @@ export type GetDomainAvailabilityResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDomainAvailabilityResponse =
-	| GetDomainAvailabilityStatus200
-	| GetDomainAvailabilityStatus400
-	| GetDomainAvailabilityStatus401
-	| GetDomainAvailabilityStatus403
-	| GetDomainAvailabilityStatus404
-	| GetDomainAvailabilityStatus429
-	| GetDomainAvailabilityStatus500;
+export type GetDomainAvailabilityResponse = GetDomainAvailabilityStatus200;
 
 export type GetDomainPricePath = {
 	domain: unknown;
@@ -26461,13 +25941,7 @@ export type GetDomainPriceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDomainPriceResponse =
-	| GetDomainPriceStatus200
-	| GetDomainPriceStatus400
-	| GetDomainPriceStatus401
-	| GetDomainPriceStatus403
-	| GetDomainPriceStatus429
-	| GetDomainPriceStatus500;
+export type GetDomainPriceResponse = GetDomainPriceStatus200;
 
 export type GetBulkPriceQuery = {
 	/**
@@ -26508,13 +25982,7 @@ export type GetBulkPriceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetBulkPriceResponse =
-	| GetBulkPriceStatus200
-	| GetBulkPriceStatus400
-	| GetBulkPriceStatus401
-	| GetBulkPriceStatus403
-	| GetBulkPriceStatus429
-	| GetBulkPriceStatus500;
+export type GetBulkPriceResponse = GetBulkPriceStatus200;
 
 export type GetBulkAvailabilityQuery = {
 	/**
@@ -26555,13 +26023,7 @@ export type GetBulkAvailabilityResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetBulkAvailabilityResponse =
-	| GetBulkAvailabilityStatus200
-	| GetBulkAvailabilityStatus400
-	| GetBulkAvailabilityStatus401
-	| GetBulkAvailabilityStatus403
-	| GetBulkAvailabilityStatus429
-	| GetBulkAvailabilityStatus500;
+export type GetBulkAvailabilityResponse = GetBulkAvailabilityStatus200;
 
 export type GetContactInfoSchemaPath = {
 	domain: unknown;
@@ -26606,13 +26068,7 @@ export type GetContactInfoSchemaResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetContactInfoSchemaResponse =
-	| GetContactInfoSchemaStatus200
-	| GetContactInfoSchemaStatus400
-	| GetContactInfoSchemaStatus401
-	| GetContactInfoSchemaStatus403
-	| GetContactInfoSchemaStatus429
-	| GetContactInfoSchemaStatus500;
+export type GetContactInfoSchemaResponse = GetContactInfoSchemaStatus200;
 
 export type GetDomainAuthCodePath = {
 	domain: unknown;
@@ -26663,15 +26119,7 @@ export type GetDomainAuthCodeResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDomainAuthCodeResponse =
-	| GetDomainAuthCodeStatus200
-	| GetDomainAuthCodeStatus400
-	| GetDomainAuthCodeStatus401
-	| GetDomainAuthCodeStatus403
-	| GetDomainAuthCodeStatus404
-	| GetDomainAuthCodeStatus409
-	| GetDomainAuthCodeStatus429
-	| GetDomainAuthCodeStatus500;
+export type GetDomainAuthCodeResponse = GetDomainAuthCodeStatus200;
 
 export type BuySingleDomainPath = {
 	domain: unknown;
@@ -26716,13 +26164,7 @@ export type BuySingleDomainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type BuySingleDomainResponse =
-	| BuySingleDomainStatus200
-	| BuySingleDomainStatus400
-	| BuySingleDomainStatus401
-	| BuySingleDomainStatus403
-	| BuySingleDomainStatus429
-	| BuySingleDomainStatus500;
+export type BuySingleDomainResponse = BuySingleDomainStatus200;
 
 export type BuyDomainsQuery = {
 	/**
@@ -26763,13 +26205,7 @@ export type BuyDomainsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type BuyDomainsResponse =
-	| BuyDomainsStatus200
-	| BuyDomainsStatus400
-	| BuyDomainsStatus401
-	| BuyDomainsStatus403
-	| BuyDomainsStatus429
-	| BuyDomainsStatus500;
+export type BuyDomainsResponse = BuyDomainsStatus200;
 
 export type TransferInDomainPath = {
 	domain: unknown;
@@ -26814,13 +26250,7 @@ export type TransferInDomainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type TransferInDomainResponse =
-	| TransferInDomainStatus200
-	| TransferInDomainStatus400
-	| TransferInDomainStatus401
-	| TransferInDomainStatus403
-	| TransferInDomainStatus429
-	| TransferInDomainStatus500;
+export type TransferInDomainResponse = TransferInDomainStatus200;
 
 export type GetDomainTransferInPath = {
 	domain: unknown;
@@ -26868,14 +26298,7 @@ export type GetDomainTransferInResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDomainTransferInResponse =
-	| GetDomainTransferInStatus200
-	| GetDomainTransferInStatus400
-	| GetDomainTransferInStatus401
-	| GetDomainTransferInStatus403
-	| GetDomainTransferInStatus404
-	| GetDomainTransferInStatus429
-	| GetDomainTransferInStatus500;
+export type GetDomainTransferInResponse = GetDomainTransferInStatus200;
 
 export type RenewDomainPath = {
 	domain: unknown;
@@ -26923,14 +26346,7 @@ export type RenewDomainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RenewDomainResponse =
-	| RenewDomainStatus200
-	| RenewDomainStatus400
-	| RenewDomainStatus401
-	| RenewDomainStatus403
-	| RenewDomainStatus404
-	| RenewDomainStatus429
-	| RenewDomainStatus500;
+export type RenewDomainResponse = RenewDomainStatus200;
 
 export type UpdateDomainAutoRenewPath = {
 	domain: unknown;
@@ -26978,14 +26394,7 @@ export type UpdateDomainAutoRenewResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateDomainAutoRenewResponse =
-	| UpdateDomainAutoRenewStatus204
-	| UpdateDomainAutoRenewStatus400
-	| UpdateDomainAutoRenewStatus401
-	| UpdateDomainAutoRenewStatus403
-	| UpdateDomainAutoRenewStatus404
-	| UpdateDomainAutoRenewStatus429
-	| UpdateDomainAutoRenewStatus500;
+export type UpdateDomainAutoRenewResponse = UpdateDomainAutoRenewStatus204;
 
 export type UpdateDomainNameserversPath = {
 	domain: unknown;
@@ -27033,14 +26442,7 @@ export type UpdateDomainNameserversResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateDomainNameserversResponse =
-	| UpdateDomainNameserversStatus204
-	| UpdateDomainNameserversStatus400
-	| UpdateDomainNameserversStatus401
-	| UpdateDomainNameserversStatus403
-	| UpdateDomainNameserversStatus404
-	| UpdateDomainNameserversStatus429
-	| UpdateDomainNameserversStatus500;
+export type UpdateDomainNameserversResponse = UpdateDomainNameserversStatus204;
 
 export type GetDomainContactVerificationPath = {
 	domain: unknown;
@@ -27088,14 +26490,7 @@ export type GetDomainContactVerificationResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDomainContactVerificationResponse =
-	| GetDomainContactVerificationStatus200
-	| GetDomainContactVerificationStatus400
-	| GetDomainContactVerificationStatus401
-	| GetDomainContactVerificationStatus403
-	| GetDomainContactVerificationStatus404
-	| GetDomainContactVerificationStatus429
-	| GetDomainContactVerificationStatus500;
+export type GetDomainContactVerificationResponse = GetDomainContactVerificationStatus200;
 
 export type GetOrderPath = {
 	orderId: unknown;
@@ -27143,14 +26538,7 @@ export type GetOrderResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetOrderResponse =
-	| GetOrderStatus200
-	| GetOrderStatus400
-	| GetOrderStatus401
-	| GetOrderStatus403
-	| GetOrderStatus404
-	| GetOrderStatus429
-	| GetOrderStatus500;
+export type GetOrderResponse = GetOrderStatus200;
 
 export type GetDomainConfigPath = {
 	/**
@@ -27222,12 +26610,7 @@ export type GetDomainConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDomainConfigResponse =
-	| GetDomainConfigStatus200
-	| GetDomainConfigStatus400
-	| GetDomainConfigStatus401
-	| GetDomainConfigStatus403
-	| GetDomainConfigStatus410;
+export type GetDomainConfigResponse = GetDomainConfigStatus200;
 
 export type GetDomainVerificationRecordPath = {
 	/**
@@ -27284,13 +26667,7 @@ export type GetDomainVerificationRecordResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDomainVerificationRecordResponse =
-	| GetDomainVerificationRecordStatus200
-	| GetDomainVerificationRecordStatus400
-	| GetDomainVerificationRecordStatus401
-	| GetDomainVerificationRecordStatus403
-	| GetDomainVerificationRecordStatus404
-	| GetDomainVerificationRecordStatus410;
+export type GetDomainVerificationRecordResponse = GetDomainVerificationRecordStatus200;
 
 export type ClaimDomainOwnershipPath = {
 	/**
@@ -27347,13 +26724,7 @@ export type ClaimDomainOwnershipResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClaimDomainOwnershipResponse =
-	| ClaimDomainOwnershipStatus200
-	| ClaimDomainOwnershipStatus400
-	| ClaimDomainOwnershipStatus401
-	| ClaimDomainOwnershipStatus403
-	| ClaimDomainOwnershipStatus404
-	| ClaimDomainOwnershipStatus410;
+export type ClaimDomainOwnershipResponse = ClaimDomainOwnershipStatus200;
 
 export type GetDomainProjectDomainsPath = {
 	/**
@@ -27428,13 +26799,7 @@ export type GetDomainProjectDomainsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDomainProjectDomainsResponse =
-	| GetDomainProjectDomainsStatus200
-	| GetDomainProjectDomainsStatus400
-	| GetDomainProjectDomainsStatus401
-	| GetDomainProjectDomainsStatus403
-	| GetDomainProjectDomainsStatus404
-	| GetDomainProjectDomainsStatus410;
+export type GetDomainProjectDomainsResponse = GetDomainProjectDomainsStatus200;
 
 export type GetDomainPath = {
 	/**
@@ -27491,13 +26856,7 @@ export type GetDomainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDomainResponse =
-	| GetDomainStatus200
-	| GetDomainStatus400
-	| GetDomainStatus401
-	| GetDomainStatus403
-	| GetDomainStatus404
-	| GetDomainStatus410;
+export type GetDomainResponse = GetDomainStatus200;
 
 export type GetDomainsQuery = {
 	/**
@@ -27563,13 +26922,7 @@ export type GetDomainsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDomainsResponse =
-	| GetDomainsStatus200
-	| GetDomainsStatus400
-	| GetDomainsStatus401
-	| GetDomainsStatus403
-	| GetDomainsStatus409
-	| GetDomainsStatus410;
+export type GetDomainsResponse = GetDomainsStatus200;
 
 export type CreateOrTransferDomainQuery = {
 	/**
@@ -27623,15 +26976,7 @@ export type CreateOrTransferDomainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateOrTransferDomainResponse =
-	| CreateOrTransferDomainStatus200
-	| CreateOrTransferDomainStatus400
-	| CreateOrTransferDomainStatus401
-	| CreateOrTransferDomainStatus402
-	| CreateOrTransferDomainStatus403
-	| CreateOrTransferDomainStatus404
-	| CreateOrTransferDomainStatus409
-	| CreateOrTransferDomainStatus410;
+export type CreateOrTransferDomainResponse = CreateOrTransferDomainStatus200;
 
 export type PatchDomainPath = {
 	domain: string;
@@ -27689,15 +27034,7 @@ export type PatchDomainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PatchDomainResponse =
-	| PatchDomainStatus200
-	| PatchDomainStatus400
-	| PatchDomainStatus401
-	| PatchDomainStatus403
-	| PatchDomainStatus404
-	| PatchDomainStatus409
-	| PatchDomainStatus410
-	| PatchDomainStatus500;
+export type PatchDomainResponse = PatchDomainStatus200;
 
 export type DeleteDomainPath = {
 	/**
@@ -27757,14 +27094,7 @@ export type DeleteDomainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteDomainResponse =
-	| DeleteDomainStatus200
-	| DeleteDomainStatus400
-	| DeleteDomainStatus401
-	| DeleteDomainStatus403
-	| DeleteDomainStatus404
-	| DeleteDomainStatus409
-	| DeleteDomainStatus410;
+export type DeleteDomainResponse = DeleteDomainStatus200;
 
 export type GetConfigurableLogDrainPath = {
 	id: string;
@@ -27816,13 +27146,7 @@ export type GetConfigurableLogDrainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetConfigurableLogDrainResponse =
-	| GetConfigurableLogDrainStatus200
-	| GetConfigurableLogDrainStatus400
-	| GetConfigurableLogDrainStatus401
-	| GetConfigurableLogDrainStatus403
-	| GetConfigurableLogDrainStatus404
-	| GetConfigurableLogDrainStatus410;
+export type GetConfigurableLogDrainResponse = GetConfigurableLogDrainStatus200;
 
 export type DeleteConfigurableLogDrainPath = {
 	id: string;
@@ -27874,13 +27198,7 @@ export type DeleteConfigurableLogDrainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteConfigurableLogDrainResponse =
-	| DeleteConfigurableLogDrainStatus204
-	| DeleteConfigurableLogDrainStatus400
-	| DeleteConfigurableLogDrainStatus401
-	| DeleteConfigurableLogDrainStatus403
-	| DeleteConfigurableLogDrainStatus404
-	| DeleteConfigurableLogDrainStatus410;
+export type DeleteConfigurableLogDrainResponse = DeleteConfigurableLogDrainStatus204;
 
 export type GetAllLogDrainsQuery = {
 	/**
@@ -27939,13 +27257,7 @@ export type GetAllLogDrainsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAllLogDrainsResponse =
-	| GetAllLogDrainsStatus200
-	| GetAllLogDrainsStatus400
-	| GetAllLogDrainsStatus401
-	| GetAllLogDrainsStatus403
-	| GetAllLogDrainsStatus404
-	| GetAllLogDrainsStatus410;
+export type GetAllLogDrainsResponse = GetAllLogDrainsStatus200;
 
 export type CreateConfigurableLogDrainQuery = {
 	/**
@@ -27993,13 +27305,7 @@ export type CreateConfigurableLogDrainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateConfigurableLogDrainResponse =
-	| CreateConfigurableLogDrainStatus200
-	| CreateConfigurableLogDrainStatus400
-	| CreateConfigurableLogDrainStatus401
-	| CreateConfigurableLogDrainStatus403
-	| CreateConfigurableLogDrainStatus404
-	| CreateConfigurableLogDrainStatus410;
+export type CreateConfigurableLogDrainResponse = CreateConfigurableLogDrainStatus200;
 
 export type CreateDrainQuery = {
 	/**
@@ -28050,14 +27356,7 @@ export type CreateDrainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateDrainResponse =
-	| CreateDrainStatus200
-	| CreateDrainStatus400
-	| CreateDrainStatus401
-	| CreateDrainStatus402
-	| CreateDrainStatus403
-	| CreateDrainStatus404
-	| CreateDrainStatus410;
+export type CreateDrainResponse = CreateDrainStatus200;
 
 export type GetDrainsQuery = {
 	projectId?: string | undefined;
@@ -28111,13 +27410,7 @@ export type GetDrainsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDrainsResponse =
-	| GetDrainsStatus200
-	| GetDrainsStatus400
-	| GetDrainsStatus401
-	| GetDrainsStatus403
-	| GetDrainsStatus404
-	| GetDrainsStatus410;
+export type GetDrainsResponse = GetDrainsStatus200;
 
 export type DeleteDrainPath = {
 	id: string;
@@ -28169,13 +27462,7 @@ export type DeleteDrainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteDrainResponse =
-	| DeleteDrainStatus204
-	| DeleteDrainStatus400
-	| DeleteDrainStatus401
-	| DeleteDrainStatus403
-	| DeleteDrainStatus404
-	| DeleteDrainStatus410;
+export type DeleteDrainResponse = DeleteDrainStatus204;
 
 export type GetDrainPath = {
 	id: string;
@@ -28227,13 +27514,7 @@ export type GetDrainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDrainResponse =
-	| GetDrainStatus200
-	| GetDrainStatus400
-	| GetDrainStatus401
-	| GetDrainStatus403
-	| GetDrainStatus404
-	| GetDrainStatus410;
+export type GetDrainResponse = GetDrainStatus200;
 
 export type UpdateDrainPath = {
 	id: string;
@@ -28288,14 +27569,7 @@ export type UpdateDrainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateDrainResponse =
-	| UpdateDrainStatus200
-	| UpdateDrainStatus400
-	| UpdateDrainStatus401
-	| UpdateDrainStatus402
-	| UpdateDrainStatus403
-	| UpdateDrainStatus404
-	| UpdateDrainStatus410;
+export type UpdateDrainResponse = UpdateDrainStatus200;
 
 export type TestDrainQuery = {
 	/**
@@ -28346,14 +27620,7 @@ export type TestDrainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type TestDrainResponse =
-	| TestDrainStatus200
-	| TestDrainStatus400
-	| TestDrainStatus401
-	| TestDrainStatus402
-	| TestDrainStatus403
-	| TestDrainStatus404
-	| TestDrainStatus410;
+export type TestDrainResponse = TestDrainStatus200;
 
 export type InvalidateByTagsQuery = {
 	projectIdOrName: string;
@@ -28402,13 +27669,7 @@ export type InvalidateByTagsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InvalidateByTagsResponse =
-	| InvalidateByTagsStatus200
-	| InvalidateByTagsStatus400
-	| InvalidateByTagsStatus401
-	| InvalidateByTagsStatus403
-	| InvalidateByTagsStatus404
-	| InvalidateByTagsStatus410;
+export type InvalidateByTagsResponse = InvalidateByTagsStatus200;
 
 export type DangerouslyDeleteByTagsQuery = {
 	projectIdOrName: string;
@@ -28457,13 +27718,7 @@ export type DangerouslyDeleteByTagsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DangerouslyDeleteByTagsResponse =
-	| DangerouslyDeleteByTagsStatus200
-	| DangerouslyDeleteByTagsStatus400
-	| DangerouslyDeleteByTagsStatus401
-	| DangerouslyDeleteByTagsStatus403
-	| DangerouslyDeleteByTagsStatus404
-	| DangerouslyDeleteByTagsStatus410;
+export type DangerouslyDeleteByTagsResponse = DangerouslyDeleteByTagsStatus200;
 
 export type InvalidateBySrcImagesQuery = {
 	projectIdOrName: string;
@@ -28515,14 +27770,7 @@ export type InvalidateBySrcImagesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InvalidateBySrcImagesResponse =
-	| InvalidateBySrcImagesStatus200
-	| InvalidateBySrcImagesStatus400
-	| InvalidateBySrcImagesStatus401
-	| InvalidateBySrcImagesStatus402
-	| InvalidateBySrcImagesStatus403
-	| InvalidateBySrcImagesStatus404
-	| InvalidateBySrcImagesStatus410;
+export type InvalidateBySrcImagesResponse = InvalidateBySrcImagesStatus200;
 
 export type DangerouslyDeleteBySrcImagesQuery = {
 	projectIdOrName: string;
@@ -28574,14 +27822,7 @@ export type DangerouslyDeleteBySrcImagesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DangerouslyDeleteBySrcImagesResponse =
-	| DangerouslyDeleteBySrcImagesStatus200
-	| DangerouslyDeleteBySrcImagesStatus400
-	| DangerouslyDeleteBySrcImagesStatus401
-	| DangerouslyDeleteBySrcImagesStatus402
-	| DangerouslyDeleteBySrcImagesStatus403
-	| DangerouslyDeleteBySrcImagesStatus404
-	| DangerouslyDeleteBySrcImagesStatus410;
+export type DangerouslyDeleteBySrcImagesResponse = DangerouslyDeleteBySrcImagesStatus200;
 
 export type GetEdgeConfigsQuery = {
 	/**
@@ -28629,13 +27870,7 @@ export type GetEdgeConfigsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetEdgeConfigsResponse =
-	| GetEdgeConfigsStatus200
-	| GetEdgeConfigsStatus400
-	| GetEdgeConfigsStatus401
-	| GetEdgeConfigsStatus403
-	| GetEdgeConfigsStatus404
-	| GetEdgeConfigsStatus410;
+export type GetEdgeConfigsResponse = GetEdgeConfigsStatus200;
 
 export type CreateEdgeConfigQuery = {
 	/**
@@ -28686,14 +27921,7 @@ export type CreateEdgeConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateEdgeConfigResponse =
-	| CreateEdgeConfigStatus201
-	| CreateEdgeConfigStatus400
-	| CreateEdgeConfigStatus401
-	| CreateEdgeConfigStatus402
-	| CreateEdgeConfigStatus403
-	| CreateEdgeConfigStatus404
-	| CreateEdgeConfigStatus410;
+export type CreateEdgeConfigResponse = CreateEdgeConfigStatus201;
 
 export type GetEdgeConfigPath = {
 	edgeConfigId: string;
@@ -28745,13 +27973,7 @@ export type GetEdgeConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetEdgeConfigResponse =
-	| GetEdgeConfigStatus200
-	| GetEdgeConfigStatus400
-	| GetEdgeConfigStatus401
-	| GetEdgeConfigStatus403
-	| GetEdgeConfigStatus404
-	| GetEdgeConfigStatus410;
+export type GetEdgeConfigResponse = GetEdgeConfigStatus200;
 
 export type UpdateEdgeConfigPath = {
 	edgeConfigId: string;
@@ -28809,15 +28031,7 @@ export type UpdateEdgeConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateEdgeConfigResponse =
-	| UpdateEdgeConfigStatus200
-	| UpdateEdgeConfigStatus400
-	| UpdateEdgeConfigStatus401
-	| UpdateEdgeConfigStatus402
-	| UpdateEdgeConfigStatus403
-	| UpdateEdgeConfigStatus404
-	| UpdateEdgeConfigStatus409
-	| UpdateEdgeConfigStatus410;
+export type UpdateEdgeConfigResponse = UpdateEdgeConfigStatus200;
 
 export type DeleteEdgeConfigPath = {
 	edgeConfigId: string;
@@ -28872,14 +28086,7 @@ export type DeleteEdgeConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteEdgeConfigResponse =
-	| DeleteEdgeConfigStatus204
-	| DeleteEdgeConfigStatus400
-	| DeleteEdgeConfigStatus401
-	| DeleteEdgeConfigStatus403
-	| DeleteEdgeConfigStatus404
-	| DeleteEdgeConfigStatus409
-	| DeleteEdgeConfigStatus410;
+export type DeleteEdgeConfigResponse = DeleteEdgeConfigStatus204;
 
 export type GetEdgeConfigItemsPath = {
 	/**
@@ -28935,13 +28142,7 @@ export type GetEdgeConfigItemsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetEdgeConfigItemsResponse =
-	| GetEdgeConfigItemsStatus200
-	| GetEdgeConfigItemsStatus400
-	| GetEdgeConfigItemsStatus401
-	| GetEdgeConfigItemsStatus403
-	| GetEdgeConfigItemsStatus404
-	| GetEdgeConfigItemsStatus410;
+export type GetEdgeConfigItemsResponse = GetEdgeConfigItemsStatus200;
 
 export type PatchEdgeConfigItemsPath = {
 	/**
@@ -29006,16 +28207,7 @@ export type PatchEdgeConfigItemsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PatchEdgeConfigItemsResponse =
-	| PatchEdgeConfigItemsStatus200
-	| PatchEdgeConfigItemsStatus400
-	| PatchEdgeConfigItemsStatus401
-	| PatchEdgeConfigItemsStatus402
-	| PatchEdgeConfigItemsStatus403
-	| PatchEdgeConfigItemsStatus404
-	| PatchEdgeConfigItemsStatus409
-	| PatchEdgeConfigItemsStatus410
-	| PatchEdgeConfigItemsStatus412;
+export type PatchEdgeConfigItemsResponse = PatchEdgeConfigItemsStatus200;
 
 export type GetEdgeConfigSchemaPath = {
 	edgeConfigId: string;
@@ -29067,13 +28259,7 @@ export type GetEdgeConfigSchemaResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetEdgeConfigSchemaResponse =
-	| GetEdgeConfigSchemaStatus200
-	| GetEdgeConfigSchemaStatus400
-	| GetEdgeConfigSchemaStatus401
-	| GetEdgeConfigSchemaStatus403
-	| GetEdgeConfigSchemaStatus404
-	| GetEdgeConfigSchemaStatus410;
+export type GetEdgeConfigSchemaResponse = GetEdgeConfigSchemaStatus200;
 
 export type PatchEdgeConfigSchemaPath = {
 	edgeConfigId: string;
@@ -29132,15 +28318,7 @@ export type PatchEdgeConfigSchemaResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PatchEdgeConfigSchemaResponse =
-	| PatchEdgeConfigSchemaStatus200
-	| PatchEdgeConfigSchemaStatus400
-	| PatchEdgeConfigSchemaStatus401
-	| PatchEdgeConfigSchemaStatus402
-	| PatchEdgeConfigSchemaStatus403
-	| PatchEdgeConfigSchemaStatus404
-	| PatchEdgeConfigSchemaStatus409
-	| PatchEdgeConfigSchemaStatus410;
+export type PatchEdgeConfigSchemaResponse = PatchEdgeConfigSchemaStatus200;
 
 export type DeleteEdgeConfigSchemaPath = {
 	edgeConfigId: string;
@@ -29198,15 +28376,7 @@ export type DeleteEdgeConfigSchemaResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteEdgeConfigSchemaResponse =
-	| DeleteEdgeConfigSchemaStatus204
-	| DeleteEdgeConfigSchemaStatus400
-	| DeleteEdgeConfigSchemaStatus401
-	| DeleteEdgeConfigSchemaStatus402
-	| DeleteEdgeConfigSchemaStatus403
-	| DeleteEdgeConfigSchemaStatus404
-	| DeleteEdgeConfigSchemaStatus409
-	| DeleteEdgeConfigSchemaStatus410;
+export type DeleteEdgeConfigSchemaResponse = DeleteEdgeConfigSchemaStatus204;
 
 export type GetEdgeConfigItemPath = {
 	/**
@@ -29266,14 +28436,7 @@ export type GetEdgeConfigItemResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetEdgeConfigItemResponse =
-	| GetEdgeConfigItemStatus200
-	| GetEdgeConfigItemStatus204
-	| GetEdgeConfigItemStatus400
-	| GetEdgeConfigItemStatus401
-	| GetEdgeConfigItemStatus403
-	| GetEdgeConfigItemStatus404
-	| GetEdgeConfigItemStatus410;
+export type GetEdgeConfigItemResponse = GetEdgeConfigItemStatus200 | GetEdgeConfigItemStatus204;
 
 export type GetEdgeConfigTokensPath = {
 	edgeConfigId: string;
@@ -29325,13 +28488,7 @@ export type GetEdgeConfigTokensResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetEdgeConfigTokensResponse =
-	| GetEdgeConfigTokensStatus200
-	| GetEdgeConfigTokensStatus400
-	| GetEdgeConfigTokensStatus401
-	| GetEdgeConfigTokensStatus403
-	| GetEdgeConfigTokensStatus404
-	| GetEdgeConfigTokensStatus410;
+export type GetEdgeConfigTokensResponse = GetEdgeConfigTokensStatus200;
 
 export type DeleteEdgeConfigTokensPath = {
 	/**
@@ -29393,15 +28550,7 @@ export type DeleteEdgeConfigTokensResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteEdgeConfigTokensResponse =
-	| DeleteEdgeConfigTokensStatus204
-	| DeleteEdgeConfigTokensStatus400
-	| DeleteEdgeConfigTokensStatus401
-	| DeleteEdgeConfigTokensStatus402
-	| DeleteEdgeConfigTokensStatus403
-	| DeleteEdgeConfigTokensStatus404
-	| DeleteEdgeConfigTokensStatus409
-	| DeleteEdgeConfigTokensStatus410;
+export type DeleteEdgeConfigTokensResponse = DeleteEdgeConfigTokensStatus204;
 
 export type GetEdgeConfigTokenPath = {
 	edgeConfigId: string;
@@ -29454,13 +28603,7 @@ export type GetEdgeConfigTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetEdgeConfigTokenResponse =
-	| GetEdgeConfigTokenStatus200
-	| GetEdgeConfigTokenStatus400
-	| GetEdgeConfigTokenStatus401
-	| GetEdgeConfigTokenStatus403
-	| GetEdgeConfigTokenStatus404
-	| GetEdgeConfigTokenStatus410;
+export type GetEdgeConfigTokenResponse = GetEdgeConfigTokenStatus200;
 
 export type CreateEdgeConfigTokenPath = {
 	/**
@@ -29522,15 +28665,7 @@ export type CreateEdgeConfigTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateEdgeConfigTokenResponse =
-	| CreateEdgeConfigTokenStatus201
-	| CreateEdgeConfigTokenStatus400
-	| CreateEdgeConfigTokenStatus401
-	| CreateEdgeConfigTokenStatus402
-	| CreateEdgeConfigTokenStatus403
-	| CreateEdgeConfigTokenStatus404
-	| CreateEdgeConfigTokenStatus409
-	| CreateEdgeConfigTokenStatus410;
+export type CreateEdgeConfigTokenResponse = CreateEdgeConfigTokenStatus201;
 
 export type GetEdgeConfigBackupPath = {
 	edgeConfigId: string;
@@ -29583,13 +28718,7 @@ export type GetEdgeConfigBackupResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetEdgeConfigBackupResponse =
-	| GetEdgeConfigBackupStatus200
-	| GetEdgeConfigBackupStatus400
-	| GetEdgeConfigBackupStatus401
-	| GetEdgeConfigBackupStatus403
-	| GetEdgeConfigBackupStatus404
-	| GetEdgeConfigBackupStatus410;
+export type GetEdgeConfigBackupResponse = GetEdgeConfigBackupStatus200;
 
 export type RestoreEdgeConfigBackupPath = {
 	/**
@@ -29655,16 +28784,7 @@ export type RestoreEdgeConfigBackupResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RestoreEdgeConfigBackupResponse =
-	| RestoreEdgeConfigBackupStatus200
-	| RestoreEdgeConfigBackupStatus400
-	| RestoreEdgeConfigBackupStatus401
-	| RestoreEdgeConfigBackupStatus402
-	| RestoreEdgeConfigBackupStatus403
-	| RestoreEdgeConfigBackupStatus404
-	| RestoreEdgeConfigBackupStatus409
-	| RestoreEdgeConfigBackupStatus410
-	| RestoreEdgeConfigBackupStatus412;
+export type RestoreEdgeConfigBackupResponse = RestoreEdgeConfigBackupStatus200;
 
 export type GetEdgeConfigBackupsPath = {
 	edgeConfigId: string;
@@ -29724,13 +28844,7 @@ export type GetEdgeConfigBackupsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetEdgeConfigBackupsResponse =
-	| GetEdgeConfigBackupsStatus200
-	| GetEdgeConfigBackupsStatus400
-	| GetEdgeConfigBackupsStatus401
-	| GetEdgeConfigBackupsStatus403
-	| GetEdgeConfigBackupsStatus404
-	| GetEdgeConfigBackupsStatus410;
+export type GetEdgeConfigBackupsResponse = GetEdgeConfigBackupsStatus200;
 
 export type CreateSharedEnvVariableQuery = {
 	/**
@@ -29781,14 +28895,7 @@ export type CreateSharedEnvVariableResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSharedEnvVariableResponse =
-	| CreateSharedEnvVariableStatus201
-	| CreateSharedEnvVariableStatus400
-	| CreateSharedEnvVariableStatus401
-	| CreateSharedEnvVariableStatus402
-	| CreateSharedEnvVariableStatus403
-	| CreateSharedEnvVariableStatus404
-	| CreateSharedEnvVariableStatus410;
+export type CreateSharedEnvVariableResponse = CreateSharedEnvVariableStatus201;
 
 export type ListSharedEnvVariableQuery = {
 	search?: string | undefined;
@@ -29873,13 +28980,7 @@ export type ListSharedEnvVariableResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSharedEnvVariableResponse =
-	| ListSharedEnvVariableStatus200
-	| ListSharedEnvVariableStatus400
-	| ListSharedEnvVariableStatus401
-	| ListSharedEnvVariableStatus403
-	| ListSharedEnvVariableStatus404
-	| ListSharedEnvVariableStatus410;
+export type ListSharedEnvVariableResponse = ListSharedEnvVariableStatus200;
 
 export type UpdateSharedEnvVariableQuery = {
 	/**
@@ -29930,14 +29031,7 @@ export type UpdateSharedEnvVariableResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateSharedEnvVariableResponse =
-	| UpdateSharedEnvVariableStatus200
-	| UpdateSharedEnvVariableStatus400
-	| UpdateSharedEnvVariableStatus401
-	| UpdateSharedEnvVariableStatus402
-	| UpdateSharedEnvVariableStatus403
-	| UpdateSharedEnvVariableStatus404
-	| UpdateSharedEnvVariableStatus410;
+export type UpdateSharedEnvVariableResponse = UpdateSharedEnvVariableStatus200;
 
 export type DeleteSharedEnvVariableQuery = {
 	/**
@@ -29988,14 +29082,7 @@ export type DeleteSharedEnvVariableResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSharedEnvVariableResponse =
-	| DeleteSharedEnvVariableStatus200
-	| DeleteSharedEnvVariableStatus400
-	| DeleteSharedEnvVariableStatus401
-	| DeleteSharedEnvVariableStatus402
-	| DeleteSharedEnvVariableStatus403
-	| DeleteSharedEnvVariableStatus404
-	| DeleteSharedEnvVariableStatus410;
+export type DeleteSharedEnvVariableResponse = DeleteSharedEnvVariableStatus200;
 
 export type GetSharedEnvVarPath = {
 	/**
@@ -30051,13 +29138,7 @@ export type GetSharedEnvVarResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSharedEnvVarResponse =
-	| GetSharedEnvVarStatus200
-	| GetSharedEnvVarStatus400
-	| GetSharedEnvVarStatus401
-	| GetSharedEnvVarStatus403
-	| GetSharedEnvVarStatus404
-	| GetSharedEnvVarStatus410;
+export type GetSharedEnvVarResponse = GetSharedEnvVarStatus200;
 
 export type UnlinkSharedEnvVariablePath = {
 	/**
@@ -30114,13 +29195,7 @@ export type UnlinkSharedEnvVariableResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UnlinkSharedEnvVariableResponse =
-	| UnlinkSharedEnvVariableStatus200
-	| UnlinkSharedEnvVariableStatus400
-	| UnlinkSharedEnvVariableStatus401
-	| UnlinkSharedEnvVariableStatus403
-	| UnlinkSharedEnvVariableStatus404
-	| UnlinkSharedEnvVariableStatus410;
+export type UnlinkSharedEnvVariableResponse = UnlinkSharedEnvVariableStatus200;
 
 export type ListUserEventsQuery = {
 	/**
@@ -30219,12 +29294,7 @@ export type ListUserEventsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListUserEventsResponse =
-	| ListUserEventsStatus200
-	| ListUserEventsStatus400
-	| ListUserEventsStatus401
-	| ListUserEventsStatus403
-	| ListUserEventsStatus410;
+export type ListUserEventsResponse = ListUserEventsStatus200;
 
 export type ListEventTypesQuery = {
 	/**
@@ -30378,15 +29448,7 @@ export type ListFlagsV2Responses = {
 /**
  * @description Union of all possible responses
  */
-export type ListFlagsV2Response =
-	| ListFlagsV2Status200
-	| ListFlagsV2Status400
-	| ListFlagsV2Status401
-	| ListFlagsV2Status402
-	| ListFlagsV2Status403
-	| ListFlagsV2Status404
-	| ListFlagsV2Status410
-	| ListFlagsV2Status503;
+export type ListFlagsV2Response = ListFlagsV2Status200;
 
 export type ListFlagsPath = {
 	/**
@@ -30486,14 +29548,7 @@ export type ListFlagsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListFlagsResponse =
-	| ListFlagsStatus200
-	| ListFlagsStatus400
-	| ListFlagsStatus401
-	| ListFlagsStatus402
-	| ListFlagsStatus403
-	| ListFlagsStatus404
-	| ListFlagsStatus410;
+export type ListFlagsResponse = ListFlagsStatus200;
 
 export type CreateFlagPath = {
 	/**
@@ -30555,15 +29610,7 @@ export type CreateFlagResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateFlagResponse =
-	| CreateFlagStatus201
-	| CreateFlagStatus400
-	| CreateFlagStatus401
-	| CreateFlagStatus402
-	| CreateFlagStatus403
-	| CreateFlagStatus404
-	| CreateFlagStatus409
-	| CreateFlagStatus410;
+export type CreateFlagResponse = CreateFlagStatus201;
 
 export type GetFlagPath = {
 	/**
@@ -30640,15 +29687,7 @@ export type GetFlagResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetFlagResponse =
-	| GetFlagStatus200
-	| GetFlagStatus304
-	| GetFlagStatus400
-	| GetFlagStatus401
-	| GetFlagStatus402
-	| GetFlagStatus403
-	| GetFlagStatus404
-	| GetFlagStatus410;
+export type GetFlagResponse = GetFlagStatus200;
 
 export type UpdateFlagPath = {
 	/**
@@ -30728,16 +29767,7 @@ export type UpdateFlagResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateFlagResponse =
-	| UpdateFlagStatus200
-	| UpdateFlagStatus304
-	| UpdateFlagStatus400
-	| UpdateFlagStatus401
-	| UpdateFlagStatus402
-	| UpdateFlagStatus403
-	| UpdateFlagStatus404
-	| UpdateFlagStatus409
-	| UpdateFlagStatus410;
+export type UpdateFlagResponse = UpdateFlagStatus200;
 
 export type DeleteFlagPath = {
 	/**
@@ -30817,16 +29847,7 @@ export type DeleteFlagResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteFlagResponse =
-	| DeleteFlagStatus204
-	| DeleteFlagStatus304
-	| DeleteFlagStatus400
-	| DeleteFlagStatus401
-	| DeleteFlagStatus402
-	| DeleteFlagStatus403
-	| DeleteFlagStatus404
-	| DeleteFlagStatus409
-	| DeleteFlagStatus410;
+export type DeleteFlagResponse = DeleteFlagStatus204;
 
 export type ListFlagVersionsPath = {
 	projectIdOrName: string;
@@ -30908,15 +29929,7 @@ export type ListFlagVersionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListFlagVersionsResponse =
-	| ListFlagVersionsStatus200
-	| ListFlagVersionsStatus304
-	| ListFlagVersionsStatus400
-	| ListFlagVersionsStatus401
-	| ListFlagVersionsStatus402
-	| ListFlagVersionsStatus403
-	| ListFlagVersionsStatus404
-	| ListFlagVersionsStatus410;
+export type ListFlagVersionsResponse = ListFlagVersionsStatus200;
 
 export type GetFlagSettingsPath = {
 	/**
@@ -30975,14 +29988,7 @@ export type GetFlagSettingsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetFlagSettingsResponse =
-	| GetFlagSettingsStatus200
-	| GetFlagSettingsStatus400
-	| GetFlagSettingsStatus401
-	| GetFlagSettingsStatus402
-	| GetFlagSettingsStatus403
-	| GetFlagSettingsStatus404
-	| GetFlagSettingsStatus410;
+export type GetFlagSettingsResponse = GetFlagSettingsStatus200;
 
 export type UpdateFlagSettingsPath = {
 	/**
@@ -31047,16 +30053,7 @@ export type UpdateFlagSettingsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateFlagSettingsResponse =
-	| UpdateFlagSettingsStatus200
-	| UpdateFlagSettingsStatus201
-	| UpdateFlagSettingsStatus400
-	| UpdateFlagSettingsStatus401
-	| UpdateFlagSettingsStatus402
-	| UpdateFlagSettingsStatus403
-	| UpdateFlagSettingsStatus404
-	| UpdateFlagSettingsStatus409
-	| UpdateFlagSettingsStatus410;
+export type UpdateFlagSettingsResponse = UpdateFlagSettingsStatus200 | UpdateFlagSettingsStatus201;
 
 export type ListTeamFlagSettingsPath = {
 	/**
@@ -31120,13 +30117,7 @@ export type ListTeamFlagSettingsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListTeamFlagSettingsResponse =
-	| ListTeamFlagSettingsStatus200
-	| ListTeamFlagSettingsStatus400
-	| ListTeamFlagSettingsStatus401
-	| ListTeamFlagSettingsStatus403
-	| ListTeamFlagSettingsStatus404
-	| ListTeamFlagSettingsStatus410;
+export type ListTeamFlagSettingsResponse = ListTeamFlagSettingsStatus200;
 
 export type ListTeamFlagsV2Path = {
 	/**
@@ -31247,14 +30238,7 @@ export type ListTeamFlagsV2Responses = {
 /**
  * @description Union of all possible responses
  */
-export type ListTeamFlagsV2Response =
-	| ListTeamFlagsV2Status200
-	| ListTeamFlagsV2Status400
-	| ListTeamFlagsV2Status401
-	| ListTeamFlagsV2Status403
-	| ListTeamFlagsV2Status404
-	| ListTeamFlagsV2Status410
-	| ListTeamFlagsV2Status503;
+export type ListTeamFlagsV2Response = ListTeamFlagsV2Status200;
 
 export type ListTeamFlagsPath = {
 	/**
@@ -31361,13 +30345,7 @@ export type ListTeamFlagsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListTeamFlagsResponse =
-	| ListTeamFlagsStatus200
-	| ListTeamFlagsStatus400
-	| ListTeamFlagsStatus401
-	| ListTeamFlagsStatus403
-	| ListTeamFlagsStatus404
-	| ListTeamFlagsStatus410;
+export type ListTeamFlagsResponse = ListTeamFlagsStatus200;
 
 export type CreateFlagSegmentPath = {
 	/**
@@ -31429,15 +30407,7 @@ export type CreateFlagSegmentResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateFlagSegmentResponse =
-	| CreateFlagSegmentStatus201
-	| CreateFlagSegmentStatus400
-	| CreateFlagSegmentStatus401
-	| CreateFlagSegmentStatus402
-	| CreateFlagSegmentStatus403
-	| CreateFlagSegmentStatus404
-	| CreateFlagSegmentStatus409
-	| CreateFlagSegmentStatus410;
+export type CreateFlagSegmentResponse = CreateFlagSegmentStatus201;
 
 export type ListFlagSegmentsPath = {
 	/**
@@ -31502,14 +30472,7 @@ export type ListFlagSegmentsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListFlagSegmentsResponse =
-	| ListFlagSegmentsStatus200
-	| ListFlagSegmentsStatus400
-	| ListFlagSegmentsStatus401
-	| ListFlagSegmentsStatus402
-	| ListFlagSegmentsStatus403
-	| ListFlagSegmentsStatus404
-	| ListFlagSegmentsStatus410;
+export type ListFlagSegmentsResponse = ListFlagSegmentsStatus200;
 
 export type GetFlagSegmentPath = {
 	/**
@@ -31579,14 +30542,7 @@ export type GetFlagSegmentResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetFlagSegmentResponse =
-	| GetFlagSegmentStatus200
-	| GetFlagSegmentStatus400
-	| GetFlagSegmentStatus401
-	| GetFlagSegmentStatus402
-	| GetFlagSegmentStatus403
-	| GetFlagSegmentStatus404
-	| GetFlagSegmentStatus410;
+export type GetFlagSegmentResponse = GetFlagSegmentStatus200;
 
 export type DeleteFlagSegmentPath = {
 	/**
@@ -31662,16 +30618,7 @@ export type DeleteFlagSegmentResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteFlagSegmentResponse =
-	| DeleteFlagSegmentStatus204
-	| DeleteFlagSegmentStatus304
-	| DeleteFlagSegmentStatus400
-	| DeleteFlagSegmentStatus401
-	| DeleteFlagSegmentStatus402
-	| DeleteFlagSegmentStatus403
-	| DeleteFlagSegmentStatus404
-	| DeleteFlagSegmentStatus409
-	| DeleteFlagSegmentStatus410;
+export type DeleteFlagSegmentResponse = DeleteFlagSegmentStatus204;
 
 export type UpdateFlagSegmentPath = {
 	/**
@@ -31744,15 +30691,7 @@ export type UpdateFlagSegmentResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateFlagSegmentResponse =
-	| UpdateFlagSegmentStatus200
-	| UpdateFlagSegmentStatus400
-	| UpdateFlagSegmentStatus401
-	| UpdateFlagSegmentStatus402
-	| UpdateFlagSegmentStatus403
-	| UpdateFlagSegmentStatus404
-	| UpdateFlagSegmentStatus409
-	| UpdateFlagSegmentStatus410;
+export type UpdateFlagSegmentResponse = UpdateFlagSegmentStatus200;
 
 export type GetDeploymentFeatureFlagsPath = {
 	deploymentId: string;
@@ -31804,13 +30743,7 @@ export type GetDeploymentFeatureFlagsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDeploymentFeatureFlagsResponse =
-	| GetDeploymentFeatureFlagsStatus200
-	| GetDeploymentFeatureFlagsStatus400
-	| GetDeploymentFeatureFlagsStatus401
-	| GetDeploymentFeatureFlagsStatus403
-	| GetDeploymentFeatureFlagsStatus404
-	| GetDeploymentFeatureFlagsStatus410;
+export type GetDeploymentFeatureFlagsResponse = GetDeploymentFeatureFlagsStatus200;
 
 export type GetSdkKeysPath = {
 	/**
@@ -31869,14 +30802,7 @@ export type GetSdkKeysResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSdkKeysResponse =
-	| GetSdkKeysStatus200
-	| GetSdkKeysStatus400
-	| GetSdkKeysStatus401
-	| GetSdkKeysStatus402
-	| GetSdkKeysStatus403
-	| GetSdkKeysStatus404
-	| GetSdkKeysStatus410;
+export type GetSdkKeysResponse = GetSdkKeysStatus200;
 
 export type CreateSdkKeyPath = {
 	/**
@@ -31938,15 +30864,7 @@ export type CreateSdkKeyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSdkKeyResponse =
-	| CreateSdkKeyStatus200
-	| CreateSdkKeyStatus400
-	| CreateSdkKeyStatus401
-	| CreateSdkKeyStatus402
-	| CreateSdkKeyStatus403
-	| CreateSdkKeyStatus404
-	| CreateSdkKeyStatus409
-	| CreateSdkKeyStatus410;
+export type CreateSdkKeyResponse = CreateSdkKeyStatus200;
 
 export type DeleteSdkKeyPath = {
 	/**
@@ -32013,15 +30931,7 @@ export type DeleteSdkKeyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSdkKeyResponse =
-	| DeleteSdkKeyStatus204
-	| DeleteSdkKeyStatus400
-	| DeleteSdkKeyStatus401
-	| DeleteSdkKeyStatus402
-	| DeleteSdkKeyStatus403
-	| DeleteSdkKeyStatus404
-	| DeleteSdkKeyStatus409
-	| DeleteSdkKeyStatus410;
+export type DeleteSdkKeyResponse = DeleteSdkKeyStatus204;
 
 export const gitNamespacesProvider = {
 	github: "github",
@@ -32086,15 +30996,7 @@ export type GitNamespacesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GitNamespacesResponse =
-	| GitNamespacesStatus200
-	| GitNamespacesStatus400
-	| GitNamespacesStatus401
-	| GitNamespacesStatus403
-	| GitNamespacesStatus404
-	| GitNamespacesStatus410
-	| GitNamespacesStatus429
-	| GitNamespacesStatus500;
+export type GitNamespacesResponse = GitNamespacesStatus200;
 
 export const searchRepoProvider = {
 	github: "github",
@@ -32172,16 +31074,7 @@ export type SearchRepoResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SearchRepoResponse =
-	| SearchRepoStatus200
-	| SearchRepoStatus400
-	| SearchRepoStatus401
-	| SearchRepoStatus403
-	| SearchRepoStatus404
-	| SearchRepoStatus410
-	| SearchRepoStatus429
-	| SearchRepoStatus500
-	| SearchRepoStatus502;
+export type SearchRepoResponse = SearchRepoStatus200;
 
 export type GetBillingPlansPath = {
 	integrationIdOrSlug: string;
@@ -32253,13 +31146,7 @@ export type GetBillingPlansResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetBillingPlansResponse =
-	| GetBillingPlansStatus200
-	| GetBillingPlansStatus400
-	| GetBillingPlansStatus401
-	| GetBillingPlansStatus403
-	| GetBillingPlansStatus404
-	| GetBillingPlansStatus410;
+export type GetBillingPlansResponse = GetBillingPlansStatus200;
 
 export type ConnectIntegrationResourceToProjectPath = {
 	integrationConfigurationId: string;
@@ -32313,12 +31200,7 @@ export type ConnectIntegrationResourceToProjectResponses = {
  * @description Union of all possible responses
  */
 export type ConnectIntegrationResourceToProjectResponse =
-	| ConnectIntegrationResourceToProjectStatus201
-	| ConnectIntegrationResourceToProjectStatus400
-	| ConnectIntegrationResourceToProjectStatus401
-	| ConnectIntegrationResourceToProjectStatus403
-	| ConnectIntegrationResourceToProjectStatus404
-	| ConnectIntegrationResourceToProjectStatus410;
+	ConnectIntegrationResourceToProjectStatus201;
 
 export type UpdateInstallationPath = {
 	integrationConfigurationId: string;
@@ -32355,13 +31237,7 @@ export type UpdateInstallationResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateInstallationResponse =
-	| UpdateInstallationStatus204
-	| UpdateInstallationStatus400
-	| UpdateInstallationStatus401
-	| UpdateInstallationStatus403
-	| UpdateInstallationStatus404
-	| UpdateInstallationStatus410;
+export type UpdateInstallationResponse = UpdateInstallationStatus204;
 
 export type GetAccountInfoPath = {
 	integrationConfigurationId: string;
@@ -32398,13 +31274,7 @@ export type GetAccountInfoResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAccountInfoResponse =
-	| GetAccountInfoStatus200
-	| GetAccountInfoStatus400
-	| GetAccountInfoStatus401
-	| GetAccountInfoStatus403
-	| GetAccountInfoStatus404
-	| GetAccountInfoStatus410;
+export type GetAccountInfoResponse = GetAccountInfoStatus200;
 
 export type GetMemberPath = {
 	integrationConfigurationId: string;
@@ -32442,13 +31312,7 @@ export type GetMemberResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetMemberResponse =
-	| GetMemberStatus200
-	| GetMemberStatus400
-	| GetMemberStatus401
-	| GetMemberStatus403
-	| GetMemberStatus404
-	| GetMemberStatus410;
+export type GetMemberResponse = GetMemberStatus200;
 
 export type RotateInstallationCredentialPath = {
 	integrationConfigurationId: string;
@@ -32488,14 +31352,7 @@ export type RotateInstallationCredentialResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RotateInstallationCredentialResponse =
-	| RotateInstallationCredentialStatus200
-	| RotateInstallationCredentialStatus400
-	| RotateInstallationCredentialStatus401
-	| RotateInstallationCredentialStatus403
-	| RotateInstallationCredentialStatus404
-	| RotateInstallationCredentialStatus409
-	| RotateInstallationCredentialStatus410;
+export type RotateInstallationCredentialResponse = RotateInstallationCredentialStatus200;
 
 export type RevokeInstallationCredentialPath = {
 	integrationConfigurationId: string;
@@ -32535,14 +31392,7 @@ export type RevokeInstallationCredentialResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RevokeInstallationCredentialResponse =
-	| RevokeInstallationCredentialStatus200
-	| RevokeInstallationCredentialStatus400
-	| RevokeInstallationCredentialStatus401
-	| RevokeInstallationCredentialStatus403
-	| RevokeInstallationCredentialStatus404
-	| RevokeInstallationCredentialStatus409
-	| RevokeInstallationCredentialStatus410;
+export type RevokeInstallationCredentialResponse = RevokeInstallationCredentialStatus200;
 
 export type CreateEventPath = {
 	integrationConfigurationId: string;
@@ -32579,13 +31429,7 @@ export type CreateEventResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateEventResponse =
-	| CreateEventStatus201
-	| CreateEventStatus400
-	| CreateEventStatus401
-	| CreateEventStatus403
-	| CreateEventStatus404
-	| CreateEventStatus410;
+export type CreateEventResponse = CreateEventStatus201;
 
 export type GetIntegrationResourcesPath = {
 	integrationConfigurationId: string;
@@ -32622,13 +31466,7 @@ export type GetIntegrationResourcesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetIntegrationResourcesResponse =
-	| GetIntegrationResourcesStatus200
-	| GetIntegrationResourcesStatus400
-	| GetIntegrationResourcesStatus401
-	| GetIntegrationResourcesStatus403
-	| GetIntegrationResourcesStatus404
-	| GetIntegrationResourcesStatus410;
+export type GetIntegrationResourcesResponse = GetIntegrationResourcesStatus200;
 
 export type GetIntegrationResourcePath = {
 	/**
@@ -32674,13 +31512,7 @@ export type GetIntegrationResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetIntegrationResourceResponse =
-	| GetIntegrationResourceStatus200
-	| GetIntegrationResourceStatus400
-	| GetIntegrationResourceStatus401
-	| GetIntegrationResourceStatus403
-	| GetIntegrationResourceStatus404
-	| GetIntegrationResourceStatus410;
+export type GetIntegrationResourceResponse = GetIntegrationResourceStatus200;
 
 export type DeleteIntegrationResourcePath = {
 	integrationConfigurationId: string;
@@ -32718,13 +31550,7 @@ export type DeleteIntegrationResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteIntegrationResourceResponse =
-	| DeleteIntegrationResourceStatus204
-	| DeleteIntegrationResourceStatus400
-	| DeleteIntegrationResourceStatus401
-	| DeleteIntegrationResourceStatus403
-	| DeleteIntegrationResourceStatus404
-	| DeleteIntegrationResourceStatus410;
+export type DeleteIntegrationResourceResponse = DeleteIntegrationResourceStatus204;
 
 export type ImportResourcePath = {
 	integrationConfigurationId: string;
@@ -32768,15 +31594,7 @@ export type ImportResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ImportResourceResponse =
-	| ImportResourceStatus200
-	| ImportResourceStatus400
-	| ImportResourceStatus401
-	| ImportResourceStatus403
-	| ImportResourceStatus404
-	| ImportResourceStatus409
-	| ImportResourceStatus410
-	| ImportResourceStatus422;
+export type ImportResourceResponse = ImportResourceStatus200;
 
 export type UpdateResourcePath = {
 	integrationConfigurationId: string;
@@ -32820,15 +31638,7 @@ export type UpdateResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateResourceResponse =
-	| UpdateResourceStatus200
-	| UpdateResourceStatus400
-	| UpdateResourceStatus401
-	| UpdateResourceStatus403
-	| UpdateResourceStatus404
-	| UpdateResourceStatus409
-	| UpdateResourceStatus410
-	| UpdateResourceStatus422;
+export type UpdateResourceResponse = UpdateResourceStatus200;
 
 export type SubmitBillingDataPath = {
 	integrationConfigurationId: string;
@@ -32865,13 +31675,7 @@ export type SubmitBillingDataResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SubmitBillingDataResponse =
-	| SubmitBillingDataStatus201
-	| SubmitBillingDataStatus400
-	| SubmitBillingDataStatus401
-	| SubmitBillingDataStatus403
-	| SubmitBillingDataStatus404
-	| SubmitBillingDataStatus410;
+export type SubmitBillingDataResponse = SubmitBillingDataStatus201;
 
 export type SubmitInvoicePath = {
 	integrationConfigurationId: string;
@@ -32911,14 +31715,7 @@ export type SubmitInvoiceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SubmitInvoiceResponse =
-	| SubmitInvoiceStatus200
-	| SubmitInvoiceStatus400
-	| SubmitInvoiceStatus401
-	| SubmitInvoiceStatus403
-	| SubmitInvoiceStatus404
-	| SubmitInvoiceStatus409
-	| SubmitInvoiceStatus410;
+export type SubmitInvoiceResponse = SubmitInvoiceStatus200;
 
 export type FinalizeInstallationPath = {
 	integrationConfigurationId: string;
@@ -32955,13 +31752,7 @@ export type FinalizeInstallationResponses = {
 /**
  * @description Union of all possible responses
  */
-export type FinalizeInstallationResponse =
-	| FinalizeInstallationStatus204
-	| FinalizeInstallationStatus400
-	| FinalizeInstallationStatus401
-	| FinalizeInstallationStatus403
-	| FinalizeInstallationStatus404
-	| FinalizeInstallationStatus410;
+export type FinalizeInstallationResponse = FinalizeInstallationStatus204;
 
 export type GetInvoicePath = {
 	integrationConfigurationId: string;
@@ -33002,14 +31793,7 @@ export type GetInvoiceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetInvoiceResponse =
-	| GetInvoiceStatus200
-	| GetInvoiceStatus400
-	| GetInvoiceStatus401
-	| GetInvoiceStatus403
-	| GetInvoiceStatus404
-	| GetInvoiceStatus410
-	| GetInvoiceStatus429;
+export type GetInvoiceResponse = GetInvoiceStatus200;
 
 export type UpdateInvoicePath = {
 	integrationConfigurationId: string;
@@ -33050,14 +31834,7 @@ export type UpdateInvoiceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateInvoiceResponse =
-	| UpdateInvoiceStatus204
-	| UpdateInvoiceStatus400
-	| UpdateInvoiceStatus401
-	| UpdateInvoiceStatus403
-	| UpdateInvoiceStatus404
-	| UpdateInvoiceStatus409
-	| UpdateInvoiceStatus410;
+export type UpdateInvoiceResponse = UpdateInvoiceStatus204;
 
 export type SubmitPrepaymentBalancesPath = {
 	integrationConfigurationId: string;
@@ -33094,13 +31871,7 @@ export type SubmitPrepaymentBalancesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SubmitPrepaymentBalancesResponse =
-	| SubmitPrepaymentBalancesStatus201
-	| SubmitPrepaymentBalancesStatus400
-	| SubmitPrepaymentBalancesStatus401
-	| SubmitPrepaymentBalancesStatus403
-	| SubmitPrepaymentBalancesStatus404
-	| SubmitPrepaymentBalancesStatus410;
+export type SubmitPrepaymentBalancesResponse = SubmitPrepaymentBalancesStatus201;
 
 export type UpdateResourceSecretsPath = {
 	integrationConfigurationId: string;
@@ -33149,15 +31920,7 @@ export type UpdateResourceSecretsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateResourceSecretsResponse =
-	| UpdateResourceSecretsStatus201
-	| UpdateResourceSecretsStatus400
-	| UpdateResourceSecretsStatus401
-	| UpdateResourceSecretsStatus403
-	| UpdateResourceSecretsStatus404
-	| UpdateResourceSecretsStatus409
-	| UpdateResourceSecretsStatus410
-	| UpdateResourceSecretsStatus422;
+export type UpdateResourceSecretsResponse = UpdateResourceSecretsStatus201;
 
 export type UpdateResourceSecretsByIdPath = {
 	integrationConfigurationId: string;
@@ -33201,15 +31964,7 @@ export type UpdateResourceSecretsByIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateResourceSecretsByIdResponse =
-	| UpdateResourceSecretsByIdStatus201
-	| UpdateResourceSecretsByIdStatus400
-	| UpdateResourceSecretsByIdStatus401
-	| UpdateResourceSecretsByIdStatus403
-	| UpdateResourceSecretsByIdStatus404
-	| UpdateResourceSecretsByIdStatus409
-	| UpdateResourceSecretsByIdStatus410
-	| UpdateResourceSecretsByIdStatus422;
+export type UpdateResourceSecretsByIdResponse = UpdateResourceSecretsByIdStatus201;
 
 export const getConfigurationsView = {
 	account: "account",
@@ -33281,13 +32036,7 @@ export type GetConfigurationsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetConfigurationsResponse =
-	| GetConfigurationsStatus200
-	| GetConfigurationsStatus400
-	| GetConfigurationsStatus401
-	| GetConfigurationsStatus403
-	| GetConfigurationsStatus404
-	| GetConfigurationsStatus410;
+export type GetConfigurationsResponse = GetConfigurationsStatus200;
 
 export type GetConfigurationPath = {
 	/**
@@ -33344,13 +32093,7 @@ export type GetConfigurationResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetConfigurationResponse =
-	| GetConfigurationStatus200
-	| GetConfigurationStatus400
-	| GetConfigurationStatus401
-	| GetConfigurationStatus403
-	| GetConfigurationStatus404
-	| GetConfigurationStatus410;
+export type GetConfigurationResponse = GetConfigurationStatus200;
 
 export type DeleteConfigurationPath = {
 	id: string;
@@ -33402,13 +32145,7 @@ export type DeleteConfigurationResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteConfigurationResponse =
-	| DeleteConfigurationStatus204
-	| DeleteConfigurationStatus400
-	| DeleteConfigurationStatus401
-	| DeleteConfigurationStatus403
-	| DeleteConfigurationStatus404
-	| DeleteConfigurationStatus410;
+export type DeleteConfigurationResponse = DeleteConfigurationStatus204;
 
 export type GetConfigurationProductsPath = {
 	/**
@@ -33468,14 +32205,7 @@ export type GetConfigurationProductsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetConfigurationProductsResponse =
-	| GetConfigurationProductsStatus200
-	| GetConfigurationProductsStatus400
-	| GetConfigurationProductsStatus401
-	| GetConfigurationProductsStatus403
-	| GetConfigurationProductsStatus404
-	| GetConfigurationProductsStatus410
-	| GetConfigurationProductsStatus500;
+export type GetConfigurationProductsResponse = GetConfigurationProductsStatus200;
 
 export type ExchangeSsoTokenStatus200 = unknown;
 
@@ -33502,11 +32232,7 @@ export type ExchangeSsoTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ExchangeSsoTokenResponse =
-	| ExchangeSsoTokenStatus200
-	| ExchangeSsoTokenStatus400
-	| ExchangeSsoTokenStatus403
-	| ExchangeSsoTokenStatus500;
+export type ExchangeSsoTokenResponse = ExchangeSsoTokenStatus200;
 
 export type GetIntegrationLogDrainsQuery = {
 	/**
@@ -33554,13 +32280,7 @@ export type GetIntegrationLogDrainsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetIntegrationLogDrainsResponse =
-	| GetIntegrationLogDrainsStatus200
-	| GetIntegrationLogDrainsStatus400
-	| GetIntegrationLogDrainsStatus401
-	| GetIntegrationLogDrainsStatus403
-	| GetIntegrationLogDrainsStatus404
-	| GetIntegrationLogDrainsStatus410;
+export type GetIntegrationLogDrainsResponse = GetIntegrationLogDrainsStatus200;
 
 export type CreateLogDrainQuery = {
 	/**
@@ -33608,13 +32328,7 @@ export type CreateLogDrainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateLogDrainResponse =
-	| CreateLogDrainStatus200
-	| CreateLogDrainStatus400
-	| CreateLogDrainStatus401
-	| CreateLogDrainStatus403
-	| CreateLogDrainStatus404
-	| CreateLogDrainStatus410;
+export type CreateLogDrainResponse = CreateLogDrainStatus200;
 
 export type DeleteIntegrationLogDrainPath = {
 	/**
@@ -33670,13 +32384,7 @@ export type DeleteIntegrationLogDrainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteIntegrationLogDrainResponse =
-	| DeleteIntegrationLogDrainStatus204
-	| DeleteIntegrationLogDrainStatus400
-	| DeleteIntegrationLogDrainStatus401
-	| DeleteIntegrationLogDrainStatus403
-	| DeleteIntegrationLogDrainStatus404
-	| DeleteIntegrationLogDrainStatus410;
+export type DeleteIntegrationLogDrainResponse = DeleteIntegrationLogDrainStatus204;
 
 export type CreateApiKeysStatus200 = unknown;
 
@@ -33718,16 +32426,7 @@ export type CreateApiKeysResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateApiKeysResponse =
-	| CreateApiKeysStatus200
-	| CreateApiKeysStatus400
-	| CreateApiKeysStatus401
-	| CreateApiKeysStatus403
-	| CreateApiKeysStatus404
-	| CreateApiKeysStatus409
-	| CreateApiKeysStatus410
-	| CreateApiKeysStatus429
-	| CreateApiKeysStatus500;
+export type CreateApiKeysResponse = CreateApiKeysStatus200;
 
 export type SignKmsMessagePath = {
 	/**
@@ -33768,13 +32467,7 @@ export type SignKmsMessageResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SignKmsMessageResponse =
-	| SignKmsMessageStatus200
-	| SignKmsMessageStatus400
-	| SignKmsMessageStatus401
-	| SignKmsMessageStatus403
-	| SignKmsMessageStatus404
-	| SignKmsMessageStatus429;
+export type SignKmsMessageResponse = SignKmsMessageStatus200;
 
 export type SignKmsTokenPath = {
 	/**
@@ -33815,13 +32508,7 @@ export type SignKmsTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SignKmsTokenResponse =
-	| SignKmsTokenStatus200
-	| SignKmsTokenStatus400
-	| SignKmsTokenStatus401
-	| SignKmsTokenStatus403
-	| SignKmsTokenStatus404
-	| SignKmsTokenStatus429;
+export type SignKmsTokenResponse = SignKmsTokenStatus200;
 
 export type ListKmsIssuersQuery = {
 	/**
@@ -33883,13 +32570,7 @@ export type ListKmsIssuersResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListKmsIssuersResponse =
-	| ListKmsIssuersStatus200
-	| ListKmsIssuersStatus400
-	| ListKmsIssuersStatus401
-	| ListKmsIssuersStatus403
-	| ListKmsIssuersStatus404
-	| ListKmsIssuersStatus410;
+export type ListKmsIssuersResponse = ListKmsIssuersStatus200;
 
 export type CreateKmsIssuerQuery = {
 	/**
@@ -33937,13 +32618,7 @@ export type CreateKmsIssuerResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateKmsIssuerResponse =
-	| CreateKmsIssuerStatus201
-	| CreateKmsIssuerStatus400
-	| CreateKmsIssuerStatus401
-	| CreateKmsIssuerStatus403
-	| CreateKmsIssuerStatus404
-	| CreateKmsIssuerStatus410;
+export type CreateKmsIssuerResponse = CreateKmsIssuerStatus201;
 
 export type CreateKmsSigningKeyPath = {
 	/**
@@ -34002,14 +32677,7 @@ export type CreateKmsSigningKeyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateKmsSigningKeyResponse =
-	| CreateKmsSigningKeyStatus200
-	| CreateKmsSigningKeyStatus400
-	| CreateKmsSigningKeyStatus401
-	| CreateKmsSigningKeyStatus403
-	| CreateKmsSigningKeyStatus404
-	| CreateKmsSigningKeyStatus409
-	| CreateKmsSigningKeyStatus410;
+export type CreateKmsSigningKeyResponse = CreateKmsSigningKeyStatus200;
 
 export type ActivateKmsSigningKeyPath = {
 	/**
@@ -34073,14 +32741,7 @@ export type ActivateKmsSigningKeyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ActivateKmsSigningKeyResponse =
-	| ActivateKmsSigningKeyStatus200
-	| ActivateKmsSigningKeyStatus400
-	| ActivateKmsSigningKeyStatus401
-	| ActivateKmsSigningKeyStatus403
-	| ActivateKmsSigningKeyStatus404
-	| ActivateKmsSigningKeyStatus409
-	| ActivateKmsSigningKeyStatus410;
+export type ActivateKmsSigningKeyResponse = ActivateKmsSigningKeyStatus200;
 
 export type RevokeKmsSigningKeyPath = {
 	/**
@@ -34144,14 +32805,7 @@ export type RevokeKmsSigningKeyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RevokeKmsSigningKeyResponse =
-	| RevokeKmsSigningKeyStatus200
-	| RevokeKmsSigningKeyStatus400
-	| RevokeKmsSigningKeyStatus401
-	| RevokeKmsSigningKeyStatus403
-	| RevokeKmsSigningKeyStatus404
-	| RevokeKmsSigningKeyStatus409
-	| RevokeKmsSigningKeyStatus410;
+export type RevokeKmsSigningKeyResponse = RevokeKmsSigningKeyStatus200;
 
 export type GetKmsIssuerPath = {
 	/**
@@ -34207,13 +32861,7 @@ export type GetKmsIssuerResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetKmsIssuerResponse =
-	| GetKmsIssuerStatus200
-	| GetKmsIssuerStatus400
-	| GetKmsIssuerStatus401
-	| GetKmsIssuerStatus403
-	| GetKmsIssuerStatus404
-	| GetKmsIssuerStatus410;
+export type GetKmsIssuerResponse = GetKmsIssuerStatus200;
 
 export type UpdateKmsIssuerPath = {
 	/**
@@ -34269,13 +32917,7 @@ export type UpdateKmsIssuerResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateKmsIssuerResponse =
-	| UpdateKmsIssuerStatus200
-	| UpdateKmsIssuerStatus400
-	| UpdateKmsIssuerStatus401
-	| UpdateKmsIssuerStatus403
-	| UpdateKmsIssuerStatus404
-	| UpdateKmsIssuerStatus410;
+export type UpdateKmsIssuerResponse = UpdateKmsIssuerStatus200;
 
 export type DeleteKmsIssuerPath = {
 	/**
@@ -34331,13 +32973,7 @@ export type DeleteKmsIssuerResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteKmsIssuerResponse =
-	| DeleteKmsIssuerStatus204
-	| DeleteKmsIssuerStatus400
-	| DeleteKmsIssuerStatus401
-	| DeleteKmsIssuerStatus403
-	| DeleteKmsIssuerStatus404
-	| DeleteKmsIssuerStatus410;
+export type DeleteKmsIssuerResponse = DeleteKmsIssuerStatus204;
 
 export type CreateKmsIssuerPolicyPath = {
 	/**
@@ -34393,13 +33029,7 @@ export type CreateKmsIssuerPolicyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateKmsIssuerPolicyResponse =
-	| CreateKmsIssuerPolicyStatus201
-	| CreateKmsIssuerPolicyStatus400
-	| CreateKmsIssuerPolicyStatus401
-	| CreateKmsIssuerPolicyStatus403
-	| CreateKmsIssuerPolicyStatus404
-	| CreateKmsIssuerPolicyStatus410;
+export type CreateKmsIssuerPolicyResponse = CreateKmsIssuerPolicyStatus201;
 
 export type UpdateKmsIssuerPolicyPath = {
 	/**
@@ -34465,13 +33095,7 @@ export type UpdateKmsIssuerPolicyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateKmsIssuerPolicyResponse =
-	| UpdateKmsIssuerPolicyStatus200
-	| UpdateKmsIssuerPolicyStatus400
-	| UpdateKmsIssuerPolicyStatus401
-	| UpdateKmsIssuerPolicyStatus403
-	| UpdateKmsIssuerPolicyStatus404
-	| UpdateKmsIssuerPolicyStatus410;
+export type UpdateKmsIssuerPolicyResponse = UpdateKmsIssuerPolicyStatus200;
 
 export const deleteKmsIssuerPolicyKind = {
 	"project-grant": "project-grant",
@@ -34545,13 +33169,7 @@ export type DeleteKmsIssuerPolicyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteKmsIssuerPolicyResponse =
-	| DeleteKmsIssuerPolicyStatus204
-	| DeleteKmsIssuerPolicyStatus400
-	| DeleteKmsIssuerPolicyStatus401
-	| DeleteKmsIssuerPolicyStatus403
-	| DeleteKmsIssuerPolicyStatus404
-	| DeleteKmsIssuerPolicyStatus410;
+export type DeleteKmsIssuerPolicyResponse = DeleteKmsIssuerPolicyStatus204;
 
 export type GetRuntimeLogsPath = {
 	projectId: string;
@@ -34604,13 +33222,7 @@ export type GetRuntimeLogsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetRuntimeLogsResponse =
-	| GetRuntimeLogsStatus200
-	| GetRuntimeLogsStatus400
-	| GetRuntimeLogsStatus401
-	| GetRuntimeLogsStatus403
-	| GetRuntimeLogsStatus404
-	| GetRuntimeLogsStatus410;
+export type GetRuntimeLogsResponse = GetRuntimeLogsStatus200;
 
 export type CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsPath =
 	{
@@ -34658,12 +33270,7 @@ export type CreateInstallationsByIntegrationConfigurationIdResourcesByResourceId
  * @description Union of all possible responses
  */
 export type CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsResponse =
-	| CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus204
-	| CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus400
-	| CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus401
-	| CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus403
-	| CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus404
-	| CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus410;
+	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus204;
 
 export type UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPath =
 	{
@@ -34712,12 +33319,7 @@ export type UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceId
  * @description Union of all possible responses
  */
 export type UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdResponse =
-	| UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus204
-	| UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus400
-	| UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus401
-	| UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus403
-	| UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus404
-	| UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus410;
+	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus204;
 
 export type DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPath =
 	{
@@ -34766,12 +33368,7 @@ export type DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceId
  * @description Union of all possible responses
  */
 export type DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdResponse =
-	| DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus204
-	| DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus400
-	| DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus401
-	| DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus403
-	| DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus404
-	| DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus410;
+	DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus204;
 
 export type GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath =
 	{
@@ -34823,13 +33420,7 @@ export type GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExp
  * @description Union of all possible responses
  */
 export type GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse =
-	| GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200
-	| GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus304
-	| GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400
-	| GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus401
-	| GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus403
-	| GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus404
-	| GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410;
+	GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200;
 
 export type ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath =
 	{
@@ -34885,14 +33476,7 @@ export type ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceI
  * @description Union of all possible responses
  */
 export type ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse =
-	| ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200
-	| ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400
-	| ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus401
-	| ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus403
-	| ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus404
-	| ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus409
-	| ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410
-	| ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus412;
+	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200;
 
 export type GetMicrofrontendsGroupsQuery = {
 	/**
@@ -34943,14 +33527,7 @@ export type GetMicrofrontendsGroupsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetMicrofrontendsGroupsResponse =
-	| GetMicrofrontendsGroupsStatus200
-	| GetMicrofrontendsGroupsStatus400
-	| GetMicrofrontendsGroupsStatus401
-	| GetMicrofrontendsGroupsStatus403
-	| GetMicrofrontendsGroupsStatus404
-	| GetMicrofrontendsGroupsStatus410
-	| GetMicrofrontendsGroupsStatus500;
+export type GetMicrofrontendsGroupsResponse = GetMicrofrontendsGroupsStatus200;
 
 export type GetMicrofrontendsInGroupPath = {
 	groupId: string;
@@ -35002,13 +33579,7 @@ export type GetMicrofrontendsInGroupResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetMicrofrontendsInGroupResponse =
-	| GetMicrofrontendsInGroupStatus200
-	| GetMicrofrontendsInGroupStatus400
-	| GetMicrofrontendsInGroupStatus401
-	| GetMicrofrontendsInGroupStatus403
-	| GetMicrofrontendsInGroupStatus404
-	| GetMicrofrontendsInGroupStatus410;
+export type GetMicrofrontendsInGroupResponse = GetMicrofrontendsInGroupStatus200;
 
 export type GetMicrofrontendsConfigPath = {
 	/**
@@ -35067,14 +33638,7 @@ export type GetMicrofrontendsConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetMicrofrontendsConfigResponse =
-	| GetMicrofrontendsConfigStatus200
-	| GetMicrofrontendsConfigStatus400
-	| GetMicrofrontendsConfigStatus401
-	| GetMicrofrontendsConfigStatus403
-	| GetMicrofrontendsConfigStatus404
-	| GetMicrofrontendsConfigStatus410
-	| GetMicrofrontendsConfigStatus500;
+export type GetMicrofrontendsConfigResponse = GetMicrofrontendsConfigStatus200;
 
 export type GetMicrofrontendsConfigForProjectPath = {
 	/**
@@ -35133,14 +33697,7 @@ export type GetMicrofrontendsConfigForProjectResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetMicrofrontendsConfigForProjectResponse =
-	| GetMicrofrontendsConfigForProjectStatus200
-	| GetMicrofrontendsConfigForProjectStatus400
-	| GetMicrofrontendsConfigForProjectStatus401
-	| GetMicrofrontendsConfigForProjectStatus403
-	| GetMicrofrontendsConfigForProjectStatus404
-	| GetMicrofrontendsConfigForProjectStatus410
-	| GetMicrofrontendsConfigForProjectStatus500;
+export type GetMicrofrontendsConfigForProjectResponse = GetMicrofrontendsConfigForProjectStatus200;
 
 export type CreateMicrofrontendsGroupWithApplicationsQuery = {
 	/**
@@ -35192,13 +33749,7 @@ export type CreateMicrofrontendsGroupWithApplicationsResponses = {
  * @description Union of all possible responses
  */
 export type CreateMicrofrontendsGroupWithApplicationsResponse =
-	| CreateMicrofrontendsGroupWithApplicationsStatus200
-	| CreateMicrofrontendsGroupWithApplicationsStatus400
-	| CreateMicrofrontendsGroupWithApplicationsStatus401
-	| CreateMicrofrontendsGroupWithApplicationsStatus403
-	| CreateMicrofrontendsGroupWithApplicationsStatus404
-	| CreateMicrofrontendsGroupWithApplicationsStatus410
-	| CreateMicrofrontendsGroupWithApplicationsStatus500;
+	CreateMicrofrontendsGroupWithApplicationsStatus200;
 
 export type GetObservabilityConfigurationProjectsQuery = {
 	/**
@@ -35247,12 +33798,7 @@ export type GetObservabilityConfigurationProjectsResponses = {
  * @description Union of all possible responses
  */
 export type GetObservabilityConfigurationProjectsResponse =
-	| GetObservabilityConfigurationProjectsStatus200
-	| GetObservabilityConfigurationProjectsStatus400
-	| GetObservabilityConfigurationProjectsStatus401
-	| GetObservabilityConfigurationProjectsStatus403
-	| GetObservabilityConfigurationProjectsStatus404
-	| GetObservabilityConfigurationProjectsStatus410;
+	GetObservabilityConfigurationProjectsStatus200;
 
 export type UpdateObservabilityConfigurationProjectPath = {
 	/**
@@ -35312,13 +33858,7 @@ export type UpdateObservabilityConfigurationProjectResponses = {
  * @description Union of all possible responses
  */
 export type UpdateObservabilityConfigurationProjectResponse =
-	| UpdateObservabilityConfigurationProjectStatus200
-	| UpdateObservabilityConfigurationProjectStatus400
-	| UpdateObservabilityConfigurationProjectStatus401
-	| UpdateObservabilityConfigurationProjectStatus403
-	| UpdateObservabilityConfigurationProjectStatus404
-	| UpdateObservabilityConfigurationProjectStatus410
-	| UpdateObservabilityConfigurationProjectStatus429;
+	UpdateObservabilityConfigurationProjectStatus200;
 
 export type CreateObservabilityQueryStatus200 = unknown;
 
@@ -35369,19 +33909,7 @@ export type CreateObservabilityQueryResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateObservabilityQueryResponse =
-	| CreateObservabilityQueryStatus200
-	| CreateObservabilityQueryStatus400
-	| CreateObservabilityQueryStatus401
-	| CreateObservabilityQueryStatus402
-	| CreateObservabilityQueryStatus403
-	| CreateObservabilityQueryStatus404
-	| CreateObservabilityQueryStatus408
-	| CreateObservabilityQueryStatus410
-	| CreateObservabilityQueryStatus413
-	| CreateObservabilityQueryStatus422
-	| CreateObservabilityQueryStatus500
-	| CreateObservabilityQueryStatus503;
+export type CreateObservabilityQueryResponse = CreateObservabilityQueryStatus200;
 
 export type GetObservabilitySchemaStatus200 = unknown;
 
@@ -35414,13 +33942,7 @@ export type GetObservabilitySchemaResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetObservabilitySchemaResponse =
-	| GetObservabilitySchemaStatus200
-	| GetObservabilitySchemaStatus400
-	| GetObservabilitySchemaStatus401
-	| GetObservabilitySchemaStatus403
-	| GetObservabilitySchemaStatus404
-	| GetObservabilitySchemaStatus410;
+export type GetObservabilitySchemaResponse = GetObservabilitySchemaStatus200;
 
 export type GetObservabilitySchemaByMetricIdPath = {
 	metricId: string;
@@ -35457,13 +33979,7 @@ export type GetObservabilitySchemaByMetricIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetObservabilitySchemaByMetricIdResponse =
-	| GetObservabilitySchemaByMetricIdStatus200
-	| GetObservabilitySchemaByMetricIdStatus400
-	| GetObservabilitySchemaByMetricIdStatus401
-	| GetObservabilitySchemaByMetricIdStatus403
-	| GetObservabilitySchemaByMetricIdStatus404
-	| GetObservabilitySchemaByMetricIdStatus410;
+export type GetObservabilitySchemaByMetricIdResponse = GetObservabilitySchemaByMetricIdStatus200;
 
 export type GetProjectMembersPath = {
 	/**
@@ -35545,13 +34061,7 @@ export type GetProjectMembersResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetProjectMembersResponse =
-	| GetProjectMembersStatus200
-	| GetProjectMembersStatus400
-	| GetProjectMembersStatus401
-	| GetProjectMembersStatus403
-	| GetProjectMembersStatus404
-	| GetProjectMembersStatus410;
+export type GetProjectMembersResponse = GetProjectMembersStatus200;
 
 export type AddProjectMemberPath = {
 	/**
@@ -35611,14 +34121,7 @@ export type AddProjectMemberResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AddProjectMemberResponse =
-	| AddProjectMemberStatus200
-	| AddProjectMemberStatus400
-	| AddProjectMemberStatus401
-	| AddProjectMemberStatus403
-	| AddProjectMemberStatus404
-	| AddProjectMemberStatus410
-	| AddProjectMemberStatus500;
+export type AddProjectMemberResponse = AddProjectMemberStatus200;
 
 export type RemoveProjectMemberPath = {
 	/**
@@ -35681,13 +34184,7 @@ export type RemoveProjectMemberResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RemoveProjectMemberResponse =
-	| RemoveProjectMemberStatus200
-	| RemoveProjectMemberStatus400
-	| RemoveProjectMemberStatus401
-	| RemoveProjectMemberStatus403
-	| RemoveProjectMemberStatus404
-	| RemoveProjectMemberStatus410;
+export type RemoveProjectMemberResponse = RemoveProjectMemberStatus200;
 
 export type GetRoutesPath = {
 	projectId: string;
@@ -35752,13 +34249,7 @@ export type GetRoutesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetRoutesResponse =
-	| GetRoutesStatus200
-	| GetRoutesStatus400
-	| GetRoutesStatus401
-	| GetRoutesStatus403
-	| GetRoutesStatus404
-	| GetRoutesStatus410;
+export type GetRoutesResponse = GetRoutesStatus200;
 
 export type StageRoutesPath = {
 	projectId: string;
@@ -35816,15 +34307,7 @@ export type StageRoutesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type StageRoutesResponse =
-	| StageRoutesStatus200
-	| StageRoutesStatus400
-	| StageRoutesStatus401
-	| StageRoutesStatus403
-	| StageRoutesStatus404
-	| StageRoutesStatus409
-	| StageRoutesStatus410
-	| StageRoutesStatus500;
+export type StageRoutesResponse = StageRoutesStatus200;
 
 export type AddRoutePath = {
 	projectId: string;
@@ -35882,15 +34365,7 @@ export type AddRouteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AddRouteResponse =
-	| AddRouteStatus200
-	| AddRouteStatus400
-	| AddRouteStatus401
-	| AddRouteStatus403
-	| AddRouteStatus404
-	| AddRouteStatus409
-	| AddRouteStatus410
-	| AddRouteStatus500;
+export type AddRouteResponse = AddRouteStatus200;
 
 export type DeleteRoutesPath = {
 	projectId: string;
@@ -35948,15 +34423,7 @@ export type DeleteRoutesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteRoutesResponse =
-	| DeleteRoutesStatus200
-	| DeleteRoutesStatus400
-	| DeleteRoutesStatus401
-	| DeleteRoutesStatus403
-	| DeleteRoutesStatus404
-	| DeleteRoutesStatus409
-	| DeleteRoutesStatus410
-	| DeleteRoutesStatus500;
+export type DeleteRoutesResponse = DeleteRoutesStatus200;
 
 export type EditRoutePath = {
 	projectId: string;
@@ -36015,15 +34482,7 @@ export type EditRouteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type EditRouteResponse =
-	| EditRouteStatus200
-	| EditRouteStatus400
-	| EditRouteStatus401
-	| EditRouteStatus403
-	| EditRouteStatus404
-	| EditRouteStatus409
-	| EditRouteStatus410
-	| EditRouteStatus500;
+export type EditRouteResponse = EditRouteStatus200;
 
 export type GenerateRoutePath = {
 	projectId: string;
@@ -36081,15 +34540,7 @@ export type GenerateRouteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GenerateRouteResponse =
-	| GenerateRouteStatus200
-	| GenerateRouteStatus400
-	| GenerateRouteStatus401
-	| GenerateRouteStatus403
-	| GenerateRouteStatus404
-	| GenerateRouteStatus408
-	| GenerateRouteStatus410
-	| GenerateRouteStatus500;
+export type GenerateRouteResponse = GenerateRouteStatus200;
 
 export type GetRouteVersionsPath = {
 	projectId: string;
@@ -36141,13 +34592,7 @@ export type GetRouteVersionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetRouteVersionsResponse =
-	| GetRouteVersionsStatus200
-	| GetRouteVersionsStatus400
-	| GetRouteVersionsStatus401
-	| GetRouteVersionsStatus403
-	| GetRouteVersionsStatus404
-	| GetRouteVersionsStatus410;
+export type GetRouteVersionsResponse = GetRouteVersionsStatus200;
 
 export type UpdateRouteVersionsPath = {
 	projectId: string;
@@ -36205,15 +34650,7 @@ export type UpdateRouteVersionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateRouteVersionsResponse =
-	| UpdateRouteVersionsStatus200
-	| UpdateRouteVersionsStatus400
-	| UpdateRouteVersionsStatus401
-	| UpdateRouteVersionsStatus403
-	| UpdateRouteVersionsStatus404
-	| UpdateRouteVersionsStatus409
-	| UpdateRouteVersionsStatus410
-	| UpdateRouteVersionsStatus500;
+export type UpdateRouteVersionsResponse = UpdateRouteVersionsStatus200;
 
 export const getProjectsBuildQueueConfiguration = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
@@ -36359,13 +34796,7 @@ export type GetProjectsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetProjectsResponse =
-	| GetProjectsStatus200
-	| GetProjectsStatus400
-	| GetProjectsStatus401
-	| GetProjectsStatus403
-	| GetProjectsStatus404
-	| GetProjectsStatus410;
+export type GetProjectsResponse = GetProjectsStatus200;
 
 export type GetProjectTraceQuery = {
 	/**
@@ -36427,13 +34858,7 @@ export type GetProjectTraceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetProjectTraceResponse =
-	| GetProjectTraceStatus200
-	| GetProjectTraceStatus400
-	| GetProjectTraceStatus401
-	| GetProjectTraceStatus403
-	| GetProjectTraceStatus404
-	| GetProjectTraceStatus410;
+export type GetProjectTraceResponse = GetProjectTraceStatus200;
 
 export type CreateProjectQuery = {
 	/**
@@ -36496,18 +34921,7 @@ export type CreateProjectResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateProjectResponse =
-	| CreateProjectStatus200
-	| CreateProjectStatus400
-	| CreateProjectStatus401
-	| CreateProjectStatus402
-	| CreateProjectStatus403
-	| CreateProjectStatus404
-	| CreateProjectStatus409
-	| CreateProjectStatus410
-	| CreateProjectStatus428
-	| CreateProjectStatus429
-	| CreateProjectStatus500;
+export type CreateProjectResponse = CreateProjectStatus200;
 
 export type GetProjectTokenPath = {
 	/**
@@ -36565,13 +34979,7 @@ export type GetProjectTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetProjectTokenResponse =
-	| GetProjectTokenStatus200
-	| GetProjectTokenStatus400
-	| GetProjectTokenStatus401
-	| GetProjectTokenStatus403
-	| GetProjectTokenStatus404
-	| GetProjectTokenStatus410;
+export type GetProjectTokenResponse = GetProjectTokenStatus200;
 
 export type CreateTraceSessionQuery = {
 	/**
@@ -36622,14 +35030,7 @@ export type CreateTraceSessionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateTraceSessionResponse =
-	| CreateTraceSessionStatus200
-	| CreateTraceSessionStatus400
-	| CreateTraceSessionStatus401
-	| CreateTraceSessionStatus403
-	| CreateTraceSessionStatus404
-	| CreateTraceSessionStatus410
-	| CreateTraceSessionStatus422;
+export type CreateTraceSessionResponse = CreateTraceSessionStatus200;
 
 export type GetProjectPath = {
 	/**
@@ -36686,13 +35087,7 @@ export type GetProjectResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetProjectResponse =
-	| GetProjectStatus200
-	| GetProjectStatus400
-	| GetProjectStatus401
-	| GetProjectStatus403
-	| GetProjectStatus404
-	| GetProjectStatus410;
+export type GetProjectResponse = GetProjectStatus200;
 
 export type UpdateProjectPath = {
 	/**
@@ -36758,16 +35153,7 @@ export type UpdateProjectResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateProjectResponse =
-	| UpdateProjectStatus200
-	| UpdateProjectStatus400
-	| UpdateProjectStatus401
-	| UpdateProjectStatus402
-	| UpdateProjectStatus403
-	| UpdateProjectStatus404
-	| UpdateProjectStatus409
-	| UpdateProjectStatus410
-	| UpdateProjectStatus428;
+export type UpdateProjectResponse = UpdateProjectStatus200;
 
 export type DeleteProjectPath = {
 	/**
@@ -36827,14 +35213,7 @@ export type DeleteProjectResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteProjectResponse =
-	| DeleteProjectStatus204
-	| DeleteProjectStatus400
-	| DeleteProjectStatus401
-	| DeleteProjectStatus403
-	| DeleteProjectStatus404
-	| DeleteProjectStatus409
-	| DeleteProjectStatus410;
+export type DeleteProjectResponse = DeleteProjectStatus204;
 
 export type UploadProjectAvatarPath = {
 	/**
@@ -36896,15 +35275,63 @@ export type UploadProjectAvatarResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UploadProjectAvatarResponse =
-	| UploadProjectAvatarStatus200
-	| UploadProjectAvatarStatus400
-	| UploadProjectAvatarStatus401
-	| UploadProjectAvatarStatus403
-	| UploadProjectAvatarStatus404
-	| UploadProjectAvatarStatus410
-	| UploadProjectAvatarStatus413
-	| UploadProjectAvatarStatus415;
+export type UploadProjectAvatarResponse = UploadProjectAvatarStatus200;
+
+export type DeleteProjectAvatarPath = {
+	/**
+	 * @description The unique project identifier or the project name.
+	 * @type string
+	 */
+	idOrName: string;
+};
+
+export type DeleteProjectAvatarQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type DeleteProjectAvatarStatus200 = unknown;
+
+export type DeleteProjectAvatarStatus400 = unknown;
+
+export type DeleteProjectAvatarStatus401 = unknown;
+
+export type DeleteProjectAvatarStatus403 = unknown;
+
+export type DeleteProjectAvatarStatus404 = unknown;
+
+export type DeleteProjectAvatarStatus410 = unknown;
+
+export type DeleteProjectAvatarOptions = {
+	body?: never | undefined;
+	path: DeleteProjectAvatarPath;
+	query?: DeleteProjectAvatarQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteProjectAvatarResponses = {
+	"200": DeleteProjectAvatarStatus200;
+	"400": DeleteProjectAvatarStatus400;
+	"401": DeleteProjectAvatarStatus401;
+	"403": DeleteProjectAvatarStatus403;
+	"404": DeleteProjectAvatarStatus404;
+	"410": DeleteProjectAvatarStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteProjectAvatarResponse = DeleteProjectAvatarStatus200;
 
 export type UpdateStaticIpsPath = {
 	/**
@@ -36969,16 +35396,7 @@ export type UpdateStaticIpsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateStaticIpsResponse =
-	| UpdateStaticIpsStatus200
-	| UpdateStaticIpsStatus400
-	| UpdateStaticIpsStatus401
-	| UpdateStaticIpsStatus402
-	| UpdateStaticIpsStatus403
-	| UpdateStaticIpsStatus404
-	| UpdateStaticIpsStatus409
-	| UpdateStaticIpsStatus410
-	| UpdateStaticIpsStatus500;
+export type UpdateStaticIpsResponse = UpdateStaticIpsStatus200;
 
 export type CreateCustomEnvironmentPath = {
 	/**
@@ -37043,16 +35461,7 @@ export type CreateCustomEnvironmentResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateCustomEnvironmentResponse =
-	| CreateCustomEnvironmentStatus201
-	| CreateCustomEnvironmentStatus400
-	| CreateCustomEnvironmentStatus401
-	| CreateCustomEnvironmentStatus402
-	| CreateCustomEnvironmentStatus403
-	| CreateCustomEnvironmentStatus404
-	| CreateCustomEnvironmentStatus409
-	| CreateCustomEnvironmentStatus410
-	| CreateCustomEnvironmentStatus500;
+export type CreateCustomEnvironmentResponse = CreateCustomEnvironmentStatus201;
 
 export type GetProjectsByIdOrNameCustomEnvironmentsPath = {
 	/**
@@ -37114,12 +35523,7 @@ export type GetProjectsByIdOrNameCustomEnvironmentsResponses = {
  * @description Union of all possible responses
  */
 export type GetProjectsByIdOrNameCustomEnvironmentsResponse =
-	| GetProjectsByIdOrNameCustomEnvironmentsStatus200
-	| GetProjectsByIdOrNameCustomEnvironmentsStatus400
-	| GetProjectsByIdOrNameCustomEnvironmentsStatus401
-	| GetProjectsByIdOrNameCustomEnvironmentsStatus403
-	| GetProjectsByIdOrNameCustomEnvironmentsStatus404
-	| GetProjectsByIdOrNameCustomEnvironmentsStatus410;
+	GetProjectsByIdOrNameCustomEnvironmentsStatus200;
 
 export type GetCustomEnvironmentPath = {
 	/**
@@ -37180,13 +35584,7 @@ export type GetCustomEnvironmentResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetCustomEnvironmentResponse =
-	| GetCustomEnvironmentStatus200
-	| GetCustomEnvironmentStatus400
-	| GetCustomEnvironmentStatus401
-	| GetCustomEnvironmentStatus403
-	| GetCustomEnvironmentStatus404
-	| GetCustomEnvironmentStatus410;
+export type GetCustomEnvironmentResponse = GetCustomEnvironmentStatus200;
 
 export type UpdateCustomEnvironmentPath = {
 	/**
@@ -37253,15 +35651,7 @@ export type UpdateCustomEnvironmentResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateCustomEnvironmentResponse =
-	| UpdateCustomEnvironmentStatus200
-	| UpdateCustomEnvironmentStatus400
-	| UpdateCustomEnvironmentStatus401
-	| UpdateCustomEnvironmentStatus402
-	| UpdateCustomEnvironmentStatus403
-	| UpdateCustomEnvironmentStatus404
-	| UpdateCustomEnvironmentStatus410
-	| UpdateCustomEnvironmentStatus500;
+export type UpdateCustomEnvironmentResponse = UpdateCustomEnvironmentStatus200;
 
 export type RemoveCustomEnvironmentPath = {
 	/**
@@ -37322,13 +35712,7 @@ export type RemoveCustomEnvironmentResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RemoveCustomEnvironmentResponse =
-	| RemoveCustomEnvironmentStatus200
-	| RemoveCustomEnvironmentStatus400
-	| RemoveCustomEnvironmentStatus401
-	| RemoveCustomEnvironmentStatus403
-	| RemoveCustomEnvironmentStatus404
-	| RemoveCustomEnvironmentStatus410;
+export type RemoveCustomEnvironmentResponse = RemoveCustomEnvironmentStatus200;
 
 export type GetProjectDomainsPath = {
 	/**
@@ -37486,13 +35870,7 @@ export type GetProjectDomainsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetProjectDomainsResponse =
-	| GetProjectDomainsStatus200
-	| GetProjectDomainsStatus400
-	| GetProjectDomainsStatus401
-	| GetProjectDomainsStatus403
-	| GetProjectDomainsStatus404
-	| GetProjectDomainsStatus410;
+export type GetProjectDomainsResponse = GetProjectDomainsStatus200;
 
 export type GetProjectDomainPath = {
 	/**
@@ -37554,13 +35932,7 @@ export type GetProjectDomainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetProjectDomainResponse =
-	| GetProjectDomainStatus200
-	| GetProjectDomainStatus400
-	| GetProjectDomainStatus401
-	| GetProjectDomainStatus403
-	| GetProjectDomainStatus404
-	| GetProjectDomainStatus410;
+export type GetProjectDomainResponse = GetProjectDomainStatus200;
 
 export type UpdateProjectDomainPath = {
 	/**
@@ -37625,14 +35997,7 @@ export type UpdateProjectDomainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateProjectDomainResponse =
-	| UpdateProjectDomainStatus200
-	| UpdateProjectDomainStatus400
-	| UpdateProjectDomainStatus401
-	| UpdateProjectDomainStatus403
-	| UpdateProjectDomainStatus404
-	| UpdateProjectDomainStatus409
-	| UpdateProjectDomainStatus410;
+export type UpdateProjectDomainResponse = UpdateProjectDomainStatus200;
 
 export type RemoveProjectDomainPath = {
 	/**
@@ -37697,14 +36062,7 @@ export type RemoveProjectDomainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RemoveProjectDomainResponse =
-	| RemoveProjectDomainStatus200
-	| RemoveProjectDomainStatus400
-	| RemoveProjectDomainStatus401
-	| RemoveProjectDomainStatus403
-	| RemoveProjectDomainStatus404
-	| RemoveProjectDomainStatus409
-	| RemoveProjectDomainStatus410;
+export type RemoveProjectDomainResponse = RemoveProjectDomainStatus200;
 
 export type AddProjectDomainPath = {
 	/**
@@ -37766,15 +36124,7 @@ export type AddProjectDomainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AddProjectDomainResponse =
-	| AddProjectDomainStatus200
-	| AddProjectDomainStatus400
-	| AddProjectDomainStatus401
-	| AddProjectDomainStatus402
-	| AddProjectDomainStatus403
-	| AddProjectDomainStatus404
-	| AddProjectDomainStatus409
-	| AddProjectDomainStatus410;
+export type AddProjectDomainResponse = AddProjectDomainStatus200;
 
 export type MoveProjectDomainPath = {
 	/**
@@ -37839,14 +36189,7 @@ export type MoveProjectDomainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MoveProjectDomainResponse =
-	| MoveProjectDomainStatus200
-	| MoveProjectDomainStatus400
-	| MoveProjectDomainStatus401
-	| MoveProjectDomainStatus403
-	| MoveProjectDomainStatus404
-	| MoveProjectDomainStatus409
-	| MoveProjectDomainStatus410;
+export type MoveProjectDomainResponse = MoveProjectDomainStatus200;
 
 export type VerifyProjectDomainPath = {
 	/**
@@ -37909,13 +36252,7 @@ export type VerifyProjectDomainResponses = {
 /**
  * @description Union of all possible responses
  */
-export type VerifyProjectDomainResponse =
-	| VerifyProjectDomainStatus200
-	| VerifyProjectDomainStatus400
-	| VerifyProjectDomainStatus401
-	| VerifyProjectDomainStatus403
-	| VerifyProjectDomainStatus404
-	| VerifyProjectDomainStatus410;
+export type VerifyProjectDomainResponse = VerifyProjectDomainStatus200;
 
 export type FilterProjectEnvsPath = {
 	/**
@@ -38012,13 +36349,7 @@ export type FilterProjectEnvsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type FilterProjectEnvsResponse =
-	| FilterProjectEnvsStatus200
-	| FilterProjectEnvsStatus400
-	| FilterProjectEnvsStatus401
-	| FilterProjectEnvsStatus403
-	| FilterProjectEnvsStatus404
-	| FilterProjectEnvsStatus410;
+export type FilterProjectEnvsResponse = FilterProjectEnvsStatus200;
 
 export type CreateProjectEnvPath = {
 	/**
@@ -38093,17 +36424,7 @@ export type CreateProjectEnvResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateProjectEnvResponse =
-	| CreateProjectEnvStatus201
-	| CreateProjectEnvStatus400
-	| CreateProjectEnvStatus401
-	| CreateProjectEnvStatus402
-	| CreateProjectEnvStatus403
-	| CreateProjectEnvStatus404
-	| CreateProjectEnvStatus409
-	| CreateProjectEnvStatus410
-	| CreateProjectEnvStatus429
-	| CreateProjectEnvStatus500;
+export type CreateProjectEnvResponse = CreateProjectEnvStatus201;
 
 export type GetProjectEnvPath = {
 	/**
@@ -38165,13 +36486,7 @@ export type GetProjectEnvResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetProjectEnvResponse =
-	| GetProjectEnvStatus200
-	| GetProjectEnvStatus400
-	| GetProjectEnvStatus401
-	| GetProjectEnvStatus403
-	| GetProjectEnvStatus404
-	| GetProjectEnvStatus410;
+export type GetProjectEnvResponse = GetProjectEnvStatus200;
 
 export type RemoveProjectEnvPath = {
 	/**
@@ -38243,14 +36558,7 @@ export type RemoveProjectEnvResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RemoveProjectEnvResponse =
-	| RemoveProjectEnvStatus200
-	| RemoveProjectEnvStatus400
-	| RemoveProjectEnvStatus401
-	| RemoveProjectEnvStatus403
-	| RemoveProjectEnvStatus404
-	| RemoveProjectEnvStatus409
-	| RemoveProjectEnvStatus410;
+export type RemoveProjectEnvResponse = RemoveProjectEnvStatus200;
 
 export type EditProjectEnvPath = {
 	/**
@@ -38322,16 +36630,7 @@ export type EditProjectEnvResponses = {
 /**
  * @description Union of all possible responses
  */
-export type EditProjectEnvResponse =
-	| EditProjectEnvStatus200
-	| EditProjectEnvStatus400
-	| EditProjectEnvStatus401
-	| EditProjectEnvStatus403
-	| EditProjectEnvStatus404
-	| EditProjectEnvStatus409
-	| EditProjectEnvStatus410
-	| EditProjectEnvStatus429
-	| EditProjectEnvStatus500;
+export type EditProjectEnvResponse = EditProjectEnvStatus200;
 
 export type BatchRemoveProjectEnvPath = {
 	/**
@@ -38391,14 +36690,7 @@ export type BatchRemoveProjectEnvResponses = {
 /**
  * @description Union of all possible responses
  */
-export type BatchRemoveProjectEnvResponse =
-	| BatchRemoveProjectEnvStatus200
-	| BatchRemoveProjectEnvStatus400
-	| BatchRemoveProjectEnvStatus401
-	| BatchRemoveProjectEnvStatus403
-	| BatchRemoveProjectEnvStatus404
-	| BatchRemoveProjectEnvStatus409
-	| BatchRemoveProjectEnvStatus410;
+export type BatchRemoveProjectEnvResponse = BatchRemoveProjectEnvStatus200;
 
 export type GetRollingReleaseBillingStatusPath = {
 	/**
@@ -38454,13 +36746,7 @@ export type GetRollingReleaseBillingStatusResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetRollingReleaseBillingStatusResponse =
-	| GetRollingReleaseBillingStatusStatus200
-	| GetRollingReleaseBillingStatusStatus400
-	| GetRollingReleaseBillingStatusStatus401
-	| GetRollingReleaseBillingStatusStatus403
-	| GetRollingReleaseBillingStatusStatus404
-	| GetRollingReleaseBillingStatusStatus410;
+export type GetRollingReleaseBillingStatusResponse = GetRollingReleaseBillingStatusStatus200;
 
 export type GetRollingReleaseConfigPath = {
 	/**
@@ -38516,13 +36802,7 @@ export type GetRollingReleaseConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetRollingReleaseConfigResponse =
-	| GetRollingReleaseConfigStatus200
-	| GetRollingReleaseConfigStatus400
-	| GetRollingReleaseConfigStatus401
-	| GetRollingReleaseConfigStatus403
-	| GetRollingReleaseConfigStatus404
-	| GetRollingReleaseConfigStatus410;
+export type GetRollingReleaseConfigResponse = GetRollingReleaseConfigStatus200;
 
 export type DeleteRollingReleaseConfigPath = {
 	/**
@@ -38578,13 +36858,7 @@ export type DeleteRollingReleaseConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteRollingReleaseConfigResponse =
-	| DeleteRollingReleaseConfigStatus200
-	| DeleteRollingReleaseConfigStatus400
-	| DeleteRollingReleaseConfigStatus401
-	| DeleteRollingReleaseConfigStatus403
-	| DeleteRollingReleaseConfigStatus404
-	| DeleteRollingReleaseConfigStatus410;
+export type DeleteRollingReleaseConfigResponse = DeleteRollingReleaseConfigStatus200;
 
 export type UpdateRollingReleaseConfigPath = {
 	/**
@@ -38640,13 +36914,7 @@ export type UpdateRollingReleaseConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateRollingReleaseConfigResponse =
-	| UpdateRollingReleaseConfigStatus200
-	| UpdateRollingReleaseConfigStatus400
-	| UpdateRollingReleaseConfigStatus401
-	| UpdateRollingReleaseConfigStatus403
-	| UpdateRollingReleaseConfigStatus404
-	| UpdateRollingReleaseConfigStatus410;
+export type UpdateRollingReleaseConfigResponse = UpdateRollingReleaseConfigStatus200;
 
 export type GetRollingReleasePath = {
 	/**
@@ -38716,13 +36984,7 @@ export type GetRollingReleaseResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetRollingReleaseResponse =
-	| GetRollingReleaseStatus200
-	| GetRollingReleaseStatus400
-	| GetRollingReleaseStatus401
-	| GetRollingReleaseStatus403
-	| GetRollingReleaseStatus404
-	| GetRollingReleaseStatus410;
+export type GetRollingReleaseResponse = GetRollingReleaseStatus200;
 
 export type ApproveRollingReleaseStagePath = {
 	/**
@@ -38781,14 +37043,7 @@ export type ApproveRollingReleaseStageResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ApproveRollingReleaseStageResponse =
-	| ApproveRollingReleaseStageStatus200
-	| ApproveRollingReleaseStageStatus400
-	| ApproveRollingReleaseStageStatus401
-	| ApproveRollingReleaseStageStatus403
-	| ApproveRollingReleaseStageStatus404
-	| ApproveRollingReleaseStageStatus410
-	| ApproveRollingReleaseStageStatus500;
+export type ApproveRollingReleaseStageResponse = ApproveRollingReleaseStageStatus200;
 
 export type StartRollingReleasePath = {
 	/**
@@ -38850,15 +37105,7 @@ export type StartRollingReleaseResponses = {
 /**
  * @description Union of all possible responses
  */
-export type StartRollingReleaseResponse =
-	| StartRollingReleaseStatus200
-	| StartRollingReleaseStatus400
-	| StartRollingReleaseStatus401
-	| StartRollingReleaseStatus403
-	| StartRollingReleaseStatus404
-	| StartRollingReleaseStatus409
-	| StartRollingReleaseStatus410
-	| StartRollingReleaseStatus422;
+export type StartRollingReleaseResponse = StartRollingReleaseStatus200;
 
 export type CompleteRollingReleasePath = {
 	/**
@@ -38914,13 +37161,7 @@ export type CompleteRollingReleaseResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CompleteRollingReleaseResponse =
-	| CompleteRollingReleaseStatus200
-	| CompleteRollingReleaseStatus400
-	| CompleteRollingReleaseStatus401
-	| CompleteRollingReleaseStatus403
-	| CompleteRollingReleaseStatus404
-	| CompleteRollingReleaseStatus410;
+export type CompleteRollingReleaseResponse = CompleteRollingReleaseStatus200;
 
 export type CreateProjectTransferRequestPath = {
 	/**
@@ -38979,14 +37220,7 @@ export type CreateProjectTransferRequestResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateProjectTransferRequestResponse =
-	| CreateProjectTransferRequestStatus200
-	| CreateProjectTransferRequestStatus400
-	| CreateProjectTransferRequestStatus401
-	| CreateProjectTransferRequestStatus403
-	| CreateProjectTransferRequestStatus404
-	| CreateProjectTransferRequestStatus409
-	| CreateProjectTransferRequestStatus410;
+export type CreateProjectTransferRequestResponse = CreateProjectTransferRequestStatus200;
 
 export type AcceptProjectTransferRequestPath = {
 	/**
@@ -39045,14 +37279,7 @@ export type AcceptProjectTransferRequestResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AcceptProjectTransferRequestResponse =
-	| AcceptProjectTransferRequestStatus202
-	| AcceptProjectTransferRequestStatus400
-	| AcceptProjectTransferRequestStatus401
-	| AcceptProjectTransferRequestStatus403
-	| AcceptProjectTransferRequestStatus404
-	| AcceptProjectTransferRequestStatus410
-	| AcceptProjectTransferRequestStatus422;
+export type AcceptProjectTransferRequestResponse = AcceptProjectTransferRequestStatus202;
 
 export type UpdateProjectProtectionBypassPath = {
 	/**
@@ -39111,14 +37338,7 @@ export type UpdateProjectProtectionBypassResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateProjectProtectionBypassResponse =
-	| UpdateProjectProtectionBypassStatus200
-	| UpdateProjectProtectionBypassStatus400
-	| UpdateProjectProtectionBypassStatus401
-	| UpdateProjectProtectionBypassStatus403
-	| UpdateProjectProtectionBypassStatus404
-	| UpdateProjectProtectionBypassStatus409
-	| UpdateProjectProtectionBypassStatus410;
+export type UpdateProjectProtectionBypassResponse = UpdateProjectProtectionBypassStatus200;
 
 export type RequestRollbackPath = {
 	projectId: string;
@@ -39189,16 +37409,7 @@ export type RequestRollbackResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RequestRollbackResponse =
-	| RequestRollbackStatus201
-	| RequestRollbackStatus400
-	| RequestRollbackStatus401
-	| RequestRollbackStatus402
-	| RequestRollbackStatus403
-	| RequestRollbackStatus404
-	| RequestRollbackStatus409
-	| RequestRollbackStatus410
-	| RequestRollbackStatus422;
+export type RequestRollbackResponse = RequestRollbackStatus201;
 
 export type UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionPath = {
 	projectId: string;
@@ -39243,14 +37454,7 @@ export type UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionResp
  * @description Union of all possible responses
  */
 export type UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionResponse =
-	| UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus200
-	| UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus400
-	| UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus401
-	| UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus403
-	| UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus404
-	| UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus409
-	| UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus410
-	| UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus422;
+	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus200;
 
 export type UpdateMicrofrontendsPath = {
 	/**
@@ -39313,15 +37517,7 @@ export type UpdateMicrofrontendsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateMicrofrontendsResponse =
-	| UpdateMicrofrontendsStatus200
-	| UpdateMicrofrontendsStatus400
-	| UpdateMicrofrontendsStatus401
-	| UpdateMicrofrontendsStatus403
-	| UpdateMicrofrontendsStatus404
-	| UpdateMicrofrontendsStatus409
-	| UpdateMicrofrontendsStatus410
-	| UpdateMicrofrontendsStatus500;
+export type UpdateMicrofrontendsResponse = UpdateMicrofrontendsStatus200;
 
 export type RequestPromotePath = {
 	projectId: string;
@@ -39383,16 +37579,7 @@ export type RequestPromoteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RequestPromoteResponse =
-	| RequestPromoteStatus201
-	| RequestPromoteStatus202
-	| RequestPromoteStatus400
-	| RequestPromoteStatus401
-	| RequestPromoteStatus403
-	| RequestPromoteStatus404
-	| RequestPromoteStatus409
-	| RequestPromoteStatus410
-	| RequestPromoteStatus422;
+export type RequestPromoteResponse = RequestPromoteStatus201 | RequestPromoteStatus202;
 
 export type ListPromoteAliasesPath = {
 	projectId: string;
@@ -39468,13 +37655,7 @@ export type ListPromoteAliasesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListPromoteAliasesResponse =
-	| ListPromoteAliasesStatus200
-	| ListPromoteAliasesStatus400
-	| ListPromoteAliasesStatus401
-	| ListPromoteAliasesStatus403
-	| ListPromoteAliasesStatus404
-	| ListPromoteAliasesStatus410;
+export type ListPromoteAliasesResponse = ListPromoteAliasesStatus200;
 
 export type PauseProjectPath = {
 	/**
@@ -39533,14 +37714,7 @@ export type PauseProjectResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PauseProjectResponse =
-	| PauseProjectStatus200
-	| PauseProjectStatus400
-	| PauseProjectStatus401
-	| PauseProjectStatus403
-	| PauseProjectStatus404
-	| PauseProjectStatus410
-	| PauseProjectStatus500;
+export type PauseProjectResponse = PauseProjectStatus200;
 
 export type UnpauseProjectPath = {
 	/**
@@ -39599,14 +37773,7 @@ export type UnpauseProjectResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UnpauseProjectResponse =
-	| UnpauseProjectStatus200
-	| UnpauseProjectStatus400
-	| UnpauseProjectStatus401
-	| UnpauseProjectStatus403
-	| UnpauseProjectStatus404
-	| UnpauseProjectStatus410
-	| UnpauseProjectStatus500;
+export type UnpauseProjectResponse = UnpauseProjectStatus200;
 
 export const listNamedSandboxesSortBy = {
 	createdAt: "createdAt",
@@ -39730,14 +37897,7 @@ export type ListNamedSandboxesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListNamedSandboxesResponse =
-	| ListNamedSandboxesStatus200
-	| ListNamedSandboxesStatus400
-	| ListNamedSandboxesStatus401
-	| ListNamedSandboxesStatus403
-	| ListNamedSandboxesStatus404
-	| ListNamedSandboxesStatus410
-	| ListNamedSandboxesStatus429;
+export type ListNamedSandboxesResponse = ListNamedSandboxesStatus200;
 
 export type CreateSandboxesV2Query = {
 	/**
@@ -39778,6 +37938,8 @@ export type CreateSandboxesV2Status500 = unknown;
 
 export type CreateSandboxesV2Status502 = unknown;
 
+export type CreateSandboxesV2Status503 = unknown;
+
 export type CreateSandboxesV2Options = {
 	body?: never | undefined;
 	path?: never | undefined;
@@ -39798,24 +37960,13 @@ export type CreateSandboxesV2Responses = {
 	"429": CreateSandboxesV2Status429;
 	"500": CreateSandboxesV2Status500;
 	"502": CreateSandboxesV2Status502;
+	"503": CreateSandboxesV2Status503;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type CreateSandboxesV2Response =
-	| CreateSandboxesV2Status200
-	| CreateSandboxesV2Status400
-	| CreateSandboxesV2Status401
-	| CreateSandboxesV2Status402
-	| CreateSandboxesV2Status403
-	| CreateSandboxesV2Status404
-	| CreateSandboxesV2Status409
-	| CreateSandboxesV2Status410
-	| CreateSandboxesV2Status422
-	| CreateSandboxesV2Status429
-	| CreateSandboxesV2Status500
-	| CreateSandboxesV2Status502;
+export type CreateSandboxesV2Response = CreateSandboxesV2Status200;
 
 export const listDrivesSortBy = {
 	createdAt: "createdAt",
@@ -39918,14 +38069,7 @@ export type ListDrivesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListDrivesResponse =
-	| ListDrivesStatus200
-	| ListDrivesStatus400
-	| ListDrivesStatus401
-	| ListDrivesStatus403
-	| ListDrivesStatus404
-	| ListDrivesStatus410
-	| ListDrivesStatus429;
+export type ListDrivesResponse = ListDrivesStatus200;
 
 export type GetDrivePath = {
 	/**
@@ -39993,14 +38137,7 @@ export type GetDriveResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDriveResponse =
-	| GetDriveStatus200
-	| GetDriveStatus400
-	| GetDriveStatus401
-	| GetDriveStatus403
-	| GetDriveStatus404
-	| GetDriveStatus410
-	| GetDriveStatus429;
+export type GetDriveResponse = GetDriveStatus200;
 
 export type GetOrCreateDrivePath = {
 	/**
@@ -40071,17 +38208,7 @@ export type GetOrCreateDriveResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetOrCreateDriveResponse =
-	| GetOrCreateDriveStatus200
-	| GetOrCreateDriveStatus201
-	| GetOrCreateDriveStatus400
-	| GetOrCreateDriveStatus401
-	| GetOrCreateDriveStatus402
-	| GetOrCreateDriveStatus403
-	| GetOrCreateDriveStatus404
-	| GetOrCreateDriveStatus409
-	| GetOrCreateDriveStatus410
-	| GetOrCreateDriveStatus429;
+export type GetOrCreateDriveResponse = GetOrCreateDriveStatus200 | GetOrCreateDriveStatus201;
 
 export type DeleteDrivePath = {
 	/**
@@ -40152,15 +38279,7 @@ export type DeleteDriveResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteDriveResponse =
-	| DeleteDriveStatus200
-	| DeleteDriveStatus400
-	| DeleteDriveStatus401
-	| DeleteDriveStatus403
-	| DeleteDriveStatus404
-	| DeleteDriveStatus409
-	| DeleteDriveStatus410
-	| DeleteDriveStatus429;
+export type DeleteDriveResponse = DeleteDriveStatus200;
 
 export type ForkDrivePath = {
 	/**
@@ -40237,17 +38356,7 @@ export type ForkDriveResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ForkDriveResponse =
-	| ForkDriveStatus201
-	| ForkDriveStatus400
-	| ForkDriveStatus401
-	| ForkDriveStatus402
-	| ForkDriveStatus403
-	| ForkDriveStatus404
-	| ForkDriveStatus409
-	| ForkDriveStatus410
-	| ForkDriveStatus429
-	| ForkDriveStatus503;
+export type ForkDriveResponse = ForkDriveStatus201;
 
 export const listSessionSnapshotsSortOrder = {
 	asc: "asc",
@@ -40340,14 +38449,7 @@ export type ListSessionSnapshotsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSessionSnapshotsResponse =
-	| ListSessionSnapshotsStatus200
-	| ListSessionSnapshotsStatus400
-	| ListSessionSnapshotsStatus401
-	| ListSessionSnapshotsStatus403
-	| ListSessionSnapshotsStatus404
-	| ListSessionSnapshotsStatus410
-	| ListSessionSnapshotsStatus429;
+export type ListSessionSnapshotsResponse = ListSessionSnapshotsStatus200;
 
 export type GetSessionSnapshotPath = {
 	/**
@@ -40409,14 +38511,7 @@ export type GetSessionSnapshotResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSessionSnapshotResponse =
-	| GetSessionSnapshotStatus200
-	| GetSessionSnapshotStatus400
-	| GetSessionSnapshotStatus401
-	| GetSessionSnapshotStatus403
-	| GetSessionSnapshotStatus404
-	| GetSessionSnapshotStatus410
-	| GetSessionSnapshotStatus429;
+export type GetSessionSnapshotResponse = GetSessionSnapshotStatus200;
 
 export type DeleteSessionSnapshotPath = {
 	/**
@@ -40478,14 +38573,7 @@ export type DeleteSessionSnapshotResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSessionSnapshotResponse =
-	| DeleteSessionSnapshotStatus200
-	| DeleteSessionSnapshotStatus400
-	| DeleteSessionSnapshotStatus401
-	| DeleteSessionSnapshotStatus403
-	| DeleteSessionSnapshotStatus404
-	| DeleteSessionSnapshotStatus410
-	| DeleteSessionSnapshotStatus429;
+export type DeleteSessionSnapshotResponse = DeleteSessionSnapshotStatus200;
 
 export const listSessionsSortOrder = {
 	asc: "asc",
@@ -40581,15 +38669,7 @@ export type ListSessionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSessionsResponse =
-	| ListSessionsStatus200
-	| ListSessionsStatus400
-	| ListSessionsStatus401
-	| ListSessionsStatus403
-	| ListSessionsStatus404
-	| ListSessionsStatus410
-	| ListSessionsStatus429
-	| ListSessionsStatus500;
+export type ListSessionsResponse = ListSessionsStatus200;
 
 export type GetSessionPath = {
 	/**
@@ -40652,15 +38732,7 @@ export type GetSessionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSessionResponse =
-	| GetSessionStatus200
-	| GetSessionStatus400
-	| GetSessionStatus401
-	| GetSessionStatus403
-	| GetSessionStatus404
-	| GetSessionStatus410
-	| GetSessionStatus429
-	| GetSessionStatus500;
+export type GetSessionResponse = GetSessionStatus200;
 
 export type GetNamedSandboxPath = {
 	/**
@@ -40724,6 +38796,8 @@ export type GetNamedSandboxStatus500 = unknown;
 
 export type GetNamedSandboxStatus502 = unknown;
 
+export type GetNamedSandboxStatus503 = unknown;
+
 export type GetNamedSandboxOptions = {
 	body?: never | undefined;
 	path: GetNamedSandboxPath;
@@ -40744,24 +38818,13 @@ export type GetNamedSandboxResponses = {
 	"429": GetNamedSandboxStatus429;
 	"500": GetNamedSandboxStatus500;
 	"502": GetNamedSandboxStatus502;
+	"503": GetNamedSandboxStatus503;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type GetNamedSandboxResponse =
-	| GetNamedSandboxStatus200
-	| GetNamedSandboxStatus400
-	| GetNamedSandboxStatus401
-	| GetNamedSandboxStatus402
-	| GetNamedSandboxStatus403
-	| GetNamedSandboxStatus404
-	| GetNamedSandboxStatus409
-	| GetNamedSandboxStatus410
-	| GetNamedSandboxStatus422
-	| GetNamedSandboxStatus429
-	| GetNamedSandboxStatus500
-	| GetNamedSandboxStatus502;
+export type GetNamedSandboxResponse = GetNamedSandboxStatus200;
 
 export type UpdateSandboxPath = {
 	/**
@@ -40825,6 +38888,8 @@ export type UpdateSandboxStatus500 = unknown;
 
 export type UpdateSandboxStatus502 = unknown;
 
+export type UpdateSandboxStatus503 = unknown;
+
 export type UpdateSandboxOptions = {
 	body?: never | undefined;
 	path: UpdateSandboxPath;
@@ -40845,24 +38910,13 @@ export type UpdateSandboxResponses = {
 	"429": UpdateSandboxStatus429;
 	"500": UpdateSandboxStatus500;
 	"502": UpdateSandboxStatus502;
+	"503": UpdateSandboxStatus503;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type UpdateSandboxResponse =
-	| UpdateSandboxStatus200
-	| UpdateSandboxStatus400
-	| UpdateSandboxStatus401
-	| UpdateSandboxStatus402
-	| UpdateSandboxStatus403
-	| UpdateSandboxStatus404
-	| UpdateSandboxStatus409
-	| UpdateSandboxStatus410
-	| UpdateSandboxStatus422
-	| UpdateSandboxStatus429
-	| UpdateSandboxStatus500
-	| UpdateSandboxStatus502;
+export type UpdateSandboxResponse = UpdateSandboxStatus200;
 
 export type DeleteSandboxPath = {
 	/**
@@ -40936,14 +38990,7 @@ export type DeleteSandboxResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSandboxResponse =
-	| DeleteSandboxStatus200
-	| DeleteSandboxStatus400
-	| DeleteSandboxStatus401
-	| DeleteSandboxStatus403
-	| DeleteSandboxStatus404
-	| DeleteSandboxStatus410
-	| DeleteSandboxStatus429;
+export type DeleteSandboxResponse = DeleteSandboxStatus200;
 
 export type ListSessionCommandsPath = {
 	/**
@@ -41003,14 +39050,7 @@ export type ListSessionCommandsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSessionCommandsResponse =
-	| ListSessionCommandsStatus200
-	| ListSessionCommandsStatus400
-	| ListSessionCommandsStatus401
-	| ListSessionCommandsStatus403
-	| ListSessionCommandsStatus404
-	| ListSessionCommandsStatus410
-	| ListSessionCommandsStatus429;
+export type ListSessionCommandsResponse = ListSessionCommandsStatus200;
 
 export type RunSessionCommandPath = {
 	/**
@@ -41082,16 +39122,7 @@ export type RunSessionCommandResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RunSessionCommandResponse =
-	| RunSessionCommandStatus200
-	| RunSessionCommandStatus400
-	| RunSessionCommandStatus401
-	| RunSessionCommandStatus403
-	| RunSessionCommandStatus404
-	| RunSessionCommandStatus410
-	| RunSessionCommandStatus422
-	| RunSessionCommandStatus429
-	| RunSessionCommandStatus500;
+export type RunSessionCommandResponse = RunSessionCommandStatus200;
 
 export type GetSessionCommandPath = {
 	/**
@@ -41177,16 +39208,7 @@ export type GetSessionCommandResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSessionCommandResponse =
-	| GetSessionCommandStatus200
-	| GetSessionCommandStatus400
-	| GetSessionCommandStatus401
-	| GetSessionCommandStatus403
-	| GetSessionCommandStatus404
-	| GetSessionCommandStatus410
-	| GetSessionCommandStatus422
-	| GetSessionCommandStatus429
-	| GetSessionCommandStatus500;
+export type GetSessionCommandResponse = GetSessionCommandStatus200;
 
 export type KillSessionCommandPath = {
 	/**
@@ -41258,16 +39280,88 @@ export type KillSessionCommandResponses = {
 /**
  * @description Union of all possible responses
  */
-export type KillSessionCommandResponse =
-	| KillSessionCommandStatus200
-	| KillSessionCommandStatus400
-	| KillSessionCommandStatus401
-	| KillSessionCommandStatus403
-	| KillSessionCommandStatus404
-	| KillSessionCommandStatus410
-	| KillSessionCommandStatus422
-	| KillSessionCommandStatus429
-	| KillSessionCommandStatus500;
+export type KillSessionCommandResponse = KillSessionCommandStatus200;
+
+export type WriteSessionCommandStdinPath = {
+	/**
+	 * @description The unique identifier of the command to write to.
+	 * @example cmd_abc123
+	 * @type string
+	 */
+	cmdId: string;
+	/**
+	 * @description The unique identifier of the session containing the command.
+	 * @example sbx_abc123
+	 * @type string
+	 */
+	sessionId: string;
+};
+
+export type WriteSessionCommandStdinQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type WriteSessionCommandStdinStatus200 = unknown;
+
+export type WriteSessionCommandStdinStatus400 = unknown;
+
+export type WriteSessionCommandStdinStatus401 = unknown;
+
+export type WriteSessionCommandStdinStatus403 = unknown;
+
+export type WriteSessionCommandStdinStatus404 = unknown;
+
+export type WriteSessionCommandStdinStatus409 = unknown;
+
+export type WriteSessionCommandStdinStatus410 = unknown;
+
+export type WriteSessionCommandStdinStatus422 = unknown;
+
+export type WriteSessionCommandStdinStatus429 = unknown;
+
+export type WriteSessionCommandStdinStatus500 = unknown;
+
+export type WriteSessionCommandStdinStatus502 = unknown;
+
+export type WriteSessionCommandStdinStatus504 = unknown;
+
+export type WriteSessionCommandStdinOptions = {
+	body?: never | undefined;
+	path: WriteSessionCommandStdinPath;
+	query?: WriteSessionCommandStdinQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type WriteSessionCommandStdinResponses = {
+	"200": WriteSessionCommandStdinStatus200;
+	"400": WriteSessionCommandStdinStatus400;
+	"401": WriteSessionCommandStdinStatus401;
+	"403": WriteSessionCommandStdinStatus403;
+	"404": WriteSessionCommandStdinStatus404;
+	"409": WriteSessionCommandStdinStatus409;
+	"410": WriteSessionCommandStdinStatus410;
+	"422": WriteSessionCommandStdinStatus422;
+	"429": WriteSessionCommandStdinStatus429;
+	"500": WriteSessionCommandStdinStatus500;
+	"502": WriteSessionCommandStdinStatus502;
+	"504": WriteSessionCommandStdinStatus504;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type WriteSessionCommandStdinResponse = WriteSessionCommandStdinStatus200;
 
 export type GetSessionCommandLogsPath = {
 	/**
@@ -41339,16 +39433,7 @@ export type GetSessionCommandLogsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSessionCommandLogsResponse =
-	| GetSessionCommandLogsStatus200
-	| GetSessionCommandLogsStatus400
-	| GetSessionCommandLogsStatus401
-	| GetSessionCommandLogsStatus403
-	| GetSessionCommandLogsStatus404
-	| GetSessionCommandLogsStatus410
-	| GetSessionCommandLogsStatus422
-	| GetSessionCommandLogsStatus429
-	| GetSessionCommandLogsStatus500;
+export type GetSessionCommandLogsResponse = GetSessionCommandLogsStatus200;
 
 export type StopSessionPath = {
 	/**
@@ -41414,16 +39499,7 @@ export type StopSessionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type StopSessionResponse =
-	| StopSessionStatus200
-	| StopSessionStatus400
-	| StopSessionStatus401
-	| StopSessionStatus403
-	| StopSessionStatus404
-	| StopSessionStatus410
-	| StopSessionStatus422
-	| StopSessionStatus429
-	| StopSessionStatus500;
+export type StopSessionResponse = StopSessionStatus200;
 
 export type ExtendSessionTimeoutPath = {
 	/**
@@ -41489,16 +39565,7 @@ export type ExtendSessionTimeoutResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ExtendSessionTimeoutResponse =
-	| ExtendSessionTimeoutStatus200
-	| ExtendSessionTimeoutStatus400
-	| ExtendSessionTimeoutStatus401
-	| ExtendSessionTimeoutStatus403
-	| ExtendSessionTimeoutStatus404
-	| ExtendSessionTimeoutStatus410
-	| ExtendSessionTimeoutStatus422
-	| ExtendSessionTimeoutStatus429
-	| ExtendSessionTimeoutStatus500;
+export type ExtendSessionTimeoutResponse = ExtendSessionTimeoutStatus200;
 
 export type UpdateSessionNetworkPolicyPath = {
 	/**
@@ -41564,16 +39631,7 @@ export type UpdateSessionNetworkPolicyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateSessionNetworkPolicyResponse =
-	| UpdateSessionNetworkPolicyStatus200
-	| UpdateSessionNetworkPolicyStatus400
-	| UpdateSessionNetworkPolicyStatus401
-	| UpdateSessionNetworkPolicyStatus403
-	| UpdateSessionNetworkPolicyStatus404
-	| UpdateSessionNetworkPolicyStatus410
-	| UpdateSessionNetworkPolicyStatus422
-	| UpdateSessionNetworkPolicyStatus429
-	| UpdateSessionNetworkPolicyStatus500;
+export type UpdateSessionNetworkPolicyResponse = UpdateSessionNetworkPolicyStatus200;
 
 export type ReadSessionFilePath = {
 	/**
@@ -41639,16 +39697,7 @@ export type ReadSessionFileResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReadSessionFileResponse =
-	| ReadSessionFileStatus200
-	| ReadSessionFileStatus400
-	| ReadSessionFileStatus401
-	| ReadSessionFileStatus403
-	| ReadSessionFileStatus404
-	| ReadSessionFileStatus410
-	| ReadSessionFileStatus422
-	| ReadSessionFileStatus429
-	| ReadSessionFileStatus500;
+export type ReadSessionFileResponse = ReadSessionFileStatus200;
 
 export type CreateSessionDirectoryPath = {
 	/**
@@ -41714,16 +39763,7 @@ export type CreateSessionDirectoryResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSessionDirectoryResponse =
-	| CreateSessionDirectoryStatus200
-	| CreateSessionDirectoryStatus400
-	| CreateSessionDirectoryStatus401
-	| CreateSessionDirectoryStatus403
-	| CreateSessionDirectoryStatus404
-	| CreateSessionDirectoryStatus410
-	| CreateSessionDirectoryStatus422
-	| CreateSessionDirectoryStatus429
-	| CreateSessionDirectoryStatus500;
+export type CreateSessionDirectoryResponse = CreateSessionDirectoryStatus200;
 
 export type WriteSessionFilesPath = {
 	/**
@@ -41798,16 +39838,7 @@ export type WriteSessionFilesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WriteSessionFilesResponse =
-	| WriteSessionFilesStatus200
-	| WriteSessionFilesStatus400
-	| WriteSessionFilesStatus401
-	| WriteSessionFilesStatus403
-	| WriteSessionFilesStatus404
-	| WriteSessionFilesStatus410
-	| WriteSessionFilesStatus422
-	| WriteSessionFilesStatus429
-	| WriteSessionFilesStatus500;
+export type WriteSessionFilesResponse = WriteSessionFilesStatus200;
 
 export type CreateSandboxesSessionsBySessionIdSnapshotV2Path = {
 	/**
@@ -41877,16 +39908,7 @@ export type CreateSandboxesSessionsBySessionIdSnapshotV2Responses = {
  * @description Union of all possible responses
  */
 export type CreateSandboxesSessionsBySessionIdSnapshotV2Response =
-	| CreateSandboxesSessionsBySessionIdSnapshotV2Status201
-	| CreateSandboxesSessionsBySessionIdSnapshotV2Status400
-	| CreateSandboxesSessionsBySessionIdSnapshotV2Status401
-	| CreateSandboxesSessionsBySessionIdSnapshotV2Status402
-	| CreateSandboxesSessionsBySessionIdSnapshotV2Status403
-	| CreateSandboxesSessionsBySessionIdSnapshotV2Status404
-	| CreateSandboxesSessionsBySessionIdSnapshotV2Status410
-	| CreateSandboxesSessionsBySessionIdSnapshotV2Status422
-	| CreateSandboxesSessionsBySessionIdSnapshotV2Status429
-	| CreateSandboxesSessionsBySessionIdSnapshotV2Status500;
+	CreateSandboxesSessionsBySessionIdSnapshotV2Status201;
 
 export type CreateSandboxesByNameForkV2Path = {
 	/**
@@ -41943,6 +39965,8 @@ export type CreateSandboxesByNameForkV2Status500 = unknown;
 
 export type CreateSandboxesByNameForkV2Status502 = unknown;
 
+export type CreateSandboxesByNameForkV2Status503 = unknown;
+
 export type CreateSandboxesByNameForkV2Options = {
 	body?: never | undefined;
 	path: CreateSandboxesByNameForkV2Path;
@@ -41963,24 +39987,13 @@ export type CreateSandboxesByNameForkV2Responses = {
 	"429": CreateSandboxesByNameForkV2Status429;
 	"500": CreateSandboxesByNameForkV2Status500;
 	"502": CreateSandboxesByNameForkV2Status502;
+	"503": CreateSandboxesByNameForkV2Status503;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type CreateSandboxesByNameForkV2Response =
-	| CreateSandboxesByNameForkV2Status200
-	| CreateSandboxesByNameForkV2Status400
-	| CreateSandboxesByNameForkV2Status401
-	| CreateSandboxesByNameForkV2Status402
-	| CreateSandboxesByNameForkV2Status403
-	| CreateSandboxesByNameForkV2Status404
-	| CreateSandboxesByNameForkV2Status409
-	| CreateSandboxesByNameForkV2Status410
-	| CreateSandboxesByNameForkV2Status422
-	| CreateSandboxesByNameForkV2Status429
-	| CreateSandboxesByNameForkV2Status500
-	| CreateSandboxesByNameForkV2Status502;
+export type CreateSandboxesByNameForkV2Response = CreateSandboxesByNameForkV2Status200;
 
 export type CreateSandboxesV3Query = {
 	/**
@@ -42021,6 +40034,8 @@ export type CreateSandboxesV3Status500 = unknown;
 
 export type CreateSandboxesV3Status502 = unknown;
 
+export type CreateSandboxesV3Status503 = unknown;
+
 export type CreateSandboxesV3Options = {
 	body?: never | undefined;
 	path?: never | undefined;
@@ -42041,24 +40056,13 @@ export type CreateSandboxesV3Responses = {
 	"429": CreateSandboxesV3Status429;
 	"500": CreateSandboxesV3Status500;
 	"502": CreateSandboxesV3Status502;
+	"503": CreateSandboxesV3Status503;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type CreateSandboxesV3Response =
-	| CreateSandboxesV3Status200
-	| CreateSandboxesV3Status400
-	| CreateSandboxesV3Status401
-	| CreateSandboxesV3Status402
-	| CreateSandboxesV3Status403
-	| CreateSandboxesV3Status404
-	| CreateSandboxesV3Status409
-	| CreateSandboxesV3Status410
-	| CreateSandboxesV3Status422
-	| CreateSandboxesV3Status429
-	| CreateSandboxesV3Status500
-	| CreateSandboxesV3Status502;
+export type CreateSandboxesV3Response = CreateSandboxesV3Status200;
 
 export type CreateSandboxesSessionsBySessionIdSnapshotV3Path = {
 	/**
@@ -42128,16 +40132,7 @@ export type CreateSandboxesSessionsBySessionIdSnapshotV3Responses = {
  * @description Union of all possible responses
  */
 export type CreateSandboxesSessionsBySessionIdSnapshotV3Response =
-	| CreateSandboxesSessionsBySessionIdSnapshotV3Status201
-	| CreateSandboxesSessionsBySessionIdSnapshotV3Status400
-	| CreateSandboxesSessionsBySessionIdSnapshotV3Status401
-	| CreateSandboxesSessionsBySessionIdSnapshotV3Status402
-	| CreateSandboxesSessionsBySessionIdSnapshotV3Status403
-	| CreateSandboxesSessionsBySessionIdSnapshotV3Status404
-	| CreateSandboxesSessionsBySessionIdSnapshotV3Status410
-	| CreateSandboxesSessionsBySessionIdSnapshotV3Status422
-	| CreateSandboxesSessionsBySessionIdSnapshotV3Status429
-	| CreateSandboxesSessionsBySessionIdSnapshotV3Status500;
+	CreateSandboxesSessionsBySessionIdSnapshotV3Status201;
 
 export type CreateSandboxesByNameForkV3Path = {
 	/**
@@ -42194,6 +40189,8 @@ export type CreateSandboxesByNameForkV3Status500 = unknown;
 
 export type CreateSandboxesByNameForkV3Status502 = unknown;
 
+export type CreateSandboxesByNameForkV3Status503 = unknown;
+
 export type CreateSandboxesByNameForkV3Options = {
 	body?: never | undefined;
 	path: CreateSandboxesByNameForkV3Path;
@@ -42214,24 +40211,13 @@ export type CreateSandboxesByNameForkV3Responses = {
 	"429": CreateSandboxesByNameForkV3Status429;
 	"500": CreateSandboxesByNameForkV3Status500;
 	"502": CreateSandboxesByNameForkV3Status502;
+	"503": CreateSandboxesByNameForkV3Status503;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type CreateSandboxesByNameForkV3Response =
-	| CreateSandboxesByNameForkV3Status200
-	| CreateSandboxesByNameForkV3Status400
-	| CreateSandboxesByNameForkV3Status401
-	| CreateSandboxesByNameForkV3Status402
-	| CreateSandboxesByNameForkV3Status403
-	| CreateSandboxesByNameForkV3Status404
-	| CreateSandboxesByNameForkV3Status409
-	| CreateSandboxesByNameForkV3Status410
-	| CreateSandboxesByNameForkV3Status422
-	| CreateSandboxesByNameForkV3Status429
-	| CreateSandboxesByNameForkV3Status500
-	| CreateSandboxesByNameForkV3Status502;
+export type CreateSandboxesByNameForkV3Response = CreateSandboxesByNameForkV3Status200;
 
 export type CreateSandboxesV4Query = {
 	/**
@@ -42272,6 +40258,8 @@ export type CreateSandboxesV4Status500 = unknown;
 
 export type CreateSandboxesV4Status502 = unknown;
 
+export type CreateSandboxesV4Status503 = unknown;
+
 export type CreateSandboxesV4Options = {
 	body?: never | undefined;
 	path?: never | undefined;
@@ -42292,24 +40280,13 @@ export type CreateSandboxesV4Responses = {
 	"429": CreateSandboxesV4Status429;
 	"500": CreateSandboxesV4Status500;
 	"502": CreateSandboxesV4Status502;
+	"503": CreateSandboxesV4Status503;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type CreateSandboxesV4Response =
-	| CreateSandboxesV4Status200
-	| CreateSandboxesV4Status400
-	| CreateSandboxesV4Status401
-	| CreateSandboxesV4Status402
-	| CreateSandboxesV4Status403
-	| CreateSandboxesV4Status404
-	| CreateSandboxesV4Status409
-	| CreateSandboxesV4Status410
-	| CreateSandboxesV4Status422
-	| CreateSandboxesV4Status429
-	| CreateSandboxesV4Status500
-	| CreateSandboxesV4Status502;
+export type CreateSandboxesV4Response = CreateSandboxesV4Status200;
 
 export type UpdateAttackChallengeModeQuery = {
 	/**
@@ -42357,13 +40334,7 @@ export type UpdateAttackChallengeModeResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateAttackChallengeModeResponse =
-	| UpdateAttackChallengeModeStatus200
-	| UpdateAttackChallengeModeStatus400
-	| UpdateAttackChallengeModeStatus401
-	| UpdateAttackChallengeModeStatus403
-	| UpdateAttackChallengeModeStatus404
-	| UpdateAttackChallengeModeStatus410;
+export type UpdateAttackChallengeModeResponse = UpdateAttackChallengeModeStatus200;
 
 export type GetSecurityFirewallConfigStatus200 = unknown;
 
@@ -42396,13 +40367,7 @@ export type GetSecurityFirewallConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSecurityFirewallConfigResponse =
-	| GetSecurityFirewallConfigStatus200
-	| GetSecurityFirewallConfigStatus400
-	| GetSecurityFirewallConfigStatus401
-	| GetSecurityFirewallConfigStatus403
-	| GetSecurityFirewallConfigStatus404
-	| GetSecurityFirewallConfigStatus410;
+export type GetSecurityFirewallConfigResponse = GetSecurityFirewallConfigStatus200;
 
 export type PutFirewallConfigQuery = {
 	projectId: string;
@@ -42457,15 +40422,7 @@ export type PutFirewallConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutFirewallConfigResponse =
-	| PutFirewallConfigStatus200
-	| PutFirewallConfigStatus400
-	| PutFirewallConfigStatus401
-	| PutFirewallConfigStatus402
-	| PutFirewallConfigStatus403
-	| PutFirewallConfigStatus404
-	| PutFirewallConfigStatus410
-	| PutFirewallConfigStatus500;
+export type PutFirewallConfigResponse = PutFirewallConfigStatus200;
 
 export type UpdateFirewallConfigQuery = {
 	projectId: string;
@@ -42520,15 +40477,7 @@ export type UpdateFirewallConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateFirewallConfigResponse =
-	| UpdateFirewallConfigStatus200
-	| UpdateFirewallConfigStatus400
-	| UpdateFirewallConfigStatus401
-	| UpdateFirewallConfigStatus402
-	| UpdateFirewallConfigStatus403
-	| UpdateFirewallConfigStatus404
-	| UpdateFirewallConfigStatus410
-	| UpdateFirewallConfigStatus500;
+export type UpdateFirewallConfigResponse = UpdateFirewallConfigStatus200;
 
 export type GetFirewallConfigPath = {
 	/**
@@ -42585,13 +40534,7 @@ export type GetFirewallConfigResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetFirewallConfigResponse =
-	| GetFirewallConfigStatus200
-	| GetFirewallConfigStatus400
-	| GetFirewallConfigStatus401
-	| GetFirewallConfigStatus403
-	| GetFirewallConfigStatus404
-	| GetFirewallConfigStatus410;
+export type GetFirewallConfigResponse = GetFirewallConfigStatus200;
 
 export type DeleteSecurityFirewallConfigByConfigVersionPath = {
 	/**
@@ -42636,13 +40579,7 @@ export type DeleteSecurityFirewallConfigByConfigVersionResponses = {
  * @description Union of all possible responses
  */
 export type DeleteSecurityFirewallConfigByConfigVersionResponse =
-	| DeleteSecurityFirewallConfigByConfigVersionStatus204
-	| DeleteSecurityFirewallConfigByConfigVersionStatus400
-	| DeleteSecurityFirewallConfigByConfigVersionStatus401
-	| DeleteSecurityFirewallConfigByConfigVersionStatus403
-	| DeleteSecurityFirewallConfigByConfigVersionStatus404
-	| DeleteSecurityFirewallConfigByConfigVersionStatus410
-	| DeleteSecurityFirewallConfigByConfigVersionStatus500;
+	DeleteSecurityFirewallConfigByConfigVersionStatus204;
 
 export type CreateSecurityFirewallConfigByConfigVersionActivatePath = {
 	/**
@@ -42690,14 +40627,7 @@ export type CreateSecurityFirewallConfigByConfigVersionActivateResponses = {
  * @description Union of all possible responses
  */
 export type CreateSecurityFirewallConfigByConfigVersionActivateResponse =
-	| CreateSecurityFirewallConfigByConfigVersionActivateStatus200
-	| CreateSecurityFirewallConfigByConfigVersionActivateStatus400
-	| CreateSecurityFirewallConfigByConfigVersionActivateStatus401
-	| CreateSecurityFirewallConfigByConfigVersionActivateStatus402
-	| CreateSecurityFirewallConfigByConfigVersionActivateStatus403
-	| CreateSecurityFirewallConfigByConfigVersionActivateStatus404
-	| CreateSecurityFirewallConfigByConfigVersionActivateStatus410
-	| CreateSecurityFirewallConfigByConfigVersionActivateStatus500;
+	CreateSecurityFirewallConfigByConfigVersionActivateStatus200;
 
 export type GetActiveAttackStatusQuery = {
 	projectId: string;
@@ -42751,13 +40681,7 @@ export type GetActiveAttackStatusResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetActiveAttackStatusResponse =
-	| GetActiveAttackStatusStatus200
-	| GetActiveAttackStatusStatus400
-	| GetActiveAttackStatusStatus401
-	| GetActiveAttackStatusStatus403
-	| GetActiveAttackStatusStatus404
-	| GetActiveAttackStatusStatus410;
+export type GetActiveAttackStatusResponse = GetActiveAttackStatusStatus200;
 
 export type GetBypassIpQuery = {
 	projectId: string;
@@ -42842,15 +40766,7 @@ export type GetBypassIpResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetBypassIpResponse =
-	| GetBypassIpStatus200
-	| GetBypassIpStatus400
-	| GetBypassIpStatus401
-	| GetBypassIpStatus402
-	| GetBypassIpStatus403
-	| GetBypassIpStatus404
-	| GetBypassIpStatus410
-	| GetBypassIpStatus500;
+export type GetBypassIpResponse = GetBypassIpStatus200;
 
 export type AddBypassIpQuery = {
 	projectId: string;
@@ -42905,15 +40821,7 @@ export type AddBypassIpResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AddBypassIpResponse =
-	| AddBypassIpStatus200
-	| AddBypassIpStatus400
-	| AddBypassIpStatus401
-	| AddBypassIpStatus402
-	| AddBypassIpStatus403
-	| AddBypassIpStatus404
-	| AddBypassIpStatus410
-	| AddBypassIpStatus500;
+export type AddBypassIpResponse = AddBypassIpStatus200;
 
 export type RemoveBypassIpQuery = {
 	projectId: string;
@@ -42968,15 +40876,7 @@ export type RemoveBypassIpResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RemoveBypassIpResponse =
-	| RemoveBypassIpStatus200
-	| RemoveBypassIpStatus400
-	| RemoveBypassIpStatus401
-	| RemoveBypassIpStatus402
-	| RemoveBypassIpStatus403
-	| RemoveBypassIpStatus404
-	| RemoveBypassIpStatus410
-	| RemoveBypassIpStatus500;
+export type RemoveBypassIpResponse = RemoveBypassIpStatus200;
 
 export const getSecurityFirewallEventsSort = {
 	"startTime:desc": "startTime:desc",
@@ -43087,15 +40987,7 @@ export type GetSecurityFirewallEventsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSecurityFirewallEventsResponse =
-	| GetSecurityFirewallEventsStatus200
-	| GetSecurityFirewallEventsStatus400
-	| GetSecurityFirewallEventsStatus401
-	| GetSecurityFirewallEventsStatus403
-	| GetSecurityFirewallEventsStatus404
-	| GetSecurityFirewallEventsStatus408
-	| GetSecurityFirewallEventsStatus410
-	| GetSecurityFirewallEventsStatus500;
+export type GetSecurityFirewallEventsResponse = GetSecurityFirewallEventsStatus200;
 
 export const getSecurityFirewallEventsSummaryActionEnum = {
 	deny: "deny",
@@ -43190,15 +41082,7 @@ export type GetSecurityFirewallEventsSummaryResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSecurityFirewallEventsSummaryResponse =
-	| GetSecurityFirewallEventsSummaryStatus200
-	| GetSecurityFirewallEventsSummaryStatus400
-	| GetSecurityFirewallEventsSummaryStatus401
-	| GetSecurityFirewallEventsSummaryStatus403
-	| GetSecurityFirewallEventsSummaryStatus404
-	| GetSecurityFirewallEventsSummaryStatus408
-	| GetSecurityFirewallEventsSummaryStatus410
-	| GetSecurityFirewallEventsSummaryStatus500;
+export type GetSecurityFirewallEventsSummaryResponse = GetSecurityFirewallEventsSummaryStatus200;
 
 export type GenerateFirewallRuleQuery = {
 	projectId?: string | undefined;
@@ -43253,15 +41137,7 @@ export type GenerateFirewallRuleResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GenerateFirewallRuleResponse =
-	| GenerateFirewallRuleStatus200
-	| GenerateFirewallRuleStatus400
-	| GenerateFirewallRuleStatus401
-	| GenerateFirewallRuleStatus403
-	| GenerateFirewallRuleStatus404
-	| GenerateFirewallRuleStatus408
-	| GenerateFirewallRuleStatus410
-	| GenerateFirewallRuleStatus500;
+export type GenerateFirewallRuleResponse = GenerateFirewallRuleStatus200;
 
 export type CreateSpeedInsightsToggleQuery = {
 	projectId: string;
@@ -43301,14 +41177,7 @@ export type CreateSpeedInsightsToggleResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSpeedInsightsToggleResponse =
-	| CreateSpeedInsightsToggleStatus200
-	| CreateSpeedInsightsToggleStatus400
-	| CreateSpeedInsightsToggleStatus401
-	| CreateSpeedInsightsToggleStatus402
-	| CreateSpeedInsightsToggleStatus403
-	| CreateSpeedInsightsToggleStatus404
-	| CreateSpeedInsightsToggleStatus410;
+export type CreateSpeedInsightsToggleResponse = CreateSpeedInsightsToggleStatus200;
 
 export type GetStorageStoresByIdPath = {
 	id: string;
@@ -43350,13 +41219,7 @@ export type GetStorageStoresByIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetStorageStoresByIdResponse =
-	| GetStorageStoresByIdStatus200
-	| GetStorageStoresByIdStatus400
-	| GetStorageStoresByIdStatus401
-	| GetStorageStoresByIdStatus403
-	| GetStorageStoresByIdStatus404
-	| GetStorageStoresByIdStatus410;
+export type GetStorageStoresByIdResponse = GetStorageStoresByIdStatus200;
 
 export type CreateStorageStoresBlobStatus200 = unknown;
 
@@ -43398,16 +41261,7 @@ export type CreateStorageStoresBlobResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateStorageStoresBlobResponse =
-	| CreateStorageStoresBlobStatus200
-	| CreateStorageStoresBlobStatus400
-	| CreateStorageStoresBlobStatus401
-	| CreateStorageStoresBlobStatus402
-	| CreateStorageStoresBlobStatus403
-	| CreateStorageStoresBlobStatus404
-	| CreateStorageStoresBlobStatus409
-	| CreateStorageStoresBlobStatus410
-	| CreateStorageStoresBlobStatus429;
+export type CreateStorageStoresBlobResponse = CreateStorageStoresBlobStatus200;
 
 export type DeleteStorageStoresBlobByIdPath = {
 	id: string;
@@ -43447,14 +41301,7 @@ export type DeleteStorageStoresBlobByIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteStorageStoresBlobByIdResponse =
-	| DeleteStorageStoresBlobByIdStatus200
-	| DeleteStorageStoresBlobByIdStatus400
-	| DeleteStorageStoresBlobByIdStatus401
-	| DeleteStorageStoresBlobByIdStatus403
-	| DeleteStorageStoresBlobByIdStatus404
-	| DeleteStorageStoresBlobByIdStatus409
-	| DeleteStorageStoresBlobByIdStatus410;
+export type DeleteStorageStoresBlobByIdResponse = DeleteStorageStoresBlobByIdStatus200;
 
 export type CreateIntegrationStoreDirectQuery = {
 	/**
@@ -43511,16 +41358,7 @@ export type CreateIntegrationStoreDirectResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateIntegrationStoreDirectResponse =
-	| CreateIntegrationStoreDirectStatus200
-	| CreateIntegrationStoreDirectStatus400
-	| CreateIntegrationStoreDirectStatus401
-	| CreateIntegrationStoreDirectStatus402
-	| CreateIntegrationStoreDirectStatus403
-	| CreateIntegrationStoreDirectStatus404
-	| CreateIntegrationStoreDirectStatus409
-	| CreateIntegrationStoreDirectStatus410
-	| CreateIntegrationStoreDirectStatus500;
+export type CreateIntegrationStoreDirectResponse = CreateIntegrationStoreDirectStatus200;
 
 export type GetTeamMembersPath = {
 	/**
@@ -43624,13 +41462,7 @@ export type GetTeamMembersResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetTeamMembersResponse =
-	| GetTeamMembersStatus200
-	| GetTeamMembersStatus400
-	| GetTeamMembersStatus401
-	| GetTeamMembersStatus403
-	| GetTeamMembersStatus404
-	| GetTeamMembersStatus410;
+export type GetTeamMembersResponse = GetTeamMembersStatus200;
 
 export type InviteUserToTeamPath = {
 	/**
@@ -43684,14 +41516,7 @@ export type InviteUserToTeamResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InviteUserToTeamResponse =
-	| InviteUserToTeamStatus200
-	| InviteUserToTeamStatus400
-	| InviteUserToTeamStatus401
-	| InviteUserToTeamStatus403
-	| InviteUserToTeamStatus404
-	| InviteUserToTeamStatus410
-	| InviteUserToTeamStatus503;
+export type InviteUserToTeamResponse = InviteUserToTeamStatus200;
 
 export type RequestAccessToTeamPath = {
 	/**
@@ -43739,15 +41564,7 @@ export type RequestAccessToTeamResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RequestAccessToTeamResponse =
-	| RequestAccessToTeamStatus200
-	| RequestAccessToTeamStatus400
-	| RequestAccessToTeamStatus401
-	| RequestAccessToTeamStatus403
-	| RequestAccessToTeamStatus404
-	| RequestAccessToTeamStatus410
-	| RequestAccessToTeamStatus429
-	| RequestAccessToTeamStatus503;
+export type RequestAccessToTeamResponse = RequestAccessToTeamStatus200;
 
 export type GetTeamAccessRequestPath = {
 	/**
@@ -43791,12 +41608,7 @@ export type GetTeamAccessRequestResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetTeamAccessRequestResponse =
-	| GetTeamAccessRequestStatus200
-	| GetTeamAccessRequestStatus400
-	| GetTeamAccessRequestStatus403
-	| GetTeamAccessRequestStatus404
-	| GetTeamAccessRequestStatus410;
+export type GetTeamAccessRequestResponse = GetTeamAccessRequestStatus200;
 
 export type JoinTeamPath = {
 	/**
@@ -43841,14 +41653,7 @@ export type JoinTeamResponses = {
 /**
  * @description Union of all possible responses
  */
-export type JoinTeamResponse =
-	| JoinTeamStatus200
-	| JoinTeamStatus400
-	| JoinTeamStatus402
-	| JoinTeamStatus403
-	| JoinTeamStatus404
-	| JoinTeamStatus410
-	| JoinTeamStatus503;
+export type JoinTeamResponse = JoinTeamStatus200;
 
 export type UpdateTeamMemberPath = {
 	/**
@@ -43905,16 +41710,7 @@ export type UpdateTeamMemberResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateTeamMemberResponse =
-	| UpdateTeamMemberStatus200
-	| UpdateTeamMemberStatus400
-	| UpdateTeamMemberStatus401
-	| UpdateTeamMemberStatus402
-	| UpdateTeamMemberStatus403
-	| UpdateTeamMemberStatus404
-	| UpdateTeamMemberStatus409
-	| UpdateTeamMemberStatus410
-	| UpdateTeamMemberStatus500;
+export type UpdateTeamMemberResponse = UpdateTeamMemberStatus200;
 
 export type RemoveTeamMemberPath = {
 	/**
@@ -43974,14 +41770,7 @@ export type RemoveTeamMemberResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RemoveTeamMemberResponse =
-	| RemoveTeamMemberStatus200
-	| RemoveTeamMemberStatus400
-	| RemoveTeamMemberStatus401
-	| RemoveTeamMemberStatus403
-	| RemoveTeamMemberStatus404
-	| RemoveTeamMemberStatus410
-	| RemoveTeamMemberStatus503;
+export type RemoveTeamMemberResponse = RemoveTeamMemberStatus200;
 
 export type GetTeamPath = {
 	/**
@@ -44031,13 +41820,7 @@ export type GetTeamResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetTeamResponse =
-	| GetTeamStatus200
-	| GetTeamStatus400
-	| GetTeamStatus401
-	| GetTeamStatus403
-	| GetTeamStatus404
-	| GetTeamStatus410;
+export type GetTeamResponse = GetTeamStatus200;
 
 export type PatchTeamPath = {
 	/**
@@ -44097,16 +41880,7 @@ export type PatchTeamResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PatchTeamResponse =
-	| PatchTeamStatus200
-	| PatchTeamStatus400
-	| PatchTeamStatus401
-	| PatchTeamStatus402
-	| PatchTeamStatus403
-	| PatchTeamStatus404
-	| PatchTeamStatus409
-	| PatchTeamStatus410
-	| PatchTeamStatus428;
+export type PatchTeamResponse = PatchTeamStatus200;
 
 export type GetTeamsQuery = {
 	/**
@@ -44157,12 +41931,7 @@ export type GetTeamsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetTeamsResponse =
-	| GetTeamsStatus200
-	| GetTeamsStatus400
-	| GetTeamsStatus403
-	| GetTeamsStatus410
-	| GetTeamsStatus500;
+export type GetTeamsResponse = GetTeamsStatus200;
 
 export type CreateTeamStatus200 = unknown;
 
@@ -44192,12 +41961,7 @@ export type CreateTeamResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateTeamResponse =
-	| CreateTeamStatus200
-	| CreateTeamStatus400
-	| CreateTeamStatus403
-	| CreateTeamStatus404
-	| CreateTeamStatus410;
+export type CreateTeamResponse = CreateTeamStatus200;
 
 export type PostTeamDsyncRolesPath = {
 	/**
@@ -44248,13 +42012,7 @@ export type PostTeamDsyncRolesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostTeamDsyncRolesResponse =
-	| PostTeamDsyncRolesStatus200
-	| PostTeamDsyncRolesStatus400
-	| PostTeamDsyncRolesStatus401
-	| PostTeamDsyncRolesStatus403
-	| PostTeamDsyncRolesStatus404
-	| PostTeamDsyncRolesStatus410;
+export type PostTeamDsyncRolesResponse = PostTeamDsyncRolesStatus200;
 
 export type DeleteTeamPath = {
 	/**
@@ -44320,16 +42078,7 @@ export type DeleteTeamResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteTeamResponse =
-	| DeleteTeamStatus200
-	| DeleteTeamStatus400
-	| DeleteTeamStatus401
-	| DeleteTeamStatus402
-	| DeleteTeamStatus403
-	| DeleteTeamStatus404
-	| DeleteTeamStatus409
-	| DeleteTeamStatus410
-	| DeleteTeamStatus503;
+export type DeleteTeamResponse = DeleteTeamStatus200;
 
 export type DeleteTeamInviteCodePath = {
 	/**
@@ -44377,13 +42126,7 @@ export type DeleteTeamInviteCodeResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteTeamInviteCodeResponse =
-	| DeleteTeamInviteCodeStatus200
-	| DeleteTeamInviteCodeStatus400
-	| DeleteTeamInviteCodeStatus401
-	| DeleteTeamInviteCodeStatus403
-	| DeleteTeamInviteCodeStatus404
-	| DeleteTeamInviteCodeStatus410;
+export type DeleteTeamInviteCodeResponse = DeleteTeamInviteCodeStatus200;
 
 export type UpdateMicrofrontendsGroupPath = {
 	groupId: string;
@@ -44435,13 +42178,7 @@ export type UpdateMicrofrontendsGroupResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateMicrofrontendsGroupResponse =
-	| UpdateMicrofrontendsGroupStatus200
-	| UpdateMicrofrontendsGroupStatus400
-	| UpdateMicrofrontendsGroupStatus401
-	| UpdateMicrofrontendsGroupStatus403
-	| UpdateMicrofrontendsGroupStatus404
-	| UpdateMicrofrontendsGroupStatus410;
+export type UpdateMicrofrontendsGroupResponse = UpdateMicrofrontendsGroupStatus200;
 
 export type DeleteMicrofrontendsGroupPath = {
 	/**
@@ -44501,14 +42238,7 @@ export type DeleteMicrofrontendsGroupResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteMicrofrontendsGroupResponse =
-	| DeleteMicrofrontendsGroupStatus200
-	| DeleteMicrofrontendsGroupStatus400
-	| DeleteMicrofrontendsGroupStatus401
-	| DeleteMicrofrontendsGroupStatus403
-	| DeleteMicrofrontendsGroupStatus404
-	| DeleteMicrofrontendsGroupStatus410
-	| DeleteMicrofrontendsGroupStatus500;
+export type DeleteMicrofrontendsGroupResponse = DeleteMicrofrontendsGroupStatus200;
 
 export type UploadFileQuery = {
 	/**
@@ -44586,14 +42316,7 @@ export type UploadFileResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UploadFileResponse =
-	| UploadFileStatus200
-	| UploadFileStatus400
-	| UploadFileStatus401
-	| UploadFileStatus403
-	| UploadFileStatus404
-	| UploadFileStatus410
-	| UploadFileStatus426;
+export type UploadFileResponse = UploadFileStatus200;
 
 export type ListAuthTokensStatus200 = unknown;
 
@@ -44623,12 +42346,7 @@ export type ListAuthTokensResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAuthTokensResponse =
-	| ListAuthTokensStatus200
-	| ListAuthTokensStatus400
-	| ListAuthTokensStatus401
-	| ListAuthTokensStatus403
-	| ListAuthTokensStatus410;
+export type ListAuthTokensResponse = ListAuthTokensStatus200;
 
 export type CreateAuthTokenQuery = {
 	/**
@@ -44676,13 +42394,7 @@ export type CreateAuthTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateAuthTokenResponse =
-	| CreateAuthTokenStatus200
-	| CreateAuthTokenStatus400
-	| CreateAuthTokenStatus401
-	| CreateAuthTokenStatus403
-	| CreateAuthTokenStatus404
-	| CreateAuthTokenStatus410;
+export type CreateAuthTokenResponse = CreateAuthTokenStatus200;
 
 export type GetAuthTokenPath = {
 	/**
@@ -44721,12 +42433,7 @@ export type GetAuthTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAuthTokenResponse =
-	| GetAuthTokenStatus200
-	| GetAuthTokenStatus400
-	| GetAuthTokenStatus403
-	| GetAuthTokenStatus404
-	| GetAuthTokenStatus410;
+export type GetAuthTokenResponse = GetAuthTokenStatus200;
 
 export type DeleteAuthTokenPath = {
 	/**
@@ -44735,6 +42442,27 @@ export type DeleteAuthTokenPath = {
 	 * @type string
 	 */
 	tokenId: string;
+};
+
+export const deleteAuthTokenLogoutSource = {
+	v0: "v0",
+	vercel: "vercel",
+} as const;
+
+export type DeleteAuthTokenLogoutSourceKey =
+	(typeof deleteAuthTokenLogoutSource)[keyof typeof deleteAuthTokenLogoutSource];
+
+export type DeleteAuthTokenQuery = {
+	/**
+	 * @description Identifies an explicit logout for the deletion event. Only applies when tokenId is current.
+	 * @type string | undefined
+	 */
+	reason?: "logout" | undefined;
+	/**
+	 * @description The product the caller is logging out of. Only applies when reason is logout and tokenId is current.
+	 * @type string | undefined
+	 */
+	logoutSource?: DeleteAuthTokenLogoutSourceKey | undefined;
 };
 
 export type DeleteAuthTokenStatus200 = unknown;
@@ -44750,7 +42478,7 @@ export type DeleteAuthTokenStatus410 = unknown;
 export type DeleteAuthTokenOptions = {
 	body?: never | undefined;
 	path: DeleteAuthTokenPath;
-	query?: never | undefined;
+	query?: DeleteAuthTokenQuery | undefined;
 	headers?: never | undefined;
 };
 
@@ -44765,12 +42493,7 @@ export type DeleteAuthTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAuthTokenResponse =
-	| DeleteAuthTokenStatus200
-	| DeleteAuthTokenStatus400
-	| DeleteAuthTokenStatus403
-	| DeleteAuthTokenStatus404
-	| DeleteAuthTokenStatus410;
+export type DeleteAuthTokenResponse = DeleteAuthTokenStatus200;
 
 export type GetAuthUserStatus200 = unknown;
 
@@ -44806,14 +42529,7 @@ export type GetAuthUserResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAuthUserResponse =
-	| GetAuthUserStatus200
-	| GetAuthUserStatus302
-	| GetAuthUserStatus400
-	| GetAuthUserStatus401
-	| GetAuthUserStatus403
-	| GetAuthUserStatus409
-	| GetAuthUserStatus410;
+export type GetAuthUserResponse = GetAuthUserStatus200;
 
 export type RequestDeleteStatus202 = unknown;
 
@@ -44843,12 +42559,7 @@ export type RequestDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RequestDeleteResponse =
-	| RequestDeleteStatus202
-	| RequestDeleteStatus400
-	| RequestDeleteStatus402
-	| RequestDeleteStatus403
-	| RequestDeleteStatus410;
+export type RequestDeleteResponse = RequestDeleteStatus202;
 
 export type CreateRepositoryQuery = {
 	/**
@@ -44902,15 +42613,7 @@ export type CreateRepositoryResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateRepositoryResponse =
-	| CreateRepositoryStatus200
-	| CreateRepositoryStatus400
-	| CreateRepositoryStatus401
-	| CreateRepositoryStatus402
-	| CreateRepositoryStatus403
-	| CreateRepositoryStatus404
-	| CreateRepositoryStatus409
-	| CreateRepositoryStatus410;
+export type CreateRepositoryResponse = CreateRepositoryStatus200;
 
 export type ListRepositoriesQuery = {
 	/**
@@ -44975,13 +42678,7 @@ export type ListRepositoriesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListRepositoriesResponse =
-	| ListRepositoriesStatus200
-	| ListRepositoriesStatus400
-	| ListRepositoriesStatus401
-	| ListRepositoriesStatus403
-	| ListRepositoriesStatus404
-	| ListRepositoriesStatus410;
+export type ListRepositoriesResponse = ListRepositoriesStatus200;
 
 export type GetRepositoryPath = {
 	/**
@@ -45042,13 +42739,7 @@ export type GetRepositoryResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetRepositoryResponse =
-	| GetRepositoryStatus200
-	| GetRepositoryStatus400
-	| GetRepositoryStatus401
-	| GetRepositoryStatus403
-	| GetRepositoryStatus404
-	| GetRepositoryStatus410;
+export type GetRepositoryResponse = GetRepositoryStatus200;
 
 export type DeleteRepositoryPath = {
 	/**
@@ -45109,13 +42800,7 @@ export type DeleteRepositoryResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteRepositoryResponse =
-	| DeleteRepositoryStatus202
-	| DeleteRepositoryStatus400
-	| DeleteRepositoryStatus401
-	| DeleteRepositoryStatus403
-	| DeleteRepositoryStatus404
-	| DeleteRepositoryStatus410;
+export type DeleteRepositoryResponse = DeleteRepositoryStatus202;
 
 export type ListRepositoryImagesPath = {
 	/**
@@ -45189,13 +42874,7 @@ export type ListRepositoryImagesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListRepositoryImagesResponse =
-	| ListRepositoryImagesStatus200
-	| ListRepositoryImagesStatus400
-	| ListRepositoryImagesStatus401
-	| ListRepositoryImagesStatus403
-	| ListRepositoryImagesStatus404
-	| ListRepositoryImagesStatus410;
+export type ListRepositoryImagesResponse = ListRepositoryImagesStatus200;
 
 export type AddRepositoryPermissionPath = {
 	/**
@@ -45256,13 +42935,7 @@ export type AddRepositoryPermissionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AddRepositoryPermissionResponse =
-	| AddRepositoryPermissionStatus200
-	| AddRepositoryPermissionStatus400
-	| AddRepositoryPermissionStatus401
-	| AddRepositoryPermissionStatus403
-	| AddRepositoryPermissionStatus404
-	| AddRepositoryPermissionStatus410;
+export type AddRepositoryPermissionResponse = AddRepositoryPermissionStatus200;
 
 export type RemoveRepositoryPermissionPath = {
 	/**
@@ -45323,13 +42996,7 @@ export type RemoveRepositoryPermissionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RemoveRepositoryPermissionResponse =
-	| RemoveRepositoryPermissionStatus204
-	| RemoveRepositoryPermissionStatus400
-	| RemoveRepositoryPermissionStatus401
-	| RemoveRepositoryPermissionStatus403
-	| RemoveRepositoryPermissionStatus404
-	| RemoveRepositoryPermissionStatus410;
+export type RemoveRepositoryPermissionResponse = RemoveRepositoryPermissionStatus204;
 
 export type ListRepositoryPermissionsPath = {
 	/**
@@ -45402,13 +43069,7 @@ export type ListRepositoryPermissionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListRepositoryPermissionsResponse =
-	| ListRepositoryPermissionsStatus200
-	| ListRepositoryPermissionsStatus400
-	| ListRepositoryPermissionsStatus401
-	| ListRepositoryPermissionsStatus403
-	| ListRepositoryPermissionsStatus404
-	| ListRepositoryPermissionsStatus410;
+export type ListRepositoryPermissionsResponse = ListRepositoryPermissionsStatus200;
 
 export type ClearRepositoryPermissionsPath = {
 	/**
@@ -45469,13 +43130,7 @@ export type ClearRepositoryPermissionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClearRepositoryPermissionsResponse =
-	| ClearRepositoryPermissionsStatus204
-	| ClearRepositoryPermissionsStatus400
-	| ClearRepositoryPermissionsStatus401
-	| ClearRepositoryPermissionsStatus403
-	| ClearRepositoryPermissionsStatus404
-	| ClearRepositoryPermissionsStatus410;
+export type ClearRepositoryPermissionsResponse = ClearRepositoryPermissionsStatus204;
 
 export type ListRepositoryTagsPath = {
 	/**
@@ -45571,13 +43226,7 @@ export type ListRepositoryTagsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListRepositoryTagsResponse =
-	| ListRepositoryTagsStatus200
-	| ListRepositoryTagsStatus400
-	| ListRepositoryTagsStatus401
-	| ListRepositoryTagsStatus403
-	| ListRepositoryTagsStatus404
-	| ListRepositoryTagsStatus410;
+export type ListRepositoryTagsResponse = ListRepositoryTagsStatus200;
 
 export type GetRepositoryTagPath = {
 	/**
@@ -45643,13 +43292,7 @@ export type GetRepositoryTagResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetRepositoryTagResponse =
-	| GetRepositoryTagStatus200
-	| GetRepositoryTagStatus400
-	| GetRepositoryTagStatus401
-	| GetRepositoryTagStatus403
-	| GetRepositoryTagStatus404
-	| GetRepositoryTagStatus410;
+export type GetRepositoryTagResponse = GetRepositoryTagStatus200;
 
 export type GetRepositoryImagePath = {
 	/**
@@ -45716,13 +43359,7 @@ export type GetRepositoryImageResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetRepositoryImageResponse =
-	| GetRepositoryImageStatus200
-	| GetRepositoryImageStatus400
-	| GetRepositoryImageStatus401
-	| GetRepositoryImageStatus403
-	| GetRepositoryImageStatus404
-	| GetRepositoryImageStatus410;
+export type GetRepositoryImageResponse = GetRepositoryImageStatus200;
 
 export type DeleteRepositoryImagePath = {
 	/**
@@ -45788,13 +43425,7 @@ export type DeleteRepositoryImageResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteRepositoryImageResponse =
-	| DeleteRepositoryImageStatus202
-	| DeleteRepositoryImageStatus400
-	| DeleteRepositoryImageStatus401
-	| DeleteRepositoryImageStatus403
-	| DeleteRepositoryImageStatus404
-	| DeleteRepositoryImageStatus410;
+export type DeleteRepositoryImageResponse = DeleteRepositoryImageStatus202;
 
 export type GetRootStatus200 = unknown;
 
@@ -45830,14 +43461,7 @@ export type GetRootResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetRootResponse =
-	| GetRootStatus200
-	| GetRootStatus400
-	| GetRootStatus401
-	| GetRootStatus402
-	| GetRootStatus403
-	| GetRootStatus404
-	| GetRootStatus410;
+export type GetRootResponse = GetRootStatus200;
 
 export type GetByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath = {
 	/**
@@ -46065,13 +43689,7 @@ export type GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidResponse
  * @description Union of all possible responses
  */
 export type GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidResponse =
-	| GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus204
-	| GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus400
-	| GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus401
-	| GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus402
-	| GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus403
-	| GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus404
-	| GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410;
+	GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus204;
 
 export type DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath = {
 	/**
@@ -46143,13 +43761,7 @@ export type DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidRespo
  * @description Union of all possible responses
  */
 export type DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidResponse =
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus204
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus400
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus401
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus402
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus403
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus404
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410;
+	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus204;
 
 export type UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath = {
 	/**
@@ -46227,15 +43839,7 @@ export type UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidRespo
  * @description Union of all possible responses
  */
 export type UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidResponse =
-	| UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus202
-	| UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus400
-	| UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus401
-	| UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus402
-	| UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus403
-	| UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus404
-	| UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus408
-	| UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410
-	| UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413;
+	UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus202;
 
 export type ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath = {
 	/**
@@ -46324,15 +43928,7 @@ export type ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidResp
  * @description Union of all possible responses
  */
 export type ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidResponse =
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus201
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus400
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus401
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus402
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus403
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus404
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus408
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413;
+	ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus201;
 
 export type CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsPath = {
 	/**
@@ -46413,13 +44009,7 @@ export type CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsResponses =
  * @description Union of all possible responses
  */
 export type CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsResponse =
-	| CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus202
-	| CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus400
-	| CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus401
-	| CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus402
-	| CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus403
-	| CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus404
-	| CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus410;
+	CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus202;
 
 export type ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath = {
 	/**
@@ -46494,14 +44084,7 @@ export type ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceRe
  * @description Union of all possible responses
  */
 export type ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceResponse =
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus201
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus402
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410
-	| ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus413;
+	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus201;
 
 export type GetByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath = {
 	/**
@@ -46647,13 +44230,7 @@ export type DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceRes
  * @description Union of all possible responses
  */
 export type DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceResponse =
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus202
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus402
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404
-	| DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410;
+	DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus202;
 
 export type GetByTeamSlugByProjectSlugByRepositoryNameTagsListPath = {
 	/**
@@ -46732,13 +44309,149 @@ export type GetByTeamSlugByProjectSlugByRepositoryNameTagsListResponses = {
  * @description Union of all possible responses
  */
 export type GetByTeamSlugByProjectSlugByRepositoryNameTagsListResponse =
-	| GetByTeamSlugByProjectSlugByRepositoryNameTagsListStatus200
-	| GetByTeamSlugByProjectSlugByRepositoryNameTagsListStatus400
-	| GetByTeamSlugByProjectSlugByRepositoryNameTagsListStatus401
-	| GetByTeamSlugByProjectSlugByRepositoryNameTagsListStatus402
-	| GetByTeamSlugByProjectSlugByRepositoryNameTagsListStatus403
-	| GetByTeamSlugByProjectSlugByRepositoryNameTagsListStatus404
-	| GetByTeamSlugByProjectSlugByRepositoryNameTagsListStatus410;
+	GetByTeamSlugByProjectSlugByRepositoryNameTagsListStatus200;
+
+export const getVercelCiRepositorySettingsProvider = {
+	bitbucket: "bitbucket",
+	"cursor-origin": "cursor-origin",
+	github: "github",
+	gitlab: "gitlab",
+	vercel: "vercel",
+} as const;
+
+export type GetVercelCiRepositorySettingsProviderKey =
+	(typeof getVercelCiRepositorySettingsProvider)[keyof typeof getVercelCiRepositorySettingsProvider];
+
+export type GetVercelCiRepositorySettingsQuery = {
+	provider: GetVercelCiRepositorySettingsProviderKey;
+	organizationId: string;
+	repository: string;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type GetVercelCiRepositorySettingsStatus200 = unknown;
+
+export type GetVercelCiRepositorySettingsStatus400 = unknown;
+
+export type GetVercelCiRepositorySettingsStatus401 = unknown;
+
+export type GetVercelCiRepositorySettingsStatus403 = unknown;
+
+export type GetVercelCiRepositorySettingsStatus404 = unknown;
+
+export type GetVercelCiRepositorySettingsStatus409 = unknown;
+
+export type GetVercelCiRepositorySettingsStatus410 = unknown;
+
+export type GetVercelCiRepositorySettingsStatus429 = unknown;
+
+export type GetVercelCiRepositorySettingsStatus500 = unknown;
+
+export type GetVercelCiRepositorySettingsOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query: GetVercelCiRepositorySettingsQuery;
+	headers?: never | undefined;
+};
+
+export type GetVercelCiRepositorySettingsResponses = {
+	"200": GetVercelCiRepositorySettingsStatus200;
+	"400": GetVercelCiRepositorySettingsStatus400;
+	"401": GetVercelCiRepositorySettingsStatus401;
+	"403": GetVercelCiRepositorySettingsStatus403;
+	"404": GetVercelCiRepositorySettingsStatus404;
+	"409": GetVercelCiRepositorySettingsStatus409;
+	"410": GetVercelCiRepositorySettingsStatus410;
+	"429": GetVercelCiRepositorySettingsStatus429;
+	"500": GetVercelCiRepositorySettingsStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetVercelCiRepositorySettingsResponse = GetVercelCiRepositorySettingsStatus200;
+
+export const updateVercelCiRepositorySettingsProvider = {
+	bitbucket: "bitbucket",
+	"cursor-origin": "cursor-origin",
+	github: "github",
+	gitlab: "gitlab",
+	vercel: "vercel",
+} as const;
+
+export type UpdateVercelCiRepositorySettingsProviderKey =
+	(typeof updateVercelCiRepositorySettingsProvider)[keyof typeof updateVercelCiRepositorySettingsProvider];
+
+export type UpdateVercelCiRepositorySettingsQuery = {
+	provider: UpdateVercelCiRepositorySettingsProviderKey;
+	organizationId: string;
+	repository: string;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type UpdateVercelCiRepositorySettingsStatus200 = unknown;
+
+export type UpdateVercelCiRepositorySettingsStatus400 = unknown;
+
+export type UpdateVercelCiRepositorySettingsStatus401 = unknown;
+
+export type UpdateVercelCiRepositorySettingsStatus403 = unknown;
+
+export type UpdateVercelCiRepositorySettingsStatus404 = unknown;
+
+export type UpdateVercelCiRepositorySettingsStatus409 = unknown;
+
+export type UpdateVercelCiRepositorySettingsStatus410 = unknown;
+
+export type UpdateVercelCiRepositorySettingsStatus429 = unknown;
+
+export type UpdateVercelCiRepositorySettingsStatus500 = unknown;
+
+export type UpdateVercelCiRepositorySettingsOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query: UpdateVercelCiRepositorySettingsQuery;
+	headers?: never | undefined;
+};
+
+export type UpdateVercelCiRepositorySettingsResponses = {
+	"200": UpdateVercelCiRepositorySettingsStatus200;
+	"400": UpdateVercelCiRepositorySettingsStatus400;
+	"401": UpdateVercelCiRepositorySettingsStatus401;
+	"403": UpdateVercelCiRepositorySettingsStatus403;
+	"404": UpdateVercelCiRepositorySettingsStatus404;
+	"409": UpdateVercelCiRepositorySettingsStatus409;
+	"410": UpdateVercelCiRepositorySettingsStatus410;
+	"429": UpdateVercelCiRepositorySettingsStatus429;
+	"500": UpdateVercelCiRepositorySettingsStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateVercelCiRepositorySettingsResponse = UpdateVercelCiRepositorySettingsStatus200;
 
 export const listVercelCiInvocationsProvider = {
 	github: "github",
@@ -46881,16 +44594,7 @@ export type ListVercelCiInvocationsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListVercelCiInvocationsResponse =
-	| ListVercelCiInvocationsStatus200
-	| ListVercelCiInvocationsStatus400
-	| ListVercelCiInvocationsStatus401
-	| ListVercelCiInvocationsStatus403
-	| ListVercelCiInvocationsStatus404
-	| ListVercelCiInvocationsStatus410
-	| ListVercelCiInvocationsStatus429
-	| ListVercelCiInvocationsStatus500
-	| ListVercelCiInvocationsStatus503;
+export type ListVercelCiInvocationsResponse = ListVercelCiInvocationsStatus200;
 
 export type ListVercelCiBranchesQuery = {
 	/**
@@ -46958,16 +44662,250 @@ export type ListVercelCiBranchesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListVercelCiBranchesResponse =
-	| ListVercelCiBranchesStatus200
-	| ListVercelCiBranchesStatus400
-	| ListVercelCiBranchesStatus401
-	| ListVercelCiBranchesStatus403
-	| ListVercelCiBranchesStatus404
-	| ListVercelCiBranchesStatus410
-	| ListVercelCiBranchesStatus429
-	| ListVercelCiBranchesStatus500
-	| ListVercelCiBranchesStatus503;
+export type ListVercelCiBranchesResponse = ListVercelCiBranchesStatus200;
+
+export type CreateVercelCiTaskAnalysisQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type CreateVercelCiTaskAnalysisStatus202 = unknown;
+
+export type CreateVercelCiTaskAnalysisStatus400 = unknown;
+
+export type CreateVercelCiTaskAnalysisStatus401 = unknown;
+
+export type CreateVercelCiTaskAnalysisStatus403 = unknown;
+
+export type CreateVercelCiTaskAnalysisStatus404 = unknown;
+
+export type CreateVercelCiTaskAnalysisStatus409 = unknown;
+
+export type CreateVercelCiTaskAnalysisStatus410 = unknown;
+
+export type CreateVercelCiTaskAnalysisStatus429 = unknown;
+
+export type CreateVercelCiTaskAnalysisStatus500 = unknown;
+
+export type CreateVercelCiTaskAnalysisStatus503 = unknown;
+
+export type CreateVercelCiTaskAnalysisOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: CreateVercelCiTaskAnalysisQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateVercelCiTaskAnalysisResponses = {
+	"202": CreateVercelCiTaskAnalysisStatus202;
+	"400": CreateVercelCiTaskAnalysisStatus400;
+	"401": CreateVercelCiTaskAnalysisStatus401;
+	"403": CreateVercelCiTaskAnalysisStatus403;
+	"404": CreateVercelCiTaskAnalysisStatus404;
+	"409": CreateVercelCiTaskAnalysisStatus409;
+	"410": CreateVercelCiTaskAnalysisStatus410;
+	"429": CreateVercelCiTaskAnalysisStatus429;
+	"500": CreateVercelCiTaskAnalysisStatus500;
+	"503": CreateVercelCiTaskAnalysisStatus503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateVercelCiTaskAnalysisResponse = CreateVercelCiTaskAnalysisStatus202;
+
+export type GetVercelCiTaskAnalysisPath = {
+	analysisId: string;
+};
+
+export type GetVercelCiTaskAnalysisQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type GetVercelCiTaskAnalysisStatus200 = unknown;
+
+export type GetVercelCiTaskAnalysisStatus400 = unknown;
+
+export type GetVercelCiTaskAnalysisStatus401 = unknown;
+
+export type GetVercelCiTaskAnalysisStatus403 = unknown;
+
+export type GetVercelCiTaskAnalysisStatus404 = unknown;
+
+export type GetVercelCiTaskAnalysisStatus410 = unknown;
+
+export type GetVercelCiTaskAnalysisStatus429 = unknown;
+
+export type GetVercelCiTaskAnalysisStatus500 = unknown;
+
+export type GetVercelCiTaskAnalysisOptions = {
+	body?: never | undefined;
+	path: GetVercelCiTaskAnalysisPath;
+	query?: GetVercelCiTaskAnalysisQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type GetVercelCiTaskAnalysisResponses = {
+	"200": GetVercelCiTaskAnalysisStatus200;
+	"400": GetVercelCiTaskAnalysisStatus400;
+	"401": GetVercelCiTaskAnalysisStatus401;
+	"403": GetVercelCiTaskAnalysisStatus403;
+	"404": GetVercelCiTaskAnalysisStatus404;
+	"410": GetVercelCiTaskAnalysisStatus410;
+	"429": GetVercelCiTaskAnalysisStatus429;
+	"500": GetVercelCiTaskAnalysisStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetVercelCiTaskAnalysisResponse = GetVercelCiTaskAnalysisStatus200;
+
+export type CreateVercelCiTaskConfigurationPullRequestPath = {
+	analysisId: string;
+};
+
+export type CreateVercelCiTaskConfigurationPullRequestQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type CreateVercelCiTaskConfigurationPullRequestStatus201 = unknown;
+
+export type CreateVercelCiTaskConfigurationPullRequestStatus400 = unknown;
+
+export type CreateVercelCiTaskConfigurationPullRequestStatus401 = unknown;
+
+export type CreateVercelCiTaskConfigurationPullRequestStatus403 = unknown;
+
+export type CreateVercelCiTaskConfigurationPullRequestStatus404 = unknown;
+
+export type CreateVercelCiTaskConfigurationPullRequestStatus409 = unknown;
+
+export type CreateVercelCiTaskConfigurationPullRequestStatus410 = unknown;
+
+export type CreateVercelCiTaskConfigurationPullRequestStatus429 = unknown;
+
+export type CreateVercelCiTaskConfigurationPullRequestStatus500 = unknown;
+
+export type CreateVercelCiTaskConfigurationPullRequestOptions = {
+	body?: never | undefined;
+	path: CreateVercelCiTaskConfigurationPullRequestPath;
+	query?: CreateVercelCiTaskConfigurationPullRequestQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateVercelCiTaskConfigurationPullRequestResponses = {
+	"201": CreateVercelCiTaskConfigurationPullRequestStatus201;
+	"400": CreateVercelCiTaskConfigurationPullRequestStatus400;
+	"401": CreateVercelCiTaskConfigurationPullRequestStatus401;
+	"403": CreateVercelCiTaskConfigurationPullRequestStatus403;
+	"404": CreateVercelCiTaskConfigurationPullRequestStatus404;
+	"409": CreateVercelCiTaskConfigurationPullRequestStatus409;
+	"410": CreateVercelCiTaskConfigurationPullRequestStatus410;
+	"429": CreateVercelCiTaskConfigurationPullRequestStatus429;
+	"500": CreateVercelCiTaskConfigurationPullRequestStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateVercelCiTaskConfigurationPullRequestResponse =
+	CreateVercelCiTaskConfigurationPullRequestStatus201;
+
+export type ListVercelCiTaskAnalysisTasksPath = {
+	analysisId: string;
+};
+
+export type ListVercelCiTaskAnalysisTasksQuery = {
+	cursor?: string | undefined;
+	limit?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type ListVercelCiTaskAnalysisTasksStatus200 = unknown;
+
+export type ListVercelCiTaskAnalysisTasksStatus400 = unknown;
+
+export type ListVercelCiTaskAnalysisTasksStatus401 = unknown;
+
+export type ListVercelCiTaskAnalysisTasksStatus403 = unknown;
+
+export type ListVercelCiTaskAnalysisTasksStatus404 = unknown;
+
+export type ListVercelCiTaskAnalysisTasksStatus409 = unknown;
+
+export type ListVercelCiTaskAnalysisTasksStatus410 = unknown;
+
+export type ListVercelCiTaskAnalysisTasksStatus429 = unknown;
+
+export type ListVercelCiTaskAnalysisTasksStatus500 = unknown;
+
+export type ListVercelCiTaskAnalysisTasksOptions = {
+	body?: never | undefined;
+	path: ListVercelCiTaskAnalysisTasksPath;
+	query?: ListVercelCiTaskAnalysisTasksQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ListVercelCiTaskAnalysisTasksResponses = {
+	"200": ListVercelCiTaskAnalysisTasksStatus200;
+	"400": ListVercelCiTaskAnalysisTasksStatus400;
+	"401": ListVercelCiTaskAnalysisTasksStatus401;
+	"403": ListVercelCiTaskAnalysisTasksStatus403;
+	"404": ListVercelCiTaskAnalysisTasksStatus404;
+	"409": ListVercelCiTaskAnalysisTasksStatus409;
+	"410": ListVercelCiTaskAnalysisTasksStatus410;
+	"429": ListVercelCiTaskAnalysisTasksStatus429;
+	"500": ListVercelCiTaskAnalysisTasksStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListVercelCiTaskAnalysisTasksResponse = ListVercelCiTaskAnalysisTasksStatus200;
 
 export type ListVercelCiInvocationAttemptsPath = {
 	invocationId: string;
@@ -47025,15 +44963,7 @@ export type ListVercelCiInvocationAttemptsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListVercelCiInvocationAttemptsResponse =
-	| ListVercelCiInvocationAttemptsStatus200
-	| ListVercelCiInvocationAttemptsStatus400
-	| ListVercelCiInvocationAttemptsStatus401
-	| ListVercelCiInvocationAttemptsStatus403
-	| ListVercelCiInvocationAttemptsStatus404
-	| ListVercelCiInvocationAttemptsStatus410
-	| ListVercelCiInvocationAttemptsStatus429
-	| ListVercelCiInvocationAttemptsStatus500;
+export type ListVercelCiInvocationAttemptsResponse = ListVercelCiInvocationAttemptsStatus200;
 
 export type GetVercelCiInvocationTreePath = {
 	invocationId: string;
@@ -47110,15 +45040,7 @@ export type GetVercelCiInvocationTreeResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetVercelCiInvocationTreeResponse =
-	| GetVercelCiInvocationTreeStatus200
-	| GetVercelCiInvocationTreeStatus400
-	| GetVercelCiInvocationTreeStatus401
-	| GetVercelCiInvocationTreeStatus403
-	| GetVercelCiInvocationTreeStatus404
-	| GetVercelCiInvocationTreeStatus410
-	| GetVercelCiInvocationTreeStatus429
-	| GetVercelCiInvocationTreeStatus500;
+export type GetVercelCiInvocationTreeResponse = GetVercelCiInvocationTreeStatus200;
 
 export type GetVercelCiInvocationPath = {
 	invocationId: string;
@@ -47177,15 +45099,7 @@ export type GetVercelCiInvocationResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetVercelCiInvocationResponse =
-	| GetVercelCiInvocationStatus200
-	| GetVercelCiInvocationStatus400
-	| GetVercelCiInvocationStatus401
-	| GetVercelCiInvocationStatus403
-	| GetVercelCiInvocationStatus404
-	| GetVercelCiInvocationStatus410
-	| GetVercelCiInvocationStatus429
-	| GetVercelCiInvocationStatus500;
+export type GetVercelCiInvocationResponse = GetVercelCiInvocationStatus200;
 
 export type RetryVercelCiInvocationPath = {
 	invocationId: string;
@@ -47247,16 +45161,7 @@ export type RetryVercelCiInvocationResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RetryVercelCiInvocationResponse =
-	| RetryVercelCiInvocationStatus200
-	| RetryVercelCiInvocationStatus400
-	| RetryVercelCiInvocationStatus401
-	| RetryVercelCiInvocationStatus403
-	| RetryVercelCiInvocationStatus404
-	| RetryVercelCiInvocationStatus409
-	| RetryVercelCiInvocationStatus410
-	| RetryVercelCiInvocationStatus429
-	| RetryVercelCiInvocationStatus500;
+export type RetryVercelCiInvocationResponse = RetryVercelCiInvocationStatus200;
 
 export type ListVercelCiJobDefinitionsPath = {
 	invocationId: string;
@@ -47315,15 +45220,7 @@ export type ListVercelCiJobDefinitionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListVercelCiJobDefinitionsResponse =
-	| ListVercelCiJobDefinitionsStatus200
-	| ListVercelCiJobDefinitionsStatus400
-	| ListVercelCiJobDefinitionsStatus401
-	| ListVercelCiJobDefinitionsStatus403
-	| ListVercelCiJobDefinitionsStatus404
-	| ListVercelCiJobDefinitionsStatus410
-	| ListVercelCiJobDefinitionsStatus429
-	| ListVercelCiJobDefinitionsStatus500;
+export type ListVercelCiJobDefinitionsResponse = ListVercelCiJobDefinitionsStatus200;
 
 export type GetVercelCiJobDefinitionPath = {
 	invocationId: string;
@@ -47383,15 +45280,7 @@ export type GetVercelCiJobDefinitionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetVercelCiJobDefinitionResponse =
-	| GetVercelCiJobDefinitionStatus200
-	| GetVercelCiJobDefinitionStatus400
-	| GetVercelCiJobDefinitionStatus401
-	| GetVercelCiJobDefinitionStatus403
-	| GetVercelCiJobDefinitionStatus404
-	| GetVercelCiJobDefinitionStatus410
-	| GetVercelCiJobDefinitionStatus429
-	| GetVercelCiJobDefinitionStatus500;
+export type GetVercelCiJobDefinitionResponse = GetVercelCiJobDefinitionStatus200;
 
 export type ListVercelCiJobRunsPath = {
 	invocationId: string;
@@ -47451,15 +45340,7 @@ export type ListVercelCiJobRunsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListVercelCiJobRunsResponse =
-	| ListVercelCiJobRunsStatus200
-	| ListVercelCiJobRunsStatus400
-	| ListVercelCiJobRunsStatus401
-	| ListVercelCiJobRunsStatus403
-	| ListVercelCiJobRunsStatus404
-	| ListVercelCiJobRunsStatus410
-	| ListVercelCiJobRunsStatus429
-	| ListVercelCiJobRunsStatus500;
+export type ListVercelCiJobRunsResponse = ListVercelCiJobRunsStatus200;
 
 export type GetVercelCiJobRunPath = {
 	invocationId: string;
@@ -47520,15 +45401,7 @@ export type GetVercelCiJobRunResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetVercelCiJobRunResponse =
-	| GetVercelCiJobRunStatus200
-	| GetVercelCiJobRunStatus400
-	| GetVercelCiJobRunStatus401
-	| GetVercelCiJobRunStatus403
-	| GetVercelCiJobRunStatus404
-	| GetVercelCiJobRunStatus410
-	| GetVercelCiJobRunStatus429
-	| GetVercelCiJobRunStatus500;
+export type GetVercelCiJobRunResponse = GetVercelCiJobRunStatus200;
 
 export type ListVercelCiTaskDefinitionsPath = {
 	invocationId: string;
@@ -47589,15 +45462,7 @@ export type ListVercelCiTaskDefinitionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListVercelCiTaskDefinitionsResponse =
-	| ListVercelCiTaskDefinitionsStatus200
-	| ListVercelCiTaskDefinitionsStatus400
-	| ListVercelCiTaskDefinitionsStatus401
-	| ListVercelCiTaskDefinitionsStatus403
-	| ListVercelCiTaskDefinitionsStatus404
-	| ListVercelCiTaskDefinitionsStatus410
-	| ListVercelCiTaskDefinitionsStatus429
-	| ListVercelCiTaskDefinitionsStatus500;
+export type ListVercelCiTaskDefinitionsResponse = ListVercelCiTaskDefinitionsStatus200;
 
 export type ListVercelCiTaskRunsPath = {
 	invocationId: string;
@@ -47659,15 +45524,7 @@ export type ListVercelCiTaskRunsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListVercelCiTaskRunsResponse =
-	| ListVercelCiTaskRunsStatus200
-	| ListVercelCiTaskRunsStatus400
-	| ListVercelCiTaskRunsStatus401
-	| ListVercelCiTaskRunsStatus403
-	| ListVercelCiTaskRunsStatus404
-	| ListVercelCiTaskRunsStatus410
-	| ListVercelCiTaskRunsStatus429
-	| ListVercelCiTaskRunsStatus500;
+export type ListVercelCiTaskRunsResponse = ListVercelCiTaskRunsStatus200;
 
 export type GetVercelCiInvocationLogsPath = {
 	invocationId: string;
@@ -47745,15 +45602,7 @@ export type GetVercelCiInvocationLogsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetVercelCiInvocationLogsResponse =
-	| GetVercelCiInvocationLogsStatus200
-	| GetVercelCiInvocationLogsStatus400
-	| GetVercelCiInvocationLogsStatus401
-	| GetVercelCiInvocationLogsStatus403
-	| GetVercelCiInvocationLogsStatus404
-	| GetVercelCiInvocationLogsStatus410
-	| GetVercelCiInvocationLogsStatus429
-	| GetVercelCiInvocationLogsStatus500;
+export type GetVercelCiInvocationLogsResponse = GetVercelCiInvocationLogsStatus200;
 
 export type GetVercelCiTaskLogsPath = {
 	invocationId: string;
@@ -47862,15 +45711,7 @@ export type GetVercelCiTaskLogsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetVercelCiTaskLogsResponse =
-	| GetVercelCiTaskLogsStatus200
-	| GetVercelCiTaskLogsStatus400
-	| GetVercelCiTaskLogsStatus401
-	| GetVercelCiTaskLogsStatus403
-	| GetVercelCiTaskLogsStatus404
-	| GetVercelCiTaskLogsStatus410
-	| GetVercelCiTaskLogsStatus429
-	| GetVercelCiTaskLogsStatus500;
+export type GetVercelCiTaskLogsResponse = GetVercelCiTaskLogsStatus200;
 
 export const searchVercelCiLogsLevelEnum = {
 	trace: "trace",
@@ -47954,15 +45795,7 @@ export type SearchVercelCiLogsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SearchVercelCiLogsResponse =
-	| SearchVercelCiLogsStatus200
-	| SearchVercelCiLogsStatus400
-	| SearchVercelCiLogsStatus401
-	| SearchVercelCiLogsStatus403
-	| SearchVercelCiLogsStatus404
-	| SearchVercelCiLogsStatus410
-	| SearchVercelCiLogsStatus429
-	| SearchVercelCiLogsStatus500;
+export type SearchVercelCiLogsResponse = SearchVercelCiLogsStatus200;
 
 export type GetVercelCiJobRunLogsPath = {
 	invocationId: string;
@@ -48052,15 +45885,7 @@ export type GetVercelCiJobRunLogsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetVercelCiJobRunLogsResponse =
-	| GetVercelCiJobRunLogsStatus200
-	| GetVercelCiJobRunLogsStatus400
-	| GetVercelCiJobRunLogsStatus401
-	| GetVercelCiJobRunLogsStatus403
-	| GetVercelCiJobRunLogsStatus404
-	| GetVercelCiJobRunLogsStatus410
-	| GetVercelCiJobRunLogsStatus429
-	| GetVercelCiJobRunLogsStatus500;
+export type GetVercelCiJobRunLogsResponse = GetVercelCiJobRunLogsStatus200;
 
 export type GetVercelCiTaskRunLogsPath = {
 	invocationId: string;
@@ -48156,15 +45981,7 @@ export type GetVercelCiTaskRunLogsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetVercelCiTaskRunLogsResponse =
-	| GetVercelCiTaskRunLogsStatus200
-	| GetVercelCiTaskRunLogsStatus400
-	| GetVercelCiTaskRunLogsStatus401
-	| GetVercelCiTaskRunLogsStatus403
-	| GetVercelCiTaskRunLogsStatus404
-	| GetVercelCiTaskRunLogsStatus410
-	| GetVercelCiTaskRunLogsStatus429
-	| GetVercelCiTaskRunLogsStatus500;
+export type GetVercelCiTaskRunLogsResponse = GetVercelCiTaskRunLogsStatus200;
 
 export type CreateWebInsightsToggleQuery = {
 	projectId: string;
@@ -48201,13 +46018,7 @@ export type CreateWebInsightsToggleResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateWebInsightsToggleResponse =
-	| CreateWebInsightsToggleStatus200
-	| CreateWebInsightsToggleStatus400
-	| CreateWebInsightsToggleStatus401
-	| CreateWebInsightsToggleStatus403
-	| CreateWebInsightsToggleStatus404
-	| CreateWebInsightsToggleStatus410;
+export type CreateWebInsightsToggleResponse = CreateWebInsightsToggleStatus200;
 
 export type AggregatePageviewsQuery = {
 	/**
@@ -48299,15 +46110,7 @@ export type AggregatePageviewsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AggregatePageviewsResponse =
-	| AggregatePageviewsStatus200
-	| AggregatePageviewsStatus400
-	| AggregatePageviewsStatus401
-	| AggregatePageviewsStatus402
-	| AggregatePageviewsStatus403
-	| AggregatePageviewsStatus404
-	| AggregatePageviewsStatus410
-	| AggregatePageviewsStatus503;
+export type AggregatePageviewsResponse = AggregatePageviewsStatus200;
 
 export type AggregateEventsQuery = {
 	/**
@@ -48399,15 +46202,7 @@ export type AggregateEventsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AggregateEventsResponse =
-	| AggregateEventsStatus200
-	| AggregateEventsStatus400
-	| AggregateEventsStatus401
-	| AggregateEventsStatus402
-	| AggregateEventsStatus403
-	| AggregateEventsStatus404
-	| AggregateEventsStatus410
-	| AggregateEventsStatus503;
+export type AggregateEventsResponse = AggregateEventsStatus200;
 
 export type CountPageviewsQuery = {
 	/**
@@ -48484,15 +46279,7 @@ export type CountPageviewsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CountPageviewsResponse =
-	| CountPageviewsStatus200
-	| CountPageviewsStatus400
-	| CountPageviewsStatus401
-	| CountPageviewsStatus402
-	| CountPageviewsStatus403
-	| CountPageviewsStatus404
-	| CountPageviewsStatus410
-	| CountPageviewsStatus503;
+export type CountPageviewsResponse = CountPageviewsStatus200;
 
 export type CountEventsQuery = {
 	/**
@@ -48569,15 +46356,7 @@ export type CountEventsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CountEventsResponse =
-	| CountEventsStatus200
-	| CountEventsStatus400
-	| CountEventsStatus401
-	| CountEventsStatus402
-	| CountEventsStatus403
-	| CountEventsStatus404
-	| CountEventsStatus410
-	| CountEventsStatus503;
+export type CountEventsResponse = CountEventsStatus200;
 
 export type CreateWebhookQuery = {
 	/**
@@ -48625,13 +46404,7 @@ export type CreateWebhookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateWebhookResponse =
-	| CreateWebhookStatus200
-	| CreateWebhookStatus400
-	| CreateWebhookStatus401
-	| CreateWebhookStatus403
-	| CreateWebhookStatus404
-	| CreateWebhookStatus410;
+export type CreateWebhookResponse = CreateWebhookStatus200;
 
 export type GetWebhooksQuery = {
 	/**
@@ -48684,13 +46457,7 @@ export type GetWebhooksResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetWebhooksResponse =
-	| GetWebhooksStatus200
-	| GetWebhooksStatus400
-	| GetWebhooksStatus401
-	| GetWebhooksStatus403
-	| GetWebhooksStatus404
-	| GetWebhooksStatus410;
+export type GetWebhooksResponse = GetWebhooksStatus200;
 
 export type GetWebhookPath = {
 	id: string;
@@ -48742,13 +46509,7 @@ export type GetWebhookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetWebhookResponse =
-	| GetWebhookStatus200
-	| GetWebhookStatus400
-	| GetWebhookStatus401
-	| GetWebhookStatus403
-	| GetWebhookStatus404
-	| GetWebhookStatus410;
+export type GetWebhookResponse = GetWebhookStatus200;
 
 export type DeleteWebhookPath = {
 	id: string;
@@ -48800,13 +46561,7 @@ export type DeleteWebhookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteWebhookResponse =
-	| DeleteWebhookStatus204
-	| DeleteWebhookStatus400
-	| DeleteWebhookStatus401
-	| DeleteWebhookStatus403
-	| DeleteWebhookStatus404
-	| DeleteWebhookStatus410;
+export type DeleteWebhookResponse = DeleteWebhookStatus204;
 
 export type ListDeploymentAliasesPath = {
 	/**
@@ -48863,13 +46618,7 @@ export type ListDeploymentAliasesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListDeploymentAliasesResponse =
-	| ListDeploymentAliasesStatus200
-	| ListDeploymentAliasesStatus400
-	| ListDeploymentAliasesStatus401
-	| ListDeploymentAliasesStatus403
-	| ListDeploymentAliasesStatus404
-	| ListDeploymentAliasesStatus410;
+export type ListDeploymentAliasesResponse = ListDeploymentAliasesStatus200;
 
 export type AssignAliasPath = {
 	/**
@@ -48931,15 +46680,7 @@ export type AssignAliasResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AssignAliasResponse =
-	| AssignAliasStatus200
-	| AssignAliasStatus400
-	| AssignAliasStatus401
-	| AssignAliasStatus402
-	| AssignAliasStatus403
-	| AssignAliasStatus404
-	| AssignAliasStatus409
-	| AssignAliasStatus410;
+export type AssignAliasResponse = AssignAliasStatus200;
 
 export type ListAliasesQuery = {
 	/**
@@ -49029,13 +46770,7 @@ export type ListAliasesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAliasesResponse =
-	| ListAliasesStatus200
-	| ListAliasesStatus400
-	| ListAliasesStatus401
-	| ListAliasesStatus403
-	| ListAliasesStatus404
-	| ListAliasesStatus410;
+export type ListAliasesResponse = ListAliasesStatus200;
 
 export type GetAliasPath = {
 	/**
@@ -49117,13 +46852,7 @@ export type GetAliasResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAliasResponse =
-	| GetAliasStatus200
-	| GetAliasStatus400
-	| GetAliasStatus401
-	| GetAliasStatus403
-	| GetAliasStatus404
-	| GetAliasStatus410;
+export type GetAliasResponse = GetAliasStatus200;
 
 export type DeleteAliasPath = {
 	/**
@@ -49179,13 +46908,7 @@ export type DeleteAliasResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAliasResponse =
-	| DeleteAliasStatus200
-	| DeleteAliasStatus400
-	| DeleteAliasStatus401
-	| DeleteAliasStatus403
-	| DeleteAliasStatus404
-	| DeleteAliasStatus410;
+export type DeleteAliasResponse = DeleteAliasStatus200;
 
 export type PatchUrlProtectionBypassPath = {
 	/**
@@ -49247,15 +46970,7 @@ export type PatchUrlProtectionBypassResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PatchUrlProtectionBypassResponse =
-	| PatchUrlProtectionBypassStatus200
-	| PatchUrlProtectionBypassStatus400
-	| PatchUrlProtectionBypassStatus401
-	| PatchUrlProtectionBypassStatus403
-	| PatchUrlProtectionBypassStatus404
-	| PatchUrlProtectionBypassStatus409
-	| PatchUrlProtectionBypassStatus410
-	| PatchUrlProtectionBypassStatus428;
+export type PatchUrlProtectionBypassResponse = PatchUrlProtectionBypassStatus200;
 
 export type GetCertByIdPath = {
 	/**
@@ -49311,13 +47026,7 @@ export type GetCertByIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetCertByIdResponse =
-	| GetCertByIdStatus200
-	| GetCertByIdStatus400
-	| GetCertByIdStatus401
-	| GetCertByIdStatus403
-	| GetCertByIdStatus404
-	| GetCertByIdStatus410;
+export type GetCertByIdResponse = GetCertByIdStatus200;
 
 export type RemoveCertPath = {
 	/**
@@ -49373,13 +47082,7 @@ export type RemoveCertResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RemoveCertResponse =
-	| RemoveCertStatus200
-	| RemoveCertStatus400
-	| RemoveCertStatus401
-	| RemoveCertStatus403
-	| RemoveCertStatus404
-	| RemoveCertStatus410;
+export type RemoveCertResponse = RemoveCertStatus200;
 
 export type GetCertsQuery = {
 	/**
@@ -49424,12 +47127,7 @@ export type GetCertsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetCertsResponse =
-	| GetCertsStatus200
-	| GetCertsStatus400
-	| GetCertsStatus401
-	| GetCertsStatus403
-	| GetCertsStatus410;
+export type GetCertsResponse = GetCertsStatus200;
 
 export type IssueCertQuery = {
 	/**
@@ -49486,16 +47184,7 @@ export type IssueCertResponses = {
 /**
  * @description Union of all possible responses
  */
-export type IssueCertResponse =
-	| IssueCertStatus200
-	| IssueCertStatus400
-	| IssueCertStatus401
-	| IssueCertStatus402
-	| IssueCertStatus403
-	| IssueCertStatus404
-	| IssueCertStatus410
-	| IssueCertStatus449
-	| IssueCertStatus500;
+export type IssueCertResponse = IssueCertStatus200;
 
 export type UploadCertQuery = {
 	/**
@@ -49546,14 +47235,7 @@ export type UploadCertResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UploadCertResponse =
-	| UploadCertStatus200
-	| UploadCertStatus400
-	| UploadCertStatus401
-	| UploadCertStatus402
-	| UploadCertStatus403
-	| UploadCertStatus404
-	| UploadCertStatus410;
+export type UploadCertResponse = UploadCertStatus200;
 
 export type ListDeploymentFilesPath = {
 	/**
@@ -49609,13 +47291,7 @@ export type ListDeploymentFilesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListDeploymentFilesResponse =
-	| ListDeploymentFilesStatus200
-	| ListDeploymentFilesStatus400
-	| ListDeploymentFilesStatus401
-	| ListDeploymentFilesStatus403
-	| ListDeploymentFilesStatus404
-	| ListDeploymentFilesStatus410;
+export type ListDeploymentFilesResponse = ListDeploymentFilesStatus200;
 
 export type GetDeploymentFileContentsPath = {
 	/**
@@ -49817,14 +47493,7 @@ export type GetDeploymentsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDeploymentsResponse =
-	| GetDeploymentsStatus200
-	| GetDeploymentsStatus400
-	| GetDeploymentsStatus401
-	| GetDeploymentsStatus403
-	| GetDeploymentsStatus404
-	| GetDeploymentsStatus410
-	| GetDeploymentsStatus422;
+export type GetDeploymentsResponse = GetDeploymentsStatus200;
 
 export type DeleteDeploymentPath = {
 	/**
@@ -49887,10 +47556,4 @@ export type DeleteDeploymentResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteDeploymentResponse =
-	| DeleteDeploymentStatus200
-	| DeleteDeploymentStatus400
-	| DeleteDeploymentStatus401
-	| DeleteDeploymentStatus403
-	| DeleteDeploymentStatus404
-	| DeleteDeploymentStatus410;
+export type DeleteDeploymentResponse = DeleteDeploymentStatus200;

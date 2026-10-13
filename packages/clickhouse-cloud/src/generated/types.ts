@@ -1106,6 +1106,17 @@ export type PrometheusDiscoveryLabels = {
 	 * @type string | undefined
 	 */
 	clickhouse_discovery_service_name?: string | undefined;
+	/**
+	 * @description Service region, for example `us-east-1`.
+	 * @type string | undefined
+	 */
+	__meta_clickhouse_region?: string | undefined;
+	/**
+	 * @description Cloud provider, for example `aws`.
+	 * @type string | undefined
+	 */
+	__meta_clickhouse_provider?: string | undefined;
+	[key: string]: unknown;
 };
 
 export type PrometheusDiscoveryTargetGroup = {
@@ -4605,7 +4616,7 @@ export type ClickPipePubSubSourceSeekTypeEnumKey =
 
 export type ClickPipePubSubSource = {
 	/**
-	 * @description Format of messages in the Pub/Sub topic. GCP Pub/Sub ClickPipes are in limited preview — contact support to enable this feature for your organization.
+	 * @description Format of messages in the Pub/Sub topic. GCP Pub/Sub ClickPipes are in private preview — contact support to enable this feature for your organization.
 	 * @example JSONEachRow
 	 * @type string
 	 */
@@ -4682,7 +4693,7 @@ export type ClickPipePostPubSubServiceAccountSourceSeekTypeEnumKey =
 
 export type ClickPipePostPubSubServiceAccountSource = {
 	/**
-	 * @description Format of messages in the Pub/Sub topic. GCP Pub/Sub ClickPipes are in limited preview — contact support to enable this feature for your organization.
+	 * @description Format of messages in the Pub/Sub topic. GCP Pub/Sub ClickPipes are in private preview — contact support to enable this feature for your organization.
 	 * @example JSONEachRow
 	 * @type string
 	 */
@@ -4760,7 +4771,7 @@ export type ClickPipePostPubSubWorkloadIdentitySourceSeekTypeEnumKey =
 
 export type ClickPipePostPubSubWorkloadIdentitySource = {
 	/**
-	 * @description Format of messages in the Pub/Sub topic. GCP Pub/Sub ClickPipes are in limited preview — contact support to enable this feature for your organization.
+	 * @description Format of messages in the Pub/Sub topic. GCP Pub/Sub ClickPipes are in private preview — contact support to enable this feature for your organization.
 	 * @example JSONEachRow
 	 * @type string
 	 */
@@ -6120,6 +6131,32 @@ export type SnapshotConfiguration = {
 	 * @type number | undefined
 	 */
 	timeFrame?: number | undefined;
+};
+
+export type ReplicaAwareRouting = {
+	/**
+	 * @description Whether replica aware routing is enabled for HTTP connections. When enabled, clients must send the X-ClickHouse-Replica-Tag header. Enabling this changes HTTP connection behavior for the service.
+	 * @type boolean
+	 */
+	httpEnabled: boolean;
+	/**
+	 * @description Whether replica aware routing is enabled for native protocol connections.
+	 * @type boolean
+	 */
+	nativeEnabled: boolean;
+};
+
+export type ReplicaAwareRoutingPatchRequest = {
+	/**
+	 * @description Whether replica aware routing is enabled for HTTP connections. Omit to leave unchanged.
+	 * @type boolean | undefined
+	 */
+	httpEnabled?: boolean | undefined;
+	/**
+	 * @description Whether replica aware routing is enabled for native protocol connections. Omit to leave unchanged.
+	 * @type boolean | undefined
+	 */
+	nativeEnabled?: boolean | undefined;
 };
 
 export const clickStackAlertExecutionErrorTypeEnum = {
@@ -15307,15 +15344,6 @@ export const udfCreateRequestSandboxTypeEnum = {
 export type UdfCreateRequestSandboxTypeEnumKey =
 	(typeof udfCreateRequestSandboxTypeEnum)[keyof typeof udfCreateRequestSandboxTypeEnum];
 
-export const udfCreateRequestSandboxVersionEnum = {
-	v1: "v1",
-	v2: "v2",
-	v3: "v3",
-} as const;
-
-export type UdfCreateRequestSandboxVersionEnumKey =
-	(typeof udfCreateRequestSandboxVersionEnum)[keyof typeof udfCreateRequestSandboxVersionEnum];
-
 export type UdfCreateRequest =
 	| {
 			/**
@@ -15367,11 +15395,6 @@ export type UdfCreateRequest =
 			 * @type string | undefined
 			 */
 			sandboxType?: UdfCreateRequestSandboxTypeEnumKey | undefined;
-			/**
-			 * @default 'v2'
-			 * @type string | undefined
-			 */
-			sandboxVersion?: UdfCreateRequestSandboxVersionEnumKey | undefined;
 			type: "executable";
 			/**
 			 * @description Always null — an executable UDF has no command pool.
@@ -15438,11 +15461,6 @@ export type UdfCreateRequest =
 			 * @type string | undefined
 			 */
 			sandboxType?: UdfCreateRequestSandboxTypeEnumKey | undefined;
-			/**
-			 * @default 'v2'
-			 * @type string | undefined
-			 */
-			sandboxVersion?: UdfCreateRequestSandboxVersionEnumKey | undefined;
 			type: "executable_pool";
 			/**
 			 * @default 3
@@ -15476,15 +15494,6 @@ export const udfVersionCreateRequestSandboxTypeEnum = {
 
 export type UdfVersionCreateRequestSandboxTypeEnumKey =
 	(typeof udfVersionCreateRequestSandboxTypeEnum)[keyof typeof udfVersionCreateRequestSandboxTypeEnum];
-
-export const udfVersionCreateRequestSandboxVersionEnum = {
-	v1: "v1",
-	v2: "v2",
-	v3: "v3",
-} as const;
-
-export type UdfVersionCreateRequestSandboxVersionEnumKey =
-	(typeof udfVersionCreateRequestSandboxVersionEnum)[keyof typeof udfVersionCreateRequestSandboxVersionEnum];
 
 export type UdfVersionCreateRequest =
 	| {
@@ -15537,11 +15546,6 @@ export type UdfVersionCreateRequest =
 			 * @type string | undefined
 			 */
 			sandboxType?: UdfVersionCreateRequestSandboxTypeEnumKey | undefined;
-			/**
-			 * @default 'v2'
-			 * @type string | undefined
-			 */
-			sandboxVersion?: UdfVersionCreateRequestSandboxVersionEnumKey | undefined;
 			type: "executable";
 			/**
 			 * @description Always null — an executable UDF has no command pool.
@@ -15603,11 +15607,6 @@ export type UdfVersionCreateRequest =
 			 * @type string | undefined
 			 */
 			sandboxType?: UdfVersionCreateRequestSandboxTypeEnumKey | undefined;
-			/**
-			 * @default 'v2'
-			 * @type string | undefined
-			 */
-			sandboxVersion?: UdfVersionCreateRequestSandboxVersionEnumKey | undefined;
 			type: "executable_pool";
 			/**
 			 * @default 3
@@ -16096,7 +16095,22 @@ export type WhoamiGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WhoamiGetResponse = WhoamiGetStatus200 | WhoamiGetStatus400 | WhoamiGetStatus500;
+export type WhoamiGetResponse = WhoamiGetStatus200;
+
+export type OrganizationGetListQuery = {
+	/**
+	 * @description Maximum number of results to return.
+	 * @minLength 1
+	 * @default 250
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description Opaque cursor from a previous response\'s `nextCursor`, marking where to resume the list.
+	 * @type string | undefined
+	 */
+	cursor?: string | undefined;
+};
 
 export type OrganizationGetListStatus200 = {
 	/**
@@ -16113,6 +16127,16 @@ export type OrganizationGetListStatus200 = {
 	 */
 	requestId?: string | undefined;
 	result?: Organization[] | undefined;
+	/**
+	 * @description Maximum number of results returned in this page.
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description Cursor for the next page, to be sent as the `cursor` query parameter. Null on the last page.
+	 * @type string | undefined
+	 */
+	nextCursor?: (string | null) | undefined;
 };
 
 export type OrganizationGetListStatus400 = {
@@ -16160,7 +16184,7 @@ export type OrganizationGetListStatus500 = {
 export type OrganizationGetListOptions = {
 	body?: never | undefined;
 	path?: never | undefined;
-	query?: never | undefined;
+	query?: OrganizationGetListQuery | undefined;
 	headers?: never | undefined;
 };
 
@@ -16173,10 +16197,7 @@ export type OrganizationGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OrganizationGetListResponse =
-	| OrganizationGetListStatus200
-	| OrganizationGetListStatus400
-	| OrganizationGetListStatus500;
+export type OrganizationGetListResponse = OrganizationGetListStatus200;
 
 export type OrganizationGetPath = {
 	/**
@@ -16263,10 +16284,7 @@ export type OrganizationGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OrganizationGetResponse =
-	| OrganizationGetStatus200
-	| OrganizationGetStatus400
-	| OrganizationGetStatus500;
+export type OrganizationGetResponse = OrganizationGetStatus200;
 
 export type OrganizationUpdatePath = {
 	/**
@@ -16355,10 +16373,7 @@ export type OrganizationUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OrganizationUpdateResponse =
-	| OrganizationUpdateStatus200
-	| OrganizationUpdateStatus400
-	| OrganizationUpdateStatus500;
+export type OrganizationUpdateResponse = OrganizationUpdateStatus200;
 
 export type OrganizationPrometheusGetPath = {
 	/**
@@ -16444,10 +16459,7 @@ export type OrganizationPrometheusGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OrganizationPrometheusGetResponse =
-	| OrganizationPrometheusGetStatus200
-	| OrganizationPrometheusGetStatus400
-	| OrganizationPrometheusGetStatus500;
+export type OrganizationPrometheusGetResponse = OrganizationPrometheusGetStatus200;
 
 export type OrganizationPrometheusDiscoveryGetPath = {
 	/**
@@ -16530,9 +16542,7 @@ export type OrganizationPrometheusDiscoveryGetResponses = {
  * @description Union of all possible responses
  */
 export type OrganizationPrometheusDiscoveryGetResponse =
-	| OrganizationPrometheusDiscoveryGetStatus200
-	| OrganizationPrometheusDiscoveryGetStatus400
-	| OrganizationPrometheusDiscoveryGetStatus500;
+	OrganizationPrometheusDiscoveryGetStatus200;
 
 export type OrganizationRolesGetListPath = {
 	/**
@@ -16619,10 +16629,7 @@ export type OrganizationRolesGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OrganizationRolesGetListResponse =
-	| OrganizationRolesGetListStatus200
-	| OrganizationRolesGetListStatus400
-	| OrganizationRolesGetListStatus500;
+export type OrganizationRolesGetListResponse = OrganizationRolesGetListStatus200;
 
 export type OrganizationRolePostPath = {
 	/**
@@ -16711,10 +16718,7 @@ export type OrganizationRolePostResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OrganizationRolePostResponse =
-	| OrganizationRolePostStatus200
-	| OrganizationRolePostStatus400
-	| OrganizationRolePostStatus500;
+export type OrganizationRolePostResponse = OrganizationRolePostStatus200;
 
 export type OrganizationRoleGetPath = {
 	/**
@@ -16808,10 +16812,7 @@ export type OrganizationRoleGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OrganizationRoleGetResponse =
-	| OrganizationRoleGetStatus200
-	| OrganizationRoleGetStatus400
-	| OrganizationRoleGetStatus500;
+export type OrganizationRoleGetResponse = OrganizationRoleGetStatus200;
 
 export type OrganizationRolePatchPath = {
 	/**
@@ -16907,10 +16908,7 @@ export type OrganizationRolePatchResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OrganizationRolePatchResponse =
-	| OrganizationRolePatchStatus200
-	| OrganizationRolePatchStatus400
-	| OrganizationRolePatchStatus500;
+export type OrganizationRolePatchResponse = OrganizationRolePatchStatus200;
 
 export type OrganizationRoleDeletePath = {
 	/**
@@ -17003,10 +17001,7 @@ export type OrganizationRoleDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OrganizationRoleDeleteResponse =
-	| OrganizationRoleDeleteStatus200
-	| OrganizationRoleDeleteStatus400
-	| OrganizationRoleDeleteStatus500;
+export type OrganizationRoleDeleteResponse = OrganizationRoleDeleteStatus200;
 
 export type OrganizationQuotasGetListPath = {
 	/**
@@ -17093,10 +17088,7 @@ export type OrganizationQuotasGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OrganizationQuotasGetListResponse =
-	| OrganizationQuotasGetListStatus200
-	| OrganizationQuotasGetListStatus400
-	| OrganizationQuotasGetListStatus500;
+export type OrganizationQuotasGetListResponse = OrganizationQuotasGetListStatus200;
 
 export type OrganizationQuotaGetPath = {
 	/**
@@ -17188,10 +17180,7 @@ export type OrganizationQuotaGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OrganizationQuotaGetResponse =
-	| OrganizationQuotaGetStatus200
-	| OrganizationQuotaGetStatus400
-	| OrganizationQuotaGetStatus500;
+export type OrganizationQuotaGetResponse = OrganizationQuotaGetStatus200;
 
 export type ServiceProfilesListPath = {
 	/**
@@ -17293,10 +17282,7 @@ export type ServiceProfilesListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ServiceProfilesListResponse =
-	| ServiceProfilesListStatus200
-	| ServiceProfilesListStatus400
-	| ServiceProfilesListStatus500;
+export type ServiceProfilesListResponse = ServiceProfilesListStatus200;
 
 export type InstanceGetListPath = {
 	/**
@@ -17391,10 +17377,7 @@ export type InstanceGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstanceGetListResponse =
-	| InstanceGetListStatus200
-	| InstanceGetListStatus400
-	| InstanceGetListStatus500;
+export type InstanceGetListResponse = InstanceGetListStatus200;
 
 export type InstanceCreatePath = {
 	/**
@@ -17483,10 +17466,7 @@ export type InstanceCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstanceCreateResponse =
-	| InstanceCreateStatus200
-	| InstanceCreateStatus400
-	| InstanceCreateStatus500;
+export type InstanceCreateResponse = InstanceCreateStatus200;
 
 export type InstanceGetPath = {
 	/**
@@ -17580,10 +17560,7 @@ export type InstanceGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstanceGetResponse =
-	| InstanceGetStatus200
-	| InstanceGetStatus400
-	| InstanceGetStatus500;
+export type InstanceGetResponse = InstanceGetStatus200;
 
 export type InstanceUpdatePath = {
 	/**
@@ -17679,10 +17656,7 @@ export type InstanceUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstanceUpdateResponse =
-	| InstanceUpdateStatus200
-	| InstanceUpdateStatus400
-	| InstanceUpdateStatus500;
+export type InstanceUpdateResponse = InstanceUpdateStatus200;
 
 export type InstanceDeletePath = {
 	/**
@@ -17775,10 +17749,7 @@ export type InstanceDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstanceDeleteResponse =
-	| InstanceDeleteStatus200
-	| InstanceDeleteStatus400
-	| InstanceDeleteStatus500;
+export type InstanceDeleteResponse = InstanceDeleteStatus200;
 
 export type InstancePrivateEndpointConfigGetPath = {
 	/**
@@ -17872,10 +17843,7 @@ export type InstancePrivateEndpointConfigGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstancePrivateEndpointConfigGetResponse =
-	| InstancePrivateEndpointConfigGetStatus200
-	| InstancePrivateEndpointConfigGetStatus400
-	| InstancePrivateEndpointConfigGetStatus500;
+export type InstancePrivateEndpointConfigGetResponse = InstancePrivateEndpointConfigGetStatus200;
 
 export type InstanceQueryEndpointGetPath = {
 	/**
@@ -17969,10 +17937,7 @@ export type InstanceQueryEndpointGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstanceQueryEndpointGetResponse =
-	| InstanceQueryEndpointGetStatus200
-	| InstanceQueryEndpointGetStatus400
-	| InstanceQueryEndpointGetStatus500;
+export type InstanceQueryEndpointGetResponse = InstanceQueryEndpointGetStatus200;
 
 export type InstanceQueryEndpointDeletePath = {
 	/**
@@ -18065,10 +18030,7 @@ export type InstanceQueryEndpointDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstanceQueryEndpointDeleteResponse =
-	| InstanceQueryEndpointDeleteStatus200
-	| InstanceQueryEndpointDeleteStatus400
-	| InstanceQueryEndpointDeleteStatus500;
+export type InstanceQueryEndpointDeleteResponse = InstanceQueryEndpointDeleteStatus200;
 
 export type InstanceQueryEndpointUpsertPath = {
 	/**
@@ -18166,10 +18128,7 @@ export type InstanceQueryEndpointUpsertResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstanceQueryEndpointUpsertResponse =
-	| InstanceQueryEndpointUpsertStatus200
-	| InstanceQueryEndpointUpsertStatus400
-	| InstanceQueryEndpointUpsertStatus500;
+export type InstanceQueryEndpointUpsertResponse = InstanceQueryEndpointUpsertStatus200;
 
 export type InstanceStateUpdatePath = {
 	/**
@@ -18265,10 +18224,7 @@ export type InstanceStateUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstanceStateUpdateResponse =
-	| InstanceStateUpdateStatus200
-	| InstanceStateUpdateStatus400
-	| InstanceStateUpdateStatus500;
+export type InstanceStateUpdateResponse = InstanceStateUpdateStatus200;
 
 export type InstanceScalingUpdatePath = {
 	/**
@@ -18368,10 +18324,7 @@ export type InstanceScalingUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstanceScalingUpdateResponse =
-	| InstanceScalingUpdateStatus200
-	| InstanceScalingUpdateStatus400
-	| InstanceScalingUpdateStatus500;
+export type InstanceScalingUpdateResponse = InstanceScalingUpdateStatus200;
 
 export type InstanceReplicaScalingUpdatePath = {
 	/**
@@ -18467,10 +18420,7 @@ export type InstanceReplicaScalingUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstanceReplicaScalingUpdateResponse =
-	| InstanceReplicaScalingUpdateStatus200
-	| InstanceReplicaScalingUpdateStatus400
-	| InstanceReplicaScalingUpdateStatus500;
+export type InstanceReplicaScalingUpdateResponse = InstanceReplicaScalingUpdateStatus200;
 
 export type InstancePasswordUpdatePath = {
 	/**
@@ -18566,10 +18516,7 @@ export type InstancePasswordUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstancePasswordUpdateResponse =
-	| InstancePasswordUpdateStatus200
-	| InstancePasswordUpdateStatus400
-	| InstancePasswordUpdateStatus500;
+export type InstancePasswordUpdateResponse = InstancePasswordUpdateStatus200;
 
 export type InstancePrivateEndpointCreatePath = {
 	/**
@@ -18665,10 +18612,7 @@ export type InstancePrivateEndpointCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstancePrivateEndpointCreateResponse =
-	| InstancePrivateEndpointCreateStatus200
-	| InstancePrivateEndpointCreateStatus400
-	| InstancePrivateEndpointCreateStatus500;
+export type InstancePrivateEndpointCreateResponse = InstancePrivateEndpointCreateStatus200;
 
 export type InstancePrometheusGetPath = {
 	/**
@@ -18757,10 +18701,7 @@ export type InstancePrometheusGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InstancePrometheusGetResponse =
-	| InstancePrometheusGetStatus200
-	| InstancePrometheusGetStatus400
-	| InstancePrometheusGetStatus500;
+export type InstancePrometheusGetResponse = InstancePrometheusGetStatus200;
 
 export type ScalingScheduleGetPath = {
 	/**
@@ -18854,10 +18795,7 @@ export type ScalingScheduleGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ScalingScheduleGetResponse =
-	| ScalingScheduleGetStatus200
-	| ScalingScheduleGetStatus400
-	| ScalingScheduleGetStatus500;
+export type ScalingScheduleGetResponse = ScalingScheduleGetStatus200;
 
 export type ScalingScheduleUpsertPath = {
 	/**
@@ -18953,10 +18891,7 @@ export type ScalingScheduleUpsertResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ScalingScheduleUpsertResponse =
-	| ScalingScheduleUpsertStatus200
-	| ScalingScheduleUpsertStatus400
-	| ScalingScheduleUpsertStatus500;
+export type ScalingScheduleUpsertResponse = ScalingScheduleUpsertStatus200;
 
 export type ScalingScheduleDeletePath = {
 	/**
@@ -19049,10 +18984,7 @@ export type ScalingScheduleDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ScalingScheduleDeleteResponse =
-	| ScalingScheduleDeleteStatus200
-	| ScalingScheduleDeleteStatus400
-	| ScalingScheduleDeleteStatus500;
+export type ScalingScheduleDeleteResponse = ScalingScheduleDeleteStatus200;
 
 export type UpgradeWindowGetPath = {
 	/**
@@ -19146,10 +19078,7 @@ export type UpgradeWindowGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpgradeWindowGetResponse =
-	| UpgradeWindowGetStatus200
-	| UpgradeWindowGetStatus400
-	| UpgradeWindowGetStatus500;
+export type UpgradeWindowGetResponse = UpgradeWindowGetStatus200;
 
 export type UpgradeWindowUpdatePath = {
 	/**
@@ -19245,10 +19174,7 @@ export type UpgradeWindowUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpgradeWindowUpdateResponse =
-	| UpgradeWindowUpdateStatus200
-	| UpgradeWindowUpdateStatus400
-	| UpgradeWindowUpdateStatus500;
+export type UpgradeWindowUpdateResponse = UpgradeWindowUpdateStatus200;
 
 export type UpgradeWindowDeletePath = {
 	/**
@@ -19341,10 +19267,7 @@ export type UpgradeWindowDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpgradeWindowDeleteResponse =
-	| UpgradeWindowDeleteStatus200
-	| UpgradeWindowDeleteStatus400
-	| UpgradeWindowDeleteStatus500;
+export type UpgradeWindowDeleteResponse = UpgradeWindowDeleteStatus200;
 
 export type ServiceClickhouseSettingsListGetPath = {
 	/**
@@ -19438,10 +19361,7 @@ export type ServiceClickhouseSettingsListGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ServiceClickhouseSettingsListGetResponse =
-	| ServiceClickhouseSettingsListGetStatus200
-	| ServiceClickhouseSettingsListGetStatus400
-	| ServiceClickhouseSettingsListGetStatus500;
+export type ServiceClickhouseSettingsListGetResponse = ServiceClickhouseSettingsListGetStatus200;
 
 export type ServiceClickhouseSettingsUpdatePath = {
 	/**
@@ -19537,10 +19457,7 @@ export type ServiceClickhouseSettingsUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ServiceClickhouseSettingsUpdateResponse =
-	| ServiceClickhouseSettingsUpdateStatus200
-	| ServiceClickhouseSettingsUpdateStatus400
-	| ServiceClickhouseSettingsUpdateStatus500;
+export type ServiceClickhouseSettingsUpdateResponse = ServiceClickhouseSettingsUpdateStatus200;
 
 export type ServiceClickhouseSettingsSchemaGetPath = {
 	/**
@@ -19635,9 +19552,7 @@ export type ServiceClickhouseSettingsSchemaGetResponses = {
  * @description Union of all possible responses
  */
 export type ServiceClickhouseSettingsSchemaGetResponse =
-	| ServiceClickhouseSettingsSchemaGetStatus200
-	| ServiceClickhouseSettingsSchemaGetStatus400
-	| ServiceClickhouseSettingsSchemaGetStatus500;
+	ServiceClickhouseSettingsSchemaGetStatus200;
 
 export type ServiceClickhouseSettingGetPath = {
 	/**
@@ -19736,10 +19651,7 @@ export type ServiceClickhouseSettingGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ServiceClickhouseSettingGetResponse =
-	| ServiceClickhouseSettingGetStatus200
-	| ServiceClickhouseSettingGetStatus400
-	| ServiceClickhouseSettingGetStatus500;
+export type ServiceClickhouseSettingGetResponse = ServiceClickhouseSettingGetStatus200;
 
 export type ServiceClickhouseSettingDeletePath = {
 	/**
@@ -19837,10 +19749,7 @@ export type ServiceClickhouseSettingDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ServiceClickhouseSettingDeleteResponse =
-	| ServiceClickhouseSettingDeleteStatus200
-	| ServiceClickhouseSettingDeleteStatus400
-	| ServiceClickhouseSettingDeleteStatus500;
+export type ServiceClickhouseSettingDeleteResponse = ServiceClickhouseSettingDeleteStatus200;
 
 export type BackupGetListPath = {
 	/**
@@ -19934,10 +19843,7 @@ export type BackupGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type BackupGetListResponse =
-	| BackupGetListStatus200
-	| BackupGetListStatus400
-	| BackupGetListStatus500;
+export type BackupGetListResponse = BackupGetListStatus200;
 
 export type BackupGetPath = {
 	/**
@@ -20038,7 +19944,7 @@ export type BackupGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type BackupGetResponse = BackupGetStatus200 | BackupGetStatus400 | BackupGetStatus500;
+export type BackupGetResponse = BackupGetStatus200;
 
 export type SnapshotGetListPath = {
 	/**
@@ -20057,6 +19963,21 @@ export type SnapshotGetListPath = {
 	serviceId: string;
 };
 
+export type SnapshotGetListQuery = {
+	/**
+	 * @description Maximum number of results to return.
+	 * @minLength 1
+	 * @default 250
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description Opaque cursor from a previous response\'s `nextCursor`, marking where to resume the list.
+	 * @type string | undefined
+	 */
+	cursor?: string | undefined;
+};
+
 export type SnapshotGetListStatus200 = {
 	/**
 	 * @description HTTP status code.
@@ -20072,6 +19993,21 @@ export type SnapshotGetListStatus200 = {
 	 */
 	requestId?: string | undefined;
 	result?: Snapshot[] | undefined;
+	/**
+	 * @description Maximum number of results returned in this page.
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description Total number of results across all pages. It has only informative value, thus is not guaranteed and it is provided on a best-effort basis. Null if the total count is unknown.
+	 * @type integer | undefined
+	 */
+	totalCount?: (number | null) | undefined;
+	/**
+	 * @description Cursor for the next page, to be sent as the `cursor` query parameter. Null on the last page.
+	 * @type string | undefined
+	 */
+	nextCursor?: (string | null) | undefined;
 };
 
 export type SnapshotGetListStatus400 = {
@@ -20119,7 +20055,7 @@ export type SnapshotGetListStatus500 = {
 export type SnapshotGetListOptions = {
 	body?: never | undefined;
 	path: SnapshotGetListPath;
-	query?: never | undefined;
+	query?: SnapshotGetListQuery | undefined;
 	headers?: never | undefined;
 };
 
@@ -20132,10 +20068,7 @@ export type SnapshotGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SnapshotGetListResponse =
-	| SnapshotGetListStatus200
-	| SnapshotGetListStatus400
-	| SnapshotGetListStatus500;
+export type SnapshotGetListResponse = SnapshotGetListStatus200;
 
 export type SnapshotGetPath = {
 	/**
@@ -20236,10 +20169,7 @@ export type SnapshotGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SnapshotGetResponse =
-	| SnapshotGetStatus200
-	| SnapshotGetStatus400
-	| SnapshotGetStatus500;
+export type SnapshotGetResponse = SnapshotGetStatus200;
 
 export type BackupConfigurationGetPath = {
 	/**
@@ -20333,10 +20263,7 @@ export type BackupConfigurationGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type BackupConfigurationGetResponse =
-	| BackupConfigurationGetStatus200
-	| BackupConfigurationGetStatus400
-	| BackupConfigurationGetStatus500;
+export type BackupConfigurationGetResponse = BackupConfigurationGetStatus200;
 
 export type BackupConfigurationUpdatePath = {
 	/**
@@ -20432,10 +20359,7 @@ export type BackupConfigurationUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type BackupConfigurationUpdateResponse =
-	| BackupConfigurationUpdateStatus200
-	| BackupConfigurationUpdateStatus400
-	| BackupConfigurationUpdateStatus500;
+export type BackupConfigurationUpdateResponse = BackupConfigurationUpdateStatus200;
 
 export type SnapshotConfigurationGetPath = {
 	/**
@@ -20529,10 +20453,7 @@ export type SnapshotConfigurationGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SnapshotConfigurationGetResponse =
-	| SnapshotConfigurationGetStatus200
-	| SnapshotConfigurationGetStatus400
-	| SnapshotConfigurationGetStatus500;
+export type SnapshotConfigurationGetResponse = SnapshotConfigurationGetStatus200;
 
 export type SnapshotConfigurationUpdatePath = {
 	/**
@@ -20628,10 +20549,197 @@ export type SnapshotConfigurationUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SnapshotConfigurationUpdateResponse =
-	| SnapshotConfigurationUpdateStatus200
-	| SnapshotConfigurationUpdateStatus400
-	| SnapshotConfigurationUpdateStatus500;
+export type SnapshotConfigurationUpdateResponse = SnapshotConfigurationUpdateStatus200;
+
+export type ReplicaAwareRoutingGetPath = {
+	/**
+	 * @description ID of the organization that owns the service.
+	 *
+	 * Format: `uuid`
+	 * @type string
+	 */
+	organizationId: string;
+	/**
+	 * @description ID of the service.
+	 *
+	 * Format: `uuid`
+	 * @type string
+	 */
+	serviceId: string;
+};
+
+export type ReplicaAwareRoutingGetStatus200 = {
+	/**
+	 * @description HTTP status code.
+	 * @example 200
+	 * @type number | undefined
+	 */
+	status?: number | undefined;
+	/**
+	 * @description Unique id assigned to every request. UUIDv4
+	 *
+	 * Format: `uuid`
+	 * @type string | undefined
+	 */
+	requestId?: string | undefined;
+	result?: ReplicaAwareRouting | undefined;
+};
+
+export type ReplicaAwareRoutingGetStatus400 = {
+	/**
+	 * @description HTTP status code.
+	 * @example 400
+	 * @type number | undefined
+	 */
+	status?: number | undefined;
+	/**
+	 * @description Detailed error description.
+	 * @type string | undefined
+	 */
+	error?: string | undefined;
+	/**
+	 * @description Unique id assigned to every request. UUIDv4
+	 *
+	 * Format: `uuid`
+	 * @type string | undefined
+	 */
+	requestId?: string | undefined;
+};
+
+export type ReplicaAwareRoutingGetStatus500 = {
+	/**
+	 * @description HTTP status code.
+	 * @example 500
+	 * @type integer | undefined
+	 */
+	status?: number | undefined;
+	/**
+	 * @description Detailed error description.
+	 * @type string | undefined
+	 */
+	error?: string | undefined;
+	/**
+	 * @description Unique id assigned to every request. UUIDv4
+	 *
+	 * Format: `uuid`
+	 * @type string | undefined
+	 */
+	requestId?: string | undefined;
+};
+
+export type ReplicaAwareRoutingGetOptions = {
+	body?: never | undefined;
+	path: ReplicaAwareRoutingGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ReplicaAwareRoutingGetResponses = {
+	"200": ReplicaAwareRoutingGetStatus200;
+	"400": ReplicaAwareRoutingGetStatus400;
+	"500": ReplicaAwareRoutingGetStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ReplicaAwareRoutingGetResponse = ReplicaAwareRoutingGetStatus200;
+
+export type ReplicaAwareRoutingUpdatePath = {
+	/**
+	 * @description ID of the organization that owns the service.
+	 *
+	 * Format: `uuid`
+	 * @type string
+	 */
+	organizationId: string;
+	/**
+	 * @description ID of the service.
+	 *
+	 * Format: `uuid`
+	 * @type string
+	 */
+	serviceId: string;
+};
+
+export type ReplicaAwareRoutingUpdateStatus200 = {
+	/**
+	 * @description HTTP status code.
+	 * @example 200
+	 * @type number | undefined
+	 */
+	status?: number | undefined;
+	/**
+	 * @description Unique id assigned to every request. UUIDv4
+	 *
+	 * Format: `uuid`
+	 * @type string | undefined
+	 */
+	requestId?: string | undefined;
+	result?: ReplicaAwareRouting | undefined;
+};
+
+export type ReplicaAwareRoutingUpdateStatus400 = {
+	/**
+	 * @description HTTP status code.
+	 * @example 400
+	 * @type number | undefined
+	 */
+	status?: number | undefined;
+	/**
+	 * @description Detailed error description.
+	 * @type string | undefined
+	 */
+	error?: string | undefined;
+	/**
+	 * @description Unique id assigned to every request. UUIDv4
+	 *
+	 * Format: `uuid`
+	 * @type string | undefined
+	 */
+	requestId?: string | undefined;
+};
+
+export type ReplicaAwareRoutingUpdateStatus500 = {
+	/**
+	 * @description HTTP status code.
+	 * @example 500
+	 * @type integer | undefined
+	 */
+	status?: number | undefined;
+	/**
+	 * @description Detailed error description.
+	 * @type string | undefined
+	 */
+	error?: string | undefined;
+	/**
+	 * @description Unique id assigned to every request. UUIDv4
+	 *
+	 * Format: `uuid`
+	 * @type string | undefined
+	 */
+	requestId?: string | undefined;
+};
+
+export type ReplicaAwareRoutingUpdateBody = ReplicaAwareRoutingPatchRequest | undefined;
+
+export type ReplicaAwareRoutingUpdateOptions = {
+	body: ReplicaAwareRoutingUpdateBody;
+	path: ReplicaAwareRoutingUpdatePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ReplicaAwareRoutingUpdateResponses = {
+	"200": ReplicaAwareRoutingUpdateStatus200;
+	"400": ReplicaAwareRoutingUpdateStatus400;
+	"500": ReplicaAwareRoutingUpdateStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ReplicaAwareRoutingUpdateResponse = ReplicaAwareRoutingUpdateStatus200;
 
 export type BackupBucketGetPath = {
 	/**
@@ -20725,10 +20833,7 @@ export type BackupBucketGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type BackupBucketGetResponse =
-	| BackupBucketGetStatus200
-	| BackupBucketGetStatus400
-	| BackupBucketGetStatus500;
+export type BackupBucketGetResponse = BackupBucketGetStatus200;
 
 export type BackupBucketCreatePath = {
 	/**
@@ -20824,10 +20929,7 @@ export type BackupBucketCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type BackupBucketCreateResponse =
-	| BackupBucketCreateStatus200
-	| BackupBucketCreateStatus400
-	| BackupBucketCreateStatus500;
+export type BackupBucketCreateResponse = BackupBucketCreateStatus200;
 
 export type BackupBucketUpdatePath = {
 	/**
@@ -20923,10 +21025,7 @@ export type BackupBucketUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type BackupBucketUpdateResponse =
-	| BackupBucketUpdateStatus200
-	| BackupBucketUpdateStatus400
-	| BackupBucketUpdateStatus500;
+export type BackupBucketUpdateResponse = BackupBucketUpdateStatus200;
 
 export type BackupBucketDeletePath = {
 	/**
@@ -21019,10 +21118,7 @@ export type BackupBucketDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type BackupBucketDeleteResponse =
-	| BackupBucketDeleteStatus200
-	| BackupBucketDeleteStatus400
-	| BackupBucketDeleteStatus500;
+export type BackupBucketDeleteResponse = BackupBucketDeleteStatus200;
 
 export type OpenapiKeyGetListPath = {
 	/**
@@ -21038,7 +21134,6 @@ export type OpenapiKeyGetListQuery = {
 	/**
 	 * @description Maximum number of results to return.
 	 * @minLength 1
-	 * @maxLength 250
 	 * @default 250
 	 * @type integer | undefined
 	 */
@@ -21140,10 +21235,7 @@ export type OpenapiKeyGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OpenapiKeyGetListResponse =
-	| OpenapiKeyGetListStatus200
-	| OpenapiKeyGetListStatus400
-	| OpenapiKeyGetListStatus500;
+export type OpenapiKeyGetListResponse = OpenapiKeyGetListStatus200;
 
 export type OpenapiKeyCreatePath = {
 	/**
@@ -21232,10 +21324,7 @@ export type OpenapiKeyCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OpenapiKeyCreateResponse =
-	| OpenapiKeyCreateStatus200
-	| OpenapiKeyCreateStatus400
-	| OpenapiKeyCreateStatus500;
+export type OpenapiKeyCreateResponse = OpenapiKeyCreateStatus200;
 
 export type OpenapiKeyGetPath = {
 	/**
@@ -21329,10 +21418,7 @@ export type OpenapiKeyGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OpenapiKeyGetResponse =
-	| OpenapiKeyGetStatus200
-	| OpenapiKeyGetStatus400
-	| OpenapiKeyGetStatus500;
+export type OpenapiKeyGetResponse = OpenapiKeyGetStatus200;
 
 export type OpenapiKeyUpdatePath = {
 	/**
@@ -21428,10 +21514,7 @@ export type OpenapiKeyUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OpenapiKeyUpdateResponse =
-	| OpenapiKeyUpdateStatus200
-	| OpenapiKeyUpdateStatus400
-	| OpenapiKeyUpdateStatus500;
+export type OpenapiKeyUpdateResponse = OpenapiKeyUpdateStatus200;
 
 export type OpenapiKeyDeletePath = {
 	/**
@@ -21524,10 +21607,7 @@ export type OpenapiKeyDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OpenapiKeyDeleteResponse =
-	| OpenapiKeyDeleteStatus200
-	| OpenapiKeyDeleteStatus400
-	| OpenapiKeyDeleteStatus500;
+export type OpenapiKeyDeleteResponse = OpenapiKeyDeleteStatus200;
 
 export type MemberGetListPath = {
 	/**
@@ -21614,10 +21694,7 @@ export type MemberGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MemberGetListResponse =
-	| MemberGetListStatus200
-	| MemberGetListStatus400
-	| MemberGetListStatus500;
+export type MemberGetListResponse = MemberGetListStatus200;
 
 export type MemberGetPath = {
 	/**
@@ -21711,7 +21788,7 @@ export type MemberGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MemberGetResponse = MemberGetStatus200 | MemberGetStatus400 | MemberGetStatus500;
+export type MemberGetResponse = MemberGetStatus200;
 
 export type MemberUpdatePath = {
 	/**
@@ -21807,10 +21884,7 @@ export type MemberUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MemberUpdateResponse =
-	| MemberUpdateStatus200
-	| MemberUpdateStatus400
-	| MemberUpdateStatus500;
+export type MemberUpdateResponse = MemberUpdateStatus200;
 
 export type MemberDeletePath = {
 	/**
@@ -21903,10 +21977,7 @@ export type MemberDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MemberDeleteResponse =
-	| MemberDeleteStatus200
-	| MemberDeleteStatus400
-	| MemberDeleteStatus500;
+export type MemberDeleteResponse = MemberDeleteStatus200;
 
 export type InvitationGetListPath = {
 	/**
@@ -21993,10 +22064,7 @@ export type InvitationGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InvitationGetListResponse =
-	| InvitationGetListStatus200
-	| InvitationGetListStatus400
-	| InvitationGetListStatus500;
+export type InvitationGetListResponse = InvitationGetListStatus200;
 
 export type InvitationCreatePath = {
 	/**
@@ -22085,10 +22153,7 @@ export type InvitationCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InvitationCreateResponse =
-	| InvitationCreateStatus200
-	| InvitationCreateStatus400
-	| InvitationCreateStatus500;
+export type InvitationCreateResponse = InvitationCreateStatus200;
 
 export type InvitationGetPath = {
 	/**
@@ -22182,10 +22247,7 @@ export type InvitationGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InvitationGetResponse =
-	| InvitationGetStatus200
-	| InvitationGetStatus400
-	| InvitationGetStatus500;
+export type InvitationGetResponse = InvitationGetStatus200;
 
 export type InvitationDeletePath = {
 	/**
@@ -22278,10 +22340,7 @@ export type InvitationDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InvitationDeleteResponse =
-	| InvitationDeleteStatus200
-	| InvitationDeleteStatus400
-	| InvitationDeleteStatus500;
+export type InvitationDeleteResponse = InvitationDeleteStatus200;
 
 export type ActivityGetListPath = {
 	/**
@@ -22385,10 +22444,7 @@ export type ActivityGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ActivityGetListResponse =
-	| ActivityGetListStatus200
-	| ActivityGetListStatus400
-	| ActivityGetListStatus500;
+export type ActivityGetListResponse = ActivityGetListStatus200;
 
 export type ActivityGetPath = {
 	/**
@@ -22480,10 +22536,7 @@ export type ActivityGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ActivityGetResponse =
-	| ActivityGetStatus200
-	| ActivityGetStatus400
-	| ActivityGetStatus500;
+export type ActivityGetResponse = ActivityGetStatus200;
 
 export type NotificationTypesGetListPath = {
 	/**
@@ -22570,10 +22623,7 @@ export type NotificationTypesGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type NotificationTypesGetListResponse =
-	| NotificationTypesGetListStatus200
-	| NotificationTypesGetListStatus400
-	| NotificationTypesGetListStatus500;
+export type NotificationTypesGetListResponse = NotificationTypesGetListStatus200;
 
 export type UsageCostGetPath = {
 	/**
@@ -22682,10 +22732,7 @@ export type UsageCostGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UsageCostGetResponse =
-	| UsageCostGetStatus200
-	| UsageCostGetStatus400
-	| UsageCostGetStatus500;
+export type UsageCostGetResponse = UsageCostGetStatus200;
 
 export type ActiveBalancesGetPath = {
 	/**
@@ -22794,10 +22841,7 @@ export type ActiveBalancesGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ActiveBalancesGetResponse =
-	| ActiveBalancesGetStatus200
-	| ActiveBalancesGetStatus400
-	| ActiveBalancesGetStatus500;
+export type ActiveBalancesGetResponse = ActiveBalancesGetStatus200;
 
 export type CreditBalancesGetPath = {
 	/**
@@ -22884,10 +22928,7 @@ export type CreditBalancesGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreditBalancesGetResponse =
-	| CreditBalancesGetStatus200
-	| CreditBalancesGetStatus400
-	| CreditBalancesGetStatus500;
+export type CreditBalancesGetResponse = CreditBalancesGetStatus200;
 
 export type ClickPipeGetListPath = {
 	/**
@@ -22981,10 +23022,7 @@ export type ClickPipeGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickPipeGetListResponse =
-	| ClickPipeGetListStatus200
-	| ClickPipeGetListStatus400
-	| ClickPipeGetListStatus500;
+export type ClickPipeGetListResponse = ClickPipeGetListStatus200;
 
 export type ClickPipeCreatePath = {
 	/**
@@ -23080,10 +23118,7 @@ export type ClickPipeCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickPipeCreateResponse =
-	| ClickPipeCreateStatus200
-	| ClickPipeCreateStatus400
-	| ClickPipeCreateStatus500;
+export type ClickPipeCreateResponse = ClickPipeCreateStatus200;
 
 export type ClickPipesServiceContextGetPath = {
 	/**
@@ -23177,10 +23212,7 @@ export type ClickPipesServiceContextGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickPipesServiceContextGetResponse =
-	| ClickPipesServiceContextGetStatus200
-	| ClickPipesServiceContextGetStatus400
-	| ClickPipesServiceContextGetStatus500;
+export type ClickPipesServiceContextGetResponse = ClickPipesServiceContextGetStatus200;
 
 export type ClickPipeGetPath = {
 	/**
@@ -23281,10 +23313,7 @@ export type ClickPipeGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickPipeGetResponse =
-	| ClickPipeGetStatus200
-	| ClickPipeGetStatus400
-	| ClickPipeGetStatus500;
+export type ClickPipeGetResponse = ClickPipeGetStatus200;
 
 export type ClickPipeUpdatePath = {
 	/**
@@ -23387,10 +23416,7 @@ export type ClickPipeUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickPipeUpdateResponse =
-	| ClickPipeUpdateStatus200
-	| ClickPipeUpdateStatus400
-	| ClickPipeUpdateStatus500;
+export type ClickPipeUpdateResponse = ClickPipeUpdateStatus200;
 
 export type ClickPipeDeletePath = {
 	/**
@@ -23490,10 +23516,7 @@ export type ClickPipeDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickPipeDeleteResponse =
-	| ClickPipeDeleteStatus200
-	| ClickPipeDeleteStatus400
-	| ClickPipeDeleteStatus500;
+export type ClickPipeDeleteResponse = ClickPipeDeleteStatus200;
 
 export type ClickPipeSettingsGetPath = {
 	/**
@@ -23594,10 +23617,7 @@ export type ClickPipeSettingsGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickPipeSettingsGetResponse =
-	| ClickPipeSettingsGetStatus200
-	| ClickPipeSettingsGetStatus400
-	| ClickPipeSettingsGetStatus500;
+export type ClickPipeSettingsGetResponse = ClickPipeSettingsGetStatus200;
 
 export type ClickPipeSettingsUpdatePath = {
 	/**
@@ -23700,10 +23720,7 @@ export type ClickPipeSettingsUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickPipeSettingsUpdateResponse =
-	| ClickPipeSettingsUpdateStatus200
-	| ClickPipeSettingsUpdateStatus400
-	| ClickPipeSettingsUpdateStatus500;
+export type ClickPipeSettingsUpdateResponse = ClickPipeSettingsUpdateStatus200;
 
 export type ClickPipeSchemaDiscoveryPath = {
 	/**
@@ -23897,10 +23914,7 @@ export type ClickPipeScalingUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickPipeScalingUpdateResponse =
-	| ClickPipeScalingUpdateStatus200
-	| ClickPipeScalingUpdateStatus400
-	| ClickPipeScalingUpdateStatus500;
+export type ClickPipeScalingUpdateResponse = ClickPipeScalingUpdateStatus200;
 
 export type ClickPipeStateUpdatePath = {
 	/**
@@ -24003,10 +24017,7 @@ export type ClickPipeStateUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickPipeStateUpdateResponse =
-	| ClickPipeStateUpdateStatus200
-	| ClickPipeStateUpdateStatus400
-	| ClickPipeStateUpdateStatus500;
+export type ClickPipeStateUpdateResponse = ClickPipeStateUpdateStatus200;
 
 export type ClickPipeCdcScalingGetPath = {
 	/**
@@ -24100,10 +24111,7 @@ export type ClickPipeCdcScalingGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickPipeCdcScalingGetResponse =
-	| ClickPipeCdcScalingGetStatus200
-	| ClickPipeCdcScalingGetStatus400
-	| ClickPipeCdcScalingGetStatus500;
+export type ClickPipeCdcScalingGetResponse = ClickPipeCdcScalingGetStatus200;
 
 export type ClickPipeCdcScalingUpdatePath = {
 	/**
@@ -24199,10 +24207,7 @@ export type ClickPipeCdcScalingUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickPipeCdcScalingUpdateResponse =
-	| ClickPipeCdcScalingUpdateStatus200
-	| ClickPipeCdcScalingUpdateStatus400
-	| ClickPipeCdcScalingUpdateStatus500;
+export type ClickPipeCdcScalingUpdateResponse = ClickPipeCdcScalingUpdateStatus200;
 
 export type ClickStackListDashboardsPath = {
 	/**
@@ -24296,10 +24301,7 @@ export type ClickStackListDashboardsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackListDashboardsResponse =
-	| ClickStackListDashboardsStatus200
-	| ClickStackListDashboardsStatus400
-	| ClickStackListDashboardsStatus500;
+export type ClickStackListDashboardsResponse = ClickStackListDashboardsStatus200;
 
 export type ClickStackCreateDashboardPath = {
 	/**
@@ -24395,10 +24397,7 @@ export type ClickStackCreateDashboardResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackCreateDashboardResponse =
-	| ClickStackCreateDashboardStatus200
-	| ClickStackCreateDashboardStatus400
-	| ClickStackCreateDashboardStatus500;
+export type ClickStackCreateDashboardResponse = ClickStackCreateDashboardStatus200;
 
 export type ClickStackGetDashboardPath = {
 	/**
@@ -24497,10 +24496,7 @@ export type ClickStackGetDashboardResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackGetDashboardResponse =
-	| ClickStackGetDashboardStatus200
-	| ClickStackGetDashboardStatus400
-	| ClickStackGetDashboardStatus500;
+export type ClickStackGetDashboardResponse = ClickStackGetDashboardStatus200;
 
 export type ClickStackUpdateDashboardPath = {
 	/**
@@ -24601,10 +24597,7 @@ export type ClickStackUpdateDashboardResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackUpdateDashboardResponse =
-	| ClickStackUpdateDashboardStatus200
-	| ClickStackUpdateDashboardStatus400
-	| ClickStackUpdateDashboardStatus500;
+export type ClickStackUpdateDashboardResponse = ClickStackUpdateDashboardStatus200;
 
 export type ClickStackDeleteDashboardPath = {
 	/**
@@ -24702,10 +24695,7 @@ export type ClickStackDeleteDashboardResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackDeleteDashboardResponse =
-	| ClickStackDeleteDashboardStatus200
-	| ClickStackDeleteDashboardStatus400
-	| ClickStackDeleteDashboardStatus500;
+export type ClickStackDeleteDashboardResponse = ClickStackDeleteDashboardStatus200;
 
 export type ClickStackValidateDashboardPath = {
 	/**
@@ -24908,10 +24898,7 @@ export type ClickStackListAlertsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackListAlertsResponse =
-	| ClickStackListAlertsStatus200
-	| ClickStackListAlertsStatus400
-	| ClickStackListAlertsStatus500;
+export type ClickStackListAlertsResponse = ClickStackListAlertsStatus200;
 
 export type ClickStackCreateAlertPath = {
 	/**
@@ -25007,10 +24994,7 @@ export type ClickStackCreateAlertResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackCreateAlertResponse =
-	| ClickStackCreateAlertStatus200
-	| ClickStackCreateAlertStatus400
-	| ClickStackCreateAlertStatus500;
+export type ClickStackCreateAlertResponse = ClickStackCreateAlertStatus200;
 
 export type ClickStackListSourcesPath = {
 	/**
@@ -25104,10 +25088,7 @@ export type ClickStackListSourcesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackListSourcesResponse =
-	| ClickStackListSourcesStatus200
-	| ClickStackListSourcesStatus400
-	| ClickStackListSourcesStatus500;
+export type ClickStackListSourcesResponse = ClickStackListSourcesStatus200;
 
 export type ClickStackCreateSourcePath = {
 	/**
@@ -25203,10 +25184,7 @@ export type ClickStackCreateSourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackCreateSourceResponse =
-	| ClickStackCreateSourceStatus200
-	| ClickStackCreateSourceStatus400
-	| ClickStackCreateSourceStatus500;
+export type ClickStackCreateSourceResponse = ClickStackCreateSourceStatus200;
 
 export type ClickStackGetSourcePath = {
 	/**
@@ -25305,10 +25283,7 @@ export type ClickStackGetSourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackGetSourceResponse =
-	| ClickStackGetSourceStatus200
-	| ClickStackGetSourceStatus400
-	| ClickStackGetSourceStatus500;
+export type ClickStackGetSourceResponse = ClickStackGetSourceStatus200;
 
 export type ClickStackUpdateSourcePath = {
 	/**
@@ -25409,10 +25384,7 @@ export type ClickStackUpdateSourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackUpdateSourceResponse =
-	| ClickStackUpdateSourceStatus200
-	| ClickStackUpdateSourceStatus400
-	| ClickStackUpdateSourceStatus500;
+export type ClickStackUpdateSourceResponse = ClickStackUpdateSourceStatus200;
 
 export type ClickStackDeleteSourcePath = {
 	/**
@@ -25510,10 +25482,7 @@ export type ClickStackDeleteSourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackDeleteSourceResponse =
-	| ClickStackDeleteSourceStatus200
-	| ClickStackDeleteSourceStatus400
-	| ClickStackDeleteSourceStatus500;
+export type ClickStackDeleteSourceResponse = ClickStackDeleteSourceStatus200;
 
 export type ClickStackGetAlertPath = {
 	/**
@@ -25612,10 +25581,7 @@ export type ClickStackGetAlertResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackGetAlertResponse =
-	| ClickStackGetAlertStatus200
-	| ClickStackGetAlertStatus400
-	| ClickStackGetAlertStatus500;
+export type ClickStackGetAlertResponse = ClickStackGetAlertStatus200;
 
 export type ClickStackUpdateAlertPath = {
 	/**
@@ -25716,10 +25682,7 @@ export type ClickStackUpdateAlertResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackUpdateAlertResponse =
-	| ClickStackUpdateAlertStatus200
-	| ClickStackUpdateAlertStatus400
-	| ClickStackUpdateAlertStatus500;
+export type ClickStackUpdateAlertResponse = ClickStackUpdateAlertStatus200;
 
 export type ClickStackDeleteAlertPath = {
 	/**
@@ -25817,10 +25780,7 @@ export type ClickStackDeleteAlertResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackDeleteAlertResponse =
-	| ClickStackDeleteAlertStatus200
-	| ClickStackDeleteAlertStatus400
-	| ClickStackDeleteAlertStatus500;
+export type ClickStackDeleteAlertResponse = ClickStackDeleteAlertStatus200;
 
 export type ClickStackListWebhooksPath = {
 	/**
@@ -25932,10 +25892,7 @@ export type ClickStackListWebhooksResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackListWebhooksResponse =
-	| ClickStackListWebhooksStatus200
-	| ClickStackListWebhooksStatus400
-	| ClickStackListWebhooksStatus500;
+export type ClickStackListWebhooksResponse = ClickStackListWebhooksStatus200;
 
 export type ClickStackCreateWebhookPath = {
 	/**
@@ -26031,10 +25988,7 @@ export type ClickStackCreateWebhookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackCreateWebhookResponse =
-	| ClickStackCreateWebhookStatus200
-	| ClickStackCreateWebhookStatus400
-	| ClickStackCreateWebhookStatus500;
+export type ClickStackCreateWebhookResponse = ClickStackCreateWebhookStatus200;
 
 export type ClickStackUpdateWebhookPath = {
 	/**
@@ -26135,10 +26089,7 @@ export type ClickStackUpdateWebhookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackUpdateWebhookResponse =
-	| ClickStackUpdateWebhookStatus200
-	| ClickStackUpdateWebhookStatus400
-	| ClickStackUpdateWebhookStatus500;
+export type ClickStackUpdateWebhookResponse = ClickStackUpdateWebhookStatus200;
 
 export type ClickStackDeleteWebhookPath = {
 	/**
@@ -26236,10 +26187,7 @@ export type ClickStackDeleteWebhookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackDeleteWebhookResponse =
-	| ClickStackDeleteWebhookStatus200
-	| ClickStackDeleteWebhookStatus400
-	| ClickStackDeleteWebhookStatus500;
+export type ClickStackDeleteWebhookResponse = ClickStackDeleteWebhookStatus200;
 
 export type ClickStackListRolesPath = {
 	/**
@@ -26333,10 +26281,7 @@ export type ClickStackListRolesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackListRolesResponse =
-	| ClickStackListRolesStatus200
-	| ClickStackListRolesStatus400
-	| ClickStackListRolesStatus500;
+export type ClickStackListRolesResponse = ClickStackListRolesStatus200;
 
 export type ClickStackCreateRolePath = {
 	/**
@@ -26432,10 +26377,7 @@ export type ClickStackCreateRoleResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackCreateRoleResponse =
-	| ClickStackCreateRoleStatus200
-	| ClickStackCreateRoleStatus400
-	| ClickStackCreateRoleStatus500;
+export type ClickStackCreateRoleResponse = ClickStackCreateRoleStatus200;
 
 export type ClickStackGetRolePath = {
 	/**
@@ -26534,10 +26476,7 @@ export type ClickStackGetRoleResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackGetRoleResponse =
-	| ClickStackGetRoleStatus200
-	| ClickStackGetRoleStatus400
-	| ClickStackGetRoleStatus500;
+export type ClickStackGetRoleResponse = ClickStackGetRoleStatus200;
 
 export type ClickStackUpdateRolePath = {
 	/**
@@ -26638,10 +26577,7 @@ export type ClickStackUpdateRoleResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackUpdateRoleResponse =
-	| ClickStackUpdateRoleStatus200
-	| ClickStackUpdateRoleStatus400
-	| ClickStackUpdateRoleStatus500;
+export type ClickStackUpdateRoleResponse = ClickStackUpdateRoleStatus200;
 
 export type ClickStackDeleteRolePath = {
 	/**
@@ -26739,10 +26675,7 @@ export type ClickStackDeleteRoleResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackDeleteRoleResponse =
-	| ClickStackDeleteRoleStatus200
-	| ClickStackDeleteRoleStatus400
-	| ClickStackDeleteRoleStatus500;
+export type ClickStackDeleteRoleResponse = ClickStackDeleteRoleStatus200;
 
 export type ClickStackListSavedSearchesPath = {
 	/**
@@ -26854,10 +26787,7 @@ export type ClickStackListSavedSearchesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackListSavedSearchesResponse =
-	| ClickStackListSavedSearchesStatus200
-	| ClickStackListSavedSearchesStatus400
-	| ClickStackListSavedSearchesStatus500;
+export type ClickStackListSavedSearchesResponse = ClickStackListSavedSearchesStatus200;
 
 export type ClickStackCreateSavedSearchPath = {
 	/**
@@ -26953,10 +26883,7 @@ export type ClickStackCreateSavedSearchResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackCreateSavedSearchResponse =
-	| ClickStackCreateSavedSearchStatus200
-	| ClickStackCreateSavedSearchStatus400
-	| ClickStackCreateSavedSearchStatus500;
+export type ClickStackCreateSavedSearchResponse = ClickStackCreateSavedSearchStatus200;
 
 export type ClickStackGetSavedSearchPath = {
 	/**
@@ -27055,10 +26982,7 @@ export type ClickStackGetSavedSearchResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackGetSavedSearchResponse =
-	| ClickStackGetSavedSearchStatus200
-	| ClickStackGetSavedSearchStatus400
-	| ClickStackGetSavedSearchStatus500;
+export type ClickStackGetSavedSearchResponse = ClickStackGetSavedSearchStatus200;
 
 export type ClickStackUpdateSavedSearchPath = {
 	/**
@@ -27159,10 +27083,7 @@ export type ClickStackUpdateSavedSearchResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackUpdateSavedSearchResponse =
-	| ClickStackUpdateSavedSearchStatus200
-	| ClickStackUpdateSavedSearchStatus400
-	| ClickStackUpdateSavedSearchStatus500;
+export type ClickStackUpdateSavedSearchResponse = ClickStackUpdateSavedSearchStatus200;
 
 export type ClickStackDeleteSavedSearchPath = {
 	/**
@@ -27260,10 +27181,7 @@ export type ClickStackDeleteSavedSearchResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClickStackDeleteSavedSearchResponse =
-	| ClickStackDeleteSavedSearchStatus200
-	| ClickStackDeleteSavedSearchStatus400
-	| ClickStackDeleteSavedSearchStatus500;
+export type ClickStackDeleteSavedSearchResponse = ClickStackDeleteSavedSearchStatus200;
 
 export type PostgresServiceCreatePath = {
 	/**
@@ -27352,10 +27270,7 @@ export type PostgresServiceCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresServiceCreateResponse =
-	| PostgresServiceCreateStatus200
-	| PostgresServiceCreateStatus400
-	| PostgresServiceCreateStatus500;
+export type PostgresServiceCreateResponse = PostgresServiceCreateStatus200;
 
 export type PostgresServiceGetListPath = {
 	/**
@@ -27442,10 +27357,7 @@ export type PostgresServiceGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresServiceGetListResponse =
-	| PostgresServiceGetListStatus200
-	| PostgresServiceGetListStatus400
-	| PostgresServiceGetListStatus500;
+export type PostgresServiceGetListResponse = PostgresServiceGetListStatus200;
 
 export type PostgresOrgPrometheusGetPath = {
 	/**
@@ -27517,10 +27429,7 @@ export type PostgresOrgPrometheusGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresOrgPrometheusGetResponse =
-	| PostgresOrgPrometheusGetStatus200
-	| PostgresOrgPrometheusGetStatus400
-	| PostgresOrgPrometheusGetStatus500;
+export type PostgresOrgPrometheusGetResponse = PostgresOrgPrometheusGetStatus200;
 
 export type PostgresServiceGetPath = {
 	/**
@@ -27614,10 +27523,7 @@ export type PostgresServiceGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresServiceGetResponse =
-	| PostgresServiceGetStatus200
-	| PostgresServiceGetStatus400
-	| PostgresServiceGetStatus500;
+export type PostgresServiceGetResponse = PostgresServiceGetStatus200;
 
 export type PostgresServiceDeletePath = {
 	/**
@@ -27710,10 +27616,7 @@ export type PostgresServiceDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresServiceDeleteResponse =
-	| PostgresServiceDeleteStatus200
-	| PostgresServiceDeleteStatus400
-	| PostgresServiceDeleteStatus500;
+export type PostgresServiceDeleteResponse = PostgresServiceDeleteStatus200;
 
 export type PostgresServicePatchPath = {
 	/**
@@ -27809,10 +27712,7 @@ export type PostgresServicePatchResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresServicePatchResponse =
-	| PostgresServicePatchStatus200
-	| PostgresServicePatchStatus400
-	| PostgresServicePatchStatus500;
+export type PostgresServicePatchResponse = PostgresServicePatchStatus200;
 
 export type PostgresServiceCertsGetPath = {
 	/**
@@ -27891,10 +27791,7 @@ export type PostgresServiceCertsGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresServiceCertsGetResponse =
-	| PostgresServiceCertsGetStatus200
-	| PostgresServiceCertsGetStatus400
-	| PostgresServiceCertsGetStatus500;
+export type PostgresServiceCertsGetResponse = PostgresServiceCertsGetStatus200;
 
 export type PostgresInstanceRestorePath = {
 	/**
@@ -27990,10 +27887,7 @@ export type PostgresInstanceRestoreResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresInstanceRestoreResponse =
-	| PostgresInstanceRestoreStatus200
-	| PostgresInstanceRestoreStatus400
-	| PostgresInstanceRestoreStatus500;
+export type PostgresInstanceRestoreResponse = PostgresInstanceRestoreStatus200;
 
 export type PostgresServiceSetPasswordPath = {
 	/**
@@ -28089,10 +27983,7 @@ export type PostgresServiceSetPasswordResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresServiceSetPasswordResponse =
-	| PostgresServiceSetPasswordStatus200
-	| PostgresServiceSetPasswordStatus400
-	| PostgresServiceSetPasswordStatus500;
+export type PostgresServiceSetPasswordResponse = PostgresServiceSetPasswordStatus200;
 
 export type PostgresServicePatchStatePath = {
 	/**
@@ -28188,10 +28079,7 @@ export type PostgresServicePatchStateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresServicePatchStateResponse =
-	| PostgresServicePatchStateStatus200
-	| PostgresServicePatchStateStatus400
-	| PostgresServicePatchStateStatus500;
+export type PostgresServicePatchStateResponse = PostgresServicePatchStateStatus200;
 
 export type PostgresInstanceCreateReadReplicaPath = {
 	/**
@@ -28287,10 +28175,7 @@ export type PostgresInstanceCreateReadReplicaResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresInstanceCreateReadReplicaResponse =
-	| PostgresInstanceCreateReadReplicaStatus200
-	| PostgresInstanceCreateReadReplicaStatus400
-	| PostgresInstanceCreateReadReplicaStatus500;
+export type PostgresInstanceCreateReadReplicaResponse = PostgresInstanceCreateReadReplicaStatus200;
 
 export type PostgresInstanceConfigGetPath = {
 	/**
@@ -28384,10 +28269,7 @@ export type PostgresInstanceConfigGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresInstanceConfigGetResponse =
-	| PostgresInstanceConfigGetStatus200
-	| PostgresInstanceConfigGetStatus400
-	| PostgresInstanceConfigGetStatus500;
+export type PostgresInstanceConfigGetResponse = PostgresInstanceConfigGetStatus200;
 
 export type PostgresInstanceConfigPostPath = {
 	/**
@@ -28483,10 +28365,7 @@ export type PostgresInstanceConfigPostResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresInstanceConfigPostResponse =
-	| PostgresInstanceConfigPostStatus200
-	| PostgresInstanceConfigPostStatus400
-	| PostgresInstanceConfigPostStatus500;
+export type PostgresInstanceConfigPostResponse = PostgresInstanceConfigPostStatus200;
 
 export type PostgresInstanceConfigPatchPath = {
 	/**
@@ -28582,10 +28461,7 @@ export type PostgresInstanceConfigPatchResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresInstanceConfigPatchResponse =
-	| PostgresInstanceConfigPatchStatus200
-	| PostgresInstanceConfigPatchStatus400
-	| PostgresInstanceConfigPatchStatus500;
+export type PostgresInstanceConfigPatchResponse = PostgresInstanceConfigPatchStatus200;
 
 export type PostgresInstancePrometheusGetPath = {
 	/**
@@ -28664,10 +28540,7 @@ export type PostgresInstancePrometheusGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresInstancePrometheusGetResponse =
-	| PostgresInstancePrometheusGetStatus200
-	| PostgresInstancePrometheusGetStatus400
-	| PostgresInstancePrometheusGetStatus500;
+export type PostgresInstancePrometheusGetResponse = PostgresInstancePrometheusGetStatus200;
 
 export type PostgresInstanceMetricsGetPath = {
 	/**
@@ -28784,10 +28657,7 @@ export type PostgresInstanceMetricsGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresInstanceMetricsGetResponse =
-	| PostgresInstanceMetricsGetStatus200
-	| PostgresInstanceMetricsGetStatus400
-	| PostgresInstanceMetricsGetStatus500;
+export type PostgresInstanceMetricsGetResponse = PostgresInstanceMetricsGetStatus200;
 
 export type PostgresServiceBackupGetListPath = {
 	/**
@@ -28912,10 +28782,7 @@ export type PostgresServiceBackupGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresServiceBackupGetListResponse =
-	| PostgresServiceBackupGetListStatus200
-	| PostgresServiceBackupGetListStatus400
-	| PostgresServiceBackupGetListStatus500;
+export type PostgresServiceBackupGetListResponse = PostgresServiceBackupGetListStatus200;
 
 export type SlowQueryPatternsGetListPath = {
 	/**
@@ -29100,10 +28967,7 @@ export type SlowQueryPatternsGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SlowQueryPatternsGetListResponse =
-	| SlowQueryPatternsGetListStatus200
-	| SlowQueryPatternsGetListStatus400
-	| SlowQueryPatternsGetListStatus500;
+export type SlowQueryPatternsGetListResponse = SlowQueryPatternsGetListStatus200;
 
 export type SlowQueryPatternGetPath = {
 	/**
@@ -29232,10 +29096,7 @@ export type SlowQueryPatternGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SlowQueryPatternGetResponse =
-	| SlowQueryPatternGetStatus200
-	| SlowQueryPatternGetStatus400
-	| SlowQueryPatternGetStatus500;
+export type SlowQueryPatternGetResponse = SlowQueryPatternGetStatus200;
 
 export type PostgresLogsGetListPath = {
 	/**
@@ -29385,10 +29246,7 @@ export type PostgresLogsGetListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostgresLogsGetListResponse =
-	| PostgresLogsGetListStatus200
-	| PostgresLogsGetListStatus400
-	| PostgresLogsGetListStatus500;
+export type PostgresLogsGetListResponse = PostgresLogsGetListStatus200;
 
 export type OrganizationPrivateEndpointConfigGetListPath = {
 	/**
@@ -29493,9 +29351,7 @@ export type OrganizationPrivateEndpointConfigGetListResponses = {
  * @description Union of all possible responses
  */
 export type OrganizationPrivateEndpointConfigGetListResponse =
-	| OrganizationPrivateEndpointConfigGetListStatus200
-	| OrganizationPrivateEndpointConfigGetListStatus400
-	| OrganizationPrivateEndpointConfigGetListStatus500;
+	OrganizationPrivateEndpointConfigGetListStatus200;
 
 export type OrganizationByocInfrastructureCreatePath = {
 	/**
@@ -29585,9 +29441,7 @@ export type OrganizationByocInfrastructureCreateResponses = {
  * @description Union of all possible responses
  */
 export type OrganizationByocInfrastructureCreateResponse =
-	| OrganizationByocInfrastructureCreateStatus200
-	| OrganizationByocInfrastructureCreateStatus400
-	| OrganizationByocInfrastructureCreateStatus500;
+	OrganizationByocInfrastructureCreateStatus200;
 
 export type OrganizationByocInfrastructureValidatePath = {
 	/**
@@ -29679,9 +29533,7 @@ export type OrganizationByocInfrastructureValidateResponses = {
  * @description Union of all possible responses
  */
 export type OrganizationByocInfrastructureValidateResponse =
-	| OrganizationByocInfrastructureValidateStatus200
-	| OrganizationByocInfrastructureValidateStatus400
-	| OrganizationByocInfrastructureValidateStatus500;
+	OrganizationByocInfrastructureValidateStatus200;
 
 export type OrganizationByocInfrastructureGetPath = {
 	/**
@@ -29775,10 +29627,7 @@ export type OrganizationByocInfrastructureGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OrganizationByocInfrastructureGetResponse =
-	| OrganizationByocInfrastructureGetStatus200
-	| OrganizationByocInfrastructureGetStatus400
-	| OrganizationByocInfrastructureGetStatus500;
+export type OrganizationByocInfrastructureGetResponse = OrganizationByocInfrastructureGetStatus200;
 
 export type OrganizationByocInfrastructureDeletePath = {
 	/**
@@ -29872,9 +29721,7 @@ export type OrganizationByocInfrastructureDeleteResponses = {
  * @description Union of all possible responses
  */
 export type OrganizationByocInfrastructureDeleteResponse =
-	| OrganizationByocInfrastructureDeleteStatus200
-	| OrganizationByocInfrastructureDeleteStatus400
-	| OrganizationByocInfrastructureDeleteStatus500;
+	OrganizationByocInfrastructureDeleteStatus200;
 
 export type OrganizationByocInfrastructureUpdatePath = {
 	/**
@@ -29971,9 +29818,7 @@ export type OrganizationByocInfrastructureUpdateResponses = {
  * @description Union of all possible responses
  */
 export type OrganizationByocInfrastructureUpdateResponse =
-	| OrganizationByocInfrastructureUpdateStatus200
-	| OrganizationByocInfrastructureUpdateStatus400
-	| OrganizationByocInfrastructureUpdateStatus500;
+	OrganizationByocInfrastructureUpdateStatus200;
 
 export type OrganizationByocInfrastructureProgressGetPath = {
 	/**
@@ -30068,9 +29913,7 @@ export type OrganizationByocInfrastructureProgressGetResponses = {
  * @description Union of all possible responses
  */
 export type OrganizationByocInfrastructureProgressGetResponse =
-	| OrganizationByocInfrastructureProgressGetStatus200
-	| OrganizationByocInfrastructureProgressGetStatus400
-	| OrganizationByocInfrastructureProgressGetStatus500;
+	OrganizationByocInfrastructureProgressGetStatus200;
 
 export type OrganizationByocInfrastructureTagsGetPath = {
 	/**
@@ -30165,9 +30008,7 @@ export type OrganizationByocInfrastructureTagsGetResponses = {
  * @description Union of all possible responses
  */
 export type OrganizationByocInfrastructureTagsGetResponse =
-	| OrganizationByocInfrastructureTagsGetStatus200
-	| OrganizationByocInfrastructureTagsGetStatus400
-	| OrganizationByocInfrastructureTagsGetStatus500;
+	OrganizationByocInfrastructureTagsGetStatus200;
 
 export type OrganizationByocInfrastructurePrivateEndpointConfigGetPath = {
 	/**
@@ -30262,9 +30103,7 @@ export type OrganizationByocInfrastructurePrivateEndpointConfigGetResponses = {
  * @description Union of all possible responses
  */
 export type OrganizationByocInfrastructurePrivateEndpointConfigGetResponse =
-	| OrganizationByocInfrastructurePrivateEndpointConfigGetStatus200
-	| OrganizationByocInfrastructurePrivateEndpointConfigGetStatus400
-	| OrganizationByocInfrastructurePrivateEndpointConfigGetStatus500;
+	OrganizationByocInfrastructurePrivateEndpointConfigGetStatus200;
 
 export type ClickPipeReversePrivateEndpointGetListPath = {
 	/**
@@ -30359,9 +30198,7 @@ export type ClickPipeReversePrivateEndpointGetListResponses = {
  * @description Union of all possible responses
  */
 export type ClickPipeReversePrivateEndpointGetListResponse =
-	| ClickPipeReversePrivateEndpointGetListStatus200
-	| ClickPipeReversePrivateEndpointGetListStatus400
-	| ClickPipeReversePrivateEndpointGetListStatus500;
+	ClickPipeReversePrivateEndpointGetListStatus200;
 
 export type ClickPipeReversePrivateEndpointCreatePath = {
 	/**
@@ -30458,9 +30295,7 @@ export type ClickPipeReversePrivateEndpointCreateResponses = {
  * @description Union of all possible responses
  */
 export type ClickPipeReversePrivateEndpointCreateResponse =
-	| ClickPipeReversePrivateEndpointCreateStatus200
-	| ClickPipeReversePrivateEndpointCreateStatus400
-	| ClickPipeReversePrivateEndpointCreateStatus500;
+	ClickPipeReversePrivateEndpointCreateStatus200;
 
 export type ClickPipeReversePrivateEndpointGetPath = {
 	/**
@@ -30562,9 +30397,7 @@ export type ClickPipeReversePrivateEndpointGetResponses = {
  * @description Union of all possible responses
  */
 export type ClickPipeReversePrivateEndpointGetResponse =
-	| ClickPipeReversePrivateEndpointGetStatus200
-	| ClickPipeReversePrivateEndpointGetStatus400
-	| ClickPipeReversePrivateEndpointGetStatus500;
+	ClickPipeReversePrivateEndpointGetStatus200;
 
 export type ClickPipeReversePrivateEndpointDeletePath = {
 	/**
@@ -30665,9 +30498,7 @@ export type ClickPipeReversePrivateEndpointDeleteResponses = {
  * @description Union of all possible responses
  */
 export type ClickPipeReversePrivateEndpointDeleteResponse =
-	| ClickPipeReversePrivateEndpointDeleteStatus200
-	| ClickPipeReversePrivateEndpointDeleteStatus400
-	| ClickPipeReversePrivateEndpointDeleteStatus500;
+	ClickPipeReversePrivateEndpointDeleteStatus200;
 
 export type ClickPipeReversePrivateEndpointUpdatePath = {
 	/**
@@ -30771,9 +30602,7 @@ export type ClickPipeReversePrivateEndpointUpdateResponses = {
  * @description Union of all possible responses
  */
 export type ClickPipeReversePrivateEndpointUpdateResponse =
-	| ClickPipeReversePrivateEndpointUpdateStatus200
-	| ClickPipeReversePrivateEndpointUpdateStatus400
-	| ClickPipeReversePrivateEndpointUpdateStatus500;
+	ClickPipeReversePrivateEndpointUpdateStatus200;
 
 export type QueryApiEndpointListPath = {
 	/**
@@ -30944,12 +30773,7 @@ export type QueryApiEndpointListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type QueryApiEndpointListResponse =
-	| QueryApiEndpointListStatus200
-	| QueryApiEndpointListStatus400
-	| QueryApiEndpointListStatus403
-	| QueryApiEndpointListStatus404
-	| QueryApiEndpointListStatus500;
+export type QueryApiEndpointListResponse = QueryApiEndpointListStatus200;
 
 export type QueryApiEndpointCreatePath = {
 	/**
@@ -31090,12 +30914,7 @@ export type QueryApiEndpointCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type QueryApiEndpointCreateResponse =
-	| QueryApiEndpointCreateStatus201
-	| QueryApiEndpointCreateStatus400
-	| QueryApiEndpointCreateStatus403
-	| QueryApiEndpointCreateStatus404
-	| QueryApiEndpointCreateStatus500;
+export type QueryApiEndpointCreateResponse = QueryApiEndpointCreateStatus201;
 
 export type QueryApiEndpointDeletePath = {
 	/**
@@ -31285,13 +31104,7 @@ export type QueryApiEndpointDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type QueryApiEndpointDeleteResponse =
-	| QueryApiEndpointDeleteStatus200
-	| QueryApiEndpointDeleteStatus400
-	| QueryApiEndpointDeleteStatus403
-	| QueryApiEndpointDeleteStatus404
-	| QueryApiEndpointDeleteStatus409
-	| QueryApiEndpointDeleteStatus500;
+export type QueryApiEndpointDeleteResponse = QueryApiEndpointDeleteStatus200;
 
 export type QueryApiEndpointGetPath = {
 	/**
@@ -31460,12 +31273,7 @@ export type QueryApiEndpointGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type QueryApiEndpointGetResponse =
-	| QueryApiEndpointGetStatus200
-	| QueryApiEndpointGetStatus400
-	| QueryApiEndpointGetStatus403
-	| QueryApiEndpointGetStatus404
-	| QueryApiEndpointGetStatus500;
+export type QueryApiEndpointGetResponse = QueryApiEndpointGetStatus200;
 
 export type QueryApiEndpointUpdatePath = {
 	/**
@@ -31635,13 +31443,7 @@ export type QueryApiEndpointUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type QueryApiEndpointUpdateResponse =
-	| QueryApiEndpointUpdateStatus200
-	| QueryApiEndpointUpdateStatus400
-	| QueryApiEndpointUpdateStatus403
-	| QueryApiEndpointUpdateStatus404
-	| QueryApiEndpointUpdateStatus409
-	| QueryApiEndpointUpdateStatus500;
+export type QueryApiEndpointUpdateResponse = QueryApiEndpointUpdateStatus200;
 
 export type SavedQueryListPath = {
 	/**
@@ -31835,12 +31637,7 @@ export type SavedQueryListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SavedQueryListResponse =
-	| SavedQueryListStatus200
-	| SavedQueryListStatus400
-	| SavedQueryListStatus403
-	| SavedQueryListStatus404
-	| SavedQueryListStatus500;
+export type SavedQueryListResponse = SavedQueryListStatus200;
 
 export type SavedQueryCreatePath = {
 	/**
@@ -32026,13 +31823,7 @@ export type SavedQueryCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SavedQueryCreateResponse =
-	| SavedQueryCreateStatus201
-	| SavedQueryCreateStatus400
-	| SavedQueryCreateStatus403
-	| SavedQueryCreateStatus404
-	| SavedQueryCreateStatus409
-	| SavedQueryCreateStatus500;
+export type SavedQueryCreateResponse = SavedQueryCreateStatus201;
 
 export type SavedQueryDeletePath = {
 	/**
@@ -32222,13 +32013,7 @@ export type SavedQueryDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SavedQueryDeleteResponse =
-	| SavedQueryDeleteStatus200
-	| SavedQueryDeleteStatus400
-	| SavedQueryDeleteStatus403
-	| SavedQueryDeleteStatus404
-	| SavedQueryDeleteStatus409
-	| SavedQueryDeleteStatus500;
+export type SavedQueryDeleteResponse = SavedQueryDeleteStatus200;
 
 export type SavedQueryGetPath = {
 	/**
@@ -32397,12 +32182,7 @@ export type SavedQueryGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SavedQueryGetResponse =
-	| SavedQueryGetStatus200
-	| SavedQueryGetStatus400
-	| SavedQueryGetStatus403
-	| SavedQueryGetStatus404
-	| SavedQueryGetStatus500;
+export type SavedQueryGetResponse = SavedQueryGetStatus200;
 
 export type SavedQueryUpdatePath = {
 	/**
@@ -32595,13 +32375,7 @@ export type SavedQueryUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SavedQueryUpdateResponse =
-	| SavedQueryUpdateStatus200
-	| SavedQueryUpdateStatus400
-	| SavedQueryUpdateStatus403
-	| SavedQueryUpdateStatus404
-	| SavedQueryUpdateStatus409
-	| SavedQueryUpdateStatus500;
+export type SavedQueryUpdateResponse = SavedQueryUpdateStatus200;
 
 export type UdfUploadSessionCreatePath = {
 	/**
@@ -32712,10 +32486,7 @@ export type UdfUploadSessionCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UdfUploadSessionCreateResponse =
-	| UdfUploadSessionCreateStatus201
-	| UdfUploadSessionCreateStatus400
-	| UdfUploadSessionCreateStatus500;
+export type UdfUploadSessionCreateResponse = UdfUploadSessionCreateStatus201;
 
 export type UdfListPath = {
 	/**
@@ -32858,7 +32629,7 @@ export type UdfListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UdfListResponse = UdfListStatus200 | UdfListStatus400 | UdfListStatus500;
+export type UdfListResponse = UdfListStatus200;
 
 export type UdfCreatePath = {
 	/**
@@ -33037,13 +32808,7 @@ export type UdfCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UdfCreateResponse =
-	| UdfCreateStatus201
-	| UdfCreateStatus400
-	| UdfCreateStatus403
-	| UdfCreateStatus409
-	| UdfCreateStatus410
-	| UdfCreateStatus500;
+export type UdfCreateResponse = UdfCreateStatus201;
 
 export type UdfDeletePath = {
 	/**
@@ -33203,12 +32968,7 @@ export type UdfDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UdfDeleteResponse =
-	| UdfDeleteStatus200
-	| UdfDeleteStatus400
-	| UdfDeleteStatus404
-	| UdfDeleteStatus409
-	| UdfDeleteStatus500;
+export type UdfDeleteResponse = UdfDeleteStatus200;
 
 export type UdfGetPath = {
 	/**
@@ -33347,7 +33107,7 @@ export type UdfGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UdfGetResponse = UdfGetStatus200 | UdfGetStatus400 | UdfGetStatus404 | UdfGetStatus500;
+export type UdfGetResponse = UdfGetStatus200;
 
 export type UdfAttachmentListPath = {
 	/**
@@ -33518,11 +33278,7 @@ export type UdfAttachmentListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UdfAttachmentListResponse =
-	| UdfAttachmentListStatus200
-	| UdfAttachmentListStatus400
-	| UdfAttachmentListStatus404
-	| UdfAttachmentListStatus500;
+export type UdfAttachmentListResponse = UdfAttachmentListStatus200;
 
 export type UdfDetachPath = {
 	/**
@@ -33689,12 +33445,7 @@ export type UdfDetachResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UdfDetachResponse =
-	| UdfDetachStatus200
-	| UdfDetachStatus400
-	| UdfDetachStatus404
-	| UdfDetachStatus409
-	| UdfDetachStatus500;
+export type UdfDetachResponse = UdfDetachStatus200;
 
 export type UdfAttachmentGetPath = {
 	/**
@@ -33840,11 +33591,7 @@ export type UdfAttachmentGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UdfAttachmentGetResponse =
-	| UdfAttachmentGetStatus200
-	| UdfAttachmentGetStatus400
-	| UdfAttachmentGetStatus404
-	| UdfAttachmentGetStatus500;
+export type UdfAttachmentGetResponse = UdfAttachmentGetStatus200;
 
 export type UdfAttachPath = {
 	/**
@@ -34088,14 +33835,7 @@ export type UdfAttachResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UdfAttachResponse =
-	| UdfAttachStatus200
-	| UdfAttachStatus400
-	| UdfAttachStatus404
-	| UdfAttachStatus409
-	| UdfAttachStatus422
-	| UdfAttachStatus424
-	| UdfAttachStatus500;
+export type UdfAttachResponse = UdfAttachStatus200;
 
 export type UdfVersionListPath = {
 	/**
@@ -34266,11 +34006,7 @@ export type UdfVersionListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UdfVersionListResponse =
-	| UdfVersionListStatus200
-	| UdfVersionListStatus400
-	| UdfVersionListStatus404
-	| UdfVersionListStatus500;
+export type UdfVersionListResponse = UdfVersionListStatus200;
 
 export type UdfVersionCreatePath = {
 	/**
@@ -34477,14 +34213,7 @@ export type UdfVersionCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UdfVersionCreateResponse =
-	| UdfVersionCreateStatus201
-	| UdfVersionCreateStatus400
-	| UdfVersionCreateStatus403
-	| UdfVersionCreateStatus404
-	| UdfVersionCreateStatus409
-	| UdfVersionCreateStatus410
-	| UdfVersionCreateStatus500;
+export type UdfVersionCreateResponse = UdfVersionCreateStatus201;
 
 export type UdfVersionDeletePath = {
 	/**
@@ -34650,9 +34379,4 @@ export type UdfVersionDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UdfVersionDeleteResponse =
-	| UdfVersionDeleteStatus200
-	| UdfVersionDeleteStatus400
-	| UdfVersionDeleteStatus404
-	| UdfVersionDeleteStatus409
-	| UdfVersionDeleteStatus500;
+export type UdfVersionDeleteResponse = UdfVersionDeleteStatus200;

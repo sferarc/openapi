@@ -3154,16 +3154,7 @@ export type ChatsCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsCreateResponse =
-	| ChatsCreateStatus200
-	| ChatsCreateStatus401
-	| ChatsCreateStatus403
-	| ChatsCreateStatus404
-	| ChatsCreateStatus409
-	| ChatsCreateStatus413
-	| ChatsCreateStatus422
-	| ChatsCreateStatus429
-	| ChatsCreateStatus500;
+export type ChatsCreateResponse = ChatsCreateStatus200;
 
 export const chatsFindIsFavorite = {
 	true: "true",
@@ -3252,16 +3243,7 @@ export type ChatsFindResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsFindResponse =
-	| ChatsFindStatus200
-	| ChatsFindStatus401
-	| ChatsFindStatus403
-	| ChatsFindStatus404
-	| ChatsFindStatus409
-	| ChatsFindStatus413
-	| ChatsFindStatus422
-	| ChatsFindStatus429
-	| ChatsFindStatus500;
+export type ChatsFindResponse = ChatsFindStatus200;
 
 export type ChatsInitStatus200 = unknown;
 
@@ -3303,16 +3285,7 @@ export type ChatsInitResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsInitResponse =
-	| ChatsInitStatus200
-	| ChatsInitStatus401
-	| ChatsInitStatus403
-	| ChatsInitStatus404
-	| ChatsInitStatus409
-	| ChatsInitStatus413
-	| ChatsInitStatus422
-	| ChatsInitStatus429
-	| ChatsInitStatus500;
+export type ChatsInitResponse = ChatsInitStatus200;
 
 export type ChatsDeletePath = {
 	/**
@@ -3362,16 +3335,7 @@ export type ChatsDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsDeleteResponse =
-	| ChatsDeleteStatus200
-	| ChatsDeleteStatus401
-	| ChatsDeleteStatus403
-	| ChatsDeleteStatus404
-	| ChatsDeleteStatus409
-	| ChatsDeleteStatus413
-	| ChatsDeleteStatus422
-	| ChatsDeleteStatus429
-	| ChatsDeleteStatus500;
+export type ChatsDeleteResponse = ChatsDeleteStatus200;
 
 export type ChatsGetByIdPath = {
 	/**
@@ -3421,16 +3385,7 @@ export type ChatsGetByIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsGetByIdResponse =
-	| ChatsGetByIdStatus200
-	| ChatsGetByIdStatus401
-	| ChatsGetByIdStatus403
-	| ChatsGetByIdStatus404
-	| ChatsGetByIdStatus409
-	| ChatsGetByIdStatus413
-	| ChatsGetByIdStatus422
-	| ChatsGetByIdStatus429
-	| ChatsGetByIdStatus500;
+export type ChatsGetByIdResponse = ChatsGetByIdStatus200;
 
 export type ChatsUpdatePath = {
 	/**
@@ -3480,16 +3435,7 @@ export type ChatsUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsUpdateResponse =
-	| ChatsUpdateStatus200
-	| ChatsUpdateStatus401
-	| ChatsUpdateStatus403
-	| ChatsUpdateStatus404
-	| ChatsUpdateStatus409
-	| ChatsUpdateStatus413
-	| ChatsUpdateStatus422
-	| ChatsUpdateStatus429
-	| ChatsUpdateStatus500;
+export type ChatsUpdateResponse = ChatsUpdateStatus200;
 
 export type ChatsFavoritePath = {
 	/**
@@ -3539,16 +3485,7 @@ export type ChatsFavoriteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsFavoriteResponse =
-	| ChatsFavoriteStatus200
-	| ChatsFavoriteStatus401
-	| ChatsFavoriteStatus403
-	| ChatsFavoriteStatus404
-	| ChatsFavoriteStatus409
-	| ChatsFavoriteStatus413
-	| ChatsFavoriteStatus422
-	| ChatsFavoriteStatus429
-	| ChatsFavoriteStatus500;
+export type ChatsFavoriteResponse = ChatsFavoriteStatus200;
 
 export type ChatsForkPath = {
 	/**
@@ -3598,16 +3535,7 @@ export type ChatsForkResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsForkResponse =
-	| ChatsForkStatus200
-	| ChatsForkStatus401
-	| ChatsForkStatus403
-	| ChatsForkStatus404
-	| ChatsForkStatus409
-	| ChatsForkStatus413
-	| ChatsForkStatus422
-	| ChatsForkStatus429
-	| ChatsForkStatus500;
+export type ChatsForkResponse = ChatsForkStatus200;
 
 export type ProjectsGetByChatIdPath = {
 	/**
@@ -3657,16 +3585,7 @@ export type ProjectsGetByChatIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ProjectsGetByChatIdResponse =
-	| ProjectsGetByChatIdStatus200
-	| ProjectsGetByChatIdStatus401
-	| ProjectsGetByChatIdStatus403
-	| ProjectsGetByChatIdStatus404
-	| ProjectsGetByChatIdStatus409
-	| ProjectsGetByChatIdStatus413
-	| ProjectsGetByChatIdStatus422
-	| ProjectsGetByChatIdStatus429
-	| ProjectsGetByChatIdStatus500;
+export type ProjectsGetByChatIdResponse = ProjectsGetByChatIdStatus200;
 
 export type ChatsFindMessagesPath = {
 	/**
@@ -3732,16 +3651,7 @@ export type ChatsFindMessagesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsFindMessagesResponse =
-	| ChatsFindMessagesStatus200
-	| ChatsFindMessagesStatus401
-	| ChatsFindMessagesStatus403
-	| ChatsFindMessagesStatus404
-	| ChatsFindMessagesStatus409
-	| ChatsFindMessagesStatus413
-	| ChatsFindMessagesStatus422
-	| ChatsFindMessagesStatus429
-	| ChatsFindMessagesStatus500;
+export type ChatsFindMessagesResponse = ChatsFindMessagesStatus200;
 
 export type ChatsSendMessagePath = {
 	/**
@@ -3791,16 +3701,7 @@ export type ChatsSendMessageResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsSendMessageResponse =
-	| ChatsSendMessageStatus200
-	| ChatsSendMessageStatus401
-	| ChatsSendMessageStatus403
-	| ChatsSendMessageStatus404
-	| ChatsSendMessageStatus409
-	| ChatsSendMessageStatus413
-	| ChatsSendMessageStatus422
-	| ChatsSendMessageStatus429
-	| ChatsSendMessageStatus500;
+export type ChatsSendMessageResponse = ChatsSendMessageStatus200;
 
 export type ChatsGetMessagePath = {
 	/**
@@ -3855,16 +3756,7 @@ export type ChatsGetMessageResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsGetMessageResponse =
-	| ChatsGetMessageStatus200
-	| ChatsGetMessageStatus401
-	| ChatsGetMessageStatus403
-	| ChatsGetMessageStatus404
-	| ChatsGetMessageStatus409
-	| ChatsGetMessageStatus413
-	| ChatsGetMessageStatus422
-	| ChatsGetMessageStatus429
-	| ChatsGetMessageStatus500;
+export type ChatsGetMessageResponse = ChatsGetMessageStatus200;
 
 export type ChatsFindVersionsPath = {
 	/**
@@ -3930,16 +3822,7 @@ export type ChatsFindVersionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsFindVersionsResponse =
-	| ChatsFindVersionsStatus200
-	| ChatsFindVersionsStatus401
-	| ChatsFindVersionsStatus403
-	| ChatsFindVersionsStatus404
-	| ChatsFindVersionsStatus409
-	| ChatsFindVersionsStatus413
-	| ChatsFindVersionsStatus422
-	| ChatsFindVersionsStatus429
-	| ChatsFindVersionsStatus500;
+export type ChatsFindVersionsResponse = ChatsFindVersionsStatus200;
 
 export type ChatsGetVersionPath = {
 	/**
@@ -4010,16 +3893,7 @@ export type ChatsGetVersionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsGetVersionResponse =
-	| ChatsGetVersionStatus200
-	| ChatsGetVersionStatus401
-	| ChatsGetVersionStatus403
-	| ChatsGetVersionStatus404
-	| ChatsGetVersionStatus409
-	| ChatsGetVersionStatus413
-	| ChatsGetVersionStatus422
-	| ChatsGetVersionStatus429
-	| ChatsGetVersionStatus500;
+export type ChatsGetVersionResponse = ChatsGetVersionStatus200;
 
 export type ChatsUpdateVersionPath = {
 	/**
@@ -4074,16 +3948,7 @@ export type ChatsUpdateVersionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsUpdateVersionResponse =
-	| ChatsUpdateVersionStatus200
-	| ChatsUpdateVersionStatus401
-	| ChatsUpdateVersionStatus403
-	| ChatsUpdateVersionStatus404
-	| ChatsUpdateVersionStatus409
-	| ChatsUpdateVersionStatus413
-	| ChatsUpdateVersionStatus422
-	| ChatsUpdateVersionStatus429
-	| ChatsUpdateVersionStatus500;
+export type ChatsUpdateVersionResponse = ChatsUpdateVersionStatus200;
 
 export type ChatsDownloadVersionPath = {
 	/**
@@ -4168,16 +4033,7 @@ export type ChatsDownloadVersionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsDownloadVersionResponse =
-	| ChatsDownloadVersionStatus200
-	| ChatsDownloadVersionStatus401
-	| ChatsDownloadVersionStatus403
-	| ChatsDownloadVersionStatus404
-	| ChatsDownloadVersionStatus409
-	| ChatsDownloadVersionStatus413
-	| ChatsDownloadVersionStatus422
-	| ChatsDownloadVersionStatus429
-	| ChatsDownloadVersionStatus500;
+export type ChatsDownloadVersionResponse = ChatsDownloadVersionStatus200;
 
 export type ChatsDeleteVersionFilesPath = {
 	/**
@@ -4232,16 +4088,7 @@ export type ChatsDeleteVersionFilesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsDeleteVersionFilesResponse =
-	| ChatsDeleteVersionFilesStatus200
-	| ChatsDeleteVersionFilesStatus401
-	| ChatsDeleteVersionFilesStatus403
-	| ChatsDeleteVersionFilesStatus404
-	| ChatsDeleteVersionFilesStatus409
-	| ChatsDeleteVersionFilesStatus413
-	| ChatsDeleteVersionFilesStatus422
-	| ChatsDeleteVersionFilesStatus429
-	| ChatsDeleteVersionFilesStatus500;
+export type ChatsDeleteVersionFilesResponse = ChatsDeleteVersionFilesStatus200;
 
 export type ChatsResumePath = {
 	/**
@@ -4296,16 +4143,7 @@ export type ChatsResumeResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsResumeResponse =
-	| ChatsResumeStatus200
-	| ChatsResumeStatus401
-	| ChatsResumeStatus403
-	| ChatsResumeStatus404
-	| ChatsResumeStatus409
-	| ChatsResumeStatus413
-	| ChatsResumeStatus422
-	| ChatsResumeStatus429
-	| ChatsResumeStatus500;
+export type ChatsResumeResponse = ChatsResumeStatus200;
 
 export type ChatsStopPath = {
 	/**
@@ -4360,16 +4198,7 @@ export type ChatsStopResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsStopResponse =
-	| ChatsStopStatus200
-	| ChatsStopStatus401
-	| ChatsStopStatus403
-	| ChatsStopStatus404
-	| ChatsStopStatus409
-	| ChatsStopStatus413
-	| ChatsStopStatus422
-	| ChatsStopStatus429
-	| ChatsStopStatus500;
+export type ChatsStopResponse = ChatsStopStatus200;
 
 export type ChatsResolveTaskPath = {
 	/**
@@ -4419,16 +4248,7 @@ export type ChatsResolveTaskResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsResolveTaskResponse =
-	| ChatsResolveTaskStatus200
-	| ChatsResolveTaskStatus401
-	| ChatsResolveTaskStatus403
-	| ChatsResolveTaskStatus404
-	| ChatsResolveTaskStatus409
-	| ChatsResolveTaskStatus413
-	| ChatsResolveTaskStatus422
-	| ChatsResolveTaskStatus429
-	| ChatsResolveTaskStatus500;
+export type ChatsResolveTaskResponse = ChatsResolveTaskStatus200;
 
 export type DeploymentsFindQuery = {
 	/**
@@ -4488,16 +4308,7 @@ export type DeploymentsFindResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeploymentsFindResponse =
-	| DeploymentsFindStatus200
-	| DeploymentsFindStatus401
-	| DeploymentsFindStatus403
-	| DeploymentsFindStatus404
-	| DeploymentsFindStatus409
-	| DeploymentsFindStatus413
-	| DeploymentsFindStatus422
-	| DeploymentsFindStatus429
-	| DeploymentsFindStatus500;
+export type DeploymentsFindResponse = DeploymentsFindStatus200;
 
 export type DeploymentsCreateStatus200 = unknown;
 
@@ -4539,16 +4350,7 @@ export type DeploymentsCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeploymentsCreateResponse =
-	| DeploymentsCreateStatus200
-	| DeploymentsCreateStatus401
-	| DeploymentsCreateStatus403
-	| DeploymentsCreateStatus404
-	| DeploymentsCreateStatus409
-	| DeploymentsCreateStatus413
-	| DeploymentsCreateStatus422
-	| DeploymentsCreateStatus429
-	| DeploymentsCreateStatus500;
+export type DeploymentsCreateResponse = DeploymentsCreateStatus200;
 
 export type DeploymentsGetByIdPath = {
 	/**
@@ -4598,16 +4400,7 @@ export type DeploymentsGetByIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeploymentsGetByIdResponse =
-	| DeploymentsGetByIdStatus200
-	| DeploymentsGetByIdStatus401
-	| DeploymentsGetByIdStatus403
-	| DeploymentsGetByIdStatus404
-	| DeploymentsGetByIdStatus409
-	| DeploymentsGetByIdStatus413
-	| DeploymentsGetByIdStatus422
-	| DeploymentsGetByIdStatus429
-	| DeploymentsGetByIdStatus500;
+export type DeploymentsGetByIdResponse = DeploymentsGetByIdStatus200;
 
 export type DeploymentsDeletePath = {
 	/**
@@ -4657,16 +4450,7 @@ export type DeploymentsDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeploymentsDeleteResponse =
-	| DeploymentsDeleteStatus200
-	| DeploymentsDeleteStatus401
-	| DeploymentsDeleteStatus403
-	| DeploymentsDeleteStatus404
-	| DeploymentsDeleteStatus409
-	| DeploymentsDeleteStatus413
-	| DeploymentsDeleteStatus422
-	| DeploymentsDeleteStatus429
-	| DeploymentsDeleteStatus500;
+export type DeploymentsDeleteResponse = DeploymentsDeleteStatus200;
 
 export type DeploymentsFindLogsPath = {
 	/**
@@ -4724,16 +4508,7 @@ export type DeploymentsFindLogsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeploymentsFindLogsResponse =
-	| DeploymentsFindLogsStatus200
-	| DeploymentsFindLogsStatus401
-	| DeploymentsFindLogsStatus403
-	| DeploymentsFindLogsStatus404
-	| DeploymentsFindLogsStatus409
-	| DeploymentsFindLogsStatus413
-	| DeploymentsFindLogsStatus422
-	| DeploymentsFindLogsStatus429
-	| DeploymentsFindLogsStatus500;
+export type DeploymentsFindLogsResponse = DeploymentsFindLogsStatus200;
 
 export type DeploymentsFindErrorsPath = {
 	/**
@@ -4783,16 +4558,7 @@ export type DeploymentsFindErrorsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeploymentsFindErrorsResponse =
-	| DeploymentsFindErrorsStatus200
-	| DeploymentsFindErrorsStatus401
-	| DeploymentsFindErrorsStatus403
-	| DeploymentsFindErrorsStatus404
-	| DeploymentsFindErrorsStatus409
-	| DeploymentsFindErrorsStatus413
-	| DeploymentsFindErrorsStatus422
-	| DeploymentsFindErrorsStatus429
-	| DeploymentsFindErrorsStatus500;
+export type DeploymentsFindErrorsResponse = DeploymentsFindErrorsStatus200;
 
 export type HooksFindStatus200 = unknown;
 
@@ -4834,16 +4600,7 @@ export type HooksFindResponses = {
 /**
  * @description Union of all possible responses
  */
-export type HooksFindResponse =
-	| HooksFindStatus200
-	| HooksFindStatus401
-	| HooksFindStatus403
-	| HooksFindStatus404
-	| HooksFindStatus409
-	| HooksFindStatus413
-	| HooksFindStatus422
-	| HooksFindStatus429
-	| HooksFindStatus500;
+export type HooksFindResponse = HooksFindStatus200;
 
 export type HooksCreateStatus200 = unknown;
 
@@ -4885,16 +4642,7 @@ export type HooksCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type HooksCreateResponse =
-	| HooksCreateStatus200
-	| HooksCreateStatus401
-	| HooksCreateStatus403
-	| HooksCreateStatus404
-	| HooksCreateStatus409
-	| HooksCreateStatus413
-	| HooksCreateStatus422
-	| HooksCreateStatus429
-	| HooksCreateStatus500;
+export type HooksCreateResponse = HooksCreateStatus200;
 
 export type HooksGetByIdPath = {
 	/**
@@ -4944,16 +4692,7 @@ export type HooksGetByIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type HooksGetByIdResponse =
-	| HooksGetByIdStatus200
-	| HooksGetByIdStatus401
-	| HooksGetByIdStatus403
-	| HooksGetByIdStatus404
-	| HooksGetByIdStatus409
-	| HooksGetByIdStatus413
-	| HooksGetByIdStatus422
-	| HooksGetByIdStatus429
-	| HooksGetByIdStatus500;
+export type HooksGetByIdResponse = HooksGetByIdStatus200;
 
 export type HooksUpdatePath = {
 	/**
@@ -5003,16 +4742,7 @@ export type HooksUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type HooksUpdateResponse =
-	| HooksUpdateStatus200
-	| HooksUpdateStatus401
-	| HooksUpdateStatus403
-	| HooksUpdateStatus404
-	| HooksUpdateStatus409
-	| HooksUpdateStatus413
-	| HooksUpdateStatus422
-	| HooksUpdateStatus429
-	| HooksUpdateStatus500;
+export type HooksUpdateResponse = HooksUpdateStatus200;
 
 export type HooksDeletePath = {
 	/**
@@ -5062,16 +4792,7 @@ export type HooksDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type HooksDeleteResponse =
-	| HooksDeleteStatus200
-	| HooksDeleteStatus401
-	| HooksDeleteStatus403
-	| HooksDeleteStatus404
-	| HooksDeleteStatus409
-	| HooksDeleteStatus413
-	| HooksDeleteStatus422
-	| HooksDeleteStatus429
-	| HooksDeleteStatus500;
+export type HooksDeleteResponse = HooksDeleteStatus200;
 
 export type IntegrationsVercelProjectsFindStatus200 = unknown;
 
@@ -5113,16 +4834,7 @@ export type IntegrationsVercelProjectsFindResponses = {
 /**
  * @description Union of all possible responses
  */
-export type IntegrationsVercelProjectsFindResponse =
-	| IntegrationsVercelProjectsFindStatus200
-	| IntegrationsVercelProjectsFindStatus401
-	| IntegrationsVercelProjectsFindStatus403
-	| IntegrationsVercelProjectsFindStatus404
-	| IntegrationsVercelProjectsFindStatus409
-	| IntegrationsVercelProjectsFindStatus413
-	| IntegrationsVercelProjectsFindStatus422
-	| IntegrationsVercelProjectsFindStatus429
-	| IntegrationsVercelProjectsFindStatus500;
+export type IntegrationsVercelProjectsFindResponse = IntegrationsVercelProjectsFindStatus200;
 
 export type IntegrationsVercelProjectsCreateStatus200 = unknown;
 
@@ -5164,16 +4876,7 @@ export type IntegrationsVercelProjectsCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type IntegrationsVercelProjectsCreateResponse =
-	| IntegrationsVercelProjectsCreateStatus200
-	| IntegrationsVercelProjectsCreateStatus401
-	| IntegrationsVercelProjectsCreateStatus403
-	| IntegrationsVercelProjectsCreateStatus404
-	| IntegrationsVercelProjectsCreateStatus409
-	| IntegrationsVercelProjectsCreateStatus413
-	| IntegrationsVercelProjectsCreateStatus422
-	| IntegrationsVercelProjectsCreateStatus429
-	| IntegrationsVercelProjectsCreateStatus500;
+export type IntegrationsVercelProjectsCreateResponse = IntegrationsVercelProjectsCreateStatus200;
 
 export type ProjectsFindStatus200 = unknown;
 
@@ -5215,16 +4918,7 @@ export type ProjectsFindResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ProjectsFindResponse =
-	| ProjectsFindStatus200
-	| ProjectsFindStatus401
-	| ProjectsFindStatus403
-	| ProjectsFindStatus404
-	| ProjectsFindStatus409
-	| ProjectsFindStatus413
-	| ProjectsFindStatus422
-	| ProjectsFindStatus429
-	| ProjectsFindStatus500;
+export type ProjectsFindResponse = ProjectsFindStatus200;
 
 export type ProjectsCreateStatus200 = unknown;
 
@@ -5266,16 +4960,7 @@ export type ProjectsCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ProjectsCreateResponse =
-	| ProjectsCreateStatus200
-	| ProjectsCreateStatus401
-	| ProjectsCreateStatus403
-	| ProjectsCreateStatus404
-	| ProjectsCreateStatus409
-	| ProjectsCreateStatus413
-	| ProjectsCreateStatus422
-	| ProjectsCreateStatus429
-	| ProjectsCreateStatus500;
+export type ProjectsCreateResponse = ProjectsCreateStatus200;
 
 export type ProjectsGetByIdPath = {
 	/**
@@ -5325,16 +5010,7 @@ export type ProjectsGetByIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ProjectsGetByIdResponse =
-	| ProjectsGetByIdStatus200
-	| ProjectsGetByIdStatus401
-	| ProjectsGetByIdStatus403
-	| ProjectsGetByIdStatus404
-	| ProjectsGetByIdStatus409
-	| ProjectsGetByIdStatus413
-	| ProjectsGetByIdStatus422
-	| ProjectsGetByIdStatus429
-	| ProjectsGetByIdStatus500;
+export type ProjectsGetByIdResponse = ProjectsGetByIdStatus200;
 
 export type ProjectsUpdatePath = {
 	/**
@@ -5384,16 +5060,7 @@ export type ProjectsUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ProjectsUpdateResponse =
-	| ProjectsUpdateStatus200
-	| ProjectsUpdateStatus401
-	| ProjectsUpdateStatus403
-	| ProjectsUpdateStatus404
-	| ProjectsUpdateStatus409
-	| ProjectsUpdateStatus413
-	| ProjectsUpdateStatus422
-	| ProjectsUpdateStatus429
-	| ProjectsUpdateStatus500;
+export type ProjectsUpdateResponse = ProjectsUpdateStatus200;
 
 export type ProjectsDeletePath = {
 	/**
@@ -5460,16 +5127,7 @@ export type ProjectsDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ProjectsDeleteResponse =
-	| ProjectsDeleteStatus200
-	| ProjectsDeleteStatus401
-	| ProjectsDeleteStatus403
-	| ProjectsDeleteStatus404
-	| ProjectsDeleteStatus409
-	| ProjectsDeleteStatus413
-	| ProjectsDeleteStatus422
-	| ProjectsDeleteStatus429
-	| ProjectsDeleteStatus500;
+export type ProjectsDeleteResponse = ProjectsDeleteStatus200;
 
 export type ProjectsAssignPath = {
 	/**
@@ -5519,16 +5177,7 @@ export type ProjectsAssignResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ProjectsAssignResponse =
-	| ProjectsAssignStatus200
-	| ProjectsAssignStatus401
-	| ProjectsAssignStatus403
-	| ProjectsAssignStatus404
-	| ProjectsAssignStatus409
-	| ProjectsAssignStatus413
-	| ProjectsAssignStatus422
-	| ProjectsAssignStatus429
-	| ProjectsAssignStatus500;
+export type ProjectsAssignResponse = ProjectsAssignStatus200;
 
 export type ProjectsFindEnvVarsPath = {
 	/**
@@ -5594,16 +5243,7 @@ export type ProjectsFindEnvVarsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ProjectsFindEnvVarsResponse =
-	| ProjectsFindEnvVarsStatus200
-	| ProjectsFindEnvVarsStatus401
-	| ProjectsFindEnvVarsStatus403
-	| ProjectsFindEnvVarsStatus404
-	| ProjectsFindEnvVarsStatus409
-	| ProjectsFindEnvVarsStatus413
-	| ProjectsFindEnvVarsStatus422
-	| ProjectsFindEnvVarsStatus429
-	| ProjectsFindEnvVarsStatus500;
+export type ProjectsFindEnvVarsResponse = ProjectsFindEnvVarsStatus200;
 
 export type ProjectsCreateEnvVarsPath = {
 	/**
@@ -5669,16 +5309,7 @@ export type ProjectsCreateEnvVarsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ProjectsCreateEnvVarsResponse =
-	| ProjectsCreateEnvVarsStatus200
-	| ProjectsCreateEnvVarsStatus401
-	| ProjectsCreateEnvVarsStatus403
-	| ProjectsCreateEnvVarsStatus404
-	| ProjectsCreateEnvVarsStatus409
-	| ProjectsCreateEnvVarsStatus413
-	| ProjectsCreateEnvVarsStatus422
-	| ProjectsCreateEnvVarsStatus429
-	| ProjectsCreateEnvVarsStatus500;
+export type ProjectsCreateEnvVarsResponse = ProjectsCreateEnvVarsStatus200;
 
 export type ProjectsUpdateEnvVarsPath = {
 	/**
@@ -5744,16 +5375,7 @@ export type ProjectsUpdateEnvVarsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ProjectsUpdateEnvVarsResponse =
-	| ProjectsUpdateEnvVarsStatus200
-	| ProjectsUpdateEnvVarsStatus401
-	| ProjectsUpdateEnvVarsStatus403
-	| ProjectsUpdateEnvVarsStatus404
-	| ProjectsUpdateEnvVarsStatus409
-	| ProjectsUpdateEnvVarsStatus413
-	| ProjectsUpdateEnvVarsStatus422
-	| ProjectsUpdateEnvVarsStatus429
-	| ProjectsUpdateEnvVarsStatus500;
+export type ProjectsUpdateEnvVarsResponse = ProjectsUpdateEnvVarsStatus200;
 
 export type ProjectsDeleteEnvVarsPath = {
 	/**
@@ -5803,16 +5425,7 @@ export type ProjectsDeleteEnvVarsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ProjectsDeleteEnvVarsResponse =
-	| ProjectsDeleteEnvVarsStatus200
-	| ProjectsDeleteEnvVarsStatus401
-	| ProjectsDeleteEnvVarsStatus403
-	| ProjectsDeleteEnvVarsStatus404
-	| ProjectsDeleteEnvVarsStatus409
-	| ProjectsDeleteEnvVarsStatus413
-	| ProjectsDeleteEnvVarsStatus422
-	| ProjectsDeleteEnvVarsStatus429
-	| ProjectsDeleteEnvVarsStatus500;
+export type ProjectsDeleteEnvVarsResponse = ProjectsDeleteEnvVarsStatus200;
 
 export type ProjectsGetEnvVarPath = {
 	/**
@@ -5883,16 +5496,7 @@ export type ProjectsGetEnvVarResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ProjectsGetEnvVarResponse =
-	| ProjectsGetEnvVarStatus200
-	| ProjectsGetEnvVarStatus401
-	| ProjectsGetEnvVarStatus403
-	| ProjectsGetEnvVarStatus404
-	| ProjectsGetEnvVarStatus409
-	| ProjectsGetEnvVarStatus413
-	| ProjectsGetEnvVarStatus422
-	| ProjectsGetEnvVarStatus429
-	| ProjectsGetEnvVarStatus500;
+export type ProjectsGetEnvVarResponse = ProjectsGetEnvVarStatus200;
 
 export type RateLimitsFindQuery = {
 	/**
@@ -5942,16 +5546,7 @@ export type RateLimitsFindResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RateLimitsFindResponse =
-	| RateLimitsFindStatus200
-	| RateLimitsFindStatus401
-	| RateLimitsFindStatus403
-	| RateLimitsFindStatus404
-	| RateLimitsFindStatus409
-	| RateLimitsFindStatus413
-	| RateLimitsFindStatus422
-	| RateLimitsFindStatus429
-	| RateLimitsFindStatus500;
+export type RateLimitsFindResponse = RateLimitsFindStatus200;
 
 export type UserGetStatus200 = unknown;
 
@@ -5993,16 +5588,7 @@ export type UserGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UserGetResponse =
-	| UserGetStatus200
-	| UserGetStatus401
-	| UserGetStatus403
-	| UserGetStatus404
-	| UserGetStatus409
-	| UserGetStatus413
-	| UserGetStatus422
-	| UserGetStatus429
-	| UserGetStatus500;
+export type UserGetResponse = UserGetStatus200;
 
 export type UserGetBillingQuery = {
 	/**
@@ -6052,16 +5638,7 @@ export type UserGetBillingResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UserGetBillingResponse =
-	| UserGetBillingStatus200
-	| UserGetBillingStatus401
-	| UserGetBillingStatus403
-	| UserGetBillingStatus404
-	| UserGetBillingStatus409
-	| UserGetBillingStatus413
-	| UserGetBillingStatus422
-	| UserGetBillingStatus429
-	| UserGetBillingStatus500;
+export type UserGetBillingResponse = UserGetBillingStatus200;
 
 export type UserGetPlanStatus200 = unknown;
 
@@ -6103,16 +5680,7 @@ export type UserGetPlanResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UserGetPlanResponse =
-	| UserGetPlanStatus200
-	| UserGetPlanStatus401
-	| UserGetPlanStatus403
-	| UserGetPlanStatus404
-	| UserGetPlanStatus409
-	| UserGetPlanStatus413
-	| UserGetPlanStatus422
-	| UserGetPlanStatus429
-	| UserGetPlanStatus500;
+export type UserGetPlanResponse = UserGetPlanStatus200;
 
 export type UserGetScopesStatus200 = unknown;
 
@@ -6154,16 +5722,7 @@ export type UserGetScopesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UserGetScopesResponse =
-	| UserGetScopesStatus200
-	| UserGetScopesStatus401
-	| UserGetScopesStatus403
-	| UserGetScopesStatus404
-	| UserGetScopesStatus409
-	| UserGetScopesStatus413
-	| UserGetScopesStatus422
-	| UserGetScopesStatus429
-	| UserGetScopesStatus500;
+export type UserGetScopesResponse = UserGetScopesStatus200;
 
 export type ChatsRestorePath = {
 	/**
@@ -6218,16 +5777,7 @@ export type ChatsRestoreResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChatsRestoreResponse =
-	| ChatsRestoreStatus200
-	| ChatsRestoreStatus401
-	| ChatsRestoreStatus403
-	| ChatsRestoreStatus404
-	| ChatsRestoreStatus409
-	| ChatsRestoreStatus413
-	| ChatsRestoreStatus422
-	| ChatsRestoreStatus429
-	| ChatsRestoreStatus500;
+export type ChatsRestoreResponse = ChatsRestoreStatus200;
 
 export type ReportsGetUsageQuery = {
 	/**
@@ -6314,16 +5864,7 @@ export type ReportsGetUsageResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportsGetUsageResponse =
-	| ReportsGetUsageStatus200
-	| ReportsGetUsageStatus401
-	| ReportsGetUsageStatus403
-	| ReportsGetUsageStatus404
-	| ReportsGetUsageStatus409
-	| ReportsGetUsageStatus413
-	| ReportsGetUsageStatus422
-	| ReportsGetUsageStatus429
-	| ReportsGetUsageStatus500;
+export type ReportsGetUsageResponse = ReportsGetUsageStatus200;
 
 export type ReportsGetAIUsageQuery = {
 	/**
@@ -6395,16 +5936,7 @@ export type ReportsGetAIUsageResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportsGetAIUsageResponse =
-	| ReportsGetAIUsageStatus200
-	| ReportsGetAIUsageStatus401
-	| ReportsGetAIUsageStatus403
-	| ReportsGetAIUsageStatus404
-	| ReportsGetAIUsageStatus409
-	| ReportsGetAIUsageStatus413
-	| ReportsGetAIUsageStatus422
-	| ReportsGetAIUsageStatus429
-	| ReportsGetAIUsageStatus500;
+export type ReportsGetAIUsageResponse = ReportsGetAIUsageStatus200;
 
 export type ReportsGetUserActivityQuery = {
 	/**
@@ -6463,16 +5995,7 @@ export type ReportsGetUserActivityResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportsGetUserActivityResponse =
-	| ReportsGetUserActivityStatus200
-	| ReportsGetUserActivityStatus401
-	| ReportsGetUserActivityStatus403
-	| ReportsGetUserActivityStatus404
-	| ReportsGetUserActivityStatus409
-	| ReportsGetUserActivityStatus413
-	| ReportsGetUserActivityStatus422
-	| ReportsGetUserActivityStatus429
-	| ReportsGetUserActivityStatus500;
+export type ReportsGetUserActivityResponse = ReportsGetUserActivityStatus200;
 
 export type McpServersFindStatus200 = unknown;
 
@@ -6514,16 +6037,7 @@ export type McpServersFindResponses = {
 /**
  * @description Union of all possible responses
  */
-export type McpServersFindResponse =
-	| McpServersFindStatus200
-	| McpServersFindStatus401
-	| McpServersFindStatus403
-	| McpServersFindStatus404
-	| McpServersFindStatus409
-	| McpServersFindStatus413
-	| McpServersFindStatus422
-	| McpServersFindStatus429
-	| McpServersFindStatus500;
+export type McpServersFindResponse = McpServersFindStatus200;
 
 export type McpServersCreateStatus200 = unknown;
 
@@ -6565,16 +6079,7 @@ export type McpServersCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type McpServersCreateResponse =
-	| McpServersCreateStatus200
-	| McpServersCreateStatus401
-	| McpServersCreateStatus403
-	| McpServersCreateStatus404
-	| McpServersCreateStatus409
-	| McpServersCreateStatus413
-	| McpServersCreateStatus422
-	| McpServersCreateStatus429
-	| McpServersCreateStatus500;
+export type McpServersCreateResponse = McpServersCreateStatus200;
 
 export type McpServersGetByIdPath = {
 	/**
@@ -6624,16 +6129,7 @@ export type McpServersGetByIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type McpServersGetByIdResponse =
-	| McpServersGetByIdStatus200
-	| McpServersGetByIdStatus401
-	| McpServersGetByIdStatus403
-	| McpServersGetByIdStatus404
-	| McpServersGetByIdStatus409
-	| McpServersGetByIdStatus413
-	| McpServersGetByIdStatus422
-	| McpServersGetByIdStatus429
-	| McpServersGetByIdStatus500;
+export type McpServersGetByIdResponse = McpServersGetByIdStatus200;
 
 export type McpServersUpdatePath = {
 	/**
@@ -6683,16 +6179,7 @@ export type McpServersUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type McpServersUpdateResponse =
-	| McpServersUpdateStatus200
-	| McpServersUpdateStatus401
-	| McpServersUpdateStatus403
-	| McpServersUpdateStatus404
-	| McpServersUpdateStatus409
-	| McpServersUpdateStatus413
-	| McpServersUpdateStatus422
-	| McpServersUpdateStatus429
-	| McpServersUpdateStatus500;
+export type McpServersUpdateResponse = McpServersUpdateStatus200;
 
 export type McpServersDeletePath = {
 	/**
@@ -6742,16 +6229,7 @@ export type McpServersDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type McpServersDeleteResponse =
-	| McpServersDeleteStatus200
-	| McpServersDeleteStatus401
-	| McpServersDeleteStatus403
-	| McpServersDeleteStatus404
-	| McpServersDeleteStatus409
-	| McpServersDeleteStatus413
-	| McpServersDeleteStatus422
-	| McpServersDeleteStatus429
-	| McpServersDeleteStatus500;
+export type McpServersDeleteResponse = McpServersDeleteStatus200;
 
 export type McpServersCreateOAuthAuthorizationUrlPath = {
 	/**
@@ -6802,12 +6280,4 @@ export type McpServersCreateOAuthAuthorizationUrlResponses = {
  * @description Union of all possible responses
  */
 export type McpServersCreateOAuthAuthorizationUrlResponse =
-	| McpServersCreateOAuthAuthorizationUrlStatus200
-	| McpServersCreateOAuthAuthorizationUrlStatus401
-	| McpServersCreateOAuthAuthorizationUrlStatus403
-	| McpServersCreateOAuthAuthorizationUrlStatus404
-	| McpServersCreateOAuthAuthorizationUrlStatus409
-	| McpServersCreateOAuthAuthorizationUrlStatus413
-	| McpServersCreateOAuthAuthorizationUrlStatus422
-	| McpServersCreateOAuthAuthorizationUrlStatus429
-	| McpServersCreateOAuthAuthorizationUrlStatus500;
+	McpServersCreateOAuthAuthorizationUrlStatus200;

@@ -161,7 +161,8 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	const requiresPathParamChecks = pathParams
 		.filter((p) => !p.optional)
 		.map(
-			(p) => `if (!pathParams.${p.name}) {
+			(p) =>
+				`if (pathParams.${p.name} === undefined || pathParams.${p.name} === null || String(pathParams.${p.name}) === '') {
 \t\tthrow new Error(\`Missing required path parameter: ${p.name}\`);
 \t}`,
 		)
@@ -180,8 +181,10 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 \tif (body) {
 \t\tObject.keys(body).forEach((key) => {
 \t\t\tconst value = (body as Record<string, unknown>)[key];
-\t\t\tif (typeof key === "string" && (typeof value === "string" || (value as Blob) instanceof Blob)) {
-\t\t\t\tformData.append(key, value as unknown as string);
+\t\t\tif (typeof value === "string" || value instanceof Blob) {
+\t\t\t\tformData.append(key, value);
+\t\t\t} else if (typeof value === "number" || typeof value === "boolean") {
+\t\t\t\tformData.append(key, String(value));
 \t\t\t}
 \t\t});
 \t}\n`
@@ -191,7 +194,7 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 
 	const urlTemplate = node.path.replace(
 		/\{([^}]+)\}/g,
-		(_, raw: string) => `\${pathParams.${raw}}`,
+		(_, raw: string) => `\${encodeURIComponent(String(pathParams.${raw}))}`,
 	);
 
 	const clientCallParts: string[] = [

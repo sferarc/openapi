@@ -795,20 +795,33 @@ export const organizationCloudRegionPrivateEndpointConfigSchema = z.object({
 		),
 });
 
-export const prometheusDiscoveryLabelsSchema = z.object({
-	__scheme__: z.string().optional().describe("URL scheme Prometheus must scrape the target with."),
-	__metrics_path__: z
-		.string()
-		.optional()
-		.describe("Path of the per-service Prometheus metrics endpoint."),
-	__param_filtered_metrics: z
-		.string()
-		.optional()
-		.describe("Value passed as the filtered_metrics query parameter on each scrape."),
-	clickhouse_org_id: z.uuid().optional().describe("Organization ID the service belongs to."),
-	clickhouse_service_id: z.uuid().optional().describe("Service ID."),
-	clickhouse_discovery_service_name: z.string().optional().describe("Service name."),
-});
+export const prometheusDiscoveryLabelsSchema = z
+	.object({
+		__scheme__: z
+			.string()
+			.optional()
+			.describe("URL scheme Prometheus must scrape the target with."),
+		__metrics_path__: z
+			.string()
+			.optional()
+			.describe("Path of the per-service Prometheus metrics endpoint."),
+		__param_filtered_metrics: z
+			.string()
+			.optional()
+			.describe("Value passed as the filtered_metrics query parameter on each scrape."),
+		clickhouse_org_id: z.uuid().optional().describe("Organization ID the service belongs to."),
+		clickhouse_service_id: z.uuid().optional().describe("Service ID."),
+		clickhouse_discovery_service_name: z.string().optional().describe("Service name."),
+		__meta_clickhouse_region: z
+			.string()
+			.optional()
+			.describe("Service region, for example `us-east-1`."),
+		__meta_clickhouse_provider: z
+			.string()
+			.optional()
+			.describe("Cloud provider, for example `aws`."),
+	})
+	.catchall(z.string());
 
 export const prometheusDiscoveryTargetGroupSchema = z.object({
 	targets: z.array(z.string()).optional().describe("Host (and port) of the ClickHouse Cloud API."),
@@ -3538,7 +3551,7 @@ export const clickPipePubSubSourceSchema = z.object({
 	format: z
 		.enum(["JSONEachRow", "Avro", "Protobuf"])
 		.describe(
-			"Format of messages in the Pub/Sub topic. GCP Pub/Sub ClickPipes are in limited preview — contact support to enable this feature for your organization.",
+			"Format of messages in the Pub/Sub topic. GCP Pub/Sub ClickPipes are in private preview — contact support to enable this feature for your organization.",
 		)
 		.meta({ examples: ["JSONEachRow"] }),
 	projectId: z
@@ -3591,7 +3604,7 @@ export const clickPipePostPubSubServiceAccountSourceSchema = z.strictObject({
 	format: z
 		.enum(["JSONEachRow", "Avro", "Protobuf"])
 		.describe(
-			"Format of messages in the Pub/Sub topic. GCP Pub/Sub ClickPipes are in limited preview — contact support to enable this feature for your organization.",
+			"Format of messages in the Pub/Sub topic. GCP Pub/Sub ClickPipes are in private preview — contact support to enable this feature for your organization.",
 		)
 		.meta({ examples: ["JSONEachRow"] }),
 	projectId: z
@@ -3643,7 +3656,7 @@ export const clickPipePostPubSubWorkloadIdentitySourceSchema = z.strictObject({
 	format: z
 		.enum(["JSONEachRow", "Avro", "Protobuf"])
 		.describe(
-			"Format of messages in the Pub/Sub topic. GCP Pub/Sub ClickPipes are in limited preview — contact support to enable this feature for your organization.",
+			"Format of messages in the Pub/Sub topic. GCP Pub/Sub ClickPipes are in private preview — contact support to enable this feature for your organization.",
 		)
 		.meta({ examples: ["JSONEachRow"] }),
 	projectId: z
@@ -4616,6 +4629,32 @@ export const snapshotConfigurationSchema = z.object({
 		.optional()
 		.describe(
 			"Retention window the snapshots cover, in minutes. Set together with gap; only supported preset pairs are accepted.",
+		),
+});
+
+export const replicaAwareRoutingSchema = z.object({
+	httpEnabled: z
+		.boolean()
+		.describe(
+			"Whether replica aware routing is enabled for HTTP connections. When enabled, clients must send the X-ClickHouse-Replica-Tag header. Enabling this changes HTTP connection behavior for the service.",
+		),
+	nativeEnabled: z
+		.boolean()
+		.describe("Whether replica aware routing is enabled for native protocol connections."),
+});
+
+export const replicaAwareRoutingPatchRequestSchema = z.object({
+	httpEnabled: z
+		.boolean()
+		.optional()
+		.describe(
+			"Whether replica aware routing is enabled for HTTP connections. Omit to leave unchanged.",
+		),
+	nativeEnabled: z
+		.boolean()
+		.optional()
+		.describe(
+			"Whether replica aware routing is enabled for native protocol connections. Omit to leave unchanged.",
 		),
 });
 
@@ -11098,7 +11137,6 @@ export const udfCreateRequestSchema = z.discriminatedUnion("type", [
 			),
 		format: z.string().optional().default("TabSeparated"),
 		sandboxType: z.enum(["basic", "netenable"]).optional().default("basic"),
-		sandboxVersion: z.enum(["v1", "v2", "v3"]).optional().default("v2"),
 		type: z.enum(["executable"]),
 		poolSize: z.null().optional().describe("Always null — an executable UDF has no command pool."),
 		maxCommandExecutionTime: z
@@ -11126,7 +11164,6 @@ export const udfCreateRequestSchema = z.discriminatedUnion("type", [
 			),
 		format: z.string().optional().default("TabSeparated"),
 		sandboxType: z.enum(["basic", "netenable"]).optional().default("basic"),
-		sandboxVersion: z.enum(["v1", "v2", "v3"]).optional().default("v2"),
 		type: z.enum(["executable_pool"]),
 		poolSize: z.int().gt(0).optional().default(3),
 		maxCommandExecutionTime: z.int().gt(0).optional().default(10),
@@ -11154,7 +11191,6 @@ export const udfVersionCreateRequestSchema = z.discriminatedUnion("type", [
 			),
 		format: z.string().optional().default("TabSeparated"),
 		sandboxType: z.enum(["basic", "netenable"]).optional().default("basic"),
-		sandboxVersion: z.enum(["v1", "v2", "v3"]).optional().default("v2"),
 		type: z.enum(["executable"]),
 		poolSize: z.null().optional().describe("Always null — an executable UDF has no command pool."),
 		maxCommandExecutionTime: z
@@ -11181,7 +11217,6 @@ export const udfVersionCreateRequestSchema = z.discriminatedUnion("type", [
 			),
 		format: z.string().optional().default("TabSeparated"),
 		sandboxType: z.enum(["basic", "netenable"]).optional().default("basic"),
-		sandboxVersion: z.enum(["v1", "v2", "v3"]).optional().default("v2"),
 		type: z.enum(["executable_pool"]),
 		poolSize: z.int().gt(0).optional().default(3),
 		maxCommandExecutionTime: z.int().gt(0).optional().default(10),
@@ -11347,6 +11382,20 @@ export const whoamiGetResponseSchema = whoamiGetStatus200Schema;
 
 export const whoamiGetErrorSchema = z.union([whoamiGetStatus400Schema, whoamiGetStatus500Schema]);
 
+export const organizationGetListQueryLimitSchema = z
+	.int()
+	.min(1)
+	.optional()
+	.default(250)
+	.describe("Maximum number of results to return.");
+
+export const organizationGetListQueryCursorSchema = z
+	.string()
+	.optional()
+	.describe(
+		"Opaque cursor from a previous response's `nextCursor`, marking where to resume the list.",
+	);
+
 export const organizationGetListStatus200Schema = z.object({
 	status: z
 		.number()
@@ -11355,6 +11404,13 @@ export const organizationGetListStatus200Schema = z.object({
 		.meta({ examples: [200] }),
 	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
 	result: z.array(organizationSchema).optional(),
+	limit: z.int().optional().describe("Maximum number of results returned in this page."),
+	nextCursor: z
+		.string()
+		.nullish()
+		.describe(
+			"Cursor for the next page, to be sent as the `cursor` query parameter. Null on the last page.",
+		),
 });
 
 export const organizationGetListStatus400Schema = z.object({
@@ -13187,6 +13243,20 @@ export const snapshotGetListPathServiceIdSchema = z
 	.uuid()
 	.describe("ID of the service the snapshot was created from.");
 
+export const snapshotGetListQueryLimitSchema = z
+	.int()
+	.min(1)
+	.optional()
+	.default(250)
+	.describe("Maximum number of results to return.");
+
+export const snapshotGetListQueryCursorSchema = z
+	.string()
+	.optional()
+	.describe(
+		"Opaque cursor from a previous response's `nextCursor`, marking where to resume the list.",
+	);
+
 export const snapshotGetListStatus200Schema = z.object({
 	status: z
 		.number()
@@ -13195,6 +13265,19 @@ export const snapshotGetListStatus200Schema = z.object({
 		.meta({ examples: [200] }),
 	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
 	result: z.array(snapshotSchema).optional(),
+	limit: z.int().optional().describe("Maximum number of results returned in this page."),
+	totalCount: z
+		.int()
+		.nullish()
+		.describe(
+			"Total number of results across all pages. It has only informative value, thus is not guaranteed and it is provided on a best-effort basis. Null if the total count is unknown.",
+		),
+	nextCursor: z
+		.string()
+		.nullish()
+		.describe(
+			"Cursor for the next page, to be sent as the `cursor` query parameter. Null on the last page.",
+		),
 });
 
 export const snapshotGetListStatus400Schema = z.object({
@@ -13450,6 +13533,94 @@ export const snapshotConfigurationUpdateErrorSchema = z.union([
 export const snapshotConfigurationUpdateBodySchema =
 	snapshotConfigurationPatchRequestSchema.optional();
 
+export const replicaAwareRoutingGetPathOrganizationIdSchema = z
+	.uuid()
+	.describe("ID of the organization that owns the service.");
+
+export const replicaAwareRoutingGetPathServiceIdSchema = z.uuid().describe("ID of the service.");
+
+export const replicaAwareRoutingGetStatus200Schema = z.object({
+	status: z
+		.number()
+		.optional()
+		.describe("HTTP status code.")
+		.meta({ examples: [200] }),
+	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
+	result: replicaAwareRoutingSchema.optional(),
+});
+
+export const replicaAwareRoutingGetStatus400Schema = z.object({
+	status: z
+		.number()
+		.optional()
+		.describe("HTTP status code.")
+		.meta({ examples: [400] }),
+	error: z.string().optional().describe("Detailed error description."),
+	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
+});
+
+export const replicaAwareRoutingGetStatus500Schema = z.object({
+	status: z
+		.int()
+		.optional()
+		.describe("HTTP status code.")
+		.meta({ examples: [500] }),
+	error: z.string().optional().describe("Detailed error description."),
+	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
+});
+
+export const replicaAwareRoutingGetResponseSchema = replicaAwareRoutingGetStatus200Schema;
+
+export const replicaAwareRoutingGetErrorSchema = z.union([
+	replicaAwareRoutingGetStatus400Schema,
+	replicaAwareRoutingGetStatus500Schema,
+]);
+
+export const replicaAwareRoutingUpdatePathOrganizationIdSchema = z
+	.uuid()
+	.describe("ID of the organization that owns the service.");
+
+export const replicaAwareRoutingUpdatePathServiceIdSchema = z.uuid().describe("ID of the service.");
+
+export const replicaAwareRoutingUpdateStatus200Schema = z.object({
+	status: z
+		.number()
+		.optional()
+		.describe("HTTP status code.")
+		.meta({ examples: [200] }),
+	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
+	result: replicaAwareRoutingSchema.optional(),
+});
+
+export const replicaAwareRoutingUpdateStatus400Schema = z.object({
+	status: z
+		.number()
+		.optional()
+		.describe("HTTP status code.")
+		.meta({ examples: [400] }),
+	error: z.string().optional().describe("Detailed error description."),
+	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
+});
+
+export const replicaAwareRoutingUpdateStatus500Schema = z.object({
+	status: z
+		.int()
+		.optional()
+		.describe("HTTP status code.")
+		.meta({ examples: [500] }),
+	error: z.string().optional().describe("Detailed error description."),
+	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
+});
+
+export const replicaAwareRoutingUpdateResponseSchema = replicaAwareRoutingUpdateStatus200Schema;
+
+export const replicaAwareRoutingUpdateErrorSchema = z.union([
+	replicaAwareRoutingUpdateStatus400Schema,
+	replicaAwareRoutingUpdateStatus500Schema,
+]);
+
+export const replicaAwareRoutingUpdateBodySchema = replicaAwareRoutingPatchRequestSchema.optional();
+
 export const backupBucketGetPathOrganizationIdSchema = z
 	.uuid()
 	.describe("ID of the organization that owns the service.");
@@ -13638,7 +13809,6 @@ export const openapiKeyGetListPathOrganizationIdSchema = z
 export const openapiKeyGetListQueryLimitSchema = z
 	.int()
 	.min(1)
-	.max(250)
 	.optional()
 	.default(250)
 	.describe("Maximum number of results to return.");

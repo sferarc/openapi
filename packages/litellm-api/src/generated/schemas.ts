@@ -26,7 +26,7 @@ export const HTTPValidationErrorSchema = z.object({
 });
 
 export const modelCatalogEntrySchema = z
-	.object({
+	.looseObject({
 		id: z.string().describe("Canonical model identifier (e.g. 'gpt-4o')"),
 		object: z.string().optional().default("model_catalog.entry"),
 		provider: z
@@ -60,7 +60,6 @@ export const modelCatalogEntrySchema = z
 		supports_system_messages: z.union([z.boolean(), z.null()]).optional(),
 		supports_web_search: z.union([z.boolean(), z.null()]).optional(),
 	})
-	.catchall(z.unknown())
 	.describe("A single model in the catalog.");
 
 export const modelCatalogListResponseSchema = z

@@ -599,6 +599,8 @@ export type DatabaseComputeSettingsRequest = {
 	 * @description Minimum compute units (0.25 to 16.0). Must be less than or equal to max_cu.
 	 *
 	 * Format: `double`
+	 * @minLength 0.25
+	 * @maxLength 16
 	 * @type number | undefined
 	 */
 	min_cu?: (number | null) | undefined;
@@ -606,6 +608,8 @@ export type DatabaseComputeSettingsRequest = {
 	 * @description Maximum compute units (0.25 to 16.0). Must be greater than or equal to min_cu. max_cu - min_cu must not exceed 8.0.
 	 *
 	 * Format: `double`
+	 * @minLength 0.25
+	 * @maxLength 16
 	 * @type number | undefined
 	 */
 	max_cu?: (number | null) | undefined;
@@ -3319,7 +3323,7 @@ export type ListSitesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSitesResponse = ListSitesStatus200 | ListSitesStatusDefault;
+export type ListSitesResponse = ListSitesStatus200;
 
 export type CreateSiteQuery = {
 	configure_dns?: boolean | undefined;
@@ -3752,7 +3756,7 @@ export type CreateSiteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSiteResponse = CreateSiteStatus201 | CreateSiteStatusDefault;
+export type CreateSiteResponse = CreateSiteStatus201;
 
 export type GetSitePath = {
 	site_id: string;
@@ -3970,7 +3974,7 @@ export type GetSiteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteResponse = GetSiteStatus200 | GetSiteStatusDefault;
+export type GetSiteResponse = GetSiteStatus200;
 
 export type UpdateSitePath = {
 	site_id: string;
@@ -4403,7 +4407,7 @@ export type UpdateSiteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateSiteResponse = UpdateSiteStatus200 | UpdateSiteStatusDefault;
+export type UpdateSiteResponse = UpdateSiteStatus200;
 
 export type DeleteSitePath = {
 	site_id: string;
@@ -4436,7 +4440,7 @@ export type DeleteSiteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSiteResponse = DeleteSiteStatus204 | DeleteSiteStatusDefault;
+export type DeleteSiteResponse = DeleteSiteStatus204;
 
 export type ProvisionSiteTLSCertificatePath = {
 	site_id: string;
@@ -4511,10 +4515,7 @@ export type ProvisionSiteTLSCertificateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ProvisionSiteTLSCertificateResponse =
-	| ProvisionSiteTLSCertificateStatus200
-	| ProvisionSiteTLSCertificateStatus422
-	| ProvisionSiteTLSCertificateStatusDefault;
+export type ProvisionSiteTLSCertificateResponse = ProvisionSiteTLSCertificateStatus200;
 
 export type ShowSiteTLSCertificatePath = {
 	site_id: string;
@@ -4568,9 +4569,7 @@ export type ShowSiteTLSCertificateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ShowSiteTLSCertificateResponse =
-	| ShowSiteTLSCertificateStatus200
-	| ShowSiteTLSCertificateStatusDefault;
+export type ShowSiteTLSCertificateResponse = ShowSiteTLSCertificateStatus200;
 
 export type GetAllCertificatesPath = {
 	site_id: string;
@@ -4623,10 +4622,7 @@ export type GetAllCertificatesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAllCertificatesResponse =
-	| GetAllCertificatesStatus200
-	| GetAllCertificatesStatus404
-	| GetAllCertificatesStatus422;
+export type GetAllCertificatesResponse = GetAllCertificatesStatus200;
 
 export type GetEnvVarsPath = {
 	/**
@@ -4800,7 +4796,7 @@ export type GetEnvVarsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetEnvVarsResponse = GetEnvVarsStatus200 | GetEnvVarsStatusDefault;
+export type GetEnvVarsResponse = GetEnvVarsStatus200;
 
 export type CreateEnvVarsPath = {
 	/**
@@ -5010,7 +5006,7 @@ export type CreateEnvVarsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateEnvVarsResponse = CreateEnvVarsStatus201 | CreateEnvVarsStatusDefault;
+export type CreateEnvVarsResponse = CreateEnvVarsStatus201;
 
 export type GetSiteEnvVarsPath = {
 	/**
@@ -5179,7 +5175,7 @@ export type GetSiteEnvVarsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteEnvVarsResponse = GetSiteEnvVarsStatus200 | GetSiteEnvVarsStatusDefault;
+export type GetSiteEnvVarsResponse = GetSiteEnvVarsStatus200;
 
 export type GetEnvVarPath = {
 	/**
@@ -5331,7 +5327,7 @@ export type GetEnvVarResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetEnvVarResponse = GetEnvVarStatus200 | GetEnvVarStatusDefault;
+export type GetEnvVarResponse = GetEnvVarStatus200;
 
 export type UpdateEnvVarPath = {
 	/**
@@ -5550,7 +5546,7 @@ export type UpdateEnvVarResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateEnvVarResponse = UpdateEnvVarStatus200 | UpdateEnvVarStatusDefault;
+export type UpdateEnvVarResponse = UpdateEnvVarStatus200;
 
 export type SetEnvVarValuePath = {
 	/**
@@ -5735,7 +5731,7 @@ export type SetEnvVarValueResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SetEnvVarValueResponse = SetEnvVarValueStatus201 | SetEnvVarValueStatusDefault;
+export type SetEnvVarValueResponse = SetEnvVarValueStatus201;
 
 export type DeleteEnvVarPath = {
 	/**
@@ -5785,7 +5781,7 @@ export type DeleteEnvVarResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteEnvVarResponse = DeleteEnvVarStatus204 | DeleteEnvVarStatusDefault;
+export type DeleteEnvVarResponse = DeleteEnvVarStatus204;
 
 export type DeleteEnvVarValuePath = {
 	/**
@@ -5840,7 +5836,7 @@ export type DeleteEnvVarValueResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteEnvVarValueResponse = DeleteEnvVarValueStatus204 | DeleteEnvVarValueStatusDefault;
+export type DeleteEnvVarValueResponse = DeleteEnvVarValueStatus204;
 
 export type SearchSiteFunctionsPath = {
 	site_id: string;
@@ -5889,9 +5885,7 @@ export type SearchSiteFunctionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SearchSiteFunctionsResponse =
-	| SearchSiteFunctionsStatus200
-	| SearchSiteFunctionsStatusDefault;
+export type SearchSiteFunctionsResponse = SearchSiteFunctionsStatus200;
 
 export type ListSiteFormsPath = {
 	site_id: string;
@@ -5942,7 +5936,7 @@ export type ListSiteFormsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteFormsResponse = ListSiteFormsStatus200 | ListSiteFormsStatusDefault;
+export type ListSiteFormsResponse = ListSiteFormsStatus200;
 
 export type DeleteSiteFormPath = {
 	site_id: string;
@@ -5976,7 +5970,7 @@ export type DeleteSiteFormResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSiteFormResponse = DeleteSiteFormStatus204 | DeleteSiteFormStatusDefault;
+export type DeleteSiteFormResponse = DeleteSiteFormStatus204;
 
 export type ListSiteSubmissionsPath = {
 	site_id: string;
@@ -6047,9 +6041,7 @@ export type ListSiteSubmissionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteSubmissionsResponse =
-	| ListSiteSubmissionsStatus200
-	| ListSiteSubmissionsStatusDefault;
+export type ListSiteSubmissionsResponse = ListSiteSubmissionsStatus200;
 
 export type ListSiteFilesPath = {
 	site_id: string;
@@ -6093,7 +6085,7 @@ export type ListSiteFilesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteFilesResponse = ListSiteFilesStatus200 | ListSiteFilesStatusDefault;
+export type ListSiteFilesResponse = ListSiteFilesStatus200;
 
 export type ListSiteAssetsPath = {
 	site_id: string;
@@ -6154,7 +6146,7 @@ export type ListSiteAssetsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteAssetsResponse = ListSiteAssetsStatus200 | ListSiteAssetsStatusDefault;
+export type ListSiteAssetsResponse = ListSiteAssetsStatus200;
 
 export type CreateSiteAssetPath = {
 	site_id: string;
@@ -6241,7 +6233,7 @@ export type CreateSiteAssetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSiteAssetResponse = CreateSiteAssetStatus201 | CreateSiteAssetStatusDefault;
+export type CreateSiteAssetResponse = CreateSiteAssetStatus201;
 
 export type GetSiteAssetInfoPath = {
 	site_id: string;
@@ -6303,7 +6295,7 @@ export type GetSiteAssetInfoResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteAssetInfoResponse = GetSiteAssetInfoStatus200 | GetSiteAssetInfoStatusDefault;
+export type GetSiteAssetInfoResponse = GetSiteAssetInfoStatus200;
 
 export type UpdateSiteAssetPath = {
 	site_id: string;
@@ -6369,7 +6361,7 @@ export type UpdateSiteAssetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateSiteAssetResponse = UpdateSiteAssetStatus200 | UpdateSiteAssetStatusDefault;
+export type UpdateSiteAssetResponse = UpdateSiteAssetStatus200;
 
 export type DeleteSiteAssetPath = {
 	site_id: string;
@@ -6403,7 +6395,7 @@ export type DeleteSiteAssetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSiteAssetResponse = DeleteSiteAssetStatus204 | DeleteSiteAssetStatusDefault;
+export type DeleteSiteAssetResponse = DeleteSiteAssetStatus204;
 
 export type GetSiteAssetPublicSignaturePath = {
 	site_id: string;
@@ -6439,9 +6431,7 @@ export type GetSiteAssetPublicSignatureResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteAssetPublicSignatureResponse =
-	| GetSiteAssetPublicSignatureStatus200
-	| GetSiteAssetPublicSignatureStatusDefault;
+export type GetSiteAssetPublicSignatureResponse = GetSiteAssetPublicSignatureStatus200;
 
 export type GetSiteFileByPathNamePath = {
 	site_id: string;
@@ -6486,9 +6476,7 @@ export type GetSiteFileByPathNameResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteFileByPathNameResponse =
-	| GetSiteFileByPathNameStatus200
-	| GetSiteFileByPathNameStatusDefault;
+export type GetSiteFileByPathNameResponse = GetSiteFileByPathNameStatus200;
 
 export type PurgeCacheStatus202 = unknown;
 
@@ -6518,7 +6506,7 @@ export type PurgeCacheResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PurgeCacheResponse = PurgeCacheStatus202 | PurgeCacheStatus400 | PurgeCacheStatus404;
+export type PurgeCacheResponse = PurgeCacheStatus202;
 
 export type ListSiteSnippetsPath = {
 	site_id: string;
@@ -6564,7 +6552,7 @@ export type ListSiteSnippetsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteSnippetsResponse = ListSiteSnippetsStatus200 | ListSiteSnippetsStatusDefault;
+export type ListSiteSnippetsResponse = ListSiteSnippetsStatus200;
 
 export type CreateSiteSnippetPath = {
 	site_id: string;
@@ -6625,7 +6613,7 @@ export type CreateSiteSnippetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSiteSnippetResponse = CreateSiteSnippetStatus201 | CreateSiteSnippetStatusDefault;
+export type CreateSiteSnippetResponse = CreateSiteSnippetStatus201;
 
 export type GetSiteSnippetPath = {
 	site_id: string;
@@ -6672,7 +6660,7 @@ export type GetSiteSnippetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteSnippetResponse = GetSiteSnippetStatus200 | GetSiteSnippetStatusDefault;
+export type GetSiteSnippetResponse = GetSiteSnippetStatus200;
 
 export type UpdateSiteSnippetPath = {
 	site_id: string;
@@ -6721,7 +6709,7 @@ export type UpdateSiteSnippetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateSiteSnippetResponse = UpdateSiteSnippetStatus204 | UpdateSiteSnippetStatusDefault;
+export type UpdateSiteSnippetResponse = UpdateSiteSnippetStatus204;
 
 export type DeleteSiteSnippetPath = {
 	site_id: string;
@@ -6755,7 +6743,7 @@ export type DeleteSiteSnippetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSiteSnippetResponse = DeleteSiteSnippetStatus204 | DeleteSiteSnippetStatusDefault;
+export type DeleteSiteSnippetResponse = DeleteSiteSnippetStatus204;
 
 export type GetSiteMetadataPath = {
 	site_id: string;
@@ -6788,7 +6776,7 @@ export type GetSiteMetadataResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteMetadataResponse = GetSiteMetadataStatus200 | GetSiteMetadataStatusDefault;
+export type GetSiteMetadataResponse = GetSiteMetadataStatus200;
 
 export type UpdateSiteMetadataPath = {
 	site_id: string;
@@ -6823,9 +6811,7 @@ export type UpdateSiteMetadataResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateSiteMetadataResponse =
-	| UpdateSiteMetadataStatus204
-	| UpdateSiteMetadataStatusDefault;
+export type UpdateSiteMetadataResponse = UpdateSiteMetadataStatus204;
 
 export type ListSiteBuildHooksPath = {
 	site_id: string;
@@ -6870,9 +6856,7 @@ export type ListSiteBuildHooksResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteBuildHooksResponse =
-	| ListSiteBuildHooksStatus200
-	| ListSiteBuildHooksStatusDefault;
+export type ListSiteBuildHooksResponse = ListSiteBuildHooksStatus200;
 
 export type CreateSiteBuildHookPath = {
 	site_id: string;
@@ -6922,9 +6906,7 @@ export type CreateSiteBuildHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSiteBuildHookResponse =
-	| CreateSiteBuildHookStatus201
-	| CreateSiteBuildHookStatusDefault;
+export type CreateSiteBuildHookResponse = CreateSiteBuildHookStatus201;
 
 export type GetSiteBuildHookPath = {
 	site_id: string;
@@ -6970,7 +6952,7 @@ export type GetSiteBuildHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteBuildHookResponse = GetSiteBuildHookStatus200 | GetSiteBuildHookStatusDefault;
+export type GetSiteBuildHookResponse = GetSiteBuildHookStatus200;
 
 export type UpdateSiteBuildHookPath = {
 	site_id: string;
@@ -7009,9 +6991,7 @@ export type UpdateSiteBuildHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateSiteBuildHookResponse =
-	| UpdateSiteBuildHookStatus204
-	| UpdateSiteBuildHookStatusDefault;
+export type UpdateSiteBuildHookResponse = UpdateSiteBuildHookStatus204;
 
 export type DeleteSiteBuildHookPath = {
 	site_id: string;
@@ -7045,9 +7025,7 @@ export type DeleteSiteBuildHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSiteBuildHookResponse =
-	| DeleteSiteBuildHookStatus204
-	| DeleteSiteBuildHookStatusDefault;
+export type DeleteSiteBuildHookResponse = DeleteSiteBuildHookStatus204;
 
 export type ListSiteDeploysPath = {
 	site_id: string;
@@ -7198,7 +7176,7 @@ export type ListSiteDeploysResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteDeploysResponse = ListSiteDeploysStatus200 | ListSiteDeploysStatusDefault;
+export type ListSiteDeploysResponse = ListSiteDeploysStatus200;
 
 export type CreateSiteDeployPath = {
 	site_id: string;
@@ -7482,7 +7460,7 @@ export type CreateSiteDeployResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSiteDeployResponse = CreateSiteDeployStatus200 | CreateSiteDeployStatusDefault;
+export type CreateSiteDeployResponse = CreateSiteDeployStatus200;
 
 export type GetSiteDeployPath = {
 	site_id: string;
@@ -7593,7 +7571,7 @@ export type GetSiteDeployResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteDeployResponse = GetSiteDeployStatus200 | GetSiteDeployStatusDefault;
+export type GetSiteDeployResponse = GetSiteDeployStatus200;
 
 export type UpdateSiteDeployPath = {
 	site_id: string;
@@ -7852,7 +7830,7 @@ export type UpdateSiteDeployResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateSiteDeployResponse = UpdateSiteDeployStatus200 | UpdateSiteDeployStatusDefault;
+export type UpdateSiteDeployResponse = UpdateSiteDeployStatus200;
 
 export type DeleteSiteDeployPath = {
 	deploy_id: string;
@@ -7886,7 +7864,7 @@ export type DeleteSiteDeployResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSiteDeployResponse = DeleteSiteDeployStatus204 | DeleteSiteDeployStatusDefault;
+export type DeleteSiteDeployResponse = DeleteSiteDeployStatus204;
 
 export type CancelSiteDeployPath = {
 	deploy_id: string;
@@ -7996,7 +7974,7 @@ export type CancelSiteDeployResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CancelSiteDeployResponse = CancelSiteDeployStatus201 | CancelSiteDeployStatusDefault;
+export type CancelSiteDeployResponse = CancelSiteDeployStatus201;
 
 export type RestoreSiteDeployPath = {
 	site_id: string;
@@ -8107,7 +8085,7 @@ export type RestoreSiteDeployResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RestoreSiteDeployResponse = RestoreSiteDeployStatus201 | RestoreSiteDeployStatusDefault;
+export type RestoreSiteDeployResponse = RestoreSiteDeployStatus201;
 
 export type ListSiteBuildsPath = {
 	site_id: string;
@@ -8167,7 +8145,7 @@ export type ListSiteBuildsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteBuildsResponse = ListSiteBuildsStatus200 | ListSiteBuildsStatusDefault;
+export type ListSiteBuildsResponse = ListSiteBuildsStatus200;
 
 export type CreateSiteBuildPath = {
 	site_id: string;
@@ -8249,12 +8227,7 @@ export type CreateSiteBuildResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSiteBuildResponse =
-	| CreateSiteBuildStatus200
-	| CreateSiteBuildStatus400
-	| CreateSiteBuildStatus404
-	| CreateSiteBuildStatus422
-	| CreateSiteBuildStatusDefault;
+export type CreateSiteBuildResponse = CreateSiteBuildStatus200;
 
 export type ListSiteDeployedBranchesPath = {
 	site_id: string;
@@ -8294,9 +8267,7 @@ export type ListSiteDeployedBranchesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteDeployedBranchesResponse =
-	| ListSiteDeployedBranchesStatus200
-	| ListSiteDeployedBranchesStatusDefault;
+export type ListSiteDeployedBranchesResponse = ListSiteDeployedBranchesStatus200;
 
 export type UnlinkSiteRepoPath = {
 	site_id: string;
@@ -8502,7 +8473,7 @@ export type UnlinkSiteRepoResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UnlinkSiteRepoResponse = UnlinkSiteRepoStatus200 | UnlinkSiteRepoStatus404;
+export type UnlinkSiteRepoResponse = UnlinkSiteRepoStatus200;
 
 export type EnableSitePath = {
 	site_id: string;
@@ -8546,10 +8517,7 @@ export type EnableSiteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type EnableSiteResponse =
-	| EnableSiteStatus204
-	| EnableSiteStatus422
-	| EnableSiteStatusDefault;
+export type EnableSiteResponse = EnableSiteStatus204;
 
 export type DisableSitePath = {
 	site_id: string;
@@ -8590,7 +8558,7 @@ export type DisableSiteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DisableSiteResponse = DisableSiteStatus204 | DisableSiteStatusDefault;
+export type DisableSiteResponse = DisableSiteStatus204;
 
 export type GetSiteBuildPath = {
 	build_id: string;
@@ -8635,7 +8603,7 @@ export type GetSiteBuildResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteBuildResponse = GetSiteBuildStatus200 | GetSiteBuildStatusDefault;
+export type GetSiteBuildResponse = GetSiteBuildStatus200;
 
 export type UpdateSiteBuildLogPath = {
 	build_id: string;
@@ -8685,9 +8653,7 @@ export type UpdateSiteBuildLogResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateSiteBuildLogResponse =
-	| UpdateSiteBuildLogStatus204
-	| UpdateSiteBuildLogStatusDefault;
+export type UpdateSiteBuildLogResponse = UpdateSiteBuildLogStatus204;
 
 export type NotifyBuildStartPath = {
 	build_id: string;
@@ -8726,7 +8692,7 @@ export type NotifyBuildStartResponses = {
 /**
  * @description Union of all possible responses
  */
-export type NotifyBuildStartResponse = NotifyBuildStartStatus204 | NotifyBuildStartStatusDefault;
+export type NotifyBuildStartResponse = NotifyBuildStartStatus204;
 
 export type GetAccountBuildStatusPath = {
 	account_id: string;
@@ -8791,9 +8757,7 @@ export type GetAccountBuildStatusResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAccountBuildStatusResponse =
-	| GetAccountBuildStatusStatus200
-	| GetAccountBuildStatusStatusDefault;
+export type GetAccountBuildStatusResponse = GetAccountBuildStatusStatus200;
 
 export type GetDNSForSitePath = {
 	site_id: string;
@@ -8877,7 +8841,7 @@ export type GetDNSForSiteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDNSForSiteResponse = GetDNSForSiteStatus200 | GetDNSForSiteStatusDefault;
+export type GetDNSForSiteResponse = GetDNSForSiteStatus200;
 
 export type ConfigureDNSForSitePath = {
 	site_id: string;
@@ -8961,9 +8925,7 @@ export type ConfigureDNSForSiteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ConfigureDNSForSiteResponse =
-	| ConfigureDNSForSiteStatus200
-	| ConfigureDNSForSiteStatusDefault;
+export type ConfigureDNSForSiteResponse = ConfigureDNSForSiteStatus200;
 
 export type RollbackSiteDeployPath = {
 	site_id: string;
@@ -8996,9 +8958,7 @@ export type RollbackSiteDeployResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RollbackSiteDeployResponse =
-	| RollbackSiteDeployStatus204
-	| RollbackSiteDeployStatusDefault;
+export type RollbackSiteDeployResponse = RollbackSiteDeployStatus204;
 
 export type GetDeployPath = {
 	deploy_id: string;
@@ -9108,7 +9068,7 @@ export type GetDeployResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDeployResponse = GetDeployStatus200 | GetDeployStatusDefault;
+export type GetDeployResponse = GetDeployStatus200;
 
 export type DeleteDeployPath = {
 	deploy_id: string;
@@ -9141,7 +9101,7 @@ export type DeleteDeployResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteDeployResponse = DeleteDeployStatus204 | DeleteDeployStatusDefault;
+export type DeleteDeployResponse = DeleteDeployStatus204;
 
 export type UpdateDeployValidationsPath = {
 	/**
@@ -9306,7 +9266,7 @@ export type LockDeployResponses = {
 /**
  * @description Union of all possible responses
  */
-export type LockDeployResponse = LockDeployStatus200 | LockDeployStatusDefault;
+export type LockDeployResponse = LockDeployStatus200;
 
 export type UnlockDeployPath = {
 	deploy_id: string;
@@ -9416,7 +9376,7 @@ export type UnlockDeployResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UnlockDeployResponse = UnlockDeployStatus200 | UnlockDeployStatusDefault;
+export type UnlockDeployResponse = UnlockDeployStatus200;
 
 export type UploadDeployFilePath = {
 	deploy_id: string;
@@ -9465,7 +9425,7 @@ export type UploadDeployFileResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UploadDeployFileResponse = UploadDeployFileStatus200 | UploadDeployFileStatusDefault;
+export type UploadDeployFileResponse = UploadDeployFileStatus200;
 
 export type UploadDeployFunctionPath = {
 	deploy_id: string;
@@ -9515,9 +9475,7 @@ export type UploadDeployFunctionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UploadDeployFunctionResponse =
-	| UploadDeployFunctionStatus200
-	| UploadDeployFunctionStatusDefault;
+export type UploadDeployFunctionResponse = UploadDeployFunctionStatus200;
 
 export type UploadDeployServerPath = {
 	deploy_id: string;
@@ -9559,9 +9517,7 @@ export type UploadDeployServerResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UploadDeployServerResponse =
-	| UploadDeployServerStatus200
-	| UploadDeployServerStatusDefault;
+export type UploadDeployServerResponse = UploadDeployServerStatus200;
 
 export type UploadDeployEdgeFunctionPath = {
 	deploy_id: string;
@@ -9599,9 +9555,7 @@ export type UploadDeployEdgeFunctionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UploadDeployEdgeFunctionResponse =
-	| UploadDeployEdgeFunctionStatus200
-	| UploadDeployEdgeFunctionStatusDefault;
+export type UploadDeployEdgeFunctionResponse = UploadDeployEdgeFunctionStatus200;
 
 export type GetLatestPluginRunsPath = {
 	site_id: string;
@@ -9649,9 +9603,7 @@ export type GetLatestPluginRunsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetLatestPluginRunsResponse =
-	| GetLatestPluginRunsStatus200
-	| GetLatestPluginRunsStatusDefault;
+export type GetLatestPluginRunsResponse = GetLatestPluginRunsStatus200;
 
 export type CreatePluginRunPath = {
 	deploy_id: string;
@@ -9706,7 +9658,7 @@ export type CreatePluginRunResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreatePluginRunResponse = CreatePluginRunStatus201 | CreatePluginRunStatusDefault;
+export type CreatePluginRunResponse = CreatePluginRunStatus201;
 
 export type ListFormSubmissionsPath = {
 	form_id: string;
@@ -9777,9 +9729,7 @@ export type ListFormSubmissionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListFormSubmissionsResponse =
-	| ListFormSubmissionsStatus200
-	| ListFormSubmissionsStatusDefault;
+export type ListFormSubmissionsResponse = ListFormSubmissionsStatus200;
 
 export type ListHooksBySiteIdQuery = {
 	site_id: string;
@@ -9831,7 +9781,7 @@ export type ListHooksBySiteIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListHooksBySiteIdResponse = ListHooksBySiteIdStatus200 | ListHooksBySiteIdStatusDefault;
+export type ListHooksBySiteIdResponse = ListHooksBySiteIdStatus200;
 
 export type CreateHookBySiteIdQuery = {
 	site_id: string;
@@ -9904,9 +9854,7 @@ export type CreateHookBySiteIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateHookBySiteIdResponse =
-	| CreateHookBySiteIdStatus201
-	| CreateHookBySiteIdStatusDefault;
+export type CreateHookBySiteIdResponse = CreateHookBySiteIdStatus201;
 
 export type GetHookPath = {
 	hook_id: string;
@@ -9958,7 +9906,7 @@ export type GetHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetHookResponse = GetHookStatus200 | GetHookStatusDefault;
+export type GetHookResponse = GetHookStatus200;
 
 export type UpdateHookPath = {
 	hook_id: string;
@@ -10031,7 +9979,7 @@ export type UpdateHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateHookResponse = UpdateHookStatus200 | UpdateHookStatusDefault;
+export type UpdateHookResponse = UpdateHookStatus200;
 
 export type DeleteHookPath = {
 	hook_id: string;
@@ -10105,7 +10053,7 @@ export type EnableHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type EnableHookResponse = EnableHookStatus200 | EnableHookStatusDefault;
+export type EnableHookResponse = EnableHookStatus200;
 
 export type ListHookTypesStatus200 = {
 	name?: string | undefined;
@@ -10138,7 +10086,7 @@ export type ListHookTypesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListHookTypesResponse = ListHookTypesStatus200 | ListHookTypesStatusDefault;
+export type ListHookTypesResponse = ListHookTypesStatus200;
 
 export type CreateTicketQuery = {
 	client_id: string;
@@ -10209,11 +10157,7 @@ export type CreateTicketResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateTicketResponse =
-	| CreateTicketStatus201
-	| CreateTicketStatus401
-	| CreateTicketStatus422
-	| CreateTicketStatusDefault;
+export type CreateTicketResponse = CreateTicketStatus201;
 
 export type ShowTicketPath = {
 	ticket_id: string;
@@ -10256,7 +10200,7 @@ export type ShowTicketResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ShowTicketResponse = ShowTicketStatus200 | ShowTicketStatusDefault;
+export type ShowTicketResponse = ShowTicketStatus200;
 
 export type ExchangeTicketPath = {
 	ticket_id: string;
@@ -10300,7 +10244,7 @@ export type ExchangeTicketResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ExchangeTicketResponse = ExchangeTicketStatus201 | ExchangeTicketStatusDefault;
+export type ExchangeTicketResponse = ExchangeTicketStatus201;
 
 export type ListDeployKeysStatus200 = {
 	id?: string | undefined;
@@ -10338,7 +10282,7 @@ export type ListDeployKeysResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListDeployKeysResponse = ListDeployKeysStatus200 | ListDeployKeysStatusDefault;
+export type ListDeployKeysResponse = ListDeployKeysStatus200;
 
 export type CreateDeployKeyStatus201 = {
 	id?: string | undefined;
@@ -10376,7 +10320,7 @@ export type CreateDeployKeyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateDeployKeyResponse = CreateDeployKeyStatus201 | CreateDeployKeyStatusDefault;
+export type CreateDeployKeyResponse = CreateDeployKeyStatus201;
 
 export type GetDeployKeyPath = {
 	key_id: string;
@@ -10418,7 +10362,7 @@ export type GetDeployKeyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDeployKeyResponse = GetDeployKeyStatus200 | GetDeployKeyStatusDefault;
+export type GetDeployKeyResponse = GetDeployKeyStatus200;
 
 export type DeleteDeployKeyPath = {
 	key_id: string;
@@ -10451,7 +10395,7 @@ export type DeleteDeployKeyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteDeployKeyResponse = DeleteDeployKeyStatus204 | DeleteDeployKeyStatusDefault;
+export type DeleteDeployKeyResponse = DeleteDeployKeyStatus204;
 
 export type CreateSiteInTeamPath = {
 	account_slug: string;
@@ -10890,7 +10834,7 @@ export type CreateSiteInTeamResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSiteInTeamResponse = CreateSiteInTeamStatus201 | CreateSiteInTeamStatusDefault;
+export type CreateSiteInTeamResponse = CreateSiteInTeamStatus201;
 
 export type ListSitesForAccountPath = {
 	account_slug: string;
@@ -11120,9 +11064,7 @@ export type ListSitesForAccountResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSitesForAccountResponse =
-	| ListSitesForAccountStatus200
-	| ListSitesForAccountStatusDefault;
+export type ListSitesForAccountResponse = ListSitesForAccountStatus200;
 
 export type ListMembersForAccountPath = {
 	account_slug: string;
@@ -11161,9 +11103,7 @@ export type ListMembersForAccountResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListMembersForAccountResponse =
-	| ListMembersForAccountStatus200
-	| ListMembersForAccountStatusDefault;
+export type ListMembersForAccountResponse = ListMembersForAccountStatus200;
 
 export type AddMemberToAccountPath = {
 	account_slug: string;
@@ -11217,9 +11157,7 @@ export type AddMemberToAccountResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AddMemberToAccountResponse =
-	| AddMemberToAccountStatus200
-	| AddMemberToAccountStatusDefault;
+export type AddMemberToAccountResponse = AddMemberToAccountStatus200;
 
 export type GetAccountMemberPath = {
 	account_slug: string;
@@ -11259,7 +11197,7 @@ export type GetAccountMemberResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAccountMemberResponse = GetAccountMemberStatus200 | GetAccountMemberStatusDefault;
+export type GetAccountMemberResponse = GetAccountMemberStatus200;
 
 export type UpdateAccountMemberPath = {
 	account_slug: string;
@@ -11324,9 +11262,7 @@ export type UpdateAccountMemberResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateAccountMemberResponse =
-	| UpdateAccountMemberStatus200
-	| UpdateAccountMemberStatusDefault;
+export type UpdateAccountMemberResponse = UpdateAccountMemberStatus200;
 
 export type RemoveAccountMemberPath = {
 	account_slug: string;
@@ -11360,9 +11296,7 @@ export type RemoveAccountMemberResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RemoveAccountMemberResponse =
-	| RemoveAccountMemberStatus204
-	| RemoveAccountMemberStatusDefault;
+export type RemoveAccountMemberResponse = RemoveAccountMemberStatus204;
 
 export type ListPaymentMethodsForUserStatus200 = {
 	id?: string | undefined;
@@ -11415,9 +11349,7 @@ export type ListPaymentMethodsForUserResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListPaymentMethodsForUserResponse =
-	| ListPaymentMethodsForUserStatus200
-	| ListPaymentMethodsForUserStatusDefault;
+export type ListPaymentMethodsForUserResponse = ListPaymentMethodsForUserStatus200;
 
 export type ListAccountTypesForUserStatus200 = {
 	id?: string | undefined;
@@ -11455,9 +11387,7 @@ export type ListAccountTypesForUserResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAccountTypesForUserResponse =
-	| ListAccountTypesForUserStatus200
-	| ListAccountTypesForUserStatusDefault;
+export type ListAccountTypesForUserResponse = ListAccountTypesForUserStatus200;
 
 export type ListAccountsForUserQuery = {
 	minimal?: boolean | undefined;
@@ -11532,9 +11462,7 @@ export type ListAccountsForUserResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAccountsForUserResponse =
-	| ListAccountsForUserStatus200
-	| ListAccountsForUserStatusDefault;
+export type ListAccountsForUserResponse = ListAccountsForUserStatus200;
 
 export type CreateAccountStatus201 = {
 	id?: string | undefined;
@@ -11621,7 +11549,7 @@ export type CreateAccountResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateAccountResponse = CreateAccountStatus201 | CreateAccountStatusDefault;
+export type CreateAccountResponse = CreateAccountStatus201;
 
 export type GetAccountPath = {
 	account_id: string;
@@ -11696,7 +11624,7 @@ export type GetAccountResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAccountResponse = GetAccountStatus200 | GetAccountStatusDefault;
+export type GetAccountResponse = GetAccountStatus200;
 
 export type UpdateAccountPath = {
 	account_id: string;
@@ -11783,7 +11711,7 @@ export type UpdateAccountResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateAccountResponse = UpdateAccountStatus200 | UpdateAccountStatusDefault;
+export type UpdateAccountResponse = UpdateAccountStatus200;
 
 export type CancelAccountPath = {
 	account_id: string;
@@ -11816,7 +11744,7 @@ export type CancelAccountResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CancelAccountResponse = CancelAccountStatus204 | CancelAccountStatusDefault;
+export type CancelAccountResponse = CancelAccountStatus204;
 
 export type ListAccountAuditEventsPath = {
 	account_id: string;
@@ -11885,9 +11813,7 @@ export type ListAccountAuditEventsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAccountAuditEventsResponse =
-	| ListAccountAuditEventsStatus200
-	| ListAccountAuditEventsStatusDefault;
+export type ListAccountAuditEventsResponse = ListAccountAuditEventsStatus200;
 
 export const listAgentRunnersState = {
 	live: "live",
@@ -12003,7 +11929,7 @@ export type ListAgentRunnersResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAgentRunnersResponse = ListAgentRunnersStatus200 | ListAgentRunnersStatusDefault;
+export type ListAgentRunnersResponse = ListAgentRunnersStatus200;
 
 export type CreateAgentRunnerQuery = {
 	site_id: string;
@@ -12106,11 +12032,7 @@ export type CreateAgentRunnerResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateAgentRunnerResponse =
-	| CreateAgentRunnerStatus200
-	| CreateAgentRunnerStatus404
-	| CreateAgentRunnerStatus422
-	| CreateAgentRunnerStatusDefault;
+export type CreateAgentRunnerResponse = CreateAgentRunnerStatus200;
 
 export type CreateAgentRunnerUploadUrlQuery = {
 	account_id: string;
@@ -12151,11 +12073,7 @@ export type CreateAgentRunnerUploadUrlResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateAgentRunnerUploadUrlResponse =
-	| CreateAgentRunnerUploadUrlStatus200
-	| CreateAgentRunnerUploadUrlStatus400
-	| CreateAgentRunnerUploadUrlStatus422
-	| CreateAgentRunnerUploadUrlStatusDefault;
+export type CreateAgentRunnerUploadUrlResponse = CreateAgentRunnerUploadUrlStatus200;
 
 export type GetAgentRunnerPath = {
 	agent_runner_id: string;
@@ -12244,7 +12162,7 @@ export type GetAgentRunnerResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAgentRunnerResponse = GetAgentRunnerStatus200 | GetAgentRunnerStatusDefault;
+export type GetAgentRunnerResponse = GetAgentRunnerStatus200;
 
 export type UpdateAgentRunnerPath = {
 	agent_runner_id: string;
@@ -12333,7 +12251,7 @@ export type UpdateAgentRunnerResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateAgentRunnerResponse = UpdateAgentRunnerStatus200 | UpdateAgentRunnerStatusDefault;
+export type UpdateAgentRunnerResponse = UpdateAgentRunnerStatus200;
 
 export type DeleteAgentRunnerPath = {
 	agent_runner_id: string;
@@ -12366,7 +12284,7 @@ export type DeleteAgentRunnerResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAgentRunnerResponse = DeleteAgentRunnerStatus202 | DeleteAgentRunnerStatusDefault;
+export type DeleteAgentRunnerResponse = DeleteAgentRunnerStatus202;
 
 export type ArchiveAgentRunnerPath = {
 	agent_runner_id: string;
@@ -12405,11 +12323,7 @@ export type ArchiveAgentRunnerResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ArchiveAgentRunnerResponse =
-	| ArchiveAgentRunnerStatus202
-	| ArchiveAgentRunnerStatus404
-	| ArchiveAgentRunnerStatus422
-	| ArchiveAgentRunnerStatusDefault;
+export type ArchiveAgentRunnerResponse = ArchiveAgentRunnerStatus202;
 
 export type AgentRunnerPullRequestPath = {
 	agent_runner_id: string;
@@ -12451,12 +12365,7 @@ export type AgentRunnerPullRequestResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AgentRunnerPullRequestResponse =
-	| AgentRunnerPullRequestStatus200
-	| AgentRunnerPullRequestStatus400
-	| AgentRunnerPullRequestStatus409
-	| AgentRunnerPullRequestStatus422
-	| AgentRunnerPullRequestStatusDefault;
+export type AgentRunnerPullRequestResponse = AgentRunnerPullRequestStatus200;
 
 export type AgentRunnerCommitToBranchPath = {
 	agent_runner_id: string;
@@ -12502,12 +12411,7 @@ export type AgentRunnerCommitToBranchResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AgentRunnerCommitToBranchResponse =
-	| AgentRunnerCommitToBranchStatus200
-	| AgentRunnerCommitToBranchStatus400
-	| AgentRunnerCommitToBranchStatus409
-	| AgentRunnerCommitToBranchStatus422
-	| AgentRunnerCommitToBranchStatusDefault;
+export type AgentRunnerCommitToBranchResponse = AgentRunnerCommitToBranchStatus200;
 
 export type ListAgentRunnerSessionsPath = {
 	agent_runner_id: string;
@@ -12629,9 +12533,7 @@ export type ListAgentRunnerSessionsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListAgentRunnerSessionsResponse =
-	| ListAgentRunnerSessionsStatus200
-	| ListAgentRunnerSessionsStatusDefault;
+export type ListAgentRunnerSessionsResponse = ListAgentRunnerSessionsStatus200;
 
 export type CreateAgentRunnerSessionPath = {
 	agent_runner_id: string;
@@ -12731,11 +12633,7 @@ export type CreateAgentRunnerSessionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateAgentRunnerSessionResponse =
-	| CreateAgentRunnerSessionStatus200
-	| CreateAgentRunnerSessionStatus404
-	| CreateAgentRunnerSessionStatus422
-	| CreateAgentRunnerSessionStatusDefault;
+export type CreateAgentRunnerSessionResponse = CreateAgentRunnerSessionStatus200;
 
 export type GetAgentRunnerSessionPath = {
 	agent_runner_id: string;
@@ -12823,9 +12721,7 @@ export type GetAgentRunnerSessionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAgentRunnerSessionResponse =
-	| GetAgentRunnerSessionStatus200
-	| GetAgentRunnerSessionStatusDefault;
+export type GetAgentRunnerSessionResponse = GetAgentRunnerSessionStatus200;
 
 export type UpdateAgentRunnerSessionPath = {
 	agent_runner_id: string;
@@ -12917,9 +12813,7 @@ export type UpdateAgentRunnerSessionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateAgentRunnerSessionResponse =
-	| UpdateAgentRunnerSessionStatus200
-	| UpdateAgentRunnerSessionStatusDefault;
+export type UpdateAgentRunnerSessionResponse = UpdateAgentRunnerSessionStatus200;
 
 export type DeleteAgentRunnerSessionPath = {
 	agent_runner_id: string;
@@ -12953,9 +12847,7 @@ export type DeleteAgentRunnerSessionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAgentRunnerSessionResponse =
-	| DeleteAgentRunnerSessionStatus202
-	| DeleteAgentRunnerSessionStatusDefault;
+export type DeleteAgentRunnerSessionResponse = DeleteAgentRunnerSessionStatus202;
 
 export type ListFormSubmissionPath = {
 	submission_id: string;
@@ -13027,9 +12919,7 @@ export type ListFormSubmissionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListFormSubmissionResponse =
-	| ListFormSubmissionStatus200
-	| ListFormSubmissionStatusDefault;
+export type ListFormSubmissionResponse = ListFormSubmissionStatus200;
 
 export type DeleteSubmissionPath = {
 	submission_id: string;
@@ -13062,7 +12952,7 @@ export type DeleteSubmissionResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSubmissionResponse = DeleteSubmissionStatus204 | DeleteSubmissionStatusDefault;
+export type DeleteSubmissionResponse = DeleteSubmissionStatus204;
 
 export type ListServiceInstancesForSitePath = {
 	site_id: string;
@@ -13118,9 +13008,7 @@ export type ListServiceInstancesForSiteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListServiceInstancesForSiteResponse =
-	| ListServiceInstancesForSiteStatus200
-	| ListServiceInstancesForSiteStatusDefault;
+export type ListServiceInstancesForSiteResponse = ListServiceInstancesForSiteStatus200;
 
 export type CreateServiceInstancePath = {
 	site_id: string;
@@ -13179,9 +13067,7 @@ export type CreateServiceInstanceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateServiceInstanceResponse =
-	| CreateServiceInstanceStatus201
-	| CreateServiceInstanceStatusDefault;
+export type CreateServiceInstanceResponse = CreateServiceInstanceStatus201;
 
 export type ShowServiceInstancePath = {
 	site_id: string;
@@ -13239,9 +13125,7 @@ export type ShowServiceInstanceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ShowServiceInstanceResponse =
-	| ShowServiceInstanceStatus200
-	| ShowServiceInstanceStatusDefault;
+export type ShowServiceInstanceResponse = ShowServiceInstanceStatus200;
 
 export type UpdateServiceInstancePath = {
 	site_id: string;
@@ -13278,9 +13162,7 @@ export type UpdateServiceInstanceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateServiceInstanceResponse =
-	| UpdateServiceInstanceStatus204
-	| UpdateServiceInstanceStatusDefault;
+export type UpdateServiceInstanceResponse = UpdateServiceInstanceStatus204;
 
 export type DeleteServiceInstancePath = {
 	site_id: string;
@@ -13315,9 +13197,7 @@ export type DeleteServiceInstanceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteServiceInstanceResponse =
-	| DeleteServiceInstanceStatus204
-	| DeleteServiceInstanceStatusDefault;
+export type DeleteServiceInstanceResponse = DeleteServiceInstanceStatus204;
 
 export type GetServicesQuery = {
 	search?: string | undefined;
@@ -13374,7 +13254,7 @@ export type GetServicesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetServicesResponse = GetServicesStatus200 | GetServicesStatusDefault;
+export type GetServicesResponse = GetServicesStatus200;
 
 export type ShowServicePath = {
 	addonName: string;
@@ -13431,7 +13311,7 @@ export type ShowServiceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ShowServiceResponse = ShowServiceStatus200 | ShowServiceStatusDefault;
+export type ShowServiceResponse = ShowServiceStatus200;
 
 export type ShowServiceManifestPath = {
 	addonName: string;
@@ -13464,9 +13344,7 @@ export type ShowServiceManifestResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ShowServiceManifestResponse =
-	| ShowServiceManifestStatus201
-	| ShowServiceManifestStatusDefault;
+export type ShowServiceManifestResponse = ShowServiceManifestStatus201;
 
 export type GetCurrentUserStatus200 = {
 	id?: string | undefined;
@@ -13526,7 +13404,7 @@ export type GetCurrentUserResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetCurrentUserResponse = GetCurrentUserStatus200 | GetCurrentUserStatusDefault;
+export type GetCurrentUserResponse = GetCurrentUserStatus200;
 
 export type CreateSplitTestPath = {
 	site_id: string;
@@ -13588,7 +13466,7 @@ export type CreateSplitTestResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSplitTestResponse = CreateSplitTestStatus201 | CreateSplitTestStatusDefault;
+export type CreateSplitTestResponse = CreateSplitTestStatus201;
 
 export type GetSplitTestsPath = {
 	site_id: string;
@@ -13646,7 +13524,7 @@ export type GetSplitTestsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSplitTestsResponse = GetSplitTestsStatus200 | GetSplitTestsStatusDefault;
+export type GetSplitTestsResponse = GetSplitTestsStatus200;
 
 export type UpdateSplitTestPath = {
 	site_id: string;
@@ -13709,7 +13587,7 @@ export type UpdateSplitTestResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateSplitTestResponse = UpdateSplitTestStatus201 | UpdateSplitTestStatusDefault;
+export type UpdateSplitTestResponse = UpdateSplitTestStatus201;
 
 export type GetSplitTestPath = {
 	site_id: string;
@@ -13768,7 +13646,7 @@ export type GetSplitTestResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSplitTestResponse = GetSplitTestStatus200 | GetSplitTestStatusDefault;
+export type GetSplitTestResponse = GetSplitTestStatus200;
 
 export type EnableSplitTestPath = {
 	site_id: string;
@@ -13802,7 +13680,7 @@ export type EnableSplitTestResponses = {
 /**
  * @description Union of all possible responses
  */
-export type EnableSplitTestResponse = EnableSplitTestStatus204 | EnableSplitTestStatusDefault;
+export type EnableSplitTestResponse = EnableSplitTestStatus204;
 
 export type DisableSplitTestPath = {
 	site_id: string;
@@ -13836,7 +13714,7 @@ export type DisableSplitTestResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DisableSplitTestResponse = DisableSplitTestStatus204 | DisableSplitTestStatusDefault;
+export type DisableSplitTestResponse = DisableSplitTestStatus204;
 
 export type CreateDnsZoneStatus201 = {
 	id?: string | undefined;
@@ -13922,7 +13800,7 @@ export type CreateDnsZoneResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateDnsZoneResponse = CreateDnsZoneStatus201 | CreateDnsZoneStatusDefault;
+export type CreateDnsZoneResponse = CreateDnsZoneStatus201;
 
 export type GetDnsZonesQuery = {
 	account_slug?: string | undefined;
@@ -14006,7 +13884,7 @@ export type GetDnsZonesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDnsZonesResponse = GetDnsZonesStatus200 | GetDnsZonesStatusDefault;
+export type GetDnsZonesResponse = GetDnsZonesStatus200;
 
 export type GetDnsZonePath = {
 	zone_id: string;
@@ -14090,7 +13968,7 @@ export type GetDnsZoneResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDnsZoneResponse = GetDnsZoneStatus200 | GetDnsZoneStatusDefault;
+export type GetDnsZoneResponse = GetDnsZoneStatus200;
 
 export type DeleteDnsZonePath = {
 	zone_id: string;
@@ -14123,7 +14001,7 @@ export type DeleteDnsZoneResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteDnsZoneResponse = DeleteDnsZoneStatus204 | DeleteDnsZoneStatusDefault;
+export type DeleteDnsZoneResponse = DeleteDnsZoneStatus204;
 
 export type TransferDnsZonePath = {
 	zone_id: string;
@@ -14225,7 +14103,7 @@ export type TransferDnsZoneResponses = {
 /**
  * @description Union of all possible responses
  */
-export type TransferDnsZoneResponse = TransferDnsZoneStatus200 | TransferDnsZoneStatusDefault;
+export type TransferDnsZoneResponse = TransferDnsZoneStatus200;
 
 export type GetDnsRecordsPath = {
 	zone_id: string;
@@ -14280,7 +14158,7 @@ export type GetDnsRecordsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDnsRecordsResponse = GetDnsRecordsStatus200 | GetDnsRecordsStatusDefault;
+export type GetDnsRecordsResponse = GetDnsRecordsStatus200;
 
 export type CreateDnsRecordPath = {
 	zone_id: string;
@@ -14372,7 +14250,7 @@ export type CreateDnsRecordResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateDnsRecordResponse = CreateDnsRecordStatus201 | CreateDnsRecordStatusDefault;
+export type CreateDnsRecordResponse = CreateDnsRecordStatus201;
 
 export type GetIndividualDnsRecordPath = {
 	zone_id: string;
@@ -14428,9 +14306,7 @@ export type GetIndividualDnsRecordResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetIndividualDnsRecordResponse =
-	| GetIndividualDnsRecordStatus200
-	| GetIndividualDnsRecordStatusDefault;
+export type GetIndividualDnsRecordResponse = GetIndividualDnsRecordStatus200;
 
 export type DeleteDnsRecordPath = {
 	zone_id: string;
@@ -14464,7 +14340,7 @@ export type DeleteDnsRecordResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteDnsRecordResponse = DeleteDnsRecordStatus204 | DeleteDnsRecordStatusDefault;
+export type DeleteDnsRecordResponse = DeleteDnsRecordStatus204;
 
 export type ListSiteDevServersPath = {
 	site_id: string;
@@ -14555,9 +14431,7 @@ export type ListSiteDevServersResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteDevServersResponse =
-	| ListSiteDevServersStatus200
-	| ListSiteDevServersStatusDefault;
+export type ListSiteDevServersResponse = ListSiteDevServersStatus200;
 
 export type CreateSiteDevServerPath = {
 	site_id: string;
@@ -14637,9 +14511,7 @@ export type CreateSiteDevServerResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSiteDevServerResponse =
-	| CreateSiteDevServerStatus200
-	| CreateSiteDevServerStatusDefault;
+export type CreateSiteDevServerResponse = CreateSiteDevServerStatus200;
 
 export type DeleteSiteDevServersPath = {
 	site_id: string;
@@ -14676,9 +14548,7 @@ export type DeleteSiteDevServersResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSiteDevServersResponse =
-	| DeleteSiteDevServersStatus202
-	| DeleteSiteDevServersStatusDefault;
+export type DeleteSiteDevServersResponse = DeleteSiteDevServersStatus202;
 
 export type GetSiteDevServerPath = {
 	site_id: string;
@@ -14852,9 +14722,7 @@ export type UpdateDevServerStateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateDevServerStateResponse =
-	| UpdateDevServerStateStatus200
-	| UpdateDevServerStateStatus409;
+export type UpdateDevServerStateResponse = UpdateDevServerStateStatus200;
 
 export type ListSiteDevServerHooksPath = {
 	site_id: string;
@@ -14908,9 +14776,7 @@ export type ListSiteDevServerHooksResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteDevServerHooksResponse =
-	| ListSiteDevServerHooksStatus200
-	| ListSiteDevServerHooksStatusDefault;
+export type ListSiteDevServerHooksResponse = ListSiteDevServerHooksStatus200;
 
 export type CreateSiteDevServerHookPath = {
 	site_id: string;
@@ -14978,9 +14844,7 @@ export type CreateSiteDevServerHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSiteDevServerHookResponse =
-	| CreateSiteDevServerHookStatus201
-	| CreateSiteDevServerHookStatusDefault;
+export type CreateSiteDevServerHookResponse = CreateSiteDevServerHookStatus201;
 
 export type GetSiteDevServerHookPath = {
 	site_id: string;
@@ -15035,9 +14899,7 @@ export type GetSiteDevServerHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteDevServerHookResponse =
-	| GetSiteDevServerHookStatus200
-	| GetSiteDevServerHookStatusDefault;
+export type GetSiteDevServerHookResponse = GetSiteDevServerHookStatus200;
 
 export type UpdateSiteDevServerHookPath = {
 	site_id: string;
@@ -15085,9 +14947,7 @@ export type UpdateSiteDevServerHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateSiteDevServerHookResponse =
-	| UpdateSiteDevServerHookStatus204
-	| UpdateSiteDevServerHookStatusDefault;
+export type UpdateSiteDevServerHookResponse = UpdateSiteDevServerHookStatus204;
 
 export type DeleteSiteDevServerHookPath = {
 	site_id: string;
@@ -15121,9 +14981,7 @@ export type DeleteSiteDevServerHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSiteDevServerHookResponse =
-	| DeleteSiteDevServerHookStatus204
-	| DeleteSiteDevServerHookStatusDefault;
+export type DeleteSiteDevServerHookResponse = DeleteSiteDevServerHookStatus204;
 
 export type ListSiteAgentRunnerHooksPath = {
 	site_id: string;
@@ -15171,9 +15029,7 @@ export type ListSiteAgentRunnerHooksResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteAgentRunnerHooksResponse =
-	| ListSiteAgentRunnerHooksStatus200
-	| ListSiteAgentRunnerHooksStatusDefault;
+export type ListSiteAgentRunnerHooksResponse = ListSiteAgentRunnerHooksStatus200;
 
 export type CreateSiteAgentRunnerHookPath = {
 	site_id: string;
@@ -15230,9 +15086,7 @@ export type CreateSiteAgentRunnerHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSiteAgentRunnerHookResponse =
-	| CreateSiteAgentRunnerHookStatus201
-	| CreateSiteAgentRunnerHookStatusDefault;
+export type CreateSiteAgentRunnerHookResponse = CreateSiteAgentRunnerHookStatus201;
 
 export type GetSiteAgentRunnerHookPath = {
 	site_id: string;
@@ -15281,9 +15135,7 @@ export type GetSiteAgentRunnerHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteAgentRunnerHookResponse =
-	| GetSiteAgentRunnerHookStatus200
-	| GetSiteAgentRunnerHookStatusDefault;
+export type GetSiteAgentRunnerHookResponse = GetSiteAgentRunnerHookStatus200;
 
 export type UpdateSiteAgentRunnerHookPath = {
 	site_id: string;
@@ -15324,9 +15176,7 @@ export type UpdateSiteAgentRunnerHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateSiteAgentRunnerHookResponse =
-	| UpdateSiteAgentRunnerHookStatus204
-	| UpdateSiteAgentRunnerHookStatusDefault;
+export type UpdateSiteAgentRunnerHookResponse = UpdateSiteAgentRunnerHookStatus204;
 
 export type DeleteSiteAgentRunnerHookPath = {
 	site_id: string;
@@ -15360,9 +15210,7 @@ export type DeleteSiteAgentRunnerHookResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSiteAgentRunnerHookResponse =
-	| DeleteSiteAgentRunnerHookStatus204
-	| DeleteSiteAgentRunnerHookStatusDefault;
+export type DeleteSiteAgentRunnerHookResponse = DeleteSiteAgentRunnerHookStatus204;
 
 export type GetAIGatewayProvidersStatus200 = {
 	providers?:
@@ -15401,9 +15249,7 @@ export type GetAIGatewayProvidersResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAIGatewayProvidersResponse =
-	| GetAIGatewayProvidersStatus200
-	| GetAIGatewayProvidersStatusDefault;
+export type GetAIGatewayProvidersResponse = GetAIGatewayProvidersStatus200;
 
 export type GetAIGatewayTokenPath = {
 	/**
@@ -15461,10 +15307,7 @@ export type GetAIGatewayTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAIGatewayTokenResponse =
-	| GetAIGatewayTokenStatus200
-	| GetAIGatewayTokenStatus404
-	| GetAIGatewayTokenStatusDefault;
+export type GetAIGatewayTokenResponse = GetAIGatewayTokenStatus200;
 
 export type GetAccountAIGatewayTokenPath = {
 	/**
@@ -15522,10 +15365,7 @@ export type GetAccountAIGatewayTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAccountAIGatewayTokenResponse =
-	| GetAccountAIGatewayTokenStatus200
-	| GetAccountAIGatewayTokenStatus404
-	| GetAccountAIGatewayTokenStatusDefault;
+export type GetAccountAIGatewayTokenResponse = GetAccountAIGatewayTokenStatus200;
 
 export type CreateSiteDatabasePath = {
 	site_id: string;
@@ -15595,10 +15435,7 @@ export type CreateSiteDatabaseResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSiteDatabaseResponse =
-	| CreateSiteDatabaseStatus200
-	| CreateSiteDatabaseStatus201
-	| CreateSiteDatabaseStatusDefault;
+export type CreateSiteDatabaseResponse = CreateSiteDatabaseStatus200 | CreateSiteDatabaseStatus201;
 
 export type GetSiteDatabasePath = {
 	site_id: string;
@@ -15656,7 +15493,7 @@ export type GetSiteDatabaseResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteDatabaseResponse = GetSiteDatabaseStatus200 | GetSiteDatabaseStatusDefault;
+export type GetSiteDatabaseResponse = GetSiteDatabaseStatus200;
 
 export type DeleteSiteDatabasePath = {
 	site_id: string;
@@ -15689,9 +15526,7 @@ export type DeleteSiteDatabaseResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSiteDatabaseResponse =
-	| DeleteSiteDatabaseStatus204
-	| DeleteSiteDatabaseStatusDefault;
+export type DeleteSiteDatabaseResponse = DeleteSiteDatabaseStatus204;
 
 export type CreateSiteDatabaseBranchPath = {
 	site_id: string;
@@ -15793,8 +15628,7 @@ export type CreateSiteDatabaseBranchResponses = {
  */
 export type CreateSiteDatabaseBranchResponse =
 	| CreateSiteDatabaseBranchStatus200
-	| CreateSiteDatabaseBranchStatus201
-	| CreateSiteDatabaseBranchStatusDefault;
+	| CreateSiteDatabaseBranchStatus201;
 
 export type ListSiteDatabaseBranchesPath = {
 	site_id: string;
@@ -15959,9 +15793,7 @@ export type ListSiteDatabaseBranchesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteDatabaseBranchesResponse =
-	| ListSiteDatabaseBranchesStatus200
-	| ListSiteDatabaseBranchesStatusDefault;
+export type ListSiteDatabaseBranchesResponse = ListSiteDatabaseBranchesStatus200;
 
 export type GetSiteDatabaseBranchPath = {
 	site_id: string;
@@ -16037,10 +15869,7 @@ export type GetSiteDatabaseBranchResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteDatabaseBranchResponse =
-	| GetSiteDatabaseBranchStatus200
-	| GetSiteDatabaseBranchStatus404
-	| GetSiteDatabaseBranchStatusDefault;
+export type GetSiteDatabaseBranchResponse = GetSiteDatabaseBranchStatus200;
 
 export type DeleteSiteDatabaseBranchPath = {
 	site_id: string;
@@ -16078,9 +15907,7 @@ export type DeleteSiteDatabaseBranchResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSiteDatabaseBranchResponse =
-	| DeleteSiteDatabaseBranchStatus204
-	| DeleteSiteDatabaseBranchStatusDefault;
+export type DeleteSiteDatabaseBranchResponse = DeleteSiteDatabaseBranchStatus204;
 
 export type ResetSiteDatabaseBranchPath = {
 	site_id: string;
@@ -16183,11 +16010,7 @@ export type ResetSiteDatabaseBranchResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ResetSiteDatabaseBranchResponse =
-	| ResetSiteDatabaseBranchStatus200
-	| ResetSiteDatabaseBranchStatus400
-	| ResetSiteDatabaseBranchStatus404
-	| ResetSiteDatabaseBranchStatusDefault;
+export type ResetSiteDatabaseBranchResponse = ResetSiteDatabaseBranchStatus200;
 
 export type SetSiteDatabaseBranchComputeSettingsPath = {
 	site_id: string;
@@ -16247,6 +16070,8 @@ export type SetSiteDatabaseBranchComputeSettingsBody = {
 	 * @description Minimum compute units (0.25 to 16.0). Must be less than or equal to max_cu.
 	 *
 	 * Format: `double`
+	 * @minLength 0.25
+	 * @maxLength 16
 	 * @type number | undefined
 	 */
 	min_cu?: (number | null) | undefined;
@@ -16254,6 +16079,8 @@ export type SetSiteDatabaseBranchComputeSettingsBody = {
 	 * @description Maximum compute units (0.25 to 16.0). Must be greater than or equal to min_cu. max_cu - min_cu must not exceed 8.0.
 	 *
 	 * Format: `double`
+	 * @minLength 0.25
+	 * @maxLength 16
 	 * @type number | undefined
 	 */
 	max_cu?: (number | null) | undefined;
@@ -16284,9 +16111,7 @@ export type SetSiteDatabaseBranchComputeSettingsResponses = {
  * @description Union of all possible responses
  */
 export type SetSiteDatabaseBranchComputeSettingsResponse =
-	| SetSiteDatabaseBranchComputeSettingsStatus200
-	| SetSiteDatabaseBranchComputeSettingsStatus403
-	| SetSiteDatabaseBranchComputeSettingsStatusDefault;
+	SetSiteDatabaseBranchComputeSettingsStatus200;
 
 export type SetSiteDatabaseComputeSettingsPath = {
 	site_id: string;
@@ -16341,6 +16166,8 @@ export type SetSiteDatabaseComputeSettingsBody = {
 	 * @description Minimum compute units (0.25 to 16.0). Must be less than or equal to max_cu.
 	 *
 	 * Format: `double`
+	 * @minLength 0.25
+	 * @maxLength 16
 	 * @type number | undefined
 	 */
 	min_cu?: (number | null) | undefined;
@@ -16348,6 +16175,8 @@ export type SetSiteDatabaseComputeSettingsBody = {
 	 * @description Maximum compute units (0.25 to 16.0). Must be greater than or equal to min_cu. max_cu - min_cu must not exceed 8.0.
 	 *
 	 * Format: `double`
+	 * @minLength 0.25
+	 * @maxLength 16
 	 * @type number | undefined
 	 */
 	max_cu?: (number | null) | undefined;
@@ -16377,10 +16206,7 @@ export type SetSiteDatabaseComputeSettingsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SetSiteDatabaseComputeSettingsResponse =
-	| SetSiteDatabaseComputeSettingsStatus200
-	| SetSiteDatabaseComputeSettingsStatus403
-	| SetSiteDatabaseComputeSettingsStatusDefault;
+export type SetSiteDatabaseComputeSettingsResponse = SetSiteDatabaseComputeSettingsStatus200;
 
 export type GetSiteDatabaseComputeSettingsPath = {
 	site_id: string;
@@ -16442,10 +16268,7 @@ export type GetSiteDatabaseComputeSettingsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteDatabaseComputeSettingsResponse =
-	| GetSiteDatabaseComputeSettingsStatus200
-	| GetSiteDatabaseComputeSettingsStatus403
-	| GetSiteDatabaseComputeSettingsStatusDefault;
+export type GetSiteDatabaseComputeSettingsResponse = GetSiteDatabaseComputeSettingsStatus200;
 
 export type ClearSiteDatabaseComputeSettingsPath = {
 	site_id: string;
@@ -16481,10 +16304,7 @@ export type ClearSiteDatabaseComputeSettingsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ClearSiteDatabaseComputeSettingsResponse =
-	| ClearSiteDatabaseComputeSettingsStatus204
-	| ClearSiteDatabaseComputeSettingsStatus403
-	| ClearSiteDatabaseComputeSettingsStatusDefault;
+export type ClearSiteDatabaseComputeSettingsResponse = ClearSiteDatabaseComputeSettingsStatus204;
 
 export type ListSiteDatabaseMigrationsPath = {
 	site_id: string;
@@ -16566,11 +16386,7 @@ export type ListSiteDatabaseMigrationsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteDatabaseMigrationsResponse =
-	| ListSiteDatabaseMigrationsStatus200
-	| ListSiteDatabaseMigrationsStatus404
-	| ListSiteDatabaseMigrationsStatus423
-	| ListSiteDatabaseMigrationsStatusDefault;
+export type ListSiteDatabaseMigrationsResponse = ListSiteDatabaseMigrationsStatus200;
 
 export type GetSiteDatabaseMigrationPath = {
 	site_id: string;
@@ -16649,11 +16465,7 @@ export type GetSiteDatabaseMigrationResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSiteDatabaseMigrationResponse =
-	| GetSiteDatabaseMigrationStatus200
-	| GetSiteDatabaseMigrationStatus404
-	| GetSiteDatabaseMigrationStatus423
-	| GetSiteDatabaseMigrationStatusDefault;
+export type GetSiteDatabaseMigrationResponse = GetSiteDatabaseMigrationStatus200;
 
 export type RunSiteDatabaseMigrationsPath = {
 	site_id: string;
@@ -16711,11 +16523,7 @@ export type RunSiteDatabaseMigrationsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RunSiteDatabaseMigrationsResponse =
-	| RunSiteDatabaseMigrationsStatus200
-	| RunSiteDatabaseMigrationsStatus409
-	| RunSiteDatabaseMigrationsStatus422
-	| RunSiteDatabaseMigrationsStatusDefault;
+export type RunSiteDatabaseMigrationsResponse = RunSiteDatabaseMigrationsStatus200;
 
 export type CreateSiteDatabaseSnapshotPath = {
 	site_id: string;
@@ -16852,9 +16660,7 @@ export type CreateSiteDatabaseSnapshotResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateSiteDatabaseSnapshotResponse =
-	| CreateSiteDatabaseSnapshotStatus201
-	| CreateSiteDatabaseSnapshotStatusDefault;
+export type CreateSiteDatabaseSnapshotResponse = CreateSiteDatabaseSnapshotStatus201;
 
 export type ListSiteDatabaseSnapshotsPath = {
 	site_id: string;
@@ -16958,9 +16764,7 @@ export type ListSiteDatabaseSnapshotsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSiteDatabaseSnapshotsResponse =
-	| ListSiteDatabaseSnapshotsStatus200
-	| ListSiteDatabaseSnapshotsStatusDefault;
+export type ListSiteDatabaseSnapshotsResponse = ListSiteDatabaseSnapshotsStatus200;
 
 export type DeleteSiteDatabaseSnapshotPath = {
 	site_id: string;
@@ -16998,9 +16802,7 @@ export type DeleteSiteDatabaseSnapshotResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSiteDatabaseSnapshotResponse =
-	| DeleteSiteDatabaseSnapshotStatus204
-	| DeleteSiteDatabaseSnapshotStatusDefault;
+export type DeleteSiteDatabaseSnapshotResponse = DeleteSiteDatabaseSnapshotStatus204;
 
 export type RestoreSiteDatabaseSnapshotPath = {
 	site_id: string;
@@ -17052,9 +16854,7 @@ export type RestoreSiteDatabaseSnapshotResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RestoreSiteDatabaseSnapshotResponse =
-	| RestoreSiteDatabaseSnapshotStatus200
-	| RestoreSiteDatabaseSnapshotStatusDefault;
+export type RestoreSiteDatabaseSnapshotResponse = RestoreSiteDatabaseSnapshotStatus200;
 
 export type UpdatePluginPath = {
 	site_id: string;
@@ -17097,4 +16897,4 @@ export type UpdatePluginResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdatePluginResponse = UpdatePluginStatus200 | UpdatePluginStatusDefault;
+export type UpdatePluginResponse = UpdatePluginStatus200;

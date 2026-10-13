@@ -684,7 +684,11 @@ export async function chatsDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -705,7 +709,7 @@ export async function chatsDelete(
 		{ chatId: string }
 	>({
 		method: "DELETE",
-		url: `/chats/${pathParams.chatId}`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -729,7 +733,11 @@ export async function chatsGetById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -750,7 +758,7 @@ export async function chatsGetById(
 		{ chatId: string }
 	>({
 		method: "GET",
-		url: `/chats/${pathParams.chatId}`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -774,7 +782,11 @@ export async function chatsUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -795,7 +807,7 @@ export async function chatsUpdate(
 		{ chatId: string }
 	>({
 		method: "PATCH",
-		url: `/chats/${pathParams.chatId}`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -819,7 +831,11 @@ export async function chatsFavorite(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -840,7 +856,7 @@ export async function chatsFavorite(
 		{ chatId: string }
 	>({
 		method: "PUT",
-		url: `/chats/${pathParams.chatId}/favorite`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/favorite`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -864,7 +880,11 @@ export async function chatsFork(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -885,7 +905,7 @@ export async function chatsFork(
 		{ chatId: string }
 	>({
 		method: "POST",
-		url: `/chats/${pathParams.chatId}/fork`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/fork`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -909,7 +929,11 @@ export async function projectsGetByChatId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -930,7 +954,7 @@ export async function projectsGetByChatId(
 		{ chatId: string }
 	>({
 		method: "GET",
-		url: `/chats/${pathParams.chatId}/project`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/project`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -956,7 +980,11 @@ export async function chatsFindMessages(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -977,7 +1005,7 @@ export async function chatsFindMessages(
 		{ chatId: string }
 	>({
 		method: "GET",
-		url: `/chats/${pathParams.chatId}/messages`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/messages`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1002,7 +1030,11 @@ export async function chatsSendMessage(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -1023,7 +1055,7 @@ export async function chatsSendMessage(
 		{ chatId: string }
 	>({
 		method: "POST",
-		url: `/chats/${pathParams.chatId}/messages`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/messages`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1047,11 +1079,19 @@ export async function chatsGetMessage(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (!pathParams.messageId) {
+	if (
+		pathParams.messageId === undefined ||
+		pathParams.messageId === null ||
+		String(pathParams.messageId) === ""
+	) {
 		throw new Error(`Missing required path parameter: messageId`);
 	}
 	const data = await request<
@@ -1072,7 +1112,7 @@ export async function chatsGetMessage(
 		{ chatId: string; messageId: string }
 	>({
 		method: "GET",
-		url: `/chats/${pathParams.chatId}/messages/${pathParams.messageId}`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/messages/${encodeURIComponent(String(pathParams.messageId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1098,7 +1138,11 @@ export async function chatsFindVersions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -1119,7 +1163,7 @@ export async function chatsFindVersions(
 		{ chatId: string }
 	>({
 		method: "GET",
-		url: `/chats/${pathParams.chatId}/versions`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1146,11 +1190,19 @@ export async function chatsGetVersion(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (!pathParams.versionId) {
+	if (
+		pathParams.versionId === undefined ||
+		pathParams.versionId === null ||
+		String(pathParams.versionId) === ""
+	) {
 		throw new Error(`Missing required path parameter: versionId`);
 	}
 	const data = await request<
@@ -1171,7 +1223,7 @@ export async function chatsGetVersion(
 		{ chatId: string; versionId: string }
 	>({
 		method: "GET",
-		url: `/chats/${pathParams.chatId}/versions/${pathParams.versionId}`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1196,11 +1248,19 @@ export async function chatsUpdateVersion(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (!pathParams.versionId) {
+	if (
+		pathParams.versionId === undefined ||
+		pathParams.versionId === null ||
+		String(pathParams.versionId) === ""
+	) {
 		throw new Error(`Missing required path parameter: versionId`);
 	}
 	const data = await request<
@@ -1221,7 +1281,7 @@ export async function chatsUpdateVersion(
 		{ chatId: string; versionId: string }
 	>({
 		method: "PATCH",
-		url: `/chats/${pathParams.chatId}/versions/${pathParams.versionId}`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1247,11 +1307,19 @@ export async function chatsDownloadVersion(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (!pathParams.versionId) {
+	if (
+		pathParams.versionId === undefined ||
+		pathParams.versionId === null ||
+		String(pathParams.versionId) === ""
+	) {
 		throw new Error(`Missing required path parameter: versionId`);
 	}
 	const data = await request<
@@ -1272,7 +1340,7 @@ export async function chatsDownloadVersion(
 		{ chatId: string; versionId: string }
 	>({
 		method: "GET",
-		url: `/chats/${pathParams.chatId}/versions/${pathParams.versionId}/download`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}/download`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1297,11 +1365,19 @@ export async function chatsDeleteVersionFiles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (!pathParams.versionId) {
+	if (
+		pathParams.versionId === undefined ||
+		pathParams.versionId === null ||
+		String(pathParams.versionId) === ""
+	) {
 		throw new Error(`Missing required path parameter: versionId`);
 	}
 	const data = await request<
@@ -1322,7 +1398,7 @@ export async function chatsDeleteVersionFiles(
 		{ chatId: string; versionId: string }
 	>({
 		method: "POST",
-		url: `/chats/${pathParams.chatId}/versions/${pathParams.versionId}/files/delete`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}/files/delete`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1346,11 +1422,19 @@ export async function chatsResume(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (!pathParams.messageId) {
+	if (
+		pathParams.messageId === undefined ||
+		pathParams.messageId === null ||
+		String(pathParams.messageId) === ""
+	) {
 		throw new Error(`Missing required path parameter: messageId`);
 	}
 	const data = await request<
@@ -1371,7 +1455,7 @@ export async function chatsResume(
 		{ chatId: string; messageId: string }
 	>({
 		method: "POST",
-		url: `/chats/${pathParams.chatId}/messages/${pathParams.messageId}/resume`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/messages/${encodeURIComponent(String(pathParams.messageId))}/resume`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1395,11 +1479,19 @@ export async function chatsStop(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (!pathParams.messageId) {
+	if (
+		pathParams.messageId === undefined ||
+		pathParams.messageId === null ||
+		String(pathParams.messageId) === ""
+	) {
 		throw new Error(`Missing required path parameter: messageId`);
 	}
 	const data = await request<
@@ -1420,7 +1512,7 @@ export async function chatsStop(
 		{ chatId: string; messageId: string }
 	>({
 		method: "POST",
-		url: `/chats/${pathParams.chatId}/messages/${pathParams.messageId}/stop`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/messages/${encodeURIComponent(String(pathParams.messageId))}/stop`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1444,7 +1536,11 @@ export async function chatsResolveTask(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -1465,7 +1561,7 @@ export async function chatsResolveTask(
 		{ chatId: string }
 	>({
 		method: "POST",
-		url: `/chats/${pathParams.chatId}/tasks/resolve`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/tasks/resolve`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1568,7 +1664,11 @@ export async function deploymentsGetById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploymentId) {
+	if (
+		pathParams.deploymentId === undefined ||
+		pathParams.deploymentId === null ||
+		String(pathParams.deploymentId) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -1589,7 +1689,7 @@ export async function deploymentsGetById(
 		{ deploymentId: string }
 	>({
 		method: "GET",
-		url: `/deployments/${pathParams.deploymentId}`,
+		url: `/deployments/${encodeURIComponent(String(pathParams.deploymentId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1613,7 +1713,11 @@ export async function deploymentsDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploymentId) {
+	if (
+		pathParams.deploymentId === undefined ||
+		pathParams.deploymentId === null ||
+		String(pathParams.deploymentId) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -1634,7 +1738,7 @@ export async function deploymentsDelete(
 		{ deploymentId: string }
 	>({
 		method: "DELETE",
-		url: `/deployments/${pathParams.deploymentId}`,
+		url: `/deployments/${encodeURIComponent(String(pathParams.deploymentId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1660,7 +1764,11 @@ export async function deploymentsFindLogs(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploymentId) {
+	if (
+		pathParams.deploymentId === undefined ||
+		pathParams.deploymentId === null ||
+		String(pathParams.deploymentId) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -1681,7 +1789,7 @@ export async function deploymentsFindLogs(
 		{ deploymentId: string }
 	>({
 		method: "GET",
-		url: `/deployments/${pathParams.deploymentId}/logs`,
+		url: `/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/logs`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -1706,7 +1814,11 @@ export async function deploymentsFindErrors(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.deploymentId) {
+	if (
+		pathParams.deploymentId === undefined ||
+		pathParams.deploymentId === null ||
+		String(pathParams.deploymentId) === ""
+	) {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -1727,7 +1839,7 @@ export async function deploymentsFindErrors(
 		{ deploymentId: string }
 	>({
 		method: "GET",
-		url: `/deployments/${pathParams.deploymentId}/errors`,
+		url: `/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/errors`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1823,7 +1935,11 @@ export async function hooksGetById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.hookId) {
+	if (
+		pathParams.hookId === undefined ||
+		pathParams.hookId === null ||
+		String(pathParams.hookId) === ""
+	) {
 		throw new Error(`Missing required path parameter: hookId`);
 	}
 	const data = await request<
@@ -1844,7 +1960,7 @@ export async function hooksGetById(
 		{ hookId: string }
 	>({
 		method: "GET",
-		url: `/hooks/${pathParams.hookId}`,
+		url: `/hooks/${encodeURIComponent(String(pathParams.hookId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1868,7 +1984,11 @@ export async function hooksUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.hookId) {
+	if (
+		pathParams.hookId === undefined ||
+		pathParams.hookId === null ||
+		String(pathParams.hookId) === ""
+	) {
 		throw new Error(`Missing required path parameter: hookId`);
 	}
 	const data = await request<
@@ -1889,7 +2009,7 @@ export async function hooksUpdate(
 		{ hookId: string }
 	>({
 		method: "PATCH",
-		url: `/hooks/${pathParams.hookId}`,
+		url: `/hooks/${encodeURIComponent(String(pathParams.hookId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -1913,7 +2033,11 @@ export async function hooksDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.hookId) {
+	if (
+		pathParams.hookId === undefined ||
+		pathParams.hookId === null ||
+		String(pathParams.hookId) === ""
+	) {
 		throw new Error(`Missing required path parameter: hookId`);
 	}
 	const data = await request<
@@ -1934,7 +2058,7 @@ export async function hooksDelete(
 		{ hookId: string }
 	>({
 		method: "DELETE",
-		url: `/hooks/${pathParams.hookId}`,
+		url: `/hooks/${encodeURIComponent(String(pathParams.hookId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2102,7 +2226,11 @@ export async function projectsGetById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.projectId) {
+	if (
+		pathParams.projectId === undefined ||
+		pathParams.projectId === null ||
+		String(pathParams.projectId) === ""
+	) {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2123,7 +2251,7 @@ export async function projectsGetById(
 		{ projectId: string }
 	>({
 		method: "GET",
-		url: `/projects/${pathParams.projectId}`,
+		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2147,7 +2275,11 @@ export async function projectsUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.projectId) {
+	if (
+		pathParams.projectId === undefined ||
+		pathParams.projectId === null ||
+		String(pathParams.projectId) === ""
+	) {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2168,7 +2300,7 @@ export async function projectsUpdate(
 		{ projectId: string }
 	>({
 		method: "PATCH",
-		url: `/projects/${pathParams.projectId}`,
+		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2194,7 +2326,11 @@ export async function projectsDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.projectId) {
+	if (
+		pathParams.projectId === undefined ||
+		pathParams.projectId === null ||
+		String(pathParams.projectId) === ""
+	) {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2215,7 +2351,7 @@ export async function projectsDelete(
 		{ projectId: string }
 	>({
 		method: "DELETE",
-		url: `/projects/${pathParams.projectId}`,
+		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2240,7 +2376,11 @@ export async function projectsAssign(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.projectId) {
+	if (
+		pathParams.projectId === undefined ||
+		pathParams.projectId === null ||
+		String(pathParams.projectId) === ""
+	) {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2261,7 +2401,7 @@ export async function projectsAssign(
 		{ projectId: string }
 	>({
 		method: "POST",
-		url: `/projects/${pathParams.projectId}/assign`,
+		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/assign`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2287,7 +2427,11 @@ export async function projectsFindEnvVars(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.projectId) {
+	if (
+		pathParams.projectId === undefined ||
+		pathParams.projectId === null ||
+		String(pathParams.projectId) === ""
+	) {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2308,7 +2452,7 @@ export async function projectsFindEnvVars(
 		{ projectId: string }
 	>({
 		method: "GET",
-		url: `/projects/${pathParams.projectId}/env-vars`,
+		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2335,7 +2479,11 @@ export async function projectsCreateEnvVars(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.projectId) {
+	if (
+		pathParams.projectId === undefined ||
+		pathParams.projectId === null ||
+		String(pathParams.projectId) === ""
+	) {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2356,7 +2504,7 @@ export async function projectsCreateEnvVars(
 		{ projectId: string }
 	>({
 		method: "POST",
-		url: `/projects/${pathParams.projectId}/env-vars`,
+		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2383,7 +2531,11 @@ export async function projectsUpdateEnvVars(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.projectId) {
+	if (
+		pathParams.projectId === undefined ||
+		pathParams.projectId === null ||
+		String(pathParams.projectId) === ""
+	) {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2404,7 +2556,7 @@ export async function projectsUpdateEnvVars(
 		{ projectId: string }
 	>({
 		method: "PATCH",
-		url: `/projects/${pathParams.projectId}/env-vars`,
+		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2429,7 +2581,11 @@ export async function projectsDeleteEnvVars(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.projectId) {
+	if (
+		pathParams.projectId === undefined ||
+		pathParams.projectId === null ||
+		String(pathParams.projectId) === ""
+	) {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2450,7 +2606,7 @@ export async function projectsDeleteEnvVars(
 		{ projectId: string }
 	>({
 		method: "POST",
-		url: `/projects/${pathParams.projectId}/env-vars/delete`,
+		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars/delete`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2476,11 +2632,19 @@ export async function projectsGetEnvVar(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.projectId) {
+	if (
+		pathParams.projectId === undefined ||
+		pathParams.projectId === null ||
+		String(pathParams.projectId) === ""
+	) {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 
-	if (!pathParams.environmentVariableId) {
+	if (
+		pathParams.environmentVariableId === undefined ||
+		pathParams.environmentVariableId === null ||
+		String(pathParams.environmentVariableId) === ""
+	) {
 		throw new Error(`Missing required path parameter: environmentVariableId`);
 	}
 	const data = await request<
@@ -2501,7 +2665,7 @@ export async function projectsGetEnvVar(
 		{ projectId: string; environmentVariableId: string }
 	>({
 		method: "GET",
-		url: `/projects/${pathParams.projectId}/env-vars/${pathParams.environmentVariableId}`,
+		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars/${encodeURIComponent(String(pathParams.environmentVariableId))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -2720,11 +2884,19 @@ export async function chatsRestore(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.chatId) {
+	if (
+		pathParams.chatId === undefined ||
+		pathParams.chatId === null ||
+		String(pathParams.chatId) === ""
+	) {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (!pathParams.versionId) {
+	if (
+		pathParams.versionId === undefined ||
+		pathParams.versionId === null ||
+		String(pathParams.versionId) === ""
+	) {
 		throw new Error(`Missing required path parameter: versionId`);
 	}
 	const data = await request<
@@ -2745,7 +2917,7 @@ export async function chatsRestore(
 		{ chatId: string; versionId: string }
 	>({
 		method: "POST",
-		url: `/chats/${pathParams.chatId}/versions/${pathParams.versionId}/restore`,
+		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}/restore`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -2986,7 +3158,11 @@ export async function mcpServersGetById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.mcpServerId) {
+	if (
+		pathParams.mcpServerId === undefined ||
+		pathParams.mcpServerId === null ||
+		String(pathParams.mcpServerId) === ""
+	) {
 		throw new Error(`Missing required path parameter: mcpServerId`);
 	}
 	const data = await request<
@@ -3007,7 +3183,7 @@ export async function mcpServersGetById(
 		{ mcpServerId: string }
 	>({
 		method: "GET",
-		url: `/mcp-servers/${pathParams.mcpServerId}`,
+		url: `/mcp-servers/${encodeURIComponent(String(pathParams.mcpServerId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3031,7 +3207,11 @@ export async function mcpServersUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.mcpServerId) {
+	if (
+		pathParams.mcpServerId === undefined ||
+		pathParams.mcpServerId === null ||
+		String(pathParams.mcpServerId) === ""
+	) {
 		throw new Error(`Missing required path parameter: mcpServerId`);
 	}
 	const data = await request<
@@ -3052,7 +3232,7 @@ export async function mcpServersUpdate(
 		{ mcpServerId: string }
 	>({
 		method: "PATCH",
-		url: `/mcp-servers/${pathParams.mcpServerId}`,
+		url: `/mcp-servers/${encodeURIComponent(String(pathParams.mcpServerId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3076,7 +3256,11 @@ export async function mcpServersDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.mcpServerId) {
+	if (
+		pathParams.mcpServerId === undefined ||
+		pathParams.mcpServerId === null ||
+		String(pathParams.mcpServerId) === ""
+	) {
 		throw new Error(`Missing required path parameter: mcpServerId`);
 	}
 	const data = await request<
@@ -3097,7 +3281,7 @@ export async function mcpServersDelete(
 		{ mcpServerId: string }
 	>({
 		method: "DELETE",
-		url: `/mcp-servers/${pathParams.mcpServerId}`,
+		url: `/mcp-servers/${encodeURIComponent(String(pathParams.mcpServerId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3121,7 +3305,11 @@ export async function mcpServersCreateOAuthAuthorizationUrl(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (!pathParams.mcpServerId) {
+	if (
+		pathParams.mcpServerId === undefined ||
+		pathParams.mcpServerId === null ||
+		String(pathParams.mcpServerId) === ""
+	) {
 		throw new Error(`Missing required path parameter: mcpServerId`);
 	}
 	const data = await request<
@@ -3142,7 +3330,7 @@ export async function mcpServersCreateOAuthAuthorizationUrl(
 		{ mcpServerId: string }
 	>({
 		method: "POST",
-		url: `/mcp-servers/${pathParams.mcpServerId}/oauth/authorize`,
+		url: `/mcp-servers/${encodeURIComponent(String(pathParams.mcpServerId))}/oauth/authorize`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});

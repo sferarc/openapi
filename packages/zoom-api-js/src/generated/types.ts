@@ -467,10 +467,7 @@ export type ListArchivedFilesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListArchivedFilesResponse =
-	| ListArchivedFilesStatus200
-	| ListArchivedFilesStatus400
-	| ListArchivedFilesStatus429;
+export type ListArchivedFilesResponse = ListArchivedFilesStatus200;
 
 export type ListArchiveFileDownloadAuditQuery = {
 	/**
@@ -625,11 +622,7 @@ export type ListArchiveFileDownloadAuditResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListArchiveFileDownloadAuditResponse =
-	| ListArchiveFileDownloadAuditStatus200
-	| ListArchiveFileDownloadAuditStatus400
-	| ListArchiveFileDownloadAuditStatus401
-	| ListArchiveFileDownloadAuditStatus429;
+export type ListArchiveFileDownloadAuditResponse = ListArchiveFileDownloadAuditStatus200;
 
 export type GetArchivedFileStatisticsQuery = {
 	/**
@@ -759,10 +752,7 @@ export type GetArchivedFileStatisticsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetArchivedFileStatisticsResponse =
-	| GetArchivedFileStatisticsStatus200
-	| GetArchivedFileStatisticsStatus400
-	| GetArchivedFileStatisticsStatus429;
+export type GetArchivedFileStatisticsResponse = GetArchivedFileStatisticsStatus200;
 
 export type UpdateArchivedFilePath = {
 	/**
@@ -809,11 +799,7 @@ export type UpdateArchivedFileResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateArchivedFileResponse =
-	| UpdateArchivedFileStatus204
-	| UpdateArchivedFileStatus400
-	| UpdateArchivedFileStatus404
-	| UpdateArchivedFileStatus429;
+export type UpdateArchivedFileResponse = UpdateArchivedFileStatus204;
 
 export type MeetingLocalArchivingArchiveTokenPath = {
 	/**
@@ -870,11 +856,7 @@ export type MeetingLocalArchivingArchiveTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingLocalArchivingArchiveTokenResponse =
-	| MeetingLocalArchivingArchiveTokenStatus200
-	| MeetingLocalArchivingArchiveTokenStatus400
-	| MeetingLocalArchivingArchiveTokenStatus404
-	| MeetingLocalArchivingArchiveTokenStatus429;
+export type MeetingLocalArchivingArchiveTokenResponse = MeetingLocalArchivingArchiveTokenStatus200;
 
 export type GetArchivedFilesPath = {
 	/**
@@ -1244,10 +1226,7 @@ export type GetArchivedFilesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetArchivedFilesResponse =
-	| GetArchivedFilesStatus200
-	| GetArchivedFilesStatus404
-	| GetArchivedFilesStatus429;
+export type GetArchivedFilesResponse = GetArchivedFilesStatus200;
 
 export type DeleteArchivedFilesPath = {
 	/**
@@ -1283,11 +1262,7 @@ export type DeleteArchivedFilesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteArchivedFilesResponse =
-	| DeleteArchivedFilesStatus204
-	| DeleteArchivedFilesStatus400
-	| DeleteArchivedFilesStatus404
-	| DeleteArchivedFilesStatus429;
+export type DeleteArchivedFilesResponse = DeleteArchivedFilesStatus204;
 
 export type RecordingGetPath = {
 	/**
@@ -1739,11 +1714,7 @@ export type RecordingGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RecordingGetResponse =
-	| RecordingGetStatus200
-	| RecordingGetStatus400
-	| RecordingGetStatus404
-	| RecordingGetStatus429;
+export type RecordingGetResponse = RecordingGetStatus200;
 
 export type RecordingDeletePath = {
 	/**
@@ -1797,11 +1768,7 @@ export type RecordingDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RecordingDeleteResponse =
-	| RecordingDeleteStatus204
-	| RecordingDeleteStatus400
-	| RecordingDeleteStatus404
-	| RecordingDeleteStatus429;
+export type RecordingDeleteResponse = RecordingDeleteStatus204;
 
 export type AnalyticsDetailsPath = {
 	/**
@@ -1954,11 +1921,7 @@ export type AnalyticsDetailsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AnalyticsDetailsResponse =
-	| AnalyticsDetailsStatus200
-	| AnalyticsDetailsStatus400
-	| AnalyticsDetailsStatus404
-	| AnalyticsDetailsStatus429;
+export type AnalyticsDetailsResponse = AnalyticsDetailsStatus200;
 
 export type AnalyticsSummaryPath = {
 	/**
@@ -2056,11 +2019,7 @@ export type AnalyticsSummaryResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AnalyticsSummaryResponse =
-	| AnalyticsSummaryStatus200
-	| AnalyticsSummaryStatus400
-	| AnalyticsSummaryStatus404
-	| AnalyticsSummaryStatus429;
+export type AnalyticsSummaryResponse = AnalyticsSummaryStatus200;
 
 export type MeetingRecordingRegistrantsPath = {
 	/**
@@ -2371,10 +2330,7 @@ export type MeetingRecordingRegistrantsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingRecordingRegistrantsResponse =
-	| MeetingRecordingRegistrantsStatus200
-	| MeetingRecordingRegistrantsStatus404
-	| MeetingRecordingRegistrantsStatus429;
+export type MeetingRecordingRegistrantsResponse = MeetingRecordingRegistrantsStatus200;
 
 export type MeetingRecordingRegistrantCreatePath = {
 	/**
@@ -2625,10 +2581,7 @@ export type MeetingRecordingRegistrantCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingRecordingRegistrantCreateResponse =
-	| MeetingRecordingRegistrantCreateStatus201
-	| MeetingRecordingRegistrantCreateStatus404
-	| MeetingRecordingRegistrantCreateStatus429;
+export type MeetingRecordingRegistrantCreateResponse = MeetingRecordingRegistrantCreateStatus201;
 
 export type RecordingRegistrantsQuestionsGetPath = {
 	/**
@@ -2797,10 +2750,7 @@ export type RecordingRegistrantsQuestionsGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RecordingRegistrantsQuestionsGetResponse =
-	| RecordingRegistrantsQuestionsGetStatus200
-	| RecordingRegistrantsQuestionsGetStatus404
-	| RecordingRegistrantsQuestionsGetStatus429;
+export type RecordingRegistrantsQuestionsGetResponse = RecordingRegistrantsQuestionsGetStatus200;
 
 export type RecordingRegistrantQuestionUpdatePath = {
 	/**
@@ -2975,10 +2925,7 @@ export type RecordingRegistrantQuestionUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RecordingRegistrantQuestionUpdateResponse =
-	| RecordingRegistrantQuestionUpdateStatus204
-	| RecordingRegistrantQuestionUpdateStatus404
-	| RecordingRegistrantQuestionUpdateStatus429;
+export type RecordingRegistrantQuestionUpdateResponse = RecordingRegistrantQuestionUpdateStatus204;
 
 export type MeetingRecordingRegistrantStatusPath = {
 	/**
@@ -3054,10 +3001,7 @@ export type MeetingRecordingRegistrantStatusResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingRecordingRegistrantStatusResponse =
-	| MeetingRecordingRegistrantStatusStatus204
-	| MeetingRecordingRegistrantStatusStatus404
-	| MeetingRecordingRegistrantStatusStatus429;
+export type MeetingRecordingRegistrantStatusResponse = MeetingRecordingRegistrantStatusStatus204;
 
 export type RecordingSettingUpdatePath = {
 	/**
@@ -3213,10 +3157,7 @@ export type RecordingSettingUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RecordingSettingUpdateResponse =
-	| RecordingSettingUpdateStatus200
-	| RecordingSettingUpdateStatus404
-	| RecordingSettingUpdateStatus429;
+export type RecordingSettingUpdateResponse = RecordingSettingUpdateStatus200;
 
 export type RecordingSettingsUpdatePath = {
 	/**
@@ -3364,10 +3305,7 @@ export type RecordingSettingsUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RecordingSettingsUpdateResponse =
-	| RecordingSettingsUpdateStatus204
-	| RecordingSettingsUpdateStatus404
-	| RecordingSettingsUpdateStatus429;
+export type RecordingSettingsUpdateResponse = RecordingSettingsUpdateStatus204;
 
 export type RecordingDeleteOnePath = {
 	/**
@@ -3427,11 +3365,7 @@ export type RecordingDeleteOneResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RecordingDeleteOneResponse =
-	| RecordingDeleteOneStatus204
-	| RecordingDeleteOneStatus400
-	| RecordingDeleteOneStatus404
-	| RecordingDeleteOneStatus429;
+export type RecordingDeleteOneResponse = RecordingDeleteOneStatus204;
 
 export type RecordingStatusUpdateOnePath = {
 	/**
@@ -3483,11 +3417,7 @@ export type RecordingStatusUpdateOneResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RecordingStatusUpdateOneResponse =
-	| RecordingStatusUpdateOneStatus204
-	| RecordingStatusUpdateOneStatus400
-	| RecordingStatusUpdateOneStatus404
-	| RecordingStatusUpdateOneStatus429;
+export type RecordingStatusUpdateOneResponse = RecordingStatusUpdateOneStatus204;
 
 export type RecordingStatusUpdatePath = {
 	/**
@@ -3533,11 +3463,7 @@ export type RecordingStatusUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RecordingStatusUpdateResponse =
-	| RecordingStatusUpdateStatus200
-	| RecordingStatusUpdateStatus400
-	| RecordingStatusUpdateStatus404
-	| RecordingStatusUpdateStatus429;
+export type RecordingStatusUpdateResponse = RecordingStatusUpdateStatus200;
 
 export type RecordingsListPath = {
 	/**
@@ -4021,11 +3947,7 @@ export type RecordingsListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type RecordingsListResponse =
-	| RecordingsListStatus200
-	| RecordingsListStatus401
-	| RecordingsListStatus404
-	| RecordingsListStatus429;
+export type RecordingsListResponse = RecordingsListStatus200;
 
 export const listDevicesPlatformOs = {
 	win: "win",
@@ -4296,10 +4218,7 @@ export type ListDevicesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListDevicesResponse =
-	| ListDevicesStatus200
-	| ListDevicesStatus400
-	| ListDevicesStatus429;
+export type ListDevicesResponse = ListDevicesStatus200;
 
 export type AddDeviceStatus202 = unknown;
 
@@ -4403,7 +4322,7 @@ export type AddDeviceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AddDeviceResponse = AddDeviceStatus202 | AddDeviceStatus400 | AddDeviceStatus429;
+export type AddDeviceResponse = AddDeviceStatus202;
 
 export type GetzdmgroupinfoQuery = {
 	/**
@@ -4484,11 +4403,7 @@ export type GetzdmgroupinfoResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetzdmgroupinfoResponse =
-	| GetzdmgroupinfoStatus200
-	| GetzdmgroupinfoStatus400
-	| GetzdmgroupinfoStatus403
-	| GetzdmgroupinfoStatus429;
+export type GetzdmgroupinfoResponse = GetzdmgroupinfoStatus200;
 
 export type AssigndevicetoauserCommonareaStatus204 = unknown;
 
@@ -4535,10 +4450,7 @@ export type AssigndevicetoauserCommonareaResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AssigndevicetoauserCommonareaResponse =
-	| AssigndevicetoauserCommonareaStatus204
-	| AssigndevicetoauserCommonareaStatus400
-	| AssigndevicetoauserCommonareaStatus429;
+export type AssigndevicetoauserCommonareaResponse = AssigndevicetoauserCommonareaStatus204;
 
 export type GetZpaDeviceListProfileSettingOfaUserQuery = {
 	/**
@@ -4686,11 +4598,7 @@ export type GetZpaDeviceListProfileSettingOfaUserResponses = {
  * @description Union of all possible responses
  */
 export type GetZpaDeviceListProfileSettingOfaUserResponse =
-	| GetZpaDeviceListProfileSettingOfaUserStatus200
-	| GetZpaDeviceListProfileSettingOfaUserStatus400
-	| GetZpaDeviceListProfileSettingOfaUserStatus401
-	| GetZpaDeviceListProfileSettingOfaUserStatus403
-	| GetZpaDeviceListProfileSettingOfaUserStatus429;
+	GetZpaDeviceListProfileSettingOfaUserStatus200;
 
 export type UpgradeZpasAppStatus202 = unknown;
 
@@ -4771,10 +4679,7 @@ export type UpgradeZpasAppResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpgradeZpasAppResponse =
-	| UpgradeZpasAppStatus202
-	| UpgradeZpasAppStatus400
-	| UpgradeZpasAppStatus429;
+export type UpgradeZpasAppResponse = UpgradeZpasAppStatus202;
 
 export type DeleteZpaDeviceByVendorAndMacAddressPath = {
 	/**
@@ -4817,10 +4722,7 @@ export type DeleteZpaDeviceByVendorAndMacAddressResponses = {
  * @description Union of all possible responses
  */
 export type DeleteZpaDeviceByVendorAndMacAddressResponse =
-	| DeleteZpaDeviceByVendorAndMacAddressStatus204
-	| DeleteZpaDeviceByVendorAndMacAddressStatus400
-	| DeleteZpaDeviceByVendorAndMacAddressStatus404
-	| DeleteZpaDeviceByVendorAndMacAddressStatus429;
+	DeleteZpaDeviceByVendorAndMacAddressStatus204;
 
 export type GetZpaVersioninfoPath = {
 	/**
@@ -4898,11 +4800,7 @@ export type GetZpaVersioninfoResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetZpaVersioninfoResponse =
-	| GetZpaVersioninfoStatus200
-	| GetZpaVersioninfoStatus400
-	| GetZpaVersioninfoStatus404
-	| GetZpaVersioninfoStatus429;
+export type GetZpaVersioninfoResponse = GetZpaVersioninfoStatus200;
 
 export type GetDevicePath = {
 	/**
@@ -5073,11 +4971,7 @@ export type GetDeviceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDeviceResponse =
-	| GetDeviceStatus200
-	| GetDeviceStatus400
-	| GetDeviceStatus404
-	| GetDeviceStatus429;
+export type GetDeviceResponse = GetDeviceStatus200;
 
 export type DeleteDevicePath = {
 	/**
@@ -5113,11 +5007,7 @@ export type DeleteDeviceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteDeviceResponse =
-	| DeleteDeviceStatus204
-	| DeleteDeviceStatus400
-	| DeleteDeviceStatus404
-	| DeleteDeviceStatus429;
+export type DeleteDeviceResponse = DeleteDeviceStatus204;
 
 export type UpdateDevicePath = {
 	/**
@@ -5191,11 +5081,7 @@ export type UpdateDeviceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateDeviceResponse =
-	| UpdateDeviceStatus204
-	| UpdateDeviceStatus400
-	| UpdateDeviceStatus404
-	| UpdateDeviceStatus429;
+export type UpdateDeviceResponse = UpdateDeviceStatus204;
 
 export type AssginGroupPath = {
 	/**
@@ -5243,12 +5129,7 @@ export type AssginGroupResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AssginGroupResponse =
-	| AssginGroupStatus204
-	| AssginGroupStatus400
-	| AssginGroupStatus401
-	| AssginGroupStatus404
-	| AssginGroupStatus429;
+export type AssginGroupResponse = AssginGroupStatus204;
 
 export type ChangeDeviceAssociationPath = {
 	/**
@@ -5312,11 +5193,7 @@ export type ChangeDeviceAssociationResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ChangeDeviceAssociationResponse =
-	| ChangeDeviceAssociationStatus204
-	| ChangeDeviceAssociationStatus400
-	| ChangeDeviceAssociationStatus404
-	| ChangeDeviceAssociationStatus429;
+export type ChangeDeviceAssociationResponse = ChangeDeviceAssociationStatus204;
 
 export type DeviceListQuery = {
 	/**
@@ -5481,12 +5358,7 @@ export type DeviceListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeviceListResponse =
-	| DeviceListStatus200
-	| DeviceListStatus400
-	| DeviceListStatus401
-	| DeviceListStatus403
-	| DeviceListStatus429;
+export type DeviceListResponse = DeviceListStatus200;
 
 export const deviceCreateStatus201EncryptionEnum = {
 	/**
@@ -5650,13 +5522,7 @@ export type DeviceCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeviceCreateResponse =
-	| DeviceCreateStatus201
-	| DeviceCreateStatus400
-	| DeviceCreateStatus401
-	| DeviceCreateStatus403
-	| DeviceCreateStatus404
-	| DeviceCreateStatus429;
+export type DeviceCreateResponse = DeviceCreateStatus201;
 
 export type DeviceDeletePath = {
 	/**
@@ -5698,13 +5564,7 @@ export type DeviceDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeviceDeleteResponse =
-	| DeviceDeleteStatus200
-	| DeviceDeleteStatus400
-	| DeviceDeleteStatus401
-	| DeviceDeleteStatus403
-	| DeviceDeleteStatus404
-	| DeviceDeleteStatus429;
+export type DeviceDeleteResponse = DeviceDeleteStatus200;
 
 export type DeviceUpdatePath = {
 	/**
@@ -5812,13 +5672,7 @@ export type DeviceUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeviceUpdateResponse =
-	| DeviceUpdateStatus204
-	| DeviceUpdateStatus400
-	| DeviceUpdateStatus401
-	| DeviceUpdateStatus403
-	| DeviceUpdateStatus404
-	| DeviceUpdateStatus429;
+export type DeviceUpdateResponse = DeviceUpdateStatus204;
 
 export type MeetingAppAddPath = {
 	/**
@@ -5954,11 +5808,7 @@ export type MeetingAppAddResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingAppAddResponse =
-	| MeetingAppAddStatus201
-	| MeetingAppAddStatus400
-	| MeetingAppAddStatus404
-	| MeetingAppAddStatus429;
+export type MeetingAppAddResponse = MeetingAppAddStatus201;
 
 export type MeetingAppDeletePath = {
 	/**
@@ -5996,11 +5846,7 @@ export type MeetingAppDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingAppDeleteResponse =
-	| MeetingAppDeleteStatus204
-	| MeetingAppDeleteStatus400
-	| MeetingAppDeleteStatus404
-	| MeetingAppDeleteStatus429;
+export type MeetingAppDeleteResponse = MeetingAppDeleteStatus204;
 
 export type DeleteMeetingChatMessageByIdPath = {
 	/**
@@ -6053,11 +5899,7 @@ export type DeleteMeetingChatMessageByIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteMeetingChatMessageByIdResponse =
-	| DeleteMeetingChatMessageByIdStatus204
-	| DeleteMeetingChatMessageByIdStatus400
-	| DeleteMeetingChatMessageByIdStatus404
-	| DeleteMeetingChatMessageByIdStatus429;
+export type DeleteMeetingChatMessageByIdResponse = DeleteMeetingChatMessageByIdStatus204;
 
 export type UpdateMeetingChatMessageByIdPath = {
 	/**
@@ -6112,11 +5954,7 @@ export type UpdateMeetingChatMessageByIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateMeetingChatMessageByIdResponse =
-	| UpdateMeetingChatMessageByIdStatus204
-	| UpdateMeetingChatMessageByIdStatus400
-	| UpdateMeetingChatMessageByIdStatus404
-	| UpdateMeetingChatMessageByIdStatus429;
+export type UpdateMeetingChatMessageByIdResponse = UpdateMeetingChatMessageByIdStatus204;
 
 export type InMeetingControlPath = {
 	/**
@@ -6378,12 +6216,7 @@ export type InMeetingControlResponses = {
 /**
  * @description Union of all possible responses
  */
-export type InMeetingControlResponse =
-	| InMeetingControlStatus202
-	| InMeetingControlStatus400
-	| InMeetingControlStatus403
-	| InMeetingControlStatus404
-	| InMeetingControlStatus429;
+export type InMeetingControlResponse = InMeetingControlStatus202;
 
 export type MeetingLocalRecordingJoinTokenPath = {
 	/**
@@ -6449,11 +6282,7 @@ export type MeetingLocalRecordingJoinTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingLocalRecordingJoinTokenResponse =
-	| MeetingLocalRecordingJoinTokenStatus200
-	| MeetingLocalRecordingJoinTokenStatus400
-	| MeetingLocalRecordingJoinTokenStatus404
-	| MeetingLocalRecordingJoinTokenStatus429;
+export type MeetingLocalRecordingJoinTokenResponse = MeetingLocalRecordingJoinTokenStatus200;
 
 export type MeetingTokenPath = {
 	/**
@@ -6512,11 +6341,7 @@ export type MeetingTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingTokenResponse =
-	| MeetingTokenStatus200
-	| MeetingTokenStatus400
-	| MeetingTokenStatus404
-	| MeetingTokenStatus429;
+export type MeetingTokenResponse = MeetingTokenStatus200;
 
 export type AddBatchRegistrantsPath = {
 	/**
@@ -6624,11 +6449,7 @@ export type AddBatchRegistrantsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AddBatchRegistrantsResponse =
-	| AddBatchRegistrantsStatus201
-	| AddBatchRegistrantsStatus400
-	| AddBatchRegistrantsStatus404
-	| AddBatchRegistrantsStatus429;
+export type AddBatchRegistrantsResponse = AddBatchRegistrantsStatus201;
 
 export type MeetingInvitationPath = {
 	/**
@@ -6709,11 +6530,7 @@ export type MeetingInvitationResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingInvitationResponse =
-	| MeetingInvitationStatus200
-	| MeetingInvitationStatus400
-	| MeetingInvitationStatus404
-	| MeetingInvitationStatus429;
+export type MeetingInvitationResponse = MeetingInvitationStatus200;
 
 export type MeetingInviteLinksCreatePath = {
 	/**
@@ -6825,11 +6642,7 @@ export type MeetingInviteLinksCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingInviteLinksCreateResponse =
-	| MeetingInviteLinksCreateStatus201
-	| MeetingInviteLinksCreateStatus400
-	| MeetingInviteLinksCreateStatus404
-	| MeetingInviteLinksCreateStatus429;
+export type MeetingInviteLinksCreateResponse = MeetingInviteLinksCreateStatus201;
 
 export type MeetingRegistrantsPath = {
 	/**
@@ -7178,11 +6991,7 @@ export type MeetingRegistrantsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingRegistrantsResponse =
-	| MeetingRegistrantsStatus200
-	| MeetingRegistrantsStatus400
-	| MeetingRegistrantsStatus404
-	| MeetingRegistrantsStatus429;
+export type MeetingRegistrantsResponse = MeetingRegistrantsStatus200;
 
 export type MeetingRegistrantCreatePath = {
 	/**
@@ -7511,11 +7320,7 @@ export type MeetingRegistrantCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingRegistrantCreateResponse =
-	| MeetingRegistrantCreateStatus201
-	| MeetingRegistrantCreateStatus400
-	| MeetingRegistrantCreateStatus404
-	| MeetingRegistrantCreateStatus429;
+export type MeetingRegistrantCreateResponse = MeetingRegistrantCreateStatus201;
 
 export type MeetingRegistrantsQuestionsGetPath = {
 	/**
@@ -7643,11 +7448,7 @@ export type MeetingRegistrantsQuestionsGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingRegistrantsQuestionsGetResponse =
-	| MeetingRegistrantsQuestionsGetStatus200
-	| MeetingRegistrantsQuestionsGetStatus400
-	| MeetingRegistrantsQuestionsGetStatus404
-	| MeetingRegistrantsQuestionsGetStatus429;
+export type MeetingRegistrantsQuestionsGetResponse = MeetingRegistrantsQuestionsGetStatus200;
 
 export type MeetingRegistrantQuestionUpdatePath = {
 	/**
@@ -7781,11 +7582,7 @@ export type MeetingRegistrantQuestionUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingRegistrantQuestionUpdateResponse =
-	| MeetingRegistrantQuestionUpdateStatus204
-	| MeetingRegistrantQuestionUpdateStatus400
-	| MeetingRegistrantQuestionUpdateStatus404
-	| MeetingRegistrantQuestionUpdateStatus429;
+export type MeetingRegistrantQuestionUpdateResponse = MeetingRegistrantQuestionUpdateStatus204;
 
 export type MeetingRegistrantStatusPath = {
 	/**
@@ -7879,11 +7676,7 @@ export type MeetingRegistrantStatusResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingRegistrantStatusResponse =
-	| MeetingRegistrantStatusStatus204
-	| MeetingRegistrantStatusStatus400
-	| MeetingRegistrantStatusStatus404
-	| MeetingRegistrantStatusStatus429;
+export type MeetingRegistrantStatusResponse = MeetingRegistrantStatusStatus204;
 
 export type MeetingRegistrantGetPath = {
 	/**
@@ -8141,11 +7934,7 @@ export type MeetingRegistrantGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingRegistrantGetResponse =
-	| MeetingRegistrantGetStatus200
-	| MeetingRegistrantGetStatus400
-	| MeetingRegistrantGetStatus404
-	| MeetingRegistrantGetStatus429;
+export type MeetingRegistrantGetResponse = MeetingRegistrantGetStatus200;
 
 export type MeetingregistrantdeletePath = {
 	/**
@@ -8196,11 +7985,7 @@ export type MeetingregistrantdeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingregistrantdeleteResponse =
-	| MeetingregistrantdeleteStatus204
-	| MeetingregistrantdeleteStatus400
-	| MeetingregistrantdeleteStatus404
-	| MeetingregistrantdeleteStatus429;
+export type MeetingregistrantdeleteResponse = MeetingregistrantdeleteStatus204;
 
 export type MeetingLiveStreamingJoinTokenPath = {
 	/**
@@ -8257,11 +8042,7 @@ export type MeetingLiveStreamingJoinTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingLiveStreamingJoinTokenResponse =
-	| MeetingLiveStreamingJoinTokenStatus200
-	| MeetingLiveStreamingJoinTokenStatus400
-	| MeetingLiveStreamingJoinTokenStatus404
-	| MeetingLiveStreamingJoinTokenStatus429;
+export type MeetingLiveStreamingJoinTokenResponse = MeetingLiveStreamingJoinTokenStatus200;
 
 export type GetMeetingLiveStreamDetailsPath = {
 	/**
@@ -8322,11 +8103,7 @@ export type GetMeetingLiveStreamDetailsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetMeetingLiveStreamDetailsResponse =
-	| GetMeetingLiveStreamDetailsStatus200
-	| GetMeetingLiveStreamDetailsStatus400
-	| GetMeetingLiveStreamDetailsStatus404
-	| GetMeetingLiveStreamDetailsStatus429;
+export type GetMeetingLiveStreamDetailsResponse = GetMeetingLiveStreamDetailsStatus200;
 
 export type MeetingLiveStreamUpdatePath = {
 	/**
@@ -8402,11 +8179,7 @@ export type MeetingLiveStreamUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingLiveStreamUpdateResponse =
-	| MeetingLiveStreamUpdateStatus204
-	| MeetingLiveStreamUpdateStatus400
-	| MeetingLiveStreamUpdateStatus404
-	| MeetingLiveStreamUpdateStatus429;
+export type MeetingLiveStreamUpdateResponse = MeetingLiveStreamUpdateStatus204;
 
 export type MeetingLiveStreamStatusUpdatePath = {
 	/**
@@ -8524,11 +8297,7 @@ export type MeetingLiveStreamStatusUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingLiveStreamStatusUpdateResponse =
-	| MeetingLiveStreamStatusUpdateStatus204
-	| MeetingLiveStreamStatusUpdateStatus400
-	| MeetingLiveStreamStatusUpdateStatus404
-	| MeetingLiveStreamStatusUpdateStatus429;
+export type MeetingLiveStreamStatusUpdateResponse = MeetingLiveStreamStatusUpdateStatus204;
 
 export type GetMeetingTranscriptPath = {
 	/**
@@ -8637,11 +8406,7 @@ export type GetMeetingTranscriptResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetMeetingTranscriptResponse =
-	| GetMeetingTranscriptStatus200
-	| GetMeetingTranscriptStatus403
-	| GetMeetingTranscriptStatus404
-	| GetMeetingTranscriptStatus429;
+export type GetMeetingTranscriptResponse = GetMeetingTranscriptStatus200;
 
 export type DeleteMeetingTranscriptPath = {
 	/**
@@ -8680,12 +8445,7 @@ export type DeleteMeetingTranscriptResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteMeetingTranscriptResponse =
-	| DeleteMeetingTranscriptStatus204
-	| DeleteMeetingTranscriptStatus400
-	| DeleteMeetingTranscriptStatus403
-	| DeleteMeetingTranscriptStatus404
-	| DeleteMeetingTranscriptStatus429;
+export type DeleteMeetingTranscriptResponse = DeleteMeetingTranscriptStatus204;
 
 export type MeetingRTMSStatusUpdatePath = {
 	/**
@@ -8771,12 +8531,7 @@ export type MeetingRTMSStatusUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingRTMSStatusUpdateResponse =
-	| MeetingRTMSStatusUpdateStatus204
-	| MeetingRTMSStatusUpdateStatus400
-	| MeetingRTMSStatusUpdateStatus403
-	| MeetingRTMSStatusUpdateStatus404
-	| MeetingRTMSStatusUpdateStatus429;
+export type MeetingRTMSStatusUpdateResponse = MeetingRTMSStatusUpdateStatus204;
 
 export type MeetingPath = {
 	/**
@@ -10246,11 +10001,7 @@ export type MeetingResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingResponse =
-	| MeetingStatus200
-	| MeetingStatus400
-	| MeetingStatus404
-	| MeetingStatus429;
+export type MeetingResponse = MeetingStatus200;
 
 export type MeetingDeletePath = {
 	/**
@@ -10309,11 +10060,7 @@ export type MeetingDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingDeleteResponse =
-	| MeetingDeleteStatus204
-	| MeetingDeleteStatus400
-	| MeetingDeleteStatus404
-	| MeetingDeleteStatus429;
+export type MeetingDeleteResponse = MeetingDeleteStatus204;
 
 export type MeetingUpdatePath = {
 	/**
@@ -11599,12 +11346,7 @@ export type MeetingUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingUpdateResponse =
-	| MeetingUpdateStatus204
-	| MeetingUpdateStatus400
-	| MeetingUpdateStatus401
-	| MeetingUpdateStatus404
-	| MeetingUpdateStatus429;
+export type MeetingUpdateResponse = MeetingUpdateStatus204;
 
 export type GetSipDialingWithPasscodePath = {
 	/**
@@ -11684,11 +11426,7 @@ export type GetSipDialingWithPasscodeResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSipDialingWithPasscodeResponse =
-	| GetSipDialingWithPasscodeStatus200
-	| GetSipDialingWithPasscodeStatus400
-	| GetSipDialingWithPasscodeStatus404
-	| GetSipDialingWithPasscodeStatus429;
+export type GetSipDialingWithPasscodeResponse = GetSipDialingWithPasscodeStatus200;
 
 export type MeetingStatusPath = {
 	/**
@@ -11745,11 +11483,7 @@ export type MeetingStatusResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingStatusResponse =
-	| MeetingStatusStatus204
-	| MeetingStatusStatus400
-	| MeetingStatusStatus404
-	| MeetingStatusStatus429;
+export type MeetingStatusResponse = MeetingStatusStatus204;
 
 export type PastMeetingDetailsPath = {
 	/**
@@ -11897,11 +11631,7 @@ export type PastMeetingDetailsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PastMeetingDetailsResponse =
-	| PastMeetingDetailsStatus200
-	| PastMeetingDetailsStatus400
-	| PastMeetingDetailsStatus404
-	| PastMeetingDetailsStatus429;
+export type PastMeetingDetailsResponse = PastMeetingDetailsStatus200;
 
 export type PastMeetingsPath = {
 	/**
@@ -11991,11 +11721,7 @@ export type PastMeetingsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PastMeetingsResponse =
-	| PastMeetingsStatus200
-	| PastMeetingsStatus401
-	| PastMeetingsStatus404
-	| PastMeetingsStatus429;
+export type PastMeetingsResponse = PastMeetingsStatus200;
 
 export type PastMeetingParticipantsPath = {
 	/**
@@ -12162,11 +11888,7 @@ export type PastMeetingParticipantsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PastMeetingParticipantsResponse =
-	| PastMeetingParticipantsStatus200
-	| PastMeetingParticipantsStatus400
-	| PastMeetingParticipantsStatus404
-	| PastMeetingParticipantsStatus429;
+export type PastMeetingParticipantsResponse = PastMeetingParticipantsStatus200;
 
 export type ListPastMeetingQAPath = {
 	/**
@@ -12256,11 +11978,7 @@ export type ListPastMeetingQAResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListPastMeetingQAResponse =
-	| ListPastMeetingQAStatus200
-	| ListPastMeetingQAStatus401
-	| ListPastMeetingQAStatus404
-	| ListPastMeetingQAStatus429;
+export type ListPastMeetingQAResponse = ListPastMeetingQAStatus200;
 
 export type MeetingsPath = {
 	/**
@@ -12504,12 +12222,7 @@ export type MeetingsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingsResponse =
-	| MeetingsStatus200
-	| MeetingsStatus400
-	| MeetingsStatus403
-	| MeetingsStatus404
-	| MeetingsStatus429;
+export type MeetingsResponse = MeetingsStatus200;
 
 export type MeetingCreatePath = {
 	/**
@@ -15113,11 +14826,7 @@ export type MeetingCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingCreateResponse =
-	| MeetingCreateStatus201
-	| MeetingCreateStatus400
-	| MeetingCreateStatus404
-	| MeetingCreateStatus429;
+export type MeetingCreateResponse = MeetingCreateStatus201;
 
 export type ListUpcomingMeetingPath = {
 	/**
@@ -15265,10 +14974,7 @@ export type ListUpcomingMeetingResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListUpcomingMeetingResponse =
-	| ListUpcomingMeetingStatus200
-	| ListUpcomingMeetingStatus404
-	| ListUpcomingMeetingStatus429;
+export type ListUpcomingMeetingResponse = ListUpcomingMeetingStatus200;
 
 export type UserPACsPath = {
 	/**
@@ -15376,11 +15082,7 @@ export type UserPACsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UserPACsResponse =
-	| UserPACsStatus200
-	| UserPACsStatus400
-	| UserPACsStatus404
-	| UserPACsStatus429;
+export type UserPACsResponse = UserPACsStatus200;
 
 export type CreateBatchPollsPath = {
 	/**
@@ -15819,11 +15521,7 @@ export type CreateBatchPollsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateBatchPollsResponse =
-	| CreateBatchPollsStatus201
-	| CreateBatchPollsStatus400
-	| CreateBatchPollsStatus404
-	| CreateBatchPollsStatus429;
+export type CreateBatchPollsResponse = CreateBatchPollsStatus201;
 
 export type MeetingPollsPath = {
 	/**
@@ -16090,11 +15788,7 @@ export type MeetingPollsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingPollsResponse =
-	| MeetingPollsStatus200
-	| MeetingPollsStatus400
-	| MeetingPollsStatus404
-	| MeetingPollsStatus429;
+export type MeetingPollsResponse = MeetingPollsStatus200;
 
 export type MeetingPollCreatePath = {
 	/**
@@ -16531,11 +16225,7 @@ export type MeetingPollCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingPollCreateResponse =
-	| MeetingPollCreateStatus201
-	| MeetingPollCreateStatus400
-	| MeetingPollCreateStatus404
-	| MeetingPollCreateStatus429;
+export type MeetingPollCreateResponse = MeetingPollCreateStatus201;
 
 export type MeetingPollGetPath = {
 	/**
@@ -16781,11 +16471,7 @@ export type MeetingPollGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingPollGetResponse =
-	| MeetingPollGetStatus200
-	| MeetingPollGetStatus400
-	| MeetingPollGetStatus404
-	| MeetingPollGetStatus429;
+export type MeetingPollGetResponse = MeetingPollGetStatus200;
 
 export type MeetingPollUpdatePath = {
 	/**
@@ -17015,11 +16701,7 @@ export type MeetingPollUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingPollUpdateResponse =
-	| MeetingPollUpdateStatus204
-	| MeetingPollUpdateStatus400
-	| MeetingPollUpdateStatus404
-	| MeetingPollUpdateStatus429;
+export type MeetingPollUpdateResponse = MeetingPollUpdateStatus204;
 
 export type MeetingPollDeletePath = {
 	/**
@@ -17063,11 +16745,7 @@ export type MeetingPollDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingPollDeleteResponse =
-	| MeetingPollDeleteStatus204
-	| MeetingPollDeleteStatus400
-	| MeetingPollDeleteStatus404
-	| MeetingPollDeleteStatus429;
+export type MeetingPollDeleteResponse = MeetingPollDeleteStatus204;
 
 export type ListPastMeetingPollsPath = {
 	/**
@@ -17168,10 +16846,7 @@ export type ListPastMeetingPollsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListPastMeetingPollsResponse =
-	| ListPastMeetingPollsStatus200
-	| ListPastMeetingPollsStatus400
-	| ListPastMeetingPollsStatus429;
+export type ListPastMeetingPollsResponse = ListPastMeetingPollsStatus200;
 
 export type ReportSignInSignOutActivitiesQuery = {
 	/**
@@ -17311,10 +16986,7 @@ export type ReportSignInSignOutActivitiesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportSignInSignOutActivitiesResponse =
-	| ReportSignInSignOutActivitiesStatus200
-	| ReportSignInSignOutActivitiesStatus400
-	| ReportSignInSignOutActivitiesStatus429;
+export type ReportSignInSignOutActivitiesResponse = ReportSignInSignOutActivitiesStatus200;
 
 export const getBillingReportStatus200BillingReportsTypeEnum = {
 	"0": 0,
@@ -17397,10 +17069,7 @@ export type GetBillingReportResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetBillingReportResponse =
-	| GetBillingReportStatus200
-	| GetBillingReportStatus400
-	| GetBillingReportStatus429;
+export type GetBillingReportResponse = GetBillingReportStatus200;
 
 export type GetBillingInvoicesReportsQuery = {
 	/**
@@ -17493,11 +17162,7 @@ export type GetBillingInvoicesReportsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetBillingInvoicesReportsResponse =
-	| GetBillingInvoicesReportsStatus200
-	| GetBillingInvoicesReportsStatus400
-	| GetBillingInvoicesReportsStatus404
-	| GetBillingInvoicesReportsStatus429;
+export type GetBillingInvoicesReportsResponse = GetBillingInvoicesReportsStatus200;
 
 export type ReportCloudRecordingQuery = {
 	/**
@@ -17598,10 +17263,7 @@ export type ReportCloudRecordingResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportCloudRecordingResponse =
-	| ReportCloudRecordingStatus200
-	| ReportCloudRecordingStatus400
-	| ReportCloudRecordingStatus429;
+export type ReportCloudRecordingResponse = ReportCloudRecordingStatus200;
 
 export type ReportDailyQuery = {
 	/**
@@ -17699,10 +17361,7 @@ export type ReportDailyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportDailyResponse =
-	| ReportDailyStatus200
-	| ReportDailyStatus400
-	| ReportDailyStatus429;
+export type ReportDailyResponse = ReportDailyStatus200;
 
 export const getdisclaimerreportDisclaimerType = {
 	login: "login",
@@ -17908,12 +17567,7 @@ export type GetdisclaimerreportResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetdisclaimerreportResponse =
-	| GetdisclaimerreportStatus200
-	| GetdisclaimerreportStatus400
-	| GetdisclaimerreportStatus401
-	| GetdisclaimerreportStatus403
-	| GetdisclaimerreportStatus429;
+export type GetdisclaimerreportResponse = GetdisclaimerreportStatus200;
 
 export const gethistorymeetingandwebinarlistDateType = {
 	start_time: "start_time",
@@ -18480,12 +18134,7 @@ export type GethistorymeetingandwebinarlistResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GethistorymeetingandwebinarlistResponse =
-	| GethistorymeetingandwebinarlistStatus200
-	| GethistorymeetingandwebinarlistStatus400
-	| GethistorymeetingandwebinarlistStatus401
-	| GethistorymeetingandwebinarlistStatus403
-	| GethistorymeetingandwebinarlistStatus429;
+export type GethistorymeetingandwebinarlistResponse = GethistorymeetingandwebinarlistStatus200;
 
 export const reportMeetingactivitylogsActivityType = {
 	"All Activities": "All Activities",
@@ -18643,12 +18292,7 @@ export type ReportMeetingactivitylogsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportMeetingactivitylogsResponse =
-	| ReportMeetingactivitylogsStatus200
-	| ReportMeetingactivitylogsStatus400
-	| ReportMeetingactivitylogsStatus403
-	| ReportMeetingactivitylogsStatus404
-	| ReportMeetingactivitylogsStatus429;
+export type ReportMeetingactivitylogsResponse = ReportMeetingactivitylogsStatus200;
 
 export type ReportMeetingDetailsPath = {
 	/**
@@ -18804,11 +18448,7 @@ export type ReportMeetingDetailsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportMeetingDetailsResponse =
-	| ReportMeetingDetailsStatus200
-	| ReportMeetingDetailsStatus400
-	| ReportMeetingDetailsStatus404
-	| ReportMeetingDetailsStatus429;
+export type ReportMeetingDetailsResponse = ReportMeetingDetailsStatus200;
 
 export type ReportMeetingParticipantsPath = {
 	/**
@@ -18994,11 +18634,7 @@ export type ReportMeetingParticipantsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportMeetingParticipantsResponse =
-	| ReportMeetingParticipantsStatus200
-	| ReportMeetingParticipantsStatus400
-	| ReportMeetingParticipantsStatus404
-	| ReportMeetingParticipantsStatus429;
+export type ReportMeetingParticipantsResponse = ReportMeetingParticipantsStatus200;
 
 export type ReportMeetingPollsPath = {
 	/**
@@ -19121,11 +18757,7 @@ export type ReportMeetingPollsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportMeetingPollsResponse =
-	| ReportMeetingPollsStatus200
-	| ReportMeetingPollsStatus400
-	| ReportMeetingPollsStatus404
-	| ReportMeetingPollsStatus429;
+export type ReportMeetingPollsResponse = ReportMeetingPollsStatus200;
 
 export type ReportMeetingQAPath = {
 	/**
@@ -19320,11 +18952,7 @@ export type ReportMeetingQAResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportMeetingQAResponse =
-	| ReportMeetingQAStatus200
-	| ReportMeetingQAStatus400
-	| ReportMeetingQAStatus404
-	| ReportMeetingQAStatus429;
+export type ReportMeetingQAResponse = ReportMeetingQAStatus200;
 
 export type ReportMeetingSurveyPath = {
 	/**
@@ -19460,11 +19088,7 @@ export type ReportMeetingSurveyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportMeetingSurveyResponse =
-	| ReportMeetingSurveyStatus200
-	| ReportMeetingSurveyStatus400
-	| ReportMeetingSurveyStatus404
-	| ReportMeetingSurveyStatus429;
+export type ReportMeetingSurveyResponse = ReportMeetingSurveyStatus200;
 
 export const reportOperationLogsCategoryType = {
 	all: "all",
@@ -19601,10 +19225,7 @@ export type ReportOperationLogsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportOperationLogsResponse =
-	| ReportOperationLogsStatus200
-	| ReportOperationLogsStatus400
-	| ReportOperationLogsStatus429;
+export type ReportOperationLogsResponse = ReportOperationLogsStatus200;
 
 export type GetremotesupportreportQuery = {
 	/**
@@ -19763,11 +19384,7 @@ export type GetremotesupportreportResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetremotesupportreportResponse =
-	| GetremotesupportreportStatus200
-	| GetremotesupportreportStatus400
-	| GetremotesupportreportStatus401
-	| GetremotesupportreportStatus429;
+export type GetremotesupportreportResponse = GetremotesupportreportStatus200;
 
 export const reportTelephoneType = {
 	"1": "1",
@@ -20041,12 +19658,7 @@ export type ReportTelephoneResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportTelephoneResponse =
-	| ReportTelephoneStatus200
-	| ReportTelephoneStatus400
-	| ReportTelephoneStatus401
-	| ReportTelephoneStatus403
-	| ReportTelephoneStatus429;
+export type ReportTelephoneResponse = ReportTelephoneStatus200;
 
 export const reportUpcomingEventsType = {
 	meeting: "meeting",
@@ -20200,10 +19812,7 @@ export type ReportUpcomingEventsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportUpcomingEventsResponse =
-	| ReportUpcomingEventsStatus200
-	| ReportUpcomingEventsStatus400
-	| ReportUpcomingEventsStatus429;
+export type ReportUpcomingEventsResponse = ReportUpcomingEventsStatus200;
 
 export const reportUsersType = {
 	active: "active",
@@ -20437,10 +20046,7 @@ export type ReportUsersResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportUsersResponse =
-	| ReportUsersStatus200
-	| ReportUsersStatus400
-	| ReportUsersStatus429;
+export type ReportUsersResponse = ReportUsersStatus200;
 
 export type ReportMeetingsPath = {
 	/**
@@ -20787,11 +20393,7 @@ export type ReportMeetingsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportMeetingsResponse =
-	| ReportMeetingsStatus200
-	| ReportMeetingsStatus400
-	| ReportMeetingsStatus404
-	| ReportMeetingsStatus429;
+export type ReportMeetingsResponse = ReportMeetingsStatus200;
 
 export type ReportWebinarDetailsPath = {
 	/**
@@ -20948,11 +20550,7 @@ export type ReportWebinarDetailsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportWebinarDetailsResponse =
-	| ReportWebinarDetailsStatus200
-	| ReportWebinarDetailsStatus400
-	| ReportWebinarDetailsStatus404
-	| ReportWebinarDetailsStatus429;
+export type ReportWebinarDetailsResponse = ReportWebinarDetailsStatus200;
 
 export type ReportWebinarParticipantsPath = {
 	/**
@@ -21139,11 +20737,7 @@ export type ReportWebinarParticipantsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportWebinarParticipantsResponse =
-	| ReportWebinarParticipantsStatus200
-	| ReportWebinarParticipantsStatus400
-	| ReportWebinarParticipantsStatus404
-	| ReportWebinarParticipantsStatus429;
+export type ReportWebinarParticipantsResponse = ReportWebinarParticipantsStatus200;
 
 export type ReportWebinarPollsPath = {
 	/**
@@ -21268,11 +20862,7 @@ export type ReportWebinarPollsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportWebinarPollsResponse =
-	| ReportWebinarPollsStatus200
-	| ReportWebinarPollsStatus400
-	| ReportWebinarPollsStatus404
-	| ReportWebinarPollsStatus429;
+export type ReportWebinarPollsResponse = ReportWebinarPollsStatus200;
 
 export type ReportWebinarQAPath = {
 	/**
@@ -21468,11 +21058,7 @@ export type ReportWebinarQAResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportWebinarQAResponse =
-	| ReportWebinarQAStatus200
-	| ReportWebinarQAStatus400
-	| ReportWebinarQAStatus404
-	| ReportWebinarQAStatus429;
+export type ReportWebinarQAResponse = ReportWebinarQAStatus200;
 
 export type ReportWebinarSurveyPath = {
 	/**
@@ -21609,11 +21195,7 @@ export type ReportWebinarSurveyResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ReportWebinarSurveyResponse =
-	| ReportWebinarSurveyStatus200
-	| ReportWebinarSurveyStatus400
-	| ReportWebinarSurveyStatus404
-	| ReportWebinarSurveyStatus429;
+export type ReportWebinarSurveyResponse = ReportWebinarSurveyStatus200;
 
 export type ListSIPPhonePhonesQuery = {
 	/**
@@ -21859,12 +21441,7 @@ export type ListSIPPhonePhonesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListSIPPhonePhonesResponse =
-	| ListSIPPhonePhonesStatus200
-	| ListSIPPhonePhonesStatus400
-	| ListSIPPhonePhonesStatus401
-	| ListSIPPhonePhonesStatus403
-	| ListSIPPhonePhonesStatus429;
+export type ListSIPPhonePhonesResponse = ListSIPPhonePhonesStatus200;
 
 export const enableSIPPhonePhonesStatus201ServerTransportProtocolEnum = {
 	UDP: "UDP",
@@ -22251,13 +21828,7 @@ export type EnableSIPPhonePhonesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type EnableSIPPhonePhonesResponse =
-	| EnableSIPPhonePhonesStatus201
-	| EnableSIPPhonePhonesStatus400
-	| EnableSIPPhonePhonesStatus401
-	| EnableSIPPhonePhonesStatus403
-	| EnableSIPPhonePhonesStatus404
-	| EnableSIPPhonePhonesStatus429;
+export type EnableSIPPhonePhonesResponse = EnableSIPPhonePhonesStatus201;
 
 export type DeleteSIPPhonePhonesPath = {
 	/**
@@ -22296,12 +21867,7 @@ export type DeleteSIPPhonePhonesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSIPPhonePhonesResponse =
-	| DeleteSIPPhonePhonesStatus204
-	| DeleteSIPPhonePhonesStatus401
-	| DeleteSIPPhonePhonesStatus403
-	| DeleteSIPPhonePhonesStatus404
-	| DeleteSIPPhonePhonesStatus429;
+export type DeleteSIPPhonePhonesResponse = DeleteSIPPhonePhonesStatus204;
 
 export type UpdateSIPPhonePhonesPath = {
 	/**
@@ -22512,13 +22078,7 @@ export type UpdateSIPPhonePhonesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateSIPPhonePhonesResponse =
-	| UpdateSIPPhonePhonesStatus204
-	| UpdateSIPPhonePhonesStatus400
-	| UpdateSIPPhonePhonesStatus401
-	| UpdateSIPPhonePhonesStatus403
-	| UpdateSIPPhonePhonesStatus404
-	| UpdateSIPPhonePhonesStatus429;
+export type UpdateSIPPhonePhonesResponse = UpdateSIPPhonePhonesStatus204;
 
 export const listmeetingsummariesTimeFilterField = {
 	summary_start_time: "summary_start_time",
@@ -22714,11 +22274,7 @@ export type ListmeetingsummariesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListmeetingsummariesResponse =
-	| ListmeetingsummariesStatus200
-	| ListmeetingsummariesStatus400
-	| ListmeetingsummariesStatus403
-	| ListmeetingsummariesStatus429;
+export type ListmeetingsummariesResponse = ListmeetingsummariesStatus200;
 
 export type GetameetingsummaryPath = {
 	/**
@@ -22984,12 +22540,7 @@ export type GetameetingsummaryResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetameetingsummaryResponse =
-	| GetameetingsummaryStatus200
-	| GetameetingsummaryStatus400
-	| GetameetingsummaryStatus403
-	| GetameetingsummaryStatus404
-	| GetameetingsummaryStatus429;
+export type GetameetingsummaryResponse = GetameetingsummaryStatus200;
 
 export type DeletemeetingorwebinarsummaryPath = {
 	/**
@@ -23028,12 +22579,7 @@ export type DeletemeetingorwebinarsummaryResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeletemeetingorwebinarsummaryResponse =
-	| DeletemeetingorwebinarsummaryStatus204
-	| DeletemeetingorwebinarsummaryStatus400
-	| DeletemeetingorwebinarsummaryStatus403
-	| DeletemeetingorwebinarsummaryStatus404
-	| DeletemeetingorwebinarsummaryStatus429;
+export type DeletemeetingorwebinarsummaryResponse = DeletemeetingorwebinarsummaryStatus204;
 
 export type ListUserMeetingSummariesPath = {
 	/**
@@ -23241,12 +22787,7 @@ export type ListUserMeetingSummariesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListUserMeetingSummariesResponse =
-	| ListUserMeetingSummariesStatus200
-	| ListUserMeetingSummariesStatus400
-	| ListUserMeetingSummariesStatus403
-	| ListUserMeetingSummariesStatus404
-	| ListUserMeetingSummariesStatus429;
+export type ListUserMeetingSummariesResponse = ListUserMeetingSummariesStatus200;
 
 export type MeetingSurveyGetPath = {
 	/**
@@ -23479,11 +23020,7 @@ export type MeetingSurveyGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingSurveyGetResponse =
-	| MeetingSurveyGetStatus200
-	| MeetingSurveyGetStatus400
-	| MeetingSurveyGetStatus404
-	| MeetingSurveyGetStatus429;
+export type MeetingSurveyGetResponse = MeetingSurveyGetStatus200;
 
 export type MeetingSurveyDeletePath = {
 	/**
@@ -23521,11 +23058,7 @@ export type MeetingSurveyDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingSurveyDeleteResponse =
-	| MeetingSurveyDeleteStatus204
-	| MeetingSurveyDeleteStatus400
-	| MeetingSurveyDeleteStatus404
-	| MeetingSurveyDeleteStatus429;
+export type MeetingSurveyDeleteResponse = MeetingSurveyDeleteStatus204;
 
 export type MeetingSurveyUpdatePath = {
 	/**
@@ -23762,11 +23295,7 @@ export type MeetingSurveyUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingSurveyUpdateResponse =
-	| MeetingSurveyUpdateStatus204
-	| MeetingSurveyUpdateStatus400
-	| MeetingSurveyUpdateStatus404
-	| MeetingSurveyUpdateStatus429;
+export type MeetingSurveyUpdateResponse = MeetingSurveyUpdateStatus204;
 
 export const tspStatus200TspBridgeEnum = {
 	US_TSP_TB: "US_TSP_TB",
@@ -23865,7 +23394,7 @@ export type TspResponses = {
 /**
  * @description Union of all possible responses
  */
-export type TspResponse = TspStatus200 | TspStatus429;
+export type TspResponse = TspStatus200;
 
 export type TspUpdateStatus204 = unknown;
 
@@ -23948,7 +23477,7 @@ export type TspUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type TspUpdateResponse = TspUpdateStatus204 | TspUpdateStatus400 | TspUpdateStatus429;
+export type TspUpdateResponse = TspUpdateStatus204;
 
 export type UserTSPsPath = {
 	/**
@@ -24091,11 +23620,7 @@ export type UserTSPsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UserTSPsResponse =
-	| UserTSPsStatus200
-	| UserTSPsStatus400
-	| UserTSPsStatus404
-	| UserTSPsStatus429;
+export type UserTSPsResponse = UserTSPsStatus200;
 
 export type UserTSPCreatePath = {
 	/**
@@ -24316,11 +23841,7 @@ export type UserTSPCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UserTSPCreateResponse =
-	| UserTSPCreateStatus201
-	| UserTSPCreateStatus400
-	| UserTSPCreateStatus404
-	| UserTSPCreateStatus429;
+export type UserTSPCreateResponse = UserTSPCreateStatus201;
 
 export type TspUrlUpdatePath = {
 	/**
@@ -24372,11 +23893,7 @@ export type TspUrlUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type TspUrlUpdateResponse =
-	| TspUrlUpdateStatus204
-	| TspUrlUpdateStatus400
-	| TspUrlUpdateStatus404
-	| TspUrlUpdateStatus429;
+export type TspUrlUpdateResponse = TspUrlUpdateStatus204;
 
 export const userTSPTspId = {
 	"1": "1",
@@ -24520,11 +24037,7 @@ export type UserTSPResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UserTSPResponse =
-	| UserTSPStatus200
-	| UserTSPStatus400
-	| UserTSPStatus404
-	| UserTSPStatus429;
+export type UserTSPResponse = UserTSPStatus200;
 
 export const userTSPDeleteTspId = {
 	"1": "1",
@@ -24573,11 +24086,7 @@ export type UserTSPDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UserTSPDeleteResponse =
-	| UserTSPDeleteStatus204
-	| UserTSPDeleteStatus400
-	| UserTSPDeleteStatus404
-	| UserTSPDeleteStatus429;
+export type UserTSPDeleteResponse = UserTSPDeleteStatus204;
 
 export const userTSPUpdateTspId = {
 	"1": "1",
@@ -24719,11 +24228,7 @@ export type UserTSPUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UserTSPUpdateResponse =
-	| UserTSPUpdateStatus204
-	| UserTSPUpdateStatus400
-	| UserTSPUpdateStatus404
-	| UserTSPUpdateStatus429;
+export type UserTSPUpdateResponse = UserTSPUpdateStatus204;
 
 export type ListMeetingTemplatesPath = {
 	/**
@@ -24788,11 +24293,7 @@ export type ListMeetingTemplatesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListMeetingTemplatesResponse =
-	| ListMeetingTemplatesStatus200
-	| ListMeetingTemplatesStatus400
-	| ListMeetingTemplatesStatus404
-	| ListMeetingTemplatesStatus429;
+export type ListMeetingTemplatesResponse = ListMeetingTemplatesStatus200;
 
 export type MeetingTemplateCreatePath = {
 	/**
@@ -24874,11 +24375,7 @@ export type MeetingTemplateCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type MeetingTemplateCreateResponse =
-	| MeetingTemplateCreateStatus201
-	| MeetingTemplateCreateStatus400
-	| MeetingTemplateCreateStatus404
-	| MeetingTemplateCreateStatus429;
+export type MeetingTemplateCreateResponse = MeetingTemplateCreateStatus201;
 
 /**
  * @description Tracking field list.
@@ -24947,7 +24444,7 @@ export type TrackingfieldListResponses = {
 /**
  * @description Union of all possible responses
  */
-export type TrackingfieldListResponse = TrackingfieldListStatus200 | TrackingfieldListStatus429;
+export type TrackingfieldListResponse = TrackingfieldListStatus200;
 
 export type TrackingfieldCreateStatus201 = {
 	/**
@@ -25031,9 +24528,7 @@ export type TrackingfieldCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type TrackingfieldCreateResponse =
-	| TrackingfieldCreateStatus201
-	| TrackingfieldCreateStatus429;
+export type TrackingfieldCreateResponse = TrackingfieldCreateStatus201;
 
 export type TrackingfieldGetPath = {
 	/**
@@ -25100,10 +24595,7 @@ export type TrackingfieldGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type TrackingfieldGetResponse =
-	| TrackingfieldGetStatus200
-	| TrackingfieldGetStatus404
-	| TrackingfieldGetStatus429;
+export type TrackingfieldGetResponse = TrackingfieldGetStatus200;
 
 export type TrackingfieldDeletePath = {
 	/**
@@ -25136,10 +24628,7 @@ export type TrackingfieldDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type TrackingfieldDeleteResponse =
-	| TrackingfieldDeleteStatus204
-	| TrackingfieldDeleteStatus404
-	| TrackingfieldDeleteStatus429;
+export type TrackingfieldDeleteResponse = TrackingfieldDeleteStatus204;
 
 export type TrackingfieldUpdatePath = {
 	/**
@@ -25207,11 +24696,7 @@ export type TrackingfieldUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type TrackingfieldUpdateResponse =
-	| TrackingfieldUpdateStatus204
-	| TrackingfieldUpdateStatus400
-	| TrackingfieldUpdateStatus404
-	| TrackingfieldUpdateStatus429;
+export type TrackingfieldUpdateResponse = TrackingfieldUpdateStatus204;
 
 export type DeleteWebinarChatMessageByIdPath = {
 	/**
@@ -25264,11 +24749,7 @@ export type DeleteWebinarChatMessageByIdResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteWebinarChatMessageByIdResponse =
-	| DeleteWebinarChatMessageByIdStatus204
-	| DeleteWebinarChatMessageByIdStatus400
-	| DeleteWebinarChatMessageByIdStatus404
-	| DeleteWebinarChatMessageByIdStatus429;
+export type DeleteWebinarChatMessageByIdResponse = DeleteWebinarChatMessageByIdStatus204;
 
 export type WebinarAbsenteesPath = {
 	/**
@@ -25584,11 +25065,7 @@ export type WebinarAbsenteesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarAbsenteesResponse =
-	| WebinarAbsenteesStatus200
-	| WebinarAbsenteesStatus400
-	| WebinarAbsenteesStatus404
-	| WebinarAbsenteesStatus429;
+export type WebinarAbsenteesResponse = WebinarAbsenteesStatus200;
 
 export type PastWebinarsPath = {
 	/**
@@ -25659,11 +25136,7 @@ export type PastWebinarsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PastWebinarsResponse =
-	| PastWebinarsStatus200
-	| PastWebinarsStatus400
-	| PastWebinarsStatus404
-	| PastWebinarsStatus429;
+export type PastWebinarsResponse = PastWebinarsStatus200;
 
 export type ListWebinarParticipantsPath = {
 	/**
@@ -25832,11 +25305,7 @@ export type ListWebinarParticipantsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListWebinarParticipantsResponse =
-	| ListWebinarParticipantsStatus200
-	| ListWebinarParticipantsStatus400
-	| ListWebinarParticipantsStatus404
-	| ListWebinarParticipantsStatus429;
+export type ListWebinarParticipantsResponse = ListWebinarParticipantsStatus200;
 
 export type ListPastWebinarPollResultsPath = {
 	/**
@@ -25941,11 +25410,7 @@ export type ListPastWebinarPollResultsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListPastWebinarPollResultsResponse =
-	| ListPastWebinarPollResultsStatus200
-	| ListPastWebinarPollResultsStatus400
-	| ListPastWebinarPollResultsStatus404
-	| ListPastWebinarPollResultsStatus429;
+export type ListPastWebinarPollResultsResponse = ListPastWebinarPollResultsStatus200;
 
 export type ListPastWebinarQAPath = {
 	/**
@@ -26036,11 +25501,7 @@ export type ListPastWebinarQAResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListPastWebinarQAResponse =
-	| ListPastWebinarQAStatus200
-	| ListPastWebinarQAStatus400
-	| ListPastWebinarQAStatus404
-	| ListPastWebinarQAStatus429;
+export type ListPastWebinarQAResponse = ListPastWebinarQAStatus200;
 
 export type ListWebinarTemplatesPath = {
 	/**
@@ -26109,11 +25570,7 @@ export type ListWebinarTemplatesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type ListWebinarTemplatesResponse =
-	| ListWebinarTemplatesStatus200
-	| ListWebinarTemplatesStatus400
-	| ListWebinarTemplatesStatus404
-	| ListWebinarTemplatesStatus429;
+export type ListWebinarTemplatesResponse = ListWebinarTemplatesStatus200;
 
 export type WebinarTemplateCreatePath = {
 	/**
@@ -26195,11 +25652,7 @@ export type WebinarTemplateCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarTemplateCreateResponse =
-	| WebinarTemplateCreateStatus201
-	| WebinarTemplateCreateStatus400
-	| WebinarTemplateCreateStatus404
-	| WebinarTemplateCreateStatus429;
+export type WebinarTemplateCreateResponse = WebinarTemplateCreateStatus201;
 
 export type WebinarsPath = {
 	/**
@@ -26413,11 +25866,7 @@ export type WebinarsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarsResponse =
-	| WebinarsStatus200
-	| WebinarsStatus400
-	| WebinarsStatus404
-	| WebinarsStatus429;
+export type WebinarsResponse = WebinarsStatus200;
 
 export type WebinarCreatePath = {
 	/**
@@ -28539,11 +27988,7 @@ export type WebinarCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarCreateResponse =
-	| WebinarCreateStatus201
-	| WebinarCreateStatus400
-	| WebinarCreateStatus404
-	| WebinarCreateStatus429;
+export type WebinarCreateResponse = WebinarCreateStatus201;
 
 export type WebinarPath = {
 	/**
@@ -29723,11 +29168,7 @@ export type WebinarResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarResponse =
-	| WebinarStatus200
-	| WebinarStatus400
-	| WebinarStatus404
-	| WebinarStatus429;
+export type WebinarResponse = WebinarStatus200;
 
 export type WebinarDeletePath = {
 	/**
@@ -29780,11 +29221,7 @@ export type WebinarDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarDeleteResponse =
-	| WebinarDeleteStatus204
-	| WebinarDeleteStatus400
-	| WebinarDeleteStatus404
-	| WebinarDeleteStatus429;
+export type WebinarDeleteResponse = WebinarDeleteStatus204;
 
 export type WebinarUpdatePath = {
 	/**
@@ -30802,11 +30239,7 @@ export type WebinarUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarUpdateResponse =
-	| WebinarUpdateStatus204
-	| WebinarUpdateStatus400
-	| WebinarUpdateStatus404
-	| WebinarUpdateStatus429;
+export type WebinarUpdateResponse = WebinarUpdateStatus204;
 
 export type AddBatchWebinarRegistrantsPath = {
 	/**
@@ -30900,11 +30333,7 @@ export type AddBatchWebinarRegistrantsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type AddBatchWebinarRegistrantsResponse =
-	| AddBatchWebinarRegistrantsStatus201
-	| AddBatchWebinarRegistrantsStatus400
-	| AddBatchWebinarRegistrantsStatus404
-	| AddBatchWebinarRegistrantsStatus429;
+export type AddBatchWebinarRegistrantsResponse = AddBatchWebinarRegistrantsStatus201;
 
 export type GetWebinarBrandingPath = {
 	/**
@@ -31031,11 +30460,7 @@ export type GetWebinarBrandingResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetWebinarBrandingResponse =
-	| GetWebinarBrandingStatus200
-	| GetWebinarBrandingStatus400
-	| GetWebinarBrandingStatus404
-	| GetWebinarBrandingStatus429;
+export type GetWebinarBrandingResponse = GetWebinarBrandingStatus200;
 
 export type CreateWebinarBrandingNameTagPath = {
 	/**
@@ -31163,11 +30588,7 @@ export type CreateWebinarBrandingNameTagResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateWebinarBrandingNameTagResponse =
-	| CreateWebinarBrandingNameTagStatus201
-	| CreateWebinarBrandingNameTagStatus400
-	| CreateWebinarBrandingNameTagStatus404
-	| CreateWebinarBrandingNameTagStatus429;
+export type CreateWebinarBrandingNameTagResponse = CreateWebinarBrandingNameTagStatus201;
 
 export type DeleteWebinarBrandingNameTagPath = {
 	/**
@@ -31214,11 +30635,7 @@ export type DeleteWebinarBrandingNameTagResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteWebinarBrandingNameTagResponse =
-	| DeleteWebinarBrandingNameTagStatus204
-	| DeleteWebinarBrandingNameTagStatus400
-	| DeleteWebinarBrandingNameTagStatus404
-	| DeleteWebinarBrandingNameTagStatus429;
+export type DeleteWebinarBrandingNameTagResponse = DeleteWebinarBrandingNameTagStatus204;
 
 export type UpdateWebinarBrandingNameTagPath = {
 	/**
@@ -31315,11 +30732,7 @@ export type UpdateWebinarBrandingNameTagResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UpdateWebinarBrandingNameTagResponse =
-	| UpdateWebinarBrandingNameTagStatus204
-	| UpdateWebinarBrandingNameTagStatus400
-	| UpdateWebinarBrandingNameTagStatus404
-	| UpdateWebinarBrandingNameTagStatus429;
+export type UpdateWebinarBrandingNameTagResponse = UpdateWebinarBrandingNameTagStatus204;
 
 export type UploadWebinarBrandingVBPath = {
 	/**
@@ -31388,11 +30801,7 @@ export type UploadWebinarBrandingVBResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UploadWebinarBrandingVBResponse =
-	| UploadWebinarBrandingVBStatus201
-	| UploadWebinarBrandingVBStatus400
-	| UploadWebinarBrandingVBStatus404
-	| UploadWebinarBrandingVBStatus429;
+export type UploadWebinarBrandingVBResponse = UploadWebinarBrandingVBStatus201;
 
 export type DeleteWebinarBrandingVBPath = {
 	/**
@@ -31439,11 +30848,7 @@ export type DeleteWebinarBrandingVBResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteWebinarBrandingVBResponse =
-	| DeleteWebinarBrandingVBStatus204
-	| DeleteWebinarBrandingVBStatus400
-	| DeleteWebinarBrandingVBStatus404
-	| DeleteWebinarBrandingVBStatus429;
+export type DeleteWebinarBrandingVBResponse = DeleteWebinarBrandingVBStatus204;
 
 export type SetWebinarBrandingVBPath = {
 	/**
@@ -31496,11 +30901,7 @@ export type SetWebinarBrandingVBResponses = {
 /**
  * @description Union of all possible responses
  */
-export type SetWebinarBrandingVBResponse =
-	| SetWebinarBrandingVBStatus204
-	| SetWebinarBrandingVBStatus400
-	| SetWebinarBrandingVBStatus404
-	| SetWebinarBrandingVBStatus429;
+export type SetWebinarBrandingVBResponse = SetWebinarBrandingVBStatus204;
 
 export type UploadWebinarBrandingWallpaperPath = {
 	/**
@@ -31563,11 +30964,7 @@ export type UploadWebinarBrandingWallpaperResponses = {
 /**
  * @description Union of all possible responses
  */
-export type UploadWebinarBrandingWallpaperResponse =
-	| UploadWebinarBrandingWallpaperStatus201
-	| UploadWebinarBrandingWallpaperStatus400
-	| UploadWebinarBrandingWallpaperStatus404
-	| UploadWebinarBrandingWallpaperStatus429;
+export type UploadWebinarBrandingWallpaperResponse = UploadWebinarBrandingWallpaperStatus201;
 
 export type DeleteWebinarBrandingWallpaperPath = {
 	/**
@@ -31605,11 +31002,7 @@ export type DeleteWebinarBrandingWallpaperResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteWebinarBrandingWallpaperResponse =
-	| DeleteWebinarBrandingWallpaperStatus204
-	| DeleteWebinarBrandingWallpaperStatus400
-	| DeleteWebinarBrandingWallpaperStatus404
-	| DeleteWebinarBrandingWallpaperStatus429;
+export type DeleteWebinarBrandingWallpaperResponse = DeleteWebinarBrandingWallpaperStatus204;
 
 export type WebinarInviteLinksCreatePath = {
 	/**
@@ -31721,11 +31114,7 @@ export type WebinarInviteLinksCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarInviteLinksCreateResponse =
-	| WebinarInviteLinksCreateStatus201
-	| WebinarInviteLinksCreateStatus400
-	| WebinarInviteLinksCreateStatus404
-	| WebinarInviteLinksCreateStatus429;
+export type WebinarInviteLinksCreateResponse = WebinarInviteLinksCreateStatus201;
 
 export type WebinarLiveStreamingJoinTokenPath = {
 	/**
@@ -31782,11 +31171,7 @@ export type WebinarLiveStreamingJoinTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarLiveStreamingJoinTokenResponse =
-	| WebinarLiveStreamingJoinTokenStatus200
-	| WebinarLiveStreamingJoinTokenStatus400
-	| WebinarLiveStreamingJoinTokenStatus404
-	| WebinarLiveStreamingJoinTokenStatus429;
+export type WebinarLiveStreamingJoinTokenResponse = WebinarLiveStreamingJoinTokenStatus200;
 
 export type WebinarLocalArchivingArchiveTokenPath = {
 	/**
@@ -31843,11 +31228,7 @@ export type WebinarLocalArchivingArchiveTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarLocalArchivingArchiveTokenResponse =
-	| WebinarLocalArchivingArchiveTokenStatus200
-	| WebinarLocalArchivingArchiveTokenStatus400
-	| WebinarLocalArchivingArchiveTokenStatus404
-	| WebinarLocalArchivingArchiveTokenStatus429;
+export type WebinarLocalArchivingArchiveTokenResponse = WebinarLocalArchivingArchiveTokenStatus200;
 
 export type WebinarLocalRecordingJoinTokenPath = {
 	/**
@@ -31904,11 +31285,7 @@ export type WebinarLocalRecordingJoinTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarLocalRecordingJoinTokenResponse =
-	| WebinarLocalRecordingJoinTokenStatus200
-	| WebinarLocalRecordingJoinTokenStatus400
-	| WebinarLocalRecordingJoinTokenStatus404
-	| WebinarLocalRecordingJoinTokenStatus429;
+export type WebinarLocalRecordingJoinTokenResponse = WebinarLocalRecordingJoinTokenStatus200;
 
 export type GetWebinarLiveStreamDetailsPath = {
 	/**
@@ -31969,11 +31346,7 @@ export type GetWebinarLiveStreamDetailsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetWebinarLiveStreamDetailsResponse =
-	| GetWebinarLiveStreamDetailsStatus200
-	| GetWebinarLiveStreamDetailsStatus400
-	| GetWebinarLiveStreamDetailsStatus404
-	| GetWebinarLiveStreamDetailsStatus429;
+export type GetWebinarLiveStreamDetailsResponse = GetWebinarLiveStreamDetailsStatus200;
 
 export type WebinarLiveStreamUpdatePath = {
 	/**
@@ -32049,11 +31422,7 @@ export type WebinarLiveStreamUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarLiveStreamUpdateResponse =
-	| WebinarLiveStreamUpdateStatus204
-	| WebinarLiveStreamUpdateStatus400
-	| WebinarLiveStreamUpdateStatus404
-	| WebinarLiveStreamUpdateStatus429;
+export type WebinarLiveStreamUpdateResponse = WebinarLiveStreamUpdateStatus204;
 
 export type WebinarLiveStreamStatusUpdatePath = {
 	/**
@@ -32154,11 +31523,7 @@ export type WebinarLiveStreamStatusUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarLiveStreamStatusUpdateResponse =
-	| WebinarLiveStreamStatusUpdateStatus204
-	| WebinarLiveStreamStatusUpdateStatus400
-	| WebinarLiveStreamStatusUpdateStatus404
-	| WebinarLiveStreamStatusUpdateStatus429;
+export type WebinarLiveStreamStatusUpdateResponse = WebinarLiveStreamStatusUpdateStatus204;
 
 export type WebinarPanelistsPath = {
 	/**
@@ -32274,11 +31639,7 @@ export type WebinarPanelistsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarPanelistsResponse =
-	| WebinarPanelistsStatus200
-	| WebinarPanelistsStatus400
-	| WebinarPanelistsStatus404
-	| WebinarPanelistsStatus429;
+export type WebinarPanelistsResponse = WebinarPanelistsStatus200;
 
 export type WebinarPanelistCreatePath = {
 	/**
@@ -32393,11 +31754,7 @@ export type WebinarPanelistCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarPanelistCreateResponse =
-	| WebinarPanelistCreateStatus201
-	| WebinarPanelistCreateStatus400
-	| WebinarPanelistCreateStatus404
-	| WebinarPanelistCreateStatus429;
+export type WebinarPanelistCreateResponse = WebinarPanelistCreateStatus201;
 
 export type WebinarPanelistsDeletePath = {
 	/**
@@ -32435,11 +31792,7 @@ export type WebinarPanelistsDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarPanelistsDeleteResponse =
-	| WebinarPanelistsDeleteStatus204
-	| WebinarPanelistsDeleteStatus400
-	| WebinarPanelistsDeleteStatus404
-	| WebinarPanelistsDeleteStatus429;
+export type WebinarPanelistsDeleteResponse = WebinarPanelistsDeleteStatus204;
 
 export type WebinarPanelistDeletePath = {
 	/**
@@ -32483,11 +31836,7 @@ export type WebinarPanelistDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarPanelistDeleteResponse =
-	| WebinarPanelistDeleteStatus204
-	| WebinarPanelistDeleteStatus400
-	| WebinarPanelistDeleteStatus404
-	| WebinarPanelistDeleteStatus429;
+export type WebinarPanelistDeleteResponse = WebinarPanelistDeleteStatus204;
 
 export type WebinarPollsPath = {
 	/**
@@ -32754,11 +32103,7 @@ export type WebinarPollsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarPollsResponse =
-	| WebinarPollsStatus200
-	| WebinarPollsStatus400
-	| WebinarPollsStatus404
-	| WebinarPollsStatus429;
+export type WebinarPollsResponse = WebinarPollsStatus200;
 
 export type WebinarPollCreatePath = {
 	/**
@@ -33195,11 +32540,7 @@ export type WebinarPollCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarPollCreateResponse =
-	| WebinarPollCreateStatus201
-	| WebinarPollCreateStatus400
-	| WebinarPollCreateStatus404
-	| WebinarPollCreateStatus429;
+export type WebinarPollCreateResponse = WebinarPollCreateStatus201;
 
 export type WebinarPollGetPath = {
 	/**
@@ -33445,11 +32786,7 @@ export type WebinarPollGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarPollGetResponse =
-	| WebinarPollGetStatus200
-	| WebinarPollGetStatus400
-	| WebinarPollGetStatus404
-	| WebinarPollGetStatus429;
+export type WebinarPollGetResponse = WebinarPollGetStatus200;
 
 export type WebinarPollUpdatePath = {
 	/**
@@ -33679,11 +33016,7 @@ export type WebinarPollUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarPollUpdateResponse =
-	| WebinarPollUpdateStatus204
-	| WebinarPollUpdateStatus400
-	| WebinarPollUpdateStatus404
-	| WebinarPollUpdateStatus429;
+export type WebinarPollUpdateResponse = WebinarPollUpdateStatus204;
 
 export type WebinarPollDeletePath = {
 	/**
@@ -33727,11 +33060,7 @@ export type WebinarPollDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarPollDeleteResponse =
-	| WebinarPollDeleteStatus204
-	| WebinarPollDeleteStatus400
-	| WebinarPollDeleteStatus404
-	| WebinarPollDeleteStatus429;
+export type WebinarPollDeleteResponse = WebinarPollDeleteStatus204;
 
 export type WebinarRegistrantsPath = {
 	/**
@@ -34078,11 +33407,7 @@ export type WebinarRegistrantsResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarRegistrantsResponse =
-	| WebinarRegistrantsStatus200
-	| WebinarRegistrantsStatus400
-	| WebinarRegistrantsStatus404
-	| WebinarRegistrantsStatus429;
+export type WebinarRegistrantsResponse = WebinarRegistrantsStatus200;
 
 export type WebinarRegistrantCreatePath = {
 	/**
@@ -34422,11 +33747,7 @@ export type WebinarRegistrantCreateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarRegistrantCreateResponse =
-	| WebinarRegistrantCreateStatus201
-	| WebinarRegistrantCreateStatus400
-	| WebinarRegistrantCreateStatus404
-	| WebinarRegistrantCreateStatus429;
+export type WebinarRegistrantCreateResponse = WebinarRegistrantCreateStatus201;
 
 export type WebinarRegistrantsQuestionsGetPath = {
 	/**
@@ -34604,11 +33925,7 @@ export type WebinarRegistrantsQuestionsGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarRegistrantsQuestionsGetResponse =
-	| WebinarRegistrantsQuestionsGetStatus200
-	| WebinarRegistrantsQuestionsGetStatus400
-	| WebinarRegistrantsQuestionsGetStatus404
-	| WebinarRegistrantsQuestionsGetStatus429;
+export type WebinarRegistrantsQuestionsGetResponse = WebinarRegistrantsQuestionsGetStatus200;
 
 export type WebinarRegistrantQuestionUpdatePath = {
 	/**
@@ -34792,11 +34109,7 @@ export type WebinarRegistrantQuestionUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarRegistrantQuestionUpdateResponse =
-	| WebinarRegistrantQuestionUpdateStatus204
-	| WebinarRegistrantQuestionUpdateStatus400
-	| WebinarRegistrantQuestionUpdateStatus404
-	| WebinarRegistrantQuestionUpdateStatus429;
+export type WebinarRegistrantQuestionUpdateResponse = WebinarRegistrantQuestionUpdateStatus204;
 
 export type WebinarRegistrantStatusPath = {
 	/**
@@ -34894,11 +34207,7 @@ export type WebinarRegistrantStatusResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarRegistrantStatusResponse =
-	| WebinarRegistrantStatusStatus204
-	| WebinarRegistrantStatusStatus400
-	| WebinarRegistrantStatusStatus404
-	| WebinarRegistrantStatusStatus429;
+export type WebinarRegistrantStatusResponse = WebinarRegistrantStatusStatus204;
 
 export type WebinarRegistrantGetPath = {
 	/**
@@ -35187,11 +34496,7 @@ export type WebinarRegistrantGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarRegistrantGetResponse =
-	| WebinarRegistrantGetStatus200
-	| WebinarRegistrantGetStatus400
-	| WebinarRegistrantGetStatus404
-	| WebinarRegistrantGetStatus429;
+export type WebinarRegistrantGetResponse = WebinarRegistrantGetStatus200;
 
 export type DeleteWebinarRegistrantPath = {
 	/**
@@ -35242,11 +34547,7 @@ export type DeleteWebinarRegistrantResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteWebinarRegistrantResponse =
-	| DeleteWebinarRegistrantStatus204
-	| DeleteWebinarRegistrantStatus400
-	| DeleteWebinarRegistrantStatus404
-	| DeleteWebinarRegistrantStatus429;
+export type DeleteWebinarRegistrantResponse = DeleteWebinarRegistrantStatus204;
 
 export type GetWebinarSipDialingWithPasscodePath = {
 	/**
@@ -35323,10 +34624,7 @@ export type GetWebinarSipDialingWithPasscodeResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetWebinarSipDialingWithPasscodeResponse =
-	| GetWebinarSipDialingWithPasscodeStatus201
-	| GetWebinarSipDialingWithPasscodeStatus400
-	| GetWebinarSipDialingWithPasscodeStatus429;
+export type GetWebinarSipDialingWithPasscodeResponse = GetWebinarSipDialingWithPasscodeStatus201;
 
 export type WebinarStatusPath = {
 	/**
@@ -35374,11 +34672,7 @@ export type WebinarStatusResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarStatusResponse =
-	| WebinarStatusStatus200
-	| WebinarStatusStatus400
-	| WebinarStatusStatus404
-	| WebinarStatusStatus429;
+export type WebinarStatusResponse = WebinarStatusStatus200;
 
 export type WebinarSurveyGetPath = {
 	/**
@@ -35618,11 +34912,7 @@ export type WebinarSurveyGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarSurveyGetResponse =
-	| WebinarSurveyGetStatus200
-	| WebinarSurveyGetStatus400
-	| WebinarSurveyGetStatus404
-	| WebinarSurveyGetStatus429;
+export type WebinarSurveyGetResponse = WebinarSurveyGetStatus200;
 
 export type WebinarSurveyDeletePath = {
 	/**
@@ -35660,11 +34950,7 @@ export type WebinarSurveyDeleteResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarSurveyDeleteResponse =
-	| WebinarSurveyDeleteStatus204
-	| WebinarSurveyDeleteStatus400
-	| WebinarSurveyDeleteStatus404
-	| WebinarSurveyDeleteStatus429;
+export type WebinarSurveyDeleteResponse = WebinarSurveyDeleteStatus204;
 
 export type WebinarSurveyUpdatePath = {
 	/**
@@ -35908,11 +35194,7 @@ export type WebinarSurveyUpdateResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarSurveyUpdateResponse =
-	| WebinarSurveyUpdateStatus204
-	| WebinarSurveyUpdateStatus400
-	| WebinarSurveyUpdateStatus404
-	| WebinarSurveyUpdateStatus429;
+export type WebinarSurveyUpdateResponse = WebinarSurveyUpdateStatus204;
 
 export type WebinarTokenPath = {
 	/**
@@ -35971,11 +35253,7 @@ export type WebinarTokenResponses = {
 /**
  * @description Union of all possible responses
  */
-export type WebinarTokenResponse =
-	| WebinarTokenStatus200
-	| WebinarTokenStatus400
-	| WebinarTokenStatus404
-	| WebinarTokenStatus429;
+export type WebinarTokenResponse = WebinarTokenStatus200;
 
 export type GetTrackingSourcesPath = {
 	/**
@@ -36058,8 +35336,4 @@ export type GetTrackingSourcesResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetTrackingSourcesResponse =
-	| GetTrackingSourcesStatus200
-	| GetTrackingSourcesStatus400
-	| GetTrackingSourcesStatus404
-	| GetTrackingSourcesStatus429;
+export type GetTrackingSourcesResponse = GetTrackingSourcesStatus200;

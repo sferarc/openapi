@@ -117,6 +117,8 @@ export type Account = {
 	 * @description The type: 0 .. user, 1 .. company, 2 .. caretaker
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 2
 	 * @type integer
 	 */
 	type: number;
@@ -146,6 +148,8 @@ export type Account = {
 	 * @description The rights bitmask if it\'s a sub account: 1 .. manage smartlock, 2 .. operate smartlock, 4 .. manage smartlock config, 8 .. manage smartlock authorizations, 16 .. view smartlock logs, 32 .. manage sub accounts, 64 .. create smartlocks
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 127
 	 * @type integer | undefined
 	 */
 	rights?: number | undefined;
@@ -414,6 +418,8 @@ export type AccountSubCreate = {
 	 * @description The right bitmask of the sub account: 1 .. operate smartlock, 2 .. change smartlock config, 4 .. manage smartlock users, 8 .. view smartlock logs, 16 .. manage sub accounts
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 31
 	 * @type integer
 	 */
 	rights: number;
@@ -451,6 +457,8 @@ export type AccountSubUpdate = {
 	 * @description The new right bitmask of the sub account: 1 .. operate smartlock, 2 .. change smartlock config, 4 .. manage smartlock users, 8 .. view smartlock logs, 16 .. manage sub accounts, 32 .. manage sub accounts, 64 .. create smartlocks
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 127
 	 * @type integer | undefined
 	 */
 	rights?: number | undefined;
@@ -526,6 +534,8 @@ export type AccountUser = {
 	 * @description The optional type: 0 .. user, 1 .. company
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 1
 	 * @type integer | undefined
 	 */
 	type?: number | undefined;
@@ -585,6 +595,8 @@ export type AccountUserCreate = {
 	 * @description The optional type - only allowed for caretakers: 0 .. user, 1 .. company
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 1
 	 * @type integer | undefined
 	 */
 	type?: number | undefined;
@@ -1574,8 +1586,8 @@ export type Restlet = {
 	owner?: string | undefined;
 	started?: boolean | undefined;
 	logger?: Logger | undefined;
-	stopped?: boolean | undefined;
 	application?: Application | undefined;
+	stopped?: boolean | undefined;
 };
 
 export type Parameter = {
@@ -1664,7 +1676,6 @@ export type Reference = {
 	schemeSpecificPart?: string | undefined;
 	fragment?: string | undefined;
 	extensions?: string | undefined;
-	identifier?: string | undefined;
 	matrix?: string | undefined;
 	matrixAsForm?: Parameter[] | undefined;
 	queryAsForm?: Parameter[] | undefined;
@@ -1687,6 +1698,7 @@ export type Reference = {
 	segments?: string[] | undefined;
 	targetRef?: Reference | undefined;
 	hierarchical?: boolean | undefined;
+	identifier?: string | undefined;
 };
 
 export type Metadata = {
@@ -1851,8 +1863,8 @@ export type Application = {
 	decoderService?: DecoderService | undefined;
 	encoderService?: EncoderService | undefined;
 	logger?: Logger | undefined;
-	stopped?: boolean | undefined;
 	application?: Application | undefined;
+	stopped?: boolean | undefined;
 };
 
 export type AuthenticationInfo = {
@@ -2236,6 +2248,8 @@ export type MyAccount = {
 	 * @description The type: 0 .. user, 1 .. company, 2 .. caretaker
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 2
 	 * @type integer
 	 */
 	type: number;
@@ -2265,6 +2279,8 @@ export type MyAccount = {
 	 * @description The rights bitmask if it\'s a sub account: 1 .. manage smartlock, 2 .. operate smartlock, 4 .. manage smartlock config, 8 .. manage smartlock authorizations, 16 .. view smartlock logs, 32 .. manage sub accounts, 64 .. create smartlocks
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 127
 	 * @type integer | undefined
 	 */
 	rights?: number | undefined;
@@ -2824,8 +2840,8 @@ export type Request = {
 	entityAvailable?: boolean | undefined;
 	expectingResponse?: boolean | undefined;
 	synchronous?: boolean | undefined;
-	headers?: Header[] | undefined;
 	entityAsText?: string | undefined;
+	headers?: Header[] | undefined;
 };
 
 export type ReservationAccessTimesUpdate = {
@@ -2929,9 +2945,9 @@ export type Response = {
 	final?: boolean | undefined;
 	confidential?: boolean | undefined;
 	provisional?: boolean | undefined;
-	headers?: Header[] | undefined;
 	entityAvailable?: boolean | undefined;
 	entityAsText?: string | undefined;
+	headers?: Header[] | undefined;
 };
 
 export const shsSubscriptionTypeEnum = {
@@ -3022,6 +3038,8 @@ export type SmartlockConfig = {
 	 * @description The capabilities indicate whether door opening via app is possible, RTO is possible or both: 0 .. only door opening possible, 1 .. both possible, 2 .. only RTO possible (only for type=2)
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 2
 	 * @type integer | undefined
 	 */
 	readonly capabilities?: number | undefined;
@@ -3080,6 +3098,8 @@ export type SmartlockConfig = {
 	 * @description The fob action if button is pressed once: type=0/3/4: 0 .. none, 1 .. unlock, 2 .. lock, 3 .. lock \'n\' go, 4 .. intelligent (lock/unlocked based on the current state); type=2: 0 .. none, 1 .. toggle ring to open, 2 .. activate ring to open, 3 .. deactivate ring to open, 7 .. open (electric strike actuation), 8 .. ring
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 8
 	 * @type integer | undefined
 	 */
 	readonly fobAction1?: number | undefined;
@@ -3087,6 +3107,8 @@ export type SmartlockConfig = {
 	 * @description The fob action if button is pressed twice: type=0/3/4: 0 .. none, 1 .. unlock, 2 .. lock, 3 .. lock \'n\' go, 4 .. intelligent (lock/unlocked based on the current state); type=2: 0 .. none, 1 .. toggle ring to open, 2 .. activate ring to open, 3 .. deactivate ring to open, 7 .. open (electric strike actuation), 8 .. ring
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 8
 	 * @type integer | undefined
 	 */
 	readonly fobAction2?: number | undefined;
@@ -3094,6 +3116,8 @@ export type SmartlockConfig = {
 	 * @description The fob action if button is pressed 3 times: type=0/3/4: 0 .. none, 1 .. unlock, 2 .. lock, 3 .. lock \'n\' go, 4 .. intelligent (lock/unlocked based on the current state); type=2: 0 .. none, 1 .. toggle ring to open, 2 .. activate ring to open, 3 .. deactivate ring to open, 7 .. open (electric strike actuation), 8 .. ring
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 8
 	 * @type integer | undefined
 	 */
 	readonly fobAction3?: number | undefined;
@@ -3113,6 +3137,8 @@ export type SmartlockConfig = {
 	 * @description The advertising mode (battery saving): 0 .. automatic, 1 .. normal, 2 .. slow, 3 .. slowest
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 3
 	 * @type integer
 	 */
 	advertisingMode: number;
@@ -3130,6 +3156,8 @@ export type SmartlockConfig = {
 	 * @description The homekit state: 0 .. unavailable, 1 .. disabled, 2 .. enabled, 3 .. enabled & paired
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 3
 	 * @type integer | undefined
 	 */
 	readonly homekitState?: number | undefined;
@@ -3137,6 +3165,8 @@ export type SmartlockConfig = {
 	 * @description The matter state: 0 .. not available, 1 .. disabled and no certificate available, 2 .. disabled, 3 .. enabled, 4 .. enabled & paired
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 4
 	 * @type integer | undefined
 	 */
 	readonly matterState?: number | undefined;
@@ -3144,6 +3174,8 @@ export type SmartlockConfig = {
 	 * @description The timezone id (check https://developer.nuki.io for ids)
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 45
 	 * @type integer
 	 */
 	timezoneId: number;
@@ -3168,6 +3200,8 @@ export type SmartlockConfig = {
 	 * @description The product variant for Smartlock 5: 1 .. Go, 2 .. Pro, 3 .. Ultra
 	 *
 	 * Format: `int32`
+	 * @minLength 1
+	 * @maxLength 3
 	 * @type integer | undefined
 	 */
 	readonly productVariant?: number | undefined;
@@ -3514,6 +3548,8 @@ export type SmartlockState = {
 	 * @description The smartlock mode: 0 .. uninitialized, 1 .. pairing, 2 .. door (default), 3 .. continuous (type=2 only), 4 .. maintenance, 5 .. off-door charging
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 4
 	 * @type integer
 	 */
 	mode: number;
@@ -3521,6 +3557,8 @@ export type SmartlockState = {
 	 * @description The smartlock state: type=0/3/4: 0 .. uncalibrated, 1 .. locked, 2 .. unlocking, 3 .. unlocked, 4 .. locking, 5 .. unlatched, 6 .. unlocked (lock \'n\' go), 7 .. unlatching, 224 .. Error wrong entry code, 225 .. Error wrong Fingerprint, 254 .. motor blocked, 255 .. undefined; type=2: 0 .. untrained, 1 .. online, 3 .. ring to open active, 5 .. open, 7 .. opening, 253 .. boot run, 255 .. undefined
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 255
 	 * @type integer
 	 */
 	state: number;
@@ -3528,6 +3566,8 @@ export type SmartlockState = {
 	 * @description  The state trigger: 0 .. system, 1 .. manual, 2 .. button, 3 .. automatic, 4 .. web (type=1 only), 5 .. app (type=1 only), 6 .. continuous mode (type=2 only), 7 .. accessory (type=3 only)
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 6
 	 * @type integer
 	 */
 	trigger: number;
@@ -3535,6 +3575,8 @@ export type SmartlockState = {
 	 * @description The action: type=0/3/4: 1 .. unlock, 2 .. lock, 3 .. unlatch, 4 .. lock \'n\' go, 5 .. lock \'n\' go with unlatch; type=1: 1 .. unlock; type=2: 1 .. activate ring to open, 2 .. deactivate ring to open, 3 .. open (electric strike actuation)
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 5
 	 * @type integer
 	 */
 	lastAction: number;
@@ -3552,6 +3594,8 @@ export type SmartlockState = {
 	 * @description Remaining capacity of a Nuki battery pack in %
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 100
 	 * @type integer | undefined
 	 */
 	batteryCharge?: number | undefined;
@@ -3569,6 +3613,8 @@ export type SmartlockState = {
 	 * @description The door state: 0 .. unavailable/not paired, 1 .. deactivated, 2 .. door closed, 3 .. door opened, 4 .. door state unknown, 5 .. calibrating, 16 .. uncalibrated, 240 .. removed, 255 .. unknown
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 255
 	 * @type integer
 	 */
 	doorState: number;
@@ -3576,6 +3622,8 @@ export type SmartlockState = {
 	 * @description The keypad mounting state: 0 .. unknown/disabled/n.a., 1 .. mounted, 2 .. moved (dismounted), 255 .. error (theft detection) (only available for supported devices)
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 255
 	 * @type integer | undefined
 	 */
 	keypadMountingState?: number | undefined;
@@ -3583,6 +3631,8 @@ export type SmartlockState = {
 	 * @description [deprecated] Remaining ring to open time; 0 if ring to open is not active (type=2 only)
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 65535
 	 * @type integer
 	 */
 	ringToOpenTimer: number;
@@ -3704,6 +3754,8 @@ export type Smartlock = {
 	 * @description The server state: 0 .. ok, 1 .. unregistered, 2 .. auth uuid invalid, 3 .. auth invalid, 4 .. offline
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 4
 	 * @type integer
 	 */
 	serverState: number;
@@ -3711,6 +3763,8 @@ export type Smartlock = {
 	 * @description The admin pin state: 0 .. ok, 1 .. missing, 2 .. invalid
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 2
 	 * @type integer
 	 */
 	adminPinState: number;
@@ -3773,6 +3827,8 @@ export type SmartlockAction = {
 	 * @description The action: type=0/3/4: 1 .. unlock, 2 .. lock, 3 .. unlatch, 4 .. lock \'n\' go, 5 .. lock \'n\' go with unlatch; type=1: 1 .. unlock; type=2: 1 activate ring to open, 2 .. deactivate ring to open, 3 .. open (electric strike actuation), 6 ... activate continuous mode, 7 ... deactivate continuous mode
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 7
 	 * @type integer
 	 */
 	action: number;
@@ -3780,6 +3836,8 @@ export type SmartlockAction = {
 	 * @description The option mask: 0 .. none, 2 .. force, 4 .. full lock
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 7
 	 * @type integer | undefined
 	 */
 	option?: number | undefined;
@@ -3790,6 +3848,8 @@ export type SmartlockAdminPinUpdate = {
 	 * @description The admin pin
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 9999
 	 * @type integer
 	 */
 	adminPin: number;
@@ -3838,6 +3898,8 @@ export type SmartlockAuth = {
 	 * @description The type of the authorization: 0 .. app, 1 .. bridge, 2 .. fob, 3 .. keypad, 13 .. keypad code, 14 .. z-key, 15 .. virtual
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 2
 	 * @type integer
 	 */
 	readonly type: number;
@@ -3881,6 +3943,8 @@ export type SmartlockAuth = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;
@@ -3963,6 +4027,8 @@ export type SmartlockAuthCreate = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;
@@ -4037,6 +4103,8 @@ export type SmartlockAuthMultiUpdate = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;
@@ -4109,6 +4177,8 @@ export type SmartlockAuthUpdate = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;
@@ -4176,6 +4246,8 @@ export type SmartlockAuthWithSharedKeyCreate = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;
@@ -4217,6 +4289,8 @@ export type SmartlockLogOpenerLog = {
 	 * @description The cause of the activation of ring to open or continuous mode: 0 .. doorbell, 1 .. timecontrol, 2 .. app, 3 .. button, 4 .. fob, 5 .. bridge, 6 .. keypad
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 6
 	 * @type integer
 	 */
 	source: number;
@@ -4278,6 +4352,8 @@ export type SmartlockLog = {
 	 * @description The action: 1 .. unlock, 2 .. lock, 3 .. unlatch, 4 .. lock\'n\'go, 5 .. lock\'n\'go with unlatch, 11 .. Restore reset to default setting, 208 .. door warning ajar, 209 door warning status mismatch, 224 .. doorbell recognition (only Opener), 240 .. door opened, 241 .. door closed, 242 .. door sensor jammed, 243 .. firmware update, 250 .. door log enabled, 251 .. door log disabled, 252 .. initialization, 253 .. calibration, 254 .. log enabled, 255 .. log disabled
 	 *
 	 * Format: `int32`
+	 * @minLength 1
+	 * @maxLength 255
 	 * @type integer
 	 */
 	action: number;
@@ -4285,6 +4361,8 @@ export type SmartlockLog = {
 	 * @description The trigger: 0 .. system, 1 .. manual, 2 .. button, 3 .. automatic, 4 .. web, 5 .. app, 6 .. auto lock, 7 .. accessory, 253 .. keypad error, 254 .. nuki mode, 255 .. keypad
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 255
 	 * @type integer
 	 */
 	trigger: number;
@@ -4292,6 +4370,8 @@ export type SmartlockLog = {
 	 * @description The completion state: 0 .. Success, 1 .. Motor blocked, 2 .. Canceled, 3 .. Too recent, 4 .. Busy, 5 .. Low motor voltage, 6 .. Clutch failure, 7 .. Motor power failure, 8 .. Incomplete, 9 .. Rejected, 10 .. Rejected night mode, 224 .. Invalid Code, 225 .. Invalid Fingerprint, 226 .. Invalid NFC Tag, 254 .. Other error, 255 .. Unknown error\nFor source=3 and trigger=253 the following states are used: 0 .. Access document revoked, 1 .. Send NFC failed, 2 .. Control flow, 3 .. Command time expired, 7 .. Invalid data content, 37 .. Invalid access rights, 255 .. Unknown
 	 *
 	 * Format: `int32`
+	 * @minLength 1
+	 * @maxLength 255
 	 * @type integer
 	 */
 	state: number;
@@ -4370,6 +4450,8 @@ export type SmartlocksAuthAdvancedCreate = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;
@@ -4435,6 +4517,8 @@ export type SmartlocksAuthCreate = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
+	 * @minLength 0
+	 * @maxLength 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;
@@ -4618,9 +4702,7 @@ export type GetAccountsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAccountsResourceResponse =
-	| GetAccountsResourceStatus200
-	| GetAccountsResourceStatus401;
+export type GetAccountsResourceResponse = GetAccountsResourceStatus200;
 
 export type PostAccountsResourceQuery = {
 	/**
@@ -4662,11 +4744,7 @@ export type PostAccountsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostAccountsResourceResponse =
-	| PostAccountsResourceStatus204
-	| PostAccountsResourceStatus400
-	| PostAccountsResourceStatus401
-	| PostAccountsResourceStatus409;
+export type PostAccountsResourceResponse = PostAccountsResourceStatus204;
 
 export type DeleteAccountsResourceStatus204 = unknown;
 
@@ -4687,9 +4765,7 @@ export type DeleteAccountsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAccountsResourceResponse =
-	| DeleteAccountsResourceStatus204
-	| DeleteAccountsResourceStatus401;
+export type DeleteAccountsResourceResponse = DeleteAccountsResourceStatus204;
 
 export type PostAccountEmailChangeResourceStatus204 = unknown;
 
@@ -4722,11 +4798,7 @@ export type PostAccountEmailChangeResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostAccountEmailChangeResourceResponse =
-	| PostAccountEmailChangeResourceStatus204
-	| PostAccountEmailChangeResourceStatus400
-	| PostAccountEmailChangeResourceStatus401
-	| PostAccountEmailChangeResourceStatus409;
+export type PostAccountEmailChangeResourceResponse = PostAccountEmailChangeResourceStatus204;
 
 export type PostAccountEmailVerifyResourceStatus204 = unknown;
 
@@ -4753,11 +4825,7 @@ export type PostAccountEmailVerifyResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostAccountEmailVerifyResourceResponse =
-	| PostAccountEmailVerifyResourceStatus204
-	| PostAccountEmailVerifyResourceStatus400
-	| PostAccountEmailVerifyResourceStatus401
-	| PostAccountEmailVerifyResourceStatus409;
+export type PostAccountEmailVerifyResourceResponse = PostAccountEmailVerifyResourceStatus204;
 
 export type GetAccountIntegrationsResourceStatus200 = AccountIntegration[];
 
@@ -4778,9 +4846,7 @@ export type GetAccountIntegrationsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAccountIntegrationsResourceResponse =
-	| GetAccountIntegrationsResourceStatus200
-	| GetAccountIntegrationsResourceStatus401;
+export type GetAccountIntegrationsResourceResponse = GetAccountIntegrationsResourceStatus200;
 
 export type DeleteAccountIntegrationsResourceQuery = {
 	/**
@@ -4814,9 +4880,7 @@ export type DeleteAccountIntegrationsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAccountIntegrationsResourceResponse =
-	| DeleteAccountIntegrationsResourceStatus204
-	| DeleteAccountIntegrationsResourceStatus401;
+export type DeleteAccountIntegrationsResourceResponse = DeleteAccountIntegrationsResourceStatus204;
 
 export type PostAccountOtpResourceStatus204 = unknown;
 
@@ -4849,11 +4913,7 @@ export type PostAccountOtpResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostAccountOtpResourceResponse =
-	| PostAccountOtpResourceStatus204
-	| PostAccountOtpResourceStatus400
-	| PostAccountOtpResourceStatus401
-	| PostAccountOtpResourceStatus429;
+export type PostAccountOtpResourceResponse = PostAccountOtpResourceStatus204;
 
 export type PutAccountOtpResourceStatus200 = string;
 
@@ -4874,9 +4934,7 @@ export type PutAccountOtpResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutAccountOtpResourceResponse =
-	| PutAccountOtpResourceStatus200
-	| PutAccountOtpResourceStatus405;
+export type PutAccountOtpResourceResponse = PutAccountOtpResourceStatus200;
 
 export type DeleteAccountOtpResourceStatus204 = unknown;
 
@@ -4897,9 +4955,7 @@ export type DeleteAccountOtpResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAccountOtpResourceResponse =
-	| DeleteAccountOtpResourceStatus204
-	| DeleteAccountOtpResourceStatus401;
+export type DeleteAccountOtpResourceResponse = DeleteAccountOtpResourceStatus204;
 
 export type PostAccountPasswordResetResourceStatus204 = unknown;
 
@@ -4926,9 +4982,7 @@ export type PostAccountPasswordResetResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostAccountPasswordResetResourceResponse =
-	| PostAccountPasswordResetResourceStatus204
-	| PostAccountPasswordResetResourceStatus401;
+export type PostAccountPasswordResetResourceResponse = PostAccountPasswordResetResourceStatus204;
 
 export type GetAccountSettingResourceStatus200 = AccountSetting;
 
@@ -4955,11 +5009,7 @@ export type GetAccountSettingResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAccountSettingResourceResponse =
-	| GetAccountSettingResourceStatus200
-	| GetAccountSettingResourceStatus401
-	| GetAccountSettingResourceStatus403
-	| GetAccountSettingResourceStatus404;
+export type GetAccountSettingResourceResponse = GetAccountSettingResourceStatus200;
 
 export type PutAccountSettingResourceStatus200 = AccountSetting;
 
@@ -4989,10 +5039,7 @@ export type PutAccountSettingResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutAccountSettingResourceResponse =
-	| PutAccountSettingResourceStatus200
-	| PutAccountSettingResourceStatus400
-	| PutAccountSettingResourceStatus401;
+export type PutAccountSettingResourceResponse = PutAccountSettingResourceStatus200;
 
 export type DeleteAccountSettingResourceStatus204 = unknown;
 
@@ -5016,10 +5063,7 @@ export type DeleteAccountSettingResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAccountSettingResourceResponse =
-	| DeleteAccountSettingResourceStatus204
-	| DeleteAccountSettingResourceStatus401
-	| DeleteAccountSettingResourceStatus403;
+export type DeleteAccountSettingResourceResponse = DeleteAccountSettingResourceStatus204;
 
 export type GetAccountSubsResourceQuery = {
 	/**
@@ -5048,9 +5092,7 @@ export type GetAccountSubsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAccountSubsResourceResponse =
-	| GetAccountSubsResourceStatus200
-	| GetAccountSubsResourceStatus401;
+export type GetAccountSubsResourceResponse = GetAccountSubsResourceStatus200;
 
 export type PutAccountSubsResourceStatus200 = MyAccount;
 
@@ -5077,9 +5119,7 @@ export type PutAccountSubsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutAccountSubsResourceResponse =
-	| PutAccountSubsResourceStatus200
-	| PutAccountSubsResourceStatus400;
+export type PutAccountSubsResourceResponse = PutAccountSubsResourceStatus200;
 
 export type GetAccountSubResourcePath = {
 	/**
@@ -5108,9 +5148,7 @@ export type GetAccountSubResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAccountSubResourceResponse =
-	| GetAccountSubResourceStatus200
-	| GetAccountSubResourceStatus401;
+export type GetAccountSubResourceResponse = GetAccountSubResourceStatus200;
 
 export type PostAccountSubResourcePath = {
 	/**
@@ -5151,11 +5189,7 @@ export type PostAccountSubResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostAccountSubResourceResponse =
-	| PostAccountSubResourceStatus204
-	| PostAccountSubResourceStatus400
-	| PostAccountSubResourceStatus401
-	| PostAccountSubResourceStatus409;
+export type PostAccountSubResourceResponse = PostAccountSubResourceStatus204;
 
 export type DeleteAccountSubResourcePath = {
 	/**
@@ -5184,9 +5218,7 @@ export type DeleteAccountSubResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAccountSubResourceResponse =
-	| DeleteAccountSubResourceStatus204
-	| DeleteAccountSubResourceStatus401;
+export type DeleteAccountSubResourceResponse = DeleteAccountSubResourceStatus204;
 
 export type GetAccountUsersResourceQuery = {
 	/**
@@ -5225,9 +5257,7 @@ export type GetAccountUsersResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAccountUsersResourceResponse =
-	| GetAccountUsersResourceStatus200
-	| GetAccountUsersResourceStatus401;
+export type GetAccountUsersResourceResponse = GetAccountUsersResourceStatus200;
 
 export type PutAccountUsersResourceStatus200 = AccountUser;
 
@@ -5254,9 +5284,7 @@ export type PutAccountUsersResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutAccountUsersResourceResponse =
-	| PutAccountUsersResourceStatus200
-	| PutAccountUsersResourceStatus400;
+export type PutAccountUsersResourceResponse = PutAccountUsersResourceStatus200;
 
 export type GetAccountUserResourcePath = {
 	/**
@@ -5285,9 +5313,7 @@ export type GetAccountUserResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAccountUserResourceResponse =
-	| GetAccountUserResourceStatus200
-	| GetAccountUserResourceStatus401;
+export type GetAccountUserResourceResponse = GetAccountUserResourceStatus200;
 
 export type PostAccountUserResourcePath = {
 	/**
@@ -5333,10 +5359,7 @@ export type PostAccountUserResourceResponses = {
  */
 export type PostAccountUserResourceResponse =
 	| PostAccountUserResourceStatus200
-	| PostAccountUserResourceStatus204
-	| PostAccountUserResourceStatus400
-	| PostAccountUserResourceStatus401
-	| PostAccountUserResourceStatus409;
+	| PostAccountUserResourceStatus204;
 
 export type DeleteAccountUserResourcePath = {
 	/**
@@ -5368,10 +5391,7 @@ export type DeleteAccountUserResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAccountUserResourceResponse =
-	| DeleteAccountUserResourceStatus204
-	| DeleteAccountUserResourceStatus401
-	| DeleteAccountUserResourceStatus423;
+export type DeleteAccountUserResourceResponse = DeleteAccountUserResourceStatus204;
 
 export type GetAddressesResourceStatus200 = Address[];
 
@@ -5392,9 +5412,7 @@ export type GetAddressesResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAddressesResourceResponse =
-	| GetAddressesResourceStatus200
-	| GetAddressesResourceStatus401;
+export type GetAddressesResourceResponse = GetAddressesResourceStatus200;
 
 export type PutAddressesResourceStatus200 = Address;
 
@@ -5424,10 +5442,7 @@ export type PutAddressesResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutAddressesResourceResponse =
-	| PutAddressesResourceStatus200
-	| PutAddressesResourceStatus400
-	| PutAddressesResourceStatus401;
+export type PutAddressesResourceResponse = PutAddressesResourceStatus200;
 
 export type GetAddressTokenResourcePath = {
 	/**
@@ -5459,10 +5474,7 @@ export type GetAddressTokenResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAddressTokenResourceResponse =
-	| GetAddressTokenResourceStatus200
-	| GetAddressTokenResourceStatus401
-	| GetAddressTokenResourceStatus404;
+export type GetAddressTokenResourceResponse = GetAddressTokenResourceStatus200;
 
 export type GetAddressTokenRedeemResourcePath = {
 	/**
@@ -5494,10 +5506,7 @@ export type GetAddressTokenRedeemResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAddressTokenRedeemResourceResponse =
-	| GetAddressTokenRedeemResourceStatus200
-	| GetAddressTokenRedeemResourceStatus401
-	| GetAddressTokenRedeemResourceStatus404;
+export type GetAddressTokenRedeemResourceResponse = GetAddressTokenRedeemResourceStatus200;
 
 export type PostAddressTokenRedeemResourcePath = {
 	/**
@@ -5540,11 +5549,7 @@ export type PostAddressTokenRedeemResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostAddressTokenRedeemResourceResponse =
-	| PostAddressTokenRedeemResourceStatus204
-	| PostAddressTokenRedeemResourceStatus400
-	| PostAddressTokenRedeemResourceStatus401
-	| PostAddressTokenRedeemResourceStatus404;
+export type PostAddressTokenRedeemResourceResponse = PostAddressTokenRedeemResourceStatus204;
 
 export type PostAddressResourcePath = {
 	/**
@@ -5585,11 +5590,7 @@ export type PostAddressResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostAddressResourceResponse =
-	| PostAddressResourceStatus204
-	| PostAddressResourceStatus400
-	| PostAddressResourceStatus401
-	| PostAddressResourceStatus403;
+export type PostAddressResourceResponse = PostAddressResourceStatus204;
 
 export type DeleteAddressResourcePath = {
 	/**
@@ -5621,10 +5622,7 @@ export type DeleteAddressResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAddressResourceResponse =
-	| DeleteAddressResourceStatus204
-	| DeleteAddressResourceStatus401
-	| DeleteAddressResourceStatus403;
+export type DeleteAddressResourceResponse = DeleteAddressResourceStatus204;
 
 export type GetAddressReservationsResourcePath = {
 	/**
@@ -5653,9 +5651,7 @@ export type GetAddressReservationsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAddressReservationsResourceResponse =
-	| GetAddressReservationsResourceStatus200
-	| GetAddressReservationsResourceStatus401;
+export type GetAddressReservationsResourceResponse = GetAddressReservationsResourceStatus200;
 
 export type PostAddressReservationIssueResourcePath = {
 	/**
@@ -5693,9 +5689,7 @@ export type PostAddressReservationIssueResourceResponses = {
  * @description Union of all possible responses
  */
 export type PostAddressReservationIssueResourceResponse =
-	| PostAddressReservationIssueResourceStatus204
-	| PostAddressReservationIssueResourceStatus400
-	| PostAddressReservationIssueResourceStatus401;
+	PostAddressReservationIssueResourceStatus204;
 
 export type PostAddressReservationRevokeResourcePath = {
 	/**
@@ -5733,9 +5727,7 @@ export type PostAddressReservationRevokeResourceResponses = {
  * @description Union of all possible responses
  */
 export type PostAddressReservationRevokeResourceResponse =
-	| PostAddressReservationRevokeResourceStatus204
-	| PostAddressReservationRevokeResourceStatus400
-	| PostAddressReservationRevokeResourceStatus401;
+	PostAddressReservationRevokeResourceStatus204;
 
 export type PostReservationAccessTimesUpdateResourcePath = {
 	/**
@@ -5779,9 +5771,7 @@ export type PostReservationAccessTimesUpdateResourceResponses = {
  * @description Union of all possible responses
  */
 export type PostReservationAccessTimesUpdateResourceResponse =
-	| PostReservationAccessTimesUpdateResourceStatus204
-	| PostReservationAccessTimesUpdateResourceStatus400
-	| PostReservationAccessTimesUpdateResourceStatus401;
+	PostReservationAccessTimesUpdateResourceStatus204;
 
 export type GetAddressTokensResourcePath = {
 	/**
@@ -5813,10 +5803,7 @@ export type GetAddressTokensResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAddressTokensResourceResponse =
-	| GetAddressTokensResourceStatus200
-	| GetAddressTokensResourceStatus400
-	| GetAddressTokensResourceStatus401;
+export type GetAddressTokensResourceResponse = GetAddressTokensResourceStatus200;
 
 export type GetAddressUnitsResourcePath = {
 	/**
@@ -5848,10 +5835,7 @@ export type GetAddressUnitsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetAddressUnitsResourceResponse =
-	| GetAddressUnitsResourceStatus200
-	| GetAddressUnitsResourceStatus400
-	| GetAddressUnitsResourceStatus401;
+export type GetAddressUnitsResourceResponse = GetAddressUnitsResourceStatus200;
 
 export type PutAddressUnitsResourcePath = {
 	/**
@@ -5895,11 +5879,7 @@ export type PutAddressUnitsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutAddressUnitsResourceResponse =
-	| PutAddressUnitsResourceStatus200
-	| PutAddressUnitsResourceStatus400
-	| PutAddressUnitsResourceStatus401
-	| PutAddressUnitsResourceStatus403;
+export type PutAddressUnitsResourceResponse = PutAddressUnitsResourceStatus200;
 
 export type DeleteAddressUnitsResourcePath = {
 	/**
@@ -5943,12 +5923,7 @@ export type DeleteAddressUnitsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAddressUnitsResourceResponse =
-	| DeleteAddressUnitsResourceStatus200
-	| DeleteAddressUnitsResourceStatus400
-	| DeleteAddressUnitsResourceStatus401
-	| DeleteAddressUnitsResourceStatus403
-	| DeleteAddressUnitsResourceStatus423;
+export type DeleteAddressUnitsResourceResponse = DeleteAddressUnitsResourceStatus200;
 
 export type DeleteAddressUnitResourcePath = {
 	/**
@@ -5988,11 +5963,7 @@ export type DeleteAddressUnitResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteAddressUnitResourceResponse =
-	| DeleteAddressUnitResourceStatus200
-	| DeleteAddressUnitResourceStatus401
-	| DeleteAddressUnitResourceStatus403
-	| DeleteAddressUnitResourceStatus423;
+export type DeleteAddressUnitResourceResponse = DeleteAddressUnitResourceStatus200;
 
 export type GetDecentralWebhooksResourceStatus200 = DecentralWebhook[];
 
@@ -6016,10 +5987,7 @@ export type GetDecentralWebhooksResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetDecentralWebhooksResourceResponse =
-	| GetDecentralWebhooksResourceStatus200
-	| GetDecentralWebhooksResourceStatus401
-	| GetDecentralWebhooksResourceStatus403;
+export type GetDecentralWebhooksResourceResponse = GetDecentralWebhooksResourceStatus200;
 
 export type PutDecentralWebhooksResourceStatus200 = DecentralWebhook;
 
@@ -6052,11 +6020,7 @@ export type PutDecentralWebhooksResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutDecentralWebhooksResourceResponse =
-	| PutDecentralWebhooksResourceStatus200
-	| PutDecentralWebhooksResourceStatus400
-	| PutDecentralWebhooksResourceStatus401
-	| PutDecentralWebhooksResourceStatus403;
+export type PutDecentralWebhooksResourceResponse = PutDecentralWebhooksResourceStatus200;
 
 export type DeleteDecentralWebhookResourcePath = {
 	/**
@@ -6088,10 +6052,7 @@ export type DeleteDecentralWebhookResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteDecentralWebhookResourceResponse =
-	| DeleteDecentralWebhookResourceStatus204
-	| DeleteDecentralWebhookResourceStatus401
-	| DeleteDecentralWebhookResourceStatus403;
+export type DeleteDecentralWebhookResourceResponse = DeleteDecentralWebhookResourceStatus204;
 
 export type GetApiKeysResourceStatus200 = ApiKey[];
 
@@ -6112,7 +6073,7 @@ export type GetApiKeysResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetApiKeysResourceResponse = GetApiKeysResourceStatus200 | GetApiKeysResourceStatus401;
+export type GetApiKeysResourceResponse = GetApiKeysResourceStatus200;
 
 export type PutApiKeysResourceStatus200 = ApiKey;
 
@@ -6142,10 +6103,7 @@ export type PutApiKeysResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutApiKeysResourceResponse =
-	| PutApiKeysResourceStatus200
-	| PutApiKeysResourceStatus400
-	| PutApiKeysResourceStatus401;
+export type PutApiKeysResourceResponse = PutApiKeysResourceStatus200;
 
 export type PostApiKeyResourcePath = {
 	/**
@@ -6186,11 +6144,7 @@ export type PostApiKeyResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostApiKeyResourceResponse =
-	| PostApiKeyResourceStatus204
-	| PostApiKeyResourceStatus400
-	| PostApiKeyResourceStatus401
-	| PostApiKeyResourceStatus503;
+export type PostApiKeyResourceResponse = PostApiKeyResourceStatus204;
 
 export type DeleteApiKeyResourcePath = {
 	/**
@@ -6219,9 +6173,7 @@ export type DeleteApiKeyResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteApiKeyResourceResponse =
-	| DeleteApiKeyResourceStatus204
-	| DeleteApiKeyResourceStatus401;
+export type DeleteApiKeyResourceResponse = DeleteApiKeyResourceStatus204;
 
 export type GetApiKeyAdvancedResourcePath = {
 	/**
@@ -6256,11 +6208,7 @@ export type GetApiKeyAdvancedResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetApiKeyAdvancedResourceResponse =
-	| GetApiKeyAdvancedResourceStatus200
-	| GetApiKeyAdvancedResourceStatus401
-	| GetApiKeyAdvancedResourceStatus403
-	| GetApiKeyAdvancedResourceStatus404;
+export type GetApiKeyAdvancedResourceResponse = GetApiKeyAdvancedResourceStatus200;
 
 export type PostApiKeyAdvancedResourcePath = {
 	/**
@@ -6298,10 +6246,7 @@ export type PostApiKeyAdvancedResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostApiKeyAdvancedResourceResponse =
-	| PostApiKeyAdvancedResourceStatus204
-	| PostApiKeyAdvancedResourceStatus400
-	| PostApiKeyAdvancedResourceStatus401;
+export type PostApiKeyAdvancedResourceResponse = PostApiKeyAdvancedResourceStatus204;
 
 export type PutApiKeyAdvancedResourcePath = {
 	/**
@@ -6342,10 +6287,7 @@ export type PutApiKeyAdvancedResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutApiKeyAdvancedResourceResponse =
-	| PutApiKeyAdvancedResourceStatus204
-	| PutApiKeyAdvancedResourceStatus400
-	| PutApiKeyAdvancedResourceStatus401;
+export type PutApiKeyAdvancedResourceResponse = PutApiKeyAdvancedResourceStatus204;
 
 export type DeleteApiKeyAdvancedResourcePath = {
 	/**
@@ -6374,9 +6316,7 @@ export type DeleteApiKeyAdvancedResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteApiKeyAdvancedResourceResponse =
-	| DeleteApiKeyAdvancedResourceStatus204
-	| DeleteApiKeyAdvancedResourceStatus401;
+export type DeleteApiKeyAdvancedResourceResponse = DeleteApiKeyAdvancedResourceStatus204;
 
 export type PostApiKeyAdvancedReactivateResourcePath = {
 	/**
@@ -6409,9 +6349,7 @@ export type PostApiKeyAdvancedReactivateResourceResponses = {
  * @description Union of all possible responses
  */
 export type PostApiKeyAdvancedReactivateResourceResponse =
-	| PostApiKeyAdvancedReactivateResourceStatus204
-	| PostApiKeyAdvancedReactivateResourceStatus400
-	| PostApiKeyAdvancedReactivateResourceStatus401;
+	PostApiKeyAdvancedReactivateResourceStatus204;
 
 export type GetApiKeyTokensResourcePath = {
 	/**
@@ -6440,9 +6378,7 @@ export type GetApiKeyTokensResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetApiKeyTokensResourceResponse =
-	| GetApiKeyTokensResourceStatus200
-	| GetApiKeyTokensResourceStatus401;
+export type GetApiKeyTokensResourceResponse = GetApiKeyTokensResourceStatus200;
 
 export type PutApiKeyTokensResourcePath = {
 	/**
@@ -6480,10 +6416,7 @@ export type PutApiKeyTokensResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutApiKeyTokensResourceResponse =
-	| PutApiKeyTokensResourceStatus200
-	| PutApiKeyTokensResourceStatus400
-	| PutApiKeyTokensResourceStatus401;
+export type PutApiKeyTokensResourceResponse = PutApiKeyTokensResourceStatus200;
 
 export type PostApiKeyTokenResourcePath = {
 	/**
@@ -6526,10 +6459,7 @@ export type PostApiKeyTokenResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostApiKeyTokenResourceResponse =
-	| PostApiKeyTokenResourceStatus204
-	| PostApiKeyTokenResourceStatus400
-	| PostApiKeyTokenResourceStatus401;
+export type PostApiKeyTokenResourceResponse = PostApiKeyTokenResourceStatus204;
 
 export type DeleteApiKeyTokenResourcePath = {
 	/**
@@ -6563,9 +6493,7 @@ export type DeleteApiKeyTokenResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteApiKeyTokenResourceResponse =
-	| DeleteApiKeyTokenResourceStatus204
-	| DeleteApiKeyTokenResourceStatus401;
+export type DeleteApiKeyTokenResourceResponse = DeleteApiKeyTokenResourceStatus204;
 
 export type GetWebhookLogsResourcePath = {
 	/**
@@ -6608,9 +6536,7 @@ export type GetWebhookLogsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetWebhookLogsResourceResponse =
-	| GetWebhookLogsResourceStatus200
-	| GetWebhookLogsResourceStatus401;
+export type GetWebhookLogsResourceResponse = GetWebhookLogsResourceStatus200;
 
 export type PostSmartlockBulkWebConfigResourceStatus204 = unknown;
 
@@ -6641,9 +6567,7 @@ export type PostSmartlockBulkWebConfigResourceResponses = {
  * @description Union of all possible responses
  */
 export type PostSmartlockBulkWebConfigResourceResponse =
-	| PostSmartlockBulkWebConfigResourceStatus204
-	| PostSmartlockBulkWebConfigResourceStatus400
-	| PostSmartlockBulkWebConfigResourceStatus401;
+	PostSmartlockBulkWebConfigResourceStatus204;
 
 export type GetCompaniesResourceStatus200 = Company[];
 
@@ -6667,10 +6591,7 @@ export type GetCompaniesResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetCompaniesResourceResponse =
-	| GetCompaniesResourceStatus200
-	| GetCompaniesResourceStatus401
-	| GetCompaniesResourceStatus403;
+export type GetCompaniesResourceResponse = GetCompaniesResourceStatus200;
 
 export type GetNotificationsResourceQuery = {
 	/**
@@ -6699,9 +6620,7 @@ export type GetNotificationsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetNotificationsResourceResponse =
-	| GetNotificationsResourceStatus200
-	| GetNotificationsResourceStatus401;
+export type GetNotificationsResourceResponse = GetNotificationsResourceStatus200;
 
 export type PutNotificationsResourceStatus200 = Notification;
 
@@ -6734,11 +6653,7 @@ export type PutNotificationsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutNotificationsResourceResponse =
-	| PutNotificationsResourceStatus200
-	| PutNotificationsResourceStatus400
-	| PutNotificationsResourceStatus401
-	| PutNotificationsResourceStatus403;
+export type PutNotificationsResourceResponse = PutNotificationsResourceStatus200;
 
 export type GetNotificationResourcePath = {
 	/**
@@ -6773,11 +6688,7 @@ export type GetNotificationResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetNotificationResourceResponse =
-	| GetNotificationResourceStatus200
-	| GetNotificationResourceStatus401
-	| GetNotificationResourceStatus403
-	| GetNotificationResourceStatus404;
+export type GetNotificationResourceResponse = GetNotificationResourceStatus200;
 
 export type PostNotificationResourcePath = {
 	/**
@@ -6818,11 +6729,7 @@ export type PostNotificationResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostNotificationResourceResponse =
-	| PostNotificationResourceStatus200
-	| PostNotificationResourceStatus400
-	| PostNotificationResourceStatus401
-	| PostNotificationResourceStatus403;
+export type PostNotificationResourceResponse = PostNotificationResourceStatus200;
 
 export type DeleteNotificationResourcePath = {
 	/**
@@ -6857,11 +6764,7 @@ export type DeleteNotificationResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteNotificationResourceResponse =
-	| DeleteNotificationResourceStatus204
-	| DeleteNotificationResourceStatus401
-	| DeleteNotificationResourceStatus403
-	| DeleteNotificationResourceStatus405;
+export type DeleteNotificationResourceResponse = DeleteNotificationResourceStatus204;
 
 export type GetOpenerBrandsResourceStatus200 = OpenerIntercomBrand[];
 
@@ -6996,9 +6899,7 @@ export type GetServicesResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetServicesResourceResponse =
-	| GetServicesResourceStatus200
-	| GetServicesResourceStatus401;
+export type GetServicesResourceResponse = GetServicesResourceStatus200;
 
 export type GetServiceResourcePath = {
 	/**
@@ -7027,7 +6928,7 @@ export type GetServiceResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetServiceResourceResponse = GetServiceResourceStatus200 | GetServiceResourceStatus401;
+export type GetServiceResourceResponse = GetServiceResourceStatus200;
 
 export type PostServiceLinkResourcePath = {
 	/**
@@ -7059,10 +6960,7 @@ export type PostServiceLinkResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostServiceLinkResourceResponse =
-	| PostServiceLinkResourceStatus200
-	| PostServiceLinkResourceStatus400
-	| PostServiceLinkResourceStatus401;
+export type PostServiceLinkResourceResponse = PostServiceLinkResourceStatus200;
 
 export type PostServiceSyncResourcePath = {
 	/**
@@ -7094,10 +6992,7 @@ export type PostServiceSyncResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostServiceSyncResourceResponse =
-	| PostServiceSyncResourceStatus204
-	| PostServiceSyncResourceStatus400
-	| PostServiceSyncResourceStatus401;
+export type PostServiceSyncResourceResponse = PostServiceSyncResourceStatus204;
 
 export type PostServiceUnlinkResourcePath = {
 	/**
@@ -7129,10 +7024,7 @@ export type PostServiceUnlinkResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostServiceUnlinkResourceResponse =
-	| PostServiceUnlinkResourceStatus204
-	| PostServiceUnlinkResourceStatus400
-	| PostServiceUnlinkResourceStatus401;
+export type PostServiceUnlinkResourceResponse = PostServiceUnlinkResourceStatus204;
 
 export type GetSmartlocksResourceQuery = {
 	/**
@@ -7166,9 +7058,7 @@ export type GetSmartlocksResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSmartlocksResourceResponse =
-	| GetSmartlocksResourceStatus200
-	| GetSmartlocksResourceStatus401;
+export type GetSmartlocksResourceResponse = GetSmartlocksResourceStatus200;
 
 export type GetSmartlocksAuthsResourceQuery = {
 	/**
@@ -7202,9 +7092,7 @@ export type GetSmartlocksAuthsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSmartlocksAuthsResourceResponse =
-	| GetSmartlocksAuthsResourceStatus200
-	| GetSmartlocksAuthsResourceStatus401;
+export type GetSmartlocksAuthsResourceResponse = GetSmartlocksAuthsResourceStatus200;
 
 export type PostSmartlocksAuthsResourceStatus204 = unknown;
 
@@ -7243,13 +7131,7 @@ export type PostSmartlocksAuthsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostSmartlocksAuthsResourceResponse =
-	| PostSmartlocksAuthsResourceStatus204
-	| PostSmartlocksAuthsResourceStatus400
-	| PostSmartlocksAuthsResourceStatus401
-	| PostSmartlocksAuthsResourceStatus403
-	| PostSmartlocksAuthsResourceStatus409
-	| PostSmartlocksAuthsResourceStatus423;
+export type PostSmartlocksAuthsResourceResponse = PostSmartlocksAuthsResourceStatus204;
 
 export type PutSmartlocksAuthsResourceStatus204 = unknown;
 
@@ -7285,12 +7167,7 @@ export type PutSmartlocksAuthsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutSmartlocksAuthsResourceResponse =
-	| PutSmartlocksAuthsResourceStatus204
-	| PutSmartlocksAuthsResourceStatus400
-	| PutSmartlocksAuthsResourceStatus402
-	| PutSmartlocksAuthsResourceStatus409
-	| PutSmartlocksAuthsResourceStatus426;
+export type PutSmartlocksAuthsResourceResponse = PutSmartlocksAuthsResourceStatus204;
 
 export type DeleteSmartlocksAuthsResourceStatus204 = unknown;
 
@@ -7326,12 +7203,7 @@ export type DeleteSmartlocksAuthsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSmartlocksAuthsResourceResponse =
-	| DeleteSmartlocksAuthsResourceStatus204
-	| DeleteSmartlocksAuthsResourceStatus400
-	| DeleteSmartlocksAuthsResourceStatus401
-	| DeleteSmartlocksAuthsResourceStatus403
-	| DeleteSmartlocksAuthsResourceStatus423;
+export type DeleteSmartlocksAuthsResourceResponse = DeleteSmartlocksAuthsResourceStatus204;
 
 export type PutSmartlockAuthsAdvancedResourceStatus200 = AdvancedConfirmationResponse;
 
@@ -7367,12 +7239,7 @@ export type PutSmartlockAuthsAdvancedResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutSmartlockAuthsAdvancedResourceResponse =
-	| PutSmartlockAuthsAdvancedResourceStatus200
-	| PutSmartlockAuthsAdvancedResourceStatus400
-	| PutSmartlockAuthsAdvancedResourceStatus402
-	| PutSmartlockAuthsAdvancedResourceStatus409
-	| PutSmartlockAuthsAdvancedResourceStatus426;
+export type PutSmartlockAuthsAdvancedResourceResponse = PutSmartlockAuthsAdvancedResourceStatus200;
 
 export type GetSmartlocksAuthsPaginatedResourceQuery = {
 	/**
@@ -7419,8 +7286,7 @@ export type GetSmartlocksAuthsPaginatedResourceResponses = {
  * @description Union of all possible responses
  */
 export type GetSmartlocksAuthsPaginatedResourceResponse =
-	| GetSmartlocksAuthsPaginatedResourceStatus200
-	| GetSmartlocksAuthsPaginatedResourceStatus401;
+	GetSmartlocksAuthsPaginatedResourceStatus200;
 
 export type GetSmartlocksLogsResourceQuery = {
 	/**
@@ -7475,9 +7341,7 @@ export type GetSmartlocksLogsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSmartlocksLogsResourceResponse =
-	| GetSmartlocksLogsResourceStatus200
-	| GetSmartlocksLogsResourceStatus401;
+export type GetSmartlocksLogsResourceResponse = GetSmartlocksLogsResourceStatus200;
 
 export type GetSmartlockResourcePath = {
 	/**
@@ -7512,11 +7376,7 @@ export type GetSmartlockResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSmartlockResourceResponse =
-	| GetSmartlockResourceStatus200
-	| GetSmartlockResourceStatus401
-	| GetSmartlockResourceStatus403
-	| GetSmartlockResourceStatus404;
+export type GetSmartlockResourceResponse = GetSmartlockResourceStatus200;
 
 export type PostSmartlockResourcePath = {
 	/**
@@ -7557,11 +7417,7 @@ export type PostSmartlockResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostSmartlockResourceResponse =
-	| PostSmartlockResourceStatus204
-	| PostSmartlockResourceStatus400
-	| PostSmartlockResourceStatus401
-	| PostSmartlockResourceStatus403;
+export type PostSmartlockResourceResponse = PostSmartlockResourceStatus204;
 
 export type DeleteSmartlockResourcePath = {
 	/**
@@ -7596,11 +7452,7 @@ export type DeleteSmartlockResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSmartlockResourceResponse =
-	| DeleteSmartlockResourceStatus204
-	| DeleteSmartlockResourceStatus400
-	| DeleteSmartlockResourceStatus401
-	| DeleteSmartlockResourceStatus403;
+export type DeleteSmartlockResourceResponse = DeleteSmartlockResourceStatus204;
 
 export type PostSmartlockActionResourcePath = {
 	/**
@@ -7641,11 +7493,7 @@ export type PostSmartlockActionResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostSmartlockActionResourceResponse =
-	| PostSmartlockActionResourceStatus204
-	| PostSmartlockActionResourceStatus400
-	| PostSmartlockActionResourceStatus401
-	| PostSmartlockActionResourceStatus402;
+export type PostSmartlockActionResourceResponse = PostSmartlockActionResourceStatus204;
 
 export type PostSmartlockActionAdvancedResourcePath = {
 	/**
@@ -7690,11 +7538,7 @@ export type PostSmartlockActionAdvancedResourceResponses = {
  * @description Union of all possible responses
  */
 export type PostSmartlockActionAdvancedResourceResponse =
-	| PostSmartlockActionAdvancedResourceStatus200
-	| PostSmartlockActionAdvancedResourceStatus400
-	| PostSmartlockActionAdvancedResourceStatus402
-	| PostSmartlockActionAdvancedResourceStatus409
-	| PostSmartlockActionAdvancedResourceStatus426;
+	PostSmartlockActionAdvancedResourceStatus200;
 
 export type PostSmartlockLockActionResourcePath = {
 	/**
@@ -7729,11 +7573,7 @@ export type PostSmartlockLockActionResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostSmartlockLockActionResourceResponse =
-	| PostSmartlockLockActionResourceStatus204
-	| PostSmartlockLockActionResourceStatus400
-	| PostSmartlockLockActionResourceStatus401
-	| PostSmartlockLockActionResourceStatus405;
+export type PostSmartlockLockActionResourceResponse = PostSmartlockLockActionResourceStatus204;
 
 export type PostSmartlockLockActionAdvancedResourcePath = {
 	/**
@@ -7769,10 +7609,7 @@ export type PostSmartlockLockActionAdvancedResourceResponses = {
  * @description Union of all possible responses
  */
 export type PostSmartlockLockActionAdvancedResourceResponse =
-	| PostSmartlockLockActionAdvancedResourceStatus200
-	| PostSmartlockLockActionAdvancedResourceStatus400
-	| PostSmartlockLockActionAdvancedResourceStatus401
-	| PostSmartlockLockActionAdvancedResourceStatus405;
+	PostSmartlockLockActionAdvancedResourceStatus200;
 
 export type PostSmartlockUnlockActionResourcePath = {
 	/**
@@ -7807,11 +7644,7 @@ export type PostSmartlockUnlockActionResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostSmartlockUnlockActionResourceResponse =
-	| PostSmartlockUnlockActionResourceStatus204
-	| PostSmartlockUnlockActionResourceStatus400
-	| PostSmartlockUnlockActionResourceStatus401
-	| PostSmartlockUnlockActionResourceStatus405;
+export type PostSmartlockUnlockActionResourceResponse = PostSmartlockUnlockActionResourceStatus204;
 
 export type PostSmartlockUnlockActionAdvancedResourcePath = {
 	/**
@@ -7847,10 +7680,7 @@ export type PostSmartlockUnlockActionAdvancedResourceResponses = {
  * @description Union of all possible responses
  */
 export type PostSmartlockUnlockActionAdvancedResourceResponse =
-	| PostSmartlockUnlockActionAdvancedResourceStatus200
-	| PostSmartlockUnlockActionAdvancedResourceStatus400
-	| PostSmartlockUnlockActionAdvancedResourceStatus401
-	| PostSmartlockUnlockActionAdvancedResourceStatus405;
+	PostSmartlockUnlockActionAdvancedResourceStatus200;
 
 export type PostSmartlockAdminPinResourcePath = {
 	/**
@@ -7888,10 +7718,7 @@ export type PostSmartlockAdminPinResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostSmartlockAdminPinResourceResponse =
-	| PostSmartlockAdminPinResourceStatus204
-	| PostSmartlockAdminPinResourceStatus400
-	| PostSmartlockAdminPinResourceStatus401;
+export type PostSmartlockAdminPinResourceResponse = PostSmartlockAdminPinResourceStatus204;
 
 export type PostSmartlockAdvancedConfigResourcePath = {
 	/**
@@ -7933,9 +7760,7 @@ export type PostSmartlockAdvancedConfigResourceResponses = {
  * @description Union of all possible responses
  */
 export type PostSmartlockAdvancedConfigResourceResponse =
-	| PostSmartlockAdvancedConfigResourceStatus204
-	| PostSmartlockAdvancedConfigResourceStatus400
-	| PostSmartlockAdvancedConfigResourceStatus401;
+	PostSmartlockAdvancedConfigResourceStatus204;
 
 export type PostSmartlockOpenerAdvancedConfigResourcePath = {
 	/**
@@ -7977,9 +7802,7 @@ export type PostSmartlockOpenerAdvancedConfigResourceResponses = {
  * @description Union of all possible responses
  */
 export type PostSmartlockOpenerAdvancedConfigResourceResponse =
-	| PostSmartlockOpenerAdvancedConfigResourceStatus204
-	| PostSmartlockOpenerAdvancedConfigResourceStatus400
-	| PostSmartlockOpenerAdvancedConfigResourceStatus401;
+	PostSmartlockOpenerAdvancedConfigResourceStatus204;
 
 export type PostSmartdoorAdvancedConfigResourcePath = {
 	/**
@@ -8021,9 +7844,7 @@ export type PostSmartdoorAdvancedConfigResourceResponses = {
  * @description Union of all possible responses
  */
 export type PostSmartdoorAdvancedConfigResourceResponse =
-	| PostSmartdoorAdvancedConfigResourceStatus204
-	| PostSmartdoorAdvancedConfigResourceStatus400
-	| PostSmartdoorAdvancedConfigResourceStatus401;
+	PostSmartdoorAdvancedConfigResourceStatus204;
 
 export type GetSmartlockAuthsResourcePath = {
 	/**
@@ -8068,10 +7889,7 @@ export type GetSmartlockAuthsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSmartlockAuthsResourceResponse =
-	| GetSmartlockAuthsResourceStatus200
-	| GetSmartlockAuthsResourceStatus401
-	| GetSmartlockAuthsResourceStatus403;
+export type GetSmartlockAuthsResourceResponse = GetSmartlockAuthsResourceStatus200;
 
 export type PutSmartlockAuthsResourcePath = {
 	/**
@@ -8115,12 +7933,7 @@ export type PutSmartlockAuthsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PutSmartlockAuthsResourceResponse =
-	| PutSmartlockAuthsResourceStatus204
-	| PutSmartlockAuthsResourceStatus400
-	| PutSmartlockAuthsResourceStatus402
-	| PutSmartlockAuthsResourceStatus409
-	| PutSmartlockAuthsResourceStatus426;
+export type PutSmartlockAuthsResourceResponse = PutSmartlockAuthsResourceStatus204;
 
 export type PostSmartlockAuthWithSharedKeyResourcePath = {
 	/**
@@ -8162,10 +7975,7 @@ export type PostSmartlockAuthWithSharedKeyResourceResponses = {
  * @description Union of all possible responses
  */
 export type PostSmartlockAuthWithSharedKeyResourceResponse =
-	| PostSmartlockAuthWithSharedKeyResourceStatus200
-	| PostSmartlockAuthWithSharedKeyResourceStatus401
-	| PostSmartlockAuthWithSharedKeyResourceStatus403
-	| PostSmartlockAuthWithSharedKeyResourceStatus404;
+	PostSmartlockAuthWithSharedKeyResourceStatus200;
 
 export type GetSmartlockAuthResourcePath = {
 	/**
@@ -8202,10 +8012,7 @@ export type GetSmartlockAuthResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSmartlockAuthResourceResponse =
-	| GetSmartlockAuthResourceStatus200
-	| GetSmartlockAuthResourceStatus401
-	| GetSmartlockAuthResourceStatus403;
+export type GetSmartlockAuthResourceResponse = GetSmartlockAuthResourceStatus200;
 
 export type PostSmartlockAuthResourcePath = {
 	/**
@@ -8257,13 +8064,7 @@ export type PostSmartlockAuthResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostSmartlockAuthResourceResponse =
-	| PostSmartlockAuthResourceStatus204
-	| PostSmartlockAuthResourceStatus400
-	| PostSmartlockAuthResourceStatus401
-	| PostSmartlockAuthResourceStatus403
-	| PostSmartlockAuthResourceStatus409
-	| PostSmartlockAuthResourceStatus423;
+export type PostSmartlockAuthResourceResponse = PostSmartlockAuthResourceStatus204;
 
 export type DeleteSmartlockAuthResourcePath = {
 	/**
@@ -8303,11 +8104,7 @@ export type DeleteSmartlockAuthResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type DeleteSmartlockAuthResourceResponse =
-	| DeleteSmartlockAuthResourceStatus204
-	| DeleteSmartlockAuthResourceStatus401
-	| DeleteSmartlockAuthResourceStatus403
-	| DeleteSmartlockAuthResourceStatus423;
+export type DeleteSmartlockAuthResourceResponse = DeleteSmartlockAuthResourceStatus204;
 
 export type PostSmartlockConfigResourcePath = {
 	/**
@@ -8361,10 +8158,7 @@ export type PostSmartlockConfigResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostSmartlockConfigResourceResponse =
-	| PostSmartlockConfigResourceStatus204
-	| PostSmartlockConfigResourceStatus400
-	| PostSmartlockConfigResourceStatus401;
+export type PostSmartlockConfigResourceResponse = PostSmartlockConfigResourceStatus204;
 
 export type GetSmartlockLogsResourcePath = {
 	/**
@@ -8432,9 +8226,7 @@ export type GetSmartlockLogsResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetSmartlockLogsResourceResponse =
-	| GetSmartlockLogsResourceStatus200
-	| GetSmartlockLogsResourceStatus401;
+export type GetSmartlockLogsResourceResponse = GetSmartlockLogsResourceStatus200;
 
 export type PostSmartlockSyncResourcePath = {
 	/**
@@ -8466,10 +8258,7 @@ export type PostSmartlockSyncResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostSmartlockSyncResourceResponse =
-	| PostSmartlockSyncResourceStatus204
-	| PostSmartlockSyncResourceStatus400
-	| PostSmartlockSyncResourceStatus401;
+export type PostSmartlockSyncResourceResponse = PostSmartlockSyncResourceStatus204;
 
 export type PostSmartlockWebConfigResourcePath = {
 	/**
@@ -8507,7 +8296,4 @@ export type PostSmartlockWebConfigResourceResponses = {
 /**
  * @description Union of all possible responses
  */
-export type PostSmartlockWebConfigResourceResponse =
-	| PostSmartlockWebConfigResourceStatus204
-	| PostSmartlockWebConfigResourceStatus400
-	| PostSmartlockWebConfigResourceStatus401;
+export type PostSmartlockWebConfigResourceResponse = PostSmartlockWebConfigResourceStatus204;

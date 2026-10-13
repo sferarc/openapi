@@ -49,7 +49,7 @@ export const policyRepresentationSchema = z.object({
 			})
 			.optional();
 	},
-	config: z.object({}).catchall(z.string()).optional(),
+	config: z.record(z.string(), z.string()).optional(),
 });
 
 export const scopeRepresentationSchema = z.object({
@@ -92,7 +92,7 @@ export const resourceRepresentationSchema = z.object({
 	owner: resourceOwnerRepresentationSchema.optional(),
 	ownerManagedAccess: z.boolean().optional(),
 	displayName: z.string().optional(),
-	attributes: z.object({}).catchall(z.array(z.string())).optional(),
+	attributes: z.record(z.string(), z.array(z.string())).optional(),
 	uri: z.string().optional(),
 	get scopesUma() {
 		return z
@@ -169,8 +169,8 @@ export const permissionSchema = z.object({
 		})
 		.optional(),
 	claims: z
-		.object({})
-		.catchall(
+		.record(
+			z.string(),
 			z.array(z.string()).refine((items) => new Set(items).size === items.length, {
 				message: "Array entries must be unique",
 			}),
@@ -195,7 +195,7 @@ export const authorizationDetailsJSONRepresentationSchema = z.object({
 	datatypes: z.array(z.string()).optional(),
 	identifier: z.string().optional(),
 	privileges: z.array(z.string()).optional(),
-	customData: z.object({}).catchall(z.unknown()).optional(),
+	customData: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const accessTokenSchema = z.object({
@@ -207,7 +207,7 @@ export const accessTokenSchema = z.object({
 	sub: z.string().optional(),
 	typ: z.string().optional(),
 	azp: z.string().optional(),
-	otherClaims: z.object({}).catchall(z.unknown()).optional(),
+	otherClaims: z.record(z.string(), z.unknown()).optional(),
 	nonce: z.string().optional(),
 	auth_time: z.coerce.bigint().optional(),
 	sid: z.string().optional(),
@@ -247,7 +247,7 @@ export const accessTokenSchema = z.object({
 		})
 		.optional(),
 	realm_access: accessSchema.optional(),
-	resource_access: z.object({}).catchall(accessSchema).optional(),
+	resource_access: z.record(z.string(), accessSchema).optional(),
 	authorization: authorizationSchema.optional(),
 	cnf: confirmationSchema.optional(),
 	scope: z.string().optional(),
@@ -271,7 +271,7 @@ export const adminEventRepresentationSchema = z.object({
 	resourcePath: z.string().optional(),
 	representation: z.string().optional(),
 	error: z.string().optional(),
-	details: z.object({}).catchall(z.string()).optional(),
+	details: z.record(z.string(), z.string()).optional(),
 });
 
 export const protocolMapperRepresentationSchema = z.object({
@@ -281,7 +281,7 @@ export const protocolMapperRepresentationSchema = z.object({
 	protocolMapper: z.string().optional(),
 	consentRequired: z.boolean().optional(),
 	consentText: z.string().optional(),
-	config: z.object({}).catchall(z.string()).optional(),
+	config: z.record(z.string(), z.string()).optional(),
 });
 
 export const policyEnforcementModeSchema = z.enum(["DISABLED", "ENFORCING", "PERMISSIVE"]);
@@ -295,8 +295,8 @@ export const resourceTypeSchema = z.object({
 		})
 		.optional(),
 	scopeAliases: z
-		.object({})
-		.catchall(
+		.record(
+			z.string(),
 			z.array(z.string()).refine((items) => new Set(items).size === items.length, {
 				message: "Array entries must be unique",
 			}),
@@ -306,7 +306,7 @@ export const resourceTypeSchema = z.object({
 });
 
 export const authorizationSchemaSchema = z.object({
-	resourceTypes: z.object({}).catchall(resourceTypeSchema).optional(),
+	resourceTypes: z.record(z.string(), resourceTypeSchema).optional(),
 });
 
 export const resourceServerRepresentationSchema = z.object({
@@ -370,11 +370,11 @@ export const applicationRepresentationSchema = z.object({
 	publicClient: z.boolean().optional(),
 	frontchannelLogout: z.boolean().optional(),
 	protocol: z.string().optional(),
-	attributes: z.object({}).catchall(z.string()).optional(),
-	authenticationFlowBindingOverrides: z.object({}).catchall(z.string()).optional(),
+	attributes: z.record(z.string(), z.string()).optional(),
+	authenticationFlowBindingOverrides: z.record(z.string(), z.string()).optional(),
 	fullScopeAllowed: z.boolean().optional(),
 	nodeReRegistrationTimeout: z.int32().optional(),
-	registeredNodes: z.object({}).catchall(z.int32()).optional(),
+	registeredNodes: z.record(z.string(), z.int32()).optional(),
 	protocolMappers: z.array(protocolMapperRepresentationSchema).optional(),
 	clientTemplate: z.string().optional(),
 	useTemplateConfig: z.boolean().optional(),
@@ -383,7 +383,7 @@ export const applicationRepresentationSchema = z.object({
 	defaultClientScopes: z.array(z.string()).optional(),
 	optionalClientScopes: z.array(z.string()).optional(),
 	authorizationSettings: resourceServerRepresentationSchema.optional(),
-	access: z.object({}).catchall(z.boolean()).optional(),
+	access: z.record(z.string(), z.boolean()).optional(),
 	origin: z.string().optional(),
 	name: z.string().optional(),
 	claims: claimRepresentationSchema.optional(),
@@ -461,7 +461,7 @@ export const authenticatorConfigInfoRepresentationSchema = z.object({
 export const authenticatorConfigRepresentationSchema = z.object({
 	id: z.string().optional(),
 	alias: z.string().optional(),
-	config: z.object({}).catchall(z.string()).optional(),
+	config: z.record(z.string(), z.string()).optional(),
 });
 
 export const bruteForceStrategySchema = z.enum(["LINEAR", "MULTIPLE"]);
@@ -496,8 +496,8 @@ export const compositesSchema = z.object({
 			message: "Array entries must be unique",
 		})
 		.optional(),
-	client: z.object({}).catchall(z.array(z.string())).optional(),
-	application: z.object({}).catchall(z.array(z.string())).optional(),
+	client: z.record(z.string(), z.array(z.string())).optional(),
+	application: z.record(z.string(), z.array(z.string())).optional(),
 });
 
 export const roleRepresentationSchema = z.object({
@@ -509,7 +509,7 @@ export const roleRepresentationSchema = z.object({
 	composites: compositesSchema.optional(),
 	clientRole: z.boolean().optional(),
 	containerId: z.string().optional(),
-	attributes: z.object({}).catchall(z.array(z.string())).optional(),
+	attributes: z.record(z.string(), z.array(z.string())).optional(),
 });
 
 export const clientMappingsRepresentationSchema = z.object({
@@ -588,11 +588,11 @@ export const clientRepresentationSchema = z.object({
 	publicClient: z.boolean().optional(),
 	frontchannelLogout: z.boolean().optional(),
 	protocol: z.string().optional(),
-	attributes: z.object({}).catchall(z.string()).optional(),
-	authenticationFlowBindingOverrides: z.object({}).catchall(z.string()).optional(),
+	attributes: z.record(z.string(), z.string()).optional(),
+	authenticationFlowBindingOverrides: z.record(z.string(), z.string()).optional(),
 	fullScopeAllowed: z.boolean().optional(),
 	nodeReRegistrationTimeout: z.int32().optional(),
-	registeredNodes: z.object({}).catchall(z.int32()).optional(),
+	registeredNodes: z.record(z.string(), z.int32()).optional(),
 	protocolMappers: z.array(protocolMapperRepresentationSchema).optional(),
 	clientTemplate: z.string().optional(),
 	useTemplateConfig: z.boolean().optional(),
@@ -601,7 +601,7 @@ export const clientRepresentationSchema = z.object({
 	defaultClientScopes: z.array(z.string()).optional(),
 	optionalClientScopes: z.array(z.string()).optional(),
 	authorizationSettings: resourceServerRepresentationSchema.optional(),
-	access: z.object({}).catchall(z.boolean()).optional(),
+	access: z.record(z.string(), z.boolean()).optional(),
 	origin: z.string().optional(),
 });
 
@@ -610,7 +610,7 @@ export const clientScopeRepresentationSchema = z.object({
 	name: z.string().optional(),
 	description: z.string().optional(),
 	protocol: z.string().optional(),
-	attributes: z.object({}).catchall(z.string()).optional(),
+	attributes: z.record(z.string(), z.string()).optional(),
 	protocolMappers: z.array(protocolMapperRepresentationSchema).optional(),
 });
 
@@ -628,7 +628,7 @@ export const clientTemplateRepresentationSchema = z.object({
 	serviceAccountsEnabled: z.boolean().optional(),
 	publicClient: z.boolean().optional(),
 	frontchannelLogout: z.boolean().optional(),
-	attributes: z.object({}).catchall(z.string()).optional(),
+	attributes: z.record(z.string(), z.string()).optional(),
 	protocolMappers: z.array(protocolMapperRepresentationSchema).optional(),
 });
 
@@ -641,7 +641,7 @@ export const clientTypeRepresentationSchema = z.object({
 	name: z.string().optional(),
 	provider: z.string().optional(),
 	parent: z.string().optional(),
-	config: z.object({}).catchall(propertyConfigSchema).optional(),
+	config: z.record(z.string(), propertyConfigSchema).optional(),
 });
 
 export const clientTypesRepresentationSchema = z.object({
@@ -649,11 +649,12 @@ export const clientTypesRepresentationSchema = z.object({
 	"global-client-types": z.array(clientTypeRepresentationSchema).optional(),
 });
 
-export const multivaluedHashMapStringComponentExportRepresentationSchema = z
-	.object({})
-	.catchall(z.array(z.lazy(() => componentExportRepresentationSchema)));
+export const multivaluedHashMapStringComponentExportRepresentationSchema = z.record(
+	z.string(),
+	z.array(z.lazy(() => componentExportRepresentationSchema)),
+);
 
-export const multivaluedHashMapStringStringSchema = z.object({}).catchall(z.array(z.string()));
+export const multivaluedHashMapStringStringSchema = z.record(z.string(), z.array(z.string()));
 
 export const componentExportRepresentationSchema = z.object({
 	id: z.string().optional(),
@@ -681,7 +682,7 @@ export const componentTypeRepresentationSchema = z.object({
 	helpText: z.string().optional(),
 	properties: z.array(configPropertyRepresentationSchema).optional(),
 	clientProperties: z.array(configPropertyRepresentationSchema).optional(),
-	metadata: z.object({}).catchall(z.unknown()).optional(),
+	metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const credentialRepresentationSchema = z.object({
@@ -778,7 +779,7 @@ export const eventRepresentationSchema = z.object({
 	sessionId: z.string().optional(),
 	ipAddress: z.string().optional(),
 	error: z.string().optional(),
-	details: z.object({}).catchall(z.string()).optional(),
+	details: z.record(z.string(), z.string()).optional(),
 });
 
 export const federatedIdentityRepresentationSchema = z.object({
@@ -802,10 +803,10 @@ export const groupRepresentationSchema = z.object({
 	get subGroups() {
 		return z.array(groupRepresentationSchema).optional();
 	},
-	attributes: z.object({}).catchall(z.array(z.string())).optional(),
+	attributes: z.record(z.string(), z.array(z.string())).optional(),
 	realmRoles: z.array(z.string()).optional(),
-	clientRoles: z.object({}).catchall(z.array(z.string())).optional(),
-	access: z.object({}).catchall(z.boolean()).optional(),
+	clientRoles: z.record(z.string(), z.array(z.string())).optional(),
+	access: z.record(z.string(), z.boolean()).optional(),
 });
 
 export const IDTokenSchema = z.object({
@@ -817,7 +818,7 @@ export const IDTokenSchema = z.object({
 	sub: z.string().optional(),
 	typ: z.string().optional(),
 	azp: z.string().optional(),
-	otherClaims: z.object({}).catchall(z.unknown()).optional(),
+	otherClaims: z.record(z.string(), z.unknown()).optional(),
 	nonce: z.string().optional(),
 	auth_time: z.coerce.bigint().optional(),
 	sid: z.string().optional(),
@@ -851,7 +852,7 @@ export const identityProviderMapperRepresentationSchema = z.object({
 	name: z.string().optional(),
 	identityProviderAlias: z.string().optional(),
 	identityProviderMapper: z.string().optional(),
-	config: z.object({}).catchall(z.string()).optional(),
+	config: z.record(z.string(), z.string()).optional(),
 });
 
 export const identityProviderMapperTypeRepresentationSchema = z.object({
@@ -884,7 +885,7 @@ export const identityProviderRepresentationSchema = z.object({
 	firstBrokerLoginFlowAlias: z.string().optional(),
 	postBrokerLoginFlowAlias: z.string().optional(),
 	organizationLinks: z.array(organizationIdentityProviderLinkRepresentationSchema).optional(),
-	config: z.object({}).catchall(z.string()).optional(),
+	config: z.record(z.string(), z.string()).optional(),
 	types: z.array(z.string()).optional(),
 	updateProfileFirstLogin: z.boolean().optional(),
 	organizationId: z.string().optional(),
@@ -929,19 +930,19 @@ export const keyStoreConfigSchema = z.object({
 });
 
 export const keysMetadataRepresentationSchema = z.object({
-	active: z.object({}).catchall(z.string()).optional(),
+	active: z.record(z.string(), z.string()).optional(),
 	keys: z.array(keyMetadataRepresentationSchema).optional(),
 });
 
 export const managementPermissionReferenceSchema = z.object({
 	enabled: z.boolean().optional(),
 	resource: z.string().optional(),
-	scopePermissions: z.object({}).catchall(z.string()).optional(),
+	scopePermissions: z.record(z.string(), z.string()).optional(),
 });
 
 export const mappingsRepresentationSchema = z.object({
 	realmMappings: z.array(roleRepresentationSchema).optional(),
-	clientMappings: z.object({}).catchall(clientMappingsRepresentationSchema).optional(),
+	clientMappings: z.record(z.string(), clientMappingsRepresentationSchema).optional(),
 });
 
 export const userProfileAttributeMetadataSchema = z.object({
@@ -949,8 +950,8 @@ export const userProfileAttributeMetadataSchema = z.object({
 	displayName: z.string().optional(),
 	required: z.boolean().optional(),
 	readOnly: z.boolean().optional(),
-	annotations: z.object({}).catchall(z.unknown()).optional(),
-	validators: z.object({}).catchall(z.object({}).catchall(z.unknown())).optional(),
+	annotations: z.record(z.string(), z.unknown()).optional(),
+	validators: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
 	group: z.string().optional(),
 	multivalued: z.boolean().optional(),
 	defaultValue: z.string().optional(),
@@ -960,7 +961,7 @@ export const userProfileAttributeGroupMetadataSchema = z.object({
 	name: z.string().optional(),
 	displayHeader: z.string().optional(),
 	displayDescription: z.string().optional(),
-	annotations: z.object({}).catchall(z.unknown()).optional(),
+	annotations: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const userProfileMetadataSchema = z.object({
@@ -982,7 +983,7 @@ export const userVerifiableCredentialRepresentationSchema = z.object({
 	revision: z.string().optional(),
 	createdDate: z.coerce.bigint().optional(),
 	updatedDate: z.coerce.bigint().optional(),
-	userAttributes: z.object({}).catchall(z.array(z.string())).optional(),
+	userAttributes: z.record(z.string(), z.array(z.string())).optional(),
 });
 
 export const socialLinkRepresentationSchema = z.object({
@@ -1000,7 +1001,7 @@ export const memberRepresentationSchema = z.object({
 	lastName: z.string().optional(),
 	email: z.string().optional(),
 	emailVerified: z.boolean().optional(),
-	attributes: z.object({}).catchall(z.array(z.string())).optional(),
+	attributes: z.record(z.string(), z.array(z.string())).optional(),
 	userProfileMetadata: userProfileMetadataSchema.optional(),
 	enabled: z.boolean().optional(),
 	self: z.string().optional(),
@@ -1019,15 +1020,15 @@ export const memberRepresentationSchema = z.object({
 	requiredActions: z.array(z.string()).optional(),
 	federatedIdentities: z.array(federatedIdentityRepresentationSchema).optional(),
 	realmRoles: z.array(z.string()).optional(),
-	clientRoles: z.object({}).catchall(z.array(z.string())).optional(),
+	clientRoles: z.record(z.string(), z.array(z.string())).optional(),
 	clientConsents: z.array(userConsentRepresentationSchema).optional(),
 	notBefore: z.int32().optional(),
 	verifiableCredentials: z.array(userVerifiableCredentialRepresentationSchema).optional(),
 	issuedVerifiableCredentials: z.array(issuedVerifiableCredentialRepresentationSchema).optional(),
-	applicationRoles: z.object({}).catchall(z.array(z.string())).optional(),
+	applicationRoles: z.record(z.string(), z.array(z.string())).optional(),
 	socialLinks: z.array(socialLinkRepresentationSchema).optional(),
 	groups: z.array(z.string()).optional(),
-	access: z.object({}).catchall(z.boolean()).optional(),
+	access: z.record(z.string(), z.boolean()).optional(),
 	membershipType: membershipTypeSchema.optional(),
 });
 
@@ -1060,11 +1061,11 @@ export const oAuthClientRepresentationSchema = z.object({
 	publicClient: z.boolean().optional(),
 	frontchannelLogout: z.boolean().optional(),
 	protocol: z.string().optional(),
-	attributes: z.object({}).catchall(z.string()).optional(),
-	authenticationFlowBindingOverrides: z.object({}).catchall(z.string()).optional(),
+	attributes: z.record(z.string(), z.string()).optional(),
+	authenticationFlowBindingOverrides: z.record(z.string(), z.string()).optional(),
 	fullScopeAllowed: z.boolean().optional(),
 	nodeReRegistrationTimeout: z.int32().optional(),
-	registeredNodes: z.object({}).catchall(z.int32()).optional(),
+	registeredNodes: z.record(z.string(), z.int32()).optional(),
 	protocolMappers: z.array(protocolMapperRepresentationSchema).optional(),
 	clientTemplate: z.string().optional(),
 	useTemplateConfig: z.boolean().optional(),
@@ -1073,7 +1074,7 @@ export const oAuthClientRepresentationSchema = z.object({
 	defaultClientScopes: z.array(z.string()).optional(),
 	optionalClientScopes: z.array(z.string()).optional(),
 	authorizationSettings: resourceServerRepresentationSchema.optional(),
-	access: z.object({}).catchall(z.boolean()).optional(),
+	access: z.record(z.string(), z.boolean()).optional(),
 	origin: z.string().optional(),
 	name: z.string().optional(),
 	claims: claimRepresentationSchema.optional(),
@@ -1107,7 +1108,7 @@ export const organizationRepresentationSchema = z.object({
 	enabled: z.boolean().optional(),
 	description: z.string().optional(),
 	redirectUrl: z.string().optional(),
-	attributes: z.object({}).catchall(z.array(z.string())).optional(),
+	attributes: z.record(z.string(), z.array(z.string())).optional(),
 	domains: z
 		.array(organizationDomainRepresentationSchema)
 		.refine((items) => new Set(items).size === items.length, {
@@ -1122,7 +1123,7 @@ export const organizationRepresentationSchema = z.object({
 });
 
 export const policyEvaluationRequestSchema = z.object({
-	context: z.object({}).catchall(z.object({}).catchall(z.string())).optional(),
+	context: z.record(z.string(), z.record(z.string(), z.string())).optional(),
 	get resources() {
 		return z.array(resourceRepresentationSchema).optional();
 	},
@@ -1176,8 +1177,8 @@ export const realmEventsConfigRepresentationSchema = z.object({
 
 export const rolesRepresentationSchema = z.object({
 	realm: z.array(roleRepresentationSchema).optional(),
-	client: z.object({}).catchall(z.array(roleRepresentationSchema)).optional(),
-	application: z.object({}).catchall(z.array(roleRepresentationSchema)).optional(),
+	client: z.record(z.string(), z.array(roleRepresentationSchema)).optional(),
+	application: z.record(z.string(), z.array(roleRepresentationSchema)).optional(),
 });
 
 export const userRepresentationSchema = z.object({
@@ -1187,7 +1188,7 @@ export const userRepresentationSchema = z.object({
 	lastName: z.string().optional(),
 	email: z.string().optional(),
 	emailVerified: z.boolean().optional(),
-	attributes: z.object({}).catchall(z.array(z.string())).optional(),
+	attributes: z.record(z.string(), z.array(z.string())).optional(),
 	userProfileMetadata: userProfileMetadataSchema.optional(),
 	enabled: z.boolean().optional(),
 	self: z.string().optional(),
@@ -1206,15 +1207,15 @@ export const userRepresentationSchema = z.object({
 	requiredActions: z.array(z.string()).optional(),
 	federatedIdentities: z.array(federatedIdentityRepresentationSchema).optional(),
 	realmRoles: z.array(z.string()).optional(),
-	clientRoles: z.object({}).catchall(z.array(z.string())).optional(),
+	clientRoles: z.record(z.string(), z.array(z.string())).optional(),
 	clientConsents: z.array(userConsentRepresentationSchema).optional(),
 	notBefore: z.int32().optional(),
 	verifiableCredentials: z.array(userVerifiableCredentialRepresentationSchema).optional(),
 	issuedVerifiableCredentials: z.array(issuedVerifiableCredentialRepresentationSchema).optional(),
-	applicationRoles: z.object({}).catchall(z.array(z.string())).optional(),
+	applicationRoles: z.record(z.string(), z.array(z.string())).optional(),
 	socialLinks: z.array(socialLinkRepresentationSchema).optional(),
 	groups: z.array(z.string()).optional(),
-	access: z.object({}).catchall(z.boolean()).optional(),
+	access: z.record(z.string(), z.boolean()).optional(),
 });
 
 export const scopeMappingRepresentationSchema = z.object({
@@ -1234,7 +1235,7 @@ export const userFederationProviderRepresentationSchema = z.object({
 	id: z.string().optional(),
 	displayName: z.string().optional(),
 	providerName: z.string().optional(),
-	config: z.object({}).catchall(z.string()).optional(),
+	config: z.record(z.string(), z.string()).optional(),
 	priority: z.int32().optional(),
 	fullSyncPeriod: z.int32().optional(),
 	changedSyncPeriod: z.int32().optional(),
@@ -1246,7 +1247,7 @@ export const userFederationMapperRepresentationSchema = z.object({
 	name: z.string().optional(),
 	federationProviderDisplayName: z.string().optional(),
 	federationMapperType: z.string().optional(),
-	config: z.object({}).catchall(z.string()).optional(),
+	config: z.record(z.string(), z.string()).optional(),
 });
 
 export const requiredActionProviderRepresentationSchema = z.object({
@@ -1256,7 +1257,7 @@ export const requiredActionProviderRepresentationSchema = z.object({
 	enabled: z.boolean().optional(),
 	defaultAction: z.boolean().optional(),
 	priority: z.int32().optional(),
-	config: z.object({}).catchall(z.string()).optional(),
+	config: z.record(z.string(), z.string()).optional(),
 });
 
 export const realmRepresentationSchema = z.object({
@@ -1339,7 +1340,7 @@ export const realmRepresentationSchema = z.object({
 	otpPolicyPeriod: z.int32().optional(),
 	otpPolicyCodeReusable: z.boolean().optional(),
 	otpSupportedApplications: z.array(z.string()).optional(),
-	localizationTexts: z.object({}).catchall(z.object({}).catchall(z.string())).optional(),
+	localizationTexts: z.record(z.string(), z.record(z.string(), z.string())).optional(),
 	webAuthnPolicyRpEntityName: z.string().optional(),
 	webAuthnPolicySignatureAlgorithms: z.array(z.string()).optional(),
 	webAuthnPolicyRpId: z.string().optional(),
@@ -1371,13 +1372,13 @@ export const realmRepresentationSchema = z.object({
 	users: z.array(userRepresentationSchema).optional(),
 	federatedUsers: z.array(userRepresentationSchema).optional(),
 	scopeMappings: z.array(scopeMappingRepresentationSchema).optional(),
-	clientScopeMappings: z.object({}).catchall(z.array(scopeMappingRepresentationSchema)).optional(),
+	clientScopeMappings: z.record(z.string(), z.array(scopeMappingRepresentationSchema)).optional(),
 	clients: z.array(clientRepresentationSchema).optional(),
 	clientScopes: z.array(clientScopeRepresentationSchema).optional(),
 	defaultDefaultClientScopes: z.array(z.string()).optional(),
 	defaultOptionalClientScopes: z.array(z.string()).optional(),
-	browserSecurityHeaders: z.object({}).catchall(z.string()).optional(),
-	smtpServer: z.object({}).catchall(z.string()).optional(),
+	browserSecurityHeaders: z.record(z.string(), z.string()).optional(),
+	smtpServer: z.record(z.string(), z.string()).optional(),
 	userFederationProviders: z.array(userFederationProviderRepresentationSchema).optional(),
 	userFederationMappers: z.array(userFederationMapperRepresentationSchema).optional(),
 	loginTheme: z.string().optional(),
@@ -1414,7 +1415,7 @@ export const realmRepresentationSchema = z.object({
 	clientAuthenticationFlow: z.string().optional(),
 	dockerAuthenticationFlow: z.string().optional(),
 	firstBrokerLoginFlow: z.string().optional(),
-	attributes: z.object({}).catchall(z.string()).optional(),
+	attributes: z.record(z.string(), z.string()).optional(),
 	keycloakVersion: z.string().optional(),
 	userManagedAccessAllowed: z.boolean().optional(),
 	organizationsEnabled: z.boolean().optional(),
@@ -1423,10 +1424,9 @@ export const realmRepresentationSchema = z.object({
 	adminPermissionsEnabled: z.boolean().optional(),
 	social: z.boolean().optional(),
 	updateProfileOnInitialSocialLogin: z.boolean().optional(),
-	socialProviders: z.object({}).catchall(z.string()).optional(),
+	socialProviders: z.record(z.string(), z.string()).optional(),
 	applicationScopeMappings: z
-		.object({})
-		.catchall(z.array(scopeMappingRepresentationSchema))
+		.record(z.string(), z.array(scopeMappingRepresentationSchema))
 		.optional(),
 	applications: z.array(applicationRepresentationSchema).optional(),
 	oauthClients: z.array(oAuthClientRepresentationSchema).optional(),
@@ -1439,7 +1439,7 @@ export const requiredActionConfigInfoRepresentationSchema = z.object({
 });
 
 export const requiredActionConfigRepresentationSchema = z.object({
-	config: z.object({}).catchall(z.string()).optional(),
+	config: z.record(z.string(), z.string()).optional(),
 });
 
 export const samlExampleResponseSchema = z.object({
@@ -1490,8 +1490,8 @@ export const UPAttributeSelectorSchema = z.object({
 export const UPAttributeSchema = z.object({
 	name: z.string().optional(),
 	displayName: z.string().optional(),
-	validations: z.object({}).catchall(z.object({}).catchall(z.unknown())).optional(),
-	annotations: z.object({}).catchall(z.unknown()).optional(),
+	validations: z.record(z.string(), z.record(z.string(), z.unknown())).optional(),
+	annotations: z.record(z.string(), z.unknown()).optional(),
 	required: UPAttributeRequiredSchema.optional(),
 	permissions: UPAttributePermissionsSchema.optional(),
 	selector: UPAttributeSelectorSchema.optional(),
@@ -1504,7 +1504,7 @@ export const UPGroupSchema = z.object({
 	name: z.string().optional(),
 	displayHeader: z.string().optional(),
 	displayDescription: z.string().optional(),
-	annotations: z.object({}).catchall(z.unknown()).optional(),
+	annotations: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const unmanagedAttributePolicySchema = z.enum(["ADMIN_EDIT", "ADMIN_VIEW", "ENABLED"]);
@@ -1523,7 +1523,7 @@ export const userSessionRepresentationSchema = z.object({
 	start: z.coerce.bigint().optional(),
 	lastAccess: z.coerce.bigint().optional(),
 	rememberMe: z.boolean().optional(),
-	clients: z.object({}).catchall(z.string()).optional(),
+	clients: z.record(z.string(), z.string()).optional(),
 	transientUser: z.boolean().optional(),
 });
 
@@ -1752,9 +1752,10 @@ export const gETAdminRealmsRealmAttackDetectionBruteForceUsersUserIdPathRealmSch
 
 export const gETAdminRealmsRealmAttackDetectionBruteForceUsersUserIdPathUserIdSchema = z.string();
 
-export const gETAdminRealmsRealmAttackDetectionBruteForceUsersUserIdStatus200Schema = z
-	.object({})
-	.catchall(z.unknown());
+export const gETAdminRealmsRealmAttackDetectionBruteForceUsersUserIdStatus200Schema = z.record(
+	z.string(),
+	z.unknown(),
+);
 
 export const gETAdminRealmsRealmAttackDetectionBruteForceUsersUserIdResponseSchema =
 	gETAdminRealmsRealmAttackDetectionBruteForceUsersUserIdStatus200Schema;
@@ -1777,7 +1778,7 @@ export const gETAdminRealmsRealmAuthenticationAuthenticatorProvidersPathRealmSch
 	.describe("realm name (not id!)");
 
 export const gETAdminRealmsRealmAuthenticationAuthenticatorProvidersStatus200Schema = z.array(
-	z.object({}).catchall(z.unknown()),
+	z.record(z.string(), z.unknown()),
 );
 
 export const gETAdminRealmsRealmAuthenticationAuthenticatorProvidersResponseSchema =
@@ -1788,7 +1789,7 @@ export const gETAdminRealmsRealmAuthenticationClientAuthenticatorProvidersPathRe
 	.describe("realm name (not id!)");
 
 export const gETAdminRealmsRealmAuthenticationClientAuthenticatorProvidersStatus200Schema = z.array(
-	z.object({}).catchall(z.unknown()),
+	z.record(z.string(), z.unknown()),
 );
 
 export const gETAdminRealmsRealmAuthenticationClientAuthenticatorProvidersResponseSchema =
@@ -2019,8 +2020,7 @@ export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyErrorSchema =
 	pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyStatus409Schema;
 
 export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyBodySchema = z
-	.object({})
-	.catchall(z.string())
+	.record(z.string(), z.string())
 	.optional();
 
 export const gETAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsPathRealmSchema = z
@@ -2073,8 +2073,7 @@ export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsExecution
 	pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsExecutionStatus201Schema;
 
 export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsExecutionBodySchema = z
-	.object({})
-	.catchall(z.unknown())
+	.record(z.string(), z.unknown())
 	.optional();
 
 export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowPathRealmSchema = z
@@ -2098,8 +2097,7 @@ export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowError
 	pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowStatus409Schema;
 
 export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowBodySchema = z
-	.object({})
-	.catchall(z.unknown())
+	.record(z.string(), z.unknown())
 	.optional();
 
 export const gETAdminRealmsRealmAuthenticationFlowsIdPathRealmSchema = z
@@ -2151,7 +2149,7 @@ export const gETAdminRealmsRealmAuthenticationFormActionProvidersPathRealmSchema
 	.describe("realm name (not id!)");
 
 export const gETAdminRealmsRealmAuthenticationFormActionProvidersStatus200Schema = z.array(
-	z.object({}).catchall(z.unknown()),
+	z.record(z.string(), z.unknown()),
 );
 
 export const gETAdminRealmsRealmAuthenticationFormActionProvidersResponseSchema =
@@ -2162,7 +2160,7 @@ export const gETAdminRealmsRealmAuthenticationFormProvidersPathRealmSchema = z
 	.describe("realm name (not id!)");
 
 export const gETAdminRealmsRealmAuthenticationFormProvidersStatus200Schema = z.array(
-	z.object({}).catchall(z.unknown()),
+	z.record(z.string(), z.unknown()),
 );
 
 export const gETAdminRealmsRealmAuthenticationFormProvidersResponseSchema =
@@ -2172,9 +2170,10 @@ export const gETAdminRealmsRealmAuthenticationPerClientConfigDescriptionPathReal
 	.string()
 	.describe("realm name (not id!)");
 
-export const gETAdminRealmsRealmAuthenticationPerClientConfigDescriptionStatus200Schema = z
-	.object({})
-	.catchall(z.array(configPropertyRepresentationSchema));
+export const gETAdminRealmsRealmAuthenticationPerClientConfigDescriptionStatus200Schema = z.record(
+	z.string(),
+	z.array(configPropertyRepresentationSchema),
+);
 
 export const gETAdminRealmsRealmAuthenticationPerClientConfigDescriptionResponseSchema =
 	gETAdminRealmsRealmAuthenticationPerClientConfigDescriptionStatus200Schema;
@@ -2189,8 +2188,7 @@ export const pOSTAdminRealmsRealmAuthenticationRegisterRequiredActionResponseSch
 	pOSTAdminRealmsRealmAuthenticationRegisterRequiredActionStatus204Schema;
 
 export const pOSTAdminRealmsRealmAuthenticationRegisterRequiredActionBodySchema = z
-	.object({})
-	.catchall(z.string())
+	.record(z.string(), z.string())
 	.optional();
 
 export const gETAdminRealmsRealmAuthenticationRequiredActionsPathRealmSchema = z
@@ -2337,7 +2335,7 @@ export const gETAdminRealmsRealmAuthenticationUnregisteredRequiredActionsPathRea
 	.describe("realm name (not id!)");
 
 export const gETAdminRealmsRealmAuthenticationUnregisteredRequiredActionsStatus200Schema = z.array(
-	z.object({}).catchall(z.string()),
+	z.record(z.string(), z.string()),
 );
 
 export const gETAdminRealmsRealmAuthenticationUnregisteredRequiredActionsResponseSchema =
@@ -2469,7 +2467,7 @@ export const gETAdminRealmsRealmClientSessionStatsPathRealmSchema = z
 	.describe("realm name (not id!)");
 
 export const gETAdminRealmsRealmClientSessionStatsStatus200Schema = z.array(
-	z.object({}).catchall(z.string()),
+	z.record(z.string(), z.string()),
 );
 
 export const gETAdminRealmsRealmClientSessionStatsStatus403Schema = z.unknown();
@@ -3099,9 +3097,10 @@ export const gETAdminRealmsRealmGroupsCountQuerySearchSchema = z.string().option
 
 export const gETAdminRealmsRealmGroupsCountQueryTopSchema = z.boolean().optional().default(false);
 
-export const gETAdminRealmsRealmGroupsCountStatus200Schema = z
-	.object({})
-	.catchall(z.coerce.bigint());
+export const gETAdminRealmsRealmGroupsCountStatus200Schema = z.record(
+	z.string(),
+	z.coerce.bigint(),
+);
 
 export const gETAdminRealmsRealmGroupsCountResponseSchema =
 	gETAdminRealmsRealmGroupsCountStatus200Schema;
@@ -3110,16 +3109,16 @@ export const pOSTAdminRealmsRealmIdentityProviderImportConfigPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
 
-export const pOSTAdminRealmsRealmIdentityProviderImportConfigStatus200Schema = z
-	.object({})
-	.catchall(z.string());
+export const pOSTAdminRealmsRealmIdentityProviderImportConfigStatus200Schema = z.record(
+	z.string(),
+	z.string(),
+);
 
 export const pOSTAdminRealmsRealmIdentityProviderImportConfigResponseSchema =
 	pOSTAdminRealmsRealmIdentityProviderImportConfigStatus200Schema;
 
 export const pOSTAdminRealmsRealmIdentityProviderImportConfigBodySchema = z
-	.object({})
-	.catchall(z.unknown())
+	.record(z.string(), z.unknown())
 	.optional();
 
 export const gETAdminRealmsRealmIdentityProviderInstancesPathRealmSchema = z
@@ -3425,9 +3424,10 @@ export const gETAdminRealmsRealmLocalizationLocaleQueryUseRealmDefaultLocaleFall
 	.boolean()
 	.optional();
 
-export const gETAdminRealmsRealmLocalizationLocaleStatus200Schema = z
-	.object({})
-	.catchall(z.string());
+export const gETAdminRealmsRealmLocalizationLocaleStatus200Schema = z.record(
+	z.string(),
+	z.string(),
+);
 
 export const gETAdminRealmsRealmLocalizationLocaleStatus403Schema = z.unknown();
 
@@ -3458,8 +3458,7 @@ export const pOSTAdminRealmsRealmLocalizationLocaleErrorSchema = z.union([
 ]);
 
 export const pOSTAdminRealmsRealmLocalizationLocaleBodySchema = z
-	.object({})
-	.catchall(z.string())
+	.record(z.string(), z.string())
 	.optional();
 
 export const dELETEAdminRealmsRealmLocalizationLocalePathRealmSchema = z
@@ -3822,8 +3821,7 @@ export const pOSTAdminRealmsRealmTestSMTPConnectionErrorSchema =
 	pOSTAdminRealmsRealmTestSMTPConnectionStatus500Schema;
 
 export const pOSTAdminRealmsRealmTestSMTPConnectionBodySchema = z
-	.object({})
-	.catchall(z.string())
+	.record(z.string(), z.string())
 	.optional();
 
 export const gETAdminRealmsRealmUsersPathRealmSchema = z.string().describe("realm name (not id!)");
@@ -5201,6 +5199,9 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionE
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus200Schema =
 	policyEvaluationResponseSchema;
 
+export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus403Schema =
+	z.unknown();
+
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus500Schema =
 	z.unknown();
 
@@ -5208,7 +5209,10 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionE
 	pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus200Schema;
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateErrorSchema =
-	pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus500Schema;
+	z.union([
+		pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus403Schema,
+		pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateStatus500Schema,
+	]);
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateBodySchema =
 	policyEvaluationRequestSchema.optional();
@@ -5346,6 +5350,9 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvalu
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus200Schema =
 	policyEvaluationResponseSchema;
 
+export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus403Schema =
+	z.unknown();
+
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus500Schema =
 	z.unknown();
 
@@ -5353,7 +5360,10 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvalu
 	pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus200Schema;
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateErrorSchema =
-	pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus500Schema;
+	z.union([
+		pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus403Schema,
+		pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateStatus500Schema,
+	]);
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateBodySchema =
 	policyEvaluationRequestSchema.optional();
@@ -6552,8 +6562,7 @@ export const pOSTAdminRealmsRealmClientsClientUuidNodesErrorSchema =
 	pOSTAdminRealmsRealmClientsClientUuidNodesStatus400Schema;
 
 export const pOSTAdminRealmsRealmClientsClientUuidNodesBodySchema = z
-	.object({})
-	.catchall(z.string())
+	.record(z.string(), z.string())
 	.optional();
 
 export const dELETEAdminRealmsRealmClientsClientUuidNodesNodePathRealmSchema = z
@@ -6579,9 +6588,10 @@ export const gETAdminRealmsRealmClientsClientUuidOfflineSessionCountPathClientUu
 	.string()
 	.describe("id of client (not client-id!)");
 
-export const gETAdminRealmsRealmClientsClientUuidOfflineSessionCountStatus200Schema = z
-	.object({})
-	.catchall(z.coerce.bigint());
+export const gETAdminRealmsRealmClientsClientUuidOfflineSessionCountStatus200Schema = z.record(
+	z.string(),
+	z.coerce.bigint(),
+);
 
 export const gETAdminRealmsRealmClientsClientUuidOfflineSessionCountResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidOfflineSessionCountStatus200Schema;
@@ -7478,9 +7488,10 @@ export const gETAdminRealmsRealmClientsClientUuidSessionCountPathClientUuidSchem
 	.string()
 	.describe("id of client (not client-id!)");
 
-export const gETAdminRealmsRealmClientsClientUuidSessionCountStatus200Schema = z
-	.object({})
-	.catchall(z.coerce.bigint());
+export const gETAdminRealmsRealmClientsClientUuidSessionCountStatus200Schema = z.record(
+	z.string(),
+	z.coerce.bigint(),
+);
 
 export const gETAdminRealmsRealmClientsClientUuidSessionCountResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidSessionCountStatus200Schema;
@@ -9987,7 +9998,7 @@ export const gETAdminRealmsRealmUsersUserIdConsentsPathRealmSchema = z
 export const gETAdminRealmsRealmUsersUserIdConsentsPathUserIdSchema = z.string();
 
 export const gETAdminRealmsRealmUsersUserIdConsentsStatus200Schema = z.array(
-	z.object({}).catchall(z.unknown()),
+	z.record(z.string(), z.unknown()),
 );
 
 export const gETAdminRealmsRealmUsersUserIdConsentsStatus403Schema = z.unknown();
@@ -10328,9 +10339,10 @@ export const gETAdminRealmsRealmUsersUserIdGroupsCountPathUserIdSchema = z.strin
 
 export const gETAdminRealmsRealmUsersUserIdGroupsCountQuerySearchSchema = z.string().optional();
 
-export const gETAdminRealmsRealmUsersUserIdGroupsCountStatus200Schema = z
-	.object({})
-	.catchall(z.coerce.bigint());
+export const gETAdminRealmsRealmUsersUserIdGroupsCountStatus200Schema = z.record(
+	z.string(),
+	z.coerce.bigint(),
+);
 
 export const gETAdminRealmsRealmUsersUserIdGroupsCountStatus403Schema = z.unknown();
 
@@ -10396,9 +10408,10 @@ export const pOSTAdminRealmsRealmUsersUserIdImpersonationPathRealmSchema = z
 
 export const pOSTAdminRealmsRealmUsersUserIdImpersonationPathUserIdSchema = z.string();
 
-export const pOSTAdminRealmsRealmUsersUserIdImpersonationStatus200Schema = z
-	.object({})
-	.catchall(z.unknown());
+export const pOSTAdminRealmsRealmUsersUserIdImpersonationStatus200Schema = z.record(
+	z.string(),
+	z.unknown(),
+);
 
 export const pOSTAdminRealmsRealmUsersUserIdImpersonationStatus400Schema = z.lazy(
 	() => errorRepresentationSchema,
@@ -10803,9 +10816,10 @@ export const gETAdminRealmsRealmUsersUserIdUnmanagedAttributesPathRealmSchema = 
 
 export const gETAdminRealmsRealmUsersUserIdUnmanagedAttributesPathUserIdSchema = z.string();
 
-export const gETAdminRealmsRealmUsersUserIdUnmanagedAttributesStatus200Schema = z
-	.object({})
-	.catchall(z.array(z.string()));
+export const gETAdminRealmsRealmUsersUserIdUnmanagedAttributesStatus200Schema = z.record(
+	z.string(),
+	z.array(z.string()),
+);
 
 export const gETAdminRealmsRealmUsersUserIdUnmanagedAttributesStatus403Schema = z.unknown();
 
