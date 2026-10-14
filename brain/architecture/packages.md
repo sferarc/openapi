@@ -15,11 +15,11 @@ A typical client (`packages/clickhouse-cloud/`):
 | `src/effect.ts` | Effect bindings built with `createEffectApi` from [[shared-utils]]. |
 | `kubb.config.ts` | Spec URL and fixups. |
 
-Variations: `keycloak-api` has `src/admin/` and `src/account/`, each with its own `generated/` (`configs/knip.json`). `cloudflare-api-js` has no `schemas.ts` or `effect.ts`, and `litellm-api` has no `effect.ts` (directory listings, `configs/knip.json`).
+Variations: `keycloak-api` has `src/admin/` and `src/account/`, each with its own `generated/`, `types.ts`, `schemas.ts` and `components.ts`, exported as `./admin/*` and `./account/*` in place of the root `types.ts`, `schemas.ts` and `components.ts` (`configs/knip.json`, `packages/keycloak-api/package.json`). `cloudflare-api-js` has no `schemas.ts`, and `cloudflare-api-js`, `keycloak-api` and `litellm-api` have no `effect.ts` or `./effect` entry (directory listings, `exports` in each `package.json`).
 
 ## Build and exports
 
-`bunchee` builds each client into `dist/` with ESM, CJS and declarations, with `--dts-bundle` for the clients that have an `effect` entry so the shared Effect types are inlined (#4); `exports` maps `.`, `./types`, `./schemas`, `./components` and `./effect` where present (`packages/clickhouse-cloud/package.json`). Runtime dependencies are `zod` only, with `effect ^4` as an optional peer ([[decisions/2026-10-08-effect-4-major]]). `is-tree-shakable` runs on every package in `pnpm check` (`package.json`).
+`bunchee` builds each client into `dist/` with ESM, CJS and declarations, with `--dts-bundle` for the clients that have an `effect` entry so the shared Effect types are inlined (#4); `exports` maps `.`, `./types`, `./schemas`, `./components` and `./effect` where present (`packages/clickhouse-cloud/package.json`). The only runtime dependency is `zod`, except in `cloudflare-api-js`, which has none because it generates with `skipZod: true` (`packages/cloudflare-api-js/kubb.config.ts`). The six clients with an `effect` entry declare `effect ^4.0.0` as an optional peer; the other three declare no peers (`dependencies` and `peerDependencies` in each `package.json`, [[decisions/2026-10-08-effect-4-major]]). `is-tree-shakable` runs on every package in `pnpm check` (`package.json`).
 
 `@sferadev/openapi-utils` is a devDependency of every client and is bundled into `dist/` rather than resolved at install time (#1, [[decisions/2026-10-08-bundle-openapi-utils]]).
 
