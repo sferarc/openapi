@@ -1,6 +1,6 @@
-import { type operationsByPath, operationsByTag, type tagDictionary } from "./generated/components";
+import { operationsByPath, operationsByTag, type tagDictionary } from "./generated/components";
 import type { FetchImpl } from "./utils/fetch";
-import fetchFn, { type FetcherConfig } from "./utils/fetcher";
+import type { FetcherConfig } from "./utils/fetcher";
 import type { RequiredKeys } from "./utils/types";
 
 export interface LiteLLMApiOptions {
@@ -84,13 +84,15 @@ export class LiteLLMApi {
 		if (!this.#fetch) throw new Error("Fetch is required");
 	}
 
-	get api() {
-		const getConfig = async (): Promise<FetcherConfig> => ({
+	#config(): FetcherConfig {
+		return {
 			baseUrl: this.#baseUrl,
 			token: this.#token,
 			fetchImpl: this.#fetch,
-		});
+		};
+	}
 
+	get api() {
 		return new Proxy(
 			{},
 			{
@@ -113,7 +115,7 @@ export class LiteLLMApi {
 								const method = operationsByTag[namespace][operation] as any;
 
 								return async (params: Record<string, unknown>) => {
-									return await method({ ...params, config: await getConfig() });
+									return await method({ ...params, config: this.#config() });
 								};
 							},
 						},
@@ -127,16 +129,14 @@ export class LiteLLMApi {
 		endpoint: Endpoint,
 		params: RequestEndpointParams<Endpoint>,
 	) {
-		const [method = "", url = ""] = endpoint.split(" ");
-		const extraParams = (params || {}) as Record<string, unknown>;
+		const operation = Object.hasOwn(operationsByPath, endpoint)
+			? (operationsByPath[endpoint] as (params: Record<string, unknown>) => Promise<unknown>)
+			: undefined;
+		if (!operation) throw new Error(`Unknown endpoint: ${endpoint}`);
 
-		const result = await fetchFn({
-			...extraParams,
-			method,
-			url,
-			baseUrl: this.#baseUrl,
-			token: this.#token,
-			fetchImpl: this.#fetch,
+		const result = await operation({
+			...((params || {}) as Record<string, unknown>),
+			config: this.#config(),
 		});
 		return result as RequestEndpointResult<Endpoint>;
 	}
