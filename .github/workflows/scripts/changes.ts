@@ -1,39 +1,18 @@
-import { exec } from "node:child_process";
+import { execFileSync, spawn } from "node:child_process";
+import { randomUUID } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { createInterface } from "node:readline";
 import { openai } from "@ai-sdk/openai";
 import { generateObject } from "ai";
 import { z } from "zod";
-
-async function getChangeDiff(packagePath: string) {
-	return new Promise<string>((resolve, reject) => {
-		exec(
-			`git diff --ignore-all-space --ignore-blank-lines --minimal -- ${packagePath}`,
-			{ maxBuffer: 1024 * 1024 * 10 },
-			(error, stdout) => {
-				if (error) {
-					reject(error);
-				} else {
-					resolve(stdout);
-				}
-			},
-		);
-	});
-}
-
-async function writeChangesetFile(projectName: string, type: string, description: string) {
-	const rootDir = process.cwd();
-	const changesetDir = path.join(rootDir, ".changeset");
-	const randomName = Math.random().toString(36).substring(7);
-	const changesetPath = path.join(changesetDir, `${randomName}.md`);
-	const content = `---\n"${projectName}": ${type}\n---\n\n${description}`;
-
-	if (!fs.existsSync(changesetDir)) {
-		fs.mkdirSync(changesetDir);
-	}
-
-	fs.writeFileSync(changesetPath, content);
-}
+import {
+	type ChangeEntry,
+	createEntries,
+	type DiffSummary,
+	renderChangeset,
+	summarizeDiff,
+} from "./changeset";
 
 const changelogSchema = z.object({
 	changes: z.array(
@@ -44,42 +23,77 @@ const changelogSchema = z.object({
 	),
 });
 
+function hasChanges(packagePath: string): boolean {
+	const status = execFileSync("git", ["status", "--porcelain", "--", packagePath], {
+		encoding: "utf8",
+	});
+	return status.trim().length > 0;
+}
+
+// Streamed so that no regeneration, however large, can hit a buffer limit.
+async function summarizePackageDiff(packagePath: string): Promise<DiffSummary> {
+	const git = spawn(
+		"git",
+		["diff", "--ignore-all-space", "--ignore-blank-lines", "--", packagePath],
+		{ stdio: ["ignore", "pipe", "inherit"] },
+	);
+	const exited = new Promise<number | null>((resolve, reject) => {
+		git.on("error", reject);
+		git.on("close", resolve);
+	});
+
+	const summary = await summarizeDiff(createInterface({ input: git.stdout, crlfDelay: Infinity }));
+	const code = await exited;
+	if (code !== 0) throw new Error(`git diff exited with code ${code}`);
+	return summary;
+}
+
+async function generateEntries(system: string, prompt: string): Promise<ChangeEntry[]> {
+	const { object } = await generateObject({
+		model: openai("gpt-4.1"),
+		schema: changelogSchema,
+		system,
+		prompt,
+	});
+	return object.changes;
+}
+
+function writeChangeset(projectName: string, entry: ChangeEntry) {
+	const changesetDir = path.join(process.cwd(), ".changeset");
+	fs.mkdirSync(changesetDir, { recursive: true });
+	const changesetPath = path.join(changesetDir, `${projectName}-${randomUUID()}.md`);
+	fs.writeFileSync(changesetPath, renderChangeset(projectName, entry), { flag: "wx" });
+	console.log(`Wrote ${path.relative(process.cwd(), changesetPath)} (${entry.type})`);
+}
+
 async function main() {
 	const projectName = process.argv[2];
 	if (!projectName) throw new Error("Project name not provided");
 
 	const packagePath = `packages/${projectName}`;
+	if (!hasChanges(packagePath)) {
+		console.log("No changes detected");
+		return;
+	}
 
+	let summary: DiffSummary;
 	try {
-		const diff = await getChangeDiff(packagePath);
-		if (diff.trim().length === 0) {
-			console.log("No changes detected");
-			return;
-		}
-
-		const prompt = `
-    You are an assistant to a software developer working on a project called "${projectName}".
-    The developer has asked you to write a changelog entry for the API they are working on.
-    You need to document the changelog for the API from the git diff.
-    You can create multiple changelog entries to match the number of changes in the API.
-    Description must be a short sentence.
-    If there's a breaking change, add "[BREAKING]" to the beginning of the description.
-    Only use "patch" or "minor" changes in a 0.x.x semver versioning scheme. Unless it's a version bump, everything is a "patch".
-  `;
-
-		const { object } = await generateObject({
-			model: openai("gpt-4.1"),
-			schema: changelogSchema,
-			system: prompt,
-			prompt: diff,
-		});
-
-		for (const { type, description } of object.changes) {
-			await writeChangesetFile(projectName, type, description);
-		}
+		summary = await summarizePackageDiff(packagePath);
 	} catch (error) {
-		console.error(error);
+		console.error("Could not summarise the diff, writing the fallback changeset:", error);
+		summary = { text: "", truncated: false, removedOperations: [] };
+	}
+	if (summary.truncated) console.log("Diff summary truncated before sending it to the model");
+
+	const generate = process.env.OPENAI_API_KEY ? generateEntries : undefined;
+	if (!generate) console.log("OPENAI_API_KEY is not set, writing the fallback changeset");
+
+	for (const entry of await createEntries(projectName, summary, generate)) {
+		writeChangeset(projectName, entry);
 	}
 }
 
-main();
+main().catch((error) => {
+	console.error(error);
+	process.exitCode = 1;
+});
