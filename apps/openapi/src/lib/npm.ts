@@ -9,31 +9,54 @@ const packages = [
 	"v0-api",
 ];
 
+type RegistryFailure = { status: number } | { reason: string };
+
+function unavailable(packageName: string, failure: RegistryFailure): Record<string, string> {
+	const notPublished = "status" in failure && failure.status === 404;
+	console.warn(
+		JSON.stringify({
+			message: notPublished ? "npm package not published" : "npm registry unavailable",
+			package: packageName,
+			...failure,
+		}),
+	);
+	return {
+		name: packageName,
+		version: "unknown",
+		description: notPublished ? "Package not published on npm" : "npm registry unavailable",
+	};
+}
+
 async function fetchPackageVersion(packageName: string): Promise<Record<string, string>> {
+	let response: Response;
 	try {
-		const response = await fetch(`https://registry.npmjs.org/${packageName}/latest`, {
+		response = await fetch(`https://registry.npmjs.org/${packageName}/latest`, {
 			next: { revalidate: 3600 }, // Cache for 1 hour
 		});
-
-		if (!response.ok) {
-			throw new Error(`HTTP ${response.status}`);
-		}
-
-		const packageInfo = await response.json();
-
-		return {
-			name: packageName,
-			version: packageInfo.version || "unknown",
-			description: packageInfo.description || "Package not found on npm",
-		};
 	} catch (error) {
-		console.warn(`Warning: Could not fetch ${packageName}:`, error);
-		return {
-			name: packageName,
-			version: "unknown",
-			description: "Package not found on npm",
-		};
+		return unavailable(packageName, {
+			reason: error instanceof Error ? error.message : String(error),
+		});
 	}
+
+	if (!response.ok) {
+		return unavailable(packageName, { status: response.status });
+	}
+
+	let packageInfo: { version?: string; description?: string };
+	try {
+		packageInfo = await response.json();
+	} catch (error) {
+		return unavailable(packageName, {
+			reason: `invalid JSON: ${error instanceof Error ? error.message : String(error)}`,
+		});
+	}
+
+	return {
+		name: packageName,
+		version: packageInfo.version || "unknown",
+		description: packageInfo.description || "",
+	};
 }
 
 export async function fetchAllPackageVersions(): Promise<Record<string, string>> {
