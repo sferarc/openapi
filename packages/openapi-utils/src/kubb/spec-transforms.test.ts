@@ -61,6 +61,60 @@ describe("fetchSpec", () => {
 		await expect(fetchSpec("https://example.com/spec.json")).resolves.toEqual(document);
 	});
 
+	async function rejection(promise: Promise<unknown>): Promise<Error> {
+		try {
+			await promise;
+		} catch (error) {
+			if (error instanceof Error) return error;
+		}
+		throw new Error("expected an Error rejection");
+	}
+
+	it("names the url and the limit when the request times out", async () => {
+		const timeout = new DOMException("The operation was aborted due to timeout", "TimeoutError");
+		vi.stubGlobal(
+			"fetch",
+			vi.fn(async () => {
+				throw timeout;
+			}),
+		);
+		const error = await rejection(fetchSpec("https://example.com/spec.json", 1234));
+		expect(error.message).toContain("https://example.com/spec.json");
+		expect(error.message).toContain("timed out after 1234 ms");
+		expect(error.cause).toBe(timeout);
+	});
+
+	it("names the url when the connection fails", async () => {
+		const failure = new TypeError("fetch failed", { cause: new Error("getaddrinfo ENOTFOUND") });
+		vi.stubGlobal(
+			"fetch",
+			vi.fn(async () => {
+				throw failure;
+			}),
+		);
+		const error = await rejection(fetchSpec("https://example.com/spec.json"));
+		expect(error.message).toContain("https://example.com/spec.json");
+		expect(error.message).toContain("fetch failed (getaddrinfo ENOTFOUND)");
+		expect(error.cause).toBe(failure);
+	});
+
+	it("names the url and content-type when the body is not JSON", async () => {
+		vi.stubGlobal(
+			"fetch",
+			vi.fn(
+				async () =>
+					new Response("<html>maintenance</html>", {
+						headers: { "content-type": "text/html; charset=utf-8" },
+					}),
+			),
+		);
+		const error = await rejection(fetchSpec("https://example.com/spec.json"));
+		expect(error.message).toContain("https://example.com/spec.json");
+		expect(error.message).toContain("not valid JSON");
+		expect(error.message).toContain("text/html; charset=utf-8");
+		expect(error.cause).toBeInstanceOf(SyntaxError);
+	});
+
 	it("accepts swagger 2 documents", async () => {
 		const document = { swagger: "2.0", paths: { "/users": { get: {} } } };
 		stubFetch(document);
