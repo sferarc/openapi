@@ -16,6 +16,8 @@ Run alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`.
 - `src/kubb/spec-transforms.test.ts`: the spec transforms, stubbing the global `fetch` for `fetchSpec` (#18).
 - `src/kubb/components/client-operation.test.ts`: `buildUrlTemplate` percent-encodes single-segment path parameters (#17), keeps slashes in file path parameters and does not double-encode a path already passed through `encodeURI` (#23).
 - `src/kubb/adapter.test.ts`: `rawRequestBodyFallback` keeps the first raw media type and leaves JSON-like and url-encoded bodies to the JSON parse (#25).
+- `src/effect/proxy.test.ts`: the Effect proxies map a rejection with a `status` to `ApiError`, a missing path parameter to `ValidationError` naming the field and anything else to `NetworkError`, pass the `ApiConfig` service to the operation as `config`, and return `undefined` for an unknown tag, operation or endpoint (#33).
+- `src/effect/errors.test.ts`: how `ApiError.message` and `NetworkError.message` read each provider's error shape (#33).
 - `src/kubb/client/extra.test.ts`: reads every package's committed `src/**/generated/components.ts` and asserts that each exported operation appears in `operationsByTag` (#24).
 
 ## Website
