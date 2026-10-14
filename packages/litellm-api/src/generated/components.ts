@@ -180,11 +180,18 @@ export const operationsByTag = {
 		createCheckoutBillingCheckoutPost,
 		checkUsageBillingUsageGet,
 	},
+	default: {
+		listModelCatalogModelCatalogGet,
+		getModelCatalogEntryModelCatalogModelIdGet,
+	},
 };
 
 export const tagDictionary = {
 	billing: {
 		POST: ["createCheckoutBillingCheckoutPost"],
 		GET: ["checkUsageBillingUsageGet"],
+	},
+	default: {
+		GET: ["listModelCatalogModelCatalogGet", "getModelCatalogEntryModelCatalogModelIdGet"],
 	},
 } as const;
