@@ -168,3 +168,50 @@ describe("effect", () => {
 		expect(error).toMatchObject({ status: 404 });
 	});
 });
+
+describe("ClickHouseCloudApi.request", () => {
+	function setup() {
+		const urls: string[] = [];
+		const fetch: FetchImpl = async (url) => {
+			urls.push(url);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { urls, client: new ClickHouseCloudApi({ keyId: "id", keySecret: "secret", fetch }) };
+	}
+
+	it("percent-encodes path params", async () => {
+		const { urls, client } = setup();
+		await client.request("GET /v1/organizations/{organizationId}", {
+			pathParams: { organizationId: "a/b" },
+		});
+		expect(urls).toHaveLength(1);
+		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/v1\/organizations\/a%2Fb$/);
+	});
+
+	it("rejects a missing path param before calling fetch", async () => {
+		const { urls, client } = setup();
+		await expect(
+			client.request("GET /v1/organizations/{organizationId}", {
+				pathParams: { organizationId: "" },
+			}),
+		).rejects.toThrow("Missing required path parameter: organizationId");
+		expect(urls).toEqual([]);
+	});
+
+	it("calls an endpoint without params", async () => {
+		const { urls, client } = setup();
+		await client.request("GET /v1/whoami", {});
+		expect(urls).toHaveLength(1);
+		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/v1\/whoami$/);
+	});
+
+	it("rejects an unknown endpoint", async () => {
+		const { client } = setup();
+		await expect(client.request("GET /nope" as never, {} as never)).rejects.toThrow(
+			"Unknown endpoint: GET /nope",
+		);
+	});
+});
