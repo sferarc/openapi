@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { uploadDeployFile } from "../generated/components";
 import type { FetchImpl } from "./fetch";
 import client from "./fetcher";
 
@@ -69,5 +70,21 @@ describe("fetcher", () => {
 		it("encodes reserved characters and spaces", async () => {
 			expect(await searchOf({ q: "a&b c" })).toBe("?q=a%26b+c");
 		});
+	});
+
+	it("keeps slashes in deploy file paths", async () => {
+		let calledUrl = "";
+		const fetchImpl: FetchImpl = async (url) => {
+			calledUrl = String(url);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		await uploadDeployFile({
+			pathParams: { deploy_id: "d1", path: "assets/my app.js" },
+			config: { fetchImpl },
+		});
+		expect(calledUrl).toContain("/deploys/d1/files/assets/my%20app.js");
 	});
 });
