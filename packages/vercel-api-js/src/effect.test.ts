@@ -26,5 +26,6 @@ describe("effect bindings", () => {
 			throw new TypeError("fetch failed");
 		});
 		expect(error).toBeInstanceOf(NetworkError);
+		expect((error as NetworkError).message).toBe(`Network error: ${endpoint} failed: fetch failed`);
 	});
 });

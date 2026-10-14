@@ -217,6 +217,45 @@ describe("ClickHouseCloudApi.request", () => {
 	});
 });
 
+describe("fetcher failures", () => {
+	it("keeps the raw body when the error body is not JSON", async () => {
+		const fetchImpl: FetchImpl = async () =>
+			new Response("<html>Bad gateway</html>", {
+				status: 502,
+				headers: { "content-type": "text/html" },
+			}) as never;
+		await expect(fetcher({ url: "/thing", method: "get", fetchImpl })).rejects.toEqual({
+			status: "unknown",
+			payload: "<html>Bad gateway</html>",
+		});
+	});
+
+	it("truncates a long non-JSON error body", async () => {
+		const fetchImpl: FetchImpl = async () =>
+			new Response("x".repeat(5000), { status: 502 }) as never;
+		await expect(fetcher({ url: "/thing", method: "get", fetchImpl })).rejects.toEqual({
+			status: "unknown",
+			payload: "x".repeat(1000),
+		});
+	});
+
+	it("reports a failed request as an Error naming the request and keeping the cause", async () => {
+		const cause = new TypeError("fetch failed");
+		const fetchImpl: FetchImpl = async () => {
+			throw cause;
+		};
+		const error = await fetcher({
+			url: "/thing",
+			method: "get",
+			queryParams: { secret: "s3cret" },
+			fetchImpl,
+		}).catch((e: unknown) => e);
+		expect(error).toBeInstanceOf(Error);
+		expect((error as Error).cause).toBe(cause);
+		expect((error as Error).message).toBe("GET /thing failed: fetch failed");
+	});
+});
+
 describe("fetcher edge responses and headers", () => {
 	const sent = async (options: { headers: Record<string, string>; body?: unknown }) => {
 		let init: Parameters<FetchImpl>[1];

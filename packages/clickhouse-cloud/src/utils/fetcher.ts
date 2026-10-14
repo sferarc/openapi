@@ -27,6 +27,8 @@ export function basicAuth(keyId: string, keySecret: string): string {
 	return `Basic ${btoa(`${keyId}:${keySecret}`)}`;
 }
 
+const maxErrorBodyLength = 1000;
+
 class ResponseError {
 	constructor(readonly error: unknown) {}
 }
@@ -79,14 +81,12 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 		});
 
 		if (!response.ok) {
+			const text = await response.text();
 			let error: ErrorWrapper<TError>;
 			try {
-				error = await response.json();
-			} catch (e) {
-				error = {
-					status: "unknown" as const,
-					payload: e instanceof Error ? `Unexpected error (${e.message})` : "Unexpected error",
-				};
+				error = JSON.parse(text);
+			} catch {
+				error = { status: "unknown" as const, payload: text.slice(0, maxErrorBodyLength) };
 			}
 			throw new ResponseError(error);
 		}
@@ -101,12 +101,9 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 		// API errors carry the response body (`{ status, requestId, error }`), so they are rethrown as is.
 		if (e instanceof ResponseError) throw e.error;
 
-		const errorObject: Error = {
-			name: "unknown" as const,
-			message: e instanceof Error ? `Network error (${e.message})` : "Network error",
-			stack: e as string,
-		};
-		throw errorObject;
+		const reason = e instanceof Error ? e.message : String(e);
+		// Only the path: query values can carry secrets.
+		throw new Error(`${method.toUpperCase()} ${url.split("?")[0]} failed: ${reason}`, { cause: e });
 	}
 }
 
