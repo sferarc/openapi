@@ -1,7 +1,7 @@
-import type { operationsByPath as accountOperationsByPath } from "./account/generated/components";
-import type { operationsByPath as adminOperationsByPath } from "./admin/generated/components";
+import { operationsByPath as accountOperationsByPath } from "./account/generated/components";
+import { operationsByPath as adminOperationsByPath } from "./admin/generated/components";
 import type { FetchImpl } from "./utils/fetch";
-import fetchFn, { type FetcherConfig } from "./utils/fetcher";
+import type { FetcherConfig } from "./utils/fetcher";
 
 export interface KeycloakAdminApiOptions {
 	baseUrl: string;
@@ -34,6 +34,13 @@ type AccountRequestEndpointResult<T extends keyof typeof accountOperationsByPath
 	(typeof accountOperationsByPath)[T]
 >;
 
+type Operation = (params: Record<string, unknown>) => Promise<unknown>;
+
+function findOperation(operations: Record<string, unknown>, endpoint: string): Operation {
+	if (!Object.hasOwn(operations, endpoint)) throw new Error(`Unknown endpoint: ${endpoint}`);
+	return operations[endpoint] as Operation;
+}
+
 export class KeycloakAdminApi {
 	#baseUrl: string;
 	#token: string | null;
@@ -51,16 +58,10 @@ export class KeycloakAdminApi {
 		endpoint: Endpoint,
 		params: AdminRequestEndpointParams<Endpoint>,
 	) {
-		const [method = "", url = ""] = endpoint.split(" ");
-		const extraParams = (params || {}) as Record<string, unknown>;
-
-		const result = await fetchFn({
-			...extraParams,
-			method,
-			url,
-			baseUrl: this.#baseUrl,
-			token: this.#token,
-			fetchImpl: this.#fetch,
+		const operation = findOperation(adminOperationsByPath, endpoint);
+		const result = await operation({
+			...((params || {}) as Record<string, unknown>),
+			config: { baseUrl: this.#baseUrl, token: this.#token, fetchImpl: this.#fetch },
 		});
 		return result as AdminRequestEndpointResult<Endpoint>;
 	}
@@ -85,17 +86,14 @@ export class KeycloakAccountApi {
 		endpoint: Endpoint,
 		params: AccountRequestEndpointParams<Endpoint>,
 	) {
-		const baseUrl = `${this.#baseUrl}/realms/${this.#realm}`;
-		const [method = "", url = ""] = endpoint.split(" ");
-		const extraParams = (params || {}) as Record<string, unknown>;
-
-		const result = await fetchFn({
-			...extraParams,
-			method,
-			url,
-			baseUrl,
-			token: this.#token,
-			fetchImpl: this.#fetch,
+		const operation = findOperation(accountOperationsByPath, endpoint);
+		const result = await operation({
+			...((params || {}) as Record<string, unknown>),
+			config: {
+				baseUrl: `${this.#baseUrl}/realms/${this.#realm}`,
+				token: this.#token,
+				fetchImpl: this.#fetch,
+			},
 		});
 		return result as AccountRequestEndpointResult<Endpoint>;
 	}
