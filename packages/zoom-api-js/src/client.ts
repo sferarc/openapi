@@ -130,16 +130,15 @@ export class ZoomApi {
 			}: RefreshTokenOptions): Promise<RefreshTokenResult> => {
 				const response = await this.#fetch("https://zoom.us/oauth/token", {
 					method: "POST",
+					headers: { Authorization: `Basic ${btoa(`${clientId}:${clientSecret}`)}` },
 					body: new URLSearchParams({
 						grant_type: "refresh_token",
 						refresh_token: refreshToken,
-						client_id: clientId,
-						client_secret: clientSecret,
 					}),
 				});
 
 				if (!response.ok) {
-					throw new Error("Failed to refresh Zoom token");
+					throw new Error(`Failed to refresh Zoom token: HTTP ${response.status}`);
 				}
 
 				const result = await response.json();
