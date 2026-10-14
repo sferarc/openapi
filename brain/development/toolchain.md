@@ -1,6 +1,6 @@
 # Toolchain
 
-`mise.toml` pins Node `26.10.0` and pnpm `12.10.1`, with checksums in `mise.lock`. `package.json` repeats the pnpm version in `packageManager` and asks for Node 22 or newer in `engines`.
+`mise.toml` pins Node `26.11.1` and pnpm `12.11.2`, with checksums in `mise.lock`. `package.json` repeats the pnpm version in `packageManager` and asks for Node 22 or newer in `engines`.
 
 ```bash
 mise install
@@ -13,7 +13,7 @@ pnpm generate --filter=<package>
 
 | Command | Runs |
 | --- | --- |
-| `pnpm tsc` | `tsc --noEmit` in every workspace through Turborepo, after building dependencies |
+| `pnpm tsc` | `tsc --noEmit` in every workspace through Turborepo, after building dependencies; the website runs `next typegen` first so route types are checked too |
 | `pnpm check` | `biome check .`, `knip --config configs/knip.json`, then `is-tree-shakable` on every package |
 | `pnpm check:fix` | `biome check . --write` |
 | `pnpm test` | `vitest run` in workspaces that define `test` |
