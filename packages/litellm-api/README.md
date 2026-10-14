@@ -29,7 +29,13 @@ const client = new LiteLLMApi({
 const usage = await client.api.billing.checkUsageBillingUsageGet();
 ```
 
-Operations are grouped by tag: `client.api.<tag>.<operation>(params)`.
+Operations are grouped by tag: `client.api.<tag>.<operation>(params)`. Operations without a tag live under `client.api.default`.
+
+Every operation can also be called by method and path:
+
+```ts
+const usage = await client.request("GET /billing/usage", {});
+```
 
 ### Custom fetch
 
@@ -40,6 +46,10 @@ const client = new LiteLLMApi({
   fetch: myFetchImplementation,
 });
 ```
+
+## Errors
+
+A call that gets an HTTP error response rejects with `{ status, payload }`: `status` is the HTTP status code and `payload` is the parsed JSON error body, or a string describing why the body could not be parsed. A request that gets no response at all, for example because the network failed, rejects with `{ name: "unknown", message }`.
 
 ## Entrypoints
 

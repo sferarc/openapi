@@ -62,6 +62,10 @@ const admin = new KeycloakAdminApi({
 });
 ```
 
+## Errors
+
+A call that gets an HTTP error response rejects with `{ status, payload }`: `status` is the HTTP status code and `payload` is the parsed JSON error body, or a string describing why the body could not be parsed. A request that gets no response at all, for example because the network failed, rejects with `{ name: "unknown", message }`.
+
 ## Entrypoints
 
 | Import | Contents |
