@@ -1,21 +1,9 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { type GenericOAuthConfig, genericOAuth } from "better-auth/plugins";
-import { z } from "zod";
 import { db } from "./db";
 import { accounts, sessions, users, verifications } from "./schema";
-
-const VERCEL_USERINFO_URL = "https://api.vercel.com/v2/user";
-
-/** Vercel returns the profile nested under `user`, not at the top level. */
-const vercelUserInfoSchema = z.object({
-	user: z.object({
-		id: z.string(),
-		name: z.string().nullable(),
-		email: z.string(),
-		avatar: z.string().nullable(),
-	}),
-});
+import { getVercelUserInfo, VERCEL_USERINFO_URL } from "./vercel-user-info";
 
 /**
  * Vercel's OAuth does not advertise an OIDC discovery document, and its
@@ -34,31 +22,7 @@ const vercel: GenericOAuthConfig = {
 	authorizationUrl: `https://vercel.com/integrations/${process.env.AUTH_VERCEL_APP_NAME}/new`,
 	tokenUrl: "https://api.vercel.com/v2/oauth/access_token",
 	userInfoUrl: VERCEL_USERINFO_URL,
-	getUserInfo: async (tokens) => {
-		if (!tokens.accessToken) {
-			throw new Error("Vercel token exchange returned no access token");
-		}
-
-		const response = await fetch(VERCEL_USERINFO_URL, {
-			headers: { Authorization: `Bearer ${tokens.accessToken}` },
-		});
-
-		if (!response.ok) {
-			throw new Error(`Vercel userinfo request failed with ${response.status}`);
-		}
-
-		const { user } = vercelUserInfoSchema.parse(await response.json());
-
-		return {
-			id: user.id,
-			name: user.name ?? user.email,
-			email: user.email,
-			image: user.avatar ?? undefined,
-			// Vercel only issues tokens for confirmed accounts, so the address is
-			// already verified by the time it reaches us.
-			emailVerified: true,
-		};
-	},
+	getUserInfo: (tokens) => getVercelUserInfo(tokens, fetch),
 };
 
 export const auth = betterAuth({
