@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { createInterface } from "node:readline";
 import { openai } from "@ai-sdk/openai";
-import { generateObject } from "ai";
+import { generateText, Output } from "ai";
 import { z } from "zod";
 import {
 	type ChangeEntry,
@@ -49,13 +49,13 @@ async function summarizePackageDiff(packagePath: string): Promise<DiffSummary> {
 }
 
 async function generateEntries(system: string, prompt: string): Promise<ChangeEntry[]> {
-	const { object } = await generateObject({
+	const { output } = await generateText({
 		model: openai("gpt-4.1"),
-		schema: changelogSchema,
+		output: Output.object({ schema: changelogSchema }),
 		system,
 		prompt,
 	});
-	return object.changes;
+	return output.changes;
 }
 
 function writeChangeset(projectName: string, entry: ChangeEntry) {

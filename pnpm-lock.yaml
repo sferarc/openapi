@@ -359,6 +359,9 @@ importers:
       '@changesets/cli':
         specifier: 'catalog:'
         version: 3.0.3
+      '@types/node':
+        specifier: 'catalog:'
+        version: 26.6.5
       '@typescript/typescript6':
         specifier: 'catalog:'
         version: 6.0.2
