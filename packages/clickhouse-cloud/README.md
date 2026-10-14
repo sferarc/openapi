@@ -93,7 +93,7 @@ Errors are typed as `ApiError`, `NetworkError` and `ValidationError`.
 
 ## Spec source
 
-The client is generated with [kubb](https://kubb.dev) from the OpenAPI document ClickHouse serves at [`https://api.clickhouse.cloud/v1`](https://api.clickhouse.cloud/v1). The only fixup rewrites the placeholder Slack webhook URLs in its examples, which GitHub push protection otherwise blocks as secrets. The hourly `Update OpenAPI` workflow regenerates it from that URL and opens a PR with a changeset when the spec changes. To regenerate locally:
+The client is generated with [kubb](https://kubb.dev) from the OpenAPI document ClickHouse serves at [`https://api.clickhouse.cloud/v1`](https://api.clickhouse.cloud/v1). The only fixup rewrites the placeholder Slack webhook URLs in its examples, which GitHub push protection otherwise blocks as secrets. The `Update OpenAPI` workflow regenerates it from that URL and opens a PR with a changeset when the spec changes. It runs on manual dispatch, and hourly once the repository variable `SPEC_UPDATES_ENABLED` is `true`. To regenerate locally:
 
 ```bash
 pnpm generate --filter=clickhouse-cloud

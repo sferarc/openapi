@@ -27,4 +27,4 @@ pnpm tsc && pnpm check && pnpm test
 pnpm generate --filter=<package>   # regenerate one client from its live spec
 ```
 
-The `Update OpenAPI` workflow regenerates each client from its upstream spec and opens a PR with a changeset written from the diff. Releases go through changesets: merging the version PR publishes to npm.
+The `Update OpenAPI` workflow regenerates each client from its upstream spec and opens a PR with a changeset written from the diff. It runs on manual dispatch, and hourly once the repository variable `SPEC_UPDATES_ENABLED` is `true`. Releases go through changesets and publish to npm only once `RELEASE_ENABLED` is `true`; until then pending changesets accumulate in `.changeset/`.
