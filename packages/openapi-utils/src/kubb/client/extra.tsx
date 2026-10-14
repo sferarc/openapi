@@ -11,6 +11,10 @@ function isWriteOrReadMethod(method: string): method is HttpMethod {
 	return (HTTP_METHODS as readonly string[]).includes(method);
 }
 
+function tagKey(tag: string): string {
+	return c.camel(tag.toLowerCase());
+}
+
 export const extraGenerator = defineGenerator<PluginClient>({
 	name: "extra",
 	renderer: jsxRenderer,
@@ -33,28 +37,37 @@ export const extraGenerator = defineGenerator<PluginClient>({
 			return <File.Import key={name} name={[name]} root={file.path} path={opFile.path} />;
 		});
 
-		const tags = Array.from(new Set(operations.flatMap((node) => node.tags)));
-
 		const eligible = operations.filter(
 			(node) => isWriteOrReadMethod(node.method) && node.operationId !== undefined,
 		);
+
+		const eligibleSet = new Set(eligible);
 
 		const operationsByPath = Object.fromEntries(
 			eligible.map((node) => [`${node.method.toUpperCase()} ${node.path}`, getOpName(node)]),
 		);
 
+		// Tags that camel-case to the same key share one namespace.
+		const nodesByTag = new Map<string, Set<ast.HttpOperationNode>>();
+		for (const node of operations) {
+			const tags = node.tags.length > 0 ? node.tags : ["default"];
+			for (const tag of tags) {
+				const key = tagKey(tag);
+				const nodes = nodesByTag.get(key) ?? new Set();
+				nodes.add(node);
+				nodesByTag.set(key, nodes);
+			}
+		}
+
 		const operationsByTag = Object.fromEntries(
-			tags.map((name) => [
-				c.camel(name.toLowerCase()),
-				operations.filter((node) => node.tags.includes(name)).map(getOpName),
-			]),
+			Array.from(nodesByTag, ([tag, nodes]) => [tag, Array.from(nodes, getOpName)]),
 		);
 
 		const tagDictionary = Object.fromEntries(
-			tags.map((name) => [
-				c.camel(name.toLowerCase()),
-				eligible
-					.filter((node) => node.tags.includes(name))
+			Array.from(nodesByTag, ([tag, nodes]) => [
+				tag,
+				Array.from(nodes)
+					.filter((node) => eligibleSet.has(node))
 					.reduce(
 						(acc, node) => {
 							const method = node.method.toUpperCase();
