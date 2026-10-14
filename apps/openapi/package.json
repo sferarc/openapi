@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "next dev --turbopack",
 		"build": "next build",
-		"start": "next start"
+		"start": "next start",
+		"test": "vitest run"
 	},
 	"dependencies": {
 		"@radix-ui/react-slot": "catalog:",
@@ -33,6 +34,7 @@
 		"postcss": "catalog:",
 		"tailwindcss": "catalog:",
 		"tw-animate-css": "catalog:",
-		"typescript": "catalog:"
+		"typescript": "catalog:",
+		"vitest": "catalog:"
 	}
 }
