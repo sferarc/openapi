@@ -8,4 +8,4 @@ Every other client except `clickhouse-cloud` has `src/utils/fetcher.test.ts`, wh
 
 Beyond those tests, the checks on the clients are type-level and structural: `pnpm tsc` over the generated code and the hand-written client, `knip` for unused exports and dependencies, and `is-tree-shakable` on each built package ([[toolchain]]).
 
-Generated output is not snapshot-tested. A regeneration is reviewed through its diff and the changeset `changes.ts` writes ([[architecture/pipeline]]).
+Generated output is not snapshot-tested. A regeneration is reviewed through its diff and the changeset `changes.ts` writes ([[architecture/pipeline]]). The changeset script's pure parts are tested in `.github/workflows/scripts/changeset.test.ts`, which the root `pnpm test` runs after the turbo tests.
