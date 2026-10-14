@@ -26,6 +26,12 @@ const accounts = await client.api.accounts.accountsListAccounts({});
 
 Operations are grouped by tag: `client.api.<tag>.<operation>(params)`.
 
+Every operation can also be called by method and path:
+
+```ts
+const accounts = await client.request("GET /accounts", {});
+```
+
 ### Custom fetch
 
 ```ts
@@ -34,6 +40,10 @@ const client = new CloudflareApi({
   fetch: myFetchImplementation,
 });
 ```
+
+## Errors
+
+A call that gets an HTTP error response rejects with `{ status, payload }`: `status` is the HTTP status code and `payload` is the parsed JSON error body, or a string describing why the body could not be parsed. A request that gets no response at all, for example because the network failed, rejects with `{ name: "unknown", message }`.
 
 ## Entrypoints
 
