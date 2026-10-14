@@ -1,5 +1,5 @@
 export type RequestInit = {
-	body?: string | FormData | undefined;
+	body?: string | FormData | Blob | ArrayBuffer | Uint8Array | ReadableStream | undefined;
 	headers?: Record<string, string> | undefined;
 	method?: string | undefined;
 	signal?: any | undefined;

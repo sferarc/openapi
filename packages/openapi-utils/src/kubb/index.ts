@@ -1,7 +1,7 @@
-import { adapterOas } from "@kubb/adapter-oas";
 import { pluginTs } from "@kubb/plugin-ts";
 import { pluginZod } from "@kubb/plugin-zod";
 import type { UserConfig } from "kubb";
+import { adapterOasWithRawBodies } from "./adapter";
 import { pluginClient } from "./plugin";
 
 interface ConfigOptions {
@@ -17,7 +17,7 @@ function buildConfig({
 }: ConfigOptions = {}): Omit<UserConfig, "input"> {
 	return {
 		root: ".",
-		adapter: adapterOas({
+		adapter: adapterOasWithRawBodies({
 			validate: false,
 			server: { index: 0 },
 			contentType: "application/json",

@@ -8209,8 +8209,18 @@ export type CreateSiteBuildStatusDefault = {
 	message: string;
 };
 
+export type CreateSiteBuildBody =
+	| {
+			/**
+			 * @description A zip file containing the site files to build.\nOnly used with Content-Type \'multipart/form-data\'.\nAlternatively, set Content-Type to \'application/zip\' and send the zip as the raw request body (no \'zip\' parameter needed).\n
+			 * @type string | undefined
+			 */
+			zip?: Blob | undefined;
+	  }
+	| undefined;
+
 export type CreateSiteBuildOptions = {
-	body?: never | undefined;
+	body: CreateSiteBuildBody;
 	path: CreateSiteBuildPath;
 	query?: CreateSiteBuildQuery | undefined;
 	headers?: never | undefined;
@@ -9410,8 +9420,10 @@ export type UploadDeployFileStatusDefault = {
 	message: string;
 };
 
+export type UploadDeployFileBody = Blob;
+
 export type UploadDeployFileOptions = {
-	body?: never | undefined;
+	body: UploadDeployFileBody;
 	path: UploadDeployFilePath;
 	query?: UploadDeployFileQuery | undefined;
 	headers?: never | undefined;
@@ -9460,8 +9472,10 @@ export type UploadDeployFunctionStatusDefault = {
 	message: string;
 };
 
+export type UploadDeployFunctionBody = Blob;
+
 export type UploadDeployFunctionOptions = {
-	body?: never | undefined;
+	body: UploadDeployFunctionBody;
 	path: UploadDeployFunctionPath;
 	query?: UploadDeployFunctionQuery | undefined;
 	headers?: UploadDeployFunctionHeaders | undefined;
@@ -9502,8 +9516,10 @@ export type UploadDeployServerStatusDefault = {
 	message: string;
 };
 
+export type UploadDeployServerBody = Blob;
+
 export type UploadDeployServerOptions = {
-	body?: never | undefined;
+	body: UploadDeployServerBody;
 	path: UploadDeployServerPath;
 	query?: UploadDeployServerQuery | undefined;
 	headers?: UploadDeployServerHeaders | undefined;
@@ -9540,8 +9556,10 @@ export type UploadDeployEdgeFunctionStatusDefault = {
 	message: string;
 };
 
+export type UploadDeployEdgeFunctionBody = Blob;
+
 export type UploadDeployEdgeFunctionOptions = {
-	body?: never | undefined;
+	body: UploadDeployEdgeFunctionBody;
 	path: UploadDeployEdgeFunctionPath;
 	query?: never | undefined;
 	headers?: UploadDeployEdgeFunctionHeaders | undefined;

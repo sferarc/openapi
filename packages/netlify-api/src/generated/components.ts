@@ -52,6 +52,7 @@ import type {
 	CreateSiteAgentRunnerHookResponse,
 	CreateSiteAssetResponse,
 	CreateSiteBody,
+	CreateSiteBuildBody,
 	CreateSiteBuildHookBody,
 	CreateSiteBuildHookResponse,
 	CreateSiteBuildResponse,
@@ -2515,10 +2516,12 @@ export async function listSiteBuilds(
 export async function createSiteBuild(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { site_id: string };
+		body?: CreateSiteBuildBody;
 		queryParams?: {
 			branch?: string;
 			clear_cache?: boolean;
@@ -2538,10 +2541,21 @@ export async function createSiteBuild(
 	) {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
+	const formData = new FormData();
+	if (body) {
+		Object.keys(body).forEach((key) => {
+			const value = (body as Record<string, unknown>)[key];
+			if (typeof value === "string" || value instanceof Blob) {
+				formData.append(key, value);
+			} else if (typeof value === "number" || typeof value === "boolean") {
+				formData.append(key, String(value));
+			}
+		});
+	}
 	const data = await request<
 		CreateSiteBuildResponse,
 		ErrorWrapper<CreateSiteBuildStatus400 | CreateSiteBuildStatus404 | CreateSiteBuildStatus422>,
-		null,
+		FormData,
 		Record<string, string>,
 		{
 			branch?: string;
@@ -2555,8 +2569,9 @@ export async function createSiteBuild(
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/builds`,
 		queryParams,
+		body: formData,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "multipart/form-data", ...requestConfig.headers },
 	});
 
 	return data;
@@ -3196,10 +3211,12 @@ export async function unlockDeploy(
 export async function uploadDeployFile(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { deploy_id: string; path: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { size?: number };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3220,7 +3237,7 @@ export async function uploadDeployFile(
 	const data = await request<
 		UploadDeployFileResponse,
 		ErrorWrapper<Error>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ size?: number },
 		{ deploy_id: string; path: string }
@@ -3228,8 +3245,9 @@ export async function uploadDeployFile(
 		method: "PUT",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/files/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "application/octet-stream", ...requestConfig.headers },
 	});
 
 	return data;
@@ -3241,11 +3259,13 @@ export async function uploadDeployFile(
 export async function uploadDeployFunction(
 	{
 		pathParams,
+		body,
 		queryParams,
 		headers,
 		config,
 	}: {
 		pathParams: { deploy_id: string; name: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { runtime?: string; invocation_mode?: string; timeout?: number; size?: number };
 		headers?: { "X-Nf-Retry-Count"?: number };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
@@ -3267,7 +3287,7 @@ export async function uploadDeployFunction(
 	const data = await request<
 		UploadDeployFunctionResponse,
 		ErrorWrapper<Error>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		{ "X-Nf-Retry-Count"?: number },
 		{ runtime?: string; invocation_mode?: string; timeout?: number; size?: number },
 		{ deploy_id: string; name: string }
@@ -3275,8 +3295,9 @@ export async function uploadDeployFunction(
 		method: "PUT",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/functions/${encodeURIComponent(String(pathParams.name))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: { "Content-Type": "application/octet-stream", ...headers, ...requestConfig.headers },
 	});
 
 	return data;
@@ -3290,11 +3311,13 @@ export async function uploadDeployFunction(
 export async function uploadDeployServer(
 	{
 		pathParams,
+		body,
 		queryParams,
 		headers,
 		config,
 	}: {
 		pathParams: { deploy_id: string; code_sha: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { size?: number };
 		headers?: { "X-Nf-Retry-Count"?: number };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
@@ -3320,7 +3343,7 @@ export async function uploadDeployServer(
 	const data = await request<
 		UploadDeployServerResponse,
 		ErrorWrapper<Error>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		{ "X-Nf-Retry-Count"?: number },
 		{ size?: number },
 		{ deploy_id: string; code_sha: string }
@@ -3328,8 +3351,9 @@ export async function uploadDeployServer(
 		method: "PUT",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/server/${encodeURIComponent(String(pathParams.code_sha))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: { "Content-Type": "application/octet-stream", ...headers, ...requestConfig.headers },
 	});
 
 	return data;
@@ -3341,10 +3365,12 @@ export async function uploadDeployServer(
 export async function uploadDeployEdgeFunction(
 	{
 		pathParams,
+		body,
 		headers,
 		config,
 	}: {
 		pathParams: { deploy_id: string; code_sha: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		headers?: { "X-Nf-Retry-Count"?: number };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3369,15 +3395,16 @@ export async function uploadDeployEdgeFunction(
 	const data = await request<
 		UploadDeployEdgeFunctionResponse,
 		ErrorWrapper<Error>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		{ "X-Nf-Retry-Count"?: number },
 		Record<string, string>,
 		{ deploy_id: string; code_sha: string }
 	>({
 		method: "PUT",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/edge_functions/${encodeURIComponent(String(pathParams.code_sha))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: { "Content-Type": "application/octet-stream", ...headers, ...requestConfig.headers },
 	});
 
 	return data;

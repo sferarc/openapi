@@ -114,6 +114,8 @@ function buildParamObjectType(params: Param[], allOptional: boolean): string {
 	return `{ ${entries.join("; ")} }`;
 }
 
+const RAW_BODY_TYPE = "Blob | ArrayBuffer | Uint8Array | ReadableStream | string";
+
 type Props = {
 	name: string;
 	node: ast.HttpOperationNode;
@@ -129,11 +131,12 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	const contentType = requestBodyContent?.contentType ?? "application/json";
 	const isFormData = contentType === "multipart/form-data";
 	const hasBody = Boolean(typeSchemas.request);
+	const isRawBody = hasBody && !isFormData && contentType !== "application/json";
 
 	const pathParamsType = buildParamObjectType(pathParams, false);
 	const queryParamsType = buildParamObjectType(queryParams, true);
 	const headerParamsType = buildParamObjectType(headerParams, true);
-	const bodyType = typeSchemas.request?.name;
+	const bodyType = isRawBody ? RAW_BODY_TYPE : typeSchemas.request?.name;
 
 	const fields: string[] = [];
 	if (pathParams.length > 0) {
@@ -163,7 +166,7 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	const generics = [
 		typeSchemas.response.name,
 		errorType,
-		bodyType ?? "null",
+		bodyType ? (isFormData ? "FormData" : bodyType) : "null",
 		headerParams.length > 0 ? headerParamsType : "Record<string, string>",
 		queryParams.length > 0 ? queryParamsType : "Record<string, string>",
 		pathParams.length > 0 ? pathParamsType : "Record<string, string>",
