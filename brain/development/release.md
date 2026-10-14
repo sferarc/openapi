@@ -16,7 +16,14 @@ The release job only runs when the repository variable `RELEASE_ENABLED` is `tru
 
 ## Current state
 
-As of 2026-10-08 (`npm view <package> version`):
+As of 2026-10-14 (`npm view <package> version`, unchanged since the 2026-10-08 check):
 
 - Eight clients are on npm at the versions in their `package.json`. Those versions were published from the earlier monorepo (`repository.url` on npm still names it).
-- `vercel-api-js` and `netlify-api` on npm declare `@sferadev/openapi-utils@0.0.1` as a dependency, which does not exist on npm, so installing them fails. The pending changeset from #1 fixes this for the five affected clients at their next release, which is also a major release for them because of [[decisions/2026-10-08-effect-4-major]].
+- `vercel-api-js` and `netlify-api` on npm declare `@sferadev/openapi-utils@0.0.1` as a dependency, which does not exist on npm, so installing them fails. The pending changeset from #1 fixes this for the five affected clients at their next release.
+
+## Pending changesets
+
+As of 2026-10-15, `.changeset/` holds 34 changesets besides `README.md` and `config.json`. The first release will be a major for all eight published clients:
+
+- Majors: `effect-v4.md` for the five Effect clients (#6, [[decisions/2026-10-08-effect-4-major]]), and `http-errors-as-api-error.md` for all eight published clients, the new `{ status, payload }` rejection shape (#8, made a major in #9).
+- Patches: `bundle-openapi-utils.md` (#1), `inline-effect-types.md` (#4), `fetcher-query-serialization.md` (#16), `path-encoding-*.md` for the other seven clients (#17), `path-params-keep-slashes-*.md` for `cloudflare-api-js`, `keycloak-api` and `netlify-api` (#23), `untagged-operations-*.md` for `cloudflare-api-js`, `keycloak-api`, `litellm-api` and `vercel-api-js` (#24), `request-via-operations-*.md` for all nine clients (#26), `fetcher-empty-body-header-case.md` for all nine clients (#28), and `zoom-refresh-basic-auth.md` (#30).
