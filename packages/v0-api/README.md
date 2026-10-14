@@ -27,6 +27,12 @@ const chats = await client.api.chats.chatsFind();
 
 Operations are grouped by tag: `client.api.<tag>.<operation>(params)`.
 
+Every operation can also be called by method and path:
+
+```ts
+const chats = await client.request("GET /chats", {});
+```
+
 ### Custom fetch
 
 ```ts
@@ -35,6 +41,10 @@ const client = new V0Api({
   fetch: myFetchImplementation,
 });
 ```
+
+## Errors
+
+A call that gets an HTTP error response rejects with `{ status, payload }`: `status` is the HTTP status code and `payload` is the parsed JSON error body, or a string describing why the body could not be parsed. A request that gets no response at all, for example because the network failed, rejects with `{ name: "unknown", message }`.
 
 ## Effect
 
@@ -51,7 +61,7 @@ await Effect.runPromise(
 );
 ```
 
-Errors are typed as `ApiError`, `NetworkError` and `ValidationError`.
+Errors are typed as `ApiError`, `NetworkError` and `ValidationError`. An HTTP error response fails with `ApiError`, which carries the HTTP `status`; a request that never gets a response fails with `NetworkError`.
 
 ## Entrypoints
 

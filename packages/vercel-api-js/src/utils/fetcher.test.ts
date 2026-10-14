@@ -85,3 +85,51 @@ describe("fetcher", () => {
 		});
 	});
 });
+
+describe("fetcher edge responses and headers", () => {
+	const sent = async (options: { headers: Record<string, string>; body?: unknown }) => {
+		let init: Parameters<FetchImpl>[1];
+		const fetchImpl: FetchImpl = async (_url, requestInit) => {
+			init = requestInit;
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		await client({ url: "/thing", method: "post", token: "default", fetchImpl, ...options });
+		return { headers: new Headers(init?.headers), body: init?.body };
+	};
+
+	it("resolves a 204 without a content type to undefined", async () => {
+		const fetchImpl: FetchImpl = async () => new Response(null, { status: 204 }) as never;
+		await expect(client({ url: "/thing", method: "delete", fetchImpl })).resolves.toBeUndefined();
+	});
+
+	it("resolves an empty JSON body to undefined instead of a network error", async () => {
+		const fetchImpl: FetchImpl = async () =>
+			new Response("", { status: 200, headers: { "content-type": "application/json" } }) as never;
+		await expect(client({ url: "/thing", method: "delete", fetchImpl })).resolves.toBeUndefined();
+	});
+
+	it("lets a lowercase authorization header replace the default", async () => {
+		const { headers } = await sent({ headers: { authorization: "Bearer caller" } });
+		expect(headers.get("authorization")).toBe("Bearer caller");
+	});
+
+	it("lets a lowercase content-type header replace the default", async () => {
+		const { headers, body } = await sent({
+			headers: { "content-type": "text/plain" },
+			body: "raw",
+		});
+		expect(headers.get("content-type")).toBe("text/plain");
+		expect(body).toBe("raw");
+	});
+
+	it("drops a lowercase multipart content-type so fetch sets the boundary", async () => {
+		const { headers } = await sent({
+			headers: { "content-type": "multipart/form-data" },
+			body: new FormData(),
+		});
+		expect(headers.get("content-type")).toBeNull();
+	});
+});
