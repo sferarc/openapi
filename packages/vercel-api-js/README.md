@@ -25,7 +25,13 @@ const client = new VercelApi({ token: process.env.VERCEL_TOKEN ?? null });
 const accessGroups = await client.api.accessGroups.listAccessGroups({});
 ```
 
-Operations are grouped by tag: `client.api.<tag>.<operation>(params)`.
+Operations are grouped by tag: `client.api.<tag>.<operation>(params)`. Operations without a tag live under `client.api.default`, and under `ApiService.default` in the Effect bindings.
+
+Every operation can also be called by method and path:
+
+```ts
+const accessGroups = await client.request("GET /v1/access-groups", {});
+```
 
 ### Custom fetch
 
@@ -35,6 +41,10 @@ const client = new VercelApi({
   fetch: myFetchImplementation,
 });
 ```
+
+## Errors
+
+A call that gets an HTTP error response rejects with `{ status, payload }`: `status` is the HTTP status code and `payload` is the parsed JSON error body, or a string describing why the body could not be parsed. A request that gets no response at all, for example because the network failed, rejects with `{ name: "unknown", message }`.
 
 ## Effect
 
@@ -51,7 +61,7 @@ await Effect.runPromise(
 );
 ```
 
-Errors are typed as `ApiError`, `NetworkError` and `ValidationError`.
+Errors are typed as `ApiError`, `NetworkError` and `ValidationError`. An HTTP error response fails with `ApiError`, which carries the HTTP `status`; a request that never gets a response fails with `NetworkError`.
 
 ## Entrypoints
 
