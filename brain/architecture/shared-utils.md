@@ -10,7 +10,7 @@
   - `pluginClient` (`src/kubb/plugin.ts`) with its generators in `src/kubb/client/` and the operation component in `src/kubb/components/`. kubb 5 stable dropped `@kubb/plugin-client`, so the plugin shell lives here (comment in `plugin.ts`).
   - Spec transforms (`src/kubb/spec-transforms.ts`): `fetchSpec` (throws on a non-OK status or a body without an `openapi`/`swagger` version and non-empty `paths`), `cleanOperationIds`, `sortArrays`, `addMissingPathParams`, `fixArrayItems`, `fixUnionConstraints`, `sanitizeEnumValues`, `camelCasePathParams`, `renameReservedWords`, `fixRegexPatterns`, `camelCaseProperties`.
 - `./effect` (`src/effect/index.ts`): the runtime side, shipped inside each client's `effect` entry.
-  - Tagged errors `ValidationError`, `ApiError`, `NetworkError`, the `ApiConfig` context tag and `makeApiLayer` (`src/effect/errors.ts`). `ApiError.message` reads the server's message from the rejected `{ status, payload }` (`payload.message`, `payload.error`, `payload.error.message` or a text payload) and falls back to `API Error: <status>` (#33).
+  - Tagged errors `ValidationError`, `ApiError`, `NetworkError`, the `ApiConfig` context tag and `makeApiLayer` (`src/effect/errors.ts`). `ApiError.message` is `API error <status>: <message>`, the message taken from the fetcher's `{ status, payload }` payload first and then the error itself (`message`, `error` as a string or `{ message }`, `errors[0].message`, or a text body), and falls back to `API Error: <status>`. `NetworkError.message` reads `message` from an `Error` or a plain object cause. `errors.test.ts` covers both (#33).
   - `createEffectApi` and `createEffectByPath` (`src/effect/proxy.ts`).
 
 ## Why it matters

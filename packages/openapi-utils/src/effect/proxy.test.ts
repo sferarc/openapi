@@ -97,24 +97,3 @@ describe("error mapping", () => {
 		expect(error.cause).toBe(cause);
 	});
 });
-
-describe("ApiError message", () => {
-	it.each([
-		["a payload message", { message: "Not allowed" }],
-		["a nested payload error message", { error: { code: "forbidden", message: "Not allowed" } }],
-		["a payload error string", { error: "Not allowed" }],
-		["a string payload", "Not allowed"],
-	])("surfaces %s", async (_, payload) => {
-		const error = await failWith({ status: 403, payload });
-
-		assert(error instanceof ApiError);
-		expect(error.message).toBe("Not allowed");
-	});
-
-	it("surfaces an error string on the rejection itself", async () => {
-		const error = await failWith({ status: 400, requestId: "r1", error: "Bad request" });
-
-		assert(error instanceof ApiError);
-		expect(error.message).toBe("Bad request");
-	});
-});

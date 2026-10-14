@@ -19,6 +19,7 @@ describe("effect bindings", () => {
 		const error = await run(async () => new Response('{"message":"nope"}', { status: 403 }));
 		expect(error).toBeInstanceOf(ApiError);
 		expect((error as ApiError).status).toBe(403);
+		expect(error.message).toContain("nope");
 	});
 
 	it("fail with NetworkError when the request never completes", async () => {
