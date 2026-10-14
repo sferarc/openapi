@@ -26,11 +26,22 @@ export class ApiError extends Data.TaggedError("ApiError")<{
 	readonly error: unknown;
 }> {
 	override get message(): string {
-		if (this.error && typeof this.error === "object" && "message" in this.error) {
-			return String((this.error as { message: unknown }).message);
-		}
-		return `API Error: ${this.status}`;
+		const payload =
+			this.error && typeof this.error === "object" && "payload" in this.error
+				? this.error.payload
+				: undefined;
+		return messageOf(this.error) ?? messageOf(payload) ?? `API Error: ${this.status}`;
 	}
+}
+
+// Error bodies vary by API: `{ message }`, `{ error: "..." }`, `{ error: { message } }` or plain text.
+function messageOf(value: unknown): string | undefined {
+	if (typeof value === "string") return value || undefined;
+	if (!value || typeof value !== "object") return undefined;
+	if ("message" in value && typeof value.message === "string" && value.message)
+		return value.message;
+	if ("error" in value) return messageOf(value.error);
+	return undefined;
 }
 
 /**
