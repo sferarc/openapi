@@ -20,7 +20,9 @@ pnpm generate --filter=<package>
 | `pnpm build` | `bunchee` per package, `next build` for the website |
 | `pnpm generate` | kubb per client, see [[architecture/pipeline]] |
 
-Biome checks only `.ts`, `.tsx`, `.js`, `.jsx` and `.json` files (`biome.json`), so Markdown is not linted.
+Biome checks only `.ts`, `.tsx`, `.js`, `.jsx` and `.json` files (`biome.json`), so Markdown is not linted. It skips `packages/cloudflare-api-js/src/generated/types.ts`, which is larger than `files.maxSize` and takes minutes to check, and turns off `noTemplateCurlyInString` under `generated/` directories because upstream spec descriptions contain `${...}` text. `pnpm check` is expected to print no warnings.
+
+Knip analyses generated code like any other file: entry files re-export it, so an `ignore` pattern for `generated/**` is redundant and knip reports it as a hint. The website's `project` glob includes `.css` so knip sees the Tailwind imports in `globals.css`. Configuration hints are treated as noise to fix, not to tolerate.
 
 ## Dependencies
 
