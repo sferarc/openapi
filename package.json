@@ -8,7 +8,7 @@
 		"check": "biome check . && knip --config configs/knip.json && turbo run is-tree-shakable --filter='./packages/*'",
 		"check:fix": "biome check . --write",
 		"tsc": "turbo run tsc",
-		"test": "turbo run test",
+		"test": "turbo run test && vitest run --dir .github/workflows/scripts",
 		"knip": "knip --config configs/knip.json",
 		"clean": "turbo run clean && rm -rf node_modules",
 		"changeset": "changeset",
@@ -28,7 +28,8 @@
 		"turbo": "catalog:",
 		"@typescript/typescript6": "catalog:",
 		"typescript": "catalog:",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"vitest": "catalog:"
 	},
 	"packageManager": "pnpm@12.11.2",
 	"engines": {
