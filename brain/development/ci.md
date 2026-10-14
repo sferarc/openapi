@@ -3,7 +3,7 @@
 `.github/workflows/ci.yml` runs one job, `Check`, on pull requests to `main` and on pushes to `main`, on GitHub-hosted runners because the repository is public (comment in the workflow):
 
 1. `.github/actions/setup`: mise installs Node and pnpm, then `pnpm install --frozen-lockfile --prefer-offline`, with `node_modules` cached on `pnpm-lock.yaml` and `mise.lock`.
-2. `pnpm tsc`
+2. `pnpm tsc`: every workspace's `tsc` through turbo, then `tsc -p .github/workflows/scripts` for the spec pipeline scripts, which sit outside every workspace.
 3. `pnpm check`
 4. `pnpm exec lefthook validate`, since CI never runs the hooks themselves.
 5. `pnpm test`
