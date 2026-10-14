@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { uploadDeployFile } from "../generated/components";
-import type { FetchImpl } from "./fetch";
+import { createSite, createSiteBuild, uploadDeployFile } from "../generated/components";
+import type { FetchImpl, RequestInit } from "./fetch";
 import client from "./fetcher";
 
 const respond =
@@ -83,8 +83,55 @@ describe("fetcher", () => {
 		};
 		await uploadDeployFile({
 			pathParams: { deploy_id: "d1", path: "assets/my app.js" },
+			body: "",
 			config: { fetchImpl },
 		});
 		expect(calledUrl).toContain("/deploys/d1/files/assets/my%20app.js");
+	});
+});
+
+describe("request bodies", () => {
+	const capture = () => {
+		const calls: Array<{ url: string; init: RequestInit | undefined }> = [];
+		const fetchImpl: FetchImpl = async (url, init) => {
+			calls.push({ url, init });
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { calls, fetchImpl };
+	};
+
+	it("sends an octet-stream upload as the raw bytes", async () => {
+		const { calls, fetchImpl } = capture();
+		const bytes = new Uint8Array([1, 2, 3]);
+		await uploadDeployFile({
+			pathParams: { deploy_id: "d1", path: "index.html" },
+			body: bytes,
+			config: { fetchImpl },
+		});
+		expect(calls[0]?.init?.method).toBe("PUT");
+		expect(calls[0]?.init?.headers?.["Content-Type"]).toBe("application/octet-stream");
+		expect(calls[0]?.init?.body).toBe(bytes);
+	});
+
+	it("sends a site build zip as multipart form data", async () => {
+		const { calls, fetchImpl } = capture();
+		const zip = new Blob(["zip bytes"], { type: "application/zip" });
+		await createSiteBuild({ pathParams: { site_id: "s1" }, body: { zip }, config: { fetchImpl } });
+		const body = calls[0]?.init?.body;
+		const entry = body instanceof FormData ? body.get("zip") : null;
+		if (!(entry instanceof Blob)) throw new Error("expected the zip in a FormData body");
+		expect(await entry.text()).toBe("zip bytes");
+		// fetch sets the multipart boundary itself.
+		expect(calls[0]?.init?.headers?.["Content-Type"]).toBeUndefined();
+	});
+
+	it("still sends JSON bodies as JSON", async () => {
+		const { calls, fetchImpl } = capture();
+		await createSite({ body: { name: "site" }, config: { fetchImpl } });
+		expect(calls[0]?.init?.headers?.["Content-Type"]).toBe("application/json");
+		expect(calls[0]?.init?.body).toBe(JSON.stringify({ name: "site" }));
 	});
 });

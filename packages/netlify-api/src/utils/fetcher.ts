@@ -1,4 +1,4 @@
-import type { FetchImpl } from "./fetch";
+import type { FetchImpl, RequestInit } from "./fetch";
 import { compactObject } from "./lang";
 
 const baseUrl = "https://api.netlify.com";
@@ -55,7 +55,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 				? body
 				: requestHeaders["Content-Type"] === "application/json"
 					? JSON.stringify(body)
-					: (body as unknown as string);
+					: (body as RequestInit["body"]);
 
 		const fullUrl = `${baseUrl}${basePath}${resolveUrl(url, queryParams, pathParams)}`;
 
