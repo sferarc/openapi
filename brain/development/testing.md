@@ -1,15 +1,35 @@
 # Testing
 
-`clickhouse-cloud` has tests: `packages/clickhouse-cloud/src/client.test.ts`, run with vitest and offline through an injected `fetch`. It covers the client, basic auth and the Effect bindings (#2).
+Every test runs with vitest and offline: each one stubs or injects `fetch`, so none calls a real API. Run one package with `pnpm turbo run test --filter=<package>` (the root `pnpm test` hands extra arguments to its trailing `vitest run`, which rejects `--filter`); turbo builds `@sferadev/openapi-utils` first, and running vitest directly in a client fails until it is built. The list below was checked against `git ls-files '*.test.ts'` on 2026-10-15.
 
-`@sferadev/openapi-utils` unit-tests the spec transforms in `packages/openapi-utils/src/kubb/spec-transforms.test.ts` with vitest, stubbing the global `fetch` for `fetchSpec`. `packages/openapi-utils/src/effect/proxy.test.ts` tests the Effect proxies without a network: a rejection with a `status` becomes `ApiError`, a missing path parameter becomes `ValidationError` naming the field, anything else becomes `NetworkError`, the `ApiConfig` service reaches the operation as `config`, unknown tags, operations and endpoints are `undefined` (#33). `packages/openapi-utils/src/effect/errors.test.ts` covers how `ApiError.message` and `NetworkError.message` read each provider's error shape (#33). Run the package alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`; `pnpm test --filter=...` fails, because the root script passes the flag on to the `vitest run` that follows turbo (`package.json`).
+## Clients
 
-Every other client except `clickhouse-cloud` has `src/utils/fetcher.test.ts`, which tests its hand-written fetcher offline with a stubbed `fetch`: an HTTP error status surfaces with that status (#8), and query strings omit nullish values, repeat a key for each array item, and encode reserved characters (#16). Only `vercel-api-js`'s copy also checks that a generated operation percent-encodes its path parameters (#17). The five published Effect clients (`netlify-api`, `nuki-api-js`, `v0-api`, `vercel-api-js`, `zoom-api-js`) also have `src/effect.test.ts`, which checks that an HTTP error becomes `ApiError` and a failed request becomes `NetworkError` (#8). Run one package with `pnpm turbo run test --filter=<package>` (the root `pnpm test` hands extra arguments to its trailing `vitest run`, which rejects `--filter`); turbo builds `@sferadev/openapi-utils` first, and running vitest directly in a client fails until it is built.
+- `src/client.test.ts`, in every client: `request()` percent-encodes path parameters, rejects a missing one before calling `fetch`, calls an endpoint without parameters and rejects an unknown endpoint (#26). `litellm-api`'s copy also reaches untagged operations through the `default` namespace (#24). `clickhouse-cloud`'s copy, added with the client (#2), also covers basic auth, path, query and body serialization, the generated schemas, the Effect bindings, and its fetcher's empty bodies and header case (#28).
+- The OAuth helpers on `client.auth` are tested in the same files (#30): `vercel-api-js` `accessToken`, and `refreshToken` in `netlify-api`, `cloudflare-api-js` and `zoom-api-js`. Each test asserts the URL, method, headers including `Authorization`, the body encoding and the mapped result, and what a non-2xx response does: Vercel and Netlify reject with the status, Zoom rejects with an `Error` naming it, and Cloudflare resolves the raw `Response` for the caller to check.
+- `src/utils/fetcher.test.ts`, in every client except `clickhouse-cloud`: the hand-written fetcher surfaces an HTTP error with its status (#8); query strings omit nullish values, repeat a key for each array item and encode reserved characters (#16); a 204 or an empty JSON body resolves to `undefined`, and a lowercase `authorization` or `content-type` header replaces the default (#28). `vercel-api-js`'s copy also checks that a generated operation percent-encodes its path parameters (#17). `netlify-api`'s copy also checks that deploy file paths keep their slashes (#23), and that an octet-stream upload is sent as raw bytes and a site build zip as multipart form data while JSON bodies stay JSON (#25).
+- `src/effect.test.ts`, in the five published Effect clients (`netlify-api`, `nuki-api-js`, `v0-api`, `vercel-api-js`, `zoom-api-js`): an HTTP error becomes `ApiError` and a failed request becomes `NetworkError` (#8).
 
-The website (`@sferadev/openapi-website`) tests the Vercel OAuth profile mapping in `apps/openapi/src/lib/vercel-user-info.test.ts` with an injected `fetch`, so it needs no `DATABASE_URL` or network: a missing access token or a failed request throws, the bearer token is sent, the nested `user` profile maps with `name` falling back to the email and a null avatar omitted, and an un-nested profile is rejected. Run it with `pnpm turbo run test --filter=@sferadev/openapi-website`.
+## `@sferadev/openapi-utils`
 
-The OAuth helpers on `client.auth` are tested in each package's `src/client.test.ts`: `vercel-api-js` `accessToken`, and `refreshToken` in `netlify-api`, `cloudflare-api-js` and `zoom-api-js`. Each test asserts the URL, method, headers including `Authorization`, the body encoding and the mapped result, and what a non-2xx response does: Vercel and Netlify reject with the status, Zoom rejects with an `Error` naming it, and Cloudflare resolves the raw `Response` for the caller to check.
+Run alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`.
+
+- `src/kubb/spec-transforms.test.ts`: the spec transforms, stubbing the global `fetch` for `fetchSpec` (#18).
+- `src/kubb/components/client-operation.test.ts`: `buildUrlTemplate` percent-encodes single-segment path parameters (#17), keeps slashes in file path parameters and does not double-encode a path already passed through `encodeURI` (#23).
+- `src/kubb/adapter.test.ts`: `rawRequestBodyFallback` keeps the first raw media type and leaves JSON-like and url-encoded bodies to the JSON parse (#25).
+- `src/effect/proxy.test.ts`: the Effect proxies map a rejection with a `status` to `ApiError`, a missing path parameter to `ValidationError` naming the field and anything else to `NetworkError`, pass the `ApiConfig` service to the operation as `config`, and return `undefined` for an unknown tag, operation or endpoint (#33).
+- `src/effect/errors.test.ts`: how `ApiError.message` and `NetworkError.message` read each provider's error shape (#33).
+- `src/kubb/client/extra.test.ts`: reads every package's committed `src/**/generated/components.ts` and asserts that each exported operation appears in `operationsByTag` (#24).
+
+## Website
+
+`@sferadev/openapi-website` tests the Vercel OAuth profile mapping in `apps/openapi/src/lib/vercel-user-info.test.ts` with an injected `fetch`, so it needs no `DATABASE_URL` or network: a missing access token or a failed request throws, the bearer token is sent, the nested `user` profile maps with `name` falling back to the email and a null avatar omitted, and an un-nested profile is rejected (#31). Run it with `pnpm turbo run test --filter=@sferadev/openapi-website`.
+
+## Changeset script
+
+`.github/workflows/scripts/changeset.test.ts` tests `changeset.ts`, the pure parts that `changes.ts` imports when `update-openapi.yml` writes a changeset: the diff summary, entry resolution and its fallbacks, and changeset rendering (#27). The root `pnpm test` runs it after the turbo tests (`package.json`).
+
+## What is not tested
 
 Beyond those tests, the checks on the clients are type-level and structural: `pnpm tsc` over the generated code and the hand-written client, `knip` for unused exports and dependencies, and `is-tree-shakable` on each built package ([[toolchain]]).
 
-Generated output is not snapshot-tested. A regeneration is reviewed through its diff and the changeset `changes.ts` writes ([[architecture/pipeline]]). The changeset script's pure parts are tested in `.github/workflows/scripts/changeset.test.ts`, which the root `pnpm test` runs after the turbo tests.
+Generated output is not snapshot-tested. `extra.test.ts` is the only test that reads it, and it checks only that `operationsByTag` lists every operation. A regeneration is otherwise reviewed through its diff and the changeset `changes.ts` writes ([[architecture/pipeline]]).
