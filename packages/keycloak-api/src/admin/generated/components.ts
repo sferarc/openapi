@@ -4833,7 +4833,7 @@ export async function gETAdminRealmsRealmGroupByPathPath(
 		{ realm: string; path: string }
 	>({
 		method: "GET",
-		url: `/admin/realms/${encodeURIComponent(String(pathParams.realm))}/group-by-path/${encodeURIComponent(String(pathParams.path))}`,
+		url: `/admin/realms/${encodeURIComponent(String(pathParams.realm))}/group-by-path/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -16661,7 +16661,7 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPath
 		{ realm: string; orgId: string; path: string }
 	>({
 		method: "GET",
-		url: `/admin/realms/${encodeURIComponent(String(pathParams.realm))}/organizations/${encodeURIComponent(String(pathParams.orgId))}/groups/group-by-path/${encodeURIComponent(String(pathParams.path))}`,
+		url: `/admin/realms/${encodeURIComponent(String(pathParams.realm))}/organizations/${encodeURIComponent(String(pathParams.orgId))}/groups/group-by-path/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },

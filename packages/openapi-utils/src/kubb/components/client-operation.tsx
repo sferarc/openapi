@@ -31,6 +31,17 @@ export function resolveTypeSchemas(
 	};
 }
 
+const MULTI_SEGMENT_PARAM = /^(path|file_?path)$/i;
+
+export function buildUrlTemplate(path: string): string {
+	return path.replace(/\{([^}]+)\}/g, (_, raw: string) =>
+		MULTI_SEGMENT_PARAM.test(raw)
+			? // Keeps slashes and existing %XX escapes so file paths and encodeURI'd values pass through unchanged.
+				`\${String(pathParams.${raw}).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`
+			: `\${encodeURIComponent(String(pathParams.${raw}))}`,
+	);
+}
+
 function getJSDocComments(node: ast.HttpOperationNode): string[] {
 	const comments: string[] = [];
 	if (node.summary) comments.push(`@summary ${node.summary}`);
@@ -192,10 +203,7 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 
 	const bodyExpression = hasBody ? (isFormData ? "formData" : "body") : undefined;
 
-	const urlTemplate = node.path.replace(
-		/\{([^}]+)\}/g,
-		(_, raw: string) => `\${encodeURIComponent(String(pathParams.${raw}))}`,
-	);
+	const urlTemplate = buildUrlTemplate(node.path);
 
 	const clientCallParts: string[] = [
 		`method: ${JSON.stringify(node.method.toUpperCase())}`,

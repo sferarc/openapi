@@ -1513,7 +1513,7 @@ export async function getSiteFileByPathName(
 		{ site_id: string; file_path: string }
 	>({
 		method: "GET",
-		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/files/${encodeURIComponent(String(pathParams.file_path))}`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/files/${String(pathParams.file_path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3226,7 +3226,7 @@ export async function uploadDeployFile(
 		{ deploy_id: string; path: string }
 	>({
 		method: "PUT",
-		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/files/${encodeURIComponent(String(pathParams.path))}`,
+		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/files/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
