@@ -6,6 +6,7 @@
 
 - `.` (`src/index.ts`): the kubb side, used only at generation time.
   - `baseConfig` and `createConfig({ outputPath, importPath, skipZod })` (`src/kubb/index.ts`).
+  - `adapterOasWithRawBodies` (`src/kubb/adapter.ts`) wraps `adapterOas`. With `contentType: "application/json"` the adapter drops every other media type, so operations that only accept a non-JSON body had no `body` parameter. The wrapper parses a second time without `contentType` and copies the first non-JSON, non-url-encoded request body onto those operations only; JSON operations are unchanged. The operation component types such a body as `Blob | ArrayBuffer | Uint8Array | ReadableStream | string` and multipart bodies as a `FormData` built from the fields.
   - `pluginClient` (`src/kubb/plugin.ts`) with its generators in `src/kubb/client/` and the operation component in `src/kubb/components/`. kubb 5 stable dropped `@kubb/plugin-client`, so the plugin shell lives here (comment in `plugin.ts`).
   - Spec transforms (`src/kubb/spec-transforms.ts`): `fetchSpec` (throws on a non-OK status or a body without an `openapi`/`swagger` version and non-empty `paths`), `cleanOperationIds`, `sortArrays`, `addMissingPathParams`, `fixArrayItems`, `fixUnionConstraints`, `sanitizeEnumValues`, `camelCasePathParams`, `renameReservedWords`, `fixRegexPatterns`, `camelCaseProperties`.
 - `./effect` (`src/effect/index.ts`): the runtime side, shipped inside each client's `effect` entry.

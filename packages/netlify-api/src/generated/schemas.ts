@@ -5274,6 +5274,17 @@ export const createSiteBuildErrorSchema = z.union([
 	createSiteBuildStatusDefaultSchema,
 ]);
 
+export const createSiteBuildBodySchema = z
+	.object({
+		zip: z
+			.instanceof(File)
+			.optional()
+			.describe(
+				"A zip file containing the site files to build.\nOnly used with Content-Type 'multipart/form-data'.\nAlternatively, set Content-Type to 'application/zip' and send the zip as the raw request body (no 'zip' parameter needed).\n",
+			),
+	})
+	.optional();
+
 export const listSiteDeployedBranchesPathSiteIdSchema = z.string();
 
 export const listSiteDeployedBranchesStatus200Schema = z.array(
@@ -5991,6 +6002,8 @@ export const uploadDeployFileResponseSchema = uploadDeployFileStatus200Schema;
 
 export const uploadDeployFileErrorSchema = uploadDeployFileStatusDefaultSchema;
 
+export const uploadDeployFileBodySchema = z.instanceof(File);
+
 export const uploadDeployFunctionPathDeployIdSchema = z.string();
 
 export const uploadDeployFunctionPathNameSchema = z.string();
@@ -6021,6 +6034,8 @@ export const uploadDeployFunctionResponseSchema = uploadDeployFunctionStatus200S
 
 export const uploadDeployFunctionErrorSchema = uploadDeployFunctionStatusDefaultSchema;
 
+export const uploadDeployFunctionBodySchema = z.instanceof(File);
+
 export const uploadDeployServerPathDeployIdSchema = z.string();
 
 export const uploadDeployServerPathCodeShaSchema = z.string();
@@ -6040,6 +6055,8 @@ export const uploadDeployServerResponseSchema = uploadDeployServerStatus200Schem
 
 export const uploadDeployServerErrorSchema = uploadDeployServerStatusDefaultSchema;
 
+export const uploadDeployServerBodySchema = z.instanceof(File);
+
 export const uploadDeployEdgeFunctionPathDeployIdSchema = z.string();
 
 export const uploadDeployEdgeFunctionPathCodeShaSchema = z.string();
@@ -6056,6 +6073,8 @@ export const uploadDeployEdgeFunctionStatusDefaultSchema = z.object({
 export const uploadDeployEdgeFunctionResponseSchema = uploadDeployEdgeFunctionStatus200Schema;
 
 export const uploadDeployEdgeFunctionErrorSchema = uploadDeployEdgeFunctionStatusDefaultSchema;
+
+export const uploadDeployEdgeFunctionBodySchema = z.instanceof(File);
 
 export const getLatestPluginRunsPathSiteIdSchema = z.string();
 
