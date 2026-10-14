@@ -27215,6 +27215,16 @@ export const operationsByTag = {
 		updateRecord,
 		removeRecord,
 	},
+	default: {
+		replaceDomainsByDomainRecords,
+		getDomainsRecordsByRecordId,
+		createApiKeys,
+		createObservabilityQuery,
+		getObservabilitySchema,
+		getObservabilitySchemaByMetricId,
+		createSpeedInsightsToggle,
+		createWebInsightsToggle,
+	},
 	domainsRegistrar: {
 		searchDomains,
 		getSupportedTlds,
@@ -27739,6 +27749,20 @@ export const tagDictionary = {
 		POST: ["createRecord"],
 		PATCH: ["updateRecord"],
 		DELETE: ["removeRecord"],
+	},
+	default: {
+		PUT: ["replaceDomainsByDomainRecords"],
+		GET: [
+			"getDomainsRecordsByRecordId",
+			"getObservabilitySchema",
+			"getObservabilitySchemaByMetricId",
+		],
+		POST: [
+			"createApiKeys",
+			"createObservabilityQuery",
+			"createSpeedInsightsToggle",
+			"createWebInsightsToggle",
+		],
 	},
 	domainsRegistrar: {
 		POST: [
