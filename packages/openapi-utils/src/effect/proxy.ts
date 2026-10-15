@@ -46,27 +46,33 @@ function convertError(error: unknown): ApiError | NetworkError | ValidationError
 // Proxy Factories
 // ============================================================================
 
+function ownValue(target: object, key: string | symbol): any {
+	return Object.hasOwn(target, key) ? (target as any)[key] : undefined;
+}
+
+function toEffect(op: (params: Record<string, unknown>) => Promise<unknown>) {
+	return (params?: Record<string, unknown>) =>
+		Effect.gen(function* () {
+			const config = yield* ApiConfig;
+			return yield* Effect.tryPromise({
+				try: (signal) => op({ ...(params ?? {}), config: { ...config, signal } }),
+				catch: convertError,
+			});
+		});
+}
+
 export function createEffectApi<
 	Tags extends Record<string, Record<string, (...args: any[]) => any>>,
 >(operationsByTag: Tags): EffectApi<Tags> {
 	return new Proxy({} as any, {
-		get: (_, tag: string) => {
-			const tagOps = (operationsByTag as any)[tag];
+		get: (_, tag: string | symbol) => {
+			const tagOps = ownValue(operationsByTag, tag);
 			if (!tagOps) return undefined;
 
 			return new Proxy({} as any, {
-				get: (_, operation: string) => {
-					const op = tagOps[operation];
-					if (!op) return undefined;
-
-					return (params?: Record<string, unknown>) =>
-						Effect.gen(function* () {
-							const config = yield* ApiConfig;
-							return yield* Effect.tryPromise({
-								try: () => op({ ...(params ?? {}), config }),
-								catch: (error) => convertError(error),
-							});
-						});
+				get: (_, operation: string | symbol) => {
+					const op = ownValue(tagOps, operation);
+					return op ? toEffect(op) : undefined;
 				},
 			});
 		},
@@ -77,17 +83,9 @@ export function createEffectByPath<Paths extends Record<string, (...args: any[])
 	operationsByPath: Paths,
 ): EffectByPath<Paths> {
 	return new Proxy({} as any, {
-		get: (_, endpoint: string) => {
-			const op = (operationsByPath as any)[endpoint];
-			if (!op) return undefined;
-			return (params?: Record<string, unknown>) =>
-				Effect.gen(function* () {
-					const config = yield* ApiConfig;
-					return yield* Effect.tryPromise({
-						try: () => op({ ...(params ?? {}), config }),
-						catch: convertError,
-					});
-				});
+		get: (_, endpoint: string | symbol) => {
+			const op = ownValue(operationsByPath, endpoint);
+			return op ? toEffect(op) : undefined;
 		},
 	});
 }
