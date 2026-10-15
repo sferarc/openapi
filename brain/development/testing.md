@@ -5,7 +5,7 @@ Every test runs with vitest and offline: each one stubs or injects `fetch`, so n
 ## Clients
 
 - The OAuth helpers on `client.auth` are tested in the same files (#30): `vercel-api-js` `accessToken`, and `refreshToken` in `netlify-api`, `cloudflare-api-js` and `zoom-api-js`. Each test asserts the URL, method, headers including `Authorization`, the body encoding and the mapped result, and what a non-2xx response does: Vercel and Netlify reject with the status, Zoom rejects with an `Error` naming it, and Cloudflare resolves the raw `Response` for the caller to check.
-- `src/effect.test.ts`, in the five published Effect clients (`netlify-api`, `nuki-api-js`, `v0-api`, `vercel-api-js`, `zoom-api-js`): an HTTP error becomes `ApiError` and a failed request becomes `NetworkError` (#8).
+- `src/effect.test.ts`, in the five published Effect clients (`netlify-api`, `nuki-api-js`, `v0-api`, `vercel-api-js`, `zoom-api-js`): an HTTP error becomes `ApiError` and a failed request becomes `NetworkError` (#8). `vercel-api-js`'s copy also checks that the `NetworkError` message carries the request and the reason.
 
 ## `@sferadev/openapi-utils`
 

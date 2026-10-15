@@ -64,7 +64,7 @@ This posts to `https://api.netlify.com/oauth/token` and returns the new token pa
 
 ### Errors
 
-A request that gets an HTTP error response rejects with `{ status, payload }`: `status` is the HTTP status code and `payload` is the parsed error body, or a description string when the body is not JSON. A request that never gets a response rejects with `{ name: "unknown", message }`.
+A request that gets an HTTP error response rejects with `{ status, payload }`: `status` is the HTTP status code and `payload` is the parsed error body, or the raw body text, up to 1000 characters, when it is not JSON. A request that never gets a response rejects with an `Error` whose message names the method, the path and the reason, and whose `cause` is the original exception. A request cancelled through `signal` rejects with the `AbortError` itself.
 
 ```ts
 try {
