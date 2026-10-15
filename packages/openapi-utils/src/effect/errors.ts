@@ -77,21 +77,17 @@ export class NetworkError extends Data.TaggedError("NetworkError")<{
  * Effect service key for API configuration.
  * Used by the proxy-based Effect API to inject config into operations.
  */
-export class ApiConfig extends Context.Service<
-	ApiConfig,
-	{
-		token?: string;
-		baseUrl?: string;
-		fetchImpl?: (url: string, init?: any) => Promise<any>;
-		headers?: Record<string, string>;
-	}
->()("ApiConfig") {}
+type ApiConfigShape = {
+	token?: string;
+	baseUrl?: string;
+	fetchImpl?: (url: string, init?: any) => Promise<any>;
+	headers?: Record<string, string>;
+};
+
+export class ApiConfig extends Context.Service<ApiConfig, ApiConfigShape>()("ApiConfig") {}
 
 /**
  * Create a Layer providing ApiConfig values.
  */
-export const makeApiLayer = (config: {
-	token?: string;
-	baseUrl?: string;
-	headers?: Record<string, string>;
-}): Layer.Layer<ApiConfig> => Layer.succeed(ApiConfig, config);
+export const makeApiLayer = (config: ApiConfigShape): Layer.Layer<ApiConfig> =>
+	Layer.succeed(ApiConfig, config);
