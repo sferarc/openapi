@@ -7,8 +7,7 @@
 		},
 		"apps/openapi": {
 			"entry": ["src/app/**/*.{ts,tsx}", "src/lib/**/*.ts", "src/components/**/*.tsx"],
-			"project": ["src/**/*.{ts,tsx}"],
-			"ignoreDependencies": ["tailwindcss", "tw-animate-css"]
+			"project": ["src/**/*.{ts,tsx,css}"]
 		},
 		"packages/openapi-utils": {
 			"entry": ["src/index.ts", "src/effect/index.ts"],
@@ -25,7 +24,6 @@
 				"kubb.config.ts"
 			],
 			"project": ["src/**/*.ts"],
-			"ignore": ["src/generated/**"],
 			"includeEntryExports": false
 		},
 		"packages/v0-api": {
@@ -38,13 +36,11 @@
 				"kubb.config.ts"
 			],
 			"project": ["src/**/*.ts"],
-			"ignore": ["src/generated/**"],
 			"includeEntryExports": false
 		},
 		"packages/cloudflare-api-js": {
 			"entry": ["src/index.ts", "src/types.ts", "src/components.ts", "kubb.config.ts"],
 			"project": ["src/**/*.ts"],
-			"ignore": ["src/generated/**"],
 			"includeEntryExports": false
 		},
 		"packages/netlify-api": {
@@ -57,7 +53,6 @@
 				"kubb.config.ts"
 			],
 			"project": ["src/**/*.ts"],
-			"ignore": ["src/generated/**"],
 			"includeEntryExports": false
 		},
 		"packages/zoom-api-js": {
@@ -70,7 +65,6 @@
 				"kubb.config.ts"
 			],
 			"project": ["src/**/*.ts"],
-			"ignore": ["src/generated/**"],
 			"includeEntryExports": false
 		},
 		"packages/keycloak-api": {
@@ -85,7 +79,6 @@
 				"kubb.config.ts"
 			],
 			"project": ["src/**/*.ts"],
-			"ignore": ["src/admin/generated/**", "src/account/generated/**"],
 			"includeEntryExports": false
 		},
 		"packages/nuki-api-js": {
@@ -98,7 +91,6 @@
 				"kubb.config.ts"
 			],
 			"project": ["src/**/*.ts"],
-			"ignore": ["src/generated/**"],
 			"includeEntryExports": false
 		},
 		"packages/litellm-api": {
@@ -110,7 +102,6 @@
 				"kubb.config.ts"
 			],
 			"project": ["src/**/*.ts"],
-			"ignore": ["src/generated/**"],
 			"includeEntryExports": false
 		},
 		"configs/tsconfig": {}
