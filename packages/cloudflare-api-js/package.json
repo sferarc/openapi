@@ -17,8 +17,7 @@
 	"scripts": {
 		"tsc": "tsc --noEmit",
 		"build": "bunchee",
-		"generate": "if [ -d ./src/generated ] && [ -n \"$(find ./src/generated -maxdepth 0 -mmin -300 2>/dev/null)\" ]; then echo 'Generated files are fresh, skipping. Run generate:force to regenerate.'; else rimraf ./src/generated && kubb generate; fi",
-		"generate:force": "rimraf ./src/generated && kubb generate",
+		"generate": "rimraf ./src/generated && kubb generate",
 		"is-tree-shakable": "is-tree-shakable",
 		"test": "vitest run"
 	},

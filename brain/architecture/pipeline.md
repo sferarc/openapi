@@ -2,7 +2,7 @@
 
 ## Steps
 
-1. `pnpm generate --filter=<package>` runs the package's `generate` script through Turborepo (`package.json`, `turbo.json`). Turborepo builds `@sferadev/openapi-utils` first (`"dependsOn": ["^build"]`).
+1. `pnpm generate --filter=<package>` runs the package's `generate` script through Turborepo (`package.json`, `turbo.json`). Turborepo builds `@sferadev/openapi-utils` first (`"dependsOn": ["^build"]`). The task is uncached (`"cache": false`) because it reads a remote spec, so every run fetches the live spec.
 2. The script deletes `src/generated/` and runs `kubb generate` (for example `packages/clickhouse-cloud/package.json`).
 3. The package's `kubb.config.ts` fetches the live spec with `fetchSpec` (a URL, with a timeout; `packages/openapi-utils/src/kubb/spec-transforms.ts`), applies whichever transforms that spec needs, and spreads `baseConfig` from [[shared-utils]].
 4. kubb writes three files into `src/generated/` (`packages/openapi-utils/src/kubb/index.ts`):
@@ -18,7 +18,6 @@ Each `kubb.config.ts` carries the transforms its spec needs, so the fixups diffe
 - `packages/vercel-api-js/kubb.config.ts` uses most of the shared transforms, renames a few operation IDs and repairs a malformed `groupIds` schema.
 - `packages/keycloak-api/kubb.config.ts` generates twice: the admin API from Keycloak's published spec and the account API from the checked-in `specs/account.yaml`, selected by `KUBB_TARGET` (`packages/keycloak-api/package.json`).
 - `packages/clickhouse-cloud/kubb.config.ts` only rewrites placeholder Slack webhook URLs in examples, which GitHub push protection flags as secrets (#2).
-- `packages/cloudflare-api-js/package.json` skips regeneration when `src/generated/` is younger than 300 minutes; `generate:force` always regenerates.
 
 ## Scheduled regeneration
 
