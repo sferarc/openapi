@@ -6,7 +6,8 @@
 		"dev": "next dev --turbopack",
 		"build": "next build",
 		"start": "next start",
-		"test": "vitest run"
+		"test": "vitest run",
+		"tsc": "next typegen && tsc --noEmit"
 	},
 	"dependencies": {
 		"@radix-ui/react-slot": "catalog:",
