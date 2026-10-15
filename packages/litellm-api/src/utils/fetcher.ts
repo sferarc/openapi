@@ -93,6 +93,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 	} catch (e) {
 		// Rethrown as is so the HTTP status survives; the Effect bindings map it to ApiError.
 		if (e instanceof ResponseError) throw e.error;
+		if (e instanceof Error && e.name === "AbortError") throw e;
 
 		const reason = e instanceof Error ? e.message : String(e);
 		// Only the path: query values can carry secrets.

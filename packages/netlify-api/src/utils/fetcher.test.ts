@@ -169,6 +169,28 @@ describe("fetcher edge responses and headers", () => {
 		return { headers: new Headers(init?.headers), body: init?.body };
 	};
 
+	it("resolves a 204 with a JSON content type to undefined", async () => {
+		const fetchImpl: FetchImpl = async () =>
+			new Response(null, { status: 204, headers: { "content-type": "application/json" } }) as never;
+		await expect(client({ url: "/thing", method: "delete", fetchImpl })).resolves.toBeUndefined();
+	});
+
+	it("rejects an aborted request with the AbortError itself", async () => {
+		const controller = new AbortController();
+		controller.abort();
+		const fetchImpl: FetchImpl = async (_url, init) => {
+			init?.signal?.throwIfAborted();
+			return new Response("{}") as never;
+		};
+		const error = await client({
+			url: "/thing",
+			method: "get",
+			signal: controller.signal,
+			fetchImpl,
+		}).catch((e: unknown) => e);
+		expect((error as Error).name).toBe("AbortError");
+	});
+
 	it("resolves a 204 without a content type to undefined", async () => {
 		const fetchImpl: FetchImpl = async () => new Response(null, { status: 204 }) as never;
 		await expect(client({ url: "/thing", method: "delete", fetchImpl })).resolves.toBeUndefined();

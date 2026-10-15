@@ -100,6 +100,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 	} catch (e) {
 		// API errors carry the response body (`{ status, requestId, error }`), so they are rethrown as is.
 		if (e instanceof ResponseError) throw e.error;
+		if (e instanceof Error && e.name === "AbortError") throw e;
 
 		const reason = e instanceof Error ? e.message : String(e);
 		// Only the path: query values can carry secrets.
