@@ -1,0 +1,51 @@
+{
+	"openapi": "3.0.3",
+	"info": { "title": "Params fixture", "version": "1.0.0" },
+	"servers": [{ "url": "https://api.test" }],
+	"paths": {
+		"/teams/{team-id}/members/{member_id}": {
+			"get": {
+				"operationId": "getMember",
+				"tags": ["members"],
+				"parameters": [
+					{ "name": "team-id", "in": "path", "required": true, "schema": { "type": "string" } },
+					{ "name": "member_id", "in": "path", "required": true, "schema": { "type": "integer" } },
+					{ "name": "fields", "in": "query", "required": true, "schema": { "type": "string" } },
+					{ "name": "limit", "in": "query", "required": false, "schema": { "type": "integer" } },
+					{
+						"name": "X-Trace-Id",
+						"in": "header",
+						"required": false,
+						"schema": { "type": "string" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": { "type": "object", "properties": { "id": { "type": "integer" } } }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/health": {
+			"get": {
+				"operationId": "getHealth",
+				"tags": ["health"],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": { "type": "object", "properties": { "ok": { "type": "boolean" } } }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
