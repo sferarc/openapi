@@ -7,7 +7,14 @@
 	},
 	"files": {
 		"ignoreUnknown": true,
-		"includes": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.json"],
+		"includes": [
+			"**/*.ts",
+			"**/*.tsx",
+			"**/*.js",
+			"**/*.jsx",
+			"**/*.json",
+			"!packages/cloudflare-api-js/src/generated/types.ts"
+		],
 		"maxSize": 10485760
 	},
 	"formatter": {
@@ -39,6 +46,18 @@
 			}
 		}
 	},
+	"overrides": [
+		{
+			"includes": ["**/src/generated/**", "**/src/*/generated/**"],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noTemplateCurlyInString": "off"
+					}
+				}
+			}
+		}
+	],
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"
