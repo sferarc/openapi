@@ -4,7 +4,7 @@
 
 - Versions shown on the page come from the npm registry at request time, cached for an hour (`apps/openapi/src/lib/npm.ts`). A package missing from npm shows as `unknown`.
 - Auth is Better Auth with a Vercel OAuth provider (`apps/openapi/src/lib/auth.ts`, `apps/openapi/src/app/api/auth/[...all]/route.ts`), stored in Postgres through Drizzle (`apps/openapi/src/lib/db.ts`, migrations in `apps/openapi/drizzle/`). The Vercel userinfo fetch and profile mapping live in `apps/openapi/src/lib/vercel-user-info.ts`, apart from Better Auth and the database so they can be unit-tested ([[development/testing]]).
-- Its build depends on `vercel-api-js` (`turbo.json`) and reads the environment variables listed in `turbo.json`.
+- Its build reads the environment variables listed in `turbo.json`. It imports no client package, so it does not wait on any client build.
 
 ## Hosting
 

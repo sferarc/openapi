@@ -19,7 +19,6 @@
 			"dependsOn": ["^build"]
 		},
 		"@sferadev/openapi-website#build": {
-			"dependsOn": ["vercel-api-js#build"],
 			"env": [
 				"BETTER_AUTH_SECRET",
 				"BETTER_AUTH_URL",
@@ -38,14 +37,7 @@
 			"persistent": true
 		},
 		"generate": {
-			"inputs": ["kubb.config.ts", "openapi-codegen.config.ts"],
-			"outputs": [
-				"src/generated/**",
-				"src/api/**",
-				"src/account/**",
-				"src/admin/**",
-				"src/meeting/**"
-			],
+			"cache": false,
 			"dependsOn": ["^build"]
 		},
 		"tsc": {
