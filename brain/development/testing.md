@@ -1,6 +1,6 @@
 # Testing
 
-Every test runs with vitest and offline: each one stubs or injects `fetch`, so none calls a real API. Run one package with `pnpm turbo run test --filter=<package>` (the root `pnpm test` hands extra arguments to its trailing `vitest run`, which rejects `--filter`); turbo builds `@sferadev/openapi-utils` first, and running vitest directly in a client fails until it is built. The list below was checked against `git ls-files '*.test.ts'` on 2026-10-15.
+Every test runs with vitest and offline: each one stubs or injects `fetch`, so none calls a real API. Run one package with `pnpm turbo run test --filter=<package>` (the root `pnpm test` hands extra arguments to its trailing `vitest run`, which rejects `--filter`). Nothing has to be built first: the clients with Effect bindings extend the root `vitest.shared.ts`, which aliases `@sferadev/openapi-utils` and `@sferadev/openapi-utils/effect` to `packages/openapi-utils/src`, so `pnpm exec vitest run` inside a client works on a clean checkout and sees edits to openapi-utils without a rebuild. Builds still bundle openapi-utils from its `dist`. The list below was checked against `git ls-files '*.test.ts'` on 2026-10-15.
 
 ## Clients
 

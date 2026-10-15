@@ -36,7 +36,11 @@
 			"dependsOn": ["^build"]
 		},
 		"test": {
-			"dependsOn": ["^build"]
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				"$TURBO_ROOT$/vitest.shared.ts",
+				"$TURBO_ROOT$/packages/openapi-utils/src/**"
+			]
 		},
 		"is-tree-shakable": {
 			"dependsOn": ["build"]
