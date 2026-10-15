@@ -15,6 +15,7 @@ Run alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`.
 
 - `src/kubb/spec-transforms.test.ts`: the spec transforms, stubbing the global `fetch` for `fetchSpec` (#18).
 - `src/kubb/components/client-operation.test.ts`: `buildUrlTemplate` percent-encodes single-segment path parameters (#17), keeps slashes in file path parameters and does not double-encode a path already passed through `encodeURI` (#23).
+- `src/kubb/client/operations.test.ts`: runs kubb with `createConfig` on the fixture `src/kubb/client/fixtures/params.json` into a temp directory, then imports the emitted `components.ts` against a stub fetcher and a fake `fetch`. A path parameter that is not a JS identifier (`team-id`) is read with bracket access and percent-encoded, a falsy required value (`0`) is kept, query and header params are forwarded, an operation without parameters works, and a missing or empty path parameter, or an omitted `pathParams`, rejects with `Missing required path parameter` before `fetch` is called.
 - `src/kubb/adapter.test.ts`: `rawRequestBodyFallback` keeps the first raw media type and leaves JSON-like and url-encoded bodies to the JSON parse (#25).
 - `src/effect/proxy.test.ts`: the Effect proxies map a rejection with a `status` to `ApiError`, a missing path parameter to `ValidationError` naming the field and anything else to `NetworkError`, pass the `ApiConfig` service to the operation as `config`, and return `undefined` for an unknown tag, operation or endpoint (#33).
 - `src/effect/errors.test.ts`: how `ApiError.message` and `NetworkError.message` read each provider's error shape (#33).
@@ -32,4 +33,4 @@ Run alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`.
 
 Beyond those tests, the checks on the clients are type-level and structural: `pnpm tsc` over the generated code and the hand-written client, `knip` for unused exports and dependencies, and `is-tree-shakable` on each built package ([[toolchain]]).
 
-Generated output is not snapshot-tested. `extra.test.ts` is the only test that reads it, and it checks only that `operationsByTag` lists every operation. A regeneration is otherwise reviewed through its diff and the changeset `changes.ts` writes ([[architecture/pipeline]]).
+Generated output is not snapshot-tested. `extra.test.ts` reads the committed output and checks only that `operationsByTag` lists every operation; `operations.test.ts` generates from its own fixture and asserts mainly on how the emitted code runs. A regeneration is otherwise reviewed through its diff and the changeset `changes.ts` writes ([[architecture/pipeline]]).
