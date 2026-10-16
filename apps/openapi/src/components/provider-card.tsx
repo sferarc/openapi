@@ -8,35 +8,44 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { Provider } from "@/lib/types";
 
+const STORAGE_KEY = "activeProviderTab";
+
 interface UnifiedProviderInterfaceProps {
 	providers: Provider[];
 }
 
 export function UnifiedProviderInterface({ providers }: UnifiedProviderInterfaceProps) {
-	const [activeTab, setActiveTab] = useState(() => {
-		if (typeof window !== "undefined") {
-			return localStorage.getItem("activeProviderTab") || providers[0]?.id || "";
-		}
-		return providers[0]?.id || "";
-	});
+	const [activeTab, setActiveTab] = useState(providers[0]?.id ?? "");
+	const selectedTab = providers.some((p) => p.id === activeTab)
+		? activeTab
+		: (providers[0]?.id ?? "");
 
+	// Restore after mount so the first client render matches the server HTML.
 	useEffect(() => {
-		if (typeof window !== "undefined") {
-			localStorage.setItem("activeProviderTab", activeTab);
-		}
-	}, [activeTab]);
+		try {
+			const stored = localStorage.getItem(STORAGE_KEY);
+			if (stored && providers.some((p) => p.id === stored)) setActiveTab(stored);
+		} catch {}
+	}, [providers]);
+
+	const selectTab = (id: string) => {
+		setActiveTab(id);
+		try {
+			localStorage.setItem(STORAGE_KEY, id);
+		} catch {}
+	};
 
 	return (
 		<div className="w-full">
 			{/* Provider Selection Tabs */}
 			<div className="mb-6">
-				<Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-					<TabsList className="grid w-full grid-cols-8 h-auto p-1">
+				<Tabs value={selectedTab} onValueChange={selectTab} className="w-full">
+					<TabsList className="flex h-auto w-full flex-wrap gap-1 p-1">
 						{providers.map((provider) => (
 							<TabsTrigger
 								key={provider.id}
 								value={provider.id}
-								className="py-2 text-sm font-medium"
+								className="h-auto py-2 text-sm font-medium"
 							>
 								{provider.name}
 							</TabsTrigger>
@@ -47,7 +56,7 @@ export function UnifiedProviderInterface({ providers }: UnifiedProviderInterface
 
 			{/* Content Sections */}
 			{providers.map((provider) => (
-				<div key={provider.id} className={`${activeTab === provider.id ? "block" : "hidden"}`}>
+				<div key={provider.id} className={selectedTab === provider.id ? "block" : "hidden"}>
 					<div className="grid grid-cols-1 gap-6 h-full">
 						{/* TypeScript SDK Section */}
 						<Card className="flex flex-col">
