@@ -73,6 +73,8 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 			method: method.toUpperCase(),
 			body: payload,
 			headers: requestHeaders,
+			// fetch refuses a stream body unless the request is marked half duplex.
+			...(payload instanceof ReadableStream ? { duplex: "half" as const } : {}),
 		});
 
 		if (!response.ok) {
