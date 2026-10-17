@@ -135,6 +135,29 @@ describe("request bodies", () => {
 		expect(calls[0]?.init?.body).toBe(bytes);
 	});
 
+	it("sends a stream upload in a form fetch accepts", async () => {
+		const { calls, fetchImpl } = capture();
+		const stream = new ReadableStream<Uint8Array>({
+			start(controller) {
+				controller.enqueue(new Uint8Array([1, 2, 3]));
+				controller.close();
+			},
+		});
+		await uploadDeployFile({
+			pathParams: { deploy_id: "d1", path: "index.html" },
+			body: stream,
+			config: { fetchImpl },
+		});
+		const init = calls[0]?.init;
+		expect(init?.body).toBe(stream);
+		// fetch rejects a stream body without `duplex: "half"` before sending anything.
+		expect(init?.duplex).toBe("half");
+		// The DOM RequestInit type does not declare `duplex` yet, though Node's fetch requires it.
+		const streamInit = { method: init?.method, body: stream, duplex: init?.duplex };
+		const request = new Request("https://api.netlify.com", streamInit);
+		expect(new Uint8Array(await request.arrayBuffer())).toEqual(new Uint8Array([1, 2, 3]));
+	});
+
 	it("sends a site build zip as multipart form data", async () => {
 		const { calls, fetchImpl } = capture();
 		const zip = new Blob(["zip bytes"], { type: "application/zip" });

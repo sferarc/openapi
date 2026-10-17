@@ -3,6 +3,7 @@ export type RequestInit = {
 	headers?: Record<string, string> | undefined;
 	method?: string | undefined;
 	signal?: any | undefined;
+	duplex?: "half" | undefined;
 };
 
 export type Response = {
