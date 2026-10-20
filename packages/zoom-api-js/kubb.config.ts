@@ -2,7 +2,7 @@ import { baseConfig, cleanOperationIds, fetchSpec } from "@sferadev/openapi-util
 import { defineConfig } from "kubb";
 
 export default defineConfig(async () => {
-	let openAPIDocument = await fetchSpec("https://developers.zoom.us/api/zoap/meetings/methods");
+	let openAPIDocument = await fetchSpec("https://developers.zoom.us/api/zoap/meetings/methods/");
 
 	openAPIDocument = cleanOperationIds(openAPIDocument);
 
