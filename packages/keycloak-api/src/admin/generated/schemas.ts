@@ -3525,6 +3525,8 @@ export const pUTAdminRealmsRealmLocalizationLocaleKeyErrorSchema = z.union([
 	pUTAdminRealmsRealmLocalizationLocaleKeyStatus403Schema,
 ]);
 
+export const pUTAdminRealmsRealmLocalizationLocaleKeyBodySchema = z.string().optional();
+
 export const dELETEAdminRealmsRealmLocalizationLocaleKeyPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10163,6 +10165,10 @@ export const pUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelError
 	pUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus403Schema,
 	pUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus404Schema,
 ]);
+
+export const pUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelBodySchema = z
+	.string()
+	.optional();
 
 export const pUTAdminRealmsRealmUsersUserIdDisableCredentialTypesPathRealmSchema = z
 	.string()

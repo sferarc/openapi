@@ -144,11 +144,7 @@ export async function getConsent(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -183,11 +179,7 @@ export async function createConsent(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -222,11 +214,7 @@ export async function updateConsent(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -261,11 +249,7 @@ export async function deleteConsent(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -334,11 +318,7 @@ export async function deleteCredential(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.credentialId === undefined ||
-		pathParams.credentialId === null ||
-		String(pathParams.credentialId) === ""
-	) {
+	if (pathParams?.credentialId == null || String(pathParams.credentialId) === "") {
 		throw new Error(`Missing required path parameter: credentialId`);
 	}
 	const data = await request<
@@ -375,11 +355,7 @@ export async function updateCredentialLabel(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.credentialId === undefined ||
-		pathParams.credentialId === null ||
-		String(pathParams.credentialId) === ""
-	) {
+	if (pathParams?.credentialId == null || String(pathParams.credentialId) === "") {
 		throw new Error(`Missing required path parameter: credentialId`);
 	}
 	const data = await request<
@@ -495,11 +471,7 @@ export async function deleteSession(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -564,11 +536,7 @@ export async function buildLinkingUri(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.providerId === undefined ||
-		pathParams.providerId === null ||
-		String(pathParams.providerId) === ""
-	) {
+	if (pathParams?.providerId == null || String(pathParams.providerId) === "") {
 		throw new Error(`Missing required path parameter: providerId`);
 	}
 	const data = await request<
@@ -604,11 +572,7 @@ export async function deleteLinkedProvider(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.providerId === undefined ||
-		pathParams.providerId === null ||
-		String(pathParams.providerId) === ""
-	) {
+	if (pathParams?.providerId == null || String(pathParams.providerId) === "") {
 		throw new Error(`Missing required path parameter: providerId`);
 	}
 	const data = await request<
