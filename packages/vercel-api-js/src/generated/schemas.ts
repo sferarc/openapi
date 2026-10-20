@@ -241,6 +241,7 @@ export const aiGatewayRuleSchema = z
 	);
 
 export const aiGatewayRuleListSchema = z.object({
+	nextCursor: z.string().nullable(),
 	rules: z.array(z.unknown()),
 });
 
@@ -271,6 +272,23 @@ export const aiGatewayBudgetSchema = z.object({
 
 export const aiGatewayBudgetListSchema = z.object({
 	budgets: z.array(z.unknown()),
+	defaultCoveredCounts: z
+		.object({
+			apiKey: z.number().optional(),
+			project: z.number(),
+			team: z.number(),
+			user: z.number(),
+		})
+		.optional()
+		.describe(
+			"Paged requests only: `source: 'default'` rows per scope type across the whole `scopeType`-filtered list, independent of the page and of `includeDefaultCovered`.",
+		),
+	nextCursor: z
+		.string()
+		.nullish()
+		.describe(
+			"Paged requests only (`limit` or `cursor` set): pass as `cursor` to read the next page; null on the last page.",
+		),
 });
 
 export const aiGatewayBudgetDefaultSchema = z.object({
@@ -442,7 +460,7 @@ export const connectTriggerDestinationSchema = z
 		projectId: z.string().describe("Vercel project that receives matching trigger requests."),
 	})
 	.describe(
-		"Destinations that incoming triggers should be forwarded to. Limited to 3 entries. Set the initial destination with `triggerDestination` during creation. Replace the complete set with `PATCH /v1/connect/connectors/{connector}/trigger-destinations`.",
+		"Destinations that incoming triggers should be forwarded to. Limited to 3 entries. Set the initial destination with `triggerDestination` during creation. Replace the complete set with `PATCH /v1/connect/connectors/{connector}/trigger-destinations`. Computed routing environments are stored internally, not returned here.",
 	);
 
 export const connectTriggerConfigurationSchema = z
@@ -461,6 +479,7 @@ export const connectConnectorSchema = z
 				crossInstallation: z
 					.union([z.literal(false), z.literal(true)])
 					.describe("Whether one app token can be used across installations."),
+				isStaticCredential: z.union([z.literal(false), z.literal(true)]),
 				permissionsUrl: z
 					.string()
 					.optional()
@@ -622,7 +641,7 @@ export const connectConnectorSchema = z
 			.array(z.unknown())
 			.optional()
 			.describe(
-				"Destinations that incoming triggers should be forwarded to. Limited to 3 entries. Set the initial destination with `triggerDestination` during creation. Replace the complete set with `PATCH /v1/connect/connectors/{connector}/trigger-destinations`.",
+				"Destinations that incoming triggers should be forwarded to. Limited to 3 entries. Set the initial destination with `triggerDestination` during creation. Replace the complete set with `PATCH /v1/connect/connectors/{connector}/trigger-destinations`. Computed routing environments are stored internally, not returned here.",
 			),
 		triggers: z.unknown().optional().describe("Incoming trigger configuration for the connector."),
 		type: z
@@ -671,6 +690,7 @@ export const connectConnectorSchema = z
 				crossInstallation: z
 					.union([z.literal(false), z.literal(true)])
 					.describe("Whether one user token can be used across installations."),
+				isStaticCredential: z.union([z.literal(false), z.literal(true)]),
 				manualCredentialInput: z
 					.union([z.literal(false), z.literal(true)])
 					.optional()
@@ -722,6 +742,7 @@ export const connectConnectorCreateResultSchema = z
 				crossInstallation: z
 					.union([z.literal(false), z.literal(true)])
 					.describe("Whether one app token can be used across installations."),
+				isStaticCredential: z.union([z.literal(false), z.literal(true)]),
 				permissionsUrl: z
 					.string()
 					.optional()
@@ -883,7 +904,7 @@ export const connectConnectorCreateResultSchema = z
 			.array(z.unknown())
 			.optional()
 			.describe(
-				"Destinations that incoming triggers should be forwarded to. Limited to 3 entries. Set the initial destination with `triggerDestination` during creation. Replace the complete set with `PATCH /v1/connect/connectors/{connector}/trigger-destinations`.",
+				"Destinations that incoming triggers should be forwarded to. Limited to 3 entries. Set the initial destination with `triggerDestination` during creation. Replace the complete set with `PATCH /v1/connect/connectors/{connector}/trigger-destinations`. Computed routing environments are stored internally, not returned here.",
 			),
 		triggers: z.unknown().optional().describe("Incoming trigger configuration for the connector."),
 		type: z
@@ -932,6 +953,7 @@ export const connectConnectorCreateResultSchema = z
 				crossInstallation: z
 					.union([z.literal(false), z.literal(true)])
 					.describe("Whether one user token can be used across installations."),
+				isStaticCredential: z.union([z.literal(false), z.literal(true)]),
 				manualCredentialInput: z
 					.union([z.literal(false), z.literal(true)])
 					.optional()
@@ -2890,6 +2912,25 @@ export const globalConfigTokenSchema = z
 	})
 	.describe("The Global Config.");
 
+export const deploymentCheckUpdatedPayloadSchema = z
+	.object({
+		checkId: z.string(),
+		checkName: z.string(),
+		next: z
+			.object({
+				targets: z.array(z.string()),
+			})
+			.optional(),
+		previous: z
+			.object({
+				targets: z.array(z.string()),
+			})
+			.optional(),
+		projectId: z.string(),
+		projectName: z.string(),
+	})
+	.describe("The payload of the event, if requested.");
+
 export const userEventSchema = z
 	.object({
 		categories: z
@@ -3468,7 +3509,7 @@ export const userEventSchema = z
 						id: z.string(),
 						name: z.string(),
 					}),
-					author: z.string(),
+					author: z.string().optional(),
 				}),
 				z.strictObject({
 					accessGroup: z.object({
@@ -3641,7 +3682,9 @@ export const userEventSchema = z
 							z.enum([
 								"manage:speed-insights",
 								"manage:web-analytics",
+								"read-write:access-group",
 								"read-write:ai-gateway-api-key",
+								"read-write:ai-gateway-budgets",
 								"read-write:ai-gateway-guardrails",
 								"read-write:ai-gateway-private-models",
 								"read-write:ai-gateway-rules",
@@ -3668,6 +3711,7 @@ export const userEventSchema = z
 								"read-write:project-env-vars-production",
 								"read-write:project-flags-non-production",
 								"read-write:project-flags-production",
+								"read-write:project-members",
 								"read-write:project-protection-bypass",
 								"read-write:project-trusted-sources",
 								"read-write:remote-cache",
@@ -3676,11 +3720,13 @@ export const userEventSchema = z
 								"read-write:team-members",
 								"read-write:vcr",
 								"read:access-group",
+								"read:ai-gateway-budgets",
 								"read:ai-gateway-guardrails",
 								"read:ai-gateway-private-models",
 								"read:ai-gateway-rules",
 								"read:ai-gateway-virtual-model-configs",
 								"read:alerts",
+								"read:audit-log",
 								"read:automations",
 								"read:billing",
 								"read:connect",
@@ -3697,6 +3743,7 @@ export const userEventSchema = z
 								"read:project-env-vars-non-production",
 								"read:project-env-vars-production",
 								"read:project-flags",
+								"read:project-members",
 								"read:project-trusted-sources",
 								"read:remote-cache",
 								"read:sandbox",
@@ -3708,6 +3755,7 @@ export const userEventSchema = z
 								"read:web-analytics",
 								"read:webhooks",
 								"use:ai-gateway",
+								"use:github",
 							]),
 						)
 						.optional(),
@@ -3725,7 +3773,9 @@ export const userEventSchema = z
 							z.enum([
 								"manage:speed-insights",
 								"manage:web-analytics",
+								"read-write:access-group",
 								"read-write:ai-gateway-api-key",
+								"read-write:ai-gateway-budgets",
 								"read-write:ai-gateway-guardrails",
 								"read-write:ai-gateway-private-models",
 								"read-write:ai-gateway-rules",
@@ -3752,6 +3802,7 @@ export const userEventSchema = z
 								"read-write:project-env-vars-production",
 								"read-write:project-flags-non-production",
 								"read-write:project-flags-production",
+								"read-write:project-members",
 								"read-write:project-protection-bypass",
 								"read-write:project-trusted-sources",
 								"read-write:remote-cache",
@@ -3760,11 +3811,13 @@ export const userEventSchema = z
 								"read-write:team-members",
 								"read-write:vcr",
 								"read:access-group",
+								"read:ai-gateway-budgets",
 								"read:ai-gateway-guardrails",
 								"read:ai-gateway-private-models",
 								"read:ai-gateway-rules",
 								"read:ai-gateway-virtual-model-configs",
 								"read:alerts",
+								"read:audit-log",
 								"read:automations",
 								"read:billing",
 								"read:connect",
@@ -3781,6 +3834,7 @@ export const userEventSchema = z
 								"read:project-env-vars-non-production",
 								"read:project-env-vars-production",
 								"read:project-flags",
+								"read:project-members",
 								"read:project-trusted-sources",
 								"read:remote-cache",
 								"read:sandbox",
@@ -3792,6 +3846,7 @@ export const userEventSchema = z
 								"read:web-analytics",
 								"read:webhooks",
 								"use:ai-gateway",
+								"use:github",
 							]),
 						)
 						.optional(),
@@ -3805,7 +3860,9 @@ export const userEventSchema = z
 									z.enum([
 										"manage:speed-insights",
 										"manage:web-analytics",
+										"read-write:access-group",
 										"read-write:ai-gateway-api-key",
+										"read-write:ai-gateway-budgets",
 										"read-write:ai-gateway-guardrails",
 										"read-write:ai-gateway-private-models",
 										"read-write:ai-gateway-rules",
@@ -3832,6 +3889,7 @@ export const userEventSchema = z
 										"read-write:project-env-vars-production",
 										"read-write:project-flags-non-production",
 										"read-write:project-flags-production",
+										"read-write:project-members",
 										"read-write:project-protection-bypass",
 										"read-write:project-trusted-sources",
 										"read-write:remote-cache",
@@ -3840,11 +3898,13 @@ export const userEventSchema = z
 										"read-write:team-members",
 										"read-write:vcr",
 										"read:access-group",
+										"read:ai-gateway-budgets",
 										"read:ai-gateway-guardrails",
 										"read:ai-gateway-private-models",
 										"read:ai-gateway-rules",
 										"read:ai-gateway-virtual-model-configs",
 										"read:alerts",
+										"read:audit-log",
 										"read:automations",
 										"read:billing",
 										"read:connect",
@@ -3861,6 +3921,7 @@ export const userEventSchema = z
 										"read:project-env-vars-non-production",
 										"read:project-env-vars-production",
 										"read:project-flags",
+										"read:project-members",
 										"read:project-trusted-sources",
 										"read:remote-cache",
 										"read:sandbox",
@@ -3898,7 +3959,9 @@ export const userEventSchema = z
 									z.enum([
 										"manage:speed-insights",
 										"manage:web-analytics",
+										"read-write:access-group",
 										"read-write:ai-gateway-api-key",
+										"read-write:ai-gateway-budgets",
 										"read-write:ai-gateway-guardrails",
 										"read-write:ai-gateway-private-models",
 										"read-write:ai-gateway-rules",
@@ -3925,6 +3988,7 @@ export const userEventSchema = z
 										"read-write:project-env-vars-production",
 										"read-write:project-flags-non-production",
 										"read-write:project-flags-production",
+										"read-write:project-members",
 										"read-write:project-protection-bypass",
 										"read-write:project-trusted-sources",
 										"read-write:remote-cache",
@@ -3933,11 +3997,13 @@ export const userEventSchema = z
 										"read-write:team-members",
 										"read-write:vcr",
 										"read:access-group",
+										"read:ai-gateway-budgets",
 										"read:ai-gateway-guardrails",
 										"read:ai-gateway-private-models",
 										"read:ai-gateway-rules",
 										"read:ai-gateway-virtual-model-configs",
 										"read:alerts",
+										"read:audit-log",
 										"read:automations",
 										"read:billing",
 										"read:connect",
@@ -3954,6 +4020,7 @@ export const userEventSchema = z
 										"read:project-env-vars-non-production",
 										"read:project-env-vars-production",
 										"read:project-flags",
+										"read:project-members",
 										"read:project-trusted-sources",
 										"read:remote-cache",
 										"read:sandbox",
@@ -3992,7 +4059,9 @@ export const userEventSchema = z
 							z.enum([
 								"manage:speed-insights",
 								"manage:web-analytics",
+								"read-write:access-group",
 								"read-write:ai-gateway-api-key",
+								"read-write:ai-gateway-budgets",
 								"read-write:ai-gateway-guardrails",
 								"read-write:ai-gateway-private-models",
 								"read-write:ai-gateway-rules",
@@ -4019,6 +4088,7 @@ export const userEventSchema = z
 								"read-write:project-env-vars-production",
 								"read-write:project-flags-non-production",
 								"read-write:project-flags-production",
+								"read-write:project-members",
 								"read-write:project-protection-bypass",
 								"read-write:project-trusted-sources",
 								"read-write:remote-cache",
@@ -4027,11 +4097,13 @@ export const userEventSchema = z
 								"read-write:team-members",
 								"read-write:vcr",
 								"read:access-group",
+								"read:ai-gateway-budgets",
 								"read:ai-gateway-guardrails",
 								"read:ai-gateway-private-models",
 								"read:ai-gateway-rules",
 								"read:ai-gateway-virtual-model-configs",
 								"read:alerts",
+								"read:audit-log",
 								"read:automations",
 								"read:billing",
 								"read:connect",
@@ -4048,6 +4120,7 @@ export const userEventSchema = z
 								"read:project-env-vars-non-production",
 								"read:project-env-vars-production",
 								"read:project-flags",
+								"read:project-members",
 								"read:project-trusted-sources",
 								"read:remote-cache",
 								"read:sandbox",
@@ -4164,10 +4237,15 @@ export const userEventSchema = z
 				z.strictObject({
 					subscriptionId: z.string().optional(),
 					action: z.enum(["cancel_plan"]),
-					data: z.object({
-						planSlug: z.enum(["v0_business", "v0_teams"]),
-						reason: z.enum(["non-payment"]).optional(),
-					}),
+					data: z.union([
+						z.strictObject({
+							planSlug: z.enum(["v0_business", "v0_teams"]),
+							reason: z.enum(["non-payment"]).optional(),
+						}),
+						z.strictObject({
+							planSlug: z.enum(["hobby"]),
+						}),
+					]),
 				}),
 				z.strictObject({
 					subscriptionId: z.string().optional(),
@@ -4370,12 +4448,14 @@ export const userEventSchema = z
 					clientName: z.string().optional(),
 					clientUid: z.string().optional(),
 					environments: z.array(z.string()).optional(),
+					eventName: z.string().optional(),
 					fields: z.array(z.string()).optional(),
 					importedTokenCount: z.number().optional(),
 					installationId: z.string().optional(),
 					projectId: z.string().optional(),
 					projectName: z.string().optional(),
 					subjectType: z.enum(["app", "user"]).optional(),
+					subscriptionId: z.string().optional(),
 					tokenCount: z.number().optional(),
 					tokensDeleted: z.number().optional(),
 					triggerDestinationCount: z.number().optional(),
@@ -4507,6 +4587,7 @@ export const userEventSchema = z
 					projectId: z.string(),
 					projectName: z.string(),
 				}),
+				z.unknown(),
 				z.strictObject({
 					alias: z.array(z.string()).optional(),
 					deployment: z
@@ -5422,6 +5503,7 @@ export const userEventSchema = z
 						url: z.string(),
 					}),
 					deploymentId: z.string(),
+					projectId: z.string().optional(),
 					url: z.string(),
 				}),
 				z.strictObject({
@@ -6923,6 +7005,10 @@ export const userEventSchema = z
 					teamSlug: z.string(),
 				}),
 				z.strictObject({
+					name: z.string(),
+					organizationId: z.string(),
+				}),
+				z.strictObject({
 					organizationId: z.string(),
 					slug: z.string(),
 				}),
@@ -7318,6 +7404,18 @@ export const userEventSchema = z
 				z.strictObject({
 					endpoint: z.object({
 						awsServiceName: z.string(),
+						configurationId: z.string(),
+						id: z.string(),
+						name: z.string(),
+						privateDnsNames: z.array(z.string()).optional(),
+						vercelRegion: z.string(),
+					}),
+					networkName: z.string().optional(),
+					scope: z.enum(["network"]),
+				}),
+				z.strictObject({
+					endpoint: z.object({
+						awsServiceName: z.string(),
 						id: z.string(),
 						name: z.string(),
 						privateDnsNames: z.array(z.string()).optional(),
@@ -7325,6 +7423,7 @@ export const userEventSchema = z
 						vercelRegion: z.string(),
 					}),
 					projectName: z.string().optional(),
+					scope: z.enum(["project"]).optional(),
 				}),
 				z.strictObject({
 					privateLinkEndpoint: z.object({
@@ -7333,6 +7432,27 @@ export const userEventSchema = z
 					}),
 					projectId: z.string(),
 					projectName: z.string().optional(),
+					scope: z.enum(["project"]).optional(),
+				}),
+				z.strictObject({
+					current: z.object({
+						awsServiceName: z.string(),
+						configurationId: z.string(),
+						id: z.string(),
+						name: z.string(),
+						privateDnsNames: z.array(z.string()).optional(),
+						vercelRegion: z.string(),
+					}),
+					networkName: z.string().optional(),
+					prev: z.object({
+						awsServiceName: z.string(),
+						configurationId: z.string(),
+						id: z.string(),
+						name: z.string(),
+						privateDnsNames: z.array(z.string()).optional(),
+						vercelRegion: z.string(),
+					}),
+					scope: z.enum(["network"]),
 				}),
 				z.strictObject({
 					current: z.object({
@@ -7352,6 +7472,7 @@ export const userEventSchema = z
 						vercelRegion: z.string(),
 					}),
 					projectName: z.string().optional(),
+					scope: z.enum(["project"]).optional(),
 				}),
 				z.strictObject({
 					previousEndpoint: z.object({
@@ -7367,6 +7488,7 @@ export const userEventSchema = z
 					}),
 					projectId: z.string(),
 					projectName: z.string().optional(),
+					scope: z.enum(["project"]).optional(),
 				}),
 				z.strictObject({
 					branch: z.string(),
@@ -8825,7 +8947,6 @@ export const userEventSchema = z
 						name: z.string().optional(),
 						type: z.enum(["blob", "edge-config", "integration", "postgres", "redis"]),
 					}),
-					transferRequestCode: z.string(),
 				}),
 				z.strictObject({
 					store: z.object({
@@ -8833,7 +8954,6 @@ export const userEventSchema = z
 						name: z.string().optional(),
 						type: z.enum(["blob", "edge-config", "integration", "postgres", "redis"]),
 					}),
-					transferRequestCode: z.string(),
 					destinationTeamId: z.string(),
 					destinationTeamName: z.string(),
 				}),
@@ -8843,7 +8963,6 @@ export const userEventSchema = z
 						name: z.string().optional(),
 						type: z.enum(["blob", "edge-config", "integration", "postgres", "redis"]),
 					}),
-					transferRequestCode: z.string(),
 					originTeamId: z.string(),
 					originTeamName: z.string(),
 				}),
@@ -9851,6 +9970,17 @@ export const userEventSchema = z
 					runId: z.string(),
 				}),
 				z.strictObject({
+					next: z.object({
+						enabled: z.union([z.literal(false), z.literal(true)]),
+						issuerUrls: z.array(z.string()),
+					}),
+					previous: z.object({
+						enabled: z.union([z.literal(false), z.literal(true)]),
+						issuerUrls: z.array(z.string()),
+					}),
+					scope: z.enum(["organization", "team"]),
+				}),
+				z.strictObject({
 					app: z
 						.object({
 							clientAuthenticationUsed: z.object({
@@ -9990,6 +10120,10 @@ export const userEventSchema = z
 						.describe("optional since entries prior to 2026-04-23 do not contain this field"),
 				}),
 				z.strictObject({
+					domain: z.string(),
+					projectId: z.string(),
+				}),
+				z.strictObject({
 					policy: z
 						.object({
 							claims: z
@@ -10110,6 +10244,7 @@ export const userEventSchema = z
 					appName: z.string().optional(),
 				}),
 				z.strictObject({
+					createdByParentTeamId: z.string().optional(),
 					expiresAt: z
 						.number()
 						.optional()
@@ -10177,6 +10312,7 @@ export const userEventSchema = z
 						.describe(
 							"Scope of the token: - `'user'`: full-account token (not tied to any team). - `'team'`: scoped to a single team. - `'project'`: scoped to a single project within a team.",
 						),
+					source: z.enum(["v0"]).optional(),
 					teamId: z
 						.string()
 						.optional()
@@ -10196,6 +10332,7 @@ export const userEventSchema = z
 				}),
 				z.strictObject({
 					actorTokenId: z.string().describe("The token's public ID."),
+					createdByParentTeamId: z.string().optional(),
 					expired: z.union([z.literal(false), z.literal(true)]).optional(),
 					geolocation: z
 						.object({
@@ -10249,6 +10386,8 @@ export const userEventSchema = z
 					reqId: z.string().optional(),
 					reqUrl: z.string().optional(),
 					revoked: z.union([z.literal(false), z.literal(true)]).optional(),
+					scope: z.enum(["project", "team", "user"]).optional(),
+					source: z.enum(["v0"]).optional(),
 					teamId: z.string().optional(),
 					tokenId: z.string(),
 					tokenName: z.string(),
@@ -10465,6 +10604,7 @@ export const userEventSchema = z
 				"connect-attach-project",
 				"connect-bitbucket",
 				"connect-bitbucket-app",
+				"connect-cancel-mcp-event-subscription",
 				"connect-configuration-created",
 				"connect-configuration-deleted",
 				"connect-configuration-link-updated",
@@ -10472,6 +10612,7 @@ export const userEventSchema = z
 				"connect-configuration-unlinked",
 				"connect-configuration-updated",
 				"connect-create-connector",
+				"connect-create-mcp-event-subscription",
 				"connect-delete-connector",
 				"connect-delete-installation",
 				"connect-detach-project",
@@ -10590,6 +10731,8 @@ export const userEventSchema = z
 				"experiment-updated",
 				"firewall-bypass-created",
 				"firewall-bypass-deleted",
+				"firewall-conditional-bypass-created",
+				"firewall-conditional-bypass-deleted",
 				"firewall-config-modified",
 				"firewall-config-promoted",
 				"firewall-config-removed",
@@ -10708,6 +10851,7 @@ export const userEventSchema = z
 				"organization-emu-domains-merged",
 				"organization-emu-team-updated",
 				"organization-emu-updated",
+				"organization-name-update",
 				"organization-slug-update",
 				"organization-sso-enforced",
 				"organization-team-add",
@@ -11066,6 +11210,7 @@ export const userEventSchema = z
 				"webhook-deleted",
 				"webhook-updated",
 				"workflow-deployment-key-accessed",
+				"xaa-updated",
 			])
 			.optional()
 			.describe("The type of the event.")
@@ -11292,6 +11437,7 @@ export const listEventTypeSchema = z
 				"connect-attach-project",
 				"connect-bitbucket",
 				"connect-bitbucket-app",
+				"connect-cancel-mcp-event-subscription",
 				"connect-configuration-created",
 				"connect-configuration-deleted",
 				"connect-configuration-link-updated",
@@ -11299,6 +11445,7 @@ export const listEventTypeSchema = z
 				"connect-configuration-unlinked",
 				"connect-configuration-updated",
 				"connect-create-connector",
+				"connect-create-mcp-event-subscription",
 				"connect-delete-connector",
 				"connect-delete-installation",
 				"connect-detach-project",
@@ -11417,6 +11564,8 @@ export const listEventTypeSchema = z
 				"experiment-updated",
 				"firewall-bypass-created",
 				"firewall-bypass-deleted",
+				"firewall-conditional-bypass-created",
+				"firewall-conditional-bypass-deleted",
 				"firewall-config-modified",
 				"firewall-config-promoted",
 				"firewall-config-removed",
@@ -11535,6 +11684,7 @@ export const listEventTypeSchema = z
 				"organization-emu-domains-merged",
 				"organization-emu-team-updated",
 				"organization-emu-updated",
+				"organization-name-update",
 				"organization-slug-update",
 				"organization-sso-enforced",
 				"organization-team-add",
@@ -11893,6 +12043,7 @@ export const listEventTypeSchema = z
 				"webhook-deleted",
 				"webhook-updated",
 				"workflow-deployment-key-accessed",
+				"xaa-updated",
 			])
 			.describe("The name of the event type.")
 			.meta({ examples: ["deployment-created"] }),
@@ -12021,6 +12172,7 @@ export const listEventTypeSchema = z
 					"connect-attach-project",
 					"connect-bitbucket",
 					"connect-bitbucket-app",
+					"connect-cancel-mcp-event-subscription",
 					"connect-configuration-created",
 					"connect-configuration-deleted",
 					"connect-configuration-link-updated",
@@ -12028,6 +12180,7 @@ export const listEventTypeSchema = z
 					"connect-configuration-unlinked",
 					"connect-configuration-updated",
 					"connect-create-connector",
+					"connect-create-mcp-event-subscription",
 					"connect-delete-connector",
 					"connect-delete-installation",
 					"connect-detach-project",
@@ -12146,6 +12299,8 @@ export const listEventTypeSchema = z
 					"experiment-updated",
 					"firewall-bypass-created",
 					"firewall-bypass-deleted",
+					"firewall-conditional-bypass-created",
+					"firewall-conditional-bypass-deleted",
 					"firewall-config-modified",
 					"firewall-config-promoted",
 					"firewall-config-removed",
@@ -12264,6 +12419,7 @@ export const listEventTypeSchema = z
 					"organization-emu-domains-merged",
 					"organization-emu-team-updated",
 					"organization-emu-updated",
+					"organization-name-update",
 					"organization-slug-update",
 					"organization-sso-enforced",
 					"organization-team-add",
@@ -12622,6 +12778,7 @@ export const listEventTypeSchema = z
 					"webhook-deleted",
 					"webhook-updated",
 					"workflow-deployment-key-accessed",
+					"xaa-updated",
 				]),
 			)
 			.optional()
@@ -12858,6 +13015,7 @@ export const flagSchema = z.object({
 	projectId: z.string(),
 	revision: z.number(),
 	seed: z.number(),
+	seenInProduction: z.union([z.literal(false), z.literal(true)]).optional(),
 	slug: z.string(),
 	state: z.enum(["active", "archived"]),
 	tags: z.array(z.string()).optional(),
@@ -13179,6 +13337,77 @@ export const aCLActionSchema = z
 		"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 	);
 
+export const organizationSchema = z.object({
+	avatar: z.string().nullable(),
+	createdAt: z.string(),
+	name: z
+		.string()
+		.optional()
+		.describe(
+			"The organization's display name. Optional: organizations created before the name attribute existed have no stored value. New orgs always get one (provided or slug-derived) via the service layer.",
+		),
+	organizationId: z.string(),
+	slug: z.string(),
+	teamCount: z.number(),
+	teamId: z.string(),
+	updatedAt: z.string(),
+	userRole: z
+		.string()
+		.optional()
+		.describe(
+			"The authenticated user's role in the organization. Present on read endpoints when the user holds an organization role.",
+		),
+});
+
+export const organizationTeamListItemSchema = z
+	.object({
+		avatar: z
+			.string()
+			.nullable()
+			.describe("The ID of the file used as the Team's avatar, or `null` if none."),
+		billingPlan: z
+			.enum(["enterprise", "platform"])
+			.optional()
+			.describe(
+				"Billing profile of the organization link: how this team settles within the organization. This is not the team's billing.plan or planIteration. Links with `enterprise` billing participate in organization-level billing and usage rollups. This field is optional for legacy links that have no stored profile.",
+			),
+		createdAt: z
+			.string()
+			.describe("ISO timestamp of when the team was linked to the organization."),
+		memberCount: z
+			.number()
+			.optional()
+			.describe(
+				"Present only when the request sets `includeMemberCount=true`. Number of members on the Team, including pending memberships. Excludes email invitations that do not have a membership record.",
+			),
+		name: z
+			.string()
+			.nullable()
+			.describe("The Team's display name, or `null` if none has been set."),
+		organizationId: z.string().describe("The ID of the organization the team belongs to."),
+		slug: z.string().describe("The Team's slug, unique across Vercel."),
+		ssoMode: z.enum(["organization", "team"]),
+		teamId: z.string().describe("The Team's unique identifier."),
+		updatedAt: z.string().describe("ISO timestamp of when the link was last updated."),
+	})
+	.describe(
+		"An org-team link enriched with the linked team's display fields, as returned by the list-teams endpoint. We project to an explicit flat interface instead of spreading the ElectroDB `OrganizationTeamItem` because its recursive generics break the OpenAPI generator (which would silently drop the route).",
+	);
+
+export const organizationTeamSchema = z.object({
+	billingPlan: z
+		.enum(["enterprise", "platform"])
+		.optional()
+		.describe(
+			"The child team's billing profile within the organization. Optional: links created before this attribute existed have no stored value.",
+		),
+	createdAt: z.string(),
+	organizationId: z.string(),
+	ssoMode: z.enum(["organization", "team"]),
+	teamId: z.string(),
+	updatedAt: z.string(),
+});
+
 export const namedSandboxSchema = z
 	.object({
 		architecture: z
@@ -13331,7 +13560,7 @@ export const namedSandboxSchema = z
 			.record(z.string(), z.string())
 			.optional()
 			.describe("Key-value tags attached to the named sandbox.")
-			.meta({ examples: [{}] }),
+			.meta({ examples: [{ team: "hive", user: "bob" }] }),
 		timeout: z
 			.number()
 			.optional()
@@ -13490,7 +13719,7 @@ export const sessionSchema = z
 			.describe(
 				"The quantity of data transfered to and from the sandbox, in bytes. This value is only available once the sandbox is stopped, and only if it stopped successfully.",
 			)
-			.meta({ examples: [{}] }),
+			.meta({ examples: [{ in: 12543852, out: 15368 }] }),
 		projectId: z
 			.string()
 			.describe("The unique identifier of the project associated with this session.")
@@ -13859,9 +14088,8 @@ export const teamSchema = z
 					})
 					.nullish(),
 			})
-			.optional()
 			.describe(
-				"Default deployment protection for this team null indicates protection is disabled",
+				"Deployment protection defaults for new projects in this team. When no Vercel Authentication default is saved, `ssoProtection` shows Standard Protection. An explicitly saved `null` remains disabled. Organization policy may override the team default during project creation.",
 			),
 		defaultExpirationSettings: z
 			.object({
@@ -14167,6 +14395,7 @@ export const teamSchema = z
 						}),
 					)
 					.optional(),
+				isOrgBackingTeamMembership: z.union([z.literal(false), z.literal(true)]).optional(),
 				joinedFrom: z
 					.object({
 						commitId: z.string().optional(),
@@ -14607,6 +14836,7 @@ export const teamLimitedSchema = z
 						}),
 					)
 					.optional(),
+				isOrgBackingTeamMembership: z.union([z.literal(false), z.literal(true)]).optional(),
 				joinedFrom: z
 					.object({
 						commitId: z.string().optional(),
@@ -15994,6 +16224,44 @@ export const updateAccessGroupErrorSchema = z.union([
 	updateAccessGroupStatus410Schema,
 ]);
 
+export const updateAccessGroupBodySchema = z.strictObject({
+	name: z
+		.string()
+		.max(50)
+		.regex(/^[A-z0-9_ -]+$/)
+		.optional()
+		.describe("The name of the access group")
+		.meta({ examples: ["My access group"] }),
+	projects: z
+		.array(
+			z.strictObject({
+				projectId: z
+					.string()
+					.max(256)
+					.describe("The ID of the project.")
+					.meta({ examples: ["prj_ndlgr43fadlPyCtREAqxxdyFK"] }),
+				role: z
+					.enum(["ADMIN", "PROJECT_DEVELOPER", "PROJECT_VIEWER"])
+					.nullable()
+					.describe(
+						'The project role that will be added to this Access Group. "null" will remove this project level role.',
+					)
+					.meta({ examples: ["ADMIN"] }),
+			}),
+		)
+		.optional(),
+	membersToAdd: z
+		.array(z.string())
+		.optional()
+		.describe("List of members to add to the access group.")
+		.meta({ examples: [["usr_1a2b3c4d5e6f7g8h9i0j", "usr_2b3c4d5e6f7g8h9i0j1k"]] }),
+	membersToRemove: z
+		.array(z.string())
+		.optional()
+		.describe("List of members to remove from the access group.")
+		.meta({ examples: [["usr_1a2b3c4d5e6f7g8h9i0j", "usr_2b3c4d5e6f7g8h9i0j1k"]] }),
+});
+
 export const deleteAccessGroupPathIdOrNameSchema = z.string();
 
 export const deleteAccessGroupQueryTeamIdSchema = z
@@ -16196,6 +16464,38 @@ export const createAccessGroupErrorSchema = z.union([
 	createAccessGroupStatus410Schema,
 ]);
 
+export const createAccessGroupBodySchema = z.strictObject({
+	name: z
+		.string()
+		.max(50)
+		.regex(/^[A-z0-9_ -]+$/)
+		.describe("The name of the access group")
+		.meta({ examples: ["My access group"] }),
+	projects: z
+		.array(
+			z.strictObject({
+				projectId: z
+					.string()
+					.max(256)
+					.describe("The ID of the project.")
+					.meta({ examples: ["prj_ndlgr43fadlPyCtREAqxxdyFK"] }),
+				role: z
+					.enum(["ADMIN", "PROJECT_DEVELOPER", "PROJECT_VIEWER"])
+					.nullable()
+					.describe(
+						'The project role that will be added to this Access Group. "null" will remove this project level role.',
+					)
+					.meta({ examples: ["ADMIN"] }),
+			}),
+		)
+		.optional(),
+	membersToAdd: z
+		.array(z.string())
+		.optional()
+		.describe("List of members to add to the access group.")
+		.meta({ examples: [["usr_1a2b3c4d5e6f7g8h9i0j", "usr_2b3c4d5e6f7g8h9i0j1k"]] }),
+});
+
 export const listAccessGroupProjectsPathIdOrNameSchema = z
 	.string()
 	.describe("The ID or name of the Access Group.")
@@ -16284,6 +16584,18 @@ export const createAccessGroupProjectErrorSchema = z.union([
 	createAccessGroupProjectStatus410Schema,
 ]);
 
+export const createAccessGroupProjectBodySchema = z.strictObject({
+	projectId: z
+		.string()
+		.max(256)
+		.describe("The ID of the project.")
+		.meta({ examples: ["prj_ndlgr43fadlPyCtREAqxxdyFK"] }),
+	role: z
+		.enum(["ADMIN", "PROJECT_DEVELOPER", "PROJECT_VIEWER"])
+		.describe("The project role that will be added to this Access Group.")
+		.meta({ examples: ["ADMIN"] }),
+});
+
 export const readAccessGroupProjectPathAccessGroupIdOrNameSchema = z.string();
 
 export const readAccessGroupProjectPathProjectIdSchema = z.string();
@@ -16359,6 +16671,13 @@ export const updateAccessGroupProjectErrorSchema = z.union([
 	updateAccessGroupProjectStatus404Schema,
 	updateAccessGroupProjectStatus410Schema,
 ]);
+
+export const updateAccessGroupProjectBodySchema = z.strictObject({
+	role: z
+		.enum(["ADMIN", "PROJECT_DEVELOPER", "PROJECT_VIEWER"])
+		.describe("The project role that will be added to this Access Group.")
+		.meta({ examples: ["ADMIN"] }),
+});
 
 export const deleteAccessGroupProjectPathAccessGroupIdOrNameSchema = z.string();
 
@@ -16582,6 +16901,10 @@ export const listAiGatewayVirtualModelConfigsQueryOwnerIdSchema = z.string().opt
 export const listAiGatewayVirtualModelConfigsQueryLimitSchema = z.int().min(1).optional();
 
 export const listAiGatewayVirtualModelConfigsQueryCursorSchema = z.string().optional();
+
+export const listAiGatewayVirtualModelConfigsQueryIncludeArchivedSchema = z
+	.enum(["true", "false"])
+	.optional();
 
 export const listAiGatewayVirtualModelConfigsQueryTeamIdSchema = z
 	.string()
@@ -16842,6 +17165,17 @@ export const createAiGatewayRuleErrorSchema = z.union([
 
 export const listAiGatewayRulesQueryIncludeDisabledSchema = z.enum(["true", "false"]).optional();
 
+export const listAiGatewayRulesQueryLimitSchema = z
+	.int()
+	.min(1)
+	.optional()
+	.describe("Maximum number of rules to return (capped at 200). Enables pagination.");
+
+export const listAiGatewayRulesQueryCursorSchema = z
+	.string()
+	.optional()
+	.describe("Opaque cursor returned by a prior call as nextCursor.");
+
 export const listAiGatewayRulesQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -16960,6 +17294,24 @@ export const listAiGatewayBudgetsQueryScopeTypeSchema = z
 	.optional()
 	.describe("Restrict the list to a single budget scope.");
 
+export const listAiGatewayBudgetsQueryIncludeDefaultCoveredSchema = z
+	.enum(["true", "false"])
+	.optional()
+	.describe(
+		'Whether to include rows inherited from a budget default (`source: "default"`). Defaults to true.',
+	);
+
+export const listAiGatewayBudgetsQueryLimitSchema = z
+	.int()
+	.min(1)
+	.optional()
+	.describe("Maximum number of budgets to return (capped at 200). Enables pagination.");
+
+export const listAiGatewayBudgetsQueryCursorSchema = z
+	.string()
+	.optional()
+	.describe("Opaque cursor returned by a prior call as nextCursor.");
+
 export const listAiGatewayBudgetsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -17033,6 +17385,21 @@ export const upsertAiGatewayBudgetErrorSchema = z.union([
 	upsertAiGatewayBudgetStatus410Schema,
 	upsertAiGatewayBudgetStatus500Schema,
 ]);
+
+export const upsertAiGatewayBudgetBodySchema = z
+	.strictObject({
+		scopeType: z.enum(["project", "team", "user"]),
+		projectId: z.string().optional().describe('Required when scopeType is "project".'),
+		userId: z.string().optional().describe('Required when scopeType is "user".'),
+		limitAmount: z.number().min(1).describe("Budget limit in dollars."),
+		refreshPeriod: z.enum(["daily", "monthly", "none", "weekly"]).optional().default("monthly"),
+		includeByokInQuota: z
+			.boolean()
+			.optional()
+			.describe("Whether BYOK usage counts toward this budget."),
+		alertThresholds: z.array(z.union([z.literal(100), z.literal(50), z.literal(75)])).optional(),
+	})
+	.optional();
 
 export const archiveAiGatewayBudgetQueryScopeTypeSchema = z
 	.enum(["team", "project", "user"])
@@ -17160,6 +17527,15 @@ export const upsertAiGatewayBudgetDefaultErrorSchema = z.union([
 	upsertAiGatewayBudgetDefaultStatus500Schema,
 ]);
 
+export const upsertAiGatewayBudgetDefaultBodySchema = z
+	.strictObject({
+		scopeType: z.enum(["api-key", "project", "team", "user"]),
+		limitAmount: z.number().min(1).describe("Default budget limit in dollars."),
+		refreshPeriod: z.enum(["daily", "monthly", "none", "weekly"]).optional(),
+		alertThresholds: z.array(z.union([z.literal(100), z.literal(50), z.literal(75)])).optional(),
+	})
+	.optional();
+
 export const archiveAiGatewayBudgetDefaultQueryScopeTypeSchema = z
 	.enum(["team", "project", "api-key", "user"])
 	.describe("The budget default scope to delete.");
@@ -17253,6 +17629,35 @@ export const recordEventsErrorSchema = z.union([
 	recordEventsStatus404Schema,
 	recordEventsStatus410Schema,
 ]);
+
+export const recordEventsBodySchema = z.array(
+	z.strictObject({
+		sessionId: z
+			.string()
+			.describe("A UUID (universally unique identifer) for the session that generated this event."),
+		source: z
+			.enum(["LOCAL", "REMOTE"])
+			.describe(
+				"One of `LOCAL` or `REMOTE`. `LOCAL` specifies that the cache event was from the user's filesystem cache. `REMOTE` specifies that the cache event is from a remote cache.",
+			),
+		event: z
+			.enum(["HIT", "MISS"])
+			.describe(
+				"One of `HIT` or `MISS`. `HIT` specifies that a cached artifact for `hash` was found in the cache. `MISS` specifies that a cached artifact with `hash` was not found.",
+			),
+		hash: z
+			.string()
+			.describe("The artifact hash")
+			.meta({ examples: ["12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] }),
+		duration: z
+			.number()
+			.optional()
+			.describe(
+				"The time taken to generate the artifact. This should be sent as a body parameter on `HIT` events.",
+			)
+			.meta({ examples: [400] }),
+	}),
+);
 
 export const statusQueryTeamIdSchema = z
 	.string()
@@ -17381,6 +17786,8 @@ export const uploadArtifactErrorSchema = z.union([
 	uploadArtifactStatus410Schema,
 ]);
 
+export const uploadArtifactBodySchema = z.instanceof(File);
+
 export const downloadArtifactHeaderXArtifactClientCiSchema = z
 	.string()
 	.max(50)
@@ -17474,6 +17881,13 @@ export const artifactQueryErrorSchema = z.union([
 	artifactQueryStatus404Schema,
 	artifactQueryStatus410Schema,
 ]);
+
+export const artifactQueryBodySchema = z.object({
+	hashes: z
+		.array(z.string())
+		.describe("artifact hashes")
+		.meta({ examples: [["12HKQaOmR5t5Uy6vdcQsNIiZgHGB", "34HKQaOmR5t5Uy6vasdasdasdasd"]] }),
+});
 
 export const deleteAllArtifactsQueryTeamIdSchema = z
 	.string()
@@ -17641,6 +18055,14 @@ export const buyCreditsErrorSchema = z.union([
 	buyCreditsStatus500Schema,
 ]);
 
+export const buyCreditsBodySchema = z.object({
+	item: z.object({
+		type: z.enum(["credits"]).describe("The type of item to purchase."),
+		creditType: z.enum(["agent", "gateway", "v0"]).describe("The type of credits to purchase."),
+		amount: z.int().min(1).describe("The amount of credits to purchase."),
+	}),
+});
+
 export const stageRedirectsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -17677,6 +18099,29 @@ export const stageRedirectsErrorSchema = z.union([
 	stageRedirectsStatus410Schema,
 	stageRedirectsStatus500Schema,
 ]);
+
+export const stageRedirectsBodySchema = z
+	.object({
+		projectId: z.string(),
+		teamId: z.string(),
+		overwrite: z.boolean().optional(),
+		name: z.string().max(256).optional(),
+		redirects: z
+			.array(
+				z.object({
+					source: z.string().max(2048),
+					destination: z.string().max(2048),
+					statusCode: z.union([z.number(), z.string()]).optional(),
+					permanent: z.boolean().optional(),
+					caseSensitive: z.boolean().optional(),
+					query: z.boolean().optional(),
+					preserveQueryParams: z.boolean().optional(),
+				}),
+			)
+			.optional()
+			.default([]),
+	})
+	.optional();
 
 export const getRedirectsQueryProjectIdSchema = z.string();
 
@@ -17769,6 +18214,18 @@ export const deleteRedirectsErrorSchema = z.union([
 	deleteRedirectsStatus500Schema,
 ]);
 
+export const deleteRedirectsBodySchema = z
+	.object({
+		name: z.string().max(256).optional(),
+		redirects: z
+			.array(z.string())
+			.min(1)
+			.describe(
+				"The redirects to delete. The source of the redirect is used to match the redirect to delete.",
+			),
+	})
+	.optional();
+
 export const editRedirectQueryProjectIdSchema = z.string();
 
 export const editRedirectQueryTeamIdSchema = z
@@ -17808,6 +18265,29 @@ export const editRedirectErrorSchema = z.union([
 	editRedirectStatus500Schema,
 ]);
 
+export const editRedirectBodySchema = z
+	.object({
+		name: z.string().max(256).optional(),
+		redirect: z
+			.strictObject({
+				source: z.string(),
+				destination: z.string().optional(),
+				statusCode: z.number().optional(),
+				permanent: z.boolean().optional(),
+				caseSensitive: z.boolean().optional(),
+				query: z.boolean().optional(),
+				preserveQueryParams: z.boolean().optional(),
+			})
+			.describe(
+				"The redirect object to edit. The source field is used to match the redirect to modify.",
+			),
+		restore: z
+			.boolean()
+			.optional()
+			.describe("If true, restores the redirect from the latest production version to staging."),
+	})
+	.optional();
+
 export const restoreRedirectsQueryProjectIdSchema = z.string();
 
 export const restoreRedirectsQueryTeamIdSchema = z
@@ -17846,6 +18326,19 @@ export const restoreRedirectsErrorSchema = z.union([
 	restoreRedirectsStatus410Schema,
 	restoreRedirectsStatus500Schema,
 ]);
+
+export const restoreRedirectsBodySchema = z
+	.object({
+		name: z.string().max(256).optional(),
+		redirects: z
+			.array(z.string())
+			.min(1)
+			.max(100)
+			.describe(
+				"The redirects to restore. The source of the redirect is used to match the redirect to restore.",
+			),
+	})
+	.optional();
 
 export const getVersionsQueryProjectIdSchema = z.string();
 
@@ -17924,6 +18417,14 @@ export const updateVersionErrorSchema = z.union([
 	updateVersionStatus410Schema,
 	updateVersionStatus500Schema,
 ]);
+
+export const updateVersionBodySchema = z
+	.object({
+		id: z.string(),
+		action: z.enum(["discard", "promote", "restore"]),
+		name: z.string().max(256).optional(),
+	})
+	.optional();
 
 export const listProjectChecksPathProjectIdOrNameSchema = z.string();
 
@@ -18006,6 +18507,45 @@ export const createProjectCheckErrorSchema = z.union([
 	createProjectCheckStatus410Schema,
 	createProjectCheckStatus500Schema,
 ]);
+
+export const createProjectCheckBodySchema = z
+	.object({
+		name: z.string(),
+		isRerequestable: z.boolean().optional(),
+		requires: z.enum(["build-ready", "deployment-url", "none"]).default("deployment-url"),
+		targets: z
+			.array(z.string())
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional(),
+		blocks: z
+			.enum(["build-start", "deployment-alias", "deployment-promotion", "deployment-start", "none"])
+			.optional()
+			.default("deployment-alias"),
+		source: z
+			.union([
+				z.strictObject({
+					kind: z.string().optional().default("integration"),
+					integrationId: z.string().optional(),
+					integrationConfigurationId: z.string().optional(),
+					resourceId: z.string().optional(),
+					externalResourceId: z.string().optional(),
+				}),
+				z.strictObject({
+					kind: z.string(),
+					webhookId: z.string().optional(),
+				}),
+				z.strictObject({
+					kind: z.string(),
+					externalCheckName: z.string(),
+					provider: z.enum(["github"]),
+				}),
+			])
+			.optional(),
+		timeout: z.number().optional().default(300),
+	})
+	.optional();
 
 export const getProjectCheckPathProjectIdOrNameSchema = z.string();
 
@@ -18091,6 +18631,23 @@ export const updateProjectCheckErrorSchema = z.union([
 	updateProjectCheckStatus410Schema,
 	updateProjectCheckStatus500Schema,
 ]);
+
+export const updateProjectCheckBodySchema = z
+	.strictObject({
+		name: z.string().optional(),
+		isRerequestable: z.boolean().optional(),
+		requires: z
+			.enum(["build-ready", "deployment-url", "none"])
+			.optional()
+			.default("deployment-url"),
+		targets: z.array(z.string()).optional(),
+		blocks: z
+			.enum(["build-start", "deployment-alias", "deployment-promotion", "deployment-start", "none"])
+			.optional()
+			.default("deployment-alias"),
+		timeout: z.number().optional().default(300),
+	})
+	.optional();
 
 export const deleteProjectCheckPathProjectIdOrNameSchema = z.string();
 
@@ -18255,6 +18812,12 @@ export const createDeploymentCheckRunErrorSchema = z.union([
 	createDeploymentCheckRunStatus500Schema,
 ]);
 
+export const createDeploymentCheckRunBodySchema = z
+	.object({
+		checkId: z.string(),
+	})
+	.optional();
+
 export const getDeploymentCheckRunPathDeploymentIdSchema = z.string();
 
 export const getDeploymentCheckRunPathCheckRunIdSchema = z
@@ -18343,6 +18906,20 @@ export const updateDeploymentCheckRunErrorSchema = z.union([
 	updateDeploymentCheckRunStatus500Schema,
 ]);
 
+export const updateDeploymentCheckRunBodySchema = z
+	.strictObject({
+		externalId: z.string().optional(),
+		externalUrl: z.url().optional(),
+		status: z.enum(["completed", "queued", "running"]).optional(),
+		output: z.object({}).optional(),
+		completedAt: z.number().optional(),
+		conclusion: z
+			.enum(["canceled", "failed", "neutral", "skipped", "succeeded", "timeout"])
+			.optional(),
+		conclusionText: z.string().optional(),
+	})
+	.optional();
+
 export const createCheckPathDeploymentIdSchema = z
 	.string()
 	.describe("The deployment to create the check for.")
@@ -18381,6 +18958,39 @@ export const createCheckErrorSchema = z.union([
 	createCheckStatus404Schema,
 	createCheckStatus410Schema,
 ]);
+
+export const createCheckBodySchema = z.object({
+	name: z
+		.string()
+		.max(100)
+		.describe("The name of the check being created")
+		.meta({ examples: ["Performance Check"] }),
+	path: z
+		.string()
+		.max(255)
+		.optional()
+		.describe("Path of the page that is being checked")
+		.meta({ examples: ["/"] }),
+	blocking: z
+		.boolean()
+		.describe("Whether the check should block a deployment from succeeding")
+		.meta({ examples: [true] }),
+	detailsUrl: z
+		.string()
+		.optional()
+		.describe("URL to display for further details")
+		.meta({ examples: ["http://example.com"] }),
+	externalId: z
+		.string()
+		.optional()
+		.describe("An identifier that can be used as an external reference")
+		.meta({ examples: ["1234abc"] }),
+	rerequestable: z
+		.boolean()
+		.optional()
+		.describe("Whether a user should be able to request for the check to be rerun if it fails")
+		.meta({ examples: [true] }),
+});
 
 export const getAllChecksPathDeploymentIdSchema = z
 	.string()
@@ -18511,6 +19121,127 @@ export const updateCheckErrorSchema = z.union([
 	updateCheckStatus410Schema,
 	updateCheckStatus413Schema,
 ]);
+
+export const updateCheckBodySchema = z.object({
+	name: z
+		.string()
+		.max(100)
+		.optional()
+		.describe("The name of the check being created")
+		.meta({ examples: ["Performance Check"] }),
+	path: z
+		.string()
+		.max(255)
+		.optional()
+		.describe("Path of the page that is being checked")
+		.meta({ examples: ["/"] }),
+	status: z.enum(["completed", "running"]).optional().describe("The current status of the check"),
+	conclusion: z
+		.enum(["canceled", "failed", "neutral", "skipped", "succeeded"])
+		.optional()
+		.describe("The result of the check being run"),
+	detailsUrl: z
+		.string()
+		.optional()
+		.describe("A URL a user may visit to see more information about the check")
+		.meta({ examples: ["https://example.com/check/run/1234abc"] }),
+	output: z
+		.object({
+			metrics: z
+				.strictObject({
+					fcp: z
+						.object({
+							value: z
+								.number()
+								.nullable()
+								.describe("First Contentful Paint value")
+								.meta({ examples: [1200] }),
+							previousValue: z
+								.number()
+								.optional()
+								.describe("Previous First Contentful Paint value to display a delta")
+								.meta({ examples: [900] }),
+							source: z.enum(["web-vitals"]),
+						})
+						.optional(),
+					lcp: z
+						.object({
+							value: z
+								.number()
+								.nullable()
+								.describe("Largest Contentful Paint value")
+								.meta({ examples: [1200] }),
+							previousValue: z
+								.number()
+								.optional()
+								.describe("Previous Largest Contentful Paint value to display a delta")
+								.meta({ examples: [1000] }),
+							source: z.enum(["web-vitals"]),
+						})
+						.optional(),
+					cls: z
+						.object({
+							value: z
+								.number()
+								.nullable()
+								.describe("Cumulative Layout Shift value")
+								.meta({ examples: [4] }),
+							previousValue: z
+								.number()
+								.optional()
+								.describe("Previous Cumulative Layout Shift value to display a delta")
+								.meta({ examples: [2] }),
+							source: z.enum(["web-vitals"]),
+						})
+						.optional(),
+					tbt: z
+						.object({
+							value: z
+								.number()
+								.nullable()
+								.describe("Total Blocking Time value")
+								.meta({ examples: [3000] }),
+							previousValue: z
+								.number()
+								.optional()
+								.describe("Previous Total Blocking Time value to display a delta")
+								.meta({ examples: [3500] }),
+							source: z.enum(["web-vitals"]),
+						})
+						.optional(),
+					virtualExperienceScore: z
+						.object({
+							value: z
+								.int()
+								.min(0)
+								.max(100)
+								.nullable()
+								.describe("The calculated Virtual Experience Score value, between 0 and 100")
+								.meta({ examples: [30] }),
+							previousValue: z
+								.int()
+								.min(0)
+								.max(100)
+								.optional()
+								.describe(
+									"A previous Virtual Experience Score value to display a delta, between 0 and 100",
+								)
+								.meta({ examples: [35] }),
+							source: z.enum(["web-vitals"]),
+						})
+						.optional(),
+				})
+				.optional()
+				.describe("Metrics about the page"),
+		})
+		.optional()
+		.describe("The results of the check Run"),
+	externalId: z
+		.string()
+		.optional()
+		.describe("An identifier that can be used as an external reference")
+		.meta({ examples: ["1234abc"] }),
+});
 
 export const rerequestCheckPathDeploymentIdSchema = z
 	.string()
@@ -18659,6 +19390,21 @@ export const createNetworkErrorSchema = z.union([
 	createNetworkStatus410Schema,
 ]);
 
+export const createNetworkBodySchema = z
+	.strictObject({
+		awsAvailabilityZoneIds: z.array(z.string()).min(2).max(2).optional(),
+		cidr: z
+			.string()
+			.describe("The CIDR block of the network")
+			.meta({ examples: ["192.168.0.0/16"] }),
+		name: z.string().max(255).describe("The name of the network"),
+		region: z
+			.string()
+			.describe("The region where the network will be created")
+			.meta({ examples: ["iad1"] }),
+	})
+	.optional();
+
 export const deleteNetworkPathNetworkIdSchema = z
 	.string()
 	.describe("The ID of the network to delete")
@@ -18743,6 +19489,12 @@ export const updateNetworkErrorSchema = z.union([
 	updateNetworkStatus410Schema,
 ]);
 
+export const updateNetworkBodySchema = z
+	.strictObject({
+		name: z.string().max(255).describe("The name of the Secure Compute network"),
+	})
+	.optional();
+
 export const readNetworkPathNetworkIdSchema = z
 	.string()
 	.describe("The unique identifier of the Secure Compute network")
@@ -18808,6 +19560,8 @@ export const createPrivateLinkEndpointStatus409Schema = z.unknown();
 
 export const createPrivateLinkEndpointStatus410Schema = z.unknown();
 
+export const createPrivateLinkEndpointStatus500Schema = z.unknown();
+
 export const createPrivateLinkEndpointResponseSchema = createPrivateLinkEndpointStatus201Schema;
 
 export const createPrivateLinkEndpointErrorSchema = z.union([
@@ -18817,7 +19571,41 @@ export const createPrivateLinkEndpointErrorSchema = z.union([
 	createPrivateLinkEndpointStatus404Schema,
 	createPrivateLinkEndpointStatus409Schema,
 	createPrivateLinkEndpointStatus410Schema,
+	createPrivateLinkEndpointStatus500Schema,
 ]);
+
+export const createPrivateLinkEndpointBodySchema = z
+	.strictObject({
+		projectId: z
+			.string()
+			.describe("The project ID to create the PrivateLink endpoint for.")
+			.meta({ examples: ["prj_a1b2c3d4e5f6g7h8"] }),
+		name: z
+			.string()
+			.max(255)
+			.describe("The name of the PrivateLink endpoint, used as its label in the Vercel dashboard.")
+			.meta({ examples: ["payments-db"] }),
+		vercelRegion: z
+			.string()
+			.describe(
+				"The Vercel region to provision the endpoint in. Advanced Networking must be enabled for the project in that region. The endpoint service itself may live in another AWS region.",
+			)
+			.meta({ examples: ["iad1"] }),
+		awsServiceName: z
+			.string()
+			.describe(
+				"The name of the AWS VPC endpoint service to connect to. Its AWS region is read from the name; when that region differs from the one behind `vercelRegion`, the service must allow cross-region access.",
+			)
+			.meta({ examples: ["com.amazonaws.vpce.us-east-1.vpce-svc-0123456789abcdef0"] }),
+		enablePrivateDns: z
+			.boolean()
+			.optional()
+			.describe(
+				"Whether to resolve the endpoint service through its private DNS names, which are then returned in `privateDnsNames`. Defaults to `false`, in which case the endpoint is reachable through the DNS names in `awsDnsEntries`.",
+			)
+			.meta({ examples: [false] }),
+	})
+	.optional();
 
 export const listPrivateLinkEndpointsQueryProjectIdSchema = z
 	.string()
@@ -18938,6 +19726,8 @@ export const deletePrivateLinkEndpointStatus409Schema = z.unknown();
 
 export const deletePrivateLinkEndpointStatus410Schema = z.unknown();
 
+export const deletePrivateLinkEndpointStatus500Schema = z.unknown();
+
 export const deletePrivateLinkEndpointResponseSchema = deletePrivateLinkEndpointStatus204Schema;
 
 export const deletePrivateLinkEndpointErrorSchema = z.union([
@@ -18947,6 +19737,7 @@ export const deletePrivateLinkEndpointErrorSchema = z.union([
 	deletePrivateLinkEndpointStatus404Schema,
 	deletePrivateLinkEndpointStatus409Schema,
 	deletePrivateLinkEndpointStatus410Schema,
+	deletePrivateLinkEndpointStatus500Schema,
 ]);
 
 export const updatePrivateLinkEndpointQueryProjectIdSchema = z
@@ -18995,6 +19786,24 @@ export const updatePrivateLinkEndpointErrorSchema = z.union([
 	updatePrivateLinkEndpointStatus409Schema,
 	updatePrivateLinkEndpointStatus410Schema,
 ]);
+
+export const updatePrivateLinkEndpointBodySchema = z
+	.strictObject({
+		name: z
+			.string()
+			.max(255)
+			.optional()
+			.describe("A new name for the PrivateLink endpoint. When omitted, the current name is kept.")
+			.meta({ examples: ["payments-db"] }),
+		enablePrivateDns: z
+			.boolean()
+			.optional()
+			.describe(
+				"When `true`, resolves the endpoint service through its private DNS names, which are then returned in `privateDnsNames`. When `false`, clears them. When omitted, the current setting is kept. At least one of `name` or `enablePrivateDns` must be provided.",
+			)
+			.meta({ examples: [false] }),
+	})
+	.optional();
 
 export const listConnectorsQueryLimitSchema = z
 	.int()
@@ -19260,6 +20069,8 @@ export const createConnectorErrorSchema = z.union([
 	createConnectorStatus504Schema,
 ]);
 
+export const createConnectorBodySchema = z.unknown().optional();
+
 export const updateConnectorPathConnectorSchema = z
 	.string()
 	.describe(
@@ -19322,6 +20133,8 @@ export const updateConnectorErrorSchema = z.union([
 	updateConnectorStatus504Schema,
 ]);
 
+export const updateConnectorBodySchema = z.unknown();
+
 export const replaceConnectorTriggerDestinationsPathConnectorSchema = z
 	.string()
 	.describe(
@@ -19378,6 +20191,8 @@ export const replaceConnectorTriggerDestinationsErrorSchema = z.union([
 	replaceConnectorTriggerDestinationsStatus501Schema,
 	replaceConnectorTriggerDestinationsStatus504Schema,
 ]);
+
+export const replaceConnectorTriggerDestinationsBodySchema = z.unknown();
 
 export const ejectManagedConnectorPathConnectorSchema = z
 	.string()
@@ -19586,6 +20401,8 @@ export const upsertConnectorProjectConnectionErrorSchema = z.union([
 	upsertConnectorProjectConnectionStatus410Schema,
 ]);
 
+export const upsertConnectorProjectConnectionBodySchema = z.unknown();
+
 export const deleteConnectorProjectConnectionPathConnectorSchema = z
 	.string()
 	.describe(
@@ -19726,6 +20543,49 @@ export const getConnectorTokenErrorSchema = z.union([
 	getConnectorTokenStatus429Schema,
 ]);
 
+export const getConnectorTokenBodySchema = z
+	.object({
+		subject: z
+			.union([
+				z.looseObject({
+					type: z.enum(["app"]),
+				}),
+				z.looseObject({
+					type: z.enum(["user"]),
+					id: z.string().optional(),
+					issuer: z.string().optional(),
+				}),
+				z.looseObject({
+					type: z.enum(["jwt-bearer"]),
+					sub: z.string().optional(),
+					iss: z.string().optional(),
+					aud: z.string().optional(),
+					additionalClaims: z.looseObject({}).optional(),
+				}),
+				z.strictObject({
+					type: z.enum(["token"]),
+					token: z.string(),
+				}),
+				z.looseObject({
+					type: z.string(),
+				}),
+			])
+			.optional(),
+		installationId: z.string().optional(),
+		audience: z.array(z.string()).optional(),
+		scopes: z.array(z.string()).optional(),
+		resources: z.array(z.string()).optional(),
+		authorizationDetails: z
+			.array(
+				z.looseObject({
+					type: z.string().optional(),
+				}),
+			)
+			.optional(),
+		validityBufferMs: z.number().optional(),
+	})
+	.optional();
+
 export const createConnectorAuthorizationRequestPathConnectorSchema = z.string();
 
 export const createConnectorAuthorizationRequestStatus200Schema = z.unknown();
@@ -19755,6 +20615,223 @@ export const createConnectorAuthorizationRequestErrorSchema = z.union([
 	createConnectorAuthorizationRequestStatus409Schema,
 	createConnectorAuthorizationRequestStatus410Schema,
 	createConnectorAuthorizationRequestStatus422Schema,
+]);
+
+export const createConnectorAuthorizationRequestBodySchema = z
+	.object({
+		subject: z
+			.union([
+				z.looseObject({
+					type: z.enum(["app"]),
+				}),
+				z.looseObject({
+					type: z.enum(["user"]),
+					id: z.string().optional(),
+					issuer: z.string().optional(),
+				}),
+				z.looseObject({
+					type: z.enum(["jwt-bearer"]),
+					sub: z.string().optional(),
+					iss: z.string().optional(),
+					aud: z.string().optional(),
+					additionalClaims: z.looseObject({}).optional(),
+				}),
+				z.strictObject({
+					type: z.enum(["token"]),
+					token: z.string(),
+				}),
+				z.looseObject({
+					type: z.string(),
+				}),
+			])
+			.optional(),
+		installationId: z.string().optional(),
+		audience: z.array(z.string()).optional(),
+		scopes: z.array(z.string()).optional(),
+		resources: z.array(z.string()).optional(),
+		authorizationDetails: z
+			.array(
+				z.looseObject({
+					type: z.string().optional(),
+				}),
+			)
+			.optional(),
+		validityBufferMs: z.number().optional(),
+		returnUrl: z.string().optional(),
+		webhook: z.string().optional(),
+		prompt: z.string().optional(),
+		deviceCode: z.boolean().optional(),
+		expiresInMs: z.number().optional(),
+		additionalParams: z.record(z.string(), z.string()).optional(),
+	})
+	.optional();
+
+export const getProjectBoxesPathIdOrNameSchema = z
+	.string()
+	.describe("The unique project identifier or the project name");
+
+export const getProjectBoxesQueryLimitSchema = z
+	.string()
+	.optional()
+	.describe("Maximum daemons to return (default: 10, max: 100)");
+
+export const getProjectBoxesQueryCursorSchema = z.string().optional().describe("Pagination cursor");
+
+export const getProjectBoxesQueryScopeTypeSchema = z
+	.enum(["target", "branch", "customEnvironment"])
+	.optional()
+	.describe("Filter by scope type");
+
+export const getProjectBoxesQueryScopeValueSchema = z
+	.string()
+	.optional()
+	.describe("Filter by scope value (requires scopeType)");
+
+export const getProjectBoxesQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const getProjectBoxesQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const getProjectBoxesStatus200Schema = z.unknown();
+
+export const getProjectBoxesStatus400Schema = z.unknown();
+
+export const getProjectBoxesStatus401Schema = z.unknown();
+
+export const getProjectBoxesStatus403Schema = z.unknown();
+
+export const getProjectBoxesStatus404Schema = z.unknown();
+
+export const getProjectBoxesStatus410Schema = z.unknown();
+
+export const getProjectBoxesResponseSchema = getProjectBoxesStatus200Schema;
+
+export const getProjectBoxesErrorSchema = z.union([
+	getProjectBoxesStatus400Schema,
+	getProjectBoxesStatus401Schema,
+	getProjectBoxesStatus403Schema,
+	getProjectBoxesStatus404Schema,
+	getProjectBoxesStatus410Schema,
+]);
+
+export const putProjectDaemonInstancesPathIdOrNameSchema = z
+	.string()
+	.describe("The unique project identifier or the project name");
+
+export const putProjectDaemonInstancesPathDaemonNameSchema = z
+	.string()
+	.regex(/^[a-zA-Z0-9_-]+$/)
+	.describe("The name of the daemon to scale");
+
+export const putProjectDaemonInstancesQueryTargetSchema = z
+	.enum(["production", "preview"])
+	.optional()
+	.default("production")
+	.describe("The deployment target for the daemon configuration.");
+
+export const putProjectDaemonInstancesQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const putProjectDaemonInstancesQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const putProjectDaemonInstancesStatus200Schema = z.unknown();
+
+export const putProjectDaemonInstancesStatus400Schema = z.unknown();
+
+export const putProjectDaemonInstancesStatus401Schema = z.unknown();
+
+export const putProjectDaemonInstancesStatus403Schema = z.unknown();
+
+export const putProjectDaemonInstancesStatus404Schema = z.unknown();
+
+export const putProjectDaemonInstancesStatus410Schema = z.unknown();
+
+export const putProjectDaemonInstancesResponseSchema = putProjectDaemonInstancesStatus200Schema;
+
+export const putProjectDaemonInstancesErrorSchema = z.union([
+	putProjectDaemonInstancesStatus400Schema,
+	putProjectDaemonInstancesStatus401Schema,
+	putProjectDaemonInstancesStatus403Schema,
+	putProjectDaemonInstancesStatus404Schema,
+	putProjectDaemonInstancesStatus410Schema,
+]);
+
+export const putProjectDaemonInstancesBodySchema = z
+	.record(z.string(), z.int().min(0).max(100))
+	.optional()
+	.describe(
+		'Instance count overrides by region, for example { \\"iad1\\": 1 }. Regions not in the map keep their configured count. An empty map removes the overrides.',
+	);
+
+export const restartProjectDaemonInstancePathIdOrNameSchema = z
+	.string()
+	.describe("The unique project identifier or the project name");
+
+export const restartProjectDaemonInstancePathDaemonNameSchema = z
+	.string()
+	.regex(/^[a-zA-Z0-9_-]+$/)
+	.describe("The name of the daemon that owns the instance");
+
+export const restartProjectDaemonInstancePathInstanceIdSchema = z
+	.string()
+	.regex(/^dmni_[0-9a-hjkmnp-tv-z]{26}$/)
+	.describe(
+		"The ID of the daemon instance whose user container is restarted, for example `dmni_01k7d0q5w3x8y9z0a1b2c3d4e5`",
+	);
+
+export const restartProjectDaemonInstanceQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const restartProjectDaemonInstanceQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const restartProjectDaemonInstanceStatus202Schema = z.unknown();
+
+export const restartProjectDaemonInstanceStatus400Schema = z.unknown();
+
+export const restartProjectDaemonInstanceStatus401Schema = z.unknown();
+
+export const restartProjectDaemonInstanceStatus403Schema = z.unknown();
+
+export const restartProjectDaemonInstanceStatus404Schema = z.unknown();
+
+export const restartProjectDaemonInstanceStatus409Schema = z.unknown();
+
+export const restartProjectDaemonInstanceStatus410Schema = z.unknown();
+
+export const restartProjectDaemonInstanceStatus500Schema = z.unknown();
+
+export const restartProjectDaemonInstanceResponseSchema =
+	restartProjectDaemonInstanceStatus202Schema;
+
+export const restartProjectDaemonInstanceErrorSchema = z.union([
+	restartProjectDaemonInstanceStatus400Schema,
+	restartProjectDaemonInstanceStatus401Schema,
+	restartProjectDaemonInstanceStatus403Schema,
+	restartProjectDaemonInstanceStatus404Schema,
+	restartProjectDaemonInstanceStatus409Schema,
+	restartProjectDaemonInstanceStatus410Schema,
+	restartProjectDaemonInstanceStatus500Schema,
 ]);
 
 export const getDeploymentEventsPathIdOrUrlSchema = z
@@ -19883,6 +20960,69 @@ export const updateIntegrationDeploymentActionErrorSchema = z.union([
 	updateIntegrationDeploymentActionStatus410Schema,
 ]);
 
+export const updateIntegrationDeploymentActionBodySchema = z
+	.strictObject({
+		status: z.enum(["failed", "running", "succeeded"]).optional(),
+		statusText: z.string().optional(),
+		statusUrl: z.url().optional(),
+		outcomes: z
+			.array(
+				z.union([
+					z.strictObject({
+						kind: z.string(),
+						secrets: z.array(
+							z.strictObject({
+								name: z.string(),
+								value: z.string(),
+							}),
+						),
+					}),
+					z.strictObject({
+						kind: z.string(),
+						claimRules: z
+							.array(
+								z.strictObject({
+									when: z
+										.strictObject({
+											role: z
+												.array(z.string().max(32))
+												.min(1)
+												.max(32)
+												.optional()
+												.describe("Applies only when the token is minted for one of these roles."),
+											environment: z
+												.array(z.string())
+												.min(1)
+												.max(32)
+												.optional()
+												.describe(
+													"Applies only when the token is minted for one of these environments: `production`, `preview`, `development`, or a custom environment slug. A custom environment also matches `preview`.",
+												),
+										})
+										.optional(),
+									claims: z
+										.record(
+											z.string(),
+											z.union([
+												z.union([z.string(), z.number(), z.boolean()]),
+												z.array(z.string()),
+											]),
+										)
+										.describe(
+											"Claims to set (string, number, boolean, or array of strings), shallow-merged over earlier rules and over the default claims. `null` removes a claim. Reserved claims cannot be set; `aud` and `sub` can be overridden with a string but not removed.",
+										),
+								}),
+							)
+							.describe(
+								"Ordered rules resolved at mint time. Later rules win and shallow-merge over earlier ones.",
+							),
+					}),
+				]),
+			)
+			.optional(),
+	})
+	.optional();
+
 export const getDeploymentPathIdOrUrlSchema = z
 	.string()
 	.describe("The unique identifier or hostname of the deployment.")
@@ -19997,6 +21137,449 @@ export const createDeploymentErrorSchema = z.union([
 	createDeploymentStatus500Schema,
 	createDeploymentStatus503Schema,
 ]);
+
+export const createDeploymentBodySchema = z.strictObject({
+	buildMachine: z
+		.enum(["turbo"])
+		.optional()
+		.describe(
+			"Selects a custom build machine for this deployment without changing project settings.",
+		),
+	customEnvironmentSlugOrId: z
+		.string()
+		.optional()
+		.describe(
+			"The slug or ID of a custom environment to deploy to, overriding the default target environment. When omitted, the deployment targets the environment inferred from the branch (production or preview).",
+		)
+		.meta({ examples: ["staging"] }),
+	deploymentId: z
+		.string()
+		.optional()
+		.describe(
+			"The ID of an existing deployment to redeploy. All project settings and environment variables are inherited from the original unless explicitly overridden in this request. The redeployment gets a new ID, URL, and build.",
+		)
+		.meta({ examples: ["dpl_2qn7PZrx89yxY34vEZPD31Y9XVj6"] }),
+	files: z
+		.array(
+			z.union([
+				z.strictObject({
+					data: z
+						.string()
+						.describe(
+							"The file content, it could be either a `base64` (useful for images, etc.) of the files or the plain content for source code",
+						),
+					encoding: z
+						.enum(["base64", "utf-8"])
+						.optional()
+						.describe(
+							"The file content encoding, it could be either a base64 (useful for images, etc.) of the files or the plain text for source code.",
+						),
+					file: z
+						.string()
+						.describe("The file name including the whole path")
+						.meta({ examples: ["folder/file.js"] }),
+				}),
+				z.strictObject({
+					file: z
+						.string()
+						.describe("The file path relative to the project root")
+						.meta({ examples: ["folder/file.js"] }),
+					sha: z
+						.string()
+						.optional()
+						.describe("The file contents hashed with SHA1, used to check the integrity"),
+					size: z.int().optional().describe("The file size in bytes"),
+				}),
+			]),
+		)
+		.optional()
+		.describe(
+			"The files to include in the deployment. Each entry is either an inlined file (with `data` and `encoding`) or a reference to a previously uploaded file (with `sha` and `size`). Required for non-git deployments. Cannot be used together with `gitSource`.",
+		),
+	gitAccessToken: z
+		.string()
+		.max(1024)
+		.optional()
+		.describe(
+			"Available only to Vercel platform accounts. A read-only GitHub access token scoped to the requested repository. Use a token with a lifetime of 24 hours or less that remains valid until source retrieval completes.",
+		),
+	gitMetadata: z
+		.strictObject({
+			remoteUrl: z
+				.string()
+				.optional()
+				.describe("The git repository's remote origin url")
+				.meta({ examples: ["https://github.com/vercel/next.js"] }),
+			commitAuthorName: z
+				.string()
+				.optional()
+				.describe("The name of the author of the commit")
+				.meta({ examples: ["kyliau"] }),
+			commitAuthorEmail: z
+				.string()
+				.optional()
+				.describe("The email of the author of the commit")
+				.meta({ examples: ["kyliau@example.com"] }),
+			commitMessage: z
+				.string()
+				.optional()
+				.describe("The commit message")
+				.meta({ examples: ["add method to measure Interaction to Next Paint (INP) (#36490)"] }),
+			commitRef: z
+				.string()
+				.optional()
+				.describe("The branch on which the commit was made")
+				.meta({ examples: ["main"] }),
+			commitSha: z
+				.string()
+				.optional()
+				.describe("The hash of the commit")
+				.meta({ examples: ["dc36199b2234c6586ebe05ec94078a895c707e29"] }),
+			dirty: z
+				.boolean()
+				.optional()
+				.describe(
+					"Whether or not there have been modifications to the working tree since the latest commit",
+				)
+				.meta({ examples: [true] }),
+			ci: z
+				.boolean()
+				.optional()
+				.describe("True if process.env.CI was set when deploying")
+				.meta({ examples: [true] }),
+			ciType: z
+				.string()
+				.optional()
+				.describe("The type of CI system used")
+				.meta({ examples: ["github-actions"] }),
+			ciGitProviderUsername: z
+				.string()
+				.optional()
+				.describe(
+					"The username used for the Git Provider (e.g. GitHub) if their CI (e.g. GitHub Actions) was used, if available",
+				)
+				.meta({ examples: ["rauchg"] }),
+			ciGitRepoVisibility: z
+				.string()
+				.optional()
+				.describe(
+					"The visibility of the Git repository if their CI (e.g. GitHub Actions) was used, if available",
+				)
+				.meta({ examples: ["private"] }),
+			rootDirectory: z
+				.string()
+				.optional()
+				.describe(
+					"Path of the deployed directory relative to the detected git repository root. Empty string when deploying from the repository root.",
+				)
+				.meta({ examples: ["apps/web"] }),
+		})
+		.optional()
+		.describe("Populates initial git metadata for different git providers."),
+	gitSource: z
+		.union([
+			z.object({
+				type: z.enum(["vercel"]),
+				repoId: z
+					.string()
+					.describe("The stable Vercel Git repository ID.")
+					.meta({ examples: [123456789] }),
+				sha: z.string().meta({ examples: ["a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0"] }),
+			}),
+			z.object({
+				ref: z.string().meta({ examples: ["main"] }),
+				repoId: z.union([z.number(), z.string()]).meta({ examples: [123456789] }),
+				sha: z
+					.string()
+					.optional()
+					.meta({ examples: ["a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0"] }),
+				type: z.enum(["github"]),
+			}),
+			z.object({
+				org: z.string().meta({ examples: ["vercel"] }),
+				ref: z.string().meta({ examples: ["main"] }),
+				repo: z.string().meta({ examples: ["next.js"] }),
+				sha: z
+					.string()
+					.optional()
+					.meta({ examples: ["a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0"] }),
+				type: z.enum(["github"]),
+			}),
+			z.object({
+				ref: z.string().meta({ examples: ["main"] }),
+				repoId: z.union([z.number(), z.string()]).meta({ examples: [123456789] }),
+				sha: z
+					.string()
+					.optional()
+					.meta({ examples: ["a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0"] }),
+				type: z.enum(["github-limited"]),
+			}),
+			z.object({
+				org: z.string().meta({ examples: ["vercel"] }),
+				ref: z.string().meta({ examples: ["main"] }),
+				repo: z.string().meta({ examples: ["next.js"] }),
+				sha: z
+					.string()
+					.optional()
+					.meta({ examples: ["a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0"] }),
+				type: z.enum(["github-limited"]),
+			}),
+			z.object({
+				projectId: z.union([z.number(), z.string()]).meta({ examples: [987654321] }),
+				ref: z.string().meta({ examples: ["main"] }),
+				sha: z
+					.string()
+					.optional()
+					.meta({ examples: ["a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0"] }),
+				type: z.enum(["gitlab"]),
+			}),
+			z.object({
+				ref: z.string().meta({ examples: ["main"] }),
+				repoUuid: z.string().meta({ examples: ["123e4567-e89b-12d3-a456-426614174000"] }),
+				sha: z
+					.string()
+					.optional()
+					.meta({ examples: ["a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0"] }),
+				type: z.enum(["bitbucket"]),
+				workspaceUuid: z
+					.string()
+					.optional()
+					.meta({ examples: ["987e6543-e21b-12d3-a456-426614174000"] }),
+			}),
+			z.object({
+				owner: z.string().meta({ examples: ["bitbucket_user"] }),
+				ref: z.string().meta({ examples: ["main"] }),
+				sha: z
+					.string()
+					.optional()
+					.meta({ examples: ["a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0"] }),
+				slug: z.string().meta({ examples: ["my-awesome-project"] }),
+				type: z.enum(["bitbucket"]),
+			}),
+			z.object({
+				owner: z
+					.string()
+					.optional()
+					.describe(
+						"The Origin workspace slug. Optional because Vercel resolves it from the linked project.",
+					)
+					.meta({ examples: ["bitbucket_user"] }),
+				ref: z
+					.string()
+					.describe("The branch or Git reference to deploy.")
+					.meta({ examples: ["main"] }),
+				repo: z
+					.string()
+					.optional()
+					.describe(
+						"The Origin repository name. Optional because Vercel resolves it from the linked project.",
+					)
+					.meta({ examples: ["next.js"] }),
+				repoId: z
+					.string()
+					.describe(
+						"The stable Origin repository ID. Read it from the `link.repoId` field returned by the project API.",
+					)
+					.meta({ examples: [123456789] }),
+				sha: z
+					.string()
+					.optional()
+					.describe(
+						"The commit SHA to deploy. When omitted, Vercel resolves the latest commit on `ref`.",
+					)
+					.meta({ examples: ["a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0"] }),
+				type: z.enum(["cursor-origin"]),
+			}),
+		])
+		.optional()
+		.describe(
+			"Defines the Git Repository source to be deployed. This property can not be used in combination with `files`.",
+		),
+	meta: z
+		.record(z.string(), z.string().max(65536))
+		.optional()
+		.describe(
+			"An object containing the deployment's metadata. Multiple key-value pairs can be attached to a deployment. For deployments created with a Cursor Origin `gitSource`, Vercel automatically adds `cursorOriginDeployment`, `cursorOriginCommitSha`, `cursorOriginCommitRef`, `cursorOriginCommitMessage`, `cursorOriginCommitAuthorName`, `cursorOriginCommitAuthorEmail` when available, `cursorOriginOwner`, `cursorOriginRepo`, `cursorOriginRepoId`, and `cursorOriginPrId` for pull request deployments.",
+		)
+		.meta({ examples: [{ foo: "bar" }] }),
+	monorepoManager: z
+		.string()
+		.nullish()
+		.describe(
+			"The monorepo manager that is being used for this deployment. When `null` is used no monorepo manager is selected",
+		),
+	name: z
+		.string()
+		.describe("A string with the project name used in the deployment URL")
+		.meta({ examples: ["my-instant-deployment"] }),
+	project: z
+		.string()
+		.optional()
+		.describe(
+			"The target project identifier in which the deployment will be created. When defined, this parameter overrides name",
+		)
+		.meta({ examples: ["my-deployment-project"] }),
+	projectSettings: z
+		.strictObject({
+			buildCommand: z
+				.string()
+				.max(256)
+				.nullish()
+				.describe(
+					"The build command for this project. When `null` is used this value will be automatically detected",
+				)
+				.meta({ examples: ["next build"] }),
+			commandForIgnoringBuildStep: z.string().max(256).nullish(),
+			devCommand: z
+				.string()
+				.max(256)
+				.nullish()
+				.describe(
+					"The dev command for this project. When `null` is used this value will be automatically detected",
+				),
+			framework: z
+				.enum([
+					"actix-web",
+					"angular",
+					"ash",
+					"astro",
+					"axum",
+					"blitzjs",
+					"brunch",
+					"bun",
+					"container",
+					"create-react-app",
+					"django",
+					"docusaurus",
+					"docusaurus-2",
+					"dojo",
+					"eleventy",
+					"elysia",
+					"ember",
+					"eve",
+					"express",
+					"factory-eve",
+					"fastapi",
+					"fasthtml",
+					"fastify",
+					"flask",
+					"gatsby",
+					"go",
+					"gridsome",
+					"h3",
+					"hexo",
+					"hono",
+					"hugo",
+					"hydrogen",
+					"ionic-angular",
+					"ionic-react",
+					"jekyll",
+					"koa",
+					"mastra",
+					"middleman",
+					"nestjs",
+					"nextjs",
+					"nitro",
+					"node",
+					"nuxtjs",
+					"parcel",
+					"polymer",
+					"preact",
+					"python",
+					"react-router",
+					"redwoodjs",
+					"remix",
+					"ruby",
+					"rust",
+					"saber",
+					"sanity",
+					"sanity-v2",
+					"sapper",
+					"scully",
+					"services",
+					"solidstart",
+					"solidstart-1",
+					"stencil",
+					"storybook",
+					"svelte",
+					"sveltekit",
+					"sveltekit-1",
+					"tanstack-start",
+					"tanstack-start-lovable",
+					"umijs",
+					"vite",
+					"vitepress",
+					"vue",
+					"vuepress",
+					"xmcp",
+					"zola",
+				])
+				.nullish()
+				.describe(
+					"The framework that is being used for this project. When `null` is used no framework is selected",
+				),
+			installCommand: z
+				.string()
+				.max(256)
+				.nullish()
+				.describe(
+					"The install command for this project. When `null` is used this value will be automatically detected",
+				)
+				.meta({ examples: ["pnpm install"] }),
+			nodeVersion: z
+				.string()
+				.optional()
+				.describe("Override the Node.js version that should be used for this deployment"),
+			outputDirectory: z
+				.string()
+				.max(256)
+				.nullish()
+				.describe(
+					"The output directory of the project. When `null` is used this value will be automatically detected",
+				),
+			rootDirectory: z
+				.string()
+				.max(256)
+				.nullish()
+				.describe(
+					"The name of a directory or relative path to the source code of your project. When `null` is used it will default to the project root",
+				),
+			serverlessFunctionRegion: z
+				.string()
+				.max(4)
+				.nullish()
+				.describe("The region to deploy Serverless Functions in this project"),
+			skipGitConnectDuringLink: z
+				.boolean()
+				.optional()
+				.describe(
+					"Opts-out of the message prompting a CLI user to connect a Git repository in `vercel link`.",
+				),
+			sourceFilesOutsideRootDirectory: z
+				.boolean()
+				.optional()
+				.describe(
+					"Indicates if there are source files outside of the root directory, typically used for monorepos",
+				),
+		})
+		.optional()
+		.describe(
+			"Project settings that will be applied to the deployment. It is required for the first deployment of a project and will be saved for any following deployments",
+		),
+	target: z
+		.string()
+		.optional()
+		.describe(
+			"Either not defined, `staging`, `production`, or a custom environment identifier. If `staging`, a staging alias in the format `<project>-<team>.vercel.app` will be assigned. If `production`, any aliases defined in `alias` will be assigned. If omitted, the target will be `preview`.",
+		)
+		.meta({ examples: ["production"] }),
+	withLatestCommit: z
+		.boolean()
+		.optional()
+		.describe(
+			"When `true` and `deploymentId` is passed in, the sha from the previous deployment's `gitSource` is removed forcing the latest commit to be used.",
+		),
+});
 
 export const cancelDeploymentPathIdSchema = z
 	.string()
@@ -20136,6 +21719,267 @@ export const createRecordErrorSchema = z.union([
 	createRecordStatus410Schema,
 ]);
 
+export const createRecordBodySchema = z
+	.discriminatedUnion("type", [
+		z.strictObject({
+			name: z
+				.string()
+				.describe("A subdomain name or an empty string for the root domain.")
+				.meta({ examples: ["subdomain"] }),
+			type: z.enum(["A"]).describe("Must be of type `A`."),
+			ttl: z
+				.number()
+				.min(60)
+				.max(2147483647)
+				.optional()
+				.describe("The TTL value. Must be a number between 60 and 2147483647. Default value is 60.")
+				.meta({ examples: [60] }),
+			value: z
+				.ipv4()
+				.describe("The record value must be a valid IPv4 address.")
+				.meta({ examples: ["192.0.2.42"] }),
+			comment: z
+				.string()
+				.max(500)
+				.optional()
+				.describe("A comment to add context on what this DNS record is for")
+				.meta({ examples: ["used to verify ownership of domain"] }),
+		}),
+		z.strictObject({
+			name: z
+				.string()
+				.describe("A subdomain name or an empty string for the root domain.")
+				.meta({ examples: ["subdomain"] }),
+			type: z.enum(["AAAA"]).describe("Must be of type `AAAA`."),
+			ttl: z
+				.number()
+				.min(60)
+				.max(2147483647)
+				.optional()
+				.describe("The TTL value. Must be a number between 60 and 2147483647. Default value is 60.")
+				.meta({ examples: [60] }),
+			value: z
+				.ipv6()
+				.describe("An AAAA record pointing to an IPv6 address.")
+				.meta({ examples: ["2001:DB8::42"] }),
+			comment: z
+				.string()
+				.max(500)
+				.optional()
+				.describe("A comment to add context on what this DNS record is for")
+				.meta({ examples: ["used to verify ownership of domain"] }),
+		}),
+		z.strictObject({
+			name: z
+				.string()
+				.describe("A subdomain name or an empty string for the root domain.")
+				.meta({ examples: ["subdomain"] }),
+			type: z.enum(["ALIAS"]).describe("Must be of type `ALIAS`."),
+			ttl: z
+				.number()
+				.min(60)
+				.max(2147483647)
+				.optional()
+				.describe("The TTL value. Must be a number between 60 and 2147483647. Default value is 60.")
+				.meta({ examples: [60] }),
+			value: z
+				.string()
+				.describe(
+					"An ALIAS virtual record pointing to a hostname resolved to an A record on server side.",
+				)
+				.meta({ examples: ["cname.vercel-dns.com"] }),
+			comment: z
+				.string()
+				.max(500)
+				.optional()
+				.describe("A comment to add context on what this DNS record is for")
+				.meta({ examples: ["used to verify ownership of domain"] }),
+		}),
+		z.strictObject({
+			name: z
+				.string()
+				.describe("A subdomain name or an empty string for the root domain.")
+				.meta({ examples: ["subdomain"] }),
+			type: z.enum(["CAA"]).describe("Must be of type `CAA`."),
+			ttl: z
+				.number()
+				.min(60)
+				.max(2147483647)
+				.optional()
+				.describe("The TTL value. Must be a number between 60 and 2147483647. Default value is 60.")
+				.meta({ examples: [60] }),
+			value: z
+				.string()
+				.describe(
+					"A CAA record to specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.",
+				)
+				.meta({ examples: ['0 issue "letsencrypt.org"'] }),
+			comment: z
+				.string()
+				.max(500)
+				.optional()
+				.describe("A comment to add context on what this DNS record is for")
+				.meta({ examples: ["used to verify ownership of domain"] }),
+		}),
+		z.strictObject({
+			name: z
+				.string()
+				.describe("A subdomain name or an empty string for the root domain.")
+				.meta({ examples: ["subdomain"] }),
+			type: z.enum(["CNAME"]).describe("Must be of type `CNAME`."),
+			ttl: z
+				.number()
+				.min(60)
+				.max(2147483647)
+				.optional()
+				.describe("The TTL value. Must be a number between 60 and 2147483647. Default value is 60.")
+				.meta({ examples: [60] }),
+			value: z
+				.string()
+				.optional()
+				.describe("A CNAME record mapping to another domain name.")
+				.meta({ examples: ["cname.vercel-dns.com"] }),
+			comment: z
+				.string()
+				.max(500)
+				.optional()
+				.describe("A comment to add context on what this DNS record is for")
+				.meta({ examples: ["used to verify ownership of domain"] }),
+		}),
+		z.strictObject({
+			name: z
+				.string()
+				.describe("A subdomain name or an empty string for the root domain.")
+				.meta({ examples: ["subdomain"] }),
+			type: z.enum(["MX"]).describe("Must be of type `MX`."),
+			ttl: z
+				.number()
+				.min(60)
+				.max(2147483647)
+				.optional()
+				.describe("The TTL value. Must be a number between 60 and 2147483647. Default value is 60.")
+				.meta({ examples: [60] }),
+			value: z
+				.string()
+				.describe(
+					"An MX record specifying the mail server responsible for accepting messages on behalf of the domain name.",
+				)
+				.meta({ examples: ["10 mail.example.com."] }),
+			mxPriority: z
+				.number()
+				.min(0)
+				.max(65535)
+				.meta({ examples: [10] }),
+			comment: z
+				.string()
+				.max(500)
+				.optional()
+				.describe("A comment to add context on what this DNS record is for")
+				.meta({ examples: ["used to verify ownership of domain"] }),
+		}),
+		z.strictObject({
+			type: z.enum(["SRV"]).describe("Must be of type `SRV`."),
+			ttl: z
+				.number()
+				.min(60)
+				.max(2147483647)
+				.optional()
+				.describe("The TTL value. Must be a number between 60 and 2147483647. Default value is 60.")
+				.meta({ examples: [60] }),
+			srv: z.strictObject({
+				priority: z.number().min(0).max(65535).nullable(),
+				weight: z.number().min(0).max(65535).nullable(),
+				port: z.number().min(0).max(65535).nullable(),
+				target: z.string().meta({ examples: ["host.example.com"] }),
+			}),
+			comment: z
+				.string()
+				.max(500)
+				.optional()
+				.describe("A comment to add context on what this DNS record is for")
+				.meta({ examples: ["used to verify ownership of domain"] }),
+			name: z.unknown(),
+		}),
+		z.strictObject({
+			type: z.enum(["TXT"]).describe("Must be of type `TXT`."),
+			ttl: z
+				.number()
+				.min(60)
+				.max(2147483647)
+				.optional()
+				.describe("The TTL value. Must be a number between 60 and 2147483647. Default value is 60.")
+				.meta({ examples: [60] }),
+			value: z
+				.string()
+				.describe("A TXT record containing arbitrary text.")
+				.meta({ examples: ["hello"] }),
+			comment: z
+				.string()
+				.max(500)
+				.optional()
+				.describe("A comment to add context on what this DNS record is for")
+				.meta({ examples: ["used to verify ownership of domain"] }),
+			name: z.unknown(),
+		}),
+		z.strictObject({
+			name: z
+				.string()
+				.describe("A subdomain name.")
+				.meta({ examples: ["subdomain"] }),
+			type: z.enum(["NS"]).describe("Must be of type `NS`."),
+			ttl: z
+				.number()
+				.min(60)
+				.max(2147483647)
+				.optional()
+				.describe("The TTL value. Must be a number between 60 and 2147483647. Default value is 60.")
+				.meta({ examples: [60] }),
+			value: z
+				.string()
+				.optional()
+				.describe("An NS domain value.")
+				.meta({ examples: ["ns1.example.com"] }),
+			comment: z
+				.string()
+				.max(500)
+				.optional()
+				.describe("A comment to add context on what this DNS record is for")
+				.meta({ examples: ["used to verify ownership of domain"] }),
+		}),
+		z.strictObject({
+			type: z.enum(["HTTPS"]).describe("Must be of type `HTTPS`."),
+			ttl: z
+				.number()
+				.min(60)
+				.max(2147483647)
+				.optional()
+				.describe("The TTL value. Must be a number between 60 and 2147483647. Default value is 60.")
+				.meta({ examples: [60] }),
+			https: z.strictObject({
+				priority: z.number().min(0).max(65535).nullable(),
+				target: z.string().meta({ examples: ["host.example.com"] }),
+				params: z
+					.string()
+					.optional()
+					.meta({ examples: ["alpn=h2,h3"] }),
+			}),
+			comment: z
+				.string()
+				.max(500)
+				.optional()
+				.describe("A comment to add context on what this DNS record is for")
+				.meta({ examples: ["used to verify ownership of domain"] }),
+			name: z.unknown(),
+		}),
+	])
+	.and(
+		z.object({
+			type: z
+				.enum(["A", "AAAA", "ALIAS", "CAA", "CNAME", "HTTPS", "MX", "NS", "SRV", "TXT"])
+				.describe("The type of record, it could be one of the valid DNS records."),
+		}),
+	);
+
 export const updateRecordPathRecordIdSchema = z
 	.string()
 	.describe("The id of the DNS record")
@@ -20180,6 +22024,61 @@ export const updateRecordErrorSchema = z.union([
 	updateRecordStatus409Schema,
 	updateRecordStatus410Schema,
 ]);
+
+export const updateRecordBodySchema = z.strictObject({
+	name: z
+		.string()
+		.nullish()
+		.describe("The name of the DNS record")
+		.meta({ examples: ["example-1"] }),
+	value: z
+		.string()
+		.nullish()
+		.describe("The value of the DNS record")
+		.meta({ examples: ["google.com"] }),
+	type: z
+		.enum(["A", "AAAA", "ALIAS", "CAA", "CNAME", "HTTPS", "MX", "NS", "SRV", "TXT"])
+		.nullish()
+		.describe("The type of the DNS record")
+		.meta({ examples: ["A"] }),
+	ttl: z
+		.int()
+		.min(60)
+		.max(2147483647)
+		.nullish()
+		.describe("The Time to live (TTL) value of the DNS record")
+		.meta({ examples: ["60"] }),
+	mxPriority: z.int().nullish().describe("The MX priority value of the DNS record"),
+	srv: z
+		.strictObject({
+			target: z
+				.string()
+				.max(255)
+				.nullable()
+				.meta({ examples: ["example2.com."] }),
+			weight: z.int().nullable(),
+			port: z.int().nullable(),
+			priority: z.int().nullable(),
+		})
+		.nullish(),
+	https: z
+		.strictObject({
+			priority: z.int().nullable(),
+			target: z
+				.string()
+				.max(255)
+				.nullable()
+				.meta({ examples: ["example2.com."] }),
+			params: z.string().nullish(),
+		})
+		.nullish(),
+	comment: z
+		.string()
+		.max(500)
+		.optional()
+		.describe("A comment to add context on what this DNS record is for")
+		.meta({ examples: ["used to verify ownership of domain"] }),
+});
 
 export const replaceDomainsByDomainRecordsPathDomainSchema = z
 	.string()
@@ -20307,6 +22206,10 @@ export const searchDomainsErrorSchema = z.union([
 	searchDomainsStatus429Schema,
 	searchDomainsStatus500Schema,
 ]);
+
+export const searchDomainsBodySchema = z.strictObject({
+	domains: z.array(z.unknown()).min(1).max(200).describe("an array of at most 200 item(s)"),
+});
 
 export const getSupportedTldsQueryTeamIdSchema = z
 	.string()
@@ -20495,6 +22398,16 @@ export const getBulkPriceErrorSchema = z.union([
 	getBulkPriceStatus500Schema,
 ]);
 
+export const getBulkPriceBodySchema = z.strictObject({
+	domains: z.array(z.unknown()).min(1).max(50).describe("an array of at most 50 item(s)"),
+	years: z
+		.number()
+		.optional()
+		.describe(
+			"The number of years to get the price for. If not provided, the minimum number of years for the TLD will be used.",
+		),
+});
+
 export const getBulkAvailabilityQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -20521,6 +22434,10 @@ export const getBulkAvailabilityErrorSchema = z.union([
 	getBulkAvailabilityStatus429Schema,
 	getBulkAvailabilityStatus500Schema,
 ]);
+
+export const getBulkAvailabilityBodySchema = z.strictObject({
+	domains: z.array(z.unknown()).min(1).max(50).describe("an array of at most 50 item(s)"),
+});
 
 export const getContactInfoSchemaPathDomainSchema = z.unknown();
 
@@ -20615,6 +22532,41 @@ export const buySingleDomainErrorSchema = z.union([
 	buySingleDomainStatus500Schema,
 ]);
 
+export const buySingleDomainBodySchema = z.strictObject({
+	autoRenew: z
+		.boolean()
+		.describe(
+			"Whether the domain should be auto-renewed before it expires. This can be configured later through the Vercel Dashboard or the [Update auto-renew for a domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/update-auto-renew-for-a-domain) endpoint.",
+		),
+	years: z.number().describe("The number of years to purchase the domain for."),
+	expectedPrice: z.number().min(0.01),
+	contactInformation: z
+		.strictObject({
+			firstName: z.unknown(),
+			lastName: z.unknown(),
+			email: z.unknown(),
+			phone: z.unknown(),
+			address1: z.unknown(),
+			address2: z.unknown().optional(),
+			city: z.unknown(),
+			state: z.unknown(),
+			zip: z.unknown(),
+			country: z.unknown(),
+			companyName: z.unknown().optional(),
+			fax: z.unknown().optional(),
+			additional: z.object({}).optional(),
+		})
+		.describe(
+			"The contact information for the domain. Some TLDs require additional contact information. Use the [Get contact info schema](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-contact-info-schema) endpoint to retrieve the required fields.",
+		),
+	languageCode: z
+		.string()
+		.optional()
+		.describe(
+			"The language code for the domain. For punycode domains, this must be provided. The list of supported language codes for a TLD can be retrieved from the [Get TLD](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-tld) endpoint.",
+		),
+});
+
 export const buyDomainsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -20641,6 +22593,48 @@ export const buyDomainsErrorSchema = z.union([
 	buyDomainsStatus429Schema,
 	buyDomainsStatus500Schema,
 ]);
+
+export const buyDomainsBodySchema = z.strictObject({
+	domains: z
+		.array(
+			z.strictObject({
+				domainName: z.unknown(),
+				autoRenew: z
+					.boolean()
+					.describe(
+						"Whether the domain should be auto-renewed before it expires. This can be configured later through the Vercel Dashboard or the [Update auto-renew for a domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/update-auto-renew-for-a-domain) endpoint.",
+					),
+				years: z.number().describe("The number of years to purchase the domain for."),
+				expectedPrice: z.number().min(0.01),
+				languageCode: z
+					.string()
+					.optional()
+					.describe(
+						"The language code for the domain. For punycode domains, this must be provided. The list of supported language codes for a TLD can be retrieved from the [Get TLD](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-tld) endpoint.",
+					),
+			}),
+		)
+		.min(1),
+	contactInformation: z
+		.strictObject({
+			firstName: z.unknown(),
+			lastName: z.unknown(),
+			email: z.unknown(),
+			phone: z.unknown(),
+			address1: z.unknown(),
+			address2: z.unknown().optional(),
+			city: z.unknown(),
+			state: z.unknown(),
+			zip: z.unknown(),
+			country: z.unknown(),
+			companyName: z.unknown().optional(),
+			fax: z.unknown().optional(),
+			additional: z.object({}).optional(),
+		})
+		.describe(
+			"The contact information for the domain. Some TLDs require additional contact information. Use the [Get contact info schema](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-contact-info-schema) endpoint to retrieve the required fields.",
+		),
+});
 
 export const transferInDomainPathDomainSchema = z.unknown();
 
@@ -20670,6 +22664,37 @@ export const transferInDomainErrorSchema = z.union([
 	transferInDomainStatus429Schema,
 	transferInDomainStatus500Schema,
 ]);
+
+export const transferInDomainBodySchema = z.strictObject({
+	authCode: z
+		.string()
+		.describe("The auth code for the domain. You must obtain this code from the losing registrar."),
+	autoRenew: z
+		.boolean()
+		.describe(
+			"Whether the domain should be auto-renewed before it expires. This can be configured later through the Vercel Dashboard or the [Update auto-renew for a domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/update-auto-renew-for-a-domain) endpoint.",
+		),
+	years: z
+		.number()
+		.describe(
+			"The number of years to renew the domain for once it is transferred in. This must be a valid number of transfer years for the TLD.",
+		),
+	expectedPrice: z.number().min(0.01),
+	contactInformation: z.strictObject({
+		firstName: z.unknown(),
+		lastName: z.unknown(),
+		email: z.unknown(),
+		phone: z.unknown(),
+		address1: z.unknown(),
+		address2: z.unknown().optional(),
+		city: z.unknown(),
+		state: z.unknown(),
+		zip: z.unknown(),
+		country: z.unknown(),
+		companyName: z.unknown().optional(),
+		fax: z.unknown().optional(),
+	}),
+});
 
 export const getDomainTransferInPathDomainSchema = z.unknown();
 
@@ -20735,6 +22760,27 @@ export const renewDomainErrorSchema = z.union([
 	renewDomainStatus500Schema,
 ]);
 
+export const renewDomainBodySchema = z.strictObject({
+	years: z.number().describe("The number of years to renew the domain for."),
+	expectedPrice: z.number().min(0.01),
+	contactInformation: z
+		.strictObject({
+			firstName: z.unknown(),
+			lastName: z.unknown(),
+			email: z.unknown(),
+			phone: z.unknown(),
+			address1: z.unknown(),
+			address2: z.unknown().optional(),
+			city: z.unknown(),
+			state: z.unknown(),
+			zip: z.unknown(),
+			country: z.unknown(),
+			companyName: z.unknown().optional(),
+			fax: z.unknown().optional(),
+		})
+		.optional(),
+});
+
 export const updateDomainAutoRenewPathDomainSchema = z.unknown();
 
 export const updateDomainAutoRenewQueryTeamIdSchema = z
@@ -20767,6 +22813,10 @@ export const updateDomainAutoRenewErrorSchema = z.union([
 	updateDomainAutoRenewStatus500Schema,
 ]);
 
+export const updateDomainAutoRenewBodySchema = z.strictObject({
+	autoRenew: z.boolean(),
+});
+
 export const updateDomainNameserversPathDomainSchema = z.unknown();
 
 export const updateDomainNameserversQueryTeamIdSchema = z
@@ -20798,6 +22848,10 @@ export const updateDomainNameserversErrorSchema = z.union([
 	updateDomainNameserversStatus429Schema,
 	updateDomainNameserversStatus500Schema,
 ]);
+
+export const updateDomainNameserversBodySchema = z.strictObject({
+	nameservers: z.array(z.unknown()),
+});
 
 export const getDomainContactVerificationPathDomainSchema = z.unknown();
 
@@ -21180,6 +23234,57 @@ export const createOrTransferDomainErrorSchema = z.union([
 	createOrTransferDomainStatus410Schema,
 ]);
 
+export const createOrTransferDomainBodySchema = z
+	.union([
+		z.strictObject({
+			name: z
+				.string()
+				.describe("The domain name you want to add.")
+				.meta({ examples: ["example.com"] }),
+			cdnEnabled: z
+				.boolean()
+				.optional()
+				.describe("Whether the domain has the Vercel CDN enabled or not.")
+				.meta({ examples: [true] }),
+			zone: z
+				.boolean()
+				.optional()
+				.describe(
+					"Whether to create a DNS zone on Vercel. Set `true` if using Vercel nameservers.",
+				),
+			method: z
+				.string()
+				.optional()
+				.describe("The domain operation to perform.")
+				.meta({ examples: ["add"] }),
+		}),
+		z.strictObject({
+			name: z
+				.string()
+				.describe("The domain name you want to add.")
+				.meta({ examples: ["example.com"] }),
+			method: z
+				.string()
+				.describe("The domain operation to perform.")
+				.meta({ examples: ["move-in"] }),
+			token: z
+				.string()
+				.optional()
+				.describe("The move-in token from Move Requested email.")
+				.meta({ examples: ["fdhfr820ad#@FAdlj$$"] }),
+		}),
+	])
+	.and(
+		z.object({
+			method: z
+				.string()
+				.optional()
+				.describe("The domain operation to perform. It can be either `add` or `move-in`.")
+				.meta({ examples: ["add"] }),
+		}),
+	)
+	.optional();
+
 export const patchDomainPathDomainSchema = z.string();
 
 export const patchDomainQueryTeamIdSchema = z
@@ -21220,6 +23325,49 @@ export const patchDomainErrorSchema = z.union([
 	patchDomainStatus409Schema,
 	patchDomainStatus410Schema,
 	patchDomainStatus500Schema,
+]);
+
+export const patchDomainBodySchema = z.union([
+	z.strictObject({
+		op: z
+			.string()
+			.optional()
+			.meta({ examples: ["update"] }),
+		renew: z
+			.boolean()
+			.optional()
+			.describe(
+				"This field is deprecated. Please use PATCH /v1/registrar/domains/{domainName}/auto-renew instead.",
+			),
+		customNameservers: z
+			.array(z.string())
+			.min(0)
+			.max(4)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe(
+				"This field is deprecated. Please use PATCH /v1/registrar/domains/{domainName}/nameservers instead.",
+			),
+		zone: z
+			.boolean()
+			.optional()
+			.describe("Specifies whether this is a DNS zone that intends to use Vercel's nameservers."),
+		echMode: z
+			.enum(["auto", "disabled"])
+			.optional()
+			.describe(
+				"Encrypted Client Hello enrollment. 'auto' leaves it to Vercel, 'disabled' never enrolls and opts out of automatic enrollment.",
+			),
+	}),
+	z.strictObject({
+		op: z
+			.string()
+			.optional()
+			.meta({ examples: ["move-out"] }),
+		destination: z.string().optional().describe("User or team to move domain to"),
+	}),
 ]);
 
 export const deleteDomainPathDomainSchema = z
@@ -21413,6 +23561,47 @@ export const createConfigurableLogDrainErrorSchema = z.union([
 	createConfigurableLogDrainStatus410Schema,
 ]);
 
+export const createConfigurableLogDrainBodySchema = z.strictObject({
+	deliveryFormat: z
+		.enum(["json", "ndjson"])
+		.describe("The delivery log format")
+		.meta({ examples: ["json"] }),
+	url: z.url().describe("The log drain url"),
+	headers: z
+		.record(z.string(), z.string())
+		.optional()
+		.describe("Headers to be sent together with the request"),
+	projectIds: z
+		.array(z.string().regex(/^[a-zA-z0-9_]+$/))
+		.min(1)
+		.max(50)
+		.optional(),
+	sources: z
+		.array(z.enum(["build", "edge", "external", "firewall", "lambda", "static"]))
+		.min(1)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		}),
+	environments: z
+		.array(z.enum(["preview", "production"]))
+		.min(1)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.optional(),
+	secret: z.string().optional().describe("Custom secret of log drain"),
+	samplingRate: z
+		.number()
+		.min(0.01)
+		.max(1)
+		.multipleOf(0.01)
+		.optional()
+		.describe(
+			"The sampling rate for this log drain. It should be a percentage rate between 0 and 100. With max 2 decimal points",
+		),
+	name: z.string().optional().describe("The custom name of this log drain."),
+});
+
 export const createDrainQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -21449,6 +23638,142 @@ export const createDrainErrorSchema = z.union([
 	createDrainStatus404Schema,
 	createDrainStatus410Schema,
 ]);
+
+export const createDrainBodySchema = z
+	.strictObject({
+		name: z.string(),
+		projects: z.enum(["all", "some"]),
+		projectIds: z.array(z.string()).optional(),
+		filter: z
+			.strictObject({
+				version: z.string(),
+				filter: z.union([
+					z.strictObject({
+						type: z.string(),
+						project: z
+							.strictObject({
+								ids: z.array(z.string()).optional(),
+							})
+							.optional(),
+						log: z
+							.strictObject({
+								sources: z
+									.array(
+										z.enum([
+											"build",
+											"edge",
+											"lambda",
+											"static",
+											"external",
+											"firewall",
+											"redirect",
+										]),
+									)
+									.optional(),
+							})
+							.optional(),
+						deployment: z
+							.strictObject({
+								environments: z.array(z.enum(["production", "preview"])).optional(),
+							})
+							.optional(),
+					}),
+					z.strictObject({
+						type: z.string(),
+						text: z.string(),
+					}),
+				]),
+			})
+			.optional(),
+		schemas: z.record(
+			z.string(),
+			z.object({
+				version: z.string(),
+			}),
+		),
+		delivery: z
+			.union([
+				z.strictObject({
+					type: z.string(),
+					endpoint: z.string(),
+					compression: z.enum(["gzip", "none"]).optional(),
+					encoding: z.enum(["json", "ndjson"]),
+					headers: z.record(z.string(), z.string()),
+					secret: z.string().optional(),
+				}),
+				z.strictObject({
+					type: z.string(),
+					endpoint: z.strictObject({
+						traces: z.string(),
+					}),
+					encoding: z.enum(["proto", "json"]),
+					headers: z.record(z.string(), z.string()),
+					secret: z.string().optional(),
+				}),
+				z.strictObject({
+					type: z.string(),
+					endpoint: z.string(),
+					encoding: z.enum(["json", "ndjson"]),
+					compression: z.enum(["none"]),
+					fileStructure: z.enum(["hive"]),
+					roleArn: z.string(),
+					region: z.string(),
+					serverSideEncryption: z
+						.enum(["AES256", "aws:kms", "aws:kms:dsse"])
+						.optional()
+						.default("AES256"),
+					objectAcl: z
+						.enum(["private", "bucket-owner-read", "bucket-owner-full-control"])
+						.optional(),
+				}),
+			])
+			.optional(),
+		sampling: z
+			.array(
+				z.strictObject({
+					type: z.string(),
+					rate: z.number().min(0).max(1).describe("Sampling rate from 0 to 1 (e.g., 0.1 for 10%)"),
+					env: z
+						.enum(["preview", "production"])
+						.optional()
+						.describe("Environment to apply sampling to"),
+					requestPath: z
+						.string()
+						.optional()
+						.describe("Request path prefix to apply the sampling rule to"),
+				}),
+			)
+			.max(10)
+			.optional(),
+		transforms: z
+			.array(
+				z.object({
+					id: z.string(),
+				}),
+			)
+			.optional(),
+		source: z
+			.union([
+				z.union([
+					z.strictObject({
+						kind: z.string().optional().default("integration"),
+						externalResourceId: z.string(),
+					}),
+					z.strictObject({
+						kind: z.string().optional().default("integration"),
+						resourceId: z.string(),
+					}),
+					z.strictObject({
+						kind: z.string().default("integration"),
+					}),
+				]),
+				z.strictObject({
+					kind: z.string().default("self-served"),
+				}),
+			])
+			.optional(),
+	})
+	.optional();
 
 export const getDrainsQueryProjectIdSchema = z.string().optional();
 
@@ -21599,6 +23924,148 @@ export const updateDrainErrorSchema = z.union([
 	updateDrainStatus410Schema,
 ]);
 
+export const updateDrainBodySchema = z
+	.strictObject({
+		name: z.string().optional(),
+		projects: z.enum(["all", "some"]).optional(),
+		projectIds: z.array(z.string()).nullish(),
+		filter: z
+			.union([
+				z.string(),
+				z.strictObject({
+					version: z.string(),
+					filter: z.union([
+						z.strictObject({
+							type: z.string(),
+							project: z
+								.strictObject({
+									ids: z.array(z.string()).optional(),
+								})
+								.optional(),
+							log: z
+								.strictObject({
+									sources: z
+										.array(
+											z.enum([
+												"build",
+												"edge",
+												"lambda",
+												"static",
+												"external",
+												"firewall",
+												"redirect",
+											]),
+										)
+										.optional(),
+								})
+								.optional(),
+							deployment: z
+								.strictObject({
+									environments: z.array(z.enum(["production", "preview"])).optional(),
+								})
+								.optional(),
+						}),
+						z.strictObject({
+							type: z.string(),
+							text: z.string(),
+						}),
+					]),
+				}),
+			])
+			.optional(),
+		schemas: z
+			.record(
+				z.string(),
+				z.object({
+					version: z.string(),
+				}),
+			)
+			.optional(),
+		delivery: z
+			.union([
+				z.strictObject({
+					type: z.string(),
+					endpoint: z.string(),
+					compression: z.enum(["gzip", "none"]).optional(),
+					encoding: z.enum(["json", "ndjson"]),
+					headers: z.record(z.string(), z.string()),
+					secret: z.string().optional(),
+				}),
+				z.strictObject({
+					type: z.string(),
+					endpoint: z.strictObject({
+						traces: z.string(),
+					}),
+					encoding: z.enum(["proto", "json"]),
+					headers: z.record(z.string(), z.string()),
+					secret: z.string().optional(),
+				}),
+				z.strictObject({
+					type: z.string(),
+					endpoint: z.string(),
+					encoding: z.enum(["json", "ndjson"]),
+					compression: z.enum(["none"]),
+					fileStructure: z.enum(["hive"]),
+					roleArn: z.string(),
+					region: z.string(),
+					serverSideEncryption: z
+						.enum(["AES256", "aws:kms", "aws:kms:dsse"])
+						.optional()
+						.default("AES256"),
+					objectAcl: z
+						.enum(["private", "bucket-owner-read", "bucket-owner-full-control"])
+						.optional(),
+				}),
+			])
+			.optional(),
+		sampling: z
+			.array(
+				z.strictObject({
+					type: z.string(),
+					rate: z.number().min(0).max(1).describe("Sampling rate from 0 to 1 (e.g., 0.1 for 10%)"),
+					env: z
+						.enum(["preview", "production"])
+						.optional()
+						.describe("Environment to apply sampling to"),
+					requestPath: z
+						.string()
+						.optional()
+						.describe("Request path prefix to apply the sampling rule to"),
+				}),
+			)
+			.max(10)
+			.nullish(),
+		transforms: z
+			.array(
+				z.object({
+					id: z.string(),
+				}),
+			)
+			.nullish(),
+		status: z.enum(["disabled", "enabled"]).optional(),
+		source: z
+			.union([
+				z.union([
+					z.strictObject({
+						kind: z.string().optional().default("integration"),
+						externalResourceId: z.string(),
+					}),
+					z.strictObject({
+						kind: z.string().optional().default("integration"),
+						resourceId: z.string(),
+					}),
+					z.strictObject({
+						kind: z.string().default("integration"),
+					}),
+				]),
+				z.strictObject({
+					kind: z.string().default("self-served"),
+				}),
+			])
+			.optional(),
+	})
+	.optional();
+
 export const testDrainQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -21636,6 +24103,50 @@ export const testDrainErrorSchema = z.union([
 	testDrainStatus410Schema,
 ]);
 
+export const testDrainBodySchema = z
+	.strictObject({
+		schemas: z.record(
+			z.string(),
+			z.object({
+				version: z.string(),
+			}),
+		),
+		delivery: z.union([
+			z.strictObject({
+				type: z.string(),
+				endpoint: z.string(),
+				compression: z.enum(["gzip", "none"]).optional(),
+				encoding: z.enum(["json", "ndjson"]),
+				headers: z.record(z.string(), z.string()),
+				secret: z.string().optional(),
+			}),
+			z.strictObject({
+				type: z.string(),
+				endpoint: z.strictObject({
+					traces: z.string(),
+				}),
+				encoding: z.enum(["proto", "json"]),
+				headers: z.record(z.string(), z.string()),
+				secret: z.string().optional(),
+			}),
+			z.strictObject({
+				type: z.string(),
+				endpoint: z.string(),
+				encoding: z.enum(["json", "ndjson"]),
+				compression: z.enum(["none"]),
+				fileStructure: z.enum(["hive"]),
+				roleArn: z.string(),
+				region: z.string(),
+				serverSideEncryption: z
+					.enum(["AES256", "aws:kms", "aws:kms:dsse"])
+					.optional()
+					.default("AES256"),
+				objectAcl: z.enum(["private", "bucket-owner-read", "bucket-owner-full-control"]).optional(),
+			}),
+		]),
+	})
+	.optional();
+
 export const invalidateByTagsQueryProjectIdOrNameSchema = z.string();
 
 export const invalidateByTagsQueryTeamIdSchema = z
@@ -21672,6 +24183,13 @@ export const invalidateByTagsErrorSchema = z.union([
 	invalidateByTagsStatus410Schema,
 ]);
 
+export const invalidateByTagsBodySchema = z
+	.strictObject({
+		tags: z.union([z.array(z.string().max(256)).min(1).max(16), z.string().max(8196)]),
+		target: z.enum(["preview", "production"]).optional(),
+	})
+	.optional();
+
 export const dangerouslyDeleteByTagsQueryProjectIdOrNameSchema = z.string();
 
 export const dangerouslyDeleteByTagsQueryTeamIdSchema = z
@@ -21707,6 +24225,14 @@ export const dangerouslyDeleteByTagsErrorSchema = z.union([
 	dangerouslyDeleteByTagsStatus404Schema,
 	dangerouslyDeleteByTagsStatus410Schema,
 ]);
+
+export const dangerouslyDeleteByTagsBodySchema = z
+	.strictObject({
+		revalidationDeadlineSeconds: z.int().min(0).max(31536000).optional(),
+		tags: z.union([z.array(z.string().max(256)).min(1).max(16), z.string().max(8196)]),
+		target: z.enum(["preview", "production"]).optional(),
+	})
+	.optional();
 
 export const invalidateBySrcImagesQueryProjectIdOrNameSchema = z.string();
 
@@ -21747,6 +24273,12 @@ export const invalidateBySrcImagesErrorSchema = z.union([
 	invalidateBySrcImagesStatus410Schema,
 ]);
 
+export const invalidateBySrcImagesBodySchema = z
+	.strictObject({
+		srcImages: z.array(z.string()).min(1).max(8),
+	})
+	.optional();
+
 export const dangerouslyDeleteBySrcImagesQueryProjectIdOrNameSchema = z.string();
 
 export const dangerouslyDeleteBySrcImagesQueryTeamIdSchema = z
@@ -21786,6 +24318,13 @@ export const dangerouslyDeleteBySrcImagesErrorSchema = z.union([
 	dangerouslyDeleteBySrcImagesStatus404Schema,
 	dangerouslyDeleteBySrcImagesStatus410Schema,
 ]);
+
+export const dangerouslyDeleteBySrcImagesBodySchema = z
+	.strictObject({
+		revalidationDeadlineSeconds: z.int().min(0).max(31536000).optional(),
+		srcImages: z.array(z.string()).min(1).max(8),
+	})
+	.optional();
 
 export const getEdgeConfigsQueryTeamIdSchema = z
 	.string()
@@ -21857,6 +24396,14 @@ export const createEdgeConfigErrorSchema = z.union([
 	createEdgeConfigStatus404Schema,
 	createEdgeConfigStatus410Schema,
 ]);
+
+export const createEdgeConfigBodySchema = z.object({
+	slug: z
+		.string()
+		.max(64)
+		.regex(/^[\w-]+$/),
+	items: z.record(z.string(), z.unknown()).optional(),
+});
 
 export const getEdgeConfigPathEdgeConfigIdSchema = z.string();
 
@@ -21935,6 +24482,13 @@ export const updateEdgeConfigErrorSchema = z.union([
 	updateEdgeConfigStatus409Schema,
 	updateEdgeConfigStatus410Schema,
 ]);
+
+export const updateEdgeConfigBodySchema = z.object({
+	slug: z
+		.string()
+		.max(64)
+		.regex(/^[\w-]+$/),
+});
 
 export const deleteEdgeConfigPathEdgeConfigIdSchema = z.string();
 
@@ -22056,6 +24610,59 @@ export const patchEdgeConfigItemsErrorSchema = z.union([
 	patchEdgeConfigItemsStatus412Schema,
 ]);
 
+export const patchEdgeConfigItemsBodySchema = z
+	.strictObject({
+		items: z.array(
+			z
+				.union([
+					z.object({
+						operation: z.enum(["create"]),
+						key: z
+							.string()
+							.max(256)
+							.regex(/^[\w-]+$/),
+						value: z.unknown(),
+					}),
+					z.object({
+						operation: z.enum(["update", "upsert"]),
+						key: z
+							.string()
+							.max(256)
+							.regex(/^[\w-]+$/),
+						value: z.unknown(),
+					}),
+					z.object({
+						operation: z.enum(["update", "upsert"]),
+						key: z
+							.string()
+							.max(256)
+							.regex(/^[\w-]+$/),
+						description: z.string().max(512).nullable(),
+					}),
+					z.object({
+						operation: z.enum(["delete"]),
+						key: z
+							.string()
+							.max(256)
+							.regex(/^[\w-]+$/),
+					}),
+				])
+				.and(
+					z.object({
+						operation: z.enum(["create", "update", "upsert", "delete"]).optional(),
+						key: z
+							.string()
+							.max(256)
+							.regex(/^[\w-]+$/)
+							.optional(),
+						value: z.unknown().optional(),
+						description: z.string().max(512).nullish(),
+					}),
+				),
+		),
+	})
+	.optional();
+
 export const getEdgeConfigSchemaPathEdgeConfigIdSchema = z.string();
 
 export const getEdgeConfigSchemaQueryTeamIdSchema = z
@@ -22135,6 +24742,10 @@ export const patchEdgeConfigSchemaErrorSchema = z.union([
 	patchEdgeConfigSchemaStatus409Schema,
 	patchEdgeConfigSchemaStatus410Schema,
 ]);
+
+export const patchEdgeConfigSchemaBodySchema = z.strictObject({
+	definition: z.unknown(),
+});
 
 export const deleteEdgeConfigSchemaPathEdgeConfigIdSchema = z.string();
 
@@ -22299,6 +24910,22 @@ export const deleteEdgeConfigTokensErrorSchema = z.union([
 	deleteEdgeConfigTokensStatus410Schema,
 ]);
 
+export const deleteEdgeConfigTokensBodySchema = z
+	.union([
+		z.object({
+			tokens: z.array(z.string()).min(1),
+		}),
+		z.object({
+			ids: z.array(z.string()).min(1),
+		}),
+	])
+	.and(
+		z.strictObject({
+			tokens: z.array(z.string()).min(1).optional(),
+			ids: z.array(z.string()).min(1).optional(),
+		}),
+	);
+
 export const getEdgeConfigTokenPathEdgeConfigIdSchema = z.string();
 
 export const getEdgeConfigTokenPathTokenSchema = z.string();
@@ -22378,6 +25005,10 @@ export const createEdgeConfigTokenErrorSchema = z.union([
 	createEdgeConfigTokenStatus409Schema,
 	createEdgeConfigTokenStatus410Schema,
 ]);
+
+export const createEdgeConfigTokenBodySchema = z.strictObject({
+	label: z.string().max(52),
+});
 
 export const getEdgeConfigBackupPathEdgeConfigIdSchema = z.string();
 
@@ -22543,6 +25174,60 @@ export const createSharedEnvVariableErrorSchema = z.union([
 	createSharedEnvVariableStatus410Schema,
 ]);
 
+export const createSharedEnvVariableBodySchema = z
+	.union([
+		z.object({
+			target: z
+				.array(z.enum(["development", "preview", "production"]))
+				.describe("The target environment of the Shared Environment Variable")
+				.meta({ examples: [["preview", "production"]] }),
+		}),
+		z.object({
+			applyToAllCustomEnvironments: z.unknown(),
+		}),
+		z.object({
+			customEnvironmentIds: z.unknown(),
+		}),
+	])
+	.and(
+		z.object({
+			evs: z.array(
+				z.object({
+					key: z
+						.string()
+						.describe("The name of the Shared Environment Variable")
+						.meta({ examples: ["API_URL"] }),
+					value: z
+						.string()
+						.describe("The value of the Shared Environment Variable")
+						.meta({ examples: ["https://api.vercel.com"] }),
+					comment: z
+						.string()
+						.max(500)
+						.optional()
+						.describe("A comment to add context on what this Shared Environment Variable is for")
+						.meta({ examples: ["database connection string for production"] }),
+				}),
+			),
+			type: z
+				.enum(["encrypted", "sensitive"])
+				.optional()
+				.describe("The type of environment variable")
+				.meta({ examples: ["encrypted"] }),
+			target: z
+				.array(z.enum(["development", "preview", "production"]))
+				.optional()
+				.describe("The target environment of the Shared Environment Variable")
+				.meta({ examples: [["preview", "production"]] }),
+			projectId: z
+				.array(z.string())
+				.optional()
+				.describe("Associate a Shared Environment Variable to projects.")
+				.meta({ examples: [["prj_2WjyKQmM8ZnGcJsPWMrHRCRV", "prj_2WjyKQmM8ZnGcJsPWMrHRHrE"]] }),
+		}),
+	)
+	.optional();
+
 export const listSharedEnvVariableQuerySearchSchema = z.string().optional();
 
 export const listSharedEnvVariableQueryProjectIdSchema = z
@@ -22640,6 +25325,78 @@ export const updateSharedEnvVariableErrorSchema = z.union([
 	updateSharedEnvVariableStatus410Schema,
 ]);
 
+export const updateSharedEnvVariableBodySchema = z
+	.strictObject({
+		updates: z
+			.record(
+				z.string(),
+				z.strictObject({
+					key: z
+						.string()
+						.optional()
+						.describe("The name of the Shared Environment Variable")
+						.meta({ examples: ["API_URL"] }),
+					value: z
+						.string()
+						.optional()
+						.describe("The value of the Shared Environment Variable")
+						.meta({ examples: ["https://api.vercel.com"] }),
+					target: z
+						.array(z.enum(["development", "preview", "production"]))
+						.optional()
+						.describe("The target environment of the Shared Environment Variable")
+						.meta({ examples: [["preview", "production"]] }),
+					projectId: z
+						.array(z.string())
+						.optional()
+						.describe("Associate a Shared Environment Variable to projects.")
+						.meta({ examples: [["prj_2WjyKQmM8ZnGcJsPWMrHRCRV", "prj_2WjyKQmM8ZnGcJsPWMrHRHrE"]] }),
+					projectIdUpdates: z
+						.strictObject({
+							link: z
+								.array(z.string())
+								.optional()
+								.describe("Project IDs to add to this environment variable")
+								.meta({ examples: [["prj_2WjyKQmM8ZnGcJsPWMrHRHrE"]] }),
+							unlink: z
+								.array(z.string())
+								.optional()
+								.describe("Project IDs to remove from this environment variable")
+								.meta({ examples: [["prj_2WjyKQmM8ZnGcJsPWMrHRCRV"]] }),
+						})
+						.optional()
+						.describe("Incrementally update project linking without specifying the full list"),
+					type: z
+						.enum(["encrypted", "sensitive"])
+						.optional()
+						.describe("The new type of the Shared Environment Variable")
+						.meta({ examples: ["encrypted"] }),
+					comment: z
+						.string()
+						.max(500)
+						.optional()
+						.describe("A comment to add context on what this Shared Environment Variable is for")
+						.meta({ examples: ["database connection string for production"] }),
+				}),
+			)
+			.describe(
+				"An object where each key is an environment variable ID (not the key name) and the value is the update to apply",
+			)
+			.meta({
+				examples: [
+					{
+						env2WjyKQmM8ZnGcJsPWMrHRHrE: {
+							key: "API_URL",
+							value: "https://api.vercel.com",
+							target: ["preview", "production"],
+							projectIdUpdates: { link: ["prj_2WjyKQmM8ZnGcJsPWMrHRHrE"] },
+						},
+					},
+				],
+			}),
+	})
+	.optional();
+
 export const deleteSharedEnvVariableQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -22676,6 +25433,15 @@ export const deleteSharedEnvVariableErrorSchema = z.union([
 	deleteSharedEnvVariableStatus404Schema,
 	deleteSharedEnvVariableStatus410Schema,
 ]);
+
+export const deleteSharedEnvVariableBodySchema = z
+	.object({
+		ids: z
+			.array(z.string())
+			.describe("IDs of the Shared Environment Variables to delete")
+			.meta({ examples: [["env_abc123", "env_abc124"]] }),
+	})
+	.optional();
 
 export const getSharedEnvVarPathIdSchema = z
 	.string()
@@ -23083,6 +25849,308 @@ export const createFlagErrorSchema = z.union([
 	createFlagStatus410Schema,
 ]);
 
+export const createFlagBodySchema = z
+	.strictObject({
+		slug: z
+			.string()
+			.regex(/^[a-zA-Z0-9_-]{1,512}$/)
+			.describe(
+				"A unique (per project) key for the flag, composed of letters, numbers, dashes, and underscores",
+			),
+		kind: z.enum(["boolean", "json", "number", "string"]).describe("The kind of flag"),
+		variants: z
+			.array(
+				z.strictObject({
+					id: z.string().describe("The id of the variant"),
+					label: z.string().optional().describe("A label for the variant"),
+					description: z.string().optional().describe("A description of the variant"),
+					value: z.union([
+						z.string(),
+						z.number(),
+						z.boolean(),
+						z.object({}),
+						z.array(z.string()),
+						z.string(),
+					]),
+				}),
+			)
+			.optional()
+			.describe("The variants of the flag"),
+		environments: z
+			.record(
+				z.string(),
+				z.strictObject({
+					active: z.boolean(),
+					reuse: z
+						.strictObject({
+							active: z.boolean().describe("Whether the reuse is active or not"),
+							environment: z.string().describe("The environment to link to"),
+						})
+						.optional()
+						.describe(
+							"Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration",
+						),
+					targets: z
+						.record(
+							z.string(),
+							z.record(
+								z.string(),
+								z.record(
+									z.string(),
+									z
+										.array(
+											z.strictObject({
+												note: z.string().optional(),
+												value: z.string(),
+											}),
+										)
+										.max(10000),
+								),
+							),
+						)
+						.optional()
+						.describe("Allows assigning targets to variants while bypassing the flag's rules"),
+					pausedOutcome: z.strictObject({
+						type: z.unknown(),
+						variantId: z.string(),
+					}),
+					rules: z
+						.array(
+							z.strictObject({
+								id: z.string(),
+								conditions: z.array(
+									z.strictObject({
+										lhs: z.union([
+											z.strictObject({
+												type: z.unknown(),
+											}),
+											z.strictObject({
+												type: z.unknown(),
+												kind: z.string(),
+												attribute: z.string(),
+											}),
+										]),
+										cmp: z.enum([
+											"after",
+											"before",
+											"contains",
+											"containsAllOf",
+											"containsAnyOf",
+											"containsNoneOf",
+											"endsWith",
+											"eq",
+											"ex",
+											"gt",
+											"gte",
+											"lt",
+											"lte",
+											"oneOf",
+											"regex",
+											"startsWith",
+										]),
+										rhs: z
+											.union([
+												z.strictObject({
+													type: z.enum(["list/inline", "list"]),
+													items: z
+														.array(
+															z.union([
+																z.strictObject({
+																	label: z.string().optional(),
+																	note: z.string().optional(),
+																	value: z.number(),
+																}),
+																z.strictObject({
+																	label: z.string().optional(),
+																	note: z.string().optional(),
+																	value: z.string(),
+																}),
+															]),
+														)
+														.max(10000),
+												}),
+												z.strictObject({
+													type: z.unknown(),
+													pattern: z.string(),
+													flags: z.string(),
+												}),
+												z.string(),
+												z.number(),
+												z.boolean(),
+											])
+											.optional(),
+										cmpOptions: z
+											.strictObject({
+												ignoreCase: z.boolean().optional(),
+											})
+											.optional(),
+									}),
+								),
+								outcome: z.union([
+									z.strictObject({
+										type: z.unknown(),
+										variantId: z.string(),
+									}),
+									z.strictObject({
+										type: z.unknown(),
+										base: z.strictObject({
+											type: z.unknown(),
+											kind: z.string(),
+											attribute: z.string(),
+										}),
+										weights: z
+											.record(z.string(), z.number())
+											.describe("The distribution for each variant"),
+										defaultVariantId: z
+											.string()
+											.describe("This variant will be used when the base attribute does not exist"),
+									}),
+									z.strictObject({
+										type: z.unknown(),
+										base: z.strictObject({
+											type: z.unknown(),
+											kind: z.string(),
+											attribute: z.string(),
+										}),
+										startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+										rollFromVariantId: z.string().describe("The variant to roll away from"),
+										rollToVariantId: z.string().describe("The variant to roll towards"),
+										defaultVariantId: z
+											.string()
+											.describe("This variant will be used when the base attribute does not exist"),
+										slots: z
+											.array(
+												z.strictObject({
+													promille: z
+														.number()
+														.min(0)
+														.max(100000)
+														.describe(
+															"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+														),
+													durationMs: z
+														.number()
+														.min(0)
+														.describe(
+															"How long this promille is served in ms before moving to the next slot.",
+														),
+												}),
+											)
+											.min(1)
+											.describe(
+												"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+											),
+										finalPromille: z
+											.number()
+											.min(0)
+											.max(100000)
+											.optional()
+											.describe(
+												"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+											),
+									}),
+								]),
+							}),
+						)
+						.max(10000),
+					fallthrough: z.union([
+						z.strictObject({
+							type: z.unknown(),
+							variantId: z.string(),
+						}),
+						z.strictObject({
+							type: z.unknown(),
+							base: z.strictObject({
+								type: z.unknown(),
+								kind: z.string(),
+								attribute: z.string(),
+							}),
+							weights: z
+								.record(z.string(), z.number())
+								.describe("The distribution for each variant"),
+							defaultVariantId: z
+								.string()
+								.describe("This variant will be used when the base attribute does not exist"),
+						}),
+						z.strictObject({
+							type: z.unknown(),
+							base: z.strictObject({
+								type: z.unknown(),
+								kind: z.string(),
+								attribute: z.string(),
+							}),
+							startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+							rollFromVariantId: z.string().describe("The variant to roll away from"),
+							rollToVariantId: z.string().describe("The variant to roll towards"),
+							defaultVariantId: z
+								.string()
+								.describe("This variant will be used when the base attribute does not exist"),
+							slots: z
+								.array(
+									z.strictObject({
+										promille: z
+											.number()
+											.min(0)
+											.max(100000)
+											.describe(
+												"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+											),
+										durationMs: z
+											.number()
+											.min(0)
+											.describe(
+												"How long this promille is served in ms before moving to the next slot.",
+											),
+									}),
+								)
+								.min(1)
+								.describe(
+									"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+								),
+							finalPromille: z
+								.number()
+								.min(0)
+								.max(100000)
+								.optional()
+								.describe(
+									"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+								),
+						}),
+					]),
+					revision: z.number().optional().describe("The revision of the environment config"),
+				}),
+			)
+			.describe("The configuration for the flag in different environments"),
+		seed: z
+			.number()
+			.min(0)
+			.max(100000)
+			.optional()
+			.describe(
+				"A random seed to prevent split points in different flags from having the same targets",
+			),
+		description: z.string().optional().describe("A description of the flag"),
+		state: z.enum(["active", "archived"]).optional(),
+		maintainerIds: z
+			.array(z.string().max(24))
+			.max(5)
+			.optional()
+			.describe("The user ids of the maintainers of the flag"),
+		permanent: z
+			.boolean()
+			.optional()
+			.describe("Whether this flag is marked as permanent, indicating it should not be removed"),
+		tags: z
+			.array(z.string().max(64))
+			.max(20)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe("Tags for categorizing the flag"),
+	})
+	.optional();
+
 export const getFlagPathProjectIdOrNameSchema = z.string().describe("The project id or name");
 
 export const getFlagPathFlagIdOrSlugSchema = z.string().describe("The flag id or name");
@@ -23193,6 +26261,304 @@ export const updateFlagErrorSchema = z.union([
 	updateFlagStatus409Schema,
 	updateFlagStatus410Schema,
 ]);
+
+export const updateFlagBodySchema = z
+	.strictObject({
+		createdBy: z.string().optional().describe("The user who created this patch"),
+		message: z.string().optional().describe("Additional message for this version"),
+		variants: z
+			.array(
+				z.strictObject({
+					id: z.string().describe("The id of the variant"),
+					label: z.string().optional().describe("A label for the variant"),
+					description: z.string().optional().describe("A description of the variant"),
+					value: z.union([
+						z.string(),
+						z.number(),
+						z.boolean(),
+						z.object({}),
+						z.array(z.string()),
+						z.string(),
+					]),
+				}),
+			)
+			.optional()
+			.describe("The variants of the flag"),
+		environments: z
+			.record(
+				z.string(),
+				z.strictObject({
+					active: z.boolean(),
+					reuse: z
+						.strictObject({
+							active: z.boolean().describe("Whether the reuse is active or not"),
+							environment: z.string().describe("The environment to link to"),
+						})
+						.optional()
+						.describe(
+							"Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration",
+						),
+					targets: z
+						.record(
+							z.string(),
+							z.record(
+								z.string(),
+								z.record(
+									z.string(),
+									z
+										.array(
+											z.strictObject({
+												note: z.string().optional(),
+												value: z.string(),
+											}),
+										)
+										.max(10000),
+								),
+							),
+						)
+						.optional()
+						.describe("Allows assigning targets to variants while bypassing the flag's rules"),
+					pausedOutcome: z.strictObject({
+						type: z.unknown(),
+						variantId: z.string(),
+					}),
+					rules: z
+						.array(
+							z.strictObject({
+								id: z.string(),
+								conditions: z.array(
+									z.strictObject({
+										lhs: z.union([
+											z.strictObject({
+												type: z.unknown(),
+											}),
+											z.strictObject({
+												type: z.unknown(),
+												kind: z.string(),
+												attribute: z.string(),
+											}),
+										]),
+										cmp: z.enum([
+											"after",
+											"before",
+											"contains",
+											"containsAllOf",
+											"containsAnyOf",
+											"containsNoneOf",
+											"endsWith",
+											"eq",
+											"ex",
+											"gt",
+											"gte",
+											"lt",
+											"lte",
+											"oneOf",
+											"regex",
+											"startsWith",
+										]),
+										rhs: z
+											.union([
+												z.strictObject({
+													type: z.enum(["list/inline", "list"]),
+													items: z
+														.array(
+															z.union([
+																z.strictObject({
+																	label: z.string().optional(),
+																	note: z.string().optional(),
+																	value: z.number(),
+																}),
+																z.strictObject({
+																	label: z.string().optional(),
+																	note: z.string().optional(),
+																	value: z.string(),
+																}),
+															]),
+														)
+														.max(10000),
+												}),
+												z.strictObject({
+													type: z.unknown(),
+													pattern: z.string(),
+													flags: z.string(),
+												}),
+												z.string(),
+												z.number(),
+												z.boolean(),
+											])
+											.optional(),
+										cmpOptions: z
+											.strictObject({
+												ignoreCase: z.boolean().optional(),
+											})
+											.optional(),
+									}),
+								),
+								outcome: z.union([
+									z.strictObject({
+										type: z.unknown(),
+										variantId: z.string(),
+									}),
+									z.strictObject({
+										type: z.unknown(),
+										base: z.strictObject({
+											type: z.unknown(),
+											kind: z.string(),
+											attribute: z.string(),
+										}),
+										weights: z
+											.record(z.string(), z.number())
+											.describe("The distribution for each variant"),
+										defaultVariantId: z
+											.string()
+											.describe("This variant will be used when the base attribute does not exist"),
+									}),
+									z.strictObject({
+										type: z.unknown(),
+										base: z.strictObject({
+											type: z.unknown(),
+											kind: z.string(),
+											attribute: z.string(),
+										}),
+										startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+										rollFromVariantId: z.string().describe("The variant to roll away from"),
+										rollToVariantId: z.string().describe("The variant to roll towards"),
+										defaultVariantId: z
+											.string()
+											.describe("This variant will be used when the base attribute does not exist"),
+										slots: z
+											.array(
+												z.strictObject({
+													promille: z
+														.number()
+														.min(0)
+														.max(100000)
+														.describe(
+															"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+														),
+													durationMs: z
+														.number()
+														.min(0)
+														.describe(
+															"How long this promille is served in ms before moving to the next slot.",
+														),
+												}),
+											)
+											.min(1)
+											.describe(
+												"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+											),
+										finalPromille: z
+											.number()
+											.min(0)
+											.max(100000)
+											.optional()
+											.describe(
+												"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+											),
+									}),
+								]),
+							}),
+						)
+						.max(10000),
+					fallthrough: z.union([
+						z.strictObject({
+							type: z.unknown(),
+							variantId: z.string(),
+						}),
+						z.strictObject({
+							type: z.unknown(),
+							base: z.strictObject({
+								type: z.unknown(),
+								kind: z.string(),
+								attribute: z.string(),
+							}),
+							weights: z
+								.record(z.string(), z.number())
+								.describe("The distribution for each variant"),
+							defaultVariantId: z
+								.string()
+								.describe("This variant will be used when the base attribute does not exist"),
+						}),
+						z.strictObject({
+							type: z.unknown(),
+							base: z.strictObject({
+								type: z.unknown(),
+								kind: z.string(),
+								attribute: z.string(),
+							}),
+							startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+							rollFromVariantId: z.string().describe("The variant to roll away from"),
+							rollToVariantId: z.string().describe("The variant to roll towards"),
+							defaultVariantId: z
+								.string()
+								.describe("This variant will be used when the base attribute does not exist"),
+							slots: z
+								.array(
+									z.strictObject({
+										promille: z
+											.number()
+											.min(0)
+											.max(100000)
+											.describe(
+												"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+											),
+										durationMs: z
+											.number()
+											.min(0)
+											.describe(
+												"How long this promille is served in ms before moving to the next slot.",
+											),
+									}),
+								)
+								.min(1)
+								.describe(
+									"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+								),
+							finalPromille: z
+								.number()
+								.min(0)
+								.max(100000)
+								.optional()
+								.describe(
+									"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+								),
+						}),
+					]),
+					revision: z.number().optional().describe("The revision of the environment config"),
+				}),
+			)
+			.optional()
+			.describe("The configuration for the flag in different environments"),
+		seed: z
+			.number()
+			.min(0)
+			.max(100000)
+			.optional()
+			.describe(
+				"A random seed to prevent split points in different flags from having the same targets",
+			),
+		description: z.string().optional().describe("A description of the flag"),
+		state: z.enum(["active", "archived"]).optional(),
+		maintainerIds: z
+			.array(z.string().max(24))
+			.max(5)
+			.optional()
+			.describe("The user ids of the maintainers of the flag"),
+		permanent: z
+			.boolean()
+			.optional()
+			.describe("Whether this flag is marked as permanent, indicating it should not be removed"),
+		tags: z
+			.array(z.string().max(64))
+			.max(20)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe("Tags for categorizing the flag"),
+	})
+	.optional();
 
 export const deleteFlagPathProjectIdOrNameSchema = z.string().describe("The project id or name");
 
@@ -23402,6 +26768,39 @@ export const updateFlagSettingsErrorSchema = z.union([
 	updateFlagSettingsStatus409Schema,
 	updateFlagSettingsStatus410Schema,
 ]);
+
+export const updateFlagSettingsBodySchema = z
+	.strictObject({
+		enabled: z.boolean().optional(),
+		entities: z
+			.array(
+				z.strictObject({
+					kind: z.string().max(128),
+					label: z.string().max(128),
+					attributes: z
+						.array(
+							z.strictObject({
+								key: z.string().max(128),
+								type: z.string().max(128),
+								labels: z
+									.array(
+										z.strictObject({
+											label: z.string().max(128),
+											value: z.string().max(128),
+										}),
+									)
+									.max(256)
+									.optional(),
+							}),
+						)
+						.max(32),
+				}),
+			)
+			.max(32)
+			.optional(),
+		environments: z.array(z.string()).optional().describe("The environments to sync"),
+	})
+	.optional();
 
 export const listTeamFlagSettingsQueryLimitSchema = z
 	.int()
@@ -23658,6 +27057,142 @@ export const createFlagSegmentErrorSchema = z.union([
 	createFlagSegmentStatus410Schema,
 ]);
 
+export const createFlagSegmentBodySchema = z
+	.strictObject({
+		slug: z.string(),
+		createdBy: z.string().optional().describe("The entity who created the segment"),
+		label: z.string(),
+		description: z.string().optional(),
+		data: z
+			.strictObject({
+				rules: z
+					.array(
+						z.strictObject({
+							id: z.string(),
+							conditions: z.array(
+								z.strictObject({
+									lhs: z.union([
+										z.strictObject({
+											type: z.unknown(),
+										}),
+										z.strictObject({
+											type: z.unknown(),
+											kind: z.string(),
+											attribute: z.string(),
+										}),
+									]),
+									cmp: z.enum([
+										"after",
+										"before",
+										"contains",
+										"containsAllOf",
+										"containsAnyOf",
+										"containsNoneOf",
+										"endsWith",
+										"eq",
+										"ex",
+										"gt",
+										"gte",
+										"lt",
+										"lte",
+										"oneOf",
+										"regex",
+										"startsWith",
+									]),
+									rhs: z
+										.union([
+											z.strictObject({
+												type: z.enum(["list/inline", "list"]),
+												items: z
+													.array(
+														z.union([
+															z.strictObject({
+																label: z.string().optional(),
+																note: z.string().optional(),
+																value: z.number(),
+															}),
+															z.strictObject({
+																label: z.string().optional(),
+																note: z.string().optional(),
+																value: z.string(),
+															}),
+														]),
+													)
+													.max(10000),
+											}),
+											z.strictObject({
+												type: z.unknown(),
+												pattern: z.string(),
+												flags: z.string(),
+											}),
+											z.string(),
+											z.number(),
+											z.boolean(),
+										])
+										.optional(),
+									cmpOptions: z
+										.strictObject({
+											ignoreCase: z.boolean().optional(),
+										})
+										.optional(),
+								}),
+							),
+							outcome: z.union([
+								z.strictObject({
+									type: z.unknown(),
+								}),
+								z.strictObject({
+									type: z.unknown(),
+									base: z.strictObject({
+										type: z.unknown(),
+										kind: z.string(),
+										attribute: z.string(),
+									}),
+									passPromille: z.number(),
+								}),
+							]),
+						}),
+					)
+					.max(10000)
+					.optional(),
+				include: z
+					.record(
+						z.string(),
+						z.record(
+							z.string(),
+							z
+								.array(
+									z.strictObject({
+										note: z.string().optional(),
+										value: z.string(),
+									}),
+								)
+								.max(10000),
+						),
+					)
+					.optional(),
+				exclude: z
+					.record(
+						z.string(),
+						z.record(
+							z.string(),
+							z
+								.array(
+									z.strictObject({
+										note: z.string().optional(),
+										value: z.string(),
+									}),
+								)
+								.max(10000),
+						),
+					)
+					.optional(),
+			})
+			.describe("The data of the segment"),
+		hint: z.string(),
+	})
+	.optional();
+
 export const listFlagSegmentsPathProjectIdOrNameSchema = z
 	.string()
 	.describe("The project id or name");
@@ -23861,6 +27396,155 @@ export const updateFlagSegmentErrorSchema = z.union([
 	updateFlagSegmentStatus410Schema,
 ]);
 
+export const updateFlagSegmentBodySchema = z
+	.strictObject({
+		operations: z
+			.array(
+				z.strictObject({
+					action: z.enum(["add", "remove"]),
+					field: z.enum(["exclude", "include"]),
+					entity: z.string(),
+					attribute: z.string(),
+					value: z.strictObject({
+						note: z.string().optional(),
+						value: z.string(),
+					}),
+				}),
+			)
+			.optional(),
+		label: z.string().optional(),
+		description: z.string().optional(),
+		data: z
+			.strictObject({
+				rules: z
+					.array(
+						z.strictObject({
+							id: z.string(),
+							conditions: z.array(
+								z.strictObject({
+									lhs: z.union([
+										z.strictObject({
+											type: z.unknown(),
+										}),
+										z.strictObject({
+											type: z.unknown(),
+											kind: z.string(),
+											attribute: z.string(),
+										}),
+									]),
+									cmp: z.enum([
+										"after",
+										"before",
+										"contains",
+										"containsAllOf",
+										"containsAnyOf",
+										"containsNoneOf",
+										"endsWith",
+										"eq",
+										"ex",
+										"gt",
+										"gte",
+										"lt",
+										"lte",
+										"oneOf",
+										"regex",
+										"startsWith",
+									]),
+									rhs: z
+										.union([
+											z.strictObject({
+												type: z.enum(["list/inline", "list"]),
+												items: z
+													.array(
+														z.union([
+															z.strictObject({
+																label: z.string().optional(),
+																note: z.string().optional(),
+																value: z.number(),
+															}),
+															z.strictObject({
+																label: z.string().optional(),
+																note: z.string().optional(),
+																value: z.string(),
+															}),
+														]),
+													)
+													.max(10000),
+											}),
+											z.strictObject({
+												type: z.unknown(),
+												pattern: z.string(),
+												flags: z.string(),
+											}),
+											z.string(),
+											z.number(),
+											z.boolean(),
+										])
+										.optional(),
+									cmpOptions: z
+										.strictObject({
+											ignoreCase: z.boolean().optional(),
+										})
+										.optional(),
+								}),
+							),
+							outcome: z.union([
+								z.strictObject({
+									type: z.unknown(),
+								}),
+								z.strictObject({
+									type: z.unknown(),
+									base: z.strictObject({
+										type: z.unknown(),
+										kind: z.string(),
+										attribute: z.string(),
+									}),
+									passPromille: z.number(),
+								}),
+							]),
+						}),
+					)
+					.max(10000)
+					.optional(),
+				include: z
+					.record(
+						z.string(),
+						z.record(
+							z.string(),
+							z
+								.array(
+									z.strictObject({
+										note: z.string().optional(),
+										value: z.string(),
+									}),
+								)
+								.max(10000),
+						),
+					)
+					.optional(),
+				exclude: z
+					.record(
+						z.string(),
+						z.record(
+							z.string(),
+							z
+								.array(
+									z.strictObject({
+										note: z.string().optional(),
+										value: z.string(),
+									}),
+								)
+								.max(10000),
+						),
+					)
+					.optional(),
+			})
+			.optional()
+			.describe("The data of the segment"),
+		hint: z.string().optional(),
+	})
+	.optional();
+
 export const getDeploymentFeatureFlagsPathDeploymentIdSchema = z.string();
 
 export const getDeploymentFeatureFlagsQueryTeamIdSchema = z
@@ -23977,6 +27661,14 @@ export const createSdkKeyErrorSchema = z.union([
 	createSdkKeyStatus409Schema,
 	createSdkKeyStatus410Schema,
 ]);
+
+export const createSdkKeyBodySchema = z
+	.strictObject({
+		sdkKeyType: z.enum(["client", "mobile", "server"]),
+		environment: z.string(),
+		label: z.string().optional(),
+	})
+	.optional();
 
 export const deleteSdkKeyPathProjectIdOrNameSchema = z.string().describe("The project id or name");
 
@@ -24222,6 +27914,14 @@ export const connectIntegrationResourceToProjectErrorSchema = z.union([
 	connectIntegrationResourceToProjectStatus410Schema,
 ]);
 
+export const connectIntegrationResourceToProjectBodySchema = z
+	.object({
+		projectId: z.string(),
+		envVarEnvironments: z.array(z.string()).optional(),
+		makeEnvVarsSensitive: z.boolean().optional(),
+	})
+	.optional();
+
 export const updateInstallationPathIntegrationConfigurationIdSchema = z.string();
 
 export const updateInstallationStatus204Schema = z.unknown();
@@ -24245,6 +27945,56 @@ export const updateInstallationErrorSchema = z.union([
 	updateInstallationStatus404Schema,
 	updateInstallationStatus410Schema,
 ]);
+
+export const updateInstallationBodySchema = z
+	.strictObject({
+		status: z
+			.enum(["error", "onboarding", "pending", "ready", "resumed", "suspended", "uninstalled"])
+			.optional(),
+		externalId: z.string().optional(),
+		billingPlan: z
+			.looseObject({
+				id: z.string(),
+				type: z.enum(["prepayment", "subscription"]),
+				name: z.string(),
+				description: z.string().optional(),
+				paymentMethodRequired: z.boolean().optional(),
+				cost: z.string().optional(),
+				details: z
+					.array(
+						z.strictObject({
+							label: z.string(),
+							value: z.string().optional(),
+						}),
+					)
+					.optional(),
+				highlightedDetails: z
+					.array(
+						z.strictObject({
+							label: z.string(),
+							value: z.string().optional(),
+						}),
+					)
+					.optional(),
+				effectiveDate: z.string().optional(),
+			})
+			.optional(),
+		notification: z
+			.union([
+				z.strictObject({
+					level: z.enum(["info", "warn", "error"]),
+					title: z.string(),
+					message: z.string().optional(),
+					href: z.url().optional(),
+				}),
+				z.string(),
+			])
+			.optional()
+			.describe(
+				"A notification to display to your customer. Send `null` to clear the current notification.",
+			),
+	})
+	.optional();
 
 export const getAccountInfoPathIntegrationConfigurationIdSchema = z.string();
 
@@ -24324,6 +28074,13 @@ export const rotateInstallationCredentialErrorSchema = z.union([
 	rotateInstallationCredentialStatus410Schema,
 ]);
 
+export const rotateInstallationCredentialBodySchema = z
+	.strictObject({
+		clientSecret: z.string().max(512).optional(),
+		clientId: z.string().optional(),
+	})
+	.optional();
+
 export const revokeInstallationCredentialPathIntegrationConfigurationIdSchema = z.string();
 
 export const revokeInstallationCredentialStatus200Schema = z.unknown();
@@ -24352,6 +28109,14 @@ export const revokeInstallationCredentialErrorSchema = z.union([
 	revokeInstallationCredentialStatus410Schema,
 ]);
 
+export const revokeInstallationCredentialBodySchema = z
+	.strictObject({
+		token: z.string().max(512),
+		clientSecret: z.string().max(512).optional(),
+		clientId: z.string().optional(),
+	})
+	.optional();
+
 export const createEventPathIntegrationConfigurationIdSchema = z.string();
 
 export const createEventStatus201Schema = z.unknown();
@@ -24375,6 +28140,20 @@ export const createEventErrorSchema = z.union([
 	createEventStatus404Schema,
 	createEventStatus410Schema,
 ]);
+
+export const createEventBodySchema = z.strictObject({
+	event: z.discriminatedUnion("type", [
+		z.strictObject({
+			type: z.enum(["installation.updated"]),
+			billingPlanId: z.string().optional().describe("The installation-level billing plan ID"),
+		}),
+		z.strictObject({
+			type: z.enum(["resource.updated"]),
+			productId: z.string().optional().describe("Partner-provided product slug or id"),
+			resourceId: z.string().describe("Partner provided resource ID"),
+		}),
+	]),
+});
 
 export const getIntegrationResourcesPathIntegrationConfigurationIdSchema = z.string();
 
@@ -24488,6 +28267,136 @@ export const importResourceErrorSchema = z.union([
 	importResourceStatus422Schema,
 ]);
 
+export const importResourceBodySchema = z
+	.strictObject({
+		ownership: z.enum(["linked", "owned", "sandbox"]).optional(),
+		productId: z.string(),
+		name: z.string(),
+		status: z.enum([
+			"error",
+			"onboarding",
+			"pending",
+			"ready",
+			"resumed",
+			"suspended",
+			"uninstalled",
+		]),
+		metadata: z.looseObject({}).optional(),
+		billingPlan: z
+			.looseObject({
+				id: z.string(),
+				type: z.enum(["prepayment", "subscription"]),
+				name: z.string(),
+				description: z.string().optional(),
+				paymentMethodRequired: z.boolean().optional(),
+				cost: z.string().optional(),
+				details: z
+					.array(
+						z.strictObject({
+							label: z.string(),
+							value: z.string().optional(),
+						}),
+					)
+					.optional(),
+				highlightedDetails: z
+					.array(
+						z.strictObject({
+							label: z.string(),
+							value: z.string().optional(),
+						}),
+					)
+					.optional(),
+				effectiveDate: z.string().optional(),
+			})
+			.optional(),
+		notification: z
+			.object({
+				level: z.enum(["error", "info", "warn"]),
+				title: z.string(),
+				message: z.string().optional(),
+				href: z.url().optional(),
+			})
+			.optional(),
+		extras: z.looseObject({}).optional(),
+		secrets: z
+			.array(
+				z.strictObject({
+					name: z.string(),
+					value: z.string(),
+					prefix: z.string().optional(),
+					environmentOverrides: z
+						.object({
+							development: z
+								.string()
+								.optional()
+								.describe("Value used for development environment."),
+							preview: z.string().optional().describe("Value used for preview environment."),
+							production: z.string().optional().describe("Value used for production environment."),
+						})
+						.optional()
+						.describe(
+							"A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.",
+						),
+				}),
+			)
+			.optional(),
+		customClaims: z
+			.strictObject({
+				roles: z
+					.array(z.string().max(32))
+					.max(32)
+					.optional()
+					.describe(
+						"Roles a deployment may request when minting a token. The selected role becomes the `sub` claim.",
+					),
+				defaultRole: z
+					.string()
+					.max(32)
+					.optional()
+					.describe(
+						"Role used when the deployment does not request one. Required when `roles` is set.",
+					),
+				claimRules: z
+					.array(
+						z.strictObject({
+							when: z
+								.strictObject({
+									role: z
+										.array(z.string().max(32))
+										.min(1)
+										.max(32)
+										.optional()
+										.describe("Applies only when the token is minted for one of these roles."),
+									environment: z
+										.array(z.string())
+										.min(1)
+										.max(32)
+										.optional()
+										.describe(
+											"Applies only when the token is minted for one of these environments: `production`, `preview`, `development`, or a custom environment slug. A custom environment also matches `preview`.",
+										),
+								})
+								.optional(),
+							claims: z
+								.record(
+									z.string(),
+									z.union([z.union([z.string(), z.number(), z.boolean()]), z.array(z.string())]),
+								)
+								.describe(
+									"Claims to set (string, number, boolean, or array of strings), shallow-merged over earlier rules and over the default claims. `null` removes a claim. Reserved claims cannot be set; `aud` and `sub` can be overridden with a string but not removed.",
+								),
+						}),
+					)
+					.optional()
+					.describe(
+						"Ordered rules resolved at mint time. Later rules win and shallow-merge over earlier ones.",
+					),
+			})
+			.optional()
+			.describe("Custom claims embedded in the resource tokens Vercel mints for this resource."),
+	})
+	.optional();
+
 export const updateResourcePathIntegrationConfigurationIdSchema = z.string();
 
 export const updateResourcePathResourceIdSchema = z.string();
@@ -24520,6 +28429,168 @@ export const updateResourceErrorSchema = z.union([
 	updateResourceStatus422Schema,
 ]);
 
+export const updateResourceBodySchema = z
+	.strictObject({
+		ownership: z.enum(["linked", "owned", "sandbox"]).optional(),
+		name: z.string().optional(),
+		status: z
+			.enum(["error", "onboarding", "pending", "ready", "resumed", "suspended", "uninstalled"])
+			.optional(),
+		metadata: z.looseObject({}).optional(),
+		billingPlan: z
+			.looseObject({
+				id: z.string(),
+				type: z.enum(["prepayment", "subscription"]),
+				name: z.string(),
+				description: z.string().optional(),
+				paymentMethodRequired: z.boolean().optional(),
+				cost: z.string().optional(),
+				details: z
+					.array(
+						z.strictObject({
+							label: z.string(),
+							value: z.string().optional(),
+						}),
+					)
+					.optional(),
+				highlightedDetails: z
+					.array(
+						z.strictObject({
+							label: z.string(),
+							value: z.string().optional(),
+						}),
+					)
+					.optional(),
+				effectiveDate: z.string().optional(),
+			})
+			.optional(),
+		notification: z
+			.union([
+				z.strictObject({
+					level: z.enum(["info", "warn", "error"]),
+					title: z.string(),
+					message: z.string().optional(),
+					href: z.url().optional(),
+				}),
+				z.string(),
+			])
+			.optional(),
+		extras: z.looseObject({}).optional(),
+		secrets: z
+			.union([
+				z.array(
+					z.strictObject({
+						name: z.string(),
+						value: z.string(),
+						prefix: z.string().optional(),
+						environmentOverrides: z
+							.object({
+								development: z
+									.string()
+									.optional()
+									.describe("Value used for development environment."),
+								preview: z.string().optional().describe("Value used for preview environment."),
+								production: z
+									.string()
+									.optional()
+									.describe("Value used for production environment."),
+							})
+							.optional()
+							.describe(
+								"A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.",
+							),
+					}),
+				),
+				z.strictObject({
+					secrets: z.array(
+						z.strictObject({
+							name: z.string(),
+							value: z.string(),
+							prefix: z.string().optional(),
+							environmentOverrides: z
+								.object({
+									development: z
+										.string()
+										.optional()
+										.describe("Value used for development environment."),
+									preview: z.string().optional().describe("Value used for preview environment."),
+									production: z
+										.string()
+										.optional()
+										.describe("Value used for production environment."),
+								})
+								.optional()
+								.describe(
+									"A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.",
+								),
+						}),
+					),
+					partial: z
+						.boolean()
+						.optional()
+						.describe(
+							"If true, will only overwrite the provided secrets instead of replacing all secrets.",
+						),
+				}),
+			])
+			.optional(),
+		customClaims: z
+			.strictObject({
+				roles: z
+					.array(z.string().max(32))
+					.max(32)
+					.optional()
+					.describe(
+						"Roles a deployment may request when minting a token. The selected role becomes the `sub` claim.",
+					),
+				defaultRole: z
+					.string()
+					.max(32)
+					.optional()
+					.describe(
+						"Role used when the deployment does not request one. Required when `roles` is set.",
+					),
+				claimRules: z
+					.array(
+						z.strictObject({
+							when: z
+								.strictObject({
+									role: z
+										.array(z.string().max(32))
+										.min(1)
+										.max(32)
+										.optional()
+										.describe("Applies only when the token is minted for one of these roles."),
+									environment: z
+										.array(z.string())
+										.min(1)
+										.max(32)
+										.optional()
+										.describe(
+											"Applies only when the token is minted for one of these environments: `production`, `preview`, `development`, or a custom environment slug. A custom environment also matches `preview`.",
+										),
+								})
+								.optional(),
+							claims: z
+								.record(
+									z.string(),
+									z.union([z.union([z.string(), z.number(), z.boolean()]), z.array(z.string())]),
+								)
+								.describe(
+									"Claims to set (string, number, boolean, or array of strings), shallow-merged over earlier rules and over the default claims. `null` removes a claim. Reserved claims cannot be set; `aud` and `sub` can be overridden with a string but not removed.",
+								),
+						}),
+					)
+					.optional()
+					.describe(
+						"Ordered rules resolved at mint time. Later rules win and shallow-merge over earlier ones.",
+					),
+			})
+			.optional()
+			.describe("Custom claims embedded in the resource tokens Vercel mints for this resource."),
+	})
+	.optional();
+
 export const submitBillingDataPathIntegrationConfigurationIdSchema = z.string();
 
 export const submitBillingDataStatus201Schema = z.unknown();
@@ -24543,6 +28614,137 @@ export const submitBillingDataErrorSchema = z.union([
 	submitBillingDataStatus404Schema,
 	submitBillingDataStatus410Schema,
 ]);
+
+export const submitBillingDataBodySchema = z.strictObject({
+	timestamp: z.iso
+		.datetime()
+		.describe(
+			"Server time of your integration, used to determine the most recent data for race conditions & updates. Only the latest usage data for a given day, week, and month will be kept.",
+		),
+	eod: z.iso
+		.datetime()
+		.describe(
+			'End of Day, the UTC datetime for when the end of the billing/usage day is in UTC time. This tells us which day the usage data is for, and also allows for your "end of day" to be different from UTC 00:00:00. eod must be within the period dates, and cannot be older than 24h earlier from our server\'s current time.',
+		),
+	period: z
+		.strictObject({
+			start: z.iso.datetime(),
+			end: z.iso.datetime(),
+		})
+		.describe(
+			"Period for the billing cycle. The period end date cannot be older than 24 hours earlier than our current server's time.",
+		),
+	billing: z
+		.union([
+			z.array(
+				z.strictObject({
+					billingPlanId: z.string().describe("Partner's billing plan ID."),
+					resourceId: z.string().optional().describe("Partner's resource ID."),
+					start: z.iso
+						.datetime()
+						.optional()
+						.describe("Start and end are only needed if different from the period's start/end."),
+					end: z.iso
+						.datetime()
+						.optional()
+						.describe("Start and end are only needed if different from the period's start/end."),
+					name: z.string().describe("Line item name."),
+					details: z.string().optional().describe("Line item details."),
+					price: z
+						.string()
+						.regex(/^[0-9]+(\.[0-9]+)?$/)
+						.describe("Price per unit."),
+					quantity: z.number().describe("Quantity of units."),
+					units: z.string().describe("Units of the quantity."),
+					total: z
+						.string()
+						.regex(/^[0-9]+(\.[0-9]+)?$/)
+						.describe("Total amount."),
+				}),
+			),
+			z.strictObject({
+				items: z.array(
+					z.strictObject({
+						billingPlanId: z.string().describe("Partner's billing plan ID."),
+						resourceId: z.string().optional().describe("Partner's resource ID."),
+						start: z.iso
+							.datetime()
+							.optional()
+							.describe("Start and end are only needed if different from the period's start/end."),
+						end: z.iso
+							.datetime()
+							.optional()
+							.describe("Start and end are only needed if different from the period's start/end."),
+						name: z.string().describe("Line item name."),
+						details: z.string().optional().describe("Line item details."),
+						price: z
+							.string()
+							.regex(/^[0-9]+(\.[0-9]+)?$/)
+							.describe("Price per unit."),
+						quantity: z.number().describe("Quantity of units."),
+						units: z.string().describe("Units of the quantity."),
+						total: z
+							.string()
+							.regex(/^[0-9]+(\.[0-9]+)?$/)
+							.describe("Total amount."),
+					}),
+				),
+				discounts: z
+					.array(
+						z.strictObject({
+							billingPlanId: z.string().describe("Partner's billing plan ID."),
+							resourceId: z.string().optional().describe("Partner's resource ID."),
+							start: z.iso
+								.datetime()
+								.optional()
+								.describe(
+									"Start and end are only needed if different from the period's start/end.",
+								),
+							end: z.iso
+								.datetime()
+								.optional()
+								.describe(
+									"Start and end are only needed if different from the period's start/end.",
+								),
+							name: z.string().describe("Discount name."),
+							details: z.string().optional().describe("Discount details."),
+							amount: z
+								.string()
+								.regex(/^[0-9]+(\.[0-9]+)?$/)
+								.describe("Discount amount."),
+						}),
+					)
+					.optional(),
+			}),
+		])
+		.describe("Billing data (interim invoicing data)."),
+	usage: z.array(
+		z.strictObject({
+			resourceId: z.string().optional().describe("Partner's resource ID."),
+			name: z.string().describe("Metric name."),
+			type: z
+				.enum(["interval", "rate", "total"])
+				.describe(
+					"\n              Type of the metric.\n              - total: measured total value, such as Database size\n              - interval: usage during the period, such as i/o or number of queries.\n              - rate: rate of usage, such as queries per second.\n            ",
+				),
+			units: z.string().describe('Metric units. Example: "GB"'),
+			dayValue: z
+				.number()
+				.describe("Metric value for the day. Could be a final or an interim value for the day."),
+			periodValue: z
+				.number()
+				.describe(
+					"Metric value for the billing period. Could be a final or an interim value for the period.",
+				),
+			planValue: z
+				.number()
+				.optional()
+				.describe(
+					"The limit value of the metric for a billing period, if a limit is defined by the plan.",
+				),
+		}),
+	),
+});
 
 export const submitInvoicePathIntegrationConfigurationIdSchema = z.string();
 
@@ -24570,6 +28772,86 @@ export const submitInvoiceErrorSchema = z.union([
 	submitInvoiceStatus409Schema,
 	submitInvoiceStatus410Schema,
 ]);
+
+export const submitInvoiceBodySchema = z.strictObject({
+	externalId: z
+		.string()
+		.optional()
+		.describe(
+			"Partner-provided invoice identifier. If provided, it must be unique for this installation.",
+		),
+	invoiceDate: z.iso
+		.datetime()
+		.describe("Invoice date. Must be within the period's start and end."),
+	memo: z.string().optional().describe("Additional memo for the invoice."),
+	period: z
+		.strictObject({
+			start: z.iso.datetime(),
+			end: z.iso.datetime(),
+		})
+		.describe("Subscription period for this billing cycle."),
+	items: z.array(
+		z.strictObject({
+			resourceId: z.string().optional().describe("Partner's resource ID."),
+			billingPlanId: z.string().describe("Partner's billing plan ID."),
+			start: z.iso
+				.datetime()
+				.optional()
+				.describe("Start and end are only needed if different from the period's start/end."),
+			end: z.iso
+				.datetime()
+				.optional()
+				.describe("Start and end are only needed if different from the period's start/end."),
+			name: z.string(),
+			details: z.string().optional(),
+			price: z
+				.string()
+				.regex(/^[0-9]+(\.[0-9]+)?$/)
+				.describe("Currency amount as a decimal string."),
+			quantity: z.number(),
+			units: z.string(),
+			total: z
+				.string()
+				.regex(/^[0-9]+(\.[0-9]+)?$/)
+				.describe("Currency amount as a decimal string."),
+		}),
+	),
+	discounts: z
+		.array(
+			z.strictObject({
+				resourceId: z.string().optional().describe("Partner's resource ID."),
+				billingPlanId: z.string().describe("Partner's billing plan ID."),
+				start: z.iso
+					.datetime()
+					.optional()
+					.describe("Start and end are only needed if different from the period's start/end."),
+				end: z.iso
+					.datetime()
+					.optional()
+					.describe("Start and end are only needed if different from the period's start/end."),
+				name: z.string(),
+				details: z.string().optional(),
+				amount: z
+					.string()
+					.regex(/^[0-9]+(\.[0-9]+)?$/)
+					.describe("Currency amount as a decimal string."),
+			}),
+		)
+		.optional(),
+	final: z
+		.boolean()
+		.optional()
+		.describe(
+			"Set this to `true` if this is the final invoice for the installation. Can only be set when the installation is pending deletion.",
+		),
+	test: z
+		.strictObject({
+			validate: z.boolean().optional(),
+			result: z.enum(["notpaid", "overdue", "paid"]).optional(),
+		})
+		.optional()
+		.describe("Test mode"),
+});
 
 export const finalizeInstallationPathIntegrationConfigurationIdSchema = z.string();
 
@@ -24653,6 +28935,17 @@ export const updateInvoiceErrorSchema = z.union([
 	updateInvoiceStatus410Schema,
 ]);
 
+export const updateInvoiceBodySchema = z.strictObject({
+	action: z.enum(["refund"]),
+	reason: z.string().describe("Refund reason."),
+	total: z
+		.string()
+		.regex(/^[0-9]+(\.[0-9]+)?$/)
+		.describe(
+			"The total amount to be refunded. Must be less than or equal to the total amount of the invoice.",
+		),
+});
+
 export const submitPrepaymentBalancesPathIntegrationConfigurationIdSchema = z.string();
 
 export const submitPrepaymentBalancesStatus201Schema = z.unknown();
@@ -24676,6 +28969,41 @@ export const submitPrepaymentBalancesErrorSchema = z.union([
 	submitPrepaymentBalancesStatus404Schema,
 	submitPrepaymentBalancesStatus410Schema,
 ]);
+
+export const submitPrepaymentBalancesBodySchema = z
+	.strictObject({
+		timestamp: z.iso
+			.datetime()
+			.describe(
+				"Server time of your integration, used to determine the most recent data for race conditions & updates. Only the latest usage data for a given day, week, and month will be kept.",
+			),
+		balances: z.array(
+			z.strictObject({
+				resourceId: z
+					.string()
+					.optional()
+					.describe(
+						"Partner's resource ID, exclude if credits are tied to the installation and not an individual resource.",
+					),
+				credit: z
+					.string()
+					.optional()
+					.describe(
+						'A human-readable description of the credits the user currently has, e.g. "2,000 Tokens"',
+					),
+				nameLabel: z
+					.string()
+					.optional()
+					.describe('The name of the credits, for display purposes, e.g. "Tokens"'),
+				currencyValueInCents: z
+					.number()
+					.describe(
+						"The dollar value of the credit balance, in USD and provided in cents, which is used to trigger automatic purchase thresholds.",
+					),
+			}),
+		),
+	})
+	.optional();
 
 export const updateResourceSecretsPathIntegrationConfigurationIdSchema = z.string();
 
@@ -24711,6 +29039,27 @@ export const updateResourceSecretsErrorSchema = z.union([
 	updateResourceSecretsStatus422Schema,
 ]);
 
+export const updateResourceSecretsBodySchema = z.strictObject({
+	secrets: z.array(
+		z.strictObject({
+			name: z.string(),
+			value: z.string(),
+			prefix: z.string().optional(),
+			environmentOverrides: z
+				.object({
+					development: z.string().optional().describe("Value used for development environment."),
+					preview: z.string().optional().describe("Value used for preview environment."),
+					production: z.string().optional().describe("Value used for production environment."),
+				})
+				.optional()
+				.describe(
+					"A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.",
+				),
+		}),
+	),
+	partial: z.boolean().optional().describe("If true, will only update the provided secrets"),
+});
+
 export const updateResourceSecretsByIdPathIntegrationConfigurationIdSchema = z.string();
 
 export const updateResourceSecretsByIdPathResourceIdSchema = z.string();
@@ -24742,6 +29091,34 @@ export const updateResourceSecretsByIdErrorSchema = z.union([
 	updateResourceSecretsByIdStatus410Schema,
 	updateResourceSecretsByIdStatus422Schema,
 ]);
+
+export const updateResourceSecretsByIdBodySchema = z
+	.strictObject({
+		secrets: z.array(
+			z.strictObject({
+				name: z.string(),
+				value: z.string(),
+				prefix: z.string().optional(),
+				environmentOverrides: z
+					.object({
+						development: z.string().optional().describe("Value used for development environment."),
+						preview: z.string().optional().describe("Value used for preview environment."),
+						production: z.string().optional().describe("Value used for production environment."),
+					})
+					.optional()
+					.describe(
+						"A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.",
+					),
+			}),
+		),
+		partial: z
+			.boolean()
+			.optional()
+			.describe(
+				"If true, will only overwrite the provided secrets instead of replacing all secrets.",
+			),
+	})
+	.optional();
 
 export const getConfigurationsQueryViewSchema = z.enum(["account", "project"]);
 
@@ -24921,6 +29298,39 @@ export const exchangeSsoTokenErrorSchema = z.union([
 	exchangeSsoTokenStatus500Schema,
 ]);
 
+export const exchangeSsoTokenBodySchema = z.discriminatedUnion("grantType", [
+	z.strictObject({
+		code: z.string().describe("The sensitive code received from Vercel"),
+		state: z.string().optional().describe("The state received from the initialization request"),
+		clientId: z.string().optional().describe("The integration client id"),
+		clientSecret: z.string().optional().describe("The integration client secret"),
+		redirectUri: z.string().optional().describe("The integration redirect URI"),
+		grantType: z
+			.enum(["authorization_code"])
+			.optional()
+			.describe("The grant type, when using x-www-form-urlencoded content type"),
+		client_id: z.unknown(),
+		client_secret: z.unknown(),
+		grant_type: z.unknown(),
+	}),
+	z.strictObject({
+		refreshToken: z
+			.string()
+			.optional()
+			.describe("The refresh token received from previous token exchange"),
+		clientId: z.string().optional().describe("The integration client id"),
+		clientSecret: z.string().optional().describe("The integration client secret"),
+		grantType: z
+			.enum(["refresh_token"])
+			.optional()
+			.describe("The grant type, when using x-www-form-urlencoded content type"),
+		refresh_token: z.unknown(),
+		client_id: z.unknown(),
+		client_secret: z.unknown(),
+		grant_type: z.unknown(),
+	}),
+]);
+
 export const getIntegrationLogDrainsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -24988,6 +29398,58 @@ export const createLogDrainErrorSchema = z.union([
 	createLogDrainStatus404Schema,
 	createLogDrainStatus410Schema,
 ]);
+
+export const createLogDrainBodySchema = z.object({
+	name: z
+		.string()
+		.max(100)
+		.regex(/^[A-z0-9_ -]+$/)
+		.describe("The name of the log drain")
+		.meta({ examples: ["My first log drain"] }),
+	projectIds: z
+		.array(z.string().regex(/^[a-zA-z0-9_]+$/))
+		.min(1)
+		.max(50)
+		.optional(),
+	secret: z
+		.string()
+		.max(100)
+		.regex(/^[A-z0-9_ -]+$/)
+		.optional()
+		.describe(
+			"A secret to sign log drain notification headers so a consumer can verify their authenticity",
+		)
+		.meta({ examples: ["a1Xsfd325fXcs"] }),
+	deliveryFormat: z
+		.enum(["json", "ndjson"])
+		.optional()
+		.describe("The delivery log format")
+		.meta({ examples: ["json"] }),
+	url: z
+		.url()
+		.describe(
+			"The url where you will receive logs. The protocol must be `https://` or `http://` when type is `json` and `ndjson`.",
+		)
+		.meta({ examples: ["https://example.com/log-drain"] }),
+	sources: z
+		.array(z.enum(["build", "edge", "external", "firewall", "lambda", "static"]))
+		.min(1)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.optional(),
+	headers: z
+		.record(z.string(), z.string())
+		.optional()
+		.describe("Headers to be sent together with the request"),
+	environments: z
+		.array(z.enum(["preview", "production"]))
+		.min(1)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.optional(),
+});
 
 export const deleteIntegrationLogDrainPathIdSchema = z
 	.string()
@@ -25058,6 +29520,54 @@ export const createApiKeysErrorSchema = z.union([
 	createApiKeysStatus500Schema,
 ]);
 
+export const createApiKeysBodySchema = z
+	.object({
+		purpose: z.string().describe("The API key's purpose, which restricts how it can be used."),
+		projectId: z
+			.string()
+			.optional()
+			.describe("An optional project to restrict the API key to.")
+			.meta({ examples: ["prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] }),
+		name: z
+			.string()
+			.optional()
+			.describe("An optional name for the API key.")
+			.meta({ examples: ["API Key for App 123"] }),
+		expiresAt: z
+			.number()
+			.optional()
+			.describe("The API key's expiration, expressed as a UNIX timestamp in milliseconds."),
+		aiGatewayQuota: z
+			.object({
+				limitAmount: z.number().min(1).describe("The quota limit amount."),
+				includeByokInQuota: z
+					.boolean()
+					.optional()
+					.default(false)
+					.describe("Whether to include BYOK (Bring Your Own Key) usage in the quota."),
+				refreshPeriod: z
+					.enum(["daily", "monthly", "none", "weekly"])
+					.optional()
+					.default("none")
+					.describe("How often the quota refreshes."),
+				alertThresholds: z
+					.array(z.union([z.literal(100), z.literal(50), z.literal(75)]))
+					.optional()
+					.describe(
+						"Spend percentages (a subset of [50, 75, 100]) at which to send a spend alert.",
+					),
+			})
+			.optional()
+			.describe("Optional AI Gateway quota configuration for the API key."),
+		metadata: z
+			.looseObject({})
+			.optional()
+			.describe(
+				"Optional generic metadata for the API key. The accepted shape depends on the key's `purpose` and is validated on creation; for `ai-gateway` keys this accepts `environment`.",
+			),
+	})
+	.optional();
+
 export const signKmsMessagePathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
 export const signKmsMessageStatus200Schema = z.unknown();
@@ -25082,6 +29592,16 @@ export const signKmsMessageErrorSchema = z.union([
 	signKmsMessageStatus429Schema,
 ]);
 
+export const signKmsMessageBodySchema = z
+	.object({
+		message: z
+			.string()
+			.max(44000)
+			.regex(/^[A-Za-z0-9+/]*={0,2}$/)
+			.describe("Base64-encoded message to be signed."),
+	})
+	.optional();
+
 export const signKmsTokenPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
 export const signKmsTokenStatus200Schema = z.unknown();
@@ -25105,6 +29625,14 @@ export const signKmsTokenErrorSchema = z.union([
 	signKmsTokenStatus404Schema,
 	signKmsTokenStatus429Schema,
 ]);
+
+export const signKmsTokenBodySchema = z
+	.object({
+		claims: z.object({}).optional().describe("The claims to include in the token."),
+		headers: z.object({}).optional().describe("Additional headers to include in the token."),
+		ttl: z.number().nullish().default(300).describe("The time-to-live for the token, in seconds."),
+	})
+	.optional();
 
 export const listKmsIssuersQueryLimitSchema = z
 	.int()
@@ -25188,6 +29716,62 @@ export const createKmsIssuerErrorSchema = z.union([
 	createKmsIssuerStatus410Schema,
 ]);
 
+export const createKmsIssuerBodySchema = z
+	.strictObject({
+		name: z.string().describe("The name of the issuer."),
+		algorithm: z
+			.enum(["ES256", "ES384", "ES512", "PS256", "PS384", "PS512", "RS256", "RS384", "RS512"])
+			.optional()
+			.default("RS512")
+			.describe("The signing algorithm to use for the issuer."),
+		claimsSchema: z
+			.looseObject({})
+			.optional()
+			.describe(
+				"A JSON Schema used to validate the resolved token claims when signing tokens for this issuer.",
+			),
+		policy: z
+			.discriminatedUnion("kind", [
+				z.strictObject({
+					kind: z.enum(["project-grant"]),
+					teamId: z.string().describe("The team ID for the project grant policy."),
+					projectId: z.string().describe("The project ID for the project grant policy."),
+					environments: z
+						.array(z.string().regex(/^(?:production|preview|development|env_.+)$/))
+						.min(1)
+						.refine((items) => new Set(items).size === items.length, {
+							message: "Array entries must be unique",
+						})
+						.describe(
+							"The environments for the project grant policy. Each entry is a system environment (production, preview, development) or a custom environment ID (env_...).",
+						),
+					tokenClaims: z
+						.looseObject({})
+						.optional()
+						.describe("The claims that KMS should include in signed JWTs for this policy."),
+				}),
+				z.strictObject({
+					kind: z.enum(["connex-grant"]),
+					clientId: z.string().describe("The Connex client ID for the Connex grant policy."),
+					tokenClaims: z
+						.looseObject({})
+						.optional()
+						.describe("The claims that KMS should include in signed JWTs for this policy."),
+				}),
+			])
+			.optional(),
+		importKey: z.string().optional().describe("The PEM-encoded private key to use for the issuer."),
+		importKeyId: z
+			.string()
+			.max(128)
+			.regex(/^[A-Za-z0-9._-]+$/)
+			.optional()
+			.describe(
+				"The key id to use as the imported key's JWT/JWKS `kid`. Only allowed when `importKey` is provided. Not required to be unique; the addressable key id is the server-minted `keyId` returned in the response.",
+			),
+	})
+	.optional();
+
 export const createKmsSigningKeyPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
 export const createKmsSigningKeyQueryTeamIdSchema = z
@@ -25226,6 +29810,39 @@ export const createKmsSigningKeyErrorSchema = z.union([
 	createKmsSigningKeyStatus409Schema,
 	createKmsSigningKeyStatus410Schema,
 ]);
+
+export const createKmsSigningKeyBodySchema = z
+	.strictObject({
+		activation: z
+			.enum(["automatic", "manual"])
+			.optional()
+			.describe(
+				"Whether the new key is activated automatically after its public key has propagated, or manually via the activate endpoint. Defaults to `automatic`.",
+			),
+		revokePreviousAfterHours: z
+			.number()
+			.min(0)
+			.optional()
+			.describe(
+				"For automatic activation, how many hours after activation the previous signing key should stop being used. Defaults to a 1 hour grace period so already-issued tokens keep verifying.",
+			),
+		revokePreviousAt: z
+			.union([z.string(), z.number()])
+			.optional()
+			.describe(
+				"Deprecated. The ISO date string or timestamp when the previous signing key should stop being used. Converted to a relative grace and applied at activation, not creation. Prefer revokePreviousAfterHours.",
+			),
+		importKey: z.string().optional().describe("The PEM-encoded private key to use for the issuer."),
+		importKeyId: z
+			.string()
+			.max(128)
+			.regex(/^[A-Za-z0-9._-]+$/)
+			.optional()
+			.describe(
+				"The key id to use as the imported key's JWT/JWKS `kid`. Only allowed when `importKey` is provided. Not required to be unique; the addressable key id is the server-minted `keyId` returned in the response.",
+			),
+	})
+	.optional();
 
 export const activateKmsSigningKeyPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
@@ -25269,6 +29886,18 @@ export const activateKmsSigningKeyErrorSchema = z.union([
 	activateKmsSigningKeyStatus409Schema,
 	activateKmsSigningKeyStatus410Schema,
 ]);
+
+export const activateKmsSigningKeyBodySchema = z
+	.strictObject({
+		revokePreviousAfterHours: z
+			.number()
+			.min(0)
+			.optional()
+			.describe(
+				"How many hours after activation the previously-active key should stop being used. Defaults to a 1 hour grace period so already-issued tokens keep verifying.",
+			),
+	})
+	.optional();
 
 export const revokeKmsSigningKeyPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
@@ -25387,6 +30016,18 @@ export const updateKmsIssuerErrorSchema = z.union([
 	updateKmsIssuerStatus410Schema,
 ]);
 
+export const updateKmsIssuerBodySchema = z
+	.strictObject({
+		name: z.string().optional().describe("The name of the issuer."),
+		claimsSchema: z
+			.looseObject({})
+			.nullish()
+			.describe(
+				"A JSON Schema used to validate the resolved token claims when signing tokens for this issuer. Pass null to remove it.",
+			),
+	})
+	.optional();
+
 export const deleteKmsIssuerPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
 export const deleteKmsIssuerQueryTeamIdSchema = z
@@ -25459,6 +30100,26 @@ export const createKmsIssuerPolicyErrorSchema = z.union([
 	createKmsIssuerPolicyStatus410Schema,
 ]);
 
+export const createKmsIssuerPolicyBodySchema = z
+	.strictObject({
+		kind: z.enum(["project-grant"]),
+		projectId: z.string().describe("The project ID for the project grant policy."),
+		environments: z
+			.array(z.string().regex(/^(?:production|preview|development|env_.+)$/))
+			.min(1)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.describe(
+				"The environments for the project grant policy. Each entry is a system environment (production, preview, development) or a custom environment ID (env_...).",
+			),
+		tokenClaims: z
+			.looseObject({})
+			.optional()
+			.describe("The claims that KMS should include in signed JWTs for this policy."),
+	})
+	.optional();
+
 export const updateKmsIssuerPolicyPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
 export const updateKmsIssuerPolicyPathKindSchema = z
@@ -25502,6 +30163,27 @@ export const updateKmsIssuerPolicyErrorSchema = z.union([
 	updateKmsIssuerPolicyStatus404Schema,
 	updateKmsIssuerPolicyStatus410Schema,
 ]);
+
+export const updateKmsIssuerPolicyBodySchema = z
+	.strictObject({
+		environments: z
+			.array(z.string().regex(/^(?:production|preview|development|env_.+)$/))
+			.min(1)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe(
+				"The environments for the project grant policy. Each entry is a system environment (production, preview, development) or a custom environment ID (env_...).",
+			),
+		tokenClaims: z
+			.looseObject({})
+			.nullish()
+			.describe(
+				"The claims that KMS should include in signed JWTs for this policy. Pass null to remove them.",
+			),
+	})
+	.optional();
 
 export const deleteKmsIssuerPolicyPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
@@ -25621,6 +30303,27 @@ export const createInstallationsByIntegrationConfigurationIdResourcesByResourceI
 		createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus410Schema,
 	]);
 
+export const createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsBodySchema =
+	z
+		.strictObject({
+			items: z
+				.array(
+					z.strictObject({
+						id: z.string().max(1024),
+						slug: z.string().max(1024),
+						origin: z.string().max(2048),
+						category: z.enum(["experiment", "flag"]).optional(),
+						name: z.string().max(1024).optional(),
+						description: z.string().max(1024).optional(),
+						isArchived: z.boolean().optional(),
+						createdAt: z.number().optional(),
+						updatedAt: z.number().optional(),
+					}),
+				)
+				.max(50),
+		})
+		.optional();
+
 export const updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPathIntegrationConfigurationIdSchema =
 	z.string();
 
@@ -25659,6 +30362,20 @@ export const updateInstallationsByIntegrationConfigurationIdResourcesByResourceI
 		updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus404Schema,
 		updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus410Schema,
 	]);
+
+export const updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdBodySchema =
+	z
+		.strictObject({
+			slug: z.string().max(1024),
+			origin: z.string().max(2048),
+			name: z.string().max(1024).optional(),
+			category: z.enum(["experiment", "flag"]).optional(),
+			description: z.string().max(1024).optional(),
+			isArchived: z.boolean().optional(),
+			createdAt: z.number().optional(),
+			updatedAt: z.number().optional(),
+		})
+		.optional();
 
 export const deleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPathIntegrationConfigurationIdSchema =
 	z.string();
@@ -25782,6 +30499,13 @@ export const replaceInstallationsByIntegrationConfigurationIdResourcesByResource
 		replaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410Schema,
 		replaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus412Schema,
 	]);
+
+export const replaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigBodySchema =
+	z
+		.strictObject({
+			data: z.record(z.string(), z.unknown()),
+		})
+		.optional();
 
 export const getMicrofrontendsGroupsQueryTeamIdSchema = z
 	.string()
@@ -25977,6 +30701,41 @@ export const createMicrofrontendsGroupWithApplicationsErrorSchema = z.union([
 	createMicrofrontendsGroupWithApplicationsStatus500Schema,
 ]);
 
+export const createMicrofrontendsGroupWithApplicationsBodySchema = z
+	.object({
+		groupName: z
+			.string()
+			.describe("The name of the microfrontends group that will be used to identify the group")
+			.meta({ examples: ["MFE Group 1"] }),
+		defaultApp: z
+			.object({
+				projectId: z
+					.string()
+					.describe(
+						"The id of the project that will be used as the default app for the new microfrontend group",
+					),
+				defaultRoute: z
+					.string()
+					.optional()
+					.describe("The default route for the default app of the new microfrontend group"),
+			})
+			.describe("The default app for the new microfrontend group"),
+		otherApplications: z
+			.array(
+				z.object({
+					projectId: z
+						.string()
+						.describe("The id of the project that will be used in the new microfrontend group"),
+					defaultRoute: z
+						.string()
+						.optional()
+						.describe("The default route for the application in the new microfrontend group"),
+				}),
+			)
+			.describe("The list of other applications that will be used in the new microfrontend group"),
+	})
+	.optional();
+
 export const getObservabilityConfigurationProjectsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -26054,6 +30813,12 @@ export const updateObservabilityConfigurationProjectErrorSchema = z.union([
 	updateObservabilityConfigurationProjectStatus429Schema,
 ]);
 
+export const updateObservabilityConfigurationProjectBodySchema = z
+	.strictObject({
+		disabled: z.boolean().describe("Whether Observability Plus should be disabled for the project"),
+	})
+	.optional();
+
 export const createObservabilityQueryStatus200Schema = z.unknown();
 
 export const createObservabilityQueryStatus400Schema = z.unknown();
@@ -26093,6 +30858,51 @@ export const createObservabilityQueryErrorSchema = z.union([
 	createObservabilityQueryStatus500Schema,
 	createObservabilityQueryStatus503Schema,
 ]);
+
+export const createObservabilityQueryBodySchema = z
+	.looseObject({
+		metric: z.string().describe("Metric id"),
+		scope: z.object({}).describe("Owner or project scope for the query"),
+		aggregation: z
+			.string()
+			.optional()
+			.describe(
+				"Aggregation function to apply. Some aggregations require a dimension: use <agg>/<dimension>, for example unique/visitor_id.",
+			),
+		groupBy: z
+			.array(z.string())
+			.optional()
+			.describe(
+				"Dimensions to group results by. JSON dimensions support nested refs, for example event_data/checkout_step. Nested keys containing characters that OData cannot parse as an identifier, such as '-', spaces, quotes, or '/', must be wrapped in single quotes (escape embedded single quotes by doubling them), for example flags/'enable-comments-view' or event_data/'some property''s/value'.",
+			),
+		filter: z
+			.string()
+			.optional()
+			.describe(
+				"Filter to apply to the query. JSON dimensions support nested refs, for example event_data/checkout_step eq 'payment'. Nested keys containing characters that OData cannot parse as an identifier, such as '-', spaces, quotes, or '/', must be wrapped in single quotes (escape embedded single quotes by doubling them), for example flags/'enable-comments-view' eq true or event_data/'some property''s/value' eq true.",
+			),
+		limit: z.number().optional().describe("Maximum number of results"),
+		orderBy: z
+			.string()
+			.optional()
+			.describe(
+				"Rollup column to order grouped results by. Use the generated rollup key for the requested metric and aggregation. Defaults to the query engine count rollup.",
+			),
+		orderDirection: z
+			.enum(["asc", "desc"])
+			.optional()
+			.describe("Direction to order grouped results by. Defaults to desc."),
+		granularity: z.object({}).optional().describe("Time bucket size"),
+		startTime: z.string().optional().describe("Start timestamp"),
+		endTime: z.string().optional().describe("End timestamp"),
+		bucketTimezone: z
+			.string()
+			.optional()
+			.describe(
+				"IANA timezone (e.g. Europe/Paris) used only to align calendar buckets (1d/1mo) to that zone's day/month boundaries. startTime/endTime and all output timestamps are always UTC. No effect on sub-day granularities.",
+			),
+	})
+	.optional();
 
 export const getObservabilitySchemaStatus200Schema = z.unknown();
 
@@ -26139,6 +30949,313 @@ export const getObservabilitySchemaByMetricIdErrorSchema = z.union([
 	getObservabilitySchemaByMetricIdStatus403Schema,
 	getObservabilitySchemaByMetricIdStatus404Schema,
 	getObservabilitySchemaByMetricIdStatus410Schema,
+]);
+
+export const createOrganizationQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const createOrganizationQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const createOrganizationStatus202Schema = z.unknown();
+
+export const createOrganizationStatus400Schema = z.unknown();
+
+export const createOrganizationStatus401Schema = z.unknown();
+
+export const createOrganizationStatus403Schema = z.unknown();
+
+export const createOrganizationStatus404Schema = z.unknown();
+
+export const createOrganizationStatus409Schema = z.unknown();
+
+export const createOrganizationStatus410Schema = z.unknown();
+
+export const createOrganizationStatus500Schema = z.unknown();
+
+export const createOrganizationResponseSchema = createOrganizationStatus202Schema;
+
+export const createOrganizationErrorSchema = z.union([
+	createOrganizationStatus400Schema,
+	createOrganizationStatus401Schema,
+	createOrganizationStatus403Schema,
+	createOrganizationStatus404Schema,
+	createOrganizationStatus409Schema,
+	createOrganizationStatus410Schema,
+	createOrganizationStatus500Schema,
+]);
+
+export const createOrganizationBodySchema = z
+	.strictObject({
+		slug: z
+			.string()
+			.max(48)
+			.regex(/^(?!-)(?:[a-z0-9-]{1,48})(?<!-)$/)
+			.describe("The desired slug for the organization."),
+		name: z
+			.string()
+			.max(256)
+			.optional()
+			.describe("The desired name for the organization. Generated from the slug if not provided."),
+	})
+	.optional();
+
+export const listOrganizationsStatus200Schema = z.unknown();
+
+export const listOrganizationsStatus400Schema = z.unknown();
+
+export const listOrganizationsStatus403Schema = z.unknown();
+
+export const listOrganizationsStatus410Schema = z.unknown();
+
+export const listOrganizationsResponseSchema = listOrganizationsStatus200Schema;
+
+export const listOrganizationsErrorSchema = z.union([
+	listOrganizationsStatus400Schema,
+	listOrganizationsStatus403Schema,
+	listOrganizationsStatus410Schema,
+]);
+
+export const getOrganizationPathOrganizationIdSchema = z
+	.string()
+	.describe("The ID or slug of the organization to retrieve.");
+
+export const getOrganizationQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const getOrganizationQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const getOrganizationStatus200Schema = z.unknown();
+
+export const getOrganizationStatus400Schema = z.unknown();
+
+export const getOrganizationStatus401Schema = z.unknown();
+
+export const getOrganizationStatus403Schema = z.unknown();
+
+export const getOrganizationStatus404Schema = z.unknown();
+
+export const getOrganizationStatus410Schema = z.unknown();
+
+export const getOrganizationResponseSchema = getOrganizationStatus200Schema;
+
+export const getOrganizationErrorSchema = z.union([
+	getOrganizationStatus400Schema,
+	getOrganizationStatus401Schema,
+	getOrganizationStatus403Schema,
+	getOrganizationStatus404Schema,
+	getOrganizationStatus410Schema,
+]);
+
+export const updateOrganizationPathOrganizationIdSchema = z
+	.string()
+	.describe("The ID of the organization to update.");
+
+export const updateOrganizationStatus200Schema = z.unknown();
+
+export const updateOrganizationStatus400Schema = z.unknown();
+
+export const updateOrganizationStatus401Schema = z.unknown();
+
+export const updateOrganizationStatus403Schema = z.unknown();
+
+export const updateOrganizationStatus404Schema = z.unknown();
+
+export const updateOrganizationStatus409Schema = z.unknown();
+
+export const updateOrganizationStatus410Schema = z.unknown();
+
+export const updateOrganizationResponseSchema = updateOrganizationStatus200Schema;
+
+export const updateOrganizationErrorSchema = z.union([
+	updateOrganizationStatus400Schema,
+	updateOrganizationStatus401Schema,
+	updateOrganizationStatus403Schema,
+	updateOrganizationStatus404Schema,
+	updateOrganizationStatus409Schema,
+	updateOrganizationStatus410Schema,
+]);
+
+export const updateOrganizationBodySchema = z
+	.strictObject({
+		avatar: z
+			.string()
+			.max(40)
+			.regex(/^[0-9a-f]+$/)
+			.nullish()
+			.describe(
+				"The hash value of an uploaded image, or `null` to clear the organization avatar. Omit to leave it unchanged.",
+			),
+		name: z.string().max(256).optional().describe("The new display name for the organization."),
+		slug: z
+			.string()
+			.max(48)
+			.regex(/^(?!-)(?:[a-z0-9-]{1,48})(?<!-)$/)
+			.optional()
+			.describe("The new slug for the organization."),
+	})
+	.optional();
+
+export const listOrganizationTeamsPathOrganizationIdSchema = z
+	.string()
+	.describe("The ID of the organization.");
+
+export const listOrganizationTeamsQueryCursorSchema = z
+	.string()
+	.optional()
+	.describe("Pagination cursor.");
+
+export const listOrganizationTeamsQueryIncludeMemberCountSchema = z
+	.boolean()
+	.optional()
+	.describe("When true, includes each team's member count in the response.");
+
+export const listOrganizationTeamsStatus200Schema = z.unknown();
+
+export const listOrganizationTeamsStatus400Schema = z.unknown();
+
+export const listOrganizationTeamsStatus401Schema = z.unknown();
+
+export const listOrganizationTeamsStatus403Schema = z.unknown();
+
+export const listOrganizationTeamsStatus404Schema = z.unknown();
+
+export const listOrganizationTeamsStatus410Schema = z.unknown();
+
+export const listOrganizationTeamsResponseSchema = listOrganizationTeamsStatus200Schema;
+
+export const listOrganizationTeamsErrorSchema = z.union([
+	listOrganizationTeamsStatus400Schema,
+	listOrganizationTeamsStatus401Schema,
+	listOrganizationTeamsStatus403Schema,
+	listOrganizationTeamsStatus404Schema,
+	listOrganizationTeamsStatus410Schema,
+]);
+
+export const addOrganizationTeamPathOrganizationIdSchema = z
+	.string()
+	.describe("The ID of the organization to create or add a team under.");
+
+export const addOrganizationTeamStatus200Schema = z.unknown();
+
+export const addOrganizationTeamStatus400Schema = z.unknown();
+
+export const addOrganizationTeamStatus401Schema = z.unknown();
+
+export const addOrganizationTeamStatus403Schema = z.unknown();
+
+export const addOrganizationTeamStatus404Schema = z.unknown();
+
+export const addOrganizationTeamStatus409Schema = z.unknown();
+
+export const addOrganizationTeamStatus410Schema = z.unknown();
+
+export const addOrganizationTeamStatus500Schema = z.unknown();
+
+export const addOrganizationTeamResponseSchema = addOrganizationTeamStatus200Schema;
+
+export const addOrganizationTeamErrorSchema = z.union([
+	addOrganizationTeamStatus400Schema,
+	addOrganizationTeamStatus401Schema,
+	addOrganizationTeamStatus403Schema,
+	addOrganizationTeamStatus404Schema,
+	addOrganizationTeamStatus409Schema,
+	addOrganizationTeamStatus410Schema,
+	addOrganizationTeamStatus500Schema,
+]);
+
+export const addOrganizationTeamBodySchema = z
+	.union([
+		z.strictObject({
+			mode: z.enum(["create"]),
+			name: z.unknown(),
+			slug: z
+				.string()
+				.describe("The slug of an existing team to link, or the slug for a new team to create."),
+		}),
+		z.object({
+			mode: z.enum(["link"]),
+			teamId: z
+				.string()
+				.describe("The ID of an existing team to add to the organization (link mode)."),
+		}),
+		z.object({
+			mode: z.enum(["link"]),
+			slug: z
+				.string()
+				.describe("The slug of an existing team to link, or the slug for a new team to create."),
+		}),
+	])
+	.and(
+		z.strictObject({
+			mode: z
+				.enum(["create", "link"])
+				.describe(
+					'Whether to create a new team under the organization (\\"create\\") or link an existing one (\\"link\\").',
+				),
+			teamId: z
+				.string()
+				.optional()
+				.describe("The ID of an existing team to add to the organization (link mode)."),
+			slug: z
+				.string()
+				.optional()
+				.describe("The slug of an existing team to link, or the slug for a new team to create."),
+			name: z
+				.string()
+				.optional()
+				.describe(
+					"The display name for a new team. Required in create mode; rejected in link mode.",
+				),
+			billingPlan: z.enum(["enterprise", "platform"]).optional(),
+		}),
+	)
+	.optional();
+
+export const removeOrganizationTeamPathOrganizationIdSchema = z
+	.string()
+	.describe("The ID of the organization.");
+
+export const removeOrganizationTeamPathTargetTeamIdSchema = z
+	.string()
+	.describe("The ID of the team to remove.");
+
+export const removeOrganizationTeamStatus200Schema = z.unknown();
+
+export const removeOrganizationTeamStatus400Schema = z.unknown();
+
+export const removeOrganizationTeamStatus401Schema = z.unknown();
+
+export const removeOrganizationTeamStatus403Schema = z.unknown();
+
+export const removeOrganizationTeamStatus404Schema = z.unknown();
+
+export const removeOrganizationTeamStatus409Schema = z.unknown();
+
+export const removeOrganizationTeamStatus410Schema = z.unknown();
+
+export const removeOrganizationTeamResponseSchema = removeOrganizationTeamStatus200Schema;
+
+export const removeOrganizationTeamErrorSchema = z.union([
+	removeOrganizationTeamStatus400Schema,
+	removeOrganizationTeamStatus401Schema,
+	removeOrganizationTeamStatus403Schema,
+	removeOrganizationTeamStatus404Schema,
+	removeOrganizationTeamStatus409Schema,
+	removeOrganizationTeamStatus410Schema,
 ]);
 
 export const getProjectMembersPathIdOrNameSchema = z
@@ -26246,6 +31363,55 @@ export const addProjectMemberErrorSchema = z.union([
 	addProjectMemberStatus410Schema,
 	addProjectMemberStatus500Schema,
 ]);
+
+export const addProjectMemberBodySchema = z
+	.union([
+		z.strictObject({
+			uid: z
+				.string()
+				.max(256)
+				.describe("The ID of the team member that should be added to this project.")
+				.meta({ examples: ["ndlgr43fadlPyCtREAqxxdyFK"] }),
+		}),
+		z.strictObject({
+			username: z
+				.string()
+				.max(256)
+				.describe("The username of the team member that should be added to this project.")
+				.meta({ examples: ["example"] }),
+		}),
+		z.strictObject({
+			email: z
+				.email()
+				.describe("The email of the team member that should be added to this project.")
+				.meta({ examples: ["entity@example.com"] }),
+		}),
+	])
+	.and(
+		z.strictObject({
+			uid: z
+				.string()
+				.max(256)
+				.optional()
+				.describe("The ID of the team member that should be added to this project.")
+				.meta({ examples: ["ndlgr43fadlPyCtREAqxxdyFK"] }),
+			username: z
+				.string()
+				.max(256)
+				.optional()
+				.describe("The username of the team member that should be added to this project.")
+				.meta({ examples: ["example"] }),
+			email: z
+				.email()
+				.optional()
+				.describe("The email of the team member that should be added to this project.")
+				.meta({ examples: ["entity@example.com"] }),
+			role: z
+				.enum(["ADMIN", "PROJECT_DEVELOPER", "PROJECT_VIEWER"])
+				.describe("The project role of the member that will be added.")
+				.meta({ examples: ["ADMIN"] }),
+		}),
+	);
 
 export const removeProjectMemberPathIdOrNameSchema = z
 	.string()
@@ -26379,6 +31545,60 @@ export const stageRoutesErrorSchema = z.union([
 	stageRoutesStatus500Schema,
 ]);
 
+export const stageRoutesBodySchema = z
+	.object({
+		overwrite: z.boolean().optional(),
+		routes: z
+			.array(
+				z.object({
+					id: z.string().max(256),
+					name: z.string().max(256),
+					description: z.string().max(1024).optional(),
+					enabled: z.boolean().optional(),
+					route: z.object({
+						src: z.string(),
+						dest: z.string().optional(),
+						headers: z.object({}).optional(),
+						caseSensitive: z.boolean().optional(),
+						status: z.int().optional(),
+						has: z
+							.array(
+								z.object({
+									type: z.enum(["cookie", "header", "host", "query"]).optional(),
+									key: z.string().optional(),
+									value: z.string().optional(),
+								}),
+							)
+							.optional(),
+						missing: z
+							.array(
+								z.object({
+									type: z.enum(["cookie", "header", "host", "query"]).optional(),
+									key: z.string().optional(),
+									value: z.string().optional(),
+								}),
+							)
+							.optional(),
+						transforms: z
+							.array(
+								z.object({
+									type: z.enum(["request.headers", "request.query", "response.headers"]).optional(),
+									op: z.enum(["append", "delete", "set"]).optional(),
+									target: z.object({}).optional(),
+									args: z.unknown().optional(),
+									env: z.array(z.string()).optional(),
+								}),
+							)
+							.optional(),
+						respectOriginCacheControl: z.boolean().optional(),
+					}),
+				}),
+			)
+			.optional()
+			.default([]),
+	})
+	.optional();
+
 export const addRoutePathProjectIdSchema = z.string();
 
 export const addRouteQueryTeamIdSchema = z
@@ -26421,6 +31641,70 @@ export const addRouteErrorSchema = z.union([
 	addRouteStatus500Schema,
 ]);
 
+export const addRouteBodySchema = z
+	.object({
+		route: z.object({
+			name: z.string().max(256),
+			description: z.string().max(1024).optional(),
+			enabled: z.boolean().optional(),
+			srcSyntax: z
+				.enum(["equals", "path-to-regexp", "regex"])
+				.optional()
+				.describe("Pattern syntax type. If not provided, inferred from pattern."),
+			route: z.object({
+				src: z.string(),
+				dest: z.string().optional(),
+				headers: z.object({}).optional(),
+				caseSensitive: z.boolean().optional(),
+				status: z.int().optional(),
+				has: z
+					.array(
+						z.object({
+							type: z.enum(["cookie", "header", "host", "query"]).optional(),
+							key: z.string().optional(),
+							value: z.string().optional(),
+						}),
+					)
+					.optional(),
+				missing: z
+					.array(
+						z.object({
+							type: z.enum(["cookie", "header", "host", "query"]).optional(),
+							key: z.string().optional(),
+							value: z.string().optional(),
+						}),
+					)
+					.optional(),
+				transforms: z
+					.array(
+						z.object({
+							type: z.enum(["request.headers", "request.query", "response.headers"]).optional(),
+							op: z.enum(["append", "delete", "set"]).optional(),
+							target: z.object({}).optional(),
+							args: z.unknown().optional(),
+							env: z.array(z.string()).optional(),
+						}),
+					)
+					.optional(),
+				respectOriginCacheControl: z.boolean().optional(),
+			}),
+		}),
+		position: z
+			.object({
+				placement: z
+					.enum(["after", "before", "end", "start"])
+					.optional()
+					.describe('"after"/"before" require referenceId.'),
+				referenceId: z
+					.string()
+					.optional()
+					.describe('Route ID to insert after/before. Required for "after"/"before".'),
+			})
+			.optional()
+			.describe('Controls where the route is inserted. Defaults to "end" if omitted.'),
+	})
+	.optional();
+
 export const deleteRoutesPathProjectIdSchema = z.string();
 
 export const deleteRoutesQueryTeamIdSchema = z
@@ -26462,6 +31746,12 @@ export const deleteRoutesErrorSchema = z.union([
 	deleteRoutesStatus410Schema,
 	deleteRoutesStatus500Schema,
 ]);
+
+export const deleteRoutesBodySchema = z
+	.object({
+		routeIds: z.array(z.string()).min(1).describe("The IDs of the routes to delete"),
+	})
+	.optional();
 
 export const editRoutePathProjectIdSchema = z.string();
 
@@ -26507,6 +31797,64 @@ export const editRouteErrorSchema = z.union([
 	editRouteStatus500Schema,
 ]);
 
+export const editRouteBodySchema = z
+	.object({
+		route: z
+			.object({
+				name: z.string().max(256),
+				description: z.string().max(1024).optional(),
+				enabled: z.boolean().optional(),
+				srcSyntax: z
+					.enum(["equals", "path-to-regexp", "regex"])
+					.optional()
+					.describe("Pattern syntax type. If not provided, inferred from pattern."),
+				route: z.object({
+					src: z.string(),
+					dest: z.string().optional(),
+					headers: z.object({}).optional(),
+					caseSensitive: z.boolean().optional(),
+					status: z.int().optional(),
+					has: z
+						.array(
+							z.object({
+								type: z.enum(["cookie", "header", "host", "query"]).optional(),
+								key: z.string().optional(),
+								value: z.string().optional(),
+							}),
+						)
+						.optional(),
+					missing: z
+						.array(
+							z.object({
+								type: z.enum(["cookie", "header", "host", "query"]).optional(),
+								key: z.string().optional(),
+								value: z.string().optional(),
+							}),
+						)
+						.optional(),
+					transforms: z
+						.array(
+							z.object({
+								type: z.enum(["request.headers", "request.query", "response.headers"]).optional(),
+								op: z.enum(["append", "delete", "set"]).optional(),
+								target: z.object({}).optional(),
+								args: z.unknown().optional(),
+								env: z.array(z.string()).optional(),
+							}),
+						)
+						.optional(),
+					respectOriginCacheControl: z.boolean().optional(),
+				}),
+			})
+			.optional()
+			.describe("The full route object to replace the existing route with"),
+		restore: z
+			.boolean()
+			.optional()
+			.describe("If true, restores the staged route to the value in the production version."),
+	})
+	.optional();
+
 export const generateRoutePathProjectIdSchema = z.string();
 
 export const generateRouteQueryTeamIdSchema = z
@@ -26548,6 +31896,50 @@ export const generateRouteErrorSchema = z.union([
 	generateRouteStatus410Schema,
 	generateRouteStatus500Schema,
 ]);
+
+export const generateRouteBodySchema = z
+	.object({
+		prompt: z.string().max(2000),
+		currentRoute: z
+			.object({
+				name: z.string().optional(),
+				description: z.string().optional(),
+				pathCondition: z.object({
+					value: z.string().optional(),
+					syntax: z.string().optional(),
+				}),
+				conditions: z
+					.array(
+						z.object({
+							field: z.string().optional(),
+							operator: z.string().optional(),
+							key: z.string().optional(),
+							value: z.string().optional(),
+							missing: z.boolean().optional(),
+						}),
+					)
+					.optional(),
+				actions: z.array(
+					z.object({
+						type: z.string().optional(),
+						subType: z.string().optional(),
+						dest: z.string().optional(),
+						status: z.int().optional(),
+						headers: z
+							.array(
+								z.object({
+									key: z.string().optional(),
+									value: z.string().optional(),
+									op: z.string().optional(),
+								}),
+							)
+							.optional(),
+					}),
+				),
+			})
+			.optional(),
+	})
+	.optional();
 
 export const getRouteVersionsPathProjectIdSchema = z.string();
 
@@ -26626,6 +32018,13 @@ export const updateRouteVersionsErrorSchema = z.union([
 	updateRouteVersionsStatus410Schema,
 	updateRouteVersionsStatus500Schema,
 ]);
+
+export const updateRouteVersionsBodySchema = z
+	.object({
+		id: z.string(),
+		action: z.enum(["discard", "promote", "restore"]),
+	})
+	.optional();
 
 export const getProjectsQueryFromSchema = z
 	.string()
@@ -26853,6 +32252,365 @@ export const createProjectErrorSchema = z.union([
 	createProjectStatus500Schema,
 ]);
 
+export const createProjectBodySchema = z
+	.strictObject({
+		enablePreviewFeedback: z
+			.boolean()
+			.nullish()
+			.describe("Opt-in to preview toolbar on the project level"),
+		enableProductionFeedback: z
+			.boolean()
+			.nullish()
+			.describe("Opt-in to production toolbar on the project level"),
+		previewDeploymentsDisabled: z
+			.boolean()
+			.nullish()
+			.describe("Specifies whether preview deployments are disabled for this project."),
+		previewDeploymentSuffix: z
+			.string()
+			.max(253)
+			.nullish()
+			.describe(
+				"Custom domain suffix for preview deployments. Takes precedence over team-level suffix. Must be a domain owned by the team.",
+			),
+		buildCommand: z
+			.string()
+			.max(256)
+			.nullish()
+			.describe(
+				"The build command for this project. When `null` is used this value will be automatically detected",
+			),
+		commandForIgnoringBuildStep: z.string().max(256).nullish(),
+		devCommand: z
+			.string()
+			.max(256)
+			.nullish()
+			.describe(
+				"The dev command for this project. When `null` is used this value will be automatically detected",
+			),
+		environmentVariables: z
+			.array(
+				z.object({
+					key: z.string().describe("Name of the ENV variable"),
+					target: z
+						.union([
+							z.enum(["production", "preview", "development"]),
+							z.array(z.enum(["production", "preview", "development"])),
+						])
+						.describe("Deployment Target or Targets in which the ENV variable will be used"),
+					gitBranch: z
+						.string()
+						.max(250)
+						.optional()
+						.describe(
+							"If defined, the git branch of the environment variable (must have target=preview)",
+						),
+					type: z
+						.enum(["encrypted", "plain", "sensitive", "system"])
+						.optional()
+						.describe("Type of the ENV variable"),
+					value: z.string().describe("Value for the ENV variable"),
+				}),
+			)
+			.optional()
+			.describe("Collection of ENV Variables the Project will use"),
+		framework: z
+			.enum([
+				"actix-web",
+				"angular",
+				"ash",
+				"astro",
+				"axum",
+				"blitzjs",
+				"brunch",
+				"bun",
+				"container",
+				"create-react-app",
+				"django",
+				"docusaurus",
+				"docusaurus-2",
+				"dojo",
+				"eleventy",
+				"elysia",
+				"ember",
+				"eve",
+				"express",
+				"factory-eve",
+				"fastapi",
+				"fasthtml",
+				"fastify",
+				"flask",
+				"gatsby",
+				"go",
+				"gridsome",
+				"h3",
+				"hexo",
+				"hono",
+				"hugo",
+				"hydrogen",
+				"ionic-angular",
+				"ionic-react",
+				"jekyll",
+				"koa",
+				"mastra",
+				"middleman",
+				"nestjs",
+				"nextjs",
+				"nitro",
+				"node",
+				"nuxtjs",
+				"parcel",
+				"polymer",
+				"preact",
+				"python",
+				"react-router",
+				"redwoodjs",
+				"remix",
+				"ruby",
+				"rust",
+				"saber",
+				"sanity",
+				"sanity-v2",
+				"sapper",
+				"scully",
+				"services",
+				"solidstart",
+				"solidstart-1",
+				"stencil",
+				"storybook",
+				"svelte",
+				"sveltekit",
+				"sveltekit-1",
+				"tanstack-start",
+				"tanstack-start-lovable",
+				"umijs",
+				"vite",
+				"vitepress",
+				"vue",
+				"vuepress",
+				"xmcp",
+				"zola",
+			])
+			.optional()
+			.describe(
+				"The framework that is being used for this project. When `null` is used no framework is selected",
+			),
+		gitRepository: z
+			.object({
+				repo: z
+					.string()
+					.describe('The name of the git repository. For example: \\"vercel/next.js\\"'),
+				type: z
+					.enum(["bitbucket", "cursor-origin", "github", "github-limited", "gitlab", "vercel"])
+					.describe("The Git Provider of the repository"),
+			})
+			.optional()
+			.describe(
+				"The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed",
+			),
+		installCommand: z
+			.string()
+			.max(256)
+			.nullish()
+			.describe(
+				"The install command for this project. When `null` is used this value will be automatically detected",
+			),
+		name: z
+			.string()
+			.max(100)
+			.describe("The desired name for the project")
+			.meta({ examples: ["a-project-name"] }),
+		skipGitConnectDuringLink: z
+			.boolean()
+			.optional()
+			.describe(
+				"Opts-out of the message prompting a CLI user to connect a Git repository in `vercel link`.",
+			),
+		ssoProtection: z
+			.object({
+				deploymentType: z.enum([
+					"all",
+					"all_except_custom_domains",
+					"preview",
+					"prod_deployment_urls_and_all_previews",
+				]),
+			})
+			.nullish()
+			.describe(
+				'The Vercel Auth setting for the project (historically named \\"SSO Protection\\")',
+			),
+		sandbox: z
+			.strictObject({
+				region: z
+					.enum([
+						"arn1",
+						"bom1",
+						"cdg1",
+						"cle1",
+						"cpt1",
+						"dub1",
+						"fra1",
+						"gru1",
+						"hkg1",
+						"hnd1",
+						"iad1",
+						"icn1",
+						"kix1",
+						"lhr1",
+						"pdx1",
+						"sfo1",
+						"sin1",
+						"syd1",
+						"yul1",
+					])
+					.optional()
+					.describe("The Vercel region sandboxes in this project are created in by default.")
+					.meta({ examples: ["iad1"] }),
+				failoverRegions: z
+					.array(
+						z.enum([
+							"arn1",
+							"bom1",
+							"cdg1",
+							"cle1",
+							"cpt1",
+							"dub1",
+							"fra1",
+							"gru1",
+							"hkg1",
+							"hnd1",
+							"iad1",
+							"icn1",
+							"kix1",
+							"lhr1",
+							"pdx1",
+							"sfo1",
+							"sin1",
+							"syd1",
+							"yul1",
+						]),
+					)
+					.max(19)
+					.refine((items) => new Set(items).size === items.length, {
+						message: "Array entries must be unique",
+					})
+					.optional()
+					.describe(
+						"The regions sandboxes in this project fall back to when they cannot be created in `region`.",
+					)
+					.meta({ examples: [["cle1", "sfo1"]] }),
+			})
+			.optional()
+			.describe(
+				"Specifies the default region and failover regions for sandboxes created in the project",
+			),
+		outputDirectory: z
+			.string()
+			.max(256)
+			.nullish()
+			.describe(
+				"The output directory of the project. When `null` is used this value will be automatically detected",
+			),
+		publicSource: z
+			.boolean()
+			.nullish()
+			.describe("Deprecated. Accepted for backwards compatibility but ignored."),
+		rootDirectory: z
+			.string()
+			.max(256)
+			.nullish()
+			.describe(
+				"The name of a directory or relative path to the source code of your project. When `null` is used it will default to the project root",
+			),
+		serverlessFunctionRegion: z
+			.string()
+			.max(4)
+			.nullish()
+			.describe("The region to deploy Serverless Functions in this project"),
+		serverlessFunctionZeroConfigFailover: z
+			.boolean()
+			.optional()
+			.describe("Specifies whether Zero Config Failover is enabled for this project."),
+		oidcTokenConfig: z
+			.strictObject({
+				enabled: z
+					.boolean()
+					.optional()
+					.default(true)
+					.describe("Whether or not to generate OpenID Connect JSON Web Tokens."),
+				issuerMode: z
+					.enum(["global", "team"])
+					.optional()
+					.default("team")
+					.describe(
+						"team: `https://oidc.vercel.com/[team_slug]` global: `https://oidc.vercel.com`",
+					),
+			})
+			.optional()
+			.describe("OpenID Connect JSON Web Token generation configuration."),
+		enableAffectedProjectsDeployments: z
+			.boolean()
+			.optional()
+			.describe(
+				"Opt-in to skip deployments when there are no changes to the root directory and its dependencies",
+			),
+		resourceConfig: z
+			.strictObject({
+				buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+				fluid: z.boolean().optional(),
+				functionDefaultRegions: z
+					.array(z.string().max(4))
+					.min(1)
+					.refine((items) => new Set(items).size === items.length, {
+						message: "Array entries must be unique",
+					})
+					.optional()
+					.describe("The regions to deploy Vercel Functions to for this project"),
+				functionDefaultTimeout: z.number().min(1).max(900).optional(),
+				functionDefaultMemoryType: z
+					.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+					.optional(),
+				functionZeroConfigFailover: z
+					.boolean()
+					.optional()
+					.describe("Specifies whether Zero Config Failover is enabled for this project."),
+				elasticConcurrencyEnabled: z.boolean().optional(),
+				buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+				buildMachineElasticLastUpdated: z.number().optional(),
+				buildMachineElasticReason: z
+					.enum([
+						"basic-floor",
+						"build-timeout-failure",
+						"enospc-failure",
+						"enterprise-floor",
+						"high-peak-disk",
+						"high-peak-memory",
+						"long-build-duration",
+						"oom-failure",
+						"short-build-duration",
+						"sustained-high-cpu",
+					])
+					.optional(),
+				buildMachineElasticTransition: z
+					.strictObject({
+						at: z.number(),
+						direction: z.enum(["downgrade", "upgrade"]),
+						algorithmVersion: z.string(),
+					})
+					.optional(),
+				isNSNBDisabled: z.boolean().optional(),
+				buildQueue: z
+					.object({
+						configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+					})
+					.optional(),
+				enableFunctionsBeta: z.boolean().optional(),
+			})
+			.optional()
+			.describe("Specifies resource override configuration for the project"),
+	})
+	.optional();
+
 export const getProjectTokenPathIdOrNameSchema = z
 	.string()
 	.max(150)
@@ -26893,6 +32651,17 @@ export const getProjectTokenErrorSchema = z.union([
 	getProjectTokenStatus410Schema,
 ]);
 
+export const getProjectTokenBodySchema = z
+	.object({
+		source: z
+			.string()
+			.max(150)
+			.optional()
+			.describe("The source that is calling the endpoint.")
+			.meta({ examples: ["vercel-cli:pull"] }),
+	})
+	.optional();
+
 export const createTraceSessionQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -26929,6 +32698,13 @@ export const createTraceSessionErrorSchema = z.union([
 	createTraceSessionStatus410Schema,
 	createTraceSessionStatus422Schema,
 ]);
+
+export const createTraceSessionBodySchema = z
+	.strictObject({
+		projectId: z.string().describe("The project ID the deployment belongs to."),
+		hostname: z.string().describe("The deployment hostname to scope the trace session to."),
+	})
+	.optional();
 
 export const getProjectPathIdOrNameSchema = z
 	.string()
@@ -27017,6 +32793,761 @@ export const updateProjectErrorSchema = z.union([
 	updateProjectStatus428Schema,
 ]);
 
+export const updateProjectBodySchema = z.strictObject({
+	autoExposeSystemEnvs: z.boolean().optional(),
+	autoAssignCustomDomains: z.boolean().optional(),
+	autoAssignCustomDomainsUpdatedBy: z.string().optional(),
+	buildCommand: z
+		.string()
+		.max(256)
+		.nullish()
+		.describe(
+			"The build command for this project. When `null` is used this value will be automatically detected",
+		),
+	commandForIgnoringBuildStep: z.string().max(256).nullish(),
+	customerSupportCodeVisibility: z
+		.boolean()
+		.optional()
+		.describe("Specifies whether customer support can see git source for a deployment"),
+	devCommand: z
+		.string()
+		.max(256)
+		.nullish()
+		.describe(
+			"The dev command for this project. When `null` is used this value will be automatically detected",
+		),
+	directoryListing: z.boolean().optional(),
+	framework: z
+		.enum([
+			"actix-web",
+			"angular",
+			"ash",
+			"astro",
+			"axum",
+			"blitzjs",
+			"brunch",
+			"bun",
+			"container",
+			"create-react-app",
+			"django",
+			"docusaurus",
+			"docusaurus-2",
+			"dojo",
+			"eleventy",
+			"elysia",
+			"ember",
+			"eve",
+			"express",
+			"factory-eve",
+			"fastapi",
+			"fasthtml",
+			"fastify",
+			"flask",
+			"gatsby",
+			"go",
+			"gridsome",
+			"h3",
+			"hexo",
+			"hono",
+			"hugo",
+			"hydrogen",
+			"ionic-angular",
+			"ionic-react",
+			"jekyll",
+			"koa",
+			"mastra",
+			"middleman",
+			"nestjs",
+			"nextjs",
+			"nitro",
+			"node",
+			"nuxtjs",
+			"parcel",
+			"polymer",
+			"preact",
+			"python",
+			"react-router",
+			"redwoodjs",
+			"remix",
+			"ruby",
+			"rust",
+			"saber",
+			"sanity",
+			"sanity-v2",
+			"sapper",
+			"scully",
+			"services",
+			"solidstart",
+			"solidstart-1",
+			"stencil",
+			"storybook",
+			"svelte",
+			"sveltekit",
+			"sveltekit-1",
+			"tanstack-start",
+			"tanstack-start-lovable",
+			"umijs",
+			"vite",
+			"vitepress",
+			"vue",
+			"vuepress",
+			"xmcp",
+			"zola",
+		])
+		.nullish()
+		.describe(
+			"The framework that is being used for this project. When `null` is used no framework is selected",
+		),
+	gitForkProtection: z
+		.boolean()
+		.optional()
+		.describe(
+			"Specifies whether PRs from Git forks should require a team member's authorization before it can be deployed",
+		),
+	gitLFS: z.boolean().optional().describe("Specifies whether Git LFS is enabled for this project."),
+	protectedSourcemaps: z
+		.boolean()
+		.optional()
+		.describe("Specifies whether sourcemaps are protected and require authentication to access."),
+	installCommand: z
+		.string()
+		.max(256)
+		.nullish()
+		.describe(
+			"The install command for this project. When `null` is used this value will be automatically detected",
+		),
+	name: z
+		.string()
+		.max(100)
+		.optional()
+		.describe("The desired name for the project")
+		.meta({ examples: ["a-project-name"] }),
+	nodeVersion: z.string().optional(),
+	outputDirectory: z
+		.string()
+		.max(256)
+		.nullish()
+		.describe(
+			"The output directory of the project. When `null` is used this value will be automatically detected",
+		),
+	previewDeploymentsDisabled: z
+		.boolean()
+		.nullish()
+		.describe("Specifies whether preview deployments are disabled for this project."),
+	previewDeploymentSuffix: z
+		.string()
+		.max(253)
+		.nullish()
+		.describe(
+			"Custom domain suffix for preview deployments. Takes precedence over team-level suffix. Must be a domain owned by the team.",
+		),
+	resourceConfig: z
+		.strictObject({
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+			buildQueue: z
+				.object({
+					configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+				})
+				.optional(),
+			fluid: z.boolean().optional(),
+			functionDefaultRegions: z
+				.array(z.string().max(4))
+				.min(1)
+				.refine((items) => new Set(items).size === items.length, {
+					message: "Array entries must be unique",
+				})
+				.optional()
+				.describe("The regions to deploy Vercel Functions to for this project"),
+			functionDefaultTimeout: z.number().min(1).max(900).optional(),
+			functionDefaultMemoryType: z
+				.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+				.optional(),
+			functionZeroConfigFailover: z
+				.boolean()
+				.optional()
+				.describe("Specifies whether Zero Config Failover is enabled for this project."),
+			elasticConcurrencyEnabled: z.boolean().optional(),
+			buildMachineElasticLastUpdated: z.number().optional(),
+			buildMachineElasticReason: z
+				.enum([
+					"basic-floor",
+					"build-timeout-failure",
+					"enospc-failure",
+					"enterprise-floor",
+					"high-peak-disk",
+					"high-peak-memory",
+					"long-build-duration",
+					"oom-failure",
+					"short-build-duration",
+					"sustained-high-cpu",
+				])
+				.optional(),
+			buildMachineElasticTransition: z
+				.strictObject({
+					at: z.number(),
+					direction: z.enum(["downgrade", "upgrade"]),
+					algorithmVersion: z.string(),
+				})
+				.optional(),
+			isNSNBDisabled: z.boolean().optional(),
+			enableFunctionsBeta: z.boolean().optional(),
+		})
+		.optional()
+		.describe("Specifies resource override configuration for the project"),
+	publicSource: z
+		.boolean()
+		.nullish()
+		.describe("Deprecated. Accepted for backwards compatibility but ignored."),
+	rootDirectory: z
+		.string()
+		.max(256)
+		.nullish()
+		.describe(
+			"The name of a directory or relative path to the source code of your project. When `null` is used it will default to the project root",
+		),
+	serverlessFunctionRegion: z
+		.string()
+		.max(4)
+		.nullish()
+		.describe("The region to deploy Serverless Functions in this project"),
+	serverlessFunctionZeroConfigFailover: z
+		.boolean()
+		.optional()
+		.describe("Specifies whether Zero Config Failover is enabled for this project."),
+	skewProtectionBoundaryAt: z
+		.int()
+		.min(0)
+		.optional()
+		.describe(
+			'Deployments created before this absolute datetime have Skew Protection disabled. Value is in milliseconds since epoch to match \\"createdAt\\" fields.',
+		),
+	skewProtectionMaxAge: z
+		.int()
+		.min(0)
+		.optional()
+		.describe(
+			'Deployments created before this rolling window have Skew Protection disabled. Value is in seconds to match \\"revalidate\\" fields.',
+		),
+	skewProtectionAllowedDomains: z
+		.array(z.string().max(254))
+		.max(12)
+		.optional()
+		.describe(
+			"Cross-site domains allowed to fetch skew-protected assets (hostnames, optionally with leading wildcard like *.example.com).",
+		),
+	skipGitConnectDuringLink: z
+		.boolean()
+		.optional()
+		.describe(
+			"Opts-out of the message prompting a CLI user to connect a Git repository in `vercel link`.",
+		),
+	sourceFilesOutsideRootDirectory: z
+		.boolean()
+		.optional()
+		.describe("Indicates if there are source files outside of the root directory"),
+	enablePreviewFeedback: z
+		.boolean()
+		.nullish()
+		.describe("Opt-in to preview toolbar on the project level"),
+	enableProductionFeedback: z
+		.boolean()
+		.nullish()
+		.describe("Opt-in to production toolbar on the project level"),
+	enableAffectedProjectsDeployments: z
+		.boolean()
+		.optional()
+		.describe(
+			"Opt-in to skip deployments when there are no changes to the root directory and its dependencies",
+		),
+	enableExternalRewriteCaching: z
+		.boolean()
+		.optional()
+		.describe("Specifies whether external rewrite caching is enabled for this project."),
+	staticIps: z
+		.strictObject({
+			enabled: z.boolean().describe("Opt-in to Static IPs for this project"),
+		})
+		.optional()
+		.describe("Manage Static IPs for this project"),
+	tracing: z
+		.strictObject({
+			domains: z.string().optional().describe("Comma-separated list of drain endpoint domains"),
+			ignorePaths: z.array(z.string()).optional().describe("Paths to ignore for tracing"),
+			samplingRules: z
+				.array(
+					z.strictObject({
+						rate: z.number().min(0).max(1).describe("Sampling rate from 0 to 1"),
+						env: z
+							.enum(["preview", "production"])
+							.optional()
+							.describe("Environment to apply sampling to"),
+						requestPath: z
+							.string()
+							.optional()
+							.describe("Request path prefix to apply the sampling rule to"),
+						destination: z
+							.enum(["external", "internal"])
+							.optional()
+							.describe(
+								"Tracing destination this rule applies to. Derived server-side when project tracing is computed; accepted here so a computed config can round-trip through this endpoint.",
+							),
+					}),
+				)
+				.max(10)
+				.optional()
+				.describe("Sampling rules for trace collection"),
+		})
+		.nullish()
+		.describe("Tracing configuration for this project"),
+	oidcTokenConfig: z
+		.strictObject({
+			enabled: z
+				.boolean()
+				.optional()
+				.default(true)
+				.describe("Whether or not to generate OpenID Connect JSON Web Tokens."),
+			issuerMode: z
+				.enum(["global", "team"])
+				.optional()
+				.default("team")
+				.describe("team: `https://oidc.vercel.com/[team_slug]` global: `https://oidc.vercel.com`"),
+		})
+		.optional()
+		.describe("OpenID Connect JSON Web Token generation configuration."),
+	passwordProtection: z
+		.strictObject({
+			deploymentType: z
+				.enum([
+					"all",
+					"all_except_custom_domains",
+					"preview",
+					"prod_deployment_urls_and_all_previews",
+				])
+				.describe("Specify if the password will apply to every Deployment Target or just Preview"),
+			password: z
+				.string()
+				.max(72)
+				.nullish()
+				.describe("The password that will be used to protect Project Deployments"),
+		})
+		.nullish()
+		.describe("Allows to protect project deployments with a password"),
+	passport: z
+		.strictObject({
+			connectorId: z.string(),
+			deploymentType: z
+				.enum([
+					"all",
+					"all_except_custom_domains",
+					"preview",
+					"prod_deployment_urls_and_all_previews",
+				])
+				.optional()
+				.default("all"),
+		})
+		.nullish()
+		.describe("Passport configuration for the project."),
+	sandbox: z
+		.strictObject({
+			region: z
+				.enum([
+					"arn1",
+					"bom1",
+					"cdg1",
+					"cle1",
+					"cpt1",
+					"dub1",
+					"fra1",
+					"gru1",
+					"hkg1",
+					"hnd1",
+					"iad1",
+					"icn1",
+					"kix1",
+					"lhr1",
+					"pdx1",
+					"sfo1",
+					"sin1",
+					"syd1",
+					"yul1",
+				])
+				.optional()
+				.describe("The Vercel region sandboxes in this project are created in by default.")
+				.meta({ examples: ["iad1"] }),
+			failoverRegions: z
+				.array(
+					z.enum([
+						"arn1",
+						"bom1",
+						"cdg1",
+						"cle1",
+						"cpt1",
+						"dub1",
+						"fra1",
+						"gru1",
+						"hkg1",
+						"hnd1",
+						"iad1",
+						"icn1",
+						"kix1",
+						"lhr1",
+						"pdx1",
+						"sfo1",
+						"sin1",
+						"syd1",
+						"yul1",
+					]),
+				)
+				.max(19)
+				.refine((items) => new Set(items).size === items.length, {
+					message: "Array entries must be unique",
+				})
+				.optional()
+				.describe(
+					"The regions sandboxes in this project fall back to when they cannot be created in `region`.",
+				)
+				.meta({ examples: [["cle1", "sfo1"]] }),
+		})
+		.optional()
+		.describe(
+			"Specifies the default region and failover regions for sandboxes created in the project",
+		),
+	ssoProtection: z
+		.strictObject({
+			deploymentType: z
+				.enum([
+					"all",
+					"all_except_custom_domains",
+					"preview",
+					"prod_deployment_urls_and_all_previews",
+				])
+				.default("preview")
+				.describe(
+					"Specify if the Vercel Authentication (SSO Protection) will apply to every Deployment Target or just Preview",
+				),
+		})
+		.nullish()
+		.describe(
+			"Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team",
+		),
+	trustedIps: z
+		.strictObject({
+			deploymentType: z
+				.enum([
+					"all",
+					"all_except_custom_domains",
+					"preview",
+					"prod_deployment_urls_and_all_previews",
+					"production",
+				])
+				.describe(
+					"Specify if the Trusted IPs will apply to every Deployment Target or just Preview",
+				),
+			addresses: z
+				.array(
+					z.strictObject({
+						value: z
+							.string()
+							.describe(
+								"The IP addresses that are allowlisted. Supports IPv4 addresses and CIDR notations. IPv6 is not supported",
+							),
+						note: z
+							.string()
+							.max(20)
+							.optional()
+							.describe("An optional note explaining what the IP address or subnet is used for"),
+					}),
+				)
+				.min(1),
+		})
+		.nullish()
+		.describe("Restricts access to deployments based on the incoming request IP address"),
+	trustedSources: z
+		.strictObject({
+			enableVercelCiSameRepository: z
+				.boolean()
+				.optional()
+				.describe(
+					"Allow same-team Vercel CI access to preview and production deployments built from the same repository as the CI run. The deployment source repository, not the current project repository link, is authoritative. Defaults to enabled when not stored. Omitting this field preserves its stored value, including when trustedSources is cleared. Set true explicitly to re-enable.",
+				),
+			projects: z
+				.record(
+					z.string(),
+					z.strictObject({
+						label: z
+							.string()
+							.max(100)
+							.optional()
+							.describe("The label or description of the trusted source"),
+						customAllow: z
+							.array(
+								z.strictObject({
+									to: z
+										.union([
+											z.object({
+												slugs: z
+													.array(z.string().max(64))
+													.min(1)
+													.max(10)
+													.refine((items) => new Set(items).size === items.length, {
+														message: "Array entries must be unique",
+													}),
+											}),
+											z.object({
+												preset: z.enum(["all-custom"]),
+											}),
+										])
+										.and(
+											z.strictObject({
+												slugs: z
+													.array(z.string().max(64))
+													.min(1)
+													.max(10)
+													.refine((items) => new Set(items).size === items.length, {
+														message: "Array entries must be unique",
+													})
+													.optional(),
+												preset: z.enum(["all-custom"]).optional(),
+											}),
+										)
+										.describe(
+											"A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.",
+										),
+									from: z
+										.union([
+											z.object({
+												slugs: z
+													.array(z.string().max(64))
+													.min(1)
+													.max(10)
+													.refine((items) => new Set(items).size === items.length, {
+														message: "Array entries must be unique",
+													}),
+											}),
+											z.object({
+												preset: z.enum(["all-custom"]),
+											}),
+										])
+										.and(
+											z.strictObject({
+												slugs: z
+													.array(z.string().max(64))
+													.min(1)
+													.max(10)
+													.refine((items) => new Set(items).size === items.length, {
+														message: "Array entries must be unique",
+													})
+													.optional(),
+												preset: z.enum(["all-custom"]).optional(),
+											}),
+										)
+										.describe(
+											"A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.",
+										),
+								}),
+							)
+							.min(0)
+							.max(20)
+							.optional()
+							.describe(
+								"Optional overrides for the default same-env-by-slug matching. An empty array denies all access and is only allowed for the current project.",
+							),
+					}),
+				)
+				.optional(),
+			oidcProviders: z
+				.record(
+					z.string(),
+					z
+						.array(
+							z.strictObject({
+								label: z
+									.string()
+									.max(100)
+									.optional()
+									.describe("The label or description of the trusted source"),
+								to: z
+									.union([
+										z.object({
+											slugs: z
+												.array(z.string().max(64))
+												.min(1)
+												.max(10)
+												.refine((items) => new Set(items).size === items.length, {
+													message: "Array entries must be unique",
+												}),
+										}),
+										z.object({
+											preset: z.enum(["all-custom"]),
+										}),
+									])
+									.and(
+										z.strictObject({
+											slugs: z
+												.array(z.string().max(64))
+												.min(1)
+												.max(10)
+												.refine((items) => new Set(items).size === items.length, {
+													message: "Array entries must be unique",
+												})
+												.optional(),
+											preset: z.enum(["all-custom"]).optional(),
+										}),
+									)
+									.describe(
+										"A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.",
+									),
+								claims: z.record(z.string(), z.array(z.string().max(256)).min(1).max(20)),
+							}),
+						)
+						.min(1)
+						.max(10),
+				)
+				.optional(),
+		})
+		.nullish()
+		.describe("Deployment Protection Trusted Sources"),
+	deploymentPolicy: z
+		.union([
+			z.strictObject({
+				gitSources: z
+					.union([
+						z.array(
+							z.strictObject({
+								enabled: z.boolean(),
+								environments: z.array(
+									z.discriminatedUnion("type", [
+										z.strictObject({
+											type: z.enum(["system"]),
+											target: z.enum(["production", "preview"]),
+										}),
+										z.strictObject({
+											type: z.enum(["custom"]),
+											environmentId: z.string(),
+										}),
+									]),
+								),
+								sources: z.array(
+									z.union([
+										z.strictObject({
+											provider: z.enum(["github", "bitbucket"]),
+											org: z.string(),
+											repo: z.string().optional(),
+										}),
+										z.strictObject({
+											provider: z.enum(["gitlab"]),
+											namespace: z.string(),
+											project: z.string().optional(),
+										}),
+									]),
+								),
+							}),
+						),
+						z.string(),
+					])
+					.optional(),
+				deploymentSources: z
+					.union([
+						z.array(
+							z.strictObject({
+								enabled: z.boolean(),
+								environments: z.array(
+									z.discriminatedUnion("type", [
+										z.strictObject({
+											type: z.enum(["system"]),
+											target: z.enum(["production", "preview"]),
+										}),
+										z.strictObject({
+											type: z.enum(["custom"]),
+											environmentId: z.string(),
+										}),
+									]),
+								),
+								sources: z.array(
+									z.enum(["git", "cli", "rest-api", "deploy-hook", "integration", "v0"]),
+								),
+							}),
+						),
+						z.string(),
+					])
+					.optional(),
+			}),
+			z.string(),
+		])
+		.optional(),
+	optionsAllowlist: z
+		.strictObject({
+			paths: z
+				.array(
+					z.strictObject({
+						value: z
+							.string()
+							.regex(/^\/.*/)
+							.describe("The regex path that should not be protected by Deployment Protection"),
+					}),
+				)
+				.min(1)
+				.max(5),
+		})
+		.nullish()
+		.describe(
+			"Specify a list of paths that should not be protected by Deployment Protection to enable Cors preflight requests",
+		),
+	connectConfigurations: z
+		.array(
+			z.strictObject({}).and(
+				z.strictObject({
+					envId: z.string().describe("The ID of the environment"),
+					connectConfigurationId: z.string().describe("The ID of the Secure Compute network"),
+					passive: z
+						.boolean()
+						.describe(
+							"Whether the configuration should be passive, meaning builds will not run there and only passive Serverless Functions will be deployed",
+						),
+					buildsEnabled: z
+						.boolean()
+						.describe("Flag saying if project builds should use Secure Compute"),
+				}),
+			),
+		)
+		.min(1)
+		.nullish()
+		.describe(
+			"The list of connections from project environments to dedicated Secure Compute networks. Shared networks must be managed through the shared-connect-links endpoint.",
+		),
+	dismissedToasts: z
+		.array(
+			z.strictObject({
+				key: z.string().describe("unique identifier for the dismissed toast"),
+				dismissedAt: z
+					.number()
+					.describe("unix timestamp representing the time the toast was dimissed"),
+				action: z
+					.enum(["accept", "cancel", "delete"])
+					.describe(
+						"Whether the toast was dismissed, the action was accepted, or the dismissal with this key should be removed",
+					),
+				value: z.union([
+					z.string(),
+					z.string(),
+					z.boolean(),
+					z.number(),
+					z.strictObject({
+						previousValue: z.union([z.number(), z.boolean(), z.string()]),
+						currentValue: z.union([z.number(), z.boolean(), z.string()]),
+					}),
+				]),
+			}),
+		)
+		.min(0)
+		.max(50)
+		.optional()
+		.describe(
+			"An array of objects representing a Dismissed Toast in regards to a Project. Objects are either merged with existing toasts (on key match), or added to the `dimissedToasts` array.`",
+		),
+});
+
 export const deleteProjectPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name")
@@ -27103,6 +33634,8 @@ export const uploadProjectAvatarErrorSchema = z.union([
 	uploadProjectAvatarStatus415Schema,
 ]);
 
+export const uploadProjectAvatarBodySchema = z.instanceof(File).optional();
+
 export const deleteProjectAvatarPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name.");
@@ -27188,6 +33721,36 @@ export const updateStaticIpsErrorSchema = z.union([
 	updateStaticIpsStatus500Schema,
 ]);
 
+export const updateStaticIpsBodySchema = z
+	.union([
+		z.object({
+			builds: z.boolean().describe("Whether to use Static IPs for builds."),
+		}),
+		z.object({
+			regions: z
+				.array(z.string().max(4))
+				.min(0)
+				.max(3)
+				.refine((items) => new Set(items).size === items.length, {
+					message: "Array entries must be unique",
+				}),
+		}),
+	])
+	.and(
+		z.object({
+			builds: z.boolean().optional().describe("Whether to use Static IPs for builds."),
+			regions: z
+				.array(z.string().max(4))
+				.min(0)
+				.max(3)
+				.refine((items) => new Set(items).size === items.length, {
+					message: "Array entries must be unique",
+				})
+				.optional(),
+		}),
+	)
+	.optional();
+
 export const createCustomEnvironmentPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name");
@@ -27234,6 +33797,30 @@ export const createCustomEnvironmentErrorSchema = z.union([
 	createCustomEnvironmentStatus410Schema,
 	createCustomEnvironmentStatus500Schema,
 ]);
+
+export const createCustomEnvironmentBodySchema = z
+	.object({
+		slug: z.string().max(32).optional().describe("The slug of the custom environment to create."),
+		description: z
+			.string()
+			.max(256)
+			.optional()
+			.describe("Description of the custom environment. This is optional."),
+		branchMatcher: z
+			.object({
+				type: z
+					.enum(["endsWith", "equals", "startsWith"])
+					.describe('Type of matcher. One of "equals", "startsWith", or "endsWith".'),
+				pattern: z.string().max(100).describe("Git branch name or portion thereof."),
+			})
+			.optional()
+			.describe("How we want to determine a matching branch. This is optional."),
+		copyEnvVarsFrom: z
+			.string()
+			.optional()
+			.describe("Where to copy environment variables from. This is optional."),
+	})
+	.optional();
 
 export const getProjectsByIdOrNameCustomEnvironmentsPathIdOrNameSchema = z
 	.string()
@@ -27369,6 +33956,26 @@ export const updateCustomEnvironmentErrorSchema = z.union([
 	updateCustomEnvironmentStatus500Schema,
 ]);
 
+export const updateCustomEnvironmentBodySchema = z
+	.object({
+		slug: z.string().max(32).optional().describe("The slug of the custom environment."),
+		description: z
+			.string()
+			.max(256)
+			.optional()
+			.describe("Description of the custom environment. This is optional."),
+		branchMatcher: z
+			.object({
+				type: z
+					.enum(["endsWith", "equals", "startsWith"])
+					.describe('Type of matcher. One of "equals", "startsWith", or "endsWith".'),
+				pattern: z.string().max(100).describe("Git branch name or portion thereof."),
+			})
+			.nullish()
+			.describe("How we want to determine a matching branch. This is optional."),
+	})
+	.optional();
+
 export const removeCustomEnvironmentPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name");
@@ -27410,6 +34017,15 @@ export const removeCustomEnvironmentErrorSchema = z.union([
 	removeCustomEnvironmentStatus404Schema,
 	removeCustomEnvironmentStatus410Schema,
 ]);
+
+export const removeCustomEnvironmentBodySchema = z
+	.object({
+		deleteUnassignedEnvironmentVariables: z
+			.boolean()
+			.optional()
+			.describe("Delete Environment Variables that are not assigned to any environments."),
+	})
+	.optional();
 
 export const getProjectDomainsPathIdOrNameSchema = z
 	.string()
@@ -27603,6 +34219,25 @@ export const updateProjectDomainErrorSchema = z.union([
 	updateProjectDomainStatus410Schema,
 ]);
 
+export const updateProjectDomainBodySchema = z.object({
+	gitBranch: z
+		.string()
+		.max(250)
+		.nullish()
+		.describe("Git branch to link the project domain")
+		.meta({ examples: [] }),
+	redirect: z
+		.string()
+		.nullish()
+		.describe("Target destination domain for redirect")
+		.meta({ examples: ["foobar.com"] }),
+	redirectStatusCode: z
+		.union([z.literal(301), z.literal(302), z.literal(307), z.literal(308)])
+		.nullish()
+		.describe("Status code for domain redirect")
+		.meta({ examples: [307] }),
+});
+
 export const removeProjectDomainPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name");
@@ -27649,6 +34284,17 @@ export const removeProjectDomainErrorSchema = z.union([
 	removeProjectDomainStatus410Schema,
 ]);
 
+export const removeProjectDomainBodySchema = z
+	.object({
+		removeRedirects: z
+			.boolean()
+			.optional()
+			.describe(
+				"Whether to remove all domains from this project that redirect to the domain being removed.",
+			),
+	})
+	.optional();
+
 export const addProjectDomainPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name");
@@ -27692,6 +34338,33 @@ export const addProjectDomainErrorSchema = z.union([
 	addProjectDomainStatus409Schema,
 	addProjectDomainStatus410Schema,
 ]);
+
+export const addProjectDomainBodySchema = z.object({
+	name: z
+		.string()
+		.describe("The project domain name")
+		.meta({ examples: ["www.example.com"] }),
+	gitBranch: z
+		.string()
+		.max(250)
+		.nullish()
+		.describe("Git branch to link the project domain")
+		.meta({ examples: [] }),
+	customEnvironmentId: z
+		.string()
+		.optional()
+		.describe("The unique custom environment identifier within the project"),
+	redirect: z
+		.string()
+		.nullish()
+		.describe("Target destination domain for redirect")
+		.meta({ examples: ["foobar.com"] }),
+	redirectStatusCode: z
+		.union([z.literal(301), z.literal(302), z.literal(307), z.literal(308)])
+		.nullish()
+		.describe("Status code for domain redirect")
+		.meta({ examples: [307] }),
+});
 
 export const moveProjectDomainPathIdOrNameSchema = z
 	.string()
@@ -27738,6 +34411,31 @@ export const moveProjectDomainErrorSchema = z.union([
 	moveProjectDomainStatus409Schema,
 	moveProjectDomainStatus410Schema,
 ]);
+
+export const moveProjectDomainBodySchema = z
+	.object({
+		projectId: z
+			.string()
+			.describe("The unique target project identifier")
+			.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] }),
+		gitBranch: z
+			.string()
+			.max(250)
+			.nullish()
+			.describe("Git branch to link the project domain")
+			.meta({ examples: [] }),
+		redirect: z
+			.string()
+			.nullish()
+			.describe("Target destination domain for redirect")
+			.meta({ examples: ["foobar.com"] }),
+		redirectStatusCode: z
+			.union([z.literal(301), z.literal(302), z.literal(307), z.literal(308)])
+			.nullish()
+			.describe("Status code for domain redirect")
+			.meta({ examples: [307] }),
+	})
+	.optional();
 
 export const verifyProjectDomainPathIdOrNameSchema = z
 	.string()
@@ -27912,6 +34610,117 @@ export const createProjectEnvErrorSchema = z.union([
 	createProjectEnvStatus500Schema,
 ]);
 
+export const createProjectEnvBodySchema = z.union([
+	z
+		.union([
+			z.object({
+				target: z
+					.array(z.enum(["production", "preview", "development"]))
+					.describe("The target environment of the environment variable")
+					.meta({ examples: [["preview"]] }),
+			}),
+			z.object({
+				customEnvironmentIds: z
+					.array(z.string())
+					.describe("The custom environment IDs associated with the environment variable"),
+			}),
+		])
+		.and(
+			z.object({
+				key: z
+					.string()
+					.describe("The name of the environment variable")
+					.meta({ examples: ["API_URL"] }),
+				value: z
+					.string()
+					.describe("The value of the environment variable")
+					.meta({ examples: ["https://api.vercel.com"] }),
+				type: z
+					.enum(["system", "encrypted", "plain", "sensitive"])
+					.describe("The type of environment variable")
+					.meta({ examples: ["plain"] }),
+				target: z
+					.array(z.enum(["production", "preview", "development"]))
+					.optional()
+					.describe("The target environment of the environment variable")
+					.meta({ examples: [["preview"]] }),
+				gitBranch: z
+					.string()
+					.max(250)
+					.nullish()
+					.describe(
+						"If defined, the git branch of the environment variable (must have target=preview)",
+					)
+					.meta({ examples: ["feature-1"] }),
+				comment: z
+					.string()
+					.max(500)
+					.optional()
+					.describe("A comment to add context on what this environment variable is for")
+					.meta({ examples: ["database connection string for production"] }),
+				customEnvironmentIds: z
+					.array(z.string())
+					.optional()
+					.describe("The custom environment IDs associated with the environment variable"),
+			}),
+		),
+	z.array(
+		z
+			.union([
+				z.object({
+					target: z
+						.array(z.enum(["production", "preview", "development"]))
+						.describe("The target environment of the environment variable")
+						.meta({ examples: [["preview"]] }),
+				}),
+				z.object({
+					customEnvironmentIds: z
+						.array(z.string())
+						.describe("The custom environment IDs associated with the environment variable"),
+				}),
+			])
+			.and(
+				z.object({
+					key: z
+						.string()
+						.describe("The name of the environment variable")
+						.meta({ examples: ["API_URL"] }),
+					value: z
+						.string()
+						.describe("The value of the environment variable")
+						.meta({ examples: ["https://api.vercel.com"] }),
+					type: z
+						.enum(["system", "encrypted", "plain", "sensitive"])
+						.describe("The type of environment variable")
+						.meta({ examples: ["plain"] }),
+					target: z
+						.array(z.enum(["production", "preview", "development"]))
+						.optional()
+						.describe("The target environment of the environment variable")
+						.meta({ examples: [["preview"]] }),
+					gitBranch: z
+						.string()
+						.max(250)
+						.nullish()
+						.describe(
+							"If defined, the git branch of the environment variable (must have target=preview)",
+						)
+						.meta({ examples: ["feature-1"] }),
+					comment: z
+						.string()
+						.max(500)
+						.optional()
+						.describe("A comment to add context on what this environment variable is for")
+						.meta({ examples: ["database connection string for production"] }),
+					customEnvironmentIds: z
+						.array(z.string())
+						.optional()
+						.describe("The custom environment IDs associated with the environment variable"),
+				}),
+			),
+	),
+]);
+
 export const getProjectEnvPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name")
@@ -28061,6 +34870,45 @@ export const editProjectEnvErrorSchema = z.union([
 	editProjectEnvStatus500Schema,
 ]);
 
+export const editProjectEnvBodySchema = z.strictObject({
+	key: z
+		.string()
+		.optional()
+		.describe("The name of the environment variable")
+		.meta({ examples: ["GITHUB_APP_ID"] }),
+	target: z
+		.array(z.enum(["development", "preview", "production"]))
+		.optional()
+		.describe("The target environment of the environment variable")
+		.meta({ examples: [["preview"]] }),
+	gitBranch: z
+		.string()
+		.max(250)
+		.nullish()
+		.describe("If defined, the git branch of the environment variable (must have target=preview)")
+		.meta({ examples: ["feature-1"] }),
+	type: z
+		.enum(["encrypted", "plain", "sensitive", "system"])
+		.optional()
+		.describe("The type of environment variable")
+		.meta({ examples: ["plain"] }),
+	value: z
+		.string()
+		.optional()
+		.describe("The value of the environment variable")
+		.meta({ examples: ["bkWIjbnxcvo78"] }),
+	customEnvironmentIds: z
+		.array(z.string())
+		.optional()
+		.describe("The custom environments that the environment variable should be synced to"),
+	comment: z
+		.string()
+		.max(500)
+		.optional()
+		.describe("A comment to add context on what this env var is for")
+		.meta({ examples: ["database connection string for production"] }),
+});
+
 export const batchRemoveProjectEnvPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name")
@@ -28102,6 +34950,16 @@ export const batchRemoveProjectEnvErrorSchema = z.union([
 	batchRemoveProjectEnvStatus409Schema,
 	batchRemoveProjectEnvStatus410Schema,
 ]);
+
+export const batchRemoveProjectEnvBodySchema = z
+	.strictObject({
+		ids: z
+			.array(z.string())
+			.min(1)
+			.max(1000)
+			.describe("Array of environment variable IDs to delete"),
+	})
+	.optional();
 
 export const getRollingReleaseBillingStatusPathIdOrNameSchema = z
 	.string()
@@ -28340,6 +35198,15 @@ export const approveRollingReleaseStageErrorSchema = z.union([
 	approveRollingReleaseStageStatus500Schema,
 ]);
 
+export const approveRollingReleaseStageBodySchema = z
+	.object({
+		nextStageIndex: z.number().describe("The index of the stage to transition to"),
+		canaryDeploymentId: z
+			.string()
+			.describe("The id of the canary deployment to approve for the next stage"),
+	})
+	.optional();
+
 export const startRollingReleasePathIdOrNameSchema = z
 	.string()
 	.describe("Project ID or project name (URL-encoded)");
@@ -28384,6 +35251,14 @@ export const startRollingReleaseErrorSchema = z.union([
 	startRollingReleaseStatus422Schema,
 ]);
 
+export const startRollingReleaseBodySchema = z
+	.object({
+		canaryDeploymentId: z
+			.string()
+			.describe("The ID of the canary deployment to start the rolling release for"),
+	})
+	.optional();
+
 export const completeRollingReleasePathIdOrNameSchema = z
 	.string()
 	.describe("Project ID or project name (URL-encoded)");
@@ -28421,6 +35296,12 @@ export const completeRollingReleaseErrorSchema = z.union([
 	completeRollingReleaseStatus404Schema,
 	completeRollingReleaseStatus410Schema,
 ]);
+
+export const completeRollingReleaseBodySchema = z
+	.object({
+		canaryDeploymentId: z.string().describe("The ID of the canary deployment to complete"),
+	})
+	.optional();
 
 export const createProjectTransferRequestPathIdOrNameSchema = z
 	.string()
@@ -28464,6 +35345,19 @@ export const createProjectTransferRequestErrorSchema = z.union([
 	createProjectTransferRequestStatus410Schema,
 ]);
 
+export const createProjectTransferRequestBodySchema = z
+	.object({
+		callbackUrl: z
+			.string()
+			.optional()
+			.describe("The URL to send a webhook to when the transfer is accepted."),
+		callbackSecret: z
+			.string()
+			.optional()
+			.describe("The secret to use to sign the webhook payload with HMAC-SHA256."),
+	})
+	.optional();
+
 export const acceptProjectTransferRequestPathCodeSchema = z
 	.string()
 	.describe("The code of the project transfer request.");
@@ -28506,6 +35400,35 @@ export const acceptProjectTransferRequestErrorSchema = z.union([
 	acceptProjectTransferRequestStatus422Schema,
 ]);
 
+export const acceptProjectTransferRequestBodySchema = z
+	.strictObject({
+		newProjectName: z
+			.string()
+			.max(100)
+			.optional()
+			.describe("The desired name for the project")
+			.meta({ examples: ["a-project-name"] }),
+		paidFeatures: z
+			.strictObject({
+				concurrentBuilds: z.int().nullish(),
+				passwordProtection: z.boolean().nullish(),
+				previewDeploymentSuffix: z.boolean().nullish(),
+			})
+			.optional(),
+		acceptedPolicies: z
+			.record(
+				z.string(),
+				z
+					.object({
+						eula: z.iso.datetime(),
+						privacy: z.iso.datetime(),
+					})
+					.catchall(z.iso.datetime()),
+			)
+			.optional(),
+	})
+	.optional();
+
 export const updateProjectProtectionBypassPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name");
@@ -28547,6 +35470,54 @@ export const updateProjectProtectionBypassErrorSchema = z.union([
 	updateProjectProtectionBypassStatus409Schema,
 	updateProjectProtectionBypassStatus410Schema,
 ]);
+
+export const updateProjectProtectionBypassBodySchema = z.strictObject({
+	revoke: z
+		.object({
+			secret: z.string().describe("Automation bypass to revoked"),
+			regenerate: z
+				.boolean()
+				.describe(
+					"Whether or not a new automation bypass should be created after the provided secret is revoked",
+				),
+		})
+		.optional()
+		.describe("Optional instructions for revoking and regenerating a automation bypass"),
+	generate: z
+		.object({
+			secret: z
+				.string()
+				.regex(/^[a-zA-Z0-9]{32}$/)
+				.optional()
+				.describe("Optional value of the secret to generate, don't send it for oauth2 tokens"),
+			note: z
+				.string()
+				.max(100)
+				.optional()
+				.describe("Note to be displayed in the UI for this bypass"),
+		})
+		.optional()
+		.describe(
+			"Generate a new secret. If neither generate or revoke are provided, a new random secret will be generated.",
+		),
+	update: z
+		.object({
+			secret: z.string().describe("Automation bypass to updated"),
+			isEnvVar: z
+				.boolean()
+				.optional()
+				.describe(
+					"Whether or not this bypass is set as the VERCEL_AUTOMATION_BYPASS_SECRET environment variable on deployments",
+				),
+			note: z
+				.string()
+				.max(100)
+				.optional()
+				.describe("Note to be displayed in the UI for this bypass"),
+		})
+		.optional()
+		.describe("Update an existing bypass"),
+});
 
 export const requestRollbackPathProjectIdSchema = z.string();
 
@@ -28645,6 +35616,12 @@ export const updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionErr
 	updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus422Schema,
 ]);
 
+export const updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionBodySchema = z
+	.object({
+		description: z.string().optional().describe("The reason for the rollback"),
+	})
+	.optional();
+
 export const updateMicrofrontendsPathProjectIdSchema = z
 	.string()
 	.describe("The unique project identifier")
@@ -28689,6 +35666,43 @@ export const updateMicrofrontendsErrorSchema = z.union([
 	updateMicrofrontendsStatus410Schema,
 	updateMicrofrontendsStatus500Schema,
 ]);
+
+export const updateMicrofrontendsBodySchema = z
+	.object({
+		microfrontendsGroupId: z
+			.string()
+			.optional()
+			.describe("The unique group identifier to add this microfrontend to")
+			.meta({ examples: ["mfe_12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] }),
+		enabled: z
+			.boolean()
+			.optional()
+			.describe("Enable or disable microfrontends for the project")
+			.meta({ examples: [true] }),
+		isDefaultApp: z
+			.boolean()
+			.optional()
+			.describe("Whether the application is the default application for the microfrontends group")
+			.meta({ examples: [true] }),
+		defaultRoute: z
+			.string()
+			.optional()
+			.describe("The default route used for screenshots and preview links for the project")
+			.meta({ examples: ["/home"] }),
+		routeObservabilityToThisProject: z
+			.boolean()
+			.optional()
+			.describe(
+				"Whether observability data should be routed to this project or a root project. Can only be set for child applications.",
+			),
+		doNotRouteWithMicrofrontendsRouting: z
+			.boolean()
+			.optional()
+			.describe(
+				"Whether domains in this project should route as a microfrontend. Can only be set for child applications.",
+			),
+	})
+	.optional();
 
 export const requestPromotePathProjectIdSchema = z.string();
 
@@ -29022,6 +36036,581 @@ export const createSandboxesV2ErrorSchema = z.union([
 	createSandboxesV2Status503Schema,
 ]);
 
+export const createSandboxesV2BodySchema = z
+	.strictObject({
+		networkPolicy: z
+			.union([
+				z.strictObject({
+					mode: z
+						.enum(["allow-all", "deny-all", "custom", "default-allow", "default-deny"])
+						.describe(
+							'The network access policy mode. Use \\"allow-all\\" to permit all outbound traffic. Use \\"deny-all\\" to block all outbound traffic. Use \\"custom\\" to specify explicit allow/deny rules.',
+						)
+						.meta({ examples: ["custom"] }),
+					allowedDomains: z
+						.array(z.string())
+						.optional()
+						.describe(
+							'List of domain names the sandbox is allowed to connect to. Only applies when mode is \\"custom\\". Supports wildcard patterns (e.g., \\"*.example.com\\" matches all subdomains).',
+						)
+						.meta({ examples: [["api.github.com", "*.npmjs.org"]] }),
+					allowedCIDRs: z
+						.array(z.string())
+						.optional()
+						.describe(
+							"List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.",
+						)
+						.meta({ examples: [["35.192.0.0/12", "104.16.0.0/12"]] }),
+					deniedCIDRs: z
+						.array(z.string())
+						.optional()
+						.describe(
+							"List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.",
+						)
+						.meta({ examples: [["35.192.0.0/12"]] }),
+					injectionRules: z
+						.array(
+							z.strictObject({
+								domain: z
+									.string()
+									.describe(
+										"The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.",
+									),
+								headers: z
+									.record(z.string(), z.string())
+									.describe(
+										"HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.",
+									),
+								match: z
+									.strictObject({
+										path: z
+											.strictObject({
+												exact: z
+													.string()
+													.optional()
+													.describe(
+														"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+													),
+												startsWith: z
+													.string()
+													.optional()
+													.describe("Match values that start with the given prefix."),
+											})
+											.optional()
+											.describe("Match on the request path. Comparison is case-sensitive."),
+										method: z
+											.array(z.string())
+											.optional()
+											.describe("HTTP methods to match. Any single match succeeds (OR semantics)."),
+										queryString: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+											),
+										headers: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+											),
+									})
+									.optional()
+									.describe(
+										"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+									),
+							}),
+						)
+						.optional()
+						.describe(
+							"HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.",
+						),
+				}),
+				z.strictObject({
+					allow: z
+						.union([
+							z.array(z.string()),
+							z.record(
+								z.string(),
+								z.array(
+									z.strictObject({
+										match: z
+											.strictObject({
+												path: z
+													.strictObject({
+														exact: z
+															.string()
+															.optional()
+															.describe(
+																"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+															),
+														startsWith: z
+															.string()
+															.optional()
+															.describe("Match values that start with the given prefix."),
+													})
+													.optional()
+													.describe("Match on the request path. Comparison is case-sensitive."),
+												method: z
+													.array(z.string())
+													.optional()
+													.describe(
+														"HTTP methods to match. Any single match succeeds (OR semantics).",
+													),
+												queryString: z
+													.array(
+														z.strictObject({
+															key: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry key (header name or query key)."),
+															value: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry value."),
+														}),
+													)
+													.optional()
+													.describe(
+														"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+													),
+												headers: z
+													.array(
+														z.strictObject({
+															key: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry key (header name or query key)."),
+															value: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry value."),
+														}),
+													)
+													.optional()
+													.describe(
+														"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+													),
+											})
+											.optional()
+											.describe(
+												"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+											),
+										transform: z
+											.array(
+												z.strictObject({
+													headers: z.record(z.string(), z.string()).optional(),
+												}),
+											)
+											.optional(),
+										forwardURL: z
+											.string()
+											.optional()
+											.describe(
+												"HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.",
+											),
+										response: z
+											.strictObject({
+												statusCode: z
+													.int()
+													.min(200)
+													.max(599)
+													.describe("HTTP status code returned to the sandbox."),
+												headers: z
+													.record(z.string(), z.string())
+													.optional()
+													.describe(
+														"HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.",
+													),
+												body: z
+													.string()
+													.optional()
+													.describe("UTF-8 response body. Requires `contentType`."),
+												contentType: z
+													.string()
+													.optional()
+													.describe(
+														"Value of the `Content-Type` response header. Required when `body` is set.",
+													),
+											})
+											.optional()
+											.describe(
+												"Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.",
+											),
+									}),
+								),
+							),
+						])
+						.optional(),
+					subnets: z
+						.strictObject({
+							allow: z.array(z.string()).optional(),
+							deny: z.array(z.string()).optional(),
+						})
+						.optional(),
+				}),
+			])
+			.optional(),
+		runtime: z
+			.enum(["node22", "node24", "node26", "python3.13"])
+			.optional()
+			.default("node24")
+			.describe(
+				"The runtime environment for the sandbox. Determines the pre-installed language runtimes and tools available.",
+			)
+			.meta({ examples: ["node24"] }),
+		architecture: z
+			.enum(["amd64", "arm64"])
+			.optional()
+			.describe(
+				"CPU architecture. Inherits a snapshot or single image manifest when omitted. Image indexes default to amd64. Must match the source. ARM64 creation requires API v3 or v4 without runtime and team access.",
+			)
+			.meta({ examples: ["arm64"] }),
+		resources: z
+			.strictObject({
+				vcpus: z
+					.int()
+					.min(1)
+					.optional()
+					.default(2)
+					.describe(
+						"The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.",
+					)
+					.meta({ examples: [2] }),
+				memory: z
+					.int()
+					.min(2048)
+					.optional()
+					.describe(
+						"The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.",
+					)
+					.meta({ examples: [4096] }),
+			})
+			.optional()
+			.describe("Resources to define the VM"),
+		source: z
+			.union([
+				z.strictObject({
+					type: z.unknown().describe("Indicates the source is a Git repository."),
+					url: z
+						.url()
+						.describe("The URL of the Git repository to clone.")
+						.meta({ examples: ["https://github.com/vercel/next.js.git"] }),
+					username: z
+						.string()
+						.optional()
+						.describe(
+							"Username for Git authentication. Required together with password for private repositories.",
+						),
+					password: z
+						.string()
+						.optional()
+						.describe(
+							"Password or personal access token for Git authentication. Required together with username for private repositories.",
+						),
+					depth: z
+						.int()
+						.min(1)
+						.optional()
+						.describe(
+							"Create a shallow clone with history truncated to the specified number of commits. Useful for faster cloning of large repositories.",
+						)
+						.meta({ examples: [1] }),
+					revision: z
+						.string()
+						.optional()
+						.describe("The specific commit SHA, branch name, or tag to checkout after cloning.")
+						.meta({ examples: ["main"] }),
+				}),
+				z.strictObject({
+					type: z.unknown().describe("Indicates the source is a tarball."),
+					url: z
+						.url()
+						.describe("URL of a gzipped tarball (.tar.gz) to download and extract.")
+						.meta({ examples: ["https://example.com/project.tar.gz"] }),
+				}),
+				z.strictObject({
+					type: z.unknown().describe("Indicates the source is a snapshot."),
+					snapshotId: z
+						.string()
+						.describe("The unique identifier of the snapshot to restore.")
+						.meta({ examples: ["snap_abc123"] }),
+				}),
+			])
+			.optional()
+			.describe(
+				"The source from which to initialize the sandbox filesystem. Can be a Git repository, a tarball URL, or an existing snapshot.",
+			),
+		projectId: z
+			.string()
+			.optional()
+			.describe("The target project slug or ID in which the sandbox will be assigned to.")
+			.meta({ examples: ["prj_abc123"] }),
+		ports: z
+			.array(z.int().min(1024).max(65535))
+			.max(15)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe(
+				"List of ports to expose from the sandbox. Each port will be accessible via a unique URL. Maximum of 15 ports can be exposed.",
+			)
+			.meta({ examples: [[3000, 4000]] }),
+		image: z.string().max(255).optional().describe("Image to use for the sandbox."),
+		timeout: z
+			.int()
+			.min(1000)
+			.optional()
+			.describe(
+				"Maximum duration in milliseconds that the sandbox can run before being automatically stopped.",
+			)
+			.meta({ examples: [300000] }),
+		env: z
+			.record(z.string(), z.string())
+			.optional()
+			.default({})
+			.describe(
+				"Default environment variables for the sandbox. These are inherited by all commands unless overridden.",
+			)
+			.meta({ examples: [{ nodeEnv: "production", hello: "world" }] }),
+		mounts: z
+			.record(
+				z.string(),
+				z.strictObject({
+					drive: z
+						.string()
+						.max(64)
+						.regex(/^[a-zA-Z0-9_-]+$/)
+						.describe("Name of the drive to mount. The drive must already exist."),
+					mode: z
+						.enum(["read-write", "snapshot"])
+						.optional()
+						.describe(
+							"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+						),
+				}),
+			)
+			.optional()
+			.describe("List of drives to mount to the sandbox at the provided path."),
+		region: z
+			.enum([
+				"arn1",
+				"bom1",
+				"cdg1",
+				"cle1",
+				"cpt1",
+				"dub1",
+				"fra1",
+				"gru1",
+				"hkg1",
+				"hnd1",
+				"iad1",
+				"icn1",
+				"kix1",
+				"lhr1",
+				"pdx1",
+				"sfo1",
+				"sin1",
+				"syd1",
+				"yul1",
+			])
+			.optional()
+			.describe("The Vercel region in which to create the sandbox.")
+			.meta({ examples: ["iad1"] }),
+		failoverRegions: z
+			.array(
+				z.enum([
+					"arn1",
+					"bom1",
+					"cdg1",
+					"cle1",
+					"cpt1",
+					"dub1",
+					"fra1",
+					"gru1",
+					"hkg1",
+					"hnd1",
+					"iad1",
+					"icn1",
+					"kix1",
+					"lhr1",
+					"pdx1",
+					"sfo1",
+					"sin1",
+					"syd1",
+					"yul1",
+				]),
+			)
+			.max(19)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe("The regions the sandbox falls back to when it cannot be created in `region`.")
+			.meta({ examples: [["cle1", "sfo1"]] }),
+		networkId: z
+			.string()
+			.max(255)
+			.optional()
+			.describe("The Connect network id for the target Secure Compute private network."),
+		name: z
+			.string()
+			.max(128)
+			.regex(/^[a-zA-Z0-9_-]+$/)
+			.optional()
+			.describe(
+				"Name for the sandbox. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
+			)
+			.meta({ examples: ["my-sandbox"] }),
+		persistent: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe(
+				"Whether the sandbox persists its state across restarts via automatic snapshots. Defaults to true.",
+			),
+		snapshotExpiration: z
+			.union([z.unknown(), z.int()])
+			.optional()
+			.describe(
+				"Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
+			)
+			.meta({ examples: [604800000] }),
+		keepLastSnapshots: z
+			.strictObject({
+				count: z.int().min(1).max(10).describe("Number of most recent snapshots to keep."),
+				expiration: z
+					.union([z.unknown(), z.int()])
+					.optional()
+					.describe(
+						"Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.",
+					),
+				deleteEvicted: z
+					.boolean()
+					.optional()
+					.describe("Whether to immediately delete evicted snapshots. Defaults to true."),
+			})
+			.optional()
+			.describe("Protect the N most recent snapshots with different expiration/deletion behavior."),
+		tags: z
+			.record(z.string(), z.string().max(256))
+			.optional()
+			.describe("Key-value tags to associate with the sandbox. Maximum 5 tags.")
+			.meta({ examples: [{ env: "staging", team: "platform" }] }),
+	})
+	.optional();
+
 export const listDrivesQueryProjectIdSchema = z
 	.string()
 	.optional()
@@ -29207,6 +36796,50 @@ export const getOrCreateDriveErrorSchema = z.union([
 	getOrCreateDriveStatus429Schema,
 ]);
 
+export const getOrCreateDriveBodySchema = z
+	.strictObject({
+		projectId: z
+			.string()
+			.optional()
+			.describe(
+				"The project ID or name to associate the drive with. Required unless using a Vercel OIDC token scoped to a project.",
+			)
+			.meta({ examples: ["prj_abc123"] }),
+		maxSizeBytes: z
+			.int()
+			.optional()
+			.describe(
+				"Maximum drive size in bytes. Must be a multiple of 4096 bytes. Defaults to 1 TiB when omitted (1 GiB for Hobby). The maximum quota is 16 TiB. Request a quota above 16 TiB at https://vercel.com/help.",
+			),
+		region: z
+			.enum([
+				"arn1",
+				"bom1",
+				"cdg1",
+				"cle1",
+				"cpt1",
+				"dub1",
+				"fra1",
+				"gru1",
+				"hkg1",
+				"hnd1",
+				"iad1",
+				"icn1",
+				"kix1",
+				"lhr1",
+				"pdx1",
+				"sfo1",
+				"sin1",
+				"syd1",
+				"yul1",
+			])
+			.optional()
+			.default("iad1")
+			.describe("Region where the drive is stored. Defaults to iad1.")
+			.meta({ examples: ["iad1"] }),
+	})
+	.optional();
+
 export const deleteDrivePathNameSchema = z
 	.string()
 	.max(64)
@@ -29324,6 +36957,19 @@ export const forkDriveErrorSchema = z.union([
 	forkDriveStatus429Schema,
 	forkDriveStatus503Schema,
 ]);
+
+export const forkDriveBodySchema = z
+	.strictObject({
+		name: z
+			.string()
+			.max(64)
+			.regex(/^[a-zA-Z0-9_-]+$/)
+			.describe(
+				"Name for the forked drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
+			)
+			.meta({ examples: ["workspace-fork"] }),
+	})
+	.optional();
 
 export const listSessionSnapshotsQueryProjectSchema = z
 	.string()
@@ -29732,8 +37378,6 @@ export const updateSandboxStatus403Schema = z.unknown();
 
 export const updateSandboxStatus404Schema = z.unknown();
 
-export const updateSandboxStatus409Schema = z.unknown();
-
 export const updateSandboxStatus410Schema = z.unknown();
 
 export const updateSandboxStatus422Schema = z.unknown();
@@ -29741,10 +37385,6 @@ export const updateSandboxStatus422Schema = z.unknown();
 export const updateSandboxStatus429Schema = z.unknown();
 
 export const updateSandboxStatus500Schema = z.unknown();
-
-export const updateSandboxStatus502Schema = z.unknown();
-
-export const updateSandboxStatus503Schema = z.unknown();
 
 export const updateSandboxResponseSchema = updateSandboxStatus200Schema;
 
@@ -29754,14 +37394,520 @@ export const updateSandboxErrorSchema = z.union([
 	updateSandboxStatus402Schema,
 	updateSandboxStatus403Schema,
 	updateSandboxStatus404Schema,
-	updateSandboxStatus409Schema,
 	updateSandboxStatus410Schema,
 	updateSandboxStatus422Schema,
 	updateSandboxStatus429Schema,
 	updateSandboxStatus500Schema,
-	updateSandboxStatus502Schema,
-	updateSandboxStatus503Schema,
 ]);
+
+export const updateSandboxBodySchema = z
+	.strictObject({
+		resources: z
+			.strictObject({
+				vcpus: z
+					.int()
+					.min(1)
+					.optional()
+					.describe(
+						"The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.",
+					)
+					.meta({ examples: [2] }),
+				memory: z
+					.int()
+					.min(2048)
+					.optional()
+					.describe(
+						"The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.",
+					)
+					.meta({ examples: [4096] }),
+			})
+			.optional()
+			.describe("Resources to define the VM"),
+		runtime: z
+			.enum(["node22", "node24", "node26", "python3.13"])
+			.optional()
+			.describe(
+				"The runtime environment for the sandbox. Determines the pre-installed language runtimes and tools available.",
+			)
+			.meta({ examples: ["node24"] }),
+		timeout: z
+			.int()
+			.min(1000)
+			.optional()
+			.describe(
+				"Maximum duration in milliseconds that the sandbox can run before being automatically stopped.",
+			)
+			.meta({ examples: [300000] }),
+		persistent: z
+			.boolean()
+			.optional()
+			.describe("Whether the sandbox persists its state across restarts via automatic snapshots."),
+		snapshotExpiration: z
+			.union([z.unknown(), z.int()])
+			.optional()
+			.describe(
+				"Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
+			)
+			.meta({ examples: [604800000] }),
+		keepLastSnapshots: z
+			.union([
+				z.string(),
+				z.strictObject({
+					count: z.int().min(1).max(10).describe("Number of most recent snapshots to keep."),
+					expiration: z
+						.union([z.unknown(), z.int()])
+						.optional()
+						.describe(
+							"Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.",
+						),
+					deleteEvicted: z
+						.boolean()
+						.optional()
+						.describe("Whether to immediately delete evicted snapshots. Defaults to true."),
+				}),
+			])
+			.optional()
+			.describe(
+				"Protect the N most recent snapshots with different expiration/deletion behavior. Set to null to clear.",
+			),
+		networkPolicy: z
+			.union([
+				z.strictObject({
+					mode: z
+						.enum(["allow-all", "deny-all", "custom", "default-allow", "default-deny"])
+						.describe(
+							'The network access policy mode. Use \\"allow-all\\" to permit all outbound traffic. Use \\"deny-all\\" to block all outbound traffic. Use \\"custom\\" to specify explicit allow/deny rules.',
+						)
+						.meta({ examples: ["custom"] }),
+					allowedDomains: z
+						.array(z.string())
+						.optional()
+						.describe(
+							'List of domain names the sandbox is allowed to connect to. Only applies when mode is \\"custom\\". Supports wildcard patterns (e.g., \\"*.example.com\\" matches all subdomains).',
+						)
+						.meta({ examples: [["api.github.com", "*.npmjs.org"]] }),
+					allowedCIDRs: z
+						.array(z.string())
+						.optional()
+						.describe(
+							"List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.",
+						)
+						.meta({ examples: [["35.192.0.0/12", "104.16.0.0/12"]] }),
+					deniedCIDRs: z
+						.array(z.string())
+						.optional()
+						.describe(
+							"List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.",
+						)
+						.meta({ examples: [["35.192.0.0/12"]] }),
+					injectionRules: z
+						.array(
+							z.strictObject({
+								domain: z
+									.string()
+									.describe(
+										"The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.",
+									),
+								headers: z
+									.record(z.string(), z.string())
+									.describe(
+										"HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.",
+									),
+								match: z
+									.strictObject({
+										path: z
+											.strictObject({
+												exact: z
+													.string()
+													.optional()
+													.describe(
+														"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+													),
+												startsWith: z
+													.string()
+													.optional()
+													.describe("Match values that start with the given prefix."),
+											})
+											.optional()
+											.describe("Match on the request path. Comparison is case-sensitive."),
+										method: z
+											.array(z.string())
+											.optional()
+											.describe("HTTP methods to match. Any single match succeeds (OR semantics)."),
+										queryString: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+											),
+										headers: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+											),
+									})
+									.optional()
+									.describe(
+										"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+									),
+							}),
+						)
+						.optional()
+						.describe(
+							"HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.",
+						),
+				}),
+				z.strictObject({
+					allow: z
+						.union([
+							z.array(z.string()),
+							z.record(
+								z.string(),
+								z.array(
+									z.strictObject({
+										match: z
+											.strictObject({
+												path: z
+													.strictObject({
+														exact: z
+															.string()
+															.optional()
+															.describe(
+																"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+															),
+														startsWith: z
+															.string()
+															.optional()
+															.describe("Match values that start with the given prefix."),
+													})
+													.optional()
+													.describe("Match on the request path. Comparison is case-sensitive."),
+												method: z
+													.array(z.string())
+													.optional()
+													.describe(
+														"HTTP methods to match. Any single match succeeds (OR semantics).",
+													),
+												queryString: z
+													.array(
+														z.strictObject({
+															key: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry key (header name or query key)."),
+															value: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry value."),
+														}),
+													)
+													.optional()
+													.describe(
+														"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+													),
+												headers: z
+													.array(
+														z.strictObject({
+															key: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry key (header name or query key)."),
+															value: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry value."),
+														}),
+													)
+													.optional()
+													.describe(
+														"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+													),
+											})
+											.optional()
+											.describe(
+												"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+											),
+										transform: z
+											.array(
+												z.strictObject({
+													headers: z.record(z.string(), z.string()).optional(),
+												}),
+											)
+											.optional(),
+										forwardURL: z
+											.string()
+											.optional()
+											.describe(
+												"HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.",
+											),
+										response: z
+											.strictObject({
+												statusCode: z
+													.int()
+													.min(200)
+													.max(599)
+													.describe("HTTP status code returned to the sandbox."),
+												headers: z
+													.record(z.string(), z.string())
+													.optional()
+													.describe(
+														"HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.",
+													),
+												body: z
+													.string()
+													.optional()
+													.describe("UTF-8 response body. Requires `contentType`."),
+												contentType: z
+													.string()
+													.optional()
+													.describe(
+														"Value of the `Content-Type` response header. Required when `body` is set.",
+													),
+											})
+											.optional()
+											.describe(
+												"Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.",
+											),
+									}),
+								),
+							),
+						])
+						.optional(),
+					subnets: z
+						.strictObject({
+							allow: z.array(z.string()).optional(),
+							deny: z.array(z.string()).optional(),
+						})
+						.optional(),
+				}),
+			])
+			.optional(),
+		region: z
+			.enum([
+				"arn1",
+				"bom1",
+				"cdg1",
+				"cle1",
+				"cpt1",
+				"dub1",
+				"fra1",
+				"gru1",
+				"hkg1",
+				"hnd1",
+				"iad1",
+				"icn1",
+				"kix1",
+				"lhr1",
+				"pdx1",
+				"sfo1",
+				"sin1",
+				"syd1",
+				"yul1",
+			])
+			.optional()
+			.describe("The Vercel region in which to create the sandbox.")
+			.meta({ examples: ["iad1"] }),
+		failoverRegions: z
+			.array(
+				z.enum([
+					"arn1",
+					"bom1",
+					"cdg1",
+					"cle1",
+					"cpt1",
+					"dub1",
+					"fra1",
+					"gru1",
+					"hkg1",
+					"hnd1",
+					"iad1",
+					"icn1",
+					"kix1",
+					"lhr1",
+					"pdx1",
+					"sfo1",
+					"sin1",
+					"syd1",
+					"yul1",
+				]),
+			)
+			.max(19)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe("The regions the sandbox falls back to when it cannot be created in `region`.")
+			.meta({ examples: [["cle1", "sfo1"]] }),
+		mounts: z
+			.record(
+				z.string(),
+				z.strictObject({
+					drive: z
+						.string()
+						.max(64)
+						.regex(/^[a-zA-Z0-9_-]+$/)
+						.describe("Name of the drive to mount. The drive must already exist."),
+					mode: z
+						.enum(["read-write", "snapshot"])
+						.optional()
+						.describe(
+							"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+						),
+				}),
+			)
+			.optional()
+			.describe(
+				"Drives to mount to the sandbox at the provided path. Replaces the current mounts; an empty object removes them all. Changes take effect when the next session starts.",
+			),
+		networkId: z
+			.union([z.string(), z.string().max(255)])
+			.optional()
+			.describe(
+				"The Connect network id for the target Secure Compute private network. Set to null to remove the sandbox from Secure Compute.",
+			),
+		env: z
+			.record(z.string(), z.string())
+			.optional()
+			.describe("Default environment variables for the sandbox. Set to empty object to clear.")
+			.meta({ examples: [{ nodeEnv: "production", hello: "world" }] }),
+		ports: z
+			.array(z.int().min(1024).max(65535))
+			.max(15)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe(
+				"List of ports to expose from the sandbox. Each port will be accessible via a unique URL. Maximum of 15 ports can be exposed.",
+			)
+			.meta({ examples: [[3000, 4000]] }),
+		currentSnapshotId: z
+			.string()
+			.max(128)
+			.optional()
+			.describe(
+				"The snapshot ID to set as the current snapshot. Must be active and belong to the same project.",
+			),
+		tags: z
+			.record(z.string(), z.string().max(256))
+			.optional()
+			.describe(
+				"Key-value tags to associate with the sandbox. Replaces existing tags. Set to empty object to clear. Maximum 5 tags.",
+			)
+			.meta({ examples: [{ env: "staging", team: "platform" }] }),
+	})
+	.optional();
 
 export const deleteSandboxPathNameSchema = z
 	.string()
@@ -29870,11 +38016,6 @@ export const runSessionCommandPathSessionIdSchema = z
 	.describe("The unique identifier of the session in which to execute the command.")
 	.meta({ examples: ["sbx_abc123"] });
 
-export const runSessionCommandQueryCmdIdSchema = z
-	.string()
-	.describe("The unique identifier of the command to stream logs for.")
-	.meta({ examples: ["cmd_abc123"] });
-
 export const runSessionCommandQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -29917,6 +38058,74 @@ export const runSessionCommandErrorSchema = z.union([
 	runSessionCommandStatus429Schema,
 	runSessionCommandStatus500Schema,
 ]);
+
+export const runSessionCommandBodySchema = z
+	.strictObject({
+		command: z
+			.string()
+			.describe(
+				"The executable or shell command to run. This is the program name without arguments.",
+			)
+			.meta({ examples: ["npm"] }),
+		args: z
+			.array(z.string())
+			.optional()
+			.describe(
+				"Arguments to pass to the command. Each argument should be a separate array element.",
+			)
+			.meta({ examples: [["--save", "install", "lodash"]] }),
+		cwd: z
+			.string()
+			.optional()
+			.describe(
+				"The working directory in which to execute the command. Defaults to the sandbox home directory if not specified.",
+			)
+			.meta({ examples: ["/home/vercel-sandbox"] }),
+		env: z
+			.record(z.string(), z.string())
+			.optional()
+			.default({})
+			.describe(
+				"Additional environment variables to set for this command. These are merged with the sandbox environment.",
+			)
+			.meta({ examples: [{ nodeEnv: "production", debug: "true" }] }),
+		sudo: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe("Execute the command with root (superuser) privileges."),
+		wait: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe(
+				"If true, returns an ND-JSON stream that emits the command status when started and again when finished. Useful for synchronously waiting for command completion.",
+			),
+		logs: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe(
+				"If true, stream the logs of the command execution in real-time via ND-JSON. This is only applicable if `wait` is also true.",
+			),
+		timeout: z
+			.int()
+			.min(100)
+			.max(18000000)
+			.optional()
+			.describe(
+				"Maximum duration in milliseconds the command may run before it is killed with SIGKILL, up to 5 hours. Enforced at exec time, independently of `wait`.",
+			)
+			.meta({ examples: [30000] }),
+		attachStdin: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe(
+				"If true, keeps the command stdin open so it can be written to with the stdin endpoint while the command runs. When false, the command reads from an empty stdin.",
+			),
+	})
+	.optional();
 
 export const getSessionCommandPathSessionIdSchema = z
 	.string()
@@ -30032,6 +38241,17 @@ export const killSessionCommandErrorSchema = z.union([
 	killSessionCommandStatus500Schema,
 ]);
 
+export const killSessionCommandBodySchema = z
+	.strictObject({
+		signal: z
+			.number()
+			.describe(
+				"The POSIX signal number to send to the process. Common values: 15 (SIGTERM) for graceful termination, 9 (SIGKILL) for forced termination.",
+			)
+			.meta({ examples: [15] }),
+	})
+	.optional();
+
 export const writeSessionCommandStdinPathCmdIdSchema = z
 	.string()
 	.describe("The unique identifier of the command to write to.")
@@ -30093,6 +38313,34 @@ export const writeSessionCommandStdinErrorSchema = z.union([
 	writeSessionCommandStdinStatus502Schema,
 	writeSessionCommandStdinStatus504Schema,
 ]);
+
+export const writeSessionCommandStdinBodySchema = z
+	.strictObject({
+		data: z
+			.string()
+			.max(1000000)
+			.optional()
+			.describe(
+				"Base64-encoded bytes to write to the command stdin. The request body is limited to 1 MB, so send at most about 700 KB of data per request.",
+			)
+			.meta({ examples: ["aGVsbG8K"] }),
+		offset: z
+			.int()
+			.min(0)
+			.optional()
+			.describe(
+				"The position in the command stdin where `data` starts. Bytes before the total already written are skipped, so a resent request does not write them twice. Fails with 409 if it is past the bytes written so far. Without it, `data` is appended.",
+			)
+			.meta({ examples: [0] }),
+		close: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe(
+				"If true, closes the command stdin after writing `data`. Use this for commands that wait for end of input.",
+			),
+	})
+	.optional();
 
 export const getSessionCommandLogsPathSessionIdSchema = z
 	.string()
@@ -30243,6 +38491,18 @@ export const extendSessionTimeoutErrorSchema = z.union([
 	extendSessionTimeoutStatus500Schema,
 ]);
 
+export const extendSessionTimeoutBodySchema = z
+	.strictObject({
+		duration: z
+			.number()
+			.min(1000)
+			.describe(
+				"The amount of time in milliseconds to add to the current timeout. Must be at least 1000ms (1 second).",
+			)
+			.meta({ examples: [300000] }),
+	})
+	.optional();
+
 export const updateSessionNetworkPolicyPathSessionIdSchema = z
 	.string()
 	.describe("The unique identifier of the session to update the network policy for.")
@@ -30290,6 +38550,328 @@ export const updateSessionNetworkPolicyErrorSchema = z.union([
 	updateSessionNetworkPolicyStatus429Schema,
 	updateSessionNetworkPolicyStatus500Schema,
 ]);
+
+export const updateSessionNetworkPolicyBodySchema = z
+	.union([
+		z.strictObject({
+			mode: z
+				.enum(["allow-all", "deny-all", "custom", "default-allow", "default-deny"])
+				.describe(
+					'The network access policy mode. Use \\"allow-all\\" to permit all outbound traffic. Use \\"deny-all\\" to block all outbound traffic. Use \\"custom\\" to specify explicit allow/deny rules.',
+				)
+				.meta({ examples: ["custom"] }),
+			allowedDomains: z
+				.array(z.string())
+				.optional()
+				.describe(
+					'List of domain names the sandbox is allowed to connect to. Only applies when mode is \\"custom\\". Supports wildcard patterns (e.g., \\"*.example.com\\" matches all subdomains).',
+				)
+				.meta({ examples: [["api.github.com", "*.npmjs.org"]] }),
+			allowedCIDRs: z
+				.array(z.string())
+				.optional()
+				.describe(
+					"List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.",
+				)
+				.meta({ examples: [["35.192.0.0/12", "104.16.0.0/12"]] }),
+			deniedCIDRs: z
+				.array(z.string())
+				.optional()
+				.describe(
+					"List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.",
+				)
+				.meta({ examples: [["35.192.0.0/12"]] }),
+			injectionRules: z
+				.array(
+					z.strictObject({
+						domain: z
+							.string()
+							.describe(
+								"The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.",
+							),
+						headers: z
+							.record(z.string(), z.string())
+							.describe(
+								"HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.",
+							),
+						match: z
+							.strictObject({
+								path: z
+									.strictObject({
+										exact: z
+											.string()
+											.optional()
+											.describe(
+												"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+											),
+										startsWith: z
+											.string()
+											.optional()
+											.describe("Match values that start with the given prefix."),
+									})
+									.optional()
+									.describe("Match on the request path. Comparison is case-sensitive."),
+								method: z
+									.array(z.string())
+									.optional()
+									.describe("HTTP methods to match. Any single match succeeds (OR semantics)."),
+								queryString: z
+									.array(
+										z.strictObject({
+											key: z
+												.strictObject({
+													exact: z
+														.string()
+														.optional()
+														.describe(
+															"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+														),
+													startsWith: z
+														.string()
+														.optional()
+														.describe("Match values that start with the given prefix."),
+												})
+												.optional()
+												.describe("Matcher for the entry key (header name or query key)."),
+											value: z
+												.strictObject({
+													exact: z
+														.string()
+														.optional()
+														.describe(
+															"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+														),
+													startsWith: z
+														.string()
+														.optional()
+														.describe("Match values that start with the given prefix."),
+												})
+												.optional()
+												.describe("Matcher for the entry value."),
+										}),
+									)
+									.optional()
+									.describe(
+										"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+									),
+								headers: z
+									.array(
+										z.strictObject({
+											key: z
+												.strictObject({
+													exact: z
+														.string()
+														.optional()
+														.describe(
+															"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+														),
+													startsWith: z
+														.string()
+														.optional()
+														.describe("Match values that start with the given prefix."),
+												})
+												.optional()
+												.describe("Matcher for the entry key (header name or query key)."),
+											value: z
+												.strictObject({
+													exact: z
+														.string()
+														.optional()
+														.describe(
+															"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+														),
+													startsWith: z
+														.string()
+														.optional()
+														.describe("Match values that start with the given prefix."),
+												})
+												.optional()
+												.describe("Matcher for the entry value."),
+										}),
+									)
+									.optional()
+									.describe(
+										"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+									),
+							})
+							.optional()
+							.describe(
+								"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+							),
+					}),
+				)
+				.optional()
+				.describe(
+					"HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.",
+				),
+		}),
+		z.strictObject({
+			allow: z
+				.union([
+					z.array(z.string()),
+					z.record(
+						z.string(),
+						z.array(
+							z.strictObject({
+								match: z
+									.strictObject({
+										path: z
+											.strictObject({
+												exact: z
+													.string()
+													.optional()
+													.describe(
+														"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+													),
+												startsWith: z
+													.string()
+													.optional()
+													.describe("Match values that start with the given prefix."),
+											})
+											.optional()
+											.describe("Match on the request path. Comparison is case-sensitive."),
+										method: z
+											.array(z.string())
+											.optional()
+											.describe("HTTP methods to match. Any single match succeeds (OR semantics)."),
+										queryString: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+											),
+										headers: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+											),
+									})
+									.optional()
+									.describe(
+										"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+									),
+								transform: z
+									.array(
+										z.strictObject({
+											headers: z.record(z.string(), z.string()).optional(),
+										}),
+									)
+									.optional(),
+								forwardURL: z
+									.string()
+									.optional()
+									.describe(
+										"HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.",
+									),
+								response: z
+									.strictObject({
+										statusCode: z
+											.int()
+											.min(200)
+											.max(599)
+											.describe("HTTP status code returned to the sandbox."),
+										headers: z
+											.record(z.string(), z.string())
+											.optional()
+											.describe(
+												"HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.",
+											),
+										body: z
+											.string()
+											.optional()
+											.describe("UTF-8 response body. Requires `contentType`."),
+										contentType: z
+											.string()
+											.optional()
+											.describe(
+												"Value of the `Content-Type` response header. Required when `body` is set.",
+											),
+									})
+									.optional()
+									.describe(
+										"Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.",
+									),
+							}),
+						),
+					),
+				])
+				.optional(),
+			subnets: z
+				.strictObject({
+					allow: z.array(z.string()).optional(),
+					deny: z.array(z.string()).optional(),
+				})
+				.optional(),
+		}),
+	])
+	.optional();
 
 export const readSessionFilePathSessionIdSchema = z
 	.string()
@@ -30339,6 +38921,24 @@ export const readSessionFileErrorSchema = z.union([
 	readSessionFileStatus500Schema,
 ]);
 
+export const readSessionFileBodySchema = z
+	.strictObject({
+		cwd: z
+			.string()
+			.optional()
+			.describe(
+				"The base directory for resolving relative paths. If not specified, paths are resolved from the sandbox home directory.",
+			)
+			.meta({ examples: ["/home/vercel-sandbox"] }),
+		path: z
+			.string()
+			.describe(
+				"The path of the file to read. Can be absolute or relative to the working directory.",
+			)
+			.meta({ examples: ["dist/agent-output.md"] }),
+	})
+	.optional();
+
 export const createSessionDirectoryPathSessionIdSchema = z
 	.string()
 	.describe("The unique identifier of the session to create the directory in.")
@@ -30386,6 +38986,31 @@ export const createSessionDirectoryErrorSchema = z.union([
 	createSessionDirectoryStatus429Schema,
 	createSessionDirectoryStatus500Schema,
 ]);
+
+export const createSessionDirectoryBodySchema = z
+	.strictObject({
+		cwd: z
+			.string()
+			.optional()
+			.describe(
+				"The base directory for resolving relative paths. If not specified, paths are resolved from the sandbox home directory.",
+			)
+			.meta({ examples: ["/home/vercel-sandbox"] }),
+		path: z
+			.string()
+			.describe(
+				"The path of the directory to create. Can be absolute or relative to the working directory.",
+			)
+			.meta({ examples: ["src/components"] }),
+		recursive: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe(
+				"If true, creates parent directories as needed (like `mkdir -p`). If false, fails if parent directories do not exist.",
+			),
+	})
+	.optional();
 
 export const writeSessionFilesHeaderXCwdSchema = z
 	.string()
@@ -30495,6 +39120,17 @@ export const createSandboxesSessionsBySessionIdSnapshotV2ErrorSchema = z.union([
 	createSandboxesSessionsBySessionIdSnapshotV2Status500Schema,
 ]);
 
+export const createSandboxesSessionsBySessionIdSnapshotV2BodySchema = z
+	.strictObject({
+		expiration: z
+			.union([z.unknown(), z.int()])
+			.optional()
+			.describe(
+				"The number of milliseconds after which the snapshot will expire and be deleted. Use 0 for no expiration.",
+			),
+	})
+	.optional();
+
 export const createSandboxesByNameForkV2PathNameSchema = z
 	.string()
 	.max(128)
@@ -30564,6 +39200,507 @@ export const createSandboxesByNameForkV2ErrorSchema = z.union([
 	createSandboxesByNameForkV2Status503Schema,
 ]);
 
+export const createSandboxesByNameForkV2BodySchema = z
+	.strictObject({
+		networkPolicy: z
+			.union([
+				z.strictObject({
+					mode: z
+						.enum(["allow-all", "deny-all", "custom", "default-allow", "default-deny"])
+						.describe(
+							'The network access policy mode. Use \\"allow-all\\" to permit all outbound traffic. Use \\"deny-all\\" to block all outbound traffic. Use \\"custom\\" to specify explicit allow/deny rules.',
+						)
+						.meta({ examples: ["custom"] }),
+					allowedDomains: z
+						.array(z.string())
+						.optional()
+						.describe(
+							'List of domain names the sandbox is allowed to connect to. Only applies when mode is \\"custom\\". Supports wildcard patterns (e.g., \\"*.example.com\\" matches all subdomains).',
+						)
+						.meta({ examples: [["api.github.com", "*.npmjs.org"]] }),
+					allowedCIDRs: z
+						.array(z.string())
+						.optional()
+						.describe(
+							"List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.",
+						)
+						.meta({ examples: [["35.192.0.0/12", "104.16.0.0/12"]] }),
+					deniedCIDRs: z
+						.array(z.string())
+						.optional()
+						.describe(
+							"List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.",
+						)
+						.meta({ examples: [["35.192.0.0/12"]] }),
+					injectionRules: z
+						.array(
+							z.strictObject({
+								domain: z
+									.string()
+									.describe(
+										"The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.",
+									),
+								headers: z
+									.record(z.string(), z.string())
+									.describe(
+										"HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.",
+									),
+								match: z
+									.strictObject({
+										path: z
+											.strictObject({
+												exact: z
+													.string()
+													.optional()
+													.describe(
+														"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+													),
+												startsWith: z
+													.string()
+													.optional()
+													.describe("Match values that start with the given prefix."),
+											})
+											.optional()
+											.describe("Match on the request path. Comparison is case-sensitive."),
+										method: z
+											.array(z.string())
+											.optional()
+											.describe("HTTP methods to match. Any single match succeeds (OR semantics)."),
+										queryString: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+											),
+										headers: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+											),
+									})
+									.optional()
+									.describe(
+										"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+									),
+							}),
+						)
+						.optional()
+						.describe(
+							"HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.",
+						),
+				}),
+				z.strictObject({
+					allow: z
+						.union([
+							z.array(z.string()),
+							z.record(
+								z.string(),
+								z.array(
+									z.strictObject({
+										match: z
+											.strictObject({
+												path: z
+													.strictObject({
+														exact: z
+															.string()
+															.optional()
+															.describe(
+																"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+															),
+														startsWith: z
+															.string()
+															.optional()
+															.describe("Match values that start with the given prefix."),
+													})
+													.optional()
+													.describe("Match on the request path. Comparison is case-sensitive."),
+												method: z
+													.array(z.string())
+													.optional()
+													.describe(
+														"HTTP methods to match. Any single match succeeds (OR semantics).",
+													),
+												queryString: z
+													.array(
+														z.strictObject({
+															key: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry key (header name or query key)."),
+															value: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry value."),
+														}),
+													)
+													.optional()
+													.describe(
+														"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+													),
+												headers: z
+													.array(
+														z.strictObject({
+															key: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry key (header name or query key)."),
+															value: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry value."),
+														}),
+													)
+													.optional()
+													.describe(
+														"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+													),
+											})
+											.optional()
+											.describe(
+												"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+											),
+										transform: z
+											.array(
+												z.strictObject({
+													headers: z.record(z.string(), z.string()).optional(),
+												}),
+											)
+											.optional(),
+										forwardURL: z
+											.string()
+											.optional()
+											.describe(
+												"HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.",
+											),
+										response: z
+											.strictObject({
+												statusCode: z
+													.int()
+													.min(200)
+													.max(599)
+													.describe("HTTP status code returned to the sandbox."),
+												headers: z
+													.record(z.string(), z.string())
+													.optional()
+													.describe(
+														"HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.",
+													),
+												body: z
+													.string()
+													.optional()
+													.describe("UTF-8 response body. Requires `contentType`."),
+												contentType: z
+													.string()
+													.optional()
+													.describe(
+														"Value of the `Content-Type` response header. Required when `body` is set.",
+													),
+											})
+											.optional()
+											.describe(
+												"Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.",
+											),
+									}),
+								),
+							),
+						])
+						.optional(),
+					subnets: z
+						.strictObject({
+							allow: z.array(z.string()).optional(),
+							deny: z.array(z.string()).optional(),
+						})
+						.optional(),
+				}),
+			])
+			.optional(),
+		resources: z
+			.strictObject({
+				vcpus: z
+					.int()
+					.min(1)
+					.optional()
+					.default(2)
+					.describe(
+						"The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.",
+					)
+					.meta({ examples: [2] }),
+				memory: z
+					.int()
+					.min(2048)
+					.optional()
+					.describe(
+						"The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.",
+					)
+					.meta({ examples: [4096] }),
+			})
+			.optional()
+			.describe("Resources to define the VM"),
+		ports: z
+			.array(z.int().min(1024).max(65535))
+			.max(15)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe(
+				"List of ports to expose from the sandbox. Each port will be accessible via a unique URL. Maximum of 15 ports can be exposed.",
+			)
+			.meta({ examples: [[3000, 4000]] }),
+		image: z.string().max(255).optional().describe("Image to use for the sandbox."),
+		timeout: z
+			.int()
+			.min(1000)
+			.optional()
+			.describe(
+				"Maximum duration in milliseconds that the sandbox can run before being automatically stopped.",
+			)
+			.meta({ examples: [300000] }),
+		env: z
+			.record(z.string(), z.string())
+			.optional()
+			.default({})
+			.describe(
+				"Default environment variables for the sandbox. These are inherited by all commands unless overridden.",
+			)
+			.meta({ examples: [{ nodeEnv: "production", hello: "world" }] }),
+		mounts: z
+			.record(
+				z.string(),
+				z.strictObject({
+					drive: z
+						.string()
+						.max(64)
+						.regex(/^[a-zA-Z0-9_-]+$/)
+						.describe("Name of the drive to mount. The drive must already exist."),
+					mode: z
+						.enum(["read-write", "snapshot"])
+						.optional()
+						.describe(
+							"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+						),
+				}),
+			)
+			.optional()
+			.describe("List of drives to mount to the sandbox at the provided path."),
+		region: z
+			.enum([
+				"arn1",
+				"bom1",
+				"cdg1",
+				"cle1",
+				"cpt1",
+				"dub1",
+				"fra1",
+				"gru1",
+				"hkg1",
+				"hnd1",
+				"iad1",
+				"icn1",
+				"kix1",
+				"lhr1",
+				"pdx1",
+				"sfo1",
+				"sin1",
+				"syd1",
+				"yul1",
+			])
+			.optional()
+			.describe("The Vercel region in which to create the sandbox.")
+			.meta({ examples: ["iad1"] }),
+		failoverRegions: z
+			.array(
+				z.enum([
+					"arn1",
+					"bom1",
+					"cdg1",
+					"cle1",
+					"cpt1",
+					"dub1",
+					"fra1",
+					"gru1",
+					"hkg1",
+					"hnd1",
+					"iad1",
+					"icn1",
+					"kix1",
+					"lhr1",
+					"pdx1",
+					"sfo1",
+					"sin1",
+					"syd1",
+					"yul1",
+				]),
+			)
+			.max(19)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe("The regions the sandbox falls back to when it cannot be created in `region`.")
+			.meta({ examples: [["cle1", "sfo1"]] }),
+		networkId: z
+			.string()
+			.max(255)
+			.optional()
+			.describe("The Connect network id for the target Secure Compute private network."),
+		name: z
+			.string()
+			.max(128)
+			.regex(/^[a-zA-Z0-9_-]+$/)
+			.optional()
+			.describe(
+				"Name for the forked sandbox. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores). A random name is generated when omitted.",
+			)
+			.meta({ examples: ["my-sandbox-fork"] }),
+		persistent: z
+			.boolean()
+			.optional()
+			.describe(
+				"Whether the sandbox persists its state across restarts via automatic snapshots. Defaults to the source sandbox setting.",
+			),
+		snapshotExpiration: z
+			.union([z.unknown(), z.int()])
+			.optional()
+			.describe(
+				"Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
+			)
+			.meta({ examples: [604800000] }),
+		keepLastSnapshots: z
+			.strictObject({
+				count: z.int().min(1).max(10).describe("Number of most recent snapshots to keep."),
+				expiration: z
+					.union([z.unknown(), z.int()])
+					.optional()
+					.describe(
+						"Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.",
+					),
+				deleteEvicted: z
+					.boolean()
+					.optional()
+					.describe("Whether to immediately delete evicted snapshots. Defaults to true."),
+			})
+			.optional()
+			.describe("Protect the N most recent snapshots with different expiration/deletion behavior."),
+		tags: z
+			.record(z.string(), z.string().max(256))
+			.optional()
+			.describe("Key-value tags to associate with the sandbox. Maximum 5 tags.")
+			.meta({ examples: [{ env: "staging", team: "platform" }] }),
+	})
+	.optional();
+
 export const createSandboxesV3QueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -30619,6 +39756,573 @@ export const createSandboxesV3ErrorSchema = z.union([
 	createSandboxesV3Status503Schema,
 ]);
 
+export const createSandboxesV3BodySchema = z
+	.strictObject({
+		networkPolicy: z
+			.union([
+				z.strictObject({
+					mode: z
+						.enum(["allow-all", "deny-all", "custom", "default-allow", "default-deny"])
+						.describe(
+							'The network access policy mode. Use \\"allow-all\\" to permit all outbound traffic. Use \\"deny-all\\" to block all outbound traffic. Use \\"custom\\" to specify explicit allow/deny rules.',
+						)
+						.meta({ examples: ["custom"] }),
+					allowedDomains: z
+						.array(z.string())
+						.optional()
+						.describe(
+							'List of domain names the sandbox is allowed to connect to. Only applies when mode is \\"custom\\". Supports wildcard patterns (e.g., \\"*.example.com\\" matches all subdomains).',
+						)
+						.meta({ examples: [["api.github.com", "*.npmjs.org"]] }),
+					allowedCIDRs: z
+						.array(z.string())
+						.optional()
+						.describe(
+							"List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.",
+						)
+						.meta({ examples: [["35.192.0.0/12", "104.16.0.0/12"]] }),
+					deniedCIDRs: z
+						.array(z.string())
+						.optional()
+						.describe(
+							"List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.",
+						)
+						.meta({ examples: [["35.192.0.0/12"]] }),
+					injectionRules: z
+						.array(
+							z.strictObject({
+								domain: z
+									.string()
+									.describe(
+										"The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.",
+									),
+								headers: z
+									.record(z.string(), z.string())
+									.describe(
+										"HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.",
+									),
+								match: z
+									.strictObject({
+										path: z
+											.strictObject({
+												exact: z
+													.string()
+													.optional()
+													.describe(
+														"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+													),
+												startsWith: z
+													.string()
+													.optional()
+													.describe("Match values that start with the given prefix."),
+											})
+											.optional()
+											.describe("Match on the request path. Comparison is case-sensitive."),
+										method: z
+											.array(z.string())
+											.optional()
+											.describe("HTTP methods to match. Any single match succeeds (OR semantics)."),
+										queryString: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+											),
+										headers: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+											),
+									})
+									.optional()
+									.describe(
+										"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+									),
+							}),
+						)
+						.optional()
+						.describe(
+							"HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.",
+						),
+				}),
+				z.strictObject({
+					allow: z
+						.union([
+							z.array(z.string()),
+							z.record(
+								z.string(),
+								z.array(
+									z.strictObject({
+										match: z
+											.strictObject({
+												path: z
+													.strictObject({
+														exact: z
+															.string()
+															.optional()
+															.describe(
+																"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+															),
+														startsWith: z
+															.string()
+															.optional()
+															.describe("Match values that start with the given prefix."),
+													})
+													.optional()
+													.describe("Match on the request path. Comparison is case-sensitive."),
+												method: z
+													.array(z.string())
+													.optional()
+													.describe(
+														"HTTP methods to match. Any single match succeeds (OR semantics).",
+													),
+												queryString: z
+													.array(
+														z.strictObject({
+															key: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry key (header name or query key)."),
+															value: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry value."),
+														}),
+													)
+													.optional()
+													.describe(
+														"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+													),
+												headers: z
+													.array(
+														z.strictObject({
+															key: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry key (header name or query key)."),
+															value: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry value."),
+														}),
+													)
+													.optional()
+													.describe(
+														"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+													),
+											})
+											.optional()
+											.describe(
+												"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+											),
+										transform: z
+											.array(
+												z.strictObject({
+													headers: z.record(z.string(), z.string()).optional(),
+												}),
+											)
+											.optional(),
+										forwardURL: z
+											.string()
+											.optional()
+											.describe(
+												"HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.",
+											),
+										response: z
+											.strictObject({
+												statusCode: z
+													.int()
+													.min(200)
+													.max(599)
+													.describe("HTTP status code returned to the sandbox."),
+												headers: z
+													.record(z.string(), z.string())
+													.optional()
+													.describe(
+														"HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.",
+													),
+												body: z
+													.string()
+													.optional()
+													.describe("UTF-8 response body. Requires `contentType`."),
+												contentType: z
+													.string()
+													.optional()
+													.describe(
+														"Value of the `Content-Type` response header. Required when `body` is set.",
+													),
+											})
+											.optional()
+											.describe(
+												"Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.",
+											),
+									}),
+								),
+							),
+						])
+						.optional(),
+					subnets: z
+						.strictObject({
+							allow: z.array(z.string()).optional(),
+							deny: z.array(z.string()).optional(),
+						})
+						.optional(),
+				}),
+			])
+			.optional(),
+		architecture: z
+			.enum(["amd64", "arm64"])
+			.optional()
+			.describe(
+				"CPU architecture. Inherits a snapshot or single image manifest when omitted. Image indexes default to amd64. Must match the source. ARM64 creation requires API v3 or v4 without runtime and team access.",
+			)
+			.meta({ examples: ["arm64"] }),
+		resources: z
+			.strictObject({
+				vcpus: z
+					.int()
+					.min(1)
+					.optional()
+					.default(2)
+					.describe(
+						"The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.",
+					)
+					.meta({ examples: [2] }),
+				memory: z
+					.int()
+					.min(2048)
+					.optional()
+					.describe(
+						"The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.",
+					)
+					.meta({ examples: [4096] }),
+			})
+			.optional()
+			.describe("Resources to define the VM"),
+		source: z
+			.union([
+				z.strictObject({
+					type: z.unknown().describe("Indicates the source is a Git repository."),
+					url: z
+						.url()
+						.describe("The URL of the Git repository to clone.")
+						.meta({ examples: ["https://github.com/vercel/next.js.git"] }),
+					username: z
+						.string()
+						.optional()
+						.describe(
+							"Username for Git authentication. Required together with password for private repositories.",
+						),
+					password: z
+						.string()
+						.optional()
+						.describe(
+							"Password or personal access token for Git authentication. Required together with username for private repositories.",
+						),
+					depth: z
+						.int()
+						.min(1)
+						.optional()
+						.describe(
+							"Create a shallow clone with history truncated to the specified number of commits. Useful for faster cloning of large repositories.",
+						)
+						.meta({ examples: [1] }),
+					revision: z
+						.string()
+						.optional()
+						.describe("The specific commit SHA, branch name, or tag to checkout after cloning.")
+						.meta({ examples: ["main"] }),
+				}),
+				z.strictObject({
+					type: z.unknown().describe("Indicates the source is a tarball."),
+					url: z
+						.url()
+						.describe("URL of a gzipped tarball (.tar.gz) to download and extract.")
+						.meta({ examples: ["https://example.com/project.tar.gz"] }),
+				}),
+				z.strictObject({
+					type: z.unknown().describe("Indicates the source is a snapshot."),
+					snapshotId: z
+						.string()
+						.describe("The unique identifier of the snapshot to restore.")
+						.meta({ examples: ["snap_abc123"] }),
+				}),
+			])
+			.optional()
+			.describe(
+				"The source from which to initialize the sandbox filesystem. Can be a Git repository, a tarball URL, or an existing snapshot.",
+			),
+		projectId: z
+			.string()
+			.optional()
+			.describe("The target project slug or ID in which the sandbox will be assigned to.")
+			.meta({ examples: ["prj_abc123"] }),
+		ports: z
+			.array(z.int().min(1024).max(65535))
+			.max(15)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe(
+				"List of ports to expose from the sandbox. Each port will be accessible via a unique URL. Maximum of 15 ports can be exposed.",
+			)
+			.meta({ examples: [[3000, 4000]] }),
+		image: z.string().max(255).optional().describe("Image to use for the sandbox."),
+		timeout: z
+			.int()
+			.min(1000)
+			.optional()
+			.describe(
+				"Maximum duration in milliseconds that the sandbox can run before being automatically stopped.",
+			)
+			.meta({ examples: [300000] }),
+		env: z
+			.record(z.string(), z.string())
+			.optional()
+			.default({})
+			.describe(
+				"Default environment variables for the sandbox. These are inherited by all commands unless overridden.",
+			)
+			.meta({ examples: [{ nodeEnv: "production", hello: "world" }] }),
+		mounts: z
+			.record(
+				z.string(),
+				z.strictObject({
+					drive: z
+						.string()
+						.max(64)
+						.regex(/^[a-zA-Z0-9_-]+$/)
+						.describe("Name of the drive to mount. The drive must already exist."),
+					mode: z
+						.enum(["read-write", "snapshot"])
+						.optional()
+						.describe(
+							"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+						),
+				}),
+			)
+			.optional()
+			.describe("List of drives to mount to the sandbox at the provided path."),
+		region: z
+			.enum([
+				"arn1",
+				"bom1",
+				"cdg1",
+				"cle1",
+				"cpt1",
+				"dub1",
+				"fra1",
+				"gru1",
+				"hkg1",
+				"hnd1",
+				"iad1",
+				"icn1",
+				"kix1",
+				"lhr1",
+				"pdx1",
+				"sfo1",
+				"sin1",
+				"syd1",
+				"yul1",
+			])
+			.optional()
+			.describe("The Vercel region in which to create the sandbox.")
+			.meta({ examples: ["iad1"] }),
+		failoverRegions: z
+			.array(
+				z.enum([
+					"arn1",
+					"bom1",
+					"cdg1",
+					"cle1",
+					"cpt1",
+					"dub1",
+					"fra1",
+					"gru1",
+					"hkg1",
+					"hnd1",
+					"iad1",
+					"icn1",
+					"kix1",
+					"lhr1",
+					"pdx1",
+					"sfo1",
+					"sin1",
+					"syd1",
+					"yul1",
+				]),
+			)
+			.max(19)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe("The regions the sandbox falls back to when it cannot be created in `region`.")
+			.meta({ examples: [["cle1", "sfo1"]] }),
+		networkId: z
+			.string()
+			.max(255)
+			.optional()
+			.describe("The Connect network id for the target Secure Compute private network."),
+		name: z
+			.string()
+			.max(128)
+			.regex(/^[a-zA-Z0-9_-]+$/)
+			.optional()
+			.describe(
+				"Name for the sandbox. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
+			)
+			.meta({ examples: ["my-sandbox"] }),
+		persistent: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe(
+				"Whether the sandbox persists its state across restarts via automatic snapshots. Defaults to true.",
+			),
+		snapshotExpiration: z
+			.union([z.unknown(), z.int()])
+			.optional()
+			.describe(
+				"Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
+			)
+			.meta({ examples: [604800000] }),
+		keepLastSnapshots: z
+			.strictObject({
+				count: z.int().min(1).max(10).describe("Number of most recent snapshots to keep."),
+				expiration: z
+					.union([z.unknown(), z.int()])
+					.optional()
+					.describe(
+						"Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.",
+					),
+				deleteEvicted: z
+					.boolean()
+					.optional()
+					.describe("Whether to immediately delete evicted snapshots. Defaults to true."),
+			})
+			.optional()
+			.describe("Protect the N most recent snapshots with different expiration/deletion behavior."),
+		tags: z
+			.record(z.string(), z.string().max(256))
+			.optional()
+			.describe("Key-value tags to associate with the sandbox. Maximum 5 tags.")
+			.meta({ examples: [{ env: "staging", team: "platform" }] }),
+	})
+	.optional();
+
 export const createSandboxesSessionsBySessionIdSnapshotV3PathSessionIdSchema = z
 	.string()
 	.describe("The unique identifier of the session to snapshot.")
@@ -30670,6 +40374,17 @@ export const createSandboxesSessionsBySessionIdSnapshotV3ErrorSchema = z.union([
 	createSandboxesSessionsBySessionIdSnapshotV3Status429Schema,
 	createSandboxesSessionsBySessionIdSnapshotV3Status500Schema,
 ]);
+
+export const createSandboxesSessionsBySessionIdSnapshotV3BodySchema = z
+	.strictObject({
+		expiration: z
+			.union([z.unknown(), z.int()])
+			.optional()
+			.describe(
+				"The number of milliseconds after which the snapshot will expire and be deleted. Defaults to 7 days when neither this field nor the sandbox configuration specifies an expiration. Use 0 for no expiration.",
+			),
+	})
+	.optional();
 
 export const createSandboxesByNameForkV3PathNameSchema = z
 	.string()
@@ -30740,6 +40455,512 @@ export const createSandboxesByNameForkV3ErrorSchema = z.union([
 	createSandboxesByNameForkV3Status503Schema,
 ]);
 
+export const createSandboxesByNameForkV3BodySchema = z
+	.strictObject({
+		networkPolicy: z
+			.union([
+				z.strictObject({
+					mode: z
+						.enum(["allow-all", "deny-all", "custom", "default-allow", "default-deny"])
+						.describe(
+							'The network access policy mode. Use \\"allow-all\\" to permit all outbound traffic. Use \\"deny-all\\" to block all outbound traffic. Use \\"custom\\" to specify explicit allow/deny rules.',
+						)
+						.meta({ examples: ["custom"] }),
+					allowedDomains: z
+						.array(z.string())
+						.optional()
+						.describe(
+							'List of domain names the sandbox is allowed to connect to. Only applies when mode is \\"custom\\". Supports wildcard patterns (e.g., \\"*.example.com\\" matches all subdomains).',
+						)
+						.meta({ examples: [["api.github.com", "*.npmjs.org"]] }),
+					allowedCIDRs: z
+						.array(z.string())
+						.optional()
+						.describe(
+							"List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.",
+						)
+						.meta({ examples: [["35.192.0.0/12", "104.16.0.0/12"]] }),
+					deniedCIDRs: z
+						.array(z.string())
+						.optional()
+						.describe(
+							"List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.",
+						)
+						.meta({ examples: [["35.192.0.0/12"]] }),
+					injectionRules: z
+						.array(
+							z.strictObject({
+								domain: z
+									.string()
+									.describe(
+										"The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.",
+									),
+								headers: z
+									.record(z.string(), z.string())
+									.describe(
+										"HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.",
+									),
+								match: z
+									.strictObject({
+										path: z
+											.strictObject({
+												exact: z
+													.string()
+													.optional()
+													.describe(
+														"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+													),
+												startsWith: z
+													.string()
+													.optional()
+													.describe("Match values that start with the given prefix."),
+											})
+											.optional()
+											.describe("Match on the request path. Comparison is case-sensitive."),
+										method: z
+											.array(z.string())
+											.optional()
+											.describe("HTTP methods to match. Any single match succeeds (OR semantics)."),
+										queryString: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+											),
+										headers: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+											),
+									})
+									.optional()
+									.describe(
+										"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+									),
+							}),
+						)
+						.optional()
+						.describe(
+							"HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.",
+						),
+				}),
+				z.strictObject({
+					allow: z
+						.union([
+							z.array(z.string()),
+							z.record(
+								z.string(),
+								z.array(
+									z.strictObject({
+										match: z
+											.strictObject({
+												path: z
+													.strictObject({
+														exact: z
+															.string()
+															.optional()
+															.describe(
+																"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+															),
+														startsWith: z
+															.string()
+															.optional()
+															.describe("Match values that start with the given prefix."),
+													})
+													.optional()
+													.describe("Match on the request path. Comparison is case-sensitive."),
+												method: z
+													.array(z.string())
+													.optional()
+													.describe(
+														"HTTP methods to match. Any single match succeeds (OR semantics).",
+													),
+												queryString: z
+													.array(
+														z.strictObject({
+															key: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry key (header name or query key)."),
+															value: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry value."),
+														}),
+													)
+													.optional()
+													.describe(
+														"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+													),
+												headers: z
+													.array(
+														z.strictObject({
+															key: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry key (header name or query key)."),
+															value: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry value."),
+														}),
+													)
+													.optional()
+													.describe(
+														"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+													),
+											})
+											.optional()
+											.describe(
+												"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+											),
+										transform: z
+											.array(
+												z.strictObject({
+													headers: z.record(z.string(), z.string()).optional(),
+												}),
+											)
+											.optional(),
+										forwardURL: z
+											.string()
+											.optional()
+											.describe(
+												"HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.",
+											),
+										response: z
+											.strictObject({
+												statusCode: z
+													.int()
+													.min(200)
+													.max(599)
+													.describe("HTTP status code returned to the sandbox."),
+												headers: z
+													.record(z.string(), z.string())
+													.optional()
+													.describe(
+														"HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.",
+													),
+												body: z
+													.string()
+													.optional()
+													.describe("UTF-8 response body. Requires `contentType`."),
+												contentType: z
+													.string()
+													.optional()
+													.describe(
+														"Value of the `Content-Type` response header. Required when `body` is set.",
+													),
+											})
+											.optional()
+											.describe(
+												"Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.",
+											),
+									}),
+								),
+							),
+						])
+						.optional(),
+					subnets: z
+						.strictObject({
+							allow: z.array(z.string()).optional(),
+							deny: z.array(z.string()).optional(),
+						})
+						.optional(),
+				}),
+			])
+			.optional(),
+		resources: z
+			.strictObject({
+				vcpus: z
+					.int()
+					.min(1)
+					.optional()
+					.default(2)
+					.describe(
+						"The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.",
+					)
+					.meta({ examples: [2] }),
+				memory: z
+					.int()
+					.min(2048)
+					.optional()
+					.describe(
+						"The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.",
+					)
+					.meta({ examples: [4096] }),
+			})
+			.optional()
+			.describe("Resources to define the VM"),
+		ports: z
+			.array(z.int().min(1024).max(65535))
+			.max(15)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe(
+				"List of ports to expose from the sandbox. Each port will be accessible via a unique URL. Maximum of 15 ports can be exposed.",
+			)
+			.meta({ examples: [[3000, 4000]] }),
+		image: z.string().max(255).optional().describe("Image to use for the sandbox."),
+		timeout: z
+			.int()
+			.min(1000)
+			.optional()
+			.describe(
+				"Maximum duration in milliseconds that the sandbox can run before being automatically stopped.",
+			)
+			.meta({ examples: [300000] }),
+		env: z
+			.record(z.string(), z.string())
+			.optional()
+			.default({})
+			.describe(
+				"Default environment variables for the sandbox. These are inherited by all commands unless overridden.",
+			)
+			.meta({ examples: [{ nodeEnv: "production", hello: "world" }] }),
+		mounts: z
+			.record(
+				z.string(),
+				z.strictObject({
+					drive: z
+						.string()
+						.max(64)
+						.regex(/^[a-zA-Z0-9_-]+$/)
+						.describe("Name of the drive to mount. The drive must already exist."),
+					mode: z
+						.enum(["read-write", "snapshot"])
+						.optional()
+						.describe(
+							"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+						),
+				}),
+			)
+			.optional()
+			.describe("List of drives to mount to the sandbox at the provided path."),
+		region: z
+			.enum([
+				"arn1",
+				"bom1",
+				"cdg1",
+				"cle1",
+				"cpt1",
+				"dub1",
+				"fra1",
+				"gru1",
+				"hkg1",
+				"hnd1",
+				"iad1",
+				"icn1",
+				"kix1",
+				"lhr1",
+				"pdx1",
+				"sfo1",
+				"sin1",
+				"syd1",
+				"yul1",
+			])
+			.optional()
+			.describe("The Vercel region in which to create the sandbox.")
+			.meta({ examples: ["iad1"] }),
+		failoverRegions: z
+			.array(
+				z.enum([
+					"arn1",
+					"bom1",
+					"cdg1",
+					"cle1",
+					"cpt1",
+					"dub1",
+					"fra1",
+					"gru1",
+					"hkg1",
+					"hnd1",
+					"iad1",
+					"icn1",
+					"kix1",
+					"lhr1",
+					"pdx1",
+					"sfo1",
+					"sin1",
+					"syd1",
+					"yul1",
+				]),
+			)
+			.max(19)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe("The regions the sandbox falls back to when it cannot be created in `region`.")
+			.meta({ examples: [["cle1", "sfo1"]] }),
+		networkId: z
+			.string()
+			.max(255)
+			.optional()
+			.describe("The Connect network id for the target Secure Compute private network."),
+		name: z
+			.string()
+			.max(128)
+			.regex(/^[a-zA-Z0-9_-]+$/)
+			.optional()
+			.describe(
+				"Name for the forked sandbox. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores). A random name is generated when omitted.",
+			)
+			.meta({ examples: ["my-sandbox-fork"] }),
+		persistent: z
+			.boolean()
+			.optional()
+			.describe(
+				"Whether the sandbox persists its state across restarts via automatic snapshots. Defaults to the source sandbox setting.",
+			),
+		snapshotExpiration: z
+			.union([z.unknown(), z.int()])
+			.optional()
+			.describe(
+				"Default snapshot expiration time in milliseconds. Defaults to 7 days. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
+			)
+			.meta({ examples: [604800000] }),
+		keepLastSnapshots: z
+			.union([
+				z.string(),
+				z.strictObject({
+					count: z.int().min(1).max(10).describe("Number of most recent snapshots to keep."),
+					expiration: z
+						.union([z.unknown(), z.int()])
+						.optional()
+						.describe(
+							"Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.",
+						),
+					deleteEvicted: z
+						.boolean()
+						.optional()
+						.describe("Whether to immediately delete evicted snapshots. Defaults to true."),
+				}),
+			])
+			.optional()
+			.describe(
+				"Protect the N most recent snapshots with different expiration/deletion behavior. Persistent sandboxes default to keeping only the last snapshot (evicted snapshots are deleted). Set to null to disable the limit.",
+			),
+		tags: z
+			.record(z.string(), z.string().max(256))
+			.optional()
+			.describe("Key-value tags to associate with the sandbox. Maximum 5 tags.")
+			.meta({ examples: [{ env: "staging", team: "platform" }] }),
+	})
+	.optional();
+
 export const createSandboxesV4QueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -30795,6 +41016,578 @@ export const createSandboxesV4ErrorSchema = z.union([
 	createSandboxesV4Status503Schema,
 ]);
 
+export const createSandboxesV4BodySchema = z
+	.strictObject({
+		networkPolicy: z
+			.union([
+				z.strictObject({
+					mode: z
+						.enum(["allow-all", "deny-all", "custom", "default-allow", "default-deny"])
+						.describe(
+							'The network access policy mode. Use \\"allow-all\\" to permit all outbound traffic. Use \\"deny-all\\" to block all outbound traffic. Use \\"custom\\" to specify explicit allow/deny rules.',
+						)
+						.meta({ examples: ["custom"] }),
+					allowedDomains: z
+						.array(z.string())
+						.optional()
+						.describe(
+							'List of domain names the sandbox is allowed to connect to. Only applies when mode is \\"custom\\". Supports wildcard patterns (e.g., \\"*.example.com\\" matches all subdomains).',
+						)
+						.meta({ examples: [["api.github.com", "*.npmjs.org"]] }),
+					allowedCIDRs: z
+						.array(z.string())
+						.optional()
+						.describe(
+							"List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.",
+						)
+						.meta({ examples: [["35.192.0.0/12", "104.16.0.0/12"]] }),
+					deniedCIDRs: z
+						.array(z.string())
+						.optional()
+						.describe(
+							"List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.",
+						)
+						.meta({ examples: [["35.192.0.0/12"]] }),
+					injectionRules: z
+						.array(
+							z.strictObject({
+								domain: z
+									.string()
+									.describe(
+										"The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.",
+									),
+								headers: z
+									.record(z.string(), z.string())
+									.describe(
+										"HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.",
+									),
+								match: z
+									.strictObject({
+										path: z
+											.strictObject({
+												exact: z
+													.string()
+													.optional()
+													.describe(
+														"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+													),
+												startsWith: z
+													.string()
+													.optional()
+													.describe("Match values that start with the given prefix."),
+											})
+											.optional()
+											.describe("Match on the request path. Comparison is case-sensitive."),
+										method: z
+											.array(z.string())
+											.optional()
+											.describe("HTTP methods to match. Any single match succeeds (OR semantics)."),
+										queryString: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+											),
+										headers: z
+											.array(
+												z.strictObject({
+													key: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry key (header name or query key)."),
+													value: z
+														.strictObject({
+															exact: z
+																.string()
+																.optional()
+																.describe(
+																	"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																),
+															startsWith: z
+																.string()
+																.optional()
+																.describe("Match values that start with the given prefix."),
+														})
+														.optional()
+														.describe("Matcher for the entry value."),
+												}),
+											)
+											.optional()
+											.describe(
+												"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+											),
+									})
+									.optional()
+									.describe(
+										"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+									),
+							}),
+						)
+						.optional()
+						.describe(
+							"HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.",
+						),
+				}),
+				z.strictObject({
+					allow: z
+						.union([
+							z.array(z.string()),
+							z.record(
+								z.string(),
+								z.array(
+									z.strictObject({
+										match: z
+											.strictObject({
+												path: z
+													.strictObject({
+														exact: z
+															.string()
+															.optional()
+															.describe(
+																"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+															),
+														startsWith: z
+															.string()
+															.optional()
+															.describe("Match values that start with the given prefix."),
+													})
+													.optional()
+													.describe("Match on the request path. Comparison is case-sensitive."),
+												method: z
+													.array(z.string())
+													.optional()
+													.describe(
+														"HTTP methods to match. Any single match succeeds (OR semantics).",
+													),
+												queryString: z
+													.array(
+														z.strictObject({
+															key: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry key (header name or query key)."),
+															value: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry value."),
+														}),
+													)
+													.optional()
+													.describe(
+														"Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.",
+													),
+												headers: z
+													.array(
+														z.strictObject({
+															key: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry key (header name or query key)."),
+															value: z
+																.strictObject({
+																	exact: z
+																		.string()
+																		.optional()
+																		.describe(
+																			"Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.",
+																		),
+																	startsWith: z
+																		.string()
+																		.optional()
+																		.describe("Match values that start with the given prefix."),
+																})
+																.optional()
+																.describe("Matcher for the entry value."),
+														}),
+													)
+													.optional()
+													.describe(
+														"Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.",
+													),
+											})
+											.optional()
+											.describe(
+												"Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.",
+											),
+										transform: z
+											.array(
+												z.strictObject({
+													headers: z.record(z.string(), z.string()).optional(),
+												}),
+											)
+											.optional(),
+										forwardURL: z
+											.string()
+											.optional()
+											.describe(
+												"HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.",
+											),
+										response: z
+											.strictObject({
+												statusCode: z
+													.int()
+													.min(200)
+													.max(599)
+													.describe("HTTP status code returned to the sandbox."),
+												headers: z
+													.record(z.string(), z.string())
+													.optional()
+													.describe(
+														"HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.",
+													),
+												body: z
+													.string()
+													.optional()
+													.describe("UTF-8 response body. Requires `contentType`."),
+												contentType: z
+													.string()
+													.optional()
+													.describe(
+														"Value of the `Content-Type` response header. Required when `body` is set.",
+													),
+											})
+											.optional()
+											.describe(
+												"Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.",
+											),
+									}),
+								),
+							),
+						])
+						.optional(),
+					subnets: z
+						.strictObject({
+							allow: z.array(z.string()).optional(),
+							deny: z.array(z.string()).optional(),
+						})
+						.optional(),
+				}),
+			])
+			.optional(),
+		architecture: z
+			.enum(["amd64", "arm64"])
+			.optional()
+			.describe(
+				"CPU architecture. Inherits a snapshot or single image manifest when omitted. Image indexes default to amd64. Must match the source. ARM64 creation requires API v3 or v4 without runtime and team access.",
+			)
+			.meta({ examples: ["arm64"] }),
+		resources: z
+			.strictObject({
+				vcpus: z
+					.int()
+					.min(1)
+					.optional()
+					.default(2)
+					.describe(
+						"The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.",
+					)
+					.meta({ examples: [2] }),
+				memory: z
+					.int()
+					.min(2048)
+					.optional()
+					.describe(
+						"The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.",
+					)
+					.meta({ examples: [4096] }),
+			})
+			.optional()
+			.describe("Resources to define the VM"),
+		source: z
+			.union([
+				z.strictObject({
+					type: z.unknown().describe("Indicates the source is a Git repository."),
+					url: z
+						.url()
+						.describe("The URL of the Git repository to clone.")
+						.meta({ examples: ["https://github.com/vercel/next.js.git"] }),
+					username: z
+						.string()
+						.optional()
+						.describe(
+							"Username for Git authentication. Required together with password for private repositories.",
+						),
+					password: z
+						.string()
+						.optional()
+						.describe(
+							"Password or personal access token for Git authentication. Required together with username for private repositories.",
+						),
+					depth: z
+						.int()
+						.min(1)
+						.optional()
+						.describe(
+							"Create a shallow clone with history truncated to the specified number of commits. Useful for faster cloning of large repositories.",
+						)
+						.meta({ examples: [1] }),
+					revision: z
+						.string()
+						.optional()
+						.describe("The specific commit SHA, branch name, or tag to checkout after cloning.")
+						.meta({ examples: ["main"] }),
+				}),
+				z.strictObject({
+					type: z.unknown().describe("Indicates the source is a tarball."),
+					url: z
+						.url()
+						.describe("URL of a gzipped tarball (.tar.gz) to download and extract.")
+						.meta({ examples: ["https://example.com/project.tar.gz"] }),
+				}),
+				z.strictObject({
+					type: z.unknown().describe("Indicates the source is a snapshot."),
+					snapshotId: z
+						.string()
+						.describe("The unique identifier of the snapshot to restore.")
+						.meta({ examples: ["snap_abc123"] }),
+				}),
+			])
+			.optional()
+			.describe(
+				"The source from which to initialize the sandbox filesystem. Can be a Git repository, a tarball URL, or an existing snapshot.",
+			),
+		projectId: z
+			.string()
+			.optional()
+			.describe("The target project slug or ID in which the sandbox will be assigned to.")
+			.meta({ examples: ["prj_abc123"] }),
+		ports: z
+			.array(z.int().min(1024).max(65535))
+			.max(15)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe(
+				"List of ports to expose from the sandbox. Each port will be accessible via a unique URL. Maximum of 15 ports can be exposed.",
+			)
+			.meta({ examples: [[3000, 4000]] }),
+		image: z.string().max(255).optional().describe("Image to use for the sandbox."),
+		timeout: z
+			.int()
+			.min(1000)
+			.optional()
+			.describe(
+				"Maximum duration in milliseconds that the sandbox can run before being automatically stopped.",
+			)
+			.meta({ examples: [300000] }),
+		env: z
+			.record(z.string(), z.string())
+			.optional()
+			.default({})
+			.describe(
+				"Default environment variables for the sandbox. These are inherited by all commands unless overridden.",
+			)
+			.meta({ examples: [{ nodeEnv: "production", hello: "world" }] }),
+		mounts: z
+			.record(
+				z.string(),
+				z.strictObject({
+					drive: z
+						.string()
+						.max(64)
+						.regex(/^[a-zA-Z0-9_-]+$/)
+						.describe("Name of the drive to mount. The drive must already exist."),
+					mode: z
+						.enum(["read-write", "snapshot"])
+						.optional()
+						.describe(
+							"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+						),
+				}),
+			)
+			.optional()
+			.describe("List of drives to mount to the sandbox at the provided path."),
+		region: z
+			.enum([
+				"arn1",
+				"bom1",
+				"cdg1",
+				"cle1",
+				"cpt1",
+				"dub1",
+				"fra1",
+				"gru1",
+				"hkg1",
+				"hnd1",
+				"iad1",
+				"icn1",
+				"kix1",
+				"lhr1",
+				"pdx1",
+				"sfo1",
+				"sin1",
+				"syd1",
+				"yul1",
+			])
+			.optional()
+			.describe("The Vercel region in which to create the sandbox.")
+			.meta({ examples: ["iad1"] }),
+		failoverRegions: z
+			.array(
+				z.enum([
+					"arn1",
+					"bom1",
+					"cdg1",
+					"cle1",
+					"cpt1",
+					"dub1",
+					"fra1",
+					"gru1",
+					"hkg1",
+					"hnd1",
+					"iad1",
+					"icn1",
+					"kix1",
+					"lhr1",
+					"pdx1",
+					"sfo1",
+					"sin1",
+					"syd1",
+					"yul1",
+				]),
+			)
+			.max(19)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe("The regions the sandbox falls back to when it cannot be created in `region`.")
+			.meta({ examples: [["cle1", "sfo1"]] }),
+		networkId: z
+			.string()
+			.max(255)
+			.optional()
+			.describe("The Connect network id for the target Secure Compute private network."),
+		name: z
+			.string()
+			.max(128)
+			.regex(/^[a-zA-Z0-9_-]+$/)
+			.optional()
+			.describe(
+				"Name for the sandbox. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
+			)
+			.meta({ examples: ["my-sandbox"] }),
+		persistent: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe(
+				"Whether the sandbox persists its state across restarts via automatic snapshots. Defaults to true.",
+			),
+		snapshotExpiration: z
+			.union([z.unknown(), z.int()])
+			.optional()
+			.describe(
+				"Default snapshot expiration time in milliseconds. Defaults to 7 days. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
+			)
+			.meta({ examples: [604800000] }),
+		keepLastSnapshots: z
+			.union([
+				z.string(),
+				z.strictObject({
+					count: z.int().min(1).max(10).describe("Number of most recent snapshots to keep."),
+					expiration: z
+						.union([z.unknown(), z.int()])
+						.optional()
+						.describe(
+							"Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.",
+						),
+					deleteEvicted: z
+						.boolean()
+						.optional()
+						.describe("Whether to immediately delete evicted snapshots. Defaults to true."),
+				}),
+			])
+			.optional()
+			.describe(
+				"Protect the N most recent snapshots with different expiration/deletion behavior. Persistent sandboxes default to keeping only the last snapshot (evicted snapshots are deleted). Set to null to disable the limit.",
+			),
+		tags: z
+			.record(z.string(), z.string().max(256))
+			.optional()
+			.describe("Key-value tags to associate with the sandbox. Maximum 5 tags.")
+			.meta({ examples: [{ env: "staging", team: "platform" }] }),
+	})
+	.optional();
+
 export const updateAttackChallengeModeQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -30827,6 +41620,18 @@ export const updateAttackChallengeModeErrorSchema = z.union([
 	updateAttackChallengeModeStatus403Schema,
 	updateAttackChallengeModeStatus404Schema,
 	updateAttackChallengeModeStatus410Schema,
+]);
+
+export const updateAttackChallengeModeBodySchema = z.union([
+	z.strictObject({
+		projectId: z.string(),
+		attackModeEnabled: z.boolean(),
+		attackModeActiveUntil: z.number(),
+	}),
+	z.strictObject({
+		projectId: z.string(),
+		attackModeEnabled: z.boolean(),
+	}),
 ]);
 
 export const getSecurityFirewallConfigStatus200Schema = z.unknown();
@@ -30893,6 +41698,342 @@ export const putFirewallConfigErrorSchema = z.union([
 	putFirewallConfigStatus500Schema,
 ]);
 
+export const putFirewallConfigBodySchema = z.strictObject({
+	firewallEnabled: z.boolean(),
+	managedRules: z.object({}).optional(),
+	crs: z
+		.strictObject({
+			sd: z
+				.strictObject({
+					active: z.boolean(),
+					action: z.enum(["deny", "log"]),
+				})
+				.optional()
+				.describe(
+					"Scanner Detection - Detect and prevent reconnaissance activities from network scanning tools.",
+				),
+			ma: z
+				.strictObject({
+					active: z.boolean(),
+					action: z.enum(["deny", "log"]),
+				})
+				.optional()
+				.describe(
+					"Multipart Attack - Block attempts to bypass security controls using multipart/form-data encoding.",
+				),
+			lfi: z
+				.strictObject({
+					active: z.boolean(),
+					action: z.enum(["deny", "log"]),
+				})
+				.optional()
+				.describe(
+					"Local File Inclusion Attack - Prevent unauthorized access to local files through web applications.",
+				),
+			rfi: z
+				.strictObject({
+					active: z.boolean(),
+					action: z.enum(["deny", "log"]),
+				})
+				.optional()
+				.describe(
+					"Remote File Inclusion Attack - Prohibit unauthorized upload or execution of remote files.",
+				),
+			rce: z
+				.strictObject({
+					active: z.boolean(),
+					action: z.enum(["deny", "log"]),
+				})
+				.optional()
+				.describe(
+					"Remote Execution Attack - Prevent unauthorized execution of remote scripts or commands.",
+				),
+			php: z
+				.strictObject({
+					active: z.boolean(),
+					action: z.enum(["deny", "log"]),
+				})
+				.optional()
+				.describe(
+					"PHP Attack - Safeguard against vulnerability exploits in PHP-based applications.",
+				),
+			gen: z
+				.strictObject({
+					active: z.boolean(),
+					action: z.enum(["deny", "log"]),
+				})
+				.optional()
+				.describe(
+					"Generic Attack - Provide broad protection from various undefined or novel attack vectors.",
+				),
+			xss: z
+				.strictObject({
+					active: z.boolean(),
+					action: z.enum(["deny", "log"]),
+				})
+				.optional()
+				.describe("XSS Attack - Prevent injection of malicious scripts into trusted webpages."),
+			sqli: z
+				.strictObject({
+					active: z.boolean(),
+					action: z.enum(["deny", "log"]),
+				})
+				.optional()
+				.describe(
+					"SQL Injection Attack - Prohibit unauthorized use of SQL commands to manipulate databases.",
+				),
+			sf: z
+				.strictObject({
+					active: z.boolean(),
+					action: z.enum(["deny", "log"]),
+				})
+				.optional()
+				.describe(
+					"Session Fixation Attack - Prevent unauthorized takeover of user sessions by enforcing unique session IDs.",
+				),
+			java: z
+				.strictObject({
+					active: z.boolean(),
+					action: z.enum(["deny", "log"]),
+				})
+				.optional()
+				.describe(
+					"Java Attack - Mitigate risks of exploitation targeting Java-based applications or components.",
+				),
+		})
+		.optional()
+		.describe("Custom Ruleset"),
+	rules: z
+		.array(
+			z.strictObject({
+				id: z.string().optional(),
+				name: z.string().max(160),
+				description: z.string().max(256).optional(),
+				active: z.boolean(),
+				conditionGroup: z
+					.array(
+						z.strictObject({
+							conditions: z
+								.array(
+									z.strictObject({
+										type: z
+											.enum([
+												"bot_category",
+												"bot_name",
+												"bot_protection",
+												"bot_status",
+												"cookie",
+												"domain_environment",
+												"environment",
+												"geo_as_number",
+												"geo_city",
+												"geo_continent",
+												"geo_country",
+												"geo_country_region",
+												"header",
+												"host",
+												"ip_address",
+												"ja3_digest",
+												"ja4_digest",
+												"method",
+												"path",
+												"protocol",
+												"query",
+												"rate_limit_api_id",
+												"raw_path",
+												"region",
+												"response_code",
+												"route",
+												"ruleset",
+												"scheme",
+												"server_action",
+												"shared_condition",
+												"target_path",
+												"traffic_source",
+												"user_agent",
+											])
+											.describe(
+												"[Parameter](https://vercel.com/docs/security/vercel-waf/rule-configuration#parameters) from the incoming traffic.",
+											),
+										op: z.enum([
+											"eq",
+											"ex",
+											"gt",
+											"gte",
+											"inc",
+											"list",
+											"lt",
+											"lte",
+											"neq",
+											"nex",
+											"ninc",
+											"pre",
+											"re",
+											"sub",
+											"suf",
+										]),
+										neg: z.boolean().optional(),
+										key: z.string().optional(),
+										value: z
+											.union([z.string(), z.array(z.string()).max(75), z.number()])
+											.optional(),
+									}),
+								)
+								.max(65),
+						}),
+					)
+					.max(25),
+				action: z.strictObject({
+					mitigate: z
+						.strictObject({
+							action: z.enum(["bypass", "challenge", "deny", "log", "rate_limit", "redirect"]),
+							rateLimit: z
+								.union([
+									z.strictObject({
+										algo: z.enum(["fixed_window", "token_bucket"]),
+										window: z.number(),
+										limit: z.number(),
+										keys: z.array(z.string()),
+										action: z
+											.union([z.enum(["log", "challenge", "deny", "rate_limit"]), z.unknown()])
+											.nullish(),
+									}),
+									z.unknown(),
+								])
+								.nullish(),
+							redirect: z
+								.union([
+									z.strictObject({
+										location: z.string(),
+										permanent: z.boolean(),
+									}),
+									z.unknown(),
+								])
+								.nullish(),
+							actionDuration: z.string().nullish(),
+							bypassSystem: z.boolean().nullish(),
+							logHeaders: z.union([z.string(), z.array(z.string())]).optional(),
+						})
+						.optional(),
+				}),
+				valid: z.boolean().optional(),
+				validationErrors: z.union([z.array(z.string()), z.string()]).optional(),
+			}),
+		)
+		.optional(),
+	rulesets: z
+		.union([
+			z.array(
+				z.strictObject({
+					id: z.string().optional(),
+					name: z.string().max(160),
+					description: z.string().max(256).optional(),
+					active: z.boolean(),
+					conditionGroup: z
+						.array(
+							z.strictObject({
+								conditions: z
+									.array(
+										z.strictObject({
+											type: z.enum([
+												"host",
+												"path",
+												"method",
+												"header",
+												"query",
+												"cookie",
+												"target_path",
+												"route",
+												"raw_path",
+												"ip_address",
+												"region",
+												"protocol",
+												"scheme",
+												"environment",
+												"domain_environment",
+												"user_agent",
+												"geo_continent",
+												"geo_country",
+												"geo_country_region",
+												"geo_city",
+												"geo_as_number",
+												"ja4_digest",
+												"ja3_digest",
+												"rate_limit_api_id",
+												"server_action",
+												"bot_name",
+												"bot_category",
+												"bot_status",
+												"bot_protection",
+												"shared_condition",
+												"traffic_source",
+												"ruleset",
+												"response_code",
+											]),
+											op: z.enum([
+												"re",
+												"eq",
+												"neq",
+												"ex",
+												"nex",
+												"inc",
+												"ninc",
+												"pre",
+												"suf",
+												"sub",
+												"gt",
+												"gte",
+												"lt",
+												"lte",
+												"list",
+											]),
+											neg: z.boolean().optional(),
+											key: z.string().optional(),
+											value: z
+												.union([z.string(), z.array(z.string()).max(75), z.number()])
+												.optional(),
+										}),
+									)
+									.max(65),
+							}),
+						)
+						.max(25),
+					action: z
+						.strictObject({
+							mitigate: z
+								.strictObject({
+									action: z.enum(["deny", "challenge", "log"]),
+								})
+								.optional(),
+						})
+						.optional(),
+					valid: z.boolean().optional(),
+					validationErrors: z.union([z.array(z.string()), z.string()]).optional(),
+				}),
+			),
+			z.record(
+				z.string(),
+				z.strictObject({
+					action: z.enum(["deny", "challenge", "log", "allow"]),
+				}),
+			),
+		])
+		.optional(),
+	ips: z
+		.array(
+			z.strictObject({
+				id: z.string().optional(),
+				hostname: z.string(),
+				ip: z.string(),
+				notes: z.string().optional(),
+				action: z.enum(["bypass", "challenge", "deny", "log"]),
+			}),
+		)
+		.optional(),
+	botIdEnabled: z.boolean().optional(),
+	logHeaders: z.union([z.string(), z.array(z.string())]).optional(),
+});
+
 export const updateFirewallConfigQueryProjectIdSchema = z.string();
 
 export const updateFirewallConfigQueryTeamIdSchema = z
@@ -30933,6 +42074,680 @@ export const updateFirewallConfigErrorSchema = z.union([
 	updateFirewallConfigStatus404Schema,
 	updateFirewallConfigStatus410Schema,
 	updateFirewallConfigStatus500Schema,
+]);
+
+export const updateFirewallConfigBodySchema = z.union([
+	z.strictObject({
+		action: z.enum(["firewallEnabled"]),
+		id: z.unknown().nullish(),
+		value: z.strictObject({
+			name: z.string().max(160),
+			description: z.string().max(256).optional(),
+			active: z.boolean(),
+			conditionGroup: z
+				.array(
+					z.strictObject({
+						conditions: z
+							.array(
+								z.strictObject({
+									type: z.enum([
+										"host",
+										"path",
+										"method",
+										"header",
+										"query",
+										"cookie",
+										"target_path",
+										"route",
+										"raw_path",
+										"ip_address",
+										"region",
+										"protocol",
+										"scheme",
+										"environment",
+										"domain_environment",
+										"user_agent",
+										"geo_continent",
+										"geo_country",
+										"geo_country_region",
+										"geo_city",
+										"geo_as_number",
+										"ja4_digest",
+										"ja3_digest",
+										"rate_limit_api_id",
+										"server_action",
+										"bot_name",
+										"bot_category",
+										"bot_status",
+										"bot_protection",
+										"shared_condition",
+										"traffic_source",
+										"ruleset",
+										"response_code",
+									]),
+									op: z.enum([
+										"re",
+										"eq",
+										"neq",
+										"ex",
+										"nex",
+										"inc",
+										"ninc",
+										"pre",
+										"suf",
+										"sub",
+										"gt",
+										"gte",
+										"lt",
+										"lte",
+										"list",
+									]),
+									neg: z.boolean().optional(),
+									key: z.string().optional(),
+									value: z.union([z.string(), z.array(z.string()).max(75), z.number()]).optional(),
+								}),
+							)
+							.max(65),
+					}),
+				)
+				.max(25),
+			action: z
+				.strictObject({
+					mitigate: z
+						.strictObject({
+							action: z.enum(["deny", "challenge", "log"]),
+						})
+						.optional(),
+				})
+				.optional(),
+			valid: z.boolean().optional(),
+			validationErrors: z.union([z.array(z.string()), z.string()]).optional(),
+		}),
+	}),
+	z.strictObject({
+		action: z.enum(["rules.insert"]),
+		id: z.unknown().nullable(),
+		value: z.strictObject({
+			name: z.string().max(160),
+			description: z.string().max(256).optional(),
+			active: z.boolean(),
+			conditionGroup: z
+				.array(
+					z.strictObject({
+						conditions: z
+							.array(
+								z.strictObject({
+									type: z.enum([
+										"host",
+										"path",
+										"method",
+										"header",
+										"query",
+										"cookie",
+										"target_path",
+										"route",
+										"raw_path",
+										"ip_address",
+										"region",
+										"protocol",
+										"scheme",
+										"environment",
+										"domain_environment",
+										"user_agent",
+										"geo_continent",
+										"geo_country",
+										"geo_country_region",
+										"geo_city",
+										"geo_as_number",
+										"ja4_digest",
+										"ja3_digest",
+										"rate_limit_api_id",
+										"server_action",
+										"bot_name",
+										"bot_category",
+										"bot_status",
+										"bot_protection",
+										"shared_condition",
+										"traffic_source",
+										"ruleset",
+										"response_code",
+									]),
+									op: z.enum([
+										"re",
+										"eq",
+										"neq",
+										"ex",
+										"nex",
+										"inc",
+										"ninc",
+										"pre",
+										"suf",
+										"sub",
+										"gt",
+										"gte",
+										"lt",
+										"lte",
+										"list",
+									]),
+									neg: z.boolean().optional(),
+									key: z.string().optional(),
+									value: z.union([z.string(), z.array(z.string()).max(75), z.number()]).optional(),
+								}),
+							)
+							.max(65),
+					}),
+				)
+				.max(25),
+			action: z
+				.strictObject({
+					mitigate: z
+						.strictObject({
+							action: z.enum(["deny", "challenge", "log"]),
+						})
+						.optional(),
+				})
+				.optional(),
+			valid: z.boolean().optional(),
+			validationErrors: z.union([z.array(z.string()), z.string()]).optional(),
+		}),
+	}),
+	z.strictObject({
+		action: z.enum(["rules.update"]),
+		id: z.string(),
+		value: z.string().optional(),
+	}),
+	z.strictObject({
+		action: z.enum(["rules.remove"]),
+		id: z.string(),
+		value: z.unknown().nullable(),
+	}),
+	z.strictObject({
+		action: z.enum(["rules.priority"]),
+		id: z.string().optional(),
+		value: z.strictObject({
+			name: z.string().max(160),
+			description: z.string().max(256).optional(),
+			active: z.boolean(),
+			conditionGroup: z
+				.array(
+					z.strictObject({
+						conditions: z
+							.array(
+								z.strictObject({
+									type: z.enum([
+										"host",
+										"path",
+										"method",
+										"header",
+										"query",
+										"cookie",
+										"target_path",
+										"route",
+										"raw_path",
+										"ip_address",
+										"region",
+										"protocol",
+										"scheme",
+										"environment",
+										"domain_environment",
+										"user_agent",
+										"geo_continent",
+										"geo_country",
+										"geo_country_region",
+										"geo_city",
+										"geo_as_number",
+										"ja4_digest",
+										"ja3_digest",
+										"rate_limit_api_id",
+										"server_action",
+										"bot_name",
+										"bot_category",
+										"bot_status",
+										"bot_protection",
+										"shared_condition",
+										"traffic_source",
+										"ruleset",
+										"response_code",
+									]),
+									op: z.enum([
+										"re",
+										"eq",
+										"neq",
+										"ex",
+										"nex",
+										"inc",
+										"ninc",
+										"pre",
+										"suf",
+										"sub",
+										"gt",
+										"gte",
+										"lt",
+										"lte",
+										"list",
+									]),
+									neg: z.boolean().optional(),
+									key: z.string().optional(),
+									value: z.union([z.string(), z.array(z.string()).max(75), z.number()]).optional(),
+								}),
+							)
+							.max(65),
+					}),
+				)
+				.max(25),
+			valid: z.boolean().optional(),
+			validationErrors: z.union([z.array(z.string()), z.string()]).optional(),
+		}),
+	}),
+	z.strictObject({
+		action: z.enum(["crs.update"]),
+		id: z.string(),
+		value: z.strictObject({
+			name: z.string().max(160),
+			description: z.string().max(256).optional(),
+			active: z.boolean(),
+			conditionGroup: z
+				.array(
+					z.strictObject({
+						conditions: z
+							.array(
+								z.strictObject({
+									type: z.enum([
+										"host",
+										"path",
+										"method",
+										"header",
+										"query",
+										"cookie",
+										"target_path",
+										"route",
+										"raw_path",
+										"ip_address",
+										"region",
+										"protocol",
+										"scheme",
+										"environment",
+										"domain_environment",
+										"user_agent",
+										"geo_continent",
+										"geo_country",
+										"geo_country_region",
+										"geo_city",
+										"geo_as_number",
+										"ja4_digest",
+										"ja3_digest",
+										"rate_limit_api_id",
+										"server_action",
+										"bot_name",
+										"bot_category",
+										"bot_status",
+										"bot_protection",
+										"shared_condition",
+										"traffic_source",
+										"ruleset",
+										"response_code",
+									]),
+									op: z.enum([
+										"re",
+										"eq",
+										"neq",
+										"ex",
+										"nex",
+										"inc",
+										"ninc",
+										"pre",
+										"suf",
+										"sub",
+										"gt",
+										"gte",
+										"lt",
+										"lte",
+										"list",
+									]),
+									neg: z.boolean().optional(),
+									key: z.string().optional(),
+									value: z.union([z.string(), z.array(z.string()).max(75), z.number()]).optional(),
+								}),
+							)
+							.max(65),
+					}),
+				)
+				.max(25),
+			valid: z.boolean().optional(),
+			validationErrors: z.union([z.array(z.string()), z.string()]).optional(),
+		}),
+	}),
+	z.strictObject({
+		action: z.enum(["crs.disable"]),
+		id: z.unknown().nullable(),
+		value: z.unknown().nullish(),
+	}),
+	z.strictObject({
+		action: z.enum(["ip.insert"]),
+		id: z.string().max(180).nullable(),
+		value: z.strictObject({
+			action: z.enum(["deny", "challenge", "log", "allow"]),
+		}),
+	}),
+	z.strictObject({
+		action: z.enum(["ip.update"]),
+		id: z.string().max(180),
+		value: z.string().optional(),
+	}),
+	z.strictObject({
+		action: z.enum(["ip.remove"]),
+		id: z.string().optional(),
+		value: z.unknown().nullable(),
+	}),
+	z.strictObject({
+		action: z.enum(["managedRules.update"]),
+		id: z.string().optional(),
+		value: z.strictObject({
+			name: z.string().max(160),
+			description: z.string().max(256).optional(),
+			active: z.boolean(),
+			conditionGroup: z
+				.array(
+					z.strictObject({
+						conditions: z
+							.array(
+								z.strictObject({
+									type: z.enum([
+										"host",
+										"path",
+										"method",
+										"header",
+										"query",
+										"cookie",
+										"target_path",
+										"route",
+										"raw_path",
+										"ip_address",
+										"region",
+										"protocol",
+										"scheme",
+										"environment",
+										"domain_environment",
+										"user_agent",
+										"geo_continent",
+										"geo_country",
+										"geo_country_region",
+										"geo_city",
+										"geo_as_number",
+										"ja4_digest",
+										"ja3_digest",
+										"rate_limit_api_id",
+										"server_action",
+										"bot_name",
+										"bot_category",
+										"bot_status",
+										"bot_protection",
+										"shared_condition",
+										"traffic_source",
+										"ruleset",
+										"response_code",
+									]),
+									op: z.enum([
+										"re",
+										"eq",
+										"neq",
+										"ex",
+										"nex",
+										"inc",
+										"ninc",
+										"pre",
+										"suf",
+										"sub",
+										"gt",
+										"gte",
+										"lt",
+										"lte",
+										"list",
+									]),
+									neg: z.boolean().optional(),
+									key: z.string().optional(),
+									value: z.union([z.string(), z.array(z.string()).max(75), z.number()]).optional(),
+								}),
+							)
+							.max(65),
+					}),
+				)
+				.max(25),
+			action: z.strictObject({
+				mitigate: z
+					.strictObject({
+						action: z.enum(["log", "challenge", "deny", "bypass", "rate_limit", "redirect"]),
+						rateLimit: z
+							.union([
+								z.strictObject({
+									algo: z.enum(["fixed_window", "token_bucket"]),
+									window: z.number(),
+									limit: z.number(),
+									keys: z.array(z.string()),
+									action: z.string().optional(),
+								}),
+								z.string(),
+							])
+							.optional(),
+						redirect: z
+							.union([
+								z.strictObject({
+									location: z.string(),
+									permanent: z.boolean(),
+								}),
+								z.string(),
+							])
+							.optional(),
+						actionDuration: z.string().nullish(),
+						bypassSystem: z.boolean().nullish(),
+						logHeaders: z.union([z.string(), z.array(z.string())]).optional(),
+					})
+					.optional(),
+			}),
+			valid: z.boolean().optional(),
+			validationErrors: z.union([z.array(z.string()), z.string()]).optional(),
+		}),
+	}),
+	z.strictObject({
+		action: z.string(),
+		id: z.string(),
+		value: z.strictObject({
+			name: z.string().max(160),
+			description: z.string().max(256).optional(),
+			active: z.boolean(),
+			conditionGroup: z
+				.array(
+					z.strictObject({
+						conditions: z
+							.array(
+								z.strictObject({
+									type: z.enum([
+										"host",
+										"path",
+										"method",
+										"header",
+										"query",
+										"cookie",
+										"target_path",
+										"route",
+										"raw_path",
+										"ip_address",
+										"region",
+										"protocol",
+										"scheme",
+										"environment",
+										"domain_environment",
+										"user_agent",
+										"geo_continent",
+										"geo_country",
+										"geo_country_region",
+										"geo_city",
+										"geo_as_number",
+										"ja4_digest",
+										"ja3_digest",
+										"rate_limit_api_id",
+										"server_action",
+										"bot_name",
+										"bot_category",
+										"bot_status",
+										"bot_protection",
+										"shared_condition",
+										"traffic_source",
+										"ruleset",
+										"response_code",
+									]),
+									op: z.enum([
+										"re",
+										"eq",
+										"neq",
+										"ex",
+										"nex",
+										"inc",
+										"ninc",
+										"pre",
+										"suf",
+										"sub",
+										"gt",
+										"gte",
+										"lt",
+										"lte",
+										"list",
+									]),
+									neg: z.boolean().optional(),
+									key: z.string().optional(),
+									value: z.union([z.string(), z.array(z.string()).max(75), z.number()]).optional(),
+								}),
+							)
+							.max(65),
+					}),
+				)
+				.max(25),
+			action: z.strictObject({
+				mitigate: z
+					.strictObject({
+						action: z.enum(["log", "challenge", "deny", "bypass", "rate_limit", "redirect"]),
+						rateLimit: z
+							.union([
+								z.strictObject({
+									algo: z.enum(["fixed_window", "token_bucket"]),
+									window: z.number(),
+									limit: z.number(),
+									keys: z.array(z.string()),
+									action: z.string().optional(),
+								}),
+								z.string(),
+							])
+							.optional(),
+						redirect: z
+							.union([
+								z.strictObject({
+									location: z.string(),
+									permanent: z.boolean(),
+								}),
+								z.string(),
+							])
+							.optional(),
+						actionDuration: z.string().nullish(),
+						bypassSystem: z.boolean().nullish(),
+						logHeaders: z.union([z.string(), z.array(z.string())]).optional(),
+					})
+					.optional(),
+			}),
+			valid: z.boolean().optional(),
+			validationErrors: z.union([z.array(z.string()), z.string()]).optional(),
+		}),
+	}),
+	z.strictObject({
+		action: z.string(),
+		id: z.string(),
+		value: z.string().optional(),
+	}),
+	z.strictObject({
+		action: z.string(),
+		id: z.string(),
+		value: z.number(),
+	}),
+	z.strictObject({
+		action: z.string(),
+		id: z.enum(["sd", "ma", "lfi", "rfi", "rce", "php", "gen", "xss", "sqli", "sf", "java"]),
+		value: z.strictObject({
+			active: z.boolean(),
+			action: z.enum(["deny", "log"]),
+		}),
+	}),
+	z.strictObject({
+		action: z.string(),
+		id: z.string().optional(),
+		value: z.string().optional(),
+	}),
+	z.strictObject({
+		action: z.string(),
+		id: z.string().optional(),
+		value: z.strictObject({
+			hostname: z.string(),
+			ip: z.string(),
+			notes: z.string().optional(),
+			action: z.enum(["deny", "challenge", "log", "bypass"]),
+		}),
+	}),
+	z.strictObject({
+		action: z.string(),
+		id: z.string(),
+		value: z.strictObject({
+			hostname: z.string(),
+			ip: z.string(),
+			notes: z.string().optional(),
+			action: z.enum(["deny", "challenge", "log", "bypass"]),
+		}),
+	}),
+	z.strictObject({
+		action: z.string(),
+		id: z.string(),
+		value: z.string().optional(),
+	}),
+	z.strictObject({
+		action: z.string(),
+		id: z.enum([
+			"ai_bots",
+			"bot_filter",
+			"bot_protection",
+			"traffic_sources",
+			"vercel_ruleset",
+			"owasp",
+		]),
+		value: z.strictObject({
+			action: z.enum(["log", "challenge", "deny"]).optional(),
+			active: z.boolean(),
+		}),
+	}),
+	z.strictObject({
+		action: z.string(),
+		id: z.enum([
+			"ai_bots",
+			"bot_filter",
+			"bot_protection",
+			"traffic_sources",
+			"vercel_ruleset",
+			"owasp",
+		]),
+		value: z.record(
+			z.string(),
+			z.strictObject({
+				active: z.boolean(),
+				action: z.enum(["log", "challenge", "deny"]).optional(),
+			}),
+		),
+	}),
+	z.strictObject({
+		action: z.string(),
+		id: z.string().optional(),
+		value: z.boolean(),
+	}),
+	z.strictObject({
+		action: z.string(),
+		id: z.string().optional(),
+		value: z.union([z.string(), z.array(z.string()), z.string()]),
+	}),
 ]);
 
 export const getFirewallConfigQueryProjectIdSchema = z.string();
@@ -31190,6 +43005,39 @@ export const addBypassIpErrorSchema = z.union([
 	addBypassIpStatus500Schema,
 ]);
 
+export const addBypassIpBodySchema = z
+	.union([
+		z.strictObject({
+			domain: z
+				.string()
+				.max(2544)
+				.regex(/([a-z]+[a-z.]+)$/),
+		}),
+		z.strictObject({
+			projectScope: z
+				.boolean()
+				.describe("If the specified bypass will apply to all domains for a project."),
+		}),
+	])
+	.and(
+		z.strictObject({
+			domain: z
+				.string()
+				.max(2544)
+				.regex(/([a-z]+[a-z.]+)$/)
+				.optional(),
+			projectScope: z
+				.boolean()
+				.optional()
+				.describe("If the specified bypass will apply to all domains for a project."),
+			sourceIp: z.string().optional(),
+			allSources: z.boolean().optional(),
+			ttl: z.number().optional().describe("Time to live in milliseconds"),
+			note: z.string().max(500).optional(),
+		}),
+	)
+	.optional();
+
 export const removeBypassIpQueryProjectIdSchema = z.string();
 
 export const removeBypassIpQueryTeamIdSchema = z
@@ -31230,6 +43078,194 @@ export const removeBypassIpErrorSchema = z.union([
 	removeBypassIpStatus404Schema,
 	removeBypassIpStatus410Schema,
 	removeBypassIpStatus500Schema,
+]);
+
+export const removeBypassIpBodySchema = z
+	.union([
+		z.strictObject({
+			domain: z
+				.string()
+				.max(2544)
+				.regex(/([a-z]+[a-z.]+)$/),
+		}),
+		z.strictObject({
+			projectScope: z.boolean(),
+		}),
+	])
+	.and(
+		z.strictObject({
+			domain: z
+				.string()
+				.max(2544)
+				.regex(/([a-z]+[a-z.]+)$/)
+				.optional(),
+			projectScope: z.boolean().optional(),
+			sourceIp: z.string().optional(),
+			allSources: z.boolean().optional(),
+			note: z.string().max(500).optional(),
+		}),
+	)
+	.optional();
+
+export const getConditionalBypassQueryProjectIdSchema = z.string();
+
+export const getConditionalBypassQuerySlugSchema = z
+	.string()
+	.optional()
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const getConditionalBypassQueryDomainSchema = z.string().optional();
+
+export const getConditionalBypassQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const getConditionalBypassStatus200Schema = z.unknown();
+
+export const getConditionalBypassStatus400Schema = z.unknown();
+
+export const getConditionalBypassStatus401Schema = z.unknown();
+
+export const getConditionalBypassStatus403Schema = z.unknown();
+
+export const getConditionalBypassStatus404Schema = z.unknown();
+
+export const getConditionalBypassStatus410Schema = z.unknown();
+
+export const getConditionalBypassResponseSchema = getConditionalBypassStatus200Schema;
+
+export const getConditionalBypassErrorSchema = z.union([
+	getConditionalBypassStatus400Schema,
+	getConditionalBypassStatus401Schema,
+	getConditionalBypassStatus403Schema,
+	getConditionalBypassStatus404Schema,
+	getConditionalBypassStatus410Schema,
+]);
+
+export const createConditionalBypassQueryProjectIdSchema = z.string();
+
+export const createConditionalBypassQuerySlugSchema = z
+	.string()
+	.optional()
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const createConditionalBypassQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const createConditionalBypassStatus200Schema = z.unknown();
+
+export const createConditionalBypassStatus400Schema = z.unknown();
+
+export const createConditionalBypassStatus401Schema = z.unknown();
+
+export const createConditionalBypassStatus403Schema = z.unknown();
+
+export const createConditionalBypassStatus404Schema = z.unknown();
+
+export const createConditionalBypassStatus409Schema = z.unknown();
+
+export const createConditionalBypassStatus410Schema = z.unknown();
+
+export const createConditionalBypassResponseSchema = createConditionalBypassStatus200Schema;
+
+export const createConditionalBypassErrorSchema = z.union([
+	createConditionalBypassStatus400Schema,
+	createConditionalBypassStatus401Schema,
+	createConditionalBypassStatus403Schema,
+	createConditionalBypassStatus404Schema,
+	createConditionalBypassStatus409Schema,
+	createConditionalBypassStatus410Schema,
+]);
+
+export const createConditionalBypassBodySchema = z
+	.strictObject({
+		domain: z.string(),
+		conditionGroup: z
+			.array(
+				z.object({
+					conditions: z
+						.array(
+							z.union([
+								z.strictObject({
+									type: z.enum(["user_agent"]),
+									op: z.enum(["eq", "pre", "suf", "sub"]),
+									value: z.string().max(500),
+									key: z.enum(["user-agent"]).optional(),
+								}),
+								z.strictObject({
+									type: z.enum(["path"]),
+									op: z.enum(["eq", "pre", "suf", "sub"]),
+									value: z.string().max(500),
+								}),
+								z.strictObject({
+									type: z.enum(["header"]),
+									op: z.enum(["eq", "pre", "suf", "sub"]),
+									key: z
+										.string()
+										.max(128)
+										.regex(/^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/),
+									value: z.string().max(500),
+								}),
+								z.strictObject({
+									type: z.enum(["header"]),
+									op: z.enum(["ex"]),
+									key: z
+										.string()
+										.max(128)
+										.regex(/^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/),
+								}),
+							]),
+						)
+						.min(1)
+						.max(65),
+				}),
+			)
+			.min(1)
+			.max(25),
+		note: z.string().max(500).optional(),
+	})
+	.optional();
+
+export const deleteConditionalBypassQueryProjectIdSchema = z.string();
+
+export const deleteConditionalBypassQuerySlugSchema = z
+	.string()
+	.optional()
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const deleteConditionalBypassQueryDomainSchema = z.string();
+
+export const deleteConditionalBypassQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const deleteConditionalBypassStatus204Schema = z.unknown();
+
+export const deleteConditionalBypassStatus400Schema = z.unknown();
+
+export const deleteConditionalBypassStatus401Schema = z.unknown();
+
+export const deleteConditionalBypassStatus403Schema = z.unknown();
+
+export const deleteConditionalBypassStatus404Schema = z.unknown();
+
+export const deleteConditionalBypassStatus410Schema = z.unknown();
+
+export const deleteConditionalBypassResponseSchema = deleteConditionalBypassStatus204Schema;
+
+export const deleteConditionalBypassErrorSchema = z.union([
+	deleteConditionalBypassStatus400Schema,
+	deleteConditionalBypassStatus401Schema,
+	deleteConditionalBypassStatus403Schema,
+	deleteConditionalBypassStatus404Schema,
+	deleteConditionalBypassStatus410Schema,
 ]);
 
 export const getSecurityFirewallEventsQuerySortSchema = z
@@ -31456,6 +43492,12 @@ export const createSpeedInsightsToggleErrorSchema = z.union([
 	createSpeedInsightsToggleStatus410Schema,
 ]);
 
+export const createSpeedInsightsToggleBodySchema = z
+	.object({
+		value: z.boolean(),
+	})
+	.optional();
+
 export const getStorageStoresByIdPathIdSchema = z.string();
 
 export const getStorageStoresByIdQuerySkipMetadataSchema = z.boolean().optional();
@@ -31514,6 +43556,38 @@ export const createStorageStoresBlobErrorSchema = z.union([
 	createStorageStoresBlobStatus410Schema,
 	createStorageStoresBlobStatus429Schema,
 ]);
+
+export const createStorageStoresBlobBodySchema = z
+	.object({
+		name: z.string().max(70),
+		region: z
+			.enum([
+				"arn1",
+				"bom1",
+				"cdg1",
+				"cle1",
+				"cpt1",
+				"dub1",
+				"dxb1",
+				"fra1",
+				"gru1",
+				"hkg1",
+				"hnd1",
+				"iad1",
+				"icn1",
+				"kix1",
+				"lhr1",
+				"pdx1",
+				"sfo1",
+				"sin1",
+				"syd1",
+				"yul1",
+			])
+			.optional(),
+		access: z.enum(["private", "public"]).optional().default("public"),
+		projectId: z.string().max(50).optional(),
+	})
+	.optional();
 
 export const deleteStorageStoresBlobByIdPathIdSchema = z.string();
 
@@ -31585,6 +43659,90 @@ export const createIntegrationStoreDirectErrorSchema = z.union([
 	createIntegrationStoreDirectStatus410Schema,
 	createIntegrationStoreDirectStatus500Schema,
 ]);
+
+export const createIntegrationStoreDirectBodySchema = z
+	.object({
+		name: z
+			.string()
+			.max(128)
+			.describe("Human-readable name for the storage resource")
+			.meta({ examples: ["my-dev-database"] }),
+		integrationConfigurationId: z
+			.string()
+			.regex(/^icfg_[a-zA-Z0-9]+$/)
+			.describe(
+				"ID of your integration configuration. Get this from GET /v1/integrations/configurations",
+			)
+			.meta({ examples: ["icfg_cuwj0AdCdH3BwWT4LPijCC7t"] }),
+		integrationProductIdOrSlug: z
+			.union([z.string().regex(/^iap_[a-zA-Z0-9_]+$/), z.string().regex(/^[a-z0-9-]+$/)])
+			.describe(
+				"ID or slug of the integration product. Get available products from GET /v1/integrations/configuration/{id}/products",
+			)
+			.meta({ examples: ["iap_postgres_db"] }),
+		metadata: z
+			.record(
+				z.string(),
+				z.union([z.string(), z.number(), z.boolean(), z.array(z.string()), z.array(z.number())]),
+			)
+			.optional()
+			.describe("Optional key-value pairs for resource metadata")
+			.meta({
+				examples: [
+					{ environment: "development", project: "my-app", tags: ["database", "postgres"] },
+				],
+			}),
+		externalId: z
+			.string()
+			.optional()
+			.describe("Optional external identifier for tracking purposes")
+			.meta({ examples: ["dev-db-001"] }),
+		protocolSettings: z
+			.looseObject({})
+			.optional()
+			.describe("Protocol-specific configuration settings")
+			.meta({ examples: [{ experimentation: { edgeConfigSyncingEnabled: true } }] }),
+		source: z
+			.enum([
+				"backoffice",
+				"cli",
+				"deploy-button",
+				"external",
+				"import-recommended-integrations",
+				"marketplace",
+				"oauth",
+				"organization",
+				"resource-claims",
+				"v0",
+			])
+			.optional()
+			.default("marketplace")
+			.describe("Source of the store creation request")
+			.meta({ examples: ["marketplace"] }),
+		billingPlanId: z
+			.string()
+			.optional()
+			.describe(
+				"ID of the billing plan for paid resources. Get available plans from GET /integrations/integration/{id}/products/{productId}/plans. If not provided, automatically discovers free billing plans.",
+			)
+			.meta({ examples: ["bp_abc123def456"] }),
+		paymentMethodId: z
+			.string()
+			.optional()
+			.describe(
+				"Payment method ID for paid resources. Optional - uses default payment method if not provided.",
+			)
+			.meta({ examples: ["pm_1AbcDefGhiJklMno"] }),
+		prepaymentAmountCents: z
+			.number()
+			.min(50)
+			.optional()
+			.describe(
+				"Amount in cents for prepayment billing plans. Required only for prepayment plans with variable amounts.",
+			)
+			.meta({ examples: [5000] }),
+	})
+	.optional();
 
 export const getTeamMembersQueryLimitSchema = z
 	.number()
@@ -31704,6 +43862,47 @@ export const inviteUserToTeamErrorSchema = z.union([
 	inviteUserToTeamStatus503Schema,
 ]);
 
+export const inviteUserToTeamBodySchema = z
+	.array(
+		z.object({
+			email: z
+				.email()
+				.describe("The email address of the user to invite")
+				.meta({ examples: ["john@example.com"] }),
+			role: z
+				.enum([
+					"BILLING",
+					"CONTRIBUTOR",
+					"DEVELOPER",
+					"MEMBER",
+					"OWNER",
+					"SECURITY",
+					"VIEWER",
+					"VIEWER_FOR_PLUS",
+				])
+				.optional()
+				.default("VIEWER")
+				.describe("The role of the user to invite")
+				.meta({ examples: ["VIEWER"] }),
+			projects: z
+				.array(
+					z.strictObject({
+						projectId: z
+							.string()
+							.max(64)
+							.describe("The ID of the project.")
+							.meta({ examples: ["prj_ndlgr43fadlPyCtREAqxxdyFK"] }),
+						role: z
+							.enum(["ADMIN", "PROJECT_DEVELOPER", "PROJECT_GUEST", "PROJECT_VIEWER"])
+							.describe("Sets the project roles for the invited user")
+							.meta({ examples: ["ADMIN"] }),
+					}),
+				)
+				.optional(),
+		}),
+	)
+	.optional();
+
 export const requestAccessToTeamPathTeamIdSchema = z
 	.string()
 	.describe("The unique team identifier")
@@ -31736,6 +43935,40 @@ export const requestAccessToTeamErrorSchema = z.union([
 	requestAccessToTeamStatus429Schema,
 	requestAccessToTeamStatus503Schema,
 ]);
+
+export const requestAccessToTeamBodySchema = z.strictObject({
+	joinedFrom: z.strictObject({
+		origin: z
+			.enum(["bitbucket", "feedback", "github", "gitlab", "import", "organization-teams", "teams"])
+			.describe("The origin of the request.")
+			.meta({ examples: ["github"] }),
+		commitId: z
+			.string()
+			.optional()
+			.describe("The commit sha if the origin is a git provider.")
+			.meta({ examples: ["f498d25d8bd654b578716203be73084b31130cd7"] }),
+		repoId: z
+			.string()
+			.optional()
+			.describe("The ID of the repository for the given Git provider.")
+			.meta({ examples: ["67753070"] }),
+		repoPath: z
+			.string()
+			.optional()
+			.describe("The path to the repository for the given Git provider.")
+			.meta({ examples: ["jane-doe/example"] }),
+		gitUserId: z
+			.union([z.string(), z.number()])
+			.optional()
+			.describe("The ID of the Git account of the user who requests access.")
+			.meta({ examples: [103053343] }),
+		gitUserLogin: z
+			.string()
+			.optional()
+			.describe("The login name for the Git account of the user who requests access.")
+			.meta({ examples: ["jane-doe"] }),
+	}),
+});
 
 export const getTeamAccessRequestPathUserIdSchema = z
 	.string()
@@ -31795,6 +44028,14 @@ export const joinTeamErrorSchema = z.union([
 	joinTeamStatus503Schema,
 ]);
 
+export const joinTeamBodySchema = z.object({
+	inviteCode: z
+		.string()
+		.optional()
+		.describe("The invite code to join the team.")
+		.meta({ examples: ["fisdh38aejkeivn34nslfore9vjtn4ls"] }),
+});
+
 export const updateTeamMemberPathUidSchema = z
 	.string()
 	.describe("The ID of the member.")
@@ -31835,6 +44076,72 @@ export const updateTeamMemberErrorSchema = z.union([
 	updateTeamMemberStatus410Schema,
 	updateTeamMemberStatus500Schema,
 ]);
+
+export const updateTeamMemberBodySchema = z.object({
+	confirmed: z
+		.literal(true)
+		.optional()
+		.describe("Accept a user who requested access to the team.")
+		.meta({ examples: [true] }),
+	role: z
+		.string()
+		.optional()
+		.default("MEMBER")
+		.describe("The role in the team of the member.")
+		.meta({ examples: ["VIEWER"] }),
+	teamPermissions: z
+		.array(
+			z.enum([
+				"AiGatewayBudgetManager",
+				"AiGatewayCredits",
+				"AiGatewaySettings",
+				"AiGatewayTranscriptsManager",
+				"AiGatewayTranscriptsViewer",
+				"AiGatewayUser",
+				"ConnectorManager",
+				"CreateProject",
+				"EnvVariableManager",
+				"EnvironmentManager",
+				"FullProductionDeployment",
+				"IntegrationManager",
+				"OrgAdmin",
+				"OrgViewer",
+				"UsageViewer",
+				"V0Builder",
+				"V0Chatter",
+				"V0Viewer",
+				"WorkflowDecryptor",
+			]),
+		)
+		.optional()
+		.describe(
+			"The team permissions to set for the member. Permissions must be compatible with the team roles assigned to the member.",
+		)
+		.meta({ examples: [["CreateProject", "FullProductionDeployment"]] }),
+	projects: z
+		.array(
+			z.strictObject({
+				projectId: z
+					.string()
+					.max(256)
+					.describe("The ID of the project.")
+					.meta({ examples: ["prj_ndlgr43fadlPyCtREAqxxdyFK"] }),
+				role: z
+					.enum(["ADMIN", "PROJECT_DEVELOPER", "PROJECT_VIEWER"])
+					.nullable()
+					.describe(
+						'The project role of the member that will be added. \\"null\\" will remove this project level role.',
+					)
+					.meta({ examples: ["ADMIN"] }),
+			}),
+		)
+		.optional(),
+	joinedFrom: z
+		.strictObject({
+			ssoUserId: z.unknown().nullish(),
+		})
+		.optional(),
+});
 
 export const removeTeamMemberPathUidSchema = z
 	.string()
@@ -31951,6 +44258,383 @@ export const patchTeamErrorSchema = z.union([
 	patchTeamStatus428Schema,
 ]);
 
+export const patchTeamBodySchema = z.strictObject({
+	avatar: z
+		.string()
+		.max(40)
+		.regex(/^[0-9a-f]+$/)
+		.nullish()
+		.describe("The hash value of an uploaded image, or `null` to clear the avatar."),
+	description: z
+		.string()
+		.max(140)
+		.optional()
+		.describe("A short text that describes the team.")
+		.meta({ examples: ["Our mission is to make cloud computing accessible to everyone"] }),
+	emailDomain: z
+		.string()
+		.nullish()
+		.meta({ examples: ["example.com"] }),
+	name: z
+		.string()
+		.max(256)
+		.optional()
+		.describe("The name of the team.")
+		.meta({ examples: ["My Team"] }),
+	previewDeploymentSuffix: z
+		.url()
+		.nullish()
+		.describe("Suffix that will be used for all preview deployments.")
+		.meta({ examples: ["example.dev"] }),
+	regenerateInviteCode: z
+		.boolean()
+		.optional()
+		.describe("Create a new invite code and replace the current one.")
+		.meta({ examples: [true] }),
+	saml: z
+		.strictObject({
+			enforced: z
+				.boolean()
+				.optional()
+				.describe("Require that members of the team use SAML Single Sign-On.")
+				.meta({ examples: [true] }),
+			roles: z
+				.record(
+					z.string(),
+					z.union([
+						z.enum([
+							"OWNER",
+							"MEMBER",
+							"DEVELOPER",
+							"SECURITY",
+							"BILLING",
+							"VIEWER",
+							"VIEWER_FOR_PLUS",
+							"CONTRIBUTOR",
+						]),
+						z.strictObject({
+							accessGroupId: z.string().regex(/^ag_[A-z0-9_ -]+$/),
+						}),
+					]),
+				)
+				.optional()
+				.describe("Directory groups to role or access group mappings."),
+		})
+		.optional(),
+	slug: z
+		.string()
+		.optional()
+		.describe("A new slug for the team.")
+		.meta({ examples: ["my-team"] }),
+	enablePreviewFeedback: z
+		.string()
+		.optional()
+		.describe("Enable preview toolbar: one of on, off or default.")
+		.meta({ examples: ["on"] }),
+	enableProductionFeedback: z
+		.string()
+		.optional()
+		.describe("Enable production toolbar: one of on, off or default.")
+		.meta({ examples: ["on"] }),
+	sensitiveEnvironmentVariablePolicy: z
+		.string()
+		.optional()
+		.describe("Sensitive environment variable policy: one of on, off or default.")
+		.meta({ examples: ["on"] }),
+	disjunctiveProductionSecretPolicy: z
+		.string()
+		.optional()
+		.describe(
+			"Require production secrets to be in their own environment group: one of on, off or default.",
+		)
+		.meta({ examples: ["on"] }),
+	remoteCaching: z
+		.strictObject({
+			enabled: z
+				.boolean()
+				.optional()
+				.describe("Enable or disable remote caching for the team.")
+				.meta({ examples: [true] }),
+		})
+		.optional()
+		.describe("Whether or not remote caching is enabled for the team"),
+	hideIpAddresses: z
+		.boolean()
+		.optional()
+		.describe("Display or hide IP addresses in Monitoring queries.")
+		.meta({ examples: [false] }),
+	hideIpAddressesInLogDrains: z
+		.boolean()
+		.optional()
+		.describe("Display or hide IP addresses in Log Drains.")
+		.meta({ examples: [false] }),
+	dpAccessRequestsMode: z
+		.enum(["all", "email-domain", "none"])
+		.optional()
+		.describe("Controls who can request access to protected deployments.")
+		.meta({ examples: ["none"] }),
+	requireVerifiedCommits: z
+		.boolean()
+		.optional()
+		.describe(
+			"When enabled, all projects in the team require commits to be signed and verified by the git provider before deployments will be created.",
+		)
+		.meta({ examples: [true] }),
+	disableRepositoryDispatchEvents: z
+		.boolean()
+		.optional()
+		.describe(
+			"Default for projects in the team. When `true`, projects in this team will not emit GitHub repository-dispatch events on deployment events unless the project explicitly overrides this setting.",
+		)
+		.meta({ examples: [false] }),
+	defaultDeploymentProtection: z
+		.strictObject({
+			passwordProtection: z
+				.strictObject({
+					deploymentType: z
+						.enum([
+							"all",
+							"all_except_custom_domains",
+							"preview",
+							"prod_deployment_urls_and_all_previews",
+						])
+						.describe(
+							"Specify if the password will apply to every Deployment Target or just Preview",
+						),
+					password: z
+						.string()
+						.max(72)
+						.nullish()
+						.describe("The password that will be used to protect Project Deployments"),
+				})
+				.nullish()
+				.describe("Allows to protect project deployments with a password"),
+			ssoProtection: z
+				.strictObject({
+					deploymentType: z
+						.enum([
+							"all",
+							"all_except_custom_domains",
+							"preview",
+							"prod_deployment_urls_and_all_previews",
+						])
+						.default("preview")
+						.describe(
+							"Specify if the Vercel Authentication (SSO Protection) will apply to every Deployment Target or just Preview",
+						),
+				})
+				.nullish()
+				.describe(
+					"Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team",
+				),
+		})
+		.optional()
+		.describe("Default deployment protection settings for new projects."),
+	defaultPassport: z
+		.strictObject({
+			connectorId: z.string(),
+			deploymentType: z
+				.enum([
+					"all",
+					"all_except_custom_domains",
+					"preview",
+					"prod_deployment_urls_and_all_previews",
+				])
+				.optional()
+				.default("all"),
+		})
+		.nullish()
+		.describe("Default Passport configuration for new projects."),
+	defaultExpirationSettings: z
+		.strictObject({
+			expiration: z
+				.enum(["unlimited"])
+				.optional()
+				.describe("The time period to keep non-production deployments for")
+				.meta({ examples: ["1y"] }),
+			expirationProduction: z
+				.enum(["unlimited"])
+				.optional()
+				.describe("The time period to keep production deployments for")
+				.meta({ examples: ["1y"] }),
+			expirationCanceled: z
+				.enum(["unlimited"])
+				.optional()
+				.describe("The time period to keep canceled deployments for")
+				.meta({ examples: ["1y"] }),
+			expirationErrored: z
+				.enum(["unlimited"])
+				.optional()
+				.describe("The time period to keep errored deployments for")
+				.meta({ examples: ["1y"] }),
+			keepCurrentRetention: z
+				.boolean()
+				.optional()
+				.describe(
+					"When true, opts a Pro team out of the upcoming deployment-storage retention reduce. Does not change expiration settings. Unmetered teams also require acknowledgeStorageBilling.",
+				),
+			acknowledgeStorageBilling: z
+				.boolean()
+				.optional()
+				.describe(
+					"Required with keepCurrentRetention for unmetered Pro teams; acknowledges that keeping current retention will incur storage billing on a later date.",
+				),
+		})
+		.optional(),
+	deploymentPolicy: z
+		.union([
+			z.strictObject({
+				gitSources: z
+					.union([
+						z.array(
+							z.strictObject({
+								enabled: z.boolean(),
+								environments: z.array(
+									z.discriminatedUnion("type", [
+										z.strictObject({
+											type: z.enum(["system"]),
+											target: z.enum(["production", "preview"]),
+										}),
+										z.strictObject({
+											type: z.enum(["custom"]),
+											environmentId: z.string(),
+										}),
+									]),
+								),
+								sources: z.array(
+									z.union([
+										z.strictObject({
+											provider: z.enum(["github", "bitbucket"]),
+											org: z.string(),
+											repo: z.string().optional(),
+										}),
+										z.strictObject({
+											provider: z.enum(["gitlab"]),
+											namespace: z.string(),
+											project: z.string().optional(),
+										}),
+									]),
+								),
+							}),
+						),
+						z.string(),
+					])
+					.optional(),
+				deploymentSources: z
+					.union([
+						z.array(
+							z.strictObject({
+								enabled: z.boolean(),
+								environments: z.array(
+									z.discriminatedUnion("type", [
+										z.strictObject({
+											type: z.enum(["system"]),
+											target: z.enum(["production", "preview"]),
+										}),
+										z.strictObject({
+											type: z.enum(["custom"]),
+											environmentId: z.string(),
+										}),
+									]),
+								),
+								sources: z.array(
+									z.enum(["git", "cli", "rest-api", "deploy-hook", "integration", "v0"]),
+								),
+							}),
+						),
+						z.string(),
+					])
+					.optional(),
+			}),
+			z.string(),
+		])
+		.optional(),
+	strictDeploymentProtectionSettings: z
+		.strictObject({
+			enabled: z
+				.boolean()
+				.describe("Enable or disable strict deployment protection settings.")
+				.meta({ examples: [true] }),
+		})
+		.optional()
+		.describe(
+			"When enabled, deployment protection settings require stricter permissions (owner-only).",
+		),
+	strictShareableLinks: z
+		.strictObject({
+			enabled: z
+				.boolean()
+				.describe("Enable or disable requiring Owner role to create shareable links.")
+				.meta({ examples: [true] }),
+		})
+		.optional()
+		.describe("When enabled, creating shareable links requires Owner role."),
+	strictPasswordProtectionSettings: z
+		.strictObject({
+			enabled: z
+				.boolean()
+				.describe("Enable or disable requiring Owner role to change project password protection.")
+				.meta({ examples: [true] }),
+		})
+		.optional()
+		.describe(
+			"When enabled, adding, changing, or removing project password protection requires Owner role.",
+		),
+	strictConnectors: z
+		.strictObject({
+			enabled: z
+				.boolean()
+				.describe("Enable or disable requiring Owner role to manage connectors.")
+				.meta({ examples: [true] }),
+		})
+		.optional()
+		.describe("When enabled, creating and managing connectors requires Owner role."),
+	nsnbConfig: z
+		.union([
+			z.strictObject({
+				preference: z
+					.enum(["auto-approval", "manual-approval", "block"])
+					.describe("The NSNB preference for the team."),
+			}),
+			z.string(),
+		])
+		.optional(),
+	defaultProjectJobs: z
+		.union([
+			z.strictObject({
+				lint: z
+					.strictObject({
+						targets: z.array(z.string()),
+					})
+					.optional(),
+				typecheck: z
+					.strictObject({
+						targets: z.array(z.string()),
+					})
+					.optional(),
+			}),
+			z.string(),
+		])
+		.optional(),
+	resourceConfig: z
+		.strictObject({
+			buildMachine: z
+				.strictObject({
+					default: z
+						.enum(["basic", "elastic", "enhanced", "standard", "turbo"])
+						.optional()
+						.describe(
+							"Default build machine type for new builds: standard, enhanced, turbo, or elastic.",
+						)
+						.meta({ examples: ["standard"] }),
+				})
+				.optional()
+				.describe("Build machine configuration."),
+		})
+		.optional()
+		.describe("Resource configuration for the team."),
+});
+
 export const getTeamsQueryLimitSchema = z
 	.number()
 	.optional()
@@ -32007,6 +44691,38 @@ export const createTeamErrorSchema = z.union([
 	createTeamStatus410Schema,
 ]);
 
+export const createTeamBodySchema = z.strictObject({
+	slug: z
+		.string()
+		.max(48)
+		.describe("The desired slug for the Team")
+		.meta({ examples: ["a-random-team"] }),
+	name: z
+		.string()
+		.max(256)
+		.optional()
+		.describe(
+			"The desired name for the Team. It will be generated from the provided slug if nothing is provided",
+		)
+		.meta({ examples: ["A Random Team"] }),
+	attribution: z
+		.object({
+			sessionReferrer: z.string().optional().describe("Session referrer"),
+			landingPage: z.string().optional().describe("Session landing page"),
+			pageBeforeConversionPage: z.string().optional().describe("Referrer to the signup page"),
+			utm: z
+				.object({
+					utmSource: z.string().optional().describe("UTM source"),
+					utmMedium: z.string().optional().describe("UTM medium"),
+					utmCampaign: z.string().optional().describe("UTM campaign"),
+					utmTerm: z.string().optional().describe("UTM term"),
+				})
+				.optional(),
+		})
+		.optional()
+		.describe("Attribution information for the session or current page"),
+});
+
 export const postTeamDsyncRolesPathTeamIdSchema = z
 	.string()
 	.describe("The Team identifier to perform the request on behalf of.")
@@ -32039,6 +44755,31 @@ export const postTeamDsyncRolesErrorSchema = z.union([
 	postTeamDsyncRolesStatus404Schema,
 	postTeamDsyncRolesStatus410Schema,
 ]);
+
+export const postTeamDsyncRolesBodySchema = z
+	.strictObject({
+		roles: z
+			.record(
+				z.string(),
+				z.union([
+					z.enum([
+						"OWNER",
+						"MEMBER",
+						"DEVELOPER",
+						"SECURITY",
+						"BILLING",
+						"VIEWER",
+						"VIEWER_FOR_PLUS",
+						"CONTRIBUTOR",
+					]),
+					z.strictObject({
+						accessGroupId: z.string().regex(/^ag_[A-z0-9_ -]+$/),
+					}),
+				]),
+			)
+			.describe("Directory groups to role or access group mappings."),
+	})
+	.optional();
 
 export const deleteTeamQueryNewDefaultTeamIdSchema = z
 	.string()
@@ -32087,6 +44828,20 @@ export const deleteTeamErrorSchema = z.union([
 	deleteTeamStatus410Schema,
 	deleteTeamStatus503Schema,
 ]);
+
+export const deleteTeamBodySchema = z.strictObject({
+	reasons: z
+		.array(
+			z.strictObject({
+				slug: z.string().describe("Idenitifier slug of the reason why the team is being deleted."),
+				description: z
+					.string()
+					.describe("Description of the reason why the team is being deleted."),
+			}),
+		)
+		.optional()
+		.describe("Optional array of objects that describe the reason why the team is being deleted."),
+});
 
 export const deleteTeamInviteCodePathInviteIdSchema = z
 	.string()
@@ -32154,6 +44909,28 @@ export const updateMicrofrontendsGroupErrorSchema = z.union([
 	updateMicrofrontendsGroupStatus404Schema,
 	updateMicrofrontendsGroupStatus410Schema,
 ]);
+
+export const updateMicrofrontendsGroupBodySchema = z
+	.object({
+		name: z
+			.string()
+			.optional()
+			.describe("The new name for the existing microfrontends group.")
+			.meta({ examples: ["MFE Group 1"] }),
+		fallbackEnvironment: z
+			.string()
+			.optional()
+			.describe(
+				'The new fallback environment for the microfrontends group. Must be "SAME_ENV", "PRODUCTION", or a valid custom environment slug from the default app.',
+			),
+		enablePolyrepoBranchRouting: z
+			.boolean()
+			.optional()
+			.describe(
+				"Whether Preview Deployments can link to branches with the same name in other Git repositories.",
+			),
+	})
+	.optional();
 
 export const deleteMicrofrontendsGroupPathGroupIdSchema = z
 	.string()
@@ -32255,6 +45032,8 @@ export const uploadFileErrorSchema = z.union([
 	uploadFileStatus426Schema,
 ]);
 
+export const uploadFileBodySchema = z.instanceof(File).optional();
+
 export const listAuthTokensStatus200Schema = z.unknown();
 
 export const listAuthTokensStatus400Schema = z.unknown();
@@ -32307,6 +45086,12 @@ export const createAuthTokenErrorSchema = z.union([
 	createAuthTokenStatus404Schema,
 	createAuthTokenStatus410Schema,
 ]);
+
+export const createAuthTokenBodySchema = z.strictObject({
+	name: z.string(),
+	expiresAt: z.number().optional(),
+	projectId: z.string().optional().describe("The ID of the project to scope this token to"),
+});
 
 export const getAuthTokenPathTokenIdSchema = z
 	.string()
@@ -32418,6 +45203,24 @@ export const requestDeleteErrorSchema = z.union([
 	requestDeleteStatus410Schema,
 ]);
 
+export const requestDeleteBodySchema = z.strictObject({
+	reasons: z
+		.array(
+			z.strictObject({
+				slug: z
+					.string()
+					.describe("Idenitifier slug of the reason why the User account is being deleted."),
+				description: z
+					.string()
+					.describe("Description of the reason why the User account is being deleted."),
+			}),
+		)
+		.optional()
+		.describe(
+			"Optional array of objects that describe the reason why the User account is being deleted.",
+		),
+});
+
 export const createRepositoryQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -32457,6 +45260,22 @@ export const createRepositoryErrorSchema = z.union([
 	createRepositoryStatus409Schema,
 	createRepositoryStatus410Schema,
 ]);
+
+export const createRepositoryBodySchema = z
+	.strictObject({
+		projectId: z
+			.string()
+			.describe(
+				"Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.",
+			),
+		name: z
+			.string()
+			.max(255)
+			.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+			.describe("Single Docker repository name component.")
+			.meta({ examples: ["nginx"] }),
+	})
+	.optional();
 
 export const listRepositoriesQueryProjectIdSchema = z
 	.string()
@@ -32684,6 +45503,25 @@ export const addRepositoryPermissionErrorSchema = z.union([
 	addRepositoryPermissionStatus410Schema,
 ]);
 
+export const addRepositoryPermissionBodySchema = z
+	.strictObject({
+		teamId: z
+			.string()
+			.max(64)
+			.regex(/^team_[a-zA-Z0-9]+$/)
+			.optional()
+			.describe("ID of a team that is granted access to a repository.")
+			.meta({ examples: ["team_LLHUOMOoDlqOp8wPE4kFo9pE"] }),
+		teamSlug: z
+			.string()
+			.max(64)
+			.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+			.optional()
+			.describe("Slug of a team that is granted access to a repository.")
+			.meta({ examples: ["my-team"] }),
+	})
+	.optional();
+
 export const removeRepositoryPermissionQueryProjectIdSchema = z
 	.string()
 	.describe(
@@ -32725,6 +45563,25 @@ export const removeRepositoryPermissionErrorSchema = z.union([
 	removeRepositoryPermissionStatus404Schema,
 	removeRepositoryPermissionStatus410Schema,
 ]);
+
+export const removeRepositoryPermissionBodySchema = z
+	.strictObject({
+		teamId: z
+			.string()
+			.max(64)
+			.regex(/^team_[a-zA-Z0-9]+$/)
+			.optional()
+			.describe("ID of a team that is granted access to a repository.")
+			.meta({ examples: ["team_LLHUOMOoDlqOp8wPE4kFo9pE"] }),
+		teamSlug: z
+			.string()
+			.max(64)
+			.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+			.optional()
+			.describe("Slug of a team that is granted access to a repository.")
+			.meta({ examples: ["my-team"] }),
+	})
+	.optional();
 
 export const listRepositoryPermissionsQueryProjectIdSchema = z
 	.string()
@@ -33856,6 +46713,12 @@ export const updateVercelCiRepositorySettingsErrorSchema = z.union([
 	updateVercelCiRepositorySettingsStatus500Schema,
 ]);
 
+export const updateVercelCiRepositorySettingsBodySchema = z
+	.strictObject({
+		ciEnabled: z.boolean(),
+	})
+	.optional();
+
 export const listVercelCiInvocationsQueryProviderSchema = z
 	.enum(["github", "gitlab", "bitbucket", "vercel"])
 	.optional()
@@ -34063,6 +46926,13 @@ export const createVercelCiTaskAnalysisErrorSchema = z.union([
 	createVercelCiTaskAnalysisStatus503Schema,
 ]);
 
+export const createVercelCiTaskAnalysisBodySchema = z
+	.strictObject({
+		owner: z.string().max(100),
+		repo: z.string().max(100),
+	})
+	.optional();
+
 export const getVercelCiTaskAnalysisPathAnalysisIdSchema = z.string();
 
 export const getVercelCiTaskAnalysisQueryTeamIdSchema = z
@@ -34150,6 +47020,20 @@ export const createVercelCiTaskConfigurationPullRequestErrorSchema = z.union([
 	createVercelCiTaskConfigurationPullRequestStatus429Schema,
 	createVercelCiTaskConfigurationPullRequestStatus500Schema,
 ]);
+
+export const createVercelCiTaskConfigurationPullRequestBodySchema = z
+	.strictObject({
+		tasks: z
+			.array(
+				z.strictObject({
+					name: z.string().max(500),
+					configPath: z.string().max(2000),
+				}),
+			)
+			.min(1)
+			.max(100),
+	})
+	.optional();
 
 export const listVercelCiTaskAnalysisTasksPathAnalysisIdSchema = z.string();
 
@@ -35025,6 +47909,12 @@ export const createWebInsightsToggleErrorSchema = z.union([
 	createWebInsightsToggleStatus410Schema,
 ]);
 
+export const createWebInsightsToggleBodySchema = z
+	.object({
+		value: z.boolean(),
+	})
+	.optional();
+
 export const aggregatePageviewsQueryProjectIdSchema = z
 	.string()
 	.describe("The project identifier or the project name")
@@ -35381,6 +48271,133 @@ export const createWebhookErrorSchema = z.union([
 	createWebhookStatus410Schema,
 ]);
 
+export const createWebhookBodySchema = z.strictObject({
+	url: z.url(),
+	events: z
+		.array(
+			z.enum([
+				"ai-gateway.auto-reload.limit-reached",
+				"ai-gateway.balance-depleted",
+				"alerts.triggered",
+				"botid.anomaly",
+				"budget.reached",
+				"comment.created",
+				"comment.deleted",
+				"comment.mentioned",
+				"comment.reaction-added",
+				"comment.reaction-removed",
+				"comment.resolved",
+				"comment.unresolved",
+				"comment.updated",
+				"deployment",
+				"deployment-canceled",
+				"deployment-check-rerequested",
+				"deployment-checks-completed",
+				"deployment-error",
+				"deployment-prepared",
+				"deployment-ready",
+				"deployment.blocked",
+				"deployment.build-requested",
+				"deployment.canceled",
+				"deployment.check-rerequested",
+				"deployment.checkrun.cancel",
+				"deployment.checkrun.start",
+				"deployment.checks.failed",
+				"deployment.checks.succeeded",
+				"deployment.cleanup",
+				"deployment.created",
+				"deployment.error",
+				"deployment.integration.action.cancel",
+				"deployment.integration.action.cleanup",
+				"deployment.integration.action.start",
+				"deployment.promoted",
+				"deployment.ready",
+				"deployment.rollback",
+				"deployment.succeeded",
+				"domain-created",
+				"domain.auto-renew.changed",
+				"domain.certificate.add",
+				"domain.certificate.add.failed",
+				"domain.certificate.deleted",
+				"domain.certificate.renew",
+				"domain.certificate.renew.failed",
+				"domain.created",
+				"domain.dns.records.changed",
+				"domain.renewal",
+				"domain.renewal.failed",
+				"domain.transfer-in.completed",
+				"domain.transfer-in.failed",
+				"domain.transfer-in.started",
+				"edge-config.created",
+				"edge-config.deleted",
+				"edge-config.items.updated",
+				"firewall.attack",
+				"firewall.custom-rule-anomaly",
+				"firewall.system-rule-anomaly",
+				"flag.created",
+				"flag.deleted",
+				"flag.segment.created",
+				"flag.segment.deleted",
+				"flag.segment.updated",
+				"flag.updated",
+				"function.archival-required",
+				"function.removal-required",
+				"integration-configuration-permission-updated",
+				"integration-configuration-removed",
+				"integration-configuration-scope-change-confirmed",
+				"integration-configuration.permission-upgraded",
+				"integration-configuration.removed",
+				"integration-configuration.scope-change-confirmed",
+				"integration-configuration.transferred",
+				"integration-resource.project-connected",
+				"integration-resource.project-disconnected",
+				"marketplace.invoice.created",
+				"marketplace.invoice.notpaid",
+				"marketplace.invoice.overdue",
+				"marketplace.invoice.paid",
+				"marketplace.invoice.refunded",
+				"marketplace.member.changed",
+				"message.created",
+				"message.deleted",
+				"message.mentioned",
+				"message.reaction-added",
+				"message.reaction-removed",
+				"message.updated",
+				"observability.anomaly",
+				"observability.anomaly-error",
+				"observability.error-anomaly",
+				"observability.usage-anomaly",
+				"project-created",
+				"project-removed",
+				"project.created",
+				"project.domain.created",
+				"project.domain.deleted",
+				"project.domain.moved",
+				"project.domain.unverified",
+				"project.domain.updated",
+				"project.domain.verified",
+				"project.env-variable.created",
+				"project.env-variable.deleted",
+				"project.env-variable.updated",
+				"project.removed",
+				"project.renamed",
+				"project.rolling-release.aborted",
+				"project.rolling-release.approved",
+				"project.rolling-release.completed",
+				"project.rolling-release.started",
+				"test-webhook",
+				"thread.resolved",
+				"thread.unresolved",
+			]),
+		)
+		.min(1),
+	projectIds: z
+		.array(z.string().regex(/^[a-zA-z0-9_]+$/))
+		.min(1)
+		.max(50)
+		.optional(),
+});
+
 export const getWebhooksQueryProjectIdSchema = z
 	.string()
 	.regex(/^[a-zA-z0-9_]+$/)
@@ -35575,6 +48592,21 @@ export const assignAliasErrorSchema = z.union([
 	assignAliasStatus409Schema,
 	assignAliasStatus410Schema,
 ]);
+
+export const assignAliasBodySchema = z.object({
+	alias: z
+		.string()
+		.optional()
+		.describe("The alias we want to assign to the deployment defined in the URL")
+		.meta({ examples: ["my-alias.vercel.app"] }),
+	redirect: z
+		.string()
+		.nullish()
+		.describe(
+			"The redirect property will take precedence over the deployment id from the URL and consists of a hostname (like test.com) to which the alias should redirect using status code 307",
+		)
+		.meta({ examples: [] }),
+});
 
 export const listAliasesQueryDomainSchema = z
 	.union([z.array(z.string()).max(20), z.string()])
@@ -35798,6 +48830,60 @@ export const patchUrlProtectionBypassErrorSchema = z.union([
 	patchUrlProtectionBypassStatus428Schema,
 ]);
 
+export const patchUrlProtectionBypassBodySchema = z
+	.union([
+		z.strictObject({
+			ttl: z
+				.number()
+				.max(63072000)
+				.optional()
+				.describe(
+					"Optional time the shareable link is valid for in seconds. If not provided, the shareable link will never expire.",
+				),
+			revoke: z
+				.object({
+					secret: z.string().describe("Sharebale link to revoked"),
+					regenerate: z
+						.boolean()
+						.describe(
+							"Whether or not a new shareable link should be created after the provided secret is revoked",
+						),
+				})
+				.optional()
+				.describe("Optional instructions for revoking and regenerating a shareable link"),
+		}),
+		z.strictObject({
+			scope: z
+				.union([
+					z.object({
+						userId: z.string().describe("Specified user id for the scoped bypass."),
+					}),
+					z.object({
+						email: z.email().describe("Specified email for the scoped bypass."),
+					}),
+				])
+				.and(z.unknown())
+				.and(
+					z.object({
+						userId: z.string().optional().describe("Specified user id for the scoped bypass."),
+						email: z.email().optional().describe("Specified email for the scoped bypass."),
+						access: z
+							.enum(["denied", "granted"])
+							.optional()
+							.describe("Invitation status for the user scoped bypass."),
+					}),
+				)
+				.describe("Instructions for creating a user scoped protection bypass"),
+		}),
+		z.strictObject({
+			override: z.object({
+				scope: z.enum(["alias-protection-override"]),
+				action: z.enum(["create", "revoke"]),
+			}),
+		}),
+	])
+	.optional();
+
 export const getCertByIdPathIdSchema = z.string().describe("The cert id");
 
 export const getCertByIdQueryTeamIdSchema = z
@@ -35944,6 +49030,12 @@ export const issueCertErrorSchema = z.union([
 	issueCertStatus500Schema,
 ]);
 
+export const issueCertBodySchema = z
+	.object({
+		cns: z.array(z.string()).optional().describe("The common names the cert should be issued for"),
+	})
+	.optional();
+
 export const uploadCertQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -35980,6 +49072,15 @@ export const uploadCertErrorSchema = z.union([
 	uploadCertStatus404Schema,
 	uploadCertStatus410Schema,
 ]);
+
+export const uploadCertBodySchema = z
+	.strictObject({
+		ca: z.string().describe("The certificate authority"),
+		key: z.string().describe("The certificate key"),
+		cert: z.string().describe("The certificate"),
+		skipValidation: z.boolean().optional().describe("Skip validation of the certificate"),
+	})
+	.optional();
 
 export const listDeploymentFilesPathIdSchema = z
 	.string()
@@ -36221,6 +49322,8 @@ export const deleteDeploymentStatus403Schema = z.unknown();
 
 export const deleteDeploymentStatus404Schema = z.unknown();
 
+export const deleteDeploymentStatus409Schema = z.unknown();
+
 export const deleteDeploymentStatus410Schema = z.unknown();
 
 export const deleteDeploymentResponseSchema = deleteDeploymentStatus200Schema;
@@ -36230,5 +49333,6 @@ export const deleteDeploymentErrorSchema = z.union([
 	deleteDeploymentStatus401Schema,
 	deleteDeploymentStatus403Schema,
 	deleteDeploymentStatus404Schema,
+	deleteDeploymentStatus409Schema,
 	deleteDeploymentStatus410Schema,
 ]);
