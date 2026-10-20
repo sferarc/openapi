@@ -14,6 +14,41 @@ Authentication is npm trusted publishing: `id-token: write` lets npm exchange th
 
 The release job only runs when the repository variable `RELEASE_ENABLED` is `true` (`if:` in `release.yml`), so the first release from this repository is the owner's decision (8ff9fa1). Only the owner sets that variable. Until then pending changesets accumulate in `.changeset/`.
 
+## What setting `RELEASE_ENABLED` triggers
+
+Setting the variable runs nothing by itself. `release.yml` triggers on a push to `main` and on `workflow_dispatch`, so the first run is the next merge to `main` or a manual run, whichever comes first.
+
+1. First run, with pending changesets: `changesets/action` runs `changeset version` and opens the "Version Packages" PR from `changeset-release/main` with `GIT_TOKEN` (an organization secret visible to all repositories). It bumps the versions below, writes each `CHANGELOG.md` (new for `clickhouse-cloud`) and deletes the changesets. The last step then runs `gh pr merge --squash --auto` on that PR. Nothing is published yet.
+2. The PR merges once `Check`, `Approved stack` and `No Claude attribution` pass. `GIT_TOKEN` pushes the squash commit, so that push triggers the workflow again.
+3. Second run, with no pending changesets: `pnpm release` builds `./packages/*` through turbo and runs `changeset publish`. It publishes each version npm lacks with provenance over OIDC, tags it `<name>@<version>` and pushes the tags. `@sferadev/openapi-utils` is private and is not tagged (`privatePackages.tag`).
+
+Versions `changeset version` produces from the current changesets (dry run on 2026-10-20, reverted afterwards):
+
+| Package | Now | Next | Bump |
+| --- | --- | --- | --- |
+| `cloudflare-api-js` | 1.1.0 | 2.0.0 | major (`http-errors-as-api-error`) |
+| `keycloak-api` | 1.2.0 | 2.0.0 | major (same) |
+| `litellm-api` | 1.1.0 | 2.0.0 | major (same) |
+| `netlify-api` | 1.4.1 | 2.0.0 | major (`effect-v4`, `http-errors-as-api-error`) |
+| `nuki-api-js` | 1.2.0 | 2.0.0 | major (same) |
+| `vercel-api-js` | 1.38.2 | 2.0.0 | major (same) |
+| `zoom-api-js` | 1.3.2 | 2.0.0 | major (same) |
+| `v0-api` | 0.3.1 | 1.0.0 | major (same); a major on a `0.x` version lands on 1.0.0 |
+| `clickhouse-cloud` | 0.0.0 | 0.1.0 | minor (`clickhouse-cloud-client`) |
+
+### Checklist before setting it
+
+Checked on 2026-10-20 unless noted:
+
+- [x] `.changeset/` holds 58 changesets, as listed under Pending changesets. `pnpm changeset status` reports a major for the eight published clients and a minor for `clickhouse-cloud`, so the Effect 4 and `ApiError` majors from [[plans/index]] are present.
+- [x] The repository variable `RELEASE_ENABLED` is not set, and neither is any other repository variable but the `HQ_*` ones (`gh variable list`).
+- [x] `GIT_TOKEN` exists as an organization secret for all repositories. Whether the token can push to `main` through the ruleset and open PRs is unknown until the first run.
+- [ ] The repository setting "Allow auto-merge" is off (`allow_auto_merge: false` through the GitHub API). `gh pr merge --auto` fails on it, so the first run opens the version PR and then fails its last step; the PR is merged by hand and publishes normally. Turn the setting on first to keep the flow automatic.
+- [ ] Each package's trusted publisher on npmjs.com names `sferarc/openapi` and `release.yml`. This cannot be checked from the repository. The eight published clients were configured for the earlier monorepo, and `clickhouse-cloud` is not on npm at all, so its first publish may need a manual bootstrap.
+- [ ] Nothing in the Release job needs an npm token, so no secret has to be added.
+
+Not run: `pnpm release` itself, because `changeset publish` has no dry-run mode and would publish.
+
 ## Current state
 
 As of 2026-10-14 (`npm view <package> version`, unchanged since the 2026-10-08 check):
