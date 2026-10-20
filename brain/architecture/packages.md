@@ -12,7 +12,7 @@
 | `src/effect.ts` | Effect bindings built with `createEffectApi` from [[shared-utils]]. |
 | `kubb.config.ts` | Spec URL and fixups. |
 
-Variations: `keycloak-api` has `src/admin/` and `src/account/`, each with its own `generated/` (`configs/knip.json`). `cloudflare-api-js` has no `schemas.ts` or `effect.ts`, and `litellm-api` has no `effect.ts` (directory listings, `configs/knip.json`).
+Variations: `keycloak-api` has `src/admin/` and `src/account/`, each with its own `generated/`, `types.ts`, `schemas.ts` and `components.ts`, exported as `./admin/*` and `./account/*` in place of the root `types.ts`, `schemas.ts` and `components.ts` (`configs/knip.json`, `packages/keycloak-api/package.json`). `cloudflare-api-js` has no `schemas.ts`, and `cloudflare-api-js`, `keycloak-api` and `litellm-api` have no `effect.ts` or `./effect` entry (directory listings, `exports` in each `package.json`).
 
 ## Build and exports
 
