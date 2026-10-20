@@ -3334,6 +3334,7 @@ export type ClickPipePostgresSourceTypeEnumKey =
 export const clickPipePostgresSourceAuthenticationEnum = {
 	basic: "basic",
 	IAM_ROLE: "IAM_ROLE",
+	SERVICE_ACCOUNT_WORKLOAD_IDENTITY: "SERVICE_ACCOUNT_WORKLOAD_IDENTITY",
 } as const;
 
 export type ClickPipePostgresSourceAuthenticationEnumKey =
@@ -3346,9 +3347,7 @@ export type ClickPipePostgresSource = {
 	 */
 	type?: (ClickPipePostgresSourceTypeEnumKey | null) | undefined;
 	/**
-	 * @description PostgreSQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here.
-	 *
-	 * Format: `hostname`
+	 * @description PostgreSQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here. For Cloud SQL with SERVICE_ACCOUNT_WORKLOAD_IDENTITY authentication, pass the instance connection name (project:region:instance).
 	 * @example my-postgres-server.example.com
 	 * @type string | undefined
 	 */
@@ -3432,6 +3431,7 @@ export type ClickPipeMutatePostgresSourceTypeEnumKey =
 export const clickPipeMutatePostgresSourceAuthenticationEnum = {
 	basic: "basic",
 	IAM_ROLE: "IAM_ROLE",
+	SERVICE_ACCOUNT_WORKLOAD_IDENTITY: "SERVICE_ACCOUNT_WORKLOAD_IDENTITY",
 } as const;
 
 export type ClickPipeMutatePostgresSourceAuthenticationEnumKey =
@@ -3445,9 +3445,7 @@ export type ClickPipeMutatePostgresSource = {
 	type?: (ClickPipeMutatePostgresSourceTypeEnumKey | null) | undefined;
 	credentials?: PLAIN | undefined;
 	/**
-	 * @description PostgreSQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here.
-	 *
-	 * Format: `hostname`
+	 * @description PostgreSQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here. For Cloud SQL with SERVICE_ACCOUNT_WORKLOAD_IDENTITY authentication, pass the instance connection name (project:region:instance).
 	 * @example my-postgres-server.example.com
 	 * @type string | undefined
 	 */
@@ -3515,9 +3513,7 @@ export type ClickPipeMutatePostgresSource = {
 export type ClickPipePatchPostgresSource = {
 	credentials?: PLAIN | undefined;
 	/**
-	 * @description PostgreSQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here.
-	 *
-	 * Format: `hostname`
+	 * @description PostgreSQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here. For Cloud SQL with SERVICE_ACCOUNT_WORKLOAD_IDENTITY authentication, pass the instance connection name (project:region:instance).
 	 * @example my-postgres-server.example.com
 	 * @type string | undefined
 	 */
@@ -3800,6 +3796,7 @@ export const clickPipeMySQLSourceTypeEnum = {
 	mysql: "mysql",
 	rdsmysql: "rdsmysql",
 	auroramysql: "auroramysql",
+	cloudsqlmysql: "cloudsqlmysql",
 	mariadb: "mariadb",
 	rdsmariadb: "rdsmariadb",
 } as const;
@@ -3810,6 +3807,7 @@ export type ClickPipeMySQLSourceTypeEnumKey =
 export const clickPipeMySQLSourceAuthenticationEnum = {
 	basic: "basic",
 	IAM_ROLE: "IAM_ROLE",
+	SERVICE_ACCOUNT_WORKLOAD_IDENTITY: "SERVICE_ACCOUNT_WORKLOAD_IDENTITY",
 } as const;
 
 export type ClickPipeMySQLSourceAuthenticationEnumKey =
@@ -3822,9 +3820,7 @@ export type ClickPipeMySQLSource = {
 	 */
 	type?: (ClickPipeMySQLSourceTypeEnumKey | null) | undefined;
 	/**
-	 * @description MySQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here.
-	 *
-	 * Format: `hostname`
+	 * @description MySQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here. For Cloud SQL with SERVICE_ACCOUNT_WORKLOAD_IDENTITY authentication, pass the instance connection name (project:region:instance).
 	 * @example my-mysql-server.example.com
 	 * @type string
 	 */
@@ -3894,6 +3890,7 @@ export const clickPipeMutateMySQLSourceTypeEnum = {
 	mysql: "mysql",
 	rdsmysql: "rdsmysql",
 	auroramysql: "auroramysql",
+	cloudsqlmysql: "cloudsqlmysql",
 	mariadb: "mariadb",
 	rdsmariadb: "rdsmariadb",
 } as const;
@@ -3904,6 +3901,7 @@ export type ClickPipeMutateMySQLSourceTypeEnumKey =
 export const clickPipeMutateMySQLSourceAuthenticationEnum = {
 	basic: "basic",
 	IAM_ROLE: "IAM_ROLE",
+	SERVICE_ACCOUNT_WORKLOAD_IDENTITY: "SERVICE_ACCOUNT_WORKLOAD_IDENTITY",
 } as const;
 
 export type ClickPipeMutateMySQLSourceAuthenticationEnumKey =
@@ -3917,9 +3915,7 @@ export type ClickPipeMutateMySQLSource = {
 	type?: (ClickPipeMutateMySQLSourceTypeEnumKey | null) | undefined;
 	credentials?: PLAIN | undefined;
 	/**
-	 * @description MySQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here.
-	 *
-	 * Format: `hostname`
+	 * @description MySQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here. For Cloud SQL with SERVICE_ACCOUNT_WORKLOAD_IDENTITY authentication, pass the instance connection name (project:region:instance).
 	 * @example my-mysql-server.example.com
 	 * @type string
 	 */
@@ -3989,6 +3985,7 @@ export type ClickPipeMutateMySQLSource = {
 export const clickPipePatchMySQLSourceAuthenticationEnum = {
 	basic: "basic",
 	IAM_ROLE: "IAM_ROLE",
+	SERVICE_ACCOUNT_WORKLOAD_IDENTITY: "SERVICE_ACCOUNT_WORKLOAD_IDENTITY",
 } as const;
 
 export type ClickPipePatchMySQLSourceAuthenticationEnumKey =
@@ -3997,9 +3994,7 @@ export type ClickPipePatchMySQLSourceAuthenticationEnumKey =
 export type ClickPipePatchMySQLSource = {
 	credentials?: PLAIN | undefined;
 	/**
-	 * @description MySQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here.
-	 *
-	 * Format: `hostname`
+	 * @description MySQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here. For Cloud SQL with SERVICE_ACCOUNT_WORKLOAD_IDENTITY authentication, pass the instance connection name (project:region:instance).
 	 * @example my-mysql-server.example.com
 	 * @type string
 	 */
@@ -4072,10 +4067,51 @@ export type ClickPipePatchMySQLSource = {
 
 export type ClickPipeBigQueryPipeSettings = {
 	/**
-	 * @description Replication mode. BigQuery only supports snapshot mode.
+	 * @description Replication mode: \"cdc\" (change data capture with initial snapshot), \"snapshot\" (one-time snapshot only), or \"cdc_only\" (CDC without initial snapshot).
+	 * @example cdc
 	 * @type string
 	 */
-	replicationMode: "snapshot";
+	replicationMode: string;
+	/**
+	 * @description How changes are captured from BigQuery. \"query_based\" polls each table using a watermark timestamp column, \"events_based\" reads the BigQuery change history using the APPENDS or CHANGES table function. Required for \"cdc\" and \"cdc_only\" replication modes and not allowed for \"snapshot\".
+	 * @example query_based
+	 * @type string | undefined
+	 */
+	replicationMethod?: string | undefined;
+	/**
+	 * @description Interval in seconds between CDC syncs. Not allowed for \"snapshot\" replication mode.
+	 * @minLength 1
+	 * @example 60
+	 * @type integer | undefined
+	 */
+	syncIntervalSeconds?: number | undefined;
+	/**
+	 * @description Number of tables pulled in parallel during a CDC sync. Not allowed for \"snapshot\" replication mode.
+	 * @minLength 1
+	 * @example 4
+	 * @type integer | undefined
+	 */
+	queryCdcPullSyncParallelism?: number | undefined;
+	/**
+	 * @description Each CDC sync reads data only up to now minus this delay, giving recently written rows time to become visible in BigQuery. Increase it if your tables are loaded via batch jobs or Google Cloud Dataflow; if set too low, late-visible rows may be skipped. Not allowed for \"snapshot\" replication mode.
+	 * @minLength 0
+	 * @example 60
+	 * @type integer | undefined
+	 */
+	syncDelaySeconds?: number | undefined;
+	/**
+	 * @description Maximum amount of time one pull (query) can cover. Applies when the pipe has fallen behind, e.g. on the first CDC sync or when resuming after a pause: with a 6 hour limit, a pipe that is 3 days behind catches up in 12 smaller pulls instead of one large query. If a pull fails, only that pull is retried. Not allowed for \"snapshot\" replication mode.
+	 * @minLength 1
+	 * @example 86400
+	 * @type integer | undefined
+	 */
+	pullWindowSizeSeconds?: number | undefined;
+	/**
+	 * @description Standard 5-field cron expression (or a descriptor such as \"@hourly\") that schedules CDC syncs, e.g. \"0 * * * *\" to sync every hour sharp. Evaluated in UTC unless prefixed with \"CRON_TZ=<zone>\". Must not fire more than once a minute. Syncs run on this schedule instead of every syncIntervalSeconds, so the two cannot both be set. Not allowed for \"snapshot\" replication mode.
+	 * @example 0 * * * *
+	 * @type string | undefined
+	 */
+	syncCron?: string | undefined;
 	/**
 	 * @description Allow nullable columns in the destination table.
 	 * @type boolean | undefined
@@ -4143,6 +4179,17 @@ export type ClickPipeBigQueryPipeTableMapping = {
 	 * @type string | undefined
 	 */
 	tableEngine?: ClickPipeBigQueryPipeTableMappingTableEngineEnumKey | undefined;
+	/**
+	 * @description Source column of type TIMESTAMP used as the CDC watermark. Required for every table when replicationMethod is \"query_based\"; not allowed otherwise.
+	 * @type string | undefined
+	 */
+	queryCdcWatermarkColumn?: string | undefined;
+	/**
+	 * @description BigQuery table function used to read changes: \"appends\" (newly appended rows) or \"changes\" (all row changes). Required for every table when replicationMethod is \"events_based\"; not allowed otherwise.
+	 * @example appends
+	 * @type string | undefined
+	 */
+	eventsFunction?: string | undefined;
 };
 
 export type ClickPipeBigQueryServiceAccountSource = {
@@ -4337,6 +4384,60 @@ export type ClickPipePatchMongoDBPipeSettings = {
 	pullBatchSize?: (number | null) | undefined;
 };
 
+export type ClickPipeMongoDBPipeColumn = {
+	/**
+	 * @description Top-level document field name.
+	 * @example amount
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description ClickHouse type the field is replicated as. Must be a valid ClickHouse column type supported by structured ingestion.
+	 * @example Float64
+	 * @type string
+	 */
+	type: string;
+};
+
+export type ClickPipeMongoDBStructuredIngestion = {
+	/**
+	 * @description Replicate the collection into typed ClickHouse columns instead of a single JSON document column.
+	 * @example true
+	 * @type boolean
+	 */
+	enabled: boolean;
+	/**
+	 * @description When true, values that don\'t fit their column are reported with only the field name and reason, without the value.
+	 * @default false
+	 * @example false
+	 * @type boolean | undefined
+	 */
+	dropUnexpectedValues?: boolean | undefined;
+	/**
+	 * @description Typed columns of the collection, taken as provided. When omitted, the columns are inferred from a sample of the collection documents. The _id document is always replicated and uses String type.
+	 * @type array | undefined
+	 */
+	columns?: ClickPipeMongoDBPipeColumn[] | undefined;
+	/**
+	 * @description Names of columns, provided or inferred, to leave out of replication. Names that match no column are ignored. Column names must be unique within this list.
+	 * @example ["internal_notes"]
+	 * @type array | undefined
+	 */
+	excludedColumns?: string[] | undefined;
+	/**
+	 * @description Ordered list of column names to use as the sorting (ORDER BY) key in ClickHouse. When omitted, the sorting key is the _id document key.
+	 * @example ["_id","created_at"]
+	 * @type array | undefined
+	 */
+	sortingKeys?: string[] | undefined;
+	/**
+	 * @description ClickHouse PARTITION BY expression applied to the destination table when ClickPipes creates it.
+	 * @example toYYYYMM(created_at)
+	 * @type string | undefined
+	 */
+	partitionByExpr?: string | undefined;
+};
+
 export const clickPipeMongoDBPipeTableMappingTableEngineEnum = {
 	MergeTree: "MergeTree",
 	ReplacingMergeTree: "ReplacingMergeTree",
@@ -4371,6 +4472,7 @@ export type ClickPipeMongoDBPipeTableMapping = {
 	 * @type string | undefined
 	 */
 	tableEngine?: ClickPipeMongoDBPipeTableMappingTableEngineEnumKey | undefined;
+	structuredIngestion?: ClickPipeMongoDBStructuredIngestion | undefined;
 };
 
 export const clickPipePatchMongoDBPipeRemoveTableMappingTableEngineEnum = {
@@ -5099,7 +5201,7 @@ export type ClickPipeSettings = {
 	 */
 	clickhouse_max_download_threads?: (number | null) | undefined;
 	/**
-	 * @description Parallel distributed insert select. Parallel distributed insert select setting
+	 * @description Parallel distributed insert select. Only applies when object_storage_use_cluster_function is enabled. When disabled, this setting is ignored and the effective value is 0.
 	 * @minLength 0
 	 * @maxLength 2
 	 * @example 2
@@ -5361,7 +5463,7 @@ export type ClickPipeSettingsPutRequest = {
 	 */
 	clickhouse_max_download_threads?: number | undefined;
 	/**
-	 * @description Parallel distributed insert select. Parallel distributed insert select setting
+	 * @description Parallel distributed insert select. Only applies when object_storage_use_cluster_function is enabled. When disabled, this setting is ignored and the effective value is 0.
 	 * @minLength 0
 	 * @maxLength 2
 	 * @example 2
@@ -5707,6 +5809,11 @@ export type AwsBackupBucket = {
 	 * @type string | undefined
 	 */
 	iamRoleSessionName?: string | undefined;
+	/**
+	 * @description External ID the IAM role trust policy requires when the data plane assumes the role
+	 * @type string | undefined
+	 */
+	iamRoleExternalId?: string | undefined;
 };
 
 export type GcpBackupBucket = {
@@ -5777,6 +5884,11 @@ export type AwsBackupBucketProperties = {
 	 * @type string | undefined
 	 */
 	iamRoleSessionName?: string | undefined;
+	/**
+	 * @description External ID the IAM role trust policy requires when the data plane assumes the role
+	 * @type string | undefined
+	 */
+	iamRoleExternalId?: string | undefined;
 };
 
 export type GcpBackupBucketProperties = {
@@ -5836,6 +5948,11 @@ export type AwsBackupBucketPostRequestV1 = {
 	 * @type string | undefined
 	 */
 	iamRoleSessionName?: string | undefined;
+	/**
+	 * @description External ID the IAM role trust policy requires when the data plane assumes the role
+	 * @type string | undefined
+	 */
+	iamRoleExternalId?: string | undefined;
 };
 
 export type GcpBackupBucketPostRequestV1 = {
@@ -5905,6 +6022,11 @@ export type AwsBackupBucketPatchRequestV1 = {
 	 * @type string | undefined
 	 */
 	iamRoleSessionName?: (string | null) | undefined;
+	/**
+	 * @description External ID the IAM role trust policy requires when the data plane assumes the role. Set to `null` to clear it.
+	 * @type string | undefined
+	 */
+	iamRoleExternalId?: (string | null) | undefined;
 };
 
 export type GcpBackupBucketPatchRequestV1 = {
@@ -6115,6 +6237,65 @@ export type Snapshot = {
 		| undefined;
 };
 
+export type Notification = {
+	/**
+	 * @description Unique notification ID.
+	 *
+	 * Format: `uuid`
+	 * @example 1b7e0a94-2d0f-4c3a-8f1e-6c9b2d5a4e7f
+	 * @type string
+	 */
+	id: string;
+	/**
+	 * @description Notification type. New types are added over time, so treat this as an open set.
+	 * @example service_backup_failed
+	 * @type string
+	 */
+	type: string;
+	/**
+	 * @description Severity of the notification. One of \'info\', \'warning\', \'critical\'.
+	 * @example warning
+	 * @type string
+	 */
+	severity: string;
+	/**
+	 * @description Kind of resource the notification is about. One of \'service\', \'organization\', \'clickpipe\', \'postgres\'.
+	 * @example service
+	 * @type string
+	 */
+	resourceType: string;
+	/**
+	 * @description ID of the resource the notification is about.
+	 * @type string
+	 */
+	resourceId: string;
+	/**
+	 * @description Name the resource had when the notification was created. Absent for most notification types; use `resourceId` to identify the resource.
+	 * @type string | undefined
+	 */
+	resourceName?: string | undefined;
+	/**
+	 * @description When the notification was created. ISO-8601.
+	 *
+	 * Format: `date-time`
+	 * @example 2026-10-07T09:30:00Z
+	 * @type string
+	 */
+	createdAt: string;
+	/**
+	 * @description Short human-readable summary.
+	 * @example Backup failed for analytics-prod
+	 * @type string
+	 */
+	title: string;
+	/**
+	 * @description Human-readable body as plain text, with any links written as \"label (url)\".
+	 * @example A scheduled backup for analytics-prod did not complete. Review the backup settings (https://console.clickhouse.cloud/services/abc/backups).
+	 * @type string
+	 */
+	description: string;
+};
+
 export type SnapshotConfiguration = {
 	/**
 	 * @description Whether scheduled snapshots are enabled for the service.
@@ -6159,647 +6340,33 @@ export type ReplicaAwareRoutingPatchRequest = {
 	nativeEnabled?: boolean | undefined;
 };
 
-export const clickStackAlertExecutionErrorTypeEnum = {
-	QUERY_ERROR: "QUERY_ERROR",
-	QUERY_TIMEOUT: "QUERY_TIMEOUT",
-	WEBHOOK_ERROR: "WEBHOOK_ERROR",
-	INVALID_ALERT: "INVALID_ALERT",
-	UNKNOWN: "UNKNOWN",
+export const clickStackAlertChartConfigOverlayWhereLanguageEnum = {
+	sql: "sql",
+	lucene: "lucene",
 } as const;
 
-export type ClickStackAlertExecutionErrorTypeEnumKey =
-	(typeof clickStackAlertExecutionErrorTypeEnum)[keyof typeof clickStackAlertExecutionErrorTypeEnum];
+export type ClickStackAlertChartConfigOverlayWhereLanguageEnumKey =
+	(typeof clickStackAlertChartConfigOverlayWhereLanguageEnum)[keyof typeof clickStackAlertChartConfigOverlayWhereLanguageEnum];
 
-export type ClickStackAlertExecutionError = {
+export type ClickStackAlertChartConfigOverlay = {
 	/**
-	 * @description When the error occurred.
-	 *
-	 * Format: `date-time`
-	 * @example 2026-04-17T12:00:00.000Z
-	 * @type string
+	 * @description Display name for the alert query. Used in notification titles and as an alert-name fallback when the alert itself has no name.
+	 * @example Error Rate Query
+	 * @type string | undefined
 	 */
-	timestamp: string;
+	name?: string | undefined;
 	/**
-	 * @description Category of the error.
-	 * @example QUERY_ERROR
-	 * @type string
+	 * @description Chart-level filter applied on top of every select item\'s own \"where\" (combined via AND). Builder variants only; rejected on Raw SQL variants (filter inside the sqlTemplate instead).
+	 * @example ServiceName:api
+	 * @type string | undefined
 	 */
-	type: ClickStackAlertExecutionErrorTypeEnumKey;
+	where?: string | undefined;
 	/**
-	 * @description Human-readable error message.
-	 * @example Query timed out after 30s
-	 * @type string
+	 * @description Language of the chart-level \"where\" filter.
+	 * @type string | undefined
 	 */
-	message: string;
+	whereLanguage?: ClickStackAlertChartConfigOverlayWhereLanguageEnumKey | undefined;
 };
-
-export type ClickStackAlertSilenced = {
-	/**
-	 * @description User ID who silenced the alert.
-	 * @example 65f5e4a3b9e77c001a234567
-	 * @type string | undefined
-	 */
-	by?: (string | null) | undefined;
-	/**
-	 * @description Silence start timestamp.
-	 *
-	 * Format: `date-time`
-	 * @example 2026-03-19T08:00:00.000Z
-	 * @type string | undefined
-	 */
-	at?: string | undefined;
-	/**
-	 * @description Silence end timestamp.
-	 *
-	 * Format: `date-time`
-	 * @example 2026-03-20T08:00:00.000Z
-	 * @type string | undefined
-	 */
-	until?: string | undefined;
-};
-
-export const clickStackAlertChannelEmailTypeEnum = {
-	webhook: "webhook",
-	email: "email",
-} as const;
-
-export type ClickStackAlertChannelEmailTypeEnumKey =
-	(typeof clickStackAlertChannelEmailTypeEnum)[keyof typeof clickStackAlertChannelEmailTypeEnum];
-
-export type ClickStackAlertChannelEmail = {
-	/**
-	 * @description Channel type. Must be \"email\" for email alerts.
-	 * @type string
-	 */
-	type: ClickStackAlertChannelEmailTypeEnumKey;
-	/**
-	 * @description Email recipients for email alerts.
-	 * @type array
-	 */
-	emailRecipients: string[];
-};
-
-export const clickStackAlertChannelWebhookTypeEnum = {
-	webhook: "webhook",
-	email: "email",
-} as const;
-
-export type ClickStackAlertChannelWebhookTypeEnumKey =
-	(typeof clickStackAlertChannelWebhookTypeEnum)[keyof typeof clickStackAlertChannelWebhookTypeEnum];
-
-export const clickStackAlertChannelWebhookSeverityEnum = {
-	critical: "critical",
-	error: "error",
-	warning: "warning",
-	info: "info",
-} as const;
-
-export type ClickStackAlertChannelWebhookSeverityEnumKey =
-	(typeof clickStackAlertChannelWebhookSeverityEnum)[keyof typeof clickStackAlertChannelWebhookSeverityEnum];
-
-export type ClickStackAlertChannelWebhook = {
-	/**
-	 * @description Channel type. Must be \"webhook\" for webhook alerts.
-	 * @type string
-	 */
-	type: ClickStackAlertChannelWebhookTypeEnumKey;
-	/**
-	 * @description Webhook destination ID.
-	 * @example 65f5e4a3b9e77c001a789012
-	 * @type string
-	 */
-	webhookId: string;
-	/**
-	 * @description Webhook service type (e.g., slack_api).
-	 * @example slack_api
-	 * @type string | undefined
-	 */
-	webhookService?: (string | null) | undefined;
-	/**
-	 * @description Slack channel ID for Slack webhooks.
-	 * @example C01ABCDEF23
-	 * @type string | undefined
-	 */
-	slackChannelId?: (string | null) | undefined;
-	/**
-	 * @description Severity label used by PagerDuty API webhooks.
-	 * @type string | undefined
-	 */
-	severity?: (ClickStackAlertChannelWebhookSeverityEnumKey | null) | undefined;
-};
-
-export type ClickStackAlertChannel = ClickStackAlertChannelEmail | ClickStackAlertChannelWebhook;
-
-/**
- * @description Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.
- * @type array
- */
-export type ClickStackAlertChannels = ClickStackAlertChannel[];
-
-export const clickStackAlertResponseIntervalEnum = {
-	"30s": "30s",
-	"1m": "1m",
-	"5m": "5m",
-	"15m": "15m",
-	"30m": "30m",
-	"1h": "1h",
-	"6h": "6h",
-	"12h": "12h",
-	"1d": "1d",
-} as const;
-
-export type ClickStackAlertResponseIntervalEnumKey =
-	(typeof clickStackAlertResponseIntervalEnum)[keyof typeof clickStackAlertResponseIntervalEnum];
-
-export const clickStackAlertResponseSourceEnum = {
-	saved_search: "saved_search",
-	tile: "tile",
-} as const;
-
-export type ClickStackAlertResponseSourceEnumKey =
-	(typeof clickStackAlertResponseSourceEnum)[keyof typeof clickStackAlertResponseSourceEnum];
-
-export const clickStackAlertResponseThresholdTypeEnum = {
-	above: "above",
-	below: "below",
-	above_exclusive: "above_exclusive",
-	below_or_equal: "below_or_equal",
-	equal: "equal",
-	not_equal: "not_equal",
-	between: "between",
-	not_between: "not_between",
-} as const;
-
-export type ClickStackAlertResponseThresholdTypeEnumKey =
-	(typeof clickStackAlertResponseThresholdTypeEnum)[keyof typeof clickStackAlertResponseThresholdTypeEnum];
-
-export const clickStackAlertResponseStateEnum = {
-	ALERT: "ALERT",
-	OK: "OK",
-	INSUFFICIENT_DATA: "INSUFFICIENT_DATA",
-	DISABLED: "DISABLED",
-	PENDING: "PENDING",
-} as const;
-
-export type ClickStackAlertResponseStateEnumKey =
-	(typeof clickStackAlertResponseStateEnum)[keyof typeof clickStackAlertResponseStateEnum];
-
-export type ClickStackAlertResponse = {
-	/**
-	 * @description Dashboard ID for tile-based alerts.
-	 * @example 65f5e4a3b9e77c001a567890
-	 * @type string | undefined
-	 */
-	dashboardId?: (string | null) | undefined;
-	/**
-	 * @description Tile ID for tile-based alerts. Must be a line, stacked bar, or number type tile.
-	 * @example 65f5e4a3b9e77c001a901234
-	 * @type string | undefined
-	 */
-	tileId?: (string | null) | undefined;
-	/**
-	 * @description Saved search ID for saved_search alerts.
-	 * @example 65f5e4a3b9e77c001a345678
-	 * @type string | undefined
-	 */
-	savedSearchId?: (string | null) | undefined;
-	/**
-	 * @description Group-by key for saved search alerts.
-	 * @example ServiceName
-	 * @type string | undefined
-	 */
-	groupBy?: (string | null) | undefined;
-	/**
-	 * @description Threshold value for triggering the alert. For between and not_between threshold types, this is the lower bound.
-	 * @example 100
-	 * @type number | undefined
-	 */
-	threshold?: number | undefined;
-	/**
-	 * @description Upper bound for between and not_between threshold types. Required when thresholdType is between or not_between, must be >= threshold.
-	 * @example 500
-	 * @type number | undefined
-	 */
-	thresholdMax?: (number | null) | undefined;
-	/**
-	 * @description Evaluation interval for the alert. `30s` requires the 30s alert interval feature to be enabled for your team.
-	 * @example 1h
-	 * @type string | undefined
-	 */
-	interval?: ClickStackAlertResponseIntervalEnumKey | undefined;
-	/**
-	 * @description Offset from the interval boundary in minutes. For example, 2 with a 5m interval evaluates windows at :02, :07, :12, etc. (UTC).
-	 * @example 2
-	 * @type integer | undefined
-	 */
-	scheduleOffsetMinutes?: (number | null) | undefined;
-	/**
-	 * @description Absolute UTC start time anchor. Alert windows start from this timestamp and repeat every interval.
-	 *
-	 * Format: `date-time`
-	 * @example 2026-02-08T10:00:00.000Z
-	 * @type string | undefined
-	 */
-	scheduleStartAt?: (string | null) | undefined;
-	/**
-	 * @description Alert source type (tile-based or saved search).
-	 * @example tile
-	 * @type string | undefined
-	 */
-	source?: ClickStackAlertResponseSourceEnumKey | undefined;
-	/**
-	 * @description Threshold comparison direction.
-	 * @example above
-	 * @type string | undefined
-	 */
-	thresholdType?: ClickStackAlertResponseThresholdTypeEnumKey | undefined;
-	channel?: ClickStackAlertChannel | undefined;
-	/**
-	 * @description Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.
-	 * @type array | undefined
-	 */
-	channels?: ClickStackAlertChannels | undefined;
-	/**
-	 * @description Human-friendly alert name.
-	 * @example Test Alert
-	 * @type string | undefined
-	 */
-	name?: (string | null) | undefined;
-	/**
-	 * @description Alert message template.
-	 * @example Test Alert Message
-	 * @type string | undefined
-	 */
-	message?: (string | null) | undefined;
-	/**
-	 * @description Freeform note for the alert. Supports markdown formatting.
-	 * @example Threshold raised from 50 to 100 on 2026-01-15. See [runbook](https://wiki.example.com/runbook).
-	 * @type string | undefined
-	 */
-	note?: (string | null) | undefined;
-	/**
-	 * @description Fire the alert only after its condition has been met for this many consecutive evaluation windows. While the condition is met but fewer than this many consecutive windows have violated, the alert is in the PENDING state.
-	 * @example 3
-	 * @type integer | undefined
-	 */
-	numConsecutiveWindows?: (number | null) | undefined;
-	/**
-	 * @description Unique alert identifier.
-	 * @example 65f5e4a3b9e77c001a123456
-	 * @type string | undefined
-	 */
-	id?: string | undefined;
-	/**
-	 * @description Current alert state.
-	 * @example ALERT
-	 * @type string | undefined
-	 */
-	state?: ClickStackAlertResponseStateEnumKey | undefined;
-	/**
-	 * @description Team identifier.
-	 * @example 65f5e4a3b9e77c001a345678
-	 * @type string | undefined
-	 */
-	teamId?: string | undefined;
-	silenced?: (ClickStackAlertSilenced | null) | undefined;
-	/**
-	 * @description Errors recorded during the most recent alert execution, if any.
-	 * @type array | undefined
-	 */
-	executionErrors?: ClickStackAlertExecutionError[] | undefined;
-	/**
-	 * @description Creation timestamp.
-	 *
-	 * Format: `date-time`
-	 * @example 2023-01-01T00:00:00.000Z
-	 * @type string | undefined
-	 */
-	createdAt?: (string | null) | undefined;
-	/**
-	 * @description Last update timestamp.
-	 *
-	 * Format: `date-time`
-	 * @example 2023-01-01T00:00:00.000Z
-	 * @type string | undefined
-	 */
-	updatedAt?: (string | null) | undefined;
-};
-
-export const clickStackCreateAlertRequestIntervalEnum = {
-	"30s": "30s",
-	"1m": "1m",
-	"5m": "5m",
-	"15m": "15m",
-	"30m": "30m",
-	"1h": "1h",
-	"6h": "6h",
-	"12h": "12h",
-	"1d": "1d",
-} as const;
-
-export type ClickStackCreateAlertRequestIntervalEnumKey =
-	(typeof clickStackCreateAlertRequestIntervalEnum)[keyof typeof clickStackCreateAlertRequestIntervalEnum];
-
-export const clickStackCreateAlertRequestSourceEnum = {
-	saved_search: "saved_search",
-	tile: "tile",
-} as const;
-
-export type ClickStackCreateAlertRequestSourceEnumKey =
-	(typeof clickStackCreateAlertRequestSourceEnum)[keyof typeof clickStackCreateAlertRequestSourceEnum];
-
-export const clickStackCreateAlertRequestThresholdTypeEnum = {
-	above: "above",
-	below: "below",
-	above_exclusive: "above_exclusive",
-	below_or_equal: "below_or_equal",
-	equal: "equal",
-	not_equal: "not_equal",
-	between: "between",
-	not_between: "not_between",
-} as const;
-
-export type ClickStackCreateAlertRequestThresholdTypeEnumKey =
-	(typeof clickStackCreateAlertRequestThresholdTypeEnum)[keyof typeof clickStackCreateAlertRequestThresholdTypeEnum];
-
-export type ClickStackCreateAlertRequest = {
-	/**
-	 * @description Dashboard ID for tile-based alerts.
-	 * @example 65f5e4a3b9e77c001a567890
-	 * @type string | undefined
-	 */
-	dashboardId?: (string | null) | undefined;
-	/**
-	 * @description Tile ID for tile-based alerts. Must be a line, stacked bar, or number type tile.
-	 * @example 65f5e4a3b9e77c001a901234
-	 * @type string | undefined
-	 */
-	tileId?: (string | null) | undefined;
-	/**
-	 * @description Saved search ID for saved_search alerts.
-	 * @example 65f5e4a3b9e77c001a345678
-	 * @type string | undefined
-	 */
-	savedSearchId?: (string | null) | undefined;
-	/**
-	 * @description Group-by key for saved search alerts.
-	 * @example ServiceName
-	 * @type string | undefined
-	 */
-	groupBy?: (string | null) | undefined;
-	/**
-	 * @description Threshold value for triggering the alert. For between and not_between threshold types, this is the lower bound.
-	 * @example 100
-	 * @type number | undefined
-	 */
-	threshold?: number | undefined;
-	/**
-	 * @description Upper bound for between and not_between threshold types. Required when thresholdType is between or not_between, must be >= threshold.
-	 * @example 500
-	 * @type number | undefined
-	 */
-	thresholdMax?: (number | null) | undefined;
-	/**
-	 * @description Evaluation interval for the alert. `30s` requires the 30s alert interval feature to be enabled for your team.
-	 * @example 1h
-	 * @type string | undefined
-	 */
-	interval?: ClickStackCreateAlertRequestIntervalEnumKey | undefined;
-	/**
-	 * @description Offset from the interval boundary in minutes. For example, 2 with a 5m interval evaluates windows at :02, :07, :12, etc. (UTC).
-	 * @example 2
-	 * @type integer | undefined
-	 */
-	scheduleOffsetMinutes?: (number | null) | undefined;
-	/**
-	 * @description Absolute UTC start time anchor. Alert windows start from this timestamp and repeat every interval.
-	 *
-	 * Format: `date-time`
-	 * @example 2026-02-08T10:00:00.000Z
-	 * @type string | undefined
-	 */
-	scheduleStartAt?: (string | null) | undefined;
-	/**
-	 * @description Alert source type (tile-based or saved search).
-	 * @example tile
-	 * @type string | undefined
-	 */
-	source?: ClickStackCreateAlertRequestSourceEnumKey | undefined;
-	/**
-	 * @description Threshold comparison direction.
-	 * @example above
-	 * @type string | undefined
-	 */
-	thresholdType?: ClickStackCreateAlertRequestThresholdTypeEnumKey | undefined;
-	channel?: ClickStackAlertChannel | undefined;
-	/**
-	 * @description Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.
-	 * @type array | undefined
-	 */
-	channels?: ClickStackAlertChannels | undefined;
-	/**
-	 * @description Human-friendly alert name.
-	 * @example Test Alert
-	 * @type string | undefined
-	 */
-	name?: (string | null) | undefined;
-	/**
-	 * @description Alert message template.
-	 * @example Test Alert Message
-	 * @type string | undefined
-	 */
-	message?: (string | null) | undefined;
-	/**
-	 * @description Freeform note for the alert. Supports markdown formatting.
-	 * @example Threshold raised from 50 to 100 on 2026-01-15. See [runbook](https://wiki.example.com/runbook).
-	 * @type string | undefined
-	 */
-	note?: (string | null) | undefined;
-	/**
-	 * @description Fire the alert only after its condition has been met for this many consecutive evaluation windows. While the condition is met but fewer than this many consecutive windows have violated, the alert is in the PENDING state.
-	 * @example 3
-	 * @type integer | undefined
-	 */
-	numConsecutiveWindows?: (number | null) | undefined;
-};
-
-export const clickStackUpdateAlertRequestIntervalEnum = {
-	"30s": "30s",
-	"1m": "1m",
-	"5m": "5m",
-	"15m": "15m",
-	"30m": "30m",
-	"1h": "1h",
-	"6h": "6h",
-	"12h": "12h",
-	"1d": "1d",
-} as const;
-
-export type ClickStackUpdateAlertRequestIntervalEnumKey =
-	(typeof clickStackUpdateAlertRequestIntervalEnum)[keyof typeof clickStackUpdateAlertRequestIntervalEnum];
-
-export const clickStackUpdateAlertRequestSourceEnum = {
-	saved_search: "saved_search",
-	tile: "tile",
-} as const;
-
-export type ClickStackUpdateAlertRequestSourceEnumKey =
-	(typeof clickStackUpdateAlertRequestSourceEnum)[keyof typeof clickStackUpdateAlertRequestSourceEnum];
-
-export const clickStackUpdateAlertRequestThresholdTypeEnum = {
-	above: "above",
-	below: "below",
-	above_exclusive: "above_exclusive",
-	below_or_equal: "below_or_equal",
-	equal: "equal",
-	not_equal: "not_equal",
-	between: "between",
-	not_between: "not_between",
-} as const;
-
-export type ClickStackUpdateAlertRequestThresholdTypeEnumKey =
-	(typeof clickStackUpdateAlertRequestThresholdTypeEnum)[keyof typeof clickStackUpdateAlertRequestThresholdTypeEnum];
-
-export type ClickStackUpdateAlertRequest = {
-	/**
-	 * @description Dashboard ID for tile-based alerts.
-	 * @example 65f5e4a3b9e77c001a567890
-	 * @type string | undefined
-	 */
-	dashboardId?: (string | null) | undefined;
-	/**
-	 * @description Tile ID for tile-based alerts. Must be a line, stacked bar, or number type tile.
-	 * @example 65f5e4a3b9e77c001a901234
-	 * @type string | undefined
-	 */
-	tileId?: (string | null) | undefined;
-	/**
-	 * @description Saved search ID for saved_search alerts.
-	 * @example 65f5e4a3b9e77c001a345678
-	 * @type string | undefined
-	 */
-	savedSearchId?: (string | null) | undefined;
-	/**
-	 * @description Group-by key for saved search alerts.
-	 * @example ServiceName
-	 * @type string | undefined
-	 */
-	groupBy?: (string | null) | undefined;
-	/**
-	 * @description Threshold value for triggering the alert. For between and not_between threshold types, this is the lower bound.
-	 * @example 100
-	 * @type number | undefined
-	 */
-	threshold?: number | undefined;
-	/**
-	 * @description Upper bound for between and not_between threshold types. Required when thresholdType is between or not_between, must be >= threshold.
-	 * @example 500
-	 * @type number | undefined
-	 */
-	thresholdMax?: (number | null) | undefined;
-	/**
-	 * @description Evaluation interval for the alert. `30s` requires the 30s alert interval feature to be enabled for your team.
-	 * @example 1h
-	 * @type string | undefined
-	 */
-	interval?: ClickStackUpdateAlertRequestIntervalEnumKey | undefined;
-	/**
-	 * @description Offset from the interval boundary in minutes. For example, 2 with a 5m interval evaluates windows at :02, :07, :12, etc. (UTC).
-	 * @example 2
-	 * @type integer | undefined
-	 */
-	scheduleOffsetMinutes?: (number | null) | undefined;
-	/**
-	 * @description Absolute UTC start time anchor. Alert windows start from this timestamp and repeat every interval.
-	 *
-	 * Format: `date-time`
-	 * @example 2026-02-08T10:00:00.000Z
-	 * @type string | undefined
-	 */
-	scheduleStartAt?: (string | null) | undefined;
-	/**
-	 * @description Alert source type (tile-based or saved search).
-	 * @example tile
-	 * @type string | undefined
-	 */
-	source?: ClickStackUpdateAlertRequestSourceEnumKey | undefined;
-	/**
-	 * @description Threshold comparison direction.
-	 * @example above
-	 * @type string | undefined
-	 */
-	thresholdType?: ClickStackUpdateAlertRequestThresholdTypeEnumKey | undefined;
-	channel?: ClickStackAlertChannel | undefined;
-	/**
-	 * @description Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.
-	 * @type array | undefined
-	 */
-	channels?: ClickStackAlertChannels | undefined;
-	/**
-	 * @description Human-friendly alert name.
-	 * @example Test Alert
-	 * @type string | undefined
-	 */
-	name?: (string | null) | undefined;
-	/**
-	 * @description Alert message template.
-	 * @example Test Alert Message
-	 * @type string | undefined
-	 */
-	message?: (string | null) | undefined;
-	/**
-	 * @description Freeform note for the alert. Supports markdown formatting.
-	 * @example Threshold raised from 50 to 100 on 2026-01-15. See [runbook](https://wiki.example.com/runbook).
-	 * @type string | undefined
-	 */
-	note?: (string | null) | undefined;
-	/**
-	 * @description Fire the alert only after its condition has been met for this many consecutive evaluation windows. While the condition is met but fewer than this many consecutive windows have violated, the alert is in the PENDING state.
-	 * @example 3
-	 * @type integer | undefined
-	 */
-	numConsecutiveWindows?: (number | null) | undefined;
-};
-
-export type ClickStackSqlSavedFilterValue = {
-	/**
-	 * @description Filter type.
-	 * @example sql
-	 * @type string | undefined
-	 */
-	type?: "sql" | undefined;
-	/**
-	 * @description SQL filter condition. For example use expressions in the form \"column IN (\'value\')\".
-	 * @example ServiceName IN ('hdx-oss-dev-api')
-	 * @type string
-	 */
-	condition: string;
-};
-
-export type ClickStackVariableSavedFilterValue = {
-	/**
-	 * @description Filter type.
-	 * @example variable
-	 * @type string
-	 */
-	type: "variable";
-	/**
-	 * @description The variableName of the dashboard variable this selection belongs to. Only allowed for variable-enabled filters.
-	 * @example service
-	 * @type string
-	 */
-	name: string;
-	/**
-	 * @description Selected values
-	 * @example ["hdx-oss-dev-api"]
-	 * @type array
-	 */
-	values: string[];
-};
-
-export type ClickStackSavedFilterValue =
-	| ClickStackSqlSavedFilterValue
-	| ClickStackVariableSavedFilterValue;
 
 export const clickStackNumberFormatOutputEnum = {
 	currency: "currency",
@@ -6927,46 +6494,539 @@ export type ClickStackNumberFormat = {
 	unit?: string | undefined;
 };
 
-export const clickStackBackgroundChartTypeEnum = {
-	line: "line",
-	area: "area",
+export const clickStackSelectItemAggFnEnum = {
+	avg: "avg",
+	count: "count",
+	count_distinct: "count_distinct",
+	last_value: "last_value",
+	max: "max",
+	min: "min",
+	quantile: "quantile",
+	sum: "sum",
+	any: "any",
+	none: "none",
 } as const;
 
-export type ClickStackBackgroundChartTypeEnumKey =
-	(typeof clickStackBackgroundChartTypeEnum)[keyof typeof clickStackBackgroundChartTypeEnum];
+export type ClickStackSelectItemAggFnEnumKey =
+	(typeof clickStackSelectItemAggFnEnum)[keyof typeof clickStackSelectItemAggFnEnum];
 
-export const clickStackBackgroundChartColorEnum = {
-	"chart-blue": "chart-blue",
-	"chart-orange": "chart-orange",
-	"chart-red": "chart-red",
-	"chart-cyan": "chart-cyan",
-	"chart-green": "chart-green",
-	"chart-pink": "chart-pink",
-	"chart-purple": "chart-purple",
-	"chart-light-blue": "chart-light-blue",
-	"chart-brown": "chart-brown",
-	"chart-gray": "chart-gray",
-	"chart-success": "chart-success",
-	"chart-warning": "chart-warning",
-	"chart-error": "chart-error",
+export const clickStackSelectItemWhereLanguageEnum = {
+	sql: "sql",
+	lucene: "lucene",
 } as const;
 
-export type ClickStackBackgroundChartColorEnumKey =
-	(typeof clickStackBackgroundChartColorEnum)[keyof typeof clickStackBackgroundChartColorEnum];
+export type ClickStackSelectItemWhereLanguageEnumKey =
+	(typeof clickStackSelectItemWhereLanguageEnum)[keyof typeof clickStackSelectItemWhereLanguageEnum];
 
-export type ClickStackBackgroundChart = {
+export const clickStackSelectItemMetricTypeEnum = {
+	sum: "sum",
+	gauge: "gauge",
+	histogram: "histogram",
+	summary: "summary",
+	"exponential histogram": "exponential histogram",
+} as const;
+
+export type ClickStackSelectItemMetricTypeEnumKey =
+	(typeof clickStackSelectItemMetricTypeEnum)[keyof typeof clickStackSelectItemMetricTypeEnum];
+
+export type ClickStackSelectItem = {
 	/**
-	 * @description Sparkline shape.
+	 * @description Aggregation function to apply. \"count\" does not require a valueExpression; \"quantile\" requires a level field indicating the desired percentile (e.g., 0.95).
+	 * @example count
+	 * @type string
+	 */
+	aggFn: ClickStackSelectItemAggFnEnumKey;
+	/**
+	 * @description Expression for the column or value to aggregate. Must be omitted when aggFn is \"count\"; required for all other aggFn values.
+	 * @example Duration
+	 * @type string | undefined
+	 */
+	valueExpression?: string | undefined;
+	/**
+	 * @description Display alias for this select item in chart legends.
+	 * @example Request Duration
+	 * @type string | undefined
+	 */
+	alias?: string | undefined;
+	/**
+	 * @description Percentile level; only valid when aggFn is \"quantile\". Allowed values: 0.5, 0.9, 0.95, 0.99.
+	 * @type number | undefined
+	 */
+	level?: number | undefined;
+	/**
+	 * @description SQL or Lucene filter condition applied before aggregation.
+	 * @example service:api
+	 * @type string | undefined
+	 */
+	where?: string | undefined;
+	/**
+	 * @description Query language for the where clause.
+	 * @type string | undefined
+	 */
+	whereLanguage?: ClickStackSelectItemWhereLanguageEnumKey | undefined;
+	/**
+	 * @description Name of the metric to aggregate; only applicable when the source is a metrics source.
+	 * @example http.server.duration
+	 * @type string | undefined
+	 */
+	metricName?: string | undefined;
+	/**
+	 * @description Metric type; only applicable when the source is a metrics source.
+	 * @type string | undefined
+	 */
+	metricType?: ClickStackSelectItemMetricTypeEnumKey | undefined;
+	/**
+	 * @description Optional period aggregation function for Gauge metrics (e.g., compute the delta over the period).
+	 * @example delta
+	 * @type string | undefined
+	 */
+	periodAggFn?: "delta" | undefined;
+	numberFormat?: ClickStackNumberFormat | undefined;
+};
+
+export type ClickStackFormula = {
+	/**
+	 * @description Arithmetic expression over the select items by position, e.g. \"A / (A + B) * 100\" for a success-rate percentage.
+	 * @example A / (A + B) * 100
+	 * @type string
+	 */
+	expression: string;
+	/**
+	 * @description Display label for the formula series in chart legends and column headers. Falls back to the raw expression text when unset.
+	 * @example Success rate %
+	 * @type string | undefined
+	 */
+	alias?: string | undefined;
+	numberFormat?: ClickStackNumberFormat | undefined;
+};
+
+export const clickStackLineBuilderChartConfigLineInterpolationEnum = {
+	smooth: "smooth",
+	linear: "linear",
+	step: "step",
+} as const;
+
+export type ClickStackLineBuilderChartConfigLineInterpolationEnumKey =
+	(typeof clickStackLineBuilderChartConfigLineInterpolationEnum)[keyof typeof clickStackLineBuilderChartConfigLineInterpolationEnum];
+
+export type ClickStackLineBuilderChartConfig = {
+	/**
+	 * @description Display type discriminator. Must be \"line\" for line charts.
 	 * @example line
 	 * @type string
 	 */
-	type: ClickStackBackgroundChartTypeEnumKey;
+	displayType: "line";
 	/**
-	 * @description Optional palette-token override for the sparkline. When unset the sparkline inherits the tile\'s static color.
+	 * @description ID of the data source to query.
+	 * @example 65f5e4a3b9e77c001a111111
+	 * @type string
+	 */
+	sourceId: string;
+	/**
+	 * @description One or more aggregated values to plot. When asRatio is true, exactly two select items are required.
+	 * @type array
+	 */
+	select: ClickStackSelectItem[];
+	/**
+	 * @description Field expression to group results by (creates separate lines per group value).
+	 * @example host
 	 * @type string | undefined
 	 */
-	color?: ClickStackBackgroundChartColorEnumKey | undefined;
+	groupBy?: string | undefined;
+	/**
+	 * @description Plot select[0] / select[1] as a ratio. Requires exactly two select items.
+	 * @type boolean | undefined
+	 */
+	asRatio?: boolean | undefined;
+	/**
+	 * @description Expand date range boundaries to the query granularity interval.
+	 * @type boolean | undefined
+	 */
+	alignDateRangeToGranularity?: boolean | undefined;
+	/**
+	 * @description Fill missing time buckets with zero instead of leaving gaps.
+	 * @type boolean | undefined
+	 */
+	fillNulls?: boolean | undefined;
+	/**
+	 * @description Set the y-axis lower bound to the minimum of the displayed data instead of zero, making small fluctuations between series easier to see.
+	 * @type boolean | undefined
+	 */
+	fitYAxisToData?: boolean | undefined;
+	/**
+	 * @description How points are connected. Defaults to \"smooth\" when omitted.
+	 * @example step
+	 * @type string | undefined
+	 */
+	lineInterpolation?: ClickStackLineBuilderChartConfigLineInterpolationEnumKey | undefined;
+	numberFormat?: ClickStackNumberFormat | undefined;
+	/**
+	 * @description Overlay the equivalent previous time period for comparison.
+	 * @type boolean | undefined
+	 */
+	compareToPreviousPeriod?: boolean | undefined;
+	/**
+	 * @description Maximum number of series rendered (top-N by value). Omit to use the default render cap, set 0 for unlimited, or a positive N to keep the top N series.
+	 * @example 5
+	 * @type integer | undefined
+	 */
+	seriesLimit?: number | undefined;
+	/**
+	 * @description Derived series computed from the select items via letter-ref arithmetic (\"A\" = select[0], \"B\" = select[1], ...). Metric, log, and trace sources only. Cannot be combined with asRatio.
+	 * @type array | undefined
+	 */
+	formulas?: ClickStackFormula[] | undefined;
+	/**
+	 * @description Only meaningful with formulas. When false, only the formula series are returned; the raw operand series are hidden.
+	 * @type boolean | undefined
+	 */
+	showOperandSeries?: boolean | undefined;
 };
+
+export const clickStackLineRawSqlChartConfigLineInterpolationEnum = {
+	smooth: "smooth",
+	linear: "linear",
+	step: "step",
+} as const;
+
+export type ClickStackLineRawSqlChartConfigLineInterpolationEnumKey =
+	(typeof clickStackLineRawSqlChartConfigLineInterpolationEnum)[keyof typeof clickStackLineRawSqlChartConfigLineInterpolationEnum];
+
+export type ClickStackLineRawSqlChartConfig = {
+	/**
+	 * @description Must be \"sql\" to use the Raw SQL chart config variant.
+	 * @example sql
+	 * @type string
+	 */
+	configType: "sql";
+	/**
+	 * @description ID of the ClickHouse connection to execute the query against.
+	 * @example 65f5e4a3b9e77c001a567890
+	 * @type string
+	 */
+	connectionId: string;
+	/**
+	 * @description SQL query template to execute. Supports HyperDX template variables.
+	 * @example SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR
+	 * @type string
+	 */
+	sqlTemplate: string;
+	/**
+	 * @description Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.
+	 * @example 65f5e4a3b9e77c001a567890
+	 * @type string | undefined
+	 */
+	sourceId?: string | undefined;
+	numberFormat?: ClickStackNumberFormat | undefined;
+	/**
+	 * @description Display as a line time-series chart.
+	 * @example line
+	 * @type string
+	 */
+	displayType: "line";
+	/**
+	 * @description Overlay the equivalent previous time period for comparison.
+	 * @type boolean | undefined
+	 */
+	compareToPreviousPeriod?: boolean | undefined;
+	/**
+	 * @description Fill missing time buckets with zero instead of leaving gaps.
+	 * @type boolean | undefined
+	 */
+	fillNulls?: boolean | undefined;
+	/**
+	 * @description Expand date range boundaries to the query granularity interval.
+	 * @type boolean | undefined
+	 */
+	alignDateRangeToGranularity?: boolean | undefined;
+	/**
+	 * @description Set the y-axis lower bound to the minimum of the displayed data instead of zero, making small fluctuations between series easier to see.
+	 * @type boolean | undefined
+	 */
+	fitYAxisToData?: boolean | undefined;
+	/**
+	 * @description How points are connected. Defaults to \"smooth\" when omitted.
+	 * @example step
+	 * @type string | undefined
+	 */
+	lineInterpolation?: ClickStackLineRawSqlChartConfigLineInterpolationEnumKey | undefined;
+};
+
+export type ClickStackLineChartConfig =
+	| ClickStackLineBuilderChartConfig
+	| ClickStackLineRawSqlChartConfig;
+
+export type ClickStackAlertLineBuilderChartConfig = ClickStackLineBuilderChartConfig &
+	ClickStackAlertChartConfigOverlay;
+
+export type ClickStackAlertLineRawSqlChartConfig = ClickStackLineRawSqlChartConfig &
+	ClickStackAlertChartConfigOverlay;
+
+export type ClickStackAlertLineChartConfig =
+	| ClickStackAlertLineBuilderChartConfig
+	| ClickStackAlertLineRawSqlChartConfig;
+
+export type ClickStackBarBuilderChartConfig = {
+	/**
+	 * @description Display type discriminator. Must be \"stacked_bar\" for stacked-bar charts.
+	 * @example stacked_bar
+	 * @type string
+	 */
+	displayType: "stacked_bar";
+	/**
+	 * @description ID of the data source to query.
+	 * @example 65f5e4a3b9e77c001a111111
+	 * @type string
+	 */
+	sourceId: string;
+	/**
+	 * @description One or more aggregated values to plot. When asRatio is true, exactly two select items are required.
+	 * @type array
+	 */
+	select: ClickStackSelectItem[];
+	/**
+	 * @description Field expression to group results by (creates separate bars segments per group value).
+	 * @example service
+	 * @type string | undefined
+	 */
+	groupBy?: string | undefined;
+	/**
+	 * @description Plot select[0] / select[1] as a ratio. Requires exactly two select items.
+	 * @type boolean | undefined
+	 */
+	asRatio?: boolean | undefined;
+	/**
+	 * @description Align the date range boundaries to the query granularity interval.
+	 * @type boolean | undefined
+	 */
+	alignDateRangeToGranularity?: boolean | undefined;
+	/**
+	 * @description Fill missing time buckets with zero instead of leaving gaps.
+	 * @type boolean | undefined
+	 */
+	fillNulls?: boolean | undefined;
+	numberFormat?: ClickStackNumberFormat | undefined;
+	/**
+	 * @description Maximum number of series rendered (top-N by value). Omit to use the default render cap, set 0 for unlimited, or a positive N to keep the top N series.
+	 * @example 5
+	 * @type integer | undefined
+	 */
+	seriesLimit?: number | undefined;
+	/**
+	 * @description Derived series computed from the select items via letter-ref arithmetic (\"A\" = select[0], \"B\" = select[1], ...). Metric, log, and trace sources only. Cannot be combined with asRatio.
+	 * @type array | undefined
+	 */
+	formulas?: ClickStackFormula[] | undefined;
+	/**
+	 * @description Only meaningful with formulas. When false, only the formula series are returned; the raw operand series are hidden.
+	 * @type boolean | undefined
+	 */
+	showOperandSeries?: boolean | undefined;
+};
+
+export type ClickStackBarRawSqlChartConfig = {
+	/**
+	 * @description Must be \"sql\" to use the Raw SQL chart config variant.
+	 * @example sql
+	 * @type string
+	 */
+	configType: "sql";
+	/**
+	 * @description ID of the ClickHouse connection to execute the query against.
+	 * @example 65f5e4a3b9e77c001a567890
+	 * @type string
+	 */
+	connectionId: string;
+	/**
+	 * @description SQL query template to execute. Supports HyperDX template variables.
+	 * @example SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR
+	 * @type string
+	 */
+	sqlTemplate: string;
+	/**
+	 * @description Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.
+	 * @example 65f5e4a3b9e77c001a567890
+	 * @type string | undefined
+	 */
+	sourceId?: string | undefined;
+	numberFormat?: ClickStackNumberFormat | undefined;
+	/**
+	 * @description Display as a stacked-bar time-series chart.
+	 * @example stacked_bar
+	 * @type string
+	 */
+	displayType: "stacked_bar";
+	/**
+	 * @description Fill missing time buckets with zero instead of leaving gaps.
+	 * @type boolean | undefined
+	 */
+	fillNulls?: boolean | undefined;
+	/**
+	 * @description Expand date range boundaries to the query granularity interval.
+	 * @type boolean | undefined
+	 */
+	alignDateRangeToGranularity?: boolean | undefined;
+};
+
+export type ClickStackBarChartConfig =
+	| ClickStackBarBuilderChartConfig
+	| ClickStackBarRawSqlChartConfig;
+
+export type ClickStackAlertBarBuilderChartConfig = ClickStackBarBuilderChartConfig &
+	ClickStackAlertChartConfigOverlay;
+
+export type ClickStackAlertBarRawSqlChartConfig = ClickStackBarRawSqlChartConfig &
+	ClickStackAlertChartConfigOverlay;
+
+export type ClickStackAlertBarChartConfig =
+	| ClickStackAlertBarBuilderChartConfig
+	| ClickStackAlertBarRawSqlChartConfig;
+
+export const clickStackStackedLineBuilderChartConfigLineInterpolationEnum = {
+	smooth: "smooth",
+	linear: "linear",
+	step: "step",
+} as const;
+
+export type ClickStackStackedLineBuilderChartConfigLineInterpolationEnumKey =
+	(typeof clickStackStackedLineBuilderChartConfigLineInterpolationEnum)[keyof typeof clickStackStackedLineBuilderChartConfigLineInterpolationEnum];
+
+export type ClickStackStackedLineBuilderChartConfig = {
+	/**
+	 * @description Display type discriminator. Must be \"stacked_line\" for stacked-line charts.
+	 * @example stacked_line
+	 * @type string
+	 */
+	displayType: "stacked_line";
+	/**
+	 * @description ID of the data source to query.
+	 * @example 65f5e4a3b9e77c001a111111
+	 * @type string
+	 */
+	sourceId: string;
+	/**
+	 * @description One or more aggregated values to plot. When asRatio is true, exactly two select items are required.
+	 * @type array
+	 */
+	select: ClickStackSelectItem[];
+	/**
+	 * @description Field expression to group results by (creates separate stacked bands per group value).
+	 * @example service
+	 * @type string | undefined
+	 */
+	groupBy?: string | undefined;
+	/**
+	 * @description Plot select[0] / select[1] as a ratio. Requires exactly two select items.
+	 * @type boolean | undefined
+	 */
+	asRatio?: boolean | undefined;
+	/**
+	 * @description Align the date range boundaries to the query granularity interval.
+	 * @type boolean | undefined
+	 */
+	alignDateRangeToGranularity?: boolean | undefined;
+	/**
+	 * @description Fill missing time buckets with zero instead of leaving gaps.
+	 * @type boolean | undefined
+	 */
+	fillNulls?: boolean | undefined;
+	/**
+	 * @description How points are connected. Defaults to \"linear\" when omitted.
+	 * @example step
+	 * @type string | undefined
+	 */
+	lineInterpolation?: ClickStackStackedLineBuilderChartConfigLineInterpolationEnumKey | undefined;
+	numberFormat?: ClickStackNumberFormat | undefined;
+	/**
+	 * @description Maximum number of series rendered (top-N by value). Omit to use the default render cap, set 0 for unlimited, or a positive N to keep the top N series.
+	 * @example 5
+	 * @type integer | undefined
+	 */
+	seriesLimit?: number | undefined;
+	/**
+	 * @description Derived series computed from the select items via letter-ref arithmetic (\"A\" = select[0], \"B\" = select[1], ...). Metric, log, and trace sources only. Cannot be combined with asRatio.
+	 * @type array | undefined
+	 */
+	formulas?: ClickStackFormula[] | undefined;
+	/**
+	 * @description Only meaningful with formulas. When false, only the formula series are returned; the raw operand series are hidden.
+	 * @type boolean | undefined
+	 */
+	showOperandSeries?: boolean | undefined;
+};
+
+export const clickStackStackedLineRawSqlChartConfigLineInterpolationEnum = {
+	smooth: "smooth",
+	linear: "linear",
+	step: "step",
+} as const;
+
+export type ClickStackStackedLineRawSqlChartConfigLineInterpolationEnumKey =
+	(typeof clickStackStackedLineRawSqlChartConfigLineInterpolationEnum)[keyof typeof clickStackStackedLineRawSqlChartConfigLineInterpolationEnum];
+
+export type ClickStackStackedLineRawSqlChartConfig = {
+	/**
+	 * @description Must be \"sql\" to use the Raw SQL chart config variant.
+	 * @example sql
+	 * @type string
+	 */
+	configType: "sql";
+	/**
+	 * @description ID of the ClickHouse connection to execute the query against.
+	 * @example 65f5e4a3b9e77c001a567890
+	 * @type string
+	 */
+	connectionId: string;
+	/**
+	 * @description SQL query template to execute. Supports HyperDX template variables.
+	 * @example SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR
+	 * @type string
+	 */
+	sqlTemplate: string;
+	/**
+	 * @description Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.
+	 * @example 65f5e4a3b9e77c001a567890
+	 * @type string | undefined
+	 */
+	sourceId?: string | undefined;
+	numberFormat?: ClickStackNumberFormat | undefined;
+	/**
+	 * @description Display as a stacked-line time-series chart.
+	 * @example stacked_line
+	 * @type string
+	 */
+	displayType: "stacked_line";
+	/**
+	 * @description Fill missing time buckets with zero instead of leaving gaps.
+	 * @type boolean | undefined
+	 */
+	fillNulls?: boolean | undefined;
+	/**
+	 * @description Expand date range boundaries to the query granularity interval.
+	 * @type boolean | undefined
+	 */
+	alignDateRangeToGranularity?: boolean | undefined;
+	/**
+	 * @description How points are connected. Defaults to \"linear\" when omitted.
+	 * @example step
+	 * @type string | undefined
+	 */
+	lineInterpolation?: ClickStackStackedLineRawSqlChartConfigLineInterpolationEnumKey | undefined;
+};
+
+export type ClickStackStackedLineChartConfig =
+	| ClickStackStackedLineBuilderChartConfig
+	| ClickStackStackedLineRawSqlChartConfig;
+
+export type ClickStackAlertStackedLineBuilderChartConfig = ClickStackStackedLineBuilderChartConfig &
+	ClickStackAlertChartConfigOverlay;
+
+export type ClickStackAlertStackedLineRawSqlChartConfig = ClickStackStackedLineRawSqlChartConfig &
+	ClickStackAlertChartConfigOverlay;
+
+export type ClickStackAlertStackedLineChartConfig =
+	| ClickStackAlertStackedLineBuilderChartConfig
+	| ClickStackAlertStackedLineRawSqlChartConfig;
 
 export const clickStackNumericColorConditionOperatorEnum = {
 	gt: "gt",
@@ -7124,6 +7184,876 @@ export type ClickStackNumberTileColorCondition =
 	| ClickStackBetweenColorCondition
 	| ClickStackEqualityColorCondition;
 
+export const clickStackBackgroundChartTypeEnum = {
+	line: "line",
+	area: "area",
+} as const;
+
+export type ClickStackBackgroundChartTypeEnumKey =
+	(typeof clickStackBackgroundChartTypeEnum)[keyof typeof clickStackBackgroundChartTypeEnum];
+
+export const clickStackBackgroundChartColorEnum = {
+	"chart-blue": "chart-blue",
+	"chart-orange": "chart-orange",
+	"chart-red": "chart-red",
+	"chart-cyan": "chart-cyan",
+	"chart-green": "chart-green",
+	"chart-pink": "chart-pink",
+	"chart-purple": "chart-purple",
+	"chart-light-blue": "chart-light-blue",
+	"chart-brown": "chart-brown",
+	"chart-gray": "chart-gray",
+	"chart-success": "chart-success",
+	"chart-warning": "chart-warning",
+	"chart-error": "chart-error",
+} as const;
+
+export type ClickStackBackgroundChartColorEnumKey =
+	(typeof clickStackBackgroundChartColorEnum)[keyof typeof clickStackBackgroundChartColorEnum];
+
+export type ClickStackBackgroundChart = {
+	/**
+	 * @description Sparkline shape.
+	 * @example line
+	 * @type string
+	 */
+	type: ClickStackBackgroundChartTypeEnumKey;
+	/**
+	 * @description Optional palette-token override for the sparkline. When unset the sparkline inherits the tile\'s static color.
+	 * @type string | undefined
+	 */
+	color?: ClickStackBackgroundChartColorEnumKey | undefined;
+};
+
+export const clickStackNumberBuilderChartConfigColorEnum = {
+	"chart-blue": "chart-blue",
+	"chart-orange": "chart-orange",
+	"chart-red": "chart-red",
+	"chart-cyan": "chart-cyan",
+	"chart-green": "chart-green",
+	"chart-pink": "chart-pink",
+	"chart-purple": "chart-purple",
+	"chart-light-blue": "chart-light-blue",
+	"chart-brown": "chart-brown",
+	"chart-gray": "chart-gray",
+	"chart-success": "chart-success",
+	"chart-warning": "chart-warning",
+	"chart-error": "chart-error",
+} as const;
+
+export type ClickStackNumberBuilderChartConfigColorEnumKey =
+	(typeof clickStackNumberBuilderChartConfigColorEnum)[keyof typeof clickStackNumberBuilderChartConfigColorEnum];
+
+export type ClickStackNumberBuilderChartConfig = {
+	/**
+	 * @description Display type discriminator. Must be \"number\" for single big-number charts.
+	 * @example number
+	 * @type string
+	 */
+	displayType: "number";
+	/**
+	 * @description ID of the data source to query.
+	 * @example 65f5e4a3b9e77c001a111111
+	 * @type string
+	 */
+	sourceId: string;
+	/**
+	 * @description Exactly one aggregated value to display as a single number — unless \"formulas\" is set, in which case the select items are the formula\'s operands and the (single) formula value is displayed instead.
+	 * @type array
+	 */
+	select: ClickStackSelectItem[];
+	/**
+	 * @description A single derived value computed from the select items via letter-ref arithmetic (\"A\" = select[0], \"B\" = select[1], ...). Metric, log, and trace sources only. Number tiles display the formula value and always hide the operand series.
+	 * @type array | undefined
+	 */
+	formulas?: ClickStackFormula[] | undefined;
+	numberFormat?: ClickStackNumberFormat | undefined;
+	/**
+	 * @description Optional static color applied to the displayed number.
+	 * @type string | undefined
+	 */
+	color?: ClickStackNumberBuilderChartConfigColorEnumKey | undefined;
+	/**
+	 * @description Ordered conditional color rules evaluated against the displayed value (last match wins). Falls back to color, then the default text color when no rule matches.
+	 * @type array | undefined
+	 */
+	colorRules?: ClickStackNumberTileColorCondition[] | undefined;
+	backgroundChart?: ClickStackBackgroundChart | undefined;
+};
+
+export const clickStackNumberRawSqlChartConfigColorEnum = {
+	"chart-blue": "chart-blue",
+	"chart-orange": "chart-orange",
+	"chart-red": "chart-red",
+	"chart-cyan": "chart-cyan",
+	"chart-green": "chart-green",
+	"chart-pink": "chart-pink",
+	"chart-purple": "chart-purple",
+	"chart-light-blue": "chart-light-blue",
+	"chart-brown": "chart-brown",
+	"chart-gray": "chart-gray",
+	"chart-success": "chart-success",
+	"chart-warning": "chart-warning",
+	"chart-error": "chart-error",
+} as const;
+
+export type ClickStackNumberRawSqlChartConfigColorEnumKey =
+	(typeof clickStackNumberRawSqlChartConfigColorEnum)[keyof typeof clickStackNumberRawSqlChartConfigColorEnum];
+
+export type ClickStackNumberRawSqlChartConfig = {
+	/**
+	 * @description Must be \"sql\" to use the Raw SQL chart config variant.
+	 * @example sql
+	 * @type string
+	 */
+	configType: "sql";
+	/**
+	 * @description ID of the ClickHouse connection to execute the query against.
+	 * @example 65f5e4a3b9e77c001a567890
+	 * @type string
+	 */
+	connectionId: string;
+	/**
+	 * @description SQL query template to execute. Supports HyperDX template variables.
+	 * @example SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR
+	 * @type string
+	 */
+	sqlTemplate: string;
+	/**
+	 * @description Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.
+	 * @example 65f5e4a3b9e77c001a567890
+	 * @type string | undefined
+	 */
+	sourceId?: string | undefined;
+	numberFormat?: ClickStackNumberFormat | undefined;
+	/**
+	 * @description Display as a single big-number chart.
+	 * @example number
+	 * @type string
+	 */
+	displayType: "number";
+	/**
+	 * @description Optional static color applied to the displayed number.
+	 * @type string | undefined
+	 */
+	color?: ClickStackNumberRawSqlChartConfigColorEnumKey | undefined;
+	/**
+	 * @description Ordered conditional color rules evaluated against the displayed value (last match wins). Falls back to color, then the default text color when no rule matches.
+	 * @type array | undefined
+	 */
+	colorRules?: ClickStackNumberTileColorCondition[] | undefined;
+};
+
+export type ClickStackNumberChartConfig =
+	| ClickStackNumberBuilderChartConfig
+	| ClickStackNumberRawSqlChartConfig;
+
+export type ClickStackAlertNumberBuilderChartConfig = ClickStackNumberBuilderChartConfig &
+	ClickStackAlertChartConfigOverlay;
+
+export type ClickStackAlertNumberRawSqlChartConfig = ClickStackNumberRawSqlChartConfig &
+	ClickStackAlertChartConfigOverlay;
+
+export type ClickStackAlertNumberChartConfig =
+	| ClickStackAlertNumberBuilderChartConfig
+	| ClickStackAlertNumberRawSqlChartConfig;
+
+export type ClickStackAlertChartConfig =
+	| ClickStackAlertLineChartConfig
+	| ClickStackAlertBarChartConfig
+	| ClickStackAlertStackedLineChartConfig
+	| ClickStackAlertNumberChartConfig;
+
+export const clickStackAlertExecutionErrorTypeEnum = {
+	QUERY_ERROR: "QUERY_ERROR",
+	QUERY_TIMEOUT: "QUERY_TIMEOUT",
+	WEBHOOK_ERROR: "WEBHOOK_ERROR",
+	INVALID_ALERT: "INVALID_ALERT",
+	UNKNOWN: "UNKNOWN",
+} as const;
+
+export type ClickStackAlertExecutionErrorTypeEnumKey =
+	(typeof clickStackAlertExecutionErrorTypeEnum)[keyof typeof clickStackAlertExecutionErrorTypeEnum];
+
+export type ClickStackAlertExecutionError = {
+	/**
+	 * @description When the error occurred.
+	 *
+	 * Format: `date-time`
+	 * @example 2026-04-17T12:00:00.000Z
+	 * @type string
+	 */
+	timestamp: string;
+	/**
+	 * @description Category of the error.
+	 * @example QUERY_ERROR
+	 * @type string
+	 */
+	type: ClickStackAlertExecutionErrorTypeEnumKey;
+	/**
+	 * @description Human-readable error message.
+	 * @example Query timed out after 30s
+	 * @type string
+	 */
+	message: string;
+};
+
+export type ClickStackAlertSilenced = {
+	/**
+	 * @description User ID who silenced the alert.
+	 * @example 65f5e4a3b9e77c001a234567
+	 * @type string | undefined
+	 */
+	by?: (string | null) | undefined;
+	/**
+	 * @description Silence start timestamp.
+	 *
+	 * Format: `date-time`
+	 * @example 2026-03-19T08:00:00.000Z
+	 * @type string | undefined
+	 */
+	at?: string | undefined;
+	/**
+	 * @description Silence end timestamp.
+	 *
+	 * Format: `date-time`
+	 * @example 2026-03-20T08:00:00.000Z
+	 * @type string | undefined
+	 */
+	until?: string | undefined;
+};
+
+export const clickStackAlertChannelEmailTypeEnum = {
+	webhook: "webhook",
+	email: "email",
+} as const;
+
+export type ClickStackAlertChannelEmailTypeEnumKey =
+	(typeof clickStackAlertChannelEmailTypeEnum)[keyof typeof clickStackAlertChannelEmailTypeEnum];
+
+export type ClickStackAlertChannelEmail = {
+	/**
+	 * @description Channel type. Must be \"email\" for email alerts.
+	 * @type string
+	 */
+	type: ClickStackAlertChannelEmailTypeEnumKey;
+	/**
+	 * @description Email recipients for email alerts.
+	 * @type array
+	 */
+	emailRecipients: string[];
+};
+
+export const clickStackAlertChannelWebhookTypeEnum = {
+	webhook: "webhook",
+	email: "email",
+} as const;
+
+export type ClickStackAlertChannelWebhookTypeEnumKey =
+	(typeof clickStackAlertChannelWebhookTypeEnum)[keyof typeof clickStackAlertChannelWebhookTypeEnum];
+
+export const clickStackAlertChannelWebhookSeverityEnum = {
+	critical: "critical",
+	error: "error",
+	warning: "warning",
+	info: "info",
+} as const;
+
+export type ClickStackAlertChannelWebhookSeverityEnumKey =
+	(typeof clickStackAlertChannelWebhookSeverityEnum)[keyof typeof clickStackAlertChannelWebhookSeverityEnum];
+
+export type ClickStackAlertChannelWebhook = {
+	/**
+	 * @description Channel type. Must be \"webhook\" for webhook alerts.
+	 * @type string
+	 */
+	type: ClickStackAlertChannelWebhookTypeEnumKey;
+	/**
+	 * @description Webhook destination ID.
+	 * @example 65f5e4a3b9e77c001a789012
+	 * @type string
+	 */
+	webhookId: string;
+	/**
+	 * @description Webhook service type (e.g., slack_api).
+	 * @example slack_api
+	 * @type string | undefined
+	 */
+	webhookService?: (string | null) | undefined;
+	/**
+	 * @description Slack channel ID for Slack webhooks.
+	 * @example C01ABCDEF23
+	 * @type string | undefined
+	 */
+	slackChannelId?: (string | null) | undefined;
+	/**
+	 * @description Severity label used by PagerDuty API webhooks.
+	 * @type string | undefined
+	 */
+	severity?: (ClickStackAlertChannelWebhookSeverityEnumKey | null) | undefined;
+};
+
+export type ClickStackAlertChannel = ClickStackAlertChannelEmail | ClickStackAlertChannelWebhook;
+
+/**
+ * @description Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.
+ * @type array
+ */
+export type ClickStackAlertChannels = ClickStackAlertChannel[];
+
+export const clickStackAlertResponseIntervalEnum = {
+	"30s": "30s",
+	"1m": "1m",
+	"5m": "5m",
+	"15m": "15m",
+	"30m": "30m",
+	"1h": "1h",
+	"6h": "6h",
+	"12h": "12h",
+	"1d": "1d",
+} as const;
+
+export type ClickStackAlertResponseIntervalEnumKey =
+	(typeof clickStackAlertResponseIntervalEnum)[keyof typeof clickStackAlertResponseIntervalEnum];
+
+export const clickStackAlertResponseSourceEnum = {
+	saved_search: "saved_search",
+	tile: "tile",
+	inline: "inline",
+} as const;
+
+export type ClickStackAlertResponseSourceEnumKey =
+	(typeof clickStackAlertResponseSourceEnum)[keyof typeof clickStackAlertResponseSourceEnum];
+
+export const clickStackAlertResponseThresholdTypeEnum = {
+	above: "above",
+	below: "below",
+	above_exclusive: "above_exclusive",
+	below_or_equal: "below_or_equal",
+	equal: "equal",
+	not_equal: "not_equal",
+	between: "between",
+	not_between: "not_between",
+} as const;
+
+export type ClickStackAlertResponseThresholdTypeEnumKey =
+	(typeof clickStackAlertResponseThresholdTypeEnum)[keyof typeof clickStackAlertResponseThresholdTypeEnum];
+
+export const clickStackAlertResponseStateEnum = {
+	ALERT: "ALERT",
+	OK: "OK",
+	INSUFFICIENT_DATA: "INSUFFICIENT_DATA",
+	DISABLED: "DISABLED",
+	PENDING: "PENDING",
+} as const;
+
+export type ClickStackAlertResponseStateEnumKey =
+	(typeof clickStackAlertResponseStateEnum)[keyof typeof clickStackAlertResponseStateEnum];
+
+export type ClickStackAlertResponse = {
+	/**
+	 * @description Dashboard ID for tile-based alerts.
+	 * @example 65f5e4a3b9e77c001a567890
+	 * @type string | undefined
+	 */
+	dashboardId?: (string | null) | undefined;
+	/**
+	 * @description Tile ID for tile-based alerts. Must be a line, stacked bar, or number type tile.
+	 * @example 65f5e4a3b9e77c001a901234
+	 * @type string | undefined
+	 */
+	tileId?: (string | null) | undefined;
+	/**
+	 * @description Saved search ID for saved_search alerts.
+	 * @example 65f5e4a3b9e77c001a345678
+	 * @type string | undefined
+	 */
+	savedSearchId?: (string | null) | undefined;
+	/**
+	 * @description Group-by key for saved search alerts.
+	 * @example ServiceName
+	 * @type string | undefined
+	 */
+	groupBy?: (string | null) | undefined;
+	chartConfig?: ClickStackAlertChartConfig | undefined;
+	/**
+	 * @description Threshold value for triggering the alert. For between and not_between threshold types, this is the lower bound.
+	 * @example 100
+	 * @type number | undefined
+	 */
+	threshold?: number | undefined;
+	/**
+	 * @description Upper bound for between and not_between threshold types. Required when thresholdType is between or not_between, must be >= threshold.
+	 * @example 500
+	 * @type number | undefined
+	 */
+	thresholdMax?: (number | null) | undefined;
+	/**
+	 * @description Evaluation interval for the alert. `30s` requires the 30s alert interval feature to be enabled for your team. Anomaly alerts (detectionMode \"anomaly\") support only `5m`, `15m`, `30m`, and `1h`; other intervals are rejected with 400.
+	 * @example 1h
+	 * @type string | undefined
+	 */
+	interval?: ClickStackAlertResponseIntervalEnumKey | undefined;
+	/**
+	 * @description Offset from the interval boundary in minutes. For example, 2 with a 5m interval evaluates windows at :02, :07, :12, etc. (UTC).
+	 * @example 2
+	 * @type integer | undefined
+	 */
+	scheduleOffsetMinutes?: (number | null) | undefined;
+	/**
+	 * @description Absolute UTC start time anchor. Alert windows start from this timestamp and repeat every interval.
+	 *
+	 * Format: `date-time`
+	 * @example 2026-02-08T10:00:00.000Z
+	 * @type string | undefined
+	 */
+	scheduleStartAt?: (string | null) | undefined;
+	/**
+	 * @description Alert source type (tile-based or saved search).
+	 * @example tile
+	 * @type string | undefined
+	 */
+	source?: ClickStackAlertResponseSourceEnumKey | undefined;
+	/**
+	 * @description Threshold comparison direction.
+	 * @example above
+	 * @type string | undefined
+	 */
+	thresholdType?: ClickStackAlertResponseThresholdTypeEnumKey | undefined;
+	channel?: ClickStackAlertChannel | undefined;
+	/**
+	 * @description Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.
+	 * @type array | undefined
+	 */
+	channels?: ClickStackAlertChannels | undefined;
+	/**
+	 * @description Alert name template (Handlebars), rendered as the notification title. When omitted, a default title is generated from the display name, value and threshold.
+	 * @example Errors for {{group}} hit {{value}}
+	 * @type string | undefined
+	 */
+	name?: (string | null) | undefined;
+	/**
+	 * @description Alert message template.
+	 * @example Test Alert Message
+	 * @type string | undefined
+	 */
+	message?: (string | null) | undefined;
+	/**
+	 * @description Freeform note for the alert. Supports markdown formatting.
+	 * @example Threshold raised from 50 to 100 on 2026-01-15. See [runbook](https://wiki.example.com/runbook).
+	 * @type string | undefined
+	 */
+	note?: (string | null) | undefined;
+	/**
+	 * @description Fire the alert only after its condition has been met for this many consecutive evaluation windows. While the condition is met but fewer than this many consecutive windows have violated, the alert is in the PENDING state.
+	 * @example 3
+	 * @type integer | undefined
+	 */
+	numConsecutiveWindows?: (number | null) | undefined;
+	/**
+	 * @description The display name for the alert in the UI. Derived from the saved search name, dashboard tile name, or inline chartConfig name when not explicitly set.
+	 * @example Checkout error spike
+	 * @type string
+	 */
+	displayName: string;
+	/**
+	 * @description The tags for the alert. Derived from the tags of the referenced saved search or dashboard when not explicitly set; inline alerts default to an empty list.
+	 * @example ["checkout","p1"]
+	 * @type array
+	 */
+	tags: string[];
+	/**
+	 * @description Unique alert identifier.
+	 * @example 65f5e4a3b9e77c001a123456
+	 * @type string | undefined
+	 */
+	id?: string | undefined;
+	/**
+	 * @description Current alert state.
+	 * @example ALERT
+	 * @type string | undefined
+	 */
+	state?: ClickStackAlertResponseStateEnumKey | undefined;
+	/**
+	 * @description Team identifier.
+	 * @example 65f5e4a3b9e77c001a345678
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	silenced?: (ClickStackAlertSilenced | null) | undefined;
+	/**
+	 * @description Errors recorded during the most recent alert execution, if any.
+	 * @type array | undefined
+	 */
+	executionErrors?: ClickStackAlertExecutionError[] | undefined;
+	/**
+	 * @description Creation timestamp.
+	 *
+	 * Format: `date-time`
+	 * @example 2023-01-01T00:00:00.000Z
+	 * @type string | undefined
+	 */
+	createdAt?: (string | null) | undefined;
+	/**
+	 * @description Last update timestamp.
+	 *
+	 * Format: `date-time`
+	 * @example 2023-01-01T00:00:00.000Z
+	 * @type string | undefined
+	 */
+	updatedAt?: (string | null) | undefined;
+};
+
+export const clickStackCreateAlertRequestIntervalEnum = {
+	"30s": "30s",
+	"1m": "1m",
+	"5m": "5m",
+	"15m": "15m",
+	"30m": "30m",
+	"1h": "1h",
+	"6h": "6h",
+	"12h": "12h",
+	"1d": "1d",
+} as const;
+
+export type ClickStackCreateAlertRequestIntervalEnumKey =
+	(typeof clickStackCreateAlertRequestIntervalEnum)[keyof typeof clickStackCreateAlertRequestIntervalEnum];
+
+export const clickStackCreateAlertRequestSourceEnum = {
+	saved_search: "saved_search",
+	tile: "tile",
+	inline: "inline",
+} as const;
+
+export type ClickStackCreateAlertRequestSourceEnumKey =
+	(typeof clickStackCreateAlertRequestSourceEnum)[keyof typeof clickStackCreateAlertRequestSourceEnum];
+
+export const clickStackCreateAlertRequestThresholdTypeEnum = {
+	above: "above",
+	below: "below",
+	above_exclusive: "above_exclusive",
+	below_or_equal: "below_or_equal",
+	equal: "equal",
+	not_equal: "not_equal",
+	between: "between",
+	not_between: "not_between",
+} as const;
+
+export type ClickStackCreateAlertRequestThresholdTypeEnumKey =
+	(typeof clickStackCreateAlertRequestThresholdTypeEnum)[keyof typeof clickStackCreateAlertRequestThresholdTypeEnum];
+
+export type ClickStackCreateAlertRequest = {
+	/**
+	 * @description Dashboard ID for tile-based alerts.
+	 * @example 65f5e4a3b9e77c001a567890
+	 * @type string | undefined
+	 */
+	dashboardId?: (string | null) | undefined;
+	/**
+	 * @description Tile ID for tile-based alerts. Must be a line, stacked bar, or number type tile.
+	 * @example 65f5e4a3b9e77c001a901234
+	 * @type string | undefined
+	 */
+	tileId?: (string | null) | undefined;
+	/**
+	 * @description Saved search ID for saved_search alerts.
+	 * @example 65f5e4a3b9e77c001a345678
+	 * @type string | undefined
+	 */
+	savedSearchId?: (string | null) | undefined;
+	/**
+	 * @description Group-by key for saved search alerts.
+	 * @example ServiceName
+	 * @type string | undefined
+	 */
+	groupBy?: (string | null) | undefined;
+	chartConfig?: ClickStackAlertChartConfig | undefined;
+	/**
+	 * @description Threshold value for triggering the alert. For between and not_between threshold types, this is the lower bound.
+	 * @example 100
+	 * @type number
+	 */
+	threshold: number;
+	/**
+	 * @description Upper bound for between and not_between threshold types. Required when thresholdType is between or not_between, must be >= threshold.
+	 * @example 500
+	 * @type number | undefined
+	 */
+	thresholdMax?: (number | null) | undefined;
+	/**
+	 * @description Evaluation interval for the alert. `30s` requires the 30s alert interval feature to be enabled for your team. Anomaly alerts (detectionMode \"anomaly\") support only `5m`, `15m`, `30m`, and `1h`; other intervals are rejected with 400.
+	 * @example 1h
+	 * @type string
+	 */
+	interval: ClickStackCreateAlertRequestIntervalEnumKey;
+	/**
+	 * @description Offset from the interval boundary in minutes. For example, 2 with a 5m interval evaluates windows at :02, :07, :12, etc. (UTC).
+	 * @example 2
+	 * @type integer | undefined
+	 */
+	scheduleOffsetMinutes?: (number | null) | undefined;
+	/**
+	 * @description Absolute UTC start time anchor. Alert windows start from this timestamp and repeat every interval.
+	 *
+	 * Format: `date-time`
+	 * @example 2026-02-08T10:00:00.000Z
+	 * @type string | undefined
+	 */
+	scheduleStartAt?: (string | null) | undefined;
+	/**
+	 * @description Alert source type (tile-based or saved search).
+	 * @example tile
+	 * @type string | undefined
+	 */
+	source?: ClickStackCreateAlertRequestSourceEnumKey | undefined;
+	/**
+	 * @description Threshold comparison direction.
+	 * @example above
+	 * @type string
+	 */
+	thresholdType: ClickStackCreateAlertRequestThresholdTypeEnumKey;
+	channel?: ClickStackAlertChannel | undefined;
+	/**
+	 * @description Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.
+	 * @type array | undefined
+	 */
+	channels?: ClickStackAlertChannels | undefined;
+	/**
+	 * @description Alert name template (Handlebars), rendered as the notification title. When omitted, a default title is generated from the display name, value and threshold.
+	 * @example Errors for {{group}} hit {{value}}
+	 * @type string | undefined
+	 */
+	name?: (string | null) | undefined;
+	/**
+	 * @description Display name shown in the alerts list and in notification titles. Defaults to the name of the referenced saved search, dashboard tile, or inline chart when omitted or null.
+	 * @example Checkout error spike
+	 * @type string | undefined
+	 */
+	displayName?: (string | null) | undefined;
+	/**
+	 * @description Tags for the alert. Defaults to the tags of the referenced saved search or dashboard when omitted or null; inline alerts have no parent to inherit from and default to an empty list.
+	 * @example ["checkout","p1"]
+	 * @type array | undefined
+	 */
+	tags?: string[] | undefined;
+	/**
+	 * @description Alert message template.
+	 * @example Test Alert Message
+	 * @type string | undefined
+	 */
+	message?: (string | null) | undefined;
+	/**
+	 * @description Freeform note for the alert. Supports markdown formatting.
+	 * @example Threshold raised from 50 to 100 on 2026-01-15. See [runbook](https://wiki.example.com/runbook).
+	 * @type string | undefined
+	 */
+	note?: (string | null) | undefined;
+	/**
+	 * @description Fire the alert only after its condition has been met for this many consecutive evaluation windows. While the condition is met but fewer than this many consecutive windows have violated, the alert is in the PENDING state.
+	 * @example 3
+	 * @type integer | undefined
+	 */
+	numConsecutiveWindows?: (number | null) | undefined;
+};
+
+export const clickStackUpdateAlertRequestIntervalEnum = {
+	"30s": "30s",
+	"1m": "1m",
+	"5m": "5m",
+	"15m": "15m",
+	"30m": "30m",
+	"1h": "1h",
+	"6h": "6h",
+	"12h": "12h",
+	"1d": "1d",
+} as const;
+
+export type ClickStackUpdateAlertRequestIntervalEnumKey =
+	(typeof clickStackUpdateAlertRequestIntervalEnum)[keyof typeof clickStackUpdateAlertRequestIntervalEnum];
+
+export const clickStackUpdateAlertRequestSourceEnum = {
+	saved_search: "saved_search",
+	tile: "tile",
+	inline: "inline",
+} as const;
+
+export type ClickStackUpdateAlertRequestSourceEnumKey =
+	(typeof clickStackUpdateAlertRequestSourceEnum)[keyof typeof clickStackUpdateAlertRequestSourceEnum];
+
+export const clickStackUpdateAlertRequestThresholdTypeEnum = {
+	above: "above",
+	below: "below",
+	above_exclusive: "above_exclusive",
+	below_or_equal: "below_or_equal",
+	equal: "equal",
+	not_equal: "not_equal",
+	between: "between",
+	not_between: "not_between",
+} as const;
+
+export type ClickStackUpdateAlertRequestThresholdTypeEnumKey =
+	(typeof clickStackUpdateAlertRequestThresholdTypeEnum)[keyof typeof clickStackUpdateAlertRequestThresholdTypeEnum];
+
+export type ClickStackUpdateAlertRequest = {
+	/**
+	 * @description Dashboard ID for tile-based alerts.
+	 * @example 65f5e4a3b9e77c001a567890
+	 * @type string | undefined
+	 */
+	dashboardId?: (string | null) | undefined;
+	/**
+	 * @description Tile ID for tile-based alerts. Must be a line, stacked bar, or number type tile.
+	 * @example 65f5e4a3b9e77c001a901234
+	 * @type string | undefined
+	 */
+	tileId?: (string | null) | undefined;
+	/**
+	 * @description Saved search ID for saved_search alerts.
+	 * @example 65f5e4a3b9e77c001a345678
+	 * @type string | undefined
+	 */
+	savedSearchId?: (string | null) | undefined;
+	/**
+	 * @description Group-by key for saved search alerts.
+	 * @example ServiceName
+	 * @type string | undefined
+	 */
+	groupBy?: (string | null) | undefined;
+	chartConfig?: ClickStackAlertChartConfig | undefined;
+	/**
+	 * @description Threshold value for triggering the alert. For between and not_between threshold types, this is the lower bound.
+	 * @example 100
+	 * @type number
+	 */
+	threshold: number;
+	/**
+	 * @description Upper bound for between and not_between threshold types. Required when thresholdType is between or not_between, must be >= threshold.
+	 * @example 500
+	 * @type number | undefined
+	 */
+	thresholdMax?: (number | null) | undefined;
+	/**
+	 * @description Evaluation interval for the alert. `30s` requires the 30s alert interval feature to be enabled for your team. Anomaly alerts (detectionMode \"anomaly\") support only `5m`, `15m`, `30m`, and `1h`; other intervals are rejected with 400.
+	 * @example 1h
+	 * @type string
+	 */
+	interval: ClickStackUpdateAlertRequestIntervalEnumKey;
+	/**
+	 * @description Offset from the interval boundary in minutes. For example, 2 with a 5m interval evaluates windows at :02, :07, :12, etc. (UTC).
+	 * @example 2
+	 * @type integer | undefined
+	 */
+	scheduleOffsetMinutes?: (number | null) | undefined;
+	/**
+	 * @description Absolute UTC start time anchor. Alert windows start from this timestamp and repeat every interval.
+	 *
+	 * Format: `date-time`
+	 * @example 2026-02-08T10:00:00.000Z
+	 * @type string | undefined
+	 */
+	scheduleStartAt?: (string | null) | undefined;
+	/**
+	 * @description Alert source type (tile-based or saved search).
+	 * @example tile
+	 * @type string | undefined
+	 */
+	source?: ClickStackUpdateAlertRequestSourceEnumKey | undefined;
+	/**
+	 * @description Threshold comparison direction.
+	 * @example above
+	 * @type string
+	 */
+	thresholdType: ClickStackUpdateAlertRequestThresholdTypeEnumKey;
+	channel?: ClickStackAlertChannel | undefined;
+	/**
+	 * @description Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.
+	 * @type array | undefined
+	 */
+	channels?: ClickStackAlertChannels | undefined;
+	/**
+	 * @description Alert name template (Handlebars), rendered as the notification title. When omitted, a default title is generated from the display name, value and threshold.
+	 * @example Errors for {{group}} hit {{value}}
+	 * @type string | undefined
+	 */
+	name?: (string | null) | undefined;
+	/**
+	 * @description Display name shown in the alerts list and in notification titles. Defaults to the name of the referenced saved search, dashboard tile, or inline chart when omitted or null.
+	 * @example Checkout error spike
+	 * @type string | undefined
+	 */
+	displayName?: (string | null) | undefined;
+	/**
+	 * @description Tags for the alert. Defaults to the tags of the referenced saved search or dashboard when omitted or null; inline alerts have no parent to inherit from and default to an empty list.
+	 * @example ["checkout","p1"]
+	 * @type array | undefined
+	 */
+	tags?: string[] | undefined;
+	/**
+	 * @description Alert message template.
+	 * @example Test Alert Message
+	 * @type string | undefined
+	 */
+	message?: (string | null) | undefined;
+	/**
+	 * @description Freeform note for the alert. Supports markdown formatting.
+	 * @example Threshold raised from 50 to 100 on 2026-01-15. See [runbook](https://wiki.example.com/runbook).
+	 * @type string | undefined
+	 */
+	note?: (string | null) | undefined;
+	/**
+	 * @description Fire the alert only after its condition has been met for this many consecutive evaluation windows. While the condition is met but fewer than this many consecutive windows have violated, the alert is in the PENDING state.
+	 * @example 3
+	 * @type integer | undefined
+	 */
+	numConsecutiveWindows?: (number | null) | undefined;
+};
+
+export type ClickStackSqlSavedFilterValue = {
+	/**
+	 * @description Filter type.
+	 * @example sql
+	 * @type string | undefined
+	 */
+	type?: "sql" | undefined;
+	/**
+	 * @description SQL filter condition. For example use expressions in the form \"column IN (\'value\')\".
+	 * @example ServiceName IN ('hdx-oss-dev-api')
+	 * @type string
+	 */
+	condition: string;
+};
+
+export type ClickStackVariableSavedFilterValue = {
+	/**
+	 * @description Filter type.
+	 * @example variable
+	 * @type string
+	 */
+	type: "variable";
+	/**
+	 * @description The variableName of the dashboard variable this selection belongs to. Only allowed for variable-enabled filters.
+	 * @example service
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description Selected values. Ignored when \"all\" is true.
+	 * @example ["hdx-oss-dev-api"]
+	 * @type array
+	 */
+	values: string[];
+	/**
+	 * @description Set to true to select every available value rather than a fixed list, which only SOURCE_FILTER filters offer (and only for columns their source declares with allowAll). Send an empty \"values\" alongside it. Allowed values: true.
+	 * @example true
+	 * @type boolean | undefined
+	 */
+	all?: boolean | undefined;
+};
+
+export type ClickStackSavedFilterValue =
+	| ClickStackSqlSavedFilterValue
+	| ClickStackVariableSavedFilterValue;
+
 export const clickStackTimeChartSeriesAggFnEnum = {
 	avg: "avg",
 	count: "count",
@@ -7161,6 +8091,7 @@ export type ClickStackTimeChartSeriesMetricDataTypeEnumKey =
 
 export const clickStackTimeChartSeriesDisplayTypeEnum = {
 	stacked_bar: "stacked_bar",
+	stacked_line: "stacked_line",
 	line: "line",
 } as const;
 
@@ -7526,248 +8457,6 @@ export type ClickStackDashboardChartSeries =
 	| ClickStackSearchChartSeries
 	| ClickStackMarkdownChartSeries;
 
-export const clickStackSelectItemAggFnEnum = {
-	avg: "avg",
-	count: "count",
-	count_distinct: "count_distinct",
-	last_value: "last_value",
-	max: "max",
-	min: "min",
-	quantile: "quantile",
-	sum: "sum",
-	any: "any",
-	none: "none",
-} as const;
-
-export type ClickStackSelectItemAggFnEnumKey =
-	(typeof clickStackSelectItemAggFnEnum)[keyof typeof clickStackSelectItemAggFnEnum];
-
-export const clickStackSelectItemLevelEnum = {
-	"0.5": "0.5",
-	"0.9": "0.9",
-	"0.95": "0.95",
-	"0.99": "0.99",
-} as const;
-
-export type ClickStackSelectItemLevelEnumKey =
-	(typeof clickStackSelectItemLevelEnum)[keyof typeof clickStackSelectItemLevelEnum];
-
-export const clickStackSelectItemWhereLanguageEnum = {
-	sql: "sql",
-	lucene: "lucene",
-} as const;
-
-export type ClickStackSelectItemWhereLanguageEnumKey =
-	(typeof clickStackSelectItemWhereLanguageEnum)[keyof typeof clickStackSelectItemWhereLanguageEnum];
-
-export const clickStackSelectItemMetricTypeEnum = {
-	sum: "sum",
-	gauge: "gauge",
-	histogram: "histogram",
-	summary: "summary",
-	"exponential histogram": "exponential histogram",
-} as const;
-
-export type ClickStackSelectItemMetricTypeEnumKey =
-	(typeof clickStackSelectItemMetricTypeEnum)[keyof typeof clickStackSelectItemMetricTypeEnum];
-
-export type ClickStackSelectItem = {
-	/**
-	 * @description Aggregation function to apply. \"count\" does not require a valueExpression; \"quantile\" requires a level field indicating the desired percentile (e.g., 0.95).
-	 * @example count
-	 * @type string
-	 */
-	aggFn: ClickStackSelectItemAggFnEnumKey;
-	/**
-	 * @description Expression for the column or value to aggregate. Must be omitted when aggFn is \"count\"; required for all other aggFn values.
-	 * @example Duration
-	 * @type string | undefined
-	 */
-	valueExpression?: string | undefined;
-	/**
-	 * @description Display alias for this select item in chart legends.
-	 * @example Request Duration
-	 * @type string | undefined
-	 */
-	alias?: string | undefined;
-	/**
-	 * @description Percentile level; only valid when aggFn is \"quantile\".
-	 * @type number | undefined
-	 */
-	level?: ClickStackSelectItemLevelEnumKey | undefined;
-	/**
-	 * @description SQL or Lucene filter condition applied before aggregation.
-	 * @example service:api
-	 * @type string | undefined
-	 */
-	where?: string | undefined;
-	/**
-	 * @description Query language for the where clause.
-	 * @type string | undefined
-	 */
-	whereLanguage?: ClickStackSelectItemWhereLanguageEnumKey | undefined;
-	/**
-	 * @description Name of the metric to aggregate; only applicable when the source is a metrics source.
-	 * @example http.server.duration
-	 * @type string | undefined
-	 */
-	metricName?: string | undefined;
-	/**
-	 * @description Metric type; only applicable when the source is a metrics source.
-	 * @type string | undefined
-	 */
-	metricType?: ClickStackSelectItemMetricTypeEnumKey | undefined;
-	/**
-	 * @description Optional period aggregation function for Gauge metrics (e.g., compute the delta over the period).
-	 * @example delta
-	 * @type string | undefined
-	 */
-	periodAggFn?: "delta" | undefined;
-	numberFormat?: ClickStackNumberFormat | undefined;
-};
-
-export type ClickStackFormula = {
-	/**
-	 * @description Arithmetic expression over the select items by position, e.g. \"A / (A + B) * 100\" for a success-rate percentage.
-	 * @example A / (A + B) * 100
-	 * @type string
-	 */
-	expression: string;
-	/**
-	 * @description Display label for the formula series in chart legends and column headers. Falls back to the raw expression text when unset.
-	 * @example Success rate %
-	 * @type string | undefined
-	 */
-	alias?: string | undefined;
-	numberFormat?: ClickStackNumberFormat | undefined;
-};
-
-export type ClickStackLineBuilderChartConfig = {
-	/**
-	 * @description Display type discriminator. Must be \"line\" for line charts.
-	 * @example line
-	 * @type string
-	 */
-	displayType: "line";
-	/**
-	 * @description ID of the data source to query.
-	 * @example 65f5e4a3b9e77c001a111111
-	 * @type string
-	 */
-	sourceId: string;
-	/**
-	 * @description One or more aggregated values to plot. When asRatio is true, exactly two select items are required.
-	 * @type array
-	 */
-	select: ClickStackSelectItem[];
-	/**
-	 * @description Field expression to group results by (creates separate lines per group value).
-	 * @example host
-	 * @type string | undefined
-	 */
-	groupBy?: string | undefined;
-	/**
-	 * @description Plot select[0] / select[1] as a ratio. Requires exactly two select items.
-	 * @type boolean | undefined
-	 */
-	asRatio?: boolean | undefined;
-	/**
-	 * @description Expand date range boundaries to the query granularity interval.
-	 * @type boolean | undefined
-	 */
-	alignDateRangeToGranularity?: boolean | undefined;
-	/**
-	 * @description Fill missing time buckets with zero instead of leaving gaps.
-	 * @type boolean | undefined
-	 */
-	fillNulls?: boolean | undefined;
-	/**
-	 * @description Set the y-axis lower bound to the minimum of the displayed data instead of zero, making small fluctuations between series easier to see.
-	 * @type boolean | undefined
-	 */
-	fitYAxisToData?: boolean | undefined;
-	numberFormat?: ClickStackNumberFormat | undefined;
-	/**
-	 * @description Overlay the equivalent previous time period for comparison.
-	 * @type boolean | undefined
-	 */
-	compareToPreviousPeriod?: boolean | undefined;
-	/**
-	 * @description Maximum number of series rendered (top-N by value). Omit to use the default render cap, set 0 for unlimited, or a positive N to keep the top N series.
-	 * @example 5
-	 * @type integer | undefined
-	 */
-	seriesLimit?: number | undefined;
-	/**
-	 * @description Derived series computed from the select items via letter-ref arithmetic (\"A\" = select[0], \"B\" = select[1], ...). Metric, log, and trace sources only. Cannot be combined with asRatio.
-	 * @type array | undefined
-	 */
-	formulas?: ClickStackFormula[] | undefined;
-	/**
-	 * @description Only meaningful with formulas. When false, only the formula series are returned; the raw operand series are hidden.
-	 * @type boolean | undefined
-	 */
-	showOperandSeries?: boolean | undefined;
-};
-
-export type ClickStackBarBuilderChartConfig = {
-	/**
-	 * @description Display type discriminator. Must be \"stacked_bar\" for stacked-bar charts.
-	 * @example stacked_bar
-	 * @type string
-	 */
-	displayType: "stacked_bar";
-	/**
-	 * @description ID of the data source to query.
-	 * @example 65f5e4a3b9e77c001a111111
-	 * @type string
-	 */
-	sourceId: string;
-	/**
-	 * @description One or more aggregated values to plot. When asRatio is true, exactly two select items are required.
-	 * @type array
-	 */
-	select: ClickStackSelectItem[];
-	/**
-	 * @description Field expression to group results by (creates separate bars segments per group value).
-	 * @example service
-	 * @type string | undefined
-	 */
-	groupBy?: string | undefined;
-	/**
-	 * @description Plot select[0] / select[1] as a ratio. Requires exactly two select items.
-	 * @type boolean | undefined
-	 */
-	asRatio?: boolean | undefined;
-	/**
-	 * @description Align the date range boundaries to the query granularity interval.
-	 * @type boolean | undefined
-	 */
-	alignDateRangeToGranularity?: boolean | undefined;
-	/**
-	 * @description Fill missing time buckets with zero instead of leaving gaps.
-	 * @type boolean | undefined
-	 */
-	fillNulls?: boolean | undefined;
-	numberFormat?: ClickStackNumberFormat | undefined;
-	/**
-	 * @description Maximum number of series rendered (top-N by value). Omit to use the default render cap, set 0 for unlimited, or a positive N to keep the top N series.
-	 * @example 5
-	 * @type integer | undefined
-	 */
-	seriesLimit?: number | undefined;
-	/**
-	 * @description Derived series computed from the select items via letter-ref arithmetic (\"A\" = select[0], \"B\" = select[1], ...). Metric, log, and trace sources only. Cannot be combined with asRatio.
-	 * @type array | undefined
-	 */
-	formulas?: ClickStackFormula[] | undefined;
-	/**
-	 * @description Only meaningful with formulas. When false, only the formula series are returned; the raw operand series are hidden.
-	 * @type boolean | undefined
-	 */
-	showOperandSeries?: boolean | undefined;
-};
-
 export type ClickStackOnClickTargetIdVariant = {
 	/**
 	 * @description Target is a single dashboard or log/trace source
@@ -7973,62 +8662,6 @@ export type ClickStackTableBuilderChartConfig = {
 	showOperandSeries?: boolean | undefined;
 };
 
-export const clickStackNumberBuilderChartConfigColorEnum = {
-	"chart-blue": "chart-blue",
-	"chart-orange": "chart-orange",
-	"chart-red": "chart-red",
-	"chart-cyan": "chart-cyan",
-	"chart-green": "chart-green",
-	"chart-pink": "chart-pink",
-	"chart-purple": "chart-purple",
-	"chart-light-blue": "chart-light-blue",
-	"chart-brown": "chart-brown",
-	"chart-gray": "chart-gray",
-	"chart-success": "chart-success",
-	"chart-warning": "chart-warning",
-	"chart-error": "chart-error",
-} as const;
-
-export type ClickStackNumberBuilderChartConfigColorEnumKey =
-	(typeof clickStackNumberBuilderChartConfigColorEnum)[keyof typeof clickStackNumberBuilderChartConfigColorEnum];
-
-export type ClickStackNumberBuilderChartConfig = {
-	/**
-	 * @description Display type discriminator. Must be \"number\" for single big-number charts.
-	 * @example number
-	 * @type string
-	 */
-	displayType: "number";
-	/**
-	 * @description ID of the data source to query.
-	 * @example 65f5e4a3b9e77c001a111111
-	 * @type string
-	 */
-	sourceId: string;
-	/**
-	 * @description Exactly one aggregated value to display as a single number — unless \"formulas\" is set, in which case the select items are the formula\'s operands and the (single) formula value is displayed instead.
-	 * @type array
-	 */
-	select: ClickStackSelectItem[];
-	/**
-	 * @description A single derived value computed from the select items via letter-ref arithmetic (\"A\" = select[0], \"B\" = select[1], ...). Metric, log, and trace sources only. Number tiles display the formula value and always hide the operand series.
-	 * @type array | undefined
-	 */
-	formulas?: ClickStackFormula[] | undefined;
-	numberFormat?: ClickStackNumberFormat | undefined;
-	/**
-	 * @description Optional static color applied to the displayed number.
-	 * @type string | undefined
-	 */
-	color?: ClickStackNumberBuilderChartConfigColorEnumKey | undefined;
-	/**
-	 * @description Ordered conditional color rules evaluated against the displayed value (last match wins). Falls back to color, then the default text color when no rule matches.
-	 * @type array | undefined
-	 */
-	colorRules?: ClickStackNumberTileColorCondition[] | undefined;
-	backgroundChart?: ClickStackBackgroundChart | undefined;
-};
-
 export type ClickStackPieBuilderChartConfig = {
 	/**
 	 * @description Display type discriminator. Must be \"pie\" for pie charts.
@@ -8136,21 +8769,27 @@ export type ClickStackHeatmapSelectItem = {
 	heatmapScaleType?: ClickStackHeatmapSelectItemHeatmapScaleTypeEnumKey | undefined;
 };
 
-export const clickStackHeatmapChartConfigWhereLanguageEnum = {
+export const clickStackHeatmapDistributionChartConfigWhereLanguageEnum = {
 	sql: "sql",
 	lucene: "lucene",
 } as const;
 
-export type ClickStackHeatmapChartConfigWhereLanguageEnumKey =
-	(typeof clickStackHeatmapChartConfigWhereLanguageEnum)[keyof typeof clickStackHeatmapChartConfigWhereLanguageEnum];
+export type ClickStackHeatmapDistributionChartConfigWhereLanguageEnumKey =
+	(typeof clickStackHeatmapDistributionChartConfigWhereLanguageEnum)[keyof typeof clickStackHeatmapDistributionChartConfigWhereLanguageEnum];
 
-export type ClickStackHeatmapChartConfig = {
+export type ClickStackHeatmapDistributionChartConfig = {
 	/**
 	 * @description Display type discriminator. Must be \"heatmap\" for heatmap tiles.
 	 * @example heatmap
 	 * @type string
 	 */
 	displayType: "heatmap";
+	/**
+	 * @description Heatmap mode. \"distribution\" is the default when omitted.
+	 * @example distribution
+	 * @type string | undefined
+	 */
+	heatmapMode?: "distribution" | undefined;
 	/**
 	 * @description ID of the data source to query.
 	 * @example 65f5e4a3b9e77c001a111111
@@ -8172,9 +8811,46 @@ export type ClickStackHeatmapChartConfig = {
 	 * @description Query language for the where clause.
 	 * @type string | undefined
 	 */
-	whereLanguage?: ClickStackHeatmapChartConfigWhereLanguageEnumKey | undefined;
+	whereLanguage?: ClickStackHeatmapDistributionChartConfigWhereLanguageEnumKey | undefined;
 	numberFormat?: ClickStackNumberFormat | undefined;
 };
+
+export type ClickStackHeatmapSeriesChartConfig = {
+	/**
+	 * @description Display type discriminator. Must be \"heatmap\" for heatmap tiles.
+	 * @example heatmap
+	 * @type string
+	 */
+	displayType: "heatmap";
+	/**
+	 * @description Heatmap mode. Must be \"series\" for series heatmaps.
+	 * @example series
+	 * @type string
+	 */
+	heatmapMode: "series";
+	/**
+	 * @description ID of the data source to query.
+	 * @example 65f5e4a3b9e77c001a111111
+	 * @type string
+	 */
+	sourceId: string;
+	/**
+	 * @description Exactly one aggregated value used to color each cell.
+	 * @type array
+	 */
+	select: ClickStackSelectItem[];
+	/**
+	 * @description Field expression to group results by (one row per group value).
+	 * @example ServiceName
+	 * @type string | undefined
+	 */
+	groupBy?: string | undefined;
+	numberFormat?: ClickStackNumberFormat | undefined;
+};
+
+export type ClickStackHeatmapChartConfig =
+	| ClickStackHeatmapDistributionChartConfig
+	| ClickStackHeatmapSeriesChartConfig;
 
 export const clickStackSearchChartConfigWhereLanguageEnum = {
 	sql: "sql",
@@ -8273,104 +8949,6 @@ export type ClickStackMarkdownChartConfig = {
 	markdown?: string | undefined;
 };
 
-export type ClickStackLineRawSqlChartConfig = {
-	/**
-	 * @description Must be \"sql\" to use the Raw SQL chart config variant.
-	 * @example sql
-	 * @type string
-	 */
-	configType: "sql";
-	/**
-	 * @description ID of the ClickHouse connection to execute the query against.
-	 * @example 65f5e4a3b9e77c001a567890
-	 * @type string
-	 */
-	connectionId: string;
-	/**
-	 * @description SQL query template to execute. Supports HyperDX template variables.
-	 * @example SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR
-	 * @type string
-	 */
-	sqlTemplate: string;
-	/**
-	 * @description Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.
-	 * @example 65f5e4a3b9e77c001a567890
-	 * @type string | undefined
-	 */
-	sourceId?: string | undefined;
-	numberFormat?: ClickStackNumberFormat | undefined;
-	/**
-	 * @description Display as a line time-series chart.
-	 * @example line
-	 * @type string
-	 */
-	displayType: "line";
-	/**
-	 * @description Overlay the equivalent previous time period for comparison.
-	 * @type boolean | undefined
-	 */
-	compareToPreviousPeriod?: boolean | undefined;
-	/**
-	 * @description Fill missing time buckets with zero instead of leaving gaps.
-	 * @type boolean | undefined
-	 */
-	fillNulls?: boolean | undefined;
-	/**
-	 * @description Expand date range boundaries to the query granularity interval.
-	 * @type boolean | undefined
-	 */
-	alignDateRangeToGranularity?: boolean | undefined;
-	/**
-	 * @description Set the y-axis lower bound to the minimum of the displayed data instead of zero, making small fluctuations between series easier to see.
-	 * @type boolean | undefined
-	 */
-	fitYAxisToData?: boolean | undefined;
-};
-
-export type ClickStackBarRawSqlChartConfig = {
-	/**
-	 * @description Must be \"sql\" to use the Raw SQL chart config variant.
-	 * @example sql
-	 * @type string
-	 */
-	configType: "sql";
-	/**
-	 * @description ID of the ClickHouse connection to execute the query against.
-	 * @example 65f5e4a3b9e77c001a567890
-	 * @type string
-	 */
-	connectionId: string;
-	/**
-	 * @description SQL query template to execute. Supports HyperDX template variables.
-	 * @example SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR
-	 * @type string
-	 */
-	sqlTemplate: string;
-	/**
-	 * @description Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.
-	 * @example 65f5e4a3b9e77c001a567890
-	 * @type string | undefined
-	 */
-	sourceId?: string | undefined;
-	numberFormat?: ClickStackNumberFormat | undefined;
-	/**
-	 * @description Display as a stacked-bar time-series chart.
-	 * @example stacked_bar
-	 * @type string
-	 */
-	displayType: "stacked_bar";
-	/**
-	 * @description Fill missing time buckets with zero instead of leaving gaps.
-	 * @type boolean | undefined
-	 */
-	fillNulls?: boolean | undefined;
-	/**
-	 * @description Expand date range boundaries to the query granularity interval.
-	 * @type boolean | undefined
-	 */
-	alignDateRangeToGranularity?: boolean | undefined;
-};
-
 export type ClickStackTableRawSqlChartConfig = {
 	/**
 	 * @description Must be \"sql\" to use the Raw SQL chart config variant.
@@ -8404,64 +8982,6 @@ export type ClickStackTableRawSqlChartConfig = {
 	 */
 	displayType: "table";
 	onClick?: ClickStackOnClick | undefined;
-};
-
-export const clickStackNumberRawSqlChartConfigColorEnum = {
-	"chart-blue": "chart-blue",
-	"chart-orange": "chart-orange",
-	"chart-red": "chart-red",
-	"chart-cyan": "chart-cyan",
-	"chart-green": "chart-green",
-	"chart-pink": "chart-pink",
-	"chart-purple": "chart-purple",
-	"chart-light-blue": "chart-light-blue",
-	"chart-brown": "chart-brown",
-	"chart-gray": "chart-gray",
-	"chart-success": "chart-success",
-	"chart-warning": "chart-warning",
-	"chart-error": "chart-error",
-} as const;
-
-export type ClickStackNumberRawSqlChartConfigColorEnumKey =
-	(typeof clickStackNumberRawSqlChartConfigColorEnum)[keyof typeof clickStackNumberRawSqlChartConfigColorEnum];
-
-export type ClickStackNumberRawSqlChartConfig = {
-	/**
-	 * @description Must be \"sql\" to use the Raw SQL chart config variant.
-	 * @example sql
-	 * @type string
-	 */
-	configType: "sql";
-	/**
-	 * @description ID of the ClickHouse connection to execute the query against.
-	 * @example 65f5e4a3b9e77c001a567890
-	 * @type string
-	 */
-	connectionId: string;
-	/**
-	 * @description SQL query template to execute. Supports HyperDX template variables.
-	 * @example SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR
-	 * @type string
-	 */
-	sqlTemplate: string;
-	/**
-	 * @description Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.
-	 * @example 65f5e4a3b9e77c001a567890
-	 * @type string | undefined
-	 */
-	sourceId?: string | undefined;
-	numberFormat?: ClickStackNumberFormat | undefined;
-	/**
-	 * @description Display as a single big-number chart.
-	 * @example number
-	 * @type string
-	 */
-	displayType: "number";
-	/**
-	 * @description Optional static color applied to the displayed number. Raw SQL number tiles do not support conditional colorRules.
-	 * @type string | undefined
-	 */
-	color?: ClickStackNumberRawSqlChartConfigColorEnumKey | undefined;
 };
 
 export type ClickStackPieRawSqlChartConfig = {
@@ -8532,21 +9052,9 @@ export type ClickStackCategoricalBarRawSqlChartConfig = {
 	displayType: "bar";
 };
 
-export type ClickStackLineChartConfig =
-	| ClickStackLineBuilderChartConfig
-	| ClickStackLineRawSqlChartConfig;
-
-export type ClickStackBarChartConfig =
-	| ClickStackBarBuilderChartConfig
-	| ClickStackBarRawSqlChartConfig;
-
 export type ClickStackTableChartConfig =
 	| ClickStackTableBuilderChartConfig
 	| ClickStackTableRawSqlChartConfig;
-
-export type ClickStackNumberChartConfig =
-	| ClickStackNumberBuilderChartConfig
-	| ClickStackNumberRawSqlChartConfig;
 
 export type ClickStackPieChartConfig =
 	| ClickStackPieBuilderChartConfig
@@ -8559,6 +9067,7 @@ export type ClickStackCategoricalBarChartConfig =
 export type ClickStackTileConfig =
 	| ClickStackLineChartConfig
 	| ClickStackBarChartConfig
+	| ClickStackStackedLineChartConfig
 	| ClickStackTableChartConfig
 	| ClickStackNumberChartConfig
 	| ClickStackPieChartConfig
@@ -8666,6 +9175,12 @@ export type ClickStackTileOutput = {
 	 */
 	tabId?: string | undefined;
 	/**
+	 * @description Short explanation of the tile, shown as a tooltip next to its name.
+	 * @example Share of API requests that returned a 5xx response.
+	 * @type string | undefined
+	 */
+	description?: string | undefined;
+	/**
 	 * @description Unique tile ID assigned by the server.
 	 * @example 65f5e4a3b9e77c001a901234
 	 * @type string
@@ -8718,6 +9233,12 @@ export type ClickStackTileInput = {
 	 */
 	tabId?: string | undefined;
 	/**
+	 * @description Short explanation of the tile, shown as a tooltip next to its name.
+	 * @example Share of API requests that returned a 5xx response.
+	 * @type string | undefined
+	 */
+	description?: string | undefined;
+	/**
 	 * @description Optional tile ID. Omit to generate a new ID.
 	 * @example 65f5e4a3b9e77c001a901234
 	 * @type string | undefined
@@ -8738,7 +9259,7 @@ export type ClickStackTileInput = {
 	series?: ClickStackDashboardChartSeries[] | undefined;
 };
 
-export const clickStackFilterInputSourceMetricTypeEnum = {
+export const clickStackQueryExpressionFilterInputSourceMetricTypeEnum = {
 	sum: "sum",
 	gauge: "gauge",
 	histogram: "histogram",
@@ -8746,20 +9267,28 @@ export const clickStackFilterInputSourceMetricTypeEnum = {
 	"exponential histogram": "exponential histogram",
 } as const;
 
-export type ClickStackFilterInputSourceMetricTypeEnumKey =
-	(typeof clickStackFilterInputSourceMetricTypeEnum)[keyof typeof clickStackFilterInputSourceMetricTypeEnum];
+export type ClickStackQueryExpressionFilterInputSourceMetricTypeEnumKey =
+	(typeof clickStackQueryExpressionFilterInputSourceMetricTypeEnum)[keyof typeof clickStackQueryExpressionFilterInputSourceMetricTypeEnum];
 
-export const clickStackFilterInputWhereLanguageEnum = {
+export const clickStackQueryExpressionFilterInputWhereLanguageEnum = {
 	sql: "sql",
 	lucene: "lucene",
 } as const;
 
-export type ClickStackFilterInputWhereLanguageEnumKey =
-	(typeof clickStackFilterInputWhereLanguageEnum)[keyof typeof clickStackFilterInputWhereLanguageEnum];
+export type ClickStackQueryExpressionFilterInputWhereLanguageEnumKey =
+	(typeof clickStackQueryExpressionFilterInputWhereLanguageEnum)[keyof typeof clickStackQueryExpressionFilterInputWhereLanguageEnum];
 
-export type ClickStackFilterInput = {
+export const clickStackQueryExpressionFilterInputMinSelectionsEnum = {
+	"0": 0,
+	"1": 1,
+} as const;
+
+export type ClickStackQueryExpressionFilterInputMinSelectionsEnumKey =
+	(typeof clickStackQueryExpressionFilterInputMinSelectionsEnum)[keyof typeof clickStackQueryExpressionFilterInputMinSelectionsEnum];
+
+export type ClickStackQueryExpressionFilterInput = {
 	/**
-	 * @description Filter type. Must be \"QUERY_EXPRESSION\".
+	 * @description Filter type discriminator. Must be \"QUERY_EXPRESSION\".
 	 * @example QUERY_EXPRESSION
 	 * @type string
 	 */
@@ -8787,7 +9316,7 @@ export type ClickStackFilterInput = {
 	 * @example gauge
 	 * @type string | undefined
 	 */
-	sourceMetricType?: ClickStackFilterInputSourceMetricTypeEnumKey | undefined;
+	sourceMetricType?: ClickStackQueryExpressionFilterInputSourceMetricTypeEnumKey | undefined;
 	/**
 	 * @description Optional WHERE condition to scope which rows this filter key reads values from
 	 * @example ServiceName:api
@@ -8799,7 +9328,7 @@ export type ClickStackFilterInput = {
 	 * @example lucene
 	 * @type string | undefined
 	 */
-	whereLanguage?: ClickStackFilterInputWhereLanguageEnumKey | undefined;
+	whereLanguage?: ClickStackQueryExpressionFilterInputWhereLanguageEnumKey | undefined;
 	/**
 	 * @description Optional list of source IDs this filter applies to. Omit or provide an empty array to apply the filter to ALL tiles regardless of source. A non-empty array restricts the filter to only tiles whose source ID is in the list; tiles using other sources are not affected by the selected filter value(s). Scopes the broadcast condition only, so a non-empty array is rejected when isBroadcastEnabled is false, and is omitted from responses for such a filter.
 	 * @example ["65f5e4a3b9e77c001a111111"]
@@ -8824,34 +9353,41 @@ export type ClickStackFilterInput = {
 	 * @type string | undefined
 	 */
 	variableName?: string | undefined;
+	/**
+	 * @description Minimum number of values that must be selected before tiles load. Set to 1 to make the filter required. Only 0 and 1 are accepted. Omit the field (or send 0) for the default optional behavior.
+	 * @example 1
+	 * @type number | undefined
+	 */
+	minSelections?: ClickStackQueryExpressionFilterInputMinSelectionsEnumKey | undefined;
+	/**
+	 * @description Widens a required filter\'s block to every tile on the dashboard. False (the default) blocks only the tiles that read the filter: those referencing its variableName, and those its broadcast applies to. Ignored unless minSelections is 1.
+	 * @example true
+	 * @type boolean | undefined
+	 */
+	isGlobalRequirement?: boolean | undefined;
+	/**
+	 * @description Maximum number of values that can be selected at once. Set to 1 to make the filter single-select. Omit the field for the default multi-select behavior.
+	 * @example 1
+	 * @type number | undefined
+	 */
+	maxSelections?: 1 | undefined;
 };
 
-export const clickStackFilterSourceMetricTypeEnum = {
-	sum: "sum",
-	gauge: "gauge",
-	histogram: "histogram",
-	summary: "summary",
-	"exponential histogram": "exponential histogram",
+export const clickStackStaticListFilterInputMinSelectionsEnum = {
+	"0": 0,
+	"1": 1,
 } as const;
 
-export type ClickStackFilterSourceMetricTypeEnumKey =
-	(typeof clickStackFilterSourceMetricTypeEnum)[keyof typeof clickStackFilterSourceMetricTypeEnum];
+export type ClickStackStaticListFilterInputMinSelectionsEnumKey =
+	(typeof clickStackStaticListFilterInputMinSelectionsEnum)[keyof typeof clickStackStaticListFilterInputMinSelectionsEnum];
 
-export const clickStackFilterWhereLanguageEnum = {
-	sql: "sql",
-	lucene: "lucene",
-} as const;
-
-export type ClickStackFilterWhereLanguageEnumKey =
-	(typeof clickStackFilterWhereLanguageEnum)[keyof typeof clickStackFilterWhereLanguageEnum];
-
-export type ClickStackFilter = {
+export type ClickStackStaticListFilterInput = {
 	/**
-	 * @description Filter type. Must be \"QUERY_EXPRESSION\".
-	 * @example QUERY_EXPRESSION
+	 * @description Discriminator. Must be \"STATIC_LIST\".
+	 * @example STATIC_LIST
 	 * @type string
 	 */
-	type: "QUERY_EXPRESSION";
+	type: "STATIC_LIST";
 	/**
 	 * @description Display name for the dashboard filter key
 	 * @example Environment
@@ -8859,49 +9395,19 @@ export type ClickStackFilter = {
 	 */
 	name: string;
 	/**
-	 * @description SQL expression used when querying values for this filter, and when applying this dashboard filter to tiles.
-	 * @example environment
-	 * @type string
+	 * @description The values this filter\'s dropdown offers. Must be non-empty and free of duplicates.
+	 * @example ["prod","staging","dev"]
+	 * @type array
 	 */
-	expression: string;
+	options: string[];
 	/**
-	 * @description Source ID this dashboard filter key applies to
-	 * @example 65f5e4a3b9e77c001a111111
-	 * @type string
-	 */
-	sourceId: string;
-	/**
-	 * @description Metric type when source is metrics
-	 * @example gauge
-	 * @type string | undefined
-	 */
-	sourceMetricType?: ClickStackFilterSourceMetricTypeEnumKey | undefined;
-	/**
-	 * @description Optional WHERE condition to scope which rows this filter key reads values from
-	 * @example ServiceName:api
-	 * @type string | undefined
-	 */
-	where?: string | undefined;
-	/**
-	 * @description Language of the where condition
-	 * @example lucene
-	 * @type string | undefined
-	 */
-	whereLanguage?: ClickStackFilterWhereLanguageEnumKey | undefined;
-	/**
-	 * @description Optional list of source IDs this filter applies to. Omit or provide an empty array to apply the filter to ALL tiles regardless of source. A non-empty array restricts the filter to only tiles whose source ID is in the list; tiles using other sources are not affected by the selected filter value(s). Scopes the broadcast condition only, so a non-empty array is rejected when isBroadcastEnabled is false, and is omitted from responses for such a filter.
-	 * @example ["65f5e4a3b9e77c001a111111"]
-	 * @type array | undefined
-	 */
-	appliesToSourceIds?: string[] | undefined;
-	/**
-	 * @description Whether the selected value is applied as a filter condition on every builder tile this filter applies to (see appliesToSourceIds), and every raw sql tile using the $__filters macro. Omitting the field means enabled.
+	 * @description Must be false — there is no expression to broadcast. Omit it and it is false. Allowed values: false.
 	 * @example false
 	 * @type boolean | undefined
 	 */
 	isBroadcastEnabled?: boolean | undefined;
 	/**
-	 * @description Whether the selected value is exposed to tile queries as a dashboard variable named by variableName. Tiles may reference it as `$variableName` or using the (preferred) `$__filter($<variableName>)` and `$__conditionalAll(<condition>, $<variableName>)` macros.
+	 * @description Must be true if provided, and is true when omitted. Tiles reference the selection as `$variableName`, or with the `$__filter(<expression>, $<variableName>)` and `$__conditionalAll(<condition>, $<variableName>)` macros. The one-argument `$__filter($<variableName>)` form renders the filter\'s own expression, which this kind of filter does not have, so it reports that the expression must be passed explicitly. Allowed values: true.
 	 * @example true
 	 * @type boolean | undefined
 	 */
@@ -8912,12 +9418,223 @@ export type ClickStackFilter = {
 	 * @type string | undefined
 	 */
 	variableName?: string | undefined;
+	/**
+	 * @description Minimum number of values that must be selected before tiles load. Set to 1 to make the filter required. Only 0 and 1 are accepted. Omit the field (or send 0) for the default optional behavior.
+	 * @example 1
+	 * @type number | undefined
+	 */
+	minSelections?: ClickStackStaticListFilterInputMinSelectionsEnumKey | undefined;
+	/**
+	 * @description Widens a required filter\'s block to every tile on the dashboard. False (the default) blocks only the tiles that read the filter: those referencing its variableName, and those its broadcast applies to. Ignored unless minSelections is 1.
+	 * @example true
+	 * @type boolean | undefined
+	 */
+	isGlobalRequirement?: boolean | undefined;
+	/**
+	 * @description Maximum number of values that can be selected at once. Set to 1 to make the filter single-select. Omit the field for the default multi-select behavior.
+	 * @example 1
+	 * @type number | undefined
+	 */
+	maxSelections?: 1 | undefined;
+};
+
+export const clickStackPrometheusLabelFilterInputMinSelectionsEnum = {
+	"0": 0,
+	"1": 1,
+} as const;
+
+export type ClickStackPrometheusLabelFilterInputMinSelectionsEnumKey =
+	(typeof clickStackPrometheusLabelFilterInputMinSelectionsEnum)[keyof typeof clickStackPrometheusLabelFilterInputMinSelectionsEnum];
+
+export type ClickStackPrometheusLabelFilterInput = {
+	/**
+	 * @description Discriminator. Must be \"PROMETHEUS_LABEL\".
+	 * @example PROMETHEUS_LABEL
+	 * @type string
+	 */
+	type: "PROMETHEUS_LABEL";
+	/**
+	 * @description Display name for the dashboard filter
+	 * @example Pod
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description Id of the PromQL source the label values are read from.
+	 * @example 65f5e4a3b9e77c001a123456
+	 * @type string
+	 */
+	sourceId: string;
+	/**
+	 * @description Label whose values populate the dropdown. Use \"__name__\" to list metric names.
+	 * @example pod
+	 * @type string
+	 */
+	label: string;
+	/**
+	 * @description Optional Prometheus series selector narrowing which series the label values are read from.
+	 * @example up{job="api"}
+	 * @type string | undefined
+	 */
+	match?: string | undefined;
+	/**
+	 * @description Must be false or omitted. Allowed values: false.
+	 * @example false
+	 * @type boolean | undefined
+	 */
+	isBroadcastEnabled?: boolean | undefined;
+	/**
+	 * @description Must be true if provided, and is true when omitted. Tiles reference the selection as `$variableName`. Allowed values: true.
+	 * @example true
+	 * @type boolean | undefined
+	 */
+	isVariableEnabled?: boolean | undefined;
+	/**
+	 * @description Token that tiles reference this filter\'s selected value by, as `$variableName`. Must start with a letter and may contain only letters, numbers, and underscores. Defaults to the display name with whitespace replaced by underscores and remaining illegal characters removed. Variable names must be unique across a dashboard\'s variable-enabled filters.
+	 * @example pod
+	 * @type string | undefined
+	 */
+	variableName?: string | undefined;
+	/**
+	 * @description Minimum number of values that must be selected before tiles load. Set to 1 to make the filter required. Only 0 and 1 are accepted. Omit the field (or send 0) for the default optional behavior.
+	 * @example 1
+	 * @type number | undefined
+	 */
+	minSelections?: ClickStackPrometheusLabelFilterInputMinSelectionsEnumKey | undefined;
+	/**
+	 * @description Widens a required filter\'s block to every tile on the dashboard. False (the default) blocks only the tiles that read the filter: those referencing its variableName, and those its broadcast applies to. Ignored unless minSelections is 1.
+	 * @example true
+	 * @type boolean | undefined
+	 */
+	isGlobalRequirement?: boolean | undefined;
+	/**
+	 * @description Maximum number of values that can be selected at once. Set to 1 to make the filter single-select. Omit the field for the default multi-select behavior.
+	 * @example 1
+	 * @type number | undefined
+	 */
+	maxSelections?: 1 | undefined;
+};
+
+export const clickStackSourceFilterInputMinSelectionsEnum = {
+	"0": 0,
+	"1": 1,
+} as const;
+
+export type ClickStackSourceFilterInputMinSelectionsEnumKey =
+	(typeof clickStackSourceFilterInputMinSelectionsEnum)[keyof typeof clickStackSourceFilterInputMinSelectionsEnum];
+
+export type ClickStackSourceFilterInput = {
+	/**
+	 * @description Discriminator. Must be \"SOURCE_FILTER\".
+	 * @example SOURCE_FILTER
+	 * @type string
+	 */
+	type: "SOURCE_FILTER";
+	/**
+	 * @description Display name for the dashboard filter
+	 * @example Cluster
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description Id of the source whose filterSettings declares this column. Read filterSettings from GET /api/v2/sources to see which columns a source declares.
+	 * @example 65f5e4a3b9e77c001a111111
+	 * @type string
+	 */
+	sourceId: string;
+	/**
+	 * @description Column this filter selects values for. Must match one of the source\'s filterSettings.columns[].name values, and is the expression the selection is broadcast on.
+	 * @example cluster
+	 * @type string
+	 */
+	expression: string;
+	/**
+	 * @description Optional list of source IDs this filter broadcasts to. Omit or provide an empty array to apply the selection to ALL tiles regardless of source; a non-empty array restricts it to tiles whose source ID is in the list.
+	 * @example ["65f5e4a3b9e77c001a111111"]
+	 * @type array | undefined
+	 */
+	appliesToSourceIds?: string[] | undefined;
+	/**
+	 * @description Must be true if provided, and is true when omitted — a source filter should always broadcast to at least its own source. Allowed values: true.
+	 * @example true
+	 * @type boolean | undefined
+	 */
+	isBroadcastEnabled?: boolean | undefined;
+	/**
+	 * @description Must be true if provided, and is true when omitted. Tiles reference the selection as `$variableName`. Allowed values: true.
+	 * @example true
+	 * @type boolean | undefined
+	 */
+	isVariableEnabled?: boolean | undefined;
+	/**
+	 * @description Token that tiles reference this filter\'s selected value by, as `$variableName`. Must start with a letter and may contain only letters, numbers, and underscores. Defaults to the display name with whitespace replaced by underscores and remaining illegal characters removed. Variable names must be unique across a dashboard\'s variable-enabled filters.
+	 * @example cluster
+	 * @type string
+	 */
+	variableName: string;
+	/**
+	 * @description Minimum number of values that must be selected before tiles load. Set to 1 to make the filter required. Only 0 and 1 are accepted. Omit the field (or send 0) for the default optional behavior.
+	 * @example 1
+	 * @type number | undefined
+	 */
+	minSelections?: ClickStackSourceFilterInputMinSelectionsEnumKey | undefined;
+	/**
+	 * @description Widens a required filter\'s block to every tile on the dashboard. False (the default) blocks only the tiles that read the filter: those referencing its variableName, and those its broadcast applies to. Ignored unless minSelections is 1.
+	 * @example true
+	 * @type boolean | undefined
+	 */
+	isGlobalRequirement?: boolean | undefined;
+	/**
+	 * @description Maximum number of values that can be selected at once. Set to 1 to make the filter single-select. Omit the field for the default multi-select behavior.
+	 * @example 1
+	 * @type number | undefined
+	 */
+	maxSelections?: 1 | undefined;
+};
+
+export type ClickStackFilterInput =
+	| ClickStackQueryExpressionFilterInput
+	| ClickStackStaticListFilterInput
+	| ClickStackPrometheusLabelFilterInput
+	| ClickStackSourceFilterInput;
+
+export type ClickStackQueryExpressionFilter = ClickStackQueryExpressionFilterInput & {
 	/**
 	 * @description Unique dashboard filter key ID
 	 * @type string
 	 */
 	id: string;
 };
+
+export type ClickStackStaticListFilter = ClickStackStaticListFilterInput & {
+	/**
+	 * @description Unique dashboard filter key ID
+	 * @type string
+	 */
+	id: string;
+};
+
+export type ClickStackPrometheusLabelFilter = ClickStackPrometheusLabelFilterInput & {
+	/**
+	 * @description Unique dashboard filter key ID
+	 * @type string
+	 */
+	id: string;
+};
+
+export type ClickStackSourceFilter = ClickStackSourceFilterInput & {
+	/**
+	 * @description Unique dashboard filter key ID
+	 * @type string
+	 */
+	id: string;
+};
+
+export type ClickStackFilter =
+	| ClickStackQueryExpressionFilter
+	| ClickStackStaticListFilter
+	| ClickStackPrometheusLabelFilter
+	| ClickStackSourceFilter;
 
 export const clickStackCreateDashboardRequestSavedQueryLanguageEnum = {
 	sql: "sql",
@@ -9125,23 +9842,62 @@ export type ClickStackDashboardResponse = {
 	containers?: ClickStackDashboardContainer[] | undefined;
 };
 
-export type ClickStackCASLPermissionConditions = {
-	[key: string]: unknown;
+export type ClickStackMongoDBCASLPermissionConditions = {
+	[key: string]:
+		| string
+		| {
+				$regex: string;
+				$options?: string | undefined;
+		  };
 };
 
-export type ClickStackCASLPermission = {
+export const clickStackMongoDBCASLPermissionActionEnum = {
+	create: "create",
+	read: "read",
+	update: "update",
+	delete: "delete",
+	manage: "manage",
+} as const;
+
+export type ClickStackMongoDBCASLPermissionActionEnumKey =
+	(typeof clickStackMongoDBCASLPermissionActionEnum)[keyof typeof clickStackMongoDBCASLPermissionActionEnum];
+
+export const clickStackMongoDBCASLPermissionSubjectEnum = {
+	Alert: "Alert",
+	Connection: "Connection",
+	Dashboard: "Dashboard",
+	SavedSearch: "SavedSearch",
+	Source: "Source",
+	Team: "Team",
+	User: "User",
+	Webhook: "Webhook",
+	Role: "Role",
+	Notebook: "Notebook",
+	SchemaMigration: "SchemaMigration",
+	all: "all",
+} as const;
+
+export type ClickStackMongoDBCASLPermissionSubjectEnumKey =
+	(typeof clickStackMongoDBCASLPermissionSubjectEnum)[keyof typeof clickStackMongoDBCASLPermissionSubjectEnum];
+
+export type ClickStackMongoDBCASLPermission = {
 	/**
 	 * @description The action this permission grants or denies.
 	 * @example read
 	 * @type string
 	 */
-	action: string;
+	action: ClickStackMongoDBCASLPermissionActionEnumKey;
 	/**
 	 * @description The resource the action applies to.
-	 * @example dashboard
+	 * @example Dashboard
 	 * @type string
 	 */
-	subject: string;
+	subject: ClickStackMongoDBCASLPermissionSubjectEnumKey;
+	/**
+	 * @description Optional CASL field restriction limiting the rule to specific fields.
+	 * @type array | undefined
+	 */
+	fields?: string[] | undefined;
 	/**
 	 * @description When true, the rule denies rather than grants the action.
 	 * @example false
@@ -9149,13 +9905,121 @@ export type ClickStackCASLPermission = {
 	 */
 	inverted?: boolean | undefined;
 	/**
-	 * @description The integration the permission is scoped to.
+	 * @description Scopes the permission to the application (MongoDB) data plane.
 	 * @example mongodb
-	 * @type string | undefined
+	 * @type string
 	 */
-	integration?: string | undefined;
-	conditions?: ClickStackCASLPermissionConditions | undefined;
+	integration: "mongodb";
+	conditions?: ClickStackMongoDBCASLPermissionConditions | undefined;
 };
+
+export type ClickStackClickHouseCASLPermissionConditionsFrom = {
+	/**
+	 * @example default
+	 * @type string
+	 */
+	databaseName: string;
+	/**
+	 * @example otel_logs
+	 * @type string
+	 */
+	tableName: string;
+};
+
+export const clickStackClickHouseCASLPermissionConditionsWhereLanguageEnum = {
+	sql: "sql",
+	lucene: "lucene",
+} as const;
+
+export type ClickStackClickHouseCASLPermissionConditionsWhereLanguageEnumKey =
+	(typeof clickStackClickHouseCASLPermissionConditionsWhereLanguageEnum)[keyof typeof clickStackClickHouseCASLPermissionConditionsWhereLanguageEnum];
+
+export type ClickStackClickHouseCASLPermissionConditions = {
+	/**
+	 * @description ID of the connection the row policy applies to.
+	 * @example 507f1f77bcf86cd799439011
+	 * @type string
+	 */
+	connection: string;
+	from: ClickStackClickHouseCASLPermissionConditionsFrom;
+	/**
+	 * @description The row-policy predicate, expressed in `whereLanguage`.
+	 * @example ServiceName = 'checkout'
+	 * @type string
+	 */
+	where: string;
+	/**
+	 * @example sql
+	 * @type string
+	 */
+	whereLanguage: ClickStackClickHouseCASLPermissionConditionsWhereLanguageEnumKey;
+};
+
+export const clickStackClickHouseCASLPermissionActionEnum = {
+	create: "create",
+	read: "read",
+	update: "update",
+	delete: "delete",
+	manage: "manage",
+} as const;
+
+export type ClickStackClickHouseCASLPermissionActionEnumKey =
+	(typeof clickStackClickHouseCASLPermissionActionEnum)[keyof typeof clickStackClickHouseCASLPermissionActionEnum];
+
+export const clickStackClickHouseCASLPermissionSubjectEnum = {
+	Alert: "Alert",
+	Connection: "Connection",
+	Dashboard: "Dashboard",
+	SavedSearch: "SavedSearch",
+	Source: "Source",
+	Team: "Team",
+	User: "User",
+	Webhook: "Webhook",
+	Role: "Role",
+	Notebook: "Notebook",
+	SchemaMigration: "SchemaMigration",
+	all: "all",
+} as const;
+
+export type ClickStackClickHouseCASLPermissionSubjectEnumKey =
+	(typeof clickStackClickHouseCASLPermissionSubjectEnum)[keyof typeof clickStackClickHouseCASLPermissionSubjectEnum];
+
+export type ClickStackClickHouseCASLPermission = {
+	/**
+	 * @description The action this permission grants or denies.
+	 * @example read
+	 * @type string
+	 */
+	action: ClickStackClickHouseCASLPermissionActionEnumKey;
+	/**
+	 * @description The resource the action applies to.
+	 * @example Dashboard
+	 * @type string
+	 */
+	subject: ClickStackClickHouseCASLPermissionSubjectEnumKey;
+	/**
+	 * @description Optional CASL field restriction limiting the rule to specific fields.
+	 * @type array | undefined
+	 */
+	fields?: string[] | undefined;
+	/**
+	 * @description When true, the rule denies rather than grants the action.
+	 * @example false
+	 * @type boolean | undefined
+	 */
+	inverted?: boolean | undefined;
+	/**
+	 * @description Scopes the permission to the ClickHouse data plane (row-level access).
+	 * @example clickhouse
+	 * @type string
+	 */
+	integration: "clickhouse";
+	conditions?: ClickStackClickHouseCASLPermissionConditions | undefined;
+};
+
+export type ClickStackCASLPermission =
+	| ClickStackMongoDBCASLPermission
+	| ClickStackClickHouseCASLPermission;
 
 export type ClickStackRole = {
 	/**
@@ -9244,26 +10108,6 @@ export type ClickStackUpdateRoleRequest = {
 	 */
 	permissions: ClickStackCASLPermission[];
 };
-
-export type ClickStackValidationErrorItemErrors = {
-	[key: string]: unknown;
-};
-
-export type ClickStackValidationErrorItem = {
-	/**
-	 * @description Request part that failed validation.
-	 * @example Body
-	 * @type string | undefined
-	 */
-	type?: string | undefined;
-	errors?: ClickStackValidationErrorItemErrors | undefined;
-};
-
-/**
- * @description zod-express-middleware validation failures.
- * @type array
- */
-export type ClickStackValidationError = ClickStackValidationErrorItem[];
 
 export type ClickStackSavedSearchFilter = {
 	/**
@@ -9768,6 +10612,12 @@ export type ClickStackLogSource = {
 	 */
 	displayedTimestampValueExpression?: (string | null) | undefined;
 	/**
+	 * @description Custom ORDER BY expression that overrides the default ordering. Leave empty to use the auto-detected default.
+	 * @example Timestamp DESC
+	 * @type string | undefined
+	 */
+	orderByExpression?: string | undefined;
+	/**
 	 * @description HyperDX Source for metrics associated with logs. Optional
 	 * @example 507f1f77bcf86cd799439013
 	 * @type string | undefined
@@ -9999,6 +10849,12 @@ export type ClickStackTraceSource = {
 	 */
 	serviceVersionExpression?: (string | null) | undefined;
 	/**
+	 * @description Column or expression for upstream sampling weight (1/N). When set, aggregations (count, avg, sum, quantile) are corrected for sampling. Percentiles use quantileTDigestWeighted, which is an approximation. Leave empty if spans are not sampled.
+	 * @example SampleRate
+	 * @type string | undefined
+	 */
+	sampleRateExpression?: string | undefined;
+	/**
 	 * @description Expression to extract resource-level attributes.
 	 * @example ResourceAttributes
 	 * @type string | undefined
@@ -10016,6 +10872,12 @@ export type ClickStackTraceSource = {
 	 * @type string | undefined
 	 */
 	spanEventsValueExpression?: (string | null) | undefined;
+	/**
+	 * @description Expression to extract span links. Used to capture links from a span to spans in other traces. Expected to be Nested ( TraceId String, SpanId String, TraceState String, Attributes Map(LowCardinality(String), String) )
+	 * @example Links
+	 * @type string | undefined
+	 */
+	spanLinksValueExpression?: string | undefined;
 	/**
 	 * @description Column used for full text search if no property is specified in a Lucene-based search. Typically the message body of a log.
 	 * @example SpanName
@@ -10046,6 +10908,18 @@ export type ClickStackTraceSource = {
 	 * @type array | undefined
 	 */
 	highlightedRowAttributeExpressions?: ClickStackHighlightedAttributeExpression[] | undefined;
+	/**
+	 * @description This DateTime column is used to display and order search results.
+	 * @example Timestamp
+	 * @type string | undefined
+	 */
+	displayedTimestampValueExpression?: string | undefined;
+	/**
+	 * @description Custom ORDER BY expression that overrides the default ordering. Leave empty to use the auto-detected default.
+	 * @example Timestamp DESC
+	 * @type string | undefined
+	 */
+	orderByExpression?: string | undefined;
 	/**
 	 * @description Configure materialized views for query optimization. These pre-aggregated views can significantly improve query performance on aggregation queries.
 	 * @type array | undefined
@@ -10173,6 +11047,12 @@ export type ClickStackSessionSource = {
 	 * @type string
 	 */
 	traceSourceId: string;
+	/**
+	 * @description Expression to extract resource-level attributes.
+	 * @example ResourceAttributes
+	 * @type string | undefined
+	 */
+	resourceAttributesExpression?: string | undefined;
 };
 
 export type ClickStackPromqlSource = {
@@ -10534,13 +11414,42 @@ export type ClickStackWebhookInput = {
 	 */
 	description?: string | undefined;
 	/**
-	 * @description Optional request body template. Only for generic/incidentio; rejected for slack.
+	 * @description Optional Handlebars request body template. Only for generic/incidentio; rejected for slack. Rejected with a 400 if it does not compile or calls a helper other than `eq` and the Handlebars built-ins.
 	 * @example {"alert": "{{title}}", "severity": "{{level}}"}
 	 * @type string | undefined
 	 */
 	body?: string | undefined;
 	headers?: ClickStackWebhookInputHeaders | undefined;
 	queryParams?: ClickStackWebhookInputQueryParams | undefined;
+};
+
+export type ClickStackValidateWebhookResponseErrorsItem = {
+	/**
+	 * @description Dot-separated field path, or empty string for top-level errors.
+	 * @type string
+	 */
+	path: string;
+	/**
+	 * @description Human-readable error description.
+	 * @type string
+	 */
+	message: string;
+};
+
+export type ClickStackValidateWebhookResponseNormalized = object;
+
+export type ClickStackValidateWebhookResponse = {
+	/**
+	 * @description True when the body passes all validation rules.
+	 * @type boolean
+	 */
+	valid: boolean;
+	/**
+	 * @description Validation errors. Empty when valid is true.
+	 * @type array
+	 */
+	errors: ClickStackValidateWebhookResponseErrorsItem[];
+	normalized: ClickStackValidateWebhookResponseNormalized | null;
 };
 
 export const assignedRoleRoleTypeEnum = {
@@ -12481,6 +13390,52 @@ export type ServiceClickhouseSettingsSchema = {
 	settings?: ServiceClickhouseSettingSchemaEntry[] | undefined;
 };
 
+export type PostgresIpAccessListEntry = {
+	/**
+	 * @description Rule ID returned by the service. Include it when editing an existing rule; omit it when creating a rule.
+	 * @type string | undefined
+	 */
+	id?: string | undefined;
+	/**
+	 * @description IPv4 address or CIDR allowed to connect. Returned as a canonical CIDR.
+	 * @example 203.0.113.0/24
+	 * @type string
+	 */
+	source: string;
+	/**
+	 * @description Port or inclusive range, from 1 to 65535. Use \"5432\" for Postgres, \"6432\" for PgBouncer, or a range such as \"5432..6432\".
+	 * @example 5432
+	 * @type string
+	 */
+	portRange: string;
+	/**
+	 * @description Optional description of the access list entry.
+	 * @type string | undefined
+	 */
+	description?: string | undefined;
+};
+
+export type PostgresIpAccessListRuleReference = {
+	/**
+	 * @description Rule ID returned by the service.
+	 * @type string
+	 */
+	id: string;
+};
+
+export type PostgresIpAccessListPatch = {
+	/**
+	 * @description Rules to create or edit after removals. Omit id to create a TCP rule, or include the returned id to edit an existing rule. Updates can partially succeed; read the current list before retrying.
+	 * @type array | undefined
+	 */
+	add?: PostgresIpAccessListEntry[] | undefined;
+	/**
+	 * @description Rules to remove by their returned IDs before creating or editing rules.
+	 * @type array | undefined
+	 */
+	remove?: PostgresIpAccessListRuleReference[] | undefined;
+};
+
 export const pgConfigDefaultTransactionIsolationEnum = {
 	"read committed": "read committed",
 	"repeatable read": "repeatable read",
@@ -12579,6 +13534,11 @@ export type PgConfig = {
 	 */
 	max_parallel_maintenance_workers?: (string | number) | undefined;
 	/**
+	 * @description Percent of VM memory reserved for the shared_memory, from 25% to 75%. shared_buffers sized to fit in it. Limited to 50% on VMs with memory less or equal 16GB
+	 * @example 25
+	 */
+	shared_memory_percent?: (string | number) | undefined;
+	/**
 	 * @description Abort any statement that runs longer than the specified time. Use 0 to disable.
 	 * @example 60s
 	 */
@@ -12624,16 +13584,26 @@ export type PgConfig = {
 	 */
 	max_wal_size?: (string | number) | undefined;
 	/**
+	 * @description Sets the maximum time between automatic WAL checkpoints.
+	 * @example 5min
+	 */
+	checkpoint_timeout?: (string | number) | undefined;
+	/**
 	 * @description Specifies the maximum size of WAL files that replication slots are allowed to retain. Use -1 for unlimited.
 	 * @example -1
 	 */
 	max_slot_wal_keep_size?: (string | number) | undefined;
 	/**
 	 * @description Compress full-page writes in WAL. Reduces I/O at the cost of CPU. Options vary by PostgreSQL version.
-	 * @example off
+	 * @example lz4
 	 * @type string | undefined
 	 */
 	wal_compression?: PgConfigWalCompressionEnumKey | undefined;
+	/**
+	 * @description Sets the number of disk-page buffers in shared memory for WAL. A number without a unit is in 8 kB pages.
+	 * @example 16MB
+	 */
+	wal_buffers?: (string | number) | undefined;
 	/**
 	 * @description Maximum number of autovacuum worker processes that can run at the same time. Workers share a single cost-limit budget, so raising this alone may not speed up vacuuming.
 	 * @example 8
@@ -12664,6 +13634,26 @@ export type PgConfig = {
 	 * @example 0.2
 	 */
 	autovacuum_vacuum_insert_scale_factor?: (string | number) | undefined;
+	/**
+	 * @description Minimum number of tuple updates or deletes prior to vacuum.
+	 * @example 50
+	 */
+	autovacuum_vacuum_threshold?: (string | number) | undefined;
+	/**
+	 * @description Minimum number of tuple inserts, updates, or deletes prior to analyze.
+	 * @example 50
+	 */
+	autovacuum_analyze_threshold?: (string | number) | undefined;
+	/**
+	 * @description Minimum number of tuple inserts prior to vacuum, or -1 to disable insert vacuums.
+	 * @example 1000
+	 */
+	autovacuum_vacuum_insert_threshold?: (string | number) | undefined;
+	/**
+	 * @description Age at which to autovacuum a table to prevent transaction ID wraparound.
+	 * @example 200000000
+	 */
+	autovacuum_freeze_max_age?: (string | number) | undefined;
 	/**
 	 * @description Cost-accounting limit shared across all autovacuum workers before they pause. Use -1 to inherit vacuum_cost_limit.
 	 * @example -1
@@ -12774,67 +13764,67 @@ export const pgSize = {
 	"r8gd.16xlarge": "r8gd.16xlarge",
 	"r8gd.24xlarge": "r8gd.24xlarge",
 	"r8gd.48xlarge": "r8gd.48xlarge",
-	"c4a-highmem-4": "c4a-highmem-4",
-	"c4a-highmem-8": "c4a-highmem-8",
-	"c4a-highmem-16": "c4a-highmem-16",
-	"c4a-highmem-32": "c4a-highmem-32",
-	"c4a-highmem-48": "c4a-highmem-48",
-	"c4a-highmem-64": "c4a-highmem-64",
-	"c4a-highmem-72": "c4a-highmem-72",
-	"c4a-standard-4": "c4a-standard-4",
-	"c4a-standard-8": "c4a-standard-8",
-	"c4a-standard-16": "c4a-standard-16",
-	"c4a-standard-32": "c4a-standard-32",
-	"c4a-standard-48": "c4a-standard-48",
-	"c4a-standard-64": "c4a-standard-64",
-	"c4a-standard-72": "c4a-standard-72",
-	"c4-highmem-4": "c4-highmem-4",
-	"c4-highmem-8": "c4-highmem-8",
-	"c4-highmem-16": "c4-highmem-16",
-	"c4-highmem-24": "c4-highmem-24",
-	"c4-highmem-32": "c4-highmem-32",
-	"c4-highmem-48": "c4-highmem-48",
-	"c4-highmem-96": "c4-highmem-96",
-	"c4-highmem-144": "c4-highmem-144",
-	"c4-highmem-192": "c4-highmem-192",
-	"c4-highmem-288": "c4-highmem-288",
-	"c4-standard-4": "c4-standard-4",
-	"c4-standard-8": "c4-standard-8",
-	"c4-standard-16": "c4-standard-16",
-	"c4-standard-24": "c4-standard-24",
-	"c4-standard-32": "c4-standard-32",
-	"c4-standard-48": "c4-standard-48",
-	"c4-standard-96": "c4-standard-96",
-	"c4-standard-144": "c4-standard-144",
-	"c4-standard-192": "c4-standard-192",
-	"c4-standard-288": "c4-standard-288",
-	"c4d-highmem-8": "c4d-highmem-8",
-	"c4d-highmem-16": "c4d-highmem-16",
-	"c4d-highmem-32": "c4d-highmem-32",
-	"c4d-highmem-48": "c4d-highmem-48",
-	"c4d-highmem-64": "c4d-highmem-64",
-	"c4d-highmem-96": "c4d-highmem-96",
-	"c4d-highmem-192": "c4d-highmem-192",
-	"c4d-highmem-384": "c4d-highmem-384",
-	"c4d-standard-8": "c4d-standard-8",
-	"c4d-standard-16": "c4d-standard-16",
-	"c4d-standard-32": "c4d-standard-32",
-	"c4d-standard-48": "c4d-standard-48",
-	"c4d-standard-64": "c4d-standard-64",
-	"c4d-standard-96": "c4d-standard-96",
-	"c4d-standard-192": "c4d-standard-192",
-	"c4d-standard-384": "c4d-standard-384",
-	"z3-highlssd-8": "z3-highlssd-8",
-	"z3-highlssd-16": "z3-highlssd-16",
-	"z3-highlssd-22": "z3-highlssd-22",
-	"z3-highlssd-32": "z3-highlssd-32",
-	"z3-highlssd-44": "z3-highlssd-44",
-	"z3-highlssd-88": "z3-highlssd-88",
-	"z3-standardlssd-14": "z3-standardlssd-14",
-	"z3-standardlssd-22": "z3-standardlssd-22",
-	"z3-standardlssd-44": "z3-standardlssd-44",
-	"z3-standardlssd-88": "z3-standardlssd-88",
-	"z3-standardlssd-176": "z3-standardlssd-176",
+	"c4a-highmem-lssd-4": "c4a-highmem-lssd-4",
+	"c4a-highmem-lssd-8": "c4a-highmem-lssd-8",
+	"c4a-highmem-lssd-16": "c4a-highmem-lssd-16",
+	"c4a-highmem-lssd-32": "c4a-highmem-lssd-32",
+	"c4a-highmem-lssd-48": "c4a-highmem-lssd-48",
+	"c4a-highmem-lssd-64": "c4a-highmem-lssd-64",
+	"c4a-highmem-lssd-72": "c4a-highmem-lssd-72",
+	"c4a-standard-lssd-4": "c4a-standard-lssd-4",
+	"c4a-standard-lssd-8": "c4a-standard-lssd-8",
+	"c4a-standard-lssd-16": "c4a-standard-lssd-16",
+	"c4a-standard-lssd-32": "c4a-standard-lssd-32",
+	"c4a-standard-lssd-48": "c4a-standard-lssd-48",
+	"c4a-standard-lssd-64": "c4a-standard-lssd-64",
+	"c4a-standard-lssd-72": "c4a-standard-lssd-72",
+	"c4-highmem-lssd-4": "c4-highmem-lssd-4",
+	"c4-highmem-lssd-8": "c4-highmem-lssd-8",
+	"c4-highmem-lssd-16": "c4-highmem-lssd-16",
+	"c4-highmem-lssd-24": "c4-highmem-lssd-24",
+	"c4-highmem-lssd-32": "c4-highmem-lssd-32",
+	"c4-highmem-lssd-48": "c4-highmem-lssd-48",
+	"c4-highmem-lssd-96": "c4-highmem-lssd-96",
+	"c4-highmem-lssd-144": "c4-highmem-lssd-144",
+	"c4-highmem-lssd-192": "c4-highmem-lssd-192",
+	"c4-highmem-lssd-288": "c4-highmem-lssd-288",
+	"c4-standard-lssd-4": "c4-standard-lssd-4",
+	"c4-standard-lssd-8": "c4-standard-lssd-8",
+	"c4-standard-lssd-16": "c4-standard-lssd-16",
+	"c4-standard-lssd-24": "c4-standard-lssd-24",
+	"c4-standard-lssd-32": "c4-standard-lssd-32",
+	"c4-standard-lssd-48": "c4-standard-lssd-48",
+	"c4-standard-lssd-96": "c4-standard-lssd-96",
+	"c4-standard-lssd-144": "c4-standard-lssd-144",
+	"c4-standard-lssd-192": "c4-standard-lssd-192",
+	"c4-standard-lssd-288": "c4-standard-lssd-288",
+	"c4d-highmem-lssd-8": "c4d-highmem-lssd-8",
+	"c4d-highmem-lssd-16": "c4d-highmem-lssd-16",
+	"c4d-highmem-lssd-32": "c4d-highmem-lssd-32",
+	"c4d-highmem-lssd-48": "c4d-highmem-lssd-48",
+	"c4d-highmem-lssd-64": "c4d-highmem-lssd-64",
+	"c4d-highmem-lssd-96": "c4d-highmem-lssd-96",
+	"c4d-highmem-lssd-192": "c4d-highmem-lssd-192",
+	"c4d-highmem-lssd-384": "c4d-highmem-lssd-384",
+	"c4d-standard-lssd-8": "c4d-standard-lssd-8",
+	"c4d-standard-lssd-16": "c4d-standard-lssd-16",
+	"c4d-standard-lssd-32": "c4d-standard-lssd-32",
+	"c4d-standard-lssd-48": "c4d-standard-lssd-48",
+	"c4d-standard-lssd-64": "c4d-standard-lssd-64",
+	"c4d-standard-lssd-96": "c4d-standard-lssd-96",
+	"c4d-standard-lssd-192": "c4d-standard-lssd-192",
+	"c4d-standard-lssd-384": "c4d-standard-lssd-384",
+	"z3-highmem-highlssd-8": "z3-highmem-highlssd-8",
+	"z3-highmem-highlssd-16": "z3-highmem-highlssd-16",
+	"z3-highmem-highlssd-22": "z3-highmem-highlssd-22",
+	"z3-highmem-highlssd-32": "z3-highmem-highlssd-32",
+	"z3-highmem-highlssd-44": "z3-highmem-highlssd-44",
+	"z3-highmem-highlssd-88": "z3-highmem-highlssd-88",
+	"z3-highmem-standardlssd-14": "z3-highmem-standardlssd-14",
+	"z3-highmem-standardlssd-22": "z3-highmem-standardlssd-22",
+	"z3-highmem-standardlssd-44": "z3-highmem-standardlssd-44",
+	"z3-highmem-standardlssd-88": "z3-highmem-standardlssd-88",
+	"z3-highmem-standardlssd-176": "z3-highmem-standardlssd-176",
 } as const;
 
 export type PgSizeKey = (typeof pgSize)[keyof typeof pgSize];
@@ -12989,6 +13979,11 @@ export type PostgresService = {
 	 */
 	tags?: PgTags | undefined;
 	/**
+	 * @description IPv4 access rules shown in the console. IPv6 rules are not included. Returned when reading or configuring access; omitted from other service updates.
+	 * @type array | undefined
+	 */
+	ipAccessList?: PostgresIpAccessListEntry[] | undefined;
+	/**
 	 * @description
 	 * Format: `uuid`
 	 * @example f71df78e-ddad-82d0-8dfa-abbec741b82e
@@ -13075,6 +14070,11 @@ export type PostgresServicePostRequest = {
 	 */
 	tags?: PgTags | undefined;
 	/**
+	 * @description IPv4 TCP access rules to apply when creating the service. Omit to allow all IPv4 and IPv6 addresses on Postgres (5432) and PgBouncer (6432). Provide an empty list to block public access. When provided, only these rules are allowed; include separate rules for each required port.
+	 * @type array | undefined
+	 */
+	ipAccessList?: PostgresIpAccessListEntry[] | undefined;
+	/**
 	 * @description Postgres [runtime configuration](https://www.postgresql.org/docs/current/runtime-config.html) configuration.
 	 * @example {"max_connections":100}
 	 * @type object | undefined
@@ -13089,6 +14089,7 @@ export type PostgresServicePostRequest = {
 };
 
 export type PostgresServicePatchRequest = {
+	ipAccessList?: PostgresIpAccessListPatch | undefined;
 	/**
 	 * @description Name of the Postgres service. Alphanumerical string with whitespaces up to 50 characters.
 	 * @minLength 1
@@ -13357,7 +14358,7 @@ export type PostgresMetricDataPoint = {
 
 export type PostgresMetricSeries = {
 	/**
-	 * @description Distinguishing label for this series within the metric (for example a CPU mode, a database name, or \"Reads\").
+	 * @description Distinguishing label for this series within the metric (for example a CPU mode, a database name, a wait event such as \"Lock:relation\", or \"Reads\").
 	 * @type string
 	 */
 	label: string;
@@ -13370,7 +14371,7 @@ export type PostgresMetricSeries = {
 
 export type PostgresMetric = {
 	/**
-	 * @description Stable metric identifier (for example cpu_usage, connection_count, cache_hit_ratio).
+	 * @description Stable metric identifier (for example cpu_usage, connection_count, cache_hit_ratio, active_sessions_by_wait).
 	 * @type string
 	 */
 	key: string;
@@ -14141,7 +15142,7 @@ export type ServicePatchRequest = {
 	ipAccessList?: IpAccessListPatch | undefined;
 	privateEndpointIds?: InstancePrivateEndpointsPatch | undefined;
 	/**
-	 * @description Select fast if you want to get new ClickHouse releases as soon as they are available. You\'ll get new features faster, but with a higher risk of bugs. Select slow if you would like to defer releases to give yourself more time to test. This feature is only available for production services. default is the regular release channel.
+	 * @description Select fast if you want to get new ClickHouse releases as soon as they are available. You\'ll get new features faster, but with a higher risk of bugs. Select slow if you would like to defer releases to give yourself more time to test. This feature is only available for production services. default is the regular release channel. All services in a warehouse share one release channel, so changing it on one service changes it for all of them. Changing it through a secondary service also requires the `control-plane:service:manage` permission on the warehouse\'s primary service.
 	 * @type string | undefined
 	 */
 	releaseChannel?: ServicePatchRequestReleaseChannelEnumKey | undefined;
@@ -15258,7 +16259,7 @@ export type PublicQueryApiEndpointRequest = {
 	database: string;
 	/**
 	 * @description Default query parameters.
-	 * @default [object Object]
+	 * @default {}
 	 * @type object | undefined
 	 */
 	parameters?:
@@ -15278,7 +16279,7 @@ export type PublicQueryApiEndpointRequest = {
 	roles: string[];
 	/**
 	 * @description Origins allowed by the endpoint CORS policy.
-	 * @default
+	 * @default []
 	 * @type array | undefined
 	 */
 	allowedOrigins?: string[] | undefined;
@@ -15304,7 +16305,7 @@ export type PublicSavedQueryRequest = {
 	database: string;
 	/**
 	 * @description Default query parameters.
-	 * @default [object Object]
+	 * @default {}
 	 * @type object | undefined
 	 */
 	parameters?:
@@ -22538,6 +23539,157 @@ export type ActivityGetResponses = {
  */
 export type ActivityGetResponse = ActivityGetStatus200;
 
+export type NotificationGetListPath = {
+	/**
+	 * @description ID of the organization the notifications belong to.
+	 *
+	 * Format: `uuid`
+	 * @type string
+	 */
+	organizationId: string;
+};
+
+export type NotificationGetListQuery = {
+	/**
+	 * @description Maximum number of results to return.
+	 * @minLength 1
+	 * @maxLength 250
+	 * @default 100
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description Opaque cursor from a previous response\'s `nextCursor`, marking where to resume the list.
+	 * @type string | undefined
+	 */
+	cursor?: string | undefined;
+	/**
+	 * @description Filter to notifications of this severity: \'info\', \'warning\', \'critical\'.
+	 * @example warning
+	 * @type string | undefined
+	 */
+	severity?: string | undefined;
+	/**
+	 * @description Filter to notifications of this type. New types are added over time; the [notification types endpoint](#tag/Notifications/operation/notificationTypesGetList) lists the ones this organization can receive.
+	 * @type string | undefined
+	 */
+	type?: string | undefined;
+	/**
+	 * @description Filter to notifications about this resource. A service also matches the notifications of its ClickPipes; pass `resource_type` to narrow to one kind of resource.
+	 * @type string | undefined
+	 */
+	resource_id?: string | undefined;
+	/**
+	 * @description Filter to notifications about resources of this kind. One of \'service\', \'organization\', \'clickpipe\', \'postgres\'.
+	 * @example service
+	 * @type string | undefined
+	 */
+	resource_type?: string | undefined;
+	/**
+	 * @description Return notifications created at or after this time. An RFC 3339 timestamp, not a bare date.
+	 *
+	 * Format: `date-time`
+	 * @example 2026-10-01T00:00:00Z
+	 * @type string | undefined
+	 */
+	from_date?: string | undefined;
+	/**
+	 * @description Return notifications created at or before this time. An RFC 3339 timestamp, not a bare date.
+	 *
+	 * Format: `date-time`
+	 * @example 2026-10-08T00:00:00Z
+	 * @type string | undefined
+	 */
+	to_date?: string | undefined;
+};
+
+export type NotificationGetListStatus200 = {
+	/**
+	 * @description HTTP status code.
+	 * @example 200
+	 * @type number | undefined
+	 */
+	status?: number | undefined;
+	/**
+	 * @description Unique id assigned to every request. UUIDv4
+	 *
+	 * Format: `uuid`
+	 * @type string | undefined
+	 */
+	requestId?: string | undefined;
+	result?: Notification[] | undefined;
+	/**
+	 * @description Maximum number of results returned in this page.
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description Cursor for the next page, to be sent as the `cursor` query parameter. Null on the last page.
+	 * @type string | undefined
+	 */
+	nextCursor?: (string | null) | undefined;
+};
+
+export type NotificationGetListStatus400 = {
+	/**
+	 * @description HTTP status code.
+	 * @example 400
+	 * @type number | undefined
+	 */
+	status?: number | undefined;
+	/**
+	 * @description Detailed error description.
+	 * @type string | undefined
+	 */
+	error?: string | undefined;
+	/**
+	 * @description Unique id assigned to every request. UUIDv4
+	 *
+	 * Format: `uuid`
+	 * @type string | undefined
+	 */
+	requestId?: string | undefined;
+};
+
+export type NotificationGetListStatus500 = {
+	/**
+	 * @description HTTP status code.
+	 * @example 500
+	 * @type integer | undefined
+	 */
+	status?: number | undefined;
+	/**
+	 * @description Detailed error description.
+	 * @type string | undefined
+	 */
+	error?: string | undefined;
+	/**
+	 * @description Unique id assigned to every request. UUIDv4
+	 *
+	 * Format: `uuid`
+	 * @type string | undefined
+	 */
+	requestId?: string | undefined;
+};
+
+export type NotificationGetListOptions = {
+	body?: never | undefined;
+	path: NotificationGetListPath;
+	query?: NotificationGetListQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type NotificationGetListResponses = {
+	"200": NotificationGetListStatus200;
+	"400": NotificationGetListStatus400;
+	"500": NotificationGetListStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type NotificationGetListResponse = NotificationGetListStatus200;
+
 export type NotificationTypesGetListPath = {
 	/**
 	 * @description ID of the requested organization.
@@ -25989,6 +27141,97 @@ export type ClickStackCreateWebhookResponses = {
  * @description Union of all possible responses
  */
 export type ClickStackCreateWebhookResponse = ClickStackCreateWebhookStatus200;
+
+export type ClickStackValidateWebhookPath = {
+	/**
+	 * @description ID of the organization that owns the service.
+	 *
+	 * Format: `uuid`
+	 * @type string
+	 */
+	organizationId: string;
+	/**
+	 * @description ID of the ClickStack service.
+	 *
+	 * Format: `uuid`
+	 * @type string
+	 */
+	serviceId: string;
+};
+
+export type ClickStackValidateWebhookStatus200 = {
+	/**
+	 * @description HTTP status code.
+	 * @example 200
+	 * @type number | undefined
+	 */
+	status?: number | undefined;
+	/**
+	 * @description Unique id assigned to every request. UUIDv4
+	 *
+	 * Format: `uuid`
+	 * @type string | undefined
+	 */
+	requestId?: string | undefined;
+	result?: ClickStackValidateWebhookResponse | undefined;
+};
+
+export type ClickStackValidateWebhookStatus400 = {
+	/**
+	 * @description HTTP status code.
+	 * @example 400
+	 * @type number | undefined
+	 */
+	status?: number | undefined;
+	/**
+	 * @description Detailed error description.
+	 * @type string | undefined
+	 */
+	error?: string | undefined;
+	/**
+	 * @description Unique id assigned to every request. UUIDv4
+	 *
+	 * Format: `uuid`
+	 * @type string | undefined
+	 */
+	requestId?: string | undefined;
+};
+
+export type ClickStackValidateWebhookStatus500 = {
+	/**
+	 * @description HTTP status code.
+	 * @example 500
+	 * @type integer | undefined
+	 */
+	status?: number | undefined;
+	/**
+	 * @description Detailed error description.
+	 * @type string | undefined
+	 */
+	error?: string | undefined;
+	/**
+	 * @description Unique id assigned to every request. UUIDv4
+	 *
+	 * Format: `uuid`
+	 * @type string | undefined
+	 */
+	requestId?: string | undefined;
+};
+
+export type ClickStackValidateWebhookBody = ClickStackWebhookInput | undefined;
+
+export type ClickStackValidateWebhookOptions = {
+	body: ClickStackValidateWebhookBody;
+	path: ClickStackValidateWebhookPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ClickStackValidateWebhookResponses = {
+	"200": ClickStackValidateWebhookStatus200;
+	"400": ClickStackValidateWebhookStatus400;
+	"500": ClickStackValidateWebhookStatus500;
+};
 
 export type ClickStackUpdateWebhookPath = {
 	/**
