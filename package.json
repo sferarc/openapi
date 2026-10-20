@@ -32,7 +32,7 @@
 		"zod": "catalog:",
 		"vitest": "catalog:"
 	},
-	"packageManager": "pnpm@12.11.2",
+	"packageManager": "pnpm@12.14.0",
 	"engines": {
 		"node": ">=22"
 	}
