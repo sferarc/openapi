@@ -57,6 +57,25 @@ export const listArchivedFilesQueryGroupIdsSchema = z
 	)
 	.meta({ examples: ["CVCF1k8ZR3e52ChmEzlNxA,lwQiDh2kS0WaawetgMjtfw"] });
 
+export const listArchivedFilesQueryFileTypeSchema = z
+	.enum([
+		"MP4",
+		"M4A",
+		"CHAT",
+		"CC",
+		"CHAT_MESSAGE",
+		"TRANSCRIPT",
+		"SUB_GROUP_MEMBER_LOG",
+		"AIC_COVERSATION",
+		"POLL",
+		"QA",
+	])
+	.optional()
+	.describe(
+		"Filter files by file type.\n* `MP4` — Video file. \n* `M4A` — Audio-only file. \n* `CHAT` — A TXT file containing in-meeting chat messages. \n* `CC` — A file containing the closed captions of the recording in VTT file format. \n* `CHAT_MESSAGE` — A JSON file encoded in base64 format containing chat messages. The file also includes waiting room chats, deleted messages, meeting emojis, and non-verbal feedback. \n* `TRANSCRIPT` — A JSON file that includes the audio transcript. \n* `SUB_GROUP_MEMBER_LOG` — A JSON file containing records of members entering and leaving the subgroup. \n* `AIC_CONVERSATION` — A JSON file that includes internal user archive AIC content. \n* `POLL` — A JSON file that includes meeting poll data. \n* `QA` — A JSON file that includes meeting Q&A data.",
+	)
+	.meta({ examples: ["CHAT"] });
+
 export const listArchivedFilesStatus200Schema = z.object({
 	from: z.iso
 		.datetime()
@@ -106,9 +125,11 @@ export const listArchivedFilesStatus200Schema = z.object({
 									"TRANSCRIPT",
 									"SUB_GROUP_MEMBER_LOG",
 									"AIC_COVERSATION",
+									"POLL",
+									"QA",
 								])
 								.describe(
-									"The archive file's type. \n* `MP4` - Video file. \n* `M4A` - Audio-only file. \n* `CHAT` - A TXT file containing in-meeting chat messages. \n* `CC` - A file containing the closed captions of the recording, in VTT file format. \n*  `CHAT_MESSAGE` - A JSON file encoded in base64 format containing chat messages. The file also includes waiting room chats, deleted messages, meeting emojis and non-verbal feedback. \n*  `TRANSCRIPT` - A JSON file include audio transcript wording. \n* `SUB_GROUP_MEMBER_LOG` - A json file containing records of members entering and leaving the subgroup. \n* `AIC_COVERSATION` - A json file include internal user archive aic content.",
+									"The archive file's type. \n* `MP4` — Video file. \n* `M4A` — Audio-only file. \n* `CHAT` — A TXT file containing in-meeting chat messages. \n* `CC` — A file containing the closed captions of the recording in VTT file format. \n* `CHAT_MESSAGE` — A JSON file encoded in base64 format containing chat messages. The file also includes waiting room chats, deleted messages, meeting emojis, and non-verbal feedback. \n* `TRANSCRIPT` — A JSON file that includes the audio transcript. \n* `SUB_GROUP_MEMBER_LOG` — A JSON file containing records of members entering and leaving the subgroup. \n* `AIC_CONVERSATION` — A JSON file that includes internal user archive AIC content. \n* `POLL` — A JSON file that includes meeting poll data. \n* `QA` — A JSON file that includes meeting Q&A data.",
 								)
 								.meta({ examples: ["CHAT"] }),
 							id: z
@@ -149,9 +170,11 @@ export const listArchivedFilesStatus200Schema = z.object({
 									"chat_message",
 									"audio_transcript",
 									"aic_conversation",
+									"archive_poll",
+									"archive_qa",
 								])
 								.describe(
-									"The archive file's recording type. \n* `shared_screen_with_speaker_view` \n* `audio_only` \n* `chat_file` \n* `closed_caption` \n* `chat_message` \n* `audio_transcript` \n* `aic_conversation` \n\n For more information, read our [Managing and sharing cloud recordings](https://support.zoom.us/hc/en-us/articles/205347605-Managing-and-sharing-cloud-recordings#h_9898497b-e736-4980-a749-d55608f10773) documentation.",
+									"The archive file's recording type. \n* `shared_screen_with_speaker_view` \n* `audio_only` \n* `chat_file` \n* `closed_caption` \n* `chat_message` \n* `audio_transcript` \n* `aic_conversation` \n* `archive_poll` \n* `archive_qa` \n\nFor more information, read our [Managing and sharing cloud recordings](https://support.zoom.us/hc/en-us/articles/205347605-Managing-and-sharing-cloud-recordings#h_9898497b-e736-4980-a749-d55608f10773) documentation.",
 								)
 								.meta({ examples: ["chat_message"] }),
 							status: z
@@ -3056,7 +3079,7 @@ export const listDevicesStatus200Schema = z.object({
 						"Filter devices by device type.  \n  Device Type:  \n `-1` - All Zoom Room device(0,1,2,3,4,6).  \n `0` - Zoom Rooms Computer.  \n `1` - Zoom Rooms Controller.  \n `2` - Zoom Rooms Scheduling Display.  \n `3` - Zoom Rooms Control System.  \n `4` -  Zoom Rooms Whiteboard.  \n `5` - Zoom Phone Appliance.  \n `6` - Zoom Rooms Computer (with Controller).",
 					)
 					.meta({ examples: [0] }),
-				skd_version: z
+				sdk_version: z
 					.string()
 					.optional()
 					.describe("The version of the SDK.")
@@ -3080,7 +3103,8 @@ export const listDevicesStatus200Schema = z.object({
 					.meta({ examples: ["test-user@ya.us"] }),
 			}),
 		)
-		.optional(),
+		.optional()
+		.describe("The list of device data."),
 });
 
 export const listDevicesStatus400Schema = z.unknown();
@@ -7208,6 +7232,25 @@ export const meetingStatus200Schema = z
 						"Whether to prevent participants from capturing Zoom meeting windows, which may include shared meeting content and chat messages. If not provided, the default value will be based on the user's setting.",
 					)
 					.meta({ examples: [false] }),
+				allow_participants_to_transcribe_meetings_with_my_notes: z
+					.object({
+						enable: z
+							.boolean()
+							.optional()
+							.describe("Whether to allow participants to transcribe meetings with My Notes.")
+							.meta({ examples: [true] }),
+						participant_scope: z
+							.enum(["organization", "all"])
+							.optional()
+							.describe(
+								"Specifies which participants can transcribe meetings with My Notes.\n\n- `organization` - Only participants in your organization.\n- `all` - All participants.",
+							)
+							.meta({ examples: ["organization"] }),
+					})
+					.optional()
+					.describe(
+						"Information about the **Allow participants to transcribe meetings with My Notes** setting. If this field is not provided, its value will follow the user's setting.",
+					),
 			})
 			.optional()
 			.describe("Meeting settings."),
@@ -7294,10 +7337,10 @@ export const meetingStatus200Schema = z
 			.describe("The meeting dynamic host key.")
 			.meta({ examples: ["123456"] }),
 		creation_source: z
-			.enum(["other", "open_api", "web_portal"])
+			.enum(["other", "open_api", "web_portal", "zoom_scheduler"])
 			.optional()
 			.describe(
-				"The platform used when creating the meeting.\n* `other` - Created through another platform.\n* `open_api` - Created through Open API.\n* `web_portal` - Created through the web portal.",
+				"The platform through which the meeting was created.\n\n- `other` - Created through another platform.\n- `open_api` - Created through Open API.\n- `web_portal` - Created through the web portal.\n- `zoom_scheduler` - Created through Zoom Scheduler.",
 			)
 			.meta({ examples: ["open_api"] }),
 	})
@@ -8268,6 +8311,25 @@ export const meetingUpdateBodySchema = z
 						"Which recording options are unavailable to the in-meeting host through the Zoom client.\n\n* `none` - All recording options are available to the host. This is the default. \n* `all` - All recording options are unavailable to the host. \n\nNot supported when `auto_recording` is set to `local`.",
 					)
 					.meta({ examples: ["all"] }),
+				allow_participants_to_transcribe_meetings_with_my_notes: z
+					.object({
+						enable: z
+							.boolean()
+							.optional()
+							.describe("Whether to allow participants to transcribe meetings with My Notes.")
+							.meta({ examples: [true] }),
+						participant_scope: z
+							.enum(["organization", "all"])
+							.optional()
+							.describe(
+								"Specifies which participants can transcribe meetings with My Notes.\n* `organization` - Only participants in your organization.\n* `all` - All participants.",
+							)
+							.meta({ examples: ["organization"] }),
+					})
+					.optional()
+					.describe(
+						"Information about the **Allow participants to transcribe meetings with My Notes** setting. If this field is not provided, its value will follow the user's setting.",
+					),
 			})
 			.optional()
 			.describe("Meeting settings."),
@@ -10010,6 +10072,25 @@ export const meetingCreateStatus201Schema = z
 						"Which recording options are unavailable to the in-meeting host through the Zoom client.\n\n* `none` - All recording options are available to the host. This is the default. \n* `all` - All recording options are unavailable to the host. \n\nNot supported when `auto_recording` is set to `local`.",
 					)
 					.meta({ examples: ["all"] }),
+				allow_participants_to_transcribe_meetings_with_my_notes: z
+					.object({
+						enable: z
+							.boolean()
+							.optional()
+							.describe("Whether to allow participants to transcribe meetings with My Notes.")
+							.meta({ examples: [true] }),
+						participant_scope: z
+							.enum(["organization", "all"])
+							.optional()
+							.describe(
+								"Specifies which participants can transcribe meetings with My Notes.\n* `organization` - Only participants in your organization.\n* `all` - All participants.",
+							)
+							.meta({ examples: ["organization"] }),
+					})
+					.optional()
+					.describe(
+						"Information about the **Allow participants to transcribe meetings with My Notes** setting. If this field is not provided, its value will follow the user's setting.",
+					),
 			})
 			.optional()
 			.describe("Meeting settings."),
@@ -10095,10 +10176,10 @@ export const meetingCreateStatus201Schema = z
 			.describe("The meeting dynamic host key.")
 			.meta({ examples: ["123456"] }),
 		creation_source: z
-			.enum(["other", "open_api", "web_portal"])
+			.enum(["other", "open_api", "web_portal", "zoom_scheduler"])
 			.optional()
 			.describe(
-				"The platform through which the meeting was created.\n* `other` - Created through another platform.\n* `open_api` - Created through Open API.\n* `web_portal` - Created through the web portal.",
+				"The platform through which the meeting was created.\n* `other` - Created through another platform.\n* `open_api` - Created through Open API.\n* `web_portal` - Created through the web portal.\n* `zoom_scheduler` - Created through Zoom Scheduler.",
 			)
 			.meta({ examples: ["open_api"] }),
 	})
@@ -10944,6 +11025,25 @@ export const meetingCreateBodySchema = z
 						"Which recording options are unavailable to the in-meeting host through the Zoom client.\n\n* `none` - All recording options are available to the host. This is the default. \n* `all` - All recording options are unavailable to the host. \n\nNot supported when `auto_recording` is set to `local`.",
 					)
 					.meta({ examples: ["all"] }),
+				allow_participants_to_transcribe_meetings_with_my_notes: z
+					.object({
+						enable: z
+							.boolean()
+							.optional()
+							.describe("Whether to allow participants to transcribe meetings with My Notes.")
+							.meta({ examples: [true] }),
+						participant_scope: z
+							.enum(["organization", "all"])
+							.optional()
+							.describe(
+								"Specifies which participants can transcribe meetings with My Notes.\n* `organization` - Only participants in your organization.\n* `all` - All participants.",
+							)
+							.meta({ examples: ["organization"] }),
+					})
+					.optional()
+					.describe(
+						"Information about the **Allow participants to transcribe meetings with My Notes** setting. If this field is not provided, its value will follow the user's setting.",
+					),
 			})
 			.optional()
 			.describe("Information about the meeting's settings."),
@@ -23128,6 +23228,33 @@ export const uploadWebinarBrandingVBErrorSchema = z.union([
 	uploadWebinarBrandingVBStatus429Schema,
 ]);
 
+export const uploadWebinarBrandingVBBodySchema = z
+	.object({
+		file: z
+			.instanceof(File)
+			.describe("The vvirtual background's file path, in binary format.")
+			.meta({
+				examples: [
+					"Vm0wd2QyUXlVWGxXYTJoV1YwZG9WVll3Wkc5alJsWjBUVlpPV0Zac2JETlhhMUpUVmpGYWMySkVUbGhoTWsweFZqQmFTMk15U2tWVWJHaG9UVmhDVVZadGVGWmxSbGw1Vkd0c2FsSnRhRzlVVjNOM1pVWmFkR05GZEZSTlZUVkpWbTEwYTFkSFNrZGpSVGxhWWxoU1RGWnNXbUZrUjA1R1pFWlNUbFpYZHpGV2EyUXdZekpHVjFOdVVsWmhlbXhoVm1wT2IyRkdjRmRYYlVaclVqRmFTVnBGV2xOVWJGcFZWbXhzVjFaNlFYaFdSRXBIVWpGT2RWVnNXbWxTTW1odlZtMXdUMkl5UmtkWGJHUllZbGhTV0ZSV2FFTlRiR3QzV2tSU1ZrMXJjRmhWTW5oelZqRmFObEZZYUZkU1JWcDZWbXBHVDJSV1ZuUmhSazVzWWxob1dGWnRNSGhPUjFGM1RVaG9hbEp0VWxsWmJHaFRWMFpTVjFkdFJteFdiVko1VmpKNFQyRkdXbk5qU0d4WFRWZG9NMVpxUmtwbGJVWklZVVpvVjJKV1NrbFdiWEJIVkRGa1YyTkZaR2hTTW5oVVZGY3hiMWRzV1hoWGJYUk9VbTE0V0ZVeGFHOWhiRXBYVjJ4U1dtSkdXbWhaTVZwelkyeHdSMVJyTlZOaWEwcElWbXBLTkZReFdsaFRhMlJxVWtWYVYxWnFUa05YUmxweFVtdHdiR0pWV2tsWlZWcHJZVWRGZUdOSE9WZFdSVXBvVmtSS1QyUkdUbkphUmxKcFZqTm9kbFpHVm05Uk1XUlhWMWhvWVZKRlNtRldha1pIVGtaWmVHRkhPVmRpVlhCSlZsZDRjMWR0U2tkWGJXaFhUVVp3ZWxreWVIZFNNVkowWlVaa2FWSXpZM2hXTW5oWFZqRlJlRmRZWkU1WFJYQllXVmR6TVZsV1VsWlhibVJYVW14d2VGVnRNVWRXTURGeVRsVm9WMUo2UmtoV1ZFWkxWakpPUmxac1pHbFNNVVYzVmxaU1IxbFdXbkpOVmxwWFlYcFdWRlZyVmtaT1VUMDk=",
+				],
+			}),
+		default: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe("Whether set the file as the default virtual background file.")
+			.meta({ examples: [true] }),
+		set_default_for_all_panelists: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe(
+				"Whether to set the virtual background file as the new default for all panelists. This includes panelists not currently assigned a default virtual background.",
+			)
+			.meta({ examples: [true] }),
+	})
+	.optional();
+
 export const deleteWebinarBrandingVBPathWebinarIdSchema = z.coerce
 	.bigint()
 	.describe("The webinar's ID.")
@@ -23232,6 +23359,12 @@ export const uploadWebinarBrandingWallpaperErrorSchema = z.union([
 	uploadWebinarBrandingWallpaperStatus404Schema,
 	uploadWebinarBrandingWallpaperStatus429Schema,
 ]);
+
+export const uploadWebinarBrandingWallpaperBodySchema = z
+	.object({
+		file: z.instanceof(File).describe("The wallpaper's file path, in binary format."),
+	})
+	.optional();
 
 export const deleteWebinarBrandingWallpaperPathWebinarIdSchema = z.coerce
 	.bigint()

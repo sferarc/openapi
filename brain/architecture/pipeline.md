@@ -17,6 +17,8 @@ Each `kubb.config.ts` carries the transforms its spec needs, so the fixups diffe
 
 - `packages/vercel-api-js/kubb.config.ts` uses most of the shared transforms, renames a few operation IDs and repairs a malformed `groupIds` schema.
 - `packages/keycloak-api/kubb.config.ts` generates twice: the admin API from Keycloak's published spec and the account API from the checked-in `specs/account.yaml`, selected by `KUBB_TARGET` (`packages/keycloak-api/package.json`).
+- `packages/zoom-api-js/kubb.config.ts` fetches the Meetings spec from `https://developers.zoom.us/api/zoap/meetings/methods`. Zoom's redesigned developer site dropped the old `/api-hub/meetings/methods/endpoints.json` path, which now returns 404 (checked 2026-10-20).
+- `packages/litellm-api/kubb.config.ts` fetches `https://api.litellm.ai/openapi.json`, whose host does not resolve in DNS (NXDOMAIN, checked 2026-10-20 from a local machine). Unknown whether it resolves from CI; the BerriAI repo's `litellm/proxy/openapi.json` is a minimal stub and not an equivalent.
 - `packages/clickhouse-cloud/kubb.config.ts` only rewrites placeholder Slack webhook URLs in examples, which GitHub push protection flags as secrets (#2).
 
 ## Scheduled regeneration
