@@ -17,7 +17,7 @@ export const resourceTagsV1Schema = z
 			.optional()
 			.describe("Tag value. Must be alphanumeric with dashes, underscores and dots."),
 	})
-	.meta({ examples: [{}] });
+	.meta({ examples: [{ key: "Environment", value: "staging" }] });
 
 export const scalingScheduleEntrySchema = z.object({
 	id: z.uuid().describe("Unique identifier for this schedule entry."),
@@ -577,7 +577,22 @@ export const backupEncryptionConfigSchema = z
 	.describe(
 		"The `encryption_config.json` stored alongside this backup in your bucket, passed through unchanged. Supply the file contents verbatim rather than constructing this object — its shape is versioned and depends on your cloud provider. See [Export backups to your own cloud account](https://clickhouse.com/docs/cloud/manage/backups/export-backups-to-own-cloud-account) for what it contains.\n\nAccepted only for organizations enrolled in the private preview, and only when the backup is of a service that has transparent data encryption enabled. Such a restore always produces a service with transparent data encryption enabled, inherited from the source service.",
 	)
-	.meta({ examples: [{}] });
+	.meta({
+		examples: [
+			{
+				schema_version: 1,
+				restore_key_pairs: [
+					{
+						customer_managed_encryption_key: {
+							aws_kms_key_arn:
+								"arn:aws:kms:us-east-1:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+						},
+						encrypted_dek: "<base64 wrapped data encryption key>",
+					},
+				],
+			},
+		],
+	});
 
 export const ipAccessListPatchSchema = z.object({
 	add: z
@@ -2545,10 +2560,10 @@ export const clickPipePostgresSourceSchema = z.object({
 		.nullish()
 		.describe('Type of the Postgres source. Defaults to "postgres" if not specified.'),
 	host: z
-		.url()
+		.string()
 		.optional()
 		.describe(
-			"PostgreSQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here.",
+			"PostgreSQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here. For Cloud SQL with SERVICE_ACCOUNT_WORKLOAD_IDENTITY authentication, pass the instance connection name (project:region:instance).",
 		)
 		.meta({ examples: ["my-postgres-server.example.com"] }),
 	port: z
@@ -2564,7 +2579,7 @@ export const clickPipePostgresSourceSchema = z.object({
 		.describe("PostgreSQL database name to replicate from.")
 		.meta({ examples: ["production_db"] }),
 	authentication: z
-		.enum(["basic", "IAM_ROLE"])
+		.enum(["basic", "IAM_ROLE", "SERVICE_ACCOUNT_WORKLOAD_IDENTITY"])
 		.optional()
 		.describe("Authentication method for Postgres connection.")
 		.meta({ examples: ["IAM_ROLE"] }),
@@ -2625,10 +2640,10 @@ export const clickPipeMutatePostgresSourceSchema = z.object({
 		.describe('Type of the Postgres source. Defaults to "postgres" if not specified.'),
 	credentials: PLAINSchema.optional(),
 	host: z
-		.url()
+		.string()
 		.optional()
 		.describe(
-			"PostgreSQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here.",
+			"PostgreSQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here. For Cloud SQL with SERVICE_ACCOUNT_WORKLOAD_IDENTITY authentication, pass the instance connection name (project:region:instance).",
 		)
 		.meta({ examples: ["my-postgres-server.example.com"] }),
 	port: z
@@ -2645,7 +2660,7 @@ export const clickPipeMutatePostgresSourceSchema = z.object({
 		.meta({ examples: ["production_db"] }),
 	settings: clickPipePostgresPipeSettingsSchema.optional(),
 	authentication: z
-		.enum(["basic", "IAM_ROLE"])
+		.enum(["basic", "IAM_ROLE", "SERVICE_ACCOUNT_WORKLOAD_IDENTITY"])
 		.optional()
 		.describe("Authentication method for Postgres connection.")
 		.meta({ examples: ["IAM_ROLE"] }),
@@ -2690,10 +2705,10 @@ export const clickPipeMutatePostgresSourceSchema = z.object({
 export const clickPipePatchPostgresSourceSchema = z.object({
 	credentials: PLAINSchema.optional(),
 	host: z
-		.url()
+		.string()
 		.nullish()
 		.describe(
-			"PostgreSQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here.",
+			"PostgreSQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here. For Cloud SQL with SERVICE_ACCOUNT_WORKLOAD_IDENTITY authentication, pass the instance connection name (project:region:instance).",
 		)
 		.meta({ examples: ["my-postgres-server.example.com"] }),
 	port: z
@@ -2940,13 +2955,13 @@ export const clickPipePatchMySQLPipeRemoveTableMappingSchema = z.object({
 
 export const clickPipeMySQLSourceSchema = z.object({
 	type: z
-		.enum(["mysql", "rdsmysql", "auroramysql", "mariadb", "rdsmariadb"])
+		.enum(["mysql", "rdsmysql", "auroramysql", "cloudsqlmysql", "mariadb", "rdsmariadb"])
 		.nullish()
 		.describe('Type of the MySQL source. Defaults to "mysql" if not specified.'),
 	host: z
-		.url()
+		.string()
 		.describe(
-			"MySQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here.",
+			"MySQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here. For Cloud SQL with SERVICE_ACCOUNT_WORKLOAD_IDENTITY authentication, pass the instance connection name (project:region:instance).",
 		)
 		.meta({ examples: ["my-mysql-server.example.com"] }),
 	port: z
@@ -2956,7 +2971,7 @@ export const clickPipeMySQLSourceSchema = z.object({
 		.describe("MySQL server port.")
 		.meta({ examples: [3306] }),
 	authentication: z
-		.enum(["basic", "IAM_ROLE"])
+		.enum(["basic", "IAM_ROLE", "SERVICE_ACCOUNT_WORKLOAD_IDENTITY"])
 		.optional()
 		.describe("Authentication method for MySQL connection.")
 		.meta({ examples: ["basic"] }),
@@ -3006,14 +3021,14 @@ export const clickPipeMySQLSourceSchema = z.object({
 
 export const clickPipeMutateMySQLSourceSchema = z.object({
 	type: z
-		.enum(["mysql", "rdsmysql", "auroramysql", "mariadb", "rdsmariadb"])
+		.enum(["mysql", "rdsmysql", "auroramysql", "cloudsqlmysql", "mariadb", "rdsmariadb"])
 		.nullish()
 		.describe('Type of the MySQL source. Defaults to "mysql" if not specified.'),
 	credentials: PLAINSchema.optional(),
 	host: z
-		.url()
+		.string()
 		.describe(
-			"MySQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here.",
+			"MySQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here. For Cloud SQL with SERVICE_ACCOUNT_WORKLOAD_IDENTITY authentication, pass the instance connection name (project:region:instance).",
 		)
 		.meta({ examples: ["my-mysql-server.example.com"] }),
 	port: z
@@ -3024,7 +3039,7 @@ export const clickPipeMutateMySQLSourceSchema = z.object({
 		.meta({ examples: [3306] }),
 	settings: clickPipeMySQLPipeSettingsSchema,
 	authentication: z
-		.enum(["basic", "IAM_ROLE"])
+		.enum(["basic", "IAM_ROLE", "SERVICE_ACCOUNT_WORKLOAD_IDENTITY"])
 		.optional()
 		.describe("Authentication method for MySQL connection.")
 		.meta({ examples: ["basic"] }),
@@ -3077,10 +3092,10 @@ export const clickPipeMutateMySQLSourceSchema = z.object({
 export const clickPipePatchMySQLSourceSchema = z.object({
 	credentials: PLAINSchema.optional(),
 	host: z
-		.url()
+		.string()
 		.nullable()
 		.describe(
-			"MySQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here.",
+			"MySQL server hostname or IP address. To use a reverse private endpoint, pass the endpoint hostname here. For Cloud SQL with SERVICE_ACCOUNT_WORKLOAD_IDENTITY authentication, pass the instance connection name (project:region:instance).",
 		)
 		.meta({ examples: ["my-mysql-server.example.com"] }),
 	port: z
@@ -3091,7 +3106,7 @@ export const clickPipePatchMySQLSourceSchema = z.object({
 		.describe("MySQL server port.")
 		.meta({ examples: [3306] }),
 	authentication: z
-		.enum(["basic", "IAM_ROLE"])
+		.enum(["basic", "IAM_ROLE", "SERVICE_ACCOUNT_WORKLOAD_IDENTITY"])
 		.nullish()
 		.describe("Authentication method for MySQL connection.")
 		.meta({ examples: ["basic"] }),
@@ -3150,8 +3165,55 @@ export const clickPipePatchMySQLSourceSchema = z.object({
 
 export const clickPipeBigQueryPipeSettingsSchema = z.object({
 	replicationMode: z
-		.enum(["snapshot"])
-		.describe("Replication mode. BigQuery only supports snapshot mode."),
+		.string()
+		.describe(
+			'Replication mode: "cdc" (change data capture with initial snapshot), "snapshot" (one-time snapshot only), or "cdc_only" (CDC without initial snapshot).',
+		)
+		.meta({ examples: ["cdc"] }),
+	replicationMethod: z
+		.string()
+		.optional()
+		.describe(
+			'How changes are captured from BigQuery. "query_based" polls each table using a watermark timestamp column, "events_based" reads the BigQuery change history using the APPENDS or CHANGES table function. Required for "cdc" and "cdc_only" replication modes and not allowed for "snapshot".',
+		)
+		.meta({ examples: ["query_based"] }),
+	syncIntervalSeconds: z
+		.int()
+		.min(1)
+		.optional()
+		.describe('Interval in seconds between CDC syncs. Not allowed for "snapshot" replication mode.')
+		.meta({ examples: [60] }),
+	queryCdcPullSyncParallelism: z
+		.int()
+		.min(1)
+		.optional()
+		.describe(
+			'Number of tables pulled in parallel during a CDC sync. Not allowed for "snapshot" replication mode.',
+		)
+		.meta({ examples: [4] }),
+	syncDelaySeconds: z
+		.int()
+		.min(0)
+		.optional()
+		.describe(
+			'Each CDC sync reads data only up to now minus this delay, giving recently written rows time to become visible in BigQuery. Increase it if your tables are loaded via batch jobs or Google Cloud Dataflow; if set too low, late-visible rows may be skipped. Not allowed for "snapshot" replication mode.',
+		)
+		.meta({ examples: [60] }),
+	pullWindowSizeSeconds: z
+		.int()
+		.min(1)
+		.optional()
+		.describe(
+			'Maximum amount of time one pull (query) can cover. Applies when the pipe has fallen behind, e.g. on the first CDC sync or when resuming after a pause: with a 6 hour limit, a pipe that is 3 days behind catches up in 12 smaller pulls instead of one large query. If a pull fails, only that pull is retried. Not allowed for "snapshot" replication mode.',
+		)
+		.meta({ examples: [86400] }),
+	syncCron: z
+		.string()
+		.optional()
+		.describe(
+			'Standard 5-field cron expression (or a descriptor such as "@hourly") that schedules CDC syncs, e.g. "0 * * * *" to sync every hour sharp. Evaluated in UTC unless prefixed with "CRON_TZ=<zone>". Must not fire more than once a minute. Syncs run on this schedule instead of every syncIntervalSeconds, so the two cannot both be set. Not allowed for "snapshot" replication mode.',
+		)
+		.meta({ examples: ["0 * * * *"] }),
 	allowNullableColumns: z
 		.boolean()
 		.optional()
@@ -3190,6 +3252,19 @@ export const clickPipeBigQueryPipeTableMappingSchema = z.object({
 		.enum(["MergeTree", "ReplacingMergeTree", "Null"])
 		.optional()
 		.describe("Table engine to use for the target table."),
+	queryCdcWatermarkColumn: z
+		.string()
+		.optional()
+		.describe(
+			'Source column of type TIMESTAMP used as the CDC watermark. Required for every table when replicationMethod is "query_based"; not allowed otherwise.',
+		),
+	eventsFunction: z
+		.string()
+		.optional()
+		.describe(
+			'BigQuery table function used to read changes: "appends" (newly appended rows) or "changes" (all row changes). Required for every table when replicationMethod is "events_based"; not allowed otherwise.',
+		)
+		.meta({ examples: ["appends"] }),
 });
 
 export const clickPipeBigQueryServiceAccountSourceSchema = z.object({
@@ -3358,6 +3433,69 @@ export const clickPipePatchMongoDBPipeSettingsSchema = z.object({
 		.meta({ examples: [100000] }),
 });
 
+export const clickPipeMongoDBPipeColumnSchema = z.object({
+	name: z
+		.string()
+		.describe("Top-level document field name.")
+		.meta({ examples: ["amount"] }),
+	type: z
+		.string()
+		.describe(
+			"ClickHouse type the field is replicated as. Must be a valid ClickHouse column type supported by structured ingestion.",
+		)
+		.meta({ examples: ["Float64"] }),
+});
+
+export const clickPipeMongoDBStructuredIngestionSchema = z.object({
+	enabled: z
+		.boolean()
+		.describe(
+			"Replicate the collection into typed ClickHouse columns instead of a single JSON document column.",
+		)
+		.meta({ examples: [true] }),
+	dropUnexpectedValues: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"When true, values that don't fit their column are reported with only the field name and reason, without the value.",
+		)
+		.meta({ examples: [false] }),
+	columns: z
+		.array(clickPipeMongoDBPipeColumnSchema)
+		.optional()
+		.describe(
+			"Typed columns of the collection, taken as provided. When omitted, the columns are inferred from a sample of the collection documents. The _id document is always replicated and uses String type.",
+		),
+	excludedColumns: z
+		.array(z.string())
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.optional()
+		.describe(
+			"Names of columns, provided or inferred, to leave out of replication. Names that match no column are ignored. Column names must be unique within this list.",
+		)
+		.meta({ examples: [["internal_notes"]] }),
+	sortingKeys: z
+		.array(z.string())
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.optional()
+		.describe(
+			"Ordered list of column names to use as the sorting (ORDER BY) key in ClickHouse. When omitted, the sorting key is the _id document key.",
+		)
+		.meta({ examples: [["_id", "created_at"]] }),
+	partitionByExpr: z
+		.string()
+		.optional()
+		.describe(
+			"ClickHouse PARTITION BY expression applied to the destination table when ClickPipes creates it.",
+		)
+		.meta({ examples: ["toYYYYMM(created_at)"] }),
+});
+
 export const clickPipeMongoDBPipeTableMappingSchema = z.object({
 	sourceDatabaseName: z
 		.string()
@@ -3380,6 +3518,7 @@ export const clickPipeMongoDBPipeTableMappingSchema = z.object({
 			'ClickHouse table engine: "ReplacingMergeTree" (handles updates/deletes), "MergeTree" (append-only), or "Null" (forward data to materialized views without storing it).',
 		)
 		.meta({ examples: ["ReplacingMergeTree"] }),
+	structuredIngestion: clickPipeMongoDBStructuredIngestionSchema.optional(),
 });
 
 export const clickPipePatchMongoDBPipeRemoveTableMappingSchema = z.object({
@@ -3928,7 +4067,9 @@ export const clickPipeSettingsSchema = z.object({
 		.min(0)
 		.max(2)
 		.nullish()
-		.describe("Parallel distributed insert select. Parallel distributed insert select setting")
+		.describe(
+			"Parallel distributed insert select. Only applies when object_storage_use_cluster_function is enabled. When disabled, this setting is ignored and the effective value is 0.",
+		)
 		.meta({ examples: [2] }),
 	kafka_read_committed: z
 		.boolean()
@@ -4167,7 +4308,9 @@ export const clickPipeSettingsPutRequestSchema = z.object({
 		.min(0)
 		.max(2)
 		.optional()
-		.describe("Parallel distributed insert select. Parallel distributed insert select setting")
+		.describe(
+			"Parallel distributed insert select. Only applies when object_storage_use_cluster_function is enabled. When disabled, this setting is ignored and the effective value is 0.",
+		)
 		.meta({ examples: [2] }),
 	kafka_read_committed: z
 		.boolean()
@@ -4430,6 +4573,12 @@ export const awsBackupBucketSchema = z.object({
 	bucketPath: z.string().optional().describe("Bucket path"),
 	iamRoleArn: z.string().optional().describe("AWS Role ARN"),
 	iamRoleSessionName: z.string().optional().describe("AWS  Role session name"),
+	iamRoleExternalId: z
+		.string()
+		.optional()
+		.describe(
+			"External ID the IAM role trust policy requires when the data plane assumes the role",
+		),
 });
 
 export const gcpBackupBucketSchema = z.object({
@@ -4456,6 +4605,12 @@ export const awsBackupBucketPropertiesSchema = z.object({
 	bucketPath: z.string().optional().describe("Bucket path"),
 	iamRoleArn: z.string().optional().describe("AWS IAM Role"),
 	iamRoleSessionName: z.string().optional().describe("AWS IAM Role"),
+	iamRoleExternalId: z
+		.string()
+		.optional()
+		.describe(
+			"External ID the IAM role trust policy requires when the data plane assumes the role",
+		),
 });
 
 export const gcpBackupBucketPropertiesSchema = z.object({
@@ -4480,6 +4635,12 @@ export const awsBackupBucketPostRequestV1Schema = z.object({
 	bucketPath: z.string().optional().describe("Bucket path"),
 	iamRoleArn: z.string().optional().describe("AWS Role ARN"),
 	iamRoleSessionName: z.string().optional().describe("AWS Role session name"),
+	iamRoleExternalId: z
+		.string()
+		.optional()
+		.describe(
+			"External ID the IAM role trust policy requires when the data plane assumes the role",
+		),
 });
 
 export const gcpBackupBucketPostRequestV1Schema = z.object({
@@ -4506,6 +4667,12 @@ export const awsBackupBucketPatchRequestV1Schema = z.object({
 	bucketPath: z.string().optional().describe("Bucket path"),
 	iamRoleArn: z.string().optional().describe("AWS Role ARN"),
 	iamRoleSessionName: z.string().nullish().describe("AWS IAM Role session name"),
+	iamRoleExternalId: z
+		.string()
+		.nullish()
+		.describe(
+			"External ID the IAM role trust policy requires when the data plane assumes the role. Set to `null` to clear it.",
+		),
 });
 
 export const gcpBackupBucketPatchRequestV1Schema = z.object({
@@ -4613,6 +4780,50 @@ export const snapshotSchema = z.object({
 		.describe("Backup bucket where the snapshot is stored."),
 });
 
+export const notificationSchema = z.object({
+	id: z
+		.uuid()
+		.describe("Unique notification ID.")
+		.meta({ examples: ["1b7e0a94-2d0f-4c3a-8f1e-6c9b2d5a4e7f"] }),
+	type: z
+		.string()
+		.describe("Notification type. New types are added over time, so treat this as an open set.")
+		.meta({ examples: ["service_backup_failed"] }),
+	severity: z
+		.string()
+		.describe("Severity of the notification. One of 'info', 'warning', 'critical'.")
+		.meta({ examples: ["warning"] }),
+	resourceType: z
+		.string()
+		.describe(
+			"Kind of resource the notification is about. One of 'service', 'organization', 'clickpipe', 'postgres'.",
+		)
+		.meta({ examples: ["service"] }),
+	resourceId: z.string().describe("ID of the resource the notification is about."),
+	resourceName: z
+		.string()
+		.optional()
+		.describe(
+			"Name the resource had when the notification was created. Absent for most notification types; use `resourceId` to identify the resource.",
+		),
+	createdAt: z.iso
+		.datetime()
+		.describe("When the notification was created. ISO-8601.")
+		.meta({ examples: ["2026-10-07T09:30:00Z"] }),
+	title: z
+		.string()
+		.describe("Short human-readable summary.")
+		.meta({ examples: ["Backup failed for analytics-prod"] }),
+	description: z
+		.string()
+		.describe('Human-readable body as plain text, with any links written as "label (url)".')
+		.meta({
+			examples: [
+				"A scheduled backup for analytics-prod did not complete. Review the backup settings (https://console.clickhouse.cloud/services/abc/backups).",
+			],
+		}),
+});
+
 export const snapshotConfigurationSchema = z.object({
 	enabled: z
 		.boolean()
@@ -4658,473 +4869,26 @@ export const replicaAwareRoutingPatchRequestSchema = z.object({
 		),
 });
 
-export const clickStackAlertExecutionErrorSchema = z.object({
-	timestamp: z.iso
-		.datetime()
-		.describe("When the error occurred.")
-		.meta({ examples: ["2026-04-17T12:00:00.000Z"] }),
-	type: z
-		.enum(["QUERY_ERROR", "QUERY_TIMEOUT", "WEBHOOK_ERROR", "INVALID_ALERT", "UNKNOWN"])
-		.describe("Category of the error.")
-		.meta({ examples: ["QUERY_ERROR"] }),
-	message: z
-		.string()
-		.describe("Human-readable error message.")
-		.meta({ examples: ["Query timed out after 30s"] }),
-});
-
-export const clickStackAlertSilencedSchema = z.object({
-	by: z
-		.string()
-		.nullish()
-		.describe("User ID who silenced the alert.")
-		.meta({ examples: ["65f5e4a3b9e77c001a234567"] }),
-	at: z.iso
-		.datetime()
-		.optional()
-		.describe("Silence start timestamp.")
-		.meta({ examples: ["2026-03-19T08:00:00.000Z"] }),
-	until: z.iso
-		.datetime()
-		.optional()
-		.describe("Silence end timestamp.")
-		.meta({ examples: ["2026-03-20T08:00:00.000Z"] }),
-});
-
-export const clickStackAlertChannelEmailSchema = z.object({
-	type: z.enum(["webhook", "email"]).describe('Channel type. Must be "email" for email alerts.'),
-	emailRecipients: z.array(z.string()).describe("Email recipients for email alerts."),
-});
-
-export const clickStackAlertChannelWebhookSchema = z.object({
-	type: z
-		.enum(["webhook", "email"])
-		.describe('Channel type. Must be "webhook" for webhook alerts.'),
-	webhookId: z
-		.string()
-		.describe("Webhook destination ID.")
-		.meta({ examples: ["65f5e4a3b9e77c001a789012"] }),
-	webhookService: z
-		.string()
-		.nullish()
-		.describe("Webhook service type (e.g., slack_api).")
-		.meta({ examples: ["slack_api"] }),
-	slackChannelId: z
-		.string()
-		.nullish()
-		.describe("Slack channel ID for Slack webhooks.")
-		.meta({ examples: ["C01ABCDEF23"] }),
-	severity: z
-		.enum(["critical", "error", "warning", "info"])
-		.nullish()
-		.describe("Severity label used by PagerDuty API webhooks."),
-});
-
-export const clickStackAlertChannelSchema = z.union([
-	clickStackAlertChannelEmailSchema.strict(),
-	clickStackAlertChannelWebhookSchema.strict(),
-]);
-
-export const clickStackAlertChannelsSchema = z
-	.array(clickStackAlertChannelSchema)
-	.min(1)
-	.max(10)
-	.describe(
-		"Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.",
-	);
-
-export const clickStackAlertResponseSchema = z.object({
-	dashboardId: z
-		.string()
-		.nullish()
-		.describe("Dashboard ID for tile-based alerts.")
-		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
-	tileId: z
-		.string()
-		.nullish()
-		.describe("Tile ID for tile-based alerts. Must be a line, stacked bar, or number type tile.")
-		.meta({ examples: ["65f5e4a3b9e77c001a901234"] }),
-	savedSearchId: z
-		.string()
-		.nullish()
-		.describe("Saved search ID for saved_search alerts.")
-		.meta({ examples: ["65f5e4a3b9e77c001a345678"] }),
-	groupBy: z
-		.string()
-		.nullish()
-		.describe("Group-by key for saved search alerts.")
-		.meta({ examples: ["ServiceName"] }),
-	threshold: z
-		.number()
-		.optional()
-		.describe(
-			"Threshold value for triggering the alert. For between and not_between threshold types, this is the lower bound.",
-		)
-		.meta({ examples: [100] }),
-	thresholdMax: z
-		.number()
-		.nullish()
-		.describe(
-			"Upper bound for between and not_between threshold types. Required when thresholdType is between or not_between, must be >= threshold.",
-		)
-		.meta({ examples: [500] }),
-	interval: z
-		.enum(["30s", "1m", "5m", "15m", "30m", "1h", "6h", "12h", "1d"])
-		.optional()
-		.describe(
-			"Evaluation interval for the alert. `30s` requires the 30s alert interval feature to be enabled for your team.",
-		)
-		.meta({ examples: ["1h"] }),
-	scheduleOffsetMinutes: z
-		.int()
-		.nullish()
-		.describe(
-			"Offset from the interval boundary in minutes. For example, 2 with a 5m interval evaluates windows at :02, :07, :12, etc. (UTC).",
-		)
-		.meta({ examples: [2] }),
-	scheduleStartAt: z.iso
-		.datetime()
-		.nullish()
-		.describe(
-			"Absolute UTC start time anchor. Alert windows start from this timestamp and repeat every interval.",
-		)
-		.meta({ examples: ["2026-02-08T10:00:00.000Z"] }),
-	source: z
-		.enum(["saved_search", "tile"])
-		.optional()
-		.describe("Alert source type (tile-based or saved search).")
-		.meta({ examples: ["tile"] }),
-	thresholdType: z
-		.enum([
-			"above",
-			"below",
-			"above_exclusive",
-			"below_or_equal",
-			"equal",
-			"not_equal",
-			"between",
-			"not_between",
-		])
-		.optional()
-		.describe("Threshold comparison direction.")
-		.meta({ examples: ["above"] }),
-	channel: clickStackAlertChannelSchema.optional(),
-	channels: clickStackAlertChannelsSchema
-		.optional()
-		.describe(
-			"Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.",
-		),
+export const clickStackAlertChartConfigOverlaySchema = z.object({
 	name: z
 		.string()
-		.nullish()
-		.describe("Human-friendly alert name.")
-		.meta({ examples: ["Test Alert"] }),
-	message: z
-		.string()
-		.nullish()
-		.describe("Alert message template.")
-		.meta({ examples: ["Test Alert Message"] }),
-	note: z
-		.string()
-		.nullish()
-		.describe("Freeform note for the alert. Supports markdown formatting.")
-		.meta({
-			examples: [
-				"Threshold raised from 50 to 100 on 2026-01-15. See [runbook](https://wiki.example.com/runbook).",
-			],
-		}),
-	numConsecutiveWindows: z
-		.int()
-		.nullish()
+		.optional()
 		.describe(
-			"Fire the alert only after its condition has been met for this many consecutive evaluation windows. While the condition is met but fewer than this many consecutive windows have violated, the alert is in the PENDING state.",
+			"Display name for the alert query. Used in notification titles and as an alert-name fallback when the alert itself has no name.",
 		)
-		.meta({ examples: [3] }),
-	id: z
+		.meta({ examples: ["Error Rate Query"] }),
+	where: z
 		.string()
 		.optional()
-		.describe("Unique alert identifier.")
-		.meta({ examples: ["65f5e4a3b9e77c001a123456"] }),
-	state: z
-		.enum(["ALERT", "OK", "INSUFFICIENT_DATA", "DISABLED", "PENDING"])
+		.describe(
+			'Chart-level filter applied on top of every select item\'s own "where" (combined via AND). Builder variants only; rejected on Raw SQL variants (filter inside the sqlTemplate instead).',
+		)
+		.meta({ examples: ["ServiceName:api"] }),
+	whereLanguage: z
+		.enum(["sql", "lucene"])
 		.optional()
-		.describe("Current alert state.")
-		.meta({ examples: ["ALERT"] }),
-	teamId: z
-		.string()
-		.optional()
-		.describe("Team identifier.")
-		.meta({ examples: ["65f5e4a3b9e77c001a345678"] }),
-	silenced: z.union([clickStackAlertSilencedSchema.strict(), z.null()]).optional(),
-	executionErrors: z
-		.array(clickStackAlertExecutionErrorSchema)
-		.optional()
-		.describe("Errors recorded during the most recent alert execution, if any."),
-	createdAt: z.iso
-		.datetime()
-		.nullish()
-		.describe("Creation timestamp.")
-		.meta({ examples: ["2023-01-01T00:00:00.000Z"] }),
-	updatedAt: z.iso
-		.datetime()
-		.nullish()
-		.describe("Last update timestamp.")
-		.meta({ examples: ["2023-01-01T00:00:00.000Z"] }),
+		.describe('Language of the chart-level "where" filter.'),
 });
-
-export const clickStackCreateAlertRequestSchema = z.object({
-	dashboardId: z
-		.string()
-		.nullish()
-		.describe("Dashboard ID for tile-based alerts.")
-		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
-	tileId: z
-		.string()
-		.nullish()
-		.describe("Tile ID for tile-based alerts. Must be a line, stacked bar, or number type tile.")
-		.meta({ examples: ["65f5e4a3b9e77c001a901234"] }),
-	savedSearchId: z
-		.string()
-		.nullish()
-		.describe("Saved search ID for saved_search alerts.")
-		.meta({ examples: ["65f5e4a3b9e77c001a345678"] }),
-	groupBy: z
-		.string()
-		.nullish()
-		.describe("Group-by key for saved search alerts.")
-		.meta({ examples: ["ServiceName"] }),
-	threshold: z
-		.number()
-		.optional()
-		.describe(
-			"Threshold value for triggering the alert. For between and not_between threshold types, this is the lower bound.",
-		)
-		.meta({ examples: [100] }),
-	thresholdMax: z
-		.number()
-		.nullish()
-		.describe(
-			"Upper bound for between and not_between threshold types. Required when thresholdType is between or not_between, must be >= threshold.",
-		)
-		.meta({ examples: [500] }),
-	interval: z
-		.enum(["30s", "1m", "5m", "15m", "30m", "1h", "6h", "12h", "1d"])
-		.optional()
-		.describe(
-			"Evaluation interval for the alert. `30s` requires the 30s alert interval feature to be enabled for your team.",
-		)
-		.meta({ examples: ["1h"] }),
-	scheduleOffsetMinutes: z
-		.int()
-		.nullish()
-		.describe(
-			"Offset from the interval boundary in minutes. For example, 2 with a 5m interval evaluates windows at :02, :07, :12, etc. (UTC).",
-		)
-		.meta({ examples: [2] }),
-	scheduleStartAt: z.iso
-		.datetime()
-		.nullish()
-		.describe(
-			"Absolute UTC start time anchor. Alert windows start from this timestamp and repeat every interval.",
-		)
-		.meta({ examples: ["2026-02-08T10:00:00.000Z"] }),
-	source: z
-		.enum(["saved_search", "tile"])
-		.optional()
-		.describe("Alert source type (tile-based or saved search).")
-		.meta({ examples: ["tile"] }),
-	thresholdType: z
-		.enum([
-			"above",
-			"below",
-			"above_exclusive",
-			"below_or_equal",
-			"equal",
-			"not_equal",
-			"between",
-			"not_between",
-		])
-		.optional()
-		.describe("Threshold comparison direction.")
-		.meta({ examples: ["above"] }),
-	channel: clickStackAlertChannelSchema.optional(),
-	channels: clickStackAlertChannelsSchema
-		.optional()
-		.describe(
-			"Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.",
-		),
-	name: z
-		.string()
-		.nullish()
-		.describe("Human-friendly alert name.")
-		.meta({ examples: ["Test Alert"] }),
-	message: z
-		.string()
-		.nullish()
-		.describe("Alert message template.")
-		.meta({ examples: ["Test Alert Message"] }),
-	note: z
-		.string()
-		.nullish()
-		.describe("Freeform note for the alert. Supports markdown formatting.")
-		.meta({
-			examples: [
-				"Threshold raised from 50 to 100 on 2026-01-15. See [runbook](https://wiki.example.com/runbook).",
-			],
-		}),
-	numConsecutiveWindows: z
-		.int()
-		.nullish()
-		.describe(
-			"Fire the alert only after its condition has been met for this many consecutive evaluation windows. While the condition is met but fewer than this many consecutive windows have violated, the alert is in the PENDING state.",
-		)
-		.meta({ examples: [3] }),
-});
-
-export const clickStackUpdateAlertRequestSchema = z.object({
-	dashboardId: z
-		.string()
-		.nullish()
-		.describe("Dashboard ID for tile-based alerts.")
-		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
-	tileId: z
-		.string()
-		.nullish()
-		.describe("Tile ID for tile-based alerts. Must be a line, stacked bar, or number type tile.")
-		.meta({ examples: ["65f5e4a3b9e77c001a901234"] }),
-	savedSearchId: z
-		.string()
-		.nullish()
-		.describe("Saved search ID for saved_search alerts.")
-		.meta({ examples: ["65f5e4a3b9e77c001a345678"] }),
-	groupBy: z
-		.string()
-		.nullish()
-		.describe("Group-by key for saved search alerts.")
-		.meta({ examples: ["ServiceName"] }),
-	threshold: z
-		.number()
-		.optional()
-		.describe(
-			"Threshold value for triggering the alert. For between and not_between threshold types, this is the lower bound.",
-		)
-		.meta({ examples: [100] }),
-	thresholdMax: z
-		.number()
-		.nullish()
-		.describe(
-			"Upper bound for between and not_between threshold types. Required when thresholdType is between or not_between, must be >= threshold.",
-		)
-		.meta({ examples: [500] }),
-	interval: z
-		.enum(["30s", "1m", "5m", "15m", "30m", "1h", "6h", "12h", "1d"])
-		.optional()
-		.describe(
-			"Evaluation interval for the alert. `30s` requires the 30s alert interval feature to be enabled for your team.",
-		)
-		.meta({ examples: ["1h"] }),
-	scheduleOffsetMinutes: z
-		.int()
-		.nullish()
-		.describe(
-			"Offset from the interval boundary in minutes. For example, 2 with a 5m interval evaluates windows at :02, :07, :12, etc. (UTC).",
-		)
-		.meta({ examples: [2] }),
-	scheduleStartAt: z.iso
-		.datetime()
-		.nullish()
-		.describe(
-			"Absolute UTC start time anchor. Alert windows start from this timestamp and repeat every interval.",
-		)
-		.meta({ examples: ["2026-02-08T10:00:00.000Z"] }),
-	source: z
-		.enum(["saved_search", "tile"])
-		.optional()
-		.describe("Alert source type (tile-based or saved search).")
-		.meta({ examples: ["tile"] }),
-	thresholdType: z
-		.enum([
-			"above",
-			"below",
-			"above_exclusive",
-			"below_or_equal",
-			"equal",
-			"not_equal",
-			"between",
-			"not_between",
-		])
-		.optional()
-		.describe("Threshold comparison direction.")
-		.meta({ examples: ["above"] }),
-	channel: clickStackAlertChannelSchema.optional(),
-	channels: clickStackAlertChannelsSchema
-		.optional()
-		.describe(
-			"Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.",
-		),
-	name: z
-		.string()
-		.nullish()
-		.describe("Human-friendly alert name.")
-		.meta({ examples: ["Test Alert"] }),
-	message: z
-		.string()
-		.nullish()
-		.describe("Alert message template.")
-		.meta({ examples: ["Test Alert Message"] }),
-	note: z
-		.string()
-		.nullish()
-		.describe("Freeform note for the alert. Supports markdown formatting.")
-		.meta({
-			examples: [
-				"Threshold raised from 50 to 100 on 2026-01-15. See [runbook](https://wiki.example.com/runbook).",
-			],
-		}),
-	numConsecutiveWindows: z
-		.int()
-		.nullish()
-		.describe(
-			"Fire the alert only after its condition has been met for this many consecutive evaluation windows. While the condition is met but fewer than this many consecutive windows have violated, the alert is in the PENDING state.",
-		)
-		.meta({ examples: [3] }),
-});
-
-export const clickStackSqlSavedFilterValueSchema = z.object({
-	type: z
-		.enum(["sql"])
-		.optional()
-		.describe("Filter type.")
-		.meta({ examples: ["sql"] }),
-	condition: z
-		.string()
-		.describe(
-			"SQL filter condition. For example use expressions in the form \"column IN ('value')\".",
-		)
-		.meta({ examples: ["ServiceName IN ('hdx-oss-dev-api')"] }),
-});
-
-export const clickStackVariableSavedFilterValueSchema = z.object({
-	type: z
-		.enum(["variable"])
-		.describe("Filter type.")
-		.meta({ examples: ["variable"] }),
-	name: z
-		.string()
-		.describe(
-			"The variableName of the dashboard variable this selection belongs to. Only allowed for variable-enabled filters.",
-		)
-		.meta({ examples: ["service"] }),
-	values: z
-		.array(z.string())
-		.describe("Selected values")
-		.meta({ examples: [["hdx-oss-dev-api"]] }),
-});
-
-export const clickStackSavedFilterValueSchema = z.discriminatedUnion("type", [
-	clickStackSqlSavedFilterValueSchema.strict(),
-	clickStackVariableSavedFilterValueSchema.strict(),
-]);
 
 export const clickStackNumberFormatSchema = z.object({
 	output: z
@@ -5224,32 +4988,453 @@ export const clickStackNumberFormatSchema = z.object({
 		.meta({ examples: ["ms"] }),
 });
 
-export const clickStackBackgroundChartSchema = z.object({
-	type: z
-		.enum(["line", "area"])
-		.describe("Sparkline shape.")
-		.meta({ examples: ["line"] }),
-	color: z
+export const clickStackSelectItemSchema = z.object({
+	aggFn: z
 		.enum([
-			"chart-blue",
-			"chart-orange",
-			"chart-red",
-			"chart-cyan",
-			"chart-green",
-			"chart-pink",
-			"chart-purple",
-			"chart-light-blue",
-			"chart-brown",
-			"chart-gray",
-			"chart-success",
-			"chart-warning",
-			"chart-error",
+			"avg",
+			"count",
+			"count_distinct",
+			"last_value",
+			"max",
+			"min",
+			"quantile",
+			"sum",
+			"any",
+			"none",
 		])
+		.describe(
+			'Aggregation function to apply. "count" does not require a valueExpression; "quantile" requires a level field indicating the desired percentile (e.g., 0.95).',
+		)
+		.meta({ examples: ["count"] }),
+	valueExpression: z
+		.string()
 		.optional()
 		.describe(
-			"Optional palette-token override for the sparkline. When unset the sparkline inherits the tile's static color.",
+			'Expression for the column or value to aggregate. Must be omitted when aggFn is "count"; required for all other aggFn values.',
+		)
+		.meta({ examples: ["Duration"] }),
+	alias: z
+		.string()
+		.optional()
+		.describe("Display alias for this select item in chart legends.")
+		.meta({ examples: ["Request Duration"] }),
+	level: z
+		.number()
+		.optional()
+		.describe(
+			'Percentile level; only valid when aggFn is "quantile". Allowed values: 0.5, 0.9, 0.95, 0.99.',
+		),
+	where: z
+		.string()
+		.optional()
+		.describe("SQL or Lucene filter condition applied before aggregation.")
+		.meta({ examples: ["service:api"] }),
+	whereLanguage: z
+		.enum(["sql", "lucene"])
+		.optional()
+		.describe("Query language for the where clause."),
+	metricName: z
+		.string()
+		.optional()
+		.describe(
+			"Name of the metric to aggregate; only applicable when the source is a metrics source.",
+		)
+		.meta({ examples: ["http.server.duration"] }),
+	metricType: z
+		.enum(["sum", "gauge", "histogram", "summary", "exponential histogram"])
+		.optional()
+		.describe("Metric type; only applicable when the source is a metrics source."),
+	periodAggFn: z
+		.enum(["delta"])
+		.optional()
+		.describe(
+			"Optional period aggregation function for Gauge metrics (e.g., compute the delta over the period).",
+		)
+		.meta({ examples: ["delta"] }),
+	numberFormat: clickStackNumberFormatSchema.optional(),
+});
+
+export const clickStackFormulaSchema = z.object({
+	expression: z
+		.string()
+		.describe(
+			'Arithmetic expression over the select items by position, e.g. "A / (A + B) * 100" for a success-rate percentage.',
+		)
+		.meta({ examples: ["A / (A + B) * 100"] }),
+	alias: z
+		.string()
+		.optional()
+		.describe(
+			"Display label for the formula series in chart legends and column headers. Falls back to the raw expression text when unset.",
+		)
+		.meta({ examples: ["Success rate %"] }),
+	numberFormat: clickStackNumberFormatSchema.optional(),
+});
+
+export const clickStackLineBuilderChartConfigSchema = z.object({
+	displayType: z
+		.enum(["line"])
+		.describe('Display type discriminator. Must be "line" for line charts.')
+		.meta({ examples: ["line"] }),
+	sourceId: z
+		.string()
+		.describe("ID of the data source to query.")
+		.meta({ examples: ["65f5e4a3b9e77c001a111111"] }),
+	select: z
+		.array(clickStackSelectItemSchema)
+		.describe(
+			"One or more aggregated values to plot. When asRatio is true, exactly two select items are required.",
+		),
+	groupBy: z
+		.string()
+		.optional()
+		.describe("Field expression to group results by (creates separate lines per group value).")
+		.meta({ examples: ["host"] }),
+	asRatio: z
+		.boolean()
+		.optional()
+		.describe("Plot select[0] / select[1] as a ratio. Requires exactly two select items."),
+	alignDateRangeToGranularity: z
+		.boolean()
+		.optional()
+		.describe("Expand date range boundaries to the query granularity interval."),
+	fillNulls: z
+		.boolean()
+		.optional()
+		.describe("Fill missing time buckets with zero instead of leaving gaps."),
+	fitYAxisToData: z
+		.boolean()
+		.optional()
+		.describe(
+			"Set the y-axis lower bound to the minimum of the displayed data instead of zero, making small fluctuations between series easier to see.",
+		),
+	lineInterpolation: z
+		.enum(["smooth", "linear", "step"])
+		.optional()
+		.describe('How points are connected. Defaults to "smooth" when omitted.')
+		.meta({ examples: ["step"] }),
+	numberFormat: clickStackNumberFormatSchema.optional(),
+	compareToPreviousPeriod: z
+		.boolean()
+		.optional()
+		.describe("Overlay the equivalent previous time period for comparison."),
+	seriesLimit: z
+		.int()
+		.optional()
+		.describe(
+			"Maximum number of series rendered (top-N by value). Omit to use the default render cap, set 0 for unlimited, or a positive N to keep the top N series.",
+		)
+		.meta({ examples: [5] }),
+	formulas: z
+		.array(clickStackFormulaSchema)
+		.optional()
+		.describe(
+			'Derived series computed from the select items via letter-ref arithmetic ("A" = select[0], "B" = select[1], ...). Metric, log, and trace sources only. Cannot be combined with asRatio.',
+		),
+	showOperandSeries: z
+		.boolean()
+		.optional()
+		.describe(
+			"Only meaningful with formulas. When false, only the formula series are returned; the raw operand series are hidden.",
 		),
 });
+
+export const clickStackLineRawSqlChartConfigSchema = z.object({
+	configType: z
+		.enum(["sql"])
+		.describe('Must be "sql" to use the Raw SQL chart config variant.')
+		.meta({ examples: ["sql"] }),
+	connectionId: z
+		.string()
+		.describe("ID of the ClickHouse connection to execute the query against.")
+		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
+	sqlTemplate: z
+		.string()
+		.describe("SQL query template to execute. Supports HyperDX template variables.")
+		.meta({
+			examples: ["SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR"],
+		}),
+	sourceId: z
+		.string()
+		.optional()
+		.describe(
+			"Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.",
+		)
+		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
+	numberFormat: clickStackNumberFormatSchema.optional(),
+	displayType: z
+		.enum(["line"])
+		.describe("Display as a line time-series chart.")
+		.meta({ examples: ["line"] }),
+	compareToPreviousPeriod: z
+		.boolean()
+		.optional()
+		.describe("Overlay the equivalent previous time period for comparison."),
+	fillNulls: z
+		.boolean()
+		.optional()
+		.describe("Fill missing time buckets with zero instead of leaving gaps."),
+	alignDateRangeToGranularity: z
+		.boolean()
+		.optional()
+		.describe("Expand date range boundaries to the query granularity interval."),
+	fitYAxisToData: z
+		.boolean()
+		.optional()
+		.describe(
+			"Set the y-axis lower bound to the minimum of the displayed data instead of zero, making small fluctuations between series easier to see.",
+		),
+	lineInterpolation: z
+		.enum(["smooth", "linear", "step"])
+		.optional()
+		.describe('How points are connected. Defaults to "smooth" when omitted.')
+		.meta({ examples: ["step"] }),
+});
+
+export const clickStackLineChartConfigSchema = z.union([
+	clickStackLineBuilderChartConfigSchema.strict(),
+	clickStackLineRawSqlChartConfigSchema.strict(),
+]);
+
+export const clickStackAlertLineBuilderChartConfigSchema =
+	clickStackLineBuilderChartConfigSchema.and(clickStackAlertChartConfigOverlaySchema);
+
+export const clickStackAlertLineRawSqlChartConfigSchema = clickStackLineRawSqlChartConfigSchema.and(
+	clickStackAlertChartConfigOverlaySchema,
+);
+
+export const clickStackAlertLineChartConfigSchema = z.union([
+	clickStackAlertLineBuilderChartConfigSchema,
+	clickStackAlertLineRawSqlChartConfigSchema,
+]);
+
+export const clickStackBarBuilderChartConfigSchema = z.object({
+	displayType: z
+		.enum(["stacked_bar"])
+		.describe('Display type discriminator. Must be "stacked_bar" for stacked-bar charts.')
+		.meta({ examples: ["stacked_bar"] }),
+	sourceId: z
+		.string()
+		.describe("ID of the data source to query.")
+		.meta({ examples: ["65f5e4a3b9e77c001a111111"] }),
+	select: z
+		.array(clickStackSelectItemSchema)
+		.describe(
+			"One or more aggregated values to plot. When asRatio is true, exactly two select items are required.",
+		),
+	groupBy: z
+		.string()
+		.optional()
+		.describe(
+			"Field expression to group results by (creates separate bars segments per group value).",
+		)
+		.meta({ examples: ["service"] }),
+	asRatio: z
+		.boolean()
+		.optional()
+		.describe("Plot select[0] / select[1] as a ratio. Requires exactly two select items."),
+	alignDateRangeToGranularity: z
+		.boolean()
+		.optional()
+		.describe("Align the date range boundaries to the query granularity interval."),
+	fillNulls: z
+		.boolean()
+		.optional()
+		.describe("Fill missing time buckets with zero instead of leaving gaps."),
+	numberFormat: clickStackNumberFormatSchema.optional(),
+	seriesLimit: z
+		.int()
+		.optional()
+		.describe(
+			"Maximum number of series rendered (top-N by value). Omit to use the default render cap, set 0 for unlimited, or a positive N to keep the top N series.",
+		)
+		.meta({ examples: [5] }),
+	formulas: z
+		.array(clickStackFormulaSchema)
+		.optional()
+		.describe(
+			'Derived series computed from the select items via letter-ref arithmetic ("A" = select[0], "B" = select[1], ...). Metric, log, and trace sources only. Cannot be combined with asRatio.',
+		),
+	showOperandSeries: z
+		.boolean()
+		.optional()
+		.describe(
+			"Only meaningful with formulas. When false, only the formula series are returned; the raw operand series are hidden.",
+		),
+});
+
+export const clickStackBarRawSqlChartConfigSchema = z.object({
+	configType: z
+		.enum(["sql"])
+		.describe('Must be "sql" to use the Raw SQL chart config variant.')
+		.meta({ examples: ["sql"] }),
+	connectionId: z
+		.string()
+		.describe("ID of the ClickHouse connection to execute the query against.")
+		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
+	sqlTemplate: z
+		.string()
+		.describe("SQL query template to execute. Supports HyperDX template variables.")
+		.meta({
+			examples: ["SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR"],
+		}),
+	sourceId: z
+		.string()
+		.optional()
+		.describe(
+			"Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.",
+		)
+		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
+	numberFormat: clickStackNumberFormatSchema.optional(),
+	displayType: z
+		.enum(["stacked_bar"])
+		.describe("Display as a stacked-bar time-series chart.")
+		.meta({ examples: ["stacked_bar"] }),
+	fillNulls: z
+		.boolean()
+		.optional()
+		.describe("Fill missing time buckets with zero instead of leaving gaps."),
+	alignDateRangeToGranularity: z
+		.boolean()
+		.optional()
+		.describe("Expand date range boundaries to the query granularity interval."),
+});
+
+export const clickStackBarChartConfigSchema = z.union([
+	clickStackBarBuilderChartConfigSchema.strict(),
+	clickStackBarRawSqlChartConfigSchema.strict(),
+]);
+
+export const clickStackAlertBarBuilderChartConfigSchema = clickStackBarBuilderChartConfigSchema.and(
+	clickStackAlertChartConfigOverlaySchema,
+);
+
+export const clickStackAlertBarRawSqlChartConfigSchema = clickStackBarRawSqlChartConfigSchema.and(
+	clickStackAlertChartConfigOverlaySchema,
+);
+
+export const clickStackAlertBarChartConfigSchema = z.union([
+	clickStackAlertBarBuilderChartConfigSchema,
+	clickStackAlertBarRawSqlChartConfigSchema,
+]);
+
+export const clickStackStackedLineBuilderChartConfigSchema = z.object({
+	displayType: z
+		.enum(["stacked_line"])
+		.describe('Display type discriminator. Must be "stacked_line" for stacked-line charts.')
+		.meta({ examples: ["stacked_line"] }),
+	sourceId: z
+		.string()
+		.describe("ID of the data source to query.")
+		.meta({ examples: ["65f5e4a3b9e77c001a111111"] }),
+	select: z
+		.array(clickStackSelectItemSchema)
+		.describe(
+			"One or more aggregated values to plot. When asRatio is true, exactly two select items are required.",
+		),
+	groupBy: z
+		.string()
+		.optional()
+		.describe(
+			"Field expression to group results by (creates separate stacked bands per group value).",
+		)
+		.meta({ examples: ["service"] }),
+	asRatio: z
+		.boolean()
+		.optional()
+		.describe("Plot select[0] / select[1] as a ratio. Requires exactly two select items."),
+	alignDateRangeToGranularity: z
+		.boolean()
+		.optional()
+		.describe("Align the date range boundaries to the query granularity interval."),
+	fillNulls: z
+		.boolean()
+		.optional()
+		.describe("Fill missing time buckets with zero instead of leaving gaps."),
+	lineInterpolation: z
+		.enum(["smooth", "linear", "step"])
+		.optional()
+		.describe('How points are connected. Defaults to "linear" when omitted.')
+		.meta({ examples: ["step"] }),
+	numberFormat: clickStackNumberFormatSchema.optional(),
+	seriesLimit: z
+		.int()
+		.optional()
+		.describe(
+			"Maximum number of series rendered (top-N by value). Omit to use the default render cap, set 0 for unlimited, or a positive N to keep the top N series.",
+		)
+		.meta({ examples: [5] }),
+	formulas: z
+		.array(clickStackFormulaSchema)
+		.optional()
+		.describe(
+			'Derived series computed from the select items via letter-ref arithmetic ("A" = select[0], "B" = select[1], ...). Metric, log, and trace sources only. Cannot be combined with asRatio.',
+		),
+	showOperandSeries: z
+		.boolean()
+		.optional()
+		.describe(
+			"Only meaningful with formulas. When false, only the formula series are returned; the raw operand series are hidden.",
+		),
+});
+
+export const clickStackStackedLineRawSqlChartConfigSchema = z.object({
+	configType: z
+		.enum(["sql"])
+		.describe('Must be "sql" to use the Raw SQL chart config variant.')
+		.meta({ examples: ["sql"] }),
+	connectionId: z
+		.string()
+		.describe("ID of the ClickHouse connection to execute the query against.")
+		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
+	sqlTemplate: z
+		.string()
+		.describe("SQL query template to execute. Supports HyperDX template variables.")
+		.meta({
+			examples: ["SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR"],
+		}),
+	sourceId: z
+		.string()
+		.optional()
+		.describe(
+			"Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.",
+		)
+		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
+	numberFormat: clickStackNumberFormatSchema.optional(),
+	displayType: z
+		.enum(["stacked_line"])
+		.describe("Display as a stacked-line time-series chart.")
+		.meta({ examples: ["stacked_line"] }),
+	fillNulls: z
+		.boolean()
+		.optional()
+		.describe("Fill missing time buckets with zero instead of leaving gaps."),
+	alignDateRangeToGranularity: z
+		.boolean()
+		.optional()
+		.describe("Expand date range boundaries to the query granularity interval."),
+	lineInterpolation: z
+		.enum(["smooth", "linear", "step"])
+		.optional()
+		.describe('How points are connected. Defaults to "linear" when omitted.')
+		.meta({ examples: ["step"] }),
+});
+
+export const clickStackStackedLineChartConfigSchema = z.union([
+	clickStackStackedLineBuilderChartConfigSchema.strict(),
+	clickStackStackedLineRawSqlChartConfigSchema.strict(),
+]);
+
+export const clickStackAlertStackedLineBuilderChartConfigSchema =
+	clickStackStackedLineBuilderChartConfigSchema.and(clickStackAlertChartConfigOverlaySchema);
+
+export const clickStackAlertStackedLineRawSqlChartConfigSchema =
+	clickStackStackedLineRawSqlChartConfigSchema.and(clickStackAlertChartConfigOverlaySchema);
+
+export const clickStackAlertStackedLineChartConfigSchema = z.union([
+	clickStackAlertStackedLineBuilderChartConfigSchema,
+	clickStackAlertStackedLineRawSqlChartConfigSchema,
+]);
 
 export const clickStackNumericColorConditionSchema = z.object({
 	operator: z
@@ -5357,6 +5542,675 @@ export const clickStackNumberTileColorConditionSchema = z.union([
 	clickStackEqualityColorConditionSchema.strict(),
 ]);
 
+export const clickStackBackgroundChartSchema = z.object({
+	type: z
+		.enum(["line", "area"])
+		.describe("Sparkline shape.")
+		.meta({ examples: ["line"] }),
+	color: z
+		.enum([
+			"chart-blue",
+			"chart-orange",
+			"chart-red",
+			"chart-cyan",
+			"chart-green",
+			"chart-pink",
+			"chart-purple",
+			"chart-light-blue",
+			"chart-brown",
+			"chart-gray",
+			"chart-success",
+			"chart-warning",
+			"chart-error",
+		])
+		.optional()
+		.describe(
+			"Optional palette-token override for the sparkline. When unset the sparkline inherits the tile's static color.",
+		),
+});
+
+export const clickStackNumberBuilderChartConfigSchema = z.object({
+	displayType: z
+		.enum(["number"])
+		.describe('Display type discriminator. Must be "number" for single big-number charts.')
+		.meta({ examples: ["number"] }),
+	sourceId: z
+		.string()
+		.describe("ID of the data source to query.")
+		.meta({ examples: ["65f5e4a3b9e77c001a111111"] }),
+	select: z
+		.array(clickStackSelectItemSchema)
+		.describe(
+			'Exactly one aggregated value to display as a single number — unless "formulas" is set, in which case the select items are the formula\'s operands and the (single) formula value is displayed instead.',
+		),
+	formulas: z
+		.array(clickStackFormulaSchema)
+		.optional()
+		.describe(
+			'A single derived value computed from the select items via letter-ref arithmetic ("A" = select[0], "B" = select[1], ...). Metric, log, and trace sources only. Number tiles display the formula value and always hide the operand series.',
+		),
+	numberFormat: clickStackNumberFormatSchema.optional(),
+	color: z
+		.enum([
+			"chart-blue",
+			"chart-orange",
+			"chart-red",
+			"chart-cyan",
+			"chart-green",
+			"chart-pink",
+			"chart-purple",
+			"chart-light-blue",
+			"chart-brown",
+			"chart-gray",
+			"chart-success",
+			"chart-warning",
+			"chart-error",
+		])
+		.optional()
+		.describe("Optional static color applied to the displayed number."),
+	colorRules: z
+		.array(clickStackNumberTileColorConditionSchema)
+		.optional()
+		.describe(
+			"Ordered conditional color rules evaluated against the displayed value (last match wins). Falls back to color, then the default text color when no rule matches.",
+		),
+	backgroundChart: clickStackBackgroundChartSchema.optional(),
+});
+
+export const clickStackNumberRawSqlChartConfigSchema = z.object({
+	configType: z
+		.enum(["sql"])
+		.describe('Must be "sql" to use the Raw SQL chart config variant.')
+		.meta({ examples: ["sql"] }),
+	connectionId: z
+		.string()
+		.describe("ID of the ClickHouse connection to execute the query against.")
+		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
+	sqlTemplate: z
+		.string()
+		.describe("SQL query template to execute. Supports HyperDX template variables.")
+		.meta({
+			examples: ["SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR"],
+		}),
+	sourceId: z
+		.string()
+		.optional()
+		.describe(
+			"Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.",
+		)
+		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
+	numberFormat: clickStackNumberFormatSchema.optional(),
+	displayType: z
+		.enum(["number"])
+		.describe("Display as a single big-number chart.")
+		.meta({ examples: ["number"] }),
+	color: z
+		.enum([
+			"chart-blue",
+			"chart-orange",
+			"chart-red",
+			"chart-cyan",
+			"chart-green",
+			"chart-pink",
+			"chart-purple",
+			"chart-light-blue",
+			"chart-brown",
+			"chart-gray",
+			"chart-success",
+			"chart-warning",
+			"chart-error",
+		])
+		.optional()
+		.describe("Optional static color applied to the displayed number."),
+	colorRules: z
+		.array(clickStackNumberTileColorConditionSchema)
+		.optional()
+		.describe(
+			"Ordered conditional color rules evaluated against the displayed value (last match wins). Falls back to color, then the default text color when no rule matches.",
+		),
+});
+
+export const clickStackNumberChartConfigSchema = z.union([
+	clickStackNumberBuilderChartConfigSchema.strict(),
+	clickStackNumberRawSqlChartConfigSchema.strict(),
+]);
+
+export const clickStackAlertNumberBuilderChartConfigSchema =
+	clickStackNumberBuilderChartConfigSchema.and(clickStackAlertChartConfigOverlaySchema);
+
+export const clickStackAlertNumberRawSqlChartConfigSchema =
+	clickStackNumberRawSqlChartConfigSchema.and(clickStackAlertChartConfigOverlaySchema);
+
+export const clickStackAlertNumberChartConfigSchema = z.union([
+	clickStackAlertNumberBuilderChartConfigSchema,
+	clickStackAlertNumberRawSqlChartConfigSchema,
+]);
+
+export const clickStackAlertChartConfigSchema = z.union([
+	clickStackAlertLineChartConfigSchema,
+	clickStackAlertBarChartConfigSchema,
+	clickStackAlertStackedLineChartConfigSchema,
+	clickStackAlertNumberChartConfigSchema,
+]);
+
+export const clickStackAlertExecutionErrorSchema = z.object({
+	timestamp: z.iso
+		.datetime()
+		.describe("When the error occurred.")
+		.meta({ examples: ["2026-04-17T12:00:00.000Z"] }),
+	type: z
+		.enum(["QUERY_ERROR", "QUERY_TIMEOUT", "WEBHOOK_ERROR", "INVALID_ALERT", "UNKNOWN"])
+		.describe("Category of the error.")
+		.meta({ examples: ["QUERY_ERROR"] }),
+	message: z
+		.string()
+		.describe("Human-readable error message.")
+		.meta({ examples: ["Query timed out after 30s"] }),
+});
+
+export const clickStackAlertSilencedSchema = z.object({
+	by: z
+		.string()
+		.nullish()
+		.describe("User ID who silenced the alert.")
+		.meta({ examples: ["65f5e4a3b9e77c001a234567"] }),
+	at: z.iso
+		.datetime()
+		.optional()
+		.describe("Silence start timestamp.")
+		.meta({ examples: ["2026-03-19T08:00:00.000Z"] }),
+	until: z.iso
+		.datetime()
+		.optional()
+		.describe("Silence end timestamp.")
+		.meta({ examples: ["2026-03-20T08:00:00.000Z"] }),
+});
+
+export const clickStackAlertChannelEmailSchema = z.object({
+	type: z.enum(["webhook", "email"]).describe('Channel type. Must be "email" for email alerts.'),
+	emailRecipients: z.array(z.string()).describe("Email recipients for email alerts."),
+});
+
+export const clickStackAlertChannelWebhookSchema = z.object({
+	type: z
+		.enum(["webhook", "email"])
+		.describe('Channel type. Must be "webhook" for webhook alerts.'),
+	webhookId: z
+		.string()
+		.describe("Webhook destination ID.")
+		.meta({ examples: ["65f5e4a3b9e77c001a789012"] }),
+	webhookService: z
+		.string()
+		.nullish()
+		.describe("Webhook service type (e.g., slack_api).")
+		.meta({ examples: ["slack_api"] }),
+	slackChannelId: z
+		.string()
+		.nullish()
+		.describe("Slack channel ID for Slack webhooks.")
+		.meta({ examples: ["C01ABCDEF23"] }),
+	severity: z
+		.enum(["critical", "error", "warning", "info"])
+		.nullish()
+		.describe("Severity label used by PagerDuty API webhooks."),
+});
+
+export const clickStackAlertChannelSchema = z.union([
+	clickStackAlertChannelEmailSchema.strict(),
+	clickStackAlertChannelWebhookSchema.strict(),
+]);
+
+export const clickStackAlertChannelsSchema = z
+	.array(clickStackAlertChannelSchema)
+	.min(1)
+	.max(10)
+	.describe(
+		"Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.",
+	);
+
+export const clickStackAlertResponseSchema = z.object({
+	dashboardId: z
+		.string()
+		.nullish()
+		.describe("Dashboard ID for tile-based alerts.")
+		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
+	tileId: z
+		.string()
+		.nullish()
+		.describe("Tile ID for tile-based alerts. Must be a line, stacked bar, or number type tile.")
+		.meta({ examples: ["65f5e4a3b9e77c001a901234"] }),
+	savedSearchId: z
+		.string()
+		.nullish()
+		.describe("Saved search ID for saved_search alerts.")
+		.meta({ examples: ["65f5e4a3b9e77c001a345678"] }),
+	groupBy: z
+		.string()
+		.nullish()
+		.describe("Group-by key for saved search alerts.")
+		.meta({ examples: ["ServiceName"] }),
+	chartConfig: clickStackAlertChartConfigSchema.optional(),
+	threshold: z
+		.number()
+		.optional()
+		.describe(
+			"Threshold value for triggering the alert. For between and not_between threshold types, this is the lower bound.",
+		)
+		.meta({ examples: [100] }),
+	thresholdMax: z
+		.number()
+		.nullish()
+		.describe(
+			"Upper bound for between and not_between threshold types. Required when thresholdType is between or not_between, must be >= threshold.",
+		)
+		.meta({ examples: [500] }),
+	interval: z
+		.enum(["30s", "1m", "5m", "15m", "30m", "1h", "6h", "12h", "1d"])
+		.optional()
+		.describe(
+			'Evaluation interval for the alert. `30s` requires the 30s alert interval feature to be enabled for your team. Anomaly alerts (detectionMode "anomaly") support only `5m`, `15m`, `30m`, and `1h`; other intervals are rejected with 400.',
+		)
+		.meta({ examples: ["1h"] }),
+	scheduleOffsetMinutes: z
+		.int()
+		.nullish()
+		.describe(
+			"Offset from the interval boundary in minutes. For example, 2 with a 5m interval evaluates windows at :02, :07, :12, etc. (UTC).",
+		)
+		.meta({ examples: [2] }),
+	scheduleStartAt: z.iso
+		.datetime()
+		.nullish()
+		.describe(
+			"Absolute UTC start time anchor. Alert windows start from this timestamp and repeat every interval.",
+		)
+		.meta({ examples: ["2026-02-08T10:00:00.000Z"] }),
+	source: z
+		.enum(["saved_search", "tile", "inline"])
+		.optional()
+		.describe("Alert source type (tile-based or saved search).")
+		.meta({ examples: ["tile"] }),
+	thresholdType: z
+		.enum([
+			"above",
+			"below",
+			"above_exclusive",
+			"below_or_equal",
+			"equal",
+			"not_equal",
+			"between",
+			"not_between",
+		])
+		.optional()
+		.describe("Threshold comparison direction.")
+		.meta({ examples: ["above"] }),
+	channel: clickStackAlertChannelSchema.optional(),
+	channels: clickStackAlertChannelsSchema
+		.optional()
+		.describe(
+			"Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.",
+		),
+	name: z
+		.string()
+		.nullish()
+		.describe(
+			"Alert name template (Handlebars), rendered as the notification title. When omitted, a default title is generated from the display name, value and threshold.",
+		)
+		.meta({ examples: ["Errors for {{group}} hit {{value}}"] }),
+	message: z
+		.string()
+		.nullish()
+		.describe("Alert message template.")
+		.meta({ examples: ["Test Alert Message"] }),
+	note: z
+		.string()
+		.nullish()
+		.describe("Freeform note for the alert. Supports markdown formatting.")
+		.meta({
+			examples: [
+				"Threshold raised from 50 to 100 on 2026-01-15. See [runbook](https://wiki.example.com/runbook).",
+			],
+		}),
+	numConsecutiveWindows: z
+		.int()
+		.nullish()
+		.describe(
+			"Fire the alert only after its condition has been met for this many consecutive evaluation windows. While the condition is met but fewer than this many consecutive windows have violated, the alert is in the PENDING state.",
+		)
+		.meta({ examples: [3] }),
+	displayName: z
+		.string()
+		.describe(
+			"The display name for the alert in the UI. Derived from the saved search name, dashboard tile name, or inline chartConfig name when not explicitly set.",
+		)
+		.meta({ examples: ["Checkout error spike"] }),
+	tags: z
+		.array(z.string())
+		.describe(
+			"The tags for the alert. Derived from the tags of the referenced saved search or dashboard when not explicitly set; inline alerts default to an empty list.",
+		)
+		.meta({ examples: [["checkout", "p1"]] }),
+	id: z
+		.string()
+		.optional()
+		.describe("Unique alert identifier.")
+		.meta({ examples: ["65f5e4a3b9e77c001a123456"] }),
+	state: z
+		.enum(["ALERT", "OK", "INSUFFICIENT_DATA", "DISABLED", "PENDING"])
+		.optional()
+		.describe("Current alert state.")
+		.meta({ examples: ["ALERT"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("Team identifier.")
+		.meta({ examples: ["65f5e4a3b9e77c001a345678"] }),
+	silenced: z.union([clickStackAlertSilencedSchema.strict(), z.null()]).optional(),
+	executionErrors: z
+		.array(clickStackAlertExecutionErrorSchema)
+		.optional()
+		.describe("Errors recorded during the most recent alert execution, if any."),
+	createdAt: z.iso
+		.datetime()
+		.nullish()
+		.describe("Creation timestamp.")
+		.meta({ examples: ["2023-01-01T00:00:00.000Z"] }),
+	updatedAt: z.iso
+		.datetime()
+		.nullish()
+		.describe("Last update timestamp.")
+		.meta({ examples: ["2023-01-01T00:00:00.000Z"] }),
+});
+
+export const clickStackCreateAlertRequestSchema = z.object({
+	dashboardId: z
+		.string()
+		.nullish()
+		.describe("Dashboard ID for tile-based alerts.")
+		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
+	tileId: z
+		.string()
+		.nullish()
+		.describe("Tile ID for tile-based alerts. Must be a line, stacked bar, or number type tile.")
+		.meta({ examples: ["65f5e4a3b9e77c001a901234"] }),
+	savedSearchId: z
+		.string()
+		.nullish()
+		.describe("Saved search ID for saved_search alerts.")
+		.meta({ examples: ["65f5e4a3b9e77c001a345678"] }),
+	groupBy: z
+		.string()
+		.nullish()
+		.describe("Group-by key for saved search alerts.")
+		.meta({ examples: ["ServiceName"] }),
+	chartConfig: clickStackAlertChartConfigSchema.optional(),
+	threshold: z
+		.number()
+		.describe(
+			"Threshold value for triggering the alert. For between and not_between threshold types, this is the lower bound.",
+		)
+		.meta({ examples: [100] }),
+	thresholdMax: z
+		.number()
+		.nullish()
+		.describe(
+			"Upper bound for between and not_between threshold types. Required when thresholdType is between or not_between, must be >= threshold.",
+		)
+		.meta({ examples: [500] }),
+	interval: z
+		.enum(["30s", "1m", "5m", "15m", "30m", "1h", "6h", "12h", "1d"])
+		.describe(
+			'Evaluation interval for the alert. `30s` requires the 30s alert interval feature to be enabled for your team. Anomaly alerts (detectionMode "anomaly") support only `5m`, `15m`, `30m`, and `1h`; other intervals are rejected with 400.',
+		)
+		.meta({ examples: ["1h"] }),
+	scheduleOffsetMinutes: z
+		.int()
+		.nullish()
+		.describe(
+			"Offset from the interval boundary in minutes. For example, 2 with a 5m interval evaluates windows at :02, :07, :12, etc. (UTC).",
+		)
+		.meta({ examples: [2] }),
+	scheduleStartAt: z.iso
+		.datetime()
+		.nullish()
+		.describe(
+			"Absolute UTC start time anchor. Alert windows start from this timestamp and repeat every interval.",
+		)
+		.meta({ examples: ["2026-02-08T10:00:00.000Z"] }),
+	source: z
+		.enum(["saved_search", "tile", "inline"])
+		.optional()
+		.describe("Alert source type (tile-based or saved search).")
+		.meta({ examples: ["tile"] }),
+	thresholdType: z
+		.enum([
+			"above",
+			"below",
+			"above_exclusive",
+			"below_or_equal",
+			"equal",
+			"not_equal",
+			"between",
+			"not_between",
+		])
+		.describe("Threshold comparison direction.")
+		.meta({ examples: ["above"] }),
+	channel: clickStackAlertChannelSchema.optional(),
+	channels: clickStackAlertChannelsSchema
+		.optional()
+		.describe(
+			"Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.",
+		),
+	name: z
+		.string()
+		.nullish()
+		.describe(
+			"Alert name template (Handlebars), rendered as the notification title. When omitted, a default title is generated from the display name, value and threshold.",
+		)
+		.meta({ examples: ["Errors for {{group}} hit {{value}}"] }),
+	displayName: z
+		.string()
+		.nullish()
+		.describe(
+			"Display name shown in the alerts list and in notification titles. Defaults to the name of the referenced saved search, dashboard tile, or inline chart when omitted or null.",
+		)
+		.meta({ examples: ["Checkout error spike"] }),
+	tags: z
+		.array(z.string())
+		.optional()
+		.describe(
+			"Tags for the alert. Defaults to the tags of the referenced saved search or dashboard when omitted or null; inline alerts have no parent to inherit from and default to an empty list.",
+		)
+		.meta({ examples: [["checkout", "p1"]] }),
+	message: z
+		.string()
+		.nullish()
+		.describe("Alert message template.")
+		.meta({ examples: ["Test Alert Message"] }),
+	note: z
+		.string()
+		.nullish()
+		.describe("Freeform note for the alert. Supports markdown formatting.")
+		.meta({
+			examples: [
+				"Threshold raised from 50 to 100 on 2026-01-15. See [runbook](https://wiki.example.com/runbook).",
+			],
+		}),
+	numConsecutiveWindows: z
+		.int()
+		.nullish()
+		.describe(
+			"Fire the alert only after its condition has been met for this many consecutive evaluation windows. While the condition is met but fewer than this many consecutive windows have violated, the alert is in the PENDING state.",
+		)
+		.meta({ examples: [3] }),
+});
+
+export const clickStackUpdateAlertRequestSchema = z.object({
+	dashboardId: z
+		.string()
+		.nullish()
+		.describe("Dashboard ID for tile-based alerts.")
+		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
+	tileId: z
+		.string()
+		.nullish()
+		.describe("Tile ID for tile-based alerts. Must be a line, stacked bar, or number type tile.")
+		.meta({ examples: ["65f5e4a3b9e77c001a901234"] }),
+	savedSearchId: z
+		.string()
+		.nullish()
+		.describe("Saved search ID for saved_search alerts.")
+		.meta({ examples: ["65f5e4a3b9e77c001a345678"] }),
+	groupBy: z
+		.string()
+		.nullish()
+		.describe("Group-by key for saved search alerts.")
+		.meta({ examples: ["ServiceName"] }),
+	chartConfig: clickStackAlertChartConfigSchema.optional(),
+	threshold: z
+		.number()
+		.describe(
+			"Threshold value for triggering the alert. For between and not_between threshold types, this is the lower bound.",
+		)
+		.meta({ examples: [100] }),
+	thresholdMax: z
+		.number()
+		.nullish()
+		.describe(
+			"Upper bound for between and not_between threshold types. Required when thresholdType is between or not_between, must be >= threshold.",
+		)
+		.meta({ examples: [500] }),
+	interval: z
+		.enum(["30s", "1m", "5m", "15m", "30m", "1h", "6h", "12h", "1d"])
+		.describe(
+			'Evaluation interval for the alert. `30s` requires the 30s alert interval feature to be enabled for your team. Anomaly alerts (detectionMode "anomaly") support only `5m`, `15m`, `30m`, and `1h`; other intervals are rejected with 400.',
+		)
+		.meta({ examples: ["1h"] }),
+	scheduleOffsetMinutes: z
+		.int()
+		.nullish()
+		.describe(
+			"Offset from the interval boundary in minutes. For example, 2 with a 5m interval evaluates windows at :02, :07, :12, etc. (UTC).",
+		)
+		.meta({ examples: [2] }),
+	scheduleStartAt: z.iso
+		.datetime()
+		.nullish()
+		.describe(
+			"Absolute UTC start time anchor. Alert windows start from this timestamp and repeat every interval.",
+		)
+		.meta({ examples: ["2026-02-08T10:00:00.000Z"] }),
+	source: z
+		.enum(["saved_search", "tile", "inline"])
+		.optional()
+		.describe("Alert source type (tile-based or saved search).")
+		.meta({ examples: ["tile"] }),
+	thresholdType: z
+		.enum([
+			"above",
+			"below",
+			"above_exclusive",
+			"below_or_equal",
+			"equal",
+			"not_equal",
+			"between",
+			"not_between",
+		])
+		.describe("Threshold comparison direction.")
+		.meta({ examples: ["above"] }),
+	channel: clickStackAlertChannelSchema.optional(),
+	channels: clickStackAlertChannelsSchema
+		.optional()
+		.describe(
+			"Notification channels to trigger when the alert fires or resolves. Between 1 and 10 channels; duplicates are rejected.",
+		),
+	name: z
+		.string()
+		.nullish()
+		.describe(
+			"Alert name template (Handlebars), rendered as the notification title. When omitted, a default title is generated from the display name, value and threshold.",
+		)
+		.meta({ examples: ["Errors for {{group}} hit {{value}}"] }),
+	displayName: z
+		.string()
+		.nullish()
+		.describe(
+			"Display name shown in the alerts list and in notification titles. Defaults to the name of the referenced saved search, dashboard tile, or inline chart when omitted or null.",
+		)
+		.meta({ examples: ["Checkout error spike"] }),
+	tags: z
+		.array(z.string())
+		.optional()
+		.describe(
+			"Tags for the alert. Defaults to the tags of the referenced saved search or dashboard when omitted or null; inline alerts have no parent to inherit from and default to an empty list.",
+		)
+		.meta({ examples: [["checkout", "p1"]] }),
+	message: z
+		.string()
+		.nullish()
+		.describe("Alert message template.")
+		.meta({ examples: ["Test Alert Message"] }),
+	note: z
+		.string()
+		.nullish()
+		.describe("Freeform note for the alert. Supports markdown formatting.")
+		.meta({
+			examples: [
+				"Threshold raised from 50 to 100 on 2026-01-15. See [runbook](https://wiki.example.com/runbook).",
+			],
+		}),
+	numConsecutiveWindows: z
+		.int()
+		.nullish()
+		.describe(
+			"Fire the alert only after its condition has been met for this many consecutive evaluation windows. While the condition is met but fewer than this many consecutive windows have violated, the alert is in the PENDING state.",
+		)
+		.meta({ examples: [3] }),
+});
+
+export const clickStackSqlSavedFilterValueSchema = z.object({
+	type: z
+		.enum(["sql"])
+		.optional()
+		.describe("Filter type.")
+		.meta({ examples: ["sql"] }),
+	condition: z
+		.string()
+		.describe(
+			"SQL filter condition. For example use expressions in the form \"column IN ('value')\".",
+		)
+		.meta({ examples: ["ServiceName IN ('hdx-oss-dev-api')"] }),
+});
+
+export const clickStackVariableSavedFilterValueSchema = z.object({
+	type: z
+		.enum(["variable"])
+		.describe("Filter type.")
+		.meta({ examples: ["variable"] }),
+	name: z
+		.string()
+		.describe(
+			"The variableName of the dashboard variable this selection belongs to. Only allowed for variable-enabled filters.",
+		)
+		.meta({ examples: ["service"] }),
+	values: z
+		.array(z.string())
+		.describe('Selected values. Ignored when "all" is true.')
+		.meta({ examples: [["hdx-oss-dev-api"]] }),
+	all: z
+		.boolean()
+		.optional()
+		.describe(
+			'Set to true to select every available value rather than a fixed list, which only SOURCE_FILTER filters offer (and only for columns their source declares with allowAll). Send an empty "values" alongside it. Allowed values: true.',
+		)
+		.meta({ examples: [true] }),
+});
+
+export const clickStackSavedFilterValueSchema = z.discriminatedUnion("type", [
+	clickStackSqlSavedFilterValueSchema.strict(),
+	clickStackVariableSavedFilterValueSchema.strict(),
+]);
+
 export const clickStackTimeChartSeriesSchema = z.object({
 	type: z
 		.enum(["time"])
@@ -5422,7 +6276,7 @@ export const clickStackTimeChartSeriesSchema = z.object({
 		.describe("Metric name for metrics data sources")
 		.meta({ examples: ["http.server.duration"] }),
 	displayType: z
-		.enum(["stacked_bar", "line"])
+		.enum(["stacked_bar", "stacked_line", "line"])
 		.optional()
 		.describe("Visual representation type for the time series")
 		.meta({ examples: ["line"] }),
@@ -5603,205 +6457,6 @@ export const clickStackDashboardChartSeriesSchema = z.discriminatedUnion("type",
 	clickStackMarkdownChartSeriesSchema.strict(),
 ]);
 
-export const clickStackSelectItemSchema = z.object({
-	aggFn: z
-		.enum([
-			"avg",
-			"count",
-			"count_distinct",
-			"last_value",
-			"max",
-			"min",
-			"quantile",
-			"sum",
-			"any",
-			"none",
-		])
-		.describe(
-			'Aggregation function to apply. "count" does not require a valueExpression; "quantile" requires a level field indicating the desired percentile (e.g., 0.95).',
-		)
-		.meta({ examples: ["count"] }),
-	valueExpression: z
-		.string()
-		.optional()
-		.describe(
-			'Expression for the column or value to aggregate. Must be omitted when aggFn is "count"; required for all other aggFn values.',
-		)
-		.meta({ examples: ["Duration"] }),
-	alias: z
-		.string()
-		.optional()
-		.describe("Display alias for this select item in chart legends.")
-		.meta({ examples: ["Request Duration"] }),
-	level: z
-		.union([z.literal("0.5"), z.literal("0.9"), z.literal("0.95"), z.literal("0.99")])
-		.optional()
-		.describe('Percentile level; only valid when aggFn is "quantile".'),
-	where: z
-		.string()
-		.optional()
-		.describe("SQL or Lucene filter condition applied before aggregation.")
-		.meta({ examples: ["service:api"] }),
-	whereLanguage: z
-		.enum(["sql", "lucene"])
-		.optional()
-		.describe("Query language for the where clause."),
-	metricName: z
-		.string()
-		.optional()
-		.describe(
-			"Name of the metric to aggregate; only applicable when the source is a metrics source.",
-		)
-		.meta({ examples: ["http.server.duration"] }),
-	metricType: z
-		.enum(["sum", "gauge", "histogram", "summary", "exponential histogram"])
-		.optional()
-		.describe("Metric type; only applicable when the source is a metrics source."),
-	periodAggFn: z
-		.enum(["delta"])
-		.optional()
-		.describe(
-			"Optional period aggregation function for Gauge metrics (e.g., compute the delta over the period).",
-		)
-		.meta({ examples: ["delta"] }),
-	numberFormat: clickStackNumberFormatSchema.optional(),
-});
-
-export const clickStackFormulaSchema = z.object({
-	expression: z
-		.string()
-		.describe(
-			'Arithmetic expression over the select items by position, e.g. "A / (A + B) * 100" for a success-rate percentage.',
-		)
-		.meta({ examples: ["A / (A + B) * 100"] }),
-	alias: z
-		.string()
-		.optional()
-		.describe(
-			"Display label for the formula series in chart legends and column headers. Falls back to the raw expression text when unset.",
-		)
-		.meta({ examples: ["Success rate %"] }),
-	numberFormat: clickStackNumberFormatSchema.optional(),
-});
-
-export const clickStackLineBuilderChartConfigSchema = z.object({
-	displayType: z
-		.enum(["line"])
-		.describe('Display type discriminator. Must be "line" for line charts.')
-		.meta({ examples: ["line"] }),
-	sourceId: z
-		.string()
-		.describe("ID of the data source to query.")
-		.meta({ examples: ["65f5e4a3b9e77c001a111111"] }),
-	select: z
-		.array(clickStackSelectItemSchema)
-		.describe(
-			"One or more aggregated values to plot. When asRatio is true, exactly two select items are required.",
-		),
-	groupBy: z
-		.string()
-		.optional()
-		.describe("Field expression to group results by (creates separate lines per group value).")
-		.meta({ examples: ["host"] }),
-	asRatio: z
-		.boolean()
-		.optional()
-		.describe("Plot select[0] / select[1] as a ratio. Requires exactly two select items."),
-	alignDateRangeToGranularity: z
-		.boolean()
-		.optional()
-		.describe("Expand date range boundaries to the query granularity interval."),
-	fillNulls: z
-		.boolean()
-		.optional()
-		.describe("Fill missing time buckets with zero instead of leaving gaps."),
-	fitYAxisToData: z
-		.boolean()
-		.optional()
-		.describe(
-			"Set the y-axis lower bound to the minimum of the displayed data instead of zero, making small fluctuations between series easier to see.",
-		),
-	numberFormat: clickStackNumberFormatSchema.optional(),
-	compareToPreviousPeriod: z
-		.boolean()
-		.optional()
-		.describe("Overlay the equivalent previous time period for comparison."),
-	seriesLimit: z
-		.int()
-		.optional()
-		.describe(
-			"Maximum number of series rendered (top-N by value). Omit to use the default render cap, set 0 for unlimited, or a positive N to keep the top N series.",
-		)
-		.meta({ examples: [5] }),
-	formulas: z
-		.array(clickStackFormulaSchema)
-		.optional()
-		.describe(
-			'Derived series computed from the select items via letter-ref arithmetic ("A" = select[0], "B" = select[1], ...). Metric, log, and trace sources only. Cannot be combined with asRatio.',
-		),
-	showOperandSeries: z
-		.boolean()
-		.optional()
-		.describe(
-			"Only meaningful with formulas. When false, only the formula series are returned; the raw operand series are hidden.",
-		),
-});
-
-export const clickStackBarBuilderChartConfigSchema = z.object({
-	displayType: z
-		.enum(["stacked_bar"])
-		.describe('Display type discriminator. Must be "stacked_bar" for stacked-bar charts.')
-		.meta({ examples: ["stacked_bar"] }),
-	sourceId: z
-		.string()
-		.describe("ID of the data source to query.")
-		.meta({ examples: ["65f5e4a3b9e77c001a111111"] }),
-	select: z
-		.array(clickStackSelectItemSchema)
-		.describe(
-			"One or more aggregated values to plot. When asRatio is true, exactly two select items are required.",
-		),
-	groupBy: z
-		.string()
-		.optional()
-		.describe(
-			"Field expression to group results by (creates separate bars segments per group value).",
-		)
-		.meta({ examples: ["service"] }),
-	asRatio: z
-		.boolean()
-		.optional()
-		.describe("Plot select[0] / select[1] as a ratio. Requires exactly two select items."),
-	alignDateRangeToGranularity: z
-		.boolean()
-		.optional()
-		.describe("Align the date range boundaries to the query granularity interval."),
-	fillNulls: z
-		.boolean()
-		.optional()
-		.describe("Fill missing time buckets with zero instead of leaving gaps."),
-	numberFormat: clickStackNumberFormatSchema.optional(),
-	seriesLimit: z
-		.int()
-		.optional()
-		.describe(
-			"Maximum number of series rendered (top-N by value). Omit to use the default render cap, set 0 for unlimited, or a positive N to keep the top N series.",
-		)
-		.meta({ examples: [5] }),
-	formulas: z
-		.array(clickStackFormulaSchema)
-		.optional()
-		.describe(
-			'Derived series computed from the select items via letter-ref arithmetic ("A" = select[0], "B" = select[1], ...). Metric, log, and trace sources only. Cannot be combined with asRatio.',
-		),
-	showOperandSeries: z
-		.boolean()
-		.optional()
-		.describe(
-			"Only meaningful with formulas. When false, only the formula series are returned; the raw operand series are hidden.",
-		),
-});
-
 export const clickStackOnClickTargetIdVariantSchema = z.object({
 	mode: z
 		.enum(["id"])
@@ -5964,54 +6619,6 @@ export const clickStackTableBuilderChartConfigSchema = z.object({
 		),
 });
 
-export const clickStackNumberBuilderChartConfigSchema = z.object({
-	displayType: z
-		.enum(["number"])
-		.describe('Display type discriminator. Must be "number" for single big-number charts.')
-		.meta({ examples: ["number"] }),
-	sourceId: z
-		.string()
-		.describe("ID of the data source to query.")
-		.meta({ examples: ["65f5e4a3b9e77c001a111111"] }),
-	select: z
-		.array(clickStackSelectItemSchema)
-		.describe(
-			'Exactly one aggregated value to display as a single number — unless "formulas" is set, in which case the select items are the formula\'s operands and the (single) formula value is displayed instead.',
-		),
-	formulas: z
-		.array(clickStackFormulaSchema)
-		.optional()
-		.describe(
-			'A single derived value computed from the select items via letter-ref arithmetic ("A" = select[0], "B" = select[1], ...). Metric, log, and trace sources only. Number tiles display the formula value and always hide the operand series.',
-		),
-	numberFormat: clickStackNumberFormatSchema.optional(),
-	color: z
-		.enum([
-			"chart-blue",
-			"chart-orange",
-			"chart-red",
-			"chart-cyan",
-			"chart-green",
-			"chart-pink",
-			"chart-purple",
-			"chart-light-blue",
-			"chart-brown",
-			"chart-gray",
-			"chart-success",
-			"chart-warning",
-			"chart-error",
-		])
-		.optional()
-		.describe("Optional static color applied to the displayed number."),
-	colorRules: z
-		.array(clickStackNumberTileColorConditionSchema)
-		.optional()
-		.describe(
-			"Ordered conditional color rules evaluated against the displayed value (last match wins). Falls back to color, then the default text color when no rule matches.",
-		),
-	backgroundChart: clickStackBackgroundChartSchema.optional(),
-});
-
 export const clickStackPieBuilderChartConfigSchema = z.object({
 	displayType: z
 		.enum(["pie"])
@@ -6099,11 +6706,16 @@ export const clickStackHeatmapSelectItemSchema = z.object({
 		.meta({ examples: ["log"] }),
 });
 
-export const clickStackHeatmapChartConfigSchema = z.object({
+export const clickStackHeatmapDistributionChartConfigSchema = z.object({
 	displayType: z
 		.enum(["heatmap"])
 		.describe('Display type discriminator. Must be "heatmap" for heatmap tiles.')
 		.meta({ examples: ["heatmap"] }),
+	heatmapMode: z
+		.enum(["distribution"])
+		.optional()
+		.describe('Heatmap mode. "distribution" is the default when omitted.')
+		.meta({ examples: ["distribution"] }),
 	sourceId: z
 		.string()
 		.describe("ID of the data source to query.")
@@ -6120,6 +6732,35 @@ export const clickStackHeatmapChartConfigSchema = z.object({
 		.describe("Query language for the where clause."),
 	numberFormat: clickStackNumberFormatSchema.optional(),
 });
+
+export const clickStackHeatmapSeriesChartConfigSchema = z.object({
+	displayType: z
+		.enum(["heatmap"])
+		.describe('Display type discriminator. Must be "heatmap" for heatmap tiles.')
+		.meta({ examples: ["heatmap"] }),
+	heatmapMode: z
+		.enum(["series"])
+		.describe('Heatmap mode. Must be "series" for series heatmaps.')
+		.meta({ examples: ["series"] }),
+	sourceId: z
+		.string()
+		.describe("ID of the data source to query.")
+		.meta({ examples: ["65f5e4a3b9e77c001a111111"] }),
+	select: z
+		.array(clickStackSelectItemSchema)
+		.describe("Exactly one aggregated value used to color each cell."),
+	groupBy: z
+		.string()
+		.optional()
+		.describe("Field expression to group results by (one row per group value).")
+		.meta({ examples: ["ServiceName"] }),
+	numberFormat: clickStackNumberFormatSchema.optional(),
+});
+
+export const clickStackHeatmapChartConfigSchema = z.discriminatedUnion("heatmapMode", [
+	clickStackHeatmapDistributionChartConfigSchema.strict(),
+	clickStackHeatmapSeriesChartConfigSchema.strict(),
+]);
 
 export const clickStackSearchChartConfigSchema = z.object({
 	displayType: z
@@ -6181,90 +6822,6 @@ export const clickStackMarkdownChartConfigSchema = z.object({
 		.meta({ examples: ["# Dashboard Title\n\nThis is a markdown widget."] }),
 });
 
-export const clickStackLineRawSqlChartConfigSchema = z.object({
-	configType: z
-		.enum(["sql"])
-		.describe('Must be "sql" to use the Raw SQL chart config variant.')
-		.meta({ examples: ["sql"] }),
-	connectionId: z
-		.string()
-		.describe("ID of the ClickHouse connection to execute the query against.")
-		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
-	sqlTemplate: z
-		.string()
-		.describe("SQL query template to execute. Supports HyperDX template variables.")
-		.meta({
-			examples: ["SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR"],
-		}),
-	sourceId: z
-		.string()
-		.optional()
-		.describe(
-			"Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.",
-		)
-		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
-	numberFormat: clickStackNumberFormatSchema.optional(),
-	displayType: z
-		.enum(["line"])
-		.describe("Display as a line time-series chart.")
-		.meta({ examples: ["line"] }),
-	compareToPreviousPeriod: z
-		.boolean()
-		.optional()
-		.describe("Overlay the equivalent previous time period for comparison."),
-	fillNulls: z
-		.boolean()
-		.optional()
-		.describe("Fill missing time buckets with zero instead of leaving gaps."),
-	alignDateRangeToGranularity: z
-		.boolean()
-		.optional()
-		.describe("Expand date range boundaries to the query granularity interval."),
-	fitYAxisToData: z
-		.boolean()
-		.optional()
-		.describe(
-			"Set the y-axis lower bound to the minimum of the displayed data instead of zero, making small fluctuations between series easier to see.",
-		),
-});
-
-export const clickStackBarRawSqlChartConfigSchema = z.object({
-	configType: z
-		.enum(["sql"])
-		.describe('Must be "sql" to use the Raw SQL chart config variant.')
-		.meta({ examples: ["sql"] }),
-	connectionId: z
-		.string()
-		.describe("ID of the ClickHouse connection to execute the query against.")
-		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
-	sqlTemplate: z
-		.string()
-		.describe("SQL query template to execute. Supports HyperDX template variables.")
-		.meta({
-			examples: ["SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR"],
-		}),
-	sourceId: z
-		.string()
-		.optional()
-		.describe(
-			"Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.",
-		)
-		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
-	numberFormat: clickStackNumberFormatSchema.optional(),
-	displayType: z
-		.enum(["stacked_bar"])
-		.describe("Display as a stacked-bar time-series chart.")
-		.meta({ examples: ["stacked_bar"] }),
-	fillNulls: z
-		.boolean()
-		.optional()
-		.describe("Fill missing time buckets with zero instead of leaving gaps."),
-	alignDateRangeToGranularity: z
-		.boolean()
-		.optional()
-		.describe("Expand date range boundaries to the query granularity interval."),
-});
-
 export const clickStackTableRawSqlChartConfigSchema = z.object({
 	configType: z
 		.enum(["sql"])
@@ -6293,55 +6850,6 @@ export const clickStackTableRawSqlChartConfigSchema = z.object({
 		.describe("Display as a table chart.")
 		.meta({ examples: ["table"] }),
 	onClick: clickStackOnClickSchema.optional(),
-});
-
-export const clickStackNumberRawSqlChartConfigSchema = z.object({
-	configType: z
-		.enum(["sql"])
-		.describe('Must be "sql" to use the Raw SQL chart config variant.')
-		.meta({ examples: ["sql"] }),
-	connectionId: z
-		.string()
-		.describe("ID of the ClickHouse connection to execute the query against.")
-		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
-	sqlTemplate: z
-		.string()
-		.describe("SQL query template to execute. Supports HyperDX template variables.")
-		.meta({
-			examples: ["SELECT count() FROM otel_logs WHERE timestamp > now() - INTERVAL 1 HOUR"],
-		}),
-	sourceId: z
-		.string()
-		.optional()
-		.describe(
-			"Optional ID of the data source associated with this Raw SQL chart. Used for applying dashboard filters.",
-		)
-		.meta({ examples: ["65f5e4a3b9e77c001a567890"] }),
-	numberFormat: clickStackNumberFormatSchema.optional(),
-	displayType: z
-		.enum(["number"])
-		.describe("Display as a single big-number chart.")
-		.meta({ examples: ["number"] }),
-	color: z
-		.enum([
-			"chart-blue",
-			"chart-orange",
-			"chart-red",
-			"chart-cyan",
-			"chart-green",
-			"chart-pink",
-			"chart-purple",
-			"chart-light-blue",
-			"chart-brown",
-			"chart-gray",
-			"chart-success",
-			"chart-warning",
-			"chart-error",
-		])
-		.optional()
-		.describe(
-			"Optional static color applied to the displayed number. Raw SQL number tiles do not support conditional colorRules.",
-		),
 });
 
 export const clickStackPieRawSqlChartConfigSchema = z.object({
@@ -6402,24 +6910,9 @@ export const clickStackCategoricalBarRawSqlChartConfigSchema = z.object({
 		.meta({ examples: ["bar"] }),
 });
 
-export const clickStackLineChartConfigSchema = z.union([
-	clickStackLineBuilderChartConfigSchema.strict(),
-	clickStackLineRawSqlChartConfigSchema.strict(),
-]);
-
-export const clickStackBarChartConfigSchema = z.union([
-	clickStackBarBuilderChartConfigSchema.strict(),
-	clickStackBarRawSqlChartConfigSchema.strict(),
-]);
-
 export const clickStackTableChartConfigSchema = z.union([
 	clickStackTableBuilderChartConfigSchema.strict(),
 	clickStackTableRawSqlChartConfigSchema.strict(),
-]);
-
-export const clickStackNumberChartConfigSchema = z.union([
-	clickStackNumberBuilderChartConfigSchema.strict(),
-	clickStackNumberRawSqlChartConfigSchema.strict(),
 ]);
 
 export const clickStackPieChartConfigSchema = z.union([
@@ -6435,11 +6928,12 @@ export const clickStackCategoricalBarChartConfigSchema = z.union([
 export const clickStackTileConfigSchema = z.union([
 	clickStackLineChartConfigSchema,
 	clickStackBarChartConfigSchema,
+	clickStackStackedLineChartConfigSchema,
 	clickStackTableChartConfigSchema,
 	clickStackNumberChartConfigSchema,
 	clickStackPieChartConfigSchema,
 	clickStackCategoricalBarChartConfigSchema,
-	clickStackHeatmapChartConfigSchema.strict(),
+	clickStackHeatmapChartConfigSchema,
 	clickStackSearchChartConfigSchema.strict(),
 	clickStackEventPatternsChartConfigSchema.strict(),
 	clickStackMarkdownChartConfigSchema.strict(),
@@ -6523,6 +7017,11 @@ export const clickStackTileOutputSchema = z.object({
 			"References a tab inside the tile's container by id. Requires containerId to be set, and the container to declare a matching tab.",
 		)
 		.meta({ examples: ["errors"] }),
+	description: z
+		.string()
+		.optional()
+		.describe("Short explanation of the tile, shown as a tooltip next to its name.")
+		.meta({ examples: ["Share of API requests that returned a 5xx response."] }),
 	id: z
 		.string()
 		.describe("Unique tile ID assigned by the server.")
@@ -6565,6 +7064,11 @@ export const clickStackTileInputSchema = z.object({
 			"References a tab inside the tile's container by id. Requires containerId to be set, and the container to declare a matching tab.",
 		)
 		.meta({ examples: ["errors"] }),
+	description: z
+		.string()
+		.optional()
+		.describe("Short explanation of the tile, shown as a tooltip next to its name.")
+		.meta({ examples: ["Share of API requests that returned a 5xx response."] }),
 	id: z
 		.string()
 		.optional()
@@ -6585,10 +7089,10 @@ export const clickStackTileInputSchema = z.object({
 		),
 });
 
-export const clickStackFilterInputSchema = z.object({
+export const clickStackQueryExpressionFilterInputSchema = z.object({
 	type: z
 		.enum(["QUERY_EXPRESSION"])
-		.describe('Filter type. Must be "QUERY_EXPRESSION".')
+		.describe('Filter type discriminator. Must be "QUERY_EXPRESSION".')
 		.meta({ examples: ["QUERY_EXPRESSION"] }),
 	name: z
 		.string()
@@ -6647,61 +7151,54 @@ export const clickStackFilterInputSchema = z.object({
 			"Token tiles reference this filter's selected value by, as `$variableName`. Must start with a letter and may contain only letters, numbers, and underscores. Defaults to the display name with whitespace replaced by underscores and remaining illegal characters removed, so a variable-enabled filter whose name derives nothing usable must send this field explicitly. Variable names must be unique across a dashboard's variable-enabled filters. Names the variable only, so the field is rejected when isVariableEnabled is not true, and is omitted from responses for such a filter.",
 		)
 		.meta({ examples: ["environment"] }),
+	minSelections: z
+		.union([z.literal(0), z.literal(1)])
+		.optional()
+		.describe(
+			"Minimum number of values that must be selected before tiles load. Set to 1 to make the filter required. Only 0 and 1 are accepted. Omit the field (or send 0) for the default optional behavior.",
+		)
+		.meta({ examples: [1] }),
+	isGlobalRequirement: z
+		.boolean()
+		.optional()
+		.describe(
+			"Widens a required filter's block to every tile on the dashboard. False (the default) blocks only the tiles that read the filter: those referencing its variableName, and those its broadcast applies to. Ignored unless minSelections is 1.",
+		)
+		.meta({ examples: [true] }),
+	maxSelections: z
+		.literal(1)
+		.optional()
+		.describe(
+			"Maximum number of values that can be selected at once. Set to 1 to make the filter single-select. Omit the field for the default multi-select behavior.",
+		)
+		.meta({ examples: [1] }),
 });
 
-export const clickStackFilterSchema = z.object({
+export const clickStackStaticListFilterInputSchema = z.object({
 	type: z
-		.enum(["QUERY_EXPRESSION"])
-		.describe('Filter type. Must be "QUERY_EXPRESSION".')
-		.meta({ examples: ["QUERY_EXPRESSION"] }),
+		.enum(["STATIC_LIST"])
+		.describe('Discriminator. Must be "STATIC_LIST".')
+		.meta({ examples: ["STATIC_LIST"] }),
 	name: z
 		.string()
 		.describe("Display name for the dashboard filter key")
 		.meta({ examples: ["Environment"] }),
-	expression: z
-		.string()
-		.describe(
-			"SQL expression used when querying values for this filter, and when applying this dashboard filter to tiles.",
-		)
-		.meta({ examples: ["environment"] }),
-	sourceId: z
-		.string()
-		.describe("Source ID this dashboard filter key applies to")
-		.meta({ examples: ["65f5e4a3b9e77c001a111111"] }),
-	sourceMetricType: z
-		.enum(["sum", "gauge", "histogram", "summary", "exponential histogram"])
-		.optional()
-		.describe("Metric type when source is metrics")
-		.meta({ examples: ["gauge"] }),
-	where: z
-		.string()
-		.optional()
-		.describe("Optional WHERE condition to scope which rows this filter key reads values from")
-		.meta({ examples: ["ServiceName:api"] }),
-	whereLanguage: z
-		.enum(["sql", "lucene"])
-		.optional()
-		.describe("Language of the where condition")
-		.meta({ examples: ["lucene"] }),
-	appliesToSourceIds: z
+	options: z
 		.array(z.string())
-		.optional()
-		.describe(
-			"Optional list of source IDs this filter applies to. Omit or provide an empty array to apply the filter to ALL tiles regardless of source. A non-empty array restricts the filter to only tiles whose source ID is in the list; tiles using other sources are not affected by the selected filter value(s). Scopes the broadcast condition only, so a non-empty array is rejected when isBroadcastEnabled is false, and is omitted from responses for such a filter.",
-		)
-		.meta({ examples: [["65f5e4a3b9e77c001a111111"]] }),
+		.describe("The values this filter's dropdown offers. Must be non-empty and free of duplicates.")
+		.meta({ examples: [["prod", "staging", "dev"]] }),
 	isBroadcastEnabled: z
 		.boolean()
 		.optional()
 		.describe(
-			"Whether the selected value is applied as a filter condition on every builder tile this filter applies to (see appliesToSourceIds), and every raw sql tile using the $__filters macro. Omitting the field means enabled.",
+			"Must be false — there is no expression to broadcast. Omit it and it is false. Allowed values: false.",
 		)
 		.meta({ examples: [false] }),
 	isVariableEnabled: z
 		.boolean()
 		.optional()
 		.describe(
-			"Whether the selected value is exposed to tile queries as a dashboard variable named by variableName. Tiles may reference it as `$variableName` or using the (preferred) `$__filter($<variableName>)` and `$__conditionalAll(<condition>, $<variableName>)` macros.",
+			"Must be true if provided, and is true when omitted. Tiles reference the selection as `$variableName`, or with the `$__filter(<expression>, $<variableName>)` and `$__conditionalAll(<condition>, $<variableName>)` macros. The one-argument `$__filter($<variableName>)` form renders the filter's own expression, which this kind of filter does not have, so it reports that the expression must be passed explicitly. Allowed values: true.",
 		)
 		.meta({ examples: [true] }),
 	variableName: z
@@ -6711,8 +7208,197 @@ export const clickStackFilterSchema = z.object({
 			"Token tiles reference this filter's selected value by, as `$variableName`. Must start with a letter and may contain only letters, numbers, and underscores. Defaults to the display name with whitespace replaced by underscores and remaining illegal characters removed, so a variable-enabled filter whose name derives nothing usable must send this field explicitly. Variable names must be unique across a dashboard's variable-enabled filters. Names the variable only, so the field is rejected when isVariableEnabled is not true, and is omitted from responses for such a filter.",
 		)
 		.meta({ examples: ["environment"] }),
+	minSelections: z
+		.union([z.literal(0), z.literal(1)])
+		.optional()
+		.describe(
+			"Minimum number of values that must be selected before tiles load. Set to 1 to make the filter required. Only 0 and 1 are accepted. Omit the field (or send 0) for the default optional behavior.",
+		)
+		.meta({ examples: [1] }),
+	isGlobalRequirement: z
+		.boolean()
+		.optional()
+		.describe(
+			"Widens a required filter's block to every tile on the dashboard. False (the default) blocks only the tiles that read the filter: those referencing its variableName, and those its broadcast applies to. Ignored unless minSelections is 1.",
+		)
+		.meta({ examples: [true] }),
+	maxSelections: z
+		.literal(1)
+		.optional()
+		.describe(
+			"Maximum number of values that can be selected at once. Set to 1 to make the filter single-select. Omit the field for the default multi-select behavior.",
+		)
+		.meta({ examples: [1] }),
+});
+
+export const clickStackPrometheusLabelFilterInputSchema = z.object({
+	type: z
+		.enum(["PROMETHEUS_LABEL"])
+		.describe('Discriminator. Must be "PROMETHEUS_LABEL".')
+		.meta({ examples: ["PROMETHEUS_LABEL"] }),
+	name: z
+		.string()
+		.describe("Display name for the dashboard filter")
+		.meta({ examples: ["Pod"] }),
+	sourceId: z
+		.string()
+		.describe("Id of the PromQL source the label values are read from.")
+		.meta({ examples: ["65f5e4a3b9e77c001a123456"] }),
+	label: z
+		.string()
+		.describe('Label whose values populate the dropdown. Use "__name__" to list metric names.')
+		.meta({ examples: ["pod"] }),
+	match: z
+		.string()
+		.optional()
+		.describe(
+			"Optional Prometheus series selector narrowing which series the label values are read from.",
+		)
+		.meta({ examples: ['up{job="api"}'] }),
+	isBroadcastEnabled: z
+		.boolean()
+		.optional()
+		.describe("Must be false or omitted. Allowed values: false.")
+		.meta({ examples: [false] }),
+	isVariableEnabled: z
+		.boolean()
+		.optional()
+		.describe(
+			"Must be true if provided, and is true when omitted. Tiles reference the selection as `$variableName`. Allowed values: true.",
+		)
+		.meta({ examples: [true] }),
+	variableName: z
+		.string()
+		.optional()
+		.describe(
+			"Token that tiles reference this filter's selected value by, as `$variableName`. Must start with a letter and may contain only letters, numbers, and underscores. Defaults to the display name with whitespace replaced by underscores and remaining illegal characters removed. Variable names must be unique across a dashboard's variable-enabled filters.",
+		)
+		.meta({ examples: ["pod"] }),
+	minSelections: z
+		.union([z.literal(0), z.literal(1)])
+		.optional()
+		.describe(
+			"Minimum number of values that must be selected before tiles load. Set to 1 to make the filter required. Only 0 and 1 are accepted. Omit the field (or send 0) for the default optional behavior.",
+		)
+		.meta({ examples: [1] }),
+	isGlobalRequirement: z
+		.boolean()
+		.optional()
+		.describe(
+			"Widens a required filter's block to every tile on the dashboard. False (the default) blocks only the tiles that read the filter: those referencing its variableName, and those its broadcast applies to. Ignored unless minSelections is 1.",
+		)
+		.meta({ examples: [true] }),
+	maxSelections: z
+		.literal(1)
+		.optional()
+		.describe(
+			"Maximum number of values that can be selected at once. Set to 1 to make the filter single-select. Omit the field for the default multi-select behavior.",
+		)
+		.meta({ examples: [1] }),
+});
+
+export const clickStackSourceFilterInputSchema = z.object({
+	type: z
+		.enum(["SOURCE_FILTER"])
+		.describe('Discriminator. Must be "SOURCE_FILTER".')
+		.meta({ examples: ["SOURCE_FILTER"] }),
+	name: z
+		.string()
+		.describe("Display name for the dashboard filter")
+		.meta({ examples: ["Cluster"] }),
+	sourceId: z
+		.string()
+		.describe(
+			"Id of the source whose filterSettings declares this column. Read filterSettings from GET /api/v2/sources to see which columns a source declares.",
+		)
+		.meta({ examples: ["65f5e4a3b9e77c001a111111"] }),
+	expression: z
+		.string()
+		.describe(
+			"Column this filter selects values for. Must match one of the source's filterSettings.columns[].name values, and is the expression the selection is broadcast on.",
+		)
+		.meta({ examples: ["cluster"] }),
+	appliesToSourceIds: z
+		.array(z.string())
+		.optional()
+		.describe(
+			"Optional list of source IDs this filter broadcasts to. Omit or provide an empty array to apply the selection to ALL tiles regardless of source; a non-empty array restricts it to tiles whose source ID is in the list.",
+		)
+		.meta({ examples: [["65f5e4a3b9e77c001a111111"]] }),
+	isBroadcastEnabled: z
+		.boolean()
+		.optional()
+		.describe(
+			"Must be true if provided, and is true when omitted — a source filter should always broadcast to at least its own source. Allowed values: true.",
+		)
+		.meta({ examples: [true] }),
+	isVariableEnabled: z
+		.boolean()
+		.optional()
+		.describe(
+			"Must be true if provided, and is true when omitted. Tiles reference the selection as `$variableName`. Allowed values: true.",
+		)
+		.meta({ examples: [true] }),
+	variableName: z
+		.string()
+		.describe(
+			"Token that tiles reference this filter's selected value by, as `$variableName`. Must start with a letter and may contain only letters, numbers, and underscores. Defaults to the display name with whitespace replaced by underscores and remaining illegal characters removed. Variable names must be unique across a dashboard's variable-enabled filters.",
+		)
+		.meta({ examples: ["cluster"] }),
+	minSelections: z
+		.union([z.literal(0), z.literal(1)])
+		.optional()
+		.describe(
+			"Minimum number of values that must be selected before tiles load. Set to 1 to make the filter required. Only 0 and 1 are accepted. Omit the field (or send 0) for the default optional behavior.",
+		)
+		.meta({ examples: [1] }),
+	isGlobalRequirement: z
+		.boolean()
+		.optional()
+		.describe(
+			"Widens a required filter's block to every tile on the dashboard. False (the default) blocks only the tiles that read the filter: those referencing its variableName, and those its broadcast applies to. Ignored unless minSelections is 1.",
+		)
+		.meta({ examples: [true] }),
+	maxSelections: z
+		.literal(1)
+		.optional()
+		.describe(
+			"Maximum number of values that can be selected at once. Set to 1 to make the filter single-select. Omit the field for the default multi-select behavior.",
+		)
+		.meta({ examples: [1] }),
+});
+
+export const clickStackFilterInputSchema = z.discriminatedUnion("type", [
+	clickStackQueryExpressionFilterInputSchema.strict(),
+	clickStackStaticListFilterInputSchema.strict(),
+	clickStackPrometheusLabelFilterInputSchema.strict(),
+	clickStackSourceFilterInputSchema.strict(),
+]);
+
+export const clickStackQueryExpressionFilterSchema =
+	clickStackQueryExpressionFilterInputSchema.extend({
+		id: z.string().describe("Unique dashboard filter key ID"),
+	});
+
+export const clickStackStaticListFilterSchema = clickStackStaticListFilterInputSchema.extend({
 	id: z.string().describe("Unique dashboard filter key ID"),
 });
+
+export const clickStackPrometheusLabelFilterSchema =
+	clickStackPrometheusLabelFilterInputSchema.extend({
+		id: z.string().describe("Unique dashboard filter key ID"),
+	});
+
+export const clickStackSourceFilterSchema = clickStackSourceFilterInputSchema.extend({
+	id: z.string().describe("Unique dashboard filter key ID"),
+});
+
+export const clickStackFilterSchema = z.discriminatedUnion("type", [
+	clickStackQueryExpressionFilterSchema,
+	clickStackStaticListFilterSchema,
+	clickStackPrometheusLabelFilterSchema,
+	clickStackSourceFilterSchema,
+]);
 
 export const clickStackCreateDashboardRequestSchema = z.object({
 	name: z
@@ -6867,29 +7553,115 @@ export const clickStackDashboardResponseSchema = z.object({
 		),
 });
 
-export const clickStackCASLPermissionConditionsSchema = z.looseObject({});
+export const clickStackMongoDBCASLPermissionConditionsSchema = z.record(
+	z.string(),
+	z.union([
+		z.string(),
+		z.strictObject({
+			$regex: z.string(),
+			$options: z.string().optional(),
+		}),
+	]),
+);
 
-export const clickStackCASLPermissionSchema = z.object({
+export const clickStackMongoDBCASLPermissionSchema = z.object({
 	action: z
-		.string()
+		.enum(["create", "read", "update", "delete", "manage"])
 		.describe("The action this permission grants or denies.")
 		.meta({ examples: ["read"] }),
 	subject: z
-		.string()
+		.enum([
+			"Alert",
+			"Connection",
+			"Dashboard",
+			"SavedSearch",
+			"Source",
+			"Team",
+			"User",
+			"Webhook",
+			"Role",
+			"Notebook",
+			"SchemaMigration",
+			"all",
+		])
 		.describe("The resource the action applies to.")
-		.meta({ examples: ["dashboard"] }),
+		.meta({ examples: ["Dashboard"] }),
+	fields: z
+		.array(z.string())
+		.optional()
+		.describe("Optional CASL field restriction limiting the rule to specific fields."),
 	inverted: z
 		.boolean()
 		.optional()
 		.describe("When true, the rule denies rather than grants the action.")
 		.meta({ examples: [false] }),
 	integration: z
-		.string()
-		.optional()
-		.describe("The integration the permission is scoped to.")
+		.enum(["mongodb"])
+		.describe("Scopes the permission to the application (MongoDB) data plane.")
 		.meta({ examples: ["mongodb"] }),
-	conditions: clickStackCASLPermissionConditionsSchema.optional(),
+	conditions: clickStackMongoDBCASLPermissionConditionsSchema.optional(),
 });
+
+export const clickStackClickHouseCASLPermissionConditionsFromSchema = z.object({
+	databaseName: z.string().meta({ examples: ["default"] }),
+	tableName: z.string().meta({ examples: ["otel_logs"] }),
+});
+
+export const clickStackClickHouseCASLPermissionConditionsSchema = z.object({
+	connection: z
+		.string()
+		.describe("ID of the connection the row policy applies to.")
+		.meta({ examples: ["507f1f77bcf86cd799439011"] }),
+	from: clickStackClickHouseCASLPermissionConditionsFromSchema,
+	where: z
+		.string()
+		.describe("The row-policy predicate, expressed in `whereLanguage`.")
+		.meta({ examples: ["ServiceName = 'checkout'"] }),
+	whereLanguage: z.enum(["sql", "lucene"]).meta({ examples: ["sql"] }),
+});
+
+export const clickStackClickHouseCASLPermissionSchema = z.object({
+	action: z
+		.enum(["create", "read", "update", "delete", "manage"])
+		.describe("The action this permission grants or denies.")
+		.meta({ examples: ["read"] }),
+	subject: z
+		.enum([
+			"Alert",
+			"Connection",
+			"Dashboard",
+			"SavedSearch",
+			"Source",
+			"Team",
+			"User",
+			"Webhook",
+			"Role",
+			"Notebook",
+			"SchemaMigration",
+			"all",
+		])
+		.describe("The resource the action applies to.")
+		.meta({ examples: ["Dashboard"] }),
+	fields: z
+		.array(z.string())
+		.optional()
+		.describe("Optional CASL field restriction limiting the rule to specific fields."),
+	inverted: z
+		.boolean()
+		.optional()
+		.describe("When true, the rule denies rather than grants the action.")
+		.meta({ examples: [false] }),
+	integration: z
+		.enum(["clickhouse"])
+		.describe("Scopes the permission to the ClickHouse data plane (row-level access).")
+		.meta({ examples: ["clickhouse"] }),
+	conditions: clickStackClickHouseCASLPermissionConditionsSchema.optional(),
+});
+
+export const clickStackCASLPermissionSchema = z.discriminatedUnion("integration", [
+	clickStackMongoDBCASLPermissionSchema.strict(),
+	clickStackClickHouseCASLPermissionSchema.strict(),
+]);
 
 export const clickStackRoleSchema = z.object({
 	id: z
@@ -6954,21 +7726,6 @@ export const clickStackUpdateRoleRequestSchema = z.object({
 		.array(clickStackCASLPermissionSchema)
 		.describe("The replacement set of CASL permissions for the role."),
 });
-
-export const clickStackValidationErrorItemErrorsSchema = z.looseObject({});
-
-export const clickStackValidationErrorItemSchema = z.object({
-	type: z
-		.string()
-		.optional()
-		.describe("Request part that failed validation.")
-		.meta({ examples: ["Body"] }),
-	errors: clickStackValidationErrorItemErrorsSchema.optional(),
-});
-
-export const clickStackValidationErrorSchema = z
-	.array(clickStackValidationErrorItemSchema)
-	.describe("zod-express-middleware validation failures.");
 
 export const clickStackSavedSearchFilterSchema = z.object({
 	type: z
@@ -7369,6 +8126,13 @@ export const clickStackLogSourceSchema = z.object({
 		.nullish()
 		.describe("This DateTime column is used to display and order search results.")
 		.meta({ examples: ["TimestampTime"] }),
+	orderByExpression: z
+		.string()
+		.optional()
+		.describe(
+			"Custom ORDER BY expression that overrides the default ordering. Leave empty to use the auto-detected default.",
+		)
+		.meta({ examples: ["Timestamp DESC"] }),
 	metricSourceId: z
 		.string()
 		.nullish()
@@ -7563,6 +8327,13 @@ export const clickStackTraceSourceSchema = z.object({
 			"Expression identifying the running release of a service. Defaults to the OpenTelemetry service.version resource attribute when unset. Where services carry the release on different attributes, fall back across them with coalesce(nullIf(a, ''), nullIf(b, '')).",
 		)
 		.meta({ examples: ["ResourceAttributes['service.version']"] }),
+	sampleRateExpression: z
+		.string()
+		.optional()
+		.describe(
+			"Column or expression for upstream sampling weight (1/N). When set, aggregations (count, avg, sum, quantile) are corrected for sampling. Percentiles use quantileTDigestWeighted, which is an approximation. Leave empty if spans are not sampled.",
+		)
+		.meta({ examples: ["SampleRate"] }),
 	resourceAttributesExpression: z
 		.string()
 		.nullish()
@@ -7580,6 +8351,13 @@ export const clickStackTraceSourceSchema = z.object({
 			"Expression to extract span events. Used to capture events associated with spans. Expected to be Nested ( Timestamp DateTime64(9), Name LowCardinality(String), Attributes Map(LowCardinality(String), String)",
 		)
 		.meta({ examples: ["Events"] }),
+	spanLinksValueExpression: z
+		.string()
+		.optional()
+		.describe(
+			"Expression to extract span links. Used to capture links from a span to spans in other traces. Expected to be Nested ( TraceId String, SpanId String, TraceState String, Attributes Map(LowCardinality(String), String) )",
+		)
+		.meta({ examples: ["Links"] }),
 	implicitColumnExpression: z
 		.string()
 		.nullish()
@@ -7613,6 +8391,18 @@ export const clickStackTraceSourceSchema = z.object({
 		.describe(
 			"Expressions defining row-level attributes which are displayed in the row side panel for the selected row",
 		),
+	displayedTimestampValueExpression: z
+		.string()
+		.optional()
+		.describe("This DateTime column is used to display and order search results.")
+		.meta({ examples: ["Timestamp"] }),
+	orderByExpression: z
+		.string()
+		.optional()
+		.describe(
+			"Custom ORDER BY expression that overrides the default ordering. Leave empty to use the auto-detected default.",
+		)
+		.meta({ examples: ["Timestamp DESC"] }),
 	materializedViews: z
 		.array(clickStackMaterializedViewSchema)
 		.optional()
@@ -7719,6 +8509,11 @@ export const clickStackSessionSourceSchema = z.object({
 		.string()
 		.describe("HyperDX Source for traces associated with sessions.")
 		.meta({ examples: ["507f1f77bcf86cd799439021"] }),
+	resourceAttributesExpression: z
+		.string()
+		.optional()
+		.describe("Expression to extract resource-level attributes.")
+		.meta({ examples: ["ResourceAttributes"] }),
 });
 
 export const clickStackPromqlSourceSchema = z.object({
@@ -7952,9 +8747,9 @@ export const clickStackWebhookSchema = z.discriminatedUnion("service", [
 	clickStackPagerDutyAPIWebhookSchema.strict(),
 ]);
 
-export const clickStackWebhookInputHeadersSchema = z.record(z.string(), z.string());
+export const clickStackWebhookInputHeadersSchema = z.record(z.string(), z.string().max(4096));
 
-export const clickStackWebhookInputQueryParamsSchema = z.record(z.string(), z.string());
+export const clickStackWebhookInputQueryParamsSchema = z.record(z.string(), z.string().max(4096));
 
 export const clickStackWebhookInputSchema = z.object({
 	name: z
@@ -7977,10 +8772,27 @@ export const clickStackWebhookInputSchema = z.object({
 	body: z
 		.string()
 		.optional()
-		.describe("Optional request body template. Only for generic/incidentio; rejected for slack.")
+		.describe(
+			"Optional Handlebars request body template. Only for generic/incidentio; rejected for slack. Rejected with a 400 if it does not compile or calls a helper other than `eq` and the Handlebars built-ins.",
+		)
 		.meta({ examples: ['{"alert": "{{title}}", "severity": "{{level}}"}'] }),
 	headers: clickStackWebhookInputHeadersSchema.optional(),
 	queryParams: clickStackWebhookInputQueryParamsSchema.optional(),
+});
+
+export const clickStackValidateWebhookResponseErrorsItemSchema = z.object({
+	path: z.string().describe("Dot-separated field path, or empty string for top-level errors."),
+	message: z.string().describe("Human-readable error description."),
+});
+
+export const clickStackValidateWebhookResponseNormalizedSchema = z.object({});
+
+export const clickStackValidateWebhookResponseSchema = z.object({
+	valid: z.boolean().describe("True when the body passes all validation rules."),
+	errors: z
+		.array(clickStackValidateWebhookResponseErrorsItemSchema)
+		.describe("Validation errors. Empty when valid is true."),
+	normalized: z.union([clickStackValidateWebhookResponseNormalizedSchema.strict(), z.null()]),
 });
 
 export const assignedRoleSchema = z.object({
@@ -8998,7 +9810,7 @@ export const serviceClickhouseSettingsMapSchema = z
 	.describe(
 		"Nonempty object mapping configurable setting names to their values. Use DELETE to reset a setting.",
 	)
-	.meta({ examples: [{}] });
+	.meta({ examples: [{ compatibility: "26.2", max_query_size: 262144 }] });
 
 export const serviceClickhouseSettingSchema = z.object({
 	name: z
@@ -9044,7 +9856,7 @@ export const serviceClickhouseSettingsPatchResponseSchema = z.object({
 		.describe(
 			"Nonempty object mapping configurable setting names to their values. Use DELETE to reset a setting.",
 		)
-		.meta({ examples: [{}] }),
+		.meta({ examples: [{ compatibility: "26.2", max_query_size: 262144 }] }),
 	warnings: z
 		.array(serviceClickhouseSettingWarningSchema)
 		.optional()
@@ -9098,6 +9910,43 @@ export const serviceClickhouseSettingsSchemaSchema = z.object({
 		.describe(
 			"List of all configurable ClickHouse settings with their types, descriptions, and constraints.",
 		),
+});
+
+export const postgresIpAccessListEntrySchema = z.object({
+	id: z
+		.string()
+		.optional()
+		.describe(
+			"Rule ID returned by the service. Include it when editing an existing rule; omit it when creating a rule.",
+		),
+	source: z
+		.string()
+		.describe("IPv4 address or CIDR allowed to connect. Returned as a canonical CIDR.")
+		.meta({ examples: ["203.0.113.0/24"] }),
+	portRange: z
+		.string()
+		.describe(
+			'Port or inclusive range, from 1 to 65535. Use "5432" for Postgres, "6432" for PgBouncer, or a range such as "5432..6432".',
+		)
+		.meta({ examples: ["5432"] }),
+	description: z.string().optional().describe("Optional description of the access list entry."),
+});
+
+export const postgresIpAccessListRuleReferenceSchema = z.object({
+	id: z.string().describe("Rule ID returned by the service."),
+});
+
+export const postgresIpAccessListPatchSchema = z.object({
+	add: z
+		.array(postgresIpAccessListEntrySchema)
+		.optional()
+		.describe(
+			"Rules to create or edit after removals. Omit id to create a TCP rule, or include the returned id to edit an existing rule. Updates can partially succeed; read the current list before retrying.",
+		),
+	remove: z
+		.array(postgresIpAccessListRuleReferenceSchema)
+		.optional()
+		.describe("Rules to remove by their returned IDs before creating or editing rules."),
 });
 
 export const pgConfigSchema = z
@@ -9176,6 +10025,13 @@ export const pgConfigSchema = z
 				"Maximum number of parallel workers for maintenance operations like CREATE INDEX and VACUUM.",
 			)
 			.meta({ examples: [2] }),
+		shared_memory_percent: z
+			.union([z.string(), z.int().min(25).max(75)])
+			.optional()
+			.describe(
+				"Percent of VM memory reserved for the shared_memory, from 25% to 75%. shared_buffers sized to fit in it. Limited to 50% on VMs with memory less or equal 16GB",
+			)
+			.meta({ examples: [25] }),
 		statement_timeout: z
 			.union([z.string(), z.int().min(0)])
 			.optional()
@@ -9237,6 +10093,11 @@ export const pgConfigSchema = z
 				"Maximum size WAL can grow between checkpoints. Larger values improve write performance but increase crash recovery time.",
 			)
 			.meta({ examples: ["5GB"] }),
+		checkpoint_timeout: z
+			.union([z.string(), z.int().min(30).max(3600)])
+			.optional()
+			.describe("Sets the maximum time between automatic WAL checkpoints.")
+			.meta({ examples: ["5min"] }),
 		max_slot_wal_keep_size: z
 			.union([z.string(), z.int().min(0)])
 			.optional()
@@ -9250,7 +10111,14 @@ export const pgConfigSchema = z
 			.describe(
 				"Compress full-page writes in WAL. Reduces I/O at the cost of CPU. Options vary by PostgreSQL version.",
 			)
-			.meta({ examples: ["off"] }),
+			.meta({ examples: ["lz4"] }),
+		wal_buffers: z
+			.union([z.string(), z.int().min(32).max(262144)])
+			.optional()
+			.describe(
+				"Sets the number of disk-page buffers in shared memory for WAL. A number without a unit is in 8 kB pages.",
+			)
+			.meta({ examples: ["16MB"] }),
 		autovacuum_max_workers: z
 			.union([z.string(), z.int().min(1)])
 			.optional()
@@ -9293,6 +10161,26 @@ export const pgConfigSchema = z
 				"Fraction of a table's rows that must be inserted before autovacuum runs. Helps vacuum insert-heavy, rarely-updated tables.",
 			)
 			.meta({ examples: [0.2] }),
+		autovacuum_vacuum_threshold: z
+			.union([z.string(), z.int().min(0).max(2147483647)])
+			.optional()
+			.describe("Minimum number of tuple updates or deletes prior to vacuum.")
+			.meta({ examples: [50] }),
+		autovacuum_analyze_threshold: z
+			.union([z.string(), z.int().min(0).max(2147483647)])
+			.optional()
+			.describe("Minimum number of tuple inserts, updates, or deletes prior to analyze.")
+			.meta({ examples: [50] }),
+		autovacuum_vacuum_insert_threshold: z
+			.union([z.string(), z.int().min(-1).max(2147483647)])
+			.optional()
+			.describe("Minimum number of tuple inserts prior to vacuum, or -1 to disable insert vacuums.")
+			.meta({ examples: [1000] }),
+		autovacuum_freeze_max_age: z
+			.union([z.string(), z.int().min(100000).max(2000000000)])
+			.optional()
+			.describe("Age at which to autovacuum a table to prevent transaction ID wraparound.")
+			.meta({ examples: [200000000] }),
 		autovacuum_vacuum_cost_limit: z
 			.union([z.string(), z.int().min(1)])
 			.optional()
@@ -9311,14 +10199,14 @@ export const pgConfigSchema = z
 	.describe(
 		"Postgres [runtime configuration](https://www.postgresql.org/docs/current/runtime-config.html) configuration.",
 	)
-	.meta({ examples: [{}] });
+	.meta({ examples: [{ max_connections: 100 }] });
 
 export const pgBouncerConfigSchema = z
 	.record(z.string(), z.string())
 	.describe(
 		"PgBouncer [runtime configuration](https://www.pgbouncer.org/config.html) configuration.",
 	)
-	.meta({ examples: [{}] });
+	.meta({ examples: [{ default_pool_size: "16" }] });
 
 export const pgStorageSizeSchema = z
 	.int()
@@ -9408,67 +10296,67 @@ export const pgSizeSchema = z
 		"r8gd.16xlarge",
 		"r8gd.24xlarge",
 		"r8gd.48xlarge",
-		"c4a-highmem-4",
-		"c4a-highmem-8",
-		"c4a-highmem-16",
-		"c4a-highmem-32",
-		"c4a-highmem-48",
-		"c4a-highmem-64",
-		"c4a-highmem-72",
-		"c4a-standard-4",
-		"c4a-standard-8",
-		"c4a-standard-16",
-		"c4a-standard-32",
-		"c4a-standard-48",
-		"c4a-standard-64",
-		"c4a-standard-72",
-		"c4-highmem-4",
-		"c4-highmem-8",
-		"c4-highmem-16",
-		"c4-highmem-24",
-		"c4-highmem-32",
-		"c4-highmem-48",
-		"c4-highmem-96",
-		"c4-highmem-144",
-		"c4-highmem-192",
-		"c4-highmem-288",
-		"c4-standard-4",
-		"c4-standard-8",
-		"c4-standard-16",
-		"c4-standard-24",
-		"c4-standard-32",
-		"c4-standard-48",
-		"c4-standard-96",
-		"c4-standard-144",
-		"c4-standard-192",
-		"c4-standard-288",
-		"c4d-highmem-8",
-		"c4d-highmem-16",
-		"c4d-highmem-32",
-		"c4d-highmem-48",
-		"c4d-highmem-64",
-		"c4d-highmem-96",
-		"c4d-highmem-192",
-		"c4d-highmem-384",
-		"c4d-standard-8",
-		"c4d-standard-16",
-		"c4d-standard-32",
-		"c4d-standard-48",
-		"c4d-standard-64",
-		"c4d-standard-96",
-		"c4d-standard-192",
-		"c4d-standard-384",
-		"z3-highlssd-8",
-		"z3-highlssd-16",
-		"z3-highlssd-22",
-		"z3-highlssd-32",
-		"z3-highlssd-44",
-		"z3-highlssd-88",
-		"z3-standardlssd-14",
-		"z3-standardlssd-22",
-		"z3-standardlssd-44",
-		"z3-standardlssd-88",
-		"z3-standardlssd-176",
+		"c4a-highmem-lssd-4",
+		"c4a-highmem-lssd-8",
+		"c4a-highmem-lssd-16",
+		"c4a-highmem-lssd-32",
+		"c4a-highmem-lssd-48",
+		"c4a-highmem-lssd-64",
+		"c4a-highmem-lssd-72",
+		"c4a-standard-lssd-4",
+		"c4a-standard-lssd-8",
+		"c4a-standard-lssd-16",
+		"c4a-standard-lssd-32",
+		"c4a-standard-lssd-48",
+		"c4a-standard-lssd-64",
+		"c4a-standard-lssd-72",
+		"c4-highmem-lssd-4",
+		"c4-highmem-lssd-8",
+		"c4-highmem-lssd-16",
+		"c4-highmem-lssd-24",
+		"c4-highmem-lssd-32",
+		"c4-highmem-lssd-48",
+		"c4-highmem-lssd-96",
+		"c4-highmem-lssd-144",
+		"c4-highmem-lssd-192",
+		"c4-highmem-lssd-288",
+		"c4-standard-lssd-4",
+		"c4-standard-lssd-8",
+		"c4-standard-lssd-16",
+		"c4-standard-lssd-24",
+		"c4-standard-lssd-32",
+		"c4-standard-lssd-48",
+		"c4-standard-lssd-96",
+		"c4-standard-lssd-144",
+		"c4-standard-lssd-192",
+		"c4-standard-lssd-288",
+		"c4d-highmem-lssd-8",
+		"c4d-highmem-lssd-16",
+		"c4d-highmem-lssd-32",
+		"c4d-highmem-lssd-48",
+		"c4d-highmem-lssd-64",
+		"c4d-highmem-lssd-96",
+		"c4d-highmem-lssd-192",
+		"c4d-highmem-lssd-384",
+		"c4d-standard-lssd-8",
+		"c4d-standard-lssd-16",
+		"c4d-standard-lssd-32",
+		"c4d-standard-lssd-48",
+		"c4d-standard-lssd-64",
+		"c4d-standard-lssd-96",
+		"c4d-standard-lssd-192",
+		"c4d-standard-lssd-384",
+		"z3-highmem-highlssd-8",
+		"z3-highmem-highlssd-16",
+		"z3-highmem-highlssd-22",
+		"z3-highmem-highlssd-32",
+		"z3-highmem-highlssd-44",
+		"z3-highmem-highlssd-88",
+		"z3-highmem-standardlssd-14",
+		"z3-highmem-standardlssd-22",
+		"z3-highmem-standardlssd-44",
+		"z3-highmem-standardlssd-88",
+		"z3-highmem-standardlssd-176",
 	])
 	.describe("The VM size for a Postgres service.");
 
@@ -9570,6 +10458,12 @@ export const postgresServiceSchema = z.object({
 		.describe(
 			"Tags associated with the Postgres service. Tag keys starting with “chc_” are reserved for internal use.",
 		),
+	ipAccessList: z
+		.array(postgresIpAccessListEntrySchema)
+		.optional()
+		.describe(
+			"IPv4 access rules shown in the console. IPv6 rules are not included. Returned when reading or configuring access; omitted from other service updates.",
+		),
 	id: pgIdPropertySchema.optional().meta({ examples: ["f71df78e-ddad-82d0-8dfa-abbec741b82e"] }),
 	storageSize: pgStorageSizeSchema
 		.optional()
@@ -9614,21 +10508,28 @@ export const postgresServicePostRequestSchema = z.object({
 		.describe(
 			"Tags associated with the Postgres service. Tag keys starting with “chc_” are reserved for internal use.",
 		),
+	ipAccessList: z
+		.array(postgresIpAccessListEntrySchema)
+		.optional()
+		.describe(
+			"IPv4 TCP access rules to apply when creating the service. Omit to allow all IPv4 and IPv6 addresses on Postgres (5432) and PgBouncer (6432). Provide an empty list to block public access. When provided, only these rules are allowed; include separate rules for each required port.",
+		),
 	pgConfig: pgConfigSchema
 		.optional()
 		.describe(
 			"Postgres [runtime configuration](https://www.postgresql.org/docs/current/runtime-config.html) configuration.",
 		)
-		.meta({ examples: [{}] }),
+		.meta({ examples: [{ max_connections: 100 }] }),
 	pgBouncerConfig: pgBouncerConfigSchema
 		.optional()
 		.describe(
 			"PgBouncer [runtime configuration](https://www.pgbouncer.org/config.html) configuration.",
 		)
-		.meta({ examples: [{}] }),
+		.meta({ examples: [{ default_pool_size: "16" }] }),
 });
 
 export const postgresServicePatchRequestSchema = z.object({
+	ipAccessList: postgresIpAccessListPatchSchema.optional(),
 	name: pgNamePropertySchema
 		.optional()
 		.describe(
@@ -9677,13 +10578,13 @@ export const postgresServiceRestoreRequestSchema = z.object({
 		.describe(
 			"Postgres [runtime configuration](https://www.postgresql.org/docs/current/runtime-config.html) configuration.",
 		)
-		.meta({ examples: [{}] }),
+		.meta({ examples: [{ max_connections: 100 }] }),
 	pgBouncerConfig: pgBouncerConfigSchema
 		.optional()
 		.describe(
 			"PgBouncer [runtime configuration](https://www.pgbouncer.org/config.html) configuration.",
 		)
-		.meta({ examples: [{}] }),
+		.meta({ examples: [{ default_pool_size: "16" }] }),
 	tags: pgTagsSchema
 		.optional()
 		.describe(
@@ -9753,13 +10654,13 @@ export const postgresServiceReadReplicaRequestSchema = z.object({
 		.describe(
 			"Postgres [runtime configuration](https://www.postgresql.org/docs/current/runtime-config.html) configuration.",
 		)
-		.meta({ examples: [{}] }),
+		.meta({ examples: [{ max_connections: 100 }] }),
 	pgBouncerConfig: pgBouncerConfigSchema
 		.optional()
 		.describe(
 			"PgBouncer [runtime configuration](https://www.pgbouncer.org/config.html) configuration.",
 		)
-		.meta({ examples: [{}] }),
+		.meta({ examples: [{ default_pool_size: "16" }] }),
 	tags: pgTagsSchema
 		.optional()
 		.describe(
@@ -9772,12 +10673,12 @@ export const postgresInstanceConfigSchema = z.object({
 		.describe(
 			"Postgres [runtime configuration](https://www.postgresql.org/docs/current/runtime-config.html) configuration.",
 		)
-		.meta({ examples: [{}] }),
+		.meta({ examples: [{ max_connections: 100 }] }),
 	pgBouncerConfig: pgBouncerConfigSchema
 		.describe(
 			"PgBouncer [runtime configuration](https://www.pgbouncer.org/config.html) configuration.",
 		)
-		.meta({ examples: [{}] }),
+		.meta({ examples: [{ default_pool_size: "16" }] }),
 });
 
 export const postgresInstanceUpdateConfigResponseSchema = z.object({
@@ -9785,12 +10686,12 @@ export const postgresInstanceUpdateConfigResponseSchema = z.object({
 		.describe(
 			"Postgres [runtime configuration](https://www.postgresql.org/docs/current/runtime-config.html) configuration.",
 		)
-		.meta({ examples: [{}] }),
+		.meta({ examples: [{ max_connections: 100 }] }),
 	pgBouncerConfig: pgBouncerConfigSchema
 		.describe(
 			"PgBouncer [runtime configuration](https://www.pgbouncer.org/config.html) configuration.",
 		)
-		.meta({ examples: [{}] }),
+		.meta({ examples: [{ default_pool_size: "16" }] }),
 	message: z
 		.string()
 		.optional()
@@ -9819,7 +10720,7 @@ export const postgresMetricSeriesSchema = z.object({
 	label: z
 		.string()
 		.describe(
-			'Distinguishing label for this series within the metric (for example a CPU mode, a database name, or "Reads").',
+			'Distinguishing label for this series within the metric (for example a CPU mode, a database name, a wait event such as "Lock:relation", or "Reads").',
 		),
 	dataPoints: z
 		.array(postgresMetricDataPointSchema)
@@ -9830,7 +10731,7 @@ export const postgresMetricSchema = z.object({
 	key: z
 		.string()
 		.describe(
-			"Stable metric identifier (for example cpu_usage, connection_count, cache_hit_ratio).",
+			"Stable metric identifier (for example cpu_usage, connection_count, cache_hit_ratio, active_sessions_by_wait).",
 		),
 	name: z.string().describe("Human-readable metric name."),
 	unit: z.string().describe("Unit of the metric values (for example %, IOPS, bytes/s, count)."),
@@ -10156,7 +11057,22 @@ export const servicePostRequestSchema = z.object({
 		.describe(
 			"The `encryption_config.json` stored alongside this backup in your bucket, passed through unchanged. Supply the file contents verbatim rather than constructing this object — its shape is versioned and depends on your cloud provider. See [Export backups to your own cloud account](https://clickhouse.com/docs/cloud/manage/backups/export-backups-to-own-cloud-account) for what it contains.\n\nAccepted only for organizations enrolled in the private preview, and only when the backup is of a service that has transparent data encryption enabled. Such a restore always produces a service with transparent data encryption enabled, inherited from the source service.",
 		)
-		.meta({ examples: [{}] }),
+		.meta({
+			examples: [
+				{
+					schema_version: 1,
+					restore_key_pairs: [
+						{
+							customer_managed_encryption_key: {
+								aws_kms_key_arn:
+									"arn:aws:kms:us-east-1:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+							},
+							encrypted_dek: "<base64 wrapped data encryption key>",
+						},
+					],
+				},
+			],
+		}),
 	encryptionKey: z.string().optional().describe("Optional customer provided disk encryption key"),
 	encryptionAssumedRoleIdentifier: z
 		.string()
@@ -10230,7 +11146,7 @@ export const servicePatchRequestSchema = z.object({
 		.enum(["slow", "default", "fast"])
 		.optional()
 		.describe(
-			"Select fast if you want to get new ClickHouse releases as soon as they are available. You'll get new features faster, but with a higher risk of bugs. Select slow if you would like to defer releases to give yourself more time to test. This feature is only available for production services. default is the regular release channel.",
+			"Select fast if you want to get new ClickHouse releases as soon as they are available. You'll get new features faster, but with a higher risk of bugs. Select slow if you would like to defer releases to give yourself more time to test. This feature is only available for production services. default is the regular release channel. All services in a warehouse share one release channel, so changing it on one service changes it for all of them. Changing it through a secondary service also requires the `control-plane:service:manage` permission on the warehouse's primary service.",
 		),
 	endpoints: z
 		.array(serviceEndpointChangeSchema)
@@ -10645,7 +11561,7 @@ export const serviceClickhouseSettingsPatchRequestSchema = z.object({
 		.describe(
 			"Nonempty object mapping configurable setting names to their values. Use DELETE to reset a setting.",
 		)
-		.meta({ examples: [{}] }),
+		.meta({ examples: [{ compatibility: "26.2", max_query_size: 262144 }] }),
 });
 
 export const backupConfigurationPatchRequestSchema = z.object({
@@ -14478,6 +15394,113 @@ export const activityGetErrorSchema = z.union([
 	activityGetStatus500Schema,
 ]);
 
+export const notificationGetListPathOrganizationIdSchema = z
+	.uuid()
+	.describe("ID of the organization the notifications belong to.");
+
+export const notificationGetListQueryLimitSchema = z
+	.int()
+	.min(1)
+	.max(250)
+	.optional()
+	.default(100)
+	.describe("Maximum number of results to return.");
+
+export const notificationGetListQueryCursorSchema = z
+	.string()
+	.optional()
+	.describe(
+		"Opaque cursor from a previous response's `nextCursor`, marking where to resume the list.",
+	);
+
+export const notificationGetListQuerySeveritySchema = z
+	.string()
+	.optional()
+	.describe("Filter to notifications of this severity: 'info', 'warning', 'critical'.")
+	.meta({ examples: ["warning"] });
+
+export const notificationGetListQueryTypeSchema = z
+	.string()
+	.optional()
+	.describe(
+		"Filter to notifications of this type. New types are added over time; the [notification types endpoint](#tag/Notifications/operation/notificationTypesGetList) lists the ones this organization can receive.",
+	);
+
+export const notificationGetListQueryResourceIdSchema = z
+	.string()
+	.optional()
+	.describe(
+		"Filter to notifications about this resource. A service also matches the notifications of its ClickPipes; pass `resource_type` to narrow to one kind of resource.",
+	);
+
+export const notificationGetListQueryResourceTypeSchema = z
+	.string()
+	.optional()
+	.describe(
+		"Filter to notifications about resources of this kind. One of 'service', 'organization', 'clickpipe', 'postgres'.",
+	)
+	.meta({ examples: ["service"] });
+
+export const notificationGetListQueryFromDateSchema = z.iso
+	.datetime()
+	.optional()
+	.describe(
+		"Return notifications created at or after this time. An RFC 3339 timestamp, not a bare date.",
+	)
+	.meta({ examples: ["2026-10-01T00:00:00Z"] });
+
+export const notificationGetListQueryToDateSchema = z.iso
+	.datetime()
+	.optional()
+	.describe(
+		"Return notifications created at or before this time. An RFC 3339 timestamp, not a bare date.",
+	)
+	.meta({ examples: ["2026-10-08T00:00:00Z"] });
+
+export const notificationGetListStatus200Schema = z.object({
+	status: z
+		.number()
+		.optional()
+		.describe("HTTP status code.")
+		.meta({ examples: [200] }),
+	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
+	result: z.array(notificationSchema).optional(),
+	limit: z.int().optional().describe("Maximum number of results returned in this page."),
+	nextCursor: z
+		.string()
+		.nullish()
+		.describe(
+			"Cursor for the next page, to be sent as the `cursor` query parameter. Null on the last page.",
+		),
+});
+
+export const notificationGetListStatus400Schema = z.object({
+	status: z
+		.number()
+		.optional()
+		.describe("HTTP status code.")
+		.meta({ examples: [400] }),
+	error: z.string().optional().describe("Detailed error description."),
+	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
+});
+
+export const notificationGetListStatus500Schema = z.object({
+	status: z
+		.int()
+		.optional()
+		.describe("HTTP status code.")
+		.meta({ examples: [500] }),
+	error: z.string().optional().describe("Detailed error description."),
+	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
+});
+
+export const notificationGetListResponseSchema = notificationGetListStatus200Schema;
+
+export const notificationGetListErrorSchema = z.union([
+	notificationGetListStatus400Schema,
+	notificationGetListStatus500Schema,
+]);
+
 export const notificationTypesGetListPathOrganizationIdSchema = z
 	.uuid()
 	.describe("ID of the requested organization.");
@@ -16177,6 +17200,51 @@ export const clickStackCreateWebhookErrorSchema = z.union([
 ]);
 
 export const clickStackCreateWebhookBodySchema = clickStackWebhookInputSchema.optional();
+
+export const clickStackValidateWebhookPathOrganizationIdSchema = z
+	.uuid()
+	.describe("ID of the organization that owns the service.");
+
+export const clickStackValidateWebhookPathServiceIdSchema = z
+	.uuid()
+	.describe("ID of the ClickStack service.");
+
+export const clickStackValidateWebhookStatus200Schema = z.object({
+	status: z
+		.number()
+		.optional()
+		.describe("HTTP status code.")
+		.meta({ examples: [200] }),
+	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
+	result: clickStackValidateWebhookResponseSchema.optional(),
+});
+
+export const clickStackValidateWebhookStatus400Schema = z.object({
+	status: z
+		.number()
+		.optional()
+		.describe("HTTP status code.")
+		.meta({ examples: [400] }),
+	error: z.string().optional().describe("Detailed error description."),
+	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
+});
+
+export const clickStackValidateWebhookStatus500Schema = z.object({
+	status: z
+		.int()
+		.optional()
+		.describe("HTTP status code.")
+		.meta({ examples: [500] }),
+	error: z.string().optional().describe("Detailed error description."),
+	requestId: z.uuid().optional().describe("Unique id assigned to every request. UUIDv4"),
+});
+
+export const clickStackValidateWebhookErrorSchema = z.union([
+	clickStackValidateWebhookStatus400Schema,
+	clickStackValidateWebhookStatus500Schema,
+]);
+
+export const clickStackValidateWebhookBodySchema = clickStackWebhookInputSchema.optional();
 
 export const clickStackUpdateWebhookPathOrganizationIdSchema = z
 	.uuid()

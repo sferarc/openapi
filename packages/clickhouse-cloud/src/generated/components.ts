@@ -208,6 +208,10 @@ import type {
 	ClickStackValidateDashboardResponse,
 	ClickStackValidateDashboardStatus400,
 	ClickStackValidateDashboardStatus500,
+	ClickStackValidateWebhookBody,
+	ClickStackValidateWebhookResponse,
+	ClickStackValidateWebhookStatus400,
+	ClickStackValidateWebhookStatus500,
 	CreditBalancesGetResponse,
 	CreditBalancesGetStatus400,
 	CreditBalancesGetStatus500,
@@ -290,6 +294,9 @@ import type {
 	MemberUpdateResponse,
 	MemberUpdateStatus400,
 	MemberUpdateStatus500,
+	NotificationGetListResponse,
+	NotificationGetListStatus400,
+	NotificationGetListStatus500,
 	NotificationTypesGetListResponse,
 	NotificationTypesGetListStatus400,
 	NotificationTypesGetListStatus500,
@@ -710,11 +717,7 @@ export async function organizationGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -752,11 +755,7 @@ export async function organizationUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -799,11 +798,7 @@ export async function organizationPrometheusGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -845,11 +840,7 @@ export async function organizationPrometheusDiscoveryGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -888,11 +879,7 @@ export async function organizationRolesGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -930,11 +917,7 @@ export async function organizationRolePost(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -971,19 +954,11 @@ export async function organizationRoleGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.roleId === undefined ||
-		pathParams.roleId === null ||
-		String(pathParams.roleId) === ""
-	) {
+	if (pathParams?.roleId == null || String(pathParams.roleId) === "") {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -1021,19 +996,11 @@ export async function organizationRolePatch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.roleId === undefined ||
-		pathParams.roleId === null ||
-		String(pathParams.roleId) === ""
-	) {
+	if (pathParams?.roleId == null || String(pathParams.roleId) === "") {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -1070,19 +1037,11 @@ export async function organizationRoleDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.roleId === undefined ||
-		pathParams.roleId === null ||
-		String(pathParams.roleId) === ""
-	) {
+	if (pathParams?.roleId == null || String(pathParams.roleId) === "") {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -1118,11 +1077,7 @@ export async function organizationQuotasGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -1158,19 +1113,11 @@ export async function organizationQuotaGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.quotaCode === undefined ||
-		pathParams.quotaCode === null ||
-		String(pathParams.quotaCode) === ""
-	) {
+	if (pathParams?.quotaCode == null || String(pathParams.quotaCode) === "") {
 		throw new Error(`Missing required path parameter: quotaCode`);
 	}
 	const data = await request<
@@ -1208,11 +1155,7 @@ export async function serviceProfilesList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -1251,11 +1194,7 @@ export async function instanceGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -1294,11 +1233,7 @@ export async function instanceCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -1335,19 +1270,11 @@ export async function instanceGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1385,19 +1312,11 @@ export async function instanceUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1434,19 +1353,11 @@ export async function instanceDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1482,19 +1393,11 @@ export async function instancePrivateEndpointConfigGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1532,19 +1435,11 @@ export async function instanceQueryEndpointGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1580,19 +1475,11 @@ export async function instanceQueryEndpointDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1630,19 +1517,11 @@ export async function instanceQueryEndpointUpsert(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1681,19 +1560,11 @@ export async function instanceStateUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1733,19 +1604,11 @@ export async function instanceScalingUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1784,19 +1647,11 @@ export async function instanceReplicaScalingUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1835,19 +1690,11 @@ export async function instancePasswordUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1886,19 +1733,11 @@ export async function instancePrivateEndpointCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1937,19 +1776,11 @@ export async function instancePrometheusGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -1986,19 +1817,11 @@ export async function scalingScheduleGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2036,19 +1859,11 @@ export async function scalingScheduleUpsert(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2085,19 +1900,11 @@ export async function scalingScheduleDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2137,19 +1944,11 @@ export async function upgradeWindowGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2192,19 +1991,11 @@ export async function upgradeWindowUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2246,19 +2037,11 @@ export async function upgradeWindowDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2294,19 +2077,11 @@ export async function serviceClickhouseSettingsListGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2346,19 +2121,11 @@ export async function serviceClickhouseSettingsUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2397,19 +2164,11 @@ export async function serviceClickhouseSettingsSchemaGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2447,27 +2206,15 @@ export async function serviceClickhouseSettingGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.settingName === undefined ||
-		pathParams.settingName === null ||
-		String(pathParams.settingName) === ""
-	) {
+	if (pathParams?.settingName == null || String(pathParams.settingName) === "") {
 		throw new Error(`Missing required path parameter: settingName`);
 	}
 	const data = await request<
@@ -2503,27 +2250,15 @@ export async function serviceClickhouseSettingDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.settingName === undefined ||
-		pathParams.settingName === null ||
-		String(pathParams.settingName) === ""
-	) {
+	if (pathParams?.settingName == null || String(pathParams.settingName) === "") {
 		throw new Error(`Missing required path parameter: settingName`);
 	}
 	const data = await request<
@@ -2559,19 +2294,11 @@ export async function backupGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2607,27 +2334,15 @@ export async function backupGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.backupId === undefined ||
-		pathParams.backupId === null ||
-		String(pathParams.backupId) === ""
-	) {
+	if (pathParams?.backupId == null || String(pathParams.backupId) === "") {
 		throw new Error(`Missing required path parameter: backupId`);
 	}
 	const data = await request<
@@ -2665,19 +2380,11 @@ export async function snapshotGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2714,27 +2421,15 @@ export async function snapshotGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.snapshotId === undefined ||
-		pathParams.snapshotId === null ||
-		String(pathParams.snapshotId) === ""
-	) {
+	if (pathParams?.snapshotId == null || String(pathParams.snapshotId) === "") {
 		throw new Error(`Missing required path parameter: snapshotId`);
 	}
 	const data = await request<
@@ -2770,19 +2465,11 @@ export async function backupConfigurationGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2820,19 +2507,11 @@ export async function backupConfigurationUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2869,19 +2548,11 @@ export async function snapshotConfigurationGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2919,19 +2590,11 @@ export async function snapshotConfigurationUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -2968,19 +2631,11 @@ export async function replicaAwareRoutingGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -3018,19 +2673,11 @@ export async function replicaAwareRoutingUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -3067,19 +2714,11 @@ export async function backupBucketGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -3117,19 +2756,11 @@ export async function backupBucketCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -3168,19 +2799,11 @@ export async function backupBucketUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -3217,19 +2840,11 @@ export async function backupBucketDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -3267,11 +2882,7 @@ export async function openapiKeyGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3310,11 +2921,7 @@ export async function openapiKeyCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3351,19 +2958,11 @@ export async function openapiKeyGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.keyId === undefined ||
-		pathParams.keyId === null ||
-		String(pathParams.keyId) === ""
-	) {
+	if (pathParams?.keyId == null || String(pathParams.keyId) === "") {
 		throw new Error(`Missing required path parameter: keyId`);
 	}
 	const data = await request<
@@ -3401,19 +3000,11 @@ export async function openapiKeyUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.keyId === undefined ||
-		pathParams.keyId === null ||
-		String(pathParams.keyId) === ""
-	) {
+	if (pathParams?.keyId == null || String(pathParams.keyId) === "") {
 		throw new Error(`Missing required path parameter: keyId`);
 	}
 	const data = await request<
@@ -3450,19 +3041,11 @@ export async function openapiKeyDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.keyId === undefined ||
-		pathParams.keyId === null ||
-		String(pathParams.keyId) === ""
-	) {
+	if (pathParams?.keyId == null || String(pathParams.keyId) === "") {
 		throw new Error(`Missing required path parameter: keyId`);
 	}
 	const data = await request<
@@ -3498,11 +3081,7 @@ export async function memberGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3538,19 +3117,11 @@ export async function memberGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -3588,19 +3159,11 @@ export async function memberUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -3637,19 +3200,11 @@ export async function memberDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -3685,11 +3240,7 @@ export async function invitationGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3727,11 +3278,7 @@ export async function invitationCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3768,19 +3315,11 @@ export async function invitationGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.invitationId === undefined ||
-		pathParams.invitationId === null ||
-		String(pathParams.invitationId) === ""
-	) {
+	if (pathParams?.invitationId == null || String(pathParams.invitationId) === "") {
 		throw new Error(`Missing required path parameter: invitationId`);
 	}
 	const data = await request<
@@ -3816,19 +3355,11 @@ export async function invitationDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.invitationId === undefined ||
-		pathParams.invitationId === null ||
-		String(pathParams.invitationId) === ""
-	) {
+	if (pathParams?.invitationId == null || String(pathParams.invitationId) === "") {
 		throw new Error(`Missing required path parameter: invitationId`);
 	}
 	const data = await request<
@@ -3866,11 +3397,7 @@ export async function activityGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3907,19 +3434,11 @@ export async function activityGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.activityId === undefined ||
-		pathParams.activityId === null ||
-		String(pathParams.activityId) === ""
-	) {
+	if (pathParams?.activityId == null || String(pathParams.activityId) === "") {
 		throw new Error(`Missing required path parameter: activityId`);
 	}
 	const data = await request<
@@ -3932,6 +3451,63 @@ export async function activityGet(
 	>({
 		method: "GET",
 		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/activities/${encodeURIComponent(String(pathParams.activityId))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List of organization notifications
+ * @description **Disclaimer:** This beta endpoint is evolving; the API contract may change. <br /><br /> Returns notifications for the organization, most recent first. Only notifications about resources the caller can access are returned, so two keys in the same organization can see different results. The [notification types endpoint](#tag/Notifications/operation/notificationTypesGetList) lists the types this organization can receive, so it shows what to expect here. Notifications are retained for 180 days. A page holds at most `limit` notifications (default 100, maximum 250; a larger value is clamped) and the server may return fewer. Every response carries `limit` and `nextCursor`; pass `nextCursor` as the `cursor` query parameter to fetch the next page, repeating until it is null.
+ * @link /v1/organizations/{organizationId}/notifications
+ */
+export async function notificationGetList(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { organizationId: string };
+		queryParams?: {
+			limit?: number;
+			cursor?: string;
+			severity?: string;
+			type?: string;
+			resource_id?: string;
+			resource_type?: string;
+			from_date?: string;
+			to_date?: string;
+		};
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+	const data = await request<
+		NotificationGetListResponse,
+		ErrorWrapper<NotificationGetListStatus400 | NotificationGetListStatus500>,
+		null,
+		Record<string, string>,
+		{
+			limit?: number;
+			cursor?: string;
+			severity?: string;
+			type?: string;
+			resource_id?: string;
+			resource_type?: string;
+			from_date?: string;
+			to_date?: string;
+		},
+		{ organizationId: string }
+	>({
+		method: "GET",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/notifications`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3955,11 +3531,7 @@ export async function notificationTypesGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -3997,11 +3569,7 @@ export async function usageCostGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -4041,11 +3609,7 @@ export async function activeBalancesGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -4082,11 +3646,7 @@ export async function creditBalancesGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -4122,19 +3682,11 @@ export async function clickPipeGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4172,19 +3724,11 @@ export async function clickPipeCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4221,19 +3765,11 @@ export async function clickPipesServiceContextGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4269,27 +3805,15 @@ export async function clickPipeGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickPipeId === undefined ||
-		pathParams.clickPipeId === null ||
-		String(pathParams.clickPipeId) === ""
-	) {
+	if (pathParams?.clickPipeId == null || String(pathParams.clickPipeId) === "") {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -4327,27 +3851,15 @@ export async function clickPipeUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickPipeId === undefined ||
-		pathParams.clickPipeId === null ||
-		String(pathParams.clickPipeId) === ""
-	) {
+	if (pathParams?.clickPipeId == null || String(pathParams.clickPipeId) === "") {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -4384,27 +3896,15 @@ export async function clickPipeDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickPipeId === undefined ||
-		pathParams.clickPipeId === null ||
-		String(pathParams.clickPipeId) === ""
-	) {
+	if (pathParams?.clickPipeId == null || String(pathParams.clickPipeId) === "") {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -4440,27 +3940,15 @@ export async function clickPipeSettingsGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickPipeId === undefined ||
-		pathParams.clickPipeId === null ||
-		String(pathParams.clickPipeId) === ""
-	) {
+	if (pathParams?.clickPipeId == null || String(pathParams.clickPipeId) === "") {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -4498,27 +3986,15 @@ export async function clickPipeSettingsUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickPipeId === undefined ||
-		pathParams.clickPipeId === null ||
-		String(pathParams.clickPipeId) === ""
-	) {
+	if (pathParams?.clickPipeId == null || String(pathParams.clickPipeId) === "") {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -4557,19 +4033,11 @@ export async function clickPipeSchemaDiscovery(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4609,27 +4077,15 @@ export async function clickPipeScalingUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickPipeId === undefined ||
-		pathParams.clickPipeId === null ||
-		String(pathParams.clickPipeId) === ""
-	) {
+	if (pathParams?.clickPipeId == null || String(pathParams.clickPipeId) === "") {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -4668,27 +4124,15 @@ export async function clickPipeStateUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickPipeId === undefined ||
-		pathParams.clickPipeId === null ||
-		String(pathParams.clickPipeId) === ""
-	) {
+	if (pathParams?.clickPipeId == null || String(pathParams.clickPipeId) === "") {
 		throw new Error(`Missing required path parameter: clickPipeId`);
 	}
 	const data = await request<
@@ -4728,19 +4172,11 @@ export async function clickPipeCdcScalingGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4782,19 +4218,11 @@ export async function clickPipeCdcScalingUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4831,19 +4259,11 @@ export async function clickStackListDashboards(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4881,19 +4301,11 @@ export async function clickStackCreateDashboard(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -4930,25 +4342,16 @@ export async function clickStackGetDashboard(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
 	if (
-		pathParams.clickStackDashboardId === undefined ||
-		pathParams.clickStackDashboardId === null ||
+		pathParams?.clickStackDashboardId == null ||
 		String(pathParams.clickStackDashboardId) === ""
 	) {
 		throw new Error(`Missing required path parameter: clickStackDashboardId`);
@@ -4988,25 +4391,16 @@ export async function clickStackUpdateDashboard(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
 	if (
-		pathParams.clickStackDashboardId === undefined ||
-		pathParams.clickStackDashboardId === null ||
+		pathParams?.clickStackDashboardId == null ||
 		String(pathParams.clickStackDashboardId) === ""
 	) {
 		throw new Error(`Missing required path parameter: clickStackDashboardId`);
@@ -5045,25 +4439,16 @@ export async function clickStackDeleteDashboard(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
 	if (
-		pathParams.clickStackDashboardId === undefined ||
-		pathParams.clickStackDashboardId === null ||
+		pathParams?.clickStackDashboardId == null ||
 		String(pathParams.clickStackDashboardId) === ""
 	) {
 		throw new Error(`Missing required path parameter: clickStackDashboardId`);
@@ -5103,19 +4488,11 @@ export async function clickStackValidateDashboard(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -5154,19 +4531,11 @@ export async function clickStackListAlerts(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -5205,19 +4574,11 @@ export async function clickStackCreateAlert(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -5254,19 +4615,11 @@ export async function clickStackListSources(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -5304,19 +4657,11 @@ export async function clickStackCreateSource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -5353,27 +4698,15 @@ export async function clickStackGetSource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickStackSourceId === undefined ||
-		pathParams.clickStackSourceId === null ||
-		String(pathParams.clickStackSourceId) === ""
-	) {
+	if (pathParams?.clickStackSourceId == null || String(pathParams.clickStackSourceId) === "") {
 		throw new Error(`Missing required path parameter: clickStackSourceId`);
 	}
 	const data = await request<
@@ -5411,27 +4744,15 @@ export async function clickStackUpdateSource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickStackSourceId === undefined ||
-		pathParams.clickStackSourceId === null ||
-		String(pathParams.clickStackSourceId) === ""
-	) {
+	if (pathParams?.clickStackSourceId == null || String(pathParams.clickStackSourceId) === "") {
 		throw new Error(`Missing required path parameter: clickStackSourceId`);
 	}
 	const data = await request<
@@ -5468,27 +4789,15 @@ export async function clickStackDeleteSource(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickStackSourceId === undefined ||
-		pathParams.clickStackSourceId === null ||
-		String(pathParams.clickStackSourceId) === ""
-	) {
+	if (pathParams?.clickStackSourceId == null || String(pathParams.clickStackSourceId) === "") {
 		throw new Error(`Missing required path parameter: clickStackSourceId`);
 	}
 	const data = await request<
@@ -5524,27 +4833,15 @@ export async function clickStackGetAlert(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickStackAlertId === undefined ||
-		pathParams.clickStackAlertId === null ||
-		String(pathParams.clickStackAlertId) === ""
-	) {
+	if (pathParams?.clickStackAlertId == null || String(pathParams.clickStackAlertId) === "") {
 		throw new Error(`Missing required path parameter: clickStackAlertId`);
 	}
 	const data = await request<
@@ -5582,27 +4879,15 @@ export async function clickStackUpdateAlert(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickStackAlertId === undefined ||
-		pathParams.clickStackAlertId === null ||
-		String(pathParams.clickStackAlertId) === ""
-	) {
+	if (pathParams?.clickStackAlertId == null || String(pathParams.clickStackAlertId) === "") {
 		throw new Error(`Missing required path parameter: clickStackAlertId`);
 	}
 	const data = await request<
@@ -5639,27 +4924,15 @@ export async function clickStackDeleteAlert(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickStackAlertId === undefined ||
-		pathParams.clickStackAlertId === null ||
-		String(pathParams.clickStackAlertId) === ""
-	) {
+	if (pathParams?.clickStackAlertId == null || String(pathParams.clickStackAlertId) === "") {
 		throw new Error(`Missing required path parameter: clickStackAlertId`);
 	}
 	const data = await request<
@@ -5697,19 +4970,11 @@ export async function clickStackListWebhooks(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -5748,19 +5013,11 @@ export async function clickStackCreateWebhook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -5773,6 +5030,49 @@ export async function clickStackCreateWebhook(
 	>({
 		method: "POST",
 		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/webhooks`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary ClickStack: Validate Webhook
+ * @description **This endpoint is in beta.** API contract is stable, and no breaking changes are expected in the future. <br /><br /> ClickStack: Validates a webhook body against the same schema, URL rules, and body template check used by POST /api/v2/webhooks. The webhook is **never persisted**. Use this endpoint at plan time (e.g. from a Terraform provider) to check that a webhook configuration is valid before applying it. Name uniqueness is not checked.
+ * @link /v1/organizations/{organizationId}/services/{serviceId}/clickstack/webhooks/validate
+ */
+export async function clickStackValidateWebhook(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: { organizationId: string; serviceId: string };
+		body?: ClickStackValidateWebhookBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
+		throw new Error(`Missing required path parameter: serviceId`);
+	}
+	const data = await request<
+		ClickStackValidateWebhookResponse,
+		ErrorWrapper<ClickStackValidateWebhookStatus400 | ClickStackValidateWebhookStatus500>,
+		ClickStackValidateWebhookBody,
+		Record<string, string>,
+		Record<string, string>,
+		{ organizationId: string; serviceId: string }
+	>({
+		method: "POST",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/services/${encodeURIComponent(String(pathParams.serviceId))}/clickstack/webhooks/validate`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5799,27 +5099,15 @@ export async function clickStackUpdateWebhook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickStackWebhookId === undefined ||
-		pathParams.clickStackWebhookId === null ||
-		String(pathParams.clickStackWebhookId) === ""
-	) {
+	if (pathParams?.clickStackWebhookId == null || String(pathParams.clickStackWebhookId) === "") {
 		throw new Error(`Missing required path parameter: clickStackWebhookId`);
 	}
 	const data = await request<
@@ -5856,27 +5144,15 @@ export async function clickStackDeleteWebhook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickStackWebhookId === undefined ||
-		pathParams.clickStackWebhookId === null ||
-		String(pathParams.clickStackWebhookId) === ""
-	) {
+	if (pathParams?.clickStackWebhookId == null || String(pathParams.clickStackWebhookId) === "") {
 		throw new Error(`Missing required path parameter: clickStackWebhookId`);
 	}
 	const data = await request<
@@ -5912,19 +5188,11 @@ export async function clickStackListRoles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -5962,19 +5230,11 @@ export async function clickStackCreateRole(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -6011,27 +5271,15 @@ export async function clickStackGetRole(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickStackRoleId === undefined ||
-		pathParams.clickStackRoleId === null ||
-		String(pathParams.clickStackRoleId) === ""
-	) {
+	if (pathParams?.clickStackRoleId == null || String(pathParams.clickStackRoleId) === "") {
 		throw new Error(`Missing required path parameter: clickStackRoleId`);
 	}
 	const data = await request<
@@ -6069,27 +5317,15 @@ export async function clickStackUpdateRole(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickStackRoleId === undefined ||
-		pathParams.clickStackRoleId === null ||
-		String(pathParams.clickStackRoleId) === ""
-	) {
+	if (pathParams?.clickStackRoleId == null || String(pathParams.clickStackRoleId) === "") {
 		throw new Error(`Missing required path parameter: clickStackRoleId`);
 	}
 	const data = await request<
@@ -6126,27 +5362,15 @@ export async function clickStackDeleteRole(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.clickStackRoleId === undefined ||
-		pathParams.clickStackRoleId === null ||
-		String(pathParams.clickStackRoleId) === ""
-	) {
+	if (pathParams?.clickStackRoleId == null || String(pathParams.clickStackRoleId) === "") {
 		throw new Error(`Missing required path parameter: clickStackRoleId`);
 	}
 	const data = await request<
@@ -6184,19 +5408,11 @@ export async function clickStackListSavedSearches(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -6235,19 +5451,11 @@ export async function clickStackCreateSavedSearch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -6284,25 +5492,16 @@ export async function clickStackGetSavedSearch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
 	if (
-		pathParams.clickStackSavedSearchId === undefined ||
-		pathParams.clickStackSavedSearchId === null ||
+		pathParams?.clickStackSavedSearchId == null ||
 		String(pathParams.clickStackSavedSearchId) === ""
 	) {
 		throw new Error(`Missing required path parameter: clickStackSavedSearchId`);
@@ -6342,25 +5541,16 @@ export async function clickStackUpdateSavedSearch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
 	if (
-		pathParams.clickStackSavedSearchId === undefined ||
-		pathParams.clickStackSavedSearchId === null ||
+		pathParams?.clickStackSavedSearchId == null ||
 		String(pathParams.clickStackSavedSearchId) === ""
 	) {
 		throw new Error(`Missing required path parameter: clickStackSavedSearchId`);
@@ -6399,25 +5589,16 @@ export async function clickStackDeleteSavedSearch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
 	if (
-		pathParams.clickStackSavedSearchId === undefined ||
-		pathParams.clickStackSavedSearchId === null ||
+		pathParams?.clickStackSavedSearchId == null ||
 		String(pathParams.clickStackSavedSearchId) === ""
 	) {
 		throw new Error(`Missing required path parameter: clickStackSavedSearchId`);
@@ -6457,11 +5638,7 @@ export async function postgresServiceCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -6498,11 +5675,7 @@ export async function postgresServiceGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -6538,11 +5711,7 @@ export async function postgresOrgPrometheusGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -6578,19 +5747,11 @@ export async function postgresServiceGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -6626,19 +5787,11 @@ export async function postgresServiceDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -6676,19 +5829,11 @@ export async function postgresServicePatch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -6725,19 +5870,11 @@ export async function postgresServiceCertsGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -6775,19 +5912,11 @@ export async function postgresInstanceRestore(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -6826,19 +5955,11 @@ export async function postgresServiceSetPassword(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -6880,19 +6001,11 @@ export async function postgresServicePatchState(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -6931,19 +6044,11 @@ export async function postgresInstanceCreateReadReplica(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -6982,19 +6087,11 @@ export async function postgresInstanceConfigGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -7032,19 +6129,11 @@ export async function postgresInstanceConfigPost(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -7083,19 +6172,11 @@ export async function postgresInstanceConfigPatch(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -7132,19 +6213,11 @@ export async function postgresInstancePrometheusGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -7166,7 +6239,7 @@ export async function postgresInstancePrometheusGet(
 
 /**
  * @summary Get Postgres time-series metrics
- * @description **This endpoint is in beta.** API contract is stable, and no breaking changes are expected in the future. <br /><br /> Returns bucketed time-series metrics for a PostgreSQL service over the requested window (CPU, memory, disk, network, connections, cache hit ratio, throughput, transactions, and more). Use this to chart or analyze how a service behaved over time.
+ * @description **This endpoint is in beta.** API contract is stable, and no breaking changes are expected in the future. <br /><br /> Returns bucketed time-series metrics for a PostgreSQL service over the requested window (CPU, memory, disk, network, connections, cache hit ratio, throughput, transactions, wait events, lock waits, and more). Use this to chart or analyze how a service behaved over time.
  * @link /v1/organizations/{organizationId}/postgres/{postgresId}/metrics
  */
 export async function postgresInstanceMetricsGet(
@@ -7182,19 +6255,11 @@ export async function postgresInstanceMetricsGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -7233,19 +6298,11 @@ export async function postgresServiceBackupGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -7308,19 +6365,11 @@ export async function slowQueryPatternsGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -7389,27 +6438,15 @@ export async function slowQueryPatternGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 
-	if (
-		pathParams.queryId === undefined ||
-		pathParams.queryId === null ||
-		String(pathParams.queryId) === ""
-	) {
+	if (pathParams?.queryId == null || String(pathParams.queryId) === "") {
 		throw new Error(`Missing required path parameter: queryId`);
 	}
 	const data = await request<
@@ -7456,19 +6493,11 @@ export async function postgresLogsGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.postgresId === undefined ||
-		pathParams.postgresId === null ||
-		String(pathParams.postgresId) === ""
-	) {
+	if (pathParams?.postgresId == null || String(pathParams.postgresId) === "") {
 		throw new Error(`Missing required path parameter: postgresId`);
 	}
 	const data = await request<
@@ -7516,11 +6545,7 @@ export async function organizationPrivateEndpointConfigGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -7562,11 +6587,7 @@ export async function organizationByocInfrastructureCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -7607,11 +6628,7 @@ export async function organizationByocInfrastructureValidate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -7651,19 +6668,11 @@ export async function organizationByocInfrastructureGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.byocInfrastructureId === undefined ||
-		pathParams.byocInfrastructureId === null ||
-		String(pathParams.byocInfrastructureId) === ""
-	) {
+	if (pathParams?.byocInfrastructureId == null || String(pathParams.byocInfrastructureId) === "") {
 		throw new Error(`Missing required path parameter: byocInfrastructureId`);
 	}
 	const data = await request<
@@ -7701,19 +6710,11 @@ export async function organizationByocInfrastructureDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.byocInfrastructureId === undefined ||
-		pathParams.byocInfrastructureId === null ||
-		String(pathParams.byocInfrastructureId) === ""
-	) {
+	if (pathParams?.byocInfrastructureId == null || String(pathParams.byocInfrastructureId) === "") {
 		throw new Error(`Missing required path parameter: byocInfrastructureId`);
 	}
 	const data = await request<
@@ -7753,19 +6754,11 @@ export async function organizationByocInfrastructureUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.byocInfrastructureId === undefined ||
-		pathParams.byocInfrastructureId === null ||
-		String(pathParams.byocInfrastructureId) === ""
-	) {
+	if (pathParams?.byocInfrastructureId == null || String(pathParams.byocInfrastructureId) === "") {
 		throw new Error(`Missing required path parameter: byocInfrastructureId`);
 	}
 	const data = await request<
@@ -7804,19 +6797,11 @@ export async function organizationByocInfrastructureProgressGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.byocInfrastructureId === undefined ||
-		pathParams.byocInfrastructureId === null ||
-		String(pathParams.byocInfrastructureId) === ""
-	) {
+	if (pathParams?.byocInfrastructureId == null || String(pathParams.byocInfrastructureId) === "") {
 		throw new Error(`Missing required path parameter: byocInfrastructureId`);
 	}
 	const data = await request<
@@ -7855,19 +6840,11 @@ export async function organizationByocInfrastructureTagsGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.byocInfrastructureId === undefined ||
-		pathParams.byocInfrastructureId === null ||
-		String(pathParams.byocInfrastructureId) === ""
-	) {
+	if (pathParams?.byocInfrastructureId == null || String(pathParams.byocInfrastructureId) === "") {
 		throw new Error(`Missing required path parameter: byocInfrastructureId`);
 	}
 	const data = await request<
@@ -7906,19 +6883,11 @@ export async function organizationByocInfrastructurePrivateEndpointConfigGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.byocInfrastructureId === undefined ||
-		pathParams.byocInfrastructureId === null ||
-		String(pathParams.byocInfrastructureId) === ""
-	) {
+	if (pathParams?.byocInfrastructureId == null || String(pathParams.byocInfrastructureId) === "") {
 		throw new Error(`Missing required path parameter: byocInfrastructureId`);
 	}
 	const data = await request<
@@ -7957,19 +6926,11 @@ export async function clickPipeReversePrivateEndpointGetList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -8010,19 +6971,11 @@ export async function clickPipeReversePrivateEndpointCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -8062,25 +7015,16 @@ export async function clickPipeReversePrivateEndpointGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
 	if (
-		pathParams.reversePrivateEndpointId === undefined ||
-		pathParams.reversePrivateEndpointId === null ||
+		pathParams?.reversePrivateEndpointId == null ||
 		String(pathParams.reversePrivateEndpointId) === ""
 	) {
 		throw new Error(`Missing required path parameter: reversePrivateEndpointId`);
@@ -8120,25 +7064,16 @@ export async function clickPipeReversePrivateEndpointDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
 	if (
-		pathParams.reversePrivateEndpointId === undefined ||
-		pathParams.reversePrivateEndpointId === null ||
+		pathParams?.reversePrivateEndpointId == null ||
 		String(pathParams.reversePrivateEndpointId) === ""
 	) {
 		throw new Error(`Missing required path parameter: reversePrivateEndpointId`);
@@ -8181,25 +7116,16 @@ export async function clickPipeReversePrivateEndpointUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
 	if (
-		pathParams.reversePrivateEndpointId === undefined ||
-		pathParams.reversePrivateEndpointId === null ||
+		pathParams?.reversePrivateEndpointId == null ||
 		String(pathParams.reversePrivateEndpointId) === ""
 	) {
 		throw new Error(`Missing required path parameter: reversePrivateEndpointId`);
@@ -8243,19 +7169,11 @@ export async function queryApiEndpointList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -8299,19 +7217,11 @@ export async function queryApiEndpointCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -8353,27 +7263,15 @@ export async function queryApiEndpointDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.endpointId === undefined ||
-		pathParams.endpointId === null ||
-		String(pathParams.endpointId) === ""
-	) {
+	if (pathParams?.endpointId == null || String(pathParams.endpointId) === "") {
 		throw new Error(`Missing required path parameter: endpointId`);
 	}
 	const data = await request<
@@ -8415,27 +7313,15 @@ export async function queryApiEndpointGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.endpointId === undefined ||
-		pathParams.endpointId === null ||
-		String(pathParams.endpointId) === ""
-	) {
+	if (pathParams?.endpointId == null || String(pathParams.endpointId) === "") {
 		throw new Error(`Missing required path parameter: endpointId`);
 	}
 	const data = await request<
@@ -8478,27 +7364,15 @@ export async function queryApiEndpointUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.endpointId === undefined ||
-		pathParams.endpointId === null ||
-		String(pathParams.endpointId) === ""
-	) {
+	if (pathParams?.endpointId == null || String(pathParams.endpointId) === "") {
 		throw new Error(`Missing required path parameter: endpointId`);
 	}
 	const data = await request<
@@ -8543,19 +7417,11 @@ export async function savedQueryList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -8599,19 +7465,11 @@ export async function savedQueryCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -8654,27 +7512,15 @@ export async function savedQueryDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.queryId === undefined ||
-		pathParams.queryId === null ||
-		String(pathParams.queryId) === ""
-	) {
+	if (pathParams?.queryId == null || String(pathParams.queryId) === "") {
 		throw new Error(`Missing required path parameter: queryId`);
 	}
 	const data = await request<
@@ -8716,27 +7562,15 @@ export async function savedQueryGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.queryId === undefined ||
-		pathParams.queryId === null ||
-		String(pathParams.queryId) === ""
-	) {
+	if (pathParams?.queryId == null || String(pathParams.queryId) === "") {
 		throw new Error(`Missing required path parameter: queryId`);
 	}
 	const data = await request<
@@ -8779,27 +7613,15 @@ export async function savedQueryUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 
-	if (
-		pathParams.queryId === undefined ||
-		pathParams.queryId === null ||
-		String(pathParams.queryId) === ""
-	) {
+	if (pathParams?.queryId == null || String(pathParams.queryId) === "") {
 		throw new Error(`Missing required path parameter: queryId`);
 	}
 	const data = await request<
@@ -8842,11 +7664,7 @@ export async function udfUploadSessionCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -8884,11 +7702,7 @@ export async function udfList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -8927,11 +7741,7 @@ export async function udfCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 	const data = await request<
@@ -8974,19 +7784,11 @@ export async function udfDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.functionName === undefined ||
-		pathParams.functionName === null ||
-		String(pathParams.functionName) === ""
-	) {
+	if (pathParams?.functionName == null || String(pathParams.functionName) === "") {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 	const data = await request<
@@ -9022,19 +7824,11 @@ export async function udfGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.functionName === undefined ||
-		pathParams.functionName === null ||
-		String(pathParams.functionName) === ""
-	) {
+	if (pathParams?.functionName == null || String(pathParams.functionName) === "") {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 	const data = await request<
@@ -9072,19 +7866,11 @@ export async function udfAttachmentList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.functionName === undefined ||
-		pathParams.functionName === null ||
-		String(pathParams.functionName) === ""
-	) {
+	if (pathParams?.functionName == null || String(pathParams.functionName) === "") {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 	const data = await request<
@@ -9123,27 +7909,15 @@ export async function udfDetach(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.functionName === undefined ||
-		pathParams.functionName === null ||
-		String(pathParams.functionName) === ""
-	) {
+	if (pathParams?.functionName == null || String(pathParams.functionName) === "") {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -9179,27 +7953,15 @@ export async function udfAttachmentGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.functionName === undefined ||
-		pathParams.functionName === null ||
-		String(pathParams.functionName) === ""
-	) {
+	if (pathParams?.functionName == null || String(pathParams.functionName) === "") {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -9237,27 +7999,15 @@ export async function udfAttach(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.functionName === undefined ||
-		pathParams.functionName === null ||
-		String(pathParams.functionName) === ""
-	) {
+	if (pathParams?.functionName == null || String(pathParams.functionName) === "") {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 
-	if (
-		pathParams.serviceId === undefined ||
-		pathParams.serviceId === null ||
-		String(pathParams.serviceId) === ""
-	) {
+	if (pathParams?.serviceId == null || String(pathParams.serviceId) === "") {
 		throw new Error(`Missing required path parameter: serviceId`);
 	}
 	const data = await request<
@@ -9303,19 +8053,11 @@ export async function udfVersionList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.functionName === undefined ||
-		pathParams.functionName === null ||
-		String(pathParams.functionName) === ""
-	) {
+	if (pathParams?.functionName == null || String(pathParams.functionName) === "") {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 	const data = await request<
@@ -9354,19 +8096,11 @@ export async function udfVersionCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.functionName === undefined ||
-		pathParams.functionName === null ||
-		String(pathParams.functionName) === ""
-	) {
+	if (pathParams?.functionName == null || String(pathParams.functionName) === "") {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 	const data = await request<
@@ -9410,27 +8144,15 @@ export async function udfVersionDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.organizationId === undefined ||
-		pathParams.organizationId === null ||
-		String(pathParams.organizationId) === ""
-	) {
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
 		throw new Error(`Missing required path parameter: organizationId`);
 	}
 
-	if (
-		pathParams.functionName === undefined ||
-		pathParams.functionName === null ||
-		String(pathParams.functionName) === ""
-	) {
+	if (pathParams?.functionName == null || String(pathParams.functionName) === "") {
 		throw new Error(`Missing required path parameter: functionName`);
 	}
 
-	if (
-		pathParams.version === undefined ||
-		pathParams.version === null ||
-		String(pathParams.version) === ""
-	) {
+	if (pathParams?.version == null || String(pathParams.version) === "") {
 		throw new Error(`Missing required path parameter: version`);
 	}
 	const data = await request<
@@ -9545,6 +8267,7 @@ export const operationsByPath = {
 	"DELETE /v1/organizations/{organizationId}/invitations/{invitationId}": invitationDelete,
 	"GET /v1/organizations/{organizationId}/activities": activityGetList,
 	"GET /v1/organizations/{organizationId}/activities/{activityId}": activityGet,
+	"GET /v1/organizations/{organizationId}/notifications": notificationGetList,
 	"GET /v1/organizations/{organizationId}/notificationTypes": notificationTypesGetList,
 	"GET /v1/organizations/{organizationId}/usageCost": usageCostGet,
 	"GET /v1/organizations/{organizationId}/activeBalances": activeBalancesGet,
@@ -9609,6 +8332,8 @@ export const operationsByPath = {
 		clickStackListWebhooks,
 	"POST /v1/organizations/{organizationId}/services/{serviceId}/clickstack/webhooks":
 		clickStackCreateWebhook,
+	"POST /v1/organizations/{organizationId}/services/{serviceId}/clickstack/webhooks/validate":
+		clickStackValidateWebhook,
 	"PUT /v1/organizations/{organizationId}/services/{serviceId}/clickstack/webhooks/{clickStackWebhookId}":
 		clickStackUpdateWebhook,
 	"DELETE /v1/organizations/{organizationId}/services/{serviceId}/clickstack/webhooks/{clickStackWebhookId}":
@@ -9825,6 +8550,7 @@ export const operationsByTag = {
 		openapiKeyDelete,
 	},
 	notifications: {
+		notificationGetList,
 		notificationTypesGetList,
 	},
 	billing: {
@@ -9871,6 +8597,7 @@ export const operationsByTag = {
 		clickStackDeleteAlert,
 		clickStackListWebhooks,
 		clickStackCreateWebhook,
+		clickStackValidateWebhook,
 		clickStackUpdateWebhook,
 		clickStackDeleteWebhook,
 		clickStackListRoles,
@@ -10029,7 +8756,7 @@ export const tagDictionary = {
 		DELETE: ["openapiKeyDelete"],
 	},
 	notifications: {
-		GET: ["notificationTypesGetList"],
+		GET: ["notificationGetList", "notificationTypesGetList"],
 	},
 	billing: {
 		GET: ["usageCostGet", "activeBalancesGet", "creditBalancesGet"],
@@ -10075,6 +8802,7 @@ export const tagDictionary = {
 			"clickStackCreateAlert",
 			"clickStackCreateSource",
 			"clickStackCreateWebhook",
+			"clickStackValidateWebhook",
 			"clickStackCreateRole",
 			"clickStackCreateSavedSearch",
 		],

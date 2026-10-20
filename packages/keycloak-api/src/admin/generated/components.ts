@@ -1037,11 +1037,7 @@ export async function gETAdminRealmsRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -1079,11 +1075,7 @@ export async function pUTAdminRealmsRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -1125,11 +1117,7 @@ export async function dELETEAdminRealmsRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -1183,11 +1171,7 @@ export async function gETAdminRealmsRealmAdminEvents(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -1236,11 +1220,7 @@ export async function dELETEAdminRealmsRealmAdminEvents(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -1275,11 +1255,7 @@ export async function dELETEAdminRealmsRealmAttackDetectionBruteForceUsers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -1314,19 +1290,11 @@ export async function gETAdminRealmsRealmAttackDetectionBruteForceUsersUserId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -1361,19 +1329,11 @@ export async function dELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserId
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -1408,11 +1368,7 @@ export async function gETAdminRealmsRealmAuthenticationAuthenticatorProviders(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -1447,11 +1403,7 @@ export async function gETAdminRealmsRealmAuthenticationClientAuthenticatorProvid
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -1489,11 +1441,7 @@ export async function pOSTAdminRealmsRealmAuthenticationConfig(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -1529,19 +1477,11 @@ export async function gETAdminRealmsRealmAuthenticationConfigDescriptionProvider
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.providerId === undefined ||
-		pathParams.providerId === null ||
-		String(pathParams.providerId) === ""
-	) {
+	if (pathParams?.providerId == null || String(pathParams.providerId) === "") {
 		throw new Error(`Missing required path parameter: providerId`);
 	}
 	const data = await request<
@@ -1576,15 +1516,11 @@ export async function gETAdminRealmsRealmAuthenticationConfigId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1621,15 +1557,11 @@ export async function pUTAdminRealmsRealmAuthenticationConfigId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1665,15 +1597,11 @@ export async function dELETEAdminRealmsRealmAuthenticationConfigId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1710,11 +1638,7 @@ export async function pOSTAdminRealmsRealmAuthenticationExecutions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -1750,19 +1674,11 @@ export async function gETAdminRealmsRealmAuthenticationExecutionsExecutionId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.executionId === undefined ||
-		pathParams.executionId === null ||
-		String(pathParams.executionId) === ""
-	) {
+	if (pathParams?.executionId == null || String(pathParams.executionId) === "") {
 		throw new Error(`Missing required path parameter: executionId`);
 	}
 	const data = await request<
@@ -1797,19 +1713,11 @@ export async function dELETEAdminRealmsRealmAuthenticationExecutionsExecutionId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.executionId === undefined ||
-		pathParams.executionId === null ||
-		String(pathParams.executionId) === ""
-	) {
+	if (pathParams?.executionId == null || String(pathParams.executionId) === "") {
 		throw new Error(`Missing required path parameter: executionId`);
 	}
 	const data = await request<
@@ -1846,19 +1754,11 @@ export async function pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdCon
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.executionId === undefined ||
-		pathParams.executionId === null ||
-		String(pathParams.executionId) === ""
-	) {
+	if (pathParams?.executionId == null || String(pathParams.executionId) === "") {
 		throw new Error(`Missing required path parameter: executionId`);
 	}
 	const data = await request<
@@ -1895,23 +1795,15 @@ export async function gETAdminRealmsRealmAuthenticationExecutionsExecutionIdConf
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.executionId === undefined ||
-		pathParams.executionId === null ||
-		String(pathParams.executionId) === ""
-	) {
+	if (pathParams?.executionId == null || String(pathParams.executionId) === "") {
 		throw new Error(`Missing required path parameter: executionId`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -1946,19 +1838,11 @@ export async function pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLow
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.executionId === undefined ||
-		pathParams.executionId === null ||
-		String(pathParams.executionId) === ""
-	) {
+	if (pathParams?.executionId == null || String(pathParams.executionId) === "") {
 		throw new Error(`Missing required path parameter: executionId`);
 	}
 	const data = await request<
@@ -1993,19 +1877,11 @@ export async function pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRai
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.executionId === undefined ||
-		pathParams.executionId === null ||
-		String(pathParams.executionId) === ""
-	) {
+	if (pathParams?.executionId == null || String(pathParams.executionId) === "") {
 		throw new Error(`Missing required path parameter: executionId`);
 	}
 	const data = await request<
@@ -2040,11 +1916,7 @@ export async function gETAdminRealmsRealmAuthenticationFlows(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -2081,11 +1953,7 @@ export async function pOSTAdminRealmsRealmAuthenticationFlows(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -2123,19 +1991,11 @@ export async function pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopy(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.flowAlias === undefined ||
-		pathParams.flowAlias === null ||
-		String(pathParams.flowAlias) === ""
-	) {
+	if (pathParams?.flowAlias == null || String(pathParams.flowAlias) === "") {
 		throw new Error(`Missing required path parameter: flowAlias`);
 	}
 	const data = await request<
@@ -2171,19 +2031,11 @@ export async function gETAdminRealmsRealmAuthenticationFlowsFlowAliasExecutions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.flowAlias === undefined ||
-		pathParams.flowAlias === null ||
-		String(pathParams.flowAlias) === ""
-	) {
+	if (pathParams?.flowAlias == null || String(pathParams.flowAlias) === "") {
 		throw new Error(`Missing required path parameter: flowAlias`);
 	}
 	const data = await request<
@@ -2220,19 +2072,11 @@ export async function pUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.flowAlias === undefined ||
-		pathParams.flowAlias === null ||
-		String(pathParams.flowAlias) === ""
-	) {
+	if (pathParams?.flowAlias == null || String(pathParams.flowAlias) === "") {
 		throw new Error(`Missing required path parameter: flowAlias`);
 	}
 	const data = await request<
@@ -2270,19 +2114,11 @@ export async function pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutions
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.flowAlias === undefined ||
-		pathParams.flowAlias === null ||
-		String(pathParams.flowAlias) === ""
-	) {
+	if (pathParams?.flowAlias == null || String(pathParams.flowAlias) === "") {
 		throw new Error(`Missing required path parameter: flowAlias`);
 	}
 	const data = await request<
@@ -2320,19 +2156,11 @@ export async function pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutions
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.flowAlias === undefined ||
-		pathParams.flowAlias === null ||
-		String(pathParams.flowAlias) === ""
-	) {
+	if (pathParams?.flowAlias == null || String(pathParams.flowAlias) === "") {
 		throw new Error(`Missing required path parameter: flowAlias`);
 	}
 	const data = await request<
@@ -2368,15 +2196,11 @@ export async function gETAdminRealmsRealmAuthenticationFlowsId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -2413,15 +2237,11 @@ export async function pUTAdminRealmsRealmAuthenticationFlowsId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -2457,15 +2277,11 @@ export async function dELETEAdminRealmsRealmAuthenticationFlowsId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -2500,11 +2316,7 @@ export async function gETAdminRealmsRealmAuthenticationFormActionProviders(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -2539,11 +2351,7 @@ export async function gETAdminRealmsRealmAuthenticationFormProviders(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -2578,11 +2386,7 @@ export async function gETAdminRealmsRealmAuthenticationPerClientConfigDescriptio
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -2619,11 +2423,7 @@ export async function pOSTAdminRealmsRealmAuthenticationRegisterRequiredAction(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -2659,11 +2459,7 @@ export async function gETAdminRealmsRealmAuthenticationRequiredActions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -2698,19 +2494,11 @@ export async function gETAdminRealmsRealmAuthenticationRequiredActionsAlias(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -2747,19 +2535,11 @@ export async function pUTAdminRealmsRealmAuthenticationRequiredActionsAlias(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -2795,19 +2575,11 @@ export async function dELETEAdminRealmsRealmAuthenticationRequiredActionsAlias(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -2842,19 +2614,11 @@ export async function gETAdminRealmsRealmAuthenticationRequiredActionsAliasConfi
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -2891,19 +2655,11 @@ export async function pUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfi
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -2939,19 +2695,11 @@ export async function dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasCo
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -2986,19 +2734,11 @@ export async function gETAdminRealmsRealmAuthenticationRequiredActionsAliasConfi
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -3033,19 +2773,11 @@ export async function pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowe
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -3080,19 +2812,11 @@ export async function pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasRais
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -3127,11 +2851,7 @@ export async function gETAdminRealmsRealmAuthenticationUnregisteredRequiredActio
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3168,11 +2888,7 @@ export async function pOSTAdminRealmsRealmClientDescriptionConverter(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3212,11 +2928,7 @@ export async function gETAdminRealmsRealmClientPoliciesPolicies(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3253,11 +2965,7 @@ export async function pUTAdminRealmsRealmClientPoliciesPolicies(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3294,11 +3002,7 @@ export async function gETAdminRealmsRealmClientPoliciesProfiles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3335,11 +3039,7 @@ export async function pUTAdminRealmsRealmClientPoliciesProfiles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3375,11 +3075,7 @@ export async function gETAdminRealmsRealmClientRegistrationPolicyProviders(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3414,11 +3110,7 @@ export async function gETAdminRealmsRealmClientScopes(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3455,11 +3147,7 @@ export async function pOSTAdminRealmsRealmClientScopes(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3498,11 +3186,7 @@ export async function gETAdminRealmsRealmClientSessionStats(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3537,11 +3221,7 @@ export async function gETAdminRealmsRealmClientTemplates(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3578,11 +3258,7 @@ export async function pOSTAdminRealmsRealmClientTemplates(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3621,11 +3297,7 @@ export async function gETAdminRealmsRealmClientTypes(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3663,11 +3335,7 @@ export async function pUTAdminRealmsRealmClientTypes(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3713,11 +3381,7 @@ export async function gETAdminRealmsRealmClients(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3762,11 +3426,7 @@ export async function pOSTAdminRealmsRealmClients(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3801,11 +3461,7 @@ export async function gETAdminRealmsRealmClientsInitialAccess(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3842,11 +3498,7 @@ export async function pOSTAdminRealmsRealmClientsInitialAccess(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3881,15 +3533,11 @@ export async function dELETEAdminRealmsRealmClientsInitialAccessId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -3925,11 +3573,7 @@ export async function gETAdminRealmsRealmComponents(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -3966,11 +3610,7 @@ export async function pOSTAdminRealmsRealmComponents(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -4005,15 +3645,11 @@ export async function gETAdminRealmsRealmComponentsId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -4049,15 +3685,11 @@ export async function pUTAdminRealmsRealmComponentsId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -4092,15 +3724,11 @@ export async function dELETEAdminRealmsRealmComponentsId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -4137,15 +3765,11 @@ export async function gETAdminRealmsRealmComponentsIdSubComponentTypes(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -4180,11 +3804,7 @@ export async function gETAdminRealmsRealmCredentialRegistrators(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -4219,11 +3839,7 @@ export async function gETAdminRealmsRealmDefaultDefaultClientScopes(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -4257,19 +3873,11 @@ export async function pUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeId
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -4306,19 +3914,11 @@ export async function dELETEAdminRealmsRealmDefaultDefaultClientScopesClientScop
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -4356,11 +3956,7 @@ export async function gETAdminRealmsRealmDefaultGroups(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -4394,19 +3990,11 @@ export async function pUTAdminRealmsRealmDefaultGroupsGroupId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -4443,19 +4031,11 @@ export async function dELETEAdminRealmsRealmDefaultGroupsGroupId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -4493,11 +4073,7 @@ export async function gETAdminRealmsRealmDefaultOptionalClientScopes(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -4531,19 +4107,11 @@ export async function pUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeI
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -4580,19 +4148,11 @@ export async function dELETEAdminRealmsRealmDefaultOptionalClientScopesClientSco
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -4642,11 +4202,7 @@ export async function gETAdminRealmsRealmEvents(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -4692,11 +4248,7 @@ export async function dELETEAdminRealmsRealmEvents(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -4731,11 +4283,7 @@ export async function gETAdminRealmsRealmEventsConfig(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -4772,11 +4320,7 @@ export async function pUTAdminRealmsRealmEventsConfig(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -4811,15 +4355,11 @@ export async function gETAdminRealmsRealmGroupByPathPath(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.path === undefined || pathParams.path === null || String(pathParams.path) === "") {
+	if (pathParams?.path == null || String(pathParams.path) === "") {
 		throw new Error(`Missing required path parameter: path`);
 	}
 	const data = await request<
@@ -4867,11 +4407,7 @@ export async function gETAdminRealmsRealmGroups(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -4919,11 +4455,7 @@ export async function pOSTAdminRealmsRealmGroups(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -4961,11 +4493,7 @@ export async function gETAdminRealmsRealmGroupsCount(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -5004,11 +4532,7 @@ export async function pOSTAdminRealmsRealmIdentityProviderImportConfig(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -5054,11 +4578,7 @@ export async function gETAdminRealmsRealmIdentityProviderInstances(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -5104,11 +4624,7 @@ export async function pOSTAdminRealmsRealmIdentityProviderInstances(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -5147,19 +4663,11 @@ export async function gETAdminRealmsRealmIdentityProviderInstancesAlias(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -5196,19 +4704,11 @@ export async function pUTAdminRealmsRealmIdentityProviderInstancesAlias(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -5247,19 +4747,11 @@ export async function dELETEAdminRealmsRealmIdentityProviderInstancesAlias(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -5296,19 +4788,11 @@ export async function gETAdminRealmsRealmIdentityProviderInstancesAliasExport(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -5344,19 +4828,11 @@ export async function gETAdminRealmsRealmIdentityProviderInstancesAliasManagemen
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -5393,19 +4869,11 @@ export async function pUTAdminRealmsRealmIdentityProviderInstancesAliasManagemen
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -5441,19 +4909,11 @@ export async function gETAdminRealmsRealmIdentityProviderInstancesAliasMapperTyp
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -5488,19 +4948,11 @@ export async function gETAdminRealmsRealmIdentityProviderInstancesAliasMappers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -5537,19 +4989,11 @@ export async function pOSTAdminRealmsRealmIdentityProviderInstancesAliasMappers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -5585,23 +5029,15 @@ export async function gETAdminRealmsRealmIdentityProviderInstancesAliasMappersId
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -5638,23 +5074,15 @@ export async function pUTAdminRealmsRealmIdentityProviderInstancesAliasMappersId
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -5690,23 +5118,15 @@ export async function dELETEAdminRealmsRealmIdentityProviderInstancesAliasMapper
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -5741,19 +5161,11 @@ export async function gETAdminRealmsRealmIdentityProviderInstancesAliasReloadKey
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -5788,11 +5200,7 @@ export async function pOSTAdminRealmsRealmIdentityProviderUploadCertificate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -5826,11 +5234,7 @@ export async function gETAdminRealmsRealmKeys(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -5864,11 +5268,7 @@ export async function gETAdminRealmsRealmLocalization(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -5904,19 +5304,11 @@ export async function gETAdminRealmsRealmLocalizationLocale(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.locale === undefined ||
-		pathParams.locale === null ||
-		String(pathParams.locale) === ""
-	) {
+	if (pathParams?.locale == null || String(pathParams.locale) === "") {
 		throw new Error(`Missing required path parameter: locale`);
 	}
 	const data = await request<
@@ -5954,19 +5346,11 @@ export async function pOSTAdminRealmsRealmLocalizationLocale(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.locale === undefined ||
-		pathParams.locale === null ||
-		String(pathParams.locale) === ""
-	) {
+	if (pathParams?.locale == null || String(pathParams.locale) === "") {
 		throw new Error(`Missing required path parameter: locale`);
 	}
 	const data = await request<
@@ -6004,19 +5388,11 @@ export async function dELETEAdminRealmsRealmLocalizationLocale(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.locale === undefined ||
-		pathParams.locale === null ||
-		String(pathParams.locale) === ""
-	) {
+	if (pathParams?.locale == null || String(pathParams.locale) === "") {
 		throw new Error(`Missing required path parameter: locale`);
 	}
 	const data = await request<
@@ -6053,23 +5429,15 @@ export async function gETAdminRealmsRealmLocalizationLocaleKey(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.key === undefined || pathParams.key === null || String(pathParams.key) === "") {
+	if (pathParams?.key == null || String(pathParams.key) === "") {
 		throw new Error(`Missing required path parameter: key`);
 	}
 
-	if (
-		pathParams.locale === undefined ||
-		pathParams.locale === null ||
-		String(pathParams.locale) === ""
-	) {
+	if (pathParams?.locale == null || String(pathParams.locale) === "") {
 		throw new Error(`Missing required path parameter: locale`);
 	}
 	const data = await request<
@@ -6098,31 +5466,25 @@ export async function gETAdminRealmsRealmLocalizationLocaleKey(
 export async function pUTAdminRealmsRealmLocalizationLocaleKey(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { realm: string; key: string; locale: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.key === undefined || pathParams.key === null || String(pathParams.key) === "") {
+	if (pathParams?.key == null || String(pathParams.key) === "") {
 		throw new Error(`Missing required path parameter: key`);
 	}
 
-	if (
-		pathParams.locale === undefined ||
-		pathParams.locale === null ||
-		String(pathParams.locale) === ""
-	) {
+	if (pathParams?.locale == null || String(pathParams.locale) === "") {
 		throw new Error(`Missing required path parameter: locale`);
 	}
 	const data = await request<
@@ -6131,15 +5493,16 @@ export async function pUTAdminRealmsRealmLocalizationLocaleKey(
 			| PUTAdminRealmsRealmLocalizationLocaleKeyStatus400
 			| PUTAdminRealmsRealmLocalizationLocaleKeyStatus403
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ realm: string; key: string; locale: string }
 	>({
 		method: "PUT",
 		url: `/admin/realms/${encodeURIComponent(String(pathParams.realm))}/localization/${encodeURIComponent(String(pathParams.locale))}/${encodeURIComponent(String(pathParams.key))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "text/plain", ...requestConfig.headers },
 	});
 
 	return data;
@@ -6159,23 +5522,15 @@ export async function dELETEAdminRealmsRealmLocalizationLocaleKey(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.key === undefined || pathParams.key === null || String(pathParams.key) === "") {
+	if (pathParams?.key == null || String(pathParams.key) === "") {
 		throw new Error(`Missing required path parameter: key`);
 	}
 
-	if (
-		pathParams.locale === undefined ||
-		pathParams.locale === null ||
-		String(pathParams.locale) === ""
-	) {
+	if (pathParams?.locale == null || String(pathParams.locale) === "") {
 		throw new Error(`Missing required path parameter: locale`);
 	}
 	const data = await request<
@@ -6214,11 +5569,7 @@ export async function pOSTAdminRealmsRealmLogoutAll(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6263,11 +5614,7 @@ export async function gETAdminRealmsRealmOrganizations(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6315,11 +5662,7 @@ export async function pOSTAdminRealmsRealmOrganizations(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6359,11 +5702,7 @@ export async function gETAdminRealmsRealmOrganizationsCount(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6401,11 +5740,7 @@ export async function pOSTAdminRealmsRealmPartialExport(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6443,11 +5778,7 @@ export async function pOSTAdminRealmsRealmPartialImport(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6485,11 +5816,7 @@ export async function pOSTAdminRealmsRealmPushRevocation(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6526,11 +5853,7 @@ export async function gETAdminRealmsRealmRoles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6568,11 +5891,7 @@ export async function pOSTAdminRealmsRealmRoles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6617,19 +5936,11 @@ export async function dELETEAdminRealmsRealmSessionsSession(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.session === undefined ||
-		pathParams.session === null ||
-		String(pathParams.session) === ""
-	) {
+	if (pathParams?.session == null || String(pathParams.session) === "") {
 		throw new Error(`Missing required path parameter: session`);
 	}
 	const data = await request<
@@ -6671,11 +5982,7 @@ export async function pOSTAdminRealmsRealmTestSMTPConnection(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6731,11 +6038,7 @@ export async function gETAdminRealmsRealmUsers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6790,11 +6093,7 @@ export async function pOSTAdminRealmsRealmUsers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6834,11 +6133,7 @@ export async function gETAdminRealmsRealmUsersManagementPermissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6874,11 +6169,7 @@ export async function pUTAdminRealmsRealmUsersManagementPermissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6931,11 +6222,7 @@ export async function gETAdminRealmsRealmUsersCount(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -6985,11 +6272,7 @@ export async function gETAdminRealmsRealmUsersProfile(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -7026,11 +6309,7 @@ export async function pUTAdminRealmsRealmUsersProfile(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -7066,11 +6345,7 @@ export async function gETAdminRealmsRealmUsersProfileMetadata(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -7108,11 +6383,7 @@ export async function gETAdminRealmsRealmWorkflows(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -7151,11 +6422,7 @@ export async function pOSTAdminRealmsRealmWorkflows(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -7194,11 +6461,7 @@ export async function pOSTAdminRealmsRealmWorkflowsMigrate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 	const data = await request<
@@ -7237,15 +6500,11 @@ export async function gETAdminRealmsRealmWorkflowsId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -7284,15 +6543,11 @@ export async function pUTAdminRealmsRealmWorkflowsId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -7329,15 +6584,11 @@ export async function dELETEAdminRealmsRealmWorkflowsId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -7375,27 +6626,19 @@ export async function pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 
-	if (pathParams.type === undefined || pathParams.type === null || String(pathParams.type) === "") {
+	if (pathParams?.type == null || String(pathParams.type) === "") {
 		throw new Error(`Missing required path parameter: type`);
 	}
 	const data = await request<
@@ -7432,27 +6675,19 @@ export async function pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 
-	if (pathParams.type === undefined || pathParams.type === null || String(pathParams.type) === "") {
+	if (pathParams?.type == null || String(pathParams.type) === "") {
 		throw new Error(`Missing required path parameter: type`);
 	}
 	const data = await request<
@@ -7487,19 +6722,11 @@ export async function gETAdminRealmsRealmClientScopesClientScopeId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -7536,19 +6763,11 @@ export async function pUTAdminRealmsRealmClientScopesClientScopeId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -7588,19 +6807,11 @@ export async function dELETEAdminRealmsRealmClientScopesClientScopeId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -7641,19 +6852,11 @@ export async function pOSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappe
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -7689,19 +6892,11 @@ export async function gETAdminRealmsRealmClientScopesClientScopeIdProtocolMapper
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -7738,19 +6933,11 @@ export async function pOSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappe
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -7786,23 +6973,15 @@ export async function gETAdminRealmsRealmClientScopesClientScopeIdProtocolMapper
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -7839,23 +7018,15 @@ export async function pUTAdminRealmsRealmClientScopesClientScopeIdProtocolMapper
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -7891,23 +7062,15 @@ export async function dELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMap
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -7942,27 +7105,15 @@ export async function gETAdminRealmsRealmClientScopesClientScopeIdProtocolMapper
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (
-		pathParams.protocol === undefined ||
-		pathParams.protocol === null ||
-		String(pathParams.protocol) === ""
-	) {
+	if (pathParams?.protocol == null || String(pathParams.protocol) === "") {
 		throw new Error(`Missing required path parameter: protocol`);
 	}
 	const data = await request<
@@ -7998,19 +7149,11 @@ export async function gETAdminRealmsRealmClientScopesClientScopeIdScopeMappings(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -8045,27 +7188,15 @@ export async function gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsC
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -8102,27 +7233,15 @@ export async function pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappings
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -8160,27 +7279,15 @@ export async function dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappin
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -8216,27 +7323,15 @@ export async function gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsC
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -8273,27 +7368,15 @@ export async function gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsC
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -8329,19 +7412,11 @@ export async function gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsR
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -8378,19 +7453,11 @@ export async function pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappings
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -8428,19 +7495,11 @@ export async function dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappin
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -8476,19 +7535,11 @@ export async function gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsR
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -8526,19 +7577,11 @@ export async function gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsR
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -8574,19 +7617,11 @@ export async function gETAdminRealmsRealmClientTemplatesClientScopeId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -8623,19 +7658,11 @@ export async function pUTAdminRealmsRealmClientTemplatesClientScopeId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -8675,19 +7702,11 @@ export async function dELETEAdminRealmsRealmClientTemplatesClientScopeId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -8728,19 +7747,11 @@ export async function pOSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMa
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -8776,19 +7787,11 @@ export async function gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMap
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -8825,19 +7828,11 @@ export async function pOSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMa
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -8873,23 +7868,15 @@ export async function gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMap
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -8926,23 +7913,15 @@ export async function pUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMap
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -8978,23 +7957,15 @@ export async function dELETEAdminRealmsRealmClientTemplatesClientScopeIdProtocol
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -9029,27 +8000,15 @@ export async function gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMap
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (
-		pathParams.protocol === undefined ||
-		pathParams.protocol === null ||
-		String(pathParams.protocol) === ""
-	) {
+	if (pathParams?.protocol == null || String(pathParams.protocol) === "") {
 		throw new Error(`Missing required path parameter: protocol`);
 	}
 	const data = await request<
@@ -9085,19 +8044,11 @@ export async function gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappin
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -9132,27 +8083,15 @@ export async function gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappin
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -9189,27 +8128,15 @@ export async function pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappi
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -9247,27 +8174,15 @@ export async function dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMap
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -9303,27 +8218,15 @@ export async function gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappin
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -9360,27 +8263,15 @@ export async function gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappin
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -9416,19 +8307,11 @@ export async function gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappin
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -9465,19 +8348,11 @@ export async function pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappi
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -9515,19 +8390,11 @@ export async function dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMap
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -9563,19 +8430,11 @@ export async function gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappin
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -9613,19 +8472,11 @@ export async function gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappin
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -9661,19 +8512,11 @@ export async function gETAdminRealmsRealmClientsClientUuid(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -9710,19 +8553,11 @@ export async function pUTAdminRealmsRealmClientsClientUuid(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -9760,19 +8595,11 @@ export async function dELETEAdminRealmsRealmClientsClientUuid(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -9806,19 +8633,11 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServer(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -9854,19 +8673,11 @@ export async function pUTAdminRealmsRealmClientsClientUuidAuthzResourceServer(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -9903,19 +8714,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerIm
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -9964,19 +8767,11 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPer
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -10025,19 +8820,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPe
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -10074,19 +8861,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPe
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -10124,19 +8903,11 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPer
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -10172,19 +8943,11 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPer
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -10233,19 +8996,11 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPol
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -10294,19 +9049,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPo
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -10343,19 +9090,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPo
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -10393,19 +9132,11 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPol
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -10441,19 +9172,11 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPol
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -10502,19 +9225,11 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerRes
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -10577,19 +9292,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerRe
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -10651,19 +9358,11 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerRes
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -10724,27 +9423,15 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerRes
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -10807,27 +9494,15 @@ export async function pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerRes
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -10889,27 +9564,15 @@ export async function dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServer
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -10970,27 +9633,15 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerRes
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -11051,27 +9702,15 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerRes
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -11132,27 +9771,15 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerRes
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -11201,19 +9828,11 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerSco
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -11250,19 +9869,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerSc
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -11299,19 +9910,11 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerSco
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -11346,27 +9949,15 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerSco
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.scopeId === undefined ||
-		pathParams.scopeId === null ||
-		String(pathParams.scopeId) === ""
-	) {
+	if (pathParams?.scopeId == null || String(pathParams.scopeId) === "") {
 		throw new Error(`Missing required path parameter: scopeId`);
 	}
 	const data = await request<
@@ -11402,27 +9993,15 @@ export async function pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerSco
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.scopeId === undefined ||
-		pathParams.scopeId === null ||
-		String(pathParams.scopeId) === ""
-	) {
+	if (pathParams?.scopeId == null || String(pathParams.scopeId) === "") {
 		throw new Error(`Missing required path parameter: scopeId`);
 	}
 	const data = await request<
@@ -11457,27 +10036,15 @@ export async function dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServer
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.scopeId === undefined ||
-		pathParams.scopeId === null ||
-		String(pathParams.scopeId) === ""
-	) {
+	if (pathParams?.scopeId == null || String(pathParams.scopeId) === "") {
 		throw new Error(`Missing required path parameter: scopeId`);
 	}
 	const data = await request<
@@ -11511,27 +10078,15 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerSco
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.scopeId === undefined ||
-		pathParams.scopeId === null ||
-		String(pathParams.scopeId) === ""
-	) {
+	if (pathParams?.scopeId == null || String(pathParams.scopeId) === "") {
 		throw new Error(`Missing required path parameter: scopeId`);
 	}
 	const data = await request<
@@ -11565,27 +10120,15 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerSco
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.scopeId === undefined ||
-		pathParams.scopeId === null ||
-		String(pathParams.scopeId) === ""
-	) {
+	if (pathParams?.scopeId == null || String(pathParams.scopeId) === "") {
 		throw new Error(`Missing required path parameter: scopeId`);
 	}
 	const data = await request<
@@ -11619,19 +10162,11 @@ export async function gETAdminRealmsRealmClientsClientUuidAuthzResourceServerSet
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -11666,23 +10201,15 @@ export async function gETAdminRealmsRealmClientsClientUuidCertificatesAttr(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (pathParams.attr === undefined || pathParams.attr === null || String(pathParams.attr) === "") {
+	if (pathParams?.attr == null || String(pathParams.attr) === "") {
 		throw new Error(`Missing required path parameter: attr`);
 	}
 	const data = await request<
@@ -11720,23 +10247,15 @@ export async function pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownl
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (pathParams.attr === undefined || pathParams.attr === null || String(pathParams.attr) === "") {
+	if (pathParams?.attr == null || String(pathParams.attr) === "") {
 		throw new Error(`Missing required path parameter: attr`);
 	}
 	const data = await request<
@@ -11773,23 +10292,15 @@ export async function pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGener
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (pathParams.attr === undefined || pathParams.attr === null || String(pathParams.attr) === "") {
+	if (pathParams?.attr == null || String(pathParams.attr) === "") {
 		throw new Error(`Missing required path parameter: attr`);
 	}
 	const data = await request<
@@ -11829,23 +10340,15 @@ export async function pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGener
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (pathParams.attr === undefined || pathParams.attr === null || String(pathParams.attr) === "") {
+	if (pathParams?.attr == null || String(pathParams.attr) === "") {
 		throw new Error(`Missing required path parameter: attr`);
 	}
 	const data = await request<
@@ -11882,23 +10385,15 @@ export async function pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrUploa
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (pathParams.attr === undefined || pathParams.attr === null || String(pathParams.attr) === "") {
+	if (pathParams?.attr == null || String(pathParams.attr) === "") {
 		throw new Error(`Missing required path parameter: attr`);
 	}
 	const data = await request<
@@ -11933,23 +10428,15 @@ export async function pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrUploa
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (pathParams.attr === undefined || pathParams.attr === null || String(pathParams.attr) === "") {
+	if (pathParams?.attr == null || String(pathParams.attr) === "") {
 		throw new Error(`Missing required path parameter: attr`);
 	}
 	const data = await request<
@@ -11984,19 +10471,11 @@ export async function gETAdminRealmsRealmClientsClientUuidClientSecret(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -12031,19 +10510,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidClientSecret(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -12078,19 +10549,11 @@ export async function gETAdminRealmsRealmClientsClientUuidClientSecretRotated(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -12125,19 +10588,11 @@ export async function dELETEAdminRealmsRealmClientsClientUuidClientSecretRotated
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -12172,19 +10627,11 @@ export async function gETAdminRealmsRealmClientsClientUuidDefaultClientScopes(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -12218,27 +10665,15 @@ export async function pUTAdminRealmsRealmClientsClientUuidDefaultClientScopesCli
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -12272,27 +10707,15 @@ export async function dELETEAdminRealmsRealmClientsClientUuidDefaultClientScopes
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -12329,19 +10752,11 @@ export async function gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerate
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -12382,19 +10797,11 @@ export async function gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerate
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -12435,19 +10842,11 @@ export async function gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerate
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -12485,19 +10884,11 @@ export async function gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerate
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -12536,19 +10927,11 @@ export async function gETAdminRealmsRealmClientsClientUuidEvaluateScopesProtocol
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -12587,27 +10970,15 @@ export async function gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMap
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleContainerId === undefined ||
-		pathParams.roleContainerId === null ||
-		String(pathParams.roleContainerId) === ""
-	) {
+	if (pathParams?.roleContainerId == null || String(pathParams.roleContainerId) === "") {
 		throw new Error(`Missing required path parameter: roleContainerId`);
 	}
 	const data = await request<
@@ -12646,27 +11017,15 @@ export async function gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMap
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleContainerId === undefined ||
-		pathParams.roleContainerId === null ||
-		String(pathParams.roleContainerId) === ""
-	) {
+	if (pathParams?.roleContainerId == null || String(pathParams.roleContainerId) === "") {
 		throw new Error(`Missing required path parameter: roleContainerId`);
 	}
 	const data = await request<
@@ -12701,27 +11060,15 @@ export async function gETAdminRealmsRealmClientsClientUuidInstallationProvidersP
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.providerId === undefined ||
-		pathParams.providerId === null ||
-		String(pathParams.providerId) === ""
-	) {
+	if (pathParams?.providerId == null || String(pathParams.providerId) === "") {
 		throw new Error(`Missing required path parameter: providerId`);
 	}
 	const data = await request<
@@ -12756,19 +11103,11 @@ export async function gETAdminRealmsRealmClientsClientUuidManagementPermissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -12805,19 +11144,11 @@ export async function pUTAdminRealmsRealmClientsClientUuidManagementPermissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -12855,19 +11186,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidNodes(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -12903,23 +11226,15 @@ export async function dELETEAdminRealmsRealmClientsClientUuidNodesNode(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (pathParams.node === undefined || pathParams.node === null || String(pathParams.node) === "") {
+	if (pathParams?.node == null || String(pathParams.node) === "") {
 		throw new Error(`Missing required path parameter: node`);
 	}
 	const data = await request<
@@ -12954,19 +11269,11 @@ export async function gETAdminRealmsRealmClientsClientUuidOfflineSessionCount(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -13003,19 +11310,11 @@ export async function gETAdminRealmsRealmClientsClientUuidOfflineSessions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -13051,19 +11350,11 @@ export async function gETAdminRealmsRealmClientsClientUuidOptionalClientScopes(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -13097,27 +11388,15 @@ export async function pUTAdminRealmsRealmClientsClientUuidOptionalClientScopesCl
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -13151,27 +11430,15 @@ export async function dELETEAdminRealmsRealmClientsClientUuidOptionalClientScope
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.clientScopeId === undefined ||
-		pathParams.clientScopeId === null ||
-		String(pathParams.clientScopeId) === ""
-	) {
+	if (pathParams?.clientScopeId == null || String(pathParams.clientScopeId) === "") {
 		throw new Error(`Missing required path parameter: clientScopeId`);
 	}
 	const data = await request<
@@ -13208,19 +11475,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidProtocolMappersAddMod
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -13256,19 +11515,11 @@ export async function gETAdminRealmsRealmClientsClientUuidProtocolMappersModels(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -13305,19 +11556,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidProtocolMappersModels
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -13353,23 +11596,15 @@ export async function gETAdminRealmsRealmClientsClientUuidProtocolMappersModelsI
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -13406,23 +11641,15 @@ export async function pUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsI
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -13458,23 +11685,15 @@ export async function dELETEAdminRealmsRealmClientsClientUuidProtocolMappersMode
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -13509,27 +11728,15 @@ export async function gETAdminRealmsRealmClientsClientUuidProtocolMappersProtoco
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.protocol === undefined ||
-		pathParams.protocol === null ||
-		String(pathParams.protocol) === ""
-	) {
+	if (pathParams?.protocol == null || String(pathParams.protocol) === "") {
 		throw new Error(`Missing required path parameter: protocol`);
 	}
 	const data = await request<
@@ -13564,19 +11771,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidPushRevocation(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -13611,19 +11810,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidRegistrationAccessTok
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -13660,19 +11851,11 @@ export async function gETAdminRealmsRealmClientsClientUuidRoles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -13710,19 +11893,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidRoles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -13764,27 +11939,15 @@ export async function gETAdminRealmsRealmClientsClientUuidRolesRoleName(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -13824,27 +11987,15 @@ export async function pUTAdminRealmsRealmClientsClientUuidRolesRoleName(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -13885,27 +12036,15 @@ export async function dELETEAdminRealmsRealmClientsClientUuidRolesRoleName(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -13944,27 +12083,15 @@ export async function gETAdminRealmsRealmClientsClientUuidRolesRoleNameComposite
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -14004,27 +12131,15 @@ export async function pOSTAdminRealmsRealmClientsClientUuidRolesRoleNameComposit
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -14065,27 +12180,15 @@ export async function dELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompos
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -14124,35 +12227,19 @@ export async function gETAdminRealmsRealmClientsClientUuidRolesRoleNameComposite
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 
-	if (
-		pathParams.targetClientUuid === undefined ||
-		pathParams.targetClientUuid === null ||
-		String(pathParams.targetClientUuid) === ""
-	) {
+	if (pathParams?.targetClientUuid == null || String(pathParams.targetClientUuid) === "") {
 		throw new Error(`Missing required path parameter: targetClientUuid`);
 	}
 	const data = await request<
@@ -14190,27 +12277,15 @@ export async function gETAdminRealmsRealmClientsClientUuidRolesRoleNameComposite
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -14250,27 +12325,15 @@ export async function gETAdminRealmsRealmClientsClientUuidRolesRoleNameGroups(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -14309,27 +12372,15 @@ export async function gETAdminRealmsRealmClientsClientUuidRolesRoleNameManagemen
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -14369,27 +12420,15 @@ export async function pUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagemen
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -14430,27 +12469,15 @@ export async function gETAdminRealmsRealmClientsClientUuidRolesRoleNameUsers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -14490,19 +12517,11 @@ export async function gETAdminRealmsRealmClientsClientUuidScopeMappings(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -14537,27 +12556,15 @@ export async function gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsCl
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -14594,27 +12601,15 @@ export async function pOSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsC
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -14652,27 +12647,15 @@ export async function dELETEAdminRealmsRealmClientsClientUuidScopeMappingsClient
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -14708,27 +12691,15 @@ export async function gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsCl
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -14765,27 +12736,15 @@ export async function gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsCl
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -14821,19 +12780,11 @@ export async function gETAdminRealmsRealmClientsClientUuidScopeMappingsRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -14870,19 +12821,11 @@ export async function pOSTAdminRealmsRealmClientsClientUuidScopeMappingsRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -14920,19 +12863,11 @@ export async function dELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -14968,19 +12903,11 @@ export async function gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmAvai
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -15018,19 +12945,11 @@ export async function gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmComp
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -15066,19 +12985,11 @@ export async function gETAdminRealmsRealmClientsClientUuidServiceAccountUser(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -15113,19 +13024,11 @@ export async function gETAdminRealmsRealmClientsClientUuidSessionCount(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -15160,19 +13063,11 @@ export async function gETAdminRealmsRealmClientsClientUuidTestNodesAvailable(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -15209,19 +13104,11 @@ export async function gETAdminRealmsRealmClientsClientUuidUserSessions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -15256,19 +13143,11 @@ export async function gETAdminRealmsRealmGroupsGroupId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -15305,19 +13184,11 @@ export async function pUTAdminRealmsRealmGroupsGroupId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -15354,19 +13225,11 @@ export async function dELETEAdminRealmsRealmGroupsGroupId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -15410,19 +13273,11 @@ export async function gETAdminRealmsRealmGroupsGroupIdChildren(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -15468,19 +13323,11 @@ export async function pOSTAdminRealmsRealmGroupsGroupIdChildren(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -15519,19 +13366,11 @@ export async function gETAdminRealmsRealmGroupsGroupIdManagementPermissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -15568,19 +13407,11 @@ export async function pUTAdminRealmsRealmGroupsGroupIdManagementPermissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -15618,19 +13449,11 @@ export async function gETAdminRealmsRealmGroupsGroupIdMembers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -15666,19 +13489,11 @@ export async function gETAdminRealmsRealmGroupsGroupIdRoleMappings(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -15713,27 +13528,15 @@ export async function gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientI
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -15770,27 +13573,15 @@ export async function pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClient
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -15828,27 +13619,15 @@ export async function dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClie
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -15884,27 +13663,15 @@ export async function gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientI
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -15941,27 +13708,15 @@ export async function gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientI
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -15997,19 +13752,11 @@ export async function gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -16046,19 +13793,11 @@ export async function pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -16101,19 +13840,11 @@ export async function dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -16154,19 +13885,11 @@ export async function gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmAvailable
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -16203,19 +13926,11 @@ export async function gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmComposite
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -16251,19 +13966,11 @@ export async function gETAdminRealmsRealmIdentityProviderProvidersProviderId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.providerId === undefined ||
-		pathParams.providerId === null ||
-		String(pathParams.providerId) === ""
-	) {
+	if (pathParams?.providerId == null || String(pathParams.providerId) === "") {
 		throw new Error(`Missing required path parameter: providerId`);
 	}
 	const data = await request<
@@ -16300,19 +14007,11 @@ export async function gETAdminRealmsRealmOrganizationsMembersMemberIdOrganizatio
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.memberId === undefined ||
-		pathParams.memberId === null ||
-		String(pathParams.memberId) === ""
-	) {
+	if (pathParams?.memberId == null || String(pathParams.memberId) === "") {
 		throw new Error(`Missing required path parameter: memberId`);
 	}
 	const data = await request<
@@ -16351,19 +14050,11 @@ export async function gETAdminRealmsRealmOrganizationsOrgId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 	const data = await request<
@@ -16400,19 +14091,11 @@ export async function pUTAdminRealmsRealmOrganizationsOrgId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 	const data = await request<
@@ -16452,19 +14135,11 @@ export async function dELETEAdminRealmsRealmOrganizationsOrgId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 	const data = await request<
@@ -16514,19 +14189,11 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdGroups(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 	const data = await request<
@@ -16574,19 +14241,11 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdGroups(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 	const data = await request<
@@ -16630,23 +14289,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPath
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (pathParams.path === undefined || pathParams.path === null || String(pathParams.path) === "") {
+	if (pathParams?.path == null || String(pathParams.path) === "") {
 		throw new Error(`Missing required path parameter: path`);
 	}
 	const data = await request<
@@ -16687,27 +14338,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -16746,27 +14385,15 @@ export async function pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -16807,27 +14434,15 @@ export async function dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -16874,27 +14489,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildren
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -16933,27 +14536,15 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildre
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -16997,27 +14588,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -17054,35 +14633,19 @@ export async function pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersU
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -17123,35 +14686,19 @@ export async function dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembe
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -17190,27 +14737,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMapp
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -17245,35 +14780,19 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMapp
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -17310,35 +14829,19 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMap
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -17376,35 +14879,19 @@ export async function dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleM
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -17440,35 +14927,19 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMapp
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -17505,35 +14976,19 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMapp
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -17569,27 +15024,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMapp
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -17626,27 +15069,15 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMap
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -17689,27 +15120,15 @@ export async function dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleM
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -17750,27 +15169,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMapp
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -17807,27 +15214,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMapp
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -17863,19 +15258,11 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdIdentityProviders(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 	const data = await request<
@@ -17913,19 +15300,11 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdIdentityProviders(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 	const data = await request<
@@ -17966,27 +15345,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAlia
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -18027,27 +15394,15 @@ export async function pUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAlia
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -18088,27 +15443,15 @@ export async function dELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersA
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -18158,27 +15501,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAlia
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.alias === undefined ||
-		pathParams.alias === null ||
-		String(pathParams.alias) === ""
-	) {
+	if (pathParams?.alias == null || String(pathParams.alias) === "") {
 		throw new Error(`Missing required path parameter: alias`);
 	}
 	const data = await request<
@@ -18235,19 +15566,11 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdInvitations(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 	const data = await request<
@@ -18291,23 +15614,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdInvitationsId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -18345,23 +15660,15 @@ export async function dELETEAdminRealmsRealmOrganizationsOrgIdInvitationsId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -18399,23 +15706,15 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResend(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -18462,19 +15761,11 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdMembers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 	const data = await request<
@@ -18520,19 +15811,11 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdMembers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 	const data = await request<
@@ -18572,19 +15855,11 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdMembersCount(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 	const data = await request<
@@ -18619,19 +15894,11 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistin
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 	const data = await request<
@@ -18673,19 +15940,11 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUser(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 	const data = await request<
@@ -18727,27 +15986,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdMembersMemberId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.memberId === undefined ||
-		pathParams.memberId === null ||
-		String(pathParams.memberId) === ""
-	) {
+	if (pathParams?.memberId == null || String(pathParams.memberId) === "") {
 		throw new Error(`Missing required path parameter: memberId`);
 	}
 	const data = await request<
@@ -18786,27 +16033,15 @@ export async function dELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.memberId === undefined ||
-		pathParams.memberId === null ||
-		String(pathParams.memberId) === ""
-	) {
+	if (pathParams?.memberId == null || String(pathParams.memberId) === "") {
 		throw new Error(`Missing required path parameter: memberId`);
 	}
 	const data = await request<
@@ -18847,27 +16082,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdGroups
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.memberId === undefined ||
-		pathParams.memberId === null ||
-		String(pathParams.memberId) === ""
-	) {
+	if (pathParams?.memberId == null || String(pathParams.memberId) === "") {
 		throw new Error(`Missing required path parameter: memberId`);
 	}
 	const data = await request<
@@ -18908,27 +16131,15 @@ export async function pUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMember
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.memberId === undefined ||
-		pathParams.memberId === null ||
-		String(pathParams.memberId) === ""
-	) {
+	if (pathParams?.memberId == null || String(pathParams.memberId) === "") {
 		throw new Error(`Missing required path parameter: memberId`);
 	}
 	const data = await request<
@@ -18970,27 +16181,15 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdOrgani
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.orgId === undefined ||
-		pathParams.orgId === null ||
-		String(pathParams.orgId) === ""
-	) {
+	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
 
-	if (
-		pathParams.memberId === undefined ||
-		pathParams.memberId === null ||
-		String(pathParams.memberId) === ""
-	) {
+	if (pathParams?.memberId == null || String(pathParams.memberId) === "") {
 		throw new Error(`Missing required path parameter: memberId`);
 	}
 	const data = await request<
@@ -19029,19 +16228,11 @@ export async function gETAdminRealmsRealmRolesByIdRoleId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleId === undefined ||
-		pathParams.roleId === null ||
-		String(pathParams.roleId) === ""
-	) {
+	if (pathParams?.roleId == null || String(pathParams.roleId) === "") {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -19078,19 +16269,11 @@ export async function pUTAdminRealmsRealmRolesByIdRoleId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleId === undefined ||
-		pathParams.roleId === null ||
-		String(pathParams.roleId) === ""
-	) {
+	if (pathParams?.roleId == null || String(pathParams.roleId) === "") {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -19128,19 +16311,11 @@ export async function dELETEAdminRealmsRealmRolesByIdRoleId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleId === undefined ||
-		pathParams.roleId === null ||
-		String(pathParams.roleId) === ""
-	) {
+	if (pathParams?.roleId == null || String(pathParams.roleId) === "") {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -19180,19 +16355,11 @@ export async function gETAdminRealmsRealmRolesByIdRoleIdComposites(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleId === undefined ||
-		pathParams.roleId === null ||
-		String(pathParams.roleId) === ""
-	) {
+	if (pathParams?.roleId == null || String(pathParams.roleId) === "") {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -19230,19 +16397,11 @@ export async function pOSTAdminRealmsRealmRolesByIdRoleIdComposites(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleId === undefined ||
-		pathParams.roleId === null ||
-		String(pathParams.roleId) === ""
-	) {
+	if (pathParams?.roleId == null || String(pathParams.roleId) === "") {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -19280,19 +16439,11 @@ export async function dELETEAdminRealmsRealmRolesByIdRoleIdComposites(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleId === undefined ||
-		pathParams.roleId === null ||
-		String(pathParams.roleId) === ""
-	) {
+	if (pathParams?.roleId == null || String(pathParams.roleId) === "") {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -19328,27 +16479,15 @@ export async function gETAdminRealmsRealmRolesByIdRoleIdCompositesClientsClientU
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 
-	if (
-		pathParams.roleId === undefined ||
-		pathParams.roleId === null ||
-		String(pathParams.roleId) === ""
-	) {
+	if (pathParams?.roleId == null || String(pathParams.roleId) === "") {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -19386,19 +16525,11 @@ export async function gETAdminRealmsRealmRolesByIdRoleIdCompositesRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleId === undefined ||
-		pathParams.roleId === null ||
-		String(pathParams.roleId) === ""
-	) {
+	if (pathParams?.roleId == null || String(pathParams.roleId) === "") {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -19433,19 +16564,11 @@ export async function gETAdminRealmsRealmRolesByIdRoleIdManagementPermissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleId === undefined ||
-		pathParams.roleId === null ||
-		String(pathParams.roleId) === ""
-	) {
+	if (pathParams?.roleId == null || String(pathParams.roleId) === "") {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -19482,19 +16605,11 @@ export async function pUTAdminRealmsRealmRolesByIdRoleIdManagementPermissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleId === undefined ||
-		pathParams.roleId === null ||
-		String(pathParams.roleId) === ""
-	) {
+	if (pathParams?.roleId == null || String(pathParams.roleId) === "") {
 		throw new Error(`Missing required path parameter: roleId`);
 	}
 	const data = await request<
@@ -19530,19 +16645,11 @@ export async function gETAdminRealmsRealmRolesRoleName(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -19581,19 +16688,11 @@ export async function pUTAdminRealmsRealmRolesRoleName(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -19634,19 +16733,11 @@ export async function dELETEAdminRealmsRealmRolesRoleName(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -19685,19 +16776,11 @@ export async function gETAdminRealmsRealmRolesRoleNameComposites(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -19737,19 +16820,11 @@ export async function pOSTAdminRealmsRealmRolesRoleNameComposites(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -19790,19 +16865,11 @@ export async function dELETEAdminRealmsRealmRolesRoleNameComposites(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -19841,27 +16908,15 @@ export async function gETAdminRealmsRealmRolesRoleNameCompositesClientsTargetCli
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 
-	if (
-		pathParams.targetClientUuid === undefined ||
-		pathParams.targetClientUuid === null ||
-		String(pathParams.targetClientUuid) === ""
-	) {
+	if (pathParams?.targetClientUuid == null || String(pathParams.targetClientUuid) === "") {
 		throw new Error(`Missing required path parameter: targetClientUuid`);
 	}
 	const data = await request<
@@ -19899,19 +16954,11 @@ export async function gETAdminRealmsRealmRolesRoleNameCompositesRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -19951,19 +16998,11 @@ export async function gETAdminRealmsRealmRolesRoleNameGroups(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -20002,19 +17041,11 @@ export async function gETAdminRealmsRealmRolesRoleNameManagementPermissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -20054,19 +17085,11 @@ export async function pUTAdminRealmsRealmRolesRoleNameManagementPermissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -20107,19 +17130,11 @@ export async function gETAdminRealmsRealmRolesRoleNameUsers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.roleName === undefined ||
-		pathParams.roleName === null ||
-		String(pathParams.roleName) === ""
-	) {
+	if (pathParams?.roleName == null || String(pathParams.roleName) === "") {
 		throw new Error(`Missing required path parameter: roleName`);
 	}
 	const data = await request<
@@ -20160,19 +17175,11 @@ export async function gETAdminRealmsRealmUsersUserId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -20210,19 +17217,11 @@ export async function pUTAdminRealmsRealmUsersUserId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -20263,19 +17262,11 @@ export async function dELETEAdminRealmsRealmUsersUserId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -20313,19 +17304,11 @@ export async function gETAdminRealmsRealmUsersUserIdConfiguredUserStorageCredent
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -20360,19 +17343,11 @@ export async function gETAdminRealmsRealmUsersUserIdConsents(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -20407,27 +17382,15 @@ export async function dELETEAdminRealmsRealmUsersUserIdConsentsClient(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.client === undefined ||
-		pathParams.client === null ||
-		String(pathParams.client) === ""
-	) {
+	if (pathParams?.client == null || String(pathParams.client) === "") {
 		throw new Error(`Missing required path parameter: client`);
 	}
 	const data = await request<
@@ -20464,19 +17427,11 @@ export async function gETAdminRealmsRealmUsersUserIdCredentials(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -20511,27 +17466,15 @@ export async function dELETEAdminRealmsRealmUsersUserIdCredentialsCredentialId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.credentialId === undefined ||
-		pathParams.credentialId === null ||
-		String(pathParams.credentialId) === ""
-	) {
+	if (pathParams?.credentialId == null || String(pathParams.credentialId) === "") {
 		throw new Error(`Missing required path parameter: credentialId`);
 	}
 	const data = await request<
@@ -20574,33 +17517,20 @@ export async function pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMove
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.credentialId === undefined ||
-		pathParams.credentialId === null ||
-		String(pathParams.credentialId) === ""
-	) {
+	if (pathParams?.credentialId == null || String(pathParams.credentialId) === "") {
 		throw new Error(`Missing required path parameter: credentialId`);
 	}
 
 	if (
-		pathParams.newPreviousCredentialId === undefined ||
-		pathParams.newPreviousCredentialId === null ||
+		pathParams?.newPreviousCredentialId == null ||
 		String(pathParams.newPreviousCredentialId) === ""
 	) {
 		throw new Error(`Missing required path parameter: newPreviousCredentialId`);
@@ -20640,27 +17570,15 @@ export async function pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMove
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.credentialId === undefined ||
-		pathParams.credentialId === null ||
-		String(pathParams.credentialId) === ""
-	) {
+	if (pathParams?.credentialId == null || String(pathParams.credentialId) === "") {
 		throw new Error(`Missing required path parameter: credentialId`);
 	}
 	const data = await request<
@@ -20690,35 +17608,25 @@ export async function pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMove
 export async function pUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabel(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { realm: string; userId: string; credentialId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.credentialId === undefined ||
-		pathParams.credentialId === null ||
-		String(pathParams.credentialId) === ""
-	) {
+	if (pathParams?.credentialId == null || String(pathParams.credentialId) === "") {
 		throw new Error(`Missing required path parameter: credentialId`);
 	}
 	const data = await request<
@@ -20727,15 +17635,16 @@ export async function pUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserL
 			| PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus403
 			| PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus404
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ realm: string; userId: string; credentialId: string }
 	>({
 		method: "PUT",
 		url: `/admin/realms/${encodeURIComponent(String(pathParams.realm))}/users/${encodeURIComponent(String(pathParams.userId))}/credentials/${encodeURIComponent(String(pathParams.credentialId))}/userLabel`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "text/plain", ...requestConfig.headers },
 	});
 
 	return data;
@@ -20758,19 +17667,11 @@ export async function pUTAdminRealmsRealmUsersUserIdDisableCredentialTypes(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -20811,19 +17712,11 @@ export async function pUTAdminRealmsRealmUsersUserIdExecuteActionsEmail(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -20865,19 +17758,11 @@ export async function gETAdminRealmsRealmUsersUserIdFederatedIdentity(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -20914,27 +17799,15 @@ export async function pOSTAdminRealmsRealmUsersUserIdFederatedIdentityProvider(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.provider === undefined ||
-		pathParams.provider === null ||
-		String(pathParams.provider) === ""
-	) {
+	if (pathParams?.provider == null || String(pathParams.provider) === "") {
 		throw new Error(`Missing required path parameter: provider`);
 	}
 	const data = await request<
@@ -20973,27 +17846,15 @@ export async function dELETEAdminRealmsRealmUsersUserIdFederatedIdentityProvider
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.provider === undefined ||
-		pathParams.provider === null ||
-		String(pathParams.provider) === ""
-	) {
+	if (pathParams?.provider == null || String(pathParams.provider) === "") {
 		throw new Error(`Missing required path parameter: provider`);
 	}
 	const data = await request<
@@ -21032,19 +17893,11 @@ export async function gETAdminRealmsRealmUsersUserIdGroups(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -21081,19 +17934,11 @@ export async function gETAdminRealmsRealmUsersUserIdGroupsCount(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -21128,27 +17973,15 @@ export async function pUTAdminRealmsRealmUsersUserIdGroupsGroupId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -21185,27 +18018,15 @@ export async function dELETEAdminRealmsRealmUsersUserIdGroupsGroupId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -21245,19 +18066,11 @@ export async function pOSTAdminRealmsRealmUsersUserIdImpersonation(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -21295,19 +18108,11 @@ export async function pOSTAdminRealmsRealmUsersUserIdLogout(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -21342,27 +18147,15 @@ export async function gETAdminRealmsRealmUsersUserIdOfflineSessionsClientUuid(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.clientUuid === undefined ||
-		pathParams.clientUuid === null ||
-		String(pathParams.clientUuid) === ""
-	) {
+	if (pathParams?.clientUuid == null || String(pathParams.clientUuid) === "") {
 		throw new Error(`Missing required path parameter: clientUuid`);
 	}
 	const data = await request<
@@ -21402,19 +18195,11 @@ export async function pUTAdminRealmsRealmUsersUserIdResetPassword(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -21458,19 +18243,11 @@ export async function pUTAdminRealmsRealmUsersUserIdResetPasswordEmail(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -21511,19 +18288,11 @@ export async function gETAdminRealmsRealmUsersUserIdRoleMappings(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -21558,27 +18327,15 @@ export async function gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -21615,27 +18372,15 @@ export async function pOSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientId
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -21673,27 +18418,15 @@ export async function dELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClient
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -21729,27 +18462,15 @@ export async function gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdA
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -21786,27 +18507,15 @@ export async function gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdC
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.clientId === undefined ||
-		pathParams.clientId === null ||
-		String(pathParams.clientId) === ""
-	) {
+	if (pathParams?.clientId == null || String(pathParams.clientId) === "") {
 		throw new Error(`Missing required path parameter: clientId`);
 	}
 	const data = await request<
@@ -21842,19 +18551,11 @@ export async function gETAdminRealmsRealmUsersUserIdRoleMappingsRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -21891,19 +18592,11 @@ export async function pOSTAdminRealmsRealmUsersUserIdRoleMappingsRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -21946,19 +18639,11 @@ export async function dELETEAdminRealmsRealmUsersUserIdRoleMappingsRealm(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -21999,19 +18684,11 @@ export async function gETAdminRealmsRealmUsersUserIdRoleMappingsRealmAvailable(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -22048,19 +18725,11 @@ export async function gETAdminRealmsRealmUsersUserIdRoleMappingsRealmComposite(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -22099,19 +18768,11 @@ export async function pUTAdminRealmsRealmUsersUserIdSendVerifyEmail(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -22151,19 +18812,11 @@ export async function gETAdminRealmsRealmUsersUserIdSessions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -22197,19 +18850,11 @@ export async function gETAdminRealmsRealmUsersUserIdUnmanagedAttributes(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -22245,19 +18890,11 @@ export async function gETAdminRealmsRealmWorkflowsScheduledResourceId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.realm === undefined ||
-		pathParams.realm === null ||
-		String(pathParams.realm) === ""
-	) {
+	if (pathParams?.realm == null || String(pathParams.realm) === "") {
 		throw new Error(`Missing required path parameter: realm`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<

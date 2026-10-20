@@ -545,7 +545,13 @@ import type {
  * @link /chats
  */
 export async function chatsCreate(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		body,
+		config,
+	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -561,15 +567,16 @@ export async function chatsCreate(
 			| ChatsCreateStatus429
 			| ChatsCreateStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/chats`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -638,7 +645,13 @@ export async function chatsFind(
  * @link /chats/init
  */
 export async function chatsInit(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		body,
+		config,
+	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -654,15 +667,16 @@ export async function chatsInit(
 			| ChatsInitStatus429
 			| ChatsInitStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/chats/init`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -684,11 +698,7 @@ export async function chatsDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -733,11 +743,7 @@ export async function chatsGetById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -774,19 +780,17 @@ export async function chatsGetById(
 export async function chatsUpdate(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { chatId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -801,15 +805,16 @@ export async function chatsUpdate(
 			| ChatsUpdateStatus429
 			| ChatsUpdateStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string }
 	>({
 		method: "PATCH",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -823,19 +828,17 @@ export async function chatsUpdate(
 export async function chatsFavorite(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { chatId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -850,15 +853,16 @@ export async function chatsFavorite(
 			| ChatsFavoriteStatus429
 			| ChatsFavoriteStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string }
 	>({
 		method: "PUT",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/favorite`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -872,19 +876,17 @@ export async function chatsFavorite(
 export async function chatsFork(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { chatId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -899,15 +901,16 @@ export async function chatsFork(
 			| ChatsForkStatus429
 			| ChatsForkStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string }
 	>({
 		method: "POST",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/fork`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -929,11 +932,7 @@ export async function projectsGetByChatId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -980,11 +979,7 @@ export async function chatsFindMessages(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -1022,19 +1017,17 @@ export async function chatsFindMessages(
 export async function chatsSendMessage(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { chatId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -1049,15 +1042,16 @@ export async function chatsSendMessage(
 			| ChatsSendMessageStatus429
 			| ChatsSendMessageStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string }
 	>({
 		method: "POST",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/messages`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -1079,19 +1073,11 @@ export async function chatsGetMessage(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (
-		pathParams.messageId === undefined ||
-		pathParams.messageId === null ||
-		String(pathParams.messageId) === ""
-	) {
+	if (pathParams?.messageId == null || String(pathParams.messageId) === "") {
 		throw new Error(`Missing required path parameter: messageId`);
 	}
 	const data = await request<
@@ -1138,11 +1124,7 @@ export async function chatsFindVersions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -1190,19 +1172,11 @@ export async function chatsGetVersion(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (
-		pathParams.versionId === undefined ||
-		pathParams.versionId === null ||
-		String(pathParams.versionId) === ""
-	) {
+	if (pathParams?.versionId == null || String(pathParams.versionId) === "") {
 		throw new Error(`Missing required path parameter: versionId`);
 	}
 	const data = await request<
@@ -1240,27 +1214,21 @@ export async function chatsGetVersion(
 export async function chatsUpdateVersion(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { chatId: string; versionId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (
-		pathParams.versionId === undefined ||
-		pathParams.versionId === null ||
-		String(pathParams.versionId) === ""
-	) {
+	if (pathParams?.versionId == null || String(pathParams.versionId) === "") {
 		throw new Error(`Missing required path parameter: versionId`);
 	}
 	const data = await request<
@@ -1275,15 +1243,16 @@ export async function chatsUpdateVersion(
 			| ChatsUpdateVersionStatus429
 			| ChatsUpdateVersionStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string; versionId: string }
 	>({
 		method: "PATCH",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -1307,19 +1276,11 @@ export async function chatsDownloadVersion(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (
-		pathParams.versionId === undefined ||
-		pathParams.versionId === null ||
-		String(pathParams.versionId) === ""
-	) {
+	if (pathParams?.versionId == null || String(pathParams.versionId) === "") {
 		throw new Error(`Missing required path parameter: versionId`);
 	}
 	const data = await request<
@@ -1357,27 +1318,21 @@ export async function chatsDownloadVersion(
 export async function chatsDeleteVersionFiles(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { chatId: string; versionId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (
-		pathParams.versionId === undefined ||
-		pathParams.versionId === null ||
-		String(pathParams.versionId) === ""
-	) {
+	if (pathParams?.versionId == null || String(pathParams.versionId) === "") {
 		throw new Error(`Missing required path parameter: versionId`);
 	}
 	const data = await request<
@@ -1392,15 +1347,16 @@ export async function chatsDeleteVersionFiles(
 			| ChatsDeleteVersionFilesStatus429
 			| ChatsDeleteVersionFilesStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string; versionId: string }
 	>({
 		method: "POST",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}/files/delete`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -1422,19 +1378,11 @@ export async function chatsResume(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (
-		pathParams.messageId === undefined ||
-		pathParams.messageId === null ||
-		String(pathParams.messageId) === ""
-	) {
+	if (pathParams?.messageId == null || String(pathParams.messageId) === "") {
 		throw new Error(`Missing required path parameter: messageId`);
 	}
 	const data = await request<
@@ -1479,19 +1427,11 @@ export async function chatsStop(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (
-		pathParams.messageId === undefined ||
-		pathParams.messageId === null ||
-		String(pathParams.messageId) === ""
-	) {
+	if (pathParams?.messageId == null || String(pathParams.messageId) === "") {
 		throw new Error(`Missing required path parameter: messageId`);
 	}
 	const data = await request<
@@ -1528,19 +1468,17 @@ export async function chatsStop(
 export async function chatsResolveTask(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { chatId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 	const data = await request<
@@ -1555,15 +1493,16 @@ export async function chatsResolveTask(
 			| ChatsResolveTaskStatus429
 			| ChatsResolveTaskStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string }
 	>({
 		method: "POST",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/tasks/resolve`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -1618,7 +1557,13 @@ export async function deploymentsFind(
  * @link /deployments
  */
 export async function deploymentsCreate(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		body,
+		config,
+	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -1634,15 +1579,16 @@ export async function deploymentsCreate(
 			| DeploymentsCreateStatus429
 			| DeploymentsCreateStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/deployments`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -1664,11 +1610,7 @@ export async function deploymentsGetById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -1713,11 +1655,7 @@ export async function deploymentsDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -1764,11 +1702,7 @@ export async function deploymentsFindLogs(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -1814,11 +1748,7 @@ export async function deploymentsFindErrors(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -1889,7 +1819,13 @@ export async function hooksFind(
  * @link /hooks
  */
 export async function hooksCreate(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		body,
+		config,
+	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -1905,15 +1841,16 @@ export async function hooksCreate(
 			| HooksCreateStatus429
 			| HooksCreateStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/hooks`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -1935,11 +1872,7 @@ export async function hooksGetById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.hookId === undefined ||
-		pathParams.hookId === null ||
-		String(pathParams.hookId) === ""
-	) {
+	if (pathParams?.hookId == null || String(pathParams.hookId) === "") {
 		throw new Error(`Missing required path parameter: hookId`);
 	}
 	const data = await request<
@@ -1976,19 +1909,17 @@ export async function hooksGetById(
 export async function hooksUpdate(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { hookId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.hookId === undefined ||
-		pathParams.hookId === null ||
-		String(pathParams.hookId) === ""
-	) {
+	if (pathParams?.hookId == null || String(pathParams.hookId) === "") {
 		throw new Error(`Missing required path parameter: hookId`);
 	}
 	const data = await request<
@@ -2003,15 +1934,16 @@ export async function hooksUpdate(
 			| HooksUpdateStatus429
 			| HooksUpdateStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ hookId: string }
 	>({
 		method: "PATCH",
 		url: `/hooks/${encodeURIComponent(String(pathParams.hookId))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -2033,11 +1965,7 @@ export async function hooksDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.hookId === undefined ||
-		pathParams.hookId === null ||
-		String(pathParams.hookId) === ""
-	) {
+	if (pathParams?.hookId == null || String(pathParams.hookId) === "") {
 		throw new Error(`Missing required path parameter: hookId`);
 	}
 	const data = await request<
@@ -2108,7 +2036,13 @@ export async function integrationsVercelProjectsFind(
  * @link /integrations/vercel/projects
  */
 export async function integrationsVercelProjectsCreate(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		body,
+		config,
+	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -2124,15 +2058,16 @@ export async function integrationsVercelProjectsCreate(
 			| IntegrationsVercelProjectsCreateStatus429
 			| IntegrationsVercelProjectsCreateStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/integrations/vercel/projects`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -2180,7 +2115,13 @@ export async function projectsFind(
  * @link /projects
  */
 export async function projectsCreate(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		body,
+		config,
+	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -2196,15 +2137,16 @@ export async function projectsCreate(
 			| ProjectsCreateStatus429
 			| ProjectsCreateStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/projects`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -2226,11 +2168,7 @@ export async function projectsGetById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2267,19 +2205,17 @@ export async function projectsGetById(
 export async function projectsUpdate(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { projectId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2294,15 +2230,16 @@ export async function projectsUpdate(
 			| ProjectsUpdateStatus429
 			| ProjectsUpdateStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ projectId: string }
 	>({
 		method: "PATCH",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -2326,11 +2263,7 @@ export async function projectsDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2368,19 +2301,17 @@ export async function projectsDelete(
 export async function projectsAssign(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { projectId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2395,15 +2326,16 @@ export async function projectsAssign(
 			| ProjectsAssignStatus429
 			| ProjectsAssignStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ projectId: string }
 	>({
 		method: "POST",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/assign`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -2427,11 +2359,7 @@ export async function projectsFindEnvVars(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2469,21 +2397,19 @@ export async function projectsFindEnvVars(
 export async function projectsCreateEnvVars(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { decrypted?: "true" | "false" };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2498,7 +2424,7 @@ export async function projectsCreateEnvVars(
 			| ProjectsCreateEnvVarsStatus429
 			| ProjectsCreateEnvVarsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ decrypted?: "true" | "false" },
 		{ projectId: string }
@@ -2506,8 +2432,9 @@ export async function projectsCreateEnvVars(
 		method: "POST",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -2521,21 +2448,19 @@ export async function projectsCreateEnvVars(
 export async function projectsUpdateEnvVars(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { decrypted?: "true" | "false" };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2550,7 +2475,7 @@ export async function projectsUpdateEnvVars(
 			| ProjectsUpdateEnvVarsStatus429
 			| ProjectsUpdateEnvVarsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ decrypted?: "true" | "false" },
 		{ projectId: string }
@@ -2558,8 +2483,9 @@ export async function projectsUpdateEnvVars(
 		method: "PATCH",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -2573,19 +2499,17 @@ export async function projectsUpdateEnvVars(
 export async function projectsDeleteEnvVars(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { projectId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -2600,15 +2524,16 @@ export async function projectsDeleteEnvVars(
 			| ProjectsDeleteEnvVarsStatus429
 			| ProjectsDeleteEnvVarsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ projectId: string }
 	>({
 		method: "POST",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars/delete`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -2632,17 +2557,12 @@ export async function projectsGetEnvVar(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 
 	if (
-		pathParams.environmentVariableId === undefined ||
-		pathParams.environmentVariableId === null ||
+		pathParams?.environmentVariableId == null ||
 		String(pathParams.environmentVariableId) === ""
 	) {
 		throw new Error(`Missing required path parameter: environmentVariableId`);
@@ -2884,19 +2804,11 @@ export async function chatsRestore(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.chatId === undefined ||
-		pathParams.chatId === null ||
-		String(pathParams.chatId) === ""
-	) {
+	if (pathParams?.chatId == null || String(pathParams.chatId) === "") {
 		throw new Error(`Missing required path parameter: chatId`);
 	}
 
-	if (
-		pathParams.versionId === undefined ||
-		pathParams.versionId === null ||
-		String(pathParams.versionId) === ""
-	) {
+	if (pathParams?.versionId == null || String(pathParams.versionId) === "") {
 		throw new Error(`Missing required path parameter: versionId`);
 	}
 	const data = await request<
@@ -3112,7 +3024,13 @@ export async function mcpServersFind(
  * @link /mcp-servers
  */
 export async function mcpServersCreate(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		body,
+		config,
+	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -3128,15 +3046,16 @@ export async function mcpServersCreate(
 			| McpServersCreateStatus429
 			| McpServersCreateStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/mcp-servers`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -3158,11 +3077,7 @@ export async function mcpServersGetById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.mcpServerId === undefined ||
-		pathParams.mcpServerId === null ||
-		String(pathParams.mcpServerId) === ""
-	) {
+	if (pathParams?.mcpServerId == null || String(pathParams.mcpServerId) === "") {
 		throw new Error(`Missing required path parameter: mcpServerId`);
 	}
 	const data = await request<
@@ -3199,19 +3114,17 @@ export async function mcpServersGetById(
 export async function mcpServersUpdate(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { mcpServerId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.mcpServerId === undefined ||
-		pathParams.mcpServerId === null ||
-		String(pathParams.mcpServerId) === ""
-	) {
+	if (pathParams?.mcpServerId == null || String(pathParams.mcpServerId) === "") {
 		throw new Error(`Missing required path parameter: mcpServerId`);
 	}
 	const data = await request<
@@ -3226,15 +3139,16 @@ export async function mcpServersUpdate(
 			| McpServersUpdateStatus429
 			| McpServersUpdateStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ mcpServerId: string }
 	>({
 		method: "PATCH",
 		url: `/mcp-servers/${encodeURIComponent(String(pathParams.mcpServerId))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -3256,11 +3170,7 @@ export async function mcpServersDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.mcpServerId === undefined ||
-		pathParams.mcpServerId === null ||
-		String(pathParams.mcpServerId) === ""
-	) {
+	if (pathParams?.mcpServerId == null || String(pathParams.mcpServerId) === "") {
 		throw new Error(`Missing required path parameter: mcpServerId`);
 	}
 	const data = await request<
@@ -3297,19 +3207,17 @@ export async function mcpServersDelete(
 export async function mcpServersCreateOAuthAuthorizationUrl(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { mcpServerId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.mcpServerId === undefined ||
-		pathParams.mcpServerId === null ||
-		String(pathParams.mcpServerId) === ""
-	) {
+	if (pathParams?.mcpServerId == null || String(pathParams.mcpServerId) === "") {
 		throw new Error(`Missing required path parameter: mcpServerId`);
 	}
 	const data = await request<
@@ -3324,15 +3232,16 @@ export async function mcpServersCreateOAuthAuthorizationUrl(
 			| McpServersCreateOAuthAuthorizationUrlStatus429
 			| McpServersCreateOAuthAuthorizationUrlStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ mcpServerId: string }
 	>({
 		method: "POST",
 		url: `/mcp-servers/${encodeURIComponent(String(pathParams.mcpServerId))}/oauth/authorize`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
