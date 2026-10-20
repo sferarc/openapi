@@ -50,16 +50,43 @@ const JS_RESERVED_WORDS = new Set([
 ]);
 
 export async function fetchSpec(url: string, timeout = FETCH_TIMEOUT_MS): Promise<OpenAPIObject> {
-	const response = await fetch(url, { signal: AbortSignal.timeout(timeout) });
+	let response: Response;
+	try {
+		response = await fetch(url, { signal: AbortSignal.timeout(timeout) });
+	} catch (error) {
+		throw fetchFailure(url, error, timeout);
+	}
 	if (!response.ok) {
 		throw new Error(`Failed to fetch OpenAPI spec from ${url}: HTTP ${response.status}`);
 	}
 
-	const document = await response.json();
+	let document: unknown;
+	try {
+		document = await response.json();
+	} catch (error) {
+		if (!(error instanceof SyntaxError)) throw fetchFailure(url, error, timeout);
+		const contentType = response.headers.get("content-type") ?? "no content-type";
+		throw new Error(`Response from ${url} is not valid JSON (${contentType}): ${error.message}`, {
+			cause: error,
+		});
+	}
 	if (!isOpenAPIDocument(document)) {
 		throw new Error(`Response from ${url} is not an OpenAPI document with paths`);
 	}
 	return document;
+}
+
+function fetchFailure(url: string, error: unknown, timeout: number): Error {
+	let reason: string;
+	if (error instanceof Error && error.name === "TimeoutError") {
+		reason = `timed out after ${timeout} ms`;
+	} else {
+		reason = error instanceof Error ? error.message : String(error);
+		// undici reports DNS and connection errors as "fetch failed" with the detail in cause.
+		const cause = error instanceof Error ? error.cause : undefined;
+		if (cause instanceof Error) reason += ` (${cause.message})`;
+	}
+	return new Error(`Failed to fetch OpenAPI spec from ${url}: ${reason}`, { cause: error });
 }
 
 function isOpenAPIDocument(value: unknown): value is OpenAPIObject {

@@ -26,11 +26,30 @@ export class ApiError extends Data.TaggedError("ApiError")<{
 	readonly error: unknown;
 }> {
 	override get message(): string {
-		if (this.error && typeof this.error === "object" && "message" in this.error) {
-			return String((this.error as { message: unknown }).message);
-		}
-		return `API Error: ${this.status}`;
+		const message = errorMessage(this.error);
+		return message ? `API error ${this.status}: ${message}` : `API Error: ${this.status}`;
 	}
+}
+
+// Error bodies vary by API: `{ message }`, `{ error }`, `{ error: { message } }`, `{ errors: [{ message }] }` or text.
+function errorMessage(value: unknown): string | undefined {
+	if (isRecord(value) && "payload" in value) {
+		const fromPayload = errorMessage(value.payload);
+		if (fromPayload) return fromPayload;
+	}
+	if (typeof value === "string") return value.trim() || undefined;
+	if (!isRecord(value)) return undefined;
+	if (typeof value.message === "string" && value.message) return value.message;
+	if ("error" in value) {
+		const fromError = errorMessage(value.error);
+		if (fromError) return fromError;
+	}
+	if (Array.isArray(value.errors)) return errorMessage(value.errors[0]);
+	return undefined;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+	return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 /**
@@ -41,6 +60,9 @@ export class NetworkError extends Data.TaggedError("NetworkError")<{
 }> {
 	override get message(): string {
 		if (this.cause instanceof Error) {
+			return `Network error: ${this.cause.message}`;
+		}
+		if (isRecord(this.cause) && typeof this.cause.message === "string" && this.cause.message) {
 			return `Network error: ${this.cause.message}`;
 		}
 		return "Network error";
@@ -55,21 +77,17 @@ export class NetworkError extends Data.TaggedError("NetworkError")<{
  * Effect service key for API configuration.
  * Used by the proxy-based Effect API to inject config into operations.
  */
-export class ApiConfig extends Context.Service<
-	ApiConfig,
-	{
-		token?: string;
-		baseUrl?: string;
-		fetchImpl?: (url: string, init?: any) => Promise<any>;
-		headers?: Record<string, string>;
-	}
->()("ApiConfig") {}
+type ApiConfigShape = {
+	token?: string;
+	baseUrl?: string;
+	fetchImpl?: (url: string, init?: any) => Promise<any>;
+	headers?: Record<string, string>;
+};
+
+export class ApiConfig extends Context.Service<ApiConfig, ApiConfigShape>()("ApiConfig") {}
 
 /**
  * Create a Layer providing ApiConfig values.
  */
-export const makeApiLayer = (config: {
-	token?: string;
-	baseUrl?: string;
-	headers?: Record<string, string>;
-}): Layer.Layer<ApiConfig> => Layer.succeed(ApiConfig, config);
+export const makeApiLayer = (config: ApiConfigShape): Layer.Layer<ApiConfig> =>
+	Layer.succeed(ApiConfig, config);

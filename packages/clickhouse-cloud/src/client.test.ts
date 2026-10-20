@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import { ApiConfig, ApiError, ApiService } from "./effect";
 import { basicAuth, ClickHouseCloudApi, organizationGetListResponseSchema } from "./index";
 import type { FetchImpl, RequestInit } from "./utils/fetch";
+import fetcher from "./utils/fetcher";
 
 const organizationId = "5f2b0a3e-6c2d-4f43-9d8e-6c6a7b1f9a10";
 const requestId = "0c1e1f4a-2b3c-4d5e-8f90-123456789abc";
@@ -213,5 +214,121 @@ describe("ClickHouseCloudApi.request", () => {
 		await expect(client.request("GET /nope" as never, {} as never)).rejects.toThrow(
 			"Unknown endpoint: GET /nope",
 		);
+	});
+});
+
+describe("fetcher failures", () => {
+	it("keeps the raw body when the error body is not JSON", async () => {
+		const fetchImpl: FetchImpl = async () =>
+			new Response("<html>Bad gateway</html>", {
+				status: 502,
+				headers: { "content-type": "text/html" },
+			}) as never;
+		await expect(fetcher({ url: "/thing", method: "get", fetchImpl })).rejects.toEqual({
+			status: "unknown",
+			payload: "<html>Bad gateway</html>",
+		});
+	});
+
+	it("truncates a long non-JSON error body", async () => {
+		const fetchImpl: FetchImpl = async () =>
+			new Response("x".repeat(5000), { status: 502 }) as never;
+		await expect(fetcher({ url: "/thing", method: "get", fetchImpl })).rejects.toEqual({
+			status: "unknown",
+			payload: "x".repeat(1000),
+		});
+	});
+
+	it("reports a failed request as an Error naming the request and keeping the cause", async () => {
+		const cause = new TypeError("fetch failed");
+		const fetchImpl: FetchImpl = async () => {
+			throw cause;
+		};
+		const error = await fetcher({
+			url: "/thing",
+			method: "get",
+			queryParams: { secret: "s3cret" },
+			fetchImpl,
+		}).catch((e: unknown) => e);
+		expect(error).toBeInstanceOf(Error);
+		expect((error as Error).cause).toBe(cause);
+		expect((error as Error).message).toBe("GET /thing failed: fetch failed");
+	});
+});
+
+describe("fetcher edge responses and headers", () => {
+	const sent = async (options: { headers: Record<string, string>; body?: unknown }) => {
+		let init: Parameters<FetchImpl>[1];
+		const fetchImpl: FetchImpl = async (_url, requestInit) => {
+			init = requestInit;
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		await fetcher({
+			url: "/thing",
+			method: "post",
+			keyId: "id",
+			keySecret: "secret",
+			fetchImpl,
+			...options,
+		});
+		return { headers: new Headers(init?.headers), body: init?.body };
+	};
+
+	it("resolves a 204 with a JSON content type to undefined", async () => {
+		const fetchImpl: FetchImpl = async () =>
+			new Response(null, { status: 204, headers: { "content-type": "application/json" } }) as never;
+		await expect(fetcher({ url: "/thing", method: "delete", fetchImpl })).resolves.toBeUndefined();
+	});
+
+	it("rejects an aborted request with the AbortError itself", async () => {
+		const controller = new AbortController();
+		controller.abort();
+		const fetchImpl: FetchImpl = async (_url, init) => {
+			init?.signal?.throwIfAborted();
+			return new Response("{}") as never;
+		};
+		const error = await fetcher({
+			url: "/thing",
+			method: "get",
+			signal: controller.signal,
+			fetchImpl,
+		}).catch((e: unknown) => e);
+		expect((error as Error).name).toBe("AbortError");
+	});
+
+	it("resolves a 204 without a content type to undefined", async () => {
+		const fetchImpl: FetchImpl = async () => new Response(null, { status: 204 }) as never;
+		await expect(fetcher({ url: "/thing", method: "delete", fetchImpl })).resolves.toBeUndefined();
+	});
+
+	it("resolves an empty JSON body to undefined instead of a network error", async () => {
+		const fetchImpl: FetchImpl = async () =>
+			new Response("", { status: 200, headers: { "content-type": "application/json" } }) as never;
+		await expect(fetcher({ url: "/thing", method: "delete", fetchImpl })).resolves.toBeUndefined();
+	});
+
+	it("lets a lowercase authorization header replace the default", async () => {
+		const { headers } = await sent({ headers: { authorization: "Bearer caller" } });
+		expect(headers.get("authorization")).toBe("Bearer caller");
+	});
+
+	it("lets a lowercase content-type header replace the default", async () => {
+		const { headers, body } = await sent({
+			headers: { "content-type": "text/plain" },
+			body: "raw",
+		});
+		expect(headers.get("content-type")).toBe("text/plain");
+		expect(body).toBe("raw");
+	});
+
+	it("drops a lowercase multipart content-type so fetch sets the boundary", async () => {
+		const { headers } = await sent({
+			headers: { "content-type": "multipart/form-data" },
+			body: new FormData(),
+		});
+		expect(headers.get("content-type")).toBeNull();
 	});
 });

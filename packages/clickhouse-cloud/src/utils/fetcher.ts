@@ -27,6 +27,8 @@ export function basicAuth(keyId: string, keySecret: string): string {
 	return `Basic ${btoa(`${keyId}:${keySecret}`)}`;
 }
 
+const maxErrorBodyLength = 1000;
+
 class ResponseError {
 	constructor(readonly error: unknown) {}
 }
@@ -45,11 +47,18 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 	fetchImpl = fetch as FetchImpl,
 }: FetcherOptions<TBody, THeaders, TQueryParams, TPathParams>): Promise<TData> {
 	try {
-		const requestHeaders: HeadersInit = compactObject({
+		const mergedHeaders: Record<string, string | undefined> = {
 			"Content-Type": "application/json",
 			Authorization: keyId && keySecret ? basicAuth(keyId, keySecret) : undefined,
-			...headers,
-		});
+		};
+		// Header names are case-insensitive: a caller's `authorization` replaces the default rather than joining it.
+		for (const [name, value] of Object.entries(headers ?? {})) {
+			const known = Object.keys(mergedHeaders).find(
+				(key) => key.toLowerCase() === name.toLowerCase(),
+			);
+			mergedHeaders[known ?? name] = value;
+		}
+		const requestHeaders: HeadersInit = compactObject(mergedHeaders);
 
 		if (requestHeaders["Content-Type"]?.toLowerCase().includes("multipart/form-data")) {
 			delete requestHeaders["Content-Type"];
@@ -72,33 +81,30 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 		});
 
 		if (!response.ok) {
+			const text = await response.text();
 			let error: ErrorWrapper<TError>;
 			try {
-				error = await response.json();
-			} catch (e) {
-				error = {
-					status: "unknown" as const,
-					payload: e instanceof Error ? `Unexpected error (${e.message})` : "Unexpected error",
-				};
+				error = JSON.parse(text);
+			} catch {
+				error = { status: "unknown" as const, payload: text.slice(0, maxErrorBodyLength) };
 			}
 			throw new ResponseError(error);
 		}
 
-		if (response.headers?.get("content-type")?.includes("json")) {
-			return await response.json();
-		} else {
-			return (await response.text()) as unknown as TData;
-		}
+		// A 204 or an empty body (common on DELETE) has nothing to parse.
+		const text = await response.text();
+		if (!text) return undefined as TData;
+		if (response.headers?.get("content-type")?.includes("json")) return JSON.parse(text);
+		// if it is not a json response, assume it is a blob and cast it to TData
+		return text as unknown as TData;
 	} catch (e) {
 		// API errors carry the response body (`{ status, requestId, error }`), so they are rethrown as is.
 		if (e instanceof ResponseError) throw e.error;
+		if (e instanceof Error && e.name === "AbortError") throw e;
 
-		const errorObject: Error = {
-			name: "unknown" as const,
-			message: e instanceof Error ? `Network error (${e.message})` : "Network error",
-			stack: e as string,
-		};
-		throw errorObject;
+		const reason = e instanceof Error ? e.message : String(e);
+		// Only the path: query values can carry secrets.
+		throw new Error(`${method.toUpperCase()} ${url.split("?")[0]} failed: ${reason}`, { cause: e });
 	}
 }
 

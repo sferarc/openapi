@@ -32,13 +32,19 @@ export function resolveTypeSchemas(
 }
 
 const MULTI_SEGMENT_PARAM = /^(path|file_?path)$/i;
+const IDENTIFIER = /^[A-Za-z_$][\w$]*$/;
+
+function pathParam(name: string, optionalChain = false): string {
+	if (IDENTIFIER.test(name)) return `pathParams${optionalChain ? "?." : "."}${name}`;
+	return `pathParams${optionalChain ? "?." : ""}[${JSON.stringify(name)}]`;
+}
 
 export function buildUrlTemplate(path: string): string {
 	return path.replace(/\{([^}]+)\}/g, (_, raw: string) =>
 		MULTI_SEGMENT_PARAM.test(raw)
 			? // Keeps slashes and existing %XX escapes so file paths and encodeURI'd values pass through unchanged.
-				`\${String(pathParams.${raw}).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`
-			: `\${encodeURIComponent(String(pathParams.${raw}))}`,
+				`\${String(${pathParam(raw)}).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`
+			: `\${encodeURIComponent(String(${pathParam(raw)}))}`,
 	);
 }
 
@@ -176,7 +182,7 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 		.filter((p) => !p.optional)
 		.map(
 			(p) =>
-				`if (pathParams.${p.name} === undefined || pathParams.${p.name} === null || String(pathParams.${p.name}) === '') {
+				`if (${pathParam(p.name, true)} == null || String(${pathParam(p.name)}) === '') {
 \t\tthrow new Error(\`Missing required path parameter: ${p.name}\`);
 \t}`,
 		)
