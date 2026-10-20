@@ -1756,6 +1756,27 @@ export type DeployEnvironmentVariable = {
 	scopes: DeployEnvironmentVariableScopesEnumKey[];
 };
 
+export const deployFilesServerInstanceSizeEnum = {
+	small: "small",
+	medium: "medium",
+	large: "large",
+} as const;
+
+export type DeployFilesServerInstanceSizeEnumKey =
+	(typeof deployFilesServerInstanceSizeEnum)[keyof typeof deployFilesServerInstanceSizeEnum];
+
+export const deployFilesServerRoutesMethodsEnum = {
+	GET: "GET",
+	POST: "POST",
+	PUT: "PUT",
+	PATCH: "PATCH",
+	DELETE: "DELETE",
+	OPTIONS: "OPTIONS",
+} as const;
+
+export type DeployFilesServerRoutesMethodsEnumKey =
+	(typeof deployFilesServerRoutesMethodsEnum)[keyof typeof deployFilesServerRoutesMethodsEnum];
+
 export const typeEnum = {
 	ip: "ip",
 	domain: "domain",
@@ -1812,6 +1833,40 @@ export type DeployFiles = {
 				 * @type string | undefined
 				 */
 				region?: string | undefined;
+				/**
+				 * @description The size of the instances the server runs on. A default size is used when\nabsent.\n
+				 * @type string | undefined
+				 */
+				instance_size?: DeployFilesServerInstanceSizeEnumKey | undefined;
+				/**
+				 * @description The paths the server handles.
+				 * @type array | undefined
+				 */
+				routes?:
+					| {
+							pattern?: string | undefined;
+							literal?: string | undefined;
+							expression?: string | undefined;
+							methods?: DeployFilesServerRoutesMethodsEnumKey[] | undefined;
+							prefer_static?: boolean | undefined;
+					  }[]
+					| undefined;
+				/**
+				 * @description Paths within `routes` that the server does not handle.
+				 * @type array | undefined
+				 */
+				excluded_routes?:
+					| {
+							pattern?: string | undefined;
+							literal?: string | undefined;
+							expression?: string | undefined;
+					  }[]
+					| undefined;
+				/**
+				 * @description The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n
+				 * @type string | undefined
+				 */
+				runtime_version?: string | undefined;
 		  }
 		| undefined;
 	function_schedules?:
@@ -2528,6 +2583,10 @@ export type AgentRunner = {
 	id?: string | undefined;
 	site_id?: string | undefined;
 	parent_agent_runner_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.
+	 * @type string | undefined
+	 */
 	state?: string | undefined;
 	/**
 	 * @description
@@ -2552,10 +2611,18 @@ export type AgentRunner = {
 	result_branch?: string | undefined;
 	pr_url?: string | undefined;
 	pr_branch?: string | undefined;
+	/**
+	 * @description One of `open`, `draft`, `merged` or `closed`.
+	 * @type string | undefined
+	 */
 	pr_state?: string | undefined;
 	pr_number?: number | undefined;
 	pr_is_being_created?: boolean | undefined;
 	pr_error?: string | undefined;
+	/**
+	 * @description What the agent is working on in the active session.
+	 * @type string | undefined
+	 */
 	current_task?: string | undefined;
 	result_diff?: string | undefined;
 	sha?: string | undefined;
@@ -2570,8 +2637,18 @@ export type AgentRunner = {
 	 * @type string | undefined
 	 */
 	active_session_created_at?: string | undefined;
+	/**
+	 * @description Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.
+	 * @type boolean | undefined
+	 */
+	has_result_diff?: boolean | undefined;
 	latest_session_deploy_id?: string | undefined;
 	latest_session_deploy_url?: string | undefined;
+	/**
+	 * @description State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.
+	 * @type string | undefined
+	 */
+	preview_state?: string | undefined;
 	user?:
 		| {
 				id?: string | undefined;
@@ -2582,10 +2659,65 @@ export type AgentRunner = {
 		| undefined;
 };
 
+export const agentRunnerSetupEffortEnum = {
+	low: "low",
+	medium: "medium",
+	high: "high",
+} as const;
+
+export type AgentRunnerSetupEffortEnumKey =
+	(typeof agentRunnerSetupEffortEnum)[keyof typeof agentRunnerSetupEffortEnum];
+
+export const agentRunnerSetupModeEnum = {
+	normal: "normal",
+	ask: "ask",
+} as const;
+
+export type AgentRunnerSetupModeEnumKey =
+	(typeof agentRunnerSetupModeEnum)[keyof typeof agentRunnerSetupModeEnum];
+
+export type AgentRunnerSetup = {
+	prompt: string;
+	/**
+	 * @description Branch to start from. Defaults to the site\'s production branch.
+	 * @type string | undefined
+	 */
+	branch?: string | undefined;
+	/**
+	 * @description Deploy to start from. Takes precedence over `branch`.
+	 * @type string | undefined
+	 */
+	deploy_id?: string | undefined;
+	/**
+	 * @description Agent to run, for example `claude` or `codex`.
+	 * @type string | undefined
+	 */
+	agent?: string | undefined;
+	/**
+	 * @description Model for the agent to use. Omit to let Netlify choose.
+	 * @type string | undefined
+	 */
+	model?: string | undefined;
+	/**
+	 * @description Reasoning effort. Omit to let the agent decide.
+	 * @type string | undefined
+	 */
+	effort?: AgentRunnerSetupEffortEnumKey | undefined;
+	/**
+	 * @description `normal` (the default) changes code; `ask` answers questions without changing code.
+	 * @type string | undefined
+	 */
+	mode?: AgentRunnerSetupModeEnumKey | undefined;
+};
+
 export type AgentRunnerSession = {
 	id?: string | undefined;
 	agent_runner_id?: string | undefined;
 	dev_server_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.
+	 * @type string | undefined
+	 */
 	state?: string | undefined;
 	/**
 	 * @description
@@ -2605,6 +2737,13 @@ export type AgentRunnerSession = {
 	 * @type string | undefined
 	 */
 	done_at?: string | undefined;
+	/**
+	 * @description When the session paused waiting on an interaction. Null once it resumes.
+	 *
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	paused_at?: string | undefined;
 	title?: string | undefined;
 	prompt?: string | undefined;
 	agent_config?:
@@ -2613,12 +2752,64 @@ export type AgentRunnerSession = {
 				model?: string | undefined;
 		  }
 		| undefined;
+	/**
+	 * @description The agent\'s summary of what it did.
+	 * @type string | undefined
+	 */
 	result?: string | undefined;
 	result_diff?: string | undefined;
 	commit_sha?: string | undefined;
 	deploy_id?: string | undefined;
+	/**
+	 * @description URL of the session\'s deploy preview.
+	 * @type string | undefined
+	 */
 	deploy_url?: string | undefined;
 	duration?: number | undefined;
+	usage?:
+		| {
+				total_input_tokens?: number | undefined;
+				total_output_tokens?: number | undefined;
+				total_cached_input_tokens?: number | undefined;
+				total_cached_output_tokens?: number | undefined;
+				total_tokens?: number | undefined;
+				/**
+				 * @description Credits the session used.
+				 * @type number | undefined
+				 */
+				total_credits_cost?: number | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it\'s answered or skipped.
+	 * @type object | undefined
+	 */
+	interactions?:
+		| {
+				[key: string]: {
+					/**
+					 * @description One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.
+					 * @type string | undefined
+					 */
+					type?: string | undefined;
+					/**
+					 * @description One of `pending`, `answered` or `skipped`.
+					 * @type string | undefined
+					 */
+					status?: string | undefined;
+					/**
+					 * @description For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.
+					 * @type unknown | undefined
+					 */
+					payload?: unknown | undefined;
+					/**
+					 * @description Answers aligned to `payload`; null entries were skipped.
+					 * @type array | undefined
+					 */
+					response?: unknown[] | undefined;
+				};
+		  }
+		| undefined;
 	steps?:
 		| {
 				title?: string | undefined;
@@ -2636,6 +2827,108 @@ export type AgentRunnerSession = {
 	attached_file_keys?: string[] | undefined;
 	result_zip_file_name?: string | undefined;
 	is_published?: boolean | undefined;
+};
+
+export const agentRunnerSessionSetupModeEnum = {
+	normal: "normal",
+	ask: "ask",
+} as const;
+
+export type AgentRunnerSessionSetupModeEnumKey =
+	(typeof agentRunnerSessionSetupModeEnum)[keyof typeof agentRunnerSessionSetupModeEnum];
+
+export type AgentRunnerSessionSetup = {
+	/**
+	 * @description What the agent should do. Required.
+	 * @type string | undefined
+	 */
+	prompt?: string | undefined;
+	agent?: string | undefined;
+	/**
+	 * @description Model for the agent to use. Omit to let Netlify choose.
+	 * @type string | undefined
+	 */
+	model?: string | undefined;
+	/**
+	 * @description `normal` (the default) changes code; `ask` answers questions without changing code.
+	 * @type string | undefined
+	 */
+	mode?: AgentRunnerSessionSetupModeEnumKey | undefined;
+};
+
+export type AgentRunnerSessionUsage = {
+	total_input_tokens?: number | undefined;
+	total_output_tokens?: number | undefined;
+	total_cached_input_tokens?: number | undefined;
+	total_cached_output_tokens?: number | undefined;
+	total_tokens?: number | undefined;
+	/**
+	 * @description Credits the session used.
+	 * @type number | undefined
+	 */
+	total_credits_cost?: number | undefined;
+};
+
+export type AgentRunnerSessionInteraction = {
+	/**
+	 * @description One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.
+	 * @type string | undefined
+	 */
+	type?: string | undefined;
+	/**
+	 * @description One of `pending`, `answered` or `skipped`.
+	 * @type string | undefined
+	 */
+	status?: string | undefined;
+	/**
+	 * @description For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.
+	 * @type unknown | undefined
+	 */
+	payload?: unknown | undefined;
+	/**
+	 * @description Answers aligned to `payload`; null entries were skipped.
+	 * @type array | undefined
+	 */
+	response?: unknown[] | undefined;
+};
+
+export type AgentRunnerSessionAnswer = {
+	/**
+	 * @description Key of the pending interaction in the session\'s `interactions`.
+	 * @type string
+	 */
+	refId: string;
+	/**
+	 * @description One entry per question in the interaction\'s `payload`: a string, an array of strings for a multi-select question, or null to skip that question.
+	 * @type array | undefined
+	 */
+	response?: unknown[] | undefined;
+	/**
+	 * @description Skip the whole interaction instead of answering it.
+	 * @type boolean | undefined
+	 */
+	skipped?: boolean | undefined;
+	/**
+	 * @description Instruction for the agent when skipping.
+	 * @type string | undefined
+	 */
+	instruction?: string | undefined;
+};
+
+export type AgentRunnerError = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
 };
 
 export type AgentRunnerSessionStep = {
@@ -7301,6 +7594,27 @@ export type CreateSiteDeployStatusDefault = {
 	message: string;
 };
 
+export const createSiteDeployRequestServerInstanceSizeEnum = {
+	small: "small",
+	medium: "medium",
+	large: "large",
+} as const;
+
+export type CreateSiteDeployRequestServerInstanceSizeEnumKey =
+	(typeof createSiteDeployRequestServerInstanceSizeEnum)[keyof typeof createSiteDeployRequestServerInstanceSizeEnum];
+
+export const createSiteDeployRequestServerRoutesMethodsEnum = {
+	GET: "GET",
+	POST: "POST",
+	PUT: "PUT",
+	PATCH: "PATCH",
+	DELETE: "DELETE",
+	OPTIONS: "OPTIONS",
+} as const;
+
+export type CreateSiteDeployRequestServerRoutesMethodsEnumKey =
+	(typeof createSiteDeployRequestServerRoutesMethodsEnum)[keyof typeof createSiteDeployRequestServerRoutesMethodsEnum];
+
 export const createSiteDeployRequestEnvironmentScopesEnum = {
 	builds: "builds",
 	functions: "functions",
@@ -7350,6 +7664,40 @@ export type CreateSiteDeployBody = {
 				 * @type string | undefined
 				 */
 				region?: string | undefined;
+				/**
+				 * @description The size of the instances the server runs on. A default size is used when\nabsent.\n
+				 * @type string | undefined
+				 */
+				instance_size?: CreateSiteDeployRequestServerInstanceSizeEnumKey | undefined;
+				/**
+				 * @description The paths the server handles.
+				 * @type array | undefined
+				 */
+				routes?:
+					| {
+							pattern?: string | undefined;
+							literal?: string | undefined;
+							expression?: string | undefined;
+							methods?: CreateSiteDeployRequestServerRoutesMethodsEnumKey[] | undefined;
+							prefer_static?: boolean | undefined;
+					  }[]
+					| undefined;
+				/**
+				 * @description Paths within `routes` that the server does not handle.
+				 * @type array | undefined
+				 */
+				excluded_routes?:
+					| {
+							pattern?: string | undefined;
+							literal?: string | undefined;
+							expression?: string | undefined;
+					  }[]
+					| undefined;
+				/**
+				 * @description The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n
+				 * @type string | undefined
+				 */
+				runtime_version?: string | undefined;
 		  }
 		| undefined;
 	function_schedules?:
@@ -7671,6 +8019,27 @@ export type UpdateSiteDeployStatusDefault = {
 	message: string;
 };
 
+export const updateSiteDeployRequestServerInstanceSizeEnum = {
+	small: "small",
+	medium: "medium",
+	large: "large",
+} as const;
+
+export type UpdateSiteDeployRequestServerInstanceSizeEnumKey =
+	(typeof updateSiteDeployRequestServerInstanceSizeEnum)[keyof typeof updateSiteDeployRequestServerInstanceSizeEnum];
+
+export const updateSiteDeployRequestServerRoutesMethodsEnum = {
+	GET: "GET",
+	POST: "POST",
+	PUT: "PUT",
+	PATCH: "PATCH",
+	DELETE: "DELETE",
+	OPTIONS: "OPTIONS",
+} as const;
+
+export type UpdateSiteDeployRequestServerRoutesMethodsEnumKey =
+	(typeof updateSiteDeployRequestServerRoutesMethodsEnum)[keyof typeof updateSiteDeployRequestServerRoutesMethodsEnum];
+
 export const updateSiteDeployRequestEnvironmentScopesEnum = {
 	builds: "builds",
 	functions: "functions",
@@ -7720,6 +8089,40 @@ export type UpdateSiteDeployBody = {
 				 * @type string | undefined
 				 */
 				region?: string | undefined;
+				/**
+				 * @description The size of the instances the server runs on. A default size is used when\nabsent.\n
+				 * @type string | undefined
+				 */
+				instance_size?: UpdateSiteDeployRequestServerInstanceSizeEnumKey | undefined;
+				/**
+				 * @description The paths the server handles.
+				 * @type array | undefined
+				 */
+				routes?:
+					| {
+							pattern?: string | undefined;
+							literal?: string | undefined;
+							expression?: string | undefined;
+							methods?: UpdateSiteDeployRequestServerRoutesMethodsEnumKey[] | undefined;
+							prefer_static?: boolean | undefined;
+					  }[]
+					| undefined;
+				/**
+				 * @description Paths within `routes` that the server does not handle.
+				 * @type array | undefined
+				 */
+				excluded_routes?:
+					| {
+							pattern?: string | undefined;
+							literal?: string | undefined;
+							expression?: string | undefined;
+					  }[]
+					| undefined;
+				/**
+				 * @description The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n
+				 * @type string | undefined
+				 */
+				runtime_version?: string | undefined;
 		  }
 		| undefined;
 	function_schedules?:
@@ -11833,17 +12236,9 @@ export type ListAccountAuditEventsResponses = {
  */
 export type ListAccountAuditEventsResponse = ListAccountAuditEventsStatus200;
 
-export const listAgentRunnersState = {
-	live: "live",
-	error: "error",
-} as const;
-
-export type ListAgentRunnersStateKey =
-	(typeof listAgentRunnersState)[keyof typeof listAgentRunnersState];
-
 export type ListAgentRunnersQuery = {
-	account_id: string;
 	site_id: string;
+	account_id: string;
 	/**
 	 * @description
 	 * Format: `int32`
@@ -11856,11 +12251,28 @@ export type ListAgentRunnersQuery = {
 	 * @type integer | undefined
 	 */
 	per_page?: number | undefined;
-	state?: ListAgentRunnersStateKey | undefined;
+	/**
+	 * @description Only runs in this state: `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.
+	 * @type string | undefined
+	 */
+	state?: string | undefined;
 	title?: string | undefined;
 	branch?: string | undefined;
 	result_branch?: string | undefined;
+	/**
+	 * @description Only runs started by this user.
+	 * @type string | undefined
+	 */
+	user_id?: string | undefined;
+	/**
+	 * @description Unix timestamp. Only runs created at or after this time.
+	 * @type integer | undefined
+	 */
 	from?: number | undefined;
+	/**
+	 * @description Unix timestamp. Only runs created before this time.
+	 * @type integer | undefined
+	 */
 	to?: number | undefined;
 };
 
@@ -11868,6 +12280,10 @@ export type ListAgentRunnersStatus200 = {
 	id?: string | undefined;
 	site_id?: string | undefined;
 	parent_agent_runner_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.
+	 * @type string | undefined
+	 */
 	state?: string | undefined;
 	/**
 	 * @description
@@ -11892,10 +12308,18 @@ export type ListAgentRunnersStatus200 = {
 	result_branch?: string | undefined;
 	pr_url?: string | undefined;
 	pr_branch?: string | undefined;
+	/**
+	 * @description One of `open`, `draft`, `merged` or `closed`.
+	 * @type string | undefined
+	 */
 	pr_state?: string | undefined;
 	pr_number?: number | undefined;
 	pr_is_being_created?: boolean | undefined;
 	pr_error?: string | undefined;
+	/**
+	 * @description What the agent is working on in the active session.
+	 * @type string | undefined
+	 */
 	current_task?: string | undefined;
 	result_diff?: string | undefined;
 	sha?: string | undefined;
@@ -11910,8 +12334,18 @@ export type ListAgentRunnersStatus200 = {
 	 * @type string | undefined
 	 */
 	active_session_created_at?: string | undefined;
+	/**
+	 * @description Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.
+	 * @type boolean | undefined
+	 */
+	has_result_diff?: boolean | undefined;
 	latest_session_deploy_id?: string | undefined;
 	latest_session_deploy_url?: string | undefined;
+	/**
+	 * @description State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.
+	 * @type string | undefined
+	 */
+	preview_state?: string | undefined;
 	user?:
 		| {
 				id?: string | undefined;
@@ -11965,6 +12399,10 @@ export type CreateAgentRunnerStatus200 = {
 	id?: string | undefined;
 	site_id?: string | undefined;
 	parent_agent_runner_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.
+	 * @type string | undefined
+	 */
 	state?: string | undefined;
 	/**
 	 * @description
@@ -11989,10 +12427,18 @@ export type CreateAgentRunnerStatus200 = {
 	result_branch?: string | undefined;
 	pr_url?: string | undefined;
 	pr_branch?: string | undefined;
+	/**
+	 * @description One of `open`, `draft`, `merged` or `closed`.
+	 * @type string | undefined
+	 */
 	pr_state?: string | undefined;
 	pr_number?: number | undefined;
 	pr_is_being_created?: boolean | undefined;
 	pr_error?: string | undefined;
+	/**
+	 * @description What the agent is working on in the active session.
+	 * @type string | undefined
+	 */
 	current_task?: string | undefined;
 	result_diff?: string | undefined;
 	sha?: string | undefined;
@@ -12007,8 +12453,18 @@ export type CreateAgentRunnerStatus200 = {
 	 * @type string | undefined
 	 */
 	active_session_created_at?: string | undefined;
+	/**
+	 * @description Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.
+	 * @type boolean | undefined
+	 */
+	has_result_diff?: boolean | undefined;
 	latest_session_deploy_id?: string | undefined;
 	latest_session_deploy_url?: string | undefined;
+	/**
+	 * @description State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.
+	 * @type string | undefined
+	 */
+	preview_state?: string | undefined;
 	user?:
 		| {
 				id?: string | undefined;
@@ -12051,6 +12507,257 @@ export type CreateAgentRunnerResponses = {
  * @description Union of all possible responses
  */
 export type CreateAgentRunnerResponse = CreateAgentRunnerStatus200;
+
+export type CreateSiteAgentRunnerPath = {
+	/**
+	 * @description The site\'s ID or one of its hostnames.
+	 * @type string
+	 */
+	site_id: string;
+};
+
+export type CreateSiteAgentRunnerStatus200 = {
+	id?: string | undefined;
+	site_id?: string | undefined;
+	parent_agent_runner_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.
+	 * @type string | undefined
+	 */
+	state?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	created_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	updated_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	done_at?: string | undefined;
+	title?: string | undefined;
+	branch?: string | undefined;
+	result_branch?: string | undefined;
+	pr_url?: string | undefined;
+	pr_branch?: string | undefined;
+	/**
+	 * @description One of `open`, `draft`, `merged` or `closed`.
+	 * @type string | undefined
+	 */
+	pr_state?: string | undefined;
+	pr_number?: number | undefined;
+	pr_is_being_created?: boolean | undefined;
+	pr_error?: string | undefined;
+	/**
+	 * @description What the agent is working on in the active session.
+	 * @type string | undefined
+	 */
+	current_task?: string | undefined;
+	result_diff?: string | undefined;
+	sha?: string | undefined;
+	merge_commit_sha?: string | undefined;
+	merge_commit_error?: string | undefined;
+	merge_commit_is_being_created?: boolean | undefined;
+	base_deploy_id?: string | undefined;
+	attached_file_keys?: string[] | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	active_session_created_at?: string | undefined;
+	/**
+	 * @description Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.
+	 * @type boolean | undefined
+	 */
+	has_result_diff?: boolean | undefined;
+	latest_session_deploy_id?: string | undefined;
+	latest_session_deploy_url?: string | undefined;
+	/**
+	 * @description State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.
+	 * @type string | undefined
+	 */
+	preview_state?: string | undefined;
+	user?:
+		| {
+				id?: string | undefined;
+				full_name?: string | undefined;
+				email?: string | undefined;
+				avatar_url?: string | undefined;
+		  }
+		| undefined;
+};
+
+export type CreateSiteAgentRunnerStatus400 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
+
+export type CreateSiteAgentRunnerStatus403 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
+
+export type CreateSiteAgentRunnerStatus404 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
+
+export type CreateSiteAgentRunnerStatus422 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
+
+export type CreateSiteAgentRunnerStatus429 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
+
+export type CreateSiteAgentRunnerStatusDefault = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+};
+
+export const createSiteAgentRunnerRequestEffortEnum = {
+	low: "low",
+	medium: "medium",
+	high: "high",
+} as const;
+
+export type CreateSiteAgentRunnerRequestEffortEnumKey =
+	(typeof createSiteAgentRunnerRequestEffortEnum)[keyof typeof createSiteAgentRunnerRequestEffortEnum];
+
+export const createSiteAgentRunnerRequestModeEnum = {
+	normal: "normal",
+	ask: "ask",
+} as const;
+
+export type CreateSiteAgentRunnerRequestModeEnumKey =
+	(typeof createSiteAgentRunnerRequestModeEnum)[keyof typeof createSiteAgentRunnerRequestModeEnum];
+
+export type CreateSiteAgentRunnerBody = {
+	prompt: string;
+	/**
+	 * @description Branch to start from. Defaults to the site\'s production branch.
+	 * @type string | undefined
+	 */
+	branch?: string | undefined;
+	/**
+	 * @description Deploy to start from. Takes precedence over `branch`.
+	 * @type string | undefined
+	 */
+	deploy_id?: string | undefined;
+	/**
+	 * @description Agent to run, for example `claude` or `codex`.
+	 * @type string | undefined
+	 */
+	agent?: string | undefined;
+	/**
+	 * @description Model for the agent to use. Omit to let Netlify choose.
+	 * @type string | undefined
+	 */
+	model?: string | undefined;
+	/**
+	 * @description Reasoning effort. Omit to let the agent decide.
+	 * @type string | undefined
+	 */
+	effort?: CreateSiteAgentRunnerRequestEffortEnumKey | undefined;
+	/**
+	 * @description `normal` (the default) changes code; `ask` answers questions without changing code.
+	 * @type string | undefined
+	 */
+	mode?: CreateSiteAgentRunnerRequestModeEnumKey | undefined;
+};
+
+export type CreateSiteAgentRunnerOptions = {
+	body: CreateSiteAgentRunnerBody;
+	path: CreateSiteAgentRunnerPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateSiteAgentRunnerResponses = {
+	"200": CreateSiteAgentRunnerStatus200;
+	"400": CreateSiteAgentRunnerStatus400;
+	"403": CreateSiteAgentRunnerStatus403;
+	"404": CreateSiteAgentRunnerStatus404;
+	"422": CreateSiteAgentRunnerStatus422;
+	"429": CreateSiteAgentRunnerStatus429;
+	default: CreateSiteAgentRunnerStatusDefault;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateSiteAgentRunnerResponse = CreateSiteAgentRunnerStatus200;
 
 export type CreateAgentRunnerUploadUrlQuery = {
 	account_id: string;
@@ -12101,6 +12808,10 @@ export type GetAgentRunnerStatus200 = {
 	id?: string | undefined;
 	site_id?: string | undefined;
 	parent_agent_runner_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.
+	 * @type string | undefined
+	 */
 	state?: string | undefined;
 	/**
 	 * @description
@@ -12125,10 +12836,18 @@ export type GetAgentRunnerStatus200 = {
 	result_branch?: string | undefined;
 	pr_url?: string | undefined;
 	pr_branch?: string | undefined;
+	/**
+	 * @description One of `open`, `draft`, `merged` or `closed`.
+	 * @type string | undefined
+	 */
 	pr_state?: string | undefined;
 	pr_number?: number | undefined;
 	pr_is_being_created?: boolean | undefined;
 	pr_error?: string | undefined;
+	/**
+	 * @description What the agent is working on in the active session.
+	 * @type string | undefined
+	 */
 	current_task?: string | undefined;
 	result_diff?: string | undefined;
 	sha?: string | undefined;
@@ -12143,8 +12862,18 @@ export type GetAgentRunnerStatus200 = {
 	 * @type string | undefined
 	 */
 	active_session_created_at?: string | undefined;
+	/**
+	 * @description Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.
+	 * @type boolean | undefined
+	 */
+	has_result_diff?: boolean | undefined;
 	latest_session_deploy_id?: string | undefined;
 	latest_session_deploy_url?: string | undefined;
+	/**
+	 * @description State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.
+	 * @type string | undefined
+	 */
+	preview_state?: string | undefined;
 	user?:
 		| {
 				id?: string | undefined;
@@ -12190,6 +12919,10 @@ export type UpdateAgentRunnerStatus200 = {
 	id?: string | undefined;
 	site_id?: string | undefined;
 	parent_agent_runner_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.
+	 * @type string | undefined
+	 */
 	state?: string | undefined;
 	/**
 	 * @description
@@ -12214,10 +12947,18 @@ export type UpdateAgentRunnerStatus200 = {
 	result_branch?: string | undefined;
 	pr_url?: string | undefined;
 	pr_branch?: string | undefined;
+	/**
+	 * @description One of `open`, `draft`, `merged` or `closed`.
+	 * @type string | undefined
+	 */
 	pr_state?: string | undefined;
 	pr_number?: number | undefined;
 	pr_is_being_created?: boolean | undefined;
 	pr_error?: string | undefined;
+	/**
+	 * @description What the agent is working on in the active session.
+	 * @type string | undefined
+	 */
 	current_task?: string | undefined;
 	result_diff?: string | undefined;
 	sha?: string | undefined;
@@ -12232,8 +12973,18 @@ export type UpdateAgentRunnerStatus200 = {
 	 * @type string | undefined
 	 */
 	active_session_created_at?: string | undefined;
+	/**
+	 * @description Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.
+	 * @type boolean | undefined
+	 */
+	has_result_diff?: boolean | undefined;
 	latest_session_deploy_id?: string | undefined;
 	latest_session_deploy_url?: string | undefined;
+	/**
+	 * @description State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.
+	 * @type string | undefined
+	 */
+	preview_state?: string | undefined;
 	user?:
 		| {
 				id?: string | undefined;
@@ -12303,6 +13054,95 @@ export type DeleteAgentRunnerResponses = {
  * @description Union of all possible responses
  */
 export type DeleteAgentRunnerResponse = DeleteAgentRunnerStatus202;
+
+export type StopAgentRunnerPath = {
+	agent_runner_id: string;
+};
+
+export type StopAgentRunnerStatus202 = unknown;
+
+export type StopAgentRunnerStatusDefault = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+};
+
+export type StopAgentRunnerOptions = {
+	body?: never | undefined;
+	path: StopAgentRunnerPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type StopAgentRunnerResponses = {
+	"202": StopAgentRunnerStatus202;
+	default: StopAgentRunnerStatusDefault;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type StopAgentRunnerResponse = StopAgentRunnerStatus202;
+
+export type GetAgentRunnerDiffPath = {
+	agent_runner_id: string;
+};
+
+export type GetAgentRunnerDiffQuery = {
+	/**
+	 * @description
+	 * Format: `int32`
+	 * @type integer | undefined
+	 */
+	page?: number | undefined;
+	/**
+	 * @description
+	 * Format: `int32`
+	 * @type integer | undefined
+	 */
+	per_page?: number | undefined;
+	/**
+	 * @description Replace binary file contents with a placeholder, keeping the file headers.
+	 * @type boolean | undefined
+	 */
+	strip_binary?: boolean | undefined;
+};
+
+export type GetAgentRunnerDiffStatus200 = string;
+
+export type GetAgentRunnerDiffStatus404 = unknown;
+
+export type GetAgentRunnerDiffStatusDefault = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+};
+
+export type GetAgentRunnerDiffOptions = {
+	body?: never | undefined;
+	path: GetAgentRunnerDiffPath;
+	query?: GetAgentRunnerDiffQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type GetAgentRunnerDiffResponses = {
+	"200": GetAgentRunnerDiffStatus200;
+	"404": GetAgentRunnerDiffStatus404;
+	default: GetAgentRunnerDiffStatusDefault;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetAgentRunnerDiffResponse = GetAgentRunnerDiffStatus200;
 
 export type ArchiveAgentRunnerPath = {
 	agent_runner_id: string;
@@ -12435,14 +13275,6 @@ export type ListAgentRunnerSessionsPath = {
 	agent_runner_id: string;
 };
 
-export const listAgentRunnerSessionsState = {
-	live: "live",
-	error: "error",
-} as const;
-
-export type ListAgentRunnerSessionsStateKey =
-	(typeof listAgentRunnerSessionsState)[keyof typeof listAgentRunnerSessionsState];
-
 export const listAgentRunnerSessionsOrderBy = {
 	asc: "asc",
 	desc: "desc",
@@ -12464,8 +13296,20 @@ export type ListAgentRunnerSessionsQuery = {
 	 * @type integer | undefined
 	 */
 	per_page?: number | undefined;
-	state?: ListAgentRunnerSessionsStateKey | undefined;
+	/**
+	 * @description Only sessions in this state: `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.
+	 * @type string | undefined
+	 */
+	state?: string | undefined;
+	/**
+	 * @description Unix timestamp. Only sessions created at or after this time.
+	 * @type integer | undefined
+	 */
 	from?: number | undefined;
+	/**
+	 * @description Unix timestamp. Only sessions created before this time.
+	 * @type integer | undefined
+	 */
 	to?: number | undefined;
 	order_by?: ListAgentRunnerSessionsOrderByKey | undefined;
 };
@@ -12474,6 +13318,10 @@ export type ListAgentRunnerSessionsStatus200 = {
 	id?: string | undefined;
 	agent_runner_id?: string | undefined;
 	dev_server_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.
+	 * @type string | undefined
+	 */
 	state?: string | undefined;
 	/**
 	 * @description
@@ -12493,6 +13341,13 @@ export type ListAgentRunnerSessionsStatus200 = {
 	 * @type string | undefined
 	 */
 	done_at?: string | undefined;
+	/**
+	 * @description When the session paused waiting on an interaction. Null once it resumes.
+	 *
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	paused_at?: string | undefined;
 	title?: string | undefined;
 	prompt?: string | undefined;
 	agent_config?:
@@ -12501,12 +13356,64 @@ export type ListAgentRunnerSessionsStatus200 = {
 				model?: string | undefined;
 		  }
 		| undefined;
+	/**
+	 * @description The agent\'s summary of what it did.
+	 * @type string | undefined
+	 */
 	result?: string | undefined;
 	result_diff?: string | undefined;
 	commit_sha?: string | undefined;
 	deploy_id?: string | undefined;
+	/**
+	 * @description URL of the session\'s deploy preview.
+	 * @type string | undefined
+	 */
 	deploy_url?: string | undefined;
 	duration?: number | undefined;
+	usage?:
+		| {
+				total_input_tokens?: number | undefined;
+				total_output_tokens?: number | undefined;
+				total_cached_input_tokens?: number | undefined;
+				total_cached_output_tokens?: number | undefined;
+				total_tokens?: number | undefined;
+				/**
+				 * @description Credits the session used.
+				 * @type number | undefined
+				 */
+				total_credits_cost?: number | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it\'s answered or skipped.
+	 * @type object | undefined
+	 */
+	interactions?:
+		| {
+				[key: string]: {
+					/**
+					 * @description One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.
+					 * @type string | undefined
+					 */
+					type?: string | undefined;
+					/**
+					 * @description One of `pending`, `answered` or `skipped`.
+					 * @type string | undefined
+					 */
+					status?: string | undefined;
+					/**
+					 * @description For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.
+					 * @type unknown | undefined
+					 */
+					payload?: unknown | undefined;
+					/**
+					 * @description Answers aligned to `payload`; null entries were skipped.
+					 * @type array | undefined
+					 */
+					response?: unknown[] | undefined;
+				};
+		  }
+		| undefined;
 	steps?:
 		| {
 				title?: string | undefined;
@@ -12558,9 +13465,25 @@ export type CreateAgentRunnerSessionPath = {
 };
 
 export type CreateAgentRunnerSessionQuery = {
+	/**
+	 * @description Use the request body instead.
+	 * @type string | undefined
+	 */
 	prompt?: string | undefined;
+	/**
+	 * @description Use the request body instead.
+	 * @type string | undefined
+	 */
 	agent?: string | undefined;
+	/**
+	 * @description Use the request body instead.
+	 * @type string | undefined
+	 */
 	model?: string | undefined;
+	/**
+	 * @description Use the request body instead.
+	 * @type array | undefined
+	 */
 	file_keys?: string[] | undefined;
 };
 
@@ -12568,6 +13491,10 @@ export type CreateAgentRunnerSessionStatus200 = {
 	id?: string | undefined;
 	agent_runner_id?: string | undefined;
 	dev_server_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.
+	 * @type string | undefined
+	 */
 	state?: string | undefined;
 	/**
 	 * @description
@@ -12587,6 +13514,13 @@ export type CreateAgentRunnerSessionStatus200 = {
 	 * @type string | undefined
 	 */
 	done_at?: string | undefined;
+	/**
+	 * @description When the session paused waiting on an interaction. Null once it resumes.
+	 *
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	paused_at?: string | undefined;
 	title?: string | undefined;
 	prompt?: string | undefined;
 	agent_config?:
@@ -12595,12 +13529,64 @@ export type CreateAgentRunnerSessionStatus200 = {
 				model?: string | undefined;
 		  }
 		| undefined;
+	/**
+	 * @description The agent\'s summary of what it did.
+	 * @type string | undefined
+	 */
 	result?: string | undefined;
 	result_diff?: string | undefined;
 	commit_sha?: string | undefined;
 	deploy_id?: string | undefined;
+	/**
+	 * @description URL of the session\'s deploy preview.
+	 * @type string | undefined
+	 */
 	deploy_url?: string | undefined;
 	duration?: number | undefined;
+	usage?:
+		| {
+				total_input_tokens?: number | undefined;
+				total_output_tokens?: number | undefined;
+				total_cached_input_tokens?: number | undefined;
+				total_cached_output_tokens?: number | undefined;
+				total_tokens?: number | undefined;
+				/**
+				 * @description Credits the session used.
+				 * @type number | undefined
+				 */
+				total_credits_cost?: number | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it\'s answered or skipped.
+	 * @type object | undefined
+	 */
+	interactions?:
+		| {
+				[key: string]: {
+					/**
+					 * @description One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.
+					 * @type string | undefined
+					 */
+					type?: string | undefined;
+					/**
+					 * @description One of `pending`, `answered` or `skipped`.
+					 * @type string | undefined
+					 */
+					status?: string | undefined;
+					/**
+					 * @description For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.
+					 * @type unknown | undefined
+					 */
+					payload?: unknown | undefined;
+					/**
+					 * @description Answers aligned to `payload`; null entries were skipped.
+					 * @type array | undefined
+					 */
+					response?: unknown[] | undefined;
+				};
+		  }
+		| undefined;
 	steps?:
 		| {
 				title?: string | undefined;
@@ -12620,9 +13606,101 @@ export type CreateAgentRunnerSessionStatus200 = {
 	is_published?: boolean | undefined;
 };
 
-export type CreateAgentRunnerSessionStatus404 = unknown;
+export type CreateAgentRunnerSessionStatus400 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
 
-export type CreateAgentRunnerSessionStatus422 = unknown;
+export type CreateAgentRunnerSessionStatus403 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
+
+export type CreateAgentRunnerSessionStatus404 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
+
+export type CreateAgentRunnerSessionStatus409 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
+
+export type CreateAgentRunnerSessionStatus422 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
+
+export type CreateAgentRunnerSessionStatus429 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
 
 export type CreateAgentRunnerSessionStatusDefault = {
 	/**
@@ -12634,8 +13712,37 @@ export type CreateAgentRunnerSessionStatusDefault = {
 	message: string;
 };
 
+export const createAgentRunnerSessionRequestModeEnum = {
+	normal: "normal",
+	ask: "ask",
+} as const;
+
+export type CreateAgentRunnerSessionRequestModeEnumKey =
+	(typeof createAgentRunnerSessionRequestModeEnum)[keyof typeof createAgentRunnerSessionRequestModeEnum];
+
+export type CreateAgentRunnerSessionBody =
+	| {
+			/**
+			 * @description What the agent should do. Required.
+			 * @type string | undefined
+			 */
+			prompt?: string | undefined;
+			agent?: string | undefined;
+			/**
+			 * @description Model for the agent to use. Omit to let Netlify choose.
+			 * @type string | undefined
+			 */
+			model?: string | undefined;
+			/**
+			 * @description `normal` (the default) changes code; `ask` answers questions without changing code.
+			 * @type string | undefined
+			 */
+			mode?: CreateAgentRunnerSessionRequestModeEnumKey | undefined;
+	  }
+	| undefined;
+
 export type CreateAgentRunnerSessionOptions = {
-	body?: never | undefined;
+	body: CreateAgentRunnerSessionBody;
 	path: CreateAgentRunnerSessionPath;
 	query?: CreateAgentRunnerSessionQuery | undefined;
 	headers?: never | undefined;
@@ -12643,8 +13750,12 @@ export type CreateAgentRunnerSessionOptions = {
 
 export type CreateAgentRunnerSessionResponses = {
 	"200": CreateAgentRunnerSessionStatus200;
+	"400": CreateAgentRunnerSessionStatus400;
+	"403": CreateAgentRunnerSessionStatus403;
 	"404": CreateAgentRunnerSessionStatus404;
+	"409": CreateAgentRunnerSessionStatus409;
 	"422": CreateAgentRunnerSessionStatus422;
+	"429": CreateAgentRunnerSessionStatus429;
 	default: CreateAgentRunnerSessionStatusDefault;
 };
 
@@ -12662,6 +13773,10 @@ export type GetAgentRunnerSessionStatus200 = {
 	id?: string | undefined;
 	agent_runner_id?: string | undefined;
 	dev_server_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.
+	 * @type string | undefined
+	 */
 	state?: string | undefined;
 	/**
 	 * @description
@@ -12681,6 +13796,13 @@ export type GetAgentRunnerSessionStatus200 = {
 	 * @type string | undefined
 	 */
 	done_at?: string | undefined;
+	/**
+	 * @description When the session paused waiting on an interaction. Null once it resumes.
+	 *
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	paused_at?: string | undefined;
 	title?: string | undefined;
 	prompt?: string | undefined;
 	agent_config?:
@@ -12689,12 +13811,64 @@ export type GetAgentRunnerSessionStatus200 = {
 				model?: string | undefined;
 		  }
 		| undefined;
+	/**
+	 * @description The agent\'s summary of what it did.
+	 * @type string | undefined
+	 */
 	result?: string | undefined;
 	result_diff?: string | undefined;
 	commit_sha?: string | undefined;
 	deploy_id?: string | undefined;
+	/**
+	 * @description URL of the session\'s deploy preview.
+	 * @type string | undefined
+	 */
 	deploy_url?: string | undefined;
 	duration?: number | undefined;
+	usage?:
+		| {
+				total_input_tokens?: number | undefined;
+				total_output_tokens?: number | undefined;
+				total_cached_input_tokens?: number | undefined;
+				total_cached_output_tokens?: number | undefined;
+				total_tokens?: number | undefined;
+				/**
+				 * @description Credits the session used.
+				 * @type number | undefined
+				 */
+				total_credits_cost?: number | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it\'s answered or skipped.
+	 * @type object | undefined
+	 */
+	interactions?:
+		| {
+				[key: string]: {
+					/**
+					 * @description One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.
+					 * @type string | undefined
+					 */
+					type?: string | undefined;
+					/**
+					 * @description One of `pending`, `answered` or `skipped`.
+					 * @type string | undefined
+					 */
+					status?: string | undefined;
+					/**
+					 * @description For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.
+					 * @type unknown | undefined
+					 */
+					payload?: unknown | undefined;
+					/**
+					 * @description Answers aligned to `payload`; null entries were skipped.
+					 * @type array | undefined
+					 */
+					response?: unknown[] | undefined;
+				};
+		  }
+		| undefined;
 	steps?:
 		| {
 				title?: string | undefined;
@@ -12754,6 +13928,10 @@ export type UpdateAgentRunnerSessionStatus200 = {
 	id?: string | undefined;
 	agent_runner_id?: string | undefined;
 	dev_server_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.
+	 * @type string | undefined
+	 */
 	state?: string | undefined;
 	/**
 	 * @description
@@ -12773,6 +13951,13 @@ export type UpdateAgentRunnerSessionStatus200 = {
 	 * @type string | undefined
 	 */
 	done_at?: string | undefined;
+	/**
+	 * @description When the session paused waiting on an interaction. Null once it resumes.
+	 *
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	paused_at?: string | undefined;
 	title?: string | undefined;
 	prompt?: string | undefined;
 	agent_config?:
@@ -12781,12 +13966,64 @@ export type UpdateAgentRunnerSessionStatus200 = {
 				model?: string | undefined;
 		  }
 		| undefined;
+	/**
+	 * @description The agent\'s summary of what it did.
+	 * @type string | undefined
+	 */
 	result?: string | undefined;
 	result_diff?: string | undefined;
 	commit_sha?: string | undefined;
 	deploy_id?: string | undefined;
+	/**
+	 * @description URL of the session\'s deploy preview.
+	 * @type string | undefined
+	 */
 	deploy_url?: string | undefined;
 	duration?: number | undefined;
+	usage?:
+		| {
+				total_input_tokens?: number | undefined;
+				total_output_tokens?: number | undefined;
+				total_cached_input_tokens?: number | undefined;
+				total_cached_output_tokens?: number | undefined;
+				total_tokens?: number | undefined;
+				/**
+				 * @description Credits the session used.
+				 * @type number | undefined
+				 */
+				total_credits_cost?: number | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it\'s answered or skipped.
+	 * @type object | undefined
+	 */
+	interactions?:
+		| {
+				[key: string]: {
+					/**
+					 * @description One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.
+					 * @type string | undefined
+					 */
+					type?: string | undefined;
+					/**
+					 * @description One of `pending`, `answered` or `skipped`.
+					 * @type string | undefined
+					 */
+					status?: string | undefined;
+					/**
+					 * @description For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.
+					 * @type unknown | undefined
+					 */
+					payload?: unknown | undefined;
+					/**
+					 * @description Answers aligned to `payload`; null entries were skipped.
+					 * @type array | undefined
+					 */
+					response?: unknown[] | undefined;
+				};
+		  }
+		| undefined;
 	steps?:
 		| {
 				title?: string | undefined;
@@ -12866,6 +14103,265 @@ export type DeleteAgentRunnerSessionResponses = {
  * @description Union of all possible responses
  */
 export type DeleteAgentRunnerSessionResponse = DeleteAgentRunnerSessionStatus202;
+
+export type StopAgentRunnerSessionPath = {
+	agent_runner_id: string;
+	agent_runner_session_id: string;
+};
+
+export type StopAgentRunnerSessionStatus202 = unknown;
+
+export type StopAgentRunnerSessionStatusDefault = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+};
+
+export type StopAgentRunnerSessionOptions = {
+	body?: never | undefined;
+	path: StopAgentRunnerSessionPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type StopAgentRunnerSessionResponses = {
+	"202": StopAgentRunnerSessionStatus202;
+	default: StopAgentRunnerSessionStatusDefault;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type StopAgentRunnerSessionResponse = StopAgentRunnerSessionStatus202;
+
+export type AnswerAgentRunnerSessionPath = {
+	agent_runner_id: string;
+	agent_runner_session_id: string;
+};
+
+export type AnswerAgentRunnerSessionStatus200 = {
+	id?: string | undefined;
+	agent_runner_id?: string | undefined;
+	dev_server_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.
+	 * @type string | undefined
+	 */
+	state?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	created_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	updated_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	done_at?: string | undefined;
+	/**
+	 * @description When the session paused waiting on an interaction. Null once it resumes.
+	 *
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	paused_at?: string | undefined;
+	title?: string | undefined;
+	prompt?: string | undefined;
+	agent_config?:
+		| {
+				agent?: string | undefined;
+				model?: string | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description The agent\'s summary of what it did.
+	 * @type string | undefined
+	 */
+	result?: string | undefined;
+	result_diff?: string | undefined;
+	commit_sha?: string | undefined;
+	deploy_id?: string | undefined;
+	/**
+	 * @description URL of the session\'s deploy preview.
+	 * @type string | undefined
+	 */
+	deploy_url?: string | undefined;
+	duration?: number | undefined;
+	usage?:
+		| {
+				total_input_tokens?: number | undefined;
+				total_output_tokens?: number | undefined;
+				total_cached_input_tokens?: number | undefined;
+				total_cached_output_tokens?: number | undefined;
+				total_tokens?: number | undefined;
+				/**
+				 * @description Credits the session used.
+				 * @type number | undefined
+				 */
+				total_credits_cost?: number | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it\'s answered or skipped.
+	 * @type object | undefined
+	 */
+	interactions?:
+		| {
+				[key: string]: {
+					/**
+					 * @description One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.
+					 * @type string | undefined
+					 */
+					type?: string | undefined;
+					/**
+					 * @description One of `pending`, `answered` or `skipped`.
+					 * @type string | undefined
+					 */
+					status?: string | undefined;
+					/**
+					 * @description For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.
+					 * @type unknown | undefined
+					 */
+					payload?: unknown | undefined;
+					/**
+					 * @description Answers aligned to `payload`; null entries were skipped.
+					 * @type array | undefined
+					 */
+					response?: unknown[] | undefined;
+				};
+		  }
+		| undefined;
+	steps?:
+		| {
+				title?: string | undefined;
+				message?: string | undefined;
+		  }[]
+		| undefined;
+	user?:
+		| {
+				id?: string | undefined;
+				full_name?: string | undefined;
+				email?: string | undefined;
+				avatar_url?: string | undefined;
+		  }
+		| undefined;
+	attached_file_keys?: string[] | undefined;
+	result_zip_file_name?: string | undefined;
+	is_published?: boolean | undefined;
+};
+
+export type AnswerAgentRunnerSessionStatus400 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
+
+export type AnswerAgentRunnerSessionStatus422 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
+
+export type AnswerAgentRunnerSessionStatus429 = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+} & {
+	/**
+	 * @description Machine-readable reason. Each operation lists the codes it can return.
+	 * @type string | undefined
+	 */
+	error_code?: string | undefined;
+};
+
+export type AnswerAgentRunnerSessionStatusDefault = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+};
+
+export type AnswerAgentRunnerSessionBody = {
+	/**
+	 * @description Key of the pending interaction in the session\'s `interactions`.
+	 * @type string
+	 */
+	refId: string;
+	/**
+	 * @description One entry per question in the interaction\'s `payload`: a string, an array of strings for a multi-select question, or null to skip that question.
+	 * @type array | undefined
+	 */
+	response?: unknown[] | undefined;
+	/**
+	 * @description Skip the whole interaction instead of answering it.
+	 * @type boolean | undefined
+	 */
+	skipped?: boolean | undefined;
+	/**
+	 * @description Instruction for the agent when skipping.
+	 * @type string | undefined
+	 */
+	instruction?: string | undefined;
+};
+
+export type AnswerAgentRunnerSessionOptions = {
+	body: AnswerAgentRunnerSessionBody;
+	path: AnswerAgentRunnerSessionPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type AnswerAgentRunnerSessionResponses = {
+	"200": AnswerAgentRunnerSessionStatus200;
+	"400": AnswerAgentRunnerSessionStatus400;
+	"422": AnswerAgentRunnerSessionStatus422;
+	"429": AnswerAgentRunnerSessionStatus429;
+	default: AnswerAgentRunnerSessionStatusDefault;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type AnswerAgentRunnerSessionResponse = AnswerAgentRunnerSessionStatus200;
 
 export type ListFormSubmissionPath = {
 	submission_id: string;
