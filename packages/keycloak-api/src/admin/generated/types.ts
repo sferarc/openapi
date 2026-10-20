@@ -6316,8 +6316,10 @@ export type PUTAdminRealmsRealmLocalizationLocaleKeyStatus400 = unknown;
 
 export type PUTAdminRealmsRealmLocalizationLocaleKeyStatus403 = unknown;
 
+export type PUTAdminRealmsRealmLocalizationLocaleKeyBody = string | undefined;
+
 export type PUTAdminRealmsRealmLocalizationLocaleKeyOptions = {
-	body?: never | undefined;
+	body: PUTAdminRealmsRealmLocalizationLocaleKeyBody;
 	path: PUTAdminRealmsRealmLocalizationLocaleKeyPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -17378,8 +17380,10 @@ export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus
 
 export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus404 = unknown;
 
+export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelBody = string | undefined;
+
 export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelOptions = {
-	body?: never | undefined;
+	body: PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelBody;
 	path: PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelPath;
 	query?: never | undefined;
 	headers?: never | undefined;
