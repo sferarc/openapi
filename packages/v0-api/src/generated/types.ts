@@ -3132,8 +3132,205 @@ export type ChatsCreateStatus429 = unknown;
 
 export type ChatsCreateStatus500 = unknown;
 
+export const chatsCreateRequestChatPrivacyEnum = {
+	private: "private",
+	public: "public",
+	team: "team",
+	"team-edit": "team-edit",
+	unlisted: "unlisted",
+} as const;
+
+export type ChatsCreateRequestChatPrivacyEnumKey =
+	(typeof chatsCreateRequestChatPrivacyEnum)[keyof typeof chatsCreateRequestChatPrivacyEnum];
+
+export const chatsCreateRequestModelConfigurationModelIdEnum = {
+	"v0-auto": "v0-auto",
+	"v0-max": "v0-max",
+	"v0-max-fast": "v0-max-fast",
+	"v0-mini": "v0-mini",
+	"v0-pro": "v0-pro",
+} as const;
+
+export type ChatsCreateRequestModelConfigurationModelIdEnumKey =
+	(typeof chatsCreateRequestModelConfigurationModelIdEnum)[keyof typeof chatsCreateRequestModelConfigurationModelIdEnum];
+
+export const chatsCreateRequestModelConfigurationThinkingEffort = {
+	none: "none",
+	minimal: "minimal",
+	low: "low",
+	medium: "medium",
+	high: "high",
+	max: "max",
+	xhigh: "xhigh",
+} as const;
+
+export type ChatsCreateRequestModelConfigurationThinkingEffortKey =
+	(typeof chatsCreateRequestModelConfigurationThinkingEffort)[keyof typeof chatsCreateRequestModelConfigurationThinkingEffort];
+
+export const chatsCreateRequestResponseModeEnum = {
+	async: "async",
+	experimental_stream: "experimental_stream",
+	sync: "sync",
+} as const;
+
+export type ChatsCreateRequestResponseModeEnumKey =
+	(typeof chatsCreateRequestResponseModeEnum)[keyof typeof chatsCreateRequestResponseModeEnum];
+
+export const chatsCreateRequestSkillsScopeEnum = {
+	user: "user",
+	team: "team",
+} as const;
+
+export type ChatsCreateRequestSkillsScopeEnumKey =
+	(typeof chatsCreateRequestSkillsScopeEnum)[keyof typeof chatsCreateRequestSkillsScopeEnum];
+
+export type ChatsCreateBody = {
+	/**
+	 * @description Creates a new chat using a user message, optional system context, and model configuration. Useful for prompting the model within the scope of a specific project.
+	 * @type string
+	 */
+	message: string;
+	/**
+	 * @description A list of files or assets to be included in the conversation context. Useful when the chat or task requires referencing documents, images, or other resources.
+	 * @type array | undefined
+	 */
+	attachments?:
+		| {
+				/**
+				 * @description The URL or data URI of the file or asset to include with the message.
+				 * @type string
+				 */
+				url: string;
+		  }[]
+		| undefined;
+	/**
+	 * @description Provides system-level context or background for the chat. This is typically used to specify frameworks, tools, or development environments relevant to the task.
+	 * @type string | undefined
+	 */
+	system?: string | undefined;
+	/**
+	 * @description Determines the privacy setting of the chat. This can control whether the chat is visible only to the user, to team members, or is public.
+	 * @default 'private'
+	 * @type string | undefined
+	 */
+	chatPrivacy?: ChatsCreateRequestChatPrivacyEnumKey | undefined;
+	/**
+	 * @description Associates the chat with a specific project in your workspace. Helps organize and group related chats under a common project context.
+	 * @type string | undefined
+	 */
+	projectId?: string | undefined;
+	/**
+	 * @description Settings that control how the model behaves in the chat.
+	 * @type object | undefined
+	 */
+	modelConfiguration?:
+		| {
+				/**
+				 * @description Model to use for the generation. `v0-auto` is deprecated and falls back to `v0-pro`.
+				 * @default 'v0-pro'
+				 * @type string | undefined
+				 */
+				modelId?: ChatsCreateRequestModelConfigurationModelIdEnumKey | undefined;
+				/**
+				 * @description Enables image generations to generate up to 5 images per version.
+				 * @default false
+				 * @type boolean | undefined
+				 */
+				imageGenerations?: boolean | undefined;
+				/**
+				 * @description Enables thinking to generate a response in multiple steps.
+				 * @default false
+				 * @type boolean | undefined
+				 */
+				thinking?: boolean | undefined;
+				thinkingEffort?: (ChatsCreateRequestModelConfigurationThinkingEffortKey | null) | undefined;
+				fast?: boolean | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Controls how the response is delivered.\n\n- `\"sync\"`: The response is returned immediately with the HTTP request.\n- `\"async\"`: Returns a message placeholder immediately; use getById to poll for completion status and final output.\n- `\"experimental_stream\"`: Returns content parts as Server-Sent Events for real-time streaming.
+	 * @default 'sync'
+	 * @type string | undefined
+	 */
+	responseMode?: ChatsCreateRequestResponseModeEnumKey | undefined;
+	/**
+	 * @description The ID of a design system to apply to this chat. Design systems provide consistent styling and components for generated UI.
+	 * @type string | undefined
+	 */
+	designSystemId?: (string | null) | undefined;
+	/**
+	 * @description Array of MCP server IDs to enable for this chat. When provided, only the specified servers will be used. When omitted, falls back to the user\'s enabled MCP servers.
+	 * @type array | undefined
+	 */
+	mcpServerIds?: string[] | undefined;
+	/**
+	 * @description Array of skill IDs (from skills.sh) to attach to this chat. Backwards-compatible alias for `skills` entries of type `remote`. Maximum 3 skills per chat.
+	 * @type array | undefined
+	 */
+	attachedSkillIds?: string[] | undefined;
+	/**
+	 * @description Skills to force-attach to this chat. Supports skills.sh (`remote`), user/team memory (`memory`), and project (`project`) skills. Merged with `attachedSkillIds`. Maximum 3 skills per chat.
+	 * @type array | undefined
+	 */
+	skills?:
+		| (
+				| {
+						/**
+						 * @description Discriminator: a skills.sh skill.
+						 * @type string
+						 */
+						type: "remote";
+						/**
+						 * @description Skill ID from skills.sh.
+						 * @type string
+						 */
+						id: string;
+				  }
+				| {
+						/**
+						 * @description Discriminator: a user- or team-scoped memory skill.
+						 * @type string
+						 */
+						type: "memory";
+						/**
+						 * @description Whether the skill lives in user or team memory.
+						 * @type string
+						 */
+						scope: ChatsCreateRequestSkillsScopeEnumKey;
+						/**
+						 * @description Name of the memory skill to attach.
+						 * @type string
+						 */
+						skillName: string;
+				  }
+				| {
+						/**
+						 * @description Discriminator: a skill defined in the project repo.
+						 * @type string
+						 */
+						type: "project";
+						/**
+						 * @description Name of the project skill to attach.
+						 * @type string
+						 */
+						skillName: string;
+				  }
+		  )[]
+		| undefined;
+	/**
+	 * @description Arbitrary key-value data to attach to the chat. Useful for storing additional data about the chat, such as external user IDs.
+	 * @default {}
+	 * @type object | undefined
+	 */
+	metadata?:
+		| {
+				[key: string]: string;
+		  }
+		| undefined;
+};
+
 export type ChatsCreateOptions = {
-	body?: never | undefined;
+	body: ChatsCreateBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3263,8 +3460,159 @@ export type ChatsInitStatus429 = unknown;
 
 export type ChatsInitStatus500 = unknown;
 
+export const chatsInitRequestChatPrivacyEnum = {
+	public: "public",
+	private: "private",
+	"team-edit": "team-edit",
+	team: "team",
+	unlisted: "unlisted",
+} as const;
+
+export type ChatsInitRequestChatPrivacyEnumKey =
+	(typeof chatsInitRequestChatPrivacyEnum)[keyof typeof chatsInitRequestChatPrivacyEnum];
+
+export type ChatsInitBody = {
+	/**
+	 * @description A user-defined name for the chat. Helps identify or describe the purpose of the chat session in the UI or API responses.
+	 * @type string | undefined
+	 */
+	name?: string | undefined;
+	/**
+	 * @description Controls the visibility of the chat. Defines whether the chat is private, shared with a team, or publicly accessible.
+	 * @default 'private'
+	 * @type string | undefined
+	 */
+	chatPrivacy?: ChatsInitRequestChatPrivacyEnumKey | undefined;
+	/**
+	 * @description Associates the chat with a specific project. Useful for organizing and grouping chats in a workspace.
+	 * @type string | undefined
+	 */
+	projectId?: string | undefined;
+	/**
+	 * @description Arbitrary key-value data to attach to the chat. Useful for storing additional data about the chat, such as external user IDs.
+	 * @default {}
+	 * @type object | undefined
+	 */
+	metadata?:
+		| {
+				[key: string]: string;
+		  }
+		| undefined;
+} & (
+	| {
+			/**
+			 * @description Specifies the initialization method. For this endpoint, it defines the source of content being used to initialize the chat.
+			 * @type string
+			 */
+			type: "files";
+			/**
+			 * @description An array of inline file objects used to initialize the chat. Each object must contain a file `name` and its `content`.
+			 * @type array
+			 */
+			files: (
+				| {
+						name: string;
+						url: string;
+						/**
+						 * @description Whether to lock this file to prevent AI from overwriting it during generation
+						 * @type boolean | undefined
+						 */
+						locked?: boolean | undefined;
+				  }
+				| {
+						name: string;
+						content: string;
+						/**
+						 * @description Whether to lock this file to prevent AI from overwriting it during generation
+						 * @type boolean | undefined
+						 */
+						locked?: boolean | undefined;
+				  }
+			)[];
+	  }
+	| {
+			/**
+			 * @description Specifies the initialization method. For this endpoint, it defines the source of content being used to initialize the chat.
+			 * @type string
+			 */
+			type: "repo";
+			/**
+			 * @description Specifies a repository source for initialization. Supports both public and private GitHub repositories. For private repositories, ensure your GitHub account is connected through Vercel.
+			 * @type object
+			 */
+			repo: {
+				url: string;
+				/**
+				 * @maxLength 250
+				 * @type string | undefined
+				 */
+				branch?: string | undefined;
+			};
+			/**
+			 * @description Whether to lock all files in the repository to prevent AI from overwriting them during generation
+			 * @type boolean | undefined
+			 */
+			lockAllFiles?: boolean | undefined;
+	  }
+	| {
+			/**
+			 * @description Specifies the initialization method. For this endpoint, it defines the source of content being used to initialize the chat.
+			 * @type string
+			 */
+			type: "registry";
+			/**
+			 * @description Allows initialization from a predefined component or code registry. Includes the registry source and identifier for the desired component/module.
+			 * @type object
+			 */
+			registry: {
+				url: string;
+			};
+			/**
+			 * @description Whether to lock all files from the registry to prevent AI from overwriting them during generation
+			 * @type boolean | undefined
+			 */
+			lockAllFiles?: boolean | undefined;
+	  }
+	| {
+			/**
+			 * @description Specifies the initialization method. For this endpoint, it defines the source of content being used to initialize the chat.
+			 * @type string
+			 */
+			type: "zip";
+			/**
+			 * @description Provides a zipped bundle of files as the input source. Typically includes a base64-encoded archive or a remote URL reference.
+			 * @type object
+			 */
+			zip: {
+				/**
+				 * @description
+				 * Format: `uri`
+				 * @type string
+				 */
+				url: string;
+			};
+			/**
+			 * @description Whether to lock all files from the zip archive to prevent AI from overwriting them during generation
+			 * @type boolean | undefined
+			 */
+			lockAllFiles?: boolean | undefined;
+	  }
+	| {
+			/**
+			 * @description Specifies the initialization method. For this endpoint, it defines the source of content being used to initialize the chat.
+			 * @type string
+			 */
+			type: "template";
+			/**
+			 * @description The ID of the template to initialize the chat from. This should be a valid template ID from the v0 template system.
+			 * @type string
+			 */
+			templateId: string;
+	  }
+);
+
 export type ChatsInitOptions = {
-	body?: never | undefined;
+	body: ChatsInitBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3413,8 +3761,40 @@ export type ChatsUpdateStatus429 = unknown;
 
 export type ChatsUpdateStatus500 = unknown;
 
+export const chatsUpdateRequestPrivacyEnum = {
+	private: "private",
+	public: "public",
+	team: "team",
+	"team-edit": "team-edit",
+	unlisted: "unlisted",
+} as const;
+
+export type ChatsUpdateRequestPrivacyEnumKey =
+	(typeof chatsUpdateRequestPrivacyEnum)[keyof typeof chatsUpdateRequestPrivacyEnum];
+
+export type ChatsUpdateBody = {
+	/**
+	 * @description A new name to assign to the chat. Helps with identification and organization.
+	 * @type string | undefined
+	 */
+	name?: string | undefined;
+	/**
+	 * @description Sets the privacy level of the chat.
+	 * @type string | undefined
+	 */
+	privacy?: ChatsUpdateRequestPrivacyEnumKey | undefined;
+	/**
+	 * @description Arbitrary key-value data to attach to the chat. Useful for storing additional data about the chat, such as external user IDs. Metadata added will be merged with existing attributes. Pass `null` as the value to delete a specific key, or pass `null` instead of an object to delete all existing metadata.
+	 */
+	metadata?:
+		| ({
+				[key: string]: string | null;
+		  } | null)
+		| undefined;
+};
+
 export type ChatsUpdateOptions = {
-	body?: never | undefined;
+	body: ChatsUpdateBody;
 	path: ChatsUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3463,8 +3843,16 @@ export type ChatsFavoriteStatus429 = unknown;
 
 export type ChatsFavoriteStatus500 = unknown;
 
+export type ChatsFavoriteBody = {
+	/**
+	 * @description Specifies whether the chat should be marked as a favorite.\n\n- `\"true\"`: mark as favorite\n- `\"false\"`: remove from favorites
+	 * @type boolean
+	 */
+	isFavorite: boolean;
+};
+
 export type ChatsFavoriteOptions = {
-	body?: never | undefined;
+	body: ChatsFavoriteBody;
 	path: ChatsFavoritePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3513,8 +3901,34 @@ export type ChatsForkStatus429 = unknown;
 
 export type ChatsForkStatus500 = unknown;
 
+export const chatsForkRequestPrivacyEnum = {
+	private: "private",
+	public: "public",
+	team: "team",
+	"team-edit": "team-edit",
+	unlisted: "unlisted",
+} as const;
+
+export type ChatsForkRequestPrivacyEnumKey =
+	(typeof chatsForkRequestPrivacyEnum)[keyof typeof chatsForkRequestPrivacyEnum];
+
+export type ChatsForkBody = {
+	/**
+	 * @description The identifier of the specific chat version to fork from. If omitted, the latest version will be used.
+	 * @maxLength 32
+	 * @type string | undefined
+	 */
+	versionId?: string | undefined;
+	/**
+	 * @description Determines the privacy setting of the forked chat. This can control whether the chat is visible only to the user, to team members, or is public.
+	 * @default 'private'
+	 * @type string | undefined
+	 */
+	privacy?: ChatsForkRequestPrivacyEnumKey | undefined;
+};
+
 export type ChatsForkOptions = {
-	body?: never | undefined;
+	body: ChatsForkBody;
 	path: ChatsForkPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3679,8 +4093,180 @@ export type ChatsSendMessageStatus429 = unknown;
 
 export type ChatsSendMessageStatus500 = unknown;
 
+export const chatsSendMessageRequestModelConfigurationModelIdEnum = {
+	"v0-auto": "v0-auto",
+	"v0-max": "v0-max",
+	"v0-max-fast": "v0-max-fast",
+	"v0-mini": "v0-mini",
+	"v0-pro": "v0-pro",
+} as const;
+
+export type ChatsSendMessageRequestModelConfigurationModelIdEnumKey =
+	(typeof chatsSendMessageRequestModelConfigurationModelIdEnum)[keyof typeof chatsSendMessageRequestModelConfigurationModelIdEnum];
+
+export const chatsSendMessageRequestModelConfigurationThinkingEffort = {
+	none: "none",
+	minimal: "minimal",
+	low: "low",
+	medium: "medium",
+	high: "high",
+	max: "max",
+	xhigh: "xhigh",
+} as const;
+
+export type ChatsSendMessageRequestModelConfigurationThinkingEffortKey =
+	(typeof chatsSendMessageRequestModelConfigurationThinkingEffort)[keyof typeof chatsSendMessageRequestModelConfigurationThinkingEffort];
+
+export const chatsSendMessageRequestResponseModeEnum = {
+	async: "async",
+	experimental_stream: "experimental_stream",
+	sync: "sync",
+} as const;
+
+export type ChatsSendMessageRequestResponseModeEnumKey =
+	(typeof chatsSendMessageRequestResponseModeEnum)[keyof typeof chatsSendMessageRequestResponseModeEnum];
+
+export const chatsSendMessageRequestSkillsScopeEnum = {
+	user: "user",
+	team: "team",
+} as const;
+
+export type ChatsSendMessageRequestSkillsScopeEnumKey =
+	(typeof chatsSendMessageRequestSkillsScopeEnum)[keyof typeof chatsSendMessageRequestSkillsScopeEnum];
+
+export type ChatsSendMessageBody = {
+	/**
+	 * @description The prompt or instruction to send to the model as part of the chat.
+	 * @type string
+	 */
+	message: string;
+	/**
+	 * @description A list of files or assets to include with the message.
+	 * @default []
+	 * @type array | undefined
+	 */
+	attachments?:
+		| {
+				/**
+				 * @description The URL or data URI of the file or asset to include with the message.
+				 * @type string
+				 */
+				url: string;
+		  }[]
+		| undefined;
+	/**
+	 * @description Provides system-level context or background for the chat. This is typically used to specify frameworks, tools, or development environments relevant to the task.
+	 * @type string | undefined
+	 */
+	system?: string | undefined;
+	/**
+	 * @description Overrides for the model behavior.
+	 * @type object | undefined
+	 */
+	modelConfiguration?:
+		| {
+				/**
+				 * @description Model to use for the generation. `v0-auto` is deprecated and falls back to `v0-pro`.
+				 * @default 'v0-pro'
+				 * @type string | undefined
+				 */
+				modelId?: ChatsSendMessageRequestModelConfigurationModelIdEnumKey | undefined;
+				/**
+				 * @description Enables image generations to generate up to 5 images per version.
+				 * @default false
+				 * @type boolean | undefined
+				 */
+				imageGenerations?: boolean | undefined;
+				/**
+				 * @description Enables thinking to generate a response in multiple steps.
+				 * @default false
+				 * @type boolean | undefined
+				 */
+				thinking?: boolean | undefined;
+				thinkingEffort?:
+					| (ChatsSendMessageRequestModelConfigurationThinkingEffortKey | null)
+					| undefined;
+				fast?: boolean | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Controls how the response is delivered.\n\n- `\"sync\"`: The response is returned immediately with the HTTP request.\n- `\"async\"`: Returns a message placeholder immediately; use getById to poll for completion status and final output.\n- `\"experimental_stream\"`: Returns content parts as Server-Sent Events for real-time streaming.
+	 * @default 'sync'
+	 * @type string | undefined
+	 */
+	responseMode?: ChatsSendMessageRequestResponseModeEnumKey | undefined;
+	/**
+	 * @description Array of MCP server IDs to enable for this message. When provided, only the specified servers will be used. When omitted, falls back to the user\'s enabled MCP servers.
+	 * @type array | undefined
+	 */
+	mcpServerIds?: string[] | undefined;
+	/**
+	 * @description Array of skill IDs (from skills.sh) to attach to this message. Backwards-compatible alias for `skills` entries of type `remote`. Maximum 3 skills per chat.
+	 * @type array | undefined
+	 */
+	attachedSkillIds?: string[] | undefined;
+	/**
+	 * @description Skills to force-attach to this message. Supports skills.sh (`remote`), user/team memory (`memory`), and project (`project`) skills. Merged with `attachedSkillIds`. Maximum 3 skills per chat.
+	 * @type array | undefined
+	 */
+	skills?:
+		| (
+				| {
+						/**
+						 * @description Discriminator: a skills.sh skill.
+						 * @type string
+						 */
+						type: "remote";
+						/**
+						 * @description Skill ID from skills.sh.
+						 * @type string
+						 */
+						id: string;
+				  }
+				| {
+						/**
+						 * @description Discriminator: a user- or team-scoped memory skill.
+						 * @type string
+						 */
+						type: "memory";
+						/**
+						 * @description Whether the skill lives in user or team memory.
+						 * @type string
+						 */
+						scope: ChatsSendMessageRequestSkillsScopeEnumKey;
+						/**
+						 * @description Name of the memory skill to attach.
+						 * @type string
+						 */
+						skillName: string;
+				  }
+				| {
+						/**
+						 * @description Discriminator: a skill defined in the project repo.
+						 * @type string
+						 */
+						type: "project";
+						/**
+						 * @description Name of the project skill to attach.
+						 * @type string
+						 */
+						skillName: string;
+				  }
+		  )[]
+		| undefined;
+	/**
+	 * @description An optional action to perform. Use `fix-with-v0` to trigger automatic error fixing — the message should contain the error logs or context to fix.
+	 * @type object | undefined
+	 */
+	action?:
+		| {
+				type: "fix-with-v0";
+		  }
+		| undefined;
+};
+
 export type ChatsSendMessageOptions = {
-	body?: never | undefined;
+	body: ChatsSendMessageBody;
 	path: ChatsSendMessagePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3926,8 +4512,32 @@ export type ChatsUpdateVersionStatus429 = unknown;
 
 export type ChatsUpdateVersionStatus500 = unknown;
 
+export type ChatsUpdateVersionBody = {
+	/**
+	 * @description Array of files to update with their new content
+	 * @type array
+	 */
+	files: {
+		/**
+		 * @description The full file path including extension (e.g., \"components/test.tsx\")
+		 * @type string
+		 */
+		name: string;
+		/**
+		 * @description The new content for the file
+		 * @type string
+		 */
+		content: string;
+		/**
+		 * @description Whether to lock or unlock the file to prevent AI from overwriting it during generation
+		 * @type boolean | undefined
+		 */
+		locked?: boolean | undefined;
+	}[];
+};
+
 export type ChatsUpdateVersionOptions = {
-	body?: never | undefined;
+	body: ChatsUpdateVersionBody;
 	path: ChatsUpdateVersionPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4066,8 +4676,16 @@ export type ChatsDeleteVersionFilesStatus429 = unknown;
 
 export type ChatsDeleteVersionFilesStatus500 = unknown;
 
+export type ChatsDeleteVersionFilesBody = {
+	/**
+	 * @description Array of file paths to delete (e.g., [\"components/test.tsx\", \"lib/utils.ts\"])
+	 * @type array
+	 */
+	filePaths: string[];
+};
+
 export type ChatsDeleteVersionFilesOptions = {
-	body?: never | undefined;
+	body: ChatsDeleteVersionFilesBody;
 	path: ChatsDeleteVersionFilesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4226,8 +4844,246 @@ export type ChatsResolveTaskStatus429 = unknown;
 
 export type ChatsResolveTaskStatus500 = unknown;
 
+export const chatsResolveTaskRequestTaskConnectedMcpPresetNamesEnum = {
+	Linear: "Linear",
+	Notion: "Notion",
+	Context7: "Context7",
+	Sentry: "Sentry",
+	Zapier: "Zapier",
+	Glean: "Glean",
+	Hex: "Hex",
+	Sanity: "Sanity",
+	Granola: "Granola",
+	PostHog: "PostHog",
+	Contentful: "Contentful",
+	Mobbin: "Mobbin",
+	Slack: "Slack",
+	Nitrosend: "Nitrosend",
+	Datadog: "Datadog",
+} as const;
+
+export type ChatsResolveTaskRequestTaskConnectedMcpPresetNamesEnumKey =
+	(typeof chatsResolveTaskRequestTaskConnectedMcpPresetNamesEnum)[keyof typeof chatsResolveTaskRequestTaskConnectedMcpPresetNamesEnum];
+
+export const chatsResolveTaskRequestTaskStatusEnum = {
+	approved: "approved",
+	rejected: "rejected",
+	"request-changes": "request-changes",
+} as const;
+
+export type ChatsResolveTaskRequestTaskStatusEnumKey =
+	(typeof chatsResolveTaskRequestTaskStatusEnum)[keyof typeof chatsResolveTaskRequestTaskStatusEnum];
+
+export const chatsResolveTaskRequestResponseModeEnum = {
+	async: "async",
+	experimental_stream: "experimental_stream",
+	sync: "sync",
+} as const;
+
+export type ChatsResolveTaskRequestResponseModeEnumKey =
+	(typeof chatsResolveTaskRequestResponseModeEnum)[keyof typeof chatsResolveTaskRequestResponseModeEnum];
+
+export const chatsResolveTaskRequestModelConfigurationModelIdEnum = {
+	"v0-auto": "v0-auto",
+	"v0-max": "v0-max",
+	"v0-max-fast": "v0-max-fast",
+	"v0-mini": "v0-mini",
+	"v0-pro": "v0-pro",
+} as const;
+
+export type ChatsResolveTaskRequestModelConfigurationModelIdEnumKey =
+	(typeof chatsResolveTaskRequestModelConfigurationModelIdEnum)[keyof typeof chatsResolveTaskRequestModelConfigurationModelIdEnum];
+
+export const chatsResolveTaskRequestModelConfigurationThinkingEffort = {
+	none: "none",
+	minimal: "minimal",
+	low: "low",
+	medium: "medium",
+	high: "high",
+	max: "max",
+	xhigh: "xhigh",
+} as const;
+
+export type ChatsResolveTaskRequestModelConfigurationThinkingEffortKey =
+	(typeof chatsResolveTaskRequestModelConfigurationThinkingEffort)[keyof typeof chatsResolveTaskRequestModelConfigurationThinkingEffort];
+
+export type ChatsResolveTaskBody = {
+	/**
+	 * @description The task resolution data. Use this when the chat is waiting for user input on the matching task type.
+	 */
+	task:
+		| {
+				type: "confirmed-steps";
+				/**
+				 * @description Names of integrations that were successfully connected (e.g. \"Neon\"). Pass an empty array to skip.
+				 * @default []
+				 * @type array | undefined
+				 */
+				connectedIntegrationNames?: string[] | undefined;
+				/**
+				 * @description Deprecated. npm registry connections are no longer supported; this field is accepted for compatibility and ignored.
+				 * @default []
+				 * @type array | undefined
+				 */
+				connectedNpmRegistryIds?: string[] | undefined;
+				/**
+				 * @description Names of MCP presets that were connected (e.g. \"Linear\", \"Sentry\"). Pass an empty array to skip.
+				 * @default []
+				 * @type array | undefined
+				 */
+				connectedMcpPresetNames?:
+					| ChatsResolveTaskRequestTaskConnectedMcpPresetNamesEnumKey[]
+					| undefined;
+				/**
+				 * @description Names of scripts that were applied.
+				 * @default []
+				 * @type array | undefined
+				 */
+				appliedScripts?: string[] | undefined;
+				/**
+				 * @description Names of environment variables that were added.
+				 * @default []
+				 * @type array | undefined
+				 */
+				addedEnvVars?: string[] | undefined;
+		  }
+		| {
+				type: "plan-exit-response";
+				/**
+				 * @description Whether the plan is approved, rejected, or needs changes.
+				 * @type string
+				 */
+				status: ChatsResolveTaskRequestTaskStatusEnumKey;
+				/**
+				 * @description Feedback or instructions for the agent.
+				 * @minLength 1
+				 * @type string
+				 */
+				content: string;
+		  }
+		| {
+				type: "answered-questions";
+				/**
+				 * @description Answers to the questions the agent asked.
+				 * @type array
+				 */
+				answers: {
+					/**
+					 * @description The ID of the question being answered.
+					 * @minLength 1
+					 * @type string
+					 */
+					questionId: string;
+					/**
+					 * @description The text of the question being answered.
+					 * @minLength 1
+					 * @type string
+					 */
+					questionText: string;
+					/**
+					 * @description The labels of the selected options. For single-select questions, pass one item.
+					 * @type array
+					 */
+					selectedLabels: string[];
+					/**
+					 * @description Free-form text input, used when the user selects \"Other\" or wants to add context.
+					 * @minLength 1
+					 * @type string | undefined
+					 */
+					customText?: string | undefined;
+				}[];
+		  }
+		| {
+				type: "confirmed-permissions";
+				/**
+				 * @description The permissions to grant. Pass the suggestedPermissions from the stopped task.
+				 * @type array
+				 */
+				permissions: {
+					type: "ALLOW_DYNAMIC_TOOL_STRICT";
+					/**
+					 * @description The name of the tool being permitted.
+					 * @minLength 1
+					 * @type string
+					 */
+					toolName: string;
+					/**
+					 * @description The tool call input arguments. Pass the exact input from the stopped task.
+					 * @type unknown
+					 */
+					input: unknown;
+					/**
+					 * @description The tool\'s original human-readable name from the stopped task. Display-only; pass back unchanged. Capped at 100 characters, matching the cap applied when the name is ingested from the server.
+					 */
+					toolDisplayName?: (string | null) | undefined;
+					/**
+					 * @description Label shown while the tool is running (e.g. \"Running migration\").
+					 */
+					taskNameActive?: (string | null) | undefined;
+					/**
+					 * @description Label shown after the tool completes (e.g. \"Migration complete\").
+					 */
+					taskNameComplete?: (string | null) | undefined;
+					/**
+					 * @description Optional message from the user about this permission.
+					 * @minLength 1
+					 * @type string | undefined
+					 */
+					userMessage?: string | undefined;
+				}[];
+				/**
+				 * @description Optional message from the user about the permission grant.
+				 * @minLength 1
+				 * @type string | undefined
+				 */
+				userMessage?: string | undefined;
+		  }
+		| {
+				type: "vercel-connect-setup";
+		  }
+		| {
+				type: "vercel-connect-authorization";
+		  };
+	/**
+	 * @description Controls how the response is delivered.\n\n- `\"sync\"`: The response is returned immediately with the HTTP request.\n- `\"async\"`: Returns a message placeholder immediately; use getById to poll for completion status and final output.\n- `\"experimental_stream\"`: Returns content parts as Server-Sent Events for real-time streaming.
+	 * @default 'sync'
+	 * @type string | undefined
+	 */
+	responseMode?: ChatsResolveTaskRequestResponseModeEnumKey | undefined;
+	/**
+	 * @description Overrides for the model behavior.
+	 * @type object | undefined
+	 */
+	modelConfiguration?:
+		| {
+				/**
+				 * @description Model to use for the generation. `v0-auto` is deprecated and falls back to `v0-pro`.
+				 * @default 'v0-pro'
+				 * @type string | undefined
+				 */
+				modelId?: ChatsResolveTaskRequestModelConfigurationModelIdEnumKey | undefined;
+				/**
+				 * @description Enables image generations to generate up to 5 images per version.
+				 * @default false
+				 * @type boolean | undefined
+				 */
+				imageGenerations?: boolean | undefined;
+				/**
+				 * @description Enables thinking to generate a response in multiple steps.
+				 * @default false
+				 * @type boolean | undefined
+				 */
+				thinking?: boolean | undefined;
+				thinkingEffort?:
+					| (ChatsResolveTaskRequestModelConfigurationThinkingEffortKey | null)
+					| undefined;
+				fast?: boolean | undefined;
+		  }
+		| undefined;
+};
+
 export type ChatsResolveTaskOptions = {
-	body?: never | undefined;
+	body: ChatsResolveTaskBody;
 	path: ChatsResolveTaskPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4328,8 +5184,14 @@ export type DeploymentsCreateStatus429 = unknown;
 
 export type DeploymentsCreateStatus500 = unknown;
 
+export type DeploymentsCreateBody = {
+	projectId?: string | undefined;
+	chatId: string;
+	versionId: string;
+};
+
 export type DeploymentsCreateOptions = {
-	body?: never | undefined;
+	body: DeploymentsCreateBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4620,8 +5482,46 @@ export type HooksCreateStatus429 = unknown;
 
 export type HooksCreateStatus500 = unknown;
 
+export const hooksCreateRequestEventsEnum = {
+	"chat.created": "chat.created",
+	"chat.deleted": "chat.deleted",
+	"chat.updated": "chat.updated",
+	"message.created": "message.created",
+	"message.deleted": "message.deleted",
+	"message.finished": "message.finished",
+	"message.updated": "message.updated",
+} as const;
+
+export type HooksCreateRequestEventsEnumKey =
+	(typeof hooksCreateRequestEventsEnum)[keyof typeof hooksCreateRequestEventsEnum];
+
+export type HooksCreateBody = {
+	/**
+	 * @description A human-readable name for the hook.
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description List of event types the hook should subscribe to.
+	 * @type array
+	 */
+	events: HooksCreateRequestEventsEnumKey[];
+	/**
+	 * @description The ID of a chat to scope the hook to.
+	 * @type string | undefined
+	 */
+	chatId?: string | undefined;
+	/**
+	 * @description The target URL to receive the webhook payloads.
+	 *
+	 * Format: `uri`
+	 * @type string
+	 */
+	url: string;
+};
+
 export type HooksCreateOptions = {
-	body?: never | undefined;
+	body: HooksCreateBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4720,8 +5620,41 @@ export type HooksUpdateStatus429 = unknown;
 
 export type HooksUpdateStatus500 = unknown;
 
+export const hooksUpdateRequestEventsEnum = {
+	"chat.created": "chat.created",
+	"chat.deleted": "chat.deleted",
+	"chat.updated": "chat.updated",
+	"message.created": "message.created",
+	"message.deleted": "message.deleted",
+	"message.finished": "message.finished",
+	"message.updated": "message.updated",
+} as const;
+
+export type HooksUpdateRequestEventsEnumKey =
+	(typeof hooksUpdateRequestEventsEnum)[keyof typeof hooksUpdateRequestEventsEnum];
+
+export type HooksUpdateBody = {
+	/**
+	 * @description A new name for the hook.
+	 * @type string | undefined
+	 */
+	name?: string | undefined;
+	/**
+	 * @description Updated list of event types to subscribe to.
+	 * @type array | undefined
+	 */
+	events?: HooksUpdateRequestEventsEnumKey[] | undefined;
+	/**
+	 * @description A new URL to send webhook payloads to.
+	 *
+	 * Format: `uri`
+	 * @type string | undefined
+	 */
+	url?: string | undefined;
+};
+
 export type HooksUpdateOptions = {
-	body?: never | undefined;
+	body: HooksUpdateBody;
 	path: HooksUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4854,8 +5787,21 @@ export type IntegrationsVercelProjectsCreateStatus429 = unknown;
 
 export type IntegrationsVercelProjectsCreateStatus500 = unknown;
 
+export type IntegrationsVercelProjectsCreateBody = {
+	/**
+	 * @description The ID of the v0 project to link to the new Vercel project.
+	 * @type string
+	 */
+	projectId: string;
+	/**
+	 * @description The name to assign to the new Vercel project.
+	 * @type string
+	 */
+	name: string;
+};
+
 export type IntegrationsVercelProjectsCreateOptions = {
-	body?: never | undefined;
+	body: IntegrationsVercelProjectsCreateBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4938,8 +5884,71 @@ export type ProjectsCreateStatus429 = unknown;
 
 export type ProjectsCreateStatus500 = unknown;
 
+export const projectsCreateRequestPrivacyEnum = {
+	private: "private",
+	team: "team",
+} as const;
+
+export type ProjectsCreateRequestPrivacyEnumKey =
+	(typeof projectsCreateRequestPrivacyEnum)[keyof typeof projectsCreateRequestPrivacyEnum];
+
+export type ProjectsCreateBody = {
+	/**
+	 * @description The name of the project.
+	 * @maxLength 255
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description A brief summary of the project’s purpose.
+	 * @maxLength 1000
+	 * @type string | undefined
+	 */
+	description?: string | undefined;
+	/**
+	 * @description An icon identifier to visually represent the project.
+	 * @default 'icon-wand-sparkles'
+	 * @type string | undefined
+	 */
+	icon?: string | undefined;
+	/**
+	 * @description A list of key-value pairs used to define runtime variables for the project.
+	 * @type array | undefined
+	 */
+	environmentVariables?:
+		| {
+				/**
+				 * @maxLength 255
+				 * @type string
+				 */
+				key: string;
+				/**
+				 * @maxLength 1000
+				 * @type string
+				 */
+				value: string;
+		  }[]
+		| undefined;
+	/**
+	 * @description Guidance or goals that provide context for the model when working within the project.
+	 * @maxLength 2000
+	 * @type string | undefined
+	 */
+	instructions?: string | undefined;
+	/**
+	 * @description The ID of an existing Vercel project to link to. If not provided, a new Vercel project will be created.
+	 * @type string | undefined
+	 */
+	vercelProjectId?: string | undefined;
+	/**
+	 * @description The privacy setting for the project. For user accounts, this is always \"private\". For team/enterprise accounts, this can be either \"private\" or \"team\".
+	 * @type string | undefined
+	 */
+	privacy?: ProjectsCreateRequestPrivacyEnumKey | undefined;
+};
+
 export type ProjectsCreateOptions = {
-	body?: never | undefined;
+	body: ProjectsCreateBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5038,8 +6047,39 @@ export type ProjectsUpdateStatus429 = unknown;
 
 export type ProjectsUpdateStatus500 = unknown;
 
+export const projectsUpdateRequestPrivacyEnum = {
+	private: "private",
+	team: "team",
+} as const;
+
+export type ProjectsUpdateRequestPrivacyEnumKey =
+	(typeof projectsUpdateRequestPrivacyEnum)[keyof typeof projectsUpdateRequestPrivacyEnum];
+
+export type ProjectsUpdateBody = {
+	/**
+	 * @description A new name to assign to the project. Helps with identification and organization.
+	 * @type string | undefined
+	 */
+	name?: string | undefined;
+	/**
+	 * @description A new description to assign to the project. Helps with identification and organization.
+	 * @type string | undefined
+	 */
+	description?: string | undefined;
+	/**
+	 * @description Guidance or goals that provide context for the model when working within the project.
+	 * @type string | undefined
+	 */
+	instructions?: string | undefined;
+	/**
+	 * @description The privacy setting for the project. For user accounts, this must be \"private\". For team/enterprise accounts, this can be either \"private\" or \"team\".
+	 * @type string | undefined
+	 */
+	privacy?: ProjectsUpdateRequestPrivacyEnumKey | undefined;
+};
+
 export type ProjectsUpdateOptions = {
-	body?: never | undefined;
+	body: ProjectsUpdateBody;
 	path: ProjectsUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5155,8 +6195,16 @@ export type ProjectsAssignStatus429 = unknown;
 
 export type ProjectsAssignStatus500 = unknown;
 
+export type ProjectsAssignBody = {
+	/**
+	 * @description The ID of the chat to assign the project to.
+	 * @type string
+	 */
+	chatId: string;
+};
+
 export type ProjectsAssignOptions = {
-	body?: never | undefined;
+	body: ProjectsAssignBody;
 	path: ProjectsAssignPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5287,8 +6335,33 @@ export type ProjectsCreateEnvVarsStatus429 = unknown;
 
 export type ProjectsCreateEnvVarsStatus500 = unknown;
 
+export type ProjectsCreateEnvVarsBody = {
+	/**
+	 * @description An array of environment variables to create with key and value fields.
+	 * @type array
+	 */
+	environmentVariables: {
+		/**
+		 * @description The name of the environment variable.
+		 * @minLength 1
+		 * @type string
+		 */
+		key: string;
+		/**
+		 * @description The value of the environment variable.
+		 * @type string
+		 */
+		value: string;
+	}[];
+	/**
+	 * @description Whether to overwrite existing environment variables with the same keys. Defaults to false.
+	 * @type boolean | undefined
+	 */
+	upsert?: boolean | undefined;
+};
+
 export type ProjectsCreateEnvVarsOptions = {
-	body?: never | undefined;
+	body: ProjectsCreateEnvVarsBody;
 	path: ProjectsCreateEnvVarsPath;
 	query?: ProjectsCreateEnvVarsQuery | undefined;
 	headers?: never | undefined;
@@ -5353,8 +6426,27 @@ export type ProjectsUpdateEnvVarsStatus429 = unknown;
 
 export type ProjectsUpdateEnvVarsStatus500 = unknown;
 
+export type ProjectsUpdateEnvVarsBody = {
+	/**
+	 * @description An array of environment variables to update with id and value fields.
+	 * @type array
+	 */
+	environmentVariables: {
+		/**
+		 * @description The unique identifier of the environment variable to update.
+		 * @type string
+		 */
+		id: string;
+		/**
+		 * @description The new value of the environment variable.
+		 * @type string
+		 */
+		value: string;
+	}[];
+};
+
 export type ProjectsUpdateEnvVarsOptions = {
-	body?: never | undefined;
+	body: ProjectsUpdateEnvVarsBody;
 	path: ProjectsUpdateEnvVarsPath;
 	query?: ProjectsUpdateEnvVarsQuery | undefined;
 	headers?: never | undefined;
@@ -5403,8 +6495,16 @@ export type ProjectsDeleteEnvVarsStatus429 = unknown;
 
 export type ProjectsDeleteEnvVarsStatus500 = unknown;
 
+export type ProjectsDeleteEnvVarsBody = {
+	/**
+	 * @description An array of environment variable IDs to delete.
+	 * @type array
+	 */
+	environmentVariableIds: string[];
+};
+
 export type ProjectsDeleteEnvVarsOptions = {
-	body?: never | undefined;
+	body: ProjectsDeleteEnvVarsBody;
 	path: ProjectsDeleteEnvVarsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6057,8 +7157,167 @@ export type McpServersCreateStatus429 = unknown;
 
 export type McpServersCreateStatus500 = unknown;
 
+export const mcpServersCreateRequestScopeEnum = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type McpServersCreateRequestScopeEnumKey =
+	(typeof mcpServersCreateRequestScopeEnum)[keyof typeof mcpServersCreateRequestScopeEnum];
+
+export type McpServersCreateBody = {
+	/**
+	 * @description The display name of the MCP server.
+	 * @minLength 1
+	 * @maxLength 100
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description The URL of the MCP server. Must be HTTPS in production.
+	 *
+	 * Format: `uri`
+	 * @maxLength 500
+	 * @type string
+	 */
+	url: string;
+	/**
+	 * @description An optional description of the MCP server.
+	 * @maxLength 500
+	 * @type string | undefined
+	 */
+	description?: string | undefined;
+	/**
+	 * @description Whether the MCP server is enabled. Defaults to true.
+	 * @default true
+	 * @type boolean | undefined
+	 */
+	enabled?: boolean | undefined;
+	/**
+	 * @description Authentication configuration. Defaults to no authentication.
+	 * @default {"type":"none"}
+	 */
+	auth?:
+		| (
+				| {
+						/**
+						 * @description No authentication required.
+						 * @type string
+						 */
+						type: "none";
+				  }
+				| {
+						/**
+						 * @description Bearer token authentication.
+						 * @type string
+						 */
+						type: "bearer";
+						/**
+						 * @description The bearer token for authentication.
+						 * @minLength 1
+						 * @maxLength 1000
+						 * @type string
+						 */
+						token: string;
+				  }
+				| {
+						/**
+						 * @description Custom headers authentication.
+						 * @type string
+						 */
+						type: "custom-headers";
+						/**
+						 * @description Key-value pairs of custom headers to include in requests.
+						 * @type object
+						 */
+						headers: {
+							[key: string]: string;
+						};
+				  }
+				| {
+						/**
+						 * @description OAuth 2.1 authentication.
+						 * @type string
+						 */
+						type: "oauth";
+						/**
+						 * @description OAuth configuration for the MCP server.
+						 * @type object
+						 */
+						config: {
+							/**
+							 * @description The OAuth authorization endpoint URL.
+							 *
+							 * Format: `uri`
+							 * @type string
+							 */
+							authorizationUrl: string;
+							/**
+							 * @description The OAuth token endpoint URL.
+							 *
+							 * Format: `uri`
+							 * @type string
+							 */
+							tokenUrl: string;
+							/**
+							 * @description The optional dynamic client registration endpoint URL.
+							 *
+							 * Format: `uri`
+							 * @type string | undefined
+							 */
+							registrationUrl?: string | undefined;
+							/**
+							 * @description The OAuth client ID.
+							 * @minLength 1
+							 * @type string
+							 */
+							clientId: string;
+							/**
+							 * @description The optional OAuth client secret. This value is stored securely and is never returned by the API.
+							 * @type string | undefined
+							 */
+							clientSecret?: string | undefined;
+							/**
+							 * @description OAuth scopes to request during authorization.
+							 * @default []
+							 * @type array | undefined
+							 */
+							scopes?: string[] | undefined;
+							/**
+							 * @description Whether to use PKCE for the authorization code flow.
+							 * @default true
+							 * @type boolean | undefined
+							 */
+							usePKCE?: boolean | undefined;
+							/**
+							 * @description The optional issuer identifier for mix-up protection.
+							 * @type string | undefined
+							 */
+							issuer?: string | undefined;
+							/**
+							 * @description The optional RFC 8707 resource indicator. For MCP servers, this is usually the MCP server URL.
+							 * @type string | undefined
+							 */
+							resource?: string | undefined;
+							/**
+							 * @description Whether the authorization server supports Client ID Metadata Documents.
+							 * @type boolean | undefined
+							 */
+							clientIdMetadataDocumentSupported?: boolean | undefined;
+						};
+				  }
+		  )
+		| undefined;
+	/**
+	 * @description The scope of the MCP server. Defaults to user.
+	 * @default 'user'
+	 * @type string | undefined
+	 */
+	scope?: McpServersCreateRequestScopeEnumKey | undefined;
+};
+
 export type McpServersCreateOptions = {
-	body?: never | undefined;
+	body: McpServersCreateBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6157,8 +7416,164 @@ export type McpServersUpdateStatus429 = unknown;
 
 export type McpServersUpdateStatus500 = unknown;
 
+export const mcpServersUpdateRequestScopeEnum = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type McpServersUpdateRequestScopeEnumKey =
+	(typeof mcpServersUpdateRequestScopeEnum)[keyof typeof mcpServersUpdateRequestScopeEnum];
+
+export type McpServersUpdateBody = {
+	/**
+	 * @description The display name of the MCP server.
+	 * @minLength 1
+	 * @maxLength 100
+	 * @type string | undefined
+	 */
+	name?: string | undefined;
+	/**
+	 * @description The URL of the MCP server.
+	 *
+	 * Format: `uri`
+	 * @maxLength 500
+	 * @type string | undefined
+	 */
+	url?: string | undefined;
+	/**
+	 * @description An optional description of the MCP server.
+	 * @maxLength 500
+	 * @type string | undefined
+	 */
+	description?: string | undefined;
+	/**
+	 * @description Whether the MCP server is enabled.
+	 * @type boolean | undefined
+	 */
+	enabled?: boolean | undefined;
+	/**
+	 * @description Authentication configuration.
+	 */
+	auth?:
+		| (
+				| {
+						/**
+						 * @description No authentication required.
+						 * @type string
+						 */
+						type: "none";
+				  }
+				| {
+						/**
+						 * @description Bearer token authentication.
+						 * @type string
+						 */
+						type: "bearer";
+						/**
+						 * @description The bearer token for authentication.
+						 * @minLength 1
+						 * @maxLength 1000
+						 * @type string
+						 */
+						token: string;
+				  }
+				| {
+						/**
+						 * @description Custom headers authentication.
+						 * @type string
+						 */
+						type: "custom-headers";
+						/**
+						 * @description Key-value pairs of custom headers to include in requests.
+						 * @type object
+						 */
+						headers: {
+							[key: string]: string;
+						};
+				  }
+				| {
+						/**
+						 * @description OAuth 2.1 authentication.
+						 * @type string
+						 */
+						type: "oauth";
+						/**
+						 * @description OAuth configuration for the MCP server.
+						 * @type object
+						 */
+						config: {
+							/**
+							 * @description The OAuth authorization endpoint URL.
+							 *
+							 * Format: `uri`
+							 * @type string
+							 */
+							authorizationUrl: string;
+							/**
+							 * @description The OAuth token endpoint URL.
+							 *
+							 * Format: `uri`
+							 * @type string
+							 */
+							tokenUrl: string;
+							/**
+							 * @description The optional dynamic client registration endpoint URL.
+							 *
+							 * Format: `uri`
+							 * @type string | undefined
+							 */
+							registrationUrl?: string | undefined;
+							/**
+							 * @description The OAuth client ID.
+							 * @minLength 1
+							 * @type string
+							 */
+							clientId: string;
+							/**
+							 * @description The optional OAuth client secret. This value is stored securely and is never returned by the API.
+							 * @type string | undefined
+							 */
+							clientSecret?: string | undefined;
+							/**
+							 * @description OAuth scopes to request during authorization.
+							 * @default []
+							 * @type array | undefined
+							 */
+							scopes?: string[] | undefined;
+							/**
+							 * @description Whether to use PKCE for the authorization code flow.
+							 * @default true
+							 * @type boolean | undefined
+							 */
+							usePKCE?: boolean | undefined;
+							/**
+							 * @description The optional issuer identifier for mix-up protection.
+							 * @type string | undefined
+							 */
+							issuer?: string | undefined;
+							/**
+							 * @description The optional RFC 8707 resource indicator. For MCP servers, this is usually the MCP server URL.
+							 * @type string | undefined
+							 */
+							resource?: string | undefined;
+							/**
+							 * @description Whether the authorization server supports Client ID Metadata Documents.
+							 * @type boolean | undefined
+							 */
+							clientIdMetadataDocumentSupported?: boolean | undefined;
+						};
+				  }
+		  )
+		| undefined;
+	/**
+	 * @description The scope of the MCP server.
+	 * @type string | undefined
+	 */
+	scope?: McpServersUpdateRequestScopeEnumKey | undefined;
+};
+
 export type McpServersUpdateOptions = {
-	body?: never | undefined;
+	body: McpServersUpdateBody;
 	path: McpServersUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6257,8 +7672,18 @@ export type McpServersCreateOAuthAuthorizationUrlStatus429 = unknown;
 
 export type McpServersCreateOAuthAuthorizationUrlStatus500 = unknown;
 
+export type McpServersCreateOAuthAuthorizationUrlBody = {
+	/**
+	 * @description An absolute URL in your application where v0 redirects after OAuth completes. HTTPS is required in production.
+	 *
+	 * Format: `uri`
+	 * @type string
+	 */
+	returnUrl: string;
+};
+
 export type McpServersCreateOAuthAuthorizationUrlOptions = {
-	body?: never | undefined;
+	body: McpServersCreateOAuthAuthorizationUrlBody;
 	path: McpServersCreateOAuthAuthorizationUrlPath;
 	query?: never | undefined;
 	headers?: never | undefined;
