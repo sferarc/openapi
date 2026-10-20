@@ -411,6 +411,7 @@ export type AiGatewayRule = {
 };
 
 export type AiGatewayRuleList = {
+	nextCursor: string | null;
 	rules: unknown[];
 };
 
@@ -462,6 +463,23 @@ export type AiGatewayBudget = {
 
 export type AiGatewayBudgetList = {
 	budgets: unknown[];
+	/**
+	 * @description Paged requests only: `source: \'default\'` rows per scope type across the whole `scopeType`-filtered list, independent of the page and of `includeDefaultCovered`.
+	 * @type object | undefined
+	 */
+	defaultCoveredCounts?:
+		| {
+				apiKey?: number | undefined;
+				project: number;
+				team: number;
+				user: number;
+		  }
+		| undefined;
+	/**
+	 * @description Paged requests only (`limit` or `cursor` set): pass as `cursor` to read the next page; null on the last page.
+	 * @type string | undefined
+	 */
+	nextCursor?: (string | null) | undefined;
 };
 
 export const aiGatewayBudgetDefaultRefreshPeriodEnum = {
@@ -701,7 +719,7 @@ export type PrivateLinkEndpoint = {
 };
 
 /**
- * @description Destinations that incoming triggers should be forwarded to. Limited to 3 entries. Set the initial destination with `triggerDestination` during creation. Replace the complete set with `PATCH /v1/connect/connectors/{connector}/trigger-destinations`.
+ * @description Destinations that incoming triggers should be forwarded to. Limited to 3 entries. Set the initial destination with `triggerDestination` during creation. Replace the complete set with `PATCH /v1/connect/connectors/{connector}/trigger-destinations`. Computed routing environments are stored internally, not returned here.
  * @type object
  */
 export type ConnectTriggerDestination = {
@@ -800,6 +818,7 @@ export type ConnectConnector = {
 				 * @type boolean
 				 */
 				crossInstallation: false | true;
+				isStaticCredential: false | true;
 				/**
 				 * @description Link to the page on the service where this connector\'s app-level permissions are declared and granted, when the service has one and it differs from `clientUrl`.
 				 * @type string | undefined
@@ -1006,7 +1025,7 @@ export type ConnectConnector = {
 	 */
 	target?: string | undefined;
 	/**
-	 * @description Destinations that incoming triggers should be forwarded to. Limited to 3 entries. Set the initial destination with `triggerDestination` during creation. Replace the complete set with `PATCH /v1/connect/connectors/{connector}/trigger-destinations`.
+	 * @description Destinations that incoming triggers should be forwarded to. Limited to 3 entries. Set the initial destination with `triggerDestination` during creation. Replace the complete set with `PATCH /v1/connect/connectors/{connector}/trigger-destinations`. Computed routing environments are stored internally, not returned here.
 	 * @type array | undefined
 	 */
 	triggerDestinations?: unknown[] | undefined;
@@ -1086,6 +1105,7 @@ export type ConnectConnector = {
 				 * @type boolean
 				 */
 				crossInstallation: false | true;
+				isStaticCredential: false | true;
 				/**
 				 * @description User authorization is completed by the Connect consent screen submitting a credential instead of an OAuth redirect.
 				 * @type boolean | undefined
@@ -1210,6 +1230,7 @@ export type ConnectConnectorCreateResult = {
 				 * @type boolean
 				 */
 				crossInstallation: false | true;
+				isStaticCredential: false | true;
 				/**
 				 * @description Link to the page on the service where this connector\'s app-level permissions are declared and granted, when the service has one and it differs from `clientUrl`.
 				 * @type string | undefined
@@ -1416,7 +1437,7 @@ export type ConnectConnectorCreateResult = {
 	 */
 	target?: string | undefined;
 	/**
-	 * @description Destinations that incoming triggers should be forwarded to. Limited to 3 entries. Set the initial destination with `triggerDestination` during creation. Replace the complete set with `PATCH /v1/connect/connectors/{connector}/trigger-destinations`.
+	 * @description Destinations that incoming triggers should be forwarded to. Limited to 3 entries. Set the initial destination with `triggerDestination` during creation. Replace the complete set with `PATCH /v1/connect/connectors/{connector}/trigger-destinations`. Computed routing environments are stored internally, not returned here.
 	 * @type array | undefined
 	 */
 	triggerDestinations?: unknown[] | undefined;
@@ -1496,6 +1517,7 @@ export type ConnectConnectorCreateResult = {
 				 * @type boolean
 				 */
 				crossInstallation: false | true;
+				isStaticCredential: false | true;
 				/**
 				 * @description User authorization is completed by the Connect consent screen submitting a credential instead of an OAuth redirect.
 				 * @type boolean | undefined
@@ -1576,7 +1598,7 @@ export type ConnectConnectorCreateData =
 			serverUrl?: string | undefined;
 			/**
 			 * @description Authorization server metadata. Values override discovered metadata. Empty known string fields remove their stored overrides.
-			 * @default [object Object]
+			 * @default {}
 			 * @type object | undefined
 			 */
 			serverConfig?:
@@ -2847,7 +2869,7 @@ export type ConnectConnectorUpdateData =
 			serverUrl?: string | undefined;
 			/**
 			 * @description Authorization server metadata. Values override discovered metadata. Empty known string fields remove their stored overrides.
-			 * @default [object Object]
+			 * @default {}
 			 * @type object | undefined
 			 */
 			serverConfig?:
@@ -4590,6 +4612,27 @@ export type GlobalConfigToken = {
 	token?: string | undefined;
 };
 
+/**
+ * @description The payload of the event, if requested.
+ * @type object
+ */
+export type DeploymentCheckUpdatedPayload = {
+	checkId: string;
+	checkName: string;
+	next?:
+		| {
+				targets: string[];
+		  }
+		| undefined;
+	previous?:
+		| {
+				targets: string[];
+		  }
+		| undefined;
+	projectId: string;
+	projectName: string;
+};
+
 export const userEventCategoriesEnum = {
 	account: "account",
 	ai: "ai",
@@ -4800,7 +4843,9 @@ export type UserEventPayloadDeploymentAllowListedReadyStateReasonInternalEnumKey
 export const userEventPayloadPermissionsEnum = {
 	"manage:speed-insights": "manage:speed-insights",
 	"manage:web-analytics": "manage:web-analytics",
+	"read-write:access-group": "read-write:access-group",
 	"read-write:ai-gateway-api-key": "read-write:ai-gateway-api-key",
+	"read-write:ai-gateway-budgets": "read-write:ai-gateway-budgets",
 	"read-write:ai-gateway-guardrails": "read-write:ai-gateway-guardrails",
 	"read-write:ai-gateway-private-models": "read-write:ai-gateway-private-models",
 	"read-write:ai-gateway-rules": "read-write:ai-gateway-rules",
@@ -4827,6 +4872,7 @@ export const userEventPayloadPermissionsEnum = {
 	"read-write:project-env-vars-production": "read-write:project-env-vars-production",
 	"read-write:project-flags-non-production": "read-write:project-flags-non-production",
 	"read-write:project-flags-production": "read-write:project-flags-production",
+	"read-write:project-members": "read-write:project-members",
 	"read-write:project-protection-bypass": "read-write:project-protection-bypass",
 	"read-write:project-trusted-sources": "read-write:project-trusted-sources",
 	"read-write:remote-cache": "read-write:remote-cache",
@@ -4835,11 +4881,13 @@ export const userEventPayloadPermissionsEnum = {
 	"read-write:team-members": "read-write:team-members",
 	"read-write:vcr": "read-write:vcr",
 	"read:access-group": "read:access-group",
+	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
 	"read:ai-gateway-guardrails": "read:ai-gateway-guardrails",
 	"read:ai-gateway-private-models": "read:ai-gateway-private-models",
 	"read:ai-gateway-rules": "read:ai-gateway-rules",
 	"read:ai-gateway-virtual-model-configs": "read:ai-gateway-virtual-model-configs",
 	"read:alerts": "read:alerts",
+	"read:audit-log": "read:audit-log",
 	"read:automations": "read:automations",
 	"read:billing": "read:billing",
 	"read:connect": "read:connect",
@@ -4856,6 +4904,7 @@ export const userEventPayloadPermissionsEnum = {
 	"read:project-env-vars-non-production": "read:project-env-vars-non-production",
 	"read:project-env-vars-production": "read:project-env-vars-production",
 	"read:project-flags": "read:project-flags",
+	"read:project-members": "read:project-members",
 	"read:project-trusted-sources": "read:project-trusted-sources",
 	"read:remote-cache": "read:remote-cache",
 	"read:sandbox": "read:sandbox",
@@ -4884,7 +4933,9 @@ export type UserEventPayloadScopesEnumKey =
 export const userEventPayloadNextPermissionsEnum = {
 	"manage:speed-insights": "manage:speed-insights",
 	"manage:web-analytics": "manage:web-analytics",
+	"read-write:access-group": "read-write:access-group",
 	"read-write:ai-gateway-api-key": "read-write:ai-gateway-api-key",
+	"read-write:ai-gateway-budgets": "read-write:ai-gateway-budgets",
 	"read-write:ai-gateway-guardrails": "read-write:ai-gateway-guardrails",
 	"read-write:ai-gateway-private-models": "read-write:ai-gateway-private-models",
 	"read-write:ai-gateway-rules": "read-write:ai-gateway-rules",
@@ -4911,6 +4962,7 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read-write:project-env-vars-production": "read-write:project-env-vars-production",
 	"read-write:project-flags-non-production": "read-write:project-flags-non-production",
 	"read-write:project-flags-production": "read-write:project-flags-production",
+	"read-write:project-members": "read-write:project-members",
 	"read-write:project-protection-bypass": "read-write:project-protection-bypass",
 	"read-write:project-trusted-sources": "read-write:project-trusted-sources",
 	"read-write:remote-cache": "read-write:remote-cache",
@@ -4919,11 +4971,13 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read-write:team-members": "read-write:team-members",
 	"read-write:vcr": "read-write:vcr",
 	"read:access-group": "read:access-group",
+	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
 	"read:ai-gateway-guardrails": "read:ai-gateway-guardrails",
 	"read:ai-gateway-private-models": "read:ai-gateway-private-models",
 	"read:ai-gateway-rules": "read:ai-gateway-rules",
 	"read:ai-gateway-virtual-model-configs": "read:ai-gateway-virtual-model-configs",
 	"read:alerts": "read:alerts",
+	"read:audit-log": "read:audit-log",
 	"read:automations": "read:automations",
 	"read:billing": "read:billing",
 	"read:connect": "read:connect",
@@ -4940,6 +4994,7 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read:project-env-vars-non-production": "read:project-env-vars-non-production",
 	"read:project-env-vars-production": "read:project-env-vars-production",
 	"read:project-flags": "read:project-flags",
+	"read:project-members": "read:project-members",
 	"read:project-trusted-sources": "read:project-trusted-sources",
 	"read:remote-cache": "read:remote-cache",
 	"read:sandbox": "read:sandbox",
@@ -4951,6 +5006,7 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read:web-analytics": "read:web-analytics",
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
+	"use:github": "use:github",
 } as const;
 
 export type UserEventPayloadNextPermissionsEnumKey =
@@ -4969,7 +5025,9 @@ export type UserEventPayloadNextScopesEnumKey =
 export const userEventPayloadAfterPermissionsEnum = {
 	"manage:speed-insights": "manage:speed-insights",
 	"manage:web-analytics": "manage:web-analytics",
+	"read-write:access-group": "read-write:access-group",
 	"read-write:ai-gateway-api-key": "read-write:ai-gateway-api-key",
+	"read-write:ai-gateway-budgets": "read-write:ai-gateway-budgets",
 	"read-write:ai-gateway-guardrails": "read-write:ai-gateway-guardrails",
 	"read-write:ai-gateway-private-models": "read-write:ai-gateway-private-models",
 	"read-write:ai-gateway-rules": "read-write:ai-gateway-rules",
@@ -4996,6 +5054,7 @@ export const userEventPayloadAfterPermissionsEnum = {
 	"read-write:project-env-vars-production": "read-write:project-env-vars-production",
 	"read-write:project-flags-non-production": "read-write:project-flags-non-production",
 	"read-write:project-flags-production": "read-write:project-flags-production",
+	"read-write:project-members": "read-write:project-members",
 	"read-write:project-protection-bypass": "read-write:project-protection-bypass",
 	"read-write:project-trusted-sources": "read-write:project-trusted-sources",
 	"read-write:remote-cache": "read-write:remote-cache",
@@ -5004,11 +5063,13 @@ export const userEventPayloadAfterPermissionsEnum = {
 	"read-write:team-members": "read-write:team-members",
 	"read-write:vcr": "read-write:vcr",
 	"read:access-group": "read:access-group",
+	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
 	"read:ai-gateway-guardrails": "read:ai-gateway-guardrails",
 	"read:ai-gateway-private-models": "read:ai-gateway-private-models",
 	"read:ai-gateway-rules": "read:ai-gateway-rules",
 	"read:ai-gateway-virtual-model-configs": "read:ai-gateway-virtual-model-configs",
 	"read:alerts": "read:alerts",
+	"read:audit-log": "read:audit-log",
 	"read:automations": "read:automations",
 	"read:billing": "read:billing",
 	"read:connect": "read:connect",
@@ -5025,6 +5086,7 @@ export const userEventPayloadAfterPermissionsEnum = {
 	"read:project-env-vars-non-production": "read:project-env-vars-non-production",
 	"read:project-env-vars-production": "read:project-env-vars-production",
 	"read:project-flags": "read:project-flags",
+	"read:project-members": "read:project-members",
 	"read:project-trusted-sources": "read:project-trusted-sources",
 	"read:remote-cache": "read:remote-cache",
 	"read:sandbox": "read:sandbox",
@@ -5043,7 +5105,9 @@ export type UserEventPayloadAfterPermissionsEnumKey =
 export const userEventPayloadBeforePermissionsEnum = {
 	"manage:speed-insights": "manage:speed-insights",
 	"manage:web-analytics": "manage:web-analytics",
+	"read-write:access-group": "read-write:access-group",
 	"read-write:ai-gateway-api-key": "read-write:ai-gateway-api-key",
+	"read-write:ai-gateway-budgets": "read-write:ai-gateway-budgets",
 	"read-write:ai-gateway-guardrails": "read-write:ai-gateway-guardrails",
 	"read-write:ai-gateway-private-models": "read-write:ai-gateway-private-models",
 	"read-write:ai-gateway-rules": "read-write:ai-gateway-rules",
@@ -5070,6 +5134,7 @@ export const userEventPayloadBeforePermissionsEnum = {
 	"read-write:project-env-vars-production": "read-write:project-env-vars-production",
 	"read-write:project-flags-non-production": "read-write:project-flags-non-production",
 	"read-write:project-flags-production": "read-write:project-flags-production",
+	"read-write:project-members": "read-write:project-members",
 	"read-write:project-protection-bypass": "read-write:project-protection-bypass",
 	"read-write:project-trusted-sources": "read-write:project-trusted-sources",
 	"read-write:remote-cache": "read-write:remote-cache",
@@ -5078,11 +5143,13 @@ export const userEventPayloadBeforePermissionsEnum = {
 	"read-write:team-members": "read-write:team-members",
 	"read-write:vcr": "read-write:vcr",
 	"read:access-group": "read:access-group",
+	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
 	"read:ai-gateway-guardrails": "read:ai-gateway-guardrails",
 	"read:ai-gateway-private-models": "read:ai-gateway-private-models",
 	"read:ai-gateway-rules": "read:ai-gateway-rules",
 	"read:ai-gateway-virtual-model-configs": "read:ai-gateway-virtual-model-configs",
 	"read:alerts": "read:alerts",
+	"read:audit-log": "read:audit-log",
 	"read:automations": "read:automations",
 	"read:billing": "read:billing",
 	"read:connect": "read:connect",
@@ -5099,6 +5166,7 @@ export const userEventPayloadBeforePermissionsEnum = {
 	"read:project-env-vars-non-production": "read:project-env-vars-non-production",
 	"read:project-env-vars-production": "read:project-env-vars-production",
 	"read:project-flags": "read:project-flags",
+	"read:project-members": "read:project-members",
 	"read:project-trusted-sources": "read:project-trusted-sources",
 	"read:remote-cache": "read:remote-cache",
 	"read:sandbox": "read:sandbox",
@@ -6437,6 +6505,7 @@ export const userEventTypeEnum = {
 	"connect-attach-project": "connect-attach-project",
 	"connect-bitbucket": "connect-bitbucket",
 	"connect-bitbucket-app": "connect-bitbucket-app",
+	"connect-cancel-mcp-event-subscription": "connect-cancel-mcp-event-subscription",
 	"connect-configuration-created": "connect-configuration-created",
 	"connect-configuration-deleted": "connect-configuration-deleted",
 	"connect-configuration-link-updated": "connect-configuration-link-updated",
@@ -6444,6 +6513,7 @@ export const userEventTypeEnum = {
 	"connect-configuration-unlinked": "connect-configuration-unlinked",
 	"connect-configuration-updated": "connect-configuration-updated",
 	"connect-create-connector": "connect-create-connector",
+	"connect-create-mcp-event-subscription": "connect-create-mcp-event-subscription",
 	"connect-delete-connector": "connect-delete-connector",
 	"connect-delete-installation": "connect-delete-installation",
 	"connect-detach-project": "connect-detach-project",
@@ -6563,6 +6633,8 @@ export const userEventTypeEnum = {
 	"experiment-updated": "experiment-updated",
 	"firewall-bypass-created": "firewall-bypass-created",
 	"firewall-bypass-deleted": "firewall-bypass-deleted",
+	"firewall-conditional-bypass-created": "firewall-conditional-bypass-created",
+	"firewall-conditional-bypass-deleted": "firewall-conditional-bypass-deleted",
 	"firewall-config-modified": "firewall-config-modified",
 	"firewall-config-promoted": "firewall-config-promoted",
 	"firewall-config-removed": "firewall-config-removed",
@@ -6683,6 +6755,7 @@ export const userEventTypeEnum = {
 	"organization-emu-domains-merged": "organization-emu-domains-merged",
 	"organization-emu-team-updated": "organization-emu-team-updated",
 	"organization-emu-updated": "organization-emu-updated",
+	"organization-name-update": "organization-name-update",
 	"organization-slug-update": "organization-slug-update",
 	"organization-sso-enforced": "organization-sso-enforced",
 	"organization-team-add": "organization-team-add",
@@ -7051,6 +7124,7 @@ export const userEventTypeEnum = {
 	"webhook-deleted": "webhook-deleted",
 	"webhook-updated": "webhook-updated",
 	"workflow-deployment-key-accessed": "workflow-deployment-key-accessed",
+	"xaa-updated": "xaa-updated",
 } as const;
 
 export type UserEventTypeEnumKey = (typeof userEventTypeEnum)[keyof typeof userEventTypeEnum];
@@ -7610,7 +7684,7 @@ export type UserEvent = {
 							id: string;
 							name: string;
 						};
-						author: string;
+						author?: string | undefined;
 				  }
 				| {
 						accessGroup: {
@@ -7935,10 +8009,14 @@ export type UserEvent = {
 				| {
 						subscriptionId?: string | undefined;
 						action: "cancel_plan";
-						data: {
-							planSlug: UserEventPayloadDataPlanSlugEnumKey;
-							reason?: "non-payment" | undefined;
-						};
+						data:
+							| {
+									planSlug: UserEventPayloadDataPlanSlugEnumKey;
+									reason?: "non-payment" | undefined;
+							  }
+							| {
+									planSlug: "hobby";
+							  };
 				  }
 				| {
 						subscriptionId?: string | undefined;
@@ -8141,12 +8219,14 @@ export type UserEvent = {
 						clientName?: string | undefined;
 						clientUid?: string | undefined;
 						environments?: string[] | undefined;
+						eventName?: string | undefined;
 						fields?: string[] | undefined;
 						importedTokenCount?: number | undefined;
 						installationId?: string | undefined;
 						projectId?: string | undefined;
 						projectName?: string | undefined;
 						subjectType?: UserEventPayloadSubjectTypeEnumKey | undefined;
+						subscriptionId?: string | undefined;
 						tokenCount?: number | undefined;
 						tokensDeleted?: number | undefined;
 						triggerDestinationCount?: number | undefined;
@@ -8231,6 +8311,7 @@ export type UserEvent = {
 						projectId: string;
 						projectName: string;
 				  }
+				| unknown
 				| {
 						alias?: string[] | undefined;
 						deployment?:
@@ -9156,6 +9237,7 @@ export type UserEvent = {
 							url: string;
 						};
 						deploymentId: string;
+						projectId?: string | undefined;
 						url: string;
 				  }
 				| {
@@ -10625,6 +10707,10 @@ export type UserEvent = {
 						teamSlug: string;
 				  }
 				| {
+						name: string;
+						organizationId: string;
+				  }
+				| {
 						organizationId: string;
 						slug: string;
 				  }
@@ -10943,6 +11029,18 @@ export type UserEvent = {
 				| {
 						endpoint: {
 							awsServiceName: string;
+							configurationId: string;
+							id: string;
+							name: string;
+							privateDnsNames?: string[] | undefined;
+							vercelRegion: string;
+						};
+						networkName?: string | undefined;
+						scope: "network";
+				  }
+				| {
+						endpoint: {
+							awsServiceName: string;
 							id: string;
 							name: string;
 							privateDnsNames?: string[] | undefined;
@@ -10950,6 +11048,7 @@ export type UserEvent = {
 							vercelRegion: string;
 						};
 						projectName?: string | undefined;
+						scope?: "project" | undefined;
 				  }
 				| {
 						privateLinkEndpoint: {
@@ -10958,6 +11057,27 @@ export type UserEvent = {
 						};
 						projectId: string;
 						projectName?: string | undefined;
+						scope?: "project" | undefined;
+				  }
+				| {
+						current: {
+							awsServiceName: string;
+							configurationId: string;
+							id: string;
+							name: string;
+							privateDnsNames?: string[] | undefined;
+							vercelRegion: string;
+						};
+						networkName?: string | undefined;
+						prev: {
+							awsServiceName: string;
+							configurationId: string;
+							id: string;
+							name: string;
+							privateDnsNames?: string[] | undefined;
+							vercelRegion: string;
+						};
+						scope: "network";
 				  }
 				| {
 						current: {
@@ -10977,6 +11097,7 @@ export type UserEvent = {
 							vercelRegion: string;
 						};
 						projectName?: string | undefined;
+						scope?: "project" | undefined;
 				  }
 				| {
 						previousEndpoint: {
@@ -10992,6 +11113,7 @@ export type UserEvent = {
 						};
 						projectId: string;
 						projectName?: string | undefined;
+						scope?: "project" | undefined;
 				  }
 				| {
 						branch: string;
@@ -12512,7 +12634,6 @@ export type UserEvent = {
 							name?: string | undefined;
 							type: UserEventPayloadStoreTypeEnumKey;
 						};
-						transferRequestCode: string;
 				  }
 				| {
 						store: {
@@ -12520,7 +12641,6 @@ export type UserEvent = {
 							name?: string | undefined;
 							type: UserEventPayloadStoreTypeEnumKey;
 						};
-						transferRequestCode: string;
 						destinationTeamId: string;
 						destinationTeamName: string;
 				  }
@@ -12530,7 +12650,6 @@ export type UserEvent = {
 							name?: string | undefined;
 							type: UserEventPayloadStoreTypeEnumKey;
 						};
-						transferRequestCode: string;
 						originTeamId: string;
 						originTeamName: string;
 				  }
@@ -13430,6 +13549,17 @@ export type UserEvent = {
 						runId: string;
 				  }
 				| {
+						next: {
+							enabled: false | true;
+							issuerUrls: string[];
+						};
+						previous: {
+							enabled: false | true;
+							issuerUrls: string[];
+						};
+						scope: UserEventPayloadScopeEnumKey;
+				  }
+				| {
 						/**
 						 * @description optional since entries prior to 2025-10-13 do not contain app information
 						 * @type object | undefined
@@ -13559,6 +13689,10 @@ export type UserEvent = {
 						 * @type string | undefined
 						 */
 						userAgent?: string | undefined;
+				  }
+				| {
+						domain: string;
+						projectId: string;
 				  }
 				| {
 						/**
@@ -13711,6 +13845,7 @@ export type UserEvent = {
 						appName?: string | undefined;
 				  }
 				| {
+						createdByParentTeamId?: string | undefined;
 						/**
 						 * @description Unix epoch milliseconds. Absent when the token never expires.
 						 * @type number | undefined
@@ -13773,6 +13908,7 @@ export type UserEvent = {
 						 * @type string
 						 */
 						scope: UserEventPayloadScopeEnumKey;
+						source?: "v0" | undefined;
 						/**
 						 * @description Present when `scope` is `\'team\'` or `\'project\'`.
 						 * @type string | undefined
@@ -13811,6 +13947,7 @@ export type UserEvent = {
 						 * @type string
 						 */
 						actorTokenId: string;
+						createdByParentTeamId?: string | undefined;
 						expired?: (false | true) | undefined;
 						geolocation?:
 							| ({
@@ -13844,6 +13981,8 @@ export type UserEvent = {
 						reqId?: string | undefined;
 						reqUrl?: string | undefined;
 						revoked?: (false | true) | undefined;
+						scope?: UserEventPayloadScopeEnumKey | undefined;
+						source?: "v0" | undefined;
 						teamId?: string | undefined;
 						tokenId: string;
 						tokenName: string;
@@ -14170,6 +14309,7 @@ export const listEventTypeNameEnum = {
 	"connect-attach-project": "connect-attach-project",
 	"connect-bitbucket": "connect-bitbucket",
 	"connect-bitbucket-app": "connect-bitbucket-app",
+	"connect-cancel-mcp-event-subscription": "connect-cancel-mcp-event-subscription",
 	"connect-configuration-created": "connect-configuration-created",
 	"connect-configuration-deleted": "connect-configuration-deleted",
 	"connect-configuration-link-updated": "connect-configuration-link-updated",
@@ -14177,6 +14317,7 @@ export const listEventTypeNameEnum = {
 	"connect-configuration-unlinked": "connect-configuration-unlinked",
 	"connect-configuration-updated": "connect-configuration-updated",
 	"connect-create-connector": "connect-create-connector",
+	"connect-create-mcp-event-subscription": "connect-create-mcp-event-subscription",
 	"connect-delete-connector": "connect-delete-connector",
 	"connect-delete-installation": "connect-delete-installation",
 	"connect-detach-project": "connect-detach-project",
@@ -14296,6 +14437,8 @@ export const listEventTypeNameEnum = {
 	"experiment-updated": "experiment-updated",
 	"firewall-bypass-created": "firewall-bypass-created",
 	"firewall-bypass-deleted": "firewall-bypass-deleted",
+	"firewall-conditional-bypass-created": "firewall-conditional-bypass-created",
+	"firewall-conditional-bypass-deleted": "firewall-conditional-bypass-deleted",
 	"firewall-config-modified": "firewall-config-modified",
 	"firewall-config-promoted": "firewall-config-promoted",
 	"firewall-config-removed": "firewall-config-removed",
@@ -14416,6 +14559,7 @@ export const listEventTypeNameEnum = {
 	"organization-emu-domains-merged": "organization-emu-domains-merged",
 	"organization-emu-team-updated": "organization-emu-team-updated",
 	"organization-emu-updated": "organization-emu-updated",
+	"organization-name-update": "organization-name-update",
 	"organization-slug-update": "organization-slug-update",
 	"organization-sso-enforced": "organization-sso-enforced",
 	"organization-team-add": "organization-team-add",
@@ -14784,6 +14928,7 @@ export const listEventTypeNameEnum = {
 	"webhook-deleted": "webhook-deleted",
 	"webhook-updated": "webhook-updated",
 	"workflow-deployment-key-accessed": "workflow-deployment-key-accessed",
+	"xaa-updated": "xaa-updated",
 } as const;
 
 export type ListEventTypeNameEnumKey =
@@ -14914,6 +15059,7 @@ export const listEventTypeReplacedByEnum = {
 	"connect-attach-project": "connect-attach-project",
 	"connect-bitbucket": "connect-bitbucket",
 	"connect-bitbucket-app": "connect-bitbucket-app",
+	"connect-cancel-mcp-event-subscription": "connect-cancel-mcp-event-subscription",
 	"connect-configuration-created": "connect-configuration-created",
 	"connect-configuration-deleted": "connect-configuration-deleted",
 	"connect-configuration-link-updated": "connect-configuration-link-updated",
@@ -14921,6 +15067,7 @@ export const listEventTypeReplacedByEnum = {
 	"connect-configuration-unlinked": "connect-configuration-unlinked",
 	"connect-configuration-updated": "connect-configuration-updated",
 	"connect-create-connector": "connect-create-connector",
+	"connect-create-mcp-event-subscription": "connect-create-mcp-event-subscription",
 	"connect-delete-connector": "connect-delete-connector",
 	"connect-delete-installation": "connect-delete-installation",
 	"connect-detach-project": "connect-detach-project",
@@ -15040,6 +15187,8 @@ export const listEventTypeReplacedByEnum = {
 	"experiment-updated": "experiment-updated",
 	"firewall-bypass-created": "firewall-bypass-created",
 	"firewall-bypass-deleted": "firewall-bypass-deleted",
+	"firewall-conditional-bypass-created": "firewall-conditional-bypass-created",
+	"firewall-conditional-bypass-deleted": "firewall-conditional-bypass-deleted",
 	"firewall-config-modified": "firewall-config-modified",
 	"firewall-config-promoted": "firewall-config-promoted",
 	"firewall-config-removed": "firewall-config-removed",
@@ -15160,6 +15309,7 @@ export const listEventTypeReplacedByEnum = {
 	"organization-emu-domains-merged": "organization-emu-domains-merged",
 	"organization-emu-team-updated": "organization-emu-team-updated",
 	"organization-emu-updated": "organization-emu-updated",
+	"organization-name-update": "organization-name-update",
 	"organization-slug-update": "organization-slug-update",
 	"organization-sso-enforced": "organization-sso-enforced",
 	"organization-team-add": "organization-team-add",
@@ -15528,6 +15678,7 @@ export const listEventTypeReplacedByEnum = {
 	"webhook-deleted": "webhook-deleted",
 	"webhook-updated": "webhook-updated",
 	"workflow-deployment-key-accessed": "workflow-deployment-key-accessed",
+	"xaa-updated": "xaa-updated",
 } as const;
 
 export type ListEventTypeReplacedByEnumKey =
@@ -15820,6 +15971,7 @@ export type Flag = {
 	projectId: string;
 	revision: number;
 	seed: number;
+	seenInProduction?: (false | true) | undefined;
 	slug: string;
 	state: FlagStateEnumKey;
 	tags?: string[] | undefined;
@@ -16238,6 +16390,124 @@ export const aCLAction = {
 } as const;
 
 export type ACLActionKey = (typeof aCLAction)[keyof typeof aCLAction];
+
+export type Organization = {
+	avatar: string | null;
+	createdAt: string;
+	/**
+	 * @description The organization\'s display name. Optional: organizations created before the name attribute existed have no stored value. New orgs always get one (provided or slug-derived) via the service layer.
+	 * @type string | undefined
+	 */
+	name?: string | undefined;
+	organizationId: string;
+	slug: string;
+	teamCount: number;
+	teamId: string;
+	updatedAt: string;
+	/**
+	 * @description The authenticated user\'s role in the organization. Present on read endpoints when the user holds an organization role.
+	 * @type string | undefined
+	 */
+	userRole?: string | undefined;
+};
+
+export const organizationTeamListItemBillingPlanEnum = {
+	enterprise: "enterprise",
+	platform: "platform",
+} as const;
+
+export type OrganizationTeamListItemBillingPlanEnumKey =
+	(typeof organizationTeamListItemBillingPlanEnum)[keyof typeof organizationTeamListItemBillingPlanEnum];
+
+export const organizationTeamListItemSsoModeEnum = {
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type OrganizationTeamListItemSsoModeEnumKey =
+	(typeof organizationTeamListItemSsoModeEnum)[keyof typeof organizationTeamListItemSsoModeEnum];
+
+/**
+ * @description An org-team link enriched with the linked team\'s display fields, as returned by the list-teams endpoint. We project to an explicit flat interface instead of spreading the ElectroDB `OrganizationTeamItem` because its recursive generics break the OpenAPI generator (which would silently drop the route).
+ * @type object
+ */
+export type OrganizationTeamListItem = {
+	/**
+	 * @description The ID of the file used as the Team\'s avatar, or `null` if none.
+	 * @type string
+	 */
+	avatar: string | null;
+	/**
+	 * @description Billing profile of the organization link: how this team settles within the organization. This is not the team\'s billing.plan or planIteration. Links with `enterprise` billing participate in organization-level billing and usage rollups. This field is optional for legacy links that have no stored profile.
+	 * @type string | undefined
+	 */
+	billingPlan?: OrganizationTeamListItemBillingPlanEnumKey | undefined;
+	/**
+	 * @description ISO timestamp of when the team was linked to the organization.
+	 * @type string
+	 */
+	createdAt: string;
+	/**
+	 * @description Present only when the request sets `includeMemberCount=true`. Number of members on the Team, including pending memberships. Excludes email invitations that do not have a membership record.
+	 * @type number | undefined
+	 */
+	memberCount?: number | undefined;
+	/**
+	 * @description The Team\'s display name, or `null` if none has been set.
+	 * @type string
+	 */
+	name: string | null;
+	/**
+	 * @description The ID of the organization the team belongs to.
+	 * @type string
+	 */
+	organizationId: string;
+	/**
+	 * @description The Team\'s slug, unique across Vercel.
+	 * @type string
+	 */
+	slug: string;
+	ssoMode: OrganizationTeamListItemSsoModeEnumKey;
+	/**
+	 * @description The Team\'s unique identifier.
+	 * @type string
+	 */
+	teamId: string;
+	/**
+	 * @description ISO timestamp of when the link was last updated.
+	 * @type string
+	 */
+	updatedAt: string;
+};
+
+export const organizationTeamBillingPlanEnum = {
+	enterprise: "enterprise",
+	platform: "platform",
+} as const;
+
+export type OrganizationTeamBillingPlanEnumKey =
+	(typeof organizationTeamBillingPlanEnum)[keyof typeof organizationTeamBillingPlanEnum];
+
+export const organizationTeamSsoModeEnum = {
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type OrganizationTeamSsoModeEnumKey =
+	(typeof organizationTeamSsoModeEnum)[keyof typeof organizationTeamSsoModeEnum];
+
+export type OrganizationTeam = {
+	/**
+	 * @description The child team\'s billing profile within the organization. Optional: links created before this attribute existed have no stored value.
+	 * @type string | undefined
+	 */
+	billingPlan?: OrganizationTeamBillingPlanEnumKey | undefined;
+	createdAt: string;
+	organizationId: string;
+	ssoMode: OrganizationTeamSsoModeEnumKey;
+	teamId: string;
+	updatedAt: string;
+};
 
 export const namedSandboxArchitectureEnum = {
 	amd64: "amd64",
@@ -17476,23 +17746,21 @@ export type Team = {
 	 */
 	defaultContinuousUsageKind?: TeamDefaultContinuousUsageKindEnumKey | undefined;
 	/**
-	 * @description Default deployment protection for this team null indicates protection is disabled
-	 * @type object | undefined
+	 * @description Deployment protection defaults for new projects in this team. When no Vercel Authentication default is saved, `ssoProtection` shows Standard Protection. An explicitly saved `null` remains disabled. Organization policy may override the team default during project creation.
+	 * @type object
 	 */
-	defaultDeploymentProtection?:
-		| {
-				passwordProtection?:
-					| ({
-							deploymentType: string;
-					  } | null)
-					| undefined;
-				ssoProtection?:
-					| ({
-							deploymentType: string;
-					  } | null)
-					| undefined;
-		  }
-		| undefined;
+	defaultDeploymentProtection: {
+		passwordProtection?:
+			| ({
+					deploymentType: string;
+			  } | null)
+			| undefined;
+		ssoProtection?:
+			| ({
+					deploymentType: string;
+			  } | null)
+			| undefined;
+	};
 	/**
 	 * @description Default deployment expiration settings for this team
 	 * @type object | undefined
@@ -17784,6 +18052,7 @@ export type Team = {
 							entitlement: string;
 					  }[]
 					| undefined;
+				isOrgBackingTeamMembership?: (false | true) | undefined;
 				joinedFrom?:
 					| {
 							commitId?: string | undefined;
@@ -18308,6 +18577,7 @@ export type TeamLimited = {
 							entitlement: string;
 					  }[]
 					| undefined;
+				isOrgBackingTeamMembership?: (false | true) | undefined;
 				joinedFrom?:
 					| {
 							commitId?: string | undefined;
@@ -19845,8 +20115,57 @@ export type UpdateAccessGroupStatus404 = unknown;
 
 export type UpdateAccessGroupStatus410 = unknown;
 
+export const updateAccessGroupRequestProjectsRoleEnum = {
+	ADMIN: "ADMIN",
+	PROJECT_DEVELOPER: "PROJECT_DEVELOPER",
+	PROJECT_VIEWER: "PROJECT_VIEWER",
+} as const;
+
+export type UpdateAccessGroupRequestProjectsRoleEnumKey =
+	(typeof updateAccessGroupRequestProjectsRoleEnum)[keyof typeof updateAccessGroupRequestProjectsRoleEnum];
+
+export type UpdateAccessGroupBody = {
+	/**
+	 * @description The name of the access group
+	 * @maxLength 50
+	 * @pattern ^[A-z0-9_ -]+$
+	 * @example My access group
+	 * @type string | undefined
+	 */
+	name?: string | undefined;
+	projects?:
+		| {
+				/**
+				 * @description The ID of the project.
+				 * @maxLength 256
+				 * @example prj_ndlgr43fadlPyCtREAqxxdyFK
+				 * @type string
+				 */
+				projectId: string;
+				/**
+				 * @description The project role that will be added to this Access Group. \"null\" will remove this project level role.
+				 * @example ADMIN
+				 * @type string
+				 */
+				role: UpdateAccessGroupRequestProjectsRoleEnumKey | null;
+		  }[]
+		| undefined;
+	/**
+	 * @description List of members to add to the access group.
+	 * @example ["usr_1a2b3c4d5e6f7g8h9i0j","usr_2b3c4d5e6f7g8h9i0j1k"]
+	 * @type array | undefined
+	 */
+	membersToAdd?: string[] | undefined;
+	/**
+	 * @description List of members to remove from the access group.
+	 * @example ["usr_1a2b3c4d5e6f7g8h9i0j","usr_2b3c4d5e6f7g8h9i0j1k"]
+	 * @type array | undefined
+	 */
+	membersToRemove?: string[] | undefined;
+};
+
 export type UpdateAccessGroupOptions = {
-	body?: never | undefined;
+	body: UpdateAccessGroupBody;
 	path: UpdateAccessGroupPath;
 	query?: UpdateAccessGroupQuery | undefined;
 	headers?: never | undefined;
@@ -20109,8 +20428,51 @@ export type CreateAccessGroupStatus404 = unknown;
 
 export type CreateAccessGroupStatus410 = unknown;
 
+export const createAccessGroupRequestProjectsRoleEnum = {
+	ADMIN: "ADMIN",
+	PROJECT_DEVELOPER: "PROJECT_DEVELOPER",
+	PROJECT_VIEWER: "PROJECT_VIEWER",
+} as const;
+
+export type CreateAccessGroupRequestProjectsRoleEnumKey =
+	(typeof createAccessGroupRequestProjectsRoleEnum)[keyof typeof createAccessGroupRequestProjectsRoleEnum];
+
+export type CreateAccessGroupBody = {
+	/**
+	 * @description The name of the access group
+	 * @maxLength 50
+	 * @pattern ^[A-z0-9_ -]+$
+	 * @example My access group
+	 * @type string
+	 */
+	name: string;
+	projects?:
+		| {
+				/**
+				 * @description The ID of the project.
+				 * @maxLength 256
+				 * @example prj_ndlgr43fadlPyCtREAqxxdyFK
+				 * @type string
+				 */
+				projectId: string;
+				/**
+				 * @description The project role that will be added to this Access Group. \"null\" will remove this project level role.
+				 * @example ADMIN
+				 * @type string
+				 */
+				role: CreateAccessGroupRequestProjectsRoleEnumKey | null;
+		  }[]
+		| undefined;
+	/**
+	 * @description List of members to add to the access group.
+	 * @example ["usr_1a2b3c4d5e6f7g8h9i0j","usr_2b3c4d5e6f7g8h9i0j1k"]
+	 * @type array | undefined
+	 */
+	membersToAdd?: string[] | undefined;
+};
+
 export type CreateAccessGroupOptions = {
-	body?: never | undefined;
+	body: CreateAccessGroupBody;
 	path?: never | undefined;
 	query?: CreateAccessGroupQuery | undefined;
 	headers?: never | undefined;
@@ -20231,8 +20593,33 @@ export type CreateAccessGroupProjectStatus404 = unknown;
 
 export type CreateAccessGroupProjectStatus410 = unknown;
 
+export const createAccessGroupProjectRequestRoleEnum = {
+	ADMIN: "ADMIN",
+	PROJECT_DEVELOPER: "PROJECT_DEVELOPER",
+	PROJECT_VIEWER: "PROJECT_VIEWER",
+} as const;
+
+export type CreateAccessGroupProjectRequestRoleEnumKey =
+	(typeof createAccessGroupProjectRequestRoleEnum)[keyof typeof createAccessGroupProjectRequestRoleEnum];
+
+export type CreateAccessGroupProjectBody = {
+	/**
+	 * @description The ID of the project.
+	 * @maxLength 256
+	 * @example prj_ndlgr43fadlPyCtREAqxxdyFK
+	 * @type string
+	 */
+	projectId: string;
+	/**
+	 * @description The project role that will be added to this Access Group.
+	 * @example ADMIN
+	 * @type string
+	 */
+	role: CreateAccessGroupProjectRequestRoleEnumKey;
+};
+
 export type CreateAccessGroupProjectOptions = {
-	body?: never | undefined;
+	body: CreateAccessGroupProjectBody;
 	path: CreateAccessGroupProjectPath;
 	query?: CreateAccessGroupProjectQuery | undefined;
 	headers?: never | undefined;
@@ -20337,8 +20724,26 @@ export type UpdateAccessGroupProjectStatus404 = unknown;
 
 export type UpdateAccessGroupProjectStatus410 = unknown;
 
+export const updateAccessGroupProjectRequestRoleEnum = {
+	ADMIN: "ADMIN",
+	PROJECT_DEVELOPER: "PROJECT_DEVELOPER",
+	PROJECT_VIEWER: "PROJECT_VIEWER",
+} as const;
+
+export type UpdateAccessGroupProjectRequestRoleEnumKey =
+	(typeof updateAccessGroupProjectRequestRoleEnum)[keyof typeof updateAccessGroupProjectRequestRoleEnum];
+
+export type UpdateAccessGroupProjectBody = {
+	/**
+	 * @description The project role that will be added to this Access Group.
+	 * @example ADMIN
+	 * @type string
+	 */
+	role: UpdateAccessGroupProjectRequestRoleEnumKey;
+};
+
 export type UpdateAccessGroupProjectOptions = {
-	body?: never | undefined;
+	body: UpdateAccessGroupProjectBody;
 	path: UpdateAccessGroupProjectPath;
 	query?: UpdateAccessGroupProjectQuery | undefined;
 	headers?: never | undefined;
@@ -20637,6 +21042,14 @@ export type DeleteAiGatewayVirtualModelConfigResponses = {
  */
 export type DeleteAiGatewayVirtualModelConfigResponse = DeleteAiGatewayVirtualModelConfigStatus204;
 
+export const listAiGatewayVirtualModelConfigsIncludeArchived = {
+	true: "true",
+	false: "false",
+} as const;
+
+export type ListAiGatewayVirtualModelConfigsIncludeArchivedKey =
+	(typeof listAiGatewayVirtualModelConfigsIncludeArchived)[keyof typeof listAiGatewayVirtualModelConfigsIncludeArchived];
+
 export type ListAiGatewayVirtualModelConfigsQuery = {
 	ownerId?: string | undefined;
 	/**
@@ -20645,6 +21058,7 @@ export type ListAiGatewayVirtualModelConfigsQuery = {
 	 */
 	limit?: number | undefined;
 	cursor?: string | undefined;
+	includeArchived?: ListAiGatewayVirtualModelConfigsIncludeArchivedKey | undefined;
 	/**
 	 * @description The Team identifier to perform the request on behalf of.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
@@ -20992,6 +21406,17 @@ export type ListAiGatewayRulesIncludeDisabledKey =
 export type ListAiGatewayRulesQuery = {
 	includeDisabled?: ListAiGatewayRulesIncludeDisabledKey | undefined;
 	/**
+	 * @description Maximum number of rules to return (capped at 200). Enables pagination.
+	 * @minLength 1
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description Opaque cursor returned by a prior call as nextCursor.
+	 * @type string | undefined
+	 */
+	cursor?: string | undefined;
+	/**
 	 * @description The Team identifier to perform the request on behalf of.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
@@ -21154,12 +21579,36 @@ export const listAiGatewayBudgetsScopeType = {
 export type ListAiGatewayBudgetsScopeTypeKey =
 	(typeof listAiGatewayBudgetsScopeType)[keyof typeof listAiGatewayBudgetsScopeType];
 
+export const listAiGatewayBudgetsIncludeDefaultCovered = {
+	true: "true",
+	false: "false",
+} as const;
+
+export type ListAiGatewayBudgetsIncludeDefaultCoveredKey =
+	(typeof listAiGatewayBudgetsIncludeDefaultCovered)[keyof typeof listAiGatewayBudgetsIncludeDefaultCovered];
+
 export type ListAiGatewayBudgetsQuery = {
 	/**
 	 * @description Restrict the list to a single budget scope.
 	 * @type string | undefined
 	 */
 	scopeType?: ListAiGatewayBudgetsScopeTypeKey | undefined;
+	/**
+	 * @description Whether to include rows inherited from a budget default (`source: \"default\"`). Defaults to true.
+	 * @type string | undefined
+	 */
+	includeDefaultCovered?: ListAiGatewayBudgetsIncludeDefaultCoveredKey | undefined;
+	/**
+	 * @description Maximum number of budgets to return (capped at 200). Enables pagination.
+	 * @minLength 1
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description Opaque cursor returned by a prior call as nextCursor.
+	 * @type string | undefined
+	 */
+	cursor?: string | undefined;
 	/**
 	 * @description The Team identifier to perform the request on behalf of.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
@@ -21239,8 +21688,69 @@ export type UpsertAiGatewayBudgetStatus410 = unknown;
 
 export type UpsertAiGatewayBudgetStatus500 = unknown;
 
+export const upsertAiGatewayBudgetRequestScopeTypeEnum = {
+	project: "project",
+	team: "team",
+	user: "user",
+} as const;
+
+export type UpsertAiGatewayBudgetRequestScopeTypeEnumKey =
+	(typeof upsertAiGatewayBudgetRequestScopeTypeEnum)[keyof typeof upsertAiGatewayBudgetRequestScopeTypeEnum];
+
+export const upsertAiGatewayBudgetRequestRefreshPeriodEnum = {
+	daily: "daily",
+	monthly: "monthly",
+	none: "none",
+	weekly: "weekly",
+} as const;
+
+export type UpsertAiGatewayBudgetRequestRefreshPeriodEnumKey =
+	(typeof upsertAiGatewayBudgetRequestRefreshPeriodEnum)[keyof typeof upsertAiGatewayBudgetRequestRefreshPeriodEnum];
+
+export const upsertAiGatewayBudgetRequestAlertThresholdsEnum = {
+	"100": 100,
+	"50": 50,
+	"75": 75,
+} as const;
+
+export type UpsertAiGatewayBudgetRequestAlertThresholdsEnumKey =
+	(typeof upsertAiGatewayBudgetRequestAlertThresholdsEnum)[keyof typeof upsertAiGatewayBudgetRequestAlertThresholdsEnum];
+
+export type UpsertAiGatewayBudgetBody =
+	| {
+			scopeType: UpsertAiGatewayBudgetRequestScopeTypeEnumKey;
+			/**
+			 * @description Required when scopeType is \"project\".
+			 * @type string | undefined
+			 */
+			projectId?: string | undefined;
+			/**
+			 * @description Required when scopeType is \"user\".
+			 * @type string | undefined
+			 */
+			userId?: string | undefined;
+			/**
+			 * @description Budget limit in dollars.
+			 * @minLength 1
+			 * @type number
+			 */
+			limitAmount: number;
+			/**
+			 * @default 'monthly'
+			 * @type string | undefined
+			 */
+			refreshPeriod?: UpsertAiGatewayBudgetRequestRefreshPeriodEnumKey | undefined;
+			/**
+			 * @description Whether BYOK usage counts toward this budget.
+			 * @type boolean | undefined
+			 */
+			includeByokInQuota?: boolean | undefined;
+			alertThresholds?: UpsertAiGatewayBudgetRequestAlertThresholdsEnumKey[] | undefined;
+	  }
+	| undefined;
+
 export type UpsertAiGatewayBudgetOptions = {
-	body?: never | undefined;
+	body: UpsertAiGatewayBudgetBody;
 	path?: never | undefined;
 	query?: UpsertAiGatewayBudgetQuery | undefined;
 	headers?: never | undefined;
@@ -21416,8 +21926,51 @@ export type UpsertAiGatewayBudgetDefaultStatus410 = unknown;
 
 export type UpsertAiGatewayBudgetDefaultStatus500 = unknown;
 
+export const upsertAiGatewayBudgetDefaultRequestScopeTypeEnum = {
+	"api-key": "api-key",
+	project: "project",
+	team: "team",
+	user: "user",
+} as const;
+
+export type UpsertAiGatewayBudgetDefaultRequestScopeTypeEnumKey =
+	(typeof upsertAiGatewayBudgetDefaultRequestScopeTypeEnum)[keyof typeof upsertAiGatewayBudgetDefaultRequestScopeTypeEnum];
+
+export const upsertAiGatewayBudgetDefaultRequestRefreshPeriodEnum = {
+	daily: "daily",
+	monthly: "monthly",
+	none: "none",
+	weekly: "weekly",
+} as const;
+
+export type UpsertAiGatewayBudgetDefaultRequestRefreshPeriodEnumKey =
+	(typeof upsertAiGatewayBudgetDefaultRequestRefreshPeriodEnum)[keyof typeof upsertAiGatewayBudgetDefaultRequestRefreshPeriodEnum];
+
+export const upsertAiGatewayBudgetDefaultRequestAlertThresholdsEnum = {
+	"100": 100,
+	"50": 50,
+	"75": 75,
+} as const;
+
+export type UpsertAiGatewayBudgetDefaultRequestAlertThresholdsEnumKey =
+	(typeof upsertAiGatewayBudgetDefaultRequestAlertThresholdsEnum)[keyof typeof upsertAiGatewayBudgetDefaultRequestAlertThresholdsEnum];
+
+export type UpsertAiGatewayBudgetDefaultBody =
+	| {
+			scopeType: UpsertAiGatewayBudgetDefaultRequestScopeTypeEnumKey;
+			/**
+			 * @description Default budget limit in dollars.
+			 * @minLength 1
+			 * @type number
+			 */
+			limitAmount: number;
+			refreshPeriod?: UpsertAiGatewayBudgetDefaultRequestRefreshPeriodEnumKey | undefined;
+			alertThresholds?: UpsertAiGatewayBudgetDefaultRequestAlertThresholdsEnumKey[] | undefined;
+	  }
+	| undefined;
+
 export type UpsertAiGatewayBudgetDefaultOptions = {
-	body?: never | undefined;
+	body: UpsertAiGatewayBudgetDefaultBody;
 	path?: never | undefined;
 	query?: UpsertAiGatewayBudgetDefaultQuery | undefined;
 	headers?: never | undefined;
@@ -21551,8 +22104,54 @@ export type RecordEventsStatus404 = unknown;
 
 export type RecordEventsStatus410 = unknown;
 
+export const recordEventsRequestSourceEnum = {
+	LOCAL: "LOCAL",
+	REMOTE: "REMOTE",
+} as const;
+
+export type RecordEventsRequestSourceEnumKey =
+	(typeof recordEventsRequestSourceEnum)[keyof typeof recordEventsRequestSourceEnum];
+
+export const recordEventsRequestEventEnum = {
+	HIT: "HIT",
+	MISS: "MISS",
+} as const;
+
+export type RecordEventsRequestEventEnumKey =
+	(typeof recordEventsRequestEventEnum)[keyof typeof recordEventsRequestEventEnum];
+
+export type RecordEventsBody = {
+	/**
+	 * @description A UUID (universally unique identifer) for the session that generated this event.
+	 * @type string
+	 */
+	sessionId: string;
+	/**
+	 * @description One of `LOCAL` or `REMOTE`. `LOCAL` specifies that the cache event was from the user\'s filesystem cache. `REMOTE` specifies that the cache event is from a remote cache.
+	 * @type string
+	 */
+	source: RecordEventsRequestSourceEnumKey;
+	/**
+	 * @description One of `HIT` or `MISS`. `HIT` specifies that a cached artifact for `hash` was found in the cache. `MISS` specifies that a cached artifact with `hash` was not found.
+	 * @type string
+	 */
+	event: RecordEventsRequestEventEnumKey;
+	/**
+	 * @description The artifact hash
+	 * @example 12HKQaOmR5t5Uy6vdcQsNIiZgHGB
+	 * @type string
+	 */
+	hash: string;
+	/**
+	 * @description The time taken to generate the artifact. This should be sent as a body parameter on `HIT` events.
+	 * @example 400
+	 * @type number | undefined
+	 */
+	duration?: number | undefined;
+}[];
+
 export type RecordEventsOptions = {
-	body?: never | undefined;
+	body: RecordEventsBody;
 	path?: never | undefined;
 	query?: RecordEventsQuery | undefined;
 	headers?: RecordEventsHeaders | undefined;
@@ -21710,8 +22309,10 @@ export type UploadArtifactStatus404 = unknown;
 
 export type UploadArtifactStatus410 = unknown;
 
+export type UploadArtifactBody = Blob;
+
 export type UploadArtifactOptions = {
-	body?: never | undefined;
+	body: UploadArtifactBody;
 	path: UploadArtifactPath;
 	query?: UploadArtifactQuery | undefined;
 	headers: UploadArtifactHeaders;
@@ -21839,8 +22440,17 @@ export type ArtifactQueryStatus404 = unknown;
 
 export type ArtifactQueryStatus410 = unknown;
 
+export type ArtifactQueryBody = {
+	/**
+	 * @description artifact hashes
+	 * @example ["12HKQaOmR5t5Uy6vdcQsNIiZgHGB","34HKQaOmR5t5Uy6vasdasdasdasd"]
+	 * @type array
+	 */
+	hashes: string[];
+};
+
 export type ArtifactQueryOptions = {
-	body?: never | undefined;
+	body: ArtifactQueryBody;
 	path?: never | undefined;
 	query?: ArtifactQueryQuery | undefined;
 	headers?: never | undefined;
@@ -22061,8 +22671,38 @@ export type BuyCreditsStatus410 = unknown;
 
 export type BuyCreditsStatus500 = unknown;
 
+export const buyCreditsRequestItemCreditTypeEnum = {
+	agent: "agent",
+	gateway: "gateway",
+	v0: "v0",
+} as const;
+
+export type BuyCreditsRequestItemCreditTypeEnumKey =
+	(typeof buyCreditsRequestItemCreditTypeEnum)[keyof typeof buyCreditsRequestItemCreditTypeEnum];
+
+export type BuyCreditsBody = {
+	item: {
+		/**
+		 * @description The type of item to purchase.
+		 * @type string
+		 */
+		type: "credits";
+		/**
+		 * @description The type of credits to purchase.
+		 * @type string
+		 */
+		creditType: BuyCreditsRequestItemCreditTypeEnumKey;
+		/**
+		 * @description The amount of credits to purchase.
+		 * @minLength 1
+		 * @type integer
+		 */
+		amount: number;
+	};
+};
+
 export type BuyCreditsOptions = {
-	body?: never | undefined;
+	body: BuyCreditsBody;
 	path?: never | undefined;
 	query?: BuyCreditsQuery | undefined;
 	headers?: never | undefined;
@@ -22114,8 +22754,44 @@ export type StageRedirectsStatus410 = unknown;
 
 export type StageRedirectsStatus500 = unknown;
 
+export type StageRedirectsBody =
+	| {
+			projectId: string;
+			teamId: string;
+			overwrite?: boolean | undefined;
+			/**
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @default []
+			 * @type array | undefined
+			 */
+			redirects?:
+				| {
+						/**
+						 * @maxLength 2048
+						 * @type string
+						 */
+						source: string;
+						/**
+						 * @maxLength 2048
+						 * @type string
+						 */
+						destination: string;
+						statusCode?: (number | string) | undefined;
+						permanent?: boolean | undefined;
+						caseSensitive?: boolean | undefined;
+						query?: boolean | undefined;
+						preserveQueryParams?: boolean | undefined;
+				  }[]
+				| undefined;
+	  }
+	| undefined;
+
 export type StageRedirectsOptions = {
-	body?: never | undefined;
+	body: StageRedirectsBody;
 	path?: never | undefined;
 	query?: StageRedirectsQuery | undefined;
 	headers?: never | undefined;
@@ -22247,8 +22923,23 @@ export type DeleteRedirectsStatus410 = unknown;
 
 export type DeleteRedirectsStatus500 = unknown;
 
+export type DeleteRedirectsBody =
+	| {
+			/**
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description The redirects to delete. The source of the redirect is used to match the redirect to delete.
+			 * @type array
+			 */
+			redirects: string[];
+	  }
+	| undefined;
+
 export type DeleteRedirectsOptions = {
-	body?: never | undefined;
+	body: DeleteRedirectsBody;
 	path?: never | undefined;
 	query: DeleteRedirectsQuery;
 	headers?: never | undefined;
@@ -22299,8 +22990,36 @@ export type EditRedirectStatus410 = unknown;
 
 export type EditRedirectStatus500 = unknown;
 
+export type EditRedirectBody =
+	| {
+			/**
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description The redirect object to edit. The source field is used to match the redirect to modify.
+			 * @type object
+			 */
+			redirect: {
+				source: string;
+				destination?: string | undefined;
+				statusCode?: number | undefined;
+				permanent?: boolean | undefined;
+				caseSensitive?: boolean | undefined;
+				query?: boolean | undefined;
+				preserveQueryParams?: boolean | undefined;
+			};
+			/**
+			 * @description If true, restores the redirect from the latest production version to staging.
+			 * @type boolean | undefined
+			 */
+			restore?: boolean | undefined;
+	  }
+	| undefined;
+
 export type EditRedirectOptions = {
-	body?: never | undefined;
+	body: EditRedirectBody;
 	path?: never | undefined;
 	query: EditRedirectQuery;
 	headers?: never | undefined;
@@ -22351,8 +23070,23 @@ export type RestoreRedirectsStatus410 = unknown;
 
 export type RestoreRedirectsStatus500 = unknown;
 
+export type RestoreRedirectsBody =
+	| {
+			/**
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description The redirects to restore. The source of the redirect is used to match the redirect to restore.
+			 * @type array
+			 */
+			redirects: string[];
+	  }
+	| undefined;
+
 export type RestoreRedirectsOptions = {
-	body?: never | undefined;
+	body: RestoreRedirectsBody;
 	path?: never | undefined;
 	query: RestoreRedirectsQuery;
 	headers?: never | undefined;
@@ -22455,8 +23189,29 @@ export type UpdateVersionStatus410 = unknown;
 
 export type UpdateVersionStatus500 = unknown;
 
+export const updateVersionRequestActionEnum = {
+	discard: "discard",
+	promote: "promote",
+	restore: "restore",
+} as const;
+
+export type UpdateVersionRequestActionEnumKey =
+	(typeof updateVersionRequestActionEnum)[keyof typeof updateVersionRequestActionEnum];
+
+export type UpdateVersionBody =
+	| {
+			id: string;
+			action: UpdateVersionRequestActionEnumKey;
+			/**
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+	  }
+	| undefined;
+
 export type UpdateVersionOptions = {
-	body?: never | undefined;
+	body: UpdateVersionBody;
 	path?: never | undefined;
 	query: UpdateVersionQuery;
 	headers?: never | undefined;
@@ -22577,8 +23332,75 @@ export type CreateProjectCheckStatus410 = unknown;
 
 export type CreateProjectCheckStatus500 = unknown;
 
+export const createProjectCheckRequestRequiresEnum = {
+	"build-ready": "build-ready",
+	"deployment-url": "deployment-url",
+	none: "none",
+} as const;
+
+export type CreateProjectCheckRequestRequiresEnumKey =
+	(typeof createProjectCheckRequestRequiresEnum)[keyof typeof createProjectCheckRequestRequiresEnum];
+
+export const createProjectCheckRequestBlocksEnum = {
+	"build-start": "build-start",
+	"deployment-alias": "deployment-alias",
+	"deployment-promotion": "deployment-promotion",
+	"deployment-start": "deployment-start",
+	none: "none",
+} as const;
+
+export type CreateProjectCheckRequestBlocksEnumKey =
+	(typeof createProjectCheckRequestBlocksEnum)[keyof typeof createProjectCheckRequestBlocksEnum];
+
+export type CreateProjectCheckBody =
+	| {
+			name: string;
+			isRerequestable?: boolean | undefined;
+			/**
+			 * @default 'deployment-url'
+			 * @type string
+			 */
+			requires: CreateProjectCheckRequestRequiresEnumKey;
+			targets?: string[] | undefined;
+			/**
+			 * @default 'deployment-alias'
+			 * @type string | undefined
+			 */
+			blocks?: CreateProjectCheckRequestBlocksEnumKey | undefined;
+			source?:
+				| (
+						| {
+								/**
+								 * @default 'integration'
+								 * @type string | undefined
+								 */
+								kind?: string | undefined;
+								integrationId?: string | undefined;
+								integrationConfigurationId?: string | undefined;
+								resourceId?: string | undefined;
+								externalResourceId?: string | undefined;
+						  }
+						| {
+								kind: string;
+								webhookId?: string | undefined;
+						  }
+						| {
+								kind: string;
+								externalCheckName: string;
+								provider: "github";
+						  }
+				  )
+				| undefined;
+			/**
+			 * @default 300
+			 * @type number | undefined
+			 */
+			timeout?: number | undefined;
+	  }
+	| undefined;
+
 export type CreateProjectCheckOptions = {
-	body?: never | undefined;
+	body: CreateProjectCheckBody;
 	path: CreateProjectCheckPath;
 	query?: CreateProjectCheckQuery | undefined;
 	headers?: never | undefined;
@@ -22694,8 +23516,51 @@ export type UpdateProjectCheckStatus410 = unknown;
 
 export type UpdateProjectCheckStatus500 = unknown;
 
+export const updateProjectCheckRequestRequiresEnum = {
+	"build-ready": "build-ready",
+	"deployment-url": "deployment-url",
+	none: "none",
+} as const;
+
+export type UpdateProjectCheckRequestRequiresEnumKey =
+	(typeof updateProjectCheckRequestRequiresEnum)[keyof typeof updateProjectCheckRequestRequiresEnum];
+
+export const updateProjectCheckRequestBlocksEnum = {
+	"build-start": "build-start",
+	"deployment-alias": "deployment-alias",
+	"deployment-promotion": "deployment-promotion",
+	"deployment-start": "deployment-start",
+	none: "none",
+} as const;
+
+export type UpdateProjectCheckRequestBlocksEnumKey =
+	(typeof updateProjectCheckRequestBlocksEnum)[keyof typeof updateProjectCheckRequestBlocksEnum];
+
+export type UpdateProjectCheckBody =
+	| {
+			name?: string | undefined;
+			isRerequestable?: boolean | undefined;
+			/**
+			 * @default 'deployment-url'
+			 * @type string | undefined
+			 */
+			requires?: UpdateProjectCheckRequestRequiresEnumKey | undefined;
+			targets?: string[] | undefined;
+			/**
+			 * @default 'deployment-alias'
+			 * @type string | undefined
+			 */
+			blocks?: UpdateProjectCheckRequestBlocksEnumKey | undefined;
+			/**
+			 * @default 300
+			 * @type number | undefined
+			 */
+			timeout?: number | undefined;
+	  }
+	| undefined;
+
 export type UpdateProjectCheckOptions = {
-	body?: never | undefined;
+	body: UpdateProjectCheckBody;
 	path: UpdateProjectCheckPath;
 	query?: UpdateProjectCheckQuery | undefined;
 	headers?: never | undefined;
@@ -22921,8 +23786,14 @@ export type CreateDeploymentCheckRunStatus410 = unknown;
 
 export type CreateDeploymentCheckRunStatus500 = unknown;
 
+export type CreateDeploymentCheckRunBody =
+	| {
+			checkId: string;
+	  }
+	| undefined;
+
 export type CreateDeploymentCheckRunOptions = {
-	body?: never | undefined;
+	body: CreateDeploymentCheckRunBody;
 	path: CreateDeploymentCheckRunPath;
 	query?: CreateDeploymentCheckRunQuery | undefined;
 	headers?: never | undefined;
@@ -23040,8 +23911,46 @@ export type UpdateDeploymentCheckRunStatus413 = unknown;
 
 export type UpdateDeploymentCheckRunStatus500 = unknown;
 
+export const updateDeploymentCheckRunRequestStatusEnum = {
+	completed: "completed",
+	queued: "queued",
+	running: "running",
+} as const;
+
+export type UpdateDeploymentCheckRunRequestStatusEnumKey =
+	(typeof updateDeploymentCheckRunRequestStatusEnum)[keyof typeof updateDeploymentCheckRunRequestStatusEnum];
+
+export const updateDeploymentCheckRunRequestConclusionEnum = {
+	canceled: "canceled",
+	failed: "failed",
+	neutral: "neutral",
+	skipped: "skipped",
+	succeeded: "succeeded",
+	timeout: "timeout",
+} as const;
+
+export type UpdateDeploymentCheckRunRequestConclusionEnumKey =
+	(typeof updateDeploymentCheckRunRequestConclusionEnum)[keyof typeof updateDeploymentCheckRunRequestConclusionEnum];
+
+export type UpdateDeploymentCheckRunBody =
+	| {
+			externalId?: string | undefined;
+			/**
+			 * @description
+			 * Format: `uri`
+			 * @type string | undefined
+			 */
+			externalUrl?: string | undefined;
+			status?: UpdateDeploymentCheckRunRequestStatusEnumKey | undefined;
+			output?: object | undefined;
+			completedAt?: number | undefined;
+			conclusion?: UpdateDeploymentCheckRunRequestConclusionEnumKey | undefined;
+			conclusionText?: string | undefined;
+	  }
+	| undefined;
+
 export type UpdateDeploymentCheckRunOptions = {
-	body?: never | undefined;
+	body: UpdateDeploymentCheckRunBody;
 	path: UpdateDeploymentCheckRunPath;
 	query?: UpdateDeploymentCheckRunQuery | undefined;
 	headers?: never | undefined;
@@ -23099,12 +24008,53 @@ export type CreateCheckStatus404 = unknown;
 
 export type CreateCheckStatus410 = unknown;
 
+export type CreateCheckBody = {
+	/**
+	 * @description The name of the check being created
+	 * @maxLength 100
+	 * @example Performance Check
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description Path of the page that is being checked
+	 * @maxLength 255
+	 * @example /
+	 * @type string | undefined
+	 */
+	path?: string | undefined;
+	/**
+	 * @description Whether the check should block a deployment from succeeding
+	 * @example true
+	 * @type boolean
+	 */
+	blocking: boolean;
+	/**
+	 * @description URL to display for further details
+	 * @example http://example.com
+	 * @type string | undefined
+	 */
+	detailsUrl?: string | undefined;
+	/**
+	 * @description An identifier that can be used as an external reference
+	 * @example 1234abc
+	 * @type string | undefined
+	 */
+	externalId?: string | undefined;
+	/**
+	 * @description Whether a user should be able to request for the check to be rerun if it fails
+	 * @example true
+	 * @type boolean | undefined
+	 */
+	rerequestable?: boolean | undefined;
+};
+
 /**
  * @deprecated
  * @type object
  */
 export type CreateCheckOptions = {
-	body?: never | undefined;
+	body: CreateCheckBody;
 	path: CreateCheckPath;
 	query?: CreateCheckQuery | undefined;
 	headers?: never | undefined;
@@ -23296,12 +24246,175 @@ export type UpdateCheckStatus410 = unknown;
 
 export type UpdateCheckStatus413 = unknown;
 
+export const updateCheckRequestStatusEnum = {
+	completed: "completed",
+	running: "running",
+} as const;
+
+export type UpdateCheckRequestStatusEnumKey =
+	(typeof updateCheckRequestStatusEnum)[keyof typeof updateCheckRequestStatusEnum];
+
+export const updateCheckRequestConclusionEnum = {
+	canceled: "canceled",
+	failed: "failed",
+	neutral: "neutral",
+	skipped: "skipped",
+	succeeded: "succeeded",
+} as const;
+
+export type UpdateCheckRequestConclusionEnumKey =
+	(typeof updateCheckRequestConclusionEnum)[keyof typeof updateCheckRequestConclusionEnum];
+
+export type UpdateCheckBody = {
+	/**
+	 * @description The name of the check being created
+	 * @maxLength 100
+	 * @example Performance Check
+	 * @type string | undefined
+	 */
+	name?: string | undefined;
+	/**
+	 * @description Path of the page that is being checked
+	 * @maxLength 255
+	 * @example /
+	 * @type string | undefined
+	 */
+	path?: string | undefined;
+	/**
+	 * @description The current status of the check
+	 * @type string | undefined
+	 */
+	status?: UpdateCheckRequestStatusEnumKey | undefined;
+	/**
+	 * @description The result of the check being run
+	 * @type string | undefined
+	 */
+	conclusion?: UpdateCheckRequestConclusionEnumKey | undefined;
+	/**
+	 * @description A URL a user may visit to see more information about the check
+	 * @example https://example.com/check/run/1234abc
+	 * @type string | undefined
+	 */
+	detailsUrl?: string | undefined;
+	/**
+	 * @description The results of the check Run
+	 * @type object | undefined
+	 */
+	output?:
+		| {
+				/**
+				 * @description Metrics about the page
+				 * @type object | undefined
+				 */
+				metrics?:
+					| {
+							fcp?:
+								| {
+										/**
+										 * @description First Contentful Paint value
+										 * @example 1200
+										 * @type number
+										 */
+										value: number | null;
+										/**
+										 * @description Previous First Contentful Paint value to display a delta
+										 * @example 900
+										 * @type number | undefined
+										 */
+										previousValue?: number | undefined;
+										source: "web-vitals";
+								  }
+								| undefined;
+							lcp?:
+								| {
+										/**
+										 * @description Largest Contentful Paint value
+										 * @example 1200
+										 * @type number
+										 */
+										value: number | null;
+										/**
+										 * @description Previous Largest Contentful Paint value to display a delta
+										 * @example 1000
+										 * @type number | undefined
+										 */
+										previousValue?: number | undefined;
+										source: "web-vitals";
+								  }
+								| undefined;
+							cls?:
+								| {
+										/**
+										 * @description Cumulative Layout Shift value
+										 * @example 4
+										 * @type number
+										 */
+										value: number | null;
+										/**
+										 * @description Previous Cumulative Layout Shift value to display a delta
+										 * @example 2
+										 * @type number | undefined
+										 */
+										previousValue?: number | undefined;
+										source: "web-vitals";
+								  }
+								| undefined;
+							tbt?:
+								| {
+										/**
+										 * @description Total Blocking Time value
+										 * @example 3000
+										 * @type number
+										 */
+										value: number | null;
+										/**
+										 * @description Previous Total Blocking Time value to display a delta
+										 * @example 3500
+										 * @type number | undefined
+										 */
+										previousValue?: number | undefined;
+										source: "web-vitals";
+								  }
+								| undefined;
+							virtualExperienceScore?:
+								| {
+										/**
+										 * @description The calculated Virtual Experience Score value, between 0 and 100
+										 * @minLength 0
+										 * @maxLength 100
+										 * @example 30
+										 * @type integer
+										 */
+										value: number | null;
+										/**
+										 * @description A previous Virtual Experience Score value to display a delta, between 0 and 100
+										 * @minLength 0
+										 * @maxLength 100
+										 * @example 35
+										 * @type integer | undefined
+										 */
+										previousValue?: number | undefined;
+										source: "web-vitals";
+								  }
+								| undefined;
+					  }
+					| undefined;
+		  }
+		| undefined;
+	/**
+	 * @description An identifier that can be used as an external reference
+	 * @example 1234abc
+	 * @type string | undefined
+	 */
+	externalId?: string | undefined;
+};
+
 /**
  * @deprecated
  * @type object
  */
 export type UpdateCheckOptions = {
-	body?: never | undefined;
+	body: UpdateCheckBody;
 	path: UpdateCheckPath;
 	query?: UpdateCheckQuery | undefined;
 	headers?: never | undefined;
@@ -23497,8 +24610,32 @@ export type CreateNetworkStatus409 = unknown;
 
 export type CreateNetworkStatus410 = unknown;
 
+export type CreateNetworkBody =
+	| {
+			awsAvailabilityZoneIds?: string[] | undefined;
+			/**
+			 * @description The CIDR block of the network
+			 * @example 192.168.0.0/16
+			 * @type string
+			 */
+			cidr: string;
+			/**
+			 * @description The name of the network
+			 * @maxLength 255
+			 * @type string
+			 */
+			name: string;
+			/**
+			 * @description The region where the network will be created
+			 * @example iad1
+			 * @type string
+			 */
+			region: string;
+	  }
+	| undefined;
+
 export type CreateNetworkOptions = {
-	body?: never | undefined;
+	body: CreateNetworkBody;
 	path?: never | undefined;
 	query?: CreateNetworkQuery | undefined;
 	headers?: never | undefined;
@@ -23619,8 +24756,19 @@ export type UpdateNetworkStatus404 = unknown;
 
 export type UpdateNetworkStatus410 = unknown;
 
+export type UpdateNetworkBody =
+	| {
+			/**
+			 * @description The name of the Secure Compute network
+			 * @maxLength 255
+			 * @type string
+			 */
+			name: string;
+	  }
+	| undefined;
+
 export type UpdateNetworkOptions = {
-	body?: never | undefined;
+	body: UpdateNetworkBody;
 	path: UpdateNetworkPath;
 	query?: UpdateNetworkQuery | undefined;
 	headers?: never | undefined;
@@ -23726,8 +24874,46 @@ export type CreatePrivateLinkEndpointStatus409 = unknown;
 
 export type CreatePrivateLinkEndpointStatus410 = unknown;
 
+export type CreatePrivateLinkEndpointStatus500 = unknown;
+
+export type CreatePrivateLinkEndpointBody =
+	| {
+			/**
+			 * @description The project ID to create the PrivateLink endpoint for.
+			 * @example prj_a1b2c3d4e5f6g7h8
+			 * @type string
+			 */
+			projectId: string;
+			/**
+			 * @description The name of the PrivateLink endpoint, used as its label in the Vercel dashboard.
+			 * @maxLength 255
+			 * @example payments-db
+			 * @type string
+			 */
+			name: string;
+			/**
+			 * @description The Vercel region to provision the endpoint in. Advanced Networking must be enabled for the project in that region. The endpoint service itself may live in another AWS region.
+			 * @example iad1
+			 * @type string
+			 */
+			vercelRegion: string;
+			/**
+			 * @description The name of the AWS VPC endpoint service to connect to. Its AWS region is read from the name; when that region differs from the one behind `vercelRegion`, the service must allow cross-region access.
+			 * @example com.amazonaws.vpce.us-east-1.vpce-svc-0123456789abcdef0
+			 * @type string
+			 */
+			awsServiceName: string;
+			/**
+			 * @description Whether to resolve the endpoint service through its private DNS names, which are then returned in `privateDnsNames`. Defaults to `false`, in which case the endpoint is reachable through the DNS names in `awsDnsEntries`.
+			 * @example false
+			 * @type boolean | undefined
+			 */
+			enablePrivateDns?: boolean | undefined;
+	  }
+	| undefined;
+
 export type CreatePrivateLinkEndpointOptions = {
-	body?: never | undefined;
+	body: CreatePrivateLinkEndpointBody;
 	path?: never | undefined;
 	query?: CreatePrivateLinkEndpointQuery | undefined;
 	headers?: never | undefined;
@@ -23741,6 +24927,7 @@ export type CreatePrivateLinkEndpointResponses = {
 	"404": CreatePrivateLinkEndpointStatus404;
 	"409": CreatePrivateLinkEndpointStatus409;
 	"410": CreatePrivateLinkEndpointStatus410;
+	"500": CreatePrivateLinkEndpointStatus500;
 };
 
 /**
@@ -23909,6 +25096,8 @@ export type DeletePrivateLinkEndpointStatus409 = unknown;
 
 export type DeletePrivateLinkEndpointStatus410 = unknown;
 
+export type DeletePrivateLinkEndpointStatus500 = unknown;
+
 export type DeletePrivateLinkEndpointOptions = {
 	body?: never | undefined;
 	path: DeletePrivateLinkEndpointPath;
@@ -23924,6 +25113,7 @@ export type DeletePrivateLinkEndpointResponses = {
 	"404": DeletePrivateLinkEndpointStatus404;
 	"409": DeletePrivateLinkEndpointStatus409;
 	"410": DeletePrivateLinkEndpointStatus410;
+	"500": DeletePrivateLinkEndpointStatus500;
 };
 
 /**
@@ -23975,8 +25165,26 @@ export type UpdatePrivateLinkEndpointStatus409 = unknown;
 
 export type UpdatePrivateLinkEndpointStatus410 = unknown;
 
+export type UpdatePrivateLinkEndpointBody =
+	| {
+			/**
+			 * @description A new name for the PrivateLink endpoint. When omitted, the current name is kept.
+			 * @maxLength 255
+			 * @example payments-db
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description When `true`, resolves the endpoint service through its private DNS names, which are then returned in `privateDnsNames`. When `false`, clears them. When omitted, the current setting is kept. At least one of `name` or `enablePrivateDns` must be provided.
+			 * @example false
+			 * @type boolean | undefined
+			 */
+			enablePrivateDns?: boolean | undefined;
+	  }
+	| undefined;
+
 export type UpdatePrivateLinkEndpointOptions = {
-	body?: never | undefined;
+	body: UpdatePrivateLinkEndpointBody;
 	path: UpdatePrivateLinkEndpointPath;
 	query: UpdatePrivateLinkEndpointQuery;
 	headers?: never | undefined;
@@ -24284,8 +25492,10 @@ export type CreateConnectorStatus502 = unknown;
 
 export type CreateConnectorStatus504 = unknown;
 
+export type CreateConnectorBody = unknown | undefined;
+
 export type CreateConnectorOptions = {
-	body?: never | undefined;
+	body: CreateConnectorBody;
 	path?: never | undefined;
 	query?: CreateConnectorQuery | undefined;
 	headers?: never | undefined;
@@ -24358,8 +25568,10 @@ export type UpdateConnectorStatus502 = unknown;
 
 export type UpdateConnectorStatus504 = unknown;
 
+export type UpdateConnectorBody = unknown;
+
 export type UpdateConnectorOptions = {
-	body?: never | undefined;
+	body: UpdateConnectorBody;
 	path: UpdateConnectorPath;
 	query?: UpdateConnectorQuery | undefined;
 	headers?: never | undefined;
@@ -24428,8 +25640,10 @@ export type ReplaceConnectorTriggerDestinationsStatus501 = unknown;
 
 export type ReplaceConnectorTriggerDestinationsStatus504 = unknown;
 
+export type ReplaceConnectorTriggerDestinationsBody = unknown;
+
 export type ReplaceConnectorTriggerDestinationsOptions = {
-	body?: never | undefined;
+	body: ReplaceConnectorTriggerDestinationsBody;
 	path: ReplaceConnectorTriggerDestinationsPath;
 	query?: ReplaceConnectorTriggerDestinationsQuery | undefined;
 	headers?: never | undefined;
@@ -24692,8 +25906,10 @@ export type UpsertConnectorProjectConnectionStatus409 = unknown;
 
 export type UpsertConnectorProjectConnectionStatus410 = unknown;
 
+export type UpsertConnectorProjectConnectionBody = unknown;
+
 export type UpsertConnectorProjectConnectionOptions = {
-	body?: never | undefined;
+	body: UpsertConnectorProjectConnectionBody;
 	path: UpsertConnectorProjectConnectionPath;
 	query?: UpsertConnectorProjectConnectionQuery | undefined;
 	headers?: never | undefined;
@@ -24868,8 +26084,58 @@ export type GetConnectorTokenStatus422 = unknown;
 
 export type GetConnectorTokenStatus429 = unknown;
 
+export type GetConnectorTokenBody =
+	| {
+			subject?:
+				| (
+						| {
+								type: "app";
+								[key: string]: unknown;
+						  }
+						| {
+								type: "user";
+								id?: string | undefined;
+								issuer?: string | undefined;
+								[key: string]: unknown;
+						  }
+						| {
+								type: "jwt-bearer";
+								sub?: string | undefined;
+								iss?: string | undefined;
+								aud?: string | undefined;
+								additionalClaims?:
+									| {
+											[key: string]: unknown;
+									  }
+									| undefined;
+								[key: string]: unknown;
+						  }
+						| {
+								type: "token";
+								token: string;
+						  }
+						| {
+								type: string;
+								[key: string]: unknown;
+						  }
+				  )
+				| undefined;
+			installationId?: string | undefined;
+			audience?: string[] | undefined;
+			scopes?: string[] | undefined;
+			resources?: string[] | undefined;
+			authorizationDetails?:
+				| {
+						type?: string | undefined;
+						[key: string]: unknown;
+				  }[]
+				| undefined;
+			validityBufferMs?: number | undefined;
+	  }
+	| undefined;
+
 export type GetConnectorTokenOptions = {
-	body?: never | undefined;
+	body: GetConnectorTokenBody;
 	path: GetConnectorTokenPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -24912,8 +26178,68 @@ export type CreateConnectorAuthorizationRequestStatus410 = unknown;
 
 export type CreateConnectorAuthorizationRequestStatus422 = unknown;
 
+export type CreateConnectorAuthorizationRequestBody =
+	| {
+			subject?:
+				| (
+						| {
+								type: "app";
+								[key: string]: unknown;
+						  }
+						| {
+								type: "user";
+								id?: string | undefined;
+								issuer?: string | undefined;
+								[key: string]: unknown;
+						  }
+						| {
+								type: "jwt-bearer";
+								sub?: string | undefined;
+								iss?: string | undefined;
+								aud?: string | undefined;
+								additionalClaims?:
+									| {
+											[key: string]: unknown;
+									  }
+									| undefined;
+								[key: string]: unknown;
+						  }
+						| {
+								type: "token";
+								token: string;
+						  }
+						| {
+								type: string;
+								[key: string]: unknown;
+						  }
+				  )
+				| undefined;
+			installationId?: string | undefined;
+			audience?: string[] | undefined;
+			scopes?: string[] | undefined;
+			resources?: string[] | undefined;
+			authorizationDetails?:
+				| {
+						type?: string | undefined;
+						[key: string]: unknown;
+				  }[]
+				| undefined;
+			validityBufferMs?: number | undefined;
+			returnUrl?: string | undefined;
+			webhook?: string | undefined;
+			prompt?: string | undefined;
+			deviceCode?: boolean | undefined;
+			expiresInMs?: number | undefined;
+			additionalParams?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type CreateConnectorAuthorizationRequestOptions = {
-	body?: never | undefined;
+	body: CreateConnectorAuthorizationRequestBody;
 	path: CreateConnectorAuthorizationRequestPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -24935,6 +26261,251 @@ export type CreateConnectorAuthorizationRequestResponses = {
  */
 export type CreateConnectorAuthorizationRequestResponse =
 	CreateConnectorAuthorizationRequestStatus200;
+
+export type GetProjectBoxesPath = {
+	/**
+	 * @description The unique project identifier or the project name
+	 * @type string
+	 */
+	idOrName: string;
+};
+
+export const getProjectBoxesScopeType = {
+	target: "target",
+	branch: "branch",
+	customEnvironment: "customEnvironment",
+} as const;
+
+export type GetProjectBoxesScopeTypeKey =
+	(typeof getProjectBoxesScopeType)[keyof typeof getProjectBoxesScopeType];
+
+export type GetProjectBoxesQuery = {
+	/**
+	 * @description Maximum daemons to return (default: 10, max: 100)
+	 * @type string | undefined
+	 */
+	limit?: string | undefined;
+	/**
+	 * @description Pagination cursor
+	 * @type string | undefined
+	 */
+	cursor?: string | undefined;
+	/**
+	 * @description Filter by scope type
+	 * @type string | undefined
+	 */
+	scopeType?: GetProjectBoxesScopeTypeKey | undefined;
+	/**
+	 * @description Filter by scope value (requires scopeType)
+	 * @type string | undefined
+	 */
+	scopeValue?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type GetProjectBoxesStatus200 = unknown;
+
+export type GetProjectBoxesStatus400 = unknown;
+
+export type GetProjectBoxesStatus401 = unknown;
+
+export type GetProjectBoxesStatus403 = unknown;
+
+export type GetProjectBoxesStatus404 = unknown;
+
+export type GetProjectBoxesStatus410 = unknown;
+
+export type GetProjectBoxesOptions = {
+	body?: never | undefined;
+	path: GetProjectBoxesPath;
+	query?: GetProjectBoxesQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type GetProjectBoxesResponses = {
+	"200": GetProjectBoxesStatus200;
+	"400": GetProjectBoxesStatus400;
+	"401": GetProjectBoxesStatus401;
+	"403": GetProjectBoxesStatus403;
+	"404": GetProjectBoxesStatus404;
+	"410": GetProjectBoxesStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetProjectBoxesResponse = GetProjectBoxesStatus200;
+
+export type PutProjectDaemonInstancesPath = {
+	/**
+	 * @description The unique project identifier or the project name
+	 * @type string
+	 */
+	idOrName: string;
+	/**
+	 * @description The name of the daemon to scale
+	 * @pattern ^[a-zA-Z0-9_-]+$
+	 * @type string
+	 */
+	daemonName: string;
+};
+
+export const putProjectDaemonInstancesTarget = {
+	production: "production",
+	preview: "preview",
+} as const;
+
+export type PutProjectDaemonInstancesTargetKey =
+	(typeof putProjectDaemonInstancesTarget)[keyof typeof putProjectDaemonInstancesTarget];
+
+export type PutProjectDaemonInstancesQuery = {
+	/**
+	 * @description The deployment target for the daemon configuration.
+	 * @default 'production'
+	 * @type string | undefined
+	 */
+	target?: PutProjectDaemonInstancesTargetKey | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type PutProjectDaemonInstancesStatus200 = unknown;
+
+export type PutProjectDaemonInstancesStatus400 = unknown;
+
+export type PutProjectDaemonInstancesStatus401 = unknown;
+
+export type PutProjectDaemonInstancesStatus403 = unknown;
+
+export type PutProjectDaemonInstancesStatus404 = unknown;
+
+export type PutProjectDaemonInstancesStatus410 = unknown;
+
+/**
+ * @description Instance count overrides by region, for example { \\\"iad1\\\": 1 }. Regions not in the map keep their configured count. An empty map removes the overrides.
+ * @type object | undefined
+ */
+export type PutProjectDaemonInstancesBody =
+	| {
+			[key: string]: number;
+	  }
+	| undefined;
+
+export type PutProjectDaemonInstancesOptions = {
+	body: PutProjectDaemonInstancesBody;
+	path: PutProjectDaemonInstancesPath;
+	query?: PutProjectDaemonInstancesQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type PutProjectDaemonInstancesResponses = {
+	"200": PutProjectDaemonInstancesStatus200;
+	"400": PutProjectDaemonInstancesStatus400;
+	"401": PutProjectDaemonInstancesStatus401;
+	"403": PutProjectDaemonInstancesStatus403;
+	"404": PutProjectDaemonInstancesStatus404;
+	"410": PutProjectDaemonInstancesStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type PutProjectDaemonInstancesResponse = PutProjectDaemonInstancesStatus200;
+
+export type RestartProjectDaemonInstancePath = {
+	/**
+	 * @description The unique project identifier or the project name
+	 * @type string
+	 */
+	idOrName: string;
+	/**
+	 * @description The name of the daemon that owns the instance
+	 * @pattern ^[a-zA-Z0-9_-]+$
+	 * @type string
+	 */
+	daemonName: string;
+	/**
+	 * @description The ID of the daemon instance whose user container is restarted, for example `dmni_01k7d0q5w3x8y9z0a1b2c3d4e5`
+	 * @pattern ^dmni_[0-9a-hjkmnp-tv-z]{26}$
+	 * @type string
+	 */
+	instanceId: string;
+};
+
+export type RestartProjectDaemonInstanceQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type RestartProjectDaemonInstanceStatus202 = unknown;
+
+export type RestartProjectDaemonInstanceStatus400 = unknown;
+
+export type RestartProjectDaemonInstanceStatus401 = unknown;
+
+export type RestartProjectDaemonInstanceStatus403 = unknown;
+
+export type RestartProjectDaemonInstanceStatus404 = unknown;
+
+export type RestartProjectDaemonInstanceStatus409 = unknown;
+
+export type RestartProjectDaemonInstanceStatus410 = unknown;
+
+export type RestartProjectDaemonInstanceStatus500 = unknown;
+
+export type RestartProjectDaemonInstanceOptions = {
+	body?: never | undefined;
+	path: RestartProjectDaemonInstancePath;
+	query?: RestartProjectDaemonInstanceQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type RestartProjectDaemonInstanceResponses = {
+	"202": RestartProjectDaemonInstanceStatus202;
+	"400": RestartProjectDaemonInstanceStatus400;
+	"401": RestartProjectDaemonInstanceStatus401;
+	"403": RestartProjectDaemonInstanceStatus403;
+	"404": RestartProjectDaemonInstanceStatus404;
+	"409": RestartProjectDaemonInstanceStatus409;
+	"410": RestartProjectDaemonInstanceStatus410;
+	"500": RestartProjectDaemonInstanceStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type RestartProjectDaemonInstanceResponse = RestartProjectDaemonInstanceStatus202;
 
 export type GetDeploymentEventsPath = {
 	/**
@@ -25099,8 +26670,71 @@ export type UpdateIntegrationDeploymentActionStatus404 = unknown;
 
 export type UpdateIntegrationDeploymentActionStatus410 = unknown;
 
+export const updateIntegrationDeploymentActionRequestStatusEnum = {
+	failed: "failed",
+	running: "running",
+	succeeded: "succeeded",
+} as const;
+
+export type UpdateIntegrationDeploymentActionRequestStatusEnumKey =
+	(typeof updateIntegrationDeploymentActionRequestStatusEnum)[keyof typeof updateIntegrationDeploymentActionRequestStatusEnum];
+
+export type UpdateIntegrationDeploymentActionBody =
+	| {
+			status?: UpdateIntegrationDeploymentActionRequestStatusEnumKey | undefined;
+			statusText?: string | undefined;
+			/**
+			 * @description
+			 * Format: `uri`
+			 * @type string | undefined
+			 */
+			statusUrl?: string | undefined;
+			outcomes?:
+				| (
+						| {
+								kind: string;
+								secrets: {
+									name: string;
+									value: string;
+								}[];
+						  }
+						| {
+								kind: string;
+								/**
+								 * @description Ordered rules resolved at mint time. Later rules win and shallow-merge over earlier ones.
+								 * @type array
+								 */
+								claimRules: {
+									when?:
+										| {
+												/**
+												 * @description Applies only when the token is minted for one of these roles.
+												 * @type array | undefined
+												 */
+												role?: string[] | undefined;
+												/**
+												 * @description Applies only when the token is minted for one of these environments: `production`, `preview`, `development`, or a custom environment slug. A custom environment also matches `preview`.
+												 * @type array | undefined
+												 */
+												environment?: string[] | undefined;
+										  }
+										| undefined;
+									/**
+									 * @description Claims to set (string, number, boolean, or array of strings), shallow-merged over earlier rules and over the default claims. `null` removes a claim. Reserved claims cannot be set; `aud` and `sub` can be overridden with a string but not removed.
+									 * @type object
+									 */
+									claims: {
+										[key: string]: (string | number | boolean) | string[];
+									};
+								}[];
+						  }
+				  )[]
+				| undefined;
+	  }
+	| undefined;
+
 export type UpdateIntegrationDeploymentActionOptions = {
-	body?: never | undefined;
+	body: UpdateIntegrationDeploymentActionBody;
 	path: UpdateIntegrationDeploymentActionPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -25234,8 +26868,553 @@ export type CreateDeploymentStatus500 = unknown;
 
 export type CreateDeploymentStatus503 = unknown;
 
+export const createDeploymentRequestFilesEncodingEnum = {
+	base64: "base64",
+	"utf-8": "utf-8",
+} as const;
+
+export type CreateDeploymentRequestFilesEncodingEnumKey =
+	(typeof createDeploymentRequestFilesEncodingEnum)[keyof typeof createDeploymentRequestFilesEncodingEnum];
+
+export const createDeploymentRequestProjectSettingsFrameworkEnum = {
+	"actix-web": "actix-web",
+	angular: "angular",
+	ash: "ash",
+	astro: "astro",
+	axum: "axum",
+	blitzjs: "blitzjs",
+	brunch: "brunch",
+	bun: "bun",
+	container: "container",
+	"create-react-app": "create-react-app",
+	django: "django",
+	docusaurus: "docusaurus",
+	"docusaurus-2": "docusaurus-2",
+	dojo: "dojo",
+	eleventy: "eleventy",
+	elysia: "elysia",
+	ember: "ember",
+	eve: "eve",
+	express: "express",
+	"factory-eve": "factory-eve",
+	fastapi: "fastapi",
+	fasthtml: "fasthtml",
+	fastify: "fastify",
+	flask: "flask",
+	gatsby: "gatsby",
+	go: "go",
+	gridsome: "gridsome",
+	h3: "h3",
+	hexo: "hexo",
+	hono: "hono",
+	hugo: "hugo",
+	hydrogen: "hydrogen",
+	"ionic-angular": "ionic-angular",
+	"ionic-react": "ionic-react",
+	jekyll: "jekyll",
+	koa: "koa",
+	mastra: "mastra",
+	middleman: "middleman",
+	nestjs: "nestjs",
+	nextjs: "nextjs",
+	nitro: "nitro",
+	node: "node",
+	nuxtjs: "nuxtjs",
+	parcel: "parcel",
+	polymer: "polymer",
+	preact: "preact",
+	python: "python",
+	"react-router": "react-router",
+	redwoodjs: "redwoodjs",
+	remix: "remix",
+	ruby: "ruby",
+	rust: "rust",
+	saber: "saber",
+	sanity: "sanity",
+	"sanity-v2": "sanity-v2",
+	sapper: "sapper",
+	scully: "scully",
+	services: "services",
+	solidstart: "solidstart",
+	"solidstart-1": "solidstart-1",
+	stencil: "stencil",
+	storybook: "storybook",
+	svelte: "svelte",
+	sveltekit: "sveltekit",
+	"sveltekit-1": "sveltekit-1",
+	"tanstack-start": "tanstack-start",
+	"tanstack-start-lovable": "tanstack-start-lovable",
+	umijs: "umijs",
+	vite: "vite",
+	vitepress: "vitepress",
+	vue: "vue",
+	vuepress: "vuepress",
+	xmcp: "xmcp",
+	zola: "zola",
+} as const;
+
+export type CreateDeploymentRequestProjectSettingsFrameworkEnumKey =
+	(typeof createDeploymentRequestProjectSettingsFrameworkEnum)[keyof typeof createDeploymentRequestProjectSettingsFrameworkEnum];
+
+export type CreateDeploymentBody = {
+	/**
+	 * @description Selects a custom build machine for this deployment without changing project settings.
+	 * @type string | undefined
+	 */
+	buildMachine?: "turbo" | undefined;
+	/**
+	 * @description The slug or ID of a custom environment to deploy to, overriding the default target environment. When omitted, the deployment targets the environment inferred from the branch (production or preview).
+	 * @example staging
+	 * @type string | undefined
+	 */
+	customEnvironmentSlugOrId?: string | undefined;
+	/**
+	 * @description The ID of an existing deployment to redeploy. All project settings and environment variables are inherited from the original unless explicitly overridden in this request. The redeployment gets a new ID, URL, and build.
+	 * @example dpl_2qn7PZrx89yxY34vEZPD31Y9XVj6
+	 * @type string | undefined
+	 */
+	deploymentId?: string | undefined;
+	/**
+	 * @description The files to include in the deployment. Each entry is either an inlined file (with `data` and `encoding`) or a reference to a previously uploaded file (with `sha` and `size`). Required for non-git deployments. Cannot be used together with `gitSource`.
+	 * @type array | undefined
+	 */
+	files?:
+		| (
+				| {
+						/**
+						 * @description The file content, it could be either a `base64` (useful for images, etc.) of the files or the plain content for source code
+						 * @type string
+						 */
+						data: string;
+						/**
+						 * @description The file content encoding, it could be either a base64 (useful for images, etc.) of the files or the plain text for source code.
+						 * @type string | undefined
+						 */
+						encoding?: CreateDeploymentRequestFilesEncodingEnumKey | undefined;
+						/**
+						 * @description The file name including the whole path
+						 * @example folder/file.js
+						 * @type string
+						 */
+						file: string;
+				  }
+				| {
+						/**
+						 * @description The file path relative to the project root
+						 * @example folder/file.js
+						 * @type string
+						 */
+						file: string;
+						/**
+						 * @description The file contents hashed with SHA1, used to check the integrity
+						 * @type string | undefined
+						 */
+						sha?: string | undefined;
+						/**
+						 * @description The file size in bytes
+						 * @type integer | undefined
+						 */
+						size?: number | undefined;
+				  }
+		  )[]
+		| undefined;
+	/**
+	 * @description Available only to Vercel platform accounts. A read-only GitHub access token scoped to the requested repository. Use a token with a lifetime of 24 hours or less that remains valid until source retrieval completes.
+	 * @maxLength 1024
+	 * @type string | undefined
+	 */
+	gitAccessToken?: string | undefined;
+	/**
+	 * @description Populates initial git metadata for different git providers.
+	 * @type object | undefined
+	 */
+	gitMetadata?:
+		| {
+				/**
+				 * @description The git repository\'s remote origin url
+				 * @example https://github.com/vercel/next.js
+				 * @type string | undefined
+				 */
+				remoteUrl?: string | undefined;
+				/**
+				 * @description The name of the author of the commit
+				 * @example kyliau
+				 * @type string | undefined
+				 */
+				commitAuthorName?: string | undefined;
+				/**
+				 * @description The email of the author of the commit
+				 * @example kyliau@example.com
+				 * @type string | undefined
+				 */
+				commitAuthorEmail?: string | undefined;
+				/**
+				 * @description The commit message
+				 * @example add method to measure Interaction to Next Paint (INP) (#36490)
+				 * @type string | undefined
+				 */
+				commitMessage?: string | undefined;
+				/**
+				 * @description The branch on which the commit was made
+				 * @example main
+				 * @type string | undefined
+				 */
+				commitRef?: string | undefined;
+				/**
+				 * @description The hash of the commit
+				 * @example dc36199b2234c6586ebe05ec94078a895c707e29
+				 * @type string | undefined
+				 */
+				commitSha?: string | undefined;
+				/**
+				 * @description Whether or not there have been modifications to the working tree since the latest commit
+				 * @example true
+				 * @type boolean | undefined
+				 */
+				dirty?: boolean | undefined;
+				/**
+				 * @description True if process.env.CI was set when deploying
+				 * @example true
+				 * @type boolean | undefined
+				 */
+				ci?: boolean | undefined;
+				/**
+				 * @description The type of CI system used
+				 * @example github-actions
+				 * @type string | undefined
+				 */
+				ciType?: string | undefined;
+				/**
+				 * @description The username used for the Git Provider (e.g. GitHub) if their CI (e.g. GitHub Actions) was used, if available
+				 * @example rauchg
+				 * @type string | undefined
+				 */
+				ciGitProviderUsername?: string | undefined;
+				/**
+				 * @description The visibility of the Git repository if their CI (e.g. GitHub Actions) was used, if available
+				 * @example private
+				 * @type string | undefined
+				 */
+				ciGitRepoVisibility?: string | undefined;
+				/**
+				 * @description Path of the deployed directory relative to the detected git repository root. Empty string when deploying from the repository root.
+				 * @example apps/web
+				 * @type string | undefined
+				 */
+				rootDirectory?: string | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Defines the Git Repository source to be deployed. This property can not be used in combination with `files`.
+	 */
+	gitSource?:
+		| (
+				| {
+						type: "vercel";
+						/**
+						 * @description The stable Vercel Git repository ID.
+						 * @example 123456789
+						 * @type string
+						 */
+						repoId: string;
+						/**
+						 * @example a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0
+						 * @type string
+						 */
+						sha: string;
+				  }
+				| {
+						/**
+						 * @example main
+						 * @type string
+						 */
+						ref: string;
+						/**
+						 * @example 123456789
+						 */
+						repoId: number | string;
+						/**
+						 * @example a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0
+						 * @type string | undefined
+						 */
+						sha?: string | undefined;
+						type: "github";
+				  }
+				| {
+						/**
+						 * @example vercel
+						 * @type string
+						 */
+						org: string;
+						/**
+						 * @example main
+						 * @type string
+						 */
+						ref: string;
+						/**
+						 * @example next.js
+						 * @type string
+						 */
+						repo: string;
+						/**
+						 * @example a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0
+						 * @type string | undefined
+						 */
+						sha?: string | undefined;
+						type: "github";
+				  }
+				| {
+						/**
+						 * @example main
+						 * @type string
+						 */
+						ref: string;
+						/**
+						 * @example 123456789
+						 */
+						repoId: number | string;
+						/**
+						 * @example a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0
+						 * @type string | undefined
+						 */
+						sha?: string | undefined;
+						type: "github-limited";
+				  }
+				| {
+						/**
+						 * @example vercel
+						 * @type string
+						 */
+						org: string;
+						/**
+						 * @example main
+						 * @type string
+						 */
+						ref: string;
+						/**
+						 * @example next.js
+						 * @type string
+						 */
+						repo: string;
+						/**
+						 * @example a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0
+						 * @type string | undefined
+						 */
+						sha?: string | undefined;
+						type: "github-limited";
+				  }
+				| {
+						/**
+						 * @example 987654321
+						 */
+						projectId: number | string;
+						/**
+						 * @example main
+						 * @type string
+						 */
+						ref: string;
+						/**
+						 * @example a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0
+						 * @type string | undefined
+						 */
+						sha?: string | undefined;
+						type: "gitlab";
+				  }
+				| {
+						/**
+						 * @example main
+						 * @type string
+						 */
+						ref: string;
+						/**
+						 * @example 123e4567-e89b-12d3-a456-426614174000
+						 * @type string
+						 */
+						repoUuid: string;
+						/**
+						 * @example a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0
+						 * @type string | undefined
+						 */
+						sha?: string | undefined;
+						type: "bitbucket";
+						/**
+						 * @example 987e6543-e21b-12d3-a456-426614174000
+						 * @type string | undefined
+						 */
+						workspaceUuid?: string | undefined;
+				  }
+				| {
+						/**
+						 * @example bitbucket_user
+						 * @type string
+						 */
+						owner: string;
+						/**
+						 * @example main
+						 * @type string
+						 */
+						ref: string;
+						/**
+						 * @example a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0
+						 * @type string | undefined
+						 */
+						sha?: string | undefined;
+						/**
+						 * @example my-awesome-project
+						 * @type string
+						 */
+						slug: string;
+						type: "bitbucket";
+				  }
+				| {
+						/**
+						 * @description The Origin workspace slug. Optional because Vercel resolves it from the linked project.
+						 * @example bitbucket_user
+						 * @type string | undefined
+						 */
+						owner?: string | undefined;
+						/**
+						 * @description The branch or Git reference to deploy.
+						 * @example main
+						 * @type string
+						 */
+						ref: string;
+						/**
+						 * @description The Origin repository name. Optional because Vercel resolves it from the linked project.
+						 * @example next.js
+						 * @type string | undefined
+						 */
+						repo?: string | undefined;
+						/**
+						 * @description The stable Origin repository ID. Read it from the `link.repoId` field returned by the project API.
+						 * @example 123456789
+						 * @type string
+						 */
+						repoId: string;
+						/**
+						 * @description The commit SHA to deploy. When omitted, Vercel resolves the latest commit on `ref`.
+						 * @example a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0
+						 * @type string | undefined
+						 */
+						sha?: string | undefined;
+						type: "cursor-origin";
+				  }
+		  )
+		| undefined;
+	/**
+	 * @description An object containing the deployment\'s metadata. Multiple key-value pairs can be attached to a deployment. For deployments created with a Cursor Origin `gitSource`, Vercel automatically adds `cursorOriginDeployment`, `cursorOriginCommitSha`, `cursorOriginCommitRef`, `cursorOriginCommitMessage`, `cursorOriginCommitAuthorName`, `cursorOriginCommitAuthorEmail` when available, `cursorOriginOwner`, `cursorOriginRepo`, `cursorOriginRepoId`, and `cursorOriginPrId` for pull request deployments.
+	 * @example {"foo":"bar"}
+	 * @type object | undefined
+	 */
+	meta?:
+		| {
+				[key: string]: string;
+		  }
+		| undefined;
+	/**
+	 * @description The monorepo manager that is being used for this deployment. When `null` is used no monorepo manager is selected
+	 * @type string | undefined
+	 */
+	monorepoManager?: (string | null) | undefined;
+	/**
+	 * @description A string with the project name used in the deployment URL
+	 * @example my-instant-deployment
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description The target project identifier in which the deployment will be created. When defined, this parameter overrides name
+	 * @example my-deployment-project
+	 * @type string | undefined
+	 */
+	project?: string | undefined;
+	/**
+	 * @description Project settings that will be applied to the deployment. It is required for the first deployment of a project and will be saved for any following deployments
+	 * @type object | undefined
+	 */
+	projectSettings?:
+		| {
+				/**
+				 * @description The build command for this project. When `null` is used this value will be automatically detected
+				 * @maxLength 256
+				 * @example next build
+				 * @type string | undefined
+				 */
+				buildCommand?: (string | null) | undefined;
+				/**
+				 * @maxLength 256
+				 * @type string | undefined
+				 */
+				commandForIgnoringBuildStep?: (string | null) | undefined;
+				/**
+				 * @description The dev command for this project. When `null` is used this value will be automatically detected
+				 * @maxLength 256
+				 * @type string | undefined
+				 */
+				devCommand?: (string | null) | undefined;
+				/**
+				 * @description The framework that is being used for this project. When `null` is used no framework is selected
+				 * @type string | undefined
+				 */
+				framework?: (CreateDeploymentRequestProjectSettingsFrameworkEnumKey | null) | undefined;
+				/**
+				 * @description The install command for this project. When `null` is used this value will be automatically detected
+				 * @maxLength 256
+				 * @example pnpm install
+				 * @type string | undefined
+				 */
+				installCommand?: (string | null) | undefined;
+				/**
+				 * @description Override the Node.js version that should be used for this deployment
+				 * @type string | undefined
+				 */
+				nodeVersion?: string | undefined;
+				/**
+				 * @description The output directory of the project. When `null` is used this value will be automatically detected
+				 * @maxLength 256
+				 * @type string | undefined
+				 */
+				outputDirectory?: (string | null) | undefined;
+				/**
+				 * @description The name of a directory or relative path to the source code of your project. When `null` is used it will default to the project root
+				 * @maxLength 256
+				 * @type string | undefined
+				 */
+				rootDirectory?: (string | null) | undefined;
+				/**
+				 * @description The region to deploy Serverless Functions in this project
+				 * @maxLength 4
+				 * @type string | undefined
+				 */
+				serverlessFunctionRegion?: (string | null) | undefined;
+				/**
+				 * @description Opts-out of the message prompting a CLI user to connect a Git repository in `vercel link`.
+				 * @deprecated
+				 * @type boolean | undefined
+				 */
+				skipGitConnectDuringLink?: boolean | undefined;
+				/**
+				 * @description Indicates if there are source files outside of the root directory, typically used for monorepos
+				 * @type boolean | undefined
+				 */
+				sourceFilesOutsideRootDirectory?: boolean | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Either not defined, `staging`, `production`, or a custom environment identifier. If `staging`, a staging alias in the format `<project>-<team>.vercel.app` will be assigned. If `production`, any aliases defined in `alias` will be assigned. If omitted, the target will be `preview`.
+	 * @example production
+	 * @type string | undefined
+	 */
+	target?: string | undefined;
+	/**
+	 * @description When `true` and `deploymentId` is passed in, the sha from the previous deployment\'s `gitSource` is removed forcing the latest commit to be used.
+	 * @type boolean | undefined
+	 */
+	withLatestCommit?: boolean | undefined;
+};
+
 export type CreateDeploymentOptions = {
-	body?: never | undefined;
+	body: CreateDeploymentBody;
 	path?: never | undefined;
 	query?: CreateDeploymentQuery | undefined;
 	headers?: never | undefined;
@@ -25432,8 +27611,380 @@ export type CreateRecordStatus409 = unknown;
 
 export type CreateRecordStatus410 = unknown;
 
+export const createRecordRequestTypeEnum = {
+	A: "A",
+	AAAA: "AAAA",
+	ALIAS: "ALIAS",
+	CAA: "CAA",
+	CNAME: "CNAME",
+	HTTPS: "HTTPS",
+	MX: "MX",
+	NS: "NS",
+	SRV: "SRV",
+	TXT: "TXT",
+} as const;
+
+export type CreateRecordRequestTypeEnumKey =
+	(typeof createRecordRequestTypeEnum)[keyof typeof createRecordRequestTypeEnum];
+
+export type CreateRecordBody = (
+	| {
+			/**
+			 * @description A subdomain name or an empty string for the root domain.
+			 * @example subdomain
+			 * @type string
+			 */
+			name: string;
+			/**
+			 * @description Must be of type `A`.
+			 * @type string
+			 */
+			type: "A";
+			/**
+			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
+			 * @minLength 60
+			 * @maxLength 2147483647
+			 * @example 60
+			 * @type number | undefined
+			 */
+			ttl?: number | undefined;
+			/**
+			 * @description The record value must be a valid IPv4 address.
+			 *
+			 * Format: `ipv4`
+			 * @example 192.0.2.42
+			 * @type string
+			 */
+			value: string;
+			/**
+			 * @description A comment to add context on what this DNS record is for
+			 * @maxLength 500
+			 * @example used to verify ownership of domain
+			 * @type string | undefined
+			 */
+			comment?: string | undefined;
+	  }
+	| {
+			/**
+			 * @description A subdomain name or an empty string for the root domain.
+			 * @example subdomain
+			 * @type string
+			 */
+			name: string;
+			/**
+			 * @description Must be of type `AAAA`.
+			 * @type string
+			 */
+			type: "AAAA";
+			/**
+			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
+			 * @minLength 60
+			 * @maxLength 2147483647
+			 * @example 60
+			 * @type number | undefined
+			 */
+			ttl?: number | undefined;
+			/**
+			 * @description An AAAA record pointing to an IPv6 address.
+			 *
+			 * Format: `ipv6`
+			 * @example 2001:DB8::42
+			 * @type string
+			 */
+			value: string;
+			/**
+			 * @description A comment to add context on what this DNS record is for
+			 * @maxLength 500
+			 * @example used to verify ownership of domain
+			 * @type string | undefined
+			 */
+			comment?: string | undefined;
+	  }
+	| {
+			/**
+			 * @description A subdomain name or an empty string for the root domain.
+			 * @example subdomain
+			 * @type string
+			 */
+			name: string;
+			/**
+			 * @description Must be of type `ALIAS`.
+			 * @type string
+			 */
+			type: "ALIAS";
+			/**
+			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
+			 * @minLength 60
+			 * @maxLength 2147483647
+			 * @example 60
+			 * @type number | undefined
+			 */
+			ttl?: number | undefined;
+			/**
+			 * @description An ALIAS virtual record pointing to a hostname resolved to an A record on server side.
+			 * @example cname.vercel-dns.com
+			 * @type string
+			 */
+			value: string;
+			/**
+			 * @description A comment to add context on what this DNS record is for
+			 * @maxLength 500
+			 * @example used to verify ownership of domain
+			 * @type string | undefined
+			 */
+			comment?: string | undefined;
+	  }
+	| {
+			/**
+			 * @description A subdomain name or an empty string for the root domain.
+			 * @example subdomain
+			 * @type string
+			 */
+			name: string;
+			/**
+			 * @description Must be of type `CAA`.
+			 * @type string
+			 */
+			type: "CAA";
+			/**
+			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
+			 * @minLength 60
+			 * @maxLength 2147483647
+			 * @example 60
+			 * @type number | undefined
+			 */
+			ttl?: number | undefined;
+			/**
+			 * @description A CAA record to specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain.
+			 * @example 0 issue "letsencrypt.org"
+			 * @type string
+			 */
+			value: string;
+			/**
+			 * @description A comment to add context on what this DNS record is for
+			 * @maxLength 500
+			 * @example used to verify ownership of domain
+			 * @type string | undefined
+			 */
+			comment?: string | undefined;
+	  }
+	| {
+			/**
+			 * @description A subdomain name or an empty string for the root domain.
+			 * @example subdomain
+			 * @type string
+			 */
+			name: string;
+			/**
+			 * @description Must be of type `CNAME`.
+			 * @type string
+			 */
+			type: "CNAME";
+			/**
+			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
+			 * @minLength 60
+			 * @maxLength 2147483647
+			 * @example 60
+			 * @type number | undefined
+			 */
+			ttl?: number | undefined;
+			/**
+			 * @description A CNAME record mapping to another domain name.
+			 * @example cname.vercel-dns.com
+			 * @type string | undefined
+			 */
+			value?: string | undefined;
+			/**
+			 * @description A comment to add context on what this DNS record is for
+			 * @maxLength 500
+			 * @example used to verify ownership of domain
+			 * @type string | undefined
+			 */
+			comment?: string | undefined;
+	  }
+	| {
+			/**
+			 * @description A subdomain name or an empty string for the root domain.
+			 * @example subdomain
+			 * @type string
+			 */
+			name: string;
+			/**
+			 * @description Must be of type `MX`.
+			 * @type string
+			 */
+			type: "MX";
+			/**
+			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
+			 * @minLength 60
+			 * @maxLength 2147483647
+			 * @example 60
+			 * @type number | undefined
+			 */
+			ttl?: number | undefined;
+			/**
+			 * @description An MX record specifying the mail server responsible for accepting messages on behalf of the domain name.
+			 * @example 10 mail.example.com.
+			 * @type string
+			 */
+			value: string;
+			/**
+			 * @minLength 0
+			 * @maxLength 65535
+			 * @example 10
+			 * @type number
+			 */
+			mxPriority: number;
+			/**
+			 * @description A comment to add context on what this DNS record is for
+			 * @maxLength 500
+			 * @example used to verify ownership of domain
+			 * @type string | undefined
+			 */
+			comment?: string | undefined;
+	  }
+	| {
+			/**
+			 * @description Must be of type `SRV`.
+			 * @type string
+			 */
+			type: "SRV";
+			/**
+			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
+			 * @minLength 60
+			 * @maxLength 2147483647
+			 * @example 60
+			 * @type number | undefined
+			 */
+			ttl?: number | undefined;
+			srv: {
+				priority: number | null;
+				weight: number | null;
+				port: number | null;
+				/**
+				 * @example host.example.com
+				 * @type string
+				 */
+				target: string;
+			};
+			/**
+			 * @description A comment to add context on what this DNS record is for
+			 * @maxLength 500
+			 * @example used to verify ownership of domain
+			 * @type string | undefined
+			 */
+			comment?: string | undefined;
+			name: unknown;
+	  }
+	| {
+			/**
+			 * @description Must be of type `TXT`.
+			 * @type string
+			 */
+			type: "TXT";
+			/**
+			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
+			 * @minLength 60
+			 * @maxLength 2147483647
+			 * @example 60
+			 * @type number | undefined
+			 */
+			ttl?: number | undefined;
+			/**
+			 * @description A TXT record containing arbitrary text.
+			 * @example hello
+			 * @type string
+			 */
+			value: string;
+			/**
+			 * @description A comment to add context on what this DNS record is for
+			 * @maxLength 500
+			 * @example used to verify ownership of domain
+			 * @type string | undefined
+			 */
+			comment?: string | undefined;
+			name: unknown;
+	  }
+	| {
+			/**
+			 * @description A subdomain name.
+			 * @example subdomain
+			 * @type string
+			 */
+			name: string;
+			/**
+			 * @description Must be of type `NS`.
+			 * @type string
+			 */
+			type: "NS";
+			/**
+			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
+			 * @minLength 60
+			 * @maxLength 2147483647
+			 * @example 60
+			 * @type number | undefined
+			 */
+			ttl?: number | undefined;
+			/**
+			 * @description An NS domain value.
+			 * @example ns1.example.com
+			 * @type string | undefined
+			 */
+			value?: string | undefined;
+			/**
+			 * @description A comment to add context on what this DNS record is for
+			 * @maxLength 500
+			 * @example used to verify ownership of domain
+			 * @type string | undefined
+			 */
+			comment?: string | undefined;
+	  }
+	| {
+			/**
+			 * @description Must be of type `HTTPS`.
+			 * @type string
+			 */
+			type: "HTTPS";
+			/**
+			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
+			 * @minLength 60
+			 * @maxLength 2147483647
+			 * @example 60
+			 * @type number | undefined
+			 */
+			ttl?: number | undefined;
+			https: {
+				priority: number | null;
+				/**
+				 * @example host.example.com
+				 * @type string
+				 */
+				target: string;
+				/**
+				 * @example alpn=h2,h3
+				 * @type string | undefined
+				 */
+				params?: string | undefined;
+			};
+			/**
+			 * @description A comment to add context on what this DNS record is for
+			 * @maxLength 500
+			 * @example used to verify ownership of domain
+			 * @type string | undefined
+			 */
+			comment?: string | undefined;
+			name: unknown;
+	  }
+) & {
+	/**
+	 * @description The type of record, it could be one of the valid DNS records.
+	 * @type string
+	 */
+	type: CreateRecordRequestTypeEnumKey;
+};
+
 export type CreateRecordOptions = {
-	body?: never | undefined;
+	body: CreateRecordBody;
 	path: CreateRecordPath;
 	query?: CreateRecordQuery | undefined;
 	headers?: never | undefined;
@@ -25495,8 +28046,90 @@ export type UpdateRecordStatus409 = unknown;
 
 export type UpdateRecordStatus410 = unknown;
 
+export const updateRecordRequestTypeEnum = {
+	A: "A",
+	AAAA: "AAAA",
+	ALIAS: "ALIAS",
+	CAA: "CAA",
+	CNAME: "CNAME",
+	HTTPS: "HTTPS",
+	MX: "MX",
+	NS: "NS",
+	SRV: "SRV",
+	TXT: "TXT",
+} as const;
+
+export type UpdateRecordRequestTypeEnumKey =
+	(typeof updateRecordRequestTypeEnum)[keyof typeof updateRecordRequestTypeEnum];
+
+export type UpdateRecordBody = {
+	/**
+	 * @description The name of the DNS record
+	 * @example example-1
+	 * @type string | undefined
+	 */
+	name?: (string | null) | undefined;
+	/**
+	 * @description The value of the DNS record
+	 * @example google.com
+	 * @type string | undefined
+	 */
+	value?: (string | null) | undefined;
+	/**
+	 * @description The type of the DNS record
+	 * @example A
+	 * @type string | undefined
+	 */
+	type?: (UpdateRecordRequestTypeEnumKey | null) | undefined;
+	/**
+	 * @description The Time to live (TTL) value of the DNS record
+	 * @minLength 60
+	 * @maxLength 2147483647
+	 * @example 60
+	 * @type integer | undefined
+	 */
+	ttl?: (number | null) | undefined;
+	/**
+	 * @description The MX priority value of the DNS record
+	 * @type integer | undefined
+	 */
+	mxPriority?: (number | null) | undefined;
+	srv?:
+		| ({
+				/**
+				 * @maxLength 255
+				 * @example example2.com.
+				 * @type string
+				 */
+				target: string | null;
+				weight: number | null;
+				port: number | null;
+				priority: number | null;
+		  } | null)
+		| undefined;
+	https?:
+		| ({
+				priority: number | null;
+				/**
+				 * @maxLength 255
+				 * @example example2.com.
+				 * @type string
+				 */
+				target: string | null;
+				params?: (string | null) | undefined;
+		  } | null)
+		| undefined;
+	/**
+	 * @description A comment to add context on what this DNS record is for
+	 * @maxLength 500
+	 * @example used to verify ownership of domain
+	 * @type string | undefined
+	 */
+	comment?: string | undefined;
+};
+
 export type UpdateRecordOptions = {
-	body?: never | undefined;
+	body: UpdateRecordBody;
 	path: UpdateRecordPath;
 	query?: UpdateRecordQuery | undefined;
 	headers?: never | undefined;
@@ -25688,8 +28321,16 @@ export type SearchDomainsStatus429 = unknown;
 
 export type SearchDomainsStatus500 = unknown;
 
+export type SearchDomainsBody = {
+	/**
+	 * @description an array of at most 200 item(s)
+	 * @type array
+	 */
+	domains: unknown[];
+};
+
 export type SearchDomainsOptions = {
-	body?: never | undefined;
+	body: SearchDomainsBody;
 	path?: never | undefined;
 	query?: SearchDomainsQuery | undefined;
 	headers?: never | undefined;
@@ -25963,8 +28604,21 @@ export type GetBulkPriceStatus429 = unknown;
 
 export type GetBulkPriceStatus500 = unknown;
 
+export type GetBulkPriceBody = {
+	/**
+	 * @description an array of at most 50 item(s)
+	 * @type array
+	 */
+	domains: unknown[];
+	/**
+	 * @description The number of years to get the price for. If not provided, the minimum number of years for the TLD will be used.
+	 * @type number | undefined
+	 */
+	years?: number | undefined;
+};
+
 export type GetBulkPriceOptions = {
-	body?: never | undefined;
+	body: GetBulkPriceBody;
 	path?: never | undefined;
 	query?: GetBulkPriceQuery | undefined;
 	headers?: never | undefined;
@@ -26004,8 +28658,16 @@ export type GetBulkAvailabilityStatus429 = unknown;
 
 export type GetBulkAvailabilityStatus500 = unknown;
 
+export type GetBulkAvailabilityBody = {
+	/**
+	 * @description an array of at most 50 item(s)
+	 * @type array
+	 */
+	domains: unknown[];
+};
+
 export type GetBulkAvailabilityOptions = {
-	body?: never | undefined;
+	body: GetBulkAvailabilityBody;
 	path?: never | undefined;
 	query?: GetBulkAvailabilityQuery | undefined;
 	headers?: never | undefined;
@@ -26145,8 +28807,50 @@ export type BuySingleDomainStatus429 = unknown;
 
 export type BuySingleDomainStatus500 = unknown;
 
+export type BuySingleDomainBody = {
+	/**
+	 * @description Whether the domain should be auto-renewed before it expires. This can be configured later through the Vercel Dashboard or the [Update auto-renew for a domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/update-auto-renew-for-a-domain) endpoint.
+	 * @type boolean
+	 */
+	autoRenew: boolean;
+	/**
+	 * @description The number of years to purchase the domain for.
+	 * @type number
+	 */
+	years: number;
+	/**
+	 * @minLength 0.01
+	 * @type number
+	 */
+	expectedPrice: number;
+	/**
+	 * @description The contact information for the domain. Some TLDs require additional contact information. Use the [Get contact info schema](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-contact-info-schema) endpoint to retrieve the required fields.
+	 * @type object
+	 */
+	contactInformation: {
+		firstName: unknown;
+		lastName: unknown;
+		email: unknown;
+		phone: unknown;
+		address1: unknown;
+		address2?: unknown | undefined;
+		city: unknown;
+		state: unknown;
+		zip: unknown;
+		country: unknown;
+		companyName?: unknown | undefined;
+		fax?: unknown | undefined;
+		additional?: object | undefined;
+	};
+	/**
+	 * @description The language code for the domain. For punycode domains, this must be provided. The list of supported language codes for a TLD can be retrieved from the [Get TLD](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-tld) endpoint.
+	 * @type string | undefined
+	 */
+	languageCode?: string | undefined;
+};
+
 export type BuySingleDomainOptions = {
-	body?: never | undefined;
+	body: BuySingleDomainBody;
 	path: BuySingleDomainPath;
 	query?: BuySingleDomainQuery | undefined;
 	headers?: never | undefined;
@@ -26186,8 +28890,53 @@ export type BuyDomainsStatus429 = unknown;
 
 export type BuyDomainsStatus500 = unknown;
 
+export type BuyDomainsBody = {
+	domains: {
+		domainName: unknown;
+		/**
+		 * @description Whether the domain should be auto-renewed before it expires. This can be configured later through the Vercel Dashboard or the [Update auto-renew for a domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/update-auto-renew-for-a-domain) endpoint.
+		 * @type boolean
+		 */
+		autoRenew: boolean;
+		/**
+		 * @description The number of years to purchase the domain for.
+		 * @type number
+		 */
+		years: number;
+		/**
+		 * @minLength 0.01
+		 * @type number
+		 */
+		expectedPrice: number;
+		/**
+		 * @description The language code for the domain. For punycode domains, this must be provided. The list of supported language codes for a TLD can be retrieved from the [Get TLD](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-tld) endpoint.
+		 * @type string | undefined
+		 */
+		languageCode?: string | undefined;
+	}[];
+	/**
+	 * @description The contact information for the domain. Some TLDs require additional contact information. Use the [Get contact info schema](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-contact-info-schema) endpoint to retrieve the required fields.
+	 * @type object
+	 */
+	contactInformation: {
+		firstName: unknown;
+		lastName: unknown;
+		email: unknown;
+		phone: unknown;
+		address1: unknown;
+		address2?: unknown | undefined;
+		city: unknown;
+		state: unknown;
+		zip: unknown;
+		country: unknown;
+		companyName?: unknown | undefined;
+		fax?: unknown | undefined;
+		additional?: object | undefined;
+	};
+};
+
 export type BuyDomainsOptions = {
-	body?: never | undefined;
+	body: BuyDomainsBody;
 	path?: never | undefined;
 	query?: BuyDomainsQuery | undefined;
 	headers?: never | undefined;
@@ -26231,8 +28980,45 @@ export type TransferInDomainStatus429 = unknown;
 
 export type TransferInDomainStatus500 = unknown;
 
+export type TransferInDomainBody = {
+	/**
+	 * @description The auth code for the domain. You must obtain this code from the losing registrar.
+	 * @type string
+	 */
+	authCode: string;
+	/**
+	 * @description Whether the domain should be auto-renewed before it expires. This can be configured later through the Vercel Dashboard or the [Update auto-renew for a domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/update-auto-renew-for-a-domain) endpoint.
+	 * @type boolean
+	 */
+	autoRenew: boolean;
+	/**
+	 * @description The number of years to renew the domain for once it is transferred in. This must be a valid number of transfer years for the TLD.
+	 * @type number
+	 */
+	years: number;
+	/**
+	 * @minLength 0.01
+	 * @type number
+	 */
+	expectedPrice: number;
+	contactInformation: {
+		firstName: unknown;
+		lastName: unknown;
+		email: unknown;
+		phone: unknown;
+		address1: unknown;
+		address2?: unknown | undefined;
+		city: unknown;
+		state: unknown;
+		zip: unknown;
+		country: unknown;
+		companyName?: unknown | undefined;
+		fax?: unknown | undefined;
+	};
+};
+
 export type TransferInDomainOptions = {
-	body?: never | undefined;
+	body: TransferInDomainBody;
 	path: TransferInDomainPath;
 	query?: TransferInDomainQuery | undefined;
 	headers?: never | undefined;
@@ -26326,8 +29112,37 @@ export type RenewDomainStatus429 = unknown;
 
 export type RenewDomainStatus500 = unknown;
 
+export type RenewDomainBody = {
+	/**
+	 * @description The number of years to renew the domain for.
+	 * @type number
+	 */
+	years: number;
+	/**
+	 * @minLength 0.01
+	 * @type number
+	 */
+	expectedPrice: number;
+	contactInformation?:
+		| {
+				firstName: unknown;
+				lastName: unknown;
+				email: unknown;
+				phone: unknown;
+				address1: unknown;
+				address2?: unknown | undefined;
+				city: unknown;
+				state: unknown;
+				zip: unknown;
+				country: unknown;
+				companyName?: unknown | undefined;
+				fax?: unknown | undefined;
+		  }
+		| undefined;
+};
+
 export type RenewDomainOptions = {
-	body?: never | undefined;
+	body: RenewDomainBody;
 	path: RenewDomainPath;
 	query?: RenewDomainQuery | undefined;
 	headers?: never | undefined;
@@ -26374,8 +29189,12 @@ export type UpdateDomainAutoRenewStatus429 = unknown;
 
 export type UpdateDomainAutoRenewStatus500 = unknown;
 
+export type UpdateDomainAutoRenewBody = {
+	autoRenew: boolean;
+};
+
 export type UpdateDomainAutoRenewOptions = {
-	body?: never | undefined;
+	body: UpdateDomainAutoRenewBody;
 	path: UpdateDomainAutoRenewPath;
 	query?: UpdateDomainAutoRenewQuery | undefined;
 	headers?: never | undefined;
@@ -26422,8 +29241,12 @@ export type UpdateDomainNameserversStatus429 = unknown;
 
 export type UpdateDomainNameserversStatus500 = unknown;
 
+export type UpdateDomainNameserversBody = {
+	nameservers: unknown[];
+};
+
 export type UpdateDomainNameserversOptions = {
-	body?: never | undefined;
+	body: UpdateDomainNameserversBody;
 	path: UpdateDomainNameserversPath;
 	query?: UpdateDomainNameserversQuery | undefined;
 	headers?: never | undefined;
@@ -26955,8 +29778,65 @@ export type CreateOrTransferDomainStatus409 = unknown;
 
 export type CreateOrTransferDomainStatus410 = unknown;
 
+export type CreateOrTransferDomainBody =
+	| ((
+			| {
+					/**
+					 * @description The domain name you want to add.
+					 * @example example.com
+					 * @type string
+					 */
+					name: string;
+					/**
+					 * @description Whether the domain has the Vercel CDN enabled or not.
+					 * @example true
+					 * @type boolean | undefined
+					 */
+					cdnEnabled?: boolean | undefined;
+					/**
+					 * @description Whether to create a DNS zone on Vercel. Set `true` if using Vercel nameservers.
+					 * @type boolean | undefined
+					 */
+					zone?: boolean | undefined;
+					/**
+					 * @description The domain operation to perform.
+					 * @example add
+					 * @type string | undefined
+					 */
+					method?: string | undefined;
+			  }
+			| {
+					/**
+					 * @description The domain name you want to add.
+					 * @example example.com
+					 * @type string
+					 */
+					name: string;
+					/**
+					 * @description The domain operation to perform.
+					 * @example move-in
+					 * @type string
+					 */
+					method: string;
+					/**
+					 * @description The move-in token from Move Requested email.
+					 * @example fdhfr820ad#@FAdlj$$
+					 * @type string | undefined
+					 */
+					token?: string | undefined;
+			  }
+	  ) & {
+			/**
+			 * @description The domain operation to perform. It can be either `add` or `move-in`.
+			 * @example add
+			 * @type string | undefined
+			 */
+			method?: string | undefined;
+	  })
+	| undefined;
+
 export type CreateOrTransferDomainOptions = {
-	body?: never | undefined;
+	body: CreateOrTransferDomainBody;
 	path?: never | undefined;
 	query?: CreateOrTransferDomainQuery | undefined;
 	headers?: never | undefined;
@@ -27013,8 +29893,59 @@ export type PatchDomainStatus410 = unknown;
 
 export type PatchDomainStatus500 = unknown;
 
+export const patchDomainRequestEchModeEnum = {
+	auto: "auto",
+	disabled: "disabled",
+} as const;
+
+export type PatchDomainRequestEchModeEnumKey =
+	(typeof patchDomainRequestEchModeEnum)[keyof typeof patchDomainRequestEchModeEnum];
+
+export type PatchDomainBody =
+	| {
+			/**
+			 * @example update
+			 * @type string | undefined
+			 */
+			op?: string | undefined;
+			/**
+			 * @description This field is deprecated. Please use PATCH /v1/registrar/domains/{domainName}/auto-renew instead.
+			 * @deprecated
+			 * @type boolean | undefined
+			 */
+			renew?: boolean | undefined;
+			/**
+			 * @description This field is deprecated. Please use PATCH /v1/registrar/domains/{domainName}/nameservers instead.
+			 * @deprecated
+			 * @type array | undefined
+			 */
+			customNameservers?: string[] | undefined;
+			/**
+			 * @description Specifies whether this is a DNS zone that intends to use Vercel\'s nameservers.
+			 * @type boolean | undefined
+			 */
+			zone?: boolean | undefined;
+			/**
+			 * @description Encrypted Client Hello enrollment. \'auto\' leaves it to Vercel, \'disabled\' never enrolls and opts out of automatic enrollment.
+			 * @type string | undefined
+			 */
+			echMode?: PatchDomainRequestEchModeEnumKey | undefined;
+	  }
+	| {
+			/**
+			 * @example move-out
+			 * @type string | undefined
+			 */
+			op?: string | undefined;
+			/**
+			 * @description User or team to move domain to
+			 * @type string | undefined
+			 */
+			destination?: string | undefined;
+	  };
+
 export type PatchDomainOptions = {
-	body?: never | undefined;
+	body: PatchDomainBody;
 	path: PatchDomainPath;
 	query?: PatchDomainQuery | undefined;
 	headers?: never | undefined;
@@ -27286,8 +30217,81 @@ export type CreateConfigurableLogDrainStatus404 = unknown;
 
 export type CreateConfigurableLogDrainStatus410 = unknown;
 
+export const createConfigurableLogDrainRequestDeliveryFormatEnum = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type CreateConfigurableLogDrainRequestDeliveryFormatEnumKey =
+	(typeof createConfigurableLogDrainRequestDeliveryFormatEnum)[keyof typeof createConfigurableLogDrainRequestDeliveryFormatEnum];
+
+export const createConfigurableLogDrainRequestSourcesEnum = {
+	build: "build",
+	edge: "edge",
+	external: "external",
+	firewall: "firewall",
+	lambda: "lambda",
+	static: "static",
+} as const;
+
+export type CreateConfigurableLogDrainRequestSourcesEnumKey =
+	(typeof createConfigurableLogDrainRequestSourcesEnum)[keyof typeof createConfigurableLogDrainRequestSourcesEnum];
+
+export const createConfigurableLogDrainRequestEnvironmentsEnum = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type CreateConfigurableLogDrainRequestEnvironmentsEnumKey =
+	(typeof createConfigurableLogDrainRequestEnvironmentsEnum)[keyof typeof createConfigurableLogDrainRequestEnvironmentsEnum];
+
+export type CreateConfigurableLogDrainBody = {
+	/**
+	 * @description The delivery log format
+	 * @example json
+	 * @type string
+	 */
+	deliveryFormat: CreateConfigurableLogDrainRequestDeliveryFormatEnumKey;
+	/**
+	 * @description The log drain url
+	 *
+	 * Format: `uri`
+	 * @type string
+	 */
+	url: string;
+	/**
+	 * @description Headers to be sent together with the request
+	 * @type object | undefined
+	 */
+	headers?:
+		| {
+				[key: string]: string;
+		  }
+		| undefined;
+	projectIds?: string[] | undefined;
+	sources: CreateConfigurableLogDrainRequestSourcesEnumKey[];
+	environments?: CreateConfigurableLogDrainRequestEnvironmentsEnumKey[] | undefined;
+	/**
+	 * @description Custom secret of log drain
+	 * @type string | undefined
+	 */
+	secret?: string | undefined;
+	/**
+	 * @description The sampling rate for this log drain. It should be a percentage rate between 0 and 100. With max 2 decimal points
+	 * @minLength 0.01
+	 * @maxLength 1
+	 * @type number | undefined
+	 */
+	samplingRate?: number | undefined;
+	/**
+	 * @description The custom name of this log drain.
+	 * @type string | undefined
+	 */
+	name?: string | undefined;
+};
+
 export type CreateConfigurableLogDrainOptions = {
-	body?: never | undefined;
+	body: CreateConfigurableLogDrainBody;
 	path?: never | undefined;
 	query?: CreateConfigurableLogDrainQuery | undefined;
 	headers?: never | undefined;
@@ -27336,8 +30340,227 @@ export type CreateDrainStatus404 = unknown;
 
 export type CreateDrainStatus410 = unknown;
 
+export const createDrainRequestProjectsEnum = {
+	all: "all",
+	some: "some",
+} as const;
+
+export type CreateDrainRequestProjectsEnumKey =
+	(typeof createDrainRequestProjectsEnum)[keyof typeof createDrainRequestProjectsEnum];
+
+export const createDrainRequestFilterFilterLogSourcesEnum = {
+	build: "build",
+	edge: "edge",
+	lambda: "lambda",
+	static: "static",
+	external: "external",
+	firewall: "firewall",
+	redirect: "redirect",
+} as const;
+
+export type CreateDrainRequestFilterFilterLogSourcesEnumKey =
+	(typeof createDrainRequestFilterFilterLogSourcesEnum)[keyof typeof createDrainRequestFilterFilterLogSourcesEnum];
+
+export const createDrainRequestFilterFilterDeploymentEnvironmentsEnum = {
+	production: "production",
+	preview: "preview",
+} as const;
+
+export type CreateDrainRequestFilterFilterDeploymentEnvironmentsEnumKey =
+	(typeof createDrainRequestFilterFilterDeploymentEnvironmentsEnum)[keyof typeof createDrainRequestFilterFilterDeploymentEnvironmentsEnum];
+
+export const createDrainRequestDeliveryCompressionEnum = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type CreateDrainRequestDeliveryCompressionEnumKey =
+	(typeof createDrainRequestDeliveryCompressionEnum)[keyof typeof createDrainRequestDeliveryCompressionEnum];
+
+export const createDrainRequestDeliveryEncodingEnum = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type CreateDrainRequestDeliveryEncodingEnumKey =
+	(typeof createDrainRequestDeliveryEncodingEnum)[keyof typeof createDrainRequestDeliveryEncodingEnum];
+
+export const createDrainRequestDeliveryServerSideEncryptionEnum = {
+	AES256: "AES256",
+	"aws:kms": "aws:kms",
+	"aws:kms:dsse": "aws:kms:dsse",
+} as const;
+
+export type CreateDrainRequestDeliveryServerSideEncryptionEnumKey =
+	(typeof createDrainRequestDeliveryServerSideEncryptionEnum)[keyof typeof createDrainRequestDeliveryServerSideEncryptionEnum];
+
+export const createDrainRequestDeliveryObjectAclEnum = {
+	private: "private",
+	"bucket-owner-read": "bucket-owner-read",
+	"bucket-owner-full-control": "bucket-owner-full-control",
+} as const;
+
+export type CreateDrainRequestDeliveryObjectAclEnumKey =
+	(typeof createDrainRequestDeliveryObjectAclEnum)[keyof typeof createDrainRequestDeliveryObjectAclEnum];
+
+export const createDrainRequestSamplingEnvEnum = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type CreateDrainRequestSamplingEnvEnumKey =
+	(typeof createDrainRequestSamplingEnvEnum)[keyof typeof createDrainRequestSamplingEnvEnum];
+
+export type CreateDrainBody =
+	| {
+			name: string;
+			projects: CreateDrainRequestProjectsEnumKey;
+			projectIds?: string[] | undefined;
+			filter?:
+				| {
+						version: string;
+						filter:
+							| {
+									type: string;
+									project?:
+										| {
+												ids?: string[] | undefined;
+										  }
+										| undefined;
+									log?:
+										| {
+												sources?: CreateDrainRequestFilterFilterLogSourcesEnumKey[] | undefined;
+										  }
+										| undefined;
+									deployment?:
+										| {
+												environments?:
+													| CreateDrainRequestFilterFilterDeploymentEnvironmentsEnumKey[]
+													| undefined;
+										  }
+										| undefined;
+							  }
+							| {
+									type: string;
+									text: string;
+							  };
+				  }
+				| undefined;
+			schemas: {
+				[key: string]: {
+					version: string;
+				};
+			};
+			delivery?:
+				| (
+						| {
+								type: string;
+								endpoint: string;
+								compression?: CreateDrainRequestDeliveryCompressionEnumKey | undefined;
+								encoding: CreateDrainRequestDeliveryEncodingEnumKey;
+								headers: {
+									[key: string]: string;
+								};
+								secret?: string | undefined;
+						  }
+						| {
+								type: string;
+								endpoint: {
+									traces: string;
+								};
+								encoding: CreateDrainRequestDeliveryEncodingEnumKey;
+								headers: {
+									[key: string]: string;
+								};
+								secret?: string | undefined;
+						  }
+						| {
+								type: string;
+								endpoint: string;
+								encoding: CreateDrainRequestDeliveryEncodingEnumKey;
+								compression: "none";
+								fileStructure: "hive";
+								roleArn: string;
+								region: string;
+								/**
+								 * @default 'AES256'
+								 * @type string | undefined
+								 */
+								serverSideEncryption?:
+									| CreateDrainRequestDeliveryServerSideEncryptionEnumKey
+									| undefined;
+								objectAcl?: CreateDrainRequestDeliveryObjectAclEnumKey | undefined;
+						  }
+				  )
+				| undefined;
+			sampling?:
+				| {
+						type: string;
+						/**
+						 * @description Sampling rate from 0 to 1 (e.g., 0.1 for 10%)
+						 * @minLength 0
+						 * @maxLength 1
+						 * @type number
+						 */
+						rate: number;
+						/**
+						 * @description Environment to apply sampling to
+						 * @type string | undefined
+						 */
+						env?: CreateDrainRequestSamplingEnvEnumKey | undefined;
+						/**
+						 * @description Request path prefix to apply the sampling rule to
+						 * @type string | undefined
+						 */
+						requestPath?: string | undefined;
+				  }[]
+				| undefined;
+			transforms?:
+				| {
+						id: string;
+				  }[]
+				| undefined;
+			source?:
+				| (
+						| (
+								| {
+										/**
+										 * @default 'integration'
+										 * @type string | undefined
+										 */
+										kind?: string | undefined;
+										externalResourceId: string;
+								  }
+								| {
+										/**
+										 * @default 'integration'
+										 * @type string | undefined
+										 */
+										kind?: string | undefined;
+										resourceId: string;
+								  }
+								| {
+										/**
+										 * @default 'integration'
+										 * @type string
+										 */
+										kind: string;
+								  }
+						  )
+						| {
+								/**
+								 * @default 'self-served'
+								 * @type string
+								 */
+								kind: string;
+						  }
+				  )
+				| undefined;
+	  }
+	| undefined;
+
 export type CreateDrainOptions = {
-	body?: never | undefined;
+	body: CreateDrainBody;
 	path?: never | undefined;
 	query?: CreateDrainQuery | undefined;
 	headers?: never | undefined;
@@ -27549,8 +30772,247 @@ export type UpdateDrainStatus404 = unknown;
 
 export type UpdateDrainStatus410 = unknown;
 
+export const updateDrainRequestProjectsEnum = {
+	all: "all",
+	some: "some",
+} as const;
+
+export type UpdateDrainRequestProjectsEnumKey =
+	(typeof updateDrainRequestProjectsEnum)[keyof typeof updateDrainRequestProjectsEnum];
+
+export const updateDrainRequestFilterFilterLogSourcesEnum = {
+	build: "build",
+	edge: "edge",
+	lambda: "lambda",
+	static: "static",
+	external: "external",
+	firewall: "firewall",
+	redirect: "redirect",
+} as const;
+
+export type UpdateDrainRequestFilterFilterLogSourcesEnumKey =
+	(typeof updateDrainRequestFilterFilterLogSourcesEnum)[keyof typeof updateDrainRequestFilterFilterLogSourcesEnum];
+
+export const updateDrainRequestFilterFilterDeploymentEnvironmentsEnum = {
+	production: "production",
+	preview: "preview",
+} as const;
+
+export type UpdateDrainRequestFilterFilterDeploymentEnvironmentsEnumKey =
+	(typeof updateDrainRequestFilterFilterDeploymentEnvironmentsEnum)[keyof typeof updateDrainRequestFilterFilterDeploymentEnvironmentsEnum];
+
+export const updateDrainRequestDeliveryCompressionEnum = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type UpdateDrainRequestDeliveryCompressionEnumKey =
+	(typeof updateDrainRequestDeliveryCompressionEnum)[keyof typeof updateDrainRequestDeliveryCompressionEnum];
+
+export const updateDrainRequestDeliveryEncodingEnum = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type UpdateDrainRequestDeliveryEncodingEnumKey =
+	(typeof updateDrainRequestDeliveryEncodingEnum)[keyof typeof updateDrainRequestDeliveryEncodingEnum];
+
+export const updateDrainRequestDeliveryServerSideEncryptionEnum = {
+	AES256: "AES256",
+	"aws:kms": "aws:kms",
+	"aws:kms:dsse": "aws:kms:dsse",
+} as const;
+
+export type UpdateDrainRequestDeliveryServerSideEncryptionEnumKey =
+	(typeof updateDrainRequestDeliveryServerSideEncryptionEnum)[keyof typeof updateDrainRequestDeliveryServerSideEncryptionEnum];
+
+export const updateDrainRequestDeliveryObjectAclEnum = {
+	private: "private",
+	"bucket-owner-read": "bucket-owner-read",
+	"bucket-owner-full-control": "bucket-owner-full-control",
+} as const;
+
+export type UpdateDrainRequestDeliveryObjectAclEnumKey =
+	(typeof updateDrainRequestDeliveryObjectAclEnum)[keyof typeof updateDrainRequestDeliveryObjectAclEnum];
+
+export const updateDrainRequestSamplingEnvEnum = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UpdateDrainRequestSamplingEnvEnumKey =
+	(typeof updateDrainRequestSamplingEnvEnum)[keyof typeof updateDrainRequestSamplingEnvEnum];
+
+export const updateDrainRequestStatusEnum = {
+	disabled: "disabled",
+	enabled: "enabled",
+} as const;
+
+export type UpdateDrainRequestStatusEnumKey =
+	(typeof updateDrainRequestStatusEnum)[keyof typeof updateDrainRequestStatusEnum];
+
+export type UpdateDrainBody =
+	| {
+			name?: string | undefined;
+			projects?: UpdateDrainRequestProjectsEnumKey | undefined;
+			projectIds?: (string[] | null) | undefined;
+			filter?:
+				| (
+						| string
+						| {
+								version: string;
+								filter:
+									| {
+											type: string;
+											project?:
+												| {
+														ids?: string[] | undefined;
+												  }
+												| undefined;
+											log?:
+												| {
+														sources?: UpdateDrainRequestFilterFilterLogSourcesEnumKey[] | undefined;
+												  }
+												| undefined;
+											deployment?:
+												| {
+														environments?:
+															| UpdateDrainRequestFilterFilterDeploymentEnvironmentsEnumKey[]
+															| undefined;
+												  }
+												| undefined;
+									  }
+									| {
+											type: string;
+											text: string;
+									  };
+						  }
+				  )
+				| undefined;
+			schemas?:
+				| {
+						[key: string]: {
+							version: string;
+						};
+				  }
+				| undefined;
+			delivery?:
+				| (
+						| {
+								type: string;
+								endpoint: string;
+								compression?: UpdateDrainRequestDeliveryCompressionEnumKey | undefined;
+								encoding: UpdateDrainRequestDeliveryEncodingEnumKey;
+								headers: {
+									[key: string]: string;
+								};
+								secret?: string | undefined;
+						  }
+						| {
+								type: string;
+								endpoint: {
+									traces: string;
+								};
+								encoding: UpdateDrainRequestDeliveryEncodingEnumKey;
+								headers: {
+									[key: string]: string;
+								};
+								secret?: string | undefined;
+						  }
+						| {
+								type: string;
+								endpoint: string;
+								encoding: UpdateDrainRequestDeliveryEncodingEnumKey;
+								compression: "none";
+								fileStructure: "hive";
+								roleArn: string;
+								region: string;
+								/**
+								 * @default 'AES256'
+								 * @type string | undefined
+								 */
+								serverSideEncryption?:
+									| UpdateDrainRequestDeliveryServerSideEncryptionEnumKey
+									| undefined;
+								objectAcl?: UpdateDrainRequestDeliveryObjectAclEnumKey | undefined;
+						  }
+				  )
+				| undefined;
+			sampling?:
+				| (
+						| {
+								type: string;
+								/**
+								 * @description Sampling rate from 0 to 1 (e.g., 0.1 for 10%)
+								 * @minLength 0
+								 * @maxLength 1
+								 * @type number
+								 */
+								rate: number;
+								/**
+								 * @description Environment to apply sampling to
+								 * @type string | undefined
+								 */
+								env?: UpdateDrainRequestSamplingEnvEnumKey | undefined;
+								/**
+								 * @description Request path prefix to apply the sampling rule to
+								 * @type string | undefined
+								 */
+								requestPath?: string | undefined;
+						  }[]
+						| null
+				  )
+				| undefined;
+			transforms?:
+				| (
+						| {
+								id: string;
+						  }[]
+						| null
+				  )
+				| undefined;
+			status?: UpdateDrainRequestStatusEnumKey | undefined;
+			source?:
+				| (
+						| (
+								| {
+										/**
+										 * @default 'integration'
+										 * @type string | undefined
+										 */
+										kind?: string | undefined;
+										externalResourceId: string;
+								  }
+								| {
+										/**
+										 * @default 'integration'
+										 * @type string | undefined
+										 */
+										kind?: string | undefined;
+										resourceId: string;
+								  }
+								| {
+										/**
+										 * @default 'integration'
+										 * @type string
+										 */
+										kind: string;
+								  }
+						  )
+						| {
+								/**
+								 * @default 'self-served'
+								 * @type string
+								 */
+								kind: string;
+						  }
+				  )
+				| undefined;
+	  }
+	| undefined;
+
 export type UpdateDrainOptions = {
-	body?: never | undefined;
+	body: UpdateDrainBody;
 	path: UpdateDrainPath;
 	query?: UpdateDrainQuery | undefined;
 	headers?: never | undefined;
@@ -27600,8 +31062,89 @@ export type TestDrainStatus404 = unknown;
 
 export type TestDrainStatus410 = unknown;
 
+export const testDrainRequestDeliveryCompressionEnum = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type TestDrainRequestDeliveryCompressionEnumKey =
+	(typeof testDrainRequestDeliveryCompressionEnum)[keyof typeof testDrainRequestDeliveryCompressionEnum];
+
+export const testDrainRequestDeliveryEncodingEnum = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type TestDrainRequestDeliveryEncodingEnumKey =
+	(typeof testDrainRequestDeliveryEncodingEnum)[keyof typeof testDrainRequestDeliveryEncodingEnum];
+
+export const testDrainRequestDeliveryServerSideEncryptionEnum = {
+	AES256: "AES256",
+	"aws:kms": "aws:kms",
+	"aws:kms:dsse": "aws:kms:dsse",
+} as const;
+
+export type TestDrainRequestDeliveryServerSideEncryptionEnumKey =
+	(typeof testDrainRequestDeliveryServerSideEncryptionEnum)[keyof typeof testDrainRequestDeliveryServerSideEncryptionEnum];
+
+export const testDrainRequestDeliveryObjectAclEnum = {
+	private: "private",
+	"bucket-owner-read": "bucket-owner-read",
+	"bucket-owner-full-control": "bucket-owner-full-control",
+} as const;
+
+export type TestDrainRequestDeliveryObjectAclEnumKey =
+	(typeof testDrainRequestDeliveryObjectAclEnum)[keyof typeof testDrainRequestDeliveryObjectAclEnum];
+
+export type TestDrainBody =
+	| {
+			schemas: {
+				[key: string]: {
+					version: string;
+				};
+			};
+			delivery:
+				| {
+						type: string;
+						endpoint: string;
+						compression?: TestDrainRequestDeliveryCompressionEnumKey | undefined;
+						encoding: TestDrainRequestDeliveryEncodingEnumKey;
+						headers: {
+							[key: string]: string;
+						};
+						secret?: string | undefined;
+				  }
+				| {
+						type: string;
+						endpoint: {
+							traces: string;
+						};
+						encoding: TestDrainRequestDeliveryEncodingEnumKey;
+						headers: {
+							[key: string]: string;
+						};
+						secret?: string | undefined;
+				  }
+				| {
+						type: string;
+						endpoint: string;
+						encoding: TestDrainRequestDeliveryEncodingEnumKey;
+						compression: "none";
+						fileStructure: "hive";
+						roleArn: string;
+						region: string;
+						/**
+						 * @default 'AES256'
+						 * @type string | undefined
+						 */
+						serverSideEncryption?: TestDrainRequestDeliveryServerSideEncryptionEnumKey | undefined;
+						objectAcl?: TestDrainRequestDeliveryObjectAclEnumKey | undefined;
+				  };
+	  }
+	| undefined;
+
 export type TestDrainOptions = {
-	body?: never | undefined;
+	body: TestDrainBody;
 	path?: never | undefined;
 	query?: TestDrainQuery | undefined;
 	headers?: never | undefined;
@@ -27650,8 +31193,23 @@ export type InvalidateByTagsStatus404 = unknown;
 
 export type InvalidateByTagsStatus410 = unknown;
 
+export const invalidateByTagsRequestTargetEnum = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type InvalidateByTagsRequestTargetEnumKey =
+	(typeof invalidateByTagsRequestTargetEnum)[keyof typeof invalidateByTagsRequestTargetEnum];
+
+export type InvalidateByTagsBody =
+	| {
+			tags: string[] | string;
+			target?: InvalidateByTagsRequestTargetEnumKey | undefined;
+	  }
+	| undefined;
+
 export type InvalidateByTagsOptions = {
-	body?: never | undefined;
+	body: InvalidateByTagsBody;
 	path?: never | undefined;
 	query: InvalidateByTagsQuery;
 	headers?: never | undefined;
@@ -27699,8 +31257,29 @@ export type DangerouslyDeleteByTagsStatus404 = unknown;
 
 export type DangerouslyDeleteByTagsStatus410 = unknown;
 
+export const dangerouslyDeleteByTagsRequestTargetEnum = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type DangerouslyDeleteByTagsRequestTargetEnumKey =
+	(typeof dangerouslyDeleteByTagsRequestTargetEnum)[keyof typeof dangerouslyDeleteByTagsRequestTargetEnum];
+
+export type DangerouslyDeleteByTagsBody =
+	| {
+			/**
+			 * @minLength 0
+			 * @maxLength 31536000
+			 * @type integer | undefined
+			 */
+			revalidationDeadlineSeconds?: number | undefined;
+			tags: string[] | string;
+			target?: DangerouslyDeleteByTagsRequestTargetEnumKey | undefined;
+	  }
+	| undefined;
+
 export type DangerouslyDeleteByTagsOptions = {
-	body?: never | undefined;
+	body: DangerouslyDeleteByTagsBody;
 	path?: never | undefined;
 	query: DangerouslyDeleteByTagsQuery;
 	headers?: never | undefined;
@@ -27750,8 +31329,14 @@ export type InvalidateBySrcImagesStatus404 = unknown;
 
 export type InvalidateBySrcImagesStatus410 = unknown;
 
+export type InvalidateBySrcImagesBody =
+	| {
+			srcImages: string[];
+	  }
+	| undefined;
+
 export type InvalidateBySrcImagesOptions = {
-	body?: never | undefined;
+	body: InvalidateBySrcImagesBody;
 	path?: never | undefined;
 	query: InvalidateBySrcImagesQuery;
 	headers?: never | undefined;
@@ -27802,8 +31387,20 @@ export type DangerouslyDeleteBySrcImagesStatus404 = unknown;
 
 export type DangerouslyDeleteBySrcImagesStatus410 = unknown;
 
+export type DangerouslyDeleteBySrcImagesBody =
+	| {
+			/**
+			 * @minLength 0
+			 * @maxLength 31536000
+			 * @type integer | undefined
+			 */
+			revalidationDeadlineSeconds?: number | undefined;
+			srcImages: string[];
+	  }
+	| undefined;
+
 export type DangerouslyDeleteBySrcImagesOptions = {
-	body?: never | undefined;
+	body: DangerouslyDeleteBySrcImagesBody;
 	path?: never | undefined;
 	query: DangerouslyDeleteBySrcImagesQuery;
 	headers?: never | undefined;
@@ -27901,8 +31498,22 @@ export type CreateEdgeConfigStatus404 = unknown;
 
 export type CreateEdgeConfigStatus410 = unknown;
 
+export type CreateEdgeConfigBody = {
+	/**
+	 * @maxLength 64
+	 * @pattern ^[\w-]+$
+	 * @type string
+	 */
+	slug: string;
+	items?:
+		| {
+				[key: string]: unknown;
+		  }
+		| undefined;
+};
+
 export type CreateEdgeConfigOptions = {
-	body?: never | undefined;
+	body: CreateEdgeConfigBody;
 	path?: never | undefined;
 	query?: CreateEdgeConfigQuery | undefined;
 	headers?: never | undefined;
@@ -28010,8 +31621,17 @@ export type UpdateEdgeConfigStatus409 = unknown;
 
 export type UpdateEdgeConfigStatus410 = unknown;
 
+export type UpdateEdgeConfigBody = {
+	/**
+	 * @maxLength 64
+	 * @pattern ^[\w-]+$
+	 * @type string
+	 */
+	slug: string;
+};
+
 export type UpdateEdgeConfigOptions = {
-	body?: never | undefined;
+	body: UpdateEdgeConfigBody;
 	path: UpdateEdgeConfigPath;
 	query?: UpdateEdgeConfigQuery | undefined;
 	headers?: never | undefined;
@@ -28185,8 +31805,82 @@ export type PatchEdgeConfigItemsStatus410 = unknown;
 
 export type PatchEdgeConfigItemsStatus412 = unknown;
 
+export const patchEdgeConfigItemsRequestItemsOperationEnum = {
+	create: "create",
+	update: "update",
+	upsert: "upsert",
+	delete: "delete",
+} as const;
+
+export type PatchEdgeConfigItemsRequestItemsOperationEnumKey =
+	(typeof patchEdgeConfigItemsRequestItemsOperationEnum)[keyof typeof patchEdgeConfigItemsRequestItemsOperationEnum];
+
+export type PatchEdgeConfigItemsBody =
+	| {
+			items: ((
+				| {
+						operation: "create";
+						/**
+						 * @maxLength 256
+						 * @pattern ^[\w-]+$
+						 * @type string
+						 */
+						key: string;
+						value: unknown;
+				  }
+				| {
+						operation: PatchEdgeConfigItemsRequestItemsOperationEnumKey;
+						/**
+						 * @maxLength 256
+						 * @pattern ^[\w-]+$
+						 * @type string
+						 */
+						key: string;
+						value: unknown;
+				  }
+				| {
+						operation: PatchEdgeConfigItemsRequestItemsOperationEnumKey;
+						/**
+						 * @maxLength 256
+						 * @pattern ^[\w-]+$
+						 * @type string
+						 */
+						key: string;
+						/**
+						 * @maxLength 512
+						 * @type string
+						 */
+						description: string | null;
+				  }
+				| {
+						operation: "delete";
+						/**
+						 * @maxLength 256
+						 * @pattern ^[\w-]+$
+						 * @type string
+						 */
+						key: string;
+				  }
+			) & {
+				operation?: PatchEdgeConfigItemsRequestItemsOperationEnumKey | undefined;
+				/**
+				 * @maxLength 256
+				 * @pattern ^[\w-]+$
+				 * @type string | undefined
+				 */
+				key?: string | undefined;
+				value?: unknown | undefined;
+				/**
+				 * @maxLength 512
+				 * @type string | undefined
+				 */
+				description?: (string | null) | undefined;
+			})[];
+	  }
+	| undefined;
+
 export type PatchEdgeConfigItemsOptions = {
-	body?: never | undefined;
+	body: PatchEdgeConfigItemsBody;
 	path: PatchEdgeConfigItemsPath;
 	query?: PatchEdgeConfigItemsQuery | undefined;
 	headers?: never | undefined;
@@ -28297,8 +31991,12 @@ export type PatchEdgeConfigSchemaStatus409 = unknown;
 
 export type PatchEdgeConfigSchemaStatus410 = unknown;
 
+export type PatchEdgeConfigSchemaBody = {
+	definition: unknown;
+};
+
 export type PatchEdgeConfigSchemaOptions = {
-	body?: never | undefined;
+	body: PatchEdgeConfigSchemaBody;
 	path: PatchEdgeConfigSchemaPath;
 	query?: PatchEdgeConfigSchemaQuery | undefined;
 	headers?: never | undefined;
@@ -28529,8 +32227,20 @@ export type DeleteEdgeConfigTokensStatus409 = unknown;
 
 export type DeleteEdgeConfigTokensStatus410 = unknown;
 
+export type DeleteEdgeConfigTokensBody = (
+	| {
+			tokens: string[];
+	  }
+	| {
+			ids: string[];
+	  }
+) & {
+	tokens?: string[] | undefined;
+	ids?: string[] | undefined;
+};
+
 export type DeleteEdgeConfigTokensOptions = {
-	body?: never | undefined;
+	body: DeleteEdgeConfigTokensBody;
 	path: DeleteEdgeConfigTokensPath;
 	query?: DeleteEdgeConfigTokensQuery | undefined;
 	headers?: never | undefined;
@@ -28644,8 +32354,16 @@ export type CreateEdgeConfigTokenStatus409 = unknown;
 
 export type CreateEdgeConfigTokenStatus410 = unknown;
 
+export type CreateEdgeConfigTokenBody = {
+	/**
+	 * @maxLength 52
+	 * @type string
+	 */
+	label: string;
+};
+
 export type CreateEdgeConfigTokenOptions = {
-	body?: never | undefined;
+	body: CreateEdgeConfigTokenBody;
 	path: CreateEdgeConfigTokenPath;
 	query?: CreateEdgeConfigTokenQuery | undefined;
 	headers?: never | undefined;
@@ -28875,8 +32593,85 @@ export type CreateSharedEnvVariableStatus404 = unknown;
 
 export type CreateSharedEnvVariableStatus410 = unknown;
 
+export const createSharedEnvVariableRequestTargetEnum = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type CreateSharedEnvVariableRequestTargetEnumKey =
+	(typeof createSharedEnvVariableRequestTargetEnum)[keyof typeof createSharedEnvVariableRequestTargetEnum];
+
+export const createSharedEnvVariableRequestTypeEnum = {
+	encrypted: "encrypted",
+	sensitive: "sensitive",
+} as const;
+
+export type CreateSharedEnvVariableRequestTypeEnumKey =
+	(typeof createSharedEnvVariableRequestTypeEnum)[keyof typeof createSharedEnvVariableRequestTypeEnum];
+
+export type CreateSharedEnvVariableBody =
+	| ((
+			| {
+					/**
+					 * @description The target environment of the Shared Environment Variable
+					 * @example ["preview","production"]
+					 * @type array
+					 */
+					target: CreateSharedEnvVariableRequestTargetEnumKey[];
+			  }
+			| {
+					applyToAllCustomEnvironments: unknown;
+			  }
+			| {
+					customEnvironmentIds: unknown;
+			  }
+	  ) & {
+			evs: {
+				/**
+				 * @description The name of the Shared Environment Variable
+				 * @example API_URL
+				 * @type string
+				 */
+				key: string;
+				/**
+				 * @description The value of the Shared Environment Variable
+				 * @example https://api.vercel.com
+				 * @type string
+				 */
+				value: string;
+				/**
+				 * @description A comment to add context on what this Shared Environment Variable is for
+				 * @maxLength 500
+				 * @example database connection string for production
+				 * @type string | undefined
+				 */
+				comment?: string | undefined;
+			}[];
+			/**
+			 * @description The type of environment variable
+			 * @example encrypted
+			 * @type string | undefined
+			 */
+			type?: CreateSharedEnvVariableRequestTypeEnumKey | undefined;
+			/**
+			 * @description The target environment of the Shared Environment Variable
+			 * @example ["preview","production"]
+			 * @type array | undefined
+			 */
+			target?: CreateSharedEnvVariableRequestTargetEnumKey[] | undefined;
+			/**
+			 * @description Associate a Shared Environment Variable to projects.
+			 * @deprecated
+			 * @example ["prj_2WjyKQmM8ZnGcJsPWMrHRCRV","prj_2WjyKQmM8ZnGcJsPWMrHRHrE"]
+			 * @type array | undefined
+			 */
+			projectId?: string[] | undefined;
+	  })
+	| undefined;
+
 export type CreateSharedEnvVariableOptions = {
-	body?: never | undefined;
+	body: CreateSharedEnvVariableBody;
 	path?: never | undefined;
 	query?: CreateSharedEnvVariableQuery | undefined;
 	headers?: never | undefined;
@@ -29011,8 +32806,79 @@ export type UpdateSharedEnvVariableStatus404 = unknown;
 
 export type UpdateSharedEnvVariableStatus410 = unknown;
 
+export type UpdateSharedEnvVariableBody =
+	| {
+			/**
+			 * @description An object where each key is an environment variable ID (not the key name) and the value is the update to apply
+			 * @example {"env2WjyKQmM8ZnGcJsPWMrHRHrE":{"key":"API_URL","value":"https://api.vercel.com","target":["preview","production"],"projectIdUpdates":{"link":["prj_2WjyKQmM8ZnGcJsPWMrHRHrE"]}}}
+			 * @type object
+			 */
+			updates: {
+				[key: string]: {
+					/**
+					 * @description The name of the Shared Environment Variable
+					 * @example API_URL
+					 * @type string | undefined
+					 */
+					key?: string | undefined;
+					/**
+					 * @description The value of the Shared Environment Variable
+					 * @example https://api.vercel.com
+					 * @type string | undefined
+					 */
+					value?: string | undefined;
+					/**
+					 * @description The target environment of the Shared Environment Variable
+					 * @example ["preview","production"]
+					 * @type array | undefined
+					 */
+					target?: ("development" | "preview" | "production")[] | undefined;
+					/**
+					 * @description Associate a Shared Environment Variable to projects.
+					 * @example ["prj_2WjyKQmM8ZnGcJsPWMrHRCRV","prj_2WjyKQmM8ZnGcJsPWMrHRHrE"]
+					 * @type array | undefined
+					 */
+					projectId?: string[] | undefined;
+					/**
+					 * @description Incrementally update project linking without specifying the full list
+					 * @type object | undefined
+					 */
+					projectIdUpdates?:
+						| {
+								/**
+								 * @description Project IDs to add to this environment variable
+								 * @example ["prj_2WjyKQmM8ZnGcJsPWMrHRHrE"]
+								 * @type array | undefined
+								 */
+								link?: string[] | undefined;
+								/**
+								 * @description Project IDs to remove from this environment variable
+								 * @example ["prj_2WjyKQmM8ZnGcJsPWMrHRCRV"]
+								 * @type array | undefined
+								 */
+								unlink?: string[] | undefined;
+						  }
+						| undefined;
+					/**
+					 * @description The new type of the Shared Environment Variable
+					 * @example encrypted
+					 * @type string | undefined
+					 */
+					type?: TypeEnumKey | undefined;
+					/**
+					 * @description A comment to add context on what this Shared Environment Variable is for
+					 * @maxLength 500
+					 * @example database connection string for production
+					 * @type string | undefined
+					 */
+					comment?: string | undefined;
+				};
+			};
+	  }
+	| undefined;
+
 export type UpdateSharedEnvVariableOptions = {
-	body?: never | undefined;
+	body: UpdateSharedEnvVariableBody;
 	path?: never | undefined;
 	query?: UpdateSharedEnvVariableQuery | undefined;
 	headers?: never | undefined;
@@ -29062,8 +32928,19 @@ export type DeleteSharedEnvVariableStatus404 = unknown;
 
 export type DeleteSharedEnvVariableStatus410 = unknown;
 
+export type DeleteSharedEnvVariableBody =
+	| {
+			/**
+			 * @description IDs of the Shared Environment Variables to delete
+			 * @example ["env_abc123","env_abc124"]
+			 * @type array
+			 */
+			ids: string[];
+	  }
+	| undefined;
+
 export type DeleteSharedEnvVariableOptions = {
-	body?: never | undefined;
+	body: DeleteSharedEnvVariableBody;
 	path?: never | undefined;
 	query?: DeleteSharedEnvVariableQuery | undefined;
 	headers?: never | undefined;
@@ -29589,8 +33466,351 @@ export type CreateFlagStatus409 = unknown;
 
 export type CreateFlagStatus410 = unknown;
 
+export const createFlagRequestKindEnum = {
+	boolean: "boolean",
+	json: "json",
+	number: "number",
+	string: "string",
+} as const;
+
+export type CreateFlagRequestKindEnumKey =
+	(typeof createFlagRequestKindEnum)[keyof typeof createFlagRequestKindEnum];
+
+export const createFlagRequestStateEnum = {
+	active: "active",
+	archived: "archived",
+} as const;
+
+export type CreateFlagRequestStateEnumKey =
+	(typeof createFlagRequestStateEnum)[keyof typeof createFlagRequestStateEnum];
+
+export type CreateFlagBody =
+	| {
+			/**
+			 * @description A unique (per project) key for the flag, composed of letters, numbers, dashes, and underscores
+			 * @pattern ^[a-zA-Z0-9_-]{1,512}$
+			 * @type string
+			 */
+			slug: string;
+			/**
+			 * @description The kind of flag
+			 * @type string
+			 */
+			kind: CreateFlagRequestKindEnumKey;
+			/**
+			 * @description The variants of the flag
+			 * @type array | undefined
+			 */
+			variants?:
+				| {
+						/**
+						 * @description The id of the variant
+						 * @type string
+						 */
+						id: string;
+						/**
+						 * @description A label for the variant
+						 * @type string | undefined
+						 */
+						label?: string | undefined;
+						/**
+						 * @description A description of the variant
+						 * @type string | undefined
+						 */
+						description?: string | undefined;
+						value: string | number | boolean | object | string[] | string;
+				  }[]
+				| undefined;
+			/**
+			 * @description The configuration for the flag in different environments
+			 * @type object
+			 */
+			environments: {
+				[key: string]: {
+					active: boolean;
+					/**
+					 * @description Allows linking this environment to another environment so this flag will be evaluated with the other flag\'s configuration
+					 * @type object | undefined
+					 */
+					reuse?:
+						| {
+								/**
+								 * @description Whether the reuse is active or not
+								 * @type boolean
+								 */
+								active: boolean;
+								/**
+								 * @description The environment to link to
+								 * @type string
+								 */
+								environment: string;
+						  }
+						| undefined;
+					/**
+					 * @description Allows assigning targets to variants while bypassing the flag\'s rules
+					 * @type object | undefined
+					 */
+					targets?:
+						| {
+								[key: string]: {
+									[key: string]: {
+										[key: string]: {
+											note?: string | undefined;
+											value: string;
+										}[];
+									};
+								};
+						  }
+						| undefined;
+					pausedOutcome: {
+						type: unknown;
+						variantId: string;
+					};
+					rules: {
+						id: string;
+						conditions: {
+							lhs:
+								| {
+										type: unknown;
+								  }
+								| {
+										type: unknown;
+										kind: string;
+										attribute: string;
+								  };
+							cmp: CmpEnumKey;
+							rhs?:
+								| (
+										| {
+												type: TypeEnumKey;
+												items: (
+													| {
+															label?: string | undefined;
+															note?: string | undefined;
+															value: number;
+													  }
+													| {
+															label?: string | undefined;
+															note?: string | undefined;
+															value: string;
+													  }
+												)[];
+										  }
+										| {
+												type: unknown;
+												pattern: string;
+												flags: string;
+										  }
+										| string
+										| number
+										| boolean
+								  )
+								| undefined;
+							cmpOptions?:
+								| {
+										ignoreCase?: boolean | undefined;
+								  }
+								| undefined;
+						}[];
+						outcome:
+							| {
+									type: unknown;
+									variantId: string;
+							  }
+							| {
+									type: unknown;
+									base: {
+										type: unknown;
+										kind: string;
+										attribute: string;
+									};
+									/**
+									 * @description The distribution for each variant
+									 * @type object
+									 */
+									weights: {
+										[key: string]: number;
+									};
+									/**
+									 * @description This variant will be used when the base attribute does not exist
+									 * @type string
+									 */
+									defaultVariantId: string;
+							  }
+							| {
+									type: unknown;
+									base: {
+										type: unknown;
+										kind: string;
+										attribute: string;
+									};
+									/**
+									 * @description Epoch ms when the rollout begins
+									 * @type number
+									 */
+									startTimestamp: number;
+									/**
+									 * @description The variant to roll away from
+									 * @type string
+									 */
+									rollFromVariantId: string;
+									/**
+									 * @description The variant to roll towards
+									 * @type string
+									 */
+									rollToVariantId: string;
+									/**
+									 * @description This variant will be used when the base attribute does not exist
+									 * @type string
+									 */
+									defaultVariantId: string;
+									/**
+									 * @description Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.
+									 * @type array
+									 */
+									slots: {
+										/**
+										 * @description Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
+										 * @minLength 0
+										 * @maxLength 100000
+										 * @type number
+										 */
+										promille: number;
+										/**
+										 * @description How long this promille is served in ms before moving to the next slot.
+										 * @minLength 0
+										 * @type number
+										 */
+										durationMs: number;
+									}[];
+									/**
+									 * @description Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.
+									 * @minLength 0
+									 * @maxLength 100000
+									 * @type number | undefined
+									 */
+									finalPromille?: number | undefined;
+							  };
+					}[];
+					fallthrough:
+						| {
+								type: unknown;
+								variantId: string;
+						  }
+						| {
+								type: unknown;
+								base: {
+									type: unknown;
+									kind: string;
+									attribute: string;
+								};
+								/**
+								 * @description The distribution for each variant
+								 * @type object
+								 */
+								weights: {
+									[key: string]: number;
+								};
+								/**
+								 * @description This variant will be used when the base attribute does not exist
+								 * @type string
+								 */
+								defaultVariantId: string;
+						  }
+						| {
+								type: unknown;
+								base: {
+									type: unknown;
+									kind: string;
+									attribute: string;
+								};
+								/**
+								 * @description Epoch ms when the rollout begins
+								 * @type number
+								 */
+								startTimestamp: number;
+								/**
+								 * @description The variant to roll away from
+								 * @type string
+								 */
+								rollFromVariantId: string;
+								/**
+								 * @description The variant to roll towards
+								 * @type string
+								 */
+								rollToVariantId: string;
+								/**
+								 * @description This variant will be used when the base attribute does not exist
+								 * @type string
+								 */
+								defaultVariantId: string;
+								/**
+								 * @description Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.
+								 * @type array
+								 */
+								slots: {
+									/**
+									 * @description Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
+									 * @minLength 0
+									 * @maxLength 100000
+									 * @type number
+									 */
+									promille: number;
+									/**
+									 * @description How long this promille is served in ms before moving to the next slot.
+									 * @minLength 0
+									 * @type number
+									 */
+									durationMs: number;
+								}[];
+								/**
+								 * @description Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.
+								 * @minLength 0
+								 * @maxLength 100000
+								 * @type number | undefined
+								 */
+								finalPromille?: number | undefined;
+						  };
+					/**
+					 * @description The revision of the environment config
+					 * @type number | undefined
+					 */
+					revision?: number | undefined;
+				};
+			};
+			/**
+			 * @description A random seed to prevent split points in different flags from having the same targets
+			 * @minLength 0
+			 * @maxLength 100000
+			 * @type number | undefined
+			 */
+			seed?: number | undefined;
+			/**
+			 * @description A description of the flag
+			 * @type string | undefined
+			 */
+			description?: string | undefined;
+			state?: CreateFlagRequestStateEnumKey | undefined;
+			/**
+			 * @description The user ids of the maintainers of the flag
+			 * @type array | undefined
+			 */
+			maintainerIds?: string[] | undefined;
+			/**
+			 * @description Whether this flag is marked as permanent, indicating it should not be removed
+			 * @type boolean | undefined
+			 */
+			permanent?: boolean | undefined;
+			/**
+			 * @description Tags for categorizing the flag
+			 * @type array | undefined
+			 */
+			tags?: string[] | undefined;
+	  }
+	| undefined;
+
 export type CreateFlagOptions = {
-	body?: never | undefined;
+	body: CreateFlagBody;
 	path: CreateFlagPath;
 	query?: CreateFlagQuery | undefined;
 	headers?: never | undefined;
@@ -29745,8 +33965,342 @@ export type UpdateFlagStatus409 = unknown;
 
 export type UpdateFlagStatus410 = unknown;
 
+export const updateFlagRequestStateEnum = {
+	active: "active",
+	archived: "archived",
+} as const;
+
+export type UpdateFlagRequestStateEnumKey =
+	(typeof updateFlagRequestStateEnum)[keyof typeof updateFlagRequestStateEnum];
+
+export type UpdateFlagBody =
+	| {
+			/**
+			 * @description The user who created this patch
+			 * @type string | undefined
+			 */
+			createdBy?: string | undefined;
+			/**
+			 * @description Additional message for this version
+			 * @type string | undefined
+			 */
+			message?: string | undefined;
+			/**
+			 * @description The variants of the flag
+			 * @type array | undefined
+			 */
+			variants?:
+				| {
+						/**
+						 * @description The id of the variant
+						 * @type string
+						 */
+						id: string;
+						/**
+						 * @description A label for the variant
+						 * @type string | undefined
+						 */
+						label?: string | undefined;
+						/**
+						 * @description A description of the variant
+						 * @type string | undefined
+						 */
+						description?: string | undefined;
+						value: string | number | boolean | object | string[] | string;
+				  }[]
+				| undefined;
+			/**
+			 * @description The configuration for the flag in different environments
+			 * @type object | undefined
+			 */
+			environments?:
+				| {
+						[key: string]: {
+							active: boolean;
+							/**
+							 * @description Allows linking this environment to another environment so this flag will be evaluated with the other flag\'s configuration
+							 * @type object | undefined
+							 */
+							reuse?:
+								| {
+										/**
+										 * @description Whether the reuse is active or not
+										 * @type boolean
+										 */
+										active: boolean;
+										/**
+										 * @description The environment to link to
+										 * @type string
+										 */
+										environment: string;
+								  }
+								| undefined;
+							/**
+							 * @description Allows assigning targets to variants while bypassing the flag\'s rules
+							 * @type object | undefined
+							 */
+							targets?:
+								| {
+										[key: string]: {
+											[key: string]: {
+												[key: string]: {
+													note?: string | undefined;
+													value: string;
+												}[];
+											};
+										};
+								  }
+								| undefined;
+							pausedOutcome: {
+								type: unknown;
+								variantId: string;
+							};
+							rules: {
+								id: string;
+								conditions: {
+									lhs:
+										| {
+												type: unknown;
+										  }
+										| {
+												type: unknown;
+												kind: string;
+												attribute: string;
+										  };
+									cmp: CmpEnumKey;
+									rhs?:
+										| (
+												| {
+														type: TypeEnumKey;
+														items: (
+															| {
+																	label?: string | undefined;
+																	note?: string | undefined;
+																	value: number;
+															  }
+															| {
+																	label?: string | undefined;
+																	note?: string | undefined;
+																	value: string;
+															  }
+														)[];
+												  }
+												| {
+														type: unknown;
+														pattern: string;
+														flags: string;
+												  }
+												| string
+												| number
+												| boolean
+										  )
+										| undefined;
+									cmpOptions?:
+										| {
+												ignoreCase?: boolean | undefined;
+										  }
+										| undefined;
+								}[];
+								outcome:
+									| {
+											type: unknown;
+											variantId: string;
+									  }
+									| {
+											type: unknown;
+											base: {
+												type: unknown;
+												kind: string;
+												attribute: string;
+											};
+											/**
+											 * @description The distribution for each variant
+											 * @type object
+											 */
+											weights: {
+												[key: string]: number;
+											};
+											/**
+											 * @description This variant will be used when the base attribute does not exist
+											 * @type string
+											 */
+											defaultVariantId: string;
+									  }
+									| {
+											type: unknown;
+											base: {
+												type: unknown;
+												kind: string;
+												attribute: string;
+											};
+											/**
+											 * @description Epoch ms when the rollout begins
+											 * @type number
+											 */
+											startTimestamp: number;
+											/**
+											 * @description The variant to roll away from
+											 * @type string
+											 */
+											rollFromVariantId: string;
+											/**
+											 * @description The variant to roll towards
+											 * @type string
+											 */
+											rollToVariantId: string;
+											/**
+											 * @description This variant will be used when the base attribute does not exist
+											 * @type string
+											 */
+											defaultVariantId: string;
+											/**
+											 * @description Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.
+											 * @type array
+											 */
+											slots: {
+												/**
+												 * @description Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
+												 * @minLength 0
+												 * @maxLength 100000
+												 * @type number
+												 */
+												promille: number;
+												/**
+												 * @description How long this promille is served in ms before moving to the next slot.
+												 * @minLength 0
+												 * @type number
+												 */
+												durationMs: number;
+											}[];
+											/**
+											 * @description Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.
+											 * @minLength 0
+											 * @maxLength 100000
+											 * @type number | undefined
+											 */
+											finalPromille?: number | undefined;
+									  };
+							}[];
+							fallthrough:
+								| {
+										type: unknown;
+										variantId: string;
+								  }
+								| {
+										type: unknown;
+										base: {
+											type: unknown;
+											kind: string;
+											attribute: string;
+										};
+										/**
+										 * @description The distribution for each variant
+										 * @type object
+										 */
+										weights: {
+											[key: string]: number;
+										};
+										/**
+										 * @description This variant will be used when the base attribute does not exist
+										 * @type string
+										 */
+										defaultVariantId: string;
+								  }
+								| {
+										type: unknown;
+										base: {
+											type: unknown;
+											kind: string;
+											attribute: string;
+										};
+										/**
+										 * @description Epoch ms when the rollout begins
+										 * @type number
+										 */
+										startTimestamp: number;
+										/**
+										 * @description The variant to roll away from
+										 * @type string
+										 */
+										rollFromVariantId: string;
+										/**
+										 * @description The variant to roll towards
+										 * @type string
+										 */
+										rollToVariantId: string;
+										/**
+										 * @description This variant will be used when the base attribute does not exist
+										 * @type string
+										 */
+										defaultVariantId: string;
+										/**
+										 * @description Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.
+										 * @type array
+										 */
+										slots: {
+											/**
+											 * @description Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
+											 * @minLength 0
+											 * @maxLength 100000
+											 * @type number
+											 */
+											promille: number;
+											/**
+											 * @description How long this promille is served in ms before moving to the next slot.
+											 * @minLength 0
+											 * @type number
+											 */
+											durationMs: number;
+										}[];
+										/**
+										 * @description Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.
+										 * @minLength 0
+										 * @maxLength 100000
+										 * @type number | undefined
+										 */
+										finalPromille?: number | undefined;
+								  };
+							/**
+							 * @description The revision of the environment config
+							 * @type number | undefined
+							 */
+							revision?: number | undefined;
+						};
+				  }
+				| undefined;
+			/**
+			 * @description A random seed to prevent split points in different flags from having the same targets
+			 * @minLength 0
+			 * @maxLength 100000
+			 * @type number | undefined
+			 */
+			seed?: number | undefined;
+			/**
+			 * @description A description of the flag
+			 * @type string | undefined
+			 */
+			description?: string | undefined;
+			state?: UpdateFlagRequestStateEnumKey | undefined;
+			/**
+			 * @description The user ids of the maintainers of the flag
+			 * @type array | undefined
+			 */
+			maintainerIds?: string[] | undefined;
+			/**
+			 * @description Whether this flag is marked as permanent, indicating it should not be removed
+			 * @type boolean | undefined
+			 */
+			permanent?: boolean | undefined;
+			/**
+			 * @description Tags for categorizing the flag
+			 * @type array | undefined
+			 */
+			tags?: string[] | undefined;
+	  }
+	| undefined;
+
 export type UpdateFlagOptions = {
-	body?: never | undefined;
+	body: UpdateFlagBody;
 	path: UpdateFlagPath;
 	query?: UpdateFlagQuery | undefined;
 	headers?: never | undefined;
@@ -30031,8 +34585,59 @@ export type UpdateFlagSettingsStatus409 = unknown;
 
 export type UpdateFlagSettingsStatus410 = unknown;
 
+export type UpdateFlagSettingsBody =
+	| {
+			enabled?: boolean | undefined;
+			entities?:
+				| {
+						/**
+						 * @maxLength 128
+						 * @type string
+						 */
+						kind: string;
+						/**
+						 * @maxLength 128
+						 * @type string
+						 */
+						label: string;
+						attributes: {
+							/**
+							 * @maxLength 128
+							 * @type string
+							 */
+							key: string;
+							/**
+							 * @maxLength 128
+							 * @type string
+							 */
+							type: string;
+							labels?:
+								| {
+										/**
+										 * @maxLength 128
+										 * @type string
+										 */
+										label: string;
+										/**
+										 * @maxLength 128
+										 * @type string
+										 */
+										value: string;
+								  }[]
+								| undefined;
+						}[];
+				  }[]
+				| undefined;
+			/**
+			 * @description The environments to sync
+			 * @type array | undefined
+			 */
+			environments?: string[] | undefined;
+	  }
+	| undefined;
+
 export type UpdateFlagSettingsOptions = {
-	body?: never | undefined;
+	body: UpdateFlagSettingsBody;
 	path: UpdateFlagSettingsPath;
 	query?: UpdateFlagSettingsQuery | undefined;
 	headers?: never | undefined;
@@ -30386,8 +34991,140 @@ export type CreateFlagSegmentStatus409 = unknown;
 
 export type CreateFlagSegmentStatus410 = unknown;
 
+export const createFlagSegmentRequestDataRulesConditionsCmpEnum = {
+	after: "after",
+	before: "before",
+	contains: "contains",
+	containsAllOf: "containsAllOf",
+	containsAnyOf: "containsAnyOf",
+	containsNoneOf: "containsNoneOf",
+	endsWith: "endsWith",
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	oneOf: "oneOf",
+	regex: "regex",
+	startsWith: "startsWith",
+} as const;
+
+export type CreateFlagSegmentRequestDataRulesConditionsCmpEnumKey =
+	(typeof createFlagSegmentRequestDataRulesConditionsCmpEnum)[keyof typeof createFlagSegmentRequestDataRulesConditionsCmpEnum];
+
+export const createFlagSegmentRequestDataRulesConditionsRhsTypeEnum = {
+	"list/inline": "list/inline",
+	list: "list",
+} as const;
+
+export type CreateFlagSegmentRequestDataRulesConditionsRhsTypeEnumKey =
+	(typeof createFlagSegmentRequestDataRulesConditionsRhsTypeEnum)[keyof typeof createFlagSegmentRequestDataRulesConditionsRhsTypeEnum];
+
+export type CreateFlagSegmentBody =
+	| {
+			slug: string;
+			/**
+			 * @description The entity who created the segment
+			 * @type string | undefined
+			 */
+			createdBy?: string | undefined;
+			label: string;
+			description?: string | undefined;
+			/**
+			 * @description The data of the segment
+			 * @type object
+			 */
+			data: {
+				rules?:
+					| {
+							id: string;
+							conditions: {
+								lhs:
+									| {
+											type: unknown;
+									  }
+									| {
+											type: unknown;
+											kind: string;
+											attribute: string;
+									  };
+								cmp: CreateFlagSegmentRequestDataRulesConditionsCmpEnumKey;
+								rhs?:
+									| (
+											| {
+													type: CreateFlagSegmentRequestDataRulesConditionsRhsTypeEnumKey;
+													items: (
+														| {
+																label?: string | undefined;
+																note?: string | undefined;
+																value: number;
+														  }
+														| {
+																label?: string | undefined;
+																note?: string | undefined;
+																value: string;
+														  }
+													)[];
+											  }
+											| {
+													type: unknown;
+													pattern: string;
+													flags: string;
+											  }
+											| string
+											| number
+											| boolean
+									  )
+									| undefined;
+								cmpOptions?:
+									| {
+											ignoreCase?: boolean | undefined;
+									  }
+									| undefined;
+							}[];
+							outcome:
+								| {
+										type: unknown;
+								  }
+								| {
+										type: unknown;
+										base: {
+											type: unknown;
+											kind: string;
+											attribute: string;
+										};
+										passPromille: number;
+								  };
+					  }[]
+					| undefined;
+				include?:
+					| {
+							[key: string]: {
+								[key: string]: {
+									note?: string | undefined;
+									value: string;
+								}[];
+							};
+					  }
+					| undefined;
+				exclude?:
+					| {
+							[key: string]: {
+								[key: string]: {
+									note?: string | undefined;
+									value: string;
+								}[];
+							};
+					  }
+					| undefined;
+			};
+			hint: string;
+	  }
+	| undefined;
+
 export type CreateFlagSegmentOptions = {
-	body?: never | undefined;
+	body: CreateFlagSegmentBody;
 	path: CreateFlagSegmentPath;
 	query?: CreateFlagSegmentQuery | undefined;
 	headers?: never | undefined;
@@ -30670,8 +35407,164 @@ export type UpdateFlagSegmentStatus409 = unknown;
 
 export type UpdateFlagSegmentStatus410 = unknown;
 
+export const updateFlagSegmentRequestOperationsActionEnum = {
+	add: "add",
+	remove: "remove",
+} as const;
+
+export type UpdateFlagSegmentRequestOperationsActionEnumKey =
+	(typeof updateFlagSegmentRequestOperationsActionEnum)[keyof typeof updateFlagSegmentRequestOperationsActionEnum];
+
+export const updateFlagSegmentRequestOperationsFieldEnum = {
+	exclude: "exclude",
+	include: "include",
+} as const;
+
+export type UpdateFlagSegmentRequestOperationsFieldEnumKey =
+	(typeof updateFlagSegmentRequestOperationsFieldEnum)[keyof typeof updateFlagSegmentRequestOperationsFieldEnum];
+
+export const updateFlagSegmentRequestDataRulesConditionsCmpEnum = {
+	after: "after",
+	before: "before",
+	contains: "contains",
+	containsAllOf: "containsAllOf",
+	containsAnyOf: "containsAnyOf",
+	containsNoneOf: "containsNoneOf",
+	endsWith: "endsWith",
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	oneOf: "oneOf",
+	regex: "regex",
+	startsWith: "startsWith",
+} as const;
+
+export type UpdateFlagSegmentRequestDataRulesConditionsCmpEnumKey =
+	(typeof updateFlagSegmentRequestDataRulesConditionsCmpEnum)[keyof typeof updateFlagSegmentRequestDataRulesConditionsCmpEnum];
+
+export const updateFlagSegmentRequestDataRulesConditionsRhsTypeEnum = {
+	"list/inline": "list/inline",
+	list: "list",
+} as const;
+
+export type UpdateFlagSegmentRequestDataRulesConditionsRhsTypeEnumKey =
+	(typeof updateFlagSegmentRequestDataRulesConditionsRhsTypeEnum)[keyof typeof updateFlagSegmentRequestDataRulesConditionsRhsTypeEnum];
+
+export type UpdateFlagSegmentBody =
+	| {
+			operations?:
+				| {
+						action: UpdateFlagSegmentRequestOperationsActionEnumKey;
+						field: UpdateFlagSegmentRequestOperationsFieldEnumKey;
+						entity: string;
+						attribute: string;
+						value: {
+							note?: string | undefined;
+							value: string;
+						};
+				  }[]
+				| undefined;
+			label?: string | undefined;
+			description?: string | undefined;
+			/**
+			 * @description The data of the segment
+			 * @type object | undefined
+			 */
+			data?:
+				| {
+						rules?:
+							| {
+									id: string;
+									conditions: {
+										lhs:
+											| {
+													type: unknown;
+											  }
+											| {
+													type: unknown;
+													kind: string;
+													attribute: string;
+											  };
+										cmp: UpdateFlagSegmentRequestDataRulesConditionsCmpEnumKey;
+										rhs?:
+											| (
+													| {
+															type: UpdateFlagSegmentRequestDataRulesConditionsRhsTypeEnumKey;
+															items: (
+																| {
+																		label?: string | undefined;
+																		note?: string | undefined;
+																		value: number;
+																  }
+																| {
+																		label?: string | undefined;
+																		note?: string | undefined;
+																		value: string;
+																  }
+															)[];
+													  }
+													| {
+															type: unknown;
+															pattern: string;
+															flags: string;
+													  }
+													| string
+													| number
+													| boolean
+											  )
+											| undefined;
+										cmpOptions?:
+											| {
+													ignoreCase?: boolean | undefined;
+											  }
+											| undefined;
+									}[];
+									outcome:
+										| {
+												type: unknown;
+										  }
+										| {
+												type: unknown;
+												base: {
+													type: unknown;
+													kind: string;
+													attribute: string;
+												};
+												passPromille: number;
+										  };
+							  }[]
+							| undefined;
+						include?:
+							| {
+									[key: string]: {
+										[key: string]: {
+											note?: string | undefined;
+											value: string;
+										}[];
+									};
+							  }
+							| undefined;
+						exclude?:
+							| {
+									[key: string]: {
+										[key: string]: {
+											note?: string | undefined;
+											value: string;
+										}[];
+									};
+							  }
+							| undefined;
+				  }
+				| undefined;
+			hint?: string | undefined;
+	  }
+	| undefined;
+
 export type UpdateFlagSegmentOptions = {
-	body?: never | undefined;
+	body: UpdateFlagSegmentBody;
 	path: UpdateFlagSegmentPath;
 	query?: UpdateFlagSegmentQuery | undefined;
 	headers?: never | undefined;
@@ -30843,8 +35736,25 @@ export type CreateSdkKeyStatus409 = unknown;
 
 export type CreateSdkKeyStatus410 = unknown;
 
+export const createSdkKeyRequestSdkKeyTypeEnum = {
+	client: "client",
+	mobile: "mobile",
+	server: "server",
+} as const;
+
+export type CreateSdkKeyRequestSdkKeyTypeEnumKey =
+	(typeof createSdkKeyRequestSdkKeyTypeEnum)[keyof typeof createSdkKeyRequestSdkKeyTypeEnum];
+
+export type CreateSdkKeyBody =
+	| {
+			sdkKeyType: CreateSdkKeyRequestSdkKeyTypeEnumKey;
+			environment: string;
+			label?: string | undefined;
+	  }
+	| undefined;
+
 export type CreateSdkKeyOptions = {
-	body?: never | undefined;
+	body: CreateSdkKeyBody;
 	path: CreateSdkKeyPath;
 	query?: CreateSdkKeyQuery | undefined;
 	headers?: never | undefined;
@@ -31180,8 +36090,16 @@ export type ConnectIntegrationResourceToProjectStatus404 = unknown;
 
 export type ConnectIntegrationResourceToProjectStatus410 = unknown;
 
+export type ConnectIntegrationResourceToProjectBody =
+	| {
+			projectId: string;
+			envVarEnvironments?: string[] | undefined;
+			makeEnvVarsSensitive?: boolean | undefined;
+	  }
+	| undefined;
+
 export type ConnectIntegrationResourceToProjectOptions = {
-	body?: never | undefined;
+	body: ConnectIntegrationResourceToProjectBody;
 	path: ConnectIntegrationResourceToProjectPath;
 	query?: ConnectIntegrationResourceToProjectQuery | undefined;
 	headers?: never | undefined;
@@ -31218,8 +36136,88 @@ export type UpdateInstallationStatus404 = unknown;
 
 export type UpdateInstallationStatus410 = unknown;
 
+export const updateInstallationRequestStatusEnum = {
+	error: "error",
+	onboarding: "onboarding",
+	pending: "pending",
+	ready: "ready",
+	resumed: "resumed",
+	suspended: "suspended",
+	uninstalled: "uninstalled",
+} as const;
+
+export type UpdateInstallationRequestStatusEnumKey =
+	(typeof updateInstallationRequestStatusEnum)[keyof typeof updateInstallationRequestStatusEnum];
+
+export const updateInstallationRequestBillingPlanTypeEnum = {
+	prepayment: "prepayment",
+	subscription: "subscription",
+} as const;
+
+export type UpdateInstallationRequestBillingPlanTypeEnumKey =
+	(typeof updateInstallationRequestBillingPlanTypeEnum)[keyof typeof updateInstallationRequestBillingPlanTypeEnum];
+
+export const updateInstallationRequestNotificationLevelEnum = {
+	info: "info",
+	warn: "warn",
+	error: "error",
+} as const;
+
+export type UpdateInstallationRequestNotificationLevelEnumKey =
+	(typeof updateInstallationRequestNotificationLevelEnum)[keyof typeof updateInstallationRequestNotificationLevelEnum];
+
+export type UpdateInstallationBody =
+	| {
+			status?: UpdateInstallationRequestStatusEnumKey | undefined;
+			externalId?: string | undefined;
+			billingPlan?:
+				| {
+						id: string;
+						type: UpdateInstallationRequestBillingPlanTypeEnumKey;
+						name: string;
+						description?: string | undefined;
+						paymentMethodRequired?: boolean | undefined;
+						cost?: string | undefined;
+						details?:
+							| {
+									label: string;
+									value?: string | undefined;
+							  }[]
+							| undefined;
+						highlightedDetails?:
+							| {
+									label: string;
+									value?: string | undefined;
+							  }[]
+							| undefined;
+						effectiveDate?: string | undefined;
+						[key: string]: unknown;
+				  }
+				| undefined;
+			/**
+			 * @description A notification to display to your customer. Send `null` to clear the current notification.
+			 */
+			notification?:
+				| (
+						| {
+								level: UpdateInstallationRequestNotificationLevelEnumKey;
+								title: string;
+								message?: string | undefined;
+								/**
+								 * @description
+								 * Format: `uri`
+								 * @type string | undefined
+								 */
+								href?: string | undefined;
+						  }
+						| string
+				  )
+				| undefined;
+	  }
+	| undefined;
+
 export type UpdateInstallationOptions = {
-	body?: never | undefined;
+	body: UpdateInstallationBody;
 	path: UpdateInstallationPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -31332,8 +36330,19 @@ export type RotateInstallationCredentialStatus409 = unknown;
 
 export type RotateInstallationCredentialStatus410 = unknown;
 
+export type RotateInstallationCredentialBody =
+	| {
+			/**
+			 * @maxLength 512
+			 * @type string | undefined
+			 */
+			clientSecret?: string | undefined;
+			clientId?: string | undefined;
+	  }
+	| undefined;
+
 export type RotateInstallationCredentialOptions = {
-	body?: never | undefined;
+	body: RotateInstallationCredentialBody;
 	path: RotateInstallationCredentialPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -31372,8 +36381,24 @@ export type RevokeInstallationCredentialStatus409 = unknown;
 
 export type RevokeInstallationCredentialStatus410 = unknown;
 
+export type RevokeInstallationCredentialBody =
+	| {
+			/**
+			 * @maxLength 512
+			 * @type string
+			 */
+			token: string;
+			/**
+			 * @maxLength 512
+			 * @type string | undefined
+			 */
+			clientSecret?: string | undefined;
+			clientId?: string | undefined;
+	  }
+	| undefined;
+
 export type RevokeInstallationCredentialOptions = {
-	body?: never | undefined;
+	body: RevokeInstallationCredentialBody;
 	path: RevokeInstallationCredentialPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -31410,8 +36435,33 @@ export type CreateEventStatus404 = unknown;
 
 export type CreateEventStatus410 = unknown;
 
+export type CreateEventBody = {
+	event:
+		| {
+				type: "installation.updated";
+				/**
+				 * @description The installation-level billing plan ID
+				 * @type string | undefined
+				 */
+				billingPlanId?: string | undefined;
+		  }
+		| {
+				type: "resource.updated";
+				/**
+				 * @description Partner-provided product slug or id
+				 * @type string | undefined
+				 */
+				productId?: string | undefined;
+				/**
+				 * @description Partner provided resource ID
+				 * @type string
+				 */
+				resourceId: string;
+		  };
+};
+
 export type CreateEventOptions = {
-	body?: never | undefined;
+	body: CreateEventBody;
 	path: CreateEventPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -31573,8 +36623,181 @@ export type ImportResourceStatus410 = unknown;
 
 export type ImportResourceStatus422 = unknown;
 
+export const importResourceRequestOwnershipEnum = {
+	linked: "linked",
+	owned: "owned",
+	sandbox: "sandbox",
+} as const;
+
+export type ImportResourceRequestOwnershipEnumKey =
+	(typeof importResourceRequestOwnershipEnum)[keyof typeof importResourceRequestOwnershipEnum];
+
+export const importResourceRequestStatusEnum = {
+	error: "error",
+	onboarding: "onboarding",
+	pending: "pending",
+	ready: "ready",
+	resumed: "resumed",
+	suspended: "suspended",
+	uninstalled: "uninstalled",
+} as const;
+
+export type ImportResourceRequestStatusEnumKey =
+	(typeof importResourceRequestStatusEnum)[keyof typeof importResourceRequestStatusEnum];
+
+export const importResourceRequestBillingPlanTypeEnum = {
+	prepayment: "prepayment",
+	subscription: "subscription",
+} as const;
+
+export type ImportResourceRequestBillingPlanTypeEnumKey =
+	(typeof importResourceRequestBillingPlanTypeEnum)[keyof typeof importResourceRequestBillingPlanTypeEnum];
+
+export const importResourceRequestNotificationLevelEnum = {
+	error: "error",
+	info: "info",
+	warn: "warn",
+} as const;
+
+export type ImportResourceRequestNotificationLevelEnumKey =
+	(typeof importResourceRequestNotificationLevelEnum)[keyof typeof importResourceRequestNotificationLevelEnum];
+
+export type ImportResourceBody =
+	| {
+			ownership?: ImportResourceRequestOwnershipEnumKey | undefined;
+			productId: string;
+			name: string;
+			status: ImportResourceRequestStatusEnumKey;
+			metadata?:
+				| {
+						[key: string]: unknown;
+				  }
+				| undefined;
+			billingPlan?:
+				| {
+						id: string;
+						type: ImportResourceRequestBillingPlanTypeEnumKey;
+						name: string;
+						description?: string | undefined;
+						paymentMethodRequired?: boolean | undefined;
+						cost?: string | undefined;
+						details?:
+							| {
+									label: string;
+									value?: string | undefined;
+							  }[]
+							| undefined;
+						highlightedDetails?:
+							| {
+									label: string;
+									value?: string | undefined;
+							  }[]
+							| undefined;
+						effectiveDate?: string | undefined;
+						[key: string]: unknown;
+				  }
+				| undefined;
+			notification?:
+				| {
+						level: ImportResourceRequestNotificationLevelEnumKey;
+						title: string;
+						message?: string | undefined;
+						/**
+						 * @description
+						 * Format: `uri`
+						 * @type string | undefined
+						 */
+						href?: string | undefined;
+				  }
+				| undefined;
+			extras?:
+				| {
+						[key: string]: unknown;
+				  }
+				| undefined;
+			secrets?:
+				| {
+						name: string;
+						value: string;
+						prefix?: string | undefined;
+						/**
+						 * @description A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
+						 * @type object | undefined
+						 */
+						environmentOverrides?:
+							| {
+									/**
+									 * @description Value used for development environment.
+									 * @type string | undefined
+									 */
+									development?: string | undefined;
+									/**
+									 * @description Value used for preview environment.
+									 * @type string | undefined
+									 */
+									preview?: string | undefined;
+									/**
+									 * @description Value used for production environment.
+									 * @type string | undefined
+									 */
+									production?: string | undefined;
+							  }
+							| undefined;
+				  }[]
+				| undefined;
+			/**
+			 * @description Custom claims embedded in the resource tokens Vercel mints for this resource.
+			 * @type object | undefined
+			 */
+			customClaims?:
+				| {
+						/**
+						 * @description Roles a deployment may request when minting a token. The selected role becomes the `sub` claim.
+						 * @type array | undefined
+						 */
+						roles?: string[] | undefined;
+						/**
+						 * @description Role used when the deployment does not request one. Required when `roles` is set.
+						 * @maxLength 32
+						 * @type string | undefined
+						 */
+						defaultRole?: string | undefined;
+						/**
+						 * @description Ordered rules resolved at mint time. Later rules win and shallow-merge over earlier ones.
+						 * @type array | undefined
+						 */
+						claimRules?:
+							| {
+									when?:
+										| {
+												/**
+												 * @description Applies only when the token is minted for one of these roles.
+												 * @type array | undefined
+												 */
+												role?: string[] | undefined;
+												/**
+												 * @description Applies only when the token is minted for one of these environments: `production`, `preview`, `development`, or a custom environment slug. A custom environment also matches `preview`.
+												 * @type array | undefined
+												 */
+												environment?: string[] | undefined;
+										  }
+										| undefined;
+									/**
+									 * @description Claims to set (string, number, boolean, or array of strings), shallow-merged over earlier rules and over the default claims. `null` removes a claim. Reserved claims cannot be set; `aud` and `sub` can be overridden with a string but not removed.
+									 * @type object
+									 */
+									claims: {
+										[key: string]: (string | number | boolean) | string[];
+									};
+							  }[]
+							| undefined;
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type ImportResourceOptions = {
-	body?: never | undefined;
+	body: ImportResourceBody;
 	path: ImportResourcePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -31617,8 +36840,220 @@ export type UpdateResourceStatus410 = unknown;
 
 export type UpdateResourceStatus422 = unknown;
 
+export const updateResourceRequestOwnershipEnum = {
+	linked: "linked",
+	owned: "owned",
+	sandbox: "sandbox",
+} as const;
+
+export type UpdateResourceRequestOwnershipEnumKey =
+	(typeof updateResourceRequestOwnershipEnum)[keyof typeof updateResourceRequestOwnershipEnum];
+
+export const updateResourceRequestStatusEnum = {
+	error: "error",
+	onboarding: "onboarding",
+	pending: "pending",
+	ready: "ready",
+	resumed: "resumed",
+	suspended: "suspended",
+	uninstalled: "uninstalled",
+} as const;
+
+export type UpdateResourceRequestStatusEnumKey =
+	(typeof updateResourceRequestStatusEnum)[keyof typeof updateResourceRequestStatusEnum];
+
+export const updateResourceRequestBillingPlanTypeEnum = {
+	prepayment: "prepayment",
+	subscription: "subscription",
+} as const;
+
+export type UpdateResourceRequestBillingPlanTypeEnumKey =
+	(typeof updateResourceRequestBillingPlanTypeEnum)[keyof typeof updateResourceRequestBillingPlanTypeEnum];
+
+export const updateResourceRequestNotificationLevelEnum = {
+	info: "info",
+	warn: "warn",
+	error: "error",
+} as const;
+
+export type UpdateResourceRequestNotificationLevelEnumKey =
+	(typeof updateResourceRequestNotificationLevelEnum)[keyof typeof updateResourceRequestNotificationLevelEnum];
+
+export type UpdateResourceBody =
+	| {
+			ownership?: UpdateResourceRequestOwnershipEnumKey | undefined;
+			name?: string | undefined;
+			status?: UpdateResourceRequestStatusEnumKey | undefined;
+			metadata?:
+				| {
+						[key: string]: unknown;
+				  }
+				| undefined;
+			billingPlan?:
+				| {
+						id: string;
+						type: UpdateResourceRequestBillingPlanTypeEnumKey;
+						name: string;
+						description?: string | undefined;
+						paymentMethodRequired?: boolean | undefined;
+						cost?: string | undefined;
+						details?:
+							| {
+									label: string;
+									value?: string | undefined;
+							  }[]
+							| undefined;
+						highlightedDetails?:
+							| {
+									label: string;
+									value?: string | undefined;
+							  }[]
+							| undefined;
+						effectiveDate?: string | undefined;
+						[key: string]: unknown;
+				  }
+				| undefined;
+			notification?:
+				| (
+						| {
+								level: UpdateResourceRequestNotificationLevelEnumKey;
+								title: string;
+								message?: string | undefined;
+								/**
+								 * @description
+								 * Format: `uri`
+								 * @type string | undefined
+								 */
+								href?: string | undefined;
+						  }
+						| string
+				  )
+				| undefined;
+			extras?:
+				| {
+						[key: string]: unknown;
+				  }
+				| undefined;
+			secrets?:
+				| (
+						| {
+								name: string;
+								value: string;
+								prefix?: string | undefined;
+								/**
+								 * @description A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
+								 * @type object | undefined
+								 */
+								environmentOverrides?:
+									| {
+											/**
+											 * @description Value used for development environment.
+											 * @type string | undefined
+											 */
+											development?: string | undefined;
+											/**
+											 * @description Value used for preview environment.
+											 * @type string | undefined
+											 */
+											preview?: string | undefined;
+											/**
+											 * @description Value used for production environment.
+											 * @type string | undefined
+											 */
+											production?: string | undefined;
+									  }
+									| undefined;
+						  }[]
+						| {
+								secrets: {
+									name: string;
+									value: string;
+									prefix?: string | undefined;
+									/**
+									 * @description A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
+									 * @type object | undefined
+									 */
+									environmentOverrides?:
+										| {
+												/**
+												 * @description Value used for development environment.
+												 * @type string | undefined
+												 */
+												development?: string | undefined;
+												/**
+												 * @description Value used for preview environment.
+												 * @type string | undefined
+												 */
+												preview?: string | undefined;
+												/**
+												 * @description Value used for production environment.
+												 * @type string | undefined
+												 */
+												production?: string | undefined;
+										  }
+										| undefined;
+								}[];
+								/**
+								 * @description If true, will only overwrite the provided secrets instead of replacing all secrets.
+								 * @type boolean | undefined
+								 */
+								partial?: boolean | undefined;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description Custom claims embedded in the resource tokens Vercel mints for this resource.
+			 * @type object | undefined
+			 */
+			customClaims?:
+				| {
+						/**
+						 * @description Roles a deployment may request when minting a token. The selected role becomes the `sub` claim.
+						 * @type array | undefined
+						 */
+						roles?: string[] | undefined;
+						/**
+						 * @description Role used when the deployment does not request one. Required when `roles` is set.
+						 * @maxLength 32
+						 * @type string | undefined
+						 */
+						defaultRole?: string | undefined;
+						/**
+						 * @description Ordered rules resolved at mint time. Later rules win and shallow-merge over earlier ones.
+						 * @type array | undefined
+						 */
+						claimRules?:
+							| {
+									when?:
+										| {
+												/**
+												 * @description Applies only when the token is minted for one of these roles.
+												 * @type array | undefined
+												 */
+												role?: string[] | undefined;
+												/**
+												 * @description Applies only when the token is minted for one of these environments: `production`, `preview`, `development`, or a custom environment slug. A custom environment also matches `preview`.
+												 * @type array | undefined
+												 */
+												environment?: string[] | undefined;
+										  }
+										| undefined;
+									/**
+									 * @description Claims to set (string, number, boolean, or array of strings), shallow-merged over earlier rules and over the default claims. `null` removes a claim. Reserved claims cannot be set; `aud` and `sub` can be overridden with a string but not removed.
+									 * @type object
+									 */
+									claims: {
+										[key: string]: (string | number | boolean) | string[];
+									};
+							  }[]
+							| undefined;
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type UpdateResourceOptions = {
-	body?: never | undefined;
+	body: UpdateResourceBody;
 	path: UpdateResourcePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -31656,8 +37091,255 @@ export type SubmitBillingDataStatus404 = unknown;
 
 export type SubmitBillingDataStatus410 = unknown;
 
+export const submitBillingDataRequestUsageTypeEnum = {
+	interval: "interval",
+	rate: "rate",
+	total: "total",
+} as const;
+
+export type SubmitBillingDataRequestUsageTypeEnumKey =
+	(typeof submitBillingDataRequestUsageTypeEnum)[keyof typeof submitBillingDataRequestUsageTypeEnum];
+
+export type SubmitBillingDataBody = {
+	/**
+	 * @description Server time of your integration, used to determine the most recent data for race conditions & updates. Only the latest usage data for a given day, week, and month will be kept.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	timestamp: string;
+	/**
+	 * @description End of Day, the UTC datetime for when the end of the billing/usage day is in UTC time. This tells us which day the usage data is for, and also allows for your \"end of day\" to be different from UTC 00:00:00. eod must be within the period dates, and cannot be older than 24h earlier from our server\'s current time.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	eod: string;
+	/**
+	 * @description Period for the billing cycle. The period end date cannot be older than 24 hours earlier than our current server\'s time.
+	 * @type object
+	 */
+	period: {
+		/**
+		 * @description
+		 * Format: `date-time`
+		 * @type string
+		 */
+		start: string;
+		/**
+		 * @description
+		 * Format: `date-time`
+		 * @type string
+		 */
+		end: string;
+	};
+	/**
+	 * @description Billing data (interim invoicing data).
+	 */
+	billing:
+		| {
+				/**
+				 * @description Partner\'s billing plan ID.
+				 * @type string
+				 */
+				billingPlanId: string;
+				/**
+				 * @description Partner\'s resource ID.
+				 * @type string | undefined
+				 */
+				resourceId?: string | undefined;
+				/**
+				 * @description Start and end are only needed if different from the period\'s start/end.
+				 *
+				 * Format: `date-time`
+				 * @type string | undefined
+				 */
+				start?: string | undefined;
+				/**
+				 * @description Start and end are only needed if different from the period\'s start/end.
+				 *
+				 * Format: `date-time`
+				 * @type string | undefined
+				 */
+				end?: string | undefined;
+				/**
+				 * @description Line item name.
+				 * @type string
+				 */
+				name: string;
+				/**
+				 * @description Line item details.
+				 * @type string | undefined
+				 */
+				details?: string | undefined;
+				/**
+				 * @description Price per unit.
+				 * @pattern ^[0-9]+(\.[0-9]+)?$
+				 * @type string
+				 */
+				price: string;
+				/**
+				 * @description Quantity of units.
+				 * @type number
+				 */
+				quantity: number;
+				/**
+				 * @description Units of the quantity.
+				 * @type string
+				 */
+				units: string;
+				/**
+				 * @description Total amount.
+				 * @pattern ^[0-9]+(\.[0-9]+)?$
+				 * @type string
+				 */
+				total: string;
+		  }[]
+		| {
+				items: {
+					/**
+					 * @description Partner\'s billing plan ID.
+					 * @type string
+					 */
+					billingPlanId: string;
+					/**
+					 * @description Partner\'s resource ID.
+					 * @type string | undefined
+					 */
+					resourceId?: string | undefined;
+					/**
+					 * @description Start and end are only needed if different from the period\'s start/end.
+					 *
+					 * Format: `date-time`
+					 * @type string | undefined
+					 */
+					start?: string | undefined;
+					/**
+					 * @description Start and end are only needed if different from the period\'s start/end.
+					 *
+					 * Format: `date-time`
+					 * @type string | undefined
+					 */
+					end?: string | undefined;
+					/**
+					 * @description Line item name.
+					 * @type string
+					 */
+					name: string;
+					/**
+					 * @description Line item details.
+					 * @type string | undefined
+					 */
+					details?: string | undefined;
+					/**
+					 * @description Price per unit.
+					 * @pattern ^[0-9]+(\.[0-9]+)?$
+					 * @type string
+					 */
+					price: string;
+					/**
+					 * @description Quantity of units.
+					 * @type number
+					 */
+					quantity: number;
+					/**
+					 * @description Units of the quantity.
+					 * @type string
+					 */
+					units: string;
+					/**
+					 * @description Total amount.
+					 * @pattern ^[0-9]+(\.[0-9]+)?$
+					 * @type string
+					 */
+					total: string;
+				}[];
+				discounts?:
+					| {
+							/**
+							 * @description Partner\'s billing plan ID.
+							 * @type string
+							 */
+							billingPlanId: string;
+							/**
+							 * @description Partner\'s resource ID.
+							 * @type string | undefined
+							 */
+							resourceId?: string | undefined;
+							/**
+							 * @description Start and end are only needed if different from the period\'s start/end.
+							 *
+							 * Format: `date-time`
+							 * @type string | undefined
+							 */
+							start?: string | undefined;
+							/**
+							 * @description Start and end are only needed if different from the period\'s start/end.
+							 *
+							 * Format: `date-time`
+							 * @type string | undefined
+							 */
+							end?: string | undefined;
+							/**
+							 * @description Discount name.
+							 * @type string
+							 */
+							name: string;
+							/**
+							 * @description Discount details.
+							 * @type string | undefined
+							 */
+							details?: string | undefined;
+							/**
+							 * @description Discount amount.
+							 * @pattern ^[0-9]+(\.[0-9]+)?$
+							 * @type string
+							 */
+							amount: string;
+					  }[]
+					| undefined;
+		  };
+	usage: {
+		/**
+		 * @description Partner\'s resource ID.
+		 * @type string | undefined
+		 */
+		resourceId?: string | undefined;
+		/**
+		 * @description Metric name.
+		 * @type string
+		 */
+		name: string;
+		/**
+		 * @description \n              Type of the metric.\n              - total: measured total value, such as Database size\n              - interval: usage during the period, such as i/o or number of queries.\n              - rate: rate of usage, such as queries per second.\n
+		 * @type string
+		 */
+		type: SubmitBillingDataRequestUsageTypeEnumKey;
+		/**
+		 * @description Metric units. Example: \"GB\"
+		 * @type string
+		 */
+		units: string;
+		/**
+		 * @description Metric value for the day. Could be a final or an interim value for the day.
+		 * @type number
+		 */
+		dayValue: number;
+		/**
+		 * @description Metric value for the billing period. Could be a final or an interim value for the period.
+		 * @type number
+		 */
+		periodValue: number;
+		/**
+		 * @description The limit value of the metric for a billing period, if a limit is defined by the plan.
+		 * @type number | undefined
+		 */
+		planValue?: number | undefined;
+	}[];
+};
+
 export type SubmitBillingDataOptions = {
-	body?: never | undefined;
+	body: SubmitBillingDataBody;
 	path: SubmitBillingDataPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -31695,8 +37377,148 @@ export type SubmitInvoiceStatus409 = unknown;
 
 export type SubmitInvoiceStatus410 = unknown;
 
+export const submitInvoiceRequestTestResultEnum = {
+	notpaid: "notpaid",
+	overdue: "overdue",
+	paid: "paid",
+} as const;
+
+export type SubmitInvoiceRequestTestResultEnumKey =
+	(typeof submitInvoiceRequestTestResultEnum)[keyof typeof submitInvoiceRequestTestResultEnum];
+
+export type SubmitInvoiceBody = {
+	/**
+	 * @description Partner-provided invoice identifier. If provided, it must be unique for this installation.
+	 * @type string | undefined
+	 */
+	externalId?: string | undefined;
+	/**
+	 * @description Invoice date. Must be within the period\'s start and end.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	invoiceDate: string;
+	/**
+	 * @description Additional memo for the invoice.
+	 * @type string | undefined
+	 */
+	memo?: string | undefined;
+	/**
+	 * @description Subscription period for this billing cycle.
+	 * @type object
+	 */
+	period: {
+		/**
+		 * @description
+		 * Format: `date-time`
+		 * @type string
+		 */
+		start: string;
+		/**
+		 * @description
+		 * Format: `date-time`
+		 * @type string
+		 */
+		end: string;
+	};
+	items: {
+		/**
+		 * @description Partner\'s resource ID.
+		 * @type string | undefined
+		 */
+		resourceId?: string | undefined;
+		/**
+		 * @description Partner\'s billing plan ID.
+		 * @type string
+		 */
+		billingPlanId: string;
+		/**
+		 * @description Start and end are only needed if different from the period\'s start/end.
+		 *
+		 * Format: `date-time`
+		 * @type string | undefined
+		 */
+		start?: string | undefined;
+		/**
+		 * @description Start and end are only needed if different from the period\'s start/end.
+		 *
+		 * Format: `date-time`
+		 * @type string | undefined
+		 */
+		end?: string | undefined;
+		name: string;
+		details?: string | undefined;
+		/**
+		 * @description Currency amount as a decimal string.
+		 * @pattern ^[0-9]+(\.[0-9]+)?$
+		 * @type string
+		 */
+		price: string;
+		quantity: number;
+		units: string;
+		/**
+		 * @description Currency amount as a decimal string.
+		 * @pattern ^[0-9]+(\.[0-9]+)?$
+		 * @type string
+		 */
+		total: string;
+	}[];
+	discounts?:
+		| {
+				/**
+				 * @description Partner\'s resource ID.
+				 * @type string | undefined
+				 */
+				resourceId?: string | undefined;
+				/**
+				 * @description Partner\'s billing plan ID.
+				 * @type string
+				 */
+				billingPlanId: string;
+				/**
+				 * @description Start and end are only needed if different from the period\'s start/end.
+				 *
+				 * Format: `date-time`
+				 * @type string | undefined
+				 */
+				start?: string | undefined;
+				/**
+				 * @description Start and end are only needed if different from the period\'s start/end.
+				 *
+				 * Format: `date-time`
+				 * @type string | undefined
+				 */
+				end?: string | undefined;
+				name: string;
+				details?: string | undefined;
+				/**
+				 * @description Currency amount as a decimal string.
+				 * @pattern ^[0-9]+(\.[0-9]+)?$
+				 * @type string
+				 */
+				amount: string;
+		  }[]
+		| undefined;
+	/**
+	 * @description Set this to `true` if this is the final invoice for the installation. Can only be set when the installation is pending deletion.
+	 * @type boolean | undefined
+	 */
+	final?: boolean | undefined;
+	/**
+	 * @description Test mode
+	 * @type object | undefined
+	 */
+	test?:
+		| {
+				validate?: boolean | undefined;
+				result?: SubmitInvoiceRequestTestResultEnumKey | undefined;
+		  }
+		| undefined;
+};
+
 export type SubmitInvoiceOptions = {
-	body?: never | undefined;
+	body: SubmitInvoiceBody;
 	path: SubmitInvoicePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -31814,8 +37636,23 @@ export type UpdateInvoiceStatus409 = unknown;
 
 export type UpdateInvoiceStatus410 = unknown;
 
+export type UpdateInvoiceBody = {
+	action: "refund";
+	/**
+	 * @description Refund reason.
+	 * @type string
+	 */
+	reason: string;
+	/**
+	 * @description The total amount to be refunded. Must be less than or equal to the total amount of the invoice.
+	 * @pattern ^[0-9]+(\.[0-9]+)?$
+	 * @type string
+	 */
+	total: string;
+};
+
 export type UpdateInvoiceOptions = {
-	body?: never | undefined;
+	body: UpdateInvoiceBody;
 	path: UpdateInvoicePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -31852,8 +37689,42 @@ export type SubmitPrepaymentBalancesStatus404 = unknown;
 
 export type SubmitPrepaymentBalancesStatus410 = unknown;
 
+export type SubmitPrepaymentBalancesBody =
+	| {
+			/**
+			 * @description Server time of your integration, used to determine the most recent data for race conditions & updates. Only the latest usage data for a given day, week, and month will be kept.
+			 *
+			 * Format: `date-time`
+			 * @type string
+			 */
+			timestamp: string;
+			balances: {
+				/**
+				 * @description Partner\'s resource ID, exclude if credits are tied to the installation and not an individual resource.
+				 * @type string | undefined
+				 */
+				resourceId?: string | undefined;
+				/**
+				 * @description A human-readable description of the credits the user currently has, e.g. \"2,000 Tokens\"
+				 * @type string | undefined
+				 */
+				credit?: string | undefined;
+				/**
+				 * @description The name of the credits, for display purposes, e.g. \"Tokens\"
+				 * @type string | undefined
+				 */
+				nameLabel?: string | undefined;
+				/**
+				 * @description The dollar value of the credit balance, in USD and provided in cents, which is used to trigger automatic purchase thresholds.
+				 * @type number
+				 */
+				currencyValueInCents: number;
+			}[];
+	  }
+	| undefined;
+
 export type SubmitPrepaymentBalancesOptions = {
-	body?: never | undefined;
+	body: SubmitPrepaymentBalancesBody;
 	path: SubmitPrepaymentBalancesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -31895,12 +37766,48 @@ export type UpdateResourceSecretsStatus410 = unknown;
 
 export type UpdateResourceSecretsStatus422 = unknown;
 
+export type UpdateResourceSecretsBody = {
+	secrets: {
+		name: string;
+		value: string;
+		prefix?: string | undefined;
+		/**
+		 * @description A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
+		 * @type object | undefined
+		 */
+		environmentOverrides?:
+			| {
+					/**
+					 * @description Value used for development environment.
+					 * @type string | undefined
+					 */
+					development?: string | undefined;
+					/**
+					 * @description Value used for preview environment.
+					 * @type string | undefined
+					 */
+					preview?: string | undefined;
+					/**
+					 * @description Value used for production environment.
+					 * @type string | undefined
+					 */
+					production?: string | undefined;
+			  }
+			| undefined;
+	}[];
+	/**
+	 * @description If true, will only update the provided secrets
+	 * @type boolean | undefined
+	 */
+	partial?: boolean | undefined;
+};
+
 /**
  * @deprecated
  * @type object
  */
 export type UpdateResourceSecretsOptions = {
-	body?: never | undefined;
+	body: UpdateResourceSecretsBody;
 	path: UpdateResourceSecretsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -31943,8 +37850,46 @@ export type UpdateResourceSecretsByIdStatus410 = unknown;
 
 export type UpdateResourceSecretsByIdStatus422 = unknown;
 
+export type UpdateResourceSecretsByIdBody =
+	| {
+			secrets: {
+				name: string;
+				value: string;
+				prefix?: string | undefined;
+				/**
+				 * @description A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
+				 * @type object | undefined
+				 */
+				environmentOverrides?:
+					| {
+							/**
+							 * @description Value used for development environment.
+							 * @type string | undefined
+							 */
+							development?: string | undefined;
+							/**
+							 * @description Value used for preview environment.
+							 * @type string | undefined
+							 */
+							preview?: string | undefined;
+							/**
+							 * @description Value used for production environment.
+							 * @type string | undefined
+							 */
+							production?: string | undefined;
+					  }
+					| undefined;
+			}[];
+			/**
+			 * @description If true, will only overwrite the provided secrets instead of replacing all secrets.
+			 * @type boolean | undefined
+			 */
+			partial?: boolean | undefined;
+	  }
+	| undefined;
+
 export type UpdateResourceSecretsByIdOptions = {
-	body?: never | undefined;
+	body: UpdateResourceSecretsByIdBody;
 	path: UpdateResourceSecretsByIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -32215,8 +38160,71 @@ export type ExchangeSsoTokenStatus403 = unknown;
 
 export type ExchangeSsoTokenStatus500 = unknown;
 
+export type ExchangeSsoTokenBody =
+	| {
+			/**
+			 * @description The sensitive code received from Vercel
+			 * @type string
+			 */
+			code: string;
+			/**
+			 * @description The state received from the initialization request
+			 * @type string | undefined
+			 */
+			state?: string | undefined;
+			/**
+			 * @description The integration client id
+			 * @type string | undefined
+			 */
+			clientId?: string | undefined;
+			/**
+			 * @description The integration client secret
+			 * @type string | undefined
+			 */
+			clientSecret?: string | undefined;
+			/**
+			 * @description The integration redirect URI
+			 * @type string | undefined
+			 */
+			redirectUri?: string | undefined;
+			/**
+			 * @description The grant type, when using x-www-form-urlencoded content type
+			 * @type string | undefined
+			 */
+			grantType?: "authorization_code" | undefined;
+			client_id: unknown;
+			client_secret: unknown;
+			grant_type: unknown;
+	  }
+	| {
+			/**
+			 * @description The refresh token received from previous token exchange
+			 * @type string | undefined
+			 */
+			refreshToken?: string | undefined;
+			/**
+			 * @description The integration client id
+			 * @type string | undefined
+			 */
+			clientId?: string | undefined;
+			/**
+			 * @description The integration client secret
+			 * @type string | undefined
+			 */
+			clientSecret?: string | undefined;
+			/**
+			 * @description The grant type, when using x-www-form-urlencoded content type
+			 * @type string | undefined
+			 */
+			grantType?: "refresh_token" | undefined;
+			refresh_token: unknown;
+			client_id: unknown;
+			client_secret: unknown;
+			grant_type: unknown;
+	  };
+
 export type ExchangeSsoTokenOptions = {
-	body?: never | undefined;
+	body: ExchangeSsoTokenBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -32309,8 +38317,81 @@ export type CreateLogDrainStatus404 = unknown;
 
 export type CreateLogDrainStatus410 = unknown;
 
+export const createLogDrainRequestDeliveryFormatEnum = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type CreateLogDrainRequestDeliveryFormatEnumKey =
+	(typeof createLogDrainRequestDeliveryFormatEnum)[keyof typeof createLogDrainRequestDeliveryFormatEnum];
+
+export const createLogDrainRequestSourcesEnum = {
+	build: "build",
+	edge: "edge",
+	external: "external",
+	firewall: "firewall",
+	lambda: "lambda",
+	static: "static",
+} as const;
+
+export type CreateLogDrainRequestSourcesEnumKey =
+	(typeof createLogDrainRequestSourcesEnum)[keyof typeof createLogDrainRequestSourcesEnum];
+
+export const createLogDrainRequestEnvironmentsEnum = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type CreateLogDrainRequestEnvironmentsEnumKey =
+	(typeof createLogDrainRequestEnvironmentsEnum)[keyof typeof createLogDrainRequestEnvironmentsEnum];
+
+export type CreateLogDrainBody = {
+	/**
+	 * @description The name of the log drain
+	 * @maxLength 100
+	 * @pattern ^[A-z0-9_ -]+$
+	 * @example My first log drain
+	 * @type string
+	 */
+	name: string;
+	projectIds?: string[] | undefined;
+	/**
+	 * @description A secret to sign log drain notification headers so a consumer can verify their authenticity
+	 * @maxLength 100
+	 * @pattern ^[A-z0-9_ -]+$
+	 * @example a1Xsfd325fXcs
+	 * @type string | undefined
+	 */
+	secret?: string | undefined;
+	/**
+	 * @description The delivery log format
+	 * @example json
+	 * @type string | undefined
+	 */
+	deliveryFormat?: CreateLogDrainRequestDeliveryFormatEnumKey | undefined;
+	/**
+	 * @description The url where you will receive logs. The protocol must be `https://` or `http://` when type is `json` and `ndjson`.
+	 *
+	 * Format: `uri`
+	 * @example https://example.com/log-drain
+	 * @type string
+	 */
+	url: string;
+	sources?: CreateLogDrainRequestSourcesEnumKey[] | undefined;
+	/**
+	 * @description Headers to be sent together with the request
+	 * @type object | undefined
+	 */
+	headers?:
+		| {
+				[key: string]: string;
+		  }
+		| undefined;
+	environments?: CreateLogDrainRequestEnvironmentsEnumKey[] | undefined;
+};
+
 export type CreateLogDrainOptions = {
-	body?: never | undefined;
+	body: CreateLogDrainBody;
 	path?: never | undefined;
 	query?: CreateLogDrainQuery | undefined;
 	headers?: never | undefined;
@@ -32404,8 +38485,96 @@ export type CreateApiKeysStatus429 = unknown;
 
 export type CreateApiKeysStatus500 = unknown;
 
+export const createApiKeysRequestAiGatewayQuotaRefreshPeriodEnum = {
+	daily: "daily",
+	monthly: "monthly",
+	none: "none",
+	weekly: "weekly",
+} as const;
+
+export type CreateApiKeysRequestAiGatewayQuotaRefreshPeriodEnumKey =
+	(typeof createApiKeysRequestAiGatewayQuotaRefreshPeriodEnum)[keyof typeof createApiKeysRequestAiGatewayQuotaRefreshPeriodEnum];
+
+export const createApiKeysRequestAiGatewayQuotaAlertThresholdsEnum = {
+	"100": 100,
+	"50": 50,
+	"75": 75,
+} as const;
+
+export type CreateApiKeysRequestAiGatewayQuotaAlertThresholdsEnumKey =
+	(typeof createApiKeysRequestAiGatewayQuotaAlertThresholdsEnum)[keyof typeof createApiKeysRequestAiGatewayQuotaAlertThresholdsEnum];
+
+export type CreateApiKeysBody =
+	| {
+			/**
+			 * @description The API key\'s purpose, which restricts how it can be used.
+			 * @type string
+			 */
+			purpose: string;
+			/**
+			 * @description An optional project to restrict the API key to.
+			 * @example prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB
+			 * @type string | undefined
+			 */
+			projectId?: string | undefined;
+			/**
+			 * @description An optional name for the API key.
+			 * @example API Key for App 123
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description The API key\'s expiration, expressed as a UNIX timestamp in milliseconds.
+			 * @type number | undefined
+			 */
+			expiresAt?: number | undefined;
+			/**
+			 * @description Optional AI Gateway quota configuration for the API key.
+			 * @type object | undefined
+			 */
+			aiGatewayQuota?:
+				| {
+						/**
+						 * @description The quota limit amount.
+						 * @minLength 1
+						 * @type number
+						 */
+						limitAmount: number;
+						/**
+						 * @description Whether to include BYOK (Bring Your Own Key) usage in the quota.
+						 * @default false
+						 * @type boolean | undefined
+						 */
+						includeByokInQuota?: boolean | undefined;
+						/**
+						 * @description How often the quota refreshes.
+						 * @default 'none'
+						 * @type string | undefined
+						 */
+						refreshPeriod?: CreateApiKeysRequestAiGatewayQuotaRefreshPeriodEnumKey | undefined;
+						/**
+						 * @description Spend percentages (a subset of [50, 75, 100]) at which to send a spend alert.
+						 * @type array | undefined
+						 */
+						alertThresholds?:
+							| CreateApiKeysRequestAiGatewayQuotaAlertThresholdsEnumKey[]
+							| undefined;
+				  }
+				| undefined;
+			/**
+			 * @description Optional generic metadata for the API key. The accepted shape depends on the key\'s `purpose` and is validated on creation; for `ai-gateway` keys this accepts `environment`.
+			 * @type object | undefined
+			 */
+			metadata?:
+				| {
+						[key: string]: unknown;
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type CreateApiKeysOptions = {
-	body?: never | undefined;
+	body: CreateApiKeysBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -32448,8 +38617,20 @@ export type SignKmsMessageStatus404 = unknown;
 
 export type SignKmsMessageStatus429 = unknown;
 
+export type SignKmsMessageBody =
+	| {
+			/**
+			 * @description Base64-encoded message to be signed.
+			 * @maxLength 44000
+			 * @pattern ^[A-Za-z0-9+/]*={0,2}$
+			 * @type string
+			 */
+			message: string;
+	  }
+	| undefined;
+
 export type SignKmsMessageOptions = {
-	body?: never | undefined;
+	body: SignKmsMessageBody;
 	path: SignKmsMessagePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -32489,8 +38670,29 @@ export type SignKmsTokenStatus404 = unknown;
 
 export type SignKmsTokenStatus429 = unknown;
 
+export type SignKmsTokenBody =
+	| {
+			/**
+			 * @description The claims to include in the token.
+			 * @type object | undefined
+			 */
+			claims?: object | undefined;
+			/**
+			 * @description Additional headers to include in the token.
+			 * @type object | undefined
+			 */
+			headers?: object | undefined;
+			/**
+			 * @description The time-to-live for the token, in seconds.
+			 * @default 300
+			 * @type number | undefined
+			 */
+			ttl?: (number | null) | undefined;
+	  }
+	| undefined;
+
 export type SignKmsTokenOptions = {
-	body?: never | undefined;
+	body: SignKmsTokenBody;
 	path: SignKmsTokenPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -32599,8 +38801,108 @@ export type CreateKmsIssuerStatus404 = unknown;
 
 export type CreateKmsIssuerStatus410 = unknown;
 
+export const createKmsIssuerRequestAlgorithmEnum = {
+	ES256: "ES256",
+	ES384: "ES384",
+	ES512: "ES512",
+	PS256: "PS256",
+	PS384: "PS384",
+	PS512: "PS512",
+	RS256: "RS256",
+	RS384: "RS384",
+	RS512: "RS512",
+} as const;
+
+export type CreateKmsIssuerRequestAlgorithmEnumKey =
+	(typeof createKmsIssuerRequestAlgorithmEnum)[keyof typeof createKmsIssuerRequestAlgorithmEnum];
+
+export type CreateKmsIssuerBody =
+	| {
+			/**
+			 * @description The name of the issuer.
+			 * @type string
+			 */
+			name: string;
+			/**
+			 * @description The signing algorithm to use for the issuer.
+			 * @default 'RS512'
+			 * @type string | undefined
+			 */
+			algorithm?: CreateKmsIssuerRequestAlgorithmEnumKey | undefined;
+			/**
+			 * @description A JSON Schema used to validate the resolved token claims when signing tokens for this issuer.
+			 * @type object | undefined
+			 */
+			claimsSchema?:
+				| {
+						[key: string]: unknown;
+				  }
+				| undefined;
+			policy?:
+				| (
+						| {
+								kind: "project-grant";
+								/**
+								 * @description The team ID for the project grant policy.
+								 * @type string
+								 */
+								teamId: string;
+								/**
+								 * @description The project ID for the project grant policy.
+								 * @type string
+								 */
+								projectId: string;
+								/**
+								 * @description The environments for the project grant policy. Each entry is a system environment (production, preview, development) or a custom environment ID (env_...).
+								 * @type array
+								 */
+								environments: string[];
+								/**
+								 * @description The claims that KMS should include in signed JWTs for this policy.
+								 * @type object | undefined
+								 */
+								tokenClaims?:
+									| {
+											[key: string]: unknown;
+									  }
+									| undefined;
+						  }
+						| {
+								kind: "connex-grant";
+								/**
+								 * @description The Connex client ID for the Connex grant policy.
+								 * @type string
+								 */
+								clientId: string;
+								/**
+								 * @description The claims that KMS should include in signed JWTs for this policy.
+								 * @type object | undefined
+								 */
+								tokenClaims?:
+									| {
+											[key: string]: unknown;
+									  }
+									| undefined;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description The PEM-encoded private key to use for the issuer.
+			 * @type string | undefined
+			 */
+			importKey?: string | undefined;
+			/**
+			 * @description The key id to use as the imported key\'s JWT/JWKS `kid`. Only allowed when `importKey` is provided. Not required to be unique; the addressable key id is the server-minted `keyId` returned in the response.
+			 * @maxLength 128
+			 * @pattern ^[A-Za-z0-9._-]+$
+			 * @type string | undefined
+			 */
+			importKeyId?: string | undefined;
+	  }
+	| undefined;
+
 export type CreateKmsIssuerOptions = {
-	body?: never | undefined;
+	body: CreateKmsIssuerBody;
 	path?: never | undefined;
 	query?: CreateKmsIssuerQuery | undefined;
 	headers?: never | undefined;
@@ -32657,8 +38959,48 @@ export type CreateKmsSigningKeyStatus409 = unknown;
 
 export type CreateKmsSigningKeyStatus410 = unknown;
 
+export const createKmsSigningKeyRequestActivationEnum = {
+	automatic: "automatic",
+	manual: "manual",
+} as const;
+
+export type CreateKmsSigningKeyRequestActivationEnumKey =
+	(typeof createKmsSigningKeyRequestActivationEnum)[keyof typeof createKmsSigningKeyRequestActivationEnum];
+
+export type CreateKmsSigningKeyBody =
+	| {
+			/**
+			 * @description Whether the new key is activated automatically after its public key has propagated, or manually via the activate endpoint. Defaults to `automatic`.
+			 * @type string | undefined
+			 */
+			activation?: CreateKmsSigningKeyRequestActivationEnumKey | undefined;
+			/**
+			 * @description For automatic activation, how many hours after activation the previous signing key should stop being used. Defaults to a 1 hour grace period so already-issued tokens keep verifying.
+			 * @minLength 0
+			 * @type number | undefined
+			 */
+			revokePreviousAfterHours?: number | undefined;
+			/**
+			 * @description Deprecated. The ISO date string or timestamp when the previous signing key should stop being used. Converted to a relative grace and applied at activation, not creation. Prefer revokePreviousAfterHours.
+			 */
+			revokePreviousAt?: (string | number) | undefined;
+			/**
+			 * @description The PEM-encoded private key to use for the issuer.
+			 * @type string | undefined
+			 */
+			importKey?: string | undefined;
+			/**
+			 * @description The key id to use as the imported key\'s JWT/JWKS `kid`. Only allowed when `importKey` is provided. Not required to be unique; the addressable key id is the server-minted `keyId` returned in the response.
+			 * @maxLength 128
+			 * @pattern ^[A-Za-z0-9._-]+$
+			 * @type string | undefined
+			 */
+			importKeyId?: string | undefined;
+	  }
+	| undefined;
+
 export type CreateKmsSigningKeyOptions = {
-	body?: never | undefined;
+	body: CreateKmsSigningKeyBody;
 	path: CreateKmsSigningKeyPath;
 	query?: CreateKmsSigningKeyQuery | undefined;
 	headers?: never | undefined;
@@ -32721,8 +39063,19 @@ export type ActivateKmsSigningKeyStatus409 = unknown;
 
 export type ActivateKmsSigningKeyStatus410 = unknown;
 
+export type ActivateKmsSigningKeyBody =
+	| {
+			/**
+			 * @description How many hours after activation the previously-active key should stop being used. Defaults to a 1 hour grace period so already-issued tokens keep verifying.
+			 * @minLength 0
+			 * @type number | undefined
+			 */
+			revokePreviousAfterHours?: number | undefined;
+	  }
+	| undefined;
+
 export type ActivateKmsSigningKeyOptions = {
-	body?: never | undefined;
+	body: ActivateKmsSigningKeyBody;
 	path: ActivateKmsSigningKeyPath;
 	query?: ActivateKmsSigningKeyQuery | undefined;
 	headers?: never | undefined;
@@ -32898,8 +39251,27 @@ export type UpdateKmsIssuerStatus404 = unknown;
 
 export type UpdateKmsIssuerStatus410 = unknown;
 
+export type UpdateKmsIssuerBody =
+	| {
+			/**
+			 * @description The name of the issuer.
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description A JSON Schema used to validate the resolved token claims when signing tokens for this issuer. Pass null to remove it.
+			 * @type object | undefined
+			 */
+			claimsSchema?:
+				| ({
+						[key: string]: unknown;
+				  } | null)
+				| undefined;
+	  }
+	| undefined;
+
 export type UpdateKmsIssuerOptions = {
-	body?: never | undefined;
+	body: UpdateKmsIssuerBody;
 	path: UpdateKmsIssuerPath;
 	query?: UpdateKmsIssuerQuery | undefined;
 	headers?: never | undefined;
@@ -33010,8 +39382,33 @@ export type CreateKmsIssuerPolicyStatus404 = unknown;
 
 export type CreateKmsIssuerPolicyStatus410 = unknown;
 
+export type CreateKmsIssuerPolicyBody =
+	| {
+			kind: "project-grant";
+			/**
+			 * @description The project ID for the project grant policy.
+			 * @type string
+			 */
+			projectId: string;
+			/**
+			 * @description The environments for the project grant policy. Each entry is a system environment (production, preview, development) or a custom environment ID (env_...).
+			 * @type array
+			 */
+			environments: string[];
+			/**
+			 * @description The claims that KMS should include in signed JWTs for this policy.
+			 * @type object | undefined
+			 */
+			tokenClaims?:
+				| {
+						[key: string]: unknown;
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type CreateKmsIssuerPolicyOptions = {
-	body?: never | undefined;
+	body: CreateKmsIssuerPolicyBody;
 	path: CreateKmsIssuerPolicyPath;
 	query?: CreateKmsIssuerPolicyQuery | undefined;
 	headers?: never | undefined;
@@ -33076,8 +39473,27 @@ export type UpdateKmsIssuerPolicyStatus404 = unknown;
 
 export type UpdateKmsIssuerPolicyStatus410 = unknown;
 
+export type UpdateKmsIssuerPolicyBody =
+	| {
+			/**
+			 * @description The environments for the project grant policy. Each entry is a system environment (production, preview, development) or a custom environment ID (env_...).
+			 * @type array | undefined
+			 */
+			environments?: string[] | undefined;
+			/**
+			 * @description The claims that KMS should include in signed JWTs for this policy. Pass null to remove them.
+			 * @type object | undefined
+			 */
+			tokenClaims?:
+				| ({
+						[key: string]: unknown;
+				  } | null)
+				| undefined;
+	  }
+	| undefined;
+
 export type UpdateKmsIssuerPolicyOptions = {
-	body?: never | undefined;
+	body: UpdateKmsIssuerPolicyBody;
 	path: UpdateKmsIssuerPolicyPath;
 	query?: UpdateKmsIssuerPolicyQuery | undefined;
 	headers?: never | undefined;
@@ -33248,9 +39664,56 @@ export type CreateInstallationsByIntegrationConfigurationIdResourcesByResourceId
 export type CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus410 =
 	unknown;
 
+export const createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsRequestItemsCategoryEnum =
+	{
+		experiment: "experiment",
+		flag: "flag",
+	} as const;
+
+export type CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsRequestItemsCategoryEnumKey =
+	(typeof createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsRequestItemsCategoryEnum)[keyof typeof createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsRequestItemsCategoryEnum];
+
+export type CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsBody =
+	| {
+			items: {
+				/**
+				 * @maxLength 1024
+				 * @type string
+				 */
+				id: string;
+				/**
+				 * @maxLength 1024
+				 * @type string
+				 */
+				slug: string;
+				/**
+				 * @maxLength 2048
+				 * @type string
+				 */
+				origin: string;
+				category?:
+					| CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsRequestItemsCategoryEnumKey
+					| undefined;
+				/**
+				 * @maxLength 1024
+				 * @type string | undefined
+				 */
+				name?: string | undefined;
+				/**
+				 * @maxLength 1024
+				 * @type string | undefined
+				 */
+				description?: string | undefined;
+				isArchived?: boolean | undefined;
+				createdAt?: number | undefined;
+				updatedAt?: number | undefined;
+			}[];
+	  }
+	| undefined;
+
 export type CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsOptions =
 	{
-		body?: never | undefined;
+		body: CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsBody;
 		path: CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsPath;
 		query?: never | undefined;
 		headers?: never | undefined;
@@ -33297,9 +39760,49 @@ export type UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceId
 export type UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus410 =
 	unknown;
 
+export const updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdRequestCategoryEnum =
+	{
+		experiment: "experiment",
+		flag: "flag",
+	} as const;
+
+export type UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdRequestCategoryEnumKey =
+	(typeof updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdRequestCategoryEnum)[keyof typeof updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdRequestCategoryEnum];
+
+export type UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdBody =
+	| {
+			/**
+			 * @maxLength 1024
+			 * @type string
+			 */
+			slug: string;
+			/**
+			 * @maxLength 2048
+			 * @type string
+			 */
+			origin: string;
+			/**
+			 * @maxLength 1024
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			category?:
+				| UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdRequestCategoryEnumKey
+				| undefined;
+			/**
+			 * @maxLength 1024
+			 * @type string | undefined
+			 */
+			description?: string | undefined;
+			isArchived?: boolean | undefined;
+			createdAt?: number | undefined;
+			updatedAt?: number | undefined;
+	  }
+	| undefined;
+
 export type UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdOptions =
 	{
-		body?: never | undefined;
+		body: UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdBody;
 		path: UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPath;
 		query?: never | undefined;
 		headers?: never | undefined;
@@ -33452,9 +39955,17 @@ export type ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceI
 export type ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus412 =
 	unknown;
 
+export type ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigBody =
+	| {
+			data: {
+				[key: string]: unknown;
+			};
+	  }
+	| undefined;
+
 export type ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigOptions =
 	{
-		body?: never | undefined;
+		body: ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigBody;
 		path: ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath;
 		query?: never | undefined;
 		headers?: never | undefined;
@@ -33728,8 +40239,51 @@ export type CreateMicrofrontendsGroupWithApplicationsStatus410 = unknown;
 
 export type CreateMicrofrontendsGroupWithApplicationsStatus500 = unknown;
 
+export type CreateMicrofrontendsGroupWithApplicationsBody =
+	| {
+			/**
+			 * @description The name of the microfrontends group that will be used to identify the group
+			 * @example MFE Group 1
+			 * @type string
+			 */
+			groupName: string;
+			/**
+			 * @description The default app for the new microfrontend group
+			 * @type object
+			 */
+			defaultApp: {
+				/**
+				 * @description The id of the project that will be used as the default app for the new microfrontend group
+				 * @type string
+				 */
+				projectId: string;
+				/**
+				 * @description The default route for the default app of the new microfrontend group
+				 * @type string | undefined
+				 */
+				defaultRoute?: string | undefined;
+			};
+			/**
+			 * @description The list of other applications that will be used in the new microfrontend group
+			 * @type array
+			 */
+			otherApplications: {
+				/**
+				 * @description The id of the project that will be used in the new microfrontend group
+				 * @type string
+				 */
+				projectId: string;
+				/**
+				 * @description The default route for the application in the new microfrontend group
+				 * @type string | undefined
+				 */
+				defaultRoute?: string | undefined;
+			}[];
+	  }
+	| undefined;
+
 export type CreateMicrofrontendsGroupWithApplicationsOptions = {
-	body?: never | undefined;
+	body: CreateMicrofrontendsGroupWithApplicationsBody;
 	path?: never | undefined;
 	query?: CreateMicrofrontendsGroupWithApplicationsQuery | undefined;
 	headers?: never | undefined;
@@ -33837,8 +40391,18 @@ export type UpdateObservabilityConfigurationProjectStatus410 = unknown;
 
 export type UpdateObservabilityConfigurationProjectStatus429 = unknown;
 
+export type UpdateObservabilityConfigurationProjectBody =
+	| {
+			/**
+			 * @description Whether Observability Plus should be disabled for the project
+			 * @type boolean
+			 */
+			disabled: boolean;
+	  }
+	| undefined;
+
 export type UpdateObservabilityConfigurationProjectOptions = {
-	body?: never | undefined;
+	body: UpdateObservabilityConfigurationProjectBody;
 	path: UpdateObservabilityConfigurationProjectPath;
 	query?: UpdateObservabilityConfigurationProjectQuery | undefined;
 	headers?: never | undefined;
@@ -33884,8 +40448,82 @@ export type CreateObservabilityQueryStatus500 = unknown;
 
 export type CreateObservabilityQueryStatus503 = unknown;
 
+export const createObservabilityQueryRequestOrderDirectionEnum = {
+	asc: "asc",
+	desc: "desc",
+} as const;
+
+export type CreateObservabilityQueryRequestOrderDirectionEnumKey =
+	(typeof createObservabilityQueryRequestOrderDirectionEnum)[keyof typeof createObservabilityQueryRequestOrderDirectionEnum];
+
+export type CreateObservabilityQueryBody =
+	| {
+			/**
+			 * @description Metric id
+			 * @type string
+			 */
+			metric: string;
+			/**
+			 * @description Owner or project scope for the query
+			 * @type object
+			 */
+			scope: object;
+			/**
+			 * @description Aggregation function to apply. Some aggregations require a dimension: use <agg>/<dimension>, for example unique/visitor_id.
+			 * @type string | undefined
+			 */
+			aggregation?: string | undefined;
+			/**
+			 * @description Dimensions to group results by. JSON dimensions support nested refs, for example event_data/checkout_step. Nested keys containing characters that OData cannot parse as an identifier, such as \'-\', spaces, quotes, or \'/\', must be wrapped in single quotes (escape embedded single quotes by doubling them), for example flags/\'enable-comments-view\' or event_data/\'some property\'\'s/value\'.
+			 * @type array | undefined
+			 */
+			groupBy?: string[] | undefined;
+			/**
+			 * @description Filter to apply to the query. JSON dimensions support nested refs, for example event_data/checkout_step eq \'payment\'. Nested keys containing characters that OData cannot parse as an identifier, such as \'-\', spaces, quotes, or \'/\', must be wrapped in single quotes (escape embedded single quotes by doubling them), for example flags/\'enable-comments-view\' eq true or event_data/\'some property\'\'s/value\' eq true.
+			 * @type string | undefined
+			 */
+			filter?: string | undefined;
+			/**
+			 * @description Maximum number of results
+			 * @type number | undefined
+			 */
+			limit?: number | undefined;
+			/**
+			 * @description Rollup column to order grouped results by. Use the generated rollup key for the requested metric and aggregation. Defaults to the query engine count rollup.
+			 * @type string | undefined
+			 */
+			orderBy?: string | undefined;
+			/**
+			 * @description Direction to order grouped results by. Defaults to desc.
+			 * @type string | undefined
+			 */
+			orderDirection?: CreateObservabilityQueryRequestOrderDirectionEnumKey | undefined;
+			/**
+			 * @description Time bucket size
+			 * @type object | undefined
+			 */
+			granularity?: object | undefined;
+			/**
+			 * @description Start timestamp
+			 * @type string | undefined
+			 */
+			startTime?: string | undefined;
+			/**
+			 * @description End timestamp
+			 * @type string | undefined
+			 */
+			endTime?: string | undefined;
+			/**
+			 * @description IANA timezone (e.g. Europe/Paris) used only to align calendar buckets (1d/1mo) to that zone\'s day/month boundaries. startTime/endTime and all output timestamps are always UTC. No effect on sub-day granularities.
+			 * @type string | undefined
+			 */
+			bucketTimezone?: string | undefined;
+			[key: string]: unknown;
+	  }
+	| undefined;
+
 export type CreateObservabilityQueryOptions = {
-	body?: never | undefined;
+	body: CreateObservabilityQueryBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -33980,6 +40618,448 @@ export type GetObservabilitySchemaByMetricIdResponses = {
  * @description Union of all possible responses
  */
 export type GetObservabilitySchemaByMetricIdResponse = GetObservabilitySchemaByMetricIdStatus200;
+
+export type CreateOrganizationQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type CreateOrganizationStatus202 = unknown;
+
+export type CreateOrganizationStatus400 = unknown;
+
+export type CreateOrganizationStatus401 = unknown;
+
+export type CreateOrganizationStatus403 = unknown;
+
+export type CreateOrganizationStatus404 = unknown;
+
+export type CreateOrganizationStatus409 = unknown;
+
+export type CreateOrganizationStatus410 = unknown;
+
+export type CreateOrganizationStatus500 = unknown;
+
+export type CreateOrganizationBody =
+	| {
+			/**
+			 * @description The desired slug for the organization.
+			 * @maxLength 48
+			 * @pattern ^(?!-)(?:[a-z0-9-]{1,48})(?<!-)$
+			 * @type string
+			 */
+			slug: string;
+			/**
+			 * @description The desired name for the organization. Generated from the slug if not provided.
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+	  }
+	| undefined;
+
+export type CreateOrganizationOptions = {
+	body: CreateOrganizationBody;
+	path?: never | undefined;
+	query?: CreateOrganizationQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateOrganizationResponses = {
+	"202": CreateOrganizationStatus202;
+	"400": CreateOrganizationStatus400;
+	"401": CreateOrganizationStatus401;
+	"403": CreateOrganizationStatus403;
+	"404": CreateOrganizationStatus404;
+	"409": CreateOrganizationStatus409;
+	"410": CreateOrganizationStatus410;
+	"500": CreateOrganizationStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateOrganizationResponse = CreateOrganizationStatus202;
+
+export type ListOrganizationsStatus200 = unknown;
+
+export type ListOrganizationsStatus400 = unknown;
+
+export type ListOrganizationsStatus403 = unknown;
+
+export type ListOrganizationsStatus410 = unknown;
+
+export type ListOrganizationsOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ListOrganizationsResponses = {
+	"200": ListOrganizationsStatus200;
+	"400": ListOrganizationsStatus400;
+	"403": ListOrganizationsStatus403;
+	"410": ListOrganizationsStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListOrganizationsResponse = ListOrganizationsStatus200;
+
+export type GetOrganizationPath = {
+	/**
+	 * @description The ID or slug of the organization to retrieve.
+	 * @type string
+	 */
+	organizationId: string;
+};
+
+export type GetOrganizationQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type GetOrganizationStatus200 = unknown;
+
+export type GetOrganizationStatus400 = unknown;
+
+export type GetOrganizationStatus401 = unknown;
+
+export type GetOrganizationStatus403 = unknown;
+
+export type GetOrganizationStatus404 = unknown;
+
+export type GetOrganizationStatus410 = unknown;
+
+export type GetOrganizationOptions = {
+	body?: never | undefined;
+	path: GetOrganizationPath;
+	query?: GetOrganizationQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type GetOrganizationResponses = {
+	"200": GetOrganizationStatus200;
+	"400": GetOrganizationStatus400;
+	"401": GetOrganizationStatus401;
+	"403": GetOrganizationStatus403;
+	"404": GetOrganizationStatus404;
+	"410": GetOrganizationStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetOrganizationResponse = GetOrganizationStatus200;
+
+export type UpdateOrganizationPath = {
+	/**
+	 * @description The ID of the organization to update.
+	 * @type string
+	 */
+	organizationId: string;
+};
+
+export type UpdateOrganizationStatus200 = unknown;
+
+export type UpdateOrganizationStatus400 = unknown;
+
+export type UpdateOrganizationStatus401 = unknown;
+
+export type UpdateOrganizationStatus403 = unknown;
+
+export type UpdateOrganizationStatus404 = unknown;
+
+export type UpdateOrganizationStatus409 = unknown;
+
+export type UpdateOrganizationStatus410 = unknown;
+
+export type UpdateOrganizationBody =
+	| {
+			/**
+			 * @description The hash value of an uploaded image, or `null` to clear the organization avatar. Omit to leave it unchanged.
+			 * @maxLength 40
+			 * @pattern ^[0-9a-f]+$
+			 * @type string | undefined
+			 */
+			avatar?: (string | null) | undefined;
+			/**
+			 * @description The new display name for the organization.
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description The new slug for the organization.
+			 * @maxLength 48
+			 * @pattern ^(?!-)(?:[a-z0-9-]{1,48})(?<!-)$
+			 * @type string | undefined
+			 */
+			slug?: string | undefined;
+	  }
+	| undefined;
+
+export type UpdateOrganizationOptions = {
+	body: UpdateOrganizationBody;
+	path: UpdateOrganizationPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateOrganizationResponses = {
+	"200": UpdateOrganizationStatus200;
+	"400": UpdateOrganizationStatus400;
+	"401": UpdateOrganizationStatus401;
+	"403": UpdateOrganizationStatus403;
+	"404": UpdateOrganizationStatus404;
+	"409": UpdateOrganizationStatus409;
+	"410": UpdateOrganizationStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateOrganizationResponse = UpdateOrganizationStatus200;
+
+export type ListOrganizationTeamsPath = {
+	/**
+	 * @description The ID of the organization.
+	 * @type string
+	 */
+	organizationId: string;
+};
+
+export type ListOrganizationTeamsQuery = {
+	/**
+	 * @description Pagination cursor.
+	 * @type string | undefined
+	 */
+	cursor?: string | undefined;
+	/**
+	 * @description When true, includes each team\'s member count in the response.
+	 * @type boolean | undefined
+	 */
+	includeMemberCount?: boolean | undefined;
+};
+
+export type ListOrganizationTeamsStatus200 = unknown;
+
+export type ListOrganizationTeamsStatus400 = unknown;
+
+export type ListOrganizationTeamsStatus401 = unknown;
+
+export type ListOrganizationTeamsStatus403 = unknown;
+
+export type ListOrganizationTeamsStatus404 = unknown;
+
+export type ListOrganizationTeamsStatus410 = unknown;
+
+export type ListOrganizationTeamsOptions = {
+	body?: never | undefined;
+	path: ListOrganizationTeamsPath;
+	query?: ListOrganizationTeamsQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ListOrganizationTeamsResponses = {
+	"200": ListOrganizationTeamsStatus200;
+	"400": ListOrganizationTeamsStatus400;
+	"401": ListOrganizationTeamsStatus401;
+	"403": ListOrganizationTeamsStatus403;
+	"404": ListOrganizationTeamsStatus404;
+	"410": ListOrganizationTeamsStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListOrganizationTeamsResponse = ListOrganizationTeamsStatus200;
+
+export type AddOrganizationTeamPath = {
+	/**
+	 * @description The ID of the organization to create or add a team under.
+	 * @type string
+	 */
+	organizationId: string;
+};
+
+export type AddOrganizationTeamStatus200 = unknown;
+
+export type AddOrganizationTeamStatus400 = unknown;
+
+export type AddOrganizationTeamStatus401 = unknown;
+
+export type AddOrganizationTeamStatus403 = unknown;
+
+export type AddOrganizationTeamStatus404 = unknown;
+
+export type AddOrganizationTeamStatus409 = unknown;
+
+export type AddOrganizationTeamStatus410 = unknown;
+
+export type AddOrganizationTeamStatus500 = unknown;
+
+export const addOrganizationTeamRequestModeEnum = {
+	create: "create",
+	link: "link",
+} as const;
+
+export type AddOrganizationTeamRequestModeEnumKey =
+	(typeof addOrganizationTeamRequestModeEnum)[keyof typeof addOrganizationTeamRequestModeEnum];
+
+export const addOrganizationTeamRequestBillingPlanEnum = {
+	enterprise: "enterprise",
+	platform: "platform",
+} as const;
+
+export type AddOrganizationTeamRequestBillingPlanEnumKey =
+	(typeof addOrganizationTeamRequestBillingPlanEnum)[keyof typeof addOrganizationTeamRequestBillingPlanEnum];
+
+export type AddOrganizationTeamBody =
+	| ((
+			| {
+					mode: "create";
+					name: unknown;
+					/**
+					 * @description The slug of an existing team to link, or the slug for a new team to create.
+					 * @type string
+					 */
+					slug: string;
+			  }
+			| {
+					mode: "link";
+					/**
+					 * @description The ID of an existing team to add to the organization (link mode).
+					 * @type string
+					 */
+					teamId: string;
+			  }
+			| {
+					mode: "link";
+					/**
+					 * @description The slug of an existing team to link, or the slug for a new team to create.
+					 * @type string
+					 */
+					slug: string;
+			  }
+	  ) & {
+			/**
+			 * @description Whether to create a new team under the organization (\\\"create\\\") or link an existing one (\\\"link\\\").
+			 * @type string
+			 */
+			mode: AddOrganizationTeamRequestModeEnumKey;
+			/**
+			 * @description The ID of an existing team to add to the organization (link mode).
+			 * @type string | undefined
+			 */
+			teamId?: string | undefined;
+			/**
+			 * @description The slug of an existing team to link, or the slug for a new team to create.
+			 * @type string | undefined
+			 */
+			slug?: string | undefined;
+			/**
+			 * @description The display name for a new team. Required in create mode; rejected in link mode.
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			billingPlan?: AddOrganizationTeamRequestBillingPlanEnumKey | undefined;
+	  })
+	| undefined;
+
+export type AddOrganizationTeamOptions = {
+	body: AddOrganizationTeamBody;
+	path: AddOrganizationTeamPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type AddOrganizationTeamResponses = {
+	"200": AddOrganizationTeamStatus200;
+	"400": AddOrganizationTeamStatus400;
+	"401": AddOrganizationTeamStatus401;
+	"403": AddOrganizationTeamStatus403;
+	"404": AddOrganizationTeamStatus404;
+	"409": AddOrganizationTeamStatus409;
+	"410": AddOrganizationTeamStatus410;
+	"500": AddOrganizationTeamStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type AddOrganizationTeamResponse = AddOrganizationTeamStatus200;
+
+export type RemoveOrganizationTeamPath = {
+	/**
+	 * @description The ID of the organization.
+	 * @type string
+	 */
+	organizationId: string;
+	/**
+	 * @description The ID of the team to remove.
+	 * @type string
+	 */
+	targetTeamId: string;
+};
+
+export type RemoveOrganizationTeamStatus200 = unknown;
+
+export type RemoveOrganizationTeamStatus400 = unknown;
+
+export type RemoveOrganizationTeamStatus401 = unknown;
+
+export type RemoveOrganizationTeamStatus403 = unknown;
+
+export type RemoveOrganizationTeamStatus404 = unknown;
+
+export type RemoveOrganizationTeamStatus409 = unknown;
+
+export type RemoveOrganizationTeamStatus410 = unknown;
+
+export type RemoveOrganizationTeamOptions = {
+	body?: never | undefined;
+	path: RemoveOrganizationTeamPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type RemoveOrganizationTeamResponses = {
+	"200": RemoveOrganizationTeamStatus200;
+	"400": RemoveOrganizationTeamStatus400;
+	"401": RemoveOrganizationTeamStatus401;
+	"403": RemoveOrganizationTeamStatus403;
+	"404": RemoveOrganizationTeamStatus404;
+	"409": RemoveOrganizationTeamStatus409;
+	"410": RemoveOrganizationTeamStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type RemoveOrganizationTeamResponse = RemoveOrganizationTeamStatus200;
 
 export type GetProjectMembersPath = {
 	/**
@@ -34101,8 +41181,77 @@ export type AddProjectMemberStatus410 = unknown;
 
 export type AddProjectMemberStatus500 = unknown;
 
+export const addProjectMemberRequestRoleEnum = {
+	ADMIN: "ADMIN",
+	PROJECT_DEVELOPER: "PROJECT_DEVELOPER",
+	PROJECT_VIEWER: "PROJECT_VIEWER",
+} as const;
+
+export type AddProjectMemberRequestRoleEnumKey =
+	(typeof addProjectMemberRequestRoleEnum)[keyof typeof addProjectMemberRequestRoleEnum];
+
+export type AddProjectMemberBody = (
+	| {
+			/**
+			 * @description The ID of the team member that should be added to this project.
+			 * @maxLength 256
+			 * @example ndlgr43fadlPyCtREAqxxdyFK
+			 * @type string
+			 */
+			uid: string;
+	  }
+	| {
+			/**
+			 * @description The username of the team member that should be added to this project.
+			 * @maxLength 256
+			 * @example example
+			 * @type string
+			 */
+			username: string;
+	  }
+	| {
+			/**
+			 * @description The email of the team member that should be added to this project.
+			 *
+			 * Format: `email`
+			 * @example entity@example.com
+			 * @type string
+			 */
+			email: string;
+	  }
+) & {
+	/**
+	 * @description The ID of the team member that should be added to this project.
+	 * @maxLength 256
+	 * @example ndlgr43fadlPyCtREAqxxdyFK
+	 * @type string | undefined
+	 */
+	uid?: string | undefined;
+	/**
+	 * @description The username of the team member that should be added to this project.
+	 * @maxLength 256
+	 * @example example
+	 * @type string | undefined
+	 */
+	username?: string | undefined;
+	/**
+	 * @description The email of the team member that should be added to this project.
+	 *
+	 * Format: `email`
+	 * @example entity@example.com
+	 * @type string | undefined
+	 */
+	email?: string | undefined;
+	/**
+	 * @description The project role of the member that will be added.
+	 * @example ADMIN
+	 * @type string
+	 */
+	role: AddProjectMemberRequestRoleEnumKey;
+};
+
 export type AddProjectMemberOptions = {
-	body?: never | undefined;
+	body: AddProjectMemberBody;
 	path: AddProjectMemberPath;
 	query?: AddProjectMemberQuery | undefined;
 	headers?: never | undefined;
@@ -34286,8 +41435,107 @@ export type StageRoutesStatus410 = unknown;
 
 export type StageRoutesStatus500 = unknown;
 
+export const stageRoutesRequestRoutesRouteHasTypeEnum = {
+	cookie: "cookie",
+	header: "header",
+	host: "host",
+	query: "query",
+} as const;
+
+export type StageRoutesRequestRoutesRouteHasTypeEnumKey =
+	(typeof stageRoutesRequestRoutesRouteHasTypeEnum)[keyof typeof stageRoutesRequestRoutesRouteHasTypeEnum];
+
+export const stageRoutesRequestRoutesRouteMissingTypeEnum = {
+	cookie: "cookie",
+	header: "header",
+	host: "host",
+	query: "query",
+} as const;
+
+export type StageRoutesRequestRoutesRouteMissingTypeEnumKey =
+	(typeof stageRoutesRequestRoutesRouteMissingTypeEnum)[keyof typeof stageRoutesRequestRoutesRouteMissingTypeEnum];
+
+export const stageRoutesRequestRoutesRouteTransformsTypeEnum = {
+	"request.headers": "request.headers",
+	"request.query": "request.query",
+	"response.headers": "response.headers",
+} as const;
+
+export type StageRoutesRequestRoutesRouteTransformsTypeEnumKey =
+	(typeof stageRoutesRequestRoutesRouteTransformsTypeEnum)[keyof typeof stageRoutesRequestRoutesRouteTransformsTypeEnum];
+
+export const stageRoutesRequestRoutesRouteTransformsOpEnum = {
+	append: "append",
+	delete: "delete",
+	set: "set",
+} as const;
+
+export type StageRoutesRequestRoutesRouteTransformsOpEnumKey =
+	(typeof stageRoutesRequestRoutesRouteTransformsOpEnum)[keyof typeof stageRoutesRequestRoutesRouteTransformsOpEnum];
+
+export type StageRoutesBody =
+	| {
+			overwrite?: boolean | undefined;
+			/**
+			 * @default []
+			 * @type array | undefined
+			 */
+			routes?:
+				| {
+						/**
+						 * @maxLength 256
+						 * @type string
+						 */
+						id: string;
+						/**
+						 * @maxLength 256
+						 * @type string
+						 */
+						name: string;
+						/**
+						 * @maxLength 1024
+						 * @type string | undefined
+						 */
+						description?: string | undefined;
+						enabled?: boolean | undefined;
+						route: {
+							src: string;
+							dest?: string | undefined;
+							headers?: object | undefined;
+							caseSensitive?: boolean | undefined;
+							status?: number | undefined;
+							has?:
+								| {
+										type?: StageRoutesRequestRoutesRouteHasTypeEnumKey | undefined;
+										key?: string | undefined;
+										value?: string | undefined;
+								  }[]
+								| undefined;
+							missing?:
+								| {
+										type?: StageRoutesRequestRoutesRouteMissingTypeEnumKey | undefined;
+										key?: string | undefined;
+										value?: string | undefined;
+								  }[]
+								| undefined;
+							transforms?:
+								| {
+										type?: StageRoutesRequestRoutesRouteTransformsTypeEnumKey | undefined;
+										op?: StageRoutesRequestRoutesRouteTransformsOpEnumKey | undefined;
+										target?: object | undefined;
+										args?: unknown | undefined;
+										env?: string[] | undefined;
+								  }[]
+								| undefined;
+							respectOriginCacheControl?: boolean | undefined;
+						};
+				  }[]
+				| undefined;
+	  }
+	| undefined;
+
 export type StageRoutesOptions = {
-	body?: never | undefined;
+	body: StageRoutesBody;
 	path: StageRoutesPath;
 	query?: StageRoutesQuery | undefined;
 	headers?: never | undefined;
@@ -34344,8 +41592,137 @@ export type AddRouteStatus410 = unknown;
 
 export type AddRouteStatus500 = unknown;
 
+export const addRouteRequestRouteSrcSyntaxEnum = {
+	equals: "equals",
+	"path-to-regexp": "path-to-regexp",
+	regex: "regex",
+} as const;
+
+export type AddRouteRequestRouteSrcSyntaxEnumKey =
+	(typeof addRouteRequestRouteSrcSyntaxEnum)[keyof typeof addRouteRequestRouteSrcSyntaxEnum];
+
+export const addRouteRequestRouteRouteHasTypeEnum = {
+	cookie: "cookie",
+	header: "header",
+	host: "host",
+	query: "query",
+} as const;
+
+export type AddRouteRequestRouteRouteHasTypeEnumKey =
+	(typeof addRouteRequestRouteRouteHasTypeEnum)[keyof typeof addRouteRequestRouteRouteHasTypeEnum];
+
+export const addRouteRequestRouteRouteMissingTypeEnum = {
+	cookie: "cookie",
+	header: "header",
+	host: "host",
+	query: "query",
+} as const;
+
+export type AddRouteRequestRouteRouteMissingTypeEnumKey =
+	(typeof addRouteRequestRouteRouteMissingTypeEnum)[keyof typeof addRouteRequestRouteRouteMissingTypeEnum];
+
+export const addRouteRequestRouteRouteTransformsTypeEnum = {
+	"request.headers": "request.headers",
+	"request.query": "request.query",
+	"response.headers": "response.headers",
+} as const;
+
+export type AddRouteRequestRouteRouteTransformsTypeEnumKey =
+	(typeof addRouteRequestRouteRouteTransformsTypeEnum)[keyof typeof addRouteRequestRouteRouteTransformsTypeEnum];
+
+export const addRouteRequestRouteRouteTransformsOpEnum = {
+	append: "append",
+	delete: "delete",
+	set: "set",
+} as const;
+
+export type AddRouteRequestRouteRouteTransformsOpEnumKey =
+	(typeof addRouteRequestRouteRouteTransformsOpEnum)[keyof typeof addRouteRequestRouteRouteTransformsOpEnum];
+
+export const addRouteRequestPositionPlacementEnum = {
+	after: "after",
+	before: "before",
+	end: "end",
+	start: "start",
+} as const;
+
+export type AddRouteRequestPositionPlacementEnumKey =
+	(typeof addRouteRequestPositionPlacementEnum)[keyof typeof addRouteRequestPositionPlacementEnum];
+
+export type AddRouteBody =
+	| {
+			route: {
+				/**
+				 * @maxLength 256
+				 * @type string
+				 */
+				name: string;
+				/**
+				 * @maxLength 1024
+				 * @type string | undefined
+				 */
+				description?: string | undefined;
+				enabled?: boolean | undefined;
+				/**
+				 * @description Pattern syntax type. If not provided, inferred from pattern.
+				 * @type string | undefined
+				 */
+				srcSyntax?: AddRouteRequestRouteSrcSyntaxEnumKey | undefined;
+				route: {
+					src: string;
+					dest?: string | undefined;
+					headers?: object | undefined;
+					caseSensitive?: boolean | undefined;
+					status?: number | undefined;
+					has?:
+						| {
+								type?: AddRouteRequestRouteRouteHasTypeEnumKey | undefined;
+								key?: string | undefined;
+								value?: string | undefined;
+						  }[]
+						| undefined;
+					missing?:
+						| {
+								type?: AddRouteRequestRouteRouteMissingTypeEnumKey | undefined;
+								key?: string | undefined;
+								value?: string | undefined;
+						  }[]
+						| undefined;
+					transforms?:
+						| {
+								type?: AddRouteRequestRouteRouteTransformsTypeEnumKey | undefined;
+								op?: AddRouteRequestRouteRouteTransformsOpEnumKey | undefined;
+								target?: object | undefined;
+								args?: unknown | undefined;
+								env?: string[] | undefined;
+						  }[]
+						| undefined;
+					respectOriginCacheControl?: boolean | undefined;
+				};
+			};
+			/**
+			 * @description Controls where the route is inserted. Defaults to \"end\" if omitted.
+			 * @type object | undefined
+			 */
+			position?:
+				| {
+						/**
+						 * @description \"after\"/\"before\" require referenceId.
+						 * @type string | undefined
+						 */
+						placement?: AddRouteRequestPositionPlacementEnumKey | undefined;
+						/**
+						 * @description Route ID to insert after/before. Required for \"after\"/\"before\".
+						 * @type string | undefined
+						 */
+						referenceId?: string | undefined;
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type AddRouteOptions = {
-	body?: never | undefined;
+	body: AddRouteBody;
 	path: AddRoutePath;
 	query?: AddRouteQuery | undefined;
 	headers?: never | undefined;
@@ -34402,8 +41779,18 @@ export type DeleteRoutesStatus410 = unknown;
 
 export type DeleteRoutesStatus500 = unknown;
 
+export type DeleteRoutesBody =
+	| {
+			/**
+			 * @description The IDs of the routes to delete
+			 * @type array
+			 */
+			routeIds: string[];
+	  }
+	| undefined;
+
 export type DeleteRoutesOptions = {
-	body?: never | undefined;
+	body: DeleteRoutesBody;
 	path: DeleteRoutesPath;
 	query?: DeleteRoutesQuery | undefined;
 	headers?: never | undefined;
@@ -34461,8 +41848,120 @@ export type EditRouteStatus410 = unknown;
 
 export type EditRouteStatus500 = unknown;
 
+export const editRouteRequestRouteSrcSyntaxEnum = {
+	equals: "equals",
+	"path-to-regexp": "path-to-regexp",
+	regex: "regex",
+} as const;
+
+export type EditRouteRequestRouteSrcSyntaxEnumKey =
+	(typeof editRouteRequestRouteSrcSyntaxEnum)[keyof typeof editRouteRequestRouteSrcSyntaxEnum];
+
+export const editRouteRequestRouteRouteHasTypeEnum = {
+	cookie: "cookie",
+	header: "header",
+	host: "host",
+	query: "query",
+} as const;
+
+export type EditRouteRequestRouteRouteHasTypeEnumKey =
+	(typeof editRouteRequestRouteRouteHasTypeEnum)[keyof typeof editRouteRequestRouteRouteHasTypeEnum];
+
+export const editRouteRequestRouteRouteMissingTypeEnum = {
+	cookie: "cookie",
+	header: "header",
+	host: "host",
+	query: "query",
+} as const;
+
+export type EditRouteRequestRouteRouteMissingTypeEnumKey =
+	(typeof editRouteRequestRouteRouteMissingTypeEnum)[keyof typeof editRouteRequestRouteRouteMissingTypeEnum];
+
+export const editRouteRequestRouteRouteTransformsTypeEnum = {
+	"request.headers": "request.headers",
+	"request.query": "request.query",
+	"response.headers": "response.headers",
+} as const;
+
+export type EditRouteRequestRouteRouteTransformsTypeEnumKey =
+	(typeof editRouteRequestRouteRouteTransformsTypeEnum)[keyof typeof editRouteRequestRouteRouteTransformsTypeEnum];
+
+export const editRouteRequestRouteRouteTransformsOpEnum = {
+	append: "append",
+	delete: "delete",
+	set: "set",
+} as const;
+
+export type EditRouteRequestRouteRouteTransformsOpEnumKey =
+	(typeof editRouteRequestRouteRouteTransformsOpEnum)[keyof typeof editRouteRequestRouteRouteTransformsOpEnum];
+
+export type EditRouteBody =
+	| {
+			/**
+			 * @description The full route object to replace the existing route with
+			 * @type object | undefined
+			 */
+			route?:
+				| {
+						/**
+						 * @maxLength 256
+						 * @type string
+						 */
+						name: string;
+						/**
+						 * @maxLength 1024
+						 * @type string | undefined
+						 */
+						description?: string | undefined;
+						enabled?: boolean | undefined;
+						/**
+						 * @description Pattern syntax type. If not provided, inferred from pattern.
+						 * @type string | undefined
+						 */
+						srcSyntax?: EditRouteRequestRouteSrcSyntaxEnumKey | undefined;
+						route: {
+							src: string;
+							dest?: string | undefined;
+							headers?: object | undefined;
+							caseSensitive?: boolean | undefined;
+							status?: number | undefined;
+							has?:
+								| {
+										type?: EditRouteRequestRouteRouteHasTypeEnumKey | undefined;
+										key?: string | undefined;
+										value?: string | undefined;
+								  }[]
+								| undefined;
+							missing?:
+								| {
+										type?: EditRouteRequestRouteRouteMissingTypeEnumKey | undefined;
+										key?: string | undefined;
+										value?: string | undefined;
+								  }[]
+								| undefined;
+							transforms?:
+								| {
+										type?: EditRouteRequestRouteRouteTransformsTypeEnumKey | undefined;
+										op?: EditRouteRequestRouteRouteTransformsOpEnumKey | undefined;
+										target?: object | undefined;
+										args?: unknown | undefined;
+										env?: string[] | undefined;
+								  }[]
+								| undefined;
+							respectOriginCacheControl?: boolean | undefined;
+						};
+				  }
+				| undefined;
+			/**
+			 * @description If true, restores the staged route to the value in the production version.
+			 * @type boolean | undefined
+			 */
+			restore?: boolean | undefined;
+	  }
+	| undefined;
+
 export type EditRouteOptions = {
-	body?: never | undefined;
+	body: EditRouteBody;
 	path: EditRoutePath;
 	query?: EditRouteQuery | undefined;
 	headers?: never | undefined;
@@ -34519,8 +42018,50 @@ export type GenerateRouteStatus410 = unknown;
 
 export type GenerateRouteStatus500 = unknown;
 
+export type GenerateRouteBody =
+	| {
+			/**
+			 * @maxLength 2000
+			 * @type string
+			 */
+			prompt: string;
+			currentRoute?:
+				| {
+						name?: string | undefined;
+						description?: string | undefined;
+						pathCondition: {
+							value?: string | undefined;
+							syntax?: string | undefined;
+						};
+						conditions?:
+							| {
+									field?: string | undefined;
+									operator?: string | undefined;
+									key?: string | undefined;
+									value?: string | undefined;
+									missing?: boolean | undefined;
+							  }[]
+							| undefined;
+						actions: {
+							type?: string | undefined;
+							subType?: string | undefined;
+							dest?: string | undefined;
+							status?: number | undefined;
+							headers?:
+								| {
+										key?: string | undefined;
+										value?: string | undefined;
+										op?: string | undefined;
+								  }[]
+								| undefined;
+						}[];
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type GenerateRouteOptions = {
-	body?: never | undefined;
+	body: GenerateRouteBody;
 	path: GenerateRoutePath;
 	query?: GenerateRouteQuery | undefined;
 	headers?: never | undefined;
@@ -34629,8 +42170,24 @@ export type UpdateRouteVersionsStatus410 = unknown;
 
 export type UpdateRouteVersionsStatus500 = unknown;
 
+export const updateRouteVersionsRequestActionEnum = {
+	discard: "discard",
+	promote: "promote",
+	restore: "restore",
+} as const;
+
+export type UpdateRouteVersionsRequestActionEnumKey =
+	(typeof updateRouteVersionsRequestActionEnum)[keyof typeof updateRouteVersionsRequestActionEnum];
+
+export type UpdateRouteVersionsBody =
+	| {
+			id: string;
+			action: UpdateRouteVersionsRequestActionEnumKey;
+	  }
+	| undefined;
+
 export type UpdateRouteVersionsOptions = {
-	body?: never | undefined;
+	body: UpdateRouteVersionsBody;
 	path: UpdateRouteVersionsPath;
 	query?: UpdateRouteVersionsQuery | undefined;
 	headers?: never | undefined;
@@ -34897,8 +42454,514 @@ export type CreateProjectStatus429 = unknown;
 
 export type CreateProjectStatus500 = unknown;
 
+export const createProjectRequestEnvironmentVariablesTarget = {
+	production: "production",
+	preview: "preview",
+	development: "development",
+} as const;
+
+export type CreateProjectRequestEnvironmentVariablesTargetKey =
+	(typeof createProjectRequestEnvironmentVariablesTarget)[keyof typeof createProjectRequestEnvironmentVariablesTarget];
+
+export const createProjectRequestEnvironmentVariablesTargetEnum = {
+	production: "production",
+	preview: "preview",
+	development: "development",
+} as const;
+
+export type CreateProjectRequestEnvironmentVariablesTargetEnumKey =
+	(typeof createProjectRequestEnvironmentVariablesTargetEnum)[keyof typeof createProjectRequestEnvironmentVariablesTargetEnum];
+
+export const createProjectRequestEnvironmentVariablesTypeEnum = {
+	encrypted: "encrypted",
+	plain: "plain",
+	sensitive: "sensitive",
+	system: "system",
+} as const;
+
+export type CreateProjectRequestEnvironmentVariablesTypeEnumKey =
+	(typeof createProjectRequestEnvironmentVariablesTypeEnum)[keyof typeof createProjectRequestEnvironmentVariablesTypeEnum];
+
+export const createProjectRequestFrameworkEnum = {
+	"actix-web": "actix-web",
+	angular: "angular",
+	ash: "ash",
+	astro: "astro",
+	axum: "axum",
+	blitzjs: "blitzjs",
+	brunch: "brunch",
+	bun: "bun",
+	container: "container",
+	"create-react-app": "create-react-app",
+	django: "django",
+	docusaurus: "docusaurus",
+	"docusaurus-2": "docusaurus-2",
+	dojo: "dojo",
+	eleventy: "eleventy",
+	elysia: "elysia",
+	ember: "ember",
+	eve: "eve",
+	express: "express",
+	"factory-eve": "factory-eve",
+	fastapi: "fastapi",
+	fasthtml: "fasthtml",
+	fastify: "fastify",
+	flask: "flask",
+	gatsby: "gatsby",
+	go: "go",
+	gridsome: "gridsome",
+	h3: "h3",
+	hexo: "hexo",
+	hono: "hono",
+	hugo: "hugo",
+	hydrogen: "hydrogen",
+	"ionic-angular": "ionic-angular",
+	"ionic-react": "ionic-react",
+	jekyll: "jekyll",
+	koa: "koa",
+	mastra: "mastra",
+	middleman: "middleman",
+	nestjs: "nestjs",
+	nextjs: "nextjs",
+	nitro: "nitro",
+	node: "node",
+	nuxtjs: "nuxtjs",
+	parcel: "parcel",
+	polymer: "polymer",
+	preact: "preact",
+	python: "python",
+	"react-router": "react-router",
+	redwoodjs: "redwoodjs",
+	remix: "remix",
+	ruby: "ruby",
+	rust: "rust",
+	saber: "saber",
+	sanity: "sanity",
+	"sanity-v2": "sanity-v2",
+	sapper: "sapper",
+	scully: "scully",
+	services: "services",
+	solidstart: "solidstart",
+	"solidstart-1": "solidstart-1",
+	stencil: "stencil",
+	storybook: "storybook",
+	svelte: "svelte",
+	sveltekit: "sveltekit",
+	"sveltekit-1": "sveltekit-1",
+	"tanstack-start": "tanstack-start",
+	"tanstack-start-lovable": "tanstack-start-lovable",
+	umijs: "umijs",
+	vite: "vite",
+	vitepress: "vitepress",
+	vue: "vue",
+	vuepress: "vuepress",
+	xmcp: "xmcp",
+	zola: "zola",
+} as const;
+
+export type CreateProjectRequestFrameworkEnumKey =
+	(typeof createProjectRequestFrameworkEnum)[keyof typeof createProjectRequestFrameworkEnum];
+
+export const createProjectRequestGitRepositoryTypeEnum = {
+	bitbucket: "bitbucket",
+	"cursor-origin": "cursor-origin",
+	github: "github",
+	"github-limited": "github-limited",
+	gitlab: "gitlab",
+	vercel: "vercel",
+} as const;
+
+export type CreateProjectRequestGitRepositoryTypeEnumKey =
+	(typeof createProjectRequestGitRepositoryTypeEnum)[keyof typeof createProjectRequestGitRepositoryTypeEnum];
+
+export const createProjectRequestSsoProtectionDeploymentTypeEnum = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type CreateProjectRequestSsoProtectionDeploymentTypeEnumKey =
+	(typeof createProjectRequestSsoProtectionDeploymentTypeEnum)[keyof typeof createProjectRequestSsoProtectionDeploymentTypeEnum];
+
+export const createProjectRequestSandboxRegionEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type CreateProjectRequestSandboxRegionEnumKey =
+	(typeof createProjectRequestSandboxRegionEnum)[keyof typeof createProjectRequestSandboxRegionEnum];
+
+export const createProjectRequestSandboxFailoverRegionsEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type CreateProjectRequestSandboxFailoverRegionsEnumKey =
+	(typeof createProjectRequestSandboxFailoverRegionsEnum)[keyof typeof createProjectRequestSandboxFailoverRegionsEnum];
+
+export const createProjectRequestOidcTokenConfigIssuerModeEnum = {
+	global: "global",
+	team: "team",
+} as const;
+
+export type CreateProjectRequestOidcTokenConfigIssuerModeEnumKey =
+	(typeof createProjectRequestOidcTokenConfigIssuerModeEnum)[keyof typeof createProjectRequestOidcTokenConfigIssuerModeEnum];
+
+export const createProjectRequestResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type CreateProjectRequestResourceConfigBuildMachineTypeEnumKey =
+	(typeof createProjectRequestResourceConfigBuildMachineTypeEnum)[keyof typeof createProjectRequestResourceConfigBuildMachineTypeEnum];
+
+export const createProjectRequestResourceConfigFunctionDefaultMemoryTypeEnum = {
+	performance: "performance",
+	performance_xl: "performance_xl",
+	standard: "standard",
+	standard_legacy: "standard_legacy",
+} as const;
+
+export type CreateProjectRequestResourceConfigFunctionDefaultMemoryTypeEnumKey =
+	(typeof createProjectRequestResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof createProjectRequestResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const createProjectRequestResourceConfigBuildMachineSelectionEnum = {
+	elastic: "elastic",
+	fixed: "fixed",
+} as const;
+
+export type CreateProjectRequestResourceConfigBuildMachineSelectionEnumKey =
+	(typeof createProjectRequestResourceConfigBuildMachineSelectionEnum)[keyof typeof createProjectRequestResourceConfigBuildMachineSelectionEnum];
+
+export const createProjectRequestResourceConfigBuildMachineElasticReasonEnum = {
+	"basic-floor": "basic-floor",
+	"build-timeout-failure": "build-timeout-failure",
+	"enospc-failure": "enospc-failure",
+	"enterprise-floor": "enterprise-floor",
+	"high-peak-disk": "high-peak-disk",
+	"high-peak-memory": "high-peak-memory",
+	"long-build-duration": "long-build-duration",
+	"oom-failure": "oom-failure",
+	"short-build-duration": "short-build-duration",
+	"sustained-high-cpu": "sustained-high-cpu",
+} as const;
+
+export type CreateProjectRequestResourceConfigBuildMachineElasticReasonEnumKey =
+	(typeof createProjectRequestResourceConfigBuildMachineElasticReasonEnum)[keyof typeof createProjectRequestResourceConfigBuildMachineElasticReasonEnum];
+
+export const createProjectRequestResourceConfigBuildMachineElasticTransitionDirectionEnum = {
+	downgrade: "downgrade",
+	upgrade: "upgrade",
+} as const;
+
+export type CreateProjectRequestResourceConfigBuildMachineElasticTransitionDirectionEnumKey =
+	(typeof createProjectRequestResourceConfigBuildMachineElasticTransitionDirectionEnum)[keyof typeof createProjectRequestResourceConfigBuildMachineElasticTransitionDirectionEnum];
+
+export const createProjectRequestResourceConfigBuildQueueConfigurationEnum = {
+	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
+	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
+} as const;
+
+export type CreateProjectRequestResourceConfigBuildQueueConfigurationEnumKey =
+	(typeof createProjectRequestResourceConfigBuildQueueConfigurationEnum)[keyof typeof createProjectRequestResourceConfigBuildQueueConfigurationEnum];
+
+export type CreateProjectBody =
+	| {
+			/**
+			 * @description Opt-in to preview toolbar on the project level
+			 * @type boolean | undefined
+			 */
+			enablePreviewFeedback?: (boolean | null) | undefined;
+			/**
+			 * @description Opt-in to production toolbar on the project level
+			 * @type boolean | undefined
+			 */
+			enableProductionFeedback?: (boolean | null) | undefined;
+			/**
+			 * @description Specifies whether preview deployments are disabled for this project.
+			 * @type boolean | undefined
+			 */
+			previewDeploymentsDisabled?: (boolean | null) | undefined;
+			/**
+			 * @description Custom domain suffix for preview deployments. Takes precedence over team-level suffix. Must be a domain owned by the team.
+			 * @maxLength 253
+			 * @type string | undefined
+			 */
+			previewDeploymentSuffix?: (string | null) | undefined;
+			/**
+			 * @description The build command for this project. When `null` is used this value will be automatically detected
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			buildCommand?: (string | null) | undefined;
+			/**
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			commandForIgnoringBuildStep?: (string | null) | undefined;
+			/**
+			 * @description The dev command for this project. When `null` is used this value will be automatically detected
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			devCommand?: (string | null) | undefined;
+			/**
+			 * @description Collection of ENV Variables the Project will use
+			 * @type array | undefined
+			 */
+			environmentVariables?:
+				| {
+						/**
+						 * @description Name of the ENV variable
+						 * @type string
+						 */
+						key: string;
+						/**
+						 * @description Deployment Target or Targets in which the ENV variable will be used
+						 */
+						target:
+							| CreateProjectRequestEnvironmentVariablesTargetKey
+							| CreateProjectRequestEnvironmentVariablesTargetEnumKey[];
+						/**
+						 * @description If defined, the git branch of the environment variable (must have target=preview)
+						 * @maxLength 250
+						 * @type string | undefined
+						 */
+						gitBranch?: string | undefined;
+						/**
+						 * @description Type of the ENV variable
+						 * @type string | undefined
+						 */
+						type?: CreateProjectRequestEnvironmentVariablesTypeEnumKey | undefined;
+						/**
+						 * @description Value for the ENV variable
+						 * @type string
+						 */
+						value: string;
+				  }[]
+				| undefined;
+			/**
+			 * @description The framework that is being used for this project. When `null` is used no framework is selected
+			 * @type string | undefined
+			 */
+			framework?: CreateProjectRequestFrameworkEnumKey | undefined;
+			/**
+			 * @description The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed
+			 * @type object | undefined
+			 */
+			gitRepository?:
+				| {
+						/**
+						 * @description The name of the git repository. For example: \\\"vercel/next.js\\\"
+						 * @type string
+						 */
+						repo: string;
+						/**
+						 * @description The Git Provider of the repository
+						 * @type string
+						 */
+						type: CreateProjectRequestGitRepositoryTypeEnumKey;
+				  }
+				| undefined;
+			/**
+			 * @description The install command for this project. When `null` is used this value will be automatically detected
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			installCommand?: (string | null) | undefined;
+			/**
+			 * @description The desired name for the project
+			 * @maxLength 100
+			 * @example a-project-name
+			 * @type string
+			 */
+			name: string;
+			/**
+			 * @description Opts-out of the message prompting a CLI user to connect a Git repository in `vercel link`.
+			 * @deprecated
+			 * @type boolean | undefined
+			 */
+			skipGitConnectDuringLink?: boolean | undefined;
+			/**
+			 * @description The Vercel Auth setting for the project (historically named \\\"SSO Protection\\\")
+			 * @type object | undefined
+			 */
+			ssoProtection?:
+				| ({
+						deploymentType: CreateProjectRequestSsoProtectionDeploymentTypeEnumKey;
+				  } | null)
+				| undefined;
+			/**
+			 * @description Specifies the default region and failover regions for sandboxes created in the project
+			 * @type object | undefined
+			 */
+			sandbox?:
+				| {
+						/**
+						 * @description The Vercel region sandboxes in this project are created in by default.
+						 * @example iad1
+						 * @type string | undefined
+						 */
+						region?: CreateProjectRequestSandboxRegionEnumKey | undefined;
+						/**
+						 * @description The regions sandboxes in this project fall back to when they cannot be created in `region`.
+						 * @example ["cle1","sfo1"]
+						 * @type array | undefined
+						 */
+						failoverRegions?: CreateProjectRequestSandboxFailoverRegionsEnumKey[] | undefined;
+				  }
+				| undefined;
+			/**
+			 * @description The output directory of the project. When `null` is used this value will be automatically detected
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			outputDirectory?: (string | null) | undefined;
+			/**
+			 * @description Deprecated. Accepted for backwards compatibility but ignored.
+			 * @deprecated
+			 * @type boolean | undefined
+			 */
+			publicSource?: (boolean | null) | undefined;
+			/**
+			 * @description The name of a directory or relative path to the source code of your project. When `null` is used it will default to the project root
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			rootDirectory?: (string | null) | undefined;
+			/**
+			 * @description The region to deploy Serverless Functions in this project
+			 * @maxLength 4
+			 * @type string | undefined
+			 */
+			serverlessFunctionRegion?: (string | null) | undefined;
+			/**
+			 * @description Specifies whether Zero Config Failover is enabled for this project.
+			 */
+			serverlessFunctionZeroConfigFailover?: boolean | undefined;
+			/**
+			 * @description OpenID Connect JSON Web Token generation configuration.
+			 * @type object | undefined
+			 */
+			oidcTokenConfig?:
+				| {
+						/**
+						 * @description Whether or not to generate OpenID Connect JSON Web Tokens.
+						 * @deprecated
+						 * @default true
+						 * @type boolean | undefined
+						 */
+						enabled?: boolean | undefined;
+						/**
+						 * @description team: `https://oidc.vercel.com/[team_slug]` global: `https://oidc.vercel.com`
+						 * @default 'team'
+						 * @type string | undefined
+						 */
+						issuerMode?: CreateProjectRequestOidcTokenConfigIssuerModeEnumKey | undefined;
+				  }
+				| undefined;
+			/**
+			 * @description Opt-in to skip deployments when there are no changes to the root directory and its dependencies
+			 * @type boolean | undefined
+			 */
+			enableAffectedProjectsDeployments?: boolean | undefined;
+			/**
+			 * @description Specifies resource override configuration for the project
+			 * @type object | undefined
+			 */
+			resourceConfig?:
+				| {
+						buildMachineType?:
+							| CreateProjectRequestResourceConfigBuildMachineTypeEnumKey
+							| undefined;
+						fluid?: boolean | undefined;
+						/**
+						 * @description The regions to deploy Vercel Functions to for this project
+						 * @type array | undefined
+						 */
+						functionDefaultRegions?: string[] | undefined;
+						/**
+						 * @minLength 1
+						 * @maxLength 900
+						 * @type number | undefined
+						 */
+						functionDefaultTimeout?: number | undefined;
+						functionDefaultMemoryType?:
+							| CreateProjectRequestResourceConfigFunctionDefaultMemoryTypeEnumKey
+							| undefined;
+						/**
+						 * @description Specifies whether Zero Config Failover is enabled for this project.
+						 */
+						functionZeroConfigFailover?: boolean | undefined;
+						elasticConcurrencyEnabled?: boolean | undefined;
+						buildMachineSelection?:
+							| CreateProjectRequestResourceConfigBuildMachineSelectionEnumKey
+							| undefined;
+						buildMachineElasticLastUpdated?: number | undefined;
+						buildMachineElasticReason?:
+							| CreateProjectRequestResourceConfigBuildMachineElasticReasonEnumKey
+							| undefined;
+						buildMachineElasticTransition?:
+							| {
+									at: number;
+									direction: CreateProjectRequestResourceConfigBuildMachineElasticTransitionDirectionEnumKey;
+									algorithmVersion: string;
+							  }
+							| undefined;
+						isNSNBDisabled?: boolean | undefined;
+						buildQueue?:
+							| {
+									configuration?:
+										| CreateProjectRequestResourceConfigBuildQueueConfigurationEnumKey
+										| undefined;
+							  }
+							| undefined;
+						enableFunctionsBeta?: boolean | undefined;
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type CreateProjectOptions = {
-	body?: never | undefined;
+	body: CreateProjectBody;
 	path?: never | undefined;
 	query?: CreateProjectQuery | undefined;
 	headers?: never | undefined;
@@ -34960,8 +43023,20 @@ export type GetProjectTokenStatus404 = unknown;
 
 export type GetProjectTokenStatus410 = unknown;
 
+export type GetProjectTokenBody =
+	| {
+			/**
+			 * @description The source that is calling the endpoint.
+			 * @maxLength 150
+			 * @example vercel-cli:pull
+			 * @type string | undefined
+			 */
+			source?: string | undefined;
+	  }
+	| undefined;
+
 export type GetProjectTokenOptions = {
-	body?: never | undefined;
+	body: GetProjectTokenBody;
 	path: GetProjectTokenPath;
 	query?: GetProjectTokenQuery | undefined;
 	headers?: never | undefined;
@@ -35010,8 +43085,23 @@ export type CreateTraceSessionStatus410 = unknown;
 
 export type CreateTraceSessionStatus422 = unknown;
 
+export type CreateTraceSessionBody =
+	| {
+			/**
+			 * @description The project ID the deployment belongs to.
+			 * @type string
+			 */
+			projectId: string;
+			/**
+			 * @description The deployment hostname to scope the trace session to.
+			 * @type string
+			 */
+			hostname: string;
+	  }
+	| undefined;
+
 export type CreateTraceSessionOptions = {
-	body?: never | undefined;
+	body: CreateTraceSessionBody;
 	path?: never | undefined;
 	query?: CreateTraceSessionQuery | undefined;
 	headers?: never | undefined;
@@ -35131,8 +43221,911 @@ export type UpdateProjectStatus410 = unknown;
 
 export type UpdateProjectStatus428 = unknown;
 
+export const updateProjectRequestFrameworkEnum = {
+	"actix-web": "actix-web",
+	angular: "angular",
+	ash: "ash",
+	astro: "astro",
+	axum: "axum",
+	blitzjs: "blitzjs",
+	brunch: "brunch",
+	bun: "bun",
+	container: "container",
+	"create-react-app": "create-react-app",
+	django: "django",
+	docusaurus: "docusaurus",
+	"docusaurus-2": "docusaurus-2",
+	dojo: "dojo",
+	eleventy: "eleventy",
+	elysia: "elysia",
+	ember: "ember",
+	eve: "eve",
+	express: "express",
+	"factory-eve": "factory-eve",
+	fastapi: "fastapi",
+	fasthtml: "fasthtml",
+	fastify: "fastify",
+	flask: "flask",
+	gatsby: "gatsby",
+	go: "go",
+	gridsome: "gridsome",
+	h3: "h3",
+	hexo: "hexo",
+	hono: "hono",
+	hugo: "hugo",
+	hydrogen: "hydrogen",
+	"ionic-angular": "ionic-angular",
+	"ionic-react": "ionic-react",
+	jekyll: "jekyll",
+	koa: "koa",
+	mastra: "mastra",
+	middleman: "middleman",
+	nestjs: "nestjs",
+	nextjs: "nextjs",
+	nitro: "nitro",
+	node: "node",
+	nuxtjs: "nuxtjs",
+	parcel: "parcel",
+	polymer: "polymer",
+	preact: "preact",
+	python: "python",
+	"react-router": "react-router",
+	redwoodjs: "redwoodjs",
+	remix: "remix",
+	ruby: "ruby",
+	rust: "rust",
+	saber: "saber",
+	sanity: "sanity",
+	"sanity-v2": "sanity-v2",
+	sapper: "sapper",
+	scully: "scully",
+	services: "services",
+	solidstart: "solidstart",
+	"solidstart-1": "solidstart-1",
+	stencil: "stencil",
+	storybook: "storybook",
+	svelte: "svelte",
+	sveltekit: "sveltekit",
+	"sveltekit-1": "sveltekit-1",
+	"tanstack-start": "tanstack-start",
+	"tanstack-start-lovable": "tanstack-start-lovable",
+	umijs: "umijs",
+	vite: "vite",
+	vitepress: "vitepress",
+	vue: "vue",
+	vuepress: "vuepress",
+	xmcp: "xmcp",
+	zola: "zola",
+} as const;
+
+export type UpdateProjectRequestFrameworkEnumKey =
+	(typeof updateProjectRequestFrameworkEnum)[keyof typeof updateProjectRequestFrameworkEnum];
+
+export const updateProjectRequestResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type UpdateProjectRequestResourceConfigBuildMachineTypeEnumKey =
+	(typeof updateProjectRequestResourceConfigBuildMachineTypeEnum)[keyof typeof updateProjectRequestResourceConfigBuildMachineTypeEnum];
+
+export const updateProjectRequestResourceConfigBuildMachineSelectionEnum = {
+	elastic: "elastic",
+	fixed: "fixed",
+} as const;
+
+export type UpdateProjectRequestResourceConfigBuildMachineSelectionEnumKey =
+	(typeof updateProjectRequestResourceConfigBuildMachineSelectionEnum)[keyof typeof updateProjectRequestResourceConfigBuildMachineSelectionEnum];
+
+export const updateProjectRequestResourceConfigBuildQueueConfigurationEnum = {
+	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
+	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
+} as const;
+
+export type UpdateProjectRequestResourceConfigBuildQueueConfigurationEnumKey =
+	(typeof updateProjectRequestResourceConfigBuildQueueConfigurationEnum)[keyof typeof updateProjectRequestResourceConfigBuildQueueConfigurationEnum];
+
+export const updateProjectRequestResourceConfigFunctionDefaultMemoryTypeEnum = {
+	performance: "performance",
+	performance_xl: "performance_xl",
+	standard: "standard",
+	standard_legacy: "standard_legacy",
+} as const;
+
+export type UpdateProjectRequestResourceConfigFunctionDefaultMemoryTypeEnumKey =
+	(typeof updateProjectRequestResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof updateProjectRequestResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const updateProjectRequestResourceConfigBuildMachineElasticReasonEnum = {
+	"basic-floor": "basic-floor",
+	"build-timeout-failure": "build-timeout-failure",
+	"enospc-failure": "enospc-failure",
+	"enterprise-floor": "enterprise-floor",
+	"high-peak-disk": "high-peak-disk",
+	"high-peak-memory": "high-peak-memory",
+	"long-build-duration": "long-build-duration",
+	"oom-failure": "oom-failure",
+	"short-build-duration": "short-build-duration",
+	"sustained-high-cpu": "sustained-high-cpu",
+} as const;
+
+export type UpdateProjectRequestResourceConfigBuildMachineElasticReasonEnumKey =
+	(typeof updateProjectRequestResourceConfigBuildMachineElasticReasonEnum)[keyof typeof updateProjectRequestResourceConfigBuildMachineElasticReasonEnum];
+
+export const updateProjectRequestResourceConfigBuildMachineElasticTransitionDirectionEnum = {
+	downgrade: "downgrade",
+	upgrade: "upgrade",
+} as const;
+
+export type UpdateProjectRequestResourceConfigBuildMachineElasticTransitionDirectionEnumKey =
+	(typeof updateProjectRequestResourceConfigBuildMachineElasticTransitionDirectionEnum)[keyof typeof updateProjectRequestResourceConfigBuildMachineElasticTransitionDirectionEnum];
+
+export const updateProjectRequestTracingSamplingRulesEnvEnum = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UpdateProjectRequestTracingSamplingRulesEnvEnumKey =
+	(typeof updateProjectRequestTracingSamplingRulesEnvEnum)[keyof typeof updateProjectRequestTracingSamplingRulesEnvEnum];
+
+export const updateProjectRequestTracingSamplingRulesDestinationEnum = {
+	external: "external",
+	internal: "internal",
+} as const;
+
+export type UpdateProjectRequestTracingSamplingRulesDestinationEnumKey =
+	(typeof updateProjectRequestTracingSamplingRulesDestinationEnum)[keyof typeof updateProjectRequestTracingSamplingRulesDestinationEnum];
+
+export const updateProjectRequestOidcTokenConfigIssuerModeEnum = {
+	global: "global",
+	team: "team",
+} as const;
+
+export type UpdateProjectRequestOidcTokenConfigIssuerModeEnumKey =
+	(typeof updateProjectRequestOidcTokenConfigIssuerModeEnum)[keyof typeof updateProjectRequestOidcTokenConfigIssuerModeEnum];
+
+export const updateProjectRequestPasswordProtectionDeploymentTypeEnum = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type UpdateProjectRequestPasswordProtectionDeploymentTypeEnumKey =
+	(typeof updateProjectRequestPasswordProtectionDeploymentTypeEnum)[keyof typeof updateProjectRequestPasswordProtectionDeploymentTypeEnum];
+
+export const updateProjectRequestPassportDeploymentTypeEnum = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type UpdateProjectRequestPassportDeploymentTypeEnumKey =
+	(typeof updateProjectRequestPassportDeploymentTypeEnum)[keyof typeof updateProjectRequestPassportDeploymentTypeEnum];
+
+export const updateProjectRequestSandboxRegionEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type UpdateProjectRequestSandboxRegionEnumKey =
+	(typeof updateProjectRequestSandboxRegionEnum)[keyof typeof updateProjectRequestSandboxRegionEnum];
+
+export const updateProjectRequestSandboxFailoverRegionsEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type UpdateProjectRequestSandboxFailoverRegionsEnumKey =
+	(typeof updateProjectRequestSandboxFailoverRegionsEnum)[keyof typeof updateProjectRequestSandboxFailoverRegionsEnum];
+
+export const updateProjectRequestSsoProtectionDeploymentTypeEnum = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type UpdateProjectRequestSsoProtectionDeploymentTypeEnumKey =
+	(typeof updateProjectRequestSsoProtectionDeploymentTypeEnum)[keyof typeof updateProjectRequestSsoProtectionDeploymentTypeEnum];
+
+export const updateProjectRequestTrustedIpsDeploymentTypeEnum = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+	production: "production",
+} as const;
+
+export type UpdateProjectRequestTrustedIpsDeploymentTypeEnumKey =
+	(typeof updateProjectRequestTrustedIpsDeploymentTypeEnum)[keyof typeof updateProjectRequestTrustedIpsDeploymentTypeEnum];
+
+export const updateProjectRequestDeploymentPolicyGitSourcesEnvironmentsTargetEnum = {
+	production: "production",
+	preview: "preview",
+} as const;
+
+export type UpdateProjectRequestDeploymentPolicyGitSourcesEnvironmentsTargetEnumKey =
+	(typeof updateProjectRequestDeploymentPolicyGitSourcesEnvironmentsTargetEnum)[keyof typeof updateProjectRequestDeploymentPolicyGitSourcesEnvironmentsTargetEnum];
+
+export const updateProjectRequestDeploymentPolicyGitSourcesSourcesProviderEnum = {
+	github: "github",
+	bitbucket: "bitbucket",
+} as const;
+
+export type UpdateProjectRequestDeploymentPolicyGitSourcesSourcesProviderEnumKey =
+	(typeof updateProjectRequestDeploymentPolicyGitSourcesSourcesProviderEnum)[keyof typeof updateProjectRequestDeploymentPolicyGitSourcesSourcesProviderEnum];
+
+export const updateProjectRequestDeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum = {
+	production: "production",
+	preview: "preview",
+} as const;
+
+export type UpdateProjectRequestDeploymentPolicyDeploymentSourcesEnvironmentsTargetEnumKey =
+	(typeof updateProjectRequestDeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum)[keyof typeof updateProjectRequestDeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum];
+
+export const updateProjectRequestDeploymentPolicyDeploymentSourcesSourcesEnum = {
+	git: "git",
+	cli: "cli",
+	"rest-api": "rest-api",
+	"deploy-hook": "deploy-hook",
+	integration: "integration",
+	v0: "v0",
+} as const;
+
+export type UpdateProjectRequestDeploymentPolicyDeploymentSourcesSourcesEnumKey =
+	(typeof updateProjectRequestDeploymentPolicyDeploymentSourcesSourcesEnum)[keyof typeof updateProjectRequestDeploymentPolicyDeploymentSourcesSourcesEnum];
+
+export const updateProjectRequestDismissedToastsActionEnum = {
+	accept: "accept",
+	cancel: "cancel",
+	delete: "delete",
+} as const;
+
+export type UpdateProjectRequestDismissedToastsActionEnumKey =
+	(typeof updateProjectRequestDismissedToastsActionEnum)[keyof typeof updateProjectRequestDismissedToastsActionEnum];
+
+export type UpdateProjectBody = {
+	autoExposeSystemEnvs?: boolean | undefined;
+	autoAssignCustomDomains?: boolean | undefined;
+	autoAssignCustomDomainsUpdatedBy?: string | undefined;
+	/**
+	 * @description The build command for this project. When `null` is used this value will be automatically detected
+	 * @maxLength 256
+	 * @type string | undefined
+	 */
+	buildCommand?: (string | null) | undefined;
+	/**
+	 * @maxLength 256
+	 * @type string | undefined
+	 */
+	commandForIgnoringBuildStep?: (string | null) | undefined;
+	/**
+	 * @description Specifies whether customer support can see git source for a deployment
+	 * @type boolean | undefined
+	 */
+	customerSupportCodeVisibility?: boolean | undefined;
+	/**
+	 * @description The dev command for this project. When `null` is used this value will be automatically detected
+	 * @maxLength 256
+	 * @type string | undefined
+	 */
+	devCommand?: (string | null) | undefined;
+	directoryListing?: boolean | undefined;
+	/**
+	 * @description The framework that is being used for this project. When `null` is used no framework is selected
+	 * @type string | undefined
+	 */
+	framework?: (UpdateProjectRequestFrameworkEnumKey | null) | undefined;
+	/**
+	 * @description Specifies whether PRs from Git forks should require a team member\'s authorization before it can be deployed
+	 * @type boolean | undefined
+	 */
+	gitForkProtection?: boolean | undefined;
+	/**
+	 * @description Specifies whether Git LFS is enabled for this project.
+	 * @type boolean | undefined
+	 */
+	gitLFS?: boolean | undefined;
+	/**
+	 * @description Specifies whether sourcemaps are protected and require authentication to access.
+	 * @type boolean | undefined
+	 */
+	protectedSourcemaps?: boolean | undefined;
+	/**
+	 * @description The install command for this project. When `null` is used this value will be automatically detected
+	 * @maxLength 256
+	 * @type string | undefined
+	 */
+	installCommand?: (string | null) | undefined;
+	/**
+	 * @description The desired name for the project
+	 * @maxLength 100
+	 * @example a-project-name
+	 * @type string | undefined
+	 */
+	name?: string | undefined;
+	nodeVersion?: string | undefined;
+	/**
+	 * @description The output directory of the project. When `null` is used this value will be automatically detected
+	 * @maxLength 256
+	 * @type string | undefined
+	 */
+	outputDirectory?: (string | null) | undefined;
+	/**
+	 * @description Specifies whether preview deployments are disabled for this project.
+	 * @type boolean | undefined
+	 */
+	previewDeploymentsDisabled?: (boolean | null) | undefined;
+	/**
+	 * @description Custom domain suffix for preview deployments. Takes precedence over team-level suffix. Must be a domain owned by the team.
+	 * @maxLength 253
+	 * @type string | undefined
+	 */
+	previewDeploymentSuffix?: (string | null) | undefined;
+	/**
+	 * @description Specifies resource override configuration for the project
+	 * @type object | undefined
+	 */
+	resourceConfig?:
+		| {
+				buildMachineType?: UpdateProjectRequestResourceConfigBuildMachineTypeEnumKey | undefined;
+				buildMachineSelection?:
+					| UpdateProjectRequestResourceConfigBuildMachineSelectionEnumKey
+					| undefined;
+				buildQueue?:
+					| {
+							configuration?:
+								| UpdateProjectRequestResourceConfigBuildQueueConfigurationEnumKey
+								| undefined;
+					  }
+					| undefined;
+				fluid?: boolean | undefined;
+				/**
+				 * @description The regions to deploy Vercel Functions to for this project
+				 * @type array | undefined
+				 */
+				functionDefaultRegions?: string[] | undefined;
+				/**
+				 * @minLength 1
+				 * @maxLength 900
+				 * @type number | undefined
+				 */
+				functionDefaultTimeout?: number | undefined;
+				functionDefaultMemoryType?:
+					| UpdateProjectRequestResourceConfigFunctionDefaultMemoryTypeEnumKey
+					| undefined;
+				/**
+				 * @description Specifies whether Zero Config Failover is enabled for this project.
+				 */
+				functionZeroConfigFailover?: boolean | undefined;
+				elasticConcurrencyEnabled?: boolean | undefined;
+				buildMachineElasticLastUpdated?: number | undefined;
+				buildMachineElasticReason?:
+					| UpdateProjectRequestResourceConfigBuildMachineElasticReasonEnumKey
+					| undefined;
+				buildMachineElasticTransition?:
+					| {
+							at: number;
+							direction: UpdateProjectRequestResourceConfigBuildMachineElasticTransitionDirectionEnumKey;
+							algorithmVersion: string;
+					  }
+					| undefined;
+				isNSNBDisabled?: boolean | undefined;
+				enableFunctionsBeta?: boolean | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Deprecated. Accepted for backwards compatibility but ignored.
+	 * @deprecated
+	 * @type boolean | undefined
+	 */
+	publicSource?: (boolean | null) | undefined;
+	/**
+	 * @description The name of a directory or relative path to the source code of your project. When `null` is used it will default to the project root
+	 * @maxLength 256
+	 * @type string | undefined
+	 */
+	rootDirectory?: (string | null) | undefined;
+	/**
+	 * @description The region to deploy Serverless Functions in this project
+	 * @maxLength 4
+	 * @type string | undefined
+	 */
+	serverlessFunctionRegion?: (string | null) | undefined;
+	/**
+	 * @description Specifies whether Zero Config Failover is enabled for this project.
+	 */
+	serverlessFunctionZeroConfigFailover?: boolean | undefined;
+	/**
+	 * @description Deployments created before this absolute datetime have Skew Protection disabled. Value is in milliseconds since epoch to match \\\"createdAt\\\" fields.
+	 * @minLength 0
+	 * @type integer | undefined
+	 */
+	skewProtectionBoundaryAt?: number | undefined;
+	/**
+	 * @description Deployments created before this rolling window have Skew Protection disabled. Value is in seconds to match \\\"revalidate\\\" fields.
+	 * @minLength 0
+	 * @type integer | undefined
+	 */
+	skewProtectionMaxAge?: number | undefined;
+	/**
+	 * @description Cross-site domains allowed to fetch skew-protected assets (hostnames, optionally with leading wildcard like *.example.com).
+	 * @type array | undefined
+	 */
+	skewProtectionAllowedDomains?: string[] | undefined;
+	/**
+	 * @description Opts-out of the message prompting a CLI user to connect a Git repository in `vercel link`.
+	 * @deprecated
+	 * @type boolean | undefined
+	 */
+	skipGitConnectDuringLink?: boolean | undefined;
+	/**
+	 * @description Indicates if there are source files outside of the root directory
+	 * @type boolean | undefined
+	 */
+	sourceFilesOutsideRootDirectory?: boolean | undefined;
+	/**
+	 * @description Opt-in to preview toolbar on the project level
+	 * @type boolean | undefined
+	 */
+	enablePreviewFeedback?: (boolean | null) | undefined;
+	/**
+	 * @description Opt-in to production toolbar on the project level
+	 * @type boolean | undefined
+	 */
+	enableProductionFeedback?: (boolean | null) | undefined;
+	/**
+	 * @description Opt-in to skip deployments when there are no changes to the root directory and its dependencies
+	 * @type boolean | undefined
+	 */
+	enableAffectedProjectsDeployments?: boolean | undefined;
+	/**
+	 * @description Specifies whether external rewrite caching is enabled for this project.
+	 * @type boolean | undefined
+	 */
+	enableExternalRewriteCaching?: boolean | undefined;
+	/**
+	 * @description Manage Static IPs for this project
+	 * @type object | undefined
+	 */
+	staticIps?:
+		| {
+				/**
+				 * @description Opt-in to Static IPs for this project
+				 * @type boolean
+				 */
+				enabled: boolean;
+		  }
+		| undefined;
+	/**
+	 * @description Tracing configuration for this project
+	 * @type object | undefined
+	 */
+	tracing?:
+		| ({
+				/**
+				 * @description Comma-separated list of drain endpoint domains
+				 * @type string | undefined
+				 */
+				domains?: string | undefined;
+				/**
+				 * @description Paths to ignore for tracing
+				 * @type array | undefined
+				 */
+				ignorePaths?: string[] | undefined;
+				/**
+				 * @description Sampling rules for trace collection
+				 * @type array | undefined
+				 */
+				samplingRules?:
+					| {
+							/**
+							 * @description Sampling rate from 0 to 1
+							 * @minLength 0
+							 * @maxLength 1
+							 * @type number
+							 */
+							rate: number;
+							/**
+							 * @description Environment to apply sampling to
+							 * @type string | undefined
+							 */
+							env?: UpdateProjectRequestTracingSamplingRulesEnvEnumKey | undefined;
+							/**
+							 * @description Request path prefix to apply the sampling rule to
+							 * @type string | undefined
+							 */
+							requestPath?: string | undefined;
+							/**
+							 * @description Tracing destination this rule applies to. Derived server-side when project tracing is computed; accepted here so a computed config can round-trip through this endpoint.
+							 * @type string | undefined
+							 */
+							destination?: UpdateProjectRequestTracingSamplingRulesDestinationEnumKey | undefined;
+					  }[]
+					| undefined;
+		  } | null)
+		| undefined;
+	/**
+	 * @description OpenID Connect JSON Web Token generation configuration.
+	 * @type object | undefined
+	 */
+	oidcTokenConfig?:
+		| {
+				/**
+				 * @description Whether or not to generate OpenID Connect JSON Web Tokens.
+				 * @deprecated
+				 * @default true
+				 * @type boolean | undefined
+				 */
+				enabled?: boolean | undefined;
+				/**
+				 * @description team: `https://oidc.vercel.com/[team_slug]` global: `https://oidc.vercel.com`
+				 * @default 'team'
+				 * @type string | undefined
+				 */
+				issuerMode?: UpdateProjectRequestOidcTokenConfigIssuerModeEnumKey | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Allows to protect project deployments with a password
+	 * @type object | undefined
+	 */
+	passwordProtection?:
+		| ({
+				/**
+				 * @description Specify if the password will apply to every Deployment Target or just Preview
+				 * @type string
+				 */
+				deploymentType: UpdateProjectRequestPasswordProtectionDeploymentTypeEnumKey;
+				/**
+				 * @description The password that will be used to protect Project Deployments
+				 * @maxLength 72
+				 * @type string | undefined
+				 */
+				password?: (string | null) | undefined;
+		  } | null)
+		| undefined;
+	/**
+	 * @description Passport configuration for the project.
+	 * @type object | undefined
+	 */
+	passport?:
+		| ({
+				connectorId: string;
+				/**
+				 * @default 'all'
+				 * @type string | undefined
+				 */
+				deploymentType?: UpdateProjectRequestPassportDeploymentTypeEnumKey | undefined;
+		  } | null)
+		| undefined;
+	/**
+	 * @description Specifies the default region and failover regions for sandboxes created in the project
+	 * @type object | undefined
+	 */
+	sandbox?:
+		| {
+				/**
+				 * @description The Vercel region sandboxes in this project are created in by default.
+				 * @example iad1
+				 * @type string | undefined
+				 */
+				region?: UpdateProjectRequestSandboxRegionEnumKey | undefined;
+				/**
+				 * @description The regions sandboxes in this project fall back to when they cannot be created in `region`.
+				 * @example ["cle1","sfo1"]
+				 * @type array | undefined
+				 */
+				failoverRegions?: UpdateProjectRequestSandboxFailoverRegionsEnumKey[] | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team
+	 * @type object | undefined
+	 */
+	ssoProtection?:
+		| ({
+				/**
+				 * @description Specify if the Vercel Authentication (SSO Protection) will apply to every Deployment Target or just Preview
+				 * @default 'preview'
+				 * @type string
+				 */
+				deploymentType: UpdateProjectRequestSsoProtectionDeploymentTypeEnumKey;
+		  } | null)
+		| undefined;
+	/**
+	 * @description Restricts access to deployments based on the incoming request IP address
+	 * @type object | undefined
+	 */
+	trustedIps?:
+		| ({
+				/**
+				 * @description Specify if the Trusted IPs will apply to every Deployment Target or just Preview
+				 * @type string
+				 */
+				deploymentType: UpdateProjectRequestTrustedIpsDeploymentTypeEnumKey;
+				addresses: {
+					/**
+					 * @description The IP addresses that are allowlisted. Supports IPv4 addresses and CIDR notations. IPv6 is not supported
+					 * @type string
+					 */
+					value: string;
+					/**
+					 * @description An optional note explaining what the IP address or subnet is used for
+					 * @maxLength 20
+					 * @type string | undefined
+					 */
+					note?: string | undefined;
+				}[];
+		  } | null)
+		| undefined;
+	/**
+	 * @description Deployment Protection Trusted Sources
+	 * @type object | undefined
+	 */
+	trustedSources?:
+		| ({
+				/**
+				 * @description Allow same-team Vercel CI access to preview and production deployments built from the same repository as the CI run. The deployment source repository, not the current project repository link, is authoritative. Defaults to enabled when not stored. Omitting this field preserves its stored value, including when trustedSources is cleared. Set true explicitly to re-enable.
+				 * @type boolean | undefined
+				 */
+				enableVercelCiSameRepository?: boolean | undefined;
+				projects?:
+					| {
+							[key: string]: {
+								/**
+								 * @description The label or description of the trusted source
+								 * @maxLength 100
+								 * @type string | undefined
+								 */
+								label?: string | undefined;
+								/**
+								 * @description Optional overrides for the default same-env-by-slug matching. An empty array denies all access and is only allowed for the current project.
+								 * @type array | undefined
+								 */
+								customAllow?:
+									| {
+											/**
+											 * @description A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
+											 */
+											to: (
+												| {
+														slugs: string[];
+												  }
+												| {
+														preset: "all-custom";
+												  }
+											) & {
+												slugs?: string[] | undefined;
+												preset?: "all-custom" | undefined;
+											};
+											/**
+											 * @description A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
+											 */
+											from: (
+												| {
+														slugs: string[];
+												  }
+												| {
+														preset: "all-custom";
+												  }
+											) & {
+												slugs?: string[] | undefined;
+												preset?: "all-custom" | undefined;
+											};
+									  }[]
+									| undefined;
+							};
+					  }
+					| undefined;
+				oidcProviders?:
+					| {
+							[key: string]: {
+								/**
+								 * @description The label or description of the trusted source
+								 * @maxLength 100
+								 * @type string | undefined
+								 */
+								label?: string | undefined;
+								/**
+								 * @description A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
+								 */
+								to: (
+									| {
+											slugs: string[];
+									  }
+									| {
+											preset: "all-custom";
+									  }
+								) & {
+									slugs?: string[] | undefined;
+									preset?: "all-custom" | undefined;
+								};
+								claims: {
+									[key: string]: string[];
+								};
+							}[];
+					  }
+					| undefined;
+		  } | null)
+		| undefined;
+	deploymentPolicy?:
+		| (
+				| {
+						gitSources?:
+							| (
+									| {
+											enabled: boolean;
+											environments: (
+												| {
+														type: "system";
+														target: UpdateProjectRequestDeploymentPolicyGitSourcesEnvironmentsTargetEnumKey;
+												  }
+												| {
+														type: "custom";
+														environmentId: string;
+												  }
+											)[];
+											sources: (
+												| {
+														provider: UpdateProjectRequestDeploymentPolicyGitSourcesSourcesProviderEnumKey;
+														org: string;
+														repo?: string | undefined;
+												  }
+												| {
+														provider: "gitlab";
+														namespace: string;
+														project?: string | undefined;
+												  }
+											)[];
+									  }[]
+									| string
+							  )
+							| undefined;
+						deploymentSources?:
+							| (
+									| {
+											enabled: boolean;
+											environments: (
+												| {
+														type: "system";
+														target: UpdateProjectRequestDeploymentPolicyDeploymentSourcesEnvironmentsTargetEnumKey;
+												  }
+												| {
+														type: "custom";
+														environmentId: string;
+												  }
+											)[];
+											sources: UpdateProjectRequestDeploymentPolicyDeploymentSourcesSourcesEnumKey[];
+									  }[]
+									| string
+							  )
+							| undefined;
+				  }
+				| string
+		  )
+		| undefined;
+	/**
+	 * @description Specify a list of paths that should not be protected by Deployment Protection to enable Cors preflight requests
+	 * @type object | undefined
+	 */
+	optionsAllowlist?:
+		| ({
+				paths: {
+					/**
+					 * @description The regex path that should not be protected by Deployment Protection
+					 * @pattern ^/.*
+					 * @type string
+					 */
+					value: string;
+				}[];
+		  } | null)
+		| undefined;
+	/**
+	 * @description The list of connections from project environments to dedicated Secure Compute networks. Shared networks must be managed through the shared-connect-links endpoint.
+	 * @type array | undefined
+	 */
+	connectConfigurations?:
+		| (
+				| (object & {
+						/**
+						 * @description The ID of the environment
+						 * @type string
+						 */
+						envId: string;
+						/**
+						 * @description The ID of the Secure Compute network
+						 * @type string
+						 */
+						connectConfigurationId: string;
+						/**
+						 * @description Whether the configuration should be passive, meaning builds will not run there and only passive Serverless Functions will be deployed
+						 * @type boolean
+						 */
+						passive: boolean;
+						/**
+						 * @description Flag saying if project builds should use Secure Compute
+						 * @type boolean
+						 */
+						buildsEnabled: boolean;
+				  })[]
+				| null
+		  )
+		| undefined;
+	/**
+	 * @description An array of objects representing a Dismissed Toast in regards to a Project. Objects are either merged with existing toasts (on key match), or added to the `dimissedToasts` array.`
+	 * @type array | undefined
+	 */
+	dismissedToasts?:
+		| {
+				/**
+				 * @description unique identifier for the dismissed toast
+				 * @type string
+				 */
+				key: string;
+				/**
+				 * @description unix timestamp representing the time the toast was dimissed
+				 * @type number
+				 */
+				dismissedAt: number;
+				/**
+				 * @description Whether the toast was dismissed, the action was accepted, or the dismissal with this key should be removed
+				 * @type string
+				 */
+				action: UpdateProjectRequestDismissedToastsActionEnumKey;
+				value:
+					| string
+					| string
+					| boolean
+					| number
+					| {
+							previousValue: number | boolean | string;
+							currentValue: number | boolean | string;
+					  };
+		  }[]
+		| undefined;
+};
+
 export type UpdateProjectOptions = {
-	body?: never | undefined;
+	body: UpdateProjectBody;
 	path: UpdateProjectPath;
 	query?: UpdateProjectQuery | undefined;
 	headers?: never | undefined;
@@ -35254,8 +44247,10 @@ export type UploadProjectAvatarStatus413 = unknown;
 
 export type UploadProjectAvatarStatus415 = unknown;
 
+export type UploadProjectAvatarBody = Blob | undefined;
+
 export type UploadProjectAvatarOptions = {
-	body?: never | undefined;
+	body: UploadProjectAvatarBody;
 	path: UploadProjectAvatarPath;
 	query?: UploadProjectAvatarQuery | undefined;
 	headers?: never | undefined;
@@ -35374,8 +44369,30 @@ export type UpdateStaticIpsStatus410 = unknown;
 
 export type UpdateStaticIpsStatus500 = unknown;
 
+export type UpdateStaticIpsBody =
+	| ((
+			| {
+					/**
+					 * @description Whether to use Static IPs for builds.
+					 * @type boolean
+					 */
+					builds: boolean;
+			  }
+			| {
+					regions: string[];
+			  }
+	  ) & {
+			/**
+			 * @description Whether to use Static IPs for builds.
+			 * @type boolean | undefined
+			 */
+			builds?: boolean | undefined;
+			regions?: string[] | undefined;
+	  })
+	| undefined;
+
 export type UpdateStaticIpsOptions = {
-	body?: never | undefined;
+	body: UpdateStaticIpsBody;
 	path: UpdateStaticIpsPath;
 	query?: UpdateStaticIpsQuery | undefined;
 	headers?: never | undefined;
@@ -35439,8 +44456,58 @@ export type CreateCustomEnvironmentStatus410 = unknown;
 
 export type CreateCustomEnvironmentStatus500 = unknown;
 
+export const createCustomEnvironmentRequestBranchMatcherTypeEnum = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type CreateCustomEnvironmentRequestBranchMatcherTypeEnumKey =
+	(typeof createCustomEnvironmentRequestBranchMatcherTypeEnum)[keyof typeof createCustomEnvironmentRequestBranchMatcherTypeEnum];
+
+export type CreateCustomEnvironmentBody =
+	| {
+			/**
+			 * @description The slug of the custom environment to create.
+			 * @maxLength 32
+			 * @type string | undefined
+			 */
+			slug?: string | undefined;
+			/**
+			 * @description Description of the custom environment. This is optional.
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			description?: string | undefined;
+			/**
+			 * @description How we want to determine a matching branch. This is optional.
+			 * @type object | undefined
+			 */
+			branchMatcher?:
+				| {
+						/**
+						 * @description Type of matcher. One of \"equals\", \"startsWith\", or \"endsWith\".
+						 * @type string
+						 */
+						type: CreateCustomEnvironmentRequestBranchMatcherTypeEnumKey;
+						/**
+						 * @description Git branch name or portion thereof.
+						 * @maxLength 100
+						 * @type string
+						 */
+						pattern: string;
+				  }
+				| undefined;
+			/**
+			 * @description Where to copy environment variables from. This is optional.
+			 * @type string | undefined
+			 */
+			copyEnvVarsFrom?: string | undefined;
+	  }
+	| undefined;
+
 export type CreateCustomEnvironmentOptions = {
-	body?: never | undefined;
+	body: CreateCustomEnvironmentBody;
 	path: CreateCustomEnvironmentPath;
 	query?: CreateCustomEnvironmentQuery | undefined;
 	headers?: never | undefined;
@@ -35630,8 +44697,53 @@ export type UpdateCustomEnvironmentStatus410 = unknown;
 
 export type UpdateCustomEnvironmentStatus500 = unknown;
 
+export const updateCustomEnvironmentRequestBranchMatcherTypeEnum = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type UpdateCustomEnvironmentRequestBranchMatcherTypeEnumKey =
+	(typeof updateCustomEnvironmentRequestBranchMatcherTypeEnum)[keyof typeof updateCustomEnvironmentRequestBranchMatcherTypeEnum];
+
+export type UpdateCustomEnvironmentBody =
+	| {
+			/**
+			 * @description The slug of the custom environment.
+			 * @maxLength 32
+			 * @type string | undefined
+			 */
+			slug?: string | undefined;
+			/**
+			 * @description Description of the custom environment. This is optional.
+			 * @maxLength 256
+			 * @type string | undefined
+			 */
+			description?: string | undefined;
+			/**
+			 * @description How we want to determine a matching branch. This is optional.
+			 * @type object | undefined
+			 */
+			branchMatcher?:
+				| ({
+						/**
+						 * @description Type of matcher. One of \"equals\", \"startsWith\", or \"endsWith\".
+						 * @type string
+						 */
+						type: UpdateCustomEnvironmentRequestBranchMatcherTypeEnumKey;
+						/**
+						 * @description Git branch name or portion thereof.
+						 * @maxLength 100
+						 * @type string
+						 */
+						pattern: string;
+				  } | null)
+				| undefined;
+	  }
+	| undefined;
+
 export type UpdateCustomEnvironmentOptions = {
-	body?: never | undefined;
+	body: UpdateCustomEnvironmentBody;
 	path: UpdateCustomEnvironmentPath;
 	query?: UpdateCustomEnvironmentQuery | undefined;
 	headers?: never | undefined;
@@ -35693,8 +44805,18 @@ export type RemoveCustomEnvironmentStatus404 = unknown;
 
 export type RemoveCustomEnvironmentStatus410 = unknown;
 
+export type RemoveCustomEnvironmentBody =
+	| {
+			/**
+			 * @description Delete Environment Variables that are not assigned to any environments.
+			 * @type boolean | undefined
+			 */
+			deleteUnassignedEnvironmentVariables?: boolean | undefined;
+	  }
+	| undefined;
+
 export type RemoveCustomEnvironmentOptions = {
-	body?: never | undefined;
+	body: RemoveCustomEnvironmentBody;
 	path: RemoveCustomEnvironmentPath;
 	query?: RemoveCustomEnvironmentQuery | undefined;
 	headers?: never | undefined;
@@ -35977,8 +45099,40 @@ export type UpdateProjectDomainStatus409 = unknown;
 
 export type UpdateProjectDomainStatus410 = unknown;
 
+export const updateProjectDomainRequestRedirectStatusCodeEnum = {
+	"301": 301,
+	"302": 302,
+	"307": 307,
+	"308": 308,
+} as const;
+
+export type UpdateProjectDomainRequestRedirectStatusCodeEnumKey =
+	(typeof updateProjectDomainRequestRedirectStatusCodeEnum)[keyof typeof updateProjectDomainRequestRedirectStatusCodeEnum];
+
+export type UpdateProjectDomainBody = {
+	/**
+	 * @description Git branch to link the project domain
+	 * @maxLength 250
+	 * @example null
+	 * @type string | undefined
+	 */
+	gitBranch?: (string | null) | undefined;
+	/**
+	 * @description Target destination domain for redirect
+	 * @example foobar.com
+	 * @type string | undefined
+	 */
+	redirect?: (string | null) | undefined;
+	/**
+	 * @description Status code for domain redirect
+	 * @example 307
+	 * @type number | undefined
+	 */
+	redirectStatusCode?: (UpdateProjectDomainRequestRedirectStatusCodeEnumKey | null) | undefined;
+};
+
 export type UpdateProjectDomainOptions = {
-	body?: never | undefined;
+	body: UpdateProjectDomainBody;
 	path: UpdateProjectDomainPath;
 	query?: UpdateProjectDomainQuery | undefined;
 	headers?: never | undefined;
@@ -36042,8 +45196,18 @@ export type RemoveProjectDomainStatus409 = unknown;
 
 export type RemoveProjectDomainStatus410 = unknown;
 
+export type RemoveProjectDomainBody =
+	| {
+			/**
+			 * @description Whether to remove all domains from this project that redirect to the domain being removed.
+			 * @type boolean | undefined
+			 */
+			removeRedirects?: boolean | undefined;
+	  }
+	| undefined;
+
 export type RemoveProjectDomainOptions = {
-	body?: never | undefined;
+	body: RemoveProjectDomainBody;
 	path: RemoveProjectDomainPath;
 	query?: RemoveProjectDomainQuery | undefined;
 	headers?: never | undefined;
@@ -36103,8 +45267,51 @@ export type AddProjectDomainStatus409 = unknown;
 
 export type AddProjectDomainStatus410 = unknown;
 
+export const addProjectDomainRequestRedirectStatusCodeEnum = {
+	"301": 301,
+	"302": 302,
+	"307": 307,
+	"308": 308,
+} as const;
+
+export type AddProjectDomainRequestRedirectStatusCodeEnumKey =
+	(typeof addProjectDomainRequestRedirectStatusCodeEnum)[keyof typeof addProjectDomainRequestRedirectStatusCodeEnum];
+
+export type AddProjectDomainBody = {
+	/**
+	 * @description The project domain name
+	 * @example www.example.com
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description Git branch to link the project domain
+	 * @maxLength 250
+	 * @example null
+	 * @type string | undefined
+	 */
+	gitBranch?: (string | null) | undefined;
+	/**
+	 * @description The unique custom environment identifier within the project
+	 * @type string | undefined
+	 */
+	customEnvironmentId?: string | undefined;
+	/**
+	 * @description Target destination domain for redirect
+	 * @example foobar.com
+	 * @type string | undefined
+	 */
+	redirect?: (string | null) | undefined;
+	/**
+	 * @description Status code for domain redirect
+	 * @example 307
+	 * @type number | undefined
+	 */
+	redirectStatusCode?: (AddProjectDomainRequestRedirectStatusCodeEnumKey | null) | undefined;
+};
+
 export type AddProjectDomainOptions = {
-	body?: never | undefined;
+	body: AddProjectDomainBody;
 	path: AddProjectDomainPath;
 	query?: AddProjectDomainQuery | undefined;
 	headers?: never | undefined;
@@ -36169,8 +45376,47 @@ export type MoveProjectDomainStatus409 = unknown;
 
 export type MoveProjectDomainStatus410 = unknown;
 
+export const moveProjectDomainRequestRedirectStatusCodeEnum = {
+	"301": 301,
+	"302": 302,
+	"307": 307,
+	"308": 308,
+} as const;
+
+export type MoveProjectDomainRequestRedirectStatusCodeEnumKey =
+	(typeof moveProjectDomainRequestRedirectStatusCodeEnum)[keyof typeof moveProjectDomainRequestRedirectStatusCodeEnum];
+
+export type MoveProjectDomainBody =
+	| {
+			/**
+			 * @description The unique target project identifier
+			 * @example prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA
+			 */
+			projectId: string;
+			/**
+			 * @description Git branch to link the project domain
+			 * @maxLength 250
+			 * @example null
+			 * @type string | undefined
+			 */
+			gitBranch?: (string | null) | undefined;
+			/**
+			 * @description Target destination domain for redirect
+			 * @example foobar.com
+			 * @type string | undefined
+			 */
+			redirect?: (string | null) | undefined;
+			/**
+			 * @description Status code for domain redirect
+			 * @example 307
+			 * @type number | undefined
+			 */
+			redirectStatusCode?: (MoveProjectDomainRequestRedirectStatusCodeEnumKey | null) | undefined;
+	  }
+	| undefined;
+
 export type MoveProjectDomainOptions = {
-	body?: never | undefined;
+	body: MoveProjectDomainBody;
 	path: MoveProjectDomainPath;
 	query?: MoveProjectDomainQuery | undefined;
 	headers?: never | undefined;
@@ -36401,8 +45647,151 @@ export type CreateProjectEnvStatus429 = unknown;
 
 export type CreateProjectEnvStatus500 = unknown;
 
+export const createProjectEnvRequestTargetEnum = {
+	production: "production",
+	preview: "preview",
+	development: "development",
+} as const;
+
+export type CreateProjectEnvRequestTargetEnumKey =
+	(typeof createProjectEnvRequestTargetEnum)[keyof typeof createProjectEnvRequestTargetEnum];
+
+export const createProjectEnvRequestTypeEnum = {
+	system: "system",
+	encrypted: "encrypted",
+	plain: "plain",
+	sensitive: "sensitive",
+} as const;
+
+export type CreateProjectEnvRequestTypeEnumKey =
+	(typeof createProjectEnvRequestTypeEnum)[keyof typeof createProjectEnvRequestTypeEnum];
+
+export type CreateProjectEnvBody =
+	| ((
+			| {
+					/**
+					 * @description The target environment of the environment variable
+					 * @example ["preview"]
+					 * @type array
+					 */
+					target: CreateProjectEnvRequestTargetEnumKey[];
+			  }
+			| {
+					/**
+					 * @description The custom environment IDs associated with the environment variable
+					 * @type array
+					 */
+					customEnvironmentIds: string[];
+			  }
+	  ) & {
+			/**
+			 * @description The name of the environment variable
+			 * @example API_URL
+			 * @type string
+			 */
+			key: string;
+			/**
+			 * @description The value of the environment variable
+			 * @example https://api.vercel.com
+			 * @type string
+			 */
+			value: string;
+			/**
+			 * @description The type of environment variable
+			 * @example plain
+			 * @type string
+			 */
+			type: CreateProjectEnvRequestTypeEnumKey;
+			/**
+			 * @description The target environment of the environment variable
+			 * @example ["preview"]
+			 * @type array | undefined
+			 */
+			target?: CreateProjectEnvRequestTargetEnumKey[] | undefined;
+			/**
+			 * @description If defined, the git branch of the environment variable (must have target=preview)
+			 * @maxLength 250
+			 * @example feature-1
+			 * @type string | undefined
+			 */
+			gitBranch?: (string | null) | undefined;
+			/**
+			 * @description A comment to add context on what this environment variable is for
+			 * @maxLength 500
+			 * @example database connection string for production
+			 * @type string | undefined
+			 */
+			comment?: string | undefined;
+			/**
+			 * @description The custom environment IDs associated with the environment variable
+			 * @type array | undefined
+			 */
+			customEnvironmentIds?: string[] | undefined;
+	  })
+	| ((
+			| {
+					/**
+					 * @description The target environment of the environment variable
+					 * @example ["preview"]
+					 * @type array
+					 */
+					target: CreateProjectEnvRequestTargetEnumKey[];
+			  }
+			| {
+					/**
+					 * @description The custom environment IDs associated with the environment variable
+					 * @type array
+					 */
+					customEnvironmentIds: string[];
+			  }
+	  ) & {
+			/**
+			 * @description The name of the environment variable
+			 * @example API_URL
+			 * @type string
+			 */
+			key: string;
+			/**
+			 * @description The value of the environment variable
+			 * @example https://api.vercel.com
+			 * @type string
+			 */
+			value: string;
+			/**
+			 * @description The type of environment variable
+			 * @example plain
+			 * @type string
+			 */
+			type: CreateProjectEnvRequestTypeEnumKey;
+			/**
+			 * @description The target environment of the environment variable
+			 * @example ["preview"]
+			 * @type array | undefined
+			 */
+			target?: CreateProjectEnvRequestTargetEnumKey[] | undefined;
+			/**
+			 * @description If defined, the git branch of the environment variable (must have target=preview)
+			 * @maxLength 250
+			 * @example feature-1
+			 * @type string | undefined
+			 */
+			gitBranch?: (string | null) | undefined;
+			/**
+			 * @description A comment to add context on what this environment variable is for
+			 * @maxLength 500
+			 * @example database connection string for production
+			 * @type string | undefined
+			 */
+			comment?: string | undefined;
+			/**
+			 * @description The custom environment IDs associated with the environment variable
+			 * @type array | undefined
+			 */
+			customEnvironmentIds?: string[] | undefined;
+	  })[];
+
 export type CreateProjectEnvOptions = {
-	body?: never | undefined;
+	body: CreateProjectEnvBody;
 	path: CreateProjectEnvPath;
 	query?: CreateProjectEnvQuery | undefined;
 	headers?: never | undefined;
@@ -36608,8 +45997,73 @@ export type EditProjectEnvStatus429 = unknown;
 
 export type EditProjectEnvStatus500 = unknown;
 
+export const editProjectEnvRequestTargetEnum = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type EditProjectEnvRequestTargetEnumKey =
+	(typeof editProjectEnvRequestTargetEnum)[keyof typeof editProjectEnvRequestTargetEnum];
+
+export const editProjectEnvRequestTypeEnum = {
+	encrypted: "encrypted",
+	plain: "plain",
+	sensitive: "sensitive",
+	system: "system",
+} as const;
+
+export type EditProjectEnvRequestTypeEnumKey =
+	(typeof editProjectEnvRequestTypeEnum)[keyof typeof editProjectEnvRequestTypeEnum];
+
+export type EditProjectEnvBody = {
+	/**
+	 * @description The name of the environment variable
+	 * @example GITHUB_APP_ID
+	 * @type string | undefined
+	 */
+	key?: string | undefined;
+	/**
+	 * @description The target environment of the environment variable
+	 * @example ["preview"]
+	 * @type array | undefined
+	 */
+	target?: EditProjectEnvRequestTargetEnumKey[] | undefined;
+	/**
+	 * @description If defined, the git branch of the environment variable (must have target=preview)
+	 * @maxLength 250
+	 * @example feature-1
+	 * @type string | undefined
+	 */
+	gitBranch?: (string | null) | undefined;
+	/**
+	 * @description The type of environment variable
+	 * @example plain
+	 * @type string | undefined
+	 */
+	type?: EditProjectEnvRequestTypeEnumKey | undefined;
+	/**
+	 * @description The value of the environment variable
+	 * @example bkWIjbnxcvo78
+	 * @type string | undefined
+	 */
+	value?: string | undefined;
+	/**
+	 * @description The custom environments that the environment variable should be synced to
+	 * @type array | undefined
+	 */
+	customEnvironmentIds?: string[] | undefined;
+	/**
+	 * @description A comment to add context on what this env var is for
+	 * @maxLength 500
+	 * @example database connection string for production
+	 * @type string | undefined
+	 */
+	comment?: string | undefined;
+};
+
 export type EditProjectEnvOptions = {
-	body?: never | undefined;
+	body: EditProjectEnvBody;
 	path: EditProjectEnvPath;
 	query?: EditProjectEnvQuery | undefined;
 	headers?: never | undefined;
@@ -36670,8 +46124,18 @@ export type BatchRemoveProjectEnvStatus409 = unknown;
 
 export type BatchRemoveProjectEnvStatus410 = unknown;
 
+export type BatchRemoveProjectEnvBody =
+	| {
+			/**
+			 * @description Array of environment variable IDs to delete
+			 * @type array
+			 */
+			ids: string[];
+	  }
+	| undefined;
+
 export type BatchRemoveProjectEnvOptions = {
-	body?: never | undefined;
+	body: BatchRemoveProjectEnvBody;
 	path: BatchRemoveProjectEnvPath;
 	query?: BatchRemoveProjectEnvQuery | undefined;
 	headers?: never | undefined;
@@ -37023,8 +46487,23 @@ export type ApproveRollingReleaseStageStatus410 = unknown;
 
 export type ApproveRollingReleaseStageStatus500 = unknown;
 
+export type ApproveRollingReleaseStageBody =
+	| {
+			/**
+			 * @description The index of the stage to transition to
+			 * @type number
+			 */
+			nextStageIndex: number;
+			/**
+			 * @description The id of the canary deployment to approve for the next stage
+			 * @type string
+			 */
+			canaryDeploymentId: string;
+	  }
+	| undefined;
+
 export type ApproveRollingReleaseStageOptions = {
-	body?: never | undefined;
+	body: ApproveRollingReleaseStageBody;
 	path: ApproveRollingReleaseStagePath;
 	query?: ApproveRollingReleaseStageQuery | undefined;
 	headers?: never | undefined;
@@ -37084,8 +46563,18 @@ export type StartRollingReleaseStatus410 = unknown;
 
 export type StartRollingReleaseStatus422 = unknown;
 
+export type StartRollingReleaseBody =
+	| {
+			/**
+			 * @description The ID of the canary deployment to start the rolling release for
+			 * @type string
+			 */
+			canaryDeploymentId: string;
+	  }
+	| undefined;
+
 export type StartRollingReleaseOptions = {
-	body?: never | undefined;
+	body: StartRollingReleaseBody;
 	path: StartRollingReleasePath;
 	query?: StartRollingReleaseQuery | undefined;
 	headers?: never | undefined;
@@ -37142,8 +46631,18 @@ export type CompleteRollingReleaseStatus404 = unknown;
 
 export type CompleteRollingReleaseStatus410 = unknown;
 
+export type CompleteRollingReleaseBody =
+	| {
+			/**
+			 * @description The ID of the canary deployment to complete
+			 * @type string
+			 */
+			canaryDeploymentId: string;
+	  }
+	| undefined;
+
 export type CompleteRollingReleaseOptions = {
-	body?: never | undefined;
+	body: CompleteRollingReleaseBody;
 	path: CompleteRollingReleasePath;
 	query?: CompleteRollingReleaseQuery | undefined;
 	headers?: never | undefined;
@@ -37200,8 +46699,23 @@ export type CreateProjectTransferRequestStatus409 = unknown;
 
 export type CreateProjectTransferRequestStatus410 = unknown;
 
+export type CreateProjectTransferRequestBody =
+	| {
+			/**
+			 * @description The URL to send a webhook to when the transfer is accepted.
+			 * @type string | undefined
+			 */
+			callbackUrl?: string | undefined;
+			/**
+			 * @description The secret to use to sign the webhook payload with HMAC-SHA256.
+			 * @type string | undefined
+			 */
+			callbackSecret?: string | undefined;
+	  }
+	| undefined;
+
 export type CreateProjectTransferRequestOptions = {
-	body?: never | undefined;
+	body: CreateProjectTransferRequestBody;
 	path: CreateProjectTransferRequestPath;
 	query?: CreateProjectTransferRequestQuery | undefined;
 	headers?: never | undefined;
@@ -37259,8 +46773,46 @@ export type AcceptProjectTransferRequestStatus410 = unknown;
 
 export type AcceptProjectTransferRequestStatus422 = unknown;
 
+export type AcceptProjectTransferRequestBody =
+	| {
+			/**
+			 * @description The desired name for the project
+			 * @maxLength 100
+			 * @example a-project-name
+			 * @type string | undefined
+			 */
+			newProjectName?: string | undefined;
+			paidFeatures?:
+				| {
+						concurrentBuilds?: (number | null) | undefined;
+						passwordProtection?: (boolean | null) | undefined;
+						previewDeploymentSuffix?: (boolean | null) | undefined;
+				  }
+				| undefined;
+			acceptedPolicies?:
+				| {
+						[key: string]: {
+							/**
+							 * @description
+							 * Format: `date-time`
+							 * @type string
+							 */
+							eula: string;
+							/**
+							 * @description
+							 * Format: `date-time`
+							 * @type string
+							 */
+							privacy: string;
+							[key: string]: unknown;
+						};
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type AcceptProjectTransferRequestOptions = {
-	body?: never | undefined;
+	body: AcceptProjectTransferRequestBody;
 	path: AcceptProjectTransferRequestPath;
 	query?: AcceptProjectTransferRequestQuery | undefined;
 	headers?: never | undefined;
@@ -37318,8 +46870,73 @@ export type UpdateProjectProtectionBypassStatus409 = unknown;
 
 export type UpdateProjectProtectionBypassStatus410 = unknown;
 
+export type UpdateProjectProtectionBypassBody = {
+	/**
+	 * @description Optional instructions for revoking and regenerating a automation bypass
+	 * @type object | undefined
+	 */
+	revoke?:
+		| {
+				/**
+				 * @description Automation bypass to revoked
+				 * @type string
+				 */
+				secret: string;
+				/**
+				 * @description Whether or not a new automation bypass should be created after the provided secret is revoked
+				 * @type boolean
+				 */
+				regenerate: boolean;
+		  }
+		| undefined;
+	/**
+	 * @description Generate a new secret. If neither generate or revoke are provided, a new random secret will be generated.
+	 * @type object | undefined
+	 */
+	generate?:
+		| {
+				/**
+				 * @description Optional value of the secret to generate, don\'t send it for oauth2 tokens
+				 * @pattern ^[a-zA-Z0-9]{32}$
+				 * @type string | undefined
+				 */
+				secret?: string | undefined;
+				/**
+				 * @description Note to be displayed in the UI for this bypass
+				 * @maxLength 100
+				 * @type string | undefined
+				 */
+				note?: string | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Update an existing bypass
+	 * @type object | undefined
+	 */
+	update?:
+		| {
+				/**
+				 * @description Automation bypass to updated
+				 * @type string
+				 */
+				secret: string;
+				/**
+				 * @description Whether or not this bypass is set as the VERCEL_AUTOMATION_BYPASS_SECRET environment variable on deployments
+				 * @type boolean | undefined
+				 */
+				isEnvVar?: boolean | undefined;
+				/**
+				 * @description Note to be displayed in the UI for this bypass
+				 * @maxLength 100
+				 * @type string | undefined
+				 */
+				note?: string | undefined;
+		  }
+		| undefined;
+};
+
 export type UpdateProjectProtectionBypassOptions = {
-	body?: never | undefined;
+	body: UpdateProjectProtectionBypassBody;
 	path: UpdateProjectProtectionBypassPath;
 	query?: UpdateProjectProtectionBypassQuery | undefined;
 	headers?: never | undefined;
@@ -37432,8 +47049,18 @@ export type UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStat
 
 export type UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus422 = unknown;
 
+export type UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionBody =
+	| {
+			/**
+			 * @description The reason for the rollback
+			 * @type string | undefined
+			 */
+			description?: string | undefined;
+	  }
+	| undefined;
+
 export type UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionOptions = {
-	body?: never | undefined;
+	body: UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionBody;
 	path: UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -37496,8 +47123,47 @@ export type UpdateMicrofrontendsStatus410 = unknown;
 
 export type UpdateMicrofrontendsStatus500 = unknown;
 
+export type UpdateMicrofrontendsBody =
+	| {
+			/**
+			 * @description The unique group identifier to add this microfrontend to
+			 * @example mfe_12HKQaOmR5t5Uy6vdcQsNIiZgHGB
+			 * @type string | undefined
+			 */
+			microfrontendsGroupId?: string | undefined;
+			/**
+			 * @description Enable or disable microfrontends for the project
+			 * @example true
+			 * @type boolean | undefined
+			 */
+			enabled?: boolean | undefined;
+			/**
+			 * @description Whether the application is the default application for the microfrontends group
+			 * @example true
+			 * @type boolean | undefined
+			 */
+			isDefaultApp?: boolean | undefined;
+			/**
+			 * @description The default route used for screenshots and preview links for the project
+			 * @example /home
+			 * @type string | undefined
+			 */
+			defaultRoute?: string | undefined;
+			/**
+			 * @description Whether observability data should be routed to this project or a root project. Can only be set for child applications.
+			 * @type boolean | undefined
+			 */
+			routeObservabilityToThisProject?: boolean | undefined;
+			/**
+			 * @description Whether domains in this project should route as a microfrontend. Can only be set for child applications.
+			 * @type boolean | undefined
+			 */
+			doNotRouteWithMicrofrontendsRouting?: boolean | undefined;
+	  }
+	| undefined;
+
 export type UpdateMicrofrontendsOptions = {
-	body?: never | undefined;
+	body: UpdateMicrofrontendsBody;
 	path: UpdateMicrofrontendsPath;
 	query?: UpdateMicrofrontendsQuery | undefined;
 	headers?: never | undefined;
@@ -37940,8 +47606,684 @@ export type CreateSandboxesV2Status502 = unknown;
 
 export type CreateSandboxesV2Status503 = unknown;
 
+export const createSandboxesV2RequestNetworkPolicyModeEnum = {
+	"allow-all": "allow-all",
+	"deny-all": "deny-all",
+	custom: "custom",
+	"default-allow": "default-allow",
+	"default-deny": "default-deny",
+} as const;
+
+export type CreateSandboxesV2RequestNetworkPolicyModeEnumKey =
+	(typeof createSandboxesV2RequestNetworkPolicyModeEnum)[keyof typeof createSandboxesV2RequestNetworkPolicyModeEnum];
+
+export const createSandboxesV2RequestRuntimeEnum = {
+	node22: "node22",
+	node24: "node24",
+	node26: "node26",
+	"python3.13": "python3.13",
+} as const;
+
+export type CreateSandboxesV2RequestRuntimeEnumKey =
+	(typeof createSandboxesV2RequestRuntimeEnum)[keyof typeof createSandboxesV2RequestRuntimeEnum];
+
+export const createSandboxesV2RequestArchitectureEnum = {
+	amd64: "amd64",
+	arm64: "arm64",
+} as const;
+
+export type CreateSandboxesV2RequestArchitectureEnumKey =
+	(typeof createSandboxesV2RequestArchitectureEnum)[keyof typeof createSandboxesV2RequestArchitectureEnum];
+
+export const createSandboxesV2RequestRegionEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type CreateSandboxesV2RequestRegionEnumKey =
+	(typeof createSandboxesV2RequestRegionEnum)[keyof typeof createSandboxesV2RequestRegionEnum];
+
+export const createSandboxesV2RequestFailoverRegionsEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type CreateSandboxesV2RequestFailoverRegionsEnumKey =
+	(typeof createSandboxesV2RequestFailoverRegionsEnum)[keyof typeof createSandboxesV2RequestFailoverRegionsEnum];
+
+export type CreateSandboxesV2Body =
+	| {
+			networkPolicy?:
+				| (
+						| {
+								/**
+								 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+								 * @example custom
+								 * @type string
+								 */
+								mode: CreateSandboxesV2RequestNetworkPolicyModeEnumKey;
+								/**
+								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+								 * @example ["api.github.com","*.npmjs.org"]
+								 * @type array | undefined
+								 */
+								allowedDomains?: string[] | undefined;
+								/**
+								 * @description List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.
+								 * @example ["35.192.0.0/12","104.16.0.0/12"]
+								 * @type array | undefined
+								 */
+								allowedCIDRs?: string[] | undefined;
+								/**
+								 * @description List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.
+								 * @example ["35.192.0.0/12"]
+								 * @type array | undefined
+								 */
+								deniedCIDRs?: string[] | undefined;
+								/**
+								 * @description HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.
+								 * @type array | undefined
+								 */
+								injectionRules?:
+									| {
+											/**
+											 * @description The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.
+											 * @type string
+											 */
+											domain: string;
+											/**
+											 * @description HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.
+											 * @type object
+											 */
+											headers: {
+												[key: string]: string;
+											};
+											/**
+											 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+											 * @type object | undefined
+											 */
+											match?:
+												| {
+														/**
+														 * @description Match on the request path. Comparison is case-sensitive.
+														 * @type object | undefined
+														 */
+														path?:
+															| {
+																	/**
+																	 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																	 * @type string | undefined
+																	 */
+																	exact?: string | undefined;
+																	/**
+																	 * @description Match values that start with the given prefix.
+																	 * @type string | undefined
+																	 */
+																	startsWith?: string | undefined;
+															  }
+															| undefined;
+														/**
+														 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+														 * @type array | undefined
+														 */
+														method?: string[] | undefined;
+														/**
+														 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														queryString?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+														/**
+														 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														headers?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+												  }
+												| undefined;
+									  }[]
+									| undefined;
+						  }
+						| {
+								allow?:
+									| (
+											| string[]
+											| {
+													[key: string]: {
+														/**
+														 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+														 * @type object | undefined
+														 */
+														match?:
+															| {
+																	/**
+																	 * @description Match on the request path. Comparison is case-sensitive.
+																	 * @type object | undefined
+																	 */
+																	path?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+																	 * @type array | undefined
+																	 */
+																	method?: string[] | undefined;
+																	/**
+																	 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+																	 * @type array | undefined
+																	 */
+																	queryString?:
+																		| {
+																				/**
+																				 * @description Matcher for the entry key (header name or query key).
+																				 * @type object | undefined
+																				 */
+																				key?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																				/**
+																				 * @description Matcher for the entry value.
+																				 * @type object | undefined
+																				 */
+																				value?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																		  }[]
+																		| undefined;
+																	/**
+																	 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+																	 * @type array | undefined
+																	 */
+																	headers?:
+																		| {
+																				/**
+																				 * @description Matcher for the entry key (header name or query key).
+																				 * @type object | undefined
+																				 */
+																				key?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																				/**
+																				 * @description Matcher for the entry value.
+																				 * @type object | undefined
+																				 */
+																				value?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																		  }[]
+																		| undefined;
+															  }
+															| undefined;
+														transform?:
+															| {
+																	headers?:
+																		| {
+																				[key: string]: string;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+														/**
+														 * @description HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.
+														 * @type string | undefined
+														 */
+														forwardURL?: string | undefined;
+														/**
+														 * @description Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.
+														 * @type object | undefined
+														 */
+														response?:
+															| {
+																	/**
+																	 * @description HTTP status code returned to the sandbox.
+																	 * @minLength 200
+																	 * @maxLength 599
+																	 * @type integer
+																	 */
+																	statusCode: number;
+																	/**
+																	 * @description HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.
+																	 * @type object | undefined
+																	 */
+																	headers?:
+																		| {
+																				[key: string]: string;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description UTF-8 response body. Requires `contentType`.
+																	 * @type string | undefined
+																	 */
+																	body?: string | undefined;
+																	/**
+																	 * @description Value of the `Content-Type` response header. Required when `body` is set.
+																	 * @type string | undefined
+																	 */
+																	contentType?: string | undefined;
+															  }
+															| undefined;
+													}[];
+											  }
+									  )
+									| undefined;
+								subnets?:
+									| {
+											allow?: string[] | undefined;
+											deny?: string[] | undefined;
+									  }
+									| undefined;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description The runtime environment for the sandbox. Determines the pre-installed language runtimes and tools available.
+			 * @default 'node24'
+			 * @example node24
+			 * @type string | undefined
+			 */
+			runtime?: CreateSandboxesV2RequestRuntimeEnumKey | undefined;
+			/**
+			 * @description CPU architecture. Inherits a snapshot or single image manifest when omitted. Image indexes default to amd64. Must match the source. ARM64 creation requires API v3 or v4 without runtime and team access.
+			 * @example arm64
+			 * @type string | undefined
+			 */
+			architecture?: CreateSandboxesV2RequestArchitectureEnumKey | undefined;
+			/**
+			 * @description Resources to define the VM
+			 * @type object | undefined
+			 */
+			resources?:
+				| {
+						/**
+						 * @description The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
+						 * @minLength 1
+						 * @default 2
+						 * @example 2
+						 * @type integer | undefined
+						 */
+						vcpus?: number | undefined;
+						/**
+						 * @description The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.
+						 * @minLength 2048
+						 * @example 4096
+						 * @type integer | undefined
+						 */
+						memory?: number | undefined;
+				  }
+				| undefined;
+			/**
+			 * @description The source from which to initialize the sandbox filesystem. Can be a Git repository, a tarball URL, or an existing snapshot.
+			 */
+			source?:
+				| (
+						| {
+								/**
+								 * @description Indicates the source is a Git repository.
+								 * @type unknown
+								 */
+								type: unknown;
+								/**
+								 * @description The URL of the Git repository to clone.
+								 *
+								 * Format: `uri`
+								 * @example https://github.com/vercel/next.js.git
+								 * @type string
+								 */
+								url: string;
+								/**
+								 * @description Username for Git authentication. Required together with password for private repositories.
+								 * @type string | undefined
+								 */
+								username?: string | undefined;
+								/**
+								 * @description Password or personal access token for Git authentication. Required together with username for private repositories.
+								 * @type string | undefined
+								 */
+								password?: string | undefined;
+								/**
+								 * @description Create a shallow clone with history truncated to the specified number of commits. Useful for faster cloning of large repositories.
+								 * @minLength 1
+								 * @example 1
+								 * @type integer | undefined
+								 */
+								depth?: number | undefined;
+								/**
+								 * @description The specific commit SHA, branch name, or tag to checkout after cloning.
+								 * @example main
+								 * @type string | undefined
+								 */
+								revision?: string | undefined;
+						  }
+						| {
+								/**
+								 * @description Indicates the source is a tarball.
+								 * @type unknown
+								 */
+								type: unknown;
+								/**
+								 * @description URL of a gzipped tarball (.tar.gz) to download and extract.
+								 *
+								 * Format: `uri`
+								 * @example https://example.com/project.tar.gz
+								 * @type string
+								 */
+								url: string;
+						  }
+						| {
+								/**
+								 * @description Indicates the source is a snapshot.
+								 * @type unknown
+								 */
+								type: unknown;
+								/**
+								 * @description The unique identifier of the snapshot to restore.
+								 * @example snap_abc123
+								 * @type string
+								 */
+								snapshotId: string;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description The target project slug or ID in which the sandbox will be assigned to.
+			 * @example prj_abc123
+			 * @type string | undefined
+			 */
+			projectId?: string | undefined;
+			/**
+			 * @description List of ports to expose from the sandbox. Each port will be accessible via a unique URL. Maximum of 15 ports can be exposed.
+			 * @example [3000,4000]
+			 * @type array | undefined
+			 */
+			ports?: number[] | undefined;
+			/**
+			 * @description Image to use for the sandbox.
+			 * @maxLength 255
+			 * @type string | undefined
+			 */
+			image?: string | undefined;
+			/**
+			 * @description Maximum duration in milliseconds that the sandbox can run before being automatically stopped.
+			 * @minLength 1000
+			 * @example 300000
+			 * @type integer | undefined
+			 */
+			timeout?: number | undefined;
+			/**
+			 * @description Default environment variables for the sandbox. These are inherited by all commands unless overridden.
+			 * @default {}
+			 * @example {"nodeEnv":"production","hello":"world"}
+			 * @type object | undefined
+			 */
+			env?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+			/**
+			 * @description List of drives to mount to the sandbox at the provided path.
+			 * @type object | undefined
+			 */
+			mounts?:
+				| {
+						[key: string]: {
+							/**
+							 * @description Name of the drive to mount. The drive must already exist.
+							 * @maxLength 64
+							 * @pattern ^[a-zA-Z0-9_-]+$
+							 * @type string
+							 */
+							drive: string;
+							/**
+							 * @description Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
+							 * @type string | undefined
+							 */
+							mode?: ModeEnumKey | undefined;
+						};
+				  }
+				| undefined;
+			/**
+			 * @description The Vercel region in which to create the sandbox.
+			 * @default ["arn1","bom1","cdg1","cle1","cpt1","dub1","fra1","gru1","hkg1","hnd1","iad1","icn1","kix1","lhr1","pdx1","sfo1","sin1","syd1","yul1"]
+			 * @example iad1
+			 * @type string | undefined
+			 */
+			region?: CreateSandboxesV2RequestRegionEnumKey | undefined;
+			/**
+			 * @description The regions the sandbox falls back to when it cannot be created in `region`.
+			 * @example ["cle1","sfo1"]
+			 * @type array | undefined
+			 */
+			failoverRegions?: CreateSandboxesV2RequestFailoverRegionsEnumKey[] | undefined;
+			/**
+			 * @description The Connect network id for the target Secure Compute private network.
+			 * @maxLength 255
+			 * @type string | undefined
+			 */
+			networkId?: string | undefined;
+			/**
+			 * @description Name for the sandbox. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).
+			 * @maxLength 128
+			 * @pattern ^[a-zA-Z0-9_-]+$
+			 * @example my-sandbox
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description Whether the sandbox persists its state across restarts via automatic snapshots. Defaults to true.
+			 * @default true
+			 * @type boolean | undefined
+			 */
+			persistent?: boolean | undefined;
+			/**
+			 * @description Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.
+			 * @example 604800000
+			 */
+			snapshotExpiration?: (unknown | number) | undefined;
+			/**
+			 * @description Protect the N most recent snapshots with different expiration/deletion behavior.
+			 * @type object | undefined
+			 */
+			keepLastSnapshots?:
+				| {
+						/**
+						 * @description Number of most recent snapshots to keep.
+						 * @minLength 1
+						 * @maxLength 10
+						 * @type integer
+						 */
+						count: number;
+						/**
+						 * @description Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.
+						 */
+						expiration?: (unknown | number) | undefined;
+						/**
+						 * @description Whether to immediately delete evicted snapshots. Defaults to true.
+						 * @type boolean | undefined
+						 */
+						deleteEvicted?: boolean | undefined;
+				  }
+				| undefined;
+			/**
+			 * @description Key-value tags to associate with the sandbox. Maximum 5 tags.
+			 * @example {"env":"staging","team":"platform"}
+			 * @type object | undefined
+			 */
+			tags?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type CreateSandboxesV2Options = {
-	body?: never | undefined;
+	body: CreateSandboxesV2Body;
 	path?: never | undefined;
 	query?: CreateSandboxesV2Query | undefined;
 	headers?: never | undefined;
@@ -38185,8 +48527,56 @@ export type GetOrCreateDriveStatus410 = unknown;
 
 export type GetOrCreateDriveStatus429 = unknown;
 
+export const getOrCreateDriveRequestRegionEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type GetOrCreateDriveRequestRegionEnumKey =
+	(typeof getOrCreateDriveRequestRegionEnum)[keyof typeof getOrCreateDriveRequestRegionEnum];
+
+export type GetOrCreateDriveBody =
+	| {
+			/**
+			 * @description The project ID or name to associate the drive with. Required unless using a Vercel OIDC token scoped to a project.
+			 * @example prj_abc123
+			 * @type string | undefined
+			 */
+			projectId?: string | undefined;
+			/**
+			 * @description Maximum drive size in bytes. Must be a multiple of 4096 bytes. Defaults to 1 TiB when omitted (1 GiB for Hobby). The maximum quota is 16 TiB. Request a quota above 16 TiB at https://vercel.com/help.
+			 * @type integer | undefined
+			 */
+			maxSizeBytes?: number | undefined;
+			/**
+			 * @description Region where the drive is stored. Defaults to iad1.
+			 * @default 'iad1'
+			 * @example iad1
+			 * @type string | undefined
+			 */
+			region?: GetOrCreateDriveRequestRegionEnumKey | undefined;
+	  }
+	| undefined;
+
 export type GetOrCreateDriveOptions = {
-	body?: never | undefined;
+	body: GetOrCreateDriveBody;
 	path: GetOrCreateDrivePath;
 	query?: GetOrCreateDriveQuery | undefined;
 	headers?: never | undefined;
@@ -38333,8 +48723,21 @@ export type ForkDriveStatus429 = unknown;
 
 export type ForkDriveStatus503 = unknown;
 
+export type ForkDriveBody =
+	| {
+			/**
+			 * @description Name for the forked drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).
+			 * @maxLength 64
+			 * @pattern ^[a-zA-Z0-9_-]+$
+			 * @example workspace-fork
+			 * @type string
+			 */
+			name: string;
+	  }
+	| undefined;
+
 export type ForkDriveOptions = {
-	body?: never | undefined;
+	body: ForkDriveBody;
 	path: ForkDrivePath;
 	query?: ForkDriveQuery | undefined;
 	headers?: never | undefined;
@@ -38876,8 +49279,6 @@ export type UpdateSandboxStatus403 = unknown;
 
 export type UpdateSandboxStatus404 = unknown;
 
-export type UpdateSandboxStatus409 = unknown;
-
 export type UpdateSandboxStatus410 = unknown;
 
 export type UpdateSandboxStatus422 = unknown;
@@ -38886,12 +49287,578 @@ export type UpdateSandboxStatus429 = unknown;
 
 export type UpdateSandboxStatus500 = unknown;
 
-export type UpdateSandboxStatus502 = unknown;
+export const updateSandboxRequestRuntimeEnum = {
+	node22: "node22",
+	node24: "node24",
+	node26: "node26",
+	"python3.13": "python3.13",
+} as const;
 
-export type UpdateSandboxStatus503 = unknown;
+export type UpdateSandboxRequestRuntimeEnumKey =
+	(typeof updateSandboxRequestRuntimeEnum)[keyof typeof updateSandboxRequestRuntimeEnum];
+
+export const updateSandboxRequestNetworkPolicyModeEnum = {
+	"allow-all": "allow-all",
+	"deny-all": "deny-all",
+	custom: "custom",
+	"default-allow": "default-allow",
+	"default-deny": "default-deny",
+} as const;
+
+export type UpdateSandboxRequestNetworkPolicyModeEnumKey =
+	(typeof updateSandboxRequestNetworkPolicyModeEnum)[keyof typeof updateSandboxRequestNetworkPolicyModeEnum];
+
+export const updateSandboxRequestRegionEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type UpdateSandboxRequestRegionEnumKey =
+	(typeof updateSandboxRequestRegionEnum)[keyof typeof updateSandboxRequestRegionEnum];
+
+export const updateSandboxRequestFailoverRegionsEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type UpdateSandboxRequestFailoverRegionsEnumKey =
+	(typeof updateSandboxRequestFailoverRegionsEnum)[keyof typeof updateSandboxRequestFailoverRegionsEnum];
+
+export type UpdateSandboxBody =
+	| {
+			/**
+			 * @description Resources to define the VM
+			 * @type object | undefined
+			 */
+			resources?:
+				| {
+						/**
+						 * @description The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
+						 * @minLength 1
+						 * @example 2
+						 * @type integer | undefined
+						 */
+						vcpus?: number | undefined;
+						/**
+						 * @description The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.
+						 * @minLength 2048
+						 * @example 4096
+						 * @type integer | undefined
+						 */
+						memory?: number | undefined;
+				  }
+				| undefined;
+			/**
+			 * @description The runtime environment for the sandbox. Determines the pre-installed language runtimes and tools available.
+			 * @example node24
+			 * @type string | undefined
+			 */
+			runtime?: UpdateSandboxRequestRuntimeEnumKey | undefined;
+			/**
+			 * @description Maximum duration in milliseconds that the sandbox can run before being automatically stopped.
+			 * @minLength 1000
+			 * @example 300000
+			 * @type integer | undefined
+			 */
+			timeout?: number | undefined;
+			/**
+			 * @description Whether the sandbox persists its state across restarts via automatic snapshots.
+			 * @type boolean | undefined
+			 */
+			persistent?: boolean | undefined;
+			/**
+			 * @description Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.
+			 * @example 604800000
+			 */
+			snapshotExpiration?: (unknown | number) | undefined;
+			/**
+			 * @description Protect the N most recent snapshots with different expiration/deletion behavior. Set to null to clear.
+			 */
+			keepLastSnapshots?:
+				| (
+						| string
+						| {
+								/**
+								 * @description Number of most recent snapshots to keep.
+								 * @minLength 1
+								 * @maxLength 10
+								 * @type integer
+								 */
+								count: number;
+								/**
+								 * @description Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.
+								 */
+								expiration?: (unknown | number) | undefined;
+								/**
+								 * @description Whether to immediately delete evicted snapshots. Defaults to true.
+								 * @type boolean | undefined
+								 */
+								deleteEvicted?: boolean | undefined;
+						  }
+				  )
+				| undefined;
+			networkPolicy?:
+				| (
+						| {
+								/**
+								 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+								 * @example custom
+								 * @type string
+								 */
+								mode: UpdateSandboxRequestNetworkPolicyModeEnumKey;
+								/**
+								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+								 * @example ["api.github.com","*.npmjs.org"]
+								 * @type array | undefined
+								 */
+								allowedDomains?: string[] | undefined;
+								/**
+								 * @description List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.
+								 * @example ["35.192.0.0/12","104.16.0.0/12"]
+								 * @type array | undefined
+								 */
+								allowedCIDRs?: string[] | undefined;
+								/**
+								 * @description List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.
+								 * @example ["35.192.0.0/12"]
+								 * @type array | undefined
+								 */
+								deniedCIDRs?: string[] | undefined;
+								/**
+								 * @description HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.
+								 * @type array | undefined
+								 */
+								injectionRules?:
+									| {
+											/**
+											 * @description The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.
+											 * @type string
+											 */
+											domain: string;
+											/**
+											 * @description HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.
+											 * @type object
+											 */
+											headers: {
+												[key: string]: string;
+											};
+											/**
+											 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+											 * @type object | undefined
+											 */
+											match?:
+												| {
+														/**
+														 * @description Match on the request path. Comparison is case-sensitive.
+														 * @type object | undefined
+														 */
+														path?:
+															| {
+																	/**
+																	 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																	 * @type string | undefined
+																	 */
+																	exact?: string | undefined;
+																	/**
+																	 * @description Match values that start with the given prefix.
+																	 * @type string | undefined
+																	 */
+																	startsWith?: string | undefined;
+															  }
+															| undefined;
+														/**
+														 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+														 * @type array | undefined
+														 */
+														method?: string[] | undefined;
+														/**
+														 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														queryString?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+														/**
+														 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														headers?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+												  }
+												| undefined;
+									  }[]
+									| undefined;
+						  }
+						| {
+								allow?:
+									| (
+											| string[]
+											| {
+													[key: string]: {
+														/**
+														 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+														 * @type object | undefined
+														 */
+														match?:
+															| {
+																	/**
+																	 * @description Match on the request path. Comparison is case-sensitive.
+																	 * @type object | undefined
+																	 */
+																	path?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+																	 * @type array | undefined
+																	 */
+																	method?: string[] | undefined;
+																	/**
+																	 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+																	 * @type array | undefined
+																	 */
+																	queryString?:
+																		| {
+																				/**
+																				 * @description Matcher for the entry key (header name or query key).
+																				 * @type object | undefined
+																				 */
+																				key?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																				/**
+																				 * @description Matcher for the entry value.
+																				 * @type object | undefined
+																				 */
+																				value?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																		  }[]
+																		| undefined;
+																	/**
+																	 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+																	 * @type array | undefined
+																	 */
+																	headers?:
+																		| {
+																				/**
+																				 * @description Matcher for the entry key (header name or query key).
+																				 * @type object | undefined
+																				 */
+																				key?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																				/**
+																				 * @description Matcher for the entry value.
+																				 * @type object | undefined
+																				 */
+																				value?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																		  }[]
+																		| undefined;
+															  }
+															| undefined;
+														transform?:
+															| {
+																	headers?:
+																		| {
+																				[key: string]: string;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+														/**
+														 * @description HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.
+														 * @type string | undefined
+														 */
+														forwardURL?: string | undefined;
+														/**
+														 * @description Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.
+														 * @type object | undefined
+														 */
+														response?:
+															| {
+																	/**
+																	 * @description HTTP status code returned to the sandbox.
+																	 * @minLength 200
+																	 * @maxLength 599
+																	 * @type integer
+																	 */
+																	statusCode: number;
+																	/**
+																	 * @description HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.
+																	 * @type object | undefined
+																	 */
+																	headers?:
+																		| {
+																				[key: string]: string;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description UTF-8 response body. Requires `contentType`.
+																	 * @type string | undefined
+																	 */
+																	body?: string | undefined;
+																	/**
+																	 * @description Value of the `Content-Type` response header. Required when `body` is set.
+																	 * @type string | undefined
+																	 */
+																	contentType?: string | undefined;
+															  }
+															| undefined;
+													}[];
+											  }
+									  )
+									| undefined;
+								subnets?:
+									| {
+											allow?: string[] | undefined;
+											deny?: string[] | undefined;
+									  }
+									| undefined;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description The Vercel region in which to create the sandbox.
+			 * @example iad1
+			 * @type string | undefined
+			 */
+			region?: UpdateSandboxRequestRegionEnumKey | undefined;
+			/**
+			 * @description The regions the sandbox falls back to when it cannot be created in `region`.
+			 * @example ["cle1","sfo1"]
+			 * @type array | undefined
+			 */
+			failoverRegions?: UpdateSandboxRequestFailoverRegionsEnumKey[] | undefined;
+			/**
+			 * @description Drives to mount to the sandbox at the provided path. Replaces the current mounts; an empty object removes them all. Changes take effect when the next session starts.
+			 * @type object | undefined
+			 */
+			mounts?:
+				| {
+						[key: string]: {
+							/**
+							 * @description Name of the drive to mount. The drive must already exist.
+							 * @maxLength 64
+							 * @pattern ^[a-zA-Z0-9_-]+$
+							 * @type string
+							 */
+							drive: string;
+							/**
+							 * @description Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
+							 * @type string | undefined
+							 */
+							mode?: ModeEnumKey | undefined;
+						};
+				  }
+				| undefined;
+			/**
+			 * @description The Connect network id for the target Secure Compute private network. Set to null to remove the sandbox from Secure Compute.
+			 */
+			networkId?: (string | string) | undefined;
+			/**
+			 * @description Default environment variables for the sandbox. Set to empty object to clear.
+			 * @example {"nodeEnv":"production","hello":"world"}
+			 * @type object | undefined
+			 */
+			env?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+			/**
+			 * @description List of ports to expose from the sandbox. Each port will be accessible via a unique URL. Maximum of 15 ports can be exposed.
+			 * @example [3000,4000]
+			 * @type array | undefined
+			 */
+			ports?: number[] | undefined;
+			/**
+			 * @description The snapshot ID to set as the current snapshot. Must be active and belong to the same project.
+			 * @maxLength 128
+			 * @type string | undefined
+			 */
+			currentSnapshotId?: string | undefined;
+			/**
+			 * @description Key-value tags to associate with the sandbox. Replaces existing tags. Set to empty object to clear. Maximum 5 tags.
+			 * @example {"env":"staging","team":"platform"}
+			 * @type object | undefined
+			 */
+			tags?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+	  }
+	| undefined;
 
 export type UpdateSandboxOptions = {
-	body?: never | undefined;
+	body: UpdateSandboxBody;
 	path: UpdateSandboxPath;
 	query?: UpdateSandboxQuery | undefined;
 	headers?: never | undefined;
@@ -38904,13 +49871,10 @@ export type UpdateSandboxResponses = {
 	"402": UpdateSandboxStatus402;
 	"403": UpdateSandboxStatus403;
 	"404": UpdateSandboxStatus404;
-	"409": UpdateSandboxStatus409;
 	"410": UpdateSandboxStatus410;
 	"422": UpdateSandboxStatus422;
 	"429": UpdateSandboxStatus429;
 	"500": UpdateSandboxStatus500;
-	"502": UpdateSandboxStatus502;
-	"503": UpdateSandboxStatus503;
 };
 
 /**
@@ -39063,12 +50027,6 @@ export type RunSessionCommandPath = {
 
 export type RunSessionCommandQuery = {
 	/**
-	 * @description The unique identifier of the command to stream logs for.
-	 * @example cmd_abc123
-	 * @type string
-	 */
-	cmdId: string;
-	/**
 	 * @description The Team identifier to perform the request on behalf of.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
@@ -39100,10 +50058,76 @@ export type RunSessionCommandStatus429 = unknown;
 
 export type RunSessionCommandStatus500 = unknown;
 
+export type RunSessionCommandBody =
+	| {
+			/**
+			 * @description The executable or shell command to run. This is the program name without arguments.
+			 * @example npm
+			 * @type string
+			 */
+			command: string;
+			/**
+			 * @description Arguments to pass to the command. Each argument should be a separate array element.
+			 * @example ["--save","install","lodash"]
+			 * @type array | undefined
+			 */
+			args?: string[] | undefined;
+			/**
+			 * @description The working directory in which to execute the command. Defaults to the sandbox home directory if not specified.
+			 * @example /home/vercel-sandbox
+			 * @type string | undefined
+			 */
+			cwd?: string | undefined;
+			/**
+			 * @description Additional environment variables to set for this command. These are merged with the sandbox environment.
+			 * @default {}
+			 * @example {"nodeEnv":"production","debug":"true"}
+			 * @type object | undefined
+			 */
+			env?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+			/**
+			 * @description Execute the command with root (superuser) privileges.
+			 * @default false
+			 * @type boolean | undefined
+			 */
+			sudo?: boolean | undefined;
+			/**
+			 * @description If true, returns an ND-JSON stream that emits the command status when started and again when finished. Useful for synchronously waiting for command completion.
+			 * @default false
+			 * @type boolean | undefined
+			 */
+			wait?: boolean | undefined;
+			/**
+			 * @description If true, stream the logs of the command execution in real-time via ND-JSON. This is only applicable if `wait` is also true.
+			 * @default false
+			 * @type boolean | undefined
+			 */
+			logs?: boolean | undefined;
+			/**
+			 * @description Maximum duration in milliseconds the command may run before it is killed with SIGKILL, up to 5 hours. Enforced at exec time, independently of `wait`.
+			 * @minLength 100
+			 * @maxLength 18000000
+			 * @example 30000
+			 * @type integer | undefined
+			 */
+			timeout?: number | undefined;
+			/**
+			 * @description If true, keeps the command stdin open so it can be written to with the stdin endpoint while the command runs. When false, the command reads from an empty stdin.
+			 * @default false
+			 * @type boolean | undefined
+			 */
+			attachStdin?: boolean | undefined;
+	  }
+	| undefined;
+
 export type RunSessionCommandOptions = {
-	body?: never | undefined;
+	body: RunSessionCommandBody;
 	path: RunSessionCommandPath;
-	query: RunSessionCommandQuery;
+	query?: RunSessionCommandQuery | undefined;
 	headers?: never | undefined;
 };
 
@@ -39258,8 +50282,19 @@ export type KillSessionCommandStatus429 = unknown;
 
 export type KillSessionCommandStatus500 = unknown;
 
+export type KillSessionCommandBody =
+	| {
+			/**
+			 * @description The POSIX signal number to send to the process. Common values: 15 (SIGTERM) for graceful termination, 9 (SIGKILL) for forced termination.
+			 * @example 15
+			 * @type number
+			 */
+			signal: number;
+	  }
+	| undefined;
+
 export type KillSessionCommandOptions = {
-	body?: never | undefined;
+	body: KillSessionCommandBody;
 	path: KillSessionCommandPath;
 	query?: KillSessionCommandQuery | undefined;
 	headers?: never | undefined;
@@ -39336,8 +50371,33 @@ export type WriteSessionCommandStdinStatus502 = unknown;
 
 export type WriteSessionCommandStdinStatus504 = unknown;
 
+export type WriteSessionCommandStdinBody =
+	| {
+			/**
+			 * @description Base64-encoded bytes to write to the command stdin. The request body is limited to 1 MB, so send at most about 700 KB of data per request.
+			 * @maxLength 1000000
+			 * @example aGVsbG8K
+			 * @type string | undefined
+			 */
+			data?: string | undefined;
+			/**
+			 * @description The position in the command stdin where `data` starts. Bytes before the total already written are skipped, so a resent request does not write them twice. Fails with 409 if it is past the bytes written so far. Without it, `data` is appended.
+			 * @minLength 0
+			 * @example 0
+			 * @type integer | undefined
+			 */
+			offset?: number | undefined;
+			/**
+			 * @description If true, closes the command stdin after writing `data`. Use this for commands that wait for end of input.
+			 * @default false
+			 * @type boolean | undefined
+			 */
+			close?: boolean | undefined;
+	  }
+	| undefined;
+
 export type WriteSessionCommandStdinOptions = {
-	body?: never | undefined;
+	body: WriteSessionCommandStdinBody;
 	path: WriteSessionCommandStdinPath;
 	query?: WriteSessionCommandStdinQuery | undefined;
 	headers?: never | undefined;
@@ -39543,8 +50603,20 @@ export type ExtendSessionTimeoutStatus429 = unknown;
 
 export type ExtendSessionTimeoutStatus500 = unknown;
 
+export type ExtendSessionTimeoutBody =
+	| {
+			/**
+			 * @description The amount of time in milliseconds to add to the current timeout. Must be at least 1000ms (1 second).
+			 * @minLength 1000
+			 * @example 300000
+			 * @type number
+			 */
+			duration: number;
+	  }
+	| undefined;
+
 export type ExtendSessionTimeoutOptions = {
-	body?: never | undefined;
+	body: ExtendSessionTimeoutBody;
 	path: ExtendSessionTimeoutPath;
 	query?: ExtendSessionTimeoutQuery | undefined;
 	headers?: never | undefined;
@@ -39609,8 +50681,373 @@ export type UpdateSessionNetworkPolicyStatus429 = unknown;
 
 export type UpdateSessionNetworkPolicyStatus500 = unknown;
 
+export const updateSessionNetworkPolicyRequestModeEnum = {
+	"allow-all": "allow-all",
+	"deny-all": "deny-all",
+	custom: "custom",
+	"default-allow": "default-allow",
+	"default-deny": "default-deny",
+} as const;
+
+export type UpdateSessionNetworkPolicyRequestModeEnumKey =
+	(typeof updateSessionNetworkPolicyRequestModeEnum)[keyof typeof updateSessionNetworkPolicyRequestModeEnum];
+
+export type UpdateSessionNetworkPolicyBody =
+	| (
+			| {
+					/**
+					 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+					 * @example custom
+					 * @type string
+					 */
+					mode: UpdateSessionNetworkPolicyRequestModeEnumKey;
+					/**
+					 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+					 * @example ["api.github.com","*.npmjs.org"]
+					 * @type array | undefined
+					 */
+					allowedDomains?: string[] | undefined;
+					/**
+					 * @description List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.
+					 * @example ["35.192.0.0/12","104.16.0.0/12"]
+					 * @type array | undefined
+					 */
+					allowedCIDRs?: string[] | undefined;
+					/**
+					 * @description List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.
+					 * @example ["35.192.0.0/12"]
+					 * @type array | undefined
+					 */
+					deniedCIDRs?: string[] | undefined;
+					/**
+					 * @description HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.
+					 * @type array | undefined
+					 */
+					injectionRules?:
+						| {
+								/**
+								 * @description The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.
+								 * @type string
+								 */
+								domain: string;
+								/**
+								 * @description HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.
+								 * @type object
+								 */
+								headers: {
+									[key: string]: string;
+								};
+								/**
+								 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+								 * @type object | undefined
+								 */
+								match?:
+									| {
+											/**
+											 * @description Match on the request path. Comparison is case-sensitive.
+											 * @type object | undefined
+											 */
+											path?:
+												| {
+														/**
+														 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+														 * @type string | undefined
+														 */
+														exact?: string | undefined;
+														/**
+														 * @description Match values that start with the given prefix.
+														 * @type string | undefined
+														 */
+														startsWith?: string | undefined;
+												  }
+												| undefined;
+											/**
+											 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+											 * @type array | undefined
+											 */
+											method?: string[] | undefined;
+											/**
+											 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+											 * @type array | undefined
+											 */
+											queryString?:
+												| {
+														/**
+														 * @description Matcher for the entry key (header name or query key).
+														 * @type object | undefined
+														 */
+														key?:
+															| {
+																	/**
+																	 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																	 * @type string | undefined
+																	 */
+																	exact?: string | undefined;
+																	/**
+																	 * @description Match values that start with the given prefix.
+																	 * @type string | undefined
+																	 */
+																	startsWith?: string | undefined;
+															  }
+															| undefined;
+														/**
+														 * @description Matcher for the entry value.
+														 * @type object | undefined
+														 */
+														value?:
+															| {
+																	/**
+																	 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																	 * @type string | undefined
+																	 */
+																	exact?: string | undefined;
+																	/**
+																	 * @description Match values that start with the given prefix.
+																	 * @type string | undefined
+																	 */
+																	startsWith?: string | undefined;
+															  }
+															| undefined;
+												  }[]
+												| undefined;
+											/**
+											 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+											 * @type array | undefined
+											 */
+											headers?:
+												| {
+														/**
+														 * @description Matcher for the entry key (header name or query key).
+														 * @type object | undefined
+														 */
+														key?:
+															| {
+																	/**
+																	 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																	 * @type string | undefined
+																	 */
+																	exact?: string | undefined;
+																	/**
+																	 * @description Match values that start with the given prefix.
+																	 * @type string | undefined
+																	 */
+																	startsWith?: string | undefined;
+															  }
+															| undefined;
+														/**
+														 * @description Matcher for the entry value.
+														 * @type object | undefined
+														 */
+														value?:
+															| {
+																	/**
+																	 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																	 * @type string | undefined
+																	 */
+																	exact?: string | undefined;
+																	/**
+																	 * @description Match values that start with the given prefix.
+																	 * @type string | undefined
+																	 */
+																	startsWith?: string | undefined;
+															  }
+															| undefined;
+												  }[]
+												| undefined;
+									  }
+									| undefined;
+						  }[]
+						| undefined;
+			  }
+			| {
+					allow?:
+						| (
+								| string[]
+								| {
+										[key: string]: {
+											/**
+											 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+											 * @type object | undefined
+											 */
+											match?:
+												| {
+														/**
+														 * @description Match on the request path. Comparison is case-sensitive.
+														 * @type object | undefined
+														 */
+														path?:
+															| {
+																	/**
+																	 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																	 * @type string | undefined
+																	 */
+																	exact?: string | undefined;
+																	/**
+																	 * @description Match values that start with the given prefix.
+																	 * @type string | undefined
+																	 */
+																	startsWith?: string | undefined;
+															  }
+															| undefined;
+														/**
+														 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+														 * @type array | undefined
+														 */
+														method?: string[] | undefined;
+														/**
+														 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														queryString?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+														/**
+														 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														headers?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+												  }
+												| undefined;
+											transform?:
+												| {
+														headers?:
+															| {
+																	[key: string]: string;
+															  }
+															| undefined;
+												  }[]
+												| undefined;
+											/**
+											 * @description HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.
+											 * @type string | undefined
+											 */
+											forwardURL?: string | undefined;
+											/**
+											 * @description Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.
+											 * @type object | undefined
+											 */
+											response?:
+												| {
+														/**
+														 * @description HTTP status code returned to the sandbox.
+														 * @minLength 200
+														 * @maxLength 599
+														 * @type integer
+														 */
+														statusCode: number;
+														/**
+														 * @description HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.
+														 * @type object | undefined
+														 */
+														headers?:
+															| {
+																	[key: string]: string;
+															  }
+															| undefined;
+														/**
+														 * @description UTF-8 response body. Requires `contentType`.
+														 * @type string | undefined
+														 */
+														body?: string | undefined;
+														/**
+														 * @description Value of the `Content-Type` response header. Required when `body` is set.
+														 * @type string | undefined
+														 */
+														contentType?: string | undefined;
+												  }
+												| undefined;
+										}[];
+								  }
+						  )
+						| undefined;
+					subnets?:
+						| {
+								allow?: string[] | undefined;
+								deny?: string[] | undefined;
+						  }
+						| undefined;
+			  }
+	  )
+	| undefined;
+
 export type UpdateSessionNetworkPolicyOptions = {
-	body?: never | undefined;
+	body: UpdateSessionNetworkPolicyBody;
 	path: UpdateSessionNetworkPolicyPath;
 	query?: UpdateSessionNetworkPolicyQuery | undefined;
 	headers?: never | undefined;
@@ -39675,8 +51112,25 @@ export type ReadSessionFileStatus429 = unknown;
 
 export type ReadSessionFileStatus500 = unknown;
 
+export type ReadSessionFileBody =
+	| {
+			/**
+			 * @description The base directory for resolving relative paths. If not specified, paths are resolved from the sandbox home directory.
+			 * @example /home/vercel-sandbox
+			 * @type string | undefined
+			 */
+			cwd?: string | undefined;
+			/**
+			 * @description The path of the file to read. Can be absolute or relative to the working directory.
+			 * @example dist/agent-output.md
+			 * @type string
+			 */
+			path: string;
+	  }
+	| undefined;
+
 export type ReadSessionFileOptions = {
-	body?: never | undefined;
+	body: ReadSessionFileBody;
 	path: ReadSessionFilePath;
 	query?: ReadSessionFileQuery | undefined;
 	headers?: never | undefined;
@@ -39741,8 +51195,31 @@ export type CreateSessionDirectoryStatus429 = unknown;
 
 export type CreateSessionDirectoryStatus500 = unknown;
 
+export type CreateSessionDirectoryBody =
+	| {
+			/**
+			 * @description The base directory for resolving relative paths. If not specified, paths are resolved from the sandbox home directory.
+			 * @example /home/vercel-sandbox
+			 * @type string | undefined
+			 */
+			cwd?: string | undefined;
+			/**
+			 * @description The path of the directory to create. Can be absolute or relative to the working directory.
+			 * @example src/components
+			 * @type string
+			 */
+			path: string;
+			/**
+			 * @description If true, creates parent directories as needed (like `mkdir -p`). If false, fails if parent directories do not exist.
+			 * @default true
+			 * @type boolean | undefined
+			 */
+			recursive?: boolean | undefined;
+	  }
+	| undefined;
+
 export type CreateSessionDirectoryOptions = {
-	body?: never | undefined;
+	body: CreateSessionDirectoryBody;
 	path: CreateSessionDirectoryPath;
 	query?: CreateSessionDirectoryQuery | undefined;
 	headers?: never | undefined;
@@ -39884,8 +51361,17 @@ export type CreateSandboxesSessionsBySessionIdSnapshotV2Status429 = unknown;
 
 export type CreateSandboxesSessionsBySessionIdSnapshotV2Status500 = unknown;
 
+export type CreateSandboxesSessionsBySessionIdSnapshotV2Body =
+	| {
+			/**
+			 * @description The number of milliseconds after which the snapshot will expire and be deleted. Use 0 for no expiration.
+			 */
+			expiration?: (unknown | number) | undefined;
+	  }
+	| undefined;
+
 export type CreateSandboxesSessionsBySessionIdSnapshotV2Options = {
-	body?: never | undefined;
+	body: CreateSandboxesSessionsBySessionIdSnapshotV2Body;
 	path: CreateSandboxesSessionsBySessionIdSnapshotV2Path;
 	query?: CreateSandboxesSessionsBySessionIdSnapshotV2Query | undefined;
 	headers?: never | undefined;
@@ -39967,8 +51453,573 @@ export type CreateSandboxesByNameForkV2Status502 = unknown;
 
 export type CreateSandboxesByNameForkV2Status503 = unknown;
 
+export const createSandboxesByNameForkV2RequestNetworkPolicyModeEnum = {
+	"allow-all": "allow-all",
+	"deny-all": "deny-all",
+	custom: "custom",
+	"default-allow": "default-allow",
+	"default-deny": "default-deny",
+} as const;
+
+export type CreateSandboxesByNameForkV2RequestNetworkPolicyModeEnumKey =
+	(typeof createSandboxesByNameForkV2RequestNetworkPolicyModeEnum)[keyof typeof createSandboxesByNameForkV2RequestNetworkPolicyModeEnum];
+
+export const createSandboxesByNameForkV2RequestRegionEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type CreateSandboxesByNameForkV2RequestRegionEnumKey =
+	(typeof createSandboxesByNameForkV2RequestRegionEnum)[keyof typeof createSandboxesByNameForkV2RequestRegionEnum];
+
+export const createSandboxesByNameForkV2RequestFailoverRegionsEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type CreateSandboxesByNameForkV2RequestFailoverRegionsEnumKey =
+	(typeof createSandboxesByNameForkV2RequestFailoverRegionsEnum)[keyof typeof createSandboxesByNameForkV2RequestFailoverRegionsEnum];
+
+export type CreateSandboxesByNameForkV2Body =
+	| {
+			networkPolicy?:
+				| (
+						| {
+								/**
+								 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+								 * @example custom
+								 * @type string
+								 */
+								mode: CreateSandboxesByNameForkV2RequestNetworkPolicyModeEnumKey;
+								/**
+								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+								 * @example ["api.github.com","*.npmjs.org"]
+								 * @type array | undefined
+								 */
+								allowedDomains?: string[] | undefined;
+								/**
+								 * @description List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.
+								 * @example ["35.192.0.0/12","104.16.0.0/12"]
+								 * @type array | undefined
+								 */
+								allowedCIDRs?: string[] | undefined;
+								/**
+								 * @description List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.
+								 * @example ["35.192.0.0/12"]
+								 * @type array | undefined
+								 */
+								deniedCIDRs?: string[] | undefined;
+								/**
+								 * @description HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.
+								 * @type array | undefined
+								 */
+								injectionRules?:
+									| {
+											/**
+											 * @description The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.
+											 * @type string
+											 */
+											domain: string;
+											/**
+											 * @description HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.
+											 * @type object
+											 */
+											headers: {
+												[key: string]: string;
+											};
+											/**
+											 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+											 * @type object | undefined
+											 */
+											match?:
+												| {
+														/**
+														 * @description Match on the request path. Comparison is case-sensitive.
+														 * @type object | undefined
+														 */
+														path?:
+															| {
+																	/**
+																	 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																	 * @type string | undefined
+																	 */
+																	exact?: string | undefined;
+																	/**
+																	 * @description Match values that start with the given prefix.
+																	 * @type string | undefined
+																	 */
+																	startsWith?: string | undefined;
+															  }
+															| undefined;
+														/**
+														 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+														 * @type array | undefined
+														 */
+														method?: string[] | undefined;
+														/**
+														 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														queryString?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+														/**
+														 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														headers?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+												  }
+												| undefined;
+									  }[]
+									| undefined;
+						  }
+						| {
+								allow?:
+									| (
+											| string[]
+											| {
+													[key: string]: {
+														/**
+														 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+														 * @type object | undefined
+														 */
+														match?:
+															| {
+																	/**
+																	 * @description Match on the request path. Comparison is case-sensitive.
+																	 * @type object | undefined
+																	 */
+																	path?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+																	 * @type array | undefined
+																	 */
+																	method?: string[] | undefined;
+																	/**
+																	 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+																	 * @type array | undefined
+																	 */
+																	queryString?:
+																		| {
+																				/**
+																				 * @description Matcher for the entry key (header name or query key).
+																				 * @type object | undefined
+																				 */
+																				key?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																				/**
+																				 * @description Matcher for the entry value.
+																				 * @type object | undefined
+																				 */
+																				value?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																		  }[]
+																		| undefined;
+																	/**
+																	 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+																	 * @type array | undefined
+																	 */
+																	headers?:
+																		| {
+																				/**
+																				 * @description Matcher for the entry key (header name or query key).
+																				 * @type object | undefined
+																				 */
+																				key?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																				/**
+																				 * @description Matcher for the entry value.
+																				 * @type object | undefined
+																				 */
+																				value?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																		  }[]
+																		| undefined;
+															  }
+															| undefined;
+														transform?:
+															| {
+																	headers?:
+																		| {
+																				[key: string]: string;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+														/**
+														 * @description HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.
+														 * @type string | undefined
+														 */
+														forwardURL?: string | undefined;
+														/**
+														 * @description Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.
+														 * @type object | undefined
+														 */
+														response?:
+															| {
+																	/**
+																	 * @description HTTP status code returned to the sandbox.
+																	 * @minLength 200
+																	 * @maxLength 599
+																	 * @type integer
+																	 */
+																	statusCode: number;
+																	/**
+																	 * @description HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.
+																	 * @type object | undefined
+																	 */
+																	headers?:
+																		| {
+																				[key: string]: string;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description UTF-8 response body. Requires `contentType`.
+																	 * @type string | undefined
+																	 */
+																	body?: string | undefined;
+																	/**
+																	 * @description Value of the `Content-Type` response header. Required when `body` is set.
+																	 * @type string | undefined
+																	 */
+																	contentType?: string | undefined;
+															  }
+															| undefined;
+													}[];
+											  }
+									  )
+									| undefined;
+								subnets?:
+									| {
+											allow?: string[] | undefined;
+											deny?: string[] | undefined;
+									  }
+									| undefined;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description Resources to define the VM
+			 * @type object | undefined
+			 */
+			resources?:
+				| {
+						/**
+						 * @description The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
+						 * @minLength 1
+						 * @default 2
+						 * @example 2
+						 * @type integer | undefined
+						 */
+						vcpus?: number | undefined;
+						/**
+						 * @description The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.
+						 * @minLength 2048
+						 * @example 4096
+						 * @type integer | undefined
+						 */
+						memory?: number | undefined;
+				  }
+				| undefined;
+			/**
+			 * @description List of ports to expose from the sandbox. Each port will be accessible via a unique URL. Maximum of 15 ports can be exposed.
+			 * @example [3000,4000]
+			 * @type array | undefined
+			 */
+			ports?: number[] | undefined;
+			/**
+			 * @description Image to use for the sandbox.
+			 * @maxLength 255
+			 * @type string | undefined
+			 */
+			image?: string | undefined;
+			/**
+			 * @description Maximum duration in milliseconds that the sandbox can run before being automatically stopped.
+			 * @minLength 1000
+			 * @example 300000
+			 * @type integer | undefined
+			 */
+			timeout?: number | undefined;
+			/**
+			 * @description Default environment variables for the sandbox. These are inherited by all commands unless overridden.
+			 * @default {}
+			 * @example {"nodeEnv":"production","hello":"world"}
+			 * @type object | undefined
+			 */
+			env?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+			/**
+			 * @description List of drives to mount to the sandbox at the provided path.
+			 * @type object | undefined
+			 */
+			mounts?:
+				| {
+						[key: string]: {
+							/**
+							 * @description Name of the drive to mount. The drive must already exist.
+							 * @maxLength 64
+							 * @pattern ^[a-zA-Z0-9_-]+$
+							 * @type string
+							 */
+							drive: string;
+							/**
+							 * @description Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
+							 * @type string | undefined
+							 */
+							mode?: ModeEnumKey | undefined;
+						};
+				  }
+				| undefined;
+			/**
+			 * @description The Vercel region in which to create the sandbox.
+			 * @default ["arn1","bom1","cdg1","cle1","cpt1","dub1","fra1","gru1","hkg1","hnd1","iad1","icn1","kix1","lhr1","pdx1","sfo1","sin1","syd1","yul1"]
+			 * @example iad1
+			 * @type string | undefined
+			 */
+			region?: CreateSandboxesByNameForkV2RequestRegionEnumKey | undefined;
+			/**
+			 * @description The regions the sandbox falls back to when it cannot be created in `region`.
+			 * @example ["cle1","sfo1"]
+			 * @type array | undefined
+			 */
+			failoverRegions?: CreateSandboxesByNameForkV2RequestFailoverRegionsEnumKey[] | undefined;
+			/**
+			 * @description The Connect network id for the target Secure Compute private network.
+			 * @maxLength 255
+			 * @type string | undefined
+			 */
+			networkId?: string | undefined;
+			/**
+			 * @description Name for the forked sandbox. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores). A random name is generated when omitted.
+			 * @maxLength 128
+			 * @pattern ^[a-zA-Z0-9_-]+$
+			 * @example my-sandbox-fork
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description Whether the sandbox persists its state across restarts via automatic snapshots. Defaults to the source sandbox setting.
+			 * @type boolean | undefined
+			 */
+			persistent?: boolean | undefined;
+			/**
+			 * @description Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.
+			 * @example 604800000
+			 */
+			snapshotExpiration?: (unknown | number) | undefined;
+			/**
+			 * @description Protect the N most recent snapshots with different expiration/deletion behavior.
+			 * @type object | undefined
+			 */
+			keepLastSnapshots?:
+				| {
+						/**
+						 * @description Number of most recent snapshots to keep.
+						 * @minLength 1
+						 * @maxLength 10
+						 * @type integer
+						 */
+						count: number;
+						/**
+						 * @description Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.
+						 */
+						expiration?: (unknown | number) | undefined;
+						/**
+						 * @description Whether to immediately delete evicted snapshots. Defaults to true.
+						 * @type boolean | undefined
+						 */
+						deleteEvicted?: boolean | undefined;
+				  }
+				| undefined;
+			/**
+			 * @description Key-value tags to associate with the sandbox. Maximum 5 tags.
+			 * @example {"env":"staging","team":"platform"}
+			 * @type object | undefined
+			 */
+			tags?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type CreateSandboxesByNameForkV2Options = {
-	body?: never | undefined;
+	body: CreateSandboxesByNameForkV2Body;
 	path: CreateSandboxesByNameForkV2Path;
 	query?: CreateSandboxesByNameForkV2Query | undefined;
 	headers?: never | undefined;
@@ -40036,8 +52087,667 @@ export type CreateSandboxesV3Status502 = unknown;
 
 export type CreateSandboxesV3Status503 = unknown;
 
+export const createSandboxesV3RequestNetworkPolicyModeEnum = {
+	"allow-all": "allow-all",
+	"deny-all": "deny-all",
+	custom: "custom",
+	"default-allow": "default-allow",
+	"default-deny": "default-deny",
+} as const;
+
+export type CreateSandboxesV3RequestNetworkPolicyModeEnumKey =
+	(typeof createSandboxesV3RequestNetworkPolicyModeEnum)[keyof typeof createSandboxesV3RequestNetworkPolicyModeEnum];
+
+export const createSandboxesV3RequestArchitectureEnum = {
+	amd64: "amd64",
+	arm64: "arm64",
+} as const;
+
+export type CreateSandboxesV3RequestArchitectureEnumKey =
+	(typeof createSandboxesV3RequestArchitectureEnum)[keyof typeof createSandboxesV3RequestArchitectureEnum];
+
+export const createSandboxesV3RequestRegionEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type CreateSandboxesV3RequestRegionEnumKey =
+	(typeof createSandboxesV3RequestRegionEnum)[keyof typeof createSandboxesV3RequestRegionEnum];
+
+export const createSandboxesV3RequestFailoverRegionsEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type CreateSandboxesV3RequestFailoverRegionsEnumKey =
+	(typeof createSandboxesV3RequestFailoverRegionsEnum)[keyof typeof createSandboxesV3RequestFailoverRegionsEnum];
+
+export type CreateSandboxesV3Body =
+	| {
+			networkPolicy?:
+				| (
+						| {
+								/**
+								 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+								 * @example custom
+								 * @type string
+								 */
+								mode: CreateSandboxesV3RequestNetworkPolicyModeEnumKey;
+								/**
+								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+								 * @example ["api.github.com","*.npmjs.org"]
+								 * @type array | undefined
+								 */
+								allowedDomains?: string[] | undefined;
+								/**
+								 * @description List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.
+								 * @example ["35.192.0.0/12","104.16.0.0/12"]
+								 * @type array | undefined
+								 */
+								allowedCIDRs?: string[] | undefined;
+								/**
+								 * @description List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.
+								 * @example ["35.192.0.0/12"]
+								 * @type array | undefined
+								 */
+								deniedCIDRs?: string[] | undefined;
+								/**
+								 * @description HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.
+								 * @type array | undefined
+								 */
+								injectionRules?:
+									| {
+											/**
+											 * @description The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.
+											 * @type string
+											 */
+											domain: string;
+											/**
+											 * @description HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.
+											 * @type object
+											 */
+											headers: {
+												[key: string]: string;
+											};
+											/**
+											 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+											 * @type object | undefined
+											 */
+											match?:
+												| {
+														/**
+														 * @description Match on the request path. Comparison is case-sensitive.
+														 * @type object | undefined
+														 */
+														path?:
+															| {
+																	/**
+																	 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																	 * @type string | undefined
+																	 */
+																	exact?: string | undefined;
+																	/**
+																	 * @description Match values that start with the given prefix.
+																	 * @type string | undefined
+																	 */
+																	startsWith?: string | undefined;
+															  }
+															| undefined;
+														/**
+														 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+														 * @type array | undefined
+														 */
+														method?: string[] | undefined;
+														/**
+														 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														queryString?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+														/**
+														 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														headers?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+												  }
+												| undefined;
+									  }[]
+									| undefined;
+						  }
+						| {
+								allow?:
+									| (
+											| string[]
+											| {
+													[key: string]: {
+														/**
+														 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+														 * @type object | undefined
+														 */
+														match?:
+															| {
+																	/**
+																	 * @description Match on the request path. Comparison is case-sensitive.
+																	 * @type object | undefined
+																	 */
+																	path?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+																	 * @type array | undefined
+																	 */
+																	method?: string[] | undefined;
+																	/**
+																	 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+																	 * @type array | undefined
+																	 */
+																	queryString?:
+																		| {
+																				/**
+																				 * @description Matcher for the entry key (header name or query key).
+																				 * @type object | undefined
+																				 */
+																				key?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																				/**
+																				 * @description Matcher for the entry value.
+																				 * @type object | undefined
+																				 */
+																				value?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																		  }[]
+																		| undefined;
+																	/**
+																	 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+																	 * @type array | undefined
+																	 */
+																	headers?:
+																		| {
+																				/**
+																				 * @description Matcher for the entry key (header name or query key).
+																				 * @type object | undefined
+																				 */
+																				key?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																				/**
+																				 * @description Matcher for the entry value.
+																				 * @type object | undefined
+																				 */
+																				value?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																		  }[]
+																		| undefined;
+															  }
+															| undefined;
+														transform?:
+															| {
+																	headers?:
+																		| {
+																				[key: string]: string;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+														/**
+														 * @description HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.
+														 * @type string | undefined
+														 */
+														forwardURL?: string | undefined;
+														/**
+														 * @description Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.
+														 * @type object | undefined
+														 */
+														response?:
+															| {
+																	/**
+																	 * @description HTTP status code returned to the sandbox.
+																	 * @minLength 200
+																	 * @maxLength 599
+																	 * @type integer
+																	 */
+																	statusCode: number;
+																	/**
+																	 * @description HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.
+																	 * @type object | undefined
+																	 */
+																	headers?:
+																		| {
+																				[key: string]: string;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description UTF-8 response body. Requires `contentType`.
+																	 * @type string | undefined
+																	 */
+																	body?: string | undefined;
+																	/**
+																	 * @description Value of the `Content-Type` response header. Required when `body` is set.
+																	 * @type string | undefined
+																	 */
+																	contentType?: string | undefined;
+															  }
+															| undefined;
+													}[];
+											  }
+									  )
+									| undefined;
+								subnets?:
+									| {
+											allow?: string[] | undefined;
+											deny?: string[] | undefined;
+									  }
+									| undefined;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description CPU architecture. Inherits a snapshot or single image manifest when omitted. Image indexes default to amd64. Must match the source. ARM64 creation requires API v3 or v4 without runtime and team access.
+			 * @example arm64
+			 * @type string | undefined
+			 */
+			architecture?: CreateSandboxesV3RequestArchitectureEnumKey | undefined;
+			/**
+			 * @description Resources to define the VM
+			 * @type object | undefined
+			 */
+			resources?:
+				| {
+						/**
+						 * @description The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
+						 * @minLength 1
+						 * @default 2
+						 * @example 2
+						 * @type integer | undefined
+						 */
+						vcpus?: number | undefined;
+						/**
+						 * @description The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.
+						 * @minLength 2048
+						 * @example 4096
+						 * @type integer | undefined
+						 */
+						memory?: number | undefined;
+				  }
+				| undefined;
+			/**
+			 * @description The source from which to initialize the sandbox filesystem. Can be a Git repository, a tarball URL, or an existing snapshot.
+			 */
+			source?:
+				| (
+						| {
+								/**
+								 * @description Indicates the source is a Git repository.
+								 * @type unknown
+								 */
+								type: unknown;
+								/**
+								 * @description The URL of the Git repository to clone.
+								 *
+								 * Format: `uri`
+								 * @example https://github.com/vercel/next.js.git
+								 * @type string
+								 */
+								url: string;
+								/**
+								 * @description Username for Git authentication. Required together with password for private repositories.
+								 * @type string | undefined
+								 */
+								username?: string | undefined;
+								/**
+								 * @description Password or personal access token for Git authentication. Required together with username for private repositories.
+								 * @type string | undefined
+								 */
+								password?: string | undefined;
+								/**
+								 * @description Create a shallow clone with history truncated to the specified number of commits. Useful for faster cloning of large repositories.
+								 * @minLength 1
+								 * @example 1
+								 * @type integer | undefined
+								 */
+								depth?: number | undefined;
+								/**
+								 * @description The specific commit SHA, branch name, or tag to checkout after cloning.
+								 * @example main
+								 * @type string | undefined
+								 */
+								revision?: string | undefined;
+						  }
+						| {
+								/**
+								 * @description Indicates the source is a tarball.
+								 * @type unknown
+								 */
+								type: unknown;
+								/**
+								 * @description URL of a gzipped tarball (.tar.gz) to download and extract.
+								 *
+								 * Format: `uri`
+								 * @example https://example.com/project.tar.gz
+								 * @type string
+								 */
+								url: string;
+						  }
+						| {
+								/**
+								 * @description Indicates the source is a snapshot.
+								 * @type unknown
+								 */
+								type: unknown;
+								/**
+								 * @description The unique identifier of the snapshot to restore.
+								 * @example snap_abc123
+								 * @type string
+								 */
+								snapshotId: string;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description The target project slug or ID in which the sandbox will be assigned to.
+			 * @example prj_abc123
+			 * @type string | undefined
+			 */
+			projectId?: string | undefined;
+			/**
+			 * @description List of ports to expose from the sandbox. Each port will be accessible via a unique URL. Maximum of 15 ports can be exposed.
+			 * @example [3000,4000]
+			 * @type array | undefined
+			 */
+			ports?: number[] | undefined;
+			/**
+			 * @description Image to use for the sandbox.
+			 * @maxLength 255
+			 * @type string | undefined
+			 */
+			image?: string | undefined;
+			/**
+			 * @description Maximum duration in milliseconds that the sandbox can run before being automatically stopped.
+			 * @minLength 1000
+			 * @example 300000
+			 * @type integer | undefined
+			 */
+			timeout?: number | undefined;
+			/**
+			 * @description Default environment variables for the sandbox. These are inherited by all commands unless overridden.
+			 * @default {}
+			 * @example {"nodeEnv":"production","hello":"world"}
+			 * @type object | undefined
+			 */
+			env?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+			/**
+			 * @description List of drives to mount to the sandbox at the provided path.
+			 * @type object | undefined
+			 */
+			mounts?:
+				| {
+						[key: string]: {
+							/**
+							 * @description Name of the drive to mount. The drive must already exist.
+							 * @maxLength 64
+							 * @pattern ^[a-zA-Z0-9_-]+$
+							 * @type string
+							 */
+							drive: string;
+							/**
+							 * @description Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
+							 * @type string | undefined
+							 */
+							mode?: ModeEnumKey | undefined;
+						};
+				  }
+				| undefined;
+			/**
+			 * @description The Vercel region in which to create the sandbox.
+			 * @default ["arn1","bom1","cdg1","cle1","cpt1","dub1","fra1","gru1","hkg1","hnd1","iad1","icn1","kix1","lhr1","pdx1","sfo1","sin1","syd1","yul1"]
+			 * @example iad1
+			 * @type string | undefined
+			 */
+			region?: CreateSandboxesV3RequestRegionEnumKey | undefined;
+			/**
+			 * @description The regions the sandbox falls back to when it cannot be created in `region`.
+			 * @example ["cle1","sfo1"]
+			 * @type array | undefined
+			 */
+			failoverRegions?: CreateSandboxesV3RequestFailoverRegionsEnumKey[] | undefined;
+			/**
+			 * @description The Connect network id for the target Secure Compute private network.
+			 * @maxLength 255
+			 * @type string | undefined
+			 */
+			networkId?: string | undefined;
+			/**
+			 * @description Name for the sandbox. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).
+			 * @maxLength 128
+			 * @pattern ^[a-zA-Z0-9_-]+$
+			 * @example my-sandbox
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description Whether the sandbox persists its state across restarts via automatic snapshots. Defaults to true.
+			 * @default true
+			 * @type boolean | undefined
+			 */
+			persistent?: boolean | undefined;
+			/**
+			 * @description Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.
+			 * @example 604800000
+			 */
+			snapshotExpiration?: (unknown | number) | undefined;
+			/**
+			 * @description Protect the N most recent snapshots with different expiration/deletion behavior.
+			 * @type object | undefined
+			 */
+			keepLastSnapshots?:
+				| {
+						/**
+						 * @description Number of most recent snapshots to keep.
+						 * @minLength 1
+						 * @maxLength 10
+						 * @type integer
+						 */
+						count: number;
+						/**
+						 * @description Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.
+						 */
+						expiration?: (unknown | number) | undefined;
+						/**
+						 * @description Whether to immediately delete evicted snapshots. Defaults to true.
+						 * @type boolean | undefined
+						 */
+						deleteEvicted?: boolean | undefined;
+				  }
+				| undefined;
+			/**
+			 * @description Key-value tags to associate with the sandbox. Maximum 5 tags.
+			 * @example {"env":"staging","team":"platform"}
+			 * @type object | undefined
+			 */
+			tags?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type CreateSandboxesV3Options = {
-	body?: never | undefined;
+	body: CreateSandboxesV3Body;
 	path?: never | undefined;
 	query?: CreateSandboxesV3Query | undefined;
 	headers?: never | undefined;
@@ -40108,8 +52818,17 @@ export type CreateSandboxesSessionsBySessionIdSnapshotV3Status429 = unknown;
 
 export type CreateSandboxesSessionsBySessionIdSnapshotV3Status500 = unknown;
 
+export type CreateSandboxesSessionsBySessionIdSnapshotV3Body =
+	| {
+			/**
+			 * @description The number of milliseconds after which the snapshot will expire and be deleted. Defaults to 7 days when neither this field nor the sandbox configuration specifies an expiration. Use 0 for no expiration.
+			 */
+			expiration?: (unknown | number) | undefined;
+	  }
+	| undefined;
+
 export type CreateSandboxesSessionsBySessionIdSnapshotV3Options = {
-	body?: never | undefined;
+	body: CreateSandboxesSessionsBySessionIdSnapshotV3Body;
 	path: CreateSandboxesSessionsBySessionIdSnapshotV3Path;
 	query?: CreateSandboxesSessionsBySessionIdSnapshotV3Query | undefined;
 	headers?: never | undefined;
@@ -40191,8 +52910,575 @@ export type CreateSandboxesByNameForkV3Status502 = unknown;
 
 export type CreateSandboxesByNameForkV3Status503 = unknown;
 
+export const createSandboxesByNameForkV3RequestNetworkPolicyModeEnum = {
+	"allow-all": "allow-all",
+	"deny-all": "deny-all",
+	custom: "custom",
+	"default-allow": "default-allow",
+	"default-deny": "default-deny",
+} as const;
+
+export type CreateSandboxesByNameForkV3RequestNetworkPolicyModeEnumKey =
+	(typeof createSandboxesByNameForkV3RequestNetworkPolicyModeEnum)[keyof typeof createSandboxesByNameForkV3RequestNetworkPolicyModeEnum];
+
+export const createSandboxesByNameForkV3RequestRegionEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type CreateSandboxesByNameForkV3RequestRegionEnumKey =
+	(typeof createSandboxesByNameForkV3RequestRegionEnum)[keyof typeof createSandboxesByNameForkV3RequestRegionEnum];
+
+export const createSandboxesByNameForkV3RequestFailoverRegionsEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type CreateSandboxesByNameForkV3RequestFailoverRegionsEnumKey =
+	(typeof createSandboxesByNameForkV3RequestFailoverRegionsEnum)[keyof typeof createSandboxesByNameForkV3RequestFailoverRegionsEnum];
+
+export type CreateSandboxesByNameForkV3Body =
+	| {
+			networkPolicy?:
+				| (
+						| {
+								/**
+								 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+								 * @example custom
+								 * @type string
+								 */
+								mode: CreateSandboxesByNameForkV3RequestNetworkPolicyModeEnumKey;
+								/**
+								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+								 * @example ["api.github.com","*.npmjs.org"]
+								 * @type array | undefined
+								 */
+								allowedDomains?: string[] | undefined;
+								/**
+								 * @description List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.
+								 * @example ["35.192.0.0/12","104.16.0.0/12"]
+								 * @type array | undefined
+								 */
+								allowedCIDRs?: string[] | undefined;
+								/**
+								 * @description List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.
+								 * @example ["35.192.0.0/12"]
+								 * @type array | undefined
+								 */
+								deniedCIDRs?: string[] | undefined;
+								/**
+								 * @description HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.
+								 * @type array | undefined
+								 */
+								injectionRules?:
+									| {
+											/**
+											 * @description The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.
+											 * @type string
+											 */
+											domain: string;
+											/**
+											 * @description HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.
+											 * @type object
+											 */
+											headers: {
+												[key: string]: string;
+											};
+											/**
+											 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+											 * @type object | undefined
+											 */
+											match?:
+												| {
+														/**
+														 * @description Match on the request path. Comparison is case-sensitive.
+														 * @type object | undefined
+														 */
+														path?:
+															| {
+																	/**
+																	 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																	 * @type string | undefined
+																	 */
+																	exact?: string | undefined;
+																	/**
+																	 * @description Match values that start with the given prefix.
+																	 * @type string | undefined
+																	 */
+																	startsWith?: string | undefined;
+															  }
+															| undefined;
+														/**
+														 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+														 * @type array | undefined
+														 */
+														method?: string[] | undefined;
+														/**
+														 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														queryString?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+														/**
+														 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														headers?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+												  }
+												| undefined;
+									  }[]
+									| undefined;
+						  }
+						| {
+								allow?:
+									| (
+											| string[]
+											| {
+													[key: string]: {
+														/**
+														 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+														 * @type object | undefined
+														 */
+														match?:
+															| {
+																	/**
+																	 * @description Match on the request path. Comparison is case-sensitive.
+																	 * @type object | undefined
+																	 */
+																	path?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+																	 * @type array | undefined
+																	 */
+																	method?: string[] | undefined;
+																	/**
+																	 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+																	 * @type array | undefined
+																	 */
+																	queryString?:
+																		| {
+																				/**
+																				 * @description Matcher for the entry key (header name or query key).
+																				 * @type object | undefined
+																				 */
+																				key?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																				/**
+																				 * @description Matcher for the entry value.
+																				 * @type object | undefined
+																				 */
+																				value?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																		  }[]
+																		| undefined;
+																	/**
+																	 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+																	 * @type array | undefined
+																	 */
+																	headers?:
+																		| {
+																				/**
+																				 * @description Matcher for the entry key (header name or query key).
+																				 * @type object | undefined
+																				 */
+																				key?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																				/**
+																				 * @description Matcher for the entry value.
+																				 * @type object | undefined
+																				 */
+																				value?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																		  }[]
+																		| undefined;
+															  }
+															| undefined;
+														transform?:
+															| {
+																	headers?:
+																		| {
+																				[key: string]: string;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+														/**
+														 * @description HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.
+														 * @type string | undefined
+														 */
+														forwardURL?: string | undefined;
+														/**
+														 * @description Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.
+														 * @type object | undefined
+														 */
+														response?:
+															| {
+																	/**
+																	 * @description HTTP status code returned to the sandbox.
+																	 * @minLength 200
+																	 * @maxLength 599
+																	 * @type integer
+																	 */
+																	statusCode: number;
+																	/**
+																	 * @description HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.
+																	 * @type object | undefined
+																	 */
+																	headers?:
+																		| {
+																				[key: string]: string;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description UTF-8 response body. Requires `contentType`.
+																	 * @type string | undefined
+																	 */
+																	body?: string | undefined;
+																	/**
+																	 * @description Value of the `Content-Type` response header. Required when `body` is set.
+																	 * @type string | undefined
+																	 */
+																	contentType?: string | undefined;
+															  }
+															| undefined;
+													}[];
+											  }
+									  )
+									| undefined;
+								subnets?:
+									| {
+											allow?: string[] | undefined;
+											deny?: string[] | undefined;
+									  }
+									| undefined;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description Resources to define the VM
+			 * @type object | undefined
+			 */
+			resources?:
+				| {
+						/**
+						 * @description The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
+						 * @minLength 1
+						 * @default 2
+						 * @example 2
+						 * @type integer | undefined
+						 */
+						vcpus?: number | undefined;
+						/**
+						 * @description The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.
+						 * @minLength 2048
+						 * @example 4096
+						 * @type integer | undefined
+						 */
+						memory?: number | undefined;
+				  }
+				| undefined;
+			/**
+			 * @description List of ports to expose from the sandbox. Each port will be accessible via a unique URL. Maximum of 15 ports can be exposed.
+			 * @example [3000,4000]
+			 * @type array | undefined
+			 */
+			ports?: number[] | undefined;
+			/**
+			 * @description Image to use for the sandbox.
+			 * @maxLength 255
+			 * @type string | undefined
+			 */
+			image?: string | undefined;
+			/**
+			 * @description Maximum duration in milliseconds that the sandbox can run before being automatically stopped.
+			 * @minLength 1000
+			 * @example 300000
+			 * @type integer | undefined
+			 */
+			timeout?: number | undefined;
+			/**
+			 * @description Default environment variables for the sandbox. These are inherited by all commands unless overridden.
+			 * @default {}
+			 * @example {"nodeEnv":"production","hello":"world"}
+			 * @type object | undefined
+			 */
+			env?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+			/**
+			 * @description List of drives to mount to the sandbox at the provided path.
+			 * @type object | undefined
+			 */
+			mounts?:
+				| {
+						[key: string]: {
+							/**
+							 * @description Name of the drive to mount. The drive must already exist.
+							 * @maxLength 64
+							 * @pattern ^[a-zA-Z0-9_-]+$
+							 * @type string
+							 */
+							drive: string;
+							/**
+							 * @description Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
+							 * @type string | undefined
+							 */
+							mode?: ModeEnumKey | undefined;
+						};
+				  }
+				| undefined;
+			/**
+			 * @description The Vercel region in which to create the sandbox.
+			 * @default ["arn1","bom1","cdg1","cle1","cpt1","dub1","fra1","gru1","hkg1","hnd1","iad1","icn1","kix1","lhr1","pdx1","sfo1","sin1","syd1","yul1"]
+			 * @example iad1
+			 * @type string | undefined
+			 */
+			region?: CreateSandboxesByNameForkV3RequestRegionEnumKey | undefined;
+			/**
+			 * @description The regions the sandbox falls back to when it cannot be created in `region`.
+			 * @example ["cle1","sfo1"]
+			 * @type array | undefined
+			 */
+			failoverRegions?: CreateSandboxesByNameForkV3RequestFailoverRegionsEnumKey[] | undefined;
+			/**
+			 * @description The Connect network id for the target Secure Compute private network.
+			 * @maxLength 255
+			 * @type string | undefined
+			 */
+			networkId?: string | undefined;
+			/**
+			 * @description Name for the forked sandbox. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores). A random name is generated when omitted.
+			 * @maxLength 128
+			 * @pattern ^[a-zA-Z0-9_-]+$
+			 * @example my-sandbox-fork
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description Whether the sandbox persists its state across restarts via automatic snapshots. Defaults to the source sandbox setting.
+			 * @type boolean | undefined
+			 */
+			persistent?: boolean | undefined;
+			/**
+			 * @description Default snapshot expiration time in milliseconds. Defaults to 7 days. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.
+			 * @example 604800000
+			 */
+			snapshotExpiration?: (unknown | number) | undefined;
+			/**
+			 * @description Protect the N most recent snapshots with different expiration/deletion behavior. Persistent sandboxes default to keeping only the last snapshot (evicted snapshots are deleted). Set to null to disable the limit.
+			 */
+			keepLastSnapshots?:
+				| (
+						| string
+						| {
+								/**
+								 * @description Number of most recent snapshots to keep.
+								 * @minLength 1
+								 * @maxLength 10
+								 * @type integer
+								 */
+								count: number;
+								/**
+								 * @description Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.
+								 */
+								expiration?: (unknown | number) | undefined;
+								/**
+								 * @description Whether to immediately delete evicted snapshots. Defaults to true.
+								 * @type boolean | undefined
+								 */
+								deleteEvicted?: boolean | undefined;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description Key-value tags to associate with the sandbox. Maximum 5 tags.
+			 * @example {"env":"staging","team":"platform"}
+			 * @type object | undefined
+			 */
+			tags?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type CreateSandboxesByNameForkV3Options = {
-	body?: never | undefined;
+	body: CreateSandboxesByNameForkV3Body;
 	path: CreateSandboxesByNameForkV3Path;
 	query?: CreateSandboxesByNameForkV3Query | undefined;
 	headers?: never | undefined;
@@ -40260,8 +53546,669 @@ export type CreateSandboxesV4Status502 = unknown;
 
 export type CreateSandboxesV4Status503 = unknown;
 
+export const createSandboxesV4RequestNetworkPolicyModeEnum = {
+	"allow-all": "allow-all",
+	"deny-all": "deny-all",
+	custom: "custom",
+	"default-allow": "default-allow",
+	"default-deny": "default-deny",
+} as const;
+
+export type CreateSandboxesV4RequestNetworkPolicyModeEnumKey =
+	(typeof createSandboxesV4RequestNetworkPolicyModeEnum)[keyof typeof createSandboxesV4RequestNetworkPolicyModeEnum];
+
+export const createSandboxesV4RequestArchitectureEnum = {
+	amd64: "amd64",
+	arm64: "arm64",
+} as const;
+
+export type CreateSandboxesV4RequestArchitectureEnumKey =
+	(typeof createSandboxesV4RequestArchitectureEnum)[keyof typeof createSandboxesV4RequestArchitectureEnum];
+
+export const createSandboxesV4RequestRegionEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type CreateSandboxesV4RequestRegionEnumKey =
+	(typeof createSandboxesV4RequestRegionEnum)[keyof typeof createSandboxesV4RequestRegionEnum];
+
+export const createSandboxesV4RequestFailoverRegionsEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type CreateSandboxesV4RequestFailoverRegionsEnumKey =
+	(typeof createSandboxesV4RequestFailoverRegionsEnum)[keyof typeof createSandboxesV4RequestFailoverRegionsEnum];
+
+export type CreateSandboxesV4Body =
+	| {
+			networkPolicy?:
+				| (
+						| {
+								/**
+								 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+								 * @example custom
+								 * @type string
+								 */
+								mode: CreateSandboxesV4RequestNetworkPolicyModeEnumKey;
+								/**
+								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+								 * @example ["api.github.com","*.npmjs.org"]
+								 * @type array | undefined
+								 */
+								allowedDomains?: string[] | undefined;
+								/**
+								 * @description List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.
+								 * @example ["35.192.0.0/12","104.16.0.0/12"]
+								 * @type array | undefined
+								 */
+								allowedCIDRs?: string[] | undefined;
+								/**
+								 * @description List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.
+								 * @example ["35.192.0.0/12"]
+								 * @type array | undefined
+								 */
+								deniedCIDRs?: string[] | undefined;
+								/**
+								 * @description HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.
+								 * @type array | undefined
+								 */
+								injectionRules?:
+									| {
+											/**
+											 * @description The domain (or pattern) of requests to add headers for. Supports wildcards like *.example.com.
+											 * @type string
+											 */
+											domain: string;
+											/**
+											 * @description HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.
+											 * @type object
+											 */
+											headers: {
+												[key: string]: string;
+											};
+											/**
+											 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+											 * @type object | undefined
+											 */
+											match?:
+												| {
+														/**
+														 * @description Match on the request path. Comparison is case-sensitive.
+														 * @type object | undefined
+														 */
+														path?:
+															| {
+																	/**
+																	 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																	 * @type string | undefined
+																	 */
+																	exact?: string | undefined;
+																	/**
+																	 * @description Match values that start with the given prefix.
+																	 * @type string | undefined
+																	 */
+																	startsWith?: string | undefined;
+															  }
+															| undefined;
+														/**
+														 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+														 * @type array | undefined
+														 */
+														method?: string[] | undefined;
+														/**
+														 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														queryString?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+														/**
+														 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+														 * @type array | undefined
+														 */
+														headers?:
+															| {
+																	/**
+																	 * @description Matcher for the entry key (header name or query key).
+																	 * @type object | undefined
+																	 */
+																	key?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description Matcher for the entry value.
+																	 * @type object | undefined
+																	 */
+																	value?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+												  }
+												| undefined;
+									  }[]
+									| undefined;
+						  }
+						| {
+								allow?:
+									| (
+											| string[]
+											| {
+													[key: string]: {
+														/**
+														 * @description Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+														 * @type object | undefined
+														 */
+														match?:
+															| {
+																	/**
+																	 * @description Match on the request path. Comparison is case-sensitive.
+																	 * @type object | undefined
+																	 */
+																	path?:
+																		| {
+																				/**
+																				 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																				 * @type string | undefined
+																				 */
+																				exact?: string | undefined;
+																				/**
+																				 * @description Match values that start with the given prefix.
+																				 * @type string | undefined
+																				 */
+																				startsWith?: string | undefined;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description HTTP methods to match. Any single match succeeds (OR semantics).
+																	 * @type array | undefined
+																	 */
+																	method?: string[] | undefined;
+																	/**
+																	 * @description Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+																	 * @type array | undefined
+																	 */
+																	queryString?:
+																		| {
+																				/**
+																				 * @description Matcher for the entry key (header name or query key).
+																				 * @type object | undefined
+																				 */
+																				key?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																				/**
+																				 * @description Matcher for the entry value.
+																				 * @type object | undefined
+																				 */
+																				value?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																		  }[]
+																		| undefined;
+																	/**
+																	 * @description Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+																	 * @type array | undefined
+																	 */
+																	headers?:
+																		| {
+																				/**
+																				 * @description Matcher for the entry key (header name or query key).
+																				 * @type object | undefined
+																				 */
+																				key?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																				/**
+																				 * @description Matcher for the entry value.
+																				 * @type object | undefined
+																				 */
+																				value?:
+																					| {
+																							/**
+																							 * @description Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+																							 * @type string | undefined
+																							 */
+																							exact?: string | undefined;
+																							/**
+																							 * @description Match values that start with the given prefix.
+																							 * @type string | undefined
+																							 */
+																							startsWith?: string | undefined;
+																					  }
+																					| undefined;
+																		  }[]
+																		| undefined;
+															  }
+															| undefined;
+														transform?:
+															| {
+																	headers?:
+																		| {
+																				[key: string]: string;
+																		  }
+																		| undefined;
+															  }[]
+															| undefined;
+														/**
+														 * @description HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.
+														 * @type string | undefined
+														 */
+														forwardURL?: string | undefined;
+														/**
+														 * @description Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.
+														 * @type object | undefined
+														 */
+														response?:
+															| {
+																	/**
+																	 * @description HTTP status code returned to the sandbox.
+																	 * @minLength 200
+																	 * @maxLength 599
+																	 * @type integer
+																	 */
+																	statusCode: number;
+																	/**
+																	 * @description HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.
+																	 * @type object | undefined
+																	 */
+																	headers?:
+																		| {
+																				[key: string]: string;
+																		  }
+																		| undefined;
+																	/**
+																	 * @description UTF-8 response body. Requires `contentType`.
+																	 * @type string | undefined
+																	 */
+																	body?: string | undefined;
+																	/**
+																	 * @description Value of the `Content-Type` response header. Required when `body` is set.
+																	 * @type string | undefined
+																	 */
+																	contentType?: string | undefined;
+															  }
+															| undefined;
+													}[];
+											  }
+									  )
+									| undefined;
+								subnets?:
+									| {
+											allow?: string[] | undefined;
+											deny?: string[] | undefined;
+									  }
+									| undefined;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description CPU architecture. Inherits a snapshot or single image manifest when omitted. Image indexes default to amd64. Must match the source. ARM64 creation requires API v3 or v4 without runtime and team access.
+			 * @example arm64
+			 * @type string | undefined
+			 */
+			architecture?: CreateSandboxesV4RequestArchitectureEnumKey | undefined;
+			/**
+			 * @description Resources to define the VM
+			 * @type object | undefined
+			 */
+			resources?:
+				| {
+						/**
+						 * @description The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
+						 * @minLength 1
+						 * @default 2
+						 * @example 2
+						 * @type integer | undefined
+						 */
+						vcpus?: number | undefined;
+						/**
+						 * @description The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.
+						 * @minLength 2048
+						 * @example 4096
+						 * @type integer | undefined
+						 */
+						memory?: number | undefined;
+				  }
+				| undefined;
+			/**
+			 * @description The source from which to initialize the sandbox filesystem. Can be a Git repository, a tarball URL, or an existing snapshot.
+			 */
+			source?:
+				| (
+						| {
+								/**
+								 * @description Indicates the source is a Git repository.
+								 * @type unknown
+								 */
+								type: unknown;
+								/**
+								 * @description The URL of the Git repository to clone.
+								 *
+								 * Format: `uri`
+								 * @example https://github.com/vercel/next.js.git
+								 * @type string
+								 */
+								url: string;
+								/**
+								 * @description Username for Git authentication. Required together with password for private repositories.
+								 * @type string | undefined
+								 */
+								username?: string | undefined;
+								/**
+								 * @description Password or personal access token for Git authentication. Required together with username for private repositories.
+								 * @type string | undefined
+								 */
+								password?: string | undefined;
+								/**
+								 * @description Create a shallow clone with history truncated to the specified number of commits. Useful for faster cloning of large repositories.
+								 * @minLength 1
+								 * @example 1
+								 * @type integer | undefined
+								 */
+								depth?: number | undefined;
+								/**
+								 * @description The specific commit SHA, branch name, or tag to checkout after cloning.
+								 * @example main
+								 * @type string | undefined
+								 */
+								revision?: string | undefined;
+						  }
+						| {
+								/**
+								 * @description Indicates the source is a tarball.
+								 * @type unknown
+								 */
+								type: unknown;
+								/**
+								 * @description URL of a gzipped tarball (.tar.gz) to download and extract.
+								 *
+								 * Format: `uri`
+								 * @example https://example.com/project.tar.gz
+								 * @type string
+								 */
+								url: string;
+						  }
+						| {
+								/**
+								 * @description Indicates the source is a snapshot.
+								 * @type unknown
+								 */
+								type: unknown;
+								/**
+								 * @description The unique identifier of the snapshot to restore.
+								 * @example snap_abc123
+								 * @type string
+								 */
+								snapshotId: string;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description The target project slug or ID in which the sandbox will be assigned to.
+			 * @example prj_abc123
+			 * @type string | undefined
+			 */
+			projectId?: string | undefined;
+			/**
+			 * @description List of ports to expose from the sandbox. Each port will be accessible via a unique URL. Maximum of 15 ports can be exposed.
+			 * @example [3000,4000]
+			 * @type array | undefined
+			 */
+			ports?: number[] | undefined;
+			/**
+			 * @description Image to use for the sandbox.
+			 * @maxLength 255
+			 * @type string | undefined
+			 */
+			image?: string | undefined;
+			/**
+			 * @description Maximum duration in milliseconds that the sandbox can run before being automatically stopped.
+			 * @minLength 1000
+			 * @example 300000
+			 * @type integer | undefined
+			 */
+			timeout?: number | undefined;
+			/**
+			 * @description Default environment variables for the sandbox. These are inherited by all commands unless overridden.
+			 * @default {}
+			 * @example {"nodeEnv":"production","hello":"world"}
+			 * @type object | undefined
+			 */
+			env?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+			/**
+			 * @description List of drives to mount to the sandbox at the provided path.
+			 * @type object | undefined
+			 */
+			mounts?:
+				| {
+						[key: string]: {
+							/**
+							 * @description Name of the drive to mount. The drive must already exist.
+							 * @maxLength 64
+							 * @pattern ^[a-zA-Z0-9_-]+$
+							 * @type string
+							 */
+							drive: string;
+							/**
+							 * @description Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
+							 * @type string | undefined
+							 */
+							mode?: ModeEnumKey | undefined;
+						};
+				  }
+				| undefined;
+			/**
+			 * @description The Vercel region in which to create the sandbox.
+			 * @default ["arn1","bom1","cdg1","cle1","cpt1","dub1","fra1","gru1","hkg1","hnd1","iad1","icn1","kix1","lhr1","pdx1","sfo1","sin1","syd1","yul1"]
+			 * @example iad1
+			 * @type string | undefined
+			 */
+			region?: CreateSandboxesV4RequestRegionEnumKey | undefined;
+			/**
+			 * @description The regions the sandbox falls back to when it cannot be created in `region`.
+			 * @example ["cle1","sfo1"]
+			 * @type array | undefined
+			 */
+			failoverRegions?: CreateSandboxesV4RequestFailoverRegionsEnumKey[] | undefined;
+			/**
+			 * @description The Connect network id for the target Secure Compute private network.
+			 * @maxLength 255
+			 * @type string | undefined
+			 */
+			networkId?: string | undefined;
+			/**
+			 * @description Name for the sandbox. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).
+			 * @maxLength 128
+			 * @pattern ^[a-zA-Z0-9_-]+$
+			 * @example my-sandbox
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description Whether the sandbox persists its state across restarts via automatic snapshots. Defaults to true.
+			 * @default true
+			 * @type boolean | undefined
+			 */
+			persistent?: boolean | undefined;
+			/**
+			 * @description Default snapshot expiration time in milliseconds. Defaults to 7 days. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.
+			 * @example 604800000
+			 */
+			snapshotExpiration?: (unknown | number) | undefined;
+			/**
+			 * @description Protect the N most recent snapshots with different expiration/deletion behavior. Persistent sandboxes default to keeping only the last snapshot (evicted snapshots are deleted). Set to null to disable the limit.
+			 */
+			keepLastSnapshots?:
+				| (
+						| string
+						| {
+								/**
+								 * @description Number of most recent snapshots to keep.
+								 * @minLength 1
+								 * @maxLength 10
+								 * @type integer
+								 */
+								count: number;
+								/**
+								 * @description Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.
+								 */
+								expiration?: (unknown | number) | undefined;
+								/**
+								 * @description Whether to immediately delete evicted snapshots. Defaults to true.
+								 * @type boolean | undefined
+								 */
+								deleteEvicted?: boolean | undefined;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description Key-value tags to associate with the sandbox. Maximum 5 tags.
+			 * @example {"env":"staging","team":"platform"}
+			 * @type object | undefined
+			 */
+			tags?:
+				| {
+						[key: string]: string;
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type CreateSandboxesV4Options = {
-	body?: never | undefined;
+	body: CreateSandboxesV4Body;
 	path?: never | undefined;
 	query?: CreateSandboxesV4Query | undefined;
 	headers?: never | undefined;
@@ -40315,8 +54262,19 @@ export type UpdateAttackChallengeModeStatus404 = unknown;
 
 export type UpdateAttackChallengeModeStatus410 = unknown;
 
+export type UpdateAttackChallengeModeBody =
+	| {
+			projectId: string;
+			attackModeEnabled: boolean;
+			attackModeActiveUntil: number;
+	  }
+	| {
+			projectId: string;
+			attackModeEnabled: boolean;
+	  };
+
 export type UpdateAttackChallengeModeOptions = {
-	body?: never | undefined;
+	body: UpdateAttackChallengeModeBody;
 	path?: never | undefined;
 	query?: UpdateAttackChallengeModeQuery | undefined;
 	headers?: never | undefined;
@@ -40401,8 +54359,518 @@ export type PutFirewallConfigStatus410 = unknown;
 
 export type PutFirewallConfigStatus500 = unknown;
 
+export const putFirewallConfigRequestCrsSdActionEnum = {
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type PutFirewallConfigRequestCrsSdActionEnumKey =
+	(typeof putFirewallConfigRequestCrsSdActionEnum)[keyof typeof putFirewallConfigRequestCrsSdActionEnum];
+
+export const putFirewallConfigRequestCrsMaActionEnum = {
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type PutFirewallConfigRequestCrsMaActionEnumKey =
+	(typeof putFirewallConfigRequestCrsMaActionEnum)[keyof typeof putFirewallConfigRequestCrsMaActionEnum];
+
+export const putFirewallConfigRequestCrsLfiActionEnum = {
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type PutFirewallConfigRequestCrsLfiActionEnumKey =
+	(typeof putFirewallConfigRequestCrsLfiActionEnum)[keyof typeof putFirewallConfigRequestCrsLfiActionEnum];
+
+export const putFirewallConfigRequestCrsRfiActionEnum = {
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type PutFirewallConfigRequestCrsRfiActionEnumKey =
+	(typeof putFirewallConfigRequestCrsRfiActionEnum)[keyof typeof putFirewallConfigRequestCrsRfiActionEnum];
+
+export const putFirewallConfigRequestCrsRceActionEnum = {
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type PutFirewallConfigRequestCrsRceActionEnumKey =
+	(typeof putFirewallConfigRequestCrsRceActionEnum)[keyof typeof putFirewallConfigRequestCrsRceActionEnum];
+
+export const putFirewallConfigRequestCrsPhpActionEnum = {
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type PutFirewallConfigRequestCrsPhpActionEnumKey =
+	(typeof putFirewallConfigRequestCrsPhpActionEnum)[keyof typeof putFirewallConfigRequestCrsPhpActionEnum];
+
+export const putFirewallConfigRequestCrsGenActionEnum = {
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type PutFirewallConfigRequestCrsGenActionEnumKey =
+	(typeof putFirewallConfigRequestCrsGenActionEnum)[keyof typeof putFirewallConfigRequestCrsGenActionEnum];
+
+export const putFirewallConfigRequestCrsXssActionEnum = {
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type PutFirewallConfigRequestCrsXssActionEnumKey =
+	(typeof putFirewallConfigRequestCrsXssActionEnum)[keyof typeof putFirewallConfigRequestCrsXssActionEnum];
+
+export const putFirewallConfigRequestCrsSqliActionEnum = {
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type PutFirewallConfigRequestCrsSqliActionEnumKey =
+	(typeof putFirewallConfigRequestCrsSqliActionEnum)[keyof typeof putFirewallConfigRequestCrsSqliActionEnum];
+
+export const putFirewallConfigRequestCrsSfActionEnum = {
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type PutFirewallConfigRequestCrsSfActionEnumKey =
+	(typeof putFirewallConfigRequestCrsSfActionEnum)[keyof typeof putFirewallConfigRequestCrsSfActionEnum];
+
+export const putFirewallConfigRequestCrsJavaActionEnum = {
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type PutFirewallConfigRequestCrsJavaActionEnumKey =
+	(typeof putFirewallConfigRequestCrsJavaActionEnum)[keyof typeof putFirewallConfigRequestCrsJavaActionEnum];
+
+export const putFirewallConfigRequestRulesConditionGroupConditionsTypeEnum = {
+	bot_category: "bot_category",
+	bot_name: "bot_name",
+	bot_protection: "bot_protection",
+	bot_status: "bot_status",
+	cookie: "cookie",
+	domain_environment: "domain_environment",
+	environment: "environment",
+	geo_as_number: "geo_as_number",
+	geo_city: "geo_city",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	header: "header",
+	host: "host",
+	ip_address: "ip_address",
+	ja3_digest: "ja3_digest",
+	ja4_digest: "ja4_digest",
+	method: "method",
+	path: "path",
+	protocol: "protocol",
+	query: "query",
+	rate_limit_api_id: "rate_limit_api_id",
+	raw_path: "raw_path",
+	region: "region",
+	response_code: "response_code",
+	route: "route",
+	ruleset: "ruleset",
+	scheme: "scheme",
+	server_action: "server_action",
+	shared_condition: "shared_condition",
+	target_path: "target_path",
+	traffic_source: "traffic_source",
+	user_agent: "user_agent",
+} as const;
+
+export type PutFirewallConfigRequestRulesConditionGroupConditionsTypeEnumKey =
+	(typeof putFirewallConfigRequestRulesConditionGroupConditionsTypeEnum)[keyof typeof putFirewallConfigRequestRulesConditionGroupConditionsTypeEnum];
+
+export const putFirewallConfigRequestRulesConditionGroupConditionsOpEnum = {
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	inc: "inc",
+	list: "list",
+	lt: "lt",
+	lte: "lte",
+	neq: "neq",
+	nex: "nex",
+	ninc: "ninc",
+	pre: "pre",
+	re: "re",
+	sub: "sub",
+	suf: "suf",
+} as const;
+
+export type PutFirewallConfigRequestRulesConditionGroupConditionsOpEnumKey =
+	(typeof putFirewallConfigRequestRulesConditionGroupConditionsOpEnum)[keyof typeof putFirewallConfigRequestRulesConditionGroupConditionsOpEnum];
+
+export const putFirewallConfigRequestRulesActionMitigateActionEnum = {
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type PutFirewallConfigRequestRulesActionMitigateActionEnumKey =
+	(typeof putFirewallConfigRequestRulesActionMitigateActionEnum)[keyof typeof putFirewallConfigRequestRulesActionMitigateActionEnum];
+
+export const putFirewallConfigRequestRulesActionMitigateRateLimitAlgoEnum = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type PutFirewallConfigRequestRulesActionMitigateRateLimitAlgoEnumKey =
+	(typeof putFirewallConfigRequestRulesActionMitigateRateLimitAlgoEnum)[keyof typeof putFirewallConfigRequestRulesActionMitigateRateLimitAlgoEnum];
+
+export const putFirewallConfigRequestRulesActionMitigateRateLimitAction = {
+	log: "log",
+	challenge: "challenge",
+	deny: "deny",
+	rate_limit: "rate_limit",
+} as const;
+
+export type PutFirewallConfigRequestRulesActionMitigateRateLimitActionKey =
+	(typeof putFirewallConfigRequestRulesActionMitigateRateLimitAction)[keyof typeof putFirewallConfigRequestRulesActionMitigateRateLimitAction];
+
+export const putFirewallConfigRequestRulesetsConditionGroupConditionsTypeEnum = {
+	host: "host",
+	path: "path",
+	method: "method",
+	header: "header",
+	query: "query",
+	cookie: "cookie",
+	target_path: "target_path",
+	route: "route",
+	raw_path: "raw_path",
+	ip_address: "ip_address",
+	region: "region",
+	protocol: "protocol",
+	scheme: "scheme",
+	environment: "environment",
+	domain_environment: "domain_environment",
+	user_agent: "user_agent",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	geo_city: "geo_city",
+	geo_as_number: "geo_as_number",
+	ja4_digest: "ja4_digest",
+	ja3_digest: "ja3_digest",
+	rate_limit_api_id: "rate_limit_api_id",
+	server_action: "server_action",
+	bot_name: "bot_name",
+	bot_category: "bot_category",
+	bot_status: "bot_status",
+	bot_protection: "bot_protection",
+	shared_condition: "shared_condition",
+	traffic_source: "traffic_source",
+	ruleset: "ruleset",
+	response_code: "response_code",
+} as const;
+
+export type PutFirewallConfigRequestRulesetsConditionGroupConditionsTypeEnumKey =
+	(typeof putFirewallConfigRequestRulesetsConditionGroupConditionsTypeEnum)[keyof typeof putFirewallConfigRequestRulesetsConditionGroupConditionsTypeEnum];
+
+export const putFirewallConfigRequestRulesetsConditionGroupConditionsOpEnum = {
+	re: "re",
+	eq: "eq",
+	neq: "neq",
+	ex: "ex",
+	nex: "nex",
+	inc: "inc",
+	ninc: "ninc",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	list: "list",
+} as const;
+
+export type PutFirewallConfigRequestRulesetsConditionGroupConditionsOpEnumKey =
+	(typeof putFirewallConfigRequestRulesetsConditionGroupConditionsOpEnum)[keyof typeof putFirewallConfigRequestRulesetsConditionGroupConditionsOpEnum];
+
+export const putFirewallConfigRequestRulesetsActionMitigateActionEnum = {
+	deny: "deny",
+	challenge: "challenge",
+	log: "log",
+} as const;
+
+export type PutFirewallConfigRequestRulesetsActionMitigateActionEnumKey =
+	(typeof putFirewallConfigRequestRulesetsActionMitigateActionEnum)[keyof typeof putFirewallConfigRequestRulesetsActionMitigateActionEnum];
+
+export const putFirewallConfigRequestIpsActionEnum = {
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type PutFirewallConfigRequestIpsActionEnumKey =
+	(typeof putFirewallConfigRequestIpsActionEnum)[keyof typeof putFirewallConfigRequestIpsActionEnum];
+
+export type PutFirewallConfigBody = {
+	firewallEnabled: boolean;
+	managedRules?: object | undefined;
+	/**
+	 * @description Custom Ruleset
+	 * @type object | undefined
+	 */
+	crs?:
+		| {
+				/**
+				 * @description Scanner Detection - Detect and prevent reconnaissance activities from network scanning tools.
+				 * @type object | undefined
+				 */
+				sd?:
+					| {
+							active: boolean;
+							action: PutFirewallConfigRequestCrsSdActionEnumKey;
+					  }
+					| undefined;
+				/**
+				 * @description Multipart Attack - Block attempts to bypass security controls using multipart/form-data encoding.
+				 * @type object | undefined
+				 */
+				ma?:
+					| {
+							active: boolean;
+							action: PutFirewallConfigRequestCrsMaActionEnumKey;
+					  }
+					| undefined;
+				/**
+				 * @description Local File Inclusion Attack - Prevent unauthorized access to local files through web applications.
+				 * @type object | undefined
+				 */
+				lfi?:
+					| {
+							active: boolean;
+							action: PutFirewallConfigRequestCrsLfiActionEnumKey;
+					  }
+					| undefined;
+				/**
+				 * @description Remote File Inclusion Attack - Prohibit unauthorized upload or execution of remote files.
+				 * @type object | undefined
+				 */
+				rfi?:
+					| {
+							active: boolean;
+							action: PutFirewallConfigRequestCrsRfiActionEnumKey;
+					  }
+					| undefined;
+				/**
+				 * @description Remote Execution Attack - Prevent unauthorized execution of remote scripts or commands.
+				 * @type object | undefined
+				 */
+				rce?:
+					| {
+							active: boolean;
+							action: PutFirewallConfigRequestCrsRceActionEnumKey;
+					  }
+					| undefined;
+				/**
+				 * @description PHP Attack - Safeguard against vulnerability exploits in PHP-based applications.
+				 * @type object | undefined
+				 */
+				php?:
+					| {
+							active: boolean;
+							action: PutFirewallConfigRequestCrsPhpActionEnumKey;
+					  }
+					| undefined;
+				/**
+				 * @description Generic Attack - Provide broad protection from various undefined or novel attack vectors.
+				 * @type object | undefined
+				 */
+				gen?:
+					| {
+							active: boolean;
+							action: PutFirewallConfigRequestCrsGenActionEnumKey;
+					  }
+					| undefined;
+				/**
+				 * @description XSS Attack - Prevent injection of malicious scripts into trusted webpages.
+				 * @type object | undefined
+				 */
+				xss?:
+					| {
+							active: boolean;
+							action: PutFirewallConfigRequestCrsXssActionEnumKey;
+					  }
+					| undefined;
+				/**
+				 * @description SQL Injection Attack - Prohibit unauthorized use of SQL commands to manipulate databases.
+				 * @type object | undefined
+				 */
+				sqli?:
+					| {
+							active: boolean;
+							action: PutFirewallConfigRequestCrsSqliActionEnumKey;
+					  }
+					| undefined;
+				/**
+				 * @description Session Fixation Attack - Prevent unauthorized takeover of user sessions by enforcing unique session IDs.
+				 * @type object | undefined
+				 */
+				sf?:
+					| {
+							active: boolean;
+							action: PutFirewallConfigRequestCrsSfActionEnumKey;
+					  }
+					| undefined;
+				/**
+				 * @description Java Attack - Mitigate risks of exploitation targeting Java-based applications or components.
+				 * @type object | undefined
+				 */
+				java?:
+					| {
+							active: boolean;
+							action: PutFirewallConfigRequestCrsJavaActionEnumKey;
+					  }
+					| undefined;
+		  }
+		| undefined;
+	rules?:
+		| {
+				id?: string | undefined;
+				/**
+				 * @maxLength 160
+				 * @type string
+				 */
+				name: string;
+				/**
+				 * @maxLength 256
+				 * @type string | undefined
+				 */
+				description?: string | undefined;
+				active: boolean;
+				conditionGroup: {
+					conditions: {
+						/**
+						 * @description [Parameter](https://vercel.com/docs/security/vercel-waf/rule-configuration#parameters) from the incoming traffic.
+						 * @type string
+						 */
+						type: PutFirewallConfigRequestRulesConditionGroupConditionsTypeEnumKey;
+						op: PutFirewallConfigRequestRulesConditionGroupConditionsOpEnumKey;
+						neg?: boolean | undefined;
+						key?: string | undefined;
+						value?: (string | string[] | number) | undefined;
+					}[];
+				}[];
+				action: {
+					mitigate?:
+						| {
+								action: PutFirewallConfigRequestRulesActionMitigateActionEnumKey;
+								rateLimit?:
+									| (
+											| (
+													| {
+															algo: PutFirewallConfigRequestRulesActionMitigateRateLimitAlgoEnumKey;
+															window: number;
+															limit: number;
+															keys: string[];
+															action?:
+																| (
+																		| (
+																				| PutFirewallConfigRequestRulesActionMitigateRateLimitActionKey
+																				| unknown
+																		  )
+																		| null
+																  )
+																| undefined;
+													  }
+													| unknown
+											  )
+											| null
+									  )
+									| undefined;
+								redirect?:
+									| (
+											| (
+													| {
+															location: string;
+															permanent: boolean;
+													  }
+													| unknown
+											  )
+											| null
+									  )
+									| undefined;
+								actionDuration?: (string | null) | undefined;
+								bypassSystem?: (boolean | null) | undefined;
+								logHeaders?: (string | string[]) | undefined;
+						  }
+						| undefined;
+				};
+				valid?: boolean | undefined;
+				validationErrors?: (string[] | string) | undefined;
+		  }[]
+		| undefined;
+	rulesets?:
+		| (
+				| {
+						id?: string | undefined;
+						/**
+						 * @maxLength 160
+						 * @type string
+						 */
+						name: string;
+						/**
+						 * @maxLength 256
+						 * @type string | undefined
+						 */
+						description?: string | undefined;
+						active: boolean;
+						conditionGroup: {
+							conditions: {
+								type: PutFirewallConfigRequestRulesetsConditionGroupConditionsTypeEnumKey;
+								op: PutFirewallConfigRequestRulesetsConditionGroupConditionsOpEnumKey;
+								neg?: boolean | undefined;
+								key?: string | undefined;
+								value?: (string | string[] | number) | undefined;
+							}[];
+						}[];
+						action?:
+							| {
+									mitigate?:
+										| {
+												action: PutFirewallConfigRequestRulesetsActionMitigateActionEnumKey;
+										  }
+										| undefined;
+							  }
+							| undefined;
+						valid?: boolean | undefined;
+						validationErrors?: (string[] | string) | undefined;
+				  }[]
+				| {
+						[key: string]: {
+							action: ActionEnumKey;
+						};
+				  }
+		  )
+		| undefined;
+	ips?:
+		| {
+				id?: string | undefined;
+				hostname: string;
+				ip: string;
+				notes?: string | undefined;
+				action: PutFirewallConfigRequestIpsActionEnumKey;
+		  }[]
+		| undefined;
+	botIdEnabled?: boolean | undefined;
+	logHeaders?: (string | string[]) | undefined;
+};
+
 export type PutFirewallConfigOptions = {
-	body?: never | undefined;
+	body: PutFirewallConfigBody;
 	path?: never | undefined;
 	query: PutFirewallConfigQuery;
 	headers?: never | undefined;
@@ -40456,8 +54924,475 @@ export type UpdateFirewallConfigStatus410 = unknown;
 
 export type UpdateFirewallConfigStatus500 = unknown;
 
+export const updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum = {
+	host: "host",
+	path: "path",
+	method: "method",
+	header: "header",
+	query: "query",
+	cookie: "cookie",
+	target_path: "target_path",
+	route: "route",
+	raw_path: "raw_path",
+	ip_address: "ip_address",
+	region: "region",
+	protocol: "protocol",
+	scheme: "scheme",
+	environment: "environment",
+	domain_environment: "domain_environment",
+	user_agent: "user_agent",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	geo_city: "geo_city",
+	geo_as_number: "geo_as_number",
+	ja4_digest: "ja4_digest",
+	ja3_digest: "ja3_digest",
+	rate_limit_api_id: "rate_limit_api_id",
+	server_action: "server_action",
+	bot_name: "bot_name",
+	bot_category: "bot_category",
+	bot_status: "bot_status",
+	bot_protection: "bot_protection",
+	shared_condition: "shared_condition",
+	traffic_source: "traffic_source",
+	ruleset: "ruleset",
+	response_code: "response_code",
+} as const;
+
+export type UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnumKey =
+	(typeof updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum)[keyof typeof updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum];
+
+export const updateFirewallConfigRequestValueConditionGroupConditionsOpEnum = {
+	re: "re",
+	eq: "eq",
+	neq: "neq",
+	ex: "ex",
+	nex: "nex",
+	inc: "inc",
+	ninc: "ninc",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	list: "list",
+} as const;
+
+export type UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnumKey =
+	(typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum)[keyof typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum];
+
+export const updateFirewallConfigRequestValueActionMitigateActionEnum = {
+	log: "log",
+	challenge: "challenge",
+	deny: "deny",
+	bypass: "bypass",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionMitigateActionEnumKey =
+	(typeof updateFirewallConfigRequestValueActionMitigateActionEnum)[keyof typeof updateFirewallConfigRequestValueActionMitigateActionEnum];
+
+export const updateFirewallConfigRequestValueActionEnum = {
+	log: "log",
+	challenge: "challenge",
+	deny: "deny",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionEnumKey =
+	(typeof updateFirewallConfigRequestValueActionEnum)[keyof typeof updateFirewallConfigRequestValueActionEnum];
+
+export const updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnumKey =
+	(typeof updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum)[keyof typeof updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum];
+
+export const updateFirewallConfigRequestIdEnum = {
+	ai_bots: "ai_bots",
+	bot_filter: "bot_filter",
+	bot_protection: "bot_protection",
+	traffic_sources: "traffic_sources",
+	vercel_ruleset: "vercel_ruleset",
+	owasp: "owasp",
+} as const;
+
+export type UpdateFirewallConfigRequestIdEnumKey =
+	(typeof updateFirewallConfigRequestIdEnum)[keyof typeof updateFirewallConfigRequestIdEnum];
+
+export type UpdateFirewallConfigBody =
+	| {
+			action: "firewallEnabled";
+			id?: (unknown | null) | undefined;
+			value: {
+				/**
+				 * @maxLength 160
+				 * @type string
+				 */
+				name: string;
+				/**
+				 * @maxLength 256
+				 * @type string | undefined
+				 */
+				description?: string | undefined;
+				active: boolean;
+				conditionGroup: {
+					conditions: {
+						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnumKey;
+						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnumKey;
+						neg?: boolean | undefined;
+						key?: string | undefined;
+						value?: (string | string[] | number) | undefined;
+					}[];
+				}[];
+				action?:
+					| {
+							mitigate?:
+								| {
+										action: UpdateFirewallConfigRequestValueActionMitigateActionEnumKey;
+								  }
+								| undefined;
+					  }
+					| undefined;
+				valid?: boolean | undefined;
+				validationErrors?: (string[] | string) | undefined;
+			};
+	  }
+	| {
+			action: "rules.insert";
+			id: unknown | null;
+			value: {
+				/**
+				 * @maxLength 160
+				 * @type string
+				 */
+				name: string;
+				/**
+				 * @maxLength 256
+				 * @type string | undefined
+				 */
+				description?: string | undefined;
+				active: boolean;
+				conditionGroup: {
+					conditions: {
+						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnumKey;
+						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnumKey;
+						neg?: boolean | undefined;
+						key?: string | undefined;
+						value?: (string | string[] | number) | undefined;
+					}[];
+				}[];
+				action?:
+					| {
+							mitigate?:
+								| {
+										action: UpdateFirewallConfigRequestValueActionMitigateActionEnumKey;
+								  }
+								| undefined;
+					  }
+					| undefined;
+				valid?: boolean | undefined;
+				validationErrors?: (string[] | string) | undefined;
+			};
+	  }
+	| {
+			action: "rules.update";
+			id: string;
+			value?: string | undefined;
+	  }
+	| {
+			action: "rules.remove";
+			id: string;
+			value: unknown | null;
+	  }
+	| {
+			action: "rules.priority";
+			id?: string | undefined;
+			value: {
+				/**
+				 * @maxLength 160
+				 * @type string
+				 */
+				name: string;
+				/**
+				 * @maxLength 256
+				 * @type string | undefined
+				 */
+				description?: string | undefined;
+				active: boolean;
+				conditionGroup: {
+					conditions: {
+						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnumKey;
+						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnumKey;
+						neg?: boolean | undefined;
+						key?: string | undefined;
+						value?: (string | string[] | number) | undefined;
+					}[];
+				}[];
+				valid?: boolean | undefined;
+				validationErrors?: (string[] | string) | undefined;
+			};
+	  }
+	| {
+			action: "crs.update";
+			id: string;
+			value: {
+				/**
+				 * @maxLength 160
+				 * @type string
+				 */
+				name: string;
+				/**
+				 * @maxLength 256
+				 * @type string | undefined
+				 */
+				description?: string | undefined;
+				active: boolean;
+				conditionGroup: {
+					conditions: {
+						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnumKey;
+						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnumKey;
+						neg?: boolean | undefined;
+						key?: string | undefined;
+						value?: (string | string[] | number) | undefined;
+					}[];
+				}[];
+				valid?: boolean | undefined;
+				validationErrors?: (string[] | string) | undefined;
+			};
+	  }
+	| {
+			action: "crs.disable";
+			id: unknown | null;
+			value?: (unknown | null) | undefined;
+	  }
+	| {
+			action: "ip.insert";
+			/**
+			 * @maxLength 180
+			 * @type string
+			 */
+			id: string | null;
+			value: {
+				action: UpdateFirewallConfigRequestValueActionEnumKey;
+			};
+	  }
+	| {
+			action: "ip.update";
+			/**
+			 * @maxLength 180
+			 * @type string
+			 */
+			id: string;
+			value?: string | undefined;
+	  }
+	| {
+			action: "ip.remove";
+			id?: string | undefined;
+			value: unknown | null;
+	  }
+	| {
+			action: "managedRules.update";
+			id?: string | undefined;
+			value: {
+				/**
+				 * @maxLength 160
+				 * @type string
+				 */
+				name: string;
+				/**
+				 * @maxLength 256
+				 * @type string | undefined
+				 */
+				description?: string | undefined;
+				active: boolean;
+				conditionGroup: {
+					conditions: {
+						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnumKey;
+						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnumKey;
+						neg?: boolean | undefined;
+						key?: string | undefined;
+						value?: (string | string[] | number) | undefined;
+					}[];
+				}[];
+				action: {
+					mitigate?:
+						| {
+								action: UpdateFirewallConfigRequestValueActionMitigateActionEnumKey;
+								rateLimit?:
+									| (
+											| {
+													algo: UpdateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnumKey;
+													window: number;
+													limit: number;
+													keys: string[];
+													action?: string | undefined;
+											  }
+											| string
+									  )
+									| undefined;
+								redirect?:
+									| (
+											| {
+													location: string;
+													permanent: boolean;
+											  }
+											| string
+									  )
+									| undefined;
+								actionDuration?: (string | null) | undefined;
+								bypassSystem?: (boolean | null) | undefined;
+								logHeaders?: (string | string[]) | undefined;
+						  }
+						| undefined;
+				};
+				valid?: boolean | undefined;
+				validationErrors?: (string[] | string) | undefined;
+			};
+	  }
+	| {
+			action: string;
+			id: string;
+			value: {
+				/**
+				 * @maxLength 160
+				 * @type string
+				 */
+				name: string;
+				/**
+				 * @maxLength 256
+				 * @type string | undefined
+				 */
+				description?: string | undefined;
+				active: boolean;
+				conditionGroup: {
+					conditions: {
+						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnumKey;
+						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnumKey;
+						neg?: boolean | undefined;
+						key?: string | undefined;
+						value?: (string | string[] | number) | undefined;
+					}[];
+				}[];
+				action: {
+					mitigate?:
+						| {
+								action: UpdateFirewallConfigRequestValueActionMitigateActionEnumKey;
+								rateLimit?:
+									| (
+											| {
+													algo: UpdateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnumKey;
+													window: number;
+													limit: number;
+													keys: string[];
+													action?: string | undefined;
+											  }
+											| string
+									  )
+									| undefined;
+								redirect?:
+									| (
+											| {
+													location: string;
+													permanent: boolean;
+											  }
+											| string
+									  )
+									| undefined;
+								actionDuration?: (string | null) | undefined;
+								bypassSystem?: (boolean | null) | undefined;
+								logHeaders?: (string | string[]) | undefined;
+						  }
+						| undefined;
+				};
+				valid?: boolean | undefined;
+				validationErrors?: (string[] | string) | undefined;
+			};
+	  }
+	| {
+			action: string;
+			id: string;
+			value?: string | undefined;
+	  }
+	| {
+			action: string;
+			id: string;
+			value: number;
+	  }
+	| {
+			action: string;
+			id: UpdateFirewallConfigRequestIdEnumKey;
+			value: {
+				active: boolean;
+				action: UpdateFirewallConfigRequestValueActionEnumKey;
+			};
+	  }
+	| {
+			action: string;
+			id?: string | undefined;
+			value?: string | undefined;
+	  }
+	| {
+			action: string;
+			id?: string | undefined;
+			value: {
+				hostname: string;
+				ip: string;
+				notes?: string | undefined;
+				action: UpdateFirewallConfigRequestValueActionEnumKey;
+			};
+	  }
+	| {
+			action: string;
+			id: string;
+			value: {
+				hostname: string;
+				ip: string;
+				notes?: string | undefined;
+				action: UpdateFirewallConfigRequestValueActionEnumKey;
+			};
+	  }
+	| {
+			action: string;
+			id: string;
+			value?: string | undefined;
+	  }
+	| {
+			action: string;
+			id: UpdateFirewallConfigRequestIdEnumKey;
+			value: {
+				action?: UpdateFirewallConfigRequestValueActionEnumKey | undefined;
+				active: boolean;
+			};
+	  }
+	| {
+			action: string;
+			id: UpdateFirewallConfigRequestIdEnumKey;
+			value: {
+				[key: string]: {
+					active: boolean;
+					action?: ActionEnumKey | undefined;
+				};
+			};
+	  }
+	| {
+			action: string;
+			id?: string | undefined;
+			value: boolean;
+	  }
+	| {
+			action: string;
+			id?: string | undefined;
+			value: string | string[] | string;
+	  };
+
 export type UpdateFirewallConfigOptions = {
-	body?: never | undefined;
+	body: UpdateFirewallConfigBody;
 	path?: never | undefined;
 	query: UpdateFirewallConfigQuery;
 	headers?: never | undefined;
@@ -40800,8 +55735,52 @@ export type AddBypassIpStatus410 = unknown;
 
 export type AddBypassIpStatus500 = unknown;
 
+export type AddBypassIpBody =
+	| ((
+			| {
+					/**
+					 * @maxLength 2544
+					 * @pattern ([a-z]+[a-z.]+)$
+					 * @type string
+					 */
+					domain: string;
+			  }
+			| {
+					/**
+					 * @description If the specified bypass will apply to all domains for a project.
+					 * @type boolean
+					 */
+					projectScope: boolean;
+			  }
+	  ) & {
+			/**
+			 * @maxLength 2544
+			 * @pattern ([a-z]+[a-z.]+)$
+			 * @type string | undefined
+			 */
+			domain?: string | undefined;
+			/**
+			 * @description If the specified bypass will apply to all domains for a project.
+			 * @type boolean | undefined
+			 */
+			projectScope?: boolean | undefined;
+			sourceIp?: string | undefined;
+			allSources?: boolean | undefined;
+			/**
+			 * @description Time to live in milliseconds
+			 * @type number | undefined
+			 */
+			ttl?: number | undefined;
+			/**
+			 * @maxLength 500
+			 * @type string | undefined
+			 */
+			note?: string | undefined;
+	  })
+	| undefined;
+
 export type AddBypassIpOptions = {
-	body?: never | undefined;
+	body: AddBypassIpBody;
 	path?: never | undefined;
 	query: AddBypassIpQuery;
 	headers?: never | undefined;
@@ -40855,8 +55834,39 @@ export type RemoveBypassIpStatus410 = unknown;
 
 export type RemoveBypassIpStatus500 = unknown;
 
+export type RemoveBypassIpBody =
+	| ((
+			| {
+					/**
+					 * @maxLength 2544
+					 * @pattern ([a-z]+[a-z.]+)$
+					 * @type string
+					 */
+					domain: string;
+			  }
+			| {
+					projectScope: boolean;
+			  }
+	  ) & {
+			/**
+			 * @maxLength 2544
+			 * @pattern ([a-z]+[a-z.]+)$
+			 * @type string | undefined
+			 */
+			domain?: string | undefined;
+			projectScope?: boolean | undefined;
+			sourceIp?: string | undefined;
+			allSources?: boolean | undefined;
+			/**
+			 * @maxLength 500
+			 * @type string | undefined
+			 */
+			note?: string | undefined;
+	  })
+	| undefined;
+
 export type RemoveBypassIpOptions = {
-	body?: never | undefined;
+	body: RemoveBypassIpBody;
 	path?: never | undefined;
 	query: RemoveBypassIpQuery;
 	headers?: never | undefined;
@@ -40877,6 +55887,224 @@ export type RemoveBypassIpResponses = {
  * @description Union of all possible responses
  */
 export type RemoveBypassIpResponse = RemoveBypassIpStatus200;
+
+export type GetConditionalBypassQuery = {
+	projectId: string;
+	/**
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+	domain?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+};
+
+export type GetConditionalBypassStatus200 = unknown;
+
+export type GetConditionalBypassStatus400 = unknown;
+
+export type GetConditionalBypassStatus401 = unknown;
+
+export type GetConditionalBypassStatus403 = unknown;
+
+export type GetConditionalBypassStatus404 = unknown;
+
+export type GetConditionalBypassStatus410 = unknown;
+
+export type GetConditionalBypassOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query: GetConditionalBypassQuery;
+	headers?: never | undefined;
+};
+
+export type GetConditionalBypassResponses = {
+	"200": GetConditionalBypassStatus200;
+	"400": GetConditionalBypassStatus400;
+	"401": GetConditionalBypassStatus401;
+	"403": GetConditionalBypassStatus403;
+	"404": GetConditionalBypassStatus404;
+	"410": GetConditionalBypassStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetConditionalBypassResponse = GetConditionalBypassStatus200;
+
+export type CreateConditionalBypassQuery = {
+	projectId: string;
+	/**
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+};
+
+export type CreateConditionalBypassStatus200 = unknown;
+
+export type CreateConditionalBypassStatus400 = unknown;
+
+export type CreateConditionalBypassStatus401 = unknown;
+
+export type CreateConditionalBypassStatus403 = unknown;
+
+export type CreateConditionalBypassStatus404 = unknown;
+
+export type CreateConditionalBypassStatus409 = unknown;
+
+export type CreateConditionalBypassStatus410 = unknown;
+
+export const createConditionalBypassRequestConditionGroupConditionsOpEnum = {
+	eq: "eq",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+} as const;
+
+export type CreateConditionalBypassRequestConditionGroupConditionsOpEnumKey =
+	(typeof createConditionalBypassRequestConditionGroupConditionsOpEnum)[keyof typeof createConditionalBypassRequestConditionGroupConditionsOpEnum];
+
+export type CreateConditionalBypassBody =
+	| {
+			domain: string;
+			conditionGroup: {
+				conditions: (
+					| {
+							type: "user_agent";
+							op: CreateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							/**
+							 * @maxLength 500
+							 * @type string
+							 */
+							value: string;
+							key?: "user-agent" | undefined;
+					  }
+					| {
+							type: "path";
+							op: CreateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							/**
+							 * @maxLength 500
+							 * @type string
+							 */
+							value: string;
+					  }
+					| {
+							type: "header";
+							op: CreateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							/**
+							 * @maxLength 128
+							 * @pattern ^[!#$%&'*+.^_`|~0-9A-Za-z-]+$
+							 * @type string
+							 */
+							key: string;
+							/**
+							 * @maxLength 500
+							 * @type string
+							 */
+							value: string;
+					  }
+					| {
+							type: "header";
+							op: "ex";
+							/**
+							 * @maxLength 128
+							 * @pattern ^[!#$%&'*+.^_`|~0-9A-Za-z-]+$
+							 * @type string
+							 */
+							key: string;
+					  }
+				)[];
+			}[];
+			/**
+			 * @maxLength 500
+			 * @type string | undefined
+			 */
+			note?: string | undefined;
+	  }
+	| undefined;
+
+export type CreateConditionalBypassOptions = {
+	body: CreateConditionalBypassBody;
+	path?: never | undefined;
+	query: CreateConditionalBypassQuery;
+	headers?: never | undefined;
+};
+
+export type CreateConditionalBypassResponses = {
+	"200": CreateConditionalBypassStatus200;
+	"400": CreateConditionalBypassStatus400;
+	"401": CreateConditionalBypassStatus401;
+	"403": CreateConditionalBypassStatus403;
+	"404": CreateConditionalBypassStatus404;
+	"409": CreateConditionalBypassStatus409;
+	"410": CreateConditionalBypassStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateConditionalBypassResponse = CreateConditionalBypassStatus200;
+
+export type DeleteConditionalBypassQuery = {
+	projectId: string;
+	/**
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+	domain: string;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+};
+
+export type DeleteConditionalBypassStatus204 = unknown;
+
+export type DeleteConditionalBypassStatus400 = unknown;
+
+export type DeleteConditionalBypassStatus401 = unknown;
+
+export type DeleteConditionalBypassStatus403 = unknown;
+
+export type DeleteConditionalBypassStatus404 = unknown;
+
+export type DeleteConditionalBypassStatus410 = unknown;
+
+export type DeleteConditionalBypassOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query: DeleteConditionalBypassQuery;
+	headers?: never | undefined;
+};
+
+export type DeleteConditionalBypassResponses = {
+	"204": DeleteConditionalBypassStatus204;
+	"400": DeleteConditionalBypassStatus400;
+	"401": DeleteConditionalBypassStatus401;
+	"403": DeleteConditionalBypassStatus403;
+	"404": DeleteConditionalBypassStatus404;
+	"410": DeleteConditionalBypassStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteConditionalBypassResponse = DeleteConditionalBypassStatus204;
 
 export const getSecurityFirewallEventsSort = {
 	"startTime:desc": "startTime:desc",
@@ -41157,8 +56385,14 @@ export type CreateSpeedInsightsToggleStatus404 = unknown;
 
 export type CreateSpeedInsightsToggleStatus410 = unknown;
 
+export type CreateSpeedInsightsToggleBody =
+	| {
+			value: boolean;
+	  }
+	| undefined;
+
 export type CreateSpeedInsightsToggleOptions = {
-	body?: never | undefined;
+	body: CreateSpeedInsightsToggleBody;
 	path?: never | undefined;
 	query: CreateSpeedInsightsToggleQuery;
 	headers?: never | undefined;
@@ -41239,8 +56473,63 @@ export type CreateStorageStoresBlobStatus410 = unknown;
 
 export type CreateStorageStoresBlobStatus429 = unknown;
 
+export const createStorageStoresBlobRequestRegionEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	dxb1: "dxb1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type CreateStorageStoresBlobRequestRegionEnumKey =
+	(typeof createStorageStoresBlobRequestRegionEnum)[keyof typeof createStorageStoresBlobRequestRegionEnum];
+
+export const createStorageStoresBlobRequestAccessEnum = {
+	private: "private",
+	public: "public",
+} as const;
+
+export type CreateStorageStoresBlobRequestAccessEnumKey =
+	(typeof createStorageStoresBlobRequestAccessEnum)[keyof typeof createStorageStoresBlobRequestAccessEnum];
+
+export type CreateStorageStoresBlobBody =
+	| {
+			/**
+			 * @maxLength 70
+			 * @type string
+			 */
+			name: string;
+			region?: CreateStorageStoresBlobRequestRegionEnumKey | undefined;
+			/**
+			 * @default 'public'
+			 * @type string | undefined
+			 */
+			access?: CreateStorageStoresBlobRequestAccessEnumKey | undefined;
+			/**
+			 * @maxLength 50
+			 * @type string | undefined
+			 */
+			projectId?: string | undefined;
+	  }
+	| undefined;
+
 export type CreateStorageStoresBlobOptions = {
-	body?: never | undefined;
+	body: CreateStorageStoresBlobBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -41336,8 +56625,100 @@ export type CreateIntegrationStoreDirectStatus410 = unknown;
 
 export type CreateIntegrationStoreDirectStatus500 = unknown;
 
+export const createIntegrationStoreDirectRequestSourceEnum = {
+	backoffice: "backoffice",
+	cli: "cli",
+	"deploy-button": "deploy-button",
+	external: "external",
+	"import-recommended-integrations": "import-recommended-integrations",
+	marketplace: "marketplace",
+	oauth: "oauth",
+	organization: "organization",
+	"resource-claims": "resource-claims",
+	v0: "v0",
+} as const;
+
+export type CreateIntegrationStoreDirectRequestSourceEnumKey =
+	(typeof createIntegrationStoreDirectRequestSourceEnum)[keyof typeof createIntegrationStoreDirectRequestSourceEnum];
+
+export type CreateIntegrationStoreDirectBody =
+	| {
+			/**
+			 * @description Human-readable name for the storage resource
+			 * @maxLength 128
+			 * @example my-dev-database
+			 * @type string
+			 */
+			name: string;
+			/**
+			 * @description ID of your integration configuration. Get this from GET /v1/integrations/configurations
+			 * @pattern ^icfg_[a-zA-Z0-9]+$
+			 * @example icfg_cuwj0AdCdH3BwWT4LPijCC7t
+			 * @type string
+			 */
+			integrationConfigurationId: string;
+			/**
+			 * @description ID or slug of the integration product. Get available products from GET /v1/integrations/configuration/{id}/products
+			 * @example iap_postgres_db
+			 */
+			integrationProductIdOrSlug: string | string;
+			/**
+			 * @description Optional key-value pairs for resource metadata
+			 * @example {"environment":"development","project":"my-app","tags":["database","postgres"]}
+			 * @type object | undefined
+			 */
+			metadata?:
+				| {
+						[key: string]: string | number | boolean | string[] | number[];
+				  }
+				| undefined;
+			/**
+			 * @description Optional external identifier for tracking purposes
+			 * @example dev-db-001
+			 * @type string | undefined
+			 */
+			externalId?: string | undefined;
+			/**
+			 * @description Protocol-specific configuration settings
+			 * @example {"experimentation":{"edgeConfigSyncingEnabled":true}}
+			 * @type object | undefined
+			 */
+			protocolSettings?:
+				| {
+						[key: string]: unknown;
+				  }
+				| undefined;
+			/**
+			 * @description Source of the store creation request
+			 * @default 'marketplace'
+			 * @example marketplace
+			 * @type string | undefined
+			 */
+			source?: CreateIntegrationStoreDirectRequestSourceEnumKey | undefined;
+			/**
+			 * @description ID of the billing plan for paid resources. Get available plans from GET /integrations/integration/{id}/products/{productId}/plans. If not provided, automatically discovers free billing plans.
+			 * @example bp_abc123def456
+			 * @type string | undefined
+			 */
+			billingPlanId?: string | undefined;
+			/**
+			 * @description Payment method ID for paid resources. Optional - uses default payment method if not provided.
+			 * @example pm_1AbcDefGhiJklMno
+			 * @type string | undefined
+			 */
+			paymentMethodId?: string | undefined;
+			/**
+			 * @description Amount in cents for prepayment billing plans. Required only for prepayment plans with variable amounts.
+			 * @minLength 50
+			 * @example 5000
+			 * @type number | undefined
+			 */
+			prepaymentAmountCents?: number | undefined;
+	  }
+	| undefined;
+
 export type CreateIntegrationStoreDirectOptions = {
-	body?: never | undefined;
+	body: CreateIntegrationStoreDirectBody;
 	path?: never | undefined;
 	query?: CreateIntegrationStoreDirectQuery | undefined;
 	headers?: never | undefined;
@@ -41496,8 +56877,69 @@ export type InviteUserToTeamStatus410 = unknown;
 
 export type InviteUserToTeamStatus503 = unknown;
 
+export const inviteUserToTeamRequestRoleEnum = {
+	BILLING: "BILLING",
+	CONTRIBUTOR: "CONTRIBUTOR",
+	DEVELOPER: "DEVELOPER",
+	MEMBER: "MEMBER",
+	OWNER: "OWNER",
+	SECURITY: "SECURITY",
+	VIEWER: "VIEWER",
+	VIEWER_FOR_PLUS: "VIEWER_FOR_PLUS",
+} as const;
+
+export type InviteUserToTeamRequestRoleEnumKey =
+	(typeof inviteUserToTeamRequestRoleEnum)[keyof typeof inviteUserToTeamRequestRoleEnum];
+
+export const inviteUserToTeamRequestProjectsRoleEnum = {
+	ADMIN: "ADMIN",
+	PROJECT_DEVELOPER: "PROJECT_DEVELOPER",
+	PROJECT_GUEST: "PROJECT_GUEST",
+	PROJECT_VIEWER: "PROJECT_VIEWER",
+} as const;
+
+export type InviteUserToTeamRequestProjectsRoleEnumKey =
+	(typeof inviteUserToTeamRequestProjectsRoleEnum)[keyof typeof inviteUserToTeamRequestProjectsRoleEnum];
+
+export type InviteUserToTeamBody =
+	| {
+			/**
+			 * @description The email address of the user to invite
+			 *
+			 * Format: `email`
+			 * @example john@example.com
+			 * @type string
+			 */
+			email: string;
+			/**
+			 * @description The role of the user to invite
+			 * @default 'VIEWER'
+			 * @example VIEWER
+			 * @type string | undefined
+			 */
+			role?: InviteUserToTeamRequestRoleEnumKey | undefined;
+			projects?:
+				| {
+						/**
+						 * @description The ID of the project.
+						 * @maxLength 64
+						 * @example prj_ndlgr43fadlPyCtREAqxxdyFK
+						 * @type string
+						 */
+						projectId: string;
+						/**
+						 * @description Sets the project roles for the invited user
+						 * @example ADMIN
+						 * @type string
+						 */
+						role: InviteUserToTeamRequestProjectsRoleEnumKey;
+				  }[]
+				| undefined;
+	  }[]
+	| undefined;
+
 export type InviteUserToTeamOptions = {
-	body?: never | undefined;
+	body: InviteUserToTeamBody;
 	path: InviteUserToTeamPath;
 	query?: InviteUserToTeamQuery | undefined;
 	headers?: never | undefined;
@@ -41543,8 +56985,61 @@ export type RequestAccessToTeamStatus429 = unknown;
 
 export type RequestAccessToTeamStatus503 = unknown;
 
+export const requestAccessToTeamRequestJoinedFromOriginEnum = {
+	bitbucket: "bitbucket",
+	feedback: "feedback",
+	github: "github",
+	gitlab: "gitlab",
+	import: "import",
+	"organization-teams": "organization-teams",
+	teams: "teams",
+} as const;
+
+export type RequestAccessToTeamRequestJoinedFromOriginEnumKey =
+	(typeof requestAccessToTeamRequestJoinedFromOriginEnum)[keyof typeof requestAccessToTeamRequestJoinedFromOriginEnum];
+
+export type RequestAccessToTeamBody = {
+	joinedFrom: {
+		/**
+		 * @description The origin of the request.
+		 * @example github
+		 * @type string
+		 */
+		origin: RequestAccessToTeamRequestJoinedFromOriginEnumKey;
+		/**
+		 * @description The commit sha if the origin is a git provider.
+		 * @example f498d25d8bd654b578716203be73084b31130cd7
+		 * @type string | undefined
+		 */
+		commitId?: string | undefined;
+		/**
+		 * @description The ID of the repository for the given Git provider.
+		 * @example 67753070
+		 * @type string | undefined
+		 */
+		repoId?: string | undefined;
+		/**
+		 * @description The path to the repository for the given Git provider.
+		 * @example jane-doe/example
+		 * @type string | undefined
+		 */
+		repoPath?: string | undefined;
+		/**
+		 * @description The ID of the Git account of the user who requests access.
+		 * @example 103053343
+		 */
+		gitUserId?: (string | number) | undefined;
+		/**
+		 * @description The login name for the Git account of the user who requests access.
+		 * @example jane-doe
+		 * @type string | undefined
+		 */
+		gitUserLogin?: string | undefined;
+	};
+};
+
 export type RequestAccessToTeamOptions = {
-	body?: never | undefined;
+	body: RequestAccessToTeamBody;
 	path: RequestAccessToTeamPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -41633,8 +57128,17 @@ export type JoinTeamStatus410 = unknown;
 
 export type JoinTeamStatus503 = unknown;
 
+export type JoinTeamBody = {
+	/**
+	 * @description The invite code to join the team.
+	 * @example fisdh38aejkeivn34nslfore9vjtn4ls
+	 * @type string | undefined
+	 */
+	inviteCode?: string | undefined;
+};
+
 export type JoinTeamOptions = {
-	body?: never | undefined;
+	body: JoinTeamBody;
 	path: JoinTeamPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -41688,8 +57192,86 @@ export type UpdateTeamMemberStatus410 = unknown;
 
 export type UpdateTeamMemberStatus500 = unknown;
 
+export const updateTeamMemberRequestTeamPermissionsEnum = {
+	AiGatewayBudgetManager: "AiGatewayBudgetManager",
+	AiGatewayCredits: "AiGatewayCredits",
+	AiGatewaySettings: "AiGatewaySettings",
+	AiGatewayTranscriptsManager: "AiGatewayTranscriptsManager",
+	AiGatewayTranscriptsViewer: "AiGatewayTranscriptsViewer",
+	AiGatewayUser: "AiGatewayUser",
+	ConnectorManager: "ConnectorManager",
+	CreateProject: "CreateProject",
+	EnvVariableManager: "EnvVariableManager",
+	EnvironmentManager: "EnvironmentManager",
+	FullProductionDeployment: "FullProductionDeployment",
+	IntegrationManager: "IntegrationManager",
+	OrgAdmin: "OrgAdmin",
+	OrgViewer: "OrgViewer",
+	UsageViewer: "UsageViewer",
+	V0Builder: "V0Builder",
+	V0Chatter: "V0Chatter",
+	V0Viewer: "V0Viewer",
+	WorkflowDecryptor: "WorkflowDecryptor",
+} as const;
+
+export type UpdateTeamMemberRequestTeamPermissionsEnumKey =
+	(typeof updateTeamMemberRequestTeamPermissionsEnum)[keyof typeof updateTeamMemberRequestTeamPermissionsEnum];
+
+export const updateTeamMemberRequestProjectsRoleEnum = {
+	ADMIN: "ADMIN",
+	PROJECT_DEVELOPER: "PROJECT_DEVELOPER",
+	PROJECT_VIEWER: "PROJECT_VIEWER",
+} as const;
+
+export type UpdateTeamMemberRequestProjectsRoleEnumKey =
+	(typeof updateTeamMemberRequestProjectsRoleEnum)[keyof typeof updateTeamMemberRequestProjectsRoleEnum];
+
+export type UpdateTeamMemberBody = {
+	/**
+	 * @description Accept a user who requested access to the team.
+	 * @example true
+	 * @type boolean | undefined
+	 */
+	confirmed?: true | undefined;
+	/**
+	 * @description The role in the team of the member.
+	 * @default 'MEMBER'
+	 * @example VIEWER
+	 * @type string | undefined
+	 */
+	role?: string | undefined;
+	/**
+	 * @description The team permissions to set for the member. Permissions must be compatible with the team roles assigned to the member.
+	 * @example ["CreateProject","FullProductionDeployment"]
+	 * @type array | undefined
+	 */
+	teamPermissions?: UpdateTeamMemberRequestTeamPermissionsEnumKey[] | undefined;
+	projects?:
+		| {
+				/**
+				 * @description The ID of the project.
+				 * @maxLength 256
+				 * @example prj_ndlgr43fadlPyCtREAqxxdyFK
+				 * @type string
+				 */
+				projectId: string;
+				/**
+				 * @description The project role of the member that will be added. \\\"null\\\" will remove this project level role.
+				 * @example ADMIN
+				 * @type string
+				 */
+				role: UpdateTeamMemberRequestProjectsRoleEnumKey | null;
+		  }[]
+		| undefined;
+	joinedFrom?:
+		| {
+				ssoUserId?: (unknown | null) | undefined;
+		  }
+		| undefined;
+};
+
 export type UpdateTeamMemberOptions = {
-	body?: never | undefined;
+	body: UpdateTeamMemberBody;
 	path: UpdateTeamMemberPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -41858,8 +57440,514 @@ export type PatchTeamStatus410 = unknown;
 
 export type PatchTeamStatus428 = unknown;
 
+export const patchTeamRequestDpAccessRequestsModeEnum = {
+	all: "all",
+	"email-domain": "email-domain",
+	none: "none",
+} as const;
+
+export type PatchTeamRequestDpAccessRequestsModeEnumKey =
+	(typeof patchTeamRequestDpAccessRequestsModeEnum)[keyof typeof patchTeamRequestDpAccessRequestsModeEnum];
+
+export const patchTeamRequestDefaultDeploymentProtectionPasswordProtectionDeploymentTypeEnum = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type PatchTeamRequestDefaultDeploymentProtectionPasswordProtectionDeploymentTypeEnumKey =
+	(typeof patchTeamRequestDefaultDeploymentProtectionPasswordProtectionDeploymentTypeEnum)[keyof typeof patchTeamRequestDefaultDeploymentProtectionPasswordProtectionDeploymentTypeEnum];
+
+export const patchTeamRequestDefaultDeploymentProtectionSsoProtectionDeploymentTypeEnum = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type PatchTeamRequestDefaultDeploymentProtectionSsoProtectionDeploymentTypeEnumKey =
+	(typeof patchTeamRequestDefaultDeploymentProtectionSsoProtectionDeploymentTypeEnum)[keyof typeof patchTeamRequestDefaultDeploymentProtectionSsoProtectionDeploymentTypeEnum];
+
+export const patchTeamRequestDefaultPassportDeploymentTypeEnum = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type PatchTeamRequestDefaultPassportDeploymentTypeEnumKey =
+	(typeof patchTeamRequestDefaultPassportDeploymentTypeEnum)[keyof typeof patchTeamRequestDefaultPassportDeploymentTypeEnum];
+
+export const patchTeamRequestDeploymentPolicyGitSourcesEnvironmentsTargetEnum = {
+	production: "production",
+	preview: "preview",
+} as const;
+
+export type PatchTeamRequestDeploymentPolicyGitSourcesEnvironmentsTargetEnumKey =
+	(typeof patchTeamRequestDeploymentPolicyGitSourcesEnvironmentsTargetEnum)[keyof typeof patchTeamRequestDeploymentPolicyGitSourcesEnvironmentsTargetEnum];
+
+export const patchTeamRequestDeploymentPolicyGitSourcesSourcesProviderEnum = {
+	github: "github",
+	bitbucket: "bitbucket",
+} as const;
+
+export type PatchTeamRequestDeploymentPolicyGitSourcesSourcesProviderEnumKey =
+	(typeof patchTeamRequestDeploymentPolicyGitSourcesSourcesProviderEnum)[keyof typeof patchTeamRequestDeploymentPolicyGitSourcesSourcesProviderEnum];
+
+export const patchTeamRequestDeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum = {
+	production: "production",
+	preview: "preview",
+} as const;
+
+export type PatchTeamRequestDeploymentPolicyDeploymentSourcesEnvironmentsTargetEnumKey =
+	(typeof patchTeamRequestDeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum)[keyof typeof patchTeamRequestDeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum];
+
+export const patchTeamRequestDeploymentPolicyDeploymentSourcesSourcesEnum = {
+	git: "git",
+	cli: "cli",
+	"rest-api": "rest-api",
+	"deploy-hook": "deploy-hook",
+	integration: "integration",
+	v0: "v0",
+} as const;
+
+export type PatchTeamRequestDeploymentPolicyDeploymentSourcesSourcesEnumKey =
+	(typeof patchTeamRequestDeploymentPolicyDeploymentSourcesSourcesEnum)[keyof typeof patchTeamRequestDeploymentPolicyDeploymentSourcesSourcesEnum];
+
+export const patchTeamRequestNsnbConfigPreferenceEnum = {
+	"auto-approval": "auto-approval",
+	"manual-approval": "manual-approval",
+	block: "block",
+} as const;
+
+export type PatchTeamRequestNsnbConfigPreferenceEnumKey =
+	(typeof patchTeamRequestNsnbConfigPreferenceEnum)[keyof typeof patchTeamRequestNsnbConfigPreferenceEnum];
+
+export const patchTeamRequestResourceConfigBuildMachineDefaultEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type PatchTeamRequestResourceConfigBuildMachineDefaultEnumKey =
+	(typeof patchTeamRequestResourceConfigBuildMachineDefaultEnum)[keyof typeof patchTeamRequestResourceConfigBuildMachineDefaultEnum];
+
+export type PatchTeamBody = {
+	/**
+	 * @description The hash value of an uploaded image, or `null` to clear the avatar.
+	 * @maxLength 40
+	 * @pattern ^[0-9a-f]+$
+	 * @type string | undefined
+	 */
+	avatar?: (string | null) | undefined;
+	/**
+	 * @description A short text that describes the team.
+	 * @maxLength 140
+	 * @example Our mission is to make cloud computing accessible to everyone
+	 * @type string | undefined
+	 */
+	description?: string | undefined;
+	/**
+	 * @description
+	 * Format: `regex`
+	 * @example example.com
+	 * @type string | undefined
+	 */
+	emailDomain?: (string | null) | undefined;
+	/**
+	 * @description The name of the team.
+	 * @maxLength 256
+	 * @example My Team
+	 * @type string | undefined
+	 */
+	name?: string | undefined;
+	/**
+	 * @description Suffix that will be used for all preview deployments.
+	 *
+	 * Format: `hostname`
+	 * @example example.dev
+	 * @type string | undefined
+	 */
+	previewDeploymentSuffix?: (string | null) | undefined;
+	/**
+	 * @description Create a new invite code and replace the current one.
+	 * @example true
+	 * @type boolean | undefined
+	 */
+	regenerateInviteCode?: boolean | undefined;
+	saml?:
+		| {
+				/**
+				 * @description Require that members of the team use SAML Single Sign-On.
+				 * @example true
+				 * @type boolean | undefined
+				 */
+				enforced?: boolean | undefined;
+				/**
+				 * @description Directory groups to role or access group mappings.
+				 * @type object | undefined
+				 */
+				roles?:
+					| {
+							[key: string]:
+								| (
+										| "OWNER"
+										| "MEMBER"
+										| "DEVELOPER"
+										| "SECURITY"
+										| "BILLING"
+										| "VIEWER"
+										| "VIEWER_FOR_PLUS"
+										| "CONTRIBUTOR"
+								  )
+								| {
+										/**
+										 * @pattern ^ag_[A-z0-9_ -]+$
+										 * @type string
+										 */
+										accessGroupId: string;
+								  };
+					  }
+					| undefined;
+		  }
+		| undefined;
+	/**
+	 * @description A new slug for the team.
+	 * @example my-team
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+	/**
+	 * @description Enable preview toolbar: one of on, off or default.
+	 * @example on
+	 * @type string | undefined
+	 */
+	enablePreviewFeedback?: string | undefined;
+	/**
+	 * @description Enable production toolbar: one of on, off or default.
+	 * @example on
+	 * @type string | undefined
+	 */
+	enableProductionFeedback?: string | undefined;
+	/**
+	 * @description Sensitive environment variable policy: one of on, off or default.
+	 * @example on
+	 * @type string | undefined
+	 */
+	sensitiveEnvironmentVariablePolicy?: string | undefined;
+	/**
+	 * @description Require production secrets to be in their own environment group: one of on, off or default.
+	 * @example on
+	 * @type string | undefined
+	 */
+	disjunctiveProductionSecretPolicy?: string | undefined;
+	/**
+	 * @description Whether or not remote caching is enabled for the team
+	 * @type object | undefined
+	 */
+	remoteCaching?:
+		| {
+				/**
+				 * @description Enable or disable remote caching for the team.
+				 * @example true
+				 * @type boolean | undefined
+				 */
+				enabled?: boolean | undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Display or hide IP addresses in Monitoring queries.
+	 * @example false
+	 * @type boolean | undefined
+	 */
+	hideIpAddresses?: boolean | undefined;
+	/**
+	 * @description Display or hide IP addresses in Log Drains.
+	 * @example false
+	 * @type boolean | undefined
+	 */
+	hideIpAddressesInLogDrains?: boolean | undefined;
+	/**
+	 * @description Controls who can request access to protected deployments.
+	 * @example none
+	 * @type string | undefined
+	 */
+	dpAccessRequestsMode?: PatchTeamRequestDpAccessRequestsModeEnumKey | undefined;
+	/**
+	 * @description When enabled, all projects in the team require commits to be signed and verified by the git provider before deployments will be created.
+	 * @example true
+	 * @type boolean | undefined
+	 */
+	requireVerifiedCommits?: boolean | undefined;
+	/**
+	 * @description Default for projects in the team. When `true`, projects in this team will not emit GitHub repository-dispatch events on deployment events unless the project explicitly overrides this setting.
+	 * @example false
+	 * @type boolean | undefined
+	 */
+	disableRepositoryDispatchEvents?: boolean | undefined;
+	/**
+	 * @description Default deployment protection settings for new projects.
+	 * @type object | undefined
+	 */
+	defaultDeploymentProtection?:
+		| {
+				/**
+				 * @description Allows to protect project deployments with a password
+				 * @type object | undefined
+				 */
+				passwordProtection?:
+					| ({
+							/**
+							 * @description Specify if the password will apply to every Deployment Target or just Preview
+							 * @type string
+							 */
+							deploymentType: PatchTeamRequestDefaultDeploymentProtectionPasswordProtectionDeploymentTypeEnumKey;
+							/**
+							 * @description The password that will be used to protect Project Deployments
+							 * @maxLength 72
+							 * @type string | undefined
+							 */
+							password?: (string | null) | undefined;
+					  } | null)
+					| undefined;
+				/**
+				 * @description Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team
+				 * @type object | undefined
+				 */
+				ssoProtection?:
+					| ({
+							/**
+							 * @description Specify if the Vercel Authentication (SSO Protection) will apply to every Deployment Target or just Preview
+							 * @default 'preview'
+							 * @type string
+							 */
+							deploymentType: PatchTeamRequestDefaultDeploymentProtectionSsoProtectionDeploymentTypeEnumKey;
+					  } | null)
+					| undefined;
+		  }
+		| undefined;
+	/**
+	 * @description Default Passport configuration for new projects.
+	 * @type object | undefined
+	 */
+	defaultPassport?:
+		| ({
+				connectorId: string;
+				/**
+				 * @default 'all'
+				 * @type string | undefined
+				 */
+				deploymentType?: PatchTeamRequestDefaultPassportDeploymentTypeEnumKey | undefined;
+		  } | null)
+		| undefined;
+	defaultExpirationSettings?:
+		| {
+				/**
+				 * @description The time period to keep non-production deployments for
+				 * @example 1y
+				 * @type string | undefined
+				 */
+				expiration?: "unlimited" | undefined;
+				/**
+				 * @description The time period to keep production deployments for
+				 * @example 1y
+				 * @type string | undefined
+				 */
+				expirationProduction?: "unlimited" | undefined;
+				/**
+				 * @description The time period to keep canceled deployments for
+				 * @example 1y
+				 * @type string | undefined
+				 */
+				expirationCanceled?: "unlimited" | undefined;
+				/**
+				 * @description The time period to keep errored deployments for
+				 * @example 1y
+				 * @type string | undefined
+				 */
+				expirationErrored?: "unlimited" | undefined;
+				/**
+				 * @description When true, opts a Pro team out of the upcoming deployment-storage retention reduce. Does not change expiration settings. Unmetered teams also require acknowledgeStorageBilling.
+				 * @type boolean | undefined
+				 */
+				keepCurrentRetention?: boolean | undefined;
+				/**
+				 * @description Required with keepCurrentRetention for unmetered Pro teams; acknowledges that keeping current retention will incur storage billing on a later date.
+				 * @type boolean | undefined
+				 */
+				acknowledgeStorageBilling?: boolean | undefined;
+		  }
+		| undefined;
+	deploymentPolicy?:
+		| (
+				| {
+						gitSources?:
+							| (
+									| {
+											enabled: boolean;
+											environments: (
+												| {
+														type: "system";
+														target: PatchTeamRequestDeploymentPolicyGitSourcesEnvironmentsTargetEnumKey;
+												  }
+												| {
+														type: "custom";
+														environmentId: string;
+												  }
+											)[];
+											sources: (
+												| {
+														provider: PatchTeamRequestDeploymentPolicyGitSourcesSourcesProviderEnumKey;
+														org: string;
+														repo?: string | undefined;
+												  }
+												| {
+														provider: "gitlab";
+														namespace: string;
+														project?: string | undefined;
+												  }
+											)[];
+									  }[]
+									| string
+							  )
+							| undefined;
+						deploymentSources?:
+							| (
+									| {
+											enabled: boolean;
+											environments: (
+												| {
+														type: "system";
+														target: PatchTeamRequestDeploymentPolicyDeploymentSourcesEnvironmentsTargetEnumKey;
+												  }
+												| {
+														type: "custom";
+														environmentId: string;
+												  }
+											)[];
+											sources: PatchTeamRequestDeploymentPolicyDeploymentSourcesSourcesEnumKey[];
+									  }[]
+									| string
+							  )
+							| undefined;
+				  }
+				| string
+		  )
+		| undefined;
+	/**
+	 * @description When enabled, deployment protection settings require stricter permissions (owner-only).
+	 * @type object | undefined
+	 */
+	strictDeploymentProtectionSettings?:
+		| {
+				/**
+				 * @description Enable or disable strict deployment protection settings.
+				 * @example true
+				 * @type boolean
+				 */
+				enabled: boolean;
+		  }
+		| undefined;
+	/**
+	 * @description When enabled, creating shareable links requires Owner role.
+	 * @type object | undefined
+	 */
+	strictShareableLinks?:
+		| {
+				/**
+				 * @description Enable or disable requiring Owner role to create shareable links.
+				 * @example true
+				 * @type boolean
+				 */
+				enabled: boolean;
+		  }
+		| undefined;
+	/**
+	 * @description When enabled, adding, changing, or removing project password protection requires Owner role.
+	 * @type object | undefined
+	 */
+	strictPasswordProtectionSettings?:
+		| {
+				/**
+				 * @description Enable or disable requiring Owner role to change project password protection.
+				 * @example true
+				 * @type boolean
+				 */
+				enabled: boolean;
+		  }
+		| undefined;
+	/**
+	 * @description When enabled, creating and managing connectors requires Owner role.
+	 * @type object | undefined
+	 */
+	strictConnectors?:
+		| {
+				/**
+				 * @description Enable or disable requiring Owner role to manage connectors.
+				 * @example true
+				 * @type boolean
+				 */
+				enabled: boolean;
+		  }
+		| undefined;
+	nsnbConfig?:
+		| (
+				| {
+						/**
+						 * @description The NSNB preference for the team.
+						 * @type string
+						 */
+						preference: PatchTeamRequestNsnbConfigPreferenceEnumKey;
+				  }
+				| string
+		  )
+		| undefined;
+	defaultProjectJobs?:
+		| (
+				| {
+						lint?:
+							| {
+									targets: string[];
+							  }
+							| undefined;
+						typecheck?:
+							| {
+									targets: string[];
+							  }
+							| undefined;
+				  }
+				| string
+		  )
+		| undefined;
+	/**
+	 * @description Resource configuration for the team.
+	 * @type object | undefined
+	 */
+	resourceConfig?:
+		| {
+				/**
+				 * @description Build machine configuration.
+				 * @type object | undefined
+				 */
+				buildMachine?:
+					| {
+							/**
+							 * @description Default build machine type for new builds: standard, enhanced, turbo, or elastic.
+							 * @example standard
+							 * @type string | undefined
+							 */
+							default?: PatchTeamRequestResourceConfigBuildMachineDefaultEnumKey | undefined;
+					  }
+					| undefined;
+		  }
+		| undefined;
+};
+
 export type PatchTeamOptions = {
-	body?: never | undefined;
+	body: PatchTeamBody;
 	path: PatchTeamPath;
 	query?: PatchTeamQuery | undefined;
 	headers?: never | undefined;
@@ -41943,8 +58031,72 @@ export type CreateTeamStatus404 = unknown;
 
 export type CreateTeamStatus410 = unknown;
 
+export type CreateTeamBody = {
+	/**
+	 * @description The desired slug for the Team
+	 * @maxLength 48
+	 * @example a-random-team
+	 * @type string
+	 */
+	slug: string;
+	/**
+	 * @description The desired name for the Team. It will be generated from the provided slug if nothing is provided
+	 * @maxLength 256
+	 * @example A Random Team
+	 * @type string | undefined
+	 */
+	name?: string | undefined;
+	/**
+	 * @description Attribution information for the session or current page
+	 * @type object | undefined
+	 */
+	attribution?:
+		| {
+				/**
+				 * @description Session referrer
+				 * @type string | undefined
+				 */
+				sessionReferrer?: string | undefined;
+				/**
+				 * @description Session landing page
+				 * @type string | undefined
+				 */
+				landingPage?: string | undefined;
+				/**
+				 * @description Referrer to the signup page
+				 * @type string | undefined
+				 */
+				pageBeforeConversionPage?: string | undefined;
+				utm?:
+					| {
+							/**
+							 * @description UTM source
+							 * @type string | undefined
+							 */
+							utmSource?: string | undefined;
+							/**
+							 * @description UTM medium
+							 * @type string | undefined
+							 */
+							utmMedium?: string | undefined;
+							/**
+							 * @description UTM campaign
+							 * @type string | undefined
+							 */
+							utmCampaign?: string | undefined;
+							/**
+							 * @description UTM term
+							 * @type string | undefined
+							 */
+							utmTerm?: string | undefined;
+					  }
+					| undefined;
+		  }
+		| undefined;
+};
+
 export type CreateTeamOptions = {
-	body?: never | undefined;
+	body: CreateTeamBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -41993,8 +58145,37 @@ export type PostTeamDsyncRolesStatus404 = unknown;
 
 export type PostTeamDsyncRolesStatus410 = unknown;
 
+export type PostTeamDsyncRolesBody =
+	| {
+			/**
+			 * @description Directory groups to role or access group mappings.
+			 * @type object
+			 */
+			roles: {
+				[key: string]:
+					| (
+							| "OWNER"
+							| "MEMBER"
+							| "DEVELOPER"
+							| "SECURITY"
+							| "BILLING"
+							| "VIEWER"
+							| "VIEWER_FOR_PLUS"
+							| "CONTRIBUTOR"
+					  )
+					| {
+							/**
+							 * @pattern ^ag_[A-z0-9_ -]+$
+							 * @type string
+							 */
+							accessGroupId: string;
+					  };
+			};
+	  }
+	| undefined;
+
 export type PostTeamDsyncRolesOptions = {
-	body?: never | undefined;
+	body: PostTeamDsyncRolesBody;
 	path: PostTeamDsyncRolesPath;
 	query?: PostTeamDsyncRolesQuery | undefined;
 	headers?: never | undefined;
@@ -42056,8 +58237,29 @@ export type DeleteTeamStatus410 = unknown;
 
 export type DeleteTeamStatus503 = unknown;
 
+export type DeleteTeamBody = {
+	/**
+	 * @description Optional array of objects that describe the reason why the team is being deleted.
+	 * @type array | undefined
+	 */
+	reasons?:
+		| {
+				/**
+				 * @description Idenitifier slug of the reason why the team is being deleted.
+				 * @type string
+				 */
+				slug: string;
+				/**
+				 * @description Description of the reason why the team is being deleted.
+				 * @type string
+				 */
+				description: string;
+		  }[]
+		| undefined;
+};
+
 export type DeleteTeamOptions = {
-	body?: never | undefined;
+	body: DeleteTeamBody;
 	path: DeleteTeamPath;
 	query?: DeleteTeamQuery | undefined;
 	headers?: never | undefined;
@@ -42159,8 +58361,29 @@ export type UpdateMicrofrontendsGroupStatus404 = unknown;
 
 export type UpdateMicrofrontendsGroupStatus410 = unknown;
 
+export type UpdateMicrofrontendsGroupBody =
+	| {
+			/**
+			 * @description The new name for the existing microfrontends group.
+			 * @example MFE Group 1
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description The new fallback environment for the microfrontends group. Must be \"SAME_ENV\", \"PRODUCTION\", or a valid custom environment slug from the default app.
+			 * @type string | undefined
+			 */
+			fallbackEnvironment?: string | undefined;
+			/**
+			 * @description Whether Preview Deployments can link to branches with the same name in other Git repositories.
+			 * @type boolean | undefined
+			 */
+			enablePolyrepoBranchRouting?: boolean | undefined;
+	  }
+	| undefined;
+
 export type UpdateMicrofrontendsGroupOptions = {
-	body?: never | undefined;
+	body: UpdateMicrofrontendsGroupBody;
 	path: UpdateMicrofrontendsGroupPath;
 	query?: UpdateMicrofrontendsGroupQuery | undefined;
 	headers?: never | undefined;
@@ -42296,8 +58519,10 @@ export type UploadFileStatus410 = unknown;
 
 export type UploadFileStatus426 = unknown;
 
+export type UploadFileBody = Blob | undefined;
+
 export type UploadFileOptions = {
-	body?: never | undefined;
+	body: UploadFileBody;
 	path?: never | undefined;
 	query?: UploadFileQuery | undefined;
 	headers?: UploadFileHeaders | undefined;
@@ -42375,8 +58600,18 @@ export type CreateAuthTokenStatus404 = unknown;
 
 export type CreateAuthTokenStatus410 = unknown;
 
+export type CreateAuthTokenBody = {
+	name: string;
+	expiresAt?: number | undefined;
+	/**
+	 * @description The ID of the project to scope this token to
+	 * @type string | undefined
+	 */
+	projectId?: string | undefined;
+};
+
 export type CreateAuthTokenOptions = {
-	body?: never | undefined;
+	body: CreateAuthTokenBody;
 	path?: never | undefined;
 	query?: CreateAuthTokenQuery | undefined;
 	headers?: never | undefined;
@@ -42541,8 +58776,29 @@ export type RequestDeleteStatus403 = unknown;
 
 export type RequestDeleteStatus410 = unknown;
 
+export type RequestDeleteBody = {
+	/**
+	 * @description Optional array of objects that describe the reason why the User account is being deleted.
+	 * @type array | undefined
+	 */
+	reasons?:
+		| {
+				/**
+				 * @description Idenitifier slug of the reason why the User account is being deleted.
+				 * @type string
+				 */
+				slug: string;
+				/**
+				 * @description Description of the reason why the User account is being deleted.
+				 * @type string
+				 */
+				description: string;
+		  }[]
+		| undefined;
+};
+
 export type RequestDeleteOptions = {
-	body?: never | undefined;
+	body: RequestDeleteBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -42592,8 +58848,26 @@ export type CreateRepositoryStatus409 = unknown;
 
 export type CreateRepositoryStatus410 = unknown;
 
+export type CreateRepositoryBody =
+	| {
+			/**
+			 * @description Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.
+			 * @type string
+			 */
+			projectId: string;
+			/**
+			 * @description Single Docker repository name component.
+			 * @maxLength 255
+			 * @pattern ^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$
+			 * @example nginx
+			 * @type string
+			 */
+			name: string;
+	  }
+	| undefined;
+
 export type CreateRepositoryOptions = {
-	body?: never | undefined;
+	body: CreateRepositoryBody;
 	path?: never | undefined;
 	query?: CreateRepositoryQuery | undefined;
 	headers?: never | undefined;
@@ -42916,8 +59190,29 @@ export type AddRepositoryPermissionStatus404 = unknown;
 
 export type AddRepositoryPermissionStatus410 = unknown;
 
+export type AddRepositoryPermissionBody =
+	| {
+			/**
+			 * @description ID of a team that is granted access to a repository.
+			 * @maxLength 64
+			 * @pattern ^team_[a-zA-Z0-9]+$
+			 * @example team_LLHUOMOoDlqOp8wPE4kFo9pE
+			 * @type string | undefined
+			 */
+			teamId?: string | undefined;
+			/**
+			 * @description Slug of a team that is granted access to a repository.
+			 * @maxLength 64
+			 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+			 * @example my-team
+			 * @type string | undefined
+			 */
+			teamSlug?: string | undefined;
+	  }
+	| undefined;
+
 export type AddRepositoryPermissionOptions = {
-	body?: never | undefined;
+	body: AddRepositoryPermissionBody;
 	path: AddRepositoryPermissionPath;
 	query: AddRepositoryPermissionQuery;
 	headers?: never | undefined;
@@ -42977,8 +59272,29 @@ export type RemoveRepositoryPermissionStatus404 = unknown;
 
 export type RemoveRepositoryPermissionStatus410 = unknown;
 
+export type RemoveRepositoryPermissionBody =
+	| {
+			/**
+			 * @description ID of a team that is granted access to a repository.
+			 * @maxLength 64
+			 * @pattern ^team_[a-zA-Z0-9]+$
+			 * @example team_LLHUOMOoDlqOp8wPE4kFo9pE
+			 * @type string | undefined
+			 */
+			teamId?: string | undefined;
+			/**
+			 * @description Slug of a team that is granted access to a repository.
+			 * @maxLength 64
+			 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+			 * @example my-team
+			 * @type string | undefined
+			 */
+			teamSlug?: string | undefined;
+	  }
+	| undefined;
+
 export type RemoveRepositoryPermissionOptions = {
-	body?: never | undefined;
+	body: RemoveRepositoryPermissionBody;
 	path: RemoveRepositoryPermissionPath;
 	query: RemoveRepositoryPermissionQuery;
 	headers?: never | undefined;
@@ -44429,8 +60745,14 @@ export type UpdateVercelCiRepositorySettingsStatus429 = unknown;
 
 export type UpdateVercelCiRepositorySettingsStatus500 = unknown;
 
+export type UpdateVercelCiRepositorySettingsBody =
+	| {
+			ciEnabled: boolean;
+	  }
+	| undefined;
+
 export type UpdateVercelCiRepositorySettingsOptions = {
-	body?: never | undefined;
+	body: UpdateVercelCiRepositorySettingsBody;
 	path?: never | undefined;
 	query: UpdateVercelCiRepositorySettingsQuery;
 	headers?: never | undefined;
@@ -44699,8 +61021,23 @@ export type CreateVercelCiTaskAnalysisStatus500 = unknown;
 
 export type CreateVercelCiTaskAnalysisStatus503 = unknown;
 
+export type CreateVercelCiTaskAnalysisBody =
+	| {
+			/**
+			 * @maxLength 100
+			 * @type string
+			 */
+			owner: string;
+			/**
+			 * @maxLength 100
+			 * @type string
+			 */
+			repo: string;
+	  }
+	| undefined;
+
 export type CreateVercelCiTaskAnalysisOptions = {
-	body?: never | undefined;
+	body: CreateVercelCiTaskAnalysisBody;
 	path?: never | undefined;
 	query?: CreateVercelCiTaskAnalysisQuery | undefined;
 	headers?: never | undefined;
@@ -44819,8 +61156,25 @@ export type CreateVercelCiTaskConfigurationPullRequestStatus429 = unknown;
 
 export type CreateVercelCiTaskConfigurationPullRequestStatus500 = unknown;
 
+export type CreateVercelCiTaskConfigurationPullRequestBody =
+	| {
+			tasks: {
+				/**
+				 * @maxLength 500
+				 * @type string
+				 */
+				name: string;
+				/**
+				 * @maxLength 2000
+				 * @type string
+				 */
+				configPath: string;
+			}[];
+	  }
+	| undefined;
+
 export type CreateVercelCiTaskConfigurationPullRequestOptions = {
-	body?: never | undefined;
+	body: CreateVercelCiTaskConfigurationPullRequestBody;
 	path: CreateVercelCiTaskConfigurationPullRequestPath;
 	query?: CreateVercelCiTaskConfigurationPullRequestQuery | undefined;
 	headers?: never | undefined;
@@ -45999,8 +62353,14 @@ export type CreateWebInsightsToggleStatus404 = unknown;
 
 export type CreateWebInsightsToggleStatus410 = unknown;
 
+export type CreateWebInsightsToggleBody =
+	| {
+			value: boolean;
+	  }
+	| undefined;
+
 export type CreateWebInsightsToggleOptions = {
-	body?: never | undefined;
+	body: CreateWebInsightsToggleBody;
 	path?: never | undefined;
 	query: CreateWebInsightsToggleQuery;
 	headers?: never | undefined;
@@ -46385,8 +62745,139 @@ export type CreateWebhookStatus404 = unknown;
 
 export type CreateWebhookStatus410 = unknown;
 
+export const createWebhookRequestEventsEnum = {
+	"ai-gateway.auto-reload.limit-reached": "ai-gateway.auto-reload.limit-reached",
+	"ai-gateway.balance-depleted": "ai-gateway.balance-depleted",
+	"alerts.triggered": "alerts.triggered",
+	"botid.anomaly": "botid.anomaly",
+	"budget.reached": "budget.reached",
+	"comment.created": "comment.created",
+	"comment.deleted": "comment.deleted",
+	"comment.mentioned": "comment.mentioned",
+	"comment.reaction-added": "comment.reaction-added",
+	"comment.reaction-removed": "comment.reaction-removed",
+	"comment.resolved": "comment.resolved",
+	"comment.unresolved": "comment.unresolved",
+	"comment.updated": "comment.updated",
+	deployment: "deployment",
+	"deployment-canceled": "deployment-canceled",
+	"deployment-check-rerequested": "deployment-check-rerequested",
+	"deployment-checks-completed": "deployment-checks-completed",
+	"deployment-error": "deployment-error",
+	"deployment-prepared": "deployment-prepared",
+	"deployment-ready": "deployment-ready",
+	"deployment.blocked": "deployment.blocked",
+	"deployment.build-requested": "deployment.build-requested",
+	"deployment.canceled": "deployment.canceled",
+	"deployment.check-rerequested": "deployment.check-rerequested",
+	"deployment.checkrun.cancel": "deployment.checkrun.cancel",
+	"deployment.checkrun.start": "deployment.checkrun.start",
+	"deployment.checks.failed": "deployment.checks.failed",
+	"deployment.checks.succeeded": "deployment.checks.succeeded",
+	"deployment.cleanup": "deployment.cleanup",
+	"deployment.created": "deployment.created",
+	"deployment.error": "deployment.error",
+	"deployment.integration.action.cancel": "deployment.integration.action.cancel",
+	"deployment.integration.action.cleanup": "deployment.integration.action.cleanup",
+	"deployment.integration.action.start": "deployment.integration.action.start",
+	"deployment.promoted": "deployment.promoted",
+	"deployment.ready": "deployment.ready",
+	"deployment.rollback": "deployment.rollback",
+	"deployment.succeeded": "deployment.succeeded",
+	"domain-created": "domain-created",
+	"domain.auto-renew.changed": "domain.auto-renew.changed",
+	"domain.certificate.add": "domain.certificate.add",
+	"domain.certificate.add.failed": "domain.certificate.add.failed",
+	"domain.certificate.deleted": "domain.certificate.deleted",
+	"domain.certificate.renew": "domain.certificate.renew",
+	"domain.certificate.renew.failed": "domain.certificate.renew.failed",
+	"domain.created": "domain.created",
+	"domain.dns.records.changed": "domain.dns.records.changed",
+	"domain.renewal": "domain.renewal",
+	"domain.renewal.failed": "domain.renewal.failed",
+	"domain.transfer-in.completed": "domain.transfer-in.completed",
+	"domain.transfer-in.failed": "domain.transfer-in.failed",
+	"domain.transfer-in.started": "domain.transfer-in.started",
+	"edge-config.created": "edge-config.created",
+	"edge-config.deleted": "edge-config.deleted",
+	"edge-config.items.updated": "edge-config.items.updated",
+	"firewall.attack": "firewall.attack",
+	"firewall.custom-rule-anomaly": "firewall.custom-rule-anomaly",
+	"firewall.system-rule-anomaly": "firewall.system-rule-anomaly",
+	"flag.created": "flag.created",
+	"flag.deleted": "flag.deleted",
+	"flag.segment.created": "flag.segment.created",
+	"flag.segment.deleted": "flag.segment.deleted",
+	"flag.segment.updated": "flag.segment.updated",
+	"flag.updated": "flag.updated",
+	"function.archival-required": "function.archival-required",
+	"function.removal-required": "function.removal-required",
+	"integration-configuration-permission-updated": "integration-configuration-permission-updated",
+	"integration-configuration-removed": "integration-configuration-removed",
+	"integration-configuration-scope-change-confirmed":
+		"integration-configuration-scope-change-confirmed",
+	"integration-configuration.permission-upgraded": "integration-configuration.permission-upgraded",
+	"integration-configuration.removed": "integration-configuration.removed",
+	"integration-configuration.scope-change-confirmed":
+		"integration-configuration.scope-change-confirmed",
+	"integration-configuration.transferred": "integration-configuration.transferred",
+	"integration-resource.project-connected": "integration-resource.project-connected",
+	"integration-resource.project-disconnected": "integration-resource.project-disconnected",
+	"marketplace.invoice.created": "marketplace.invoice.created",
+	"marketplace.invoice.notpaid": "marketplace.invoice.notpaid",
+	"marketplace.invoice.overdue": "marketplace.invoice.overdue",
+	"marketplace.invoice.paid": "marketplace.invoice.paid",
+	"marketplace.invoice.refunded": "marketplace.invoice.refunded",
+	"marketplace.member.changed": "marketplace.member.changed",
+	"message.created": "message.created",
+	"message.deleted": "message.deleted",
+	"message.mentioned": "message.mentioned",
+	"message.reaction-added": "message.reaction-added",
+	"message.reaction-removed": "message.reaction-removed",
+	"message.updated": "message.updated",
+	"observability.anomaly": "observability.anomaly",
+	"observability.anomaly-error": "observability.anomaly-error",
+	"observability.error-anomaly": "observability.error-anomaly",
+	"observability.usage-anomaly": "observability.usage-anomaly",
+	"project-created": "project-created",
+	"project-removed": "project-removed",
+	"project.created": "project.created",
+	"project.domain.created": "project.domain.created",
+	"project.domain.deleted": "project.domain.deleted",
+	"project.domain.moved": "project.domain.moved",
+	"project.domain.unverified": "project.domain.unverified",
+	"project.domain.updated": "project.domain.updated",
+	"project.domain.verified": "project.domain.verified",
+	"project.env-variable.created": "project.env-variable.created",
+	"project.env-variable.deleted": "project.env-variable.deleted",
+	"project.env-variable.updated": "project.env-variable.updated",
+	"project.removed": "project.removed",
+	"project.renamed": "project.renamed",
+	"project.rolling-release.aborted": "project.rolling-release.aborted",
+	"project.rolling-release.approved": "project.rolling-release.approved",
+	"project.rolling-release.completed": "project.rolling-release.completed",
+	"project.rolling-release.started": "project.rolling-release.started",
+	"test-webhook": "test-webhook",
+	"thread.resolved": "thread.resolved",
+	"thread.unresolved": "thread.unresolved",
+} as const;
+
+export type CreateWebhookRequestEventsEnumKey =
+	(typeof createWebhookRequestEventsEnum)[keyof typeof createWebhookRequestEventsEnum];
+
+export type CreateWebhookBody = {
+	/**
+	 * @description
+	 * Format: `uri`
+	 * @type string
+	 */
+	url: string;
+	events: CreateWebhookRequestEventsEnumKey[];
+	projectIds?: string[] | undefined;
+};
+
 export type CreateWebhookOptions = {
-	body?: never | undefined;
+	body: CreateWebhookBody;
 	path?: never | undefined;
 	query?: CreateWebhookQuery | undefined;
 	headers?: never | undefined;
@@ -46659,8 +63150,23 @@ export type AssignAliasStatus409 = unknown;
 
 export type AssignAliasStatus410 = unknown;
 
+export type AssignAliasBody = {
+	/**
+	 * @description The alias we want to assign to the deployment defined in the URL
+	 * @example my-alias.vercel.app
+	 * @type string | undefined
+	 */
+	alias?: string | undefined;
+	/**
+	 * @description The redirect property will take precedence over the deployment id from the URL and consists of a hostname (like test.com) to which the alias should redirect using status code 307
+	 * @example null
+	 * @type string | undefined
+	 */
+	redirect?: (string | null) | undefined;
+};
+
 export type AssignAliasOptions = {
-	body?: never | undefined;
+	body: AssignAliasBody;
 	path: AssignAliasPath;
 	query?: AssignAliasQuery | undefined;
 	headers?: never | undefined;
@@ -46949,8 +63455,102 @@ export type PatchUrlProtectionBypassStatus410 = unknown;
 
 export type PatchUrlProtectionBypassStatus428 = unknown;
 
+export const accessEnum = {
+	denied: "denied",
+	granted: "granted",
+} as const;
+
+export type AccessEnumKey = (typeof accessEnum)[keyof typeof accessEnum];
+
+export const patchUrlProtectionBypassRequestOverrideActionEnum = {
+	create: "create",
+	revoke: "revoke",
+} as const;
+
+export type PatchUrlProtectionBypassRequestOverrideActionEnumKey =
+	(typeof patchUrlProtectionBypassRequestOverrideActionEnum)[keyof typeof patchUrlProtectionBypassRequestOverrideActionEnum];
+
+export type PatchUrlProtectionBypassBody =
+	| (
+			| {
+					/**
+					 * @description Optional time the shareable link is valid for in seconds. If not provided, the shareable link will never expire.
+					 * @maxLength 63072000
+					 * @type number | undefined
+					 */
+					ttl?: number | undefined;
+					/**
+					 * @description Optional instructions for revoking and regenerating a shareable link
+					 * @type object | undefined
+					 */
+					revoke?:
+						| {
+								/**
+								 * @description Sharebale link to revoked
+								 * @type string
+								 */
+								secret: string;
+								/**
+								 * @description Whether or not a new shareable link should be created after the provided secret is revoked
+								 * @type boolean
+								 */
+								regenerate: boolean;
+						  }
+						| undefined;
+			  }
+			| {
+					/**
+					 * @description Instructions for creating a user scoped protection bypass
+					 */
+					scope: (
+						| {
+								/**
+								 * @description Specified user id for the scoped bypass.
+								 * @type string
+								 */
+								userId: string;
+						  }
+						| {
+								/**
+								 * @description Specified email for the scoped bypass.
+								 *
+								 * Format: `email`
+								 * @type string
+								 */
+								email: string;
+						  }
+					) &
+						unknown & {
+							/**
+							 * @description Specified user id for the scoped bypass.
+							 * @type string | undefined
+							 */
+							userId?: string | undefined;
+							/**
+							 * @description Specified email for the scoped bypass.
+							 *
+							 * Format: `email`
+							 * @type string | undefined
+							 */
+							email?: string | undefined;
+							/**
+							 * @description Invitation status for the user scoped bypass.
+							 * @type string | undefined
+							 */
+							access?: AccessEnumKey | undefined;
+						};
+			  }
+			| {
+					override: {
+						scope: "alias-protection-override";
+						action: PatchUrlProtectionBypassRequestOverrideActionEnumKey;
+					};
+			  }
+	  )
+	| undefined;
+
 export type PatchUrlProtectionBypassOptions = {
-	body?: never | undefined;
+	body: PatchUrlProtectionBypassBody;
 	path: PatchUrlProtectionBypassPath;
 	query?: PatchUrlProtectionBypassQuery | undefined;
 	headers?: never | undefined;
@@ -47162,8 +63762,18 @@ export type IssueCertStatus449 = unknown;
 
 export type IssueCertStatus500 = unknown;
 
+export type IssueCertBody =
+	| {
+			/**
+			 * @description The common names the cert should be issued for
+			 * @type array | undefined
+			 */
+			cns?: string[] | undefined;
+	  }
+	| undefined;
+
 export type IssueCertOptions = {
-	body?: never | undefined;
+	body: IssueCertBody;
 	path?: never | undefined;
 	query?: IssueCertQuery | undefined;
 	headers?: never | undefined;
@@ -47215,8 +63825,33 @@ export type UploadCertStatus404 = unknown;
 
 export type UploadCertStatus410 = unknown;
 
+export type UploadCertBody =
+	| {
+			/**
+			 * @description The certificate authority
+			 * @type string
+			 */
+			ca: string;
+			/**
+			 * @description The certificate key
+			 * @type string
+			 */
+			key: string;
+			/**
+			 * @description The certificate
+			 * @type string
+			 */
+			cert: string;
+			/**
+			 * @description Skip validation of the certificate
+			 * @type boolean | undefined
+			 */
+			skipValidation?: boolean | undefined;
+	  }
+	| undefined;
+
 export type UploadCertOptions = {
-	body?: never | undefined;
+	body: UploadCertBody;
 	path?: never | undefined;
 	query?: UploadCertQuery | undefined;
 	headers?: never | undefined;
@@ -47535,6 +64170,8 @@ export type DeleteDeploymentStatus403 = unknown;
 
 export type DeleteDeploymentStatus404 = unknown;
 
+export type DeleteDeploymentStatus409 = unknown;
+
 export type DeleteDeploymentStatus410 = unknown;
 
 export type DeleteDeploymentOptions = {
@@ -47550,6 +64187,7 @@ export type DeleteDeploymentResponses = {
 	"401": DeleteDeploymentStatus401;
 	"403": DeleteDeploymentStatus403;
 	"404": DeleteDeploymentStatus404;
+	"409": DeleteDeploymentStatus409;
 	"410": DeleteDeploymentStatus410;
 };
 

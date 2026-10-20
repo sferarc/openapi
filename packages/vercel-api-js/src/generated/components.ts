@@ -28,6 +28,14 @@ import type {
 	AddBypassIpStatus404,
 	AddBypassIpStatus410,
 	AddBypassIpStatus500,
+	AddOrganizationTeamResponse,
+	AddOrganizationTeamStatus400,
+	AddOrganizationTeamStatus401,
+	AddOrganizationTeamStatus403,
+	AddOrganizationTeamStatus404,
+	AddOrganizationTeamStatus409,
+	AddOrganizationTeamStatus410,
+	AddOrganizationTeamStatus500,
 	AddProjectDomainResponse,
 	AddProjectDomainStatus400,
 	AddProjectDomainStatus401,
@@ -240,6 +248,13 @@ import type {
 	CreateCheckStatus403,
 	CreateCheckStatus404,
 	CreateCheckStatus410,
+	CreateConditionalBypassResponse,
+	CreateConditionalBypassStatus400,
+	CreateConditionalBypassStatus401,
+	CreateConditionalBypassStatus403,
+	CreateConditionalBypassStatus404,
+	CreateConditionalBypassStatus409,
+	CreateConditionalBypassStatus410,
 	CreateConfigurableLogDrainResponse,
 	CreateConfigurableLogDrainStatus400,
 	CreateConfigurableLogDrainStatus401,
@@ -405,6 +420,14 @@ import type {
 	CreateObservabilityQueryStatus422,
 	CreateObservabilityQueryStatus500,
 	CreateObservabilityQueryStatus503,
+	CreateOrganizationResponse,
+	CreateOrganizationStatus400,
+	CreateOrganizationStatus401,
+	CreateOrganizationStatus403,
+	CreateOrganizationStatus404,
+	CreateOrganizationStatus409,
+	CreateOrganizationStatus410,
+	CreateOrganizationStatus500,
 	CreateOrTransferDomainResponse,
 	CreateOrTransferDomainStatus400,
 	CreateOrTransferDomainStatus401,
@@ -420,6 +443,7 @@ import type {
 	CreatePrivateLinkEndpointStatus404,
 	CreatePrivateLinkEndpointStatus409,
 	CreatePrivateLinkEndpointStatus410,
+	CreatePrivateLinkEndpointStatus500,
 	CreateProjectCheckResponse,
 	CreateProjectCheckStatus400,
 	CreateProjectCheckStatus401,
@@ -732,6 +756,12 @@ import type {
 	DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410,
+	DeleteConditionalBypassResponse,
+	DeleteConditionalBypassStatus400,
+	DeleteConditionalBypassStatus401,
+	DeleteConditionalBypassStatus403,
+	DeleteConditionalBypassStatus404,
+	DeleteConditionalBypassStatus410,
 	DeleteConfigurableLogDrainResponse,
 	DeleteConfigurableLogDrainStatus400,
 	DeleteConfigurableLogDrainStatus401,
@@ -768,6 +798,7 @@ import type {
 	DeleteDeploymentStatus401,
 	DeleteDeploymentStatus403,
 	DeleteDeploymentStatus404,
+	DeleteDeploymentStatus409,
 	DeleteDeploymentStatus410,
 	DeleteDomainResponse,
 	DeleteDomainStatus400,
@@ -881,6 +912,7 @@ import type {
 	DeletePrivateLinkEndpointStatus404,
 	DeletePrivateLinkEndpointStatus409,
 	DeletePrivateLinkEndpointStatus410,
+	DeletePrivateLinkEndpointStatus500,
 	DeleteProjectAvatarResponse,
 	DeleteProjectAvatarStatus400,
 	DeleteProjectAvatarStatus401,
@@ -1217,6 +1249,12 @@ import type {
 	GetCheckStatus403,
 	GetCheckStatus404,
 	GetCheckStatus410,
+	GetConditionalBypassResponse,
+	GetConditionalBypassStatus400,
+	GetConditionalBypassStatus401,
+	GetConditionalBypassStatus403,
+	GetConditionalBypassStatus404,
+	GetConditionalBypassStatus410,
 	GetConfigurableLogDrainResponse,
 	GetConfigurableLogDrainStatus400,
 	GetConfigurableLogDrainStatus401,
@@ -1606,6 +1644,18 @@ import type {
 	GetOrderStatus404,
 	GetOrderStatus429,
 	GetOrderStatus500,
+	GetOrganizationResponse,
+	GetOrganizationStatus400,
+	GetOrganizationStatus401,
+	GetOrganizationStatus403,
+	GetOrganizationStatus404,
+	GetOrganizationStatus410,
+	GetProjectBoxesResponse,
+	GetProjectBoxesStatus400,
+	GetProjectBoxesStatus401,
+	GetProjectBoxesStatus403,
+	GetProjectBoxesStatus404,
+	GetProjectBoxesStatus410,
 	GetProjectCheckResponse,
 	GetProjectCheckStatus400,
 	GetProjectCheckStatus401,
@@ -2196,6 +2246,16 @@ import type {
 	ListNetworksStatus403,
 	ListNetworksStatus404,
 	ListNetworksStatus410,
+	ListOrganizationsResponse,
+	ListOrganizationsStatus400,
+	ListOrganizationsStatus403,
+	ListOrganizationsStatus410,
+	ListOrganizationTeamsResponse,
+	ListOrganizationTeamsStatus400,
+	ListOrganizationTeamsStatus401,
+	ListOrganizationTeamsStatus403,
+	ListOrganizationTeamsStatus404,
+	ListOrganizationTeamsStatus410,
 	ListPrivateLinkEndpointsResponse,
 	ListPrivateLinkEndpointsStatus400,
 	ListPrivateLinkEndpointsStatus401,
@@ -2434,6 +2494,12 @@ import type {
 	PutFirewallConfigStatus404,
 	PutFirewallConfigStatus410,
 	PutFirewallConfigStatus500,
+	PutProjectDaemonInstancesResponse,
+	PutProjectDaemonInstancesStatus400,
+	PutProjectDaemonInstancesStatus401,
+	PutProjectDaemonInstancesStatus403,
+	PutProjectDaemonInstancesStatus404,
+	PutProjectDaemonInstancesStatus410,
 	ReadAccessGroupProjectResponse,
 	ReadAccessGroupProjectStatus400,
 	ReadAccessGroupProjectStatus401,
@@ -2494,6 +2560,13 @@ import type {
 	RemoveCustomEnvironmentStatus403,
 	RemoveCustomEnvironmentStatus404,
 	RemoveCustomEnvironmentStatus410,
+	RemoveOrganizationTeamResponse,
+	RemoveOrganizationTeamStatus400,
+	RemoveOrganizationTeamStatus401,
+	RemoveOrganizationTeamStatus403,
+	RemoveOrganizationTeamStatus404,
+	RemoveOrganizationTeamStatus409,
+	RemoveOrganizationTeamStatus410,
 	RemoveProjectDomainResponse,
 	RemoveProjectDomainStatus400,
 	RemoveProjectDomainStatus401,
@@ -2619,6 +2692,14 @@ import type {
 	RerequestCheckStatus403,
 	RerequestCheckStatus404,
 	RerequestCheckStatus410,
+	RestartProjectDaemonInstanceResponse,
+	RestartProjectDaemonInstanceStatus400,
+	RestartProjectDaemonInstanceStatus401,
+	RestartProjectDaemonInstanceStatus403,
+	RestartProjectDaemonInstanceStatus404,
+	RestartProjectDaemonInstanceStatus409,
+	RestartProjectDaemonInstanceStatus410,
+	RestartProjectDaemonInstanceStatus500,
 	RestoreEdgeConfigBackupResponse,
 	RestoreEdgeConfigBackupStatus400,
 	RestoreEdgeConfigBackupStatus401,
@@ -3003,6 +3084,13 @@ import type {
 	UpdateObservabilityConfigurationProjectStatus404,
 	UpdateObservabilityConfigurationProjectStatus410,
 	UpdateObservabilityConfigurationProjectStatus429,
+	UpdateOrganizationResponse,
+	UpdateOrganizationStatus400,
+	UpdateOrganizationStatus401,
+	UpdateOrganizationStatus403,
+	UpdateOrganizationStatus404,
+	UpdateOrganizationStatus409,
+	UpdateOrganizationStatus410,
 	UpdatePrivateLinkEndpointResponse,
 	UpdatePrivateLinkEndpointStatus400,
 	UpdatePrivateLinkEndpointStatus401,
@@ -3100,13 +3188,10 @@ import type {
 	UpdateSandboxStatus402,
 	UpdateSandboxStatus403,
 	UpdateSandboxStatus404,
-	UpdateSandboxStatus409,
 	UpdateSandboxStatus410,
 	UpdateSandboxStatus422,
 	UpdateSandboxStatus429,
 	UpdateSandboxStatus500,
-	UpdateSandboxStatus502,
-	UpdateSandboxStatus503,
 	UpdateSessionNetworkPolicyResponse,
 	UpdateSessionNetworkPolicyStatus400,
 	UpdateSessionNetworkPolicyStatus401,
@@ -3254,11 +3339,7 @@ export async function readAccessGroup(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -3293,21 +3374,19 @@ export async function readAccessGroup(
 export async function updateAccessGroup(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -3319,7 +3398,7 @@ export async function updateAccessGroup(
 			| UpdateAccessGroupStatus404
 			| UpdateAccessGroupStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -3327,8 +3406,9 @@ export async function updateAccessGroup(
 		method: "POST",
 		url: `/v1/access-groups/${encodeURIComponent(String(pathParams.idOrName))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -3352,11 +3432,7 @@ export async function deleteAccessGroup(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -3407,11 +3483,7 @@ export async function listAccessGroupMembers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -3503,9 +3575,11 @@ export async function listAccessGroups(
  */
 export async function createAccessGroup(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3521,7 +3595,7 @@ export async function createAccessGroup(
 			| CreateAccessGroupStatus404
 			| CreateAccessGroupStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -3529,8 +3603,9 @@ export async function createAccessGroup(
 		method: "POST",
 		url: `/v1/access-groups`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -3554,11 +3629,7 @@ export async function listAccessGroupProjects(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -3593,21 +3664,19 @@ export async function listAccessGroupProjects(
 export async function createAccessGroupProject(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { accessGroupIdOrName: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.accessGroupIdOrName === undefined ||
-		pathParams.accessGroupIdOrName === null ||
-		String(pathParams.accessGroupIdOrName) === ""
-	) {
+	if (pathParams?.accessGroupIdOrName == null || String(pathParams.accessGroupIdOrName) === "") {
 		throw new Error(`Missing required path parameter: accessGroupIdOrName`);
 	}
 	const data = await request<
@@ -3619,7 +3688,7 @@ export async function createAccessGroupProject(
 			| CreateAccessGroupProjectStatus404
 			| CreateAccessGroupProjectStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ accessGroupIdOrName: string }
@@ -3627,8 +3696,9 @@ export async function createAccessGroupProject(
 		method: "POST",
 		url: `/v1/access-groups/${encodeURIComponent(String(pathParams.accessGroupIdOrName))}/projects`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -3652,19 +3722,11 @@ export async function readAccessGroupProject(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.accessGroupIdOrName === undefined ||
-		pathParams.accessGroupIdOrName === null ||
-		String(pathParams.accessGroupIdOrName) === ""
-	) {
+	if (pathParams?.accessGroupIdOrName == null || String(pathParams.accessGroupIdOrName) === "") {
 		throw new Error(`Missing required path parameter: accessGroupIdOrName`);
 	}
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -3699,29 +3761,23 @@ export async function readAccessGroupProject(
 export async function updateAccessGroupProject(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { accessGroupIdOrName: string; projectId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.accessGroupIdOrName === undefined ||
-		pathParams.accessGroupIdOrName === null ||
-		String(pathParams.accessGroupIdOrName) === ""
-	) {
+	if (pathParams?.accessGroupIdOrName == null || String(pathParams.accessGroupIdOrName) === "") {
 		throw new Error(`Missing required path parameter: accessGroupIdOrName`);
 	}
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -3733,7 +3789,7 @@ export async function updateAccessGroupProject(
 			| UpdateAccessGroupProjectStatus404
 			| UpdateAccessGroupProjectStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ accessGroupIdOrName: string; projectId: string }
@@ -3741,8 +3797,9 @@ export async function updateAccessGroupProject(
 		method: "PATCH",
 		url: `/v1/access-groups/${encodeURIComponent(String(pathParams.accessGroupIdOrName))}/projects/${encodeURIComponent(String(pathParams.projectId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -3766,19 +3823,11 @@ export async function deleteAccessGroupProject(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.accessGroupIdOrName === undefined ||
-		pathParams.accessGroupIdOrName === null ||
-		String(pathParams.accessGroupIdOrName) === ""
-	) {
+	if (pathParams?.accessGroupIdOrName == null || String(pathParams.accessGroupIdOrName) === "") {
 		throw new Error(`Missing required path parameter: accessGroupIdOrName`);
 	}
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -4004,7 +4053,7 @@ export async function deleteAiGatewayVirtualModelConfig(
 
 /**
  * @summary List virtual model configs
- * @description List virtual model configs. With `ownerId`, returns all of that team's VMCs. Without it, pages through VMCs across all teams (newest-first, `limit`/`cursor`).
+ * @description List virtual model configs. For a team, returns all of its VMCs, or with `limit` or `cursor` one page ordered by `virtualModelSlug`. Across teams, pages newest-first. `includeArchived=false` omits archived VMCs.
  * @link /ai-gateway/virtual-model-configs/list
  */
 export async function listAiGatewayVirtualModelConfigs(
@@ -4016,6 +4065,7 @@ export async function listAiGatewayVirtualModelConfigs(
 			ownerId?: string;
 			limit?: number;
 			cursor?: string;
+			includeArchived?: "true" | "false";
 			teamId?: string;
 			slug?: string;
 		};
@@ -4036,7 +4086,14 @@ export async function listAiGatewayVirtualModelConfigs(
 		>,
 		null,
 		Record<string, string>,
-		{ ownerId?: string; limit?: number; cursor?: string; teamId?: string; slug?: string },
+		{
+			ownerId?: string;
+			limit?: number;
+			cursor?: string;
+			includeArchived?: "true" | "false";
+			teamId?: string;
+			slug?: string;
+		},
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4067,11 +4124,7 @@ export async function getAiGatewayVirtualModelConfigBySlug(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.vmcSlug === undefined ||
-		pathParams.vmcSlug === null ||
-		String(pathParams.vmcSlug) === ""
-	) {
+	if (pathParams?.vmcSlug == null || String(pathParams.vmcSlug) === "") {
 		throw new Error(`Missing required path parameter: vmcSlug`);
 	}
 	const data = await request<
@@ -4117,11 +4170,7 @@ export async function updateAiGatewayVirtualModelConfigBySlug(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.vmcSlug === undefined ||
-		pathParams.vmcSlug === null ||
-		String(pathParams.vmcSlug) === ""
-	) {
+	if (pathParams?.vmcSlug == null || String(pathParams.vmcSlug) === "") {
 		throw new Error(`Missing required path parameter: vmcSlug`);
 	}
 	const data = await request<
@@ -4175,11 +4224,7 @@ export async function deleteAiGatewayVirtualModelConfigBySlug(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.vmcSlug === undefined ||
-		pathParams.vmcSlug === null ||
-		String(pathParams.vmcSlug) === ""
-	) {
+	if (pathParams?.vmcSlug == null || String(pathParams.vmcSlug) === "") {
 		throw new Error(`Missing required path parameter: vmcSlug`);
 	}
 	const data = await request<
@@ -4299,7 +4344,7 @@ export async function createAiGatewayRule(
 
 /**
  * @summary List rules
- * @description List the authenticated team's routing rules
+ * @description List the authenticated team's routing rules, oldest first. Without `limit` or `cursor`, returns every rule. With either, returns one page and a `nextCursor` for the next page (null on the last page). Paging reads and sorts the team's rules server-side, which is fine at current rule counts.
  * @link /ai-gateway/rules
  */
 export async function listAiGatewayRules(
@@ -4307,7 +4352,13 @@ export async function listAiGatewayRules(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { includeDisabled?: "true" | "false"; teamId?: string; slug?: string };
+		queryParams?: {
+			includeDisabled?: "true" | "false";
+			limit?: number;
+			cursor?: string;
+			teamId?: string;
+			slug?: string;
+		};
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4325,7 +4376,13 @@ export async function listAiGatewayRules(
 		>,
 		null,
 		Record<string, string>,
-		{ includeDisabled?: "true" | "false"; teamId?: string; slug?: string },
+		{
+			includeDisabled?: "true" | "false";
+			limit?: number;
+			cursor?: string;
+			teamId?: string;
+			slug?: string;
+		},
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4422,7 +4479,7 @@ export async function deleteAiGatewayRule(
 
 /**
  * @summary List AI Gateway budgets
- * @description List the team's AI Gateway budgets (team/project/user scopes, plus default-covered api-key spend) as a flat list, optionally filtered by scope.
+ * @description List the team's AI Gateway budgets (team/project/user scopes, plus default-covered api-key spend) as a flat list, optionally filtered by scope. Without `limit` or `cursor`, returns every budget. With either, returns one page ordered by `quotaEntityId` plus `nextCursor` (null on the last page) and `defaultCoveredCounts`. Paging still reads the full merge server-side: the gateway meter list it joins has no cursor.
  * @link /ai-gateway/budgets/list
  */
 export async function listAiGatewayBudgets(
@@ -4432,6 +4489,9 @@ export async function listAiGatewayBudgets(
 	}: {
 		queryParams?: {
 			scopeType?: "team" | "project" | "user" | "api-key";
+			includeDefaultCovered?: "true" | "false";
+			limit?: number;
+			cursor?: string;
 			teamId?: string;
 			slug?: string;
 		};
@@ -4452,7 +4512,14 @@ export async function listAiGatewayBudgets(
 		>,
 		null,
 		Record<string, string>,
-		{ scopeType?: "team" | "project" | "user" | "api-key"; teamId?: string; slug?: string },
+		{
+			scopeType?: "team" | "project" | "user" | "api-key";
+			includeDefaultCovered?: "true" | "false";
+			limit?: number;
+			cursor?: string;
+			teamId?: string;
+			slug?: string;
+		},
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4472,9 +4539,11 @@ export async function listAiGatewayBudgets(
  */
 export async function upsertAiGatewayBudget(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4491,7 +4560,7 @@ export async function upsertAiGatewayBudget(
 			| UpsertAiGatewayBudgetStatus410
 			| UpsertAiGatewayBudgetStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -4499,8 +4568,9 @@ export async function upsertAiGatewayBudget(
 		method: "PUT",
 		url: `/ai-gateway/budgets`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -4607,9 +4677,11 @@ export async function listAiGatewayBudgetDefaults(
  */
 export async function upsertAiGatewayBudgetDefault(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4626,7 +4698,7 @@ export async function upsertAiGatewayBudgetDefault(
 			| UpsertAiGatewayBudgetDefaultStatus410
 			| UpsertAiGatewayBudgetDefaultStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -4634,8 +4706,9 @@ export async function upsertAiGatewayBudgetDefault(
 		method: "PUT",
 		url: `/ai-gateway/budgets/defaults`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -4693,10 +4766,12 @@ export async function archiveAiGatewayBudgetDefault(
  */
 export async function recordEvents(
 	{
+		body,
 		queryParams,
 		headers,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		headers?: { "x-artifact-client-ci"?: string; "x-artifact-client-interactive"?: number };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
@@ -4714,7 +4789,7 @@ export async function recordEvents(
 			| RecordEventsStatus404
 			| RecordEventsStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		{ "x-artifact-client-ci"?: string; "x-artifact-client-interactive"?: number },
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -4722,8 +4797,9 @@ export async function recordEvents(
 		method: "POST",
 		url: `/v8/artifacts/events`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...headers, ...requestConfig.headers },
 	});
 
 	return data;
@@ -4778,11 +4854,13 @@ export async function status(
 export async function uploadArtifact(
 	{
 		pathParams,
+		body,
 		queryParams,
 		headers,
 		config,
 	}: {
 		pathParams: { hash: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		headers?: {
 			"Content-Length"?: number;
@@ -4798,7 +4876,7 @@ export async function uploadArtifact(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.hash === undefined || pathParams.hash === null || String(pathParams.hash) === "") {
+	if (pathParams?.hash == null || String(pathParams.hash) === "") {
 		throw new Error(`Missing required path parameter: hash`);
 	}
 	const data = await request<
@@ -4811,7 +4889,7 @@ export async function uploadArtifact(
 			| UploadArtifactStatus404
 			| UploadArtifactStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		{
 			"Content-Length"?: number;
 			"x-artifact-duration"?: number;
@@ -4827,8 +4905,9 @@ export async function uploadArtifact(
 		method: "PUT",
 		url: `/v8/artifacts/${encodeURIComponent(String(pathParams.hash))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: { "Content-Type": "applicationOctetStream", ...headers, ...requestConfig.headers },
 	});
 
 	return data;
@@ -4854,7 +4933,7 @@ export async function downloadArtifact(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.hash === undefined || pathParams.hash === null || String(pathParams.hash) === "") {
+	if (pathParams?.hash == null || String(pathParams.hash) === "") {
 		throw new Error(`Missing required path parameter: hash`);
 	}
 	const data = await request<
@@ -4889,9 +4968,11 @@ export async function downloadArtifact(
  */
 export async function artifactQuery(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4908,7 +4989,7 @@ export async function artifactQuery(
 			| ArtifactQueryStatus404
 			| ArtifactQueryStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -4916,8 +4997,9 @@ export async function artifactQuery(
 		method: "POST",
 		url: `/v8/artifacts`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -5052,9 +5134,11 @@ export async function listContractCommitments(
  */
 export async function buyCredits(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { source?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5073,7 +5157,7 @@ export async function buyCredits(
 			| BuyCreditsStatus410
 			| BuyCreditsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ source?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -5081,8 +5165,9 @@ export async function buyCredits(
 		method: "POST",
 		url: `/v1/billing/buy`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -5095,9 +5180,11 @@ export async function buyCredits(
  */
 export async function stageRedirects(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5114,7 +5201,7 @@ export async function stageRedirects(
 			| StageRedirectsStatus410
 			| StageRedirectsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -5122,8 +5209,9 @@ export async function stageRedirects(
 		method: "PUT",
 		url: `/v1/bulk-redirects`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -5198,9 +5286,11 @@ export async function getRedirects(
  */
 export async function deleteRedirects(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5217,7 +5307,7 @@ export async function deleteRedirects(
 			| DeleteRedirectsStatus410
 			| DeleteRedirectsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -5225,8 +5315,9 @@ export async function deleteRedirects(
 		method: "DELETE",
 		url: `/v1/bulk-redirects`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -5239,9 +5330,11 @@ export async function deleteRedirects(
  */
 export async function editRedirect(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5258,7 +5351,7 @@ export async function editRedirect(
 			| EditRedirectStatus410
 			| EditRedirectStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -5266,8 +5359,9 @@ export async function editRedirect(
 		method: "PATCH",
 		url: `/v1/bulk-redirects`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -5280,9 +5374,11 @@ export async function editRedirect(
  */
 export async function restoreRedirects(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5299,7 +5395,7 @@ export async function restoreRedirects(
 			| RestoreRedirectsStatus410
 			| RestoreRedirectsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -5307,8 +5403,9 @@ export async function restoreRedirects(
 		method: "POST",
 		url: `/v1/bulk-redirects/restore`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -5362,9 +5459,11 @@ export async function getVersions(
  */
 export async function updateVersion(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5381,7 +5480,7 @@ export async function updateVersion(
 			| UpdateVersionStatus410
 			| UpdateVersionStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -5389,8 +5488,9 @@ export async function updateVersion(
 		method: "POST",
 		url: `/v1/bulk-redirects/versions`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -5423,11 +5523,7 @@ export async function listProjectChecks(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 	const data = await request<
@@ -5472,21 +5568,19 @@ export async function listProjectChecks(
 export async function createProjectCheck(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectIdOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 	const data = await request<
@@ -5499,7 +5593,7 @@ export async function createProjectCheck(
 			| CreateProjectCheckStatus410
 			| CreateProjectCheckStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string }
@@ -5507,8 +5601,9 @@ export async function createProjectCheck(
 		method: "POST",
 		url: `/v2/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/checks`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -5532,19 +5627,11 @@ export async function getProjectCheck(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 
-	if (
-		pathParams.checkId === undefined ||
-		pathParams.checkId === null ||
-		String(pathParams.checkId) === ""
-	) {
+	if (pathParams?.checkId == null || String(pathParams.checkId) === "") {
 		throw new Error(`Missing required path parameter: checkId`);
 	}
 	const data = await request<
@@ -5580,29 +5667,23 @@ export async function getProjectCheck(
 export async function updateProjectCheck(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectIdOrName: string; checkId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 
-	if (
-		pathParams.checkId === undefined ||
-		pathParams.checkId === null ||
-		String(pathParams.checkId) === ""
-	) {
+	if (pathParams?.checkId == null || String(pathParams.checkId) === "") {
 		throw new Error(`Missing required path parameter: checkId`);
 	}
 	const data = await request<
@@ -5615,7 +5696,7 @@ export async function updateProjectCheck(
 			| UpdateProjectCheckStatus410
 			| UpdateProjectCheckStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string; checkId: string }
@@ -5623,8 +5704,9 @@ export async function updateProjectCheck(
 		method: "PATCH",
 		url: `/v2/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/checks/${encodeURIComponent(String(pathParams.checkId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -5648,19 +5730,11 @@ export async function deleteProjectCheck(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 
-	if (
-		pathParams.checkId === undefined ||
-		pathParams.checkId === null ||
-		String(pathParams.checkId) === ""
-	) {
+	if (pathParams?.checkId == null || String(pathParams.checkId) === "") {
 		throw new Error(`Missing required path parameter: checkId`);
 	}
 	const data = await request<
@@ -5706,19 +5780,11 @@ export async function listCheckRuns(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 
-	if (
-		pathParams.checkId === undefined ||
-		pathParams.checkId === null ||
-		String(pathParams.checkId) === ""
-	) {
+	if (pathParams?.checkId == null || String(pathParams.checkId) === "") {
 		throw new Error(`Missing required path parameter: checkId`);
 	}
 	const data = await request<
@@ -5764,11 +5830,7 @@ export async function listDeploymentCheckRuns(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -5804,21 +5866,19 @@ export async function listDeploymentCheckRuns(
 export async function createDeploymentCheckRun(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { deploymentId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -5831,7 +5891,7 @@ export async function createDeploymentCheckRun(
 			| CreateDeploymentCheckRunStatus410
 			| CreateDeploymentCheckRunStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ deploymentId: string }
@@ -5839,8 +5899,9 @@ export async function createDeploymentCheckRun(
 		method: "POST",
 		url: `/v2/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/check-runs`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -5864,19 +5925,11 @@ export async function getDeploymentCheckRun(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 
-	if (
-		pathParams.checkRunId === undefined ||
-		pathParams.checkRunId === null ||
-		String(pathParams.checkRunId) === ""
-	) {
+	if (pathParams?.checkRunId == null || String(pathParams.checkRunId) === "") {
 		throw new Error(`Missing required path parameter: checkRunId`);
 	}
 	const data = await request<
@@ -5912,29 +5965,23 @@ export async function getDeploymentCheckRun(
 export async function updateDeploymentCheckRun(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { deploymentId: string; checkRunId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 
-	if (
-		pathParams.checkRunId === undefined ||
-		pathParams.checkRunId === null ||
-		String(pathParams.checkRunId) === ""
-	) {
+	if (pathParams?.checkRunId == null || String(pathParams.checkRunId) === "") {
 		throw new Error(`Missing required path parameter: checkRunId`);
 	}
 	const data = await request<
@@ -5948,7 +5995,7 @@ export async function updateDeploymentCheckRun(
 			| UpdateDeploymentCheckRunStatus413
 			| UpdateDeploymentCheckRunStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ deploymentId: string; checkRunId: string }
@@ -5956,8 +6003,9 @@ export async function updateDeploymentCheckRun(
 		method: "PATCH",
 		url: `/v2/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/check-runs/${encodeURIComponent(String(pathParams.checkRunId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -5972,21 +6020,19 @@ export async function updateDeploymentCheckRun(
 export async function createCheck(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { deploymentId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -5998,7 +6044,7 @@ export async function createCheck(
 			| CreateCheckStatus404
 			| CreateCheckStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ deploymentId: string }
@@ -6006,8 +6052,9 @@ export async function createCheck(
 		method: "POST",
 		url: `/v1/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/checks`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -6032,11 +6079,7 @@ export async function getAllChecks(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -6082,19 +6125,11 @@ export async function getCheck(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 
-	if (
-		pathParams.checkId === undefined ||
-		pathParams.checkId === null ||
-		String(pathParams.checkId) === ""
-	) {
+	if (pathParams?.checkId == null || String(pathParams.checkId) === "") {
 		throw new Error(`Missing required path parameter: checkId`);
 	}
 	const data = await request<
@@ -6130,29 +6165,23 @@ export async function getCheck(
 export async function updateCheck(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { deploymentId: string; checkId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 
-	if (
-		pathParams.checkId === undefined ||
-		pathParams.checkId === null ||
-		String(pathParams.checkId) === ""
-	) {
+	if (pathParams?.checkId == null || String(pathParams.checkId) === "") {
 		throw new Error(`Missing required path parameter: checkId`);
 	}
 	const data = await request<
@@ -6165,7 +6194,7 @@ export async function updateCheck(
 			| UpdateCheckStatus410
 			| UpdateCheckStatus413
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ deploymentId: string; checkId: string }
@@ -6173,8 +6202,9 @@ export async function updateCheck(
 		method: "PATCH",
 		url: `/v1/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/checks/${encodeURIComponent(String(pathParams.checkId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -6199,19 +6229,11 @@ export async function rerequestCheck(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 
-	if (
-		pathParams.checkId === undefined ||
-		pathParams.checkId === null ||
-		String(pathParams.checkId) === ""
-	) {
+	if (pathParams?.checkId == null || String(pathParams.checkId) === "") {
 		throw new Error(`Missing required path parameter: checkId`);
 	}
 	const data = await request<
@@ -6299,9 +6321,11 @@ export async function listNetworks(
  */
 export async function createNetwork(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6319,7 +6343,7 @@ export async function createNetwork(
 			| CreateNetworkStatus409
 			| CreateNetworkStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -6327,8 +6351,9 @@ export async function createNetwork(
 		method: "POST",
 		url: `/v1/connect/networks`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -6352,11 +6377,7 @@ export async function deleteNetwork(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.networkId === undefined ||
-		pathParams.networkId === null ||
-		String(pathParams.networkId) === ""
-	) {
+	if (pathParams?.networkId == null || String(pathParams.networkId) === "") {
 		throw new Error(`Missing required path parameter: networkId`);
 	}
 	const data = await request<
@@ -6393,21 +6414,19 @@ export async function deleteNetwork(
 export async function updateNetwork(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { networkId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.networkId === undefined ||
-		pathParams.networkId === null ||
-		String(pathParams.networkId) === ""
-	) {
+	if (pathParams?.networkId == null || String(pathParams.networkId) === "") {
 		throw new Error(`Missing required path parameter: networkId`);
 	}
 	const data = await request<
@@ -6419,7 +6438,7 @@ export async function updateNetwork(
 			| UpdateNetworkStatus404
 			| UpdateNetworkStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ networkId: string }
@@ -6427,8 +6446,9 @@ export async function updateNetwork(
 		method: "PATCH",
 		url: `/v1/connect/networks/${encodeURIComponent(String(pathParams.networkId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -6452,11 +6472,7 @@ export async function readNetwork(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.networkId === undefined ||
-		pathParams.networkId === null ||
-		String(pathParams.networkId) === ""
-	) {
+	if (pathParams?.networkId == null || String(pathParams.networkId) === "") {
 		throw new Error(`Missing required path parameter: networkId`);
 	}
 	const data = await request<
@@ -6490,9 +6506,11 @@ export async function readNetwork(
  */
 export async function createPrivateLinkEndpoint(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6508,8 +6526,9 @@ export async function createPrivateLinkEndpoint(
 			| CreatePrivateLinkEndpointStatus404
 			| CreatePrivateLinkEndpointStatus409
 			| CreatePrivateLinkEndpointStatus410
+			| CreatePrivateLinkEndpointStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -6517,8 +6536,9 @@ export async function createPrivateLinkEndpoint(
 		method: "POST",
 		url: `/v1/networking/privatelink/endpoints`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -6582,11 +6602,7 @@ export async function readPrivateLinkEndpoint(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.endpointId === undefined ||
-		pathParams.endpointId === null ||
-		String(pathParams.endpointId) === ""
-	) {
+	if (pathParams?.endpointId == null || String(pathParams.endpointId) === "") {
 		throw new Error(`Missing required path parameter: endpointId`);
 	}
 	const data = await request<
@@ -6631,11 +6647,7 @@ export async function deletePrivateLinkEndpoint(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.endpointId === undefined ||
-		pathParams.endpointId === null ||
-		String(pathParams.endpointId) === ""
-	) {
+	if (pathParams?.endpointId == null || String(pathParams.endpointId) === "") {
 		throw new Error(`Missing required path parameter: endpointId`);
 	}
 	const data = await request<
@@ -6647,6 +6659,7 @@ export async function deletePrivateLinkEndpoint(
 			| DeletePrivateLinkEndpointStatus404
 			| DeletePrivateLinkEndpointStatus409
 			| DeletePrivateLinkEndpointStatus410
+			| DeletePrivateLinkEndpointStatus500
 		>,
 		null,
 		Record<string, string>,
@@ -6671,21 +6684,19 @@ export async function deletePrivateLinkEndpoint(
 export async function updatePrivateLinkEndpoint(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { endpointId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.endpointId === undefined ||
-		pathParams.endpointId === null ||
-		String(pathParams.endpointId) === ""
-	) {
+	if (pathParams?.endpointId == null || String(pathParams.endpointId) === "") {
 		throw new Error(`Missing required path parameter: endpointId`);
 	}
 	const data = await request<
@@ -6698,7 +6709,7 @@ export async function updatePrivateLinkEndpoint(
 			| UpdatePrivateLinkEndpointStatus409
 			| UpdatePrivateLinkEndpointStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		{ endpointId: string }
@@ -6706,8 +6717,9 @@ export async function updatePrivateLinkEndpoint(
 		method: "PATCH",
 		url: `/v1/networking/privatelink/endpoints/${encodeURIComponent(String(pathParams.endpointId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -6795,11 +6807,7 @@ export async function getConnector(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.connector === undefined ||
-		pathParams.connector === null ||
-		String(pathParams.connector) === ""
-	) {
+	if (pathParams?.connector == null || String(pathParams.connector) === "") {
 		throw new Error(`Missing required path parameter: connector`);
 	}
 	const data = await request<
@@ -6848,11 +6856,7 @@ export async function deleteConnector(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.connector === undefined ||
-		pathParams.connector === null ||
-		String(pathParams.connector) === ""
-	) {
+	if (pathParams?.connector == null || String(pathParams.connector) === "") {
 		throw new Error(`Missing required path parameter: connector`);
 	}
 	const data = await request<
@@ -6892,9 +6896,11 @@ export async function deleteConnector(
  */
 export async function createConnector(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6916,7 +6922,7 @@ export async function createConnector(
 			| CreateConnectorStatus502
 			| CreateConnectorStatus504
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -6924,8 +6930,9 @@ export async function createConnector(
 		method: "POST",
 		url: `/v1/connect/connectors`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -6939,21 +6946,19 @@ export async function createConnector(
 export async function updateConnector(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { connector: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.connector === undefined ||
-		pathParams.connector === null ||
-		String(pathParams.connector) === ""
-	) {
+	if (pathParams?.connector == null || String(pathParams.connector) === "") {
 		throw new Error(`Missing required path parameter: connector`);
 	}
 	const data = await request<
@@ -6971,7 +6976,7 @@ export async function updateConnector(
 			| UpdateConnectorStatus502
 			| UpdateConnectorStatus504
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ connector: string }
@@ -6979,8 +6984,9 @@ export async function updateConnector(
 		method: "PATCH",
 		url: `/v2/connect/connectors/${encodeURIComponent(String(pathParams.connector))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -6994,21 +7000,19 @@ export async function updateConnector(
 export async function replaceConnectorTriggerDestinations(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { connector: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.connector === undefined ||
-		pathParams.connector === null ||
-		String(pathParams.connector) === ""
-	) {
+	if (pathParams?.connector == null || String(pathParams.connector) === "") {
 		throw new Error(`Missing required path parameter: connector`);
 	}
 	const data = await request<
@@ -7024,7 +7028,7 @@ export async function replaceConnectorTriggerDestinations(
 			| ReplaceConnectorTriggerDestinationsStatus501
 			| ReplaceConnectorTriggerDestinationsStatus504
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ connector: string }
@@ -7032,8 +7036,9 @@ export async function replaceConnectorTriggerDestinations(
 		method: "PATCH",
 		url: `/v1/connect/connectors/${encodeURIComponent(String(pathParams.connector))}/trigger-destinations`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -7057,11 +7062,7 @@ export async function ejectManagedConnector(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.connector === undefined ||
-		pathParams.connector === null ||
-		String(pathParams.connector) === ""
-	) {
+	if (pathParams?.connector == null || String(pathParams.connector) === "") {
 		throw new Error(`Missing required path parameter: connector`);
 	}
 	const data = await request<
@@ -7110,11 +7111,7 @@ export async function listConnectorProjectConnections(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.connector === undefined ||
-		pathParams.connector === null ||
-		String(pathParams.connector) === ""
-	) {
+	if (pathParams?.connector == null || String(pathParams.connector) === "") {
 		throw new Error(`Missing required path parameter: connector`);
 	}
 	const data = await request<
@@ -7160,19 +7157,11 @@ export async function getConnectorProjectConnection(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.connector === undefined ||
-		pathParams.connector === null ||
-		String(pathParams.connector) === ""
-	) {
+	if (pathParams?.connector == null || String(pathParams.connector) === "") {
 		throw new Error(`Missing required path parameter: connector`);
 	}
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -7208,29 +7197,23 @@ export async function getConnectorProjectConnection(
 export async function upsertConnectorProjectConnection(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { connector: string; projectId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.connector === undefined ||
-		pathParams.connector === null ||
-		String(pathParams.connector) === ""
-	) {
+	if (pathParams?.connector == null || String(pathParams.connector) === "") {
 		throw new Error(`Missing required path parameter: connector`);
 	}
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -7243,7 +7226,7 @@ export async function upsertConnectorProjectConnection(
 			| UpsertConnectorProjectConnectionStatus409
 			| UpsertConnectorProjectConnectionStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ connector: string; projectId: string }
@@ -7251,8 +7234,9 @@ export async function upsertConnectorProjectConnection(
 		method: "POST",
 		url: `/v1/connect/connectors/${encodeURIComponent(String(pathParams.connector))}/projects/${encodeURIComponent(String(pathParams.projectId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -7276,19 +7260,11 @@ export async function deleteConnectorProjectConnection(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.connector === undefined ||
-		pathParams.connector === null ||
-		String(pathParams.connector) === ""
-	) {
+	if (pathParams?.connector == null || String(pathParams.connector) === "") {
 		throw new Error(`Missing required path parameter: connector`);
 	}
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -7334,11 +7310,7 @@ export async function listProjectConnectorConnections(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -7373,19 +7345,17 @@ export async function listProjectConnectorConnections(
 export async function getConnectorToken(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { connector: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.connector === undefined ||
-		pathParams.connector === null ||
-		String(pathParams.connector) === ""
-	) {
+	if (pathParams?.connector == null || String(pathParams.connector) === "") {
 		throw new Error(`Missing required path parameter: connector`);
 	}
 	const data = await request<
@@ -7400,15 +7370,16 @@ export async function getConnectorToken(
 			| GetConnectorTokenStatus422
 			| GetConnectorTokenStatus429
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ connector: string }
 	>({
 		method: "POST",
 		url: `/v1/connect/token/${encodeURIComponent(String(pathParams.connector))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -7422,19 +7393,17 @@ export async function getConnectorToken(
 export async function createConnectorAuthorizationRequest(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { connector: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.connector === undefined ||
-		pathParams.connector === null ||
-		String(pathParams.connector) === ""
-	) {
+	if (pathParams?.connector == null || String(pathParams.connector) === "") {
 		throw new Error(`Missing required path parameter: connector`);
 	}
 	const data = await request<
@@ -7448,13 +7417,180 @@ export async function createConnectorAuthorizationRequest(
 			| CreateConnectorAuthorizationRequestStatus410
 			| CreateConnectorAuthorizationRequestStatus422
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ connector: string }
 	>({
 		method: "POST",
 		url: `/v1/connect/authorize/${encodeURIComponent(String(pathParams.connector))}`,
+		body: body,
+		...requestConfig,
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get project daemons
+ * @description Lists project daemons.
+ * @link /v1/projects/{idOrName}/daemons
+ */
+export async function getProjectBoxes(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { idOrName: string };
+		queryParams?: {
+			limit?: string;
+			cursor?: string;
+			scopeType?: "target" | "branch" | "customEnvironment";
+			scopeValue?: string;
+			teamId?: string;
+			slug?: string;
+		};
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
+		throw new Error(`Missing required path parameter: idOrName`);
+	}
+	const data = await request<
+		GetProjectBoxesResponse,
+		ErrorWrapper<
+			| GetProjectBoxesStatus400
+			| GetProjectBoxesStatus401
+			| GetProjectBoxesStatus403
+			| GetProjectBoxesStatus404
+			| GetProjectBoxesStatus410
+		>,
+		null,
+		Record<string, string>,
+		{
+			limit?: string;
+			cursor?: string;
+			scopeType?: "target" | "branch" | "customEnvironment";
+			scopeValue?: string;
+			teamId?: string;
+			slug?: string;
+		},
+		{ idOrName: string }
+	>({
+		method: "GET",
+		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/daemons`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Override a project daemon's instance counts
+ * @description Override an existing daemon's instance counts by region. Each region in the map replaces the configured count for that region. Regions not in the map keep their configured count. An empty map removes the overrides. The daemon configuration is not changed. Missing or deleted daemons return 404. Repeating the same overrides succeeds without a storage write or reconciliation event.
+ * @link /v1/projects/{idOrName}/daemons/{daemonName}/instances
+ */
+export async function putProjectDaemonInstances(
+	{
+		pathParams,
+		body,
+		queryParams,
+		config,
+	}: {
+		pathParams: { idOrName: string; daemonName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		queryParams?: { target?: "production" | "preview"; teamId?: string; slug?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
+		throw new Error(`Missing required path parameter: idOrName`);
+	}
+
+	if (pathParams?.daemonName == null || String(pathParams.daemonName) === "") {
+		throw new Error(`Missing required path parameter: daemonName`);
+	}
+	const data = await request<
+		PutProjectDaemonInstancesResponse,
+		ErrorWrapper<
+			| PutProjectDaemonInstancesStatus400
+			| PutProjectDaemonInstancesStatus401
+			| PutProjectDaemonInstancesStatus403
+			| PutProjectDaemonInstancesStatus404
+			| PutProjectDaemonInstancesStatus410
+		>,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		Record<string, string>,
+		{ target?: "production" | "preview"; teamId?: string; slug?: string },
+		{ idOrName: string; daemonName: string }
+	>({
+		method: "PUT",
+		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/daemons/${encodeURIComponent(String(pathParams.daemonName))}/instances`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Force restart a project daemon instance
+ * @description Force restarts the user container of one running daemon instance. The instance's controller stops the current user container and starts a new one from the same configuration, so in-flight requests are interrupted and any state that only lives inside the container is lost. The instance keeps its ID and region. The response returns as soon as the controller accepts the restart, before the new container is running. Only production instances can be restarted. Accepts a Vercel token that can update the project, or a production project OIDC token issued for the same project. No request body or Content-Type header is required.
+ * @link /v1/projects/{idOrName}/daemons/{daemonName}/instances/{instanceId}/restart
+ */
+export async function restartProjectDaemonInstance(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { idOrName: string; daemonName: string; instanceId: string };
+		queryParams?: { teamId?: string; slug?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
+		throw new Error(`Missing required path parameter: idOrName`);
+	}
+
+	if (pathParams?.daemonName == null || String(pathParams.daemonName) === "") {
+		throw new Error(`Missing required path parameter: daemonName`);
+	}
+
+	if (pathParams?.instanceId == null || String(pathParams.instanceId) === "") {
+		throw new Error(`Missing required path parameter: instanceId`);
+	}
+	const data = await request<
+		RestartProjectDaemonInstanceResponse,
+		ErrorWrapper<
+			| RestartProjectDaemonInstanceStatus400
+			| RestartProjectDaemonInstanceStatus401
+			| RestartProjectDaemonInstanceStatus403
+			| RestartProjectDaemonInstanceStatus404
+			| RestartProjectDaemonInstanceStatus409
+			| RestartProjectDaemonInstanceStatus410
+			| RestartProjectDaemonInstanceStatus500
+		>,
+		null,
+		Record<string, string>,
+		{ teamId?: string; slug?: string },
+		{ idOrName: string; daemonName: string; instanceId: string }
+	>({
+		method: "POST",
+		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/daemons/${encodeURIComponent(String(pathParams.daemonName))}/instances/${encodeURIComponent(String(pathParams.instanceId))}/restart`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7492,11 +7628,7 @@ export async function getDeploymentEvents(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrUrl === undefined ||
-		pathParams.idOrUrl === null ||
-		String(pathParams.idOrUrl) === ""
-	) {
+	if (pathParams?.idOrUrl == null || String(pathParams.idOrUrl) === "") {
 		throw new Error(`Missing required path parameter: idOrUrl`);
 	}
 	const data = await request<
@@ -7544,6 +7676,7 @@ export async function getDeploymentEvents(
 export async function updateIntegrationDeploymentAction(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: {
@@ -7552,40 +7685,28 @@ export async function updateIntegrationDeploymentAction(
 			resourceId: string;
 			action: string;
 		};
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 
-	if (
-		pathParams.action === undefined ||
-		pathParams.action === null ||
-		String(pathParams.action) === ""
-	) {
+	if (pathParams?.action == null || String(pathParams.action) === "") {
 		throw new Error(`Missing required path parameter: action`);
 	}
 	const data = await request<
@@ -7597,15 +7718,16 @@ export async function updateIntegrationDeploymentAction(
 			| UpdateIntegrationDeploymentActionStatus404
 			| UpdateIntegrationDeploymentActionStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ deploymentId: string; integrationConfigurationId: string; resourceId: string; action: string }
 	>({
 		method: "PATCH",
 		url: `/v1/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/integrations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/actions/${encodeURIComponent(String(pathParams.action))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -7629,11 +7751,7 @@ export async function getDeployment(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrUrl === undefined ||
-		pathParams.idOrUrl === null ||
-		String(pathParams.idOrUrl) === ""
-	) {
+	if (pathParams?.idOrUrl == null || String(pathParams.idOrUrl) === "") {
 		throw new Error(`Missing required path parameter: idOrUrl`);
 	}
 	const data = await request<
@@ -7667,9 +7785,11 @@ export async function getDeployment(
  */
 export async function createDeployment(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: {
 			forceNew?: unknown;
 			skipAutoDetectionConfirmation?: unknown;
@@ -7696,7 +7816,7 @@ export async function createDeployment(
 			| CreateDeploymentStatus500
 			| CreateDeploymentStatus503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ forceNew?: unknown; skipAutoDetectionConfirmation?: unknown; teamId?: string; slug?: string },
 		Record<string, string>
@@ -7704,8 +7824,9 @@ export async function createDeployment(
 		method: "POST",
 		url: `/v13/deployments`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -7729,7 +7850,7 @@ export async function cancelDeployment(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -7780,11 +7901,7 @@ export async function getRecords(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -7819,21 +7936,19 @@ export async function getRecords(
 export async function createRecord(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { domain: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -7847,7 +7962,7 @@ export async function createRecord(
 			| CreateRecordStatus409
 			| CreateRecordStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ domain: string }
@@ -7855,8 +7970,9 @@ export async function createRecord(
 		method: "POST",
 		url: `/v2/domains/${encodeURIComponent(String(pathParams.domain))}/records`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -7870,21 +7986,19 @@ export async function createRecord(
 export async function updateRecord(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { recordId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.recordId === undefined ||
-		pathParams.recordId === null ||
-		String(pathParams.recordId) === ""
-	) {
+	if (pathParams?.recordId == null || String(pathParams.recordId) === "") {
 		throw new Error(`Missing required path parameter: recordId`);
 	}
 	const data = await request<
@@ -7898,7 +8012,7 @@ export async function updateRecord(
 			| UpdateRecordStatus409
 			| UpdateRecordStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ recordId: string }
@@ -7906,8 +8020,9 @@ export async function updateRecord(
 		method: "PATCH",
 		url: `/v1/domains/records/${encodeURIComponent(String(pathParams.recordId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -7927,11 +8042,7 @@ export async function replaceDomainsByDomainRecords(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -7973,11 +8084,7 @@ export async function getDomainsRecordsByRecordId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.recordId === undefined ||
-		pathParams.recordId === null ||
-		String(pathParams.recordId) === ""
-	) {
+	if (pathParams?.recordId == null || String(pathParams.recordId) === "") {
 		throw new Error(`Missing required path parameter: recordId`);
 	}
 	const data = await request<
@@ -8021,19 +8128,11 @@ export async function removeRecord(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 
-	if (
-		pathParams.recordId === undefined ||
-		pathParams.recordId === null ||
-		String(pathParams.recordId) === ""
-	) {
+	if (pathParams?.recordId == null || String(pathParams.recordId) === "") {
 		throw new Error(`Missing required path parameter: recordId`);
 	}
 	const data = await request<
@@ -8067,9 +8166,11 @@ export async function removeRecord(
  */
 export async function searchDomains(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8085,7 +8186,7 @@ export async function searchDomains(
 			| SearchDomainsStatus429
 			| SearchDomainsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string },
 		Record<string, string>
@@ -8093,8 +8194,9 @@ export async function searchDomains(
 		method: "POST",
 		url: `/v1/registrar/domains/search`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -8158,7 +8260,7 @@ export async function getTld(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.tld === undefined || pathParams.tld === null || String(pathParams.tld) === "") {
+	if (pathParams?.tld == null || String(pathParams.tld) === "") {
 		throw new Error(`Missing required path parameter: tld`);
 	}
 	const data = await request<
@@ -8199,7 +8301,7 @@ export async function getTldPrice(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.tld === undefined || pathParams.tld === null || String(pathParams.tld) === "") {
+	if (pathParams?.tld == null || String(pathParams.tld) === "") {
 		throw new Error(`Missing required path parameter: tld`);
 	}
 	const data = await request<
@@ -8244,11 +8346,7 @@ export async function getDomainAvailability(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -8294,11 +8392,7 @@ export async function getDomainPrice(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -8332,9 +8426,11 @@ export async function getDomainPrice(
  */
 export async function getBulkPrice(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8350,7 +8446,7 @@ export async function getBulkPrice(
 			| GetBulkPriceStatus429
 			| GetBulkPriceStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string },
 		Record<string, string>
@@ -8358,8 +8454,9 @@ export async function getBulkPrice(
 		method: "POST",
 		url: `/v1/registrar/domains/price`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -8372,9 +8469,11 @@ export async function getBulkPrice(
  */
 export async function getBulkAvailability(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8390,7 +8489,7 @@ export async function getBulkAvailability(
 			| GetBulkAvailabilityStatus429
 			| GetBulkAvailabilityStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string },
 		Record<string, string>
@@ -8398,8 +8497,9 @@ export async function getBulkAvailability(
 		method: "POST",
 		url: `/v1/registrar/domains/availability`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -8423,11 +8523,7 @@ export async function getContactInfoSchema(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -8472,11 +8568,7 @@ export async function getDomainAuthCode(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -8513,21 +8605,19 @@ export async function getDomainAuthCode(
 export async function buySingleDomain(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { domain: unknown };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -8539,7 +8629,7 @@ export async function buySingleDomain(
 			| BuySingleDomainStatus429
 			| BuySingleDomainStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string },
 		{ domain: unknown }
@@ -8547,8 +8637,9 @@ export async function buySingleDomain(
 		method: "POST",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/buy`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -8561,9 +8652,11 @@ export async function buySingleDomain(
  */
 export async function buyDomains(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8579,7 +8672,7 @@ export async function buyDomains(
 			| BuyDomainsStatus429
 			| BuyDomainsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string },
 		Record<string, string>
@@ -8587,8 +8680,9 @@ export async function buyDomains(
 		method: "POST",
 		url: `/v1/registrar/domains/buy`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -8602,21 +8696,19 @@ export async function buyDomains(
 export async function transferInDomain(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { domain: unknown };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -8628,7 +8720,7 @@ export async function transferInDomain(
 			| TransferInDomainStatus429
 			| TransferInDomainStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string },
 		{ domain: unknown }
@@ -8636,8 +8728,9 @@ export async function transferInDomain(
 		method: "POST",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/transfer`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -8661,11 +8754,7 @@ export async function getDomainTransferIn(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -8701,21 +8790,19 @@ export async function getDomainTransferIn(
 export async function renewDomain(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { domain: unknown };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -8728,7 +8815,7 @@ export async function renewDomain(
 			| RenewDomainStatus429
 			| RenewDomainStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string },
 		{ domain: unknown }
@@ -8736,8 +8823,9 @@ export async function renewDomain(
 		method: "POST",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/renew`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -8751,21 +8839,19 @@ export async function renewDomain(
 export async function updateDomainAutoRenew(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { domain: unknown };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -8778,7 +8864,7 @@ export async function updateDomainAutoRenew(
 			| UpdateDomainAutoRenewStatus429
 			| UpdateDomainAutoRenewStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string },
 		{ domain: unknown }
@@ -8786,8 +8872,9 @@ export async function updateDomainAutoRenew(
 		method: "PATCH",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/auto-renew`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -8801,21 +8888,19 @@ export async function updateDomainAutoRenew(
 export async function updateDomainNameservers(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { domain: unknown };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -8828,7 +8913,7 @@ export async function updateDomainNameservers(
 			| UpdateDomainNameserversStatus429
 			| UpdateDomainNameserversStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string },
 		{ domain: unknown }
@@ -8836,8 +8921,9 @@ export async function updateDomainNameservers(
 		method: "PATCH",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/nameservers`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -8861,11 +8947,7 @@ export async function getDomainContactVerification(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -8911,11 +8993,7 @@ export async function getOrder(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.orderId === undefined ||
-		pathParams.orderId === null ||
-		String(pathParams.orderId) === ""
-	) {
+	if (pathParams?.orderId == null || String(pathParams.orderId) === "") {
 		throw new Error(`Missing required path parameter: orderId`);
 	}
 	const data = await request<
@@ -8966,11 +9044,7 @@ export async function getDomainConfig(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -9014,11 +9088,7 @@ export async function getDomainVerificationRecord(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -9063,11 +9133,7 @@ export async function claimDomainOwnership(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -9118,11 +9184,7 @@ export async function getDomainProjectDomains(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -9167,11 +9229,7 @@ export async function getDomain(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -9251,9 +9309,11 @@ export async function getDomains(
  */
 export async function createOrTransferDomain(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9271,7 +9331,7 @@ export async function createOrTransferDomain(
 			| CreateOrTransferDomainStatus409
 			| CreateOrTransferDomainStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -9279,8 +9339,9 @@ export async function createOrTransferDomain(
 		method: "POST",
 		url: `/v7/domains`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -9294,21 +9355,19 @@ export async function createOrTransferDomain(
 export async function patchDomain(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { domain: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -9322,7 +9381,7 @@ export async function patchDomain(
 			| PatchDomainStatus410
 			| PatchDomainStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ domain: string }
@@ -9330,8 +9389,9 @@ export async function patchDomain(
 		method: "PATCH",
 		url: `/v3/domains/${encodeURIComponent(String(pathParams.domain))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -9355,11 +9415,7 @@ export async function deleteDomain(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -9405,7 +9461,7 @@ export async function getConfigurableLogDrain(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -9450,7 +9506,7 @@ export async function deleteConfigurableLogDrain(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -9536,9 +9592,11 @@ export async function getAllLogDrains(
  */
 export async function createConfigurableLogDrain(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9554,7 +9612,7 @@ export async function createConfigurableLogDrain(
 			| CreateConfigurableLogDrainStatus404
 			| CreateConfigurableLogDrainStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -9562,8 +9620,9 @@ export async function createConfigurableLogDrain(
 		method: "POST",
 		url: `/v1/log-drains`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -9576,9 +9635,11 @@ export async function createConfigurableLogDrain(
  */
 export async function createDrain(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9595,7 +9656,7 @@ export async function createDrain(
 			| CreateDrainStatus404
 			| CreateDrainStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -9603,8 +9664,9 @@ export async function createDrain(
 		method: "POST",
 		url: `/v1/drains`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -9668,7 +9730,7 @@ export async function deleteDrain(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -9713,7 +9775,7 @@ export async function getDrain(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -9748,17 +9810,19 @@ export async function getDrain(
 export async function updateDrain(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { id: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -9771,7 +9835,7 @@ export async function updateDrain(
 			| UpdateDrainStatus404
 			| UpdateDrainStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ id: string }
@@ -9779,8 +9843,9 @@ export async function updateDrain(
 		method: "PATCH",
 		url: `/v1/drains/${encodeURIComponent(String(pathParams.id))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -9793,9 +9858,11 @@ export async function updateDrain(
  */
 export async function testDrain(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9812,7 +9879,7 @@ export async function testDrain(
 			| TestDrainStatus404
 			| TestDrainStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -9820,8 +9887,9 @@ export async function testDrain(
 		method: "POST",
 		url: `/v1/drains/test`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -9834,9 +9902,11 @@ export async function testDrain(
  */
 export async function invalidateByTags(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectIdOrName?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9852,7 +9922,7 @@ export async function invalidateByTags(
 			| InvalidateByTagsStatus404
 			| InvalidateByTagsStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectIdOrName?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -9860,8 +9930,9 @@ export async function invalidateByTags(
 		method: "POST",
 		url: `/v1/edge-cache/invalidate-by-tags`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -9874,9 +9945,11 @@ export async function invalidateByTags(
  */
 export async function dangerouslyDeleteByTags(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectIdOrName?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9892,7 +9965,7 @@ export async function dangerouslyDeleteByTags(
 			| DangerouslyDeleteByTagsStatus404
 			| DangerouslyDeleteByTagsStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectIdOrName?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -9900,8 +9973,9 @@ export async function dangerouslyDeleteByTags(
 		method: "POST",
 		url: `/v1/edge-cache/dangerously-delete-by-tags`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -9914,9 +9988,11 @@ export async function dangerouslyDeleteByTags(
  */
 export async function invalidateBySrcImages(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectIdOrName?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9933,7 +10009,7 @@ export async function invalidateBySrcImages(
 			| InvalidateBySrcImagesStatus404
 			| InvalidateBySrcImagesStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectIdOrName?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -9941,8 +10017,9 @@ export async function invalidateBySrcImages(
 		method: "POST",
 		url: `/v1/edge-cache/invalidate-by-src-images`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -9955,9 +10032,11 @@ export async function invalidateBySrcImages(
  */
 export async function dangerouslyDeleteBySrcImages(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectIdOrName?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9974,7 +10053,7 @@ export async function dangerouslyDeleteBySrcImages(
 			| DangerouslyDeleteBySrcImagesStatus404
 			| DangerouslyDeleteBySrcImagesStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectIdOrName?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -9982,8 +10061,9 @@ export async function dangerouslyDeleteBySrcImages(
 		method: "POST",
 		url: `/v1/edge-cache/dangerously-delete-by-src-images`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -10036,9 +10116,11 @@ export async function getEdgeConfigs(
  */
 export async function createEdgeConfig(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -10055,7 +10137,7 @@ export async function createEdgeConfig(
 			| CreateEdgeConfigStatus404
 			| CreateEdgeConfigStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -10063,8 +10145,9 @@ export async function createEdgeConfig(
 		method: "POST",
 		url: `/v1/global-config`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -10088,11 +10171,7 @@ export async function getEdgeConfig(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 	const data = await request<
@@ -10127,21 +10206,19 @@ export async function getEdgeConfig(
 export async function updateEdgeConfig(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { edgeConfigId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 	const data = await request<
@@ -10155,7 +10232,7 @@ export async function updateEdgeConfig(
 			| UpdateEdgeConfigStatus409
 			| UpdateEdgeConfigStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ edgeConfigId: string }
@@ -10163,8 +10240,9 @@ export async function updateEdgeConfig(
 		method: "PUT",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -10188,11 +10266,7 @@ export async function deleteEdgeConfig(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 	const data = await request<
@@ -10238,11 +10312,7 @@ export async function getEdgeConfigItems(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 	const data = await request<
@@ -10277,21 +10347,19 @@ export async function getEdgeConfigItems(
 export async function patchEdgeConfigItems(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { edgeConfigId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 	const data = await request<
@@ -10306,7 +10374,7 @@ export async function patchEdgeConfigItems(
 			| PatchEdgeConfigItemsStatus410
 			| PatchEdgeConfigItemsStatus412
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ edgeConfigId: string }
@@ -10314,8 +10382,9 @@ export async function patchEdgeConfigItems(
 		method: "PATCH",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/items`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -10339,11 +10408,7 @@ export async function getEdgeConfigSchema(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 	const data = await request<
@@ -10378,21 +10443,19 @@ export async function getEdgeConfigSchema(
 export async function patchEdgeConfigSchema(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { edgeConfigId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { dryRun?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 	const data = await request<
@@ -10406,7 +10469,7 @@ export async function patchEdgeConfigSchema(
 			| PatchEdgeConfigSchemaStatus409
 			| PatchEdgeConfigSchemaStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ dryRun?: string; teamId?: string; slug?: string },
 		{ edgeConfigId: string }
@@ -10414,8 +10477,9 @@ export async function patchEdgeConfigSchema(
 		method: "POST",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/schema`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -10439,11 +10503,7 @@ export async function deleteEdgeConfigSchema(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 	const data = await request<
@@ -10490,19 +10550,11 @@ export async function getEdgeConfigItem(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 
-	if (
-		pathParams.edgeConfigItemKey === undefined ||
-		pathParams.edgeConfigItemKey === null ||
-		String(pathParams.edgeConfigItemKey) === ""
-	) {
+	if (pathParams?.edgeConfigItemKey == null || String(pathParams.edgeConfigItemKey) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigItemKey`);
 	}
 	const data = await request<
@@ -10547,11 +10599,7 @@ export async function getEdgeConfigTokens(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 	const data = await request<
@@ -10586,21 +10634,19 @@ export async function getEdgeConfigTokens(
 export async function deleteEdgeConfigTokens(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { edgeConfigId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 	const data = await request<
@@ -10614,7 +10660,7 @@ export async function deleteEdgeConfigTokens(
 			| DeleteEdgeConfigTokensStatus409
 			| DeleteEdgeConfigTokensStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ edgeConfigId: string }
@@ -10622,8 +10668,9 @@ export async function deleteEdgeConfigTokens(
 		method: "DELETE",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/tokens`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -10647,19 +10694,11 @@ export async function getEdgeConfigToken(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 
-	if (
-		pathParams.token === undefined ||
-		pathParams.token === null ||
-		String(pathParams.token) === ""
-	) {
+	if (pathParams?.token == null || String(pathParams.token) === "") {
 		throw new Error(`Missing required path parameter: token`);
 	}
 	const data = await request<
@@ -10694,21 +10733,19 @@ export async function getEdgeConfigToken(
 export async function createEdgeConfigToken(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { edgeConfigId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 	const data = await request<
@@ -10722,7 +10759,7 @@ export async function createEdgeConfigToken(
 			| CreateEdgeConfigTokenStatus409
 			| CreateEdgeConfigTokenStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ edgeConfigId: string }
@@ -10730,8 +10767,9 @@ export async function createEdgeConfigToken(
 		method: "POST",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/token`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -10739,7 +10777,7 @@ export async function createEdgeConfigToken(
 
 /**
  * @summary Get Global Config backup
- * @description Retrieves a specific version of a Global Config from backup storage.
+ * @description Retrieves a specific version of a Global Config from backup storage. The `user` field is only included when the caller can list team members.
  * @link /v1/global-config/{edgeConfigId}/backups/{edgeConfigBackupVersionId}
  */
 export async function getEdgeConfigBackup(
@@ -10755,17 +10793,12 @@ export async function getEdgeConfigBackup(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 
 	if (
-		pathParams.edgeConfigBackupVersionId === undefined ||
-		pathParams.edgeConfigBackupVersionId === null ||
+		pathParams?.edgeConfigBackupVersionId == null ||
 		String(pathParams.edgeConfigBackupVersionId) === ""
 	) {
 		throw new Error(`Missing required path parameter: edgeConfigBackupVersionId`);
@@ -10812,17 +10845,12 @@ export async function restoreEdgeConfigBackup(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 
 	if (
-		pathParams.edgeConfigBackupVersionId === undefined ||
-		pathParams.edgeConfigBackupVersionId === null ||
+		pathParams?.edgeConfigBackupVersionId == null ||
 		String(pathParams.edgeConfigBackupVersionId) === ""
 	) {
 		throw new Error(`Missing required path parameter: edgeConfigBackupVersionId`);
@@ -10878,11 +10906,7 @@ export async function getEdgeConfigBackups(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.edgeConfigId === undefined ||
-		pathParams.edgeConfigId === null ||
-		String(pathParams.edgeConfigId) === ""
-	) {
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
 		throw new Error(`Missing required path parameter: edgeConfigId`);
 	}
 	const data = await request<
@@ -10916,9 +10940,11 @@ export async function getEdgeConfigBackups(
  */
 export async function createSharedEnvVariable(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -10935,7 +10961,7 @@ export async function createSharedEnvVariable(
 			| CreateSharedEnvVariableStatus404
 			| CreateSharedEnvVariableStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -10943,8 +10969,9 @@ export async function createSharedEnvVariable(
 		method: "POST",
 		url: `/v1/env`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -11017,9 +11044,11 @@ export async function listSharedEnvVariable(
  */
 export async function updateSharedEnvVariable(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -11036,7 +11065,7 @@ export async function updateSharedEnvVariable(
 			| UpdateSharedEnvVariableStatus404
 			| UpdateSharedEnvVariableStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -11044,8 +11073,9 @@ export async function updateSharedEnvVariable(
 		method: "PATCH",
 		url: `/v1/env`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -11058,9 +11088,11 @@ export async function updateSharedEnvVariable(
  */
 export async function deleteSharedEnvVariable(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -11077,7 +11109,7 @@ export async function deleteSharedEnvVariable(
 			| DeleteSharedEnvVariableStatus404
 			| DeleteSharedEnvVariableStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -11085,8 +11117,9 @@ export async function deleteSharedEnvVariable(
 		method: "DELETE",
 		url: `/v1/env`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -11110,7 +11143,7 @@ export async function getSharedEnvVar(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -11155,15 +11188,11 @@ export async function unlinkSharedEnvVariable(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -11321,11 +11350,7 @@ export async function listFlagsV2(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 	const data = await request<
@@ -11392,11 +11417,7 @@ export async function listFlags(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 	const data = await request<
@@ -11441,21 +11462,19 @@ export async function listFlags(
 export async function createFlag(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectIdOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 	const data = await request<
@@ -11469,7 +11488,7 @@ export async function createFlag(
 			| CreateFlagStatus409
 			| CreateFlagStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string }
@@ -11477,8 +11496,9 @@ export async function createFlag(
 		method: "PUT",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/flags`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -11502,19 +11522,11 @@ export async function getFlag(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 
-	if (
-		pathParams.flagIdOrSlug === undefined ||
-		pathParams.flagIdOrSlug === null ||
-		String(pathParams.flagIdOrSlug) === ""
-	) {
+	if (pathParams?.flagIdOrSlug == null || String(pathParams.flagIdOrSlug) === "") {
 		throw new Error(`Missing required path parameter: flagIdOrSlug`);
 	}
 	const data = await request<
@@ -11550,29 +11562,23 @@ export async function getFlag(
 export async function updateFlag(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectIdOrName: string; flagIdOrSlug: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { ifMatch?: string; withMetadata?: boolean; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 
-	if (
-		pathParams.flagIdOrSlug === undefined ||
-		pathParams.flagIdOrSlug === null ||
-		String(pathParams.flagIdOrSlug) === ""
-	) {
+	if (pathParams?.flagIdOrSlug == null || String(pathParams.flagIdOrSlug) === "") {
 		throw new Error(`Missing required path parameter: flagIdOrSlug`);
 	}
 	const data = await request<
@@ -11586,7 +11592,7 @@ export async function updateFlag(
 			| UpdateFlagStatus409
 			| UpdateFlagStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ ifMatch?: string; withMetadata?: boolean; teamId?: string; slug?: string },
 		{ projectIdOrName: string; flagIdOrSlug: string }
@@ -11594,8 +11600,9 @@ export async function updateFlag(
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/flags/${encodeURIComponent(String(pathParams.flagIdOrSlug))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -11619,19 +11626,11 @@ export async function deleteFlag(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 
-	if (
-		pathParams.flagIdOrSlug === undefined ||
-		pathParams.flagIdOrSlug === null ||
-		String(pathParams.flagIdOrSlug) === ""
-	) {
+	if (pathParams?.flagIdOrSlug == null || String(pathParams.flagIdOrSlug) === "") {
 		throw new Error(`Missing required path parameter: flagIdOrSlug`);
 	}
 	const data = await request<
@@ -11685,19 +11684,11 @@ export async function listFlagVersions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 
-	if (
-		pathParams.flagIdOrSlug === undefined ||
-		pathParams.flagIdOrSlug === null ||
-		String(pathParams.flagIdOrSlug) === ""
-	) {
+	if (pathParams?.flagIdOrSlug == null || String(pathParams.flagIdOrSlug) === "") {
 		throw new Error(`Missing required path parameter: flagIdOrSlug`);
 	}
 	const data = await request<
@@ -11750,11 +11741,7 @@ export async function getFlagSettings(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 	const data = await request<
@@ -11790,21 +11777,19 @@ export async function getFlagSettings(
 export async function updateFlagSettings(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectIdOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 	const data = await request<
@@ -11818,7 +11803,7 @@ export async function updateFlagSettings(
 			| UpdateFlagSettingsStatus409
 			| UpdateFlagSettingsStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string }
@@ -11826,8 +11811,9 @@ export async function updateFlagSettings(
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/settings`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -11851,11 +11837,7 @@ export async function listTeamFlagSettings(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -11911,11 +11893,7 @@ export async function listTeamFlagsV2(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -11981,11 +11959,7 @@ export async function listTeamFlags(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -12029,21 +12003,19 @@ export async function listTeamFlags(
 export async function createFlagSegment(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectIdOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 	const data = await request<
@@ -12057,7 +12029,7 @@ export async function createFlagSegment(
 			| CreateFlagSegmentStatus409
 			| CreateFlagSegmentStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string }
@@ -12065,8 +12037,9 @@ export async function createFlagSegment(
 		method: "PUT",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/segments`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -12090,11 +12063,7 @@ export async function listFlagSegments(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 	const data = await request<
@@ -12140,19 +12109,11 @@ export async function getFlagSegment(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 
-	if (
-		pathParams.segmentIdOrSlug === undefined ||
-		pathParams.segmentIdOrSlug === null ||
-		String(pathParams.segmentIdOrSlug) === ""
-	) {
+	if (pathParams?.segmentIdOrSlug == null || String(pathParams.segmentIdOrSlug) === "") {
 		throw new Error(`Missing required path parameter: segmentIdOrSlug`);
 	}
 	const data = await request<
@@ -12198,19 +12159,11 @@ export async function deleteFlagSegment(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 
-	if (
-		pathParams.segmentIdOrSlug === undefined ||
-		pathParams.segmentIdOrSlug === null ||
-		String(pathParams.segmentIdOrSlug) === ""
-	) {
+	if (pathParams?.segmentIdOrSlug == null || String(pathParams.segmentIdOrSlug) === "") {
 		throw new Error(`Missing required path parameter: segmentIdOrSlug`);
 	}
 	const data = await request<
@@ -12247,29 +12200,23 @@ export async function deleteFlagSegment(
 export async function updateFlagSegment(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectIdOrName: string; segmentIdOrSlug: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { withMetadata?: boolean; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 
-	if (
-		pathParams.segmentIdOrSlug === undefined ||
-		pathParams.segmentIdOrSlug === null ||
-		String(pathParams.segmentIdOrSlug) === ""
-	) {
+	if (pathParams?.segmentIdOrSlug == null || String(pathParams.segmentIdOrSlug) === "") {
 		throw new Error(`Missing required path parameter: segmentIdOrSlug`);
 	}
 	const data = await request<
@@ -12283,7 +12230,7 @@ export async function updateFlagSegment(
 			| UpdateFlagSegmentStatus409
 			| UpdateFlagSegmentStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ withMetadata?: boolean; teamId?: string; slug?: string },
 		{ projectIdOrName: string; segmentIdOrSlug: string }
@@ -12291,8 +12238,9 @@ export async function updateFlagSegment(
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/segments/${encodeURIComponent(String(pathParams.segmentIdOrSlug))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -12316,11 +12264,7 @@ export async function getDeploymentFeatureFlags(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -12365,11 +12309,7 @@ export async function getSdkKeys(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 	const data = await request<
@@ -12405,21 +12345,19 @@ export async function getSdkKeys(
 export async function createSdkKey(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectIdOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 	const data = await request<
@@ -12433,7 +12371,7 @@ export async function createSdkKey(
 			| CreateSdkKeyStatus409
 			| CreateSdkKeyStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string }
@@ -12441,8 +12379,9 @@ export async function createSdkKey(
 		method: "PUT",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/sdk-keys`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -12466,19 +12405,11 @@ export async function deleteSdkKey(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 
-	if (
-		pathParams.hashKey === undefined ||
-		pathParams.hashKey === null ||
-		String(pathParams.hashKey) === ""
-	) {
+	if (pathParams?.hashKey == null || String(pathParams.hashKey) === "") {
 		throw new Error(`Missing required path parameter: hashKey`);
 	}
 	const data = await request<
@@ -12662,19 +12593,11 @@ export async function getBillingPlans(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.integrationIdOrSlug === undefined ||
-		pathParams.integrationIdOrSlug === null ||
-		String(pathParams.integrationIdOrSlug) === ""
-	) {
+	if (pathParams?.integrationIdOrSlug == null || String(pathParams.integrationIdOrSlug) === "") {
 		throw new Error(`Missing required path parameter: integrationIdOrSlug`);
 	}
 
-	if (
-		pathParams.productIdOrSlug === undefined ||
-		pathParams.productIdOrSlug === null ||
-		String(pathParams.productIdOrSlug) === ""
-	) {
+	if (pathParams?.productIdOrSlug == null || String(pathParams.productIdOrSlug) === "") {
 		throw new Error(`Missing required path parameter: productIdOrSlug`);
 	}
 	const data = await request<
@@ -12725,10 +12648,12 @@ export async function getBillingPlans(
 export async function connectIntegrationResourceToProject(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -12736,18 +12661,13 @@ export async function connectIntegrationResourceToProject(
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -12759,7 +12679,7 @@ export async function connectIntegrationResourceToProject(
 			| ConnectIntegrationResourceToProjectStatus404
 			| ConnectIntegrationResourceToProjectStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ integrationConfigurationId: string; resourceId: string }
@@ -12767,8 +12687,9 @@ export async function connectIntegrationResourceToProject(
 		method: "POST",
 		url: `/v1/integrations/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/connections`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -12782,17 +12703,18 @@ export async function connectIntegrationResourceToProject(
 export async function updateInstallation(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
@@ -12806,15 +12728,16 @@ export async function updateInstallation(
 			| UpdateInstallationStatus404
 			| UpdateInstallationStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
 	>({
 		method: "PATCH",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -12837,8 +12760,7 @@ export async function getAccountInfo(
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
@@ -12883,18 +12805,13 @@ export async function getMember(
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.memberId === undefined ||
-		pathParams.memberId === null ||
-		String(pathParams.memberId) === ""
-	) {
+	if (pathParams?.memberId == null || String(pathParams.memberId) === "") {
 		throw new Error(`Missing required path parameter: memberId`);
 	}
 	const data = await request<
@@ -12928,17 +12845,18 @@ export async function getMember(
 export async function rotateInstallationCredential(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
@@ -12953,15 +12871,16 @@ export async function rotateInstallationCredential(
 			| RotateInstallationCredentialStatus409
 			| RotateInstallationCredentialStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/credentials/rotate`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -12975,17 +12894,18 @@ export async function rotateInstallationCredential(
 export async function revokeInstallationCredential(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
@@ -13000,15 +12920,16 @@ export async function revokeInstallationCredential(
 			| RevokeInstallationCredentialStatus409
 			| RevokeInstallationCredentialStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/credentials/revoke`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -13022,17 +12943,18 @@ export async function revokeInstallationCredential(
 export async function createEvent(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
@@ -13046,15 +12968,16 @@ export async function createEvent(
 			| CreateEventStatus404
 			| CreateEventStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/events`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -13077,8 +13000,7 @@ export async function getIntegrationResources(
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
@@ -13123,18 +13045,13 @@ export async function getIntegrationResource(
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -13177,18 +13094,13 @@ export async function deleteIntegrationResource(
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -13222,27 +13134,24 @@ export async function deleteIntegrationResource(
 export async function importResource(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -13256,15 +13165,16 @@ export async function importResource(
 			| ImportResourceStatus410
 			| ImportResourceStatus422
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; resourceId: string }
 	>({
 		method: "PUT",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -13278,27 +13188,24 @@ export async function importResource(
 export async function updateResource(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -13312,15 +13219,16 @@ export async function updateResource(
 			| UpdateResourceStatus410
 			| UpdateResourceStatus422
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; resourceId: string }
 	>({
 		method: "PATCH",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -13334,17 +13242,18 @@ export async function updateResource(
 export async function submitBillingData(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
@@ -13358,15 +13267,16 @@ export async function submitBillingData(
 			| SubmitBillingDataStatus404
 			| SubmitBillingDataStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -13380,17 +13290,18 @@ export async function submitBillingData(
 export async function submitInvoice(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
@@ -13405,15 +13316,16 @@ export async function submitInvoice(
 			| SubmitInvoiceStatus409
 			| SubmitInvoiceStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing/invoices`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -13436,8 +13348,7 @@ export async function finalizeInstallation(
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
@@ -13482,18 +13393,13 @@ export async function getInvoice(
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.invoiceId === undefined ||
-		pathParams.invoiceId === null ||
-		String(pathParams.invoiceId) === ""
-	) {
+	if (pathParams?.invoiceId == null || String(pathParams.invoiceId) === "") {
 		throw new Error(`Missing required path parameter: invoiceId`);
 	}
 	const data = await request<
@@ -13528,27 +13434,24 @@ export async function getInvoice(
 export async function updateInvoice(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; invoiceId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.invoiceId === undefined ||
-		pathParams.invoiceId === null ||
-		String(pathParams.invoiceId) === ""
-	) {
+	if (pathParams?.invoiceId == null || String(pathParams.invoiceId) === "") {
 		throw new Error(`Missing required path parameter: invoiceId`);
 	}
 	const data = await request<
@@ -13561,15 +13464,16 @@ export async function updateInvoice(
 			| UpdateInvoiceStatus409
 			| UpdateInvoiceStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; invoiceId: string }
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing/invoices/${encodeURIComponent(String(pathParams.invoiceId))}/actions`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -13583,17 +13487,18 @@ export async function updateInvoice(
 export async function submitPrepaymentBalances(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
@@ -13607,15 +13512,16 @@ export async function submitPrepaymentBalances(
 			| SubmitPrepaymentBalancesStatus404
 			| SubmitPrepaymentBalancesStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing/balance`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -13630,6 +13536,7 @@ export async function submitPrepaymentBalances(
 export async function updateResourceSecrets(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: {
@@ -13637,32 +13544,27 @@ export async function updateResourceSecrets(
 			integrationProductIdOrSlug: string;
 			resourceId: string;
 		};
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
 	if (
-		pathParams.integrationProductIdOrSlug === undefined ||
-		pathParams.integrationProductIdOrSlug === null ||
+		pathParams?.integrationProductIdOrSlug == null ||
 		String(pathParams.integrationProductIdOrSlug) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationProductIdOrSlug`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -13676,15 +13578,16 @@ export async function updateResourceSecrets(
 			| UpdateResourceSecretsStatus410
 			| UpdateResourceSecretsStatus422
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; integrationProductIdOrSlug: string; resourceId: string }
 	>({
 		method: "PUT",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/products/${encodeURIComponent(String(pathParams.integrationProductIdOrSlug))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/secrets`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -13698,27 +13601,24 @@ export async function updateResourceSecrets(
 export async function updateResourceSecretsById(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -13732,15 +13632,16 @@ export async function updateResourceSecretsById(
 			| UpdateResourceSecretsByIdStatus410
 			| UpdateResourceSecretsByIdStatus422
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; resourceId: string }
 	>({
 		method: "PUT",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/secrets`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -13816,7 +13717,7 @@ export async function getConfiguration(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -13861,7 +13762,7 @@ export async function deleteConfiguration(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -13906,7 +13807,7 @@ export async function getConfigurationProducts(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -13940,22 +13841,29 @@ export async function getConfigurationProducts(
  * @link /v1/integrations/sso/token
  */
 export async function exchangeSsoToken(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		body,
+		config,
+	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
 		ExchangeSsoTokenResponse,
 		ErrorWrapper<ExchangeSsoTokenStatus400 | ExchangeSsoTokenStatus403 | ExchangeSsoTokenStatus500>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/v1/integrations/sso/token`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -14008,9 +13916,11 @@ export async function getIntegrationLogDrains(
  */
 export async function createLogDrain(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14026,7 +13936,7 @@ export async function createLogDrain(
 			| CreateLogDrainStatus404
 			| CreateLogDrainStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -14034,8 +13944,9 @@ export async function createLogDrain(
 		method: "POST",
 		url: `/v2/integrations/log-drains`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -14059,7 +13970,7 @@ export async function deleteIntegrationLogDrain(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -14090,7 +14001,13 @@ export async function deleteIntegrationLogDrain(
  * @link /api-keys
  */
 export async function createApiKeys(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		body,
+		config,
+	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -14106,15 +14023,16 @@ export async function createApiKeys(
 			| CreateApiKeysStatus429
 			| CreateApiKeysStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/api-keys`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -14128,19 +14046,17 @@ export async function createApiKeys(
 export async function signKmsMessage(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { issuerId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.issuerId === undefined ||
-		pathParams.issuerId === null ||
-		String(pathParams.issuerId) === ""
-	) {
+	if (pathParams?.issuerId == null || String(pathParams.issuerId) === "") {
 		throw new Error(`Missing required path parameter: issuerId`);
 	}
 	const data = await request<
@@ -14152,15 +14068,16 @@ export async function signKmsMessage(
 			| SignKmsMessageStatus404
 			| SignKmsMessageStatus429
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ issuerId: string }
 	>({
 		method: "POST",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/sign/message`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -14174,19 +14091,17 @@ export async function signKmsMessage(
 export async function signKmsToken(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { issuerId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.issuerId === undefined ||
-		pathParams.issuerId === null ||
-		String(pathParams.issuerId) === ""
-	) {
+	if (pathParams?.issuerId == null || String(pathParams.issuerId) === "") {
 		throw new Error(`Missing required path parameter: issuerId`);
 	}
 	const data = await request<
@@ -14198,15 +14113,16 @@ export async function signKmsToken(
 			| SignKmsTokenStatus404
 			| SignKmsTokenStatus429
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ issuerId: string }
 	>({
 		method: "POST",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/sign/token`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -14259,9 +14175,11 @@ export async function listKmsIssuers(
  */
 export async function createKmsIssuer(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14277,7 +14195,7 @@ export async function createKmsIssuer(
 			| CreateKmsIssuerStatus404
 			| CreateKmsIssuerStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -14285,8 +14203,9 @@ export async function createKmsIssuer(
 		method: "POST",
 		url: `/v1/kms/issuers`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -14300,21 +14219,19 @@ export async function createKmsIssuer(
 export async function createKmsSigningKey(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { issuerId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.issuerId === undefined ||
-		pathParams.issuerId === null ||
-		String(pathParams.issuerId) === ""
-	) {
+	if (pathParams?.issuerId == null || String(pathParams.issuerId) === "") {
 		throw new Error(`Missing required path parameter: issuerId`);
 	}
 	const data = await request<
@@ -14327,7 +14244,7 @@ export async function createKmsSigningKey(
 			| CreateKmsSigningKeyStatus409
 			| CreateKmsSigningKeyStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ issuerId: string }
@@ -14335,8 +14252,9 @@ export async function createKmsSigningKey(
 		method: "POST",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/keys`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -14350,29 +14268,23 @@ export async function createKmsSigningKey(
 export async function activateKmsSigningKey(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { issuerId: string; keyId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.issuerId === undefined ||
-		pathParams.issuerId === null ||
-		String(pathParams.issuerId) === ""
-	) {
+	if (pathParams?.issuerId == null || String(pathParams.issuerId) === "") {
 		throw new Error(`Missing required path parameter: issuerId`);
 	}
 
-	if (
-		pathParams.keyId === undefined ||
-		pathParams.keyId === null ||
-		String(pathParams.keyId) === ""
-	) {
+	if (pathParams?.keyId == null || String(pathParams.keyId) === "") {
 		throw new Error(`Missing required path parameter: keyId`);
 	}
 	const data = await request<
@@ -14385,7 +14297,7 @@ export async function activateKmsSigningKey(
 			| ActivateKmsSigningKeyStatus409
 			| ActivateKmsSigningKeyStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ issuerId: string; keyId: string }
@@ -14393,8 +14305,9 @@ export async function activateKmsSigningKey(
 		method: "POST",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/keys/${encodeURIComponent(String(pathParams.keyId))}/activate`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -14418,19 +14331,11 @@ export async function revokeKmsSigningKey(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.issuerId === undefined ||
-		pathParams.issuerId === null ||
-		String(pathParams.issuerId) === ""
-	) {
+	if (pathParams?.issuerId == null || String(pathParams.issuerId) === "") {
 		throw new Error(`Missing required path parameter: issuerId`);
 	}
 
-	if (
-		pathParams.keyId === undefined ||
-		pathParams.keyId === null ||
-		String(pathParams.keyId) === ""
-	) {
+	if (pathParams?.keyId == null || String(pathParams.keyId) === "") {
 		throw new Error(`Missing required path parameter: keyId`);
 	}
 	const data = await request<
@@ -14476,11 +14381,7 @@ export async function getKmsIssuer(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.issuerId === undefined ||
-		pathParams.issuerId === null ||
-		String(pathParams.issuerId) === ""
-	) {
+	if (pathParams?.issuerId == null || String(pathParams.issuerId) === "") {
 		throw new Error(`Missing required path parameter: issuerId`);
 	}
 	const data = await request<
@@ -14515,21 +14416,19 @@ export async function getKmsIssuer(
 export async function updateKmsIssuer(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { issuerId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.issuerId === undefined ||
-		pathParams.issuerId === null ||
-		String(pathParams.issuerId) === ""
-	) {
+	if (pathParams?.issuerId == null || String(pathParams.issuerId) === "") {
 		throw new Error(`Missing required path parameter: issuerId`);
 	}
 	const data = await request<
@@ -14541,7 +14440,7 @@ export async function updateKmsIssuer(
 			| UpdateKmsIssuerStatus404
 			| UpdateKmsIssuerStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ issuerId: string }
@@ -14549,8 +14448,9 @@ export async function updateKmsIssuer(
 		method: "PATCH",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -14574,11 +14474,7 @@ export async function deleteKmsIssuer(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.issuerId === undefined ||
-		pathParams.issuerId === null ||
-		String(pathParams.issuerId) === ""
-	) {
+	if (pathParams?.issuerId == null || String(pathParams.issuerId) === "") {
 		throw new Error(`Missing required path parameter: issuerId`);
 	}
 	const data = await request<
@@ -14613,21 +14509,19 @@ export async function deleteKmsIssuer(
 export async function createKmsIssuerPolicy(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { issuerId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.issuerId === undefined ||
-		pathParams.issuerId === null ||
-		String(pathParams.issuerId) === ""
-	) {
+	if (pathParams?.issuerId == null || String(pathParams.issuerId) === "") {
 		throw new Error(`Missing required path parameter: issuerId`);
 	}
 	const data = await request<
@@ -14639,7 +14533,7 @@ export async function createKmsIssuerPolicy(
 			| CreateKmsIssuerPolicyStatus404
 			| CreateKmsIssuerPolicyStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ issuerId: string }
@@ -14647,8 +14541,9 @@ export async function createKmsIssuerPolicy(
 		method: "POST",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/policies`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -14662,33 +14557,27 @@ export async function createKmsIssuerPolicy(
 export async function updateKmsIssuerPolicy(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { issuerId: string; kind: "project-grant"; policyKey: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.issuerId === undefined ||
-		pathParams.issuerId === null ||
-		String(pathParams.issuerId) === ""
-	) {
+	if (pathParams?.issuerId == null || String(pathParams.issuerId) === "") {
 		throw new Error(`Missing required path parameter: issuerId`);
 	}
 
-	if (pathParams.kind === undefined || pathParams.kind === null || String(pathParams.kind) === "") {
+	if (pathParams?.kind == null || String(pathParams.kind) === "") {
 		throw new Error(`Missing required path parameter: kind`);
 	}
 
-	if (
-		pathParams.policyKey === undefined ||
-		pathParams.policyKey === null ||
-		String(pathParams.policyKey) === ""
-	) {
+	if (pathParams?.policyKey == null || String(pathParams.policyKey) === "") {
 		throw new Error(`Missing required path parameter: policyKey`);
 	}
 	const data = await request<
@@ -14700,7 +14589,7 @@ export async function updateKmsIssuerPolicy(
 			| UpdateKmsIssuerPolicyStatus404
 			| UpdateKmsIssuerPolicyStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ issuerId: string; kind: "project-grant"; policyKey: string }
@@ -14708,8 +14597,9 @@ export async function updateKmsIssuerPolicy(
 		method: "PATCH",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/policies/${encodeURIComponent(String(pathParams.kind))}/${encodeURIComponent(String(pathParams.policyKey))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -14733,23 +14623,15 @@ export async function deleteKmsIssuerPolicy(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.issuerId === undefined ||
-		pathParams.issuerId === null ||
-		String(pathParams.issuerId) === ""
-	) {
+	if (pathParams?.issuerId == null || String(pathParams.issuerId) === "") {
 		throw new Error(`Missing required path parameter: issuerId`);
 	}
 
-	if (pathParams.kind === undefined || pathParams.kind === null || String(pathParams.kind) === "") {
+	if (pathParams?.kind == null || String(pathParams.kind) === "") {
 		throw new Error(`Missing required path parameter: kind`);
 	}
 
-	if (
-		pathParams.policyKey === undefined ||
-		pathParams.policyKey === null ||
-		String(pathParams.policyKey) === ""
-	) {
+	if (pathParams?.policyKey == null || String(pathParams.policyKey) === "") {
 		throw new Error(`Missing required path parameter: policyKey`);
 	}
 	const data = await request<
@@ -14794,19 +14676,11 @@ export async function getRuntimeLogs(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -14841,27 +14715,24 @@ export async function getRuntimeLogs(
 export async function createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItems(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -14873,15 +14744,16 @@ export async function createInstallationsByIntegrationConfigurationIdResourcesBy
 			| CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus404
 			| CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; resourceId: string }
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/experimentation/items`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -14895,35 +14767,28 @@ export async function createInstallationsByIntegrationConfigurationIdResourcesBy
 export async function updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemId(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string; itemId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 
-	if (
-		pathParams.itemId === undefined ||
-		pathParams.itemId === null ||
-		String(pathParams.itemId) === ""
-	) {
+	if (pathParams?.itemId == null || String(pathParams.itemId) === "") {
 		throw new Error(`Missing required path parameter: itemId`);
 	}
 	const data = await request<
@@ -14935,15 +14800,16 @@ export async function updateInstallationsByIntegrationConfigurationIdResourcesBy
 			| UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus404
 			| UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; resourceId: string; itemId: string }
 	>({
 		method: "PATCH",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/experimentation/items/${encodeURIComponent(String(pathParams.itemId))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -14966,26 +14832,17 @@ export async function deleteInstallationsByIntegrationConfigurationIdResourcesBy
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 
-	if (
-		pathParams.itemId === undefined ||
-		pathParams.itemId === null ||
-		String(pathParams.itemId) === ""
-	) {
+	if (pathParams?.itemId == null || String(pathParams.itemId) === "") {
 		throw new Error(`Missing required path parameter: itemId`);
 	}
 	const data = await request<
@@ -15028,18 +14885,13 @@ export async function getInstallationsByIntegrationConfigurationIdResourcesByRes
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -15073,27 +14925,24 @@ export async function getInstallationsByIntegrationConfigurationIdResourcesByRes
 export async function replaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfig(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	if (
-		pathParams.integrationConfigurationId === undefined ||
-		pathParams.integrationConfigurationId === null ||
+		pathParams?.integrationConfigurationId == null ||
 		String(pathParams.integrationConfigurationId) === ""
 	) {
 		throw new Error(`Missing required path parameter: integrationConfigurationId`);
 	}
 
-	if (
-		pathParams.resourceId === undefined ||
-		pathParams.resourceId === null ||
-		String(pathParams.resourceId) === ""
-	) {
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
 		throw new Error(`Missing required path parameter: resourceId`);
 	}
 	const data = await request<
@@ -15107,15 +14956,16 @@ export async function replaceInstallationsByIntegrationConfigurationIdResourcesB
 			| ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410
 			| ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus412
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; resourceId: string }
 	>({
 		method: "PUT",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/experimentation/global-config`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -15180,11 +15030,7 @@ export async function getMicrofrontendsInGroup(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 	const data = await request<
@@ -15229,11 +15075,7 @@ export async function getMicrofrontendsConfig(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -15279,11 +15121,7 @@ export async function getMicrofrontendsConfigForProject(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 	const data = await request<
@@ -15318,9 +15156,11 @@ export async function getMicrofrontendsConfigForProject(
  */
 export async function createMicrofrontendsGroupWithApplications(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -15337,7 +15177,7 @@ export async function createMicrofrontendsGroupWithApplications(
 			| CreateMicrofrontendsGroupWithApplicationsStatus410
 			| CreateMicrofrontendsGroupWithApplicationsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -15345,8 +15185,9 @@ export async function createMicrofrontendsGroupWithApplications(
 		method: "POST",
 		url: `/v1/microfrontends/group`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -15400,21 +15241,19 @@ export async function getObservabilityConfigurationProjects(
 export async function updateObservabilityConfigurationProject(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectIdOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectIdOrName === undefined ||
-		pathParams.projectIdOrName === null ||
-		String(pathParams.projectIdOrName) === ""
-	) {
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
 		throw new Error(`Missing required path parameter: projectIdOrName`);
 	}
 	const data = await request<
@@ -15427,7 +15266,7 @@ export async function updateObservabilityConfigurationProject(
 			| UpdateObservabilityConfigurationProjectStatus410
 			| UpdateObservabilityConfigurationProjectStatus429
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string }
@@ -15435,8 +15274,9 @@ export async function updateObservabilityConfigurationProject(
 		method: "PUT",
 		url: `/v1/observability/manage/configuration/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -15446,7 +15286,13 @@ export async function updateObservabilityConfigurationProject(
  * @link /v2/observability/query
  */
 export async function createObservabilityQuery(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		body,
+		config,
+	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -15465,15 +15311,16 @@ export async function createObservabilityQuery(
 			| CreateObservabilityQueryStatus500
 			| CreateObservabilityQueryStatus503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/v2/observability/query`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -15524,11 +15371,7 @@ export async function getObservabilitySchemaByMetricId(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.metricId === undefined ||
-		pathParams.metricId === null ||
-		String(pathParams.metricId) === ""
-	) {
+	if (pathParams?.metricId == null || String(pathParams.metricId) === "") {
 		throw new Error(`Missing required path parameter: metricId`);
 	}
 	const data = await request<
@@ -15547,6 +15390,310 @@ export async function getObservabilitySchemaByMetricId(
 	>({
 		method: "GET",
 		url: `/v2/observability/schema/${encodeURIComponent(String(pathParams.metricId))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create an Organization
+ * @description Create a new Organization. This endpoint is in private beta. Contact your Vercel account team for access.
+ * @link /v1/organizations
+ */
+export async function createOrganization(
+	{
+		body,
+		queryParams,
+		config,
+	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		queryParams?: { teamId?: string; slug?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CreateOrganizationResponse,
+		ErrorWrapper<
+			| CreateOrganizationStatus400
+			| CreateOrganizationStatus401
+			| CreateOrganizationStatus403
+			| CreateOrganizationStatus404
+			| CreateOrganizationStatus409
+			| CreateOrganizationStatus410
+			| CreateOrganizationStatus500
+		>,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		Record<string, string>,
+		{ teamId?: string; slug?: string },
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/v1/organizations`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List Organizations
+ * @description List the organizations where the authenticated user holds the OrgAdmin or OrgViewer permission on the organization's root or backing team — the same criteria as GET /v1/organizations/:organizationId/teams. This endpoint is in private beta. Contact your Vercel account team for access.
+ * @link /v1/organizations
+ */
+export async function listOrganizations(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ListOrganizationsResponse,
+		ErrorWrapper<
+			ListOrganizationsStatus400 | ListOrganizationsStatus403 | ListOrganizationsStatus410
+		>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/v1/organizations`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get an Organization
+ * @description Get a single organization by ID or slug. This endpoint is in private beta. Contact your Vercel account team for access.
+ * @link /v1/organizations/{organizationId}
+ */
+export async function getOrganization(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { organizationId: string };
+		queryParams?: { teamId?: string; slug?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+	const data = await request<
+		GetOrganizationResponse,
+		ErrorWrapper<
+			| GetOrganizationStatus400
+			| GetOrganizationStatus401
+			| GetOrganizationStatus403
+			| GetOrganizationStatus404
+			| GetOrganizationStatus410
+		>,
+		null,
+		Record<string, string>,
+		{ teamId?: string; slug?: string },
+		{ organizationId: string }
+	>({
+		method: "GET",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update an Organization
+ * @description Update an organization's slug, name, or avatar. Upload avatar images through the existing files API before setting their hash. The organization avatar is independent of the root team's avatar. This endpoint is in private beta. Contact your Vercel account team for access.
+ * @link /v1/organizations/{organizationId}
+ */
+export async function updateOrganization(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: { organizationId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+	const data = await request<
+		UpdateOrganizationResponse,
+		ErrorWrapper<
+			| UpdateOrganizationStatus400
+			| UpdateOrganizationStatus401
+			| UpdateOrganizationStatus403
+			| UpdateOrganizationStatus404
+			| UpdateOrganizationStatus409
+			| UpdateOrganizationStatus410
+		>,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		Record<string, string>,
+		Record<string, string>,
+		{ organizationId: string }
+	>({
+		method: "PATCH",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}`,
+		body: body,
+		...requestConfig,
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List Organization Teams
+ * @description List up to 100 teams in an organization, each enriched with the team's slug, name, and avatar. Set `includeMemberCount` to include counts that include pending memberships but exclude email invitations without a membership record. Teams whose underlying record no longer exists are omitted, so a page may contain fewer teams than the page size (or be empty) while still returning a `cursor`; paginate until `cursor` is absent. This endpoint is in private beta. Contact your Vercel account team for access.
+ * @link /v1/organizations/{organizationId}/teams
+ */
+export async function listOrganizationTeams(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { organizationId: string };
+		queryParams?: { cursor?: string; includeMemberCount?: boolean };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+	const data = await request<
+		ListOrganizationTeamsResponse,
+		ErrorWrapper<
+			| ListOrganizationTeamsStatus400
+			| ListOrganizationTeamsStatus401
+			| ListOrganizationTeamsStatus403
+			| ListOrganizationTeamsStatus404
+			| ListOrganizationTeamsStatus410
+		>,
+		null,
+		Record<string, string>,
+		{ cursor?: string; includeMemberCount?: boolean },
+		{ organizationId: string }
+	>({
+		method: "GET",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/teams`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create or Add Team to Organization
+ * @description Create a new team under an organization, or add an existing team. `mode: "create"` creates a brand-new child team from `slug` + `name` — a platform child by default, or an enterprise child (billed on the organization root's flex subscription) when `billingPlan: "enterprise"` is supplied. `mode: "link"` links an existing team identified by `teamId` or `slug`; the child's billing profile is derived from the target team's plan (enterprise team → enterprise child, else platform), or explicitly supplied. Both modes respond with the resulting organization-team link. This endpoint is in private beta. Contact your Vercel account team for access.
+ * @link /v1/organizations/{organizationId}/teams
+ */
+export async function addOrganizationTeam(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: { organizationId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+	const data = await request<
+		AddOrganizationTeamResponse,
+		ErrorWrapper<
+			| AddOrganizationTeamStatus400
+			| AddOrganizationTeamStatus401
+			| AddOrganizationTeamStatus403
+			| AddOrganizationTeamStatus404
+			| AddOrganizationTeamStatus409
+			| AddOrganizationTeamStatus410
+			| AddOrganizationTeamStatus500
+		>,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		Record<string, string>,
+		Record<string, string>,
+		{ organizationId: string }
+	>({
+		method: "POST",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/teams`,
+		body: body,
+		...requestConfig,
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Team from Organization
+ * @description Delete a team from an organization. This endpoint is in private beta. Contact your Vercel account team for access.
+ * @link /v1/organizations/{organizationId}/teams/{targetTeamId}
+ */
+export async function removeOrganizationTeam(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: { organizationId: string; targetTeamId: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+
+	if (pathParams?.targetTeamId == null || String(pathParams.targetTeamId) === "") {
+		throw new Error(`Missing required path parameter: targetTeamId`);
+	}
+	const data = await request<
+		RemoveOrganizationTeamResponse,
+		ErrorWrapper<
+			| RemoveOrganizationTeamStatus400
+			| RemoveOrganizationTeamStatus401
+			| RemoveOrganizationTeamStatus403
+			| RemoveOrganizationTeamStatus404
+			| RemoveOrganizationTeamStatus409
+			| RemoveOrganizationTeamStatus410
+		>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		{ organizationId: string; targetTeamId: string }
+	>({
+		method: "DELETE",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/teams/${encodeURIComponent(String(pathParams.targetTeamId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -15579,11 +15726,7 @@ export async function getProjectMembers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -15625,21 +15768,19 @@ export async function getProjectMembers(
 export async function addProjectMember(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -15652,7 +15793,7 @@ export async function addProjectMember(
 			| AddProjectMemberStatus410
 			| AddProjectMemberStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -15660,8 +15801,9 @@ export async function addProjectMember(
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/members`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -15685,15 +15827,11 @@ export async function removeProjectMember(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (pathParams.uid === undefined || pathParams.uid === null || String(pathParams.uid) === "") {
+	if (pathParams?.uid == null || String(pathParams.uid) === "") {
 		throw new Error(`Missing required path parameter: uid`);
 	}
 	const data = await request<
@@ -15745,11 +15883,7 @@ export async function getRoutes(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -15791,21 +15925,19 @@ export async function getRoutes(
 export async function stageRoutes(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -15819,7 +15951,7 @@ export async function stageRoutes(
 			| StageRoutesStatus410
 			| StageRoutesStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string }
@@ -15827,8 +15959,9 @@ export async function stageRoutes(
 		method: "PUT",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -15842,21 +15975,19 @@ export async function stageRoutes(
 export async function addRoute(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -15870,7 +16001,7 @@ export async function addRoute(
 			| AddRouteStatus410
 			| AddRouteStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string }
@@ -15878,8 +16009,9 @@ export async function addRoute(
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -15893,21 +16025,19 @@ export async function addRoute(
 export async function deleteRoutes(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -15921,7 +16051,7 @@ export async function deleteRoutes(
 			| DeleteRoutesStatus410
 			| DeleteRoutesStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string }
@@ -15929,8 +16059,9 @@ export async function deleteRoutes(
 		method: "DELETE",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -15944,29 +16075,23 @@ export async function deleteRoutes(
 export async function editRoute(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectId: string; routeId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 
-	if (
-		pathParams.routeId === undefined ||
-		pathParams.routeId === null ||
-		String(pathParams.routeId) === ""
-	) {
+	if (pathParams?.routeId == null || String(pathParams.routeId) === "") {
 		throw new Error(`Missing required path parameter: routeId`);
 	}
 	const data = await request<
@@ -15980,7 +16105,7 @@ export async function editRoute(
 			| EditRouteStatus410
 			| EditRouteStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string; routeId: string }
@@ -15988,8 +16113,9 @@ export async function editRoute(
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes/${encodeURIComponent(String(pathParams.routeId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -16003,21 +16129,19 @@ export async function editRoute(
 export async function generateRoute(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -16031,7 +16155,7 @@ export async function generateRoute(
 			| GenerateRouteStatus410
 			| GenerateRouteStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string }
@@ -16039,8 +16163,9 @@ export async function generateRoute(
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes/generate`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -16064,11 +16189,7 @@ export async function getRouteVersions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -16103,21 +16224,19 @@ export async function getRouteVersions(
 export async function updateRouteVersions(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -16131,7 +16250,7 @@ export async function updateRouteVersions(
 			| UpdateRouteVersionsStatus410
 			| UpdateRouteVersionsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string }
@@ -16139,8 +16258,9 @@ export async function updateRouteVersions(
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes/versions`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -16273,9 +16393,11 @@ export async function getProjectTrace(
  */
 export async function createProject(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16296,7 +16418,7 @@ export async function createProject(
 			| CreateProjectStatus429
 			| CreateProjectStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -16304,8 +16426,9 @@ export async function createProject(
 		method: "POST",
 		url: `/v11/projects`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -16319,21 +16442,19 @@ export async function createProject(
 export async function getProjectToken(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -16345,7 +16466,7 @@ export async function getProjectToken(
 			| GetProjectTokenStatus404
 			| GetProjectTokenStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -16353,8 +16474,9 @@ export async function getProjectToken(
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/token`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -16367,9 +16489,11 @@ export async function getProjectToken(
  */
 export async function createTraceSession(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16386,7 +16510,7 @@ export async function createTraceSession(
 			| CreateTraceSessionStatus410
 			| CreateTraceSessionStatus422
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -16394,8 +16518,9 @@ export async function createTraceSession(
 		method: "POST",
 		url: `/v1/projects/traces/session`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -16419,11 +16544,7 @@ export async function getProject(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -16458,21 +16579,19 @@ export async function getProject(
 export async function updateProject(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -16487,7 +16606,7 @@ export async function updateProject(
 			| UpdateProjectStatus410
 			| UpdateProjectStatus428
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -16495,8 +16614,9 @@ export async function updateProject(
 		method: "PATCH",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -16520,11 +16640,7 @@ export async function deleteProject(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -16560,21 +16676,19 @@ export async function deleteProject(
 export async function uploadProjectAvatar(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -16588,7 +16702,7 @@ export async function uploadProjectAvatar(
 			| UploadProjectAvatarStatus413
 			| UploadProjectAvatarStatus415
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -16596,8 +16710,9 @@ export async function uploadProjectAvatar(
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/avatar`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationOctetStream", ...requestConfig.headers },
 	});
 
 	return data;
@@ -16621,11 +16736,7 @@ export async function deleteProjectAvatar(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -16660,21 +16771,19 @@ export async function deleteProjectAvatar(
 export async function updateStaticIps(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -16689,7 +16798,7 @@ export async function updateStaticIps(
 			| UpdateStaticIpsStatus410
 			| UpdateStaticIpsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -16697,8 +16806,9 @@ export async function updateStaticIps(
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/shared-connect-links`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -16712,21 +16822,19 @@ export async function updateStaticIps(
 export async function createCustomEnvironment(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -16741,7 +16849,7 @@ export async function createCustomEnvironment(
 			| CreateCustomEnvironmentStatus410
 			| CreateCustomEnvironmentStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -16749,8 +16857,9 @@ export async function createCustomEnvironment(
 		method: "POST",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/custom-environments`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -16774,11 +16883,7 @@ export async function getProjectsByIdOrNameCustomEnvironments(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -16823,19 +16928,11 @@ export async function getCustomEnvironment(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (
-		pathParams.environmentSlugOrId === undefined ||
-		pathParams.environmentSlugOrId === null ||
-		String(pathParams.environmentSlugOrId) === ""
-	) {
+	if (pathParams?.environmentSlugOrId == null || String(pathParams.environmentSlugOrId) === "") {
 		throw new Error(`Missing required path parameter: environmentSlugOrId`);
 	}
 	const data = await request<
@@ -16870,29 +16967,23 @@ export async function getCustomEnvironment(
 export async function updateCustomEnvironment(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string; environmentSlugOrId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (
-		pathParams.environmentSlugOrId === undefined ||
-		pathParams.environmentSlugOrId === null ||
-		String(pathParams.environmentSlugOrId) === ""
-	) {
+	if (pathParams?.environmentSlugOrId == null || String(pathParams.environmentSlugOrId) === "") {
 		throw new Error(`Missing required path parameter: environmentSlugOrId`);
 	}
 	const data = await request<
@@ -16906,7 +16997,7 @@ export async function updateCustomEnvironment(
 			| UpdateCustomEnvironmentStatus410
 			| UpdateCustomEnvironmentStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string; environmentSlugOrId: string }
@@ -16914,8 +17005,9 @@ export async function updateCustomEnvironment(
 		method: "PATCH",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/custom-environments/${encodeURIComponent(String(pathParams.environmentSlugOrId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -16929,29 +17021,23 @@ export async function updateCustomEnvironment(
 export async function removeCustomEnvironment(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string; environmentSlugOrId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (
-		pathParams.environmentSlugOrId === undefined ||
-		pathParams.environmentSlugOrId === null ||
-		String(pathParams.environmentSlugOrId) === ""
-	) {
+	if (pathParams?.environmentSlugOrId == null || String(pathParams.environmentSlugOrId) === "") {
 		throw new Error(`Missing required path parameter: environmentSlugOrId`);
 	}
 	const data = await request<
@@ -16963,7 +17049,7 @@ export async function removeCustomEnvironment(
 			| RemoveCustomEnvironmentStatus404
 			| RemoveCustomEnvironmentStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string; environmentSlugOrId: string }
@@ -16971,8 +17057,9 @@ export async function removeCustomEnvironment(
 		method: "DELETE",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/custom-environments/${encodeURIComponent(String(pathParams.environmentSlugOrId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -17010,11 +17097,7 @@ export async function getProjectDomains(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -17073,19 +17156,11 @@ export async function getProjectDomain(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -17120,29 +17195,23 @@ export async function getProjectDomain(
 export async function updateProjectDomain(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string; domain: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -17155,7 +17224,7 @@ export async function updateProjectDomain(
 			| UpdateProjectDomainStatus409
 			| UpdateProjectDomainStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string; domain: string }
@@ -17163,8 +17232,9 @@ export async function updateProjectDomain(
 		method: "PATCH",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/domains/${encodeURIComponent(String(pathParams.domain))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -17178,29 +17248,23 @@ export async function updateProjectDomain(
 export async function removeProjectDomain(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string; domain: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -17213,7 +17277,7 @@ export async function removeProjectDomain(
 			| RemoveProjectDomainStatus409
 			| RemoveProjectDomainStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string; domain: string }
@@ -17221,8 +17285,9 @@ export async function removeProjectDomain(
 		method: "DELETE",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/domains/${encodeURIComponent(String(pathParams.domain))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -17236,21 +17301,19 @@ export async function removeProjectDomain(
 export async function addProjectDomain(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -17264,7 +17327,7 @@ export async function addProjectDomain(
 			| AddProjectDomainStatus409
 			| AddProjectDomainStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -17272,8 +17335,9 @@ export async function addProjectDomain(
 		method: "POST",
 		url: `/v10/projects/${encodeURIComponent(String(pathParams.idOrName))}/domains`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -17287,29 +17351,23 @@ export async function addProjectDomain(
 export async function moveProjectDomain(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string; domain: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -17322,7 +17380,7 @@ export async function moveProjectDomain(
 			| MoveProjectDomainStatus409
 			| MoveProjectDomainStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string; domain: string }
@@ -17330,8 +17388,9 @@ export async function moveProjectDomain(
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/domains/${encodeURIComponent(String(pathParams.domain))}/move`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -17355,19 +17414,11 @@ export async function verifyProjectDomain(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (
-		pathParams.domain === undefined ||
-		pathParams.domain === null ||
-		String(pathParams.domain) === ""
-	) {
+	if (pathParams?.domain == null || String(pathParams.domain) === "") {
 		throw new Error(`Missing required path parameter: domain`);
 	}
 	const data = await request<
@@ -17420,11 +17471,7 @@ export async function filterProjectEnvs(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -17467,21 +17514,19 @@ export async function filterProjectEnvs(
 export async function createProjectEnv(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { upsert?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -17497,7 +17542,7 @@ export async function createProjectEnv(
 			| CreateProjectEnvStatus429
 			| CreateProjectEnvStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ upsert?: string; teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -17505,8 +17550,9 @@ export async function createProjectEnv(
 		method: "POST",
 		url: `/v10/projects/${encodeURIComponent(String(pathParams.idOrName))}/env`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -17530,15 +17576,11 @@ export async function getProjectEnv(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -17583,15 +17625,11 @@ export async function removeProjectEnv(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -17627,25 +17665,23 @@ export async function removeProjectEnv(
 export async function editProjectEnv(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string; id: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -17660,7 +17696,7 @@ export async function editProjectEnv(
 			| EditProjectEnvStatus429
 			| EditProjectEnvStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string; id: string }
@@ -17668,8 +17704,9 @@ export async function editProjectEnv(
 		method: "PATCH",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/env/${encodeURIComponent(String(pathParams.id))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -17683,21 +17720,19 @@ export async function editProjectEnv(
 export async function batchRemoveProjectEnv(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -17710,7 +17745,7 @@ export async function batchRemoveProjectEnv(
 			| BatchRemoveProjectEnvStatus409
 			| BatchRemoveProjectEnvStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -17718,8 +17753,9 @@ export async function batchRemoveProjectEnv(
 		method: "DELETE",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/env`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -17743,11 +17779,7 @@ export async function getRollingReleaseBillingStatus(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -17792,11 +17824,7 @@ export async function getRollingReleaseConfig(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -17841,11 +17869,7 @@ export async function deleteRollingReleaseConfig(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -17890,11 +17914,7 @@ export async function updateRollingReleaseConfig(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -17939,11 +17959,7 @@ export async function getRollingRelease(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -17978,21 +17994,19 @@ export async function getRollingRelease(
 export async function approveRollingReleaseStage(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -18005,7 +18019,7 @@ export async function approveRollingReleaseStage(
 			| ApproveRollingReleaseStageStatus410
 			| ApproveRollingReleaseStageStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -18013,8 +18027,9 @@ export async function approveRollingReleaseStage(
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/rolling-release/approve-stage`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -18028,21 +18043,19 @@ export async function approveRollingReleaseStage(
 export async function startRollingRelease(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -18056,7 +18069,7 @@ export async function startRollingRelease(
 			| StartRollingReleaseStatus410
 			| StartRollingReleaseStatus422
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -18064,8 +18077,9 @@ export async function startRollingRelease(
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/rolling-release/start`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -18079,21 +18093,19 @@ export async function startRollingRelease(
 export async function completeRollingRelease(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -18105,7 +18117,7 @@ export async function completeRollingRelease(
 			| CompleteRollingReleaseStatus404
 			| CompleteRollingReleaseStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -18113,8 +18125,9 @@ export async function completeRollingRelease(
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/rolling-release/complete`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -18128,21 +18141,19 @@ export async function completeRollingRelease(
 export async function createProjectTransferRequest(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -18155,7 +18166,7 @@ export async function createProjectTransferRequest(
 			| CreateProjectTransferRequestStatus409
 			| CreateProjectTransferRequestStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -18163,8 +18174,9 @@ export async function createProjectTransferRequest(
 		method: "POST",
 		url: `/projects/${encodeURIComponent(String(pathParams.idOrName))}/transfer-request`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -18178,17 +18190,19 @@ export async function createProjectTransferRequest(
 export async function acceptProjectTransferRequest(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { code: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.code === undefined || pathParams.code === null || String(pathParams.code) === "") {
+	if (pathParams?.code == null || String(pathParams.code) === "") {
 		throw new Error(`Missing required path parameter: code`);
 	}
 	const data = await request<
@@ -18201,7 +18215,7 @@ export async function acceptProjectTransferRequest(
 			| AcceptProjectTransferRequestStatus410
 			| AcceptProjectTransferRequestStatus422
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ code: string }
@@ -18209,8 +18223,9 @@ export async function acceptProjectTransferRequest(
 		method: "PUT",
 		url: `/projects/transfer-request/${encodeURIComponent(String(pathParams.code))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -18224,21 +18239,19 @@ export async function acceptProjectTransferRequest(
 export async function updateProjectProtectionBypass(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -18251,7 +18264,7 @@ export async function updateProjectProtectionBypass(
 			| UpdateProjectProtectionBypassStatus409
 			| UpdateProjectProtectionBypassStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -18259,8 +18272,9 @@ export async function updateProjectProtectionBypass(
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/protection-bypass`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -18284,19 +18298,11 @@ export async function requestRollback(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -18334,27 +18340,21 @@ export async function requestRollback(
 export async function updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescription(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { projectId: string; deploymentId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -18368,15 +18368,16 @@ export async function updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescr
 			| UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus410
 			| UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus422
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ projectId: string; deploymentId: string }
 	>({
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/rollback/${encodeURIComponent(String(pathParams.deploymentId))}/update-description`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -18390,21 +18391,19 @@ export async function updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescr
 export async function updateMicrofrontends(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { projectId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -18418,7 +18417,7 @@ export async function updateMicrofrontends(
 			| UpdateMicrofrontendsStatus410
 			| UpdateMicrofrontendsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string }
@@ -18426,8 +18425,9 @@ export async function updateMicrofrontends(
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/microfrontends`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -18451,19 +18451,11 @@ export async function requestPromote(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 
-	if (
-		pathParams.deploymentId === undefined ||
-		pathParams.deploymentId === null ||
-		String(pathParams.deploymentId) === ""
-	) {
+	if (pathParams?.deploymentId == null || String(pathParams.deploymentId) === "") {
 		throw new Error(`Missing required path parameter: deploymentId`);
 	}
 	const data = await request<
@@ -18517,11 +18509,7 @@ export async function listPromoteAliases(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -18573,11 +18561,7 @@ export async function pauseProject(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -18623,11 +18607,7 @@ export async function unpauseProject(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.projectId === undefined ||
-		pathParams.projectId === null ||
-		String(pathParams.projectId) === ""
-	) {
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
 		throw new Error(`Missing required path parameter: projectId`);
 	}
 	const data = await request<
@@ -18657,7 +18637,7 @@ export async function unpauseProject(
 
 /**
  * @summary List sandboxes
- * @description Retrieves a paginated list of named sandboxes belonging to a specific project. Results can be sorted by creation time or name, and optionally filtered by name prefix or status.
+ * @description Retrieves a paginated list of named sandboxes belonging to a specific project. Results can be sorted by creation time or name, and optionally filtered by name prefix or status. Overdue sessions for running and stopping sandboxes are recovered before returning the page, so an entry may no longer match its queried status after recovery.
  * @link /v2/sandboxes
  */
 export async function listNamedSandboxes(
@@ -18725,9 +18705,11 @@ export async function listNamedSandboxes(
  */
 export async function createSandboxesV2(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -18750,7 +18732,7 @@ export async function createSandboxesV2(
 			| CreateSandboxesV2Status502
 			| CreateSandboxesV2Status503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -18758,8 +18740,9 @@ export async function createSandboxesV2(
 		method: "POST",
 		url: `/v2/sandboxes`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -18842,11 +18825,7 @@ export async function getDrive(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.nameOrId === undefined ||
-		pathParams.nameOrId === null ||
-		String(pathParams.nameOrId) === ""
-	) {
+	if (pathParams?.nameOrId == null || String(pathParams.nameOrId) === "") {
 		throw new Error(`Missing required path parameter: nameOrId`);
 	}
 	const data = await request<
@@ -18882,17 +18861,19 @@ export async function getDrive(
 export async function getOrCreateDrive(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { name: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.name === undefined || pathParams.name === null || String(pathParams.name) === "") {
+	if (pathParams?.name == null || String(pathParams.name) === "") {
 		throw new Error(`Missing required path parameter: name`);
 	}
 	const data = await request<
@@ -18907,7 +18888,7 @@ export async function getOrCreateDrive(
 			| GetOrCreateDriveStatus410
 			| GetOrCreateDriveStatus429
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ name: string }
@@ -18915,8 +18896,9 @@ export async function getOrCreateDrive(
 		method: "POST",
 		url: `/v2/sandboxes/drives/${encodeURIComponent(String(pathParams.name))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -18940,7 +18922,7 @@ export async function deleteDrive(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.name === undefined || pathParams.name === null || String(pathParams.name) === "") {
+	if (pathParams?.name == null || String(pathParams.name) === "") {
 		throw new Error(`Missing required path parameter: name`);
 	}
 	const data = await request<
@@ -18977,17 +18959,19 @@ export async function deleteDrive(
 export async function forkDrive(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { name: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.name === undefined || pathParams.name === null || String(pathParams.name) === "") {
+	if (pathParams?.name == null || String(pathParams.name) === "") {
 		throw new Error(`Missing required path parameter: name`);
 	}
 	const data = await request<
@@ -19003,7 +18987,7 @@ export async function forkDrive(
 			| ForkDriveStatus429
 			| ForkDriveStatus503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		{ name: string }
@@ -19011,8 +18995,9 @@ export async function forkDrive(
 		method: "POST",
 		url: `/v2/sandboxes/drives/${encodeURIComponent(String(pathParams.name))}/fork`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -19093,11 +19078,7 @@ export async function getSessionSnapshot(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.snapshotId === undefined ||
-		pathParams.snapshotId === null ||
-		String(pathParams.snapshotId) === ""
-	) {
+	if (pathParams?.snapshotId == null || String(pathParams.snapshotId) === "") {
 		throw new Error(`Missing required path parameter: snapshotId`);
 	}
 	const data = await request<
@@ -19143,11 +19124,7 @@ export async function deleteSessionSnapshot(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.snapshotId === undefined ||
-		pathParams.snapshotId === null ||
-		String(pathParams.snapshotId) === ""
-	) {
+	if (pathParams?.snapshotId == null || String(pathParams.snapshotId) === "") {
 		throw new Error(`Missing required path parameter: snapshotId`);
 	}
 	const data = await request<
@@ -19251,11 +19228,7 @@ export async function getSession(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -19302,7 +19275,7 @@ export async function getNamedSandbox(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.name === undefined || pathParams.name === null || String(pathParams.name) === "") {
+	if (pathParams?.name == null || String(pathParams.name) === "") {
 		throw new Error(`Missing required path parameter: name`);
 	}
 	const data = await request<
@@ -19344,17 +19317,19 @@ export async function getNamedSandbox(
 export async function updateSandbox(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { name: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; resume?: boolean; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.name === undefined || pathParams.name === null || String(pathParams.name) === "") {
+	if (pathParams?.name == null || String(pathParams.name) === "") {
 		throw new Error(`Missing required path parameter: name`);
 	}
 	const data = await request<
@@ -19365,15 +19340,12 @@ export async function updateSandbox(
 			| UpdateSandboxStatus402
 			| UpdateSandboxStatus403
 			| UpdateSandboxStatus404
-			| UpdateSandboxStatus409
 			| UpdateSandboxStatus410
 			| UpdateSandboxStatus422
 			| UpdateSandboxStatus429
 			| UpdateSandboxStatus500
-			| UpdateSandboxStatus502
-			| UpdateSandboxStatus503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; resume?: boolean; teamId?: string; slug?: string },
 		{ name: string }
@@ -19381,8 +19353,9 @@ export async function updateSandbox(
 		method: "PATCH",
 		url: `/v2/sandboxes/${encodeURIComponent(String(pathParams.name))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -19390,7 +19363,7 @@ export async function updateSandbox(
 
 /**
  * @summary Delete a sandbox
- * @description Deletes a sandbox by name. If sandboxes are currently running, they will be stopped first. This operation deletes all sandbox entities with the given name and the named sandbox metadata. Returns 404 if the sandbox does not exist or was deleted by a concurrent request.
+ * @description Deletes a sandbox by name. If sandboxes are currently running, they will be stopped first. This operation deletes all sandbox entities with the given name and the named sandbox metadata. When the config item is already missing, the returned sandbox uses stored metadata and defaults; config fields may be stale.
  * @link /v2/sandboxes/{name}
  */
 export async function deleteSandbox(
@@ -19411,7 +19384,7 @@ export async function deleteSandbox(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.name === undefined || pathParams.name === null || String(pathParams.name) === "") {
+	if (pathParams?.name == null || String(pathParams.name) === "") {
 		throw new Error(`Missing required path parameter: name`);
 	}
 	const data = await request<
@@ -19457,11 +19430,7 @@ export async function listSessionCommands(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -19497,21 +19466,19 @@ export async function listSessionCommands(
 export async function runSessionCommand(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { sessionId: string };
-		queryParams?: { cmdId?: string; teamId?: string; slug?: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -19526,16 +19493,17 @@ export async function runSessionCommand(
 			| RunSessionCommandStatus429
 			| RunSessionCommandStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
-		{ cmdId?: string; teamId?: string; slug?: string },
+		{ teamId?: string; slug?: string },
 		{ sessionId: string }
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/cmd`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -19559,19 +19527,11 @@ export async function getSessionCommand(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 
-	if (
-		pathParams.cmdId === undefined ||
-		pathParams.cmdId === null ||
-		String(pathParams.cmdId) === ""
-	) {
+	if (pathParams?.cmdId == null || String(pathParams.cmdId) === "") {
 		throw new Error(`Missing required path parameter: cmdId`);
 	}
 	const data = await request<
@@ -19609,29 +19569,23 @@ export async function getSessionCommand(
 export async function killSessionCommand(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { cmdId: string; sessionId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.cmdId === undefined ||
-		pathParams.cmdId === null ||
-		String(pathParams.cmdId) === ""
-	) {
+	if (pathParams?.cmdId == null || String(pathParams.cmdId) === "") {
 		throw new Error(`Missing required path parameter: cmdId`);
 	}
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -19646,7 +19600,7 @@ export async function killSessionCommand(
 			| KillSessionCommandStatus429
 			| KillSessionCommandStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ cmdId: string; sessionId: string }
@@ -19654,8 +19608,9 @@ export async function killSessionCommand(
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/cmd/${encodeURIComponent(String(pathParams.cmdId))}/kill`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -19663,35 +19618,29 @@ export async function killSessionCommand(
 
 /**
  * @summary Write to command stdin
- * @description Writes data to the stdin of a running command, and optionally closes it. The command must have been started with `attachStdin` set to true. Writes are applied in the order they are received. Send them one at a time to keep the data in order. A write returns once the command has accepted the data, and fails with a 504 after 30 seconds if the command is not reading stdin. Each write counts against the sandbox control plane rate limit, so batch small writes where possible. Set `offset` to the position in stdin where `data` starts to make a request safe to resend, for example after a 502 or 504: bytes the command has already received are skipped, and an offset past them fails with a 409. The response returns `bytesWritten`, the total written so far, and a 504 includes it in the error when the sandbox reports it. A request with no `data` and no `close` writes nothing and returns it. If a request with an `offset` gets a response without `bytesWritten`, the sandbox predates offsets and ignored it, so resending that request is not safe.
+ * @description Writes data to the stdin of a running command, and optionally closes it. The command must have been started with `attachStdin` set to true. Writes are applied in the order they are received. Send them one at a time to keep the data in order. A write returns once the command has accepted the data, and fails with a 504 after 30 seconds if the command is not reading stdin. Each write counts against the sandbox control plane rate limit, so batch small writes where possible. Set `offset` to the position in stdin where `data` starts to make a request safe to resend, for example after a 502 or 504: bytes the command has already received are skipped, and an offset past them fails with a 409. The response returns `bytesWritten`, the total written so far, and a 504 includes it in the error when the sandbox reports it. A request with no `data` and no `close` writes nothing and returns it.
  * @link /v2/sandboxes/sessions/{sessionId}/cmd/{cmdId}/stdin
  */
 export async function writeSessionCommandStdin(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { cmdId: string; sessionId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.cmdId === undefined ||
-		pathParams.cmdId === null ||
-		String(pathParams.cmdId) === ""
-	) {
+	if (pathParams?.cmdId == null || String(pathParams.cmdId) === "") {
 		throw new Error(`Missing required path parameter: cmdId`);
 	}
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -19709,7 +19658,7 @@ export async function writeSessionCommandStdin(
 			| WriteSessionCommandStdinStatus502
 			| WriteSessionCommandStdinStatus504
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ cmdId: string; sessionId: string }
@@ -19717,8 +19666,9 @@ export async function writeSessionCommandStdin(
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/cmd/${encodeURIComponent(String(pathParams.cmdId))}/stdin`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -19742,19 +19692,11 @@ export async function getSessionCommandLogs(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 
-	if (
-		pathParams.cmdId === undefined ||
-		pathParams.cmdId === null ||
-		String(pathParams.cmdId) === ""
-	) {
+	if (pathParams?.cmdId == null || String(pathParams.cmdId) === "") {
 		throw new Error(`Missing required path parameter: cmdId`);
 	}
 	const data = await request<
@@ -19802,11 +19744,7 @@ export async function stopSession(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -19844,21 +19782,19 @@ export async function stopSession(
 export async function extendSessionTimeout(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { sessionId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -19873,7 +19809,7 @@ export async function extendSessionTimeout(
 			| ExtendSessionTimeoutStatus429
 			| ExtendSessionTimeoutStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ sessionId: string }
@@ -19881,8 +19817,9 @@ export async function extendSessionTimeout(
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/extend-timeout`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -19896,21 +19833,19 @@ export async function extendSessionTimeout(
 export async function updateSessionNetworkPolicy(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { sessionId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -19925,7 +19860,7 @@ export async function updateSessionNetworkPolicy(
 			| UpdateSessionNetworkPolicyStatus429
 			| UpdateSessionNetworkPolicyStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ sessionId: string }
@@ -19933,8 +19868,9 @@ export async function updateSessionNetworkPolicy(
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/network-policy`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -19948,21 +19884,19 @@ export async function updateSessionNetworkPolicy(
 export async function readSessionFile(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { sessionId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -19977,7 +19911,7 @@ export async function readSessionFile(
 			| ReadSessionFileStatus429
 			| ReadSessionFileStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ sessionId: string }
@@ -19985,8 +19919,9 @@ export async function readSessionFile(
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/fs/read`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -20000,21 +19935,19 @@ export async function readSessionFile(
 export async function createSessionDirectory(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { sessionId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -20029,7 +19962,7 @@ export async function createSessionDirectory(
 			| CreateSessionDirectoryStatus429
 			| CreateSessionDirectoryStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ sessionId: string }
@@ -20037,8 +19970,9 @@ export async function createSessionDirectory(
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/fs/mkdir`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -20064,11 +19998,7 @@ export async function writeSessionFiles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -20106,21 +20036,19 @@ export async function writeSessionFiles(
 export async function createSandboxesSessionsBySessionIdSnapshotV2(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { sessionId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -20136,7 +20064,7 @@ export async function createSandboxesSessionsBySessionIdSnapshotV2(
 			| CreateSandboxesSessionsBySessionIdSnapshotV2Status429
 			| CreateSandboxesSessionsBySessionIdSnapshotV2Status500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ sessionId: string }
@@ -20144,8 +20072,9 @@ export async function createSandboxesSessionsBySessionIdSnapshotV2(
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/snapshot`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -20159,17 +20088,19 @@ export async function createSandboxesSessionsBySessionIdSnapshotV2(
 export async function createSandboxesByNameForkV2(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { name: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.name === undefined || pathParams.name === null || String(pathParams.name) === "") {
+	if (pathParams?.name == null || String(pathParams.name) === "") {
 		throw new Error(`Missing required path parameter: name`);
 	}
 	const data = await request<
@@ -20188,7 +20119,7 @@ export async function createSandboxesByNameForkV2(
 			| CreateSandboxesByNameForkV2Status502
 			| CreateSandboxesByNameForkV2Status503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		{ name: string }
@@ -20196,8 +20127,9 @@ export async function createSandboxesByNameForkV2(
 		method: "POST",
 		url: `/v2/sandboxes/${encodeURIComponent(String(pathParams.name))}/fork`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -20210,9 +20142,11 @@ export async function createSandboxesByNameForkV2(
  */
 export async function createSandboxesV3(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20235,7 +20169,7 @@ export async function createSandboxesV3(
 			| CreateSandboxesV3Status502
 			| CreateSandboxesV3Status503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -20243,8 +20177,9 @@ export async function createSandboxesV3(
 		method: "POST",
 		url: `/v3/sandboxes`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -20258,21 +20193,19 @@ export async function createSandboxesV3(
 export async function createSandboxesSessionsBySessionIdSnapshotV3(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { sessionId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.sessionId === undefined ||
-		pathParams.sessionId === null ||
-		String(pathParams.sessionId) === ""
-	) {
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
 		throw new Error(`Missing required path parameter: sessionId`);
 	}
 	const data = await request<
@@ -20288,7 +20221,7 @@ export async function createSandboxesSessionsBySessionIdSnapshotV3(
 			| CreateSandboxesSessionsBySessionIdSnapshotV3Status429
 			| CreateSandboxesSessionsBySessionIdSnapshotV3Status500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ sessionId: string }
@@ -20296,8 +20229,9 @@ export async function createSandboxesSessionsBySessionIdSnapshotV3(
 		method: "POST",
 		url: `/v3/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/snapshot`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -20311,17 +20245,19 @@ export async function createSandboxesSessionsBySessionIdSnapshotV3(
 export async function createSandboxesByNameForkV3(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { name: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.name === undefined || pathParams.name === null || String(pathParams.name) === "") {
+	if (pathParams?.name == null || String(pathParams.name) === "") {
 		throw new Error(`Missing required path parameter: name`);
 	}
 	const data = await request<
@@ -20340,7 +20276,7 @@ export async function createSandboxesByNameForkV3(
 			| CreateSandboxesByNameForkV3Status502
 			| CreateSandboxesByNameForkV3Status503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		{ name: string }
@@ -20348,8 +20284,9 @@ export async function createSandboxesByNameForkV3(
 		method: "POST",
 		url: `/v3/sandboxes/${encodeURIComponent(String(pathParams.name))}/fork`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -20362,9 +20299,11 @@ export async function createSandboxesByNameForkV3(
  */
 export async function createSandboxesV4(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20387,7 +20326,7 @@ export async function createSandboxesV4(
 			| CreateSandboxesV4Status502
 			| CreateSandboxesV4Status503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -20395,8 +20334,9 @@ export async function createSandboxesV4(
 		method: "POST",
 		url: `/v4/sandboxes`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -20409,9 +20349,11 @@ export async function createSandboxesV4(
  */
 export async function updateAttackChallengeMode(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20427,7 +20369,7 @@ export async function updateAttackChallengeMode(
 			| UpdateAttackChallengeModeStatus404
 			| UpdateAttackChallengeModeStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -20435,8 +20377,9 @@ export async function updateAttackChallengeMode(
 		method: "POST",
 		url: `/v1/security/attack-mode`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -20482,9 +20425,11 @@ export async function getSecurityFirewallConfig(
  */
 export async function putFirewallConfig(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20502,7 +20447,7 @@ export async function putFirewallConfig(
 			| PutFirewallConfigStatus410
 			| PutFirewallConfigStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -20510,8 +20455,9 @@ export async function putFirewallConfig(
 		method: "PUT",
 		url: `/v1/security/firewall/config`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -20524,9 +20470,11 @@ export async function putFirewallConfig(
  */
 export async function updateFirewallConfig(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20544,7 +20492,7 @@ export async function updateFirewallConfig(
 			| UpdateFirewallConfigStatus410
 			| UpdateFirewallConfigStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -20552,8 +20500,9 @@ export async function updateFirewallConfig(
 		method: "PATCH",
 		url: `/v1/security/firewall/config`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -20577,11 +20526,7 @@ export async function getFirewallConfig(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.configVersion === undefined ||
-		pathParams.configVersion === null ||
-		String(pathParams.configVersion) === ""
-	) {
+	if (pathParams?.configVersion == null || String(pathParams.configVersion) === "") {
 		throw new Error(`Missing required path parameter: configVersion`);
 	}
 	const data = await request<
@@ -20624,11 +20569,7 @@ export async function deleteSecurityFirewallConfigByConfigVersion(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.configVersion === undefined ||
-		pathParams.configVersion === null ||
-		String(pathParams.configVersion) === ""
-	) {
+	if (pathParams?.configVersion == null || String(pathParams.configVersion) === "") {
 		throw new Error(`Missing required path parameter: configVersion`);
 	}
 	const data = await request<
@@ -20671,11 +20612,7 @@ export async function createSecurityFirewallConfigByConfigVersionActivate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.configVersion === undefined ||
-		pathParams.configVersion === null ||
-		String(pathParams.configVersion) === ""
-	) {
+	if (pathParams?.configVersion == null || String(pathParams.configVersion) === "") {
 		throw new Error(`Missing required path parameter: configVersion`);
 	}
 	const data = await request<
@@ -20810,9 +20747,11 @@ export async function getBypassIp(
  */
 export async function addBypassIp(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20830,7 +20769,7 @@ export async function addBypassIp(
 			| AddBypassIpStatus410
 			| AddBypassIpStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -20838,8 +20777,9 @@ export async function addBypassIp(
 		method: "POST",
 		url: `/v1/security/firewall/bypass`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -20852,9 +20792,11 @@ export async function addBypassIp(
  */
 export async function removeBypassIp(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20872,13 +20814,138 @@ export async function removeBypassIp(
 			| RemoveBypassIpStatus410
 			| RemoveBypassIpStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
 	>({
 		method: "DELETE",
 		url: `/v1/security/firewall/bypass`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get conditional firewall bypasses
+ * @description Retrieve conditional firewall bypass rules for a project.
+ * @link /v1/security/firewall/bypass/rules
+ */
+export async function getConditionalBypass(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: { projectId?: string; slug?: string; domain?: string; teamId?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		GetConditionalBypassResponse,
+		ErrorWrapper<
+			| GetConditionalBypassStatus400
+			| GetConditionalBypassStatus401
+			| GetConditionalBypassStatus403
+			| GetConditionalBypassStatus404
+			| GetConditionalBypassStatus410
+		>,
+		null,
+		Record<string, string>,
+		{ projectId?: string; slug?: string; domain?: string; teamId?: string },
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/v1/security/firewall/bypass/rules`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create conditional firewall bypass
+ * @description Create a conditional firewall bypass rule for a project domain.
+ * @link /v1/security/firewall/bypass/rules
+ */
+export async function createConditionalBypass(
+	{
+		body,
+		queryParams,
+		config,
+	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		queryParams?: { projectId?: string; slug?: string; teamId?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CreateConditionalBypassResponse,
+		ErrorWrapper<
+			| CreateConditionalBypassStatus400
+			| CreateConditionalBypassStatus401
+			| CreateConditionalBypassStatus403
+			| CreateConditionalBypassStatus404
+			| CreateConditionalBypassStatus409
+			| CreateConditionalBypassStatus410
+		>,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		Record<string, string>,
+		{ projectId?: string; slug?: string; teamId?: string },
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/v1/security/firewall/bypass/rules`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete conditional firewall bypass
+ * @description Delete a conditional firewall bypass rule from a project domain.
+ * @link /v1/security/firewall/bypass/rules
+ */
+export async function deleteConditionalBypass(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: { projectId?: string; slug?: string; domain?: string; teamId?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		DeleteConditionalBypassResponse,
+		ErrorWrapper<
+			| DeleteConditionalBypassStatus400
+			| DeleteConditionalBypassStatus401
+			| DeleteConditionalBypassStatus403
+			| DeleteConditionalBypassStatus404
+			| DeleteConditionalBypassStatus410
+		>,
+		null,
+		Record<string, string>,
+		{ projectId?: string; slug?: string; domain?: string; teamId?: string },
+		Record<string, string>
+	>({
+		method: "DELETE",
+		url: `/v1/security/firewall/bypass/rules`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -21076,9 +21143,11 @@ export async function generateFirewallRule(
  */
 export async function createSpeedInsightsToggle(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -21095,7 +21164,7 @@ export async function createSpeedInsightsToggle(
 			| CreateSpeedInsightsToggleStatus404
 			| CreateSpeedInsightsToggleStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string },
 		Record<string, string>
@@ -21103,8 +21172,9 @@ export async function createSpeedInsightsToggle(
 		method: "POST",
 		url: `/speed-insights/toggle`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -21127,7 +21197,7 @@ export async function getStorageStoresById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -21159,7 +21229,13 @@ export async function getStorageStoresById(
  * @link /storage/stores/blob
  */
 export async function createStorageStoresBlob(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		body,
+		config,
+	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -21175,15 +21251,16 @@ export async function createStorageStoresBlob(
 			| CreateStorageStoresBlobStatus410
 			| CreateStorageStoresBlobStatus429
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/storage/stores/blob`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -21204,7 +21281,7 @@ export async function deleteStorageStoresBlobById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -21238,9 +21315,11 @@ export async function deleteStorageStoresBlobById(
  */
 export async function createIntegrationStoreDirect(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -21259,7 +21338,7 @@ export async function createIntegrationStoreDirect(
 			| CreateIntegrationStoreDirectStatus410
 			| CreateIntegrationStoreDirectStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -21267,8 +21346,9 @@ export async function createIntegrationStoreDirect(
 		method: "POST",
 		url: `/v1/storage/stores/integration/direct`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -21309,11 +21389,7 @@ export async function getTeamMembers(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -21365,21 +21441,19 @@ export async function getTeamMembers(
 export async function inviteUserToTeam(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { teamId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -21392,7 +21466,7 @@ export async function inviteUserToTeam(
 			| InviteUserToTeamStatus410
 			| InviteUserToTeamStatus503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ slug?: string },
 		{ teamId: string }
@@ -21400,8 +21474,9 @@ export async function inviteUserToTeam(
 		method: "POST",
 		url: `/v2/teams/${encodeURIComponent(String(pathParams.teamId))}/members`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -21415,19 +21490,17 @@ export async function inviteUserToTeam(
 export async function requestAccessToTeam(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { teamId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -21441,15 +21514,16 @@ export async function requestAccessToTeam(
 			| RequestAccessToTeamStatus429
 			| RequestAccessToTeamStatus503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ teamId: string }
 	>({
 		method: "POST",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/request`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -21471,19 +21545,11 @@ export async function getTeamAccessRequest(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -21516,19 +21582,17 @@ export async function getTeamAccessRequest(
 export async function joinTeam(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { teamId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -21541,15 +21605,16 @@ export async function joinTeam(
 			| JoinTeamStatus410
 			| JoinTeamStatus503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ teamId: string }
 	>({
 		method: "POST",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/members/teams/join`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -21563,23 +21628,21 @@ export async function joinTeam(
 export async function updateTeamMember(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { uid: string; teamId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.uid === undefined || pathParams.uid === null || String(pathParams.uid) === "") {
+	if (pathParams?.uid == null || String(pathParams.uid) === "") {
 		throw new Error(`Missing required path parameter: uid`);
 	}
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -21594,15 +21657,16 @@ export async function updateTeamMember(
 			| UpdateTeamMemberStatus410
 			| UpdateTeamMemberStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		{ uid: string; teamId: string }
 	>({
 		method: "PATCH",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/members/${encodeURIComponent(String(pathParams.uid))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -21626,15 +21690,11 @@ export async function removeTeamMember(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.uid === undefined || pathParams.uid === null || String(pathParams.uid) === "") {
+	if (pathParams?.uid == null || String(pathParams.uid) === "") {
 		throw new Error(`Missing required path parameter: uid`);
 	}
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -21680,11 +21740,7 @@ export async function getTeam(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -21715,21 +21771,19 @@ export async function getTeam(
 export async function patchTeam(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { teamId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -21744,7 +21798,7 @@ export async function patchTeam(
 			| PatchTeamStatus410
 			| PatchTeamStatus428
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ slug?: string },
 		{ teamId: string }
@@ -21752,8 +21806,9 @@ export async function patchTeam(
 		method: "PATCH",
 		url: `/v2/teams/${encodeURIComponent(String(pathParams.teamId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -21799,7 +21854,13 @@ export async function getTeams(
  * @link /v1/teams
  */
 export async function createTeam(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		body,
+		config,
+	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -21808,15 +21869,16 @@ export async function createTeam(
 		ErrorWrapper<
 			CreateTeamStatus400 | CreateTeamStatus403 | CreateTeamStatus404 | CreateTeamStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/v1/teams`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -21830,21 +21892,19 @@ export async function createTeam(
 export async function postTeamDsyncRoles(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { teamId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -21856,7 +21916,7 @@ export async function postTeamDsyncRoles(
 			| PostTeamDsyncRolesStatus404
 			| PostTeamDsyncRolesStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ slug?: string },
 		{ teamId: string }
@@ -21864,8 +21924,9 @@ export async function postTeamDsyncRoles(
 		method: "POST",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/dsync-roles`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -21873,27 +21934,25 @@ export async function postTeamDsyncRoles(
 
 /**
  * @summary Delete a Team
- * @description Delete a team under your account. You need to send a `DELETE` request with the desired team `id`. An optional array of reasons for deletion may also be sent.
+ * @description Delete a team under your account. You need to send a `DELETE` request with the desired team `id`. An optional array of reasons for deletion may also be sent. Enterprise teams can only be deleted in test billing mode and when not linked to an organization.
  * @link /v1/teams/{teamId}
  */
 export async function deleteTeam(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { teamId: string };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { newDefaultTeamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -21908,7 +21967,7 @@ export async function deleteTeam(
 			| DeleteTeamStatus410
 			| DeleteTeamStatus503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ newDefaultTeamId?: string; slug?: string },
 		{ teamId: string }
@@ -21916,8 +21975,9 @@ export async function deleteTeam(
 		method: "DELETE",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -21939,19 +21999,11 @@ export async function deleteTeamInviteCode(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.inviteId === undefined ||
-		pathParams.inviteId === null ||
-		String(pathParams.inviteId) === ""
-	) {
+	if (pathParams?.inviteId == null || String(pathParams.inviteId) === "") {
 		throw new Error(`Missing required path parameter: inviteId`);
 	}
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -21985,29 +22037,23 @@ export async function deleteTeamInviteCode(
 export async function updateMicrofrontendsGroup(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { groupId: string; teamId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -22019,7 +22065,7 @@ export async function updateMicrofrontendsGroup(
 			| UpdateMicrofrontendsGroupStatus404
 			| UpdateMicrofrontendsGroupStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ slug?: string },
 		{ groupId: string; teamId: string }
@@ -22027,8 +22073,9 @@ export async function updateMicrofrontendsGroup(
 		method: "PATCH",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/microfrontends/${encodeURIComponent(String(pathParams.groupId))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -22052,19 +22099,11 @@ export async function deleteMicrofrontendsGroup(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.groupId === undefined ||
-		pathParams.groupId === null ||
-		String(pathParams.groupId) === ""
-	) {
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
 		throw new Error(`Missing required path parameter: groupId`);
 	}
 
-	if (
-		pathParams.teamId === undefined ||
-		pathParams.teamId === null ||
-		String(pathParams.teamId) === ""
-	) {
+	if (pathParams?.teamId == null || String(pathParams.teamId) === "") {
 		throw new Error(`Missing required path parameter: teamId`);
 	}
 	const data = await request<
@@ -22099,10 +22138,12 @@ export async function deleteMicrofrontendsGroup(
  */
 export async function uploadFile(
 	{
+		body,
 		queryParams,
 		headers,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		headers?: {
 			"Content-Length"?: number;
@@ -22125,7 +22166,7 @@ export async function uploadFile(
 			| UploadFileStatus410
 			| UploadFileStatus426
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		{
 			"Content-Length"?: number;
 			"x-vercel-digest"?: string;
@@ -22138,8 +22179,9 @@ export async function uploadFile(
 		method: "POST",
 		url: `/v2/files`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: { "Content-Type": "applicationOctetStream", ...headers, ...requestConfig.headers },
 	});
 
 	return data;
@@ -22184,9 +22226,11 @@ export async function listAuthTokens(
  */
 export async function createAuthToken(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -22202,7 +22246,7 @@ export async function createAuthToken(
 			| CreateAuthTokenStatus404
 			| CreateAuthTokenStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -22210,8 +22254,9 @@ export async function createAuthToken(
 		method: "POST",
 		url: `/v3/user/tokens`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -22233,11 +22278,7 @@ export async function getAuthToken(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.tokenId === undefined ||
-		pathParams.tokenId === null ||
-		String(pathParams.tokenId) === ""
-	) {
+	if (pathParams?.tokenId == null || String(pathParams.tokenId) === "") {
 		throw new Error(`Missing required path parameter: tokenId`);
 	}
 	const data = await request<
@@ -22277,11 +22318,7 @@ export async function deleteAuthToken(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.tokenId === undefined ||
-		pathParams.tokenId === null ||
-		String(pathParams.tokenId) === ""
-	) {
+	if (pathParams?.tokenId == null || String(pathParams.tokenId) === "") {
 		throw new Error(`Missing required path parameter: tokenId`);
 	}
 	const data = await request<
@@ -22346,7 +22383,13 @@ export async function getAuthUser(
  * @link /v1/user
  */
 export async function requestDelete(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		body,
+		config,
+	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -22358,15 +22401,16 @@ export async function requestDelete(
 			| RequestDeleteStatus403
 			| RequestDeleteStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "DELETE",
 		url: `/v1/user`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -22379,9 +22423,11 @@ export async function requestDelete(
  */
 export async function createRepository(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -22399,7 +22445,7 @@ export async function createRepository(
 			| CreateRepositoryStatus409
 			| CreateRepositoryStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -22407,8 +22453,9 @@ export async function createRepository(
 		method: "POST",
 		url: `/v1/vcr/repository`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -22478,11 +22525,7 @@ export async function getRepository(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -22527,11 +22570,7 @@ export async function deleteRepository(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -22583,11 +22622,7 @@ export async function listRepositoryImages(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -22629,21 +22664,19 @@ export async function listRepositoryImages(
 export async function addRepositoryPermission(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -22655,7 +22688,7 @@ export async function addRepositoryPermission(
 			| AddRepositoryPermissionStatus404
 			| AddRepositoryPermissionStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -22663,8 +22696,9 @@ export async function addRepositoryPermission(
 		method: "POST",
 		url: `/v1/vcr/repository/${encodeURIComponent(String(pathParams.idOrName))}/permissions`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -22678,21 +22712,19 @@ export async function addRepositoryPermission(
 export async function removeRepositoryPermission(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { idOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -22704,7 +22736,7 @@ export async function removeRepositoryPermission(
 			| RemoveRepositoryPermissionStatus404
 			| RemoveRepositoryPermissionStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -22712,8 +22744,9 @@ export async function removeRepositoryPermission(
 		method: "DELETE",
 		url: `/v1/vcr/repository/${encodeURIComponent(String(pathParams.idOrName))}/permissions`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -22743,11 +22776,7 @@ export async function listRepositoryPermissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -22792,11 +22821,7 @@ export async function clearRepositoryPermissions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -22849,11 +22874,7 @@ export async function listRepositoryTags(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 	const data = await request<
@@ -22906,15 +22927,11 @@ export async function getRepositoryTag(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (pathParams.tag === undefined || pathParams.tag === null || String(pathParams.tag) === "") {
+	if (pathParams?.tag == null || String(pathParams.tag) === "") {
 		throw new Error(`Missing required path parameter: tag`);
 	}
 	const data = await request<
@@ -22959,19 +22976,11 @@ export async function getRepositoryImage(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (
-		pathParams.imageIdOrDigest === undefined ||
-		pathParams.imageIdOrDigest === null ||
-		String(pathParams.imageIdOrDigest) === ""
-	) {
+	if (pathParams?.imageIdOrDigest == null || String(pathParams.imageIdOrDigest) === "") {
 		throw new Error(`Missing required path parameter: imageIdOrDigest`);
 	}
 	const data = await request<
@@ -23016,19 +23025,11 @@ export async function deleteRepositoryImage(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrName === undefined ||
-		pathParams.idOrName === null ||
-		String(pathParams.idOrName) === ""
-	) {
+	if (pathParams?.idOrName == null || String(pathParams.idOrName) === "") {
 		throw new Error(`Missing required path parameter: idOrName`);
 	}
 
-	if (
-		pathParams.imageId === undefined ||
-		pathParams.imageId === null ||
-		String(pathParams.imageId) === ""
-	) {
+	if (pathParams?.imageId == null || String(pathParams.imageId) === "") {
 		throw new Error(`Missing required path parameter: imageId`);
 	}
 	const data = await request<
@@ -23105,35 +23106,19 @@ export async function getByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamSlug === undefined ||
-		pathParams.teamSlug === null ||
-		String(pathParams.teamSlug) === ""
-	) {
+	if (pathParams?.teamSlug == null || String(pathParams.teamSlug) === "") {
 		throw new Error(`Missing required path parameter: teamSlug`);
 	}
 
-	if (
-		pathParams.projectSlug === undefined ||
-		pathParams.projectSlug === null ||
-		String(pathParams.projectSlug) === ""
-	) {
+	if (pathParams?.projectSlug == null || String(pathParams.projectSlug) === "") {
 		throw new Error(`Missing required path parameter: projectSlug`);
 	}
 
-	if (
-		pathParams.repositoryName === undefined ||
-		pathParams.repositoryName === null ||
-		String(pathParams.repositoryName) === ""
-	) {
+	if (pathParams?.repositoryName == null || String(pathParams.repositoryName) === "") {
 		throw new Error(`Missing required path parameter: repositoryName`);
 	}
 
-	if (
-		pathParams.digest === undefined ||
-		pathParams.digest === null ||
-		String(pathParams.digest) === ""
-	) {
+	if (pathParams?.digest == null || String(pathParams.digest) === "") {
 		throw new Error(`Missing required path parameter: digest`);
 	}
 	const data = await request<
@@ -23177,35 +23162,19 @@ export async function deleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamSlug === undefined ||
-		pathParams.teamSlug === null ||
-		String(pathParams.teamSlug) === ""
-	) {
+	if (pathParams?.teamSlug == null || String(pathParams.teamSlug) === "") {
 		throw new Error(`Missing required path parameter: teamSlug`);
 	}
 
-	if (
-		pathParams.projectSlug === undefined ||
-		pathParams.projectSlug === null ||
-		String(pathParams.projectSlug) === ""
-	) {
+	if (pathParams?.projectSlug == null || String(pathParams.projectSlug) === "") {
 		throw new Error(`Missing required path parameter: projectSlug`);
 	}
 
-	if (
-		pathParams.repositoryName === undefined ||
-		pathParams.repositoryName === null ||
-		String(pathParams.repositoryName) === ""
-	) {
+	if (pathParams?.repositoryName == null || String(pathParams.repositoryName) === "") {
 		throw new Error(`Missing required path parameter: repositoryName`);
 	}
 
-	if (
-		pathParams.digest === undefined ||
-		pathParams.digest === null ||
-		String(pathParams.digest) === ""
-	) {
+	if (pathParams?.digest == null || String(pathParams.digest) === "") {
 		throw new Error(`Missing required path parameter: digest`);
 	}
 	const data = await request<
@@ -23249,31 +23218,19 @@ export async function getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUu
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamSlug === undefined ||
-		pathParams.teamSlug === null ||
-		String(pathParams.teamSlug) === ""
-	) {
+	if (pathParams?.teamSlug == null || String(pathParams.teamSlug) === "") {
 		throw new Error(`Missing required path parameter: teamSlug`);
 	}
 
-	if (
-		pathParams.projectSlug === undefined ||
-		pathParams.projectSlug === null ||
-		String(pathParams.projectSlug) === ""
-	) {
+	if (pathParams?.projectSlug == null || String(pathParams.projectSlug) === "") {
 		throw new Error(`Missing required path parameter: projectSlug`);
 	}
 
-	if (
-		pathParams.repositoryName === undefined ||
-		pathParams.repositoryName === null ||
-		String(pathParams.repositoryName) === ""
-	) {
+	if (pathParams?.repositoryName == null || String(pathParams.repositoryName) === "") {
 		throw new Error(`Missing required path parameter: repositoryName`);
 	}
 
-	if (pathParams.uuid === undefined || pathParams.uuid === null || String(pathParams.uuid) === "") {
+	if (pathParams?.uuid == null || String(pathParams.uuid) === "") {
 		throw new Error(`Missing required path parameter: uuid`);
 	}
 	const data = await request<
@@ -23316,31 +23273,19 @@ export async function deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsB
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamSlug === undefined ||
-		pathParams.teamSlug === null ||
-		String(pathParams.teamSlug) === ""
-	) {
+	if (pathParams?.teamSlug == null || String(pathParams.teamSlug) === "") {
 		throw new Error(`Missing required path parameter: teamSlug`);
 	}
 
-	if (
-		pathParams.projectSlug === undefined ||
-		pathParams.projectSlug === null ||
-		String(pathParams.projectSlug) === ""
-	) {
+	if (pathParams?.projectSlug == null || String(pathParams.projectSlug) === "") {
 		throw new Error(`Missing required path parameter: projectSlug`);
 	}
 
-	if (
-		pathParams.repositoryName === undefined ||
-		pathParams.repositoryName === null ||
-		String(pathParams.repositoryName) === ""
-	) {
+	if (pathParams?.repositoryName == null || String(pathParams.repositoryName) === "") {
 		throw new Error(`Missing required path parameter: repositoryName`);
 	}
 
-	if (pathParams.uuid === undefined || pathParams.uuid === null || String(pathParams.uuid) === "") {
+	if (pathParams?.uuid == null || String(pathParams.uuid) === "") {
 		throw new Error(`Missing required path parameter: uuid`);
 	}
 	const data = await request<
@@ -23383,31 +23328,19 @@ export async function updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsB
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamSlug === undefined ||
-		pathParams.teamSlug === null ||
-		String(pathParams.teamSlug) === ""
-	) {
+	if (pathParams?.teamSlug == null || String(pathParams.teamSlug) === "") {
 		throw new Error(`Missing required path parameter: teamSlug`);
 	}
 
-	if (
-		pathParams.projectSlug === undefined ||
-		pathParams.projectSlug === null ||
-		String(pathParams.projectSlug) === ""
-	) {
+	if (pathParams?.projectSlug == null || String(pathParams.projectSlug) === "") {
 		throw new Error(`Missing required path parameter: projectSlug`);
 	}
 
-	if (
-		pathParams.repositoryName === undefined ||
-		pathParams.repositoryName === null ||
-		String(pathParams.repositoryName) === ""
-	) {
+	if (pathParams?.repositoryName == null || String(pathParams.repositoryName) === "") {
 		throw new Error(`Missing required path parameter: repositoryName`);
 	}
 
-	if (pathParams.uuid === undefined || pathParams.uuid === null || String(pathParams.uuid) === "") {
+	if (pathParams?.uuid == null || String(pathParams.uuid) === "") {
 		throw new Error(`Missing required path parameter: uuid`);
 	}
 	const data = await request<
@@ -23454,31 +23387,19 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploads
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamSlug === undefined ||
-		pathParams.teamSlug === null ||
-		String(pathParams.teamSlug) === ""
-	) {
+	if (pathParams?.teamSlug == null || String(pathParams.teamSlug) === "") {
 		throw new Error(`Missing required path parameter: teamSlug`);
 	}
 
-	if (
-		pathParams.projectSlug === undefined ||
-		pathParams.projectSlug === null ||
-		String(pathParams.projectSlug) === ""
-	) {
+	if (pathParams?.projectSlug == null || String(pathParams.projectSlug) === "") {
 		throw new Error(`Missing required path parameter: projectSlug`);
 	}
 
-	if (
-		pathParams.repositoryName === undefined ||
-		pathParams.repositoryName === null ||
-		String(pathParams.repositoryName) === ""
-	) {
+	if (pathParams?.repositoryName == null || String(pathParams.repositoryName) === "") {
 		throw new Error(`Missing required path parameter: repositoryName`);
 	}
 
-	if (pathParams.uuid === undefined || pathParams.uuid === null || String(pathParams.uuid) === "") {
+	if (pathParams?.uuid == null || String(pathParams.uuid) === "") {
 		throw new Error(`Missing required path parameter: uuid`);
 	}
 	const data = await request<
@@ -23526,27 +23447,15 @@ export async function createByTeamSlugByProjectSlugByRepositoryNameBlobsUploads(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamSlug === undefined ||
-		pathParams.teamSlug === null ||
-		String(pathParams.teamSlug) === ""
-	) {
+	if (pathParams?.teamSlug == null || String(pathParams.teamSlug) === "") {
 		throw new Error(`Missing required path parameter: teamSlug`);
 	}
 
-	if (
-		pathParams.projectSlug === undefined ||
-		pathParams.projectSlug === null ||
-		String(pathParams.projectSlug) === ""
-	) {
+	if (pathParams?.projectSlug == null || String(pathParams.projectSlug) === "") {
 		throw new Error(`Missing required path parameter: projectSlug`);
 	}
 
-	if (
-		pathParams.repositoryName === undefined ||
-		pathParams.repositoryName === null ||
-		String(pathParams.repositoryName) === ""
-	) {
+	if (pathParams?.repositoryName == null || String(pathParams.repositoryName) === "") {
 		throw new Error(`Missing required path parameter: repositoryName`);
 	}
 	const data = await request<
@@ -23595,35 +23504,19 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByR
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamSlug === undefined ||
-		pathParams.teamSlug === null ||
-		String(pathParams.teamSlug) === ""
-	) {
+	if (pathParams?.teamSlug == null || String(pathParams.teamSlug) === "") {
 		throw new Error(`Missing required path parameter: teamSlug`);
 	}
 
-	if (
-		pathParams.projectSlug === undefined ||
-		pathParams.projectSlug === null ||
-		String(pathParams.projectSlug) === ""
-	) {
+	if (pathParams?.projectSlug == null || String(pathParams.projectSlug) === "") {
 		throw new Error(`Missing required path parameter: projectSlug`);
 	}
 
-	if (
-		pathParams.repositoryName === undefined ||
-		pathParams.repositoryName === null ||
-		String(pathParams.repositoryName) === ""
-	) {
+	if (pathParams?.repositoryName == null || String(pathParams.repositoryName) === "") {
 		throw new Error(`Missing required path parameter: repositoryName`);
 	}
 
-	if (
-		pathParams.reference === undefined ||
-		pathParams.reference === null ||
-		String(pathParams.reference) === ""
-	) {
+	if (pathParams?.reference == null || String(pathParams.reference) === "") {
 		throw new Error(`Missing required path parameter: reference`);
 	}
 	const data = await request<
@@ -23672,35 +23565,19 @@ export async function getByTeamSlugByProjectSlugByRepositoryNameManifestsByRefer
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamSlug === undefined ||
-		pathParams.teamSlug === null ||
-		String(pathParams.teamSlug) === ""
-	) {
+	if (pathParams?.teamSlug == null || String(pathParams.teamSlug) === "") {
 		throw new Error(`Missing required path parameter: teamSlug`);
 	}
 
-	if (
-		pathParams.projectSlug === undefined ||
-		pathParams.projectSlug === null ||
-		String(pathParams.projectSlug) === ""
-	) {
+	if (pathParams?.projectSlug == null || String(pathParams.projectSlug) === "") {
 		throw new Error(`Missing required path parameter: projectSlug`);
 	}
 
-	if (
-		pathParams.repositoryName === undefined ||
-		pathParams.repositoryName === null ||
-		String(pathParams.repositoryName) === ""
-	) {
+	if (pathParams?.repositoryName == null || String(pathParams.repositoryName) === "") {
 		throw new Error(`Missing required path parameter: repositoryName`);
 	}
 
-	if (
-		pathParams.reference === undefined ||
-		pathParams.reference === null ||
-		String(pathParams.reference) === ""
-	) {
+	if (pathParams?.reference == null || String(pathParams.reference) === "") {
 		throw new Error(`Missing required path parameter: reference`);
 	}
 	const data = await request<
@@ -23748,35 +23625,19 @@ export async function deleteByTeamSlugByProjectSlugByRepositoryNameManifestsByRe
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamSlug === undefined ||
-		pathParams.teamSlug === null ||
-		String(pathParams.teamSlug) === ""
-	) {
+	if (pathParams?.teamSlug == null || String(pathParams.teamSlug) === "") {
 		throw new Error(`Missing required path parameter: teamSlug`);
 	}
 
-	if (
-		pathParams.projectSlug === undefined ||
-		pathParams.projectSlug === null ||
-		String(pathParams.projectSlug) === ""
-	) {
+	if (pathParams?.projectSlug == null || String(pathParams.projectSlug) === "") {
 		throw new Error(`Missing required path parameter: projectSlug`);
 	}
 
-	if (
-		pathParams.repositoryName === undefined ||
-		pathParams.repositoryName === null ||
-		String(pathParams.repositoryName) === ""
-	) {
+	if (pathParams?.repositoryName == null || String(pathParams.repositoryName) === "") {
 		throw new Error(`Missing required path parameter: repositoryName`);
 	}
 
-	if (
-		pathParams.reference === undefined ||
-		pathParams.reference === null ||
-		String(pathParams.reference) === ""
-	) {
+	if (pathParams?.reference == null || String(pathParams.reference) === "") {
 		throw new Error(`Missing required path parameter: reference`);
 	}
 	const data = await request<
@@ -23821,27 +23682,15 @@ export async function getByTeamSlugByProjectSlugByRepositoryNameTagsList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.teamSlug === undefined ||
-		pathParams.teamSlug === null ||
-		String(pathParams.teamSlug) === ""
-	) {
+	if (pathParams?.teamSlug == null || String(pathParams.teamSlug) === "") {
 		throw new Error(`Missing required path parameter: teamSlug`);
 	}
 
-	if (
-		pathParams.projectSlug === undefined ||
-		pathParams.projectSlug === null ||
-		String(pathParams.projectSlug) === ""
-	) {
+	if (pathParams?.projectSlug == null || String(pathParams.projectSlug) === "") {
 		throw new Error(`Missing required path parameter: projectSlug`);
 	}
 
-	if (
-		pathParams.repositoryName === undefined ||
-		pathParams.repositoryName === null ||
-		String(pathParams.repositoryName) === ""
-	) {
+	if (pathParams?.repositoryName == null || String(pathParams.repositoryName) === "") {
 		throw new Error(`Missing required path parameter: repositoryName`);
 	}
 	const data = await request<
@@ -23931,9 +23780,11 @@ export async function getVercelCiRepositorySettings(
  */
 export async function updateVercelCiRepositorySettings(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: {
 			provider?: "bitbucket" | "cursor-origin" | "github" | "gitlab" | "vercel";
 			organizationId?: string;
@@ -23958,7 +23809,7 @@ export async function updateVercelCiRepositorySettings(
 			| UpdateVercelCiRepositorySettingsStatus429
 			| UpdateVercelCiRepositorySettingsStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{
 			provider?: "bitbucket" | "cursor-origin" | "github" | "gitlab" | "vercel";
@@ -23972,8 +23823,9 @@ export async function updateVercelCiRepositorySettings(
 		method: "PATCH",
 		url: `/v1/vercel-ci/repository-settings`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -24130,9 +23982,11 @@ export async function listVercelCiBranches(
  */
 export async function createVercelCiTaskAnalysis(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -24152,7 +24006,7 @@ export async function createVercelCiTaskAnalysis(
 			| CreateVercelCiTaskAnalysisStatus500
 			| CreateVercelCiTaskAnalysisStatus503
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -24160,8 +24014,9 @@ export async function createVercelCiTaskAnalysis(
 		method: "POST",
 		url: `/v1/vercel-ci/task-analyses`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -24185,11 +24040,7 @@ export async function getVercelCiTaskAnalysis(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.analysisId === undefined ||
-		pathParams.analysisId === null ||
-		String(pathParams.analysisId) === ""
-	) {
+	if (pathParams?.analysisId == null || String(pathParams.analysisId) === "") {
 		throw new Error(`Missing required path parameter: analysisId`);
 	}
 	const data = await request<
@@ -24226,21 +24077,19 @@ export async function getVercelCiTaskAnalysis(
 export async function createVercelCiTaskConfigurationPullRequest(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { analysisId: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.analysisId === undefined ||
-		pathParams.analysisId === null ||
-		String(pathParams.analysisId) === ""
-	) {
+	if (pathParams?.analysisId == null || String(pathParams.analysisId) === "") {
 		throw new Error(`Missing required path parameter: analysisId`);
 	}
 	const data = await request<
@@ -24255,7 +24104,7 @@ export async function createVercelCiTaskConfigurationPullRequest(
 			| CreateVercelCiTaskConfigurationPullRequestStatus429
 			| CreateVercelCiTaskConfigurationPullRequestStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ analysisId: string }
@@ -24263,8 +24112,9 @@ export async function createVercelCiTaskConfigurationPullRequest(
 		method: "POST",
 		url: `/v1/vercel-ci/task-analyses/${encodeURIComponent(String(pathParams.analysisId))}/pull-request`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -24288,11 +24138,7 @@ export async function listVercelCiTaskAnalysisTasks(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.analysisId === undefined ||
-		pathParams.analysisId === null ||
-		String(pathParams.analysisId) === ""
-	) {
+	if (pathParams?.analysisId == null || String(pathParams.analysisId) === "") {
 		throw new Error(`Missing required path parameter: analysisId`);
 	}
 	const data = await request<
@@ -24340,11 +24186,7 @@ export async function listVercelCiInvocationAttempts(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 	const data = await request<
@@ -24391,11 +24233,7 @@ export async function getVercelCiInvocationTree(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 	const data = await request<
@@ -24442,19 +24280,11 @@ export async function getVercelCiInvocation(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 
-	if (
-		pathParams.attempt === undefined ||
-		pathParams.attempt === null ||
-		String(pathParams.attempt) === ""
-	) {
+	if (pathParams?.attempt == null || String(pathParams.attempt) === "") {
 		throw new Error(`Missing required path parameter: attempt`);
 	}
 	const data = await request<
@@ -24501,19 +24331,11 @@ export async function retryVercelCiInvocation(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 
-	if (
-		pathParams.attempt === undefined ||
-		pathParams.attempt === null ||
-		String(pathParams.attempt) === ""
-	) {
+	if (pathParams?.attempt == null || String(pathParams.attempt) === "") {
 		throw new Error(`Missing required path parameter: attempt`);
 	}
 	const data = await request<
@@ -24561,19 +24383,11 @@ export async function listVercelCiJobDefinitions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 
-	if (
-		pathParams.attempt === undefined ||
-		pathParams.attempt === null ||
-		String(pathParams.attempt) === ""
-	) {
+	if (pathParams?.attempt == null || String(pathParams.attempt) === "") {
 		throw new Error(`Missing required path parameter: attempt`);
 	}
 	const data = await request<
@@ -24620,27 +24434,15 @@ export async function getVercelCiJobDefinition(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 
-	if (
-		pathParams.attempt === undefined ||
-		pathParams.attempt === null ||
-		String(pathParams.attempt) === ""
-	) {
+	if (pathParams?.attempt == null || String(pathParams.attempt) === "") {
 		throw new Error(`Missing required path parameter: attempt`);
 	}
 
-	if (
-		pathParams.jobDefinitionId === undefined ||
-		pathParams.jobDefinitionId === null ||
-		String(pathParams.jobDefinitionId) === ""
-	) {
+	if (pathParams?.jobDefinitionId == null || String(pathParams.jobDefinitionId) === "") {
 		throw new Error(`Missing required path parameter: jobDefinitionId`);
 	}
 	const data = await request<
@@ -24687,27 +24489,15 @@ export async function listVercelCiJobRuns(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 
-	if (
-		pathParams.attempt === undefined ||
-		pathParams.attempt === null ||
-		String(pathParams.attempt) === ""
-	) {
+	if (pathParams?.attempt == null || String(pathParams.attempt) === "") {
 		throw new Error(`Missing required path parameter: attempt`);
 	}
 
-	if (
-		pathParams.jobDefinitionId === undefined ||
-		pathParams.jobDefinitionId === null ||
-		String(pathParams.jobDefinitionId) === ""
-	) {
+	if (pathParams?.jobDefinitionId == null || String(pathParams.jobDefinitionId) === "") {
 		throw new Error(`Missing required path parameter: jobDefinitionId`);
 	}
 	const data = await request<
@@ -24759,35 +24549,19 @@ export async function getVercelCiJobRun(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 
-	if (
-		pathParams.attempt === undefined ||
-		pathParams.attempt === null ||
-		String(pathParams.attempt) === ""
-	) {
+	if (pathParams?.attempt == null || String(pathParams.attempt) === "") {
 		throw new Error(`Missing required path parameter: attempt`);
 	}
 
-	if (
-		pathParams.jobDefinitionId === undefined ||
-		pathParams.jobDefinitionId === null ||
-		String(pathParams.jobDefinitionId) === ""
-	) {
+	if (pathParams?.jobDefinitionId == null || String(pathParams.jobDefinitionId) === "") {
 		throw new Error(`Missing required path parameter: jobDefinitionId`);
 	}
 
-	if (
-		pathParams.runAttempt === undefined ||
-		pathParams.runAttempt === null ||
-		String(pathParams.runAttempt) === ""
-	) {
+	if (pathParams?.runAttempt == null || String(pathParams.runAttempt) === "") {
 		throw new Error(`Missing required path parameter: runAttempt`);
 	}
 	const data = await request<
@@ -24839,35 +24613,19 @@ export async function listVercelCiTaskDefinitions(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 
-	if (
-		pathParams.attempt === undefined ||
-		pathParams.attempt === null ||
-		String(pathParams.attempt) === ""
-	) {
+	if (pathParams?.attempt == null || String(pathParams.attempt) === "") {
 		throw new Error(`Missing required path parameter: attempt`);
 	}
 
-	if (
-		pathParams.jobDefinitionId === undefined ||
-		pathParams.jobDefinitionId === null ||
-		String(pathParams.jobDefinitionId) === ""
-	) {
+	if (pathParams?.jobDefinitionId == null || String(pathParams.jobDefinitionId) === "") {
 		throw new Error(`Missing required path parameter: jobDefinitionId`);
 	}
 
-	if (
-		pathParams.runAttempt === undefined ||
-		pathParams.runAttempt === null ||
-		String(pathParams.runAttempt) === ""
-	) {
+	if (pathParams?.runAttempt == null || String(pathParams.runAttempt) === "") {
 		throw new Error(`Missing required path parameter: runAttempt`);
 	}
 	const data = await request<
@@ -24919,35 +24677,19 @@ export async function listVercelCiTaskRuns(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 
-	if (
-		pathParams.attempt === undefined ||
-		pathParams.attempt === null ||
-		String(pathParams.attempt) === ""
-	) {
+	if (pathParams?.attempt == null || String(pathParams.attempt) === "") {
 		throw new Error(`Missing required path parameter: attempt`);
 	}
 
-	if (
-		pathParams.jobDefinitionId === undefined ||
-		pathParams.jobDefinitionId === null ||
-		String(pathParams.jobDefinitionId) === ""
-	) {
+	if (pathParams?.jobDefinitionId == null || String(pathParams.jobDefinitionId) === "") {
 		throw new Error(`Missing required path parameter: jobDefinitionId`);
 	}
 
-	if (
-		pathParams.runAttempt === undefined ||
-		pathParams.runAttempt === null ||
-		String(pathParams.runAttempt) === ""
-	) {
+	if (pathParams?.runAttempt == null || String(pathParams.runAttempt) === "") {
 		throw new Error(`Missing required path parameter: runAttempt`);
 	}
 	const data = await request<
@@ -25000,19 +24742,11 @@ export async function getVercelCiInvocationLogs(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 
-	if (
-		pathParams.attempt === undefined ||
-		pathParams.attempt === null ||
-		String(pathParams.attempt) === ""
-	) {
+	if (pathParams?.attempt == null || String(pathParams.attempt) === "") {
 		throw new Error(`Missing required path parameter: attempt`);
 	}
 	const data = await request<
@@ -25075,19 +24809,11 @@ export async function getVercelCiTaskLogs(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 
-	if (
-		pathParams.attempt === undefined ||
-		pathParams.attempt === null ||
-		String(pathParams.attempt) === ""
-	) {
+	if (pathParams?.attempt == null || String(pathParams.attempt) === "") {
 		throw new Error(`Missing required path parameter: attempt`);
 	}
 	const data = await request<
@@ -25215,35 +24941,19 @@ export async function getVercelCiJobRunLogs(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 
-	if (
-		pathParams.attempt === undefined ||
-		pathParams.attempt === null ||
-		String(pathParams.attempt) === ""
-	) {
+	if (pathParams?.attempt == null || String(pathParams.attempt) === "") {
 		throw new Error(`Missing required path parameter: attempt`);
 	}
 
-	if (
-		pathParams.jobDefinitionId === undefined ||
-		pathParams.jobDefinitionId === null ||
-		String(pathParams.jobDefinitionId) === ""
-	) {
+	if (pathParams?.jobDefinitionId == null || String(pathParams.jobDefinitionId) === "") {
 		throw new Error(`Missing required path parameter: jobDefinitionId`);
 	}
 
-	if (
-		pathParams.runAttempt === undefined ||
-		pathParams.runAttempt === null ||
-		String(pathParams.runAttempt) === ""
-	) {
+	if (pathParams?.runAttempt == null || String(pathParams.runAttempt) === "") {
 		throw new Error(`Missing required path parameter: runAttempt`);
 	}
 	const data = await request<
@@ -25313,51 +25023,27 @@ export async function getVercelCiTaskRunLogs(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.invocationId === undefined ||
-		pathParams.invocationId === null ||
-		String(pathParams.invocationId) === ""
-	) {
+	if (pathParams?.invocationId == null || String(pathParams.invocationId) === "") {
 		throw new Error(`Missing required path parameter: invocationId`);
 	}
 
-	if (
-		pathParams.attempt === undefined ||
-		pathParams.attempt === null ||
-		String(pathParams.attempt) === ""
-	) {
+	if (pathParams?.attempt == null || String(pathParams.attempt) === "") {
 		throw new Error(`Missing required path parameter: attempt`);
 	}
 
-	if (
-		pathParams.jobDefinitionId === undefined ||
-		pathParams.jobDefinitionId === null ||
-		String(pathParams.jobDefinitionId) === ""
-	) {
+	if (pathParams?.jobDefinitionId == null || String(pathParams.jobDefinitionId) === "") {
 		throw new Error(`Missing required path parameter: jobDefinitionId`);
 	}
 
-	if (
-		pathParams.runAttempt === undefined ||
-		pathParams.runAttempt === null ||
-		String(pathParams.runAttempt) === ""
-	) {
+	if (pathParams?.runAttempt == null || String(pathParams.runAttempt) === "") {
 		throw new Error(`Missing required path parameter: runAttempt`);
 	}
 
-	if (
-		pathParams.taskDefinitionId === undefined ||
-		pathParams.taskDefinitionId === null ||
-		String(pathParams.taskDefinitionId) === ""
-	) {
+	if (pathParams?.taskDefinitionId == null || String(pathParams.taskDefinitionId) === "") {
 		throw new Error(`Missing required path parameter: taskDefinitionId`);
 	}
 
-	if (
-		pathParams.taskRunAttempt === undefined ||
-		pathParams.taskRunAttempt === null ||
-		String(pathParams.taskRunAttempt) === ""
-	) {
+	if (pathParams?.taskRunAttempt == null || String(pathParams.taskRunAttempt) === "") {
 		throw new Error(`Missing required path parameter: taskRunAttempt`);
 	}
 	const data = await request<
@@ -25406,9 +25092,11 @@ export async function getVercelCiTaskRunLogs(
  */
 export async function createWebInsightsToggle(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { projectId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -25424,7 +25112,7 @@ export async function createWebInsightsToggle(
 			| CreateWebInsightsToggleStatus404
 			| CreateWebInsightsToggleStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ projectId?: string },
 		Record<string, string>
@@ -25432,8 +25120,9 @@ export async function createWebInsightsToggle(
 		method: "POST",
 		url: `/web/insights/toggle`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -25678,9 +25367,11 @@ export async function countEvents(
  */
 export async function createWebhook(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -25696,7 +25387,7 @@ export async function createWebhook(
 			| CreateWebhookStatus404
 			| CreateWebhookStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -25704,8 +25395,9 @@ export async function createWebhook(
 		method: "POST",
 		url: `/v1/webhooks`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -25769,7 +25461,7 @@ export async function getWebhook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -25814,7 +25506,7 @@ export async function deleteWebhook(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -25859,7 +25551,7 @@ export async function listDeploymentAliases(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -25894,17 +25586,19 @@ export async function listDeploymentAliases(
 export async function assignAlias(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { id: unknown };
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -25918,7 +25612,7 @@ export async function assignAlias(
 			| AssignAliasStatus409
 			| AssignAliasStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ id: unknown }
@@ -25926,8 +25620,9 @@ export async function assignAlias(
 		method: "POST",
 		url: `/v2/deployments/${encodeURIComponent(String(pathParams.id))}/aliases`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -26018,11 +25713,7 @@ export async function getAlias(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.idOrAlias === undefined ||
-		pathParams.idOrAlias === null ||
-		String(pathParams.idOrAlias) === ""
-	) {
+	if (pathParams?.idOrAlias == null || String(pathParams.idOrAlias) === "") {
 		throw new Error(`Missing required path parameter: idOrAlias`);
 	}
 	const data = await request<
@@ -26074,11 +25765,7 @@ export async function deleteAlias(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.aliasId === undefined ||
-		pathParams.aliasId === null ||
-		String(pathParams.aliasId) === ""
-	) {
+	if (pathParams?.aliasId == null || String(pathParams.aliasId) === "") {
 		throw new Error(`Missing required path parameter: aliasId`);
 	}
 	const data = await request<
@@ -26113,17 +25800,19 @@ export async function deleteAlias(
 export async function patchUrlProtectionBypass(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { id: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -26137,7 +25826,7 @@ export async function patchUrlProtectionBypass(
 			| PatchUrlProtectionBypassStatus410
 			| PatchUrlProtectionBypassStatus428
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ id: string }
@@ -26145,8 +25834,9 @@ export async function patchUrlProtectionBypass(
 		method: "PATCH",
 		url: `/aliases/${encodeURIComponent(String(pathParams.id))}/protection-bypass`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -26170,7 +25860,7 @@ export async function getCertById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -26215,7 +25905,7 @@ export async function removeCert(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -26283,9 +25973,11 @@ export async function getCerts(
  */
 export async function issueCert(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -26304,7 +25996,7 @@ export async function issueCert(
 			| IssueCertStatus449
 			| IssueCertStatus500
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -26312,8 +26004,9 @@ export async function issueCert(
 		method: "POST",
 		url: `/v8/certs`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -26326,9 +26019,11 @@ export async function issueCert(
  */
 export async function uploadCert(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -26345,7 +26040,7 @@ export async function uploadCert(
 			| UploadCertStatus404
 			| UploadCertStatus410
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -26353,8 +26048,9 @@ export async function uploadCert(
 		method: "PUT",
 		url: `/v8/certs`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
 	});
 
 	return data;
@@ -26378,7 +26074,7 @@ export async function listDeploymentFiles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -26423,15 +26119,11 @@ export async function getDeploymentFileContents(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 
-	if (
-		pathParams.fileId === undefined ||
-		pathParams.fileId === null ||
-		String(pathParams.fileId) === ""
-	) {
+	if (pathParams?.fileId == null || String(pathParams.fileId) === "") {
 		throw new Error(`Missing required path parameter: fileId`);
 	}
 	const data = await request<
@@ -26551,7 +26243,7 @@ export async function deleteDeployment(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams.id === undefined || pathParams.id === null || String(pathParams.id) === "") {
+	if (pathParams?.id == null || String(pathParams.id) === "") {
 		throw new Error(`Missing required path parameter: id`);
 	}
 	const data = await request<
@@ -26561,6 +26253,7 @@ export async function deleteDeployment(
 			| DeleteDeploymentStatus401
 			| DeleteDeploymentStatus403
 			| DeleteDeploymentStatus404
+			| DeleteDeploymentStatus409
 			| DeleteDeploymentStatus410
 		>,
 		null,
@@ -26666,6 +26359,10 @@ export const operationsByPath = {
 	"GET /v2/connect/projects/{projectId}/connectors": listProjectConnectorConnections,
 	"POST /v1/connect/token/{connector}": getConnectorToken,
 	"POST /v1/connect/authorize/{connector}": createConnectorAuthorizationRequest,
+	"GET /v1/projects/{idOrName}/daemons": getProjectBoxes,
+	"PUT /v1/projects/{idOrName}/daemons/{daemonName}/instances": putProjectDaemonInstances,
+	"POST /v1/projects/{idOrName}/daemons/{daemonName}/instances/{instanceId}/restart":
+		restartProjectDaemonInstance,
 	"GET /v3/deployments/{idOrUrl}/events": getDeploymentEvents,
 	"PATCH /v1/deployments/{deploymentId}/integrations/{integrationConfigurationId}/resources/{resourceId}/actions/{action}":
 		updateIntegrationDeploymentAction,
@@ -26848,6 +26545,13 @@ export const operationsByPath = {
 	"POST /v2/observability/query": createObservabilityQuery,
 	"GET /v2/observability/schema": getObservabilitySchema,
 	"GET /v2/observability/schema/{metricId}": getObservabilitySchemaByMetricId,
+	"POST /v1/organizations": createOrganization,
+	"GET /v1/organizations": listOrganizations,
+	"GET /v1/organizations/{organizationId}": getOrganization,
+	"PATCH /v1/organizations/{organizationId}": updateOrganization,
+	"GET /v1/organizations/{organizationId}/teams": listOrganizationTeams,
+	"POST /v1/organizations/{organizationId}/teams": addOrganizationTeam,
+	"DELETE /v1/organizations/{organizationId}/teams/{targetTeamId}": removeOrganizationTeam,
 	"GET /v1/projects/{idOrName}/members": getProjectMembers,
 	"POST /v1/projects/{idOrName}/members": addProjectMember,
 	"DELETE /v1/projects/{idOrName}/members/{uid}": removeProjectMember,
@@ -26955,6 +26659,9 @@ export const operationsByPath = {
 	"GET /v1/security/firewall/bypass": getBypassIp,
 	"POST /v1/security/firewall/bypass": addBypassIp,
 	"DELETE /v1/security/firewall/bypass": removeBypassIp,
+	"GET /v1/security/firewall/bypass/rules": getConditionalBypass,
+	"POST /v1/security/firewall/bypass/rules": createConditionalBypass,
+	"DELETE /v1/security/firewall/bypass/rules": deleteConditionalBypass,
 	"GET /v1/security/firewall/events": getSecurityFirewallEvents,
 	"GET /v1/security/firewall/events/summary": getSecurityFirewallEventsSummary,
 	"POST /v1/security/firewall/config/generate-rule": generateFirewallRule,
@@ -27185,6 +26892,11 @@ export const operationsByTag = {
 		getConnectorToken,
 		createConnectorAuthorizationRequest,
 	},
+	daemons: {
+		getProjectBoxes,
+		putProjectDaemonInstances,
+		restartProjectDaemonInstance,
+	},
 	deployments: {
 		getDeploymentEvents,
 		updateIntegrationDeploymentAction,
@@ -27405,6 +27117,15 @@ export const operationsByTag = {
 		getObservabilityConfigurationProjects,
 		updateObservabilityConfigurationProject,
 	},
+	organizations: {
+		createOrganization,
+		listOrganizations,
+		getOrganization,
+		updateOrganization,
+		listOrganizationTeams,
+		addOrganizationTeam,
+		removeOrganizationTeam,
+	},
 	projectmembers: {
 		getProjectMembers,
 		addProjectMember,
@@ -27515,6 +27236,9 @@ export const operationsByTag = {
 		getBypassIp,
 		addBypassIp,
 		removeBypassIp,
+		getConditionalBypass,
+		createConditionalBypass,
+		deleteConditionalBypass,
 		getSecurityFirewallEvents,
 		getSecurityFirewallEventsSummary,
 		generateFirewallRule,
@@ -27718,6 +27442,11 @@ export const tagDictionary = {
 			"createConnectorAuthorizationRequest",
 		],
 		PATCH: ["updateConnector", "replaceConnectorTriggerDestinations"],
+	},
+	daemons: {
+		GET: ["getProjectBoxes"],
+		PUT: ["putProjectDaemonInstances"],
+		POST: ["restartProjectDaemonInstance"],
 	},
 	deployments: {
 		GET: [
@@ -27947,6 +27676,12 @@ export const tagDictionary = {
 		GET: ["getObservabilityConfigurationProjects"],
 		PUT: ["updateObservabilityConfigurationProject"],
 	},
+	organizations: {
+		POST: ["createOrganization", "addOrganizationTeam"],
+		GET: ["listOrganizations", "getOrganization", "listOrganizationTeams"],
+		PATCH: ["updateOrganization"],
+		DELETE: ["removeOrganizationTeam"],
+	},
 	projectmembers: {
 		GET: ["getProjectMembers"],
 		POST: ["addProjectMember"],
@@ -28053,6 +27788,7 @@ export const tagDictionary = {
 			"updateAttackChallengeMode",
 			"createSecurityFirewallConfigByConfigVersionActivate",
 			"addBypassIp",
+			"createConditionalBypass",
 			"generateFirewallRule",
 		],
 		GET: [
@@ -28060,12 +27796,17 @@ export const tagDictionary = {
 			"getFirewallConfig",
 			"getActiveAttackStatus",
 			"getBypassIp",
+			"getConditionalBypass",
 			"getSecurityFirewallEvents",
 			"getSecurityFirewallEventsSummary",
 		],
 		PUT: ["putFirewallConfig"],
 		PATCH: ["updateFirewallConfig"],
-		DELETE: ["deleteSecurityFirewallConfigByConfigVersion", "removeBypassIp"],
+		DELETE: [
+			"deleteSecurityFirewallConfigByConfigVersion",
+			"removeBypassIp",
+			"deleteConditionalBypass",
+		],
 	},
 	storage: {
 		GET: ["getStorageStoresById"],
