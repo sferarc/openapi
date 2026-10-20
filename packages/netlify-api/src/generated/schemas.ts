@@ -1094,6 +1094,42 @@ export const deployFilesSchema = z
 					.describe(
 						"Where the server runs. Defaults to the region configured at the site level\nwhen absent.\n",
 					),
+				instance_size: z
+					.enum(["small", "medium", "large"])
+					.optional()
+					.describe(
+						"The size of the instances the server runs on. A default size is used when\nabsent.\n",
+					),
+				routes: z
+					.array(
+						z.object({
+							pattern: z.string().optional(),
+							literal: z.string().optional(),
+							expression: z.string().optional(),
+							methods: z
+								.array(z.enum(["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]))
+								.optional(),
+							prefer_static: z.boolean().optional(),
+						}),
+					)
+					.optional()
+					.describe("The paths the server handles."),
+				excluded_routes: z
+					.array(
+						z.object({
+							pattern: z.string().optional(),
+							literal: z.string().optional(),
+							expression: z.string().optional(),
+						}),
+					)
+					.optional()
+					.describe("Paths within `routes` that the server does not handle."),
+				runtime_version: z
+					.string()
+					.optional()
+					.describe(
+						"The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n",
+					),
 			})
 			.optional()
 			.describe(
@@ -1590,7 +1626,12 @@ export const agentRunnerSchema = z.object({
 	id: z.string().optional(),
 	site_id: z.string().optional(),
 	parent_agent_runner_id: z.string().optional(),
-	state: z.string().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.",
+		),
 	created_at: z.string().optional(),
 	updated_at: z.string().optional(),
 	done_at: z.string().optional(),
@@ -1599,11 +1640,14 @@ export const agentRunnerSchema = z.object({
 	result_branch: z.string().optional(),
 	pr_url: z.string().optional(),
 	pr_branch: z.string().optional(),
-	pr_state: z.string().optional(),
+	pr_state: z.string().optional().describe("One of `open`, `draft`, `merged` or `closed`."),
 	pr_number: z.int().optional(),
 	pr_is_being_created: z.boolean().optional(),
 	pr_error: z.string().optional(),
-	current_task: z.string().optional(),
+	current_task: z
+		.string()
+		.optional()
+		.describe("What the agent is working on in the active session."),
 	result_diff: z.string().optional(),
 	sha: z.string().optional(),
 	merge_commit_sha: z.string().optional(),
@@ -1612,8 +1656,20 @@ export const agentRunnerSchema = z.object({
 	base_deploy_id: z.string().optional(),
 	attached_file_keys: z.array(z.string()).optional(),
 	active_session_created_at: z.string().optional(),
+	has_result_diff: z
+		.boolean()
+		.optional()
+		.describe(
+			"Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.",
+		),
 	latest_session_deploy_id: z.string().optional(),
 	latest_session_deploy_url: z.string().optional(),
+	preview_state: z
+		.string()
+		.optional()
+		.describe(
+			"State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.",
+		),
 	user: z
 		.object({
 			id: z.string().optional(),
@@ -1624,14 +1680,47 @@ export const agentRunnerSchema = z.object({
 		.optional(),
 });
 
+export const agentRunnerSetupSchema = z.object({
+	prompt: z.string(),
+	branch: z
+		.string()
+		.optional()
+		.describe("Branch to start from. Defaults to the site's production branch."),
+	deploy_id: z
+		.string()
+		.optional()
+		.describe("Deploy to start from. Takes precedence over `branch`."),
+	agent: z.string().optional().describe("Agent to run, for example `claude` or `codex`."),
+	model: z.string().optional().describe("Model for the agent to use. Omit to let Netlify choose."),
+	effort: z
+		.enum(["low", "medium", "high"])
+		.optional()
+		.describe("Reasoning effort. Omit to let the agent decide."),
+	mode: z
+		.enum(["normal", "ask"])
+		.optional()
+		.describe(
+			"`normal` (the default) changes code; `ask` answers questions without changing code.",
+		),
+});
+
 export const agentRunnerSessionSchema = z.object({
 	id: z.string().optional(),
 	agent_runner_id: z.string().optional(),
 	dev_server_id: z.string().optional(),
-	state: z.string().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.",
+		),
 	created_at: z.string().optional(),
 	updated_at: z.string().optional(),
 	done_at: z.string().optional(),
+	paused_at: z
+		.string()
+		.optional()
+		.describe("When the session paused waiting on an interaction. Null once it resumes."),
 	title: z.string().optional(),
 	prompt: z.string().optional(),
 	agent_config: z
@@ -1640,12 +1729,49 @@ export const agentRunnerSessionSchema = z.object({
 			model: z.string().optional(),
 		})
 		.optional(),
-	result: z.string().optional(),
+	result: z.string().optional().describe("The agent's summary of what it did."),
 	result_diff: z.string().optional(),
 	commit_sha: z.string().optional(),
 	deploy_id: z.string().optional(),
-	deploy_url: z.string().optional(),
+	deploy_url: z.string().optional().describe("URL of the session's deploy preview."),
 	duration: z.int().optional(),
+	usage: z
+		.object({
+			total_input_tokens: z.int().optional(),
+			total_output_tokens: z.int().optional(),
+			total_cached_input_tokens: z.int().optional(),
+			total_cached_output_tokens: z.int().optional(),
+			total_tokens: z.int().optional(),
+			total_credits_cost: z.number().optional().describe("Credits the session used."),
+		})
+		.optional(),
+	interactions: z
+		.record(
+			z.string(),
+			z.object({
+				type: z
+					.string()
+					.optional()
+					.describe(
+						"One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.",
+					),
+				status: z.string().optional().describe("One of `pending`, `answered` or `skipped`."),
+				payload: z
+					.unknown()
+					.optional()
+					.describe(
+						"For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.",
+					),
+				response: z
+					.array(z.unknown())
+					.optional()
+					.describe("Answers aligned to `payload`; null entries were skipped."),
+			}),
+		)
+		.optional()
+		.describe(
+			"Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it's answered or skipped.",
+		),
 	steps: z
 		.array(
 			z.object({
@@ -1666,6 +1792,71 @@ export const agentRunnerSessionSchema = z.object({
 	result_zip_file_name: z.string().optional(),
 	is_published: z.boolean().optional(),
 });
+
+export const agentRunnerSessionSetupSchema = z.object({
+	prompt: z.string().optional().describe("What the agent should do. Required."),
+	agent: z.string().optional(),
+	model: z.string().optional().describe("Model for the agent to use. Omit to let Netlify choose."),
+	mode: z
+		.enum(["normal", "ask"])
+		.optional()
+		.describe(
+			"`normal` (the default) changes code; `ask` answers questions without changing code.",
+		),
+});
+
+export const agentRunnerSessionUsageSchema = z.object({
+	total_input_tokens: z.int().optional(),
+	total_output_tokens: z.int().optional(),
+	total_cached_input_tokens: z.int().optional(),
+	total_cached_output_tokens: z.int().optional(),
+	total_tokens: z.int().optional(),
+	total_credits_cost: z.number().optional().describe("Credits the session used."),
+});
+
+export const agentRunnerSessionInteractionSchema = z.object({
+	type: z
+		.string()
+		.optional()
+		.describe(
+			"One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.",
+		),
+	status: z.string().optional().describe("One of `pending`, `answered` or `skipped`."),
+	payload: z
+		.unknown()
+		.optional()
+		.describe(
+			"For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.",
+		),
+	response: z
+		.array(z.unknown())
+		.optional()
+		.describe("Answers aligned to `payload`; null entries were skipped."),
+});
+
+export const agentRunnerSessionAnswerSchema = z.object({
+	refId: z.string().describe("Key of the pending interaction in the session's `interactions`."),
+	response: z
+		.array(z.unknown())
+		.optional()
+		.describe(
+			"One entry per question in the interaction's `payload`: a string, an array of strings for a multi-select question, or null to skip that question.",
+		),
+	skipped: z.boolean().optional().describe("Skip the whole interaction instead of answering it."),
+	instruction: z.string().optional().describe("Instruction for the agent when skipping."),
+});
+
+export const agentRunnerErrorSchema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
 
 export const agentRunnerSessionStepSchema = z.object({
 	title: z.string().optional(),
@@ -4603,6 +4794,42 @@ export const createSiteDeployBodySchema = z
 					.describe(
 						"Where the server runs. Defaults to the region configured at the site level\nwhen absent.\n",
 					),
+				instance_size: z
+					.enum(["small", "medium", "large"])
+					.optional()
+					.describe(
+						"The size of the instances the server runs on. A default size is used when\nabsent.\n",
+					),
+				routes: z
+					.array(
+						z.object({
+							pattern: z.string().optional(),
+							literal: z.string().optional(),
+							expression: z.string().optional(),
+							methods: z
+								.array(z.enum(["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]))
+								.optional(),
+							prefer_static: z.boolean().optional(),
+						}),
+					)
+					.optional()
+					.describe("The paths the server handles."),
+				excluded_routes: z
+					.array(
+						z.object({
+							pattern: z.string().optional(),
+							literal: z.string().optional(),
+							expression: z.string().optional(),
+						}),
+					)
+					.optional()
+					.describe("Paths within `routes` that the server does not handle."),
+				runtime_version: z
+					.string()
+					.optional()
+					.describe(
+						"The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n",
+					),
 			})
 			.optional()
 			.describe(
@@ -4905,6 +5132,42 @@ export const updateSiteDeployBodySchema = z
 					.optional()
 					.describe(
 						"Where the server runs. Defaults to the region configured at the site level\nwhen absent.\n",
+					),
+				instance_size: z
+					.enum(["small", "medium", "large"])
+					.optional()
+					.describe(
+						"The size of the instances the server runs on. A default size is used when\nabsent.\n",
+					),
+				routes: z
+					.array(
+						z.object({
+							pattern: z.string().optional(),
+							literal: z.string().optional(),
+							expression: z.string().optional(),
+							methods: z
+								.array(z.enum(["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]))
+								.optional(),
+							prefer_static: z.boolean().optional(),
+						}),
+					)
+					.optional()
+					.describe("The paths the server handles."),
+				excluded_routes: z
+					.array(
+						z.object({
+							pattern: z.string().optional(),
+							literal: z.string().optional(),
+							expression: z.string().optional(),
+						}),
+					)
+					.optional()
+					.describe("Paths within `routes` that the server does not handle."),
+				runtime_version: z
+					.string()
+					.optional()
+					.describe(
+						"The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n",
 					),
 			})
 			.optional()
@@ -7408,15 +7671,20 @@ export const listAccountAuditEventsResponseSchema = listAccountAuditEventsStatus
 
 export const listAccountAuditEventsErrorSchema = listAccountAuditEventsStatusDefaultSchema;
 
-export const listAgentRunnersQueryAccountIdSchema = z.string();
-
 export const listAgentRunnersQuerySiteIdSchema = z.string();
+
+export const listAgentRunnersQueryAccountIdSchema = z.string();
 
 export const listAgentRunnersQueryPageSchema = z.int32().optional();
 
 export const listAgentRunnersQueryPerPageSchema = z.int32().optional();
 
-export const listAgentRunnersQueryStateSchema = z.enum(["live", "error"]).optional();
+export const listAgentRunnersQueryStateSchema = z
+	.string()
+	.optional()
+	.describe(
+		"Only runs in this state: `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.",
+	);
 
 export const listAgentRunnersQueryTitleSchema = z.string().optional();
 
@@ -7424,16 +7692,32 @@ export const listAgentRunnersQueryBranchSchema = z.string().optional();
 
 export const listAgentRunnersQueryResultBranchSchema = z.string().optional();
 
-export const listAgentRunnersQueryFromSchema = z.int().optional();
+export const listAgentRunnersQueryUserIdSchema = z
+	.string()
+	.optional()
+	.describe("Only runs started by this user.");
 
-export const listAgentRunnersQueryToSchema = z.int().optional();
+export const listAgentRunnersQueryFromSchema = z
+	.int()
+	.optional()
+	.describe("Unix timestamp. Only runs created at or after this time.");
+
+export const listAgentRunnersQueryToSchema = z
+	.int()
+	.optional()
+	.describe("Unix timestamp. Only runs created before this time.");
 
 export const listAgentRunnersStatus200Schema = z.array(
 	z.object({
 		id: z.string().optional(),
 		site_id: z.string().optional(),
 		parent_agent_runner_id: z.string().optional(),
-		state: z.string().optional(),
+		state: z
+			.string()
+			.optional()
+			.describe(
+				"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.",
+			),
 		created_at: z.string().optional(),
 		updated_at: z.string().optional(),
 		done_at: z.string().optional(),
@@ -7442,11 +7726,14 @@ export const listAgentRunnersStatus200Schema = z.array(
 		result_branch: z.string().optional(),
 		pr_url: z.string().optional(),
 		pr_branch: z.string().optional(),
-		pr_state: z.string().optional(),
+		pr_state: z.string().optional().describe("One of `open`, `draft`, `merged` or `closed`."),
 		pr_number: z.int().optional(),
 		pr_is_being_created: z.boolean().optional(),
 		pr_error: z.string().optional(),
-		current_task: z.string().optional(),
+		current_task: z
+			.string()
+			.optional()
+			.describe("What the agent is working on in the active session."),
 		result_diff: z.string().optional(),
 		sha: z.string().optional(),
 		merge_commit_sha: z.string().optional(),
@@ -7455,8 +7742,20 @@ export const listAgentRunnersStatus200Schema = z.array(
 		base_deploy_id: z.string().optional(),
 		attached_file_keys: z.array(z.string()).optional(),
 		active_session_created_at: z.string().optional(),
+		has_result_diff: z
+			.boolean()
+			.optional()
+			.describe(
+				"Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.",
+			),
 		latest_session_deploy_id: z.string().optional(),
 		latest_session_deploy_url: z.string().optional(),
+		preview_state: z
+			.string()
+			.optional()
+			.describe(
+				"State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.",
+			),
 		user: z
 			.object({
 				id: z.string().optional(),
@@ -7499,7 +7798,12 @@ export const createAgentRunnerStatus200Schema = z.object({
 	id: z.string().optional(),
 	site_id: z.string().optional(),
 	parent_agent_runner_id: z.string().optional(),
-	state: z.string().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.",
+		),
 	created_at: z.string().optional(),
 	updated_at: z.string().optional(),
 	done_at: z.string().optional(),
@@ -7508,11 +7812,14 @@ export const createAgentRunnerStatus200Schema = z.object({
 	result_branch: z.string().optional(),
 	pr_url: z.string().optional(),
 	pr_branch: z.string().optional(),
-	pr_state: z.string().optional(),
+	pr_state: z.string().optional().describe("One of `open`, `draft`, `merged` or `closed`."),
 	pr_number: z.int().optional(),
 	pr_is_being_created: z.boolean().optional(),
 	pr_error: z.string().optional(),
-	current_task: z.string().optional(),
+	current_task: z
+		.string()
+		.optional()
+		.describe("What the agent is working on in the active session."),
 	result_diff: z.string().optional(),
 	sha: z.string().optional(),
 	merge_commit_sha: z.string().optional(),
@@ -7521,8 +7828,20 @@ export const createAgentRunnerStatus200Schema = z.object({
 	base_deploy_id: z.string().optional(),
 	attached_file_keys: z.array(z.string()).optional(),
 	active_session_created_at: z.string().optional(),
+	has_result_diff: z
+		.boolean()
+		.optional()
+		.describe(
+			"Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.",
+		),
 	latest_session_deploy_id: z.string().optional(),
 	latest_session_deploy_url: z.string().optional(),
+	preview_state: z
+		.string()
+		.optional()
+		.describe(
+			"State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.",
+		),
 	user: z
 		.object({
 			id: z.string().optional(),
@@ -7549,6 +7868,168 @@ export const createAgentRunnerErrorSchema = z.union([
 	createAgentRunnerStatus422Schema,
 	createAgentRunnerStatusDefaultSchema,
 ]);
+
+export const createSiteAgentRunnerPathSiteIdSchema = z
+	.string()
+	.describe("The site's ID or one of its hostnames.");
+
+export const createSiteAgentRunnerStatus200Schema = z.object({
+	id: z.string().optional(),
+	site_id: z.string().optional(),
+	parent_agent_runner_id: z.string().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.",
+		),
+	created_at: z.string().optional(),
+	updated_at: z.string().optional(),
+	done_at: z.string().optional(),
+	title: z.string().optional(),
+	branch: z.string().optional(),
+	result_branch: z.string().optional(),
+	pr_url: z.string().optional(),
+	pr_branch: z.string().optional(),
+	pr_state: z.string().optional().describe("One of `open`, `draft`, `merged` or `closed`."),
+	pr_number: z.int().optional(),
+	pr_is_being_created: z.boolean().optional(),
+	pr_error: z.string().optional(),
+	current_task: z
+		.string()
+		.optional()
+		.describe("What the agent is working on in the active session."),
+	result_diff: z.string().optional(),
+	sha: z.string().optional(),
+	merge_commit_sha: z.string().optional(),
+	merge_commit_error: z.string().optional(),
+	merge_commit_is_being_created: z.boolean().optional(),
+	base_deploy_id: z.string().optional(),
+	attached_file_keys: z.array(z.string()).optional(),
+	active_session_created_at: z.string().optional(),
+	has_result_diff: z
+		.boolean()
+		.optional()
+		.describe(
+			"Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.",
+		),
+	latest_session_deploy_id: z.string().optional(),
+	latest_session_deploy_url: z.string().optional(),
+	preview_state: z
+		.string()
+		.optional()
+		.describe(
+			"State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.",
+		),
+	user: z
+		.object({
+			id: z.string().optional(),
+			full_name: z.string().optional(),
+			email: z.string().optional(),
+			avatar_url: z.string().optional(),
+		})
+		.optional(),
+});
+
+export const createSiteAgentRunnerStatus400Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
+
+export const createSiteAgentRunnerStatus403Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
+
+export const createSiteAgentRunnerStatus404Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
+
+export const createSiteAgentRunnerStatus422Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
+
+export const createSiteAgentRunnerStatus429Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
+
+export const createSiteAgentRunnerStatusDefaultSchema = z.object({
+	code: z.coerce.bigint().optional(),
+	message: z.string(),
+});
+
+export const createSiteAgentRunnerResponseSchema = createSiteAgentRunnerStatus200Schema;
+
+export const createSiteAgentRunnerErrorSchema = z.union([
+	createSiteAgentRunnerStatus400Schema,
+	createSiteAgentRunnerStatus403Schema,
+	createSiteAgentRunnerStatus404Schema,
+	createSiteAgentRunnerStatus422Schema,
+	createSiteAgentRunnerStatus429Schema,
+	createSiteAgentRunnerStatusDefaultSchema,
+]);
+
+export const createSiteAgentRunnerBodySchema = z.object({
+	prompt: z.string(),
+	branch: z
+		.string()
+		.optional()
+		.describe("Branch to start from. Defaults to the site's production branch."),
+	deploy_id: z
+		.string()
+		.optional()
+		.describe("Deploy to start from. Takes precedence over `branch`."),
+	agent: z.string().optional().describe("Agent to run, for example `claude` or `codex`."),
+	model: z.string().optional().describe("Model for the agent to use. Omit to let Netlify choose."),
+	effort: z
+		.enum(["low", "medium", "high"])
+		.optional()
+		.describe("Reasoning effort. Omit to let the agent decide."),
+	mode: z
+		.enum(["normal", "ask"])
+		.optional()
+		.describe(
+			"`normal` (the default) changes code; `ask` answers questions without changing code.",
+		),
+});
 
 export const createAgentRunnerUploadUrlQueryAccountIdSchema = z.string();
 
@@ -7581,7 +8062,12 @@ export const getAgentRunnerStatus200Schema = z.object({
 	id: z.string().optional(),
 	site_id: z.string().optional(),
 	parent_agent_runner_id: z.string().optional(),
-	state: z.string().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.",
+		),
 	created_at: z.string().optional(),
 	updated_at: z.string().optional(),
 	done_at: z.string().optional(),
@@ -7590,11 +8076,14 @@ export const getAgentRunnerStatus200Schema = z.object({
 	result_branch: z.string().optional(),
 	pr_url: z.string().optional(),
 	pr_branch: z.string().optional(),
-	pr_state: z.string().optional(),
+	pr_state: z.string().optional().describe("One of `open`, `draft`, `merged` or `closed`."),
 	pr_number: z.int().optional(),
 	pr_is_being_created: z.boolean().optional(),
 	pr_error: z.string().optional(),
-	current_task: z.string().optional(),
+	current_task: z
+		.string()
+		.optional()
+		.describe("What the agent is working on in the active session."),
 	result_diff: z.string().optional(),
 	sha: z.string().optional(),
 	merge_commit_sha: z.string().optional(),
@@ -7603,8 +8092,20 @@ export const getAgentRunnerStatus200Schema = z.object({
 	base_deploy_id: z.string().optional(),
 	attached_file_keys: z.array(z.string()).optional(),
 	active_session_created_at: z.string().optional(),
+	has_result_diff: z
+		.boolean()
+		.optional()
+		.describe(
+			"Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.",
+		),
 	latest_session_deploy_id: z.string().optional(),
 	latest_session_deploy_url: z.string().optional(),
+	preview_state: z
+		.string()
+		.optional()
+		.describe(
+			"State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.",
+		),
 	user: z
 		.object({
 			id: z.string().optional(),
@@ -7630,7 +8131,12 @@ export const updateAgentRunnerStatus200Schema = z.object({
 	id: z.string().optional(),
 	site_id: z.string().optional(),
 	parent_agent_runner_id: z.string().optional(),
-	state: z.string().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.",
+		),
 	created_at: z.string().optional(),
 	updated_at: z.string().optional(),
 	done_at: z.string().optional(),
@@ -7639,11 +8145,14 @@ export const updateAgentRunnerStatus200Schema = z.object({
 	result_branch: z.string().optional(),
 	pr_url: z.string().optional(),
 	pr_branch: z.string().optional(),
-	pr_state: z.string().optional(),
+	pr_state: z.string().optional().describe("One of `open`, `draft`, `merged` or `closed`."),
 	pr_number: z.int().optional(),
 	pr_is_being_created: z.boolean().optional(),
 	pr_error: z.string().optional(),
-	current_task: z.string().optional(),
+	current_task: z
+		.string()
+		.optional()
+		.describe("What the agent is working on in the active session."),
 	result_diff: z.string().optional(),
 	sha: z.string().optional(),
 	merge_commit_sha: z.string().optional(),
@@ -7652,8 +8161,20 @@ export const updateAgentRunnerStatus200Schema = z.object({
 	base_deploy_id: z.string().optional(),
 	attached_file_keys: z.array(z.string()).optional(),
 	active_session_created_at: z.string().optional(),
+	has_result_diff: z
+		.boolean()
+		.optional()
+		.describe(
+			"Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.",
+		),
 	latest_session_deploy_id: z.string().optional(),
 	latest_session_deploy_url: z.string().optional(),
+	preview_state: z
+		.string()
+		.optional()
+		.describe(
+			"State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.",
+		),
 	user: z
 		.object({
 			id: z.string().optional(),
@@ -7685,6 +8206,46 @@ export const deleteAgentRunnerStatusDefaultSchema = z.object({
 export const deleteAgentRunnerResponseSchema = deleteAgentRunnerStatus202Schema;
 
 export const deleteAgentRunnerErrorSchema = deleteAgentRunnerStatusDefaultSchema;
+
+export const stopAgentRunnerPathAgentRunnerIdSchema = z.string();
+
+export const stopAgentRunnerStatus202Schema = z.unknown();
+
+export const stopAgentRunnerStatusDefaultSchema = z.object({
+	code: z.coerce.bigint().optional(),
+	message: z.string(),
+});
+
+export const stopAgentRunnerResponseSchema = stopAgentRunnerStatus202Schema;
+
+export const stopAgentRunnerErrorSchema = stopAgentRunnerStatusDefaultSchema;
+
+export const getAgentRunnerDiffPathAgentRunnerIdSchema = z.string();
+
+export const getAgentRunnerDiffQueryPageSchema = z.int32().optional();
+
+export const getAgentRunnerDiffQueryPerPageSchema = z.int32().optional();
+
+export const getAgentRunnerDiffQueryStripBinarySchema = z
+	.boolean()
+	.optional()
+	.describe("Replace binary file contents with a placeholder, keeping the file headers.");
+
+export const getAgentRunnerDiffStatus200Schema = z.string();
+
+export const getAgentRunnerDiffStatus404Schema = z.unknown();
+
+export const getAgentRunnerDiffStatusDefaultSchema = z.object({
+	code: z.coerce.bigint().optional(),
+	message: z.string(),
+});
+
+export const getAgentRunnerDiffResponseSchema = getAgentRunnerDiffStatus200Schema;
+
+export const getAgentRunnerDiffErrorSchema = z.union([
+	getAgentRunnerDiffStatus404Schema,
+	getAgentRunnerDiffStatusDefaultSchema,
+]);
 
 export const archiveAgentRunnerPathAgentRunnerIdSchema = z.string();
 
@@ -7763,11 +8324,22 @@ export const listAgentRunnerSessionsQueryPageSchema = z.int32().optional();
 
 export const listAgentRunnerSessionsQueryPerPageSchema = z.int32().optional();
 
-export const listAgentRunnerSessionsQueryStateSchema = z.enum(["live", "error"]).optional();
+export const listAgentRunnerSessionsQueryStateSchema = z
+	.string()
+	.optional()
+	.describe(
+		"Only sessions in this state: `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.",
+	);
 
-export const listAgentRunnerSessionsQueryFromSchema = z.int().optional();
+export const listAgentRunnerSessionsQueryFromSchema = z
+	.int()
+	.optional()
+	.describe("Unix timestamp. Only sessions created at or after this time.");
 
-export const listAgentRunnerSessionsQueryToSchema = z.int().optional();
+export const listAgentRunnerSessionsQueryToSchema = z
+	.int()
+	.optional()
+	.describe("Unix timestamp. Only sessions created before this time.");
 
 export const listAgentRunnerSessionsQueryOrderBySchema = z.enum(["asc", "desc"]).optional();
 
@@ -7776,10 +8348,19 @@ export const listAgentRunnerSessionsStatus200Schema = z.array(
 		id: z.string().optional(),
 		agent_runner_id: z.string().optional(),
 		dev_server_id: z.string().optional(),
-		state: z.string().optional(),
+		state: z
+			.string()
+			.optional()
+			.describe(
+				"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.",
+			),
 		created_at: z.string().optional(),
 		updated_at: z.string().optional(),
 		done_at: z.string().optional(),
+		paused_at: z
+			.string()
+			.optional()
+			.describe("When the session paused waiting on an interaction. Null once it resumes."),
 		title: z.string().optional(),
 		prompt: z.string().optional(),
 		agent_config: z
@@ -7788,12 +8369,49 @@ export const listAgentRunnerSessionsStatus200Schema = z.array(
 				model: z.string().optional(),
 			})
 			.optional(),
-		result: z.string().optional(),
+		result: z.string().optional().describe("The agent's summary of what it did."),
 		result_diff: z.string().optional(),
 		commit_sha: z.string().optional(),
 		deploy_id: z.string().optional(),
-		deploy_url: z.string().optional(),
+		deploy_url: z.string().optional().describe("URL of the session's deploy preview."),
 		duration: z.int().optional(),
+		usage: z
+			.object({
+				total_input_tokens: z.int().optional(),
+				total_output_tokens: z.int().optional(),
+				total_cached_input_tokens: z.int().optional(),
+				total_cached_output_tokens: z.int().optional(),
+				total_tokens: z.int().optional(),
+				total_credits_cost: z.number().optional().describe("Credits the session used."),
+			})
+			.optional(),
+		interactions: z
+			.record(
+				z.string(),
+				z.object({
+					type: z
+						.string()
+						.optional()
+						.describe(
+							"One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.",
+						),
+					status: z.string().optional().describe("One of `pending`, `answered` or `skipped`."),
+					payload: z
+						.unknown()
+						.optional()
+						.describe(
+							"For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.",
+						),
+					response: z
+						.array(z.unknown())
+						.optional()
+						.describe("Answers aligned to `payload`; null entries were skipped."),
+				}),
+			)
+			.optional()
+			.describe(
+				"Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it's answered or skipped.",
+			),
 		steps: z
 			.array(
 				z.object({
@@ -7827,22 +8445,43 @@ export const listAgentRunnerSessionsErrorSchema = listAgentRunnerSessionsStatusD
 
 export const createAgentRunnerSessionPathAgentRunnerIdSchema = z.string();
 
-export const createAgentRunnerSessionQueryPromptSchema = z.string().optional();
+export const createAgentRunnerSessionQueryPromptSchema = z
+	.string()
+	.optional()
+	.describe("Use the request body instead.");
 
-export const createAgentRunnerSessionQueryAgentSchema = z.string().optional();
+export const createAgentRunnerSessionQueryAgentSchema = z
+	.string()
+	.optional()
+	.describe("Use the request body instead.");
 
-export const createAgentRunnerSessionQueryModelSchema = z.string().optional();
+export const createAgentRunnerSessionQueryModelSchema = z
+	.string()
+	.optional()
+	.describe("Use the request body instead.");
 
-export const createAgentRunnerSessionQueryFileKeysSchema = z.array(z.string()).optional();
+export const createAgentRunnerSessionQueryFileKeysSchema = z
+	.array(z.string())
+	.optional()
+	.describe("Use the request body instead.");
 
 export const createAgentRunnerSessionStatus200Schema = z.object({
 	id: z.string().optional(),
 	agent_runner_id: z.string().optional(),
 	dev_server_id: z.string().optional(),
-	state: z.string().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.",
+		),
 	created_at: z.string().optional(),
 	updated_at: z.string().optional(),
 	done_at: z.string().optional(),
+	paused_at: z
+		.string()
+		.optional()
+		.describe("When the session paused waiting on an interaction. Null once it resumes."),
 	title: z.string().optional(),
 	prompt: z.string().optional(),
 	agent_config: z
@@ -7851,12 +8490,49 @@ export const createAgentRunnerSessionStatus200Schema = z.object({
 			model: z.string().optional(),
 		})
 		.optional(),
-	result: z.string().optional(),
+	result: z.string().optional().describe("The agent's summary of what it did."),
 	result_diff: z.string().optional(),
 	commit_sha: z.string().optional(),
 	deploy_id: z.string().optional(),
-	deploy_url: z.string().optional(),
+	deploy_url: z.string().optional().describe("URL of the session's deploy preview."),
 	duration: z.int().optional(),
+	usage: z
+		.object({
+			total_input_tokens: z.int().optional(),
+			total_output_tokens: z.int().optional(),
+			total_cached_input_tokens: z.int().optional(),
+			total_cached_output_tokens: z.int().optional(),
+			total_tokens: z.int().optional(),
+			total_credits_cost: z.number().optional().describe("Credits the session used."),
+		})
+		.optional(),
+	interactions: z
+		.record(
+			z.string(),
+			z.object({
+				type: z
+					.string()
+					.optional()
+					.describe(
+						"One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.",
+					),
+				status: z.string().optional().describe("One of `pending`, `answered` or `skipped`."),
+				payload: z
+					.unknown()
+					.optional()
+					.describe(
+						"For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.",
+					),
+				response: z
+					.array(z.unknown())
+					.optional()
+					.describe("Answers aligned to `payload`; null entries were skipped."),
+			}),
+		)
+		.optional()
+		.describe(
+			"Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it's answered or skipped.",
+		),
 	steps: z
 		.array(
 			z.object({
@@ -7878,9 +8554,77 @@ export const createAgentRunnerSessionStatus200Schema = z.object({
 	is_published: z.boolean().optional(),
 });
 
-export const createAgentRunnerSessionStatus404Schema = z.unknown();
+export const createAgentRunnerSessionStatus400Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
 
-export const createAgentRunnerSessionStatus422Schema = z.unknown();
+export const createAgentRunnerSessionStatus403Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
+
+export const createAgentRunnerSessionStatus404Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
+
+export const createAgentRunnerSessionStatus409Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
+
+export const createAgentRunnerSessionStatus422Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
+
+export const createAgentRunnerSessionStatus429Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
 
 export const createAgentRunnerSessionStatusDefaultSchema = z.object({
 	code: z.coerce.bigint().optional(),
@@ -7890,10 +8634,31 @@ export const createAgentRunnerSessionStatusDefaultSchema = z.object({
 export const createAgentRunnerSessionResponseSchema = createAgentRunnerSessionStatus200Schema;
 
 export const createAgentRunnerSessionErrorSchema = z.union([
+	createAgentRunnerSessionStatus400Schema,
+	createAgentRunnerSessionStatus403Schema,
 	createAgentRunnerSessionStatus404Schema,
+	createAgentRunnerSessionStatus409Schema,
 	createAgentRunnerSessionStatus422Schema,
+	createAgentRunnerSessionStatus429Schema,
 	createAgentRunnerSessionStatusDefaultSchema,
 ]);
+
+export const createAgentRunnerSessionBodySchema = z
+	.object({
+		prompt: z.string().optional().describe("What the agent should do. Required."),
+		agent: z.string().optional(),
+		model: z
+			.string()
+			.optional()
+			.describe("Model for the agent to use. Omit to let Netlify choose."),
+		mode: z
+			.enum(["normal", "ask"])
+			.optional()
+			.describe(
+				"`normal` (the default) changes code; `ask` answers questions without changing code.",
+			),
+	})
+	.optional();
 
 export const getAgentRunnerSessionPathAgentRunnerIdSchema = z.string();
 
@@ -7903,10 +8668,19 @@ export const getAgentRunnerSessionStatus200Schema = z.object({
 	id: z.string().optional(),
 	agent_runner_id: z.string().optional(),
 	dev_server_id: z.string().optional(),
-	state: z.string().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.",
+		),
 	created_at: z.string().optional(),
 	updated_at: z.string().optional(),
 	done_at: z.string().optional(),
+	paused_at: z
+		.string()
+		.optional()
+		.describe("When the session paused waiting on an interaction. Null once it resumes."),
 	title: z.string().optional(),
 	prompt: z.string().optional(),
 	agent_config: z
@@ -7915,12 +8689,49 @@ export const getAgentRunnerSessionStatus200Schema = z.object({
 			model: z.string().optional(),
 		})
 		.optional(),
-	result: z.string().optional(),
+	result: z.string().optional().describe("The agent's summary of what it did."),
 	result_diff: z.string().optional(),
 	commit_sha: z.string().optional(),
 	deploy_id: z.string().optional(),
-	deploy_url: z.string().optional(),
+	deploy_url: z.string().optional().describe("URL of the session's deploy preview."),
 	duration: z.int().optional(),
+	usage: z
+		.object({
+			total_input_tokens: z.int().optional(),
+			total_output_tokens: z.int().optional(),
+			total_cached_input_tokens: z.int().optional(),
+			total_cached_output_tokens: z.int().optional(),
+			total_tokens: z.int().optional(),
+			total_credits_cost: z.number().optional().describe("Credits the session used."),
+		})
+		.optional(),
+	interactions: z
+		.record(
+			z.string(),
+			z.object({
+				type: z
+					.string()
+					.optional()
+					.describe(
+						"One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.",
+					),
+				status: z.string().optional().describe("One of `pending`, `answered` or `skipped`."),
+				payload: z
+					.unknown()
+					.optional()
+					.describe(
+						"For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.",
+					),
+				response: z
+					.array(z.unknown())
+					.optional()
+					.describe("Answers aligned to `payload`; null entries were skipped."),
+			}),
+		)
+		.optional()
+		.describe(
+			"Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it's answered or skipped.",
+		),
 	steps: z
 		.array(
 			z.object({
@@ -7961,10 +8772,19 @@ export const updateAgentRunnerSessionStatus200Schema = z.object({
 	id: z.string().optional(),
 	agent_runner_id: z.string().optional(),
 	dev_server_id: z.string().optional(),
-	state: z.string().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.",
+		),
 	created_at: z.string().optional(),
 	updated_at: z.string().optional(),
 	done_at: z.string().optional(),
+	paused_at: z
+		.string()
+		.optional()
+		.describe("When the session paused waiting on an interaction. Null once it resumes."),
 	title: z.string().optional(),
 	prompt: z.string().optional(),
 	agent_config: z
@@ -7973,12 +8793,49 @@ export const updateAgentRunnerSessionStatus200Schema = z.object({
 			model: z.string().optional(),
 		})
 		.optional(),
-	result: z.string().optional(),
+	result: z.string().optional().describe("The agent's summary of what it did."),
 	result_diff: z.string().optional(),
 	commit_sha: z.string().optional(),
 	deploy_id: z.string().optional(),
-	deploy_url: z.string().optional(),
+	deploy_url: z.string().optional().describe("URL of the session's deploy preview."),
 	duration: z.int().optional(),
+	usage: z
+		.object({
+			total_input_tokens: z.int().optional(),
+			total_output_tokens: z.int().optional(),
+			total_cached_input_tokens: z.int().optional(),
+			total_cached_output_tokens: z.int().optional(),
+			total_tokens: z.int().optional(),
+			total_credits_cost: z.number().optional().describe("Credits the session used."),
+		})
+		.optional(),
+	interactions: z
+		.record(
+			z.string(),
+			z.object({
+				type: z
+					.string()
+					.optional()
+					.describe(
+						"One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.",
+					),
+				status: z.string().optional().describe("One of `pending`, `answered` or `skipped`."),
+				payload: z
+					.unknown()
+					.optional()
+					.describe(
+						"For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.",
+					),
+				response: z
+					.array(z.unknown())
+					.optional()
+					.describe("Answers aligned to `payload`; null entries were skipped."),
+			}),
+		)
+		.optional()
+		.describe(
+			"Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it's answered or skipped.",
+		),
 	steps: z
 		.array(
 			z.object({
@@ -8023,6 +8880,176 @@ export const deleteAgentRunnerSessionStatusDefaultSchema = z.object({
 export const deleteAgentRunnerSessionResponseSchema = deleteAgentRunnerSessionStatus202Schema;
 
 export const deleteAgentRunnerSessionErrorSchema = deleteAgentRunnerSessionStatusDefaultSchema;
+
+export const stopAgentRunnerSessionPathAgentRunnerIdSchema = z.string();
+
+export const stopAgentRunnerSessionPathAgentRunnerSessionIdSchema = z.string();
+
+export const stopAgentRunnerSessionStatus202Schema = z.unknown();
+
+export const stopAgentRunnerSessionStatusDefaultSchema = z.object({
+	code: z.coerce.bigint().optional(),
+	message: z.string(),
+});
+
+export const stopAgentRunnerSessionResponseSchema = stopAgentRunnerSessionStatus202Schema;
+
+export const stopAgentRunnerSessionErrorSchema = stopAgentRunnerSessionStatusDefaultSchema;
+
+export const answerAgentRunnerSessionPathAgentRunnerIdSchema = z.string();
+
+export const answerAgentRunnerSessionPathAgentRunnerSessionIdSchema = z.string();
+
+export const answerAgentRunnerSessionStatus200Schema = z.object({
+	id: z.string().optional(),
+	agent_runner_id: z.string().optional(),
+	dev_server_id: z.string().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.",
+		),
+	created_at: z.string().optional(),
+	updated_at: z.string().optional(),
+	done_at: z.string().optional(),
+	paused_at: z
+		.string()
+		.optional()
+		.describe("When the session paused waiting on an interaction. Null once it resumes."),
+	title: z.string().optional(),
+	prompt: z.string().optional(),
+	agent_config: z
+		.object({
+			agent: z.string().optional(),
+			model: z.string().optional(),
+		})
+		.optional(),
+	result: z.string().optional().describe("The agent's summary of what it did."),
+	result_diff: z.string().optional(),
+	commit_sha: z.string().optional(),
+	deploy_id: z.string().optional(),
+	deploy_url: z.string().optional().describe("URL of the session's deploy preview."),
+	duration: z.int().optional(),
+	usage: z
+		.object({
+			total_input_tokens: z.int().optional(),
+			total_output_tokens: z.int().optional(),
+			total_cached_input_tokens: z.int().optional(),
+			total_cached_output_tokens: z.int().optional(),
+			total_tokens: z.int().optional(),
+			total_credits_cost: z.number().optional().describe("Credits the session used."),
+		})
+		.optional(),
+	interactions: z
+		.record(
+			z.string(),
+			z.object({
+				type: z
+					.string()
+					.optional()
+					.describe(
+						"One of `question`, `authorization` or `setup_request`. Only questions can be answered; the others can only be skipped.",
+					),
+				status: z.string().optional().describe("One of `pending`, `answered` or `skipped`."),
+				payload: z
+					.unknown()
+					.optional()
+					.describe(
+						"For a question, an array of questions, each with `question`, an optional `header`, `multiSelect` and `options` (each with `label` and an optional `description`). For `authorization` and `setup_request`, an object describing the request.",
+					),
+				response: z
+					.array(z.unknown())
+					.optional()
+					.describe("Answers aligned to `payload`; null entries were skipped."),
+			}),
+		)
+		.optional()
+		.describe(
+			"Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it's answered or skipped.",
+		),
+	steps: z
+		.array(
+			z.object({
+				title: z.string().optional(),
+				message: z.string().optional(),
+			}),
+		)
+		.optional(),
+	user: z
+		.object({
+			id: z.string().optional(),
+			full_name: z.string().optional(),
+			email: z.string().optional(),
+			avatar_url: z.string().optional(),
+		})
+		.optional(),
+	attached_file_keys: z.array(z.string()).optional(),
+	result_zip_file_name: z.string().optional(),
+	is_published: z.boolean().optional(),
+});
+
+export const answerAgentRunnerSessionStatus400Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
+
+export const answerAgentRunnerSessionStatus422Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
+
+export const answerAgentRunnerSessionStatus429Schema = z
+	.object({
+		code: z.coerce.bigint().optional(),
+		message: z.string(),
+	})
+	.extend({
+		error_code: z
+			.string()
+			.optional()
+			.describe("Machine-readable reason. Each operation lists the codes it can return."),
+	});
+
+export const answerAgentRunnerSessionStatusDefaultSchema = z.object({
+	code: z.coerce.bigint().optional(),
+	message: z.string(),
+});
+
+export const answerAgentRunnerSessionResponseSchema = answerAgentRunnerSessionStatus200Schema;
+
+export const answerAgentRunnerSessionErrorSchema = z.union([
+	answerAgentRunnerSessionStatus400Schema,
+	answerAgentRunnerSessionStatus422Schema,
+	answerAgentRunnerSessionStatus429Schema,
+	answerAgentRunnerSessionStatusDefaultSchema,
+]);
+
+export const answerAgentRunnerSessionBodySchema = z.object({
+	refId: z.string().describe("Key of the pending interaction in the session's `interactions`."),
+	response: z
+		.array(z.unknown())
+		.optional()
+		.describe(
+			"One entry per question in the interaction's `payload`: a string, an array of strings for a multi-select question, or null to skip that question.",
+		),
+	skipped: z.boolean().optional().describe("Skip the whole interaction instead of answering it."),
+	instruction: z.string().optional().describe("Instruction for the agent when skipping."),
+});
 
 export const listFormSubmissionPathSubmissionIdSchema = z.string();
 
