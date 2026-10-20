@@ -1575,6 +1575,127 @@ export const chatsCreateErrorSchema = z.union([
 	chatsCreateStatus500Schema,
 ]);
 
+export const chatsCreateBodySchema = z.strictObject({
+	message: z
+		.string()
+		.describe(
+			"Creates a new chat using a user message, optional system context, and model configuration. Useful for prompting the model within the scope of a specific project.",
+		),
+	attachments: z
+		.array(
+			z.strictObject({
+				url: z
+					.string()
+					.describe("The URL or data URI of the file or asset to include with the message."),
+			}),
+		)
+		.optional()
+		.describe(
+			"A list of files or assets to be included in the conversation context. Useful when the chat or task requires referencing documents, images, or other resources.",
+		),
+	system: z
+		.string()
+		.optional()
+		.describe(
+			"Provides system-level context or background for the chat. This is typically used to specify frameworks, tools, or development environments relevant to the task.",
+		),
+	chatPrivacy: z
+		.enum(["private", "public", "team", "team-edit", "unlisted"])
+		.optional()
+		.default("private")
+		.describe(
+			"Determines the privacy setting of the chat. This can control whether the chat is visible only to the user, to team members, or is public.",
+		),
+	projectId: z
+		.string()
+		.optional()
+		.describe(
+			"Associates the chat with a specific project in your workspace. Helps organize and group related chats under a common project context.",
+		),
+	modelConfiguration: z
+		.strictObject({
+			modelId: z
+				.enum(["v0-auto", "v0-max", "v0-max-fast", "v0-mini", "v0-pro"])
+				.optional()
+				.default("v0-pro")
+				.describe(
+					"Model to use for the generation. `v0-auto` is deprecated and falls back to `v0-pro`.",
+				),
+			imageGenerations: z
+				.boolean()
+				.optional()
+				.default(false)
+				.describe("Enables image generations to generate up to 5 images per version."),
+			thinking: z
+				.boolean()
+				.optional()
+				.default(false)
+				.describe("Enables thinking to generate a response in multiple steps."),
+			thinkingEffort: z
+				.union([z.enum(["none", "minimal", "low", "medium", "high", "max", "xhigh"]), z.null()])
+				.optional(),
+			fast: z.boolean().optional(),
+		})
+		.optional()
+		.describe("Settings that control how the model behaves in the chat."),
+	responseMode: z
+		.enum(["async", "experimental_stream", "sync"])
+		.optional()
+		.default("sync")
+		.describe(
+			'Controls how the response is delivered.\n\n- `"sync"`: The response is returned immediately with the HTTP request.\n- `"async"`: Returns a message placeholder immediately; use getById to poll for completion status and final output.\n- `"experimental_stream"`: Returns content parts as Server-Sent Events for real-time streaming.',
+		),
+	designSystemId: z
+		.string()
+		.nullish()
+		.describe(
+			"The ID of a design system to apply to this chat. Design systems provide consistent styling and components for generated UI.",
+		),
+	mcpServerIds: z
+		.array(z.string())
+		.optional()
+		.describe(
+			"Array of MCP server IDs to enable for this chat. When provided, only the specified servers will be used. When omitted, falls back to the user's enabled MCP servers.",
+		),
+	attachedSkillIds: z
+		.array(z.string())
+		.optional()
+		.describe(
+			"Array of skill IDs (from skills.sh) to attach to this chat. Backwards-compatible alias for `skills` entries of type `remote`. Maximum 3 skills per chat.",
+		),
+	skills: z
+		.array(
+			z.discriminatedUnion("type", [
+				z.strictObject({
+					type: z.enum(["remote"]).describe("Discriminator: a skills.sh skill."),
+					id: z.string().describe("Skill ID from skills.sh."),
+				}),
+				z.strictObject({
+					type: z.enum(["memory"]).describe("Discriminator: a user- or team-scoped memory skill."),
+					scope: z
+						.enum(["user", "team"])
+						.describe("Whether the skill lives in user or team memory."),
+					skillName: z.string().describe("Name of the memory skill to attach."),
+				}),
+				z.strictObject({
+					type: z.enum(["project"]).describe("Discriminator: a skill defined in the project repo."),
+					skillName: z.string().describe("Name of the project skill to attach."),
+				}),
+			]),
+		)
+		.optional()
+		.describe(
+			"Skills to force-attach to this chat. Supports skills.sh (`remote`), user/team memory (`memory`), and project (`project`) skills. Merged with `attachedSkillIds`. Maximum 3 skills per chat.",
+		),
+	metadata: z
+		.record(z.string(), z.string().max(500))
+		.optional()
+		.default({})
+		.describe(
+			"Arbitrary key-value data to attach to the chat. Useful for storing additional data about the chat, such as external user IDs.",
+		),
+});
+
 export const chatsFindQueryLimitSchema = z
 	.number()
 	.max(60)
@@ -1679,6 +1800,148 @@ export const chatsInitErrorSchema = z.union([
 	chatsInitStatus429Schema,
 	chatsInitStatus500Schema,
 ]);
+
+export const chatsInitBodySchema = z
+	.strictObject({
+		name: z
+			.string()
+			.optional()
+			.describe(
+				"A user-defined name for the chat. Helps identify or describe the purpose of the chat session in the UI or API responses.",
+			),
+		chatPrivacy: z
+			.enum(["public", "private", "team-edit", "team", "unlisted"])
+			.optional()
+			.default("private")
+			.describe(
+				"Controls the visibility of the chat. Defines whether the chat is private, shared with a team, or publicly accessible.",
+			),
+		projectId: z
+			.string()
+			.optional()
+			.describe(
+				"Associates the chat with a specific project. Useful for organizing and grouping chats in a workspace.",
+			),
+		metadata: z
+			.record(z.string(), z.string().max(500))
+			.optional()
+			.default({})
+			.describe(
+				"Arbitrary key-value data to attach to the chat. Useful for storing additional data about the chat, such as external user IDs.",
+			),
+	})
+	.and(
+		z.discriminatedUnion("type", [
+			z.strictObject({
+				type: z
+					.enum(["files"])
+					.describe(
+						"Specifies the initialization method. For this endpoint, it defines the source of content being used to initialize the chat.",
+					),
+				files: z
+					.array(
+						z.union([
+							z.strictObject({
+								name: z.string(),
+								url: z.string(),
+								locked: z
+									.boolean()
+									.optional()
+									.describe(
+										"Whether to lock this file to prevent AI from overwriting it during generation",
+									),
+							}),
+							z.strictObject({
+								name: z.string(),
+								content: z.string(),
+								locked: z
+									.boolean()
+									.optional()
+									.describe(
+										"Whether to lock this file to prevent AI from overwriting it during generation",
+									),
+							}),
+						]),
+					)
+					.describe(
+						"An array of inline file objects used to initialize the chat. Each object must contain a file `name` and its `content`.",
+					),
+			}),
+			z.strictObject({
+				type: z
+					.enum(["repo"])
+					.describe(
+						"Specifies the initialization method. For this endpoint, it defines the source of content being used to initialize the chat.",
+					),
+				repo: z
+					.strictObject({
+						url: z.string(),
+						branch: z.string().max(250).optional(),
+					})
+					.describe(
+						"Specifies a repository source for initialization. Supports both public and private GitHub repositories. For private repositories, ensure your GitHub account is connected through Vercel.",
+					),
+				lockAllFiles: z
+					.boolean()
+					.optional()
+					.describe(
+						"Whether to lock all files in the repository to prevent AI from overwriting them during generation",
+					),
+			}),
+			z.strictObject({
+				type: z
+					.enum(["registry"])
+					.describe(
+						"Specifies the initialization method. For this endpoint, it defines the source of content being used to initialize the chat.",
+					),
+				registry: z
+					.strictObject({
+						url: z.string(),
+					})
+					.describe(
+						"Allows initialization from a predefined component or code registry. Includes the registry source and identifier for the desired component/module.",
+					),
+				lockAllFiles: z
+					.boolean()
+					.optional()
+					.describe(
+						"Whether to lock all files from the registry to prevent AI from overwriting them during generation",
+					),
+			}),
+			z.strictObject({
+				type: z
+					.enum(["zip"])
+					.describe(
+						"Specifies the initialization method. For this endpoint, it defines the source of content being used to initialize the chat.",
+					),
+				zip: z
+					.strictObject({
+						url: z.url(),
+					})
+					.describe(
+						"Provides a zipped bundle of files as the input source. Typically includes a base64-encoded archive or a remote URL reference.",
+					),
+				lockAllFiles: z
+					.boolean()
+					.optional()
+					.describe(
+						"Whether to lock all files from the zip archive to prevent AI from overwriting them during generation",
+					),
+			}),
+			z.strictObject({
+				type: z
+					.enum(["template"])
+					.describe(
+						"Specifies the initialization method. For this endpoint, it defines the source of content being used to initialize the chat.",
+					),
+				templateId: z
+					.string()
+					.describe(
+						"The ID of the template to initialize the chat from. This should be a valid template ID from the v0 template system.",
+					),
+			}),
+		]),
+	);
 
 export const chatsDeletePathChatIdSchema = z
 	.string()
@@ -1787,6 +2050,23 @@ export const chatsUpdateErrorSchema = z.union([
 	chatsUpdateStatus500Schema,
 ]);
 
+export const chatsUpdateBodySchema = z.strictObject({
+	name: z
+		.string()
+		.optional()
+		.describe("A new name to assign to the chat. Helps with identification and organization."),
+	privacy: z
+		.enum(["private", "public", "team", "team-edit", "unlisted"])
+		.optional()
+		.describe("Sets the privacy level of the chat."),
+	metadata: z
+		.union([z.record(z.string(), z.union([z.string().max(500), z.null()])), z.null()])
+		.optional()
+		.describe(
+			"Arbitrary key-value data to attach to the chat. Useful for storing additional data about the chat, such as external user IDs. Metadata added will be merged with existing attributes. Pass `null` as the value to delete a specific key, or pass `null` instead of an object to delete all existing metadata.",
+		),
+});
+
 export const chatsFavoritePathChatIdSchema = z
 	.string()
 	.describe("The unique identifier of the chat to update. Provided as a path parameter.");
@@ -1822,6 +2102,14 @@ export const chatsFavoriteErrorSchema = z.union([
 	chatsFavoriteStatus500Schema,
 ]);
 
+export const chatsFavoriteBodySchema = z.strictObject({
+	isFavorite: z
+		.boolean()
+		.describe(
+			'Specifies whether the chat should be marked as a favorite.\n\n- `"true"`: mark as favorite\n- `"false"`: remove from favorites',
+		),
+});
+
 export const chatsForkPathChatIdSchema = z
 	.string()
 	.describe("The unique identifier of the chat to fork. Provided as a path parameter.");
@@ -1856,6 +2144,23 @@ export const chatsForkErrorSchema = z.union([
 	chatsForkStatus429Schema,
 	chatsForkStatus500Schema,
 ]);
+
+export const chatsForkBodySchema = z.strictObject({
+	versionId: z
+		.string()
+		.max(32)
+		.optional()
+		.describe(
+			"The identifier of the specific chat version to fork from. If omitted, the latest version will be used.",
+		),
+	privacy: z
+		.enum(["private", "public", "team", "team-edit", "unlisted"])
+		.optional()
+		.default("private")
+		.describe(
+			"Determines the privacy setting of the forked chat. This can control whether the chat is visible only to the user, to team members, or is public.",
+		),
+});
 
 export const projectsGetByChatIdPathChatIdSchema = z
 	.string()
@@ -1980,6 +2285,106 @@ export const chatsSendMessageErrorSchema = z.union([
 	chatsSendMessageStatus429Schema,
 	chatsSendMessageStatus500Schema,
 ]);
+
+export const chatsSendMessageBodySchema = z.strictObject({
+	message: z
+		.string()
+		.describe("The prompt or instruction to send to the model as part of the chat."),
+	attachments: z
+		.array(
+			z.strictObject({
+				url: z
+					.string()
+					.describe("The URL or data URI of the file or asset to include with the message."),
+			}),
+		)
+		.optional()
+		.default([])
+		.describe("A list of files or assets to include with the message."),
+	system: z
+		.string()
+		.optional()
+		.describe(
+			"Provides system-level context or background for the chat. This is typically used to specify frameworks, tools, or development environments relevant to the task.",
+		),
+	modelConfiguration: z
+		.strictObject({
+			modelId: z
+				.enum(["v0-auto", "v0-max", "v0-max-fast", "v0-mini", "v0-pro"])
+				.optional()
+				.default("v0-pro")
+				.describe(
+					"Model to use for the generation. `v0-auto` is deprecated and falls back to `v0-pro`.",
+				),
+			imageGenerations: z
+				.boolean()
+				.optional()
+				.default(false)
+				.describe("Enables image generations to generate up to 5 images per version."),
+			thinking: z
+				.boolean()
+				.optional()
+				.default(false)
+				.describe("Enables thinking to generate a response in multiple steps."),
+			thinkingEffort: z
+				.union([z.enum(["none", "minimal", "low", "medium", "high", "max", "xhigh"]), z.null()])
+				.optional(),
+			fast: z.boolean().optional(),
+		})
+		.optional()
+		.describe("Overrides for the model behavior."),
+	responseMode: z
+		.enum(["async", "experimental_stream", "sync"])
+		.optional()
+		.default("sync")
+		.describe(
+			'Controls how the response is delivered.\n\n- `"sync"`: The response is returned immediately with the HTTP request.\n- `"async"`: Returns a message placeholder immediately; use getById to poll for completion status and final output.\n- `"experimental_stream"`: Returns content parts as Server-Sent Events for real-time streaming.',
+		),
+	mcpServerIds: z
+		.array(z.string())
+		.optional()
+		.describe(
+			"Array of MCP server IDs to enable for this message. When provided, only the specified servers will be used. When omitted, falls back to the user's enabled MCP servers.",
+		),
+	attachedSkillIds: z
+		.array(z.string())
+		.optional()
+		.describe(
+			"Array of skill IDs (from skills.sh) to attach to this message. Backwards-compatible alias for `skills` entries of type `remote`. Maximum 3 skills per chat.",
+		),
+	skills: z
+		.array(
+			z.discriminatedUnion("type", [
+				z.strictObject({
+					type: z.enum(["remote"]).describe("Discriminator: a skills.sh skill."),
+					id: z.string().describe("Skill ID from skills.sh."),
+				}),
+				z.strictObject({
+					type: z.enum(["memory"]).describe("Discriminator: a user- or team-scoped memory skill."),
+					scope: z
+						.enum(["user", "team"])
+						.describe("Whether the skill lives in user or team memory."),
+					skillName: z.string().describe("Name of the memory skill to attach."),
+				}),
+				z.strictObject({
+					type: z.enum(["project"]).describe("Discriminator: a skill defined in the project repo."),
+					skillName: z.string().describe("Name of the project skill to attach."),
+				}),
+			]),
+		)
+		.optional()
+		.describe(
+			"Skills to force-attach to this message. Supports skills.sh (`remote`), user/team memory (`memory`), and project (`project`) skills. Merged with `attachedSkillIds`. Maximum 3 skills per chat.",
+		),
+	action: z
+		.strictObject({
+			type: z.enum(["fix-with-v0"]),
+		})
+		.optional()
+		.describe(
+			"An optional action to perform. Use `fix-with-v0` to trigger automatic error fixing — the message should contain the error logs or context to fix.",
+		),
+});
 
 export const chatsGetMessagePathChatIdSchema = z
 	.string()
@@ -2165,6 +2570,25 @@ export const chatsUpdateVersionErrorSchema = z.union([
 	chatsUpdateVersionStatus500Schema,
 ]);
 
+export const chatsUpdateVersionBodySchema = z.strictObject({
+	files: z
+		.array(
+			z.strictObject({
+				name: z
+					.string()
+					.describe('The full file path including extension (e.g., "components/test.tsx")'),
+				content: z.string().describe("The new content for the file"),
+				locked: z
+					.boolean()
+					.optional()
+					.describe(
+						"Whether to lock or unlock the file to prevent AI from overwriting it during generation",
+					),
+			}),
+		)
+		.describe("Array of files to update with their new content"),
+});
+
 export const chatsDownloadVersionPathChatIdSchema = z
 	.string()
 	.describe(
@@ -2259,6 +2683,12 @@ export const chatsDeleteVersionFilesErrorSchema = z.union([
 	chatsDeleteVersionFilesStatus429Schema,
 	chatsDeleteVersionFilesStatus500Schema,
 ]);
+
+export const chatsDeleteVersionFilesBodySchema = z.strictObject({
+	filePaths: z
+		.array(z.string())
+		.describe('Array of file paths to delete (e.g., ["components/test.tsx", "lib/utils.ts"])'),
+});
 
 export const chatsResumePathChatIdSchema = z
 	.string()
@@ -2379,6 +2809,178 @@ export const chatsResolveTaskErrorSchema = z.union([
 	chatsResolveTaskStatus500Schema,
 ]);
 
+export const chatsResolveTaskBodySchema = z.strictObject({
+	task: z
+		.discriminatedUnion("type", [
+			z.strictObject({
+				type: z.enum(["confirmed-steps"]),
+				connectedIntegrationNames: z
+					.array(z.string().max(2052))
+					.optional()
+					.default([])
+					.describe(
+						'Names of integrations that were successfully connected (e.g. "Neon"). Pass an empty array to skip.',
+					),
+				connectedNpmRegistryIds: z
+					.array(z.string().max(2052))
+					.optional()
+					.default([])
+					.describe(
+						"Deprecated. npm registry connections are no longer supported; this field is accepted for compatibility and ignored.",
+					),
+				connectedMcpPresetNames: z
+					.array(
+						z.enum([
+							"Linear",
+							"Notion",
+							"Context7",
+							"Sentry",
+							"Zapier",
+							"Glean",
+							"Hex",
+							"Sanity",
+							"Granola",
+							"PostHog",
+							"Contentful",
+							"Mobbin",
+							"Slack",
+							"Nitrosend",
+							"Datadog",
+						]),
+					)
+					.optional()
+					.default([])
+					.describe(
+						'Names of MCP presets that were connected (e.g. "Linear", "Sentry"). Pass an empty array to skip.',
+					),
+				appliedScripts: z
+					.array(z.string().min(1))
+					.optional()
+					.default([])
+					.describe("Names of scripts that were applied."),
+				addedEnvVars: z
+					.array(z.string().min(1))
+					.optional()
+					.default([])
+					.describe("Names of environment variables that were added."),
+			}),
+			z.strictObject({
+				type: z.enum(["plan-exit-response"]),
+				status: z
+					.enum(["approved", "rejected", "request-changes"])
+					.describe("Whether the plan is approved, rejected, or needs changes."),
+				content: z.string().min(1).describe("Feedback or instructions for the agent."),
+			}),
+			z.strictObject({
+				type: z.enum(["answered-questions"]),
+				answers: z
+					.array(
+						z.strictObject({
+							questionId: z.string().min(1).describe("The ID of the question being answered."),
+							questionText: z.string().min(1).describe("The text of the question being answered."),
+							selectedLabels: z
+								.array(z.string().min(1))
+								.describe(
+									"The labels of the selected options. For single-select questions, pass one item.",
+								),
+							customText: z
+								.string()
+								.min(1)
+								.optional()
+								.describe(
+									'Free-form text input, used when the user selects "Other" or wants to add context.',
+								),
+						}),
+					)
+					.describe("Answers to the questions the agent asked."),
+			}),
+			z.strictObject({
+				type: z.enum(["confirmed-permissions"]),
+				permissions: z
+					.array(
+						z.strictObject({
+							type: z.enum(["ALLOW_DYNAMIC_TOOL_STRICT"]),
+							toolName: z.string().min(1).describe("The name of the tool being permitted."),
+							input: z
+								.unknown()
+								.describe(
+									"The tool call input arguments. Pass the exact input from the stopped task.",
+								),
+							toolDisplayName: z
+								.union([z.string().min(1).max(100), z.null()])
+								.optional()
+								.describe(
+									"The tool's original human-readable name from the stopped task. Display-only; pass back unchanged. Capped at 100 characters, matching the cap applied when the name is ingested from the server.",
+								),
+							taskNameActive: z
+								.union([z.string().min(1), z.null()])
+								.optional()
+								.describe('Label shown while the tool is running (e.g. "Running migration").'),
+							taskNameComplete: z
+								.union([z.string().min(1), z.null()])
+								.optional()
+								.describe('Label shown after the tool completes (e.g. "Migration complete").'),
+							userMessage: z
+								.string()
+								.min(1)
+								.optional()
+								.describe("Optional message from the user about this permission."),
+						}),
+					)
+					.describe(
+						"The permissions to grant. Pass the suggestedPermissions from the stopped task.",
+					),
+				userMessage: z
+					.string()
+					.min(1)
+					.optional()
+					.describe("Optional message from the user about the permission grant."),
+			}),
+			z.strictObject({
+				type: z.enum(["vercel-connect-setup"]),
+			}),
+			z.strictObject({
+				type: z.enum(["vercel-connect-authorization"]),
+			}),
+		])
+		.describe(
+			"The task resolution data. Use this when the chat is waiting for user input on the matching task type.",
+		),
+	responseMode: z
+		.enum(["async", "experimental_stream", "sync"])
+		.optional()
+		.default("sync")
+		.describe(
+			'Controls how the response is delivered.\n\n- `"sync"`: The response is returned immediately with the HTTP request.\n- `"async"`: Returns a message placeholder immediately; use getById to poll for completion status and final output.\n- `"experimental_stream"`: Returns content parts as Server-Sent Events for real-time streaming.',
+		),
+	modelConfiguration: z
+		.strictObject({
+			modelId: z
+				.enum(["v0-auto", "v0-max", "v0-max-fast", "v0-mini", "v0-pro"])
+				.optional()
+				.default("v0-pro")
+				.describe(
+					"Model to use for the generation. `v0-auto` is deprecated and falls back to `v0-pro`.",
+				),
+			imageGenerations: z
+				.boolean()
+				.optional()
+				.default(false)
+				.describe("Enables image generations to generate up to 5 images per version."),
+			thinking: z
+				.boolean()
+				.optional()
+				.default(false)
+				.describe("Enables thinking to generate a response in multiple steps."),
+			thinkingEffort: z
+				.union([z.enum(["none", "minimal", "low", "medium", "high", "max", "xhigh"]), z.null()])
+				.optional(),
+			fast: z.boolean().optional(),
+		})
+		.optional()
+		.describe("Overrides for the model behavior."),
+});
+
 export const deploymentsFindQueryProjectIdSchema = z
 	.string()
 	.optional()
@@ -2453,6 +3055,12 @@ export const deploymentsCreateErrorSchema = z.union([
 	deploymentsCreateStatus429Schema,
 	deploymentsCreateStatus500Schema,
 ]);
+
+export const deploymentsCreateBodySchema = z.strictObject({
+	projectId: z.string().optional(),
+	chatId: z.string(),
+	versionId: z.string(),
+});
 
 export const deploymentsGetByIdPathDeploymentIdSchema = z
 	.string()
@@ -2667,6 +3275,25 @@ export const hooksCreateErrorSchema = z.union([
 	hooksCreateStatus500Schema,
 ]);
 
+export const hooksCreateBodySchema = z.strictObject({
+	name: z.string().describe("A human-readable name for the hook."),
+	events: z
+		.array(
+			z.enum([
+				"chat.created",
+				"chat.deleted",
+				"chat.updated",
+				"message.created",
+				"message.deleted",
+				"message.finished",
+				"message.updated",
+			]),
+		)
+		.describe("List of event types the hook should subscribe to."),
+	chatId: z.string().optional().describe("The ID of a chat to scope the hook to."),
+	url: z.url().describe("The target URL to receive the webhook payloads."),
+});
+
 export const hooksGetByIdPathHookIdSchema = z
 	.string()
 	.describe("The unique identifier of the hook to retrieve.");
@@ -2736,6 +3363,25 @@ export const hooksUpdateErrorSchema = z.union([
 	hooksUpdateStatus429Schema,
 	hooksUpdateStatus500Schema,
 ]);
+
+export const hooksUpdateBodySchema = z.strictObject({
+	name: z.string().optional().describe("A new name for the hook."),
+	events: z
+		.array(
+			z.enum([
+				"chat.created",
+				"chat.deleted",
+				"chat.updated",
+				"message.created",
+				"message.deleted",
+				"message.finished",
+				"message.updated",
+			]),
+		)
+		.optional()
+		.describe("Updated list of event types to subscribe to."),
+	url: z.url().optional().describe("A new URL to send webhook payloads to."),
+});
 
 export const hooksDeletePathHookIdSchema = z
 	.string()
@@ -2836,6 +3482,11 @@ export const integrationsVercelProjectsCreateErrorSchema = z.union([
 	integrationsVercelProjectsCreateStatus500Schema,
 ]);
 
+export const integrationsVercelProjectsCreateBodySchema = z.strictObject({
+	projectId: z.string().describe("The ID of the v0 project to link to the new Vercel project."),
+	name: z.string().describe("The name to assign to the new Vercel project."),
+});
+
 export const projectsFindStatus200Schema = z.unknown();
 
 export const projectsFindStatus401Schema = z.unknown();
@@ -2897,6 +3548,48 @@ export const projectsCreateErrorSchema = z.union([
 	projectsCreateStatus429Schema,
 	projectsCreateStatus500Schema,
 ]);
+
+export const projectsCreateBodySchema = z.strictObject({
+	name: z.string().max(255).describe("The name of the project."),
+	description: z
+		.string()
+		.max(1000)
+		.optional()
+		.describe("A brief summary of the project’s purpose."),
+	icon: z
+		.string()
+		.optional()
+		.default("icon-wand-sparkles")
+		.describe("An icon identifier to visually represent the project."),
+	environmentVariables: z
+		.array(
+			z.strictObject({
+				key: z.string().max(255),
+				value: z.string().max(1000),
+			}),
+		)
+		.optional()
+		.describe("A list of key-value pairs used to define runtime variables for the project."),
+	instructions: z
+		.string()
+		.max(2000)
+		.optional()
+		.describe(
+			"Guidance or goals that provide context for the model when working within the project.",
+		),
+	vercelProjectId: z
+		.string()
+		.optional()
+		.describe(
+			"The ID of an existing Vercel project to link to. If not provided, a new Vercel project will be created.",
+		),
+	privacy: z
+		.enum(["private", "team"])
+		.optional()
+		.describe(
+			'The privacy setting for the project. For user accounts, this is always "private". For team/enterprise accounts, this can be either "private" or "team".',
+		),
+});
 
 export const projectsGetByIdPathProjectIdSchema = z
 	.string()
@@ -2967,6 +3660,31 @@ export const projectsUpdateErrorSchema = z.union([
 	projectsUpdateStatus429Schema,
 	projectsUpdateStatus500Schema,
 ]);
+
+export const projectsUpdateBodySchema = z.strictObject({
+	name: z
+		.string()
+		.optional()
+		.describe("A new name to assign to the project. Helps with identification and organization."),
+	description: z
+		.string()
+		.optional()
+		.describe(
+			"A new description to assign to the project. Helps with identification and organization.",
+		),
+	instructions: z
+		.string()
+		.optional()
+		.describe(
+			"Guidance or goals that provide context for the model when working within the project.",
+		),
+	privacy: z
+		.enum(["private", "team"])
+		.optional()
+		.describe(
+			'The privacy setting for the project. For user accounts, this must be "private". For team/enterprise accounts, this can be either "private" or "team".',
+		),
+});
 
 export const projectsDeletePathProjectIdSchema = z
 	.string()
@@ -3047,6 +3765,10 @@ export const projectsAssignErrorSchema = z.union([
 	projectsAssignStatus429Schema,
 	projectsAssignStatus500Schema,
 ]);
+
+export const projectsAssignBodySchema = z.strictObject({
+	chatId: z.string().describe("The ID of the chat to assign the project to."),
+});
 
 export const projectsFindEnvVarsPathProjectIdSchema = z
 	.string()
@@ -3130,6 +3852,23 @@ export const projectsCreateEnvVarsErrorSchema = z.union([
 	projectsCreateEnvVarsStatus500Schema,
 ]);
 
+export const projectsCreateEnvVarsBodySchema = z.strictObject({
+	environmentVariables: z
+		.array(
+			z.strictObject({
+				key: z.string().min(1).describe("The name of the environment variable."),
+				value: z.string().describe("The value of the environment variable."),
+			}),
+		)
+		.describe("An array of environment variables to create with key and value fields."),
+	upsert: z
+		.boolean()
+		.optional()
+		.describe(
+			"Whether to overwrite existing environment variables with the same keys. Defaults to false.",
+		),
+});
+
 export const projectsUpdateEnvVarsPathProjectIdSchema = z
 	.string()
 	.describe("The unique identifier of the project whose environment variables should be updated.");
@@ -3170,6 +3909,17 @@ export const projectsUpdateEnvVarsErrorSchema = z.union([
 	projectsUpdateEnvVarsStatus500Schema,
 ]);
 
+export const projectsUpdateEnvVarsBodySchema = z.strictObject({
+	environmentVariables: z
+		.array(
+			z.strictObject({
+				id: z.string().describe("The unique identifier of the environment variable to update."),
+				value: z.string().describe("The new value of the environment variable."),
+			}),
+		)
+		.describe("An array of environment variables to update with id and value fields."),
+});
+
 export const projectsDeleteEnvVarsPathProjectIdSchema = z
 	.string()
 	.describe("The unique identifier of the project whose environment variables should be deleted.");
@@ -3204,6 +3954,12 @@ export const projectsDeleteEnvVarsErrorSchema = z.union([
 	projectsDeleteEnvVarsStatus429Schema,
 	projectsDeleteEnvVarsStatus500Schema,
 ]);
+
+export const projectsDeleteEnvVarsBodySchema = z.strictObject({
+	environmentVariableIds: z
+		.array(z.string())
+		.describe("An array of environment variable IDs to delete."),
+});
 
 export const projectsGetEnvVarPathProjectIdSchema = z
 	.string()
@@ -3685,6 +4441,89 @@ export const mcpServersCreateErrorSchema = z.union([
 	mcpServersCreateStatus500Schema,
 ]);
 
+export const mcpServersCreateBodySchema = z.strictObject({
+	name: z.string().min(1).max(100).describe("The display name of the MCP server."),
+	url: z.url().max(500).describe("The URL of the MCP server. Must be HTTPS in production."),
+	description: z
+		.string()
+		.max(500)
+		.optional()
+		.describe("An optional description of the MCP server."),
+	enabled: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe("Whether the MCP server is enabled. Defaults to true."),
+	auth: z
+		.discriminatedUnion("type", [
+			z.strictObject({
+				type: z.enum(["none"]).describe("No authentication required."),
+			}),
+			z.strictObject({
+				type: z.enum(["bearer"]).describe("Bearer token authentication."),
+				token: z.string().min(1).max(1000).describe("The bearer token for authentication."),
+			}),
+			z.strictObject({
+				type: z.enum(["custom-headers"]).describe("Custom headers authentication."),
+				headers: z
+					.record(z.string(), z.string().max(500))
+					.describe("Key-value pairs of custom headers to include in requests."),
+			}),
+			z.strictObject({
+				type: z.enum(["oauth"]).describe("OAuth 2.1 authentication."),
+				config: z
+					.strictObject({
+						authorizationUrl: z.url().describe("The OAuth authorization endpoint URL."),
+						tokenUrl: z.url().describe("The OAuth token endpoint URL."),
+						registrationUrl: z
+							.url()
+							.optional()
+							.describe("The optional dynamic client registration endpoint URL."),
+						clientId: z.string().min(1).describe("The OAuth client ID."),
+						clientSecret: z
+							.string()
+							.optional()
+							.describe(
+								"The optional OAuth client secret. This value is stored securely and is never returned by the API.",
+							),
+						scopes: z
+							.array(z.string())
+							.optional()
+							.default([])
+							.describe("OAuth scopes to request during authorization."),
+						usePKCE: z
+							.boolean()
+							.optional()
+							.default(true)
+							.describe("Whether to use PKCE for the authorization code flow."),
+						issuer: z
+							.string()
+							.optional()
+							.describe("The optional issuer identifier for mix-up protection."),
+						resource: z
+							.string()
+							.optional()
+							.describe(
+								"The optional RFC 8707 resource indicator. For MCP servers, this is usually the MCP server URL.",
+							),
+						clientIdMetadataDocumentSupported: z
+							.boolean()
+							.optional()
+							.describe("Whether the authorization server supports Client ID Metadata Documents."),
+					})
+					.describe("OAuth configuration for the MCP server."),
+			}),
+		])
+		.optional()
+		.default({ type: "none" })
+		.describe("Authentication configuration. Defaults to no authentication."),
+	scope: z
+		.enum(["team", "user"])
+		.optional()
+		.default("user")
+		.describe("The scope of the MCP server. Defaults to user."),
+});
+
 export const mcpServersGetByIdPathMcpServerIdSchema = z
 	.string()
 	.describe("The ID of the MCP server to retrieve.");
@@ -3754,6 +4593,80 @@ export const mcpServersUpdateErrorSchema = z.union([
 	mcpServersUpdateStatus429Schema,
 	mcpServersUpdateStatus500Schema,
 ]);
+
+export const mcpServersUpdateBodySchema = z.strictObject({
+	name: z.string().min(1).max(100).optional().describe("The display name of the MCP server."),
+	url: z.url().max(500).optional().describe("The URL of the MCP server."),
+	description: z
+		.string()
+		.max(500)
+		.optional()
+		.describe("An optional description of the MCP server."),
+	enabled: z.boolean().optional().describe("Whether the MCP server is enabled."),
+	auth: z
+		.discriminatedUnion("type", [
+			z.strictObject({
+				type: z.enum(["none"]).describe("No authentication required."),
+			}),
+			z.strictObject({
+				type: z.enum(["bearer"]).describe("Bearer token authentication."),
+				token: z.string().min(1).max(1000).describe("The bearer token for authentication."),
+			}),
+			z.strictObject({
+				type: z.enum(["custom-headers"]).describe("Custom headers authentication."),
+				headers: z
+					.record(z.string(), z.string().max(500))
+					.describe("Key-value pairs of custom headers to include in requests."),
+			}),
+			z.strictObject({
+				type: z.enum(["oauth"]).describe("OAuth 2.1 authentication."),
+				config: z
+					.strictObject({
+						authorizationUrl: z.url().describe("The OAuth authorization endpoint URL."),
+						tokenUrl: z.url().describe("The OAuth token endpoint URL."),
+						registrationUrl: z
+							.url()
+							.optional()
+							.describe("The optional dynamic client registration endpoint URL."),
+						clientId: z.string().min(1).describe("The OAuth client ID."),
+						clientSecret: z
+							.string()
+							.optional()
+							.describe(
+								"The optional OAuth client secret. This value is stored securely and is never returned by the API.",
+							),
+						scopes: z
+							.array(z.string())
+							.optional()
+							.default([])
+							.describe("OAuth scopes to request during authorization."),
+						usePKCE: z
+							.boolean()
+							.optional()
+							.default(true)
+							.describe("Whether to use PKCE for the authorization code flow."),
+						issuer: z
+							.string()
+							.optional()
+							.describe("The optional issuer identifier for mix-up protection."),
+						resource: z
+							.string()
+							.optional()
+							.describe(
+								"The optional RFC 8707 resource indicator. For MCP servers, this is usually the MCP server URL.",
+							),
+						clientIdMetadataDocumentSupported: z
+							.boolean()
+							.optional()
+							.describe("Whether the authorization server supports Client ID Metadata Documents."),
+					})
+					.describe("OAuth configuration for the MCP server."),
+			}),
+		])
+		.optional()
+		.describe("Authentication configuration."),
+	scope: z.enum(["team", "user"]).optional().describe("The scope of the MCP server."),
+});
 
 export const mcpServersDeletePathMcpServerIdSchema = z
 	.string()
@@ -3825,3 +4738,11 @@ export const mcpServersCreateOAuthAuthorizationUrlErrorSchema = z.union([
 	mcpServersCreateOAuthAuthorizationUrlStatus429Schema,
 	mcpServersCreateOAuthAuthorizationUrlStatus500Schema,
 ]);
+
+export const mcpServersCreateOAuthAuthorizationUrlBodySchema = z.strictObject({
+	returnUrl: z
+		.url()
+		.describe(
+			"An absolute URL in your application where v0 redirects after OAuth completes. HTTPS is required in production.",
+		),
+});
