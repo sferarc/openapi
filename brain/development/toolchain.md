@@ -1,6 +1,6 @@
 # Toolchain
 
-`mise.toml` pins the Node and pnpm versions, with checksums in `mise.lock`; read the current pins there, since dependency update pull requests move them (on 2026-10-17 `mise.toml` pins Node `26.11.1` and pnpm `12.11.2`, set by #14; the open dependency update #51 moves them in `mise.lock`). `package.json` repeats the pnpm version in `packageManager` and asks for Node 22 or newer in `engines`.
+`mise.toml` pins the Node and pnpm versions, with checksums in `mise.lock`; read the current pins there, since dependency update pull requests move them (on 2026-10-17 `mise.toml` pins Node `26.11.1` and pnpm `12.11.2`, set by #14). `package.json` repeats the pnpm version in `packageManager` and asks for Node 22 or newer in `engines`.
 
 ```bash
 mise install
@@ -16,7 +16,7 @@ pnpm generate --filter=<package>
 | `pnpm tsc` | `tsc --noEmit` in every workspace through Turborepo, after building dependencies; the website runs `next typegen` first so route types are checked too (#40); then `tsc -p .github/workflows/scripts` for the spec pipeline scripts (#44) |
 | `pnpm check` | `biome check .`, `knip --config configs/knip.json`, then `is-tree-shakable` on every package |
 | `pnpm check:fix` | `biome check . --write` |
-| `pnpm test` | `vitest run` in workspaces that define `test`, then `vitest run --dir .github/workflows/scripts` (`package.json`) |
+| `pnpm test` | `vitest run` in workspaces that define `test`, then `vitest run --dir .github/workflows/scripts` (#27) |
 | `pnpm build` | `bunchee` per package, `next build` for the website |
 | `pnpm generate` | kubb per client, see [[architecture/pipeline]] |
 
