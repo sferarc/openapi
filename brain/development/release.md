@@ -12,7 +12,7 @@ Authentication is npm trusted publishing: `id-token: write` lets npm exchange th
 
 ## Publishing is off
 
-The release job only runs when the repository variable `RELEASE_ENABLED` is `true` (`if:` in `release.yml`), so the first release from this repository is the owner's decision (8ff9fa1). Only the owner sets that variable. Until then pending changesets accumulate in `.changeset/`.
+The release job only runs when the repository variable `RELEASE_ENABLED` is `true` (`if:` in `release.yml`), so the first release from this repository is a deliberate step (8ff9fa1). The variable is set once the publish path is proven, which needs the trusted publishers below. Until then pending changesets accumulate in `.changeset/`.
 
 ## What setting `RELEASE_ENABLED` triggers
 
@@ -40,9 +40,9 @@ Versions `changeset version` produces from the current changesets (dry run on 20
 
 Checked on 2026-10-20 unless noted:
 
-- [x] `.changeset/` holds 58 changesets, as listed under Pending changesets. `pnpm changeset status` reports a major for the eight published clients and a minor for `clickhouse-cloud`, so the Effect 4 and `ApiError` majors from [[plans/index]] are present.
+- [x] `.changeset/` holds 83 changesets (main at 74c638f), as listed under Pending changesets. `pnpm changeset status` reports a major for the eight published clients and a minor for `clickhouse-cloud`, so the Effect 4 and `ApiError` majors from [[plans/index]] are present.
 - [x] The repository variable `RELEASE_ENABLED` is not set, and neither is any other repository variable but the `HQ_*` ones (`gh variable list`).
-- [x] `GIT_TOKEN` exists as an organization secret for all repositories. Whether the token can push to `main` through the ruleset and open PRs is unknown until the first run.
+- [x] `GIT_TOKEN` exists as an organization secret for all repositories. The token opens PRs and enables auto-merge: the PAT path ran in run 39485625102 (see Spec updates in [[architecture/pipeline]]). Whether it can push the squash commit of the version PR to `main` through the ruleset is unknown until the first run.
 - [x] The repository setting "Allow auto-merge" is on (`allow_auto_merge: true` through the GitHub API, checked 2026-10-20), so `gh pr merge --auto` on the version PR works.
 - [ ] Each package's trusted publisher on npmjs.com names `sferarc/openapi` and `release.yml`. This cannot be checked from the repository. The eight published clients were configured for the earlier monorepo, and `clickhouse-cloud` is not on npm at all, so its first publish may need a manual bootstrap. Do this before setting `RELEASE_ENABLED`: if the OIDC publish of `clickhouse-cloud` fails, `changeset publish` exits non-zero after the other eight clients have published, and the step then fails. `changesets/action` still pushes tags and creates GitHub releases for the packages that published, because the failing exit code is only checked after that (`runPublish` in `src/run.ts` at the pinned `ae32849`), and `@changesets/cli` tags successful publishes before it exits. Recovery is to fix the publisher and rerun the workflow, which publishes only versions npm lacks and then tags them.
 - [x] Nothing in the Release job needs an npm token, so no secret has to be added.
@@ -59,8 +59,9 @@ As of 2026-10-14 (`npm view <package> version`, unchanged since the 2026-10-08 c
 
 ## Pending changesets
 
-As of 2026-10-17 (main at 3f454bd), `.changeset/` holds 58 changesets besides `README.md` and `config.json`. The first release will be a major for all eight published clients:
+As of 2026-10-20 (main at 74c638f), `.changeset/` holds 83 changesets besides `README.md` and `config.json`. The first release will be a major for all eight published clients:
 
 - Majors: `effect-v4.md` for the five published Effect clients, which leaves out the unpublished `clickhouse-cloud` (#6, [[decisions/2026-10-08-effect-4-major]]), and `http-errors-as-api-error.md` for all eight published clients, the new `{ status, payload }` rejection shape (#8, made a major in #9).
 - Minors: `clickhouse-cloud-client.md` (#2); `path-encoding-clickhouse-cloud.md` and `path-encoding-vercel-api-js.md`, minors because their regenerated specs add operations (#17); `raw-request-bodies-netlify-api.md`, the `body` parameter for non-JSON request bodies (#25).
 - Patches: `bundle-openapi-utils.md` (#1), `inline-effect-types.md` (#4), `fetcher-query-serialization.md` (#16), `path-encoding-*.md` for the other seven clients (#17), `path-params-keep-slashes-*.md` for `cloudflare-api-js`, `keycloak-api` and `netlify-api` (#23), `untagged-operations-*.md` for `cloudflare-api-js`, `keycloak-api`, `litellm-api` and `vercel-api-js` (#24), `request-via-operations-*.md` for all nine clients (#26), `fetcher-empty-body-header-case.md` for all nine clients (#28), `zoom-refresh-basic-auth.md` (#30), `effect-error-message-*.md` for the six Effect clients (#33), `fetcher-failure-detail-*.md` for all nine clients (#37), `dts-private-types-*.md` for `keycloak-api` and `v0-api` (#42), `effect-abort-signal-*.md` for the six Effect clients (#46), and `stream-upload-duplex-netlify-api.md`, which sends a `ReadableStream` upload body with `duplex: "half"` so Node's `fetch` accepts it (#50, `packages/netlify-api/src/utils/fetcher.ts`).
+- Spec updates: 25 generated `<package>-<uuid>.md` changesets from the regeneration PRs #56 to #61 (2026-10-20): minors for `netlify-api` (3), `nuki-api-js` (1), `v0-api` (7), `vercel-api-js` (4) and `clickhouse-cloud` (2), and patches for `keycloak-api` (2), `vercel-api-js` (2) and `clickhouse-cloud` (4).
