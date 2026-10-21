@@ -40,7 +40,7 @@ Checked on 2026-10-20 unless noted:
 
 - [x] The repository variable `RELEASE_ENABLED` is not set, and neither is any other repository variable but the `HQ_*` ones (`gh variable list`).
 - [x] `GIT_TOKEN` exists as an organization secret for all repositories. Whether the token can push to `main` through the ruleset and open PRs is unknown until the first run.
-- [ ] The repository setting "Allow auto-merge" is off (`allow_auto_merge: false` through the GitHub API). `gh pr merge --auto` fails on it, so the first run opens the version PR and then fails its last step; the PR is merged by hand and publishes normally. Turn the setting on first to keep the flow automatic.
+- [x] The repository setting "Allow auto-merge" is on, so `gh pr merge --auto` on the version PR works. Evidence: `gh api repos/sferarc/openapi --jq .allow_auto_merge` returns `true`; #56 to #61 also had auto-merge enabled on 2026-10-20 (`gh pr list --state all --json number,autoMergeRequest`), which GitHub only allows while the setting is on.
 - [x] Nothing in the Release job needs an npm token, so no secret has to be added.
 
 Not run: `pnpm release` itself, because `changeset publish` has no dry-run mode and would publish.
