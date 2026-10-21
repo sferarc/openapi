@@ -1,6 +1,7 @@
 {
 	"name": "clickhouse-cloud",
 	"version": "0.0.0",
+	"private": true,
 	"description": "ClickHouse Cloud auto-generated type-safe API client",
 	"type": "module",
 	"author": "SferaDev",

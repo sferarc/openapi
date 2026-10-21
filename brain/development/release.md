@@ -55,7 +55,7 @@ As of 2026-10-14 (`npm view <package> version`, unchanged since the 2026-10-08 c
 
 - Eight clients are on npm at the versions in their `package.json`. Those versions were published from the earlier monorepo (`repository.url` on npm still names it).
 - `vercel-api-js` and `netlify-api` on npm declare `@sferadev/openapi-utils@0.0.1` as a dependency, which does not exist on npm, so installing them fails. The pending changeset from #1 fixes this for the five affected clients at their next release.
-- `clickhouse-cloud` is not on npm; its `package.json` is `0.0.0` with a pending `minor` changeset (#2). Whether its first publish can go through trusted publishing, which npm configures per existing package, is unknown until it is tried.
+- `clickhouse-cloud` is `private: true` by owner decision of 2026-10-21, so `changeset publish` skips it: its version still bumps (`privatePackages.version`), it is never published and it gets no trusted publisher. Its pending `minor` changeset (#2) stays.
 
 ## Pending changesets
 
