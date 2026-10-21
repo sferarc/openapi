@@ -11,6 +11,8 @@ Auto-generated, fully typed client for the [ClickHouse Cloud API](https://clickh
 
 ## Installation
 
+This package is private and not yet published to npm, so the command below does not work yet. Until it is published, build it from this repository.
+
 ```bash
 npm install clickhouse-cloud
 ```
