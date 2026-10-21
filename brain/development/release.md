@@ -12,7 +12,7 @@ Authentication is npm trusted publishing: `id-token: write` lets npm exchange th
 
 ## Publishing is off
 
-The release job only runs when the repository variable `RELEASE_ENABLED` is `true` (`if:` in `release.yml`), so the first release from this repository is the owner's decision (8ff9fa1). Only the owner sets that variable. Until then pending changesets accumulate in `.changeset/`.
+The release job only runs when the repository variable `RELEASE_ENABLED` is `true` (`if:` in `release.yml`), so the first release from this repository is the owner's decision (8ff9fa1). Only the owner sets that variable, and only once the publish path is proven, which needs the trusted publishers below. Until then pending changesets accumulate in `.changeset/`.
 
 ## What setting `RELEASE_ENABLED` triggers
 
@@ -27,19 +27,19 @@ Versions `changeset version` produces from the current changesets (dry run on 20
 | --- | --- | --- | --- |
 | `cloudflare-api-js` | 1.1.0 | 2.0.0 | major (`http-errors-as-api-error`) |
 | `keycloak-api` | 1.2.0 | 2.0.0 | major (same) |
-| `litellm-api` | 1.1.0 | 2.0.0 | major (same) |
+| `litellm-api` | 1.1.0 | 2.0.0 | major (same, and `litellm-spec-source` from #64) |
 | `netlify-api` | 1.4.1 | 2.0.0 | major (`effect-v4`, `http-errors-as-api-error`) |
 | `nuki-api-js` | 1.2.0 | 2.0.0 | major (same) |
 | `vercel-api-js` | 1.38.2 | 2.0.0 | major (same) |
-| `zoom-api-js` | 1.3.2 | 2.0.0 | major (same) |
+| `zoom-api-js` | 1.3.2 | 2.0.0 | major (same); `zoom-spec-source` from #64 is a patch |
 | `v0-api` | 0.3.1 | 1.0.0 | major (same); a major on a `0.x` version lands on 1.0.0 |
 
 ### Checklist before setting it
 
-Checked on 2026-10-20 unless noted:
+Checked on 2026-10-20 unless noted; the changeset count was refreshed on 2026-10-21:
 
 - [x] The repository variable `RELEASE_ENABLED` is not set, and neither is any other repository variable but the `HQ_*` ones (`gh variable list`).
-- [x] `GIT_TOKEN` exists as an organization secret for all repositories. Whether the token can push to `main` through the ruleset and open PRs is unknown until the first run.
+- [x] `GIT_TOKEN` exists as an organization secret for all repositories. The token opens PRs and enables auto-merge: the PAT path ran in run 39485625102 (see Scheduled regeneration in [[architecture/pipeline]]). Whether it can push the squash commit of the version PR to `main` through the ruleset is unknown until the first run.
 - [x] The repository setting "Allow auto-merge" is on, so `gh pr merge --auto` on the version PR works. Evidence: `gh api repos/sferarc/openapi --jq .allow_auto_merge` returns `true`; #56 to #61 also had auto-merge enabled on 2026-10-20 (`gh pr list --state all --json number,autoMergeRequest`), which GitHub only allows while the setting is on.
 - [x] Nothing in the Release job needs an npm token, so no secret has to be added.
 
@@ -54,6 +54,7 @@ As of 2026-10-14 (`npm view <package> version`, unchanged since the 2026-10-08 c
 
 ## Pending changesets
 
-As of 2026-10-17 (main at 3f454bd), `.changeset/` holds 58 changesets besides `README.md` and `config.json`. The first release will be a major for all eight published clients:
+As of 2026-10-21 (main at ee89dec), `.changeset/` holds 85 changesets besides `README.md` and `config.json`. The first release will be a major for all eight published clients:
 
+- `litellm-spec-source.md`, a major for `litellm-api` that removes the hosted billing and model catalog operations when the client moves to the self-hosted proxy spec (#64).
 - Patches: `bundle-openapi-utils.md` (#1), `inline-effect-types.md` (#4), `fetcher-query-serialization.md` (#16), `path-encoding-*.md` for the other seven clients (#17), `path-params-keep-slashes-*.md` for `cloudflare-api-js`, `keycloak-api` and `netlify-api` (#23), `untagged-operations-*.md` for `cloudflare-api-js`, `keycloak-api`, `litellm-api` and `vercel-api-js` (#24), `request-via-operations-*.md` for all nine clients (#26), `fetcher-empty-body-header-case.md` for all nine clients (#28), `zoom-refresh-basic-auth.md` (#30), `effect-error-message-*.md` for the six Effect clients (#33), `fetcher-failure-detail-*.md` for all nine clients (#37), `dts-private-types-*.md` for `keycloak-api` and `v0-api` (#42), `effect-abort-signal-*.md` for the six Effect clients (#46), and `stream-upload-duplex-netlify-api.md`, which sends a `ReadableStream` upload body with `duplex: "half"` so Node's `fetch` accepts it (#50, `packages/netlify-api/src/utils/fetcher.ts`).
