@@ -11,6 +11,22 @@ export const listArchivedFilesQueryDateType = {
 export type ListArchivedFilesQueryDateTypeKey =
 	(typeof listArchivedFilesQueryDateType)[keyof typeof listArchivedFilesQueryDateType];
 
+export const listArchivedFilesFileType = {
+	MP4: "MP4",
+	M4A: "M4A",
+	CHAT: "CHAT",
+	CC: "CC",
+	CHAT_MESSAGE: "CHAT_MESSAGE",
+	TRANSCRIPT: "TRANSCRIPT",
+	SUB_GROUP_MEMBER_LOG: "SUB_GROUP_MEMBER_LOG",
+	AIC_COVERSATION: "AIC_COVERSATION",
+	POLL: "POLL",
+	QA: "QA",
+} as const;
+
+export type ListArchivedFilesFileTypeKey =
+	(typeof listArchivedFilesFileType)[keyof typeof listArchivedFilesFileType];
+
 export type ListArchivedFilesQuery = {
 	/**
 	 * @description The number of records returned within a single API call.
@@ -62,6 +78,12 @@ export type ListArchivedFilesQuery = {
 	 * @type string | undefined
 	 */
 	group_ids?: string | undefined;
+	/**
+	 * @description Filter files by file type.\n* `MP4` — Video file. \n* `M4A` — Audio-only file. \n* `CHAT` — A TXT file containing in-meeting chat messages. \n* `CC` — A file containing the closed captions of the recording in VTT file format. \n* `CHAT_MESSAGE` — A JSON file encoded in base64 format containing chat messages. The file also includes waiting room chats, deleted messages, meeting emojis, and non-verbal feedback. \n* `TRANSCRIPT` — A JSON file that includes the audio transcript. \n* `SUB_GROUP_MEMBER_LOG` — A JSON file containing records of members entering and leaving the subgroup. \n* `AIC_CONVERSATION` — A JSON file that includes internal user archive AIC content. \n* `POLL` — A JSON file that includes meeting poll data. \n* `QA` — A JSON file that includes meeting Q&A data.
+	 * @example CHAT
+	 * @type string | undefined
+	 */
+	file_type?: ListArchivedFilesFileTypeKey | undefined;
 };
 
 export const listArchivedFilesStatus200MeetingsArchiveFilesFileTypeEnum = {
@@ -73,6 +95,8 @@ export const listArchivedFilesStatus200MeetingsArchiveFilesFileTypeEnum = {
 	TRANSCRIPT: "TRANSCRIPT",
 	SUB_GROUP_MEMBER_LOG: "SUB_GROUP_MEMBER_LOG",
 	AIC_COVERSATION: "AIC_COVERSATION",
+	POLL: "POLL",
+	QA: "QA",
 } as const;
 
 export type ListArchivedFilesStatus200MeetingsArchiveFilesFileTypeEnumKey =
@@ -86,6 +110,8 @@ export const listArchivedFilesStatus200MeetingsArchiveFilesRecordingTypeEnum = {
 	chat_message: "chat_message",
 	audio_transcript: "audio_transcript",
 	aic_conversation: "aic_conversation",
+	archive_poll: "archive_poll",
+	archive_qa: "archive_qa",
 } as const;
 
 export type ListArchivedFilesStatus200MeetingsArchiveFilesRecordingTypeEnumKey =
@@ -198,7 +224,7 @@ export type ListArchivedFilesStatus200 = {
 					 */
 					file_size: number;
 					/**
-					 * @description The archive file\'s type. \n* `MP4` - Video file. \n* `M4A` - Audio-only file. \n* `CHAT` - A TXT file containing in-meeting chat messages. \n* `CC` - A file containing the closed captions of the recording, in VTT file format. \n*  `CHAT_MESSAGE` - A JSON file encoded in base64 format containing chat messages. The file also includes waiting room chats, deleted messages, meeting emojis and non-verbal feedback. \n*  `TRANSCRIPT` - A JSON file include audio transcript wording. \n* `SUB_GROUP_MEMBER_LOG` - A json file containing records of members entering and leaving the subgroup. \n* `AIC_COVERSATION` - A json file include internal user archive aic content.
+					 * @description The archive file\'s type. \n* `MP4` — Video file. \n* `M4A` — Audio-only file. \n* `CHAT` — A TXT file containing in-meeting chat messages. \n* `CC` — A file containing the closed captions of the recording in VTT file format. \n* `CHAT_MESSAGE` — A JSON file encoded in base64 format containing chat messages. The file also includes waiting room chats, deleted messages, meeting emojis, and non-verbal feedback. \n* `TRANSCRIPT` — A JSON file that includes the audio transcript. \n* `SUB_GROUP_MEMBER_LOG` — A JSON file containing records of members entering and leaving the subgroup. \n* `AIC_CONVERSATION` — A JSON file that includes internal user archive AIC content. \n* `POLL` — A JSON file that includes meeting poll data. \n* `QA` — A JSON file that includes meeting Q&A data.
 					 * @example CHAT
 					 * @type string
 					 */
@@ -240,7 +266,7 @@ export type ListArchivedFilesStatus200 = {
 					 */
 					participant_leave_time: string;
 					/**
-					 * @description The archive file\'s recording type. \n* `shared_screen_with_speaker_view` \n* `audio_only` \n* `chat_file` \n* `closed_caption` \n* `chat_message` \n* `audio_transcript` \n* `aic_conversation` \n\n For more information, read our [Managing and sharing cloud recordings](https://support.zoom.us/hc/en-us/articles/205347605-Managing-and-sharing-cloud-recordings#h_9898497b-e736-4980-a749-d55608f10773) documentation.
+					 * @description The archive file\'s recording type. \n* `shared_screen_with_speaker_view` \n* `audio_only` \n* `chat_file` \n* `closed_caption` \n* `chat_message` \n* `audio_transcript` \n* `aic_conversation` \n* `archive_poll` \n* `archive_qa` \n\nFor more information, read our [Managing and sharing cloud recordings](https://support.zoom.us/hc/en-us/articles/205347605-Managing-and-sharing-cloud-recordings#h_9898497b-e736-4980-a749-d55608f10773) documentation.
 					 * @example chat_message
 					 * @type string
 					 */
@@ -4084,6 +4110,10 @@ export type ListDevicesStatus200 = {
 	 * @type integer | undefined
 	 */
 	page_size?: number | undefined;
+	/**
+	 * @description The list of device data.
+	 * @type array | undefined
+	 */
 	devices?:
 		| {
 				/**
@@ -4175,7 +4205,7 @@ export type ListDevicesStatus200 = {
 				 * @example 2.0.11
 				 * @type string | undefined
 				 */
-				skd_version?: string | undefined;
+				sdk_version?: string | undefined;
 				/**
 				 * @description Filter devices by status.   \n  Device Status:  \n `0` - offline.  \n `1` - online.  \n `-1` - unlink
 				 * @example 0
@@ -8838,6 +8868,15 @@ export const meetingStatus200SettingsWhoCanAskQuestionsEnum = {
 export type MeetingStatus200SettingsWhoCanAskQuestionsEnumKey =
 	(typeof meetingStatus200SettingsWhoCanAskQuestionsEnum)[keyof typeof meetingStatus200SettingsWhoCanAskQuestionsEnum];
 
+export const meetingStatus200SettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnum =
+	{
+		organization: "organization",
+		all: "all",
+	} as const;
+
+export type MeetingStatus200SettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnumKey =
+	(typeof meetingStatus200SettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnum)[keyof typeof meetingStatus200SettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnum];
+
 export const meetingStatus200StatusEnum = {
 	waiting: "waiting",
 	started: "started",
@@ -8862,6 +8901,7 @@ export const meetingStatus200CreationSourceEnum = {
 	other: "other",
 	open_api: "open_api",
 	web_portal: "web_portal",
+	zoom_scheduler: "zoom_scheduler",
 } as const;
 
 export type MeetingStatus200CreationSourceEnumKey =
@@ -9885,6 +9925,28 @@ export type MeetingStatus200 = {
 				 * @type boolean | undefined
 				 */
 				prevent_screen_capture?: boolean | undefined;
+				/**
+				 * @description Information about the **Allow participants to transcribe meetings with My Notes** setting. If this field is not provided, its value will follow the user\'s setting.
+				 * @type object | undefined
+				 */
+				allow_participants_to_transcribe_meetings_with_my_notes?:
+					| {
+							/**
+							 * @description Whether to allow participants to transcribe meetings with My Notes.
+							 * @example true
+							 * @type boolean | undefined
+							 */
+							enable?: boolean | undefined;
+							/**
+							 * @description Specifies which participants can transcribe meetings with My Notes.\n\n- `organization` - Only participants in your organization.\n- `all` - All participants.
+							 * @example organization
+							 * @type string | undefined
+							 */
+							participant_scope?:
+								| MeetingStatus200SettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnumKey
+								| undefined;
+					  }
+					| undefined;
 		  }
 		| undefined;
 	/**
@@ -9971,7 +10033,7 @@ export type MeetingStatus200 = {
 	 */
 	dynamic_host_key?: string | undefined;
 	/**
-	 * @description The platform used when creating the meeting.\n* `other` - Created through another platform.\n* `open_api` - Created through Open API.\n* `web_portal` - Created through the web portal.
+	 * @description The platform through which the meeting was created.\n\n- `other` - Created through another platform.\n- `open_api` - Created through Open API.\n- `web_portal` - Created through the web portal.\n- `zoom_scheduler` - Created through Zoom Scheduler.
 	 * @example open_api
 	 * @type string | undefined
 	 */
@@ -10362,6 +10424,15 @@ export const meetingUpdateRequestSettingsDisableRecordingControlEnum = {
 
 export type MeetingUpdateRequestSettingsDisableRecordingControlEnumKey =
 	(typeof meetingUpdateRequestSettingsDisableRecordingControlEnum)[keyof typeof meetingUpdateRequestSettingsDisableRecordingControlEnum];
+
+export const meetingUpdateRequestSettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnum =
+	{
+		organization: "organization",
+		all: "all",
+	} as const;
+
+export type MeetingUpdateRequestSettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnumKey =
+	(typeof meetingUpdateRequestSettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnum)[keyof typeof meetingUpdateRequestSettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnum];
 
 export const meetingUpdateRequestTypeEnum = {
 	"1": 1,
@@ -11262,6 +11333,28 @@ export type MeetingUpdateBody =
 						 */
 						disable_recording_control?:
 							| MeetingUpdateRequestSettingsDisableRecordingControlEnumKey
+							| undefined;
+						/**
+						 * @description Information about the **Allow participants to transcribe meetings with My Notes** setting. If this field is not provided, its value will follow the user\'s setting.
+						 * @type object | undefined
+						 */
+						allow_participants_to_transcribe_meetings_with_my_notes?:
+							| {
+									/**
+									 * @description Whether to allow participants to transcribe meetings with My Notes.
+									 * @example true
+									 * @type boolean | undefined
+									 */
+									enable?: boolean | undefined;
+									/**
+									 * @description Specifies which participants can transcribe meetings with My Notes.\n* `organization` - Only participants in your organization.\n* `all` - All participants.
+									 * @example organization
+									 * @type string | undefined
+									 */
+									participant_scope?:
+										| MeetingUpdateRequestSettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnumKey
+										| undefined;
+							  }
 							| undefined;
 				  }
 				| undefined;
@@ -12512,6 +12605,15 @@ export const meetingCreateStatus201SettingsDisableRecordingControlEnum = {
 export type MeetingCreateStatus201SettingsDisableRecordingControlEnumKey =
 	(typeof meetingCreateStatus201SettingsDisableRecordingControlEnum)[keyof typeof meetingCreateStatus201SettingsDisableRecordingControlEnum];
 
+export const meetingCreateStatus201SettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnum =
+	{
+		organization: "organization",
+		all: "all",
+	} as const;
+
+export type MeetingCreateStatus201SettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnumKey =
+	(typeof meetingCreateStatus201SettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnum)[keyof typeof meetingCreateStatus201SettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnum];
+
 export const meetingCreateStatus201StatusEnum = {
 	waiting: "waiting",
 	started: "started",
@@ -12535,6 +12637,7 @@ export const meetingCreateStatus201CreationSourceEnum = {
 	other: "other",
 	open_api: "open_api",
 	web_portal: "web_portal",
+	zoom_scheduler: "zoom_scheduler",
 } as const;
 
 export type MeetingCreateStatus201CreationSourceEnumKey =
@@ -13550,6 +13653,28 @@ export type MeetingCreateStatus201 = {
 				disable_recording_control?:
 					| MeetingCreateStatus201SettingsDisableRecordingControlEnumKey
 					| undefined;
+				/**
+				 * @description Information about the **Allow participants to transcribe meetings with My Notes** setting. If this field is not provided, its value will follow the user\'s setting.
+				 * @type object | undefined
+				 */
+				allow_participants_to_transcribe_meetings_with_my_notes?:
+					| {
+							/**
+							 * @description Whether to allow participants to transcribe meetings with My Notes.
+							 * @example true
+							 * @type boolean | undefined
+							 */
+							enable?: boolean | undefined;
+							/**
+							 * @description Specifies which participants can transcribe meetings with My Notes.\n* `organization` - Only participants in your organization.\n* `all` - All participants.
+							 * @example organization
+							 * @type string | undefined
+							 */
+							participant_scope?:
+								| MeetingCreateStatus201SettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnumKey
+								| undefined;
+					  }
+					| undefined;
 		  }
 		| undefined;
 	/**
@@ -13637,7 +13762,7 @@ export type MeetingCreateStatus201 = {
 	 */
 	dynamic_host_key?: string | undefined;
 	/**
-	 * @description The platform through which the meeting was created.\n* `other` - Created through another platform.\n* `open_api` - Created through Open API.\n* `web_portal` - Created through the web portal.
+	 * @description The platform through which the meeting was created.\n* `other` - Created through another platform.\n* `open_api` - Created through Open API.\n* `web_portal` - Created through the web portal.\n* `zoom_scheduler` - Created through Zoom Scheduler.
 	 * @example open_api
 	 * @type string | undefined
 	 */
@@ -13912,6 +14037,15 @@ export const meetingCreateRequestSettingsDisableRecordingControlEnum = {
 
 export type MeetingCreateRequestSettingsDisableRecordingControlEnumKey =
 	(typeof meetingCreateRequestSettingsDisableRecordingControlEnum)[keyof typeof meetingCreateRequestSettingsDisableRecordingControlEnum];
+
+export const meetingCreateRequestSettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnum =
+	{
+		organization: "organization",
+		all: "all",
+	} as const;
+
+export type MeetingCreateRequestSettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnumKey =
+	(typeof meetingCreateRequestSettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnum)[keyof typeof meetingCreateRequestSettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnum];
 
 export const meetingCreateRequestTypeEnum = {
 	"1": 1,
@@ -14743,6 +14877,28 @@ export type MeetingCreateBody =
 						 */
 						disable_recording_control?:
 							| MeetingCreateRequestSettingsDisableRecordingControlEnumKey
+							| undefined;
+						/**
+						 * @description Information about the **Allow participants to transcribe meetings with My Notes** setting. If this field is not provided, its value will follow the user\'s setting.
+						 * @type object | undefined
+						 */
+						allow_participants_to_transcribe_meetings_with_my_notes?:
+							| {
+									/**
+									 * @description Whether to allow participants to transcribe meetings with My Notes.
+									 * @example true
+									 * @type boolean | undefined
+									 */
+									enable?: boolean | undefined;
+									/**
+									 * @description Specifies which participants can transcribe meetings with My Notes.\n* `organization` - Only participants in your organization.\n* `all` - All participants.
+									 * @example organization
+									 * @type string | undefined
+									 */
+									participant_scope?:
+										| MeetingCreateRequestSettingsAllowParticipantsToTranscribeMeetingsWithMyNotesParticipantScopeEnumKey
+										| undefined;
+							  }
 							| undefined;
 				  }
 				| undefined;
@@ -30784,8 +30940,33 @@ export type UploadWebinarBrandingVBStatus404 = unknown;
 
 export type UploadWebinarBrandingVBStatus429 = unknown;
 
+export type UploadWebinarBrandingVBBody =
+	| {
+			/**
+			 * @description The vvirtual background\'s file path, in binary format.
+			 * @example Vm0wd2QyUXlVWGxXYTJoV1YwZG9WVll3Wkc5alJsWjBUVlpPV0Zac2JETlhhMUpUVmpGYWMySkVUbGhoTWsweFZqQmFTMk15U2tWVWJHaG9UVmhDVVZadGVGWmxSbGw1Vkd0c2FsSnRhRzlVVjNOM1pVWmFkR05GZEZSTlZUVkpWbTEwYTFkSFNrZGpSVGxhWWxoU1RGWnNXbUZrUjA1R1pFWlNUbFpYZHpGV2EyUXdZekpHVjFOdVVsWmhlbXhoVm1wT2IyRkdjRmRYYlVaclVqRmFTVnBGV2xOVWJGcFZWbXhzVjFaNlFYaFdSRXBIVWpGT2RWVnNXbWxTTW1odlZtMXdUMkl5UmtkWGJHUllZbGhTV0ZSV2FFTlRiR3QzV2tSU1ZrMXJjRmhWTW5oelZqRmFObEZZYUZkU1JWcDZWbXBHVDJSV1ZuUmhSazVzWWxob1dGWnRNSGhPUjFGM1RVaG9hbEp0VWxsWmJHaFRWMFpTVjFkdFJteFdiVko1VmpKNFQyRkdXbk5qU0d4WFRWZG9NMVpxUmtwbGJVWklZVVpvVjJKV1NrbFdiWEJIVkRGa1YyTkZaR2hTTW5oVVZGY3hiMWRzV1hoWGJYUk9VbTE0V0ZVeGFHOWhiRXBYVjJ4U1dtSkdXbWhaTVZwelkyeHdSMVJyTlZOaWEwcElWbXBLTkZReFdsaFRhMlJxVWtWYVYxWnFUa05YUmxweFVtdHdiR0pWV2tsWlZWcHJZVWRGZUdOSE9WZFdSVXBvVmtSS1QyUkdUbkphUmxKcFZqTm9kbFpHVm05Uk1XUlhWMWhvWVZKRlNtRldha1pIVGtaWmVHRkhPVmRpVlhCSlZsZDRjMWR0U2tkWGJXaFhUVVp3ZWxreWVIZFNNVkowWlVaa2FWSXpZM2hXTW5oWFZqRlJlRmRZWkU1WFJYQllXVmR6TVZsV1VsWlhibVJYVW14d2VGVnRNVWRXTURGeVRsVm9WMUo2UmtoV1ZFWkxWakpPUmxac1pHbFNNVVYzVmxaU1IxbFdXbkpOVmxwWFlYcFdWRlZyVmtaT1VUMDk=
+			 * @type string
+			 */
+			file: Blob;
+			/**
+			 * @description Whether set the file as the default virtual background file.
+			 * @default false
+			 * @example true
+			 * @type boolean | undefined
+			 */
+			default?: boolean | undefined;
+			/**
+			 * @description Whether to set the virtual background file as the new default for all panelists. This includes panelists not currently assigned a default virtual background.
+			 * @default true
+			 * @example true
+			 * @type boolean | undefined
+			 */
+			set_default_for_all_panelists?: boolean | undefined;
+	  }
+	| undefined;
+
 export type UploadWebinarBrandingVBOptions = {
-	body?: never | undefined;
+	body: UploadWebinarBrandingVBBody;
 	path: UploadWebinarBrandingVBPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -30947,8 +31128,18 @@ export type UploadWebinarBrandingWallpaperStatus404 = unknown;
 
 export type UploadWebinarBrandingWallpaperStatus429 = unknown;
 
+export type UploadWebinarBrandingWallpaperBody =
+	| {
+			/**
+			 * @description The wallpaper\'s file path, in binary format.
+			 * @type string
+			 */
+			file: Blob;
+	  }
+	| undefined;
+
 export type UploadWebinarBrandingWallpaperOptions = {
-	body?: never | undefined;
+	body: UploadWebinarBrandingWallpaperBody;
 	path: UploadWebinarBrandingWallpaperPath;
 	query?: never | undefined;
 	headers?: never | undefined;
