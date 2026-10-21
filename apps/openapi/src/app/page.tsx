@@ -87,7 +87,7 @@ const smartLocks = await api.api.smartlock.getSmartlocksResource({});`,
 			usage: `import { LiteLLMApi } from 'litellm-api';
 
 const api = new LiteLLMApi({ baseUrl: 'http://localhost:4000', token: '...' });
-const models = await api.request('GET /model_catalog', {});`,
+const routes = await api.request('GET /routes', {});`,
 		},
 		{
 			id: "clickhouse-cloud",

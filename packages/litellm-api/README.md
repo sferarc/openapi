@@ -26,7 +26,7 @@ const client = new LiteLLMApi({
   token: process.env.LITELLM_MASTER_KEY ?? null,
 });
 
-const usage = await client.api.billing.checkUsageBillingUsageGet();
+const routes = await client.api.default.getRoutesRoutesGet();
 ```
 
 Operations are grouped by tag: `client.api.<tag>.<operation>(params)`. Operations without a tag live under `client.api.default`.
@@ -34,7 +34,7 @@ Operations are grouped by tag: `client.api.<tag>.<operation>(params)`. Operation
 Every operation can also be called by method and path:
 
 ```ts
-const usage = await client.request("GET /billing/usage", {});
+const routes = await client.request("GET /routes", {});
 ```
 
 ### Custom fetch
