@@ -13,6 +13,7 @@ Type-safe TypeScript clients generated from public OpenAPI specs, plus the site 
 | [`vercel-api-js`](packages/vercel-api-js) | Vercel |
 | [`zoom-api-js`](packages/zoom-api-js) | Zoom |
 
+
 `packages/openapi-utils` holds the shared kubb config, spec fetching and runtime helpers every client is generated with. `apps/openapi` is the website.
 
 ## Development
