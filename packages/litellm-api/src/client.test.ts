@@ -14,11 +14,11 @@ describe("LiteLLMApi", () => {
 		};
 		const client = new LiteLLMApi({ baseUrl: "https://api.example.com", token: null, fetch });
 
-		expect(client.api.default.listModelCatalogModelCatalogGet).toBeTypeOf("function");
-		await expect(client.api.default.listModelCatalogModelCatalogGet()).resolves.toEqual({
+		expect(client.api.default.getRoutesRoutesGet).toBeTypeOf("function");
+		await expect(client.api.default.getRoutesRoutesGet()).resolves.toEqual({
 			data: [],
 		});
-		expect(calls).toEqual([{ url: "https://api.example.com/model_catalog", method: "GET" }]);
+		expect(calls).toEqual([{ url: "https://api.example.com/routes", method: "GET" }]);
 	});
 });
 
@@ -40,24 +40,24 @@ describe("LiteLLMApi.request", () => {
 
 	it("percent-encodes path params", async () => {
 		const { urls, client } = setup();
-		await client.request("GET /model_catalog/{model_id}", { pathParams: { model_id: "a/b" } });
+		await client.request("POST /key/{key}/regenerate", { pathParams: { key: "a/b" } });
 		expect(urls).toHaveLength(1);
-		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/model_catalog\/a%2Fb$/);
+		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/key\/a%2Fb\/regenerate$/);
 	});
 
 	it("rejects a missing path param before calling fetch", async () => {
 		const { urls, client } = setup();
 		await expect(
-			client.request("GET /model_catalog/{model_id}", { pathParams: { model_id: "" } }),
-		).rejects.toThrow("Missing required path parameter: model_id");
+			client.request("POST /key/{key}/regenerate", { pathParams: { key: "" } }),
+		).rejects.toThrow("Missing required path parameter: key");
 		expect(urls).toEqual([]);
 	});
 
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
-		await client.request("GET /billing/usage", {});
+		await client.request("GET /routes", {});
 		expect(urls).toHaveLength(1);
-		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/billing\/usage$/);
+		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/routes$/);
 	});
 
 	it("rejects an unknown endpoint", async () => {
