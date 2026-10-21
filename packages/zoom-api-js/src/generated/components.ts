@@ -624,10 +624,12 @@ import type {
 	UpgradeZpasAppResponse,
 	UpgradeZpasAppStatus400,
 	UpgradeZpasAppStatus429,
+	UploadWebinarBrandingVBBody,
 	UploadWebinarBrandingVBResponse,
 	UploadWebinarBrandingVBStatus400,
 	UploadWebinarBrandingVBStatus404,
 	UploadWebinarBrandingVBStatus429,
+	UploadWebinarBrandingWallpaperBody,
 	UploadWebinarBrandingWallpaperResponse,
 	UploadWebinarBrandingWallpaperStatus400,
 	UploadWebinarBrandingWallpaperStatus404,
@@ -830,6 +832,17 @@ export async function listArchivedFiles(
 			query_date_type?: "meeting_start_time" | "archive_complete_time";
 			group_id?: string;
 			group_ids?: string;
+			file_type?:
+				| "MP4"
+				| "M4A"
+				| "CHAT"
+				| "CC"
+				| "CHAT_MESSAGE"
+				| "TRANSCRIPT"
+				| "SUB_GROUP_MEMBER_LOG"
+				| "AIC_COVERSATION"
+				| "POLL"
+				| "QA";
 		};
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -849,6 +862,17 @@ export async function listArchivedFiles(
 			query_date_type?: "meeting_start_time" | "archive_complete_time";
 			group_id?: string;
 			group_ids?: string;
+			file_type?:
+				| "MP4"
+				| "M4A"
+				| "CHAT"
+				| "CC"
+				| "CHAT_MESSAGE"
+				| "TRANSCRIPT"
+				| "SUB_GROUP_MEMBER_LOG"
+				| "AIC_COVERSATION"
+				| "POLL"
+				| "QA";
 		},
 		Record<string, string>
 	>({
@@ -969,11 +993,7 @@ export async function updateArchivedFile(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.fileId === undefined ||
-		pathParams.fileId === null ||
-		String(pathParams.fileId) === ""
-	) {
+	if (pathParams?.fileId == null || String(pathParams.fileId) === "") {
 		throw new Error(`Missing required path parameter: fileId`);
 	}
 	const data = await request<
@@ -1018,11 +1038,7 @@ export async function meetingLocalArchivingArchiveToken(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -1068,11 +1084,7 @@ export async function getArchivedFiles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingUUID === undefined ||
-		pathParams.meetingUUID === null ||
-		String(pathParams.meetingUUID) === ""
-	) {
+	if (pathParams?.meetingUUID == null || String(pathParams.meetingUUID) === "") {
 		throw new Error(`Missing required path parameter: meetingUUID`);
 	}
 	const data = await request<
@@ -1113,11 +1125,7 @@ export async function deleteArchivedFiles(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingUUID === undefined ||
-		pathParams.meetingUUID === null ||
-		String(pathParams.meetingUUID) === ""
-	) {
+	if (pathParams?.meetingUUID == null || String(pathParams.meetingUUID) === "") {
 		throw new Error(`Missing required path parameter: meetingUUID`);
 	}
 	const data = await request<
@@ -1161,11 +1169,7 @@ export async function recordingGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -1209,11 +1213,7 @@ export async function recordingDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -1259,11 +1259,7 @@ export async function analyticsDetails(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -1309,11 +1305,7 @@ export async function analyticsSummary(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -1360,11 +1352,7 @@ export async function meetingRecordingRegistrants(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -1412,11 +1400,7 @@ export async function meetingRecordingRegistrantCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -1460,11 +1444,7 @@ export async function recordingRegistrantsQuestionsGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -1509,11 +1489,7 @@ export async function recordingRegistrantQuestionUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -1559,11 +1535,7 @@ export async function meetingRecordingRegistrantStatus(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -1607,11 +1579,7 @@ export async function recordingSettingUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -1654,11 +1622,7 @@ export async function recordingSettingsUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -1700,19 +1664,11 @@ export async function recordingDeleteOne(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 
-	if (
-		pathParams.recordingId === undefined ||
-		pathParams.recordingId === null ||
-		String(pathParams.recordingId) === ""
-	) {
+	if (pathParams?.recordingId == null || String(pathParams.recordingId) === "") {
 		throw new Error(`Missing required path parameter: recordingId`);
 	}
 	const data = await request<
@@ -1757,19 +1713,11 @@ export async function recordingStatusUpdateOne(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 
-	if (
-		pathParams.recordingId === undefined ||
-		pathParams.recordingId === null ||
-		String(pathParams.recordingId) === ""
-	) {
+	if (pathParams?.recordingId == null || String(pathParams.recordingId) === "") {
 		throw new Error(`Missing required path parameter: recordingId`);
 	}
 	const data = await request<
@@ -1818,11 +1766,7 @@ export async function recordingStatusUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingUUID === undefined ||
-		pathParams.meetingUUID === null ||
-		String(pathParams.meetingUUID) === ""
-	) {
+	if (pathParams?.meetingUUID == null || String(pathParams.meetingUUID) === "") {
 		throw new Error(`Missing required path parameter: meetingUUID`);
 	}
 	const data = await request<
@@ -1884,11 +1828,7 @@ export async function recordingsList(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -2190,19 +2130,11 @@ export async function deleteZpaDeviceByVendorAndMacAddress(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.vendor === undefined ||
-		pathParams.vendor === null ||
-		String(pathParams.vendor) === ""
-	) {
+	if (pathParams?.vendor == null || String(pathParams.vendor) === "") {
 		throw new Error(`Missing required path parameter: vendor`);
 	}
 
-	if (
-		pathParams.macAddress === undefined ||
-		pathParams.macAddress === null ||
-		String(pathParams.macAddress) === ""
-	) {
+	if (pathParams?.macAddress == null || String(pathParams.macAddress) === "") {
 		throw new Error(`Missing required path parameter: macAddress`);
 	}
 	const data = await request<
@@ -2245,11 +2177,7 @@ export async function getZpaVersioninfo(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.zdmGroupId === undefined ||
-		pathParams.zdmGroupId === null ||
-		String(pathParams.zdmGroupId) === ""
-	) {
+	if (pathParams?.zdmGroupId == null || String(pathParams.zdmGroupId) === "") {
 		throw new Error(`Missing required path parameter: zdmGroupId`);
 	}
 	const data = await request<
@@ -2289,11 +2217,7 @@ export async function getDevice(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deviceId === undefined ||
-		pathParams.deviceId === null ||
-		String(pathParams.deviceId) === ""
-	) {
+	if (pathParams?.deviceId == null || String(pathParams.deviceId) === "") {
 		throw new Error(`Missing required path parameter: deviceId`);
 	}
 	const data = await request<
@@ -2333,11 +2257,7 @@ export async function deleteDevice(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deviceId === undefined ||
-		pathParams.deviceId === null ||
-		String(pathParams.deviceId) === ""
-	) {
+	if (pathParams?.deviceId == null || String(pathParams.deviceId) === "") {
 		throw new Error(`Missing required path parameter: deviceId`);
 	}
 	const data = await request<
@@ -2379,11 +2299,7 @@ export async function updateDevice(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deviceId === undefined ||
-		pathParams.deviceId === null ||
-		String(pathParams.deviceId) === ""
-	) {
+	if (pathParams?.deviceId == null || String(pathParams.deviceId) === "") {
 		throw new Error(`Missing required path parameter: deviceId`);
 	}
 	const data = await request<
@@ -2425,11 +2341,7 @@ export async function assginGroup(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deviceId === undefined ||
-		pathParams.deviceId === null ||
-		String(pathParams.deviceId) === ""
-	) {
+	if (pathParams?.deviceId == null || String(pathParams.deviceId) === "") {
 		throw new Error(`Missing required path parameter: deviceId`);
 	}
 	const data = await request<
@@ -2473,11 +2385,7 @@ export async function changeDeviceAssociation(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deviceId === undefined ||
-		pathParams.deviceId === null ||
-		String(pathParams.deviceId) === ""
-	) {
+	if (pathParams?.deviceId == null || String(pathParams.deviceId) === "") {
 		throw new Error(`Missing required path parameter: deviceId`);
 	}
 	const data = await request<
@@ -2603,11 +2511,7 @@ export async function deviceDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deviceId === undefined ||
-		pathParams.deviceId === null ||
-		String(pathParams.deviceId) === ""
-	) {
+	if (pathParams?.deviceId == null || String(pathParams.deviceId) === "") {
 		throw new Error(`Missing required path parameter: deviceId`);
 	}
 	const data = await request<
@@ -2655,11 +2559,7 @@ export async function deviceUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.deviceId === undefined ||
-		pathParams.deviceId === null ||
-		String(pathParams.deviceId) === ""
-	) {
+	if (pathParams?.deviceId == null || String(pathParams.deviceId) === "") {
 		throw new Error(`Missing required path parameter: deviceId`);
 	}
 	const data = await request<
@@ -2710,11 +2610,7 @@ export async function meetingAppAdd(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -2757,11 +2653,7 @@ export async function meetingAppDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -2804,19 +2696,11 @@ export async function deleteMeetingChatMessageById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 
-	if (
-		pathParams.messageId === undefined ||
-		pathParams.messageId === null ||
-		String(pathParams.messageId) === ""
-	) {
+	if (pathParams?.messageId == null || String(pathParams.messageId) === "") {
 		throw new Error(`Missing required path parameter: messageId`);
 	}
 	const data = await request<
@@ -2862,19 +2746,11 @@ export async function updateMeetingChatMessageById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 
-	if (
-		pathParams.messageId === undefined ||
-		pathParams.messageId === null ||
-		String(pathParams.messageId) === ""
-	) {
+	if (pathParams?.messageId == null || String(pathParams.messageId) === "") {
 		throw new Error(`Missing required path parameter: messageId`);
 	}
 	const data = await request<
@@ -2926,11 +2802,7 @@ export async function inMeetingControl(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -2979,11 +2851,7 @@ export async function meetingLocalRecordingJoinToken(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3032,11 +2900,7 @@ export async function meetingToken(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3081,11 +2945,7 @@ export async function addBatchRegistrants(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3129,11 +2989,7 @@ export async function meetingInvitation(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3178,11 +3034,7 @@ export async function meetingInviteLinksCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3237,11 +3089,7 @@ export async function meetingRegistrants(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3295,11 +3143,7 @@ export async function meetingRegistrantCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3347,11 +3191,7 @@ export async function meetingRegistrantsQuestionsGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3399,11 +3239,7 @@ export async function meetingRegistrantQuestionUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3455,11 +3291,7 @@ export async function meetingRegistrantStatus(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3506,19 +3338,11 @@ export async function meetingRegistrantGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 
-	if (
-		pathParams.registrantId === undefined ||
-		pathParams.registrantId === null ||
-		String(pathParams.registrantId) === ""
-	) {
+	if (pathParams?.registrantId == null || String(pathParams.registrantId) === "") {
 		throw new Error(`Missing required path parameter: registrantId`);
 	}
 	const data = await request<
@@ -3567,19 +3391,11 @@ export async function meetingregistrantdelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 
-	if (
-		pathParams.registrantId === undefined ||
-		pathParams.registrantId === null ||
-		String(pathParams.registrantId) === ""
-	) {
+	if (pathParams?.registrantId == null || String(pathParams.registrantId) === "") {
 		throw new Error(`Missing required path parameter: registrantId`);
 	}
 	const data = await request<
@@ -3626,11 +3442,7 @@ export async function meetingLiveStreamingJoinToken(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3676,11 +3488,7 @@ export async function getMeetingLiveStreamDetails(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3727,11 +3535,7 @@ export async function meetingLiveStreamUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3779,11 +3583,7 @@ export async function meetingLiveStreamStatusUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3829,11 +3629,7 @@ export async function getMeetingTranscript(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3874,11 +3670,7 @@ export async function deleteMeetingTranscript(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3928,11 +3720,7 @@ export async function meetingRTMSStatusUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -3981,11 +3769,7 @@ export async function meeting(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -4033,11 +3817,7 @@ export async function meetingDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -4085,11 +3865,7 @@ export async function meetingUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -4139,11 +3915,7 @@ export async function getSipDialingWithPasscode(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -4191,11 +3963,7 @@ export async function meetingStatus(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -4238,11 +4006,7 @@ export async function pastMeetingDetails(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -4288,11 +4052,7 @@ export async function pastMeetings(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -4340,11 +4100,7 @@ export async function pastMeetingParticipants(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -4393,11 +4149,7 @@ export async function listPastMeetingQA(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -4452,11 +4204,7 @@ export async function meetings(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -4511,11 +4259,7 @@ export async function meetingCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -4560,11 +4304,7 @@ export async function listUpcomingMeeting(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -4607,11 +4347,7 @@ export async function userPACs(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -4656,11 +4392,7 @@ export async function createBatchPolls(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -4705,11 +4437,7 @@ export async function meetingPolls(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -4755,11 +4483,7 @@ export async function meetingPollCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -4804,19 +4528,11 @@ export async function meetingPollGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 
-	if (
-		pathParams.pollId === undefined ||
-		pathParams.pollId === null ||
-		String(pathParams.pollId) === ""
-	) {
+	if (pathParams?.pollId == null || String(pathParams.pollId) === "") {
 		throw new Error(`Missing required path parameter: pollId`);
 	}
 	const data = await request<
@@ -4861,19 +4577,11 @@ export async function meetingPollUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 
-	if (
-		pathParams.pollId === undefined ||
-		pathParams.pollId === null ||
-		String(pathParams.pollId) === ""
-	) {
+	if (pathParams?.pollId == null || String(pathParams.pollId) === "") {
 		throw new Error(`Missing required path parameter: pollId`);
 	}
 	const data = await request<
@@ -4919,19 +4627,11 @@ export async function meetingPollDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 
-	if (
-		pathParams.pollId === undefined ||
-		pathParams.pollId === null ||
-		String(pathParams.pollId) === ""
-	) {
+	if (pathParams?.pollId == null || String(pathParams.pollId) === "") {
 		throw new Error(`Missing required path parameter: pollId`);
 	}
 	const data = await request<
@@ -4975,11 +4675,7 @@ export async function listPastMeetingPolls(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -5528,11 +5224,7 @@ export async function reportMeetingDetails(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -5584,11 +5276,7 @@ export async function reportMeetingParticipants(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -5634,11 +5322,7 @@ export async function reportMeetingPolls(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -5681,11 +5365,7 @@ export async function reportMeetingQA(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -5726,11 +5406,7 @@ export async function reportMeetingSurvey(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -6073,11 +5749,7 @@ export async function reportMeetings(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -6125,11 +5797,7 @@ export async function reportWebinarDetails(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -6178,11 +5846,7 @@ export async function reportWebinarParticipants(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -6228,11 +5892,7 @@ export async function reportWebinarPolls(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -6275,11 +5935,7 @@ export async function reportWebinarQA(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -6320,11 +5976,7 @@ export async function reportWebinarSurvey(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -6461,11 +6113,7 @@ export async function deleteSIPPhonePhones(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.phoneId === undefined ||
-		pathParams.phoneId === null ||
-		String(pathParams.phoneId) === ""
-	) {
+	if (pathParams?.phoneId == null || String(pathParams.phoneId) === "") {
 		throw new Error(`Missing required path parameter: phoneId`);
 	}
 	const data = await request<
@@ -6515,11 +6163,7 @@ export async function updateSIPPhonePhones(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.phoneId === undefined ||
-		pathParams.phoneId === null ||
-		String(pathParams.phoneId) === ""
-	) {
+	if (pathParams?.phoneId == null || String(pathParams.phoneId) === "") {
 		throw new Error(`Missing required path parameter: phoneId`);
 	}
 	const data = await request<
@@ -6628,11 +6272,7 @@ export async function getameetingsummary(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -6681,11 +6321,7 @@ export async function deletemeetingorwebinarsummary(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -6743,11 +6379,7 @@ export async function listUserMeetingSummaries(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -6798,11 +6430,7 @@ export async function meetingSurveyGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -6845,11 +6473,7 @@ export async function meetingSurveyDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -6892,11 +6516,7 @@ export async function meetingSurveyUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.meetingId === undefined ||
-		pathParams.meetingId === null ||
-		String(pathParams.meetingId) === ""
-	) {
+	if (pathParams?.meetingId == null || String(pathParams.meetingId) === "") {
 		throw new Error(`Missing required path parameter: meetingId`);
 	}
 	const data = await request<
@@ -7014,11 +6634,7 @@ export async function userTSPs(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -7062,11 +6678,7 @@ export async function userTSPCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -7111,11 +6723,7 @@ export async function tspUrlUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -7158,19 +6766,11 @@ export async function userTSP(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.tspId === undefined ||
-		pathParams.tspId === null ||
-		String(pathParams.tspId) === ""
-	) {
+	if (pathParams?.tspId == null || String(pathParams.tspId) === "") {
 		throw new Error(`Missing required path parameter: tspId`);
 	}
 	const data = await request<
@@ -7212,19 +6812,11 @@ export async function userTSPDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.tspId === undefined ||
-		pathParams.tspId === null ||
-		String(pathParams.tspId) === ""
-	) {
+	if (pathParams?.tspId == null || String(pathParams.tspId) === "") {
 		throw new Error(`Missing required path parameter: tspId`);
 	}
 	const data = await request<
@@ -7268,19 +6860,11 @@ export async function userTSPUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 
-	if (
-		pathParams.tspId === undefined ||
-		pathParams.tspId === null ||
-		String(pathParams.tspId) === ""
-	) {
+	if (pathParams?.tspId == null || String(pathParams.tspId) === "") {
 		throw new Error(`Missing required path parameter: tspId`);
 	}
 	const data = await request<
@@ -7323,11 +6907,7 @@ export async function listMeetingTemplates(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -7374,11 +6954,7 @@ export async function meetingTemplateCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -7495,11 +7071,7 @@ export async function trackingfieldGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.fieldId === undefined ||
-		pathParams.fieldId === null ||
-		String(pathParams.fieldId) === ""
-	) {
+	if (pathParams?.fieldId == null || String(pathParams.fieldId) === "") {
 		throw new Error(`Missing required path parameter: fieldId`);
 	}
 	const data = await request<
@@ -7540,11 +7112,7 @@ export async function trackingfieldDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.fieldId === undefined ||
-		pathParams.fieldId === null ||
-		String(pathParams.fieldId) === ""
-	) {
+	if (pathParams?.fieldId == null || String(pathParams.fieldId) === "") {
 		throw new Error(`Missing required path parameter: fieldId`);
 	}
 	const data = await request<
@@ -7587,11 +7155,7 @@ export async function trackingfieldUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.fieldId === undefined ||
-		pathParams.fieldId === null ||
-		String(pathParams.fieldId) === ""
-	) {
+	if (pathParams?.fieldId == null || String(pathParams.fieldId) === "") {
 		throw new Error(`Missing required path parameter: fieldId`);
 	}
 	const data = await request<
@@ -7637,19 +7201,11 @@ export async function deleteWebinarChatMessageById(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 
-	if (
-		pathParams.messageId === undefined ||
-		pathParams.messageId === null ||
-		String(pathParams.messageId) === ""
-	) {
+	if (pathParams?.messageId == null || String(pathParams.messageId) === "") {
 		throw new Error(`Missing required path parameter: messageId`);
 	}
 	const data = await request<
@@ -7697,11 +7253,7 @@ export async function webinarAbsentees(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -7743,11 +7295,7 @@ export async function pastWebinars(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -7791,11 +7339,7 @@ export async function listWebinarParticipants(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -7841,11 +7385,7 @@ export async function listPastWebinarPollResults(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -7891,11 +7431,7 @@ export async function listPastWebinarQA(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -7935,11 +7471,7 @@ export async function listWebinarTemplates(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -7984,11 +7516,7 @@ export async function webinarTemplateCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -8043,11 +7571,7 @@ export async function webinars(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -8099,11 +7623,7 @@ export async function webinarCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.userId === undefined ||
-		pathParams.userId === null ||
-		String(pathParams.userId) === ""
-	) {
+	if (pathParams?.userId == null || String(pathParams.userId) === "") {
 		throw new Error(`Missing required path parameter: userId`);
 	}
 	const data = await request<
@@ -8147,11 +7667,7 @@ export async function webinar(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -8195,11 +7711,7 @@ export async function webinarDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -8246,11 +7758,7 @@ export async function webinarUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -8296,11 +7804,7 @@ export async function addBatchWebinarRegistrants(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -8347,11 +7851,7 @@ export async function getWebinarBranding(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -8395,11 +7895,7 @@ export async function createWebinarBrandingNameTag(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -8447,11 +7943,7 @@ export async function deleteWebinarBrandingNameTag(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -8498,19 +7990,11 @@ export async function updateWebinarBrandingNameTag(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 
-	if (
-		pathParams.nameTagId === undefined ||
-		pathParams.nameTagId === null ||
-		String(pathParams.nameTagId) === ""
-	) {
+	if (pathParams?.nameTagId == null || String(pathParams.nameTagId) === "") {
 		throw new Error(`Missing required path parameter: nameTagId`);
 	}
 	const data = await request<
@@ -8551,20 +8035,29 @@ export async function updateWebinarBrandingNameTag(
 export async function uploadWebinarBrandingVB(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { webinarId: bigint };
+		body?: UploadWebinarBrandingVBBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
+	}
+	const formData = new FormData();
+	if (body) {
+		Object.keys(body).forEach((key) => {
+			const value = (body as Record<string, unknown>)[key];
+			if (typeof value === "string" || value instanceof Blob) {
+				formData.append(key, value);
+			} else if (typeof value === "number" || typeof value === "boolean") {
+				formData.append(key, String(value));
+			}
+		});
 	}
 	const data = await request<
 		UploadWebinarBrandingVBResponse,
@@ -8573,15 +8066,16 @@ export async function uploadWebinarBrandingVB(
 			| UploadWebinarBrandingVBStatus404
 			| UploadWebinarBrandingVBStatus429
 		>,
-		null,
+		FormData,
 		Record<string, string>,
 		Record<string, string>,
 		{ webinarId: bigint }
 	>({
 		method: "POST",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/branding/virtual_backgrounds`,
+		body: formData,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "multipart/form-data", ...requestConfig.headers },
 	});
 
 	return data;
@@ -8610,11 +8104,7 @@ export async function deleteWebinarBrandingVB(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -8662,11 +8152,7 @@ export async function setWebinarBrandingVB(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -8706,20 +8192,29 @@ export async function setWebinarBrandingVB(
 export async function uploadWebinarBrandingWallpaper(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { webinarId: bigint };
+		body?: UploadWebinarBrandingWallpaperBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
+	}
+	const formData = new FormData();
+	if (body) {
+		Object.keys(body).forEach((key) => {
+			const value = (body as Record<string, unknown>)[key];
+			if (typeof value === "string" || value instanceof Blob) {
+				formData.append(key, value);
+			} else if (typeof value === "number" || typeof value === "boolean") {
+				formData.append(key, String(value));
+			}
+		});
 	}
 	const data = await request<
 		UploadWebinarBrandingWallpaperResponse,
@@ -8728,15 +8223,16 @@ export async function uploadWebinarBrandingWallpaper(
 			| UploadWebinarBrandingWallpaperStatus404
 			| UploadWebinarBrandingWallpaperStatus429
 		>,
-		null,
+		FormData,
 		Record<string, string>,
 		Record<string, string>,
 		{ webinarId: bigint }
 	>({
 		method: "POST",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/branding/wallpaper`,
+		body: formData,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "multipart/form-data", ...requestConfig.headers },
 	});
 
 	return data;
@@ -8763,11 +8259,7 @@ export async function deleteWebinarBrandingWallpaper(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -8814,11 +8306,7 @@ export async function webinarInviteLinksCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -8865,11 +8353,7 @@ export async function webinarLiveStreamingJoinToken(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -8915,11 +8399,7 @@ export async function webinarLocalArchivingArchiveToken(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -8965,11 +8445,7 @@ export async function webinarLocalRecordingJoinToken(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9016,11 +8492,7 @@ export async function getWebinarLiveStreamDetails(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9068,11 +8540,7 @@ export async function webinarLiveStreamUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9121,11 +8589,7 @@ export async function webinarLiveStreamStatusUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9172,11 +8636,7 @@ export async function webinarPanelists(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9220,11 +8680,7 @@ export async function webinarPanelistCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9270,11 +8726,7 @@ export async function webinarPanelistsDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9320,19 +8772,11 @@ export async function webinarPanelistDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 
-	if (
-		pathParams.panelistId === undefined ||
-		pathParams.panelistId === null ||
-		String(pathParams.panelistId) === ""
-	) {
+	if (pathParams?.panelistId == null || String(pathParams.panelistId) === "") {
 		throw new Error(`Missing required path parameter: panelistId`);
 	}
 	const data = await request<
@@ -9379,11 +8823,7 @@ export async function webinarPolls(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9427,11 +8867,7 @@ export async function webinarPollCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9475,19 +8911,11 @@ export async function webinarPollGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 
-	if (
-		pathParams.pollId === undefined ||
-		pathParams.pollId === null ||
-		String(pathParams.pollId) === ""
-	) {
+	if (pathParams?.pollId == null || String(pathParams.pollId) === "") {
 		throw new Error(`Missing required path parameter: pollId`);
 	}
 	const data = await request<
@@ -9530,19 +8958,11 @@ export async function webinarPollUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 
-	if (
-		pathParams.pollId === undefined ||
-		pathParams.pollId === null ||
-		String(pathParams.pollId) === ""
-	) {
+	if (pathParams?.pollId == null || String(pathParams.pollId) === "") {
 		throw new Error(`Missing required path parameter: pollId`);
 	}
 	const data = await request<
@@ -9586,19 +9006,11 @@ export async function webinarPollDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 
-	if (
-		pathParams.pollId === undefined ||
-		pathParams.pollId === null ||
-		String(pathParams.pollId) === ""
-	) {
+	if (pathParams?.pollId == null || String(pathParams.pollId) === "") {
 		throw new Error(`Missing required path parameter: pollId`);
 	}
 	const data = await request<
@@ -9650,11 +9062,7 @@ export async function webinarRegistrants(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9709,11 +9117,7 @@ export async function webinarRegistrantCreate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9761,11 +9165,7 @@ export async function webinarRegistrantsQuestionsGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9813,11 +9213,7 @@ export async function webinarRegistrantQuestionUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9868,11 +9264,7 @@ export async function webinarRegistrantStatus(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -9922,19 +9314,11 @@ export async function webinarRegistrantGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 
-	if (
-		pathParams.registrantId === undefined ||
-		pathParams.registrantId === null ||
-		String(pathParams.registrantId) === ""
-	) {
+	if (pathParams?.registrantId == null || String(pathParams.registrantId) === "") {
 		throw new Error(`Missing required path parameter: registrantId`);
 	}
 	const data = await request<
@@ -9980,19 +9364,11 @@ export async function deleteWebinarRegistrant(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 
-	if (
-		pathParams.registrantId === undefined ||
-		pathParams.registrantId === null ||
-		String(pathParams.registrantId) === ""
-	) {
+	if (pathParams?.registrantId == null || String(pathParams.registrantId) === "") {
 		throw new Error(`Missing required path parameter: registrantId`);
 	}
 	const data = await request<
@@ -10040,11 +9416,7 @@ export async function getWebinarSipDialingWithPasscode(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -10090,11 +9462,7 @@ export async function webinarStatus(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -10137,11 +9505,7 @@ export async function webinarSurveyGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -10183,11 +9547,7 @@ export async function webinarSurveyDelete(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -10230,11 +9590,7 @@ export async function webinarSurveyUpdate(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -10283,11 +9639,7 @@ export async function webinarToken(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
@@ -10331,11 +9683,7 @@ export async function getTrackingSources(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (
-		pathParams.webinarId === undefined ||
-		pathParams.webinarId === null ||
-		String(pathParams.webinarId) === ""
-	) {
+	if (pathParams?.webinarId == null || String(pathParams.webinarId) === "") {
 		throw new Error(`Missing required path parameter: webinarId`);
 	}
 	const data = await request<
