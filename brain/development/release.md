@@ -12,7 +12,7 @@ Authentication is npm trusted publishing: `id-token: write` lets npm exchange th
 
 ## Publishing is off
 
-The release job only runs when the repository variable `RELEASE_ENABLED` is `true` (`if:` in `release.yml`), so the first release from this repository is the owner's decision (8ff9fa1). Only the owner sets that variable. Until then pending changesets accumulate in `.changeset/`.
+The release job only runs when the repository variable `RELEASE_ENABLED` is `true` (`if:` in `release.yml`), so the first release from this repository is the owner's decision (8ff9fa1). Only the owner sets that variable, and only once the publish path is proven, which needs the trusted publishers below. Until then pending changesets accumulate in `.changeset/`.
 
 ## What setting `RELEASE_ENABLED` triggers
 
@@ -28,23 +28,23 @@ Versions `changeset version` produces from the current changesets (dry run on 20
 | --- | --- | --- | --- |
 | `cloudflare-api-js` | 1.1.0 | 2.0.0 | major (`http-errors-as-api-error`) |
 | `keycloak-api` | 1.2.0 | 2.0.0 | major (same) |
-| `litellm-api` | 1.1.0 | 2.0.0 | major (same) |
+| `litellm-api` | 1.1.0 | 2.0.0 | major (same, and `litellm-spec-source` from #64) |
 | `netlify-api` | 1.4.1 | 2.0.0 | major (`effect-v4`, `http-errors-as-api-error`) |
 | `nuki-api-js` | 1.2.0 | 2.0.0 | major (same) |
 | `vercel-api-js` | 1.38.2 | 2.0.0 | major (same) |
-| `zoom-api-js` | 1.3.2 | 2.0.0 | major (same) |
+| `zoom-api-js` | 1.3.2 | 2.0.0 | major (same); `zoom-spec-source` from #64 is a patch |
 | `v0-api` | 0.3.1 | 1.0.0 | major (same); a major on a `0.x` version lands on 1.0.0 |
 | `clickhouse-cloud` | 0.0.0 | 0.1.0 | minor (`clickhouse-cloud-client`) |
 
 ### Checklist before setting it
 
-Checked on 2026-10-20 unless noted:
+Checked on 2026-10-20 unless noted; the changeset count was refreshed on 2026-10-21:
 
-- [x] `.changeset/` holds 58 changesets, as listed under Pending changesets. `pnpm changeset status` reports a major for the eight published clients and a minor for `clickhouse-cloud`, so the Effect 4 and `ApiError` majors from [[plans/index]] are present.
+- [x] `.changeset/` holds 85 changesets (main at ee89dec), as listed under Pending changesets. `pnpm changeset status` reports a major for the eight published clients and a minor for `clickhouse-cloud`, so the Effect 4 and `ApiError` majors from [[plans/index]] are present.
 - [x] The repository variable `RELEASE_ENABLED` is not set, and neither is any other repository variable but the `HQ_*` ones (`gh variable list`).
-- [x] `GIT_TOKEN` exists as an organization secret for all repositories. Whether the token can push to `main` through the ruleset and open PRs is unknown until the first run.
+- [x] `GIT_TOKEN` exists as an organization secret for all repositories. The token opens PRs and enables auto-merge: the PAT path ran in run 39485625102 (see Scheduled regeneration in [[architecture/pipeline]]). Whether it can push the squash commit of the version PR to `main` through the ruleset is unknown until the first run.
 - [x] The repository setting "Allow auto-merge" is on, so `gh pr merge --auto` on the version PR works. Evidence: `gh api repos/sferarc/openapi --jq .allow_auto_merge` returns `true`; #56 to #61 also had auto-merge enabled on 2026-10-20 (`gh pr list --state all --json number,autoMergeRequest`), which GitHub only allows while the setting is on.
-- [ ] Each package's trusted publisher on npmjs.com names `sferarc/openapi` and `release.yml`. This cannot be checked from the repository. The eight published clients were configured for the earlier monorepo, and `clickhouse-cloud` is not on npm at all, so its first publish may need a manual bootstrap. Do this before setting `RELEASE_ENABLED`: if the OIDC publish of `clickhouse-cloud` fails, `changeset publish` exits non-zero after the other eight clients have published, and the step then fails. `changesets/action` (pinned at `ae32849`) runs the publish script with `ignoreReturnCode: true` in `runPublish` (`src/run.ts`), reads the `CHANGESETS_OUTPUT` ndjson, pushes tags and creates GitHub releases for every package listed there, and only then throws on the non-zero exit in `src/index.ts`. `@changesets/cli` 3.0.3 (`dist/publish.mjs`) tags the successful publishes and writes them to that file before it exits 1, and `scripts/release.sh` calls `pnpm changeset publish`, which inherits the variable. So the other eight clients are published, tagged and released, and the step then fails. Recovery is to fix the publisher and rerun the workflow, which publishes only versions npm lacks and then tags them.
+- [ ] Each of the eight published clients has a trusted publisher on npmjs.com naming `sferarc/openapi` and `release.yml`. This cannot be checked from the repository. They were configured for the earlier monorepo. `clickhouse-cloud` is private and needs none. Do this before setting `RELEASE_ENABLED`: if the OIDC publish of one client fails, `changeset publish` exits non-zero after the other clients have published, and the step then fails. `changesets/action` (pinned at `ae32849`) runs the publish script with `ignoreReturnCode: true` in `runPublish` (`src/run.ts`), reads the `CHANGESETS_OUTPUT` ndjson, pushes tags and creates GitHub releases for every package listed there, and only then throws on the non-zero exit in `src/index.ts`. `@changesets/cli` 3.0.3 (`dist/publish.mjs`) tags the successful publishes and writes them to that file before it exits 1, and `scripts/release.sh` calls `pnpm changeset publish`, which inherits the variable. So the clients that succeeded are published, tagged and released, and the step then fails. Recovery is to fix the publisher and rerun the workflow, which publishes only versions npm lacks and then tags them.
 - [x] Nothing in the Release job needs an npm token, so no secret has to be added.
 
 Not run: `pnpm release` itself, because `changeset publish` has no dry-run mode and would publish.
@@ -59,8 +59,10 @@ As of 2026-10-14 (`npm view <package> version`, unchanged since the 2026-10-08 c
 
 ## Pending changesets
 
-As of 2026-10-17 (main at 3f454bd), `.changeset/` holds 58 changesets besides `README.md` and `config.json`. The first release will be a major for all eight published clients:
+As of 2026-10-21 (main at ee89dec), `.changeset/` holds 85 changesets besides `README.md` and `config.json`. The first release will be a major for all eight published clients:
 
 - Majors: `effect-v4.md` for the five published Effect clients, which leaves out the unpublished `clickhouse-cloud` (#6, [[decisions/2026-10-08-effect-4-major]]), and `http-errors-as-api-error.md` for all eight published clients, the new `{ status, payload }` rejection shape (#8, made a major in #9).
+- `litellm-spec-source.md`, a major for `litellm-api` that removes the hosted billing and model catalog operations when the client moves to the self-hosted proxy spec (#64).
 - Minors: `clickhouse-cloud-client.md` (#2); `path-encoding-clickhouse-cloud.md` and `path-encoding-vercel-api-js.md`, minors because their regenerated specs add operations (#17); `raw-request-bodies-netlify-api.md`, the `body` parameter for non-JSON request bodies (#25).
 - Patches: `bundle-openapi-utils.md` (#1), `inline-effect-types.md` (#4), `fetcher-query-serialization.md` (#16), `path-encoding-*.md` for the other seven clients (#17), `path-params-keep-slashes-*.md` for `cloudflare-api-js`, `keycloak-api` and `netlify-api` (#23), `untagged-operations-*.md` for `cloudflare-api-js`, `keycloak-api`, `litellm-api` and `vercel-api-js` (#24), `request-via-operations-*.md` for all nine clients (#26), `fetcher-empty-body-header-case.md` for all nine clients (#28), `zoom-refresh-basic-auth.md` (#30), `effect-error-message-*.md` for the six Effect clients (#33), `fetcher-failure-detail-*.md` for all nine clients (#37), `dts-private-types-*.md` for `keycloak-api` and `v0-api` (#42), `effect-abort-signal-*.md` for the six Effect clients (#46), and `stream-upload-duplex-netlify-api.md`, which sends a `ReadableStream` upload body with `duplex: "half"` so Node's `fetch` accepts it (#50, `packages/netlify-api/src/utils/fetcher.ts`).
+- Spec updates: 25 generated `<package>-<uuid>.md` changesets from the regeneration PRs #56 to #61 (2026-10-20): minors for `netlify-api` (3), `nuki-api-js` (1), `v0-api` (7), `vercel-api-js` (4) and `clickhouse-cloud` (2), and patches for `keycloak-api` (2), `vercel-api-js` (2) and `clickhouse-cloud` (4). `zoom-spec-source.md` is a patch for `zoom-api-js` that regenerates from Zoom's current spec (#64).
