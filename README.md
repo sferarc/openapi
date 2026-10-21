@@ -14,6 +14,8 @@ Type-safe TypeScript clients generated from public OpenAPI specs, plus the site 
 | [`vercel-api-js`](packages/vercel-api-js) | Vercel |
 | [`zoom-api-js`](packages/zoom-api-js) | Zoom |
 
+`clickhouse-cloud` is private and not yet published to npm, so `npm install clickhouse-cloud` does not work yet. The other eight are published.
+
 `packages/openapi-utils` holds the shared kubb config, spec fetching and runtime helpers every client is generated with. `apps/openapi` is the website.
 
 ## Development

@@ -2,7 +2,7 @@
 
 ## Clients
 
-Nine published clients under `packages/`, listed in `README.md`: `clickhouse-cloud`, `cloudflare-api-js`, `keycloak-api`, `litellm-api`, `netlify-api`, `nuki-api-js`, `v0-api`, `vercel-api-js`, `zoom-api-js`.
+Nine clients under `packages/`, listed in `README.md`: `clickhouse-cloud`, `cloudflare-api-js`, `keycloak-api`, `litellm-api`, `netlify-api`, `nuki-api-js`, `v0-api`, `vercel-api-js`, `zoom-api-js`. Eight are published; `clickhouse-cloud` is `private` (`packages/clickhouse-cloud/package.json`, #66), and its README and the root README say so.
 
 A typical client (`packages/clickhouse-cloud/`):
 
