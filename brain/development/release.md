@@ -28,17 +28,17 @@ Versions `changeset version` produces from the current changesets (dry run on 20
 | --- | --- | --- | --- |
 | `cloudflare-api-js` | 1.1.0 | 2.0.0 | major (`http-errors-as-api-error`) |
 | `keycloak-api` | 1.2.0 | 2.0.0 | major (same) |
-| `litellm-api` | 1.1.0 | 2.0.0 | major (same) |
+| `litellm-api` | 1.1.0 | 2.0.0 | major (same, and `litellm-spec-source` from #64) |
 | `netlify-api` | 1.4.1 | 2.0.0 | major (`effect-v4`, `http-errors-as-api-error`) |
 | `nuki-api-js` | 1.2.0 | 2.0.0 | major (same) |
 | `vercel-api-js` | 1.38.2 | 2.0.0 | major (same) |
-| `zoom-api-js` | 1.3.2 | 2.0.0 | major (same) |
+| `zoom-api-js` | 1.3.2 | 2.0.0 | major (same); `zoom-spec-source` from #64 is a patch |
 | `v0-api` | 0.3.1 | 1.0.0 | major (same); a major on a `0.x` version lands on 1.0.0 |
 | `clickhouse-cloud` | 0.0.0 | 0.1.0 | minor (`clickhouse-cloud-client`) |
 
 ### Checklist before setting it
 
-Checked on 2026-10-20 unless noted:
+Checked on 2026-10-20 unless noted; the changeset count was refreshed on 2026-10-21:
 
 - [x] `.changeset/` holds 85 changesets (main at c87cee1), as listed under Pending changesets. `pnpm changeset status` reports a major for the eight published clients and a minor for `clickhouse-cloud`, so the Effect 4 and `ApiError` majors from [[plans/index]] are present.
 - [x] The repository variable `RELEASE_ENABLED` is not set, and neither is any other repository variable but the `HQ_*` ones (`gh variable list`).
