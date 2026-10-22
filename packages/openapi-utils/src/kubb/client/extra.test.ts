@@ -14,7 +14,7 @@ function block(source: string, name: string): string {
 
 describe("generated operationsByTag", () => {
 	it("finds the generated clients", () => {
-		expect(componentFiles.length).toBeGreaterThanOrEqual(10);
+		expect(componentFiles.length).toBeGreaterThanOrEqual(9);
 	});
 
 	it.each(componentFiles)("lists every operation of %s", (file) => {

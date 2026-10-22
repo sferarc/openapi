@@ -4,6 +4,7 @@ Recorded 2026-10-08, from #6.
 
 ## Decision
 
+The catalog moves `effect` from 3.22.2 to 4.0.0, and every client with an `effect` entry declares `effect: "^4.0.0"` as an optional peer. `ApiConfig` in `packages/openapi-utils/src/effect/errors.ts` is a `Context.Service` key, since Effect 4 removed `Context.Tag`. The five published Effect clients (`netlify-api`, `nuki-api-js`, `v0-api`, `vercel-api-js`, `zoom-api-js`) get a major changeset (`.changeset/effect-v4.md`).
 
 ## Why
 
@@ -12,6 +13,7 @@ The catalog had held `effect` on 3.x with a comment saying the move needs a code
 ## Consequences
 
 - Projects on Effect 3 stay on the previous major of each client (`.changeset/effect-v4.md`).
+- An HTTP error status still surfaces as `NetworkError` rather than `ApiError` in the older clients' fetchers. Fixed afterwards by #8, which made the older fetchers throw an error carrying the HTTP status.
 
 ## What would reopen it
 

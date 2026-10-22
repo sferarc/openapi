@@ -3,6 +3,7 @@
 ## Steps
 
 1. `pnpm generate --filter=<package>` runs the package's `generate` script through Turborepo (`package.json`, `turbo.json`). Turborepo builds `@sferadev/openapi-utils` first (`"dependsOn": ["^build"]`). The task is uncached (`"cache": false`) because it reads a remote spec, so every run fetches the live spec.
+2. The script deletes `src/generated/` and runs `kubb generate` (for example `packages/vercel-api-js/package.json`).
 3. The package's `kubb.config.ts` fetches the live spec with `fetchSpec` (a URL, with a timeout; `packages/openapi-utils/src/kubb/spec-transforms.ts`), applies whichever transforms that spec needs, and spreads `baseConfig` from [[shared-utils]].
 4. kubb writes three files into `src/generated/` (`packages/openapi-utils/src/kubb/index.ts`):
    - `types.ts` from `@kubb/plugin-ts`, enums as `as const` objects.
@@ -25,4 +26,6 @@ Each `kubb.config.ts` carries the transforms its spec needs, so the fixups diffe
 
 `SPEC_UPDATES_ENABLED` is unset (`gh variable list`, 2026-10-20), which is why the hourly runs report `skipped`; the `if:` itself is correct. `GIT_TOKEN` is an organization secret visible to all repositories, so `gh secret list` in this repository does not show it (`gh secret list --org sferarc` does). `OPENAI_API_KEY` is a repository secret.
 
+A manual `workflow_dispatch` on 2026-10-20 (run 39485625102) proved the PAT path: five of eight matrix jobs went through every step, including `Create Pull Request` and `Enable auto-merge`, and opened pull requests for `netlify-api`, `nuki-api-js`, `v0-api`, `keycloak-api` and `vercel-api-js`, which auto-merged into `main`. Two jobs failed in `pnpm generate` because their upstream spec URL is gone (`litellm-api`: `api.litellm.ai` does not resolve; `zoom-api-js`: the old `api-hub` path answers 404); #64 repoints both. `cloudflare-api-js` was still in `pnpm generate` after 27 minutes and was cancelled, so whether it finishes is unknown; each job is now capped at 45 minutes (`timeout-minutes`, which also covers checkout and install), so `cloudflare-api-js` may hit the cap if its generate needs longer. With `fail-fast: false` a failing job does not stop the others, but every hourly run is red while one stays broken.
 
+A new client must be added to that matrix, to `apps/openapi/src/lib/npm.ts` and `apps/openapi/src/app/page.tsx`, and to `configs/knip.json`.
