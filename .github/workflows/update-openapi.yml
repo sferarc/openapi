@@ -12,6 +12,7 @@ jobs:
     # repository variable SPEC_UPDATES_ENABLED is `true`. A manual run always works.
     if: github.event_name == 'workflow_dispatch' || vars.SPEC_UPDATES_ENABLED == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     concurrency:
       group: ${{ github.workflow }}-${{ matrix.package }}
       cancel-in-progress: true
