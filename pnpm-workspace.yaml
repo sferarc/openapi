@@ -6,7 +6,7 @@ catalog:
   '@ai-sdk/openai': 4.0.96
   '@biomejs/biome': 2.5.15
   '@changesets/cli': 3.0.3
-  '@kubb/adapter-oas': 5.11.0
+  '@kubb/adapter-oas': 5.13.1
   '@kubb/plugin-ts': 5.0.14
   '@kubb/plugin-zod': 5.4.12
   '@radix-ui/react-slot': 1.5.0
@@ -28,7 +28,7 @@ catalog:
   effect: 4.0.5
   is-tree-shakable: 0.5.0
   knip: 6.41.0
-  kubb: 5.11.0
+  kubb: 5.13.1
   lefthook: 2.2.2
   lucide-react: 1.59.0
   next: 16.4.2
