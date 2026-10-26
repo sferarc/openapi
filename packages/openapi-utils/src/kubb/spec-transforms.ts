@@ -109,6 +109,7 @@ export function cleanOperationIds(
 	},
 ): OpenAPIObject {
 	const methods = options?.deleteHead ? ([...HTTP_METHODS, "head"] as const) : HTTP_METHODS;
+	const usedOperationIds = new Set<string>();
 
 	for (const [key, pathItem] of Object.entries(
 		openAPIDocument.paths as Record<string, PathItemObject>,
@@ -123,15 +124,41 @@ export function cleanOperationIds(
 			if (!operation) continue;
 
 			const fallback = getDefaultOperationId(key, method, options?.hardcodedOperationIds);
-			const operationId = operation.operationId ?? fallback;
+			const operationId = uniqueOperationId(
+				c.camel(operation.operationId ?? fallback),
+				key,
+				method,
+				usedOperationIds,
+			);
+			usedOperationIds.add(operationId);
 			(openAPIDocument.paths[key] as any)[method] = {
 				...openAPIDocument.paths[key][method],
-				operationId: c.camel(operationId),
+				operationId,
 			};
 		}
 	}
 
 	return openAPIDocument;
+}
+
+/** kubb keeps only the first function per operation id, so a later duplicate is renamed after its method and path. */
+function uniqueOperationId(
+	operationId: string,
+	path: string,
+	method: string,
+	usedOperationIds: ReadonlySet<string>,
+): string {
+	if (!usedOperationIds.has(operationId)) return operationId;
+
+	const pathOperationId = c.camel(`${method} ${path}`.replace(/[^a-zA-Z0-9]/g, " "));
+	let candidate = pathOperationId;
+	for (let suffix = 2; usedOperationIds.has(candidate); suffix++) {
+		candidate = `${pathOperationId}${suffix}`;
+	}
+	console.warn(
+		`Operation id ${operationId} of ${method.toUpperCase()} ${path} is already used. Using ${candidate}.`,
+	);
+	return candidate;
 }
 
 function getDefaultOperationId(
