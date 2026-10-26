@@ -135,6 +135,45 @@ describe("cleanOperationIds", () => {
 		expect((result.paths["/users/{id}"] as any).delete.operationId).toBe("removeUser");
 	});
 
+	it("renames a later operation whose camelCased id is already used", () => {
+		const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+		const result = cleanOperationIds(
+			spec({
+				"/accounts/{account_id}/data-security/posture/webhooks/{webhook_id}": {
+					delete: { operationId: "DeleteWebhook" },
+				},
+				"/accounts/{account_id}/realtime/kit/{app_id}/webhooks/{webhook_id}": {
+					delete: { operationId: "deleteWebhook" },
+				},
+			}),
+		);
+
+		expect(
+			(result.paths["/accounts/{account_id}/data-security/posture/webhooks/{webhook_id}"] as any)
+				.delete.operationId,
+		).toBe("deleteWebhook");
+		expect(
+			(result.paths["/accounts/{account_id}/realtime/kit/{app_id}/webhooks/{webhook_id}"] as any)
+				.delete.operationId,
+		).toBe("deleteAccountsAccountIdRealtimeKitAppIdWebhooksWebhookId");
+		expect(warn).toHaveBeenCalledOnce();
+		warn.mockRestore();
+	});
+
+	it("adds a numeric suffix when the path-based id is taken too", () => {
+		const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+		const result = cleanOperationIds(
+			spec({
+				"/a": { get: { operationId: "getB" } },
+				"/b": { get: { operationId: "getB" } },
+			}),
+		);
+
+		expect((result.paths["/a"] as any).get.operationId).toBe("getB");
+		expect((result.paths["/b"] as any).get.operationId).toBe("getB2");
+		warn.mockRestore();
+	});
+
 	it("deletes head operations only with deleteHead", () => {
 		const kept = cleanOperationIds(spec({ "/users": { get: {}, head: {} } }));
 		expect((kept.paths["/users"] as any).head).toEqual({});
