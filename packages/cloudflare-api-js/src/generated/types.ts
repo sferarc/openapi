@@ -2060,10 +2060,23 @@ export type AbuseReportsAppealEligibility = {
     */
     has_open_appeal: boolean;
     /**
+     * @description Whether the report is in its Notice and Takedown notice period. No mitigation is applied yet, but one will be applied at `notice_deadline` unless the report is resolved first.
+     * @type boolean
+    */
+    has_pending_notice: boolean;
+    /**
      * @description Maximum number of appeals allowed per report.
      * @type integer
     */
     max_appeals: number;
+    /**
+     * @description When the notice period ends and the mitigation is applied. Present only when `has_pending_notice` is true. Time in RFC 3339 format (https://www.rfc-editor.org/rfc/rfc3339.html)
+     *
+     * Format: `date-time`
+     * @example 2009-11-10T23:00:00Z
+     * @type string | undefined
+    */
+    notice_deadline?: string | undefined;
 };
 
 export const abuseReportsAppealReason = {
@@ -2678,7 +2691,7 @@ export type AbuseReportsMitigationAppeal = {
 };
 
 /**
- * @description Submit an appeal for a report. Provide either a list of mitigations to appeal, or an appeal type with its supporting details, but not both. When type is \"counter_notice\", the counter-notice details are required.
+ * @description Submit an appeal for a report. Provide either a list of mitigations to appeal, or an appeal type with its supporting details, but not both. When type is \"counter_notice\", the counter-notice details are required. A \"content_removed\" appeal takes an optional explanation instead and is accepted only while the report is in its Notice and Takedown notice period (`has_pending_notice` on the eligibility response). Reports that allow a single appeal (`max_appeals` of 1) never have a notice period and accept it whenever `appealable` is true.
 */
 export type AbuseReportsMitigationAppealRequest = (({
     /**
@@ -2704,6 +2717,12 @@ export type AbuseReportsMitigationAppealRequest = (({
      * @type object | undefined
     */
     data?: AbuseReportsDMCACounterNotice | undefined;
+    /**
+     * @description Optional explanation for a \"content_removed\" appeal, such as how the content was removed. Not accepted for other appeal types.
+     * @maxLength 5000
+     * @type string | undefined
+    */
+    explanation?: string | undefined;
     /**
      * @description The type of appeal being submitted.
      * @example counter_notice
@@ -4984,6 +5003,12 @@ export type AccessInclude2 = AccessRule[];
 export type AccessName9 = string;
 
 /**
+ * @description The account ID used to resolve policy resources and identity for cross-account WARP authentication. The account must be trusted by the account that owns this policy.
+ * @type string
+*/
+export type AccessPolicyResolutionAccountId = string;
+
+/**
  * @description Rules evaluated with an AND logical operator. To match the policy, a user must meet all of the Require rules.
  * @default []
  * @type array
@@ -5015,6 +5040,11 @@ export type AccessBasePolicyReq = {
      * @type string
     */
     name: AccessName9;
+    /**
+     * @description The account ID used to resolve policy resources and identity for cross-account WARP authentication. The account must be trusted by the account that owns this policy.
+     * @type string | undefined
+    */
+    policy_resolution_account_id?: AccessPolicyResolutionAccountId | undefined;
     /**
      * @description Rules evaluated with an AND logical operator. To match the policy, a user must meet all of the Require rules.
      * @default []
@@ -5119,6 +5149,11 @@ export type AccessBasePolicyResp = {
      * @type string | undefined
     */
     name?: AccessName9 | undefined;
+    /**
+     * @description The account ID used to resolve policy resources and identity for cross-account WARP authentication. The account must be trusted by the account that owns this policy.
+     * @type string | undefined
+    */
+    policy_resolution_account_id?: AccessPolicyResolutionAccountId | undefined;
     /**
      * @description Rules evaluated with an AND logical operator. To match the policy, a user must meet all of the Require rules.
      * @default []
@@ -9717,6 +9752,13 @@ export type AccessGoogleApps2 = (AccessIdentityProvider2 & {
 });
 
 /**
+ * @description Whether all accounts in the organization are trusted to use this account\'s cross-account Access resources.
+ * @example false
+ * @type boolean
+*/
+export type AccessGrantTrustToAllAccountsInOrg = boolean;
+
+/**
  * @description The unique Cloudflare-generated Id of the SCIM resource.
  * @example bd97ef8d-7986-43e3-9ee0-c25dda33e4b0
  * @type string
@@ -12221,6 +12263,30 @@ export type AccessTagWithoutAppCount = {
     name: AccessName13;
     updated_at?: AccessUpdatedAt | undefined;
 };
+
+/**
+ * @description Explicit account IDs trusted to use this account\'s cross-account Access resources. At most 100 unique valid account IDs are accepted. Omitted from responses when empty.
+ * @example ["023e105f4ecef8ad9ca31a8372d0c353"]
+ * @type array
+*/
+export type AccessTrustingAccounts = string[];
+
+export type AccessTrustSettingsResponse = (AccessApiResponseSingle & {
+    result?: {
+        /**
+         * @description Whether all accounts in the organization are trusted to use this account\'s cross-account Access resources.
+         * @example false
+         * @type boolean
+        */
+        grant_trust_to_all_accounts_in_org: AccessGrantTrustToAllAccountsInOrg;
+        /**
+         * @description Explicit account IDs trusted to use this account\'s cross-account Access resources. At most 100 unique valid account IDs are accepted. Omitted from responses when empty.
+         * @example ["023e105f4ecef8ad9ca31a8372d0c353"]
+         * @type array | undefined
+        */
+        trusting_accounts?: AccessTrustingAccounts | undefined;
+    } | undefined;
+});
 
 /**
  * @description the timestamp of the most-recent update log.
@@ -43351,6 +43417,15 @@ export type DnsSettingsNameserverSetAddressGroups = DnsSettingsNameserverSetAddr
 */
 export type DnsSettingsNameserverSetIpSet = bigint;
 
+/**
+ * @description Customer-defined name, unique within the account by exact string equality (case-sensitive, with no Unicode normalization). Must be valid UTF-8 and at most 255 UTF-8 bytes, not 255 characters. Only graphical Unicode characters are allowed; leading or trailing whitespace is rejected. The name can be changed without changing the set\'s nameservers or addresses.
+ * @minLength 1
+ * @maxLength 255
+ * @example Production nameservers
+ * @type string
+*/
+export type DnsSettingsNameserverSetName = string;
+
 export type DnsSettingsNameserverSetResponseBase = {
     /**
      * @description When the nameserver set was created.
@@ -43379,6 +43454,14 @@ export type DnsSettingsNameserverSetResponseBase = {
      * @type integer
     */
     ip_set: DnsSettingsNameserverSetIpSet;
+    /**
+     * @description Customer-defined name, unique within the account by exact string equality (case-sensitive, with no Unicode normalization). Must be valid UTF-8 and at most 255 UTF-8 bytes, not 255 characters. Only graphical Unicode characters are allowed; leading or trailing whitespace is rejected. The name can be changed without changing the set\'s nameservers or addresses.
+     * @minLength 1
+     * @maxLength 255
+     * @example Production nameservers
+     * @type string
+    */
+    name: DnsSettingsNameserverSetName;
 };
 
 /**
@@ -43483,10 +43566,33 @@ export type DnsSettingsNameserverSetCreate = {
     */
     ip_set?: DnsSettingsNameserverSetIpSet | undefined;
     /**
+     * @description Customer-defined name, unique within the account by exact string equality (case-sensitive, with no Unicode normalization). Must be valid UTF-8 and at most 255 UTF-8 bytes, not 255 characters. Only graphical Unicode characters are allowed; leading or trailing whitespace is rejected. The name can be changed without changing the set\'s nameservers or addresses.
+     * @minLength 1
+     * @maxLength 255
+     * @example Production nameservers
+     * @type string
+    */
+    name: DnsSettingsNameserverSetName;
+    /**
      * @description Lists each nameserver and the number of addresses to allocate to it. Requires a unique name for each entry in the set.
      * @type array
     */
     nameservers: DnsSettingsNameserverSetCreateMember[];
+};
+
+/**
+ * @description Updates only the customer-defined name. All other fields are rejected, even if unchanged. An empty object or the current name succeeds without changing the set. A null name is invalid. Requires the account-scoped creation entitlements, including eligibility for the set\'s current IP set and the Advanced entitlement for an Advanced set.
+ * @type object
+*/
+export type DnsSettingsNameserverSetPatch = {
+    /**
+     * @description Customer-defined name, unique within the account by exact string equality (case-sensitive, with no Unicode normalization). Must be valid UTF-8 and at most 255 UTF-8 bytes, not 255 characters. Only graphical Unicode characters are allowed; leading or trailing whitespace is rejected. The name can be changed without changing the set\'s nameservers or addresses.
+     * @minLength 1
+     * @maxLength 255
+     * @example Production nameservers
+     * @type string | undefined
+    */
+    name?: DnsSettingsNameserverSetName | undefined;
 };
 
 export type DnsSettingsNameserverSetResponseMember = {
@@ -51538,6 +51644,21 @@ export type FirewallPackageResponseCollection = (FirewallApiResponseCollection |
 
 export type FirewallPackageResponseSingle = (FirewallApiResponseSingle & {
     result?: object | undefined;
+});
+
+export type FirewallPayloadLoggingKey = {
+    /**
+     * @description Defines the X25519 public key, as standard base64 of exactly 32 bytes, that encrypts matched payloads. Cloudflare stores only the public key; keep the private key to decrypt logged payloads.
+     * @minLength 44
+     * @maxLength 44
+     * @example Ycig/Zr/pZmklmFUN99nr+taURlYItL91g+NcHGYpB8=
+     * @type string
+    */
+    public_key: string;
+};
+
+export type FirewallPayloadLoggingKeyResponseSingle = (FirewallApiResponseCommon & {
+    result?: FirewallPayloadLoggingKey | undefined;
 });
 
 /**
@@ -83368,6 +83489,12 @@ export type R2DataCatalogCatalog = {
     */
     id: string;
     /**
+     * @description Specifies the data-locality jurisdiction of the catalog. The first enable sets it, and it cannot change. Currently always `default`.
+     * @example default
+     * @type string | undefined
+    */
+    jurisdiction?: string | undefined;
+    /**
      * @description Configures maintenance for the catalog.
      * @type object | undefined
     */
@@ -83384,6 +83511,31 @@ export type R2DataCatalogCatalog = {
      * @type string
     */
     status: R2DataCatalogCatalogStatusKey;
+};
+
+/**
+ * @description Contains request to store catalog credentials.
+ * @type object
+*/
+export type R2DataCatalogCatalogCredentialRequest = {
+    /**
+     * @description Provides the Cloudflare API token for accessing R2.
+     * @example your-cloudflare-api-token-here
+     * @type string
+    */
+    token: string;
+};
+
+/**
+ * @description Contains the optional request to enable a catalog. Send an empty body\nto keep the defaults. If you include `credential`, the service checks\nthat the token can access the bucket, then stores it as the catalog\'s\nmaintenance credential, like the store credentials operation.\n
+ * @type object
+*/
+export type R2DataCatalogCatalogActivationRequest = {
+    /**
+     * @description Contains request to store catalog credentials.
+     * @type object | undefined
+    */
+    credential?: R2DataCatalogCatalogCredentialRequest | undefined;
 };
 
 /**
@@ -83405,19 +83557,6 @@ export type R2DataCatalogCatalogActivationResponse = {
      * @type string
     */
     name: string;
-};
-
-/**
- * @description Contains request to store catalog credentials.
- * @type object
-*/
-export type R2DataCatalogCatalogCredentialRequest = {
-    /**
-     * @description Provides the Cloudflare API token for accessing R2.
-     * @example your-cloudflare-api-token-here
-     * @type string
-    */
-    token: string;
 };
 
 /**
@@ -90964,14 +91103,27 @@ export type ReportsError = {
     message: string;
 };
 
+export type ReportsMessage = {
+    /**
+     * @example 10000
+     * @type number
+    */
+    code: number;
+    /**
+     * @example This is an example message
+     * @type string
+    */
+    message: string;
+};
+
 export type ReportsAccountIndustryErrorResponse = {
     errors: ReportsError[];
     /**
      * @default []
      * @type array | undefined
     */
-    messages?: unknown[] | undefined;
-    result: unknown | null;
+    messages?: ReportsMessage[] | undefined;
+    result: object | null;
     success: false;
 };
 
@@ -91374,19 +91526,6 @@ export type ReportsGetReportResponse = {
     scheduled_on: string | null;
 } | null;
 
-export type ReportsMessage = {
-    /**
-     * @example 10000
-     * @type number
-    */
-    code: number;
-    /**
-     * @example This is an example message
-     * @type string
-    */
-    message: string;
-};
-
 export type ReportsPatchAccountIndustryBody = {
     /**
      * @description The industry of the account
@@ -91474,8 +91613,8 @@ export type ReportsPolicyErrorResponse = {
      * @default []
      * @type array | undefined
     */
-    messages?: unknown[] | undefined;
-    result: unknown | null;
+    messages?: ReportsMessage[] | undefined;
+    result: object | null;
     success: false;
 };
 
@@ -112322,6 +112461,13 @@ export type TunnelMessages = {
      * @type integer
     */
     code: number;
+    /**
+     * @description Optional error-specific context.
+     * @type object | undefined
+    */
+    context?: {
+        [key: string]: unknown;
+    } | undefined;
     message: string;
 }[];
 
@@ -220534,7 +220680,7 @@ export type RequestReviewStatus500 = {
 };
 
 /**
- * @description Submit an appeal for a report. Provide either a list of mitigations to appeal, or an appeal type with its supporting details, but not both. When type is \"counter_notice\", the counter-notice details are required.
+ * @description Submit an appeal for a report. Provide either a list of mitigations to appeal, or an appeal type with its supporting details, but not both. When type is \"counter_notice\", the counter-notice details are required. A \"content_removed\" appeal takes an optional explanation instead and is accepted only while the report is in its Notice and Takedown notice period (`has_pending_notice` on the eligibility response). Reports that allow a single appeal (`max_appeals` of 1) never have a notice period and accept it whenever `appealable` is true.
 */
 export type RequestReviewBody = AbuseReportsMitigationAppealRequest;
 
@@ -228610,6 +228756,129 @@ export type ZeroTrustOrganizationRevokeAllAccessTokensForAUserResponses = {
  * @description Union of all possible responses
 */
 export type ZeroTrustOrganizationRevokeAllAccessTokensForAUserResponse = ZeroTrustOrganizationRevokeAllAccessTokensForAUserStatus200;
+
+export type ZeroTrustOrganizationGetTrustSettingsPath = {
+    /**
+     * @description Identifier.
+     * @maxLength 32
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
+     * @type string
+    */
+    accountId: AccessIdentifier;
+};
+
+export type ZeroTrustOrganizationGetTrustSettingsStatus200 = AccessTrustSettingsResponse;
+
+export type ZeroTrustOrganizationGetTrustSettingsStatus400 = AccessApiResponseCommonFailure;
+
+export type ZeroTrustOrganizationGetTrustSettingsOptions = {
+    body?: never | undefined;
+    path: ZeroTrustOrganizationGetTrustSettingsPath;
+    query?: never | undefined;
+    headers?: never | undefined;
+};
+
+export type ZeroTrustOrganizationGetTrustSettingsResponses = {
+    "200": ZeroTrustOrganizationGetTrustSettingsStatus200;
+    "400": ZeroTrustOrganizationGetTrustSettingsStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+*/
+export type ZeroTrustOrganizationGetTrustSettingsResponse = ZeroTrustOrganizationGetTrustSettingsStatus200;
+
+export type ZeroTrustOrganizationUpdateTrustSettingsPath = {
+    /**
+     * @description Identifier.
+     * @maxLength 32
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
+     * @type string
+    */
+    accountId: AccessIdentifier;
+};
+
+export type ZeroTrustOrganizationUpdateTrustSettingsStatus200 = AccessTrustSettingsResponse;
+
+export type ZeroTrustOrganizationUpdateTrustSettingsStatus400 = AccessApiResponseCommonFailure;
+
+export type ZeroTrustOrganizationUpdateTrustSettingsBody = {
+    /**
+     * @description Whether all accounts in the organization are trusted to use this account\'s cross-account Access resources.
+     * @example false
+     * @type boolean | undefined
+    */
+    grant_trust_to_all_accounts_in_org?: AccessGrantTrustToAllAccountsInOrg | undefined;
+    /**
+     * @description Explicit account IDs trusted to use this account\'s cross-account Access resources. At most 100 unique valid account IDs are accepted. Omitted from responses when empty.
+     * @example ["023e105f4ecef8ad9ca31a8372d0c353"]
+     * @type array | undefined
+    */
+    trusting_accounts?: AccessTrustingAccounts | undefined;
+};
+
+export type ZeroTrustOrganizationUpdateTrustSettingsOptions = {
+    body: ZeroTrustOrganizationUpdateTrustSettingsBody;
+    path: ZeroTrustOrganizationUpdateTrustSettingsPath;
+    query?: never | undefined;
+    headers?: never | undefined;
+};
+
+export type ZeroTrustOrganizationUpdateTrustSettingsResponses = {
+    "200": ZeroTrustOrganizationUpdateTrustSettingsStatus200;
+    "400": ZeroTrustOrganizationUpdateTrustSettingsStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+*/
+export type ZeroTrustOrganizationUpdateTrustSettingsResponse = ZeroTrustOrganizationUpdateTrustSettingsStatus200;
+
+export type ZeroTrustOrganizationReplaceTrustSettingsPath = {
+    /**
+     * @description Identifier.
+     * @maxLength 32
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
+     * @type string
+    */
+    accountId: AccessIdentifier;
+};
+
+export type ZeroTrustOrganizationReplaceTrustSettingsStatus200 = AccessTrustSettingsResponse;
+
+export type ZeroTrustOrganizationReplaceTrustSettingsStatus400 = AccessApiResponseCommonFailure;
+
+export type ZeroTrustOrganizationReplaceTrustSettingsBody = {
+    /**
+     * @description Whether all accounts in the organization are trusted to use this account\'s cross-account Access resources.
+     * @example false
+     * @type boolean
+    */
+    grant_trust_to_all_accounts_in_org: AccessGrantTrustToAllAccountsInOrg;
+    /**
+     * @description Explicit account IDs trusted to use this account\'s cross-account Access resources. At most 100 unique valid account IDs are accepted. Omitted from responses when empty.
+     * @example ["023e105f4ecef8ad9ca31a8372d0c353"]
+     * @type array | undefined
+    */
+    trusting_accounts?: AccessTrustingAccounts | undefined;
+};
+
+export type ZeroTrustOrganizationReplaceTrustSettingsOptions = {
+    body: ZeroTrustOrganizationReplaceTrustSettingsBody;
+    path: ZeroTrustOrganizationReplaceTrustSettingsPath;
+    query?: never | undefined;
+    headers?: never | undefined;
+};
+
+export type ZeroTrustOrganizationReplaceTrustSettingsResponses = {
+    "200": ZeroTrustOrganizationReplaceTrustSettingsStatus200;
+    "400": ZeroTrustOrganizationReplaceTrustSettingsStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+*/
+export type ZeroTrustOrganizationReplaceTrustSettingsResponse = ZeroTrustOrganizationReplaceTrustSettingsStatus200;
 
 export type AccessPoliciesListAccessReusablePoliciesPath = {
     /**
@@ -271403,8 +271672,14 @@ export type BasinEnableCatalogStatus409 = R2DataCatalogApiResponseCommonFailure;
 
 export type BasinEnableCatalogStatus500 = R2DataCatalogApiResponseCommonFailure;
 
+/**
+ * @description Contains the optional request to enable a catalog. Send an empty body\nto keep the defaults. If you include `credential`, the service checks\nthat the token can access the bucket, then stores it as the catalog\'s\nmaintenance credential, like the store credentials operation.\n
+ * @type object | undefined
+*/
+export type BasinEnableCatalogBody = R2DataCatalogCatalogActivationRequest | undefined;
+
 export type BasinEnableCatalogOptions = {
-    body?: never | undefined;
+    body: BasinEnableCatalogBody;
     path: BasinEnableCatalogPath;
     query?: never | undefined;
     headers?: never | undefined;
@@ -310484,6 +310759,16 @@ export const rssArticleListStatus200ResultArticlesRelevancePirsBandEnum = {
 
 export type RssArticleListStatus200ResultArticlesRelevancePirsBandEnumKey = (typeof rssArticleListStatus200ResultArticlesRelevancePirsBandEnum)[keyof typeof rssArticleListStatus200ResultArticlesRelevancePirsBandEnum];
 
+export const rssArticleListStatus200ResultArticlesSeverityEnum = {
+    informational: "informational",
+    low: "low",
+    medium: "medium",
+    high: "high",
+    critical: "critical"
+} as const;
+
+export type RssArticleListStatus200ResultArticlesSeverityEnumKey = (typeof rssArticleListStatus200ResultArticlesSeverityEnum)[keyof typeof rssArticleListStatus200ResultArticlesSeverityEnum];
+
 export const rssArticleListStatus200ResultArticlesTagsAppliedByEnum = {
     ai: "ai",
     analyst: "analyst",
@@ -310562,12 +310847,10 @@ export type RssArticleListStatus200 = {
                 }[];
             } | null;
             /**
-             * @description Intrinsic article severity from 1 (informational) to 5 (critical). Null when the account has no active Priority Intelligence Requirements, scoring has not completed, or a historic article has not entered an automatic rescore window.
-             * @minLength 1
-             * @maxLength 5
-             * @type number
+             * @description Beta. Intrinsic article severity band, from informational to critical, independent of any organisation or Priority Intelligence Requirement. Null when the account has no active Priority Intelligence Requirements, scoring has not completed, or a historic article has not entered an automatic rescore window.
+             * @type string
             */
-            severity: number | null;
+            severity: RssArticleListStatus200ResultArticlesSeverityEnumKey | null;
             /**
              * @description Persisted enrichment summary. Null until enrichment produces a summary.
              * @type string
@@ -310714,6 +310997,11 @@ export type RssArticleRelevanceAggregateQuery = {
      * @type string | undefined
     */
     published_before?: string | undefined;
+    /**
+     * @description Filter by read state. Accepts true, false, 1, or 0; omit to include read and unread articles.
+     * @type boolean | undefined
+    */
+    read?: boolean | undefined;
 };
 
 export type RssArticleRelevanceAggregateStatus200 = {
@@ -310829,6 +311117,11 @@ export type RssArticleSeverityAggregateQuery = {
     */
     published_before?: string | undefined;
     /**
+     * @description Filter by read state. Accepts true, false, 1, or 0; omit to include read and unread articles.
+     * @type boolean | undefined
+    */
+    read?: boolean | undefined;
+    /**
      * @description Beta. Active Priority Intelligence Requirement to count for. articles then counts only articles scored against it, min_relevance applies to its score, and priorities lists only it. Returns a 400 error unless the PIR is active.
      *
      * Format: `uuid`
@@ -310848,7 +311141,7 @@ export type RssArticleSeverityAggregateStatus200 = {
     }[];
     result: {
         /**
-         * @description Beta. Number of articles in each severity band: the severity level nearest the article\'s severity. Articles without a severity are not counted, and every count is zero when the account has no active Priority Intelligence Requirements.
+         * @description Beta. Number of articles in each severity band, the band reported as the article\'s severity. Articles without a severity are not counted, and every count is zero when the account has no active Priority Intelligence Requirements.
          * @type object
         */
         articles: {
@@ -310981,6 +311274,16 @@ export const rssArticleGetStatus200ResultRelevancePirsBandEnum = {
 
 export type RssArticleGetStatus200ResultRelevancePirsBandEnumKey = (typeof rssArticleGetStatus200ResultRelevancePirsBandEnum)[keyof typeof rssArticleGetStatus200ResultRelevancePirsBandEnum];
 
+export const rssArticleGetStatus200ResultSeverityEnum = {
+    informational: "informational",
+    low: "low",
+    medium: "medium",
+    high: "high",
+    critical: "critical"
+} as const;
+
+export type RssArticleGetStatus200ResultSeverityEnumKey = (typeof rssArticleGetStatus200ResultSeverityEnum)[keyof typeof rssArticleGetStatus200ResultSeverityEnum];
+
 export const rssArticleGetStatus200ResultTagsAppliedByEnum = {
     ai: "ai",
     analyst: "analyst",
@@ -311062,12 +311365,10 @@ export type RssArticleGetStatus200 = {
             }[];
         } | null;
         /**
-         * @description Intrinsic article severity from 1 (informational) to 5 (critical). Null when the account has no active Priority Intelligence Requirements, scoring has not completed, or a historic article has not entered an automatic rescore window.
-         * @minLength 1
-         * @maxLength 5
-         * @type number
+         * @description Beta. Intrinsic article severity band, from informational to critical, independent of any organisation or Priority Intelligence Requirement. Null when the account has no active Priority Intelligence Requirements, scoring has not completed, or a historic article has not entered an automatic rescore window.
+         * @type string
         */
-        severity: number | null;
+        severity: RssArticleGetStatus200ResultSeverityEnumKey | null;
         skill_version?: (string | null) | undefined;
         source_count: number;
         /**
@@ -311137,6 +311438,16 @@ export const rssArticleMarkReadStatus200ResultIndicatorExtractionStatusEnum = {
 
 export type RssArticleMarkReadStatus200ResultIndicatorExtractionStatusEnumKey = (typeof rssArticleMarkReadStatus200ResultIndicatorExtractionStatusEnum)[keyof typeof rssArticleMarkReadStatus200ResultIndicatorExtractionStatusEnum];
 
+export const rssArticleMarkReadStatus200ResultSeverityEnum = {
+    informational: "informational",
+    low: "low",
+    medium: "medium",
+    high: "high",
+    critical: "critical"
+} as const;
+
+export type RssArticleMarkReadStatus200ResultSeverityEnumKey = (typeof rssArticleMarkReadStatus200ResultSeverityEnum)[keyof typeof rssArticleMarkReadStatus200ResultSeverityEnum];
+
 export const rssArticleMarkReadStatus200ResultTagsAppliedByEnum = {
     ai: "ai",
     analyst: "analyst",
@@ -311183,12 +311494,10 @@ export type RssArticleMarkReadStatus200 = {
         read: boolean;
         read_at: string | null;
         /**
-         * @description Intrinsic article severity from 1 (informational) to 5 (critical). Null when the account has no active Priority Intelligence Requirements, scoring has not completed, or a historic article has not entered an automatic rescore window.
-         * @minLength 1
-         * @maxLength 5
-         * @type number
+         * @description Beta. Intrinsic article severity band, from informational to critical, independent of any organisation or Priority Intelligence Requirement. Null when the account has no active Priority Intelligence Requirements, scoring has not completed, or a historic article has not entered an automatic rescore window.
+         * @type string
         */
-        severity: number | null;
+        severity: RssArticleMarkReadStatus200ResultSeverityEnumKey | null;
         skill_version?: (string | null) | undefined;
         source_count: number;
         /**
@@ -334225,6 +334534,52 @@ export type DnsSettingsForAnAccountGetCustomNameserverSetResponses = {
 */
 export type DnsSettingsForAnAccountGetCustomNameserverSetResponse = DnsSettingsForAnAccountGetCustomNameserverSetStatus200;
 
+export type DnsSettingsForAnAccountUpdateCustomNameserverSetPath = {
+    /**
+     * @description Identifier.
+     * @maxLength 32
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
+     * @type string
+    */
+    accountId: DnsSettingsIdentifier;
+    /**
+     * @description Identifier for a nameserver set.
+     * @minLength 32
+     * @maxLength 32
+     * @pattern ^[0-9a-f]{32}$
+     * @example 0123456789abcdef0123456789abcdef
+     * @type string
+    */
+    nameserverSetId: DnsSettingsNameserverSetId;
+};
+
+export type DnsSettingsForAnAccountUpdateCustomNameserverSetStatus200 = DnsSettingsNameserverSetResponseSingle;
+
+export type DnsSettingsForAnAccountUpdateCustomNameserverSetStatus400 = DnsSettingsApiResponseCommonFailure;
+
+/**
+ * @description Updates only the customer-defined name. All other fields are rejected, even if unchanged. An empty object or the current name succeeds without changing the set. A null name is invalid. Requires the account-scoped creation entitlements, including eligibility for the set\'s current IP set and the Advanced entitlement for an Advanced set.
+ * @type object
+*/
+export type DnsSettingsForAnAccountUpdateCustomNameserverSetBody = DnsSettingsNameserverSetPatch;
+
+export type DnsSettingsForAnAccountUpdateCustomNameserverSetOptions = {
+    body: DnsSettingsForAnAccountUpdateCustomNameserverSetBody;
+    path: DnsSettingsForAnAccountUpdateCustomNameserverSetPath;
+    query?: never | undefined;
+    headers?: never | undefined;
+};
+
+export type DnsSettingsForAnAccountUpdateCustomNameserverSetResponses = {
+    "200": DnsSettingsForAnAccountUpdateCustomNameserverSetStatus200;
+    "400": DnsSettingsForAnAccountUpdateCustomNameserverSetStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+*/
+export type DnsSettingsForAnAccountUpdateCustomNameserverSetResponse = DnsSettingsForAnAccountUpdateCustomNameserverSetStatus200;
+
 export type DnsViewsForAnAccountListInternalDnsViewsPath = {
     /**
      * @description Identifier.
@@ -342882,6 +343237,101 @@ export type IpAccessRulesForAnAccountUpdateAnIpAccessRuleResponses = {
  * @description Union of all possible responses
 */
 export type IpAccessRulesForAnAccountUpdateAnIpAccessRuleResponse = IpAccessRulesForAnAccountUpdateAnIpAccessRuleStatus200;
+
+export type PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyPath = {
+    /**
+     * @description Defines an account identifier.
+     * @maxLength 32
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
+     * @type string
+    */
+    accountId: FirewallAccountIdentifier;
+};
+
+export type PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyStatus200 = FirewallPayloadLoggingKeyResponseSingle;
+
+export type PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyStatus400 = FirewallApiResponseCommonFailure;
+
+export type PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyOptions = {
+    body?: never | undefined;
+    path: PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyPath;
+    query?: never | undefined;
+    headers?: never | undefined;
+};
+
+export type PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyResponses = {
+    "200": PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyStatus200;
+    "400": PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+*/
+export type PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyResponse = PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyStatus200;
+
+export type PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyPath = {
+    /**
+     * @description Defines an account identifier.
+     * @maxLength 32
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
+     * @type string
+    */
+    accountId: FirewallAccountIdentifier;
+};
+
+export type PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyStatus200 = FirewallPayloadLoggingKeyResponseSingle;
+
+export type PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyStatus400 = FirewallApiResponseCommonFailure;
+
+export type PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyOptions = {
+    body?: never | undefined;
+    path: PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyPath;
+    query?: never | undefined;
+    headers?: never | undefined;
+};
+
+export type PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyResponses = {
+    "200": PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyStatus200;
+    "400": PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+*/
+export type PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyResponse = PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyStatus200;
+
+export type PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyPath = {
+    /**
+     * @description Defines an account identifier.
+     * @maxLength 32
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
+     * @type string
+    */
+    accountId: FirewallAccountIdentifier;
+};
+
+export type PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyStatus200 = FirewallPayloadLoggingKeyResponseSingle;
+
+export type PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyStatus400 = FirewallApiResponseCommonFailure;
+
+export type PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyBody = FirewallPayloadLoggingKey;
+
+export type PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyOptions = {
+    body: PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyBody;
+    path: PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyPath;
+    query?: never | undefined;
+    headers?: never | undefined;
+};
+
+export type PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyResponses = {
+    "200": PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyStatus200;
+    "400": PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+*/
+export type PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyResponse = PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyStatus200;
 
 export type FlagshipListAppsPath = {
     /**
@@ -372739,11 +373189,17 @@ export type EnableCatalogStatus409 = R2DataCatalogApiResponseCommonFailure;
 export type EnableCatalogStatus500 = R2DataCatalogApiResponseCommonFailure;
 
 /**
+ * @description Contains the optional request to enable a catalog. Send an empty body\nto keep the defaults. If you include `credential`, the service checks\nthat the token can access the bucket, then stores it as the catalog\'s\nmaintenance credential, like the store credentials operation.\n
+ * @type object | undefined
+*/
+export type EnableCatalogBody = R2DataCatalogCatalogActivationRequest | undefined;
+
+/**
  * @deprecated
  * @type object
 */
 export type EnableCatalogOptions = {
-    body?: never | undefined;
+    body: EnableCatalogBody;
     path: EnableCatalogPath;
     query?: never | undefined;
     headers?: never | undefined;
@@ -382007,7 +382463,7 @@ export type ReportingIndustryGetPath = {
      * @minLength 32
      * @maxLength 32
      * @pattern ^[a-f0-9]{32}$
-     * @example f1234567890abcdef1234567890abcdef
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
      * @type string
     */
     accountId: string;
@@ -382028,6 +382484,8 @@ export type ReportingIndustryGetStatus200 = {
     success: true;
 };
 
+export type ReportingIndustryGetStatus400 = ReportsAccountIndustryErrorResponse;
+
 export type ReportingIndustryGetOptions = {
     body?: never | undefined;
     path: ReportingIndustryGetPath;
@@ -382037,6 +382495,7 @@ export type ReportingIndustryGetOptions = {
 
 export type ReportingIndustryGetResponses = {
     "200": ReportingIndustryGetStatus200;
+    "400": ReportingIndustryGetStatus400;
 };
 
 /**
@@ -382050,7 +382509,7 @@ export type ReportingIndustryUpdatePath = {
      * @minLength 32
      * @maxLength 32
      * @pattern ^[a-f0-9]{32}$
-     * @example f1234567890abcdef1234567890abcdef
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
      * @type string
     */
     accountId: string;
@@ -382104,7 +382563,7 @@ export type ReportingPoliciesListPath = {
      * @minLength 32
      * @maxLength 32
      * @pattern ^[a-f0-9]{32}$
-     * @example f1234567890abcdef1234567890abcdef
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
      * @type string
     */
     accountId: string;
@@ -382145,7 +382604,7 @@ export type ReportingPoliciesGetPath = {
      * @minLength 32
      * @maxLength 32
      * @pattern ^[a-f0-9]{32}$
-     * @example f1234567890abcdef1234567890abcdef
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
      * @type string
     */
     accountId: string;
@@ -382178,7 +382637,7 @@ export type ReportingReportsListPath = {
      * @minLength 32
      * @maxLength 32
      * @pattern ^[a-f0-9]{32}$
-     * @example f1234567890abcdef1234567890abcdef
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
      * @type string
     */
     accountId: string;
@@ -382211,7 +382670,7 @@ export type ReportingReportsGetPath = {
      * @minLength 32
      * @maxLength 32
      * @pattern ^[a-f0-9]{32}$
-     * @example f1234567890abcdef1234567890abcdef
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
      * @type string
     */
     accountId: string;
@@ -414762,6 +415221,14 @@ export type WorListWorkflowsQuery = {
     search?: string | undefined;
 };
 
+export const worListWorkflowsStatus200ResultJurisdictionEnum = {
+    eu: "eu",
+    fedramp: "fedramp",
+    us: "us"
+} as const;
+
+export type WorListWorkflowsStatus200ResultJurisdictionEnumKey = (typeof worListWorkflowsStatus200ResultJurisdictionEnum)[keyof typeof worListWorkflowsStatus200ResultJurisdictionEnum];
+
 export type WorListWorkflowsStatus200 = {
     errors: {
         code: number;
@@ -414788,6 +415255,11 @@ export type WorListWorkflowsStatus200 = {
         instances: {
             [key: string]: number;
         };
+        /**
+         * @description Jurisdiction where instances of this workflow run and store data. Set when the workflow is created and cannot be changed.
+         * @type string | undefined
+        */
+        jurisdiction?: (WorListWorkflowsStatus200ResultJurisdictionEnumKey | null) | undefined;
         /**
          * @description
          * Format: `date-time`
@@ -415651,6 +416123,14 @@ export type WorGetWorkflowDetailsPath = {
     accountId: string;
 };
 
+export const worGetWorkflowDetailsStatus200ResultJurisdictionEnum = {
+    eu: "eu",
+    fedramp: "fedramp",
+    us: "us"
+} as const;
+
+export type WorGetWorkflowDetailsStatus200ResultJurisdictionEnumKey = (typeof worGetWorkflowDetailsStatus200ResultJurisdictionEnum)[keyof typeof worGetWorkflowDetailsStatus200ResultJurisdictionEnum];
+
 export type WorGetWorkflowDetailsStatus200 = {
     errors: {
         code: number;
@@ -415677,6 +416157,11 @@ export type WorGetWorkflowDetailsStatus200 = {
         instances: {
             [key: string]: number;
         };
+        /**
+         * @description Jurisdiction where instances of this workflow run and store data. Set when the workflow is created and cannot be changed.
+         * @type string | undefined
+        */
+        jurisdiction?: (WorGetWorkflowDetailsStatus200ResultJurisdictionEnumKey | null) | undefined;
         /**
          * @description
          * Format: `date-time`
@@ -415767,6 +416252,14 @@ export type WorCreateOrModifyWorkflowPath = {
     accountId: string;
 };
 
+export const worCreateOrModifyWorkflowStatus200ResultJurisdictionEnum = {
+    eu: "eu",
+    fedramp: "fedramp",
+    us: "us"
+} as const;
+
+export type WorCreateOrModifyWorkflowStatus200ResultJurisdictionEnumKey = (typeof worCreateOrModifyWorkflowStatus200ResultJurisdictionEnum)[keyof typeof worCreateOrModifyWorkflowStatus200ResultJurisdictionEnum];
+
 export type WorCreateOrModifyWorkflowStatus200 = {
     errors: {
         code: number;
@@ -415791,6 +416284,11 @@ export type WorCreateOrModifyWorkflowStatus200 = {
         */
         id: string;
         is_deleted: number;
+        /**
+         * @description Jurisdiction where instances of this workflow run and store data. Set when the workflow is created and cannot be changed.
+         * @type string | undefined
+        */
+        jurisdiction?: (WorCreateOrModifyWorkflowStatus200ResultJurisdictionEnumKey | null) | undefined;
         /**
          * @description
          * Format: `date-time`
@@ -415850,6 +416348,14 @@ export type WorCreateOrModifyWorkflowStatus409 = {
     success: false;
 };
 
+export const worCreateOrModifyWorkflowRequestJurisdictionEnum = {
+    eu: "eu",
+    fedramp: "fedramp",
+    us: "us"
+} as const;
+
+export type WorCreateOrModifyWorkflowRequestJurisdictionEnumKey = (typeof worCreateOrModifyWorkflowRequestJurisdictionEnum)[keyof typeof worCreateOrModifyWorkflowRequestJurisdictionEnum];
+
 export type WorCreateOrModifyWorkflowBody = {
     /**
      * @minLength 1
@@ -415880,6 +416386,11 @@ export type WorCreateOrModifyWorkflowBody = {
         */
         success_retention?: (number | string) | undefined;
     } | undefined;
+    /**
+     * @description Jurisdiction where instances of this workflow run and store data. Can only be set when the workflow is created and cannot be changed afterwards; omit it to keep the existing jurisdiction.
+     * @type string | undefined
+    */
+    jurisdiction?: WorCreateOrModifyWorkflowRequestJurisdictionEnumKey | undefined;
     limits?: {
         /**
          * @minLength 1
@@ -442555,6 +443066,101 @@ export type ZoneLockdownUpdateAZoneLockdownRuleResponses = {
  * @description Union of all possible responses
 */
 export type ZoneLockdownUpdateAZoneLockdownRuleResponse = ZoneLockdownUpdateAZoneLockdownRuleStatus200;
+
+export type PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyPath = {
+    /**
+     * @description Defines an identifier.
+     * @maxLength 32
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
+     * @type string
+    */
+    readonly zoneId: FirewallIdentifier;
+};
+
+export type PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyStatus200 = FirewallPayloadLoggingKeyResponseSingle;
+
+export type PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyStatus400 = FirewallApiResponseCommonFailure;
+
+export type PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyOptions = {
+    body?: never | undefined;
+    path: PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyPath;
+    query?: never | undefined;
+    headers?: never | undefined;
+};
+
+export type PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyResponses = {
+    "200": PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyStatus200;
+    "400": PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+*/
+export type PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyResponse = PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyStatus200;
+
+export type PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyPath = {
+    /**
+     * @description Defines an identifier.
+     * @maxLength 32
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
+     * @type string
+    */
+    readonly zoneId: FirewallIdentifier;
+};
+
+export type PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyStatus200 = FirewallPayloadLoggingKeyResponseSingle;
+
+export type PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyStatus400 = FirewallApiResponseCommonFailure;
+
+export type PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyOptions = {
+    body?: never | undefined;
+    path: PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyPath;
+    query?: never | undefined;
+    headers?: never | undefined;
+};
+
+export type PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyResponses = {
+    "200": PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyStatus200;
+    "400": PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+*/
+export type PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyResponse = PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyStatus200;
+
+export type PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyPath = {
+    /**
+     * @description Defines an identifier.
+     * @maxLength 32
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
+     * @type string
+    */
+    readonly zoneId: FirewallIdentifier;
+};
+
+export type PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyStatus200 = FirewallPayloadLoggingKeyResponseSingle;
+
+export type PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyStatus400 = FirewallApiResponseCommonFailure;
+
+export type PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyBody = FirewallPayloadLoggingKey;
+
+export type PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyOptions = {
+    body: PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyBody;
+    path: PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyPath;
+    query?: never | undefined;
+    headers?: never | undefined;
+};
+
+export type PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyResponses = {
+    "200": PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyStatus200;
+    "400": PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+*/
+export type PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyResponse = PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyStatus200;
 
 export type FirewallRulesDeleteFirewallRulesPath = {
     /**
