@@ -2969,6 +2969,9 @@ import type {
 	DeleteImageRegistryStatus404,
 	DeleteImageRegistryStatus409,
 	DeleteImageRegistryStatus500,
+	DeleteIndicatorDeleteBulkResponse,
+	DeleteIndicatorDeleteBulkStatus400,
+	DeleteIndicatorDeleteBulkStatus404,
 	DeleteIndicatorDeleteResponse,
 	DeleteIndicatorDeleteStatus404,
 	DeleteIndicatorRelationshipDeleteResponse,
@@ -67383,6 +67386,49 @@ export async function postIndicatorTypeCreate(
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/events/dataset/${encodeURIComponent(String(pathParams.datasetId))}/indicatorTypes/create`,
 		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete indicators in bulk
+ * @description Deletes up to 200 indicators from a dataset. Pass the indicator UUIDs in `indicatorIds`; UUIDs that are not found are returned in `missingUUIDs`.
+ * @link /accounts/{accountId}/cloudforce-one/events/dataset/{datasetId}/indicators
+ */
+export async function deleteIndicatorDeleteBulk(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { accountId: string; datasetId: string };
+		queryParams?: { indicatorIds?: Array<string> };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.datasetId == null || String(pathParams.datasetId) === "") {
+		throw new Error(`Missing required path parameter: datasetId`);
+	}
+	const data = await request<
+		DeleteIndicatorDeleteBulkResponse,
+		ErrorWrapper<DeleteIndicatorDeleteBulkStatus400 | DeleteIndicatorDeleteBulkStatus404>,
+		null,
+		Record<string, string>,
+		{ indicatorIds?: Array<string> },
+		{ accountId: string; datasetId: string }
+	>({
+		method: "DELETE",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/events/dataset/${encodeURIComponent(String(pathParams.datasetId))}/indicators`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -192382,6 +192428,8 @@ export const operationsByPath = {
 		getEventRead,
 	"POST /accounts/{accountId}/cloudforce-one/events/dataset/{datasetId}/indicatorTypes/create":
 		postIndicatorTypeCreate,
+	"DELETE /accounts/{accountId}/cloudforce-one/events/dataset/{datasetId}/indicators":
+		deleteIndicatorDeleteBulk,
 	"GET /accounts/{accountId}/cloudforce-one/events/dataset/{datasetId}/indicators":
 		getIndicatorListLegacy,
 	"POST /accounts/{accountId}/cloudforce-one/events/dataset/{datasetId}/indicators/bulk":
@@ -197837,6 +197885,7 @@ export const operationsByTag = {
 		postIndicatorTypeCreate,
 	},
 	indicator: {
+		deleteIndicatorDeleteBulk,
 		getIndicatorListLegacy,
 		postIndicatorCreateBulk,
 		postIndicatorCreate,
@@ -202940,6 +202989,11 @@ export const tagDictionary = {
 		POST: ["postIndicatorTypeCreate"],
 	},
 	indicator: {
+		DELETE: [
+			"deleteIndicatorDeleteBulk",
+			"deleteIndicatorDelete",
+			"deleteIndicatorRelationshipDelete",
+		],
 		GET: [
 			"getIndicatorListLegacy",
 			"getIndicatorTagsList",
@@ -202949,7 +203003,6 @@ export const tagDictionary = {
 			"getIndicatorAggregate",
 		],
 		POST: ["postIndicatorCreateBulk", "postIndicatorCreate", "postIndicatorRelationshipCreate"],
-		DELETE: ["deleteIndicatorDelete", "deleteIndicatorRelationshipDelete"],
 		PATCH: ["patchIndicatorUpdate", "patchIndicatorRelationshipUpdate"],
 	},
 	permissions: {
