@@ -7249,6 +7249,21 @@ export type UserEvent = {
 	 */
 	createdAt: number;
 	/**
+	 * @description Labeled event details for progressive disclosure in the activity feed.
+	 * @type array | undefined
+	 */
+	details?:
+		| {
+				/**
+				 * @description Recognition context that should remain visible in a compact feed row.
+				 * @type string | undefined
+				 */
+				display?: "inline" | undefined;
+				label: string;
+				value: string;
+		  }[]
+		| undefined;
+	/**
 	 * @description A list of \"entities\" within the event `text`. Useful for enhancing the displayed text with additional styling and links.
 	 * @type array
 	 */
@@ -14227,6 +14242,11 @@ export type UserEvent = {
 	 * @type string | undefined
 	 */
 	sessionId?: string | undefined;
+	/**
+	 * @description Compact activity-feed text, when the event has additional details.
+	 * @type string | undefined
+	 */
+	summary?: string | undefined;
 	/**
 	 * @description The human-readable text of the Event.
 	 * @example You logged in via GitHub
