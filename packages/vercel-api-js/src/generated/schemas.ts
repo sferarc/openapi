@@ -560,6 +560,10 @@ export const connectConnectorSchema = z
 			.describe(
 				"Known events this connector subscribes to (e.g. Slack bot events, GitHub webhook events). Names are type-specific and validated by the managed-create flow when forwarded to the third-party service.",
 			),
+		hasMcpEventDeliveries: z
+			.union([z.literal(false), z.literal(true)])
+			.optional()
+			.describe("Whether Connect has successfully delivered an MCP event for this connector."),
 		icon: z
 			.string()
 			.optional()
@@ -585,6 +589,12 @@ export const connectConnectorSchema = z
 			.optional()
 			.describe(
 				"Managed connector metadata exposed without leaking the manager connector or installation identifiers.",
+			),
+		mcpEventsUiVisibility: z
+			.enum(["auto", "hide", "show"])
+			.optional()
+			.describe(
+				"MCP Events dashboard visibility. Defaults to auto: show after the first successful delivery.",
 			),
 		name: z.string().describe("Connector name within the owning team."),
 		redirectUri: z
@@ -823,6 +833,10 @@ export const connectConnectorCreateResultSchema = z
 			.describe(
 				"Known events this connector subscribes to (e.g. Slack bot events, GitHub webhook events). Names are type-specific and validated by the managed-create flow when forwarded to the third-party service.",
 			),
+		hasMcpEventDeliveries: z
+			.union([z.literal(false), z.literal(true)])
+			.optional()
+			.describe("Whether Connect has successfully delivered an MCP event for this connector."),
 		icon: z
 			.string()
 			.optional()
@@ -848,6 +862,12 @@ export const connectConnectorCreateResultSchema = z
 			.optional()
 			.describe(
 				"Managed connector metadata exposed without leaking the manager connector or installation identifiers.",
+			),
+		mcpEventsUiVisibility: z
+			.enum(["auto", "hide", "show"])
+			.optional()
+			.describe(
+				"MCP Events dashboard visibility. Defaults to auto: show after the first successful delivery.",
 			),
 		name: z.string().describe("Connector name within the owning team."),
 		redirectUri: z
@@ -2388,6 +2408,12 @@ export const connectUpdateConnectorRequestSchema = z
 				"Additional registration inputs, validated by the trigger driver. Requires triggers: true. Shared verification credentials are read from triggerData.",
 			),
 		events: z.array(z.string()).optional().describe("Default trigger events for this connector."),
+		mcpEventsUiVisibility: z
+			.enum(["auto", "hide", "show"])
+			.optional()
+			.describe(
+				"MCP Events dashboard visibility. Auto (the default) shows the UI after the first successful delivery. Show and hide persist regardless of future deliveries. This does not enable or disable event delivery.",
+			),
 		data: z.unknown().optional().describe("Provider configuration fields to update."),
 		icon: z
 			.string()
@@ -3784,6 +3810,7 @@ export const userEventSchema = z
 								"read-write:access-group",
 								"read-write:ai-gateway-api-key",
 								"read-write:ai-gateway-budgets",
+								"read-write:ai-gateway-byok-credentials",
 								"read-write:ai-gateway-guardrails",
 								"read-write:ai-gateway-private-models",
 								"read-write:ai-gateway-rules",
@@ -3821,6 +3848,7 @@ export const userEventSchema = z
 								"read-write:webhooks",
 								"read:access-group",
 								"read:ai-gateway-budgets",
+								"read:ai-gateway-byok-credentials",
 								"read:ai-gateway-guardrails",
 								"read:ai-gateway-private-models",
 								"read:ai-gateway-rules",
@@ -3876,6 +3904,7 @@ export const userEventSchema = z
 								"read-write:access-group",
 								"read-write:ai-gateway-api-key",
 								"read-write:ai-gateway-budgets",
+								"read-write:ai-gateway-byok-credentials",
 								"read-write:ai-gateway-guardrails",
 								"read-write:ai-gateway-private-models",
 								"read-write:ai-gateway-rules",
@@ -3913,6 +3942,7 @@ export const userEventSchema = z
 								"read-write:webhooks",
 								"read:access-group",
 								"read:ai-gateway-budgets",
+								"read:ai-gateway-byok-credentials",
 								"read:ai-gateway-guardrails",
 								"read:ai-gateway-private-models",
 								"read:ai-gateway-rules",
@@ -3964,6 +3994,7 @@ export const userEventSchema = z
 										"read-write:access-group",
 										"read-write:ai-gateway-api-key",
 										"read-write:ai-gateway-budgets",
+										"read-write:ai-gateway-byok-credentials",
 										"read-write:ai-gateway-guardrails",
 										"read-write:ai-gateway-private-models",
 										"read-write:ai-gateway-rules",
@@ -4001,6 +4032,7 @@ export const userEventSchema = z
 										"read-write:webhooks",
 										"read:access-group",
 										"read:ai-gateway-budgets",
+										"read:ai-gateway-byok-credentials",
 										"read:ai-gateway-guardrails",
 										"read:ai-gateway-private-models",
 										"read:ai-gateway-rules",
@@ -4064,6 +4096,7 @@ export const userEventSchema = z
 										"read-write:access-group",
 										"read-write:ai-gateway-api-key",
 										"read-write:ai-gateway-budgets",
+										"read-write:ai-gateway-byok-credentials",
 										"read-write:ai-gateway-guardrails",
 										"read-write:ai-gateway-private-models",
 										"read-write:ai-gateway-rules",
@@ -4101,6 +4134,7 @@ export const userEventSchema = z
 										"read-write:webhooks",
 										"read:access-group",
 										"read:ai-gateway-budgets",
+										"read:ai-gateway-byok-credentials",
 										"read:ai-gateway-guardrails",
 										"read:ai-gateway-private-models",
 										"read:ai-gateway-rules",
@@ -4167,6 +4201,7 @@ export const userEventSchema = z
 								"read-write:access-group",
 								"read-write:ai-gateway-api-key",
 								"read-write:ai-gateway-budgets",
+								"read-write:ai-gateway-byok-credentials",
 								"read-write:ai-gateway-guardrails",
 								"read-write:ai-gateway-private-models",
 								"read-write:ai-gateway-rules",
@@ -4204,6 +4239,7 @@ export const userEventSchema = z
 								"read-write:webhooks",
 								"read:access-group",
 								"read:ai-gateway-budgets",
+								"read:ai-gateway-byok-credentials",
 								"read:ai-gateway-guardrails",
 								"read:ai-gateway-private-models",
 								"read:ai-gateway-rules",
@@ -16912,6 +16948,315 @@ export const deleteAccessGroupProjectErrorSchema = z.union([
 	deleteAccessGroupProjectStatus410Schema,
 ]);
 
+export const createAiGatewayByokCredentialQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const createAiGatewayByokCredentialQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const createAiGatewayByokCredentialStatus201Schema = z.unknown();
+
+export const createAiGatewayByokCredentialStatus400Schema = z.unknown();
+
+export const createAiGatewayByokCredentialStatus401Schema = z.unknown();
+
+export const createAiGatewayByokCredentialStatus403Schema = z.unknown();
+
+export const createAiGatewayByokCredentialStatus404Schema = z.unknown();
+
+export const createAiGatewayByokCredentialStatus410Schema = z.unknown();
+
+export const createAiGatewayByokCredentialStatus429Schema = z.unknown();
+
+export const createAiGatewayByokCredentialStatus500Schema = z.unknown();
+
+export const createAiGatewayByokCredentialResponseSchema =
+	createAiGatewayByokCredentialStatus201Schema;
+
+export const createAiGatewayByokCredentialErrorSchema = z.union([
+	createAiGatewayByokCredentialStatus400Schema,
+	createAiGatewayByokCredentialStatus401Schema,
+	createAiGatewayByokCredentialStatus403Schema,
+	createAiGatewayByokCredentialStatus404Schema,
+	createAiGatewayByokCredentialStatus410Schema,
+	createAiGatewayByokCredentialStatus429Schema,
+	createAiGatewayByokCredentialStatus500Schema,
+]);
+
+export const createAiGatewayByokCredentialBodySchema = z
+	.object({
+		ownerId: z
+			.string()
+			.optional()
+			.describe(
+				"The owner ID for this credential. Ignored for customer tokens, which always create in their own team.",
+			),
+		providerSlug: z
+			.string()
+			.describe('The provider slug this credential is for (e.g., "openai", "anthropic")'),
+		name: z.string().max(100).describe("The developer-entered name for this credential"),
+		active: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe("Whether the credential is active and can be used"),
+		zeroDataRetention: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe(
+				"Whether the customer attested this external credential has a zero data retention policy",
+			),
+		userId: z
+			.string()
+			.optional()
+			.describe("The ID of the user performing this action, used for Activity-log attribution."),
+		mappings: z
+			.array(
+				z.object({
+					gatewayModelSlug: z
+						.string()
+						.describe('The AI Gateway model slug (e.g., "openai/gpt-5.4")'),
+					customModelId: z
+						.string()
+						.describe('The customer\'s custom model ID (e.g., "my-finetuned-gpt-5")'),
+				}),
+			)
+			.max(99)
+			.optional()
+			.describe(
+				"Model mappings to create atomically with the credential (e.g. Azure deployments). One DynamoDB transaction holds the credential plus all mappings, so at most 99 mappings fit.",
+			),
+	})
+	.optional();
+
+export const listAiGatewayByokCredentialsQueryOwnerIdSchema = z
+	.string()
+	.optional()
+	.describe(
+		"The owner ID to list credentials for. Ignored for customer tokens, which always list their own team.",
+	);
+
+export const listAiGatewayByokCredentialsQueryProviderSlugSchema = z
+	.string()
+	.optional()
+	.describe("Optional provider slug to filter credentials by");
+
+export const listAiGatewayByokCredentialsQueryIncludeDeletedSchema = z
+	.enum(["true", "false"])
+	.optional()
+	.default("false")
+	.describe("Whether to include soft-deleted credentials");
+
+export const listAiGatewayByokCredentialsQueryDecryptSchema = z
+	.enum(["true", "false"])
+	.optional()
+	.default("false")
+	.describe("Not supported. Credential values are never returned.");
+
+export const listAiGatewayByokCredentialsQueryIncludeModelMappingsSchema = z
+	.enum(["true", "false"])
+	.optional()
+	.default("false")
+	.describe("Whether to include model mappings for each credential in the response");
+
+export const listAiGatewayByokCredentialsQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const listAiGatewayByokCredentialsQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const listAiGatewayByokCredentialsStatus200Schema = z.unknown();
+
+export const listAiGatewayByokCredentialsStatus400Schema = z.unknown();
+
+export const listAiGatewayByokCredentialsStatus401Schema = z.unknown();
+
+export const listAiGatewayByokCredentialsStatus403Schema = z.unknown();
+
+export const listAiGatewayByokCredentialsStatus404Schema = z.unknown();
+
+export const listAiGatewayByokCredentialsStatus410Schema = z.unknown();
+
+export const listAiGatewayByokCredentialsStatus500Schema = z.unknown();
+
+export const listAiGatewayByokCredentialsResponseSchema =
+	listAiGatewayByokCredentialsStatus200Schema;
+
+export const listAiGatewayByokCredentialsErrorSchema = z.union([
+	listAiGatewayByokCredentialsStatus400Schema,
+	listAiGatewayByokCredentialsStatus401Schema,
+	listAiGatewayByokCredentialsStatus403Schema,
+	listAiGatewayByokCredentialsStatus404Schema,
+	listAiGatewayByokCredentialsStatus410Schema,
+	listAiGatewayByokCredentialsStatus500Schema,
+]);
+
+export const getAiGatewayByokCredentialQueryOwnerIdSchema = z.string().optional();
+
+export const getAiGatewayByokCredentialPathCredentialIdSchema = z
+	.string()
+	.describe("The unique ID of the credential");
+
+export const getAiGatewayByokCredentialQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const getAiGatewayByokCredentialQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const getAiGatewayByokCredentialStatus200Schema = z.unknown();
+
+export const getAiGatewayByokCredentialStatus400Schema = z.unknown();
+
+export const getAiGatewayByokCredentialStatus401Schema = z.unknown();
+
+export const getAiGatewayByokCredentialStatus403Schema = z.unknown();
+
+export const getAiGatewayByokCredentialStatus404Schema = z.unknown();
+
+export const getAiGatewayByokCredentialStatus410Schema = z.unknown();
+
+export const getAiGatewayByokCredentialStatus500Schema = z.unknown();
+
+export const getAiGatewayByokCredentialResponseSchema = getAiGatewayByokCredentialStatus200Schema;
+
+export const getAiGatewayByokCredentialErrorSchema = z.union([
+	getAiGatewayByokCredentialStatus400Schema,
+	getAiGatewayByokCredentialStatus401Schema,
+	getAiGatewayByokCredentialStatus403Schema,
+	getAiGatewayByokCredentialStatus404Schema,
+	getAiGatewayByokCredentialStatus410Schema,
+	getAiGatewayByokCredentialStatus500Schema,
+]);
+
+export const updateAiGatewayByokCredentialQueryOwnerIdSchema = z.string().optional();
+
+export const updateAiGatewayByokCredentialPathCredentialIdSchema = z
+	.string()
+	.describe("The unique ID of the credential to update");
+
+export const updateAiGatewayByokCredentialQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const updateAiGatewayByokCredentialQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const updateAiGatewayByokCredentialStatus200Schema = z.unknown();
+
+export const updateAiGatewayByokCredentialStatus400Schema = z.unknown();
+
+export const updateAiGatewayByokCredentialStatus401Schema = z.unknown();
+
+export const updateAiGatewayByokCredentialStatus403Schema = z.unknown();
+
+export const updateAiGatewayByokCredentialStatus404Schema = z.unknown();
+
+export const updateAiGatewayByokCredentialStatus410Schema = z.unknown();
+
+export const updateAiGatewayByokCredentialStatus500Schema = z.unknown();
+
+export const updateAiGatewayByokCredentialResponseSchema =
+	updateAiGatewayByokCredentialStatus200Schema;
+
+export const updateAiGatewayByokCredentialErrorSchema = z.union([
+	updateAiGatewayByokCredentialStatus400Schema,
+	updateAiGatewayByokCredentialStatus401Schema,
+	updateAiGatewayByokCredentialStatus403Schema,
+	updateAiGatewayByokCredentialStatus404Schema,
+	updateAiGatewayByokCredentialStatus410Schema,
+	updateAiGatewayByokCredentialStatus500Schema,
+]);
+
+export const updateAiGatewayByokCredentialBodySchema = z
+	.strictObject({
+		name: z.string().max(100).optional().describe("The new name for the credential"),
+		active: z.boolean().optional().describe("Whether the credential should be active"),
+		zeroDataRetention: z
+			.boolean()
+			.optional()
+			.describe(
+				"Whether the customer attested this external credential has a zero data retention policy",
+			),
+		userId: z
+			.string()
+			.optional()
+			.describe("The ID of the user performing this action, used for Activity-log attribution."),
+	})
+	.optional();
+
+export const deleteAiGatewayByokCredentialQueryOwnerIdSchema = z.string().optional();
+
+export const deleteAiGatewayByokCredentialPathCredentialIdSchema = z
+	.string()
+	.describe("The unique ID of the credential to delete");
+
+export const deleteAiGatewayByokCredentialQueryUserIdSchema = z
+	.string()
+	.optional()
+	.describe("The ID of the user performing this action, used for Activity-log attribution.");
+
+export const deleteAiGatewayByokCredentialQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const deleteAiGatewayByokCredentialQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const deleteAiGatewayByokCredentialStatus204Schema = z.unknown();
+
+export const deleteAiGatewayByokCredentialStatus400Schema = z.unknown();
+
+export const deleteAiGatewayByokCredentialStatus401Schema = z.unknown();
+
+export const deleteAiGatewayByokCredentialStatus403Schema = z.unknown();
+
+export const deleteAiGatewayByokCredentialStatus404Schema = z.unknown();
+
+export const deleteAiGatewayByokCredentialStatus410Schema = z.unknown();
+
+export const deleteAiGatewayByokCredentialStatus500Schema = z.unknown();
+
+export const deleteAiGatewayByokCredentialResponseSchema =
+	deleteAiGatewayByokCredentialStatus204Schema;
+
+export const deleteAiGatewayByokCredentialErrorSchema = z.union([
+	deleteAiGatewayByokCredentialStatus400Schema,
+	deleteAiGatewayByokCredentialStatus401Schema,
+	deleteAiGatewayByokCredentialStatus403Schema,
+	deleteAiGatewayByokCredentialStatus404Schema,
+	deleteAiGatewayByokCredentialStatus410Schema,
+	deleteAiGatewayByokCredentialStatus500Schema,
+]);
+
 export const createAiGatewayVirtualModelConfigQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -20108,7 +20453,7 @@ export const listConnectorsErrorSchema = z.union([
 export const getConnectorPathConnectorSchema = z
 	.string()
 	.describe(
-		"Stable connector ID or URL-encoded team-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.",
+		"Stable connector ID or URL-encoded owner-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.",
 	);
 
 export const getConnectorQueryTeamIdSchema = z
@@ -20617,7 +20962,13 @@ export const upsertConnectorProjectConnectionStatus409Schema = z.unknown();
 
 export const upsertConnectorProjectConnectionStatus410Schema = z.unknown();
 
+export const upsertConnectorProjectConnectionStatus422Schema = z.unknown();
+
 export const upsertConnectorProjectConnectionStatus500Schema = z.unknown();
+
+export const upsertConnectorProjectConnectionStatus501Schema = z.unknown();
+
+export const upsertConnectorProjectConnectionStatus504Schema = z.unknown();
 
 export const upsertConnectorProjectConnectionResponseSchema =
 	upsertConnectorProjectConnectionStatus200Schema;
@@ -20629,7 +20980,10 @@ export const upsertConnectorProjectConnectionErrorSchema = z.union([
 	upsertConnectorProjectConnectionStatus404Schema,
 	upsertConnectorProjectConnectionStatus409Schema,
 	upsertConnectorProjectConnectionStatus410Schema,
+	upsertConnectorProjectConnectionStatus422Schema,
 	upsertConnectorProjectConnectionStatus500Schema,
+	upsertConnectorProjectConnectionStatus501Schema,
+	upsertConnectorProjectConnectionStatus504Schema,
 ]);
 
 export const upsertConnectorProjectConnectionBodySchema = z.unknown();
@@ -20674,7 +21028,13 @@ export const deleteConnectorProjectConnectionStatus409Schema = z.unknown();
 
 export const deleteConnectorProjectConnectionStatus410Schema = z.unknown();
 
+export const deleteConnectorProjectConnectionStatus422Schema = z.unknown();
+
 export const deleteConnectorProjectConnectionStatus500Schema = z.unknown();
+
+export const deleteConnectorProjectConnectionStatus501Schema = z.unknown();
+
+export const deleteConnectorProjectConnectionStatus504Schema = z.unknown();
 
 export const deleteConnectorProjectConnectionResponseSchema =
 	deleteConnectorProjectConnectionStatus204Schema;
@@ -20686,7 +21046,10 @@ export const deleteConnectorProjectConnectionErrorSchema = z.union([
 	deleteConnectorProjectConnectionStatus404Schema,
 	deleteConnectorProjectConnectionStatus409Schema,
 	deleteConnectorProjectConnectionStatus410Schema,
+	deleteConnectorProjectConnectionStatus422Schema,
 	deleteConnectorProjectConnectionStatus500Schema,
+	deleteConnectorProjectConnectionStatus501Schema,
+	deleteConnectorProjectConnectionStatus504Schema,
 ]);
 
 export const listProjectConnectorConnectionsPathProjectIdSchema = z
