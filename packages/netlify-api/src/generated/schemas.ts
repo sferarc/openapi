@@ -1130,6 +1130,23 @@ export const deployFilesSchema = z
 					.describe(
 						"The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n",
 					),
+				scale: z
+					.object({
+						min: z.coerce
+							.bigint()
+							.nullish()
+							.describe(
+								"The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n",
+							),
+						max: z.coerce
+							.bigint()
+							.nullish()
+							.describe(
+								"The maximum number of instances the server scales to. Defaults to the\nhighest the account's plan allows when absent.\n",
+							),
+					})
+					.optional()
+					.describe("How many instances of the server run."),
 			})
 			.optional()
 			.describe(
@@ -4830,6 +4847,23 @@ export const createSiteDeployBodySchema = z
 					.describe(
 						"The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n",
 					),
+				scale: z
+					.object({
+						min: z.coerce
+							.bigint()
+							.nullish()
+							.describe(
+								"The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n",
+							),
+						max: z.coerce
+							.bigint()
+							.nullish()
+							.describe(
+								"The maximum number of instances the server scales to. Defaults to the\nhighest the account's plan allows when absent.\n",
+							),
+					})
+					.optional()
+					.describe("How many instances of the server run."),
 			})
 			.optional()
 			.describe(
@@ -5169,6 +5203,23 @@ export const updateSiteDeployBodySchema = z
 					.describe(
 						"The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n",
 					),
+				scale: z
+					.object({
+						min: z.coerce
+							.bigint()
+							.nullish()
+							.describe(
+								"The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n",
+							),
+						max: z.coerce
+							.bigint()
+							.nullish()
+							.describe(
+								"The maximum number of instances the server scales to. Defaults to the\nhighest the account's plan allows when absent.\n",
+							),
+					})
+					.optional()
+					.describe("How many instances of the server run."),
 			})
 			.optional()
 			.describe(
