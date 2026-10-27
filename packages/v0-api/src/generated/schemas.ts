@@ -246,15 +246,10 @@ export const chatDetailSchema = z
 		modelConfiguration: z
 			.strictObject({
 				modelId: z
-					.enum([
-						"v0-auto",
-						"v0-max",
-						"v0-max-fast",
-						"v0-mini",
-						"v0-opus-4.7",
-						"v0-opus-4.7-fast",
-						"v0-pro",
-					])
+					.string()
+					.min(3)
+					.max(200)
+					.regex(/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._/-]*$/)
 					.optional()
 					.default("v0-pro")
 					.describe(
@@ -1615,11 +1610,14 @@ export const chatsCreateBodySchema = z.strictObject({
 	modelConfiguration: z
 		.strictObject({
 			modelId: z
-				.enum(["v0-auto", "v0-max", "v0-max-fast", "v0-mini", "v0-pro"])
+				.string()
+				.min(3)
+				.max(200)
+				.regex(/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._/-]*$/)
 				.optional()
 				.default("v0-pro")
 				.describe(
-					"Model to use for the generation. `v0-auto` is deprecated and falls back to `v0-pro`.",
+					"Model to use for the generation. Use a v0 model ID, or an [AI Gateway](https://vercel.com/ai-gateway/models) model ID in `creator/model` format. Gateway models must support tool calling and Zero Data Retention, and are subject to team model policy; unsupported IDs are rejected. `v0-auto` is deprecated and falls back to `v0-pro`.",
 				),
 			imageGenerations: z
 				.boolean()
@@ -1688,7 +1686,7 @@ export const chatsCreateBodySchema = z.strictObject({
 			"Skills to force-attach to this chat. Supports skills.sh (`remote`), user/team memory (`memory`), and project (`project`) skills. Merged with `attachedSkillIds`. Maximum 3 skills per chat.",
 		),
 	metadata: z
-		.record(z.string(), z.string().max(500))
+		.record(z.string().min(1).max(40), z.string().max(500))
 		.optional()
 		.default({})
 		.describe(
@@ -1735,7 +1733,7 @@ export const chatsFindQueryBranchSchema = z
 	);
 
 export const chatsFindQueryMetadataSchema = z
-	.record(z.string(), z.string().max(500))
+	.record(z.string().min(1).max(40), z.string().max(500))
 	.optional()
 	.describe("Filters chats by metadata. Returns chats matching every supplied key-value pair.");
 
@@ -1823,7 +1821,7 @@ export const chatsInitBodySchema = z
 				"Associates the chat with a specific project. Useful for organizing and grouping chats in a workspace.",
 			),
 		metadata: z
-			.record(z.string(), z.string().max(500))
+			.record(z.string().min(1).max(40), z.string().max(500))
 			.optional()
 			.default({})
 			.describe(
@@ -2060,7 +2058,10 @@ export const chatsUpdateBodySchema = z.strictObject({
 		.optional()
 		.describe("Sets the privacy level of the chat."),
 	metadata: z
-		.union([z.record(z.string(), z.union([z.string().max(500), z.null()])), z.null()])
+		.union([
+			z.record(z.string().min(1).max(40), z.union([z.string().max(500), z.null()])),
+			z.null(),
+		])
 		.optional()
 		.describe(
 			"Arbitrary key-value data to attach to the chat. Useful for storing additional data about the chat, such as external user IDs. Metadata added will be merged with existing attributes. Pass `null` as the value to delete a specific key, or pass `null` instead of an object to delete all existing metadata.",
@@ -2310,11 +2311,14 @@ export const chatsSendMessageBodySchema = z.strictObject({
 	modelConfiguration: z
 		.strictObject({
 			modelId: z
-				.enum(["v0-auto", "v0-max", "v0-max-fast", "v0-mini", "v0-pro"])
+				.string()
+				.min(3)
+				.max(200)
+				.regex(/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._/-]*$/)
 				.optional()
 				.default("v0-pro")
 				.describe(
-					"Model to use for the generation. `v0-auto` is deprecated and falls back to `v0-pro`.",
+					"Model to use for the generation. Use a v0 model ID, or an [AI Gateway](https://vercel.com/ai-gateway/models) model ID in `creator/model` format. Gateway models must support tool calling and Zero Data Retention, and are subject to team model policy; unsupported IDs are rejected. `v0-auto` is deprecated and falls back to `v0-pro`.",
 				),
 			imageGenerations: z
 				.boolean()
@@ -2956,11 +2960,14 @@ export const chatsResolveTaskBodySchema = z.strictObject({
 	modelConfiguration: z
 		.strictObject({
 			modelId: z
-				.enum(["v0-auto", "v0-max", "v0-max-fast", "v0-mini", "v0-pro"])
+				.string()
+				.min(3)
+				.max(200)
+				.regex(/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._/-]*$/)
 				.optional()
 				.default("v0-pro")
 				.describe(
-					"Model to use for the generation. `v0-auto` is deprecated and falls back to `v0-pro`.",
+					"Model to use for the generation. Use a v0 model ID, or an [AI Gateway](https://vercel.com/ai-gateway/models) model ID in `creator/model` format. Gateway models must support tool calling and Zero Data Retention, and are subject to team model policy; unsupported IDs are rejected. `v0-auto` is deprecated and falls back to `v0-pro`.",
 				),
 			imageGenerations: z
 				.boolean()
@@ -4466,7 +4473,7 @@ export const mcpServersCreateBodySchema = z.strictObject({
 			z.strictObject({
 				type: z.enum(["custom-headers"]).describe("Custom headers authentication."),
 				headers: z
-					.record(z.string(), z.string().max(500))
+					.record(z.string().max(100), z.string().max(500))
 					.describe("Key-value pairs of custom headers to include in requests."),
 			}),
 			z.strictObject({
@@ -4615,7 +4622,7 @@ export const mcpServersUpdateBodySchema = z.strictObject({
 			z.strictObject({
 				type: z.enum(["custom-headers"]).describe("Custom headers authentication."),
 				headers: z
-					.record(z.string(), z.string().max(500))
+					.record(z.string().max(100), z.string().max(500))
 					.describe("Key-value pairs of custom headers to include in requests."),
 			}),
 			z.strictObject({
