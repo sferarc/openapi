@@ -3036,6 +3036,19 @@ export const userEventSchema = z
 			.number()
 			.describe("Timestamp (in milliseconds) of when the event was generated.")
 			.meta({ examples: [1632859321020] }),
+		details: z
+			.array(
+				z.object({
+					display: z
+						.enum(["inline"])
+						.optional()
+						.describe("Recognition context that should remain visible in a compact feed row."),
+					label: z.string(),
+					value: z.string(),
+				}),
+			)
+			.optional()
+			.describe("Labeled event details for progressive disclosure in the activity feed."),
 		entities: z
 			.array(
 				z.object({
@@ -10615,6 +10628,10 @@ export const userEventSchema = z
 			.describe(
 				"The ID of the session that the principal's token belongs to, when it belongs to one.",
 			),
+		summary: z
+			.string()
+			.optional()
+			.describe("Compact activity-feed text, when the event has additional details."),
 		text: z
 			.string()
 			.describe("The human-readable text of the Event.")
