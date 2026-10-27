@@ -269,6 +269,7 @@ import type {
 	CreateConnectorAuthorizationRequestStatus409,
 	CreateConnectorAuthorizationRequestStatus410,
 	CreateConnectorAuthorizationRequestStatus422,
+	CreateConnectorAuthorizationRequestStatus500,
 	CreateConnectorResponse,
 	CreateConnectorStatus400,
 	CreateConnectorStatus401,
@@ -444,6 +445,7 @@ import type {
 	CreatePrivateLinkEndpointStatus409,
 	CreatePrivateLinkEndpointStatus410,
 	CreatePrivateLinkEndpointStatus500,
+	CreatePrivateLinkEndpointStatus503,
 	CreateProjectCheckResponse,
 	CreateProjectCheckStatus400,
 	CreateProjectCheckStatus401,
@@ -604,7 +606,6 @@ import type {
 	CreateSessionDirectoryStatus410,
 	CreateSessionDirectoryStatus422,
 	CreateSessionDirectoryStatus429,
-	CreateSessionDirectoryStatus500,
 	CreateSharedEnvVariableResponse,
 	CreateSharedEnvVariableStatus400,
 	CreateSharedEnvVariableStatus401,
@@ -630,6 +631,7 @@ import type {
 	CreateStorageStoresBlobStatus429,
 	CreateTeamResponse,
 	CreateTeamStatus400,
+	CreateTeamStatus401,
 	CreateTeamStatus403,
 	CreateTeamStatus404,
 	CreateTeamStatus410,
@@ -731,6 +733,7 @@ import type {
 	DeleteAllArtifactsStatus410,
 	DeleteAuthTokenResponse,
 	DeleteAuthTokenStatus400,
+	DeleteAuthTokenStatus401,
 	DeleteAuthTokenStatus403,
 	DeleteAuthTokenStatus404,
 	DeleteAuthTokenStatus410,
@@ -781,6 +784,7 @@ import type {
 	DeleteConnectorProjectConnectionStatus404,
 	DeleteConnectorProjectConnectionStatus409,
 	DeleteConnectorProjectConnectionStatus410,
+	DeleteConnectorProjectConnectionStatus500,
 	DeleteConnectorResponse,
 	DeleteConnectorStatus400,
 	DeleteConnectorStatus401,
@@ -789,6 +793,7 @@ import type {
 	DeleteConnectorStatus409,
 	DeleteConnectorStatus410,
 	DeleteConnectorStatus422,
+	DeleteConnectorStatus500,
 	DeleteConnectorStatus501,
 	DeleteConnectorStatus502,
 	DeleteConnectorStatus503,
@@ -820,6 +825,7 @@ import type {
 	DeleteDriveStatus404,
 	DeleteDriveStatus409,
 	DeleteDriveStatus410,
+	DeleteDriveStatus422,
 	DeleteDriveStatus429,
 	DeleteEdgeConfigResponse,
 	DeleteEdgeConfigSchemaResponse,
@@ -913,6 +919,7 @@ import type {
 	DeletePrivateLinkEndpointStatus409,
 	DeletePrivateLinkEndpointStatus410,
 	DeletePrivateLinkEndpointStatus500,
+	DeletePrivateLinkEndpointStatus503,
 	DeleteProjectAvatarResponse,
 	DeleteProjectAvatarStatus400,
 	DeleteProjectAvatarStatus401,
@@ -972,6 +979,7 @@ import type {
 	DeleteSandboxStatus403,
 	DeleteSandboxStatus404,
 	DeleteSandboxStatus410,
+	DeleteSandboxStatus422,
 	DeleteSandboxStatus429,
 	DeleteSdkKeyResponse,
 	DeleteSdkKeyStatus400,
@@ -994,6 +1002,7 @@ import type {
 	DeleteSessionSnapshotStatus403,
 	DeleteSessionSnapshotStatus404,
 	DeleteSessionSnapshotStatus410,
+	DeleteSessionSnapshotStatus422,
 	DeleteSessionSnapshotStatus429,
 	DeleteSharedEnvVariableResponse,
 	DeleteSharedEnvVariableStatus400,
@@ -1069,6 +1078,7 @@ import type {
 	EjectManagedConnectorStatus409,
 	EjectManagedConnectorStatus410,
 	EjectManagedConnectorStatus422,
+	EjectManagedConnectorStatus500,
 	EjectManagedConnectorStatus501,
 	EjectManagedConnectorStatus504,
 	ExchangeSsoTokenResponse,
@@ -1104,6 +1114,7 @@ import type {
 	ForkDriveStatus404,
 	ForkDriveStatus409,
 	ForkDriveStatus410,
+	ForkDriveStatus422,
 	ForkDriveStatus429,
 	ForkDriveStatus503,
 	GenerateFirewallRuleResponse,
@@ -1168,6 +1179,7 @@ import type {
 	GetAllLogDrainsStatus410,
 	GetAuthTokenResponse,
 	GetAuthTokenStatus400,
+	GetAuthTokenStatus401,
 	GetAuthTokenStatus403,
 	GetAuthTokenStatus404,
 	GetAuthTokenStatus410,
@@ -1287,6 +1299,7 @@ import type {
 	GetConnectorProjectConnectionStatus404,
 	GetConnectorProjectConnectionStatus409,
 	GetConnectorProjectConnectionStatus410,
+	GetConnectorProjectConnectionStatus500,
 	GetConnectorResponse,
 	GetConnectorStatus400,
 	GetConnectorStatus401,
@@ -1295,6 +1308,7 @@ import type {
 	GetConnectorStatus409,
 	GetConnectorStatus410,
 	GetConnectorStatus422,
+	GetConnectorStatus500,
 	GetConnectorStatus501,
 	GetConnectorStatus504,
 	GetConnectorTokenResponse,
@@ -1306,6 +1320,7 @@ import type {
 	GetConnectorTokenStatus410,
 	GetConnectorTokenStatus422,
 	GetConnectorTokenStatus429,
+	GetConnectorTokenStatus500,
 	GetContactInfoSchemaResponse,
 	GetContactInfoSchemaStatus400,
 	GetContactInfoSchemaStatus401,
@@ -1346,6 +1361,7 @@ import type {
 	GetDeploymentFileContentsStatus410,
 	GetDeploymentResponse,
 	GetDeploymentStatus400,
+	GetDeploymentStatus401,
 	GetDeploymentStatus403,
 	GetDeploymentStatus404,
 	GetDeploymentStatus410,
@@ -1433,18 +1449,21 @@ import type {
 	GetDrainStatus403,
 	GetDrainStatus404,
 	GetDrainStatus410,
+	GetDrainStatus503,
 	GetDrainsResponse,
 	GetDrainsStatus400,
 	GetDrainsStatus401,
 	GetDrainsStatus403,
 	GetDrainsStatus404,
 	GetDrainsStatus410,
+	GetDrainsStatus503,
 	GetDriveResponse,
 	GetDriveStatus400,
 	GetDriveStatus401,
 	GetDriveStatus403,
 	GetDriveStatus404,
 	GetDriveStatus410,
+	GetDriveStatus422,
 	GetDriveStatus429,
 	GetEdgeConfigBackupResponse,
 	GetEdgeConfigBackupStatus400,
@@ -1636,7 +1655,9 @@ import type {
 	GetOrCreateDriveStatus404,
 	GetOrCreateDriveStatus409,
 	GetOrCreateDriveStatus410,
+	GetOrCreateDriveStatus422,
 	GetOrCreateDriveStatus429,
+	GetOrCreateDriveStatus503,
 	GetOrderResponse,
 	GetOrderStatus400,
 	GetOrderStatus401,
@@ -1827,7 +1848,6 @@ import type {
 	GetSessionCommandLogsStatus410,
 	GetSessionCommandLogsStatus422,
 	GetSessionCommandLogsStatus429,
-	GetSessionCommandLogsStatus500,
 	GetSessionCommandResponse,
 	GetSessionCommandStatus400,
 	GetSessionCommandStatus401,
@@ -1836,7 +1856,6 @@ import type {
 	GetSessionCommandStatus410,
 	GetSessionCommandStatus422,
 	GetSessionCommandStatus429,
-	GetSessionCommandStatus500,
 	GetSessionResponse,
 	GetSessionSnapshotResponse,
 	GetSessionSnapshotStatus400,
@@ -1844,12 +1863,14 @@ import type {
 	GetSessionSnapshotStatus403,
 	GetSessionSnapshotStatus404,
 	GetSessionSnapshotStatus410,
+	GetSessionSnapshotStatus422,
 	GetSessionSnapshotStatus429,
 	GetSessionStatus400,
 	GetSessionStatus401,
 	GetSessionStatus403,
 	GetSessionStatus404,
 	GetSessionStatus410,
+	GetSessionStatus422,
 	GetSessionStatus429,
 	GetSessionStatus500,
 	GetSharedEnvVarResponse,
@@ -1872,6 +1893,7 @@ import type {
 	GetSupportedTldsStatus500,
 	GetTeamAccessRequestResponse,
 	GetTeamAccessRequestStatus400,
+	GetTeamAccessRequestStatus401,
 	GetTeamAccessRequestStatus403,
 	GetTeamAccessRequestStatus404,
 	GetTeamAccessRequestStatus410,
@@ -1889,6 +1911,7 @@ import type {
 	GetTeamStatus410,
 	GetTeamsResponse,
 	GetTeamsStatus400,
+	GetTeamsStatus401,
 	GetTeamsStatus403,
 	GetTeamsStatus410,
 	GetTeamsStatus500,
@@ -2019,7 +2042,6 @@ import type {
 	ImportResourceStatus404,
 	ImportResourceStatus409,
 	ImportResourceStatus410,
-	ImportResourceStatus422,
 	InvalidateBySrcImagesResponse,
 	InvalidateBySrcImagesStatus400,
 	InvalidateBySrcImagesStatus401,
@@ -2051,6 +2073,7 @@ import type {
 	IssueCertStatus500,
 	JoinTeamResponse,
 	JoinTeamStatus400,
+	JoinTeamStatus401,
 	JoinTeamStatus402,
 	JoinTeamStatus403,
 	JoinTeamStatus404,
@@ -2064,7 +2087,6 @@ import type {
 	KillSessionCommandStatus410,
 	KillSessionCommandStatus422,
 	KillSessionCommandStatus429,
-	KillSessionCommandStatus500,
 	ListAccessGroupMembersResponse,
 	ListAccessGroupMembersStatus400,
 	ListAccessGroupMembersStatus401,
@@ -2151,6 +2173,7 @@ import type {
 	ListConnectorProjectConnectionsStatus404,
 	ListConnectorProjectConnectionsStatus409,
 	ListConnectorProjectConnectionsStatus410,
+	ListConnectorProjectConnectionsStatus500,
 	ListConnectorsResponse,
 	ListConnectorsStatus400,
 	ListConnectorsStatus401,
@@ -2159,6 +2182,7 @@ import type {
 	ListConnectorsStatus409,
 	ListConnectorsStatus410,
 	ListConnectorsStatus422,
+	ListConnectorsStatus500,
 	ListConnectorsStatus501,
 	ListConnectorsStatus504,
 	ListContractCommitmentsResponse,
@@ -2192,12 +2216,27 @@ import type {
 	ListDrivesStatus403,
 	ListDrivesStatus404,
 	ListDrivesStatus410,
+	ListDrivesStatus422,
 	ListDrivesStatus429,
 	ListEventTypesResponse,
 	ListEventTypesStatus400,
 	ListEventTypesStatus401,
 	ListEventTypesStatus403,
 	ListEventTypesStatus410,
+	ListFlagLabelCountsResponse,
+	ListFlagLabelCountsStatus400,
+	ListFlagLabelCountsStatus401,
+	ListFlagLabelCountsStatus402,
+	ListFlagLabelCountsStatus403,
+	ListFlagLabelCountsStatus404,
+	ListFlagLabelCountsStatus410,
+	ListFlagLabelsResponse,
+	ListFlagLabelsStatus400,
+	ListFlagLabelsStatus401,
+	ListFlagLabelsStatus402,
+	ListFlagLabelsStatus403,
+	ListFlagLabelsStatus404,
+	ListFlagLabelsStatus410,
 	ListFlagSegmentsResponse,
 	ListFlagSegmentsStatus400,
 	ListFlagSegmentsStatus401,
@@ -2239,6 +2278,7 @@ import type {
 	ListNamedSandboxesStatus403,
 	ListNamedSandboxesStatus404,
 	ListNamedSandboxesStatus410,
+	ListNamedSandboxesStatus422,
 	ListNamedSandboxesStatus429,
 	ListNetworksResponse,
 	ListNetworksStatus400,
@@ -2248,6 +2288,7 @@ import type {
 	ListNetworksStatus410,
 	ListOrganizationsResponse,
 	ListOrganizationsStatus400,
+	ListOrganizationsStatus401,
 	ListOrganizationsStatus403,
 	ListOrganizationsStatus410,
 	ListOrganizationTeamsResponse,
@@ -2311,6 +2352,7 @@ import type {
 	ListSessionCommandsStatus403,
 	ListSessionCommandsStatus404,
 	ListSessionCommandsStatus410,
+	ListSessionCommandsStatus422,
 	ListSessionCommandsStatus429,
 	ListSessionSnapshotsResponse,
 	ListSessionSnapshotsStatus400,
@@ -2318,6 +2360,7 @@ import type {
 	ListSessionSnapshotsStatus403,
 	ListSessionSnapshotsStatus404,
 	ListSessionSnapshotsStatus410,
+	ListSessionSnapshotsStatus422,
 	ListSessionSnapshotsStatus429,
 	ListSessionsResponse,
 	ListSessionsStatus400,
@@ -2325,6 +2368,7 @@ import type {
 	ListSessionsStatus403,
 	ListSessionsStatus404,
 	ListSessionsStatus410,
+	ListSessionsStatus422,
 	ListSessionsStatus429,
 	ListSessionsStatus500,
 	ListSharedEnvVariableResponse,
@@ -2424,6 +2468,14 @@ import type {
 	ListVercelCiTaskRunsStatus410,
 	ListVercelCiTaskRunsStatus429,
 	ListVercelCiTaskRunsStatus500,
+	LookupFlagLabelsResponse,
+	LookupFlagLabelsStatus400,
+	LookupFlagLabelsStatus401,
+	LookupFlagLabelsStatus402,
+	LookupFlagLabelsStatus403,
+	LookupFlagLabelsStatus404,
+	LookupFlagLabelsStatus410,
+	LookupFlagLabelsStatus503,
 	MoveProjectDomainResponse,
 	MoveProjectDomainStatus400,
 	MoveProjectDomainStatus401,
@@ -2465,6 +2517,8 @@ import type {
 	PatchTeamStatus409,
 	PatchTeamStatus410,
 	PatchTeamStatus428,
+	PatchTeamStatus502,
+	PatchTeamStatus503,
 	PatchUrlProtectionBypassResponse,
 	PatchUrlProtectionBypassStatus400,
 	PatchUrlProtectionBypassStatus401,
@@ -2532,7 +2586,6 @@ import type {
 	ReadSessionFileStatus410,
 	ReadSessionFileStatus422,
 	ReadSessionFileStatus429,
-	ReadSessionFileStatus500,
 	RecordEventsResponse,
 	RecordEventsStatus400,
 	RecordEventsStatus401,
@@ -2638,6 +2691,7 @@ import type {
 	ReplaceConnectorTriggerDestinationsStatus409,
 	ReplaceConnectorTriggerDestinationsStatus410,
 	ReplaceConnectorTriggerDestinationsStatus422,
+	ReplaceConnectorTriggerDestinationsStatus500,
 	ReplaceConnectorTriggerDestinationsStatus501,
 	ReplaceConnectorTriggerDestinationsStatus504,
 	ReplaceDomainsByDomainRecordsResponse,
@@ -2666,6 +2720,7 @@ import type {
 	RequestAccessToTeamStatus503,
 	RequestDeleteResponse,
 	RequestDeleteStatus400,
+	RequestDeleteStatus401,
 	RequestDeleteStatus402,
 	RequestDeleteStatus403,
 	RequestDeleteStatus410,
@@ -2754,7 +2809,6 @@ import type {
 	RunSessionCommandStatus410,
 	RunSessionCommandStatus422,
 	RunSessionCommandStatus429,
-	RunSessionCommandStatus500,
 	SearchDomainsResponse,
 	SearchDomainsStatus400,
 	SearchDomainsStatus401,
@@ -2909,6 +2963,14 @@ import type {
 	UpdateAiGatewayVirtualModelConfigStatus410,
 	UpdateAiGatewayVirtualModelConfigStatus429,
 	UpdateAiGatewayVirtualModelConfigStatus500,
+	UpdateApiKeyQuotaResponse,
+	UpdateApiKeyQuotaStatus400,
+	UpdateApiKeyQuotaStatus401,
+	UpdateApiKeyQuotaStatus403,
+	UpdateApiKeyQuotaStatus404,
+	UpdateApiKeyQuotaStatus410,
+	UpdateApiKeyQuotaStatus429,
+	UpdateApiKeyQuotaStatus500,
 	UpdateAttackChallengeModeResponse,
 	UpdateAttackChallengeModeStatus400,
 	UpdateAttackChallengeModeStatus401,
@@ -3098,6 +3160,8 @@ import type {
 	UpdatePrivateLinkEndpointStatus404,
 	UpdatePrivateLinkEndpointStatus409,
 	UpdatePrivateLinkEndpointStatus410,
+	UpdatePrivateLinkEndpointStatus500,
+	UpdatePrivateLinkEndpointStatus503,
 	UpdateProjectCheckResponse,
 	UpdateProjectCheckStatus400,
 	UpdateProjectCheckStatus401,
@@ -3128,6 +3192,7 @@ import type {
 	UpdateProjectStatus409,
 	UpdateProjectStatus410,
 	UpdateProjectStatus428,
+	UpdateProjectStatus500,
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionResponse,
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus400,
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus401,
@@ -3152,7 +3217,6 @@ import type {
 	UpdateResourceSecretsByIdStatus404,
 	UpdateResourceSecretsByIdStatus409,
 	UpdateResourceSecretsByIdStatus410,
-	UpdateResourceSecretsByIdStatus422,
 	UpdateResourceSecretsResponse,
 	UpdateResourceSecretsStatus400,
 	UpdateResourceSecretsStatus401,
@@ -3160,14 +3224,12 @@ import type {
 	UpdateResourceSecretsStatus404,
 	UpdateResourceSecretsStatus409,
 	UpdateResourceSecretsStatus410,
-	UpdateResourceSecretsStatus422,
 	UpdateResourceStatus400,
 	UpdateResourceStatus401,
 	UpdateResourceStatus403,
 	UpdateResourceStatus404,
 	UpdateResourceStatus409,
 	UpdateResourceStatus410,
-	UpdateResourceStatus422,
 	UpdateRollingReleaseConfigResponse,
 	UpdateRollingReleaseConfigStatus400,
 	UpdateRollingReleaseConfigStatus401,
@@ -3292,6 +3354,7 @@ import type {
 	UpsertConnectorProjectConnectionStatus404,
 	UpsertConnectorProjectConnectionStatus409,
 	UpsertConnectorProjectConnectionStatus410,
+	UpsertConnectorProjectConnectionStatus500,
 	VerifyProjectDomainResponse,
 	VerifyProjectDomainStatus400,
 	VerifyProjectDomainStatus401,
@@ -3307,7 +3370,6 @@ import type {
 	WriteSessionCommandStdinStatus410,
 	WriteSessionCommandStdinStatus422,
 	WriteSessionCommandStdinStatus429,
-	WriteSessionCommandStdinStatus500,
 	WriteSessionCommandStdinStatus502,
 	WriteSessionCommandStdinStatus504,
 	WriteSessionFilesResponse,
@@ -3318,7 +3380,6 @@ import type {
 	WriteSessionFilesStatus410,
 	WriteSessionFilesStatus422,
 	WriteSessionFilesStatus429,
-	WriteSessionFilesStatus500,
 } from "./types";
 
 /**
@@ -6501,7 +6562,7 @@ export async function readNetwork(
 
 /**
  * @summary Create a PrivateLink endpoint
- * @description Creates a PrivateLink endpoint for a project.
+ * @description Creates a PrivateLink endpoint for a project. Changes to endpoints of the same project are serialized. If another change holds them for too long, the request fails with `503 service_unavailable` and can be retried. If the change may have completed but the outcome is unknown, it fails with `409 uncertain_outcome`; read the endpoint before retrying.
  * @link /v1/networking/privatelink/endpoints
  */
 export async function createPrivateLinkEndpoint(
@@ -6527,6 +6588,7 @@ export async function createPrivateLinkEndpoint(
 			| CreatePrivateLinkEndpointStatus409
 			| CreatePrivateLinkEndpointStatus410
 			| CreatePrivateLinkEndpointStatus500
+			| CreatePrivateLinkEndpointStatus503
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -6631,7 +6693,7 @@ export async function readPrivateLinkEndpoint(
 
 /**
  * @summary Delete a PrivateLink endpoint
- * @description Deletes a PrivateLink endpoint.
+ * @description Deletes a PrivateLink endpoint. The endpoint is removed asynchronously. Repeating the request for an endpoint that is already being deleted retries its cleanup and also returns `204`. Changes to endpoints of the same project are serialized. If another change holds them for too long, the request fails with `503 service_unavailable` and can be retried. If the change may have completed but the outcome is unknown, it fails with `409 uncertain_outcome`; read the endpoint before retrying.
  * @link /v1/networking/privatelink/endpoints/{endpointId}
  */
 export async function deletePrivateLinkEndpoint(
@@ -6660,6 +6722,7 @@ export async function deletePrivateLinkEndpoint(
 			| DeletePrivateLinkEndpointStatus409
 			| DeletePrivateLinkEndpointStatus410
 			| DeletePrivateLinkEndpointStatus500
+			| DeletePrivateLinkEndpointStatus503
 		>,
 		null,
 		Record<string, string>,
@@ -6678,7 +6741,7 @@ export async function deletePrivateLinkEndpoint(
 
 /**
  * @summary Update a PrivateLink endpoint
- * @description Updates a PrivateLink endpoint (name, privateDns).
+ * @description Updates a PrivateLink endpoint (name, privateDns). Changes to endpoints of the same project are serialized. If another change holds them for too long, the request fails with `503 service_unavailable` and can be retried. If the change may have completed but the outcome is unknown, it fails with `409 uncertain_outcome`; read the endpoint before retrying.
  * @link /v1/networking/privatelink/endpoints/{endpointId}
  */
 export async function updatePrivateLinkEndpoint(
@@ -6708,6 +6771,8 @@ export async function updatePrivateLinkEndpoint(
 			| UpdatePrivateLinkEndpointStatus404
 			| UpdatePrivateLinkEndpointStatus409
 			| UpdatePrivateLinkEndpointStatus410
+			| UpdatePrivateLinkEndpointStatus500
+			| UpdatePrivateLinkEndpointStatus503
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -6761,6 +6826,7 @@ export async function listConnectors(
 			| ListConnectorsStatus409
 			| ListConnectorsStatus410
 			| ListConnectorsStatus422
+			| ListConnectorsStatus500
 			| ListConnectorsStatus501
 			| ListConnectorsStatus504
 		>,
@@ -6820,6 +6886,7 @@ export async function getConnector(
 			| GetConnectorStatus409
 			| GetConnectorStatus410
 			| GetConnectorStatus422
+			| GetConnectorStatus500
 			| GetConnectorStatus501
 			| GetConnectorStatus504
 		>,
@@ -6869,6 +6936,7 @@ export async function deleteConnector(
 			| DeleteConnectorStatus409
 			| DeleteConnectorStatus410
 			| DeleteConnectorStatus422
+			| DeleteConnectorStatus500
 			| DeleteConnectorStatus501
 			| DeleteConnectorStatus502
 			| DeleteConnectorStatus503
@@ -7025,6 +7093,7 @@ export async function replaceConnectorTriggerDestinations(
 			| ReplaceConnectorTriggerDestinationsStatus409
 			| ReplaceConnectorTriggerDestinationsStatus410
 			| ReplaceConnectorTriggerDestinationsStatus422
+			| ReplaceConnectorTriggerDestinationsStatus500
 			| ReplaceConnectorTriggerDestinationsStatus501
 			| ReplaceConnectorTriggerDestinationsStatus504
 		>,
@@ -7075,6 +7144,7 @@ export async function ejectManagedConnector(
 			| EjectManagedConnectorStatus409
 			| EjectManagedConnectorStatus410
 			| EjectManagedConnectorStatus422
+			| EjectManagedConnectorStatus500
 			| EjectManagedConnectorStatus501
 			| EjectManagedConnectorStatus504
 		>,
@@ -7123,6 +7193,7 @@ export async function listConnectorProjectConnections(
 			| ListConnectorProjectConnectionsStatus404
 			| ListConnectorProjectConnectionsStatus409
 			| ListConnectorProjectConnectionsStatus410
+			| ListConnectorProjectConnectionsStatus500
 		>,
 		null,
 		Record<string, string>,
@@ -7173,6 +7244,7 @@ export async function getConnectorProjectConnection(
 			| GetConnectorProjectConnectionStatus404
 			| GetConnectorProjectConnectionStatus409
 			| GetConnectorProjectConnectionStatus410
+			| GetConnectorProjectConnectionStatus500
 		>,
 		null,
 		Record<string, string>,
@@ -7225,6 +7297,7 @@ export async function upsertConnectorProjectConnection(
 			| UpsertConnectorProjectConnectionStatus404
 			| UpsertConnectorProjectConnectionStatus409
 			| UpsertConnectorProjectConnectionStatus410
+			| UpsertConnectorProjectConnectionStatus500
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -7276,6 +7349,7 @@ export async function deleteConnectorProjectConnection(
 			| DeleteConnectorProjectConnectionStatus404
 			| DeleteConnectorProjectConnectionStatus409
 			| DeleteConnectorProjectConnectionStatus410
+			| DeleteConnectorProjectConnectionStatus500
 		>,
 		null,
 		Record<string, string>,
@@ -7369,6 +7443,7 @@ export async function getConnectorToken(
 			| GetConnectorTokenStatus410
 			| GetConnectorTokenStatus422
 			| GetConnectorTokenStatus429
+			| GetConnectorTokenStatus500
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -7416,6 +7491,7 @@ export async function createConnectorAuthorizationRequest(
 			| CreateConnectorAuthorizationRequestStatus409
 			| CreateConnectorAuthorizationRequestStatus410
 			| CreateConnectorAuthorizationRequestStatus422
+			| CreateConnectorAuthorizationRequestStatus500
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -7434,7 +7510,7 @@ export async function createConnectorAuthorizationRequest(
 
 /**
  * @summary Get project daemons
- * @description Lists project daemons.
+ * @description List the daemons of a project.
  * @link /v1/projects/{idOrName}/daemons
  */
 export async function getProjectBoxes(
@@ -7493,7 +7569,7 @@ export async function getProjectBoxes(
 
 /**
  * @summary Override a project daemon's instance counts
- * @description Override an existing daemon's instance counts by region. Each region in the map replaces the configured count for that region. Regions not in the map keep their configured count. An empty map removes the overrides. The daemon configuration is not changed. Missing or deleted daemons return 404. Repeating the same overrides succeeds without a storage write or reconciliation event.
+ * @description Override the instance counts of a daemon in the given regions, without changing its configuration or the overrides of other regions.
  * @link /v1/projects/{idOrName}/daemons/{daemonName}/instances
  */
 export async function putProjectDaemonInstances(
@@ -7545,7 +7621,7 @@ export async function putProjectDaemonInstances(
 
 /**
  * @summary Force restart a project daemon instance
- * @description Force restarts the user container of one running daemon instance. The instance's controller stops the current user container and starts a new one from the same configuration, so in-flight requests are interrupted and any state that only lives inside the container is lost. The instance keeps its ID and region. The response returns as soon as the controller accepts the restart, before the new container is running. Only production instances can be restarted. Accepts a Vercel token that can update the project, or a production project OIDC token issued for the same project. No request body or Content-Type header is required.
+ * @description Force restart a running production daemon instance. The new container starts asynchronously after the restart is accepted.
  * @link /v1/projects/{idOrName}/daemons/{daemonName}/instances/{instanceId}/restart
  */
 export async function restartProjectDaemonInstance(
@@ -7758,6 +7834,7 @@ export async function getDeployment(
 		GetDeploymentResponse,
 		ErrorWrapper<
 			| GetDeploymentStatus400
+			| GetDeploymentStatus401
 			| GetDeploymentStatus403
 			| GetDeploymentStatus404
 			| GetDeploymentStatus410
@@ -9547,6 +9624,7 @@ export async function getAllLogDrains(
 			projectId?: string;
 			projectIdOrName?: string;
 			includeMetadata?: boolean;
+			includeDeliveryStats?: boolean;
 			teamId?: string;
 			slug?: string;
 		};
@@ -9570,6 +9648,7 @@ export async function getAllLogDrains(
 			projectId?: string;
 			projectIdOrName?: string;
 			includeMetadata?: boolean;
+			includeDeliveryStats?: boolean;
 			teamId?: string;
 			slug?: string;
 		},
@@ -9682,7 +9761,13 @@ export async function getDrains(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { projectId?: string; includeMetadata?: boolean; teamId?: string; slug?: string };
+		queryParams?: {
+			projectId?: string;
+			includeMetadata?: boolean;
+			includeDeliveryStats?: boolean;
+			teamId?: string;
+			slug?: string;
+		};
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9696,10 +9781,17 @@ export async function getDrains(
 			| GetDrainsStatus403
 			| GetDrainsStatus404
 			| GetDrainsStatus410
+			| GetDrainsStatus503
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; includeMetadata?: boolean; teamId?: string; slug?: string },
+		{
+			projectId?: string;
+			includeMetadata?: boolean;
+			includeDeliveryStats?: boolean;
+			teamId?: string;
+			slug?: string;
+		},
 		Record<string, string>
 	>({
 		method: "GET",
@@ -9769,7 +9861,7 @@ export async function getDrain(
 		config,
 	}: {
 		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: { includeDeliveryStats?: boolean; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9786,10 +9878,11 @@ export async function getDrain(
 			| GetDrainStatus403
 			| GetDrainStatus404
 			| GetDrainStatus410
+			| GetDrainStatus503
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		{ includeDeliveryStats?: boolean; teamId?: string; slug?: string },
 		{ id: string }
 	>({
 		method: "GET",
@@ -11820,6 +11913,170 @@ export async function updateFlagSettings(
 }
 
 /**
+ * @summary List attribute labels
+ * @description List labels for one entity attribute. Search can return a short or empty page with a continuation cursor; continue until pagination.next is null.
+ * @link /v1/projects/{projectIdOrName}/feature-flags/labels
+ */
+export async function listFlagLabels(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { projectIdOrName: string };
+		queryParams?: {
+			limit?: number;
+			cursor?: string;
+			search?: string;
+			entityKind?: string;
+			attributeKey?: string;
+			teamId?: string;
+			slug?: string;
+		};
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
+		throw new Error(`Missing required path parameter: projectIdOrName`);
+	}
+	const data = await request<
+		ListFlagLabelsResponse,
+		ErrorWrapper<
+			| ListFlagLabelsStatus400
+			| ListFlagLabelsStatus401
+			| ListFlagLabelsStatus402
+			| ListFlagLabelsStatus403
+			| ListFlagLabelsStatus404
+			| ListFlagLabelsStatus410
+		>,
+		null,
+		Record<string, string>,
+		{
+			limit?: number;
+			cursor?: string;
+			search?: string;
+			entityKind?: string;
+			attributeKey?: string;
+			teamId?: string;
+			slug?: string;
+		},
+		{ projectIdOrName: string }
+	>({
+		method: "GET",
+		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/labels`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List attribute label counts
+ * @description List label counts for configured entity attributes, including empty ones.
+ * @link /v1/projects/{projectIdOrName}/feature-flags/labels/counts
+ */
+export async function listFlagLabelCounts(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { projectIdOrName: string };
+		queryParams?: {
+			entityKind?: string;
+			limit?: number;
+			cursor?: string;
+			teamId?: string;
+			slug?: string;
+		};
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
+		throw new Error(`Missing required path parameter: projectIdOrName`);
+	}
+	const data = await request<
+		ListFlagLabelCountsResponse,
+		ErrorWrapper<
+			| ListFlagLabelCountsStatus400
+			| ListFlagLabelCountsStatus401
+			| ListFlagLabelCountsStatus402
+			| ListFlagLabelCountsStatus403
+			| ListFlagLabelCountsStatus404
+			| ListFlagLabelCountsStatus410
+		>,
+		null,
+		Record<string, string>,
+		{ entityKind?: string; limit?: number; cursor?: string; teamId?: string; slug?: string },
+		{ projectIdOrName: string }
+	>({
+		method: "GET",
+		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/labels/counts`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Look up attribute labels
+ * @description Look up at most 100 labels by entity kind, attribute key, and value. Duplicate keys are returned once; absent values are listed in missing.
+ * @link /v1/projects/{projectIdOrName}/feature-flags/labels/lookup
+ */
+export async function lookupFlagLabels(
+	{
+		pathParams,
+		body,
+		queryParams,
+		config,
+	}: {
+		pathParams: { projectIdOrName: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		queryParams?: { teamId?: string; slug?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
+		throw new Error(`Missing required path parameter: projectIdOrName`);
+	}
+	const data = await request<
+		LookupFlagLabelsResponse,
+		ErrorWrapper<
+			| LookupFlagLabelsStatus400
+			| LookupFlagLabelsStatus401
+			| LookupFlagLabelsStatus402
+			| LookupFlagLabelsStatus403
+			| LookupFlagLabelsStatus404
+			| LookupFlagLabelsStatus410
+			| LookupFlagLabelsStatus503
+		>,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		Record<string, string>,
+		{ teamId?: string; slug?: string },
+		{ projectIdOrName: string }
+	>({
+		method: "POST",
+		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/labels/lookup`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary List team project flag settings
  * @description Retrieve feature flag settings for projects in a team.
  * @link /v1/teams/{teamId}/feature-flags/settings
@@ -13163,7 +13420,6 @@ export async function importResource(
 			| ImportResourceStatus404
 			| ImportResourceStatus409
 			| ImportResourceStatus410
-			| ImportResourceStatus422
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -13217,7 +13473,6 @@ export async function updateResource(
 			| UpdateResourceStatus404
 			| UpdateResourceStatus409
 			| UpdateResourceStatus410
-			| UpdateResourceStatus422
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -13576,7 +13831,6 @@ export async function updateResourceSecrets(
 			| UpdateResourceSecretsStatus404
 			| UpdateResourceSecretsStatus409
 			| UpdateResourceSecretsStatus410
-			| UpdateResourceSecretsStatus422
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -13630,7 +13884,6 @@ export async function updateResourceSecretsById(
 			| UpdateResourceSecretsByIdStatus404
 			| UpdateResourceSecretsByIdStatus409
 			| UpdateResourceSecretsByIdStatus410
-			| UpdateResourceSecretsByIdStatus422
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -14039,6 +14292,53 @@ export async function createApiKeys(
 }
 
 /**
+ * @summary Update an AI Gateway API key budget
+ * @description Set, change, or remove the AI Gateway budget on an API key. Creates the budget if the key does not have one.
+ * @link /api-keys/{apiKeyID}/quota
+ */
+export async function updateApiKeyQuota(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: { apiKeyID: string };
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.apiKeyID == null || String(pathParams.apiKeyID) === "") {
+		throw new Error(`Missing required path parameter: apiKeyID`);
+	}
+	const data = await request<
+		UpdateApiKeyQuotaResponse,
+		ErrorWrapper<
+			| UpdateApiKeyQuotaStatus400
+			| UpdateApiKeyQuotaStatus401
+			| UpdateApiKeyQuotaStatus403
+			| UpdateApiKeyQuotaStatus404
+			| UpdateApiKeyQuotaStatus410
+			| UpdateApiKeyQuotaStatus429
+			| UpdateApiKeyQuotaStatus500
+		>,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		Record<string, string>,
+		Record<string, string>,
+		{ apiKeyID: string }
+	>({
+		method: "PATCH",
+		url: `/api-keys/${encodeURIComponent(String(pathParams.apiKeyID))}/quota`,
+		body: body,
+		...requestConfig,
+		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Sign a message
  * @description Sign a raw message with a KMS issuer's active signing key. Authenticate the request with a Vercel OIDC token in the `Authorization: Bearer` header; the issuer's policies decide which workloads are allowed to sign. The response `signature` is standard-base64 of the raw signature over the decoded message bytes. `keyId`, `algorithm`, and `fingerprint` identify the signing key in the issuer's JWKS.
  * @link /v1/kms/issuers/{issuerId}/sign/message
@@ -14130,7 +14430,7 @@ export async function signKmsToken(
 
 /**
  * @summary List issuers
- * @description Retrieve the list of KMS issuers that belong to the authenticated team. The results are paginated.
+ * @description Retrieve the paginated KMS issuers that belong to the authenticated team or organization (`orgId`).
  * @link /v1/kms/issuers
  */
 export async function listKmsIssuers(
@@ -14170,7 +14470,7 @@ export async function listKmsIssuers(
 
 /**
  * @summary Create an issuer
- * @description Create a new KMS issuer for the authenticated team. An issuer owns the asymmetric signing keys that are used to sign tokens and messages.
+ * @description Create a new KMS issuer for the authenticated team, or for the team or organization identified by a Connect policy token. An issuer owns the asymmetric signing keys used to sign tokens and messages.
  * @link /v1/kms/issuers
  */
 export async function createKmsIssuer(
@@ -14365,7 +14665,7 @@ export async function revokeKmsSigningKey(
 
 /**
  * @summary Get an issuer
- * @description Retrieve a single KMS issuer by its ID. Accepts either a team bearer token (existing path) or an OIDC token authorized by one of the issuer's policies (e.g. a connex-grant token). The OIDC path returns the issuer without policies, since a policy token only proves signing access, not management access.
+ * @description Retrieve a single KMS issuer by its ID. Accepts a team or organization bearer token, or an OIDC token authorized by one of the issuer's policies (e.g. a connex-grant token). The OIDC path returns the issuer without policies, since a policy token only proves signing access, not management access.
  * @link /v1/kms/issuers/{issuerId}
  */
 export async function getKmsIssuer(
@@ -15444,7 +15744,7 @@ export async function createOrganization(
 
 /**
  * @summary List Organizations
- * @description List the organizations where the authenticated user holds the OrgAdmin or OrgViewer permission on the organization's root or backing team — the same criteria as GET /v1/organizations/:organizationId/teams. This endpoint is in private beta. Contact your Vercel account team for access.
+ * @description List the organizations where the authenticated user holds the OrgAdmin or OrgViewer permission on the organization's root or backing team — the same criteria as GET /v1/organizations/:organizationId/teams. A token without user scope, such as a team SSO session, lists only the organizations where it is authenticated to at least one team of the organization: the root team, the backing team, or a child team. This endpoint is in private beta. Contact your Vercel account team for access.
  * @link /v1/organizations
  */
 export async function listOrganizations(
@@ -15455,7 +15755,10 @@ export async function listOrganizations(
 	const data = await request<
 		ListOrganizationsResponse,
 		ErrorWrapper<
-			ListOrganizationsStatus400 | ListOrganizationsStatus403 | ListOrganizationsStatus410
+			| ListOrganizationsStatus400
+			| ListOrganizationsStatus401
+			| ListOrganizationsStatus403
+			| ListOrganizationsStatus410
 		>,
 		null,
 		Record<string, string>,
@@ -16605,6 +16908,7 @@ export async function updateProject(
 			| UpdateProjectStatus409
 			| UpdateProjectStatus410
 			| UpdateProjectStatus428
+			| UpdateProjectStatus500
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -18670,6 +18974,7 @@ export async function listNamedSandboxes(
 			| ListNamedSandboxesStatus403
 			| ListNamedSandboxesStatus404
 			| ListNamedSandboxesStatus410
+			| ListNamedSandboxesStatus422
 			| ListNamedSandboxesStatus429
 		>,
 		null,
@@ -18781,6 +19086,7 @@ export async function listDrives(
 			| ListDrivesStatus403
 			| ListDrivesStatus404
 			| ListDrivesStatus410
+			| ListDrivesStatus422
 			| ListDrivesStatus429
 		>,
 		null,
@@ -18836,6 +19142,7 @@ export async function getDrive(
 			| GetDriveStatus403
 			| GetDriveStatus404
 			| GetDriveStatus410
+			| GetDriveStatus422
 			| GetDriveStatus429
 		>,
 		null,
@@ -18886,7 +19193,9 @@ export async function getOrCreateDrive(
 			| GetOrCreateDriveStatus404
 			| GetOrCreateDriveStatus409
 			| GetOrCreateDriveStatus410
+			| GetOrCreateDriveStatus422
 			| GetOrCreateDriveStatus429
+			| GetOrCreateDriveStatus503
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -18934,6 +19243,7 @@ export async function deleteDrive(
 			| DeleteDriveStatus404
 			| DeleteDriveStatus409
 			| DeleteDriveStatus410
+			| DeleteDriveStatus422
 			| DeleteDriveStatus429
 		>,
 		null,
@@ -18984,6 +19294,7 @@ export async function forkDrive(
 			| ForkDriveStatus404
 			| ForkDriveStatus409
 			| ForkDriveStatus410
+			| ForkDriveStatus422
 			| ForkDriveStatus429
 			| ForkDriveStatus503
 		>,
@@ -19035,6 +19346,7 @@ export async function listSessionSnapshots(
 			| ListSessionSnapshotsStatus403
 			| ListSessionSnapshotsStatus404
 			| ListSessionSnapshotsStatus410
+			| ListSessionSnapshotsStatus422
 			| ListSessionSnapshotsStatus429
 		>,
 		null,
@@ -19089,6 +19401,7 @@ export async function getSessionSnapshot(
 			| GetSessionSnapshotStatus403
 			| GetSessionSnapshotStatus404
 			| GetSessionSnapshotStatus410
+			| GetSessionSnapshotStatus422
 			| GetSessionSnapshotStatus429
 		>,
 		null,
@@ -19135,6 +19448,7 @@ export async function deleteSessionSnapshot(
 			| DeleteSessionSnapshotStatus403
 			| DeleteSessionSnapshotStatus404
 			| DeleteSessionSnapshotStatus410
+			| DeleteSessionSnapshotStatus422
 			| DeleteSessionSnapshotStatus429
 		>,
 		null,
@@ -19184,6 +19498,7 @@ export async function listSessions(
 			| ListSessionsStatus403
 			| ListSessionsStatus404
 			| ListSessionsStatus410
+			| ListSessionsStatus422
 			| ListSessionsStatus429
 			| ListSessionsStatus500
 		>,
@@ -19239,6 +19554,7 @@ export async function getSession(
 			| GetSessionStatus403
 			| GetSessionStatus404
 			| GetSessionStatus410
+			| GetSessionStatus422
 			| GetSessionStatus429
 			| GetSessionStatus500
 		>,
@@ -19395,6 +19711,7 @@ export async function deleteSandbox(
 			| DeleteSandboxStatus403
 			| DeleteSandboxStatus404
 			| DeleteSandboxStatus410
+			| DeleteSandboxStatus422
 			| DeleteSandboxStatus429
 		>,
 		null,
@@ -19441,6 +19758,7 @@ export async function listSessionCommands(
 			| ListSessionCommandsStatus403
 			| ListSessionCommandsStatus404
 			| ListSessionCommandsStatus410
+			| ListSessionCommandsStatus422
 			| ListSessionCommandsStatus429
 		>,
 		null,
@@ -19491,7 +19809,6 @@ export async function runSessionCommand(
 			| RunSessionCommandStatus410
 			| RunSessionCommandStatus422
 			| RunSessionCommandStatus429
-			| RunSessionCommandStatus500
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -19544,7 +19861,6 @@ export async function getSessionCommand(
 			| GetSessionCommandStatus410
 			| GetSessionCommandStatus422
 			| GetSessionCommandStatus429
-			| GetSessionCommandStatus500
 		>,
 		null,
 		Record<string, string>,
@@ -19598,7 +19914,6 @@ export async function killSessionCommand(
 			| KillSessionCommandStatus410
 			| KillSessionCommandStatus422
 			| KillSessionCommandStatus429
-			| KillSessionCommandStatus500
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -19654,7 +19969,6 @@ export async function writeSessionCommandStdin(
 			| WriteSessionCommandStdinStatus410
 			| WriteSessionCommandStdinStatus422
 			| WriteSessionCommandStdinStatus429
-			| WriteSessionCommandStdinStatus500
 			| WriteSessionCommandStdinStatus502
 			| WriteSessionCommandStdinStatus504
 		>,
@@ -19709,7 +20023,6 @@ export async function getSessionCommandLogs(
 			| GetSessionCommandLogsStatus410
 			| GetSessionCommandLogsStatus422
 			| GetSessionCommandLogsStatus429
-			| GetSessionCommandLogsStatus500
 		>,
 		null,
 		Record<string, string>,
@@ -19909,7 +20222,6 @@ export async function readSessionFile(
 			| ReadSessionFileStatus410
 			| ReadSessionFileStatus422
 			| ReadSessionFileStatus429
-			| ReadSessionFileStatus500
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -19960,7 +20272,6 @@ export async function createSessionDirectory(
 			| CreateSessionDirectoryStatus410
 			| CreateSessionDirectoryStatus422
 			| CreateSessionDirectoryStatus429
-			| CreateSessionDirectoryStatus500
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -20011,7 +20322,6 @@ export async function writeSessionFiles(
 			| WriteSessionFilesStatus410
 			| WriteSessionFilesStatus422
 			| WriteSessionFilesStatus429
-			| WriteSessionFilesStatus500
 		>,
 		null,
 		{ "x-cwd"?: string },
@@ -21556,6 +21866,7 @@ export async function getTeamAccessRequest(
 		GetTeamAccessRequestResponse,
 		ErrorWrapper<
 			| GetTeamAccessRequestStatus400
+			| GetTeamAccessRequestStatus401
 			| GetTeamAccessRequestStatus403
 			| GetTeamAccessRequestStatus404
 			| GetTeamAccessRequestStatus410
@@ -21599,6 +21910,7 @@ export async function joinTeam(
 		JoinTeamResponse,
 		ErrorWrapper<
 			| JoinTeamStatus400
+			| JoinTeamStatus401
 			| JoinTeamStatus402
 			| JoinTeamStatus403
 			| JoinTeamStatus404
@@ -21797,6 +22109,8 @@ export async function patchTeam(
 			| PatchTeamStatus409
 			| PatchTeamStatus410
 			| PatchTeamStatus428
+			| PatchTeamStatus502
+			| PatchTeamStatus503
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -21832,7 +22146,13 @@ export async function getTeams(
 
 	const data = await request<
 		GetTeamsResponse,
-		ErrorWrapper<GetTeamsStatus400 | GetTeamsStatus403 | GetTeamsStatus410 | GetTeamsStatus500>,
+		ErrorWrapper<
+			| GetTeamsStatus400
+			| GetTeamsStatus401
+			| GetTeamsStatus403
+			| GetTeamsStatus410
+			| GetTeamsStatus500
+		>,
 		null,
 		Record<string, string>,
 		{ limit?: number; since?: number; until?: number },
@@ -21867,7 +22187,11 @@ export async function createTeam(
 	const data = await request<
 		CreateTeamResponse,
 		ErrorWrapper<
-			CreateTeamStatus400 | CreateTeamStatus403 | CreateTeamStatus404 | CreateTeamStatus410
+			| CreateTeamStatus400
+			| CreateTeamStatus401
+			| CreateTeamStatus403
+			| CreateTeamStatus404
+			| CreateTeamStatus410
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
@@ -21934,7 +22258,7 @@ export async function postTeamDsyncRoles(
 
 /**
  * @summary Delete a Team
- * @description Delete a team under your account. You need to send a `DELETE` request with the desired team `id`. An optional array of reasons for deletion may also be sent. Enterprise teams can only be deleted in test billing mode and when not linked to an organization.
+ * @description Delete a team under your account. You need to send a `DELETE` request with the desired team `id`. An optional array of reasons for deletion may also be sent. Enterprise teams can only be deleted in test billing mode and when not linked to an organization. Enterprise children of an organization cannot be deleted.
  * @link /v1/teams/{teamId}
  */
 export async function deleteTeam(
@@ -22284,7 +22608,11 @@ export async function getAuthToken(
 	const data = await request<
 		GetAuthTokenResponse,
 		ErrorWrapper<
-			GetAuthTokenStatus400 | GetAuthTokenStatus403 | GetAuthTokenStatus404 | GetAuthTokenStatus410
+			| GetAuthTokenStatus400
+			| GetAuthTokenStatus401
+			| GetAuthTokenStatus403
+			| GetAuthTokenStatus404
+			| GetAuthTokenStatus410
 		>,
 		null,
 		Record<string, string>,
@@ -22325,6 +22653,7 @@ export async function deleteAuthToken(
 		DeleteAuthTokenResponse,
 		ErrorWrapper<
 			| DeleteAuthTokenStatus400
+			| DeleteAuthTokenStatus401
 			| DeleteAuthTokenStatus403
 			| DeleteAuthTokenStatus404
 			| DeleteAuthTokenStatus410
@@ -22397,6 +22726,7 @@ export async function requestDelete(
 		RequestDeleteResponse,
 		ErrorWrapper<
 			| RequestDeleteStatus400
+			| RequestDeleteStatus401
 			| RequestDeleteStatus402
 			| RequestDeleteStatus403
 			| RequestDeleteStatus410
@@ -26454,6 +26784,9 @@ export const operationsByPath = {
 		listFlagVersions,
 	"GET /v1/projects/{projectIdOrName}/feature-flags/settings": getFlagSettings,
 	"PATCH /v1/projects/{projectIdOrName}/feature-flags/settings": updateFlagSettings,
+	"GET /v1/projects/{projectIdOrName}/feature-flags/labels": listFlagLabels,
+	"GET /v1/projects/{projectIdOrName}/feature-flags/labels/counts": listFlagLabelCounts,
+	"POST /v1/projects/{projectIdOrName}/feature-flags/labels/lookup": lookupFlagLabels,
 	"GET /v1/teams/{teamId}/feature-flags/settings": listTeamFlagSettings,
 	"GET /v2/teams/{teamId}/feature-flags/flags": listTeamFlagsV2,
 	"GET /v1/teams/{teamId}/feature-flags/flags": listTeamFlags,
@@ -26509,6 +26842,7 @@ export const operationsByPath = {
 	"POST /v2/integrations/log-drains": createLogDrain,
 	"DELETE /v1/integrations/log-drains/{id}": deleteIntegrationLogDrain,
 	"POST /api-keys": createApiKeys,
+	"PATCH /api-keys/{apiKeyID}/quota": updateApiKeyQuota,
 	"POST /v1/kms/issuers/{issuerId}/sign/message": signKmsMessage,
 	"POST /v1/kms/issuers/{issuerId}/sign/token": signKmsToken,
 	"GET /v1/kms/issuers": listKmsIssuers,
@@ -26821,6 +27155,7 @@ export const operationsByTag = {
 		listAiGatewayBudgetDefaults,
 		upsertAiGatewayBudgetDefault,
 		archiveAiGatewayBudgetDefault,
+		updateApiKeyQuota,
 	},
 	artifacts: {
 		recordEvents,
@@ -27041,6 +27376,9 @@ export const operationsByTag = {
 		listFlagVersions,
 		getFlagSettings,
 		updateFlagSettings,
+		listFlagLabels,
+		listFlagLabelCounts,
+		lookupFlagLabels,
 		listTeamFlagSettings,
 		listTeamFlagsV2,
 		listTeamFlags,
@@ -27375,6 +27713,7 @@ export const tagDictionary = {
 			"updateAiGatewayVirtualModelConfig",
 			"updateAiGatewayVirtualModelConfigBySlug",
 			"updateAiGatewayRule",
+			"updateApiKeyQuota",
 		],
 		DELETE: [
 			"deleteAiGatewayVirtualModelConfig",
@@ -27592,6 +27931,8 @@ export const tagDictionary = {
 			"getFlag",
 			"listFlagVersions",
 			"getFlagSettings",
+			"listFlagLabels",
+			"listFlagLabelCounts",
 			"listTeamFlagSettings",
 			"listTeamFlagsV2",
 			"listTeamFlags",
@@ -27603,6 +27944,7 @@ export const tagDictionary = {
 		PUT: ["createFlag", "createFlagSegment", "createSdkKey"],
 		PATCH: ["updateFlag", "updateFlagSettings", "updateFlagSegment"],
 		DELETE: ["deleteFlag", "deleteFlagSegment", "deleteSdkKey"],
+		POST: ["lookupFlagLabels"],
 	},
 	marketplace: {
 		PATCH: [
