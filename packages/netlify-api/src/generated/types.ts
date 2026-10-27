@@ -1867,6 +1867,30 @@ export type DeployFiles = {
 				 * @type string | undefined
 				 */
 				runtime_version?: string | undefined;
+				/**
+				 * @description How many instances of the server run.
+				 * @type object | undefined
+				 */
+				scale?:
+					| {
+							/**
+							 * @description The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n
+							 *
+							 * Format: `int64`
+							 * @minLength 0
+							 * @type integer | undefined
+							 */
+							min?: (bigint | null) | undefined;
+							/**
+							 * @description The maximum number of instances the server scales to. Defaults to the\nhighest the account\'s plan allows when absent.\n
+							 *
+							 * Format: `int64`
+							 * @minLength 1
+							 * @type integer | undefined
+							 */
+							max?: (bigint | null) | undefined;
+					  }
+					| undefined;
 		  }
 		| undefined;
 	function_schedules?:
@@ -7698,6 +7722,30 @@ export type CreateSiteDeployBody = {
 				 * @type string | undefined
 				 */
 				runtime_version?: string | undefined;
+				/**
+				 * @description How many instances of the server run.
+				 * @type object | undefined
+				 */
+				scale?:
+					| {
+							/**
+							 * @description The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n
+							 *
+							 * Format: `int64`
+							 * @minLength 0
+							 * @type integer | undefined
+							 */
+							min?: (bigint | null) | undefined;
+							/**
+							 * @description The maximum number of instances the server scales to. Defaults to the\nhighest the account\'s plan allows when absent.\n
+							 *
+							 * Format: `int64`
+							 * @minLength 1
+							 * @type integer | undefined
+							 */
+							max?: (bigint | null) | undefined;
+					  }
+					| undefined;
 		  }
 		| undefined;
 	function_schedules?:
@@ -8123,6 +8171,30 @@ export type UpdateSiteDeployBody = {
 				 * @type string | undefined
 				 */
 				runtime_version?: string | undefined;
+				/**
+				 * @description How many instances of the server run.
+				 * @type object | undefined
+				 */
+				scale?:
+					| {
+							/**
+							 * @description The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n
+							 *
+							 * Format: `int64`
+							 * @minLength 0
+							 * @type integer | undefined
+							 */
+							min?: (bigint | null) | undefined;
+							/**
+							 * @description The maximum number of instances the server scales to. Defaults to the\nhighest the account\'s plan allows when absent.\n
+							 *
+							 * Format: `int64`
+							 * @minLength 1
+							 * @type integer | undefined
+							 */
+							max?: (bigint | null) | undefined;
+					  }
+					| undefined;
 		  }
 		| undefined;
 	function_schedules?:
