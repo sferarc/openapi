@@ -6,6 +6,7 @@
 import type { ErrorWrapper, FetcherConfig } from "../utils/fetcher";
 import defaultClient from "../utils/fetcher";
 import type {
+	ChatsCreateBody,
 	ChatsCreateResponse,
 	ChatsCreateStatus401,
 	ChatsCreateStatus403,
@@ -24,6 +25,7 @@ import type {
 	ChatsDeleteStatus422,
 	ChatsDeleteStatus429,
 	ChatsDeleteStatus500,
+	ChatsDeleteVersionFilesBody,
 	ChatsDeleteVersionFilesResponse,
 	ChatsDeleteVersionFilesStatus401,
 	ChatsDeleteVersionFilesStatus403,
@@ -42,6 +44,7 @@ import type {
 	ChatsDownloadVersionStatus422,
 	ChatsDownloadVersionStatus429,
 	ChatsDownloadVersionStatus500,
+	ChatsFavoriteBody,
 	ChatsFavoriteResponse,
 	ChatsFavoriteStatus401,
 	ChatsFavoriteStatus403,
@@ -78,6 +81,7 @@ import type {
 	ChatsFindVersionsStatus422,
 	ChatsFindVersionsStatus429,
 	ChatsFindVersionsStatus500,
+	ChatsForkBody,
 	ChatsForkResponse,
 	ChatsForkStatus401,
 	ChatsForkStatus403,
@@ -114,6 +118,7 @@ import type {
 	ChatsGetVersionStatus422,
 	ChatsGetVersionStatus429,
 	ChatsGetVersionStatus500,
+	ChatsInitBody,
 	ChatsInitResponse,
 	ChatsInitStatus401,
 	ChatsInitStatus403,
@@ -123,6 +128,7 @@ import type {
 	ChatsInitStatus422,
 	ChatsInitStatus429,
 	ChatsInitStatus500,
+	ChatsResolveTaskBody,
 	ChatsResolveTaskResponse,
 	ChatsResolveTaskStatus401,
 	ChatsResolveTaskStatus403,
@@ -150,6 +156,7 @@ import type {
 	ChatsResumeStatus422,
 	ChatsResumeStatus429,
 	ChatsResumeStatus500,
+	ChatsSendMessageBody,
 	ChatsSendMessageResponse,
 	ChatsSendMessageStatus401,
 	ChatsSendMessageStatus403,
@@ -168,6 +175,7 @@ import type {
 	ChatsStopStatus422,
 	ChatsStopStatus429,
 	ChatsStopStatus500,
+	ChatsUpdateBody,
 	ChatsUpdateResponse,
 	ChatsUpdateStatus401,
 	ChatsUpdateStatus403,
@@ -177,6 +185,7 @@ import type {
 	ChatsUpdateStatus422,
 	ChatsUpdateStatus429,
 	ChatsUpdateStatus500,
+	ChatsUpdateVersionBody,
 	ChatsUpdateVersionResponse,
 	ChatsUpdateVersionStatus401,
 	ChatsUpdateVersionStatus403,
@@ -186,6 +195,7 @@ import type {
 	ChatsUpdateVersionStatus422,
 	ChatsUpdateVersionStatus429,
 	ChatsUpdateVersionStatus500,
+	DeploymentsCreateBody,
 	DeploymentsCreateResponse,
 	DeploymentsCreateStatus401,
 	DeploymentsCreateStatus403,
@@ -240,6 +250,7 @@ import type {
 	DeploymentsGetByIdStatus422,
 	DeploymentsGetByIdStatus429,
 	DeploymentsGetByIdStatus500,
+	HooksCreateBody,
 	HooksCreateResponse,
 	HooksCreateStatus401,
 	HooksCreateStatus403,
@@ -276,6 +287,7 @@ import type {
 	HooksGetByIdStatus422,
 	HooksGetByIdStatus429,
 	HooksGetByIdStatus500,
+	HooksUpdateBody,
 	HooksUpdateResponse,
 	HooksUpdateStatus401,
 	HooksUpdateStatus403,
@@ -285,6 +297,7 @@ import type {
 	HooksUpdateStatus422,
 	HooksUpdateStatus429,
 	HooksUpdateStatus500,
+	IntegrationsVercelProjectsCreateBody,
 	IntegrationsVercelProjectsCreateResponse,
 	IntegrationsVercelProjectsCreateStatus401,
 	IntegrationsVercelProjectsCreateStatus403,
@@ -303,6 +316,8 @@ import type {
 	IntegrationsVercelProjectsFindStatus422,
 	IntegrationsVercelProjectsFindStatus429,
 	IntegrationsVercelProjectsFindStatus500,
+	McpServersCreateBody,
+	McpServersCreateOAuthAuthorizationUrlBody,
 	McpServersCreateOAuthAuthorizationUrlResponse,
 	McpServersCreateOAuthAuthorizationUrlStatus401,
 	McpServersCreateOAuthAuthorizationUrlStatus403,
@@ -348,6 +363,7 @@ import type {
 	McpServersGetByIdStatus422,
 	McpServersGetByIdStatus429,
 	McpServersGetByIdStatus500,
+	McpServersUpdateBody,
 	McpServersUpdateResponse,
 	McpServersUpdateStatus401,
 	McpServersUpdateStatus403,
@@ -357,6 +373,7 @@ import type {
 	McpServersUpdateStatus422,
 	McpServersUpdateStatus429,
 	McpServersUpdateStatus500,
+	ProjectsAssignBody,
 	ProjectsAssignResponse,
 	ProjectsAssignStatus401,
 	ProjectsAssignStatus403,
@@ -366,6 +383,8 @@ import type {
 	ProjectsAssignStatus422,
 	ProjectsAssignStatus429,
 	ProjectsAssignStatus500,
+	ProjectsCreateBody,
+	ProjectsCreateEnvVarsBody,
 	ProjectsCreateEnvVarsResponse,
 	ProjectsCreateEnvVarsStatus401,
 	ProjectsCreateEnvVarsStatus403,
@@ -384,6 +403,7 @@ import type {
 	ProjectsCreateStatus422,
 	ProjectsCreateStatus429,
 	ProjectsCreateStatus500,
+	ProjectsDeleteEnvVarsBody,
 	ProjectsDeleteEnvVarsResponse,
 	ProjectsDeleteEnvVarsStatus401,
 	ProjectsDeleteEnvVarsStatus403,
@@ -447,6 +467,8 @@ import type {
 	ProjectsGetEnvVarStatus422,
 	ProjectsGetEnvVarStatus429,
 	ProjectsGetEnvVarStatus500,
+	ProjectsUpdateBody,
+	ProjectsUpdateEnvVarsBody,
 	ProjectsUpdateEnvVarsResponse,
 	ProjectsUpdateEnvVarsStatus401,
 	ProjectsUpdateEnvVarsStatus403,
@@ -549,7 +571,7 @@ export async function chatsCreate(
 		body,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ChatsCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -567,7 +589,7 @@ export async function chatsCreate(
 			| ChatsCreateStatus429
 			| ChatsCreateStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ChatsCreateBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
@@ -576,7 +598,7 @@ export async function chatsCreate(
 		url: `/chats`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -649,7 +671,7 @@ export async function chatsInit(
 		body,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ChatsInitBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -667,7 +689,7 @@ export async function chatsInit(
 			| ChatsInitStatus429
 			| ChatsInitStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ChatsInitBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
@@ -676,7 +698,7 @@ export async function chatsInit(
 		url: `/chats/init`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -784,7 +806,7 @@ export async function chatsUpdate(
 		config,
 	}: {
 		pathParams: { chatId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ChatsUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -805,7 +827,7 @@ export async function chatsUpdate(
 			| ChatsUpdateStatus429
 			| ChatsUpdateStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ChatsUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string }
@@ -814,7 +836,7 @@ export async function chatsUpdate(
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -832,7 +854,7 @@ export async function chatsFavorite(
 		config,
 	}: {
 		pathParams: { chatId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ChatsFavoriteBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -853,7 +875,7 @@ export async function chatsFavorite(
 			| ChatsFavoriteStatus429
 			| ChatsFavoriteStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ChatsFavoriteBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string }
@@ -862,7 +884,7 @@ export async function chatsFavorite(
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/favorite`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -880,7 +902,7 @@ export async function chatsFork(
 		config,
 	}: {
 		pathParams: { chatId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ChatsForkBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -901,7 +923,7 @@ export async function chatsFork(
 			| ChatsForkStatus429
 			| ChatsForkStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ChatsForkBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string }
@@ -910,7 +932,7 @@ export async function chatsFork(
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/fork`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -1021,7 +1043,7 @@ export async function chatsSendMessage(
 		config,
 	}: {
 		pathParams: { chatId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ChatsSendMessageBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1042,7 +1064,7 @@ export async function chatsSendMessage(
 			| ChatsSendMessageStatus429
 			| ChatsSendMessageStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ChatsSendMessageBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string }
@@ -1051,7 +1073,7 @@ export async function chatsSendMessage(
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/messages`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -1218,7 +1240,7 @@ export async function chatsUpdateVersion(
 		config,
 	}: {
 		pathParams: { chatId: string; versionId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ChatsUpdateVersionBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1243,7 +1265,7 @@ export async function chatsUpdateVersion(
 			| ChatsUpdateVersionStatus429
 			| ChatsUpdateVersionStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ChatsUpdateVersionBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string; versionId: string }
@@ -1252,7 +1274,7 @@ export async function chatsUpdateVersion(
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -1322,7 +1344,7 @@ export async function chatsDeleteVersionFiles(
 		config,
 	}: {
 		pathParams: { chatId: string; versionId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ChatsDeleteVersionFilesBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1347,7 +1369,7 @@ export async function chatsDeleteVersionFiles(
 			| ChatsDeleteVersionFilesStatus429
 			| ChatsDeleteVersionFilesStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ChatsDeleteVersionFilesBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string; versionId: string }
@@ -1356,7 +1378,7 @@ export async function chatsDeleteVersionFiles(
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}/files/delete`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -1472,7 +1494,7 @@ export async function chatsResolveTask(
 		config,
 	}: {
 		pathParams: { chatId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ChatsResolveTaskBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1493,7 +1515,7 @@ export async function chatsResolveTask(
 			| ChatsResolveTaskStatus429
 			| ChatsResolveTaskStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ChatsResolveTaskBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ chatId: string }
@@ -1502,7 +1524,7 @@ export async function chatsResolveTask(
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/tasks/resolve`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -1561,7 +1583,7 @@ export async function deploymentsCreate(
 		body,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: DeploymentsCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1579,7 +1601,7 @@ export async function deploymentsCreate(
 			| DeploymentsCreateStatus429
 			| DeploymentsCreateStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		DeploymentsCreateBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
@@ -1588,7 +1610,7 @@ export async function deploymentsCreate(
 		url: `/deployments`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -1823,7 +1845,7 @@ export async function hooksCreate(
 		body,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: HooksCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1841,7 +1863,7 @@ export async function hooksCreate(
 			| HooksCreateStatus429
 			| HooksCreateStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		HooksCreateBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
@@ -1850,7 +1872,7 @@ export async function hooksCreate(
 		url: `/hooks`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -1913,7 +1935,7 @@ export async function hooksUpdate(
 		config,
 	}: {
 		pathParams: { hookId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: HooksUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1934,7 +1956,7 @@ export async function hooksUpdate(
 			| HooksUpdateStatus429
 			| HooksUpdateStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		HooksUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ hookId: string }
@@ -1943,7 +1965,7 @@ export async function hooksUpdate(
 		url: `/hooks/${encodeURIComponent(String(pathParams.hookId))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -2040,7 +2062,7 @@ export async function integrationsVercelProjectsCreate(
 		body,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: IntegrationsVercelProjectsCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2058,7 +2080,7 @@ export async function integrationsVercelProjectsCreate(
 			| IntegrationsVercelProjectsCreateStatus429
 			| IntegrationsVercelProjectsCreateStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		IntegrationsVercelProjectsCreateBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
@@ -2067,7 +2089,7 @@ export async function integrationsVercelProjectsCreate(
 		url: `/integrations/vercel/projects`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -2119,7 +2141,7 @@ export async function projectsCreate(
 		body,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ProjectsCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2137,7 +2159,7 @@ export async function projectsCreate(
 			| ProjectsCreateStatus429
 			| ProjectsCreateStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ProjectsCreateBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
@@ -2146,7 +2168,7 @@ export async function projectsCreate(
 		url: `/projects`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -2209,7 +2231,7 @@ export async function projectsUpdate(
 		config,
 	}: {
 		pathParams: { projectId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ProjectsUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2230,7 +2252,7 @@ export async function projectsUpdate(
 			| ProjectsUpdateStatus429
 			| ProjectsUpdateStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ProjectsUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ projectId: string }
@@ -2239,7 +2261,7 @@ export async function projectsUpdate(
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -2305,7 +2327,7 @@ export async function projectsAssign(
 		config,
 	}: {
 		pathParams: { projectId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ProjectsAssignBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2326,7 +2348,7 @@ export async function projectsAssign(
 			| ProjectsAssignStatus429
 			| ProjectsAssignStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ProjectsAssignBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ projectId: string }
@@ -2335,7 +2357,7 @@ export async function projectsAssign(
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/assign`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -2402,7 +2424,7 @@ export async function projectsCreateEnvVars(
 		config,
 	}: {
 		pathParams: { projectId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ProjectsCreateEnvVarsBody;
 		queryParams?: { decrypted?: "true" | "false" };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2424,7 +2446,7 @@ export async function projectsCreateEnvVars(
 			| ProjectsCreateEnvVarsStatus429
 			| ProjectsCreateEnvVarsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ProjectsCreateEnvVarsBody,
 		Record<string, string>,
 		{ decrypted?: "true" | "false" },
 		{ projectId: string }
@@ -2434,7 +2456,7 @@ export async function projectsCreateEnvVars(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -2453,7 +2475,7 @@ export async function projectsUpdateEnvVars(
 		config,
 	}: {
 		pathParams: { projectId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ProjectsUpdateEnvVarsBody;
 		queryParams?: { decrypted?: "true" | "false" };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2475,7 +2497,7 @@ export async function projectsUpdateEnvVars(
 			| ProjectsUpdateEnvVarsStatus429
 			| ProjectsUpdateEnvVarsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ProjectsUpdateEnvVarsBody,
 		Record<string, string>,
 		{ decrypted?: "true" | "false" },
 		{ projectId: string }
@@ -2485,7 +2507,7 @@ export async function projectsUpdateEnvVars(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -2503,7 +2525,7 @@ export async function projectsDeleteEnvVars(
 		config,
 	}: {
 		pathParams: { projectId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ProjectsDeleteEnvVarsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2524,7 +2546,7 @@ export async function projectsDeleteEnvVars(
 			| ProjectsDeleteEnvVarsStatus429
 			| ProjectsDeleteEnvVarsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ProjectsDeleteEnvVarsBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ projectId: string }
@@ -2533,7 +2555,7 @@ export async function projectsDeleteEnvVars(
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars/delete`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -3028,7 +3050,7 @@ export async function mcpServersCreate(
 		body,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: McpServersCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3046,7 +3068,7 @@ export async function mcpServersCreate(
 			| McpServersCreateStatus429
 			| McpServersCreateStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		McpServersCreateBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
@@ -3055,7 +3077,7 @@ export async function mcpServersCreate(
 		url: `/mcp-servers`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -3118,7 +3140,7 @@ export async function mcpServersUpdate(
 		config,
 	}: {
 		pathParams: { mcpServerId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: McpServersUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3139,7 +3161,7 @@ export async function mcpServersUpdate(
 			| McpServersUpdateStatus429
 			| McpServersUpdateStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		McpServersUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ mcpServerId: string }
@@ -3148,7 +3170,7 @@ export async function mcpServersUpdate(
 		url: `/mcp-servers/${encodeURIComponent(String(pathParams.mcpServerId))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -3211,7 +3233,7 @@ export async function mcpServersCreateOAuthAuthorizationUrl(
 		config,
 	}: {
 		pathParams: { mcpServerId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: McpServersCreateOAuthAuthorizationUrlBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3232,7 +3254,7 @@ export async function mcpServersCreateOAuthAuthorizationUrl(
 			| McpServersCreateOAuthAuthorizationUrlStatus429
 			| McpServersCreateOAuthAuthorizationUrlStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		McpServersCreateOAuthAuthorizationUrlBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ mcpServerId: string }
@@ -3241,7 +3263,7 @@ export async function mcpServersCreateOAuthAuthorizationUrl(
 		url: `/mcp-servers/${encodeURIComponent(String(pathParams.mcpServerId))}/oauth/authorize`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;

@@ -6,6 +6,7 @@
 import type { ErrorWrapper, FetcherConfig } from "../utils/fetcher";
 import defaultClient from "../utils/fetcher";
 import type {
+	AcceptProjectTransferRequestBody,
 	AcceptProjectTransferRequestResponse,
 	AcceptProjectTransferRequestStatus400,
 	AcceptProjectTransferRequestStatus401,
@@ -13,6 +14,7 @@ import type {
 	AcceptProjectTransferRequestStatus404,
 	AcceptProjectTransferRequestStatus410,
 	AcceptProjectTransferRequestStatus422,
+	ActivateKmsSigningKeyBody,
 	ActivateKmsSigningKeyResponse,
 	ActivateKmsSigningKeyStatus400,
 	ActivateKmsSigningKeyStatus401,
@@ -20,6 +22,7 @@ import type {
 	ActivateKmsSigningKeyStatus404,
 	ActivateKmsSigningKeyStatus409,
 	ActivateKmsSigningKeyStatus410,
+	AddBypassIpBody,
 	AddBypassIpResponse,
 	AddBypassIpStatus400,
 	AddBypassIpStatus401,
@@ -28,6 +31,7 @@ import type {
 	AddBypassIpStatus404,
 	AddBypassIpStatus410,
 	AddBypassIpStatus500,
+	AddOrganizationTeamBody,
 	AddOrganizationTeamResponse,
 	AddOrganizationTeamStatus400,
 	AddOrganizationTeamStatus401,
@@ -36,6 +40,7 @@ import type {
 	AddOrganizationTeamStatus409,
 	AddOrganizationTeamStatus410,
 	AddOrganizationTeamStatus500,
+	AddProjectDomainBody,
 	AddProjectDomainResponse,
 	AddProjectDomainStatus400,
 	AddProjectDomainStatus401,
@@ -44,6 +49,7 @@ import type {
 	AddProjectDomainStatus404,
 	AddProjectDomainStatus409,
 	AddProjectDomainStatus410,
+	AddProjectMemberBody,
 	AddProjectMemberResponse,
 	AddProjectMemberStatus400,
 	AddProjectMemberStatus401,
@@ -51,12 +57,14 @@ import type {
 	AddProjectMemberStatus404,
 	AddProjectMemberStatus410,
 	AddProjectMemberStatus500,
+	AddRepositoryPermissionBody,
 	AddRepositoryPermissionResponse,
 	AddRepositoryPermissionStatus400,
 	AddRepositoryPermissionStatus401,
 	AddRepositoryPermissionStatus403,
 	AddRepositoryPermissionStatus404,
 	AddRepositoryPermissionStatus410,
+	AddRouteBody,
 	AddRouteResponse,
 	AddRouteStatus400,
 	AddRouteStatus401,
@@ -81,6 +89,7 @@ import type {
 	AggregatePageviewsStatus404,
 	AggregatePageviewsStatus410,
 	AggregatePageviewsStatus503,
+	ApproveRollingReleaseStageBody,
 	ApproveRollingReleaseStageResponse,
 	ApproveRollingReleaseStageStatus400,
 	ApproveRollingReleaseStageStatus401,
@@ -102,6 +111,7 @@ import type {
 	ArchiveAiGatewayBudgetStatus404,
 	ArchiveAiGatewayBudgetStatus410,
 	ArchiveAiGatewayBudgetStatus500,
+	ArtifactQueryBody,
 	ArtifactQueryResponse,
 	ArtifactQueryStatus400,
 	ArtifactQueryStatus401,
@@ -109,6 +119,7 @@ import type {
 	ArtifactQueryStatus403,
 	ArtifactQueryStatus404,
 	ArtifactQueryStatus410,
+	AssignAliasBody,
 	AssignAliasResponse,
 	AssignAliasStatus400,
 	AssignAliasStatus401,
@@ -117,6 +128,7 @@ import type {
 	AssignAliasStatus404,
 	AssignAliasStatus409,
 	AssignAliasStatus410,
+	BatchRemoveProjectEnvBody,
 	BatchRemoveProjectEnvResponse,
 	BatchRemoveProjectEnvStatus400,
 	BatchRemoveProjectEnvStatus401,
@@ -124,6 +136,7 @@ import type {
 	BatchRemoveProjectEnvStatus404,
 	BatchRemoveProjectEnvStatus409,
 	BatchRemoveProjectEnvStatus410,
+	BuyCreditsBody,
 	BuyCreditsResponse,
 	BuyCreditsStatus400,
 	BuyCreditsStatus401,
@@ -133,12 +146,14 @@ import type {
 	BuyCreditsStatus409,
 	BuyCreditsStatus410,
 	BuyCreditsStatus500,
+	BuyDomainsBody,
 	BuyDomainsResponse,
 	BuyDomainsStatus400,
 	BuyDomainsStatus401,
 	BuyDomainsStatus403,
 	BuyDomainsStatus429,
 	BuyDomainsStatus500,
+	BuySingleDomainBody,
 	BuySingleDomainResponse,
 	BuySingleDomainStatus400,
 	BuySingleDomainStatus401,
@@ -163,12 +178,14 @@ import type {
 	ClearRepositoryPermissionsStatus403,
 	ClearRepositoryPermissionsStatus404,
 	ClearRepositoryPermissionsStatus410,
+	CompleteRollingReleaseBody,
 	CompleteRollingReleaseResponse,
 	CompleteRollingReleaseStatus400,
 	CompleteRollingReleaseStatus401,
 	CompleteRollingReleaseStatus403,
 	CompleteRollingReleaseStatus404,
 	CompleteRollingReleaseStatus410,
+	ConnectIntegrationResourceToProjectBody,
 	ConnectIntegrationResourceToProjectResponse,
 	ConnectIntegrationResourceToProjectStatus400,
 	ConnectIntegrationResourceToProjectStatus401,
@@ -191,6 +208,8 @@ import type {
 	CountPageviewsStatus404,
 	CountPageviewsStatus410,
 	CountPageviewsStatus503,
+	CreateAccessGroupBody,
+	CreateAccessGroupProjectBody,
 	CreateAccessGroupProjectResponse,
 	CreateAccessGroupProjectStatus400,
 	CreateAccessGroupProjectStatus401,
@@ -220,6 +239,7 @@ import type {
 	CreateAiGatewayVirtualModelConfigStatus410,
 	CreateAiGatewayVirtualModelConfigStatus429,
 	CreateAiGatewayVirtualModelConfigStatus500,
+	CreateApiKeysBody,
 	CreateApiKeysResponse,
 	CreateApiKeysStatus400,
 	CreateApiKeysStatus401,
@@ -229,6 +249,7 @@ import type {
 	CreateApiKeysStatus410,
 	CreateApiKeysStatus429,
 	CreateApiKeysStatus500,
+	CreateAuthTokenBody,
 	CreateAuthTokenResponse,
 	CreateAuthTokenStatus400,
 	CreateAuthTokenStatus401,
@@ -242,12 +263,14 @@ import type {
 	CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus403,
 	CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus404,
 	CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus410,
+	CreateCheckBody,
 	CreateCheckResponse,
 	CreateCheckStatus400,
 	CreateCheckStatus401,
 	CreateCheckStatus403,
 	CreateCheckStatus404,
 	CreateCheckStatus410,
+	CreateConditionalBypassBody,
 	CreateConditionalBypassResponse,
 	CreateConditionalBypassStatus400,
 	CreateConditionalBypassStatus401,
@@ -255,12 +278,14 @@ import type {
 	CreateConditionalBypassStatus404,
 	CreateConditionalBypassStatus409,
 	CreateConditionalBypassStatus410,
+	CreateConfigurableLogDrainBody,
 	CreateConfigurableLogDrainResponse,
 	CreateConfigurableLogDrainStatus400,
 	CreateConfigurableLogDrainStatus401,
 	CreateConfigurableLogDrainStatus403,
 	CreateConfigurableLogDrainStatus404,
 	CreateConfigurableLogDrainStatus410,
+	CreateConnectorAuthorizationRequestBody,
 	CreateConnectorAuthorizationRequestResponse,
 	CreateConnectorAuthorizationRequestStatus400,
 	CreateConnectorAuthorizationRequestStatus401,
@@ -269,6 +294,8 @@ import type {
 	CreateConnectorAuthorizationRequestStatus409,
 	CreateConnectorAuthorizationRequestStatus410,
 	CreateConnectorAuthorizationRequestStatus422,
+	CreateConnectorAuthorizationRequestStatus500,
+	CreateConnectorBody,
 	CreateConnectorResponse,
 	CreateConnectorStatus400,
 	CreateConnectorStatus401,
@@ -281,6 +308,7 @@ import type {
 	CreateConnectorStatus501,
 	CreateConnectorStatus502,
 	CreateConnectorStatus504,
+	CreateCustomEnvironmentBody,
 	CreateCustomEnvironmentResponse,
 	CreateCustomEnvironmentStatus400,
 	CreateCustomEnvironmentStatus401,
@@ -290,6 +318,8 @@ import type {
 	CreateCustomEnvironmentStatus409,
 	CreateCustomEnvironmentStatus410,
 	CreateCustomEnvironmentStatus500,
+	CreateDeploymentBody,
+	CreateDeploymentCheckRunBody,
 	CreateDeploymentCheckRunResponse,
 	CreateDeploymentCheckRunStatus400,
 	CreateDeploymentCheckRunStatus401,
@@ -309,6 +339,7 @@ import type {
 	CreateDeploymentStatus429,
 	CreateDeploymentStatus500,
 	CreateDeploymentStatus503,
+	CreateDrainBody,
 	CreateDrainResponse,
 	CreateDrainStatus400,
 	CreateDrainStatus401,
@@ -316,6 +347,7 @@ import type {
 	CreateDrainStatus403,
 	CreateDrainStatus404,
 	CreateDrainStatus410,
+	CreateEdgeConfigBody,
 	CreateEdgeConfigResponse,
 	CreateEdgeConfigStatus400,
 	CreateEdgeConfigStatus401,
@@ -323,6 +355,7 @@ import type {
 	CreateEdgeConfigStatus403,
 	CreateEdgeConfigStatus404,
 	CreateEdgeConfigStatus410,
+	CreateEdgeConfigTokenBody,
 	CreateEdgeConfigTokenResponse,
 	CreateEdgeConfigTokenStatus400,
 	CreateEdgeConfigTokenStatus401,
@@ -331,13 +364,16 @@ import type {
 	CreateEdgeConfigTokenStatus404,
 	CreateEdgeConfigTokenStatus409,
 	CreateEdgeConfigTokenStatus410,
+	CreateEventBody,
 	CreateEventResponse,
 	CreateEventStatus400,
 	CreateEventStatus401,
 	CreateEventStatus403,
 	CreateEventStatus404,
 	CreateEventStatus410,
+	CreateFlagBody,
 	CreateFlagResponse,
+	CreateFlagSegmentBody,
 	CreateFlagSegmentResponse,
 	CreateFlagSegmentStatus400,
 	CreateFlagSegmentStatus401,
@@ -353,12 +389,14 @@ import type {
 	CreateFlagStatus404,
 	CreateFlagStatus409,
 	CreateFlagStatus410,
+	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsBody,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsResponse,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus400,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus401,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus403,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus404,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus410,
+	CreateIntegrationStoreDirectBody,
 	CreateIntegrationStoreDirectResponse,
 	CreateIntegrationStoreDirectStatus400,
 	CreateIntegrationStoreDirectStatus401,
@@ -368,6 +406,8 @@ import type {
 	CreateIntegrationStoreDirectStatus409,
 	CreateIntegrationStoreDirectStatus410,
 	CreateIntegrationStoreDirectStatus500,
+	CreateKmsIssuerBody,
+	CreateKmsIssuerPolicyBody,
 	CreateKmsIssuerPolicyResponse,
 	CreateKmsIssuerPolicyStatus400,
 	CreateKmsIssuerPolicyStatus401,
@@ -380,6 +420,7 @@ import type {
 	CreateKmsIssuerStatus403,
 	CreateKmsIssuerStatus404,
 	CreateKmsIssuerStatus410,
+	CreateKmsSigningKeyBody,
 	CreateKmsSigningKeyResponse,
 	CreateKmsSigningKeyStatus400,
 	CreateKmsSigningKeyStatus401,
@@ -387,12 +428,14 @@ import type {
 	CreateKmsSigningKeyStatus404,
 	CreateKmsSigningKeyStatus409,
 	CreateKmsSigningKeyStatus410,
+	CreateLogDrainBody,
 	CreateLogDrainResponse,
 	CreateLogDrainStatus400,
 	CreateLogDrainStatus401,
 	CreateLogDrainStatus403,
 	CreateLogDrainStatus404,
 	CreateLogDrainStatus410,
+	CreateMicrofrontendsGroupWithApplicationsBody,
 	CreateMicrofrontendsGroupWithApplicationsResponse,
 	CreateMicrofrontendsGroupWithApplicationsStatus400,
 	CreateMicrofrontendsGroupWithApplicationsStatus401,
@@ -400,6 +443,7 @@ import type {
 	CreateMicrofrontendsGroupWithApplicationsStatus404,
 	CreateMicrofrontendsGroupWithApplicationsStatus410,
 	CreateMicrofrontendsGroupWithApplicationsStatus500,
+	CreateNetworkBody,
 	CreateNetworkResponse,
 	CreateNetworkStatus400,
 	CreateNetworkStatus401,
@@ -408,6 +452,7 @@ import type {
 	CreateNetworkStatus404,
 	CreateNetworkStatus409,
 	CreateNetworkStatus410,
+	CreateObservabilityQueryBody,
 	CreateObservabilityQueryResponse,
 	CreateObservabilityQueryStatus400,
 	CreateObservabilityQueryStatus401,
@@ -420,6 +465,7 @@ import type {
 	CreateObservabilityQueryStatus422,
 	CreateObservabilityQueryStatus500,
 	CreateObservabilityQueryStatus503,
+	CreateOrganizationBody,
 	CreateOrganizationResponse,
 	CreateOrganizationStatus400,
 	CreateOrganizationStatus401,
@@ -428,6 +474,7 @@ import type {
 	CreateOrganizationStatus409,
 	CreateOrganizationStatus410,
 	CreateOrganizationStatus500,
+	CreateOrTransferDomainBody,
 	CreateOrTransferDomainResponse,
 	CreateOrTransferDomainStatus400,
 	CreateOrTransferDomainStatus401,
@@ -436,6 +483,7 @@ import type {
 	CreateOrTransferDomainStatus404,
 	CreateOrTransferDomainStatus409,
 	CreateOrTransferDomainStatus410,
+	CreatePrivateLinkEndpointBody,
 	CreatePrivateLinkEndpointResponse,
 	CreatePrivateLinkEndpointStatus400,
 	CreatePrivateLinkEndpointStatus401,
@@ -444,6 +492,9 @@ import type {
 	CreatePrivateLinkEndpointStatus409,
 	CreatePrivateLinkEndpointStatus410,
 	CreatePrivateLinkEndpointStatus500,
+	CreatePrivateLinkEndpointStatus503,
+	CreateProjectBody,
+	CreateProjectCheckBody,
 	CreateProjectCheckResponse,
 	CreateProjectCheckStatus400,
 	CreateProjectCheckStatus401,
@@ -451,6 +502,7 @@ import type {
 	CreateProjectCheckStatus404,
 	CreateProjectCheckStatus410,
 	CreateProjectCheckStatus500,
+	CreateProjectEnvBody,
 	CreateProjectEnvResponse,
 	CreateProjectEnvStatus400,
 	CreateProjectEnvStatus401,
@@ -472,6 +524,7 @@ import type {
 	CreateProjectStatus428,
 	CreateProjectStatus429,
 	CreateProjectStatus500,
+	CreateProjectTransferRequestBody,
 	CreateProjectTransferRequestResponse,
 	CreateProjectTransferRequestStatus400,
 	CreateProjectTransferRequestStatus401,
@@ -479,6 +532,7 @@ import type {
 	CreateProjectTransferRequestStatus404,
 	CreateProjectTransferRequestStatus409,
 	CreateProjectTransferRequestStatus410,
+	CreateRecordBody,
 	CreateRecordResponse,
 	CreateRecordStatus400,
 	CreateRecordStatus401,
@@ -487,6 +541,7 @@ import type {
 	CreateRecordStatus404,
 	CreateRecordStatus409,
 	CreateRecordStatus410,
+	CreateRepositoryBody,
 	CreateRepositoryResponse,
 	CreateRepositoryStatus400,
 	CreateRepositoryStatus401,
@@ -495,6 +550,7 @@ import type {
 	CreateRepositoryStatus404,
 	CreateRepositoryStatus409,
 	CreateRepositoryStatus410,
+	CreateSandboxesByNameForkV2Body,
 	CreateSandboxesByNameForkV2Response,
 	CreateSandboxesByNameForkV2Status400,
 	CreateSandboxesByNameForkV2Status401,
@@ -508,6 +564,7 @@ import type {
 	CreateSandboxesByNameForkV2Status500,
 	CreateSandboxesByNameForkV2Status502,
 	CreateSandboxesByNameForkV2Status503,
+	CreateSandboxesByNameForkV3Body,
 	CreateSandboxesByNameForkV3Response,
 	CreateSandboxesByNameForkV3Status400,
 	CreateSandboxesByNameForkV3Status401,
@@ -521,6 +578,7 @@ import type {
 	CreateSandboxesByNameForkV3Status500,
 	CreateSandboxesByNameForkV3Status502,
 	CreateSandboxesByNameForkV3Status503,
+	CreateSandboxesSessionsBySessionIdSnapshotV2Body,
 	CreateSandboxesSessionsBySessionIdSnapshotV2Response,
 	CreateSandboxesSessionsBySessionIdSnapshotV2Status400,
 	CreateSandboxesSessionsBySessionIdSnapshotV2Status401,
@@ -531,6 +589,7 @@ import type {
 	CreateSandboxesSessionsBySessionIdSnapshotV2Status422,
 	CreateSandboxesSessionsBySessionIdSnapshotV2Status429,
 	CreateSandboxesSessionsBySessionIdSnapshotV2Status500,
+	CreateSandboxesSessionsBySessionIdSnapshotV3Body,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Response,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Status400,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Status401,
@@ -541,6 +600,7 @@ import type {
 	CreateSandboxesSessionsBySessionIdSnapshotV3Status422,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Status429,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Status500,
+	CreateSandboxesV2Body,
 	CreateSandboxesV2Response,
 	CreateSandboxesV2Status400,
 	CreateSandboxesV2Status401,
@@ -554,6 +614,7 @@ import type {
 	CreateSandboxesV2Status500,
 	CreateSandboxesV2Status502,
 	CreateSandboxesV2Status503,
+	CreateSandboxesV3Body,
 	CreateSandboxesV3Response,
 	CreateSandboxesV3Status400,
 	CreateSandboxesV3Status401,
@@ -567,6 +628,7 @@ import type {
 	CreateSandboxesV3Status500,
 	CreateSandboxesV3Status502,
 	CreateSandboxesV3Status503,
+	CreateSandboxesV4Body,
 	CreateSandboxesV4Response,
 	CreateSandboxesV4Status400,
 	CreateSandboxesV4Status401,
@@ -580,6 +642,7 @@ import type {
 	CreateSandboxesV4Status500,
 	CreateSandboxesV4Status502,
 	CreateSandboxesV4Status503,
+	CreateSdkKeyBody,
 	CreateSdkKeyResponse,
 	CreateSdkKeyStatus400,
 	CreateSdkKeyStatus401,
@@ -596,6 +659,7 @@ import type {
 	CreateSecurityFirewallConfigByConfigVersionActivateStatus404,
 	CreateSecurityFirewallConfigByConfigVersionActivateStatus410,
 	CreateSecurityFirewallConfigByConfigVersionActivateStatus500,
+	CreateSessionDirectoryBody,
 	CreateSessionDirectoryResponse,
 	CreateSessionDirectoryStatus400,
 	CreateSessionDirectoryStatus401,
@@ -604,7 +668,7 @@ import type {
 	CreateSessionDirectoryStatus410,
 	CreateSessionDirectoryStatus422,
 	CreateSessionDirectoryStatus429,
-	CreateSessionDirectoryStatus500,
+	CreateSharedEnvVariableBody,
 	CreateSharedEnvVariableResponse,
 	CreateSharedEnvVariableStatus400,
 	CreateSharedEnvVariableStatus401,
@@ -612,6 +676,7 @@ import type {
 	CreateSharedEnvVariableStatus403,
 	CreateSharedEnvVariableStatus404,
 	CreateSharedEnvVariableStatus410,
+	CreateSpeedInsightsToggleBody,
 	CreateSpeedInsightsToggleResponse,
 	CreateSpeedInsightsToggleStatus400,
 	CreateSpeedInsightsToggleStatus401,
@@ -619,6 +684,7 @@ import type {
 	CreateSpeedInsightsToggleStatus403,
 	CreateSpeedInsightsToggleStatus404,
 	CreateSpeedInsightsToggleStatus410,
+	CreateStorageStoresBlobBody,
 	CreateStorageStoresBlobResponse,
 	CreateStorageStoresBlobStatus400,
 	CreateStorageStoresBlobStatus401,
@@ -628,11 +694,14 @@ import type {
 	CreateStorageStoresBlobStatus409,
 	CreateStorageStoresBlobStatus410,
 	CreateStorageStoresBlobStatus429,
+	CreateTeamBody,
 	CreateTeamResponse,
 	CreateTeamStatus400,
+	CreateTeamStatus401,
 	CreateTeamStatus403,
 	CreateTeamStatus404,
 	CreateTeamStatus410,
+	CreateTraceSessionBody,
 	CreateTraceSessionResponse,
 	CreateTraceSessionStatus400,
 	CreateTraceSessionStatus401,
@@ -640,6 +709,7 @@ import type {
 	CreateTraceSessionStatus404,
 	CreateTraceSessionStatus410,
 	CreateTraceSessionStatus422,
+	CreateVercelCiTaskAnalysisBody,
 	CreateVercelCiTaskAnalysisResponse,
 	CreateVercelCiTaskAnalysisStatus400,
 	CreateVercelCiTaskAnalysisStatus401,
@@ -650,6 +720,7 @@ import type {
 	CreateVercelCiTaskAnalysisStatus429,
 	CreateVercelCiTaskAnalysisStatus500,
 	CreateVercelCiTaskAnalysisStatus503,
+	CreateVercelCiTaskConfigurationPullRequestBody,
 	CreateVercelCiTaskConfigurationPullRequestResponse,
 	CreateVercelCiTaskConfigurationPullRequestStatus400,
 	CreateVercelCiTaskConfigurationPullRequestStatus401,
@@ -659,18 +730,21 @@ import type {
 	CreateVercelCiTaskConfigurationPullRequestStatus410,
 	CreateVercelCiTaskConfigurationPullRequestStatus429,
 	CreateVercelCiTaskConfigurationPullRequestStatus500,
+	CreateWebhookBody,
 	CreateWebhookResponse,
 	CreateWebhookStatus400,
 	CreateWebhookStatus401,
 	CreateWebhookStatus403,
 	CreateWebhookStatus404,
 	CreateWebhookStatus410,
+	CreateWebInsightsToggleBody,
 	CreateWebInsightsToggleResponse,
 	CreateWebInsightsToggleStatus400,
 	CreateWebInsightsToggleStatus401,
 	CreateWebInsightsToggleStatus403,
 	CreateWebInsightsToggleStatus404,
 	CreateWebInsightsToggleStatus410,
+	DangerouslyDeleteBySrcImagesBody,
 	DangerouslyDeleteBySrcImagesResponse,
 	DangerouslyDeleteBySrcImagesStatus400,
 	DangerouslyDeleteBySrcImagesStatus401,
@@ -678,6 +752,7 @@ import type {
 	DangerouslyDeleteBySrcImagesStatus403,
 	DangerouslyDeleteBySrcImagesStatus404,
 	DangerouslyDeleteBySrcImagesStatus410,
+	DangerouslyDeleteByTagsBody,
 	DangerouslyDeleteByTagsResponse,
 	DangerouslyDeleteByTagsStatus400,
 	DangerouslyDeleteByTagsStatus401,
@@ -731,6 +806,7 @@ import type {
 	DeleteAllArtifactsStatus410,
 	DeleteAuthTokenResponse,
 	DeleteAuthTokenStatus400,
+	DeleteAuthTokenStatus401,
 	DeleteAuthTokenStatus403,
 	DeleteAuthTokenStatus404,
 	DeleteAuthTokenStatus410,
@@ -781,6 +857,7 @@ import type {
 	DeleteConnectorProjectConnectionStatus404,
 	DeleteConnectorProjectConnectionStatus409,
 	DeleteConnectorProjectConnectionStatus410,
+	DeleteConnectorProjectConnectionStatus500,
 	DeleteConnectorResponse,
 	DeleteConnectorStatus400,
 	DeleteConnectorStatus401,
@@ -789,6 +866,7 @@ import type {
 	DeleteConnectorStatus409,
 	DeleteConnectorStatus410,
 	DeleteConnectorStatus422,
+	DeleteConnectorStatus500,
 	DeleteConnectorStatus501,
 	DeleteConnectorStatus502,
 	DeleteConnectorStatus503,
@@ -820,6 +898,7 @@ import type {
 	DeleteDriveStatus404,
 	DeleteDriveStatus409,
 	DeleteDriveStatus410,
+	DeleteDriveStatus422,
 	DeleteDriveStatus429,
 	DeleteEdgeConfigResponse,
 	DeleteEdgeConfigSchemaResponse,
@@ -836,6 +915,7 @@ import type {
 	DeleteEdgeConfigStatus404,
 	DeleteEdgeConfigStatus409,
 	DeleteEdgeConfigStatus410,
+	DeleteEdgeConfigTokensBody,
 	DeleteEdgeConfigTokensResponse,
 	DeleteEdgeConfigTokensStatus400,
 	DeleteEdgeConfigTokensStatus401,
@@ -913,6 +993,7 @@ import type {
 	DeletePrivateLinkEndpointStatus409,
 	DeletePrivateLinkEndpointStatus410,
 	DeletePrivateLinkEndpointStatus500,
+	DeletePrivateLinkEndpointStatus503,
 	DeleteProjectAvatarResponse,
 	DeleteProjectAvatarStatus400,
 	DeleteProjectAvatarStatus401,
@@ -933,6 +1014,7 @@ import type {
 	DeleteProjectStatus404,
 	DeleteProjectStatus409,
 	DeleteProjectStatus410,
+	DeleteRedirectsBody,
 	DeleteRedirectsResponse,
 	DeleteRedirectsStatus400,
 	DeleteRedirectsStatus401,
@@ -958,6 +1040,7 @@ import type {
 	DeleteRollingReleaseConfigStatus403,
 	DeleteRollingReleaseConfigStatus404,
 	DeleteRollingReleaseConfigStatus410,
+	DeleteRoutesBody,
 	DeleteRoutesResponse,
 	DeleteRoutesStatus400,
 	DeleteRoutesStatus401,
@@ -972,6 +1055,7 @@ import type {
 	DeleteSandboxStatus403,
 	DeleteSandboxStatus404,
 	DeleteSandboxStatus410,
+	DeleteSandboxStatus422,
 	DeleteSandboxStatus429,
 	DeleteSdkKeyResponse,
 	DeleteSdkKeyStatus400,
@@ -994,7 +1078,9 @@ import type {
 	DeleteSessionSnapshotStatus403,
 	DeleteSessionSnapshotStatus404,
 	DeleteSessionSnapshotStatus410,
+	DeleteSessionSnapshotStatus422,
 	DeleteSessionSnapshotStatus429,
+	DeleteSharedEnvVariableBody,
 	DeleteSharedEnvVariableResponse,
 	DeleteSharedEnvVariableStatus400,
 	DeleteSharedEnvVariableStatus401,
@@ -1009,6 +1095,7 @@ import type {
 	DeleteStorageStoresBlobByIdStatus404,
 	DeleteStorageStoresBlobByIdStatus409,
 	DeleteStorageStoresBlobByIdStatus410,
+	DeleteTeamBody,
 	DeleteTeamInviteCodeResponse,
 	DeleteTeamInviteCodeStatus400,
 	DeleteTeamInviteCodeStatus401,
@@ -1037,6 +1124,7 @@ import type {
 	DownloadArtifactStatus403,
 	DownloadArtifactStatus404,
 	DownloadArtifactStatus410,
+	EditProjectEnvBody,
 	EditProjectEnvResponse,
 	EditProjectEnvStatus400,
 	EditProjectEnvStatus401,
@@ -1046,6 +1134,7 @@ import type {
 	EditProjectEnvStatus410,
 	EditProjectEnvStatus429,
 	EditProjectEnvStatus500,
+	EditRedirectBody,
 	EditRedirectResponse,
 	EditRedirectStatus400,
 	EditRedirectStatus401,
@@ -1053,6 +1142,7 @@ import type {
 	EditRedirectStatus404,
 	EditRedirectStatus410,
 	EditRedirectStatus500,
+	EditRouteBody,
 	EditRouteResponse,
 	EditRouteStatus400,
 	EditRouteStatus401,
@@ -1069,12 +1159,15 @@ import type {
 	EjectManagedConnectorStatus409,
 	EjectManagedConnectorStatus410,
 	EjectManagedConnectorStatus422,
+	EjectManagedConnectorStatus500,
 	EjectManagedConnectorStatus501,
 	EjectManagedConnectorStatus504,
+	ExchangeSsoTokenBody,
 	ExchangeSsoTokenResponse,
 	ExchangeSsoTokenStatus400,
 	ExchangeSsoTokenStatus403,
 	ExchangeSsoTokenStatus500,
+	ExtendSessionTimeoutBody,
 	ExtendSessionTimeoutResponse,
 	ExtendSessionTimeoutStatus400,
 	ExtendSessionTimeoutStatus401,
@@ -1096,6 +1189,7 @@ import type {
 	FinalizeInstallationStatus403,
 	FinalizeInstallationStatus404,
 	FinalizeInstallationStatus410,
+	ForkDriveBody,
 	ForkDriveResponse,
 	ForkDriveStatus400,
 	ForkDriveStatus401,
@@ -1104,6 +1198,7 @@ import type {
 	ForkDriveStatus404,
 	ForkDriveStatus409,
 	ForkDriveStatus410,
+	ForkDriveStatus422,
 	ForkDriveStatus429,
 	ForkDriveStatus503,
 	GenerateFirewallRuleResponse,
@@ -1114,6 +1209,7 @@ import type {
 	GenerateFirewallRuleStatus408,
 	GenerateFirewallRuleStatus410,
 	GenerateFirewallRuleStatus500,
+	GenerateRouteBody,
 	GenerateRouteResponse,
 	GenerateRouteStatus400,
 	GenerateRouteStatus401,
@@ -1168,6 +1264,7 @@ import type {
 	GetAllLogDrainsStatus410,
 	GetAuthTokenResponse,
 	GetAuthTokenStatus400,
+	GetAuthTokenStatus401,
 	GetAuthTokenStatus403,
 	GetAuthTokenStatus404,
 	GetAuthTokenStatus410,
@@ -1183,12 +1280,14 @@ import type {
 	GetBillingPlansStatus403,
 	GetBillingPlansStatus404,
 	GetBillingPlansStatus410,
+	GetBulkAvailabilityBody,
 	GetBulkAvailabilityResponse,
 	GetBulkAvailabilityStatus400,
 	GetBulkAvailabilityStatus401,
 	GetBulkAvailabilityStatus403,
 	GetBulkAvailabilityStatus429,
 	GetBulkAvailabilityStatus500,
+	GetBulkPriceBody,
 	GetBulkPriceResponse,
 	GetBulkPriceStatus400,
 	GetBulkPriceStatus401,
@@ -1287,6 +1386,7 @@ import type {
 	GetConnectorProjectConnectionStatus404,
 	GetConnectorProjectConnectionStatus409,
 	GetConnectorProjectConnectionStatus410,
+	GetConnectorProjectConnectionStatus500,
 	GetConnectorResponse,
 	GetConnectorStatus400,
 	GetConnectorStatus401,
@@ -1295,8 +1395,10 @@ import type {
 	GetConnectorStatus409,
 	GetConnectorStatus410,
 	GetConnectorStatus422,
+	GetConnectorStatus500,
 	GetConnectorStatus501,
 	GetConnectorStatus504,
+	GetConnectorTokenBody,
 	GetConnectorTokenResponse,
 	GetConnectorTokenStatus400,
 	GetConnectorTokenStatus401,
@@ -1306,6 +1408,7 @@ import type {
 	GetConnectorTokenStatus410,
 	GetConnectorTokenStatus422,
 	GetConnectorTokenStatus429,
+	GetConnectorTokenStatus500,
 	GetContactInfoSchemaResponse,
 	GetContactInfoSchemaStatus400,
 	GetContactInfoSchemaStatus401,
@@ -1346,6 +1449,7 @@ import type {
 	GetDeploymentFileContentsStatus410,
 	GetDeploymentResponse,
 	GetDeploymentStatus400,
+	GetDeploymentStatus401,
 	GetDeploymentStatus403,
 	GetDeploymentStatus404,
 	GetDeploymentStatus410,
@@ -1433,18 +1537,21 @@ import type {
 	GetDrainStatus403,
 	GetDrainStatus404,
 	GetDrainStatus410,
+	GetDrainStatus503,
 	GetDrainsResponse,
 	GetDrainsStatus400,
 	GetDrainsStatus401,
 	GetDrainsStatus403,
 	GetDrainsStatus404,
 	GetDrainsStatus410,
+	GetDrainsStatus503,
 	GetDriveResponse,
 	GetDriveStatus400,
 	GetDriveStatus401,
 	GetDriveStatus403,
 	GetDriveStatus404,
 	GetDriveStatus410,
+	GetDriveStatus422,
 	GetDriveStatus429,
 	GetEdgeConfigBackupResponse,
 	GetEdgeConfigBackupStatus400,
@@ -1628,6 +1735,7 @@ import type {
 	GetObservabilitySchemaStatus403,
 	GetObservabilitySchemaStatus404,
 	GetObservabilitySchemaStatus410,
+	GetOrCreateDriveBody,
 	GetOrCreateDriveResponse,
 	GetOrCreateDriveStatus400,
 	GetOrCreateDriveStatus401,
@@ -1636,7 +1744,9 @@ import type {
 	GetOrCreateDriveStatus404,
 	GetOrCreateDriveStatus409,
 	GetOrCreateDriveStatus410,
+	GetOrCreateDriveStatus422,
 	GetOrCreateDriveStatus429,
+	GetOrCreateDriveStatus503,
 	GetOrderResponse,
 	GetOrderStatus400,
 	GetOrderStatus401,
@@ -1705,6 +1815,7 @@ import type {
 	GetProjectsStatus403,
 	GetProjectsStatus404,
 	GetProjectsStatus410,
+	GetProjectTokenBody,
 	GetProjectTokenResponse,
 	GetProjectTokenStatus400,
 	GetProjectTokenStatus401,
@@ -1827,7 +1938,6 @@ import type {
 	GetSessionCommandLogsStatus410,
 	GetSessionCommandLogsStatus422,
 	GetSessionCommandLogsStatus429,
-	GetSessionCommandLogsStatus500,
 	GetSessionCommandResponse,
 	GetSessionCommandStatus400,
 	GetSessionCommandStatus401,
@@ -1836,7 +1946,6 @@ import type {
 	GetSessionCommandStatus410,
 	GetSessionCommandStatus422,
 	GetSessionCommandStatus429,
-	GetSessionCommandStatus500,
 	GetSessionResponse,
 	GetSessionSnapshotResponse,
 	GetSessionSnapshotStatus400,
@@ -1844,12 +1953,14 @@ import type {
 	GetSessionSnapshotStatus403,
 	GetSessionSnapshotStatus404,
 	GetSessionSnapshotStatus410,
+	GetSessionSnapshotStatus422,
 	GetSessionSnapshotStatus429,
 	GetSessionStatus400,
 	GetSessionStatus401,
 	GetSessionStatus403,
 	GetSessionStatus404,
 	GetSessionStatus410,
+	GetSessionStatus422,
 	GetSessionStatus429,
 	GetSessionStatus500,
 	GetSharedEnvVarResponse,
@@ -1872,6 +1983,7 @@ import type {
 	GetSupportedTldsStatus500,
 	GetTeamAccessRequestResponse,
 	GetTeamAccessRequestStatus400,
+	GetTeamAccessRequestStatus401,
 	GetTeamAccessRequestStatus403,
 	GetTeamAccessRequestStatus404,
 	GetTeamAccessRequestStatus410,
@@ -1889,6 +2001,7 @@ import type {
 	GetTeamStatus410,
 	GetTeamsResponse,
 	GetTeamsStatus400,
+	GetTeamsStatus401,
 	GetTeamsStatus403,
 	GetTeamsStatus410,
 	GetTeamsStatus500,
@@ -2012,6 +2125,7 @@ import type {
 	GitNamespacesStatus410,
 	GitNamespacesStatus429,
 	GitNamespacesStatus500,
+	ImportResourceBody,
 	ImportResourceResponse,
 	ImportResourceStatus400,
 	ImportResourceStatus401,
@@ -2019,7 +2133,7 @@ import type {
 	ImportResourceStatus404,
 	ImportResourceStatus409,
 	ImportResourceStatus410,
-	ImportResourceStatus422,
+	InvalidateBySrcImagesBody,
 	InvalidateBySrcImagesResponse,
 	InvalidateBySrcImagesStatus400,
 	InvalidateBySrcImagesStatus401,
@@ -2027,12 +2141,14 @@ import type {
 	InvalidateBySrcImagesStatus403,
 	InvalidateBySrcImagesStatus404,
 	InvalidateBySrcImagesStatus410,
+	InvalidateByTagsBody,
 	InvalidateByTagsResponse,
 	InvalidateByTagsStatus400,
 	InvalidateByTagsStatus401,
 	InvalidateByTagsStatus403,
 	InvalidateByTagsStatus404,
 	InvalidateByTagsStatus410,
+	InviteUserToTeamBody,
 	InviteUserToTeamResponse,
 	InviteUserToTeamStatus400,
 	InviteUserToTeamStatus401,
@@ -2040,6 +2156,7 @@ import type {
 	InviteUserToTeamStatus404,
 	InviteUserToTeamStatus410,
 	InviteUserToTeamStatus503,
+	IssueCertBody,
 	IssueCertResponse,
 	IssueCertStatus400,
 	IssueCertStatus401,
@@ -2049,13 +2166,16 @@ import type {
 	IssueCertStatus410,
 	IssueCertStatus449,
 	IssueCertStatus500,
+	JoinTeamBody,
 	JoinTeamResponse,
 	JoinTeamStatus400,
+	JoinTeamStatus401,
 	JoinTeamStatus402,
 	JoinTeamStatus403,
 	JoinTeamStatus404,
 	JoinTeamStatus410,
 	JoinTeamStatus503,
+	KillSessionCommandBody,
 	KillSessionCommandResponse,
 	KillSessionCommandStatus400,
 	KillSessionCommandStatus401,
@@ -2064,7 +2184,6 @@ import type {
 	KillSessionCommandStatus410,
 	KillSessionCommandStatus422,
 	KillSessionCommandStatus429,
-	KillSessionCommandStatus500,
 	ListAccessGroupMembersResponse,
 	ListAccessGroupMembersStatus400,
 	ListAccessGroupMembersStatus401,
@@ -2151,6 +2270,7 @@ import type {
 	ListConnectorProjectConnectionsStatus404,
 	ListConnectorProjectConnectionsStatus409,
 	ListConnectorProjectConnectionsStatus410,
+	ListConnectorProjectConnectionsStatus500,
 	ListConnectorsResponse,
 	ListConnectorsStatus400,
 	ListConnectorsStatus401,
@@ -2159,6 +2279,7 @@ import type {
 	ListConnectorsStatus409,
 	ListConnectorsStatus410,
 	ListConnectorsStatus422,
+	ListConnectorsStatus500,
 	ListConnectorsStatus501,
 	ListConnectorsStatus504,
 	ListContractCommitmentsResponse,
@@ -2192,12 +2313,27 @@ import type {
 	ListDrivesStatus403,
 	ListDrivesStatus404,
 	ListDrivesStatus410,
+	ListDrivesStatus422,
 	ListDrivesStatus429,
 	ListEventTypesResponse,
 	ListEventTypesStatus400,
 	ListEventTypesStatus401,
 	ListEventTypesStatus403,
 	ListEventTypesStatus410,
+	ListFlagLabelCountsResponse,
+	ListFlagLabelCountsStatus400,
+	ListFlagLabelCountsStatus401,
+	ListFlagLabelCountsStatus402,
+	ListFlagLabelCountsStatus403,
+	ListFlagLabelCountsStatus404,
+	ListFlagLabelCountsStatus410,
+	ListFlagLabelsResponse,
+	ListFlagLabelsStatus400,
+	ListFlagLabelsStatus401,
+	ListFlagLabelsStatus402,
+	ListFlagLabelsStatus403,
+	ListFlagLabelsStatus404,
+	ListFlagLabelsStatus410,
 	ListFlagSegmentsResponse,
 	ListFlagSegmentsStatus400,
 	ListFlagSegmentsStatus401,
@@ -2239,6 +2375,7 @@ import type {
 	ListNamedSandboxesStatus403,
 	ListNamedSandboxesStatus404,
 	ListNamedSandboxesStatus410,
+	ListNamedSandboxesStatus422,
 	ListNamedSandboxesStatus429,
 	ListNetworksResponse,
 	ListNetworksStatus400,
@@ -2248,6 +2385,7 @@ import type {
 	ListNetworksStatus410,
 	ListOrganizationsResponse,
 	ListOrganizationsStatus400,
+	ListOrganizationsStatus401,
 	ListOrganizationsStatus403,
 	ListOrganizationsStatus410,
 	ListOrganizationTeamsResponse,
@@ -2311,6 +2449,7 @@ import type {
 	ListSessionCommandsStatus403,
 	ListSessionCommandsStatus404,
 	ListSessionCommandsStatus410,
+	ListSessionCommandsStatus422,
 	ListSessionCommandsStatus429,
 	ListSessionSnapshotsResponse,
 	ListSessionSnapshotsStatus400,
@@ -2318,6 +2457,7 @@ import type {
 	ListSessionSnapshotsStatus403,
 	ListSessionSnapshotsStatus404,
 	ListSessionSnapshotsStatus410,
+	ListSessionSnapshotsStatus422,
 	ListSessionSnapshotsStatus429,
 	ListSessionsResponse,
 	ListSessionsStatus400,
@@ -2325,6 +2465,7 @@ import type {
 	ListSessionsStatus403,
 	ListSessionsStatus404,
 	ListSessionsStatus410,
+	ListSessionsStatus422,
 	ListSessionsStatus429,
 	ListSessionsStatus500,
 	ListSharedEnvVariableResponse,
@@ -2424,6 +2565,16 @@ import type {
 	ListVercelCiTaskRunsStatus410,
 	ListVercelCiTaskRunsStatus429,
 	ListVercelCiTaskRunsStatus500,
+	LookupFlagLabelsBody,
+	LookupFlagLabelsResponse,
+	LookupFlagLabelsStatus400,
+	LookupFlagLabelsStatus401,
+	LookupFlagLabelsStatus402,
+	LookupFlagLabelsStatus403,
+	LookupFlagLabelsStatus404,
+	LookupFlagLabelsStatus410,
+	LookupFlagLabelsStatus503,
+	MoveProjectDomainBody,
 	MoveProjectDomainResponse,
 	MoveProjectDomainStatus400,
 	MoveProjectDomainStatus401,
@@ -2431,6 +2582,7 @@ import type {
 	MoveProjectDomainStatus404,
 	MoveProjectDomainStatus409,
 	MoveProjectDomainStatus410,
+	PatchDomainBody,
 	PatchDomainResponse,
 	PatchDomainStatus400,
 	PatchDomainStatus401,
@@ -2439,6 +2591,7 @@ import type {
 	PatchDomainStatus409,
 	PatchDomainStatus410,
 	PatchDomainStatus500,
+	PatchEdgeConfigItemsBody,
 	PatchEdgeConfigItemsResponse,
 	PatchEdgeConfigItemsStatus400,
 	PatchEdgeConfigItemsStatus401,
@@ -2448,6 +2601,7 @@ import type {
 	PatchEdgeConfigItemsStatus409,
 	PatchEdgeConfigItemsStatus410,
 	PatchEdgeConfigItemsStatus412,
+	PatchEdgeConfigSchemaBody,
 	PatchEdgeConfigSchemaResponse,
 	PatchEdgeConfigSchemaStatus400,
 	PatchEdgeConfigSchemaStatus401,
@@ -2456,6 +2610,7 @@ import type {
 	PatchEdgeConfigSchemaStatus404,
 	PatchEdgeConfigSchemaStatus409,
 	PatchEdgeConfigSchemaStatus410,
+	PatchTeamBody,
 	PatchTeamResponse,
 	PatchTeamStatus400,
 	PatchTeamStatus401,
@@ -2465,6 +2620,9 @@ import type {
 	PatchTeamStatus409,
 	PatchTeamStatus410,
 	PatchTeamStatus428,
+	PatchTeamStatus502,
+	PatchTeamStatus503,
+	PatchUrlProtectionBypassBody,
 	PatchUrlProtectionBypassResponse,
 	PatchUrlProtectionBypassStatus400,
 	PatchUrlProtectionBypassStatus401,
@@ -2480,12 +2638,14 @@ import type {
 	PauseProjectStatus404,
 	PauseProjectStatus410,
 	PauseProjectStatus500,
+	PostTeamDsyncRolesBody,
 	PostTeamDsyncRolesResponse,
 	PostTeamDsyncRolesStatus400,
 	PostTeamDsyncRolesStatus401,
 	PostTeamDsyncRolesStatus403,
 	PostTeamDsyncRolesStatus404,
 	PostTeamDsyncRolesStatus410,
+	PutFirewallConfigBody,
 	PutFirewallConfigResponse,
 	PutFirewallConfigStatus400,
 	PutFirewallConfigStatus401,
@@ -2494,6 +2654,7 @@ import type {
 	PutFirewallConfigStatus404,
 	PutFirewallConfigStatus410,
 	PutFirewallConfigStatus500,
+	PutProjectDaemonInstancesBody,
 	PutProjectDaemonInstancesResponse,
 	PutProjectDaemonInstancesStatus400,
 	PutProjectDaemonInstancesStatus401,
@@ -2524,6 +2685,7 @@ import type {
 	ReadPrivateLinkEndpointStatus403,
 	ReadPrivateLinkEndpointStatus404,
 	ReadPrivateLinkEndpointStatus410,
+	ReadSessionFileBody,
 	ReadSessionFileResponse,
 	ReadSessionFileStatus400,
 	ReadSessionFileStatus401,
@@ -2532,7 +2694,7 @@ import type {
 	ReadSessionFileStatus410,
 	ReadSessionFileStatus422,
 	ReadSessionFileStatus429,
-	ReadSessionFileStatus500,
+	RecordEventsBody,
 	RecordEventsResponse,
 	RecordEventsStatus400,
 	RecordEventsStatus401,
@@ -2540,6 +2702,7 @@ import type {
 	RecordEventsStatus403,
 	RecordEventsStatus404,
 	RecordEventsStatus410,
+	RemoveBypassIpBody,
 	RemoveBypassIpResponse,
 	RemoveBypassIpStatus400,
 	RemoveBypassIpStatus401,
@@ -2554,6 +2717,7 @@ import type {
 	RemoveCertStatus403,
 	RemoveCertStatus404,
 	RemoveCertStatus410,
+	RemoveCustomEnvironmentBody,
 	RemoveCustomEnvironmentResponse,
 	RemoveCustomEnvironmentStatus400,
 	RemoveCustomEnvironmentStatus401,
@@ -2567,6 +2731,7 @@ import type {
 	RemoveOrganizationTeamStatus404,
 	RemoveOrganizationTeamStatus409,
 	RemoveOrganizationTeamStatus410,
+	RemoveProjectDomainBody,
 	RemoveProjectDomainResponse,
 	RemoveProjectDomainStatus400,
 	RemoveProjectDomainStatus401,
@@ -2593,6 +2758,7 @@ import type {
 	RemoveRecordStatus403,
 	RemoveRecordStatus404,
 	RemoveRecordStatus410,
+	RemoveRepositoryPermissionBody,
 	RemoveRepositoryPermissionResponse,
 	RemoveRepositoryPermissionStatus400,
 	RemoveRepositoryPermissionStatus401,
@@ -2606,6 +2772,7 @@ import type {
 	RemoveTeamMemberStatus404,
 	RemoveTeamMemberStatus410,
 	RemoveTeamMemberStatus503,
+	RenewDomainBody,
 	RenewDomainResponse,
 	RenewDomainStatus400,
 	RenewDomainStatus401,
@@ -2630,6 +2797,7 @@ import type {
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus413,
+	ReplaceConnectorTriggerDestinationsBody,
 	ReplaceConnectorTriggerDestinationsResponse,
 	ReplaceConnectorTriggerDestinationsStatus400,
 	ReplaceConnectorTriggerDestinationsStatus401,
@@ -2638,6 +2806,7 @@ import type {
 	ReplaceConnectorTriggerDestinationsStatus409,
 	ReplaceConnectorTriggerDestinationsStatus410,
 	ReplaceConnectorTriggerDestinationsStatus422,
+	ReplaceConnectorTriggerDestinationsStatus500,
 	ReplaceConnectorTriggerDestinationsStatus501,
 	ReplaceConnectorTriggerDestinationsStatus504,
 	ReplaceDomainsByDomainRecordsResponse,
@@ -2648,6 +2817,7 @@ import type {
 	ReplaceDomainsByDomainRecordsStatus409,
 	ReplaceDomainsByDomainRecordsStatus410,
 	ReplaceDomainsByDomainRecordsStatus415,
+	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigBody,
 	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse,
 	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400,
 	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus401,
@@ -2656,6 +2826,7 @@ import type {
 	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus409,
 	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410,
 	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus412,
+	RequestAccessToTeamBody,
 	RequestAccessToTeamResponse,
 	RequestAccessToTeamStatus400,
 	RequestAccessToTeamStatus401,
@@ -2664,8 +2835,10 @@ import type {
 	RequestAccessToTeamStatus410,
 	RequestAccessToTeamStatus429,
 	RequestAccessToTeamStatus503,
+	RequestDeleteBody,
 	RequestDeleteResponse,
 	RequestDeleteStatus400,
+	RequestDeleteStatus401,
 	RequestDeleteStatus402,
 	RequestDeleteStatus403,
 	RequestDeleteStatus410,
@@ -2709,6 +2882,7 @@ import type {
 	RestoreEdgeConfigBackupStatus409,
 	RestoreEdgeConfigBackupStatus410,
 	RestoreEdgeConfigBackupStatus412,
+	RestoreRedirectsBody,
 	RestoreRedirectsResponse,
 	RestoreRedirectsStatus400,
 	RestoreRedirectsStatus401,
@@ -2725,6 +2899,7 @@ import type {
 	RetryVercelCiInvocationStatus410,
 	RetryVercelCiInvocationStatus429,
 	RetryVercelCiInvocationStatus500,
+	RevokeInstallationCredentialBody,
 	RevokeInstallationCredentialResponse,
 	RevokeInstallationCredentialStatus400,
 	RevokeInstallationCredentialStatus401,
@@ -2739,6 +2914,7 @@ import type {
 	RevokeKmsSigningKeyStatus404,
 	RevokeKmsSigningKeyStatus409,
 	RevokeKmsSigningKeyStatus410,
+	RotateInstallationCredentialBody,
 	RotateInstallationCredentialResponse,
 	RotateInstallationCredentialStatus400,
 	RotateInstallationCredentialStatus401,
@@ -2746,6 +2922,7 @@ import type {
 	RotateInstallationCredentialStatus404,
 	RotateInstallationCredentialStatus409,
 	RotateInstallationCredentialStatus410,
+	RunSessionCommandBody,
 	RunSessionCommandResponse,
 	RunSessionCommandStatus400,
 	RunSessionCommandStatus401,
@@ -2754,7 +2931,7 @@ import type {
 	RunSessionCommandStatus410,
 	RunSessionCommandStatus422,
 	RunSessionCommandStatus429,
-	RunSessionCommandStatus500,
+	SearchDomainsBody,
 	SearchDomainsResponse,
 	SearchDomainsStatus400,
 	SearchDomainsStatus401,
@@ -2778,18 +2955,21 @@ import type {
 	SearchVercelCiLogsStatus410,
 	SearchVercelCiLogsStatus429,
 	SearchVercelCiLogsStatus500,
+	SignKmsMessageBody,
 	SignKmsMessageResponse,
 	SignKmsMessageStatus400,
 	SignKmsMessageStatus401,
 	SignKmsMessageStatus403,
 	SignKmsMessageStatus404,
 	SignKmsMessageStatus429,
+	SignKmsTokenBody,
 	SignKmsTokenResponse,
 	SignKmsTokenStatus400,
 	SignKmsTokenStatus401,
 	SignKmsTokenStatus403,
 	SignKmsTokenStatus404,
 	SignKmsTokenStatus429,
+	StageRedirectsBody,
 	StageRedirectsResponse,
 	StageRedirectsStatus400,
 	StageRedirectsStatus401,
@@ -2797,6 +2977,7 @@ import type {
 	StageRedirectsStatus404,
 	StageRedirectsStatus410,
 	StageRedirectsStatus500,
+	StageRoutesBody,
 	StageRoutesResponse,
 	StageRoutesStatus400,
 	StageRoutesStatus401,
@@ -2805,6 +2986,7 @@ import type {
 	StageRoutesStatus409,
 	StageRoutesStatus410,
 	StageRoutesStatus500,
+	StartRollingReleaseBody,
 	StartRollingReleaseResponse,
 	StartRollingReleaseStatus400,
 	StartRollingReleaseStatus401,
@@ -2829,12 +3011,14 @@ import type {
 	StopSessionStatus422,
 	StopSessionStatus429,
 	StopSessionStatus500,
+	SubmitBillingDataBody,
 	SubmitBillingDataResponse,
 	SubmitBillingDataStatus400,
 	SubmitBillingDataStatus401,
 	SubmitBillingDataStatus403,
 	SubmitBillingDataStatus404,
 	SubmitBillingDataStatus410,
+	SubmitInvoiceBody,
 	SubmitInvoiceResponse,
 	SubmitInvoiceStatus400,
 	SubmitInvoiceStatus401,
@@ -2842,12 +3026,14 @@ import type {
 	SubmitInvoiceStatus404,
 	SubmitInvoiceStatus409,
 	SubmitInvoiceStatus410,
+	SubmitPrepaymentBalancesBody,
 	SubmitPrepaymentBalancesResponse,
 	SubmitPrepaymentBalancesStatus400,
 	SubmitPrepaymentBalancesStatus401,
 	SubmitPrepaymentBalancesStatus403,
 	SubmitPrepaymentBalancesStatus404,
 	SubmitPrepaymentBalancesStatus410,
+	TestDrainBody,
 	TestDrainResponse,
 	TestDrainStatus400,
 	TestDrainStatus401,
@@ -2855,6 +3041,7 @@ import type {
 	TestDrainStatus403,
 	TestDrainStatus404,
 	TestDrainStatus410,
+	TransferInDomainBody,
 	TransferInDomainResponse,
 	TransferInDomainStatus400,
 	TransferInDomainStatus401,
@@ -2874,6 +3061,8 @@ import type {
 	UnpauseProjectStatus404,
 	UnpauseProjectStatus410,
 	UnpauseProjectStatus500,
+	UpdateAccessGroupBody,
+	UpdateAccessGroupProjectBody,
 	UpdateAccessGroupProjectResponse,
 	UpdateAccessGroupProjectStatus400,
 	UpdateAccessGroupProjectStatus401,
@@ -2909,6 +3098,16 @@ import type {
 	UpdateAiGatewayVirtualModelConfigStatus410,
 	UpdateAiGatewayVirtualModelConfigStatus429,
 	UpdateAiGatewayVirtualModelConfigStatus500,
+	UpdateApiKeyQuotaBody,
+	UpdateApiKeyQuotaResponse,
+	UpdateApiKeyQuotaStatus400,
+	UpdateApiKeyQuotaStatus401,
+	UpdateApiKeyQuotaStatus403,
+	UpdateApiKeyQuotaStatus404,
+	UpdateApiKeyQuotaStatus410,
+	UpdateApiKeyQuotaStatus429,
+	UpdateApiKeyQuotaStatus500,
+	UpdateAttackChallengeModeBody,
 	UpdateAttackChallengeModeResponse,
 	UpdateAttackChallengeModeStatus400,
 	UpdateAttackChallengeModeStatus401,
@@ -2924,6 +3123,7 @@ import type {
 	UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus408,
 	UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410,
 	UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413,
+	UpdateCheckBody,
 	UpdateCheckResponse,
 	UpdateCheckStatus400,
 	UpdateCheckStatus401,
@@ -2931,6 +3131,7 @@ import type {
 	UpdateCheckStatus404,
 	UpdateCheckStatus410,
 	UpdateCheckStatus413,
+	UpdateConnectorBody,
 	UpdateConnectorResponse,
 	UpdateConnectorStatus400,
 	UpdateConnectorStatus401,
@@ -2943,6 +3144,7 @@ import type {
 	UpdateConnectorStatus501,
 	UpdateConnectorStatus502,
 	UpdateConnectorStatus504,
+	UpdateCustomEnvironmentBody,
 	UpdateCustomEnvironmentResponse,
 	UpdateCustomEnvironmentStatus400,
 	UpdateCustomEnvironmentStatus401,
@@ -2951,6 +3153,7 @@ import type {
 	UpdateCustomEnvironmentStatus404,
 	UpdateCustomEnvironmentStatus410,
 	UpdateCustomEnvironmentStatus500,
+	UpdateDeploymentCheckRunBody,
 	UpdateDeploymentCheckRunResponse,
 	UpdateDeploymentCheckRunStatus400,
 	UpdateDeploymentCheckRunStatus401,
@@ -2959,6 +3162,7 @@ import type {
 	UpdateDeploymentCheckRunStatus410,
 	UpdateDeploymentCheckRunStatus413,
 	UpdateDeploymentCheckRunStatus500,
+	UpdateDomainAutoRenewBody,
 	UpdateDomainAutoRenewResponse,
 	UpdateDomainAutoRenewStatus400,
 	UpdateDomainAutoRenewStatus401,
@@ -2966,6 +3170,7 @@ import type {
 	UpdateDomainAutoRenewStatus404,
 	UpdateDomainAutoRenewStatus429,
 	UpdateDomainAutoRenewStatus500,
+	UpdateDomainNameserversBody,
 	UpdateDomainNameserversResponse,
 	UpdateDomainNameserversStatus400,
 	UpdateDomainNameserversStatus401,
@@ -2973,6 +3178,7 @@ import type {
 	UpdateDomainNameserversStatus404,
 	UpdateDomainNameserversStatus429,
 	UpdateDomainNameserversStatus500,
+	UpdateDrainBody,
 	UpdateDrainResponse,
 	UpdateDrainStatus400,
 	UpdateDrainStatus401,
@@ -2980,6 +3186,7 @@ import type {
 	UpdateDrainStatus403,
 	UpdateDrainStatus404,
 	UpdateDrainStatus410,
+	UpdateEdgeConfigBody,
 	UpdateEdgeConfigResponse,
 	UpdateEdgeConfigStatus400,
 	UpdateEdgeConfigStatus401,
@@ -2988,6 +3195,7 @@ import type {
 	UpdateEdgeConfigStatus404,
 	UpdateEdgeConfigStatus409,
 	UpdateEdgeConfigStatus410,
+	UpdateFirewallConfigBody,
 	UpdateFirewallConfigResponse,
 	UpdateFirewallConfigStatus400,
 	UpdateFirewallConfigStatus401,
@@ -2996,7 +3204,9 @@ import type {
 	UpdateFirewallConfigStatus404,
 	UpdateFirewallConfigStatus410,
 	UpdateFirewallConfigStatus500,
+	UpdateFlagBody,
 	UpdateFlagResponse,
+	UpdateFlagSegmentBody,
 	UpdateFlagSegmentResponse,
 	UpdateFlagSegmentStatus400,
 	UpdateFlagSegmentStatus401,
@@ -3005,6 +3215,7 @@ import type {
 	UpdateFlagSegmentStatus404,
 	UpdateFlagSegmentStatus409,
 	UpdateFlagSegmentStatus410,
+	UpdateFlagSettingsBody,
 	UpdateFlagSettingsResponse,
 	UpdateFlagSettingsStatus400,
 	UpdateFlagSettingsStatus401,
@@ -3020,24 +3231,28 @@ import type {
 	UpdateFlagStatus404,
 	UpdateFlagStatus409,
 	UpdateFlagStatus410,
+	UpdateInstallationBody,
 	UpdateInstallationResponse,
 	UpdateInstallationStatus400,
 	UpdateInstallationStatus401,
 	UpdateInstallationStatus403,
 	UpdateInstallationStatus404,
 	UpdateInstallationStatus410,
+	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdBody,
 	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdResponse,
 	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus400,
 	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus401,
 	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus403,
 	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus404,
 	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus410,
+	UpdateIntegrationDeploymentActionBody,
 	UpdateIntegrationDeploymentActionResponse,
 	UpdateIntegrationDeploymentActionStatus400,
 	UpdateIntegrationDeploymentActionStatus401,
 	UpdateIntegrationDeploymentActionStatus403,
 	UpdateIntegrationDeploymentActionStatus404,
 	UpdateIntegrationDeploymentActionStatus410,
+	UpdateInvoiceBody,
 	UpdateInvoiceResponse,
 	UpdateInvoiceStatus400,
 	UpdateInvoiceStatus401,
@@ -3045,6 +3260,8 @@ import type {
 	UpdateInvoiceStatus404,
 	UpdateInvoiceStatus409,
 	UpdateInvoiceStatus410,
+	UpdateKmsIssuerBody,
+	UpdateKmsIssuerPolicyBody,
 	UpdateKmsIssuerPolicyResponse,
 	UpdateKmsIssuerPolicyStatus400,
 	UpdateKmsIssuerPolicyStatus401,
@@ -3057,6 +3274,8 @@ import type {
 	UpdateKmsIssuerStatus403,
 	UpdateKmsIssuerStatus404,
 	UpdateKmsIssuerStatus410,
+	UpdateMicrofrontendsBody,
+	UpdateMicrofrontendsGroupBody,
 	UpdateMicrofrontendsGroupResponse,
 	UpdateMicrofrontendsGroupStatus400,
 	UpdateMicrofrontendsGroupStatus401,
@@ -3071,12 +3290,14 @@ import type {
 	UpdateMicrofrontendsStatus409,
 	UpdateMicrofrontendsStatus410,
 	UpdateMicrofrontendsStatus500,
+	UpdateNetworkBody,
 	UpdateNetworkResponse,
 	UpdateNetworkStatus400,
 	UpdateNetworkStatus401,
 	UpdateNetworkStatus403,
 	UpdateNetworkStatus404,
 	UpdateNetworkStatus410,
+	UpdateObservabilityConfigurationProjectBody,
 	UpdateObservabilityConfigurationProjectResponse,
 	UpdateObservabilityConfigurationProjectStatus400,
 	UpdateObservabilityConfigurationProjectStatus401,
@@ -3084,6 +3305,7 @@ import type {
 	UpdateObservabilityConfigurationProjectStatus404,
 	UpdateObservabilityConfigurationProjectStatus410,
 	UpdateObservabilityConfigurationProjectStatus429,
+	UpdateOrganizationBody,
 	UpdateOrganizationResponse,
 	UpdateOrganizationStatus400,
 	UpdateOrganizationStatus401,
@@ -3091,6 +3313,7 @@ import type {
 	UpdateOrganizationStatus404,
 	UpdateOrganizationStatus409,
 	UpdateOrganizationStatus410,
+	UpdatePrivateLinkEndpointBody,
 	UpdatePrivateLinkEndpointResponse,
 	UpdatePrivateLinkEndpointStatus400,
 	UpdatePrivateLinkEndpointStatus401,
@@ -3098,6 +3321,10 @@ import type {
 	UpdatePrivateLinkEndpointStatus404,
 	UpdatePrivateLinkEndpointStatus409,
 	UpdatePrivateLinkEndpointStatus410,
+	UpdatePrivateLinkEndpointStatus500,
+	UpdatePrivateLinkEndpointStatus503,
+	UpdateProjectBody,
+	UpdateProjectCheckBody,
 	UpdateProjectCheckResponse,
 	UpdateProjectCheckStatus400,
 	UpdateProjectCheckStatus401,
@@ -3105,6 +3332,7 @@ import type {
 	UpdateProjectCheckStatus404,
 	UpdateProjectCheckStatus410,
 	UpdateProjectCheckStatus500,
+	UpdateProjectDomainBody,
 	UpdateProjectDomainResponse,
 	UpdateProjectDomainStatus400,
 	UpdateProjectDomainStatus401,
@@ -3112,6 +3340,7 @@ import type {
 	UpdateProjectDomainStatus404,
 	UpdateProjectDomainStatus409,
 	UpdateProjectDomainStatus410,
+	UpdateProjectProtectionBypassBody,
 	UpdateProjectProtectionBypassResponse,
 	UpdateProjectProtectionBypassStatus400,
 	UpdateProjectProtectionBypassStatus401,
@@ -3128,6 +3357,8 @@ import type {
 	UpdateProjectStatus409,
 	UpdateProjectStatus410,
 	UpdateProjectStatus428,
+	UpdateProjectStatus500,
+	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionBody,
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionResponse,
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus400,
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus401,
@@ -3136,6 +3367,7 @@ import type {
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus409,
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus410,
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus422,
+	UpdateRecordBody,
 	UpdateRecordResponse,
 	UpdateRecordStatus400,
 	UpdateRecordStatus401,
@@ -3144,7 +3376,10 @@ import type {
 	UpdateRecordStatus404,
 	UpdateRecordStatus409,
 	UpdateRecordStatus410,
+	UpdateResourceBody,
 	UpdateResourceResponse,
+	UpdateResourceSecretsBody,
+	UpdateResourceSecretsByIdBody,
 	UpdateResourceSecretsByIdResponse,
 	UpdateResourceSecretsByIdStatus400,
 	UpdateResourceSecretsByIdStatus401,
@@ -3152,7 +3387,6 @@ import type {
 	UpdateResourceSecretsByIdStatus404,
 	UpdateResourceSecretsByIdStatus409,
 	UpdateResourceSecretsByIdStatus410,
-	UpdateResourceSecretsByIdStatus422,
 	UpdateResourceSecretsResponse,
 	UpdateResourceSecretsStatus400,
 	UpdateResourceSecretsStatus401,
@@ -3160,20 +3394,19 @@ import type {
 	UpdateResourceSecretsStatus404,
 	UpdateResourceSecretsStatus409,
 	UpdateResourceSecretsStatus410,
-	UpdateResourceSecretsStatus422,
 	UpdateResourceStatus400,
 	UpdateResourceStatus401,
 	UpdateResourceStatus403,
 	UpdateResourceStatus404,
 	UpdateResourceStatus409,
 	UpdateResourceStatus410,
-	UpdateResourceStatus422,
 	UpdateRollingReleaseConfigResponse,
 	UpdateRollingReleaseConfigStatus400,
 	UpdateRollingReleaseConfigStatus401,
 	UpdateRollingReleaseConfigStatus403,
 	UpdateRollingReleaseConfigStatus404,
 	UpdateRollingReleaseConfigStatus410,
+	UpdateRouteVersionsBody,
 	UpdateRouteVersionsResponse,
 	UpdateRouteVersionsStatus400,
 	UpdateRouteVersionsStatus401,
@@ -3182,6 +3415,7 @@ import type {
 	UpdateRouteVersionsStatus409,
 	UpdateRouteVersionsStatus410,
 	UpdateRouteVersionsStatus500,
+	UpdateSandboxBody,
 	UpdateSandboxResponse,
 	UpdateSandboxStatus400,
 	UpdateSandboxStatus401,
@@ -3192,6 +3426,7 @@ import type {
 	UpdateSandboxStatus422,
 	UpdateSandboxStatus429,
 	UpdateSandboxStatus500,
+	UpdateSessionNetworkPolicyBody,
 	UpdateSessionNetworkPolicyResponse,
 	UpdateSessionNetworkPolicyStatus400,
 	UpdateSessionNetworkPolicyStatus401,
@@ -3201,6 +3436,7 @@ import type {
 	UpdateSessionNetworkPolicyStatus422,
 	UpdateSessionNetworkPolicyStatus429,
 	UpdateSessionNetworkPolicyStatus500,
+	UpdateSharedEnvVariableBody,
 	UpdateSharedEnvVariableResponse,
 	UpdateSharedEnvVariableStatus400,
 	UpdateSharedEnvVariableStatus401,
@@ -3208,6 +3444,7 @@ import type {
 	UpdateSharedEnvVariableStatus403,
 	UpdateSharedEnvVariableStatus404,
 	UpdateSharedEnvVariableStatus410,
+	UpdateStaticIpsBody,
 	UpdateStaticIpsResponse,
 	UpdateStaticIpsStatus400,
 	UpdateStaticIpsStatus401,
@@ -3217,6 +3454,7 @@ import type {
 	UpdateStaticIpsStatus409,
 	UpdateStaticIpsStatus410,
 	UpdateStaticIpsStatus500,
+	UpdateTeamMemberBody,
 	UpdateTeamMemberResponse,
 	UpdateTeamMemberStatus400,
 	UpdateTeamMemberStatus401,
@@ -3226,6 +3464,7 @@ import type {
 	UpdateTeamMemberStatus409,
 	UpdateTeamMemberStatus410,
 	UpdateTeamMemberStatus500,
+	UpdateVercelCiRepositorySettingsBody,
 	UpdateVercelCiRepositorySettingsResponse,
 	UpdateVercelCiRepositorySettingsStatus400,
 	UpdateVercelCiRepositorySettingsStatus401,
@@ -3235,6 +3474,7 @@ import type {
 	UpdateVercelCiRepositorySettingsStatus410,
 	UpdateVercelCiRepositorySettingsStatus429,
 	UpdateVercelCiRepositorySettingsStatus500,
+	UpdateVersionBody,
 	UpdateVersionResponse,
 	UpdateVersionStatus400,
 	UpdateVersionStatus401,
@@ -3249,6 +3489,7 @@ import type {
 	UploadArtifactStatus403,
 	UploadArtifactStatus404,
 	UploadArtifactStatus410,
+	UploadCertBody,
 	UploadCertResponse,
 	UploadCertStatus400,
 	UploadCertStatus401,
@@ -3271,6 +3512,8 @@ import type {
 	UploadProjectAvatarStatus410,
 	UploadProjectAvatarStatus413,
 	UploadProjectAvatarStatus415,
+	UpsertAiGatewayBudgetBody,
+	UpsertAiGatewayBudgetDefaultBody,
 	UpsertAiGatewayBudgetDefaultResponse,
 	UpsertAiGatewayBudgetDefaultStatus400,
 	UpsertAiGatewayBudgetDefaultStatus401,
@@ -3285,6 +3528,7 @@ import type {
 	UpsertAiGatewayBudgetStatus404,
 	UpsertAiGatewayBudgetStatus410,
 	UpsertAiGatewayBudgetStatus500,
+	UpsertConnectorProjectConnectionBody,
 	UpsertConnectorProjectConnectionResponse,
 	UpsertConnectorProjectConnectionStatus400,
 	UpsertConnectorProjectConnectionStatus401,
@@ -3292,12 +3536,14 @@ import type {
 	UpsertConnectorProjectConnectionStatus404,
 	UpsertConnectorProjectConnectionStatus409,
 	UpsertConnectorProjectConnectionStatus410,
+	UpsertConnectorProjectConnectionStatus500,
 	VerifyProjectDomainResponse,
 	VerifyProjectDomainStatus400,
 	VerifyProjectDomainStatus401,
 	VerifyProjectDomainStatus403,
 	VerifyProjectDomainStatus404,
 	VerifyProjectDomainStatus410,
+	WriteSessionCommandStdinBody,
 	WriteSessionCommandStdinResponse,
 	WriteSessionCommandStdinStatus400,
 	WriteSessionCommandStdinStatus401,
@@ -3307,7 +3553,6 @@ import type {
 	WriteSessionCommandStdinStatus410,
 	WriteSessionCommandStdinStatus422,
 	WriteSessionCommandStdinStatus429,
-	WriteSessionCommandStdinStatus500,
 	WriteSessionCommandStdinStatus502,
 	WriteSessionCommandStdinStatus504,
 	WriteSessionFilesResponse,
@@ -3318,7 +3563,6 @@ import type {
 	WriteSessionFilesStatus410,
 	WriteSessionFilesStatus422,
 	WriteSessionFilesStatus429,
-	WriteSessionFilesStatus500,
 } from "./types";
 
 /**
@@ -3379,7 +3623,7 @@ export async function updateAccessGroup(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateAccessGroupBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3398,7 +3642,7 @@ export async function updateAccessGroup(
 			| UpdateAccessGroupStatus404
 			| UpdateAccessGroupStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateAccessGroupBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -3408,7 +3652,7 @@ export async function updateAccessGroup(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -3579,7 +3823,7 @@ export async function createAccessGroup(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateAccessGroupBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3595,7 +3839,7 @@ export async function createAccessGroup(
 			| CreateAccessGroupStatus404
 			| CreateAccessGroupStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateAccessGroupBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -3605,7 +3849,7 @@ export async function createAccessGroup(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -3669,7 +3913,7 @@ export async function createAccessGroupProject(
 		config,
 	}: {
 		pathParams: { accessGroupIdOrName: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateAccessGroupProjectBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3688,7 +3932,7 @@ export async function createAccessGroupProject(
 			| CreateAccessGroupProjectStatus404
 			| CreateAccessGroupProjectStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateAccessGroupProjectBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ accessGroupIdOrName: string }
@@ -3698,7 +3942,7 @@ export async function createAccessGroupProject(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -3766,7 +4010,7 @@ export async function updateAccessGroupProject(
 		config,
 	}: {
 		pathParams: { accessGroupIdOrName: string; projectId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateAccessGroupProjectBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3789,7 +4033,7 @@ export async function updateAccessGroupProject(
 			| UpdateAccessGroupProjectStatus404
 			| UpdateAccessGroupProjectStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateAccessGroupProjectBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ accessGroupIdOrName: string; projectId: string }
@@ -3799,7 +4043,7 @@ export async function updateAccessGroupProject(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -4543,7 +4787,7 @@ export async function upsertAiGatewayBudget(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpsertAiGatewayBudgetBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4560,7 +4804,7 @@ export async function upsertAiGatewayBudget(
 			| UpsertAiGatewayBudgetStatus410
 			| UpsertAiGatewayBudgetStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpsertAiGatewayBudgetBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -4570,7 +4814,7 @@ export async function upsertAiGatewayBudget(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -4681,7 +4925,7 @@ export async function upsertAiGatewayBudgetDefault(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpsertAiGatewayBudgetDefaultBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4698,7 +4942,7 @@ export async function upsertAiGatewayBudgetDefault(
 			| UpsertAiGatewayBudgetDefaultStatus410
 			| UpsertAiGatewayBudgetDefaultStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpsertAiGatewayBudgetDefaultBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -4708,7 +4952,7 @@ export async function upsertAiGatewayBudgetDefault(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -4771,7 +5015,7 @@ export async function recordEvents(
 		headers,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: RecordEventsBody;
 		queryParams?: { teamId?: string; slug?: string };
 		headers?: { "x-artifact-client-ci"?: string; "x-artifact-client-interactive"?: number };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
@@ -4789,7 +5033,7 @@ export async function recordEvents(
 			| RecordEventsStatus404
 			| RecordEventsStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		RecordEventsBody,
 		{ "x-artifact-client-ci"?: string; "x-artifact-client-interactive"?: number },
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -4799,7 +5043,7 @@ export async function recordEvents(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...headers, ...requestConfig.headers },
+		headers: { ...headers, ...requestConfig.headers },
 	});
 
 	return data;
@@ -4907,7 +5151,7 @@ export async function uploadArtifact(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationOctetStream", ...headers, ...requestConfig.headers },
+		headers: { "Content-Type": "application/octet-stream", ...headers, ...requestConfig.headers },
 	});
 
 	return data;
@@ -4972,7 +5216,7 @@ export async function artifactQuery(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ArtifactQueryBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4989,7 +5233,7 @@ export async function artifactQuery(
 			| ArtifactQueryStatus404
 			| ArtifactQueryStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ArtifactQueryBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -4999,7 +5243,7 @@ export async function artifactQuery(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -5138,7 +5382,7 @@ export async function buyCredits(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: BuyCreditsBody;
 		queryParams?: { source?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5157,7 +5401,7 @@ export async function buyCredits(
 			| BuyCreditsStatus410
 			| BuyCreditsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		BuyCreditsBody,
 		Record<string, string>,
 		{ source?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -5167,7 +5411,7 @@ export async function buyCredits(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -5184,7 +5428,7 @@ export async function stageRedirects(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: StageRedirectsBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5201,7 +5445,7 @@ export async function stageRedirects(
 			| StageRedirectsStatus410
 			| StageRedirectsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		StageRedirectsBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -5211,7 +5455,7 @@ export async function stageRedirects(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -5290,7 +5534,7 @@ export async function deleteRedirects(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: DeleteRedirectsBody;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5307,7 +5551,7 @@ export async function deleteRedirects(
 			| DeleteRedirectsStatus410
 			| DeleteRedirectsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		DeleteRedirectsBody,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -5317,7 +5561,7 @@ export async function deleteRedirects(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -5334,7 +5578,7 @@ export async function editRedirect(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: EditRedirectBody;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5351,7 +5595,7 @@ export async function editRedirect(
 			| EditRedirectStatus410
 			| EditRedirectStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		EditRedirectBody,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -5361,7 +5605,7 @@ export async function editRedirect(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -5378,7 +5622,7 @@ export async function restoreRedirects(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: RestoreRedirectsBody;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5395,7 +5639,7 @@ export async function restoreRedirects(
 			| RestoreRedirectsStatus410
 			| RestoreRedirectsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		RestoreRedirectsBody,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -5405,7 +5649,7 @@ export async function restoreRedirects(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -5463,7 +5707,7 @@ export async function updateVersion(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateVersionBody;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5480,7 +5724,7 @@ export async function updateVersion(
 			| UpdateVersionStatus410
 			| UpdateVersionStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateVersionBody,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -5490,7 +5734,7 @@ export async function updateVersion(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -5573,7 +5817,7 @@ export async function createProjectCheck(
 		config,
 	}: {
 		pathParams: { projectIdOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateProjectCheckBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5593,7 +5837,7 @@ export async function createProjectCheck(
 			| CreateProjectCheckStatus410
 			| CreateProjectCheckStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateProjectCheckBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string }
@@ -5603,7 +5847,7 @@ export async function createProjectCheck(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -5672,7 +5916,7 @@ export async function updateProjectCheck(
 		config,
 	}: {
 		pathParams: { projectIdOrName: string; checkId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateProjectCheckBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5696,7 +5940,7 @@ export async function updateProjectCheck(
 			| UpdateProjectCheckStatus410
 			| UpdateProjectCheckStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateProjectCheckBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string; checkId: string }
@@ -5706,7 +5950,7 @@ export async function updateProjectCheck(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -5871,7 +6115,7 @@ export async function createDeploymentCheckRun(
 		config,
 	}: {
 		pathParams: { deploymentId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateDeploymentCheckRunBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5891,7 +6135,7 @@ export async function createDeploymentCheckRun(
 			| CreateDeploymentCheckRunStatus410
 			| CreateDeploymentCheckRunStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateDeploymentCheckRunBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ deploymentId: string }
@@ -5901,7 +6145,7 @@ export async function createDeploymentCheckRun(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -5970,7 +6214,7 @@ export async function updateDeploymentCheckRun(
 		config,
 	}: {
 		pathParams: { deploymentId: string; checkRunId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateDeploymentCheckRunBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5995,7 +6239,7 @@ export async function updateDeploymentCheckRun(
 			| UpdateDeploymentCheckRunStatus413
 			| UpdateDeploymentCheckRunStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateDeploymentCheckRunBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ deploymentId: string; checkRunId: string }
@@ -6005,7 +6249,7 @@ export async function updateDeploymentCheckRun(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -6025,7 +6269,7 @@ export async function createCheck(
 		config,
 	}: {
 		pathParams: { deploymentId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateCheckBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6044,7 +6288,7 @@ export async function createCheck(
 			| CreateCheckStatus404
 			| CreateCheckStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateCheckBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ deploymentId: string }
@@ -6054,7 +6298,7 @@ export async function createCheck(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -6170,7 +6414,7 @@ export async function updateCheck(
 		config,
 	}: {
 		pathParams: { deploymentId: string; checkId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateCheckBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6194,7 +6438,7 @@ export async function updateCheck(
 			| UpdateCheckStatus410
 			| UpdateCheckStatus413
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateCheckBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ deploymentId: string; checkId: string }
@@ -6204,7 +6448,7 @@ export async function updateCheck(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -6325,7 +6569,7 @@ export async function createNetwork(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateNetworkBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6343,7 +6587,7 @@ export async function createNetwork(
 			| CreateNetworkStatus409
 			| CreateNetworkStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateNetworkBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -6353,7 +6597,7 @@ export async function createNetwork(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -6419,7 +6663,7 @@ export async function updateNetwork(
 		config,
 	}: {
 		pathParams: { networkId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateNetworkBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6438,7 +6682,7 @@ export async function updateNetwork(
 			| UpdateNetworkStatus404
 			| UpdateNetworkStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateNetworkBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ networkId: string }
@@ -6448,7 +6692,7 @@ export async function updateNetwork(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -6501,7 +6745,7 @@ export async function readNetwork(
 
 /**
  * @summary Create a PrivateLink endpoint
- * @description Creates a PrivateLink endpoint for a project.
+ * @description Creates a PrivateLink endpoint for a project. Changes to endpoints of the same project are serialized. If another change holds them for too long, the request fails with `503 service_unavailable` and can be retried. If the change may have completed but the outcome is unknown, it fails with `409 uncertain_outcome`; read the endpoint before retrying.
  * @link /v1/networking/privatelink/endpoints
  */
 export async function createPrivateLinkEndpoint(
@@ -6510,7 +6754,7 @@ export async function createPrivateLinkEndpoint(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreatePrivateLinkEndpointBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6527,8 +6771,9 @@ export async function createPrivateLinkEndpoint(
 			| CreatePrivateLinkEndpointStatus409
 			| CreatePrivateLinkEndpointStatus410
 			| CreatePrivateLinkEndpointStatus500
+			| CreatePrivateLinkEndpointStatus503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreatePrivateLinkEndpointBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -6538,7 +6783,7 @@ export async function createPrivateLinkEndpoint(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -6631,7 +6876,7 @@ export async function readPrivateLinkEndpoint(
 
 /**
  * @summary Delete a PrivateLink endpoint
- * @description Deletes a PrivateLink endpoint.
+ * @description Deletes a PrivateLink endpoint. The endpoint is removed asynchronously. Repeating the request for an endpoint that is already being deleted retries its cleanup and also returns `204`. Changes to endpoints of the same project are serialized. If another change holds them for too long, the request fails with `503 service_unavailable` and can be retried. If the change may have completed but the outcome is unknown, it fails with `409 uncertain_outcome`; read the endpoint before retrying.
  * @link /v1/networking/privatelink/endpoints/{endpointId}
  */
 export async function deletePrivateLinkEndpoint(
@@ -6660,6 +6905,7 @@ export async function deletePrivateLinkEndpoint(
 			| DeletePrivateLinkEndpointStatus409
 			| DeletePrivateLinkEndpointStatus410
 			| DeletePrivateLinkEndpointStatus500
+			| DeletePrivateLinkEndpointStatus503
 		>,
 		null,
 		Record<string, string>,
@@ -6678,7 +6924,7 @@ export async function deletePrivateLinkEndpoint(
 
 /**
  * @summary Update a PrivateLink endpoint
- * @description Updates a PrivateLink endpoint (name, privateDns).
+ * @description Updates a PrivateLink endpoint (name, privateDns). Changes to endpoints of the same project are serialized. If another change holds them for too long, the request fails with `503 service_unavailable` and can be retried. If the change may have completed but the outcome is unknown, it fails with `409 uncertain_outcome`; read the endpoint before retrying.
  * @link /v1/networking/privatelink/endpoints/{endpointId}
  */
 export async function updatePrivateLinkEndpoint(
@@ -6689,7 +6935,7 @@ export async function updatePrivateLinkEndpoint(
 		config,
 	}: {
 		pathParams: { endpointId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdatePrivateLinkEndpointBody;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6708,8 +6954,10 @@ export async function updatePrivateLinkEndpoint(
 			| UpdatePrivateLinkEndpointStatus404
 			| UpdatePrivateLinkEndpointStatus409
 			| UpdatePrivateLinkEndpointStatus410
+			| UpdatePrivateLinkEndpointStatus500
+			| UpdatePrivateLinkEndpointStatus503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdatePrivateLinkEndpointBody,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		{ endpointId: string }
@@ -6719,7 +6967,7 @@ export async function updatePrivateLinkEndpoint(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -6761,6 +7009,7 @@ export async function listConnectors(
 			| ListConnectorsStatus409
 			| ListConnectorsStatus410
 			| ListConnectorsStatus422
+			| ListConnectorsStatus500
 			| ListConnectorsStatus501
 			| ListConnectorsStatus504
 		>,
@@ -6820,6 +7069,7 @@ export async function getConnector(
 			| GetConnectorStatus409
 			| GetConnectorStatus410
 			| GetConnectorStatus422
+			| GetConnectorStatus500
 			| GetConnectorStatus501
 			| GetConnectorStatus504
 		>,
@@ -6869,6 +7119,7 @@ export async function deleteConnector(
 			| DeleteConnectorStatus409
 			| DeleteConnectorStatus410
 			| DeleteConnectorStatus422
+			| DeleteConnectorStatus500
 			| DeleteConnectorStatus501
 			| DeleteConnectorStatus502
 			| DeleteConnectorStatus503
@@ -6900,7 +7151,7 @@ export async function createConnector(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateConnectorBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6922,7 +7173,7 @@ export async function createConnector(
 			| CreateConnectorStatus502
 			| CreateConnectorStatus504
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateConnectorBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -6932,7 +7183,7 @@ export async function createConnector(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -6951,7 +7202,7 @@ export async function updateConnector(
 		config,
 	}: {
 		pathParams: { connector: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateConnectorBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6976,7 +7227,7 @@ export async function updateConnector(
 			| UpdateConnectorStatus502
 			| UpdateConnectorStatus504
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateConnectorBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ connector: string }
@@ -6986,7 +7237,7 @@ export async function updateConnector(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -7005,7 +7256,7 @@ export async function replaceConnectorTriggerDestinations(
 		config,
 	}: {
 		pathParams: { connector: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ReplaceConnectorTriggerDestinationsBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7025,10 +7276,11 @@ export async function replaceConnectorTriggerDestinations(
 			| ReplaceConnectorTriggerDestinationsStatus409
 			| ReplaceConnectorTriggerDestinationsStatus410
 			| ReplaceConnectorTriggerDestinationsStatus422
+			| ReplaceConnectorTriggerDestinationsStatus500
 			| ReplaceConnectorTriggerDestinationsStatus501
 			| ReplaceConnectorTriggerDestinationsStatus504
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ReplaceConnectorTriggerDestinationsBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ connector: string }
@@ -7038,7 +7290,7 @@ export async function replaceConnectorTriggerDestinations(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -7075,6 +7327,7 @@ export async function ejectManagedConnector(
 			| EjectManagedConnectorStatus409
 			| EjectManagedConnectorStatus410
 			| EjectManagedConnectorStatus422
+			| EjectManagedConnectorStatus500
 			| EjectManagedConnectorStatus501
 			| EjectManagedConnectorStatus504
 		>,
@@ -7123,6 +7376,7 @@ export async function listConnectorProjectConnections(
 			| ListConnectorProjectConnectionsStatus404
 			| ListConnectorProjectConnectionsStatus409
 			| ListConnectorProjectConnectionsStatus410
+			| ListConnectorProjectConnectionsStatus500
 		>,
 		null,
 		Record<string, string>,
@@ -7173,6 +7427,7 @@ export async function getConnectorProjectConnection(
 			| GetConnectorProjectConnectionStatus404
 			| GetConnectorProjectConnectionStatus409
 			| GetConnectorProjectConnectionStatus410
+			| GetConnectorProjectConnectionStatus500
 		>,
 		null,
 		Record<string, string>,
@@ -7202,7 +7457,7 @@ export async function upsertConnectorProjectConnection(
 		config,
 	}: {
 		pathParams: { connector: string; projectId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpsertConnectorProjectConnectionBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7225,8 +7480,9 @@ export async function upsertConnectorProjectConnection(
 			| UpsertConnectorProjectConnectionStatus404
 			| UpsertConnectorProjectConnectionStatus409
 			| UpsertConnectorProjectConnectionStatus410
+			| UpsertConnectorProjectConnectionStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpsertConnectorProjectConnectionBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ connector: string; projectId: string }
@@ -7236,7 +7492,7 @@ export async function upsertConnectorProjectConnection(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -7276,6 +7532,7 @@ export async function deleteConnectorProjectConnection(
 			| DeleteConnectorProjectConnectionStatus404
 			| DeleteConnectorProjectConnectionStatus409
 			| DeleteConnectorProjectConnectionStatus410
+			| DeleteConnectorProjectConnectionStatus500
 		>,
 		null,
 		Record<string, string>,
@@ -7349,7 +7606,7 @@ export async function getConnectorToken(
 		config,
 	}: {
 		pathParams: { connector: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: GetConnectorTokenBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7369,8 +7626,9 @@ export async function getConnectorToken(
 			| GetConnectorTokenStatus410
 			| GetConnectorTokenStatus422
 			| GetConnectorTokenStatus429
+			| GetConnectorTokenStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		GetConnectorTokenBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ connector: string }
@@ -7379,7 +7637,7 @@ export async function getConnectorToken(
 		url: `/v1/connect/token/${encodeURIComponent(String(pathParams.connector))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -7397,7 +7655,7 @@ export async function createConnectorAuthorizationRequest(
 		config,
 	}: {
 		pathParams: { connector: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateConnectorAuthorizationRequestBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7416,8 +7674,9 @@ export async function createConnectorAuthorizationRequest(
 			| CreateConnectorAuthorizationRequestStatus409
 			| CreateConnectorAuthorizationRequestStatus410
 			| CreateConnectorAuthorizationRequestStatus422
+			| CreateConnectorAuthorizationRequestStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateConnectorAuthorizationRequestBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ connector: string }
@@ -7426,7 +7685,7 @@ export async function createConnectorAuthorizationRequest(
 		url: `/v1/connect/authorize/${encodeURIComponent(String(pathParams.connector))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -7434,7 +7693,7 @@ export async function createConnectorAuthorizationRequest(
 
 /**
  * @summary Get project daemons
- * @description Lists project daemons.
+ * @description List the daemons of a project.
  * @link /v1/projects/{idOrName}/daemons
  */
 export async function getProjectBoxes(
@@ -7493,7 +7752,7 @@ export async function getProjectBoxes(
 
 /**
  * @summary Override a project daemon's instance counts
- * @description Override an existing daemon's instance counts by region. Each region in the map replaces the configured count for that region. Regions not in the map keep their configured count. An empty map removes the overrides. The daemon configuration is not changed. Missing or deleted daemons return 404. Repeating the same overrides succeeds without a storage write or reconciliation event.
+ * @description Override the instance counts of a daemon in the given regions, without changing its configuration or the overrides of other regions.
  * @link /v1/projects/{idOrName}/daemons/{daemonName}/instances
  */
 export async function putProjectDaemonInstances(
@@ -7504,7 +7763,7 @@ export async function putProjectDaemonInstances(
 		config,
 	}: {
 		pathParams: { idOrName: string; daemonName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: PutProjectDaemonInstancesBody;
 		queryParams?: { target?: "production" | "preview"; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7527,7 +7786,7 @@ export async function putProjectDaemonInstances(
 			| PutProjectDaemonInstancesStatus404
 			| PutProjectDaemonInstancesStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		PutProjectDaemonInstancesBody,
 		Record<string, string>,
 		{ target?: "production" | "preview"; teamId?: string; slug?: string },
 		{ idOrName: string; daemonName: string }
@@ -7537,7 +7796,7 @@ export async function putProjectDaemonInstances(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -7545,7 +7804,7 @@ export async function putProjectDaemonInstances(
 
 /**
  * @summary Force restart a project daemon instance
- * @description Force restarts the user container of one running daemon instance. The instance's controller stops the current user container and starts a new one from the same configuration, so in-flight requests are interrupted and any state that only lives inside the container is lost. The instance keeps its ID and region. The response returns as soon as the controller accepts the restart, before the new container is running. Only production instances can be restarted. Accepts a Vercel token that can update the project, or a production project OIDC token issued for the same project. No request body or Content-Type header is required.
+ * @description Force restart a running production daemon instance. The new container starts asynchronously after the restart is accepted.
  * @link /v1/projects/{idOrName}/daemons/{daemonName}/instances/{instanceId}/restart
  */
 export async function restartProjectDaemonInstance(
@@ -7685,7 +7944,7 @@ export async function updateIntegrationDeploymentAction(
 			resourceId: string;
 			action: string;
 		};
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateIntegrationDeploymentActionBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7718,7 +7977,7 @@ export async function updateIntegrationDeploymentAction(
 			| UpdateIntegrationDeploymentActionStatus404
 			| UpdateIntegrationDeploymentActionStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateIntegrationDeploymentActionBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ deploymentId: string; integrationConfigurationId: string; resourceId: string; action: string }
@@ -7727,7 +7986,7 @@ export async function updateIntegrationDeploymentAction(
 		url: `/v1/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/integrations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/actions/${encodeURIComponent(String(pathParams.action))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -7758,6 +8017,7 @@ export async function getDeployment(
 		GetDeploymentResponse,
 		ErrorWrapper<
 			| GetDeploymentStatus400
+			| GetDeploymentStatus401
 			| GetDeploymentStatus403
 			| GetDeploymentStatus404
 			| GetDeploymentStatus410
@@ -7789,7 +8049,7 @@ export async function createDeployment(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateDeploymentBody;
 		queryParams?: {
 			forceNew?: unknown;
 			skipAutoDetectionConfirmation?: unknown;
@@ -7816,7 +8076,7 @@ export async function createDeployment(
 			| CreateDeploymentStatus500
 			| CreateDeploymentStatus503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateDeploymentBody,
 		Record<string, string>,
 		{ forceNew?: unknown; skipAutoDetectionConfirmation?: unknown; teamId?: string; slug?: string },
 		Record<string, string>
@@ -7826,7 +8086,7 @@ export async function createDeployment(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -7941,7 +8201,7 @@ export async function createRecord(
 		config,
 	}: {
 		pathParams: { domain: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateRecordBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7962,7 +8222,7 @@ export async function createRecord(
 			| CreateRecordStatus409
 			| CreateRecordStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateRecordBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ domain: string }
@@ -7972,7 +8232,7 @@ export async function createRecord(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -7991,7 +8251,7 @@ export async function updateRecord(
 		config,
 	}: {
 		pathParams: { recordId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateRecordBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8012,7 +8272,7 @@ export async function updateRecord(
 			| UpdateRecordStatus409
 			| UpdateRecordStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateRecordBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ recordId: string }
@@ -8022,7 +8282,7 @@ export async function updateRecord(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -8170,7 +8430,7 @@ export async function searchDomains(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: SearchDomainsBody;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8186,7 +8446,7 @@ export async function searchDomains(
 			| SearchDomainsStatus429
 			| SearchDomainsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		SearchDomainsBody,
 		Record<string, string>,
 		{ teamId?: string },
 		Record<string, string>
@@ -8196,7 +8456,7 @@ export async function searchDomains(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -8430,7 +8690,7 @@ export async function getBulkPrice(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: GetBulkPriceBody;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8446,7 +8706,7 @@ export async function getBulkPrice(
 			| GetBulkPriceStatus429
 			| GetBulkPriceStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		GetBulkPriceBody,
 		Record<string, string>,
 		{ teamId?: string },
 		Record<string, string>
@@ -8456,7 +8716,7 @@ export async function getBulkPrice(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -8473,7 +8733,7 @@ export async function getBulkAvailability(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: GetBulkAvailabilityBody;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8489,7 +8749,7 @@ export async function getBulkAvailability(
 			| GetBulkAvailabilityStatus429
 			| GetBulkAvailabilityStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		GetBulkAvailabilityBody,
 		Record<string, string>,
 		{ teamId?: string },
 		Record<string, string>
@@ -8499,7 +8759,7 @@ export async function getBulkAvailability(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -8610,7 +8870,7 @@ export async function buySingleDomain(
 		config,
 	}: {
 		pathParams: { domain: unknown };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: BuySingleDomainBody;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8629,7 +8889,7 @@ export async function buySingleDomain(
 			| BuySingleDomainStatus429
 			| BuySingleDomainStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		BuySingleDomainBody,
 		Record<string, string>,
 		{ teamId?: string },
 		{ domain: unknown }
@@ -8639,7 +8899,7 @@ export async function buySingleDomain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -8656,7 +8916,7 @@ export async function buyDomains(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: BuyDomainsBody;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8672,7 +8932,7 @@ export async function buyDomains(
 			| BuyDomainsStatus429
 			| BuyDomainsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		BuyDomainsBody,
 		Record<string, string>,
 		{ teamId?: string },
 		Record<string, string>
@@ -8682,7 +8942,7 @@ export async function buyDomains(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -8701,7 +8961,7 @@ export async function transferInDomain(
 		config,
 	}: {
 		pathParams: { domain: unknown };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: TransferInDomainBody;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8720,7 +8980,7 @@ export async function transferInDomain(
 			| TransferInDomainStatus429
 			| TransferInDomainStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		TransferInDomainBody,
 		Record<string, string>,
 		{ teamId?: string },
 		{ domain: unknown }
@@ -8730,7 +8990,7 @@ export async function transferInDomain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -8795,7 +9055,7 @@ export async function renewDomain(
 		config,
 	}: {
 		pathParams: { domain: unknown };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: RenewDomainBody;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8815,7 +9075,7 @@ export async function renewDomain(
 			| RenewDomainStatus429
 			| RenewDomainStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		RenewDomainBody,
 		Record<string, string>,
 		{ teamId?: string },
 		{ domain: unknown }
@@ -8825,7 +9085,7 @@ export async function renewDomain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -8844,7 +9104,7 @@ export async function updateDomainAutoRenew(
 		config,
 	}: {
 		pathParams: { domain: unknown };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateDomainAutoRenewBody;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8864,7 +9124,7 @@ export async function updateDomainAutoRenew(
 			| UpdateDomainAutoRenewStatus429
 			| UpdateDomainAutoRenewStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateDomainAutoRenewBody,
 		Record<string, string>,
 		{ teamId?: string },
 		{ domain: unknown }
@@ -8874,7 +9134,7 @@ export async function updateDomainAutoRenew(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -8893,7 +9153,7 @@ export async function updateDomainNameservers(
 		config,
 	}: {
 		pathParams: { domain: unknown };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateDomainNameserversBody;
 		queryParams?: { teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8913,7 +9173,7 @@ export async function updateDomainNameservers(
 			| UpdateDomainNameserversStatus429
 			| UpdateDomainNameserversStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateDomainNameserversBody,
 		Record<string, string>,
 		{ teamId?: string },
 		{ domain: unknown }
@@ -8923,7 +9183,7 @@ export async function updateDomainNameservers(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -9313,7 +9573,7 @@ export async function createOrTransferDomain(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateOrTransferDomainBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9331,7 +9591,7 @@ export async function createOrTransferDomain(
 			| CreateOrTransferDomainStatus409
 			| CreateOrTransferDomainStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateOrTransferDomainBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -9341,7 +9601,7 @@ export async function createOrTransferDomain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -9360,7 +9620,7 @@ export async function patchDomain(
 		config,
 	}: {
 		pathParams: { domain: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: PatchDomainBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9381,7 +9641,7 @@ export async function patchDomain(
 			| PatchDomainStatus410
 			| PatchDomainStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		PatchDomainBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ domain: string }
@@ -9391,7 +9651,7 @@ export async function patchDomain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -9547,6 +9807,7 @@ export async function getAllLogDrains(
 			projectId?: string;
 			projectIdOrName?: string;
 			includeMetadata?: boolean;
+			includeDeliveryStats?: boolean;
 			teamId?: string;
 			slug?: string;
 		};
@@ -9570,6 +9831,7 @@ export async function getAllLogDrains(
 			projectId?: string;
 			projectIdOrName?: string;
 			includeMetadata?: boolean;
+			includeDeliveryStats?: boolean;
 			teamId?: string;
 			slug?: string;
 		},
@@ -9596,7 +9858,7 @@ export async function createConfigurableLogDrain(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateConfigurableLogDrainBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9612,7 +9874,7 @@ export async function createConfigurableLogDrain(
 			| CreateConfigurableLogDrainStatus404
 			| CreateConfigurableLogDrainStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateConfigurableLogDrainBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -9622,7 +9884,7 @@ export async function createConfigurableLogDrain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -9639,7 +9901,7 @@ export async function createDrain(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateDrainBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9656,7 +9918,7 @@ export async function createDrain(
 			| CreateDrainStatus404
 			| CreateDrainStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateDrainBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -9666,7 +9928,7 @@ export async function createDrain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -9682,7 +9944,13 @@ export async function getDrains(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { projectId?: string; includeMetadata?: boolean; teamId?: string; slug?: string };
+		queryParams?: {
+			projectId?: string;
+			includeMetadata?: boolean;
+			includeDeliveryStats?: boolean;
+			teamId?: string;
+			slug?: string;
+		};
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9696,10 +9964,17 @@ export async function getDrains(
 			| GetDrainsStatus403
 			| GetDrainsStatus404
 			| GetDrainsStatus410
+			| GetDrainsStatus503
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; includeMetadata?: boolean; teamId?: string; slug?: string },
+		{
+			projectId?: string;
+			includeMetadata?: boolean;
+			includeDeliveryStats?: boolean;
+			teamId?: string;
+			slug?: string;
+		},
 		Record<string, string>
 	>({
 		method: "GET",
@@ -9769,7 +10044,7 @@ export async function getDrain(
 		config,
 	}: {
 		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: { includeDeliveryStats?: boolean; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9786,10 +10061,11 @@ export async function getDrain(
 			| GetDrainStatus403
 			| GetDrainStatus404
 			| GetDrainStatus410
+			| GetDrainStatus503
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		{ includeDeliveryStats?: boolean; teamId?: string; slug?: string },
 		{ id: string }
 	>({
 		method: "GET",
@@ -9815,7 +10091,7 @@ export async function updateDrain(
 		config,
 	}: {
 		pathParams: { id: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateDrainBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9835,7 +10111,7 @@ export async function updateDrain(
 			| UpdateDrainStatus404
 			| UpdateDrainStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateDrainBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ id: string }
@@ -9845,7 +10121,7 @@ export async function updateDrain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -9862,7 +10138,7 @@ export async function testDrain(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: TestDrainBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9879,7 +10155,7 @@ export async function testDrain(
 			| TestDrainStatus404
 			| TestDrainStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		TestDrainBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -9889,7 +10165,7 @@ export async function testDrain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -9906,7 +10182,7 @@ export async function invalidateByTags(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: InvalidateByTagsBody;
 		queryParams?: { projectIdOrName?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9922,7 +10198,7 @@ export async function invalidateByTags(
 			| InvalidateByTagsStatus404
 			| InvalidateByTagsStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		InvalidateByTagsBody,
 		Record<string, string>,
 		{ projectIdOrName?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -9932,7 +10208,7 @@ export async function invalidateByTags(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -9949,7 +10225,7 @@ export async function dangerouslyDeleteByTags(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: DangerouslyDeleteByTagsBody;
 		queryParams?: { projectIdOrName?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9965,7 +10241,7 @@ export async function dangerouslyDeleteByTags(
 			| DangerouslyDeleteByTagsStatus404
 			| DangerouslyDeleteByTagsStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		DangerouslyDeleteByTagsBody,
 		Record<string, string>,
 		{ projectIdOrName?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -9975,7 +10251,7 @@ export async function dangerouslyDeleteByTags(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -9992,7 +10268,7 @@ export async function invalidateBySrcImages(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: InvalidateBySrcImagesBody;
 		queryParams?: { projectIdOrName?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -10009,7 +10285,7 @@ export async function invalidateBySrcImages(
 			| InvalidateBySrcImagesStatus404
 			| InvalidateBySrcImagesStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		InvalidateBySrcImagesBody,
 		Record<string, string>,
 		{ projectIdOrName?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -10019,7 +10295,7 @@ export async function invalidateBySrcImages(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -10036,7 +10312,7 @@ export async function dangerouslyDeleteBySrcImages(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: DangerouslyDeleteBySrcImagesBody;
 		queryParams?: { projectIdOrName?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -10053,7 +10329,7 @@ export async function dangerouslyDeleteBySrcImages(
 			| DangerouslyDeleteBySrcImagesStatus404
 			| DangerouslyDeleteBySrcImagesStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		DangerouslyDeleteBySrcImagesBody,
 		Record<string, string>,
 		{ projectIdOrName?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -10063,7 +10339,7 @@ export async function dangerouslyDeleteBySrcImages(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -10120,7 +10396,7 @@ export async function createEdgeConfig(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateEdgeConfigBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -10137,7 +10413,7 @@ export async function createEdgeConfig(
 			| CreateEdgeConfigStatus404
 			| CreateEdgeConfigStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateEdgeConfigBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -10147,7 +10423,7 @@ export async function createEdgeConfig(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -10211,7 +10487,7 @@ export async function updateEdgeConfig(
 		config,
 	}: {
 		pathParams: { edgeConfigId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateEdgeConfigBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -10232,7 +10508,7 @@ export async function updateEdgeConfig(
 			| UpdateEdgeConfigStatus409
 			| UpdateEdgeConfigStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateEdgeConfigBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ edgeConfigId: string }
@@ -10242,7 +10518,7 @@ export async function updateEdgeConfig(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -10352,7 +10628,7 @@ export async function patchEdgeConfigItems(
 		config,
 	}: {
 		pathParams: { edgeConfigId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: PatchEdgeConfigItemsBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -10374,7 +10650,7 @@ export async function patchEdgeConfigItems(
 			| PatchEdgeConfigItemsStatus410
 			| PatchEdgeConfigItemsStatus412
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		PatchEdgeConfigItemsBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ edgeConfigId: string }
@@ -10384,7 +10660,7 @@ export async function patchEdgeConfigItems(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -10448,7 +10724,7 @@ export async function patchEdgeConfigSchema(
 		config,
 	}: {
 		pathParams: { edgeConfigId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: PatchEdgeConfigSchemaBody;
 		queryParams?: { dryRun?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -10469,7 +10745,7 @@ export async function patchEdgeConfigSchema(
 			| PatchEdgeConfigSchemaStatus409
 			| PatchEdgeConfigSchemaStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		PatchEdgeConfigSchemaBody,
 		Record<string, string>,
 		{ dryRun?: string; teamId?: string; slug?: string },
 		{ edgeConfigId: string }
@@ -10479,7 +10755,7 @@ export async function patchEdgeConfigSchema(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -10639,7 +10915,7 @@ export async function deleteEdgeConfigTokens(
 		config,
 	}: {
 		pathParams: { edgeConfigId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: DeleteEdgeConfigTokensBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -10660,7 +10936,7 @@ export async function deleteEdgeConfigTokens(
 			| DeleteEdgeConfigTokensStatus409
 			| DeleteEdgeConfigTokensStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		DeleteEdgeConfigTokensBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ edgeConfigId: string }
@@ -10670,7 +10946,7 @@ export async function deleteEdgeConfigTokens(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -10738,7 +11014,7 @@ export async function createEdgeConfigToken(
 		config,
 	}: {
 		pathParams: { edgeConfigId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateEdgeConfigTokenBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -10759,7 +11035,7 @@ export async function createEdgeConfigToken(
 			| CreateEdgeConfigTokenStatus409
 			| CreateEdgeConfigTokenStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateEdgeConfigTokenBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ edgeConfigId: string }
@@ -10769,7 +11045,7 @@ export async function createEdgeConfigToken(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -10944,7 +11220,7 @@ export async function createSharedEnvVariable(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateSharedEnvVariableBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -10961,7 +11237,7 @@ export async function createSharedEnvVariable(
 			| CreateSharedEnvVariableStatus404
 			| CreateSharedEnvVariableStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateSharedEnvVariableBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -10971,7 +11247,7 @@ export async function createSharedEnvVariable(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -11048,7 +11324,7 @@ export async function updateSharedEnvVariable(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateSharedEnvVariableBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -11065,7 +11341,7 @@ export async function updateSharedEnvVariable(
 			| UpdateSharedEnvVariableStatus404
 			| UpdateSharedEnvVariableStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateSharedEnvVariableBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -11075,7 +11351,7 @@ export async function updateSharedEnvVariable(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -11092,7 +11368,7 @@ export async function deleteSharedEnvVariable(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: DeleteSharedEnvVariableBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -11109,7 +11385,7 @@ export async function deleteSharedEnvVariable(
 			| DeleteSharedEnvVariableStatus404
 			| DeleteSharedEnvVariableStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		DeleteSharedEnvVariableBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -11119,7 +11395,7 @@ export async function deleteSharedEnvVariable(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -11467,7 +11743,7 @@ export async function createFlag(
 		config,
 	}: {
 		pathParams: { projectIdOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateFlagBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -11488,7 +11764,7 @@ export async function createFlag(
 			| CreateFlagStatus409
 			| CreateFlagStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateFlagBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string }
@@ -11498,7 +11774,7 @@ export async function createFlag(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -11567,7 +11843,7 @@ export async function updateFlag(
 		config,
 	}: {
 		pathParams: { projectIdOrName: string; flagIdOrSlug: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateFlagBody;
 		queryParams?: { ifMatch?: string; withMetadata?: boolean; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -11592,7 +11868,7 @@ export async function updateFlag(
 			| UpdateFlagStatus409
 			| UpdateFlagStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateFlagBody,
 		Record<string, string>,
 		{ ifMatch?: string; withMetadata?: boolean; teamId?: string; slug?: string },
 		{ projectIdOrName: string; flagIdOrSlug: string }
@@ -11602,7 +11878,7 @@ export async function updateFlag(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -11782,7 +12058,7 @@ export async function updateFlagSettings(
 		config,
 	}: {
 		pathParams: { projectIdOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateFlagSettingsBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -11803,7 +12079,7 @@ export async function updateFlagSettings(
 			| UpdateFlagSettingsStatus409
 			| UpdateFlagSettingsStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateFlagSettingsBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string }
@@ -11813,7 +12089,171 @@ export async function updateFlagSettings(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List attribute labels
+ * @description List labels for one entity attribute. Search can return a short or empty page with a continuation cursor; continue until pagination.next is null.
+ * @link /v1/projects/{projectIdOrName}/feature-flags/labels
+ */
+export async function listFlagLabels(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { projectIdOrName: string };
+		queryParams?: {
+			limit?: number;
+			cursor?: string;
+			search?: string;
+			entityKind?: string;
+			attributeKey?: string;
+			teamId?: string;
+			slug?: string;
+		};
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
+		throw new Error(`Missing required path parameter: projectIdOrName`);
+	}
+	const data = await request<
+		ListFlagLabelsResponse,
+		ErrorWrapper<
+			| ListFlagLabelsStatus400
+			| ListFlagLabelsStatus401
+			| ListFlagLabelsStatus402
+			| ListFlagLabelsStatus403
+			| ListFlagLabelsStatus404
+			| ListFlagLabelsStatus410
+		>,
+		null,
+		Record<string, string>,
+		{
+			limit?: number;
+			cursor?: string;
+			search?: string;
+			entityKind?: string;
+			attributeKey?: string;
+			teamId?: string;
+			slug?: string;
+		},
+		{ projectIdOrName: string }
+	>({
+		method: "GET",
+		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/labels`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List attribute label counts
+ * @description List label counts for configured entity attributes, including empty ones.
+ * @link /v1/projects/{projectIdOrName}/feature-flags/labels/counts
+ */
+export async function listFlagLabelCounts(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { projectIdOrName: string };
+		queryParams?: {
+			entityKind?: string;
+			limit?: number;
+			cursor?: string;
+			teamId?: string;
+			slug?: string;
+		};
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
+		throw new Error(`Missing required path parameter: projectIdOrName`);
+	}
+	const data = await request<
+		ListFlagLabelCountsResponse,
+		ErrorWrapper<
+			| ListFlagLabelCountsStatus400
+			| ListFlagLabelCountsStatus401
+			| ListFlagLabelCountsStatus402
+			| ListFlagLabelCountsStatus403
+			| ListFlagLabelCountsStatus404
+			| ListFlagLabelCountsStatus410
+		>,
+		null,
+		Record<string, string>,
+		{ entityKind?: string; limit?: number; cursor?: string; teamId?: string; slug?: string },
+		{ projectIdOrName: string }
+	>({
+		method: "GET",
+		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/labels/counts`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Look up attribute labels
+ * @description Look up at most 100 labels by entity kind, attribute key, and value. Duplicate keys are returned once; absent values are listed in missing.
+ * @link /v1/projects/{projectIdOrName}/feature-flags/labels/lookup
+ */
+export async function lookupFlagLabels(
+	{
+		pathParams,
+		body,
+		queryParams,
+		config,
+	}: {
+		pathParams: { projectIdOrName: string };
+		body?: LookupFlagLabelsBody;
+		queryParams?: { teamId?: string; slug?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
+		throw new Error(`Missing required path parameter: projectIdOrName`);
+	}
+	const data = await request<
+		LookupFlagLabelsResponse,
+		ErrorWrapper<
+			| LookupFlagLabelsStatus400
+			| LookupFlagLabelsStatus401
+			| LookupFlagLabelsStatus402
+			| LookupFlagLabelsStatus403
+			| LookupFlagLabelsStatus404
+			| LookupFlagLabelsStatus410
+			| LookupFlagLabelsStatus503
+		>,
+		LookupFlagLabelsBody,
+		Record<string, string>,
+		{ teamId?: string; slug?: string },
+		{ projectIdOrName: string }
+	>({
+		method: "POST",
+		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/labels/lookup`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -12008,7 +12448,7 @@ export async function createFlagSegment(
 		config,
 	}: {
 		pathParams: { projectIdOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateFlagSegmentBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -12029,7 +12469,7 @@ export async function createFlagSegment(
 			| CreateFlagSegmentStatus409
 			| CreateFlagSegmentStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateFlagSegmentBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string }
@@ -12039,7 +12479,7 @@ export async function createFlagSegment(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -12205,7 +12645,7 @@ export async function updateFlagSegment(
 		config,
 	}: {
 		pathParams: { projectIdOrName: string; segmentIdOrSlug: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateFlagSegmentBody;
 		queryParams?: { withMetadata?: boolean; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -12230,7 +12670,7 @@ export async function updateFlagSegment(
 			| UpdateFlagSegmentStatus409
 			| UpdateFlagSegmentStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateFlagSegmentBody,
 		Record<string, string>,
 		{ withMetadata?: boolean; teamId?: string; slug?: string },
 		{ projectIdOrName: string; segmentIdOrSlug: string }
@@ -12240,7 +12680,7 @@ export async function updateFlagSegment(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -12350,7 +12790,7 @@ export async function createSdkKey(
 		config,
 	}: {
 		pathParams: { projectIdOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateSdkKeyBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -12371,7 +12811,7 @@ export async function createSdkKey(
 			| CreateSdkKeyStatus409
 			| CreateSdkKeyStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateSdkKeyBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string }
@@ -12381,7 +12821,7 @@ export async function createSdkKey(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -12653,7 +13093,7 @@ export async function connectIntegrationResourceToProject(
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: ConnectIntegrationResourceToProjectBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -12679,7 +13119,7 @@ export async function connectIntegrationResourceToProject(
 			| ConnectIntegrationResourceToProjectStatus404
 			| ConnectIntegrationResourceToProjectStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ConnectIntegrationResourceToProjectBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ integrationConfigurationId: string; resourceId: string }
@@ -12689,7 +13129,7 @@ export async function connectIntegrationResourceToProject(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -12707,7 +13147,7 @@ export async function updateInstallation(
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateInstallationBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12728,7 +13168,7 @@ export async function updateInstallation(
 			| UpdateInstallationStatus404
 			| UpdateInstallationStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateInstallationBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
@@ -12737,7 +13177,7 @@ export async function updateInstallation(
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -12849,7 +13289,7 @@ export async function rotateInstallationCredential(
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: RotateInstallationCredentialBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12871,7 +13311,7 @@ export async function rotateInstallationCredential(
 			| RotateInstallationCredentialStatus409
 			| RotateInstallationCredentialStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		RotateInstallationCredentialBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
@@ -12880,7 +13320,7 @@ export async function rotateInstallationCredential(
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/credentials/rotate`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -12898,7 +13338,7 @@ export async function revokeInstallationCredential(
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: RevokeInstallationCredentialBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12920,7 +13360,7 @@ export async function revokeInstallationCredential(
 			| RevokeInstallationCredentialStatus409
 			| RevokeInstallationCredentialStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		RevokeInstallationCredentialBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
@@ -12929,7 +13369,7 @@ export async function revokeInstallationCredential(
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/credentials/revoke`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -12947,7 +13387,7 @@ export async function createEvent(
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateEventBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12968,7 +13408,7 @@ export async function createEvent(
 			| CreateEventStatus404
 			| CreateEventStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateEventBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
@@ -12977,7 +13417,7 @@ export async function createEvent(
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/events`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -13138,7 +13578,7 @@ export async function importResource(
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: ImportResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13163,9 +13603,8 @@ export async function importResource(
 			| ImportResourceStatus404
 			| ImportResourceStatus409
 			| ImportResourceStatus410
-			| ImportResourceStatus422
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ImportResourceBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; resourceId: string }
@@ -13174,7 +13613,7 @@ export async function importResource(
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -13192,7 +13631,7 @@ export async function updateResource(
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13217,9 +13656,8 @@ export async function updateResource(
 			| UpdateResourceStatus404
 			| UpdateResourceStatus409
 			| UpdateResourceStatus410
-			| UpdateResourceStatus422
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateResourceBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; resourceId: string }
@@ -13228,7 +13666,7 @@ export async function updateResource(
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -13246,7 +13684,7 @@ export async function submitBillingData(
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: SubmitBillingDataBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13267,7 +13705,7 @@ export async function submitBillingData(
 			| SubmitBillingDataStatus404
 			| SubmitBillingDataStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		SubmitBillingDataBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
@@ -13276,7 +13714,7 @@ export async function submitBillingData(
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -13294,7 +13732,7 @@ export async function submitInvoice(
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: SubmitInvoiceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13316,7 +13754,7 @@ export async function submitInvoice(
 			| SubmitInvoiceStatus409
 			| SubmitInvoiceStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		SubmitInvoiceBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
@@ -13325,7 +13763,7 @@ export async function submitInvoice(
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing/invoices`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -13438,7 +13876,7 @@ export async function updateInvoice(
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; invoiceId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateInvoiceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13464,7 +13902,7 @@ export async function updateInvoice(
 			| UpdateInvoiceStatus409
 			| UpdateInvoiceStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateInvoiceBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; invoiceId: string }
@@ -13473,7 +13911,7 @@ export async function updateInvoice(
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing/invoices/${encodeURIComponent(String(pathParams.invoiceId))}/actions`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -13491,7 +13929,7 @@ export async function submitPrepaymentBalances(
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: SubmitPrepaymentBalancesBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13512,7 +13950,7 @@ export async function submitPrepaymentBalances(
 			| SubmitPrepaymentBalancesStatus404
 			| SubmitPrepaymentBalancesStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		SubmitPrepaymentBalancesBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string }
@@ -13521,7 +13959,7 @@ export async function submitPrepaymentBalances(
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing/balance`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -13544,7 +13982,7 @@ export async function updateResourceSecrets(
 			integrationProductIdOrSlug: string;
 			resourceId: string;
 		};
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateResourceSecretsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13576,9 +14014,8 @@ export async function updateResourceSecrets(
 			| UpdateResourceSecretsStatus404
 			| UpdateResourceSecretsStatus409
 			| UpdateResourceSecretsStatus410
-			| UpdateResourceSecretsStatus422
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateResourceSecretsBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; integrationProductIdOrSlug: string; resourceId: string }
@@ -13587,7 +14024,7 @@ export async function updateResourceSecrets(
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/products/${encodeURIComponent(String(pathParams.integrationProductIdOrSlug))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/secrets`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -13605,7 +14042,7 @@ export async function updateResourceSecretsById(
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateResourceSecretsByIdBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13630,9 +14067,8 @@ export async function updateResourceSecretsById(
 			| UpdateResourceSecretsByIdStatus404
 			| UpdateResourceSecretsByIdStatus409
 			| UpdateResourceSecretsByIdStatus410
-			| UpdateResourceSecretsByIdStatus422
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateResourceSecretsByIdBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; resourceId: string }
@@ -13641,7 +14077,7 @@ export async function updateResourceSecretsById(
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/secrets`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -13845,7 +14281,7 @@ export async function exchangeSsoToken(
 		body,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: ExchangeSsoTokenBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13854,7 +14290,7 @@ export async function exchangeSsoToken(
 	const data = await request<
 		ExchangeSsoTokenResponse,
 		ErrorWrapper<ExchangeSsoTokenStatus400 | ExchangeSsoTokenStatus403 | ExchangeSsoTokenStatus500>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ExchangeSsoTokenBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
@@ -13863,7 +14299,7 @@ export async function exchangeSsoToken(
 		url: `/v1/integrations/sso/token`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -13920,7 +14356,7 @@ export async function createLogDrain(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateLogDrainBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -13936,7 +14372,7 @@ export async function createLogDrain(
 			| CreateLogDrainStatus404
 			| CreateLogDrainStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateLogDrainBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -13946,7 +14382,7 @@ export async function createLogDrain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -14005,7 +14441,7 @@ export async function createApiKeys(
 		body,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateApiKeysBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14023,7 +14459,7 @@ export async function createApiKeys(
 			| CreateApiKeysStatus429
 			| CreateApiKeysStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateApiKeysBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
@@ -14032,7 +14468,54 @@ export async function createApiKeys(
 		url: `/api-keys`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update an AI Gateway API key budget
+ * @description Set, change, or remove the AI Gateway budget on an API key. Creates the budget if the key does not have one.
+ * @link /api-keys/{apiKeyID}/quota
+ */
+export async function updateApiKeyQuota(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: { apiKeyID: string };
+		body?: UpdateApiKeyQuotaBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.apiKeyID == null || String(pathParams.apiKeyID) === "") {
+		throw new Error(`Missing required path parameter: apiKeyID`);
+	}
+	const data = await request<
+		UpdateApiKeyQuotaResponse,
+		ErrorWrapper<
+			| UpdateApiKeyQuotaStatus400
+			| UpdateApiKeyQuotaStatus401
+			| UpdateApiKeyQuotaStatus403
+			| UpdateApiKeyQuotaStatus404
+			| UpdateApiKeyQuotaStatus410
+			| UpdateApiKeyQuotaStatus429
+			| UpdateApiKeyQuotaStatus500
+		>,
+		UpdateApiKeyQuotaBody,
+		Record<string, string>,
+		Record<string, string>,
+		{ apiKeyID: string }
+	>({
+		method: "PATCH",
+		url: `/api-keys/${encodeURIComponent(String(pathParams.apiKeyID))}/quota`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -14050,7 +14533,7 @@ export async function signKmsMessage(
 		config,
 	}: {
 		pathParams: { issuerId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: SignKmsMessageBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14068,7 +14551,7 @@ export async function signKmsMessage(
 			| SignKmsMessageStatus404
 			| SignKmsMessageStatus429
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		SignKmsMessageBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ issuerId: string }
@@ -14077,7 +14560,7 @@ export async function signKmsMessage(
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/sign/message`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -14095,7 +14578,7 @@ export async function signKmsToken(
 		config,
 	}: {
 		pathParams: { issuerId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: SignKmsTokenBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14113,7 +14596,7 @@ export async function signKmsToken(
 			| SignKmsTokenStatus404
 			| SignKmsTokenStatus429
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		SignKmsTokenBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ issuerId: string }
@@ -14122,7 +14605,7 @@ export async function signKmsToken(
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/sign/token`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -14130,7 +14613,7 @@ export async function signKmsToken(
 
 /**
  * @summary List issuers
- * @description Retrieve the list of KMS issuers that belong to the authenticated team. The results are paginated.
+ * @description Retrieve the paginated KMS issuers that belong to the authenticated team or organization (`orgId`).
  * @link /v1/kms/issuers
  */
 export async function listKmsIssuers(
@@ -14170,7 +14653,7 @@ export async function listKmsIssuers(
 
 /**
  * @summary Create an issuer
- * @description Create a new KMS issuer for the authenticated team. An issuer owns the asymmetric signing keys that are used to sign tokens and messages.
+ * @description Create a new KMS issuer for the authenticated team, or for the team or organization identified by a Connect policy token. An issuer owns the asymmetric signing keys used to sign tokens and messages.
  * @link /v1/kms/issuers
  */
 export async function createKmsIssuer(
@@ -14179,7 +14662,7 @@ export async function createKmsIssuer(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateKmsIssuerBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14195,7 +14678,7 @@ export async function createKmsIssuer(
 			| CreateKmsIssuerStatus404
 			| CreateKmsIssuerStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateKmsIssuerBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -14205,7 +14688,7 @@ export async function createKmsIssuer(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -14224,7 +14707,7 @@ export async function createKmsSigningKey(
 		config,
 	}: {
 		pathParams: { issuerId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateKmsSigningKeyBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14244,7 +14727,7 @@ export async function createKmsSigningKey(
 			| CreateKmsSigningKeyStatus409
 			| CreateKmsSigningKeyStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateKmsSigningKeyBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ issuerId: string }
@@ -14254,7 +14737,7 @@ export async function createKmsSigningKey(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -14273,7 +14756,7 @@ export async function activateKmsSigningKey(
 		config,
 	}: {
 		pathParams: { issuerId: string; keyId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: ActivateKmsSigningKeyBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14297,7 +14780,7 @@ export async function activateKmsSigningKey(
 			| ActivateKmsSigningKeyStatus409
 			| ActivateKmsSigningKeyStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ActivateKmsSigningKeyBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ issuerId: string; keyId: string }
@@ -14307,7 +14790,7 @@ export async function activateKmsSigningKey(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -14365,7 +14848,7 @@ export async function revokeKmsSigningKey(
 
 /**
  * @summary Get an issuer
- * @description Retrieve a single KMS issuer by its ID. Accepts either a team bearer token (existing path) or an OIDC token authorized by one of the issuer's policies (e.g. a connex-grant token). The OIDC path returns the issuer without policies, since a policy token only proves signing access, not management access.
+ * @description Retrieve a single KMS issuer by its ID. Accepts a team or organization bearer token, or an OIDC token authorized by one of the issuer's policies (e.g. a connex-grant token). The OIDC path returns the issuer without policies, since a policy token only proves signing access, not management access.
  * @link /v1/kms/issuers/{issuerId}
  */
 export async function getKmsIssuer(
@@ -14421,7 +14904,7 @@ export async function updateKmsIssuer(
 		config,
 	}: {
 		pathParams: { issuerId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateKmsIssuerBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14440,7 +14923,7 @@ export async function updateKmsIssuer(
 			| UpdateKmsIssuerStatus404
 			| UpdateKmsIssuerStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateKmsIssuerBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ issuerId: string }
@@ -14450,7 +14933,7 @@ export async function updateKmsIssuer(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -14514,7 +14997,7 @@ export async function createKmsIssuerPolicy(
 		config,
 	}: {
 		pathParams: { issuerId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateKmsIssuerPolicyBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14533,7 +15016,7 @@ export async function createKmsIssuerPolicy(
 			| CreateKmsIssuerPolicyStatus404
 			| CreateKmsIssuerPolicyStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateKmsIssuerPolicyBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ issuerId: string }
@@ -14543,7 +15026,7 @@ export async function createKmsIssuerPolicy(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -14562,7 +15045,7 @@ export async function updateKmsIssuerPolicy(
 		config,
 	}: {
 		pathParams: { issuerId: string; kind: "project-grant"; policyKey: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateKmsIssuerPolicyBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14589,7 +15072,7 @@ export async function updateKmsIssuerPolicy(
 			| UpdateKmsIssuerPolicyStatus404
 			| UpdateKmsIssuerPolicyStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateKmsIssuerPolicyBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ issuerId: string; kind: "project-grant"; policyKey: string }
@@ -14599,7 +15082,7 @@ export async function updateKmsIssuerPolicy(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -14719,7 +15202,7 @@ export async function createInstallationsByIntegrationConfigurationIdResourcesBy
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14744,7 +15227,7 @@ export async function createInstallationsByIntegrationConfigurationIdResourcesBy
 			| CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus404
 			| CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; resourceId: string }
@@ -14753,7 +15236,7 @@ export async function createInstallationsByIntegrationConfigurationIdResourcesBy
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/experimentation/items`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -14771,7 +15254,7 @@ export async function updateInstallationsByIntegrationConfigurationIdResourcesBy
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string; itemId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14800,7 +15283,7 @@ export async function updateInstallationsByIntegrationConfigurationIdResourcesBy
 			| UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus404
 			| UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; resourceId: string; itemId: string }
@@ -14809,7 +15292,7 @@ export async function updateInstallationsByIntegrationConfigurationIdResourcesBy
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/experimentation/items/${encodeURIComponent(String(pathParams.itemId))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -14929,7 +15412,7 @@ export async function replaceInstallationsByIntegrationConfigurationIdResourcesB
 		config,
 	}: {
 		pathParams: { integrationConfigurationId: string; resourceId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14956,7 +15439,7 @@ export async function replaceInstallationsByIntegrationConfigurationIdResourcesB
 			| ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410
 			| ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus412
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ integrationConfigurationId: string; resourceId: string }
@@ -14965,7 +15448,7 @@ export async function replaceInstallationsByIntegrationConfigurationIdResourcesB
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/experimentation/global-config`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -15160,7 +15643,7 @@ export async function createMicrofrontendsGroupWithApplications(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateMicrofrontendsGroupWithApplicationsBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -15177,7 +15660,7 @@ export async function createMicrofrontendsGroupWithApplications(
 			| CreateMicrofrontendsGroupWithApplicationsStatus410
 			| CreateMicrofrontendsGroupWithApplicationsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateMicrofrontendsGroupWithApplicationsBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -15187,7 +15670,7 @@ export async function createMicrofrontendsGroupWithApplications(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -15246,7 +15729,7 @@ export async function updateObservabilityConfigurationProject(
 		config,
 	}: {
 		pathParams: { projectIdOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateObservabilityConfigurationProjectBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -15266,7 +15749,7 @@ export async function updateObservabilityConfigurationProject(
 			| UpdateObservabilityConfigurationProjectStatus410
 			| UpdateObservabilityConfigurationProjectStatus429
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateObservabilityConfigurationProjectBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectIdOrName: string }
@@ -15276,7 +15759,7 @@ export async function updateObservabilityConfigurationProject(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -15290,7 +15773,7 @@ export async function createObservabilityQuery(
 		body,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateObservabilityQueryBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15311,7 +15794,7 @@ export async function createObservabilityQuery(
 			| CreateObservabilityQueryStatus500
 			| CreateObservabilityQueryStatus503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateObservabilityQueryBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
@@ -15320,7 +15803,7 @@ export async function createObservabilityQuery(
 		url: `/v2/observability/query`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -15408,7 +15891,7 @@ export async function createOrganization(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateOrganizationBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -15426,7 +15909,7 @@ export async function createOrganization(
 			| CreateOrganizationStatus410
 			| CreateOrganizationStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateOrganizationBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -15436,7 +15919,7 @@ export async function createOrganization(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -15444,7 +15927,7 @@ export async function createOrganization(
 
 /**
  * @summary List Organizations
- * @description List the organizations where the authenticated user holds the OrgAdmin or OrgViewer permission on the organization's root or backing team — the same criteria as GET /v1/organizations/:organizationId/teams. This endpoint is in private beta. Contact your Vercel account team for access.
+ * @description List the organizations where the authenticated user holds the OrgAdmin or OrgViewer permission on the organization's root or backing team — the same criteria as GET /v1/organizations/:organizationId/teams. A token without user scope, such as a team SSO session, lists only the organizations where it is authenticated to at least one team of the organization: the root team, the backing team, or a child team. This endpoint is in private beta. Contact your Vercel account team for access.
  * @link /v1/organizations
  */
 export async function listOrganizations(
@@ -15455,7 +15938,10 @@ export async function listOrganizations(
 	const data = await request<
 		ListOrganizationsResponse,
 		ErrorWrapper<
-			ListOrganizationsStatus400 | ListOrganizationsStatus403 | ListOrganizationsStatus410
+			| ListOrganizationsStatus400
+			| ListOrganizationsStatus401
+			| ListOrganizationsStatus403
+			| ListOrganizationsStatus410
 		>,
 		null,
 		Record<string, string>,
@@ -15528,7 +16014,7 @@ export async function updateOrganization(
 		config,
 	}: {
 		pathParams: { organizationId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateOrganizationBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15547,7 +16033,7 @@ export async function updateOrganization(
 			| UpdateOrganizationStatus409
 			| UpdateOrganizationStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateOrganizationBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ organizationId: string }
@@ -15556,7 +16042,7 @@ export async function updateOrganization(
 		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -15619,7 +16105,7 @@ export async function addOrganizationTeam(
 		config,
 	}: {
 		pathParams: { organizationId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: AddOrganizationTeamBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15639,7 +16125,7 @@ export async function addOrganizationTeam(
 			| AddOrganizationTeamStatus410
 			| AddOrganizationTeamStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		AddOrganizationTeamBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ organizationId: string }
@@ -15648,7 +16134,7 @@ export async function addOrganizationTeam(
 		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/teams`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -15773,7 +16259,7 @@ export async function addProjectMember(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: AddProjectMemberBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -15793,7 +16279,7 @@ export async function addProjectMember(
 			| AddProjectMemberStatus410
 			| AddProjectMemberStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		AddProjectMemberBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -15803,7 +16289,7 @@ export async function addProjectMember(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -15930,7 +16416,7 @@ export async function stageRoutes(
 		config,
 	}: {
 		pathParams: { projectId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: StageRoutesBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -15951,7 +16437,7 @@ export async function stageRoutes(
 			| StageRoutesStatus410
 			| StageRoutesStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		StageRoutesBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string }
@@ -15961,7 +16447,7 @@ export async function stageRoutes(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -15980,7 +16466,7 @@ export async function addRoute(
 		config,
 	}: {
 		pathParams: { projectId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: AddRouteBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16001,7 +16487,7 @@ export async function addRoute(
 			| AddRouteStatus410
 			| AddRouteStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		AddRouteBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string }
@@ -16011,7 +16497,7 @@ export async function addRoute(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -16030,7 +16516,7 @@ export async function deleteRoutes(
 		config,
 	}: {
 		pathParams: { projectId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: DeleteRoutesBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16051,7 +16537,7 @@ export async function deleteRoutes(
 			| DeleteRoutesStatus410
 			| DeleteRoutesStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		DeleteRoutesBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string }
@@ -16061,7 +16547,7 @@ export async function deleteRoutes(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -16080,7 +16566,7 @@ export async function editRoute(
 		config,
 	}: {
 		pathParams: { projectId: string; routeId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: EditRouteBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16105,7 +16591,7 @@ export async function editRoute(
 			| EditRouteStatus410
 			| EditRouteStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		EditRouteBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string; routeId: string }
@@ -16115,7 +16601,7 @@ export async function editRoute(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -16134,7 +16620,7 @@ export async function generateRoute(
 		config,
 	}: {
 		pathParams: { projectId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: GenerateRouteBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16155,7 +16641,7 @@ export async function generateRoute(
 			| GenerateRouteStatus410
 			| GenerateRouteStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		GenerateRouteBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string }
@@ -16165,7 +16651,7 @@ export async function generateRoute(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -16229,7 +16715,7 @@ export async function updateRouteVersions(
 		config,
 	}: {
 		pathParams: { projectId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateRouteVersionsBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16250,7 +16736,7 @@ export async function updateRouteVersions(
 			| UpdateRouteVersionsStatus410
 			| UpdateRouteVersionsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateRouteVersionsBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string }
@@ -16260,7 +16746,7 @@ export async function updateRouteVersions(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -16397,7 +16883,7 @@ export async function createProject(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateProjectBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16418,7 +16904,7 @@ export async function createProject(
 			| CreateProjectStatus429
 			| CreateProjectStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateProjectBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -16428,7 +16914,7 @@ export async function createProject(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -16447,7 +16933,7 @@ export async function getProjectToken(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: GetProjectTokenBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16466,7 +16952,7 @@ export async function getProjectToken(
 			| GetProjectTokenStatus404
 			| GetProjectTokenStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		GetProjectTokenBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -16476,7 +16962,7 @@ export async function getProjectToken(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -16493,7 +16979,7 @@ export async function createTraceSession(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateTraceSessionBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16510,7 +16996,7 @@ export async function createTraceSession(
 			| CreateTraceSessionStatus410
 			| CreateTraceSessionStatus422
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateTraceSessionBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -16520,7 +17006,7 @@ export async function createTraceSession(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -16584,7 +17070,7 @@ export async function updateProject(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateProjectBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16605,8 +17091,9 @@ export async function updateProject(
 			| UpdateProjectStatus409
 			| UpdateProjectStatus410
 			| UpdateProjectStatus428
+			| UpdateProjectStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateProjectBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -16616,7 +17103,7 @@ export async function updateProject(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -16712,7 +17199,7 @@ export async function uploadProjectAvatar(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationOctetStream", ...requestConfig.headers },
+		headers: { "Content-Type": "application/octet-stream", ...requestConfig.headers },
 	});
 
 	return data;
@@ -16776,7 +17263,7 @@ export async function updateStaticIps(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateStaticIpsBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16798,7 +17285,7 @@ export async function updateStaticIps(
 			| UpdateStaticIpsStatus410
 			| UpdateStaticIpsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateStaticIpsBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -16808,7 +17295,7 @@ export async function updateStaticIps(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -16827,7 +17314,7 @@ export async function createCustomEnvironment(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateCustomEnvironmentBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16849,7 +17336,7 @@ export async function createCustomEnvironment(
 			| CreateCustomEnvironmentStatus410
 			| CreateCustomEnvironmentStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateCustomEnvironmentBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -16859,7 +17346,7 @@ export async function createCustomEnvironment(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -16972,7 +17459,7 @@ export async function updateCustomEnvironment(
 		config,
 	}: {
 		pathParams: { idOrName: string; environmentSlugOrId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateCustomEnvironmentBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16997,7 +17484,7 @@ export async function updateCustomEnvironment(
 			| UpdateCustomEnvironmentStatus410
 			| UpdateCustomEnvironmentStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateCustomEnvironmentBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string; environmentSlugOrId: string }
@@ -17007,7 +17494,7 @@ export async function updateCustomEnvironment(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -17026,7 +17513,7 @@ export async function removeCustomEnvironment(
 		config,
 	}: {
 		pathParams: { idOrName: string; environmentSlugOrId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: RemoveCustomEnvironmentBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -17049,7 +17536,7 @@ export async function removeCustomEnvironment(
 			| RemoveCustomEnvironmentStatus404
 			| RemoveCustomEnvironmentStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		RemoveCustomEnvironmentBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string; environmentSlugOrId: string }
@@ -17059,7 +17546,7 @@ export async function removeCustomEnvironment(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -17200,7 +17687,7 @@ export async function updateProjectDomain(
 		config,
 	}: {
 		pathParams: { idOrName: string; domain: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateProjectDomainBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -17224,7 +17711,7 @@ export async function updateProjectDomain(
 			| UpdateProjectDomainStatus409
 			| UpdateProjectDomainStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateProjectDomainBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string; domain: string }
@@ -17234,7 +17721,7 @@ export async function updateProjectDomain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -17253,7 +17740,7 @@ export async function removeProjectDomain(
 		config,
 	}: {
 		pathParams: { idOrName: string; domain: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: RemoveProjectDomainBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -17277,7 +17764,7 @@ export async function removeProjectDomain(
 			| RemoveProjectDomainStatus409
 			| RemoveProjectDomainStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		RemoveProjectDomainBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string; domain: string }
@@ -17287,7 +17774,7 @@ export async function removeProjectDomain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -17306,7 +17793,7 @@ export async function addProjectDomain(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: AddProjectDomainBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -17327,7 +17814,7 @@ export async function addProjectDomain(
 			| AddProjectDomainStatus409
 			| AddProjectDomainStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		AddProjectDomainBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -17337,7 +17824,7 @@ export async function addProjectDomain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -17356,7 +17843,7 @@ export async function moveProjectDomain(
 		config,
 	}: {
 		pathParams: { idOrName: string; domain: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: MoveProjectDomainBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -17380,7 +17867,7 @@ export async function moveProjectDomain(
 			| MoveProjectDomainStatus409
 			| MoveProjectDomainStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		MoveProjectDomainBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string; domain: string }
@@ -17390,7 +17877,7 @@ export async function moveProjectDomain(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -17519,7 +18006,7 @@ export async function createProjectEnv(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateProjectEnvBody;
 		queryParams?: { upsert?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -17542,7 +18029,7 @@ export async function createProjectEnv(
 			| CreateProjectEnvStatus429
 			| CreateProjectEnvStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateProjectEnvBody,
 		Record<string, string>,
 		{ upsert?: string; teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -17552,7 +18039,7 @@ export async function createProjectEnv(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -17670,7 +18157,7 @@ export async function editProjectEnv(
 		config,
 	}: {
 		pathParams: { idOrName: string; id: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: EditProjectEnvBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -17696,7 +18183,7 @@ export async function editProjectEnv(
 			| EditProjectEnvStatus429
 			| EditProjectEnvStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		EditProjectEnvBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string; id: string }
@@ -17706,7 +18193,7 @@ export async function editProjectEnv(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -17725,7 +18212,7 @@ export async function batchRemoveProjectEnv(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: BatchRemoveProjectEnvBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -17745,7 +18232,7 @@ export async function batchRemoveProjectEnv(
 			| BatchRemoveProjectEnvStatus409
 			| BatchRemoveProjectEnvStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		BatchRemoveProjectEnvBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -17755,7 +18242,7 @@ export async function batchRemoveProjectEnv(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -17999,7 +18486,7 @@ export async function approveRollingReleaseStage(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: ApproveRollingReleaseStageBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -18019,7 +18506,7 @@ export async function approveRollingReleaseStage(
 			| ApproveRollingReleaseStageStatus410
 			| ApproveRollingReleaseStageStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ApproveRollingReleaseStageBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -18029,7 +18516,7 @@ export async function approveRollingReleaseStage(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -18048,7 +18535,7 @@ export async function startRollingRelease(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: StartRollingReleaseBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -18069,7 +18556,7 @@ export async function startRollingRelease(
 			| StartRollingReleaseStatus410
 			| StartRollingReleaseStatus422
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		StartRollingReleaseBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -18079,7 +18566,7 @@ export async function startRollingRelease(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -18098,7 +18585,7 @@ export async function completeRollingRelease(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CompleteRollingReleaseBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -18117,7 +18604,7 @@ export async function completeRollingRelease(
 			| CompleteRollingReleaseStatus404
 			| CompleteRollingReleaseStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CompleteRollingReleaseBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -18127,7 +18614,7 @@ export async function completeRollingRelease(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -18146,7 +18633,7 @@ export async function createProjectTransferRequest(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateProjectTransferRequestBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -18166,7 +18653,7 @@ export async function createProjectTransferRequest(
 			| CreateProjectTransferRequestStatus409
 			| CreateProjectTransferRequestStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateProjectTransferRequestBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -18176,7 +18663,7 @@ export async function createProjectTransferRequest(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -18195,7 +18682,7 @@ export async function acceptProjectTransferRequest(
 		config,
 	}: {
 		pathParams: { code: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: AcceptProjectTransferRequestBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -18215,7 +18702,7 @@ export async function acceptProjectTransferRequest(
 			| AcceptProjectTransferRequestStatus410
 			| AcceptProjectTransferRequestStatus422
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		AcceptProjectTransferRequestBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ code: string }
@@ -18225,7 +18712,7 @@ export async function acceptProjectTransferRequest(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -18244,7 +18731,7 @@ export async function updateProjectProtectionBypass(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateProjectProtectionBypassBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -18264,7 +18751,7 @@ export async function updateProjectProtectionBypass(
 			| UpdateProjectProtectionBypassStatus409
 			| UpdateProjectProtectionBypassStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateProjectProtectionBypassBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -18274,7 +18761,7 @@ export async function updateProjectProtectionBypass(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -18344,7 +18831,7 @@ export async function updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescr
 		config,
 	}: {
 		pathParams: { projectId: string; deploymentId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18368,7 +18855,7 @@ export async function updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescr
 			| UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus410
 			| UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus422
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ projectId: string; deploymentId: string }
@@ -18377,7 +18864,7 @@ export async function updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescr
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/rollback/${encodeURIComponent(String(pathParams.deploymentId))}/update-description`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -18396,7 +18883,7 @@ export async function updateMicrofrontends(
 		config,
 	}: {
 		pathParams: { projectId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateMicrofrontendsBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -18417,7 +18904,7 @@ export async function updateMicrofrontends(
 			| UpdateMicrofrontendsStatus410
 			| UpdateMicrofrontendsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateMicrofrontendsBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ projectId: string }
@@ -18427,7 +18914,7 @@ export async function updateMicrofrontends(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -18670,6 +19157,7 @@ export async function listNamedSandboxes(
 			| ListNamedSandboxesStatus403
 			| ListNamedSandboxesStatus404
 			| ListNamedSandboxesStatus410
+			| ListNamedSandboxesStatus422
 			| ListNamedSandboxesStatus429
 		>,
 		null,
@@ -18709,7 +19197,7 @@ export async function createSandboxesV2(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateSandboxesV2Body;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -18732,7 +19220,7 @@ export async function createSandboxesV2(
 			| CreateSandboxesV2Status502
 			| CreateSandboxesV2Status503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateSandboxesV2Body,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -18742,7 +19230,7 @@ export async function createSandboxesV2(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -18781,6 +19269,7 @@ export async function listDrives(
 			| ListDrivesStatus403
 			| ListDrivesStatus404
 			| ListDrivesStatus410
+			| ListDrivesStatus422
 			| ListDrivesStatus429
 		>,
 		null,
@@ -18836,6 +19325,7 @@ export async function getDrive(
 			| GetDriveStatus403
 			| GetDriveStatus404
 			| GetDriveStatus410
+			| GetDriveStatus422
 			| GetDriveStatus429
 		>,
 		null,
@@ -18866,7 +19356,7 @@ export async function getOrCreateDrive(
 		config,
 	}: {
 		pathParams: { name: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: GetOrCreateDriveBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -18886,9 +19376,11 @@ export async function getOrCreateDrive(
 			| GetOrCreateDriveStatus404
 			| GetOrCreateDriveStatus409
 			| GetOrCreateDriveStatus410
+			| GetOrCreateDriveStatus422
 			| GetOrCreateDriveStatus429
+			| GetOrCreateDriveStatus503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		GetOrCreateDriveBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ name: string }
@@ -18898,7 +19390,7 @@ export async function getOrCreateDrive(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -18934,6 +19426,7 @@ export async function deleteDrive(
 			| DeleteDriveStatus404
 			| DeleteDriveStatus409
 			| DeleteDriveStatus410
+			| DeleteDriveStatus422
 			| DeleteDriveStatus429
 		>,
 		null,
@@ -18964,7 +19457,7 @@ export async function forkDrive(
 		config,
 	}: {
 		pathParams: { name: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: ForkDriveBody;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -18984,10 +19477,11 @@ export async function forkDrive(
 			| ForkDriveStatus404
 			| ForkDriveStatus409
 			| ForkDriveStatus410
+			| ForkDriveStatus422
 			| ForkDriveStatus429
 			| ForkDriveStatus503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ForkDriveBody,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		{ name: string }
@@ -18997,7 +19491,7 @@ export async function forkDrive(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -19035,6 +19529,7 @@ export async function listSessionSnapshots(
 			| ListSessionSnapshotsStatus403
 			| ListSessionSnapshotsStatus404
 			| ListSessionSnapshotsStatus410
+			| ListSessionSnapshotsStatus422
 			| ListSessionSnapshotsStatus429
 		>,
 		null,
@@ -19089,6 +19584,7 @@ export async function getSessionSnapshot(
 			| GetSessionSnapshotStatus403
 			| GetSessionSnapshotStatus404
 			| GetSessionSnapshotStatus410
+			| GetSessionSnapshotStatus422
 			| GetSessionSnapshotStatus429
 		>,
 		null,
@@ -19135,6 +19631,7 @@ export async function deleteSessionSnapshot(
 			| DeleteSessionSnapshotStatus403
 			| DeleteSessionSnapshotStatus404
 			| DeleteSessionSnapshotStatus410
+			| DeleteSessionSnapshotStatus422
 			| DeleteSessionSnapshotStatus429
 		>,
 		null,
@@ -19184,6 +19681,7 @@ export async function listSessions(
 			| ListSessionsStatus403
 			| ListSessionsStatus404
 			| ListSessionsStatus410
+			| ListSessionsStatus422
 			| ListSessionsStatus429
 			| ListSessionsStatus500
 		>,
@@ -19239,6 +19737,7 @@ export async function getSession(
 			| GetSessionStatus403
 			| GetSessionStatus404
 			| GetSessionStatus410
+			| GetSessionStatus422
 			| GetSessionStatus429
 			| GetSessionStatus500
 		>,
@@ -19322,7 +19821,7 @@ export async function updateSandbox(
 		config,
 	}: {
 		pathParams: { name: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateSandboxBody;
 		queryParams?: { projectId?: string; resume?: boolean; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -19345,7 +19844,7 @@ export async function updateSandbox(
 			| UpdateSandboxStatus429
 			| UpdateSandboxStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateSandboxBody,
 		Record<string, string>,
 		{ projectId?: string; resume?: boolean; teamId?: string; slug?: string },
 		{ name: string }
@@ -19355,7 +19854,7 @@ export async function updateSandbox(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -19395,6 +19894,7 @@ export async function deleteSandbox(
 			| DeleteSandboxStatus403
 			| DeleteSandboxStatus404
 			| DeleteSandboxStatus410
+			| DeleteSandboxStatus422
 			| DeleteSandboxStatus429
 		>,
 		null,
@@ -19441,6 +19941,7 @@ export async function listSessionCommands(
 			| ListSessionCommandsStatus403
 			| ListSessionCommandsStatus404
 			| ListSessionCommandsStatus410
+			| ListSessionCommandsStatus422
 			| ListSessionCommandsStatus429
 		>,
 		null,
@@ -19471,7 +19972,7 @@ export async function runSessionCommand(
 		config,
 	}: {
 		pathParams: { sessionId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: RunSessionCommandBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -19491,9 +19992,8 @@ export async function runSessionCommand(
 			| RunSessionCommandStatus410
 			| RunSessionCommandStatus422
 			| RunSessionCommandStatus429
-			| RunSessionCommandStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		RunSessionCommandBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ sessionId: string }
@@ -19503,7 +20003,7 @@ export async function runSessionCommand(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -19544,7 +20044,6 @@ export async function getSessionCommand(
 			| GetSessionCommandStatus410
 			| GetSessionCommandStatus422
 			| GetSessionCommandStatus429
-			| GetSessionCommandStatus500
 		>,
 		null,
 		Record<string, string>,
@@ -19574,7 +20073,7 @@ export async function killSessionCommand(
 		config,
 	}: {
 		pathParams: { cmdId: string; sessionId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: KillSessionCommandBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -19598,9 +20097,8 @@ export async function killSessionCommand(
 			| KillSessionCommandStatus410
 			| KillSessionCommandStatus422
 			| KillSessionCommandStatus429
-			| KillSessionCommandStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		KillSessionCommandBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ cmdId: string; sessionId: string }
@@ -19610,7 +20108,7 @@ export async function killSessionCommand(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -19629,7 +20127,7 @@ export async function writeSessionCommandStdin(
 		config,
 	}: {
 		pathParams: { cmdId: string; sessionId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: WriteSessionCommandStdinBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -19654,11 +20152,10 @@ export async function writeSessionCommandStdin(
 			| WriteSessionCommandStdinStatus410
 			| WriteSessionCommandStdinStatus422
 			| WriteSessionCommandStdinStatus429
-			| WriteSessionCommandStdinStatus500
 			| WriteSessionCommandStdinStatus502
 			| WriteSessionCommandStdinStatus504
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		WriteSessionCommandStdinBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ cmdId: string; sessionId: string }
@@ -19668,7 +20165,7 @@ export async function writeSessionCommandStdin(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -19709,7 +20206,6 @@ export async function getSessionCommandLogs(
 			| GetSessionCommandLogsStatus410
 			| GetSessionCommandLogsStatus422
 			| GetSessionCommandLogsStatus429
-			| GetSessionCommandLogsStatus500
 		>,
 		null,
 		Record<string, string>,
@@ -19787,7 +20283,7 @@ export async function extendSessionTimeout(
 		config,
 	}: {
 		pathParams: { sessionId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: ExtendSessionTimeoutBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -19809,7 +20305,7 @@ export async function extendSessionTimeout(
 			| ExtendSessionTimeoutStatus429
 			| ExtendSessionTimeoutStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ExtendSessionTimeoutBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ sessionId: string }
@@ -19819,7 +20315,7 @@ export async function extendSessionTimeout(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -19838,7 +20334,7 @@ export async function updateSessionNetworkPolicy(
 		config,
 	}: {
 		pathParams: { sessionId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateSessionNetworkPolicyBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -19860,7 +20356,7 @@ export async function updateSessionNetworkPolicy(
 			| UpdateSessionNetworkPolicyStatus429
 			| UpdateSessionNetworkPolicyStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateSessionNetworkPolicyBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ sessionId: string }
@@ -19870,7 +20366,7 @@ export async function updateSessionNetworkPolicy(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -19889,7 +20385,7 @@ export async function readSessionFile(
 		config,
 	}: {
 		pathParams: { sessionId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: ReadSessionFileBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -19909,9 +20405,8 @@ export async function readSessionFile(
 			| ReadSessionFileStatus410
 			| ReadSessionFileStatus422
 			| ReadSessionFileStatus429
-			| ReadSessionFileStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		ReadSessionFileBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ sessionId: string }
@@ -19921,7 +20416,7 @@ export async function readSessionFile(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -19940,7 +20435,7 @@ export async function createSessionDirectory(
 		config,
 	}: {
 		pathParams: { sessionId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateSessionDirectoryBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -19960,9 +20455,8 @@ export async function createSessionDirectory(
 			| CreateSessionDirectoryStatus410
 			| CreateSessionDirectoryStatus422
 			| CreateSessionDirectoryStatus429
-			| CreateSessionDirectoryStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateSessionDirectoryBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ sessionId: string }
@@ -19972,7 +20466,7 @@ export async function createSessionDirectory(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -20011,7 +20505,6 @@ export async function writeSessionFiles(
 			| WriteSessionFilesStatus410
 			| WriteSessionFilesStatus422
 			| WriteSessionFilesStatus429
-			| WriteSessionFilesStatus500
 		>,
 		null,
 		{ "x-cwd"?: string },
@@ -20041,7 +20534,7 @@ export async function createSandboxesSessionsBySessionIdSnapshotV2(
 		config,
 	}: {
 		pathParams: { sessionId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateSandboxesSessionsBySessionIdSnapshotV2Body;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20064,7 +20557,7 @@ export async function createSandboxesSessionsBySessionIdSnapshotV2(
 			| CreateSandboxesSessionsBySessionIdSnapshotV2Status429
 			| CreateSandboxesSessionsBySessionIdSnapshotV2Status500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateSandboxesSessionsBySessionIdSnapshotV2Body,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ sessionId: string }
@@ -20074,7 +20567,7 @@ export async function createSandboxesSessionsBySessionIdSnapshotV2(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -20093,7 +20586,7 @@ export async function createSandboxesByNameForkV2(
 		config,
 	}: {
 		pathParams: { name: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateSandboxesByNameForkV2Body;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20119,7 +20612,7 @@ export async function createSandboxesByNameForkV2(
 			| CreateSandboxesByNameForkV2Status502
 			| CreateSandboxesByNameForkV2Status503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateSandboxesByNameForkV2Body,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		{ name: string }
@@ -20129,7 +20622,7 @@ export async function createSandboxesByNameForkV2(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -20146,7 +20639,7 @@ export async function createSandboxesV3(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateSandboxesV3Body;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20169,7 +20662,7 @@ export async function createSandboxesV3(
 			| CreateSandboxesV3Status502
 			| CreateSandboxesV3Status503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateSandboxesV3Body,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -20179,7 +20672,7 @@ export async function createSandboxesV3(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -20198,7 +20691,7 @@ export async function createSandboxesSessionsBySessionIdSnapshotV3(
 		config,
 	}: {
 		pathParams: { sessionId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateSandboxesSessionsBySessionIdSnapshotV3Body;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20221,7 +20714,7 @@ export async function createSandboxesSessionsBySessionIdSnapshotV3(
 			| CreateSandboxesSessionsBySessionIdSnapshotV3Status429
 			| CreateSandboxesSessionsBySessionIdSnapshotV3Status500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateSandboxesSessionsBySessionIdSnapshotV3Body,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ sessionId: string }
@@ -20231,7 +20724,7 @@ export async function createSandboxesSessionsBySessionIdSnapshotV3(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -20250,7 +20743,7 @@ export async function createSandboxesByNameForkV3(
 		config,
 	}: {
 		pathParams: { name: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateSandboxesByNameForkV3Body;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20276,7 +20769,7 @@ export async function createSandboxesByNameForkV3(
 			| CreateSandboxesByNameForkV3Status502
 			| CreateSandboxesByNameForkV3Status503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateSandboxesByNameForkV3Body,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		{ name: string }
@@ -20286,7 +20779,7 @@ export async function createSandboxesByNameForkV3(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -20303,7 +20796,7 @@ export async function createSandboxesV4(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateSandboxesV4Body;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20326,7 +20819,7 @@ export async function createSandboxesV4(
 			| CreateSandboxesV4Status502
 			| CreateSandboxesV4Status503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateSandboxesV4Body,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -20336,7 +20829,7 @@ export async function createSandboxesV4(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -20353,7 +20846,7 @@ export async function updateAttackChallengeMode(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateAttackChallengeModeBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20369,7 +20862,7 @@ export async function updateAttackChallengeMode(
 			| UpdateAttackChallengeModeStatus404
 			| UpdateAttackChallengeModeStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateAttackChallengeModeBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -20379,7 +20872,7 @@ export async function updateAttackChallengeMode(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -20429,7 +20922,7 @@ export async function putFirewallConfig(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: PutFirewallConfigBody;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20447,7 +20940,7 @@ export async function putFirewallConfig(
 			| PutFirewallConfigStatus410
 			| PutFirewallConfigStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		PutFirewallConfigBody,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -20457,7 +20950,7 @@ export async function putFirewallConfig(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -20474,7 +20967,7 @@ export async function updateFirewallConfig(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateFirewallConfigBody;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20492,7 +20985,7 @@ export async function updateFirewallConfig(
 			| UpdateFirewallConfigStatus410
 			| UpdateFirewallConfigStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateFirewallConfigBody,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -20502,7 +20995,7 @@ export async function updateFirewallConfig(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -20751,7 +21244,7 @@ export async function addBypassIp(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: AddBypassIpBody;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20769,7 +21262,7 @@ export async function addBypassIp(
 			| AddBypassIpStatus410
 			| AddBypassIpStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		AddBypassIpBody,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -20779,7 +21272,7 @@ export async function addBypassIp(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -20796,7 +21289,7 @@ export async function removeBypassIp(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: RemoveBypassIpBody;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20814,7 +21307,7 @@ export async function removeBypassIp(
 			| RemoveBypassIpStatus410
 			| RemoveBypassIpStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		RemoveBypassIpBody,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		Record<string, string>
@@ -20824,7 +21317,7 @@ export async function removeBypassIp(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -20881,7 +21374,7 @@ export async function createConditionalBypass(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateConditionalBypassBody;
 		queryParams?: { projectId?: string; slug?: string; teamId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -20898,7 +21391,7 @@ export async function createConditionalBypass(
 			| CreateConditionalBypassStatus409
 			| CreateConditionalBypassStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateConditionalBypassBody,
 		Record<string, string>,
 		{ projectId?: string; slug?: string; teamId?: string },
 		Record<string, string>
@@ -20908,7 +21401,7 @@ export async function createConditionalBypass(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -21147,7 +21640,7 @@ export async function createSpeedInsightsToggle(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateSpeedInsightsToggleBody;
 		queryParams?: { projectId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -21164,7 +21657,7 @@ export async function createSpeedInsightsToggle(
 			| CreateSpeedInsightsToggleStatus404
 			| CreateSpeedInsightsToggleStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateSpeedInsightsToggleBody,
 		Record<string, string>,
 		{ projectId?: string },
 		Record<string, string>
@@ -21174,7 +21667,7 @@ export async function createSpeedInsightsToggle(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -21233,7 +21726,7 @@ export async function createStorageStoresBlob(
 		body,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateStorageStoresBlobBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21251,7 +21744,7 @@ export async function createStorageStoresBlob(
 			| CreateStorageStoresBlobStatus410
 			| CreateStorageStoresBlobStatus429
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateStorageStoresBlobBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
@@ -21260,7 +21753,7 @@ export async function createStorageStoresBlob(
 		url: `/storage/stores/blob`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -21319,7 +21812,7 @@ export async function createIntegrationStoreDirect(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateIntegrationStoreDirectBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -21338,7 +21831,7 @@ export async function createIntegrationStoreDirect(
 			| CreateIntegrationStoreDirectStatus410
 			| CreateIntegrationStoreDirectStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateIntegrationStoreDirectBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -21348,7 +21841,7 @@ export async function createIntegrationStoreDirect(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -21446,7 +21939,7 @@ export async function inviteUserToTeam(
 		config,
 	}: {
 		pathParams: { teamId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: InviteUserToTeamBody;
 		queryParams?: { slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -21466,7 +21959,7 @@ export async function inviteUserToTeam(
 			| InviteUserToTeamStatus410
 			| InviteUserToTeamStatus503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		InviteUserToTeamBody,
 		Record<string, string>,
 		{ slug?: string },
 		{ teamId: string }
@@ -21476,7 +21969,7 @@ export async function inviteUserToTeam(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -21494,7 +21987,7 @@ export async function requestAccessToTeam(
 		config,
 	}: {
 		pathParams: { teamId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: RequestAccessToTeamBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21514,7 +22007,7 @@ export async function requestAccessToTeam(
 			| RequestAccessToTeamStatus429
 			| RequestAccessToTeamStatus503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		RequestAccessToTeamBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ teamId: string }
@@ -21523,7 +22016,7 @@ export async function requestAccessToTeam(
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/request`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -21556,6 +22049,7 @@ export async function getTeamAccessRequest(
 		GetTeamAccessRequestResponse,
 		ErrorWrapper<
 			| GetTeamAccessRequestStatus400
+			| GetTeamAccessRequestStatus401
 			| GetTeamAccessRequestStatus403
 			| GetTeamAccessRequestStatus404
 			| GetTeamAccessRequestStatus410
@@ -21586,7 +22080,7 @@ export async function joinTeam(
 		config,
 	}: {
 		pathParams: { teamId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: JoinTeamBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21599,13 +22093,14 @@ export async function joinTeam(
 		JoinTeamResponse,
 		ErrorWrapper<
 			| JoinTeamStatus400
+			| JoinTeamStatus401
 			| JoinTeamStatus402
 			| JoinTeamStatus403
 			| JoinTeamStatus404
 			| JoinTeamStatus410
 			| JoinTeamStatus503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		JoinTeamBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ teamId: string }
@@ -21614,7 +22109,7 @@ export async function joinTeam(
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/members/teams/join`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -21632,7 +22127,7 @@ export async function updateTeamMember(
 		config,
 	}: {
 		pathParams: { uid: string; teamId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: UpdateTeamMemberBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21657,7 +22152,7 @@ export async function updateTeamMember(
 			| UpdateTeamMemberStatus410
 			| UpdateTeamMemberStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateTeamMemberBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ uid: string; teamId: string }
@@ -21666,7 +22161,7 @@ export async function updateTeamMember(
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/members/${encodeURIComponent(String(pathParams.uid))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -21776,7 +22271,7 @@ export async function patchTeam(
 		config,
 	}: {
 		pathParams: { teamId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: PatchTeamBody;
 		queryParams?: { slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -21797,8 +22292,10 @@ export async function patchTeam(
 			| PatchTeamStatus409
 			| PatchTeamStatus410
 			| PatchTeamStatus428
+			| PatchTeamStatus502
+			| PatchTeamStatus503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		PatchTeamBody,
 		Record<string, string>,
 		{ slug?: string },
 		{ teamId: string }
@@ -21808,7 +22305,7 @@ export async function patchTeam(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -21832,7 +22329,13 @@ export async function getTeams(
 
 	const data = await request<
 		GetTeamsResponse,
-		ErrorWrapper<GetTeamsStatus400 | GetTeamsStatus403 | GetTeamsStatus410 | GetTeamsStatus500>,
+		ErrorWrapper<
+			| GetTeamsStatus400
+			| GetTeamsStatus401
+			| GetTeamsStatus403
+			| GetTeamsStatus410
+			| GetTeamsStatus500
+		>,
 		null,
 		Record<string, string>,
 		{ limit?: number; since?: number; until?: number },
@@ -21858,7 +22361,7 @@ export async function createTeam(
 		body,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateTeamBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21867,9 +22370,13 @@ export async function createTeam(
 	const data = await request<
 		CreateTeamResponse,
 		ErrorWrapper<
-			CreateTeamStatus400 | CreateTeamStatus403 | CreateTeamStatus404 | CreateTeamStatus410
+			| CreateTeamStatus400
+			| CreateTeamStatus401
+			| CreateTeamStatus403
+			| CreateTeamStatus404
+			| CreateTeamStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateTeamBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
@@ -21878,7 +22385,7 @@ export async function createTeam(
 		url: `/v1/teams`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -21897,7 +22404,7 @@ export async function postTeamDsyncRoles(
 		config,
 	}: {
 		pathParams: { teamId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: PostTeamDsyncRolesBody;
 		queryParams?: { slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -21916,7 +22423,7 @@ export async function postTeamDsyncRoles(
 			| PostTeamDsyncRolesStatus404
 			| PostTeamDsyncRolesStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		PostTeamDsyncRolesBody,
 		Record<string, string>,
 		{ slug?: string },
 		{ teamId: string }
@@ -21926,7 +22433,7 @@ export async function postTeamDsyncRoles(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -21934,7 +22441,7 @@ export async function postTeamDsyncRoles(
 
 /**
  * @summary Delete a Team
- * @description Delete a team under your account. You need to send a `DELETE` request with the desired team `id`. An optional array of reasons for deletion may also be sent. Enterprise teams can only be deleted in test billing mode and when not linked to an organization.
+ * @description Delete a team under your account. You need to send a `DELETE` request with the desired team `id`. An optional array of reasons for deletion may also be sent. Enterprise teams can only be deleted in test billing mode and when not linked to an organization. Enterprise children of an organization cannot be deleted.
  * @link /v1/teams/{teamId}
  */
 export async function deleteTeam(
@@ -21945,7 +22452,7 @@ export async function deleteTeam(
 		config,
 	}: {
 		pathParams: { teamId: string };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: DeleteTeamBody;
 		queryParams?: { newDefaultTeamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -21967,7 +22474,7 @@ export async function deleteTeam(
 			| DeleteTeamStatus410
 			| DeleteTeamStatus503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		DeleteTeamBody,
 		Record<string, string>,
 		{ newDefaultTeamId?: string; slug?: string },
 		{ teamId: string }
@@ -21977,7 +22484,7 @@ export async function deleteTeam(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -22042,7 +22549,7 @@ export async function updateMicrofrontendsGroup(
 		config,
 	}: {
 		pathParams: { groupId: string; teamId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateMicrofrontendsGroupBody;
 		queryParams?: { slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -22065,7 +22572,7 @@ export async function updateMicrofrontendsGroup(
 			| UpdateMicrofrontendsGroupStatus404
 			| UpdateMicrofrontendsGroupStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateMicrofrontendsGroupBody,
 		Record<string, string>,
 		{ slug?: string },
 		{ groupId: string; teamId: string }
@@ -22075,7 +22582,7 @@ export async function updateMicrofrontendsGroup(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -22181,7 +22688,7 @@ export async function uploadFile(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationOctetStream", ...headers, ...requestConfig.headers },
+		headers: { "Content-Type": "application/octet-stream", ...headers, ...requestConfig.headers },
 	});
 
 	return data;
@@ -22230,7 +22737,7 @@ export async function createAuthToken(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateAuthTokenBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -22246,7 +22753,7 @@ export async function createAuthToken(
 			| CreateAuthTokenStatus404
 			| CreateAuthTokenStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateAuthTokenBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -22256,7 +22763,7 @@ export async function createAuthToken(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -22284,7 +22791,11 @@ export async function getAuthToken(
 	const data = await request<
 		GetAuthTokenResponse,
 		ErrorWrapper<
-			GetAuthTokenStatus400 | GetAuthTokenStatus403 | GetAuthTokenStatus404 | GetAuthTokenStatus410
+			| GetAuthTokenStatus400
+			| GetAuthTokenStatus401
+			| GetAuthTokenStatus403
+			| GetAuthTokenStatus404
+			| GetAuthTokenStatus410
 		>,
 		null,
 		Record<string, string>,
@@ -22325,6 +22836,7 @@ export async function deleteAuthToken(
 		DeleteAuthTokenResponse,
 		ErrorWrapper<
 			| DeleteAuthTokenStatus400
+			| DeleteAuthTokenStatus401
 			| DeleteAuthTokenStatus403
 			| DeleteAuthTokenStatus404
 			| DeleteAuthTokenStatus410
@@ -22387,7 +22899,7 @@ export async function requestDelete(
 		body,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: RequestDeleteBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22397,11 +22909,12 @@ export async function requestDelete(
 		RequestDeleteResponse,
 		ErrorWrapper<
 			| RequestDeleteStatus400
+			| RequestDeleteStatus401
 			| RequestDeleteStatus402
 			| RequestDeleteStatus403
 			| RequestDeleteStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		RequestDeleteBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
@@ -22410,7 +22923,7 @@ export async function requestDelete(
 		url: `/v1/user`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -22427,7 +22940,7 @@ export async function createRepository(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateRepositoryBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -22445,7 +22958,7 @@ export async function createRepository(
 			| CreateRepositoryStatus409
 			| CreateRepositoryStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateRepositoryBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -22455,7 +22968,7 @@ export async function createRepository(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -22669,7 +23182,7 @@ export async function addRepositoryPermission(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: AddRepositoryPermissionBody;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -22688,7 +23201,7 @@ export async function addRepositoryPermission(
 			| AddRepositoryPermissionStatus404
 			| AddRepositoryPermissionStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		AddRepositoryPermissionBody,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -22698,7 +23211,7 @@ export async function addRepositoryPermission(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -22717,7 +23230,7 @@ export async function removeRepositoryPermission(
 		config,
 	}: {
 		pathParams: { idOrName: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: RemoveRepositoryPermissionBody;
 		queryParams?: { projectId?: string; teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -22736,7 +23249,7 @@ export async function removeRepositoryPermission(
 			| RemoveRepositoryPermissionStatus404
 			| RemoveRepositoryPermissionStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		RemoveRepositoryPermissionBody,
 		Record<string, string>,
 		{ projectId?: string; teamId?: string; slug?: string },
 		{ idOrName: string }
@@ -22746,7 +23259,7 @@ export async function removeRepositoryPermission(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -23784,7 +24297,7 @@ export async function updateVercelCiRepositorySettings(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UpdateVercelCiRepositorySettingsBody;
 		queryParams?: {
 			provider?: "bitbucket" | "cursor-origin" | "github" | "gitlab" | "vercel";
 			organizationId?: string;
@@ -23809,7 +24322,7 @@ export async function updateVercelCiRepositorySettings(
 			| UpdateVercelCiRepositorySettingsStatus429
 			| UpdateVercelCiRepositorySettingsStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UpdateVercelCiRepositorySettingsBody,
 		Record<string, string>,
 		{
 			provider?: "bitbucket" | "cursor-origin" | "github" | "gitlab" | "vercel";
@@ -23825,7 +24338,7 @@ export async function updateVercelCiRepositorySettings(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -23986,7 +24499,7 @@ export async function createVercelCiTaskAnalysis(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateVercelCiTaskAnalysisBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -24006,7 +24519,7 @@ export async function createVercelCiTaskAnalysis(
 			| CreateVercelCiTaskAnalysisStatus500
 			| CreateVercelCiTaskAnalysisStatus503
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateVercelCiTaskAnalysisBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -24016,7 +24529,7 @@ export async function createVercelCiTaskAnalysis(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -24082,7 +24595,7 @@ export async function createVercelCiTaskConfigurationPullRequest(
 		config,
 	}: {
 		pathParams: { analysisId: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateVercelCiTaskConfigurationPullRequestBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -24104,7 +24617,7 @@ export async function createVercelCiTaskConfigurationPullRequest(
 			| CreateVercelCiTaskConfigurationPullRequestStatus429
 			| CreateVercelCiTaskConfigurationPullRequestStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateVercelCiTaskConfigurationPullRequestBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ analysisId: string }
@@ -24114,7 +24627,7 @@ export async function createVercelCiTaskConfigurationPullRequest(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -25096,7 +25609,7 @@ export async function createWebInsightsToggle(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: CreateWebInsightsToggleBody;
 		queryParams?: { projectId?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -25112,7 +25625,7 @@ export async function createWebInsightsToggle(
 			| CreateWebInsightsToggleStatus404
 			| CreateWebInsightsToggleStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateWebInsightsToggleBody,
 		Record<string, string>,
 		{ projectId?: string },
 		Record<string, string>
@@ -25122,7 +25635,7 @@ export async function createWebInsightsToggle(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -25371,7 +25884,7 @@ export async function createWebhook(
 		queryParams,
 		config,
 	}: {
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: CreateWebhookBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -25387,7 +25900,7 @@ export async function createWebhook(
 			| CreateWebhookStatus404
 			| CreateWebhookStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		CreateWebhookBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -25397,7 +25910,7 @@ export async function createWebhook(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -25591,7 +26104,7 @@ export async function assignAlias(
 		config,
 	}: {
 		pathParams: { id: unknown };
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: AssignAliasBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -25612,7 +26125,7 @@ export async function assignAlias(
 			| AssignAliasStatus409
 			| AssignAliasStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		AssignAliasBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ id: unknown }
@@ -25622,7 +26135,7 @@ export async function assignAlias(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -25805,7 +26318,7 @@ export async function patchUrlProtectionBypass(
 		config,
 	}: {
 		pathParams: { id: string };
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: PatchUrlProtectionBypassBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -25826,7 +26339,7 @@ export async function patchUrlProtectionBypass(
 			| PatchUrlProtectionBypassStatus410
 			| PatchUrlProtectionBypassStatus428
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		PatchUrlProtectionBypassBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		{ id: string }
@@ -25836,7 +26349,7 @@ export async function patchUrlProtectionBypass(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -25977,7 +26490,7 @@ export async function issueCert(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: IssueCertBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -25996,7 +26509,7 @@ export async function issueCert(
 			| IssueCertStatus449
 			| IssueCertStatus500
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		IssueCertBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -26006,7 +26519,7 @@ export async function issueCert(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -26023,7 +26536,7 @@ export async function uploadCert(
 		queryParams,
 		config,
 	}: {
-		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body?: UploadCertBody;
 		queryParams?: { teamId?: string; slug?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -26040,7 +26553,7 @@ export async function uploadCert(
 			| UploadCertStatus404
 			| UploadCertStatus410
 		>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		UploadCertBody,
 		Record<string, string>,
 		{ teamId?: string; slug?: string },
 		Record<string, string>
@@ -26050,7 +26563,7 @@ export async function uploadCert(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "applicationJson", ...requestConfig.headers },
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -26454,6 +26967,9 @@ export const operationsByPath = {
 		listFlagVersions,
 	"GET /v1/projects/{projectIdOrName}/feature-flags/settings": getFlagSettings,
 	"PATCH /v1/projects/{projectIdOrName}/feature-flags/settings": updateFlagSettings,
+	"GET /v1/projects/{projectIdOrName}/feature-flags/labels": listFlagLabels,
+	"GET /v1/projects/{projectIdOrName}/feature-flags/labels/counts": listFlagLabelCounts,
+	"POST /v1/projects/{projectIdOrName}/feature-flags/labels/lookup": lookupFlagLabels,
 	"GET /v1/teams/{teamId}/feature-flags/settings": listTeamFlagSettings,
 	"GET /v2/teams/{teamId}/feature-flags/flags": listTeamFlagsV2,
 	"GET /v1/teams/{teamId}/feature-flags/flags": listTeamFlags,
@@ -26509,6 +27025,7 @@ export const operationsByPath = {
 	"POST /v2/integrations/log-drains": createLogDrain,
 	"DELETE /v1/integrations/log-drains/{id}": deleteIntegrationLogDrain,
 	"POST /api-keys": createApiKeys,
+	"PATCH /api-keys/{apiKeyID}/quota": updateApiKeyQuota,
 	"POST /v1/kms/issuers/{issuerId}/sign/message": signKmsMessage,
 	"POST /v1/kms/issuers/{issuerId}/sign/token": signKmsToken,
 	"GET /v1/kms/issuers": listKmsIssuers,
@@ -26821,6 +27338,7 @@ export const operationsByTag = {
 		listAiGatewayBudgetDefaults,
 		upsertAiGatewayBudgetDefault,
 		archiveAiGatewayBudgetDefault,
+		updateApiKeyQuota,
 	},
 	artifacts: {
 		recordEvents,
@@ -27041,6 +27559,9 @@ export const operationsByTag = {
 		listFlagVersions,
 		getFlagSettings,
 		updateFlagSettings,
+		listFlagLabels,
+		listFlagLabelCounts,
+		lookupFlagLabels,
 		listTeamFlagSettings,
 		listTeamFlagsV2,
 		listTeamFlags,
@@ -27375,6 +27896,7 @@ export const tagDictionary = {
 			"updateAiGatewayVirtualModelConfig",
 			"updateAiGatewayVirtualModelConfigBySlug",
 			"updateAiGatewayRule",
+			"updateApiKeyQuota",
 		],
 		DELETE: [
 			"deleteAiGatewayVirtualModelConfig",
@@ -27592,6 +28114,8 @@ export const tagDictionary = {
 			"getFlag",
 			"listFlagVersions",
 			"getFlagSettings",
+			"listFlagLabels",
+			"listFlagLabelCounts",
 			"listTeamFlagSettings",
 			"listTeamFlagsV2",
 			"listTeamFlags",
@@ -27603,6 +28127,7 @@ export const tagDictionary = {
 		PUT: ["createFlag", "createFlagSegment", "createSdkKey"],
 		PATCH: ["updateFlag", "updateFlagSettings", "updateFlagSegment"],
 		DELETE: ["deleteFlag", "deleteFlagSegment", "deleteSdkKey"],
+		POST: ["lookupFlagLabels"],
 	},
 	marketplace: {
 		PATCH: [
