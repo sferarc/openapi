@@ -8566,10 +8566,25 @@ export type CreateSiteBuildQuery = {
 	 */
 	clear_cache?: boolean | undefined;
 	/**
+	 * @description The commit SHA to build; when omitted, the head of the branch or pull request is fetched from the git host. Ignored for zip uploads
+	 * @type string | undefined
+	 */
+	commit_sha?: string | undefined;
+	/**
+	 * @description Whether to create a draft deploy, which uses the deploy-preview context and is never published; review_id builds are always drafts
+	 * @type boolean | undefined
+	 */
+	draft?: boolean | undefined;
+	/**
 	 * @description The build image tag to use for the build
 	 * @type string | undefined
 	 */
 	image?: string | undefined;
+	/**
+	 * @description The merge/pull request ID to build; triggers a deploy preview. Ignored for zip uploads
+	 * @type integer | undefined
+	 */
+	review_id?: number | undefined;
 	/**
 	 * @description The build template to use for the build
 	 * @type string | undefined
@@ -10154,6 +10169,16 @@ export type ListFormSubmissionsResponse = ListFormSubmissionsStatus200;
 
 export type ListHooksBySiteIdQuery = {
 	site_id: string;
+	/**
+	 * @description Only return hooks attached to this form.
+	 * @type string | undefined
+	 */
+	form_id?: string | undefined;
+	/**
+	 * @description Only return hooks for this event name.
+	 * @type string | undefined
+	 */
+	event?: string | undefined;
 };
 
 export type ListHooksBySiteIdStatus200 = {
@@ -10476,6 +10501,14 @@ export type EnableHookResponses = {
  */
 export type EnableHookResponse = EnableHookStatus200;
 
+export type ListHookTypesQuery = {
+	/**
+	 * @description Only return the hook types available to this site.
+	 * @type string | undefined
+	 */
+	site_id?: string | undefined;
+};
+
 export type ListHookTypesStatus200 = {
 	name?: string | undefined;
 	events?: string[] | undefined;
@@ -10495,7 +10528,7 @@ export type ListHookTypesStatusDefault = {
 export type ListHookTypesOptions = {
 	body?: never | undefined;
 	path?: never | undefined;
-	query?: never | undefined;
+	query?: ListHookTypesQuery | undefined;
 	headers?: never | undefined;
 };
 
@@ -12765,7 +12798,18 @@ export type CreateAgentRunnerUploadUrlQuery = {
 	content_type: string;
 };
 
-export type CreateAgentRunnerUploadUrlStatus200 = unknown;
+export type CreateAgentRunnerUploadUrlStatus200 = {
+	/**
+	 * @description Presigned URL to upload the file to with a PUT request. Expires after one hour.
+	 * @type string
+	 */
+	upload_url: string;
+	/**
+	 * @description Storage key of the uploaded file.
+	 * @type string
+	 */
+	file_key: string;
+};
 
 export type CreateAgentRunnerUploadUrlStatus400 = unknown;
 
@@ -13187,7 +13231,85 @@ export type AgentRunnerPullRequestPath = {
 	agent_runner_id: string;
 };
 
-export type AgentRunnerPullRequestStatus200 = unknown;
+export type AgentRunnerPullRequestStatus200 = {
+	id?: string | undefined;
+	site_id?: string | undefined;
+	parent_agent_runner_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.
+	 * @type string | undefined
+	 */
+	state?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	created_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	updated_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	done_at?: string | undefined;
+	title?: string | undefined;
+	branch?: string | undefined;
+	result_branch?: string | undefined;
+	pr_url?: string | undefined;
+	pr_branch?: string | undefined;
+	/**
+	 * @description One of `open`, `draft`, `merged` or `closed`.
+	 * @type string | undefined
+	 */
+	pr_state?: string | undefined;
+	pr_number?: number | undefined;
+	pr_is_being_created?: boolean | undefined;
+	pr_error?: string | undefined;
+	/**
+	 * @description What the agent is working on in the active session.
+	 * @type string | undefined
+	 */
+	current_task?: string | undefined;
+	result_diff?: string | undefined;
+	sha?: string | undefined;
+	merge_commit_sha?: string | undefined;
+	merge_commit_error?: string | undefined;
+	merge_commit_is_being_created?: boolean | undefined;
+	base_deploy_id?: string | undefined;
+	attached_file_keys?: string[] | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	active_session_created_at?: string | undefined;
+	/**
+	 * @description Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.
+	 * @type boolean | undefined
+	 */
+	has_result_diff?: boolean | undefined;
+	latest_session_deploy_id?: string | undefined;
+	latest_session_deploy_url?: string | undefined;
+	/**
+	 * @description State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.
+	 * @type string | undefined
+	 */
+	preview_state?: string | undefined;
+	user?:
+		| {
+				id?: string | undefined;
+				full_name?: string | undefined;
+				email?: string | undefined;
+				avatar_url?: string | undefined;
+		  }
+		| undefined;
+};
 
 export type AgentRunnerPullRequestStatus400 = unknown;
 
@@ -13233,7 +13355,85 @@ export type AgentRunnerCommitToBranchQuery = {
 	target_branch: string;
 };
 
-export type AgentRunnerCommitToBranchStatus200 = unknown;
+export type AgentRunnerCommitToBranchStatus200 = {
+	id?: string | undefined;
+	site_id?: string | undefined;
+	parent_agent_runner_id?: string | undefined;
+	/**
+	 * @description One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.
+	 * @type string | undefined
+	 */
+	state?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	created_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	updated_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	done_at?: string | undefined;
+	title?: string | undefined;
+	branch?: string | undefined;
+	result_branch?: string | undefined;
+	pr_url?: string | undefined;
+	pr_branch?: string | undefined;
+	/**
+	 * @description One of `open`, `draft`, `merged` or `closed`.
+	 * @type string | undefined
+	 */
+	pr_state?: string | undefined;
+	pr_number?: number | undefined;
+	pr_is_being_created?: boolean | undefined;
+	pr_error?: string | undefined;
+	/**
+	 * @description What the agent is working on in the active session.
+	 * @type string | undefined
+	 */
+	current_task?: string | undefined;
+	result_diff?: string | undefined;
+	sha?: string | undefined;
+	merge_commit_sha?: string | undefined;
+	merge_commit_error?: string | undefined;
+	merge_commit_is_being_created?: boolean | undefined;
+	base_deploy_id?: string | undefined;
+	attached_file_keys?: string[] | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	active_session_created_at?: string | undefined;
+	/**
+	 * @description Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.
+	 * @type boolean | undefined
+	 */
+	has_result_diff?: boolean | undefined;
+	latest_session_deploy_id?: string | undefined;
+	latest_session_deploy_url?: string | undefined;
+	/**
+	 * @description State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.
+	 * @type string | undefined
+	 */
+	preview_state?: string | undefined;
+	user?:
+		| {
+				id?: string | undefined;
+				full_name?: string | undefined;
+				email?: string | undefined;
+				avatar_url?: string | undefined;
+		  }
+		| undefined;
+};
 
 export type AgentRunnerCommitToBranchStatus400 = unknown;
 
@@ -16135,7 +16335,50 @@ export type MarkDevServerActivityPath = {
 	dev_server_id: string;
 };
 
-export type MarkDevServerActivityStatus200 = unknown;
+export type MarkDevServerActivityStatus200 = {
+	id?: string | undefined;
+	site_id?: string | undefined;
+	branch?: string | undefined;
+	url?: string | undefined;
+	state?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	created_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	updated_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	starting_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	error_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	live_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	done_at?: string | undefined;
+	title?: string | undefined;
+};
 
 export type MarkDevServerActivityOptions = {
 	body?: never | undefined;
