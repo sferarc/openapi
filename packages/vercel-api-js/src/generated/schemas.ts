@@ -310,9 +310,7 @@ export const networkSchema = z.object({
 	awsAvailabilityZoneIds: z
 		.array(z.string())
 		.optional()
-		.describe(
-			"The IDs of the AWS Availability Zones in which the network exists, if specified during creation.",
-		),
+		.describe("The IDs of the AWS Availability Zones in which the network exists."),
 	awsRegion: z.string().describe("The AWS Region in which the network exists."),
 	cidr: z.string().describe("The CIDR range of the Network."),
 	createdAt: z
@@ -1476,6 +1474,40 @@ export const connectConnectorCreateDataSchema = z
 				.max(10)
 				.optional()
 				.describe("Global and message shortcuts configured for the Slack app."),
+			appHome: z
+				.strictObject({
+					homeTabEnabled: z
+						.boolean()
+						.optional()
+						.describe("Enable the Home tab for views.publish. Defaults to false for new apps."),
+					messagesTabEnabled: z
+						.boolean()
+						.optional()
+						.describe("Enable the Messages tab. Defaults to true for new apps."),
+					messagesTabReadOnlyEnabled: z
+						.boolean()
+						.optional()
+						.describe("Make the Messages tab read-only. Defaults to false for new apps."),
+				})
+				.optional()
+				.describe(
+					"App Home settings for the managed Slack app. Updates preserve omitted settings.",
+				),
+			richPreviews: z
+				.strictObject({
+					isActive: z
+						.boolean()
+						.optional()
+						.describe("Enable Work Object previews. Defaults to false for new apps."),
+					entityTypes: z
+						.array(z.string())
+						.optional()
+						.describe("Entity types to preview. An empty array clears the configured types."),
+				})
+				.optional()
+				.describe(
+					"Work Object preview settings for the managed Slack app. Updates preserve omitted settings.",
+				),
 			extras: z
 				.record(z.string(), z.unknown())
 				.optional()
@@ -2259,6 +2291,40 @@ export const connectConnectorUpdateDataSchema = z
 				.max(10)
 				.optional()
 				.describe("Global and message shortcuts configured for the Slack app."),
+			appHome: z
+				.strictObject({
+					homeTabEnabled: z
+						.boolean()
+						.optional()
+						.describe("Enable the Home tab for views.publish. Defaults to false for new apps."),
+					messagesTabEnabled: z
+						.boolean()
+						.optional()
+						.describe("Enable the Messages tab. Defaults to true for new apps."),
+					messagesTabReadOnlyEnabled: z
+						.boolean()
+						.optional()
+						.describe("Make the Messages tab read-only. Defaults to false for new apps."),
+				})
+				.optional()
+				.describe(
+					"App Home settings for the managed Slack app. Updates preserve omitted settings.",
+				),
+			richPreviews: z
+				.strictObject({
+					isActive: z
+						.boolean()
+						.optional()
+						.describe("Enable Work Object previews. Defaults to false for new apps."),
+					entityTypes: z
+						.array(z.string())
+						.optional()
+						.describe("Entity types to preview. An empty array clears the configured types."),
+				})
+				.optional()
+				.describe(
+					"Work Object preview settings for the managed Slack app. Updates preserve omitted settings.",
+				),
 			extras: z
 				.record(z.string(), z.unknown())
 				.optional()
@@ -3065,19 +3131,39 @@ export const userEventSchema = z
 				}),
 				z.strictObject({
 					boardId: z.string(),
+					channelId: z.string(),
 					operationId: z.string(),
-					spaceId: z.string(),
 				}),
 				z.strictObject({
 					boardId: z.string(),
+					channelId: z.string(),
+					environment: z.string(),
+					name: z.string(),
+					operationId: z.string(),
+					projectId: z.string(),
+					userId: z.string().optional(),
+				}),
+				z.strictObject({
+					boardId: z.string(),
+					channelId: z.string(),
 					fields: z.array(z.string()),
 					operationId: z.string(),
-					spaceId: z.string(),
 				}),
 				z.strictObject({
 					boardId: z.string(),
 					operationId: z.string(),
 					visibility: z.enum(["private", "team"]),
+				}),
+				z.strictObject({
+					boardId: z.string(),
+					environments: z.array(z.string()),
+					operationId: z.string(),
+					projectId: z.string(),
+				}),
+				z.strictObject({
+					boardId: z.string(),
+					operationId: z.string(),
+					projectId: z.string(),
 				}),
 				z.strictObject({
 					operationId: z.string(),
@@ -3719,6 +3805,7 @@ export const userEventSchema = z
 								"read-write:schedule",
 								"read-write:team-members",
 								"read-write:vcr",
+								"read-write:webhooks",
 								"read:access-group",
 								"read:ai-gateway-budgets",
 								"read:ai-gateway-guardrails",
@@ -3810,6 +3897,7 @@ export const userEventSchema = z
 								"read-write:schedule",
 								"read-write:team-members",
 								"read-write:vcr",
+								"read-write:webhooks",
 								"read:access-group",
 								"read:ai-gateway-budgets",
 								"read:ai-gateway-guardrails",
@@ -3897,6 +3985,7 @@ export const userEventSchema = z
 										"read-write:schedule",
 										"read-write:team-members",
 										"read-write:vcr",
+										"read-write:webhooks",
 										"read:access-group",
 										"read:ai-gateway-budgets",
 										"read:ai-gateway-guardrails",
@@ -3996,6 +4085,7 @@ export const userEventSchema = z
 										"read-write:schedule",
 										"read-write:team-members",
 										"read-write:vcr",
+										"read-write:webhooks",
 										"read:access-group",
 										"read:ai-gateway-budgets",
 										"read:ai-gateway-guardrails",
@@ -4050,10 +4140,12 @@ export const userEventSchema = z
 						})
 						.optional(),
 					installationId: z.string().optional(),
+					organizationId: z.string().optional(),
 				}),
 				z.strictObject({
 					appId: z.string().optional(),
 					appName: z.string(),
+					organizationId: z.string().optional(),
 					permissions: z
 						.array(
 							z.enum([
@@ -4096,6 +4188,7 @@ export const userEventSchema = z
 								"read-write:schedule",
 								"read-write:team-members",
 								"read-write:vcr",
+								"read-write:webhooks",
 								"read:access-group",
 								"read:ai-gateway-budgets",
 								"read:ai-gateway-guardrails",
@@ -4180,6 +4273,11 @@ export const userEventSchema = z
 						.describe(
 							"UNIX timestamp in seconds. Tokens issued before this timestamp will be revoked. Note that not all historical events have this field.",
 						),
+				}),
+				z.strictObject({
+					appId: z.string().optional(),
+					appName: z.string(),
+					organizationId: z.string().optional(),
 				}),
 				z.strictObject({
 					attackModeActiveUntil: z.number().nullish(),
@@ -5673,6 +5771,7 @@ export const userEventSchema = z
 				z.strictObject({
 					drainName: z.string().nullable(),
 					drainUrl: z.string().nullable(),
+					id: z.string().optional(),
 					integrationName: z.string().optional(),
 				}),
 				z.strictObject({
@@ -7016,6 +7115,11 @@ export const userEventSchema = z
 					billingPlan: z.enum(["enterprise", "platform"]),
 					organizationId: z.string(),
 					teamId: z.string(),
+				}),
+				z.strictObject({
+					connectionType: z.string(),
+					organizationId: z.string(),
+					organizationSlug: z.string(),
 				}),
 				z.strictObject({
 					enforced: z.union([z.literal(false), z.literal(true)]),
@@ -8709,12 +8813,17 @@ export const userEventSchema = z
 									.optional()
 									.describe("The acive pricing plan the team is billed with"),
 								scope: z
-									.enum(["organization", "project", "team"])
+									.enum(["organization", "product", "project", "team"])
 									.optional()
 									.describe(
 										"Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).",
 									),
-								scopeId: z.string().optional().describe("Project id when `scope` is `project`."),
+								scopeId: z
+									.string()
+									.optional()
+									.describe(
+										"Project id when `scope` is `project`; product id when `scope` is `product`.",
+									),
 								teamId: z.string().describe("Partition key"),
 								type: z.enum(["fixed"]).describe("The budget type"),
 								updatedAt: z.number().optional().describe("Date time when budget is updated last"),
@@ -8761,12 +8870,17 @@ export const userEventSchema = z
 								.optional()
 								.describe("The acive pricing plan the team is billed with"),
 							scope: z
-								.enum(["organization", "project", "team"])
+								.enum(["organization", "product", "project", "team"])
 								.optional()
 								.describe(
 									"Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).",
 								),
-							scopeId: z.string().optional().describe("Project id when `scope` is `project`."),
+							scopeId: z
+								.string()
+								.optional()
+								.describe(
+									"Project id when `scope` is `project`; product id when `scope` is `product`.",
+								),
 							teamId: z.string().describe("Partition key"),
 							type: z.enum(["fixed"]).describe("The budget type"),
 							updatedAt: z.number().optional().describe("Date time when budget is updated last"),
@@ -8785,6 +8899,10 @@ export const userEventSchema = z
 						.optional()
 						.describe("Stored for project budgets. Same value as `budget.scopeId`."),
 					projectName: z.string().optional(),
+					scopeName: z
+						.string()
+						.optional()
+						.describe("Stored when activity clients can't resolve the name, as for products."),
 					webhookUrl: z.string().optional(),
 				}),
 				z.strictObject({
@@ -8811,12 +8929,17 @@ export const userEventSchema = z
 								.optional()
 								.describe("The acive pricing plan the team is billed with"),
 							scope: z
-								.enum(["organization", "project", "team"])
+								.enum(["organization", "product", "project", "team"])
 								.optional()
 								.describe(
 									"Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).",
 								),
-							scopeId: z.string().optional().describe("Project id when `scope` is `project`."),
+							scopeId: z
+								.string()
+								.optional()
+								.describe(
+									"Project id when `scope` is `project`; product id when `scope` is `product`.",
+								),
 							teamId: z.string().describe("Partition key"),
 							type: z.enum(["fixed"]).describe("The budget type"),
 							updatedAt: z.number().optional().describe("Date time when budget is updated last"),
@@ -8835,6 +8958,10 @@ export const userEventSchema = z
 						.optional()
 						.describe("Stored for project budgets. Same value as `budget.scopeId`."),
 					projectName: z.string().optional(),
+					scopeName: z
+						.string()
+						.optional()
+						.describe("Stored when activity clients can't resolve the name, as for products."),
 				}),
 				z.strictObject({
 					budget: z
@@ -8860,12 +8987,17 @@ export const userEventSchema = z
 								.optional()
 								.describe("The acive pricing plan the team is billed with"),
 							scope: z
-								.enum(["organization", "project", "team"])
+								.enum(["organization", "product", "project", "team"])
 								.optional()
 								.describe(
 									"Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).",
 								),
-							scopeId: z.string().optional().describe("Project id when `scope` is `project`."),
+							scopeId: z
+								.string()
+								.optional()
+								.describe(
+									"Project id when `scope` is `project`; product id when `scope` is `product`.",
+								),
 							teamId: z.string().describe("Partition key"),
 							type: z.enum(["fixed"]).describe("The budget type"),
 							updatedAt: z.number().optional().describe("Date time when budget is updated last"),
@@ -8902,12 +9034,17 @@ export const userEventSchema = z
 								.optional()
 								.describe("The acive pricing plan the team is billed with"),
 							scope: z
-								.enum(["organization", "project", "team"])
+								.enum(["organization", "product", "project", "team"])
 								.optional()
 								.describe(
 									"Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).",
 								),
-							scopeId: z.string().optional().describe("Project id when `scope` is `project`."),
+							scopeId: z
+								.string()
+								.optional()
+								.describe(
+									"Project id when `scope` is `project`; product id when `scope` is `product`.",
+								),
 							teamId: z.string().describe("Partition key"),
 							type: z.enum(["fixed"]).describe("The budget type"),
 							updatedAt: z.number().optional().describe("Date time when budget is updated last"),
@@ -8931,6 +9068,10 @@ export const userEventSchema = z
 						.string()
 						.optional()
 						.describe("Injected at read time from `payload.projectId`."),
+					scopeName: z
+						.string()
+						.optional()
+						.describe("Stored when activity clients can't resolve the name, as for products."),
 					webhookUrl: z.string().optional(),
 				}),
 				z.strictObject({
@@ -9476,6 +9617,10 @@ export const userEventSchema = z
 				z.strictObject({
 					decision: z.enum(["keep_on", "turn_off"]),
 					version: z.string(),
+				}),
+				z.strictObject({
+					acceptanceId: z.string(),
+					termsVersion: z.string(),
 				}),
 				z.strictObject({
 					consent: z.enum(["granted", "refused"]),
@@ -10807,13 +10952,19 @@ export const userEventSchema = z
 				"marketplace-billing-collection-updated",
 				"marketplace-flex-commit-opt-in",
 				"marketplace-integration-allowlist-updated",
+				"messageboard-channel-created",
+				"messageboard-channel-updated",
 				"messageboard-created",
+				"messageboard-private-channel-created",
+				"messageboard-private-channel-updated",
 				"messageboard-private-created",
-				"messageboard-private-space-created",
-				"messageboard-private-space-updated",
+				"messageboard-private-project-granted",
+				"messageboard-private-project-revoked",
+				"messageboard-project-channel-created",
+				"messageboard-project-granted",
+				"messageboard-project-private-channel-created",
+				"messageboard-project-revoked",
 				"messageboard-schema-registered",
-				"messageboard-space-created",
-				"messageboard-space-updated",
 				"messageboard-visibility-updated",
 				"microfrontend-group-added",
 				"microfrontend-group-deleted",
@@ -10853,6 +11004,7 @@ export const userEventSchema = z
 				"organization-emu-updated",
 				"organization-name-update",
 				"organization-slug-update",
+				"organization-sso-deleted",
 				"organization-sso-enforced",
 				"organization-team-add",
 				"organization-team-create",
@@ -10941,9 +11093,13 @@ export const userEventSchema = z
 				"project-git-commit-comments-toggled",
 				"project-git-commit-status-toggled",
 				"project-git-create-deployments-toggled",
+				"project-git-credential-attestation-created",
+				"project-git-credential-attestation-deleted",
 				"project-git-credential-bound-created",
 				"project-git-credential-bound-deleted",
 				"project-git-credential-bound-updated",
+				"project-git-credential-grant-attestation-revoked",
+				"project-git-credential-grant-attested",
 				"project-git-credential-grant-created",
 				"project-git-credential-grant-deleted",
 				"project-git-credential-grant-updated",
@@ -11058,6 +11214,7 @@ export const userEventSchema = z
 				"spend-deleted",
 				"spend-updated",
 				"sso-login",
+				"startup-terms-accepted",
 				"storage-accept-tos",
 				"storage-access-token-set",
 				"storage-accessed-data-browser",
@@ -11640,13 +11797,19 @@ export const listEventTypeSchema = z
 				"marketplace-billing-collection-updated",
 				"marketplace-flex-commit-opt-in",
 				"marketplace-integration-allowlist-updated",
+				"messageboard-channel-created",
+				"messageboard-channel-updated",
 				"messageboard-created",
+				"messageboard-private-channel-created",
+				"messageboard-private-channel-updated",
 				"messageboard-private-created",
-				"messageboard-private-space-created",
-				"messageboard-private-space-updated",
+				"messageboard-private-project-granted",
+				"messageboard-private-project-revoked",
+				"messageboard-project-channel-created",
+				"messageboard-project-granted",
+				"messageboard-project-private-channel-created",
+				"messageboard-project-revoked",
 				"messageboard-schema-registered",
-				"messageboard-space-created",
-				"messageboard-space-updated",
 				"messageboard-visibility-updated",
 				"microfrontend-group-added",
 				"microfrontend-group-deleted",
@@ -11686,6 +11849,7 @@ export const listEventTypeSchema = z
 				"organization-emu-updated",
 				"organization-name-update",
 				"organization-slug-update",
+				"organization-sso-deleted",
 				"organization-sso-enforced",
 				"organization-team-add",
 				"organization-team-create",
@@ -11774,9 +11938,13 @@ export const listEventTypeSchema = z
 				"project-git-commit-comments-toggled",
 				"project-git-commit-status-toggled",
 				"project-git-create-deployments-toggled",
+				"project-git-credential-attestation-created",
+				"project-git-credential-attestation-deleted",
 				"project-git-credential-bound-created",
 				"project-git-credential-bound-deleted",
 				"project-git-credential-bound-updated",
+				"project-git-credential-grant-attestation-revoked",
+				"project-git-credential-grant-attested",
 				"project-git-credential-grant-created",
 				"project-git-credential-grant-deleted",
 				"project-git-credential-grant-updated",
@@ -11891,6 +12059,7 @@ export const listEventTypeSchema = z
 				"spend-deleted",
 				"spend-updated",
 				"sso-login",
+				"startup-terms-accepted",
 				"storage-accept-tos",
 				"storage-access-token-set",
 				"storage-accessed-data-browser",
@@ -12375,13 +12544,19 @@ export const listEventTypeSchema = z
 					"marketplace-billing-collection-updated",
 					"marketplace-flex-commit-opt-in",
 					"marketplace-integration-allowlist-updated",
+					"messageboard-channel-created",
+					"messageboard-channel-updated",
 					"messageboard-created",
+					"messageboard-private-channel-created",
+					"messageboard-private-channel-updated",
 					"messageboard-private-created",
-					"messageboard-private-space-created",
-					"messageboard-private-space-updated",
+					"messageboard-private-project-granted",
+					"messageboard-private-project-revoked",
+					"messageboard-project-channel-created",
+					"messageboard-project-granted",
+					"messageboard-project-private-channel-created",
+					"messageboard-project-revoked",
 					"messageboard-schema-registered",
-					"messageboard-space-created",
-					"messageboard-space-updated",
 					"messageboard-visibility-updated",
 					"microfrontend-group-added",
 					"microfrontend-group-deleted",
@@ -12421,6 +12596,7 @@ export const listEventTypeSchema = z
 					"organization-emu-updated",
 					"organization-name-update",
 					"organization-slug-update",
+					"organization-sso-deleted",
 					"organization-sso-enforced",
 					"organization-team-add",
 					"organization-team-create",
@@ -12509,9 +12685,13 @@ export const listEventTypeSchema = z
 					"project-git-commit-comments-toggled",
 					"project-git-commit-status-toggled",
 					"project-git-create-deployments-toggled",
+					"project-git-credential-attestation-created",
+					"project-git-credential-attestation-deleted",
 					"project-git-credential-bound-created",
 					"project-git-credential-bound-deleted",
 					"project-git-credential-bound-updated",
+					"project-git-credential-grant-attestation-revoked",
+					"project-git-credential-grant-attested",
 					"project-git-credential-grant-created",
 					"project-git-credential-grant-deleted",
 					"project-git-credential-grant-updated",
@@ -12626,6 +12806,7 @@ export const listEventTypeSchema = z
 					"spend-deleted",
 					"spend-updated",
 					"sso-login",
+					"startup-terms-accepted",
 					"storage-accept-tos",
 					"storage-access-token-set",
 					"storage-accessed-data-browser",
@@ -13302,7 +13483,7 @@ export const aPIKeySchema = z
 				"Generic metadata attached to the API key.\n\nThe accepted shape depends on the key's `purpose` and is validated when the key is created. For `ai-gateway` keys this carries `environment` and `spendAttribution`.",
 			),
 	})
-	.describe("Information about the newly created API key.");
+	.describe("Represents an API key.");
 
 export const aPIKeyQuotaSchema = z
 	.object({
@@ -13592,15 +13773,15 @@ export const namedSandboxSchema = z
 				"The time when the named sandbox was last updated, in milliseconds since the epoch.",
 			)
 			.meta({ examples: [1750344501629] }),
-		v0: z
-			.union([z.literal(false), z.literal(true)])
-			.optional()
-			.describe("Whether this sandbox is managed by v0 on the customer's behalf."),
 		vcpus: z
 			.number()
 			.optional()
 			.describe("Number of virtual CPUs allocated.")
 			.meta({ examples: [2] }),
+		workloadType: z
+			.enum(["sandbox", "v0"])
+			.optional()
+			.describe("The workload type of this sandbox."),
 	})
 	.describe("This object contains information related to a Vercel NamedSandbox.");
 
@@ -13777,14 +13958,14 @@ export const sessionSchema = z
 			.number()
 			.describe("The last time the sandbox was updated, in milliseconds since the epoch.")
 			.meta({ examples: [1750344501629] }),
-		v0: z
-			.union([z.literal(false), z.literal(true)])
-			.optional()
-			.describe("Whether this sandbox is managed by v0 on the customer's behalf."),
 		vcpus: z
 			.number()
 			.describe("Number of vCPUs allocated to this sandbox.")
 			.meta({ examples: [2] }),
+		workloadType: z
+			.enum(["sandbox", "v0"])
+			.optional()
+			.describe("The workload type of this sandbox."),
 	})
 	.describe(
 		'This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.',
@@ -13838,10 +14019,7 @@ export const driveSchema = z
 			.number()
 			.describe("The last time the drive was updated, in milliseconds since the epoch.")
 			.meta({ examples: [1750344501629] }),
-		v0: z
-			.union([z.literal(false), z.literal(true)])
-			.optional()
-			.describe("Whether this drive is managed by v0 on the customer's behalf."),
+		workloadType: z.enum(["sandbox", "v0"]).optional().describe("The workload type of this drive."),
 	})
 	.describe("This object contains information related to a Vercel Sandbox Drive.");
 
@@ -13910,10 +14088,10 @@ export const snapshotSchema = z
 			.number()
 			.describe("The last time the snapshot was updated, in milliseconds since the epoch.")
 			.meta({ examples: [1750344501629] }),
-		v0: z
-			.union([z.literal(false), z.literal(true)])
+		workloadType: z
+			.enum(["sandbox", "v0"])
 			.optional()
-			.describe("Whether this snapshot is managed by v0 on the customer's behalf."),
+			.describe("The workload type of this snapshot."),
 	})
 	.describe(
 		"This object contains information related to a Snapshot of a Vercel Sandbox session (v2 API).",
@@ -19562,6 +19740,8 @@ export const createPrivateLinkEndpointStatus410Schema = z.unknown();
 
 export const createPrivateLinkEndpointStatus500Schema = z.unknown();
 
+export const createPrivateLinkEndpointStatus503Schema = z.unknown();
+
 export const createPrivateLinkEndpointResponseSchema = createPrivateLinkEndpointStatus201Schema;
 
 export const createPrivateLinkEndpointErrorSchema = z.union([
@@ -19572,6 +19752,7 @@ export const createPrivateLinkEndpointErrorSchema = z.union([
 	createPrivateLinkEndpointStatus409Schema,
 	createPrivateLinkEndpointStatus410Schema,
 	createPrivateLinkEndpointStatus500Schema,
+	createPrivateLinkEndpointStatus503Schema,
 ]);
 
 export const createPrivateLinkEndpointBodySchema = z
@@ -19728,6 +19909,8 @@ export const deletePrivateLinkEndpointStatus410Schema = z.unknown();
 
 export const deletePrivateLinkEndpointStatus500Schema = z.unknown();
 
+export const deletePrivateLinkEndpointStatus503Schema = z.unknown();
+
 export const deletePrivateLinkEndpointResponseSchema = deletePrivateLinkEndpointStatus204Schema;
 
 export const deletePrivateLinkEndpointErrorSchema = z.union([
@@ -19738,6 +19921,7 @@ export const deletePrivateLinkEndpointErrorSchema = z.union([
 	deletePrivateLinkEndpointStatus409Schema,
 	deletePrivateLinkEndpointStatus410Schema,
 	deletePrivateLinkEndpointStatus500Schema,
+	deletePrivateLinkEndpointStatus503Schema,
 ]);
 
 export const updatePrivateLinkEndpointQueryProjectIdSchema = z
@@ -19776,6 +19960,10 @@ export const updatePrivateLinkEndpointStatus409Schema = z.unknown();
 
 export const updatePrivateLinkEndpointStatus410Schema = z.unknown();
 
+export const updatePrivateLinkEndpointStatus500Schema = z.unknown();
+
+export const updatePrivateLinkEndpointStatus503Schema = z.unknown();
+
 export const updatePrivateLinkEndpointResponseSchema = updatePrivateLinkEndpointStatus200Schema;
 
 export const updatePrivateLinkEndpointErrorSchema = z.union([
@@ -19785,6 +19973,8 @@ export const updatePrivateLinkEndpointErrorSchema = z.union([
 	updatePrivateLinkEndpointStatus404Schema,
 	updatePrivateLinkEndpointStatus409Schema,
 	updatePrivateLinkEndpointStatus410Schema,
+	updatePrivateLinkEndpointStatus500Schema,
+	updatePrivateLinkEndpointStatus503Schema,
 ]);
 
 export const updatePrivateLinkEndpointBodySchema = z
@@ -19877,6 +20067,8 @@ export const listConnectorsStatus410Schema = z.unknown();
 
 export const listConnectorsStatus422Schema = z.unknown();
 
+export const listConnectorsStatus500Schema = z.unknown();
+
 export const listConnectorsStatus501Schema = z.unknown();
 
 export const listConnectorsStatus504Schema = z.unknown();
@@ -19891,6 +20083,7 @@ export const listConnectorsErrorSchema = z.union([
 	listConnectorsStatus409Schema,
 	listConnectorsStatus410Schema,
 	listConnectorsStatus422Schema,
+	listConnectorsStatus500Schema,
 	listConnectorsStatus501Schema,
 	listConnectorsStatus504Schema,
 ]);
@@ -19933,6 +20126,8 @@ export const getConnectorStatus410Schema = z.unknown();
 
 export const getConnectorStatus422Schema = z.unknown();
 
+export const getConnectorStatus500Schema = z.unknown();
+
 export const getConnectorStatus501Schema = z.unknown();
 
 export const getConnectorStatus504Schema = z.unknown();
@@ -19947,6 +20142,7 @@ export const getConnectorErrorSchema = z.union([
 	getConnectorStatus409Schema,
 	getConnectorStatus410Schema,
 	getConnectorStatus422Schema,
+	getConnectorStatus500Schema,
 	getConnectorStatus501Schema,
 	getConnectorStatus504Schema,
 ]);
@@ -19989,6 +20185,8 @@ export const deleteConnectorStatus410Schema = z.unknown();
 
 export const deleteConnectorStatus422Schema = z.unknown();
 
+export const deleteConnectorStatus500Schema = z.unknown();
+
 export const deleteConnectorStatus501Schema = z.unknown();
 
 export const deleteConnectorStatus502Schema = z.unknown();
@@ -20007,6 +20205,7 @@ export const deleteConnectorErrorSchema = z.union([
 	deleteConnectorStatus409Schema,
 	deleteConnectorStatus410Schema,
 	deleteConnectorStatus422Schema,
+	deleteConnectorStatus500Schema,
 	deleteConnectorStatus501Schema,
 	deleteConnectorStatus502Schema,
 	deleteConnectorStatus503Schema,
@@ -20173,6 +20372,8 @@ export const replaceConnectorTriggerDestinationsStatus410Schema = z.unknown();
 
 export const replaceConnectorTriggerDestinationsStatus422Schema = z.unknown();
 
+export const replaceConnectorTriggerDestinationsStatus500Schema = z.unknown();
+
 export const replaceConnectorTriggerDestinationsStatus501Schema = z.unknown();
 
 export const replaceConnectorTriggerDestinationsStatus504Schema = z.unknown();
@@ -20188,6 +20389,7 @@ export const replaceConnectorTriggerDestinationsErrorSchema = z.union([
 	replaceConnectorTriggerDestinationsStatus409Schema,
 	replaceConnectorTriggerDestinationsStatus410Schema,
 	replaceConnectorTriggerDestinationsStatus422Schema,
+	replaceConnectorTriggerDestinationsStatus500Schema,
 	replaceConnectorTriggerDestinationsStatus501Schema,
 	replaceConnectorTriggerDestinationsStatus504Schema,
 ]);
@@ -20219,6 +20421,8 @@ export const ejectManagedConnectorStatus410Schema = z.unknown();
 
 export const ejectManagedConnectorStatus422Schema = z.unknown();
 
+export const ejectManagedConnectorStatus500Schema = z.unknown();
+
 export const ejectManagedConnectorStatus501Schema = z.unknown();
 
 export const ejectManagedConnectorStatus504Schema = z.unknown();
@@ -20233,6 +20437,7 @@ export const ejectManagedConnectorErrorSchema = z.union([
 	ejectManagedConnectorStatus409Schema,
 	ejectManagedConnectorStatus410Schema,
 	ejectManagedConnectorStatus422Schema,
+	ejectManagedConnectorStatus500Schema,
 	ejectManagedConnectorStatus501Schema,
 	ejectManagedConnectorStatus504Schema,
 ]);
@@ -20285,6 +20490,8 @@ export const listConnectorProjectConnectionsStatus409Schema = z.unknown();
 
 export const listConnectorProjectConnectionsStatus410Schema = z.unknown();
 
+export const listConnectorProjectConnectionsStatus500Schema = z.unknown();
+
 export const listConnectorProjectConnectionsResponseSchema =
 	listConnectorProjectConnectionsStatus200Schema;
 
@@ -20295,6 +20502,7 @@ export const listConnectorProjectConnectionsErrorSchema = z.union([
 	listConnectorProjectConnectionsStatus404Schema,
 	listConnectorProjectConnectionsStatus409Schema,
 	listConnectorProjectConnectionsStatus410Schema,
+	listConnectorProjectConnectionsStatus500Schema,
 ]);
 
 export const getConnectorProjectConnectionPathConnectorSchema = z
@@ -20337,6 +20545,8 @@ export const getConnectorProjectConnectionStatus409Schema = z.unknown();
 
 export const getConnectorProjectConnectionStatus410Schema = z.unknown();
 
+export const getConnectorProjectConnectionStatus500Schema = z.unknown();
+
 export const getConnectorProjectConnectionResponseSchema =
 	getConnectorProjectConnectionStatus200Schema;
 
@@ -20347,6 +20557,7 @@ export const getConnectorProjectConnectionErrorSchema = z.union([
 	getConnectorProjectConnectionStatus404Schema,
 	getConnectorProjectConnectionStatus409Schema,
 	getConnectorProjectConnectionStatus410Schema,
+	getConnectorProjectConnectionStatus500Schema,
 ]);
 
 export const upsertConnectorProjectConnectionPathConnectorSchema = z
@@ -20389,6 +20600,8 @@ export const upsertConnectorProjectConnectionStatus409Schema = z.unknown();
 
 export const upsertConnectorProjectConnectionStatus410Schema = z.unknown();
 
+export const upsertConnectorProjectConnectionStatus500Schema = z.unknown();
+
 export const upsertConnectorProjectConnectionResponseSchema =
 	upsertConnectorProjectConnectionStatus200Schema;
 
@@ -20399,6 +20612,7 @@ export const upsertConnectorProjectConnectionErrorSchema = z.union([
 	upsertConnectorProjectConnectionStatus404Schema,
 	upsertConnectorProjectConnectionStatus409Schema,
 	upsertConnectorProjectConnectionStatus410Schema,
+	upsertConnectorProjectConnectionStatus500Schema,
 ]);
 
 export const upsertConnectorProjectConnectionBodySchema = z.unknown();
@@ -20443,6 +20657,8 @@ export const deleteConnectorProjectConnectionStatus409Schema = z.unknown();
 
 export const deleteConnectorProjectConnectionStatus410Schema = z.unknown();
 
+export const deleteConnectorProjectConnectionStatus500Schema = z.unknown();
+
 export const deleteConnectorProjectConnectionResponseSchema =
 	deleteConnectorProjectConnectionStatus204Schema;
 
@@ -20453,6 +20669,7 @@ export const deleteConnectorProjectConnectionErrorSchema = z.union([
 	deleteConnectorProjectConnectionStatus404Schema,
 	deleteConnectorProjectConnectionStatus409Schema,
 	deleteConnectorProjectConnectionStatus410Schema,
+	deleteConnectorProjectConnectionStatus500Schema,
 ]);
 
 export const listProjectConnectorConnectionsPathProjectIdSchema = z
@@ -20530,6 +20747,8 @@ export const getConnectorTokenStatus422Schema = z.unknown();
 
 export const getConnectorTokenStatus429Schema = z.unknown();
 
+export const getConnectorTokenStatus500Schema = z.unknown();
+
 export const getConnectorTokenResponseSchema = getConnectorTokenStatus200Schema;
 
 export const getConnectorTokenErrorSchema = z.union([
@@ -20541,6 +20760,7 @@ export const getConnectorTokenErrorSchema = z.union([
 	getConnectorTokenStatus410Schema,
 	getConnectorTokenStatus422Schema,
 	getConnectorTokenStatus429Schema,
+	getConnectorTokenStatus500Schema,
 ]);
 
 export const getConnectorTokenBodySchema = z
@@ -20604,6 +20824,8 @@ export const createConnectorAuthorizationRequestStatus410Schema = z.unknown();
 
 export const createConnectorAuthorizationRequestStatus422Schema = z.unknown();
 
+export const createConnectorAuthorizationRequestStatus500Schema = z.unknown();
+
 export const createConnectorAuthorizationRequestResponseSchema =
 	createConnectorAuthorizationRequestStatus200Schema;
 
@@ -20615,6 +20837,7 @@ export const createConnectorAuthorizationRequestErrorSchema = z.union([
 	createConnectorAuthorizationRequestStatus409Schema,
 	createConnectorAuthorizationRequestStatus410Schema,
 	createConnectorAuthorizationRequestStatus422Schema,
+	createConnectorAuthorizationRequestStatus500Schema,
 ]);
 
 export const createConnectorAuthorizationRequestBodySchema = z
@@ -20774,7 +20997,7 @@ export const putProjectDaemonInstancesBodySchema = z
 	.record(z.string(), z.int().min(0).max(100))
 	.optional()
 	.describe(
-		'Instance count overrides by region, for example { \\"iad1\\": 1 }. Regions not in the map keep their configured count. An empty map removes the overrides.',
+		'Instance count overrides for the given regions, for example { \\"iad1\\": 1 }. Overrides of regions not in the map are kept. A `null` count removes the region\'s override. An empty map removes all overrides.',
 	);
 
 export const restartProjectDaemonInstancePathIdOrNameSchema = z
@@ -20789,9 +21012,7 @@ export const restartProjectDaemonInstancePathDaemonNameSchema = z
 export const restartProjectDaemonInstancePathInstanceIdSchema = z
 	.string()
 	.regex(/^dmni_[0-9a-hjkmnp-tv-z]{26}$/)
-	.describe(
-		"The ID of the daemon instance whose user container is restarted, for example `dmni_01k7d0q5w3x8y9z0a1b2c3d4e5`",
-	);
+	.describe("The ID of the daemon instance to restart");
 
 export const restartProjectDaemonInstanceQueryTeamIdSchema = z
 	.string()
@@ -21052,6 +21273,8 @@ export const getDeploymentStatus200Schema = z.unknown();
 
 export const getDeploymentStatus400Schema = z.unknown();
 
+export const getDeploymentStatus401Schema = z.unknown();
+
 export const getDeploymentStatus403Schema = z.unknown();
 
 export const getDeploymentStatus404Schema = z.unknown();
@@ -21064,6 +21287,7 @@ export const getDeploymentResponseSchema = getDeploymentStatus200Schema;
 
 export const getDeploymentErrorSchema = z.union([
 	getDeploymentStatus400Schema,
+	getDeploymentStatus401Schema,
 	getDeploymentStatus403Schema,
 	getDeploymentStatus404Schema,
 	getDeploymentStatus410Schema,
@@ -23493,6 +23717,14 @@ export const getAllLogDrainsQueryProjectIdOrNameSchema = z.string().optional();
 
 export const getAllLogDrainsQueryIncludeMetadataSchema = z.boolean().optional().default(false);
 
+export const getAllLogDrainsQueryIncludeDeliveryStatsSchema = z
+	.boolean()
+	.optional()
+	.default(false)
+	.describe(
+		"Include `deliveryStats` with the delivery health of each drain over the last 24 hours. Ignored for teams without drain delivery metrics.",
+	);
+
 export const getAllLogDrainsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -23779,6 +24011,14 @@ export const getDrainsQueryProjectIdSchema = z.string().optional();
 
 export const getDrainsQueryIncludeMetadataSchema = z.boolean().optional().default(false);
 
+export const getDrainsQueryIncludeDeliveryStatsSchema = z
+	.boolean()
+	.optional()
+	.default(false)
+	.describe(
+		"Include `deliveryStats` with the delivery health of each drain over the last 24 hours. Ignored for teams without drain delivery metrics.",
+	);
+
 export const getDrainsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -23803,6 +24043,8 @@ export const getDrainsStatus404Schema = z.unknown();
 
 export const getDrainsStatus410Schema = z.unknown();
 
+export const getDrainsStatus503Schema = z.unknown();
+
 export const getDrainsResponseSchema = getDrainsStatus200Schema;
 
 export const getDrainsErrorSchema = z.union([
@@ -23811,6 +24053,7 @@ export const getDrainsErrorSchema = z.union([
 	getDrainsStatus403Schema,
 	getDrainsStatus404Schema,
 	getDrainsStatus410Schema,
+	getDrainsStatus503Schema,
 ]);
 
 export const deleteDrainPathIdSchema = z.string();
@@ -23851,6 +24094,14 @@ export const deleteDrainErrorSchema = z.union([
 
 export const getDrainPathIdSchema = z.string();
 
+export const getDrainQueryIncludeDeliveryStatsSchema = z
+	.boolean()
+	.optional()
+	.default(false)
+	.describe(
+		"Include `deliveryStats` with the delivery health of the drain over the last 24 hours.",
+	);
+
 export const getDrainQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -23875,6 +24126,8 @@ export const getDrainStatus404Schema = z.unknown();
 
 export const getDrainStatus410Schema = z.unknown();
 
+export const getDrainStatus503Schema = z.unknown();
+
 export const getDrainResponseSchema = getDrainStatus200Schema;
 
 export const getDrainErrorSchema = z.union([
@@ -23883,6 +24136,7 @@ export const getDrainErrorSchema = z.union([
 	getDrainStatus403Schema,
 	getDrainStatus404Schema,
 	getDrainStatus410Schema,
+	getDrainStatus503Schema,
 ]);
 
 export const updateDrainPathIdSchema = z.string();
@@ -26740,6 +26994,8 @@ export const updateFlagSettingsStatus200Schema = z.unknown();
 
 export const updateFlagSettingsStatus201Schema = z.unknown();
 
+export const updateFlagSettingsStatus304Schema = z.unknown();
+
 export const updateFlagSettingsStatus400Schema = z.unknown();
 
 export const updateFlagSettingsStatus401Schema = z.unknown();
@@ -26760,6 +27016,7 @@ export const updateFlagSettingsResponseSchema = z.union([
 ]);
 
 export const updateFlagSettingsErrorSchema = z.union([
+	updateFlagSettingsStatus304Schema,
 	updateFlagSettingsStatus400Schema,
 	updateFlagSettingsStatus401Schema,
 	updateFlagSettingsStatus402Schema,
@@ -26799,6 +27056,169 @@ export const updateFlagSettingsBodySchema = z
 			.max(32)
 			.optional(),
 		environments: z.array(z.string()).optional().describe("The environments to sync"),
+	})
+	.optional();
+
+export const listFlagLabelsQueryLimitSchema = z.int().min(1).max(100).optional().default(20);
+
+export const listFlagLabelsQueryCursorSchema = z
+	.string()
+	.max(4096)
+	.optional()
+	.describe("The continuation cursor from the previous response.");
+
+export const listFlagLabelsQuerySearchSchema = z
+	.string()
+	.max(128)
+	.optional()
+	.describe("Case-insensitive substring search on the value and label.");
+
+export const listFlagLabelsQueryEntityKindSchema = z.string().max(128);
+
+export const listFlagLabelsQueryAttributeKeySchema = z.string().max(128);
+
+export const listFlagLabelsPathProjectIdOrNameSchema = z.string();
+
+export const listFlagLabelsQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const listFlagLabelsQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const listFlagLabelsStatus200Schema = z.unknown();
+
+export const listFlagLabelsStatus400Schema = z.unknown();
+
+export const listFlagLabelsStatus401Schema = z.unknown();
+
+export const listFlagLabelsStatus402Schema = z.unknown();
+
+export const listFlagLabelsStatus403Schema = z.unknown();
+
+export const listFlagLabelsStatus404Schema = z.unknown();
+
+export const listFlagLabelsStatus410Schema = z.unknown();
+
+export const listFlagLabelsResponseSchema = listFlagLabelsStatus200Schema;
+
+export const listFlagLabelsErrorSchema = z.union([
+	listFlagLabelsStatus400Schema,
+	listFlagLabelsStatus401Schema,
+	listFlagLabelsStatus402Schema,
+	listFlagLabelsStatus403Schema,
+	listFlagLabelsStatus404Schema,
+	listFlagLabelsStatus410Schema,
+]);
+
+export const listFlagLabelCountsQueryEntityKindSchema = z.string().max(128).optional();
+
+export const listFlagLabelCountsQueryLimitSchema = z.int().min(1).max(20).optional().default(20);
+
+export const listFlagLabelCountsQueryCursorSchema = z
+	.string()
+	.max(4096)
+	.optional()
+	.describe("The continuation cursor from the previous response.");
+
+export const listFlagLabelCountsPathProjectIdOrNameSchema = z.string();
+
+export const listFlagLabelCountsQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const listFlagLabelCountsQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const listFlagLabelCountsStatus200Schema = z.unknown();
+
+export const listFlagLabelCountsStatus400Schema = z.unknown();
+
+export const listFlagLabelCountsStatus401Schema = z.unknown();
+
+export const listFlagLabelCountsStatus402Schema = z.unknown();
+
+export const listFlagLabelCountsStatus403Schema = z.unknown();
+
+export const listFlagLabelCountsStatus404Schema = z.unknown();
+
+export const listFlagLabelCountsStatus410Schema = z.unknown();
+
+export const listFlagLabelCountsResponseSchema = listFlagLabelCountsStatus200Schema;
+
+export const listFlagLabelCountsErrorSchema = z.union([
+	listFlagLabelCountsStatus400Schema,
+	listFlagLabelCountsStatus401Schema,
+	listFlagLabelCountsStatus402Schema,
+	listFlagLabelCountsStatus403Schema,
+	listFlagLabelCountsStatus404Schema,
+	listFlagLabelCountsStatus410Schema,
+]);
+
+export const lookupFlagLabelsPathProjectIdOrNameSchema = z.string();
+
+export const lookupFlagLabelsQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const lookupFlagLabelsQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const lookupFlagLabelsStatus200Schema = z.unknown();
+
+export const lookupFlagLabelsStatus400Schema = z.unknown();
+
+export const lookupFlagLabelsStatus401Schema = z.unknown();
+
+export const lookupFlagLabelsStatus402Schema = z.unknown();
+
+export const lookupFlagLabelsStatus403Schema = z.unknown();
+
+export const lookupFlagLabelsStatus404Schema = z.unknown();
+
+export const lookupFlagLabelsStatus410Schema = z.unknown();
+
+export const lookupFlagLabelsStatus503Schema = z.unknown();
+
+export const lookupFlagLabelsResponseSchema = lookupFlagLabelsStatus200Schema;
+
+export const lookupFlagLabelsErrorSchema = z.union([
+	lookupFlagLabelsStatus400Schema,
+	lookupFlagLabelsStatus401Schema,
+	lookupFlagLabelsStatus402Schema,
+	lookupFlagLabelsStatus403Schema,
+	lookupFlagLabelsStatus404Schema,
+	lookupFlagLabelsStatus410Schema,
+	lookupFlagLabelsStatus503Schema,
+]);
+
+export const lookupFlagLabelsBodySchema = z
+	.strictObject({
+		items: z
+			.array(
+				z.strictObject({
+					value: z.string().max(128),
+					entityKind: z.string().max(128),
+					attributeKey: z.string().max(128),
+				}),
+			)
+			.min(1)
+			.max(100),
 	})
 	.optional();
 
@@ -28253,8 +28673,6 @@ export const importResourceStatus409Schema = z.unknown();
 
 export const importResourceStatus410Schema = z.unknown();
 
-export const importResourceStatus422Schema = z.unknown();
-
 export const importResourceResponseSchema = importResourceStatus200Schema;
 
 export const importResourceErrorSchema = z.union([
@@ -28264,7 +28682,6 @@ export const importResourceErrorSchema = z.union([
 	importResourceStatus404Schema,
 	importResourceStatus409Schema,
 	importResourceStatus410Schema,
-	importResourceStatus422Schema,
 ]);
 
 export const importResourceBodySchema = z
@@ -28415,8 +28832,6 @@ export const updateResourceStatus409Schema = z.unknown();
 
 export const updateResourceStatus410Schema = z.unknown();
 
-export const updateResourceStatus422Schema = z.unknown();
-
 export const updateResourceResponseSchema = updateResourceStatus200Schema;
 
 export const updateResourceErrorSchema = z.union([
@@ -28426,7 +28841,6 @@ export const updateResourceErrorSchema = z.union([
 	updateResourceStatus404Schema,
 	updateResourceStatus409Schema,
 	updateResourceStatus410Schema,
-	updateResourceStatus422Schema,
 ]);
 
 export const updateResourceBodySchema = z
@@ -29025,8 +29439,6 @@ export const updateResourceSecretsStatus409Schema = z.unknown();
 
 export const updateResourceSecretsStatus410Schema = z.unknown();
 
-export const updateResourceSecretsStatus422Schema = z.unknown();
-
 export const updateResourceSecretsResponseSchema = updateResourceSecretsStatus201Schema;
 
 export const updateResourceSecretsErrorSchema = z.union([
@@ -29036,7 +29448,6 @@ export const updateResourceSecretsErrorSchema = z.union([
 	updateResourceSecretsStatus404Schema,
 	updateResourceSecretsStatus409Schema,
 	updateResourceSecretsStatus410Schema,
-	updateResourceSecretsStatus422Schema,
 ]);
 
 export const updateResourceSecretsBodySchema = z.strictObject({
@@ -29078,8 +29489,6 @@ export const updateResourceSecretsByIdStatus409Schema = z.unknown();
 
 export const updateResourceSecretsByIdStatus410Schema = z.unknown();
 
-export const updateResourceSecretsByIdStatus422Schema = z.unknown();
-
 export const updateResourceSecretsByIdResponseSchema = updateResourceSecretsByIdStatus201Schema;
 
 export const updateResourceSecretsByIdErrorSchema = z.union([
@@ -29089,7 +29498,6 @@ export const updateResourceSecretsByIdErrorSchema = z.union([
 	updateResourceSecretsByIdStatus404Schema,
 	updateResourceSecretsByIdStatus409Schema,
 	updateResourceSecretsByIdStatus410Schema,
-	updateResourceSecretsByIdStatus422Schema,
 ]);
 
 export const updateResourceSecretsByIdBodySchema = z
@@ -29564,6 +29972,69 @@ export const createApiKeysBodySchema = z
 			.optional()
 			.describe(
 				"Optional generic metadata for the API key. The accepted shape depends on the key's `purpose` and is validated on creation; for `ai-gateway` keys this accepts `environment`.",
+			),
+	})
+	.optional();
+
+export const updateApiKeyQuotaPathApiKeyIDSchema = z
+	.string()
+	.describe("The ID of the API key whose quota should be updated.");
+
+export const updateApiKeyQuotaStatus200Schema = z.unknown();
+
+export const updateApiKeyQuotaStatus400Schema = z.unknown();
+
+export const updateApiKeyQuotaStatus401Schema = z.unknown();
+
+export const updateApiKeyQuotaStatus403Schema = z.unknown();
+
+export const updateApiKeyQuotaStatus404Schema = z.unknown();
+
+export const updateApiKeyQuotaStatus410Schema = z.unknown();
+
+export const updateApiKeyQuotaStatus429Schema = z.unknown();
+
+export const updateApiKeyQuotaStatus500Schema = z.unknown();
+
+export const updateApiKeyQuotaResponseSchema = updateApiKeyQuotaStatus200Schema;
+
+export const updateApiKeyQuotaErrorSchema = z.union([
+	updateApiKeyQuotaStatus400Schema,
+	updateApiKeyQuotaStatus401Schema,
+	updateApiKeyQuotaStatus403Schema,
+	updateApiKeyQuotaStatus404Schema,
+	updateApiKeyQuotaStatus410Schema,
+	updateApiKeyQuotaStatus429Schema,
+	updateApiKeyQuotaStatus500Schema,
+]);
+
+export const updateApiKeyQuotaBodySchema = z
+	.object({
+		limitAmount: z
+			.number()
+			.min(1)
+			.optional()
+			.describe("The quota limit amount. Required if the quota does not yet exist."),
+		includeByokInQuota: z
+			.boolean()
+			.optional()
+			.describe("Whether BYOK (Bring Your Own Key) usage counts against the quota."),
+		refreshPeriod: z
+			.enum(["daily", "monthly", "none", "weekly"])
+			.optional()
+			.describe("How often the quota refreshes."),
+		active: z.boolean().optional().describe("Whether the quota is currently active."),
+		archived: z
+			.boolean()
+			.optional()
+			.describe(
+				"Set to true to archive (soft-delete) the quota. The api key itself is unaffected.",
+			),
+		alertThresholds: z
+			.array(z.union([z.literal(100), z.literal(50), z.literal(75)]))
+			.optional()
+			.describe(
+				"Spend percentages (a subset of [50, 75, 100]) at which to send a spend alert. Pass an empty array to disable alerts.",
 			),
 	})
 	.optional();
@@ -30229,9 +30700,13 @@ export const deleteKmsIssuerPolicyErrorSchema = z.union([
 	deleteKmsIssuerPolicyStatus410Schema,
 ]);
 
-export const getRuntimeLogsPathProjectIdSchema = z.string();
+export const getRuntimeLogsPathProjectIdSchema = z
+	.string()
+	.describe("The ID or name of the project containing the deployment.");
 
-export const getRuntimeLogsPathDeploymentIdSchema = z.string();
+export const getRuntimeLogsPathDeploymentIdSchema = z
+	.string()
+	.describe("The ID or hostname of the deployment.");
 
 export const getRuntimeLogsQueryTeamIdSchema = z
 	.string()
@@ -31010,6 +31485,8 @@ export const listOrganizationsStatus200Schema = z.unknown();
 
 export const listOrganizationsStatus400Schema = z.unknown();
 
+export const listOrganizationsStatus401Schema = z.unknown();
+
 export const listOrganizationsStatus403Schema = z.unknown();
 
 export const listOrganizationsStatus410Schema = z.unknown();
@@ -31018,6 +31495,7 @@ export const listOrganizationsResponseSchema = listOrganizationsStatus200Schema;
 
 export const listOrganizationsErrorSchema = z.union([
 	listOrganizationsStatus400Schema,
+	listOrganizationsStatus401Schema,
 	listOrganizationsStatus403Schema,
 	listOrganizationsStatus410Schema,
 ]);
@@ -31908,6 +32386,7 @@ export const generateRouteBodySchema = z
 					value: z.string().optional(),
 					syntax: z.string().optional(),
 				}),
+				caseSensitive: z.boolean().optional(),
 				conditions: z
 					.array(
 						z.object({
@@ -32780,6 +33259,8 @@ export const updateProjectStatus410Schema = z.unknown();
 
 export const updateProjectStatus428Schema = z.unknown();
 
+export const updateProjectStatus500Schema = z.unknown();
+
 export const updateProjectResponseSchema = updateProjectStatus200Schema;
 
 export const updateProjectErrorSchema = z.union([
@@ -32791,6 +33272,7 @@ export const updateProjectErrorSchema = z.union([
 	updateProjectStatus409Schema,
 	updateProjectStatus410Schema,
 	updateProjectStatus428Schema,
+	updateProjectStatus500Schema,
 ]);
 
 export const updateProjectBodySchema = z.strictObject({
@@ -35968,6 +36450,8 @@ export const listNamedSandboxesStatus404Schema = z.unknown();
 
 export const listNamedSandboxesStatus410Schema = z.unknown();
 
+export const listNamedSandboxesStatus422Schema = z.unknown();
+
 export const listNamedSandboxesStatus429Schema = z.unknown();
 
 export const listNamedSandboxesResponseSchema = listNamedSandboxesStatus200Schema;
@@ -35978,6 +36462,7 @@ export const listNamedSandboxesErrorSchema = z.union([
 	listNamedSandboxesStatus403Schema,
 	listNamedSandboxesStatus404Schema,
 	listNamedSandboxesStatus410Schema,
+	listNamedSandboxesStatus422Schema,
 	listNamedSandboxesStatus429Schema,
 ]);
 
@@ -36674,6 +37159,8 @@ export const listDrivesStatus404Schema = z.unknown();
 
 export const listDrivesStatus410Schema = z.unknown();
 
+export const listDrivesStatus422Schema = z.unknown();
+
 export const listDrivesStatus429Schema = z.unknown();
 
 export const listDrivesResponseSchema = listDrivesStatus200Schema;
@@ -36684,6 +37171,7 @@ export const listDrivesErrorSchema = z.union([
 	listDrivesStatus403Schema,
 	listDrivesStatus404Schema,
 	listDrivesStatus410Schema,
+	listDrivesStatus422Schema,
 	listDrivesStatus429Schema,
 ]);
 
@@ -36726,6 +37214,8 @@ export const getDriveStatus404Schema = z.unknown();
 
 export const getDriveStatus410Schema = z.unknown();
 
+export const getDriveStatus422Schema = z.unknown();
+
 export const getDriveStatus429Schema = z.unknown();
 
 export const getDriveResponseSchema = getDriveStatus200Schema;
@@ -36736,6 +37226,7 @@ export const getDriveErrorSchema = z.union([
 	getDriveStatus403Schema,
 	getDriveStatus404Schema,
 	getDriveStatus410Schema,
+	getDriveStatus422Schema,
 	getDriveStatus429Schema,
 ]);
 
@@ -36778,7 +37269,11 @@ export const getOrCreateDriveStatus409Schema = z.unknown();
 
 export const getOrCreateDriveStatus410Schema = z.unknown();
 
+export const getOrCreateDriveStatus422Schema = z.unknown();
+
 export const getOrCreateDriveStatus429Schema = z.unknown();
+
+export const getOrCreateDriveStatus503Schema = z.unknown();
 
 export const getOrCreateDriveResponseSchema = z.union([
 	getOrCreateDriveStatus200Schema,
@@ -36793,7 +37288,9 @@ export const getOrCreateDriveErrorSchema = z.union([
 	getOrCreateDriveStatus404Schema,
 	getOrCreateDriveStatus409Schema,
 	getOrCreateDriveStatus410Schema,
+	getOrCreateDriveStatus422Schema,
 	getOrCreateDriveStatus429Schema,
+	getOrCreateDriveStatus503Schema,
 ]);
 
 export const getOrCreateDriveBodySchema = z
@@ -36883,6 +37380,8 @@ export const deleteDriveStatus409Schema = z.unknown();
 
 export const deleteDriveStatus410Schema = z.unknown();
 
+export const deleteDriveStatus422Schema = z.unknown();
+
 export const deleteDriveStatus429Schema = z.unknown();
 
 export const deleteDriveResponseSchema = deleteDriveStatus200Schema;
@@ -36894,6 +37393,7 @@ export const deleteDriveErrorSchema = z.union([
 	deleteDriveStatus404Schema,
 	deleteDriveStatus409Schema,
 	deleteDriveStatus410Schema,
+	deleteDriveStatus422Schema,
 	deleteDriveStatus429Schema,
 ]);
 
@@ -36940,6 +37440,8 @@ export const forkDriveStatus409Schema = z.unknown();
 
 export const forkDriveStatus410Schema = z.unknown();
 
+export const forkDriveStatus422Schema = z.unknown();
+
 export const forkDriveStatus429Schema = z.unknown();
 
 export const forkDriveStatus503Schema = z.unknown();
@@ -36954,6 +37456,7 @@ export const forkDriveErrorSchema = z.union([
 	forkDriveStatus404Schema,
 	forkDriveStatus409Schema,
 	forkDriveStatus410Schema,
+	forkDriveStatus422Schema,
 	forkDriveStatus429Schema,
 	forkDriveStatus503Schema,
 ]);
@@ -37031,6 +37534,8 @@ export const listSessionSnapshotsStatus404Schema = z.unknown();
 
 export const listSessionSnapshotsStatus410Schema = z.unknown();
 
+export const listSessionSnapshotsStatus422Schema = z.unknown();
+
 export const listSessionSnapshotsStatus429Schema = z.unknown();
 
 export const listSessionSnapshotsResponseSchema = listSessionSnapshotsStatus200Schema;
@@ -37041,6 +37546,7 @@ export const listSessionSnapshotsErrorSchema = z.union([
 	listSessionSnapshotsStatus403Schema,
 	listSessionSnapshotsStatus404Schema,
 	listSessionSnapshotsStatus410Schema,
+	listSessionSnapshotsStatus422Schema,
 	listSessionSnapshotsStatus429Schema,
 ]);
 
@@ -37075,6 +37581,8 @@ export const getSessionSnapshotStatus404Schema = z.unknown();
 
 export const getSessionSnapshotStatus410Schema = z.unknown();
 
+export const getSessionSnapshotStatus422Schema = z.unknown();
+
 export const getSessionSnapshotStatus429Schema = z.unknown();
 
 export const getSessionSnapshotResponseSchema = getSessionSnapshotStatus200Schema;
@@ -37085,6 +37593,7 @@ export const getSessionSnapshotErrorSchema = z.union([
 	getSessionSnapshotStatus403Schema,
 	getSessionSnapshotStatus404Schema,
 	getSessionSnapshotStatus410Schema,
+	getSessionSnapshotStatus422Schema,
 	getSessionSnapshotStatus429Schema,
 ]);
 
@@ -37119,6 +37628,8 @@ export const deleteSessionSnapshotStatus404Schema = z.unknown();
 
 export const deleteSessionSnapshotStatus410Schema = z.unknown();
 
+export const deleteSessionSnapshotStatus422Schema = z.unknown();
+
 export const deleteSessionSnapshotStatus429Schema = z.unknown();
 
 export const deleteSessionSnapshotResponseSchema = deleteSessionSnapshotStatus200Schema;
@@ -37129,6 +37640,7 @@ export const deleteSessionSnapshotErrorSchema = z.union([
 	deleteSessionSnapshotStatus403Schema,
 	deleteSessionSnapshotStatus404Schema,
 	deleteSessionSnapshotStatus410Schema,
+	deleteSessionSnapshotStatus422Schema,
 	deleteSessionSnapshotStatus429Schema,
 ]);
 
@@ -37192,6 +37704,8 @@ export const listSessionsStatus404Schema = z.unknown();
 
 export const listSessionsStatus410Schema = z.unknown();
 
+export const listSessionsStatus422Schema = z.unknown();
+
 export const listSessionsStatus429Schema = z.unknown();
 
 export const listSessionsStatus500Schema = z.unknown();
@@ -37204,6 +37718,7 @@ export const listSessionsErrorSchema = z.union([
 	listSessionsStatus403Schema,
 	listSessionsStatus404Schema,
 	listSessionsStatus410Schema,
+	listSessionsStatus422Schema,
 	listSessionsStatus429Schema,
 	listSessionsStatus500Schema,
 ]);
@@ -37237,6 +37752,8 @@ export const getSessionStatus404Schema = z.unknown();
 
 export const getSessionStatus410Schema = z.unknown();
 
+export const getSessionStatus422Schema = z.unknown();
+
 export const getSessionStatus429Schema = z.unknown();
 
 export const getSessionStatus500Schema = z.unknown();
@@ -37249,6 +37766,7 @@ export const getSessionErrorSchema = z.union([
 	getSessionStatus403Schema,
 	getSessionStatus404Schema,
 	getSessionStatus410Schema,
+	getSessionStatus422Schema,
 	getSessionStatus429Schema,
 	getSessionStatus500Schema,
 ]);
@@ -37956,6 +38474,8 @@ export const deleteSandboxStatus404Schema = z.unknown();
 
 export const deleteSandboxStatus410Schema = z.unknown();
 
+export const deleteSandboxStatus422Schema = z.unknown();
+
 export const deleteSandboxStatus429Schema = z.unknown();
 
 export const deleteSandboxResponseSchema = deleteSandboxStatus200Schema;
@@ -37966,6 +38486,7 @@ export const deleteSandboxErrorSchema = z.union([
 	deleteSandboxStatus403Schema,
 	deleteSandboxStatus404Schema,
 	deleteSandboxStatus410Schema,
+	deleteSandboxStatus422Schema,
 	deleteSandboxStatus429Schema,
 ]);
 
@@ -37998,6 +38519,8 @@ export const listSessionCommandsStatus404Schema = z.unknown();
 
 export const listSessionCommandsStatus410Schema = z.unknown();
 
+export const listSessionCommandsStatus422Schema = z.unknown();
+
 export const listSessionCommandsStatus429Schema = z.unknown();
 
 export const listSessionCommandsResponseSchema = listSessionCommandsStatus200Schema;
@@ -38008,6 +38531,7 @@ export const listSessionCommandsErrorSchema = z.union([
 	listSessionCommandsStatus403Schema,
 	listSessionCommandsStatus404Schema,
 	listSessionCommandsStatus410Schema,
+	listSessionCommandsStatus422Schema,
 	listSessionCommandsStatus429Schema,
 ]);
 
@@ -38044,8 +38568,6 @@ export const runSessionCommandStatus422Schema = z.unknown();
 
 export const runSessionCommandStatus429Schema = z.unknown();
 
-export const runSessionCommandStatus500Schema = z.unknown();
-
 export const runSessionCommandResponseSchema = runSessionCommandStatus200Schema;
 
 export const runSessionCommandErrorSchema = z.union([
@@ -38056,7 +38578,6 @@ export const runSessionCommandErrorSchema = z.union([
 	runSessionCommandStatus410Schema,
 	runSessionCommandStatus422Schema,
 	runSessionCommandStatus429Schema,
-	runSessionCommandStatus500Schema,
 ]);
 
 export const runSessionCommandBodySchema = z
@@ -38173,8 +38694,6 @@ export const getSessionCommandStatus422Schema = z.unknown();
 
 export const getSessionCommandStatus429Schema = z.unknown();
 
-export const getSessionCommandStatus500Schema = z.unknown();
-
 export const getSessionCommandResponseSchema = getSessionCommandStatus200Schema;
 
 export const getSessionCommandErrorSchema = z.union([
@@ -38185,7 +38704,6 @@ export const getSessionCommandErrorSchema = z.union([
 	getSessionCommandStatus410Schema,
 	getSessionCommandStatus422Schema,
 	getSessionCommandStatus429Schema,
-	getSessionCommandStatus500Schema,
 ]);
 
 export const killSessionCommandPathCmdIdSchema = z
@@ -38226,8 +38744,6 @@ export const killSessionCommandStatus422Schema = z.unknown();
 
 export const killSessionCommandStatus429Schema = z.unknown();
 
-export const killSessionCommandStatus500Schema = z.unknown();
-
 export const killSessionCommandResponseSchema = killSessionCommandStatus200Schema;
 
 export const killSessionCommandErrorSchema = z.union([
@@ -38238,7 +38754,6 @@ export const killSessionCommandErrorSchema = z.union([
 	killSessionCommandStatus410Schema,
 	killSessionCommandStatus422Schema,
 	killSessionCommandStatus429Schema,
-	killSessionCommandStatus500Schema,
 ]);
 
 export const killSessionCommandBodySchema = z
@@ -38292,8 +38807,6 @@ export const writeSessionCommandStdinStatus422Schema = z.unknown();
 
 export const writeSessionCommandStdinStatus429Schema = z.unknown();
 
-export const writeSessionCommandStdinStatus500Schema = z.unknown();
-
 export const writeSessionCommandStdinStatus502Schema = z.unknown();
 
 export const writeSessionCommandStdinStatus504Schema = z.unknown();
@@ -38309,7 +38822,6 @@ export const writeSessionCommandStdinErrorSchema = z.union([
 	writeSessionCommandStdinStatus410Schema,
 	writeSessionCommandStdinStatus422Schema,
 	writeSessionCommandStdinStatus429Schema,
-	writeSessionCommandStdinStatus500Schema,
 	writeSessionCommandStdinStatus502Schema,
 	writeSessionCommandStdinStatus504Schema,
 ]);
@@ -38380,8 +38892,6 @@ export const getSessionCommandLogsStatus422Schema = z.unknown();
 
 export const getSessionCommandLogsStatus429Schema = z.unknown();
 
-export const getSessionCommandLogsStatus500Schema = z.unknown();
-
 export const getSessionCommandLogsResponseSchema = getSessionCommandLogsStatus200Schema;
 
 export const getSessionCommandLogsErrorSchema = z.union([
@@ -38392,7 +38902,6 @@ export const getSessionCommandLogsErrorSchema = z.union([
 	getSessionCommandLogsStatus410Schema,
 	getSessionCommandLogsStatus422Schema,
 	getSessionCommandLogsStatus429Schema,
-	getSessionCommandLogsStatus500Schema,
 ]);
 
 export const stopSessionPathSessionIdSchema = z
@@ -38906,8 +39415,6 @@ export const readSessionFileStatus422Schema = z.unknown();
 
 export const readSessionFileStatus429Schema = z.unknown();
 
-export const readSessionFileStatus500Schema = z.unknown();
-
 export const readSessionFileResponseSchema = readSessionFileStatus200Schema;
 
 export const readSessionFileErrorSchema = z.union([
@@ -38918,7 +39425,6 @@ export const readSessionFileErrorSchema = z.union([
 	readSessionFileStatus410Schema,
 	readSessionFileStatus422Schema,
 	readSessionFileStatus429Schema,
-	readSessionFileStatus500Schema,
 ]);
 
 export const readSessionFileBodySchema = z
@@ -38972,8 +39478,6 @@ export const createSessionDirectoryStatus422Schema = z.unknown();
 
 export const createSessionDirectoryStatus429Schema = z.unknown();
 
-export const createSessionDirectoryStatus500Schema = z.unknown();
-
 export const createSessionDirectoryResponseSchema = createSessionDirectoryStatus200Schema;
 
 export const createSessionDirectoryErrorSchema = z.union([
@@ -38984,7 +39488,6 @@ export const createSessionDirectoryErrorSchema = z.union([
 	createSessionDirectoryStatus410Schema,
 	createSessionDirectoryStatus422Schema,
 	createSessionDirectoryStatus429Schema,
-	createSessionDirectoryStatus500Schema,
 ]);
 
 export const createSessionDirectoryBodySchema = z
@@ -39053,8 +39556,6 @@ export const writeSessionFilesStatus422Schema = z.unknown();
 
 export const writeSessionFilesStatus429Schema = z.unknown();
 
-export const writeSessionFilesStatus500Schema = z.unknown();
-
 export const writeSessionFilesResponseSchema = writeSessionFilesStatus200Schema;
 
 export const writeSessionFilesErrorSchema = z.union([
@@ -39065,7 +39566,6 @@ export const writeSessionFilesErrorSchema = z.union([
 	writeSessionFilesStatus410Schema,
 	writeSessionFilesStatus422Schema,
 	writeSessionFilesStatus429Schema,
-	writeSessionFilesStatus500Schema,
 ]);
 
 export const createSandboxesSessionsBySessionIdSnapshotV2PathSessionIdSchema = z
@@ -43983,6 +44483,8 @@ export const getTeamAccessRequestStatus200Schema = z.unknown();
 
 export const getTeamAccessRequestStatus400Schema = z.unknown();
 
+export const getTeamAccessRequestStatus401Schema = z.unknown();
+
 export const getTeamAccessRequestStatus403Schema = z.unknown();
 
 export const getTeamAccessRequestStatus404Schema = z.unknown();
@@ -43993,6 +44495,7 @@ export const getTeamAccessRequestResponseSchema = getTeamAccessRequestStatus200S
 
 export const getTeamAccessRequestErrorSchema = z.union([
 	getTeamAccessRequestStatus400Schema,
+	getTeamAccessRequestStatus401Schema,
 	getTeamAccessRequestStatus403Schema,
 	getTeamAccessRequestStatus404Schema,
 	getTeamAccessRequestStatus410Schema,
@@ -44006,6 +44509,8 @@ export const joinTeamPathTeamIdSchema = z
 export const joinTeamStatus200Schema = z.unknown();
 
 export const joinTeamStatus400Schema = z.unknown();
+
+export const joinTeamStatus401Schema = z.unknown();
 
 export const joinTeamStatus402Schema = z.unknown();
 
@@ -44021,6 +44526,7 @@ export const joinTeamResponseSchema = joinTeamStatus200Schema;
 
 export const joinTeamErrorSchema = z.union([
 	joinTeamStatus400Schema,
+	joinTeamStatus401Schema,
 	joinTeamStatus402Schema,
 	joinTeamStatus403Schema,
 	joinTeamStatus404Schema,
@@ -44245,6 +44751,10 @@ export const patchTeamStatus410Schema = z.unknown();
 
 export const patchTeamStatus428Schema = z.unknown();
 
+export const patchTeamStatus502Schema = z.unknown();
+
+export const patchTeamStatus503Schema = z.unknown();
+
 export const patchTeamResponseSchema = patchTeamStatus200Schema;
 
 export const patchTeamErrorSchema = z.union([
@@ -44256,6 +44766,8 @@ export const patchTeamErrorSchema = z.union([
 	patchTeamStatus409Schema,
 	patchTeamStatus410Schema,
 	patchTeamStatus428Schema,
+	patchTeamStatus502Schema,
+	patchTeamStatus503Schema,
 ]);
 
 export const patchTeamBodySchema = z.strictObject({
@@ -44282,7 +44794,7 @@ export const patchTeamBodySchema = z.strictObject({
 		.describe("The name of the team.")
 		.meta({ examples: ["My Team"] }),
 	previewDeploymentSuffix: z
-		.url()
+		.string()
 		.nullish()
 		.describe("Suffix that will be used for all preview deployments.")
 		.meta({ examples: ["example.dev"] }),
@@ -44657,6 +45169,8 @@ export const getTeamsStatus200Schema = z.unknown();
 
 export const getTeamsStatus400Schema = z.unknown();
 
+export const getTeamsStatus401Schema = z.unknown();
+
 export const getTeamsStatus403Schema = z.unknown();
 
 export const getTeamsStatus410Schema = z.unknown();
@@ -44667,6 +45181,7 @@ export const getTeamsResponseSchema = getTeamsStatus200Schema;
 
 export const getTeamsErrorSchema = z.union([
 	getTeamsStatus400Schema,
+	getTeamsStatus401Schema,
 	getTeamsStatus403Schema,
 	getTeamsStatus410Schema,
 	getTeamsStatus500Schema,
@@ -44675,6 +45190,8 @@ export const getTeamsErrorSchema = z.union([
 export const createTeamStatus200Schema = z.unknown();
 
 export const createTeamStatus400Schema = z.unknown();
+
+export const createTeamStatus401Schema = z.unknown();
 
 export const createTeamStatus403Schema = z.unknown();
 
@@ -44686,6 +45203,7 @@ export const createTeamResponseSchema = createTeamStatus200Schema;
 
 export const createTeamErrorSchema = z.union([
 	createTeamStatus400Schema,
+	createTeamStatus401Schema,
 	createTeamStatus403Schema,
 	createTeamStatus404Schema,
 	createTeamStatus410Schema,
@@ -45104,6 +45622,8 @@ export const getAuthTokenStatus200Schema = z.unknown();
 
 export const getAuthTokenStatus400Schema = z.unknown();
 
+export const getAuthTokenStatus401Schema = z.unknown();
+
 export const getAuthTokenStatus403Schema = z.unknown();
 
 export const getAuthTokenStatus404Schema = z.unknown();
@@ -45114,6 +45634,7 @@ export const getAuthTokenResponseSchema = getAuthTokenStatus200Schema;
 
 export const getAuthTokenErrorSchema = z.union([
 	getAuthTokenStatus400Schema,
+	getAuthTokenStatus401Schema,
 	getAuthTokenStatus403Schema,
 	getAuthTokenStatus404Schema,
 	getAuthTokenStatus410Schema,
@@ -45144,6 +45665,8 @@ export const deleteAuthTokenStatus200Schema = z.unknown();
 
 export const deleteAuthTokenStatus400Schema = z.unknown();
 
+export const deleteAuthTokenStatus401Schema = z.unknown();
+
 export const deleteAuthTokenStatus403Schema = z.unknown();
 
 export const deleteAuthTokenStatus404Schema = z.unknown();
@@ -45154,6 +45677,7 @@ export const deleteAuthTokenResponseSchema = deleteAuthTokenStatus200Schema;
 
 export const deleteAuthTokenErrorSchema = z.union([
 	deleteAuthTokenStatus400Schema,
+	deleteAuthTokenStatus401Schema,
 	deleteAuthTokenStatus403Schema,
 	deleteAuthTokenStatus404Schema,
 	deleteAuthTokenStatus410Schema,
@@ -45188,6 +45712,8 @@ export const requestDeleteStatus202Schema = z.unknown();
 
 export const requestDeleteStatus400Schema = z.unknown();
 
+export const requestDeleteStatus401Schema = z.unknown();
+
 export const requestDeleteStatus402Schema = z.unknown();
 
 export const requestDeleteStatus403Schema = z.unknown();
@@ -45198,6 +45724,7 @@ export const requestDeleteResponseSchema = requestDeleteStatus202Schema;
 
 export const requestDeleteErrorSchema = z.union([
 	requestDeleteStatus400Schema,
+	requestDeleteStatus401Schema,
 	requestDeleteStatus402Schema,
 	requestDeleteStatus403Schema,
 	requestDeleteStatus410Schema,
