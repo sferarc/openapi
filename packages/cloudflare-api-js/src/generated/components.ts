@@ -1504,6 +1504,7 @@ import type {
 	BasinDisableCatalogStatus403,
 	BasinDisableCatalogStatus404,
 	BasinDisableCatalogStatus500,
+	BasinEnableCatalogBody,
 	BasinEnableCatalogResponse,
 	BasinEnableCatalogStatus400,
 	BasinEnableCatalogStatus401,
@@ -3691,6 +3692,9 @@ import type {
 	DnsSettingsForAnAccountListCustomNameserverSetsStatus400,
 	DnsSettingsForAnAccountListDnsSettingsResponse,
 	DnsSettingsForAnAccountListDnsSettingsStatus400,
+	DnsSettingsForAnAccountUpdateCustomNameserverSetBody,
+	DnsSettingsForAnAccountUpdateCustomNameserverSetResponse,
+	DnsSettingsForAnAccountUpdateCustomNameserverSetStatus400,
 	DnsSettingsForAnAccountUpdateDnsSettingsBody,
 	DnsSettingsForAnAccountUpdateDnsSettingsResponse,
 	DnsSettingsForAnAccountUpdateDnsSettingsStatus400,
@@ -4097,6 +4101,7 @@ import type {
 	EmailSendingSubdomainsUpdateSendingSubdomainBody,
 	EmailSendingSubdomainsUpdateSendingSubdomainResponse,
 	EmailSendingSubdomainsUpdateSendingSubdomainStatus404,
+	EnableCatalogBody,
 	EnableCatalogResponse,
 	EnableCatalogStatus400,
 	EnableCatalogStatus401,
@@ -6823,6 +6828,20 @@ import type {
 	PauseIntegrationV2Status400,
 	PauseResumeStopRecordingBody,
 	PauseResumeStopRecordingResponse,
+	PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyResponse,
+	PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyStatus400,
+	PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyResponse,
+	PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyStatus400,
+	PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyBody,
+	PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyResponse,
+	PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyStatus400,
+	PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyResponse,
+	PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyStatus400,
+	PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyResponse,
+	PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyStatus400,
+	PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyBody,
+	PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyResponse,
+	PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyStatus400,
 	PayPerCrawlCrawlerCreateStripeConfigResponse,
 	PayPerCrawlCrawlerCreateStripeConfigStatus400,
 	PayPerCrawlCrawlerDeleteStripeConfigResponse,
@@ -8365,6 +8384,7 @@ import type {
 	ReplaceWebhookStatus400,
 	ReplaceWebhookStatus401,
 	ReportingIndustryGetResponse,
+	ReportingIndustryGetStatus400,
 	ReportingIndustryUpdateBody,
 	ReportingIndustryUpdateResponse,
 	ReportingIndustryUpdateStatus400,
@@ -10454,13 +10474,21 @@ import type {
 	ZeroTrustOrganizationCreateYourZeroTrustOrganizationBody,
 	ZeroTrustOrganizationCreateYourZeroTrustOrganizationResponse,
 	ZeroTrustOrganizationCreateYourZeroTrustOrganizationStatus400,
+	ZeroTrustOrganizationGetTrustSettingsResponse,
+	ZeroTrustOrganizationGetTrustSettingsStatus400,
 	ZeroTrustOrganizationGetYourZeroTrustOrganizationDohSettingsResponse,
 	ZeroTrustOrganizationGetYourZeroTrustOrganizationDohSettingsStatus400,
 	ZeroTrustOrganizationGetYourZeroTrustOrganizationResponse,
 	ZeroTrustOrganizationGetYourZeroTrustOrganizationStatus400,
+	ZeroTrustOrganizationReplaceTrustSettingsBody,
+	ZeroTrustOrganizationReplaceTrustSettingsResponse,
+	ZeroTrustOrganizationReplaceTrustSettingsStatus400,
 	ZeroTrustOrganizationRevokeAllAccessTokensForAUserBody,
 	ZeroTrustOrganizationRevokeAllAccessTokensForAUserResponse,
 	ZeroTrustOrganizationRevokeAllAccessTokensForAUserStatus400,
+	ZeroTrustOrganizationUpdateTrustSettingsBody,
+	ZeroTrustOrganizationUpdateTrustSettingsResponse,
+	ZeroTrustOrganizationUpdateTrustSettingsStatus400,
 	ZeroTrustOrganizationUpdateYourZeroTrustOrganizationBody,
 	ZeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettingsBody,
 	ZeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettingsResponse,
@@ -44753,6 +44781,120 @@ export async function zeroTrustOrganizationRevokeAllAccessTokensForAUser(
 }
 
 /**
+ * @summary Get Zero Trust organization trust settings
+ * @description Returns the trust settings for your Zero Trust organization.
+ * @link /accounts/{accountId}/access/organizations/trust_settings
+ */
+export async function zeroTrustOrganizationGetTrustSettings(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: { accountId: unknown };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		ZeroTrustOrganizationGetTrustSettingsResponse,
+		ErrorWrapper<ZeroTrustOrganizationGetTrustSettingsStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		{ accountId: unknown }
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/access/organizations/trust_settings`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Zero Trust organization trust settings
+ * @description Updates the trust settings for your Zero Trust organization.
+ * @link /accounts/{accountId}/access/organizations/trust_settings
+ */
+export async function zeroTrustOrganizationUpdateTrustSettings(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: { accountId: unknown };
+		body: ZeroTrustOrganizationUpdateTrustSettingsBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		ZeroTrustOrganizationUpdateTrustSettingsResponse,
+		ErrorWrapper<ZeroTrustOrganizationUpdateTrustSettingsStatus400>,
+		ZeroTrustOrganizationUpdateTrustSettingsBody,
+		Record<string, string>,
+		Record<string, string>,
+		{ accountId: unknown }
+	>({
+		method: "PATCH",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/access/organizations/trust_settings`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Replace Zero Trust organization trust settings
+ * @description Replaces the trust settings for your Zero Trust organization.
+ * @link /accounts/{accountId}/access/organizations/trust_settings
+ */
+export async function zeroTrustOrganizationReplaceTrustSettings(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: { accountId: unknown };
+		body: ZeroTrustOrganizationReplaceTrustSettingsBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		ZeroTrustOrganizationReplaceTrustSettingsResponse,
+		ErrorWrapper<ZeroTrustOrganizationReplaceTrustSettingsStatus400>,
+		ZeroTrustOrganizationReplaceTrustSettingsBody,
+		Record<string, string>,
+		Record<string, string>,
+		{ accountId: unknown }
+	>({
+		method: "PUT",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/access/organizations/trust_settings`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary List Access reusable policies
  * @description Lists Access reusable policies.
  * @link /accounts/{accountId}/access/policies
@@ -58160,9 +58302,11 @@ export async function basinDisableCatalog(
 export async function basinEnableCatalog(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { accountId: unknown; bucketName: unknown };
+		body?: BasinEnableCatalogBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -58185,13 +58329,14 @@ export async function basinEnableCatalog(
 			| BasinEnableCatalogStatus409
 			| BasinEnableCatalogStatus500
 		>,
-		null,
+		BasinEnableCatalogBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ accountId: unknown; bucketName: unknown }
 	>({
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/basin-catalog/${encodeURIComponent(String(pathParams.bucketName))}/enable`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -77423,7 +77568,7 @@ export async function rssArticleBulkMarkRead(
 
 /**
  * @summary Count Threat Signals articles by relevance band
- * @description Beta. Counts the account's Threat Signals articles in each relevance band, for each active Priority Intelligence Requirement and across all of them. Uses the same PIRs as article relevance: active PIRs, including those the matcher paused; drafts and deleted PIRs are excluded. Articles not scored against a PIR are not counted for it. The combined counts place each article once, in the band of its best score, so they are not the sum of the per-PIR counts. All counts are read together and are exact.
+ * @description Beta. Counts the account's Threat Signals articles in each relevance band, for each active Priority Intelligence Requirement and across all of them. Uses the same PIRs as article relevance: active PIRs, including those the matcher paused; drafts and deleted PIRs are excluded. Articles not scored against a PIR are not counted for it. The combined counts place each article once, in the band of its best score, so they are not the sum of the per-PIR counts. read counts only read or only unread articles. All counts are read together and are exact.
  * @link /accounts/{accountId}/cloudforce-one/v2/threat-signals/articles/relevance/aggregate
  */
 export async function rssArticleRelevanceAggregate(
@@ -77433,7 +77578,7 @@ export async function rssArticleRelevanceAggregate(
 		config,
 	}: {
 		pathParams: { accountId: string };
-		queryParams?: { published_after?: string; published_before?: string };
+		queryParams?: { published_after?: string; published_before?: string; read?: boolean };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -77447,7 +77592,7 @@ export async function rssArticleRelevanceAggregate(
 		ErrorWrapper<RssArticleRelevanceAggregateStatus400>,
 		null,
 		Record<string, string>,
-		{ published_after?: string; published_before?: string },
+		{ published_after?: string; published_before?: string; read?: boolean },
 		{ accountId: string }
 	>({
 		method: "GET",
@@ -77462,7 +77607,7 @@ export async function rssArticleRelevanceAggregate(
 
 /**
  * @summary Count Threat Signals articles by severity band
- * @description Beta. Counts the account's Threat Signals articles in each intrinsic severity band. An article's band is the severity level nearest its severity, from informational to critical. Articles without a severity are not counted. Also counts, for each active Priority Intelligence Requirement, the articles scored against it. min_relevance counts only articles at or above a relevance band: overall, for any active PIR; per PIR, for that PIR, the same rule as the per-PIR relevance counts. pir_id counts for one active PIR only. Like the article severity field, severity is reported only while the account has an active Priority Intelligence Requirement, including one the matcher paused; otherwise every count is zero and priorities is empty. All counts are read together and are exact.
+ * @description Beta. Counts the account's Threat Signals articles in each intrinsic severity band. An article's band is the one reported as its severity, from informational to critical. Articles without a severity are not counted. Also counts, for each active Priority Intelligence Requirement, the articles scored against it. min_relevance counts only articles at or above a relevance band: overall, for any active PIR; per PIR, for that PIR, the same rule as the per-PIR relevance counts. pir_id counts for one active PIR only. read counts only read or only unread articles, in both articles and priorities. Like the article severity field, severity is reported only while the account has an active Priority Intelligence Requirement, including one the matcher paused; otherwise every count is zero and priorities is empty. All counts are read together and are exact.
  * @link /accounts/{accountId}/cloudforce-one/v2/threat-signals/articles/severity/aggregate
  */
 export async function rssArticleSeverityAggregate(
@@ -77475,6 +77620,7 @@ export async function rssArticleSeverityAggregate(
 		queryParams?: {
 			published_after?: string;
 			published_before?: string;
+			read?: boolean;
 			pir_id?: string;
 			min_relevance?: "low" | "medium" | "high";
 		};
@@ -77494,6 +77640,7 @@ export async function rssArticleSeverityAggregate(
 		{
 			published_after?: string;
 			published_before?: string;
+			read?: boolean;
 			pir_id?: string;
 			min_relevance?: "low" | "medium" | "high";
 		},
@@ -95882,7 +96029,7 @@ export async function dnsSettingsForAnAccountListCustomNameserverSets(
 
 /**
  * @summary Create Custom Nameserver Set
- * @description Creates an immutable Custom Nameserver Set. To change a set, create a new one, move any zone assignments, and delete the old set.
+ * @description Creates a named Custom Nameserver Set. Only the customer-defined name can be changed later. To change nameservers or addresses, create a new set, move any zone assignments, and delete the old set.
  * @link /accounts/{accountId}/dns_settings/nameserver_sets
  */
 export async function dnsSettingsForAnAccountCreateCustomNameserverSet(
@@ -95992,6 +96139,49 @@ export async function dnsSettingsForAnAccountGetCustomNameserverSet(
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/dns_settings/nameserver_sets/${encodeURIComponent(String(pathParams.nameserverSetId))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Custom Nameserver Set
+ * @description Renames a Custom Nameserver Set owned by the account. Only name may be supplied; immutable and unknown fields are rejected even if unchanged. An empty object or the existing name is a successful no-op. Requires the account-scoped creation entitlements for the existing set.
+ * @link /accounts/{accountId}/dns_settings/nameserver_sets/{nameserverSetId}
+ */
+export async function dnsSettingsForAnAccountUpdateCustomNameserverSet(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: { accountId: unknown; nameserverSetId: unknown };
+		body: DnsSettingsForAnAccountUpdateCustomNameserverSetBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.nameserverSetId == null || String(pathParams.nameserverSetId) === "") {
+		throw new Error(`Missing required path parameter: nameserverSetId`);
+	}
+	const data = await request<
+		DnsSettingsForAnAccountUpdateCustomNameserverSetResponse,
+		ErrorWrapper<DnsSettingsForAnAccountUpdateCustomNameserverSetStatus400>,
+		DnsSettingsForAnAccountUpdateCustomNameserverSetBody,
+		Record<string, string>,
+		Record<string, string>,
+		{ accountId: unknown; nameserverSetId: unknown }
+	>({
+		method: "PATCH",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/dns_settings/nameserver_sets/${encodeURIComponent(String(pathParams.nameserverSetId))}`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -101637,6 +101827,117 @@ export async function ipAccessRulesForAnAccountUpdateAnIpAccessRule(
 	>({
 		method: "PATCH",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/firewall/access_rules/rules/${encodeURIComponent(String(pathParams.ruleId))}`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete the payload logging key
+ * @description Deletes the payload logging public key of the account.
+ * @link /accounts/{accountId}/firewall/payload_logging/key
+ */
+export async function payloadLoggingKeysForAnAccountDeleteThePayloadLoggingKey(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: { accountId: unknown };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyResponse,
+		ErrorWrapper<PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		{ accountId: unknown }
+	>({
+		method: "DELETE",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/firewall/payload_logging/key`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get the payload logging key
+ * @description Fetches the public key that payload logging uses to encrypt matched payloads for the account.
+ * @link /accounts/{accountId}/firewall/payload_logging/key
+ */
+export async function payloadLoggingKeysForAnAccountGetThePayloadLoggingKey(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: { accountId: unknown };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyResponse,
+		ErrorWrapper<PayloadLoggingKeysForAnAccountGetThePayloadLoggingKeyStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		{ accountId: unknown }
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/firewall/payload_logging/key`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Set the payload logging key
+ * @description Creates or replaces the public key that payload logging uses to encrypt matched payloads for the account. It applies to every zone in the account that has no zone key. Requires a plan that includes payload logging (Enterprise); otherwise it returns 403.
+ * @link /accounts/{accountId}/firewall/payload_logging/key
+ */
+export async function payloadLoggingKeysForAnAccountSetThePayloadLoggingKey(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: { accountId: unknown };
+		body: PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyResponse,
+		ErrorWrapper<PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyStatus400>,
+		PayloadLoggingKeysForAnAccountSetThePayloadLoggingKeyBody,
+		Record<string, string>,
+		Record<string, string>,
+		{ accountId: unknown }
+	>({
+		method: "PUT",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/firewall/payload_logging/key`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -127668,9 +127969,11 @@ export async function disableCatalog(
 export async function enableCatalog(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { accountId: unknown; bucketName: unknown };
+		body?: EnableCatalogBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -127693,13 +127996,14 @@ export async function enableCatalog(
 			| EnableCatalogStatus409
 			| EnableCatalogStatus500
 		>,
-		null,
+		EnableCatalogBody,
 		Record<string, string>,
 		Record<string, string>,
 		{ accountId: unknown; bucketName: unknown }
 	>({
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2-catalog/${encodeURIComponent(String(pathParams.bucketName))}/enable`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -134397,7 +134701,7 @@ export async function reportingIndustryGet(
 	}
 	const data = await request<
 		ReportingIndustryGetResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<ReportingIndustryGetStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -173562,6 +173866,117 @@ export async function zoneLockdownUpdateAZoneLockdownRule(
 }
 
 /**
+ * @summary Delete the payload logging key
+ * @description Deletes the payload logging public key of the zone.
+ * @link /zones/{zoneId}/firewall/payload_logging/key
+ */
+export async function payloadLoggingKeysForAZoneDeleteThePayloadLoggingKey(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: { zoneId: unknown };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
+		throw new Error(`Missing required path parameter: zoneId`);
+	}
+	const data = await request<
+		PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyResponse,
+		ErrorWrapper<PayloadLoggingKeysForAZoneDeleteThePayloadLoggingKeyStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		{ zoneId: unknown }
+	>({
+		method: "DELETE",
+		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/firewall/payload_logging/key`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get the payload logging key
+ * @description Fetches the public key that payload logging uses to encrypt matched payloads for the zone.
+ * @link /zones/{zoneId}/firewall/payload_logging/key
+ */
+export async function payloadLoggingKeysForAZoneGetThePayloadLoggingKey(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: { zoneId: unknown };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
+		throw new Error(`Missing required path parameter: zoneId`);
+	}
+	const data = await request<
+		PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyResponse,
+		ErrorWrapper<PayloadLoggingKeysForAZoneGetThePayloadLoggingKeyStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		{ zoneId: unknown }
+	>({
+		method: "GET",
+		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/firewall/payload_logging/key`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Set the payload logging key
+ * @description Creates or replaces the public key that payload logging uses to encrypt matched payloads for the zone. The zone key takes precedence over the account key. Requires a plan that includes payload logging (Enterprise); otherwise it returns 403.
+ * @link /zones/{zoneId}/firewall/payload_logging/key
+ */
+export async function payloadLoggingKeysForAZoneSetThePayloadLoggingKey(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: { zoneId: unknown };
+		body: PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
+		throw new Error(`Missing required path parameter: zoneId`);
+	}
+	const data = await request<
+		PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyResponse,
+		ErrorWrapper<PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyStatus400>,
+		PayloadLoggingKeysForAZoneSetThePayloadLoggingKeyBody,
+		Record<string, string>,
+		Record<string, string>,
+		{ zoneId: unknown }
+	>({
+		method: "PUT",
+		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/firewall/payload_logging/key`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Delete firewall rules
  * @description **This endpoint has been deprecated and returns 410 Gone. Please use the [Rulesets API](https://developers.cloudflare.com/ruleset-engine/) instead.**
  * Deletes existing firewall rules.
@@ -191204,6 +191619,12 @@ export const operationsByPath = {
 		zeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettings,
 	"POST /accounts/{accountId}/access/organizations/revoke_user":
 		zeroTrustOrganizationRevokeAllAccessTokensForAUser,
+	"GET /accounts/{accountId}/access/organizations/trust_settings":
+		zeroTrustOrganizationGetTrustSettings,
+	"PATCH /accounts/{accountId}/access/organizations/trust_settings":
+		zeroTrustOrganizationUpdateTrustSettings,
+	"PUT /accounts/{accountId}/access/organizations/trust_settings":
+		zeroTrustOrganizationReplaceTrustSettings,
 	"GET /accounts/{accountId}/access/policies": accessPoliciesListAccessReusablePolicies,
 	"POST /accounts/{accountId}/access/policies": accessPoliciesCreateAnAccessReusablePolicy,
 	"DELETE /accounts/{accountId}/access/policies/{policyId}":
@@ -192870,6 +193291,8 @@ export const operationsByPath = {
 		dnsSettingsForAnAccountDeleteCustomNameserverSet,
 	"GET /accounts/{accountId}/dns_settings/nameserver_sets/{nameserverSetId}":
 		dnsSettingsForAnAccountGetCustomNameserverSet,
+	"PATCH /accounts/{accountId}/dns_settings/nameserver_sets/{nameserverSetId}":
+		dnsSettingsForAnAccountUpdateCustomNameserverSet,
 	"GET /accounts/{accountId}/dns_settings/views": dnsViewsForAnAccountListInternalDnsViews,
 	"POST /accounts/{accountId}/dns_settings/views": dnsViewsForAnAccountCreateInternalDnsViews,
 	"DELETE /accounts/{accountId}/dns_settings/views/{viewId}":
@@ -193085,6 +193508,12 @@ export const operationsByPath = {
 		ipAccessRulesForAnAccountGetAnIpAccessRule,
 	"PATCH /accounts/{accountId}/firewall/access_rules/rules/{ruleId}":
 		ipAccessRulesForAnAccountUpdateAnIpAccessRule,
+	"DELETE /accounts/{accountId}/firewall/payload_logging/key":
+		payloadLoggingKeysForAnAccountDeleteThePayloadLoggingKey,
+	"GET /accounts/{accountId}/firewall/payload_logging/key":
+		payloadLoggingKeysForAnAccountGetThePayloadLoggingKey,
+	"PUT /accounts/{accountId}/firewall/payload_logging/key":
+		payloadLoggingKeysForAnAccountSetThePayloadLoggingKey,
 	"GET /accounts/{accountId}/flagship/apps": flagshipListApps,
 	"POST /accounts/{accountId}/flagship/apps": flagshipCreateApp,
 	"DELETE /accounts/{accountId}/flagship/apps/{appId}": flagshipDeleteApp,
@@ -195357,6 +195786,12 @@ export const operationsByPath = {
 	"DELETE /zones/{zoneId}/firewall/lockdowns/{lockDownsId}": zoneLockdownDeleteAZoneLockdownRule,
 	"GET /zones/{zoneId}/firewall/lockdowns/{lockDownsId}": zoneLockdownGetAZoneLockdownRule,
 	"PUT /zones/{zoneId}/firewall/lockdowns/{lockDownsId}": zoneLockdownUpdateAZoneLockdownRule,
+	"DELETE /zones/{zoneId}/firewall/payload_logging/key":
+		payloadLoggingKeysForAZoneDeleteThePayloadLoggingKey,
+	"GET /zones/{zoneId}/firewall/payload_logging/key":
+		payloadLoggingKeysForAZoneGetThePayloadLoggingKey,
+	"PUT /zones/{zoneId}/firewall/payload_logging/key":
+		payloadLoggingKeysForAZoneSetThePayloadLoggingKey,
 	"DELETE /zones/{zoneId}/firewall/rules": firewallRulesDeleteFirewallRules,
 	"GET /zones/{zoneId}/firewall/rules": firewallRulesListFirewallRules,
 	"PATCH /zones/{zoneId}/firewall/rules": firewallRulesUpdatePriorityOfFirewallRules,
@@ -196651,6 +197086,9 @@ export const operationsByTag = {
 		zeroTrustOrganizationGetYourZeroTrustOrganizationDohSettings,
 		zeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettings,
 		zeroTrustOrganizationRevokeAllAccessTokensForAUser,
+		zeroTrustOrganizationGetTrustSettings,
+		zeroTrustOrganizationUpdateTrustSettings,
+		zeroTrustOrganizationReplaceTrustSettings,
 	},
 	accessReusablePolicies: {
 		accessPoliciesListAccessReusablePolicies,
@@ -198215,6 +198653,7 @@ export const operationsByTag = {
 		dnsSettingsForAnAccountCreateCustomNameserverSet,
 		dnsSettingsForAnAccountDeleteCustomNameserverSet,
 		dnsSettingsForAnAccountGetCustomNameserverSet,
+		dnsSettingsForAnAccountUpdateCustomNameserverSet,
 	},
 	dnsInternalViewsForAnAccount: {
 		dnsViewsForAnAccountListInternalDnsViews,
@@ -198442,6 +198881,11 @@ export const operationsByTag = {
 		ipAccessRulesForAnAccountDeleteAnIpAccessRule,
 		ipAccessRulesForAnAccountGetAnIpAccessRule,
 		ipAccessRulesForAnAccountUpdateAnIpAccessRule,
+	},
+	payloadLoggingKeysForAnAccount: {
+		payloadLoggingKeysForAnAccountDeleteThePayloadLoggingKey,
+		payloadLoggingKeysForAnAccountGetThePayloadLoggingKey,
+		payloadLoggingKeysForAnAccountSetThePayloadLoggingKey,
 	},
 	apps: {
 		flagshipListApps,
@@ -200415,6 +200859,11 @@ export const operationsByTag = {
 		zoneLockdownGetAZoneLockdownRule,
 		zoneLockdownUpdateAZoneLockdownRule,
 	},
+	payloadLoggingKeysForAZone: {
+		payloadLoggingKeysForAZoneDeleteThePayloadLoggingKey,
+		payloadLoggingKeysForAZoneGetThePayloadLoggingKey,
+		payloadLoggingKeysForAZoneSetThePayloadLoggingKey,
+	},
 	firewallRules: {
 		firewallRulesDeleteFirewallRules,
 		firewallRulesListFirewallRules,
@@ -201717,6 +202166,7 @@ export const tagDictionary = {
 		GET: [
 			"zeroTrustOrganizationGetYourZeroTrustOrganization",
 			"zeroTrustOrganizationGetYourZeroTrustOrganizationDohSettings",
+			"zeroTrustOrganizationGetTrustSettings",
 		],
 		POST: [
 			"zeroTrustOrganizationCreateYourZeroTrustOrganization",
@@ -201725,7 +202175,9 @@ export const tagDictionary = {
 		PUT: [
 			"zeroTrustOrganizationUpdateYourZeroTrustOrganization",
 			"zeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettings",
+			"zeroTrustOrganizationReplaceTrustSettings",
 		],
+		PATCH: ["zeroTrustOrganizationUpdateTrustSettings"],
 	},
 	accessReusablePolicies: {
 		GET: ["accessPoliciesListAccessReusablePolicies", "accessPoliciesGetAnAccessReusablePolicy"],
@@ -203296,6 +203748,7 @@ export const tagDictionary = {
 		],
 		POST: ["dnsSettingsForAnAccountCreateCustomNameserverSet"],
 		DELETE: ["dnsSettingsForAnAccountDeleteCustomNameserverSet"],
+		PATCH: ["dnsSettingsForAnAccountUpdateCustomNameserverSet"],
 	},
 	dnsInternalViewsForAnAccount: {
 		GET: ["dnsViewsForAnAccountListInternalDnsViews", "dnsViewsForAnAccountGetInternalDnsView"],
@@ -203559,6 +204012,11 @@ export const tagDictionary = {
 		POST: ["ipAccessRulesForAnAccountCreateAnIpAccessRule"],
 		DELETE: ["ipAccessRulesForAnAccountDeleteAnIpAccessRule"],
 		PATCH: ["ipAccessRulesForAnAccountUpdateAnIpAccessRule"],
+	},
+	payloadLoggingKeysForAnAccount: {
+		DELETE: ["payloadLoggingKeysForAnAccountDeleteThePayloadLoggingKey"],
+		GET: ["payloadLoggingKeysForAnAccountGetThePayloadLoggingKey"],
+		PUT: ["payloadLoggingKeysForAnAccountSetThePayloadLoggingKey"],
 	},
 	apps: {
 		GET: ["flagshipListApps", "flagshipGetApp", "getApps", "getApp"],
@@ -205625,6 +206083,11 @@ export const tagDictionary = {
 		POST: ["zoneLockdownCreateAZoneLockdownRule"],
 		DELETE: ["zoneLockdownDeleteAZoneLockdownRule"],
 		PUT: ["zoneLockdownUpdateAZoneLockdownRule"],
+	},
+	payloadLoggingKeysForAZone: {
+		DELETE: ["payloadLoggingKeysForAZoneDeleteThePayloadLoggingKey"],
+		GET: ["payloadLoggingKeysForAZoneGetThePayloadLoggingKey"],
+		PUT: ["payloadLoggingKeysForAZoneSetThePayloadLoggingKey"],
 	},
 	firewallRules: {
 		DELETE: ["firewallRulesDeleteFirewallRules", "firewallRulesDeleteAFirewallRule"],
