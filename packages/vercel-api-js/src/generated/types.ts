@@ -5077,6 +5077,7 @@ export type UserEventPayloadScopesEnumKey =
 	(typeof userEventPayloadScopesEnum)[keyof typeof userEventPayloadScopesEnum];
 
 export const userEventPayloadNextPermissionsEnum = {
+	"*": "*",
 	"manage:speed-insights": "manage:speed-insights",
 	"manage:web-analytics": "manage:web-analytics",
 	"read-write:access-group": "read-write:access-group",
@@ -5460,6 +5461,31 @@ export const userEventPayloadJobCommitVerificationEnum = {
 
 export type UserEventPayloadJobCommitVerificationEnumKey =
 	(typeof userEventPayloadJobCommitVerificationEnum)[keyof typeof userEventPayloadJobCommitVerificationEnum];
+
+export const userEventPayloadJobGitHashtagVercelEnum = {
+	"#VERCEL_BUILD_MACHINE=TURBO": "#VERCEL_BUILD_MACHINE=TURBO",
+	"#VERCEL_BUILD_PRIO_1": "#VERCEL_BUILD_PRIO_1",
+	"#VERCEL_BUILD_PRIO_10": "#VERCEL_BUILD_PRIO_10",
+	"#VERCEL_BUILD_PRIO_2": "#VERCEL_BUILD_PRIO_2",
+	"#VERCEL_BUILD_PRIO_3": "#VERCEL_BUILD_PRIO_3",
+	"#VERCEL_BUILD_PRIO_4": "#VERCEL_BUILD_PRIO_4",
+	"#VERCEL_BUILD_PRIO_5": "#VERCEL_BUILD_PRIO_5",
+	"#VERCEL_BUILD_PRIO_6": "#VERCEL_BUILD_PRIO_6",
+	"#VERCEL_BUILD_PRIO_7": "#VERCEL_BUILD_PRIO_7",
+	"#VERCEL_BUILD_PRIO_8": "#VERCEL_BUILD_PRIO_8",
+	"#VERCEL_BUILD_PRIO_9": "#VERCEL_BUILD_PRIO_9",
+	"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL": "#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL",
+	"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR": "#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR",
+	"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL": "#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL",
+	"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR": "#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR",
+	"#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR": "#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR",
+	"#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR": "#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR",
+	"#VERCEL_SKIP": "#VERCEL_SKIP",
+	"#VERCEL_V0_MESSAGE": "#VERCEL_V0_MESSAGE",
+} as const;
+
+export type UserEventPayloadJobGitHashtagVercelEnumKey =
+	(typeof userEventPayloadJobGitHashtagVercelEnum)[keyof typeof userEventPayloadJobGitHashtagVercelEnum];
 
 export const userEventPayloadJobNsnbSideEffectActionEnum = {
 	"auto-approved-member": "auto-approved-member",
@@ -6663,6 +6689,7 @@ export const userEventTypeEnum = {
 	"connect-attach-project": "connect-attach-project",
 	"connect-bitbucket": "connect-bitbucket",
 	"connect-bitbucket-app": "connect-bitbucket-app",
+	"connect-branding-updated": "connect-branding-updated",
 	"connect-cancel-mcp-event-subscription": "connect-cancel-mcp-event-subscription",
 	"connect-configuration-created": "connect-configuration-created",
 	"connect-configuration-deleted": "connect-configuration-deleted",
@@ -8599,7 +8626,7 @@ export type UserEvent = {
 									 * @description Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING
 									 * @type array | undefined
 									 */
-									gitHashtagVercel?: string[] | undefined;
+									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnumKey[] | undefined;
 									headInfo: {
 										owner: string;
 										ref: string;
@@ -8743,7 +8770,7 @@ export type UserEvent = {
 									 * @description Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING
 									 * @type array | undefined
 									 */
-									gitHashtagVercel?: string[] | undefined;
+									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnumKey[] | undefined;
 									githubDeploymentId?: string | undefined;
 									/**
 									 * @description Information about the head commit/branch for a GitHub repository
@@ -8865,7 +8892,7 @@ export type UserEvent = {
 									 * @description Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING
 									 * @type array | undefined
 									 */
-									gitHashtagVercel?: string[] | undefined;
+									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnumKey[] | undefined;
 									githubDeploymentId?: string | undefined;
 									/**
 									 * @description Information about the head commit/branch for a GitHub repository
@@ -9012,7 +9039,7 @@ export type UserEvent = {
 									 * @description Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING
 									 * @type array | undefined
 									 */
-									gitHashtagVercel?: string[] | undefined;
+									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnumKey[] | undefined;
 									/**
 									 * @description GitLab
 									 * @type object
@@ -9164,7 +9191,7 @@ export type UserEvent = {
 									 * @description Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING
 									 * @type array | undefined
 									 */
-									gitHashtagVercel?: string[] | undefined;
+									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnumKey[] | undefined;
 									/**
 									 * @description Vercel
 									 * @type object
@@ -9282,7 +9309,7 @@ export type UserEvent = {
 									 * @description Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING
 									 * @type array | undefined
 									 */
-									gitHashtagVercel?: string[] | undefined;
+									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnumKey[] | undefined;
 									/**
 									 * @description Cursor Origin
 									 * @type object
@@ -13089,6 +13116,10 @@ export type UserEvent = {
 						} | null;
 				  }
 				| {
+						action: UserEventPayloadActionEnumKey;
+						targetId: string;
+				  }
+				| {
 						domain?: string | undefined;
 						enabled: false | true;
 				  }
@@ -14552,6 +14583,7 @@ export const listEventTypeNameEnum = {
 	"connect-attach-project": "connect-attach-project",
 	"connect-bitbucket": "connect-bitbucket",
 	"connect-bitbucket-app": "connect-bitbucket-app",
+	"connect-branding-updated": "connect-branding-updated",
 	"connect-cancel-mcp-event-subscription": "connect-cancel-mcp-event-subscription",
 	"connect-configuration-created": "connect-configuration-created",
 	"connect-configuration-deleted": "connect-configuration-deleted",
@@ -15315,6 +15347,7 @@ export const listEventTypeReplacedByEnum = {
 	"connect-attach-project": "connect-attach-project",
 	"connect-bitbucket": "connect-bitbucket",
 	"connect-bitbucket-app": "connect-bitbucket-app",
+	"connect-branding-updated": "connect-branding-updated",
 	"connect-cancel-mcp-event-subscription": "connect-cancel-mcp-event-subscription",
 	"connect-configuration-created": "connect-configuration-created",
 	"connect-configuration-deleted": "connect-configuration-deleted",
@@ -16029,6 +16062,13 @@ export type ListEventTypesResponse = {
 };
 
 export const cmpEnum = {
+	"!contains": "!contains",
+	"!endsWith": "!endsWith",
+	"!eq": "!eq",
+	"!ex": "!ex",
+	"!oneOf": "!oneOf",
+	"!regex": "!regex",
+	"!startsWith": "!startsWith",
 	after: "after",
 	before: "before",
 	contains: "contains",
@@ -16310,6 +16350,13 @@ export type MarketplaceFlag = {
 };
 
 export const segmentDataRulesConditionsCmpEnum = {
+	"!contains": "!contains",
+	"!endsWith": "!endsWith",
+	"!eq": "!eq",
+	"!ex": "!ex",
+	"!oneOf": "!oneOf",
+	"!regex": "!regex",
+	"!startsWith": "!startsWith",
 	after: "after",
 	before: "before",
 	contains: "contains",
@@ -32403,6 +32450,7 @@ export type GetDeploymentStatus200ConfigResourceConfigElasticConcurrencyEnumKey 
 	(typeof getDeploymentStatus200ConfigResourceConfigElasticConcurrencyEnum)[keyof typeof getDeploymentStatus200ConfigResourceConfigElasticConcurrencyEnum];
 
 export const getDeploymentStatus200ConfigResourceConfigBuildMachinePurchaseTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -32529,6 +32577,22 @@ export const getDeploymentStatus200MicrofrontendsMfeConfigUploadStateEnum = {
 export type GetDeploymentStatus200MicrofrontendsMfeConfigUploadStateEnumKey =
 	(typeof getDeploymentStatus200MicrofrontendsMfeConfigUploadStateEnum)[keyof typeof getDeploymentStatus200MicrofrontendsMfeConfigUploadStateEnum];
 
+export const getDeploymentStatus200NodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type GetDeploymentStatus200NodeVersionEnumKey =
+	(typeof getDeploymentStatus200NodeVersionEnum)[keyof typeof getDeploymentStatus200NodeVersionEnum];
+
 export const getDeploymentStatus200PlanEnum = {
 	enterprise: "enterprise",
 	hobby: "hobby",
@@ -32625,6 +32689,22 @@ export const getDeploymentStatus200ProjectSettingsFrameworkEnum = {
 
 export type GetDeploymentStatus200ProjectSettingsFrameworkEnumKey =
 	(typeof getDeploymentStatus200ProjectSettingsFrameworkEnum)[keyof typeof getDeploymentStatus200ProjectSettingsFrameworkEnum];
+
+export const getDeploymentStatus200ProjectSettingsNodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type GetDeploymentStatus200ProjectSettingsNodeVersionEnumKey =
+	(typeof getDeploymentStatus200ProjectSettingsNodeVersionEnum)[keyof typeof getDeploymentStatus200ProjectSettingsNodeVersionEnum];
 
 export const getDeploymentStatus200ReadySubstateEnum = {
 	PROMOTED: "PROMOTED",
@@ -32747,6 +32827,16 @@ export const getDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpG
 
 export type GetDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey =
 	(typeof getDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum)[keyof typeof getDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum];
+
+export const getDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum = {
+	"1Gi": "1Gi",
+	"2Gi": "2Gi",
+	"4Gi": "4Gi",
+	"8Gi": "8Gi",
+} as const;
+
+export type GetDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey =
+	(typeof getDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum)[keyof typeof getDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum];
 
 export const getDeploymentStatus200ServicesRoutePrefixSourceEnum = {
 	configured: "configured",
@@ -33985,7 +34075,7 @@ export type GetDeploymentStatus200 =
 			 * @description If set it overrides the `projectSettings.nodeVersion` for this deployment.
 			 * @type string | undefined
 			 */
-			nodeVersion?: string | undefined;
+			nodeVersion?: GetDeploymentStatus200NodeVersionEnumKey | undefined;
 			oidcTokenClaims?:
 				| {
 						aud: string;
@@ -34102,7 +34192,7 @@ export type GetDeploymentStatus200 =
 				devCommand?: (string | null) | undefined;
 				framework?: (GetDeploymentStatus200ProjectSettingsFrameworkEnumKey | null) | undefined;
 				installCommand?: (string | null) | undefined;
-				nodeVersion?: string | undefined;
+				nodeVersion?: GetDeploymentStatus200ProjectSettingsNodeVersionEnumKey | undefined;
 				outputDirectory?: (string | null) | undefined;
 				speedInsights?:
 					| {
@@ -34586,7 +34676,7 @@ export type GetDeploymentStatus200 =
 															resources?:
 																| {
 																		requests: {
-																			memory: string;
+																			memory: GetDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey;
 																		};
 																  }
 																| undefined;
@@ -34955,7 +35045,7 @@ export type GetDeploymentStatus200 =
 															resources?:
 																| {
 																		requests: {
-																			memory: string;
+																			memory: GetDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey;
 																		};
 																  }
 																| undefined;
@@ -36360,7 +36450,7 @@ export type GetDeploymentStatus200 =
 			 * @description If set it overrides the `projectSettings.nodeVersion` for this deployment.
 			 * @type string | undefined
 			 */
-			nodeVersion?: string | undefined;
+			nodeVersion?: GetDeploymentStatus200NodeVersionEnumKey | undefined;
 			oidcTokenClaims?:
 				| {
 						aud: string;
@@ -36527,19 +36617,35 @@ export type GetDeploymentResponses = {
  */
 export type GetDeploymentResponse = GetDeploymentStatus200;
 
+export const createDeploymentForceNew = {
+	"0": "0",
+	"1": "1",
+} as const;
+
+export type CreateDeploymentForceNewKey =
+	(typeof createDeploymentForceNew)[keyof typeof createDeploymentForceNew];
+
+export const createDeploymentSkipAutoDetectionConfirmation = {
+	"0": "0",
+	"1": "1",
+} as const;
+
+export type CreateDeploymentSkipAutoDetectionConfirmationKey =
+	(typeof createDeploymentSkipAutoDetectionConfirmation)[keyof typeof createDeploymentSkipAutoDetectionConfirmation];
+
 export type CreateDeploymentQuery = {
 	/**
 	 * @description Forces a new deployment even if there is a previous similar deployment. Set to `1` to bypass deployment deduplication and always trigger a fresh build.
 	 * @example 1
-	 * @type unknown | undefined
+	 * @type string | undefined
 	 */
-	forceNew?: unknown | undefined;
+	forceNew?: CreateDeploymentForceNewKey | undefined;
 	/**
 	 * @description Set to `1` to skip framework auto-detection and proceed without confirmation. By default, if Vercel detects a framework that differs from the project setting, the API returns a `400` asking you to confirm. Use this to suppress that check in automated pipelines.
 	 * @example 1
-	 * @type unknown | undefined
+	 * @type string | undefined
 	 */
-	skipAutoDetectionConfirmation?: unknown | undefined;
+	skipAutoDetectionConfirmation?: CreateDeploymentSkipAutoDetectionConfirmationKey | undefined;
 	/**
 	 * @description The Team identifier to perform the request on behalf of.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
@@ -36657,6 +36763,7 @@ export type CreateDeploymentStatus200ConfigResourceConfigElasticConcurrencyEnumK
 	(typeof createDeploymentStatus200ConfigResourceConfigElasticConcurrencyEnum)[keyof typeof createDeploymentStatus200ConfigResourceConfigElasticConcurrencyEnum];
 
 export const createDeploymentStatus200ConfigResourceConfigBuildMachinePurchaseTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -36776,6 +36883,22 @@ export const createDeploymentStatus200MicrofrontendsMfeConfigUploadStateEnum = {
 export type CreateDeploymentStatus200MicrofrontendsMfeConfigUploadStateEnumKey =
 	(typeof createDeploymentStatus200MicrofrontendsMfeConfigUploadStateEnum)[keyof typeof createDeploymentStatus200MicrofrontendsMfeConfigUploadStateEnum];
 
+export const createDeploymentStatus200NodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type CreateDeploymentStatus200NodeVersionEnumKey =
+	(typeof createDeploymentStatus200NodeVersionEnum)[keyof typeof createDeploymentStatus200NodeVersionEnum];
+
 export const createDeploymentStatus200PlanEnum = {
 	enterprise: "enterprise",
 	hobby: "hobby",
@@ -36872,6 +36995,22 @@ export const createDeploymentStatus200ProjectSettingsFrameworkEnum = {
 
 export type CreateDeploymentStatus200ProjectSettingsFrameworkEnumKey =
 	(typeof createDeploymentStatus200ProjectSettingsFrameworkEnum)[keyof typeof createDeploymentStatus200ProjectSettingsFrameworkEnum];
+
+export const createDeploymentStatus200ProjectSettingsNodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type CreateDeploymentStatus200ProjectSettingsNodeVersionEnumKey =
+	(typeof createDeploymentStatus200ProjectSettingsNodeVersionEnum)[keyof typeof createDeploymentStatus200ProjectSettingsNodeVersionEnum];
 
 export const createDeploymentStatus200ReadySubstateEnum = {
 	PROMOTED: "PROMOTED",
@@ -36994,6 +37133,16 @@ export const createDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHt
 
 export type CreateDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey =
 	(typeof createDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum)[keyof typeof createDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum];
+
+export const createDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum = {
+	"1Gi": "1Gi",
+	"2Gi": "2Gi",
+	"4Gi": "4Gi",
+	"8Gi": "8Gi",
+} as const;
+
+export type CreateDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey =
+	(typeof createDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum)[keyof typeof createDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum];
 
 export const createDeploymentStatus200ServicesRoutePrefixSourceEnum = {
 	configured: "configured",
@@ -38234,7 +38383,7 @@ export type CreateDeploymentStatus200 =
 			 * @description If set it overrides the `projectSettings.nodeVersion` for this deployment.
 			 * @type string | undefined
 			 */
-			nodeVersion?: string | undefined;
+			nodeVersion?: CreateDeploymentStatus200NodeVersionEnumKey | undefined;
 			oidcTokenClaims?:
 				| {
 						aud: string;
@@ -38351,7 +38500,7 @@ export type CreateDeploymentStatus200 =
 				devCommand?: (string | null) | undefined;
 				framework?: (CreateDeploymentStatus200ProjectSettingsFrameworkEnumKey | null) | undefined;
 				installCommand?: (string | null) | undefined;
-				nodeVersion?: string | undefined;
+				nodeVersion?: CreateDeploymentStatus200ProjectSettingsNodeVersionEnumKey | undefined;
 				outputDirectory?: (string | null) | undefined;
 				speedInsights?:
 					| {
@@ -38835,7 +38984,7 @@ export type CreateDeploymentStatus200 =
 															resources?:
 																| {
 																		requests: {
-																			memory: string;
+																			memory: CreateDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey;
 																		};
 																  }
 																| undefined;
@@ -39204,7 +39353,7 @@ export type CreateDeploymentStatus200 =
 															resources?:
 																| {
 																		requests: {
-																			memory: string;
+																			memory: CreateDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey;
 																		};
 																  }
 																| undefined;
@@ -40235,6 +40384,22 @@ export const createDeploymentRequestProjectSettingsFrameworkEnum = {
 export type CreateDeploymentRequestProjectSettingsFrameworkEnumKey =
 	(typeof createDeploymentRequestProjectSettingsFrameworkEnum)[keyof typeof createDeploymentRequestProjectSettingsFrameworkEnum];
 
+export const createDeploymentRequestProjectSettingsNodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type CreateDeploymentRequestProjectSettingsNodeVersionEnumKey =
+	(typeof createDeploymentRequestProjectSettingsNodeVersionEnum)[keyof typeof createDeploymentRequestProjectSettingsNodeVersionEnum];
+
 export type CreateDeploymentBody = {
 	/**
 	 * @description Selects a custom build machine for this deployment without changing project settings.
@@ -40647,7 +40812,7 @@ export type CreateDeploymentBody = {
 				 * @description Override the Node.js version that should be used for this deployment
 				 * @type string | undefined
 				 */
-				nodeVersion?: string | undefined;
+				nodeVersion?: CreateDeploymentRequestProjectSettingsNodeVersionEnumKey | undefined;
 				/**
 				 * @description The output directory of the project. When `null` is used this value will be automatically detected
 				 * @maxLength 256
@@ -40825,6 +40990,7 @@ export type CancelDeploymentStatus200ConfigResourceConfigElasticConcurrencyEnumK
 	(typeof cancelDeploymentStatus200ConfigResourceConfigElasticConcurrencyEnum)[keyof typeof cancelDeploymentStatus200ConfigResourceConfigElasticConcurrencyEnum];
 
 export const cancelDeploymentStatus200ConfigResourceConfigBuildMachinePurchaseTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -40944,6 +41110,22 @@ export const cancelDeploymentStatus200MicrofrontendsMfeConfigUploadStateEnum = {
 export type CancelDeploymentStatus200MicrofrontendsMfeConfigUploadStateEnumKey =
 	(typeof cancelDeploymentStatus200MicrofrontendsMfeConfigUploadStateEnum)[keyof typeof cancelDeploymentStatus200MicrofrontendsMfeConfigUploadStateEnum];
 
+export const cancelDeploymentStatus200NodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type CancelDeploymentStatus200NodeVersionEnumKey =
+	(typeof cancelDeploymentStatus200NodeVersionEnum)[keyof typeof cancelDeploymentStatus200NodeVersionEnum];
+
 export const cancelDeploymentStatus200PlanEnum = {
 	enterprise: "enterprise",
 	hobby: "hobby",
@@ -41040,6 +41222,22 @@ export const cancelDeploymentStatus200ProjectSettingsFrameworkEnum = {
 
 export type CancelDeploymentStatus200ProjectSettingsFrameworkEnumKey =
 	(typeof cancelDeploymentStatus200ProjectSettingsFrameworkEnum)[keyof typeof cancelDeploymentStatus200ProjectSettingsFrameworkEnum];
+
+export const cancelDeploymentStatus200ProjectSettingsNodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type CancelDeploymentStatus200ProjectSettingsNodeVersionEnumKey =
+	(typeof cancelDeploymentStatus200ProjectSettingsNodeVersionEnum)[keyof typeof cancelDeploymentStatus200ProjectSettingsNodeVersionEnum];
 
 export const cancelDeploymentStatus200ReadyStateEnum = {
 	BLOCKED: "BLOCKED",
@@ -41175,6 +41373,16 @@ export const cancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHt
 
 export type CancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey =
 	(typeof cancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum)[keyof typeof cancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum];
+
+export const cancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum = {
+	"1Gi": "1Gi",
+	"2Gi": "2Gi",
+	"4Gi": "4Gi",
+	"8Gi": "8Gi",
+} as const;
+
+export type CancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey =
+	(typeof cancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum)[keyof typeof cancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum];
 
 export const cancelDeploymentStatus200ServicesRoutePrefixSourceEnum = {
 	configured: "configured",
@@ -42344,7 +42552,7 @@ export type CancelDeploymentStatus200 = {
 	 * @description If set it overrides the `projectSettings.nodeVersion` for this deployment.
 	 * @type string | undefined
 	 */
-	nodeVersion?: string | undefined;
+	nodeVersion?: CancelDeploymentStatus200NodeVersionEnumKey | undefined;
 	oidcTokenClaims?:
 		| {
 				aud: string;
@@ -42461,7 +42669,7 @@ export type CancelDeploymentStatus200 = {
 		devCommand?: (string | null) | undefined;
 		framework?: (CancelDeploymentStatus200ProjectSettingsFrameworkEnumKey | null) | undefined;
 		installCommand?: (string | null) | undefined;
-		nodeVersion?: string | undefined;
+		nodeVersion?: CancelDeploymentStatus200ProjectSettingsNodeVersionEnumKey | undefined;
 		outputDirectory?: (string | null) | undefined;
 		speedInsights?:
 			| {
@@ -42945,7 +43153,7 @@ export type CancelDeploymentStatus200 = {
 													resources?:
 														| {
 																requests: {
-																	memory: string;
+																	memory: CancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey;
 																};
 														  }
 														| undefined;
@@ -43314,7 +43522,7 @@ export type CancelDeploymentStatus200 = {
 													resources?:
 														| {
 																requests: {
-																	memory: string;
+																	memory: CancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey;
 																};
 														  }
 														| undefined;
@@ -49018,7 +49226,7 @@ export type GetAllLogDrainsStatus200 =
 									 */
 									failures: number;
 									state: GetAllLogDrainsStatus200DrainsDeliveryStatsStateEnumKey;
-									window: string;
+									window: "24h";
 							  }
 							| undefined;
 						filterV2?:
@@ -49178,7 +49386,7 @@ export type GetAllLogDrainsStatus200 =
 									 */
 									failures: number;
 									state: GetAllLogDrainsStatus200DrainsDeliveryStatsStateEnumKey;
-									window: string;
+									window: "24h";
 							  }
 							| undefined;
 						filterV2?:
@@ -49626,7 +49834,7 @@ export type CreateDrainStatus200 =
 						 */
 						failures: number;
 						state: CreateDrainStatus200DeliveryStatsStateEnumKey;
-						window: string;
+						window: "24h";
 				  }
 				| undefined;
 			filterV2?:
@@ -49782,7 +49990,7 @@ export type CreateDrainStatus200 =
 						 */
 						failures: number;
 						state: CreateDrainStatus200DeliveryStatsStateEnumKey;
-						window: string;
+						window: "24h";
 				  }
 				| undefined;
 			filterV2?:
@@ -50341,7 +50549,7 @@ export type GetDrainsStatus200 = {
 							 */
 							failures: number;
 							state: GetDrainsStatus200DrainsDeliveryStatsStateEnumKey;
-							window: string;
+							window: "24h";
 					  }
 					| undefined;
 				filterV2?:
@@ -50499,7 +50707,7 @@ export type GetDrainsStatus200 = {
 							 */
 							failures: number;
 							state: GetDrainsStatus200DrainsDeliveryStatsStateEnumKey;
-							window: string;
+							window: "24h";
 					  }
 					| undefined;
 				filterV2?:
@@ -50880,7 +51088,7 @@ export type GetDrainStatus200 = {
 				 */
 				failures: number;
 				state: GetDrainStatus200DeliveryStatsStateEnumKey;
-				window: string;
+				window: "24h";
 		  }
 		| undefined;
 	filterV2?:
@@ -51195,7 +51403,7 @@ export type UpdateDrainStatus200 =
 						 */
 						failures: number;
 						state: UpdateDrainStatus200DeliveryStatsStateEnumKey;
-						window: string;
+						window: "24h";
 				  }
 				| undefined;
 			filterV2?:
@@ -51351,7 +51559,7 @@ export type UpdateDrainStatus200 =
 						 */
 						failures: number;
 						state: UpdateDrainStatus200DeliveryStatsStateEnumKey;
-						window: string;
+						window: "24h";
 				  }
 				| undefined;
 			filterV2?:
@@ -57641,6 +57849,13 @@ export type CreateFlagSegmentQuery = {
 };
 
 export const createFlagSegmentStatus201DataRulesConditionsCmpEnum = {
+	"!contains": "!contains",
+	"!endsWith": "!endsWith",
+	"!eq": "!eq",
+	"!ex": "!ex",
+	"!oneOf": "!oneOf",
+	"!regex": "!regex",
+	"!startsWith": "!startsWith",
 	after: "after",
 	before: "before",
 	contains: "contains",
@@ -57792,6 +58007,13 @@ export type CreateFlagSegmentStatus409 = unknown;
 export type CreateFlagSegmentStatus410 = unknown;
 
 export const createFlagSegmentRequestDataRulesConditionsCmpEnum = {
+	"!contains": "!contains",
+	"!endsWith": "!endsWith",
+	"!eq": "!eq",
+	"!ex": "!ex",
+	"!oneOf": "!oneOf",
+	"!regex": "!regex",
+	"!startsWith": "!startsWith",
 	after: "after",
 	before: "before",
 	contains: "contains",
@@ -58194,6 +58416,13 @@ export type UpdateFlagSegmentQuery = {
 };
 
 export const updateFlagSegmentStatus200DataRulesConditionsCmpEnum = {
+	"!contains": "!contains",
+	"!endsWith": "!endsWith",
+	"!eq": "!eq",
+	"!ex": "!ex",
+	"!oneOf": "!oneOf",
+	"!regex": "!regex",
+	"!startsWith": "!startsWith",
 	after: "after",
 	before: "before",
 	contains: "contains",
@@ -58363,6 +58592,13 @@ export type UpdateFlagSegmentRequestOperationsFieldEnumKey =
 	(typeof updateFlagSegmentRequestOperationsFieldEnum)[keyof typeof updateFlagSegmentRequestOperationsFieldEnum];
 
 export const updateFlagSegmentRequestDataRulesConditionsCmpEnum = {
+	"!contains": "!contains",
+	"!endsWith": "!endsWith",
+	"!eq": "!eq",
+	"!ex": "!ex",
+	"!oneOf": "!oneOf",
+	"!regex": "!regex",
+	"!startsWith": "!startsWith",
 	after: "after",
 	before: "before",
 	contains: "contains",
@@ -67204,6 +67440,7 @@ export type GetMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildM
 	(typeof getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineSelectionEnum];
 
 export const getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -67517,6 +67754,22 @@ export const getMicrofrontendsInGroupStatus200ProjectsLatestDeploymentsReadySubs
 export type GetMicrofrontendsInGroupStatus200ProjectsLatestDeploymentsReadySubstateEnumKey =
 	(typeof getMicrofrontendsInGroupStatus200ProjectsLatestDeploymentsReadySubstateEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsLatestDeploymentsReadySubstateEnum];
 
+export const getMicrofrontendsInGroupStatus200ProjectsNodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type GetMicrofrontendsInGroupStatus200ProjectsNodeVersionEnumKey =
+	(typeof getMicrofrontendsInGroupStatus200ProjectsNodeVersionEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsNodeVersionEnum];
+
 export const getMicrofrontendsInGroupStatus200ProjectsOidcTokenConfigIssuerModeEnum = {
 	global: "global",
 	team: "team",
@@ -67580,6 +67833,7 @@ export type GetMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineS
 	(typeof getMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineSelectionEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineSelectionEnum];
 
 export const getMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -68373,7 +68627,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 						  }
 						| {
 								cores: 14;
-								label: string;
+								label: "14cpu-28gb";
 								memory: 28672;
 						  }
 						| {
@@ -69179,7 +69433,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 			  )
 			| undefined;
 		name: string;
-		nodeVersion: string;
+		nodeVersion: GetMicrofrontendsInGroupStatus200ProjectsNodeVersionEnumKey;
 		oidcTokenConfig?:
 			| {
 					/**
@@ -70796,7 +71050,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 						  }
 						| {
 								cores: 14;
-								label: string;
+								label: "14cpu-28gb";
 								memory: 28672;
 						  }
 						| {
@@ -70982,7 +71236,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					firewallUpdatedAt?: number | undefined;
 					ja3Enabled?: (false | true) | undefined;
 					ja4Enabled?: (false | true) | undefined;
-					log_headers?: (string[] | string) | undefined;
+					log_headers?: (string[] | "*") | undefined;
 					managedRules?:
 						| ({
 								ai_bots: {
@@ -71028,7 +71282,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 									action: ActionEnumKey;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
-									logHeaders?: (string[] | string) | undefined;
+									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
 												action?: (ActionEnumKey | null) | undefined;
@@ -71566,7 +71820,7 @@ export type GetMicrofrontendsConfigStatus200 = {
 		 * @description The version of the microfrontends config schema.
 		 * @type string | undefined
 		 */
-		version?: string | undefined;
+		version?: "1" | undefined;
 	} | null;
 };
 
@@ -71741,7 +71995,7 @@ export type GetMicrofrontendsConfigForProjectStatus200 = {
 		 * @description The version of the microfrontends config schema.
 		 * @type string | undefined
 		 */
-		version?: string | undefined;
+		version?: "1" | undefined;
 	} | null;
 };
 
@@ -75866,6 +76120,30 @@ export type UpdateRouteVersionsResponses = {
  */
 export type UpdateRouteVersionsResponse = UpdateRouteVersionsStatus200;
 
+export const getProjectsGitForkProtection = {
+	"1": "1",
+	"0": "0",
+} as const;
+
+export type GetProjectsGitForkProtectionKey =
+	(typeof getProjectsGitForkProtection)[keyof typeof getProjectsGitForkProtection];
+
+export const getProjectsElasticConcurrencyEnabled = {
+	"1": "1",
+	"0": "0",
+} as const;
+
+export type GetProjectsElasticConcurrencyEnabledKey =
+	(typeof getProjectsElasticConcurrencyEnabled)[keyof typeof getProjectsElasticConcurrencyEnabled];
+
+export const getProjectsStaticIpsEnabled = {
+	"0": "0",
+	"1": "1",
+} as const;
+
+export type GetProjectsStaticIpsEnabledKey =
+	(typeof getProjectsStaticIpsEnabled)[keyof typeof getProjectsStaticIpsEnabled];
+
 export const getProjectsBuildQueueConfiguration = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -75897,7 +76175,7 @@ export type GetProjectsQuery = {
 	 * @example 1
 	 * @type string | undefined
 	 */
-	gitForkProtection?: string | undefined;
+	gitForkProtection?: GetProjectsGitForkProtectionKey | undefined;
 	/**
 	 * @description Limit the number of projects returned
 	 * @type string | undefined
@@ -75946,13 +76224,13 @@ export type GetProjectsQuery = {
 	 * @example 1
 	 * @type string | undefined
 	 */
-	elasticConcurrencyEnabled?: string | undefined;
+	elasticConcurrencyEnabled?: GetProjectsElasticConcurrencyEnabledKey | undefined;
 	/**
 	 * @description Filter results by projects with Static IPs enabled
 	 * @example 1
 	 * @type string | undefined
 	 */
-	staticIpsEnabled?: string | undefined;
+	staticIpsEnabled?: GetProjectsStaticIpsEnabledKey | undefined;
 	/**
 	 * @description Filter results by effective build machine types. Accepts comma-separated values. Use \\\"elastic\\\" for projects with elastic selection and \\\"default\\\" for projects without a build machine type set.
 	 * @example default,enhanced
@@ -76275,6 +76553,22 @@ export const getProjectsStatus200LatestDeploymentsReadySubstateEnum = {
 export type GetProjectsStatus200LatestDeploymentsReadySubstateEnumKey =
 	(typeof getProjectsStatus200LatestDeploymentsReadySubstateEnum)[keyof typeof getProjectsStatus200LatestDeploymentsReadySubstateEnum];
 
+export const getProjectsStatus200NodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type GetProjectsStatus200NodeVersionEnumKey =
+	(typeof getProjectsStatus200NodeVersionEnum)[keyof typeof getProjectsStatus200NodeVersionEnum];
+
 export const getProjectsStatus200OidcTokenConfigIssuerModeEnum = {
 	global: "global",
 	team: "team",
@@ -76326,6 +76620,7 @@ export type GetProjectsStatus200ResourceConfigBuildMachineSelectionEnumKey =
 	(typeof getProjectsStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof getProjectsStatus200ResourceConfigBuildMachineSelectionEnum];
 
 export const getProjectsStatus200ResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -76802,6 +77097,22 @@ export const getProjectsStatus200ProjectsLatestDeploymentsReadySubstateEnum = {
 export type GetProjectsStatus200ProjectsLatestDeploymentsReadySubstateEnumKey =
 	(typeof getProjectsStatus200ProjectsLatestDeploymentsReadySubstateEnum)[keyof typeof getProjectsStatus200ProjectsLatestDeploymentsReadySubstateEnum];
 
+export const getProjectsStatus200ProjectsNodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type GetProjectsStatus200ProjectsNodeVersionEnumKey =
+	(typeof getProjectsStatus200ProjectsNodeVersionEnum)[keyof typeof getProjectsStatus200ProjectsNodeVersionEnum];
+
 export const getProjectsStatus200ProjectsOidcTokenConfigIssuerModeEnum = {
 	global: "global",
 	team: "team",
@@ -76854,6 +77165,7 @@ export type GetProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnumK
 	(typeof getProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum)[keyof typeof getProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum];
 
 export const getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -77097,6 +77409,7 @@ export type GetProjectsStatus200ProjectsDefaultResourceConfigBuildMachineSelecti
 	(typeof getProjectsStatus200ProjectsDefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof getProjectsStatus200ProjectsDefaultResourceConfigBuildMachineSelectionEnum];
 
 export const getProjectsStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -78155,7 +78468,7 @@ export type GetProjectsStatus200 =
 						| undefined;
 					live?: (false | true) | undefined;
 					name: string;
-					nodeVersion: string;
+					nodeVersion: GetProjectsStatus200NodeVersionEnumKey;
 					oidcTokenConfig?:
 						| {
 								/**
@@ -78228,7 +78541,7 @@ export type GetProjectsStatus200 =
 									  }
 									| {
 											cores: 14;
-											label: string;
+											label: "14cpu-28gb";
 											memory: 28672;
 									  }
 									| {
@@ -78439,7 +78752,7 @@ export type GetProjectsStatus200 =
 																	window: number;
 															  }
 															| undefined;
-														log_headers?: (string[] | string) | undefined;
+														log_headers?: (string[] | "*") | undefined;
 														rule_id: string;
 														ttl?: number | undefined;
 												  }
@@ -78506,7 +78819,7 @@ export type GetProjectsStatus200 =
 								firewallUpdatedAt?: number | undefined;
 								ja3Enabled?: (false | true) | undefined;
 								ja4Enabled?: (false | true) | undefined;
-								log_headers?: (string[] | string) | undefined;
+								log_headers?: (string[] | "*") | undefined;
 								managedRules?:
 									| ({
 											ai_bots: {
@@ -78553,7 +78866,7 @@ export type GetProjectsStatus200 =
 												action: ActionEnumKey;
 												actionDuration?: (string | null) | undefined;
 												bypassSystem?: ((false | true) | null) | undefined;
-												logHeaders?: (string[] | string) | undefined;
+												logHeaders?: (string[] | "*") | undefined;
 												rateLimit?:
 													| ({
 															algo: AlgoEnumKey;
@@ -79592,7 +79905,7 @@ export type GetProjectsStatus200 =
 							| undefined;
 						live?: (false | true) | undefined;
 						name: string;
-						nodeVersion: string;
+						nodeVersion: GetProjectsStatus200ProjectsNodeVersionEnumKey;
 						oidcTokenConfig?:
 							| {
 									/**
@@ -79667,7 +79980,7 @@ export type GetProjectsStatus200 =
 										  }
 										| {
 												cores: 14;
-												label: string;
+												label: "14cpu-28gb";
 												memory: 28672;
 										  }
 										| {
@@ -79880,7 +80193,7 @@ export type GetProjectsStatus200 =
 																		window: number;
 																  }
 																| undefined;
-															log_headers?: (string[] | string) | undefined;
+															log_headers?: (string[] | "*") | undefined;
 															rule_id: string;
 															ttl?: number | undefined;
 													  }
@@ -79947,7 +80260,7 @@ export type GetProjectsStatus200 =
 									firewallUpdatedAt?: number | undefined;
 									ja3Enabled?: (false | true) | undefined;
 									ja4Enabled?: (false | true) | undefined;
-									log_headers?: (string[] | string) | undefined;
+									log_headers?: (string[] | "*") | undefined;
 									managedRules?:
 										| ({
 												ai_bots: {
@@ -79994,7 +80307,7 @@ export type GetProjectsStatus200 =
 													action: ActionEnumKey;
 													actionDuration?: (string | null) | undefined;
 													bypassSystem?: ((false | true) | null) | undefined;
-													logHeaders?: (string[] | string) | undefined;
+													logHeaders?: (string[] | "*") | undefined;
 													rateLimit?:
 														| ({
 																algo: AlgoEnumKey;
@@ -80710,7 +81023,7 @@ export type GetProjectsStatus200 =
 										  }
 										| {
 												cores: 14;
-												label: string;
+												label: "14cpu-28gb";
 												memory: 28672;
 										  }
 										| {
@@ -81513,7 +81826,7 @@ export type GetProjectsStatus200 =
 							  )
 							| undefined;
 						name: string;
-						nodeVersion: string;
+						nodeVersion: GetProjectsStatus200ProjectsNodeVersionEnumKey;
 						oidcTokenConfig?:
 							| {
 									/**
@@ -83130,7 +83443,7 @@ export type GetProjectsStatus200 =
 										  }
 										| {
 												cores: 14;
-												label: string;
+												label: "14cpu-28gb";
 												memory: 28672;
 										  }
 										| {
@@ -83316,7 +83629,7 @@ export type GetProjectsStatus200 =
 									firewallUpdatedAt?: number | undefined;
 									ja3Enabled?: (false | true) | undefined;
 									ja4Enabled?: (false | true) | undefined;
-									log_headers?: (string[] | string) | undefined;
+									log_headers?: (string[] | "*") | undefined;
 									managedRules?:
 										| ({
 												ai_bots: {
@@ -83362,7 +83675,7 @@ export type GetProjectsStatus200 =
 													action: ActionEnumKey;
 													actionDuration?: (string | null) | undefined;
 													bypassSystem?: ((false | true) | null) | undefined;
-													logHeaders?: (string[] | string) | undefined;
+													logHeaders?: (string[] | "*") | undefined;
 													rateLimit?:
 														| ({
 																algo: AlgoEnumKey;
@@ -84051,6 +84364,7 @@ export type CreateProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum
 	(typeof createProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof createProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum];
 
 export const createProjectStatus200DefaultResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -84358,6 +84672,22 @@ export const createProjectStatus200LatestDeploymentsReadySubstateEnum = {
 export type CreateProjectStatus200LatestDeploymentsReadySubstateEnumKey =
 	(typeof createProjectStatus200LatestDeploymentsReadySubstateEnum)[keyof typeof createProjectStatus200LatestDeploymentsReadySubstateEnum];
 
+export const createProjectStatus200NodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type CreateProjectStatus200NodeVersionEnumKey =
+	(typeof createProjectStatus200NodeVersionEnum)[keyof typeof createProjectStatus200NodeVersionEnum];
+
 export const createProjectStatus200OidcTokenConfigIssuerModeEnum = {
 	global: "global",
 	team: "team",
@@ -84419,6 +84749,7 @@ export type CreateProjectStatus200ResourceConfigBuildMachineSelectionEnumKey =
 	(typeof createProjectStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof createProjectStatus200ResourceConfigBuildMachineSelectionEnum];
 
 export const createProjectStatus200ResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -85141,7 +85472,7 @@ export type CreateProjectStatus200 = {
 					  }
 					| {
 							cores: 14;
-							label: string;
+							label: "14cpu-28gb";
 							memory: 28672;
 					  }
 					| {
@@ -85934,7 +86265,7 @@ export type CreateProjectStatus200 = {
 		  )
 		| undefined;
 	name: string;
-	nodeVersion: string;
+	nodeVersion: CreateProjectStatus200NodeVersionEnumKey;
 	oidcTokenConfig?:
 		| {
 				/**
@@ -87547,7 +87878,7 @@ export type CreateProjectStatus200 = {
 					  }
 					| {
 							cores: 14;
-							label: string;
+							label: "14cpu-28gb";
 							memory: 28672;
 					  }
 					| {
@@ -87731,7 +88062,7 @@ export type CreateProjectStatus200 = {
 				firewallUpdatedAt?: number | undefined;
 				ja3Enabled?: (false | true) | undefined;
 				ja4Enabled?: (false | true) | undefined;
-				log_headers?: (string[] | string) | undefined;
+				log_headers?: (string[] | "*") | undefined;
 				managedRules?:
 					| ({
 							ai_bots: {
@@ -87773,7 +88104,7 @@ export type CreateProjectStatus200 = {
 								action: ActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											algo: AlgoEnumKey;
@@ -89018,6 +89349,7 @@ export type GetProjectStatus200DefaultResourceConfigBuildMachineSelectionEnumKey
 	(typeof getProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof getProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum];
 
 export const getProjectStatus200DefaultResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -89325,6 +89657,22 @@ export const getProjectStatus200LatestDeploymentsReadySubstateEnum = {
 export type GetProjectStatus200LatestDeploymentsReadySubstateEnumKey =
 	(typeof getProjectStatus200LatestDeploymentsReadySubstateEnum)[keyof typeof getProjectStatus200LatestDeploymentsReadySubstateEnum];
 
+export const getProjectStatus200NodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type GetProjectStatus200NodeVersionEnumKey =
+	(typeof getProjectStatus200NodeVersionEnum)[keyof typeof getProjectStatus200NodeVersionEnum];
+
 export const getProjectStatus200OidcTokenConfigIssuerModeEnum = {
 	global: "global",
 	team: "team",
@@ -89386,6 +89734,7 @@ export type GetProjectStatus200ResourceConfigBuildMachineSelectionEnumKey =
 	(typeof getProjectStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof getProjectStatus200ResourceConfigBuildMachineSelectionEnum];
 
 export const getProjectStatus200ResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -90105,7 +90454,7 @@ export type GetProjectStatus200 = {
 					  }
 					| {
 							cores: 14;
-							label: string;
+							label: "14cpu-28gb";
 							memory: 28672;
 					  }
 					| {
@@ -90915,7 +91264,7 @@ export type GetProjectStatus200 = {
 		  )
 		| undefined;
 	name: string;
-	nodeVersion: string;
+	nodeVersion: GetProjectStatus200NodeVersionEnumKey;
 	oidcTokenConfig?:
 		| {
 				/**
@@ -92528,7 +92877,7 @@ export type GetProjectStatus200 = {
 					  }
 					| {
 							cores: 14;
-							label: string;
+							label: "14cpu-28gb";
 							memory: 28672;
 					  }
 					| {
@@ -92712,7 +93061,7 @@ export type GetProjectStatus200 = {
 				firewallUpdatedAt?: number | undefined;
 				ja3Enabled?: (false | true) | undefined;
 				ja4Enabled?: (false | true) | undefined;
-				log_headers?: (string[] | string) | undefined;
+				log_headers?: (string[] | "*") | undefined;
 				managedRules?:
 					| ({
 							ai_bots: {
@@ -92752,7 +93101,7 @@ export type GetProjectStatus200 = {
 								action: ActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											algo: AlgoEnumKey;
@@ -93335,6 +93684,7 @@ export type UpdateProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum
 	(typeof updateProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof updateProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum];
 
 export const updateProjectStatus200DefaultResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -93633,6 +93983,22 @@ export const updateProjectStatus200LatestDeploymentsReadySubstateEnum = {
 export type UpdateProjectStatus200LatestDeploymentsReadySubstateEnumKey =
 	(typeof updateProjectStatus200LatestDeploymentsReadySubstateEnum)[keyof typeof updateProjectStatus200LatestDeploymentsReadySubstateEnum];
 
+export const updateProjectStatus200NodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type UpdateProjectStatus200NodeVersionEnumKey =
+	(typeof updateProjectStatus200NodeVersionEnum)[keyof typeof updateProjectStatus200NodeVersionEnum];
+
 export const updateProjectStatus200OidcTokenConfigIssuerModeEnum = {
 	global: "global",
 	team: "team",
@@ -93694,6 +94060,7 @@ export type UpdateProjectStatus200ResourceConfigBuildMachineSelectionEnumKey =
 	(typeof updateProjectStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof updateProjectStatus200ResourceConfigBuildMachineSelectionEnum];
 
 export const updateProjectStatus200ResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -94416,7 +94783,7 @@ export type UpdateProjectStatus200 = {
 					  }
 					| {
 							cores: 14;
-							label: string;
+							label: "14cpu-28gb";
 							memory: 28672;
 					  }
 					| {
@@ -95207,7 +95574,7 @@ export type UpdateProjectStatus200 = {
 		  )
 		| undefined;
 	name: string;
-	nodeVersion: string;
+	nodeVersion: UpdateProjectStatus200NodeVersionEnumKey;
 	oidcTokenConfig?:
 		| {
 				/**
@@ -96820,7 +97187,7 @@ export type UpdateProjectStatus200 = {
 					  }
 					| {
 							cores: 14;
-							label: string;
+							label: "14cpu-28gb";
 							memory: 28672;
 					  }
 					| {
@@ -97004,7 +97371,7 @@ export type UpdateProjectStatus200 = {
 				firewallUpdatedAt?: number | undefined;
 				ja3Enabled?: (false | true) | undefined;
 				ja4Enabled?: (false | true) | undefined;
-				log_headers?: (string[] | string) | undefined;
+				log_headers?: (string[] | "*") | undefined;
 				managedRules?:
 					| ({
 							ai_bots: {
@@ -97046,7 +97413,7 @@ export type UpdateProjectStatus200 = {
 								action: ActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											algo: AlgoEnumKey;
@@ -97508,6 +97875,21 @@ export const updateProjectRequestFrameworkEnum = {
 export type UpdateProjectRequestFrameworkEnumKey =
 	(typeof updateProjectRequestFrameworkEnum)[keyof typeof updateProjectRequestFrameworkEnum];
 
+export const updateProjectRequestNodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+} as const;
+
+export type UpdateProjectRequestNodeVersionEnumKey =
+	(typeof updateProjectRequestNodeVersionEnum)[keyof typeof updateProjectRequestNodeVersionEnum];
+
 export const updateProjectRequestResourceConfigBuildMachineTypeEnum = {
 	basic: "basic",
 	elastic: "elastic",
@@ -97789,7 +98171,7 @@ export type UpdateProjectBody = {
 	 * @type string | undefined
 	 */
 	name?: string | undefined;
-	nodeVersion?: string | undefined;
+	nodeVersion?: UpdateProjectRequestNodeVersionEnumKey | undefined;
 	/**
 	 * @description The output directory of the project. When `null` is used this value will be automatically detected
 	 * @maxLength 256
@@ -98605,6 +98987,7 @@ export type UploadProjectAvatarStatus200DefaultResourceConfigBuildMachineSelecti
 	(typeof uploadProjectAvatarStatus200DefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof uploadProjectAvatarStatus200DefaultResourceConfigBuildMachineSelectionEnum];
 
 export const uploadProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -98912,6 +99295,22 @@ export const uploadProjectAvatarStatus200LatestDeploymentsReadySubstateEnum = {
 export type UploadProjectAvatarStatus200LatestDeploymentsReadySubstateEnumKey =
 	(typeof uploadProjectAvatarStatus200LatestDeploymentsReadySubstateEnum)[keyof typeof uploadProjectAvatarStatus200LatestDeploymentsReadySubstateEnum];
 
+export const uploadProjectAvatarStatus200NodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type UploadProjectAvatarStatus200NodeVersionEnumKey =
+	(typeof uploadProjectAvatarStatus200NodeVersionEnum)[keyof typeof uploadProjectAvatarStatus200NodeVersionEnum];
+
 export const uploadProjectAvatarStatus200OidcTokenConfigIssuerModeEnum = {
 	global: "global",
 	team: "team",
@@ -98974,6 +99373,7 @@ export type UploadProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnumK
 	(typeof uploadProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof uploadProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnum];
 
 export const uploadProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -99700,7 +100100,7 @@ export type UploadProjectAvatarStatus200 = {
 					  }
 					| {
 							cores: 14;
-							label: string;
+							label: "14cpu-28gb";
 							memory: 28672;
 					  }
 					| {
@@ -100498,7 +100898,7 @@ export type UploadProjectAvatarStatus200 = {
 		  )
 		| undefined;
 	name: string;
-	nodeVersion: string;
+	nodeVersion: UploadProjectAvatarStatus200NodeVersionEnumKey;
 	oidcTokenConfig?:
 		| {
 				/**
@@ -102113,7 +102513,7 @@ export type UploadProjectAvatarStatus200 = {
 					  }
 					| {
 							cores: 14;
-							label: string;
+							label: "14cpu-28gb";
 							memory: 28672;
 					  }
 					| {
@@ -102297,7 +102697,7 @@ export type UploadProjectAvatarStatus200 = {
 				firewallUpdatedAt?: number | undefined;
 				ja3Enabled?: (false | true) | undefined;
 				ja4Enabled?: (false | true) | undefined;
-				log_headers?: (string[] | string) | undefined;
+				log_headers?: (string[] | "*") | undefined;
 				managedRules?:
 					| ({
 							ai_bots: {
@@ -102343,7 +102743,7 @@ export type UploadProjectAvatarStatus200 = {
 								action: ActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											algo: AlgoEnumKey;
@@ -102935,6 +103335,7 @@ export type DeleteProjectAvatarStatus200DefaultResourceConfigBuildMachineSelecti
 	(typeof deleteProjectAvatarStatus200DefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof deleteProjectAvatarStatus200DefaultResourceConfigBuildMachineSelectionEnum];
 
 export const deleteProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -103242,6 +103643,22 @@ export const deleteProjectAvatarStatus200LatestDeploymentsReadySubstateEnum = {
 export type DeleteProjectAvatarStatus200LatestDeploymentsReadySubstateEnumKey =
 	(typeof deleteProjectAvatarStatus200LatestDeploymentsReadySubstateEnum)[keyof typeof deleteProjectAvatarStatus200LatestDeploymentsReadySubstateEnum];
 
+export const deleteProjectAvatarStatus200NodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type DeleteProjectAvatarStatus200NodeVersionEnumKey =
+	(typeof deleteProjectAvatarStatus200NodeVersionEnum)[keyof typeof deleteProjectAvatarStatus200NodeVersionEnum];
+
 export const deleteProjectAvatarStatus200OidcTokenConfigIssuerModeEnum = {
 	global: "global",
 	team: "team",
@@ -103304,6 +103721,7 @@ export type DeleteProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnumK
 	(typeof deleteProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof deleteProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnum];
 
 export const deleteProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -104030,7 +104448,7 @@ export type DeleteProjectAvatarStatus200 = {
 					  }
 					| {
 							cores: 14;
-							label: string;
+							label: "14cpu-28gb";
 							memory: 28672;
 					  }
 					| {
@@ -104828,7 +105246,7 @@ export type DeleteProjectAvatarStatus200 = {
 		  )
 		| undefined;
 	name: string;
-	nodeVersion: string;
+	nodeVersion: DeleteProjectAvatarStatus200NodeVersionEnumKey;
 	oidcTokenConfig?:
 		| {
 				/**
@@ -106443,7 +106861,7 @@ export type DeleteProjectAvatarStatus200 = {
 					  }
 					| {
 							cores: 14;
-							label: string;
+							label: "14cpu-28gb";
 							memory: 28672;
 					  }
 					| {
@@ -106627,7 +107045,7 @@ export type DeleteProjectAvatarStatus200 = {
 				firewallUpdatedAt?: number | undefined;
 				ja3Enabled?: (false | true) | undefined;
 				ja4Enabled?: (false | true) | undefined;
-				log_headers?: (string[] | string) | undefined;
+				log_headers?: (string[] | "*") | undefined;
 				managedRules?:
 					| ({
 							ai_bots: {
@@ -106673,7 +107091,7 @@ export type DeleteProjectAvatarStatus200 = {
 								action: ActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											algo: AlgoEnumKey;
@@ -114384,6 +114802,7 @@ export type UpdateMicrofrontendsStatus200DefaultResourceConfigBuildMachineSelect
 	(typeof updateMicrofrontendsStatus200DefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof updateMicrofrontendsStatus200DefaultResourceConfigBuildMachineSelectionEnum];
 
 export const updateMicrofrontendsStatus200DefaultResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -114692,6 +115111,22 @@ export const updateMicrofrontendsStatus200LatestDeploymentsReadySubstateEnum = {
 export type UpdateMicrofrontendsStatus200LatestDeploymentsReadySubstateEnumKey =
 	(typeof updateMicrofrontendsStatus200LatestDeploymentsReadySubstateEnum)[keyof typeof updateMicrofrontendsStatus200LatestDeploymentsReadySubstateEnum];
 
+export const updateMicrofrontendsStatus200NodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type UpdateMicrofrontendsStatus200NodeVersionEnumKey =
+	(typeof updateMicrofrontendsStatus200NodeVersionEnum)[keyof typeof updateMicrofrontendsStatus200NodeVersionEnum];
+
 export const updateMicrofrontendsStatus200OidcTokenConfigIssuerModeEnum = {
 	global: "global",
 	team: "team",
@@ -114754,6 +115189,7 @@ export type UpdateMicrofrontendsStatus200ResourceConfigBuildMachineSelectionEnum
 	(typeof updateMicrofrontendsStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof updateMicrofrontendsStatus200ResourceConfigBuildMachineSelectionEnum];
 
 export const updateMicrofrontendsStatus200ResourceConfigBuildMachineTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -115480,7 +115916,7 @@ export type UpdateMicrofrontendsStatus200 = {
 					  }
 					| {
 							cores: 14;
-							label: string;
+							label: "14cpu-28gb";
 							memory: 28672;
 					  }
 					| {
@@ -116278,7 +116714,7 @@ export type UpdateMicrofrontendsStatus200 = {
 		  )
 		| undefined;
 	name: string;
-	nodeVersion: string;
+	nodeVersion: UpdateMicrofrontendsStatus200NodeVersionEnumKey;
 	oidcTokenConfig?:
 		| {
 				/**
@@ -117893,7 +118329,7 @@ export type UpdateMicrofrontendsStatus200 = {
 					  }
 					| {
 							cores: 14;
-							label: string;
+							label: "14cpu-28gb";
 							memory: 28672;
 					  }
 					| {
@@ -118077,7 +118513,7 @@ export type UpdateMicrofrontendsStatus200 = {
 				firewallUpdatedAt?: number | undefined;
 				ja3Enabled?: (false | true) | undefined;
 				ja4Enabled?: (false | true) | undefined;
-				log_headers?: (string[] | string) | undefined;
+				log_headers?: (string[] | "*") | undefined;
 				managedRules?:
 					| ({
 							ai_bots: {
@@ -118123,7 +118559,7 @@ export type UpdateMicrofrontendsStatus200 = {
 								action: ActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											algo: AlgoEnumKey;
@@ -127212,7 +127648,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 			ip: string;
 			notes?: string | undefined;
 		}[];
-		logHeaders?: (string[] | string) | undefined;
+		logHeaders?: (string[] | "*") | undefined;
 		managedRules?:
 			| {
 					ai_bots?:
@@ -127282,7 +127718,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 									action: GetSecurityFirewallConfigStatus200ActiveRulesActionMitigateActionEnumKey;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
-									logHeaders?: (string[] | string) | undefined;
+									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
 												action?:
@@ -127326,7 +127762,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 									action: GetSecurityFirewallConfigStatus200ActiveRulesActionMitigateActionEnumKey;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
-									logHeaders?: (string[] | string) | undefined;
+									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
 												action?:
@@ -127387,7 +127823,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 													action: GetSecurityFirewallConfigStatus200ActiveRulesetsActionMitigateActionEnumKey;
 													actionDuration?: (string | null) | undefined;
 													bypassSystem?: ((false | true) | null) | undefined;
-													logHeaders?: (string[] | string) | undefined;
+													logHeaders?: (string[] | "*") | undefined;
 													rateLimit?:
 														| ({
 																action?:
@@ -127415,7 +127851,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 								action: ActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											action?: (ActionEnumKey | null) | undefined;
@@ -127515,7 +127951,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 			ip: string;
 			notes?: string | undefined;
 		}[];
-		logHeaders?: (string[] | string) | undefined;
+		logHeaders?: (string[] | "*") | undefined;
 		managedRules?:
 			| {
 					ai_bots?:
@@ -127585,7 +128021,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 									action: GetSecurityFirewallConfigStatus200DraftRulesActionMitigateActionEnumKey;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
-									logHeaders?: (string[] | string) | undefined;
+									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
 												action?:
@@ -127629,7 +128065,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 									action: GetSecurityFirewallConfigStatus200DraftRulesActionMitigateActionEnumKey;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
-									logHeaders?: (string[] | string) | undefined;
+									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
 												action?:
@@ -127690,7 +128126,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 													action: GetSecurityFirewallConfigStatus200DraftRulesetsActionMitigateActionEnumKey;
 													actionDuration?: (string | null) | undefined;
 													bypassSystem?: ((false | true) | null) | undefined;
-													logHeaders?: (string[] | string) | undefined;
+													logHeaders?: (string[] | "*") | undefined;
 													rateLimit?:
 														| ({
 																action?:
@@ -127718,7 +128154,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 								action: ActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											action?: (ActionEnumKey | null) | undefined;
@@ -127818,7 +128254,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 			ip: string;
 			notes?: string | undefined;
 		}[];
-		logHeaders?: (string[] | string) | undefined;
+		logHeaders?: (string[] | "*") | undefined;
 		managedRules?:
 			| {
 					ai_bots?:
@@ -127888,7 +128324,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 									action: GetSecurityFirewallConfigStatus200VersionsRulesActionMitigateActionEnumKey;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
-									logHeaders?: (string[] | string) | undefined;
+									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
 												action?:
@@ -127932,7 +128368,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 									action: GetSecurityFirewallConfigStatus200VersionsRulesActionMitigateActionEnumKey;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
-									logHeaders?: (string[] | string) | undefined;
+									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
 												action?:
@@ -127993,7 +128429,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 													action: GetSecurityFirewallConfigStatus200VersionsRulesetsActionMitigateActionEnumKey;
 													actionDuration?: (string | null) | undefined;
 													bypassSystem?: ((false | true) | null) | undefined;
-													logHeaders?: (string[] | string) | undefined;
+													logHeaders?: (string[] | "*") | undefined;
 													rateLimit?:
 														| ({
 																action?:
@@ -128021,7 +128457,7 @@ export type GetSecurityFirewallConfigStatus200 = {
 								action: ActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											action?: (ActionEnumKey | null) | undefined;
@@ -128607,7 +129043,7 @@ export type PutFirewallConfigStatus200 = {
 			ip: string;
 			notes?: string | undefined;
 		}[];
-		logHeaders?: (string[] | string) | undefined;
+		logHeaders?: (string[] | "*") | undefined;
 		managedRules?:
 			| {
 					ai_bots?:
@@ -128675,7 +129111,7 @@ export type PutFirewallConfigStatus200 = {
 									action: PutFirewallConfigStatus200ActiveRulesActionMitigateActionEnumKey;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
-									logHeaders?: (string[] | string) | undefined;
+									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
 												action?:
@@ -128719,7 +129155,7 @@ export type PutFirewallConfigStatus200 = {
 									action: PutFirewallConfigStatus200ActiveRulesActionMitigateActionEnumKey;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
-									logHeaders?: (string[] | string) | undefined;
+									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
 												action?:
@@ -128780,7 +129216,7 @@ export type PutFirewallConfigStatus200 = {
 													action: PutFirewallConfigStatus200ActiveRulesetsActionMitigateActionEnumKey;
 													actionDuration?: (string | null) | undefined;
 													bypassSystem?: ((false | true) | null) | undefined;
-													logHeaders?: (string[] | string) | undefined;
+													logHeaders?: (string[] | "*") | undefined;
 													rateLimit?:
 														| ({
 																action?:
@@ -128808,7 +129244,7 @@ export type PutFirewallConfigStatus200 = {
 								action: ActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											action?: (ActionEnumKey | null) | undefined;
@@ -130439,7 +130875,7 @@ export type GetFirewallConfigStatus200 = {
 		ip: string;
 		notes?: string | undefined;
 	}[];
-	logHeaders?: (string[] | string) | undefined;
+	logHeaders?: (string[] | "*") | undefined;
 	managedRules?:
 		| {
 				ai_bots?:
@@ -130501,7 +130937,7 @@ export type GetFirewallConfigStatus200 = {
 								action: GetFirewallConfigStatus200RulesActionMitigateActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											action?:
@@ -130545,7 +130981,7 @@ export type GetFirewallConfigStatus200 = {
 								action: GetFirewallConfigStatus200RulesActionMitigateActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											action?:
@@ -130606,7 +131042,7 @@ export type GetFirewallConfigStatus200 = {
 												action: GetFirewallConfigStatus200RulesetsActionMitigateActionEnumKey;
 												actionDuration?: (string | null) | undefined;
 												bypassSystem?: ((false | true) | null) | undefined;
-												logHeaders?: (string[] | string) | undefined;
+												logHeaders?: (string[] | "*") | undefined;
 												rateLimit?:
 													| ({
 															action?:
@@ -130634,7 +131070,7 @@ export type GetFirewallConfigStatus200 = {
 							action: ActionEnumKey;
 							actionDuration?: (string | null) | undefined;
 							bypassSystem?: ((false | true) | null) | undefined;
-							logHeaders?: (string[] | string) | undefined;
+							logHeaders?: (string[] | "*") | undefined;
 							rateLimit?:
 								| ({
 										action?: (ActionEnumKey | null) | undefined;
@@ -130697,7 +131133,7 @@ export type DeleteSecurityFirewallConfigByConfigVersionPath = {
 	configVersion: string;
 };
 
-export type DeleteSecurityFirewallConfigByConfigVersionStatus204 = string;
+export type DeleteSecurityFirewallConfigByConfigVersionStatus204 = "";
 
 export type DeleteSecurityFirewallConfigByConfigVersionStatus400 = unknown;
 
@@ -131224,7 +131660,7 @@ export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200 = {
 		ip: string;
 		notes?: string | undefined;
 	}[];
-	logHeaders?: (string[] | string) | undefined;
+	logHeaders?: (string[] | "*") | undefined;
 	managedRules?:
 		| {
 				ai_bots?:
@@ -131294,7 +131730,7 @@ export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200 = {
 								action: CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											action?:
@@ -131338,7 +131774,7 @@ export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200 = {
 								action: CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateActionEnumKey;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
-								logHeaders?: (string[] | string) | undefined;
+								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											action?:
@@ -131399,7 +131835,7 @@ export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200 = {
 												action: CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesetsActionMitigateActionEnumKey;
 												actionDuration?: (string | null) | undefined;
 												bypassSystem?: ((false | true) | null) | undefined;
-												logHeaders?: (string[] | string) | undefined;
+												logHeaders?: (string[] | "*") | undefined;
 												rateLimit?:
 													| ({
 															action?:
@@ -131427,7 +131863,7 @@ export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200 = {
 							action: ActionEnumKey;
 							actionDuration?: (string | null) | undefined;
 							bypassSystem?: ((false | true) | null) | undefined;
-							logHeaders?: (string[] | string) | undefined;
+							logHeaders?: (string[] | "*") | undefined;
 							rateLimit?:
 								| ({
 										action?: (ActionEnumKey | null) | undefined;
@@ -132345,7 +132781,7 @@ export type DeleteConditionalBypassQuery = {
 	teamId?: string | undefined;
 };
 
-export type DeleteConditionalBypassStatus204 = string;
+export type DeleteConditionalBypassStatus204 = "";
 
 export type DeleteConditionalBypassStatus400 = unknown;
 
@@ -132881,7 +133317,7 @@ export type GetStorageStoresByIdStatus200 = {
 								owners?: string[] | undefined;
 								providers:
 									| GetStorageStoresByIdStatus200StoreProjectFilterGitProvidersEnumKey[]
-									| string;
+									| "*";
 								repos?: string[] | undefined;
 						  }
 						| undefined;
@@ -133101,7 +133537,7 @@ export type CreateStorageStoresBlobStatus200 = {
 								owners?: string[] | undefined;
 								providers:
 									| CreateStorageStoresBlobStatus200StoreProjectFilterGitProvidersEnumKey[]
-									| string;
+									| "*";
 								repos?: string[] | undefined;
 						  }
 						| undefined;
@@ -133615,7 +134051,7 @@ export type CreateIntegrationStoreDirectStatus200 = {
 								owners?: string[] | undefined;
 								providers:
 									| CreateIntegrationStoreDirectStatus200StoreProjectFilterGitProvidersEnumKey[]
-									| string;
+									| "*";
 								repos?: string[] | undefined;
 						  }
 						| undefined;
@@ -136128,6 +136564,70 @@ export const patchTeamRequestDefaultPassportDeploymentTypeEnum = {
 export type PatchTeamRequestDefaultPassportDeploymentTypeEnumKey =
 	(typeof patchTeamRequestDefaultPassportDeploymentTypeEnum)[keyof typeof patchTeamRequestDefaultPassportDeploymentTypeEnum];
 
+export const patchTeamRequestDefaultExpirationSettingsExpirationEnum = {
+	"1d": "1d",
+	"1m": "1m",
+	"1w": "1w",
+	"1y": "1y",
+	"2m": "2m",
+	"2w": "2w",
+	"2y": "2y",
+	"3m": "3m",
+	"3y": "3y",
+	"6m": "6m",
+	unlimited: "unlimited",
+} as const;
+
+export type PatchTeamRequestDefaultExpirationSettingsExpirationEnumKey =
+	(typeof patchTeamRequestDefaultExpirationSettingsExpirationEnum)[keyof typeof patchTeamRequestDefaultExpirationSettingsExpirationEnum];
+
+export const patchTeamRequestDefaultExpirationSettingsExpirationProductionEnum = {
+	"1d": "1d",
+	"1m": "1m",
+	"1w": "1w",
+	"1y": "1y",
+	"2m": "2m",
+	"2w": "2w",
+	"2y": "2y",
+	"3m": "3m",
+	"3y": "3y",
+	"6m": "6m",
+	unlimited: "unlimited",
+} as const;
+
+export type PatchTeamRequestDefaultExpirationSettingsExpirationProductionEnumKey =
+	(typeof patchTeamRequestDefaultExpirationSettingsExpirationProductionEnum)[keyof typeof patchTeamRequestDefaultExpirationSettingsExpirationProductionEnum];
+
+export const patchTeamRequestDefaultExpirationSettingsExpirationCanceledEnum = {
+	"1d": "1d",
+	"1m": "1m",
+	"1w": "1w",
+	"1y": "1y",
+	"2m": "2m",
+	"2w": "2w",
+	"3m": "3m",
+	"6m": "6m",
+	unlimited: "unlimited",
+} as const;
+
+export type PatchTeamRequestDefaultExpirationSettingsExpirationCanceledEnumKey =
+	(typeof patchTeamRequestDefaultExpirationSettingsExpirationCanceledEnum)[keyof typeof patchTeamRequestDefaultExpirationSettingsExpirationCanceledEnum];
+
+export const patchTeamRequestDefaultExpirationSettingsExpirationErroredEnum = {
+	"1d": "1d",
+	"1m": "1m",
+	"1w": "1w",
+	"1y": "1y",
+	"2m": "2m",
+	"2w": "2w",
+	"3m": "3m",
+	"6m": "6m",
+	unlimited: "unlimited",
+} as const;
+
+export type PatchTeamRequestDefaultExpirationSettingsExpirationErroredEnumKey =
+	(typeof patchTeamRequestDefaultExpirationSettingsExpirationErroredEnum)[keyof typeof patchTeamRequestDefaultExpirationSettingsExpirationErroredEnum];
+
 export const patchTeamRequestDeploymentPolicyGitSourcesEnvironmentsTargetEnum = {
 	production: "production",
 	preview: "preview",
@@ -136399,25 +136899,31 @@ export type PatchTeamBody = {
 				 * @example 1y
 				 * @type string | undefined
 				 */
-				expiration?: "unlimited" | undefined;
+				expiration?: PatchTeamRequestDefaultExpirationSettingsExpirationEnumKey | undefined;
 				/**
 				 * @description The time period to keep production deployments for
 				 * @example 1y
 				 * @type string | undefined
 				 */
-				expirationProduction?: "unlimited" | undefined;
+				expirationProduction?:
+					| PatchTeamRequestDefaultExpirationSettingsExpirationProductionEnumKey
+					| undefined;
 				/**
 				 * @description The time period to keep canceled deployments for
 				 * @example 1y
 				 * @type string | undefined
 				 */
-				expirationCanceled?: "unlimited" | undefined;
+				expirationCanceled?:
+					| PatchTeamRequestDefaultExpirationSettingsExpirationCanceledEnumKey
+					| undefined;
 				/**
 				 * @description The time period to keep errored deployments for
 				 * @example 1y
 				 * @type string | undefined
 				 */
-				expirationErrored?: "unlimited" | undefined;
+				expirationErrored?:
+					| PatchTeamRequestDefaultExpirationSettingsExpirationErroredEnumKey
+					| undefined;
 				/**
 				 * @description When true, opts a Pro team out of the upcoming deployment-storage retention reduce. Does not change expiration settings. Unmetered teams also require acknowledgeStorageBilling.
 				 * @type boolean | undefined
@@ -145843,6 +146349,22 @@ export const getDeploymentsStatus200DeploymentsProjectSettingsFrameworkEnum = {
 export type GetDeploymentsStatus200DeploymentsProjectSettingsFrameworkEnumKey =
 	(typeof getDeploymentsStatus200DeploymentsProjectSettingsFrameworkEnum)[keyof typeof getDeploymentsStatus200DeploymentsProjectSettingsFrameworkEnum];
 
+export const getDeploymentsStatus200DeploymentsProjectSettingsNodeVersionEnum = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type GetDeploymentsStatus200DeploymentsProjectSettingsNodeVersionEnumKey =
+	(typeof getDeploymentsStatus200DeploymentsProjectSettingsNodeVersionEnum)[keyof typeof getDeploymentsStatus200DeploymentsProjectSettingsNodeVersionEnum];
+
 export const getDeploymentsStatus200DeploymentsReadyStateEnum = {
 	BLOCKED: "BLOCKED",
 	BUILDING: "BUILDING",
@@ -146296,7 +146818,9 @@ export type GetDeploymentsStatus200 = {
 					gitForkProtection?: (false | true) | undefined;
 					gitLFS?: (false | true) | undefined;
 					installCommand?: (string | null) | undefined;
-					nodeVersion?: string | undefined;
+					nodeVersion?:
+						| GetDeploymentsStatus200DeploymentsProjectSettingsNodeVersionEnumKey
+						| undefined;
 					outputDirectory?: (string | null) | undefined;
 					rootDirectory?: (string | null) | undefined;
 					skipGitConnectDuringLink?: (false | true) | undefined;

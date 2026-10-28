@@ -8344,8 +8344,8 @@ export async function createDeployment(
 	}: {
 		body: CreateDeploymentBody;
 		queryParams?: {
-			forceNew?: unknown;
-			skipAutoDetectionConfirmation?: unknown;
+			forceNew?: "0" | "1";
+			skipAutoDetectionConfirmation?: "0" | "1";
 			teamId?: string;
 			slug?: string;
 		};
@@ -8371,7 +8371,12 @@ export async function createDeployment(
 		>,
 		CreateDeploymentBody,
 		Record<string, string>,
-		{ forceNew?: unknown; skipAutoDetectionConfirmation?: unknown; teamId?: string; slug?: string },
+		{
+			forceNew?: "0" | "1";
+			skipAutoDetectionConfirmation?: "0" | "1";
+			teamId?: string;
+			slug?: string;
+		},
 		Record<string, string>
 	>({
 		method: "POST",
@@ -17059,7 +17064,7 @@ export async function getProjects(
 			from?: string;
 			since?: number;
 			until?: number;
-			gitForkProtection?: string;
+			gitForkProtection?: "1" | "0";
 			limit?: string;
 			search?: string;
 			repo?: string;
@@ -17069,8 +17074,8 @@ export async function getProjects(
 			edgeConfigId?: string;
 			edgeConfigTokenId?: string;
 			deprecated?: boolean;
-			elasticConcurrencyEnabled?: string;
-			staticIpsEnabled?: string;
+			elasticConcurrencyEnabled?: "1" | "0";
+			staticIpsEnabled?: "0" | "1";
 			buildMachineTypes?: string;
 			buildQueueConfiguration?: "SKIP_NAMESPACE_QUEUE" | "WAIT_FOR_NAMESPACE_QUEUE";
 			teamId?: string;
@@ -17096,7 +17101,7 @@ export async function getProjects(
 			from?: string;
 			since?: number;
 			until?: number;
-			gitForkProtection?: string;
+			gitForkProtection?: "1" | "0";
 			limit?: string;
 			search?: string;
 			repo?: string;
@@ -17106,8 +17111,8 @@ export async function getProjects(
 			edgeConfigId?: string;
 			edgeConfigTokenId?: string;
 			deprecated?: boolean;
-			elasticConcurrencyEnabled?: string;
-			staticIpsEnabled?: string;
+			elasticConcurrencyEnabled?: "1" | "0";
+			staticIpsEnabled?: "0" | "1";
 			buildMachineTypes?: string;
 			buildQueueConfiguration?: "SKIP_NAMESPACE_QUEUE" | "WAIT_FOR_NAMESPACE_QUEUE";
 			teamId?: string;
