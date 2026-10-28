@@ -138,14 +138,14 @@ export type Account = {
 	 */
 	name: string;
 	/**
-	 * @description The master account id if it\'s a sub account
+	 * @description The master account id if it's a sub account
 	 *
 	 * Format: `int32`
 	 * @type integer | undefined
 	 */
 	masterAccountId?: number | undefined;
 	/**
-	 * @description The rights bitmask if it\'s a sub account: 1 .. manage smartlock, 2 .. operate smartlock, 4 .. manage smartlock config, 8 .. manage smartlock authorizations, 16 .. view smartlock logs, 32 .. manage sub accounts, 64 .. create smartlocks
+	 * @description The rights bitmask if it's a sub account: 1 .. manage smartlock, 2 .. operate smartlock, 4 .. manage smartlock config, 8 .. manage smartlock authorizations, 16 .. view smartlock logs, 32 .. manage sub accounts, 64 .. create smartlocks
 	 *
 	 * Format: `int32`
 	 * @minLength 0
@@ -368,7 +368,7 @@ export type AccountSettingWeb = {
 	 */
 	nukiClubDismissed?: boolean | undefined;
 	/**
-	 * @description Additional generic settings. Key/Value Pair, key consists of a prefix (DNS subdomain) and a name (can contains alphanumeric characters with dashes, underscores and dots in between) separated by a dash (\"/\")
+	 * @description Additional generic settings. Key/Value Pair, key consists of a prefix (DNS subdomain) and a name (can contains alphanumeric characters with dashes, underscores and dots in between) separated by a dash ("/")
 	 * @example {"web.nuki.io/nfcBannerDismissed": true}
 	 * @type object | undefined
 	 */
@@ -556,7 +556,7 @@ export type AccountUser = {
 	 */
 	language?: string | undefined;
 	/**
-	 * @description The operation id - if set it\'s locked for another operation
+	 * @description The operation id - if set it's locked for another operation
 	 * @type string | undefined
 	 */
 	readonly operationId?: string | undefined;
@@ -833,7 +833,7 @@ export type AddressReservation = {
 	 */
 	automation: number;
 	/**
-	 * @description True if the user has checked in, false if the check in is pending, null if it isn\'t monitored
+	 * @description True if the user has checked in, false if the check in is pending, null if it isn't monitored
 	 * @type boolean | undefined
 	 */
 	checkedIn?: boolean | undefined;
@@ -961,7 +961,7 @@ export type AddressUnit = {
 	 */
 	readonly addressTokenId?: string | undefined;
 	/**
-	 * @description The operation id - if set it\'s locked for another operation
+	 * @description The operation id - if set it's locked for another operation
 	 * @type string | undefined
 	 */
 	readonly operationId?: string | undefined;
@@ -999,7 +999,7 @@ export type AddressUnitResponse = {
 	 */
 	readonly addressTokenId?: string | undefined;
 	/**
-	 * @description The operation id - if set it\'s locked for another operation
+	 * @description The operation id - if set it's locked for another operation
 	 * @type string | undefined
 	 */
 	readonly operationId?: string | undefined;
@@ -1089,7 +1089,7 @@ export type AdvancedApiKeyStatusEnumKey =
 
 export type AdvancedApiKey = {
 	/**
-	 * @description The name of the company for which you apply for access. Only the first 17 characters of your integration\'s name will be visible in the device\'s activity log.
+	 * @description The name of the company for which you apply for access. Only the first 17 characters of your integration's name will be visible in the device's activity log.
 	 * @type string
 	 */
 	name: string;
@@ -1129,7 +1129,7 @@ export type AdvancedApiKey = {
 	 */
 	webhookUrl: string;
 	/**
-	 * @description The features to trigger webhooks, for all types except \'ONLY_SECRET\'
+	 * @description The features to trigger webhooks, for all types except 'ONLY_SECRET'
 	 * @type array
 	 */
 	webhookFeatures: AdvancedApiKeyWebhookFeaturesEnumKey[];
@@ -1139,7 +1139,7 @@ export type AdvancedApiKey = {
 	 */
 	restricted: boolean;
 	/**
-	 * @description The client secret, visible if application is approved (status >= \'TESTING\')
+	 * @description The client secret, visible if application is approved (status >= 'TESTING')
 	 * @type string
 	 */
 	secret: string;
@@ -1197,7 +1197,7 @@ export type AdvancedApiKeyCreateWebhookFeaturesEnumKey =
 
 export type AdvancedApiKeyCreate = {
 	/**
-	 * @description The name of the company for which you apply for access. Only the first 17 characters of your integration\'s name will be visible in the device\'s activity log.
+	 * @description The name of the company for which you apply for access. Only the first 17 characters of your integration's name will be visible in the device's activity log.
 	 * @type string
 	 */
 	name: string;
@@ -1237,7 +1237,7 @@ export type AdvancedApiKeyCreate = {
 	 */
 	webhookUrl: string;
 	/**
-	 * @description The features to trigger webhooks, for all types except \'ONLY_SECRET\'
+	 * @description The features to trigger webhooks, for all types except 'ONLY_SECRET'
 	 * @type array
 	 */
 	webhookFeatures: AdvancedApiKeyCreateWebhookFeaturesEnumKey[];
@@ -1267,7 +1267,7 @@ export type AdvancedApiKeyUpdate = {
 	 */
 	webhookUrl: string;
 	/**
-	 * @description The features to trigger webhooks, for all types except \'ONLY_SECRET\'
+	 * @description The features to trigger webhooks, for all types except 'ONLY_SECRET'
 	 * @type array
 	 */
 	webhookFeatures: AdvancedApiKeyUpdateWebhookFeaturesEnumKey[];
@@ -2181,7 +2181,7 @@ export type DecentralWebhook = {
 	 */
 	readonly id?: number | undefined;
 	/**
-	 * @description The secret to sign the webhook\'s payload
+	 * @description The secret to sign the webhook's payload
 	 * @type string | undefined
 	 */
 	readonly secret?: string | undefined;
@@ -2269,14 +2269,14 @@ export type MyAccount = {
 	 */
 	name: string;
 	/**
-	 * @description The master account id if it\'s a sub account
+	 * @description The master account id if it's a sub account
 	 *
 	 * Format: `int32`
 	 * @type integer | undefined
 	 */
 	masterAccountId?: number | undefined;
 	/**
-	 * @description The rights bitmask if it\'s a sub account: 1 .. manage smartlock, 2 .. operate smartlock, 4 .. manage smartlock config, 8 .. manage smartlock authorizations, 16 .. view smartlock logs, 32 .. manage sub accounts, 64 .. create smartlocks
+	 * @description The rights bitmask if it's a sub account: 1 .. manage smartlock, 2 .. operate smartlock, 4 .. manage smartlock config, 8 .. manage smartlock authorizations, 16 .. view smartlock logs, 32 .. manage sub accounts, 64 .. create smartlocks
 	 *
 	 * Format: `int32`
 	 * @minLength 0
@@ -3095,7 +3095,7 @@ export type SmartlockConfig = {
 	 */
 	readonly fobPaired?: boolean | undefined;
 	/**
-	 * @description The fob action if button is pressed once: type=0/3/4: 0 .. none, 1 .. unlock, 2 .. lock, 3 .. lock \'n\' go, 4 .. intelligent (lock/unlocked based on the current state); type=2: 0 .. none, 1 .. toggle ring to open, 2 .. activate ring to open, 3 .. deactivate ring to open, 7 .. open (electric strike actuation), 8 .. ring
+	 * @description The fob action if button is pressed once: type=0/3/4: 0 .. none, 1 .. unlock, 2 .. lock, 3 .. lock 'n' go, 4 .. intelligent (lock/unlocked based on the current state); type=2: 0 .. none, 1 .. toggle ring to open, 2 .. activate ring to open, 3 .. deactivate ring to open, 7 .. open (electric strike actuation), 8 .. ring
 	 *
 	 * Format: `int32`
 	 * @minLength 0
@@ -3104,7 +3104,7 @@ export type SmartlockConfig = {
 	 */
 	readonly fobAction1?: number | undefined;
 	/**
-	 * @description The fob action if button is pressed twice: type=0/3/4: 0 .. none, 1 .. unlock, 2 .. lock, 3 .. lock \'n\' go, 4 .. intelligent (lock/unlocked based on the current state); type=2: 0 .. none, 1 .. toggle ring to open, 2 .. activate ring to open, 3 .. deactivate ring to open, 7 .. open (electric strike actuation), 8 .. ring
+	 * @description The fob action if button is pressed twice: type=0/3/4: 0 .. none, 1 .. unlock, 2 .. lock, 3 .. lock 'n' go, 4 .. intelligent (lock/unlocked based on the current state); type=2: 0 .. none, 1 .. toggle ring to open, 2 .. activate ring to open, 3 .. deactivate ring to open, 7 .. open (electric strike actuation), 8 .. ring
 	 *
 	 * Format: `int32`
 	 * @minLength 0
@@ -3113,7 +3113,7 @@ export type SmartlockConfig = {
 	 */
 	readonly fobAction2?: number | undefined;
 	/**
-	 * @description The fob action if button is pressed 3 times: type=0/3/4: 0 .. none, 1 .. unlock, 2 .. lock, 3 .. lock \'n\' go, 4 .. intelligent (lock/unlocked based on the current state); type=2: 0 .. none, 1 .. toggle ring to open, 2 .. activate ring to open, 3 .. deactivate ring to open, 7 .. open (electric strike actuation), 8 .. ring
+	 * @description The fob action if button is pressed 3 times: type=0/3/4: 0 .. none, 1 .. unlock, 2 .. lock, 3 .. lock 'n' go, 4 .. intelligent (lock/unlocked based on the current state); type=2: 0 .. none, 1 .. toggle ring to open, 2 .. activate ring to open, 3 .. deactivate ring to open, 7 .. open (electric strike actuation), 8 .. ring
 	 *
 	 * Format: `int32`
 	 * @minLength 0
@@ -3192,7 +3192,7 @@ export type SmartlockConfig = {
 	 */
 	readonly wifiEnabled?: boolean | undefined;
 	/**
-	 * @description The operation id - if set it\'s locked for another operation
+	 * @description The operation id - if set it's locked for another operation
 	 * @type string | undefined
 	 */
 	readonly operationId?: string | undefined;
@@ -3216,14 +3216,14 @@ export type SmartlockAdvancedConfig = {
 	 */
 	lngTimeout?: number | undefined;
 	/**
-	 * @description The desired action, if the button is pressed once: 0 .. no action, 1 .. intelligent, 2 .. unlock, 3 .. lock, 4 .. unlatch, 5 .. lock \'n\' go, 6 .. show status
+	 * @description The desired action, if the button is pressed once: 0 .. no action, 1 .. intelligent, 2 .. unlock, 3 .. lock, 4 .. unlatch, 5 .. lock 'n' go, 6 .. show status
 	 *
 	 * Format: `int32`
 	 * @type integer | undefined
 	 */
 	singleButtonPressAction?: number | undefined;
 	/**
-	 * @description The desired action, if the button is pressed twice: 0 .. no action, 1 .. intelligent, 2 .. unlock, 3 .. lock, 4 .. unlatch, 5 .. lock \'n\' go, 6 .. show status
+	 * @description The desired action, if the button is pressed twice: 0 .. no action, 1 .. intelligent, 2 .. unlock, 3 .. lock, 4 .. unlatch, 5 .. lock 'n' go, 6 .. show status
 	 *
 	 * Format: `int32`
 	 * @type integer | undefined
@@ -3242,7 +3242,7 @@ export type SmartlockAdvancedConfig = {
 	 */
 	unlatchDuration?: number | undefined;
 	/**
-	 * @description The operation id - if set it\'s locked for another operation
+	 * @description The operation id - if set it's locked for another operation
 	 * @type string | undefined
 	 */
 	readonly operationId?: string | undefined;
@@ -3347,7 +3347,7 @@ export type SmartlockOpenerAdvancedConfig = {
 	 */
 	shortCircuitDuration: number;
 	/**
-	 * @description Delay of electric strike activation in ms after lock action 3 \'electric strike actuation\'
+	 * @description Delay of electric strike activation in ms after lock action 3 'electric strike actuation'
 	 *
 	 * Format: `int32`
 	 * @type integer
@@ -3359,7 +3359,7 @@ export type SmartlockOpenerAdvancedConfig = {
 	 */
 	randomElectricStrikeDelay: boolean;
 	/**
-	 * @description Duration in ms of electric strike actuation lock action 3 \'electric strike actuation\'
+	 * @description Duration in ms of electric strike actuation lock action 3 'electric strike actuation'
 	 *
 	 * Format: `int32`
 	 * @type integer
@@ -3385,7 +3385,7 @@ export type SmartlockOpenerAdvancedConfig = {
 	 */
 	doorbellSuppression: number;
 	/**
-	 * @description Duration in ms of doorbell suppression (only in Operating mode 2 \'digital Intercom\')
+	 * @description Duration in ms of doorbell suppression (only in Operating mode 2 'digital Intercom')
 	 *
 	 * Format: `int32`
 	 * @type integer
@@ -3465,7 +3465,7 @@ export type SmartlockOpenerAdvancedConfig = {
 	 */
 	autoUpdateEnabled?: boolean | undefined;
 	/**
-	 * @description The operation id - if set it\'s locked for another operation
+	 * @description The operation id - if set it's locked for another operation
 	 * @type string | undefined
 	 */
 	readonly operationId?: string | undefined;
@@ -3480,14 +3480,14 @@ export type SmartlockSmartdoorAdvancedConfig = {
 	 */
 	lngTimeout?: number | undefined;
 	/**
-	 * @description The desired action, if the button is pressed once: 0 .. no action, 1 .. intelligent, 2 .. unlock, 3 .. lock, 4 .. unlatch, 5 .. lock \'n\' go, 6 .. show status
+	 * @description The desired action, if the button is pressed once: 0 .. no action, 1 .. intelligent, 2 .. unlock, 3 .. lock, 4 .. unlatch, 5 .. lock 'n' go, 6 .. show status
 	 *
 	 * Format: `int32`
 	 * @type integer | undefined
 	 */
 	singleButtonPressAction?: number | undefined;
 	/**
-	 * @description The desired action, if the button is pressed twice: 0 .. no action, 1 .. intelligent, 2 .. unlock, 3 .. lock, 4 .. unlatch, 5 .. lock \'n\' go, 6 .. show status
+	 * @description The desired action, if the button is pressed twice: 0 .. no action, 1 .. intelligent, 2 .. unlock, 3 .. lock, 4 .. unlatch, 5 .. lock 'n' go, 6 .. show status
 	 *
 	 * Format: `int32`
 	 * @type integer | undefined
@@ -3506,7 +3506,7 @@ export type SmartlockSmartdoorAdvancedConfig = {
 	 */
 	unlatchDuration?: number | undefined;
 	/**
-	 * @description The operation id - if set it\'s locked for another operation
+	 * @description The operation id - if set it's locked for another operation
 	 * @type string | undefined
 	 */
 	readonly operationId?: string | undefined;
@@ -3554,7 +3554,7 @@ export type SmartlockState = {
 	 */
 	mode: number;
 	/**
-	 * @description The smartlock state: type=0/3/4: 0 .. uncalibrated, 1 .. locked, 2 .. unlocking, 3 .. unlocked, 4 .. locking, 5 .. unlatched, 6 .. unlocked (lock \'n\' go), 7 .. unlatching, 224 .. Error wrong entry code, 225 .. Error wrong Fingerprint, 254 .. motor blocked, 255 .. undefined; type=2: 0 .. untrained, 1 .. online, 3 .. ring to open active, 5 .. open, 7 .. opening, 253 .. boot run, 255 .. undefined
+	 * @description The smartlock state: type=0/3/4: 0 .. uncalibrated, 1 .. locked, 2 .. unlocking, 3 .. unlocked, 4 .. locking, 5 .. unlatched, 6 .. unlocked (lock 'n' go), 7 .. unlatching, 224 .. Error wrong entry code, 225 .. Error wrong Fingerprint, 254 .. motor blocked, 255 .. undefined; type=2: 0 .. untrained, 1 .. online, 3 .. ring to open active, 5 .. open, 7 .. opening, 253 .. boot run, 255 .. undefined
 	 *
 	 * Format: `int32`
 	 * @minLength 0
@@ -3572,7 +3572,7 @@ export type SmartlockState = {
 	 */
 	trigger: number;
 	/**
-	 * @description The action: type=0/3/4: 1 .. unlock, 2 .. lock, 3 .. unlatch, 4 .. lock \'n\' go, 5 .. lock \'n\' go with unlatch; type=1: 1 .. unlock; type=2: 1 .. activate ring to open, 2 .. deactivate ring to open, 3 .. open (electric strike actuation)
+	 * @description The action: type=0/3/4: 1 .. unlock, 2 .. lock, 3 .. unlatch, 4 .. lock 'n' go, 5 .. lock 'n' go with unlatch; type=1: 1 .. unlock; type=2: 1 .. activate ring to open, 2 .. deactivate ring to open, 3 .. open (electric strike actuation)
 	 *
 	 * Format: `int32`
 	 * @minLength 0
@@ -3649,7 +3649,7 @@ export type SmartlockState = {
 	 */
 	nightMode: boolean;
 	/**
-	 * @description The operation id - if set it\'s locked for another operation
+	 * @description The operation id - if set it's locked for another operation
 	 * @type string | undefined
 	 */
 	readonly operationId?: string | undefined;
@@ -3746,7 +3746,7 @@ export type Smartlock = {
 	 */
 	readonly hardwareVersion?: number | undefined;
 	/**
-	 * @description The operation id - if set it\'s locked for another operation
+	 * @description The operation id - if set it's locked for another operation
 	 * @type string | undefined
 	 */
 	readonly operationId?: string | undefined;
@@ -3824,7 +3824,7 @@ export type Smartlock = {
 
 export type SmartlockAction = {
 	/**
-	 * @description The action: type=0/3/4: 1 .. unlock, 2 .. lock, 3 .. unlatch, 4 .. lock \'n\' go, 5 .. lock \'n\' go with unlatch; type=1: 1 .. unlock; type=2: 1 activate ring to open, 2 .. deactivate ring to open, 3 .. open (electric strike actuation), 6 ... activate continuous mode, 7 ... deactivate continuous mode
+	 * @description The action: type=0/3/4: 1 .. unlock, 2 .. lock, 3 .. unlatch, 4 .. lock 'n' go, 5 .. lock 'n' go with unlatch; type=1: 1 .. unlock; type=2: 1 activate ring to open, 2 .. deactivate ring to open, 3 .. open (electric strike actuation), 6 ... activate continuous mode, 7 ... deactivate continuous mode
 	 *
 	 * Format: `int32`
 	 * @minLength 0
@@ -4349,7 +4349,7 @@ export type SmartlockLog = {
 	 */
 	name: string;
 	/**
-	 * @description The action: 1 .. unlock, 2 .. lock, 3 .. unlatch, 4 .. lock\'n\'go, 5 .. lock\'n\'go with unlatch, 11 .. Restore reset to default setting, 208 .. door warning ajar, 209 door warning status mismatch, 224 .. doorbell recognition (only Opener), 240 .. door opened, 241 .. door closed, 242 .. door sensor jammed, 243 .. firmware update, 250 .. door log enabled, 251 .. door log disabled, 252 .. initialization, 253 .. calibration, 254 .. log enabled, 255 .. log disabled
+	 * @description The action: 1 .. unlock, 2 .. lock, 3 .. unlatch, 4 .. lock'n'go, 5 .. lock'n'go with unlatch, 11 .. Restore reset to default setting, 208 .. door warning ajar, 209 door warning status mismatch, 224 .. doorbell recognition (only Opener), 240 .. door opened, 241 .. door closed, 242 .. door sensor jammed, 243 .. firmware update, 250 .. door log enabled, 251 .. door log disabled, 252 .. initialization, 253 .. calibration, 254 .. log enabled, 255 .. log disabled
 	 *
 	 * Format: `int32`
 	 * @minLength 1
@@ -4367,7 +4367,8 @@ export type SmartlockLog = {
 	 */
 	trigger: number;
 	/**
-	 * @description The completion state: 0 .. Success, 1 .. Motor blocked, 2 .. Canceled, 3 .. Too recent, 4 .. Busy, 5 .. Low motor voltage, 6 .. Clutch failure, 7 .. Motor power failure, 8 .. Incomplete, 9 .. Rejected, 10 .. Rejected night mode, 224 .. Invalid Code, 225 .. Invalid Fingerprint, 226 .. Invalid NFC Tag, 254 .. Other error, 255 .. Unknown error\nFor source=3 and trigger=253 the following states are used: 0 .. Access document revoked, 1 .. Send NFC failed, 2 .. Control flow, 3 .. Command time expired, 7 .. Invalid data content, 37 .. Invalid access rights, 255 .. Unknown
+	 * @description The completion state: 0 .. Success, 1 .. Motor blocked, 2 .. Canceled, 3 .. Too recent, 4 .. Busy, 5 .. Low motor voltage, 6 .. Clutch failure, 7 .. Motor power failure, 8 .. Incomplete, 9 .. Rejected, 10 .. Rejected night mode, 224 .. Invalid Code, 225 .. Invalid Fingerprint, 226 .. Invalid NFC Tag, 254 .. Other error, 255 .. Unknown error
+	 * For source=3 and trigger=253 the following states are used: 0 .. Access document revoked, 1 .. Send NFC failed, 2 .. Control flow, 3 .. Command time expired, 7 .. Invalid data content, 37 .. Invalid access rights, 255 .. Unknown
 	 *
 	 * Format: `int32`
 	 * @minLength 1
@@ -6812,7 +6813,7 @@ export type GetOpenerBrandResourceResponse = GetOpenerBrandResourceStatus200;
 
 export type GetOpenerIntercomsResourceQuery = {
 	/**
-	 * @description Filter for brandId. Required if \'recentlyChanged\' is not set
+	 * @description Filter for brandId. Required if 'recentlyChanged' is not set
 	 * @type integer | undefined
 	 */
 	brandId?: number | undefined;
@@ -7067,7 +7068,7 @@ export type GetSmartlocksAuthsResourceQuery = {
 	 */
 	accountUserId?: number | undefined;
 	/**
-	 * @description Filter for authorization\'s types (comma-separated eg: 0,2,3)
+	 * @description Filter for authorization's types (comma-separated eg: 0,2,3)
 	 * @type string | undefined
 	 */
 	types?: string | undefined;
@@ -7260,7 +7261,7 @@ export type GetSmartlocksAuthsPaginatedResourceQuery = {
 	 */
 	accountUserId?: number | undefined;
 	/**
-	 * @description Filter for authorization\'s types (comma-separated eg: 0,2,3)
+	 * @description Filter for authorization's types (comma-separated eg: 0,2,3)
 	 * @type string | undefined
 	 */
 	types?: string | undefined;
@@ -7856,7 +7857,7 @@ export type GetSmartlockAuthsResourcePath = {
 
 export type GetSmartlockAuthsResourceQuery = {
 	/**
-	 * @description Filter for smartlock authorization\'s types (comma-separated eg: 0,2,3)
+	 * @description Filter for smartlock authorization's types (comma-separated eg: 0,2,3)
 	 * @type string | undefined
 	 */
 	types?: string | undefined;
