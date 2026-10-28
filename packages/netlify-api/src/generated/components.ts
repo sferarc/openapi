@@ -2387,14 +2387,21 @@ export async function createSiteBuild(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		CreateSiteBuildResponse,
