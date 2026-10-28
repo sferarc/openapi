@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { FetchImpl } from "./fetch";
+import type { FetchImpl, RequestInit } from "./fetch";
 import client from "./fetcher";
 
 const respond =
@@ -190,5 +190,45 @@ describe("fetcher edge responses and headers", () => {
 			body: new FormData(),
 		});
 		expect(headers.get("content-type")).toBeNull();
+	});
+});
+
+describe("fetcher stream uploads", () => {
+	it("sends a stream body in a form fetch accepts", async () => {
+		let init: RequestInit | undefined;
+		const fetchImpl: FetchImpl = async (_url, requestInit) => {
+			init = requestInit;
+			return new Response(null, { status: 204 }) as never;
+		};
+		const stream = new ReadableStream<Uint8Array>({
+			start(controller) {
+				controller.enqueue(new Uint8Array([1, 2, 3]));
+				controller.close();
+			},
+		});
+		await client({
+			url: "/upload",
+			method: "put",
+			headers: { "Content-Type": "application/octet-stream" },
+			body: stream,
+			fetchImpl,
+		});
+		expect(init?.body).toBe(stream);
+		// fetch rejects a stream body without `duplex: "half"` before sending anything.
+		expect(init?.duplex).toBe("half");
+		// The DOM RequestInit type does not declare `duplex` yet, though Node's fetch requires it.
+		const streamInit = { method: init?.method, body: stream, duplex: init?.duplex };
+		const request = new Request("https://example.com/upload", streamInit);
+		expect(new Uint8Array(await request.arrayBuffer())).toEqual(new Uint8Array([1, 2, 3]));
+	});
+
+	it("leaves duplex unset for a non-stream body", async () => {
+		let init: RequestInit | undefined;
+		const fetchImpl: FetchImpl = async (_url, requestInit) => {
+			init = requestInit;
+			return new Response(null, { status: 204 }) as never;
+		};
+		await client({ url: "/upload", method: "put", body: { a: 1 }, fetchImpl });
+		expect(init?.duplex).toBeUndefined();
 	});
 });
