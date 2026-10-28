@@ -8,6 +8,9 @@ export type TypeSchemas = {
 	response: SchemaName;
 	request: SchemaName | undefined;
 	errors: Array<SchemaName>;
+	path: SchemaName | undefined;
+	query: SchemaName | undefined;
+	headers: SchemaName | undefined;
 };
 
 export function resolveTypeSchemas(
@@ -22,12 +25,21 @@ export function resolveTypeSchemas(
 		return Number.isFinite(code) && code >= 400;
 	});
 
+	const firstParam = (where: ast.ParameterLocation) =>
+		node.parameters.find((param) => param.in === where);
+	const path = firstParam("path");
+	const query = firstParam("query");
+	const header = firstParam("header");
+
 	return {
 		response: { name: tsResolver.response.response(node) },
 		request: dataSchema ? { name: tsResolver.response.body(node) } : undefined,
 		errors: errorResponses.map((res) => ({
 			name: tsResolver.response.status(node, res.statusCode),
 		})),
+		path: path ? { name: tsResolver.param.path(node, path) } : undefined,
+		query: query ? { name: tsResolver.param.query(node, query) } : undefined,
+		headers: header ? { name: tsResolver.param.headers(node, header) } : undefined,
 	};
 }
 
@@ -57,67 +69,12 @@ function getJSDocComments(node: ast.HttpOperationNode): string[] {
 	return comments;
 }
 
-type Param = { name: string; type: string; optional: boolean };
+type Param = { name: string; optional: boolean };
 
-function paramsAt(node: ast.HttpOperationNode, where: "path" | "query" | "header"): Param[] {
+function paramsAt(node: ast.HttpOperationNode, where: ast.ParameterLocation): Param[] {
 	return node.parameters
 		.filter((param) => param.in === where)
-		.map((param) => ({
-			name: param.name,
-			type: schemaTypeAnnotation(param.schema),
-			optional: !param.required,
-		}));
-}
-
-function schemaTypeAnnotation(schema: ast.SchemaNode | undefined): string {
-	if (!schema) return "unknown";
-	switch (schema.type) {
-		case "string":
-		case "date":
-		case "datetime":
-		case "uuid":
-		case "email":
-		case "url":
-		case "ipv4":
-		case "ipv6":
-		case "time":
-			return "string";
-		case "number":
-		case "integer":
-			return "number";
-		case "bigint":
-			return "bigint";
-		case "boolean":
-			return "boolean";
-		case "null":
-			return "null";
-		case "array": {
-			const arr = schema as ast.ArraySchemaNode;
-			const item = arr.items?.[0];
-			return `Array<${schemaTypeAnnotation(item)}>`;
-		}
-		case "enum": {
-			const en = schema as ast.EnumSchemaNode;
-			const values: Array<string | number | boolean | null> = en.namedEnumValues
-				? en.namedEnumValues.map((v) => v.value)
-				: (en.enumValues ?? []);
-			return (
-				values.map((v) => (typeof v === "string" ? JSON.stringify(v) : String(v))).join(" | ") ||
-				"string"
-			);
-		}
-		default:
-			return "unknown";
-	}
-}
-
-function buildParamObjectType(params: Param[], allOptional: boolean): string {
-	if (params.length === 0) return "Record<string, never>";
-	const entries = params.map((p) => {
-		const optional = allOptional || p.optional ? "?" : "";
-		return `${JSON.stringify(p.name)}${optional}: ${p.type}`;
-	});
-	return `{ ${entries.join("; ")} }`;
+		.map((param) => ({ name: param.name, optional: !param.required }));
 }
 
 const RAW_BODY_TYPE = "Blob | ArrayBuffer | Uint8Array | ReadableStream | string";
@@ -154,9 +111,10 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	const hasBody = Boolean(typeSchemas.request);
 	const isRawBody = hasBody && !isFormData && !isUrlEncoded && contentType !== "application/json";
 
-	const pathParamsType = buildParamObjectType(pathParams, false);
-	const queryParamsType = buildParamObjectType(queryParams, true);
-	const headerParamsType = buildParamObjectType(headerParams, true);
+	// plugin-ts types each parameter from its schema, refs and unions included; query and header params stay optional as before.
+	const pathParamsType = typeSchemas.path?.name ?? "Record<string, never>";
+	const queryParamsType = `Partial<${typeSchemas.query?.name ?? "Record<string, never>"}>`;
+	const headerParamsType = `Partial<${typeSchemas.headers?.name ?? "Record<string, never>"}>`;
 	const bodyType = isRawBody ? RAW_BODY_TYPE : typeSchemas.request?.name;
 
 	const fields: string[] = [];

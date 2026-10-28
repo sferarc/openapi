@@ -12,6 +12,14 @@
 					{ "name": "member_id", "in": "path", "required": true, "schema": { "type": "integer" } },
 					{ "name": "fields", "in": "query", "required": true, "schema": { "type": "string" } },
 					{ "name": "limit", "in": "query", "required": false, "schema": { "type": "integer" } },
+					{ "name": "cursor", "in": "query", "schema": { "$ref": "#/components/schemas/Cursor" } },
+					{
+						"name": "status",
+						"in": "query",
+						"schema": {
+							"oneOf": [{ "type": "string", "enum": ["active", "invited"] }, { "type": "integer" }]
+						}
+					},
 					{
 						"name": "X-Trace-Id",
 						"in": "header",
@@ -143,6 +151,7 @@
 	},
 	"components": {
 		"schemas": {
+			"Cursor": { "type": "string", "nullable": true },
 			"LogoFile": {
 				"type": "object",
 				"properties": {
