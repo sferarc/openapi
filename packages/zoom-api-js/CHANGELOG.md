@@ -1,5 +1,15 @@
 # zoom-api-js
 
+## 2.1.0
+
+### Minor Changes
+
+- c42b0b2: [BREAKING] Several response, request, and query types in meeting, webinar, and recording APIs have new required fields and structural changes which may affect deserialization and required fields.
+
+### Patch Changes
+
+- c42b0b2: Expanded multiple response and request types with new fields across meeting, webinar, recording, device, and report schemas to support additional data and settings.
+
 ## 2.0.0
 
 ### Major Changes

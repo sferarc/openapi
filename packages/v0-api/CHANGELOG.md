@@ -1,5 +1,14 @@
 # v0-api
 
+## 1.0.1
+
+### Patch Changes
+
+- 6276ad0: Added new optional fields to ChatsSendMessageBody type.
+- 6276ad0: Added new optional fields to ChatsFindQuery type.
+- 6276ad0: Added new optional fields to ChatsResolveTaskBody type.
+- 6276ad0: Added new optional fields to ChatsCreateBody type.
+
 ## 1.0.0
 
 ### Major Changes

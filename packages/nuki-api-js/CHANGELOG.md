@@ -1,5 +1,11 @@
 # nuki-api-js
 
+## 2.0.1
+
+### Patch Changes
+
+- 7f1a20d: No API changes detected, only type formatting or code style updates were made.
+
 ## 2.0.0
 
 ### Major Changes

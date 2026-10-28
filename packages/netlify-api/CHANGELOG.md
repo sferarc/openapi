@@ -1,5 +1,12 @@
 # netlify-api
 
+## 2.0.1
+
+### Patch Changes
+
+- 4810a1b: Added new optional fields to multiple response and request types such as Site, Deploy, DeployFiles, CreateSiteDeployBody, and UpdateSiteDeployBody.
+- 4810a1b: Added new optional fields to various environment variable and function config types.
+
 ## 2.0.0
 
 ### Major Changes
