@@ -1,5 +1,60 @@
 # vercel-api-js
 
+## 2.0.0
+
+### Major Changes
+
+- 619b8c7: Move the `effect` entrypoint to Effect 4. The peer dependency is now `effect@^4.0.0`, and `ApiConfig` is a `Context.Service` key instead of a `Context.Tag`, so projects still on Effect 3 should stay on the previous major. The rest of the client is unchanged.
+- 49d548e: Breaking: a failed HTTP response now rejects with `{ status, payload }`, where `status` is the HTTP status code and `payload` is the parsed error body (or a description string when the body is not JSON). It used to reject with `{ name: "unknown", message }`, losing both. Code that reads `error.message` from a rejected call should read `error.status` and `error.payload` instead. Requests that never get a response still reject with `{ name: "unknown", message }`. In the Effect bindings, HTTP errors now fail with `ApiError` carrying the status instead of `NetworkError`.
+- 0b8c00e: Breaking: JSON request bodies are typed from the spec and sent as JSON with `Content-Type: application/json`. The generator used to rename every key in the spec to camelCase, which turned `application/json` into `applicationJson` and `$ref` into `ref`: 181 operations typed their body as raw bytes or a string and sent it with `Content-Type: applicationJson`, so a body passed as an object was never serialized. Types now use the API's own property names, such as `deployment_id` instead of `deploymentId`, and schemas behind a `$ref` are typed instead of loose. Code that set the camelCased names has to use the API's names, which are the ones the API reads. The regeneration also adds `listFlagLabelCounts`, `listFlagLabels`, `lookupFlagLabels` and `updateApiKeyQuota` from the latest spec.
+
+### Minor Changes
+
+- a761355: Percent-encode path parameters in generated operations, so a value containing `/`, `?`, `#` or `..` can no longer change which endpoint is called. Required path parameters now accept falsy values such as `0`, and multipart bodies send number and boolean fields as strings instead of dropping them. Regenerated from the current upstream spec, which adds `createVercelCiTaskAnalysis`, `createVercelCiTaskConfigurationPullRequest`, `deleteProjectAvatar`, `getVercelCiRepositorySettings`, `getVercelCiTaskAnalysis`, `listAiGatewayRouters`, `listVercelCiTaskAnalysisTasks`, `updateVercelCiRepositorySettings` and `writeSessionCommandStdin`.
+- 1e2384b: [BREAKING] Removed type GetDeploymentStatus200.
+- b6e80c3: [BREAKING] Removed session command-related status 500 error types from various session-run endpoints.
+- 1e2384b: [BREAKING] Removed type CancelDeploymentStatus200.
+- 65870cd: Added operations for creating, listing, retrieving, updating, and deleting AI Gateway BYOK credentials.
+- 24fb744: Added support for conditional bypass operations: getConditionalBypass, createConditionalBypass, and deleteConditionalBypass.
+- b6e80c3: Added updateApiKeyQuota operation to update API key quotas.
+- 1e2384b: [BREAKING] Removed type GetDeploymentsStatus200.
+- b6e80c3: Added listFlagLabels, listFlagLabelCounts, and lookupFlagLabels operations for managing flag labels.
+- 24fb744: Added new organization management operations: createOrganization, listOrganizations, getOrganization, updateOrganization, listOrganizationTeams, addOrganizationTeam, and removeOrganizationTeam.
+- 24fb744: Added new request and body types for access group, AI gateway budget, and artifact-related operations, including CreateAccessGroupBody, UpdateAccessGroupBody, CreateAccessGroupProjectBody, UpdateAccessGroupProjectBody, UpsertAiGatewayBudgetBody, UpsertAiGatewayBudgetDefaultBody, RecordEventsBody, UploadArtifactBody, ArtifactQueryBody, BuyCreditsBody, StageRedirectsBody, DeleteRedirectsBody, EditRedirectBody, RestoreRedirectsBody, and more.
+- 1e2384b: [BREAKING] Removed type CreateDeploymentStatus200.
+- b6e80c3: [BREAKING] Removed ImportResourceStatus422, UpdateResourceStatus422, UpdateResourceSecretsStatus422, UpdateResourceSecretsByIdStatus422 and their usages from resource operations.
+- 24fb744: Added new types related to organization and team management, including Organization, OrganizationTeam, OrganizationTeamListItem, and relevant enums.
+
+### Patch Changes
+
+- 76653f2: Return `undefined` from `client.api` for `Object.prototype` names such as `constructor` or `toString`, instead of a namespace or an operation wrapper that calls the inherited method.
+- dc5ea2c: Resolve a binary response, such as a zip, an octet-stream, a PDF or an image, as a `Blob` instead of a string decoded as UTF-8, which corrupted the bytes of downloads like `chatsDownloadVersion` in `v0-api`, `downloadArtifact` in `vercel-api-js` and Workers KV values in `cloudflare-api-js`. A custom `fetchImpl` whose response has no `blob()` still gets the text.
+- 20d1462: Bundle the shared runtime helpers instead of depending on `@sferadev/openapi-utils`, which is private and was never published, so installing the package from npm failed with a 404.
+- 6f3d266: Abort the HTTP request when an operation from the `effect` entry is interrupted, for example by `Effect.timeout` or `Fiber.interrupt`. The request used to keep running after the effect gave up on it. `makeApiLayer` now also accepts `fetchImpl`, and `ApiService` and `effectByPath` return `undefined` for `Object.prototype` keys such as `constructor` instead of a broken operation.
+- 443e396: Show the API's own error message in the `effect` entry's errors. `ApiError.message` read only a top-level `message` on the rejection, which HTTP errors never have, so every failure read `API Error: <status>`. It now reads `API error <status>: <message>`, taking the message from the error body's `message`, `error`, `error.message` or `errors[0].message`, or the body itself when it is text, and keeps the old text when none is found. `NetworkError.message` also reads `message` from a cause that is not an `Error`. `status`, `error` and `cause` are unchanged.
+- c80f59d: Resolve a 204 or an empty successful body to `undefined` instead of rejecting with a network error, and let a header such as `authorization` or `content-type` replace the default regardless of case instead of being sent alongside it
+- 21eaaa2: Reject a failed request with a real `Error` that names the method and path, gives the reason and keeps the original exception as `cause`, instead of a plain object with no stack, and keep the raw body text (up to 1000 characters) as the payload when an error response is not JSON, instead of the JSON parser's message. An aborted request rejects with the `AbortError` itself, so callers can tell it from a network failure.
+- 1fc5b21: Omit undefined query parameters and send arrays as repeated keys
+- 861d6c9: Inline the Effect helper types into `effect.d.mts` instead of importing them from `@sferadev/openapi-utils/effect`, which is not published, so TypeScript resolves `ApiConfig`, `ApiError`, `makeApiLayer` and the `ApiService` shape for consumers instead of failing with a missing module.
+- 613be44: `request()` now calls the generated operation instead of the raw fetcher, so path parameters are substituted, validated and percent-encoded the same way as through `api`. An unknown endpoint throws.
+- fe64135: Send a `ReadableStream` upload body with `duplex: "half"`. Without it, Node's `fetch` rejected the request with "duplex option is required when sending a body" before sending anything, so raw body operations such as `uploadArtifact` in `vercel-api-js` and `dlpDatasetsUploadVersion` in `cloudflare-api-js` failed whenever they were given a stream.
+- 9865850: Expose operations without a tag under `client.api.default` and the Effect `ApiService.default`, and merge tags that differ only in case or separators into one namespace instead of dropping all but the last.
+- bc29ed5: Change the type of Status204 responses for DeleteSecurityFirewallConfigByConfigVersion and DeleteConditionalBypass from string to empty string.
+- 24fb744: Added new enums and types for access group project roles, AI gateway budget options, redirect request bodies, and version request actions.
+- b6e80c3: Added new 5xx and 4xx error response types to various connector and team endpoints for better error specificity.
+- bc29ed5: Add new enum types for Git fork protection, elastic concurrency, and static IPs to project-related data.
+- bc29ed5: Add new enum types for Node.js version in multiple deployment and project related response objects.
+- b6e80c3: Added new 422 and 503 error response types to Drive and Session related endpoints for enhanced failure feedback.
+- 764c7b6: Added new optional fields to the UserEvent type.
+- b6e80c3: Added additional 401 status types to many endpoints for improved error handling.
+- bc29ed5: Add new enum types and fields for team expiration settings states to team PATCH requests.
+- b6e80c3: Added new enumerations and corresponding types (e.g., NamedSandboxWorkloadTypeEnumKey, SessionWorkloadTypeEnumKey, DriveWorkloadTypeEnumKey, SnapshotWorkloadTypeEnumKey) for workload types in sandboxes, sessions, drives, and snapshots.
+- 24fb744: Added DeploymentCheckUpdatedPayload type for deployment check updates.
+- bc29ed5: Add new enum types for deployment force new and skip auto detection confirmation in the deployment request.
+- 65870cd: Added status 422, 501, and 504 response types for upserting and deleting connector project connections.
+- 65870cd: Added several new enums and related types for ConnectConnector and update requests.
+- c41e293: Keep enum values that do not start with a letter, such as `10.x`, `!contains`, `*` and `0`, in the generated types and zod schemas. They were dropped before, so valid values failed to typecheck, and an enum with only such values was typed `unknown`.
+
 ## 1.38.2
 
 ### Patch Changes

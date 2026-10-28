@@ -1,5 +1,39 @@
 # v0-api
 
+## 1.0.0
+
+### Major Changes
+
+- 619b8c7: Move the `effect` entrypoint to Effect 4. The peer dependency is now `effect@^4.0.0`, and `ApiConfig` is a `Context.Service` key instead of a `Context.Tag`, so projects still on Effect 3 should stay on the previous major. The rest of the client is unchanged.
+- 49d548e: Breaking: a failed HTTP response now rejects with `{ status, payload }`, where `status` is the HTTP status code and `payload` is the parsed error body (or a description string when the body is not JSON). It used to reject with `{ name: "unknown", message }`, losing both. Code that reads `error.message` from a rejected call should read `error.status` and `error.payload` instead. Requests that never get a response still reject with `{ name: "unknown", message }`. In the Effect bindings, HTTP errors now fail with `ApiError` carrying the status instead of `NetworkError`.
+- 0b8c00e: Breaking: JSON request bodies are typed from the spec and sent as JSON with `Content-Type: application/json`. The generator used to rename every key in the spec to camelCase, which turned `application/json` into `applicationJson` and `$ref` into `ref`: 22 operations, `chatsCreate` among them, typed their body as raw bytes or a string and sent it with `Content-Type: applicationJson`, so a body passed as an object was never serialized. Types now use the API's own property names, such as `experimental_content`, and schemas behind a `$ref` are typed instead of loose.
+
+### Minor Changes
+
+- f8bfc5f: Added request body types and enums for deployments creation.
+- f8bfc5f: Added request body types and enums for integrations Vercel projects creation.
+- f8bfc5f: Added request body types and enums for chat creation, initialization, update, favorite, fork, sendMessage, version update, delete version files, resume, stop, resolveTask, and their corresponding parameters.
+- 532c19e: [BREAKING] Removed model configuration model ID enums and their keys from ChatDetail, ChatsCreateRequest, ChatsSendMessageRequest, and ChatsResolveTaskRequest types.
+- f8bfc5f: Added request body types and enums for MCP servers creation and update, as well as for creating OAuth authorization URLs.
+- f8bfc5f: Added request body types and enums for project creation, update, assign, createEnvVars, updateEnvVars, and deleteEnvVars operations.
+- f8bfc5f: Added request body types and enums for hooks creation and hooks update.
+- f8bfc5f: Added response union types and response key types for chat message finding, resuming, stopping, and task resolving endpoints.
+
+### Patch Changes
+
+- 76653f2: Return `undefined` from `client.api` for `Object.prototype` names such as `constructor` or `toString`, instead of a namespace or an operation wrapper that calls the inherited method.
+- dc5ea2c: Resolve a binary response, such as a zip, an octet-stream, a PDF or an image, as a `Blob` instead of a string decoded as UTF-8, which corrupted the bytes of downloads like `chatsDownloadVersion` in `v0-api`, `downloadArtifact` in `vercel-api-js` and Workers KV values in `cloudflare-api-js`. A custom `fetchImpl` whose response has no `blob()` still gets the text.
+- 20d1462: Bundle the shared runtime helpers instead of depending on `@sferadev/openapi-utils`, which is private and was never published, so installing the package from npm failed with a 404.
+- 9fca3e9: Export the `FetchImpl` and `FetcherConfig` types from the package root. The bundled declarations referenced them from a private chunk, so a consumer emitting declarations for code that inferred one of the client's types failed with "cannot be named without a reference to ... This is likely not portable".
+- 6f3d266: Abort the HTTP request when an operation from the `effect` entry is interrupted, for example by `Effect.timeout` or `Fiber.interrupt`. The request used to keep running after the effect gave up on it. `makeApiLayer` now also accepts `fetchImpl`, and `ApiService` and `effectByPath` return `undefined` for `Object.prototype` keys such as `constructor` instead of a broken operation.
+- 443e396: Show the API's own error message in the `effect` entry's errors. `ApiError.message` read only a top-level `message` on the rejection, which HTTP errors never have, so every failure read `API Error: <status>`. It now reads `API error <status>: <message>`, taking the message from the error body's `message`, `error`, `error.message` or `errors[0].message`, or the body itself when it is text, and keeps the old text when none is found. `NetworkError.message` also reads `message` from a cause that is not an `Error`. `status`, `error` and `cause` are unchanged.
+- c80f59d: Resolve a 204 or an empty successful body to `undefined` instead of rejecting with a network error, and let a header such as `authorization` or `content-type` replace the default regardless of case instead of being sent alongside it
+- 21eaaa2: Reject a failed request with a real `Error` that names the method and path, gives the reason and keeps the original exception as `cause`, instead of a plain object with no stack, and keep the raw body text (up to 1000 characters) as the payload when an error response is not JSON, instead of the JSON parser's message. An aborted request rejects with the `AbortError` itself, so callers can tell it from a network failure.
+- 1fc5b21: Omit undefined query parameters and send arrays as repeated keys
+- 861d6c9: Inline the Effect helper types into `effect.d.mts` instead of importing them from `@sferadev/openapi-utils/effect`, which is not published, so TypeScript resolves `ApiConfig`, `ApiError`, `makeApiLayer` and the `ApiService` shape for consumers instead of failing with a missing module.
+- a761355: Percent-encode path parameters in generated operations, so a value containing `/`, `?`, `#` or `..` can no longer change which endpoint is called. Required path parameters now accept falsy values such as `0`, and multipart bodies send number and boolean fields as strings instead of dropping them. Regenerated from the current upstream spec.
+- 613be44: `request()` now calls the generated operation instead of the raw fetcher, so path parameters are substituted, validated and percent-encoded the same way as through `api`. An unknown endpoint throws.
+
 ## 0.3.1
 
 ### Patch Changes
