@@ -6,6 +6,7 @@
 import type { ErrorWrapper, FetcherConfig } from "../utils/fetcher";
 import defaultClient from "../utils/fetcher";
 import type {
+	DeleteAccountIntegrationsResourceQuery,
 	DeleteAccountIntegrationsResourceResponse,
 	DeleteAccountIntegrationsResourceStatus401,
 	DeleteAccountOtpResourceResponse,
@@ -13,43 +14,55 @@ import type {
 	DeleteAccountSettingResourceResponse,
 	DeleteAccountSettingResourceStatus401,
 	DeleteAccountSettingResourceStatus403,
+	DeleteAccountSubResourcePath,
 	DeleteAccountSubResourceResponse,
 	DeleteAccountSubResourceStatus401,
 	DeleteAccountsResourceResponse,
 	DeleteAccountsResourceStatus401,
+	DeleteAccountUserResourcePath,
 	DeleteAccountUserResourceResponse,
 	DeleteAccountUserResourceStatus401,
 	DeleteAccountUserResourceStatus423,
+	DeleteAddressResourcePath,
 	DeleteAddressResourceResponse,
 	DeleteAddressResourceStatus401,
 	DeleteAddressResourceStatus403,
+	DeleteAddressUnitResourcePath,
 	DeleteAddressUnitResourceResponse,
 	DeleteAddressUnitResourceStatus401,
 	DeleteAddressUnitResourceStatus403,
 	DeleteAddressUnitResourceStatus423,
 	DeleteAddressUnitsResourceBody,
+	DeleteAddressUnitsResourcePath,
 	DeleteAddressUnitsResourceResponse,
 	DeleteAddressUnitsResourceStatus400,
 	DeleteAddressUnitsResourceStatus401,
 	DeleteAddressUnitsResourceStatus403,
 	DeleteAddressUnitsResourceStatus423,
+	DeleteApiKeyAdvancedResourcePath,
 	DeleteApiKeyAdvancedResourceResponse,
 	DeleteApiKeyAdvancedResourceStatus401,
+	DeleteApiKeyResourcePath,
 	DeleteApiKeyResourceResponse,
 	DeleteApiKeyResourceStatus401,
+	DeleteApiKeyTokenResourcePath,
 	DeleteApiKeyTokenResourceResponse,
 	DeleteApiKeyTokenResourceStatus401,
+	DeleteDecentralWebhookResourcePath,
 	DeleteDecentralWebhookResourceResponse,
 	DeleteDecentralWebhookResourceStatus401,
 	DeleteDecentralWebhookResourceStatus403,
+	DeleteNotificationResourcePath,
 	DeleteNotificationResourceResponse,
 	DeleteNotificationResourceStatus401,
 	DeleteNotificationResourceStatus403,
 	DeleteNotificationResourceStatus405,
+	DeleteSmartlockAuthResourcePath,
 	DeleteSmartlockAuthResourceResponse,
 	DeleteSmartlockAuthResourceStatus401,
 	DeleteSmartlockAuthResourceStatus403,
 	DeleteSmartlockAuthResourceStatus423,
+	DeleteSmartlockResourcePath,
 	DeleteSmartlockResourceResponse,
 	DeleteSmartlockResourceStatus400,
 	DeleteSmartlockResourceStatus401,
@@ -66,38 +79,49 @@ import type {
 	GetAccountSettingResourceStatus401,
 	GetAccountSettingResourceStatus403,
 	GetAccountSettingResourceStatus404,
+	GetAccountSubResourcePath,
 	GetAccountSubResourceResponse,
 	GetAccountSubResourceStatus401,
+	GetAccountSubsResourceQuery,
 	GetAccountSubsResourceResponse,
 	GetAccountSubsResourceStatus401,
 	GetAccountsResourceResponse,
 	GetAccountsResourceStatus401,
+	GetAccountUserResourcePath,
 	GetAccountUserResourceResponse,
 	GetAccountUserResourceStatus401,
+	GetAccountUsersResourceQuery,
 	GetAccountUsersResourceResponse,
 	GetAccountUsersResourceStatus401,
 	GetAddressesResourceResponse,
 	GetAddressesResourceStatus401,
+	GetAddressReservationsResourcePath,
 	GetAddressReservationsResourceResponse,
 	GetAddressReservationsResourceStatus401,
+	GetAddressTokenRedeemResourcePath,
 	GetAddressTokenRedeemResourceResponse,
 	GetAddressTokenRedeemResourceStatus401,
 	GetAddressTokenRedeemResourceStatus404,
+	GetAddressTokenResourcePath,
 	GetAddressTokenResourceResponse,
 	GetAddressTokenResourceStatus401,
 	GetAddressTokenResourceStatus404,
+	GetAddressTokensResourcePath,
 	GetAddressTokensResourceResponse,
 	GetAddressTokensResourceStatus400,
 	GetAddressTokensResourceStatus401,
+	GetAddressUnitsResourcePath,
 	GetAddressUnitsResourceResponse,
 	GetAddressUnitsResourceStatus400,
 	GetAddressUnitsResourceStatus401,
+	GetApiKeyAdvancedResourcePath,
 	GetApiKeyAdvancedResourceResponse,
 	GetApiKeyAdvancedResourceStatus401,
 	GetApiKeyAdvancedResourceStatus403,
 	GetApiKeyAdvancedResourceStatus404,
 	GetApiKeysResourceResponse,
 	GetApiKeysResourceStatus401,
+	GetApiKeyTokensResourcePath,
 	GetApiKeyTokensResourceResponse,
 	GetApiKeyTokensResourceStatus401,
 	GetCompaniesResourceResponse,
@@ -106,40 +130,59 @@ import type {
 	GetDecentralWebhooksResourceResponse,
 	GetDecentralWebhooksResourceStatus401,
 	GetDecentralWebhooksResourceStatus403,
+	GetNotificationResourcePath,
 	GetNotificationResourceResponse,
 	GetNotificationResourceStatus401,
 	GetNotificationResourceStatus403,
 	GetNotificationResourceStatus404,
+	GetNotificationsResourceQuery,
 	GetNotificationsResourceResponse,
 	GetNotificationsResourceStatus401,
+	GetOpenerBrandResourcePath,
 	GetOpenerBrandResourceResponse,
 	GetOpenerBrandsResourceResponse,
+	GetOpenerIntercomResourcePath,
 	GetOpenerIntercomResourceResponse,
+	GetOpenerIntercomsResourceQuery,
 	GetOpenerIntercomsResourceResponse,
+	GetServiceResourcePath,
 	GetServiceResourceResponse,
 	GetServiceResourceStatus401,
+	GetServicesResourceQuery,
 	GetServicesResourceResponse,
 	GetServicesResourceStatus401,
+	GetSmartlockAuthResourcePath,
 	GetSmartlockAuthResourceResponse,
 	GetSmartlockAuthResourceStatus401,
 	GetSmartlockAuthResourceStatus403,
+	GetSmartlockAuthsResourcePath,
+	GetSmartlockAuthsResourceQuery,
 	GetSmartlockAuthsResourceResponse,
 	GetSmartlockAuthsResourceStatus401,
 	GetSmartlockAuthsResourceStatus403,
+	GetSmartlockLogsResourcePath,
+	GetSmartlockLogsResourceQuery,
 	GetSmartlockLogsResourceResponse,
 	GetSmartlockLogsResourceStatus401,
+	GetSmartlockResourcePath,
 	GetSmartlockResourceResponse,
 	GetSmartlockResourceStatus401,
 	GetSmartlockResourceStatus403,
 	GetSmartlockResourceStatus404,
+	GetSmartlocksAuthsPaginatedResourceQuery,
 	GetSmartlocksAuthsPaginatedResourceResponse,
 	GetSmartlocksAuthsPaginatedResourceStatus401,
+	GetSmartlocksAuthsResourceQuery,
 	GetSmartlocksAuthsResourceResponse,
 	GetSmartlocksAuthsResourceStatus401,
+	GetSmartlocksLogsResourceQuery,
 	GetSmartlocksLogsResourceResponse,
 	GetSmartlocksLogsResourceStatus401,
+	GetSmartlocksResourceQuery,
 	GetSmartlocksResourceResponse,
 	GetSmartlocksResourceStatus401,
+	GetWebhookLogsResourcePath,
+	GetWebhookLogsResourceQuery,
 	GetWebhookLogsResourceResponse,
 	GetWebhookLogsResourceStatus401,
 	PostAccountEmailChangeResourceBody,
@@ -160,93 +203,116 @@ import type {
 	PostAccountPasswordResetResourceResponse,
 	PostAccountPasswordResetResourceStatus401,
 	PostAccountSubResourceBody,
+	PostAccountSubResourcePath,
 	PostAccountSubResourceResponse,
 	PostAccountSubResourceStatus400,
 	PostAccountSubResourceStatus401,
 	PostAccountSubResourceStatus409,
 	PostAccountsResourceBody,
+	PostAccountsResourceQuery,
 	PostAccountsResourceResponse,
 	PostAccountsResourceStatus400,
 	PostAccountsResourceStatus401,
 	PostAccountsResourceStatus409,
 	PostAccountUserResourceBody,
+	PostAccountUserResourcePath,
 	PostAccountUserResourceResponse,
 	PostAccountUserResourceStatus400,
 	PostAccountUserResourceStatus401,
 	PostAccountUserResourceStatus409,
+	PostAddressReservationIssueResourcePath,
 	PostAddressReservationIssueResourceResponse,
 	PostAddressReservationIssueResourceStatus400,
 	PostAddressReservationIssueResourceStatus401,
+	PostAddressReservationRevokeResourcePath,
 	PostAddressReservationRevokeResourceResponse,
 	PostAddressReservationRevokeResourceStatus400,
 	PostAddressReservationRevokeResourceStatus401,
 	PostAddressResourceBody,
+	PostAddressResourcePath,
 	PostAddressResourceResponse,
 	PostAddressResourceStatus400,
 	PostAddressResourceStatus401,
 	PostAddressResourceStatus403,
+	PostAddressTokenRedeemResourcePath,
+	PostAddressTokenRedeemResourceQuery,
 	PostAddressTokenRedeemResourceResponse,
 	PostAddressTokenRedeemResourceStatus400,
 	PostAddressTokenRedeemResourceStatus401,
 	PostAddressTokenRedeemResourceStatus404,
+	PostApiKeyAdvancedReactivateResourcePath,
 	PostApiKeyAdvancedReactivateResourceResponse,
 	PostApiKeyAdvancedReactivateResourceStatus400,
 	PostApiKeyAdvancedReactivateResourceStatus401,
 	PostApiKeyAdvancedResourceBody,
+	PostApiKeyAdvancedResourcePath,
 	PostApiKeyAdvancedResourceResponse,
 	PostApiKeyAdvancedResourceStatus400,
 	PostApiKeyAdvancedResourceStatus401,
 	PostApiKeyResourceBody,
+	PostApiKeyResourcePath,
 	PostApiKeyResourceResponse,
 	PostApiKeyResourceStatus400,
 	PostApiKeyResourceStatus401,
 	PostApiKeyResourceStatus503,
 	PostApiKeyTokenResourceBody,
+	PostApiKeyTokenResourcePath,
 	PostApiKeyTokenResourceResponse,
 	PostApiKeyTokenResourceStatus400,
 	PostApiKeyTokenResourceStatus401,
 	PostNotificationResourceBody,
+	PostNotificationResourcePath,
 	PostNotificationResourceResponse,
 	PostNotificationResourceStatus400,
 	PostNotificationResourceStatus401,
 	PostNotificationResourceStatus403,
 	PostReservationAccessTimesUpdateResourceBody,
+	PostReservationAccessTimesUpdateResourcePath,
 	PostReservationAccessTimesUpdateResourceResponse,
 	PostReservationAccessTimesUpdateResourceStatus400,
 	PostReservationAccessTimesUpdateResourceStatus401,
+	PostServiceLinkResourcePath,
 	PostServiceLinkResourceResponse,
 	PostServiceLinkResourceStatus400,
 	PostServiceLinkResourceStatus401,
+	PostServiceSyncResourcePath,
 	PostServiceSyncResourceResponse,
 	PostServiceSyncResourceStatus400,
 	PostServiceSyncResourceStatus401,
+	PostServiceUnlinkResourcePath,
 	PostServiceUnlinkResourceResponse,
 	PostServiceUnlinkResourceStatus400,
 	PostServiceUnlinkResourceStatus401,
 	PostSmartdoorAdvancedConfigResourceBody,
+	PostSmartdoorAdvancedConfigResourcePath,
 	PostSmartdoorAdvancedConfigResourceResponse,
 	PostSmartdoorAdvancedConfigResourceStatus400,
 	PostSmartdoorAdvancedConfigResourceStatus401,
 	PostSmartlockActionAdvancedResourceBody,
+	PostSmartlockActionAdvancedResourcePath,
 	PostSmartlockActionAdvancedResourceResponse,
 	PostSmartlockActionAdvancedResourceStatus400,
 	PostSmartlockActionAdvancedResourceStatus402,
 	PostSmartlockActionAdvancedResourceStatus409,
 	PostSmartlockActionAdvancedResourceStatus426,
 	PostSmartlockActionResourceBody,
+	PostSmartlockActionResourcePath,
 	PostSmartlockActionResourceResponse,
 	PostSmartlockActionResourceStatus400,
 	PostSmartlockActionResourceStatus401,
 	PostSmartlockActionResourceStatus402,
 	PostSmartlockAdminPinResourceBody,
+	PostSmartlockAdminPinResourcePath,
 	PostSmartlockAdminPinResourceResponse,
 	PostSmartlockAdminPinResourceStatus400,
 	PostSmartlockAdminPinResourceStatus401,
 	PostSmartlockAdvancedConfigResourceBody,
+	PostSmartlockAdvancedConfigResourcePath,
 	PostSmartlockAdvancedConfigResourceResponse,
 	PostSmartlockAdvancedConfigResourceStatus400,
 	PostSmartlockAdvancedConfigResourceStatus401,
 	PostSmartlockAuthResourceBody,
+	PostSmartlockAuthResourcePath,
 	PostSmartlockAuthResourceResponse,
 	PostSmartlockAuthResourceStatus400,
 	PostSmartlockAuthResourceStatus401,
@@ -254,6 +320,7 @@ import type {
 	PostSmartlockAuthResourceStatus409,
 	PostSmartlockAuthResourceStatus423,
 	PostSmartlockAuthWithSharedKeyResourceBody,
+	PostSmartlockAuthWithSharedKeyResourcePath,
 	PostSmartlockAuthWithSharedKeyResourceResponse,
 	PostSmartlockAuthWithSharedKeyResourceStatus401,
 	PostSmartlockAuthWithSharedKeyResourceStatus403,
@@ -263,26 +330,32 @@ import type {
 	PostSmartlockBulkWebConfigResourceStatus400,
 	PostSmartlockBulkWebConfigResourceStatus401,
 	PostSmartlockConfigResourceBody,
+	PostSmartlockConfigResourcePath,
 	PostSmartlockConfigResourceResponse,
 	PostSmartlockConfigResourceStatus400,
 	PostSmartlockConfigResourceStatus401,
+	PostSmartlockLockActionAdvancedResourcePath,
 	PostSmartlockLockActionAdvancedResourceResponse,
 	PostSmartlockLockActionAdvancedResourceStatus400,
 	PostSmartlockLockActionAdvancedResourceStatus401,
 	PostSmartlockLockActionAdvancedResourceStatus405,
+	PostSmartlockLockActionResourcePath,
 	PostSmartlockLockActionResourceResponse,
 	PostSmartlockLockActionResourceStatus400,
 	PostSmartlockLockActionResourceStatus401,
 	PostSmartlockLockActionResourceStatus405,
 	PostSmartlockOpenerAdvancedConfigResourceBody,
+	PostSmartlockOpenerAdvancedConfigResourcePath,
 	PostSmartlockOpenerAdvancedConfigResourceResponse,
 	PostSmartlockOpenerAdvancedConfigResourceStatus400,
 	PostSmartlockOpenerAdvancedConfigResourceStatus401,
 	PostSmartlockResourceBody,
+	PostSmartlockResourcePath,
 	PostSmartlockResourceResponse,
 	PostSmartlockResourceStatus400,
 	PostSmartlockResourceStatus401,
 	PostSmartlockResourceStatus403,
+	PostSmartlockSyncResourcePath,
 	PostSmartlockSyncResourceResponse,
 	PostSmartlockSyncResourceStatus400,
 	PostSmartlockSyncResourceStatus401,
@@ -293,15 +366,18 @@ import type {
 	PostSmartlocksAuthsResourceStatus403,
 	PostSmartlocksAuthsResourceStatus409,
 	PostSmartlocksAuthsResourceStatus423,
+	PostSmartlockUnlockActionAdvancedResourcePath,
 	PostSmartlockUnlockActionAdvancedResourceResponse,
 	PostSmartlockUnlockActionAdvancedResourceStatus400,
 	PostSmartlockUnlockActionAdvancedResourceStatus401,
 	PostSmartlockUnlockActionAdvancedResourceStatus405,
+	PostSmartlockUnlockActionResourcePath,
 	PostSmartlockUnlockActionResourceResponse,
 	PostSmartlockUnlockActionResourceStatus400,
 	PostSmartlockUnlockActionResourceStatus401,
 	PostSmartlockUnlockActionResourceStatus405,
 	PostSmartlockWebConfigResourceBody,
+	PostSmartlockWebConfigResourcePath,
 	PostSmartlockWebConfigResourceResponse,
 	PostSmartlockWebConfigResourceStatus400,
 	PostSmartlockWebConfigResourceStatus401,
@@ -322,11 +398,13 @@ import type {
 	PutAddressesResourceStatus400,
 	PutAddressesResourceStatus401,
 	PutAddressUnitsResourceBody,
+	PutAddressUnitsResourcePath,
 	PutAddressUnitsResourceResponse,
 	PutAddressUnitsResourceStatus400,
 	PutAddressUnitsResourceStatus401,
 	PutAddressUnitsResourceStatus403,
 	PutApiKeyAdvancedResourceBody,
+	PutApiKeyAdvancedResourcePath,
 	PutApiKeyAdvancedResourceResponse,
 	PutApiKeyAdvancedResourceStatus400,
 	PutApiKeyAdvancedResourceStatus401,
@@ -335,6 +413,7 @@ import type {
 	PutApiKeysResourceStatus400,
 	PutApiKeysResourceStatus401,
 	PutApiKeyTokensResourceBody,
+	PutApiKeyTokensResourcePath,
 	PutApiKeyTokensResourceResponse,
 	PutApiKeyTokensResourceStatus400,
 	PutApiKeyTokensResourceStatus401,
@@ -355,6 +434,7 @@ import type {
 	PutSmartlockAuthsAdvancedResourceStatus409,
 	PutSmartlockAuthsAdvancedResourceStatus426,
 	PutSmartlockAuthsResourceBody,
+	PutSmartlockAuthsResourcePath,
 	PutSmartlockAuthsResourceResponse,
 	PutSmartlockAuthsResourceStatus400,
 	PutSmartlockAuthsResourceStatus402,
@@ -405,7 +485,7 @@ export async function postAccountsResource(
 		config,
 	}: {
 		body: PostAccountsResourceBody;
-		queryParams?: { deleteApiTokens?: boolean };
+		queryParams?: Partial<PostAccountsResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -418,7 +498,7 @@ export async function postAccountsResource(
 		>,
 		PostAccountsResourceBody,
 		Record<string, string>,
-		{ deleteApiTokens?: boolean },
+		Partial<PostAccountsResourceQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -560,7 +640,7 @@ export async function deleteAccountIntegrationsResource(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { apiKeyId?: number; tokenId?: number };
+		queryParams?: Partial<DeleteAccountIntegrationsResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -571,7 +651,7 @@ export async function deleteAccountIntegrationsResource(
 		ErrorWrapper<DeleteAccountIntegrationsResourceStatus401>,
 		null,
 		Record<string, string>,
-		{ apiKeyId?: number; tokenId?: number },
+		Partial<DeleteAccountIntegrationsResourceQuery>,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -804,7 +884,7 @@ export async function getAccountSubsResource(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { email?: string };
+		queryParams?: Partial<GetAccountSubsResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -815,7 +895,7 @@ export async function getAccountSubsResource(
 		ErrorWrapper<GetAccountSubsResourceStatus401>,
 		null,
 		Record<string, string>,
-		{ email?: string },
+		Partial<GetAccountSubsResourceQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -870,7 +950,7 @@ export async function getAccountSubResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { accountId: number };
+		pathParams: GetAccountSubResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -885,7 +965,7 @@ export async function getAccountSubResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ accountId: number }
+		GetAccountSubResourcePath
 	>({
 		method: "GET",
 		url: `/account/sub/${encodeURIComponent(String(pathParams.accountId))}`,
@@ -906,7 +986,7 @@ export async function postAccountSubResource(
 		body,
 		config,
 	}: {
-		pathParams: { accountId: number };
+		pathParams: PostAccountSubResourcePath;
 		body: PostAccountSubResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -926,7 +1006,7 @@ export async function postAccountSubResource(
 		PostAccountSubResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ accountId: number }
+		PostAccountSubResourcePath
 	>({
 		method: "POST",
 		url: `/account/sub/${encodeURIComponent(String(pathParams.accountId))}`,
@@ -947,7 +1027,7 @@ export async function deleteAccountSubResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { accountId: number };
+		pathParams: DeleteAccountSubResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -962,7 +1042,7 @@ export async function deleteAccountSubResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ accountId: number }
+		DeleteAccountSubResourcePath
 	>({
 		method: "DELETE",
 		url: `/account/sub/${encodeURIComponent(String(pathParams.accountId))}`,
@@ -982,7 +1062,7 @@ export async function getAccountUsersResource(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { email?: string; offset?: number; limit?: number };
+		queryParams?: Partial<GetAccountUsersResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -993,7 +1073,7 @@ export async function getAccountUsersResource(
 		ErrorWrapper<GetAccountUsersResourceStatus401>,
 		null,
 		Record<string, string>,
-		{ email?: string; offset?: number; limit?: number },
+		Partial<GetAccountUsersResourceQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -1048,7 +1128,7 @@ export async function getAccountUserResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { accountUserId: number };
+		pathParams: GetAccountUserResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1063,7 +1143,7 @@ export async function getAccountUserResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ accountUserId: number }
+		GetAccountUserResourcePath
 	>({
 		method: "GET",
 		url: `/account/user/${encodeURIComponent(String(pathParams.accountUserId))}`,
@@ -1084,7 +1164,7 @@ export async function postAccountUserResource(
 		body,
 		config,
 	}: {
-		pathParams: { accountUserId: number };
+		pathParams: PostAccountUserResourcePath;
 		body: PostAccountUserResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1104,7 +1184,7 @@ export async function postAccountUserResource(
 		PostAccountUserResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ accountUserId: number }
+		PostAccountUserResourcePath
 	>({
 		method: "POST",
 		url: `/account/user/${encodeURIComponent(String(pathParams.accountUserId))}`,
@@ -1125,7 +1205,7 @@ export async function deleteAccountUserResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { accountUserId: number };
+		pathParams: DeleteAccountUserResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1140,7 +1220,7 @@ export async function deleteAccountUserResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ accountUserId: number }
+		DeleteAccountUserResourcePath
 	>({
 		method: "DELETE",
 		url: `/account/user/${encodeURIComponent(String(pathParams.accountUserId))}`,
@@ -1219,7 +1299,7 @@ export async function getAddressTokenResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { id: string };
+		pathParams: GetAddressTokenResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1234,7 +1314,7 @@ export async function getAddressTokenResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ id: string }
+		GetAddressTokenResourcePath
 	>({
 		method: "GET",
 		url: `/address/token/${encodeURIComponent(String(pathParams.id))}`,
@@ -1254,7 +1334,7 @@ export async function getAddressTokenRedeemResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { id: string };
+		pathParams: GetAddressTokenRedeemResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1269,7 +1349,7 @@ export async function getAddressTokenRedeemResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ id: string }
+		GetAddressTokenRedeemResourcePath
 	>({
 		method: "GET",
 		url: `/address/token/${encodeURIComponent(String(pathParams.id))}/redeem`,
@@ -1290,8 +1370,8 @@ export async function postAddressTokenRedeemResource(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { email?: boolean };
+		pathParams: PostAddressTokenRedeemResourcePath;
+		queryParams?: Partial<PostAddressTokenRedeemResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1309,8 +1389,8 @@ export async function postAddressTokenRedeemResource(
 		>,
 		null,
 		Record<string, string>,
-		{ email?: boolean },
-		{ id: string }
+		Partial<PostAddressTokenRedeemResourceQuery>,
+		PostAddressTokenRedeemResourcePath
 	>({
 		method: "POST",
 		url: `/address/token/${encodeURIComponent(String(pathParams.id))}/redeem`,
@@ -1332,7 +1412,7 @@ export async function postAddressResource(
 		body,
 		config,
 	}: {
-		pathParams: { addressId: number };
+		pathParams: PostAddressResourcePath;
 		body: PostAddressResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1350,7 +1430,7 @@ export async function postAddressResource(
 		PostAddressResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ addressId: number }
+		PostAddressResourcePath
 	>({
 		method: "POST",
 		url: `/address/${encodeURIComponent(String(pathParams.addressId))}`,
@@ -1371,7 +1451,7 @@ export async function deleteAddressResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { addressId: number };
+		pathParams: DeleteAddressResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1386,7 +1466,7 @@ export async function deleteAddressResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ addressId: number }
+		DeleteAddressResourcePath
 	>({
 		method: "DELETE",
 		url: `/address/${encodeURIComponent(String(pathParams.addressId))}`,
@@ -1406,7 +1486,7 @@ export async function getAddressReservationsResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { addressId: number };
+		pathParams: GetAddressReservationsResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1421,7 +1501,7 @@ export async function getAddressReservationsResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ addressId: number }
+		GetAddressReservationsResourcePath
 	>({
 		method: "GET",
 		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/reservation`,
@@ -1441,7 +1521,7 @@ export async function postAddressReservationIssueResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { addressId: number; id: string };
+		pathParams: PostAddressReservationIssueResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1462,7 +1542,7 @@ export async function postAddressReservationIssueResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ addressId: number; id: string }
+		PostAddressReservationIssueResourcePath
 	>({
 		method: "POST",
 		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/reservation/${encodeURIComponent(String(pathParams.id))}/issue`,
@@ -1482,7 +1562,7 @@ export async function postAddressReservationRevokeResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { addressId: number; id: string };
+		pathParams: PostAddressReservationRevokeResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1503,7 +1583,7 @@ export async function postAddressReservationRevokeResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ addressId: number; id: string }
+		PostAddressReservationRevokeResourcePath
 	>({
 		method: "POST",
 		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/reservation/${encodeURIComponent(String(pathParams.id))}/revoke`,
@@ -1524,7 +1604,7 @@ export async function postReservationAccessTimesUpdateResource(
 		body,
 		config,
 	}: {
-		pathParams: { addressId: number; id: string };
+		pathParams: PostReservationAccessTimesUpdateResourcePath;
 		body: PostReservationAccessTimesUpdateResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1547,7 +1627,7 @@ export async function postReservationAccessTimesUpdateResource(
 		PostReservationAccessTimesUpdateResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ addressId: number; id: string }
+		PostReservationAccessTimesUpdateResourcePath
 	>({
 		method: "POST",
 		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/reservation/${encodeURIComponent(String(pathParams.id))}/update/accesstimes`,
@@ -1568,7 +1648,7 @@ export async function getAddressTokensResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { addressId: number };
+		pathParams: GetAddressTokensResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1583,7 +1663,7 @@ export async function getAddressTokensResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ addressId: number }
+		GetAddressTokensResourcePath
 	>({
 		method: "GET",
 		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/token`,
@@ -1603,7 +1683,7 @@ export async function getAddressUnitsResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { addressId: number };
+		pathParams: GetAddressUnitsResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1618,7 +1698,7 @@ export async function getAddressUnitsResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ addressId: number }
+		GetAddressUnitsResourcePath
 	>({
 		method: "GET",
 		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/unit`,
@@ -1639,7 +1719,7 @@ export async function putAddressUnitsResource(
 		body,
 		config,
 	}: {
-		pathParams: { addressId: number };
+		pathParams: PutAddressUnitsResourcePath;
 		body: PutAddressUnitsResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1659,7 +1739,7 @@ export async function putAddressUnitsResource(
 		PutAddressUnitsResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ addressId: number }
+		PutAddressUnitsResourcePath
 	>({
 		method: "PUT",
 		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/unit`,
@@ -1681,7 +1761,7 @@ export async function deleteAddressUnitsResource(
 		body,
 		config,
 	}: {
-		pathParams: { addressId: number };
+		pathParams: DeleteAddressUnitsResourcePath;
 		body: DeleteAddressUnitsResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1702,7 +1782,7 @@ export async function deleteAddressUnitsResource(
 		DeleteAddressUnitsResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ addressId: number }
+		DeleteAddressUnitsResourcePath
 	>({
 		method: "DELETE",
 		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/unit`,
@@ -1723,7 +1803,7 @@ export async function deleteAddressUnitResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { addressId: number; id: string };
+		pathParams: DeleteAddressUnitResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1746,7 +1826,7 @@ export async function deleteAddressUnitResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ addressId: number; id: string }
+		DeleteAddressUnitResourcePath
 	>({
 		method: "DELETE",
 		url: `/address/${encodeURIComponent(String(pathParams.addressId))}/unit/${encodeURIComponent(String(pathParams.id))}`,
@@ -1829,7 +1909,7 @@ export async function deleteDecentralWebhookResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { id: number };
+		pathParams: DeleteDecentralWebhookResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1844,7 +1924,7 @@ export async function deleteDecentralWebhookResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ id: number }
+		DeleteDecentralWebhookResourcePath
 	>({
 		method: "DELETE",
 		url: `/api/decentralWebhook/${encodeURIComponent(String(pathParams.id))}`,
@@ -1924,7 +2004,7 @@ export async function postApiKeyResource(
 		body,
 		config,
 	}: {
-		pathParams: { apiKeyId: number };
+		pathParams: PostApiKeyResourcePath;
 		body: PostApiKeyResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1942,7 +2022,7 @@ export async function postApiKeyResource(
 		PostApiKeyResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ apiKeyId: number }
+		PostApiKeyResourcePath
 	>({
 		method: "POST",
 		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}`,
@@ -1963,7 +2043,7 @@ export async function deleteApiKeyResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { apiKeyId: number };
+		pathParams: DeleteApiKeyResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1978,7 +2058,7 @@ export async function deleteApiKeyResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ apiKeyId: number }
+		DeleteApiKeyResourcePath
 	>({
 		method: "DELETE",
 		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}`,
@@ -1998,7 +2078,7 @@ export async function getApiKeyAdvancedResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { apiKeyId: number };
+		pathParams: GetApiKeyAdvancedResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2017,7 +2097,7 @@ export async function getApiKeyAdvancedResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ apiKeyId: number }
+		GetApiKeyAdvancedResourcePath
 	>({
 		method: "GET",
 		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/advanced`,
@@ -2038,7 +2118,7 @@ export async function postApiKeyAdvancedResource(
 		body,
 		config,
 	}: {
-		pathParams: { apiKeyId: number };
+		pathParams: PostApiKeyAdvancedResourcePath;
 		body: PostApiKeyAdvancedResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2054,7 +2134,7 @@ export async function postApiKeyAdvancedResource(
 		PostApiKeyAdvancedResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ apiKeyId: number }
+		PostApiKeyAdvancedResourcePath
 	>({
 		method: "POST",
 		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/advanced`,
@@ -2076,7 +2156,7 @@ export async function putApiKeyAdvancedResource(
 		body,
 		config,
 	}: {
-		pathParams: { apiKeyId: number };
+		pathParams: PutApiKeyAdvancedResourcePath;
 		body: PutApiKeyAdvancedResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2092,7 +2172,7 @@ export async function putApiKeyAdvancedResource(
 		PutApiKeyAdvancedResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ apiKeyId: number }
+		PutApiKeyAdvancedResourcePath
 	>({
 		method: "PUT",
 		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/advanced`,
@@ -2113,7 +2193,7 @@ export async function deleteApiKeyAdvancedResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { apiKeyId: number };
+		pathParams: DeleteApiKeyAdvancedResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2128,7 +2208,7 @@ export async function deleteApiKeyAdvancedResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ apiKeyId: number }
+		DeleteApiKeyAdvancedResourcePath
 	>({
 		method: "DELETE",
 		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/advanced`,
@@ -2148,7 +2228,7 @@ export async function postApiKeyAdvancedReactivateResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { apiKeyId: number };
+		pathParams: PostApiKeyAdvancedReactivateResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2165,7 +2245,7 @@ export async function postApiKeyAdvancedReactivateResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ apiKeyId: number }
+		PostApiKeyAdvancedReactivateResourcePath
 	>({
 		method: "POST",
 		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/advanced/reactivate`,
@@ -2185,7 +2265,7 @@ export async function getApiKeyTokensResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { apiKeyId: number };
+		pathParams: GetApiKeyTokensResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2200,7 +2280,7 @@ export async function getApiKeyTokensResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ apiKeyId: number }
+		GetApiKeyTokensResourcePath
 	>({
 		method: "GET",
 		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/token`,
@@ -2221,7 +2301,7 @@ export async function putApiKeyTokensResource(
 		body,
 		config,
 	}: {
-		pathParams: { apiKeyId: number };
+		pathParams: PutApiKeyTokensResourcePath;
 		body: PutApiKeyTokensResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2237,7 +2317,7 @@ export async function putApiKeyTokensResource(
 		PutApiKeyTokensResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ apiKeyId: number }
+		PutApiKeyTokensResourcePath
 	>({
 		method: "PUT",
 		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/token`,
@@ -2259,7 +2339,7 @@ export async function postApiKeyTokenResource(
 		body,
 		config,
 	}: {
-		pathParams: { apiKeyId: number; id: string };
+		pathParams: PostApiKeyTokenResourcePath;
 		body: PostApiKeyTokenResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2279,7 +2359,7 @@ export async function postApiKeyTokenResource(
 		PostApiKeyTokenResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ apiKeyId: number; id: string }
+		PostApiKeyTokenResourcePath
 	>({
 		method: "POST",
 		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/token/${encodeURIComponent(String(pathParams.id))}`,
@@ -2300,7 +2380,7 @@ export async function deleteApiKeyTokenResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { apiKeyId: number; id: string };
+		pathParams: DeleteApiKeyTokenResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2319,7 +2399,7 @@ export async function deleteApiKeyTokenResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ apiKeyId: number; id: string }
+		DeleteApiKeyTokenResourcePath
 	>({
 		method: "DELETE",
 		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/token/${encodeURIComponent(String(pathParams.id))}`,
@@ -2340,8 +2420,8 @@ export async function getWebhookLogsResource(
 		queryParams,
 		config,
 	}: {
-		pathParams: { apiKeyId: number };
-		queryParams?: { id?: string; limit?: number };
+		pathParams: GetWebhookLogsResourcePath;
+		queryParams?: Partial<GetWebhookLogsResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2355,8 +2435,8 @@ export async function getWebhookLogsResource(
 		ErrorWrapper<GetWebhookLogsResourceStatus401>,
 		null,
 		Record<string, string>,
-		{ id?: string; limit?: number },
-		{ apiKeyId: number }
+		Partial<GetWebhookLogsResourceQuery>,
+		GetWebhookLogsResourcePath
 	>({
 		method: "GET",
 		url: `/api/key/${encodeURIComponent(String(pathParams.apiKeyId))}/webhook/logs`,
@@ -2438,7 +2518,7 @@ export async function getNotificationsResource(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { referenceId?: string };
+		queryParams?: Partial<GetNotificationsResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2449,7 +2529,7 @@ export async function getNotificationsResource(
 		ErrorWrapper<GetNotificationsResourceStatus401>,
 		null,
 		Record<string, string>,
-		{ referenceId?: string },
+		Partial<GetNotificationsResourceQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -2508,7 +2588,7 @@ export async function getNotificationResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { notificationId: string };
+		pathParams: GetNotificationResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2527,7 +2607,7 @@ export async function getNotificationResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ notificationId: string }
+		GetNotificationResourcePath
 	>({
 		method: "GET",
 		url: `/notification/${encodeURIComponent(String(pathParams.notificationId))}`,
@@ -2548,7 +2628,7 @@ export async function postNotificationResource(
 		body,
 		config,
 	}: {
-		pathParams: { notificationId: string };
+		pathParams: PostNotificationResourcePath;
 		body: PostNotificationResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2568,7 +2648,7 @@ export async function postNotificationResource(
 		PostNotificationResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ notificationId: string }
+		PostNotificationResourcePath
 	>({
 		method: "POST",
 		url: `/notification/${encodeURIComponent(String(pathParams.notificationId))}`,
@@ -2589,7 +2669,7 @@ export async function deleteNotificationResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { notificationId: string };
+		pathParams: DeleteNotificationResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2608,7 +2688,7 @@ export async function deleteNotificationResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ notificationId: string }
+		DeleteNotificationResourcePath
 	>({
 		method: "DELETE",
 		url: `/notification/${encodeURIComponent(String(pathParams.notificationId))}`,
@@ -2654,7 +2734,7 @@ export async function getOpenerBrandResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { brandId: number };
+		pathParams: GetOpenerBrandResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2669,7 +2749,7 @@ export async function getOpenerBrandResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ brandId: number }
+		GetOpenerBrandResourcePath
 	>({
 		method: "GET",
 		url: `/opener/brand/${encodeURIComponent(String(pathParams.brandId))}`,
@@ -2689,7 +2769,7 @@ export async function getOpenerIntercomsResource(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { brandId?: number; ignoreVerified?: boolean; recentlyChanged?: boolean };
+		queryParams?: Partial<GetOpenerIntercomsResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2700,7 +2780,7 @@ export async function getOpenerIntercomsResource(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ brandId?: number; ignoreVerified?: boolean; recentlyChanged?: boolean },
+		Partial<GetOpenerIntercomsResourceQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -2722,7 +2802,7 @@ export async function getOpenerIntercomResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { intercomId: number };
+		pathParams: GetOpenerIntercomResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2737,7 +2817,7 @@ export async function getOpenerIntercomResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ intercomId: number }
+		GetOpenerIntercomResourcePath
 	>({
 		method: "GET",
 		url: `/opener/intercom/${encodeURIComponent(String(pathParams.intercomId))}`,
@@ -2757,7 +2837,7 @@ export async function getServicesResource(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { serviceIds?: string };
+		queryParams?: Partial<GetServicesResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2768,7 +2848,7 @@ export async function getServicesResource(
 		ErrorWrapper<GetServicesResourceStatus401>,
 		null,
 		Record<string, string>,
-		{ serviceIds?: string },
+		Partial<GetServicesResourceQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -2790,7 +2870,7 @@ export async function getServiceResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { serviceId: string };
+		pathParams: GetServiceResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2805,7 +2885,7 @@ export async function getServiceResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ serviceId: string }
+		GetServiceResourcePath
 	>({
 		method: "GET",
 		url: `/service/${encodeURIComponent(String(pathParams.serviceId))}`,
@@ -2825,7 +2905,7 @@ export async function postServiceLinkResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { serviceId: string };
+		pathParams: PostServiceLinkResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2840,7 +2920,7 @@ export async function postServiceLinkResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ serviceId: string }
+		PostServiceLinkResourcePath
 	>({
 		method: "POST",
 		url: `/service/${encodeURIComponent(String(pathParams.serviceId))}/link`,
@@ -2860,7 +2940,7 @@ export async function postServiceSyncResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { serviceId: string };
+		pathParams: PostServiceSyncResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2875,7 +2955,7 @@ export async function postServiceSyncResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ serviceId: string }
+		PostServiceSyncResourcePath
 	>({
 		method: "POST",
 		url: `/service/${encodeURIComponent(String(pathParams.serviceId))}/sync`,
@@ -2895,7 +2975,7 @@ export async function postServiceUnlinkResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { serviceId: string };
+		pathParams: PostServiceUnlinkResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2910,7 +2990,7 @@ export async function postServiceUnlinkResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ serviceId: string }
+		PostServiceUnlinkResourcePath
 	>({
 		method: "POST",
 		url: `/service/${encodeURIComponent(String(pathParams.serviceId))}/unlink`,
@@ -2930,7 +3010,7 @@ export async function getSmartlocksResource(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { authId?: number; type?: number };
+		queryParams?: Partial<GetSmartlocksResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2941,7 +3021,7 @@ export async function getSmartlocksResource(
 		ErrorWrapper<GetSmartlocksResourceStatus401>,
 		null,
 		Record<string, string>,
-		{ authId?: number; type?: number },
+		Partial<GetSmartlocksResourceQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -2963,7 +3043,7 @@ export async function getSmartlocksAuthsResource(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { accountUserId?: number; types?: string };
+		queryParams?: Partial<GetSmartlocksAuthsResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2974,7 +3054,7 @@ export async function getSmartlocksAuthsResource(
 		ErrorWrapper<GetSmartlocksAuthsResourceStatus401>,
 		null,
 		Record<string, string>,
-		{ accountUserId?: number; types?: string },
+		Partial<GetSmartlocksAuthsResourceQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -3149,7 +3229,7 @@ export async function getSmartlocksAuthsPaginatedResource(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { page?: number; size?: number; accountUserId?: number; types?: string };
+		queryParams?: Partial<GetSmartlocksAuthsPaginatedResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3160,7 +3240,7 @@ export async function getSmartlocksAuthsPaginatedResource(
 		ErrorWrapper<GetSmartlocksAuthsPaginatedResourceStatus401>,
 		null,
 		Record<string, string>,
-		{ page?: number; size?: number; accountUserId?: number; types?: string },
+		Partial<GetSmartlocksAuthsPaginatedResourceQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -3182,14 +3262,7 @@ export async function getSmartlocksLogsResource(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			accountUserId?: number;
-			fromDate?: string;
-			toDate?: string;
-			action?: number;
-			id?: string;
-			limit?: number;
-		};
+		queryParams?: Partial<GetSmartlocksLogsResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3200,14 +3273,7 @@ export async function getSmartlocksLogsResource(
 		ErrorWrapper<GetSmartlocksLogsResourceStatus401>,
 		null,
 		Record<string, string>,
-		{
-			accountUserId?: number;
-			fromDate?: string;
-			toDate?: string;
-			action?: number;
-			id?: string;
-			limit?: number;
-		},
+		Partial<GetSmartlocksLogsResourceQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -3229,7 +3295,7 @@ export async function getSmartlockResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { smartlockId: number };
+		pathParams: GetSmartlockResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3246,7 +3312,7 @@ export async function getSmartlockResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number }
+		GetSmartlockResourcePath
 	>({
 		method: "GET",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}`,
@@ -3267,7 +3333,7 @@ export async function postSmartlockResource(
 		body,
 		config,
 	}: {
-		pathParams: { smartlockId: number };
+		pathParams: PostSmartlockResourcePath;
 		body: PostSmartlockResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3287,7 +3353,7 @@ export async function postSmartlockResource(
 		PostSmartlockResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number }
+		PostSmartlockResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}`,
@@ -3308,7 +3374,7 @@ export async function deleteSmartlockResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { smartlockId: number };
+		pathParams: DeleteSmartlockResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3327,7 +3393,7 @@ export async function deleteSmartlockResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number }
+		DeleteSmartlockResourcePath
 	>({
 		method: "DELETE",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}`,
@@ -3348,7 +3414,7 @@ export async function postSmartlockActionResource(
 		body,
 		config,
 	}: {
-		pathParams: { smartlockId: string };
+		pathParams: PostSmartlockActionResourcePath;
 		body: PostSmartlockActionResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3368,7 +3434,7 @@ export async function postSmartlockActionResource(
 		PostSmartlockActionResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: string }
+		PostSmartlockActionResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/action`,
@@ -3390,7 +3456,7 @@ export async function postSmartlockActionAdvancedResource(
 		body,
 		config,
 	}: {
-		pathParams: { smartlockId: string };
+		pathParams: PostSmartlockActionAdvancedResourcePath;
 		body: PostSmartlockActionAdvancedResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3411,7 +3477,7 @@ export async function postSmartlockActionAdvancedResource(
 		PostSmartlockActionAdvancedResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: string }
+		PostSmartlockActionAdvancedResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/action/advanced`,
@@ -3432,7 +3498,7 @@ export async function postSmartlockLockActionResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { smartlockId: string };
+		pathParams: PostSmartlockLockActionResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3451,7 +3517,7 @@ export async function postSmartlockLockActionResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: string }
+		PostSmartlockLockActionResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/action/lock`,
@@ -3471,7 +3537,7 @@ export async function postSmartlockLockActionAdvancedResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { smartlockId: string };
+		pathParams: PostSmartlockLockActionAdvancedResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3490,7 +3556,7 @@ export async function postSmartlockLockActionAdvancedResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: string }
+		PostSmartlockLockActionAdvancedResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/action/lock/advanced`,
@@ -3510,7 +3576,7 @@ export async function postSmartlockUnlockActionResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { smartlockId: string };
+		pathParams: PostSmartlockUnlockActionResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3529,7 +3595,7 @@ export async function postSmartlockUnlockActionResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: string }
+		PostSmartlockUnlockActionResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/action/unlock`,
@@ -3549,7 +3615,7 @@ export async function postSmartlockUnlockActionAdvancedResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { smartlockId: string };
+		pathParams: PostSmartlockUnlockActionAdvancedResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3568,7 +3634,7 @@ export async function postSmartlockUnlockActionAdvancedResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: string }
+		PostSmartlockUnlockActionAdvancedResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/action/unlock/advanced`,
@@ -3589,7 +3655,7 @@ export async function postSmartlockAdminPinResource(
 		body,
 		config,
 	}: {
-		pathParams: { smartlockId: number };
+		pathParams: PostSmartlockAdminPinResourcePath;
 		body: PostSmartlockAdminPinResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3605,7 +3671,7 @@ export async function postSmartlockAdminPinResource(
 		PostSmartlockAdminPinResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number }
+		PostSmartlockAdminPinResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/admin/pin`,
@@ -3627,7 +3693,7 @@ export async function postSmartlockAdvancedConfigResource(
 		body,
 		config,
 	}: {
-		pathParams: { smartlockId: number };
+		pathParams: PostSmartlockAdvancedConfigResourcePath;
 		body: PostSmartlockAdvancedConfigResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3645,7 +3711,7 @@ export async function postSmartlockAdvancedConfigResource(
 		PostSmartlockAdvancedConfigResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number }
+		PostSmartlockAdvancedConfigResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/advanced/config`,
@@ -3667,7 +3733,7 @@ export async function postSmartlockOpenerAdvancedConfigResource(
 		body,
 		config,
 	}: {
-		pathParams: { smartlockId: number };
+		pathParams: PostSmartlockOpenerAdvancedConfigResourcePath;
 		body: PostSmartlockOpenerAdvancedConfigResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3686,7 +3752,7 @@ export async function postSmartlockOpenerAdvancedConfigResource(
 		PostSmartlockOpenerAdvancedConfigResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number }
+		PostSmartlockOpenerAdvancedConfigResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/advanced/openerconfig`,
@@ -3708,7 +3774,7 @@ export async function postSmartdoorAdvancedConfigResource(
 		body,
 		config,
 	}: {
-		pathParams: { smartlockId: number };
+		pathParams: PostSmartdoorAdvancedConfigResourcePath;
 		body: PostSmartdoorAdvancedConfigResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3726,7 +3792,7 @@ export async function postSmartdoorAdvancedConfigResource(
 		PostSmartdoorAdvancedConfigResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number }
+		PostSmartdoorAdvancedConfigResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/advanced/smartdoorconfig`,
@@ -3748,8 +3814,8 @@ export async function getSmartlockAuthsResource(
 		queryParams,
 		config,
 	}: {
-		pathParams: { smartlockId: number };
-		queryParams?: { types?: string; includeEmail?: boolean };
+		pathParams: GetSmartlockAuthsResourcePath;
+		queryParams?: Partial<GetSmartlockAuthsResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3763,8 +3829,8 @@ export async function getSmartlockAuthsResource(
 		ErrorWrapper<GetSmartlockAuthsResourceStatus401 | GetSmartlockAuthsResourceStatus403>,
 		null,
 		Record<string, string>,
-		{ types?: string; includeEmail?: boolean },
-		{ smartlockId: number }
+		Partial<GetSmartlockAuthsResourceQuery>,
+		GetSmartlockAuthsResourcePath
 	>({
 		method: "GET",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/auth`,
@@ -3786,7 +3852,7 @@ export async function putSmartlockAuthsResource(
 		body,
 		config,
 	}: {
-		pathParams: { smartlockId: number };
+		pathParams: PutSmartlockAuthsResourcePath;
 		body: PutSmartlockAuthsResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3807,7 +3873,7 @@ export async function putSmartlockAuthsResource(
 		PutSmartlockAuthsResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number }
+		PutSmartlockAuthsResourcePath
 	>({
 		method: "PUT",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/auth`,
@@ -3829,7 +3895,7 @@ export async function postSmartlockAuthWithSharedKeyResource(
 		body,
 		config,
 	}: {
-		pathParams: { smartlockId: number };
+		pathParams: PostSmartlockAuthWithSharedKeyResourcePath;
 		body: PostSmartlockAuthWithSharedKeyResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3849,7 +3915,7 @@ export async function postSmartlockAuthWithSharedKeyResource(
 		PostSmartlockAuthWithSharedKeyResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number }
+		PostSmartlockAuthWithSharedKeyResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/auth/advanced/sharedkey`,
@@ -3870,7 +3936,7 @@ export async function getSmartlockAuthResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { smartlockId: number; id: string };
+		pathParams: GetSmartlockAuthResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3889,7 +3955,7 @@ export async function getSmartlockAuthResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number; id: string }
+		GetSmartlockAuthResourcePath
 	>({
 		method: "GET",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/auth/${encodeURIComponent(String(pathParams.id))}`,
@@ -3910,7 +3976,7 @@ export async function postSmartlockAuthResource(
 		body,
 		config,
 	}: {
-		pathParams: { smartlockId: number; id: string };
+		pathParams: PostSmartlockAuthResourcePath;
 		body: PostSmartlockAuthResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3936,7 +4002,7 @@ export async function postSmartlockAuthResource(
 		PostSmartlockAuthResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number; id: string }
+		PostSmartlockAuthResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/auth/${encodeURIComponent(String(pathParams.id))}`,
@@ -3957,7 +4023,7 @@ export async function deleteSmartlockAuthResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { smartlockId: number; id: string };
+		pathParams: DeleteSmartlockAuthResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3980,7 +4046,7 @@ export async function deleteSmartlockAuthResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number; id: string }
+		DeleteSmartlockAuthResourcePath
 	>({
 		method: "DELETE",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/auth/${encodeURIComponent(String(pathParams.id))}`,
@@ -4001,7 +4067,7 @@ export async function postSmartlockConfigResource(
 		body,
 		config,
 	}: {
-		pathParams: { smartlockId: number };
+		pathParams: PostSmartlockConfigResourcePath;
 		body: PostSmartlockConfigResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4017,7 +4083,7 @@ export async function postSmartlockConfigResource(
 		PostSmartlockConfigResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number }
+		PostSmartlockConfigResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/config`,
@@ -4039,16 +4105,8 @@ export async function getSmartlockLogsResource(
 		queryParams,
 		config,
 	}: {
-		pathParams: { smartlockId: number };
-		queryParams?: {
-			authId?: string;
-			accountUserId?: number;
-			fromDate?: string;
-			toDate?: string;
-			action?: number;
-			id?: string;
-			limit?: number;
-		};
+		pathParams: GetSmartlockLogsResourcePath;
+		queryParams?: Partial<GetSmartlockLogsResourceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4062,16 +4120,8 @@ export async function getSmartlockLogsResource(
 		ErrorWrapper<GetSmartlockLogsResourceStatus401>,
 		null,
 		Record<string, string>,
-		{
-			authId?: string;
-			accountUserId?: number;
-			fromDate?: string;
-			toDate?: string;
-			action?: number;
-			id?: string;
-			limit?: number;
-		},
-		{ smartlockId: number }
+		Partial<GetSmartlockLogsResourceQuery>,
+		GetSmartlockLogsResourcePath
 	>({
 		method: "GET",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/log`,
@@ -4092,7 +4142,7 @@ export async function postSmartlockSyncResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { smartlockId: string };
+		pathParams: PostSmartlockSyncResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4107,7 +4157,7 @@ export async function postSmartlockSyncResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: string }
+		PostSmartlockSyncResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/sync`,
@@ -4128,7 +4178,7 @@ export async function postSmartlockWebConfigResource(
 		body,
 		config,
 	}: {
-		pathParams: { smartlockId: number };
+		pathParams: PostSmartlockWebConfigResourcePath;
 		body: PostSmartlockWebConfigResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4144,7 +4194,7 @@ export async function postSmartlockWebConfigResource(
 		PostSmartlockWebConfigResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ smartlockId: number }
+		PostSmartlockWebConfigResourcePath
 	>({
 		method: "POST",
 		url: `/smartlock/${encodeURIComponent(String(pathParams.smartlockId))}/web/config`,
