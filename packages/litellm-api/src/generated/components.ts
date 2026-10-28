@@ -2767,14 +2767,21 @@ export async function audioTranscriptionsAudioTranscriptionsPost(
 
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		AudioTranscriptionsAudioTranscriptionsPostResponse,
@@ -2813,14 +2820,21 @@ export async function audioTranscriptionsV1AudioTranscriptionsPost(
 
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		AudioTranscriptionsV1AudioTranscriptionsPostResponse,
@@ -6071,14 +6085,21 @@ export async function videoGenerationVideosPost(
 
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		VideoGenerationVideosPostResponse,
@@ -6158,14 +6179,21 @@ export async function videoGenerationV1VideosPost(
 
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		VideoGenerationV1VideosPostResponse,
@@ -6465,14 +6493,21 @@ export async function videoCreateCharacterVideosCharactersPost(
 
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		VideoCreateCharacterVideosCharactersPostResponse,
@@ -6516,14 +6551,21 @@ export async function videoCreateCharacterV1VideosCharactersPost(
 
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		VideoCreateCharacterV1VideosCharactersPostResponse,
@@ -8309,14 +8351,21 @@ export async function imageEditApiOpenaiDeploymentsModelImagesEditsPost(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		ImageEditApiOpenaiDeploymentsModelImagesEditsPostResponse,
@@ -8359,14 +8408,21 @@ export async function imageEditApiImagesEditsPost(
 
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		ImageEditApiImagesEditsPostResponse,
@@ -8410,14 +8466,21 @@ export async function imageEditApiV1ImagesEditsPost(
 
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		ImageEditApiV1ImagesEditsPostResponse,
@@ -9610,14 +9673,21 @@ export async function createFileFilesPost(
 
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		CreateFileFilesPostResponse,
@@ -9717,14 +9787,21 @@ export async function createFileV1FilesPost(
 
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		CreateFileV1FilesPostResponse,
@@ -9827,14 +9904,21 @@ export async function createFileProviderV1FilesPost(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		CreateFileProviderV1FilesPostResponse,
@@ -18541,14 +18625,21 @@ export async function uploadLogoUploadLogoPost(
 
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		UploadLogoUploadLogoPostResponse,
@@ -37906,14 +37997,21 @@ export async function convertPromptFileToJsonUtilsDotpromptJsonConverterPost(
 
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		ConvertPromptFileToJsonUtilsDotpromptJsonConverterPostResponse,
