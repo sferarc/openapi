@@ -1581,6 +1581,10 @@ export const gETAdminRealmsResponseSchema = gETAdminRealmsStatus200Schema;
 
 export const gETAdminRealmsErrorSchema = gETAdminRealmsStatus403Schema;
 
+export const gETAdminRealmsQuerySchema = z.object({
+	briefRepresentation: z.boolean().optional().default(false),
+});
+
 export const pOSTAdminRealmsStatus201Schema = z.unknown();
 
 export const pOSTAdminRealmsStatus400Schema = z.unknown();
@@ -1612,6 +1616,10 @@ export const gETAdminRealmsRealmResponseSchema = gETAdminRealmsRealmStatus200Sch
 
 export const gETAdminRealmsRealmErrorSchema = gETAdminRealmsRealmStatus403Schema;
 
+export const gETAdminRealmsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const pUTAdminRealmsRealmPathRealmSchema = z.string().describe("realm name (not id!)");
 
 export const pUTAdminRealmsRealmStatus204Schema = z.unknown();
@@ -1638,6 +1646,10 @@ export const pUTAdminRealmsRealmErrorSchema = z.union([
 
 export const pUTAdminRealmsRealmBodySchema = realmRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const dELETEAdminRealmsRealmPathRealmSchema = z.string().describe("realm name (not id!)");
 
 export const dELETEAdminRealmsRealmStatus204Schema = z.unknown();
@@ -1655,6 +1667,10 @@ export const dELETEAdminRealmsRealmErrorSchema = z.union([
 	dELETEAdminRealmsRealmStatus403Schema,
 	dELETEAdminRealmsRealmStatus404Schema,
 ]);
+
+export const dELETEAdminRealmsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmAdminEventsPathRealmSchema = z
 	.string()
@@ -1723,6 +1739,35 @@ export const gETAdminRealmsRealmAdminEventsErrorSchema = z.union([
 	gETAdminRealmsRealmAdminEventsStatus403Schema,
 ]);
 
+export const gETAdminRealmsRealmAdminEventsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmAdminEventsQuerySchema = z.object({
+	authClient: z.string().optional(),
+	authIpAddress: z.string().optional(),
+	authRealm: z.string().optional(),
+	authUser: z.string().optional().describe("user id"),
+	dateFrom: z
+		.string()
+		.optional()
+		.describe(
+			"From (inclusive) date (yyyy-MM-dd) or time in Epoch timestamp millis (number of milliseconds since January 1, 1970, 00:00:00 GMT)",
+		),
+	dateTo: z
+		.string()
+		.optional()
+		.describe(
+			"To (inclusive) date (yyyy-MM-dd) or time in Epoch timestamp millis (number of milliseconds since January 1, 1970, 00:00:00 GMT)",
+		),
+	direction: z.string().optional().describe("The direction to sort events by (asc or desc)"),
+	first: z.int32().optional(),
+	max: z.int32().optional().describe("Maximum results size (defaults to 100)"),
+	operationTypes: z.array(z.string()).optional(),
+	resourcePath: z.string().optional(),
+	resourceTypes: z.array(z.string()).optional(),
+});
+
 export const dELETEAdminRealmsRealmAdminEventsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -1737,6 +1782,10 @@ export const dELETEAdminRealmsRealmAdminEventsResponseSchema =
 export const dELETEAdminRealmsRealmAdminEventsErrorSchema =
 	dELETEAdminRealmsRealmAdminEventsStatus403Schema;
 
+export const dELETEAdminRealmsRealmAdminEventsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -1745,6 +1794,10 @@ export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersStatus204Schema
 
 export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersResponseSchema =
 	dELETEAdminRealmsRealmAttackDetectionBruteForceUsersStatus204Schema;
+
+export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmAttackDetectionBruteForceUsersUserIdPathRealmSchema = z
 	.string()
@@ -1760,6 +1813,11 @@ export const gETAdminRealmsRealmAttackDetectionBruteForceUsersUserIdStatus200Sch
 export const gETAdminRealmsRealmAttackDetectionBruteForceUsersUserIdResponseSchema =
 	gETAdminRealmsRealmAttackDetectionBruteForceUsersUserIdStatus200Schema;
 
+export const gETAdminRealmsRealmAttackDetectionBruteForceUsersUserIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -1773,6 +1831,11 @@ export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdStatus204
 export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdResponseSchema =
 	dELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdStatus204Schema;
 
+export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
 export const gETAdminRealmsRealmAuthenticationAuthenticatorProvidersPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -1784,6 +1847,10 @@ export const gETAdminRealmsRealmAuthenticationAuthenticatorProvidersStatus200Sch
 export const gETAdminRealmsRealmAuthenticationAuthenticatorProvidersResponseSchema =
 	gETAdminRealmsRealmAuthenticationAuthenticatorProvidersStatus200Schema;
 
+export const gETAdminRealmsRealmAuthenticationAuthenticatorProvidersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmAuthenticationClientAuthenticatorProvidersPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -1794,6 +1861,10 @@ export const gETAdminRealmsRealmAuthenticationClientAuthenticatorProvidersStatus
 
 export const gETAdminRealmsRealmAuthenticationClientAuthenticatorProvidersResponseSchema =
 	gETAdminRealmsRealmAuthenticationClientAuthenticatorProvidersStatus200Schema;
+
+export const gETAdminRealmsRealmAuthenticationClientAuthenticatorProvidersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pOSTAdminRealmsRealmAuthenticationConfigPathRealmSchema = z
 	.string()
@@ -1812,6 +1883,10 @@ export const pOSTAdminRealmsRealmAuthenticationConfigErrorSchema =
 export const pOSTAdminRealmsRealmAuthenticationConfigBodySchema =
 	authenticatorConfigRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmAuthenticationConfigPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmAuthenticationConfigDescriptionProviderIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -1824,6 +1899,11 @@ export const gETAdminRealmsRealmAuthenticationConfigDescriptionProviderIdStatus2
 
 export const gETAdminRealmsRealmAuthenticationConfigDescriptionProviderIdResponseSchema =
 	gETAdminRealmsRealmAuthenticationConfigDescriptionProviderIdStatus200Schema;
+
+export const gETAdminRealmsRealmAuthenticationConfigDescriptionProviderIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	providerId: z.string(),
+});
 
 export const gETAdminRealmsRealmAuthenticationConfigIdPathRealmSchema = z
 	.string()
@@ -1838,6 +1918,11 @@ export const gETAdminRealmsRealmAuthenticationConfigIdStatus200Schema =
 
 export const gETAdminRealmsRealmAuthenticationConfigIdResponseSchema =
 	gETAdminRealmsRealmAuthenticationConfigIdStatus200Schema;
+
+export const gETAdminRealmsRealmAuthenticationConfigIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string().describe("Configuration id"),
+});
 
 export const pUTAdminRealmsRealmAuthenticationConfigIdPathRealmSchema = z
 	.string()
@@ -1855,6 +1940,11 @@ export const pUTAdminRealmsRealmAuthenticationConfigIdResponseSchema =
 export const pUTAdminRealmsRealmAuthenticationConfigIdBodySchema =
 	authenticatorConfigRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmAuthenticationConfigIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string().describe("Configuration id"),
+});
+
 export const dELETEAdminRealmsRealmAuthenticationConfigIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -1868,6 +1958,11 @@ export const dELETEAdminRealmsRealmAuthenticationConfigIdStatus204Schema = z.unk
 export const dELETEAdminRealmsRealmAuthenticationConfigIdResponseSchema =
 	dELETEAdminRealmsRealmAuthenticationConfigIdStatus204Schema;
 
+export const dELETEAdminRealmsRealmAuthenticationConfigIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string().describe("Configuration id"),
+});
+
 export const pOSTAdminRealmsRealmAuthenticationExecutionsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -1879,6 +1974,10 @@ export const pOSTAdminRealmsRealmAuthenticationExecutionsResponseSchema =
 
 export const pOSTAdminRealmsRealmAuthenticationExecutionsBodySchema =
 	authenticationExecutionRepresentationSchema.optional();
+
+export const pOSTAdminRealmsRealmAuthenticationExecutionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmAuthenticationExecutionsExecutionIdPathRealmSchema = z
 	.string()
@@ -1893,6 +1992,11 @@ export const gETAdminRealmsRealmAuthenticationExecutionsExecutionIdStatus200Sche
 export const gETAdminRealmsRealmAuthenticationExecutionsExecutionIdResponseSchema =
 	gETAdminRealmsRealmAuthenticationExecutionsExecutionIdStatus200Schema;
 
+export const gETAdminRealmsRealmAuthenticationExecutionsExecutionIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	executionId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -1905,6 +2009,11 @@ export const dELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdStatus204S
 
 export const dELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdResponseSchema =
 	dELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdStatus204Schema;
+
+export const dELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	executionId: z.string().describe("Execution id"),
+});
 
 export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigPathRealmSchema = z
 	.string()
@@ -1929,6 +2038,11 @@ export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigErrorS
 export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigBodySchema =
 	authenticatorConfigRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	executionId: z.string().describe("Execution id"),
+});
+
 export const gETAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -1947,6 +2061,12 @@ export const gETAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigIdStatu
 export const gETAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigIdResponseSchema =
 	gETAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigIdStatus200Schema;
 
+export const gETAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	executionId: z.string().describe("Execution id"),
+	id: z.string().describe("Configuration id"),
+});
+
 export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLowerPriorityPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -1959,6 +2079,12 @@ export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLowerPriorit
 
 export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLowerPriorityResponseSchema =
 	pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLowerPriorityStatus204Schema;
+
+export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLowerPriorityPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		executionId: z.string().describe("Execution id"),
+	});
 
 export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRaisePriorityPathRealmSchema = z
 	.string()
@@ -1973,6 +2099,12 @@ export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRaisePriorit
 export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRaisePriorityResponseSchema =
 	pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRaisePriorityStatus204Schema;
 
+export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRaisePriorityPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		executionId: z.string().describe("Execution id"),
+	});
+
 export const gETAdminRealmsRealmAuthenticationFlowsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -1983,6 +2115,10 @@ export const gETAdminRealmsRealmAuthenticationFlowsStatus200Schema = z.array(
 
 export const gETAdminRealmsRealmAuthenticationFlowsResponseSchema =
 	gETAdminRealmsRealmAuthenticationFlowsStatus200Schema;
+
+export const gETAdminRealmsRealmAuthenticationFlowsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pOSTAdminRealmsRealmAuthenticationFlowsPathRealmSchema = z
 	.string()
@@ -2000,6 +2136,10 @@ export const pOSTAdminRealmsRealmAuthenticationFlowsErrorSchema =
 
 export const pOSTAdminRealmsRealmAuthenticationFlowsBodySchema =
 	authenticationFlowRepresentationSchema.optional();
+
+export const pOSTAdminRealmsRealmAuthenticationFlowsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyPathRealmSchema = z
 	.string()
@@ -2023,6 +2163,11 @@ export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyBodySchema = z
 	.record(z.string(), z.string())
 	.optional();
 
+export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	flowAlias: z.string().describe("name of the existing authentication flow"),
+});
+
 export const gETAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2037,6 +2182,11 @@ export const gETAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsStatus200S
 
 export const gETAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsResponseSchema =
 	gETAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsStatus200Schema;
+
+export const gETAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	flowAlias: z.string().describe("Flow alias"),
+});
 
 export const pUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsPathRealmSchema = z
 	.string()
@@ -2059,6 +2209,11 @@ export const pUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsErrorSchem
 export const pUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsBodySchema =
 	authenticationExecutionInfoRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	flowAlias: z.string().describe("Flow alias"),
+});
+
 export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsExecutionPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2075,6 +2230,12 @@ export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsExecution
 export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsExecutionBodySchema = z
 	.record(z.string(), z.unknown())
 	.optional();
+
+export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsExecutionPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		flowAlias: z.string().describe("Alias of parent flow"),
+	});
 
 export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowPathRealmSchema = z
 	.string()
@@ -2100,6 +2261,11 @@ export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowBodyS
 	.record(z.string(), z.unknown())
 	.optional();
 
+export const pOSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	flowAlias: z.string().describe("Alias of parent authentication flow"),
+});
+
 export const gETAdminRealmsRealmAuthenticationFlowsIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2111,6 +2277,11 @@ export const gETAdminRealmsRealmAuthenticationFlowsIdStatus200Schema =
 
 export const gETAdminRealmsRealmAuthenticationFlowsIdResponseSchema =
 	gETAdminRealmsRealmAuthenticationFlowsIdStatus200Schema;
+
+export const gETAdminRealmsRealmAuthenticationFlowsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string().describe("Flow id"),
+});
 
 export const pUTAdminRealmsRealmAuthenticationFlowsIdPathRealmSchema = z
 	.string()
@@ -2131,6 +2302,11 @@ export const pUTAdminRealmsRealmAuthenticationFlowsIdErrorSchema =
 export const pUTAdminRealmsRealmAuthenticationFlowsIdBodySchema =
 	authenticationFlowRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmAuthenticationFlowsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string(),
+});
+
 export const dELETEAdminRealmsRealmAuthenticationFlowsIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2144,6 +2320,11 @@ export const dELETEAdminRealmsRealmAuthenticationFlowsIdStatus204Schema = z.unkn
 export const dELETEAdminRealmsRealmAuthenticationFlowsIdResponseSchema =
 	dELETEAdminRealmsRealmAuthenticationFlowsIdStatus204Schema;
 
+export const dELETEAdminRealmsRealmAuthenticationFlowsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string().describe("Flow id"),
+});
+
 export const gETAdminRealmsRealmAuthenticationFormActionProvidersPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2154,6 +2335,10 @@ export const gETAdminRealmsRealmAuthenticationFormActionProvidersStatus200Schema
 
 export const gETAdminRealmsRealmAuthenticationFormActionProvidersResponseSchema =
 	gETAdminRealmsRealmAuthenticationFormActionProvidersStatus200Schema;
+
+export const gETAdminRealmsRealmAuthenticationFormActionProvidersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmAuthenticationFormProvidersPathRealmSchema = z
 	.string()
@@ -2166,6 +2351,10 @@ export const gETAdminRealmsRealmAuthenticationFormProvidersStatus200Schema = z.a
 export const gETAdminRealmsRealmAuthenticationFormProvidersResponseSchema =
 	gETAdminRealmsRealmAuthenticationFormProvidersStatus200Schema;
 
+export const gETAdminRealmsRealmAuthenticationFormProvidersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmAuthenticationPerClientConfigDescriptionPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2177,6 +2366,10 @@ export const gETAdminRealmsRealmAuthenticationPerClientConfigDescriptionStatus20
 
 export const gETAdminRealmsRealmAuthenticationPerClientConfigDescriptionResponseSchema =
 	gETAdminRealmsRealmAuthenticationPerClientConfigDescriptionStatus200Schema;
+
+export const gETAdminRealmsRealmAuthenticationPerClientConfigDescriptionPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pOSTAdminRealmsRealmAuthenticationRegisterRequiredActionPathRealmSchema = z
 	.string()
@@ -2191,6 +2384,10 @@ export const pOSTAdminRealmsRealmAuthenticationRegisterRequiredActionBodySchema 
 	.record(z.string(), z.string())
 	.optional();
 
+export const pOSTAdminRealmsRealmAuthenticationRegisterRequiredActionPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmAuthenticationRequiredActionsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2201,6 +2398,10 @@ export const gETAdminRealmsRealmAuthenticationRequiredActionsStatus200Schema = z
 
 export const gETAdminRealmsRealmAuthenticationRequiredActionsResponseSchema =
 	gETAdminRealmsRealmAuthenticationRequiredActionsStatus200Schema;
+
+export const gETAdminRealmsRealmAuthenticationRequiredActionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmAuthenticationRequiredActionsAliasPathRealmSchema = z
 	.string()
@@ -2215,6 +2416,11 @@ export const gETAdminRealmsRealmAuthenticationRequiredActionsAliasStatus200Schem
 
 export const gETAdminRealmsRealmAuthenticationRequiredActionsAliasResponseSchema =
 	gETAdminRealmsRealmAuthenticationRequiredActionsAliasStatus200Schema;
+
+export const gETAdminRealmsRealmAuthenticationRequiredActionsAliasPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string().describe("Alias of required action"),
+});
 
 export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasPathRealmSchema = z
 	.string()
@@ -2232,6 +2438,11 @@ export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasResponseSchema
 export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasBodySchema =
 	requiredActionProviderRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string().describe("Alias of required action"),
+});
+
 export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2244,6 +2455,11 @@ export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasStatus204Sc
 
 export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasResponseSchema =
 	dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasStatus204Schema;
+
+export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string().describe("Alias of required action"),
+});
 
 export const gETAdminRealmsRealmAuthenticationRequiredActionsAliasConfigPathRealmSchema = z
 	.string()
@@ -2258,6 +2474,11 @@ export const gETAdminRealmsRealmAuthenticationRequiredActionsAliasConfigStatus20
 
 export const gETAdminRealmsRealmAuthenticationRequiredActionsAliasConfigResponseSchema =
 	gETAdminRealmsRealmAuthenticationRequiredActionsAliasConfigStatus200Schema;
+
+export const gETAdminRealmsRealmAuthenticationRequiredActionsAliasConfigPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string().describe("Alias of required action"),
+});
 
 export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigPathRealmSchema = z
 	.string()
@@ -2276,6 +2497,11 @@ export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigResponse
 export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigBodySchema =
 	requiredActionConfigRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string().describe("Alias of required action"),
+});
+
 export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasConfigPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2290,6 +2516,11 @@ export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasConfigStatu
 export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasConfigResponseSchema =
 	dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasConfigStatus204Schema;
 
+export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasConfigPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string().describe("Alias of required action"),
+});
+
 export const gETAdminRealmsRealmAuthenticationRequiredActionsAliasConfigDescriptionPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -2301,6 +2532,12 @@ export const gETAdminRealmsRealmAuthenticationRequiredActionsAliasConfigDescript
 
 export const gETAdminRealmsRealmAuthenticationRequiredActionsAliasConfigDescriptionResponseSchema =
 	gETAdminRealmsRealmAuthenticationRequiredActionsAliasConfigDescriptionStatus200Schema;
+
+export const gETAdminRealmsRealmAuthenticationRequiredActionsAliasConfigDescriptionPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		alias: z.string().describe("Alias of required action"),
+	});
 
 export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriorityPathRealmSchema = z
 	.string()
@@ -2316,6 +2553,12 @@ export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriority
 export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriorityResponseSchema =
 	pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriorityStatus204Schema;
 
+export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriorityPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		alias: z.string().describe("Alias of required action"),
+	});
+
 export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriorityPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2330,6 +2573,12 @@ export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriority
 export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriorityResponseSchema =
 	pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriorityStatus204Schema;
 
+export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriorityPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		alias: z.string().describe("Alias of required action"),
+	});
+
 export const gETAdminRealmsRealmAuthenticationUnregisteredRequiredActionsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2340,6 +2589,10 @@ export const gETAdminRealmsRealmAuthenticationUnregisteredRequiredActionsStatus2
 
 export const gETAdminRealmsRealmAuthenticationUnregisteredRequiredActionsResponseSchema =
 	gETAdminRealmsRealmAuthenticationUnregisteredRequiredActionsStatus200Schema;
+
+export const gETAdminRealmsRealmAuthenticationUnregisteredRequiredActionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pOSTAdminRealmsRealmClientDescriptionConverterPathRealmSchema = z
 	.string()
@@ -2362,6 +2615,10 @@ export const pOSTAdminRealmsRealmClientDescriptionConverterErrorSchema = z.union
 
 export const pOSTAdminRealmsRealmClientDescriptionConverterBodySchema = z.string().optional();
 
+export const pOSTAdminRealmsRealmClientDescriptionConverterPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmClientPoliciesPoliciesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2376,6 +2633,14 @@ export const gETAdminRealmsRealmClientPoliciesPoliciesStatus200Schema =
 export const gETAdminRealmsRealmClientPoliciesPoliciesResponseSchema =
 	gETAdminRealmsRealmClientPoliciesPoliciesStatus200Schema;
 
+export const gETAdminRealmsRealmClientPoliciesPoliciesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmClientPoliciesPoliciesQuerySchema = z.object({
+	"include-global-policies": z.boolean().optional(),
+});
+
 export const pUTAdminRealmsRealmClientPoliciesPoliciesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2387,6 +2652,10 @@ export const pUTAdminRealmsRealmClientPoliciesPoliciesResponseSchema =
 
 export const pUTAdminRealmsRealmClientPoliciesPoliciesBodySchema =
 	clientPoliciesRepresentationSchema.optional();
+
+export const pUTAdminRealmsRealmClientPoliciesPoliciesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmClientPoliciesProfilesPathRealmSchema = z
 	.string()
@@ -2402,6 +2671,14 @@ export const gETAdminRealmsRealmClientPoliciesProfilesStatus200Schema =
 export const gETAdminRealmsRealmClientPoliciesProfilesResponseSchema =
 	gETAdminRealmsRealmClientPoliciesProfilesStatus200Schema;
 
+export const gETAdminRealmsRealmClientPoliciesProfilesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmClientPoliciesProfilesQuerySchema = z.object({
+	"include-global-profiles": z.boolean().optional(),
+});
+
 export const pUTAdminRealmsRealmClientPoliciesProfilesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2414,6 +2691,10 @@ export const pUTAdminRealmsRealmClientPoliciesProfilesResponseSchema =
 export const pUTAdminRealmsRealmClientPoliciesProfilesBodySchema =
 	clientProfilesRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmClientPoliciesProfilesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmClientRegistrationPolicyProvidersPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2424,6 +2705,10 @@ export const gETAdminRealmsRealmClientRegistrationPolicyProvidersStatus200Schema
 
 export const gETAdminRealmsRealmClientRegistrationPolicyProvidersResponseSchema =
 	gETAdminRealmsRealmClientRegistrationPolicyProvidersStatus200Schema;
+
+export const gETAdminRealmsRealmClientRegistrationPolicyProvidersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmClientScopesPathRealmSchema = z
 	.string()
@@ -2440,6 +2725,10 @@ export const gETAdminRealmsRealmClientScopesResponseSchema =
 
 export const gETAdminRealmsRealmClientScopesErrorSchema =
 	gETAdminRealmsRealmClientScopesStatus403Schema;
+
+export const gETAdminRealmsRealmClientScopesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pOSTAdminRealmsRealmClientScopesPathRealmSchema = z
 	.string()
@@ -2462,6 +2751,10 @@ export const pOSTAdminRealmsRealmClientScopesErrorSchema = z.union([
 export const pOSTAdminRealmsRealmClientScopesBodySchema =
 	clientScopeRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmClientScopesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmClientSessionStatsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2478,6 +2771,10 @@ export const gETAdminRealmsRealmClientSessionStatsResponseSchema =
 export const gETAdminRealmsRealmClientSessionStatsErrorSchema =
 	gETAdminRealmsRealmClientSessionStatsStatus403Schema;
 
+export const gETAdminRealmsRealmClientSessionStatsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmClientTemplatesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2493,6 +2790,10 @@ export const gETAdminRealmsRealmClientTemplatesResponseSchema =
 
 export const gETAdminRealmsRealmClientTemplatesErrorSchema =
 	gETAdminRealmsRealmClientTemplatesStatus403Schema;
+
+export const gETAdminRealmsRealmClientTemplatesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pOSTAdminRealmsRealmClientTemplatesPathRealmSchema = z
 	.string()
@@ -2515,6 +2816,10 @@ export const pOSTAdminRealmsRealmClientTemplatesErrorSchema = z.union([
 export const pOSTAdminRealmsRealmClientTemplatesBodySchema =
 	clientScopeRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmClientTemplatesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmClientTypesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2523,6 +2828,10 @@ export const gETAdminRealmsRealmClientTypesStatus200Schema = clientTypesRepresen
 
 export const gETAdminRealmsRealmClientTypesResponseSchema =
 	gETAdminRealmsRealmClientTypesStatus200Schema;
+
+export const gETAdminRealmsRealmClientTypesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pUTAdminRealmsRealmClientTypesPathRealmSchema = z
 	.string()
@@ -2534,6 +2843,10 @@ export const pUTAdminRealmsRealmClientTypesResponseSchema =
 	pUTAdminRealmsRealmClientTypesStatus204Schema;
 
 export const pUTAdminRealmsRealmClientTypesBodySchema = clientTypesRepresentationSchema.optional();
+
+export const pUTAdminRealmsRealmClientTypesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmClientsPathRealmSchema = z
 	.string()
@@ -2572,6 +2885,27 @@ export const gETAdminRealmsRealmClientsStatus200Schema = z.array(clientRepresent
 
 export const gETAdminRealmsRealmClientsResponseSchema = gETAdminRealmsRealmClientsStatus200Schema;
 
+export const gETAdminRealmsRealmClientsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmClientsQuerySchema = z.object({
+	clientId: z.string().optional().describe("filter by clientId"),
+	first: z.int32().optional().describe("the first result"),
+	max: z.int32().optional().describe("the max results to return"),
+	q: z.string().optional(),
+	search: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe("whether this is a search query or a getClientById query"),
+	viewableOnly: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe("filter clients that cannot be viewed in full by admin"),
+});
+
 export const pOSTAdminRealmsRealmClientsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2586,6 +2920,10 @@ export const pOSTAdminRealmsRealmClientsErrorSchema = pOSTAdminRealmsRealmClient
 
 export const pOSTAdminRealmsRealmClientsBodySchema = clientRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmClientsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmClientsInitialAccessPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2596,6 +2934,10 @@ export const gETAdminRealmsRealmClientsInitialAccessStatus200Schema = z.array(
 
 export const gETAdminRealmsRealmClientsInitialAccessResponseSchema =
 	gETAdminRealmsRealmClientsInitialAccessStatus200Schema;
+
+export const gETAdminRealmsRealmClientsInitialAccessPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pOSTAdminRealmsRealmClientsInitialAccessPathRealmSchema = z
 	.string()
@@ -2610,6 +2952,10 @@ export const pOSTAdminRealmsRealmClientsInitialAccessResponseSchema =
 export const pOSTAdminRealmsRealmClientsInitialAccessBodySchema =
 	clientInitialAccessCreatePresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmClientsInitialAccessPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const dELETEAdminRealmsRealmClientsInitialAccessIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2620,6 +2966,11 @@ export const dELETEAdminRealmsRealmClientsInitialAccessIdStatus204Schema = z.unk
 
 export const dELETEAdminRealmsRealmClientsInitialAccessIdResponseSchema =
 	dELETEAdminRealmsRealmClientsInitialAccessIdStatus204Schema;
+
+export const dELETEAdminRealmsRealmClientsInitialAccessIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string(),
+});
 
 export const gETAdminRealmsRealmComponentsPathRealmSchema = z
 	.string()
@@ -2638,6 +2989,17 @@ export const gETAdminRealmsRealmComponentsStatus200Schema = z.array(componentRep
 export const gETAdminRealmsRealmComponentsResponseSchema =
 	gETAdminRealmsRealmComponentsStatus200Schema;
 
+export const gETAdminRealmsRealmComponentsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmComponentsQuerySchema = z.object({
+	name: z.string().optional(),
+	parent: z.string().optional(),
+	providerId: z.string().optional(),
+	type: z.string().optional(),
+});
+
 export const pOSTAdminRealmsRealmComponentsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2649,6 +3011,10 @@ export const pOSTAdminRealmsRealmComponentsResponseSchema =
 
 export const pOSTAdminRealmsRealmComponentsBodySchema = componentRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmComponentsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmComponentsIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2659,6 +3025,11 @@ export const gETAdminRealmsRealmComponentsIdStatus200Schema = componentRepresent
 
 export const gETAdminRealmsRealmComponentsIdResponseSchema =
 	gETAdminRealmsRealmComponentsIdStatus200Schema;
+
+export const gETAdminRealmsRealmComponentsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string(),
+});
 
 export const pUTAdminRealmsRealmComponentsIdPathRealmSchema = z
 	.string()
@@ -2673,6 +3044,11 @@ export const pUTAdminRealmsRealmComponentsIdResponseSchema =
 
 export const pUTAdminRealmsRealmComponentsIdBodySchema = componentRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmComponentsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string(),
+});
+
 export const dELETEAdminRealmsRealmComponentsIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2683,6 +3059,11 @@ export const dELETEAdminRealmsRealmComponentsIdStatus204Schema = z.unknown();
 
 export const dELETEAdminRealmsRealmComponentsIdResponseSchema =
 	dELETEAdminRealmsRealmComponentsIdStatus204Schema;
+
+export const dELETEAdminRealmsRealmComponentsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string(),
+});
 
 export const gETAdminRealmsRealmComponentsIdSubComponentTypesPathRealmSchema = z
 	.string()
@@ -2701,6 +3082,15 @@ export const gETAdminRealmsRealmComponentsIdSubComponentTypesStatus200Schema = z
 export const gETAdminRealmsRealmComponentsIdSubComponentTypesResponseSchema =
 	gETAdminRealmsRealmComponentsIdSubComponentTypesStatus200Schema;
 
+export const gETAdminRealmsRealmComponentsIdSubComponentTypesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string(),
+});
+
+export const gETAdminRealmsRealmComponentsIdSubComponentTypesQuerySchema = z.object({
+	type: z.string().optional(),
+});
+
 export const gETAdminRealmsRealmCredentialRegistratorsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2714,6 +3104,10 @@ export const gETAdminRealmsRealmCredentialRegistratorsResponseSchema =
 
 export const gETAdminRealmsRealmCredentialRegistratorsErrorSchema =
 	gETAdminRealmsRealmCredentialRegistratorsStatus403Schema;
+
+export const gETAdminRealmsRealmCredentialRegistratorsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmDefaultDefaultClientScopesPathRealmSchema = z
 	.string()
@@ -2730,6 +3124,10 @@ export const gETAdminRealmsRealmDefaultDefaultClientScopesResponseSchema =
 
 export const gETAdminRealmsRealmDefaultDefaultClientScopesErrorSchema =
 	gETAdminRealmsRealmDefaultDefaultClientScopesStatus403Schema;
+
+export const gETAdminRealmsRealmDefaultDefaultClientScopesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdPathRealmSchema = z
 	.string()
@@ -2755,6 +3153,11 @@ export const pUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdErrorSche
 	pUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus404Schema,
 ]);
 
+export const pUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2779,6 +3182,11 @@ export const dELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdErrorS
 	dELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus404Schema,
 ]);
 
+export const dELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
+
 export const gETAdminRealmsRealmDefaultGroupsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2794,6 +3202,10 @@ export const gETAdminRealmsRealmDefaultGroupsResponseSchema =
 
 export const gETAdminRealmsRealmDefaultGroupsErrorSchema =
 	gETAdminRealmsRealmDefaultGroupsStatus403Schema;
+
+export const gETAdminRealmsRealmDefaultGroupsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pUTAdminRealmsRealmDefaultGroupsGroupIdPathRealmSchema = z
 	.string()
@@ -2815,6 +3227,11 @@ export const pUTAdminRealmsRealmDefaultGroupsGroupIdErrorSchema = z.union([
 	pUTAdminRealmsRealmDefaultGroupsGroupIdStatus404Schema,
 ]);
 
+export const pUTAdminRealmsRealmDefaultGroupsGroupIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmDefaultGroupsGroupIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2835,6 +3252,11 @@ export const dELETEAdminRealmsRealmDefaultGroupsGroupIdErrorSchema = z.union([
 	dELETEAdminRealmsRealmDefaultGroupsGroupIdStatus404Schema,
 ]);
 
+export const dELETEAdminRealmsRealmDefaultGroupsGroupIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
+
 export const gETAdminRealmsRealmDefaultOptionalClientScopesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2850,6 +3272,10 @@ export const gETAdminRealmsRealmDefaultOptionalClientScopesResponseSchema =
 
 export const gETAdminRealmsRealmDefaultOptionalClientScopesErrorSchema =
 	gETAdminRealmsRealmDefaultOptionalClientScopesStatus403Schema;
+
+export const gETAdminRealmsRealmDefaultOptionalClientScopesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdPathRealmSchema = z
 	.string()
@@ -2875,6 +3301,11 @@ export const pUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdErrorSch
 	pUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus404Schema,
 ]);
 
+export const pUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2898,6 +3329,11 @@ export const dELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdError
 	dELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus403Schema,
 	dELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus404Schema,
 ]);
+
+export const dELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
 
 export const gETAdminRealmsRealmEventsPathRealmSchema = z.string().describe("realm name (not id!)");
 
@@ -2961,6 +3397,32 @@ export const gETAdminRealmsRealmEventsErrorSchema = z.union([
 	gETAdminRealmsRealmEventsStatus403Schema,
 ]);
 
+export const gETAdminRealmsRealmEventsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmEventsQuerySchema = z.object({
+	client: z.string().optional().describe("App or oauth client name"),
+	dateFrom: z
+		.string()
+		.optional()
+		.describe(
+			"From (inclusive) date (yyyy-MM-dd) or time in Epoch timestamp millis (number of milliseconds since January 1, 1970, 00:00:00 GMT)",
+		),
+	dateTo: z
+		.string()
+		.optional()
+		.describe(
+			"To (inclusive) date (yyyy-MM-dd) or time in Epoch timestamp millis (number of milliseconds since January 1, 1970, 00:00:00 GMT)",
+		),
+	direction: z.string().optional().describe("The direction to sort events by (asc or desc)"),
+	first: z.int32().optional().describe("Paging offset"),
+	ipAddress: z.string().optional().describe("IP Address"),
+	max: z.int32().optional().default("100").describe("Maximum results size"),
+	type: z.array(z.string()).optional().describe("The types of events to return"),
+	user: z.string().optional().describe("User id"),
+});
+
 export const dELETEAdminRealmsRealmEventsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -2973,6 +3435,10 @@ export const dELETEAdminRealmsRealmEventsResponseSchema =
 	dELETEAdminRealmsRealmEventsStatus204Schema;
 
 export const dELETEAdminRealmsRealmEventsErrorSchema = dELETEAdminRealmsRealmEventsStatus403Schema;
+
+export const dELETEAdminRealmsRealmEventsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmEventsConfigPathRealmSchema = z
 	.string()
@@ -2987,6 +3453,10 @@ export const gETAdminRealmsRealmEventsConfigResponseSchema =
 
 export const gETAdminRealmsRealmEventsConfigErrorSchema =
 	gETAdminRealmsRealmEventsConfigStatus403Schema;
+
+export const gETAdminRealmsRealmEventsConfigPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pUTAdminRealmsRealmEventsConfigPathRealmSchema = z
 	.string()
@@ -3004,6 +3474,10 @@ export const pUTAdminRealmsRealmEventsConfigErrorSchema =
 
 export const pUTAdminRealmsRealmEventsConfigBodySchema =
 	realmEventsConfigRepresentationSchema.optional();
+
+export const pUTAdminRealmsRealmEventsConfigPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmGroupByPathPathPathRealmSchema = z
 	.string()
@@ -3026,6 +3500,11 @@ export const gETAdminRealmsRealmGroupByPathPathErrorSchema = z.union([
 	gETAdminRealmsRealmGroupByPathPathStatus403Schema,
 	gETAdminRealmsRealmGroupByPathPathStatus404Schema,
 ]);
+
+export const gETAdminRealmsRealmGroupByPathPathPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	path: z.string().regex(/.*/),
+});
 
 export const gETAdminRealmsRealmGroupsPathRealmSchema = z.string().describe("realm name (not id!)");
 
@@ -3063,6 +3542,27 @@ export const gETAdminRealmsRealmGroupsStatus200Schema = z.array(
 
 export const gETAdminRealmsRealmGroupsResponseSchema = gETAdminRealmsRealmGroupsStatus200Schema;
 
+export const gETAdminRealmsRealmGroupsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmGroupsQuerySchema = z.object({
+	briefRepresentation: z.boolean().optional().default(true),
+	exact: z.boolean().optional().default("false"),
+	first: z.int32().optional(),
+	max: z.int32().optional(),
+	populateHierarchy: z.boolean().optional().default(true),
+	q: z.string().optional(),
+	search: z.string().optional(),
+	subGroupsCount: z
+		.boolean()
+		.optional()
+		.default("true")
+		.describe(
+			"Boolean which defines whether to return the count of subgroups for each group (default: true",
+		),
+});
+
 export const pOSTAdminRealmsRealmGroupsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3089,6 +3589,10 @@ export const pOSTAdminRealmsRealmGroupsBodySchema = z
 	.lazy(() => groupRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmGroupsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmGroupsCountPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3105,6 +3609,15 @@ export const gETAdminRealmsRealmGroupsCountStatus200Schema = z.record(
 export const gETAdminRealmsRealmGroupsCountResponseSchema =
 	gETAdminRealmsRealmGroupsCountStatus200Schema;
 
+export const gETAdminRealmsRealmGroupsCountPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmGroupsCountQuerySchema = z.object({
+	search: z.string().optional(),
+	top: z.boolean().optional().default(false),
+});
+
 export const pOSTAdminRealmsRealmIdentityProviderImportConfigPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3120,6 +3633,10 @@ export const pOSTAdminRealmsRealmIdentityProviderImportConfigResponseSchema =
 export const pOSTAdminRealmsRealmIdentityProviderImportConfigBodySchema = z
 	.record(z.string(), z.unknown())
 	.optional();
+
+export const pOSTAdminRealmsRealmIdentityProviderImportConfigPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmIdentityProviderInstancesPathRealmSchema = z
 	.string()
@@ -3171,6 +3688,33 @@ export const gETAdminRealmsRealmIdentityProviderInstancesStatus200Schema = z.arr
 export const gETAdminRealmsRealmIdentityProviderInstancesResponseSchema =
 	gETAdminRealmsRealmIdentityProviderInstancesStatus200Schema;
 
+export const gETAdminRealmsRealmIdentityProviderInstancesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmIdentityProviderInstancesQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.describe("Boolean which defines whether brief representations are returned (default: false)"),
+	capability: z.string().optional().describe("Filter by identity providers capability"),
+	first: z.int32().optional().describe("Pagination offset"),
+	max: z.int32().optional().describe("Maximum results size (defaults to 100)"),
+	realmOnly: z
+		.boolean()
+		.optional()
+		.describe(
+			"Boolean which defines if only realm-level IDPs (not associated with orgs) should be returned (default: false)",
+		),
+	search: z
+		.string()
+		.optional()
+		.describe(
+			'Filter specific providers by name. Search can be prefix (name*), contains (*name*) or exact ("name"). Default prefixed.',
+		),
+	type: z.string().optional().describe("Filter by identity providers type"),
+});
+
 export const pOSTAdminRealmsRealmIdentityProviderInstancesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3192,6 +3736,10 @@ export const pOSTAdminRealmsRealmIdentityProviderInstancesErrorSchema = z.union(
 export const pOSTAdminRealmsRealmIdentityProviderInstancesBodySchema =
 	identityProviderRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmIdentityProviderInstancesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3203,6 +3751,11 @@ export const gETAdminRealmsRealmIdentityProviderInstancesAliasStatus200Schema =
 
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasResponseSchema =
 	gETAdminRealmsRealmIdentityProviderInstancesAliasStatus200Schema;
+
+export const gETAdminRealmsRealmIdentityProviderInstancesAliasPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string(),
+});
 
 export const pUTAdminRealmsRealmIdentityProviderInstancesAliasPathRealmSchema = z
 	.string()
@@ -3227,6 +3780,11 @@ export const pUTAdminRealmsRealmIdentityProviderInstancesAliasErrorSchema = z.un
 export const pUTAdminRealmsRealmIdentityProviderInstancesAliasBodySchema =
 	identityProviderRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmIdentityProviderInstancesAliasPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string(),
+});
+
 export const dELETEAdminRealmsRealmIdentityProviderInstancesAliasPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3237,6 +3795,11 @@ export const dELETEAdminRealmsRealmIdentityProviderInstancesAliasStatus200Schema
 
 export const dELETEAdminRealmsRealmIdentityProviderInstancesAliasResponseSchema =
 	dELETEAdminRealmsRealmIdentityProviderInstancesAliasStatus200Schema;
+
+export const dELETEAdminRealmsRealmIdentityProviderInstancesAliasPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string(),
+});
 
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasExportPathRealmSchema = z
 	.string()
@@ -3254,6 +3817,15 @@ export const gETAdminRealmsRealmIdentityProviderInstancesAliasExportStatus200Sch
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasExportResponseSchema =
 	gETAdminRealmsRealmIdentityProviderInstancesAliasExportStatus200Schema;
 
+export const gETAdminRealmsRealmIdentityProviderInstancesAliasExportPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string(),
+});
+
+export const gETAdminRealmsRealmIdentityProviderInstancesAliasExportQuerySchema = z.object({
+	format: z.string().optional().describe("Format to use"),
+});
+
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissionsPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -3265,6 +3837,12 @@ export const gETAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissi
 
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissionsResponseSchema =
 	gETAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissionsStatus200Schema;
+
+export const gETAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissionsPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		alias: z.string(),
+	});
 
 export const pUTAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissionsPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -3281,6 +3859,12 @@ export const pUTAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissi
 export const pUTAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissionsBodySchema =
 	managementPermissionReferenceSchema.optional();
 
+export const pUTAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissionsPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		alias: z.string(),
+	});
+
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3294,6 +3878,11 @@ export const gETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesStatus2
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesResponseSchema =
 	gETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesStatus200Schema;
 
+export const gETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string(),
+});
+
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasMappersPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3306,6 +3895,11 @@ export const gETAdminRealmsRealmIdentityProviderInstancesAliasMappersStatus200Sc
 
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasMappersResponseSchema =
 	gETAdminRealmsRealmIdentityProviderInstancesAliasMappersStatus200Schema;
+
+export const gETAdminRealmsRealmIdentityProviderInstancesAliasMappersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string(),
+});
 
 export const pOSTAdminRealmsRealmIdentityProviderInstancesAliasMappersPathRealmSchema = z
 	.string()
@@ -3321,6 +3915,11 @@ export const pOSTAdminRealmsRealmIdentityProviderInstancesAliasMappersResponseSc
 export const pOSTAdminRealmsRealmIdentityProviderInstancesAliasMappersBodySchema =
 	identityProviderMapperRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmIdentityProviderInstancesAliasMappersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string(),
+});
+
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasMappersIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3334,6 +3933,12 @@ export const gETAdminRealmsRealmIdentityProviderInstancesAliasMappersIdStatus200
 
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasMappersIdResponseSchema =
 	gETAdminRealmsRealmIdentityProviderInstancesAliasMappersIdStatus200Schema;
+
+export const gETAdminRealmsRealmIdentityProviderInstancesAliasMappersIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string(),
+	id: z.string(),
+});
 
 export const pUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdPathRealmSchema = z
 	.string()
@@ -3354,6 +3959,12 @@ export const pUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdResponseS
 export const pUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdBodySchema =
 	identityProviderMapperRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string(),
+	id: z.string().describe("Mapper id"),
+});
+
 export const dELETEAdminRealmsRealmIdentityProviderInstancesAliasMappersIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3371,6 +3982,12 @@ export const dELETEAdminRealmsRealmIdentityProviderInstancesAliasMappersIdStatus
 export const dELETEAdminRealmsRealmIdentityProviderInstancesAliasMappersIdResponseSchema =
 	dELETEAdminRealmsRealmIdentityProviderInstancesAliasMappersIdStatus204Schema;
 
+export const dELETEAdminRealmsRealmIdentityProviderInstancesAliasMappersIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string(),
+	id: z.string().describe("Mapper id"),
+});
+
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasReloadKeysPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3384,6 +4001,11 @@ export const gETAdminRealmsRealmIdentityProviderInstancesAliasReloadKeysStatus20
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasReloadKeysResponseSchema =
 	gETAdminRealmsRealmIdentityProviderInstancesAliasReloadKeysStatus200Schema;
 
+export const gETAdminRealmsRealmIdentityProviderInstancesAliasReloadKeysPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	alias: z.string(),
+});
+
 export const pOSTAdminRealmsRealmIdentityProviderUploadCertificatePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3394,11 +4016,19 @@ export const pOSTAdminRealmsRealmIdentityProviderUploadCertificateStatus200Schem
 export const pOSTAdminRealmsRealmIdentityProviderUploadCertificateResponseSchema =
 	pOSTAdminRealmsRealmIdentityProviderUploadCertificateStatus200Schema;
 
+export const pOSTAdminRealmsRealmIdentityProviderUploadCertificatePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmKeysPathRealmSchema = z.string().describe("realm name (not id!)");
 
 export const gETAdminRealmsRealmKeysStatus200Schema = keysMetadataRepresentationSchema;
 
 export const gETAdminRealmsRealmKeysResponseSchema = gETAdminRealmsRealmKeysStatus200Schema;
+
+export const gETAdminRealmsRealmKeysPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmLocalizationPathRealmSchema = z
 	.string()
@@ -3413,6 +4043,10 @@ export const gETAdminRealmsRealmLocalizationResponseSchema =
 
 export const gETAdminRealmsRealmLocalizationErrorSchema =
 	gETAdminRealmsRealmLocalizationStatus403Schema;
+
+export const gETAdminRealmsRealmLocalizationPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmLocalizationLocalePathRealmSchema = z
 	.string()
@@ -3436,6 +4070,15 @@ export const gETAdminRealmsRealmLocalizationLocaleResponseSchema =
 
 export const gETAdminRealmsRealmLocalizationLocaleErrorSchema =
 	gETAdminRealmsRealmLocalizationLocaleStatus403Schema;
+
+export const gETAdminRealmsRealmLocalizationLocalePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	locale: z.string(),
+});
+
+export const gETAdminRealmsRealmLocalizationLocaleQuerySchema = z.object({
+	useRealmDefaultLocaleFallback: z.boolean().optional(),
+});
 
 export const pOSTAdminRealmsRealmLocalizationLocalePathRealmSchema = z
 	.string()
@@ -3461,6 +4104,11 @@ export const pOSTAdminRealmsRealmLocalizationLocaleBodySchema = z
 	.record(z.string(), z.string())
 	.optional();
 
+export const pOSTAdminRealmsRealmLocalizationLocalePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	locale: z.string(),
+});
+
 export const dELETEAdminRealmsRealmLocalizationLocalePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3480,6 +4128,11 @@ export const dELETEAdminRealmsRealmLocalizationLocaleErrorSchema = z.union([
 	dELETEAdminRealmsRealmLocalizationLocaleStatus403Schema,
 	dELETEAdminRealmsRealmLocalizationLocaleStatus404Schema,
 ]);
+
+export const dELETEAdminRealmsRealmLocalizationLocalePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	locale: z.string(),
+});
 
 export const gETAdminRealmsRealmLocalizationLocaleKeyPathRealmSchema = z
 	.string()
@@ -3502,6 +4155,12 @@ export const gETAdminRealmsRealmLocalizationLocaleKeyErrorSchema = z.union([
 	gETAdminRealmsRealmLocalizationLocaleKeyStatus403Schema,
 	gETAdminRealmsRealmLocalizationLocaleKeyStatus404Schema,
 ]);
+
+export const gETAdminRealmsRealmLocalizationLocaleKeyPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	key: z.string(),
+	locale: z.string(),
+});
 
 export const pUTAdminRealmsRealmLocalizationLocaleKeyPathRealmSchema = z
 	.string()
@@ -3527,6 +4186,12 @@ export const pUTAdminRealmsRealmLocalizationLocaleKeyErrorSchema = z.union([
 
 export const pUTAdminRealmsRealmLocalizationLocaleKeyBodySchema = z.string().optional();
 
+export const pUTAdminRealmsRealmLocalizationLocaleKeyPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	key: z.string(),
+	locale: z.string(),
+});
+
 export const dELETEAdminRealmsRealmLocalizationLocaleKeyPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3549,6 +4214,12 @@ export const dELETEAdminRealmsRealmLocalizationLocaleKeyErrorSchema = z.union([
 	dELETEAdminRealmsRealmLocalizationLocaleKeyStatus404Schema,
 ]);
 
+export const dELETEAdminRealmsRealmLocalizationLocaleKeyPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	key: z.string(),
+	locale: z.string(),
+});
+
 export const pOSTAdminRealmsRealmLogoutAllPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3562,6 +4233,10 @@ export const pOSTAdminRealmsRealmLogoutAllResponseSchema =
 
 export const pOSTAdminRealmsRealmLogoutAllErrorSchema =
 	pOSTAdminRealmsRealmLogoutAllStatus403Schema;
+
+export const pOSTAdminRealmsRealmLogoutAllPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmOrganizationsPathRealmSchema = z
 	.string()
@@ -3625,6 +4300,48 @@ export const gETAdminRealmsRealmOrganizationsErrorSchema = z.union([
 	gETAdminRealmsRealmOrganizationsStatus404Schema,
 ]);
 
+export const gETAdminRealmsRealmOrganizationsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmOrganizationsQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe(
+			"if false, return the full representation. Otherwise, only the basic fields are returned.",
+		),
+	exact: z
+		.boolean()
+		.optional()
+		.describe("Boolean which defines whether the param 'search' must match exactly or not"),
+	first: z
+		.int32()
+		.optional()
+		.default("0")
+		.describe("The position of the first result to be processed (pagination offset)"),
+	identityProvider: z
+		.string()
+		.optional()
+		.describe(
+			"The alias of an identity provider, to only return the organizations linked to it. Cannot be combined with 'q'",
+		),
+	max: z
+		.int32()
+		.optional()
+		.default("10")
+		.describe("The maximum number of results to be returned - defaults to 10"),
+	q: z
+		.string()
+		.optional()
+		.describe("A query to search for custom attributes, in the format 'key1:value2 key2:value2'"),
+	search: z
+		.string()
+		.optional()
+		.describe("A String representing either an organization name or domain"),
+});
+
 export const pOSTAdminRealmsRealmOrganizationsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3645,6 +4362,10 @@ export const pOSTAdminRealmsRealmOrganizationsErrorSchema = z.union([
 
 export const pOSTAdminRealmsRealmOrganizationsBodySchema =
 	organizationRepresentationSchema.optional();
+
+export const pOSTAdminRealmsRealmOrganizationsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmOrganizationsCountPathRealmSchema = z
 	.string()
@@ -3682,6 +4403,31 @@ export const gETAdminRealmsRealmOrganizationsCountResponseSchema =
 export const gETAdminRealmsRealmOrganizationsCountErrorSchema =
 	gETAdminRealmsRealmOrganizationsCountStatus403Schema;
 
+export const gETAdminRealmsRealmOrganizationsCountPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmOrganizationsCountQuerySchema = z.object({
+	exact: z
+		.boolean()
+		.optional()
+		.describe("Boolean which defines whether the param 'search' must match exactly or not"),
+	identityProvider: z
+		.string()
+		.optional()
+		.describe(
+			"The alias of an identity provider, to only count the organizations linked to it. Cannot be combined with 'q'",
+		),
+	q: z
+		.string()
+		.optional()
+		.describe("A query to search for custom attributes, in the format 'key1:value2 key2:value2'"),
+	search: z
+		.string()
+		.optional()
+		.describe("A String representing either an organization name or domain"),
+});
+
 export const pOSTAdminRealmsRealmPartialExportPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3701,6 +4447,15 @@ export const pOSTAdminRealmsRealmPartialExportResponseSchema =
 
 export const pOSTAdminRealmsRealmPartialExportErrorSchema =
 	pOSTAdminRealmsRealmPartialExportStatus403Schema;
+
+export const pOSTAdminRealmsRealmPartialExportPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const pOSTAdminRealmsRealmPartialExportQuerySchema = z.object({
+	exportClients: z.boolean().optional(),
+	exportGroupsAndRoles: z.boolean().optional(),
+});
 
 export const pOSTAdminRealmsRealmPartialImportPathRealmSchema = z
 	.string()
@@ -3722,6 +4477,10 @@ export const pOSTAdminRealmsRealmPartialImportErrorSchema = z.union([
 
 export const pOSTAdminRealmsRealmPartialImportBodySchema = z.unknown().optional();
 
+export const pOSTAdminRealmsRealmPartialImportPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const pOSTAdminRealmsRealmPushRevocationPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3735,6 +4494,10 @@ export const pOSTAdminRealmsRealmPushRevocationResponseSchema =
 
 export const pOSTAdminRealmsRealmPushRevocationErrorSchema =
 	pOSTAdminRealmsRealmPushRevocationStatus403Schema;
+
+export const pOSTAdminRealmsRealmPushRevocationPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmRolesPathRealmSchema = z.string().describe("realm name (not id!)");
 
@@ -3756,6 +4519,17 @@ export const gETAdminRealmsRealmRolesStatus403Schema = z.unknown();
 export const gETAdminRealmsRealmRolesResponseSchema = gETAdminRealmsRealmRolesStatus200Schema;
 
 export const gETAdminRealmsRealmRolesErrorSchema = gETAdminRealmsRealmRolesStatus403Schema;
+
+export const gETAdminRealmsRealmRolesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmRolesQuerySchema = z.object({
+	briefRepresentation: z.boolean().optional().default(true),
+	first: z.int32().optional(),
+	max: z.int32().optional(),
+	search: z.string().optional().default(""),
+});
 
 export const pOSTAdminRealmsRealmRolesPathRealmSchema = z.string().describe("realm name (not id!)");
 
@@ -3783,6 +4557,10 @@ export const pOSTAdminRealmsRealmRolesErrorSchema = z.union([
 
 export const pOSTAdminRealmsRealmRolesBodySchema = roleRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmRolesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const dELETEAdminRealmsRealmSessionsSessionPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3808,6 +4586,15 @@ export const dELETEAdminRealmsRealmSessionsSessionErrorSchema = z.union([
 	dELETEAdminRealmsRealmSessionsSessionStatus404Schema,
 ]);
 
+export const dELETEAdminRealmsRealmSessionsSessionPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	session: z.string(),
+});
+
+export const dELETEAdminRealmsRealmSessionsSessionQuerySchema = z.object({
+	isOffline: z.boolean().optional().default(false),
+});
+
 export const pOSTAdminRealmsRealmTestSMTPConnectionPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3825,6 +4612,10 @@ export const pOSTAdminRealmsRealmTestSMTPConnectionErrorSchema =
 export const pOSTAdminRealmsRealmTestSMTPConnectionBodySchema = z
 	.record(z.string(), z.string())
 	.optional();
+
+export const pOSTAdminRealmsRealmTestSMTPConnectionPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmUsersPathRealmSchema = z.string().describe("realm name (not id!)");
 
@@ -3924,6 +4715,72 @@ export const gETAdminRealmsRealmUsersResponseSchema = gETAdminRealmsRealmUsersSt
 
 export const gETAdminRealmsRealmUsersErrorSchema = gETAdminRealmsRealmUsersStatus403Schema;
 
+export const gETAdminRealmsRealmUsersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmUsersQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.describe("Boolean which defines whether brief representations are returned (default: false)"),
+	createdAfter: z
+		.string()
+		.optional()
+		.describe(
+			"Only return users created after (inclusive) the given date, in ISO-8601 format (yyyy-MM-dd) or epoch milliseconds",
+		),
+	createdBefore: z
+		.string()
+		.optional()
+		.describe(
+			"Only return users created before (inclusive) the given date, in ISO-8601 format (yyyy-MM-dd) or epoch milliseconds",
+		),
+	email: z
+		.string()
+		.optional()
+		.describe('A String contained in email, or the complete email, if param "exact" is true'),
+	emailVerified: z.boolean().optional().describe("whether the email has been verified"),
+	enabled: z.boolean().optional().describe("Boolean representing if user is enabled or not"),
+	exact: z
+		.boolean()
+		.optional()
+		.describe(
+			'Boolean which defines whether the params "last", "first", "email" and "username" must match exactly',
+		),
+	first: z.int32().optional().describe("Pagination offset"),
+	firstName: z
+		.string()
+		.optional()
+		.describe(
+			'A String contained in firstName, or the complete firstName, if param "exact" is true',
+		),
+	idpAlias: z.string().optional().describe("The alias of an Identity Provider linked to the user"),
+	idpUserId: z
+		.string()
+		.optional()
+		.describe("The userId at an Identity Provider linked to the user"),
+	lastName: z
+		.string()
+		.optional()
+		.describe('A String contained in lastName, or the complete lastName, if param "exact" is true'),
+	max: z.int32().optional().describe("Maximum results size (defaults to 100)"),
+	q: z
+		.string()
+		.optional()
+		.describe("A query to search for custom attributes, in the format 'key1:value2 key2:value2'"),
+	search: z
+		.string()
+		.optional()
+		.describe(
+			'A String contained in username, first or last name, or email. Default search behavior is prefix-based (e.g., foo or foo*). Use *foo* for infix search and "foo" for exact search.',
+		),
+	username: z
+		.string()
+		.optional()
+		.describe('A String contained in username, or the complete username, if param "exact" is true'),
+});
+
 export const pOSTAdminRealmsRealmUsersPathRealmSchema = z.string().describe("realm name (not id!)");
 
 export const pOSTAdminRealmsRealmUsersStatus201Schema = z.unknown();
@@ -3947,6 +4804,10 @@ export const pOSTAdminRealmsRealmUsersErrorSchema = z.union([
 
 export const pOSTAdminRealmsRealmUsersBodySchema = userRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmUsersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmUsersManagementPermissionsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -3961,6 +4822,10 @@ export const gETAdminRealmsRealmUsersManagementPermissionsResponseSchema =
 
 export const gETAdminRealmsRealmUsersManagementPermissionsErrorSchema =
 	gETAdminRealmsRealmUsersManagementPermissionsStatus403Schema;
+
+export const gETAdminRealmsRealmUsersManagementPermissionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pUTAdminRealmsRealmUsersManagementPermissionsPathRealmSchema = z
 	.string()
@@ -3979,6 +4844,10 @@ export const pUTAdminRealmsRealmUsersManagementPermissionsErrorSchema =
 
 export const pUTAdminRealmsRealmUsersManagementPermissionsBodySchema =
 	managementPermissionReferenceSchema.optional();
+
+export const pUTAdminRealmsRealmUsersManagementPermissionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmUsersCountPathRealmSchema = z
 	.string()
@@ -4067,6 +4936,66 @@ export const gETAdminRealmsRealmUsersCountResponseSchema =
 export const gETAdminRealmsRealmUsersCountErrorSchema =
 	gETAdminRealmsRealmUsersCountStatus403Schema;
 
+export const gETAdminRealmsRealmUsersCountPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmUsersCountQuerySchema = z.object({
+	createdAfter: z
+		.string()
+		.optional()
+		.describe(
+			"Only return users created after (inclusive) the given date, in ISO-8601 format (yyyy-MM-dd) or epoch milliseconds",
+		),
+	createdBefore: z
+		.string()
+		.optional()
+		.describe(
+			"Only return users created before (inclusive) the given date, in ISO-8601 format (yyyy-MM-dd) or epoch milliseconds",
+		),
+	email: z
+		.string()
+		.optional()
+		.describe('A String contained in email, or the complete email, if param "exact" is true'),
+	emailVerified: z.boolean().optional().describe("whether the email has been verified"),
+	enabled: z.boolean().optional().describe("Boolean representing if user is enabled or not"),
+	exact: z
+		.boolean()
+		.optional()
+		.describe(
+			'Boolean which defines whether the params "last", "first", "email" and "username" must match exactly',
+		),
+	firstName: z
+		.string()
+		.optional()
+		.describe(
+			'A String contained in firstName, or the complete firstName, if param "exact" is true',
+		),
+	idpAlias: z.string().optional().describe("The alias of an Identity Provider linked to the user"),
+	idpUserId: z
+		.string()
+		.optional()
+		.describe("The userId at an Identity Provider linked to the user"),
+	lastName: z
+		.string()
+		.optional()
+		.describe('A String contained in lastName, or the complete lastName, if param "exact" is true'),
+	q: z
+		.string()
+		.optional()
+		.describe("A query to search for custom attributes, in the format 'key1:value2 key2:value2'"),
+	search: z
+		.string()
+		.optional()
+		.describe(
+			'A String contained in username, first or last name, or email. Default search behavior is prefix-based (e.g., foo or foo*). Use *foo* for infix search and "foo" for exact search.',
+		),
+	username: z
+		.string()
+		.optional()
+		.describe('A String contained in username, or the complete username, if param "exact" is true'),
+});
+
 export const gETAdminRealmsRealmUsersProfilePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4080,6 +5009,10 @@ export const gETAdminRealmsRealmUsersProfileResponseSchema =
 
 export const gETAdminRealmsRealmUsersProfileErrorSchema =
 	gETAdminRealmsRealmUsersProfileStatus403Schema;
+
+export const gETAdminRealmsRealmUsersProfilePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pUTAdminRealmsRealmUsersProfilePathRealmSchema = z
 	.string()
@@ -4097,6 +5030,10 @@ export const pUTAdminRealmsRealmUsersProfileErrorSchema =
 
 export const pUTAdminRealmsRealmUsersProfileBodySchema = UPConfigSchema.optional();
 
+export const pUTAdminRealmsRealmUsersProfilePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
 export const gETAdminRealmsRealmUsersProfileMetadataPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4110,6 +5047,10 @@ export const gETAdminRealmsRealmUsersProfileMetadataResponseSchema =
 
 export const gETAdminRealmsRealmUsersProfileMetadataErrorSchema =
 	gETAdminRealmsRealmUsersProfileMetadataStatus403Schema;
+
+export const gETAdminRealmsRealmUsersProfileMetadataPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const gETAdminRealmsRealmWorkflowsPathRealmSchema = z
 	.string()
@@ -4146,6 +5087,31 @@ export const gETAdminRealmsRealmWorkflowsResponseSchema =
 
 export const gETAdminRealmsRealmWorkflowsErrorSchema = gETAdminRealmsRealmWorkflowsStatus400Schema;
 
+export const gETAdminRealmsRealmWorkflowsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const gETAdminRealmsRealmWorkflowsQuerySchema = z.object({
+	exact: z
+		.boolean()
+		.optional()
+		.describe("Boolean which defines whether the param 'search' must match exactly or not"),
+	first: z
+		.int32()
+		.optional()
+		.default("0")
+		.describe("The position of the first result to be processed (pagination offset)"),
+	max: z
+		.int32()
+		.optional()
+		.default("10")
+		.describe("The maximum number of results to be returned - defaults to 10"),
+	search: z
+		.string()
+		.optional()
+		.describe("A String representing the workflow name - either partial or exact"),
+});
+
 export const pOSTAdminRealmsRealmWorkflowsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4161,6 +5127,10 @@ export const pOSTAdminRealmsRealmWorkflowsErrorSchema =
 	pOSTAdminRealmsRealmWorkflowsStatus400Schema;
 
 export const pOSTAdminRealmsRealmWorkflowsBodySchema = workflowRepresentationSchema.optional();
+
+export const pOSTAdminRealmsRealmWorkflowsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
 
 export const pOSTAdminRealmsRealmWorkflowsMigratePathRealmSchema = z
 	.string()
@@ -4185,6 +5155,15 @@ export const pOSTAdminRealmsRealmWorkflowsMigrateResponseSchema =
 
 export const pOSTAdminRealmsRealmWorkflowsMigrateErrorSchema =
 	pOSTAdminRealmsRealmWorkflowsMigrateStatus400Schema;
+
+export const pOSTAdminRealmsRealmWorkflowsMigratePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+});
+
+export const pOSTAdminRealmsRealmWorkflowsMigrateQuerySchema = z.object({
+	from: z.string().optional().describe("A String representing the id of the step to migrate from"),
+	to: z.string().optional().describe("A String representing the id of the step to migrate to"),
+});
 
 export const gETAdminRealmsRealmWorkflowsIdPathRealmSchema = z
 	.string()
@@ -4211,6 +5190,20 @@ export const gETAdminRealmsRealmWorkflowsIdResponseSchema =
 export const gETAdminRealmsRealmWorkflowsIdErrorSchema =
 	gETAdminRealmsRealmWorkflowsIdStatus400Schema;
 
+export const gETAdminRealmsRealmWorkflowsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string().describe("Workflow identifier"),
+});
+
+export const gETAdminRealmsRealmWorkflowsIdQuerySchema = z.object({
+	includeId: z
+		.boolean()
+		.optional()
+		.describe(
+			"Indicates whether the workflow and step ids should be included in the representation or not - defaults to true",
+		),
+});
+
 export const pUTAdminRealmsRealmWorkflowsIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4231,6 +5224,11 @@ export const pUTAdminRealmsRealmWorkflowsIdErrorSchema =
 
 export const pUTAdminRealmsRealmWorkflowsIdBodySchema = workflowRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmWorkflowsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string().describe("Workflow identifier"),
+});
+
 export const dELETEAdminRealmsRealmWorkflowsIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4248,6 +5246,11 @@ export const dELETEAdminRealmsRealmWorkflowsIdResponseSchema =
 
 export const dELETEAdminRealmsRealmWorkflowsIdErrorSchema =
 	dELETEAdminRealmsRealmWorkflowsIdStatus400Schema;
+
+export const dELETEAdminRealmsRealmWorkflowsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string().describe("Workflow identifier"),
+});
 
 export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdPathRealmSchema = z
 	.string()
@@ -4282,6 +5285,22 @@ export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdResponseSchema
 export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdErrorSchema =
 	pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdStatus400Schema;
 
+export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string().describe("Workflow identifier"),
+	resourceId: z.string().describe("Resource identifier"),
+	type: z.object({}).describe("Resource type"),
+});
+
+export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdQuerySchema = z.object({
+	notBefore: z
+		.string()
+		.optional()
+		.describe(
+			"Optional value representing the time to schedule the first workflow step. The value is either an integer representing the seconds from now, an integer followed by 'ms' representing milliseconds from now, or an ISO-8601 date string.",
+		),
+});
+
 export const pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4308,6 +5327,13 @@ export const pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdResponseSche
 export const pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdErrorSchema =
 	pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdStatus400Schema;
 
+export const pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	id: z.string().describe("Workflow identifier"),
+	resourceId: z.string().describe("Resource identifier"),
+	type: z.object({}).describe("Resource type"),
+});
+
 export const gETAdminRealmsRealmClientScopesClientScopeIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4324,6 +5350,11 @@ export const gETAdminRealmsRealmClientScopesClientScopeIdResponseSchema =
 
 export const gETAdminRealmsRealmClientScopesClientScopeIdErrorSchema =
 	gETAdminRealmsRealmClientScopesClientScopeIdStatus403Schema;
+
+export const gETAdminRealmsRealmClientScopesClientScopeIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
 
 export const pUTAdminRealmsRealmClientScopesClientScopeIdPathRealmSchema = z
 	.string()
@@ -4351,6 +5382,11 @@ export const pUTAdminRealmsRealmClientScopesClientScopeIdErrorSchema = z.union([
 export const pUTAdminRealmsRealmClientScopesClientScopeIdBodySchema =
 	clientScopeRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmClientScopesClientScopeIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmClientScopesClientScopeIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4374,6 +5410,11 @@ export const dELETEAdminRealmsRealmClientScopesClientScopeIdErrorSchema = z.unio
 	dELETEAdminRealmsRealmClientScopesClientScopeIdStatus500Schema,
 ]);
 
+export const dELETEAdminRealmsRealmClientScopesClientScopeIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
+
 export const pOSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModelsPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -4390,6 +5431,12 @@ export const pOSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddMode
 	.array(protocolMapperRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModelsPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4402,6 +5449,13 @@ export const gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsSt
 
 export const gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsResponseSchema =
 	gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsStatus200Schema;
+
+export const gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsPathSchema = z.object(
+	{
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	},
+);
 
 export const pOSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsPathRealmSchema = z
 	.string()
@@ -4425,6 +5479,12 @@ export const pOSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsE
 export const pOSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsBodySchema =
 	protocolMapperRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4441,6 +5501,13 @@ export const gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsId
 
 export const gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdResponseSchema =
 	gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdStatus200Schema;
+
+export const gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		id: z.string().describe("Mapper id"),
+	});
 
 export const pUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdPathRealmSchema = z
 	.string()
@@ -4462,6 +5529,13 @@ export const pUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsId
 export const pUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdBodySchema =
 	protocolMapperRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		id: z.string().describe("Mapper id"),
+	});
+
 export const dELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -4478,6 +5552,13 @@ export const dELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModel
 export const dELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdResponseSchema =
 	dELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdStatus204Schema;
 
+export const dELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		id: z.string().describe("Mapper id"),
+	});
+
 export const gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersProtocolProtocolPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -4493,6 +5574,13 @@ export const gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersProtocol
 export const gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersProtocolProtocolResponseSchema =
 	gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersProtocolProtocolStatus200Schema;
 
+export const gETAdminRealmsRealmClientScopesClientScopeIdProtocolMappersProtocolProtocolPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		protocol: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4505,6 +5593,11 @@ export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsStatus200S
 
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsResponseSchema =
 	gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsStatus200Schema;
+
+export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
 
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -4520,6 +5613,13 @@ export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsCli
 
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientResponseSchema =
 	gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientStatus200Schema;
+
+export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		client: z.string(),
+	});
 
 export const pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -4540,6 +5640,13 @@ export const pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsCl
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		client: z.string(),
+	});
+
 export const dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -4559,6 +5666,13 @@ export const dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClients
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		client: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientAvailablePathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -4573,6 +5687,13 @@ export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsCli
 
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientAvailableResponseSchema =
 	gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientAvailableStatus200Schema;
+
+export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientAvailablePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		client: z.string(),
+	});
 
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientCompositePathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -4592,6 +5713,22 @@ export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsCli
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientCompositeResponseSchema =
 	gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientCompositeStatus200Schema;
 
+export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientCompositePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		client: z.string(),
+	});
+
+export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientCompositeQuerySchema =
+	z.object({
+		briefRepresentation: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe("if false, return roles with their attributes"),
+	});
+
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4604,6 +5741,11 @@ export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmStatu
 
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmResponseSchema =
 	gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmStatus200Schema;
+
+export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
 
 export const pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmPathRealmSchema = z
 	.string()
@@ -4622,6 +5764,11 @@ export const pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmBody
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4639,6 +5786,13 @@ export const dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmBo
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmPathSchema = z.object(
+	{
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	},
+);
+
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmAvailablePathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -4650,6 +5804,12 @@ export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmAvail
 
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmAvailableResponseSchema =
 	gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmAvailableStatus200Schema;
+
+export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmAvailablePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	});
 
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmCompositePathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -4665,6 +5825,21 @@ export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmCompo
 
 export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmCompositeResponseSchema =
 	gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmCompositeStatus200Schema;
+
+export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmCompositePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	});
+
+export const gETAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmCompositeQuerySchema =
+	z.object({
+		briefRepresentation: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe("if false, return roles with their attributes"),
+	});
 
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdPathRealmSchema = z
 	.string()
@@ -4682,6 +5857,11 @@ export const gETAdminRealmsRealmClientTemplatesClientScopeIdResponseSchema =
 
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdErrorSchema =
 	gETAdminRealmsRealmClientTemplatesClientScopeIdStatus403Schema;
+
+export const gETAdminRealmsRealmClientTemplatesClientScopeIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
 
 export const pUTAdminRealmsRealmClientTemplatesClientScopeIdPathRealmSchema = z
 	.string()
@@ -4709,6 +5889,11 @@ export const pUTAdminRealmsRealmClientTemplatesClientScopeIdErrorSchema = z.unio
 export const pUTAdminRealmsRealmClientTemplatesClientScopeIdBodySchema =
 	clientScopeRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmClientTemplatesClientScopeIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4732,6 +5917,11 @@ export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdErrorSchema = z.u
 	dELETEAdminRealmsRealmClientTemplatesClientScopeIdStatus500Schema,
 ]);
 
+export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
+
 export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddModelsPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -4748,6 +5938,12 @@ export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddM
 	.array(protocolMapperRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddModelsPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4760,6 +5956,12 @@ export const gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModel
 
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsResponseSchema =
 	gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsStatus200Schema;
+
+export const gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	});
 
 export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -4782,6 +5984,12 @@ export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersMode
 export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsBodySchema =
 	protocolMapperRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -4797,6 +6005,13 @@ export const gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModel
 
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdResponseSchema =
 	gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdStatus200Schema;
+
+export const gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		id: z.string().describe("Mapper id"),
+	});
 
 export const pUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -4817,6 +6032,13 @@ export const pUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModel
 export const pUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdBodySchema =
 	protocolMapperRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		id: z.string().describe("Mapper id"),
+	});
+
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -4831,6 +6053,13 @@ export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersMo
 
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdResponseSchema =
 	dELETEAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdStatus204Schema;
+
+export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		id: z.string().describe("Mapper id"),
+	});
 
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersProtocolProtocolPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -4847,6 +6076,13 @@ export const gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersProto
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersProtocolProtocolResponseSchema =
 	gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersProtocolProtocolStatus200Schema;
 
+export const gETAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersProtocolProtocolPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		protocol: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4859,6 +6095,11 @@ export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsStatus2
 
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsResponseSchema =
 	gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsStatus200Schema;
+
+export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientScopeId: z.string(),
+});
 
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -4874,6 +6115,13 @@ export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClients
 
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientResponseSchema =
 	gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientStatus200Schema;
+
+export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		client: z.string(),
+	});
 
 export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -4893,6 +6141,13 @@ export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClient
 export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientBodySchema =
 	z.array(roleRepresentationSchema).optional();
 
+export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		client: z.string(),
+	});
+
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -4911,6 +6166,13 @@ export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClie
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientBodySchema =
 	z.array(roleRepresentationSchema).optional();
 
+export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		client: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientAvailablePathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -4925,6 +6187,13 @@ export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClients
 
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientAvailableResponseSchema =
 	gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientAvailableStatus200Schema;
+
+export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientAvailablePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		client: z.string(),
+	});
 
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientCompositePathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -4944,6 +6213,22 @@ export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClients
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientCompositeResponseSchema =
 	gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientCompositeStatus200Schema;
 
+export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientCompositePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+		client: z.string(),
+	});
+
+export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientCompositeQuerySchema =
+	z.object({
+		briefRepresentation: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe("if false, return roles with their attributes"),
+	});
+
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4956,6 +6241,13 @@ export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmSt
 
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmResponseSchema =
 	gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmStatus200Schema;
+
+export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmPathSchema = z.object(
+	{
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	},
+);
 
 export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmPathRealmSchema = z
 	.string()
@@ -4974,6 +6266,12 @@ export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmB
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	});
+
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -4991,6 +6289,12 @@ export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsReal
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmAvailablePathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -5002,6 +6306,12 @@ export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmAv
 
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmAvailableResponseSchema =
 	gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmAvailableStatus200Schema;
+
+export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmAvailablePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	});
 
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmCompositePathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -5018,6 +6328,21 @@ export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmCo
 export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmCompositeResponseSchema =
 	gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmCompositeStatus200Schema;
 
+export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmCompositePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientScopeId: z.string(),
+	});
+
+export const gETAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmCompositeQuerySchema =
+	z.object({
+		briefRepresentation: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe("if false, return roles with their attributes"),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -5030,6 +6355,11 @@ export const gETAdminRealmsRealmClientsClientUuidStatus200Schema = clientReprese
 
 export const gETAdminRealmsRealmClientsClientUuidResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const pUTAdminRealmsRealmClientsClientUuidPathRealmSchema = z
 	.string()
@@ -5055,6 +6385,11 @@ export const pUTAdminRealmsRealmClientsClientUuidErrorSchema = z.union([
 
 export const pUTAdminRealmsRealmClientsClientUuidBodySchema = clientRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmClientsClientUuidPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
 export const dELETEAdminRealmsRealmClientsClientUuidPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -5067,6 +6402,11 @@ export const dELETEAdminRealmsRealmClientsClientUuidStatus204Schema = z.unknown(
 
 export const dELETEAdminRealmsRealmClientsClientUuidResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidStatus204Schema;
+
+export const dELETEAdminRealmsRealmClientsClientUuidPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPathRealmSchema = z
 	.string()
@@ -5081,6 +6421,11 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerStatus200Sch
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerPathRealmSchema = z
 	.string()
@@ -5098,6 +6443,11 @@ export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResponseSche
 export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerBodySchema =
 	resourceServerRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -5114,6 +6464,11 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportRespo
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportBodySchema =
 	resourceServerRepresentationSchema.optional();
+
+export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionPathRealmSchema = z
 	.string()
@@ -5175,6 +6530,28 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionRe
 		gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionStatus204Schema,
 	]);
 
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionPathSchema = z.object(
+	{
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	},
+);
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionQuerySchema =
+	z.object({
+		fields: z.string().optional(),
+		first: z.int32().optional(),
+		max: z.int32().optional().default("100"),
+		name: z.string().optional(),
+		owner: z.string().optional(),
+		permission: z.boolean().optional(),
+		policyId: z.string().optional(),
+		resource: z.string().optional(),
+		resourceType: z.string().optional(),
+		scope: z.string().optional(),
+		type: z.string().optional(),
+	});
+
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -5191,6 +6568,12 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionR
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionBodySchema = z
 	.string()
 	.optional();
+
+export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	});
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluatePathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -5219,6 +6602,12 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionE
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateBodySchema =
 	policyEvaluationRequestSchema.optional();
 
+export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluatePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionProvidersPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -5230,6 +6619,12 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionPr
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionProvidersResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionProvidersStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionProvidersPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	});
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -5260,6 +6655,18 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSe
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchStatus400Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchQuerySchema =
+	z.object({
+		fields: z.string().optional(),
+		name: z.string().optional(),
+	});
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyPathRealmSchema = z
 	.string()
@@ -5325,6 +6732,25 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyRespon
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyStatus204Schema,
 ]);
 
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyQuerySchema = z.object({
+	fields: z.string().optional(),
+	first: z.int32().optional(),
+	max: z.int32().optional().default("100"),
+	name: z.string().optional(),
+	owner: z.string().optional(),
+	permission: z.boolean().optional(),
+	policyId: z.string().optional(),
+	resource: z.string().optional(),
+	resourceType: z.string().optional(),
+	scope: z.string().optional(),
+	type: z.string().optional(),
+});
+
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -5342,6 +6768,11 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyRespo
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyBodySchema = z
 	.string()
 	.optional();
+
+export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluatePathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -5370,6 +6801,12 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvalu
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateBodySchema =
 	policyEvaluationRequestSchema.optional();
 
+export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluatePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyProvidersPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -5381,6 +6818,12 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyProvid
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyProvidersResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyProvidersStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyProvidersPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	});
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchPathRealmSchema = z
 	.string()
@@ -5413,6 +6856,18 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearch
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchStatus400Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchQuerySchema =
+	z.object({
+		fields: z.string().optional(),
+		name: z.string().optional(),
+	});
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourcePathRealmSchema = z
 	.string()
@@ -5471,6 +6926,25 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceStat
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourcePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceQuerySchema = z.object({
+	_id: z.string().optional(),
+	deep: z.boolean().optional(),
+	exactName: z.boolean().optional(),
+	first: z.int32().optional(),
+	matchingUri: z.boolean().optional(),
+	max: z.int32().optional().default("100"),
+	name: z.string().optional(),
+	owner: z.string().optional(),
+	scope: z.string().optional(),
+	type: z.string().optional(),
+	uri: z.string().optional(),
+});
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourcePathRealmSchema = z
 	.string()
@@ -5538,6 +7012,27 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceBod
 	.lazy(() => resourceRepresentationSchema.omit({ owner: true }))
 	.optional();
 
+export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourcePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
+export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceQuerySchema = z.object(
+	{
+		_id: z.string().optional(),
+		deep: z.boolean().optional(),
+		exactName: z.boolean().optional(),
+		first: z.int32().optional(),
+		matchingUri: z.boolean().optional(),
+		max: z.int32().optional().default("100"),
+		name: z.string().optional(),
+		owner: z.string().optional(),
+		scope: z.string().optional(),
+		type: z.string().optional(),
+		uri: z.string().optional(),
+	},
+);
+
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -5599,6 +7094,27 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSear
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchStatus400Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchQuerySchema =
+	z.object({
+		_id: z.string().optional(),
+		deep: z.boolean().optional(),
+		exactName: z.boolean().optional(),
+		first: z.int32().optional(),
+		matchingUri: z.boolean().optional(),
+		max: z.int32().optional().default("100"),
+		name: z.string().optional(),
+		owner: z.string().optional(),
+		scope: z.string().optional(),
+		type: z.string().optional(),
+		uri: z.string().optional(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -5652,6 +7168,28 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceReso
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus404Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		resourceId: z.string(),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdQuerySchema =
+	z.object({
+		_id: z.string().optional(),
+		deep: z.boolean().optional(),
+		exactName: z.boolean().optional(),
+		first: z.int32().optional(),
+		matchingUri: z.boolean().optional(),
+		max: z.int32().optional().default("100"),
+		name: z.string().optional(),
+		owner: z.string().optional(),
+		scope: z.string().optional(),
+		type: z.string().optional(),
+		uri: z.string().optional(),
+	});
 
 export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -5711,6 +7249,28 @@ export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceReso
 	.lazy(() => resourceRepresentationSchema.omit({ owner: true }))
 	.optional();
 
+export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		resourceId: z.string(),
+	});
+
+export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdQuerySchema =
+	z.object({
+		_id: z.string().optional(),
+		deep: z.boolean().optional(),
+		exactName: z.boolean().optional(),
+		first: z.int32().optional(),
+		matchingUri: z.boolean().optional(),
+		max: z.int32().optional().default("100"),
+		name: z.string().optional(),
+		owner: z.string().optional(),
+		scope: z.string().optional(),
+		type: z.string().optional(),
+		uri: z.string().optional(),
+	});
+
 export const dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -5765,6 +7325,28 @@ export const dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceR
 export const dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdErrorSchema =
 	dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus404Schema;
 
+export const dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		resourceId: z.string(),
+	});
+
+export const dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdQuerySchema =
+	z.object({
+		_id: z.string().optional(),
+		deep: z.boolean().optional(),
+		exactName: z.boolean().optional(),
+		first: z.int32().optional(),
+		matchingUri: z.boolean().optional(),
+		max: z.int32().optional().default("100"),
+		name: z.string().optional(),
+		owner: z.string().optional(),
+		scope: z.string().optional(),
+		type: z.string().optional(),
+		uri: z.string().optional(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdAttributesPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -5812,6 +7394,28 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceReso
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdAttributesResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdAttributesStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdAttributesPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		resourceId: z.string(),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdAttributesQuerySchema =
+	z.object({
+		_id: z.string().optional(),
+		deep: z.boolean().optional(),
+		exactName: z.boolean().optional(),
+		first: z.int32().optional(),
+		matchingUri: z.boolean().optional(),
+		max: z.int32().optional().default("100"),
+		name: z.string().optional(),
+		owner: z.string().optional(),
+		scope: z.string().optional(),
+		type: z.string().optional(),
+		uri: z.string().optional(),
+	});
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPermissionsPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -5867,6 +7471,28 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceReso
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPermissionsErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPermissionsStatus404Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPermissionsPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		resourceId: z.string(),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPermissionsQuerySchema =
+	z.object({
+		_id: z.string().optional(),
+		deep: z.boolean().optional(),
+		exactName: z.boolean().optional(),
+		first: z.int32().optional(),
+		matchingUri: z.boolean().optional(),
+		max: z.int32().optional().default("100"),
+		name: z.string().optional(),
+		owner: z.string().optional(),
+		scope: z.string().optional(),
+		type: z.string().optional(),
+		uri: z.string().optional(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdScopesPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -5921,6 +7547,28 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceReso
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdScopesErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdScopesStatus404Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdScopesPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		resourceId: z.string(),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdScopesQuerySchema =
+	z.object({
+		_id: z.string().optional(),
+		deep: z.boolean().optional(),
+		exactName: z.boolean().optional(),
+		first: z.int32().optional(),
+		matchingUri: z.boolean().optional(),
+		max: z.int32().optional().default("100"),
+		name: z.string().optional(),
+		owner: z.string().optional(),
+		scope: z.string().optional(),
+		type: z.string().optional(),
+		uri: z.string().optional(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -5952,6 +7600,18 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeStatus2
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeStatus200Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeQuerySchema = z.object({
+	first: z.int32().optional(),
+	max: z.int32().optional(),
+	name: z.string().optional(),
+	scopeId: z.string().optional(),
+});
+
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -5969,6 +7629,11 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeRespon
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeBodySchema = z
 	.lazy(() => scopeRepresentationSchema)
 	.optional();
+
+export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchPathRealmSchema = z
 	.string()
@@ -5999,6 +7664,17 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchR
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchStatus400Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchQuerySchema =
+	z.object({
+		name: z.string().optional(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6021,6 +7697,13 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeId
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdStatus404Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		scopeId: z.string(),
+	});
+
 export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6041,6 +7724,13 @@ export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeId
 	.lazy(() => scopeRepresentationSchema)
 	.optional();
 
+export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		scopeId: z.string(),
+	});
+
 export const dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -6055,6 +7745,13 @@ export const dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScop
 
 export const dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdStatus200Schema;
+
+export const dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		scopeId: z.string(),
+	});
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPermissionsPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -6077,6 +7774,13 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeId
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPermissionsErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPermissionsStatus404Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPermissionsPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		scopeId: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdResourcesPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -6098,6 +7802,13 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeId
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdResourcesErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdResourcesStatus404Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdResourcesPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		scopeId: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerSettingsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6111,6 +7822,11 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerSettingsStat
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerSettingsResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerSettingsStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerSettingsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const gETAdminRealmsRealmClientsClientUuidCertificatesAttrPathRealmSchema = z
 	.string()
@@ -6127,6 +7843,12 @@ export const gETAdminRealmsRealmClientsClientUuidCertificatesAttrStatus200Schema
 
 export const gETAdminRealmsRealmClientsClientUuidCertificatesAttrResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidCertificatesAttrStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidCertificatesAttrPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	attr: z.string(),
+});
 
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadPathRealmSchema = z
 	.string()
@@ -6148,6 +7870,12 @@ export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadRespon
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadBodySchema =
 	keyStoreConfigSchema.optional();
 
+export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	attr: z.string(),
+});
+
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGeneratePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6164,6 +7892,12 @@ export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateStatus
 
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateStatus200Schema;
+
+export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGeneratePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	attr: z.string(),
+});
 
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -6183,6 +7917,13 @@ export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDow
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadBodySchema =
 	keyStoreConfigSchema.optional();
 
+export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		attr: z.string(),
+	});
+
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrUploadPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6199,6 +7940,12 @@ export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrUploadStatus20
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrUploadResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrUploadStatus200Schema;
 
+export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrUploadPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	attr: z.string(),
+});
+
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrUploadCertificatePathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -6214,6 +7961,13 @@ export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrUploadCertific
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrUploadCertificateResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrUploadCertificateStatus200Schema;
 
+export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrUploadCertificatePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		attr: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidClientSecretPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6227,6 +7981,11 @@ export const gETAdminRealmsRealmClientsClientUuidClientSecretStatus200Schema =
 
 export const gETAdminRealmsRealmClientsClientUuidClientSecretResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidClientSecretStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidClientSecretPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const pOSTAdminRealmsRealmClientsClientUuidClientSecretPathRealmSchema = z
 	.string()
@@ -6242,6 +8001,11 @@ export const pOSTAdminRealmsRealmClientsClientUuidClientSecretStatus200Schema =
 export const pOSTAdminRealmsRealmClientsClientUuidClientSecretResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidClientSecretStatus200Schema;
 
+export const pOSTAdminRealmsRealmClientsClientUuidClientSecretPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidClientSecretRotatedPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6255,6 +8019,11 @@ export const gETAdminRealmsRealmClientsClientUuidClientSecretRotatedStatus200Sch
 
 export const gETAdminRealmsRealmClientsClientUuidClientSecretRotatedResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidClientSecretRotatedStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidClientSecretRotatedPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const dELETEAdminRealmsRealmClientsClientUuidClientSecretRotatedPathRealmSchema = z
 	.string()
@@ -6270,6 +8039,11 @@ export const dELETEAdminRealmsRealmClientsClientUuidClientSecretRotatedStatus200
 export const dELETEAdminRealmsRealmClientsClientUuidClientSecretRotatedResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidClientSecretRotatedStatus200Schema;
 
+export const dELETEAdminRealmsRealmClientsClientUuidClientSecretRotatedPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidDefaultClientScopesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6284,6 +8058,11 @@ export const gETAdminRealmsRealmClientsClientUuidDefaultClientScopesStatus200Sch
 
 export const gETAdminRealmsRealmClientsClientUuidDefaultClientScopesResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidDefaultClientScopesStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidDefaultClientScopesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const pUTAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdPathRealmSchema = z
 	.string()
@@ -6301,6 +8080,13 @@ export const pUTAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeI
 export const pUTAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdResponseSchema =
 	pUTAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdStatus204Schema;
 
+export const pUTAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		clientScopeId: z.string(),
+	});
+
 export const dELETEAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -6315,6 +8101,13 @@ export const dELETEAdminRealmsRealmClientsClientUuidDefaultClientScopesClientSco
 
 export const dELETEAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdStatus204Schema;
+
+export const dELETEAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		clientScopeId: z.string(),
+	});
 
 export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleAccessTokenPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -6349,6 +8142,19 @@ export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleAc
 		gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleAccessTokenStatus404Schema,
 	]);
 
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleAccessTokenPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleAccessTokenQuerySchema =
+	z.object({
+		audience: z.string().optional(),
+		scope: z.string().optional(),
+		userId: z.string().optional(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleIdTokenPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -6382,6 +8188,19 @@ export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleId
 		gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleIdTokenStatus404Schema,
 	]);
 
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleIdTokenPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleIdTokenQuerySchema =
+	z.object({
+		audience: z.string().optional(),
+		scope: z.string().optional(),
+		userId: z.string().optional(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleSamlResponsePathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -6402,6 +8221,19 @@ export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleSa
 
 export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleSamlResponseResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleSamlResponseStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleSamlResponsePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleSamlResponseQuerySchema =
+	z.object({
+		audience: z.string().optional(),
+		scope: z.string().optional(),
+		userId: z.string().optional(),
+	});
 
 export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleUserinfoPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -6427,6 +8259,18 @@ export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleUs
 export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleUserinfoErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleUserinfoStatus403Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleUserinfoPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesGenerateExampleUserinfoQuerySchema =
+	z.object({
+		scope: z.string().optional(),
+		userId: z.string().optional(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesProtocolMappersPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6449,6 +8293,18 @@ export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesProtocolMappersRe
 
 export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesProtocolMappersErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidEvaluateScopesProtocolMappersStatus403Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesProtocolMappersPathSchema = z.object(
+	{
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+	},
+);
+
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesProtocolMappersQuerySchema =
+	z.object({
+		scope: z.string().optional(),
+	});
 
 export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdGrantedPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -6474,6 +8330,18 @@ export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRole
 export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdGrantedErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdGrantedStatus403Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdGrantedPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		roleContainerId: z.string().describe("either realm name OR client UUID"),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdGrantedQuerySchema =
+	z.object({
+		scope: z.string().optional(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdNotGrantedPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -6498,6 +8366,18 @@ export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRole
 export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdNotGrantedErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdNotGrantedStatus403Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdNotGrantedPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		roleContainerId: z.string().describe("either realm name OR client UUID"),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidEvaluateScopesScopeMappingsRoleContainerIdNotGrantedQuerySchema =
+	z.object({
+		scope: z.string().optional(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidInstallationProvidersProviderIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6514,6 +8394,13 @@ export const gETAdminRealmsRealmClientsClientUuidInstallationProvidersProviderId
 export const gETAdminRealmsRealmClientsClientUuidInstallationProvidersProviderIdResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidInstallationProvidersProviderIdStatus200Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidInstallationProvidersProviderIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		providerId: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidManagementPermissionsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6527,6 +8414,11 @@ export const gETAdminRealmsRealmClientsClientUuidManagementPermissionsStatus200S
 
 export const gETAdminRealmsRealmClientsClientUuidManagementPermissionsResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidManagementPermissionsStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidManagementPermissionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const pUTAdminRealmsRealmClientsClientUuidManagementPermissionsPathRealmSchema = z
 	.string()
@@ -6544,6 +8436,11 @@ export const pUTAdminRealmsRealmClientsClientUuidManagementPermissionsResponseSc
 
 export const pUTAdminRealmsRealmClientsClientUuidManagementPermissionsBodySchema =
 	managementPermissionReferenceSchema.optional();
+
+export const pUTAdminRealmsRealmClientsClientUuidManagementPermissionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const pOSTAdminRealmsRealmClientsClientUuidNodesPathRealmSchema = z
 	.string()
@@ -6567,6 +8464,11 @@ export const pOSTAdminRealmsRealmClientsClientUuidNodesBodySchema = z
 	.record(z.string(), z.string())
 	.optional();
 
+export const pOSTAdminRealmsRealmClientsClientUuidNodesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
 export const dELETEAdminRealmsRealmClientsClientUuidNodesNodePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6581,6 +8483,12 @@ export const dELETEAdminRealmsRealmClientsClientUuidNodesNodeStatus204Schema = z
 
 export const dELETEAdminRealmsRealmClientsClientUuidNodesNodeResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidNodesNodeStatus204Schema;
+
+export const dELETEAdminRealmsRealmClientsClientUuidNodesNodePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	node: z.string(),
+});
 
 export const gETAdminRealmsRealmClientsClientUuidOfflineSessionCountPathRealmSchema = z
 	.string()
@@ -6597,6 +8505,11 @@ export const gETAdminRealmsRealmClientsClientUuidOfflineSessionCountStatus200Sch
 
 export const gETAdminRealmsRealmClientsClientUuidOfflineSessionCountResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidOfflineSessionCountStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidOfflineSessionCountPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const gETAdminRealmsRealmClientsClientUuidOfflineSessionsPathRealmSchema = z
 	.string()
@@ -6624,6 +8537,16 @@ export const gETAdminRealmsRealmClientsClientUuidOfflineSessionsStatus200Schema 
 export const gETAdminRealmsRealmClientsClientUuidOfflineSessionsResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidOfflineSessionsStatus200Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidOfflineSessionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
+export const gETAdminRealmsRealmClientsClientUuidOfflineSessionsQuerySchema = z.object({
+	first: z.int32().optional().describe("Paging offset"),
+	max: z.int32().optional().default("100").describe("Maximum results size."),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidOptionalClientScopesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6638,6 +8561,11 @@ export const gETAdminRealmsRealmClientsClientUuidOptionalClientScopesStatus200Sc
 
 export const gETAdminRealmsRealmClientsClientUuidOptionalClientScopesResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidOptionalClientScopesStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidOptionalClientScopesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const pUTAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -6654,6 +8582,13 @@ export const pUTAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScope
 export const pUTAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdResponseSchema =
 	pUTAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdStatus204Schema;
 
+export const pUTAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		clientScopeId: z.string(),
+	});
+
 export const dELETEAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -6668,6 +8603,13 @@ export const dELETEAdminRealmsRealmClientsClientUuidOptionalClientScopesClientSc
 
 export const dELETEAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdStatus204Schema;
+
+export const dELETEAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		clientScopeId: z.string(),
+	});
 
 export const pOSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsPathRealmSchema = z
 	.string()
@@ -6687,6 +8629,11 @@ export const pOSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsBodySc
 	.array(protocolMapperRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidProtocolMappersModelsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6701,6 +8648,11 @@ export const gETAdminRealmsRealmClientsClientUuidProtocolMappersModelsStatus200S
 
 export const gETAdminRealmsRealmClientsClientUuidProtocolMappersModelsResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidProtocolMappersModelsStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidProtocolMappersModelsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const pOSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsPathRealmSchema = z
 	.string()
@@ -6725,6 +8677,11 @@ export const pOSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsErrorSche
 export const pOSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsBodySchema =
 	protocolMapperRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6742,6 +8699,12 @@ export const gETAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdStatus20
 
 export const gETAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	id: z.string().describe("Mapper id"),
+});
 
 export const pUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdPathRealmSchema = z
 	.string()
@@ -6764,6 +8727,12 @@ export const pUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdResponse
 export const pUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdBodySchema =
 	protocolMapperRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	id: z.string().describe("Mapper id"),
+});
+
 export const dELETEAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6782,6 +8751,12 @@ export const dELETEAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdStatu
 export const dELETEAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdStatus204Schema;
 
+export const dELETEAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	id: z.string().describe("Mapper id"),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidProtocolMappersProtocolProtocolPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6798,6 +8773,13 @@ export const gETAdminRealmsRealmClientsClientUuidProtocolMappersProtocolProtocol
 export const gETAdminRealmsRealmClientsClientUuidProtocolMappersProtocolProtocolResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidProtocolMappersProtocolProtocolStatus200Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidProtocolMappersProtocolProtocolPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		protocol: z.string(),
+	});
+
 export const pOSTAdminRealmsRealmClientsClientUuidPushRevocationPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6812,6 +8794,11 @@ export const pOSTAdminRealmsRealmClientsClientUuidPushRevocationStatus200Schema 
 export const pOSTAdminRealmsRealmClientsClientUuidPushRevocationResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidPushRevocationStatus200Schema;
 
+export const pOSTAdminRealmsRealmClientsClientUuidPushRevocationPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
 export const pOSTAdminRealmsRealmClientsClientUuidRegistrationAccessTokenPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6825,6 +8812,11 @@ export const pOSTAdminRealmsRealmClientsClientUuidRegistrationAccessTokenStatus2
 
 export const pOSTAdminRealmsRealmClientsClientUuidRegistrationAccessTokenResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidRegistrationAccessTokenStatus200Schema;
+
+export const pOSTAdminRealmsRealmClientsClientUuidRegistrationAccessTokenPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const gETAdminRealmsRealmClientsClientUuidRolesPathRealmSchema = z
 	.string()
@@ -6858,6 +8850,18 @@ export const gETAdminRealmsRealmClientsClientUuidRolesResponseSchema =
 
 export const gETAdminRealmsRealmClientsClientUuidRolesErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidRolesStatus403Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidRolesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
+export const gETAdminRealmsRealmClientsClientUuidRolesQuerySchema = z.object({
+	briefRepresentation: z.boolean().optional().default(true),
+	first: z.int32().optional(),
+	max: z.int32().optional(),
+	search: z.string().optional().default(""),
+});
 
 export const pOSTAdminRealmsRealmClientsClientUuidRolesPathRealmSchema = z
 	.string()
@@ -6893,6 +8897,11 @@ export const pOSTAdminRealmsRealmClientsClientUuidRolesErrorSchema = z.union([
 export const pOSTAdminRealmsRealmClientsClientUuidRolesBodySchema =
 	roleRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmClientsClientUuidRolesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidRolesRoleNamePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6919,6 +8928,12 @@ export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameErrorSchema = z.un
 	gETAdminRealmsRealmClientsClientUuidRolesRoleNameStatus403Schema,
 	gETAdminRealmsRealmClientsClientUuidRolesRoleNameStatus404Schema,
 ]);
+
+export const gETAdminRealmsRealmClientsClientUuidRolesRoleNamePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
 
 export const pUTAdminRealmsRealmClientsClientUuidRolesRoleNamePathRealmSchema = z
 	.string()
@@ -6955,6 +8970,12 @@ export const pUTAdminRealmsRealmClientsClientUuidRolesRoleNameErrorSchema = z.un
 export const pUTAdminRealmsRealmClientsClientUuidRolesRoleNameBodySchema =
 	roleRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmClientsClientUuidRolesRoleNamePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
+
 export const dELETEAdminRealmsRealmClientsClientUuidRolesRoleNamePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -6984,6 +9005,12 @@ export const dELETEAdminRealmsRealmClientsClientUuidRolesRoleNameErrorSchema = z
 	dELETEAdminRealmsRealmClientsClientUuidRolesRoleNameStatus404Schema,
 ]);
 
+export const dELETEAdminRealmsRealmClientsClientUuidRolesRoleNamePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7012,6 +9039,12 @@ export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesErrorSch
 	gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus403Schema,
 	gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus404Schema,
 ]);
+
+export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
 
 export const pOSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPathRealmSchema = z
 	.string()
@@ -7046,6 +9079,12 @@ export const pOSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesBodySch
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
+
 export const dELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7079,6 +9118,12 @@ export const dELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesBodyS
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const dELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesClientsTargetClientUuidPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -7109,6 +9154,14 @@ export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesClientsT
 		gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesClientsTargetClientUuidStatus404Schema,
 	]);
 
+export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesClientsTargetClientUuidPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		roleName: z.string().describe("role's name (not id!)"),
+		targetClientUuid: z.string(),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7136,6 +9189,12 @@ export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRealmErr
 	gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRealmStatus403Schema,
 	gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRealmStatus404Schema,
 ]);
+
+export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
 
 export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameGroupsPathRealmSchema = z
 	.string()
@@ -7183,6 +9242,29 @@ export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameGroupsErrorSchema 
 	gETAdminRealmsRealmClientsClientUuidRolesRoleNameGroupsStatus404Schema,
 ]);
 
+export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameGroupsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	roleName: z.string().describe("the role name."),
+});
+
+export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameGroupsQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe("If false, return a full representation of the {@code GroupRepresentation} objects."),
+	first: z
+		.int32()
+		.optional()
+		.describe("First result to return. Ignored if negative or {@code null}."),
+	max: z
+		.int32()
+		.optional()
+		.default("100")
+		.describe("Maximum number of results to return. Unbounded if negative."),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -7209,6 +9291,13 @@ export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissi
 		gETAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsStatus403Schema,
 		gETAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsStatus404Schema,
 	]);
+
+export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		roleName: z.string(),
+	});
 
 export const pUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -7239,6 +9328,13 @@ export const pUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissi
 
 export const pUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsBodySchema =
 	managementPermissionReferenceSchema.optional();
+
+export const pUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		roleName: z.string(),
+	});
 
 export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameUsersPathRealmSchema = z
 	.string()
@@ -7284,6 +9380,28 @@ export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameUsersErrorSchema =
 	gETAdminRealmsRealmClientsClientUuidRolesRoleNameUsersStatus404Schema,
 ]);
 
+export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameUsersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	roleName: z.string().describe("the role name."),
+});
+
+export const gETAdminRealmsRealmClientsClientUuidRolesRoleNameUsersQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.describe("Boolean which defines whether brief representations are returned (default: false)"),
+	first: z
+		.int32()
+		.optional()
+		.describe("first result to return. Ignored if negative or {@code null}."),
+	max: z
+		.int32()
+		.optional()
+		.default("100")
+		.describe("Maximum number of results to return. Unbounded if negative."),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7297,6 +9415,11 @@ export const gETAdminRealmsRealmClientsClientUuidScopeMappingsStatus200Schema =
 
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidScopeMappingsStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidScopeMappingsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientPathRealmSchema = z
 	.string()
@@ -7314,6 +9437,12 @@ export const gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientStatu
 
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	client: z.string(),
+});
 
 export const pOSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientPathRealmSchema = z
 	.string()
@@ -7336,6 +9465,12 @@ export const pOSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientBody
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+	client: z.string(),
+});
+
 export const dELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7356,6 +9491,14 @@ export const dELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientBo
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const dELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientPathSchema = z.object(
+	{
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		client: z.string(),
+	},
+);
+
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientAvailablePathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -7370,6 +9513,13 @@ export const gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientAvail
 
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientAvailableResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientAvailableStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientAvailablePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		client: z.string(),
+	});
 
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientCompositePathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -7389,6 +9539,22 @@ export const gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientCompo
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientCompositeResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientCompositeStatus200Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientCompositePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		clientUuid: z.string().describe("id of client (not client-id!)"),
+		client: z.string(),
+	});
+
+export const gETAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientCompositeQuerySchema =
+	z.object({
+		briefRepresentation: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe("if false, return roles with their attributes"),
+	});
+
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7402,6 +9568,11 @@ export const gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmStatus200Sche
 
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const pOSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmPathRealmSchema = z
 	.string()
@@ -7420,6 +9591,11 @@ export const pOSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmBodySchema =
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
 export const dELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7437,6 +9613,11 @@ export const dELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmBodySchema
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const dELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmAvailablePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7450,6 +9631,11 @@ export const gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmAvailableStat
 
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmAvailableResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmAvailableStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmAvailablePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmCompositePathRealmSchema = z
 	.string()
@@ -7468,6 +9654,19 @@ export const gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmCompositeStat
 export const gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmCompositeResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmCompositeStatus200Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmCompositePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
+export const gETAdminRealmsRealmClientsClientUuidScopeMappingsRealmCompositeQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe("if false, return roles with their attributes"),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidServiceAccountUserPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7481,6 +9680,11 @@ export const gETAdminRealmsRealmClientsClientUuidServiceAccountUserStatus200Sche
 
 export const gETAdminRealmsRealmClientsClientUuidServiceAccountUserResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidServiceAccountUserStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidServiceAccountUserPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const gETAdminRealmsRealmClientsClientUuidSessionCountPathRealmSchema = z
 	.string()
@@ -7498,6 +9702,11 @@ export const gETAdminRealmsRealmClientsClientUuidSessionCountStatus200Schema = z
 export const gETAdminRealmsRealmClientsClientUuidSessionCountResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidSessionCountStatus200Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidSessionCountPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
 export const gETAdminRealmsRealmClientsClientUuidTestNodesAvailablePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7511,6 +9720,11 @@ export const gETAdminRealmsRealmClientsClientUuidTestNodesAvailableStatus200Sche
 
 export const gETAdminRealmsRealmClientsClientUuidTestNodesAvailableResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidTestNodesAvailableStatus200Schema;
+
+export const gETAdminRealmsRealmClientsClientUuidTestNodesAvailablePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
 
 export const gETAdminRealmsRealmClientsClientUuidUserSessionsPathRealmSchema = z
 	.string()
@@ -7538,6 +9752,16 @@ export const gETAdminRealmsRealmClientsClientUuidUserSessionsStatus200Schema = z
 export const gETAdminRealmsRealmClientsClientUuidUserSessionsResponseSchema =
 	gETAdminRealmsRealmClientsClientUuidUserSessionsStatus200Schema;
 
+export const gETAdminRealmsRealmClientsClientUuidUserSessionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string().describe("id of client (not client-id!)"),
+});
+
+export const gETAdminRealmsRealmClientsClientUuidUserSessionsQuerySchema = z.object({
+	first: z.int32().optional().describe("Paging offset"),
+	max: z.int32().optional().default("100").describe("Maximum results size."),
+});
+
 export const gETAdminRealmsRealmGroupsGroupIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7550,6 +9774,11 @@ export const gETAdminRealmsRealmGroupsGroupIdStatus200Schema = z.lazy(
 
 export const gETAdminRealmsRealmGroupsGroupIdResponseSchema =
 	gETAdminRealmsRealmGroupsGroupIdStatus200Schema;
+
+export const gETAdminRealmsRealmGroupsGroupIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
 
 export const pUTAdminRealmsRealmGroupsGroupIdPathRealmSchema = z
 	.string()
@@ -7575,6 +9804,11 @@ export const pUTAdminRealmsRealmGroupsGroupIdBodySchema = z
 	.lazy(() => groupRepresentationSchema)
 	.optional();
 
+export const pUTAdminRealmsRealmGroupsGroupIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmGroupsGroupIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7585,6 +9819,11 @@ export const dELETEAdminRealmsRealmGroupsGroupIdStatus204Schema = z.unknown();
 
 export const dELETEAdminRealmsRealmGroupsGroupIdResponseSchema =
 	dELETEAdminRealmsRealmGroupsGroupIdStatus204Schema;
+
+export const dELETEAdminRealmsRealmGroupsGroupIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
 
 export const gETAdminRealmsRealmGroupsGroupIdChildrenPathRealmSchema = z
 	.string()
@@ -7639,6 +9878,48 @@ export const gETAdminRealmsRealmGroupsGroupIdChildrenStatus200Schema = z.array(
 export const gETAdminRealmsRealmGroupsGroupIdChildrenResponseSchema =
 	gETAdminRealmsRealmGroupsGroupIdChildrenStatus200Schema;
 
+export const gETAdminRealmsRealmGroupsGroupIdChildrenPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
+
+export const gETAdminRealmsRealmGroupsGroupIdChildrenQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.default("false")
+		.describe(
+			"Boolean which defines whether brief groups representations are returned or not (default: false)",
+		),
+	exact: z
+		.boolean()
+		.optional()
+		.describe('Boolean which defines whether the params "search" must match exactly or not'),
+	first: z
+		.int32()
+		.optional()
+		.default("0")
+		.describe("The position of the first result to be returned (pagination offset)."),
+	max: z
+		.int32()
+		.optional()
+		.default("10")
+		.describe("The maximum number of results that are to be returned. Defaults to 10"),
+	search: z
+		.string()
+		.optional()
+		.describe(
+			"A String representing either an exact group name or a partial name, defaults to prefix search.",
+		),
+	subGroupsCount: z
+		.boolean()
+		.optional()
+		.default("true")
+		.describe(
+			"Boolean which defines whether to return the count of subgroups for each subgroup of this group (default: true)",
+		),
+});
+
 export const pOSTAdminRealmsRealmGroupsGroupIdChildrenPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7667,6 +9948,11 @@ export const pOSTAdminRealmsRealmGroupsGroupIdChildrenBodySchema = z
 	.lazy(() => groupRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmGroupsGroupIdChildrenPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
+
 export const gETAdminRealmsRealmGroupsGroupIdManagementPermissionsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7678,6 +9964,11 @@ export const gETAdminRealmsRealmGroupsGroupIdManagementPermissionsStatus200Schem
 
 export const gETAdminRealmsRealmGroupsGroupIdManagementPermissionsResponseSchema =
 	gETAdminRealmsRealmGroupsGroupIdManagementPermissionsStatus200Schema;
+
+export const gETAdminRealmsRealmGroupsGroupIdManagementPermissionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
 
 export const pUTAdminRealmsRealmGroupsGroupIdManagementPermissionsPathRealmSchema = z
 	.string()
@@ -7693,6 +9984,11 @@ export const pUTAdminRealmsRealmGroupsGroupIdManagementPermissionsResponseSchema
 
 export const pUTAdminRealmsRealmGroupsGroupIdManagementPermissionsBodySchema =
 	managementPermissionReferenceSchema.optional();
+
+export const pUTAdminRealmsRealmGroupsGroupIdManagementPermissionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
 
 export const gETAdminRealmsRealmGroupsGroupIdMembersPathRealmSchema = z
 	.string()
@@ -7723,6 +10019,22 @@ export const gETAdminRealmsRealmGroupsGroupIdMembersStatus200Schema =
 export const gETAdminRealmsRealmGroupsGroupIdMembersResponseSchema =
 	gETAdminRealmsRealmGroupsGroupIdMembersStatus200Schema;
 
+export const gETAdminRealmsRealmGroupsGroupIdMembersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
+
+export const gETAdminRealmsRealmGroupsGroupIdMembersQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.describe(
+			"Only return basic information (only guaranteed to return id, username, created, first and last name, email, enabled state, email verification state, federation link, and access. Note that it means that namely user attributes, required actions, and not before are not returned.)",
+		),
+	first: z.int32().optional().describe("Pagination offset"),
+	max: z.int32().optional().describe("Maximum results size (defaults to 100)"),
+});
+
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7740,6 +10052,11 @@ export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsResponseSchema =
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsErrorSchema =
 	gETAdminRealmsRealmGroupsGroupIdRoleMappingsStatus403Schema;
 
+export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
+
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7756,6 +10073,12 @@ export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdStatus20
 
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdResponseSchema =
 	gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdStatus200Schema;
+
+export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+	clientId: z.string().describe("client id (not clientId!)"),
+});
 
 export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdPathRealmSchema = z
 	.string()
@@ -7778,6 +10101,12 @@ export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdBodySch
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+	clientId: z.string().describe("client id (not clientId!)"),
+});
+
 export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7799,6 +10128,12 @@ export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdBodyS
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+	clientId: z.string().describe("client id (not clientId!)"),
+});
+
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdAvailablePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7814,6 +10149,13 @@ export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdAvailabl
 
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdAvailableResponseSchema =
 	gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdAvailableStatus200Schema;
+
+export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdAvailablePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		groupId: z.string(),
+		clientId: z.string().describe("client id (not clientId!)"),
+	});
 
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdCompositePathRealmSchema = z
 	.string()
@@ -7834,6 +10176,22 @@ export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdComposit
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdCompositeResponseSchema =
 	gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdCompositeStatus200Schema;
 
+export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdCompositePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		groupId: z.string(),
+		clientId: z.string().describe("client id (not clientId!)"),
+	});
+
+export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdCompositeQuerySchema =
+	z.object({
+		briefRepresentation: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe("if false, return roles with their attributes"),
+	});
+
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7850,6 +10208,11 @@ export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmResponseSchema =
 
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmErrorSchema =
 	gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus403Schema;
+
+export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
 
 export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPathRealmSchema = z
 	.string()
@@ -7881,6 +10244,11 @@ export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmBodySchema = z
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7911,6 +10279,11 @@ export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmBodySchema = z
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
+
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmAvailablePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7929,6 +10302,11 @@ export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmAvailableResponseS
 
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmAvailableErrorSchema =
 	gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmAvailableStatus403Schema;
+
+export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmAvailablePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
 
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmCompositePathRealmSchema = z
 	.string()
@@ -7952,6 +10330,19 @@ export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmCompositeResponseS
 export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmCompositeErrorSchema =
 	gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmCompositeStatus403Schema;
 
+export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmCompositePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	groupId: z.string(),
+});
+
+export const gETAdminRealmsRealmGroupsGroupIdRoleMappingsRealmCompositeQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe("if false, return roles with their attributes"),
+});
+
 export const gETAdminRealmsRealmIdentityProviderProvidersProviderIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -7964,6 +10355,11 @@ export const gETAdminRealmsRealmIdentityProviderProvidersProviderIdStatus200Sche
 
 export const gETAdminRealmsRealmIdentityProviderProvidersProviderIdResponseSchema =
 	gETAdminRealmsRealmIdentityProviderProvidersProviderIdStatus200Schema;
+
+export const gETAdminRealmsRealmIdentityProviderProvidersProviderIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	providerId: z.string().describe("The provider id to get the factory"),
+});
 
 export const gETAdminRealmsRealmOrganizationsMembersMemberIdOrganizationsPathRealmSchema = z
 	.string()
@@ -7999,6 +10395,21 @@ export const gETAdminRealmsRealmOrganizationsMembersMemberIdOrganizationsErrorSc
 	gETAdminRealmsRealmOrganizationsMembersMemberIdOrganizationsStatus403Schema,
 ]);
 
+export const gETAdminRealmsRealmOrganizationsMembersMemberIdOrganizationsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	memberId: z.string(),
+});
+
+export const gETAdminRealmsRealmOrganizationsMembersMemberIdOrganizationsQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe(
+			"if false, return the full representation. Otherwise, only the basic fields are returned.",
+		),
+});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8015,6 +10426,11 @@ export const gETAdminRealmsRealmOrganizationsOrgIdResponseSchema =
 
 export const gETAdminRealmsRealmOrganizationsOrgIdErrorSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdStatus403Schema;
+
+export const gETAdminRealmsRealmOrganizationsOrgIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+});
 
 export const pUTAdminRealmsRealmOrganizationsOrgIdPathRealmSchema = z
 	.string()
@@ -8042,6 +10458,11 @@ export const pUTAdminRealmsRealmOrganizationsOrgIdErrorSchema = z.union([
 export const pUTAdminRealmsRealmOrganizationsOrgIdBodySchema =
 	organizationRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmOrganizationsOrgIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmOrganizationsOrgIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8061,6 +10482,11 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdErrorSchema = z.union([
 	dELETEAdminRealmsRealmOrganizationsOrgIdStatus400Schema,
 	dELETEAdminRealmsRealmOrganizationsOrgIdStatus403Schema,
 ]);
+
+export const dELETEAdminRealmsRealmOrganizationsOrgIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+});
 
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsPathRealmSchema = z
 	.string()
@@ -8108,6 +10534,22 @@ export const gETAdminRealmsRealmOrganizationsOrgIdGroupsResponseSchema =
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsErrorSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdGroupsStatus403Schema;
 
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+});
+
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsQuerySchema = z.object({
+	briefRepresentation: z.boolean().optional().default(true),
+	exact: z.boolean().optional().default("false"),
+	first: z.int32().optional(),
+	max: z.int32().optional(),
+	populateHierarchy: z.boolean().optional().default(false),
+	q: z.string().optional(),
+	search: z.string().optional(),
+	subGroupsCount: z.boolean().optional().default(false),
+});
+
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8141,6 +10583,11 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsErrorSchema = z.union([
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsBodySchema = z
 	.lazy(() => groupRepresentationSchema)
 	.optional();
+
+export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+});
 
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPathPathRealmSchema = z
 	.string()
@@ -8183,6 +10630,25 @@ export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPathErrorSche
 	gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPathStatus404Schema,
 ]);
 
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPathPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	path: z.string().regex(/.*/),
+});
+
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupByPathPathQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe("Whether to return a brief representation (default: true)"),
+	subGroupsCount: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe("Whether to return the count of subgroups (default: false)"),
+});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8208,6 +10674,20 @@ export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdResponseSchema =
 
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdErrorSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus403Schema;
+
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	groupId: z.string(),
+});
+
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdQuerySchema = z.object({
+	subGroupsCount: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe("Whether to return the count of subgroups (default: false)"),
+});
 
 export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPathRealmSchema = z
 	.string()
@@ -8238,6 +10718,12 @@ export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdBodySchema = z
 	.lazy(() => groupRepresentationSchema)
 	.optional();
 
+export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	groupId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8259,6 +10745,12 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdErrorSchema = 
 	dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus403Schema,
 	dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus404Schema,
 ]);
+
+export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	groupId: z.string(),
+});
 
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenPathRealmSchema = z
 	.string()
@@ -8309,6 +10801,37 @@ export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenResponseS
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenErrorSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus403Schema;
 
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	groupId: z.string(),
+});
+
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenQuerySchema = z.object({
+	exact: z
+		.boolean()
+		.optional()
+		.describe('Boolean which defines whether the params "search" must match exactly or not'),
+	first: z
+		.int32()
+		.optional()
+		.default("0")
+		.describe("The position of the first result to be returned (pagination offset)."),
+	max: z
+		.int32()
+		.optional()
+		.default("10")
+		.describe("The maximum number of results that are to be returned. Defaults to 10"),
+	search: z
+		.string()
+		.optional()
+		.describe("A String representing either an exact group name or a partial name"),
+	subGroupsCount: z
+		.boolean()
+		.optional()
+		.describe("Whether to return the count of subgroups (default: false)"),
+});
+
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8353,6 +10876,12 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenBodySche
 	.lazy(() => groupRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	groupId: z.string(),
+});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8392,6 +10921,23 @@ export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersResponseSc
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersErrorSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersStatus403Schema;
 
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	groupId: z.string(),
+});
+
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.describe(
+			"Only return basic information (only guaranteed to return id, username, created, first and last name, email, enabled state, email verification state, federation link, and access. Note that it means that namely user attributes, required actions, and not before are not returned.)",
+		),
+	first: z.int32().optional().describe("Pagination offset"),
+	max: z.int32().optional().describe("Maximum results size (defaults to 100)"),
+});
+
 export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8430,6 +10976,13 @@ export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdErro
 	pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus409Schema,
 ]);
 
+export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	groupId: z.string(),
+	userId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8465,6 +11018,14 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdE
 		dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus404Schema,
 	]);
 
+export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		groupId: z.string(),
+		userId: z.string(),
+	});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8487,6 +11048,12 @@ export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRespo
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsErrorSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsStatus403Schema;
 
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	groupId: z.string(),
+});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -8504,6 +11071,14 @@ export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClien
 
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdResponseSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdStatus200Schema;
+
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		groupId: z.string(),
+		clientId: z.string().describe("client id (not clientId!)"),
+	});
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -8526,6 +11101,14 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClie
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdBodySchema =
 	z.array(roleRepresentationSchema).optional();
 
+export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		groupId: z.string(),
+		clientId: z.string().describe("client id (not clientId!)"),
+	});
+
 export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -8547,6 +11130,14 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsCl
 export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdBodySchema =
 	z.array(roleRepresentationSchema).optional();
 
+export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		groupId: z.string(),
+		clientId: z.string().describe("client id (not clientId!)"),
+	});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdAvailablePathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -8564,6 +11155,14 @@ export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClien
 
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdAvailableResponseSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdAvailableStatus200Schema;
+
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdAvailablePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		groupId: z.string(),
+		clientId: z.string().describe("client id (not clientId!)"),
+	});
 
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdCompositePathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -8586,6 +11185,23 @@ export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClien
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdCompositeResponseSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdCompositeStatus200Schema;
 
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdCompositePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		groupId: z.string(),
+		clientId: z.string().describe("client id (not clientId!)"),
+	});
+
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdCompositeQuerySchema =
+	z.object({
+		briefRepresentation: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe("if false, return roles with their attributes"),
+	});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8607,6 +11223,13 @@ export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealm
 
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmErrorSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus403Schema;
+
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		groupId: z.string(),
+	});
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmPathRealmSchema = z
 	.string()
@@ -8648,6 +11271,13 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsReal
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		groupId: z.string(),
+	});
+
 export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmPathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -8687,6 +11317,13 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRe
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		groupId: z.string(),
+	});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmAvailablePathRealmSchema =
 	z.string().describe("realm name (not id!)");
 
@@ -8707,6 +11344,13 @@ export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealm
 
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmAvailableErrorSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmAvailableStatus403Schema;
+
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmAvailablePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		groupId: z.string(),
+	});
 
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmCompositePathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -8732,6 +11376,22 @@ export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealm
 export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmCompositeErrorSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmCompositeStatus403Schema;
 
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmCompositePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		groupId: z.string(),
+	});
+
+export const gETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmCompositeQuerySchema =
+	z.object({
+		briefRepresentation: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe("if false, return roles with their attributes"),
+	});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8749,6 +11409,11 @@ export const gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersResponseSchem
 
 export const gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersErrorSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus403Schema;
+
+export const gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+});
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersPathRealmSchema = z
 	.string()
@@ -8779,6 +11444,11 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersBodySchema =
 		"Payload should contain only id or alias of the identity provider to be associated with the organization (id or alias with or without quotes). Surrounding whitespace characters will be trimmed.",
 	);
 
+export const pOSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8805,6 +11475,12 @@ export const gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasErrorSch
 	gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus403Schema,
 	gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus404Schema,
 ]);
+
+export const gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	alias: z.string(),
+});
 
 export const pUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPathRealmSchema = z
 	.string()
@@ -8840,6 +11516,12 @@ export const pUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasErrorSch
 export const pUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasBodySchema =
 	organizationIdentityProviderLinkRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	alias: z.string(),
+});
+
 export const dELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8870,6 +11552,12 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasError
 	dELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus403Schema,
 	dELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus404Schema,
 ]);
+
+export const dELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	alias: z.string(),
+});
 
 export const gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasGroupsPathRealmSchema = z
 	.string()
@@ -8941,6 +11629,40 @@ export const gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasGroupsEr
 	],
 );
 
+export const gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasGroupsPathSchema = z.object(
+	{
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		alias: z.string().describe("The alias of the identity provider"),
+	},
+);
+
+export const gETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasGroupsQuerySchema =
+	z.object({
+		briefRepresentation: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe("If true, return brief representation; otherwise return full representation"),
+		exact: z
+			.boolean()
+			.optional()
+			.default("false")
+			.describe("If true, perform exact match on the search parameter"),
+		first: z.int32().optional().describe("The position of the first result (pagination offset)"),
+		max: z.int32().optional().describe("The maximum number of results to return"),
+		q: z
+			.string()
+			.optional()
+			.describe("A query to search for group attributes, in the format 'key1:value1 key2:value2'"),
+		search: z.string().optional().describe("A string to search for in group names"),
+		subGroupsCount: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe("If true, include subgroups count in the response"),
+	});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdInvitationsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -8985,6 +11707,21 @@ export const gETAdminRealmsRealmOrganizationsOrgIdInvitationsResponseSchema =
 export const gETAdminRealmsRealmOrganizationsOrgIdInvitationsErrorSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdInvitationsStatus403Schema;
 
+export const gETAdminRealmsRealmOrganizationsOrgIdInvitationsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+});
+
+export const gETAdminRealmsRealmOrganizationsOrgIdInvitationsQuerySchema = z.object({
+	email: z.string().optional(),
+	first: z.int32().optional(),
+	firstName: z.string().optional(),
+	lastName: z.string().optional(),
+	max: z.int32().optional(),
+	search: z.string().optional(),
+	status: z.string().optional(),
+});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdInvitationsIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9008,6 +11745,12 @@ export const gETAdminRealmsRealmOrganizationsOrgIdInvitationsIdErrorSchema = z.u
 	gETAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus404Schema,
 ]);
 
+export const gETAdminRealmsRealmOrganizationsOrgIdInvitationsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	id: z.string(),
+});
+
 export const dELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9030,6 +11773,12 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdErrorSchema = 
 	dELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus404Schema,
 ]);
 
+export const dELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	id: z.string(),
+});
+
 export const pOSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9051,6 +11800,12 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendErrorSchem
 	pOSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus403Schema,
 	pOSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus404Schema,
 ]);
+
+export const pOSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	id: z.string(),
+});
 
 export const gETAdminRealmsRealmOrganizationsOrgIdMembersPathRealmSchema = z
 	.string()
@@ -9105,6 +11860,42 @@ export const gETAdminRealmsRealmOrganizationsOrgIdMembersResponseSchema =
 export const gETAdminRealmsRealmOrganizationsOrgIdMembersErrorSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdMembersStatus403Schema;
 
+export const gETAdminRealmsRealmOrganizationsOrgIdMembersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+});
+
+export const gETAdminRealmsRealmOrganizationsOrgIdMembersQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe(
+			"Boolean to return either a brief or a full user representation. If not specified, the brief representation is returned by default.",
+		),
+	exact: z
+		.boolean()
+		.optional()
+		.describe("Boolean which defines whether the param 'search' must match exactly or not"),
+	first: z
+		.int32()
+		.optional()
+		.default("0")
+		.describe("The position of the first result to be processed (pagination offset)"),
+	max: z
+		.int32()
+		.optional()
+		.default("10")
+		.describe("The maximum number of results to be returned. Defaults to 10"),
+	membershipType: z.string().optional().describe("The membership type"),
+	search: z
+		.string()
+		.optional()
+		.describe(
+			"A String representing either a member's username, e-mail, first name, or last name.",
+		),
+});
+
 export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9134,6 +11925,11 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersBodySchema = z
 		"Payload should contain only id of the user to be added to the organization (UUID with or without quotes). Surrounding whitespace characters will be trimmed.",
 	);
 
+export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdMembersCountPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9149,6 +11945,11 @@ export const gETAdminRealmsRealmOrganizationsOrgIdMembersCountResponseSchema =
 
 export const gETAdminRealmsRealmOrganizationsOrgIdMembersCountErrorSchema =
 	gETAdminRealmsRealmOrganizationsOrgIdMembersCountStatus403Schema;
+
+export const gETAdminRealmsRealmOrganizationsOrgIdMembersCountPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+});
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserPathRealmSchema = z
 	.string()
@@ -9183,6 +11984,11 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserBody
 		id: z.string().optional(),
 	})
 	.optional();
+
+export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+});
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserPathRealmSchema = z
 	.string()
@@ -9223,6 +12029,15 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserBodySchema =
 	})
 	.optional();
 
+export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+});
+
+export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserQuerySchema = z.object({
+	client_id: z.string().optional().describe("Client id"),
+});
+
 export const gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9246,6 +12061,12 @@ export const gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdErrorSchema = z
 	gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus403Schema,
 ]);
 
+export const gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	memberId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9267,6 +12088,12 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdErrorSchema 
 	dELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus400Schema,
 	dELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus403Schema,
 ]);
+
+export const dELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	memberId: z.string(),
+});
 
 export const gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdGroupsPathRealmSchema = z
 	.string()
@@ -9310,6 +12137,19 @@ export const gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdGroupsErrorSche
 	gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdGroupsStatus403Schema,
 ]);
 
+export const gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdGroupsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	orgId: z.string(),
+	memberId: z.string(),
+});
+
+export const gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdGroupsQuerySchema = z.object({
+	briefRepresentation: z.boolean().optional().default(true),
+	first: z.int32().optional(),
+	max: z.int32().optional(),
+	search: z.string().optional(),
+});
+
 export const pUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9344,6 +12184,13 @@ export const pUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeE
 
 export const pUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeBodySchema =
 	membershipTypeSchema.optional();
+
+export const pUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		memberId: z.string(),
+	});
 
 export const gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdOrganizationsPathRealmSchema = z
 	.string()
@@ -9383,6 +12230,25 @@ export const gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdOrganizationsEr
 	],
 );
 
+export const gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdOrganizationsPathSchema = z.object(
+	{
+		realm: z.string().describe("realm name (not id!)"),
+		orgId: z.string(),
+		memberId: z.string(),
+	},
+);
+
+export const gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdOrganizationsQuerySchema =
+	z.object({
+		briefRepresentation: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe(
+				"if false, return the full representation. Otherwise, only the basic fields are returned.",
+			),
+	});
+
 export const gETAdminRealmsRealmRolesByIdRoleIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9398,6 +12264,11 @@ export const gETAdminRealmsRealmRolesByIdRoleIdResponseSchema =
 
 export const gETAdminRealmsRealmRolesByIdRoleIdErrorSchema =
 	gETAdminRealmsRealmRolesByIdRoleIdStatus403Schema;
+
+export const gETAdminRealmsRealmRolesByIdRoleIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleId: z.string().describe("id of role"),
+});
 
 export const pUTAdminRealmsRealmRolesByIdRoleIdPathRealmSchema = z
 	.string()
@@ -9421,6 +12292,11 @@ export const pUTAdminRealmsRealmRolesByIdRoleIdErrorSchema = z.union([
 
 export const pUTAdminRealmsRealmRolesByIdRoleIdBodySchema = roleRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmRolesByIdRoleIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleId: z.string().describe("id of role"),
+});
+
 export const dELETEAdminRealmsRealmRolesByIdRoleIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9442,6 +12318,11 @@ export const dELETEAdminRealmsRealmRolesByIdRoleIdErrorSchema = z.union([
 	dELETEAdminRealmsRealmRolesByIdRoleIdStatus400Schema,
 	dELETEAdminRealmsRealmRolesByIdRoleIdStatus403Schema,
 ]);
+
+export const dELETEAdminRealmsRealmRolesByIdRoleIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleId: z.string().describe("id of role"),
+});
 
 export const gETAdminRealmsRealmRolesByIdRoleIdCompositesPathRealmSchema = z
 	.string()
@@ -9466,6 +12347,17 @@ export const gETAdminRealmsRealmRolesByIdRoleIdCompositesResponseSchema =
 export const gETAdminRealmsRealmRolesByIdRoleIdCompositesErrorSchema =
 	gETAdminRealmsRealmRolesByIdRoleIdCompositesStatus403Schema;
 
+export const gETAdminRealmsRealmRolesByIdRoleIdCompositesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleId: z.string(),
+});
+
+export const gETAdminRealmsRealmRolesByIdRoleIdCompositesQuerySchema = z.object({
+	first: z.int32().optional(),
+	max: z.int32().optional(),
+	search: z.string().optional(),
+});
+
 export const pOSTAdminRealmsRealmRolesByIdRoleIdCompositesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9485,6 +12377,11 @@ export const pOSTAdminRealmsRealmRolesByIdRoleIdCompositesErrorSchema =
 export const pOSTAdminRealmsRealmRolesByIdRoleIdCompositesBodySchema = z
 	.array(roleRepresentationSchema)
 	.optional();
+
+export const pOSTAdminRealmsRealmRolesByIdRoleIdCompositesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleId: z.string(),
+});
 
 export const dELETEAdminRealmsRealmRolesByIdRoleIdCompositesPathRealmSchema = z
 	.string()
@@ -9507,6 +12404,11 @@ export const dELETEAdminRealmsRealmRolesByIdRoleIdCompositesErrorSchema =
 export const dELETEAdminRealmsRealmRolesByIdRoleIdCompositesBodySchema = z
 	.array(roleRepresentationSchema)
 	.optional();
+
+export const dELETEAdminRealmsRealmRolesByIdRoleIdCompositesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleId: z.string().describe("Role id"),
+});
 
 export const gETAdminRealmsRealmRolesByIdRoleIdCompositesClientsClientUuidPathRealmSchema = z
 	.string()
@@ -9535,6 +12437,12 @@ export const gETAdminRealmsRealmRolesByIdRoleIdCompositesClientsClientUuidErrorS
 	gETAdminRealmsRealmRolesByIdRoleIdCompositesClientsClientUuidStatus404Schema,
 ]);
 
+export const gETAdminRealmsRealmRolesByIdRoleIdCompositesClientsClientUuidPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	clientUuid: z.string(),
+	roleId: z.string(),
+});
+
 export const gETAdminRealmsRealmRolesByIdRoleIdCompositesRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9552,6 +12460,11 @@ export const gETAdminRealmsRealmRolesByIdRoleIdCompositesRealmResponseSchema =
 export const gETAdminRealmsRealmRolesByIdRoleIdCompositesRealmErrorSchema =
 	gETAdminRealmsRealmRolesByIdRoleIdCompositesRealmStatus403Schema;
 
+export const gETAdminRealmsRealmRolesByIdRoleIdCompositesRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleId: z.string(),
+});
+
 export const gETAdminRealmsRealmRolesByIdRoleIdManagementPermissionsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9568,6 +12481,11 @@ export const gETAdminRealmsRealmRolesByIdRoleIdManagementPermissionsResponseSche
 
 export const gETAdminRealmsRealmRolesByIdRoleIdManagementPermissionsErrorSchema =
 	gETAdminRealmsRealmRolesByIdRoleIdManagementPermissionsStatus403Schema;
+
+export const gETAdminRealmsRealmRolesByIdRoleIdManagementPermissionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleId: z.string(),
+});
 
 export const pUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsPathRealmSchema = z
 	.string()
@@ -9588,6 +12506,11 @@ export const pUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsErrorSchema 
 
 export const pUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsBodySchema =
 	managementPermissionReferenceSchema.optional();
+
+export const pUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleId: z.string(),
+});
 
 export const gETAdminRealmsRealmRolesRoleNamePathRealmSchema = z
 	.string()
@@ -9610,6 +12533,11 @@ export const gETAdminRealmsRealmRolesRoleNameErrorSchema = z.union([
 	gETAdminRealmsRealmRolesRoleNameStatus403Schema,
 	gETAdminRealmsRealmRolesRoleNameStatus404Schema,
 ]);
+
+export const gETAdminRealmsRealmRolesRoleNamePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
 
 export const pUTAdminRealmsRealmRolesRoleNamePathRealmSchema = z
 	.string()
@@ -9641,6 +12569,11 @@ export const pUTAdminRealmsRealmRolesRoleNameErrorSchema = z.union([
 
 export const pUTAdminRealmsRealmRolesRoleNameBodySchema = roleRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmRolesRoleNamePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
+
 export const dELETEAdminRealmsRealmRolesRoleNamePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9666,6 +12599,11 @@ export const dELETEAdminRealmsRealmRolesRoleNameErrorSchema = z.union([
 	dELETEAdminRealmsRealmRolesRoleNameStatus404Schema,
 ]);
 
+export const dELETEAdminRealmsRealmRolesRoleNamePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
+
 export const gETAdminRealmsRealmRolesRoleNameCompositesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9688,6 +12626,11 @@ export const gETAdminRealmsRealmRolesRoleNameCompositesErrorSchema = z.union([
 	gETAdminRealmsRealmRolesRoleNameCompositesStatus403Schema,
 	gETAdminRealmsRealmRolesRoleNameCompositesStatus404Schema,
 ]);
+
+export const gETAdminRealmsRealmRolesRoleNameCompositesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
 
 export const pOSTAdminRealmsRealmRolesRoleNameCompositesPathRealmSchema = z
 	.string()
@@ -9715,6 +12658,11 @@ export const pOSTAdminRealmsRealmRolesRoleNameCompositesBodySchema = z
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmRolesRoleNameCompositesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
+
 export const dELETEAdminRealmsRealmRolesRoleNameCompositesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9740,6 +12688,11 @@ export const dELETEAdminRealmsRealmRolesRoleNameCompositesErrorSchema = z.union(
 export const dELETEAdminRealmsRealmRolesRoleNameCompositesBodySchema = z
 	.array(roleRepresentationSchema)
 	.optional();
+
+export const dELETEAdminRealmsRealmRolesRoleNameCompositesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
 
 export const gETAdminRealmsRealmRolesRoleNameCompositesClientsTargetClientUuidPathRealmSchema = z
 	.string()
@@ -9771,6 +12724,14 @@ export const gETAdminRealmsRealmRolesRoleNameCompositesClientsTargetClientUuidEr
 	],
 );
 
+export const gETAdminRealmsRealmRolesRoleNameCompositesClientsTargetClientUuidPathSchema = z.object(
+	{
+		realm: z.string().describe("realm name (not id!)"),
+		roleName: z.string().describe("role's name (not id!)"),
+		targetClientUuid: z.string(),
+	},
+);
+
 export const gETAdminRealmsRealmRolesRoleNameCompositesRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9793,6 +12754,11 @@ export const gETAdminRealmsRealmRolesRoleNameCompositesRealmErrorSchema = z.unio
 	gETAdminRealmsRealmRolesRoleNameCompositesRealmStatus403Schema,
 	gETAdminRealmsRealmRolesRoleNameCompositesRealmStatus404Schema,
 ]);
+
+export const gETAdminRealmsRealmRolesRoleNameCompositesRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleName: z.string().describe("role's name (not id!)"),
+});
 
 export const gETAdminRealmsRealmRolesRoleNameGroupsPathRealmSchema = z
 	.string()
@@ -9835,6 +12801,28 @@ export const gETAdminRealmsRealmRolesRoleNameGroupsErrorSchema = z.union([
 	gETAdminRealmsRealmRolesRoleNameGroupsStatus404Schema,
 ]);
 
+export const gETAdminRealmsRealmRolesRoleNameGroupsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleName: z.string().describe("the role name."),
+});
+
+export const gETAdminRealmsRealmRolesRoleNameGroupsQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe("If false, return a full representation of the {@code GroupRepresentation} objects."),
+	first: z
+		.int32()
+		.optional()
+		.describe("First result to return. Ignored if negative or {@code null}."),
+	max: z
+		.int32()
+		.optional()
+		.default("100")
+		.describe("Maximum number of results to return. Unbounded if negative."),
+});
+
 export const gETAdminRealmsRealmRolesRoleNameManagementPermissionsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9855,6 +12843,11 @@ export const gETAdminRealmsRealmRolesRoleNameManagementPermissionsErrorSchema = 
 	gETAdminRealmsRealmRolesRoleNameManagementPermissionsStatus403Schema,
 	gETAdminRealmsRealmRolesRoleNameManagementPermissionsStatus404Schema,
 ]);
+
+export const gETAdminRealmsRealmRolesRoleNameManagementPermissionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleName: z.string(),
+});
 
 export const pUTAdminRealmsRealmRolesRoleNameManagementPermissionsPathRealmSchema = z
 	.string()
@@ -9879,6 +12872,11 @@ export const pUTAdminRealmsRealmRolesRoleNameManagementPermissionsErrorSchema = 
 
 export const pUTAdminRealmsRealmRolesRoleNameManagementPermissionsBodySchema =
 	managementPermissionReferenceSchema.optional();
+
+export const pUTAdminRealmsRealmRolesRoleNameManagementPermissionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleName: z.string(),
+});
 
 export const gETAdminRealmsRealmRolesRoleNameUsersPathRealmSchema = z
 	.string()
@@ -9919,6 +12917,27 @@ export const gETAdminRealmsRealmRolesRoleNameUsersErrorSchema = z.union([
 	gETAdminRealmsRealmRolesRoleNameUsersStatus404Schema,
 ]);
 
+export const gETAdminRealmsRealmRolesRoleNameUsersPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	roleName: z.string().describe("the role name."),
+});
+
+export const gETAdminRealmsRealmRolesRoleNameUsersQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.describe("Boolean which defines whether brief representations are returned (default: false)"),
+	first: z
+		.int32()
+		.optional()
+		.describe("first result to return. Ignored if negative or {@code null}."),
+	max: z
+		.int32()
+		.optional()
+		.default("100")
+		.describe("Maximum number of results to return. Unbounded if negative."),
+});
+
 export const gETAdminRealmsRealmUsersUserIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9939,6 +12958,18 @@ export const gETAdminRealmsRealmUsersUserIdResponseSchema =
 
 export const gETAdminRealmsRealmUsersUserIdErrorSchema =
 	gETAdminRealmsRealmUsersUserIdStatus403Schema;
+
+export const gETAdminRealmsRealmUsersUserIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
+export const gETAdminRealmsRealmUsersUserIdQuerySchema = z.object({
+	userProfileMetadata: z
+		.boolean()
+		.optional()
+		.describe("Indicates if the user profile metadata should be added to the response"),
+});
 
 export const pUTAdminRealmsRealmUsersUserIdPathRealmSchema = z
 	.string()
@@ -9968,6 +12999,11 @@ export const pUTAdminRealmsRealmUsersUserIdErrorSchema = z.union([
 
 export const pUTAdminRealmsRealmUsersUserIdBodySchema = userRepresentationSchema.optional();
 
+export const pUTAdminRealmsRealmUsersUserIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmUsersUserIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9988,6 +13024,11 @@ export const dELETEAdminRealmsRealmUsersUserIdErrorSchema = z.union([
 	dELETEAdminRealmsRealmUsersUserIdStatus403Schema,
 ]);
 
+export const dELETEAdminRealmsRealmUsersUserIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
 export const gETAdminRealmsRealmUsersUserIdConfiguredUserStorageCredentialTypesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10007,6 +13048,12 @@ export const gETAdminRealmsRealmUsersUserIdConfiguredUserStorageCredentialTypesR
 export const gETAdminRealmsRealmUsersUserIdConfiguredUserStorageCredentialTypesErrorSchema =
 	gETAdminRealmsRealmUsersUserIdConfiguredUserStorageCredentialTypesStatus403Schema;
 
+export const gETAdminRealmsRealmUsersUserIdConfiguredUserStorageCredentialTypesPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		userId: z.string(),
+	});
+
 export const gETAdminRealmsRealmUsersUserIdConsentsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10024,6 +13071,11 @@ export const gETAdminRealmsRealmUsersUserIdConsentsResponseSchema =
 
 export const gETAdminRealmsRealmUsersUserIdConsentsErrorSchema =
 	gETAdminRealmsRealmUsersUserIdConsentsStatus403Schema;
+
+export const gETAdminRealmsRealmUsersUserIdConsentsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
 
 export const dELETEAdminRealmsRealmUsersUserIdConsentsClientPathRealmSchema = z
 	.string()
@@ -10049,6 +13101,12 @@ export const dELETEAdminRealmsRealmUsersUserIdConsentsClientErrorSchema = z.unio
 	dELETEAdminRealmsRealmUsersUserIdConsentsClientStatus404Schema,
 ]);
 
+export const dELETEAdminRealmsRealmUsersUserIdConsentsClientPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+	client: z.string().describe("Client id"),
+});
+
 export const gETAdminRealmsRealmUsersUserIdCredentialsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10066,6 +13124,11 @@ export const gETAdminRealmsRealmUsersUserIdCredentialsResponseSchema =
 
 export const gETAdminRealmsRealmUsersUserIdCredentialsErrorSchema =
 	gETAdminRealmsRealmUsersUserIdCredentialsStatus403Schema;
+
+export const gETAdminRealmsRealmUsersUserIdCredentialsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
 
 export const dELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdPathRealmSchema = z
 	.string()
@@ -10089,6 +13152,12 @@ export const dELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdErrorSchema
 	dELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdStatus403Schema,
 	dELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdStatus404Schema,
 ]);
+
+export const dELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+	credentialId: z.string(),
+});
 
 export const pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPreviousCredentialIdPathRealmSchema =
 	z.string().describe("realm name (not id!)");
@@ -10124,6 +13193,18 @@ export const pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewP
 		pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPreviousCredentialIdStatus404Schema,
 	]);
 
+export const pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPreviousCredentialIdPathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		userId: z.string(),
+		credentialId: z.string().describe("The credential to move"),
+		newPreviousCredentialId: z
+			.string()
+			.describe(
+				"The credential that will be the previous element in the list. If set to null, the moved credential will be the first element in the list.",
+			),
+	});
+
 export const pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10151,6 +13232,14 @@ export const pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstEr
 		pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstStatus403Schema,
 		pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstStatus404Schema,
 	],
+);
+
+export const pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstPathSchema = z.object(
+	{
+		realm: z.string().describe("realm name (not id!)"),
+		userId: z.string(),
+		credentialId: z.string().describe("The credential to move"),
+	},
 );
 
 export const pUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelPathRealmSchema = z
@@ -10184,6 +13273,12 @@ export const pUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelBodyS
 	.string()
 	.optional();
 
+export const pUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+	credentialId: z.string(),
+});
+
 export const pUTAdminRealmsRealmUsersUserIdDisableCredentialTypesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10203,6 +13298,11 @@ export const pUTAdminRealmsRealmUsersUserIdDisableCredentialTypesErrorSchema =
 export const pUTAdminRealmsRealmUsersUserIdDisableCredentialTypesBodySchema = z
 	.array(z.string())
 	.optional();
+
+export const pUTAdminRealmsRealmUsersUserIdDisableCredentialTypesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
 
 export const pUTAdminRealmsRealmUsersUserIdExecuteActionsEmailPathRealmSchema = z
 	.string()
@@ -10249,6 +13349,20 @@ export const pUTAdminRealmsRealmUsersUserIdExecuteActionsEmailBodySchema = z
 	.array(z.string())
 	.optional();
 
+export const pUTAdminRealmsRealmUsersUserIdExecuteActionsEmailPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
+export const pUTAdminRealmsRealmUsersUserIdExecuteActionsEmailQuerySchema = z.object({
+	client_id: z.string().optional().describe("Client id"),
+	lifespan: z
+		.int32()
+		.optional()
+		.describe("Number of seconds after which the generated token expires"),
+	redirect_uri: z.string().optional().describe("Redirect uri"),
+});
+
 export const gETAdminRealmsRealmUsersUserIdFederatedIdentityPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10266,6 +13380,11 @@ export const gETAdminRealmsRealmUsersUserIdFederatedIdentityResponseSchema =
 
 export const gETAdminRealmsRealmUsersUserIdFederatedIdentityErrorSchema =
 	gETAdminRealmsRealmUsersUserIdFederatedIdentityStatus403Schema;
+
+export const gETAdminRealmsRealmUsersUserIdFederatedIdentityPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
 
 export const pOSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderPathRealmSchema = z
 	.string()
@@ -10294,6 +13413,12 @@ export const pOSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderErrorSchema
 export const pOSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderBodySchema =
 	federatedIdentityRepresentationSchema.optional();
 
+export const pOSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+	provider: z.string().describe("Social login provider id"),
+});
+
 export const dELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10321,6 +13446,12 @@ export const dELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderErrorSche
 	dELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus403Schema,
 	dELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus404Schema,
 ]);
+
+export const dELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+	provider: z.string().describe("Social login provider id"),
+});
 
 export const gETAdminRealmsRealmUsersUserIdGroupsPathRealmSchema = z
 	.string()
@@ -10351,6 +13482,18 @@ export const gETAdminRealmsRealmUsersUserIdGroupsResponseSchema =
 export const gETAdminRealmsRealmUsersUserIdGroupsErrorSchema =
 	gETAdminRealmsRealmUsersUserIdGroupsStatus403Schema;
 
+export const gETAdminRealmsRealmUsersUserIdGroupsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
+export const gETAdminRealmsRealmUsersUserIdGroupsQuerySchema = z.object({
+	briefRepresentation: z.boolean().optional().default(true),
+	first: z.int32().optional(),
+	max: z.int32().optional(),
+	search: z.string().optional(),
+});
+
 export const gETAdminRealmsRealmUsersUserIdGroupsCountPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10371,6 +13514,15 @@ export const gETAdminRealmsRealmUsersUserIdGroupsCountResponseSchema =
 
 export const gETAdminRealmsRealmUsersUserIdGroupsCountErrorSchema =
 	gETAdminRealmsRealmUsersUserIdGroupsCountStatus403Schema;
+
+export const gETAdminRealmsRealmUsersUserIdGroupsCountPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
+export const gETAdminRealmsRealmUsersUserIdGroupsCountQuerySchema = z.object({
+	search: z.string().optional(),
+});
 
 export const pUTAdminRealmsRealmUsersUserIdGroupsGroupIdPathRealmSchema = z
 	.string()
@@ -10393,6 +13545,12 @@ export const pUTAdminRealmsRealmUsersUserIdGroupsGroupIdErrorSchema = z.union([
 	pUTAdminRealmsRealmUsersUserIdGroupsGroupIdStatus403Schema,
 	pUTAdminRealmsRealmUsersUserIdGroupsGroupIdStatus404Schema,
 ]);
+
+export const pUTAdminRealmsRealmUsersUserIdGroupsGroupIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+	groupId: z.string(),
+});
 
 export const dELETEAdminRealmsRealmUsersUserIdGroupsGroupIdPathRealmSchema = z
 	.string()
@@ -10422,6 +13580,12 @@ export const dELETEAdminRealmsRealmUsersUserIdGroupsGroupIdErrorSchema = z.union
 	dELETEAdminRealmsRealmUsersUserIdGroupsGroupIdStatus500Schema,
 ]);
 
+export const dELETEAdminRealmsRealmUsersUserIdGroupsGroupIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+	groupId: z.string(),
+});
+
 export const pOSTAdminRealmsRealmUsersUserIdImpersonationPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10447,6 +13611,11 @@ export const pOSTAdminRealmsRealmUsersUserIdImpersonationErrorSchema = z.union([
 	pOSTAdminRealmsRealmUsersUserIdImpersonationStatus403Schema,
 ]);
 
+export const pOSTAdminRealmsRealmUsersUserIdImpersonationPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
 export const pOSTAdminRealmsRealmUsersUserIdLogoutPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10462,6 +13631,11 @@ export const pOSTAdminRealmsRealmUsersUserIdLogoutResponseSchema =
 
 export const pOSTAdminRealmsRealmUsersUserIdLogoutErrorSchema =
 	pOSTAdminRealmsRealmUsersUserIdLogoutStatus403Schema;
+
+export const pOSTAdminRealmsRealmUsersUserIdLogoutPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
 
 export const gETAdminRealmsRealmUsersUserIdOfflineSessionsClientUuidPathRealmSchema = z
 	.string()
@@ -10488,6 +13662,12 @@ export const gETAdminRealmsRealmUsersUserIdOfflineSessionsClientUuidErrorSchema 
 	gETAdminRealmsRealmUsersUserIdOfflineSessionsClientUuidStatus404Schema,
 ]);
 
+export const gETAdminRealmsRealmUsersUserIdOfflineSessionsClientUuidPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+	clientUuid: z.string(),
+});
+
 export const pUTAdminRealmsRealmUsersUserIdResetPasswordPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10513,6 +13693,11 @@ export const pUTAdminRealmsRealmUsersUserIdResetPasswordErrorSchema = z.union([
 
 export const pUTAdminRealmsRealmUsersUserIdResetPasswordBodySchema =
 	credentialRepresentationSchema.optional();
+
+export const pUTAdminRealmsRealmUsersUserIdResetPasswordPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
 
 export const pUTAdminRealmsRealmUsersUserIdResetPasswordEmailPathRealmSchema = z
 	.string()
@@ -10550,6 +13735,16 @@ export const pUTAdminRealmsRealmUsersUserIdResetPasswordEmailErrorSchema = z.uni
 	pUTAdminRealmsRealmUsersUserIdResetPasswordEmailStatus500Schema,
 ]);
 
+export const pUTAdminRealmsRealmUsersUserIdResetPasswordEmailPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
+export const pUTAdminRealmsRealmUsersUserIdResetPasswordEmailQuerySchema = z.object({
+	client_id: z.string().optional().describe("client id"),
+	redirect_uri: z.string().optional().describe("redirect uri"),
+});
+
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10567,6 +13762,11 @@ export const gETAdminRealmsRealmUsersUserIdRoleMappingsResponseSchema =
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsErrorSchema =
 	gETAdminRealmsRealmUsersUserIdRoleMappingsStatus403Schema;
 
+export const gETAdminRealmsRealmUsersUserIdRoleMappingsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10582,6 +13782,12 @@ export const gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdStatus200S
 
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdResponseSchema =
 	gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdStatus200Schema;
+
+export const gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+	clientId: z.string().describe("client id (not clientId!)"),
+});
 
 export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdPathRealmSchema = z
 	.string()
@@ -10604,6 +13810,12 @@ export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdBodySchem
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+	clientId: z.string().describe("client id (not clientId!)"),
+});
+
 export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10625,6 +13837,12 @@ export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdBodySch
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+	clientId: z.string().describe("client id (not clientId!)"),
+});
+
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdAvailablePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10640,6 +13858,13 @@ export const gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdAvailableS
 
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdAvailableResponseSchema =
 	gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdAvailableStatus200Schema;
+
+export const gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdAvailablePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		userId: z.string(),
+		clientId: z.string().describe("client id (not clientId!)"),
+	});
 
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdCompositePathRealmSchema = z
 	.string()
@@ -10660,6 +13885,22 @@ export const gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdCompositeS
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdCompositeResponseSchema =
 	gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdCompositeStatus200Schema;
 
+export const gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdCompositePathSchema =
+	z.object({
+		realm: z.string().describe("realm name (not id!)"),
+		userId: z.string(),
+		clientId: z.string().describe("client id (not clientId!)"),
+	});
+
+export const gETAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdCompositeQuerySchema =
+	z.object({
+		briefRepresentation: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe("if false, return roles with their attributes"),
+	});
+
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10676,6 +13917,11 @@ export const gETAdminRealmsRealmUsersUserIdRoleMappingsRealmResponseSchema =
 
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsRealmErrorSchema =
 	gETAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus403Schema;
+
+export const gETAdminRealmsRealmUsersUserIdRoleMappingsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
 
 export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsRealmPathRealmSchema = z
 	.string()
@@ -10707,6 +13953,11 @@ export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsRealmBodySchema = z
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
 export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10737,6 +13988,11 @@ export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmBodySchema = z
 	.array(roleRepresentationSchema)
 	.optional();
 
+export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsRealmAvailablePathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10753,6 +14009,11 @@ export const gETAdminRealmsRealmUsersUserIdRoleMappingsRealmAvailableResponseSch
 
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsRealmAvailableErrorSchema =
 	gETAdminRealmsRealmUsersUserIdRoleMappingsRealmAvailableStatus403Schema;
+
+export const gETAdminRealmsRealmUsersUserIdRoleMappingsRealmAvailablePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
 
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsRealmCompositePathRealmSchema = z
 	.string()
@@ -10773,6 +14034,19 @@ export const gETAdminRealmsRealmUsersUserIdRoleMappingsRealmCompositeResponseSch
 
 export const gETAdminRealmsRealmUsersUserIdRoleMappingsRealmCompositeErrorSchema =
 	gETAdminRealmsRealmUsersUserIdRoleMappingsRealmCompositeStatus403Schema;
+
+export const gETAdminRealmsRealmUsersUserIdRoleMappingsRealmCompositePathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
+export const gETAdminRealmsRealmUsersUserIdRoleMappingsRealmCompositeQuerySchema = z.object({
+	briefRepresentation: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe("if false, return roles with their attributes"),
+});
 
 export const pUTAdminRealmsRealmUsersUserIdSendVerifyEmailPathRealmSchema = z
 	.string()
@@ -10812,6 +14086,20 @@ export const pUTAdminRealmsRealmUsersUserIdSendVerifyEmailErrorSchema = z.union(
 	pUTAdminRealmsRealmUsersUserIdSendVerifyEmailStatus500Schema,
 ]);
 
+export const pUTAdminRealmsRealmUsersUserIdSendVerifyEmailPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
+export const pUTAdminRealmsRealmUsersUserIdSendVerifyEmailQuerySchema = z.object({
+	client_id: z.string().optional().describe("Client id"),
+	lifespan: z
+		.int32()
+		.optional()
+		.describe("Number of seconds after which the generated token expires"),
+	redirect_uri: z.string().optional().describe("Redirect uri"),
+});
+
 export const gETAdminRealmsRealmUsersUserIdSessionsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10829,6 +14117,11 @@ export const gETAdminRealmsRealmUsersUserIdSessionsResponseSchema =
 
 export const gETAdminRealmsRealmUsersUserIdSessionsErrorSchema =
 	gETAdminRealmsRealmUsersUserIdSessionsStatus403Schema;
+
+export const gETAdminRealmsRealmUsersUserIdSessionsPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
 
 export const gETAdminRealmsRealmUsersUserIdUnmanagedAttributesPathRealmSchema = z
 	.string()
@@ -10849,6 +14142,11 @@ export const gETAdminRealmsRealmUsersUserIdUnmanagedAttributesResponseSchema =
 export const gETAdminRealmsRealmUsersUserIdUnmanagedAttributesErrorSchema =
 	gETAdminRealmsRealmUsersUserIdUnmanagedAttributesStatus403Schema;
 
+export const gETAdminRealmsRealmUsersUserIdUnmanagedAttributesPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	userId: z.string(),
+});
+
 export const gETAdminRealmsRealmWorkflowsScheduledResourceIdPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -10867,3 +14165,10 @@ export const gETAdminRealmsRealmWorkflowsScheduledResourceIdResponseSchema =
 
 export const gETAdminRealmsRealmWorkflowsScheduledResourceIdErrorSchema =
 	gETAdminRealmsRealmWorkflowsScheduledResourceIdStatus400Schema;
+
+export const gETAdminRealmsRealmWorkflowsScheduledResourceIdPathSchema = z.object({
+	realm: z.string().describe("realm name (not id!)"),
+	resourceId: z
+		.string()
+		.describe("Identifier of the resource associated with the scheduled workflows"),
+});
