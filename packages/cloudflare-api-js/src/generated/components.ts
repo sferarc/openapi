@@ -47587,14 +47587,21 @@ export async function ipAddressManagementPrefixesUploadLoaDocument(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		IpAddressManagementPrefixesUploadLoaDocumentResponse,
@@ -53373,14 +53380,21 @@ export async function aiSearchNamespaceInstanceUploadItem(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		AiSearchNamespaceInstanceUploadItemResponse,
@@ -54836,14 +54850,21 @@ export async function workersAiUploadFinetuneAsset(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		WorkersAiUploadFinetuneAssetResponse,
@@ -55150,14 +55171,21 @@ export async function workersAiPostToMarkdown(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		WorkersAiPostToMarkdownResponse,
@@ -65924,14 +65952,21 @@ export async function postBinDBPost(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		PostBinDBPostResponse,
@@ -71323,14 +71358,21 @@ export async function cloudforceOneRequestAssetNew(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		CloudforceOneRequestAssetNewResponse,
@@ -77114,14 +77156,21 @@ export async function postDashboardAssetUpload(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		PostDashboardAssetUploadResponse,
@@ -92306,14 +92355,21 @@ export async function dlpDocumentFingerprintsUpload(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		DlpDocumentFingerprintsUploadResponse,
@@ -103639,14 +103695,21 @@ export async function zeroTrustListsCreateZeroTrustListFromCsv(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		ZeroTrustListsCreateZeroTrustListFromCsvResponse,
@@ -106120,14 +106183,21 @@ export async function cloudflareImagesUploadAnImageViaUrl(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		CloudflareImagesUploadAnImageViaUrlResponse,
@@ -106859,14 +106929,21 @@ export async function cloudflareImagesCreateAuthenticatedDirectUploadUrlV2(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		CloudflareImagesCreateAuthenticatedDirectUploadUrlV2Response,
@@ -108945,14 +109022,21 @@ export async function customIndicatorFeedsUpdateIndicatorFeedData(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		CustomIndicatorFeedsUpdateIndicatorFeedDataResponse,
@@ -123620,14 +123704,21 @@ export async function pagesDeploymentCreateDeployment(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		PagesDeploymentCreateDeploymentResponse,
@@ -143833,14 +143924,21 @@ export async function streamSubtitlesCaptionsUploadCaptionsOrSubtitles(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		StreamSubtitlesCaptionsUploadCaptionsOrSubtitlesResponse,
@@ -149238,14 +149336,21 @@ export async function workerAssetsUpload(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		WorkerAssetsUploadResponse,
@@ -149902,14 +150007,21 @@ export async function namespaceWorkerPutScriptContent(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		NamespaceWorkerPutScriptContentResponse,
@@ -150270,14 +150382,21 @@ export async function namespaceWorkerPatchScriptSettings(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		NamespaceWorkerPatchScriptSettingsResponse,
@@ -152861,14 +152980,21 @@ export async function workerScriptPutContent(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		WorkerScriptPutContentResponse,
@@ -153569,14 +153695,21 @@ export async function workerScriptPatchSettings(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		WorkerScriptPatchSettingsResponse,
@@ -153998,14 +154131,21 @@ export async function workerVersionsUploadVersion(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		WorkerVersionsUploadVersionResponse,
@@ -154147,14 +154287,21 @@ export async function workerEnvironmentPutScriptContent(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		WorkerEnvironmentPutScriptContentResponse,
@@ -166404,14 +166551,21 @@ export async function apiShieldSchemaValidationPostSchema(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		ApiShieldSchemaValidationPostSchemaResponse,
@@ -170659,14 +170813,21 @@ export async function dnsRecordsForAZoneImportDnsRecords(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		DnsRecordsForAZoneImportDnsRecordsResponse,
@@ -186878,14 +187039,21 @@ export async function updateZoneSnippet(
 	}
 	const formData = new FormData();
 	if (body) {
-		Object.keys(body).forEach((key) => {
-			const value = (body as Record<string, unknown>)[key];
-			if (typeof value === "string" || value instanceof Blob) {
-				formData.append(key, value);
-			} else if (typeof value === "number" || typeof value === "boolean") {
-				formData.append(key, String(value));
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
 			}
-		});
+		}
 	}
 	const data = await request<
 		UpdateZoneSnippetResponse,
