@@ -99,3 +99,17 @@ describe("CloudflareApi.auth.refreshToken", () => {
 		expect(response.status).toBe(401);
 	});
 });
+
+describe("CloudflareApi.api", () => {
+	const fetch: FetchImpl = async () => {
+		throw new Error("fetch called");
+	};
+	const client = new CloudflareApi({ token: "token", fetch });
+
+	it("ignores Object.prototype names as tags and operations", () => {
+		expect(client.api.constructor).toBeUndefined();
+		expect(client.api.health.toString).toBeUndefined();
+		expect(client.api.health.hasOwnProperty).toBeUndefined();
+		expect(client.api.health.getHeartbeat).toBeTypeOf("function");
+	});
+});
