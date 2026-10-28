@@ -1,5 +1,11 @@
 # v0-api
 
+## 1.0.3
+
+### Patch Changes
+
+- 1455ffd: Send an object query parameter as `deepObject` keys (`metadata[env]=prod`) instead of `metadata=[object Object]`, so the `metadata` filter on `chatsFind` reaches the API.
+
 ## 1.0.2
 
 ### Patch Changes
