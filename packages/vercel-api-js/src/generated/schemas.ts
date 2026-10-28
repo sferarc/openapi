@@ -3840,6 +3840,7 @@ export const userEventSchema = z
 					permissions: z
 						.array(
 							z.enum([
+								"*",
 								"manage:speed-insights",
 								"manage:web-analytics",
 								"read-write:access-group",
@@ -3934,6 +3935,7 @@ export const userEventSchema = z
 					nextPermissions: z
 						.array(
 							z.enum([
+								"*",
 								"manage:speed-insights",
 								"manage:web-analytics",
 								"read-write:access-group",
@@ -4845,7 +4847,29 @@ export const userEventSchema = z
 									"Since June 2023 Determines if comments should be posted to the git host. Replaces `github.silent` in the vercel.json.",
 								),
 							gitHashtagVercel: z
-								.array(z.string())
+								.array(
+									z.enum([
+										"#VERCEL_BUILD_MACHINE=TURBO",
+										"#VERCEL_BUILD_PRIO_1",
+										"#VERCEL_BUILD_PRIO_10",
+										"#VERCEL_BUILD_PRIO_2",
+										"#VERCEL_BUILD_PRIO_3",
+										"#VERCEL_BUILD_PRIO_4",
+										"#VERCEL_BUILD_PRIO_5",
+										"#VERCEL_BUILD_PRIO_6",
+										"#VERCEL_BUILD_PRIO_7",
+										"#VERCEL_BUILD_PRIO_8",
+										"#VERCEL_BUILD_PRIO_9",
+										"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL",
+										"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR",
+										"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL",
+										"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR",
+										"#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR",
+										"#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR",
+										"#VERCEL_SKIP",
+										"#VERCEL_V0_MESSAGE",
+									]),
+								)
 								.optional()
 								.describe(
 									"Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING",
@@ -4997,7 +5021,29 @@ export const userEventSchema = z
 									"Since June 2023 Determines if comments should be posted to the git host. Replaces `github.silent` in the vercel.json.",
 								),
 							gitHashtagVercel: z
-								.array(z.string())
+								.array(
+									z.enum([
+										"#VERCEL_BUILD_MACHINE=TURBO",
+										"#VERCEL_BUILD_PRIO_1",
+										"#VERCEL_BUILD_PRIO_10",
+										"#VERCEL_BUILD_PRIO_2",
+										"#VERCEL_BUILD_PRIO_3",
+										"#VERCEL_BUILD_PRIO_4",
+										"#VERCEL_BUILD_PRIO_5",
+										"#VERCEL_BUILD_PRIO_6",
+										"#VERCEL_BUILD_PRIO_7",
+										"#VERCEL_BUILD_PRIO_8",
+										"#VERCEL_BUILD_PRIO_9",
+										"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL",
+										"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR",
+										"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL",
+										"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR",
+										"#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR",
+										"#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR",
+										"#VERCEL_SKIP",
+										"#VERCEL_V0_MESSAGE",
+									]),
+								)
 								.optional()
 								.describe(
 									"Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING",
@@ -5125,7 +5171,29 @@ export const userEventSchema = z
 									"Since June 2023 Determines if comments should be posted to the git host. Replaces `github.silent` in the vercel.json.",
 								),
 							gitHashtagVercel: z
-								.array(z.string())
+								.array(
+									z.enum([
+										"#VERCEL_BUILD_MACHINE=TURBO",
+										"#VERCEL_BUILD_PRIO_1",
+										"#VERCEL_BUILD_PRIO_10",
+										"#VERCEL_BUILD_PRIO_2",
+										"#VERCEL_BUILD_PRIO_3",
+										"#VERCEL_BUILD_PRIO_4",
+										"#VERCEL_BUILD_PRIO_5",
+										"#VERCEL_BUILD_PRIO_6",
+										"#VERCEL_BUILD_PRIO_7",
+										"#VERCEL_BUILD_PRIO_8",
+										"#VERCEL_BUILD_PRIO_9",
+										"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL",
+										"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR",
+										"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL",
+										"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR",
+										"#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR",
+										"#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR",
+										"#VERCEL_SKIP",
+										"#VERCEL_V0_MESSAGE",
+									]),
+								)
 								.optional()
 								.describe(
 									"Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING",
@@ -5274,7 +5342,29 @@ export const userEventSchema = z
 									"Since June 2023 Determines if comments should be posted to the git host. Replaces `github.silent` in the vercel.json.",
 								),
 							gitHashtagVercel: z
-								.array(z.string())
+								.array(
+									z.enum([
+										"#VERCEL_BUILD_MACHINE=TURBO",
+										"#VERCEL_BUILD_PRIO_1",
+										"#VERCEL_BUILD_PRIO_10",
+										"#VERCEL_BUILD_PRIO_2",
+										"#VERCEL_BUILD_PRIO_3",
+										"#VERCEL_BUILD_PRIO_4",
+										"#VERCEL_BUILD_PRIO_5",
+										"#VERCEL_BUILD_PRIO_6",
+										"#VERCEL_BUILD_PRIO_7",
+										"#VERCEL_BUILD_PRIO_8",
+										"#VERCEL_BUILD_PRIO_9",
+										"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL",
+										"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR",
+										"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL",
+										"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR",
+										"#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR",
+										"#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR",
+										"#VERCEL_SKIP",
+										"#VERCEL_V0_MESSAGE",
+									]),
+								)
 								.optional()
 								.describe(
 									"Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING",
@@ -5428,7 +5518,29 @@ export const userEventSchema = z
 									"Since June 2023 Determines if comments should be posted to the git host. Replaces `github.silent` in the vercel.json.",
 								),
 							gitHashtagVercel: z
-								.array(z.string())
+								.array(
+									z.enum([
+										"#VERCEL_BUILD_MACHINE=TURBO",
+										"#VERCEL_BUILD_PRIO_1",
+										"#VERCEL_BUILD_PRIO_10",
+										"#VERCEL_BUILD_PRIO_2",
+										"#VERCEL_BUILD_PRIO_3",
+										"#VERCEL_BUILD_PRIO_4",
+										"#VERCEL_BUILD_PRIO_5",
+										"#VERCEL_BUILD_PRIO_6",
+										"#VERCEL_BUILD_PRIO_7",
+										"#VERCEL_BUILD_PRIO_8",
+										"#VERCEL_BUILD_PRIO_9",
+										"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL",
+										"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR",
+										"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL",
+										"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR",
+										"#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR",
+										"#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR",
+										"#VERCEL_SKIP",
+										"#VERCEL_V0_MESSAGE",
+									]),
+								)
 								.optional()
 								.describe(
 									"Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING",
@@ -5550,7 +5662,29 @@ export const userEventSchema = z
 									"Since June 2023 Determines if comments should be posted to the git host. Replaces `github.silent` in the vercel.json.",
 								),
 							gitHashtagVercel: z
-								.array(z.string())
+								.array(
+									z.enum([
+										"#VERCEL_BUILD_MACHINE=TURBO",
+										"#VERCEL_BUILD_PRIO_1",
+										"#VERCEL_BUILD_PRIO_10",
+										"#VERCEL_BUILD_PRIO_2",
+										"#VERCEL_BUILD_PRIO_3",
+										"#VERCEL_BUILD_PRIO_4",
+										"#VERCEL_BUILD_PRIO_5",
+										"#VERCEL_BUILD_PRIO_6",
+										"#VERCEL_BUILD_PRIO_7",
+										"#VERCEL_BUILD_PRIO_8",
+										"#VERCEL_BUILD_PRIO_9",
+										"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL",
+										"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR",
+										"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL",
+										"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR",
+										"#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR",
+										"#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR",
+										"#VERCEL_SKIP",
+										"#VERCEL_V0_MESSAGE",
+									]),
+								)
 								.optional()
 								.describe(
 									"Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING",
@@ -9395,6 +9529,10 @@ export const userEventSchema = z
 						.nullable(),
 				}),
 				z.strictObject({
+					action: z.enum(["reset", "updated"]),
+					targetId: z.string(),
+				}),
+				z.strictObject({
 					domain: z.string().optional(),
 					enabled: z.union([z.literal(false), z.literal(true)]),
 				}),
@@ -10837,6 +10975,7 @@ export const userEventSchema = z
 				"connect-attach-project",
 				"connect-bitbucket",
 				"connect-bitbucket-app",
+				"connect-branding-updated",
 				"connect-cancel-mcp-event-subscription",
 				"connect-configuration-created",
 				"connect-configuration-deleted",
@@ -11682,6 +11821,7 @@ export const listEventTypeSchema = z
 				"connect-attach-project",
 				"connect-bitbucket",
 				"connect-bitbucket-app",
+				"connect-branding-updated",
 				"connect-cancel-mcp-event-subscription",
 				"connect-configuration-created",
 				"connect-configuration-deleted",
@@ -12429,6 +12569,7 @@ export const listEventTypeSchema = z
 					"connect-attach-project",
 					"connect-bitbucket",
 					"connect-bitbucket-app",
+					"connect-branding-updated",
 					"connect-cancel-mcp-event-subscription",
 					"connect-configuration-created",
 					"connect-configuration-deleted",
@@ -13153,6 +13294,13 @@ export const flagSchema = z.object({
 					conditions: z.array(
 						z.object({
 							cmp: z.enum([
+								"!contains",
+								"!endsWith",
+								"!eq",
+								"!ex",
+								"!oneOf",
+								"!regex",
+								"!startsWith",
 								"after",
 								"before",
 								"contains",
@@ -13375,6 +13523,13 @@ export const segmentSchema = z.object({
 					conditions: z.array(
 						z.object({
 							cmp: z.enum([
+								"!contains",
+								"!endsWith",
+								"!eq",
+								"!ex",
+								"!oneOf",
+								"!regex",
+								"!startsWith",
 								"after",
 								"before",
 								"contains",
@@ -25222,7 +25377,7 @@ export const getDeploymentStatus200Schema = z.union([
 						buildMachine: z
 							.object({
 								purchaseType: z
-									.enum(["basic", "enhanced", "standard", "turbo"])
+									.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
 									.nullish()
 									.describe("Machine type that was used for the build."),
 							})
@@ -25939,7 +26094,7 @@ export const getDeploymentStatus200Schema = z.union([
 			)
 			.meta({ examples: ["my-project"] }),
 		nodeVersion: z
-			.string()
+			.enum(["10.x", "12.x", "14.x", "16.x", "18.x", "20.x", "22.x", "24.x", "26.x", "8.10.x"])
 			.optional()
 			.describe("If set it overrides the `projectSettings.nodeVersion` for this deployment."),
 		oidcTokenClaims: z
@@ -26103,7 +26258,9 @@ export const getDeploymentStatus200Schema = z.union([
 				])
 				.nullish(),
 			installCommand: z.string().nullish(),
-			nodeVersion: z.string().optional(),
+			nodeVersion: z
+				.enum(["10.x", "12.x", "14.x", "16.x", "18.x", "20.x", "22.x", "24.x", "26.x", "8.10.x"])
+				.optional(),
 			outputDirectory: z.string().nullish(),
 			speedInsights: z
 				.object({
@@ -26172,7 +26329,7 @@ export const getDeploymentStatus200Schema = z.union([
 								.enum(["elastic"])
 								.describe("The build ran on an elastic machine. Drives billing."),
 							purchaseType: z
-								.enum(["basic", "enhanced", "standard", "turbo"])
+								.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
 								.optional()
 								.describe(
 									"Machine type purchased for this build. `basic` is the 2vCPU tier, recorded so the build pipeline can detect a basic build without consulting the project.",
@@ -26564,7 +26721,7 @@ export const getDeploymentStatus200Schema = z.union([
 											resources: z
 												.object({
 													requests: z.object({
-														memory: z.string(),
+														memory: z.enum(["1Gi", "2Gi", "4Gi", "8Gi"]),
 													}),
 												})
 												.optional(),
@@ -26897,7 +27054,7 @@ export const getDeploymentStatus200Schema = z.union([
 												resources: z
 													.object({
 														requests: z.object({
-															memory: z.string(),
+															memory: z.enum(["1Gi", "2Gi", "4Gi", "8Gi"]),
 														}),
 													})
 													.optional(),
@@ -28295,7 +28452,7 @@ export const getDeploymentStatus200Schema = z.union([
 			)
 			.meta({ examples: ["my-project"] }),
 		nodeVersion: z
-			.string()
+			.enum(["10.x", "12.x", "14.x", "16.x", "18.x", "20.x", "22.x", "24.x", "26.x", "8.10.x"])
 			.optional()
 			.describe("If set it overrides the `projectSettings.nodeVersion` for this deployment."),
 		oidcTokenClaims: z
@@ -28455,7 +28612,7 @@ export const getDeploymentErrorSchema = z.union([
 ]);
 
 export const createDeploymentQueryForceNewSchema = z
-	.unknown()
+	.enum(["0", "1"])
 	.optional()
 	.describe(
 		"Forces a new deployment even if there is a previous similar deployment. Set to `1` to bypass deployment deduplication and always trigger a fresh build.",
@@ -28463,7 +28620,7 @@ export const createDeploymentQueryForceNewSchema = z
 	.meta({ examples: ["1"] });
 
 export const createDeploymentQuerySkipAutoDetectionConfirmationSchema = z
-	.unknown()
+	.enum(["0", "1"])
 	.optional()
 	.describe(
 		"Set to `1` to skip framework auto-detection and proceed without confirmation. By default, if Vercel detects a framework that differs from the project setting, the API returns a `400` asking you to confirm. Use this to suppress that check in automated pipelines.",
@@ -28730,7 +28887,7 @@ export const createDeploymentStatus200Schema = z.union([
 						buildMachine: z
 							.object({
 								purchaseType: z
-									.enum(["basic", "enhanced", "standard", "turbo"])
+									.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
 									.nullish()
 									.describe("Machine type that was used for the build."),
 							})
@@ -29447,7 +29604,7 @@ export const createDeploymentStatus200Schema = z.union([
 			)
 			.meta({ examples: ["my-project"] }),
 		nodeVersion: z
-			.string()
+			.enum(["10.x", "12.x", "14.x", "16.x", "18.x", "20.x", "22.x", "24.x", "26.x", "8.10.x"])
 			.optional()
 			.describe("If set it overrides the `projectSettings.nodeVersion` for this deployment."),
 		oidcTokenClaims: z
@@ -29611,7 +29768,9 @@ export const createDeploymentStatus200Schema = z.union([
 				])
 				.nullish(),
 			installCommand: z.string().nullish(),
-			nodeVersion: z.string().optional(),
+			nodeVersion: z
+				.enum(["10.x", "12.x", "14.x", "16.x", "18.x", "20.x", "22.x", "24.x", "26.x", "8.10.x"])
+				.optional(),
 			outputDirectory: z.string().nullish(),
 			speedInsights: z
 				.object({
@@ -29680,7 +29839,7 @@ export const createDeploymentStatus200Schema = z.union([
 								.enum(["elastic"])
 								.describe("The build ran on an elastic machine. Drives billing."),
 							purchaseType: z
-								.enum(["basic", "enhanced", "standard", "turbo"])
+								.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
 								.optional()
 								.describe(
 									"Machine type purchased for this build. `basic` is the 2vCPU tier, recorded so the build pipeline can detect a basic build without consulting the project.",
@@ -30072,7 +30231,7 @@ export const createDeploymentStatus200Schema = z.union([
 											resources: z
 												.object({
 													requests: z.object({
-														memory: z.string(),
+														memory: z.enum(["1Gi", "2Gi", "4Gi", "8Gi"]),
 													}),
 												})
 												.optional(),
@@ -30405,7 +30564,7 @@ export const createDeploymentStatus200Schema = z.union([
 												resources: z
 													.object({
 														requests: z.object({
-															memory: z.string(),
+															memory: z.enum(["1Gi", "2Gi", "4Gi", "8Gi"]),
 														}),
 													})
 													.optional(),
@@ -31802,7 +31961,7 @@ export const createDeploymentBodySchema = z.strictObject({
 				)
 				.meta({ examples: ["pnpm install"] }),
 			nodeVersion: z
-				.string()
+				.enum(["10.x", "12.x", "14.x", "16.x", "18.x", "20.x", "22.x", "24.x", "26.x", "8.10.x"])
 				.optional()
 				.describe("Override the Node.js version that should be used for this deployment"),
 			outputDirectory: z
@@ -32040,7 +32199,7 @@ export const cancelDeploymentStatus200Schema = z
 						buildMachine: z
 							.object({
 								purchaseType: z
-									.enum(["basic", "enhanced", "standard", "turbo"])
+									.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
 									.nullish()
 									.describe("Machine type that was used for the build."),
 							})
@@ -32757,7 +32916,7 @@ export const cancelDeploymentStatus200Schema = z
 			)
 			.meta({ examples: ["my-project"] }),
 		nodeVersion: z
-			.string()
+			.enum(["10.x", "12.x", "14.x", "16.x", "18.x", "20.x", "22.x", "24.x", "26.x", "8.10.x"])
 			.optional()
 			.describe("If set it overrides the `projectSettings.nodeVersion` for this deployment."),
 		oidcTokenClaims: z
@@ -32921,7 +33080,9 @@ export const cancelDeploymentStatus200Schema = z
 				])
 				.nullish(),
 			installCommand: z.string().nullish(),
-			nodeVersion: z.string().optional(),
+			nodeVersion: z
+				.enum(["10.x", "12.x", "14.x", "16.x", "18.x", "20.x", "22.x", "24.x", "26.x", "8.10.x"])
+				.optional(),
 			outputDirectory: z.string().nullish(),
 			speedInsights: z
 				.object({
@@ -32990,7 +33151,7 @@ export const cancelDeploymentStatus200Schema = z
 								.enum(["elastic"])
 								.describe("The build ran on an elastic machine. Drives billing."),
 							purchaseType: z
-								.enum(["basic", "enhanced", "standard", "turbo"])
+								.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
 								.optional()
 								.describe(
 									"Machine type purchased for this build. `basic` is the 2vCPU tier, recorded so the build pipeline can detect a basic build without consulting the project.",
@@ -33382,7 +33543,7 @@ export const cancelDeploymentStatus200Schema = z
 											resources: z
 												.object({
 													requests: z.object({
-														memory: z.string(),
+														memory: z.enum(["1Gi", "2Gi", "4Gi", "8Gi"]),
 													}),
 												})
 												.optional(),
@@ -33715,7 +33876,7 @@ export const cancelDeploymentStatus200Schema = z
 												resources: z
 													.object({
 														requests: z.object({
-															memory: z.string(),
+															memory: z.enum(["1Gi", "2Gi", "4Gi", "8Gi"]),
 														}),
 													})
 													.optional(),
@@ -38001,7 +38162,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 								.number()
 								.describe("Delivery attempts that did not succeed in the window."),
 							state: z.enum(["failing", "healthy", "unknown"]),
-							window: z.string(),
+							window: z.enum(["24h"]),
 						})
 						.optional()
 						.describe(
@@ -38180,7 +38341,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 								.number()
 								.describe("Delivery attempts that did not succeed in the window."),
 							state: z.enum(["failing", "healthy", "unknown"]),
-							window: z.string(),
+							window: z.enum(["24h"]),
 						})
 						.optional()
 						.describe(
@@ -38484,7 +38645,7 @@ export const createDrainStatus200Schema = z.union([
 				attempts: z.number().describe("All delivery attempts in the window."),
 				failures: z.number().describe("Delivery attempts that did not succeed in the window."),
 				state: z.enum(["failing", "healthy", "unknown"]),
-				window: z.string(),
+				window: z.enum(["24h"]),
 			})
 			.optional()
 			.describe(
@@ -38659,7 +38820,7 @@ export const createDrainStatus200Schema = z.union([
 				attempts: z.number().describe("All delivery attempts in the window."),
 				failures: z.number().describe("Delivery attempts that did not succeed in the window."),
 				state: z.enum(["failing", "healthy", "unknown"]),
-				window: z.string(),
+				window: z.enum(["24h"]),
 			})
 			.optional()
 			.describe(
@@ -39038,7 +39199,7 @@ export const getDrainsStatus200Schema = z.object({
 						attempts: z.number().describe("All delivery attempts in the window."),
 						failures: z.number().describe("Delivery attempts that did not succeed in the window."),
 						state: z.enum(["failing", "healthy", "unknown"]),
-						window: z.string(),
+						window: z.enum(["24h"]),
 					})
 					.optional()
 					.describe(
@@ -39215,7 +39376,7 @@ export const getDrainsStatus200Schema = z.object({
 						attempts: z.number().describe("All delivery attempts in the window."),
 						failures: z.number().describe("Delivery attempts that did not succeed in the window."),
 						state: z.enum(["failing", "healthy", "unknown"]),
-						window: z.string(),
+						window: z.enum(["24h"]),
 					})
 					.optional()
 					.describe(
@@ -39491,7 +39652,7 @@ export const getDrainStatus200Schema = z.object({
 			attempts: z.number().describe("All delivery attempts in the window."),
 			failures: z.number().describe("Delivery attempts that did not succeed in the window."),
 			state: z.enum(["failing", "healthy", "unknown"]),
-			window: z.string(),
+			window: z.enum(["24h"]),
 		})
 		.optional()
 		.describe(
@@ -39697,7 +39858,7 @@ export const updateDrainStatus200Schema = z.union([
 				attempts: z.number().describe("All delivery attempts in the window."),
 				failures: z.number().describe("Delivery attempts that did not succeed in the window."),
 				state: z.enum(["failing", "healthy", "unknown"]),
-				window: z.string(),
+				window: z.enum(["24h"]),
 			})
 			.optional()
 			.describe(
@@ -39872,7 +40033,7 @@ export const updateDrainStatus200Schema = z.union([
 				attempts: z.number().describe("All delivery attempts in the window."),
 				failures: z.number().describe("Delivery attempts that did not succeed in the window."),
 				state: z.enum(["failing", "healthy", "unknown"]),
-				window: z.string(),
+				window: z.enum(["24h"]),
 			})
 			.optional()
 			.describe(
@@ -42648,6 +42809,13 @@ export const createFlagStatus201Schema = z.object({
 					conditions: z.array(
 						z.object({
 							cmp: z.enum([
+								"!contains",
+								"!endsWith",
+								"!eq",
+								"!ex",
+								"!oneOf",
+								"!regex",
+								"!startsWith",
 								"after",
 								"before",
 								"contains",
@@ -42912,6 +43080,13 @@ export const createFlagBodySchema = z
 											}),
 										]),
 										cmp: z.enum([
+											"!contains",
+											"!endsWith",
+											"!eq",
+											"!ex",
+											"!oneOf",
+											"!regex",
+											"!startsWith",
 											"after",
 											"before",
 											"contains",
@@ -43274,6 +43449,13 @@ export const updateFlagStatus200Schema = z.object({
 					conditions: z.array(
 						z.object({
 							cmp: z.enum([
+								"!contains",
+								"!endsWith",
+								"!eq",
+								"!ex",
+								"!oneOf",
+								"!regex",
+								"!startsWith",
 								"after",
 								"before",
 								"contains",
@@ -43536,6 +43718,13 @@ export const updateFlagBodySchema = z
 											}),
 										]),
 										cmp: z.enum([
+											"!contains",
+											"!endsWith",
+											"!eq",
+											"!ex",
+											"!oneOf",
+											"!regex",
+											"!startsWith",
 											"after",
 											"before",
 											"contains",
@@ -43919,6 +44108,13 @@ export const listFlagVersionsStatus200Schema = z.object({
 								conditions: z.array(
 									z.object({
 										cmp: z.enum([
+											"!contains",
+											"!endsWith",
+											"!eq",
+											"!ex",
+											"!oneOf",
+											"!regex",
+											"!startsWith",
 											"after",
 											"before",
 											"contains",
@@ -44863,6 +45059,13 @@ export const createFlagSegmentStatus201Schema = z.object({
 					conditions: z.array(
 						z.object({
 							cmp: z.enum([
+								"!contains",
+								"!endsWith",
+								"!eq",
+								"!ex",
+								"!oneOf",
+								"!regex",
+								"!startsWith",
 								"after",
 								"before",
 								"contains",
@@ -45008,6 +45211,13 @@ export const createFlagSegmentBodySchema = z
 										}),
 									]),
 									cmp: z.enum([
+										"!contains",
+										"!endsWith",
+										"!eq",
+										"!ex",
+										"!oneOf",
+										"!regex",
+										"!startsWith",
 										"after",
 										"before",
 										"contains",
@@ -45335,6 +45545,13 @@ export const updateFlagSegmentStatus200Schema = z.union([
 						conditions: z.array(
 							z.object({
 								cmp: z.enum([
+									"!contains",
+									"!endsWith",
+									"!eq",
+									"!ex",
+									"!oneOf",
+									"!regex",
+									"!startsWith",
 									"after",
 									"before",
 									"contains",
@@ -45494,6 +45711,13 @@ export const updateFlagSegmentBodySchema = z
 										}),
 									]),
 									cmp: z.enum([
+										"!contains",
+										"!endsWith",
+										"!eq",
+										"!ex",
+										"!oneOf",
+										"!regex",
+										"!startsWith",
 										"after",
 										"before",
 										"contains",
@@ -52284,7 +52508,9 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 					})
 					.optional(),
 				buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-				buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+				buildMachineType: z
+					.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
+					.optional(),
 				buildQueue: z
 					.object({
 						configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -52314,7 +52540,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						}),
 						z.strictObject({
 							cores: z.literal(14),
-							label: z.string(),
+							label: z.enum(["14cpu-28gb"]),
 							memory: z.literal(28672),
 						}),
 						z.strictObject({
@@ -53202,7 +53428,18 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 				])
 				.optional(),
 			name: z.string(),
-			nodeVersion: z.string(),
+			nodeVersion: z.enum([
+				"10.x",
+				"12.x",
+				"14.x",
+				"16.x",
+				"18.x",
+				"20.x",
+				"22.x",
+				"24.x",
+				"26.x",
+				"8.10.x",
+			]),
 			oidcTokenConfig: z
 				.object({
 					enabled: z
@@ -55098,7 +55335,9 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 					})
 					.optional(),
 				buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-				buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+				buildMachineType: z
+					.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
+					.optional(),
 				buildQueue: z
 					.object({
 						configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -55128,7 +55367,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						}),
 						z.strictObject({
 							cores: z.literal(14),
-							label: z.string(),
+							label: z.enum(["14cpu-28gb"]),
 							memory: z.literal(28672),
 						}),
 						z.strictObject({
@@ -55335,7 +55574,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 					firewallUpdatedAt: z.number().optional(),
 					ja3Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
 					ja4Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
-					log_headers: z.union([z.array(z.string()), z.string()]).optional(),
+					log_headers: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 					managedRules: z
 						.object({
 							ai_bots: z.object({
@@ -55381,7 +55620,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 								]),
 								actionDuration: z.string().nullish(),
 								bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-								logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+								logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 								rateLimit: z
 									.object({
 										action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -56000,7 +56239,10 @@ export const getMicrofrontendsConfigStatus200Schema = z.object({
 				})
 				.optional()
 				.describe("Optional configuration options for the microfrontend."),
-			version: z.string().optional().describe("The version of the microfrontends config schema."),
+			version: z
+				.enum(["1"])
+				.optional()
+				.describe("The version of the microfrontends config schema."),
 		})
 		.nullable()
 		.describe("projectIds are added when the config is uploaded to s3 deployment assets."),
@@ -56149,7 +56391,10 @@ export const getMicrofrontendsConfigForProjectStatus200Schema = z.object({
 				})
 				.optional()
 				.describe("Optional configuration options for the microfrontend."),
-			version: z.string().optional().describe("The version of the microfrontends config schema."),
+			version: z
+				.enum(["1"])
+				.optional()
+				.describe("The version of the microfrontends config schema."),
 		})
 		.nullable()
 		.describe("projectIds are added when the config is uploaded to s3 deployment assets."),
@@ -59082,7 +59327,7 @@ export const getProjectsQueryUntilSchema = z
 	.meta({ examples: [1540095775951] });
 
 export const getProjectsQueryGitForkProtectionSchema = z
-	.string()
+	.enum(["1", "0"])
 	.optional()
 	.describe(
 		"Specifies whether PRs from Git forks should require a team member's authorization before it can be deployed",
@@ -59134,13 +59379,13 @@ export const getProjectsQueryEdgeConfigTokenIdSchema = z
 export const getProjectsQueryDeprecatedSchema = z.boolean().optional();
 
 export const getProjectsQueryElasticConcurrencyEnabledSchema = z
-	.string()
+	.enum(["1", "0"])
 	.optional()
 	.describe("Filter results by projects with elastic concurrency enabled")
 	.meta({ examples: ["1"] });
 
 export const getProjectsQueryStaticIpsEnabledSchema = z
-	.string()
+	.enum(["0", "1"])
 	.optional()
 	.describe("Filter results by projects with Static IPs enabled")
 	.meta({ examples: ["1"] });
@@ -60022,7 +60267,18 @@ export const getProjectsStatus200Schema = z
 					.optional(),
 				live: z.union([z.literal(false), z.literal(true)]).optional(),
 				name: z.string(),
-				nodeVersion: z.string(),
+				nodeVersion: z.enum([
+					"10.x",
+					"12.x",
+					"14.x",
+					"16.x",
+					"18.x",
+					"20.x",
+					"22.x",
+					"24.x",
+					"26.x",
+					"8.10.x",
+				]),
 				oidcTokenConfig: z
 					.object({
 						enabled: z
@@ -60075,7 +60331,9 @@ export const getProjectsStatus200Schema = z
 						})
 						.optional(),
 					buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-					buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+					buildMachineType: z
+						.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
+						.optional(),
 					buildQueue: z
 						.object({
 							configuration: z
@@ -60107,7 +60365,7 @@ export const getProjectsStatus200Schema = z
 							}),
 							z.strictObject({
 								cores: z.literal(14),
-								label: z.string(),
+								label: z.enum(["14cpu-28gb"]),
 								memory: z.literal(28672),
 							}),
 							z.strictObject({
@@ -60352,7 +60610,7 @@ export const getProjectsStatus200Schema = z
 													window: z.number(),
 												})
 												.optional(),
-											log_headers: z.union([z.array(z.string()), z.string()]).optional(),
+											log_headers: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 											rule_id: z.string(),
 											ttl: z.number().optional(),
 										})
@@ -60424,7 +60682,7 @@ export const getProjectsStatus200Schema = z
 						firewallUpdatedAt: z.number().optional(),
 						ja3Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
 						ja4Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
-						log_headers: z.union([z.array(z.string()), z.string()]).optional(),
+						log_headers: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						managedRules: z
 							.object({
 								ai_bots: z.object({
@@ -60471,7 +60729,7 @@ export const getProjectsStatus200Schema = z
 									]),
 									actionDuration: z.string().nullish(),
 									bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-									logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+									logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 									rateLimit: z
 										.object({
 											algo: z.enum(["fixed_window", "token_bucket"]),
@@ -61623,7 +61881,18 @@ export const getProjectsStatus200Schema = z
 						.optional(),
 					live: z.union([z.literal(false), z.literal(true)]).optional(),
 					name: z.string(),
-					nodeVersion: z.string(),
+					nodeVersion: z.enum([
+						"10.x",
+						"12.x",
+						"14.x",
+						"16.x",
+						"18.x",
+						"20.x",
+						"22.x",
+						"24.x",
+						"26.x",
+						"8.10.x",
+					]),
 					oidcTokenConfig: z
 						.object({
 							enabled: z
@@ -61676,7 +61945,9 @@ export const getProjectsStatus200Schema = z
 							})
 							.optional(),
 						buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-						buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+						buildMachineType: z
+							.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
+							.optional(),
 						buildQueue: z
 							.object({
 								configuration: z
@@ -61708,7 +61979,7 @@ export const getProjectsStatus200Schema = z
 								}),
 								z.strictObject({
 									cores: z.literal(14),
-									label: z.string(),
+									label: z.enum(["14cpu-28gb"]),
 									memory: z.literal(28672),
 								}),
 								z.strictObject({
@@ -61959,7 +62230,7 @@ export const getProjectsStatus200Schema = z
 														window: z.number(),
 													})
 													.optional(),
-												log_headers: z.union([z.array(z.string()), z.string()]).optional(),
+												log_headers: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 												rule_id: z.string(),
 												ttl: z.number().optional(),
 											})
@@ -62031,7 +62302,7 @@ export const getProjectsStatus200Schema = z
 							firewallUpdatedAt: z.number().optional(),
 							ja3Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
 							ja4Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
-							log_headers: z.union([z.array(z.string()), z.string()]).optional(),
+							log_headers: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 							managedRules: z
 								.object({
 									ai_bots: z.object({
@@ -62078,7 +62349,7 @@ export const getProjectsStatus200Schema = z
 										]),
 										actionDuration: z.string().nullish(),
 										bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-										logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+										logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 										rateLimit: z
 											.object({
 												algo: z.enum(["fixed_window", "token_bucket"]),
@@ -62772,7 +63043,9 @@ export const getProjectsStatus200Schema = z
 							})
 							.optional(),
 						buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-						buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+						buildMachineType: z
+							.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
+							.optional(),
 						buildQueue: z
 							.object({
 								configuration: z
@@ -62804,7 +63077,7 @@ export const getProjectsStatus200Schema = z
 								}),
 								z.strictObject({
 									cores: z.literal(14),
-									label: z.string(),
+									label: z.enum(["14cpu-28gb"]),
 									memory: z.literal(28672),
 								}),
 								z.strictObject({
@@ -63696,7 +63969,18 @@ export const getProjectsStatus200Schema = z
 						])
 						.optional(),
 					name: z.string(),
-					nodeVersion: z.string(),
+					nodeVersion: z.enum([
+						"10.x",
+						"12.x",
+						"14.x",
+						"16.x",
+						"18.x",
+						"20.x",
+						"22.x",
+						"24.x",
+						"26.x",
+						"8.10.x",
+					]),
 					oidcTokenConfig: z
 						.object({
 							enabled: z
@@ -65594,7 +65878,9 @@ export const getProjectsStatus200Schema = z
 							})
 							.optional(),
 						buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-						buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+						buildMachineType: z
+							.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
+							.optional(),
 						buildQueue: z
 							.object({
 								configuration: z
@@ -65626,7 +65912,7 @@ export const getProjectsStatus200Schema = z
 								}),
 								z.strictObject({
 									cores: z.literal(14),
-									label: z.string(),
+									label: z.enum(["14cpu-28gb"]),
 									memory: z.literal(28672),
 								}),
 								z.strictObject({
@@ -65841,7 +66127,7 @@ export const getProjectsStatus200Schema = z
 							firewallUpdatedAt: z.number().optional(),
 							ja3Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
 							ja4Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
-							log_headers: z.union([z.array(z.string()), z.string()]).optional(),
+							log_headers: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 							managedRules: z
 								.object({
 									ai_bots: z.object({
@@ -65887,7 +66173,7 @@ export const getProjectsStatus200Schema = z
 										]),
 										actionDuration: z.string().nullish(),
 										bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-										logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+										logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 										rateLimit: z
 											.object({
 												algo: z.enum(["fixed_window", "token_bucket"]),
@@ -66880,7 +67166,7 @@ export const createProjectStatus200Schema = z.object({
 			})
 			.optional(),
 		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
 		buildQueue: z
 			.object({
 				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -66910,7 +67196,7 @@ export const createProjectStatus200Schema = z.object({
 				}),
 				z.strictObject({
 					cores: z.literal(14),
-					label: z.string(),
+					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
 				z.strictObject({
@@ -67792,7 +68078,18 @@ export const createProjectStatus200Schema = z.object({
 		])
 		.optional(),
 	name: z.string(),
-	nodeVersion: z.string(),
+	nodeVersion: z.enum([
+		"10.x",
+		"12.x",
+		"14.x",
+		"16.x",
+		"18.x",
+		"20.x",
+		"22.x",
+		"24.x",
+		"26.x",
+		"8.10.x",
+	]),
 	oidcTokenConfig: z
 		.object({
 			enabled: z
@@ -69688,7 +69985,7 @@ export const createProjectStatus200Schema = z.object({
 			})
 			.optional(),
 		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
 		buildQueue: z
 			.object({
 				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -69718,7 +70015,7 @@ export const createProjectStatus200Schema = z.object({
 				}),
 				z.strictObject({
 					cores: z.literal(14),
-					label: z.string(),
+					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
 				z.strictObject({
@@ -69923,7 +70220,7 @@ export const createProjectStatus200Schema = z.object({
 			firewallUpdatedAt: z.number().optional(),
 			ja3Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
 			ja4Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
-			log_headers: z.union([z.array(z.string()), z.string()]).optional(),
+			log_headers: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 			managedRules: z
 				.object({
 					ai_bots: z.object({
@@ -69969,7 +70266,7 @@ export const createProjectStatus200Schema = z.object({
 						]),
 						actionDuration: z.string().nullish(),
 						bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-						logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+						logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						rateLimit: z
 							.object({
 								algo: z.enum(["fixed_window", "token_bucket"]),
@@ -71336,7 +71633,7 @@ export const getProjectStatus200Schema = z.object({
 			})
 			.optional(),
 		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
 		buildQueue: z
 			.object({
 				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -71366,7 +71663,7 @@ export const getProjectStatus200Schema = z.object({
 				}),
 				z.strictObject({
 					cores: z.literal(14),
-					label: z.string(),
+					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
 				z.strictObject({
@@ -72266,7 +72563,18 @@ export const getProjectStatus200Schema = z.object({
 		])
 		.optional(),
 	name: z.string(),
-	nodeVersion: z.string(),
+	nodeVersion: z.enum([
+		"10.x",
+		"12.x",
+		"14.x",
+		"16.x",
+		"18.x",
+		"20.x",
+		"22.x",
+		"24.x",
+		"26.x",
+		"8.10.x",
+	]),
 	oidcTokenConfig: z
 		.object({
 			enabled: z
@@ -74162,7 +74470,7 @@ export const getProjectStatus200Schema = z.object({
 			})
 			.optional(),
 		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
 		buildQueue: z
 			.object({
 				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -74192,7 +74500,7 @@ export const getProjectStatus200Schema = z.object({
 				}),
 				z.strictObject({
 					cores: z.literal(14),
-					label: z.string(),
+					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
 				z.strictObject({
@@ -74397,7 +74705,7 @@ export const getProjectStatus200Schema = z.object({
 			firewallUpdatedAt: z.number().optional(),
 			ja3Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
 			ja4Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
-			log_headers: z.union([z.array(z.string()), z.string()]).optional(),
+			log_headers: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 			managedRules: z
 				.object({
 					ai_bots: z.object({
@@ -74443,7 +74751,7 @@ export const getProjectStatus200Schema = z.object({
 						]),
 						actionDuration: z.string().nullish(),
 						bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-						logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+						logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						rateLimit: z
 							.object({
 								algo: z.enum(["fixed_window", "token_bucket"]),
@@ -75337,7 +75645,7 @@ export const updateProjectStatus200Schema = z.object({
 			})
 			.optional(),
 		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
 		buildQueue: z
 			.object({
 				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -75367,7 +75675,7 @@ export const updateProjectStatus200Schema = z.object({
 				}),
 				z.strictObject({
 					cores: z.literal(14),
-					label: z.string(),
+					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
 				z.strictObject({
@@ -76246,7 +76554,18 @@ export const updateProjectStatus200Schema = z.object({
 		])
 		.optional(),
 	name: z.string(),
-	nodeVersion: z.string(),
+	nodeVersion: z.enum([
+		"10.x",
+		"12.x",
+		"14.x",
+		"16.x",
+		"18.x",
+		"20.x",
+		"22.x",
+		"24.x",
+		"26.x",
+		"8.10.x",
+	]),
 	oidcTokenConfig: z
 		.object({
 			enabled: z
@@ -78142,7 +78461,7 @@ export const updateProjectStatus200Schema = z.object({
 			})
 			.optional(),
 		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
 		buildQueue: z
 			.object({
 				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -78172,7 +78491,7 @@ export const updateProjectStatus200Schema = z.object({
 				}),
 				z.strictObject({
 					cores: z.literal(14),
-					label: z.string(),
+					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
 				z.strictObject({
@@ -78377,7 +78696,7 @@ export const updateProjectStatus200Schema = z.object({
 			firewallUpdatedAt: z.number().optional(),
 			ja3Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
 			ja4Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
-			log_headers: z.union([z.array(z.string()), z.string()]).optional(),
+			log_headers: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 			managedRules: z
 				.object({
 					ai_bots: z.object({
@@ -78423,7 +78742,7 @@ export const updateProjectStatus200Schema = z.object({
 						]),
 						actionDuration: z.string().nullish(),
 						bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-						logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+						logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						rateLimit: z
 							.object({
 								algo: z.enum(["fixed_window", "token_bucket"]),
@@ -79060,7 +79379,9 @@ export const updateProjectBodySchema = z.strictObject({
 		.optional()
 		.describe("The desired name for the project")
 		.meta({ examples: ["a-project-name"] }),
-	nodeVersion: z.string().optional(),
+	nodeVersion: z
+		.enum(["10.x", "12.x", "14.x", "16.x", "18.x", "20.x", "22.x", "24.x", "26.x"])
+		.optional(),
 	outputDirectory: z
 		.string()
 		.max(256)
@@ -80125,7 +80446,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 			})
 			.optional(),
 		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
 		buildQueue: z
 			.object({
 				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -80155,7 +80476,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				}),
 				z.strictObject({
 					cores: z.literal(14),
-					label: z.string(),
+					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
 				z.strictObject({
@@ -81037,7 +81358,18 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 		])
 		.optional(),
 	name: z.string(),
-	nodeVersion: z.string(),
+	nodeVersion: z.enum([
+		"10.x",
+		"12.x",
+		"14.x",
+		"16.x",
+		"18.x",
+		"20.x",
+		"22.x",
+		"24.x",
+		"26.x",
+		"8.10.x",
+	]),
 	oidcTokenConfig: z
 		.object({
 			enabled: z
@@ -82933,7 +83265,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 			})
 			.optional(),
 		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
 		buildQueue: z
 			.object({
 				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -82963,7 +83295,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				}),
 				z.strictObject({
 					cores: z.literal(14),
-					label: z.string(),
+					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
 				z.strictObject({
@@ -83168,7 +83500,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 			firewallUpdatedAt: z.number().optional(),
 			ja3Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
 			ja4Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
-			log_headers: z.union([z.array(z.string()), z.string()]).optional(),
+			log_headers: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 			managedRules: z
 				.object({
 					ai_bots: z.object({
@@ -83214,7 +83546,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 						]),
 						actionDuration: z.string().nullish(),
 						bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-						logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+						logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						rateLimit: z
 							.object({
 								algo: z.enum(["fixed_window", "token_bucket"]),
@@ -84115,7 +84447,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 			})
 			.optional(),
 		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
 		buildQueue: z
 			.object({
 				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -84145,7 +84477,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				}),
 				z.strictObject({
 					cores: z.literal(14),
-					label: z.string(),
+					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
 				z.strictObject({
@@ -85027,7 +85359,18 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 		])
 		.optional(),
 	name: z.string(),
-	nodeVersion: z.string(),
+	nodeVersion: z.enum([
+		"10.x",
+		"12.x",
+		"14.x",
+		"16.x",
+		"18.x",
+		"20.x",
+		"22.x",
+		"24.x",
+		"26.x",
+		"8.10.x",
+	]),
 	oidcTokenConfig: z
 		.object({
 			enabled: z
@@ -86923,7 +87266,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 			})
 			.optional(),
 		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
 		buildQueue: z
 			.object({
 				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -86953,7 +87296,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				}),
 				z.strictObject({
 					cores: z.literal(14),
-					label: z.string(),
+					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
 				z.strictObject({
@@ -87158,7 +87501,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 			firewallUpdatedAt: z.number().optional(),
 			ja3Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
 			ja4Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
-			log_headers: z.union([z.array(z.string()), z.string()]).optional(),
+			log_headers: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 			managedRules: z
 				.object({
 					ai_bots: z.object({
@@ -87204,7 +87547,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 						]),
 						actionDuration: z.string().nullish(),
 						bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-						logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+						logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						rateLimit: z
 							.object({
 								algo: z.enum(["fixed_window", "token_bucket"]),
@@ -93667,7 +94010,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 			})
 			.optional(),
 		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
 		buildQueue: z
 			.object({
 				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -93697,7 +94040,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				}),
 				z.strictObject({
 					cores: z.literal(14),
-					label: z.string(),
+					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
 				z.strictObject({
@@ -94579,7 +94922,18 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 		])
 		.optional(),
 	name: z.string(),
-	nodeVersion: z.string(),
+	nodeVersion: z.enum([
+		"10.x",
+		"12.x",
+		"14.x",
+		"16.x",
+		"18.x",
+		"20.x",
+		"22.x",
+		"24.x",
+		"26.x",
+		"8.10.x",
+	]),
 	oidcTokenConfig: z
 		.object({
 			enabled: z
@@ -96475,7 +96829,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 			})
 			.optional(),
 		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["basic", "enhanced", "standard", "turbo"]).optional(),
+		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
 		buildQueue: z
 			.object({
 				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
@@ -96505,7 +96859,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				}),
 				z.strictObject({
 					cores: z.literal(14),
-					label: z.string(),
+					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
 				z.strictObject({
@@ -96710,7 +97064,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 			firewallUpdatedAt: z.number().optional(),
 			ja3Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
 			ja4Enabled: z.union([z.literal(false), z.literal(true)]).optional(),
-			log_headers: z.union([z.array(z.string()), z.string()]).optional(),
+			log_headers: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 			managedRules: z
 				.object({
 					ai_bots: z.object({
@@ -96756,7 +97110,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 						]),
 						actionDuration: z.string().nullish(),
 						bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-						logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+						logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						rateLimit: z
 							.object({
 								algo: z.enum(["fixed_window", "token_bucket"]),
@@ -103589,7 +103943,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 					notes: z.string().optional(),
 				}),
 			),
-			logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+			logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 			managedRules: z
 				.object({
 					ai_bots: z
@@ -103658,7 +104012,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 									]),
 									actionDuration: z.string().nullish(),
 									bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-									logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+									logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 									rateLimit: z
 										.object({
 											action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -103763,7 +104117,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 									]),
 									actionDuration: z.string().nullish(),
 									bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-									logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+									logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 									rateLimit: z
 										.object({
 											action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -103942,7 +104296,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 											]),
 											actionDuration: z.string().nullish(),
 											bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-											logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+											logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 											rateLimit: z
 												.object({
 													action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -103978,7 +104332,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 							]),
 							actionDuration: z.string().nullish(),
 							bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-							logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+							logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 							rateLimit: z
 								.object({
 									action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -104139,7 +104493,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 					notes: z.string().optional(),
 				}),
 			),
-			logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+			logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 			managedRules: z
 				.object({
 					ai_bots: z
@@ -104208,7 +104562,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 									]),
 									actionDuration: z.string().nullish(),
 									bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-									logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+									logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 									rateLimit: z
 										.object({
 											action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -104313,7 +104667,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 									]),
 									actionDuration: z.string().nullish(),
 									bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-									logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+									logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 									rateLimit: z
 										.object({
 											action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -104492,7 +104846,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 											]),
 											actionDuration: z.string().nullish(),
 											bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-											logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+											logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 											rateLimit: z
 												.object({
 													action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -104528,7 +104882,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 							]),
 							actionDuration: z.string().nullish(),
 							bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-							logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+							logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 							rateLimit: z
 								.object({
 									action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -104689,7 +105043,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 					notes: z.string().optional(),
 				}),
 			),
-			logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+			logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 			managedRules: z
 				.object({
 					ai_bots: z
@@ -104758,7 +105112,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 									]),
 									actionDuration: z.string().nullish(),
 									bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-									logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+									logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 									rateLimit: z
 										.object({
 											action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -104863,7 +105217,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 									]),
 									actionDuration: z.string().nullish(),
 									bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-									logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+									logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 									rateLimit: z
 										.object({
 											action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -105042,7 +105396,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 											]),
 											actionDuration: z.string().nullish(),
 											bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-											logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+											logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 											rateLimit: z
 												.object({
 													action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -105078,7 +105432,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 							]),
 							actionDuration: z.string().nullish(),
 							bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-							logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+							logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 							rateLimit: z
 								.object({
 									action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -105318,7 +105672,7 @@ export const putFirewallConfigStatus200Schema = z.object({
 				notes: z.string().optional(),
 			}),
 		),
-		logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+		logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 		managedRules: z
 			.object({
 				ai_bots: z
@@ -105387,7 +105741,7 @@ export const putFirewallConfigStatus200Schema = z.object({
 								]),
 								actionDuration: z.string().nullish(),
 								bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-								logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+								logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 								rateLimit: z
 									.object({
 										action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -105492,7 +105846,7 @@ export const putFirewallConfigStatus200Schema = z.object({
 								]),
 								actionDuration: z.string().nullish(),
 								bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-								logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+								logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 								rateLimit: z
 									.object({
 										action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -105671,7 +106025,7 @@ export const putFirewallConfigStatus200Schema = z.object({
 										]),
 										actionDuration: z.string().nullish(),
 										bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-										logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+										logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 										rateLimit: z
 											.object({
 												action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -105707,7 +106061,7 @@ export const putFirewallConfigStatus200Schema = z.object({
 						]),
 						actionDuration: z.string().nullish(),
 						bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-						logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+						logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						rateLimit: z
 							.object({
 								action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -107007,7 +107361,7 @@ export const getFirewallConfigStatus200Schema = z.object({
 			notes: z.string().optional(),
 		}),
 	),
-	logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+	logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 	managedRules: z
 		.object({
 			ai_bots: z
@@ -107076,7 +107430,7 @@ export const getFirewallConfigStatus200Schema = z.object({
 							]),
 							actionDuration: z.string().nullish(),
 							bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-							logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+							logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 							rateLimit: z
 								.object({
 									action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -107181,7 +107535,7 @@ export const getFirewallConfigStatus200Schema = z.object({
 							]),
 							actionDuration: z.string().nullish(),
 							bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-							logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+							logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 							rateLimit: z
 								.object({
 									action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -107360,7 +107714,7 @@ export const getFirewallConfigStatus200Schema = z.object({
 									]),
 									actionDuration: z.string().nullish(),
 									bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-									logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+									logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 									rateLimit: z
 										.object({
 											action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -107388,7 +107742,7 @@ export const getFirewallConfigStatus200Schema = z.object({
 					action: z.enum(["allow", "bypass", "challenge", "deny", "log", "rate_limit", "redirect"]),
 					actionDuration: z.string().nullish(),
 					bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-					logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+					logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 					rateLimit: z
 						.object({
 							action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -107436,7 +107790,7 @@ export const deleteSecurityFirewallConfigByConfigVersionPathConfigVersionSchema 
 	.string()
 	.describe("The deployed configVersion for the firewall configuration");
 
-export const deleteSecurityFirewallConfigByConfigVersionStatus204Schema = z.string();
+export const deleteSecurityFirewallConfigByConfigVersionStatus204Schema = z.enum([""]);
 
 export const deleteSecurityFirewallConfigByConfigVersionStatus400Schema = z.unknown();
 
@@ -107602,7 +107956,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Schema 
 			notes: z.string().optional(),
 		}),
 	),
-	logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+	logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 	managedRules: z
 		.object({
 			ai_bots: z
@@ -107671,7 +108025,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Schema 
 							]),
 							actionDuration: z.string().nullish(),
 							bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-							logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+							logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 							rateLimit: z
 								.object({
 									action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -107776,7 +108130,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Schema 
 							]),
 							actionDuration: z.string().nullish(),
 							bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-							logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+							logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 							rateLimit: z
 								.object({
 									action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -107955,7 +108309,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Schema 
 									]),
 									actionDuration: z.string().nullish(),
 									bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-									logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+									logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 									rateLimit: z
 										.object({
 											action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -107983,7 +108337,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Schema 
 					action: z.enum(["allow", "bypass", "challenge", "deny", "log", "rate_limit", "redirect"]),
 					actionDuration: z.string().nullish(),
 					bypassSystem: z.union([z.literal(false), z.literal(true)]).nullish(),
-					logHeaders: z.union([z.array(z.string()), z.string()]).optional(),
+					logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 					rateLimit: z
 						.object({
 							action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
@@ -108756,7 +109110,7 @@ export const deleteConditionalBypassQueryTeamIdSchema = z
 	.describe("The Team identifier to perform the request on behalf of.")
 	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
 
-export const deleteConditionalBypassStatus204Schema = z.string();
+export const deleteConditionalBypassStatus204Schema = z.enum([""]);
 
 export const deleteConditionalBypassStatus400Schema = z.unknown();
 
@@ -109097,7 +109451,7 @@ export const getStorageStoresByIdStatus200Schema = z.object({
 				git: z
 					.object({
 						owners: z.array(z.string()).optional(),
-						providers: z.union([z.array(z.enum(["bitbucket", "github", "gitlab"])), z.string()]),
+						providers: z.union([z.array(z.enum(["bitbucket", "github", "gitlab"])), z.enum(["*"])]),
 						repos: z.array(z.string()).optional(),
 					})
 					.optional(),
@@ -109250,7 +109604,10 @@ export const createStorageStoresBlobStatus200Schema = z.object({
 					git: z
 						.object({
 							owners: z.array(z.string()).optional(),
-							providers: z.union([z.array(z.enum(["bitbucket", "github", "gitlab"])), z.string()]),
+							providers: z.union([
+								z.array(z.enum(["bitbucket", "github", "gitlab"])),
+								z.enum(["*"]),
+							]),
 							repos: z.array(z.string()).optional(),
 						})
 						.optional(),
@@ -109524,7 +109881,10 @@ export const createIntegrationStoreDirectStatus200Schema = z.object({
 					git: z
 						.object({
 							owners: z.array(z.string()).optional(),
-							providers: z.union([z.array(z.enum(["bitbucket", "github", "gitlab"])), z.string()]),
+							providers: z.union([
+								z.array(z.enum(["bitbucket", "github", "gitlab"])),
+								z.enum(["*"]),
+							]),
 							repos: z.array(z.string()).optional(),
 						})
 						.optional(),
@@ -112128,22 +112488,22 @@ export const patchTeamBodySchema = z.strictObject({
 	defaultExpirationSettings: z
 		.strictObject({
 			expiration: z
-				.enum(["unlimited"])
+				.enum(["1d", "1m", "1w", "1y", "2m", "2w", "2y", "3m", "3y", "6m", "unlimited"])
 				.optional()
 				.describe("The time period to keep non-production deployments for")
 				.meta({ examples: ["1y"] }),
 			expirationProduction: z
-				.enum(["unlimited"])
+				.enum(["1d", "1m", "1w", "1y", "2m", "2w", "2y", "3m", "3y", "6m", "unlimited"])
 				.optional()
 				.describe("The time period to keep production deployments for")
 				.meta({ examples: ["1y"] }),
 			expirationCanceled: z
-				.enum(["unlimited"])
+				.enum(["1d", "1m", "1w", "1y", "2m", "2w", "3m", "6m", "unlimited"])
 				.optional()
 				.describe("The time period to keep canceled deployments for")
 				.meta({ examples: ["1y"] }),
 			expirationErrored: z
-				.enum(["unlimited"])
+				.enum(["1d", "1m", "1w", "1y", "2m", "2w", "3m", "6m", "unlimited"])
 				.optional()
 				.describe("The time period to keep errored deployments for")
 				.meta({ examples: ["1y"] }),
@@ -120173,7 +120533,20 @@ export const getDeploymentsStatus200Schema = z.object({
 					gitForkProtection: z.union([z.literal(false), z.literal(true)]).optional(),
 					gitLFS: z.union([z.literal(false), z.literal(true)]).optional(),
 					installCommand: z.string().nullish(),
-					nodeVersion: z.string().optional(),
+					nodeVersion: z
+						.enum([
+							"10.x",
+							"12.x",
+							"14.x",
+							"16.x",
+							"18.x",
+							"20.x",
+							"22.x",
+							"24.x",
+							"26.x",
+							"8.10.x",
+						])
+						.optional(),
 					outputDirectory: z.string().nullish(),
 					rootDirectory: z.string().nullish(),
 					skipGitConnectDuringLink: z.union([z.literal(false), z.literal(true)]).optional(),
