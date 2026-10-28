@@ -9,7 +9,7 @@
  */
 export type CreateDatabaseRequest = {
 	/**
-	 * @description The region where the database should be created. Defaults to the site\'s functions region if not specified.
+	 * @description The region where the database should be created. Defaults to the site's functions region if not specified.
 	 * @type string | undefined
 	 */
 	region?: string | undefined;
@@ -386,7 +386,7 @@ export type DatabaseBranchCompute = {
  */
 export type CreateDatabaseSnapshotRequest = {
 	/**
-	 * @description The ID of the branch to snapshot. Defaults to \"production\" if not specified.
+	 * @description The ID of the branch to snapshot. Defaults to "production" if not specified.
 	 * @type string | undefined
 	 */
 	branch_id?: string | undefined;
@@ -584,7 +584,7 @@ export type DatabaseSnapshotsResponse = {
  */
 export type RestoreDatabaseSnapshotRequest = {
 	/**
-	 * @description The ID of the branch to restore the snapshot to. Defaults to \"production\" if not specified.
+	 * @description The ID of the branch to restore the snapshot to. Defaults to "production" if not specified.
 	 * @type string | undefined
 	 */
 	branch_id?: string | undefined;
@@ -669,7 +669,7 @@ export type RunDatabaseMigrationsRequest = {
  */
 export type ResetDatabaseBranchRequest = {
 	/**
-	 * @description The ID of the branch to re-fork the target branch from. Defaults to \"production\" if not specified.
+	 * @description The ID of the branch to re-fork the target branch from. Defaults to "production" if not specified.
 	 * @type string | undefined
 	 */
 	source_branch_id?: string | undefined;
@@ -997,12 +997,17 @@ export type Site = {
 				required?: string[] | undefined;
 				required_functions?: string[] | undefined;
 				/**
-				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+				 * complete the deploy.
+				 *
 				 * @type array | undefined
 				 */
 				required_edge_functions?: string[] | undefined;
 				/**
-				 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+				 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+				 * be uploaded to complete the deploy. A deploy has at most one server, so this
+				 * holds either nothing or a single digest.
+				 *
 				 * @type array | undefined
 				 */
 				required_server?: string[] | undefined;
@@ -1042,12 +1047,15 @@ export type Site = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The functions region for this deploy as an airport code.\n
+				 * @description The functions region for this deploy as an airport code.
+				 *
 				 * @type string | undefined
 				 */
 				functions_region?: string | undefined;
 				/**
-				 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+				 * @description Functions in the deploy that explicitly specify their own region
+				 * (airport code).
+				 *
 				 * @type array | undefined
 				 */
 				functions_region_overrides?:
@@ -1180,12 +1188,17 @@ export type SiteSetup = {
 				required?: string[] | undefined;
 				required_functions?: string[] | undefined;
 				/**
-				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+				 * complete the deploy.
+				 *
 				 * @type array | undefined
 				 */
 				required_edge_functions?: string[] | undefined;
 				/**
-				 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+				 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+				 * be uploaded to complete the deploy. A deploy has at most one server, so this
+				 * holds either nothing or a single digest.
+				 *
 				 * @type array | undefined
 				 */
 				required_server?: string[] | undefined;
@@ -1225,12 +1238,15 @@ export type SiteSetup = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The functions region for this deploy as an airport code.\n
+				 * @description The functions region for this deploy as an airport code.
+				 *
 				 * @type string | undefined
 				 */
 				functions_region?: string | undefined;
 				/**
-				 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+				 * @description Functions in the deploy that explicitly specify their own region
+				 * (airport code).
+				 *
 				 * @type array | undefined
 				 */
 				functions_region_overrides?:
@@ -1450,12 +1466,12 @@ export type EnvVar = {
 	values?:
 		| {
 				/**
-				 * @description The environment variable value\'s universally unique ID
+				 * @description The environment variable value's universally unique ID
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The environment variable\'s unencrypted value
+				 * @description The environment variable's unencrypted value
 				 * @type string | undefined
 				 */
 				value?: string | undefined;
@@ -1472,7 +1488,7 @@ export type EnvVar = {
 		  }[]
 		| undefined;
 	/**
-	 * @description Secret values are only readable by code running on Netlify\'s systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
+	 * @description Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
 	 * @type boolean | undefined
 	 */
 	is_secret?: boolean | undefined;
@@ -1486,22 +1502,22 @@ export type EnvVar = {
 	updated_by?:
 		| {
 				/**
-				 * @description The user\'s unique identifier
+				 * @description The user's unique identifier
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The user\'s full name (first and last)
+				 * @description The user's full name (first and last)
 				 * @type string | undefined
 				 */
 				full_name?: string | undefined;
 				/**
-				 * @description The user\'s email address
+				 * @description The user's email address
 				 * @type string | undefined
 				 */
 				email?: string | undefined;
 				/**
-				 * @description A URL pointing to the user\'s avatar
+				 * @description A URL pointing to the user's avatar
 				 * @type string | undefined
 				 */
 				avatar_url?: string | undefined;
@@ -1528,12 +1544,12 @@ export type EnvVarValueContextEnumKey =
  */
 export type EnvVarValue = {
 	/**
-	 * @description The environment variable value\'s universally unique ID
+	 * @description The environment variable value's universally unique ID
 	 * @type string | undefined
 	 */
 	id?: string | undefined;
 	/**
-	 * @description The environment variable\'s unencrypted value
+	 * @description The environment variable's unencrypted value
 	 * @type string | undefined
 	 */
 	value?: string | undefined;
@@ -1551,22 +1567,22 @@ export type EnvVarValue = {
 
 export type EnvVarUser = {
 	/**
-	 * @description The user\'s unique identifier
+	 * @description The user's unique identifier
 	 * @type string | undefined
 	 */
 	id?: string | undefined;
 	/**
-	 * @description The user\'s full name (first and last)
+	 * @description The user's full name (first and last)
 	 * @type string | undefined
 	 */
 	full_name?: string | undefined;
 	/**
-	 * @description The user\'s email address
+	 * @description The user's email address
 	 * @type string | undefined
 	 */
 	email?: string | undefined;
 	/**
-	 * @description A URL pointing to the user\'s avatar
+	 * @description A URL pointing to the user's avatar
 	 * @type string | undefined
 	 */
 	avatar_url?: string | undefined;
@@ -1678,12 +1694,17 @@ export type Deploy = {
 	required?: string[] | undefined;
 	required_functions?: string[] | undefined;
 	/**
-	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+	 * complete the deploy.
+	 *
 	 * @type array | undefined
 	 */
 	required_edge_functions?: string[] | undefined;
 	/**
-	 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+	 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+	 * be uploaded to complete the deploy. A deploy has at most one server, so this
+	 * holds either nothing or a single digest.
+	 *
 	 * @type array | undefined
 	 */
 	required_server?: string[] | undefined;
@@ -1723,12 +1744,15 @@ export type Deploy = {
 		  }[]
 		| undefined;
 	/**
-	 * @description The functions region for this deploy as an airport code.\n
+	 * @description The functions region for this deploy as an airport code.
+	 *
 	 * @type string | undefined
 	 */
 	functions_region?: string | undefined;
 	/**
-	 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+	 * @description Functions in the deploy that explicitly specify their own region
+	 * (airport code).
+	 *
 	 * @type array | undefined
 	 */
 	functions_region_overrides?:
@@ -1795,7 +1819,12 @@ export type DeployFilesEnvironmentScopesEnumKey =
 	(typeof deployFilesEnvironmentScopesEnum)[keyof typeof deployFilesEnvironmentScopesEnum];
 
 /**
- * @description Deploy files can be provided in two ways:\n1. As a JSON object using \'files\' (a hash mapping file paths to SHA1 digests), OR\n2. As a zip file using one of these methods:\n   - Set Content-Type to \'application/zip\' and send the zip file as the raw request body\n   - Include the zip file content in the \'zip\' field of this JSON object with Content-Type \'application/json\'\n
+ * @description Deploy files can be provided in two ways:
+ * 1. As a JSON object using 'files' (a hash mapping file paths to SHA1 digests), OR
+ * 2. As a zip file using one of these methods:
+ *    - Set Content-Type to 'application/zip' and send the zip file as the raw request body
+ *    - Include the zip file content in the 'zip' field of this JSON object with Content-Type 'application/json'
+ *
  * @type object
  */
 export type DeployFiles = {
@@ -1805,7 +1834,10 @@ export type DeployFiles = {
 	 */
 	files?: object | undefined;
 	/**
-	 * @description A zip file containing the site files to deploy. Alternative to \'files\'.\nTo use this field, set Content-Type to \'application/json\' and include the zip content here.\nAlternatively, you can set Content-Type to \'application/zip\' and send the zip as the raw request body (not as JSON).\n
+	 * @description A zip file containing the site files to deploy. Alternative to 'files'.
+	 * To use this field, set Content-Type to 'application/json' and include the zip content here.
+	 * Alternatively, you can set Content-Type to 'application/zip' and send the zip as the raw request body (not as JSON).
+	 *
 	 * @type string | undefined
 	 */
 	zip?: Blob | undefined;
@@ -1813,12 +1845,16 @@ export type DeployFiles = {
 	async?: boolean | undefined;
 	functions?: object | undefined;
 	/**
-	 * @description A hash mapping edge-function bundle formats to the code_sha of each bundle. The\nresponse\'s required_edge_functions lists which of these still need to be uploaded.\n
+	 * @description A hash mapping edge-function bundle formats to the code_sha of each bundle. The
+	 * response's required_edge_functions lists which of these still need to be uploaded.
+	 *
 	 * @type object | undefined
 	 */
 	edge_functions?: object | undefined;
 	/**
-	 * @description The deploy\'s Netlify Server. A deploy has at most one. The response\'s\nrequired_server says whether it still needs to be uploaded.\n
+	 * @description The deploy's Netlify Server. A deploy has at most one. The response's
+	 * required_server says whether it still needs to be uploaded.
+	 *
 	 * @type object | undefined
 	 */
 	server?:
@@ -1829,12 +1865,16 @@ export type DeployFiles = {
 				 */
 				sha: string;
 				/**
-				 * @description Where the server runs. Defaults to the region configured at the site level\nwhen absent.\n
+				 * @description Where the server runs. Defaults to the region configured at the site level
+				 * when absent.
+				 *
 				 * @type string | undefined
 				 */
 				region?: string | undefined;
 				/**
-				 * @description The size of the instances the server runs on. A default size is used when\nabsent.\n
+				 * @description The size of the instances the server runs on. A default size is used when
+				 * absent.
+				 *
 				 * @type string | undefined
 				 */
 				instance_size?: DeployFilesServerInstanceSizeEnumKey | undefined;
@@ -1863,7 +1903,9 @@ export type DeployFiles = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n
+				 * @description The runtime version the server was built for, such as `nodejs24.x`. A
+				 * default version is used when absent.
+				 *
 				 * @type string | undefined
 				 */
 				runtime_version?: string | undefined;
@@ -1874,7 +1916,9 @@ export type DeployFiles = {
 				scale?:
 					| {
 							/**
-							 * @description The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n
+							 * @description The minimum number of instances the server keeps running. Defaults to 0
+							 * when absent.
+							 *
 							 *
 							 * Format: `int64`
 							 * @minLength 0
@@ -1882,7 +1926,9 @@ export type DeployFiles = {
 							 */
 							min?: (bigint | null) | undefined;
 							/**
-							 * @description The maximum number of instances the server scales to. Defaults to the\nhighest the account\'s plan allows when absent.\n
+							 * @description The maximum number of instances the server scales to. Defaults to the
+							 * highest the account's plan allows when absent.
+							 *
 							 *
 							 * Format: `int64`
 							 * @minLength 1
@@ -1906,7 +1952,8 @@ export type DeployFiles = {
 					generator?: string | undefined;
 					build_data?: object | undefined;
 					/**
-					 * @description The function\'s memory allocation in MB. Mutually exclusive with `vcpu`.\n
+					 * @description The function's memory allocation in MB. Mutually exclusive with `vcpu`.
+					 *
 					 * @type integer | undefined
 					 */
 					memory?: number | undefined;
@@ -1959,7 +2006,9 @@ export type DeployFiles = {
 						  }
 						| undefined;
 					/**
-					 * @description Number of vCPUs to provision for the function. Allowed range is\n0.5–2.\n
+					 * @description Number of vCPUs to provision for the function. Allowed range is
+					 * 0.5–2.
+					 *
 					 *
 					 * Format: `float`
 					 * @type number | undefined
@@ -1973,7 +2022,23 @@ export type DeployFiles = {
 	framework?: string | undefined;
 	framework_version?: string | undefined;
 	/**
-	 * @description A list of deploy-specific environment variable data. Data specified this way applies only\nto this specific deploy and is merged into any existing environment variables set on the\naccount and site.\n\nDeploy-specific environment variable data takes precedence over account and site\nenvironment variable data: For example, a deploy-specific variable with the key `NODE_ENV`\nwill take priority over any existing site- and account-level environment variable data\nwith the key `NODE_ENV`.\n\nEnvironment variable data may be provided at one of two times:\n\n- When creating a new Deploy with deploy files (most common)\n- When finalizing an existing Deploy with deploy files\n\nOnce set, environment variables for a specific deploy cannot be modified. Subsequent\nattempts to modify environment variable data for a deploy will be ignored.\n
+	 * @description A list of deploy-specific environment variable data. Data specified this way applies only
+	 * to this specific deploy and is merged into any existing environment variables set on the
+	 * account and site.
+	 *
+	 * Deploy-specific environment variable data takes precedence over account and site
+	 * environment variable data: For example, a deploy-specific variable with the key `NODE_ENV`
+	 * will take priority over any existing site- and account-level environment variable data
+	 * with the key `NODE_ENV`.
+	 *
+	 * Environment variable data may be provided at one of two times:
+	 *
+	 * - When creating a new Deploy with deploy files (most common)
+	 * - When finalizing an existing Deploy with deploy files
+	 *
+	 * Once set, environment variables for a specific deploy cannot be modified. Subsequent
+	 * attempts to modify environment variable data for a deploy will be ignored.
+	 *
 	 * @type array | undefined
 	 */
 	environment?:
@@ -2703,7 +2768,7 @@ export type AgentRunnerSetupModeEnumKey =
 export type AgentRunnerSetup = {
 	prompt: string;
 	/**
-	 * @description Branch to start from. Defaults to the site\'s production branch.
+	 * @description Branch to start from. Defaults to the site's production branch.
 	 * @type string | undefined
 	 */
 	branch?: string | undefined;
@@ -2777,7 +2842,7 @@ export type AgentRunnerSession = {
 		  }
 		| undefined;
 	/**
-	 * @description The agent\'s summary of what it did.
+	 * @description The agent's summary of what it did.
 	 * @type string | undefined
 	 */
 	result?: string | undefined;
@@ -2785,7 +2850,7 @@ export type AgentRunnerSession = {
 	commit_sha?: string | undefined;
 	deploy_id?: string | undefined;
 	/**
-	 * @description URL of the session\'s deploy preview.
+	 * @description URL of the session's deploy preview.
 	 * @type string | undefined
 	 */
 	deploy_url?: string | undefined;
@@ -2805,7 +2870,7 @@ export type AgentRunnerSession = {
 		  }
 		| undefined;
 	/**
-	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it\'s answered or skipped.
+	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it's answered or skipped.
 	 * @type object | undefined
 	 */
 	interactions?:
@@ -2918,12 +2983,12 @@ export type AgentRunnerSessionInteraction = {
 
 export type AgentRunnerSessionAnswer = {
 	/**
-	 * @description Key of the pending interaction in the session\'s `interactions`.
+	 * @description Key of the pending interaction in the session's `interactions`.
 	 * @type string
 	 */
 	refId: string;
 	/**
-	 * @description One entry per question in the interaction\'s `payload`: a string, an array of strings for a multi-select question, or null to skip that question.
+	 * @description One entry per question in the interaction's `payload`: a string, an array of strings for a multi-select question, or null to skip that question.
 	 * @type array | undefined
 	 */
 	response?: unknown[] | undefined;
@@ -3136,7 +3201,8 @@ export type FunctionConfig = {
 	generator?: string | undefined;
 	build_data?: object | undefined;
 	/**
-	 * @description The function\'s memory allocation in MB. Mutually exclusive with `vcpu`.\n
+	 * @description The function's memory allocation in MB. Mutually exclusive with `vcpu`.
+	 *
 	 * @type integer | undefined
 	 */
 	memory?: number | undefined;
@@ -3191,7 +3257,9 @@ export type FunctionConfig = {
 		  }
 		| undefined;
 	/**
-	 * @description Number of vCPUs to provision for the function. Allowed range is\n0.5–2.\n
+	 * @description Number of vCPUs to provision for the function. Allowed range is
+	 * 0.5–2.
+	 *
 	 *
 	 * Format: `float`
 	 * @type number | undefined
@@ -3484,12 +3552,17 @@ export type ListSitesStatus200 = {
 				required?: string[] | undefined;
 				required_functions?: string[] | undefined;
 				/**
-				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+				 * complete the deploy.
+				 *
 				 * @type array | undefined
 				 */
 				required_edge_functions?: string[] | undefined;
 				/**
-				 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+				 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+				 * be uploaded to complete the deploy. A deploy has at most one server, so this
+				 * holds either nothing or a single digest.
+				 *
 				 * @type array | undefined
 				 */
 				required_server?: string[] | undefined;
@@ -3529,12 +3602,15 @@ export type ListSitesStatus200 = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The functions region for this deploy as an airport code.\n
+				 * @description The functions region for this deploy as an airport code.
+				 *
 				 * @type string | undefined
 				 */
 				functions_region?: string | undefined;
 				/**
-				 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+				 * @description Functions in the deploy that explicitly specify their own region
+				 * (airport code).
+				 *
 				 * @type array | undefined
 				 */
 				functions_region_overrides?:
@@ -3698,12 +3774,17 @@ export type CreateSiteStatus201 = {
 				required?: string[] | undefined;
 				required_functions?: string[] | undefined;
 				/**
-				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+				 * complete the deploy.
+				 *
 				 * @type array | undefined
 				 */
 				required_edge_functions?: string[] | undefined;
 				/**
-				 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+				 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+				 * be uploaded to complete the deploy. A deploy has at most one server, so this
+				 * holds either nothing or a single digest.
+				 *
 				 * @type array | undefined
 				 */
 				required_server?: string[] | undefined;
@@ -3743,12 +3824,15 @@ export type CreateSiteStatus201 = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The functions region for this deploy as an airport code.\n
+				 * @description The functions region for this deploy as an airport code.
+				 *
 				 * @type string | undefined
 				 */
 				functions_region?: string | undefined;
 				/**
-				 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+				 * @description Functions in the deploy that explicitly specify their own region
+				 * (airport code).
+				 *
 				 * @type array | undefined
 				 */
 				functions_region_overrides?:
@@ -3891,12 +3975,17 @@ export type CreateSiteBody = {
 				required?: string[] | undefined;
 				required_functions?: string[] | undefined;
 				/**
-				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+				 * complete the deploy.
+				 *
 				 * @type array | undefined
 				 */
 				required_edge_functions?: string[] | undefined;
 				/**
-				 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+				 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+				 * be uploaded to complete the deploy. A deploy has at most one server, so this
+				 * holds either nothing or a single digest.
+				 *
 				 * @type array | undefined
 				 */
 				required_server?: string[] | undefined;
@@ -3936,12 +4025,15 @@ export type CreateSiteBody = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The functions region for this deploy as an airport code.\n
+				 * @description The functions region for this deploy as an airport code.
+				 *
 				 * @type string | undefined
 				 */
 				functions_region?: string | undefined;
 				/**
-				 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+				 * @description Functions in the deploy that explicitly specify their own region
+				 * (airport code).
+				 *
 				 * @type array | undefined
 				 */
 				functions_region_overrides?:
@@ -4135,12 +4227,17 @@ export type GetSiteStatus200 = {
 				required?: string[] | undefined;
 				required_functions?: string[] | undefined;
 				/**
-				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+				 * complete the deploy.
+				 *
 				 * @type array | undefined
 				 */
 				required_edge_functions?: string[] | undefined;
 				/**
-				 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+				 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+				 * be uploaded to complete the deploy. A deploy has at most one server, so this
+				 * holds either nothing or a single digest.
+				 *
 				 * @type array | undefined
 				 */
 				required_server?: string[] | undefined;
@@ -4180,12 +4277,15 @@ export type GetSiteStatus200 = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The functions region for this deploy as an airport code.\n
+				 * @description The functions region for this deploy as an airport code.
+				 *
 				 * @type string | undefined
 				 */
 				functions_region?: string | undefined;
 				/**
-				 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+				 * @description Functions in the deploy that explicitly specify their own region
+				 * (airport code).
+				 *
 				 * @type array | undefined
 				 */
 				functions_region_overrides?:
@@ -4349,12 +4449,17 @@ export type UpdateSiteStatus200 = {
 				required?: string[] | undefined;
 				required_functions?: string[] | undefined;
 				/**
-				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+				 * complete the deploy.
+				 *
 				 * @type array | undefined
 				 */
 				required_edge_functions?: string[] | undefined;
 				/**
-				 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+				 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+				 * be uploaded to complete the deploy. A deploy has at most one server, so this
+				 * holds either nothing or a single digest.
+				 *
 				 * @type array | undefined
 				 */
 				required_server?: string[] | undefined;
@@ -4394,12 +4499,15 @@ export type UpdateSiteStatus200 = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The functions region for this deploy as an airport code.\n
+				 * @description The functions region for this deploy as an airport code.
+				 *
 				 * @type string | undefined
 				 */
 				functions_region?: string | undefined;
 				/**
-				 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+				 * @description Functions in the deploy that explicitly specify their own region
+				 * (airport code).
+				 *
 				 * @type array | undefined
 				 */
 				functions_region_overrides?:
@@ -4542,12 +4650,17 @@ export type UpdateSiteBody = {
 				required?: string[] | undefined;
 				required_functions?: string[] | undefined;
 				/**
-				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+				 * complete the deploy.
+				 *
 				 * @type array | undefined
 				 */
 				required_edge_functions?: string[] | undefined;
 				/**
-				 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+				 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+				 * be uploaded to complete the deploy. A deploy has at most one server, so this
+				 * holds either nothing or a single digest.
+				 *
 				 * @type array | undefined
 				 */
 				required_server?: string[] | undefined;
@@ -4587,12 +4700,15 @@ export type UpdateSiteBody = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The functions region for this deploy as an airport code.\n
+				 * @description The functions region for this deploy as an airport code.
+				 *
 				 * @type string | undefined
 				 */
 				functions_region?: string | undefined;
 				/**
-				 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+				 * @description Functions in the deploy that explicitly specify their own region
+				 * (airport code).
+				 *
 				 * @type array | undefined
 				 */
 				functions_region_overrides?:
@@ -5029,12 +5145,12 @@ export type GetEnvVarsStatus200 = {
 	values?:
 		| {
 				/**
-				 * @description The environment variable value\'s universally unique ID
+				 * @description The environment variable value's universally unique ID
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The environment variable\'s unencrypted value
+				 * @description The environment variable's unencrypted value
 				 * @type string | undefined
 				 */
 				value?: string | undefined;
@@ -5051,7 +5167,7 @@ export type GetEnvVarsStatus200 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description Secret values are only readable by code running on Netlify\'s systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
+	 * @description Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
 	 * @type boolean | undefined
 	 */
 	is_secret?: boolean | undefined;
@@ -5065,22 +5181,22 @@ export type GetEnvVarsStatus200 = {
 	updated_by?:
 		| {
 				/**
-				 * @description The user\'s unique identifier
+				 * @description The user's unique identifier
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The user\'s full name (first and last)
+				 * @description The user's full name (first and last)
 				 * @type string | undefined
 				 */
 				full_name?: string | undefined;
 				/**
-				 * @description The user\'s email address
+				 * @description The user's email address
 				 * @type string | undefined
 				 */
 				email?: string | undefined;
 				/**
-				 * @description A URL pointing to the user\'s avatar
+				 * @description A URL pointing to the user's avatar
 				 * @type string | undefined
 				 */
 				avatar_url?: string | undefined;
@@ -5172,12 +5288,12 @@ export type CreateEnvVarsStatus201 = {
 	values?:
 		| {
 				/**
-				 * @description The environment variable value\'s universally unique ID
+				 * @description The environment variable value's universally unique ID
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The environment variable\'s unencrypted value
+				 * @description The environment variable's unencrypted value
 				 * @type string | undefined
 				 */
 				value?: string | undefined;
@@ -5194,7 +5310,7 @@ export type CreateEnvVarsStatus201 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description Secret values are only readable by code running on Netlify\'s systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
+	 * @description Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
 	 * @type boolean | undefined
 	 */
 	is_secret?: boolean | undefined;
@@ -5208,22 +5324,22 @@ export type CreateEnvVarsStatus201 = {
 	updated_by?:
 		| {
 				/**
-				 * @description The user\'s unique identifier
+				 * @description The user's unique identifier
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The user\'s full name (first and last)
+				 * @description The user's full name (first and last)
 				 * @type string | undefined
 				 */
 				full_name?: string | undefined;
 				/**
-				 * @description The user\'s email address
+				 * @description The user's email address
 				 * @type string | undefined
 				 */
 				email?: string | undefined;
 				/**
-				 * @description A URL pointing to the user\'s avatar
+				 * @description A URL pointing to the user's avatar
 				 * @type string | undefined
 				 */
 				avatar_url?: string | undefined;
@@ -5279,12 +5395,12 @@ export type CreateEnvVarsBody =
 			values?:
 				| {
 						/**
-						 * @description The environment variable value\'s universally unique ID
+						 * @description The environment variable value's universally unique ID
 						 * @type string | undefined
 						 */
 						id?: string | undefined;
 						/**
-						 * @description The environment variable\'s unencrypted value
+						 * @description The environment variable's unencrypted value
 						 * @type string | undefined
 						 */
 						value?: string | undefined;
@@ -5301,7 +5417,7 @@ export type CreateEnvVarsBody =
 				  }[]
 				| undefined;
 			/**
-			 * @description Secret values are only readable by code running on Netlify\'s systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
+			 * @description Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
 			 * @type boolean | undefined
 			 */
 			is_secret?: boolean | undefined;
@@ -5408,12 +5524,12 @@ export type GetSiteEnvVarsStatus200 = {
 	values?:
 		| {
 				/**
-				 * @description The environment variable value\'s universally unique ID
+				 * @description The environment variable value's universally unique ID
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The environment variable\'s unencrypted value
+				 * @description The environment variable's unencrypted value
 				 * @type string | undefined
 				 */
 				value?: string | undefined;
@@ -5430,7 +5546,7 @@ export type GetSiteEnvVarsStatus200 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description Secret values are only readable by code running on Netlify\'s systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
+	 * @description Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
 	 * @type boolean | undefined
 	 */
 	is_secret?: boolean | undefined;
@@ -5444,22 +5560,22 @@ export type GetSiteEnvVarsStatus200 = {
 	updated_by?:
 		| {
 				/**
-				 * @description The user\'s unique identifier
+				 * @description The user's unique identifier
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The user\'s full name (first and last)
+				 * @description The user's full name (first and last)
 				 * @type string | undefined
 				 */
 				full_name?: string | undefined;
 				/**
-				 * @description The user\'s email address
+				 * @description The user's email address
 				 * @type string | undefined
 				 */
 				email?: string | undefined;
 				/**
-				 * @description A URL pointing to the user\'s avatar
+				 * @description A URL pointing to the user's avatar
 				 * @type string | undefined
 				 */
 				avatar_url?: string | undefined;
@@ -5560,12 +5676,12 @@ export type GetEnvVarStatus200 = {
 	values?:
 		| {
 				/**
-				 * @description The environment variable value\'s universally unique ID
+				 * @description The environment variable value's universally unique ID
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The environment variable\'s unencrypted value
+				 * @description The environment variable's unencrypted value
 				 * @type string | undefined
 				 */
 				value?: string | undefined;
@@ -5582,7 +5698,7 @@ export type GetEnvVarStatus200 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description Secret values are only readable by code running on Netlify\'s systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
+	 * @description Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
 	 * @type boolean | undefined
 	 */
 	is_secret?: boolean | undefined;
@@ -5596,22 +5712,22 @@ export type GetEnvVarStatus200 = {
 	updated_by?:
 		| {
 				/**
-				 * @description The user\'s unique identifier
+				 * @description The user's unique identifier
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The user\'s full name (first and last)
+				 * @description The user's full name (first and last)
 				 * @type string | undefined
 				 */
 				full_name?: string | undefined;
 				/**
-				 * @description The user\'s email address
+				 * @description The user's email address
 				 * @type string | undefined
 				 */
 				email?: string | undefined;
 				/**
-				 * @description A URL pointing to the user\'s avatar
+				 * @description A URL pointing to the user's avatar
 				 * @type string | undefined
 				 */
 				avatar_url?: string | undefined;
@@ -5712,12 +5828,12 @@ export type UpdateEnvVarStatus200 = {
 	values?:
 		| {
 				/**
-				 * @description The environment variable value\'s universally unique ID
+				 * @description The environment variable value's universally unique ID
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The environment variable\'s unencrypted value
+				 * @description The environment variable's unencrypted value
 				 * @type string | undefined
 				 */
 				value?: string | undefined;
@@ -5734,7 +5850,7 @@ export type UpdateEnvVarStatus200 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description Secret values are only readable by code running on Netlify\'s systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
+	 * @description Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
 	 * @type boolean | undefined
 	 */
 	is_secret?: boolean | undefined;
@@ -5748,22 +5864,22 @@ export type UpdateEnvVarStatus200 = {
 	updated_by?:
 		| {
 				/**
-				 * @description The user\'s unique identifier
+				 * @description The user's unique identifier
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The user\'s full name (first and last)
+				 * @description The user's full name (first and last)
 				 * @type string | undefined
 				 */
 				full_name?: string | undefined;
 				/**
-				 * @description The user\'s email address
+				 * @description The user's email address
 				 * @type string | undefined
 				 */
 				email?: string | undefined;
 				/**
-				 * @description A URL pointing to the user\'s avatar
+				 * @description A URL pointing to the user's avatar
 				 * @type string | undefined
 				 */
 				avatar_url?: string | undefined;
@@ -5819,12 +5935,12 @@ export type UpdateEnvVarBody =
 			values?:
 				| {
 						/**
-						 * @description The environment variable value\'s universally unique ID
+						 * @description The environment variable value's universally unique ID
 						 * @type string | undefined
 						 */
 						id?: string | undefined;
 						/**
-						 * @description The environment variable\'s unencrypted value
+						 * @description The environment variable's unencrypted value
 						 * @type string | undefined
 						 */
 						value?: string | undefined;
@@ -5841,7 +5957,7 @@ export type UpdateEnvVarBody =
 				  }[]
 				| undefined;
 			/**
-			 * @description Secret values are only readable by code running on Netlify\'s systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
+			 * @description Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
 			 * @type boolean | undefined
 			 */
 			is_secret?: boolean | undefined;
@@ -5931,12 +6047,12 @@ export type SetEnvVarValueStatus201 = {
 	values?:
 		| {
 				/**
-				 * @description The environment variable value\'s universally unique ID
+				 * @description The environment variable value's universally unique ID
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The environment variable\'s unencrypted value
+				 * @description The environment variable's unencrypted value
 				 * @type string | undefined
 				 */
 				value?: string | undefined;
@@ -5953,7 +6069,7 @@ export type SetEnvVarValueStatus201 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description Secret values are only readable by code running on Netlify\'s systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
+	 * @description Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.
 	 * @type boolean | undefined
 	 */
 	is_secret?: boolean | undefined;
@@ -5967,22 +6083,22 @@ export type SetEnvVarValueStatus201 = {
 	updated_by?:
 		| {
 				/**
-				 * @description The user\'s unique identifier
+				 * @description The user's unique identifier
 				 * @type string | undefined
 				 */
 				id?: string | undefined;
 				/**
-				 * @description The user\'s full name (first and last)
+				 * @description The user's full name (first and last)
 				 * @type string | undefined
 				 */
 				full_name?: string | undefined;
 				/**
-				 * @description The user\'s email address
+				 * @description The user's email address
 				 * @type string | undefined
 				 */
 				email?: string | undefined;
 				/**
-				 * @description A URL pointing to the user\'s avatar
+				 * @description A URL pointing to the user's avatar
 				 * @type string | undefined
 				 */
 				avatar_url?: string | undefined;
@@ -6026,7 +6142,7 @@ export type SetEnvVarValueBody =
 			 */
 			context_parameter?: string | undefined;
 			/**
-			 * @description The environment variable\'s unencrypted value
+			 * @description The environment variable's unencrypted value
 			 * @type string | undefined
 			 */
 			value?: string | undefined;
@@ -6107,7 +6223,7 @@ export type DeleteEnvVarValuePath = {
 	 */
 	account_id: string;
 	/**
-	 * @description The environment variable value\'s ID
+	 * @description The environment variable value's ID
 	 * @type string
 	 */
 	id: string;
@@ -7407,12 +7523,17 @@ export type ListSiteDeploysStatus200 = {
 	required?: string[] | undefined;
 	required_functions?: string[] | undefined;
 	/**
-	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+	 * complete the deploy.
+	 *
 	 * @type array | undefined
 	 */
 	required_edge_functions?: string[] | undefined;
 	/**
-	 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+	 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+	 * be uploaded to complete the deploy. A deploy has at most one server, so this
+	 * holds either nothing or a single digest.
+	 *
 	 * @type array | undefined
 	 */
 	required_server?: string[] | undefined;
@@ -7452,12 +7573,15 @@ export type ListSiteDeploysStatus200 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description The functions region for this deploy as an airport code.\n
+	 * @description The functions region for this deploy as an airport code.
+	 *
 	 * @type string | undefined
 	 */
 	functions_region?: string | undefined;
 	/**
-	 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+	 * @description Functions in the deploy that explicitly specify their own region
+	 * (airport code).
+	 *
 	 * @type array | undefined
 	 */
 	functions_region_overrides?:
@@ -7547,12 +7671,17 @@ export type CreateSiteDeployStatus200 = {
 	required?: string[] | undefined;
 	required_functions?: string[] | undefined;
 	/**
-	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+	 * complete the deploy.
+	 *
 	 * @type array | undefined
 	 */
 	required_edge_functions?: string[] | undefined;
 	/**
-	 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+	 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+	 * be uploaded to complete the deploy. A deploy has at most one server, so this
+	 * holds either nothing or a single digest.
+	 *
 	 * @type array | undefined
 	 */
 	required_server?: string[] | undefined;
@@ -7592,12 +7721,15 @@ export type CreateSiteDeployStatus200 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description The functions region for this deploy as an airport code.\n
+	 * @description The functions region for this deploy as an airport code.
+	 *
 	 * @type string | undefined
 	 */
 	functions_region?: string | undefined;
 	/**
-	 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+	 * @description Functions in the deploy that explicitly specify their own region
+	 * (airport code).
+	 *
 	 * @type array | undefined
 	 */
 	functions_region_overrides?:
@@ -7650,7 +7782,12 @@ export type CreateSiteDeployRequestEnvironmentScopesEnumKey =
 	(typeof createSiteDeployRequestEnvironmentScopesEnum)[keyof typeof createSiteDeployRequestEnvironmentScopesEnum];
 
 /**
- * @description Deploy files can be provided in two ways:\n1. As a JSON object using \'files\' (a hash mapping file paths to SHA1 digests), OR\n2. As a zip file using one of these methods:\n   - Set Content-Type to \'application/zip\' and send the zip file as the raw request body\n   - Include the zip file content in the \'zip\' field of this JSON object with Content-Type \'application/json\'\n
+ * @description Deploy files can be provided in two ways:
+ * 1. As a JSON object using 'files' (a hash mapping file paths to SHA1 digests), OR
+ * 2. As a zip file using one of these methods:
+ *    - Set Content-Type to 'application/zip' and send the zip file as the raw request body
+ *    - Include the zip file content in the 'zip' field of this JSON object with Content-Type 'application/json'
+ *
  * @type object
  */
 export type CreateSiteDeployBody = {
@@ -7660,7 +7797,10 @@ export type CreateSiteDeployBody = {
 	 */
 	files?: object | undefined;
 	/**
-	 * @description A zip file containing the site files to deploy. Alternative to \'files\'.\nTo use this field, set Content-Type to \'application/json\' and include the zip content here.\nAlternatively, you can set Content-Type to \'application/zip\' and send the zip as the raw request body (not as JSON).\n
+	 * @description A zip file containing the site files to deploy. Alternative to 'files'.
+	 * To use this field, set Content-Type to 'application/json' and include the zip content here.
+	 * Alternatively, you can set Content-Type to 'application/zip' and send the zip as the raw request body (not as JSON).
+	 *
 	 * @type string | undefined
 	 */
 	zip?: Blob | undefined;
@@ -7668,12 +7808,16 @@ export type CreateSiteDeployBody = {
 	async?: boolean | undefined;
 	functions?: object | undefined;
 	/**
-	 * @description A hash mapping edge-function bundle formats to the code_sha of each bundle. The\nresponse\'s required_edge_functions lists which of these still need to be uploaded.\n
+	 * @description A hash mapping edge-function bundle formats to the code_sha of each bundle. The
+	 * response's required_edge_functions lists which of these still need to be uploaded.
+	 *
 	 * @type object | undefined
 	 */
 	edge_functions?: object | undefined;
 	/**
-	 * @description The deploy\'s Netlify Server. A deploy has at most one. The response\'s\nrequired_server says whether it still needs to be uploaded.\n
+	 * @description The deploy's Netlify Server. A deploy has at most one. The response's
+	 * required_server says whether it still needs to be uploaded.
+	 *
 	 * @type object | undefined
 	 */
 	server?:
@@ -7684,12 +7828,16 @@ export type CreateSiteDeployBody = {
 				 */
 				sha: string;
 				/**
-				 * @description Where the server runs. Defaults to the region configured at the site level\nwhen absent.\n
+				 * @description Where the server runs. Defaults to the region configured at the site level
+				 * when absent.
+				 *
 				 * @type string | undefined
 				 */
 				region?: string | undefined;
 				/**
-				 * @description The size of the instances the server runs on. A default size is used when\nabsent.\n
+				 * @description The size of the instances the server runs on. A default size is used when
+				 * absent.
+				 *
 				 * @type string | undefined
 				 */
 				instance_size?: CreateSiteDeployRequestServerInstanceSizeEnumKey | undefined;
@@ -7718,7 +7866,9 @@ export type CreateSiteDeployBody = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n
+				 * @description The runtime version the server was built for, such as `nodejs24.x`. A
+				 * default version is used when absent.
+				 *
 				 * @type string | undefined
 				 */
 				runtime_version?: string | undefined;
@@ -7729,7 +7879,9 @@ export type CreateSiteDeployBody = {
 				scale?:
 					| {
 							/**
-							 * @description The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n
+							 * @description The minimum number of instances the server keeps running. Defaults to 0
+							 * when absent.
+							 *
 							 *
 							 * Format: `int64`
 							 * @minLength 0
@@ -7737,7 +7889,9 @@ export type CreateSiteDeployBody = {
 							 */
 							min?: (bigint | null) | undefined;
 							/**
-							 * @description The maximum number of instances the server scales to. Defaults to the\nhighest the account\'s plan allows when absent.\n
+							 * @description The maximum number of instances the server scales to. Defaults to the
+							 * highest the account's plan allows when absent.
+							 *
 							 *
 							 * Format: `int64`
 							 * @minLength 1
@@ -7761,7 +7915,8 @@ export type CreateSiteDeployBody = {
 					generator?: string | undefined;
 					build_data?: object | undefined;
 					/**
-					 * @description The function\'s memory allocation in MB. Mutually exclusive with `vcpu`.\n
+					 * @description The function's memory allocation in MB. Mutually exclusive with `vcpu`.
+					 *
 					 * @type integer | undefined
 					 */
 					memory?: number | undefined;
@@ -7814,7 +7969,9 @@ export type CreateSiteDeployBody = {
 						  }
 						| undefined;
 					/**
-					 * @description Number of vCPUs to provision for the function. Allowed range is\n0.5–2.\n
+					 * @description Number of vCPUs to provision for the function. Allowed range is
+					 * 0.5–2.
+					 *
 					 *
 					 * Format: `float`
 					 * @type number | undefined
@@ -7828,7 +7985,23 @@ export type CreateSiteDeployBody = {
 	framework?: string | undefined;
 	framework_version?: string | undefined;
 	/**
-	 * @description A list of deploy-specific environment variable data. Data specified this way applies only\nto this specific deploy and is merged into any existing environment variables set on the\naccount and site.\n\nDeploy-specific environment variable data takes precedence over account and site\nenvironment variable data: For example, a deploy-specific variable with the key `NODE_ENV`\nwill take priority over any existing site- and account-level environment variable data\nwith the key `NODE_ENV`.\n\nEnvironment variable data may be provided at one of two times:\n\n- When creating a new Deploy with deploy files (most common)\n- When finalizing an existing Deploy with deploy files\n\nOnce set, environment variables for a specific deploy cannot be modified. Subsequent\nattempts to modify environment variable data for a deploy will be ignored.\n
+	 * @description A list of deploy-specific environment variable data. Data specified this way applies only
+	 * to this specific deploy and is merged into any existing environment variables set on the
+	 * account and site.
+	 *
+	 * Deploy-specific environment variable data takes precedence over account and site
+	 * environment variable data: For example, a deploy-specific variable with the key `NODE_ENV`
+	 * will take priority over any existing site- and account-level environment variable data
+	 * with the key `NODE_ENV`.
+	 *
+	 * Environment variable data may be provided at one of two times:
+	 *
+	 * - When creating a new Deploy with deploy files (most common)
+	 * - When finalizing an existing Deploy with deploy files
+	 *
+	 * Once set, environment variables for a specific deploy cannot be modified. Subsequent
+	 * attempts to modify environment variable data for a deploy will be ignored.
+	 *
 	 * @type array | undefined
 	 */
 	environment?:
@@ -7881,12 +8054,17 @@ export type GetSiteDeployStatus200 = {
 	required?: string[] | undefined;
 	required_functions?: string[] | undefined;
 	/**
-	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+	 * complete the deploy.
+	 *
 	 * @type array | undefined
 	 */
 	required_edge_functions?: string[] | undefined;
 	/**
-	 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+	 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+	 * be uploaded to complete the deploy. A deploy has at most one server, so this
+	 * holds either nothing or a single digest.
+	 *
 	 * @type array | undefined
 	 */
 	required_server?: string[] | undefined;
@@ -7926,12 +8104,15 @@ export type GetSiteDeployStatus200 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description The functions region for this deploy as an airport code.\n
+	 * @description The functions region for this deploy as an airport code.
+	 *
 	 * @type string | undefined
 	 */
 	functions_region?: string | undefined;
 	/**
-	 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+	 * @description Functions in the deploy that explicitly specify their own region
+	 * (airport code).
+	 *
 	 * @type array | undefined
 	 */
 	functions_region_overrides?:
@@ -7996,12 +8177,17 @@ export type UpdateSiteDeployStatus200 = {
 	required?: string[] | undefined;
 	required_functions?: string[] | undefined;
 	/**
-	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+	 * complete the deploy.
+	 *
 	 * @type array | undefined
 	 */
 	required_edge_functions?: string[] | undefined;
 	/**
-	 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+	 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+	 * be uploaded to complete the deploy. A deploy has at most one server, so this
+	 * holds either nothing or a single digest.
+	 *
 	 * @type array | undefined
 	 */
 	required_server?: string[] | undefined;
@@ -8041,12 +8227,15 @@ export type UpdateSiteDeployStatus200 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description The functions region for this deploy as an airport code.\n
+	 * @description The functions region for this deploy as an airport code.
+	 *
 	 * @type string | undefined
 	 */
 	functions_region?: string | undefined;
 	/**
-	 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+	 * @description Functions in the deploy that explicitly specify their own region
+	 * (airport code).
+	 *
 	 * @type array | undefined
 	 */
 	functions_region_overrides?:
@@ -8099,7 +8288,12 @@ export type UpdateSiteDeployRequestEnvironmentScopesEnumKey =
 	(typeof updateSiteDeployRequestEnvironmentScopesEnum)[keyof typeof updateSiteDeployRequestEnvironmentScopesEnum];
 
 /**
- * @description Deploy files can be provided in two ways:\n1. As a JSON object using \'files\' (a hash mapping file paths to SHA1 digests), OR\n2. As a zip file using one of these methods:\n   - Set Content-Type to \'application/zip\' and send the zip file as the raw request body\n   - Include the zip file content in the \'zip\' field of this JSON object with Content-Type \'application/json\'\n
+ * @description Deploy files can be provided in two ways:
+ * 1. As a JSON object using 'files' (a hash mapping file paths to SHA1 digests), OR
+ * 2. As a zip file using one of these methods:
+ *    - Set Content-Type to 'application/zip' and send the zip file as the raw request body
+ *    - Include the zip file content in the 'zip' field of this JSON object with Content-Type 'application/json'
+ *
  * @type object
  */
 export type UpdateSiteDeployBody = {
@@ -8109,7 +8303,10 @@ export type UpdateSiteDeployBody = {
 	 */
 	files?: object | undefined;
 	/**
-	 * @description A zip file containing the site files to deploy. Alternative to \'files\'.\nTo use this field, set Content-Type to \'application/json\' and include the zip content here.\nAlternatively, you can set Content-Type to \'application/zip\' and send the zip as the raw request body (not as JSON).\n
+	 * @description A zip file containing the site files to deploy. Alternative to 'files'.
+	 * To use this field, set Content-Type to 'application/json' and include the zip content here.
+	 * Alternatively, you can set Content-Type to 'application/zip' and send the zip as the raw request body (not as JSON).
+	 *
 	 * @type string | undefined
 	 */
 	zip?: Blob | undefined;
@@ -8117,12 +8314,16 @@ export type UpdateSiteDeployBody = {
 	async?: boolean | undefined;
 	functions?: object | undefined;
 	/**
-	 * @description A hash mapping edge-function bundle formats to the code_sha of each bundle. The\nresponse\'s required_edge_functions lists which of these still need to be uploaded.\n
+	 * @description A hash mapping edge-function bundle formats to the code_sha of each bundle. The
+	 * response's required_edge_functions lists which of these still need to be uploaded.
+	 *
 	 * @type object | undefined
 	 */
 	edge_functions?: object | undefined;
 	/**
-	 * @description The deploy\'s Netlify Server. A deploy has at most one. The response\'s\nrequired_server says whether it still needs to be uploaded.\n
+	 * @description The deploy's Netlify Server. A deploy has at most one. The response's
+	 * required_server says whether it still needs to be uploaded.
+	 *
 	 * @type object | undefined
 	 */
 	server?:
@@ -8133,12 +8334,16 @@ export type UpdateSiteDeployBody = {
 				 */
 				sha: string;
 				/**
-				 * @description Where the server runs. Defaults to the region configured at the site level\nwhen absent.\n
+				 * @description Where the server runs. Defaults to the region configured at the site level
+				 * when absent.
+				 *
 				 * @type string | undefined
 				 */
 				region?: string | undefined;
 				/**
-				 * @description The size of the instances the server runs on. A default size is used when\nabsent.\n
+				 * @description The size of the instances the server runs on. A default size is used when
+				 * absent.
+				 *
 				 * @type string | undefined
 				 */
 				instance_size?: UpdateSiteDeployRequestServerInstanceSizeEnumKey | undefined;
@@ -8167,7 +8372,9 @@ export type UpdateSiteDeployBody = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n
+				 * @description The runtime version the server was built for, such as `nodejs24.x`. A
+				 * default version is used when absent.
+				 *
 				 * @type string | undefined
 				 */
 				runtime_version?: string | undefined;
@@ -8178,7 +8385,9 @@ export type UpdateSiteDeployBody = {
 				scale?:
 					| {
 							/**
-							 * @description The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n
+							 * @description The minimum number of instances the server keeps running. Defaults to 0
+							 * when absent.
+							 *
 							 *
 							 * Format: `int64`
 							 * @minLength 0
@@ -8186,7 +8395,9 @@ export type UpdateSiteDeployBody = {
 							 */
 							min?: (bigint | null) | undefined;
 							/**
-							 * @description The maximum number of instances the server scales to. Defaults to the\nhighest the account\'s plan allows when absent.\n
+							 * @description The maximum number of instances the server scales to. Defaults to the
+							 * highest the account's plan allows when absent.
+							 *
 							 *
 							 * Format: `int64`
 							 * @minLength 1
@@ -8210,7 +8421,8 @@ export type UpdateSiteDeployBody = {
 					generator?: string | undefined;
 					build_data?: object | undefined;
 					/**
-					 * @description The function\'s memory allocation in MB. Mutually exclusive with `vcpu`.\n
+					 * @description The function's memory allocation in MB. Mutually exclusive with `vcpu`.
+					 *
 					 * @type integer | undefined
 					 */
 					memory?: number | undefined;
@@ -8263,7 +8475,9 @@ export type UpdateSiteDeployBody = {
 						  }
 						| undefined;
 					/**
-					 * @description Number of vCPUs to provision for the function. Allowed range is\n0.5–2.\n
+					 * @description Number of vCPUs to provision for the function. Allowed range is
+					 * 0.5–2.
+					 *
 					 *
 					 * Format: `float`
 					 * @type number | undefined
@@ -8277,7 +8491,23 @@ export type UpdateSiteDeployBody = {
 	framework?: string | undefined;
 	framework_version?: string | undefined;
 	/**
-	 * @description A list of deploy-specific environment variable data. Data specified this way applies only\nto this specific deploy and is merged into any existing environment variables set on the\naccount and site.\n\nDeploy-specific environment variable data takes precedence over account and site\nenvironment variable data: For example, a deploy-specific variable with the key `NODE_ENV`\nwill take priority over any existing site- and account-level environment variable data\nwith the key `NODE_ENV`.\n\nEnvironment variable data may be provided at one of two times:\n\n- When creating a new Deploy with deploy files (most common)\n- When finalizing an existing Deploy with deploy files\n\nOnce set, environment variables for a specific deploy cannot be modified. Subsequent\nattempts to modify environment variable data for a deploy will be ignored.\n
+	 * @description A list of deploy-specific environment variable data. Data specified this way applies only
+	 * to this specific deploy and is merged into any existing environment variables set on the
+	 * account and site.
+	 *
+	 * Deploy-specific environment variable data takes precedence over account and site
+	 * environment variable data: For example, a deploy-specific variable with the key `NODE_ENV`
+	 * will take priority over any existing site- and account-level environment variable data
+	 * with the key `NODE_ENV`.
+	 *
+	 * Environment variable data may be provided at one of two times:
+	 *
+	 * - When creating a new Deploy with deploy files (most common)
+	 * - When finalizing an existing Deploy with deploy files
+	 *
+	 * Once set, environment variables for a specific deploy cannot be modified. Subsequent
+	 * attempts to modify environment variable data for a deploy will be ignored.
+	 *
 	 * @type array | undefined
 	 */
 	environment?:
@@ -8363,12 +8593,17 @@ export type CancelSiteDeployStatus201 = {
 	required?: string[] | undefined;
 	required_functions?: string[] | undefined;
 	/**
-	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+	 * complete the deploy.
+	 *
 	 * @type array | undefined
 	 */
 	required_edge_functions?: string[] | undefined;
 	/**
-	 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+	 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+	 * be uploaded to complete the deploy. A deploy has at most one server, so this
+	 * holds either nothing or a single digest.
+	 *
 	 * @type array | undefined
 	 */
 	required_server?: string[] | undefined;
@@ -8408,12 +8643,15 @@ export type CancelSiteDeployStatus201 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description The functions region for this deploy as an airport code.\n
+	 * @description The functions region for this deploy as an airport code.
+	 *
 	 * @type string | undefined
 	 */
 	functions_region?: string | undefined;
 	/**
-	 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+	 * @description Functions in the deploy that explicitly specify their own region
+	 * (airport code).
+	 *
 	 * @type array | undefined
 	 */
 	functions_region_overrides?:
@@ -8474,12 +8712,17 @@ export type RestoreSiteDeployStatus201 = {
 	required?: string[] | undefined;
 	required_functions?: string[] | undefined;
 	/**
-	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+	 * complete the deploy.
+	 *
 	 * @type array | undefined
 	 */
 	required_edge_functions?: string[] | undefined;
 	/**
-	 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+	 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+	 * be uploaded to complete the deploy. A deploy has at most one server, so this
+	 * holds either nothing or a single digest.
+	 *
 	 * @type array | undefined
 	 */
 	required_server?: string[] | undefined;
@@ -8519,12 +8762,15 @@ export type RestoreSiteDeployStatus201 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description The functions region for this deploy as an airport code.\n
+	 * @description The functions region for this deploy as an airport code.
+	 *
 	 * @type string | undefined
 	 */
 	functions_region?: string | undefined;
 	/**
-	 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+	 * @description Functions in the deploy that explicitly specify their own region
+	 * (airport code).
+	 *
 	 * @type array | undefined
 	 */
 	functions_region_overrides?:
@@ -8628,7 +8874,7 @@ export type CreateSiteBuildPath = {
 
 export type CreateSiteBuildQuery = {
 	/**
-	 * @description If no branch is specified, it is treated as a production deploy If a branch IS specified and matches the main branch, it is also production If a branch is specified and doesn\'t match the main branch, it is a branch deploy
+	 * @description If no branch is specified, it is treated as a production deploy If a branch IS specified and matches the main branch, it is also production If a branch is specified and doesn't match the main branch, it is a branch deploy
 	 * @type string | undefined
 	 */
 	branch?: string | undefined;
@@ -8702,7 +8948,10 @@ export type CreateSiteBuildStatusDefault = {
 export type CreateSiteBuildBody =
 	| {
 			/**
-			 * @description A zip file containing the site files to build.\nOnly used with Content-Type \'multipart/form-data\'.\nAlternatively, set Content-Type to \'application/zip\' and send the zip as the raw request body (no \'zip\' parameter needed).\n
+			 * @description A zip file containing the site files to build.
+			 * Only used with Content-Type 'multipart/form-data'.
+			 * Alternatively, set Content-Type to 'application/zip' and send the zip as the raw request body (no 'zip' parameter needed).
+			 *
 			 * @type string | undefined
 			 */
 			zip?: Blob | undefined;
@@ -8825,12 +9074,17 @@ export type UnlinkSiteRepoStatus200 = {
 				required?: string[] | undefined;
 				required_functions?: string[] | undefined;
 				/**
-				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+				 * complete the deploy.
+				 *
 				 * @type array | undefined
 				 */
 				required_edge_functions?: string[] | undefined;
 				/**
-				 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+				 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+				 * be uploaded to complete the deploy. A deploy has at most one server, so this
+				 * holds either nothing or a single digest.
+				 *
 				 * @type array | undefined
 				 */
 				required_server?: string[] | undefined;
@@ -8870,12 +9124,15 @@ export type UnlinkSiteRepoStatus200 = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The functions region for this deploy as an airport code.\n
+				 * @description The functions region for this deploy as an airport code.
+				 *
 				 * @type string | undefined
 				 */
 				functions_region?: string | undefined;
 				/**
-				 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+				 * @description Functions in the deploy that explicitly specify their own region
+				 * (airport code).
+				 *
 				 * @type array | undefined
 				 */
 				functions_region_overrides?:
@@ -9482,12 +9739,17 @@ export type GetDeployStatus200 = {
 	required?: string[] | undefined;
 	required_functions?: string[] | undefined;
 	/**
-	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+	 * complete the deploy.
+	 *
 	 * @type array | undefined
 	 */
 	required_edge_functions?: string[] | undefined;
 	/**
-	 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+	 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+	 * be uploaded to complete the deploy. A deploy has at most one server, so this
+	 * holds either nothing or a single digest.
+	 *
 	 * @type array | undefined
 	 */
 	required_server?: string[] | undefined;
@@ -9527,12 +9789,15 @@ export type GetDeployStatus200 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description The functions region for this deploy as an airport code.\n
+	 * @description The functions region for this deploy as an airport code.
+	 *
 	 * @type string | undefined
 	 */
 	functions_region?: string | undefined;
 	/**
-	 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+	 * @description Functions in the deploy that explicitly specify their own region
+	 * (airport code).
+	 *
 	 * @type array | undefined
 	 */
 	functions_region_overrides?:
@@ -9680,12 +9945,17 @@ export type LockDeployStatus200 = {
 	required?: string[] | undefined;
 	required_functions?: string[] | undefined;
 	/**
-	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+	 * complete the deploy.
+	 *
 	 * @type array | undefined
 	 */
 	required_edge_functions?: string[] | undefined;
 	/**
-	 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+	 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+	 * be uploaded to complete the deploy. A deploy has at most one server, so this
+	 * holds either nothing or a single digest.
+	 *
 	 * @type array | undefined
 	 */
 	required_server?: string[] | undefined;
@@ -9725,12 +9995,15 @@ export type LockDeployStatus200 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description The functions region for this deploy as an airport code.\n
+	 * @description The functions region for this deploy as an airport code.
+	 *
 	 * @type string | undefined
 	 */
 	functions_region?: string | undefined;
 	/**
-	 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+	 * @description Functions in the deploy that explicitly specify their own region
+	 * (airport code).
+	 *
 	 * @type array | undefined
 	 */
 	functions_region_overrides?:
@@ -9790,12 +10063,17 @@ export type UnlockDeployStatus200 = {
 	required?: string[] | undefined;
 	required_functions?: string[] | undefined;
 	/**
-	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+	 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+	 * complete the deploy.
+	 *
 	 * @type array | undefined
 	 */
 	required_edge_functions?: string[] | undefined;
 	/**
-	 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+	 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+	 * be uploaded to complete the deploy. A deploy has at most one server, so this
+	 * holds either nothing or a single digest.
+	 *
 	 * @type array | undefined
 	 */
 	required_server?: string[] | undefined;
@@ -9835,12 +10113,15 @@ export type UnlockDeployStatus200 = {
 		  }[]
 		| undefined;
 	/**
-	 * @description The functions region for this deploy as an airport code.\n
+	 * @description The functions region for this deploy as an airport code.
+	 *
 	 * @type string | undefined
 	 */
 	functions_region?: string | undefined;
 	/**
-	 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+	 * @description Functions in the deploy that explicitly specify their own region
+	 * (airport code).
+	 *
 	 * @type array | undefined
 	 */
 	functions_region_overrides?:
@@ -10983,12 +11264,17 @@ export type CreateSiteInTeamStatus201 = {
 				required?: string[] | undefined;
 				required_functions?: string[] | undefined;
 				/**
-				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+				 * complete the deploy.
+				 *
 				 * @type array | undefined
 				 */
 				required_edge_functions?: string[] | undefined;
 				/**
-				 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+				 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+				 * be uploaded to complete the deploy. A deploy has at most one server, so this
+				 * holds either nothing or a single digest.
+				 *
 				 * @type array | undefined
 				 */
 				required_server?: string[] | undefined;
@@ -11028,12 +11314,15 @@ export type CreateSiteInTeamStatus201 = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The functions region for this deploy as an airport code.\n
+				 * @description The functions region for this deploy as an airport code.
+				 *
 				 * @type string | undefined
 				 */
 				functions_region?: string | undefined;
 				/**
-				 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+				 * @description Functions in the deploy that explicitly specify their own region
+				 * (airport code).
+				 *
 				 * @type array | undefined
 				 */
 				functions_region_overrides?:
@@ -11177,12 +11466,17 @@ export type CreateSiteInTeamBody =
 						required?: string[] | undefined;
 						required_functions?: string[] | undefined;
 						/**
-						 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+						 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+						 * complete the deploy.
+						 *
 						 * @type array | undefined
 						 */
 						required_edge_functions?: string[] | undefined;
 						/**
-						 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+						 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+						 * be uploaded to complete the deploy. A deploy has at most one server, so this
+						 * holds either nothing or a single digest.
+						 *
 						 * @type array | undefined
 						 */
 						required_server?: string[] | undefined;
@@ -11222,12 +11516,15 @@ export type CreateSiteInTeamBody =
 							  }[]
 							| undefined;
 						/**
-						 * @description The functions region for this deploy as an airport code.\n
+						 * @description The functions region for this deploy as an airport code.
+						 *
 						 * @type string | undefined
 						 */
 						functions_region?: string | undefined;
 						/**
-						 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+						 * @description Functions in the deploy that explicitly specify their own region
+						 * (airport code).
+						 *
 						 * @type array | undefined
 						 */
 						functions_region_overrides?:
@@ -11434,12 +11731,17 @@ export type ListSitesForAccountStatus200 = {
 				required?: string[] | undefined;
 				required_functions?: string[] | undefined;
 				/**
-				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to\ncomplete the deploy.\n
+				 * @description An array of code_shas for the edge-function bundles that need to be uploaded to
+				 * complete the deploy.
+				 *
 				 * @type array | undefined
 				 */
 				required_edge_functions?: string[] | undefined;
 				/**
-				 * @description The SHA256 digest of the deploy\'s Netlify Server bundle, when it still needs to\nbe uploaded to complete the deploy. A deploy has at most one server, so this\nholds either nothing or a single digest.\n
+				 * @description The SHA256 digest of the deploy's Netlify Server bundle, when it still needs to
+				 * be uploaded to complete the deploy. A deploy has at most one server, so this
+				 * holds either nothing or a single digest.
+				 *
 				 * @type array | undefined
 				 */
 				required_server?: string[] | undefined;
@@ -11479,12 +11781,15 @@ export type ListSitesForAccountStatus200 = {
 					  }[]
 					| undefined;
 				/**
-				 * @description The functions region for this deploy as an airport code.\n
+				 * @description The functions region for this deploy as an airport code.
+				 *
 				 * @type string | undefined
 				 */
 				functions_region?: string | undefined;
 				/**
-				 * @description Functions in the deploy that explicitly specify their own region\n(airport code).\n
+				 * @description Functions in the deploy that explicitly specify their own region
+				 * (airport code).
+				 *
 				 * @type array | undefined
 				 */
 				functions_region_overrides?:
@@ -12615,7 +12920,7 @@ export type CreateAgentRunnerResponse = CreateAgentRunnerStatus200;
 
 export type CreateSiteAgentRunnerPath = {
 	/**
-	 * @description The site\'s ID or one of its hostnames.
+	 * @description The site's ID or one of its hostnames.
 	 * @type string
 	 */
 	site_id: string;
@@ -12811,7 +13116,7 @@ export type CreateSiteAgentRunnerRequestModeEnumKey =
 export type CreateSiteAgentRunnerBody = {
 	prompt: string;
 	/**
-	 * @description Branch to start from. Defaults to the site\'s production branch.
+	 * @description Branch to start from. Defaults to the site's production branch.
 	 * @type string | undefined
 	 */
 	branch?: string | undefined;
@@ -13629,7 +13934,7 @@ export type ListAgentRunnerSessionsStatus200 = {
 		  }
 		| undefined;
 	/**
-	 * @description The agent\'s summary of what it did.
+	 * @description The agent's summary of what it did.
 	 * @type string | undefined
 	 */
 	result?: string | undefined;
@@ -13637,7 +13942,7 @@ export type ListAgentRunnerSessionsStatus200 = {
 	commit_sha?: string | undefined;
 	deploy_id?: string | undefined;
 	/**
-	 * @description URL of the session\'s deploy preview.
+	 * @description URL of the session's deploy preview.
 	 * @type string | undefined
 	 */
 	deploy_url?: string | undefined;
@@ -13657,7 +13962,7 @@ export type ListAgentRunnerSessionsStatus200 = {
 		  }
 		| undefined;
 	/**
-	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it\'s answered or skipped.
+	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it's answered or skipped.
 	 * @type object | undefined
 	 */
 	interactions?:
@@ -13802,7 +14107,7 @@ export type CreateAgentRunnerSessionStatus200 = {
 		  }
 		| undefined;
 	/**
-	 * @description The agent\'s summary of what it did.
+	 * @description The agent's summary of what it did.
 	 * @type string | undefined
 	 */
 	result?: string | undefined;
@@ -13810,7 +14115,7 @@ export type CreateAgentRunnerSessionStatus200 = {
 	commit_sha?: string | undefined;
 	deploy_id?: string | undefined;
 	/**
-	 * @description URL of the session\'s deploy preview.
+	 * @description URL of the session's deploy preview.
 	 * @type string | undefined
 	 */
 	deploy_url?: string | undefined;
@@ -13830,7 +14135,7 @@ export type CreateAgentRunnerSessionStatus200 = {
 		  }
 		| undefined;
 	/**
-	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it\'s answered or skipped.
+	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it's answered or skipped.
 	 * @type object | undefined
 	 */
 	interactions?:
@@ -14084,7 +14389,7 @@ export type GetAgentRunnerSessionStatus200 = {
 		  }
 		| undefined;
 	/**
-	 * @description The agent\'s summary of what it did.
+	 * @description The agent's summary of what it did.
 	 * @type string | undefined
 	 */
 	result?: string | undefined;
@@ -14092,7 +14397,7 @@ export type GetAgentRunnerSessionStatus200 = {
 	commit_sha?: string | undefined;
 	deploy_id?: string | undefined;
 	/**
-	 * @description URL of the session\'s deploy preview.
+	 * @description URL of the session's deploy preview.
 	 * @type string | undefined
 	 */
 	deploy_url?: string | undefined;
@@ -14112,7 +14417,7 @@ export type GetAgentRunnerSessionStatus200 = {
 		  }
 		| undefined;
 	/**
-	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it\'s answered or skipped.
+	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it's answered or skipped.
 	 * @type object | undefined
 	 */
 	interactions?:
@@ -14239,7 +14544,7 @@ export type UpdateAgentRunnerSessionStatus200 = {
 		  }
 		| undefined;
 	/**
-	 * @description The agent\'s summary of what it did.
+	 * @description The agent's summary of what it did.
 	 * @type string | undefined
 	 */
 	result?: string | undefined;
@@ -14247,7 +14552,7 @@ export type UpdateAgentRunnerSessionStatus200 = {
 	commit_sha?: string | undefined;
 	deploy_id?: string | undefined;
 	/**
-	 * @description URL of the session\'s deploy preview.
+	 * @description URL of the session's deploy preview.
 	 * @type string | undefined
 	 */
 	deploy_url?: string | undefined;
@@ -14267,7 +14572,7 @@ export type UpdateAgentRunnerSessionStatus200 = {
 		  }
 		| undefined;
 	/**
-	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it\'s answered or skipped.
+	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it's answered or skipped.
 	 * @type object | undefined
 	 */
 	interactions?:
@@ -14458,7 +14763,7 @@ export type AnswerAgentRunnerSessionStatus200 = {
 		  }
 		| undefined;
 	/**
-	 * @description The agent\'s summary of what it did.
+	 * @description The agent's summary of what it did.
 	 * @type string | undefined
 	 */
 	result?: string | undefined;
@@ -14466,7 +14771,7 @@ export type AnswerAgentRunnerSessionStatus200 = {
 	commit_sha?: string | undefined;
 	deploy_id?: string | undefined;
 	/**
-	 * @description URL of the session\'s deploy preview.
+	 * @description URL of the session's deploy preview.
 	 * @type string | undefined
 	 */
 	deploy_url?: string | undefined;
@@ -14486,7 +14791,7 @@ export type AnswerAgentRunnerSessionStatus200 = {
 		  }
 		| undefined;
 	/**
-	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it\'s answered or skipped.
+	 * @description Questions and requests from the agent, keyed by reference ID. A pending one pauses the session in `await_input` until it's answered or skipped.
 	 * @type object | undefined
 	 */
 	interactions?:
@@ -14594,12 +14899,12 @@ export type AnswerAgentRunnerSessionStatusDefault = {
 
 export type AnswerAgentRunnerSessionBody = {
 	/**
-	 * @description Key of the pending interaction in the session\'s `interactions`.
+	 * @description Key of the pending interaction in the session's `interactions`.
 	 * @type string
 	 */
 	refId: string;
 	/**
-	 * @description One entry per question in the interaction\'s `payload`: a string, an array of strings for a multi-select question, or null to skip that question.
+	 * @description One entry per question in the interaction's `payload`: a string, an array of strings for a multi-select question, or null to skip that question.
 	 * @type array | undefined
 	 */
 	response?: unknown[] | undefined;
@@ -17241,7 +17546,7 @@ export type CreateSiteDatabaseStatusDefault = {
 export type CreateSiteDatabaseBody =
 	| {
 			/**
-			 * @description The region where the database should be created. Defaults to the site\'s functions region if not specified.
+			 * @description The region where the database should be created. Defaults to the site's functions region if not specified.
 			 * @type string | undefined
 			 */
 			region?: string | undefined;
@@ -17815,7 +18120,7 @@ export type ResetSiteDatabaseBranchStatusDefault = {
 export type ResetSiteDatabaseBranchBody =
 	| {
 			/**
-			 * @description The ID of the branch to re-fork the target branch from. Defaults to \"production\" if not specified.
+			 * @description The ID of the branch to re-fork the target branch from. Defaults to "production" if not specified.
 			 * @type string | undefined
 			 */
 			source_branch_id?: string | undefined;
@@ -18141,7 +18446,7 @@ export type ListSiteDatabaseMigrationsPath = {
 
 export type ListSiteDatabaseMigrationsQuery = {
 	/**
-	 * @description The branch ID to list migrations for. Defaults to \"production\" if not specified.
+	 * @description The branch ID to list migrations for. Defaults to "production" if not specified.
 	 * @type string | undefined
 	 */
 	branch?: string | undefined;
@@ -18228,7 +18533,7 @@ export type GetSiteDatabaseMigrationPath = {
 
 export type GetSiteDatabaseMigrationQuery = {
 	/**
-	 * @description The branch ID to look up the migration on. Defaults to the currently published deploy\'s branch.
+	 * @description The branch ID to look up the migration on. Defaults to the currently published deploy's branch.
 	 * @type string | undefined
 	 */
 	branch?: string | undefined;
@@ -18440,7 +18745,7 @@ export type CreateSiteDatabaseSnapshotStatusDefault = {
 export type CreateSiteDatabaseSnapshotBody =
 	| {
 			/**
-			 * @description The ID of the branch to snapshot. Defaults to \"production\" if not specified.
+			 * @description The ID of the branch to snapshot. Defaults to "production" if not specified.
 			 * @type string | undefined
 			 */
 			branch_id?: string | undefined;
@@ -18661,7 +18966,7 @@ export type RestoreSiteDatabaseSnapshotStatusDefault = {
 export type RestoreSiteDatabaseSnapshotBody =
 	| {
 			/**
-			 * @description The ID of the branch to restore the snapshot to. Defaults to \"production\" if not specified.
+			 * @description The ID of the branch to restore the snapshot to. Defaults to "production" if not specified.
 			 * @type string | undefined
 			 */
 			branch_id?: string | undefined;

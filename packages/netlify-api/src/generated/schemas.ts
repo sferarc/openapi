@@ -2347,6 +2347,13 @@ export const listSitesResponseSchema = listSitesStatus200Schema;
 
 export const listSitesErrorSchema = listSitesStatusDefaultSchema;
 
+export const listSitesQuerySchema = z.object({
+	name: z.string().optional(),
+	filter: z.enum(["all", "owner", "guest"]).optional(),
+	page: z.int32().optional(),
+	per_page: z.int32().optional(),
+});
+
 export const createSiteQueryConfigureDnsSchema = z.boolean().optional();
 
 export const createSiteStatus201Schema = z.object({
@@ -2701,6 +2708,10 @@ export const createSiteBodySchema = z
 			.optional(),
 	});
 
+export const createSiteQuerySchema = z.object({
+	configure_dns: z.boolean().optional(),
+});
+
 export const getSitePathSiteIdSchema = z.string();
 
 export const getSiteQueryFeatureFlagsSchema = z.string().optional();
@@ -2866,6 +2877,14 @@ export const getSiteStatusDefaultSchema = z.object({
 export const getSiteResponseSchema = getSiteStatus200Schema;
 
 export const getSiteErrorSchema = getSiteStatusDefaultSchema;
+
+export const getSitePathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const getSiteQuerySchema = z.object({
+	feature_flags: z.string().optional(),
+});
 
 export const updateSitePathSiteIdSchema = z.string();
 
@@ -3221,6 +3240,10 @@ export const updateSiteBodySchema = z
 			.optional(),
 	});
 
+export const updateSitePathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const deleteSitePathSiteIdSchema = z.string();
 
 export const deleteSiteStatus204Schema = z.unknown();
@@ -3233,6 +3256,10 @@ export const deleteSiteStatusDefaultSchema = z.object({
 export const deleteSiteResponseSchema = deleteSiteStatus204Schema;
 
 export const deleteSiteErrorSchema = deleteSiteStatusDefaultSchema;
+
+export const deleteSitePathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const provisionSiteTLSCertificatePathSiteIdSchema = z.string();
 
@@ -3273,6 +3300,25 @@ export const provisionSiteTLSCertificateErrorSchema = z.union([
 	provisionSiteTLSCertificateStatusDefaultSchema,
 ]);
 
+export const provisionSiteTLSCertificatePathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const provisionSiteTLSCertificateQuerySchema = z.object({
+	certificate: z
+		.string()
+		.optional()
+		.describe("PEM-encoded certificate. Required when updating an existing certificate."),
+	key: z
+		.string()
+		.optional()
+		.describe("PEM-encoded private key. Required when updating an existing certificate."),
+	ca_certificates: z
+		.string()
+		.optional()
+		.describe("PEM-encoded CA certificate chain. Required when updating an existing certificate."),
+});
+
 export const showSiteTLSCertificatePathSiteIdSchema = z.string();
 
 export const showSiteTLSCertificateStatus200Schema = z.object({
@@ -3291,6 +3337,10 @@ export const showSiteTLSCertificateStatusDefaultSchema = z.object({
 export const showSiteTLSCertificateResponseSchema = showSiteTLSCertificateStatus200Schema;
 
 export const showSiteTLSCertificateErrorSchema = showSiteTLSCertificateStatusDefaultSchema;
+
+export const showSiteTLSCertificatePathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const getAllCertificatesPathSiteIdSchema = z.string();
 
@@ -3316,6 +3366,14 @@ export const getAllCertificatesErrorSchema = z.union([
 	getAllCertificatesStatus404Schema,
 	getAllCertificatesStatus422Schema,
 ]);
+
+export const getAllCertificatesPathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const getAllCertificatesQuerySchema = z.object({
+	domain: z.string(),
+});
 
 export const getEnvVarsPathAccountIdSchema = z.string().describe("Scope response to account_id");
 
@@ -3405,6 +3463,25 @@ export const getEnvVarsStatusDefaultSchema = z.object({
 export const getEnvVarsResponseSchema = getEnvVarsStatus200Schema;
 
 export const getEnvVarsErrorSchema = getEnvVarsStatusDefaultSchema;
+
+export const getEnvVarsPathSchema = z.object({
+	account_id: z.string().describe("Scope response to account_id"),
+});
+
+export const getEnvVarsQuerySchema = z.object({
+	context_name: z
+		.enum(["all", "dev", "dev-server", "branch-deploy", "deploy-preview", "production"])
+		.optional()
+		.describe("Filter by deploy context"),
+	scope: z
+		.enum(["builds", "functions", "runtime", "post-processing"])
+		.optional()
+		.describe("Filter by scope"),
+	site_id: z
+		.string()
+		.optional()
+		.describe("If specified, only return environment variables set on this site"),
+});
 
 export const createEnvVarsPathAccountIdSchema = z.string().describe("Scope response to account_id");
 
@@ -3537,6 +3614,19 @@ export const createEnvVarsBodySchema = z
 	)
 	.optional();
 
+export const createEnvVarsPathSchema = z.object({
+	account_id: z.string().describe("Scope response to account_id"),
+});
+
+export const createEnvVarsQuerySchema = z.object({
+	site_id: z
+		.string()
+		.optional()
+		.describe(
+			"If provided, create an environment variable on the site level, not the account level",
+		),
+});
+
 export const getSiteEnvVarsQueryContextNameSchema = z
 	.enum(["all", "dev", "dev-server", "branch-deploy", "deploy-preview", "production"])
 	.optional()
@@ -3620,6 +3710,21 @@ export const getSiteEnvVarsStatusDefaultSchema = z.object({
 export const getSiteEnvVarsResponseSchema = getSiteEnvVarsStatus200Schema;
 
 export const getSiteEnvVarsErrorSchema = getSiteEnvVarsStatusDefaultSchema;
+
+export const getSiteEnvVarsPathSchema = z.object({
+	site_id: z.string().describe("Scope response to site_id"),
+});
+
+export const getSiteEnvVarsQuerySchema = z.object({
+	context_name: z
+		.enum(["all", "dev", "dev-server", "branch-deploy", "deploy-preview", "production"])
+		.optional()
+		.describe("Filter by deploy context"),
+	scope: z
+		.enum(["builds", "functions", "runtime", "post_processing"])
+		.optional()
+		.describe("Filter by scope"),
+});
 
 export const getEnvVarPathAccountIdSchema = z.string().describe("Scope response to account_id");
 
@@ -3705,6 +3810,20 @@ export const getEnvVarStatusDefaultSchema = z.object({
 export const getEnvVarResponseSchema = getEnvVarStatus200Schema;
 
 export const getEnvVarErrorSchema = getEnvVarStatusDefaultSchema;
+
+export const getEnvVarPathSchema = z.object({
+	account_id: z.string().describe("Scope response to account_id"),
+	key: z.string().describe("The environment variable key (case-sensitive)"),
+});
+
+export const getEnvVarQuerySchema = z.object({
+	site_id: z
+		.string()
+		.optional()
+		.describe(
+			"If provided, return the environment variable for a specific site (no merging is performed)",
+		),
+});
 
 export const updateEnvVarPathAccountIdSchema = z.string().describe("Scope response to account_id");
 
@@ -3839,6 +3958,18 @@ export const updateEnvVarBodySchema = z
 	})
 	.optional();
 
+export const updateEnvVarPathSchema = z.object({
+	account_id: z.string().describe("Scope response to account_id"),
+	key: z.string().describe("The existing environment variable key name (case-sensitive)"),
+});
+
+export const updateEnvVarQuerySchema = z.object({
+	site_id: z
+		.string()
+		.optional()
+		.describe("If provided, update an environment variable set on this site"),
+});
+
 export const setEnvVarValuePathAccountIdSchema = z
 	.string()
 	.describe("Scope response to account_id");
@@ -3942,6 +4073,18 @@ export const setEnvVarValueBodySchema = z
 	})
 	.optional();
 
+export const setEnvVarValuePathSchema = z.object({
+	account_id: z.string().describe("Scope response to account_id"),
+	key: z.string().describe("The existing environment variable key name (case-sensitive)"),
+});
+
+export const setEnvVarValueQuerySchema = z.object({
+	site_id: z
+		.string()
+		.optional()
+		.describe("If provided, update an environment variable set on this site"),
+});
+
 export const deleteEnvVarPathAccountIdSchema = z.string().describe("Scope response to account_id");
 
 export const deleteEnvVarPathKeySchema = z
@@ -3963,6 +4106,18 @@ export const deleteEnvVarStatusDefaultSchema = z.object({
 export const deleteEnvVarResponseSchema = deleteEnvVarStatus204Schema;
 
 export const deleteEnvVarErrorSchema = deleteEnvVarStatusDefaultSchema;
+
+export const deleteEnvVarPathSchema = z.object({
+	account_id: z.string().describe("Scope response to account_id"),
+	key: z.string().describe("The environment variable key (case-sensitive)"),
+});
+
+export const deleteEnvVarQuerySchema = z.object({
+	site_id: z
+		.string()
+		.optional()
+		.describe("If provided, delete the environment variable from this site"),
+});
 
 export const deleteEnvVarValuePathAccountIdSchema = z
 	.string()
@@ -3992,6 +4147,19 @@ export const deleteEnvVarValueResponseSchema = deleteEnvVarValueStatus204Schema;
 
 export const deleteEnvVarValueErrorSchema = deleteEnvVarValueStatusDefaultSchema;
 
+export const deleteEnvVarValuePathSchema = z.object({
+	account_id: z.string().describe("Scope response to account_id"),
+	id: z.string().describe("The environment variable value's ID"),
+	key: z.string().describe("The environment variable key name (case-sensitive)"),
+});
+
+export const deleteEnvVarValueQuerySchema = z.object({
+	site_id: z
+		.string()
+		.optional()
+		.describe("If provided, delete the value from an environment variable on this site"),
+});
+
 export const searchSiteFunctionsPathSiteIdSchema = z.string();
 
 export const searchSiteFunctionsQueryFilterSchema = z.string().optional();
@@ -4016,6 +4184,14 @@ export const searchSiteFunctionsResponseSchema = searchSiteFunctionsStatus200Sch
 
 export const searchSiteFunctionsErrorSchema = searchSiteFunctionsStatusDefaultSchema;
 
+export const searchSiteFunctionsPathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const searchSiteFunctionsQuerySchema = z.object({
+	filter: z.string().optional(),
+});
+
 export const listSiteFormsPathSiteIdSchema = z.string();
 
 export const listSiteFormsStatus200Schema = z.array(
@@ -4039,6 +4215,10 @@ export const listSiteFormsResponseSchema = listSiteFormsStatus200Schema;
 
 export const listSiteFormsErrorSchema = listSiteFormsStatusDefaultSchema;
 
+export const listSiteFormsPathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const deleteSiteFormPathSiteIdSchema = z.string();
 
 export const deleteSiteFormPathFormIdSchema = z.string();
@@ -4053,6 +4233,11 @@ export const deleteSiteFormStatusDefaultSchema = z.object({
 export const deleteSiteFormResponseSchema = deleteSiteFormStatus204Schema;
 
 export const deleteSiteFormErrorSchema = deleteSiteFormStatusDefaultSchema;
+
+export const deleteSiteFormPathSchema = z.object({
+	site_id: z.string(),
+	form_id: z.string(),
+});
 
 export const listSiteSubmissionsPathSiteIdSchema = z.string();
 
@@ -4086,6 +4271,15 @@ export const listSiteSubmissionsResponseSchema = listSiteSubmissionsStatus200Sch
 
 export const listSiteSubmissionsErrorSchema = listSiteSubmissionsStatusDefaultSchema;
 
+export const listSiteSubmissionsPathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const listSiteSubmissionsQuerySchema = z.object({
+	page: z.int32().optional(),
+	per_page: z.int32().optional(),
+});
+
 export const listSiteFilesPathSiteIdSchema = z.string();
 
 export const listSiteFilesStatus200Schema = z.array(
@@ -4106,6 +4300,10 @@ export const listSiteFilesStatusDefaultSchema = z.object({
 export const listSiteFilesResponseSchema = listSiteFilesStatus200Schema;
 
 export const listSiteFilesErrorSchema = listSiteFilesStatusDefaultSchema;
+
+export const listSiteFilesPathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const listSiteAssetsPathSiteIdSchema = z.string();
 
@@ -4134,6 +4332,10 @@ export const listSiteAssetsStatusDefaultSchema = z.object({
 export const listSiteAssetsResponseSchema = listSiteAssetsStatus200Schema;
 
 export const listSiteAssetsErrorSchema = listSiteAssetsStatusDefaultSchema;
+
+export const listSiteAssetsPathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const createSiteAssetPathSiteIdSchema = z.string();
 
@@ -4179,6 +4381,17 @@ export const createSiteAssetResponseSchema = createSiteAssetStatus201Schema;
 
 export const createSiteAssetErrorSchema = createSiteAssetStatusDefaultSchema;
 
+export const createSiteAssetPathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const createSiteAssetQuerySchema = z.object({
+	name: z.string(),
+	size: z.coerce.bigint(),
+	content_type: z.string(),
+	visibility: z.string().optional(),
+});
+
 export const getSiteAssetInfoPathSiteIdSchema = z.string();
 
 export const getSiteAssetInfoPathAssetIdSchema = z.string();
@@ -4206,6 +4419,11 @@ export const getSiteAssetInfoStatusDefaultSchema = z.object({
 export const getSiteAssetInfoResponseSchema = getSiteAssetInfoStatus200Schema;
 
 export const getSiteAssetInfoErrorSchema = getSiteAssetInfoStatusDefaultSchema;
+
+export const getSiteAssetInfoPathSchema = z.object({
+	site_id: z.string(),
+	asset_id: z.string(),
+});
 
 export const updateSiteAssetPathSiteIdSchema = z.string();
 
@@ -4237,6 +4455,15 @@ export const updateSiteAssetResponseSchema = updateSiteAssetStatus200Schema;
 
 export const updateSiteAssetErrorSchema = updateSiteAssetStatusDefaultSchema;
 
+export const updateSiteAssetPathSchema = z.object({
+	site_id: z.string(),
+	asset_id: z.string(),
+});
+
+export const updateSiteAssetQuerySchema = z.object({
+	state: z.string(),
+});
+
 export const deleteSiteAssetPathSiteIdSchema = z.string();
 
 export const deleteSiteAssetPathAssetIdSchema = z.string();
@@ -4251,6 +4478,11 @@ export const deleteSiteAssetStatusDefaultSchema = z.object({
 export const deleteSiteAssetResponseSchema = deleteSiteAssetStatus204Schema;
 
 export const deleteSiteAssetErrorSchema = deleteSiteAssetStatusDefaultSchema;
+
+export const deleteSiteAssetPathSchema = z.object({
+	site_id: z.string(),
+	asset_id: z.string(),
+});
 
 export const getSiteAssetPublicSignaturePathSiteIdSchema = z.string();
 
@@ -4269,6 +4501,11 @@ export const getSiteAssetPublicSignatureResponseSchema = getSiteAssetPublicSigna
 
 export const getSiteAssetPublicSignatureErrorSchema =
 	getSiteAssetPublicSignatureStatusDefaultSchema;
+
+export const getSiteAssetPublicSignaturePathSchema = z.object({
+	site_id: z.string(),
+	asset_id: z.string(),
+});
 
 export const getSiteFileByPathNamePathSiteIdSchema = z.string();
 
@@ -4290,6 +4527,11 @@ export const getSiteFileByPathNameStatusDefaultSchema = z.object({
 export const getSiteFileByPathNameResponseSchema = getSiteFileByPathNameStatus200Schema;
 
 export const getSiteFileByPathNameErrorSchema = getSiteFileByPathNameStatusDefaultSchema;
+
+export const getSiteFileByPathNamePathSchema = z.object({
+	site_id: z.string(),
+	file_path: z.string(),
+});
 
 export const purgeCacheStatus202Schema = z.unknown();
 
@@ -4333,6 +4575,10 @@ export const listSiteSnippetsResponseSchema = listSiteSnippetsStatus200Schema;
 
 export const listSiteSnippetsErrorSchema = listSiteSnippetsStatusDefaultSchema;
 
+export const listSiteSnippetsPathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const createSiteSnippetPathSiteIdSchema = z.string();
 
 export const createSiteSnippetStatus201Schema = z.object({
@@ -4364,6 +4610,10 @@ export const createSiteSnippetBodySchema = z.object({
 	goal_position: z.string().optional(),
 });
 
+export const createSiteSnippetPathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const getSiteSnippetPathSiteIdSchema = z.string();
 
 export const getSiteSnippetPathSnippetIdSchema = z.string();
@@ -4386,6 +4636,11 @@ export const getSiteSnippetStatusDefaultSchema = z.object({
 export const getSiteSnippetResponseSchema = getSiteSnippetStatus200Schema;
 
 export const getSiteSnippetErrorSchema = getSiteSnippetStatusDefaultSchema;
+
+export const getSiteSnippetPathSchema = z.object({
+	site_id: z.string(),
+	snippet_id: z.string(),
+});
 
 export const updateSiteSnippetPathSiteIdSchema = z.string();
 
@@ -4412,6 +4667,11 @@ export const updateSiteSnippetBodySchema = z.object({
 	goal_position: z.string().optional(),
 });
 
+export const updateSiteSnippetPathSchema = z.object({
+	site_id: z.string(),
+	snippet_id: z.string(),
+});
+
 export const deleteSiteSnippetPathSiteIdSchema = z.string();
 
 export const deleteSiteSnippetPathSnippetIdSchema = z.string();
@@ -4427,6 +4687,11 @@ export const deleteSiteSnippetResponseSchema = deleteSiteSnippetStatus204Schema;
 
 export const deleteSiteSnippetErrorSchema = deleteSiteSnippetStatusDefaultSchema;
 
+export const deleteSiteSnippetPathSchema = z.object({
+	site_id: z.string(),
+	snippet_id: z.string(),
+});
+
 export const getSiteMetadataPathSiteIdSchema = z.string();
 
 export const getSiteMetadataStatus200Schema = z.object({});
@@ -4439,6 +4704,10 @@ export const getSiteMetadataStatusDefaultSchema = z.object({
 export const getSiteMetadataResponseSchema = getSiteMetadataStatus200Schema;
 
 export const getSiteMetadataErrorSchema = getSiteMetadataStatusDefaultSchema;
+
+export const getSiteMetadataPathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const updateSiteMetadataPathSiteIdSchema = z.string();
 
@@ -4454,6 +4723,10 @@ export const updateSiteMetadataResponseSchema = updateSiteMetadataStatus204Schem
 export const updateSiteMetadataErrorSchema = updateSiteMetadataStatusDefaultSchema;
 
 export const updateSiteMetadataBodySchema = z.object({});
+
+export const updateSiteMetadataPathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const listSiteBuildHooksPathSiteIdSchema = z.string();
 
@@ -4476,6 +4749,10 @@ export const listSiteBuildHooksStatusDefaultSchema = z.object({
 export const listSiteBuildHooksResponseSchema = listSiteBuildHooksStatus200Schema;
 
 export const listSiteBuildHooksErrorSchema = listSiteBuildHooksStatusDefaultSchema;
+
+export const listSiteBuildHooksPathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const createSiteBuildHookPathSiteIdSchema = z.string();
 
@@ -4502,6 +4779,10 @@ export const createSiteBuildHookBodySchema = z.object({
 	branch: z.string().optional(),
 });
 
+export const createSiteBuildHookPathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const getSiteBuildHookPathSiteIdSchema = z.string();
 
 export const getSiteBuildHookPathIdSchema = z.string();
@@ -4524,6 +4805,11 @@ export const getSiteBuildHookResponseSchema = getSiteBuildHookStatus200Schema;
 
 export const getSiteBuildHookErrorSchema = getSiteBuildHookStatusDefaultSchema;
 
+export const getSiteBuildHookPathSchema = z.object({
+	site_id: z.string(),
+	id: z.string(),
+});
+
 export const updateSiteBuildHookPathSiteIdSchema = z.string();
 
 export const updateSiteBuildHookPathIdSchema = z.string();
@@ -4544,6 +4830,11 @@ export const updateSiteBuildHookBodySchema = z.object({
 	branch: z.string().optional(),
 });
 
+export const updateSiteBuildHookPathSchema = z.object({
+	site_id: z.string(),
+	id: z.string(),
+});
+
 export const deleteSiteBuildHookPathSiteIdSchema = z.string();
 
 export const deleteSiteBuildHookPathIdSchema = z.string();
@@ -4558,6 +4849,11 @@ export const deleteSiteBuildHookStatusDefaultSchema = z.object({
 export const deleteSiteBuildHookResponseSchema = deleteSiteBuildHookStatus204Schema;
 
 export const deleteSiteBuildHookErrorSchema = deleteSiteBuildHookStatusDefaultSchema;
+
+export const deleteSiteBuildHookPathSchema = z.object({
+	site_id: z.string(),
+	id: z.string(),
+});
 
 export const listSiteDeploysPathSiteIdSchema = z.string();
 
@@ -4671,6 +4967,38 @@ export const listSiteDeploysStatusDefaultSchema = z.object({
 export const listSiteDeploysResponseSchema = listSiteDeploysStatus200Schema;
 
 export const listSiteDeploysErrorSchema = listSiteDeploysStatusDefaultSchema;
+
+export const listSiteDeploysPathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const listSiteDeploysQuerySchema = z.object({
+	"deploy-previews": z.boolean().optional(),
+	production: z.boolean().optional(),
+	state: z
+		.enum([
+			"new",
+			"pending_review",
+			"accepted",
+			"rejected",
+			"enqueued",
+			"building",
+			"uploading",
+			"uploaded",
+			"preparing",
+			"prepared",
+			"processing",
+			"processed",
+			"ready",
+			"error",
+			"retrying",
+		])
+		.optional(),
+	branch: z.string().optional(),
+	"latest-published": z.boolean().optional(),
+	page: z.int32().optional(),
+	per_page: z.int32().optional(),
+});
 
 export const createSiteDeployPathSiteIdSchema = z.string();
 
@@ -4973,6 +5301,37 @@ export const createSiteDeployBodySchema = z
 		"Deploy files can be provided in two ways:\n1. As a JSON object using 'files' (a hash mapping file paths to SHA1 digests), OR\n2. As a zip file using one of these methods:\n   - Set Content-Type to 'application/zip' and send the zip file as the raw request body\n   - Include the zip file content in the 'zip' field of this JSON object with Content-Type 'application/json'\n",
 	);
 
+export const createSiteDeployPathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const createSiteDeployQuerySchema = z.object({
+	"deploy-previews": z.boolean().optional(),
+	production: z.boolean().optional(),
+	state: z
+		.enum([
+			"new",
+			"pending_review",
+			"accepted",
+			"rejected",
+			"enqueued",
+			"building",
+			"uploading",
+			"uploaded",
+			"preparing",
+			"prepared",
+			"processing",
+			"processed",
+			"ready",
+			"error",
+			"retrying",
+		])
+		.optional(),
+	branch: z.string().optional(),
+	"latest-published": z.boolean().optional(),
+	title: z.string().optional(),
+});
+
 export const getSiteDeployPathSiteIdSchema = z.string();
 
 export const getSiteDeployPathDeployIdSchema = z.string();
@@ -5053,6 +5412,11 @@ export const getSiteDeployStatusDefaultSchema = z.object({
 export const getSiteDeployResponseSchema = getSiteDeployStatus200Schema;
 
 export const getSiteDeployErrorSchema = getSiteDeployStatusDefaultSchema;
+
+export const getSiteDeployPathSchema = z.object({
+	site_id: z.string(),
+	deploy_id: z.string(),
+});
 
 export const updateSiteDeployPathSiteIdSchema = z.string();
 
@@ -5329,6 +5693,15 @@ export const updateSiteDeployBodySchema = z
 		"Deploy files can be provided in two ways:\n1. As a JSON object using 'files' (a hash mapping file paths to SHA1 digests), OR\n2. As a zip file using one of these methods:\n   - Set Content-Type to 'application/zip' and send the zip file as the raw request body\n   - Include the zip file content in the 'zip' field of this JSON object with Content-Type 'application/json'\n",
 	);
 
+export const updateSiteDeployPathSchema = z.object({
+	site_id: z.string(),
+	deploy_id: z.string(),
+});
+
+export const updateSiteDeployQuerySchema = z.object({
+	commit_ref: z.string().optional(),
+});
+
 export const deleteSiteDeployPathDeployIdSchema = z.string();
 
 export const deleteSiteDeployPathSiteIdSchema = z.string();
@@ -5343,6 +5716,11 @@ export const deleteSiteDeployStatusDefaultSchema = z.object({
 export const deleteSiteDeployResponseSchema = deleteSiteDeployStatus204Schema;
 
 export const deleteSiteDeployErrorSchema = deleteSiteDeployStatusDefaultSchema;
+
+export const deleteSiteDeployPathSchema = z.object({
+	deploy_id: z.string(),
+	site_id: z.string(),
+});
 
 export const cancelSiteDeployPathDeployIdSchema = z.string();
 
@@ -5422,6 +5800,10 @@ export const cancelSiteDeployStatusDefaultSchema = z.object({
 export const cancelSiteDeployResponseSchema = cancelSiteDeployStatus201Schema;
 
 export const cancelSiteDeployErrorSchema = cancelSiteDeployStatusDefaultSchema;
+
+export const cancelSiteDeployPathSchema = z.object({
+	deploy_id: z.string(),
+});
 
 export const restoreSiteDeployPathSiteIdSchema = z.string();
 
@@ -5504,6 +5886,11 @@ export const restoreSiteDeployResponseSchema = restoreSiteDeployStatus201Schema;
 
 export const restoreSiteDeployErrorSchema = restoreSiteDeployStatusDefaultSchema;
 
+export const restoreSiteDeployPathSchema = z.object({
+	site_id: z.string(),
+	deploy_id: z.string(),
+});
+
 export const listSiteBuildsPathSiteIdSchema = z.string();
 
 export const listSiteBuildsQueryPageSchema = z.int32().optional();
@@ -5529,6 +5916,15 @@ export const listSiteBuildsStatusDefaultSchema = z.object({
 export const listSiteBuildsResponseSchema = listSiteBuildsStatus200Schema;
 
 export const listSiteBuildsErrorSchema = listSiteBuildsStatusDefaultSchema;
+
+export const listSiteBuildsPathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const listSiteBuildsQuerySchema = z.object({
+	page: z.int32().optional(),
+	per_page: z.int32().optional(),
+});
 
 export const createSiteBuildPathSiteIdSchema = z.string();
 
@@ -5620,6 +6016,41 @@ export const createSiteBuildBodySchema = z
 	})
 	.optional();
 
+export const createSiteBuildPathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const createSiteBuildQuerySchema = z.object({
+	branch: z
+		.string()
+		.optional()
+		.describe(
+			"If no branch is specified, it is treated as a production deploy If a branch IS specified and matches the main branch, it is also production If a branch is specified and doesn't match the main branch, it is a branch deploy",
+		),
+	clear_cache: z.boolean().optional().describe("Whether to clear the build cache before building"),
+	commit_sha: z
+		.string()
+		.optional()
+		.describe(
+			"The commit SHA to build; when omitted, the head of the branch or pull request is fetched from the git host. Ignored for zip uploads",
+		),
+	draft: z
+		.boolean()
+		.optional()
+		.describe(
+			"Whether to create a draft deploy, which uses the deploy-preview context and is never published; review_id builds are always drafts",
+		),
+	image: z.string().optional().describe("The build image tag to use for the build"),
+	review_id: z
+		.int()
+		.optional()
+		.describe(
+			"The merge/pull request ID to build; triggers a deploy preview. Ignored for zip uploads",
+		),
+	template_id: z.string().optional().describe("The build template to use for the build"),
+	title: z.string().optional().describe("The title of the build"),
+});
+
 export const listSiteDeployedBranchesPathSiteIdSchema = z.string();
 
 export const listSiteDeployedBranchesStatus200Schema = z.array(
@@ -5641,6 +6072,10 @@ export const listSiteDeployedBranchesStatusDefaultSchema = z.object({
 export const listSiteDeployedBranchesResponseSchema = listSiteDeployedBranchesStatus200Schema;
 
 export const listSiteDeployedBranchesErrorSchema = listSiteDeployedBranchesStatusDefaultSchema;
+
+export const listSiteDeployedBranchesPathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const unlinkSiteRepoPathSiteIdSchema = z.string();
 
@@ -5803,6 +6238,10 @@ export const unlinkSiteRepoResponseSchema = unlinkSiteRepoStatus200Schema;
 
 export const unlinkSiteRepoErrorSchema = unlinkSiteRepoStatus404Schema;
 
+export const unlinkSiteRepoPathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const enableSitePathSiteIdSchema = z.string();
 
 export const enableSiteStatus204Schema = z.unknown();
@@ -5824,6 +6263,10 @@ export const enableSiteErrorSchema = z.union([
 	enableSiteStatusDefaultSchema,
 ]);
 
+export const enableSitePathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const disableSitePathSiteIdSchema = z.string();
 
 export const disableSiteQueryReasonSchema = z.string().describe("Reason for disabling the site");
@@ -5838,6 +6281,14 @@ export const disableSiteStatusDefaultSchema = z.object({
 export const disableSiteResponseSchema = disableSiteStatus204Schema;
 
 export const disableSiteErrorSchema = disableSiteStatusDefaultSchema;
+
+export const disableSitePathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const disableSiteQuerySchema = z.object({
+	reason: z.string().describe("Reason for disabling the site"),
+});
 
 export const getSiteBuildPathBuildIdSchema = z.string();
 
@@ -5858,6 +6309,10 @@ export const getSiteBuildStatusDefaultSchema = z.object({
 export const getSiteBuildResponseSchema = getSiteBuildStatus200Schema;
 
 export const getSiteBuildErrorSchema = getSiteBuildStatusDefaultSchema;
+
+export const getSiteBuildPathSchema = z.object({
+	build_id: z.string(),
+});
 
 export const updateSiteBuildLogPathBuildIdSchema = z.string();
 
@@ -5880,6 +6335,10 @@ export const updateSiteBuildLogBodySchema = z.object({
 		.optional(),
 });
 
+export const updateSiteBuildLogPathSchema = z.object({
+	build_id: z.string(),
+});
+
 export const notifyBuildStartPathBuildIdSchema = z.string();
 
 export const notifyBuildStartQueryBuildbotVersionSchema = z.string().optional();
@@ -5898,6 +6357,16 @@ export const notifyBuildStartStatusDefaultSchema = z.object({
 export const notifyBuildStartResponseSchema = notifyBuildStartStatus204Schema;
 
 export const notifyBuildStartErrorSchema = notifyBuildStartStatusDefaultSchema;
+
+export const notifyBuildStartPathSchema = z.object({
+	build_id: z.string(),
+});
+
+export const notifyBuildStartQuerySchema = z.object({
+	buildbot_version: z.string().optional(),
+	build_version: z.string().optional(),
+	task_id: z.string().optional(),
+});
 
 export const getAccountBuildStatusPathAccountIdSchema = z.string();
 
@@ -5930,6 +6399,10 @@ export const getAccountBuildStatusStatusDefaultSchema = z.object({
 export const getAccountBuildStatusResponseSchema = getAccountBuildStatusStatus200Schema;
 
 export const getAccountBuildStatusErrorSchema = getAccountBuildStatusStatusDefaultSchema;
+
+export const getAccountBuildStatusPathSchema = z.object({
+	account_id: z.string(),
+});
 
 export const getDNSForSitePathSiteIdSchema = z.string();
 
@@ -5979,6 +6452,10 @@ export const getDNSForSiteResponseSchema = getDNSForSiteStatus200Schema;
 
 export const getDNSForSiteErrorSchema = getDNSForSiteStatusDefaultSchema;
 
+export const getDNSForSitePathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const configureDNSForSitePathSiteIdSchema = z.string();
 
 export const configureDNSForSiteStatus200Schema = z.array(
@@ -6027,6 +6504,10 @@ export const configureDNSForSiteResponseSchema = configureDNSForSiteStatus200Sch
 
 export const configureDNSForSiteErrorSchema = configureDNSForSiteStatusDefaultSchema;
 
+export const configureDNSForSitePathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const rollbackSiteDeployPathSiteIdSchema = z.string();
 
 export const rollbackSiteDeployStatus204Schema = z.unknown();
@@ -6039,6 +6520,10 @@ export const rollbackSiteDeployStatusDefaultSchema = z.object({
 export const rollbackSiteDeployResponseSchema = rollbackSiteDeployStatus204Schema;
 
 export const rollbackSiteDeployErrorSchema = rollbackSiteDeployStatusDefaultSchema;
+
+export const rollbackSiteDeployPathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const getDeployPathDeployIdSchema = z.string();
 
@@ -6119,6 +6604,10 @@ export const getDeployResponseSchema = getDeployStatus200Schema;
 
 export const getDeployErrorSchema = getDeployStatusDefaultSchema;
 
+export const getDeployPathSchema = z.object({
+	deploy_id: z.string(),
+});
+
 export const deleteDeployPathDeployIdSchema = z.string();
 
 export const deleteDeployStatus204Schema = z.unknown();
@@ -6131,6 +6620,10 @@ export const deleteDeployStatusDefaultSchema = z.object({
 export const deleteDeployResponseSchema = deleteDeployStatus204Schema;
 
 export const deleteDeployErrorSchema = deleteDeployStatusDefaultSchema;
+
+export const deleteDeployPathSchema = z.object({
+	deploy_id: z.string(),
+});
 
 export const updateDeployValidationsPathDeployIdSchema = z
 	.string()
@@ -6154,6 +6647,10 @@ export const updateDeployValidationsResponseSchema = updateDeployValidationsStat
 
 export const updateDeployValidationsBodySchema = z.object({
 	secrets_scan: z.object({}).optional(),
+});
+
+export const updateDeployValidationsPathSchema = z.object({
+	deploy_id: z.string().describe("The ID of the deploy"),
 });
 
 export const lockDeployPathDeployIdSchema = z.string();
@@ -6235,6 +6732,10 @@ export const lockDeployResponseSchema = lockDeployStatus200Schema;
 
 export const lockDeployErrorSchema = lockDeployStatusDefaultSchema;
 
+export const lockDeployPathSchema = z.object({
+	deploy_id: z.string(),
+});
+
 export const unlockDeployPathDeployIdSchema = z.string();
 
 export const unlockDeployStatus200Schema = z.object({
@@ -6314,6 +6815,10 @@ export const unlockDeployResponseSchema = unlockDeployStatus200Schema;
 
 export const unlockDeployErrorSchema = unlockDeployStatusDefaultSchema;
 
+export const unlockDeployPathSchema = z.object({
+	deploy_id: z.string(),
+});
+
 export const uploadDeployFilePathDeployIdSchema = z.string();
 
 export const uploadDeployFilePathPathSchema = z.string();
@@ -6338,6 +6843,15 @@ export const uploadDeployFileResponseSchema = uploadDeployFileStatus200Schema;
 export const uploadDeployFileErrorSchema = uploadDeployFileStatusDefaultSchema;
 
 export const uploadDeployFileBodySchema = z.instanceof(File);
+
+export const uploadDeployFilePathSchema = z.object({
+	deploy_id: z.string(),
+	path: z.string(),
+});
+
+export const uploadDeployFileQuerySchema = z.object({
+	size: z.int().optional(),
+});
 
 export const uploadDeployFunctionPathDeployIdSchema = z.string();
 
@@ -6371,6 +6885,22 @@ export const uploadDeployFunctionErrorSchema = uploadDeployFunctionStatusDefault
 
 export const uploadDeployFunctionBodySchema = z.instanceof(File);
 
+export const uploadDeployFunctionPathSchema = z.object({
+	deploy_id: z.string(),
+	name: z.string(),
+});
+
+export const uploadDeployFunctionQuerySchema = z.object({
+	runtime: z.string().optional(),
+	invocation_mode: z.string().optional(),
+	timeout: z.int().optional(),
+	size: z.int().optional(),
+});
+
+export const uploadDeployFunctionHeadersSchema = z.object({
+	"X-Nf-Retry-Count": z.int().optional(),
+});
+
 export const uploadDeployServerPathDeployIdSchema = z.string();
 
 export const uploadDeployServerPathCodeShaSchema = z.string();
@@ -6392,6 +6922,19 @@ export const uploadDeployServerErrorSchema = uploadDeployServerStatusDefaultSche
 
 export const uploadDeployServerBodySchema = z.instanceof(File);
 
+export const uploadDeployServerPathSchema = z.object({
+	deploy_id: z.string(),
+	code_sha: z.string(),
+});
+
+export const uploadDeployServerQuerySchema = z.object({
+	size: z.int().optional(),
+});
+
+export const uploadDeployServerHeadersSchema = z.object({
+	"X-Nf-Retry-Count": z.int().optional(),
+});
+
 export const uploadDeployEdgeFunctionPathDeployIdSchema = z.string();
 
 export const uploadDeployEdgeFunctionPathCodeShaSchema = z.string();
@@ -6410,6 +6953,15 @@ export const uploadDeployEdgeFunctionResponseSchema = uploadDeployEdgeFunctionSt
 export const uploadDeployEdgeFunctionErrorSchema = uploadDeployEdgeFunctionStatusDefaultSchema;
 
 export const uploadDeployEdgeFunctionBodySchema = z.instanceof(File);
+
+export const uploadDeployEdgeFunctionPathSchema = z.object({
+	deploy_id: z.string(),
+	code_sha: z.string(),
+});
+
+export const uploadDeployEdgeFunctionHeadersSchema = z.object({
+	"X-Nf-Retry-Count": z.int().optional(),
+});
 
 export const getLatestPluginRunsPathSiteIdSchema = z.string();
 
@@ -6441,6 +6993,15 @@ export const getLatestPluginRunsStatusDefaultSchema = z.object({
 export const getLatestPluginRunsResponseSchema = getLatestPluginRunsStatus200Schema;
 
 export const getLatestPluginRunsErrorSchema = getLatestPluginRunsStatusDefaultSchema;
+
+export const getLatestPluginRunsPathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const getLatestPluginRunsQuerySchema = z.object({
+	packages: z.array(z.string()),
+	state: z.string().optional(),
+});
 
 export const createPluginRunPathDeployIdSchema = z.string();
 
@@ -6479,6 +7040,10 @@ export const createPluginRunBodySchema = z
 	})
 	.optional();
 
+export const createPluginRunPathSchema = z.object({
+	deploy_id: z.string(),
+});
+
 export const listFormSubmissionsPathFormIdSchema = z.string();
 
 export const listFormSubmissionsQueryPageSchema = z.int32().optional();
@@ -6510,6 +7075,15 @@ export const listFormSubmissionsStatusDefaultSchema = z.object({
 export const listFormSubmissionsResponseSchema = listFormSubmissionsStatus200Schema;
 
 export const listFormSubmissionsErrorSchema = listFormSubmissionsStatusDefaultSchema;
+
+export const listFormSubmissionsPathSchema = z.object({
+	form_id: z.string(),
+});
+
+export const listFormSubmissionsQuerySchema = z.object({
+	page: z.int32().optional(),
+	per_page: z.int32().optional(),
+});
 
 export const listHooksBySiteIdQuerySiteIdSchema = z.string();
 
@@ -6545,6 +7119,12 @@ export const listHooksBySiteIdResponseSchema = listHooksBySiteIdStatus200Schema;
 
 export const listHooksBySiteIdErrorSchema = listHooksBySiteIdStatusDefaultSchema;
 
+export const listHooksBySiteIdQuerySchema = z.object({
+	site_id: z.string(),
+	form_id: z.string().optional().describe("Only return hooks attached to this form."),
+	event: z.string().optional().describe("Only return hooks for this event name."),
+});
+
 export const createHookBySiteIdQuerySiteIdSchema = z.string();
 
 export const createHookBySiteIdStatus201Schema = z.object({
@@ -6578,6 +7158,10 @@ export const createHookBySiteIdBodySchema = z.object({
 	disabled: z.boolean().optional(),
 });
 
+export const createHookBySiteIdQuerySchema = z.object({
+	site_id: z.string(),
+});
+
 export const getHookPathHookIdSchema = z.string();
 
 export const getHookStatus200Schema = z.object({
@@ -6599,6 +7183,10 @@ export const getHookStatusDefaultSchema = z.object({
 export const getHookResponseSchema = getHookStatus200Schema;
 
 export const getHookErrorSchema = getHookStatusDefaultSchema;
+
+export const getHookPathSchema = z.object({
+	hook_id: z.string(),
+});
 
 export const updateHookPathHookIdSchema = z.string();
 
@@ -6633,11 +7221,19 @@ export const updateHookBodySchema = z.object({
 	disabled: z.boolean().optional(),
 });
 
+export const updateHookPathSchema = z.object({
+	hook_id: z.string(),
+});
+
 export const deleteHookPathHookIdSchema = z.string();
 
 export const deleteHookStatus204Schema = z.unknown();
 
 export const deleteHookResponseSchema = deleteHookStatus204Schema;
+
+export const deleteHookPathSchema = z.object({
+	hook_id: z.string(),
+});
 
 export const enableHookPathHookIdSchema = z.string();
 
@@ -6661,6 +7257,10 @@ export const enableHookResponseSchema = enableHookStatus200Schema;
 
 export const enableHookErrorSchema = enableHookStatusDefaultSchema;
 
+export const enableHookPathSchema = z.object({
+	hook_id: z.string(),
+});
+
 export const listHookTypesQuerySiteIdSchema = z
 	.string()
 	.optional()
@@ -6682,6 +7282,10 @@ export const listHookTypesStatusDefaultSchema = z.object({
 export const listHookTypesResponseSchema = listHookTypesStatus200Schema;
 
 export const listHookTypesErrorSchema = listHookTypesStatusDefaultSchema;
+
+export const listHookTypesQuerySchema = z.object({
+	site_id: z.string().optional().describe("Only return the hook types available to this site."),
+});
 
 export const createTicketQueryClientIdSchema = z.string();
 
@@ -6721,6 +7325,10 @@ export const createTicketBodySchema = z
 	})
 	.optional();
 
+export const createTicketQuerySchema = z.object({
+	client_id: z.string(),
+});
+
 export const showTicketPathTicketIdSchema = z.string();
 
 export const showTicketStatus200Schema = z.object({
@@ -6738,6 +7346,10 @@ export const showTicketStatusDefaultSchema = z.object({
 export const showTicketResponseSchema = showTicketStatus200Schema;
 
 export const showTicketErrorSchema = showTicketStatusDefaultSchema;
+
+export const showTicketPathSchema = z.object({
+	ticket_id: z.string(),
+});
 
 export const exchangeTicketPathTicketIdSchema = z.string();
 
@@ -6757,6 +7369,10 @@ export const exchangeTicketStatusDefaultSchema = z.object({
 export const exchangeTicketResponseSchema = exchangeTicketStatus201Schema;
 
 export const exchangeTicketErrorSchema = exchangeTicketStatusDefaultSchema;
+
+export const exchangeTicketPathSchema = z.object({
+	ticket_id: z.string(),
+});
 
 export const listDeployKeysStatus200Schema = z.array(
 	z.object({
@@ -6807,6 +7423,10 @@ export const getDeployKeyResponseSchema = getDeployKeyStatus200Schema;
 
 export const getDeployKeyErrorSchema = getDeployKeyStatusDefaultSchema;
 
+export const getDeployKeyPathSchema = z.object({
+	key_id: z.string(),
+});
+
 export const deleteDeployKeyPathKeyIdSchema = z.string();
 
 export const deleteDeployKeyStatus204Schema = z.unknown();
@@ -6819,6 +7439,10 @@ export const deleteDeployKeyStatusDefaultSchema = z.object({
 export const deleteDeployKeyResponseSchema = deleteDeployKeyStatus204Schema;
 
 export const deleteDeployKeyErrorSchema = deleteDeployKeyStatusDefaultSchema;
+
+export const deleteDeployKeyPathSchema = z.object({
+	key_id: z.string(),
+});
 
 export const createSiteInTeamQueryConfigureDnsSchema = z.boolean().optional();
 
@@ -7177,6 +7801,14 @@ export const createSiteInTeamBodySchema = z
 	})
 	.optional();
 
+export const createSiteInTeamPathSchema = z.object({
+	account_slug: z.string(),
+});
+
+export const createSiteInTeamQuerySchema = z.object({
+	configure_dns: z.boolean().optional(),
+});
+
 export const listSitesForAccountQueryNameSchema = z.string().optional();
 
 export const listSitesForAccountPathAccountSlugSchema = z.string();
@@ -7349,6 +7981,16 @@ export const listSitesForAccountResponseSchema = listSitesForAccountStatus200Sch
 
 export const listSitesForAccountErrorSchema = listSitesForAccountStatusDefaultSchema;
 
+export const listSitesForAccountPathSchema = z.object({
+	account_slug: z.string(),
+});
+
+export const listSitesForAccountQuerySchema = z.object({
+	name: z.string().optional(),
+	page: z.int32().optional(),
+	per_page: z.int32().optional(),
+});
+
 export const listMembersForAccountPathAccountSlugSchema = z.string();
 
 export const listMembersForAccountStatus200Schema = z.array(
@@ -7369,6 +8011,10 @@ export const listMembersForAccountStatusDefaultSchema = z.object({
 export const listMembersForAccountResponseSchema = listMembersForAccountStatus200Schema;
 
 export const listMembersForAccountErrorSchema = listMembersForAccountStatusDefaultSchema;
+
+export const listMembersForAccountPathSchema = z.object({
+	account_slug: z.string(),
+});
 
 export const addMemberToAccountPathAccountSlugSchema = z.string();
 
@@ -7396,6 +8042,10 @@ export const addMemberToAccountBodySchema = z.object({
 	email: z.string().optional(),
 });
 
+export const addMemberToAccountPathSchema = z.object({
+	account_slug: z.string(),
+});
+
 export const getAccountMemberPathAccountSlugSchema = z.string();
 
 export const getAccountMemberPathMemberIdSchema = z.string();
@@ -7416,6 +8066,11 @@ export const getAccountMemberStatusDefaultSchema = z.object({
 export const getAccountMemberResponseSchema = getAccountMemberStatus200Schema;
 
 export const getAccountMemberErrorSchema = getAccountMemberStatusDefaultSchema;
+
+export const getAccountMemberPathSchema = z.object({
+	account_slug: z.string(),
+	member_id: z.string(),
+});
 
 export const updateAccountMemberPathAccountSlugSchema = z.string();
 
@@ -7444,6 +8099,11 @@ export const updateAccountMemberBodySchema = z.object({
 	site_ids: z.array(z.string()).optional(),
 });
 
+export const updateAccountMemberPathSchema = z.object({
+	account_slug: z.string(),
+	member_id: z.string(),
+});
+
 export const removeAccountMemberPathAccountSlugSchema = z.string();
 
 export const removeAccountMemberPathMemberIdSchema = z.string();
@@ -7458,6 +8118,11 @@ export const removeAccountMemberStatusDefaultSchema = z.object({
 export const removeAccountMemberResponseSchema = removeAccountMemberStatus204Schema;
 
 export const removeAccountMemberErrorSchema = removeAccountMemberStatusDefaultSchema;
+
+export const removeAccountMemberPathSchema = z.object({
+	account_slug: z.string(),
+	member_id: z.string(),
+});
 
 export const listPaymentMethodsForUserStatus200Schema = z.array(
 	z.object({
@@ -7555,6 +8220,10 @@ export const listAccountsForUserResponseSchema = listAccountsForUserStatus200Sch
 
 export const listAccountsForUserErrorSchema = listAccountsForUserStatusDefaultSchema;
 
+export const listAccountsForUserQuerySchema = z.object({
+	minimal: z.boolean().optional(),
+});
+
 export const createAccountStatus201Schema = z.object({
 	id: z.string().optional(),
 	name: z.string().optional(),
@@ -7651,6 +8320,10 @@ export const getAccountResponseSchema = getAccountStatus200Schema;
 
 export const getAccountErrorSchema = getAccountStatusDefaultSchema;
 
+export const getAccountPathSchema = z.object({
+	account_id: z.string(),
+});
+
 export const updateAccountPathAccountIdSchema = z.string();
 
 export const updateAccountStatus200Schema = z.object({
@@ -7708,6 +8381,10 @@ export const updateAccountBodySchema = z
 	})
 	.optional();
 
+export const updateAccountPathSchema = z.object({
+	account_id: z.string(),
+});
+
 export const cancelAccountPathAccountIdSchema = z.string();
 
 export const cancelAccountStatus204Schema = z.unknown();
@@ -7720,6 +8397,10 @@ export const cancelAccountStatusDefaultSchema = z.object({
 export const cancelAccountResponseSchema = cancelAccountStatus204Schema;
 
 export const cancelAccountErrorSchema = cancelAccountStatusDefaultSchema;
+
+export const cancelAccountPathSchema = z.object({
+	account_id: z.string(),
+});
 
 export const listAccountAuditEventsPathAccountIdSchema = z.string();
 
@@ -7757,6 +8438,17 @@ export const listAccountAuditEventsStatusDefaultSchema = z.object({
 export const listAccountAuditEventsResponseSchema = listAccountAuditEventsStatus200Schema;
 
 export const listAccountAuditEventsErrorSchema = listAccountAuditEventsStatusDefaultSchema;
+
+export const listAccountAuditEventsPathSchema = z.object({
+	account_id: z.string(),
+});
+
+export const listAccountAuditEventsQuerySchema = z.object({
+	query: z.string().optional(),
+	log_type: z.string().optional(),
+	page: z.int32().optional(),
+	per_page: z.int32().optional(),
+});
 
 export const listAgentRunnersQuerySiteIdSchema = z.string();
 
@@ -7863,6 +8555,25 @@ export const listAgentRunnersResponseSchema = listAgentRunnersStatus200Schema;
 
 export const listAgentRunnersErrorSchema = listAgentRunnersStatusDefaultSchema;
 
+export const listAgentRunnersQuerySchema = z.object({
+	site_id: z.string(),
+	account_id: z.string(),
+	page: z.int32().optional(),
+	per_page: z.int32().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"Only runs in this state: `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.",
+		),
+	title: z.string().optional(),
+	branch: z.string().optional(),
+	result_branch: z.string().optional(),
+	user_id: z.string().optional().describe("Only runs started by this user."),
+	from: z.int().optional().describe("Unix timestamp. Only runs created at or after this time."),
+	to: z.int().optional().describe("Unix timestamp. Only runs created before this time."),
+});
+
 export const createAgentRunnerQuerySiteIdSchema = z.string();
 
 export const createAgentRunnerQueryDeployIdSchema = z.string().optional();
@@ -7955,6 +8666,18 @@ export const createAgentRunnerErrorSchema = z.union([
 	createAgentRunnerStatus422Schema,
 	createAgentRunnerStatusDefaultSchema,
 ]);
+
+export const createAgentRunnerQuerySchema = z.object({
+	site_id: z.string(),
+	deploy_id: z.string().optional(),
+	branch: z.string().optional(),
+	prompt: z.string().optional(),
+	agent: z.string().optional(),
+	model: z.string().optional(),
+	parent_agent_runner_id: z.string().optional(),
+	dev_server_image: z.string().optional(),
+	file_keys: z.array(z.string()).optional(),
+});
 
 export const createSiteAgentRunnerPathSiteIdSchema = z
 	.string()
@@ -8118,6 +8841,10 @@ export const createSiteAgentRunnerBodySchema = z.object({
 		),
 });
 
+export const createSiteAgentRunnerPathSchema = z.object({
+	site_id: z.string().describe("The site's ID or one of its hostnames."),
+});
+
 export const createAgentRunnerUploadUrlQueryAccountIdSchema = z.string();
 
 export const createAgentRunnerUploadUrlQueryFilenameSchema = z.string();
@@ -8147,6 +8874,12 @@ export const createAgentRunnerUploadUrlErrorSchema = z.union([
 	createAgentRunnerUploadUrlStatus422Schema,
 	createAgentRunnerUploadUrlStatusDefaultSchema,
 ]);
+
+export const createAgentRunnerUploadUrlQuerySchema = z.object({
+	account_id: z.string(),
+	filename: z.string(),
+	content_type: z.string(),
+});
 
 export const getAgentRunnerPathAgentRunnerIdSchema = z.string();
 
@@ -8217,6 +8950,10 @@ export const getAgentRunnerResponseSchema = getAgentRunnerStatus200Schema;
 
 export const getAgentRunnerErrorSchema = getAgentRunnerStatusDefaultSchema;
 
+export const getAgentRunnerPathSchema = z.object({
+	agent_runner_id: z.string(),
+});
+
 export const updateAgentRunnerPathAgentRunnerIdSchema = z.string();
 
 export const updateAgentRunnerStatus200Schema = z.object({
@@ -8286,6 +9023,10 @@ export const updateAgentRunnerResponseSchema = updateAgentRunnerStatus200Schema;
 
 export const updateAgentRunnerErrorSchema = updateAgentRunnerStatusDefaultSchema;
 
+export const updateAgentRunnerPathSchema = z.object({
+	agent_runner_id: z.string(),
+});
+
 export const deleteAgentRunnerPathAgentRunnerIdSchema = z.string();
 
 export const deleteAgentRunnerStatus202Schema = z.unknown();
@@ -8299,6 +9040,10 @@ export const deleteAgentRunnerResponseSchema = deleteAgentRunnerStatus202Schema;
 
 export const deleteAgentRunnerErrorSchema = deleteAgentRunnerStatusDefaultSchema;
 
+export const deleteAgentRunnerPathSchema = z.object({
+	agent_runner_id: z.string(),
+});
+
 export const stopAgentRunnerPathAgentRunnerIdSchema = z.string();
 
 export const stopAgentRunnerStatus202Schema = z.unknown();
@@ -8311,6 +9056,10 @@ export const stopAgentRunnerStatusDefaultSchema = z.object({
 export const stopAgentRunnerResponseSchema = stopAgentRunnerStatus202Schema;
 
 export const stopAgentRunnerErrorSchema = stopAgentRunnerStatusDefaultSchema;
+
+export const stopAgentRunnerPathSchema = z.object({
+	agent_runner_id: z.string(),
+});
 
 export const getAgentRunnerDiffPathAgentRunnerIdSchema = z.string();
 
@@ -8339,6 +9088,19 @@ export const getAgentRunnerDiffErrorSchema = z.union([
 	getAgentRunnerDiffStatusDefaultSchema,
 ]);
 
+export const getAgentRunnerDiffPathSchema = z.object({
+	agent_runner_id: z.string(),
+});
+
+export const getAgentRunnerDiffQuerySchema = z.object({
+	page: z.int32().optional(),
+	per_page: z.int32().optional(),
+	strip_binary: z
+		.boolean()
+		.optional()
+		.describe("Replace binary file contents with a placeholder, keeping the file headers."),
+});
+
 export const archiveAgentRunnerPathAgentRunnerIdSchema = z.string();
 
 export const archiveAgentRunnerStatus202Schema = z.unknown();
@@ -8359,6 +9121,10 @@ export const archiveAgentRunnerErrorSchema = z.union([
 	archiveAgentRunnerStatus422Schema,
 	archiveAgentRunnerStatusDefaultSchema,
 ]);
+
+export const archiveAgentRunnerPathSchema = z.object({
+	agent_runner_id: z.string(),
+});
 
 export const agentRunnerPullRequestPathAgentRunnerIdSchema = z.string();
 
@@ -8439,6 +9205,10 @@ export const agentRunnerPullRequestErrorSchema = z.union([
 	agentRunnerPullRequestStatus422Schema,
 	agentRunnerPullRequestStatusDefaultSchema,
 ]);
+
+export const agentRunnerPullRequestPathSchema = z.object({
+	agent_runner_id: z.string(),
+});
 
 export const agentRunnerCommitToBranchPathAgentRunnerIdSchema = z.string();
 
@@ -8521,6 +9291,14 @@ export const agentRunnerCommitToBranchErrorSchema = z.union([
 	agentRunnerCommitToBranchStatus422Schema,
 	agentRunnerCommitToBranchStatusDefaultSchema,
 ]);
+
+export const agentRunnerCommitToBranchPathSchema = z.object({
+	agent_runner_id: z.string(),
+});
+
+export const agentRunnerCommitToBranchQuerySchema = z.object({
+	target_branch: z.string(),
+});
 
 export const listAgentRunnerSessionsPathAgentRunnerIdSchema = z.string();
 
@@ -8646,6 +9424,24 @@ export const listAgentRunnerSessionsStatusDefaultSchema = z.object({
 export const listAgentRunnerSessionsResponseSchema = listAgentRunnerSessionsStatus200Schema;
 
 export const listAgentRunnerSessionsErrorSchema = listAgentRunnerSessionsStatusDefaultSchema;
+
+export const listAgentRunnerSessionsPathSchema = z.object({
+	agent_runner_id: z.string(),
+});
+
+export const listAgentRunnerSessionsQuerySchema = z.object({
+	page: z.int32().optional(),
+	per_page: z.int32().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"Only sessions in this state: `new`, `running`, `await_input`, `interrupted`, `error`, `done` or `cancelled`.",
+		),
+	from: z.int().optional().describe("Unix timestamp. Only sessions created at or after this time."),
+	to: z.int().optional().describe("Unix timestamp. Only sessions created before this time."),
+	order_by: z.enum(["asc", "desc"]).optional(),
+});
 
 export const createAgentRunnerSessionPathAgentRunnerIdSchema = z.string();
 
@@ -8864,6 +9660,17 @@ export const createAgentRunnerSessionBodySchema = z
 	})
 	.optional();
 
+export const createAgentRunnerSessionPathSchema = z.object({
+	agent_runner_id: z.string(),
+});
+
+export const createAgentRunnerSessionQuerySchema = z.object({
+	prompt: z.string().optional().describe("Use the request body instead."),
+	agent: z.string().optional().describe("Use the request body instead."),
+	model: z.string().optional().describe("Use the request body instead."),
+	file_keys: z.array(z.string()).optional().describe("Use the request body instead."),
+});
+
 export const getAgentRunnerSessionPathAgentRunnerIdSchema = z.string();
 
 export const getAgentRunnerSessionPathAgentRunnerSessionIdSchema = z.string();
@@ -8965,6 +9772,11 @@ export const getAgentRunnerSessionStatusDefaultSchema = z.object({
 export const getAgentRunnerSessionResponseSchema = getAgentRunnerSessionStatus200Schema;
 
 export const getAgentRunnerSessionErrorSchema = getAgentRunnerSessionStatusDefaultSchema;
+
+export const getAgentRunnerSessionPathSchema = z.object({
+	agent_runner_id: z.string(),
+	agent_runner_session_id: z.string(),
+});
 
 export const updateAgentRunnerSessionPathAgentRunnerIdSchema = z.string();
 
@@ -9070,6 +9882,15 @@ export const updateAgentRunnerSessionResponseSchema = updateAgentRunnerSessionSt
 
 export const updateAgentRunnerSessionErrorSchema = updateAgentRunnerSessionStatusDefaultSchema;
 
+export const updateAgentRunnerSessionPathSchema = z.object({
+	agent_runner_id: z.string(),
+	agent_runner_session_id: z.string(),
+});
+
+export const updateAgentRunnerSessionQuerySchema = z.object({
+	is_published: z.boolean().optional(),
+});
+
 export const deleteAgentRunnerSessionPathAgentRunnerIdSchema = z.string();
 
 export const deleteAgentRunnerSessionPathAgentRunnerSessionIdSchema = z.string();
@@ -9085,6 +9906,11 @@ export const deleteAgentRunnerSessionResponseSchema = deleteAgentRunnerSessionSt
 
 export const deleteAgentRunnerSessionErrorSchema = deleteAgentRunnerSessionStatusDefaultSchema;
 
+export const deleteAgentRunnerSessionPathSchema = z.object({
+	agent_runner_id: z.string(),
+	agent_runner_session_id: z.string(),
+});
+
 export const stopAgentRunnerSessionPathAgentRunnerIdSchema = z.string();
 
 export const stopAgentRunnerSessionPathAgentRunnerSessionIdSchema = z.string();
@@ -9099,6 +9925,11 @@ export const stopAgentRunnerSessionStatusDefaultSchema = z.object({
 export const stopAgentRunnerSessionResponseSchema = stopAgentRunnerSessionStatus202Schema;
 
 export const stopAgentRunnerSessionErrorSchema = stopAgentRunnerSessionStatusDefaultSchema;
+
+export const stopAgentRunnerSessionPathSchema = z.object({
+	agent_runner_id: z.string(),
+	agent_runner_session_id: z.string(),
+});
 
 export const answerAgentRunnerSessionPathAgentRunnerIdSchema = z.string();
 
@@ -9255,6 +10086,11 @@ export const answerAgentRunnerSessionBodySchema = z.object({
 	instruction: z.string().optional().describe("Instruction for the agent when skipping."),
 });
 
+export const answerAgentRunnerSessionPathSchema = z.object({
+	agent_runner_id: z.string(),
+	agent_runner_session_id: z.string(),
+});
+
 export const listFormSubmissionPathSubmissionIdSchema = z.string();
 
 export const listFormSubmissionQueryQuerySchema = z.string().optional();
@@ -9289,6 +10125,16 @@ export const listFormSubmissionResponseSchema = listFormSubmissionStatus200Schem
 
 export const listFormSubmissionErrorSchema = listFormSubmissionStatusDefaultSchema;
 
+export const listFormSubmissionPathSchema = z.object({
+	submission_id: z.string(),
+});
+
+export const listFormSubmissionQuerySchema = z.object({
+	query: z.string().optional(),
+	page: z.int32().optional(),
+	per_page: z.int32().optional(),
+});
+
 export const deleteSubmissionPathSubmissionIdSchema = z.string();
 
 export const deleteSubmissionStatus204Schema = z.unknown();
@@ -9301,6 +10147,10 @@ export const deleteSubmissionStatusDefaultSchema = z.object({
 export const deleteSubmissionResponseSchema = deleteSubmissionStatus204Schema;
 
 export const deleteSubmissionErrorSchema = deleteSubmissionStatusDefaultSchema;
+
+export const deleteSubmissionPathSchema = z.object({
+	submission_id: z.string(),
+});
 
 export const listServiceInstancesForSitePathSiteIdSchema = z.string();
 
@@ -9330,6 +10180,10 @@ export const listServiceInstancesForSiteResponseSchema = listServiceInstancesFor
 
 export const listServiceInstancesForSiteErrorSchema =
 	listServiceInstancesForSiteStatusDefaultSchema;
+
+export const listServiceInstancesForSitePathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const createServiceInstancePathSiteIdSchema = z.string();
 
@@ -9361,6 +10215,11 @@ export const createServiceInstanceErrorSchema = createServiceInstanceStatusDefau
 
 export const createServiceInstanceBodySchema = z.object({});
 
+export const createServiceInstancePathSchema = z.object({
+	site_id: z.string(),
+	addon: z.string(),
+});
+
 export const showServiceInstancePathSiteIdSchema = z.string();
 
 export const showServiceInstancePathAddonSchema = z.string();
@@ -9391,6 +10250,12 @@ export const showServiceInstanceResponseSchema = showServiceInstanceStatus200Sch
 
 export const showServiceInstanceErrorSchema = showServiceInstanceStatusDefaultSchema;
 
+export const showServiceInstancePathSchema = z.object({
+	site_id: z.string(),
+	addon: z.string(),
+	instance_id: z.string(),
+});
+
 export const updateServiceInstancePathSiteIdSchema = z.string();
 
 export const updateServiceInstancePathAddonSchema = z.string();
@@ -9410,6 +10275,12 @@ export const updateServiceInstanceErrorSchema = updateServiceInstanceStatusDefau
 
 export const updateServiceInstanceBodySchema = z.object({});
 
+export const updateServiceInstancePathSchema = z.object({
+	site_id: z.string(),
+	addon: z.string(),
+	instance_id: z.string(),
+});
+
 export const deleteServiceInstancePathSiteIdSchema = z.string();
 
 export const deleteServiceInstancePathAddonSchema = z.string();
@@ -9426,6 +10297,12 @@ export const deleteServiceInstanceStatusDefaultSchema = z.object({
 export const deleteServiceInstanceResponseSchema = deleteServiceInstanceStatus204Schema;
 
 export const deleteServiceInstanceErrorSchema = deleteServiceInstanceStatusDefaultSchema;
+
+export const deleteServiceInstancePathSchema = z.object({
+	site_id: z.string(),
+	addon: z.string(),
+	instance_id: z.string(),
+});
 
 export const getServicesQuerySearchSchema = z.string().optional();
 
@@ -9456,6 +10333,10 @@ export const getServicesResponseSchema = getServicesStatus200Schema;
 
 export const getServicesErrorSchema = getServicesStatusDefaultSchema;
 
+export const getServicesQuerySchema = z.object({
+	search: z.string().optional(),
+});
+
 export const showServicePathAddonNameSchema = z.string();
 
 export const showServiceStatus200Schema = z.object({
@@ -9483,6 +10364,10 @@ export const showServiceResponseSchema = showServiceStatus200Schema;
 
 export const showServiceErrorSchema = showServiceStatusDefaultSchema;
 
+export const showServicePathSchema = z.object({
+	addonName: z.string(),
+});
+
 export const showServiceManifestPathAddonNameSchema = z.string();
 
 export const showServiceManifestStatus201Schema = z.object({});
@@ -9495,6 +10380,10 @@ export const showServiceManifestStatusDefaultSchema = z.object({
 export const showServiceManifestResponseSchema = showServiceManifestStatus201Schema;
 
 export const showServiceManifestErrorSchema = showServiceManifestStatusDefaultSchema;
+
+export const showServiceManifestPathSchema = z.object({
+	addonName: z.string(),
+});
 
 export const getCurrentUserStatus200Schema = z.object({
 	id: z.string().optional(),
@@ -9550,6 +10439,10 @@ export const createSplitTestBodySchema = z.object({
 	branch_tests: z.object({}).optional(),
 });
 
+export const createSplitTestPathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const getSplitTestsPathSiteIdSchema = z.string();
 
 export const getSplitTestsStatus200Schema = z.array(
@@ -9574,6 +10467,10 @@ export const getSplitTestsStatusDefaultSchema = z.object({
 export const getSplitTestsResponseSchema = getSplitTestsStatus200Schema;
 
 export const getSplitTestsErrorSchema = getSplitTestsStatusDefaultSchema;
+
+export const getSplitTestsPathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const updateSplitTestPathSiteIdSchema = z.string();
 
@@ -9604,6 +10501,11 @@ export const updateSplitTestBodySchema = z.object({
 	branch_tests: z.object({}).optional(),
 });
 
+export const updateSplitTestPathSchema = z.object({
+	site_id: z.string(),
+	split_test_id: z.string(),
+});
+
 export const getSplitTestPathSiteIdSchema = z.string();
 
 export const getSplitTestPathSplitTestIdSchema = z.string();
@@ -9629,6 +10531,11 @@ export const getSplitTestResponseSchema = getSplitTestStatus200Schema;
 
 export const getSplitTestErrorSchema = getSplitTestStatusDefaultSchema;
 
+export const getSplitTestPathSchema = z.object({
+	site_id: z.string(),
+	split_test_id: z.string(),
+});
+
 export const enableSplitTestPathSiteIdSchema = z.string();
 
 export const enableSplitTestPathSplitTestIdSchema = z.string();
@@ -9644,6 +10551,11 @@ export const enableSplitTestResponseSchema = enableSplitTestStatus204Schema;
 
 export const enableSplitTestErrorSchema = enableSplitTestStatusDefaultSchema;
 
+export const enableSplitTestPathSchema = z.object({
+	site_id: z.string(),
+	split_test_id: z.string(),
+});
+
 export const disableSplitTestPathSiteIdSchema = z.string();
 
 export const disableSplitTestPathSplitTestIdSchema = z.string();
@@ -9658,6 +10570,11 @@ export const disableSplitTestStatusDefaultSchema = z.object({
 export const disableSplitTestResponseSchema = disableSplitTestStatus204Schema;
 
 export const disableSplitTestErrorSchema = disableSplitTestStatusDefaultSchema;
+
+export const disableSplitTestPathSchema = z.object({
+	site_id: z.string(),
+	split_test_id: z.string(),
+});
 
 export const createDnsZoneStatus201Schema = z.object({
 	id: z.string().optional(),
@@ -9757,6 +10674,10 @@ export const getDnsZonesResponseSchema = getDnsZonesStatus200Schema;
 
 export const getDnsZonesErrorSchema = getDnsZonesStatusDefaultSchema;
 
+export const getDnsZonesQuerySchema = z.object({
+	account_slug: z.string().optional(),
+});
+
 export const getDnsZonePathZoneIdSchema = z.string();
 
 export const getDnsZoneStatus200Schema = z.object({
@@ -9803,6 +10724,10 @@ export const getDnsZoneResponseSchema = getDnsZoneStatus200Schema;
 
 export const getDnsZoneErrorSchema = getDnsZoneStatusDefaultSchema;
 
+export const getDnsZonePathSchema = z.object({
+	zone_id: z.string(),
+});
+
 export const deleteDnsZonePathZoneIdSchema = z.string();
 
 export const deleteDnsZoneStatus204Schema = z.unknown();
@@ -9815,6 +10740,10 @@ export const deleteDnsZoneStatusDefaultSchema = z.object({
 export const deleteDnsZoneResponseSchema = deleteDnsZoneStatus204Schema;
 
 export const deleteDnsZoneErrorSchema = deleteDnsZoneStatusDefaultSchema;
+
+export const deleteDnsZonePathSchema = z.object({
+	zone_id: z.string(),
+});
 
 export const transferDnsZonePathZoneIdSchema = z.string();
 
@@ -9874,6 +10803,16 @@ export const transferDnsZoneResponseSchema = transferDnsZoneStatus200Schema;
 
 export const transferDnsZoneErrorSchema = transferDnsZoneStatusDefaultSchema;
 
+export const transferDnsZonePathSchema = z.object({
+	zone_id: z.string(),
+});
+
+export const transferDnsZoneQuerySchema = z.object({
+	account_id: z.string().describe("the account of the dns zone"),
+	transfer_account_id: z.string().describe("the account you want to transfer the dns zone to"),
+	transfer_user_id: z.string().describe("the user you want to transfer the dns zone to"),
+});
+
 export const getDnsRecordsPathZoneIdSchema = z.string();
 
 export const getDnsRecordsStatus200Schema = z.array(
@@ -9900,6 +10839,10 @@ export const getDnsRecordsStatusDefaultSchema = z.object({
 export const getDnsRecordsResponseSchema = getDnsRecordsStatus200Schema;
 
 export const getDnsRecordsErrorSchema = getDnsRecordsStatusDefaultSchema;
+
+export const getDnsRecordsPathSchema = z.object({
+	zone_id: z.string(),
+});
 
 export const createDnsRecordPathZoneIdSchema = z.string();
 
@@ -9938,6 +10881,10 @@ export const createDnsRecordBodySchema = z.object({
 	tag: z.string().optional(),
 });
 
+export const createDnsRecordPathSchema = z.object({
+	zone_id: z.string(),
+});
+
 export const getIndividualDnsRecordPathZoneIdSchema = z.string();
 
 export const getIndividualDnsRecordPathDnsRecordIdSchema = z.string();
@@ -9965,6 +10912,11 @@ export const getIndividualDnsRecordResponseSchema = getIndividualDnsRecordStatus
 
 export const getIndividualDnsRecordErrorSchema = getIndividualDnsRecordStatusDefaultSchema;
 
+export const getIndividualDnsRecordPathSchema = z.object({
+	zone_id: z.string(),
+	dns_record_id: z.string(),
+});
+
 export const deleteDnsRecordPathZoneIdSchema = z.string();
 
 export const deleteDnsRecordPathDnsRecordIdSchema = z.string();
@@ -9979,6 +10931,11 @@ export const deleteDnsRecordStatusDefaultSchema = z.object({
 export const deleteDnsRecordResponseSchema = deleteDnsRecordStatus204Schema;
 
 export const deleteDnsRecordErrorSchema = deleteDnsRecordStatusDefaultSchema;
+
+export const deleteDnsRecordPathSchema = z.object({
+	zone_id: z.string(),
+	dns_record_id: z.string(),
+});
 
 export const listSiteDevServersPathSiteIdSchema = z.string();
 
@@ -10012,6 +10969,15 @@ export const listSiteDevServersResponseSchema = listSiteDevServersStatus200Schem
 
 export const listSiteDevServersErrorSchema = listSiteDevServersStatusDefaultSchema;
 
+export const listSiteDevServersPathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const listSiteDevServersQuerySchema = z.object({
+	page: z.int32().optional(),
+	per_page: z.int32().optional(),
+});
+
 export const createSiteDevServerPathSiteIdSchema = z.string();
 
 export const createSiteDevServerQueryBranchSchema = z.string().optional();
@@ -10042,6 +11008,14 @@ export const createSiteDevServerResponseSchema = createSiteDevServerStatus200Sch
 
 export const createSiteDevServerErrorSchema = createSiteDevServerStatusDefaultSchema;
 
+export const createSiteDevServerPathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const createSiteDevServerQuerySchema = z.object({
+	branch: z.string().optional(),
+});
+
 export const deleteSiteDevServersPathSiteIdSchema = z.string();
 
 export const deleteSiteDevServersQueryBranchSchema = z.string().optional();
@@ -10056,6 +11030,14 @@ export const deleteSiteDevServersStatusDefaultSchema = z.object({
 export const deleteSiteDevServersResponseSchema = deleteSiteDevServersStatus202Schema;
 
 export const deleteSiteDevServersErrorSchema = deleteSiteDevServersStatusDefaultSchema;
+
+export const deleteSiteDevServersPathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const deleteSiteDevServersQuerySchema = z.object({
+	branch: z.string().optional(),
+});
 
 export const getSiteDevServerPathSiteIdSchema = z.string();
 
@@ -10078,6 +11060,11 @@ export const getSiteDevServerStatus200Schema = z.object({
 
 export const getSiteDevServerResponseSchema = getSiteDevServerStatus200Schema;
 
+export const getSiteDevServerPathSchema = z.object({
+	site_id: z.string(),
+	dev_server_id: z.string(),
+});
+
 export const markDevServerActivityPathSiteIdSchema = z.string();
 
 export const markDevServerActivityPathDevServerIdSchema = z.string();
@@ -10098,6 +11085,11 @@ export const markDevServerActivityStatus200Schema = z.object({
 });
 
 export const markDevServerActivityResponseSchema = markDevServerActivityStatus200Schema;
+
+export const markDevServerActivityPathSchema = z.object({
+	site_id: z.string(),
+	dev_server_id: z.string(),
+});
 
 export const updateDevServerStatePathSiteIdSchema = z.string();
 
@@ -10130,6 +11122,11 @@ export const updateDevServerStateBodySchema = z.object({
 	error: z.string().optional(),
 });
 
+export const updateDevServerStatePathSchema = z.object({
+	site_id: z.string(),
+	dev_server_id: z.string(),
+});
+
 export const listSiteDevServerHooksPathSiteIdSchema = z.string();
 
 export const listSiteDevServerHooksStatus200Schema = z.array(
@@ -10152,6 +11149,10 @@ export const listSiteDevServerHooksStatusDefaultSchema = z.object({
 export const listSiteDevServerHooksResponseSchema = listSiteDevServerHooksStatus200Schema;
 
 export const listSiteDevServerHooksErrorSchema = listSiteDevServerHooksStatusDefaultSchema;
+
+export const listSiteDevServerHooksPathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const createSiteDevServerHookPathSiteIdSchema = z.string();
 
@@ -10180,6 +11181,10 @@ export const createSiteDevServerHookBodySchema = z.object({
 	type: z.enum(["new_dev_server", "content_refresh"]).optional(),
 });
 
+export const createSiteDevServerHookPathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const getSiteDevServerHookPathSiteIdSchema = z.string();
 
 export const getSiteDevServerHookPathIdSchema = z.string();
@@ -10203,6 +11208,11 @@ export const getSiteDevServerHookResponseSchema = getSiteDevServerHookStatus200S
 
 export const getSiteDevServerHookErrorSchema = getSiteDevServerHookStatusDefaultSchema;
 
+export const getSiteDevServerHookPathSchema = z.object({
+	site_id: z.string(),
+	id: z.string(),
+});
+
 export const updateSiteDevServerHookPathSiteIdSchema = z.string();
 
 export const updateSiteDevServerHookPathIdSchema = z.string();
@@ -10224,6 +11234,11 @@ export const updateSiteDevServerHookBodySchema = z.object({
 	type: z.enum(["new_dev_server", "content_refresh"]).optional(),
 });
 
+export const updateSiteDevServerHookPathSchema = z.object({
+	site_id: z.string(),
+	id: z.string(),
+});
+
 export const deleteSiteDevServerHookPathSiteIdSchema = z.string();
 
 export const deleteSiteDevServerHookPathIdSchema = z.string();
@@ -10238,6 +11253,11 @@ export const deleteSiteDevServerHookStatusDefaultSchema = z.object({
 export const deleteSiteDevServerHookResponseSchema = deleteSiteDevServerHookStatus204Schema;
 
 export const deleteSiteDevServerHookErrorSchema = deleteSiteDevServerHookStatusDefaultSchema;
+
+export const deleteSiteDevServerHookPathSchema = z.object({
+	site_id: z.string(),
+	id: z.string(),
+});
 
 export const listSiteAgentRunnerHooksPathSiteIdSchema = z.string();
 
@@ -10263,6 +11283,10 @@ export const listSiteAgentRunnerHooksStatusDefaultSchema = z.object({
 export const listSiteAgentRunnerHooksResponseSchema = listSiteAgentRunnerHooksStatus200Schema;
 
 export const listSiteAgentRunnerHooksErrorSchema = listSiteAgentRunnerHooksStatusDefaultSchema;
+
+export const listSiteAgentRunnerHooksPathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const createSiteAgentRunnerHookPathSiteIdSchema = z.string();
 
@@ -10298,6 +11322,10 @@ export const createSiteAgentRunnerHookBodySchema = z.object({
 	agent: z.string().optional(),
 });
 
+export const createSiteAgentRunnerHookPathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const getSiteAgentRunnerHookPathSiteIdSchema = z.string();
 
 export const getSiteAgentRunnerHookPathIdSchema = z.string();
@@ -10323,6 +11351,11 @@ export const getSiteAgentRunnerHookResponseSchema = getSiteAgentRunnerHookStatus
 
 export const getSiteAgentRunnerHookErrorSchema = getSiteAgentRunnerHookStatusDefaultSchema;
 
+export const getSiteAgentRunnerHookPathSchema = z.object({
+	site_id: z.string(),
+	id: z.string(),
+});
+
 export const updateSiteAgentRunnerHookPathSiteIdSchema = z.string();
 
 export const updateSiteAgentRunnerHookPathIdSchema = z.string();
@@ -10345,6 +11378,11 @@ export const updateSiteAgentRunnerHookBodySchema = z.object({
 	agent: z.string().optional(),
 });
 
+export const updateSiteAgentRunnerHookPathSchema = z.object({
+	site_id: z.string(),
+	id: z.string(),
+});
+
 export const deleteSiteAgentRunnerHookPathSiteIdSchema = z.string();
 
 export const deleteSiteAgentRunnerHookPathIdSchema = z.string();
@@ -10359,6 +11397,11 @@ export const deleteSiteAgentRunnerHookStatusDefaultSchema = z.object({
 export const deleteSiteAgentRunnerHookResponseSchema = deleteSiteAgentRunnerHookStatus204Schema;
 
 export const deleteSiteAgentRunnerHookErrorSchema = deleteSiteAgentRunnerHookStatusDefaultSchema;
+
+export const deleteSiteAgentRunnerHookPathSchema = z.object({
+	site_id: z.string(),
+	id: z.string(),
+});
 
 export const getAIGatewayProvidersStatus200Schema = z.object({
 	providers: z
@@ -10404,6 +11447,10 @@ export const getAIGatewayTokenErrorSchema = z.union([
 	getAIGatewayTokenStatusDefaultSchema,
 ]);
 
+export const getAIGatewayTokenPathSchema = z.object({
+	site_id: z.string().describe("The site ID"),
+});
+
 export const getAccountAIGatewayTokenPathAccountIdSchema = z.string().describe("The account ID");
 
 export const getAccountAIGatewayTokenStatus200Schema = z.object({
@@ -10425,6 +11472,10 @@ export const getAccountAIGatewayTokenErrorSchema = z.union([
 	getAccountAIGatewayTokenStatus404Schema,
 	getAccountAIGatewayTokenStatusDefaultSchema,
 ]);
+
+export const getAccountAIGatewayTokenPathSchema = z.object({
+	account_id: z.string().describe("The account ID"),
+});
 
 export const createSiteDatabasePathSiteIdSchema = z.string();
 
@@ -10464,6 +11515,10 @@ export const createSiteDatabaseBodySchema = z
 	.optional()
 	.describe("Request body for creating a database");
 
+export const createSiteDatabasePathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const getSiteDatabasePathSiteIdSchema = z.string();
 
 export const getSiteDatabaseQueryRoleSchema = z
@@ -10488,6 +11543,19 @@ export const getSiteDatabaseResponseSchema = getSiteDatabaseStatus200Schema;
 
 export const getSiteDatabaseErrorSchema = getSiteDatabaseStatusDefaultSchema;
 
+export const getSiteDatabasePathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const getSiteDatabaseQuerySchema = z.object({
+	role: z
+		.enum(["netlifydb_owner", "netlifydb_readonly"])
+		.optional()
+		.describe(
+			"The database role to use for the connection string. Defaults to netlifydb_owner if not specified.",
+		),
+});
+
 export const deleteSiteDatabasePathSiteIdSchema = z.string();
 
 export const deleteSiteDatabaseStatus204Schema = z.unknown();
@@ -10500,6 +11568,10 @@ export const deleteSiteDatabaseStatusDefaultSchema = z.object({
 export const deleteSiteDatabaseResponseSchema = deleteSiteDatabaseStatus204Schema;
 
 export const deleteSiteDatabaseErrorSchema = deleteSiteDatabaseStatusDefaultSchema;
+
+export const deleteSiteDatabasePathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const createSiteDatabaseBranchPathSiteIdSchema = z.string();
 
@@ -10550,6 +11622,10 @@ export const createSiteDatabaseBranchBodySchema = z
 			.describe("Arbitrary metadata to associate with the branch"),
 	})
 	.describe("Request body for creating a database branch");
+
+export const createSiteDatabaseBranchPathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const listSiteDatabaseBranchesPathSiteIdSchema = z.string();
 
@@ -10614,6 +11690,10 @@ export const listSiteDatabaseBranchesResponseSchema = listSiteDatabaseBranchesSt
 
 export const listSiteDatabaseBranchesErrorSchema = listSiteDatabaseBranchesStatusDefaultSchema;
 
+export const listSiteDatabaseBranchesPathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const getSiteDatabaseBranchPathSiteIdSchema = z.string();
 
 export const getSiteDatabaseBranchPathBranchIdSchema = z.string().describe("The branch ID");
@@ -10649,6 +11729,20 @@ export const getSiteDatabaseBranchErrorSchema = z.union([
 	getSiteDatabaseBranchStatusDefaultSchema,
 ]);
 
+export const getSiteDatabaseBranchPathSchema = z.object({
+	site_id: z.string(),
+	branch_id: z.string().describe("The branch ID"),
+});
+
+export const getSiteDatabaseBranchQuerySchema = z.object({
+	role: z
+		.enum(["netlifydb_owner", "netlifydb_readonly"])
+		.optional()
+		.describe(
+			"The database role to use for the connection string. Defaults to netlifydb_owner if not specified.",
+		),
+});
+
 export const deleteSiteDatabaseBranchPathSiteIdSchema = z.string();
 
 export const deleteSiteDatabaseBranchPathBranchIdSchema = z.string().describe("The branch ID");
@@ -10663,6 +11757,11 @@ export const deleteSiteDatabaseBranchStatusDefaultSchema = z.object({
 export const deleteSiteDatabaseBranchResponseSchema = deleteSiteDatabaseBranchStatus204Schema;
 
 export const deleteSiteDatabaseBranchErrorSchema = deleteSiteDatabaseBranchStatusDefaultSchema;
+
+export const deleteSiteDatabaseBranchPathSchema = z.object({
+	site_id: z.string(),
+	branch_id: z.string().describe("The branch ID"),
+});
 
 export const resetSiteDatabaseBranchPathSiteIdSchema = z.string();
 
@@ -10727,6 +11826,24 @@ export const resetSiteDatabaseBranchBodySchema = z
 	.optional()
 	.describe("Request body for resetting a database branch");
 
+export const resetSiteDatabaseBranchPathSchema = z.object({
+	site_id: z.string(),
+	branch_id: z.string().describe("The branch ID to reset"),
+});
+
+export const resetSiteDatabaseBranchQuerySchema = z.object({
+	force: z
+		.boolean()
+		.optional()
+		.describe("If true, resets the branch even when it is already in sync with the source."),
+	role: z
+		.enum(["netlifydb_owner", "netlifydb_readonly"])
+		.optional()
+		.describe(
+			"The database role to use for the returned connection string. Defaults to netlifydb_owner if not specified.",
+		),
+});
+
 export const setSiteDatabaseBranchComputeSettingsPathSiteIdSchema = z.string();
 
 export const setSiteDatabaseBranchComputeSettingsPathBranchIdSchema = z
@@ -10786,6 +11903,11 @@ export const setSiteDatabaseBranchComputeSettingsBodySchema = z
 		"Request body for setting compute settings. All fields are optional; only provided fields are updated.",
 	);
 
+export const setSiteDatabaseBranchComputeSettingsPathSchema = z.object({
+	site_id: z.string(),
+	branch_id: z.string().describe("The branch ID"),
+});
+
 export const setSiteDatabaseComputeSettingsPathSiteIdSchema = z.string();
 
 export const setSiteDatabaseComputeSettingsStatus200Schema = z
@@ -10841,6 +11963,10 @@ export const setSiteDatabaseComputeSettingsBodySchema = z
 		"Request body for setting compute settings. All fields are optional; only provided fields are updated.",
 	);
 
+export const setSiteDatabaseComputeSettingsPathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const getSiteDatabaseComputeSettingsPathSiteIdSchema = z.string();
 
 export const getSiteDatabaseComputeSettingsStatus200Schema = z
@@ -10869,6 +11995,10 @@ export const getSiteDatabaseComputeSettingsErrorSchema = z.union([
 	getSiteDatabaseComputeSettingsStatusDefaultSchema,
 ]);
 
+export const getSiteDatabaseComputeSettingsPathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const clearSiteDatabaseComputeSettingsPathSiteIdSchema = z.string();
 
 export const clearSiteDatabaseComputeSettingsStatus204Schema = z.unknown();
@@ -10887,6 +12017,10 @@ export const clearSiteDatabaseComputeSettingsErrorSchema = z.union([
 	clearSiteDatabaseComputeSettingsStatus403Schema,
 	clearSiteDatabaseComputeSettingsStatusDefaultSchema,
 ]);
+
+export const clearSiteDatabaseComputeSettingsPathSchema = z.object({
+	site_id: z.string(),
+});
 
 export const listSiteDatabaseMigrationsPathSiteIdSchema = z.string();
 
@@ -10934,6 +12068,17 @@ export const listSiteDatabaseMigrationsErrorSchema = z.union([
 	listSiteDatabaseMigrationsStatusDefaultSchema,
 ]);
 
+export const listSiteDatabaseMigrationsPathSchema = z.object({
+	site_id: z.string(),
+});
+
+export const listSiteDatabaseMigrationsQuerySchema = z.object({
+	branch: z
+		.string()
+		.optional()
+		.describe('The branch ID to list migrations for. Defaults to "production" if not specified.'),
+});
+
 export const getSiteDatabaseMigrationPathSiteIdSchema = z.string();
 
 export const getSiteDatabaseMigrationPathNameSchema = z.string().describe("The migration name");
@@ -10971,6 +12116,20 @@ export const getSiteDatabaseMigrationErrorSchema = z.union([
 	getSiteDatabaseMigrationStatusDefaultSchema,
 ]);
 
+export const getSiteDatabaseMigrationPathSchema = z.object({
+	site_id: z.string(),
+	name: z.string().describe("The migration name"),
+});
+
+export const getSiteDatabaseMigrationQuerySchema = z.object({
+	branch: z
+		.string()
+		.optional()
+		.describe(
+			"The branch ID to look up the migration on. Defaults to the currently published deploy's branch.",
+		),
+});
+
 export const runSiteDatabaseMigrationsPathSiteIdSchema = z.string();
 
 export const runSiteDatabaseMigrationsPathDeployIdSchema = z
@@ -11005,6 +12164,11 @@ export const runSiteDatabaseMigrationsBodySchema = z
 	})
 	.optional()
 	.describe("Request body for running database migrations");
+
+export const runSiteDatabaseMigrationsPathSchema = z.object({
+	site_id: z.string(),
+	deploy_id: z.string().describe("The deploy ID to run migrations for"),
+});
 
 export const createSiteDatabaseSnapshotPathSiteIdSchema = z.string();
 
@@ -11059,6 +12223,10 @@ export const createSiteDatabaseSnapshotBodySchema = z
 	.optional()
 	.describe("Request body for creating a database snapshot");
 
+export const createSiteDatabaseSnapshotPathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const listSiteDatabaseSnapshotsPathSiteIdSchema = z.string();
 
 export const listSiteDatabaseSnapshotsStatus200Schema = z
@@ -11101,6 +12269,10 @@ export const listSiteDatabaseSnapshotsResponseSchema = listSiteDatabaseSnapshots
 
 export const listSiteDatabaseSnapshotsErrorSchema = listSiteDatabaseSnapshotsStatusDefaultSchema;
 
+export const listSiteDatabaseSnapshotsPathSchema = z.object({
+	site_id: z.string(),
+});
+
 export const deleteSiteDatabaseSnapshotPathSiteIdSchema = z.string();
 
 export const deleteSiteDatabaseSnapshotPathSnapshotIdSchema = z
@@ -11117,6 +12289,11 @@ export const deleteSiteDatabaseSnapshotStatusDefaultSchema = z.object({
 export const deleteSiteDatabaseSnapshotResponseSchema = deleteSiteDatabaseSnapshotStatus204Schema;
 
 export const deleteSiteDatabaseSnapshotErrorSchema = deleteSiteDatabaseSnapshotStatusDefaultSchema;
+
+export const deleteSiteDatabaseSnapshotPathSchema = z.object({
+	site_id: z.string(),
+	snapshot_id: z.string().describe("The snapshot ID"),
+});
 
 export const restoreSiteDatabaseSnapshotPathSiteIdSchema = z.string();
 
@@ -11148,6 +12325,11 @@ export const restoreSiteDatabaseSnapshotBodySchema = z
 	.optional()
 	.describe("Request body for restoring a database snapshot");
 
+export const restoreSiteDatabaseSnapshotPathSchema = z.object({
+	site_id: z.string(),
+	snapshot_id: z.string().describe("The snapshot ID to restore"),
+});
+
 export const updatePluginPathSiteIdSchema = z.string();
 
 export const updatePluginPathPackageSchema = z.string();
@@ -11171,3 +12353,8 @@ export const updatePluginBodySchema = z
 		pinned_version: z.string().optional(),
 	})
 	.optional();
+
+export const updatePluginPathSchema = z.object({
+	site_id: z.string(),
+	_package: z.string(),
+});
