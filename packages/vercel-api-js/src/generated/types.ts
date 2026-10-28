@@ -7270,6 +7270,7 @@ export const userEventTypeEnum = {
 	"team-agent-billing-migration-decision-changed": "team-agent-billing-migration-decision-changed",
 	"team-avatar-update": "team-avatar-update",
 	"team-collaboration-settings-updated": "team-collaboration-settings-updated",
+	"team-data-cache-user-disabled-updated": "team-data-cache-user-disabled-updated",
 	"team-default-build-machine-updated": "team-default-build-machine-updated",
 	"team-default-passport-updated": "team-default-passport-updated",
 	"team-delete": "team-delete",
@@ -13141,6 +13142,11 @@ export type UserEvent = {
 						teamSlug?: string | undefined;
 				  }
 				| {
+						disabled?: (false | true) | undefined;
+						actorName?: string | undefined;
+						actorType?: "admin" | undefined;
+				  }
+				| {
 						isSystemInitiated?: (false | true) | undefined;
 						next?: UserEventPayloadNextEnumKey | undefined;
 						previous?: UserEventPayloadPreviousEnumKey | undefined;
@@ -15164,6 +15170,7 @@ export const listEventTypeNameEnum = {
 	"team-agent-billing-migration-decision-changed": "team-agent-billing-migration-decision-changed",
 	"team-avatar-update": "team-avatar-update",
 	"team-collaboration-settings-updated": "team-collaboration-settings-updated",
+	"team-data-cache-user-disabled-updated": "team-data-cache-user-disabled-updated",
 	"team-default-build-machine-updated": "team-default-build-machine-updated",
 	"team-default-passport-updated": "team-default-passport-updated",
 	"team-delete": "team-delete",
@@ -15928,6 +15935,7 @@ export const listEventTypeReplacedByEnum = {
 	"team-agent-billing-migration-decision-changed": "team-agent-billing-migration-decision-changed",
 	"team-avatar-update": "team-avatar-update",
 	"team-collaboration-settings-updated": "team-collaboration-settings-updated",
+	"team-data-cache-user-disabled-updated": "team-data-cache-user-disabled-updated",
 	"team-default-build-machine-updated": "team-default-build-machine-updated",
 	"team-default-passport-updated": "team-default-passport-updated",
 	"team-delete": "team-delete",
@@ -24812,6 +24820,127 @@ export type BuyCreditsStatus200 =
 			orbSubscriptionIntent: {
 				configuration:
 					| {
+							options: {
+								/**
+								 * @description The alias of the product to set quantity for.
+								 * @type string
+								 */
+								productAlias: string;
+								/**
+								 * @description The quantity to set for the plan item.
+								 * @type number
+								 */
+								quantity: number;
+							};
+							/**
+							 * @description Output returned after configuring an OrbSubscriptionIntent.
+							 * @type object
+							 */
+							output: {
+								/**
+								 * @description Resources that were changed as part of this intent. Tracks all logical changes including the primary change and any side effects.
+								 * @type array | undefined
+								 */
+								changedResources?:
+									| {
+											/**
+											 * @description Resource IDs that were added.
+											 * @type array | undefined
+											 */
+											addedResourceIds?: string[] | undefined;
+											/**
+											 * @description When this resource change should take effect for downstream consumers.
+											 * @type string | undefined
+											 */
+											effectiveAt?: string | undefined;
+											/**
+											 * @description The alias of the product that was changed.
+											 * @type string
+											 */
+											productAlias: string;
+											/**
+											 * @description The ID of the product that was changed.
+											 * @type string
+											 */
+											productId: string;
+											/**
+											 * @description The resulting quantity after this change.
+											 * @type number
+											 */
+											quantity: number;
+											/**
+											 * @description Resource IDs that were removed.
+											 * @type array | undefined
+											 */
+											removedResourceIds?: string[] | undefined;
+											/**
+											 * @description The full set of resource IDs after the change.
+											 * @type array | undefined
+											 */
+											resourceIds?: string[] | undefined;
+									  }[]
+									| undefined;
+								/**
+								 * @description The Orb customer's timezone when the intent was created. Omitted for legacy intents.
+								 * @type string | undefined
+								 */
+								customerTimezone?: string | undefined;
+								/**
+								 * @description When the subscription change should take effect.
+								 * @type string
+								 */
+								effectiveBehavior: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnumKey;
+								/**
+								 * @description Optional metadata associated with the intent to update the Orb subscription with.
+								 * @type object | undefined
+								 */
+								metadata?:
+									| {
+											[key: string]: string;
+									  }
+									| undefined;
+								/**
+								 * @description The Orb price ID for the subscription item being modified.
+								 * @type string
+								 */
+								orbPriceId: string;
+								/**
+								 * @description The ID of the pending subscription change if there is one.
+								 * @type string | undefined
+								 */
+								pendingSubscriptionChangeId?: string | undefined;
+								/**
+								 * @description The source used as the authoritative price for this intent.
+								 * @type string
+								 */
+								pricingSource: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnumKey;
+								/**
+								 * @description The product ID associated with this intent.
+								 * @type string
+								 */
+								productId: string;
+								/**
+								 * @description The canonical reference-product billing period at intent creation. Omitted for historical intents.
+								 * @type object | undefined
+								 */
+								referenceBillingPeriod?:
+									| {
+											/**
+											 * @description The exclusive end of the reference billing period.
+											 * @type string
+											 */
+											endDate: string;
+											/**
+											 * @description The inclusive start of the reference billing period.
+											 * @type string
+											 */
+											startDate: string;
+									  }
+									| undefined;
+							};
+							type: "set_plan_item_quantity";
+					  }
+					| {
 							/**
 							 * @description Configuration input options for setting plan item quantity.
 							 * @type object
@@ -24827,11 +24956,7 @@ export type BuyCreditsStatus200 =
 								 * @type number
 								 */
 								quantity: number;
-								/**
-								 * @description The resource IDs for the plan item. Only set if SKU requires resource entitlements.
-								 * @type array | undefined
-								 */
-								resourceIds?: string[] | undefined;
+								resourceIds: string[];
 							};
 							/**
 							 * @description Output returned after configuring an OrbSubscriptionIntent.
@@ -32117,7 +32242,7 @@ export const getDeploymentEventsStatus200LevelEnum = {
 export type GetDeploymentEventsStatus200LevelEnumKey =
 	(typeof getDeploymentEventsStatus200LevelEnum)[keyof typeof getDeploymentEventsStatus200LevelEnum];
 
-export type GetDeploymentEventsStatus200 =
+export type GetDeploymentEventsStatus200Json =
 	| (
 			| {
 					created: number;
@@ -32280,6 +32405,167 @@ export type GetDeploymentEventsStatus200 =
 	  )[]
 	| null;
 
+export type GetDeploymentEventsStatus200StreamJson = (
+	| {
+			created: number;
+			payload: {
+				created?: number | undefined;
+				date: number;
+				deploymentId: string;
+				id: string;
+				info?:
+					| {
+							entrypoint?: string | undefined;
+							name: string;
+							path?: string | undefined;
+							readyState?: string | undefined;
+							serviceName?: string | undefined;
+							step?: string | undefined;
+							type: string;
+					  }
+					| undefined;
+				proxy?:
+					| {
+							cacheId?: string | undefined;
+							clientIp?: string | undefined;
+							host: string;
+							lambdaRegion?: string | undefined;
+							method: string;
+							path?: string | undefined;
+							pathType?: string | undefined;
+							pathTypeVariant?: string | undefined;
+							referer?: string | undefined;
+							region?: string | undefined;
+							responseByteSize?: number | undefined;
+							scheme?: string | undefined;
+							statusCode?: number | undefined;
+							timestamp: number;
+							userAgent?: string[] | undefined;
+							vercelCache?: GetDeploymentEventsStatus200PayloadProxyVercelCacheEnumKey | undefined;
+							vercelId?: string | undefined;
+							wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnumKey | undefined;
+							wafRuleId?: string | undefined;
+					  }
+					| undefined;
+				requestId?: string | undefined;
+				serial: string;
+				statusCode?: number | undefined;
+				text?: string | undefined;
+			};
+			type: GetDeploymentEventsStatus200TypeEnumKey;
+	  }
+	| {
+			created: number;
+			date: number;
+			deploymentId: string;
+			id: string;
+			info: {
+				entrypoint?: string | undefined;
+				name: string;
+				path?: string | undefined;
+				readyState?: string | undefined;
+				serviceName?: string | undefined;
+				step?: string | undefined;
+				type: string;
+			};
+			level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
+			serial: string;
+			text?: string | undefined;
+			type: GetDeploymentEventsStatus200TypeEnumKey;
+	  }
+	| (
+			| {
+					created: number;
+					payload: {
+						created?: number | undefined;
+						date: number;
+						deploymentId: string;
+						id: string;
+						info?:
+							| {
+									entrypoint?: string | undefined;
+									name: string;
+									path?: string | undefined;
+									readyState?: string | undefined;
+									serviceName?: string | undefined;
+									step?: string | undefined;
+									type: string;
+							  }
+							| undefined;
+						proxy?:
+							| {
+									cacheId?: string | undefined;
+									clientIp?: string | undefined;
+									host: string;
+									lambdaRegion?: string | undefined;
+									method: string;
+									path?: string | undefined;
+									pathType?: string | undefined;
+									pathTypeVariant?: string | undefined;
+									referer?: string | undefined;
+									region?: string | undefined;
+									responseByteSize?: number | undefined;
+									scheme?: string | undefined;
+									statusCode?: number | undefined;
+									timestamp: number;
+									userAgent?: string[] | undefined;
+									vercelCache?:
+										| GetDeploymentEventsStatus200PayloadProxyVercelCacheEnumKey
+										| undefined;
+									vercelId?: string | undefined;
+									wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnumKey | undefined;
+									wafRuleId?: string | undefined;
+							  }
+							| undefined;
+						requestId?: string | undefined;
+						serial: string;
+						statusCode?: number | undefined;
+						text?: string | undefined;
+					};
+					type: GetDeploymentEventsStatus200TypeEnumKey;
+			  }
+			| {
+					created: number;
+					date: number;
+					deploymentId: string;
+					id: string;
+					info: {
+						entrypoint?: string | undefined;
+						name: string;
+						path?: string | undefined;
+						readyState?: string | undefined;
+						serviceName?: string | undefined;
+						step?: string | undefined;
+						type: string;
+					};
+					level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
+					serial: string;
+					text?: string | undefined;
+					type: GetDeploymentEventsStatus200TypeEnumKey;
+			  }
+			| {
+					date: number;
+					deploymentId: string;
+					type: "alias-assigned";
+					alias: string[];
+					aliasError: {
+						code: string;
+						message: string;
+					} | null;
+					aliasWarning: {
+						action?: string | undefined;
+						code: string;
+						link?: string | undefined;
+						message: string;
+					} | null;
+			  }
+	  )
+)[];
+
+export type GetDeploymentEventsStatus200 =
+	| GetDeploymentEventsStatus200Json
+	| GetDeploymentEventsStatus200StreamJson;
+
 export type GetDeploymentEventsStatus400 = unknown;
 
 export type GetDeploymentEventsStatus401 = unknown;
@@ -32300,7 +32586,15 @@ export type GetDeploymentEventsOptions = {
 };
 
 export type GetDeploymentEventsResponses = {
-	"200": GetDeploymentEventsStatus200;
+	"200":
+		| {
+				contentType: "application/json";
+				data: GetDeploymentEventsStatus200Json;
+		  }
+		| {
+				contentType: "application/stream+json";
+				data: GetDeploymentEventsStatus200StreamJson;
+		  };
 	"400": GetDeploymentEventsStatus400;
 	"401": GetDeploymentEventsStatus401;
 	"403": GetDeploymentEventsStatus403;
@@ -122136,13 +122430,36 @@ export type RunSessionCommandQuery = {
 	slug?: string | undefined;
 };
 
-export type RunSessionCommandStatus200 = {
+export type RunSessionCommandStatus200Json = {
 	/**
 	 * @description This object represents a command run in a Vercel Sandbox session (v2 API).
 	 * @type object
 	 */
 	command: SessionCommand;
 };
+
+export type RunSessionCommandStatus200XNdjson = (
+	| {
+			data: {
+				code: "sandbox_stream_closed";
+				message: "Sandbox stream was closed and is not accepting commands.";
+			};
+			stream: string;
+	  }
+	| {
+			/**
+			 * @description This object represents a command run in a Vercel Sandbox session (v2 API).
+			 * @type object
+			 */
+			command: SessionCommand;
+			data: string;
+			stream: string;
+	  }
+)[];
+
+export type RunSessionCommandStatus200 =
+	| RunSessionCommandStatus200Json
+	| RunSessionCommandStatus200XNdjson;
 
 export type RunSessionCommandStatus400 = unknown;
 
@@ -122232,7 +122549,15 @@ export type RunSessionCommandOptions = {
 };
 
 export type RunSessionCommandResponses = {
-	"200": RunSessionCommandStatus200;
+	"200":
+		| {
+				contentType: "application/json";
+				data: RunSessionCommandStatus200Json;
+		  }
+		| {
+				contentType: "application/x-ndjson";
+				data: RunSessionCommandStatus200XNdjson;
+		  };
 	"400": RunSessionCommandStatus400;
 	"401": RunSessionCommandStatus401;
 	"403": RunSessionCommandStatus403;

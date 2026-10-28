@@ -176,6 +176,14 @@ describe("generated operations", () => {
 		expect(form.get("tag")).toBe("brand");
 	});
 
+	it("types a JSON response with an ndjson variant as the JSON body or an array of lines", () => {
+		const types = readFileSync(join(root, "gen/types.ts"), "utf8");
+		expect(types).toMatch(/export type RunCommandStatus200XNdjson = \{[^}]*\}\[\];/);
+		expect(types).toContain(
+			"export type RunCommandStatus200 = RunCommandStatus200Json | RunCommandStatus200XNdjson;",
+		);
+	});
+
 	it("sends a JSON suffix body as JSON with its content type", async () => {
 		const fetchImpl = fakeFetch();
 		await operations.createScimUser({

@@ -6,6 +6,21 @@ type Adapter = ReturnType<typeof adapterOas>;
 
 const JSON_MEDIA_TYPE = /[/+]json\b/i;
 
+// Media types the client fetchers split into one JSON value per line (`isLineDelimitedJson`).
+const LINE_DELIMITED_JSON_MEDIA_TYPES = new Set([
+	"application/jsonl",
+	"application/jsonlines",
+	"application/ndjson",
+	"application/stream+json",
+	"application/x-jsonlines",
+	"application/x-ndjson",
+]);
+
+const mediaType = (contentType: string) => contentType.split(";")[0]?.trim().toLowerCase() ?? "";
+
+const isLineDelimitedJson = (contentType: string) =>
+	LINE_DELIMITED_JSON_MEDIA_TYPES.has(mediaType(contentType));
+
 function operationKey(node: ast.OperationNode): string | undefined {
 	return ast.isHttpOperationNode(node) ? `${node.method.toUpperCase()} ${node.path}` : undefined;
 }
@@ -21,9 +36,33 @@ export function requestBodyFallback(
 }
 
 /**
+ * Adds the line-delimited JSON entries of `everyMediaType` to a response that already has a JSON
+ * body, each typed as an array of its line schema because that is what the fetcher resolves to, so
+ * plugin-ts emits the JSON body and the array of lines as one union.
+ */
+export function responseWithLineDelimitedJson(
+	response: ast.ResponseNode,
+	everyMediaType: ast.ResponseNode | undefined,
+): ast.ResponseNode {
+	const everyEntry = everyMediaType?.content ?? [];
+	// Without an application/json body the JSON parse leaves an `unknown` placeholder, which absorbs any union.
+	const hasJsonBody = everyEntry.some(
+		(entry) => entry.schema && mediaType(entry.contentType) === "application/json",
+	);
+	if (!response.content || !hasJsonBody) return response;
+	const lines = everyEntry.flatMap((entry) =>
+		entry.schema && isLineDelimitedJson(entry.contentType)
+			? [{ ...entry, schema: ast.factory.createSchema({ type: "array", items: [entry.schema] }) }]
+			: [],
+	);
+	if (!lines.length) return response;
+	return { ...response, content: [...response.content, ...lines] };
+}
+
+/**
  * Parses with `contentType` so JSON operations keep a single JSON body, then backfills the request
  * body of operations that only accept another media type, `application/scim+json` included, which
- * the adapter drops otherwise.
+ * the adapter drops otherwise, and adds the line-delimited variants of a JSON response.
  */
 export function adapterOasWithRawBodies(options: AdapterOasOptions): Adapter {
 	const primary = adapterOas(options);
@@ -39,16 +78,23 @@ export function adapterOasWithRawBodies(options: AdapterOasOptions): Adapter {
 				primary.parse(source, parseOptions),
 				fallback.parse(source, parseOptions),
 			]);
-			const fallbackBodies = new Map(
-				everyMediaType.operations.map((node) => [operationKey(node), node.requestBody]),
+			const fallbackOperations = new Map(
+				everyMediaType.operations.map((node) => [operationKey(node), node]),
 			);
-			fallbackBodies.delete(undefined);
+			fallbackOperations.delete(undefined);
 			return {
 				...input,
 				operations: input.operations.map((node) => {
-					if (node.requestBody?.content?.length) return node;
-					const requestBody = requestBodyFallback(fallbackBodies.get(operationKey(node)));
-					return requestBody ? { ...node, requestBody } : node;
+					const fallback = fallbackOperations.get(operationKey(node));
+					const responses = node.responses.map((response) =>
+						responseWithLineDelimitedJson(
+							response,
+							fallback?.responses.find((other) => other.statusCode === response.statusCode),
+						),
+					);
+					if (node.requestBody?.content?.length) return { ...node, responses };
+					const requestBody = requestBodyFallback(fallback?.requestBody);
+					return requestBody ? { ...node, responses, requestBody } : { ...node, responses };
 				}),
 			};
 		},

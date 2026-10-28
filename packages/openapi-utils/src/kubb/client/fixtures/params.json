@@ -174,10 +174,59 @@
 					}
 				}
 			}
+		},
+		"/commands": {
+			"post": {
+				"operationId": "runCommand",
+				"tags": ["commands"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"required": ["command"],
+								"properties": { "command": { "type": "string" }, "wait": { "type": "boolean" } }
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The command, or one status line per change with wait",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"required": ["command"],
+									"properties": { "command": { "$ref": "#/components/schemas/Command" } }
+								}
+							},
+							"application/x-ndjson": {
+								"schema": {
+									"type": "object",
+									"required": ["command", "stream"],
+									"properties": {
+										"command": { "$ref": "#/components/schemas/Command" },
+										"stream": { "type": "string" }
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"components": {
 		"schemas": {
+			"Command": {
+				"type": "object",
+				"required": ["id"],
+				"properties": {
+					"id": { "type": "string" },
+					"exitCode": { "type": "integer", "nullable": true }
+				}
+			},
 			"Cursor": { "type": "string", "nullable": true },
 			"LogoFile": {
 				"type": "object",
