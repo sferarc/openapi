@@ -1130,6 +1130,23 @@ export const deployFilesSchema = z
 					.describe(
 						"The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n",
 					),
+				scale: z
+					.object({
+						min: z.coerce
+							.bigint()
+							.nullish()
+							.describe(
+								"The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n",
+							),
+						max: z.coerce
+							.bigint()
+							.nullish()
+							.describe(
+								"The maximum number of instances the server scales to. Defaults to the\nhighest the account's plan allows when absent.\n",
+							),
+					})
+					.optional()
+					.describe("How many instances of the server run."),
 			})
 			.optional()
 			.describe(
@@ -4830,6 +4847,23 @@ export const createSiteDeployBodySchema = z
 					.describe(
 						"The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n",
 					),
+				scale: z
+					.object({
+						min: z.coerce
+							.bigint()
+							.nullish()
+							.describe(
+								"The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n",
+							),
+						max: z.coerce
+							.bigint()
+							.nullish()
+							.describe(
+								"The maximum number of instances the server scales to. Defaults to the\nhighest the account's plan allows when absent.\n",
+							),
+					})
+					.optional()
+					.describe("How many instances of the server run."),
 			})
 			.optional()
 			.describe(
@@ -5169,6 +5203,23 @@ export const updateSiteDeployBodySchema = z
 					.describe(
 						"The runtime version the server was built for, such as `nodejs24.x`. A\ndefault version is used when absent.\n",
 					),
+				scale: z
+					.object({
+						min: z.coerce
+							.bigint()
+							.nullish()
+							.describe(
+								"The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n",
+							),
+						max: z.coerce
+							.bigint()
+							.nullish()
+							.describe(
+								"The maximum number of instances the server scales to. Defaults to the\nhighest the account's plan allows when absent.\n",
+							),
+					})
+					.optional()
+					.describe("How many instances of the server run."),
 			})
 			.optional()
 			.describe(
@@ -5493,10 +5544,31 @@ export const createSiteBuildQueryClearCacheSchema = z
 	.optional()
 	.describe("Whether to clear the build cache before building");
 
+export const createSiteBuildQueryCommitShaSchema = z
+	.string()
+	.optional()
+	.describe(
+		"The commit SHA to build; when omitted, the head of the branch or pull request is fetched from the git host. Ignored for zip uploads",
+	);
+
+export const createSiteBuildQueryDraftSchema = z
+	.boolean()
+	.optional()
+	.describe(
+		"Whether to create a draft deploy, which uses the deploy-preview context and is never published; review_id builds are always drafts",
+	);
+
 export const createSiteBuildQueryImageSchema = z
 	.string()
 	.optional()
 	.describe("The build image tag to use for the build");
+
+export const createSiteBuildQueryReviewIdSchema = z
+	.int()
+	.optional()
+	.describe(
+		"The merge/pull request ID to build; triggers a deploy preview. Ignored for zip uploads",
+	);
 
 export const createSiteBuildQueryTemplateIdSchema = z
 	.string()
@@ -6441,6 +6513,16 @@ export const listFormSubmissionsErrorSchema = listFormSubmissionsStatusDefaultSc
 
 export const listHooksBySiteIdQuerySiteIdSchema = z.string();
 
+export const listHooksBySiteIdQueryFormIdSchema = z
+	.string()
+	.optional()
+	.describe("Only return hooks attached to this form.");
+
+export const listHooksBySiteIdQueryEventSchema = z
+	.string()
+	.optional()
+	.describe("Only return hooks for this event name.");
+
 export const listHooksBySiteIdStatus200Schema = z.array(
 	z.object({
 		id: z.string().optional(),
@@ -6578,6 +6660,11 @@ export const enableHookStatusDefaultSchema = z.object({
 export const enableHookResponseSchema = enableHookStatus200Schema;
 
 export const enableHookErrorSchema = enableHookStatusDefaultSchema;
+
+export const listHookTypesQuerySiteIdSchema = z
+	.string()
+	.optional()
+	.describe("Only return the hook types available to this site.");
 
 export const listHookTypesStatus200Schema = z.array(
 	z.object({
@@ -8037,7 +8124,12 @@ export const createAgentRunnerUploadUrlQueryFilenameSchema = z.string();
 
 export const createAgentRunnerUploadUrlQueryContentTypeSchema = z.string();
 
-export const createAgentRunnerUploadUrlStatus200Schema = z.unknown();
+export const createAgentRunnerUploadUrlStatus200Schema = z.object({
+	upload_url: z
+		.string()
+		.describe("Presigned URL to upload the file to with a PUT request. Expires after one hour."),
+	file_key: z.string().describe("Storage key of the uploaded file."),
+});
 
 export const createAgentRunnerUploadUrlStatus400Schema = z.unknown();
 
@@ -8270,7 +8362,63 @@ export const archiveAgentRunnerErrorSchema = z.union([
 
 export const agentRunnerPullRequestPathAgentRunnerIdSchema = z.string();
 
-export const agentRunnerPullRequestStatus200Schema = z.unknown();
+export const agentRunnerPullRequestStatus200Schema = z.object({
+	id: z.string().optional(),
+	site_id: z.string().optional(),
+	parent_agent_runner_id: z.string().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.",
+		),
+	created_at: z.string().optional(),
+	updated_at: z.string().optional(),
+	done_at: z.string().optional(),
+	title: z.string().optional(),
+	branch: z.string().optional(),
+	result_branch: z.string().optional(),
+	pr_url: z.string().optional(),
+	pr_branch: z.string().optional(),
+	pr_state: z.string().optional().describe("One of `open`, `draft`, `merged` or `closed`."),
+	pr_number: z.int().optional(),
+	pr_is_being_created: z.boolean().optional(),
+	pr_error: z.string().optional(),
+	current_task: z
+		.string()
+		.optional()
+		.describe("What the agent is working on in the active session."),
+	result_diff: z.string().optional(),
+	sha: z.string().optional(),
+	merge_commit_sha: z.string().optional(),
+	merge_commit_error: z.string().optional(),
+	merge_commit_is_being_created: z.boolean().optional(),
+	base_deploy_id: z.string().optional(),
+	attached_file_keys: z.array(z.string()).optional(),
+	active_session_created_at: z.string().optional(),
+	has_result_diff: z
+		.boolean()
+		.optional()
+		.describe(
+			"Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.",
+		),
+	latest_session_deploy_id: z.string().optional(),
+	latest_session_deploy_url: z.string().optional(),
+	preview_state: z
+		.string()
+		.optional()
+		.describe(
+			"State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.",
+		),
+	user: z
+		.object({
+			id: z.string().optional(),
+			full_name: z.string().optional(),
+			email: z.string().optional(),
+			avatar_url: z.string().optional(),
+		})
+		.optional(),
+});
 
 export const agentRunnerPullRequestStatus400Schema = z.unknown();
 
@@ -8296,7 +8444,63 @@ export const agentRunnerCommitToBranchPathAgentRunnerIdSchema = z.string();
 
 export const agentRunnerCommitToBranchQueryTargetBranchSchema = z.string();
 
-export const agentRunnerCommitToBranchStatus200Schema = z.unknown();
+export const agentRunnerCommitToBranchStatus200Schema = z.object({
+	id: z.string().optional(),
+	site_id: z.string().optional(),
+	parent_agent_runner_id: z.string().optional(),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"One of `new`, `running`, `await_input`, `interrupted`, `error`, `done`, `cancelled` or `archived`.",
+		),
+	created_at: z.string().optional(),
+	updated_at: z.string().optional(),
+	done_at: z.string().optional(),
+	title: z.string().optional(),
+	branch: z.string().optional(),
+	result_branch: z.string().optional(),
+	pr_url: z.string().optional(),
+	pr_branch: z.string().optional(),
+	pr_state: z.string().optional().describe("One of `open`, `draft`, `merged` or `closed`."),
+	pr_number: z.int().optional(),
+	pr_is_being_created: z.boolean().optional(),
+	pr_error: z.string().optional(),
+	current_task: z
+		.string()
+		.optional()
+		.describe("What the agent is working on in the active session."),
+	result_diff: z.string().optional(),
+	sha: z.string().optional(),
+	merge_commit_sha: z.string().optional(),
+	merge_commit_error: z.string().optional(),
+	merge_commit_is_being_created: z.boolean().optional(),
+	base_deploy_id: z.string().optional(),
+	attached_file_keys: z.array(z.string()).optional(),
+	active_session_created_at: z.string().optional(),
+	has_result_diff: z
+		.boolean()
+		.optional()
+		.describe(
+			"Whether the run has changes, available from `GET /agent_runners/{agent_runner_id}/diff`.",
+		),
+	latest_session_deploy_id: z.string().optional(),
+	latest_session_deploy_url: z.string().optional(),
+	preview_state: z
+		.string()
+		.optional()
+		.describe(
+			"State of the deploy building the latest preview. Null until that deploy exists; `ready` once the preview is live.",
+		),
+	user: z
+		.object({
+			id: z.string().optional(),
+			full_name: z.string().optional(),
+			email: z.string().optional(),
+			avatar_url: z.string().optional(),
+		})
+		.optional(),
+});
 
 export const agentRunnerCommitToBranchStatus400Schema = z.unknown();
 
@@ -9878,7 +10082,20 @@ export const markDevServerActivityPathSiteIdSchema = z.string();
 
 export const markDevServerActivityPathDevServerIdSchema = z.string();
 
-export const markDevServerActivityStatus200Schema = z.unknown();
+export const markDevServerActivityStatus200Schema = z.object({
+	id: z.string().optional(),
+	site_id: z.string().optional(),
+	branch: z.string().optional(),
+	url: z.string().optional(),
+	state: z.string().optional(),
+	created_at: z.string().optional(),
+	updated_at: z.string().optional(),
+	starting_at: z.string().optional(),
+	error_at: z.string().optional(),
+	live_at: z.string().optional(),
+	done_at: z.string().optional(),
+	title: z.string().optional(),
+});
 
 export const markDevServerActivityResponseSchema = markDevServerActivityStatus200Schema;
 

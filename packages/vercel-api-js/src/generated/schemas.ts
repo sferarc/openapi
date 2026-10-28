@@ -580,6 +580,10 @@ export const connectConnectorSchema = z
 			.describe(
 				"Known events this connector subscribes to (e.g. Slack bot events, GitHub webhook events). Names are type-specific and validated by the managed-create flow when forwarded to the third-party service.",
 			),
+		hasMcpEventDeliveries: z
+			.union([z.literal(false), z.literal(true)])
+			.optional()
+			.describe("Whether Connect has successfully delivered an MCP event for this connector."),
 		icon: z
 			.string()
 			.optional()
@@ -605,6 +609,12 @@ export const connectConnectorSchema = z
 			.optional()
 			.describe(
 				"Managed connector metadata exposed without leaking the manager connector or installation identifiers.",
+			),
+		mcpEventsUiVisibility: z
+			.enum(["auto", "hide", "show"])
+			.optional()
+			.describe(
+				"MCP Events dashboard visibility. Defaults to auto: show after the first successful delivery.",
 			),
 		name: z.string().describe("Connector name within the owning team."),
 		redirectUri: z
@@ -845,6 +855,10 @@ export const connectConnectorCreateResultSchema = z
 			.describe(
 				"Known events this connector subscribes to (e.g. Slack bot events, GitHub webhook events). Names are type-specific and validated by the managed-create flow when forwarded to the third-party service.",
 			),
+		hasMcpEventDeliveries: z
+			.union([z.literal(false), z.literal(true)])
+			.optional()
+			.describe("Whether Connect has successfully delivered an MCP event for this connector."),
 		icon: z
 			.string()
 			.optional()
@@ -870,6 +884,12 @@ export const connectConnectorCreateResultSchema = z
 			.optional()
 			.describe(
 				"Managed connector metadata exposed without leaking the manager connector or installation identifiers.",
+			),
+		mcpEventsUiVisibility: z
+			.enum(["auto", "hide", "show"])
+			.optional()
+			.describe(
+				"MCP Events dashboard visibility. Defaults to auto: show after the first successful delivery.",
 			),
 		name: z.string().describe("Connector name within the owning team."),
 		redirectUri: z
@@ -2416,6 +2436,12 @@ export const connectUpdateConnectorRequestSchema = z
 				"Additional registration inputs, validated by the trigger driver. Requires triggers: true. Shared verification credentials are read from triggerData.",
 			),
 		events: z.array(z.string()).optional().describe("Default trigger events for this connector."),
+		mcpEventsUiVisibility: z
+			.enum(["auto", "hide", "show"])
+			.optional()
+			.describe(
+				"MCP Events dashboard visibility. Auto (the default) shows the UI after the first successful delivery. Show and hide persist regardless of future deliveries. This does not enable or disable event delivery.",
+			),
 		data: connectConnectorUpdateDataSchema
 			.optional()
 			.describe("Provider configuration fields to update."),
@@ -3071,6 +3097,19 @@ export const userEventSchema = z
 			.number()
 			.describe("Timestamp (in milliseconds) of when the event was generated.")
 			.meta({ examples: [1632859321020] }),
+		details: z
+			.array(
+				z.object({
+					display: z
+						.enum(["inline"])
+						.optional()
+						.describe("Recognition context that should remain visible in a compact feed row."),
+					label: z.string(),
+					value: z.string(),
+				}),
+			)
+			.optional()
+			.describe("Labeled event details for progressive disclosure in the activity feed."),
 		entities: z
 			.array(
 				z.object({
@@ -3806,6 +3845,7 @@ export const userEventSchema = z
 								"read-write:access-group",
 								"read-write:ai-gateway-api-key",
 								"read-write:ai-gateway-budgets",
+								"read-write:ai-gateway-byok-credentials",
 								"read-write:ai-gateway-guardrails",
 								"read-write:ai-gateway-private-models",
 								"read-write:ai-gateway-rules",
@@ -3843,6 +3883,7 @@ export const userEventSchema = z
 								"read-write:webhooks",
 								"read:access-group",
 								"read:ai-gateway-budgets",
+								"read:ai-gateway-byok-credentials",
 								"read:ai-gateway-guardrails",
 								"read:ai-gateway-private-models",
 								"read:ai-gateway-rules",
@@ -3898,6 +3939,7 @@ export const userEventSchema = z
 								"read-write:access-group",
 								"read-write:ai-gateway-api-key",
 								"read-write:ai-gateway-budgets",
+								"read-write:ai-gateway-byok-credentials",
 								"read-write:ai-gateway-guardrails",
 								"read-write:ai-gateway-private-models",
 								"read-write:ai-gateway-rules",
@@ -3935,6 +3977,7 @@ export const userEventSchema = z
 								"read-write:webhooks",
 								"read:access-group",
 								"read:ai-gateway-budgets",
+								"read:ai-gateway-byok-credentials",
 								"read:ai-gateway-guardrails",
 								"read:ai-gateway-private-models",
 								"read:ai-gateway-rules",
@@ -3986,6 +4029,7 @@ export const userEventSchema = z
 										"read-write:access-group",
 										"read-write:ai-gateway-api-key",
 										"read-write:ai-gateway-budgets",
+										"read-write:ai-gateway-byok-credentials",
 										"read-write:ai-gateway-guardrails",
 										"read-write:ai-gateway-private-models",
 										"read-write:ai-gateway-rules",
@@ -4023,6 +4067,7 @@ export const userEventSchema = z
 										"read-write:webhooks",
 										"read:access-group",
 										"read:ai-gateway-budgets",
+										"read:ai-gateway-byok-credentials",
 										"read:ai-gateway-guardrails",
 										"read:ai-gateway-private-models",
 										"read:ai-gateway-rules",
@@ -4086,6 +4131,7 @@ export const userEventSchema = z
 										"read-write:access-group",
 										"read-write:ai-gateway-api-key",
 										"read-write:ai-gateway-budgets",
+										"read-write:ai-gateway-byok-credentials",
 										"read-write:ai-gateway-guardrails",
 										"read-write:ai-gateway-private-models",
 										"read-write:ai-gateway-rules",
@@ -4123,6 +4169,7 @@ export const userEventSchema = z
 										"read-write:webhooks",
 										"read:access-group",
 										"read:ai-gateway-budgets",
+										"read:ai-gateway-byok-credentials",
 										"read:ai-gateway-guardrails",
 										"read:ai-gateway-private-models",
 										"read:ai-gateway-rules",
@@ -4189,6 +4236,7 @@ export const userEventSchema = z
 								"read-write:access-group",
 								"read-write:ai-gateway-api-key",
 								"read-write:ai-gateway-budgets",
+								"read-write:ai-gateway-byok-credentials",
 								"read-write:ai-gateway-guardrails",
 								"read-write:ai-gateway-private-models",
 								"read-write:ai-gateway-rules",
@@ -4226,6 +4274,7 @@ export const userEventSchema = z
 								"read-write:webhooks",
 								"read:access-group",
 								"read:ai-gateway-budgets",
+								"read:ai-gateway-byok-credentials",
 								"read:ai-gateway-guardrails",
 								"read:ai-gateway-private-models",
 								"read:ai-gateway-rules",
@@ -10650,6 +10699,10 @@ export const userEventSchema = z
 			.describe(
 				"The ID of the session that the principal's token belongs to, when it belongs to one.",
 			),
+		summary: z
+			.string()
+			.optional()
+			.describe("Compact activity-feed text, when the event has additional details."),
 		text: z
 			.string()
 			.describe("The human-readable text of the Event.")
@@ -17175,6 +17228,367 @@ export const deleteAccessGroupProjectErrorSchema = z.union([
 	deleteAccessGroupProjectStatus410Schema,
 ]);
 
+export const createAiGatewayByokCredentialQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const createAiGatewayByokCredentialQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const createAiGatewayByokCredentialStatus201Schema = z.object({
+	active: z.union([z.literal(false), z.literal(true)]),
+	createdAt: z.number(),
+	credentialId: z.string(),
+	lastFourChars: z.string(),
+	name: z.string(),
+	ownerId: z.string(),
+	providerSlug: z.string(),
+	updatedAt: z.number(),
+	zeroDataRetention: z.union([z.literal(false), z.literal(true)]),
+});
+
+export const createAiGatewayByokCredentialStatus400Schema = z.unknown();
+
+export const createAiGatewayByokCredentialStatus401Schema = z.unknown();
+
+export const createAiGatewayByokCredentialStatus403Schema = z.unknown();
+
+export const createAiGatewayByokCredentialStatus404Schema = z.unknown();
+
+export const createAiGatewayByokCredentialStatus410Schema = z.unknown();
+
+export const createAiGatewayByokCredentialStatus429Schema = z.unknown();
+
+export const createAiGatewayByokCredentialStatus500Schema = z.unknown();
+
+export const createAiGatewayByokCredentialResponseSchema =
+	createAiGatewayByokCredentialStatus201Schema;
+
+export const createAiGatewayByokCredentialErrorSchema = z.union([
+	createAiGatewayByokCredentialStatus400Schema,
+	createAiGatewayByokCredentialStatus401Schema,
+	createAiGatewayByokCredentialStatus403Schema,
+	createAiGatewayByokCredentialStatus404Schema,
+	createAiGatewayByokCredentialStatus410Schema,
+	createAiGatewayByokCredentialStatus429Schema,
+	createAiGatewayByokCredentialStatus500Schema,
+]);
+
+export const createAiGatewayByokCredentialBodySchema = z
+	.object({
+		ownerId: z
+			.string()
+			.optional()
+			.describe(
+				"The owner ID for this credential. Ignored for customer tokens, which always create in their own team.",
+			),
+		providerSlug: z
+			.string()
+			.describe('The provider slug this credential is for (e.g., "openai", "anthropic")'),
+		name: z.string().max(100).describe("The developer-entered name for this credential"),
+		active: z
+			.boolean()
+			.optional()
+			.default(true)
+			.describe("Whether the credential is active and can be used"),
+		zeroDataRetention: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe(
+				"Whether the customer attested this external credential has a zero data retention policy",
+			),
+		userId: z
+			.string()
+			.optional()
+			.describe("The ID of the user performing this action, used for Activity-log attribution."),
+		mappings: z
+			.array(
+				z.object({
+					gatewayModelSlug: z
+						.string()
+						.describe('The AI Gateway model slug (e.g., "openai/gpt-5.4")'),
+					customModelId: z
+						.string()
+						.describe('The customer\'s custom model ID (e.g., "my-finetuned-gpt-5")'),
+				}),
+			)
+			.max(99)
+			.optional()
+			.describe(
+				"Model mappings to create atomically with the credential (e.g. Azure deployments). One DynamoDB transaction holds the credential plus all mappings, so at most 99 mappings fit.",
+			),
+	})
+	.optional();
+
+export const listAiGatewayByokCredentialsQueryOwnerIdSchema = z
+	.string()
+	.optional()
+	.describe(
+		"The owner ID to list credentials for. Ignored for customer tokens, which always list their own team.",
+	);
+
+export const listAiGatewayByokCredentialsQueryProviderSlugSchema = z
+	.string()
+	.optional()
+	.describe("Optional provider slug to filter credentials by");
+
+export const listAiGatewayByokCredentialsQueryIncludeDeletedSchema = z
+	.enum(["true", "false"])
+	.optional()
+	.default("false")
+	.describe("Whether to include soft-deleted credentials");
+
+export const listAiGatewayByokCredentialsQueryDecryptSchema = z
+	.enum(["true", "false"])
+	.optional()
+	.default("false")
+	.describe("Not supported. Credential values are never returned.");
+
+export const listAiGatewayByokCredentialsQueryIncludeModelMappingsSchema = z
+	.enum(["true", "false"])
+	.optional()
+	.default("false")
+	.describe("Whether to include model mappings for each credential in the response");
+
+export const listAiGatewayByokCredentialsQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const listAiGatewayByokCredentialsQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const listAiGatewayByokCredentialsStatus200Schema = z.object({
+	credentials: z.array(
+		z.object({
+			active: z.union([z.literal(false), z.literal(true)]),
+			createdAt: z.number(),
+			credential: z.string().nullable(),
+			credentialId: z.string(),
+			deleted: z.union([z.literal(false), z.literal(true)]),
+			lastFourChars: z.string(),
+			modelMappings: z.array(
+				z.object({
+					customModelId: z.string(),
+					gatewayModelSlug: z.string(),
+				}),
+			),
+			name: z.string(),
+			ownerId: z.string(),
+			providerSlug: z.string(),
+			updatedAt: z.number(),
+			zeroDataRetention: z.union([z.literal(false), z.literal(true)]),
+		}),
+	),
+});
+
+export const listAiGatewayByokCredentialsStatus400Schema = z.unknown();
+
+export const listAiGatewayByokCredentialsStatus401Schema = z.unknown();
+
+export const listAiGatewayByokCredentialsStatus403Schema = z.unknown();
+
+export const listAiGatewayByokCredentialsStatus404Schema = z.unknown();
+
+export const listAiGatewayByokCredentialsStatus410Schema = z.unknown();
+
+export const listAiGatewayByokCredentialsStatus500Schema = z.unknown();
+
+export const listAiGatewayByokCredentialsResponseSchema =
+	listAiGatewayByokCredentialsStatus200Schema;
+
+export const listAiGatewayByokCredentialsErrorSchema = z.union([
+	listAiGatewayByokCredentialsStatus400Schema,
+	listAiGatewayByokCredentialsStatus401Schema,
+	listAiGatewayByokCredentialsStatus403Schema,
+	listAiGatewayByokCredentialsStatus404Schema,
+	listAiGatewayByokCredentialsStatus410Schema,
+	listAiGatewayByokCredentialsStatus500Schema,
+]);
+
+export const getAiGatewayByokCredentialQueryOwnerIdSchema = z.string().optional();
+
+export const getAiGatewayByokCredentialPathCredentialIdSchema = z
+	.string()
+	.describe("The unique ID of the credential");
+
+export const getAiGatewayByokCredentialQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const getAiGatewayByokCredentialQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const getAiGatewayByokCredentialStatus200Schema = z.object({
+	active: z.union([z.literal(false), z.literal(true)]),
+	createdAt: z.number(),
+	credentialId: z.string(),
+	lastFourChars: z.string(),
+	name: z.string(),
+	ownerId: z.string(),
+	providerSlug: z.string(),
+	updatedAt: z.number(),
+	zeroDataRetention: z.union([z.literal(false), z.literal(true)]),
+});
+
+export const getAiGatewayByokCredentialStatus400Schema = z.unknown();
+
+export const getAiGatewayByokCredentialStatus401Schema = z.unknown();
+
+export const getAiGatewayByokCredentialStatus403Schema = z.unknown();
+
+export const getAiGatewayByokCredentialStatus404Schema = z.unknown();
+
+export const getAiGatewayByokCredentialStatus410Schema = z.unknown();
+
+export const getAiGatewayByokCredentialStatus500Schema = z.unknown();
+
+export const getAiGatewayByokCredentialResponseSchema = getAiGatewayByokCredentialStatus200Schema;
+
+export const getAiGatewayByokCredentialErrorSchema = z.union([
+	getAiGatewayByokCredentialStatus400Schema,
+	getAiGatewayByokCredentialStatus401Schema,
+	getAiGatewayByokCredentialStatus403Schema,
+	getAiGatewayByokCredentialStatus404Schema,
+	getAiGatewayByokCredentialStatus410Schema,
+	getAiGatewayByokCredentialStatus500Schema,
+]);
+
+export const updateAiGatewayByokCredentialQueryOwnerIdSchema = z.string().optional();
+
+export const updateAiGatewayByokCredentialPathCredentialIdSchema = z
+	.string()
+	.describe("The unique ID of the credential to update");
+
+export const updateAiGatewayByokCredentialQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const updateAiGatewayByokCredentialQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const updateAiGatewayByokCredentialStatus200Schema = z.object({
+	active: z.union([z.literal(false), z.literal(true)]),
+	createdAt: z.number(),
+	credentialId: z.string(),
+	lastFourChars: z.string(),
+	name: z.string(),
+	ownerId: z.string(),
+	providerSlug: z.string(),
+	updatedAt: z.number(),
+	zeroDataRetention: z.union([z.literal(false), z.literal(true)]),
+});
+
+export const updateAiGatewayByokCredentialStatus400Schema = z.unknown();
+
+export const updateAiGatewayByokCredentialStatus401Schema = z.unknown();
+
+export const updateAiGatewayByokCredentialStatus403Schema = z.unknown();
+
+export const updateAiGatewayByokCredentialStatus404Schema = z.unknown();
+
+export const updateAiGatewayByokCredentialStatus410Schema = z.unknown();
+
+export const updateAiGatewayByokCredentialStatus500Schema = z.unknown();
+
+export const updateAiGatewayByokCredentialResponseSchema =
+	updateAiGatewayByokCredentialStatus200Schema;
+
+export const updateAiGatewayByokCredentialErrorSchema = z.union([
+	updateAiGatewayByokCredentialStatus400Schema,
+	updateAiGatewayByokCredentialStatus401Schema,
+	updateAiGatewayByokCredentialStatus403Schema,
+	updateAiGatewayByokCredentialStatus404Schema,
+	updateAiGatewayByokCredentialStatus410Schema,
+	updateAiGatewayByokCredentialStatus500Schema,
+]);
+
+export const updateAiGatewayByokCredentialBodySchema = z
+	.strictObject({
+		name: z.string().max(100).optional().describe("The new name for the credential"),
+		active: z.boolean().optional().describe("Whether the credential should be active"),
+		zeroDataRetention: z
+			.boolean()
+			.optional()
+			.describe(
+				"Whether the customer attested this external credential has a zero data retention policy",
+			),
+		userId: z
+			.string()
+			.optional()
+			.describe("The ID of the user performing this action, used for Activity-log attribution."),
+	})
+	.optional();
+
+export const deleteAiGatewayByokCredentialQueryOwnerIdSchema = z.string().optional();
+
+export const deleteAiGatewayByokCredentialPathCredentialIdSchema = z
+	.string()
+	.describe("The unique ID of the credential to delete");
+
+export const deleteAiGatewayByokCredentialQueryUserIdSchema = z
+	.string()
+	.optional()
+	.describe("The ID of the user performing this action, used for Activity-log attribution.");
+
+export const deleteAiGatewayByokCredentialQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const deleteAiGatewayByokCredentialQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const deleteAiGatewayByokCredentialStatus204Schema = z.unknown().nullable();
+
+export const deleteAiGatewayByokCredentialStatus400Schema = z.unknown();
+
+export const deleteAiGatewayByokCredentialStatus401Schema = z.unknown();
+
+export const deleteAiGatewayByokCredentialStatus403Schema = z.unknown();
+
+export const deleteAiGatewayByokCredentialStatus404Schema = z.unknown();
+
+export const deleteAiGatewayByokCredentialStatus410Schema = z.unknown();
+
+export const deleteAiGatewayByokCredentialStatus500Schema = z.unknown();
+
+export const deleteAiGatewayByokCredentialResponseSchema =
+	deleteAiGatewayByokCredentialStatus204Schema;
+
+export const deleteAiGatewayByokCredentialErrorSchema = z.union([
+	deleteAiGatewayByokCredentialStatus400Schema,
+	deleteAiGatewayByokCredentialStatus401Schema,
+	deleteAiGatewayByokCredentialStatus403Schema,
+	deleteAiGatewayByokCredentialStatus404Schema,
+	deleteAiGatewayByokCredentialStatus410Schema,
+	deleteAiGatewayByokCredentialStatus500Schema,
+]);
+
 export const createAiGatewayVirtualModelConfigQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -22799,7 +23213,7 @@ export const listConnectorsErrorSchema = z.union([
 export const getConnectorPathConnectorSchema = z
 	.string()
 	.describe(
-		"Stable connector ID or URL-encoded team-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.",
+		"Stable connector ID or URL-encoded owner-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.",
 	);
 
 export const getConnectorQueryTeamIdSchema = z
@@ -23461,9 +23875,17 @@ export const upsertConnectorProjectConnectionStatus410Schema = connectErrorSchem
 	"Error response returned by a Connect API operation.",
 );
 
+export const upsertConnectorProjectConnectionStatus422Schema = connectErrorSchema.describe(
+	"Error response returned by a Connect API operation.",
+);
+
 export const upsertConnectorProjectConnectionStatus500Schema = connectErrorSchema.describe(
 	"Error response returned by a Connect API operation.",
 );
+
+export const upsertConnectorProjectConnectionStatus501Schema = z.unknown();
+
+export const upsertConnectorProjectConnectionStatus504Schema = z.unknown();
 
 export const upsertConnectorProjectConnectionResponseSchema =
 	upsertConnectorProjectConnectionStatus200Schema;
@@ -23475,7 +23897,10 @@ export const upsertConnectorProjectConnectionErrorSchema = z.union([
 	upsertConnectorProjectConnectionStatus404Schema,
 	upsertConnectorProjectConnectionStatus409Schema,
 	upsertConnectorProjectConnectionStatus410Schema,
+	upsertConnectorProjectConnectionStatus422Schema,
 	upsertConnectorProjectConnectionStatus500Schema,
+	upsertConnectorProjectConnectionStatus501Schema,
+	upsertConnectorProjectConnectionStatus504Schema,
 ]);
 
 export const upsertConnectorProjectConnectionBodySchema =
@@ -23535,9 +23960,17 @@ export const deleteConnectorProjectConnectionStatus410Schema = connectErrorSchem
 	"Error response returned by a Connect API operation.",
 );
 
+export const deleteConnectorProjectConnectionStatus422Schema = connectErrorSchema.describe(
+	"Error response returned by a Connect API operation.",
+);
+
 export const deleteConnectorProjectConnectionStatus500Schema = connectErrorSchema.describe(
 	"Error response returned by a Connect API operation.",
 );
+
+export const deleteConnectorProjectConnectionStatus501Schema = z.unknown();
+
+export const deleteConnectorProjectConnectionStatus504Schema = z.unknown();
 
 export const deleteConnectorProjectConnectionResponseSchema =
 	deleteConnectorProjectConnectionStatus204Schema;
@@ -23549,7 +23982,10 @@ export const deleteConnectorProjectConnectionErrorSchema = z.union([
 	deleteConnectorProjectConnectionStatus404Schema,
 	deleteConnectorProjectConnectionStatus409Schema,
 	deleteConnectorProjectConnectionStatus410Schema,
+	deleteConnectorProjectConnectionStatus422Schema,
 	deleteConnectorProjectConnectionStatus500Schema,
+	deleteConnectorProjectConnectionStatus501Schema,
+	deleteConnectorProjectConnectionStatus504Schema,
 ]);
 
 export const listProjectConnectorConnectionsPathProjectIdSchema = z
@@ -26097,6 +26533,30 @@ export const getDeploymentStatus200Schema = z.union([
 												.record(z.string(), z.number())
 												.optional()
 												.describe("Instance counts by region."),
+											livenessProbe: z
+												.object({
+													failureThreshold: z.number().optional(),
+													httpGet: z.object({
+														host: z.string().optional(),
+														httpHeaders: z
+															.array(
+																z.object({
+																	name: z.string(),
+																	value: z.string(),
+																}),
+															)
+															.optional(),
+														path: z.string().optional(),
+														port: z.number(),
+														scheme: z.enum(["HTTP", "HTTPS"]).optional(),
+													}),
+													initialDelaySeconds: z.number().optional(),
+													periodSeconds: z.number().optional(),
+													successThreshold: z.number().optional(),
+													timeoutSeconds: z.number().optional(),
+												})
+												.optional()
+												.describe("A Kubernetes-style HTTP liveness probe."),
 											replicas: z
 												.record(z.string(), z.number())
 												.optional()
@@ -26406,6 +26866,30 @@ export const getDeploymentStatus200Schema = z.union([
 													.record(z.string(), z.number())
 													.optional()
 													.describe("Instance counts by region."),
+												livenessProbe: z
+													.object({
+														failureThreshold: z.number().optional(),
+														httpGet: z.object({
+															host: z.string().optional(),
+															httpHeaders: z
+																.array(
+																	z.object({
+																		name: z.string(),
+																		value: z.string(),
+																	}),
+																)
+																.optional(),
+															path: z.string().optional(),
+															port: z.number(),
+															scheme: z.enum(["HTTP", "HTTPS"]).optional(),
+														}),
+														initialDelaySeconds: z.number().optional(),
+														periodSeconds: z.number().optional(),
+														successThreshold: z.number().optional(),
+														timeoutSeconds: z.number().optional(),
+													})
+													.optional()
+													.describe("A Kubernetes-style HTTP liveness probe."),
 												replicas: z
 													.record(z.string(), z.number())
 													.optional()
@@ -29557,6 +30041,30 @@ export const createDeploymentStatus200Schema = z.union([
 												.record(z.string(), z.number())
 												.optional()
 												.describe("Instance counts by region."),
+											livenessProbe: z
+												.object({
+													failureThreshold: z.number().optional(),
+													httpGet: z.object({
+														host: z.string().optional(),
+														httpHeaders: z
+															.array(
+																z.object({
+																	name: z.string(),
+																	value: z.string(),
+																}),
+															)
+															.optional(),
+														path: z.string().optional(),
+														port: z.number(),
+														scheme: z.enum(["HTTP", "HTTPS"]).optional(),
+													}),
+													initialDelaySeconds: z.number().optional(),
+													periodSeconds: z.number().optional(),
+													successThreshold: z.number().optional(),
+													timeoutSeconds: z.number().optional(),
+												})
+												.optional()
+												.describe("A Kubernetes-style HTTP liveness probe."),
 											replicas: z
 												.record(z.string(), z.number())
 												.optional()
@@ -29866,6 +30374,30 @@ export const createDeploymentStatus200Schema = z.union([
 													.record(z.string(), z.number())
 													.optional()
 													.describe("Instance counts by region."),
+												livenessProbe: z
+													.object({
+														failureThreshold: z.number().optional(),
+														httpGet: z.object({
+															host: z.string().optional(),
+															httpHeaders: z
+																.array(
+																	z.object({
+																		name: z.string(),
+																		value: z.string(),
+																	}),
+																)
+																.optional(),
+															path: z.string().optional(),
+															port: z.number(),
+															scheme: z.enum(["HTTP", "HTTPS"]).optional(),
+														}),
+														initialDelaySeconds: z.number().optional(),
+														periodSeconds: z.number().optional(),
+														successThreshold: z.number().optional(),
+														timeoutSeconds: z.number().optional(),
+													})
+													.optional()
+													.describe("A Kubernetes-style HTTP liveness probe."),
 												replicas: z
 													.record(z.string(), z.number())
 													.optional()
@@ -32819,6 +33351,30 @@ export const cancelDeploymentStatus200Schema = z
 												.record(z.string(), z.number())
 												.optional()
 												.describe("Instance counts by region."),
+											livenessProbe: z
+												.object({
+													failureThreshold: z.number().optional(),
+													httpGet: z.object({
+														host: z.string().optional(),
+														httpHeaders: z
+															.array(
+																z.object({
+																	name: z.string(),
+																	value: z.string(),
+																}),
+															)
+															.optional(),
+														path: z.string().optional(),
+														port: z.number(),
+														scheme: z.enum(["HTTP", "HTTPS"]).optional(),
+													}),
+													initialDelaySeconds: z.number().optional(),
+													periodSeconds: z.number().optional(),
+													successThreshold: z.number().optional(),
+													timeoutSeconds: z.number().optional(),
+												})
+												.optional()
+												.describe("A Kubernetes-style HTTP liveness probe."),
 											replicas: z
 												.record(z.string(), z.number())
 												.optional()
@@ -33128,6 +33684,30 @@ export const cancelDeploymentStatus200Schema = z
 													.record(z.string(), z.number())
 													.optional()
 													.describe("Instance counts by region."),
+												livenessProbe: z
+													.object({
+														failureThreshold: z.number().optional(),
+														httpGet: z.object({
+															host: z.string().optional(),
+															httpHeaders: z
+																.array(
+																	z.object({
+																		name: z.string(),
+																		value: z.string(),
+																	}),
+																)
+																.optional(),
+															path: z.string().optional(),
+															port: z.number(),
+															scheme: z.enum(["HTTP", "HTTPS"]).optional(),
+														}),
+														initialDelaySeconds: z.number().optional(),
+														periodSeconds: z.number().optional(),
+														successThreshold: z.number().optional(),
+														timeoutSeconds: z.number().optional(),
+													})
+													.optional()
+													.describe("A Kubernetes-style HTTP liveness probe."),
 												replicas: z
 													.record(z.string(), z.number())
 													.optional()
@@ -51733,6 +52313,11 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 							memory: z.literal(16384),
 						}),
 						z.strictObject({
+							cores: z.literal(14),
+							label: z.string(),
+							memory: z.literal(28672),
+						}),
+						z.strictObject({
 							cores: z.literal(30),
 							label: z.enum(["turbo"]),
 							memory: z.literal(61440),
@@ -52711,6 +53296,12 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 						),
 					aiGatewayBudget: z
+						.array(ACLActionSchema)
+						.optional()
+						.describe(
+							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+						),
+					aiGatewayByokCredentials: z
 						.array(ACLActionSchema)
 						.optional()
 						.describe(
@@ -54534,6 +55125,11 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 							cores: z.literal(8),
 							label: z.enum(["enhanced"]),
 							memory: z.literal(16384),
+						}),
+						z.strictObject({
+							cores: z.literal(14),
+							label: z.string(),
+							memory: z.literal(28672),
 						}),
 						z.strictObject({
 							cores: z.literal(30),
@@ -59510,6 +60106,11 @@ export const getProjectsStatus200Schema = z
 								memory: z.literal(16384),
 							}),
 							z.strictObject({
+								cores: z.literal(14),
+								label: z.string(),
+								memory: z.literal(28672),
+							}),
+							z.strictObject({
 								cores: z.literal(30),
 								label: z.enum(["turbo"]),
 								memory: z.literal(61440),
@@ -61106,6 +61707,11 @@ export const getProjectsStatus200Schema = z
 									memory: z.literal(16384),
 								}),
 								z.strictObject({
+									cores: z.literal(14),
+									label: z.string(),
+									memory: z.literal(28672),
+								}),
+								z.strictObject({
 									cores: z.literal(30),
 									label: z.enum(["turbo"]),
 									memory: z.literal(61440),
@@ -62197,6 +62803,11 @@ export const getProjectsStatus200Schema = z
 									memory: z.literal(16384),
 								}),
 								z.strictObject({
+									cores: z.literal(14),
+									label: z.string(),
+									memory: z.literal(28672),
+								}),
+								z.strictObject({
 									cores: z.literal(30),
 									label: z.enum(["turbo"]),
 									memory: z.literal(61440),
@@ -63179,6 +63790,12 @@ export const getProjectsStatus200Schema = z
 									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 								),
 							aiGatewayBudget: z
+								.array(ACLActionSchema)
+								.optional()
+								.describe(
+									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+								),
+							aiGatewayByokCredentials: z
 								.array(ACLActionSchema)
 								.optional()
 								.describe(
@@ -65008,6 +65625,11 @@ export const getProjectsStatus200Schema = z
 									memory: z.literal(16384),
 								}),
 								z.strictObject({
+									cores: z.literal(14),
+									label: z.string(),
+									memory: z.literal(28672),
+								}),
+								z.strictObject({
 									cores: z.literal(30),
 									label: z.enum(["turbo"]),
 									memory: z.literal(61440),
@@ -66287,6 +66909,11 @@ export const createProjectStatus200Schema = z.object({
 					memory: z.literal(16384),
 				}),
 				z.strictObject({
+					cores: z.literal(14),
+					label: z.string(),
+					memory: z.literal(28672),
+				}),
+				z.strictObject({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -67259,6 +67886,12 @@ export const createProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			aiGatewayBudget: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			aiGatewayByokCredentials: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -69082,6 +69715,11 @@ export const createProjectStatus200Schema = z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
+				}),
+				z.strictObject({
+					cores: z.literal(14),
+					label: z.string(),
+					memory: z.literal(28672),
 				}),
 				z.strictObject({
 					cores: z.literal(30),
@@ -70727,6 +71365,11 @@ export const getProjectStatus200Schema = z.object({
 					memory: z.literal(16384),
 				}),
 				z.strictObject({
+					cores: z.literal(14),
+					label: z.string(),
+					memory: z.literal(28672),
+				}),
+				z.strictObject({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -71717,6 +72360,12 @@ export const getProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			aiGatewayBudget: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			aiGatewayByokCredentials: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -73540,6 +74189,11 @@ export const getProjectStatus200Schema = z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
+				}),
+				z.strictObject({
+					cores: z.literal(14),
+					label: z.string(),
+					memory: z.literal(28672),
 				}),
 				z.strictObject({
 					cores: z.literal(30),
@@ -74712,6 +75366,11 @@ export const updateProjectStatus200Schema = z.object({
 					memory: z.literal(16384),
 				}),
 				z.strictObject({
+					cores: z.literal(14),
+					label: z.string(),
+					memory: z.literal(28672),
+				}),
+				z.strictObject({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -75681,6 +76340,12 @@ export const updateProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			aiGatewayBudget: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			aiGatewayByokCredentials: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -77504,6 +78169,11 @@ export const updateProjectStatus200Schema = z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
+				}),
+				z.strictObject({
+					cores: z.literal(14),
+					label: z.string(),
+					memory: z.literal(28672),
 				}),
 				z.strictObject({
 					cores: z.literal(30),
@@ -79484,6 +80154,11 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 					memory: z.literal(16384),
 				}),
 				z.strictObject({
+					cores: z.literal(14),
+					label: z.string(),
+					memory: z.literal(28672),
+				}),
+				z.strictObject({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -80456,6 +81131,12 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			aiGatewayBudget: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			aiGatewayByokCredentials: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -82279,6 +82960,11 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
+				}),
+				z.strictObject({
+					cores: z.literal(14),
+					label: z.string(),
+					memory: z.literal(28672),
 				}),
 				z.strictObject({
 					cores: z.literal(30),
@@ -83458,6 +84144,11 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					memory: z.literal(16384),
 				}),
 				z.strictObject({
+					cores: z.literal(14),
+					label: z.string(),
+					memory: z.literal(28672),
+				}),
+				z.strictObject({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -84430,6 +85121,12 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			aiGatewayBudget: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			aiGatewayByokCredentials: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -86253,6 +86950,11 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
+				}),
+				z.strictObject({
+					cores: z.literal(14),
+					label: z.string(),
+					memory: z.literal(28672),
 				}),
 				z.strictObject({
 					cores: z.literal(30),
@@ -92994,6 +93696,11 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					memory: z.literal(16384),
 				}),
 				z.strictObject({
+					cores: z.literal(14),
+					label: z.string(),
+					memory: z.literal(28672),
+				}),
+				z.strictObject({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -93966,6 +94673,12 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			aiGatewayBudget: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			aiGatewayByokCredentials: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -95789,6 +96502,11 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
+				}),
+				z.strictObject({
+					cores: z.literal(14),
+					label: z.string(),
+					memory: z.literal(28672),
 				}),
 				z.strictObject({
 					cores: z.literal(30),

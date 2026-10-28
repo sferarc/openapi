@@ -1317,7 +1317,7 @@ export const classificationRubricSchema = z
 export const autoRouterClassifierPromptPreviewRequestSchema = z
 	.object({
 		tier_definitions: z.union([z.array(tierDefinitionSchema), z.null()]).optional(),
-		tier_labels: z.union([z.record(z.string(), z.string()), z.null()]).optional(),
+		tier_labels: z.union([z.partialRecord(complexityTierSchema, z.string()), z.null()]).optional(),
 		classification_rubric: z.union([classificationRubricSchema, z.null()]).optional(),
 		context_window_size: z.int().min(0).optional().default(3),
 		classification_prompt: z.union([z.string(), z.null()]).optional(),
@@ -1697,7 +1697,7 @@ export const requestComplexityRouterConfigSchema = z
 				"Replaces the calibration examples of the LLM classifier rubric, and nothing else. Written as example lines only: the router renders the 'Calibration examples:' heading above them, after the per-tier bullets. Requires an LLM classifier and cannot be combined with classifier_llm_config.system_prompt. With built-in tiers the rubric preset still supplies the tier criteria and, unless classification_prompt replaces them, the classification instructions; a custom tier set ships no examples of its own, so the section renders only when this is set.",
 			),
 		tier_labels: z
-			.record(z.string(), z.string())
+			.partialRecord(complexityTierSchema, z.string())
 			.optional()
 			.describe(
 				"Display names for the complexity tiers, so a deployment can use its own vocabulary (e.g. Cheap/Standard/Premium/Deep) in the dashboard, spend logs, and the LLM classifier rubric. Purely operator-facing: config keys stay canonical (tiers, keyword_tier_rules[].tier, tier_boundaries), API callers never see these names, and the heuristic scorer never reads them. Unlisted tiers keep their canonical name. Partial maps are allowed.",
@@ -4802,6 +4802,10 @@ export const liteLLMParamsSchema = z
 		otpm: z.union([z.int(), z.null()]).optional(),
 		timeout: z.union([z.number(), z.string(), z.null()]).optional(),
 		stream_timeout: z.union([z.number(), z.string(), z.null()]).optional(),
+		timeout_by_service_tier: z.union([z.record(z.string(), z.number()), z.null()]).optional(),
+		stream_timeout_by_service_tier: z
+			.union([z.record(z.string(), z.number()), z.null()])
+			.optional(),
 		max_retries: z.union([z.int(), z.null()]).optional(),
 		drop_params: z.union([z.boolean(), z.string(), z.null()]).optional(),
 		organization: z.union([z.string(), z.null()]).optional(),
@@ -8425,7 +8429,7 @@ export const roleMappingsSchema = z
 				"Default role to assign if user's groups don't match any role mappings. Must be a valid LitellmUserRoles value (e.g., 'proxy_admin', 'internal_user', 'proxy_admin_viewer')",
 			),
 		roles: z
-			.record(z.string(), z.array(z.string()))
+			.partialRecord(litellmUserRolesSchema, z.array(z.string()))
 			.optional()
 			.describe(
 				"Mapping of LiteLLM role names to arrays of SSO group names. Example: {'proxy_admin': ['group-1', 'group-2'], 'proxy_admin_viewer': ['group-3']}",
@@ -9432,11 +9436,13 @@ export const teamUserSpendResponseSchema = z.object({
 
 export const tokenCountDetailsResponseSchema = z
 	.object({
+		litellm_count_source: z.enum(["provider", "token_count_model", "local_estimate"]).optional(),
+		litellm_count_model: z.string().optional(),
 		totalTokens: z.int(),
 		promptTokensDetails: z.array(promptTokensDetailsSchema),
 	})
 	.describe(
-		"Response structure for token count details with modality breakdown.\n\nExample:\n    {'totalTokens': 12, 'promptTokensDetails': [{'modality': 'TEXT', 'tokenCount': 12}]}",
+		"Response structure for token count details with modality breakdown.\n\nExample:\n    {'totalTokens': 12, 'promptTokensDetails': [{'modality': 'TEXT', 'tokenCount': 12}],\n     'litellm_count_source': 'provider'}",
 	);
 
 export const tokenCountRequestSchema = z.object({
@@ -9453,6 +9459,9 @@ export const tokenCountResponseSchema = z.object({
 	request_model: z.string(),
 	model_used: z.string(),
 	tokenizer_type: z.string(),
+	count_source: z
+		.union([z.enum(["provider", "token_count_model", "local_estimate"]), z.null()])
+		.optional(),
 	original_response: z.union([z.looseObject({}), z.null()]).optional(),
 	error: z.boolean().optional().default(false),
 	error_message: z.union([z.string(), z.null()]).optional(),
@@ -10338,6 +10347,8 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 	otpm: z.union([z.int(), z.null()]).optional(),
 	timeout: z.union([z.number(), z.string(), z.null()]).optional(),
 	stream_timeout: z.union([z.number(), z.string(), z.null()]).optional(),
+	timeout_by_service_tier: z.union([z.record(z.string(), z.number()), z.null()]).optional(),
+	stream_timeout_by_service_tier: z.union([z.record(z.string(), z.number()), z.null()]).optional(),
 	max_retries: z.union([z.int(), z.null()]).optional(),
 	drop_params: z.union([z.boolean(), z.string(), z.null()]).optional(),
 	organization: z.union([z.string(), z.null()]).optional(),
@@ -25511,7 +25522,7 @@ export const googleCountTokensModelsModelNameCountTokensPostPathModelNameSchema 
 
 export const googleCountTokensModelsModelNameCountTokensPostStatus200Schema =
 	tokenCountDetailsResponseSchema.describe(
-		"Response structure for token count details with modality breakdown.\n\nExample:\n    {'totalTokens': 12, 'promptTokensDetails': [{'modality': 'TEXT', 'tokenCount': 12}]}",
+		"Response structure for token count details with modality breakdown.\n\nExample:\n    {'totalTokens': 12, 'promptTokensDetails': [{'modality': 'TEXT', 'tokenCount': 12}],\n     'litellm_count_source': 'provider'}",
 	);
 
 export const googleCountTokensModelsModelNameCountTokensPostStatus422Schema =
@@ -25527,7 +25538,7 @@ export const googleCountTokensV1BetaModelsModelNameCountTokensPostPathModelNameS
 
 export const googleCountTokensV1BetaModelsModelNameCountTokensPostStatus200Schema =
 	tokenCountDetailsResponseSchema.describe(
-		"Response structure for token count details with modality breakdown.\n\nExample:\n    {'totalTokens': 12, 'promptTokensDetails': [{'modality': 'TEXT', 'tokenCount': 12}]}",
+		"Response structure for token count details with modality breakdown.\n\nExample:\n    {'totalTokens': 12, 'promptTokensDetails': [{'modality': 'TEXT', 'tokenCount': 12}],\n     'litellm_count_source': 'provider'}",
 	);
 
 export const googleCountTokensV1BetaModelsModelNameCountTokensPostStatus422Schema =
@@ -25691,42 +25702,6 @@ export const aggregateMcpRouteMcpPatchStatus200Schema = z.unknown();
 
 export const aggregateMcpRouteMcpPatchResponseSchema = aggregateMcpRouteMcpPatchStatus200Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema = z.looseObject({});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema = z.unknown();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostPathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema = z.looseObject({});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema;
-
 export const toolsetMcpRouteToolsetToolsetNameMcpPutPathToolsetNameSchema = z.string();
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPutStatus200Schema = z.looseObject({});
@@ -25738,18 +25713,6 @@ export const toolsetMcpRouteToolsetToolsetNameMcpPutResponseSchema =
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPutErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpPutStatus422Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema = z.unknown();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema = HTTPValidationErrorSchema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema;
 
 export const toolsetMcpRouteToolsetToolsetNameMcpOptionsPathToolsetNameSchema = z.string();
 
@@ -25763,6 +25726,30 @@ export const toolsetMcpRouteToolsetToolsetNameMcpOptionsResponseSchema =
 export const toolsetMcpRouteToolsetToolsetNameMcpOptionsErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422Schema;
 
+export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathToolsetNameSchema = z.string();
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema = z.looseObject({});
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathToolsetNameSchema = z.string();
+
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema = z.unknown();
+
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema = HTTPValidationErrorSchema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema;
+
 export const toolsetMcpRouteToolsetToolsetNameMcpGetPathToolsetNameSchema = z.string();
 
 export const toolsetMcpRouteToolsetToolsetNameMcpGetStatus200Schema = z.looseObject({});
@@ -25775,41 +25762,29 @@ export const toolsetMcpRouteToolsetToolsetNameMcpGetResponseSchema =
 export const toolsetMcpRouteToolsetToolsetNameMcpGetErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpGetStatus422Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpDeletePathMcpServerNameSchema = z.string();
+export const toolsetMcpRouteToolsetToolsetNameMcpPostPathToolsetNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpDeleteStatus200Schema = z.looseObject({});
+export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema = z.looseObject({});
 
-export const dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
 
-export const dynamicMcpRouteMcpServerNameMcpDeleteResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpDeleteStatus200Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPostResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpDeleteErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPostErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPatchPathMcpServerNameSchema = z.string();
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathToolsetNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema = z.unknown();
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema = z.unknown();
 
-export const dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
 
-export const dynamicMcpRouteMcpServerNameMcpPatchResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPatchErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema;
-
-export const dynamicMcpRouteMcpServerNameMcpPostPathMcpServerNameSchema = z.string();
-
-export const dynamicMcpRouteMcpServerNameMcpPostStatus200Schema = z.looseObject({});
-
-export const dynamicMcpRouteMcpServerNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const dynamicMcpRouteMcpServerNameMcpPostResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpPostStatus200Schema;
-
-export const dynamicMcpRouteMcpServerNameMcpPostErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpPostStatus422Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema;
 
 export const dynamicMcpRouteMcpServerNameMcpPutPathMcpServerNameSchema = z.string();
 
@@ -25823,18 +25798,6 @@ export const dynamicMcpRouteMcpServerNameMcpPutResponseSchema =
 export const dynamicMcpRouteMcpServerNameMcpPutErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpPutStatus422Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpHeadPathMcpServerNameSchema = z.string();
-
-export const dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema = z.unknown();
-
-export const dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema = HTTPValidationErrorSchema;
-
-export const dynamicMcpRouteMcpServerNameMcpHeadResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema;
-
-export const dynamicMcpRouteMcpServerNameMcpHeadErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema;
-
 export const dynamicMcpRouteMcpServerNameMcpOptionsPathMcpServerNameSchema = z.string();
 
 export const dynamicMcpRouteMcpServerNameMcpOptionsStatus200Schema = z.unknown();
@@ -25847,6 +25810,30 @@ export const dynamicMcpRouteMcpServerNameMcpOptionsResponseSchema =
 export const dynamicMcpRouteMcpServerNameMcpOptionsErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpOptionsStatus422Schema;
 
+export const dynamicMcpRouteMcpServerNameMcpDeletePathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpDeleteStatus200Schema = z.looseObject({});
+
+export const dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
+
+export const dynamicMcpRouteMcpServerNameMcpDeleteResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpDeleteStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpDeleteErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpHeadPathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema = z.unknown();
+
+export const dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema = HTTPValidationErrorSchema;
+
+export const dynamicMcpRouteMcpServerNameMcpHeadResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpHeadErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema;
+
 export const dynamicMcpRouteMcpServerNameMcpGetPathMcpServerNameSchema = z.string();
 
 export const dynamicMcpRouteMcpServerNameMcpGetStatus200Schema = z.looseObject({});
@@ -25858,6 +25845,30 @@ export const dynamicMcpRouteMcpServerNameMcpGetResponseSchema =
 
 export const dynamicMcpRouteMcpServerNameMcpGetErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpGetStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPostPathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpPostStatus200Schema = z.looseObject({});
+
+export const dynamicMcpRouteMcpServerNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
+
+export const dynamicMcpRouteMcpServerNameMcpPostResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpPostStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPostErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpPostStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPatchPathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema = z.unknown();
+
+export const dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
+
+export const dynamicMcpRouteMcpServerNameMcpPatchResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPatchErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema;
 
 export const websocketVertexAiLivePassthroughEndpointStatus101Schema = z.unknown();
 
@@ -29477,13 +29488,13 @@ export const systemoneSystemonePostBodySchema = z.looseObject({
 	model: z.string().describe("A decision model from the proxy model_list"),
 	questions: z
 		.record(
-			z.string(),
+			z.string().min(1),
 			z.discriminatedUnion("type", [
 				z.looseObject({
 					criteria: z
 						.union([
-							z.record(
-								z.string(),
+							z.partialRecord(
+								z.enum(["true", "false"]),
 								z.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()]),
 							),
 							z.null(),
@@ -29763,13 +29774,13 @@ export const systemoneV1SystemonePostBodySchema = z.looseObject({
 	model: z.string().describe("A decision model from the proxy model_list"),
 	questions: z
 		.record(
-			z.string(),
+			z.string().min(1),
 			z.discriminatedUnion("type", [
 				z.looseObject({
 					criteria: z
 						.union([
-							z.record(
-								z.string(),
+							z.partialRecord(
+								z.enum(["true", "false"]),
 								z.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()]),
 							),
 							z.null(),

@@ -298,6 +298,7 @@ import type {
 } from "./types";
 
 /**
+ * @summary List sites
  * @description **Note:** Environment variable keys and values have moved from `build_settings.env` and `repo.env` to a new endpoint. Please use [getEnvVars](#tag/environmentVariables/operation/getEnvVars) to retrieve site environment variables.
  * @link /sites
  */
@@ -336,6 +337,7 @@ export async function listSites(
 }
 
 /**
+ * @summary Create a site
  * @description **Note:** Environment variable keys and values have moved from `build_settings.env` and `repo.env` to a new endpoint. Please use [createEnvVars](#tag/environmentVariables/operation/createEnvVars) to create environment variables for a site.
  * @link /sites
  */
@@ -372,6 +374,7 @@ export async function createSite(
 }
 
 /**
+ * @summary Get a site
  * @description **Note:** Environment variable keys and values have moved from `build_settings.env` and `repo.env` to a new endpoint. Please use [getEnvVars](#tag/environmentVariables/operation/getEnvVars) to retrieve site environment variables.
  * @link /sites/{site_id}
  */
@@ -410,6 +413,7 @@ export async function getSite(
 }
 
 /**
+ * @summary Update a site
  * @description **Note:** Environment variable keys and values have moved from `build_settings.env` and `repo.env` to a new endpoint. Please use [updateEnvVar](#tag/environmentVariables/operation/updateEnvVar) to update a site's environment variables.
  * @link /sites/{site_id}
  */
@@ -448,6 +452,7 @@ export async function updateSite(
 }
 
 /**
+ * @summary Delete a site
  * @link /sites/{site_id}
  */
 export async function deleteSite(
@@ -482,6 +487,7 @@ export async function deleteSite(
 }
 
 /**
+ * @summary Provision or update a site's TLS certificate
  * @description Provisions or updates a TLS certificate for the site.
  * **Creating a certificate (site has no certificate):**
  * - Omit certificate params to initiate Let's Encrypt provisioning
@@ -526,6 +532,7 @@ export async function provisionSiteTLSCertificate(
 }
 
 /**
+ * @summary Get a site's TLS certificate
  * @link /sites/{site_id}/ssl
  */
 export async function showSiteTLSCertificate(
@@ -560,6 +567,8 @@ export async function showSiteTLSCertificate(
 }
 
 /**
+ * @summary List TLS certificates for a site's domain
+ * @description Returns details about the certificates associated with a domain. The site must be using the domain.
  * @link /sites/{site_id}/ssl/certificates
  */
 export async function getAllCertificates(
@@ -597,6 +606,7 @@ export async function getAllCertificates(
 }
 
 /**
+ * @summary List environment variables for a team or site
  * @description Returns all environment variables for an account or site. An account corresponds to a team in the Netlify UI.
  * @link /accounts/{account_id}/env
  */
@@ -655,6 +665,7 @@ export async function getEnvVars(
 }
 
 /**
+ * @summary Create environment variables
  * @description Creates new environment variables. Granular scopes are available on Pro plans and above.
  * @link /accounts/{account_id}/env
  */
@@ -696,6 +707,7 @@ export async function createEnvVars(
 }
 
 /**
+ * @summary List environment variables for a site
  * @description Returns all environment variables for a site. This convenience method behaves the same as `getEnvVars` but doesn't require an `account_id` as input.
  * @link /api/v1/sites/{site_id}/env
  */
@@ -752,6 +764,7 @@ export async function getSiteEnvVars(
 }
 
 /**
+ * @summary Get an environment variable
  * @description Returns an individual environment variable.
  * @link /accounts/{account_id}/env/{key}
  */
@@ -794,6 +807,7 @@ export async function getEnvVar(
 }
 
 /**
+ * @summary Update an environment variable
  * @description Updates an existing environment variable and all of its values. Existing values will be replaced by values provided.
  * @link /accounts/{account_id}/env/{key}
  */
@@ -839,6 +853,7 @@ export async function updateEnvVar(
 }
 
 /**
+ * @summary Set a value on an environment variable
  * @description Updates or creates a new value for an existing environment variable.
  * @link /accounts/{account_id}/env/{key}
  */
@@ -884,6 +899,7 @@ export async function setEnvVarValue(
 }
 
 /**
+ * @summary Delete an environment variable
  * @description Deletes an environment variable
  * @link /accounts/{account_id}/env/{key}
  */
@@ -926,6 +942,7 @@ export async function deleteEnvVar(
 }
 
 /**
+ * @summary Delete an environment variable value
  * @description Deletes a specific environment variable value.
  * @link /accounts/{account_id}/env/{key}/value/{id}
  */
@@ -972,6 +989,7 @@ export async function deleteEnvVarValue(
 }
 
 /**
+ * @summary Search a site's functions
  * @link /sites/{site_id}/functions
  */
 export async function searchSiteFunctions(
@@ -1009,6 +1027,7 @@ export async function searchSiteFunctions(
 }
 
 /**
+ * @summary List a site's forms
  * @link /sites/{site_id}/forms
  */
 export async function listSiteForms(
@@ -1043,6 +1062,8 @@ export async function listSiteForms(
 }
 
 /**
+ * @summary Delete a form
+ * @description Deletes a form and all of its submissions.
  * @link /sites/{site_id}/forms/{form_id}
  */
 export async function deleteSiteForm(
@@ -1081,6 +1102,7 @@ export async function deleteSiteForm(
 }
 
 /**
+ * @summary List a site's form submissions
  * @link /sites/{site_id}/submissions
  */
 export async function listSiteSubmissions(
@@ -1118,6 +1140,7 @@ export async function listSiteSubmissions(
 }
 
 /**
+ * @summary List a site's files
  * @link /sites/{site_id}/files
  */
 export async function listSiteFiles(
@@ -1152,6 +1175,8 @@ export async function listSiteFiles(
 }
 
 /**
+ * @summary List a site's assets
+ * @description _This endpoint is only available to certain sites._
  * @link /sites/{site_id}/assets
  */
 export async function listSiteAssets(
@@ -1186,6 +1211,8 @@ export async function listSiteAssets(
 }
 
 /**
+ * @summary Create a site asset
+ * @description _This endpoint is only available to certain sites._
  * @link /sites/{site_id}/assets
  */
 export async function createSiteAsset(
@@ -1223,6 +1250,8 @@ export async function createSiteAsset(
 }
 
 /**
+ * @summary Get a site asset
+ * @description _This endpoint is only available to certain sites._
  * @link /sites/{site_id}/assets/{asset_id}
  */
 export async function getSiteAssetInfo(
@@ -1261,6 +1290,8 @@ export async function getSiteAssetInfo(
 }
 
 /**
+ * @summary Update a site asset's state
+ * @description _This endpoint is only available to certain sites._
  * @link /sites/{site_id}/assets/{asset_id}
  */
 export async function updateSiteAsset(
@@ -1302,6 +1333,8 @@ export async function updateSiteAsset(
 }
 
 /**
+ * @summary Delete a site asset
+ * @description _This endpoint is only available to certain sites._
  * @link /sites/{site_id}/assets/{asset_id}
  */
 export async function deleteSiteAsset(
@@ -1340,6 +1373,8 @@ export async function deleteSiteAsset(
 }
 
 /**
+ * @summary Get a site asset's URL
+ * @description Returns the URL of the asset. If the asset isn't publicly visible, returns a signed URL. _This endpoint is only available to certain sites._
  * @link /sites/{site_id}/assets/{asset_id}/public_signature
  */
 export async function getSiteAssetPublicSignature(
@@ -1378,6 +1413,7 @@ export async function getSiteAssetPublicSignature(
 }
 
 /**
+ * @summary Get a site file by path
  * @link /sites/{site_id}/files/{file_path}
  */
 export async function getSiteFileByPathName(
@@ -1416,6 +1452,7 @@ export async function getSiteFileByPathName(
 }
 
 /**
+ * @summary Purge cached content
  * @description Purges cached content from Netlify's CDN. Supports purging by Cache-Tag.
  * @link /purge
  */
@@ -1449,6 +1486,7 @@ export async function purgeCache(
 }
 
 /**
+ * @summary List a site's snippets
  * @link /sites/{site_id}/snippets
  */
 export async function listSiteSnippets(
@@ -1483,6 +1521,7 @@ export async function listSiteSnippets(
 }
 
 /**
+ * @summary Create a snippet
  * @link /sites/{site_id}/snippets
  */
 export async function createSiteSnippet(
@@ -1520,6 +1559,7 @@ export async function createSiteSnippet(
 }
 
 /**
+ * @summary Get a snippet
  * @link /sites/{site_id}/snippets/{snippet_id}
  */
 export async function getSiteSnippet(
@@ -1558,6 +1598,7 @@ export async function getSiteSnippet(
 }
 
 /**
+ * @summary Update a snippet
  * @link /sites/{site_id}/snippets/{snippet_id}
  */
 export async function updateSiteSnippet(
@@ -1599,6 +1640,7 @@ export async function updateSiteSnippet(
 }
 
 /**
+ * @summary Delete a snippet
  * @link /sites/{site_id}/snippets/{snippet_id}
  */
 export async function deleteSiteSnippet(
@@ -1637,6 +1679,7 @@ export async function deleteSiteSnippet(
 }
 
 /**
+ * @summary Get a site's metadata
  * @link /sites/{site_id}/metadata
  */
 export async function getSiteMetadata(
@@ -1671,6 +1714,7 @@ export async function getSiteMetadata(
 }
 
 /**
+ * @summary Update a site's metadata
  * @link /sites/{site_id}/metadata
  */
 export async function updateSiteMetadata(
@@ -1708,6 +1752,7 @@ export async function updateSiteMetadata(
 }
 
 /**
+ * @summary List a site's build hooks
  * @link /sites/{site_id}/build_hooks
  */
 export async function listSiteBuildHooks(
@@ -1742,6 +1787,7 @@ export async function listSiteBuildHooks(
 }
 
 /**
+ * @summary Create a build hook
  * @link /sites/{site_id}/build_hooks
  */
 export async function createSiteBuildHook(
@@ -1779,6 +1825,7 @@ export async function createSiteBuildHook(
 }
 
 /**
+ * @summary Get a build hook
  * @link /sites/{site_id}/build_hooks/{id}
  */
 export async function getSiteBuildHook(
@@ -1817,6 +1864,7 @@ export async function getSiteBuildHook(
 }
 
 /**
+ * @summary Update a build hook
  * @link /sites/{site_id}/build_hooks/{id}
  */
 export async function updateSiteBuildHook(
@@ -1858,6 +1906,7 @@ export async function updateSiteBuildHook(
 }
 
 /**
+ * @summary Delete a build hook
  * @link /sites/{site_id}/build_hooks/{id}
  */
 export async function deleteSiteBuildHook(
@@ -1896,6 +1945,7 @@ export async function deleteSiteBuildHook(
 }
 
 /**
+ * @summary List a site's deploys
  * @link /sites/{site_id}/deploys
  */
 export async function listSiteDeploys(
@@ -1979,6 +2029,7 @@ export async function listSiteDeploys(
 }
 
 /**
+ * @summary Create a deploy
  * @link /sites/{site_id}/deploys
  */
 export async function createSiteDeploy(
@@ -2063,6 +2114,7 @@ export async function createSiteDeploy(
 }
 
 /**
+ * @summary Get a site's deploy
  * @link /sites/{site_id}/deploys/{deploy_id}
  */
 export async function getSiteDeploy(
@@ -2101,6 +2153,7 @@ export async function getSiteDeploy(
 }
 
 /**
+ * @summary Update a deploy
  * @link /sites/{site_id}/deploys/{deploy_id}
  */
 export async function updateSiteDeploy(
@@ -2145,6 +2198,8 @@ export async function updateSiteDeploy(
 }
 
 /**
+ * @summary Delete a site's deploy
+ * @description Marks a deploy for deletion.
  * @link /sites/{site_id}/deploys/{deploy_id}
  */
 export async function deleteSiteDeploy(
@@ -2183,6 +2238,7 @@ export async function deleteSiteDeploy(
 }
 
 /**
+ * @summary Cancel a deploy
  * @link /deploys/{deploy_id}/cancel
  */
 export async function cancelSiteDeploy(
@@ -2217,6 +2273,8 @@ export async function cancelSiteDeploy(
 }
 
 /**
+ * @summary Restore a previous deploy
+ * @description Publishes a previous deploy of the site.
  * @link /sites/{site_id}/deploys/{deploy_id}/restore
  */
 export async function restoreSiteDeploy(
@@ -2255,6 +2313,7 @@ export async function restoreSiteDeploy(
 }
 
 /**
+ * @summary List a site's builds
  * @link /sites/{site_id}/builds
  */
 export async function listSiteBuilds(
@@ -2292,6 +2351,7 @@ export async function listSiteBuilds(
 }
 
 /**
+ * @summary Start a build
  * @description Runs a build for a site. The build will be scheduled to run at the first opportunity, but it might not start immediately if insufficient account build capacity is available.
  * Files for build can be uploaded as a zipped site using one of these methods:
  * 1. Set Content-Type to 'application/zip' and send the zip file as the raw request body
@@ -2310,7 +2370,10 @@ export async function createSiteBuild(
 		queryParams?: {
 			branch?: string;
 			clear_cache?: boolean;
+			commit_sha?: string;
+			draft?: boolean;
 			image?: string;
+			review_id?: number;
 			template_id?: string;
 			title?: string;
 		};
@@ -2341,7 +2404,10 @@ export async function createSiteBuild(
 		{
 			branch?: string;
 			clear_cache?: boolean;
+			commit_sha?: string;
+			draft?: boolean;
 			image?: string;
+			review_id?: number;
 			template_id?: string;
 			title?: string;
 		},
@@ -2359,6 +2425,7 @@ export async function createSiteBuild(
 }
 
 /**
+ * @summary List a site's deployed branches
  * @link /sites/{site_id}/deployed-branches
  */
 export async function listSiteDeployedBranches(
@@ -2393,6 +2460,7 @@ export async function listSiteDeployedBranches(
 }
 
 /**
+ * @summary Unlink a site's repository
  * @description [Beta] Unlinks the repo from the site.
  * This action will also:
  * - Delete associated deploy keys
@@ -2432,6 +2500,7 @@ export async function unlinkSiteRepo(
 }
 
 /**
+ * @summary Enable a site
  * @description Re-enables a site that was previously disabled by the user. Sites that were disabled for usage exceeded or marked as spam cannot be re-enabled via this endpoint.
  * @link /sites/{site_id}/enable
  */
@@ -2467,6 +2536,7 @@ export async function enableSite(
 }
 
 /**
+ * @summary Disable a site
  * @description Disables a site, preventing it from serving content. The site can be re-enabled later using the enable endpoint.
  * @link /sites/{site_id}/disable
  */
@@ -2505,6 +2575,7 @@ export async function disableSite(
 }
 
 /**
+ * @summary Get a build
  * @link /builds/{build_id}
  */
 export async function getSiteBuild(
@@ -2539,6 +2610,7 @@ export async function getSiteBuild(
 }
 
 /**
+ * @summary Add a message to a build log
  * @link /builds/{build_id}/log
  */
 export async function updateSiteBuildLog(
@@ -2576,6 +2648,7 @@ export async function updateSiteBuildLog(
 }
 
 /**
+ * @summary Mark a build as started
  * @link /builds/{build_id}/start
  */
 export async function notifyBuildStart(
@@ -2613,6 +2686,8 @@ export async function notifyBuildStart(
 }
 
 /**
+ * @summary Get a team's build status
+ * @description Returns the team's counts of active, concurrency-pending, and enqueued builds, and its build minutes usage.
  * @link /{account_id}/builds/status
  */
 export async function getAccountBuildStatus(
@@ -2647,6 +2722,7 @@ export async function getAccountBuildStatus(
 }
 
 /**
+ * @summary Get a site's DNS configuration
  * @link /sites/{site_id}/dns
  */
 export async function getDNSForSite(
@@ -2681,6 +2757,8 @@ export async function getDNSForSite(
 }
 
 /**
+ * @summary Configure a site's DNS
+ * @description Creates any missing DNS zones and records for the site's custom domain and domain aliases. This usually runs automatically when the custom domain is set.
  * @link /sites/{site_id}/dns
  */
 export async function configureDNSForSite(
@@ -2715,6 +2793,8 @@ export async function configureDNSForSite(
 }
 
 /**
+ * @summary Roll back a site's production deploy
+ * @description Rolls back the production deploy to the deploy referenced by its `rollback_id`. Does nothing if the current production deploy has no `rollback_id`.
  * @link /sites/{site_id}/rollback
  */
 export async function rollbackSiteDeploy(
@@ -2749,6 +2829,7 @@ export async function rollbackSiteDeploy(
 }
 
 /**
+ * @summary Get a deploy
  * @link /deploys/{deploy_id}
  */
 export async function getDeploy(
@@ -2783,6 +2864,8 @@ export async function getDeploy(
 }
 
 /**
+ * @summary Delete a deploy
+ * @description Marks a deploy for deletion.
  * @link /deploys/{deploy_id}
  */
 export async function deleteDeploy(
@@ -2817,6 +2900,7 @@ export async function deleteDeploy(
 }
 
 /**
+ * @summary Update a deploy's validations report
  * @description Updates the deploy validations report for a deploy.
  * @link /deploys/{deploy_id}/validations_report
  */
@@ -2855,6 +2939,8 @@ export async function updateDeployValidations(
 }
 
 /**
+ * @summary Lock a deploy
+ * @description Locks a deploy so that subsequent deploys are built but not published. If the deploy is not the site's published deploy, locking publishes it first. When publishing is gated, the publish and lock are queued and the API responds with 202 Accepted and the deploy; poll `getDeploy` to follow it.
  * @link /deploys/{deploy_id}/lock
  */
 export async function lockDeploy(
@@ -2889,6 +2975,7 @@ export async function lockDeploy(
 }
 
 /**
+ * @summary Unlock a deploy
  * @link /deploys/{deploy_id}/unlock
  */
 export async function unlockDeploy(
@@ -2923,6 +3010,7 @@ export async function unlockDeploy(
 }
 
 /**
+ * @summary Upload a deploy file
  * @link /deploys/{deploy_id}/files/{path}
  */
 export async function uploadDeployFile(
@@ -2967,6 +3055,7 @@ export async function uploadDeployFile(
 }
 
 /**
+ * @summary Upload a deploy function
  * @link /deploys/{deploy_id}/functions/{name}
  */
 export async function uploadDeployFunction(
@@ -3013,6 +3102,7 @@ export async function uploadDeployFunction(
 }
 
 /**
+ * @summary Upload a deploy's Netlify Server bundle
  * @description Uploads the deploy's Netlify Server bundle, addressed by the digest the deploy
  * declared in its `server` property.
  * @link /deploys/{deploy_id}/server/{code_sha}
@@ -3061,6 +3151,7 @@ export async function uploadDeployServer(
 }
 
 /**
+ * @summary Upload a deploy's edge functions bundle
  * @link /deploys/{deploy_id}/edge_functions/{code_sha}
  */
 export async function uploadDeployEdgeFunction(
@@ -3104,6 +3195,7 @@ export async function uploadDeployEdgeFunction(
 }
 
 /**
+ * @summary List a site's latest build plugin runs
  * @description This is an internal-only endpoint.
  * @link /sites/{site_id}/plugin_runs/latest
  */
@@ -3142,6 +3234,7 @@ export async function getLatestPluginRuns(
 }
 
 /**
+ * @summary Create a build plugin run
  * @description This is an internal-only endpoint.
  * @link /deploys/{deploy_id}/plugin_runs
  */
@@ -3180,6 +3273,7 @@ export async function createPluginRun(
 }
 
 /**
+ * @summary List a form's submissions
  * @link /forms/{form_id}/submissions
  */
 export async function listFormSubmissions(
@@ -3217,6 +3311,8 @@ export async function listFormSubmissions(
 }
 
 /**
+ * @summary List a site's outgoing hooks
+ * @description Returns the outgoing hooks for a site. Pass `form_id` or `event` to filter the results.
  * @link /hooks
  */
 export async function listHooksBySiteId(
@@ -3224,7 +3320,7 @@ export async function listHooksBySiteId(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { site_id?: string };
+		queryParams?: { site_id?: string; form_id?: string; event?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3235,7 +3331,7 @@ export async function listHooksBySiteId(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ site_id?: string },
+		{ site_id?: string; form_id?: string; event?: string },
 		Record<string, string>
 	>({
 		method: "GET",
@@ -3249,6 +3345,7 @@ export async function listHooksBySiteId(
 }
 
 /**
+ * @summary Create an outgoing hook
  * @link /hooks
  */
 export async function createHookBySiteId(
@@ -3284,6 +3381,7 @@ export async function createHookBySiteId(
 }
 
 /**
+ * @summary Get an outgoing hook
  * @link /hooks/{hook_id}
  */
 export async function getHook(
@@ -3318,6 +3416,7 @@ export async function getHook(
 }
 
 /**
+ * @summary Update an outgoing hook
  * @link /hooks/{hook_id}
  */
 export async function updateHook(
@@ -3355,6 +3454,7 @@ export async function updateHook(
 }
 
 /**
+ * @summary Delete an outgoing hook
  * @link /hooks/{hook_id}
  */
 export async function deleteHook(
@@ -3389,6 +3489,8 @@ export async function deleteHook(
 }
 
 /**
+ * @summary Re-enable an outgoing hook
+ * @description Re-enables an outgoing hook that was disabled after repeated delivery errors.
  * @link /hooks/{hook_id}/enable
  */
 export async function enableHook(
@@ -3423,10 +3525,18 @@ export async function enableHook(
 }
 
 /**
+ * @summary List outgoing hook types
+ * @description Returns the available outgoing hook types. When `site_id` is given, returns only the types available to that site.
  * @link /hooks/types
  */
 export async function listHookTypes(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: { site_id?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -3435,11 +3545,12 @@ export async function listHookTypes(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		{ site_id?: string },
 		Record<string, string>
 	>({
 		method: "GET",
 		url: `/hooks/types`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3448,6 +3559,7 @@ export async function listHookTypes(
 }
 
 /**
+ * @summary Create an OAuth ticket
  * @link /oauth/tickets
  */
 export async function createTicket(
@@ -3483,6 +3595,7 @@ export async function createTicket(
 }
 
 /**
+ * @summary Get an OAuth ticket
  * @link /oauth/tickets/{ticket_id}
  */
 export async function showTicket(
@@ -3517,6 +3630,7 @@ export async function showTicket(
 }
 
 /**
+ * @summary Exchange an OAuth ticket for an access token
  * @link /oauth/tickets/{ticket_id}/exchange
  */
 export async function exchangeTicket(
@@ -3551,6 +3665,7 @@ export async function exchangeTicket(
 }
 
 /**
+ * @summary List deploy keys
  * @link /deploy_keys
  */
 export async function listDeployKeys(
@@ -3576,6 +3691,7 @@ export async function listDeployKeys(
 }
 
 /**
+ * @summary Create a deploy key
  * @link /deploy_keys
  */
 export async function createDeployKey(
@@ -3601,6 +3717,7 @@ export async function createDeployKey(
 }
 
 /**
+ * @summary Get a deploy key
  * @link /deploy_keys/{key_id}
  */
 export async function getDeployKey(
@@ -3635,6 +3752,7 @@ export async function getDeployKey(
 }
 
 /**
+ * @summary Delete a deploy key
  * @link /deploy_keys/{key_id}
  */
 export async function deleteDeployKey(
@@ -3669,6 +3787,7 @@ export async function deleteDeployKey(
 }
 
 /**
+ * @summary Create a site in a team
  * @description **Note:** Environment variable keys and values have moved from `build_settings.env` and `repo.env` to a new endpoint. Please use [createEnvVars](#tag/environmentVariables/operation/createEnvVars) to create environment variables for a site.
  * @link /{account_slug}/sites
  */
@@ -3710,6 +3829,7 @@ export async function createSiteInTeam(
 }
 
 /**
+ * @summary List a team's sites
  * @description **Note:** Environment variable keys and values have moved from `build_settings.env` and `repo.env` to a new endpoint. Please use [getEnvVars](#tag/environmentVariables/operation/getEnvVars) to retrieve site environment variables.
  * @link /{account_slug}/sites
  */
@@ -3748,6 +3868,7 @@ export async function listSitesForAccount(
 }
 
 /**
+ * @summary List a team's members
  * @link /{account_slug}/members
  */
 export async function listMembersForAccount(
@@ -3782,6 +3903,7 @@ export async function listMembersForAccount(
 }
 
 /**
+ * @summary Add a member to a team
  * @link /{account_slug}/members
  */
 export async function addMemberToAccount(
@@ -3819,6 +3941,7 @@ export async function addMemberToAccount(
 }
 
 /**
+ * @summary Get a team member
  * @link /{account_slug}/members/{member_id}
  */
 export async function getAccountMember(
@@ -3857,6 +3980,7 @@ export async function getAccountMember(
 }
 
 /**
+ * @summary Update a team member
  * @link /{account_slug}/members/{member_id}
  */
 export async function updateAccountMember(
@@ -3898,6 +4022,7 @@ export async function updateAccountMember(
 }
 
 /**
+ * @summary Remove a team member
  * @link /{account_slug}/members/{member_id}
  */
 export async function removeAccountMember(
@@ -3936,6 +4061,7 @@ export async function removeAccountMember(
 }
 
 /**
+ * @summary List payment methods
  * @link /billing/payment_methods
  */
 export async function listPaymentMethodsForUser(
@@ -3961,6 +4087,7 @@ export async function listPaymentMethodsForUser(
 }
 
 /**
+ * @summary List plans available for new teams
  * @link /accounts/types
  */
 export async function listAccountTypesForUser(
@@ -3986,6 +4113,7 @@ export async function listAccountTypesForUser(
 }
 
 /**
+ * @summary List the current user's teams
  * @link /accounts
  */
 export async function listAccountsForUser(
@@ -4018,6 +4146,7 @@ export async function listAccountsForUser(
 }
 
 /**
+ * @summary Create a team
  * @link /accounts
  */
 export async function createAccount(
@@ -4050,6 +4179,7 @@ export async function createAccount(
 }
 
 /**
+ * @summary Get a team
  * @link /accounts/{account_id}
  */
 export async function getAccount(
@@ -4084,6 +4214,7 @@ export async function getAccount(
 }
 
 /**
+ * @summary Update a team
  * @link /accounts/{account_id}
  */
 export async function updateAccount(
@@ -4121,6 +4252,7 @@ export async function updateAccount(
 }
 
 /**
+ * @summary Cancel a team
  * @link /accounts/{account_id}
  */
 export async function cancelAccount(
@@ -4155,6 +4287,7 @@ export async function cancelAccount(
 }
 
 /**
+ * @summary List a team's audit log events
  * @link /accounts/{account_id}/audit
  */
 export async function listAccountAuditEvents(
@@ -4192,6 +4325,7 @@ export async function listAccountAuditEvents(
 }
 
 /**
+ * @summary List a site's agent runs
  * @description Lists a site's agent runs, most recently active first. Archived runs are left out unless `state` is `archived`.
  * @link /agent_runners
  */
@@ -4249,6 +4383,7 @@ export async function listAgentRunners(
 }
 
 /**
+ * @summary Start an agent run
  * @link /agent_runners
  */
 export async function createAgentRunner(
@@ -4301,6 +4436,7 @@ export async function createAgentRunner(
 }
 
 /**
+ * @summary Start an agent run on a site
  * @description Starts an agent run on the site.
  * @link /sites/{site_id}/agent_runners
  */
@@ -4345,6 +4481,8 @@ export async function createSiteAgentRunner(
 }
 
 /**
+ * @summary Create an upload URL for agent run files
+ * @description Returns a presigned URL for uploading a file that agent run sessions can use, and the file's storage key.
  * @link /agent_runners/upload_url
  */
 export async function createAgentRunnerUploadUrl(
@@ -4377,6 +4515,7 @@ export async function createAgentRunnerUploadUrl(
 }
 
 /**
+ * @summary Get an agent run
  * @link /agent_runners/{agent_runner_id}
  */
 export async function getAgentRunner(
@@ -4411,6 +4550,7 @@ export async function getAgentRunner(
 }
 
 /**
+ * @summary Update an agent run
  * @link /agent_runners/{agent_runner_id}
  */
 export async function updateAgentRunner(
@@ -4445,6 +4585,7 @@ export async function updateAgentRunner(
 }
 
 /**
+ * @summary Stop an agent run (alias)
  * @description Same as `POST /agent_runners/{agent_runner_id}/stop`. Doesn't delete the run.
  * @link /agent_runners/{agent_runner_id}
  */
@@ -4480,6 +4621,7 @@ export async function deleteAgentRunner(
 }
 
 /**
+ * @summary Stop an agent run
  * @description Stops the run's active session. Stopping happens in the background.
  * @link /agent_runners/{agent_runner_id}/stop
  */
@@ -4515,6 +4657,7 @@ export async function stopAgentRunner(
 }
 
 /**
+ * @summary Get an agent run's diff
  * @description Returns the run's changes as a unified diff. With `page`, returns that page of changed files and sets pagination headers.
  * @link /agent_runners/{agent_runner_id}/diff
  */
@@ -4553,6 +4696,7 @@ export async function getAgentRunnerDiff(
 }
 
 /**
+ * @summary Archive an agent run
  * @link /agent_runners/{agent_runner_id}/archive
  */
 export async function archiveAgentRunner(
@@ -4587,6 +4731,8 @@ export async function archiveAgentRunner(
 }
 
 /**
+ * @summary Open a pull request from an agent run
+ * @description Queues a pull request for the run's diff (`result_diff`). The pull request is created in the background, so `pr_url` is usually not set yet in the response: `pr_is_being_created` is `true` until it finishes. Poll `getAgentRunner` until `pr_url` or `pr_error` is set. Returns 409 if a pull request already exists or is being created, and 422 if the run has no diff, no branch, no GitHub repository or installation, or needs a git sync.
  * @link /agent_runners/{agent_runner_id}/pull_request
  */
 export async function agentRunnerPullRequest(
@@ -4625,6 +4771,8 @@ export async function agentRunnerPullRequest(
 }
 
 /**
+ * @summary Commit an agent run's changes to a branch
+ * @description Queues a commit of the run's diff to `target_branch`. The commit is made in the background: `merge_commit_is_being_created` is `true` until it finishes. Poll `getAgentRunner` until `merge_commit_sha` or `merge_commit_error` is set.
  * @link /agent_runners/{agent_runner_id}/commit
  */
 export async function agentRunnerCommitToBranch(
@@ -4666,6 +4814,7 @@ export async function agentRunnerCommitToBranch(
 }
 
 /**
+ * @summary List an agent run's sessions
  * @link /agent_runners/{agent_runner_id}/sessions
  */
 export async function listAgentRunnerSessions(
@@ -4717,6 +4866,7 @@ export async function listAgentRunnerSessions(
 }
 
 /**
+ * @summary Start a follow-up agent run session
  * @description Starts a follow-up session on the run.
  * @link /agent_runners/{agent_runner_id}/sessions
  */
@@ -4765,6 +4915,7 @@ export async function createAgentRunnerSession(
 }
 
 /**
+ * @summary Get an agent run session
  * @link /agent_runners/{agent_runner_id}/sessions/{agent_runner_session_id}
  */
 export async function getAgentRunnerSession(
@@ -4806,6 +4957,7 @@ export async function getAgentRunnerSession(
 }
 
 /**
+ * @summary Update an agent run session
  * @link /agent_runners/{agent_runner_id}/sessions/{agent_runner_session_id}
  */
 export async function updateAgentRunnerSession(
@@ -4850,6 +5002,7 @@ export async function updateAgentRunnerSession(
 }
 
 /**
+ * @summary Stop an agent run session (alias)
  * @description Same as `POST /agent_runners/{agent_runner_id}/sessions/{agent_runner_session_id}/stop`. Doesn't delete the session.
  * @link /agent_runners/{agent_runner_id}/sessions/{agent_runner_session_id}
  */
@@ -4892,6 +5045,7 @@ export async function deleteAgentRunnerSession(
 }
 
 /**
+ * @summary Stop an agent run session
  * @description Stops the session. Stopping happens in the background.
  * @link /agent_runners/{agent_runner_id}/sessions/{agent_runner_session_id}/stop
  */
@@ -4934,6 +5088,7 @@ export async function stopAgentRunnerSession(
 }
 
 /**
+ * @summary Answer an agent run session's pending interaction
  * @description Answers or skips a pending interaction and resumes the session. A session waiting on an interaction is in the `await_input` state.
  * @link /agent_runners/{agent_runner_id}/sessions/{agent_runner_session_id}/answers
  */
@@ -4983,6 +5138,7 @@ export async function answerAgentRunnerSession(
 }
 
 /**
+ * @summary Get a form submission
  * @link /submissions/{submission_id}
  */
 export async function listFormSubmission(
@@ -5020,6 +5176,7 @@ export async function listFormSubmission(
 }
 
 /**
+ * @summary Delete a form submission
  * @link /submissions/{submission_id}
  */
 export async function deleteSubmission(
@@ -5054,6 +5211,7 @@ export async function deleteSubmission(
 }
 
 /**
+ * @summary List a site's add-on instances
  * @link /sites/{site_id}/service-instances
  */
 export async function listServiceInstancesForSite(
@@ -5088,6 +5246,7 @@ export async function listServiceInstancesForSite(
 }
 
 /**
+ * @summary Create an add-on instance
  * @link /sites/{site_id}/services/{addon}/instances
  */
 export async function createServiceInstance(
@@ -5129,6 +5288,7 @@ export async function createServiceInstance(
 }
 
 /**
+ * @summary Get an add-on instance
  * @link /sites/{site_id}/services/{addon}/instances/{instance_id}
  */
 export async function showServiceInstance(
@@ -5171,6 +5331,7 @@ export async function showServiceInstance(
 }
 
 /**
+ * @summary Update an add-on instance
  * @link /sites/{site_id}/services/{addon}/instances/{instance_id}
  */
 export async function updateServiceInstance(
@@ -5216,6 +5377,7 @@ export async function updateServiceInstance(
 }
 
 /**
+ * @summary Delete an add-on instance
  * @link /sites/{site_id}/services/{addon}/instances/{instance_id}
  */
 export async function deleteServiceInstance(
@@ -5258,6 +5420,7 @@ export async function deleteServiceInstance(
 }
 
 /**
+ * @summary List add-on services
  * @link /services/
  */
 export async function getServices(
@@ -5290,6 +5453,7 @@ export async function getServices(
 }
 
 /**
+ * @summary Get an add-on service
  * @link /services/{addonName}
  */
 export async function showService(
@@ -5324,6 +5488,7 @@ export async function showService(
 }
 
 /**
+ * @summary Get an add-on service's manifest
  * @link /services/{addonName}/manifest
  */
 export async function showServiceManifest(
@@ -5358,6 +5523,7 @@ export async function showServiceManifest(
 }
 
 /**
+ * @summary Get the current user
  * @link /user
  */
 export async function getCurrentUser(
@@ -5383,6 +5549,7 @@ export async function getCurrentUser(
 }
 
 /**
+ * @summary Create a split test
  * @link /sites/{site_id}/traffic_splits
  */
 export async function createSplitTest(
@@ -5420,6 +5587,7 @@ export async function createSplitTest(
 }
 
 /**
+ * @summary List a site's split tests
  * @link /sites/{site_id}/traffic_splits
  */
 export async function getSplitTests(
@@ -5454,6 +5622,7 @@ export async function getSplitTests(
 }
 
 /**
+ * @summary Update a split test
  * @link /sites/{site_id}/traffic_splits/{split_test_id}
  */
 export async function updateSplitTest(
@@ -5495,6 +5664,7 @@ export async function updateSplitTest(
 }
 
 /**
+ * @summary Get a split test
  * @link /sites/{site_id}/traffic_splits/{split_test_id}
  */
 export async function getSplitTest(
@@ -5533,6 +5703,7 @@ export async function getSplitTest(
 }
 
 /**
+ * @summary Publish a split test
  * @link /sites/{site_id}/traffic_splits/{split_test_id}/publish
  */
 export async function enableSplitTest(
@@ -5571,6 +5742,7 @@ export async function enableSplitTest(
 }
 
 /**
+ * @summary Unpublish a split test
  * @link /sites/{site_id}/traffic_splits/{split_test_id}/unpublish
  */
 export async function disableSplitTest(
@@ -5609,6 +5781,7 @@ export async function disableSplitTest(
 }
 
 /**
+ * @summary Create a DNS zone
  * @link /dns_zones
  */
 export async function createDnsZone(
@@ -5641,6 +5814,8 @@ export async function createDnsZone(
 }
 
 /**
+ * @summary List DNS zones
+ * @description Returns the DNS zones for the team given by `account_slug`, or all DNS zones the current user can access.
  * @link /dns_zones
  */
 export async function getDnsZones(
@@ -5673,6 +5848,7 @@ export async function getDnsZones(
 }
 
 /**
+ * @summary Get a DNS zone
  * @link /dns_zones/{zone_id}
  */
 export async function getDnsZone(
@@ -5707,6 +5883,7 @@ export async function getDnsZone(
 }
 
 /**
+ * @summary Delete a DNS zone
  * @link /dns_zones/{zone_id}
  */
 export async function deleteDnsZone(
@@ -5741,6 +5918,7 @@ export async function deleteDnsZone(
 }
 
 /**
+ * @summary Transfer a DNS zone to another team
  * @link /dns_zones/{zone_id}/transfer
  */
 export async function transferDnsZone(
@@ -5778,6 +5956,7 @@ export async function transferDnsZone(
 }
 
 /**
+ * @summary List a DNS zone's records
  * @link /dns_zones/{zone_id}/dns_records
  */
 export async function getDnsRecords(
@@ -5812,6 +5991,7 @@ export async function getDnsRecords(
 }
 
 /**
+ * @summary Create a DNS record
  * @link /dns_zones/{zone_id}/dns_records
  */
 export async function createDnsRecord(
@@ -5849,6 +6029,7 @@ export async function createDnsRecord(
 }
 
 /**
+ * @summary Get a DNS record
  * @link /dns_zones/{zone_id}/dns_records/{dns_record_id}
  */
 export async function getIndividualDnsRecord(
@@ -5887,6 +6068,7 @@ export async function getIndividualDnsRecord(
 }
 
 /**
+ * @summary Delete a DNS record
  * @link /dns_zones/{zone_id}/dns_records/{dns_record_id}
  */
 export async function deleteDnsRecord(
@@ -5925,6 +6107,7 @@ export async function deleteDnsRecord(
 }
 
 /**
+ * @summary List a site's dev servers
  * @link /sites/{site_id}/dev_servers
  */
 export async function listSiteDevServers(
@@ -5962,6 +6145,7 @@ export async function listSiteDevServers(
 }
 
 /**
+ * @summary Start a dev server
  * @link /sites/{site_id}/dev_servers
  */
 export async function createSiteDevServer(
@@ -5999,6 +6183,8 @@ export async function createSiteDevServer(
 }
 
 /**
+ * @summary Stop a branch's dev servers
+ * @description Stops all dev servers for a branch. Stopping happens in the background.
  * @link /sites/{site_id}/dev_servers
  */
 export async function deleteSiteDevServers(
@@ -6036,6 +6222,7 @@ export async function deleteSiteDevServers(
 }
 
 /**
+ * @summary Get a dev server
  * @link /sites/{site_id}/dev_servers/{dev_server_id}
  */
 export async function getSiteDevServer(
@@ -6074,6 +6261,7 @@ export async function getSiteDevServer(
 }
 
 /**
+ * @summary Record dev server activity
  * @link /sites/{site_id}/dev_servers/{dev_server_id}/activity
  */
 export async function markDevServerActivity(
@@ -6112,6 +6300,7 @@ export async function markDevServerActivity(
 }
 
 /**
+ * @summary Update a dev server's state
  * @link /sites/{site_id}/dev_servers/{dev_server_id}/state
  */
 export async function updateDevServerState(
@@ -6153,6 +6342,7 @@ export async function updateDevServerState(
 }
 
 /**
+ * @summary List a site's dev server hooks
  * @link /sites/{site_id}/dev_server_hooks
  */
 export async function listSiteDevServerHooks(
@@ -6187,6 +6377,7 @@ export async function listSiteDevServerHooks(
 }
 
 /**
+ * @summary Create a dev server hook
  * @link /sites/{site_id}/dev_server_hooks
  */
 export async function createSiteDevServerHook(
@@ -6224,6 +6415,7 @@ export async function createSiteDevServerHook(
 }
 
 /**
+ * @summary Get a dev server hook
  * @link /sites/{site_id}/dev_server_hooks/{id}
  */
 export async function getSiteDevServerHook(
@@ -6262,6 +6454,7 @@ export async function getSiteDevServerHook(
 }
 
 /**
+ * @summary Update a dev server hook
  * @link /sites/{site_id}/dev_server_hooks/{id}
  */
 export async function updateSiteDevServerHook(
@@ -6303,6 +6496,7 @@ export async function updateSiteDevServerHook(
 }
 
 /**
+ * @summary Delete a dev server hook
  * @link /sites/{site_id}/dev_server_hooks/{id}
  */
 export async function deleteSiteDevServerHook(
@@ -6341,6 +6535,7 @@ export async function deleteSiteDevServerHook(
 }
 
 /**
+ * @summary List a site's agent runner hooks
  * @link /sites/{site_id}/agent_runner_hooks
  */
 export async function listSiteAgentRunnerHooks(
@@ -6375,6 +6570,7 @@ export async function listSiteAgentRunnerHooks(
 }
 
 /**
+ * @summary Create an agent runner hook
  * @link /sites/{site_id}/agent_runner_hooks
  */
 export async function createSiteAgentRunnerHook(
@@ -6412,6 +6608,7 @@ export async function createSiteAgentRunnerHook(
 }
 
 /**
+ * @summary Get an agent runner hook
  * @link /sites/{site_id}/agent_runner_hooks/{id}
  */
 export async function getSiteAgentRunnerHook(
@@ -6450,6 +6647,7 @@ export async function getSiteAgentRunnerHook(
 }
 
 /**
+ * @summary Update an agent runner hook
  * @link /sites/{site_id}/agent_runner_hooks/{id}
  */
 export async function updateSiteAgentRunnerHook(
@@ -6491,6 +6689,7 @@ export async function updateSiteAgentRunnerHook(
 }
 
 /**
+ * @summary Delete an agent runner hook
  * @link /sites/{site_id}/agent_runner_hooks/{id}
  */
 export async function deleteSiteAgentRunnerHook(
@@ -6529,6 +6728,7 @@ export async function deleteSiteAgentRunnerHook(
 }
 
 /**
+ * @summary List AI Gateway providers and models
  * @link /ai-gateway/providers
  */
 export async function getAIGatewayProviders(
@@ -6554,6 +6754,7 @@ export async function getAIGatewayProviders(
 }
 
 /**
+ * @summary Get a site's AI Gateway token
  * @description Returns an AI Gateway token for a specific site
  * @link /sites/{site_id}/ai-gateway/token
  */
@@ -6589,6 +6790,7 @@ export async function getAIGatewayToken(
 }
 
 /**
+ * @summary Get a team's AI Gateway token
  * @description Returns an AI Gateway token scoped to an account
  * @link /accounts/{account_id}/ai-gateway/token
  */
@@ -6624,6 +6826,7 @@ export async function getAccountAIGatewayToken(
 }
 
 /**
+ * @summary Create a site database
  * @description Creates a new database for the specified site. If a database already exists, returns the existing connection string. The database region defaults to the site's functions region if not specified.
  * @link /sites/{site_id}/database
  */
@@ -6662,6 +6865,7 @@ export async function createSiteDatabase(
 }
 
 /**
+ * @summary Get a site database
  * @description Returns the database connection string for the specified site.
  * @link /sites/{site_id}/database
  */
@@ -6700,6 +6904,7 @@ export async function getSiteDatabase(
 }
 
 /**
+ * @summary Delete a site database
  * @description Deletes the database and all associated branches and snapshots for the specified site.
  * @link /sites/{site_id}/database
  */
@@ -6735,6 +6940,7 @@ export async function deleteSiteDatabase(
 }
 
 /**
+ * @summary Create a database branch
  * @description Creates a new database branch. If a branch already exists for the specified branch ID, returns the existing connection string.
  * @link /sites/{site_id}/database/branch
  */
@@ -6773,6 +6979,7 @@ export async function createSiteDatabaseBranch(
 }
 
 /**
+ * @summary List database branches
  * @description Returns all branches for the site's database with compute status and metadata.
  * @link /sites/{site_id}/database/branches
  */
@@ -6808,6 +7015,7 @@ export async function listSiteDatabaseBranches(
 }
 
 /**
+ * @summary Get a database branch
  * @description Returns the database branch connection string for a specific branch.
  * @link /sites/{site_id}/database/branch/{branch_id}
  */
@@ -6850,6 +7058,7 @@ export async function getSiteDatabaseBranch(
 }
 
 /**
+ * @summary Delete a database branch
  * @description Deletes a database branch.
  * @link /sites/{site_id}/database/branch/{branch_id}
  */
@@ -6889,6 +7098,7 @@ export async function deleteSiteDatabaseBranch(
 }
 
 /**
+ * @summary Reset a database branch
  * @description Resets a non-production database branch by re-forking it from a source branch (defaults to the production branch). If the target branch is already in sync with the source, returns the existing connection string without performing a reset, unless `force=true` is passed. The production branch cannot be reset.
  * @link /sites/{site_id}/database/branch/{branch_id}/reset
  */
@@ -6934,6 +7144,7 @@ export async function resetSiteDatabaseBranch(
 }
 
 /**
+ * @summary Set a database branch's compute settings
  * @description Sets compute settings for a specific database branch, overriding project-level settings. Requires a Pro or higher plan.
  * @link /sites/{site_id}/database/branch/{branch_id}/compute/settings
  */
@@ -6976,6 +7187,7 @@ export async function setSiteDatabaseBranchComputeSettings(
 }
 
 /**
+ * @summary Set database compute settings
  * @description Sets project-level compute settings for the database. Applied to new branches. Can be overridden per-branch. Requires a Pro or higher plan.
  * @link /sites/{site_id}/database/compute/settings
  */
@@ -7014,6 +7226,7 @@ export async function setSiteDatabaseComputeSettings(
 }
 
 /**
+ * @summary Get database compute settings
  * @description Returns the project-level compute settings for the database. Returns effective settings (custom or tier defaults). Requires a Pro or higher plan.
  * @link /sites/{site_id}/database/compute/settings
  */
@@ -7049,6 +7262,7 @@ export async function getSiteDatabaseComputeSettings(
 }
 
 /**
+ * @summary Reset database compute settings to defaults
  * @description Resets project-level compute settings to tier defaults. Requires a Pro or higher plan.
  * @link /sites/{site_id}/database/compute/settings
  */
@@ -7084,6 +7298,7 @@ export async function clearSiteDatabaseComputeSettings(
 }
 
 /**
+ * @summary List database migrations
  * @description Returns the list of migrations available for the specified branch, indicating which ones have been applied to the database.
  * @link /sites/{site_id}/database/migrations
  */
@@ -7122,6 +7337,7 @@ export async function listSiteDatabaseMigrations(
 }
 
 /**
+ * @summary Get a database migration
  * @description Returns the contents of a named migration for the specified branch.
  * @link /sites/{site_id}/database/migrations/{name}
  */
@@ -7164,6 +7380,7 @@ export async function getSiteDatabaseMigration(
 }
 
 /**
+ * @summary Run database migrations for a deploy
  * @description Runs database migrations for the specified deploy. Finds the deploy and determines the appropriate branch.
  * @link /sites/{site_id}/database/migrations/{deploy_id}
  */
@@ -7206,6 +7423,7 @@ export async function runSiteDatabaseMigrations(
 }
 
 /**
+ * @summary Create a database snapshot
  * @description Creates a point-in-time snapshot of a database branch. Defaults to the production branch if no branch name is specified.
  * @link /sites/{site_id}/database/snapshot
  */
@@ -7244,6 +7462,7 @@ export async function createSiteDatabaseSnapshot(
 }
 
 /**
+ * @summary List database snapshots
  * @description Returns all snapshots for the site's database.
  * @link /sites/{site_id}/database/snapshots
  */
@@ -7279,6 +7498,7 @@ export async function listSiteDatabaseSnapshots(
 }
 
 /**
+ * @summary Delete a database snapshot
  * @description Deletes a database snapshot.
  * @link /sites/{site_id}/database/snapshot/{snapshot_id}
  */
@@ -7318,6 +7538,7 @@ export async function deleteSiteDatabaseSnapshot(
 }
 
 /**
+ * @summary Restore a database snapshot
  * @description Restores a snapshot to a database branch. Defaults to the production branch if no branch_name is specified.
  * @link /sites/{site_id}/database/snapshot/{snapshot_id}/restore
  */
@@ -7360,6 +7581,7 @@ export async function restoreSiteDatabaseSnapshot(
 }
 
 /**
+ * @summary Update a site's build plugin
  * @description This is an internal-only endpoint.
  * @link /sites/{site_id}/plugins/{_package}
  */

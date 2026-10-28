@@ -777,6 +777,15 @@ export const connectConnectorCreationModeEnum = {
 export type ConnectConnectorCreationModeEnumKey =
 	(typeof connectConnectorCreationModeEnum)[keyof typeof connectConnectorCreationModeEnum];
 
+export const connectConnectorMcpEventsUiVisibilityEnum = {
+	auto: "auto",
+	hide: "hide",
+	show: "show",
+} as const;
+
+export type ConnectConnectorMcpEventsUiVisibilityEnumKey =
+	(typeof connectConnectorMcpEventsUiVisibilityEnum)[keyof typeof connectConnectorMcpEventsUiVisibilityEnum];
+
 export const connectConnectorSupportsIconEnum = {
 	false: false,
 	maybe: "maybe",
@@ -949,6 +958,11 @@ export type ConnectConnector = {
 	 */
 	events?: string[] | undefined;
 	/**
+	 * @description Whether Connect has successfully delivered an MCP event for this connector.
+	 * @type boolean | undefined
+	 */
+	hasMcpEventDeliveries?: (false | true) | undefined;
+	/**
 	 * @description Connector branding icon. SHA-1 hash that resolves to the uploaded icon through the Vercel avatar service. Consumers render this with `https://vercel.com/api/www/avatar/{icon}`.
 	 * @type string | undefined
 	 */
@@ -976,6 +990,11 @@ export type ConnectConnector = {
 				sync?: (false | true) | undefined;
 		  }
 		| undefined;
+	/**
+	 * @description MCP Events dashboard visibility. Defaults to auto: show after the first successful delivery.
+	 * @type string | undefined
+	 */
+	mcpEventsUiVisibility?: ConnectConnectorMcpEventsUiVisibilityEnumKey | undefined;
 	/**
 	 * @description Connector name within the owning team.
 	 * @type string
@@ -1189,6 +1208,15 @@ export const connectConnectorCreateResultCreationModeEnum = {
 export type ConnectConnectorCreateResultCreationModeEnumKey =
 	(typeof connectConnectorCreateResultCreationModeEnum)[keyof typeof connectConnectorCreateResultCreationModeEnum];
 
+export const connectConnectorCreateResultMcpEventsUiVisibilityEnum = {
+	auto: "auto",
+	hide: "hide",
+	show: "show",
+} as const;
+
+export type ConnectConnectorCreateResultMcpEventsUiVisibilityEnumKey =
+	(typeof connectConnectorCreateResultMcpEventsUiVisibilityEnum)[keyof typeof connectConnectorCreateResultMcpEventsUiVisibilityEnum];
+
 export const connectConnectorCreateResultSupportsIconEnum = {
 	false: false,
 	maybe: "maybe",
@@ -1361,6 +1389,11 @@ export type ConnectConnectorCreateResult = {
 	 */
 	events?: string[] | undefined;
 	/**
+	 * @description Whether Connect has successfully delivered an MCP event for this connector.
+	 * @type boolean | undefined
+	 */
+	hasMcpEventDeliveries?: (false | true) | undefined;
+	/**
 	 * @description Connector branding icon. SHA-1 hash that resolves to the uploaded icon through the Vercel avatar service. Consumers render this with `https://vercel.com/api/www/avatar/{icon}`.
 	 * @type string | undefined
 	 */
@@ -1388,6 +1421,11 @@ export type ConnectConnectorCreateResult = {
 				sync?: (false | true) | undefined;
 		  }
 		| undefined;
+	/**
+	 * @description MCP Events dashboard visibility. Defaults to auto: show after the first successful delivery.
+	 * @type string | undefined
+	 */
+	mcpEventsUiVisibility?: ConnectConnectorCreateResultMcpEventsUiVisibilityEnumKey | undefined;
 	/**
 	 * @description Connector name within the owning team.
 	 * @type string
@@ -3896,6 +3934,15 @@ export type ConnectConnectorUpdateData =
 			[key: string]: unknown;
 	  };
 
+export const connectUpdateConnectorRequestMcpEventsUiVisibilityEnum = {
+	auto: "auto",
+	hide: "hide",
+	show: "show",
+} as const;
+
+export type ConnectUpdateConnectorRequestMcpEventsUiVisibilityEnumKey =
+	(typeof connectUpdateConnectorRequestMcpEventsUiVisibilityEnum)[keyof typeof connectUpdateConnectorRequestMcpEventsUiVisibilityEnum];
+
 /**
  * @description Connector fields to update.
  * @type object
@@ -3929,6 +3976,11 @@ export type ConnectUpdateConnectorRequest = {
 	 * @type array | undefined
 	 */
 	events?: string[] | undefined;
+	/**
+	 * @description MCP Events dashboard visibility. Auto (the default) shows the UI after the first successful delivery. Show and hide persist regardless of future deliveries. This does not enable or disable event delivery.
+	 * @type string | undefined
+	 */
+	mcpEventsUiVisibility?: ConnectUpdateConnectorRequestMcpEventsUiVisibilityEnumKey | undefined;
 	/**
 	 * @description Provider configuration fields to update.
 	 */
@@ -4937,6 +4989,7 @@ export const userEventPayloadPermissionsEnum = {
 	"read-write:access-group": "read-write:access-group",
 	"read-write:ai-gateway-api-key": "read-write:ai-gateway-api-key",
 	"read-write:ai-gateway-budgets": "read-write:ai-gateway-budgets",
+	"read-write:ai-gateway-byok-credentials": "read-write:ai-gateway-byok-credentials",
 	"read-write:ai-gateway-guardrails": "read-write:ai-gateway-guardrails",
 	"read-write:ai-gateway-private-models": "read-write:ai-gateway-private-models",
 	"read-write:ai-gateway-rules": "read-write:ai-gateway-rules",
@@ -4974,6 +5027,7 @@ export const userEventPayloadPermissionsEnum = {
 	"read-write:webhooks": "read-write:webhooks",
 	"read:access-group": "read:access-group",
 	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
+	"read:ai-gateway-byok-credentials": "read:ai-gateway-byok-credentials",
 	"read:ai-gateway-guardrails": "read:ai-gateway-guardrails",
 	"read:ai-gateway-private-models": "read:ai-gateway-private-models",
 	"read:ai-gateway-rules": "read:ai-gateway-rules",
@@ -5028,6 +5082,7 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read-write:access-group": "read-write:access-group",
 	"read-write:ai-gateway-api-key": "read-write:ai-gateway-api-key",
 	"read-write:ai-gateway-budgets": "read-write:ai-gateway-budgets",
+	"read-write:ai-gateway-byok-credentials": "read-write:ai-gateway-byok-credentials",
 	"read-write:ai-gateway-guardrails": "read-write:ai-gateway-guardrails",
 	"read-write:ai-gateway-private-models": "read-write:ai-gateway-private-models",
 	"read-write:ai-gateway-rules": "read-write:ai-gateway-rules",
@@ -5065,6 +5120,7 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read-write:webhooks": "read-write:webhooks",
 	"read:access-group": "read:access-group",
 	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
+	"read:ai-gateway-byok-credentials": "read:ai-gateway-byok-credentials",
 	"read:ai-gateway-guardrails": "read:ai-gateway-guardrails",
 	"read:ai-gateway-private-models": "read:ai-gateway-private-models",
 	"read:ai-gateway-rules": "read:ai-gateway-rules",
@@ -5121,6 +5177,7 @@ export const userEventPayloadAfterPermissionsEnum = {
 	"read-write:access-group": "read-write:access-group",
 	"read-write:ai-gateway-api-key": "read-write:ai-gateway-api-key",
 	"read-write:ai-gateway-budgets": "read-write:ai-gateway-budgets",
+	"read-write:ai-gateway-byok-credentials": "read-write:ai-gateway-byok-credentials",
 	"read-write:ai-gateway-guardrails": "read-write:ai-gateway-guardrails",
 	"read-write:ai-gateway-private-models": "read-write:ai-gateway-private-models",
 	"read-write:ai-gateway-rules": "read-write:ai-gateway-rules",
@@ -5158,6 +5215,7 @@ export const userEventPayloadAfterPermissionsEnum = {
 	"read-write:webhooks": "read-write:webhooks",
 	"read:access-group": "read:access-group",
 	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
+	"read:ai-gateway-byok-credentials": "read:ai-gateway-byok-credentials",
 	"read:ai-gateway-guardrails": "read:ai-gateway-guardrails",
 	"read:ai-gateway-private-models": "read:ai-gateway-private-models",
 	"read:ai-gateway-rules": "read:ai-gateway-rules",
@@ -5202,6 +5260,7 @@ export const userEventPayloadBeforePermissionsEnum = {
 	"read-write:access-group": "read-write:access-group",
 	"read-write:ai-gateway-api-key": "read-write:ai-gateway-api-key",
 	"read-write:ai-gateway-budgets": "read-write:ai-gateway-budgets",
+	"read-write:ai-gateway-byok-credentials": "read-write:ai-gateway-byok-credentials",
 	"read-write:ai-gateway-guardrails": "read-write:ai-gateway-guardrails",
 	"read-write:ai-gateway-private-models": "read-write:ai-gateway-private-models",
 	"read-write:ai-gateway-rules": "read-write:ai-gateway-rules",
@@ -5239,6 +5298,7 @@ export const userEventPayloadBeforePermissionsEnum = {
 	"read-write:webhooks": "read-write:webhooks",
 	"read:access-group": "read:access-group",
 	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
+	"read:ai-gateway-byok-credentials": "read:ai-gateway-byok-credentials",
 	"read:ai-gateway-guardrails": "read:ai-gateway-guardrails",
 	"read:ai-gateway-private-models": "read:ai-gateway-private-models",
 	"read:ai-gateway-rules": "read:ai-gateway-rules",
@@ -7257,6 +7317,21 @@ export type UserEvent = {
 	 * @type number
 	 */
 	createdAt: number;
+	/**
+	 * @description Labeled event details for progressive disclosure in the activity feed.
+	 * @type array | undefined
+	 */
+	details?:
+		| {
+				/**
+				 * @description Recognition context that should remain visible in a compact feed row.
+				 * @type string | undefined
+				 */
+				display?: "inline" | undefined;
+				label: string;
+				value: string;
+		  }[]
+		| undefined;
 	/**
 	 * @description A list of \"entities\" within the event `text`. Useful for enhancing the displayed text with additional styling and links.
 	 * @type array
@@ -14236,6 +14311,11 @@ export type UserEvent = {
 	 * @type string | undefined
 	 */
 	sessionId?: string | undefined;
+	/**
+	 * @description Compact activity-feed text, when the event has additional details.
+	 * @type string | undefined
+	 */
+	summary?: string | undefined;
 	/**
 	 * @description The human-readable text of the Event.
 	 * @example You logged in via GitHub
@@ -21390,6 +21470,478 @@ export type DeleteAccessGroupProjectResponses = {
  * @description Union of all possible responses
  */
 export type DeleteAccessGroupProjectResponse = DeleteAccessGroupProjectStatus200;
+
+export type CreateAiGatewayByokCredentialQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type CreateAiGatewayByokCredentialStatus201 = {
+	active: false | true;
+	createdAt: number;
+	credentialId: string;
+	lastFourChars: string;
+	name: string;
+	ownerId: string;
+	providerSlug: string;
+	updatedAt: number;
+	zeroDataRetention: false | true;
+};
+
+export type CreateAiGatewayByokCredentialStatus400 = unknown;
+
+export type CreateAiGatewayByokCredentialStatus401 = unknown;
+
+export type CreateAiGatewayByokCredentialStatus403 = unknown;
+
+export type CreateAiGatewayByokCredentialStatus404 = unknown;
+
+export type CreateAiGatewayByokCredentialStatus410 = unknown;
+
+export type CreateAiGatewayByokCredentialStatus429 = unknown;
+
+export type CreateAiGatewayByokCredentialStatus500 = unknown;
+
+export type CreateAiGatewayByokCredentialBody =
+	| {
+			/**
+			 * @description The owner ID for this credential. Ignored for customer tokens, which always create in their own team.
+			 * @type string | undefined
+			 */
+			ownerId?: string | undefined;
+			/**
+			 * @description The provider slug this credential is for (e.g., \"openai\", \"anthropic\")
+			 * @type string
+			 */
+			providerSlug: string;
+			/**
+			 * @description The developer-entered name for this credential
+			 * @maxLength 100
+			 * @type string
+			 */
+			name: string;
+			/**
+			 * @description Whether the credential is active and can be used
+			 * @default true
+			 * @type boolean | undefined
+			 */
+			active?: boolean | undefined;
+			/**
+			 * @description Whether the customer attested this external credential has a zero data retention policy
+			 * @default false
+			 * @type boolean | undefined
+			 */
+			zeroDataRetention?: boolean | undefined;
+			/**
+			 * @description The ID of the user performing this action, used for Activity-log attribution.
+			 * @type string | undefined
+			 */
+			userId?: string | undefined;
+			/**
+			 * @description Model mappings to create atomically with the credential (e.g. Azure deployments). One DynamoDB transaction holds the credential plus all mappings, so at most 99 mappings fit.
+			 * @type array | undefined
+			 */
+			mappings?:
+				| {
+						/**
+						 * @description The AI Gateway model slug (e.g., \"openai/gpt-5.4\")
+						 * @type string
+						 */
+						gatewayModelSlug: string;
+						/**
+						 * @description The customer\'s custom model ID (e.g., \"my-finetuned-gpt-5\")
+						 * @type string
+						 */
+						customModelId: string;
+				  }[]
+				| undefined;
+	  }
+	| undefined;
+
+export type CreateAiGatewayByokCredentialOptions = {
+	body: CreateAiGatewayByokCredentialBody;
+	path?: never | undefined;
+	query?: CreateAiGatewayByokCredentialQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateAiGatewayByokCredentialResponses = {
+	"201": CreateAiGatewayByokCredentialStatus201;
+	"400": CreateAiGatewayByokCredentialStatus400;
+	"401": CreateAiGatewayByokCredentialStatus401;
+	"403": CreateAiGatewayByokCredentialStatus403;
+	"404": CreateAiGatewayByokCredentialStatus404;
+	"410": CreateAiGatewayByokCredentialStatus410;
+	"429": CreateAiGatewayByokCredentialStatus429;
+	"500": CreateAiGatewayByokCredentialStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateAiGatewayByokCredentialResponse = CreateAiGatewayByokCredentialStatus201;
+
+export const listAiGatewayByokCredentialsIncludeDeleted = {
+	true: "true",
+	false: "false",
+} as const;
+
+export type ListAiGatewayByokCredentialsIncludeDeletedKey =
+	(typeof listAiGatewayByokCredentialsIncludeDeleted)[keyof typeof listAiGatewayByokCredentialsIncludeDeleted];
+
+export const listAiGatewayByokCredentialsDecrypt = {
+	true: "true",
+	false: "false",
+} as const;
+
+export type ListAiGatewayByokCredentialsDecryptKey =
+	(typeof listAiGatewayByokCredentialsDecrypt)[keyof typeof listAiGatewayByokCredentialsDecrypt];
+
+export const listAiGatewayByokCredentialsIncludeModelMappings = {
+	true: "true",
+	false: "false",
+} as const;
+
+export type ListAiGatewayByokCredentialsIncludeModelMappingsKey =
+	(typeof listAiGatewayByokCredentialsIncludeModelMappings)[keyof typeof listAiGatewayByokCredentialsIncludeModelMappings];
+
+export type ListAiGatewayByokCredentialsQuery = {
+	/**
+	 * @description The owner ID to list credentials for. Ignored for customer tokens, which always list their own team.
+	 * @type string | undefined
+	 */
+	ownerId?: string | undefined;
+	/**
+	 * @description Optional provider slug to filter credentials by
+	 * @type string | undefined
+	 */
+	providerSlug?: string | undefined;
+	/**
+	 * @description Whether to include soft-deleted credentials
+	 * @default 'false'
+	 * @type string | undefined
+	 */
+	includeDeleted?: ListAiGatewayByokCredentialsIncludeDeletedKey | undefined;
+	/**
+	 * @description Not supported. Credential values are never returned.
+	 * @default 'false'
+	 * @type string | undefined
+	 */
+	decrypt?: ListAiGatewayByokCredentialsDecryptKey | undefined;
+	/**
+	 * @description Whether to include model mappings for each credential in the response
+	 * @default 'false'
+	 * @type string | undefined
+	 */
+	includeModelMappings?: ListAiGatewayByokCredentialsIncludeModelMappingsKey | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type ListAiGatewayByokCredentialsStatus200 = {
+	credentials: {
+		active: false | true;
+		createdAt: number;
+		credential: string | null;
+		credentialId: string;
+		deleted: false | true;
+		lastFourChars: string;
+		modelMappings: {
+			customModelId: string;
+			gatewayModelSlug: string;
+		}[];
+		name: string;
+		ownerId: string;
+		providerSlug: string;
+		updatedAt: number;
+		zeroDataRetention: false | true;
+	}[];
+};
+
+export type ListAiGatewayByokCredentialsStatus400 = unknown;
+
+export type ListAiGatewayByokCredentialsStatus401 = unknown;
+
+export type ListAiGatewayByokCredentialsStatus403 = unknown;
+
+export type ListAiGatewayByokCredentialsStatus404 = unknown;
+
+export type ListAiGatewayByokCredentialsStatus410 = unknown;
+
+export type ListAiGatewayByokCredentialsStatus500 = unknown;
+
+export type ListAiGatewayByokCredentialsOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: ListAiGatewayByokCredentialsQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ListAiGatewayByokCredentialsResponses = {
+	"200": ListAiGatewayByokCredentialsStatus200;
+	"400": ListAiGatewayByokCredentialsStatus400;
+	"401": ListAiGatewayByokCredentialsStatus401;
+	"403": ListAiGatewayByokCredentialsStatus403;
+	"404": ListAiGatewayByokCredentialsStatus404;
+	"410": ListAiGatewayByokCredentialsStatus410;
+	"500": ListAiGatewayByokCredentialsStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListAiGatewayByokCredentialsResponse = ListAiGatewayByokCredentialsStatus200;
+
+export type GetAiGatewayByokCredentialPath = {
+	/**
+	 * @description The unique ID of the credential
+	 * @type string
+	 */
+	credentialId: string;
+};
+
+export type GetAiGatewayByokCredentialQuery = {
+	ownerId?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type GetAiGatewayByokCredentialStatus200 = {
+	active: false | true;
+	createdAt: number;
+	credentialId: string;
+	lastFourChars: string;
+	name: string;
+	ownerId: string;
+	providerSlug: string;
+	updatedAt: number;
+	zeroDataRetention: false | true;
+};
+
+export type GetAiGatewayByokCredentialStatus400 = unknown;
+
+export type GetAiGatewayByokCredentialStatus401 = unknown;
+
+export type GetAiGatewayByokCredentialStatus403 = unknown;
+
+export type GetAiGatewayByokCredentialStatus404 = unknown;
+
+export type GetAiGatewayByokCredentialStatus410 = unknown;
+
+export type GetAiGatewayByokCredentialStatus500 = unknown;
+
+export type GetAiGatewayByokCredentialOptions = {
+	body?: never | undefined;
+	path: GetAiGatewayByokCredentialPath;
+	query?: GetAiGatewayByokCredentialQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type GetAiGatewayByokCredentialResponses = {
+	"200": GetAiGatewayByokCredentialStatus200;
+	"400": GetAiGatewayByokCredentialStatus400;
+	"401": GetAiGatewayByokCredentialStatus401;
+	"403": GetAiGatewayByokCredentialStatus403;
+	"404": GetAiGatewayByokCredentialStatus404;
+	"410": GetAiGatewayByokCredentialStatus410;
+	"500": GetAiGatewayByokCredentialStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetAiGatewayByokCredentialResponse = GetAiGatewayByokCredentialStatus200;
+
+export type UpdateAiGatewayByokCredentialPath = {
+	/**
+	 * @description The unique ID of the credential to update
+	 * @type string
+	 */
+	credentialId: string;
+};
+
+export type UpdateAiGatewayByokCredentialQuery = {
+	ownerId?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type UpdateAiGatewayByokCredentialStatus200 = {
+	active: false | true;
+	createdAt: number;
+	credentialId: string;
+	lastFourChars: string;
+	name: string;
+	ownerId: string;
+	providerSlug: string;
+	updatedAt: number;
+	zeroDataRetention: false | true;
+};
+
+export type UpdateAiGatewayByokCredentialStatus400 = unknown;
+
+export type UpdateAiGatewayByokCredentialStatus401 = unknown;
+
+export type UpdateAiGatewayByokCredentialStatus403 = unknown;
+
+export type UpdateAiGatewayByokCredentialStatus404 = unknown;
+
+export type UpdateAiGatewayByokCredentialStatus410 = unknown;
+
+export type UpdateAiGatewayByokCredentialStatus500 = unknown;
+
+export type UpdateAiGatewayByokCredentialBody =
+	| {
+			/**
+			 * @description The new name for the credential
+			 * @maxLength 100
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description Whether the credential should be active
+			 * @type boolean | undefined
+			 */
+			active?: boolean | undefined;
+			/**
+			 * @description Whether the customer attested this external credential has a zero data retention policy
+			 * @type boolean | undefined
+			 */
+			zeroDataRetention?: boolean | undefined;
+			/**
+			 * @description The ID of the user performing this action, used for Activity-log attribution.
+			 * @type string | undefined
+			 */
+			userId?: string | undefined;
+	  }
+	| undefined;
+
+export type UpdateAiGatewayByokCredentialOptions = {
+	body: UpdateAiGatewayByokCredentialBody;
+	path: UpdateAiGatewayByokCredentialPath;
+	query?: UpdateAiGatewayByokCredentialQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateAiGatewayByokCredentialResponses = {
+	"200": UpdateAiGatewayByokCredentialStatus200;
+	"400": UpdateAiGatewayByokCredentialStatus400;
+	"401": UpdateAiGatewayByokCredentialStatus401;
+	"403": UpdateAiGatewayByokCredentialStatus403;
+	"404": UpdateAiGatewayByokCredentialStatus404;
+	"410": UpdateAiGatewayByokCredentialStatus410;
+	"500": UpdateAiGatewayByokCredentialStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateAiGatewayByokCredentialResponse = UpdateAiGatewayByokCredentialStatus200;
+
+export type DeleteAiGatewayByokCredentialPath = {
+	/**
+	 * @description The unique ID of the credential to delete
+	 * @type string
+	 */
+	credentialId: string;
+};
+
+export type DeleteAiGatewayByokCredentialQuery = {
+	ownerId?: string | undefined;
+	/**
+	 * @description The ID of the user performing this action, used for Activity-log attribution.
+	 * @type string | undefined
+	 */
+	userId?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type DeleteAiGatewayByokCredentialStatus204 = unknown | null;
+
+export type DeleteAiGatewayByokCredentialStatus400 = unknown;
+
+export type DeleteAiGatewayByokCredentialStatus401 = unknown;
+
+export type DeleteAiGatewayByokCredentialStatus403 = unknown;
+
+export type DeleteAiGatewayByokCredentialStatus404 = unknown;
+
+export type DeleteAiGatewayByokCredentialStatus410 = unknown;
+
+export type DeleteAiGatewayByokCredentialStatus500 = unknown;
+
+export type DeleteAiGatewayByokCredentialOptions = {
+	body?: never | undefined;
+	path: DeleteAiGatewayByokCredentialPath;
+	query?: DeleteAiGatewayByokCredentialQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteAiGatewayByokCredentialResponses = {
+	"204": DeleteAiGatewayByokCredentialStatus204;
+	"400": DeleteAiGatewayByokCredentialStatus400;
+	"401": DeleteAiGatewayByokCredentialStatus401;
+	"403": DeleteAiGatewayByokCredentialStatus403;
+	"404": DeleteAiGatewayByokCredentialStatus404;
+	"410": DeleteAiGatewayByokCredentialStatus410;
+	"500": DeleteAiGatewayByokCredentialStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteAiGatewayByokCredentialResponse = DeleteAiGatewayByokCredentialStatus204;
 
 export type CreateAiGatewayVirtualModelConfigQuery = {
 	/**
@@ -29450,7 +30002,7 @@ export type ListConnectorsResponse = ListConnectorsStatus200;
 
 export type GetConnectorPath = {
 	/**
-	 * @description Stable connector ID or URL-encoded team-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.
+	 * @description Stable connector ID or URL-encoded owner-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.
 	 * @type string
 	 */
 	connector: string;
@@ -30360,7 +30912,17 @@ export type UpsertConnectorProjectConnectionStatus410 = ConnectError;
  * @description Error response returned by a Connect API operation.
  * @type object
  */
+export type UpsertConnectorProjectConnectionStatus422 = ConnectError;
+
+/**
+ * @description Error response returned by a Connect API operation.
+ * @type object
+ */
 export type UpsertConnectorProjectConnectionStatus500 = ConnectError;
+
+export type UpsertConnectorProjectConnectionStatus501 = unknown;
+
+export type UpsertConnectorProjectConnectionStatus504 = unknown;
 
 /**
  * @description Environments enabled for a connector project connection.
@@ -30383,7 +30945,10 @@ export type UpsertConnectorProjectConnectionResponses = {
 	"404": UpsertConnectorProjectConnectionStatus404;
 	"409": UpsertConnectorProjectConnectionStatus409;
 	"410": UpsertConnectorProjectConnectionStatus410;
+	"422": UpsertConnectorProjectConnectionStatus422;
 	"500": UpsertConnectorProjectConnectionStatus500;
+	"501": UpsertConnectorProjectConnectionStatus501;
+	"504": UpsertConnectorProjectConnectionStatus504;
 };
 
 /**
@@ -30461,7 +31026,17 @@ export type DeleteConnectorProjectConnectionStatus410 = ConnectError;
  * @description Error response returned by a Connect API operation.
  * @type object
  */
+export type DeleteConnectorProjectConnectionStatus422 = ConnectError;
+
+/**
+ * @description Error response returned by a Connect API operation.
+ * @type object
+ */
 export type DeleteConnectorProjectConnectionStatus500 = ConnectError;
+
+export type DeleteConnectorProjectConnectionStatus501 = unknown;
+
+export type DeleteConnectorProjectConnectionStatus504 = unknown;
 
 export type DeleteConnectorProjectConnectionOptions = {
 	body?: never | undefined;
@@ -30478,7 +31053,10 @@ export type DeleteConnectorProjectConnectionResponses = {
 	"404": DeleteConnectorProjectConnectionStatus404;
 	"409": DeleteConnectorProjectConnectionStatus409;
 	"410": DeleteConnectorProjectConnectionStatus410;
+	"422": DeleteConnectorProjectConnectionStatus422;
 	"500": DeleteConnectorProjectConnectionStatus500;
+	"501": DeleteConnectorProjectConnectionStatus501;
+	"504": DeleteConnectorProjectConnectionStatus504;
 };
 
 /**
@@ -32161,6 +32739,14 @@ export const getDeploymentStatus200SeatBlockGitProviderEnum = {
 
 export type GetDeploymentStatus200SeatBlockGitProviderEnumKey =
 	(typeof getDeploymentStatus200SeatBlockGitProviderEnum)[keyof typeof getDeploymentStatus200SeatBlockGitProviderEnum];
+
+export const getDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum = {
+	HTTP: "HTTP",
+	HTTPS: "HTTPS",
+} as const;
+
+export type GetDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey =
+	(typeof getDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum)[keyof typeof getDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum];
 
 export const getDeploymentStatus200ServicesRoutePrefixSourceEnum = {
 	configured: "configured",
@@ -33962,6 +34548,33 @@ export type GetDeploymentStatus200 =
 																  }
 																| undefined;
 															/**
+															 * @description A Kubernetes-style HTTP liveness probe.
+															 * @type object | undefined
+															 */
+															livenessProbe?:
+																| {
+																		failureThreshold?: number | undefined;
+																		httpGet: {
+																			host?: string | undefined;
+																			httpHeaders?:
+																				| {
+																						name: string;
+																						value: string;
+																				  }[]
+																				| undefined;
+																			path?: string | undefined;
+																			port: number;
+																			scheme?:
+																				| GetDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey
+																				| undefined;
+																		};
+																		initialDelaySeconds?: number | undefined;
+																		periodSeconds?: number | undefined;
+																		successThreshold?: number | undefined;
+																		timeoutSeconds?: number | undefined;
+																  }
+																| undefined;
+															/**
 															 * @description Instance counts by region.
 															 * @type object | undefined
 															 */
@@ -34301,6 +34914,33 @@ export type GetDeploymentStatus200 =
 															instances?:
 																| {
 																		[key: string]: number;
+																  }
+																| undefined;
+															/**
+															 * @description A Kubernetes-style HTTP liveness probe.
+															 * @type object | undefined
+															 */
+															livenessProbe?:
+																| {
+																		failureThreshold?: number | undefined;
+																		httpGet: {
+																			host?: string | undefined;
+																			httpHeaders?:
+																				| {
+																						name: string;
+																						value: string;
+																				  }[]
+																				| undefined;
+																			path?: string | undefined;
+																			port: number;
+																			scheme?:
+																				| GetDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey
+																				| undefined;
+																		};
+																		initialDelaySeconds?: number | undefined;
+																		periodSeconds?: number | undefined;
+																		successThreshold?: number | undefined;
+																		timeoutSeconds?: number | undefined;
 																  }
 																| undefined;
 															/**
@@ -36347,6 +36987,14 @@ export const createDeploymentStatus200SeatBlockGitProviderEnum = {
 export type CreateDeploymentStatus200SeatBlockGitProviderEnumKey =
 	(typeof createDeploymentStatus200SeatBlockGitProviderEnum)[keyof typeof createDeploymentStatus200SeatBlockGitProviderEnum];
 
+export const createDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum = {
+	HTTP: "HTTP",
+	HTTPS: "HTTPS",
+} as const;
+
+export type CreateDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey =
+	(typeof createDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum)[keyof typeof createDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum];
+
 export const createDeploymentStatus200ServicesRoutePrefixSourceEnum = {
 	configured: "configured",
 	generated: "generated",
@@ -38149,6 +38797,33 @@ export type CreateDeploymentStatus200 =
 																  }
 																| undefined;
 															/**
+															 * @description A Kubernetes-style HTTP liveness probe.
+															 * @type object | undefined
+															 */
+															livenessProbe?:
+																| {
+																		failureThreshold?: number | undefined;
+																		httpGet: {
+																			host?: string | undefined;
+																			httpHeaders?:
+																				| {
+																						name: string;
+																						value: string;
+																				  }[]
+																				| undefined;
+																			path?: string | undefined;
+																			port: number;
+																			scheme?:
+																				| CreateDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey
+																				| undefined;
+																		};
+																		initialDelaySeconds?: number | undefined;
+																		periodSeconds?: number | undefined;
+																		successThreshold?: number | undefined;
+																		timeoutSeconds?: number | undefined;
+																  }
+																| undefined;
+															/**
 															 * @description Instance counts by region.
 															 * @type object | undefined
 															 */
@@ -38488,6 +39163,33 @@ export type CreateDeploymentStatus200 =
 															instances?:
 																| {
 																		[key: string]: number;
+																  }
+																| undefined;
+															/**
+															 * @description A Kubernetes-style HTTP liveness probe.
+															 * @type object | undefined
+															 */
+															livenessProbe?:
+																| {
+																		failureThreshold?: number | undefined;
+																		httpGet: {
+																			host?: string | undefined;
+																			httpHeaders?:
+																				| {
+																						name: string;
+																						value: string;
+																				  }[]
+																				| undefined;
+																			path?: string | undefined;
+																			port: number;
+																			scheme?:
+																				| CreateDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey
+																				| undefined;
+																		};
+																		initialDelaySeconds?: number | undefined;
+																		periodSeconds?: number | undefined;
+																		successThreshold?: number | undefined;
+																		timeoutSeconds?: number | undefined;
 																  }
 																| undefined;
 															/**
@@ -40466,6 +41168,14 @@ export const cancelDeploymentStatus200SeatBlockGitProviderEnum = {
 export type CancelDeploymentStatus200SeatBlockGitProviderEnumKey =
 	(typeof cancelDeploymentStatus200SeatBlockGitProviderEnum)[keyof typeof cancelDeploymentStatus200SeatBlockGitProviderEnum];
 
+export const cancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum = {
+	HTTP: "HTTP",
+	HTTPS: "HTTPS",
+} as const;
+
+export type CancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey =
+	(typeof cancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum)[keyof typeof cancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum];
+
 export const cancelDeploymentStatus200ServicesRoutePrefixSourceEnum = {
 	configured: "configured",
 	generated: "generated",
@@ -42197,6 +42907,33 @@ export type CancelDeploymentStatus200 = {
 														  }
 														| undefined;
 													/**
+													 * @description A Kubernetes-style HTTP liveness probe.
+													 * @type object | undefined
+													 */
+													livenessProbe?:
+														| {
+																failureThreshold?: number | undefined;
+																httpGet: {
+																	host?: string | undefined;
+																	httpHeaders?:
+																		| {
+																				name: string;
+																				value: string;
+																		  }[]
+																		| undefined;
+																	path?: string | undefined;
+																	port: number;
+																	scheme?:
+																		| CancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey
+																		| undefined;
+																};
+																initialDelaySeconds?: number | undefined;
+																periodSeconds?: number | undefined;
+																successThreshold?: number | undefined;
+																timeoutSeconds?: number | undefined;
+														  }
+														| undefined;
+													/**
 													 * @description Instance counts by region.
 													 * @type object | undefined
 													 */
@@ -42536,6 +43273,33 @@ export type CancelDeploymentStatus200 = {
 													instances?:
 														| {
 																[key: string]: number;
+														  }
+														| undefined;
+													/**
+													 * @description A Kubernetes-style HTTP liveness probe.
+													 * @type object | undefined
+													 */
+													livenessProbe?:
+														| {
+																failureThreshold?: number | undefined;
+																httpGet: {
+																	host?: string | undefined;
+																	httpHeaders?:
+																		| {
+																				name: string;
+																				value: string;
+																		  }[]
+																		| undefined;
+																	path?: string | undefined;
+																	port: number;
+																	scheme?:
+																		| CancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey
+																		| undefined;
+																};
+																initialDelaySeconds?: number | undefined;
+																periodSeconds?: number | undefined;
+																successThreshold?: number | undefined;
+																timeoutSeconds?: number | undefined;
 														  }
 														| undefined;
 													/**
@@ -67608,6 +68372,11 @@ export type GetMicrofrontendsInGroupStatus200 = {
 								memory: 16384;
 						  }
 						| {
+								cores: 14;
+								label: string;
+								memory: 28672;
+						  }
+						| {
 								cores: 30;
 								label: "turbo";
 								memory: 61440;
@@ -68498,6 +69267,11 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 * @type array | undefined
 					 */
 					aiGatewayBudget?: ACLActionKey[] | undefined;
+					/**
+					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+					 * @type array | undefined
+					 */
+					aiGatewayByokCredentials?: ACLActionKey[] | undefined;
 					/**
 					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 					 * @type array | undefined
@@ -70019,6 +70793,11 @@ export type GetMicrofrontendsInGroupStatus200 = {
 								cores: 8;
 								label: "enhanced";
 								memory: 16384;
+						  }
+						| {
+								cores: 14;
+								label: string;
+								memory: 28672;
 						  }
 						| {
 								cores: 30;
@@ -77448,6 +78227,11 @@ export type GetProjectsStatus200 =
 											memory: 16384;
 									  }
 									| {
+											cores: 14;
+											label: string;
+											memory: 28672;
+									  }
+									| {
 											cores: 30;
 											label: "turbo";
 											memory: 61440;
@@ -78882,6 +79666,11 @@ export type GetProjectsStatus200 =
 												memory: 16384;
 										  }
 										| {
+												cores: 14;
+												label: string;
+												memory: 28672;
+										  }
+										| {
 												cores: 30;
 												label: "turbo";
 												memory: 61440;
@@ -79920,6 +80709,11 @@ export type GetProjectsStatus200 =
 												memory: 16384;
 										  }
 										| {
+												cores: 14;
+												label: string;
+												memory: 28672;
+										  }
+										| {
 												cores: 30;
 												label: "turbo";
 												memory: 61440;
@@ -80807,6 +81601,11 @@ export type GetProjectsStatus200 =
 									 * @type array | undefined
 									 */
 									aiGatewayBudget?: ACLActionKey[] | undefined;
+									/**
+									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+									 * @type array | undefined
+									 */
+									aiGatewayByokCredentials?: ACLActionKey[] | undefined;
 									/**
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 									 * @type array | undefined
@@ -82328,6 +83127,11 @@ export type GetProjectsStatus200 =
 												cores: 8;
 												label: "enhanced";
 												memory: 16384;
+										  }
+										| {
+												cores: 14;
+												label: string;
+												memory: 28672;
 										  }
 										| {
 												cores: 30;
@@ -84336,6 +85140,11 @@ export type CreateProjectStatus200 = {
 							memory: 16384;
 					  }
 					| {
+							cores: 14;
+							label: string;
+							memory: 28672;
+					  }
+					| {
 							cores: 30;
 							label: "turbo";
 							memory: 61440;
@@ -85211,6 +86020,11 @@ export type CreateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				aiGatewayBudget?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				aiGatewayByokCredentials?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -86730,6 +87544,11 @@ export type CreateProjectStatus200 = {
 							cores: 8;
 							label: "enhanced";
 							memory: 16384;
+					  }
+					| {
+							cores: 14;
+							label: string;
+							memory: 28672;
 					  }
 					| {
 							cores: 30;
@@ -89285,6 +90104,11 @@ export type GetProjectStatus200 = {
 							memory: 16384;
 					  }
 					| {
+							cores: 14;
+							label: string;
+							memory: 28672;
+					  }
+					| {
 							cores: 30;
 							label: "turbo";
 							memory: 61440;
@@ -90177,6 +91001,11 @@ export type GetProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				aiGatewayBudget?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				aiGatewayByokCredentials?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -91696,6 +92525,11 @@ export type GetProjectStatus200 = {
 							cores: 8;
 							label: "enhanced";
 							memory: 16384;
+					  }
+					| {
+							cores: 14;
+							label: string;
+							memory: 28672;
 					  }
 					| {
 							cores: 30;
@@ -93581,6 +94415,11 @@ export type UpdateProjectStatus200 = {
 							memory: 16384;
 					  }
 					| {
+							cores: 14;
+							label: string;
+							memory: 28672;
+					  }
+					| {
 							cores: 30;
 							label: "turbo";
 							memory: 61440;
@@ -94454,6 +95293,11 @@ export type UpdateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				aiGatewayBudget?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				aiGatewayByokCredentials?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -95973,6 +96817,11 @@ export type UpdateProjectStatus200 = {
 							cores: 8;
 							label: "enhanced";
 							memory: 16384;
+					  }
+					| {
+							cores: 14;
+							label: string;
+							memory: 28672;
 					  }
 					| {
 							cores: 30;
@@ -98850,6 +99699,11 @@ export type UploadProjectAvatarStatus200 = {
 							memory: 16384;
 					  }
 					| {
+							cores: 14;
+							label: string;
+							memory: 28672;
+					  }
+					| {
 							cores: 30;
 							label: "turbo";
 							memory: 61440;
@@ -99730,6 +100584,11 @@ export type UploadProjectAvatarStatus200 = {
 				 * @type array | undefined
 				 */
 				aiGatewayBudget?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				aiGatewayByokCredentials?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -101251,6 +102110,11 @@ export type UploadProjectAvatarStatus200 = {
 							cores: 8;
 							label: "enhanced";
 							memory: 16384;
+					  }
+					| {
+							cores: 14;
+							label: string;
+							memory: 28672;
 					  }
 					| {
 							cores: 30;
@@ -103165,6 +104029,11 @@ export type DeleteProjectAvatarStatus200 = {
 							memory: 16384;
 					  }
 					| {
+							cores: 14;
+							label: string;
+							memory: 28672;
+					  }
+					| {
 							cores: 30;
 							label: "turbo";
 							memory: 61440;
@@ -104045,6 +104914,11 @@ export type DeleteProjectAvatarStatus200 = {
 				 * @type array | undefined
 				 */
 				aiGatewayBudget?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				aiGatewayByokCredentials?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -105566,6 +106440,11 @@ export type DeleteProjectAvatarStatus200 = {
 							cores: 8;
 							label: "enhanced";
 							memory: 16384;
+					  }
+					| {
+							cores: 14;
+							label: string;
+							memory: 28672;
 					  }
 					| {
 							cores: 30;
@@ -114600,6 +115479,11 @@ export type UpdateMicrofrontendsStatus200 = {
 							memory: 16384;
 					  }
 					| {
+							cores: 14;
+							label: string;
+							memory: 28672;
+					  }
+					| {
 							cores: 30;
 							label: "turbo";
 							memory: 61440;
@@ -115480,6 +116364,11 @@ export type UpdateMicrofrontendsStatus200 = {
 				 * @type array | undefined
 				 */
 				aiGatewayBudget?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				aiGatewayByokCredentials?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -117001,6 +117890,11 @@ export type UpdateMicrofrontendsStatus200 = {
 							cores: 8;
 							label: "enhanced";
 							memory: 16384;
+					  }
+					| {
+							cores: 14;
+							label: string;
+							memory: 28672;
 					  }
 					| {
 							cores: 30;

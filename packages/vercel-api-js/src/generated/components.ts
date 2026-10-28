@@ -222,6 +222,15 @@ import type {
 	CreateAccessGroupStatus403,
 	CreateAccessGroupStatus404,
 	CreateAccessGroupStatus410,
+	CreateAiGatewayByokCredentialBody,
+	CreateAiGatewayByokCredentialResponse,
+	CreateAiGatewayByokCredentialStatus400,
+	CreateAiGatewayByokCredentialStatus401,
+	CreateAiGatewayByokCredentialStatus403,
+	CreateAiGatewayByokCredentialStatus404,
+	CreateAiGatewayByokCredentialStatus410,
+	CreateAiGatewayByokCredentialStatus429,
+	CreateAiGatewayByokCredentialStatus500,
 	CreateAiGatewayRuleResponse,
 	CreateAiGatewayRuleStatus400,
 	CreateAiGatewayRuleStatus401,
@@ -771,6 +780,13 @@ import type {
 	DeleteAccessGroupStatus403,
 	DeleteAccessGroupStatus404,
 	DeleteAccessGroupStatus410,
+	DeleteAiGatewayByokCredentialResponse,
+	DeleteAiGatewayByokCredentialStatus400,
+	DeleteAiGatewayByokCredentialStatus401,
+	DeleteAiGatewayByokCredentialStatus403,
+	DeleteAiGatewayByokCredentialStatus404,
+	DeleteAiGatewayByokCredentialStatus410,
+	DeleteAiGatewayByokCredentialStatus500,
 	DeleteAiGatewayRuleResponse,
 	DeleteAiGatewayRuleStatus400,
 	DeleteAiGatewayRuleStatus401,
@@ -857,7 +873,10 @@ import type {
 	DeleteConnectorProjectConnectionStatus404,
 	DeleteConnectorProjectConnectionStatus409,
 	DeleteConnectorProjectConnectionStatus410,
+	DeleteConnectorProjectConnectionStatus422,
 	DeleteConnectorProjectConnectionStatus500,
+	DeleteConnectorProjectConnectionStatus501,
+	DeleteConnectorProjectConnectionStatus504,
 	DeleteConnectorResponse,
 	DeleteConnectorStatus400,
 	DeleteConnectorStatus401,
@@ -1230,6 +1249,13 @@ import type {
 	GetActiveAttackStatusStatus403,
 	GetActiveAttackStatusStatus404,
 	GetActiveAttackStatusStatus410,
+	GetAiGatewayByokCredentialResponse,
+	GetAiGatewayByokCredentialStatus400,
+	GetAiGatewayByokCredentialStatus401,
+	GetAiGatewayByokCredentialStatus403,
+	GetAiGatewayByokCredentialStatus404,
+	GetAiGatewayByokCredentialStatus410,
+	GetAiGatewayByokCredentialStatus500,
 	GetAiGatewayVirtualModelConfigBySlugResponse,
 	GetAiGatewayVirtualModelConfigBySlugStatus400,
 	GetAiGatewayVirtualModelConfigBySlugStatus401,
@@ -2216,6 +2242,13 @@ import type {
 	ListAiGatewayBudgetsStatus404,
 	ListAiGatewayBudgetsStatus410,
 	ListAiGatewayBudgetsStatus500,
+	ListAiGatewayByokCredentialsResponse,
+	ListAiGatewayByokCredentialsStatus400,
+	ListAiGatewayByokCredentialsStatus401,
+	ListAiGatewayByokCredentialsStatus403,
+	ListAiGatewayByokCredentialsStatus404,
+	ListAiGatewayByokCredentialsStatus410,
+	ListAiGatewayByokCredentialsStatus500,
 	ListAiGatewayRoutersResponse,
 	ListAiGatewayRoutersStatus400,
 	ListAiGatewayRoutersStatus401,
@@ -3075,6 +3108,14 @@ import type {
 	UpdateAccessGroupStatus403,
 	UpdateAccessGroupStatus404,
 	UpdateAccessGroupStatus410,
+	UpdateAiGatewayByokCredentialBody,
+	UpdateAiGatewayByokCredentialResponse,
+	UpdateAiGatewayByokCredentialStatus400,
+	UpdateAiGatewayByokCredentialStatus401,
+	UpdateAiGatewayByokCredentialStatus403,
+	UpdateAiGatewayByokCredentialStatus404,
+	UpdateAiGatewayByokCredentialStatus410,
+	UpdateAiGatewayByokCredentialStatus500,
 	UpdateAiGatewayRuleResponse,
 	UpdateAiGatewayRuleStatus400,
 	UpdateAiGatewayRuleStatus401,
@@ -3536,7 +3577,10 @@ import type {
 	UpsertConnectorProjectConnectionStatus404,
 	UpsertConnectorProjectConnectionStatus409,
 	UpsertConnectorProjectConnectionStatus410,
+	UpsertConnectorProjectConnectionStatus422,
 	UpsertConnectorProjectConnectionStatus500,
+	UpsertConnectorProjectConnectionStatus501,
+	UpsertConnectorProjectConnectionStatus504,
 	VerifyProjectDomainResponse,
 	VerifyProjectDomainStatus400,
 	VerifyProjectDomainStatus401,
@@ -4090,6 +4134,249 @@ export async function deleteAccessGroupProject(
 	>({
 		method: "DELETE",
 		url: `/v1/access-groups/${encodeURIComponent(String(pathParams.accessGroupIdOrName))}/projects/${encodeURIComponent(String(pathParams.projectId))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create a BYOK credential
+ * @description Create a new BYOK credential
+ * @link /ai-gateway/byok-credentials
+ */
+export async function createAiGatewayByokCredential(
+	{
+		body,
+		queryParams,
+		config,
+	}: {
+		body?: CreateAiGatewayByokCredentialBody;
+		queryParams?: { teamId?: string; slug?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CreateAiGatewayByokCredentialResponse,
+		ErrorWrapper<
+			| CreateAiGatewayByokCredentialStatus400
+			| CreateAiGatewayByokCredentialStatus401
+			| CreateAiGatewayByokCredentialStatus403
+			| CreateAiGatewayByokCredentialStatus404
+			| CreateAiGatewayByokCredentialStatus410
+			| CreateAiGatewayByokCredentialStatus429
+			| CreateAiGatewayByokCredentialStatus500
+		>,
+		CreateAiGatewayByokCredentialBody,
+		Record<string, string>,
+		{ teamId?: string; slug?: string },
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/ai-gateway/byok-credentials`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List BYOK credentials
+ * @description List BYOK credentials for an owner, optionally filtered by provider
+ * @link /ai-gateway/byok-credentials/list
+ */
+export async function listAiGatewayByokCredentials(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: {
+			ownerId?: string;
+			providerSlug?: string;
+			includeDeleted?: "true" | "false";
+			decrypt?: "true" | "false";
+			includeModelMappings?: "true" | "false";
+			teamId?: string;
+			slug?: string;
+		};
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ListAiGatewayByokCredentialsResponse,
+		ErrorWrapper<
+			| ListAiGatewayByokCredentialsStatus400
+			| ListAiGatewayByokCredentialsStatus401
+			| ListAiGatewayByokCredentialsStatus403
+			| ListAiGatewayByokCredentialsStatus404
+			| ListAiGatewayByokCredentialsStatus410
+			| ListAiGatewayByokCredentialsStatus500
+		>,
+		null,
+		Record<string, string>,
+		{
+			ownerId?: string;
+			providerSlug?: string;
+			includeDeleted?: "true" | "false";
+			decrypt?: "true" | "false";
+			includeModelMappings?: "true" | "false";
+			teamId?: string;
+			slug?: string;
+		},
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/ai-gateway/byok-credentials/list`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get a BYOK credential
+ * @description Get a BYOK credential by ID. The credential value is never returned.
+ * @link /ai-gateway/byok-credentials/{credentialId}
+ */
+export async function getAiGatewayByokCredential(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { credentialId: string };
+		queryParams?: { ownerId?: string; teamId?: string; slug?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.credentialId == null || String(pathParams.credentialId) === "") {
+		throw new Error(`Missing required path parameter: credentialId`);
+	}
+	const data = await request<
+		GetAiGatewayByokCredentialResponse,
+		ErrorWrapper<
+			| GetAiGatewayByokCredentialStatus400
+			| GetAiGatewayByokCredentialStatus401
+			| GetAiGatewayByokCredentialStatus403
+			| GetAiGatewayByokCredentialStatus404
+			| GetAiGatewayByokCredentialStatus410
+			| GetAiGatewayByokCredentialStatus500
+		>,
+		null,
+		Record<string, string>,
+		{ ownerId?: string; teamId?: string; slug?: string },
+		{ credentialId: string }
+	>({
+		method: "GET",
+		url: `/ai-gateway/byok-credentials/${encodeURIComponent(String(pathParams.credentialId))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update a BYOK credential
+ * @description Update a BYOK credential. Send `credential` to replace the key value in place, which keeps the credential ID, settings and model mappings.
+ * @link /ai-gateway/byok-credentials/{credentialId}
+ */
+export async function updateAiGatewayByokCredential(
+	{
+		pathParams,
+		body,
+		queryParams,
+		config,
+	}: {
+		pathParams: { credentialId: string };
+		body?: UpdateAiGatewayByokCredentialBody;
+		queryParams?: { ownerId?: string; teamId?: string; slug?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.credentialId == null || String(pathParams.credentialId) === "") {
+		throw new Error(`Missing required path parameter: credentialId`);
+	}
+	const data = await request<
+		UpdateAiGatewayByokCredentialResponse,
+		ErrorWrapper<
+			| UpdateAiGatewayByokCredentialStatus400
+			| UpdateAiGatewayByokCredentialStatus401
+			| UpdateAiGatewayByokCredentialStatus403
+			| UpdateAiGatewayByokCredentialStatus404
+			| UpdateAiGatewayByokCredentialStatus410
+			| UpdateAiGatewayByokCredentialStatus500
+		>,
+		UpdateAiGatewayByokCredentialBody,
+		Record<string, string>,
+		{ ownerId?: string; teamId?: string; slug?: string },
+		{ credentialId: string }
+	>({
+		method: "PATCH",
+		url: `/ai-gateway/byok-credentials/${encodeURIComponent(String(pathParams.credentialId))}`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete a BYOK credential
+ * @description Delete a BYOK credential (soft delete) and its model mappings
+ * @link /ai-gateway/byok-credentials/{credentialId}
+ */
+export async function deleteAiGatewayByokCredential(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { credentialId: string };
+		queryParams?: { ownerId?: string; userId?: string; teamId?: string; slug?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.credentialId == null || String(pathParams.credentialId) === "") {
+		throw new Error(`Missing required path parameter: credentialId`);
+	}
+	const data = await request<
+		DeleteAiGatewayByokCredentialResponse,
+		ErrorWrapper<
+			| DeleteAiGatewayByokCredentialStatus400
+			| DeleteAiGatewayByokCredentialStatus401
+			| DeleteAiGatewayByokCredentialStatus403
+			| DeleteAiGatewayByokCredentialStatus404
+			| DeleteAiGatewayByokCredentialStatus410
+			| DeleteAiGatewayByokCredentialStatus500
+		>,
+		null,
+		Record<string, string>,
+		{ ownerId?: string; userId?: string; teamId?: string; slug?: string },
+		{ credentialId: string }
+	>({
+		method: "DELETE",
+		url: `/ai-gateway/byok-credentials/${encodeURIComponent(String(pathParams.credentialId))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7480,7 +7767,10 @@ export async function upsertConnectorProjectConnection(
 			| UpsertConnectorProjectConnectionStatus404
 			| UpsertConnectorProjectConnectionStatus409
 			| UpsertConnectorProjectConnectionStatus410
+			| UpsertConnectorProjectConnectionStatus422
 			| UpsertConnectorProjectConnectionStatus500
+			| UpsertConnectorProjectConnectionStatus501
+			| UpsertConnectorProjectConnectionStatus504
 		>,
 		UpsertConnectorProjectConnectionBody,
 		Record<string, string>,
@@ -7532,7 +7822,10 @@ export async function deleteConnectorProjectConnection(
 			| DeleteConnectorProjectConnectionStatus404
 			| DeleteConnectorProjectConnectionStatus409
 			| DeleteConnectorProjectConnectionStatus410
+			| DeleteConnectorProjectConnectionStatus422
 			| DeleteConnectorProjectConnectionStatus500
+			| DeleteConnectorProjectConnectionStatus501
+			| DeleteConnectorProjectConnectionStatus504
 		>,
 		null,
 		Record<string, string>,
@@ -26796,6 +27089,11 @@ export const operationsByPath = {
 	"GET /v1/access-groups/{accessGroupIdOrName}/projects/{projectId}": readAccessGroupProject,
 	"PATCH /v1/access-groups/{accessGroupIdOrName}/projects/{projectId}": updateAccessGroupProject,
 	"DELETE /v1/access-groups/{accessGroupIdOrName}/projects/{projectId}": deleteAccessGroupProject,
+	"POST /ai-gateway/byok-credentials": createAiGatewayByokCredential,
+	"GET /ai-gateway/byok-credentials/list": listAiGatewayByokCredentials,
+	"GET /ai-gateway/byok-credentials/{credentialId}": getAiGatewayByokCredential,
+	"PATCH /ai-gateway/byok-credentials/{credentialId}": updateAiGatewayByokCredential,
+	"DELETE /ai-gateway/byok-credentials/{credentialId}": deleteAiGatewayByokCredential,
 	"POST /ai-gateway/virtual-model-configs": createAiGatewayVirtualModelConfig,
 	"GET /ai-gateway/virtual-model-configs": getAiGatewayVirtualModelConfig,
 	"PATCH /ai-gateway/virtual-model-configs": updateAiGatewayVirtualModelConfig,
@@ -27319,6 +27617,11 @@ export const operationsByTag = {
 		deleteAccessGroupProject,
 	},
 	aiGateway: {
+		createAiGatewayByokCredential,
+		listAiGatewayByokCredentials,
+		getAiGatewayByokCredential,
+		updateAiGatewayByokCredential,
+		deleteAiGatewayByokCredential,
 		createAiGatewayVirtualModelConfig,
 		getAiGatewayVirtualModelConfig,
 		updateAiGatewayVirtualModelConfig,
@@ -27882,8 +28185,14 @@ export const tagDictionary = {
 		PATCH: ["updateAccessGroupProject"],
 	},
 	aiGateway: {
-		POST: ["createAiGatewayVirtualModelConfig", "createAiGatewayRule"],
+		POST: [
+			"createAiGatewayByokCredential",
+			"createAiGatewayVirtualModelConfig",
+			"createAiGatewayRule",
+		],
 		GET: [
+			"listAiGatewayByokCredentials",
+			"getAiGatewayByokCredential",
 			"getAiGatewayVirtualModelConfig",
 			"listAiGatewayVirtualModelConfigs",
 			"getAiGatewayVirtualModelConfigBySlug",
@@ -27893,12 +28202,14 @@ export const tagDictionary = {
 			"listAiGatewayBudgetDefaults",
 		],
 		PATCH: [
+			"updateAiGatewayByokCredential",
 			"updateAiGatewayVirtualModelConfig",
 			"updateAiGatewayVirtualModelConfigBySlug",
 			"updateAiGatewayRule",
 			"updateApiKeyQuota",
 		],
 		DELETE: [
+			"deleteAiGatewayByokCredential",
 			"deleteAiGatewayVirtualModelConfig",
 			"deleteAiGatewayVirtualModelConfigBySlug",
 			"deleteAiGatewayRule",
