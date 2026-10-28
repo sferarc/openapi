@@ -11,6 +11,8 @@ export type Response = {
 	url: string;
 	json(): Promise<any>;
 	text(): Promise<string>;
+	// Optional so a minimal mock still type-checks; without it a binary body is read as text.
+	blob?(): Promise<Blob>;
 	headers?:
 		| {
 				get(name: string): string | null;
