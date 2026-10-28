@@ -1,13 +1,13 @@
 import { ast } from "kubb/kit";
 import { describe, expect, it } from "vitest";
-import { rawRequestBodyFallback } from "./adapter";
+import { requestBodyFallback } from "./adapter";
 
 const content = (contentType: string) =>
 	ast.factory.createContent({ contentType, schema: ast.factory.createSchema({ type: "string" }) });
 
-describe("rawRequestBodyFallback", () => {
+describe("requestBodyFallback", () => {
 	it("keeps the first raw media type", () => {
-		const body = rawRequestBodyFallback(
+		const body = requestBodyFallback(
 			ast.factory.createRequestBody({
 				required: true,
 				content: [content("application/octet-stream"), content("application/zip")],
@@ -18,15 +18,26 @@ describe("rawRequestBodyFallback", () => {
 	});
 
 	it("keeps a url-encoded body", () => {
-		const body = rawRequestBodyFallback(
+		const body = requestBodyFallback(
 			ast.factory.createRequestBody({ content: [content("application/x-www-form-urlencoded")] }),
 		);
 		expect(body?.content?.map((c) => c.contentType)).toEqual(["application/x-www-form-urlencoded"]);
 	});
 
-	it("leaves JSON-like bodies to the JSON parse", () => {
-		const body = ast.factory.createRequestBody({ content: [content("application/vnd.api+json")] });
-		expect(rawRequestBodyFallback(body)).toBeUndefined();
-		expect(rawRequestBodyFallback(undefined)).toBeUndefined();
+	it("keeps a JSON suffix body over a raw one", () => {
+		const body = requestBodyFallback(
+			ast.factory.createRequestBody({
+				content: [content("text/plain"), content("application/scim+json")],
+			}),
+		);
+		expect(body?.content?.map((c) => c.contentType)).toEqual(["application/scim+json"]);
+	});
+
+	it("returns nothing without a body schema", () => {
+		const body = ast.factory.createRequestBody({
+			content: [ast.factory.createContent({ contentType: "application/scim+json" })],
+		});
+		expect(requestBodyFallback(body)).toBeUndefined();
+		expect(requestBodyFallback(undefined)).toBeUndefined();
 	});
 });

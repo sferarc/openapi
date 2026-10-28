@@ -24,7 +24,7 @@ type Operation = (params?: Record<string, unknown>) => Promise<unknown>;
 let root: string;
 let source: string;
 let operations: Record<
-	"getMember" | "getHealth" | "uploadScript" | "inviteMember" | "uploadLogo",
+	"getMember" | "getHealth" | "uploadScript" | "inviteMember" | "uploadLogo" | "createScimUser",
 	Operation
 >;
 
@@ -163,5 +163,21 @@ describe("generated operations", () => {
 		expect(form).toBeInstanceOf(FormData);
 		expect(await (form.get("image") as Blob).text()).toBe("png");
 		expect(form.get("tag")).toBe("brand");
+	});
+
+	it("sends a JSON suffix body as JSON with its content type", async () => {
+		const fetchImpl = fakeFetch();
+		await operations.createScimUser({
+			pathParams: { org: "acme" },
+			body: { userName: "ada@example.com", active: true },
+			config: { fetchImpl },
+		});
+
+		const init = fetchImpl.mock.calls[0]![1];
+		expect(init).toMatchObject({
+			method: "POST",
+			headers: { "Content-Type": "application/scim+json" },
+			body: '{"userName":"ada@example.com","active":true}',
+		});
 	});
 });
