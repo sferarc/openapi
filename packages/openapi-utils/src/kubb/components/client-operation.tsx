@@ -195,18 +195,22 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	if (headerParams.length > 0) headerEntries.push("...headers");
 	headerEntries.push("...requestConfig.headers");
 
+	// OpenAPI multipart encoding: an array is one part per item, an object is a JSON part.
 	const formDataBlock =
 		isFormData && bodyType
 			? `\tconst formData = new FormData();
 \tif (body) {
-\t\tObject.keys(body).forEach((key) => {
-\t\t\tconst value = (body as Record<string, unknown>)[key];
-\t\t\tif (typeof value === "string" || value instanceof Blob) {
-\t\t\t\tformData.append(key, value);
-\t\t\t} else if (typeof value === "number" || typeof value === "boolean") {
-\t\t\t\tformData.append(key, String(value));
+\t\tfor (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+\t\t\tfor (const item of Array.isArray(value) ? value : [value]) {
+\t\t\t\tif (typeof item === "string" || item instanceof Blob) {
+\t\t\t\t\tformData.append(key, item);
+\t\t\t\t} else if (typeof item === "number" || typeof item === "boolean" || typeof item === "bigint") {
+\t\t\t\t\tformData.append(key, String(item));
+\t\t\t\t} else if (item != null) {
+\t\t\t\t\tformData.append(key, JSON.stringify(item));
+\t\t\t\t}
 \t\t\t}
-\t\t});
+\t\t}
 \t}\n`
 			: "";
 
