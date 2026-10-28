@@ -23,7 +23,7 @@ type Operation = (params?: Record<string, unknown>) => Promise<unknown>;
 
 let root: string;
 let source: string;
-let operations: Record<"getMember" | "getHealth" | "uploadScript", Operation>;
+let operations: Record<"getMember" | "getHealth" | "uploadScript" | "inviteMember", Operation>;
 
 beforeAll(async () => {
 	root = mkdtempSync(join(tmpdir(), "openapi-utils-operations-"));
@@ -109,5 +109,27 @@ describe("generated operations", () => {
 		expect(form.get("size")).toBe("3");
 		expect(form.get("draft")).toBe("false");
 		expect(form.has("note")).toBe(false);
+	});
+
+	it("sends a url-encoded body as form fields with its content type", async () => {
+		const fetchImpl = fakeFetch();
+		await operations.inviteMember({
+			pathParams: { org: "acme" },
+			body: {
+				email: "a+b@example.com",
+				roles: ["admin", "billing"],
+				profile: { firstName: "Ada" },
+				notify: false,
+				note: null,
+			},
+			config: { fetchImpl },
+		});
+
+		const init = fetchImpl.mock.calls[0]![1];
+		expect(init.headers).toMatchObject({ "Content-Type": "application/x-www-form-urlencoded" });
+		expect(init.body).toBeInstanceOf(URLSearchParams);
+		expect(String(init.body)).toBe(
+			"email=a%2Bb%40example.com&roles=admin&roles=billing&profile=%7B%22firstName%22%3A%22Ada%22%7D&notify=false",
+		);
 	});
 });

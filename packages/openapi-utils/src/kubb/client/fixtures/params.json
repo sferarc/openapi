@@ -72,6 +72,38 @@
 				}
 			}
 		},
+		"/orgs/{org}/invite": {
+			"post": {
+				"operationId": "inviteMember",
+				"tags": ["members"],
+				"parameters": [
+					{ "name": "org", "in": "path", "required": true, "schema": { "type": "string" } }
+				],
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"type": "object",
+								"required": ["email"],
+								"properties": {
+									"email": { "type": "string" },
+									"roles": { "type": "array", "items": { "type": "string" } },
+									"profile": {
+										"type": "object",
+										"properties": { "firstName": { "type": "string" } }
+									},
+									"notify": { "type": "boolean" },
+									"note": { "type": "string", "nullable": true }
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"204": { "description": "Invited" }
+				}
+			}
+		},
 		"/health": {
 			"get": {
 				"operationId": "getHealth",

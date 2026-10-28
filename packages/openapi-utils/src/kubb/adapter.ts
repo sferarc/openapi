@@ -6,9 +6,6 @@ type Adapter = ReturnType<typeof adapterOas>;
 
 const JSON_MEDIA_TYPE = /[/+]json\b/i;
 
-// Left to the JSON parse: url-encoded bodies would need serializing, which the fetchers do not do.
-const UNSUPPORTED_MEDIA_TYPES = new Set(["application/x-www-form-urlencoded"]);
-
 function operationKey(node: ast.OperationNode): string | undefined {
 	return ast.isHttpOperationNode(node) ? `${node.method.toUpperCase()} ${node.path}` : undefined;
 }
@@ -17,10 +14,7 @@ export function rawRequestBodyFallback(
 	requestBody: ast.RequestBodyNode | undefined,
 ): ast.RequestBodyNode | undefined {
 	const entry = requestBody?.content?.find(
-		(item) =>
-			item.schema &&
-			!JSON_MEDIA_TYPE.test(item.contentType) &&
-			!UNSUPPORTED_MEDIA_TYPES.has(item.contentType),
+		(item) => item.schema && !JSON_MEDIA_TYPE.test(item.contentType),
 	);
 	if (!requestBody || !entry) return undefined;
 	return { ...requestBody, content: [entry] };

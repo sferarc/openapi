@@ -136,8 +136,9 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	const requestBodyContent = node.requestBody?.content?.[0];
 	const contentType = requestBodyContent?.contentType ?? "application/json";
 	const isFormData = contentType === "multipart/form-data";
+	const isUrlEncoded = contentType === "application/x-www-form-urlencoded";
 	const hasBody = Boolean(typeSchemas.request);
-	const isRawBody = hasBody && !isFormData && contentType !== "application/json";
+	const isRawBody = hasBody && !isFormData && !isUrlEncoded && contentType !== "application/json";
 
 	const pathParamsType = buildParamObjectType(pathParams, false);
 	const queryParamsType = buildParamObjectType(queryParams, true);
@@ -172,7 +173,7 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	const generics = [
 		typeSchemas.response.name,
 		errorType,
-		bodyType ? (isFormData ? "FormData" : bodyType) : "null",
+		bodyType ? (isFormData ? "FormData" : isUrlEncoded ? "URLSearchParams" : bodyType) : "null",
 		headerParams.length > 0 ? headerParamsType : "Record<string, string>",
 		queryParams.length > 0 ? queryParamsType : "Record<string, string>",
 		pathParams.length > 0 ? pathParamsType : "Record<string, string>",
@@ -214,7 +215,27 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 \t}\n`
 			: "";
 
-	const bodyExpression = hasBody ? (isFormData ? "formData" : "body") : undefined;
+	// As in multipart bodies: an array repeats its key, an object is sent as JSON.
+	const urlEncodedBlock =
+		isUrlEncoded && bodyType
+			? `\tconst form = new URLSearchParams();
+\tif (body) {
+\t\tfor (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+\t\t\tfor (const item of Array.isArray(value) ? value : [value]) {
+\t\t\t\tif (item == null) continue;
+\t\t\t\tform.append(key, typeof item === "object" ? JSON.stringify(item) : String(item));
+\t\t\t}
+\t\t}
+\t}\n`
+			: "";
+
+	const bodyExpression = hasBody
+		? isFormData
+			? "formData"
+			: isUrlEncoded
+				? "form"
+				: "body"
+		: undefined;
 
 	const urlTemplate = buildUrlTemplate(node.path);
 
@@ -231,7 +252,7 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 
 	const body = `\tconst { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-${requiresPathParamChecks ? `\t${requiresPathParamChecks}\n` : ""}${formDataBlock}\tconst data = await request<${generics.join(", ")}>(${callArgs});
+${requiresPathParamChecks ? `\t${requiresPathParamChecks}\n` : ""}${formDataBlock}${urlEncodedBlock}\tconst data = await request<${generics.join(", ")}>(${callArgs});
 
 \treturn data;`;
 
