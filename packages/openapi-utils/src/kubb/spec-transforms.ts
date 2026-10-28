@@ -266,16 +266,6 @@ export function fixUnionConstraints(obj: any): any {
 	return obj;
 }
 
-export function sanitizeEnumValues(openAPIDocument: OpenAPIObject): OpenAPIObject {
-	return JSON.parse(JSON.stringify(openAPIDocument), (key, value) => {
-		if (key === "enum" && Array.isArray(value)) {
-			const filtered = value.filter((v) => typeof v !== "string" || /^[a-zA-Z_$]/.test(v));
-			return filtered.length > 0 ? filtered : undefined;
-		}
-		return value;
-	});
-}
-
 export function camelCasePathParams(openAPIDocument: OpenAPIObject): OpenAPIObject {
 	const pathRenames: Array<[string, string]> = [];
 

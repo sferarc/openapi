@@ -6,7 +6,6 @@ import {
 	fixArrayItems,
 	fixRegexPatterns,
 	fixUnionConstraints,
-	sanitizeEnumValues,
 	sortArrays,
 } from "@sferadev/openapi-utils";
 import { defineConfig } from "kubb";
@@ -36,7 +35,6 @@ export default defineConfig(async () => {
 	openAPIDocument = fixWrongGroupIds(openAPIDocument);
 	openAPIDocument = fixArrayItems(openAPIDocument);
 	openAPIDocument = fixUnionConstraints(openAPIDocument);
-	openAPIDocument = sanitizeEnumValues(openAPIDocument);
 	openAPIDocument = fixRegexPatterns(openAPIDocument);
 
 	return {

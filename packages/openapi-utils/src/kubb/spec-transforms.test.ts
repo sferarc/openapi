@@ -9,7 +9,6 @@ import {
 	fixRegexPatterns,
 	fixUnionConstraints,
 	renameReservedWords,
-	sanitizeEnumValues,
 } from "./spec-transforms";
 
 function spec(paths: Record<string, unknown>, extra: Record<string, unknown> = {}): OpenAPIObject {
@@ -238,29 +237,6 @@ describe("fixUnionConstraints", () => {
 			],
 		});
 		expect(result.b).toEqual([{ oneOf: [{ type: "array", maxItems: 3 }] }]);
-	});
-});
-
-describe("sanitizeEnumValues", () => {
-	it("drops string values that start with a digit and removes an emptied enum", () => {
-		const result = sanitizeEnumValues(
-			spec(
-				{},
-				{
-					components: {
-						schemas: {
-							Mixed: { type: "string", enum: ["1x", "valid", "_ok", "$ok"] },
-							Numbers: { type: "string", enum: ["1", "2"] },
-							Numeric: { type: "number", enum: [1, 2] },
-						},
-					},
-				},
-			),
-		);
-		const schemas = (result.components as any).schemas;
-		expect(schemas.Mixed.enum).toEqual(["valid", "_ok", "$ok"]);
-		expect(schemas.Numbers).toEqual({ type: "string" });
-		expect(schemas.Numeric.enum).toEqual([1, 2]);
 	});
 });
 
