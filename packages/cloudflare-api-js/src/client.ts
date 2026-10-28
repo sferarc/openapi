@@ -94,7 +94,8 @@ export class CloudflareApi {
 			{},
 			{
 				get: (_target, namespace: keyof typeof operationsByTag) => {
-					if (operationsByTag[namespace] === undefined) {
+					// Own keys only: Object.prototype names such as `constructor` are not tags or operations.
+					if (!Object.hasOwn(operationsByTag, namespace)) {
 						return undefined;
 					}
 
@@ -105,7 +106,7 @@ export class CloudflareApi {
 								_target,
 								operation: keyof (typeof operationsByTag)[keyof typeof operationsByTag],
 							) => {
-								if (operationsByTag[namespace][operation] === undefined) {
+								if (!Object.hasOwn(operationsByTag[namespace], operation)) {
 									return undefined;
 								}
 

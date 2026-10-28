@@ -44,3 +44,17 @@ describe("V0Api.request", () => {
 		);
 	});
 });
+
+describe("V0Api.api", () => {
+	const fetch: FetchImpl = async () => {
+		throw new Error("fetch called");
+	};
+	const client = new V0Api({ token: "token", fetch });
+
+	it("ignores Object.prototype names as tags and operations", () => {
+		expect(client.api.constructor).toBeUndefined();
+		expect(client.api.chats.toString).toBeUndefined();
+		expect(client.api.chats.hasOwnProperty).toBeUndefined();
+		expect(client.api.chats.chatsCreate).toBeTypeOf("function");
+	});
+});

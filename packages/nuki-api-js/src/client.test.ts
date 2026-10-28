@@ -44,3 +44,17 @@ describe("NukiApi.request", () => {
 		);
 	});
 });
+
+describe("NukiApi.api", () => {
+	const fetch: FetchImpl = async () => {
+		throw new Error("fetch called");
+	};
+	const client = new NukiApi({ token: "token", fetch });
+
+	it("ignores Object.prototype names as tags and operations", () => {
+		expect(client.api.constructor).toBeUndefined();
+		expect(client.api.account.toString).toBeUndefined();
+		expect(client.api.account.hasOwnProperty).toBeUndefined();
+		expect(client.api.account.getAccountsResource).toBeTypeOf("function");
+	});
+});

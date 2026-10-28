@@ -94,3 +94,17 @@ describe("ZoomApi.auth.refreshToken", () => {
 		);
 	});
 });
+
+describe("ZoomApi.api", () => {
+	const fetch: FetchImpl = async () => {
+		throw new Error("fetch called");
+	};
+	const client = new ZoomApi({ token: "token", fetch });
+
+	it("ignores Object.prototype names as tags and operations", () => {
+		expect(client.api.constructor).toBeUndefined();
+		expect(client.api.archiving.toString).toBeUndefined();
+		expect(client.api.archiving.hasOwnProperty).toBeUndefined();
+		expect(client.api.archiving.listArchivedFiles).toBeTypeOf("function");
+	});
+});

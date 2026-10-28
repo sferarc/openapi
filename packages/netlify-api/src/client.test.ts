@@ -115,3 +115,17 @@ describe("NetlifyApi.auth.refreshToken", () => {
 		});
 	});
 });
+
+describe("NetlifyApi.api", () => {
+	const fetch: FetchImpl = async () => {
+		throw new Error("fetch called");
+	};
+	const client = new NetlifyApi({ token: "token", fetch });
+
+	it("ignores Object.prototype names as tags and operations", () => {
+		expect(client.api.constructor).toBeUndefined();
+		expect(client.api.site.toString).toBeUndefined();
+		expect(client.api.site.hasOwnProperty).toBeUndefined();
+		expect(client.api.site.listSites).toBeTypeOf("function");
+	});
+});

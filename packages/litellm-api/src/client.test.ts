@@ -67,3 +67,17 @@ describe("LiteLLMApi.request", () => {
 		);
 	});
 });
+
+describe("LiteLLMApi.api", () => {
+	const fetch: FetchImpl = async () => {
+		throw new Error("fetch called");
+	};
+	const client = new LiteLLMApi({ baseUrl: "https://api.example.com", token: "token", fetch });
+
+	it("ignores Object.prototype names as tags and operations", () => {
+		expect(client.api.constructor).toBeUndefined();
+		expect(client.api.modelManagement.toString).toBeUndefined();
+		expect(client.api.modelManagement.hasOwnProperty).toBeUndefined();
+		expect(client.api.modelManagement.modelListModelsGet).toBeTypeOf("function");
+	});
+});
