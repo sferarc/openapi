@@ -53,6 +53,38 @@ describe("fetcher", () => {
 		expect((error as Error).message).toBe("GET /thing failed: fetch failed");
 	});
 
+	it("resolves a binary response as a Blob with its bytes intact", async () => {
+		const bytes = new Uint8Array([0x50, 0x4b, 0x03, 0x04, 0xff, 0x00, 0x80]);
+		const fetchImpl: FetchImpl = async () =>
+			new Response(bytes, {
+				status: 200,
+				headers: { "content-type": "application/zip" },
+			}) as never;
+		const result = await client<Blob, unknown, unknown, unknown, unknown, unknown>({
+			url: "/thing",
+			method: "get",
+			fetchImpl,
+		});
+		expect(result).toBeInstanceOf(Blob);
+		expect(new Uint8Array(await result.arrayBuffer())).toEqual(bytes);
+	});
+
+	it("resolves an empty binary response to undefined", async () => {
+		await expect(
+			client({
+				url: "/thing",
+				method: "get",
+				fetchImpl: respond(200, "", "application/octet-stream"),
+			}),
+		).resolves.toBeUndefined();
+	});
+
+	it("keeps a text response as a string", async () => {
+		await expect(
+			client({ url: "/thing", method: "get", fetchImpl: respond(200, "a,b\n1,2", "text/csv") }),
+		).resolves.toBe("a,b\n1,2");
+	});
+
 	it("resolves a successful JSON response", async () => {
 		await expect(
 			client({

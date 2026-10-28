@@ -24,6 +24,22 @@ export type FetcherOptions<TBody, THeaders, TQueryParams, TPathParams> = {
 
 const maxErrorBodyLength = 1000;
 
+const binaryMediaTypes = new Set([
+	"application/gzip",
+	"application/octet-stream",
+	"application/pdf",
+	"application/vnd.tcpdump.pcap",
+	"application/wasm",
+	"application/x-gzip",
+	"application/x-tar",
+	"application/zip",
+]);
+
+const isBinary = (contentType: string) => {
+	const mediaType = contentType.split(";")[0]?.trim().toLowerCase() ?? "";
+	return binaryMediaTypes.has(mediaType) || /^(image|audio|video|font)\//.test(mediaType);
+};
+
 class ResponseError {
 	constructor(readonly error: ErrorWrapper<unknown>) {}
 }
@@ -84,11 +100,18 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 			throw new ResponseError({ status: response.status, payload });
 		}
 
+		const contentType = response.headers?.get("content-type") ?? "";
+		// Decoding a zip, an image or other bytes as UTF-8 text would corrupt them.
+		if (response.blob && isBinary(contentType)) {
+			const blob = await response.blob();
+			if (!blob.size) return undefined as TData;
+			return blob as unknown as TData;
+		}
+
 		// A 204 or an empty body (common on DELETE) has nothing to parse.
 		const text = await response.text();
 		if (!text) return undefined as TData;
-		if (response.headers?.get("content-type")?.includes("json")) return JSON.parse(text);
-		// if it is not a json response, assume it is a blob and cast it to TData
+		if (contentType.includes("json")) return JSON.parse(text);
 		return text as unknown as TData;
 	} catch (e) {
 		// Rethrown as is so the HTTP status survives; the Effect bindings map it to ApiError.
