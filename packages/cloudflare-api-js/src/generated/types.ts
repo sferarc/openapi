@@ -63299,6 +63299,7 @@ export type LogpushApiResponseSingle = LogpushApiResponseCommon;
 export const logpushDataset = {
     access_requests: "access_requests",
     account_abuse_protection_events: "account_abuse_protection_events",
+    ai_gateway_events: "ai_gateway_events",
     audit_logs: "audit_logs",
     audit_logs_v2: "audit_logs_v2",
     biso_user_actions: "biso_user_actions",
@@ -288743,6 +288744,83 @@ export type PostIndicatorTypeCreateResponses = {
  * @description Union of all possible responses
 */
 export type PostIndicatorTypeCreateResponse = PostIndicatorTypeCreateStatus200;
+
+export type DeleteIndicatorDeleteBulkPath = {
+    /**
+     * @description Account ID.
+     * @type string
+    */
+    accountId: string;
+    /**
+     * @description Dataset ID.
+     * @type string
+    */
+    datasetId: string;
+};
+
+export type DeleteIndicatorDeleteBulkQuery = {
+    /**
+     * @description Indicator UUIDs to delete, 1-200 per request.
+     * @type array
+    */
+    indicatorIds: string[];
+};
+
+export type DeleteIndicatorDeleteBulkStatus200 = {
+    /**
+     * @description Number of indicators deleted.
+     * @minLength 0
+     * @type integer
+    */
+    deletedCount: number;
+    /**
+     * @description Requested UUIDs that were not found in the dataset. Omitted when every UUID was deleted.
+     * @type array | undefined
+    */
+    missingUUIDs?: string[] | undefined;
+};
+
+export type DeleteIndicatorDeleteBulkStatus400 = {
+    errors: {
+        /**
+         * @example An error occurred.
+         * @type string
+        */
+        message: string;
+    }[];
+    result: object;
+    success: boolean;
+};
+
+export type DeleteIndicatorDeleteBulkStatus404 = {
+    errors: {
+        /**
+         * @example An error occurred.
+         * @type string
+        */
+        message: string;
+    }[];
+    result: object;
+    success: boolean;
+};
+
+export type DeleteIndicatorDeleteBulkOptions = {
+    body?: never | undefined;
+    path: DeleteIndicatorDeleteBulkPath;
+    query: DeleteIndicatorDeleteBulkQuery;
+    headers?: never | undefined;
+};
+
+export type DeleteIndicatorDeleteBulkResponses = {
+    "200": DeleteIndicatorDeleteBulkStatus200;
+    "400": DeleteIndicatorDeleteBulkStatus400;
+    "404": DeleteIndicatorDeleteBulkStatus404;
+};
+
+/**
+ * @description Union of all possible responses
+*/
+export type DeleteIndicatorDeleteBulkResponse = DeleteIndicatorDeleteBulkStatus200;
 
 export type GetIndicatorListLegacyPath = {
     /**
