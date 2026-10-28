@@ -281,7 +281,7 @@ export type ChatDetail = {
 		 * @description The parsed content of the message as an array structure containing AST nodes. This is an experimental field that may change.
 		 * @type array | undefined
 		 */
-		experimentalContent?:
+		experimental_content?:
 			| (
 					| [0, string[], ...string[]]
 					| [
@@ -1412,7 +1412,7 @@ export type MessageDetail = {
 	 * @description The parsed content of the message as an array structure containing AST nodes. This is an experimental field that may change.
 	 * @type array | undefined
 	 */
-	experimentalContent?:
+	experimental_content?:
 		| (
 				| [0, string[], ...string[]]
 				| [
@@ -1643,7 +1643,7 @@ export type MessageSummary = {
 	 * @description The parsed content of the message as an array structure containing AST nodes. This is an experimental field that may change.
 	 * @type array | undefined
 	 */
-	experimentalContent?:
+	experimental_content?:
 		| (
 				| [0, string[], ...string[]]
 				| [
@@ -1879,7 +1879,7 @@ export type MessageSummaryList = {
 		 * @description The parsed content of the message as an array structure containing AST nodes. This is an experimental field that may change.
 		 * @type array | undefined
 		 */
-		experimentalContent?:
+		experimental_content?:
 			| (
 					| [0, string[], ...string[]]
 					| [
@@ -3100,23 +3100,27 @@ export type InternalServerError = {
 	};
 };
 
-export type ChatsCreateStatus200 = unknown;
+/**
+ * @description Detailed representation of a chat, including its messages, files, versions, and model configuration.
+ * @type object
+ */
+export type ChatsCreateStatus200 = ChatDetail;
 
-export type ChatsCreateStatus401 = unknown;
+export type ChatsCreateStatus401 = UnauthorizedError;
 
-export type ChatsCreateStatus403 = unknown;
+export type ChatsCreateStatus403 = ForbiddenError;
 
-export type ChatsCreateStatus404 = unknown;
+export type ChatsCreateStatus404 = NotFoundError;
 
-export type ChatsCreateStatus409 = unknown;
+export type ChatsCreateStatus409 = ConflictError;
 
-export type ChatsCreateStatus413 = unknown;
+export type ChatsCreateStatus413 = PayloadTooLargeError;
 
-export type ChatsCreateStatus422 = unknown;
+export type ChatsCreateStatus422 = UnprocessableEntityError;
 
-export type ChatsCreateStatus429 = unknown;
+export type ChatsCreateStatus429 = TooManyRequestsError;
 
-export type ChatsCreateStatus500 = unknown;
+export type ChatsCreateStatus500 = InternalServerError;
 
 export const chatsCreateRequestChatPrivacyEnum = {
 	private: "private",
@@ -3374,23 +3378,179 @@ export type ChatsFindQuery = {
 		| undefined;
 };
 
-export type ChatsFindStatus200 = unknown;
+export const chatsFindStatus200DataPrivacyEnum = {
+	private: "private",
+	public: "public",
+	team: "team",
+	"team-edit": "team-edit",
+	unlisted: "unlisted",
+} as const;
 
-export type ChatsFindStatus401 = unknown;
+export type ChatsFindStatus200DataPrivacyEnumKey =
+	(typeof chatsFindStatus200DataPrivacyEnum)[keyof typeof chatsFindStatus200DataPrivacyEnum];
 
-export type ChatsFindStatus403 = unknown;
+export const chatsFindStatus200DataLatestVersionStatusEnum = {
+	completed: "completed",
+	failed: "failed",
+	pending: "pending",
+} as const;
 
-export type ChatsFindStatus404 = unknown;
+export type ChatsFindStatus200DataLatestVersionStatusEnumKey =
+	(typeof chatsFindStatus200DataLatestVersionStatusEnum)[keyof typeof chatsFindStatus200DataLatestVersionStatusEnum];
 
-export type ChatsFindStatus409 = unknown;
+export type ChatsFindStatus200 = {
+	object: "list";
+	data: {
+		/**
+		 * @description A unique identifier for the chat.
+		 * @type string
+		 */
+		id: string;
+		/**
+		 * @description Fixed value identifying this object as a chat.
+		 * @type string
+		 */
+		object: "chat";
+		/**
+		 * @description Indicates whether the chat can be shared via public link.
+		 * @type boolean
+		 */
+		shareable: boolean;
+		/**
+		 * @description Defines the visibility of the chat—private, team-only, or public.
+		 * @type string
+		 */
+		privacy: ChatsFindStatus200DataPrivacyEnumKey;
+		/**
+		 * @description An optional name assigned to the chat by the user.
+		 * @type string | undefined
+		 */
+		name?: string | undefined;
+		/**
+		 * @description Deprecated title field preserved for backward compatibility.
+		 * @deprecated
+		 * @type string | undefined
+		 */
+		title?: string | undefined;
+		/**
+		 * @description The ISO timestamp representing when the chat was created.
+		 *
+		 * Format: `date-time`
+		 * @type string
+		 */
+		createdAt: string;
+		/**
+		 * @description The ISO timestamp of the last update to the chat.
+		 * @type string | undefined
+		 */
+		updatedAt?: string | undefined;
+		/**
+		 * @description Indicates whether the chat is marked as a favorite.
+		 * @type boolean
+		 */
+		favorite: boolean;
+		/**
+		 * @description The ID of the user who created the chat.
+		 * @type string
+		 */
+		authorId: string;
+		/**
+		 * @description Optional ID of the v0 project associated with this chat.
+		 * @type string | undefined
+		 */
+		projectId?: string | undefined;
+		/**
+		 * @description Optional ID of the linked Vercel project, if connected.
+		 * @type string | undefined
+		 */
+		vercelProjectId?: string | undefined;
+		/**
+		 * @description Web URL to view this chat in the browser.
+		 * @type string
+		 */
+		webUrl: string;
+		/**
+		 * @description API URL to access this chat via the API.
+		 * @type string
+		 */
+		apiUrl: string;
+		/**
+		 * @description The most recent generated version of the chat, if available.
+		 * @type object | undefined
+		 */
+		latestVersion?:
+			| {
+					/**
+					 * @description A unique identifier for the version.
+					 * @type string
+					 */
+					id: string;
+					/**
+					 * @description Fixed value identifying this object as a version.
+					 * @type string
+					 */
+					object: "version";
+					/**
+					 * @description The current status of the version generation process.
+					 * @type string
+					 */
+					status: ChatsFindStatus200DataLatestVersionStatusEnumKey;
+					/**
+					 * @description Optional URL for previewing the generated output.
+					 * @type string | undefined
+					 */
+					demoUrl?: string | undefined;
+					/**
+					 * @description URL to retrieve a screenshot of this version.
+					 * @type string | undefined
+					 */
+					screenshotUrl?: string | undefined;
+					/**
+					 * @description The date and time when the version was created, in ISO 8601 format.
+					 *
+					 * Format: `date-time`
+					 * @type string
+					 */
+					createdAt: string;
+					/**
+					 * @description The date and time when the version was last updated, in ISO 8601 format.
+					 *
+					 * Format: `date-time`
+					 * @type string | undefined
+					 */
+					updatedAt?: string | undefined;
+					/**
+					 * @description URL to retrieve a dark mode screenshot of this version.
+					 * @type string | undefined
+					 */
+					darkScreenshotUrl?: string | undefined;
+			  }
+			| undefined;
+		/**
+		 * @description Arbitrary key-value data associated with this chat.
+		 * @type object
+		 */
+		metadata: {
+			[key: string]: string;
+		};
+	}[];
+};
 
-export type ChatsFindStatus413 = unknown;
+export type ChatsFindStatus401 = UnauthorizedError;
 
-export type ChatsFindStatus422 = unknown;
+export type ChatsFindStatus403 = ForbiddenError;
 
-export type ChatsFindStatus429 = unknown;
+export type ChatsFindStatus404 = NotFoundError;
 
-export type ChatsFindStatus500 = unknown;
+export type ChatsFindStatus409 = ConflictError;
+
+export type ChatsFindStatus413 = PayloadTooLargeError;
+
+export type ChatsFindStatus422 = UnprocessableEntityError;
+
+export type ChatsFindStatus429 = TooManyRequestsError;
+
+export type ChatsFindStatus500 = InternalServerError;
 
 export type ChatsFindOptions = {
 	body?: never | undefined;
@@ -3416,23 +3576,27 @@ export type ChatsFindResponses = {
  */
 export type ChatsFindResponse = ChatsFindStatus200;
 
-export type ChatsInitStatus200 = unknown;
+/**
+ * @description Detailed representation of a chat, including its messages, files, versions, and model configuration.
+ * @type object
+ */
+export type ChatsInitStatus200 = ChatDetail;
 
-export type ChatsInitStatus401 = unknown;
+export type ChatsInitStatus401 = UnauthorizedError;
 
-export type ChatsInitStatus403 = unknown;
+export type ChatsInitStatus403 = ForbiddenError;
 
-export type ChatsInitStatus404 = unknown;
+export type ChatsInitStatus404 = NotFoundError;
 
-export type ChatsInitStatus409 = unknown;
+export type ChatsInitStatus409 = ConflictError;
 
-export type ChatsInitStatus413 = unknown;
+export type ChatsInitStatus413 = PayloadTooLargeError;
 
-export type ChatsInitStatus422 = unknown;
+export type ChatsInitStatus422 = UnprocessableEntityError;
 
-export type ChatsInitStatus429 = unknown;
+export type ChatsInitStatus429 = TooManyRequestsError;
 
-export type ChatsInitStatus500 = unknown;
+export type ChatsInitStatus500 = InternalServerError;
 
 export const chatsInitRequestChatPrivacyEnum = {
 	public: "public",
@@ -3617,23 +3781,27 @@ export type ChatsDeletePath = {
 	chatId: string;
 };
 
-export type ChatsDeleteStatus200 = unknown;
+export type ChatsDeleteStatus200 = {
+	id: string;
+	object: "chat";
+	deleted: true;
+};
 
-export type ChatsDeleteStatus401 = unknown;
+export type ChatsDeleteStatus401 = UnauthorizedError;
 
-export type ChatsDeleteStatus403 = unknown;
+export type ChatsDeleteStatus403 = ForbiddenError;
 
-export type ChatsDeleteStatus404 = unknown;
+export type ChatsDeleteStatus404 = NotFoundError;
 
-export type ChatsDeleteStatus409 = unknown;
+export type ChatsDeleteStatus409 = ConflictError;
 
-export type ChatsDeleteStatus413 = unknown;
+export type ChatsDeleteStatus413 = PayloadTooLargeError;
 
-export type ChatsDeleteStatus422 = unknown;
+export type ChatsDeleteStatus422 = UnprocessableEntityError;
 
-export type ChatsDeleteStatus429 = unknown;
+export type ChatsDeleteStatus429 = TooManyRequestsError;
 
-export type ChatsDeleteStatus500 = unknown;
+export type ChatsDeleteStatus500 = InternalServerError;
 
 export type ChatsDeleteOptions = {
 	body?: never | undefined;
@@ -3667,23 +3835,27 @@ export type ChatsGetByIdPath = {
 	chatId: string;
 };
 
-export type ChatsGetByIdStatus200 = unknown;
+/**
+ * @description Detailed representation of a chat, including its messages, files, versions, and model configuration.
+ * @type object
+ */
+export type ChatsGetByIdStatus200 = ChatDetail;
 
-export type ChatsGetByIdStatus401 = unknown;
+export type ChatsGetByIdStatus401 = UnauthorizedError;
 
-export type ChatsGetByIdStatus403 = unknown;
+export type ChatsGetByIdStatus403 = ForbiddenError;
 
-export type ChatsGetByIdStatus404 = unknown;
+export type ChatsGetByIdStatus404 = NotFoundError;
 
-export type ChatsGetByIdStatus409 = unknown;
+export type ChatsGetByIdStatus409 = ConflictError;
 
-export type ChatsGetByIdStatus413 = unknown;
+export type ChatsGetByIdStatus413 = PayloadTooLargeError;
 
-export type ChatsGetByIdStatus422 = unknown;
+export type ChatsGetByIdStatus422 = UnprocessableEntityError;
 
-export type ChatsGetByIdStatus429 = unknown;
+export type ChatsGetByIdStatus429 = TooManyRequestsError;
 
-export type ChatsGetByIdStatus500 = unknown;
+export type ChatsGetByIdStatus500 = InternalServerError;
 
 export type ChatsGetByIdOptions = {
 	body?: never | undefined;
@@ -3717,23 +3889,27 @@ export type ChatsUpdatePath = {
 	chatId: string;
 };
 
-export type ChatsUpdateStatus200 = unknown;
+/**
+ * @description Detailed representation of a chat, including its messages, files, versions, and model configuration.
+ * @type object
+ */
+export type ChatsUpdateStatus200 = ChatDetail;
 
-export type ChatsUpdateStatus401 = unknown;
+export type ChatsUpdateStatus401 = UnauthorizedError;
 
-export type ChatsUpdateStatus403 = unknown;
+export type ChatsUpdateStatus403 = ForbiddenError;
 
-export type ChatsUpdateStatus404 = unknown;
+export type ChatsUpdateStatus404 = NotFoundError;
 
-export type ChatsUpdateStatus409 = unknown;
+export type ChatsUpdateStatus409 = ConflictError;
 
-export type ChatsUpdateStatus413 = unknown;
+export type ChatsUpdateStatus413 = PayloadTooLargeError;
 
-export type ChatsUpdateStatus422 = unknown;
+export type ChatsUpdateStatus422 = UnprocessableEntityError;
 
-export type ChatsUpdateStatus429 = unknown;
+export type ChatsUpdateStatus429 = TooManyRequestsError;
 
-export type ChatsUpdateStatus500 = unknown;
+export type ChatsUpdateStatus500 = InternalServerError;
 
 export const chatsUpdateRequestPrivacyEnum = {
 	private: "private",
@@ -3799,23 +3975,27 @@ export type ChatsFavoritePath = {
 	chatId: string;
 };
 
-export type ChatsFavoriteStatus200 = unknown;
+export type ChatsFavoriteStatus200 = {
+	id: string;
+	object: "chat";
+	favorited: boolean;
+};
 
-export type ChatsFavoriteStatus401 = unknown;
+export type ChatsFavoriteStatus401 = UnauthorizedError;
 
-export type ChatsFavoriteStatus403 = unknown;
+export type ChatsFavoriteStatus403 = ForbiddenError;
 
-export type ChatsFavoriteStatus404 = unknown;
+export type ChatsFavoriteStatus404 = NotFoundError;
 
-export type ChatsFavoriteStatus409 = unknown;
+export type ChatsFavoriteStatus409 = ConflictError;
 
-export type ChatsFavoriteStatus413 = unknown;
+export type ChatsFavoriteStatus413 = PayloadTooLargeError;
 
-export type ChatsFavoriteStatus422 = unknown;
+export type ChatsFavoriteStatus422 = UnprocessableEntityError;
 
-export type ChatsFavoriteStatus429 = unknown;
+export type ChatsFavoriteStatus429 = TooManyRequestsError;
 
-export type ChatsFavoriteStatus500 = unknown;
+export type ChatsFavoriteStatus500 = InternalServerError;
 
 export type ChatsFavoriteBody = {
 	/**
@@ -3857,23 +4037,27 @@ export type ChatsForkPath = {
 	chatId: string;
 };
 
-export type ChatsForkStatus200 = unknown;
+/**
+ * @description Detailed representation of a chat, including its messages, files, versions, and model configuration.
+ * @type object
+ */
+export type ChatsForkStatus200 = ChatDetail;
 
-export type ChatsForkStatus401 = unknown;
+export type ChatsForkStatus401 = UnauthorizedError;
 
-export type ChatsForkStatus403 = unknown;
+export type ChatsForkStatus403 = ForbiddenError;
 
-export type ChatsForkStatus404 = unknown;
+export type ChatsForkStatus404 = NotFoundError;
 
-export type ChatsForkStatus409 = unknown;
+export type ChatsForkStatus409 = ConflictError;
 
-export type ChatsForkStatus413 = unknown;
+export type ChatsForkStatus413 = PayloadTooLargeError;
 
-export type ChatsForkStatus422 = unknown;
+export type ChatsForkStatus422 = UnprocessableEntityError;
 
-export type ChatsForkStatus429 = unknown;
+export type ChatsForkStatus429 = TooManyRequestsError;
 
-export type ChatsForkStatus500 = unknown;
+export type ChatsForkStatus500 = InternalServerError;
 
 export const chatsForkRequestPrivacyEnum = {
 	private: "private",
@@ -3933,23 +4117,27 @@ export type ProjectsGetByChatIdPath = {
 	chatId: string;
 };
 
-export type ProjectsGetByChatIdStatus200 = unknown;
+/**
+ * @description Full representation of a project, including its associated chats.
+ * @type object
+ */
+export type ProjectsGetByChatIdStatus200 = ProjectDetail;
 
-export type ProjectsGetByChatIdStatus401 = unknown;
+export type ProjectsGetByChatIdStatus401 = UnauthorizedError;
 
-export type ProjectsGetByChatIdStatus403 = unknown;
+export type ProjectsGetByChatIdStatus403 = ForbiddenError;
 
-export type ProjectsGetByChatIdStatus404 = unknown;
+export type ProjectsGetByChatIdStatus404 = NotFoundError;
 
-export type ProjectsGetByChatIdStatus409 = unknown;
+export type ProjectsGetByChatIdStatus409 = ConflictError;
 
-export type ProjectsGetByChatIdStatus413 = unknown;
+export type ProjectsGetByChatIdStatus413 = PayloadTooLargeError;
 
-export type ProjectsGetByChatIdStatus422 = unknown;
+export type ProjectsGetByChatIdStatus422 = UnprocessableEntityError;
 
-export type ProjectsGetByChatIdStatus429 = unknown;
+export type ProjectsGetByChatIdStatus429 = TooManyRequestsError;
 
-export type ProjectsGetByChatIdStatus500 = unknown;
+export type ProjectsGetByChatIdStatus500 = InternalServerError;
 
 export type ProjectsGetByChatIdOptions = {
 	body?: never | undefined;
@@ -3999,23 +4187,31 @@ export type ChatsFindMessagesQuery = {
 	cursor?: string | undefined;
 };
 
-export type ChatsFindMessagesStatus200 = unknown;
+export type ChatsFindMessagesStatus200 = {
+	object: "list";
+	data: MessageSummary[];
+	pagination: {
+		hasMore: boolean;
+		nextCursor?: string | undefined;
+		nextUrl?: string | undefined;
+	};
+};
 
-export type ChatsFindMessagesStatus401 = unknown;
+export type ChatsFindMessagesStatus401 = UnauthorizedError;
 
-export type ChatsFindMessagesStatus403 = unknown;
+export type ChatsFindMessagesStatus403 = ForbiddenError;
 
-export type ChatsFindMessagesStatus404 = unknown;
+export type ChatsFindMessagesStatus404 = NotFoundError;
 
-export type ChatsFindMessagesStatus409 = unknown;
+export type ChatsFindMessagesStatus409 = ConflictError;
 
-export type ChatsFindMessagesStatus413 = unknown;
+export type ChatsFindMessagesStatus413 = PayloadTooLargeError;
 
-export type ChatsFindMessagesStatus422 = unknown;
+export type ChatsFindMessagesStatus422 = UnprocessableEntityError;
 
-export type ChatsFindMessagesStatus429 = unknown;
+export type ChatsFindMessagesStatus429 = TooManyRequestsError;
 
-export type ChatsFindMessagesStatus500 = unknown;
+export type ChatsFindMessagesStatus500 = InternalServerError;
 
 export type ChatsFindMessagesOptions = {
 	body?: never | undefined;
@@ -4049,23 +4245,27 @@ export type ChatsSendMessagePath = {
 	chatId: string;
 };
 
-export type ChatsSendMessageStatus200 = unknown;
+/**
+ * @description Detailed representation of a chat, including its messages, files, versions, and model configuration.
+ * @type object
+ */
+export type ChatsSendMessageStatus200 = ChatDetail;
 
-export type ChatsSendMessageStatus401 = unknown;
+export type ChatsSendMessageStatus401 = UnauthorizedError;
 
-export type ChatsSendMessageStatus403 = unknown;
+export type ChatsSendMessageStatus403 = ForbiddenError;
 
-export type ChatsSendMessageStatus404 = unknown;
+export type ChatsSendMessageStatus404 = NotFoundError;
 
-export type ChatsSendMessageStatus409 = unknown;
+export type ChatsSendMessageStatus409 = ConflictError;
 
-export type ChatsSendMessageStatus413 = unknown;
+export type ChatsSendMessageStatus413 = PayloadTooLargeError;
 
-export type ChatsSendMessageStatus422 = unknown;
+export type ChatsSendMessageStatus422 = UnprocessableEntityError;
 
-export type ChatsSendMessageStatus429 = unknown;
+export type ChatsSendMessageStatus429 = TooManyRequestsError;
 
-export type ChatsSendMessageStatus500 = unknown;
+export type ChatsSendMessageStatus500 = InternalServerError;
 
 export const chatsSendMessageRequestModelConfigurationThinkingEffort = {
 	none: "none",
@@ -4264,23 +4464,27 @@ export type ChatsGetMessagePath = {
 	messageId: string;
 };
 
-export type ChatsGetMessageStatus200 = unknown;
+/**
+ * @description Detailed message object extending MessageSummary with chat metadata.
+ * @type object
+ */
+export type ChatsGetMessageStatus200 = MessageDetail;
 
-export type ChatsGetMessageStatus401 = unknown;
+export type ChatsGetMessageStatus401 = UnauthorizedError;
 
-export type ChatsGetMessageStatus403 = unknown;
+export type ChatsGetMessageStatus403 = ForbiddenError;
 
-export type ChatsGetMessageStatus404 = unknown;
+export type ChatsGetMessageStatus404 = NotFoundError;
 
-export type ChatsGetMessageStatus409 = unknown;
+export type ChatsGetMessageStatus409 = ConflictError;
 
-export type ChatsGetMessageStatus413 = unknown;
+export type ChatsGetMessageStatus413 = PayloadTooLargeError;
 
-export type ChatsGetMessageStatus422 = unknown;
+export type ChatsGetMessageStatus422 = UnprocessableEntityError;
 
-export type ChatsGetMessageStatus429 = unknown;
+export type ChatsGetMessageStatus429 = TooManyRequestsError;
 
-export type ChatsGetMessageStatus500 = unknown;
+export type ChatsGetMessageStatus500 = InternalServerError;
 
 export type ChatsGetMessageOptions = {
 	body?: never | undefined;
@@ -4330,23 +4534,34 @@ export type ChatsFindVersionsQuery = {
 	cursor?: string | undefined;
 };
 
-export type ChatsFindVersionsStatus200 = unknown;
+export type ChatsFindVersionsStatus200 = {
+	object: "list";
+	data: VersionSummary[];
+	pagination: {
+		hasMore: boolean;
+		nextCursor?: string | undefined;
+		nextUrl?: string | undefined;
+	};
+	meta: {
+		totalCount: number;
+	};
+};
 
-export type ChatsFindVersionsStatus401 = unknown;
+export type ChatsFindVersionsStatus401 = UnauthorizedError;
 
-export type ChatsFindVersionsStatus403 = unknown;
+export type ChatsFindVersionsStatus403 = ForbiddenError;
 
-export type ChatsFindVersionsStatus404 = unknown;
+export type ChatsFindVersionsStatus404 = NotFoundError;
 
-export type ChatsFindVersionsStatus409 = unknown;
+export type ChatsFindVersionsStatus409 = ConflictError;
 
-export type ChatsFindVersionsStatus413 = unknown;
+export type ChatsFindVersionsStatus413 = PayloadTooLargeError;
 
-export type ChatsFindVersionsStatus422 = unknown;
+export type ChatsFindVersionsStatus422 = UnprocessableEntityError;
 
-export type ChatsFindVersionsStatus429 = unknown;
+export type ChatsFindVersionsStatus429 = TooManyRequestsError;
 
-export type ChatsFindVersionsStatus500 = unknown;
+export type ChatsFindVersionsStatus500 = InternalServerError;
 
 export type ChatsFindVersionsOptions = {
 	body?: never | undefined;
@@ -4401,23 +4616,27 @@ export type ChatsGetVersionQuery = {
 	includeDefaultFiles?: ChatsGetVersionIncludeDefaultFilesKey | undefined;
 };
 
-export type ChatsGetVersionStatus200 = unknown;
+/**
+ * @description Detailed version data including file contents.
+ * @type object
+ */
+export type ChatsGetVersionStatus200 = VersionDetail;
 
-export type ChatsGetVersionStatus401 = unknown;
+export type ChatsGetVersionStatus401 = UnauthorizedError;
 
-export type ChatsGetVersionStatus403 = unknown;
+export type ChatsGetVersionStatus403 = ForbiddenError;
 
-export type ChatsGetVersionStatus404 = unknown;
+export type ChatsGetVersionStatus404 = NotFoundError;
 
-export type ChatsGetVersionStatus409 = unknown;
+export type ChatsGetVersionStatus409 = ConflictError;
 
-export type ChatsGetVersionStatus413 = unknown;
+export type ChatsGetVersionStatus413 = PayloadTooLargeError;
 
-export type ChatsGetVersionStatus422 = unknown;
+export type ChatsGetVersionStatus422 = UnprocessableEntityError;
 
-export type ChatsGetVersionStatus429 = unknown;
+export type ChatsGetVersionStatus429 = TooManyRequestsError;
 
-export type ChatsGetVersionStatus500 = unknown;
+export type ChatsGetVersionStatus500 = InternalServerError;
 
 export type ChatsGetVersionOptions = {
 	body?: never | undefined;
@@ -4456,23 +4675,27 @@ export type ChatsUpdateVersionPath = {
 	versionId: string;
 };
 
-export type ChatsUpdateVersionStatus200 = unknown;
+/**
+ * @description Detailed version data including file contents.
+ * @type object
+ */
+export type ChatsUpdateVersionStatus200 = VersionDetail;
 
-export type ChatsUpdateVersionStatus401 = unknown;
+export type ChatsUpdateVersionStatus401 = UnauthorizedError;
 
-export type ChatsUpdateVersionStatus403 = unknown;
+export type ChatsUpdateVersionStatus403 = ForbiddenError;
 
-export type ChatsUpdateVersionStatus404 = unknown;
+export type ChatsUpdateVersionStatus404 = NotFoundError;
 
-export type ChatsUpdateVersionStatus409 = unknown;
+export type ChatsUpdateVersionStatus409 = ConflictError;
 
-export type ChatsUpdateVersionStatus413 = unknown;
+export type ChatsUpdateVersionStatus413 = PayloadTooLargeError;
 
-export type ChatsUpdateVersionStatus422 = unknown;
+export type ChatsUpdateVersionStatus422 = UnprocessableEntityError;
 
-export type ChatsUpdateVersionStatus429 = unknown;
+export type ChatsUpdateVersionStatus429 = TooManyRequestsError;
 
-export type ChatsUpdateVersionStatus500 = unknown;
+export type ChatsUpdateVersionStatus500 = InternalServerError;
 
 export type ChatsUpdateVersionBody = {
 	/**
@@ -4567,21 +4790,21 @@ export type ChatsDownloadVersionQuery = {
 
 export type ChatsDownloadVersionStatus200 = unknown;
 
-export type ChatsDownloadVersionStatus401 = unknown;
+export type ChatsDownloadVersionStatus401 = UnauthorizedError;
 
-export type ChatsDownloadVersionStatus403 = unknown;
+export type ChatsDownloadVersionStatus403 = ForbiddenError;
 
-export type ChatsDownloadVersionStatus404 = unknown;
+export type ChatsDownloadVersionStatus404 = NotFoundError;
 
-export type ChatsDownloadVersionStatus409 = unknown;
+export type ChatsDownloadVersionStatus409 = ConflictError;
 
-export type ChatsDownloadVersionStatus413 = unknown;
+export type ChatsDownloadVersionStatus413 = PayloadTooLargeError;
 
-export type ChatsDownloadVersionStatus422 = unknown;
+export type ChatsDownloadVersionStatus422 = UnprocessableEntityError;
 
-export type ChatsDownloadVersionStatus429 = unknown;
+export type ChatsDownloadVersionStatus429 = TooManyRequestsError;
 
-export type ChatsDownloadVersionStatus500 = unknown;
+export type ChatsDownloadVersionStatus500 = InternalServerError;
 
 export type ChatsDownloadVersionOptions = {
 	body?: never | undefined;
@@ -4620,23 +4843,27 @@ export type ChatsDeleteVersionFilesPath = {
 	versionId: string;
 };
 
-export type ChatsDeleteVersionFilesStatus200 = unknown;
+/**
+ * @description Detailed version data including file contents.
+ * @type object
+ */
+export type ChatsDeleteVersionFilesStatus200 = VersionDetail;
 
-export type ChatsDeleteVersionFilesStatus401 = unknown;
+export type ChatsDeleteVersionFilesStatus401 = UnauthorizedError;
 
-export type ChatsDeleteVersionFilesStatus403 = unknown;
+export type ChatsDeleteVersionFilesStatus403 = ForbiddenError;
 
-export type ChatsDeleteVersionFilesStatus404 = unknown;
+export type ChatsDeleteVersionFilesStatus404 = NotFoundError;
 
-export type ChatsDeleteVersionFilesStatus409 = unknown;
+export type ChatsDeleteVersionFilesStatus409 = ConflictError;
 
-export type ChatsDeleteVersionFilesStatus413 = unknown;
+export type ChatsDeleteVersionFilesStatus413 = PayloadTooLargeError;
 
-export type ChatsDeleteVersionFilesStatus422 = unknown;
+export type ChatsDeleteVersionFilesStatus422 = UnprocessableEntityError;
 
-export type ChatsDeleteVersionFilesStatus429 = unknown;
+export type ChatsDeleteVersionFilesStatus429 = TooManyRequestsError;
 
-export type ChatsDeleteVersionFilesStatus500 = unknown;
+export type ChatsDeleteVersionFilesStatus500 = InternalServerError;
 
 export type ChatsDeleteVersionFilesBody = {
 	/**
@@ -4685,21 +4912,21 @@ export type ChatsResumePath = {
 
 export type ChatsResumeStatus200 = unknown;
 
-export type ChatsResumeStatus401 = unknown;
+export type ChatsResumeStatus401 = UnauthorizedError;
 
-export type ChatsResumeStatus403 = unknown;
+export type ChatsResumeStatus403 = ForbiddenError;
 
-export type ChatsResumeStatus404 = unknown;
+export type ChatsResumeStatus404 = NotFoundError;
 
-export type ChatsResumeStatus409 = unknown;
+export type ChatsResumeStatus409 = ConflictError;
 
-export type ChatsResumeStatus413 = unknown;
+export type ChatsResumeStatus413 = PayloadTooLargeError;
 
-export type ChatsResumeStatus422 = unknown;
+export type ChatsResumeStatus422 = UnprocessableEntityError;
 
-export type ChatsResumeStatus429 = unknown;
+export type ChatsResumeStatus429 = TooManyRequestsError;
 
-export type ChatsResumeStatus500 = unknown;
+export type ChatsResumeStatus500 = InternalServerError;
 
 export type ChatsResumeOptions = {
 	body?: never | undefined;
@@ -4738,23 +4965,25 @@ export type ChatsStopPath = {
 	messageId: string;
 };
 
-export type ChatsStopStatus200 = unknown;
+export type ChatsStopStatus200 = {
+	success: true;
+};
 
-export type ChatsStopStatus401 = unknown;
+export type ChatsStopStatus401 = UnauthorizedError;
 
-export type ChatsStopStatus403 = unknown;
+export type ChatsStopStatus403 = ForbiddenError;
 
-export type ChatsStopStatus404 = unknown;
+export type ChatsStopStatus404 = NotFoundError;
 
-export type ChatsStopStatus409 = unknown;
+export type ChatsStopStatus409 = ConflictError;
 
-export type ChatsStopStatus413 = unknown;
+export type ChatsStopStatus413 = PayloadTooLargeError;
 
-export type ChatsStopStatus422 = unknown;
+export type ChatsStopStatus422 = UnprocessableEntityError;
 
-export type ChatsStopStatus429 = unknown;
+export type ChatsStopStatus429 = TooManyRequestsError;
 
-export type ChatsStopStatus500 = unknown;
+export type ChatsStopStatus500 = InternalServerError;
 
 export type ChatsStopOptions = {
 	body?: never | undefined;
@@ -4788,23 +5017,27 @@ export type ChatsResolveTaskPath = {
 	chatId: string;
 };
 
-export type ChatsResolveTaskStatus200 = unknown;
+/**
+ * @description Detailed representation of a chat, including its messages, files, versions, and model configuration.
+ * @type object
+ */
+export type ChatsResolveTaskStatus200 = ChatDetail;
 
-export type ChatsResolveTaskStatus401 = unknown;
+export type ChatsResolveTaskStatus401 = UnauthorizedError;
 
-export type ChatsResolveTaskStatus403 = unknown;
+export type ChatsResolveTaskStatus403 = ForbiddenError;
 
-export type ChatsResolveTaskStatus404 = unknown;
+export type ChatsResolveTaskStatus404 = NotFoundError;
 
-export type ChatsResolveTaskStatus409 = unknown;
+export type ChatsResolveTaskStatus409 = ConflictError;
 
-export type ChatsResolveTaskStatus413 = unknown;
+export type ChatsResolveTaskStatus413 = PayloadTooLargeError;
 
-export type ChatsResolveTaskStatus422 = unknown;
+export type ChatsResolveTaskStatus422 = UnprocessableEntityError;
 
-export type ChatsResolveTaskStatus429 = unknown;
+export type ChatsResolveTaskStatus429 = TooManyRequestsError;
 
-export type ChatsResolveTaskStatus500 = unknown;
+export type ChatsResolveTaskStatus500 = InternalServerError;
 
 export const chatsResolveTaskRequestTaskConnectedMcpPresetNamesEnum = {
 	Linear: "Linear",
@@ -5074,23 +5307,26 @@ export type DeploymentsFindQuery = {
 	versionId: string;
 };
 
-export type DeploymentsFindStatus200 = unknown;
+export type DeploymentsFindStatus200 = {
+	object: "list";
+	data: DeploymentDetail[];
+};
 
-export type DeploymentsFindStatus401 = unknown;
+export type DeploymentsFindStatus401 = UnauthorizedError;
 
-export type DeploymentsFindStatus403 = unknown;
+export type DeploymentsFindStatus403 = ForbiddenError;
 
-export type DeploymentsFindStatus404 = unknown;
+export type DeploymentsFindStatus404 = NotFoundError;
 
-export type DeploymentsFindStatus409 = unknown;
+export type DeploymentsFindStatus409 = ConflictError;
 
-export type DeploymentsFindStatus413 = unknown;
+export type DeploymentsFindStatus413 = PayloadTooLargeError;
 
-export type DeploymentsFindStatus422 = unknown;
+export type DeploymentsFindStatus422 = UnprocessableEntityError;
 
-export type DeploymentsFindStatus429 = unknown;
+export type DeploymentsFindStatus429 = TooManyRequestsError;
 
-export type DeploymentsFindStatus500 = unknown;
+export type DeploymentsFindStatus500 = InternalServerError;
 
 export type DeploymentsFindOptions = {
 	body?: never | undefined;
@@ -5116,23 +5352,23 @@ export type DeploymentsFindResponses = {
  */
 export type DeploymentsFindResponse = DeploymentsFindStatus200;
 
-export type DeploymentsCreateStatus200 = unknown;
+export type DeploymentsCreateStatus200 = DeploymentDetail;
 
-export type DeploymentsCreateStatus401 = unknown;
+export type DeploymentsCreateStatus401 = UnauthorizedError;
 
-export type DeploymentsCreateStatus403 = unknown;
+export type DeploymentsCreateStatus403 = ForbiddenError;
 
-export type DeploymentsCreateStatus404 = unknown;
+export type DeploymentsCreateStatus404 = NotFoundError;
 
-export type DeploymentsCreateStatus409 = unknown;
+export type DeploymentsCreateStatus409 = ConflictError;
 
-export type DeploymentsCreateStatus413 = unknown;
+export type DeploymentsCreateStatus413 = PayloadTooLargeError;
 
-export type DeploymentsCreateStatus422 = unknown;
+export type DeploymentsCreateStatus422 = UnprocessableEntityError;
 
-export type DeploymentsCreateStatus429 = unknown;
+export type DeploymentsCreateStatus429 = TooManyRequestsError;
 
-export type DeploymentsCreateStatus500 = unknown;
+export type DeploymentsCreateStatus500 = InternalServerError;
 
 export type DeploymentsCreateBody = {
 	projectId?: string | undefined;
@@ -5172,23 +5408,23 @@ export type DeploymentsGetByIdPath = {
 	deploymentId: string;
 };
 
-export type DeploymentsGetByIdStatus200 = unknown;
+export type DeploymentsGetByIdStatus200 = DeploymentDetail;
 
-export type DeploymentsGetByIdStatus401 = unknown;
+export type DeploymentsGetByIdStatus401 = UnauthorizedError;
 
-export type DeploymentsGetByIdStatus403 = unknown;
+export type DeploymentsGetByIdStatus403 = ForbiddenError;
 
-export type DeploymentsGetByIdStatus404 = unknown;
+export type DeploymentsGetByIdStatus404 = NotFoundError;
 
-export type DeploymentsGetByIdStatus409 = unknown;
+export type DeploymentsGetByIdStatus409 = ConflictError;
 
-export type DeploymentsGetByIdStatus413 = unknown;
+export type DeploymentsGetByIdStatus413 = PayloadTooLargeError;
 
-export type DeploymentsGetByIdStatus422 = unknown;
+export type DeploymentsGetByIdStatus422 = UnprocessableEntityError;
 
-export type DeploymentsGetByIdStatus429 = unknown;
+export type DeploymentsGetByIdStatus429 = TooManyRequestsError;
 
-export type DeploymentsGetByIdStatus500 = unknown;
+export type DeploymentsGetByIdStatus500 = InternalServerError;
 
 export type DeploymentsGetByIdOptions = {
 	body?: never | undefined;
@@ -5222,23 +5458,27 @@ export type DeploymentsDeletePath = {
 	deploymentId: string;
 };
 
-export type DeploymentsDeleteStatus200 = unknown;
+export type DeploymentsDeleteStatus200 = {
+	id: string;
+	object: "deployment";
+	deleted: true;
+};
 
-export type DeploymentsDeleteStatus401 = unknown;
+export type DeploymentsDeleteStatus401 = UnauthorizedError;
 
-export type DeploymentsDeleteStatus403 = unknown;
+export type DeploymentsDeleteStatus403 = ForbiddenError;
 
-export type DeploymentsDeleteStatus404 = unknown;
+export type DeploymentsDeleteStatus404 = NotFoundError;
 
-export type DeploymentsDeleteStatus409 = unknown;
+export type DeploymentsDeleteStatus409 = ConflictError;
 
-export type DeploymentsDeleteStatus413 = unknown;
+export type DeploymentsDeleteStatus413 = PayloadTooLargeError;
 
-export type DeploymentsDeleteStatus422 = unknown;
+export type DeploymentsDeleteStatus422 = UnprocessableEntityError;
 
-export type DeploymentsDeleteStatus429 = unknown;
+export type DeploymentsDeleteStatus429 = TooManyRequestsError;
 
-export type DeploymentsDeleteStatus500 = unknown;
+export type DeploymentsDeleteStatus500 = InternalServerError;
 
 export type DeploymentsDeleteOptions = {
 	body?: never | undefined;
@@ -5280,23 +5520,93 @@ export type DeploymentsFindLogsQuery = {
 	since?: number | undefined;
 };
 
-export type DeploymentsFindLogsStatus200 = unknown;
+export const deploymentsFindLogsStatus200LogsTypeEnum = {
+	stderr: "stderr",
+	stdout: "stdout",
+} as const;
 
-export type DeploymentsFindLogsStatus401 = unknown;
+export type DeploymentsFindLogsStatus200LogsTypeEnumKey =
+	(typeof deploymentsFindLogsStatus200LogsTypeEnum)[keyof typeof deploymentsFindLogsStatus200LogsTypeEnum];
 
-export type DeploymentsFindLogsStatus403 = unknown;
+export const deploymentsFindLogsStatus200LogsLevelEnum = {
+	error: "error",
+	info: "info",
+	warning: "warning",
+} as const;
 
-export type DeploymentsFindLogsStatus404 = unknown;
+export type DeploymentsFindLogsStatus200LogsLevelEnumKey =
+	(typeof deploymentsFindLogsStatus200LogsLevelEnum)[keyof typeof deploymentsFindLogsStatus200LogsLevelEnum];
 
-export type DeploymentsFindLogsStatus409 = unknown;
+export type DeploymentsFindLogsStatus200 = {
+	/**
+	 * @description Array of log entries.
+	 * @type array
+	 */
+	logs: {
+		/**
+		 * @description Log creation timestamp.
+		 * @type string
+		 */
+		createdAt: string;
+		/**
+		 * @description Deployment ID.
+		 * @type string
+		 */
+		deploymentId: string;
+		/**
+		 * @description Log entry ID.
+		 * @type string
+		 */
+		id: string;
+		/**
+		 * @description Log message content.
+		 * @type string
+		 */
+		text: string;
+		/**
+		 * @description Output stream type.
+		 * @type string
+		 */
+		type: DeploymentsFindLogsStatus200LogsTypeEnumKey;
+		/**
+		 * @description Log severity level.
+		 * @default 'info'
+		 * @type string | undefined
+		 */
+		level?: DeploymentsFindLogsStatus200LogsLevelEnumKey | undefined;
+		/**
+		 * @description Object type identifier.
+		 * @type string
+		 */
+		object: "deployment_log";
+	}[];
+	/**
+	 * @description Timestamp for pagination.
+	 * @type number | undefined
+	 */
+	nextSince?: number | undefined;
+	/**
+	 * @description Object type identifier.
+	 * @type string
+	 */
+	object: "list";
+};
 
-export type DeploymentsFindLogsStatus413 = unknown;
+export type DeploymentsFindLogsStatus401 = UnauthorizedError;
 
-export type DeploymentsFindLogsStatus422 = unknown;
+export type DeploymentsFindLogsStatus403 = ForbiddenError;
 
-export type DeploymentsFindLogsStatus429 = unknown;
+export type DeploymentsFindLogsStatus404 = NotFoundError;
 
-export type DeploymentsFindLogsStatus500 = unknown;
+export type DeploymentsFindLogsStatus409 = ConflictError;
+
+export type DeploymentsFindLogsStatus413 = PayloadTooLargeError;
+
+export type DeploymentsFindLogsStatus422 = UnprocessableEntityError;
+
+export type DeploymentsFindLogsStatus429 = TooManyRequestsError;
+
+export type DeploymentsFindLogsStatus500 = InternalServerError;
 
 export type DeploymentsFindLogsOptions = {
 	body?: never | undefined;
@@ -5330,23 +5640,27 @@ export type DeploymentsFindErrorsPath = {
 	deploymentId: string;
 };
 
-export type DeploymentsFindErrorsStatus200 = unknown;
+export type DeploymentsFindErrorsStatus200 = {
+	fullErrorText?: string | undefined;
+	errorType?: string | undefined;
+	formattedError?: string | undefined;
+};
 
-export type DeploymentsFindErrorsStatus401 = unknown;
+export type DeploymentsFindErrorsStatus401 = UnauthorizedError;
 
-export type DeploymentsFindErrorsStatus403 = unknown;
+export type DeploymentsFindErrorsStatus403 = ForbiddenError;
 
-export type DeploymentsFindErrorsStatus404 = unknown;
+export type DeploymentsFindErrorsStatus404 = NotFoundError;
 
-export type DeploymentsFindErrorsStatus409 = unknown;
+export type DeploymentsFindErrorsStatus409 = ConflictError;
 
-export type DeploymentsFindErrorsStatus413 = unknown;
+export type DeploymentsFindErrorsStatus413 = PayloadTooLargeError;
 
-export type DeploymentsFindErrorsStatus422 = unknown;
+export type DeploymentsFindErrorsStatus422 = UnprocessableEntityError;
 
-export type DeploymentsFindErrorsStatus429 = unknown;
+export type DeploymentsFindErrorsStatus429 = TooManyRequestsError;
 
-export type DeploymentsFindErrorsStatus500 = unknown;
+export type DeploymentsFindErrorsStatus500 = InternalServerError;
 
 export type DeploymentsFindErrorsOptions = {
 	body?: never | undefined;
@@ -5372,23 +5686,26 @@ export type DeploymentsFindErrorsResponses = {
  */
 export type DeploymentsFindErrorsResponse = DeploymentsFindErrorsStatus200;
 
-export type HooksFindStatus200 = unknown;
+export type HooksFindStatus200 = {
+	object: "list";
+	data: HookSummary[];
+};
 
-export type HooksFindStatus401 = unknown;
+export type HooksFindStatus401 = UnauthorizedError;
 
-export type HooksFindStatus403 = unknown;
+export type HooksFindStatus403 = ForbiddenError;
 
-export type HooksFindStatus404 = unknown;
+export type HooksFindStatus404 = NotFoundError;
 
-export type HooksFindStatus409 = unknown;
+export type HooksFindStatus409 = ConflictError;
 
-export type HooksFindStatus413 = unknown;
+export type HooksFindStatus413 = PayloadTooLargeError;
 
-export type HooksFindStatus422 = unknown;
+export type HooksFindStatus422 = UnprocessableEntityError;
 
-export type HooksFindStatus429 = unknown;
+export type HooksFindStatus429 = TooManyRequestsError;
 
-export type HooksFindStatus500 = unknown;
+export type HooksFindStatus500 = InternalServerError;
 
 export type HooksFindOptions = {
 	body?: never | undefined;
@@ -5414,23 +5731,27 @@ export type HooksFindResponses = {
  */
 export type HooksFindResponse = HooksFindStatus200;
 
-export type HooksCreateStatus200 = unknown;
+/**
+ * @description Full configuration details for a webhook, including its scope and subscription.
+ * @type object
+ */
+export type HooksCreateStatus200 = HookDetail;
 
-export type HooksCreateStatus401 = unknown;
+export type HooksCreateStatus401 = UnauthorizedError;
 
-export type HooksCreateStatus403 = unknown;
+export type HooksCreateStatus403 = ForbiddenError;
 
-export type HooksCreateStatus404 = unknown;
+export type HooksCreateStatus404 = NotFoundError;
 
-export type HooksCreateStatus409 = unknown;
+export type HooksCreateStatus409 = ConflictError;
 
-export type HooksCreateStatus413 = unknown;
+export type HooksCreateStatus413 = PayloadTooLargeError;
 
-export type HooksCreateStatus422 = unknown;
+export type HooksCreateStatus422 = UnprocessableEntityError;
 
-export type HooksCreateStatus429 = unknown;
+export type HooksCreateStatus429 = TooManyRequestsError;
 
-export type HooksCreateStatus500 = unknown;
+export type HooksCreateStatus500 = InternalServerError;
 
 export const hooksCreateRequestEventsEnum = {
 	"chat.created": "chat.created",
@@ -5502,23 +5823,27 @@ export type HooksGetByIdPath = {
 	hookId: string;
 };
 
-export type HooksGetByIdStatus200 = unknown;
+/**
+ * @description Full configuration details for a webhook, including its scope and subscription.
+ * @type object
+ */
+export type HooksGetByIdStatus200 = HookDetail;
 
-export type HooksGetByIdStatus401 = unknown;
+export type HooksGetByIdStatus401 = UnauthorizedError;
 
-export type HooksGetByIdStatus403 = unknown;
+export type HooksGetByIdStatus403 = ForbiddenError;
 
-export type HooksGetByIdStatus404 = unknown;
+export type HooksGetByIdStatus404 = NotFoundError;
 
-export type HooksGetByIdStatus409 = unknown;
+export type HooksGetByIdStatus409 = ConflictError;
 
-export type HooksGetByIdStatus413 = unknown;
+export type HooksGetByIdStatus413 = PayloadTooLargeError;
 
-export type HooksGetByIdStatus422 = unknown;
+export type HooksGetByIdStatus422 = UnprocessableEntityError;
 
-export type HooksGetByIdStatus429 = unknown;
+export type HooksGetByIdStatus429 = TooManyRequestsError;
 
-export type HooksGetByIdStatus500 = unknown;
+export type HooksGetByIdStatus500 = InternalServerError;
 
 export type HooksGetByIdOptions = {
 	body?: never | undefined;
@@ -5552,23 +5877,27 @@ export type HooksUpdatePath = {
 	hookId: string;
 };
 
-export type HooksUpdateStatus200 = unknown;
+/**
+ * @description Full configuration details for a webhook, including its scope and subscription.
+ * @type object
+ */
+export type HooksUpdateStatus200 = HookDetail;
 
-export type HooksUpdateStatus401 = unknown;
+export type HooksUpdateStatus401 = UnauthorizedError;
 
-export type HooksUpdateStatus403 = unknown;
+export type HooksUpdateStatus403 = ForbiddenError;
 
-export type HooksUpdateStatus404 = unknown;
+export type HooksUpdateStatus404 = NotFoundError;
 
-export type HooksUpdateStatus409 = unknown;
+export type HooksUpdateStatus409 = ConflictError;
 
-export type HooksUpdateStatus413 = unknown;
+export type HooksUpdateStatus413 = PayloadTooLargeError;
 
-export type HooksUpdateStatus422 = unknown;
+export type HooksUpdateStatus422 = UnprocessableEntityError;
 
-export type HooksUpdateStatus429 = unknown;
+export type HooksUpdateStatus429 = TooManyRequestsError;
 
-export type HooksUpdateStatus500 = unknown;
+export type HooksUpdateStatus500 = InternalServerError;
 
 export const hooksUpdateRequestEventsEnum = {
 	"chat.created": "chat.created",
@@ -5635,23 +5964,27 @@ export type HooksDeletePath = {
 	hookId: string;
 };
 
-export type HooksDeleteStatus200 = unknown;
+export type HooksDeleteStatus200 = {
+	id: string;
+	object: "hook";
+	deleted: true;
+};
 
-export type HooksDeleteStatus401 = unknown;
+export type HooksDeleteStatus401 = UnauthorizedError;
 
-export type HooksDeleteStatus403 = unknown;
+export type HooksDeleteStatus403 = ForbiddenError;
 
-export type HooksDeleteStatus404 = unknown;
+export type HooksDeleteStatus404 = NotFoundError;
 
-export type HooksDeleteStatus409 = unknown;
+export type HooksDeleteStatus409 = ConflictError;
 
-export type HooksDeleteStatus413 = unknown;
+export type HooksDeleteStatus413 = PayloadTooLargeError;
 
-export type HooksDeleteStatus422 = unknown;
+export type HooksDeleteStatus422 = UnprocessableEntityError;
 
-export type HooksDeleteStatus429 = unknown;
+export type HooksDeleteStatus429 = TooManyRequestsError;
 
-export type HooksDeleteStatus500 = unknown;
+export type HooksDeleteStatus500 = InternalServerError;
 
 export type HooksDeleteOptions = {
 	body?: never | undefined;
@@ -5677,23 +6010,26 @@ export type HooksDeleteResponses = {
  */
 export type HooksDeleteResponse = HooksDeleteStatus200;
 
-export type IntegrationsVercelProjectsFindStatus200 = unknown;
+export type IntegrationsVercelProjectsFindStatus200 = {
+	object: "list";
+	data: VercelProjectSummary[];
+};
 
-export type IntegrationsVercelProjectsFindStatus401 = unknown;
+export type IntegrationsVercelProjectsFindStatus401 = UnauthorizedError;
 
-export type IntegrationsVercelProjectsFindStatus403 = unknown;
+export type IntegrationsVercelProjectsFindStatus403 = ForbiddenError;
 
-export type IntegrationsVercelProjectsFindStatus404 = unknown;
+export type IntegrationsVercelProjectsFindStatus404 = NotFoundError;
 
-export type IntegrationsVercelProjectsFindStatus409 = unknown;
+export type IntegrationsVercelProjectsFindStatus409 = ConflictError;
 
-export type IntegrationsVercelProjectsFindStatus413 = unknown;
+export type IntegrationsVercelProjectsFindStatus413 = PayloadTooLargeError;
 
-export type IntegrationsVercelProjectsFindStatus422 = unknown;
+export type IntegrationsVercelProjectsFindStatus422 = UnprocessableEntityError;
 
-export type IntegrationsVercelProjectsFindStatus429 = unknown;
+export type IntegrationsVercelProjectsFindStatus429 = TooManyRequestsError;
 
-export type IntegrationsVercelProjectsFindStatus500 = unknown;
+export type IntegrationsVercelProjectsFindStatus500 = InternalServerError;
 
 export type IntegrationsVercelProjectsFindOptions = {
 	body?: never | undefined;
@@ -5719,23 +6055,23 @@ export type IntegrationsVercelProjectsFindResponses = {
  */
 export type IntegrationsVercelProjectsFindResponse = IntegrationsVercelProjectsFindStatus200;
 
-export type IntegrationsVercelProjectsCreateStatus200 = unknown;
+export type IntegrationsVercelProjectsCreateStatus200 = VercelProjectDetail;
 
-export type IntegrationsVercelProjectsCreateStatus401 = unknown;
+export type IntegrationsVercelProjectsCreateStatus401 = UnauthorizedError;
 
-export type IntegrationsVercelProjectsCreateStatus403 = unknown;
+export type IntegrationsVercelProjectsCreateStatus403 = ForbiddenError;
 
-export type IntegrationsVercelProjectsCreateStatus404 = unknown;
+export type IntegrationsVercelProjectsCreateStatus404 = NotFoundError;
 
-export type IntegrationsVercelProjectsCreateStatus409 = unknown;
+export type IntegrationsVercelProjectsCreateStatus409 = ConflictError;
 
-export type IntegrationsVercelProjectsCreateStatus413 = unknown;
+export type IntegrationsVercelProjectsCreateStatus413 = PayloadTooLargeError;
 
-export type IntegrationsVercelProjectsCreateStatus422 = unknown;
+export type IntegrationsVercelProjectsCreateStatus422 = UnprocessableEntityError;
 
-export type IntegrationsVercelProjectsCreateStatus429 = unknown;
+export type IntegrationsVercelProjectsCreateStatus429 = TooManyRequestsError;
 
-export type IntegrationsVercelProjectsCreateStatus500 = unknown;
+export type IntegrationsVercelProjectsCreateStatus500 = InternalServerError;
 
 export type IntegrationsVercelProjectsCreateBody = {
 	/**
@@ -5774,23 +6110,26 @@ export type IntegrationsVercelProjectsCreateResponses = {
  */
 export type IntegrationsVercelProjectsCreateResponse = IntegrationsVercelProjectsCreateStatus200;
 
-export type ProjectsFindStatus200 = unknown;
+export type ProjectsFindStatus200 = {
+	object: "list";
+	data: ProjectSummary[];
+};
 
-export type ProjectsFindStatus401 = unknown;
+export type ProjectsFindStatus401 = UnauthorizedError;
 
-export type ProjectsFindStatus403 = unknown;
+export type ProjectsFindStatus403 = ForbiddenError;
 
-export type ProjectsFindStatus404 = unknown;
+export type ProjectsFindStatus404 = NotFoundError;
 
-export type ProjectsFindStatus409 = unknown;
+export type ProjectsFindStatus409 = ConflictError;
 
-export type ProjectsFindStatus413 = unknown;
+export type ProjectsFindStatus413 = PayloadTooLargeError;
 
-export type ProjectsFindStatus422 = unknown;
+export type ProjectsFindStatus422 = UnprocessableEntityError;
 
-export type ProjectsFindStatus429 = unknown;
+export type ProjectsFindStatus429 = TooManyRequestsError;
 
-export type ProjectsFindStatus500 = unknown;
+export type ProjectsFindStatus500 = InternalServerError;
 
 export type ProjectsFindOptions = {
 	body?: never | undefined;
@@ -5816,23 +6155,27 @@ export type ProjectsFindResponses = {
  */
 export type ProjectsFindResponse = ProjectsFindStatus200;
 
-export type ProjectsCreateStatus200 = unknown;
+/**
+ * @description Full representation of a project, including its associated chats.
+ * @type object
+ */
+export type ProjectsCreateStatus200 = ProjectDetail;
 
-export type ProjectsCreateStatus401 = unknown;
+export type ProjectsCreateStatus401 = UnauthorizedError;
 
-export type ProjectsCreateStatus403 = unknown;
+export type ProjectsCreateStatus403 = ForbiddenError;
 
-export type ProjectsCreateStatus404 = unknown;
+export type ProjectsCreateStatus404 = NotFoundError;
 
-export type ProjectsCreateStatus409 = unknown;
+export type ProjectsCreateStatus409 = ConflictError;
 
-export type ProjectsCreateStatus413 = unknown;
+export type ProjectsCreateStatus413 = PayloadTooLargeError;
 
-export type ProjectsCreateStatus422 = unknown;
+export type ProjectsCreateStatus422 = UnprocessableEntityError;
 
-export type ProjectsCreateStatus429 = unknown;
+export type ProjectsCreateStatus429 = TooManyRequestsError;
 
-export type ProjectsCreateStatus500 = unknown;
+export type ProjectsCreateStatus500 = InternalServerError;
 
 export const projectsCreateRequestPrivacyEnum = {
 	private: "private",
@@ -5929,23 +6272,27 @@ export type ProjectsGetByIdPath = {
 	projectId: string;
 };
 
-export type ProjectsGetByIdStatus200 = unknown;
+/**
+ * @description Full representation of a project, including its associated chats.
+ * @type object
+ */
+export type ProjectsGetByIdStatus200 = ProjectDetail;
 
-export type ProjectsGetByIdStatus401 = unknown;
+export type ProjectsGetByIdStatus401 = UnauthorizedError;
 
-export type ProjectsGetByIdStatus403 = unknown;
+export type ProjectsGetByIdStatus403 = ForbiddenError;
 
-export type ProjectsGetByIdStatus404 = unknown;
+export type ProjectsGetByIdStatus404 = NotFoundError;
 
-export type ProjectsGetByIdStatus409 = unknown;
+export type ProjectsGetByIdStatus409 = ConflictError;
 
-export type ProjectsGetByIdStatus413 = unknown;
+export type ProjectsGetByIdStatus413 = PayloadTooLargeError;
 
-export type ProjectsGetByIdStatus422 = unknown;
+export type ProjectsGetByIdStatus422 = UnprocessableEntityError;
 
-export type ProjectsGetByIdStatus429 = unknown;
+export type ProjectsGetByIdStatus429 = TooManyRequestsError;
 
-export type ProjectsGetByIdStatus500 = unknown;
+export type ProjectsGetByIdStatus500 = InternalServerError;
 
 export type ProjectsGetByIdOptions = {
 	body?: never | undefined;
@@ -5979,23 +6326,27 @@ export type ProjectsUpdatePath = {
 	projectId: string;
 };
 
-export type ProjectsUpdateStatus200 = unknown;
+/**
+ * @description Full representation of a project, including its associated chats.
+ * @type object
+ */
+export type ProjectsUpdateStatus200 = ProjectDetail;
 
-export type ProjectsUpdateStatus401 = unknown;
+export type ProjectsUpdateStatus401 = UnauthorizedError;
 
-export type ProjectsUpdateStatus403 = unknown;
+export type ProjectsUpdateStatus403 = ForbiddenError;
 
-export type ProjectsUpdateStatus404 = unknown;
+export type ProjectsUpdateStatus404 = NotFoundError;
 
-export type ProjectsUpdateStatus409 = unknown;
+export type ProjectsUpdateStatus409 = ConflictError;
 
-export type ProjectsUpdateStatus413 = unknown;
+export type ProjectsUpdateStatus413 = PayloadTooLargeError;
 
-export type ProjectsUpdateStatus422 = unknown;
+export type ProjectsUpdateStatus422 = UnprocessableEntityError;
 
-export type ProjectsUpdateStatus429 = unknown;
+export type ProjectsUpdateStatus429 = TooManyRequestsError;
 
-export type ProjectsUpdateStatus500 = unknown;
+export type ProjectsUpdateStatus500 = InternalServerError;
 
 export const projectsUpdateRequestPrivacyEnum = {
 	private: "private",
@@ -6077,23 +6428,39 @@ export type ProjectsDeleteQuery = {
 	deleteAllChats?: ProjectsDeleteDeleteAllChatsKey | undefined;
 };
 
-export type ProjectsDeleteStatus200 = unknown;
+export type ProjectsDeleteStatus200 = {
+	/**
+	 * @description The unique identifier of the deleted project.
+	 * @type string
+	 */
+	id: string;
+	/**
+	 * @description Fixed value identifying this object as a project.
+	 * @type string
+	 */
+	object: "project";
+	/**
+	 * @description Confirmation that the project has been deleted.
+	 * @type boolean
+	 */
+	deleted: true;
+};
 
-export type ProjectsDeleteStatus401 = unknown;
+export type ProjectsDeleteStatus401 = UnauthorizedError;
 
-export type ProjectsDeleteStatus403 = unknown;
+export type ProjectsDeleteStatus403 = ForbiddenError;
 
-export type ProjectsDeleteStatus404 = unknown;
+export type ProjectsDeleteStatus404 = NotFoundError;
 
-export type ProjectsDeleteStatus409 = unknown;
+export type ProjectsDeleteStatus409 = ConflictError;
 
-export type ProjectsDeleteStatus413 = unknown;
+export type ProjectsDeleteStatus413 = PayloadTooLargeError;
 
-export type ProjectsDeleteStatus422 = unknown;
+export type ProjectsDeleteStatus422 = UnprocessableEntityError;
 
-export type ProjectsDeleteStatus429 = unknown;
+export type ProjectsDeleteStatus429 = TooManyRequestsError;
 
-export type ProjectsDeleteStatus500 = unknown;
+export type ProjectsDeleteStatus500 = InternalServerError;
 
 export type ProjectsDeleteOptions = {
 	body?: never | undefined;
@@ -6127,23 +6494,27 @@ export type ProjectsAssignPath = {
 	projectId: string;
 };
 
-export type ProjectsAssignStatus200 = unknown;
+export type ProjectsAssignStatus200 = {
+	object: "project";
+	id: string;
+	assigned: true;
+};
 
-export type ProjectsAssignStatus401 = unknown;
+export type ProjectsAssignStatus401 = UnauthorizedError;
 
-export type ProjectsAssignStatus403 = unknown;
+export type ProjectsAssignStatus403 = ForbiddenError;
 
-export type ProjectsAssignStatus404 = unknown;
+export type ProjectsAssignStatus404 = NotFoundError;
 
-export type ProjectsAssignStatus409 = unknown;
+export type ProjectsAssignStatus409 = ConflictError;
 
-export type ProjectsAssignStatus413 = unknown;
+export type ProjectsAssignStatus413 = PayloadTooLargeError;
 
-export type ProjectsAssignStatus422 = unknown;
+export type ProjectsAssignStatus422 = UnprocessableEntityError;
 
-export type ProjectsAssignStatus429 = unknown;
+export type ProjectsAssignStatus429 = TooManyRequestsError;
 
-export type ProjectsAssignStatus500 = unknown;
+export type ProjectsAssignStatus500 = InternalServerError;
 
 export type ProjectsAssignBody = {
 	/**
@@ -6201,23 +6572,26 @@ export type ProjectsFindEnvVarsQuery = {
 	decrypted?: ProjectsFindEnvVarsDecryptedKey | undefined;
 };
 
-export type ProjectsFindEnvVarsStatus200 = unknown;
+export type ProjectsFindEnvVarsStatus200 = {
+	object: "list";
+	data: EnvironmentVariableSummarySchema[];
+};
 
-export type ProjectsFindEnvVarsStatus401 = unknown;
+export type ProjectsFindEnvVarsStatus401 = UnauthorizedError;
 
-export type ProjectsFindEnvVarsStatus403 = unknown;
+export type ProjectsFindEnvVarsStatus403 = ForbiddenError;
 
-export type ProjectsFindEnvVarsStatus404 = unknown;
+export type ProjectsFindEnvVarsStatus404 = NotFoundError;
 
-export type ProjectsFindEnvVarsStatus409 = unknown;
+export type ProjectsFindEnvVarsStatus409 = ConflictError;
 
-export type ProjectsFindEnvVarsStatus413 = unknown;
+export type ProjectsFindEnvVarsStatus413 = PayloadTooLargeError;
 
-export type ProjectsFindEnvVarsStatus422 = unknown;
+export type ProjectsFindEnvVarsStatus422 = UnprocessableEntityError;
 
-export type ProjectsFindEnvVarsStatus429 = unknown;
+export type ProjectsFindEnvVarsStatus429 = TooManyRequestsError;
 
-export type ProjectsFindEnvVarsStatus500 = unknown;
+export type ProjectsFindEnvVarsStatus500 = InternalServerError;
 
 export type ProjectsFindEnvVarsOptions = {
 	body?: never | undefined;
@@ -6267,23 +6641,26 @@ export type ProjectsCreateEnvVarsQuery = {
 	decrypted?: ProjectsCreateEnvVarsDecryptedKey | undefined;
 };
 
-export type ProjectsCreateEnvVarsStatus200 = unknown;
+export type ProjectsCreateEnvVarsStatus200 = {
+	object: "list";
+	data: EnvironmentVariableSummarySchema[];
+};
 
-export type ProjectsCreateEnvVarsStatus401 = unknown;
+export type ProjectsCreateEnvVarsStatus401 = UnauthorizedError;
 
-export type ProjectsCreateEnvVarsStatus403 = unknown;
+export type ProjectsCreateEnvVarsStatus403 = ForbiddenError;
 
-export type ProjectsCreateEnvVarsStatus404 = unknown;
+export type ProjectsCreateEnvVarsStatus404 = NotFoundError;
 
-export type ProjectsCreateEnvVarsStatus409 = unknown;
+export type ProjectsCreateEnvVarsStatus409 = ConflictError;
 
-export type ProjectsCreateEnvVarsStatus413 = unknown;
+export type ProjectsCreateEnvVarsStatus413 = PayloadTooLargeError;
 
-export type ProjectsCreateEnvVarsStatus422 = unknown;
+export type ProjectsCreateEnvVarsStatus422 = UnprocessableEntityError;
 
-export type ProjectsCreateEnvVarsStatus429 = unknown;
+export type ProjectsCreateEnvVarsStatus429 = TooManyRequestsError;
 
-export type ProjectsCreateEnvVarsStatus500 = unknown;
+export type ProjectsCreateEnvVarsStatus500 = InternalServerError;
 
 export type ProjectsCreateEnvVarsBody = {
 	/**
@@ -6358,23 +6735,26 @@ export type ProjectsUpdateEnvVarsQuery = {
 	decrypted?: ProjectsUpdateEnvVarsDecryptedKey | undefined;
 };
 
-export type ProjectsUpdateEnvVarsStatus200 = unknown;
+export type ProjectsUpdateEnvVarsStatus200 = {
+	object: "list";
+	data: EnvironmentVariableSummarySchema[];
+};
 
-export type ProjectsUpdateEnvVarsStatus401 = unknown;
+export type ProjectsUpdateEnvVarsStatus401 = UnauthorizedError;
 
-export type ProjectsUpdateEnvVarsStatus403 = unknown;
+export type ProjectsUpdateEnvVarsStatus403 = ForbiddenError;
 
-export type ProjectsUpdateEnvVarsStatus404 = unknown;
+export type ProjectsUpdateEnvVarsStatus404 = NotFoundError;
 
-export type ProjectsUpdateEnvVarsStatus409 = unknown;
+export type ProjectsUpdateEnvVarsStatus409 = ConflictError;
 
-export type ProjectsUpdateEnvVarsStatus413 = unknown;
+export type ProjectsUpdateEnvVarsStatus413 = PayloadTooLargeError;
 
-export type ProjectsUpdateEnvVarsStatus422 = unknown;
+export type ProjectsUpdateEnvVarsStatus422 = UnprocessableEntityError;
 
-export type ProjectsUpdateEnvVarsStatus429 = unknown;
+export type ProjectsUpdateEnvVarsStatus429 = TooManyRequestsError;
 
-export type ProjectsUpdateEnvVarsStatus500 = unknown;
+export type ProjectsUpdateEnvVarsStatus500 = InternalServerError;
 
 export type ProjectsUpdateEnvVarsBody = {
 	/**
@@ -6427,23 +6807,30 @@ export type ProjectsDeleteEnvVarsPath = {
 	projectId: string;
 };
 
-export type ProjectsDeleteEnvVarsStatus200 = unknown;
+export type ProjectsDeleteEnvVarsStatus200 = {
+	object: "list";
+	data: {
+		id: string;
+		object: "environment_variable";
+		deleted: true;
+	}[];
+};
 
-export type ProjectsDeleteEnvVarsStatus401 = unknown;
+export type ProjectsDeleteEnvVarsStatus401 = UnauthorizedError;
 
-export type ProjectsDeleteEnvVarsStatus403 = unknown;
+export type ProjectsDeleteEnvVarsStatus403 = ForbiddenError;
 
-export type ProjectsDeleteEnvVarsStatus404 = unknown;
+export type ProjectsDeleteEnvVarsStatus404 = NotFoundError;
 
-export type ProjectsDeleteEnvVarsStatus409 = unknown;
+export type ProjectsDeleteEnvVarsStatus409 = ConflictError;
 
-export type ProjectsDeleteEnvVarsStatus413 = unknown;
+export type ProjectsDeleteEnvVarsStatus413 = PayloadTooLargeError;
 
-export type ProjectsDeleteEnvVarsStatus422 = unknown;
+export type ProjectsDeleteEnvVarsStatus422 = UnprocessableEntityError;
 
-export type ProjectsDeleteEnvVarsStatus429 = unknown;
+export type ProjectsDeleteEnvVarsStatus429 = TooManyRequestsError;
 
-export type ProjectsDeleteEnvVarsStatus500 = unknown;
+export type ProjectsDeleteEnvVarsStatus500 = InternalServerError;
 
 export type ProjectsDeleteEnvVarsBody = {
 	/**
@@ -6506,23 +6893,30 @@ export type ProjectsGetEnvVarQuery = {
 	decrypted?: ProjectsGetEnvVarDecryptedKey | undefined;
 };
 
-export type ProjectsGetEnvVarStatus200 = unknown;
+export type ProjectsGetEnvVarStatus200 = {
+	object: "environment_variable";
+	/**
+	 * @description Detailed information for an environment variable including its value.
+	 * @type object
+	 */
+	data: EnvironmentVariableDetailSchema;
+};
 
-export type ProjectsGetEnvVarStatus401 = unknown;
+export type ProjectsGetEnvVarStatus401 = UnauthorizedError;
 
-export type ProjectsGetEnvVarStatus403 = unknown;
+export type ProjectsGetEnvVarStatus403 = ForbiddenError;
 
-export type ProjectsGetEnvVarStatus404 = unknown;
+export type ProjectsGetEnvVarStatus404 = NotFoundError;
 
-export type ProjectsGetEnvVarStatus409 = unknown;
+export type ProjectsGetEnvVarStatus409 = ConflictError;
 
-export type ProjectsGetEnvVarStatus413 = unknown;
+export type ProjectsGetEnvVarStatus413 = PayloadTooLargeError;
 
-export type ProjectsGetEnvVarStatus422 = unknown;
+export type ProjectsGetEnvVarStatus422 = UnprocessableEntityError;
 
-export type ProjectsGetEnvVarStatus429 = unknown;
+export type ProjectsGetEnvVarStatus429 = TooManyRequestsError;
 
-export type ProjectsGetEnvVarStatus500 = unknown;
+export type ProjectsGetEnvVarStatus500 = InternalServerError;
 
 export type ProjectsGetEnvVarOptions = {
 	body?: never | undefined;
@@ -6556,23 +6950,55 @@ export type RateLimitsFindQuery = {
 	scope?: string | undefined;
 };
 
-export type RateLimitsFindStatus200 = unknown;
+export type RateLimitsFindStatus200 = {
+	remaining?: number | undefined;
+	reset?: number | undefined;
+	limit: number;
+	/**
+	 * @description Daily message limit information for free users.
+	 * @type object | undefined
+	 */
+	dailyLimit?:
+		| {
+				/**
+				 * @description The maximum number of daily messages allowed for free users.
+				 * @type number
+				 */
+				limit: number;
+				/**
+				 * @description The number of messages the user has remaining for the day.
+				 * @type number
+				 */
+				remaining: number;
+				/**
+				 * @description Unix timestamp (in milliseconds) when the daily limit resets.
+				 * @type number
+				 */
+				reset: number;
+				/**
+				 * @description Whether the user is within the 48-hour grace period for new users, during which usage tracking is disabled.
+				 * @type boolean
+				 */
+				isWithinGracePeriod: boolean;
+		  }
+		| undefined;
+};
 
-export type RateLimitsFindStatus401 = unknown;
+export type RateLimitsFindStatus401 = UnauthorizedError;
 
-export type RateLimitsFindStatus403 = unknown;
+export type RateLimitsFindStatus403 = ForbiddenError;
 
-export type RateLimitsFindStatus404 = unknown;
+export type RateLimitsFindStatus404 = NotFoundError;
 
-export type RateLimitsFindStatus409 = unknown;
+export type RateLimitsFindStatus409 = ConflictError;
 
-export type RateLimitsFindStatus413 = unknown;
+export type RateLimitsFindStatus413 = PayloadTooLargeError;
 
-export type RateLimitsFindStatus422 = unknown;
+export type RateLimitsFindStatus422 = UnprocessableEntityError;
 
-export type RateLimitsFindStatus429 = unknown;
+export type RateLimitsFindStatus429 = TooManyRequestsError;
 
-export type RateLimitsFindStatus500 = unknown;
+export type RateLimitsFindStatus500 = InternalServerError;
 
 export type RateLimitsFindOptions = {
 	body?: never | undefined;
@@ -6598,23 +7024,27 @@ export type RateLimitsFindResponses = {
  */
 export type RateLimitsFindResponse = RateLimitsFindStatus200;
 
-export type UserGetStatus200 = unknown;
+/**
+ * @description Details of the authenticated user, including profile and contact information.
+ * @type object
+ */
+export type UserGetStatus200 = UserSummarySchema;
 
-export type UserGetStatus401 = unknown;
+export type UserGetStatus401 = UnauthorizedError;
 
-export type UserGetStatus403 = unknown;
+export type UserGetStatus403 = ForbiddenError;
 
-export type UserGetStatus404 = unknown;
+export type UserGetStatus404 = NotFoundError;
 
-export type UserGetStatus409 = unknown;
+export type UserGetStatus409 = ConflictError;
 
-export type UserGetStatus413 = unknown;
+export type UserGetStatus413 = PayloadTooLargeError;
 
-export type UserGetStatus422 = unknown;
+export type UserGetStatus422 = UnprocessableEntityError;
 
-export type UserGetStatus429 = unknown;
+export type UserGetStatus429 = TooManyRequestsError;
 
-export type UserGetStatus500 = unknown;
+export type UserGetStatus500 = InternalServerError;
 
 export type UserGetOptions = {
 	body?: never | undefined;
@@ -6648,23 +7078,58 @@ export type UserGetBillingQuery = {
 	scope?: string | undefined;
 };
 
-export type UserGetBillingStatus200 = unknown;
+export type UserGetBillingStatus200 =
+	| {
+			billingType: "token";
+			data: {
+				plan: string;
+				billingMode?: "test" | undefined;
+				role: string;
+				billingCycle: {
+					start: number;
+					end: number;
+				};
+				balance: {
+					remaining: number;
+					total: number;
+				};
+				onDemand: {
+					balance: number;
+					blocks?:
+						| {
+								expirationDate?: number | undefined;
+								effectiveDate: number;
+								originalBalance: number;
+								currentBalance: number;
+						  }[]
+						| undefined;
+				};
+			};
+	  }
+	| {
+			billingType: "legacy";
+			data: {
+				remaining?: number | undefined;
+				reset?: number | undefined;
+				limit: number;
+			};
+	  };
 
-export type UserGetBillingStatus401 = unknown;
+export type UserGetBillingStatus401 = UnauthorizedError;
 
-export type UserGetBillingStatus403 = unknown;
+export type UserGetBillingStatus403 = ForbiddenError;
 
-export type UserGetBillingStatus404 = unknown;
+export type UserGetBillingStatus404 = NotFoundError;
 
-export type UserGetBillingStatus409 = unknown;
+export type UserGetBillingStatus409 = ConflictError;
 
-export type UserGetBillingStatus413 = unknown;
+export type UserGetBillingStatus413 = PayloadTooLargeError;
 
-export type UserGetBillingStatus422 = unknown;
+export type UserGetBillingStatus422 = UnprocessableEntityError;
 
-export type UserGetBillingStatus429 = unknown;
+export type UserGetBillingStatus429 = TooManyRequestsError;
 
-export type UserGetBillingStatus500 = unknown;
+export type UserGetBillingStatus500 = InternalServerError;
 
 export type UserGetBillingOptions = {
 	body?: never | undefined;
@@ -6690,23 +7155,34 @@ export type UserGetBillingResponses = {
  */
 export type UserGetBillingResponse = UserGetBillingStatus200;
 
-export type UserGetPlanStatus200 = unknown;
+export type UserGetPlanStatus200 = {
+	object: "plan";
+	plan: string;
+	billingCycle: {
+		start: number;
+		end: number;
+	};
+	balance: {
+		remaining: number;
+		total: number;
+	};
+};
 
-export type UserGetPlanStatus401 = unknown;
+export type UserGetPlanStatus401 = UnauthorizedError;
 
-export type UserGetPlanStatus403 = unknown;
+export type UserGetPlanStatus403 = ForbiddenError;
 
-export type UserGetPlanStatus404 = unknown;
+export type UserGetPlanStatus404 = NotFoundError;
 
-export type UserGetPlanStatus409 = unknown;
+export type UserGetPlanStatus409 = ConflictError;
 
-export type UserGetPlanStatus413 = unknown;
+export type UserGetPlanStatus413 = PayloadTooLargeError;
 
-export type UserGetPlanStatus422 = unknown;
+export type UserGetPlanStatus422 = UnprocessableEntityError;
 
-export type UserGetPlanStatus429 = unknown;
+export type UserGetPlanStatus429 = TooManyRequestsError;
 
-export type UserGetPlanStatus500 = unknown;
+export type UserGetPlanStatus500 = InternalServerError;
 
 export type UserGetPlanOptions = {
 	body?: never | undefined;
@@ -6732,23 +7208,26 @@ export type UserGetPlanResponses = {
  */
 export type UserGetPlanResponse = UserGetPlanStatus200;
 
-export type UserGetScopesStatus200 = unknown;
+export type UserGetScopesStatus200 = {
+	object: "list";
+	data: ScopeSummary[];
+};
 
-export type UserGetScopesStatus401 = unknown;
+export type UserGetScopesStatus401 = UnauthorizedError;
 
-export type UserGetScopesStatus403 = unknown;
+export type UserGetScopesStatus403 = ForbiddenError;
 
-export type UserGetScopesStatus404 = unknown;
+export type UserGetScopesStatus404 = NotFoundError;
 
-export type UserGetScopesStatus409 = unknown;
+export type UserGetScopesStatus409 = ConflictError;
 
-export type UserGetScopesStatus413 = unknown;
+export type UserGetScopesStatus413 = PayloadTooLargeError;
 
-export type UserGetScopesStatus422 = unknown;
+export type UserGetScopesStatus422 = UnprocessableEntityError;
 
-export type UserGetScopesStatus429 = unknown;
+export type UserGetScopesStatus429 = TooManyRequestsError;
 
-export type UserGetScopesStatus500 = unknown;
+export type UserGetScopesStatus500 = InternalServerError;
 
 export type UserGetScopesOptions = {
 	body?: never | undefined;
@@ -6787,23 +7266,27 @@ export type ChatsRestorePath = {
 	versionId: string;
 };
 
-export type ChatsRestoreStatus200 = unknown;
+/**
+ * @description Detailed version data including file contents.
+ * @type object
+ */
+export type ChatsRestoreStatus200 = VersionDetail;
 
-export type ChatsRestoreStatus401 = unknown;
+export type ChatsRestoreStatus401 = UnauthorizedError;
 
-export type ChatsRestoreStatus403 = unknown;
+export type ChatsRestoreStatus403 = ForbiddenError;
 
-export type ChatsRestoreStatus404 = unknown;
+export type ChatsRestoreStatus404 = NotFoundError;
 
-export type ChatsRestoreStatus409 = unknown;
+export type ChatsRestoreStatus409 = ConflictError;
 
-export type ChatsRestoreStatus413 = unknown;
+export type ChatsRestoreStatus413 = PayloadTooLargeError;
 
-export type ChatsRestoreStatus422 = unknown;
+export type ChatsRestoreStatus422 = UnprocessableEntityError;
 
-export type ChatsRestoreStatus429 = unknown;
+export type ChatsRestoreStatus429 = TooManyRequestsError;
 
-export type ChatsRestoreStatus500 = unknown;
+export type ChatsRestoreStatus500 = InternalServerError;
 
 export type ChatsRestoreOptions = {
 	body?: never | undefined;
@@ -6874,23 +7357,91 @@ export type ReportsGetUsageQuery = {
 	cursor?: string | undefined;
 };
 
-export type ReportsGetUsageStatus200 = unknown;
+export const reportsGetUsageStatus200DataTypeEnum = {
+	api_request: "api_request",
+	"buy-template": "buy-template",
+	image_generation: "image_generation",
+	"inline-edit": "inline-edit",
+	manual_debit: "manual_debit",
+	message: "message",
+	refund_template_purchase: "refund_template_purchase",
+	reverse_template_sale: "reverse_template_sale",
+} as const;
 
-export type ReportsGetUsageStatus401 = unknown;
+export type ReportsGetUsageStatus200DataTypeEnumKey =
+	(typeof reportsGetUsageStatus200DataTypeEnum)[keyof typeof reportsGetUsageStatus200DataTypeEnum];
 
-export type ReportsGetUsageStatus403 = unknown;
+export const reportsGetUsageStatus200DataCostBreakdownStatusEnum = {
+	estimated: "estimated",
+	unavailable: "unavailable",
+} as const;
 
-export type ReportsGetUsageStatus404 = unknown;
+export type ReportsGetUsageStatus200DataCostBreakdownStatusEnumKey =
+	(typeof reportsGetUsageStatus200DataCostBreakdownStatusEnum)[keyof typeof reportsGetUsageStatus200DataCostBreakdownStatusEnum];
 
-export type ReportsGetUsageStatus409 = unknown;
+export type ReportsGetUsageStatus200 = {
+	object: "list";
+	data: {
+		id: string;
+		object: "usage_event";
+		type?: ReportsGetUsageStatus200DataTypeEnumKey | undefined;
+		promptCost?: string | undefined;
+		completionCost?: string | undefined;
+		/**
+		 * @description Whether the cost components are estimated or unavailable. Unavailable components are omitted; totalCost remains authoritative.
+		 * @type string | undefined
+		 */
+		costBreakdownStatus?: ReportsGetUsageStatus200DataCostBreakdownStatusEnumKey | undefined;
+		totalCost: string;
+		chatId?: string | undefined;
+		messageId?: string | undefined;
+		/**
+		 * @description Deprecated - use user object instead
+		 * @type string | undefined
+		 */
+		userId?: string | undefined;
+		/**
+		 * @description Details of the authenticated user, including profile and contact information.
+		 * @type object | undefined
+		 */
+		user?: UserSummarySchema | undefined;
+		/**
+		 * @description The ISO timestamp representing when the usage event was created.
+		 *
+		 * Format: `date-time`
+		 * @type string
+		 */
+		createdAt: string;
+	}[];
+	pagination: {
+		hasMore: boolean;
+		nextCursor?: string | undefined;
+		nextUrl?: string | undefined;
+	};
+	meta: {
+		/**
+		 * @description Number of events in THIS page only, counted after events are rolled up per message. Not a total across the query, and not a page size — do not use it to track progress or to decide whether to stop paginating. Use `pagination.hasMore` for that.
+		 * @type number
+		 */
+		totalCount: number;
+	};
+};
 
-export type ReportsGetUsageStatus413 = unknown;
+export type ReportsGetUsageStatus401 = UnauthorizedError;
 
-export type ReportsGetUsageStatus422 = unknown;
+export type ReportsGetUsageStatus403 = ForbiddenError;
 
-export type ReportsGetUsageStatus429 = unknown;
+export type ReportsGetUsageStatus404 = NotFoundError;
 
-export type ReportsGetUsageStatus500 = unknown;
+export type ReportsGetUsageStatus409 = ConflictError;
+
+export type ReportsGetUsageStatus413 = PayloadTooLargeError;
+
+export type ReportsGetUsageStatus422 = UnprocessableEntityError;
+
+export type ReportsGetUsageStatus429 = TooManyRequestsError;
+
+export type ReportsGetUsageStatus500 = InternalServerError;
 
 export type ReportsGetUsageOptions = {
 	body?: never | undefined;
@@ -6946,23 +7497,53 @@ export type ReportsGetAIUsageQuery = {
 	limit?: number | undefined;
 };
 
-export type ReportsGetAIUsageStatus200 = unknown;
+export type ReportsGetAIUsageStatus200 = {
+	object: "list";
+	data: {
+		eventId: string;
+		modelId: string;
+		inputTokens: number;
+		outputTokens: number;
+		totalTokens: number;
+		cacheCreationInputTokens: number;
+		/**
+		 * @default 0
+		 * @type number | undefined
+		 */
+		cacheCreationInputTokens1h?: number | undefined;
+		cacheReadInputTokens: number;
+		timestamp: string;
+		requestId: string;
+		useCase: string;
+		chatId: string;
+		messageId: string;
+		userId: string;
+		userEmail: string;
+	}[];
+	pagination: {
+		nextCursor: string | null;
+	};
+	dateRange: {
+		start: string | null;
+		end: string | null;
+	};
+};
 
-export type ReportsGetAIUsageStatus401 = unknown;
+export type ReportsGetAIUsageStatus401 = UnauthorizedError;
 
-export type ReportsGetAIUsageStatus403 = unknown;
+export type ReportsGetAIUsageStatus403 = ForbiddenError;
 
-export type ReportsGetAIUsageStatus404 = unknown;
+export type ReportsGetAIUsageStatus404 = NotFoundError;
 
-export type ReportsGetAIUsageStatus409 = unknown;
+export type ReportsGetAIUsageStatus409 = ConflictError;
 
-export type ReportsGetAIUsageStatus413 = unknown;
+export type ReportsGetAIUsageStatus413 = PayloadTooLargeError;
 
-export type ReportsGetAIUsageStatus422 = unknown;
+export type ReportsGetAIUsageStatus422 = UnprocessableEntityError;
 
-export type ReportsGetAIUsageStatus429 = unknown;
+export type ReportsGetAIUsageStatus429 = TooManyRequestsError;
 
-export type ReportsGetAIUsageStatus500 = unknown;
+export type ReportsGetAIUsageStatus500 = InternalServerError;
 
 export type ReportsGetAIUsageOptions = {
 	body?: never | undefined;
@@ -7005,23 +7586,113 @@ export type ReportsGetUserActivityQuery = {
 	endDate?: string | undefined;
 };
 
-export type ReportsGetUserActivityStatus200 = unknown;
+export const reportsGetUserActivityStatus200DataUserTeamV0Role = {
+	V0Builder: "V0Builder",
+	V0Chatter: "V0Chatter",
+	V0Viewer: "V0Viewer",
+} as const;
 
-export type ReportsGetUserActivityStatus401 = unknown;
+export type ReportsGetUserActivityStatus200DataUserTeamV0RoleKey =
+	(typeof reportsGetUserActivityStatus200DataUserTeamV0Role)[keyof typeof reportsGetUserActivityStatus200DataUserTeamV0Role];
 
-export type ReportsGetUserActivityStatus403 = unknown;
+export type ReportsGetUserActivityStatus200 = {
+	object: "list";
+	data: {
+		id: string;
+		object: "user_activity";
+		user: {
+			/**
+			 * @description A unique identifier for the user.
+			 * @type string
+			 */
+			id: string;
+			/**
+			 * @description Fixed value identifying this object as a user.
+			 * @type string
+			 */
+			object: "user";
+			/**
+			 * @description Optional full name of the user.
+			 * @type string | undefined
+			 */
+			name?: string | undefined;
+			/**
+			 * @description The user\'s email address.
+			 * @type string
+			 */
+			email: string;
+			/**
+			 * @description URL to the user\'s avatar image.
+			 * @type string
+			 */
+			avatar: string;
+			/**
+			 * @description The ISO timestamp representing when the user was created.
+			 *
+			 * Format: `date-time`
+			 * @type string
+			 */
+			createdAt: string;
+			/**
+			 * @description The ISO timestamp of the last update to the user.
+			 *
+			 * Format: `date-time`
+			 * @type string | undefined
+			 */
+			updatedAt?: string | undefined;
+			/**
+			 * @description The user\'s v0 role
+			 */
+			teamV0Role: ReportsGetUserActivityStatus200DataUserTeamV0RoleKey | null;
+		};
+		/**
+		 * @description Total number of chats created by the user
+		 * @type number
+		 */
+		chatCount: number;
+		/**
+		 * @description Total number of messages sent by the user
+		 * @type number
+		 */
+		messageCount: number;
+		/**
+		 * @description Number of distinct days the user was active
+		 * @type number
+		 */
+		activeDays: number;
+		/**
+		 * @description Timestamp of the user\'s first activity
+		 */
+		firstActivity: string | null;
+		/**
+		 * @description Timestamp of the user\'s last activity
+		 */
+		lastActivity: string | null;
+	}[];
+	meta: {
+		totalCount: number;
+		dateRange: {
+			start: string | null;
+			end: string | null;
+		};
+	};
+};
 
-export type ReportsGetUserActivityStatus404 = unknown;
+export type ReportsGetUserActivityStatus401 = UnauthorizedError;
 
-export type ReportsGetUserActivityStatus409 = unknown;
+export type ReportsGetUserActivityStatus403 = ForbiddenError;
 
-export type ReportsGetUserActivityStatus413 = unknown;
+export type ReportsGetUserActivityStatus404 = NotFoundError;
 
-export type ReportsGetUserActivityStatus422 = unknown;
+export type ReportsGetUserActivityStatus409 = ConflictError;
 
-export type ReportsGetUserActivityStatus429 = unknown;
+export type ReportsGetUserActivityStatus413 = PayloadTooLargeError;
 
-export type ReportsGetUserActivityStatus500 = unknown;
+export type ReportsGetUserActivityStatus422 = UnprocessableEntityError;
+
+export type ReportsGetUserActivityStatus429 = TooManyRequestsError;
+
+export type ReportsGetUserActivityStatus500 = InternalServerError;
 
 export type ReportsGetUserActivityOptions = {
 	body?: never | undefined;
@@ -7047,23 +7718,111 @@ export type ReportsGetUserActivityResponses = {
  */
 export type ReportsGetUserActivityResponse = ReportsGetUserActivityStatus200;
 
-export type McpServersFindStatus200 = unknown;
+export const mcpServersFindStatus200DataAuthTypeEnum = {
+	bearer: "bearer",
+	"custom-headers": "custom-headers",
+	none: "none",
+	oauth: "oauth",
+} as const;
 
-export type McpServersFindStatus401 = unknown;
+export type McpServersFindStatus200DataAuthTypeEnumKey =
+	(typeof mcpServersFindStatus200DataAuthTypeEnum)[keyof typeof mcpServersFindStatus200DataAuthTypeEnum];
 
-export type McpServersFindStatus403 = unknown;
+export const mcpServersFindStatus200DataScopeEnum = {
+	team: "team",
+	user: "user",
+} as const;
 
-export type McpServersFindStatus404 = unknown;
+export type McpServersFindStatus200DataScopeEnumKey =
+	(typeof mcpServersFindStatus200DataScopeEnum)[keyof typeof mcpServersFindStatus200DataScopeEnum];
 
-export type McpServersFindStatus409 = unknown;
+/**
+ * @description List of MCP servers for the authenticated user.
+ * @type object
+ */
+export type McpServersFindStatus200 = {
+	object: "list";
+	data: {
+		/**
+		 * @description The object type.
+		 * @type string
+		 */
+		object: "mcp_server";
+		/**
+		 * @description The unique identifier for the MCP server.
+		 * @type string
+		 */
+		id: string;
+		/**
+		 * @description The display name of the MCP server.
+		 * @type string
+		 */
+		name: string;
+		/**
+		 * @description The URL of the MCP server.
+		 *
+		 * Format: `uri`
+		 * @type string
+		 */
+		url: string;
+		/**
+		 * @description An optional description of the MCP server.
+		 * @type string | undefined
+		 */
+		description?: string | undefined;
+		/**
+		 * @description Whether the MCP server is enabled for use in chats.
+		 * @type boolean
+		 */
+		enabled: boolean;
+		/**
+		 * @description Authentication type for the MCP server. Sensitive values like tokens and headers are not returned.
+		 * @type object
+		 */
+		auth: {
+			/**
+			 * @description The type of authentication configured.
+			 * @type string
+			 */
+			type: McpServersFindStatus200DataAuthTypeEnumKey;
+		};
+		/**
+		 * @description The scope of the MCP server (user or team).
+		 * @type string
+		 */
+		scope: McpServersFindStatus200DataScopeEnumKey;
+		/**
+		 * @description The ISO timestamp when the MCP server was created.
+		 *
+		 * Format: `date-time`
+		 * @type string
+		 */
+		createdAt: string;
+		/**
+		 * @description The ISO timestamp when the MCP server was last updated.
+		 *
+		 * Format: `date-time`
+		 * @type string | undefined
+		 */
+		updatedAt?: string | undefined;
+	}[];
+};
 
-export type McpServersFindStatus413 = unknown;
+export type McpServersFindStatus401 = UnauthorizedError;
 
-export type McpServersFindStatus422 = unknown;
+export type McpServersFindStatus403 = ForbiddenError;
 
-export type McpServersFindStatus429 = unknown;
+export type McpServersFindStatus404 = NotFoundError;
 
-export type McpServersFindStatus500 = unknown;
+export type McpServersFindStatus409 = ConflictError;
+
+export type McpServersFindStatus413 = PayloadTooLargeError;
+
+export type McpServersFindStatus422 = UnprocessableEntityError;
+
+export type McpServersFindStatus429 = TooManyRequestsError;
+
+export type McpServersFindStatus500 = InternalServerError;
 
 export type McpServersFindOptions = {
 	body?: never | undefined;
@@ -7089,23 +7848,108 @@ export type McpServersFindResponses = {
  */
 export type McpServersFindResponse = McpServersFindStatus200;
 
-export type McpServersCreateStatus200 = unknown;
+export const mcpServersCreateStatus200AuthTypeEnum = {
+	bearer: "bearer",
+	"custom-headers": "custom-headers",
+	none: "none",
+	oauth: "oauth",
+} as const;
 
-export type McpServersCreateStatus401 = unknown;
+export type McpServersCreateStatus200AuthTypeEnumKey =
+	(typeof mcpServersCreateStatus200AuthTypeEnum)[keyof typeof mcpServersCreateStatus200AuthTypeEnum];
 
-export type McpServersCreateStatus403 = unknown;
+export const mcpServersCreateStatus200ScopeEnum = {
+	team: "team",
+	user: "user",
+} as const;
 
-export type McpServersCreateStatus404 = unknown;
+export type McpServersCreateStatus200ScopeEnumKey =
+	(typeof mcpServersCreateStatus200ScopeEnum)[keyof typeof mcpServersCreateStatus200ScopeEnum];
 
-export type McpServersCreateStatus409 = unknown;
+/**
+ * @description Summary information about an MCP server.
+ * @type object
+ */
+export type McpServersCreateStatus200 = {
+	/**
+	 * @description The object type.
+	 * @type string
+	 */
+	object: "mcp_server";
+	/**
+	 * @description The unique identifier for the MCP server.
+	 * @type string
+	 */
+	id: string;
+	/**
+	 * @description The display name of the MCP server.
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description The URL of the MCP server.
+	 *
+	 * Format: `uri`
+	 * @type string
+	 */
+	url: string;
+	/**
+	 * @description An optional description of the MCP server.
+	 * @type string | undefined
+	 */
+	description?: string | undefined;
+	/**
+	 * @description Whether the MCP server is enabled for use in chats.
+	 * @type boolean
+	 */
+	enabled: boolean;
+	/**
+	 * @description Authentication type for the MCP server. Sensitive values like tokens and headers are not returned.
+	 * @type object
+	 */
+	auth: {
+		/**
+		 * @description The type of authentication configured.
+		 * @type string
+		 */
+		type: McpServersCreateStatus200AuthTypeEnumKey;
+	};
+	/**
+	 * @description The scope of the MCP server (user or team).
+	 * @type string
+	 */
+	scope: McpServersCreateStatus200ScopeEnumKey;
+	/**
+	 * @description The ISO timestamp when the MCP server was created.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	createdAt: string;
+	/**
+	 * @description The ISO timestamp when the MCP server was last updated.
+	 *
+	 * Format: `date-time`
+	 * @type string | undefined
+	 */
+	updatedAt?: string | undefined;
+};
 
-export type McpServersCreateStatus413 = unknown;
+export type McpServersCreateStatus401 = UnauthorizedError;
 
-export type McpServersCreateStatus422 = unknown;
+export type McpServersCreateStatus403 = ForbiddenError;
 
-export type McpServersCreateStatus429 = unknown;
+export type McpServersCreateStatus404 = NotFoundError;
 
-export type McpServersCreateStatus500 = unknown;
+export type McpServersCreateStatus409 = ConflictError;
+
+export type McpServersCreateStatus413 = PayloadTooLargeError;
+
+export type McpServersCreateStatus422 = UnprocessableEntityError;
+
+export type McpServersCreateStatus429 = TooManyRequestsError;
+
+export type McpServersCreateStatus500 = InternalServerError;
 
 export const mcpServersCreateRequestScopeEnum = {
 	team: "team",
@@ -7298,23 +8142,108 @@ export type McpServersGetByIdPath = {
 	mcpServerId: string;
 };
 
-export type McpServersGetByIdStatus200 = unknown;
+export const mcpServersGetByIdStatus200AuthTypeEnum = {
+	bearer: "bearer",
+	"custom-headers": "custom-headers",
+	none: "none",
+	oauth: "oauth",
+} as const;
 
-export type McpServersGetByIdStatus401 = unknown;
+export type McpServersGetByIdStatus200AuthTypeEnumKey =
+	(typeof mcpServersGetByIdStatus200AuthTypeEnum)[keyof typeof mcpServersGetByIdStatus200AuthTypeEnum];
 
-export type McpServersGetByIdStatus403 = unknown;
+export const mcpServersGetByIdStatus200ScopeEnum = {
+	team: "team",
+	user: "user",
+} as const;
 
-export type McpServersGetByIdStatus404 = unknown;
+export type McpServersGetByIdStatus200ScopeEnumKey =
+	(typeof mcpServersGetByIdStatus200ScopeEnum)[keyof typeof mcpServersGetByIdStatus200ScopeEnum];
 
-export type McpServersGetByIdStatus409 = unknown;
+/**
+ * @description Summary information about an MCP server.
+ * @type object
+ */
+export type McpServersGetByIdStatus200 = {
+	/**
+	 * @description The object type.
+	 * @type string
+	 */
+	object: "mcp_server";
+	/**
+	 * @description The unique identifier for the MCP server.
+	 * @type string
+	 */
+	id: string;
+	/**
+	 * @description The display name of the MCP server.
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description The URL of the MCP server.
+	 *
+	 * Format: `uri`
+	 * @type string
+	 */
+	url: string;
+	/**
+	 * @description An optional description of the MCP server.
+	 * @type string | undefined
+	 */
+	description?: string | undefined;
+	/**
+	 * @description Whether the MCP server is enabled for use in chats.
+	 * @type boolean
+	 */
+	enabled: boolean;
+	/**
+	 * @description Authentication type for the MCP server. Sensitive values like tokens and headers are not returned.
+	 * @type object
+	 */
+	auth: {
+		/**
+		 * @description The type of authentication configured.
+		 * @type string
+		 */
+		type: McpServersGetByIdStatus200AuthTypeEnumKey;
+	};
+	/**
+	 * @description The scope of the MCP server (user or team).
+	 * @type string
+	 */
+	scope: McpServersGetByIdStatus200ScopeEnumKey;
+	/**
+	 * @description The ISO timestamp when the MCP server was created.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	createdAt: string;
+	/**
+	 * @description The ISO timestamp when the MCP server was last updated.
+	 *
+	 * Format: `date-time`
+	 * @type string | undefined
+	 */
+	updatedAt?: string | undefined;
+};
 
-export type McpServersGetByIdStatus413 = unknown;
+export type McpServersGetByIdStatus401 = UnauthorizedError;
 
-export type McpServersGetByIdStatus422 = unknown;
+export type McpServersGetByIdStatus403 = ForbiddenError;
 
-export type McpServersGetByIdStatus429 = unknown;
+export type McpServersGetByIdStatus404 = NotFoundError;
 
-export type McpServersGetByIdStatus500 = unknown;
+export type McpServersGetByIdStatus409 = ConflictError;
+
+export type McpServersGetByIdStatus413 = PayloadTooLargeError;
+
+export type McpServersGetByIdStatus422 = UnprocessableEntityError;
+
+export type McpServersGetByIdStatus429 = TooManyRequestsError;
+
+export type McpServersGetByIdStatus500 = InternalServerError;
 
 export type McpServersGetByIdOptions = {
 	body?: never | undefined;
@@ -7348,23 +8277,108 @@ export type McpServersUpdatePath = {
 	mcpServerId: string;
 };
 
-export type McpServersUpdateStatus200 = unknown;
+export const mcpServersUpdateStatus200AuthTypeEnum = {
+	bearer: "bearer",
+	"custom-headers": "custom-headers",
+	none: "none",
+	oauth: "oauth",
+} as const;
 
-export type McpServersUpdateStatus401 = unknown;
+export type McpServersUpdateStatus200AuthTypeEnumKey =
+	(typeof mcpServersUpdateStatus200AuthTypeEnum)[keyof typeof mcpServersUpdateStatus200AuthTypeEnum];
 
-export type McpServersUpdateStatus403 = unknown;
+export const mcpServersUpdateStatus200ScopeEnum = {
+	team: "team",
+	user: "user",
+} as const;
 
-export type McpServersUpdateStatus404 = unknown;
+export type McpServersUpdateStatus200ScopeEnumKey =
+	(typeof mcpServersUpdateStatus200ScopeEnum)[keyof typeof mcpServersUpdateStatus200ScopeEnum];
 
-export type McpServersUpdateStatus409 = unknown;
+/**
+ * @description Summary information about an MCP server.
+ * @type object
+ */
+export type McpServersUpdateStatus200 = {
+	/**
+	 * @description The object type.
+	 * @type string
+	 */
+	object: "mcp_server";
+	/**
+	 * @description The unique identifier for the MCP server.
+	 * @type string
+	 */
+	id: string;
+	/**
+	 * @description The display name of the MCP server.
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description The URL of the MCP server.
+	 *
+	 * Format: `uri`
+	 * @type string
+	 */
+	url: string;
+	/**
+	 * @description An optional description of the MCP server.
+	 * @type string | undefined
+	 */
+	description?: string | undefined;
+	/**
+	 * @description Whether the MCP server is enabled for use in chats.
+	 * @type boolean
+	 */
+	enabled: boolean;
+	/**
+	 * @description Authentication type for the MCP server. Sensitive values like tokens and headers are not returned.
+	 * @type object
+	 */
+	auth: {
+		/**
+		 * @description The type of authentication configured.
+		 * @type string
+		 */
+		type: McpServersUpdateStatus200AuthTypeEnumKey;
+	};
+	/**
+	 * @description The scope of the MCP server (user or team).
+	 * @type string
+	 */
+	scope: McpServersUpdateStatus200ScopeEnumKey;
+	/**
+	 * @description The ISO timestamp when the MCP server was created.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	createdAt: string;
+	/**
+	 * @description The ISO timestamp when the MCP server was last updated.
+	 *
+	 * Format: `date-time`
+	 * @type string | undefined
+	 */
+	updatedAt?: string | undefined;
+};
 
-export type McpServersUpdateStatus413 = unknown;
+export type McpServersUpdateStatus401 = UnauthorizedError;
 
-export type McpServersUpdateStatus422 = unknown;
+export type McpServersUpdateStatus403 = ForbiddenError;
 
-export type McpServersUpdateStatus429 = unknown;
+export type McpServersUpdateStatus404 = NotFoundError;
 
-export type McpServersUpdateStatus500 = unknown;
+export type McpServersUpdateStatus409 = ConflictError;
+
+export type McpServersUpdateStatus413 = PayloadTooLargeError;
+
+export type McpServersUpdateStatus422 = UnprocessableEntityError;
+
+export type McpServersUpdateStatus429 = TooManyRequestsError;
+
+export type McpServersUpdateStatus500 = InternalServerError;
 
 export const mcpServersUpdateRequestScopeEnum = {
 	team: "team",
@@ -7554,23 +8568,35 @@ export type McpServersDeletePath = {
 	mcpServerId: string;
 };
 
-export type McpServersDeleteStatus200 = unknown;
+export type McpServersDeleteStatus200 = {
+	object: "mcp_server";
+	/**
+	 * @description The ID of the deleted MCP server.
+	 * @type string
+	 */
+	id: string;
+	/**
+	 * @description Indicates the server was deleted.
+	 * @type boolean
+	 */
+	deleted: true;
+};
 
-export type McpServersDeleteStatus401 = unknown;
+export type McpServersDeleteStatus401 = UnauthorizedError;
 
-export type McpServersDeleteStatus403 = unknown;
+export type McpServersDeleteStatus403 = ForbiddenError;
 
-export type McpServersDeleteStatus404 = unknown;
+export type McpServersDeleteStatus404 = NotFoundError;
 
-export type McpServersDeleteStatus409 = unknown;
+export type McpServersDeleteStatus409 = ConflictError;
 
-export type McpServersDeleteStatus413 = unknown;
+export type McpServersDeleteStatus413 = PayloadTooLargeError;
 
-export type McpServersDeleteStatus422 = unknown;
+export type McpServersDeleteStatus422 = UnprocessableEntityError;
 
-export type McpServersDeleteStatus429 = unknown;
+export type McpServersDeleteStatus429 = TooManyRequestsError;
 
-export type McpServersDeleteStatus500 = unknown;
+export type McpServersDeleteStatus500 = InternalServerError;
 
 export type McpServersDeleteOptions = {
 	body?: never | undefined;
@@ -7604,23 +8630,53 @@ export type McpServersCreateOAuthAuthorizationUrlPath = {
 	mcpServerId: string;
 };
 
-export type McpServersCreateOAuthAuthorizationUrlStatus200 = unknown;
+export type McpServersCreateOAuthAuthorizationUrlStatus200 = {
+	/**
+	 * @description The object type.
+	 * @type string
+	 */
+	object: "mcp_server_oauth_authorization";
+	/**
+	 * @description The MCP server being authorized.
+	 * @type string
+	 */
+	mcpServerId: string;
+	/**
+	 * @description The provider authorization URL to redirect the user to.
+	 *
+	 * Format: `uri`
+	 * @type string
+	 */
+	url: string;
+	/**
+	 * @description The OAuth state value. This expires after 5 minutes.
+	 * @type string
+	 */
+	state: string;
+	/**
+	 * @description The ISO timestamp when the authorization URL expires.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	expiresAt: string;
+};
 
-export type McpServersCreateOAuthAuthorizationUrlStatus401 = unknown;
+export type McpServersCreateOAuthAuthorizationUrlStatus401 = UnauthorizedError;
 
-export type McpServersCreateOAuthAuthorizationUrlStatus403 = unknown;
+export type McpServersCreateOAuthAuthorizationUrlStatus403 = ForbiddenError;
 
-export type McpServersCreateOAuthAuthorizationUrlStatus404 = unknown;
+export type McpServersCreateOAuthAuthorizationUrlStatus404 = NotFoundError;
 
-export type McpServersCreateOAuthAuthorizationUrlStatus409 = unknown;
+export type McpServersCreateOAuthAuthorizationUrlStatus409 = ConflictError;
 
-export type McpServersCreateOAuthAuthorizationUrlStatus413 = unknown;
+export type McpServersCreateOAuthAuthorizationUrlStatus413 = PayloadTooLargeError;
 
-export type McpServersCreateOAuthAuthorizationUrlStatus422 = unknown;
+export type McpServersCreateOAuthAuthorizationUrlStatus422 = UnprocessableEntityError;
 
-export type McpServersCreateOAuthAuthorizationUrlStatus429 = unknown;
+export type McpServersCreateOAuthAuthorizationUrlStatus429 = TooManyRequestsError;
 
-export type McpServersCreateOAuthAuthorizationUrlStatus500 = unknown;
+export type McpServersCreateOAuthAuthorizationUrlStatus500 = InternalServerError;
 
 export type McpServersCreateOAuthAuthorizationUrlBody = {
 	/**

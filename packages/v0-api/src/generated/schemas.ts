@@ -80,7 +80,7 @@ export const chatDetailSchema = z
 					id: z.string().describe("A unique identifier for the message."),
 					object: z.enum(["message"]).describe("Fixed value identifying this object as a message."),
 					content: z.string().describe("The main text content of the message."),
-					experimentalContent: z
+					experimental_content: z
 						.array(
 							z.union([
 								z.tuple([z.literal(0), z.array(z.string())]),
@@ -618,7 +618,7 @@ export const messageDetailSchema = z
 		id: z.string().describe("A unique identifier for the message."),
 		object: z.enum(["message"]).describe("Fixed value identifying this object as a message."),
 		content: z.string().describe("The main text content of the message."),
-		experimentalContent: z
+		experimental_content: z
 			.array(
 				z.union([
 					z.tuple([z.literal(0), z.array(z.string())]),
@@ -760,7 +760,7 @@ export const messageSummarySchema = z
 		id: z.string().describe("A unique identifier for the message."),
 		object: z.enum(["message"]).describe("Fixed value identifying this object as a message."),
 		content: z.string().describe("The main text content of the message."),
-		experimentalContent: z
+		experimental_content: z
 			.array(
 				z.union([
 					z.tuple([z.literal(0), z.array(z.string())]),
@@ -907,7 +907,7 @@ export const messageSummaryListSchema = z
 					id: z.string().describe("A unique identifier for the message."),
 					object: z.enum(["message"]).describe("Fixed value identifying this object as a message."),
 					content: z.string().describe("The main text content of the message."),
-					experimentalContent: z
+					experimental_content: z
 						.array(
 							z.union([
 								z.tuple([z.literal(0), z.array(z.string())]),
@@ -1539,23 +1539,25 @@ export const internalServerErrorSchema = z.strictObject({
 	}),
 });
 
-export const chatsCreateStatus200Schema = z.unknown();
+export const chatsCreateStatus200Schema = chatDetailSchema.describe(
+	"Detailed representation of a chat, including its messages, files, versions, and model configuration.",
+);
 
-export const chatsCreateStatus401Schema = z.unknown();
+export const chatsCreateStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsCreateStatus403Schema = z.unknown();
+export const chatsCreateStatus403Schema = forbiddenErrorSchema;
 
-export const chatsCreateStatus404Schema = z.unknown();
+export const chatsCreateStatus404Schema = notFoundErrorSchema;
 
-export const chatsCreateStatus409Schema = z.unknown();
+export const chatsCreateStatus409Schema = conflictErrorSchema;
 
-export const chatsCreateStatus413Schema = z.unknown();
+export const chatsCreateStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsCreateStatus422Schema = z.unknown();
+export const chatsCreateStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsCreateStatus429Schema = z.unknown();
+export const chatsCreateStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsCreateStatus500Schema = z.unknown();
+export const chatsCreateStatus500Schema = internalServerErrorSchema;
 
 export const chatsCreateResponseSchema = chatsCreateStatus200Schema;
 
@@ -1737,23 +1739,91 @@ export const chatsFindQueryMetadataSchema = z
 	.optional()
 	.describe("Filters chats by metadata. Returns chats matching every supplied key-value pair.");
 
-export const chatsFindStatus200Schema = z.unknown();
+export const chatsFindStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(
+		z.strictObject({
+			id: z.string().describe("A unique identifier for the chat."),
+			object: z.enum(["chat"]).describe("Fixed value identifying this object as a chat."),
+			shareable: z.boolean().describe("Indicates whether the chat can be shared via public link."),
+			privacy: z
+				.enum(["private", "public", "team", "team-edit", "unlisted"])
+				.describe("Defines the visibility of the chat—private, team-only, or public."),
+			name: z.string().optional().describe("An optional name assigned to the chat by the user."),
+			title: z
+				.string()
+				.optional()
+				.describe("Deprecated title field preserved for backward compatibility."),
+			createdAt: z.iso
+				.datetime()
+				.describe("The ISO timestamp representing when the chat was created."),
+			updatedAt: z
+				.string()
+				.optional()
+				.describe("The ISO timestamp of the last update to the chat."),
+			favorite: z.boolean().describe("Indicates whether the chat is marked as a favorite."),
+			authorId: z.string().describe("The ID of the user who created the chat."),
+			projectId: z
+				.string()
+				.optional()
+				.describe("Optional ID of the v0 project associated with this chat."),
+			vercelProjectId: z
+				.string()
+				.optional()
+				.describe("Optional ID of the linked Vercel project, if connected."),
+			webUrl: z.string().describe("Web URL to view this chat in the browser."),
+			apiUrl: z.string().describe("API URL to access this chat via the API."),
+			latestVersion: z
+				.strictObject({
+					id: z.string().describe("A unique identifier for the version."),
+					object: z.enum(["version"]).describe("Fixed value identifying this object as a version."),
+					status: z
+						.enum(["completed", "failed", "pending"])
+						.describe("The current status of the version generation process."),
+					demoUrl: z
+						.string()
+						.optional()
+						.describe("Optional URL for previewing the generated output."),
+					screenshotUrl: z
+						.string()
+						.optional()
+						.describe("URL to retrieve a screenshot of this version."),
+					createdAt: z.iso
+						.datetime()
+						.describe("The date and time when the version was created, in ISO 8601 format."),
+					updatedAt: z.iso
+						.datetime()
+						.optional()
+						.describe("The date and time when the version was last updated, in ISO 8601 format."),
+					darkScreenshotUrl: z
+						.string()
+						.optional()
+						.describe("URL to retrieve a dark mode screenshot of this version."),
+				})
+				.optional()
+				.describe("The most recent generated version of the chat, if available."),
+			metadata: z
+				.record(z.string(), z.string())
+				.describe("Arbitrary key-value data associated with this chat."),
+		}),
+	),
+});
 
-export const chatsFindStatus401Schema = z.unknown();
+export const chatsFindStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsFindStatus403Schema = z.unknown();
+export const chatsFindStatus403Schema = forbiddenErrorSchema;
 
-export const chatsFindStatus404Schema = z.unknown();
+export const chatsFindStatus404Schema = notFoundErrorSchema;
 
-export const chatsFindStatus409Schema = z.unknown();
+export const chatsFindStatus409Schema = conflictErrorSchema;
 
-export const chatsFindStatus413Schema = z.unknown();
+export const chatsFindStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsFindStatus422Schema = z.unknown();
+export const chatsFindStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsFindStatus429Schema = z.unknown();
+export const chatsFindStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsFindStatus500Schema = z.unknown();
+export const chatsFindStatus500Schema = internalServerErrorSchema;
 
 export const chatsFindResponseSchema = chatsFindStatus200Schema;
 
@@ -1768,23 +1838,25 @@ export const chatsFindErrorSchema = z.union([
 	chatsFindStatus500Schema,
 ]);
 
-export const chatsInitStatus200Schema = z.unknown();
+export const chatsInitStatus200Schema = chatDetailSchema.describe(
+	"Detailed representation of a chat, including its messages, files, versions, and model configuration.",
+);
 
-export const chatsInitStatus401Schema = z.unknown();
+export const chatsInitStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsInitStatus403Schema = z.unknown();
+export const chatsInitStatus403Schema = forbiddenErrorSchema;
 
-export const chatsInitStatus404Schema = z.unknown();
+export const chatsInitStatus404Schema = notFoundErrorSchema;
 
-export const chatsInitStatus409Schema = z.unknown();
+export const chatsInitStatus409Schema = conflictErrorSchema;
 
-export const chatsInitStatus413Schema = z.unknown();
+export const chatsInitStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsInitStatus422Schema = z.unknown();
+export const chatsInitStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsInitStatus429Schema = z.unknown();
+export const chatsInitStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsInitStatus500Schema = z.unknown();
+export const chatsInitStatus500Schema = internalServerErrorSchema;
 
 export const chatsInitResponseSchema = chatsInitStatus200Schema;
 
@@ -1947,23 +2019,27 @@ export const chatsDeletePathChatIdSchema = z
 		"The unique identifier of the chat to delete. This must be passed as a path parameter in the URL.",
 	);
 
-export const chatsDeleteStatus200Schema = z.unknown();
+export const chatsDeleteStatus200Schema = z.strictObject({
+	id: z.string(),
+	object: z.enum(["chat"]),
+	deleted: z.literal(true),
+});
 
-export const chatsDeleteStatus401Schema = z.unknown();
+export const chatsDeleteStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsDeleteStatus403Schema = z.unknown();
+export const chatsDeleteStatus403Schema = forbiddenErrorSchema;
 
-export const chatsDeleteStatus404Schema = z.unknown();
+export const chatsDeleteStatus404Schema = notFoundErrorSchema;
 
-export const chatsDeleteStatus409Schema = z.unknown();
+export const chatsDeleteStatus409Schema = conflictErrorSchema;
 
-export const chatsDeleteStatus413Schema = z.unknown();
+export const chatsDeleteStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsDeleteStatus422Schema = z.unknown();
+export const chatsDeleteStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsDeleteStatus429Schema = z.unknown();
+export const chatsDeleteStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsDeleteStatus500Schema = z.unknown();
+export const chatsDeleteStatus500Schema = internalServerErrorSchema;
 
 export const chatsDeleteResponseSchema = chatsDeleteStatus200Schema;
 
@@ -1982,23 +2058,25 @@ export const chatsGetByIdPathChatIdSchema = z
 	.string()
 	.describe("The unique identifier of the chat to retrieve. Must be provided as a path parameter.");
 
-export const chatsGetByIdStatus200Schema = z.unknown();
+export const chatsGetByIdStatus200Schema = chatDetailSchema.describe(
+	"Detailed representation of a chat, including its messages, files, versions, and model configuration.",
+);
 
-export const chatsGetByIdStatus401Schema = z.unknown();
+export const chatsGetByIdStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsGetByIdStatus403Schema = z.unknown();
+export const chatsGetByIdStatus403Schema = forbiddenErrorSchema;
 
-export const chatsGetByIdStatus404Schema = z.unknown();
+export const chatsGetByIdStatus404Schema = notFoundErrorSchema;
 
-export const chatsGetByIdStatus409Schema = z.unknown();
+export const chatsGetByIdStatus409Schema = conflictErrorSchema;
 
-export const chatsGetByIdStatus413Schema = z.unknown();
+export const chatsGetByIdStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsGetByIdStatus422Schema = z.unknown();
+export const chatsGetByIdStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsGetByIdStatus429Schema = z.unknown();
+export const chatsGetByIdStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsGetByIdStatus500Schema = z.unknown();
+export const chatsGetByIdStatus500Schema = internalServerErrorSchema;
 
 export const chatsGetByIdResponseSchema = chatsGetByIdStatus200Schema;
 
@@ -2017,23 +2095,25 @@ export const chatsUpdatePathChatIdSchema = z
 	.string()
 	.describe("The unique identifier of the chat to update. Provided as a path parameter.");
 
-export const chatsUpdateStatus200Schema = z.unknown();
+export const chatsUpdateStatus200Schema = chatDetailSchema.describe(
+	"Detailed representation of a chat, including its messages, files, versions, and model configuration.",
+);
 
-export const chatsUpdateStatus401Schema = z.unknown();
+export const chatsUpdateStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsUpdateStatus403Schema = z.unknown();
+export const chatsUpdateStatus403Schema = forbiddenErrorSchema;
 
-export const chatsUpdateStatus404Schema = z.unknown();
+export const chatsUpdateStatus404Schema = notFoundErrorSchema;
 
-export const chatsUpdateStatus409Schema = z.unknown();
+export const chatsUpdateStatus409Schema = conflictErrorSchema;
 
-export const chatsUpdateStatus413Schema = z.unknown();
+export const chatsUpdateStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsUpdateStatus422Schema = z.unknown();
+export const chatsUpdateStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsUpdateStatus429Schema = z.unknown();
+export const chatsUpdateStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsUpdateStatus500Schema = z.unknown();
+export const chatsUpdateStatus500Schema = internalServerErrorSchema;
 
 export const chatsUpdateResponseSchema = chatsUpdateStatus200Schema;
 
@@ -2072,23 +2152,27 @@ export const chatsFavoritePathChatIdSchema = z
 	.string()
 	.describe("The unique identifier of the chat to update. Provided as a path parameter.");
 
-export const chatsFavoriteStatus200Schema = z.unknown();
+export const chatsFavoriteStatus200Schema = z.strictObject({
+	id: z.string(),
+	object: z.enum(["chat"]),
+	favorited: z.boolean(),
+});
 
-export const chatsFavoriteStatus401Schema = z.unknown();
+export const chatsFavoriteStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsFavoriteStatus403Schema = z.unknown();
+export const chatsFavoriteStatus403Schema = forbiddenErrorSchema;
 
-export const chatsFavoriteStatus404Schema = z.unknown();
+export const chatsFavoriteStatus404Schema = notFoundErrorSchema;
 
-export const chatsFavoriteStatus409Schema = z.unknown();
+export const chatsFavoriteStatus409Schema = conflictErrorSchema;
 
-export const chatsFavoriteStatus413Schema = z.unknown();
+export const chatsFavoriteStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsFavoriteStatus422Schema = z.unknown();
+export const chatsFavoriteStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsFavoriteStatus429Schema = z.unknown();
+export const chatsFavoriteStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsFavoriteStatus500Schema = z.unknown();
+export const chatsFavoriteStatus500Schema = internalServerErrorSchema;
 
 export const chatsFavoriteResponseSchema = chatsFavoriteStatus200Schema;
 
@@ -2115,23 +2199,25 @@ export const chatsForkPathChatIdSchema = z
 	.string()
 	.describe("The unique identifier of the chat to fork. Provided as a path parameter.");
 
-export const chatsForkStatus200Schema = z.unknown();
+export const chatsForkStatus200Schema = chatDetailSchema.describe(
+	"Detailed representation of a chat, including its messages, files, versions, and model configuration.",
+);
 
-export const chatsForkStatus401Schema = z.unknown();
+export const chatsForkStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsForkStatus403Schema = z.unknown();
+export const chatsForkStatus403Schema = forbiddenErrorSchema;
 
-export const chatsForkStatus404Schema = z.unknown();
+export const chatsForkStatus404Schema = notFoundErrorSchema;
 
-export const chatsForkStatus409Schema = z.unknown();
+export const chatsForkStatus409Schema = conflictErrorSchema;
 
-export const chatsForkStatus413Schema = z.unknown();
+export const chatsForkStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsForkStatus422Schema = z.unknown();
+export const chatsForkStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsForkStatus429Schema = z.unknown();
+export const chatsForkStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsForkStatus500Schema = z.unknown();
+export const chatsForkStatus500Schema = internalServerErrorSchema;
 
 export const chatsForkResponseSchema = chatsForkStatus200Schema;
 
@@ -2167,23 +2253,25 @@ export const projectsGetByChatIdPathChatIdSchema = z
 	.string()
 	.describe("The ID of the chat to retrieve the associated project for.");
 
-export const projectsGetByChatIdStatus200Schema = z.unknown();
+export const projectsGetByChatIdStatus200Schema = projectDetailSchema.describe(
+	"Full representation of a project, including its associated chats.",
+);
 
-export const projectsGetByChatIdStatus401Schema = z.unknown();
+export const projectsGetByChatIdStatus401Schema = unauthorizedErrorSchema;
 
-export const projectsGetByChatIdStatus403Schema = z.unknown();
+export const projectsGetByChatIdStatus403Schema = forbiddenErrorSchema;
 
-export const projectsGetByChatIdStatus404Schema = z.unknown();
+export const projectsGetByChatIdStatus404Schema = notFoundErrorSchema;
 
-export const projectsGetByChatIdStatus409Schema = z.unknown();
+export const projectsGetByChatIdStatus409Schema = conflictErrorSchema;
 
-export const projectsGetByChatIdStatus413Schema = z.unknown();
+export const projectsGetByChatIdStatus413Schema = payloadTooLargeErrorSchema;
 
-export const projectsGetByChatIdStatus422Schema = z.unknown();
+export const projectsGetByChatIdStatus422Schema = unprocessableEntityErrorSchema;
 
-export const projectsGetByChatIdStatus429Schema = z.unknown();
+export const projectsGetByChatIdStatus429Schema = tooManyRequestsErrorSchema;
 
-export const projectsGetByChatIdStatus500Schema = z.unknown();
+export const projectsGetByChatIdStatus500Schema = internalServerErrorSchema;
 
 export const projectsGetByChatIdResponseSchema = projectsGetByChatIdStatus200Schema;
 
@@ -2219,23 +2307,31 @@ export const chatsFindMessagesQueryCursorSchema = z
 	.optional()
 	.describe("Base64 encoded cursor containing pagination data");
 
-export const chatsFindMessagesStatus200Schema = z.unknown();
+export const chatsFindMessagesStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(messageSummarySchema),
+	pagination: z.strictObject({
+		hasMore: z.boolean(),
+		nextCursor: z.string().optional(),
+		nextUrl: z.string().optional(),
+	}),
+});
 
-export const chatsFindMessagesStatus401Schema = z.unknown();
+export const chatsFindMessagesStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsFindMessagesStatus403Schema = z.unknown();
+export const chatsFindMessagesStatus403Schema = forbiddenErrorSchema;
 
-export const chatsFindMessagesStatus404Schema = z.unknown();
+export const chatsFindMessagesStatus404Schema = notFoundErrorSchema;
 
-export const chatsFindMessagesStatus409Schema = z.unknown();
+export const chatsFindMessagesStatus409Schema = conflictErrorSchema;
 
-export const chatsFindMessagesStatus413Schema = z.unknown();
+export const chatsFindMessagesStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsFindMessagesStatus422Schema = z.unknown();
+export const chatsFindMessagesStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsFindMessagesStatus429Schema = z.unknown();
+export const chatsFindMessagesStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsFindMessagesStatus500Schema = z.unknown();
+export const chatsFindMessagesStatus500Schema = internalServerErrorSchema;
 
 export const chatsFindMessagesResponseSchema = chatsFindMessagesStatus200Schema;
 
@@ -2256,23 +2352,25 @@ export const chatsSendMessagePathChatIdSchema = z
 		"The unique identifier of the chat to send the message to. Provided as a path parameter.",
 	);
 
-export const chatsSendMessageStatus200Schema = z.unknown();
+export const chatsSendMessageStatus200Schema = chatDetailSchema.describe(
+	"Detailed representation of a chat, including its messages, files, versions, and model configuration.",
+);
 
-export const chatsSendMessageStatus401Schema = z.unknown();
+export const chatsSendMessageStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsSendMessageStatus403Schema = z.unknown();
+export const chatsSendMessageStatus403Schema = forbiddenErrorSchema;
 
-export const chatsSendMessageStatus404Schema = z.unknown();
+export const chatsSendMessageStatus404Schema = notFoundErrorSchema;
 
-export const chatsSendMessageStatus409Schema = z.unknown();
+export const chatsSendMessageStatus409Schema = conflictErrorSchema;
 
-export const chatsSendMessageStatus413Schema = z.unknown();
+export const chatsSendMessageStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsSendMessageStatus422Schema = z.unknown();
+export const chatsSendMessageStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsSendMessageStatus429Schema = z.unknown();
+export const chatsSendMessageStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsSendMessageStatus500Schema = z.unknown();
+export const chatsSendMessageStatus500Schema = internalServerErrorSchema;
 
 export const chatsSendMessageResponseSchema = chatsSendMessageStatus200Schema;
 
@@ -2400,23 +2498,25 @@ export const chatsGetMessagePathMessageIdSchema = z
 	.string()
 	.describe("The unique identifier of the message to retrieve. Provided as a path parameter.");
 
-export const chatsGetMessageStatus200Schema = z.unknown();
+export const chatsGetMessageStatus200Schema = messageDetailSchema.describe(
+	"Detailed message object extending MessageSummary with chat metadata.",
+);
 
-export const chatsGetMessageStatus401Schema = z.unknown();
+export const chatsGetMessageStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsGetMessageStatus403Schema = z.unknown();
+export const chatsGetMessageStatus403Schema = forbiddenErrorSchema;
 
-export const chatsGetMessageStatus404Schema = z.unknown();
+export const chatsGetMessageStatus404Schema = notFoundErrorSchema;
 
-export const chatsGetMessageStatus409Schema = z.unknown();
+export const chatsGetMessageStatus409Schema = conflictErrorSchema;
 
-export const chatsGetMessageStatus413Schema = z.unknown();
+export const chatsGetMessageStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsGetMessageStatus422Schema = z.unknown();
+export const chatsGetMessageStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsGetMessageStatus429Schema = z.unknown();
+export const chatsGetMessageStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsGetMessageStatus500Schema = z.unknown();
+export const chatsGetMessageStatus500Schema = internalServerErrorSchema;
 
 export const chatsGetMessageResponseSchema = chatsGetMessageStatus200Schema;
 
@@ -2452,23 +2552,34 @@ export const chatsFindVersionsQueryCursorSchema = z
 	.optional()
 	.describe("Base64 encoded cursor containing pagination data");
 
-export const chatsFindVersionsStatus200Schema = z.unknown();
+export const chatsFindVersionsStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(versionSummarySchema),
+	pagination: z.strictObject({
+		hasMore: z.boolean(),
+		nextCursor: z.string().optional(),
+		nextUrl: z.string().optional(),
+	}),
+	meta: z.strictObject({
+		totalCount: z.number(),
+	}),
+});
 
-export const chatsFindVersionsStatus401Schema = z.unknown();
+export const chatsFindVersionsStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsFindVersionsStatus403Schema = z.unknown();
+export const chatsFindVersionsStatus403Schema = forbiddenErrorSchema;
 
-export const chatsFindVersionsStatus404Schema = z.unknown();
+export const chatsFindVersionsStatus404Schema = notFoundErrorSchema;
 
-export const chatsFindVersionsStatus409Schema = z.unknown();
+export const chatsFindVersionsStatus409Schema = conflictErrorSchema;
 
-export const chatsFindVersionsStatus413Schema = z.unknown();
+export const chatsFindVersionsStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsFindVersionsStatus422Schema = z.unknown();
+export const chatsFindVersionsStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsFindVersionsStatus429Schema = z.unknown();
+export const chatsFindVersionsStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsFindVersionsStatus500Schema = z.unknown();
+export const chatsFindVersionsStatus500Schema = internalServerErrorSchema;
 
 export const chatsFindVersionsResponseSchema = chatsFindVersionsStatus200Schema;
 
@@ -2500,23 +2611,25 @@ export const chatsGetVersionQueryIncludeDefaultFilesSchema = z
 		"When true, includes all default files (package.json, configuration files, etc.) that would be part of a ZIP download. When false or omitted, returns only the generated source files.",
 	);
 
-export const chatsGetVersionStatus200Schema = z.unknown();
+export const chatsGetVersionStatus200Schema = versionDetailSchema.describe(
+	"Detailed version data including file contents.",
+);
 
-export const chatsGetVersionStatus401Schema = z.unknown();
+export const chatsGetVersionStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsGetVersionStatus403Schema = z.unknown();
+export const chatsGetVersionStatus403Schema = forbiddenErrorSchema;
 
-export const chatsGetVersionStatus404Schema = z.unknown();
+export const chatsGetVersionStatus404Schema = notFoundErrorSchema;
 
-export const chatsGetVersionStatus409Schema = z.unknown();
+export const chatsGetVersionStatus409Schema = conflictErrorSchema;
 
-export const chatsGetVersionStatus413Schema = z.unknown();
+export const chatsGetVersionStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsGetVersionStatus422Schema = z.unknown();
+export const chatsGetVersionStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsGetVersionStatus429Schema = z.unknown();
+export const chatsGetVersionStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsGetVersionStatus500Schema = z.unknown();
+export const chatsGetVersionStatus500Schema = internalServerErrorSchema;
 
 export const chatsGetVersionResponseSchema = chatsGetVersionStatus200Schema;
 
@@ -2543,23 +2656,25 @@ export const chatsUpdateVersionPathVersionIdSchema = z
 		"The unique identifier of the version (block) to update. Provided as a path parameter.",
 	);
 
-export const chatsUpdateVersionStatus200Schema = z.unknown();
+export const chatsUpdateVersionStatus200Schema = versionDetailSchema.describe(
+	"Detailed version data including file contents.",
+);
 
-export const chatsUpdateVersionStatus401Schema = z.unknown();
+export const chatsUpdateVersionStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsUpdateVersionStatus403Schema = z.unknown();
+export const chatsUpdateVersionStatus403Schema = forbiddenErrorSchema;
 
-export const chatsUpdateVersionStatus404Schema = z.unknown();
+export const chatsUpdateVersionStatus404Schema = notFoundErrorSchema;
 
-export const chatsUpdateVersionStatus409Schema = z.unknown();
+export const chatsUpdateVersionStatus409Schema = conflictErrorSchema;
 
-export const chatsUpdateVersionStatus413Schema = z.unknown();
+export const chatsUpdateVersionStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsUpdateVersionStatus422Schema = z.unknown();
+export const chatsUpdateVersionStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsUpdateVersionStatus429Schema = z.unknown();
+export const chatsUpdateVersionStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsUpdateVersionStatus500Schema = z.unknown();
+export const chatsUpdateVersionStatus500Schema = internalServerErrorSchema;
 
 export const chatsUpdateVersionResponseSchema = chatsUpdateVersionStatus200Schema;
 
@@ -2620,21 +2735,21 @@ export const chatsDownloadVersionQueryIncludeDefaultFilesSchema = z
 
 export const chatsDownloadVersionStatus200Schema = z.unknown();
 
-export const chatsDownloadVersionStatus401Schema = z.unknown();
+export const chatsDownloadVersionStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsDownloadVersionStatus403Schema = z.unknown();
+export const chatsDownloadVersionStatus403Schema = forbiddenErrorSchema;
 
-export const chatsDownloadVersionStatus404Schema = z.unknown();
+export const chatsDownloadVersionStatus404Schema = notFoundErrorSchema;
 
-export const chatsDownloadVersionStatus409Schema = z.unknown();
+export const chatsDownloadVersionStatus409Schema = conflictErrorSchema;
 
-export const chatsDownloadVersionStatus413Schema = z.unknown();
+export const chatsDownloadVersionStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsDownloadVersionStatus422Schema = z.unknown();
+export const chatsDownloadVersionStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsDownloadVersionStatus429Schema = z.unknown();
+export const chatsDownloadVersionStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsDownloadVersionStatus500Schema = z.unknown();
+export const chatsDownloadVersionStatus500Schema = internalServerErrorSchema;
 
 export const chatsDownloadVersionResponseSchema = chatsDownloadVersionStatus200Schema;
 
@@ -2657,23 +2772,25 @@ export const chatsDeleteVersionFilesPathVersionIdSchema = z
 	.string()
 	.describe("The unique identifier of the version (block) to delete files from.");
 
-export const chatsDeleteVersionFilesStatus200Schema = z.unknown();
+export const chatsDeleteVersionFilesStatus200Schema = versionDetailSchema.describe(
+	"Detailed version data including file contents.",
+);
 
-export const chatsDeleteVersionFilesStatus401Schema = z.unknown();
+export const chatsDeleteVersionFilesStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsDeleteVersionFilesStatus403Schema = z.unknown();
+export const chatsDeleteVersionFilesStatus403Schema = forbiddenErrorSchema;
 
-export const chatsDeleteVersionFilesStatus404Schema = z.unknown();
+export const chatsDeleteVersionFilesStatus404Schema = notFoundErrorSchema;
 
-export const chatsDeleteVersionFilesStatus409Schema = z.unknown();
+export const chatsDeleteVersionFilesStatus409Schema = conflictErrorSchema;
 
-export const chatsDeleteVersionFilesStatus413Schema = z.unknown();
+export const chatsDeleteVersionFilesStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsDeleteVersionFilesStatus422Schema = z.unknown();
+export const chatsDeleteVersionFilesStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsDeleteVersionFilesStatus429Schema = z.unknown();
+export const chatsDeleteVersionFilesStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsDeleteVersionFilesStatus500Schema = z.unknown();
+export const chatsDeleteVersionFilesStatus500Schema = internalServerErrorSchema;
 
 export const chatsDeleteVersionFilesResponseSchema = chatsDeleteVersionFilesStatus200Schema;
 
@@ -2706,21 +2823,21 @@ export const chatsResumePathMessageIdSchema = z
 
 export const chatsResumeStatus200Schema = z.unknown();
 
-export const chatsResumeStatus401Schema = z.unknown();
+export const chatsResumeStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsResumeStatus403Schema = z.unknown();
+export const chatsResumeStatus403Schema = forbiddenErrorSchema;
 
-export const chatsResumeStatus404Schema = z.unknown();
+export const chatsResumeStatus404Schema = notFoundErrorSchema;
 
-export const chatsResumeStatus409Schema = z.unknown();
+export const chatsResumeStatus409Schema = conflictErrorSchema;
 
-export const chatsResumeStatus413Schema = z.unknown();
+export const chatsResumeStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsResumeStatus422Schema = z.unknown();
+export const chatsResumeStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsResumeStatus429Schema = z.unknown();
+export const chatsResumeStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsResumeStatus500Schema = z.unknown();
+export const chatsResumeStatus500Schema = internalServerErrorSchema;
 
 export const chatsResumeResponseSchema = chatsResumeStatus200Schema;
 
@@ -2745,23 +2862,25 @@ export const chatsStopPathMessageIdSchema = z
 	.string()
 	.describe("The identifier of the specific message to stop. Provided as a path parameter.");
 
-export const chatsStopStatus200Schema = z.unknown();
+export const chatsStopStatus200Schema = z.strictObject({
+	success: z.literal(true),
+});
 
-export const chatsStopStatus401Schema = z.unknown();
+export const chatsStopStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsStopStatus403Schema = z.unknown();
+export const chatsStopStatus403Schema = forbiddenErrorSchema;
 
-export const chatsStopStatus404Schema = z.unknown();
+export const chatsStopStatus404Schema = notFoundErrorSchema;
 
-export const chatsStopStatus409Schema = z.unknown();
+export const chatsStopStatus409Schema = conflictErrorSchema;
 
-export const chatsStopStatus413Schema = z.unknown();
+export const chatsStopStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsStopStatus422Schema = z.unknown();
+export const chatsStopStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsStopStatus429Schema = z.unknown();
+export const chatsStopStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsStopStatus500Schema = z.unknown();
+export const chatsStopStatus500Schema = internalServerErrorSchema;
 
 export const chatsStopResponseSchema = chatsStopStatus200Schema;
 
@@ -2782,23 +2901,25 @@ export const chatsResolveTaskPathChatIdSchema = z
 		"The unique identifier of the chat containing the pending task. Provided as a path parameter.",
 	);
 
-export const chatsResolveTaskStatus200Schema = z.unknown();
+export const chatsResolveTaskStatus200Schema = chatDetailSchema.describe(
+	"Detailed representation of a chat, including its messages, files, versions, and model configuration.",
+);
 
-export const chatsResolveTaskStatus401Schema = z.unknown();
+export const chatsResolveTaskStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsResolveTaskStatus403Schema = z.unknown();
+export const chatsResolveTaskStatus403Schema = forbiddenErrorSchema;
 
-export const chatsResolveTaskStatus404Schema = z.unknown();
+export const chatsResolveTaskStatus404Schema = notFoundErrorSchema;
 
-export const chatsResolveTaskStatus409Schema = z.unknown();
+export const chatsResolveTaskStatus409Schema = conflictErrorSchema;
 
-export const chatsResolveTaskStatus413Schema = z.unknown();
+export const chatsResolveTaskStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsResolveTaskStatus422Schema = z.unknown();
+export const chatsResolveTaskStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsResolveTaskStatus429Schema = z.unknown();
+export const chatsResolveTaskStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsResolveTaskStatus500Schema = z.unknown();
+export const chatsResolveTaskStatus500Schema = internalServerErrorSchema;
 
 export const chatsResolveTaskResponseSchema = chatsResolveTaskStatus200Schema;
 
@@ -3001,23 +3122,26 @@ export const deploymentsFindQueryVersionIdSchema = z
 	.string()
 	.describe("The ID of the version to find deployments for");
 
-export const deploymentsFindStatus200Schema = z.unknown();
+export const deploymentsFindStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(deploymentDetailSchema),
+});
 
-export const deploymentsFindStatus401Schema = z.unknown();
+export const deploymentsFindStatus401Schema = unauthorizedErrorSchema;
 
-export const deploymentsFindStatus403Schema = z.unknown();
+export const deploymentsFindStatus403Schema = forbiddenErrorSchema;
 
-export const deploymentsFindStatus404Schema = z.unknown();
+export const deploymentsFindStatus404Schema = notFoundErrorSchema;
 
-export const deploymentsFindStatus409Schema = z.unknown();
+export const deploymentsFindStatus409Schema = conflictErrorSchema;
 
-export const deploymentsFindStatus413Schema = z.unknown();
+export const deploymentsFindStatus413Schema = payloadTooLargeErrorSchema;
 
-export const deploymentsFindStatus422Schema = z.unknown();
+export const deploymentsFindStatus422Schema = unprocessableEntityErrorSchema;
 
-export const deploymentsFindStatus429Schema = z.unknown();
+export const deploymentsFindStatus429Schema = tooManyRequestsErrorSchema;
 
-export const deploymentsFindStatus500Schema = z.unknown();
+export const deploymentsFindStatus500Schema = internalServerErrorSchema;
 
 export const deploymentsFindResponseSchema = deploymentsFindStatus200Schema;
 
@@ -3032,23 +3156,23 @@ export const deploymentsFindErrorSchema = z.union([
 	deploymentsFindStatus500Schema,
 ]);
 
-export const deploymentsCreateStatus200Schema = z.unknown();
+export const deploymentsCreateStatus200Schema = deploymentDetailSchema;
 
-export const deploymentsCreateStatus401Schema = z.unknown();
+export const deploymentsCreateStatus401Schema = unauthorizedErrorSchema;
 
-export const deploymentsCreateStatus403Schema = z.unknown();
+export const deploymentsCreateStatus403Schema = forbiddenErrorSchema;
 
-export const deploymentsCreateStatus404Schema = z.unknown();
+export const deploymentsCreateStatus404Schema = notFoundErrorSchema;
 
-export const deploymentsCreateStatus409Schema = z.unknown();
+export const deploymentsCreateStatus409Schema = conflictErrorSchema;
 
-export const deploymentsCreateStatus413Schema = z.unknown();
+export const deploymentsCreateStatus413Schema = payloadTooLargeErrorSchema;
 
-export const deploymentsCreateStatus422Schema = z.unknown();
+export const deploymentsCreateStatus422Schema = unprocessableEntityErrorSchema;
 
-export const deploymentsCreateStatus429Schema = z.unknown();
+export const deploymentsCreateStatus429Schema = tooManyRequestsErrorSchema;
 
-export const deploymentsCreateStatus500Schema = z.unknown();
+export const deploymentsCreateStatus500Schema = internalServerErrorSchema;
 
 export const deploymentsCreateResponseSchema = deploymentsCreateStatus200Schema;
 
@@ -3073,23 +3197,23 @@ export const deploymentsGetByIdPathDeploymentIdSchema = z
 	.string()
 	.describe('Path parameter "deploymentId"');
 
-export const deploymentsGetByIdStatus200Schema = z.unknown();
+export const deploymentsGetByIdStatus200Schema = deploymentDetailSchema;
 
-export const deploymentsGetByIdStatus401Schema = z.unknown();
+export const deploymentsGetByIdStatus401Schema = unauthorizedErrorSchema;
 
-export const deploymentsGetByIdStatus403Schema = z.unknown();
+export const deploymentsGetByIdStatus403Schema = forbiddenErrorSchema;
 
-export const deploymentsGetByIdStatus404Schema = z.unknown();
+export const deploymentsGetByIdStatus404Schema = notFoundErrorSchema;
 
-export const deploymentsGetByIdStatus409Schema = z.unknown();
+export const deploymentsGetByIdStatus409Schema = conflictErrorSchema;
 
-export const deploymentsGetByIdStatus413Schema = z.unknown();
+export const deploymentsGetByIdStatus413Schema = payloadTooLargeErrorSchema;
 
-export const deploymentsGetByIdStatus422Schema = z.unknown();
+export const deploymentsGetByIdStatus422Schema = unprocessableEntityErrorSchema;
 
-export const deploymentsGetByIdStatus429Schema = z.unknown();
+export const deploymentsGetByIdStatus429Schema = tooManyRequestsErrorSchema;
 
-export const deploymentsGetByIdStatus500Schema = z.unknown();
+export const deploymentsGetByIdStatus500Schema = internalServerErrorSchema;
 
 export const deploymentsGetByIdResponseSchema = deploymentsGetByIdStatus200Schema;
 
@@ -3108,23 +3232,27 @@ export const deploymentsDeletePathDeploymentIdSchema = z
 	.string()
 	.describe('Path parameter "deploymentId"');
 
-export const deploymentsDeleteStatus200Schema = z.unknown();
+export const deploymentsDeleteStatus200Schema = z.strictObject({
+	id: z.string(),
+	object: z.enum(["deployment"]),
+	deleted: z.literal(true),
+});
 
-export const deploymentsDeleteStatus401Schema = z.unknown();
+export const deploymentsDeleteStatus401Schema = unauthorizedErrorSchema;
 
-export const deploymentsDeleteStatus403Schema = z.unknown();
+export const deploymentsDeleteStatus403Schema = forbiddenErrorSchema;
 
-export const deploymentsDeleteStatus404Schema = z.unknown();
+export const deploymentsDeleteStatus404Schema = notFoundErrorSchema;
 
-export const deploymentsDeleteStatus409Schema = z.unknown();
+export const deploymentsDeleteStatus409Schema = conflictErrorSchema;
 
-export const deploymentsDeleteStatus413Schema = z.unknown();
+export const deploymentsDeleteStatus413Schema = payloadTooLargeErrorSchema;
 
-export const deploymentsDeleteStatus422Schema = z.unknown();
+export const deploymentsDeleteStatus422Schema = unprocessableEntityErrorSchema;
 
-export const deploymentsDeleteStatus429Schema = z.unknown();
+export const deploymentsDeleteStatus429Schema = tooManyRequestsErrorSchema;
 
-export const deploymentsDeleteStatus500Schema = z.unknown();
+export const deploymentsDeleteStatus500Schema = internalServerErrorSchema;
 
 export const deploymentsDeleteResponseSchema = deploymentsDeleteStatus200Schema;
 
@@ -3152,23 +3280,43 @@ export const deploymentsFindLogsQuerySinceSchema = z
 		"A UNIX timestamp (in seconds) used to filter logs. Returns only log entries generated after the specified time.",
 	);
 
-export const deploymentsFindLogsStatus200Schema = z.unknown();
+export const deploymentsFindLogsStatus200Schema = z.strictObject({
+	logs: z
+		.array(
+			z.strictObject({
+				createdAt: z.string().describe("Log creation timestamp."),
+				deploymentId: z.string().describe("Deployment ID."),
+				id: z.string().describe("Log entry ID."),
+				text: z.string().describe("Log message content."),
+				type: z.enum(["stderr", "stdout"]).describe("Output stream type."),
+				level: z
+					.enum(["error", "info", "warning"])
+					.optional()
+					.default("info")
+					.describe("Log severity level."),
+				object: z.enum(["deployment_log"]).describe("Object type identifier."),
+			}),
+		)
+		.describe("Array of log entries."),
+	nextSince: z.number().optional().describe("Timestamp for pagination."),
+	object: z.enum(["list"]).describe("Object type identifier."),
+});
 
-export const deploymentsFindLogsStatus401Schema = z.unknown();
+export const deploymentsFindLogsStatus401Schema = unauthorizedErrorSchema;
 
-export const deploymentsFindLogsStatus403Schema = z.unknown();
+export const deploymentsFindLogsStatus403Schema = forbiddenErrorSchema;
 
-export const deploymentsFindLogsStatus404Schema = z.unknown();
+export const deploymentsFindLogsStatus404Schema = notFoundErrorSchema;
 
-export const deploymentsFindLogsStatus409Schema = z.unknown();
+export const deploymentsFindLogsStatus409Schema = conflictErrorSchema;
 
-export const deploymentsFindLogsStatus413Schema = z.unknown();
+export const deploymentsFindLogsStatus413Schema = payloadTooLargeErrorSchema;
 
-export const deploymentsFindLogsStatus422Schema = z.unknown();
+export const deploymentsFindLogsStatus422Schema = unprocessableEntityErrorSchema;
 
-export const deploymentsFindLogsStatus429Schema = z.unknown();
+export const deploymentsFindLogsStatus429Schema = tooManyRequestsErrorSchema;
 
-export const deploymentsFindLogsStatus500Schema = z.unknown();
+export const deploymentsFindLogsStatus500Schema = internalServerErrorSchema;
 
 export const deploymentsFindLogsResponseSchema = deploymentsFindLogsStatus200Schema;
 
@@ -3189,23 +3337,27 @@ export const deploymentsFindErrorsPathDeploymentIdSchema = z
 		"The unique identifier of the deployment to inspect for errors. Provided as a path parameter.",
 	);
 
-export const deploymentsFindErrorsStatus200Schema = z.unknown();
+export const deploymentsFindErrorsStatus200Schema = z.strictObject({
+	fullErrorText: z.string().optional(),
+	errorType: z.string().optional(),
+	formattedError: z.string().optional(),
+});
 
-export const deploymentsFindErrorsStatus401Schema = z.unknown();
+export const deploymentsFindErrorsStatus401Schema = unauthorizedErrorSchema;
 
-export const deploymentsFindErrorsStatus403Schema = z.unknown();
+export const deploymentsFindErrorsStatus403Schema = forbiddenErrorSchema;
 
-export const deploymentsFindErrorsStatus404Schema = z.unknown();
+export const deploymentsFindErrorsStatus404Schema = notFoundErrorSchema;
 
-export const deploymentsFindErrorsStatus409Schema = z.unknown();
+export const deploymentsFindErrorsStatus409Schema = conflictErrorSchema;
 
-export const deploymentsFindErrorsStatus413Schema = z.unknown();
+export const deploymentsFindErrorsStatus413Schema = payloadTooLargeErrorSchema;
 
-export const deploymentsFindErrorsStatus422Schema = z.unknown();
+export const deploymentsFindErrorsStatus422Schema = unprocessableEntityErrorSchema;
 
-export const deploymentsFindErrorsStatus429Schema = z.unknown();
+export const deploymentsFindErrorsStatus429Schema = tooManyRequestsErrorSchema;
 
-export const deploymentsFindErrorsStatus500Schema = z.unknown();
+export const deploymentsFindErrorsStatus500Schema = internalServerErrorSchema;
 
 export const deploymentsFindErrorsResponseSchema = deploymentsFindErrorsStatus200Schema;
 
@@ -3220,23 +3372,26 @@ export const deploymentsFindErrorsErrorSchema = z.union([
 	deploymentsFindErrorsStatus500Schema,
 ]);
 
-export const hooksFindStatus200Schema = z.unknown();
+export const hooksFindStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(hookSummarySchema),
+});
 
-export const hooksFindStatus401Schema = z.unknown();
+export const hooksFindStatus401Schema = unauthorizedErrorSchema;
 
-export const hooksFindStatus403Schema = z.unknown();
+export const hooksFindStatus403Schema = forbiddenErrorSchema;
 
-export const hooksFindStatus404Schema = z.unknown();
+export const hooksFindStatus404Schema = notFoundErrorSchema;
 
-export const hooksFindStatus409Schema = z.unknown();
+export const hooksFindStatus409Schema = conflictErrorSchema;
 
-export const hooksFindStatus413Schema = z.unknown();
+export const hooksFindStatus413Schema = payloadTooLargeErrorSchema;
 
-export const hooksFindStatus422Schema = z.unknown();
+export const hooksFindStatus422Schema = unprocessableEntityErrorSchema;
 
-export const hooksFindStatus429Schema = z.unknown();
+export const hooksFindStatus429Schema = tooManyRequestsErrorSchema;
 
-export const hooksFindStatus500Schema = z.unknown();
+export const hooksFindStatus500Schema = internalServerErrorSchema;
 
 export const hooksFindResponseSchema = hooksFindStatus200Schema;
 
@@ -3251,23 +3406,25 @@ export const hooksFindErrorSchema = z.union([
 	hooksFindStatus500Schema,
 ]);
 
-export const hooksCreateStatus200Schema = z.unknown();
+export const hooksCreateStatus200Schema = hookDetailSchema.describe(
+	"Full configuration details for a webhook, including its scope and subscription.",
+);
 
-export const hooksCreateStatus401Schema = z.unknown();
+export const hooksCreateStatus401Schema = unauthorizedErrorSchema;
 
-export const hooksCreateStatus403Schema = z.unknown();
+export const hooksCreateStatus403Schema = forbiddenErrorSchema;
 
-export const hooksCreateStatus404Schema = z.unknown();
+export const hooksCreateStatus404Schema = notFoundErrorSchema;
 
-export const hooksCreateStatus409Schema = z.unknown();
+export const hooksCreateStatus409Schema = conflictErrorSchema;
 
-export const hooksCreateStatus413Schema = z.unknown();
+export const hooksCreateStatus413Schema = payloadTooLargeErrorSchema;
 
-export const hooksCreateStatus422Schema = z.unknown();
+export const hooksCreateStatus422Schema = unprocessableEntityErrorSchema;
 
-export const hooksCreateStatus429Schema = z.unknown();
+export const hooksCreateStatus429Schema = tooManyRequestsErrorSchema;
 
-export const hooksCreateStatus500Schema = z.unknown();
+export const hooksCreateStatus500Schema = internalServerErrorSchema;
 
 export const hooksCreateResponseSchema = hooksCreateStatus200Schema;
 
@@ -3305,23 +3462,25 @@ export const hooksGetByIdPathHookIdSchema = z
 	.string()
 	.describe("The unique identifier of the hook to retrieve.");
 
-export const hooksGetByIdStatus200Schema = z.unknown();
+export const hooksGetByIdStatus200Schema = hookDetailSchema.describe(
+	"Full configuration details for a webhook, including its scope and subscription.",
+);
 
-export const hooksGetByIdStatus401Schema = z.unknown();
+export const hooksGetByIdStatus401Schema = unauthorizedErrorSchema;
 
-export const hooksGetByIdStatus403Schema = z.unknown();
+export const hooksGetByIdStatus403Schema = forbiddenErrorSchema;
 
-export const hooksGetByIdStatus404Schema = z.unknown();
+export const hooksGetByIdStatus404Schema = notFoundErrorSchema;
 
-export const hooksGetByIdStatus409Schema = z.unknown();
+export const hooksGetByIdStatus409Schema = conflictErrorSchema;
 
-export const hooksGetByIdStatus413Schema = z.unknown();
+export const hooksGetByIdStatus413Schema = payloadTooLargeErrorSchema;
 
-export const hooksGetByIdStatus422Schema = z.unknown();
+export const hooksGetByIdStatus422Schema = unprocessableEntityErrorSchema;
 
-export const hooksGetByIdStatus429Schema = z.unknown();
+export const hooksGetByIdStatus429Schema = tooManyRequestsErrorSchema;
 
-export const hooksGetByIdStatus500Schema = z.unknown();
+export const hooksGetByIdStatus500Schema = internalServerErrorSchema;
 
 export const hooksGetByIdResponseSchema = hooksGetByIdStatus200Schema;
 
@@ -3340,23 +3499,25 @@ export const hooksUpdatePathHookIdSchema = z
 	.string()
 	.describe("The ID of the webhook to update. Provided as a path parameter.");
 
-export const hooksUpdateStatus200Schema = z.unknown();
+export const hooksUpdateStatus200Schema = hookDetailSchema.describe(
+	"Full configuration details for a webhook, including its scope and subscription.",
+);
 
-export const hooksUpdateStatus401Schema = z.unknown();
+export const hooksUpdateStatus401Schema = unauthorizedErrorSchema;
 
-export const hooksUpdateStatus403Schema = z.unknown();
+export const hooksUpdateStatus403Schema = forbiddenErrorSchema;
 
-export const hooksUpdateStatus404Schema = z.unknown();
+export const hooksUpdateStatus404Schema = notFoundErrorSchema;
 
-export const hooksUpdateStatus409Schema = z.unknown();
+export const hooksUpdateStatus409Schema = conflictErrorSchema;
 
-export const hooksUpdateStatus413Schema = z.unknown();
+export const hooksUpdateStatus413Schema = payloadTooLargeErrorSchema;
 
-export const hooksUpdateStatus422Schema = z.unknown();
+export const hooksUpdateStatus422Schema = unprocessableEntityErrorSchema;
 
-export const hooksUpdateStatus429Schema = z.unknown();
+export const hooksUpdateStatus429Schema = tooManyRequestsErrorSchema;
 
-export const hooksUpdateStatus500Schema = z.unknown();
+export const hooksUpdateStatus500Schema = internalServerErrorSchema;
 
 export const hooksUpdateResponseSchema = hooksUpdateStatus200Schema;
 
@@ -3394,23 +3555,27 @@ export const hooksDeletePathHookIdSchema = z
 	.string()
 	.describe("The ID of the webhook to delete. Provided as a path parameter.");
 
-export const hooksDeleteStatus200Schema = z.unknown();
+export const hooksDeleteStatus200Schema = z.strictObject({
+	id: z.string(),
+	object: z.enum(["hook"]),
+	deleted: z.literal(true),
+});
 
-export const hooksDeleteStatus401Schema = z.unknown();
+export const hooksDeleteStatus401Schema = unauthorizedErrorSchema;
 
-export const hooksDeleteStatus403Schema = z.unknown();
+export const hooksDeleteStatus403Schema = forbiddenErrorSchema;
 
-export const hooksDeleteStatus404Schema = z.unknown();
+export const hooksDeleteStatus404Schema = notFoundErrorSchema;
 
-export const hooksDeleteStatus409Schema = z.unknown();
+export const hooksDeleteStatus409Schema = conflictErrorSchema;
 
-export const hooksDeleteStatus413Schema = z.unknown();
+export const hooksDeleteStatus413Schema = payloadTooLargeErrorSchema;
 
-export const hooksDeleteStatus422Schema = z.unknown();
+export const hooksDeleteStatus422Schema = unprocessableEntityErrorSchema;
 
-export const hooksDeleteStatus429Schema = z.unknown();
+export const hooksDeleteStatus429Schema = tooManyRequestsErrorSchema;
 
-export const hooksDeleteStatus500Schema = z.unknown();
+export const hooksDeleteStatus500Schema = internalServerErrorSchema;
 
 export const hooksDeleteResponseSchema = hooksDeleteStatus200Schema;
 
@@ -3425,23 +3590,26 @@ export const hooksDeleteErrorSchema = z.union([
 	hooksDeleteStatus500Schema,
 ]);
 
-export const integrationsVercelProjectsFindStatus200Schema = z.unknown();
+export const integrationsVercelProjectsFindStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(vercelProjectSummarySchema),
+});
 
-export const integrationsVercelProjectsFindStatus401Schema = z.unknown();
+export const integrationsVercelProjectsFindStatus401Schema = unauthorizedErrorSchema;
 
-export const integrationsVercelProjectsFindStatus403Schema = z.unknown();
+export const integrationsVercelProjectsFindStatus403Schema = forbiddenErrorSchema;
 
-export const integrationsVercelProjectsFindStatus404Schema = z.unknown();
+export const integrationsVercelProjectsFindStatus404Schema = notFoundErrorSchema;
 
-export const integrationsVercelProjectsFindStatus409Schema = z.unknown();
+export const integrationsVercelProjectsFindStatus409Schema = conflictErrorSchema;
 
-export const integrationsVercelProjectsFindStatus413Schema = z.unknown();
+export const integrationsVercelProjectsFindStatus413Schema = payloadTooLargeErrorSchema;
 
-export const integrationsVercelProjectsFindStatus422Schema = z.unknown();
+export const integrationsVercelProjectsFindStatus422Schema = unprocessableEntityErrorSchema;
 
-export const integrationsVercelProjectsFindStatus429Schema = z.unknown();
+export const integrationsVercelProjectsFindStatus429Schema = tooManyRequestsErrorSchema;
 
-export const integrationsVercelProjectsFindStatus500Schema = z.unknown();
+export const integrationsVercelProjectsFindStatus500Schema = internalServerErrorSchema;
 
 export const integrationsVercelProjectsFindResponseSchema =
 	integrationsVercelProjectsFindStatus200Schema;
@@ -3457,23 +3625,23 @@ export const integrationsVercelProjectsFindErrorSchema = z.union([
 	integrationsVercelProjectsFindStatus500Schema,
 ]);
 
-export const integrationsVercelProjectsCreateStatus200Schema = z.unknown();
+export const integrationsVercelProjectsCreateStatus200Schema = vercelProjectDetailSchema;
 
-export const integrationsVercelProjectsCreateStatus401Schema = z.unknown();
+export const integrationsVercelProjectsCreateStatus401Schema = unauthorizedErrorSchema;
 
-export const integrationsVercelProjectsCreateStatus403Schema = z.unknown();
+export const integrationsVercelProjectsCreateStatus403Schema = forbiddenErrorSchema;
 
-export const integrationsVercelProjectsCreateStatus404Schema = z.unknown();
+export const integrationsVercelProjectsCreateStatus404Schema = notFoundErrorSchema;
 
-export const integrationsVercelProjectsCreateStatus409Schema = z.unknown();
+export const integrationsVercelProjectsCreateStatus409Schema = conflictErrorSchema;
 
-export const integrationsVercelProjectsCreateStatus413Schema = z.unknown();
+export const integrationsVercelProjectsCreateStatus413Schema = payloadTooLargeErrorSchema;
 
-export const integrationsVercelProjectsCreateStatus422Schema = z.unknown();
+export const integrationsVercelProjectsCreateStatus422Schema = unprocessableEntityErrorSchema;
 
-export const integrationsVercelProjectsCreateStatus429Schema = z.unknown();
+export const integrationsVercelProjectsCreateStatus429Schema = tooManyRequestsErrorSchema;
 
-export const integrationsVercelProjectsCreateStatus500Schema = z.unknown();
+export const integrationsVercelProjectsCreateStatus500Schema = internalServerErrorSchema;
 
 export const integrationsVercelProjectsCreateResponseSchema =
 	integrationsVercelProjectsCreateStatus200Schema;
@@ -3494,23 +3662,26 @@ export const integrationsVercelProjectsCreateBodySchema = z.strictObject({
 	name: z.string().describe("The name to assign to the new Vercel project."),
 });
 
-export const projectsFindStatus200Schema = z.unknown();
+export const projectsFindStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(projectSummarySchema),
+});
 
-export const projectsFindStatus401Schema = z.unknown();
+export const projectsFindStatus401Schema = unauthorizedErrorSchema;
 
-export const projectsFindStatus403Schema = z.unknown();
+export const projectsFindStatus403Schema = forbiddenErrorSchema;
 
-export const projectsFindStatus404Schema = z.unknown();
+export const projectsFindStatus404Schema = notFoundErrorSchema;
 
-export const projectsFindStatus409Schema = z.unknown();
+export const projectsFindStatus409Schema = conflictErrorSchema;
 
-export const projectsFindStatus413Schema = z.unknown();
+export const projectsFindStatus413Schema = payloadTooLargeErrorSchema;
 
-export const projectsFindStatus422Schema = z.unknown();
+export const projectsFindStatus422Schema = unprocessableEntityErrorSchema;
 
-export const projectsFindStatus429Schema = z.unknown();
+export const projectsFindStatus429Schema = tooManyRequestsErrorSchema;
 
-export const projectsFindStatus500Schema = z.unknown();
+export const projectsFindStatus500Schema = internalServerErrorSchema;
 
 export const projectsFindResponseSchema = projectsFindStatus200Schema;
 
@@ -3525,23 +3696,25 @@ export const projectsFindErrorSchema = z.union([
 	projectsFindStatus500Schema,
 ]);
 
-export const projectsCreateStatus200Schema = z.unknown();
+export const projectsCreateStatus200Schema = projectDetailSchema.describe(
+	"Full representation of a project, including its associated chats.",
+);
 
-export const projectsCreateStatus401Schema = z.unknown();
+export const projectsCreateStatus401Schema = unauthorizedErrorSchema;
 
-export const projectsCreateStatus403Schema = z.unknown();
+export const projectsCreateStatus403Schema = forbiddenErrorSchema;
 
-export const projectsCreateStatus404Schema = z.unknown();
+export const projectsCreateStatus404Schema = notFoundErrorSchema;
 
-export const projectsCreateStatus409Schema = z.unknown();
+export const projectsCreateStatus409Schema = conflictErrorSchema;
 
-export const projectsCreateStatus413Schema = z.unknown();
+export const projectsCreateStatus413Schema = payloadTooLargeErrorSchema;
 
-export const projectsCreateStatus422Schema = z.unknown();
+export const projectsCreateStatus422Schema = unprocessableEntityErrorSchema;
 
-export const projectsCreateStatus429Schema = z.unknown();
+export const projectsCreateStatus429Schema = tooManyRequestsErrorSchema;
 
-export const projectsCreateStatus500Schema = z.unknown();
+export const projectsCreateStatus500Schema = internalServerErrorSchema;
 
 export const projectsCreateResponseSchema = projectsCreateStatus200Schema;
 
@@ -3602,23 +3775,25 @@ export const projectsGetByIdPathProjectIdSchema = z
 	.string()
 	.describe("The unique identifier of the project to retrieve.");
 
-export const projectsGetByIdStatus200Schema = z.unknown();
+export const projectsGetByIdStatus200Schema = projectDetailSchema.describe(
+	"Full representation of a project, including its associated chats.",
+);
 
-export const projectsGetByIdStatus401Schema = z.unknown();
+export const projectsGetByIdStatus401Schema = unauthorizedErrorSchema;
 
-export const projectsGetByIdStatus403Schema = z.unknown();
+export const projectsGetByIdStatus403Schema = forbiddenErrorSchema;
 
-export const projectsGetByIdStatus404Schema = z.unknown();
+export const projectsGetByIdStatus404Schema = notFoundErrorSchema;
 
-export const projectsGetByIdStatus409Schema = z.unknown();
+export const projectsGetByIdStatus409Schema = conflictErrorSchema;
 
-export const projectsGetByIdStatus413Schema = z.unknown();
+export const projectsGetByIdStatus413Schema = payloadTooLargeErrorSchema;
 
-export const projectsGetByIdStatus422Schema = z.unknown();
+export const projectsGetByIdStatus422Schema = unprocessableEntityErrorSchema;
 
-export const projectsGetByIdStatus429Schema = z.unknown();
+export const projectsGetByIdStatus429Schema = tooManyRequestsErrorSchema;
 
-export const projectsGetByIdStatus500Schema = z.unknown();
+export const projectsGetByIdStatus500Schema = internalServerErrorSchema;
 
 export const projectsGetByIdResponseSchema = projectsGetByIdStatus200Schema;
 
@@ -3637,23 +3812,25 @@ export const projectsUpdatePathProjectIdSchema = z
 	.string()
 	.describe("The unique identifier of the project to update. Provided as a path parameter.");
 
-export const projectsUpdateStatus200Schema = z.unknown();
+export const projectsUpdateStatus200Schema = projectDetailSchema.describe(
+	"Full representation of a project, including its associated chats.",
+);
 
-export const projectsUpdateStatus401Schema = z.unknown();
+export const projectsUpdateStatus401Schema = unauthorizedErrorSchema;
 
-export const projectsUpdateStatus403Schema = z.unknown();
+export const projectsUpdateStatus403Schema = forbiddenErrorSchema;
 
-export const projectsUpdateStatus404Schema = z.unknown();
+export const projectsUpdateStatus404Schema = notFoundErrorSchema;
 
-export const projectsUpdateStatus409Schema = z.unknown();
+export const projectsUpdateStatus409Schema = conflictErrorSchema;
 
-export const projectsUpdateStatus413Schema = z.unknown();
+export const projectsUpdateStatus413Schema = payloadTooLargeErrorSchema;
 
-export const projectsUpdateStatus422Schema = z.unknown();
+export const projectsUpdateStatus422Schema = unprocessableEntityErrorSchema;
 
-export const projectsUpdateStatus429Schema = z.unknown();
+export const projectsUpdateStatus429Schema = tooManyRequestsErrorSchema;
 
-export const projectsUpdateStatus500Schema = z.unknown();
+export const projectsUpdateStatus500Schema = internalServerErrorSchema;
 
 export const projectsUpdateResponseSchema = projectsUpdateStatus200Schema;
 
@@ -3707,23 +3884,27 @@ export const projectsDeleteQueryDeleteAllChatsSchema = z
 		"If true, deletes all the chats associated with the given project ID. Deleting is permanent. Defaults to false.",
 	);
 
-export const projectsDeleteStatus200Schema = z.unknown();
+export const projectsDeleteStatus200Schema = z.strictObject({
+	id: z.string().describe("The unique identifier of the deleted project."),
+	object: z.enum(["project"]).describe("Fixed value identifying this object as a project."),
+	deleted: z.literal(true).describe("Confirmation that the project has been deleted."),
+});
 
-export const projectsDeleteStatus401Schema = z.unknown();
+export const projectsDeleteStatus401Schema = unauthorizedErrorSchema;
 
-export const projectsDeleteStatus403Schema = z.unknown();
+export const projectsDeleteStatus403Schema = forbiddenErrorSchema;
 
-export const projectsDeleteStatus404Schema = z.unknown();
+export const projectsDeleteStatus404Schema = notFoundErrorSchema;
 
-export const projectsDeleteStatus409Schema = z.unknown();
+export const projectsDeleteStatus409Schema = conflictErrorSchema;
 
-export const projectsDeleteStatus413Schema = z.unknown();
+export const projectsDeleteStatus413Schema = payloadTooLargeErrorSchema;
 
-export const projectsDeleteStatus422Schema = z.unknown();
+export const projectsDeleteStatus422Schema = unprocessableEntityErrorSchema;
 
-export const projectsDeleteStatus429Schema = z.unknown();
+export const projectsDeleteStatus429Schema = tooManyRequestsErrorSchema;
 
-export const projectsDeleteStatus500Schema = z.unknown();
+export const projectsDeleteStatus500Schema = internalServerErrorSchema;
 
 export const projectsDeleteResponseSchema = projectsDeleteStatus200Schema;
 
@@ -3742,23 +3923,27 @@ export const projectsAssignPathProjectIdSchema = z
 	.string()
 	.describe("The ID of the project to assign.");
 
-export const projectsAssignStatus200Schema = z.unknown();
+export const projectsAssignStatus200Schema = z.strictObject({
+	object: z.enum(["project"]),
+	id: z.string(),
+	assigned: z.literal(true),
+});
 
-export const projectsAssignStatus401Schema = z.unknown();
+export const projectsAssignStatus401Schema = unauthorizedErrorSchema;
 
-export const projectsAssignStatus403Schema = z.unknown();
+export const projectsAssignStatus403Schema = forbiddenErrorSchema;
 
-export const projectsAssignStatus404Schema = z.unknown();
+export const projectsAssignStatus404Schema = notFoundErrorSchema;
 
-export const projectsAssignStatus409Schema = z.unknown();
+export const projectsAssignStatus409Schema = conflictErrorSchema;
 
-export const projectsAssignStatus413Schema = z.unknown();
+export const projectsAssignStatus413Schema = payloadTooLargeErrorSchema;
 
-export const projectsAssignStatus422Schema = z.unknown();
+export const projectsAssignStatus422Schema = unprocessableEntityErrorSchema;
 
-export const projectsAssignStatus429Schema = z.unknown();
+export const projectsAssignStatus429Schema = tooManyRequestsErrorSchema;
 
-export const projectsAssignStatus500Schema = z.unknown();
+export const projectsAssignStatus500Schema = internalServerErrorSchema;
 
 export const projectsAssignResponseSchema = projectsAssignStatus200Schema;
 
@@ -3788,23 +3973,26 @@ export const projectsFindEnvVarsQueryDecryptedSchema = z
 	.optional()
 	.describe("Whether to return decrypted values. Defaults to false (encrypted).");
 
-export const projectsFindEnvVarsStatus200Schema = z.unknown();
+export const projectsFindEnvVarsStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(environmentVariableSummarySchemaSchema),
+});
 
-export const projectsFindEnvVarsStatus401Schema = z.unknown();
+export const projectsFindEnvVarsStatus401Schema = unauthorizedErrorSchema;
 
-export const projectsFindEnvVarsStatus403Schema = z.unknown();
+export const projectsFindEnvVarsStatus403Schema = forbiddenErrorSchema;
 
-export const projectsFindEnvVarsStatus404Schema = z.unknown();
+export const projectsFindEnvVarsStatus404Schema = notFoundErrorSchema;
 
-export const projectsFindEnvVarsStatus409Schema = z.unknown();
+export const projectsFindEnvVarsStatus409Schema = conflictErrorSchema;
 
-export const projectsFindEnvVarsStatus413Schema = z.unknown();
+export const projectsFindEnvVarsStatus413Schema = payloadTooLargeErrorSchema;
 
-export const projectsFindEnvVarsStatus422Schema = z.unknown();
+export const projectsFindEnvVarsStatus422Schema = unprocessableEntityErrorSchema;
 
-export const projectsFindEnvVarsStatus429Schema = z.unknown();
+export const projectsFindEnvVarsStatus429Schema = tooManyRequestsErrorSchema;
 
-export const projectsFindEnvVarsStatus500Schema = z.unknown();
+export const projectsFindEnvVarsStatus500Schema = internalServerErrorSchema;
 
 export const projectsFindEnvVarsResponseSchema = projectsFindEnvVarsStatus200Schema;
 
@@ -3828,23 +4016,26 @@ export const projectsCreateEnvVarsQueryDecryptedSchema = z
 	.optional()
 	.describe("Whether to return decrypted values. Defaults to false (encrypted).");
 
-export const projectsCreateEnvVarsStatus200Schema = z.unknown();
+export const projectsCreateEnvVarsStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(environmentVariableSummarySchemaSchema),
+});
 
-export const projectsCreateEnvVarsStatus401Schema = z.unknown();
+export const projectsCreateEnvVarsStatus401Schema = unauthorizedErrorSchema;
 
-export const projectsCreateEnvVarsStatus403Schema = z.unknown();
+export const projectsCreateEnvVarsStatus403Schema = forbiddenErrorSchema;
 
-export const projectsCreateEnvVarsStatus404Schema = z.unknown();
+export const projectsCreateEnvVarsStatus404Schema = notFoundErrorSchema;
 
-export const projectsCreateEnvVarsStatus409Schema = z.unknown();
+export const projectsCreateEnvVarsStatus409Schema = conflictErrorSchema;
 
-export const projectsCreateEnvVarsStatus413Schema = z.unknown();
+export const projectsCreateEnvVarsStatus413Schema = payloadTooLargeErrorSchema;
 
-export const projectsCreateEnvVarsStatus422Schema = z.unknown();
+export const projectsCreateEnvVarsStatus422Schema = unprocessableEntityErrorSchema;
 
-export const projectsCreateEnvVarsStatus429Schema = z.unknown();
+export const projectsCreateEnvVarsStatus429Schema = tooManyRequestsErrorSchema;
 
-export const projectsCreateEnvVarsStatus500Schema = z.unknown();
+export const projectsCreateEnvVarsStatus500Schema = internalServerErrorSchema;
 
 export const projectsCreateEnvVarsResponseSchema = projectsCreateEnvVarsStatus200Schema;
 
@@ -3885,23 +4076,26 @@ export const projectsUpdateEnvVarsQueryDecryptedSchema = z
 	.optional()
 	.describe("Whether to return decrypted values. Defaults to false (encrypted).");
 
-export const projectsUpdateEnvVarsStatus200Schema = z.unknown();
+export const projectsUpdateEnvVarsStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(environmentVariableSummarySchemaSchema),
+});
 
-export const projectsUpdateEnvVarsStatus401Schema = z.unknown();
+export const projectsUpdateEnvVarsStatus401Schema = unauthorizedErrorSchema;
 
-export const projectsUpdateEnvVarsStatus403Schema = z.unknown();
+export const projectsUpdateEnvVarsStatus403Schema = forbiddenErrorSchema;
 
-export const projectsUpdateEnvVarsStatus404Schema = z.unknown();
+export const projectsUpdateEnvVarsStatus404Schema = notFoundErrorSchema;
 
-export const projectsUpdateEnvVarsStatus409Schema = z.unknown();
+export const projectsUpdateEnvVarsStatus409Schema = conflictErrorSchema;
 
-export const projectsUpdateEnvVarsStatus413Schema = z.unknown();
+export const projectsUpdateEnvVarsStatus413Schema = payloadTooLargeErrorSchema;
 
-export const projectsUpdateEnvVarsStatus422Schema = z.unknown();
+export const projectsUpdateEnvVarsStatus422Schema = unprocessableEntityErrorSchema;
 
-export const projectsUpdateEnvVarsStatus429Schema = z.unknown();
+export const projectsUpdateEnvVarsStatus429Schema = tooManyRequestsErrorSchema;
 
-export const projectsUpdateEnvVarsStatus500Schema = z.unknown();
+export const projectsUpdateEnvVarsStatus500Schema = internalServerErrorSchema;
 
 export const projectsUpdateEnvVarsResponseSchema = projectsUpdateEnvVarsStatus200Schema;
 
@@ -3931,23 +4125,32 @@ export const projectsDeleteEnvVarsPathProjectIdSchema = z
 	.string()
 	.describe("The unique identifier of the project whose environment variables should be deleted.");
 
-export const projectsDeleteEnvVarsStatus200Schema = z.unknown();
+export const projectsDeleteEnvVarsStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(
+		z.strictObject({
+			id: z.string(),
+			object: z.enum(["environment_variable"]),
+			deleted: z.literal(true),
+		}),
+	),
+});
 
-export const projectsDeleteEnvVarsStatus401Schema = z.unknown();
+export const projectsDeleteEnvVarsStatus401Schema = unauthorizedErrorSchema;
 
-export const projectsDeleteEnvVarsStatus403Schema = z.unknown();
+export const projectsDeleteEnvVarsStatus403Schema = forbiddenErrorSchema;
 
-export const projectsDeleteEnvVarsStatus404Schema = z.unknown();
+export const projectsDeleteEnvVarsStatus404Schema = notFoundErrorSchema;
 
-export const projectsDeleteEnvVarsStatus409Schema = z.unknown();
+export const projectsDeleteEnvVarsStatus409Schema = conflictErrorSchema;
 
-export const projectsDeleteEnvVarsStatus413Schema = z.unknown();
+export const projectsDeleteEnvVarsStatus413Schema = payloadTooLargeErrorSchema;
 
-export const projectsDeleteEnvVarsStatus422Schema = z.unknown();
+export const projectsDeleteEnvVarsStatus422Schema = unprocessableEntityErrorSchema;
 
-export const projectsDeleteEnvVarsStatus429Schema = z.unknown();
+export const projectsDeleteEnvVarsStatus429Schema = tooManyRequestsErrorSchema;
 
-export const projectsDeleteEnvVarsStatus500Schema = z.unknown();
+export const projectsDeleteEnvVarsStatus500Schema = internalServerErrorSchema;
 
 export const projectsDeleteEnvVarsResponseSchema = projectsDeleteEnvVarsStatus200Schema;
 
@@ -3981,23 +4184,28 @@ export const projectsGetEnvVarQueryDecryptedSchema = z
 	.optional()
 	.describe("Whether to return decrypted values. Defaults to false (encrypted).");
 
-export const projectsGetEnvVarStatus200Schema = z.unknown();
+export const projectsGetEnvVarStatus200Schema = z.strictObject({
+	object: z.enum(["environment_variable"]),
+	data: environmentVariableDetailSchemaSchema.describe(
+		"Detailed information for an environment variable including its value.",
+	),
+});
 
-export const projectsGetEnvVarStatus401Schema = z.unknown();
+export const projectsGetEnvVarStatus401Schema = unauthorizedErrorSchema;
 
-export const projectsGetEnvVarStatus403Schema = z.unknown();
+export const projectsGetEnvVarStatus403Schema = forbiddenErrorSchema;
 
-export const projectsGetEnvVarStatus404Schema = z.unknown();
+export const projectsGetEnvVarStatus404Schema = notFoundErrorSchema;
 
-export const projectsGetEnvVarStatus409Schema = z.unknown();
+export const projectsGetEnvVarStatus409Schema = conflictErrorSchema;
 
-export const projectsGetEnvVarStatus413Schema = z.unknown();
+export const projectsGetEnvVarStatus413Schema = payloadTooLargeErrorSchema;
 
-export const projectsGetEnvVarStatus422Schema = z.unknown();
+export const projectsGetEnvVarStatus422Schema = unprocessableEntityErrorSchema;
 
-export const projectsGetEnvVarStatus429Schema = z.unknown();
+export const projectsGetEnvVarStatus429Schema = tooManyRequestsErrorSchema;
 
-export const projectsGetEnvVarStatus500Schema = z.unknown();
+export const projectsGetEnvVarStatus500Schema = internalServerErrorSchema;
 
 export const projectsGetEnvVarResponseSchema = projectsGetEnvVarStatus200Schema;
 
@@ -4019,23 +4227,40 @@ export const rateLimitsFindQueryScopeSchema = z
 		"The context or namespace to check rate limits for (e.g., a project slug or feature area).",
 	);
 
-export const rateLimitsFindStatus200Schema = z.unknown();
+export const rateLimitsFindStatus200Schema = z.strictObject({
+	remaining: z.number().optional(),
+	reset: z.number().optional(),
+	limit: z.number(),
+	dailyLimit: z
+		.strictObject({
+			limit: z.number().describe("The maximum number of daily messages allowed for free users."),
+			remaining: z.number().describe("The number of messages the user has remaining for the day."),
+			reset: z.number().describe("Unix timestamp (in milliseconds) when the daily limit resets."),
+			isWithinGracePeriod: z
+				.boolean()
+				.describe(
+					"Whether the user is within the 48-hour grace period for new users, during which usage tracking is disabled.",
+				),
+		})
+		.optional()
+		.describe("Daily message limit information for free users."),
+});
 
-export const rateLimitsFindStatus401Schema = z.unknown();
+export const rateLimitsFindStatus401Schema = unauthorizedErrorSchema;
 
-export const rateLimitsFindStatus403Schema = z.unknown();
+export const rateLimitsFindStatus403Schema = forbiddenErrorSchema;
 
-export const rateLimitsFindStatus404Schema = z.unknown();
+export const rateLimitsFindStatus404Schema = notFoundErrorSchema;
 
-export const rateLimitsFindStatus409Schema = z.unknown();
+export const rateLimitsFindStatus409Schema = conflictErrorSchema;
 
-export const rateLimitsFindStatus413Schema = z.unknown();
+export const rateLimitsFindStatus413Schema = payloadTooLargeErrorSchema;
 
-export const rateLimitsFindStatus422Schema = z.unknown();
+export const rateLimitsFindStatus422Schema = unprocessableEntityErrorSchema;
 
-export const rateLimitsFindStatus429Schema = z.unknown();
+export const rateLimitsFindStatus429Schema = tooManyRequestsErrorSchema;
 
-export const rateLimitsFindStatus500Schema = z.unknown();
+export const rateLimitsFindStatus500Schema = internalServerErrorSchema;
 
 export const rateLimitsFindResponseSchema = rateLimitsFindStatus200Schema;
 
@@ -4050,23 +4275,25 @@ export const rateLimitsFindErrorSchema = z.union([
 	rateLimitsFindStatus500Schema,
 ]);
 
-export const userGetStatus200Schema = z.unknown();
+export const userGetStatus200Schema = userSummarySchemaSchema.describe(
+	"Details of the authenticated user, including profile and contact information.",
+);
 
-export const userGetStatus401Schema = z.unknown();
+export const userGetStatus401Schema = unauthorizedErrorSchema;
 
-export const userGetStatus403Schema = z.unknown();
+export const userGetStatus403Schema = forbiddenErrorSchema;
 
-export const userGetStatus404Schema = z.unknown();
+export const userGetStatus404Schema = notFoundErrorSchema;
 
-export const userGetStatus409Schema = z.unknown();
+export const userGetStatus409Schema = conflictErrorSchema;
 
-export const userGetStatus413Schema = z.unknown();
+export const userGetStatus413Schema = payloadTooLargeErrorSchema;
 
-export const userGetStatus422Schema = z.unknown();
+export const userGetStatus422Schema = unprocessableEntityErrorSchema;
 
-export const userGetStatus429Schema = z.unknown();
+export const userGetStatus429Schema = tooManyRequestsErrorSchema;
 
-export const userGetStatus500Schema = z.unknown();
+export const userGetStatus500Schema = internalServerErrorSchema;
 
 export const userGetResponseSchema = userGetStatus200Schema;
 
@@ -4086,23 +4313,61 @@ export const userGetBillingQueryScopeSchema = z
 	.optional()
 	.describe("Filters billing data by a specific scope, such as a project ID or slug.");
 
-export const userGetBillingStatus200Schema = z.unknown();
+export const userGetBillingStatus200Schema = z.discriminatedUnion("billingType", [
+	z.strictObject({
+		billingType: z.enum(["token"]),
+		data: z.strictObject({
+			plan: z.string(),
+			billingMode: z.enum(["test"]).optional(),
+			role: z.string(),
+			billingCycle: z.strictObject({
+				start: z.number(),
+				end: z.number(),
+			}),
+			balance: z.strictObject({
+				remaining: z.number(),
+				total: z.number(),
+			}),
+			onDemand: z.strictObject({
+				balance: z.number(),
+				blocks: z
+					.array(
+						z.strictObject({
+							expirationDate: z.number().optional(),
+							effectiveDate: z.number(),
+							originalBalance: z.number(),
+							currentBalance: z.number(),
+						}),
+					)
+					.optional(),
+			}),
+		}),
+	}),
+	z.strictObject({
+		billingType: z.enum(["legacy"]),
+		data: z.strictObject({
+			remaining: z.number().optional(),
+			reset: z.number().optional(),
+			limit: z.number(),
+		}),
+	}),
+]);
 
-export const userGetBillingStatus401Schema = z.unknown();
+export const userGetBillingStatus401Schema = unauthorizedErrorSchema;
 
-export const userGetBillingStatus403Schema = z.unknown();
+export const userGetBillingStatus403Schema = forbiddenErrorSchema;
 
-export const userGetBillingStatus404Schema = z.unknown();
+export const userGetBillingStatus404Schema = notFoundErrorSchema;
 
-export const userGetBillingStatus409Schema = z.unknown();
+export const userGetBillingStatus409Schema = conflictErrorSchema;
 
-export const userGetBillingStatus413Schema = z.unknown();
+export const userGetBillingStatus413Schema = payloadTooLargeErrorSchema;
 
-export const userGetBillingStatus422Schema = z.unknown();
+export const userGetBillingStatus422Schema = unprocessableEntityErrorSchema;
 
-export const userGetBillingStatus429Schema = z.unknown();
+export const userGetBillingStatus429Schema = tooManyRequestsErrorSchema;
 
-export const userGetBillingStatus500Schema = z.unknown();
+export const userGetBillingStatus500Schema = internalServerErrorSchema;
 
 export const userGetBillingResponseSchema = userGetBillingStatus200Schema;
 
@@ -4117,23 +4382,34 @@ export const userGetBillingErrorSchema = z.union([
 	userGetBillingStatus500Schema,
 ]);
 
-export const userGetPlanStatus200Schema = z.unknown();
+export const userGetPlanStatus200Schema = z.strictObject({
+	object: z.enum(["plan"]),
+	plan: z.string(),
+	billingCycle: z.strictObject({
+		start: z.number(),
+		end: z.number(),
+	}),
+	balance: z.strictObject({
+		remaining: z.number(),
+		total: z.number(),
+	}),
+});
 
-export const userGetPlanStatus401Schema = z.unknown();
+export const userGetPlanStatus401Schema = unauthorizedErrorSchema;
 
-export const userGetPlanStatus403Schema = z.unknown();
+export const userGetPlanStatus403Schema = forbiddenErrorSchema;
 
-export const userGetPlanStatus404Schema = z.unknown();
+export const userGetPlanStatus404Schema = notFoundErrorSchema;
 
-export const userGetPlanStatus409Schema = z.unknown();
+export const userGetPlanStatus409Schema = conflictErrorSchema;
 
-export const userGetPlanStatus413Schema = z.unknown();
+export const userGetPlanStatus413Schema = payloadTooLargeErrorSchema;
 
-export const userGetPlanStatus422Schema = z.unknown();
+export const userGetPlanStatus422Schema = unprocessableEntityErrorSchema;
 
-export const userGetPlanStatus429Schema = z.unknown();
+export const userGetPlanStatus429Schema = tooManyRequestsErrorSchema;
 
-export const userGetPlanStatus500Schema = z.unknown();
+export const userGetPlanStatus500Schema = internalServerErrorSchema;
 
 export const userGetPlanResponseSchema = userGetPlanStatus200Schema;
 
@@ -4148,23 +4424,26 @@ export const userGetPlanErrorSchema = z.union([
 	userGetPlanStatus500Schema,
 ]);
 
-export const userGetScopesStatus200Schema = z.unknown();
+export const userGetScopesStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(scopeSummarySchema),
+});
 
-export const userGetScopesStatus401Schema = z.unknown();
+export const userGetScopesStatus401Schema = unauthorizedErrorSchema;
 
-export const userGetScopesStatus403Schema = z.unknown();
+export const userGetScopesStatus403Schema = forbiddenErrorSchema;
 
-export const userGetScopesStatus404Schema = z.unknown();
+export const userGetScopesStatus404Schema = notFoundErrorSchema;
 
-export const userGetScopesStatus409Schema = z.unknown();
+export const userGetScopesStatus409Schema = conflictErrorSchema;
 
-export const userGetScopesStatus413Schema = z.unknown();
+export const userGetScopesStatus413Schema = payloadTooLargeErrorSchema;
 
-export const userGetScopesStatus422Schema = z.unknown();
+export const userGetScopesStatus422Schema = unprocessableEntityErrorSchema;
 
-export const userGetScopesStatus429Schema = z.unknown();
+export const userGetScopesStatus429Schema = tooManyRequestsErrorSchema;
 
-export const userGetScopesStatus500Schema = z.unknown();
+export const userGetScopesStatus500Schema = internalServerErrorSchema;
 
 export const userGetScopesResponseSchema = userGetScopesStatus200Schema;
 
@@ -4187,23 +4466,25 @@ export const chatsRestorePathVersionIdSchema = z
 	.string()
 	.describe("The unique identifier of the version to restore.");
 
-export const chatsRestoreStatus200Schema = z.unknown();
+export const chatsRestoreStatus200Schema = versionDetailSchema.describe(
+	"Detailed version data including file contents.",
+);
 
-export const chatsRestoreStatus401Schema = z.unknown();
+export const chatsRestoreStatus401Schema = unauthorizedErrorSchema;
 
-export const chatsRestoreStatus403Schema = z.unknown();
+export const chatsRestoreStatus403Schema = forbiddenErrorSchema;
 
-export const chatsRestoreStatus404Schema = z.unknown();
+export const chatsRestoreStatus404Schema = notFoundErrorSchema;
 
-export const chatsRestoreStatus409Schema = z.unknown();
+export const chatsRestoreStatus409Schema = conflictErrorSchema;
 
-export const chatsRestoreStatus413Schema = z.unknown();
+export const chatsRestoreStatus413Schema = payloadTooLargeErrorSchema;
 
-export const chatsRestoreStatus422Schema = z.unknown();
+export const chatsRestoreStatus422Schema = unprocessableEntityErrorSchema;
 
-export const chatsRestoreStatus429Schema = z.unknown();
+export const chatsRestoreStatus429Schema = tooManyRequestsErrorSchema;
 
-export const chatsRestoreStatus500Schema = z.unknown();
+export const chatsRestoreStatus500Schema = internalServerErrorSchema;
 
 export const chatsRestoreResponseSchema = chatsRestoreStatus200Schema;
 
@@ -4258,23 +4539,73 @@ export const reportsGetUsageQueryCursorSchema = z
 	.optional()
 	.describe("Base64 encoded cursor containing pagination data");
 
-export const reportsGetUsageStatus200Schema = z.unknown();
+export const reportsGetUsageStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(
+		z.strictObject({
+			id: z.string(),
+			object: z.enum(["usage_event"]),
+			type: z
+				.enum([
+					"api_request",
+					"buy-template",
+					"image_generation",
+					"inline-edit",
+					"manual_debit",
+					"message",
+					"refund_template_purchase",
+					"reverse_template_sale",
+				])
+				.optional(),
+			promptCost: z.string().optional(),
+			completionCost: z.string().optional(),
+			costBreakdownStatus: z
+				.enum(["estimated", "unavailable"])
+				.optional()
+				.describe(
+					"Whether the cost components are estimated or unavailable. Unavailable components are omitted; totalCost remains authoritative.",
+				),
+			totalCost: z.string(),
+			chatId: z.string().optional(),
+			messageId: z.string().optional(),
+			userId: z.string().optional().describe("Deprecated - use user object instead"),
+			user: userSummarySchemaSchema
+				.optional()
+				.describe("Details of the authenticated user, including profile and contact information."),
+			createdAt: z.iso
+				.datetime()
+				.describe("The ISO timestamp representing when the usage event was created."),
+		}),
+	),
+	pagination: z.strictObject({
+		hasMore: z.boolean(),
+		nextCursor: z.string().optional(),
+		nextUrl: z.string().optional(),
+	}),
+	meta: z.strictObject({
+		totalCount: z
+			.number()
+			.describe(
+				"Number of events in THIS page only, counted after events are rolled up per message. Not a total across the query, and not a page size — do not use it to track progress or to decide whether to stop paginating. Use `pagination.hasMore` for that.",
+			),
+	}),
+});
 
-export const reportsGetUsageStatus401Schema = z.unknown();
+export const reportsGetUsageStatus401Schema = unauthorizedErrorSchema;
 
-export const reportsGetUsageStatus403Schema = z.unknown();
+export const reportsGetUsageStatus403Schema = forbiddenErrorSchema;
 
-export const reportsGetUsageStatus404Schema = z.unknown();
+export const reportsGetUsageStatus404Schema = notFoundErrorSchema;
 
-export const reportsGetUsageStatus409Schema = z.unknown();
+export const reportsGetUsageStatus409Schema = conflictErrorSchema;
 
-export const reportsGetUsageStatus413Schema = z.unknown();
+export const reportsGetUsageStatus413Schema = payloadTooLargeErrorSchema;
 
-export const reportsGetUsageStatus422Schema = z.unknown();
+export const reportsGetUsageStatus422Schema = unprocessableEntityErrorSchema;
 
-export const reportsGetUsageStatus429Schema = z.unknown();
+export const reportsGetUsageStatus429Schema = tooManyRequestsErrorSchema;
 
-export const reportsGetUsageStatus500Schema = z.unknown();
+export const reportsGetUsageStatus500Schema = internalServerErrorSchema;
 
 export const reportsGetUsageResponseSchema = reportsGetUsageStatus200Schema;
 
@@ -4312,23 +4643,51 @@ export const reportsGetAIUsageQueryLimitSchema = z
 	.default(1000)
 	.describe("Maximum number of rows to return.");
 
-export const reportsGetAIUsageStatus200Schema = z.unknown();
+export const reportsGetAIUsageStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(
+		z.strictObject({
+			eventId: z.string(),
+			modelId: z.string(),
+			inputTokens: z.number(),
+			outputTokens: z.number(),
+			totalTokens: z.number(),
+			cacheCreationInputTokens: z.number(),
+			cacheCreationInputTokens1h: z.number().optional().default(0),
+			cacheReadInputTokens: z.number(),
+			timestamp: z.string(),
+			requestId: z.string(),
+			useCase: z.string(),
+			chatId: z.string(),
+			messageId: z.string(),
+			userId: z.string(),
+			userEmail: z.string(),
+		}),
+	),
+	pagination: z.strictObject({
+		nextCursor: z.string().nullable(),
+	}),
+	dateRange: z.strictObject({
+		start: z.string().nullable(),
+		end: z.string().nullable(),
+	}),
+});
 
-export const reportsGetAIUsageStatus401Schema = z.unknown();
+export const reportsGetAIUsageStatus401Schema = unauthorizedErrorSchema;
 
-export const reportsGetAIUsageStatus403Schema = z.unknown();
+export const reportsGetAIUsageStatus403Schema = forbiddenErrorSchema;
 
-export const reportsGetAIUsageStatus404Schema = z.unknown();
+export const reportsGetAIUsageStatus404Schema = notFoundErrorSchema;
 
-export const reportsGetAIUsageStatus409Schema = z.unknown();
+export const reportsGetAIUsageStatus409Schema = conflictErrorSchema;
 
-export const reportsGetAIUsageStatus413Schema = z.unknown();
+export const reportsGetAIUsageStatus413Schema = payloadTooLargeErrorSchema;
 
-export const reportsGetAIUsageStatus422Schema = z.unknown();
+export const reportsGetAIUsageStatus422Schema = unprocessableEntityErrorSchema;
 
-export const reportsGetAIUsageStatus429Schema = z.unknown();
+export const reportsGetAIUsageStatus429Schema = tooManyRequestsErrorSchema;
 
-export const reportsGetAIUsageStatus500Schema = z.unknown();
+export const reportsGetAIUsageStatus500Schema = internalServerErrorSchema;
 
 export const reportsGetAIUsageResponseSchema = reportsGetAIUsageStatus200Schema;
 
@@ -4355,23 +4714,64 @@ export const reportsGetUserActivityQueryEndDateSchema = z.iso
 		"Exclusive ISO timestamp upper bound for activity. Pass the end of the last day (e.g. 23:59:59.999) to include it.",
 	);
 
-export const reportsGetUserActivityStatus200Schema = z.unknown();
+export const reportsGetUserActivityStatus200Schema = z.strictObject({
+	object: z.enum(["list"]),
+	data: z.array(
+		z.strictObject({
+			id: z.string(),
+			object: z.enum(["user_activity"]),
+			user: z.strictObject({
+				id: z.string().describe("A unique identifier for the user."),
+				object: z.enum(["user"]).describe("Fixed value identifying this object as a user."),
+				name: z.string().optional().describe("Optional full name of the user."),
+				email: z.string().describe("The user's email address."),
+				avatar: z.string().describe("URL to the user's avatar image."),
+				createdAt: z.iso
+					.datetime()
+					.describe("The ISO timestamp representing when the user was created."),
+				updatedAt: z.iso
+					.datetime()
+					.optional()
+					.describe("The ISO timestamp of the last update to the user."),
+				teamV0Role: z
+					.union([z.enum(["V0Builder", "V0Chatter", "V0Viewer"]), z.null()])
+					.describe("The user's v0 role"),
+			}),
+			chatCount: z.number().describe("Total number of chats created by the user"),
+			messageCount: z.number().describe("Total number of messages sent by the user"),
+			activeDays: z.number().describe("Number of distinct days the user was active"),
+			firstActivity: z
+				.union([z.iso.datetime(), z.null()])
+				.describe("Timestamp of the user's first activity"),
+			lastActivity: z
+				.union([z.iso.datetime(), z.null()])
+				.describe("Timestamp of the user's last activity"),
+		}),
+	),
+	meta: z.strictObject({
+		totalCount: z.number(),
+		dateRange: z.strictObject({
+			start: z.union([z.iso.datetime(), z.null()]),
+			end: z.union([z.iso.datetime(), z.null()]),
+		}),
+	}),
+});
 
-export const reportsGetUserActivityStatus401Schema = z.unknown();
+export const reportsGetUserActivityStatus401Schema = unauthorizedErrorSchema;
 
-export const reportsGetUserActivityStatus403Schema = z.unknown();
+export const reportsGetUserActivityStatus403Schema = forbiddenErrorSchema;
 
-export const reportsGetUserActivityStatus404Schema = z.unknown();
+export const reportsGetUserActivityStatus404Schema = notFoundErrorSchema;
 
-export const reportsGetUserActivityStatus409Schema = z.unknown();
+export const reportsGetUserActivityStatus409Schema = conflictErrorSchema;
 
-export const reportsGetUserActivityStatus413Schema = z.unknown();
+export const reportsGetUserActivityStatus413Schema = payloadTooLargeErrorSchema;
 
-export const reportsGetUserActivityStatus422Schema = z.unknown();
+export const reportsGetUserActivityStatus422Schema = unprocessableEntityErrorSchema;
 
-export const reportsGetUserActivityStatus429Schema = z.unknown();
+export const reportsGetUserActivityStatus429Schema = tooManyRequestsErrorSchema;
 
-export const reportsGetUserActivityStatus500Schema = z.unknown();
+export const reportsGetUserActivityStatus500Schema = internalServerErrorSchema;
 
 export const reportsGetUserActivityResponseSchema = reportsGetUserActivityStatus200Schema;
 
@@ -4386,23 +4786,52 @@ export const reportsGetUserActivityErrorSchema = z.union([
 	reportsGetUserActivityStatus500Schema,
 ]);
 
-export const mcpServersFindStatus200Schema = z.unknown();
+export const mcpServersFindStatus200Schema = z
+	.strictObject({
+		object: z.enum(["list"]),
+		data: z.array(
+			z.strictObject({
+				object: z.enum(["mcp_server"]).describe("The object type."),
+				id: z.string().describe("The unique identifier for the MCP server."),
+				name: z.string().describe("The display name of the MCP server."),
+				url: z.url().describe("The URL of the MCP server."),
+				description: z.string().optional().describe("An optional description of the MCP server."),
+				enabled: z.boolean().describe("Whether the MCP server is enabled for use in chats."),
+				auth: z
+					.strictObject({
+						type: z
+							.enum(["bearer", "custom-headers", "none", "oauth"])
+							.describe("The type of authentication configured."),
+					})
+					.describe(
+						"Authentication type for the MCP server. Sensitive values like tokens and headers are not returned.",
+					),
+				scope: z.enum(["team", "user"]).describe("The scope of the MCP server (user or team)."),
+				createdAt: z.iso.datetime().describe("The ISO timestamp when the MCP server was created."),
+				updatedAt: z.iso
+					.datetime()
+					.optional()
+					.describe("The ISO timestamp when the MCP server was last updated."),
+			}),
+		),
+	})
+	.describe("List of MCP servers for the authenticated user.");
 
-export const mcpServersFindStatus401Schema = z.unknown();
+export const mcpServersFindStatus401Schema = unauthorizedErrorSchema;
 
-export const mcpServersFindStatus403Schema = z.unknown();
+export const mcpServersFindStatus403Schema = forbiddenErrorSchema;
 
-export const mcpServersFindStatus404Schema = z.unknown();
+export const mcpServersFindStatus404Schema = notFoundErrorSchema;
 
-export const mcpServersFindStatus409Schema = z.unknown();
+export const mcpServersFindStatus409Schema = conflictErrorSchema;
 
-export const mcpServersFindStatus413Schema = z.unknown();
+export const mcpServersFindStatus413Schema = payloadTooLargeErrorSchema;
 
-export const mcpServersFindStatus422Schema = z.unknown();
+export const mcpServersFindStatus422Schema = unprocessableEntityErrorSchema;
 
-export const mcpServersFindStatus429Schema = z.unknown();
+export const mcpServersFindStatus429Schema = tooManyRequestsErrorSchema;
 
-export const mcpServersFindStatus500Schema = z.unknown();
+export const mcpServersFindStatus500Schema = internalServerErrorSchema;
 
 export const mcpServersFindResponseSchema = mcpServersFindStatus200Schema;
 
@@ -4417,23 +4846,47 @@ export const mcpServersFindErrorSchema = z.union([
 	mcpServersFindStatus500Schema,
 ]);
 
-export const mcpServersCreateStatus200Schema = z.unknown();
+export const mcpServersCreateStatus200Schema = z
+	.strictObject({
+		object: z.enum(["mcp_server"]).describe("The object type."),
+		id: z.string().describe("The unique identifier for the MCP server."),
+		name: z.string().describe("The display name of the MCP server."),
+		url: z.url().describe("The URL of the MCP server."),
+		description: z.string().optional().describe("An optional description of the MCP server."),
+		enabled: z.boolean().describe("Whether the MCP server is enabled for use in chats."),
+		auth: z
+			.strictObject({
+				type: z
+					.enum(["bearer", "custom-headers", "none", "oauth"])
+					.describe("The type of authentication configured."),
+			})
+			.describe(
+				"Authentication type for the MCP server. Sensitive values like tokens and headers are not returned.",
+			),
+		scope: z.enum(["team", "user"]).describe("The scope of the MCP server (user or team)."),
+		createdAt: z.iso.datetime().describe("The ISO timestamp when the MCP server was created."),
+		updatedAt: z.iso
+			.datetime()
+			.optional()
+			.describe("The ISO timestamp when the MCP server was last updated."),
+	})
+	.describe("Summary information about an MCP server.");
 
-export const mcpServersCreateStatus401Schema = z.unknown();
+export const mcpServersCreateStatus401Schema = unauthorizedErrorSchema;
 
-export const mcpServersCreateStatus403Schema = z.unknown();
+export const mcpServersCreateStatus403Schema = forbiddenErrorSchema;
 
-export const mcpServersCreateStatus404Schema = z.unknown();
+export const mcpServersCreateStatus404Schema = notFoundErrorSchema;
 
-export const mcpServersCreateStatus409Schema = z.unknown();
+export const mcpServersCreateStatus409Schema = conflictErrorSchema;
 
-export const mcpServersCreateStatus413Schema = z.unknown();
+export const mcpServersCreateStatus413Schema = payloadTooLargeErrorSchema;
 
-export const mcpServersCreateStatus422Schema = z.unknown();
+export const mcpServersCreateStatus422Schema = unprocessableEntityErrorSchema;
 
-export const mcpServersCreateStatus429Schema = z.unknown();
+export const mcpServersCreateStatus429Schema = tooManyRequestsErrorSchema;
 
-export const mcpServersCreateStatus500Schema = z.unknown();
+export const mcpServersCreateStatus500Schema = internalServerErrorSchema;
 
 export const mcpServersCreateResponseSchema = mcpServersCreateStatus200Schema;
 
@@ -4535,23 +4988,47 @@ export const mcpServersGetByIdPathMcpServerIdSchema = z
 	.string()
 	.describe("The ID of the MCP server to retrieve.");
 
-export const mcpServersGetByIdStatus200Schema = z.unknown();
+export const mcpServersGetByIdStatus200Schema = z
+	.strictObject({
+		object: z.enum(["mcp_server"]).describe("The object type."),
+		id: z.string().describe("The unique identifier for the MCP server."),
+		name: z.string().describe("The display name of the MCP server."),
+		url: z.url().describe("The URL of the MCP server."),
+		description: z.string().optional().describe("An optional description of the MCP server."),
+		enabled: z.boolean().describe("Whether the MCP server is enabled for use in chats."),
+		auth: z
+			.strictObject({
+				type: z
+					.enum(["bearer", "custom-headers", "none", "oauth"])
+					.describe("The type of authentication configured."),
+			})
+			.describe(
+				"Authentication type for the MCP server. Sensitive values like tokens and headers are not returned.",
+			),
+		scope: z.enum(["team", "user"]).describe("The scope of the MCP server (user or team)."),
+		createdAt: z.iso.datetime().describe("The ISO timestamp when the MCP server was created."),
+		updatedAt: z.iso
+			.datetime()
+			.optional()
+			.describe("The ISO timestamp when the MCP server was last updated."),
+	})
+	.describe("Summary information about an MCP server.");
 
-export const mcpServersGetByIdStatus401Schema = z.unknown();
+export const mcpServersGetByIdStatus401Schema = unauthorizedErrorSchema;
 
-export const mcpServersGetByIdStatus403Schema = z.unknown();
+export const mcpServersGetByIdStatus403Schema = forbiddenErrorSchema;
 
-export const mcpServersGetByIdStatus404Schema = z.unknown();
+export const mcpServersGetByIdStatus404Schema = notFoundErrorSchema;
 
-export const mcpServersGetByIdStatus409Schema = z.unknown();
+export const mcpServersGetByIdStatus409Schema = conflictErrorSchema;
 
-export const mcpServersGetByIdStatus413Schema = z.unknown();
+export const mcpServersGetByIdStatus413Schema = payloadTooLargeErrorSchema;
 
-export const mcpServersGetByIdStatus422Schema = z.unknown();
+export const mcpServersGetByIdStatus422Schema = unprocessableEntityErrorSchema;
 
-export const mcpServersGetByIdStatus429Schema = z.unknown();
+export const mcpServersGetByIdStatus429Schema = tooManyRequestsErrorSchema;
 
-export const mcpServersGetByIdStatus500Schema = z.unknown();
+export const mcpServersGetByIdStatus500Schema = internalServerErrorSchema;
 
 export const mcpServersGetByIdResponseSchema = mcpServersGetByIdStatus200Schema;
 
@@ -4570,23 +5047,47 @@ export const mcpServersUpdatePathMcpServerIdSchema = z
 	.string()
 	.describe("The ID of the MCP server to update.");
 
-export const mcpServersUpdateStatus200Schema = z.unknown();
+export const mcpServersUpdateStatus200Schema = z
+	.strictObject({
+		object: z.enum(["mcp_server"]).describe("The object type."),
+		id: z.string().describe("The unique identifier for the MCP server."),
+		name: z.string().describe("The display name of the MCP server."),
+		url: z.url().describe("The URL of the MCP server."),
+		description: z.string().optional().describe("An optional description of the MCP server."),
+		enabled: z.boolean().describe("Whether the MCP server is enabled for use in chats."),
+		auth: z
+			.strictObject({
+				type: z
+					.enum(["bearer", "custom-headers", "none", "oauth"])
+					.describe("The type of authentication configured."),
+			})
+			.describe(
+				"Authentication type for the MCP server. Sensitive values like tokens and headers are not returned.",
+			),
+		scope: z.enum(["team", "user"]).describe("The scope of the MCP server (user or team)."),
+		createdAt: z.iso.datetime().describe("The ISO timestamp when the MCP server was created."),
+		updatedAt: z.iso
+			.datetime()
+			.optional()
+			.describe("The ISO timestamp when the MCP server was last updated."),
+	})
+	.describe("Summary information about an MCP server.");
 
-export const mcpServersUpdateStatus401Schema = z.unknown();
+export const mcpServersUpdateStatus401Schema = unauthorizedErrorSchema;
 
-export const mcpServersUpdateStatus403Schema = z.unknown();
+export const mcpServersUpdateStatus403Schema = forbiddenErrorSchema;
 
-export const mcpServersUpdateStatus404Schema = z.unknown();
+export const mcpServersUpdateStatus404Schema = notFoundErrorSchema;
 
-export const mcpServersUpdateStatus409Schema = z.unknown();
+export const mcpServersUpdateStatus409Schema = conflictErrorSchema;
 
-export const mcpServersUpdateStatus413Schema = z.unknown();
+export const mcpServersUpdateStatus413Schema = payloadTooLargeErrorSchema;
 
-export const mcpServersUpdateStatus422Schema = z.unknown();
+export const mcpServersUpdateStatus422Schema = unprocessableEntityErrorSchema;
 
-export const mcpServersUpdateStatus429Schema = z.unknown();
+export const mcpServersUpdateStatus429Schema = tooManyRequestsErrorSchema;
 
-export const mcpServersUpdateStatus500Schema = z.unknown();
+export const mcpServersUpdateStatus500Schema = internalServerErrorSchema;
 
 export const mcpServersUpdateResponseSchema = mcpServersUpdateStatus200Schema;
 
@@ -4679,23 +5180,27 @@ export const mcpServersDeletePathMcpServerIdSchema = z
 	.string()
 	.describe("The ID of the MCP server to delete.");
 
-export const mcpServersDeleteStatus200Schema = z.unknown();
+export const mcpServersDeleteStatus200Schema = z.strictObject({
+	object: z.enum(["mcp_server"]),
+	id: z.string().describe("The ID of the deleted MCP server."),
+	deleted: z.literal(true).describe("Indicates the server was deleted."),
+});
 
-export const mcpServersDeleteStatus401Schema = z.unknown();
+export const mcpServersDeleteStatus401Schema = unauthorizedErrorSchema;
 
-export const mcpServersDeleteStatus403Schema = z.unknown();
+export const mcpServersDeleteStatus403Schema = forbiddenErrorSchema;
 
-export const mcpServersDeleteStatus404Schema = z.unknown();
+export const mcpServersDeleteStatus404Schema = notFoundErrorSchema;
 
-export const mcpServersDeleteStatus409Schema = z.unknown();
+export const mcpServersDeleteStatus409Schema = conflictErrorSchema;
 
-export const mcpServersDeleteStatus413Schema = z.unknown();
+export const mcpServersDeleteStatus413Schema = payloadTooLargeErrorSchema;
 
-export const mcpServersDeleteStatus422Schema = z.unknown();
+export const mcpServersDeleteStatus422Schema = unprocessableEntityErrorSchema;
 
-export const mcpServersDeleteStatus429Schema = z.unknown();
+export const mcpServersDeleteStatus429Schema = tooManyRequestsErrorSchema;
 
-export const mcpServersDeleteStatus500Schema = z.unknown();
+export const mcpServersDeleteStatus500Schema = internalServerErrorSchema;
 
 export const mcpServersDeleteResponseSchema = mcpServersDeleteStatus200Schema;
 
@@ -4714,23 +5219,29 @@ export const mcpServersCreateOAuthAuthorizationUrlPathMcpServerIdSchema = z
 	.string()
 	.describe("The ID of the OAuth MCP server to authorize.");
 
-export const mcpServersCreateOAuthAuthorizationUrlStatus200Schema = z.unknown();
+export const mcpServersCreateOAuthAuthorizationUrlStatus200Schema = z.strictObject({
+	object: z.enum(["mcp_server_oauth_authorization"]).describe("The object type."),
+	mcpServerId: z.string().describe("The MCP server being authorized."),
+	url: z.url().describe("The provider authorization URL to redirect the user to."),
+	state: z.string().describe("The OAuth state value. This expires after 5 minutes."),
+	expiresAt: z.iso.datetime().describe("The ISO timestamp when the authorization URL expires."),
+});
 
-export const mcpServersCreateOAuthAuthorizationUrlStatus401Schema = z.unknown();
+export const mcpServersCreateOAuthAuthorizationUrlStatus401Schema = unauthorizedErrorSchema;
 
-export const mcpServersCreateOAuthAuthorizationUrlStatus403Schema = z.unknown();
+export const mcpServersCreateOAuthAuthorizationUrlStatus403Schema = forbiddenErrorSchema;
 
-export const mcpServersCreateOAuthAuthorizationUrlStatus404Schema = z.unknown();
+export const mcpServersCreateOAuthAuthorizationUrlStatus404Schema = notFoundErrorSchema;
 
-export const mcpServersCreateOAuthAuthorizationUrlStatus409Schema = z.unknown();
+export const mcpServersCreateOAuthAuthorizationUrlStatus409Schema = conflictErrorSchema;
 
-export const mcpServersCreateOAuthAuthorizationUrlStatus413Schema = z.unknown();
+export const mcpServersCreateOAuthAuthorizationUrlStatus413Schema = payloadTooLargeErrorSchema;
 
-export const mcpServersCreateOAuthAuthorizationUrlStatus422Schema = z.unknown();
+export const mcpServersCreateOAuthAuthorizationUrlStatus422Schema = unprocessableEntityErrorSchema;
 
-export const mcpServersCreateOAuthAuthorizationUrlStatus429Schema = z.unknown();
+export const mcpServersCreateOAuthAuthorizationUrlStatus429Schema = tooManyRequestsErrorSchema;
 
-export const mcpServersCreateOAuthAuthorizationUrlStatus500Schema = z.unknown();
+export const mcpServersCreateOAuthAuthorizationUrlStatus500Schema = internalServerErrorSchema;
 
 export const mcpServersCreateOAuthAuthorizationUrlResponseSchema =
 	mcpServersCreateOAuthAuthorizationUrlStatus200Schema;

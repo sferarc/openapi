@@ -31,3 +31,14 @@ describe("generated operationsByTag", () => {
 		expect(operations.filter((name) => !tagged.has(name))).toEqual([]);
 	});
 });
+
+describe("generated request headers", () => {
+	it.each(componentFiles)("sends only real media types as Content-Type in %s", (file) => {
+		const source = readFileSync(join(packagesDir, file), "utf8");
+		const contentTypes = new Set(
+			Array.from(source.matchAll(/"Content-Type": "([^"]*)"/g), (match) => match[1]),
+		);
+
+		expect([...contentTypes].filter((type) => !/^[\w.+-]+\/[\w.+-]+$/.test(type))).toEqual([]);
+	});
+});

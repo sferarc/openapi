@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { readAccessGroup } from "../generated/components";
-import type { FetchImpl } from "./fetch";
+import { createAccessGroup, readAccessGroup } from "../generated/components";
+import type { FetchImpl, RequestInit } from "./fetch";
 import client from "./fetcher";
 
 const respond =
@@ -75,6 +75,20 @@ describe("fetcher", () => {
 		};
 		await readAccessGroup({ pathParams: { idOrName: "../v2/user" }, config: { fetchImpl } });
 		expect(calledUrl).toContain("/v1/access-groups/..%2Fv2%2Fuser");
+	});
+
+	it("sends a generated operation's JSON body as JSON", async () => {
+		let init: RequestInit | undefined;
+		const fetchImpl: FetchImpl = async (_url, requestInit) => {
+			init = requestInit;
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		await createAccessGroup({ body: { name: "Engineering" }, config: { fetchImpl } });
+		expect(init?.headers).toMatchObject({ "Content-Type": "application/json" });
+		expect(init?.body).toBe(JSON.stringify({ name: "Engineering" }));
 	});
 
 	describe("query string", () => {
