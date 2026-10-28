@@ -681,10 +681,12 @@ import type {
 	POSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus403,
 	POSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus404,
 	POSTAdminRealmsRealmOrganizationsOrgIdMembersBody,
+	POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserBody,
 	POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserResponse,
 	POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus400,
 	POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus403,
 	POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus500,
+	POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserBody,
 	POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserResponse,
 	POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus400,
 	POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus403,
@@ -15886,9 +15888,11 @@ export async function gETAdminRealmsRealmOrganizationsOrgIdMembersCount(
 export async function pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUser(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { realm: string; orgId: string };
+		body?: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15901,6 +15905,19 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistin
 	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
+	const form = new URLSearchParams();
+	if (body) {
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (item == null) continue;
+				if (item instanceof Blob)
+					throw new Error(
+						`Cannot send the file in field ${key} as application/x-www-form-urlencoded`,
+					);
+				form.append(key, typeof item === "object" ? JSON.stringify(item) : String(item));
+			}
+		}
+	}
 	const data = await request<
 		POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserResponse,
 		ErrorWrapper<
@@ -15908,15 +15925,16 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistin
 			| POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus403
 			| POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus500
 		>,
-		null,
+		URLSearchParams,
 		Record<string, string>,
 		Record<string, string>,
 		{ realm: string; orgId: string }
 	>({
 		method: "POST",
 		url: `/admin/realms/${encodeURIComponent(String(pathParams.realm))}/organizations/${encodeURIComponent(String(pathParams.orgId))}/members/invite-existing-user`,
+		body: form,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "application/x-www-form-urlencoded", ...requestConfig.headers },
 	});
 
 	return data;
@@ -15930,10 +15948,12 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistin
 export async function pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUser(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { realm: string; orgId: string };
+		body?: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserBody;
 		queryParams?: { client_id?: string };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -15947,6 +15967,19 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUser(
 	if (pathParams?.orgId == null || String(pathParams.orgId) === "") {
 		throw new Error(`Missing required path parameter: orgId`);
 	}
+	const form = new URLSearchParams();
+	if (body) {
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (item == null) continue;
+				if (item instanceof Blob)
+					throw new Error(
+						`Cannot send the file in field ${key} as application/x-www-form-urlencoded`,
+					);
+				form.append(key, typeof item === "object" ? JSON.stringify(item) : String(item));
+			}
+		}
+	}
 	const data = await request<
 		POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserResponse,
 		ErrorWrapper<
@@ -15955,7 +15988,7 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUser(
 			| POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus409
 			| POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus500
 		>,
-		null,
+		URLSearchParams,
 		Record<string, string>,
 		{ client_id?: string },
 		{ realm: string; orgId: string }
@@ -15963,8 +15996,9 @@ export async function pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUser(
 		method: "POST",
 		url: `/admin/realms/${encodeURIComponent(String(pathParams.realm))}/organizations/${encodeURIComponent(String(pathParams.orgId))}/members/invite-user`,
 		queryParams,
+		body: form,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "application/x-www-form-urlencoded", ...requestConfig.headers },
 	});
 
 	return data;

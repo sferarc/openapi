@@ -7602,6 +7602,7 @@ export const userEventSchema = z
 											"nsnb-redeploy-attribution-card",
 											"nsnb-request-access",
 											"nsnb-viewer-upgrade",
+											"org-admin-sync",
 											"organization-teams",
 											"saml",
 											"teams",
@@ -7677,6 +7678,7 @@ export const userEventSchema = z
 											"nsnb-redeploy-attribution-card",
 											"nsnb-request-access",
 											"nsnb-viewer-upgrade",
+											"org-admin-sync",
 											"organization-teams",
 											"saml",
 											"teams",
@@ -9688,6 +9690,7 @@ export const userEventSchema = z
 							"nsnb-redeploy-attribution-card",
 							"nsnb-request-access",
 							"nsnb-viewer-upgrade",
+							"org-admin-sync",
 							"organization-teams",
 							"saml",
 							"teams",
@@ -13798,6 +13801,9 @@ export const organizationTeamListItemSchema = z
 		createdAt: z
 			.string()
 			.describe("ISO timestamp of when the team was linked to the organization."),
+		dsyncMode: z
+			.enum(["organization", "team"])
+			.describe("Whether the organization's Directory Sync manages the team's memberships."),
 		memberCount: z
 			.number()
 			.optional()
@@ -13826,6 +13832,9 @@ export const organizationTeamSchema = z.object({
 			"The child team's billing profile within the organization. Optional: links created before this attribute existed have no stored value.",
 		),
 	createdAt: z.string(),
+	dsyncMode: z
+		.enum(["organization", "team"])
+		.describe("Whether the organization's Directory Sync manages the team's memberships."),
 	organizationId: z.string(),
 	ssoMode: z.enum(["organization", "team"]),
 	teamId: z.string(),
@@ -14844,6 +14853,7 @@ export const teamSchema = z
 							"nsnb-redeploy-attribution-card",
 							"nsnb-request-access",
 							"nsnb-viewer-upgrade",
+							"org-admin-sync",
 							"organization-teams",
 							"saml",
 							"teams",
@@ -15285,6 +15295,7 @@ export const teamLimitedSchema = z
 							"nsnb-redeploy-attribution-card",
 							"nsnb-request-access",
 							"nsnb-viewer-upgrade",
+							"org-admin-sync",
 							"organization-teams",
 							"saml",
 							"teams",
@@ -15614,7 +15625,7 @@ export const authUserSchema = z
 			})
 			.optional()
 			.describe(
-				"Context for the Update Account screen. Present only when `isAccountUpdateRequired` is true. `managedTeams` is empty for orphan mode (user matches an EMU domain but is not on the team).",
+				"Context for the Update Account screen. Present only when `isAccountUpdateRequired` is true. `managedTeams` is empty for orphan mode (user matches an EMU domain but is not on the team). When the teams the user must complete Update Account for include an organization's backing team, that team is listed as the organization, followed by the organization's Enterprise Managed root and child teams the user is a member of, including through Directory Sync group mappings.",
 			),
 		activeDashboardViews: z
 			.array(
@@ -16666,6 +16677,23 @@ export const readAccessGroupErrorSchema = z.union([
 	readAccessGroupStatus410Schema,
 ]);
 
+export const readAccessGroupPathSchema = z.object({
+	idOrName: z.string(),
+});
+
+export const readAccessGroupQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const updateAccessGroupPathIdOrNameSchema = z.string();
 
 export const updateAccessGroupQueryTeamIdSchema = z
@@ -16780,6 +16808,23 @@ export const updateAccessGroupBodySchema = z.strictObject({
 		.meta({ examples: [["usr_1a2b3c4d5e6f7g8h9i0j", "usr_2b3c4d5e6f7g8h9i0j1k"]] }),
 });
 
+export const updateAccessGroupPathSchema = z.object({
+	idOrName: z.string(),
+});
+
+export const updateAccessGroupQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteAccessGroupPathIdOrNameSchema = z.string();
 
 export const deleteAccessGroupQueryTeamIdSchema = z
@@ -16815,6 +16860,23 @@ export const deleteAccessGroupErrorSchema = z.union([
 	deleteAccessGroupStatus404Schema,
 	deleteAccessGroupStatus410Schema,
 ]);
+
+export const deleteAccessGroupPathSchema = z.object({
+	idOrName: z.string(),
+});
+
+export const deleteAccessGroupQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listAccessGroupMembersPathIdOrNameSchema = z
 	.string()
@@ -16897,6 +16959,38 @@ export const listAccessGroupMembersErrorSchema = z.union([
 	listAccessGroupMembersStatus404Schema,
 	listAccessGroupMembersStatus410Schema,
 ]);
+
+export const listAccessGroupMembersPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The ID or name of the Access Group.")
+		.meta({ examples: ["ag_pavWOn1iLObbXLRiwVvzmPrTWyTf"] }),
+});
+
+export const listAccessGroupMembersQuerySchema = z.object({
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.describe("Limit how many access group members should be returned.")
+		.meta({ examples: [20] }),
+	next: z.string().optional().describe("Continuation cursor to retrieve the next page of results."),
+	search: z
+		.string()
+		.optional()
+		.describe("Search project members by their name, username, and email."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listAccessGroupsQueryProjectIdSchema = z
 	.string()
@@ -17023,6 +17117,51 @@ export const listAccessGroupsErrorSchema = z.union([
 	listAccessGroupsStatus410Schema,
 ]);
 
+export const listAccessGroupsQuerySchema = z.object({
+	projectId: z
+		.string()
+		.optional()
+		.describe("Filter access groups by project.")
+		.meta({ examples: ["prj_pavWOn1iLObbx3RowVvzmPrTWyTf"] }),
+	search: z
+		.string()
+		.optional()
+		.describe("Search for access groups by name.")
+		.meta({ examples: ["example"] }),
+	membersLimit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.describe("Number of members to include in the response.")
+		.meta({ examples: [20] }),
+	projectsLimit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.describe("Number of projects to include in the response.")
+		.meta({ examples: [20] }),
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.describe("Limit how many access group should be returned.")
+		.meta({ examples: [20] }),
+	next: z.string().optional().describe("Continuation cursor to retrieve the next page of results."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createAccessGroupQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -17123,6 +17262,19 @@ export const createAccessGroupBodySchema = z.strictObject({
 		.meta({ examples: [["usr_1a2b3c4d5e6f7g8h9i0j", "usr_2b3c4d5e6f7g8h9i0j1k"]] }),
 });
 
+export const createAccessGroupQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listAccessGroupProjectsPathIdOrNameSchema = z
 	.string()
 	.describe("The ID or name of the Access Group.")
@@ -17193,6 +17345,34 @@ export const listAccessGroupProjectsErrorSchema = z.union([
 	listAccessGroupProjectsStatus410Schema,
 ]);
 
+export const listAccessGroupProjectsPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The ID or name of the Access Group.")
+		.meta({ examples: ["ag_pavWOn1iLObbXLRiwVvzmPrTWyTf"] }),
+});
+
+export const listAccessGroupProjectsQuerySchema = z.object({
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.describe("Limit how many access group projects should be returned.")
+		.meta({ examples: [20] }),
+	next: z.string().optional().describe("Continuation cursor to retrieve the next page of results."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createAccessGroupProjectPathAccessGroupIdOrNameSchema = z.string();
 
 export const createAccessGroupProjectQueryTeamIdSchema = z
@@ -17248,6 +17428,23 @@ export const createAccessGroupProjectBodySchema = z.strictObject({
 		.meta({ examples: ["ADMIN"] }),
 });
 
+export const createAccessGroupProjectPathSchema = z.object({
+	accessGroupIdOrName: z.string(),
+});
+
+export const createAccessGroupProjectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const readAccessGroupProjectPathAccessGroupIdOrNameSchema = z.string();
 
 export const readAccessGroupProjectPathProjectIdSchema = z.string();
@@ -17292,6 +17489,24 @@ export const readAccessGroupProjectErrorSchema = z.union([
 	readAccessGroupProjectStatus404Schema,
 	readAccessGroupProjectStatus410Schema,
 ]);
+
+export const readAccessGroupProjectPathSchema = z.object({
+	accessGroupIdOrName: z.string(),
+	projectId: z.string(),
+});
+
+export const readAccessGroupProjectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateAccessGroupProjectPathAccessGroupIdOrNameSchema = z.string();
 
@@ -17341,8 +17556,27 @@ export const updateAccessGroupProjectErrorSchema = z.union([
 export const updateAccessGroupProjectBodySchema = z.strictObject({
 	role: z
 		.enum(["ADMIN", "PROJECT_DEVELOPER", "PROJECT_VIEWER"])
+		.nullable()
 		.describe("The project role that will be added to this Access Group.")
 		.meta({ examples: ["ADMIN"] }),
+});
+
+export const updateAccessGroupProjectPathSchema = z.object({
+	accessGroupIdOrName: z.string(),
+	projectId: z.string(),
+});
+
+export const updateAccessGroupProjectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
 });
 
 export const deleteAccessGroupProjectPathAccessGroupIdOrNameSchema = z.string();
@@ -17382,6 +17616,24 @@ export const deleteAccessGroupProjectErrorSchema = z.union([
 	deleteAccessGroupProjectStatus404Schema,
 	deleteAccessGroupProjectStatus410Schema,
 ]);
+
+export const deleteAccessGroupProjectPathSchema = z.object({
+	accessGroupIdOrName: z.string(),
+	projectId: z.string(),
+});
+
+export const deleteAccessGroupProjectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createAiGatewayByokCredentialQueryTeamIdSchema = z
 	.string()
@@ -17481,6 +17733,19 @@ export const createAiGatewayByokCredentialBodySchema = z
 	})
 	.optional();
 
+export const createAiGatewayByokCredentialQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listAiGatewayByokCredentialsQueryOwnerIdSchema = z
 	.string()
 	.optional()
@@ -17571,6 +17836,41 @@ export const listAiGatewayByokCredentialsErrorSchema = z.union([
 	listAiGatewayByokCredentialsStatus500Schema,
 ]);
 
+export const listAiGatewayByokCredentialsQuerySchema = z.object({
+	ownerId: z
+		.string()
+		.optional()
+		.describe(
+			"The owner ID to list credentials for. Ignored for customer tokens, which always list their own team.",
+		),
+	providerSlug: z.string().optional().describe("Optional provider slug to filter credentials by"),
+	includeDeleted: z
+		.enum(["true", "false"])
+		.optional()
+		.default("false")
+		.describe("Whether to include soft-deleted credentials"),
+	decrypt: z
+		.enum(["true", "false"])
+		.optional()
+		.default("false")
+		.describe("Not supported. Credential values are never returned."),
+	includeModelMappings: z
+		.enum(["true", "false"])
+		.optional()
+		.default("false")
+		.describe("Whether to include model mappings for each credential in the response"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getAiGatewayByokCredentialQueryOwnerIdSchema = z.string().optional();
 
 export const getAiGatewayByokCredentialPathCredentialIdSchema = z
@@ -17623,6 +17923,24 @@ export const getAiGatewayByokCredentialErrorSchema = z.union([
 	getAiGatewayByokCredentialStatus410Schema,
 	getAiGatewayByokCredentialStatus500Schema,
 ]);
+
+export const getAiGatewayByokCredentialPathSchema = z.object({
+	credentialId: z.string().describe("The unique ID of the credential"),
+});
+
+export const getAiGatewayByokCredentialQuerySchema = z.object({
+	ownerId: z.string().optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateAiGatewayByokCredentialQueryOwnerIdSchema = z.string().optional();
 
@@ -17695,6 +18013,24 @@ export const updateAiGatewayByokCredentialBodySchema = z
 	})
 	.optional();
 
+export const updateAiGatewayByokCredentialPathSchema = z.object({
+	credentialId: z.string().describe("The unique ID of the credential to update"),
+});
+
+export const updateAiGatewayByokCredentialQuerySchema = z.object({
+	ownerId: z.string().optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteAiGatewayByokCredentialQueryOwnerIdSchema = z.string().optional();
 
 export const deleteAiGatewayByokCredentialPathCredentialIdSchema = z
@@ -17744,6 +18080,28 @@ export const deleteAiGatewayByokCredentialErrorSchema = z.union([
 	deleteAiGatewayByokCredentialStatus500Schema,
 ]);
 
+export const deleteAiGatewayByokCredentialPathSchema = z.object({
+	credentialId: z.string().describe("The unique ID of the credential to delete"),
+});
+
+export const deleteAiGatewayByokCredentialQuerySchema = z.object({
+	ownerId: z.string().optional(),
+	userId: z
+		.string()
+		.optional()
+		.describe("The ID of the user performing this action, used for Activity-log attribution."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createAiGatewayVirtualModelConfigQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -17790,6 +18148,19 @@ export const createAiGatewayVirtualModelConfigErrorSchema = z.union([
 	createAiGatewayVirtualModelConfigStatus429Schema,
 	createAiGatewayVirtualModelConfigStatus500Schema,
 ]);
+
+export const createAiGatewayVirtualModelConfigQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getAiGatewayVirtualModelConfigQueryOwnerIdSchema = z.string().optional();
 
@@ -17840,6 +18211,23 @@ export const getAiGatewayVirtualModelConfigErrorSchema = z.union([
 	getAiGatewayVirtualModelConfigStatus500Schema,
 ]);
 
+export const getAiGatewayVirtualModelConfigQuerySchema = z.object({
+	ownerId: z.string().optional(),
+	virtualModelSlug: z.string().optional(),
+	limit: z.int().min(1).optional(),
+	cursor: z.string().optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const updateAiGatewayVirtualModelConfigQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -17883,6 +18271,19 @@ export const updateAiGatewayVirtualModelConfigErrorSchema = z.union([
 	updateAiGatewayVirtualModelConfigStatus429Schema,
 	updateAiGatewayVirtualModelConfigStatus500Schema,
 ]);
+
+export const updateAiGatewayVirtualModelConfigQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const deleteAiGatewayVirtualModelConfigQueryOwnerIdSchema = z.string().optional();
 
@@ -17931,6 +18332,24 @@ export const deleteAiGatewayVirtualModelConfigErrorSchema = z.union([
 	deleteAiGatewayVirtualModelConfigStatus410Schema,
 	deleteAiGatewayVirtualModelConfigStatus500Schema,
 ]);
+
+export const deleteAiGatewayVirtualModelConfigQuerySchema = z.object({
+	ownerId: z.string().optional(),
+	virtualModelSlug: z.string(),
+	updatedBy: z.string().optional(),
+	actingIp: z.string().optional(),
+	actingUserAgent: z.string().optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listAiGatewayVirtualModelConfigsQueryOwnerIdSchema = z.string().optional();
 
@@ -17981,6 +18400,23 @@ export const listAiGatewayVirtualModelConfigsErrorSchema = z.union([
 	listAiGatewayVirtualModelConfigsStatus500Schema,
 ]);
 
+export const listAiGatewayVirtualModelConfigsQuerySchema = z.object({
+	ownerId: z.string().optional(),
+	limit: z.int().min(1).optional(),
+	cursor: z.string().optional(),
+	includeArchived: z.enum(["true", "false"]).optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getAiGatewayVirtualModelConfigBySlugQueryOwnerIdSchema = z.string().optional();
 
 export const getAiGatewayVirtualModelConfigBySlugPathVmcSlugSchema = z.string();
@@ -18025,6 +18461,24 @@ export const getAiGatewayVirtualModelConfigBySlugErrorSchema = z.union([
 	getAiGatewayVirtualModelConfigBySlugStatus410Schema,
 	getAiGatewayVirtualModelConfigBySlugStatus500Schema,
 ]);
+
+export const getAiGatewayVirtualModelConfigBySlugPathSchema = z.object({
+	vmcSlug: z.string(),
+});
+
+export const getAiGatewayVirtualModelConfigBySlugQuerySchema = z.object({
+	ownerId: z.string().optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateAiGatewayVirtualModelConfigBySlugPathVmcSlugSchema = z.string();
 
@@ -18071,6 +18525,23 @@ export const updateAiGatewayVirtualModelConfigBySlugErrorSchema = z.union([
 	updateAiGatewayVirtualModelConfigBySlugStatus429Schema,
 	updateAiGatewayVirtualModelConfigBySlugStatus500Schema,
 ]);
+
+export const updateAiGatewayVirtualModelConfigBySlugPathSchema = z.object({
+	vmcSlug: z.string(),
+});
+
+export const updateAiGatewayVirtualModelConfigBySlugQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const deleteAiGatewayVirtualModelConfigBySlugQueryOwnerIdSchema = z.string().optional();
 
@@ -18122,6 +18593,27 @@ export const deleteAiGatewayVirtualModelConfigBySlugErrorSchema = z.union([
 	deleteAiGatewayVirtualModelConfigBySlugStatus500Schema,
 ]);
 
+export const deleteAiGatewayVirtualModelConfigBySlugPathSchema = z.object({
+	vmcSlug: z.string(),
+});
+
+export const deleteAiGatewayVirtualModelConfigBySlugQuerySchema = z.object({
+	ownerId: z.string().optional(),
+	updatedBy: z.string().optional(),
+	actingIp: z.string().optional(),
+	actingUserAgent: z.string().optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listAiGatewayRoutersQueryOwnerIdSchema = z
 	.string()
 	.optional()
@@ -18166,6 +18658,25 @@ export const listAiGatewayRoutersErrorSchema = z.union([
 	listAiGatewayRoutersStatus500Schema,
 ]);
 
+export const listAiGatewayRoutersQuerySchema = z.object({
+	ownerId: z
+		.string()
+		.optional()
+		.describe(
+			"The owner (team) ID to list routers for. Only trusted-origin callers use this. Public callers select their team with `teamId` or `slug`, and a supplied ownerId never overrides the authenticated team.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createAiGatewayRuleQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -18207,6 +18718,19 @@ export const createAiGatewayRuleErrorSchema = z.union([
 	createAiGatewayRuleStatus410Schema,
 	createAiGatewayRuleStatus500Schema,
 ]);
+
+export const createAiGatewayRuleQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listAiGatewayRulesQueryIncludeDisabledSchema = z.enum(["true", "false"]).optional();
 
@@ -18258,6 +18782,26 @@ export const listAiGatewayRulesErrorSchema = z.union([
 	listAiGatewayRulesStatus500Schema,
 ]);
 
+export const listAiGatewayRulesQuerySchema = z.object({
+	includeDisabled: z.enum(["true", "false"]).optional(),
+	limit: z
+		.int()
+		.min(1)
+		.optional()
+		.describe("Maximum number of rules to return (capped at 200). Enables pagination."),
+	cursor: z.string().optional().describe("Opaque cursor returned by a prior call as nextCursor."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const updateAiGatewayRuleQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -18297,6 +18841,19 @@ export const updateAiGatewayRuleErrorSchema = z.union([
 	updateAiGatewayRuleStatus500Schema,
 ]);
 
+export const updateAiGatewayRuleQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteAiGatewayRuleQueryRuleIdSchema = z.string();
 
 export const deleteAiGatewayRuleQueryTeamIdSchema = z
@@ -18335,6 +18892,20 @@ export const deleteAiGatewayRuleErrorSchema = z.union([
 	deleteAiGatewayRuleStatus410Schema,
 	deleteAiGatewayRuleStatus500Schema,
 ]);
+
+export const deleteAiGatewayRuleQuerySchema = z.object({
+	ruleId: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listAiGatewayBudgetsQueryScopeTypeSchema = z
 	.enum(["team", "project", "user", "api-key"])
@@ -18396,6 +18967,35 @@ export const listAiGatewayBudgetsErrorSchema = z.union([
 	listAiGatewayBudgetsStatus500Schema,
 ]);
 
+export const listAiGatewayBudgetsQuerySchema = z.object({
+	scopeType: z
+		.enum(["team", "project", "user", "api-key"])
+		.optional()
+		.describe("Restrict the list to a single budget scope."),
+	includeDefaultCovered: z
+		.enum(["true", "false"])
+		.optional()
+		.describe(
+			'Whether to include rows inherited from a budget default (`source: "default"`). Defaults to true.',
+		),
+	limit: z
+		.int()
+		.min(1)
+		.optional()
+		.describe("Maximum number of budgets to return (capped at 200). Enables pagination."),
+	cursor: z.string().optional().describe("Opaque cursor returned by a prior call as nextCursor."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const upsertAiGatewayBudgetQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -18448,6 +19048,19 @@ export const upsertAiGatewayBudgetBodySchema = z
 	})
 	.optional();
 
+export const upsertAiGatewayBudgetQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const archiveAiGatewayBudgetQueryScopeTypeSchema = z
 	.enum(["team", "project", "user"])
 	.describe("The budget scope to archive.");
@@ -18499,6 +19112,22 @@ export const archiveAiGatewayBudgetErrorSchema = z.union([
 	archiveAiGatewayBudgetStatus500Schema,
 ]);
 
+export const archiveAiGatewayBudgetQuerySchema = z.object({
+	scopeType: z.enum(["team", "project", "user"]).describe("The budget scope to archive."),
+	projectId: z.string().optional().describe('Required when scopeType is "project".'),
+	userId: z.string().optional().describe('Required when scopeType is "user".'),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listAiGatewayBudgetDefaultsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -18535,6 +19164,19 @@ export const listAiGatewayBudgetDefaultsErrorSchema = z.union([
 	listAiGatewayBudgetDefaultsStatus410Schema,
 	listAiGatewayBudgetDefaultsStatus500Schema,
 ]);
+
+export const listAiGatewayBudgetDefaultsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const upsertAiGatewayBudgetDefaultQueryTeamIdSchema = z
 	.string()
@@ -18583,6 +19225,19 @@ export const upsertAiGatewayBudgetDefaultBodySchema = z
 	})
 	.optional();
 
+export const upsertAiGatewayBudgetDefaultQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const archiveAiGatewayBudgetDefaultQueryScopeTypeSchema = z
 	.enum(["team", "project", "api-key", "user"])
 	.describe("The budget default scope to delete.");
@@ -18624,6 +19279,22 @@ export const archiveAiGatewayBudgetDefaultErrorSchema = z.union([
 	archiveAiGatewayBudgetDefaultStatus410Schema,
 	archiveAiGatewayBudgetDefaultStatus500Schema,
 ]);
+
+export const archiveAiGatewayBudgetDefaultQuerySchema = z.object({
+	scopeType: z
+		.enum(["team", "project", "api-key", "user"])
+		.describe("The budget default scope to delete."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const recordEventsHeaderXArtifactClientCiSchema = z
 	.string()
@@ -18706,6 +19377,37 @@ export const recordEventsBodySchema = z.array(
 	}),
 );
 
+export const recordEventsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const recordEventsHeadersSchema = z.object({
+	"x-artifact-client-ci": z
+		.string()
+		.max(50)
+		.optional()
+		.describe(
+			"The continuous integration or delivery environment where this artifact is downloaded.",
+		)
+		.meta({ examples: ["VERCEL"] }),
+	"x-artifact-client-interactive": z
+		.int()
+		.min(0)
+		.max(1)
+		.optional()
+		.describe("1 if the client is an interactive shell. Otherwise 0")
+		.meta({ examples: [0] }),
+});
+
 export const statusQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -18756,6 +19458,19 @@ export const statusErrorSchema = z.union([
 	statusStatus404Schema,
 	statusStatus410Schema,
 ]);
+
+export const statusQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const uploadArtifactHeaderContentLengthSchema = z
 	.number()
@@ -18851,6 +19566,70 @@ export const uploadArtifactErrorSchema = z.union([
 
 export const uploadArtifactBodySchema = z.instanceof(File);
 
+export const uploadArtifactPathSchema = z.object({
+	hash: z
+		.string()
+		.describe("The artifact hash")
+		.meta({ examples: ["12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] }),
+});
+
+export const uploadArtifactQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const uploadArtifactHeadersSchema = z.object({
+	"Content-Length": z.number().describe("The artifact size in bytes"),
+	"x-artifact-duration": z
+		.number()
+		.optional()
+		.describe("The time taken to generate the uploaded artifact in milliseconds.")
+		.meta({ examples: [400] }),
+	"x-artifact-client-ci": z
+		.string()
+		.max(50)
+		.optional()
+		.describe(
+			"The continuous integration or delivery environment where this artifact was generated.",
+		)
+		.meta({ examples: ["VERCEL"] }),
+	"x-artifact-client-interactive": z
+		.int()
+		.min(0)
+		.max(1)
+		.optional()
+		.describe("1 if the client is an interactive shell. Otherwise 0")
+		.meta({ examples: [0] }),
+	"x-artifact-tag": z
+		.string()
+		.max(600)
+		.optional()
+		.describe(
+			"The base64 encoded tag for this artifact. The value is sent back to clients when the artifact is downloaded as the header `x-artifact-tag`",
+		)
+		.meta({ examples: ["Tc0BmHvJYMIYJ62/zx87YqO0Flxk+5Ovip25NY825CQ="] }),
+	"x-artifact-sha": z
+		.string()
+		.max(200)
+		.optional()
+		.describe("The SHA of the source control revision that generated this artifact."),
+	"x-artifact-dirty-hash": z
+		.string()
+		.max(200)
+		.optional()
+		.describe(
+			"A hash representing uncommitted changes in the working directory when this artifact was generated.",
+		),
+});
+
 export const downloadArtifactHeaderXArtifactClientCiSchema = z
 	.string()
 	.max(50)
@@ -18909,6 +19688,44 @@ export const downloadArtifactErrorSchema = z.union([
 	downloadArtifactStatus404Schema,
 	downloadArtifactStatus410Schema,
 ]);
+
+export const downloadArtifactPathSchema = z.object({
+	hash: z
+		.string()
+		.describe("The artifact hash")
+		.meta({ examples: ["12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] }),
+});
+
+export const downloadArtifactQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const downloadArtifactHeadersSchema = z.object({
+	"x-artifact-client-ci": z
+		.string()
+		.max(50)
+		.optional()
+		.describe(
+			"The continuous integration or delivery environment where this artifact is downloaded.",
+		)
+		.meta({ examples: ["VERCEL"] }),
+	"x-artifact-client-interactive": z
+		.int()
+		.min(0)
+		.max(1)
+		.optional()
+		.describe("1 if the client is an interactive shell. Otherwise 0")
+		.meta({ examples: [0] }),
+});
 
 export const artifactQueryQueryTeamIdSchema = z
 	.string()
@@ -18970,6 +19787,19 @@ export const artifactQueryBodySchema = z.object({
 		.meta({ examples: [["12HKQaOmR5t5Uy6vdcQsNIiZgHGB", "34HKQaOmR5t5Uy6vasdasdasdasd"]] }),
 });
 
+export const artifactQueryQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteAllArtifactsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -19005,6 +19835,19 @@ export const deleteAllArtifactsErrorSchema = z.union([
 	deleteAllArtifactsStatus404Schema,
 	deleteAllArtifactsStatus410Schema,
 ]);
+
+export const deleteAllArtifactsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listBillingChargesQueryFromSchema = z
 	.string()
@@ -19056,6 +19899,27 @@ export const listBillingChargesErrorSchema = z.union([
 	listBillingChargesStatus503Schema,
 ]);
 
+export const listBillingChargesQuerySchema = z.object({
+	from: z
+		.string()
+		.describe("Inclusive start of the date range as an ISO 8601 date-time string in UTC.")
+		.meta({ examples: ["2025-01-01T00:00:00.000Z"] }),
+	to: z
+		.string()
+		.describe("Exclusive end of the date range as an ISO 8601 date-time string in UTC.")
+		.meta({ examples: ["2025-01-31T00:00:00.000Z"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listContractCommitmentsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -19089,6 +19953,19 @@ export const listContractCommitmentsErrorSchema = z.union([
 	listContractCommitmentsStatus404Schema,
 	listContractCommitmentsStatus410Schema,
 ]);
+
+export const listContractCommitmentsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const buyCreditsQuerySourceSchema = z
 	.string()
@@ -19991,6 +20868,23 @@ export const buyCreditsBodySchema = z.object({
 	}),
 });
 
+export const buyCreditsQuerySchema = z.object({
+	source: z
+		.string()
+		.optional()
+		.describe("The source of the purchase request. Defaults to `api` if not specified."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const stageRedirectsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -20083,6 +20977,19 @@ export const stageRedirectsBodySchema = z
 			.default([]),
 	})
 	.optional();
+
+export const stageRedirectsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getRedirectsQueryProjectIdSchema = z.string();
 
@@ -20240,6 +21147,27 @@ export const getRedirectsErrorSchema = z.union([
 	getRedirectsStatus410Schema,
 ]);
 
+export const getRedirectsQuerySchema = z.object({
+	projectId: z.string(),
+	versionId: z.string().optional(),
+	q: z.string().optional(),
+	diff: z.union([z.boolean(), z.enum(["only"])]).optional(),
+	page: z.int().min(1).optional(),
+	per_page: z.int().min(10).max(250).optional(),
+	sort_by: z.enum(["source", "destination", "statusCode"]).optional(),
+	sort_order: z.enum(["asc", "desc"]).optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteRedirectsQueryProjectIdSchema = z.string();
 
 export const deleteRedirectsQueryTeamIdSchema = z
@@ -20394,6 +21322,20 @@ export const deleteRedirectsBodySchema = z
 	})
 	.optional();
 
+export const deleteRedirectsQuerySchema = z.object({
+	projectId: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const editRedirectQueryProjectIdSchema = z.string();
 
 export const editRedirectQueryTeamIdSchema = z
@@ -20489,6 +21431,20 @@ export const editRedirectBodySchema = z
 	})
 	.optional();
 
+export const editRedirectQuerySchema = z.object({
+	projectId: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const restoreRedirectsQueryProjectIdSchema = z.string();
 
 export const restoreRedirectsQueryTeamIdSchema = z
@@ -20575,6 +21531,20 @@ export const restoreRedirectsBodySchema = z
 	})
 	.optional();
 
+export const restoreRedirectsQuerySchema = z.object({
+	projectId: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getVersionsQueryProjectIdSchema = z.string();
 
 export const getVersionsQueryTeamIdSchema = z
@@ -20647,6 +21617,20 @@ export const getVersionsErrorSchema = z.union([
 	getVersionsStatus410Schema,
 	getVersionsStatus500Schema,
 ]);
+
+export const getVersionsQuerySchema = z.object({
+	projectId: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateVersionQueryProjectIdSchema = z.string();
 
@@ -20726,6 +21710,20 @@ export const updateVersionBodySchema = z
 		name: z.string().max(256).optional(),
 	})
 	.optional();
+
+export const updateVersionQuerySchema = z.object({
+	projectId: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listProjectChecksPathProjectIdOrNameSchema = z.string();
 
@@ -20813,6 +21811,26 @@ export const listProjectChecksErrorSchema = z.union([
 	listProjectChecksStatus410Schema,
 	listProjectChecksStatus500Schema,
 ]);
+
+export const listProjectChecksPathSchema = z.object({
+	projectIdOrName: z.string(),
+});
+
+export const listProjectChecksQuerySchema = z.object({
+	blocks: z
+		.enum(["build-start", "deployment-start", "deployment-alias", "deployment-promotion", "none"])
+		.optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createProjectCheckPathProjectIdOrNameSchema = z.string();
 
@@ -20931,6 +21949,23 @@ export const createProjectCheckBodySchema = z
 	})
 	.optional();
 
+export const createProjectCheckPathSchema = z.object({
+	projectIdOrName: z.string(),
+});
+
+export const createProjectCheckQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getProjectCheckPathProjectIdOrNameSchema = z.string();
 
 export const getProjectCheckPathCheckIdSchema = z
@@ -21013,6 +22048,27 @@ export const getProjectCheckErrorSchema = z.union([
 	getProjectCheckStatus410Schema,
 	getProjectCheckStatus500Schema,
 ]);
+
+export const getProjectCheckPathSchema = z.object({
+	projectIdOrName: z.string(),
+	checkId: z
+		.string()
+		.describe("The ID of the resource that will be updated.")
+		.meta({ examples: ["stf_89ha9sdhh9a9"] }),
+});
+
+export const getProjectCheckQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateProjectCheckPathProjectIdOrNameSchema = z.string();
 
@@ -21111,6 +22167,24 @@ export const updateProjectCheckBodySchema = z
 	})
 	.optional();
 
+export const updateProjectCheckPathSchema = z.object({
+	projectIdOrName: z.string(),
+	checkId: z.string(),
+});
+
+export const updateProjectCheckQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteProjectCheckPathProjectIdOrNameSchema = z.string();
 
 export const deleteProjectCheckPathCheckIdSchema = z.string();
@@ -21153,6 +22227,24 @@ export const deleteProjectCheckErrorSchema = z.union([
 	deleteProjectCheckStatus410Schema,
 	deleteProjectCheckStatus500Schema,
 ]);
+
+export const deleteProjectCheckPathSchema = z.object({
+	projectIdOrName: z.string(),
+	checkId: z.string(),
+});
+
+export const deleteProjectCheckQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listCheckRunsPathProjectIdOrNameSchema = z.string();
 
@@ -21360,6 +22452,27 @@ export const listCheckRunsErrorSchema = z.union([
 	listCheckRunsStatus500Schema,
 ]);
 
+export const listCheckRunsPathSchema = z.object({
+	projectIdOrName: z.string(),
+	checkId: z
+		.string()
+		.describe("The ID of the resource that will be updated.")
+		.meta({ examples: ["ckr_89ha9sdhh9a9"] }),
+});
+
+export const listCheckRunsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listDeploymentCheckRunsPathDeploymentIdSchema = z.string();
 
 export const listDeploymentCheckRunsQueryTeamIdSchema = z
@@ -21561,6 +22674,23 @@ export const listDeploymentCheckRunsErrorSchema = z.union([
 	listDeploymentCheckRunsStatus500Schema,
 ]);
 
+export const listDeploymentCheckRunsPathSchema = z.object({
+	deploymentId: z.string(),
+});
+
+export const listDeploymentCheckRunsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createDeploymentCheckRunPathDeploymentIdSchema = z.string();
 
 export const createDeploymentCheckRunQueryTeamIdSchema = z
@@ -21752,6 +22882,23 @@ export const createDeploymentCheckRunBodySchema = z
 	})
 	.optional();
 
+export const createDeploymentCheckRunPathSchema = z.object({
+	deploymentId: z.string(),
+});
+
+export const createDeploymentCheckRunQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getDeploymentCheckRunPathDeploymentIdSchema = z.string();
 
 export const getDeploymentCheckRunPathCheckRunIdSchema = z
@@ -21941,6 +23088,27 @@ export const getDeploymentCheckRunErrorSchema = z.union([
 	getDeploymentCheckRunStatus410Schema,
 	getDeploymentCheckRunStatus500Schema,
 ]);
+
+export const getDeploymentCheckRunPathSchema = z.object({
+	deploymentId: z.string(),
+	checkRunId: z
+		.string()
+		.describe("The ID of the resource that will be updated.")
+		.meta({ examples: ["ckr_89ha9sdhh9a9"] }),
+});
+
+export const getDeploymentCheckRunQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateDeploymentCheckRunPathDeploymentIdSchema = z.string();
 
@@ -22146,6 +23314,24 @@ export const updateDeploymentCheckRunBodySchema = z
 	})
 	.optional();
 
+export const updateDeploymentCheckRunPathSchema = z.object({
+	deploymentId: z.string(),
+	checkRunId: z.string(),
+});
+
+export const updateDeploymentCheckRunQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createCheckPathDeploymentIdSchema = z
 	.string()
 	.describe("The deployment to create the check for.")
@@ -22275,6 +23461,26 @@ export const createCheckBodySchema = z.object({
 		.meta({ examples: [true] }),
 });
 
+export const createCheckPathSchema = z.object({
+	deploymentId: z
+		.string()
+		.describe("The deployment to create the check for.")
+		.meta({ examples: ["dpl_2qn7PZrx89yxY34vEZPD31Y9XVj6"] }),
+});
+
+export const createCheckQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getAllChecksPathDeploymentIdSchema = z
 	.string()
 	.describe("The deployment to get all checks for")
@@ -22368,6 +23574,26 @@ export const getAllChecksErrorSchema = z.union([
 	getAllChecksStatus404Schema,
 	getAllChecksStatus410Schema,
 ]);
+
+export const getAllChecksPathSchema = z.object({
+	deploymentId: z
+		.string()
+		.describe("The deployment to get all checks for")
+		.meta({ examples: ["dpl_2qn7PZrx89yxY34vEZPD31Y9XVj6"] }),
+});
+
+export const getAllChecksQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getCheckPathDeploymentIdSchema = z
 	.string()
@@ -22463,6 +23689,30 @@ export const getCheckErrorSchema = z.union([
 	getCheckStatus404Schema,
 	getCheckStatus410Schema,
 ]);
+
+export const getCheckPathSchema = z.object({
+	deploymentId: z
+		.string()
+		.describe("The deployment to get the check for.")
+		.meta({ examples: ["dpl_2qn7PZrx89yxY34vEZPD31Y9XVj6"] }),
+	checkId: z
+		.string()
+		.describe("The check to fetch")
+		.meta({ examples: ["check_2qn7PZrx89yxY34vEZPD31Y9XVj6"] }),
+});
+
+export const getCheckQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateCheckPathDeploymentIdSchema = z
 	.string()
@@ -22675,6 +23925,30 @@ export const updateCheckBodySchema = z.object({
 		.meta({ examples: ["1234abc"] }),
 });
 
+export const updateCheckPathSchema = z.object({
+	deploymentId: z
+		.string()
+		.describe("The deployment to update the check for.")
+		.meta({ examples: ["dpl_2qn7PZrx89yxY34vEZPD31Y9XVj6"] }),
+	checkId: z
+		.string()
+		.describe("The check being updated")
+		.meta({ examples: ["check_2qn7PZrx89yxY34vEZPD31Y9XVj6"] }),
+});
+
+export const updateCheckQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const rerequestCheckPathDeploymentIdSchema = z
 	.string()
 	.describe("The deployment to rerun the check for.")
@@ -22723,6 +23997,31 @@ export const rerequestCheckErrorSchema = z.union([
 	rerequestCheckStatus404Schema,
 	rerequestCheckStatus410Schema,
 ]);
+
+export const rerequestCheckPathSchema = z.object({
+	deploymentId: z
+		.string()
+		.describe("The deployment to rerun the check for.")
+		.meta({ examples: ["dpl_2qn7PZrx89yxY34vEZPD31Y9XVj6"] }),
+	checkId: z
+		.string()
+		.describe("The check to rerun")
+		.meta({ examples: ["check_2qn7PZrx89yxY34vEZPD31Y9XVj6"] }),
+});
+
+export const rerequestCheckQuerySchema = z.object({
+	autoUpdate: z.boolean().optional().describe("Mark the check as running"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listNetworksQueryIncludeHostedZonesSchema = z
 	.boolean()
@@ -22782,6 +24081,39 @@ export const listNetworksErrorSchema = z.union([
 	listNetworksStatus410Schema,
 ]);
 
+export const listNetworksQuerySchema = z.object({
+	includeHostedZones: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe("Whether to include Hosted Zones in the response"),
+	includePeeringConnections: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe("Whether to include VPC Peering connections in the response"),
+	includeProjects: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe("Whether to include projects in the response"),
+	search: z
+		.string()
+		.max(255)
+		.optional()
+		.describe("The query to use as a filter for returned networks"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createNetworkQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -22837,6 +24169,19 @@ export const createNetworkBodySchema = z
 	})
 	.optional();
 
+export const createNetworkQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteNetworkPathNetworkIdSchema = z
 	.string()
 	.describe("The ID of the network to delete")
@@ -22881,6 +24226,26 @@ export const deleteNetworkErrorSchema = z.union([
 	deleteNetworkStatus409Schema,
 	deleteNetworkStatus410Schema,
 ]);
+
+export const deleteNetworkPathSchema = z.object({
+	networkId: z
+		.string()
+		.describe("The ID of the network to delete")
+		.meta({ examples: ["uzrmorq7bn05z-fz"] }),
+});
+
+export const deleteNetworkQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateNetworkPathNetworkIdSchema = z
 	.string()
@@ -22927,6 +24292,26 @@ export const updateNetworkBodySchema = z
 	})
 	.optional();
 
+export const updateNetworkPathSchema = z.object({
+	networkId: z
+		.string()
+		.describe("The unique identifier of the Secure Compute network")
+		.meta({ examples: ["uzrmorq7bn05z-fz"] }),
+});
+
+export const updateNetworkQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const readNetworkPathNetworkIdSchema = z
 	.string()
 	.describe("The unique identifier of the Secure Compute network")
@@ -22965,6 +24350,26 @@ export const readNetworkErrorSchema = z.union([
 	readNetworkStatus404Schema,
 	readNetworkStatus410Schema,
 ]);
+
+export const readNetworkPathSchema = z.object({
+	networkId: z
+		.string()
+		.describe("The unique identifier of the Secure Compute network")
+		.meta({ examples: ["uzrmorq7bn05z-fz"] }),
+});
+
+export const readNetworkQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createPrivateLinkEndpointQueryTeamIdSchema = z
 	.string()
@@ -23044,6 +24449,19 @@ export const createPrivateLinkEndpointBodySchema = z
 	})
 	.optional();
 
+export const createPrivateLinkEndpointQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listPrivateLinkEndpointsQueryProjectIdSchema = z
 	.string()
 	.describe("The project ID to list PrivateLink endpoints for.")
@@ -23082,6 +24500,23 @@ export const listPrivateLinkEndpointsErrorSchema = z.union([
 	listPrivateLinkEndpointsStatus404Schema,
 	listPrivateLinkEndpointsStatus410Schema,
 ]);
+
+export const listPrivateLinkEndpointsQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe("The project ID to list PrivateLink endpoints for.")
+		.meta({ examples: ["prj_a1b2c3d4e5f6g7h8"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const readPrivateLinkEndpointQueryProjectIdSchema = z
 	.string()
@@ -23128,6 +24563,30 @@ export const readPrivateLinkEndpointErrorSchema = z.union([
 	readPrivateLinkEndpointStatus404Schema,
 	readPrivateLinkEndpointStatus410Schema,
 ]);
+
+export const readPrivateLinkEndpointPathSchema = z.object({
+	endpointId: z
+		.string()
+		.describe("The unique identifier of the PrivateLink endpoint.")
+		.meta({ examples: ["ple_a1b2c3d4e5f6g7h8"] }),
+});
+
+export const readPrivateLinkEndpointQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe("The project ID the PrivateLink endpoint belongs to.")
+		.meta({ examples: ["prj_a1b2c3d4e5f6g7h8"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const deletePrivateLinkEndpointQueryProjectIdSchema = z
 	.string()
@@ -23181,6 +24640,30 @@ export const deletePrivateLinkEndpointErrorSchema = z.union([
 	deletePrivateLinkEndpointStatus500Schema,
 	deletePrivateLinkEndpointStatus503Schema,
 ]);
+
+export const deletePrivateLinkEndpointPathSchema = z.object({
+	endpointId: z
+		.string()
+		.describe("The unique identifier of the PrivateLink endpoint.")
+		.meta({ examples: ["ple_a1b2c3d4e5f6g7h8"] }),
+});
+
+export const deletePrivateLinkEndpointQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe("The project ID the PrivateLink endpoint belongs to.")
+		.meta({ examples: ["prj_a1b2c3d4e5f6g7h8"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updatePrivateLinkEndpointQueryProjectIdSchema = z
 	.string()
@@ -23254,6 +24737,30 @@ export const updatePrivateLinkEndpointBodySchema = z
 			.meta({ examples: [false] }),
 	})
 	.optional();
+
+export const updatePrivateLinkEndpointPathSchema = z.object({
+	endpointId: z
+		.string()
+		.describe("The unique identifier of the PrivateLink endpoint.")
+		.meta({ examples: ["ple_a1b2c3d4e5f6g7h8"] }),
+});
+
+export const updatePrivateLinkEndpointQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe("The project ID the PrivateLink endpoint belongs to.")
+		.meta({ examples: ["prj_a1b2c3d4e5f6g7h8"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listConnectorsQueryLimitSchema = z
 	.int()
@@ -23365,6 +24872,45 @@ export const listConnectorsErrorSchema = z.union([
 	listConnectorsStatus504Schema,
 ]);
 
+export const listConnectorsQuerySchema = z.object({
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.describe("Maximum number of connectors to return. Defaults to 20."),
+	cursor: z.string().optional().describe("Cursor from `pagination.next` on the previous response."),
+	projectId: z.string().optional().describe("Return only connectors connected to this project."),
+	search: z.string().max(100).optional().describe("Search connector names, UIDs, and services."),
+	type: z
+		.string()
+		.optional()
+		.describe(
+			"Comma-separated connector types: `slack`, `discord`, `github`, `linear`, `linq`, `salesforce`, `sendblue`, `snowflake`, `snowflake-wif`, `microsoft-entra`, `api-key`, `photon`, `oauth`, or `custom`.",
+		),
+	service: z.string().optional().describe("Comma-separated provider or service identifiers."),
+	sort: z
+		.enum(["name", "createdAt", "updatedAt"])
+		.optional()
+		.describe(
+			"Sort by name in ascending order, or by creation or update time in descending order.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe(
+			"The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe(
+			"The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getConnectorPathConnectorSchema = z
 	.string()
 	.describe(
@@ -23441,6 +24987,31 @@ export const getConnectorErrorSchema = z.union([
 	getConnectorStatus501Schema,
 	getConnectorStatus504Schema,
 ]);
+
+export const getConnectorPathSchema = z.object({
+	connector: z
+		.string()
+		.describe(
+			"Stable connector ID or URL-encoded owner-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.",
+		),
+});
+
+export const getConnectorQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe(
+			"The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe(
+			"The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const deleteConnectorPathConnectorSchema = z
 	.string()
@@ -23525,6 +25096,31 @@ export const deleteConnectorErrorSchema = z.union([
 	deleteConnectorStatus504Schema,
 ]);
 
+export const deleteConnectorPathSchema = z.object({
+	connector: z
+		.string()
+		.describe(
+			"Stable connector ID or URL-encoded team-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.",
+		),
+});
+
+export const deleteConnectorQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe(
+			"The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe(
+			"The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createConnectorQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -23606,6 +25202,23 @@ export const createConnectorBodySchema = connectCreateConnectorRequestSchema
 	.describe(
 		"Create a connector with full provider configuration or with a known service connection method.",
 	);
+
+export const createConnectorQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe(
+			"The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe(
+			"The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateConnectorPathConnectorSchema = z
 	.string()
@@ -23693,6 +25306,31 @@ export const updateConnectorBodySchema = connectUpdateConnectorRequestSchema.des
 	"Connector fields to update.",
 );
 
+export const updateConnectorPathSchema = z.object({
+	connector: z
+		.string()
+		.describe(
+			"Stable connector ID or URL-encoded team-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.",
+		),
+});
+
+export const updateConnectorQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe(
+			"The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe(
+			"The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const replaceConnectorTriggerDestinationsPathConnectorSchema = z
 	.string()
 	.describe(
@@ -23776,6 +25414,31 @@ export const replaceConnectorTriggerDestinationsBodySchema =
 		"Complete replacement set of trigger destinations.",
 	);
 
+export const replaceConnectorTriggerDestinationsPathSchema = z.object({
+	connector: z
+		.string()
+		.describe(
+			"Stable connector ID or URL-encoded team-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.",
+		),
+});
+
+export const replaceConnectorTriggerDestinationsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe(
+			"The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe(
+			"The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const ejectManagedConnectorPathConnectorSchema = z
 	.string()
 	.describe("Stable connector ID or URL-encoded team-scoped UID.");
@@ -23823,6 +25486,17 @@ export const ejectManagedConnectorErrorSchema = z.union([
 	ejectManagedConnectorStatus501Schema,
 	ejectManagedConnectorStatus504Schema,
 ]);
+
+export const ejectManagedConnectorPathSchema = z.object({
+	connector: z.string().describe("Stable connector ID or URL-encoded team-scoped UID."),
+});
+
+export const ejectManagedConnectorQuerySchema = z.object({
+	slug: z
+		.string()
+		.optional()
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listConnectorProjectConnectionsPathConnectorSchema = z
 	.string()
@@ -23904,6 +25578,38 @@ export const listConnectorProjectConnectionsErrorSchema = z.union([
 	listConnectorProjectConnectionsStatus500Schema,
 ]);
 
+export const listConnectorProjectConnectionsPathSchema = z.object({
+	connector: z
+		.string()
+		.describe(
+			"Stable connector ID or URL-encoded team-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.",
+		),
+});
+
+export const listConnectorProjectConnectionsQuerySchema = z.object({
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.describe("Maximum number of project connections to return. Defaults to 50."),
+	cursor: z.string().optional().describe("Cursor from `pagination.next` on the previous response."),
+	teamId: z
+		.string()
+		.optional()
+		.describe(
+			"The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe(
+			"The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getConnectorProjectConnectionPathConnectorSchema = z
 	.string()
 	.describe(
@@ -23974,6 +25680,32 @@ export const getConnectorProjectConnectionErrorSchema = z.union([
 	getConnectorProjectConnectionStatus410Schema,
 	getConnectorProjectConnectionStatus500Schema,
 ]);
+
+export const getConnectorProjectConnectionPathSchema = z.object({
+	connector: z
+		.string()
+		.describe(
+			"Stable connector ID or URL-encoded team-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.",
+		),
+	projectId: z.string().describe("Vercel project ID."),
+});
+
+export const getConnectorProjectConnectionQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe(
+			"The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe(
+			"The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const upsertConnectorProjectConnectionPathConnectorSchema = z
 	.string()
@@ -24063,6 +25795,32 @@ export const upsertConnectorProjectConnectionBodySchema =
 		"Environments enabled for a connector project connection.",
 	);
 
+export const upsertConnectorProjectConnectionPathSchema = z.object({
+	connector: z
+		.string()
+		.describe(
+			"Stable connector ID or URL-encoded team-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.",
+		),
+	projectId: z.string().describe("Vercel project ID."),
+});
+
+export const upsertConnectorProjectConnectionQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe(
+			"The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe(
+			"The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteConnectorProjectConnectionPathConnectorSchema = z
 	.string()
 	.describe(
@@ -24143,6 +25901,32 @@ export const deleteConnectorProjectConnectionErrorSchema = z.union([
 	deleteConnectorProjectConnectionStatus504Schema,
 ]);
 
+export const deleteConnectorProjectConnectionPathSchema = z.object({
+	connector: z
+		.string()
+		.describe(
+			"Stable connector ID or URL-encoded team-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.",
+		),
+	projectId: z.string().describe("Vercel project ID."),
+});
+
+export const deleteConnectorProjectConnectionQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe(
+			"The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe(
+			"The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listProjectConnectorConnectionsPathProjectIdSchema = z
 	.string()
 	.describe("Vercel project ID.");
@@ -24210,6 +25994,34 @@ export const listProjectConnectorConnectionsErrorSchema = z.union([
 	listProjectConnectorConnectionsStatus404Schema,
 	listProjectConnectorConnectionsStatus410Schema,
 ]);
+
+export const listProjectConnectorConnectionsPathSchema = z.object({
+	projectId: z.string().describe("Vercel project ID."),
+});
+
+export const listProjectConnectorConnectionsQuerySchema = z.object({
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.describe("Maximum number of connector connections to return. Defaults to 50."),
+	cursor: z.string().optional().describe("Cursor from `pagination.next` on the previous response."),
+	teamId: z
+		.string()
+		.optional()
+		.describe(
+			"The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe(
+			"The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
+		)
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getConnectorTokenPathConnectorSchema = z.string();
 
@@ -24323,6 +26135,10 @@ export const getConnectorTokenBodySchema = z
 		validityBufferMs: z.number().optional(),
 	})
 	.optional();
+
+export const getConnectorTokenPathSchema = z.object({
+	connector: z.string(),
+});
 
 export const createConnectorAuthorizationRequestPathConnectorSchema = z.string();
 
@@ -24439,6 +26255,10 @@ export const createConnectorAuthorizationRequestBodySchema = z
 		additionalParams: z.record(z.string(), z.string()).optional(),
 	})
 	.optional();
+
+export const createConnectorAuthorizationRequestPathSchema = z.object({
+	connector: z.string(),
+});
 
 export const getProjectBoxesPathIdOrNameSchema = z
 	.string()
@@ -24583,6 +26403,30 @@ export const getProjectBoxesErrorSchema = z.union([
 	getProjectBoxesStatus410Schema,
 ]);
 
+export const getProjectBoxesPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+});
+
+export const getProjectBoxesQuerySchema = z.object({
+	limit: z.string().optional().describe("Maximum daemons to return (default: 10, max: 100)"),
+	cursor: z.string().optional().describe("Pagination cursor"),
+	scopeType: z
+		.enum(["target", "branch", "customEnvironment"])
+		.optional()
+		.describe("Filter by scope type"),
+	scopeValue: z.string().optional().describe("Filter by scope value (requires scopeType)"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const putProjectDaemonInstancesPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name");
@@ -24641,6 +26485,32 @@ export const putProjectDaemonInstancesBodySchema = z
 		'Instance count overrides for the given regions, for example { \\"iad1\\": 1 }. Overrides of regions not in the map are kept. A `null` count removes the region\'s override. An empty map removes all overrides.',
 	);
 
+export const putProjectDaemonInstancesPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+	daemonName: z
+		.string()
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe("The name of the daemon to scale"),
+});
+
+export const putProjectDaemonInstancesQuerySchema = z.object({
+	target: z
+		.enum(["production", "preview"])
+		.optional()
+		.default("production")
+		.describe("The deployment target for the daemon configuration."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const restartProjectDaemonInstancePathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name");
@@ -24697,6 +26567,31 @@ export const restartProjectDaemonInstanceErrorSchema = z.union([
 	restartProjectDaemonInstanceStatus410Schema,
 	restartProjectDaemonInstanceStatus500Schema,
 ]);
+
+export const restartProjectDaemonInstancePathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+	daemonName: z
+		.string()
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe("The name of the daemon that owns the instance"),
+	instanceId: z
+		.string()
+		.regex(/^dmni_[0-9a-hjkmnp-tv-z]{26}$/)
+		.describe("The ID of the daemon instance to restart"),
+});
+
+export const restartProjectDaemonInstanceQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getDeploymentEventsPathIdOrUrlSchema = z
 	.string()
@@ -25010,6 +26905,70 @@ export const getDeploymentEventsErrorSchema = z.union([
 	getDeploymentEventsStatus500Schema,
 ]);
 
+export const getDeploymentEventsPathSchema = z.object({
+	idOrUrl: z
+		.string()
+		.describe("The unique identifier or hostname of the deployment.")
+		.meta({ examples: ["dpl_5WJWYSyB7BpgTj3EuwF37WMRBXBtPQ2iTMJHJBJyRfd"] }),
+});
+
+export const getDeploymentEventsQuerySchema = z.object({
+	direction: z
+		.enum(["backward", "forward"])
+		.optional()
+		.default("forward")
+		.describe("Order of the returned events based on the timestamp.")
+		.meta({ examples: ["backward"] }),
+	follow: z
+		.union([z.literal(0), z.literal(1)])
+		.optional()
+		.describe("When enabled, this endpoint will return live events as they happen.")
+		.meta({ examples: [1] }),
+	limit: z
+		.number()
+		.optional()
+		.describe("Maximum number of events to return. Provide `-1` to return all available logs.")
+		.meta({ examples: [100] }),
+	name: z
+		.string()
+		.optional()
+		.describe("Deployment build ID.")
+		.meta({ examples: ["bld_cotnkcr76"] }),
+	since: z
+		.number()
+		.optional()
+		.describe("Timestamp for when build logs should be pulled from.")
+		.meta({ examples: [1540095775941] }),
+	until: z
+		.number()
+		.optional()
+		.describe("Timestamp for when the build logs should be pulled up until.")
+		.meta({ examples: [1540106318643] }),
+	statusCode: z
+		.union([z.number(), z.string()])
+		.optional()
+		.describe("HTTP status code range to filter events by.")
+		.meta({ examples: ["5xx"] }),
+	delimiter: z
+		.union([z.literal(0), z.literal(1)])
+		.optional()
+		.meta({ examples: [1] }),
+	builds: z
+		.union([z.literal(0), z.literal(1)])
+		.optional()
+		.meta({ examples: [1] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const updateIntegrationDeploymentActionPathDeploymentIdSchema = z.string();
 
 export const updateIntegrationDeploymentActionPathIntegrationConfigurationIdSchema = z.string();
@@ -25103,6 +27062,13 @@ export const updateIntegrationDeploymentActionBodySchema = z
 			.optional(),
 	})
 	.optional();
+
+export const updateIntegrationDeploymentActionPathSchema = z.object({
+	deploymentId: z.string(),
+	integrationConfigurationId: z.string(),
+	resourceId: z.string(),
+	action: z.string(),
+});
 
 export const getDeploymentPathIdOrUrlSchema = z
 	.string()
@@ -25333,15 +27299,11 @@ export const getDeploymentStatus200Schema = z.union([
 		canceledAt: z.number().optional(),
 		checks: z
 			.object({
-				"deployment-alias": z
-					.object({
-						completedAt: z.number().optional(),
-						startedAt: z.number(),
-						state: z.enum(["failed", "pending", "succeeded"]),
-					})
-					.describe(
-						"Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.",
-					),
+				"deployment-alias": z.object({
+					completedAt: z.number().optional(),
+					startedAt: z.number(),
+					state: z.enum(["failed", "pending", "succeeded"]),
+				}),
 			})
 			.optional(),
 		checksConclusion: z.enum(["canceled", "failed", "skipped", "succeeded"]).optional(),
@@ -28611,6 +30573,33 @@ export const getDeploymentErrorSchema = z.union([
 	getDeploymentStatus429Schema,
 ]);
 
+export const getDeploymentPathSchema = z.object({
+	idOrUrl: z
+		.string()
+		.describe("The unique identifier or hostname of the deployment.")
+		.meta({ examples: ["dpl_89qyp1cskzkLrVicDaZoDbjyHuDJ"] }),
+});
+
+export const getDeploymentQuerySchema = z.object({
+	withGitRepoInfo: z
+		.string()
+		.optional()
+		.describe(
+			"When `true`, the response includes the `gitSource` object with the commit SHA, branch name, and connected repository metadata. Defaults to `false`.",
+		)
+		.meta({ examples: ["true"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createDeploymentQueryForceNewSchema = z
 	.enum(["0", "1"])
 	.optional()
@@ -28843,15 +30832,11 @@ export const createDeploymentStatus200Schema = z.union([
 		canceledAt: z.number().optional(),
 		checks: z
 			.object({
-				"deployment-alias": z
-					.object({
-						completedAt: z.number().optional(),
-						startedAt: z.number(),
-						state: z.enum(["failed", "pending", "succeeded"]),
-					})
-					.describe(
-						"Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.",
-					),
+				"deployment-alias": z.object({
+					completedAt: z.number().optional(),
+					startedAt: z.number(),
+					state: z.enum(["failed", "pending", "succeeded"]),
+				}),
 			})
 			.optional(),
 		checksConclusion: z.enum(["canceled", "failed", "skipped", "succeeded"]).optional(),
@@ -32015,6 +34000,33 @@ export const createDeploymentBodySchema = z.strictObject({
 		),
 });
 
+export const createDeploymentQuerySchema = z.object({
+	forceNew: z
+		.enum(["0", "1"])
+		.optional()
+		.describe(
+			"Forces a new deployment even if there is a previous similar deployment. Set to `1` to bypass deployment deduplication and always trigger a fresh build.",
+		)
+		.meta({ examples: ["1"] }),
+	skipAutoDetectionConfirmation: z
+		.enum(["0", "1"])
+		.optional()
+		.describe(
+			"Set to `1` to skip framework auto-detection and proceed without confirmation. By default, if Vercel detects a framework that differs from the project setting, the API returns a `400` asking you to confirm. Use this to suppress that check in automated pipelines.",
+		)
+		.meta({ examples: ["1"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const cancelDeploymentPathIdSchema = z
 	.string()
 	.describe("The unique identifier of the deployment.")
@@ -32155,15 +34167,11 @@ export const cancelDeploymentStatus200Schema = z
 		canceledAt: z.number().optional(),
 		checks: z
 			.object({
-				"deployment-alias": z
-					.object({
-						completedAt: z.number().optional(),
-						startedAt: z.number(),
-						state: z.enum(["failed", "pending", "succeeded"]),
-					})
-					.describe(
-						"Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.",
-					),
+				"deployment-alias": z.object({
+					completedAt: z.number().optional(),
+					startedAt: z.number(),
+					state: z.enum(["failed", "pending", "succeeded"]),
+				}),
 			})
 			.optional(),
 		checksConclusion: z.enum(["canceled", "failed", "skipped", "succeeded"]).optional(),
@@ -34868,6 +36876,26 @@ export const cancelDeploymentErrorSchema = z.union([
 	cancelDeploymentStatus410Schema,
 ]);
 
+export const cancelDeploymentPathSchema = z.object({
+	id: z
+		.string()
+		.describe("The unique identifier of the deployment.")
+		.meta({ examples: ["dpl_5WJWYSyB7BpgTj3EuwF37WMRBXBtPQ2iTMJHJBJyRfd"] }),
+});
+
+export const cancelDeploymentQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getRecordsPathDomainSchema = z.string().meta({ examples: ["example.com"] });
 
 export const getRecordsQueryLimitSchema = z
@@ -34966,6 +36994,38 @@ export const getRecordsErrorSchema = z.union([
 	getRecordsStatus404Schema,
 	getRecordsStatus410Schema,
 ]);
+
+export const getRecordsPathSchema = z.object({
+	domain: z.string().meta({ examples: ["example.com"] }),
+});
+
+export const getRecordsQuerySchema = z.object({
+	limit: z
+		.string()
+		.optional()
+		.describe("Maximum number of records to list from a request.")
+		.meta({ examples: [20] }),
+	since: z
+		.string()
+		.optional()
+		.describe("Get records created after this JavaScript timestamp.")
+		.meta({ examples: [1609499532000] }),
+	until: z
+		.string()
+		.optional()
+		.describe("Get records created before this JavaScript timestamp.")
+		.meta({ examples: [1612264332000] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createRecordPathDomainSchema = z
 	.string()
@@ -35284,6 +37344,26 @@ export const createRecordBodySchema = z
 		}),
 	);
 
+export const createRecordPathSchema = z.object({
+	domain: z
+		.string()
+		.describe("The domain used to create the DNS record.")
+		.meta({ examples: ["example.com"] }),
+});
+
+export const createRecordQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const updateRecordPathRecordIdSchema = z
 	.string()
 	.describe("The id of the DNS record")
@@ -35395,6 +37475,26 @@ export const updateRecordBodySchema = z.strictObject({
 		.meta({ examples: ["used to verify ownership of domain"] }),
 });
 
+export const updateRecordPathSchema = z.object({
+	recordId: z
+		.string()
+		.describe("The id of the DNS record")
+		.meta({ examples: ["rec_2qn7pzrx89yxy34vezpd31y9"] }),
+});
+
+export const updateRecordQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const replaceDomainsByDomainRecordsPathDomainSchema = z
 	.string()
 	.describe("The domain name")
@@ -35430,6 +37530,13 @@ export const replaceDomainsByDomainRecordsErrorSchema = z.union([
 	replaceDomainsByDomainRecordsStatus410Schema,
 	replaceDomainsByDomainRecordsStatus415Schema,
 ]);
+
+export const replaceDomainsByDomainRecordsPathSchema = z.object({
+	domain: z
+		.string()
+		.describe("The domain name")
+		.meta({ examples: ["example.com"] }),
+});
 
 export const getDomainsRecordsByRecordIdPathRecordIdSchema = z
 	.string()
@@ -35467,6 +37574,10 @@ export const getDomainsRecordsByRecordIdErrorSchema = z.union([
 	getDomainsRecordsByRecordIdStatus404Schema,
 	getDomainsRecordsByRecordIdStatus410Schema,
 ]);
+
+export const getDomainsRecordsByRecordIdPathSchema = z.object({
+	recordId: z.string().describe("The unique ID of the DNS record"),
+});
 
 export const removeRecordPathDomainSchema = z.string().meta({ examples: ["example.com"] });
 
@@ -35507,6 +37618,24 @@ export const removeRecordErrorSchema = z.union([
 	removeRecordStatus404Schema,
 	removeRecordStatus410Schema,
 ]);
+
+export const removeRecordPathSchema = z.object({
+	domain: z.string().meta({ examples: ["example.com"] }),
+	recordId: z.string().meta({ examples: ["rec_V0fra8eEgQwEpFhYG2vTzC3K"] }),
+});
+
+export const removeRecordQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const searchDomainsQueryTeamIdSchema = z
 	.string()
@@ -35562,6 +37691,13 @@ export const searchDomainsBodySchema = z.strictObject({
 	domains: z.array(domainNameSchema).min(1).max(200).describe("an array of at most 200 item(s)"),
 });
 
+export const searchDomainsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
 export const getSupportedTldsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -35592,6 +37728,13 @@ export const getSupportedTldsErrorSchema = z.union([
 	getSupportedTldsStatus429Schema,
 	getSupportedTldsStatus500Schema,
 ]);
+
+export const getSupportedTldsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
 
 export const getTldPathTldSchema = tldNameSchema.describe("A valid TLD name");
 
@@ -35627,6 +37770,17 @@ export const getTldErrorSchema = z.union([
 	getTldStatus429Schema,
 	getTldStatus500Schema,
 ]);
+
+export const getTldPathSchema = z.object({
+	tld: tldNameSchema.describe("A valid TLD name"),
+});
+
+export const getTldQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
 
 export const getTldPricePathTldSchema = tldNameSchema.describe("A valid TLD name");
 
@@ -35672,6 +37826,23 @@ export const getTldPriceErrorSchema = z.union([
 	getTldPriceStatus500Schema,
 ]);
 
+export const getTldPricePathSchema = z.object({
+	tld: tldNameSchema.describe("A valid TLD name"),
+});
+
+export const getTldPriceQuerySchema = z.object({
+	years: z
+		.string()
+		.optional()
+		.describe(
+			"The number of years to get the price for. If not provided, the minimum number of years for the TLD will be used.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
 export const getDomainAvailabilityPathDomainSchema =
 	domainNameSchema.describe("A valid domain name");
 
@@ -35708,6 +37879,17 @@ export const getDomainAvailabilityErrorSchema = z.union([
 	getDomainAvailabilityStatus429Schema,
 	getDomainAvailabilityStatus500Schema,
 ]);
+
+export const getDomainAvailabilityPathSchema = z.object({
+	domain: domainNameSchema.describe("A valid domain name"),
+});
+
+export const getDomainAvailabilityQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
 
 export const getDomainPricePathDomainSchema = domainNameSchema.describe("A valid domain name");
 
@@ -35754,6 +37936,23 @@ export const getDomainPriceErrorSchema = z.union([
 	getDomainPriceStatus429Schema,
 	getDomainPriceStatus500Schema,
 ]);
+
+export const getDomainPricePathSchema = z.object({
+	domain: domainNameSchema.describe("A valid domain name"),
+});
+
+export const getDomainPriceQuerySchema = z.object({
+	years: z
+		.string()
+		.optional()
+		.describe(
+			"The number of years to get the price for. If not provided, the minimum number of years for the TLD will be used.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
 
 export const getBulkPriceQueryTeamIdSchema = z
 	.string()
@@ -35807,6 +38006,13 @@ export const getBulkPriceBodySchema = z.strictObject({
 		),
 });
 
+export const getBulkPriceQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
 export const getBulkAvailabilityQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -35847,6 +38053,13 @@ export const getBulkAvailabilityBodySchema = z.strictObject({
 	domains: z.array(domainNameSchema).min(1).max(50).describe("an array of at most 50 item(s)"),
 });
 
+export const getBulkAvailabilityQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
 export const getContactInfoSchemaPathDomainSchema =
 	domainNameSchema.describe("A valid domain name");
 
@@ -35879,6 +38092,17 @@ export const getContactInfoSchemaErrorSchema = z.union([
 	getContactInfoSchemaStatus429Schema,
 	getContactInfoSchemaStatus500Schema,
 ]);
+
+export const getContactInfoSchemaPathSchema = z.object({
+	domain: domainNameSchema.describe("A valid domain name"),
+});
+
+export const getContactInfoSchemaQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
 
 export const getDomainAuthCodePathDomainSchema = domainNameSchema.describe("A valid domain name");
 
@@ -35926,6 +38150,17 @@ export const getDomainAuthCodeErrorSchema = z.union([
 	getDomainAuthCodeStatus429Schema,
 	getDomainAuthCodeStatus500Schema,
 ]);
+
+export const getDomainAuthCodePathSchema = z.object({
+	domain: domainNameSchema.describe("A valid domain name"),
+});
+
+export const getDomainAuthCodeQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
 
 export const buySingleDomainPathDomainSchema = domainNameSchema.describe("A valid domain name");
 
@@ -36012,6 +38247,17 @@ export const buySingleDomainBodySchema = z.strictObject({
 		.describe(
 			"The language code for the domain. For punycode domains, this must be provided. The list of supported language codes for a TLD can be retrieved from the [Get TLD](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-tld) endpoint.",
 		),
+});
+
+export const buySingleDomainPathSchema = z.object({
+	domain: domainNameSchema.describe("A valid domain name"),
+});
+
+export const buySingleDomainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
 });
 
 export const buyDomainsQueryTeamIdSchema = z
@@ -36108,6 +38354,13 @@ export const buyDomainsBodySchema = z.strictObject({
 		),
 });
 
+export const buyDomainsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
 export const transferInDomainPathDomainSchema = domainNameSchema.describe("A valid domain name");
 
 export const transferInDomainQueryTeamIdSchema = z
@@ -36189,6 +38442,17 @@ export const transferInDomainBodySchema = z.strictObject({
 	}),
 });
 
+export const transferInDomainPathSchema = z.object({
+	domain: domainNameSchema.describe("A valid domain name"),
+});
+
+export const transferInDomainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
 export const getDomainTransferInPathDomainSchema = domainNameSchema.describe("A valid domain name");
 
 export const getDomainTransferInQueryTeamIdSchema = z
@@ -36241,6 +38505,17 @@ export const getDomainTransferInErrorSchema = z.union([
 	getDomainTransferInStatus429Schema,
 	getDomainTransferInStatus500Schema,
 ]);
+
+export const getDomainTransferInPathSchema = z.object({
+	domain: domainNameSchema.describe("A valid domain name"),
+});
+
+export const getDomainTransferInQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
 
 export const renewDomainPathDomainSchema = domainNameSchema.describe("A valid domain name");
 
@@ -36317,6 +38592,17 @@ export const renewDomainBodySchema = z.strictObject({
 		.optional(),
 });
 
+export const renewDomainPathSchema = z.object({
+	domain: domainNameSchema.describe("A valid domain name"),
+});
+
+export const renewDomainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
 export const updateDomainAutoRenewPathDomainSchema =
 	domainNameSchema.describe("A valid domain name");
 
@@ -36364,6 +38650,17 @@ export const updateDomainAutoRenewBodySchema = z.strictObject({
 	autoRenew: z.boolean(),
 });
 
+export const updateDomainAutoRenewPathSchema = z.object({
+	domain: domainNameSchema.describe("A valid domain name"),
+});
+
+export const updateDomainAutoRenewQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
 export const updateDomainNameserversPathDomainSchema =
 	domainNameSchema.describe("A valid domain name");
 
@@ -36407,6 +38704,17 @@ export const updateDomainNameserversErrorSchema = z.union([
 
 export const updateDomainNameserversBodySchema = z.strictObject({
 	nameservers: z.array(nameserverSchema),
+});
+
+export const updateDomainNameserversPathSchema = z.object({
+	domain: domainNameSchema.describe("A valid domain name"),
+});
+
+export const updateDomainNameserversQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
 });
 
 export const getDomainContactVerificationPathDomainSchema =
@@ -36454,6 +38762,17 @@ export const getDomainContactVerificationErrorSchema = z.union([
 	getDomainContactVerificationStatus429Schema,
 	getDomainContactVerificationStatus500Schema,
 ]);
+
+export const getDomainContactVerificationPathSchema = z.object({
+	domain: domainNameSchema.describe("A valid domain name"),
+});
+
+export const getDomainContactVerificationQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
 
 export const getOrderPathOrderIdSchema = orderIdSchema.describe("A valid order ID");
 
@@ -36767,6 +39086,17 @@ export const getOrderErrorSchema = z.union([
 	getOrderStatus500Schema,
 ]);
 
+export const getOrderPathSchema = z.object({
+	orderId: orderIdSchema.describe("A valid order ID"),
+});
+
+export const getOrderQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
 export const getDomainConfigPathDomainSchema = z
 	.string()
 	.describe("The name of the domain.")
@@ -36850,6 +39180,38 @@ export const getDomainConfigErrorSchema = z.union([
 	getDomainConfigStatus410Schema,
 ]);
 
+export const getDomainConfigPathSchema = z.object({
+	domain: z
+		.string()
+		.describe("The name of the domain.")
+		.meta({ examples: ["example.com"] }),
+});
+
+export const getDomainConfigQuerySchema = z.object({
+	projectIdOrName: z
+		.string()
+		.optional()
+		.describe(
+			"The project id or name that will be associated with the domain. Use this when the domain is not yet associated with a project.",
+		),
+	strict: z
+		.enum(["true", "false"])
+		.optional()
+		.describe(
+			"When true, the response will only include the nameservers assigned directly to the specified domain. When false and there are no nameservers assigned directly to the specified domain, the response will include the nameservers of the domain's parent zone.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getDomainVerificationRecordPathDomainSchema = z
 	.string()
 	.describe("The domain name to get the verification record for")
@@ -36891,6 +39253,26 @@ export const getDomainVerificationRecordErrorSchema = z.union([
 	getDomainVerificationRecordStatus404Schema,
 	getDomainVerificationRecordStatus410Schema,
 ]);
+
+export const getDomainVerificationRecordPathSchema = z.object({
+	domain: z
+		.string()
+		.describe("The domain name to get the verification record for")
+		.meta({ examples: ["example.com"] }),
+});
+
+export const getDomainVerificationRecordQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const claimDomainOwnershipPathDomainSchema = z
 	.string()
@@ -37027,6 +39409,26 @@ export const claimDomainOwnershipErrorSchema = z.union([
 	claimDomainOwnershipStatus410Schema,
 ]);
 
+export const claimDomainOwnershipPathSchema = z.object({
+	domain: z
+		.string()
+		.describe("The domain name to claim ownership of")
+		.meta({ examples: ["example.com"] }),
+});
+
+export const claimDomainOwnershipQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getDomainProjectDomainsPathDomainSchema = z
 	.string()
 	.describe("The apex domain name.")
@@ -37120,6 +39522,41 @@ export const getDomainProjectDomainsErrorSchema = z.union([
 	getDomainProjectDomainsStatus404Schema,
 	getDomainProjectDomainsStatus410Schema,
 ]);
+
+export const getDomainProjectDomainsPathSchema = z.object({
+	domain: z
+		.string()
+		.describe("The apex domain name.")
+		.meta({ examples: ["example.com"] }),
+});
+
+export const getDomainProjectDomainsQuerySchema = z.object({
+	limit: z
+		.number()
+		.optional()
+		.describe("Maximum number of project domains to list from a request.")
+		.meta({ examples: [20] }),
+	since: z
+		.number()
+		.optional()
+		.describe("Get project domains created after this JavaScript timestamp.")
+		.meta({ examples: [1609499532000] }),
+	until: z
+		.number()
+		.optional()
+		.describe("Get project domains created before this JavaScript timestamp.")
+		.meta({ examples: [1612264332000] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getDomainPathDomainSchema = z
 	.string()
@@ -37256,6 +39693,26 @@ export const getDomainErrorSchema = z.union([
 	getDomainStatus404Schema,
 	getDomainStatus410Schema,
 ]);
+
+export const getDomainPathSchema = z.object({
+	domain: z
+		.string()
+		.describe("The name of the domain.")
+		.meta({ examples: ["example.com"] }),
+});
+
+export const getDomainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getDomainsQueryLimitSchema = z
 	.number()
@@ -37409,6 +39866,34 @@ export const getDomainsErrorSchema = z.union([
 	getDomainsStatus409Schema,
 	getDomainsStatus410Schema,
 ]);
+
+export const getDomainsQuerySchema = z.object({
+	limit: z
+		.number()
+		.optional()
+		.describe("Maximum number of domains to list from a request.")
+		.meta({ examples: [20] }),
+	since: z
+		.number()
+		.optional()
+		.describe("Get domains created after this JavaScript timestamp.")
+		.meta({ examples: [1609499532000] }),
+	until: z
+		.number()
+		.optional()
+		.describe("Get domains created before this JavaScript timestamp.")
+		.meta({ examples: [1612264332000] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createOrTransferDomainQueryTeamIdSchema = z
 	.string()
@@ -37597,6 +40082,19 @@ export const createOrTransferDomainBodySchema = z
 	)
 	.optional();
 
+export const createOrTransferDomainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const patchDomainPathDomainSchema = z.string();
 
 export const patchDomainQueryTeamIdSchema = z
@@ -37696,6 +40194,23 @@ export const patchDomainBodySchema = z.union([
 	}),
 ]);
 
+export const patchDomainPathSchema = z.object({
+	domain: z.string(),
+});
+
+export const patchDomainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteDomainPathDomainSchema = z
 	.string()
 	.describe("The name of the domain.")
@@ -37739,6 +40254,26 @@ export const deleteDomainErrorSchema = z.union([
 	deleteDomainStatus409Schema,
 	deleteDomainStatus410Schema,
 ]);
+
+export const deleteDomainPathSchema = z.object({
+	domain: z
+		.string()
+		.describe("The name of the domain.")
+		.meta({ examples: ["example.com"] }),
+});
+
+export const deleteDomainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getConfigurableLogDrainPathIdSchema = z.string();
 
@@ -37870,6 +40405,23 @@ export const getConfigurableLogDrainErrorSchema = z.union([
 	getConfigurableLogDrainStatus410Schema,
 ]);
 
+export const getConfigurableLogDrainPathSchema = z.object({
+	id: z.string(),
+});
+
+export const getConfigurableLogDrainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteConfigurableLogDrainPathIdSchema = z.string();
 
 export const deleteConfigurableLogDrainQueryTeamIdSchema = z
@@ -37905,6 +40457,23 @@ export const deleteConfigurableLogDrainErrorSchema = z.union([
 	deleteConfigurableLogDrainStatus404Schema,
 	deleteConfigurableLogDrainStatus410Schema,
 ]);
+
+export const deleteConfigurableLogDrainPathSchema = z.object({
+	id: z.string(),
+});
+
+export const deleteConfigurableLogDrainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getAllLogDrainsQueryProjectIdSchema = z
 	.string()
@@ -38433,6 +41002,32 @@ export const getAllLogDrainsErrorSchema = z.union([
 	getAllLogDrainsStatus410Schema,
 ]);
 
+export const getAllLogDrainsQuerySchema = z.object({
+	projectId: z
+		.string()
+		.regex(/^[a-zA-z0-9_]+$/)
+		.optional(),
+	projectIdOrName: z.string().optional(),
+	includeMetadata: z.boolean().optional().default(false),
+	includeDeliveryStats: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"Include `deliveryStats` with the delivery health of each drain over the last 24 hours. Ignored for teams without drain delivery metrics.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createConfigurableLogDrainQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -38506,6 +41101,19 @@ export const createConfigurableLogDrainBodySchema = z.strictObject({
 			"The sampling rate for this log drain. It should be a percentage rate between 0 and 100. With max 2 decimal points",
 		),
 	name: z.string().optional().describe("The custom name of this log drain."),
+});
+
+export const createConfigurableLogDrainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
 });
 
 export const createDrainQueryTeamIdSchema = z
@@ -39048,6 +41656,19 @@ export const createDrainBodySchema = z
 	})
 	.optional();
 
+export const createDrainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getDrainsQueryProjectIdSchema = z.string().optional();
 
 export const getDrainsQueryIncludeMetadataSchema = z.boolean().optional().default(false);
@@ -39470,6 +42091,28 @@ export const getDrainsErrorSchema = z.union([
 	getDrainsStatus503Schema,
 ]);
 
+export const getDrainsQuerySchema = z.object({
+	projectId: z.string().optional(),
+	includeMetadata: z.boolean().optional().default(false),
+	includeDeliveryStats: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"Include `deliveryStats` with the delivery health of each drain over the last 24 hours. Ignored for teams without drain delivery metrics.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteDrainPathIdSchema = z.string();
 
 export const deleteDrainQueryTeamIdSchema = z
@@ -39505,6 +42148,23 @@ export const deleteDrainErrorSchema = z.union([
 	deleteDrainStatus404Schema,
 	deleteDrainStatus410Schema,
 ]);
+
+export const deleteDrainPathSchema = z.object({
+	id: z.string(),
+});
+
+export const deleteDrainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getDrainPathIdSchema = z.string();
 
@@ -39718,6 +42378,30 @@ export const getDrainErrorSchema = z.union([
 	getDrainStatus410Schema,
 	getDrainStatus503Schema,
 ]);
+
+export const getDrainPathSchema = z.object({
+	id: z.string(),
+});
+
+export const getDrainQuerySchema = z.object({
+	includeDeliveryStats: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"Include `deliveryStats` with the delivery health of the drain over the last 24 hours.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateDrainPathIdSchema = z.string();
 
@@ -40267,6 +42951,23 @@ export const updateDrainBodySchema = z
 	})
 	.optional();
 
+export const updateDrainPathSchema = z.object({
+	id: z.string(),
+});
+
+export const updateDrainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const testDrainQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -40355,6 +43056,19 @@ export const testDrainBodySchema = z
 	})
 	.optional();
 
+export const testDrainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const invalidateByTagsQueryProjectIdOrNameSchema = z.string();
 
 export const invalidateByTagsQueryTeamIdSchema = z
@@ -40397,6 +43111,20 @@ export const invalidateByTagsBodySchema = z
 		target: z.enum(["preview", "production"]).optional(),
 	})
 	.optional();
+
+export const invalidateByTagsQuerySchema = z.object({
+	projectIdOrName: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const dangerouslyDeleteByTagsQueryProjectIdOrNameSchema = z.string();
 
@@ -40442,6 +43170,20 @@ export const dangerouslyDeleteByTagsBodySchema = z
 	})
 	.optional();
 
+export const dangerouslyDeleteByTagsQuerySchema = z.object({
+	projectIdOrName: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const invalidateBySrcImagesQueryProjectIdOrNameSchema = z.string();
 
 export const invalidateBySrcImagesQueryTeamIdSchema = z
@@ -40486,6 +43228,20 @@ export const invalidateBySrcImagesBodySchema = z
 		srcImages: z.array(z.string()).min(1).max(8),
 	})
 	.optional();
+
+export const invalidateBySrcImagesQuerySchema = z.object({
+	projectIdOrName: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const dangerouslyDeleteBySrcImagesQueryProjectIdOrNameSchema = z.string();
 
@@ -40533,6 +43289,20 @@ export const dangerouslyDeleteBySrcImagesBodySchema = z
 		srcImages: z.array(z.string()).min(1).max(8),
 	})
 	.optional();
+
+export const dangerouslyDeleteBySrcImagesQuerySchema = z.object({
+	projectIdOrName: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getEdgeConfigsQueryTeamIdSchema = z
 	.string()
@@ -40588,6 +43358,19 @@ export const getEdgeConfigsErrorSchema = z.union([
 	getEdgeConfigsStatus404Schema,
 	getEdgeConfigsStatus410Schema,
 ]);
+
+export const getEdgeConfigsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createEdgeConfigQueryTeamIdSchema = z
 	.string()
@@ -40655,6 +43438,19 @@ export const createEdgeConfigBodySchema = z.object({
 	items: z.record(z.string(), z.unknown()).optional(),
 });
 
+export const createEdgeConfigQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getEdgeConfigPathEdgeConfigIdSchema = z.string();
 
 export const getEdgeConfigQueryTeamIdSchema = z
@@ -40711,6 +43507,23 @@ export const getEdgeConfigErrorSchema = z.union([
 	getEdgeConfigStatus404Schema,
 	getEdgeConfigStatus410Schema,
 ]);
+
+export const getEdgeConfigPathSchema = z.object({
+	edgeConfigId: z.string(),
+});
+
+export const getEdgeConfigQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateEdgeConfigPathEdgeConfigIdSchema = z.string();
 
@@ -40782,6 +43595,23 @@ export const updateEdgeConfigBodySchema = z.object({
 		.regex(/^[\w-]+$/),
 });
 
+export const updateEdgeConfigPathSchema = z.object({
+	edgeConfigId: z.string(),
+});
+
+export const updateEdgeConfigQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteEdgeConfigPathEdgeConfigIdSchema = z.string();
 
 export const deleteEdgeConfigQueryTeamIdSchema = z
@@ -40821,6 +43651,23 @@ export const deleteEdgeConfigErrorSchema = z.union([
 	deleteEdgeConfigStatus410Schema,
 ]);
 
+export const deleteEdgeConfigPathSchema = z.object({
+	edgeConfigId: z.string(),
+});
+
+export const deleteEdgeConfigQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getEdgeConfigItemsPathEdgeConfigIdSchema = z.string().regex(/^ecfg_/);
 
 export const getEdgeConfigItemsQueryTeamIdSchema = z
@@ -40856,6 +43703,23 @@ export const getEdgeConfigItemsErrorSchema = z.union([
 	getEdgeConfigItemsStatus404Schema,
 	getEdgeConfigItemsStatus410Schema,
 ]);
+
+export const getEdgeConfigItemsPathSchema = z.object({
+	edgeConfigId: z.string().regex(/^ecfg_/),
+});
+
+export const getEdgeConfigItemsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const patchEdgeConfigItemsPathEdgeConfigIdSchema = z.string().regex(/^ecfg_/);
 
@@ -40957,6 +43821,23 @@ export const patchEdgeConfigItemsBodySchema = z
 	})
 	.optional();
 
+export const patchEdgeConfigItemsPathSchema = z.object({
+	edgeConfigId: z.string().regex(/^ecfg_/),
+});
+
+export const patchEdgeConfigItemsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getEdgeConfigSchemaPathEdgeConfigIdSchema = z.string();
 
 export const getEdgeConfigSchemaQueryTeamIdSchema = z
@@ -40995,6 +43876,23 @@ export const getEdgeConfigSchemaErrorSchema = z.union([
 	getEdgeConfigSchemaStatus404Schema,
 	getEdgeConfigSchemaStatus410Schema,
 ]);
+
+export const getEdgeConfigSchemaPathSchema = z.object({
+	edgeConfigId: z.string(),
+});
+
+export const getEdgeConfigSchemaQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const patchEdgeConfigSchemaPathEdgeConfigIdSchema = z.string();
 
@@ -41047,6 +43945,24 @@ export const patchEdgeConfigSchemaBodySchema = z.strictObject({
 	definition: z.unknown(),
 });
 
+export const patchEdgeConfigSchemaPathSchema = z.object({
+	edgeConfigId: z.string(),
+});
+
+export const patchEdgeConfigSchemaQuerySchema = z.object({
+	dryRun: z.string().optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteEdgeConfigSchemaPathEdgeConfigIdSchema = z.string();
 
 export const deleteEdgeConfigSchemaQueryTeamIdSchema = z
@@ -41088,6 +44004,23 @@ export const deleteEdgeConfigSchemaErrorSchema = z.union([
 	deleteEdgeConfigSchemaStatus409Schema,
 	deleteEdgeConfigSchemaStatus410Schema,
 ]);
+
+export const deleteEdgeConfigSchemaPathSchema = z.object({
+	edgeConfigId: z.string(),
+});
+
+export const deleteEdgeConfigSchemaQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getEdgeConfigItemPathEdgeConfigIdSchema = z.string().regex(/^ecfg_/);
 
@@ -41133,6 +44066,24 @@ export const getEdgeConfigItemErrorSchema = z.union([
 	getEdgeConfigItemStatus410Schema,
 ]);
 
+export const getEdgeConfigItemPathSchema = z.object({
+	edgeConfigId: z.string().regex(/^ecfg_/),
+	edgeConfigItemKey: z.string(),
+});
+
+export const getEdgeConfigItemQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getEdgeConfigTokensPathEdgeConfigIdSchema = z.string();
 
 export const getEdgeConfigTokensQueryTeamIdSchema = z
@@ -41168,6 +44119,23 @@ export const getEdgeConfigTokensErrorSchema = z.union([
 	getEdgeConfigTokensStatus404Schema,
 	getEdgeConfigTokensStatus410Schema,
 ]);
+
+export const getEdgeConfigTokensPathSchema = z.object({
+	edgeConfigId: z.string(),
+});
+
+export const getEdgeConfigTokensQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const deleteEdgeConfigTokensPathEdgeConfigIdSchema = z.string().regex(/^ecfg_/);
 
@@ -41227,6 +44195,23 @@ export const deleteEdgeConfigTokensBodySchema = z
 		}),
 	);
 
+export const deleteEdgeConfigTokensPathSchema = z.object({
+	edgeConfigId: z.string().regex(/^ecfg_/),
+});
+
+export const deleteEdgeConfigTokensQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getEdgeConfigTokenPathEdgeConfigIdSchema = z.string();
 
 export const getEdgeConfigTokenPathTokenSchema = z.string();
@@ -41265,6 +44250,24 @@ export const getEdgeConfigTokenErrorSchema = z.union([
 	getEdgeConfigTokenStatus404Schema,
 	getEdgeConfigTokenStatus410Schema,
 ]);
+
+export const getEdgeConfigTokenPathSchema = z.object({
+	edgeConfigId: z.string(),
+	token: z.string(),
+});
+
+export const getEdgeConfigTokenQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createEdgeConfigTokenPathEdgeConfigIdSchema = z.string().regex(/^ecfg_/);
 
@@ -41313,6 +44316,23 @@ export const createEdgeConfigTokenErrorSchema = z.union([
 
 export const createEdgeConfigTokenBodySchema = z.strictObject({
 	label: z.string().max(52),
+});
+
+export const createEdgeConfigTokenPathSchema = z.object({
+	edgeConfigId: z.string().regex(/^ecfg_/),
+});
+
+export const createEdgeConfigTokenQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
 });
 
 export const getEdgeConfigBackupPathEdgeConfigIdSchema = z.string();
@@ -41431,6 +44451,24 @@ export const getEdgeConfigBackupErrorSchema = z.union([
 	getEdgeConfigBackupStatus410Schema,
 ]);
 
+export const getEdgeConfigBackupPathSchema = z.object({
+	edgeConfigId: z.string(),
+	edgeConfigBackupVersionId: z.string(),
+});
+
+export const getEdgeConfigBackupQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const restoreEdgeConfigBackupPathEdgeConfigIdSchema = z.string().regex(/^ecfg_/);
 
 export const restoreEdgeConfigBackupPathEdgeConfigBackupVersionIdSchema = z.string();
@@ -41482,6 +44520,24 @@ export const restoreEdgeConfigBackupErrorSchema = z.union([
 	restoreEdgeConfigBackupStatus410Schema,
 	restoreEdgeConfigBackupStatus412Schema,
 ]);
+
+export const restoreEdgeConfigBackupPathSchema = z.object({
+	edgeConfigId: z.string().regex(/^ecfg_/),
+	edgeConfigBackupVersionId: z.string(),
+});
+
+export const restoreEdgeConfigBackupQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getEdgeConfigBackupsPathEdgeConfigIdSchema = z.string();
 
@@ -41543,6 +44599,26 @@ export const getEdgeConfigBackupsErrorSchema = z.union([
 	getEdgeConfigBackupsStatus404Schema,
 	getEdgeConfigBackupsStatus410Schema,
 ]);
+
+export const getEdgeConfigBackupsPathSchema = z.object({
+	edgeConfigId: z.string(),
+});
+
+export const getEdgeConfigBackupsQuerySchema = z.object({
+	next: z.string().optional(),
+	limit: z.number().min(0).max(50).optional(),
+	metadata: z.string().optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createSharedEnvVariableQueryTeamIdSchema = z
 	.string()
@@ -41767,6 +44843,19 @@ export const createSharedEnvVariableBodySchema = z
 	)
 	.optional();
 
+export const createSharedEnvVariableQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listSharedEnvVariableQuerySearchSchema = z.string().optional();
 
 export const listSharedEnvVariableQueryProjectIdSchema = z
@@ -41934,6 +45023,50 @@ export const listSharedEnvVariableErrorSchema = z.union([
 	listSharedEnvVariableStatus404Schema,
 	listSharedEnvVariableStatus410Schema,
 ]);
+
+export const listSharedEnvVariableQuerySchema = z.object({
+	search: z.string().optional(),
+	projectId: z
+		.string()
+		.optional()
+		.describe("Filter SharedEnvVariables that belong to a project")
+		.meta({ examples: ["prj_2WjyKQmM8ZnGcJsPWMrHRHrE"] }),
+	ids: z
+		.string()
+		.optional()
+		.describe("Filter SharedEnvVariables based on comma separated ids")
+		.meta({ examples: ["env_2WjyKQmM8ZnGcJsPWMrHRHrE,env_2WjyKQmM8ZnGcJsPWMrHRCRV"] }),
+	exclude_ids: z
+		.string()
+		.optional()
+		.describe("Filter SharedEnvVariables based on comma separated ids")
+		.meta({ examples: ["env_2WjyKQmM8ZnGcJsPWMrHRHrE,env_2WjyKQmM8ZnGcJsPWMrHRCRV"] }),
+	"exclude-ids": z
+		.string()
+		.optional()
+		.describe("Filter SharedEnvVariables based on comma separated ids")
+		.meta({ examples: ["env_2WjyKQmM8ZnGcJsPWMrHRHrE,env_2WjyKQmM8ZnGcJsPWMrHRCRV"] }),
+	exclude_projectId: z
+		.string()
+		.optional()
+		.describe("Filter SharedEnvVariables that belong to a project")
+		.meta({ examples: ["prj_2WjyKQmM8ZnGcJsPWMrHRHrE"] }),
+	"exclude-projectId": z
+		.string()
+		.optional()
+		.describe("Filter SharedEnvVariables that belong to a project")
+		.meta({ examples: ["prj_2WjyKQmM8ZnGcJsPWMrHRHrE"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateSharedEnvVariableQueryTeamIdSchema = z
 	.string()
@@ -42176,6 +45309,19 @@ export const updateSharedEnvVariableBodySchema = z
 	})
 	.optional();
 
+export const updateSharedEnvVariableQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteSharedEnvVariableQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -42247,6 +45393,19 @@ export const deleteSharedEnvVariableBodySchema = z
 			.meta({ examples: [["env_abc123", "env_abc124"]] }),
 	})
 	.optional();
+
+export const deleteSharedEnvVariableQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getSharedEnvVarPathIdSchema = z
 	.string()
@@ -42387,6 +45546,25 @@ export const getSharedEnvVarErrorSchema = z.union([
 	getSharedEnvVarStatus410Schema,
 ]);
 
+export const getSharedEnvVarPathSchema = z.object({
+	id: z
+		.string()
+		.describe("The unique ID for the Shared Environment Variable to get the decrypted value."),
+});
+
+export const getSharedEnvVarQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const unlinkSharedEnvVariablePathIdSchema = z
 	.string()
 	.describe("The unique ID for the Shared Environment Variable to unlink from the project.");
@@ -42428,6 +45606,26 @@ export const unlinkSharedEnvVariableErrorSchema = z.union([
 	unlinkSharedEnvVariableStatus404Schema,
 	unlinkSharedEnvVariableStatus410Schema,
 ]);
+
+export const unlinkSharedEnvVariablePathSchema = z.object({
+	id: z
+		.string()
+		.describe("The unique ID for the Shared Environment Variable to unlink from the project."),
+	projectId: z.string(),
+});
+
+export const unlinkSharedEnvVariableQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listUserEventsQueryLimitSchema = z
 	.number()
@@ -42524,6 +45722,70 @@ export const listUserEventsErrorSchema = z.union([
 	listUserEventsStatus410Schema,
 ]);
 
+export const listUserEventsQuerySchema = z.object({
+	limit: z
+		.number()
+		.optional()
+		.describe("Maximum number of items which may be returned.")
+		.meta({ examples: [20] }),
+	since: z
+		.string()
+		.optional()
+		.describe("Timestamp to only include items created since then.")
+		.meta({ examples: ["2019-12-08T10:00:38.976Z"] }),
+	until: z
+		.string()
+		.optional()
+		.describe("Timestamp to only include items created until then.")
+		.meta({ examples: ["2019-12-09T23:00:38.976Z"] }),
+	types: z
+		.string()
+		.optional()
+		.describe('Comma-delimited list of event "types" to filter the results by.')
+		.meta({ examples: ["login,team-member-join,domain-buy"] }),
+	userId: z
+		.string()
+		.optional()
+		.describe(
+			"Deprecated. Use `principalId` instead. If `principalId` and `userId` both exist, `principalId` will be used.",
+		)
+		.meta({ examples: ["aeIInYVk59zbFF2SxfyxxmuO"] }),
+	principalId: z
+		.string()
+		.optional()
+		.describe(
+			"When retrieving events for a Team, the `principalId` parameter may be specified to filter events generated by a specific principal.",
+		)
+		.meta({ examples: ["aeIInYVk59zbFF2SxfyxxmuO"] }),
+	projectIds: z
+		.string()
+		.optional()
+		.describe("Comma-delimited list of project IDs to filter the results by.")
+		.meta({ examples: ["aeIInYVk59zbFF2SxfyxxmuO"] }),
+	entityId: z
+		.string()
+		.optional()
+		.describe(
+			"Filters events to those associated with a specific entity (matched against `payload.id`). For example, a connector ID.",
+		)
+		.meta({ examples: ["scl_123"] }),
+	withPayload: z
+		.string()
+		.optional()
+		.describe("When set to `true`, the response will include the `payload` field for each event.")
+		.meta({ examples: ["true"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listEventTypesQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -42554,6 +45816,19 @@ export const listEventTypesErrorSchema = z.union([
 	listEventTypesStatus403Schema,
 	listEventTypesStatus410Schema,
 ]);
+
+export const listEventTypesQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listFlagsV2PathProjectIdOrNameSchema = z.string().describe("The project id or name");
 
@@ -42654,6 +45929,62 @@ export const listFlagsV2ErrorSchema = z.union([
 	listFlagsV2Status503Schema,
 ]);
 
+export const listFlagsV2PathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+});
+
+export const listFlagsV2QuerySchema = z.object({
+	state: z
+		.enum(["active", "archived"])
+		.optional()
+		.describe("The state of the flags to retrieve. Defaults to `active`."),
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.default(25)
+		.describe("Maximum number of flags to return."),
+	cursor: z.string().optional().describe("Pagination cursor to continue from."),
+	search: z
+		.string()
+		.max(256)
+		.optional()
+		.describe("Search flags by their slug or description. Case-insensitive."),
+	tags: z
+		.array(z.string())
+		.optional()
+		.describe("Filter flags by tag. Repeat the parameter for multiple tags (all must match)."),
+	createdBy: z
+		.string()
+		.max(256)
+		.optional()
+		.describe("Filter flags by the id of the entity that created them (a user or team id)."),
+	maintainerIds: z
+		.array(z.string().max(24))
+		.max(25)
+		.optional()
+		.describe(
+			"Filter flags by maintainer user id. Repeat the parameter for multiple maintainers (any may match).",
+		),
+	includeMarketplaceFlags: z
+		.boolean()
+		.optional()
+		.describe(
+			"Whether to include Marketplace experimentation items in the paginated response. Defaults to false.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listFlagsPathProjectIdOrNameSchema = z.string().describe("The project id or name");
 
 export const listFlagsQueryStateSchema = z
@@ -42732,6 +46063,49 @@ export const listFlagsErrorSchema = z.union([
 	listFlagsStatus404Schema,
 	listFlagsStatus410Schema,
 ]);
+
+export const listFlagsPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+});
+
+export const listFlagsQuerySchema = z.object({
+	state: z
+		.enum(["active", "archived"])
+		.optional()
+		.describe("The state of the flags to retrieve. Defaults to `active`."),
+	withMetadata: z
+		.boolean()
+		.optional()
+		.describe(
+			"Deprecated. Whether to include creator metadata in each flag in the response. Resolve creator identity client-side (e.g. via the team members endpoint) instead; this parameter will be removed in a future release. Use `GET /v1/projects/:id/feature-flags/flags/:flagIdOrSlug?withMetadata=true` for single-flag lookups that need creator metadata.",
+		),
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.describe("Maximum number of flags to return. When not set, all flags are returned."),
+	cursor: z.string().optional().describe("Pagination cursor to continue from."),
+	search: z
+		.string()
+		.max(256)
+		.optional()
+		.describe("Search flags by their slug or description. Case-insensitive."),
+	tags: z
+		.array(z.string())
+		.optional()
+		.describe("Filter flags by tag. Repeat the parameter for multiple tags (all must match)."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createFlagPathProjectIdOrNameSchema = z.string().describe("The project id or name");
 
@@ -43307,6 +46681,23 @@ export const createFlagBodySchema = z
 	})
 	.optional();
 
+export const createFlagPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+});
+
+export const createFlagQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getFlagPathProjectIdOrNameSchema = z.string().describe("The project id or name");
 
 export const getFlagPathFlagIdOrSlugSchema = z.string().describe("The flag id or name");
@@ -43360,6 +46751,29 @@ export const getFlagErrorSchema = z.union([
 	getFlagStatus404Schema,
 	getFlagStatus410Schema,
 ]);
+
+export const getFlagPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+	flagIdOrSlug: z.string().describe("The flag id or name"),
+});
+
+export const getFlagQuerySchema = z.object({
+	ifMatch: z
+		.string()
+		.optional()
+		.describe("Etag to match, can be used interchangeably with the `if-match` header"),
+	withMetadata: z.boolean().optional().describe("Whether to include metadata in the response"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateFlagPathProjectIdOrNameSchema = z.string().describe("The project id or name");
 
@@ -43946,6 +47360,29 @@ export const updateFlagBodySchema = z
 	})
 	.optional();
 
+export const updateFlagPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+	flagIdOrSlug: z.string().describe("The flag id or name"),
+});
+
+export const updateFlagQuerySchema = z.object({
+	ifMatch: z
+		.string()
+		.optional()
+		.describe("Etag to match, can be used interchangeably with the `if-match` header"),
+	withMetadata: z.boolean().optional().describe("Whether to include metadata in the response"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteFlagPathProjectIdOrNameSchema = z.string().describe("The project id or name");
 
 export const deleteFlagPathFlagIdOrSlugSchema = z.string().describe("The flag id or name");
@@ -44002,6 +47439,29 @@ export const deleteFlagErrorSchema = z.union([
 	deleteFlagStatus409Schema,
 	deleteFlagStatus410Schema,
 ]);
+
+export const deleteFlagPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+	flagIdOrSlug: z.string().describe("The flag id or name"),
+});
+
+export const deleteFlagQuerySchema = z.object({
+	ifMatch: z
+		.string()
+		.optional()
+		.describe("Etag to match, can be used interchangeably with the `if-match` header"),
+	withMetadata: z.boolean().optional().describe("Whether to include metadata in the response"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listFlagVersionsPathProjectIdOrNameSchema = z.string();
 
@@ -44300,6 +47760,28 @@ export const listFlagVersionsErrorSchema = z.union([
 	listFlagVersionsStatus410Schema,
 ]);
 
+export const listFlagVersionsPathSchema = z.object({
+	projectIdOrName: z.string(),
+	flagIdOrSlug: z.string(),
+});
+
+export const listFlagVersionsQuerySchema = z.object({
+	limit: z.number().min(1).max(100).optional().default(20),
+	cursor: z.string().optional().describe("Pagination cursor"),
+	environment: z.string().optional().describe("Environment to filter by"),
+	withMetadata: z.boolean().optional().default(false).describe("Whether to include metadata"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getFlagSettingsPathProjectIdOrNameSchema = z
 	.string()
 	.describe("The project id or name");
@@ -44376,6 +47858,23 @@ export const getFlagSettingsErrorSchema = z.union([
 	getFlagSettingsStatus404Schema,
 	getFlagSettingsStatus410Schema,
 ]);
+
+export const getFlagSettingsPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+});
+
+export const getFlagSettingsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateFlagSettingsPathProjectIdOrNameSchema = z
 	.string()
@@ -44534,6 +48033,23 @@ export const updateFlagSettingsBodySchema = z
 	})
 	.optional();
 
+export const updateFlagSettingsPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+});
+
+export const updateFlagSettingsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listFlagLabelsQueryLimitSchema = z.int().min(1).max(100).optional().default(20);
 
 export const listFlagLabelsQueryCursorSchema = z
@@ -44603,6 +48119,36 @@ export const listFlagLabelsErrorSchema = z.union([
 	listFlagLabelsStatus410Schema,
 ]);
 
+export const listFlagLabelsPathSchema = z.object({
+	projectIdOrName: z.string(),
+});
+
+export const listFlagLabelsQuerySchema = z.object({
+	limit: z.int().min(1).max(100).optional().default(20),
+	cursor: z
+		.string()
+		.max(4096)
+		.optional()
+		.describe("The continuation cursor from the previous response."),
+	search: z
+		.string()
+		.max(128)
+		.optional()
+		.describe("Case-insensitive substring search on the value and label."),
+	entityKind: z.string().max(128),
+	attributeKey: z.string().max(128),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listFlagLabelCountsQueryEntityKindSchema = z.string().max(128).optional();
 
 export const listFlagLabelCountsQueryLimitSchema = z.int().min(1).max(20).optional().default(20);
@@ -44662,6 +48208,30 @@ export const listFlagLabelCountsErrorSchema = z.union([
 	listFlagLabelCountsStatus404Schema,
 	listFlagLabelCountsStatus410Schema,
 ]);
+
+export const listFlagLabelCountsPathSchema = z.object({
+	projectIdOrName: z.string(),
+});
+
+export const listFlagLabelCountsQuerySchema = z.object({
+	entityKind: z.string().max(128).optional(),
+	limit: z.int().min(1).max(20).optional().default(20),
+	cursor: z
+		.string()
+		.max(4096)
+		.optional()
+		.describe("The continuation cursor from the previous response."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const lookupFlagLabelsPathProjectIdOrNameSchema = z.string();
 
@@ -44735,6 +48305,23 @@ export const lookupFlagLabelsBodySchema = z
 			.max(100),
 	})
 	.optional();
+
+export const lookupFlagLabelsPathSchema = z.object({
+	projectIdOrName: z.string(),
+});
+
+export const lookupFlagLabelsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listTeamFlagSettingsQueryLimitSchema = z
 	.int()
@@ -44827,6 +48414,29 @@ export const listTeamFlagSettingsErrorSchema = z.union([
 	listTeamFlagSettingsStatus404Schema,
 	listTeamFlagSettingsStatus410Schema,
 ]);
+
+export const listTeamFlagSettingsPathSchema = z.object({
+	teamId: z
+		.string()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const listTeamFlagSettingsQuerySchema = z.object({
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.default(20)
+		.describe("Maximum number of settings to return."),
+	cursor: z.string().optional().describe("Pagination cursor to continue from."),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listTeamFlagsV2QueryStateSchema = z
 	.enum(["active", "archived"])
@@ -44926,6 +48536,64 @@ export const listTeamFlagsV2ErrorSchema = z.union([
 	listTeamFlagsV2Status503Schema,
 ]);
 
+export const listTeamFlagsV2PathSchema = z.object({
+	teamId: z
+		.string()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const listTeamFlagsV2QuerySchema = z.object({
+	state: z
+		.enum(["active", "archived"])
+		.optional()
+		.describe("The state of the flags to retrieve. Defaults to `active`."),
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.default(25)
+		.describe("Maximum number of flags to return."),
+	cursor: z.string().optional().describe("Pagination cursor to continue from."),
+	search: z
+		.string()
+		.max(256)
+		.optional()
+		.describe("Search flags by their slug or description. Case-insensitive."),
+	kind: z
+		.enum(["boolean", "string", "number", "json"])
+		.optional()
+		.describe("The kind of flags to retrieve."),
+	tags: z
+		.array(z.string())
+		.optional()
+		.describe("Filter flags by tag. Repeat the parameter for multiple tags (all must match)."),
+	createdBy: z
+		.string()
+		.max(256)
+		.optional()
+		.describe("Filter flags by the id of the entity that created them (a user or team id)."),
+	maintainerIds: z
+		.array(z.string().max(24))
+		.max(25)
+		.optional()
+		.describe(
+			"Filter flags by maintainer user id. Repeat the parameter for multiple maintainers (any may match).",
+		),
+	includeMarketplaceFlags: z
+		.boolean()
+		.optional()
+		.describe(
+			"Whether to include Marketplace experimentation items in the paginated response. Defaults to false.",
+		),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listTeamFlagsQueryStateSchema = z
 	.enum(["active", "archived"])
 	.optional()
@@ -45004,6 +48672,52 @@ export const listTeamFlagsErrorSchema = z.union([
 	listTeamFlagsStatus404Schema,
 	listTeamFlagsStatus410Schema,
 ]);
+
+export const listTeamFlagsPathSchema = z.object({
+	teamId: z
+		.string()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const listTeamFlagsQuerySchema = z.object({
+	state: z
+		.enum(["active", "archived"])
+		.optional()
+		.describe("The state of the flags to retrieve. Defaults to `active`."),
+	withMetadata: z
+		.boolean()
+		.optional()
+		.describe(
+			"Deprecated. Whether to include creator metadata in each flag in the response. Resolve creator identity client-side (e.g. via the team members endpoint) instead; this parameter will be removed in a future release.",
+		),
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.default(20)
+		.describe("Maximum number of flags to return."),
+	cursor: z.string().optional().describe("Pagination cursor to continue from."),
+	search: z
+		.string()
+		.max(256)
+		.optional()
+		.describe("Search flags by their slug or description. Case-insensitive."),
+	kind: z
+		.enum(["boolean", "string", "number", "json"])
+		.optional()
+		.describe("The kind of flags to retrieve."),
+	tags: z
+		.array(z.string())
+		.optional()
+		.describe("Filter flags by tag. Repeat the parameter for multiple tags (all must match)."),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createFlagSegmentPathProjectIdOrNameSchema = z
 	.string()
@@ -45329,6 +49043,23 @@ export const createFlagSegmentBodySchema = z
 	})
 	.optional();
 
+export const createFlagSegmentPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+});
+
+export const createFlagSegmentQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listFlagSegmentsPathProjectIdOrNameSchema = z
 	.string()
 	.describe("The project id or name");
@@ -45378,6 +49109,24 @@ export const listFlagSegmentsErrorSchema = z.union([
 	listFlagSegmentsStatus410Schema,
 ]);
 
+export const listFlagSegmentsPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+});
+
+export const listFlagSegmentsQuerySchema = z.object({
+	withMetadata: z.boolean().optional().default(false).describe("Whether to include metadata"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getFlagSegmentPathProjectIdOrNameSchema = z
 	.string()
 	.describe("The project id or name");
@@ -45426,6 +49175,25 @@ export const getFlagSegmentErrorSchema = z.union([
 	getFlagSegmentStatus404Schema,
 	getFlagSegmentStatus410Schema,
 ]);
+
+export const getFlagSegmentPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+	segmentIdOrSlug: z.string().describe("The segment slug"),
+});
+
+export const getFlagSegmentQuerySchema = z.object({
+	withMetadata: z.boolean().optional().default(false).describe("Whether to include metadata"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const deleteFlagSegmentPathProjectIdOrNameSchema = z
 	.string()
@@ -45481,6 +49249,25 @@ export const deleteFlagSegmentErrorSchema = z.union([
 	deleteFlagSegmentStatus409Schema,
 	deleteFlagSegmentStatus410Schema,
 ]);
+
+export const deleteFlagSegmentPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+	segmentIdOrSlug: z.string().describe("The segment slug"),
+});
+
+export const deleteFlagSegmentQuerySchema = z.object({
+	withMetadata: z.boolean().optional().default(false).describe("Whether to include metadata"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateFlagSegmentPathProjectIdOrNameSchema = z
 	.string()
@@ -45830,6 +49617,25 @@ export const updateFlagSegmentBodySchema = z
 	})
 	.optional();
 
+export const updateFlagSegmentPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+	segmentIdOrSlug: z.string().describe("The segment slug"),
+});
+
+export const updateFlagSegmentQuerySchema = z.object({
+	withMetadata: z.boolean().optional().default(false).describe("Whether to include metadata"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getDeploymentFeatureFlagsPathDeploymentIdSchema = z.string();
 
 export const getDeploymentFeatureFlagsQueryTeamIdSchema = z
@@ -45880,6 +49686,23 @@ export const getDeploymentFeatureFlagsErrorSchema = z.union([
 	getDeploymentFeatureFlagsStatus404Schema,
 	getDeploymentFeatureFlagsStatus410Schema,
 ]);
+
+export const getDeploymentFeatureFlagsPathSchema = z.object({
+	deploymentId: z.string(),
+});
+
+export const getDeploymentFeatureFlagsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getSdkKeysPathProjectIdOrNameSchema = z.string().describe("The project id or name");
 
@@ -45939,6 +49762,23 @@ export const getSdkKeysErrorSchema = z.union([
 	getSdkKeysStatus410Schema,
 ]);
 
+export const getSdkKeysPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+});
+
+export const getSdkKeysQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createSdkKeyPathProjectIdOrNameSchema = z.string().describe("The project id or name");
 
 export const createSdkKeyQueryTeamIdSchema = z
@@ -45991,6 +49831,23 @@ export const createSdkKeyBodySchema = z
 	})
 	.optional();
 
+export const createSdkKeyPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+});
+
+export const createSdkKeyQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteSdkKeyPathProjectIdOrNameSchema = z.string().describe("The project id or name");
 
 export const deleteSdkKeyPathHashKeySchema = z.string().describe("The SDK key hash key to delete");
@@ -46034,6 +49891,24 @@ export const deleteSdkKeyErrorSchema = z.union([
 	deleteSdkKeyStatus409Schema,
 	deleteSdkKeyStatus410Schema,
 ]);
+
+export const deleteSdkKeyPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+	hashKey: z.string().describe("The SDK key hash key to delete"),
+});
+
+export const deleteSdkKeyQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const gitNamespacesQueryHostSchema = z
 	.string()
@@ -46094,6 +49969,21 @@ export const gitNamespacesErrorSchema = z.union([
 	gitNamespacesStatus429Schema,
 	gitNamespacesStatus500Schema,
 ]);
+
+export const gitNamespacesQuerySchema = z.object({
+	host: z
+		.string()
+		.optional()
+		.describe("The custom Git host if using a custom Git provider, like GitHub Enterprise Server")
+		.meta({ examples: ["ghes-test.now.systems"] }),
+	provider: z
+		.enum(["github", "github-limited", "github-custom-host", "gitlab", "bitbucket"])
+		.optional(),
+	viewerMetadata: z
+		.boolean()
+		.optional()
+		.describe("When true, includes the viewer object for each namespace."),
+});
 
 export const searchRepoQueryQuerySchema = z.string().optional();
 
@@ -46228,6 +50118,37 @@ export const searchRepoErrorSchema = z.union([
 	searchRepoStatus502Schema,
 ]);
 
+export const searchRepoQuerySchema = z.object({
+	query: z.string().optional(),
+	namespaceId: z.union([z.string(), z.number(), z.string(), z.number()]).nullish(),
+	provider: z
+		.enum([
+			"github",
+			"github-limited",
+			"github-custom-host",
+			"gitlab",
+			"bitbucket",
+			"cursor-origin",
+		])
+		.optional(),
+	installationId: z.string().optional(),
+	host: z
+		.string()
+		.optional()
+		.describe("The custom Git host if using a custom Git provider, like GitHub Enterprise Server")
+		.meta({ examples: ["ghes-test.now.systems"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getBillingPlansPathIntegrationIdOrSlugSchema = z.string();
 
 export const getBillingPlansQueryIntegrationConfigurationIdSchema = z.string().optional();
@@ -46328,6 +50249,40 @@ export const getBillingPlansErrorSchema = z.union([
 	getBillingPlansStatus410Schema,
 ]);
 
+export const getBillingPlansPathSchema = z.object({
+	integrationIdOrSlug: z.string(),
+	productIdOrSlug: z.string(),
+});
+
+export const getBillingPlansQuerySchema = z.object({
+	integrationConfigurationId: z.string().optional(),
+	metadata: z.string().optional(),
+	source: z
+		.enum([
+			"marketplace",
+			"deploy-button",
+			"external",
+			"v0",
+			"resource-claims",
+			"cli",
+			"oauth",
+			"backoffice",
+			"import-recommended-integrations",
+			"organization",
+		])
+		.optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const connectIntegrationResourceToProjectPathIntegrationConfigurationIdSchema = z.string();
 
 export const connectIntegrationResourceToProjectPathResourceIdSchema = z.string();
@@ -46374,6 +50329,24 @@ export const connectIntegrationResourceToProjectBodySchema = z
 		makeEnvVarsSensitive: z.boolean().optional(),
 	})
 	.optional();
+
+export const connectIntegrationResourceToProjectPathSchema = z.object({
+	integrationConfigurationId: z.string(),
+	resourceId: z.string(),
+});
+
+export const connectIntegrationResourceToProjectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateInstallationPathIntegrationConfigurationIdSchema = z.string();
 
@@ -46449,6 +50422,10 @@ export const updateInstallationBodySchema = z
 	})
 	.optional();
 
+export const updateInstallationPathSchema = z.object({
+	integrationConfigurationId: z.string(),
+});
+
 export const getAccountInfoPathIntegrationConfigurationIdSchema = z.string();
 
 export const getAccountInfoStatus200Schema = z.object({
@@ -46485,6 +50462,10 @@ export const getAccountInfoErrorSchema = z.union([
 	getAccountInfoStatus410Schema,
 ]);
 
+export const getAccountInfoPathSchema = z.object({
+	integrationConfigurationId: z.string(),
+});
+
 export const getMemberPathIntegrationConfigurationIdSchema = z.string();
 
 export const getMemberPathMemberIdSchema = z.string();
@@ -46519,6 +50500,11 @@ export const getMemberErrorSchema = z.union([
 	getMemberStatus404Schema,
 	getMemberStatus410Schema,
 ]);
+
+export const getMemberPathSchema = z.object({
+	integrationConfigurationId: z.string(),
+	memberId: z.string(),
+});
 
 export const rotateInstallationCredentialPathIntegrationConfigurationIdSchema = z.string();
 
@@ -46560,6 +50546,10 @@ export const rotateInstallationCredentialBodySchema = z
 	})
 	.optional();
 
+export const rotateInstallationCredentialPathSchema = z.object({
+	integrationConfigurationId: z.string(),
+});
+
 export const revokeInstallationCredentialPathIntegrationConfigurationIdSchema = z.string();
 
 export const revokeInstallationCredentialStatus200Schema = z.object({
@@ -46599,6 +50589,10 @@ export const revokeInstallationCredentialBodySchema = z
 	})
 	.optional();
 
+export const revokeInstallationCredentialPathSchema = z.object({
+	integrationConfigurationId: z.string(),
+});
+
 export const createEventPathIntegrationConfigurationIdSchema = z.string();
 
 export const createEventStatus201Schema = z.unknown();
@@ -46635,6 +50629,10 @@ export const createEventBodySchema = z.strictObject({
 			resourceId: z.string().describe("Partner provided resource ID"),
 		}),
 	]),
+});
+
+export const createEventPathSchema = z.object({
+	integrationConfigurationId: z.string(),
 });
 
 export const getIntegrationResourcesPathIntegrationConfigurationIdSchema = z.string();
@@ -46729,6 +50727,10 @@ export const getIntegrationResourcesErrorSchema = z.union([
 	getIntegrationResourcesStatus404Schema,
 	getIntegrationResourcesStatus410Schema,
 ]);
+
+export const getIntegrationResourcesPathSchema = z.object({
+	integrationConfigurationId: z.string(),
+});
 
 export const getIntegrationResourcePathIntegrationConfigurationIdSchema = z
 	.string()
@@ -46852,6 +50854,15 @@ export const getIntegrationResourceErrorSchema = z.union([
 	getIntegrationResourceStatus410Schema,
 ]);
 
+export const getIntegrationResourcePathSchema = z.object({
+	integrationConfigurationId: z
+		.string()
+		.describe("The ID of the integration configuration (installation) the resource belongs to"),
+	resourceId: z
+		.string()
+		.describe("The ID provided by the 3rd party provider for the given resource"),
+});
+
 export const deleteIntegrationResourcePathIntegrationConfigurationIdSchema = z.string();
 
 export const deleteIntegrationResourcePathResourceIdSchema = z.string();
@@ -46877,6 +50888,11 @@ export const deleteIntegrationResourceErrorSchema = z.union([
 	deleteIntegrationResourceStatus404Schema,
 	deleteIntegrationResourceStatus410Schema,
 ]);
+
+export const deleteIntegrationResourcePathSchema = z.object({
+	integrationConfigurationId: z.string(),
+	resourceId: z.string(),
+});
 
 export const importResourcePathIntegrationConfigurationIdSchema = z.string();
 
@@ -46989,7 +51005,7 @@ export const importResourceBodySchema = z
 					.max(32)
 					.optional()
 					.describe(
-						"Roles a deployment may request when minting a token. The selected role becomes the `sub` claim.",
+						"Roles a deployment may request when minting a token. The selected role is emitted as the `role` claim.",
 					),
 				defaultRole: z
 					.string()
@@ -47038,6 +51054,11 @@ export const importResourceBodySchema = z
 			.describe("Custom claims embedded in the resource tokens Vercel mints for this resource."),
 	})
 	.optional();
+
+export const importResourcePathSchema = z.object({
+	integrationConfigurationId: z.string(),
+	resourceId: z.string(),
+});
 
 export const updateResourcePathIntegrationConfigurationIdSchema = z.string();
 
@@ -47182,7 +51203,7 @@ export const updateResourceBodySchema = z
 					.max(32)
 					.optional()
 					.describe(
-						"Roles a deployment may request when minting a token. The selected role becomes the `sub` claim.",
+						"Roles a deployment may request when minting a token. The selected role is emitted as the `role` claim.",
 					),
 				defaultRole: z
 					.string()
@@ -47231,6 +51252,11 @@ export const updateResourceBodySchema = z
 			.describe("Custom claims embedded in the resource tokens Vercel mints for this resource."),
 	})
 	.optional();
+
+export const updateResourcePathSchema = z.object({
+	integrationConfigurationId: z.string(),
+	resourceId: z.string(),
+});
 
 export const submitBillingDataPathIntegrationConfigurationIdSchema = z.string();
 
@@ -47387,6 +51413,10 @@ export const submitBillingDataBodySchema = z.strictObject({
 	),
 });
 
+export const submitBillingDataPathSchema = z.object({
+	integrationConfigurationId: z.string(),
+});
+
 export const submitInvoicePathIntegrationConfigurationIdSchema = z.string();
 
 export const submitInvoiceStatus200Schema = z.object({
@@ -47498,6 +51528,10 @@ export const submitInvoiceBodySchema = z.strictObject({
 		.describe("Test mode"),
 });
 
+export const submitInvoicePathSchema = z.object({
+	integrationConfigurationId: z.string(),
+});
+
 export const finalizeInstallationPathIntegrationConfigurationIdSchema = z.string();
 
 export const finalizeInstallationStatus204Schema = z.unknown();
@@ -47521,6 +51555,10 @@ export const finalizeInstallationErrorSchema = z.union([
 	finalizeInstallationStatus404Schema,
 	finalizeInstallationStatus410Schema,
 ]);
+
+export const finalizeInstallationPathSchema = z.object({
+	integrationConfigurationId: z.string(),
+});
 
 export const getInvoicePathIntegrationConfigurationIdSchema = z.string();
 
@@ -47682,6 +51720,11 @@ export const getInvoiceErrorSchema = z.union([
 	getInvoiceStatus429Schema,
 ]);
 
+export const getInvoicePathSchema = z.object({
+	integrationConfigurationId: z.string(),
+	invoiceId: z.string(),
+});
+
 export const updateInvoicePathIntegrationConfigurationIdSchema = z.string();
 
 export const updateInvoicePathInvoiceIdSchema = z.string();
@@ -47720,6 +51763,11 @@ export const updateInvoiceBodySchema = z.strictObject({
 		.describe(
 			"The total amount to be refunded. Must be less than or equal to the total amount of the invoice.",
 		),
+});
+
+export const updateInvoicePathSchema = z.object({
+	integrationConfigurationId: z.string(),
+	invoiceId: z.string(),
 });
 
 export const submitPrepaymentBalancesPathIntegrationConfigurationIdSchema = z.string();
@@ -47781,6 +51829,10 @@ export const submitPrepaymentBalancesBodySchema = z
 	})
 	.optional();
 
+export const submitPrepaymentBalancesPathSchema = z.object({
+	integrationConfigurationId: z.string(),
+});
+
 export const updateResourceSecretsPathIntegrationConfigurationIdSchema = z.string();
 
 export const updateResourceSecretsPathIntegrationProductIdOrSlugSchema = z.string();
@@ -47831,6 +51883,12 @@ export const updateResourceSecretsBodySchema = z.strictObject({
 		}),
 	),
 	partial: z.boolean().optional().describe("If true, will only update the provided secrets"),
+});
+
+export const updateResourceSecretsPathSchema = z.object({
+	integrationConfigurationId: z.string(),
+	integrationProductIdOrSlug: z.string(),
+	resourceId: z.string(),
 });
 
 export const updateResourceSecretsByIdPathIntegrationConfigurationIdSchema = z.string();
@@ -47889,6 +51947,11 @@ export const updateResourceSecretsByIdBodySchema = z
 			),
 	})
 	.optional();
+
+export const updateResourceSecretsByIdPathSchema = z.object({
+	integrationConfigurationId: z.string(),
+	resourceId: z.string(),
+});
 
 export const getConfigurationsQueryViewSchema = z.enum(["account", "project"]);
 
@@ -48242,6 +52305,22 @@ export const getConfigurationsErrorSchema = z.union([
 	getConfigurationsStatus404Schema,
 	getConfigurationsStatus410Schema,
 ]);
+
+export const getConfigurationsQuerySchema = z.object({
+	view: z.enum(["account", "project"]),
+	installationType: z.enum(["marketplace", "external", "provisioning"]).optional(),
+	integrationIdOrSlug: z.string().optional().describe("ID of the integration"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getConfigurationPathIdSchema = z
 	.string()
@@ -48725,6 +52804,26 @@ export const getConfigurationErrorSchema = z.union([
 	getConfigurationStatus410Schema,
 ]);
 
+export const getConfigurationPathSchema = z.object({
+	id: z
+		.string()
+		.describe("ID of the configuration to check")
+		.meta({ examples: ["icfg_cuwj0AdCdH3BwWT4LPijCC7t"] }),
+});
+
+export const getConfigurationQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteConfigurationPathIdSchema = z.string();
 
 export const deleteConfigurationQueryTeamIdSchema = z
@@ -48760,6 +52859,23 @@ export const deleteConfigurationErrorSchema = z.union([
 	deleteConfigurationStatus404Schema,
 	deleteConfigurationStatus410Schema,
 ]);
+
+export const deleteConfigurationPathSchema = z.object({
+	id: z.string(),
+});
+
+export const deleteConfigurationQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getConfigurationProductsPathIdSchema = z
 	.string()
@@ -49802,6 +53918,26 @@ export const getConfigurationProductsErrorSchema = z.union([
 	getConfigurationProductsStatus500Schema,
 ]);
 
+export const getConfigurationProductsPathSchema = z.object({
+	id: z
+		.string()
+		.describe("ID of the integration configuration")
+		.meta({ examples: ["icfg_cuwj0AdCdH3BwWT4LPijCC7t"] }),
+});
+
+export const getConfigurationProductsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const exchangeSsoTokenStatus200Schema = z.union([
 	z.strictObject({
 		access_token: z.string().nullable(),
@@ -49981,6 +54117,19 @@ export const getIntegrationLogDrainsErrorSchema = z.union([
 	getIntegrationLogDrainsStatus410Schema,
 ]);
 
+export const getIntegrationLogDrainsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createLogDrainQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -50158,6 +54307,19 @@ export const createLogDrainBodySchema = z.object({
 		.optional(),
 });
 
+export const createLogDrainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteIntegrationLogDrainPathIdSchema = z
 	.string()
 	.describe("ID of the log drain to be deleted");
@@ -50195,6 +54357,23 @@ export const deleteIntegrationLogDrainErrorSchema = z.union([
 	deleteIntegrationLogDrainStatus404Schema,
 	deleteIntegrationLogDrainStatus410Schema,
 ]);
+
+export const deleteIntegrationLogDrainPathSchema = z.object({
+	id: z.string().describe("ID of the log drain to be deleted"),
+});
+
+export const deleteIntegrationLogDrainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createApiKeysStatus200Schema = z.object({
 	apiKeyString: z
@@ -50393,6 +54572,10 @@ export const updateApiKeyQuotaBodySchema = z
 	})
 	.optional();
 
+export const updateApiKeyQuotaPathSchema = z.object({
+	apiKeyID: z.string().describe("The ID of the API key whose quota should be updated."),
+});
+
 export const signKmsMessagePathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
 export const signKmsMessageStatus200Schema = z.object({
@@ -50440,6 +54623,10 @@ export const signKmsMessageBodySchema = z
 	})
 	.optional();
 
+export const signKmsMessagePathSchema = z.object({
+	issuerId: z.string().describe("The ID of the issuer."),
+});
+
 export const signKmsTokenPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
 export const signKmsTokenStatus200Schema = z.object({
@@ -50482,6 +54669,10 @@ export const signKmsTokenBodySchema = z
 		ttl: z.number().nullish().default(300).describe("The time-to-live for the token, in seconds."),
 	})
 	.optional();
+
+export const signKmsTokenPathSchema = z.object({
+	issuerId: z.string().describe("The ID of the issuer."),
+});
 
 export const listKmsIssuersQueryLimitSchema = z
 	.int()
@@ -50644,6 +54835,26 @@ export const listKmsIssuersErrorSchema = z.union([
 	listKmsIssuersStatus404Schema,
 	listKmsIssuersStatus410Schema,
 ]);
+
+export const listKmsIssuersQuerySchema = z.object({
+	limit: z.int().min(1).max(100).optional().describe("Maximum number of issuers to return."),
+	next: z
+		.string()
+		.max(1024)
+		.regex(/^[A-Za-z0-9_-]+$/)
+		.optional()
+		.describe("Continuation cursor to retrieve the next page of results."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createKmsIssuerQueryTeamIdSchema = z
 	.string()
@@ -50841,6 +55052,19 @@ export const createKmsIssuerBodySchema = z
 	})
 	.optional();
 
+export const createKmsIssuerQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createKmsSigningKeyPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
 export const createKmsSigningKeyQueryTeamIdSchema = z
@@ -50972,6 +55196,23 @@ export const createKmsSigningKeyBodySchema = z
 	})
 	.optional();
 
+export const createKmsSigningKeyPathSchema = z.object({
+	issuerId: z.string().describe("The ID of the issuer."),
+});
+
+export const createKmsSigningKeyQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const activateKmsSigningKeyPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
 export const activateKmsSigningKeyPathKeyIdSchema = z
@@ -51085,6 +55326,24 @@ export const activateKmsSigningKeyBodySchema = z
 			),
 	})
 	.optional();
+
+export const activateKmsSigningKeyPathSchema = z.object({
+	issuerId: z.string().describe("The ID of the issuer."),
+	keyId: z.string().describe("The ID of the pending signing key to activate."),
+});
+
+export const activateKmsSigningKeyQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const revokeKmsSigningKeyPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
@@ -51237,6 +55496,28 @@ export const revokeKmsSigningKeyErrorSchema = z.union([
 	revokeKmsSigningKeyStatus410Schema,
 ]);
 
+export const revokeKmsSigningKeyPathSchema = z.object({
+	issuerId: z.string().describe("The ID of the issuer."),
+	keyId: z
+		.string()
+		.describe(
+			"The ID of the signing key to revoke immediately. The key must already be scheduled for revocation.",
+		),
+});
+
+export const revokeKmsSigningKeyQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getKmsIssuerPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
 export const getKmsIssuerQueryTeamIdSchema = z
@@ -51378,6 +55659,23 @@ export const getKmsIssuerErrorSchema = z.union([
 	getKmsIssuerStatus404Schema,
 	getKmsIssuerStatus410Schema,
 ]);
+
+export const getKmsIssuerPathSchema = z.object({
+	issuerId: z.string().describe("The ID of the issuer."),
+});
+
+export const getKmsIssuerQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateKmsIssuerPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
@@ -51533,6 +55831,23 @@ export const updateKmsIssuerBodySchema = z
 	})
 	.optional();
 
+export const updateKmsIssuerPathSchema = z.object({
+	issuerId: z.string().describe("The ID of the issuer."),
+});
+
+export const updateKmsIssuerQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteKmsIssuerPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
 export const deleteKmsIssuerQueryTeamIdSchema = z
@@ -51568,6 +55883,23 @@ export const deleteKmsIssuerErrorSchema = z.union([
 	deleteKmsIssuerStatus404Schema,
 	deleteKmsIssuerStatus410Schema,
 ]);
+
+export const deleteKmsIssuerPathSchema = z.object({
+	issuerId: z.string().describe("The ID of the issuer."),
+});
+
+export const deleteKmsIssuerQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createKmsIssuerPolicyPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
@@ -51645,6 +55977,23 @@ export const createKmsIssuerPolicyBodySchema = z
 			.describe("The claims that KMS should include in signed JWTs for this policy."),
 	})
 	.optional();
+
+export const createKmsIssuerPolicyPathSchema = z.object({
+	issuerId: z.string().describe("The ID of the issuer."),
+});
+
+export const createKmsIssuerPolicyQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateKmsIssuerPolicyPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
@@ -51732,6 +56081,25 @@ export const updateKmsIssuerPolicyBodySchema = z
 	})
 	.optional();
 
+export const updateKmsIssuerPolicyPathSchema = z.object({
+	issuerId: z.string().describe("The ID of the issuer."),
+	kind: z.enum(["project-grant"]).describe("The issuer policy kind."),
+	policyKey: z.string().describe("The policy identifier."),
+});
+
+export const updateKmsIssuerPolicyQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteKmsIssuerPolicyPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
 export const deleteKmsIssuerPolicyPathKindSchema = z
@@ -51776,6 +56144,25 @@ export const deleteKmsIssuerPolicyErrorSchema = z.union([
 	deleteKmsIssuerPolicyStatus410Schema,
 ]);
 
+export const deleteKmsIssuerPolicyPathSchema = z.object({
+	issuerId: z.string().describe("The ID of the issuer."),
+	kind: z.enum(["project-grant", "connex-grant"]).describe("The issuer policy kind."),
+	policyKey: z.string().describe("The policy identifier."),
+});
+
+export const deleteKmsIssuerPolicyQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getRuntimeLogsPathProjectIdSchema = z
 	.string()
 	.describe("The ID or name of the project containing the deployment.");
@@ -51817,6 +56204,24 @@ export const getRuntimeLogsErrorSchema = z.union([
 	getRuntimeLogsStatus404Schema,
 	getRuntimeLogsStatus410Schema,
 ]);
+
+export const getRuntimeLogsPathSchema = z.object({
+	projectId: z.string().describe("The ID or name of the project containing the deployment."),
+	deploymentId: z.string().describe("The ID or hostname of the deployment."),
+});
+
+export const getRuntimeLogsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsPathIntegrationConfigurationIdSchema =
 	z.string();
@@ -51875,6 +56280,12 @@ export const createInstallationsByIntegrationConfigurationIdResourcesByResourceI
 		})
 		.optional();
 
+export const createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsPathSchema =
+	z.object({
+		integrationConfigurationId: z.string(),
+		resourceId: z.string(),
+	});
+
 export const updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPathIntegrationConfigurationIdSchema =
 	z.string();
 
@@ -51928,6 +56339,13 @@ export const updateInstallationsByIntegrationConfigurationIdResourcesByResourceI
 		})
 		.optional();
 
+export const updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPathSchema =
+	z.object({
+		integrationConfigurationId: z.string(),
+		resourceId: z.string(),
+		itemId: z.string(),
+	});
+
 export const deleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPathIntegrationConfigurationIdSchema =
 	z.string();
 
@@ -51966,6 +56384,13 @@ export const deleteInstallationsByIntegrationConfigurationIdResourcesByResourceI
 		deleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus404Schema,
 		deleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus410Schema,
 	]);
+
+export const deleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPathSchema =
+	z.object({
+		integrationConfigurationId: z.string(),
+		resourceId: z.string(),
+		itemId: z.string(),
+	});
 
 export const getInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPathIntegrationConfigurationIdSchema =
 	z.string();
@@ -52013,6 +56438,12 @@ export const getInstallationsByIntegrationConfigurationIdResourcesByResourceIdEx
 		getInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus404Schema,
 		getInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410Schema,
 	]);
+
+export const getInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPathSchema =
+	z.object({
+		integrationConfigurationId: z.string(),
+		resourceId: z.string(),
+	});
 
 export const replaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPathIntegrationConfigurationIdSchema =
 	z.string();
@@ -52072,6 +56503,12 @@ export const replaceInstallationsByIntegrationConfigurationIdResourcesByResource
 		})
 		.optional();
 
+export const replaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPathSchema =
+	z.object({
+		integrationConfigurationId: z.string(),
+		resourceId: z.string(),
+	});
+
 export const getMicrofrontendsGroupsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -52108,6 +56545,19 @@ export const getMicrofrontendsGroupsErrorSchema = z.union([
 	getMicrofrontendsGroupsStatus410Schema,
 	getMicrofrontendsGroupsStatus500Schema,
 ]);
+
+export const getMicrofrontendsGroupsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getMicrofrontendsInGroupPathGroupIdSchema = z.string();
 
@@ -56119,6 +60569,23 @@ export const getMicrofrontendsInGroupErrorSchema = z.union([
 	getMicrofrontendsInGroupStatus410Schema,
 ]);
 
+export const getMicrofrontendsInGroupPathSchema = z.object({
+	groupId: z.string(),
+});
+
+export const getMicrofrontendsInGroupQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getMicrofrontendsConfigPathDeploymentIdSchema = z
 	.string()
 	.describe("The unique deployment identifier");
@@ -56270,6 +60737,23 @@ export const getMicrofrontendsConfigErrorSchema = z.union([
 	getMicrofrontendsConfigStatus410Schema,
 	getMicrofrontendsConfigStatus500Schema,
 ]);
+
+export const getMicrofrontendsConfigPathSchema = z.object({
+	deploymentId: z.string().describe("The unique deployment identifier"),
+});
+
+export const getMicrofrontendsConfigQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getMicrofrontendsConfigForProjectPathProjectIdOrNameSchema = z
 	.string()
@@ -56424,6 +60908,23 @@ export const getMicrofrontendsConfigForProjectErrorSchema = z.union([
 	getMicrofrontendsConfigForProjectStatus500Schema,
 ]);
 
+export const getMicrofrontendsConfigForProjectPathSchema = z.object({
+	projectIdOrName: z.string().describe("The name or ID of the project"),
+});
+
+export const getMicrofrontendsConfigForProjectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createMicrofrontendsGroupWithApplicationsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -56507,6 +61008,19 @@ export const createMicrofrontendsGroupWithApplicationsBodySchema = z
 	})
 	.optional();
 
+export const createMicrofrontendsGroupWithApplicationsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getObservabilityConfigurationProjectsQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -56549,6 +61063,19 @@ export const getObservabilityConfigurationProjectsErrorSchema = z.union([
 	getObservabilityConfigurationProjectsStatus404Schema,
 	getObservabilityConfigurationProjectsStatus410Schema,
 ]);
+
+export const getObservabilityConfigurationProjectsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateObservabilityConfigurationProjectPathProjectIdOrNameSchema = z
 	.string()
@@ -56600,6 +61127,23 @@ export const updateObservabilityConfigurationProjectBodySchema = z
 		disabled: z.boolean().describe("Whether Observability Plus should be disabled for the project"),
 	})
 	.optional();
+
+export const updateObservabilityConfigurationProjectPathSchema = z.object({
+	projectIdOrName: z.string().describe("The ID or name of the project to update"),
+});
+
+export const updateObservabilityConfigurationProjectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createObservabilityQueryStatus200Schema = z.object({});
 
@@ -56755,6 +61299,10 @@ export const getObservabilitySchemaByMetricIdErrorSchema = z.union([
 	getObservabilitySchemaByMetricIdStatus410Schema,
 ]);
 
+export const getObservabilitySchemaByMetricIdPathSchema = z.object({
+	metricId: z.string(),
+});
+
 export const createOrganizationQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -56809,6 +61357,19 @@ export const createOrganizationBodySchema = z
 			.describe("The desired name for the organization. Generated from the slug if not provided."),
 	})
 	.optional();
+
+export const createOrganizationQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listOrganizationsStatus200Schema = z.object({
 	organizations: z.array(organizationSchema),
@@ -56869,6 +61430,23 @@ export const getOrganizationErrorSchema = z.union([
 	getOrganizationStatus410Schema,
 ]);
 
+export const getOrganizationPathSchema = z.object({
+	organizationId: z.string().describe("The ID or slug of the organization to retrieve."),
+});
+
+export const getOrganizationQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const updateOrganizationPathOrganizationIdSchema = z
 	.string()
 	.describe("The ID of the organization to update.");
@@ -56918,6 +61496,10 @@ export const updateOrganizationBodySchema = z
 	})
 	.optional();
 
+export const updateOrganizationPathSchema = z.object({
+	organizationId: z.string().describe("The ID of the organization to update."),
+});
+
 export const listOrganizationTeamsPathOrganizationIdSchema = z
 	.string()
 	.describe("The ID of the organization.");
@@ -56956,6 +61538,18 @@ export const listOrganizationTeamsErrorSchema = z.union([
 	listOrganizationTeamsStatus404Schema,
 	listOrganizationTeamsStatus410Schema,
 ]);
+
+export const listOrganizationTeamsPathSchema = z.object({
+	organizationId: z.string().describe("The ID of the organization."),
+});
+
+export const listOrganizationTeamsQuerySchema = z.object({
+	cursor: z.string().optional().describe("Pagination cursor."),
+	includeMemberCount: z
+		.boolean()
+		.optional()
+		.describe("When true, includes each team's member count in the response."),
+});
 
 export const addOrganizationTeamPathOrganizationIdSchema = z
 	.string()
@@ -57037,6 +61631,10 @@ export const addOrganizationTeamBodySchema = z
 	)
 	.optional();
 
+export const addOrganizationTeamPathSchema = z.object({
+	organizationId: z.string().describe("The ID of the organization to create or add a team under."),
+});
+
 export const removeOrganizationTeamPathOrganizationIdSchema = z
 	.string()
 	.describe("The ID of the organization.");
@@ -57072,6 +61670,11 @@ export const removeOrganizationTeamErrorSchema = z.union([
 	removeOrganizationTeamStatus409Schema,
 	removeOrganizationTeamStatus410Schema,
 ]);
+
+export const removeOrganizationTeamPathSchema = z.object({
+	organizationId: z.string().describe("The ID of the organization."),
+	targetTeamId: z.string().describe("The ID of the team to remove."),
+});
 
 export const getProjectMembersPathIdOrNameSchema = z
 	.string()
@@ -57209,6 +61812,47 @@ export const getProjectMembersErrorSchema = z.union([
 	getProjectMembersStatus410Schema,
 ]);
 
+export const getProjectMembersPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The ID or name of the Project.")
+		.meta({ examples: ["prj_pavWOn1iLObbXLRiwVvzmPrTWyTf"] }),
+});
+
+export const getProjectMembersQuerySchema = z.object({
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.describe("Limit how many project members should be returned")
+		.meta({ examples: [20] }),
+	since: z
+		.int()
+		.optional()
+		.describe("Timestamp in milliseconds to only include members added since then.")
+		.meta({ examples: [1540095775951] }),
+	until: z
+		.int()
+		.optional()
+		.describe("Timestamp in milliseconds to only include members added until then.")
+		.meta({ examples: [1540095775951] }),
+	search: z
+		.string()
+		.optional()
+		.describe("Search project members by their name, username, and email."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const addProjectMemberPathIdOrNameSchema = z
 	.string()
 	.describe("The ID or name of the Project.")
@@ -57304,6 +61948,26 @@ export const addProjectMemberBodySchema = z
 		}),
 	);
 
+export const addProjectMemberPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The ID or name of the Project.")
+		.meta({ examples: ["prj_pavWOn1iLObbXLRiwVvzmPrTWyTf"] }),
+});
+
+export const addProjectMemberQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const removeProjectMemberPathIdOrNameSchema = z
 	.string()
 	.describe("The ID or name of the Project.")
@@ -57349,6 +62013,30 @@ export const removeProjectMemberErrorSchema = z.union([
 	removeProjectMemberStatus404Schema,
 	removeProjectMemberStatus410Schema,
 ]);
+
+export const removeProjectMemberPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The ID or name of the Project.")
+		.meta({ examples: ["prj_pavWOn1iLObbXLRiwVvzmPrTWyTf"] }),
+	uid: z
+		.string()
+		.describe("The user ID of the member.")
+		.meta({ examples: ["ndlgr43fadlPyCtREAqxxdyFK"] }),
+});
+
+export const removeProjectMemberQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getRoutesPathProjectIdSchema = z.string();
 
@@ -58171,6 +62859,27 @@ export const getRoutesErrorSchema = z.union([
 	getRoutesStatus410Schema,
 ]);
 
+export const getRoutesPathSchema = z.object({
+	projectId: z.string(),
+});
+
+export const getRoutesQuerySchema = z.object({
+	versionId: z.string().optional(),
+	q: z.string().optional(),
+	filter: z.enum(["rewrite", "redirect", "set_status", "transform"]).optional(),
+	diff: z.union([z.boolean(), z.enum(["only"])]).optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const stageRoutesPathProjectIdSchema = z.string();
 
 export const stageRoutesQueryTeamIdSchema = z
@@ -58285,6 +62994,23 @@ export const stageRoutesBodySchema = z
 			.default([]),
 	})
 	.optional();
+
+export const stageRoutesPathSchema = z.object({
+	projectId: z.string(),
+});
+
+export const stageRoutesQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const addRoutePathProjectIdSchema = z.string();
 
@@ -58638,6 +63364,23 @@ export const addRouteBodySchema = z
 	})
 	.optional();
 
+export const addRoutePathSchema = z.object({
+	projectId: z.string(),
+});
+
+export const addRouteQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteRoutesPathProjectIdSchema = z.string();
 
 export const deleteRoutesQueryTeamIdSchema = z
@@ -58705,6 +63448,23 @@ export const deleteRoutesBodySchema = z
 		routeIds: z.array(z.string()).min(1).describe("The IDs of the routes to delete"),
 	})
 	.optional();
+
+export const deleteRoutesPathSchema = z.object({
+	projectId: z.string(),
+});
+
+export const deleteRoutesQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const editRoutePathProjectIdSchema = z.string();
 
@@ -59056,6 +63816,24 @@ export const editRouteBodySchema = z
 	})
 	.optional();
 
+export const editRoutePathSchema = z.object({
+	projectId: z.string(),
+	routeId: z.string(),
+});
+
+export const editRouteQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const generateRoutePathProjectIdSchema = z.string();
 
 export const generateRouteQueryTeamIdSchema = z
@@ -59186,6 +63964,23 @@ export const generateRouteBodySchema = z
 	})
 	.optional();
 
+export const generateRoutePathSchema = z.object({
+	projectId: z.string(),
+});
+
+export const generateRouteQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getRouteVersionsPathProjectIdSchema = z.string();
 
 export const getRouteVersionsQueryTeamIdSchema = z
@@ -59240,6 +64035,23 @@ export const getRouteVersionsErrorSchema = z.union([
 	getRouteVersionsStatus404Schema,
 	getRouteVersionsStatus410Schema,
 ]);
+
+export const getRouteVersionsPathSchema = z.object({
+	projectId: z.string(),
+});
+
+export const getRouteVersionsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateRouteVersionsPathProjectIdSchema = z.string();
 
@@ -59308,6 +64120,23 @@ export const updateRouteVersionsBodySchema = z
 		action: z.enum(["discard", "promote", "restore"]),
 	})
 	.optional();
+
+export const updateRouteVersionsPathSchema = z.object({
+	projectId: z.string(),
+});
+
+export const updateRouteVersionsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getProjectsQueryFromSchema = z
 	.string()
@@ -66683,6 +71512,83 @@ export const getProjectsErrorSchema = z.union([
 	getProjectsStatus410Schema,
 ]);
 
+export const getProjectsQuerySchema = z.object({
+	from: z
+		.string()
+		.optional()
+		.describe("Query only projects updated after the given timestamp or continuation token."),
+	since: z
+		.number()
+		.optional()
+		.describe("Query only projects updated after this JavaScript timestamp.")
+		.meta({ examples: [1540095775941] }),
+	until: z
+		.number()
+		.optional()
+		.describe("Query only projects updated before this JavaScript timestamp.")
+		.meta({ examples: [1540095775951] }),
+	gitForkProtection: z
+		.enum(["1", "0"])
+		.optional()
+		.describe(
+			"Specifies whether PRs from Git forks should require a team member's authorization before it can be deployed",
+		)
+		.meta({ examples: ["1"] }),
+	limit: z.string().optional().describe("Limit the number of projects returned"),
+	search: z.string().max(100).optional().describe("Search projects by the name field"),
+	repo: z.string().optional().describe("Filter results by repo. Also used for project count"),
+	repoId: z.string().optional().describe("Filter results by Repository ID."),
+	repoUrl: z
+		.string()
+		.optional()
+		.describe("Filter results by Repository URL.")
+		.meta({ examples: ["https://github.com/vercel/next.js"] }),
+	excludeRepos: z
+		.string()
+		.optional()
+		.describe("Filter results by excluding those projects that belong to a repo"),
+	edgeConfigId: z.string().optional().describe("Filter results by connected Global Config ID"),
+	edgeConfigTokenId: z
+		.string()
+		.optional()
+		.describe("Filter results by connected Global Config Token ID"),
+	deprecated: z.boolean().optional(),
+	elasticConcurrencyEnabled: z
+		.enum(["1", "0"])
+		.optional()
+		.describe("Filter results by projects with elastic concurrency enabled")
+		.meta({ examples: ["1"] }),
+	staticIpsEnabled: z
+		.enum(["0", "1"])
+		.optional()
+		.describe("Filter results by projects with Static IPs enabled")
+		.meta({ examples: ["1"] }),
+	buildMachineTypes: z
+		.string()
+		.optional()
+		.describe(
+			'Filter results by effective build machine types. Accepts comma-separated values. Use \\"elastic\\" for projects with elastic selection and \\"default\\" for projects without a build machine type set.',
+		)
+		.meta({ examples: ["default,enhanced"] }),
+	buildQueueConfiguration: z
+		.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"])
+		.optional()
+		.describe(
+			"Filter results by build queue configuration. SKIP_NAMESPACE_QUEUE includes projects without a configuration set.",
+		)
+		.meta({ examples: ["SKIP_NAMESPACE_QUEUE"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getProjectTraceQueryProjectIdSchema = z
 	.string()
 	.max(150)
@@ -66772,6 +71678,29 @@ export const getProjectTraceErrorSchema = z.union([
 	getProjectTraceStatus404Schema,
 	getProjectTraceStatus410Schema,
 ]);
+
+export const getProjectTraceQuerySchema = z.object({
+	projectId: z
+		.string()
+		.max(150)
+		.describe("The project ID")
+		.meta({ examples: ["prj_123"] }),
+	requestId: z
+		.string()
+		.max(256)
+		.describe("The Vercel CLI request ID associated with the trace")
+		.meta({ examples: ["cli-req-abc"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createProjectQueryTeamIdSchema = z
 	.string()
@@ -70916,7 +75845,7 @@ export const createProjectBodySchema = z
 				"xmcp",
 				"zola",
 			])
-			.optional()
+			.nullish()
 			.describe(
 				"The framework that is being used for this project. When `null` is used no framework is selected",
 			),
@@ -71136,6 +76065,19 @@ export const createProjectBodySchema = z
 	})
 	.optional();
 
+export const createProjectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getProjectTokenPathIdOrNameSchema = z
 	.string()
 	.max(150)
@@ -71189,6 +76131,27 @@ export const getProjectTokenBodySchema = z
 	})
 	.optional();
 
+export const getProjectTokenPathSchema = z.object({
+	idOrName: z
+		.string()
+		.max(150)
+		.describe("The project ID or name")
+		.meta({ examples: ["my-project, <prj_id>"] }),
+});
+
+export const getProjectTokenQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createTraceSessionQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -71234,6 +76197,19 @@ export const createTraceSessionBodySchema = z
 		hostname: z.string().describe("The deployment hostname to scope the trace session to."),
 	})
 	.optional();
+
+export const createTraceSessionQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getProjectPathIdOrNameSchema = z
 	.string()
@@ -75246,6 +80222,26 @@ export const getProjectErrorSchema = z.union([
 	getProjectStatus404Schema,
 	getProjectStatus410Schema,
 ]);
+
+export const getProjectPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The unique project identifier or the project name")
+		.meta({ examples: ["prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] }),
+});
+
+export const getProjectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateProjectPathIdOrNameSchema = z
 	.string()
@@ -79402,7 +84398,7 @@ export const updateProjectBodySchema = z.strictObject({
 		),
 	resourceConfig: z
 		.strictObject({
-			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).nullish(),
 			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
 			buildQueue: z
 				.object({
@@ -80007,6 +85003,26 @@ export const updateProjectBodySchema = z.strictObject({
 		),
 });
 
+export const updateProjectPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The unique project identifier or the project name")
+		.meta({ examples: ["prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] }),
+});
+
+export const updateProjectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteProjectPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name")
@@ -80048,6 +85064,26 @@ export const deleteProjectErrorSchema = z.union([
 	deleteProjectStatus409Schema,
 	deleteProjectStatus410Schema,
 ]);
+
+export const deleteProjectPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The unique project identifier or the project name")
+		.meta({ examples: ["prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] }),
+});
+
+export const deleteProjectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const uploadProjectAvatarPathIdOrNameSchema = z
 	.string()
@@ -84050,6 +89086,23 @@ export const uploadProjectAvatarErrorSchema = z.union([
 
 export const uploadProjectAvatarBodySchema = z.instanceof(File).optional();
 
+export const uploadProjectAvatarPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name."),
+});
+
+export const uploadProjectAvatarQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteProjectAvatarPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name.");
@@ -88043,6 +93096,23 @@ export const deleteProjectAvatarErrorSchema = z.union([
 	deleteProjectAvatarStatus410Schema,
 ]);
 
+export const deleteProjectAvatarPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name."),
+});
+
+export const deleteProjectAvatarQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const updateStaticIpsPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name");
@@ -88135,6 +93205,23 @@ export const updateStaticIpsBodySchema = z
 		}),
 	)
 	.optional();
+
+export const updateStaticIpsPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+});
+
+export const updateStaticIpsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createCustomEnvironmentPathIdOrNameSchema = z
 	.string()
@@ -88270,6 +93357,23 @@ export const createCustomEnvironmentBodySchema = z
 	})
 	.optional();
 
+export const createCustomEnvironmentPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+});
+
+export const createCustomEnvironmentQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getProjectsByIdOrNameCustomEnvironmentsPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name");
@@ -88386,6 +93490,24 @@ export const getProjectsByIdOrNameCustomEnvironmentsErrorSchema = z.union([
 	getProjectsByIdOrNameCustomEnvironmentsStatus410Schema,
 ]);
 
+export const getProjectsByIdOrNameCustomEnvironmentsPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+});
+
+export const getProjectsByIdOrNameCustomEnvironmentsQuerySchema = z.object({
+	gitBranch: z.string().optional().describe("Fetch custom environments for a specific git branch"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getCustomEnvironmentPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name");
@@ -88490,6 +93612,26 @@ export const getCustomEnvironmentErrorSchema = z.union([
 	getCustomEnvironmentStatus404Schema,
 	getCustomEnvironmentStatus410Schema,
 ]);
+
+export const getCustomEnvironmentPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+	environmentSlugOrId: z
+		.string()
+		.describe("The unique custom environment identifier within the project"),
+});
+
+export const getCustomEnvironmentQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateCustomEnvironmentPathIdOrNameSchema = z
 	.string()
@@ -88622,6 +93764,26 @@ export const updateCustomEnvironmentBodySchema = z
 	})
 	.optional();
 
+export const updateCustomEnvironmentPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+	environmentSlugOrId: z
+		.string()
+		.describe("The unique custom environment identifier within the project"),
+});
+
+export const updateCustomEnvironmentQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const removeCustomEnvironmentPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name");
@@ -88735,6 +93897,26 @@ export const removeCustomEnvironmentBodySchema = z
 			.describe("Delete Environment Variables that are not assigned to any environments."),
 	})
 	.optional();
+
+export const removeCustomEnvironmentPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+	environmentSlugOrId: z
+		.string()
+		.describe("The unique custom environment identifier within the project"),
+});
+
+export const removeCustomEnvironmentQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getProjectDomainsPathIdOrNameSchema = z
 	.string()
@@ -88918,6 +94100,74 @@ export const getProjectDomainsErrorSchema = z.union([
 	getProjectDomainsStatus410Schema,
 ]);
 
+export const getProjectDomainsPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+});
+
+export const getProjectDomainsQuerySchema = z.object({
+	production: z
+		.enum(["true", "false"])
+		.optional()
+		.default("false")
+		.describe("Filters only production domains when set to `true`."),
+	target: z
+		.enum(["production", "preview"])
+		.optional()
+		.describe('Filters on the target of the domain. Can be either "production", "preview"'),
+	customEnvironmentId: z
+		.string()
+		.optional()
+		.describe("The unique custom environment identifier within the project")
+		.meta({ examples: ["env_123abc4567"] }),
+	gitBranch: z.string().optional().describe("Filters domains based on specific branch."),
+	redirects: z
+		.enum(["true", "false"])
+		.optional()
+		.default("true")
+		.describe(
+			'Excludes redirect project domains when "false". Includes redirect project domains when "true" (default).',
+		),
+	redirect: z
+		.string()
+		.optional()
+		.describe("Filters domains based on their redirect target.")
+		.meta({ examples: ["example.com"] }),
+	verified: z
+		.enum(["true", "false"])
+		.optional()
+		.describe("Filters domains based on their verification status."),
+	limit: z
+		.number()
+		.optional()
+		.describe("Maximum number of domains to list from a request (max 100).")
+		.meta({ examples: [20] }),
+	since: z
+		.number()
+		.optional()
+		.describe("Get domains created after this JavaScript timestamp.")
+		.meta({ examples: [1609499532000] }),
+	until: z
+		.number()
+		.optional()
+		.describe("Get domains created before this JavaScript timestamp.")
+		.meta({ examples: [1612264332000] }),
+	order: z
+		.enum(["ASC", "DESC"])
+		.optional()
+		.default("DESC")
+		.describe("Domains sort order by createdAt"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getProjectDomainPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name");
@@ -88990,6 +94240,27 @@ export const getProjectDomainErrorSchema = z.union([
 	getProjectDomainStatus404Schema,
 	getProjectDomainStatus410Schema,
 ]);
+
+export const getProjectDomainPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+	domain: z
+		.string()
+		.describe("The project domain name")
+		.meta({ examples: ["www.example.com"] }),
+});
+
+export const getProjectDomainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateProjectDomainPathIdOrNameSchema = z
 	.string()
@@ -89086,6 +94357,27 @@ export const updateProjectDomainBodySchema = z.object({
 		.meta({ examples: [307] }),
 });
 
+export const updateProjectDomainPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+	domain: z
+		.string()
+		.describe("The project domain name")
+		.meta({ examples: ["www.example.com"] }),
+});
+
+export const updateProjectDomainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const removeProjectDomainPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name");
@@ -89142,6 +94434,27 @@ export const removeProjectDomainBodySchema = z
 			),
 	})
 	.optional();
+
+export const removeProjectDomainPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+	domain: z
+		.string()
+		.describe("The project domain name")
+		.meta({ examples: ["www.example.com"] }),
+});
+
+export const removeProjectDomainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const addProjectDomainPathIdOrNameSchema = z
 	.string()
@@ -89242,6 +94555,23 @@ export const addProjectDomainBodySchema = z.object({
 		.nullish()
 		.describe("Status code for domain redirect")
 		.meta({ examples: [307] }),
+});
+
+export const addProjectDomainPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+});
+
+export const addProjectDomainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
 });
 
 export const moveProjectDomainPathIdOrNameSchema = z
@@ -89345,6 +94675,27 @@ export const moveProjectDomainBodySchema = z
 	})
 	.optional();
 
+export const moveProjectDomainPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+	domain: z
+		.string()
+		.describe("The project domain name")
+		.meta({ examples: ["www.example.com"] }),
+});
+
+export const moveProjectDomainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const verifyProjectDomainPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name")
@@ -89405,6 +94756,30 @@ export const verifyProjectDomainErrorSchema = z.union([
 	verifyProjectDomainStatus404Schema,
 	verifyProjectDomainStatus410Schema,
 ]);
+
+export const verifyProjectDomainPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The unique project identifier or the project name")
+		.meta({ examples: ["prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] }),
+	domain: z
+		.string()
+		.describe("The domain name you want to verify")
+		.meta({ examples: ["example.com"] }),
+});
+
+export const verifyProjectDomainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const filterProjectEnvsPathIdOrNameSchema = z
 	.string()
@@ -89826,6 +95201,54 @@ export const filterProjectEnvsErrorSchema = z.union([
 	filterProjectEnvsStatus404Schema,
 	filterProjectEnvsStatus410Schema,
 ]);
+
+export const filterProjectEnvsPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The unique project identifier or the project name")
+		.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] }),
+});
+
+export const filterProjectEnvsQuerySchema = z.object({
+	gitBranch: z
+		.string()
+		.max(250)
+		.optional()
+		.describe(
+			"If defined, the git branch of the environment variable to filter the results (must have target=preview)",
+		)
+		.meta({ examples: ["feature-1"] }),
+	decrypt: z
+		.enum(["true", "false"])
+		.optional()
+		.describe("If true, the environment variable value will be decrypted")
+		.meta({ examples: ["true"] }),
+	source: z
+		.string()
+		.optional()
+		.describe("The source that is calling the endpoint.")
+		.meta({ examples: ["vercel-cli:pull"] }),
+	customEnvironmentId: z
+		.string()
+		.optional()
+		.describe("The unique custom environment identifier within the project")
+		.meta({ examples: ["env_123abc4567"] }),
+	customEnvironmentSlug: z
+		.string()
+		.optional()
+		.describe("The custom environment slug (name) within the project")
+		.meta({ examples: ["my-custom-env"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createProjectEnvPathIdOrNameSchema = z
 	.string()
@@ -90281,6 +95704,31 @@ export const createProjectEnvBodySchema = z.union([
 	),
 ]);
 
+export const createProjectEnvPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The unique project identifier or the project name")
+		.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] }),
+});
+
+export const createProjectEnvQuerySchema = z.object({
+	upsert: z
+		.string()
+		.optional()
+		.describe("Allow override of environment variable if it already exists")
+		.meta({ examples: ["true"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getProjectEnvPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name")
@@ -90665,6 +96113,27 @@ export const getProjectEnvErrorSchema = z.union([
 	getProjectEnvStatus404Schema,
 	getProjectEnvStatus410Schema,
 ]);
+
+export const getProjectEnvPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The unique project identifier or the project name")
+		.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] }),
+	id: z.string().describe("The unique ID for the environment variable to get the decrypted value."),
+});
+
+export const getProjectEnvQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const removeProjectEnvPathIdOrNameSchema = z
 	.string()
@@ -91098,6 +96567,35 @@ export const removeProjectEnvErrorSchema = z.union([
 	removeProjectEnvStatus410Schema,
 ]);
 
+export const removeProjectEnvPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The unique project identifier or the project name")
+		.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] }),
+	id: z
+		.string()
+		.describe("The unique environment variable identifier")
+		.meta({ examples: ["XMbOEya1gUUO1ir4"] }),
+});
+
+export const removeProjectEnvQuerySchema = z.object({
+	customEnvironmentId: z
+		.string()
+		.optional()
+		.describe("The unique custom environment identifier within the project")
+		.meta({ examples: ["env_123abc4567"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const editProjectEnvPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name")
@@ -91316,6 +96814,30 @@ export const editProjectEnvBodySchema = z.strictObject({
 		.meta({ examples: ["database connection string for production"] }),
 });
 
+export const editProjectEnvPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The unique project identifier or the project name")
+		.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] }),
+	id: z
+		.string()
+		.describe("The unique environment variable identifier")
+		.meta({ examples: ["XMbOEya1gUUO1ir4"] }),
+});
+
+export const editProjectEnvQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const batchRemoveProjectEnvPathIdOrNameSchema = z
 	.string()
 	.describe("The unique project identifier or the project name")
@@ -91370,6 +96892,26 @@ export const batchRemoveProjectEnvBodySchema = z
 			.describe("Array of environment variable IDs to delete"),
 	})
 	.optional();
+
+export const batchRemoveProjectEnvPathSchema = z.object({
+	idOrName: z
+		.string()
+		.describe("The unique project identifier or the project name")
+		.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] }),
+});
+
+export const batchRemoveProjectEnvQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getRollingReleaseBillingStatusPathIdOrNameSchema = z
 	.string()
@@ -91431,6 +96973,23 @@ export const getRollingReleaseBillingStatusErrorSchema = z.union([
 	getRollingReleaseBillingStatusStatus404Schema,
 	getRollingReleaseBillingStatusStatus410Schema,
 ]);
+
+export const getRollingReleaseBillingStatusPathSchema = z.object({
+	idOrName: z.string().describe("Project ID or project name (URL-encoded)"),
+});
+
+export const getRollingReleaseBillingStatusQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getRollingReleaseConfigPathIdOrNameSchema = z
 	.string()
@@ -91584,6 +97143,23 @@ export const getRollingReleaseConfigErrorSchema = z.union([
 	getRollingReleaseConfigStatus410Schema,
 ]);
 
+export const getRollingReleaseConfigPathSchema = z.object({
+	idOrName: z.string().describe("Project ID or project name (URL-encoded)"),
+});
+
+export const getRollingReleaseConfigQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteRollingReleaseConfigPathIdOrNameSchema = z
 	.string()
 	.describe("Project ID or project name (URL-encoded)");
@@ -91623,6 +97199,23 @@ export const deleteRollingReleaseConfigErrorSchema = z.union([
 	deleteRollingReleaseConfigStatus404Schema,
 	deleteRollingReleaseConfigStatus410Schema,
 ]);
+
+export const deleteRollingReleaseConfigPathSchema = z.object({
+	idOrName: z.string().describe("Project ID or project name (URL-encoded)"),
+});
+
+export const deleteRollingReleaseConfigQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateRollingReleaseConfigPathIdOrNameSchema = z
 	.string()
@@ -91696,6 +97289,23 @@ export const updateRollingReleaseConfigErrorSchema = z.union([
 	updateRollingReleaseConfigStatus404Schema,
 	updateRollingReleaseConfigStatus410Schema,
 ]);
+
+export const updateRollingReleaseConfigPathSchema = z.object({
+	idOrName: z.string().describe("Project ID or project name (URL-encoded)"),
+});
+
+export const updateRollingReleaseConfigQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getRollingReleasePathIdOrNameSchema = z
 	.string()
@@ -92079,6 +97689,27 @@ export const getRollingReleaseErrorSchema = z.union([
 	getRollingReleaseStatus404Schema,
 	getRollingReleaseStatus410Schema,
 ]);
+
+export const getRollingReleasePathSchema = z.object({
+	idOrName: z.string().describe("Project ID or project name (URL-encoded)"),
+});
+
+export const getRollingReleaseQuerySchema = z.object({
+	state: z
+		.enum(["ACTIVE", "COMPLETE", "ABORTED"])
+		.optional()
+		.describe("Filter by rolling release state"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const approveRollingReleaseStagePathIdOrNameSchema = z
 	.string()
@@ -92469,6 +98100,23 @@ export const approveRollingReleaseStageBodySchema = z
 			.describe("The id of the canary deployment to approve for the next stage"),
 	})
 	.optional();
+
+export const approveRollingReleaseStagePathSchema = z.object({
+	idOrName: z.string().describe("Project ID or project name (URL-encoded)"),
+});
+
+export const approveRollingReleaseStageQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const startRollingReleasePathIdOrNameSchema = z
 	.string()
@@ -92862,6 +98510,23 @@ export const startRollingReleaseBodySchema = z
 	})
 	.optional();
 
+export const startRollingReleasePathSchema = z.object({
+	idOrName: z.string().describe("Project ID or project name (URL-encoded)"),
+});
+
+export const startRollingReleaseQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const completeRollingReleasePathIdOrNameSchema = z
 	.string()
 	.describe("Project ID or project name (URL-encoded)");
@@ -93246,6 +98911,23 @@ export const completeRollingReleaseBodySchema = z
 	})
 	.optional();
 
+export const completeRollingReleasePathSchema = z.object({
+	idOrName: z.string().describe("Project ID or project name (URL-encoded)"),
+});
+
+export const completeRollingReleaseQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createProjectTransferRequestPathIdOrNameSchema = z
 	.string()
 	.describe("The ID or name of the project to transfer.");
@@ -93302,6 +98984,23 @@ export const createProjectTransferRequestBodySchema = z
 			.describe("The secret to use to sign the webhook payload with HMAC-SHA256."),
 	})
 	.optional();
+
+export const createProjectTransferRequestPathSchema = z.object({
+	idOrName: z.string().describe("The ID or name of the project to transfer."),
+});
+
+export const createProjectTransferRequestQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const acceptProjectTransferRequestPathCodeSchema = z
 	.string()
@@ -93388,6 +99087,23 @@ export const acceptProjectTransferRequestBodySchema = z
 			.optional(),
 	})
 	.optional();
+
+export const acceptProjectTransferRequestPathSchema = z.object({
+	code: z.string().describe("The code of the project transfer request."),
+});
+
+export const acceptProjectTransferRequestQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateProjectProtectionBypassPathIdOrNameSchema = z
 	.string()
@@ -93509,6 +99225,23 @@ export const updateProjectProtectionBypassBodySchema = z.strictObject({
 		.describe("Update an existing bypass"),
 });
 
+export const updateProjectProtectionBypassPathSchema = z.object({
+	idOrName: z.string().describe("The unique project identifier or the project name"),
+});
+
+export const updateProjectProtectionBypassQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const requestRollbackPathProjectIdSchema = z.string();
 
 export const requestRollbackPathDeploymentIdSchema = z
@@ -93563,6 +99296,25 @@ export const requestRollbackErrorSchema = z.union([
 	requestRollbackStatus422Schema,
 ]);
 
+export const requestRollbackPathSchema = z.object({
+	projectId: z.string(),
+	deploymentId: z.string().describe("The ID of the deployment to rollback *to*"),
+});
+
+export const requestRollbackQuerySchema = z.object({
+	description: z.string().optional().describe("The reason for the rollback"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionPathProjectIdSchema =
 	z.string();
 
@@ -93611,6 +99363,11 @@ export const updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionBod
 		description: z.string().optional().describe("The reason for the rollback"),
 	})
 	.optional();
+
+export const updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionPathSchema = z.object({
+	projectId: z.string(),
+	deploymentId: z.string(),
+});
 
 export const updateMicrofrontendsPathProjectIdSchema = z
 	.string()
@@ -97649,6 +103406,26 @@ export const updateMicrofrontendsBodySchema = z
 	})
 	.optional();
 
+export const updateMicrofrontendsPathSchema = z.object({
+	projectId: z
+		.string()
+		.describe("The unique project identifier")
+		.meta({ examples: ["prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] }),
+});
+
+export const updateMicrofrontendsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const requestPromotePathProjectIdSchema = z.string();
 
 export const requestPromotePathDeploymentIdSchema = z.string();
@@ -97697,6 +103474,24 @@ export const requestPromoteErrorSchema = z.union([
 	requestPromoteStatus410Schema,
 	requestPromoteStatus422Schema,
 ]);
+
+export const requestPromotePathSchema = z.object({
+	projectId: z.string(),
+	deploymentId: z.string(),
+});
+
+export const requestPromoteQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listPromoteAliasesPathProjectIdSchema = z.string();
 
@@ -97772,6 +103567,43 @@ export const listPromoteAliasesErrorSchema = z.union([
 	listPromoteAliasesStatus410Schema,
 ]);
 
+export const listPromoteAliasesPathSchema = z.object({
+	projectId: z.string(),
+});
+
+export const listPromoteAliasesQuerySchema = z.object({
+	limit: z
+		.number()
+		.max(100)
+		.optional()
+		.describe("Maximum number of aliases to list from a request (max 100).")
+		.meta({ examples: [20] }),
+	since: z
+		.number()
+		.optional()
+		.describe("Get aliases created after this epoch timestamp.")
+		.meta({ examples: [1609499532000] }),
+	until: z
+		.number()
+		.optional()
+		.describe("Get aliases created before this epoch timestamp.")
+		.meta({ examples: [1612264332000] }),
+	failedOnly: z
+		.boolean()
+		.optional()
+		.describe("Filter results down to aliases that failed to map to the requested deployment"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const pauseProjectPathProjectIdSchema = z.string().describe("The unique project identifier");
 
 export const pauseProjectQueryTeamIdSchema = z
@@ -97810,6 +103642,23 @@ export const pauseProjectErrorSchema = z.union([
 	pauseProjectStatus410Schema,
 	pauseProjectStatus500Schema,
 ]);
+
+export const pauseProjectPathSchema = z.object({
+	projectId: z.string().describe("The unique project identifier"),
+});
+
+export const pauseProjectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const unpauseProjectPathProjectIdSchema = z
 	.string()
@@ -97851,6 +103700,23 @@ export const unpauseProjectErrorSchema = z.union([
 	unpauseProjectStatus410Schema,
 	unpauseProjectStatus500Schema,
 ]);
+
+export const unpauseProjectPathSchema = z.object({
+	projectId: z.string().describe("The unique project identifier"),
+});
+
+export const unpauseProjectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listNamedSandboxesQueryProjectSchema = z
 	.string()
@@ -97948,6 +103814,59 @@ export const listNamedSandboxesErrorSchema = z.union([
 	listNamedSandboxesStatus422Schema,
 	listNamedSandboxesStatus429Schema,
 ]);
+
+export const listNamedSandboxesQuerySchema = z.object({
+	project: z
+		.string()
+		.optional()
+		.describe("The unique identifier or name of the project to list named sandboxes for.")
+		.meta({ examples: ["prj_abc123"] }),
+	limit: z
+		.number()
+		.min(1)
+		.max(50)
+		.optional()
+		.default(20)
+		.describe("Maximum number of named sandboxes to return in the response. Used for pagination.")
+		.meta({ examples: [20] }),
+	sortBy: z
+		.enum(["createdAt", "name", "statusUpdatedAt", "currentSnapshotId"])
+		.optional()
+		.default("createdAt")
+		.describe("Field to sort by."),
+	namePrefix: z
+		.string()
+		.optional()
+		.describe(
+			"Filter named sandboxes whose name starts with this prefix. Only valid when sortBy=name.",
+		),
+	cursor: z.string().optional().describe("Opaque pagination cursor from a previous response."),
+	sortOrder: z
+		.enum(["asc", "desc"])
+		.optional()
+		.default("desc")
+		.describe("Sort direction. Defaults to desc."),
+	status: z
+		.enum(["running", "stopping", "stopped"])
+		.optional()
+		.describe("Filter named sandboxes by status. Only valid when sortBy is createdAt."),
+	tags: z
+		.union([z.string(), z.array(z.string())])
+		.optional()
+		.describe(
+			'Filter sandboxes by tag. Format: \\"key:value\\". Only one tag filter is supported at a time.',
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createSandboxesV2QueryTeamIdSchema = z
 	.string()
@@ -98587,6 +104506,19 @@ export const createSandboxesV2BodySchema = z
 	})
 	.optional();
 
+export const createSandboxesV2QuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listDrivesQueryProjectIdSchema = z
 	.string()
 	.optional()
@@ -98672,6 +104604,49 @@ export const listDrivesErrorSchema = z.union([
 	listDrivesStatus429Schema,
 ]);
 
+export const listDrivesQuerySchema = z.object({
+	projectId: z
+		.string()
+		.optional()
+		.describe(
+			"The project ID or name associated with the drives. Required unless using a Vercel OIDC token scoped to a project.",
+		)
+		.meta({ examples: ["prj_abc123"] }),
+	limit: z
+		.number()
+		.min(1)
+		.max(50)
+		.optional()
+		.default(20)
+		.describe("Maximum number of drives to return in the response. Used for pagination.")
+		.meta({ examples: [20] }),
+	cursor: z.string().optional().describe("Opaque pagination cursor from a previous response."),
+	sortBy: z
+		.enum(["createdAt", "updatedAt", "name"])
+		.optional()
+		.default("createdAt")
+		.describe("Field to sort drives by."),
+	namePrefix: z
+		.string()
+		.optional()
+		.describe("Filter drives whose name starts with this prefix. Only valid when sortBy=name."),
+	sortOrder: z
+		.enum(["asc", "desc"])
+		.optional()
+		.default("desc")
+		.describe("Sort direction for results."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getDrivePathNameOrIdSchema = z
 	.string()
 	.max(64)
@@ -98730,6 +104705,35 @@ export const getDriveErrorSchema = z.union([
 	getDriveStatus422Schema,
 	getDriveStatus429Schema,
 ]);
+
+export const getDrivePathSchema = z.object({
+	nameOrId: z
+		.string()
+		.max(64)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe("The drive name or ID.")
+		.meta({ examples: ["workspace"] }),
+});
+
+export const getDriveQuerySchema = z.object({
+	projectId: z
+		.string()
+		.optional()
+		.describe(
+			"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
+		)
+		.meta({ examples: ["prj_abc123"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getOrCreateDrivePathNameSchema = z
 	.string()
@@ -98846,6 +104850,30 @@ export const getOrCreateDriveBodySchema = z
 	})
 	.optional();
 
+export const getOrCreateDrivePathSchema = z.object({
+	name: z
+		.string()
+		.max(64)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe(
+			"Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
+		)
+		.meta({ examples: ["workspace"] }),
+});
+
+export const getOrCreateDriveQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteDrivePathNameSchema = z
 	.string()
 	.max(64)
@@ -98909,6 +104937,37 @@ export const deleteDriveErrorSchema = z.union([
 	deleteDriveStatus422Schema,
 	deleteDriveStatus429Schema,
 ]);
+
+export const deleteDrivePathSchema = z.object({
+	name: z
+		.string()
+		.max(64)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe(
+			"Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
+		)
+		.meta({ examples: ["workspace"] }),
+});
+
+export const deleteDriveQuerySchema = z.object({
+	projectId: z
+		.string()
+		.optional()
+		.describe(
+			"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
+		)
+		.meta({ examples: ["prj_abc123"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const forkDrivePathNameSchema = z
 	.string()
@@ -98990,6 +105049,35 @@ export const forkDriveBodySchema = z
 			.meta({ examples: ["workspace-fork"] }),
 	})
 	.optional();
+
+export const forkDrivePathSchema = z.object({
+	name: z
+		.string()
+		.max(64)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe("Name of the source drive to fork.")
+		.meta({ examples: ["workspace"] }),
+});
+
+export const forkDriveQuerySchema = z.object({
+	projectId: z
+		.string()
+		.optional()
+		.describe(
+			"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
+		)
+		.meta({ examples: ["prj_abc123"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listSessionSnapshotsQueryProjectSchema = z
 	.string()
@@ -99076,6 +105164,47 @@ export const listSessionSnapshotsErrorSchema = z.union([
 	listSessionSnapshotsStatus429Schema,
 ]);
 
+export const listSessionSnapshotsQuerySchema = z.object({
+	project: z
+		.string()
+		.optional()
+		.describe("The unique identifier or name of the project to list snapshots for.")
+		.meta({ examples: ["prj_abc123"] }),
+	name: z
+		.string()
+		.max(128)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.optional()
+		.describe(
+			"Name for the sandbox. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
+		)
+		.meta({ examples: ["my-sandbox"] }),
+	limit: z
+		.number()
+		.min(1)
+		.max(50)
+		.optional()
+		.default(20)
+		.describe("Maximum number of snapshots to return in the response. Used for pagination.")
+		.meta({ examples: [20] }),
+	cursor: z.string().optional().describe("Opaque pagination cursor from a previous response."),
+	sortOrder: z
+		.enum(["asc", "desc"])
+		.optional()
+		.default("desc")
+		.describe("Sort direction for results by creation time."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getSessionSnapshotPathSnapshotIdSchema = z
 	.string()
 	.max(33)
@@ -99127,6 +105256,28 @@ export const getSessionSnapshotErrorSchema = z.union([
 	getSessionSnapshotStatus429Schema,
 ]);
 
+export const getSessionSnapshotPathSchema = z.object({
+	snapshotId: z
+		.string()
+		.max(33)
+		.regex(/^(?:snap_[A-Za-z0-9]{28}|vhs_[a-z0-9]{28})$/)
+		.describe("The unique identifier of the snapshot to retrieve.")
+		.meta({ examples: ["snap_1234567890123456789012345678"] }),
+});
+
+export const getSessionSnapshotQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteSessionSnapshotPathSnapshotIdSchema = z
 	.string()
 	.max(33)
@@ -99177,6 +105328,28 @@ export const deleteSessionSnapshotErrorSchema = z.union([
 	deleteSessionSnapshotStatus422Schema,
 	deleteSessionSnapshotStatus429Schema,
 ]);
+
+export const deleteSessionSnapshotPathSchema = z.object({
+	snapshotId: z
+		.string()
+		.max(33)
+		.regex(/^(?:snap_[A-Za-z0-9]{28}|vhs_[a-z0-9]{28})$/)
+		.describe("The unique identifier of the snapshot to delete.")
+		.meta({ examples: ["snap_1234567890123456789012345678"] }),
+});
+
+export const deleteSessionSnapshotQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listSessionsQueryProjectSchema = z
 	.string()
@@ -99266,6 +105439,47 @@ export const listSessionsErrorSchema = z.union([
 	listSessionsStatus500Schema,
 ]);
 
+export const listSessionsQuerySchema = z.object({
+	project: z
+		.string()
+		.optional()
+		.describe("The unique identifier or name of the project to list sessions for.")
+		.meta({ examples: ["prj_abc123"] }),
+	name: z
+		.string()
+		.max(128)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.optional()
+		.describe(
+			"Filter sessions by sandbox name. Only sessions belonging to the specified sandbox are returned.",
+		)
+		.meta({ examples: ["my-sandbox"] }),
+	limit: z
+		.number()
+		.min(1)
+		.max(50)
+		.optional()
+		.default(20)
+		.describe("Maximum number of sessions to return in the response. Used for pagination.")
+		.meta({ examples: [20] }),
+	cursor: z.string().optional().describe("Opaque pagination cursor from a previous response."),
+	sortOrder: z
+		.enum(["asc", "desc"])
+		.optional()
+		.default("desc")
+		.describe("Sort direction for results by creation time."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getSessionPathSessionIdSchema = z
 	.string()
 	.describe("The unique identifier of the session to retrieve.")
@@ -99318,6 +105532,26 @@ export const getSessionErrorSchema = z.union([
 	getSessionStatus429Schema,
 	getSessionStatus500Schema,
 ]);
+
+export const getSessionPathSchema = z.object({
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session to retrieve.")
+		.meta({ examples: ["sbx_abc123"] }),
+});
+
+export const getSessionQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getNamedSandboxPathNameSchema = z
 	.string()
@@ -99405,6 +105639,42 @@ export const getNamedSandboxErrorSchema = z.union([
 	getNamedSandboxStatus502Schema,
 	getNamedSandboxStatus503Schema,
 ]);
+
+export const getNamedSandboxPathSchema = z.object({
+	name: z
+		.string()
+		.max(128)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe(
+			"Name for the sandbox. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
+		)
+		.meta({ examples: ["my-sandbox"] }),
+});
+
+export const getNamedSandboxQuerySchema = z.object({
+	projectId: z
+		.string()
+		.optional()
+		.describe("The project ID or name (required when not using OIDC token).")
+		.meta({ examples: ["prj_abc123"] }),
+	resume: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"Whether to automatically resume a stopped named sandbox by creating a new instance from its snapshot. Defaults to false.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateSandboxPathNameSchema = z
 	.string()
@@ -100001,6 +106271,42 @@ export const updateSandboxBodySchema = z
 	})
 	.optional();
 
+export const updateSandboxPathSchema = z.object({
+	name: z
+		.string()
+		.max(128)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe("The sandbox to update.")
+		.meta({ examples: ["my-sandbox"] }),
+});
+
+export const updateSandboxQuerySchema = z.object({
+	projectId: z
+		.string()
+		.max(128)
+		.optional()
+		.describe(
+			"The project ID that owns the named sandbox. When provided, takes precedence over OIDC project context.",
+		),
+	resume: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"Whether to automatically resume a stopped named sandbox by creating a new instance from its snapshot. Defaults to false.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteSandboxPathNameSchema = z
 	.string()
 	.max(128)
@@ -100068,6 +106374,42 @@ export const deleteSandboxErrorSchema = z.union([
 	deleteSandboxStatus429Schema,
 ]);
 
+export const deleteSandboxPathSchema = z.object({
+	name: z
+		.string()
+		.max(128)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe("The sandbox name to delete.")
+		.meta({ examples: ["my-sandbox"] }),
+});
+
+export const deleteSandboxQuerySchema = z.object({
+	projectId: z
+		.string()
+		.max(128)
+		.optional()
+		.describe(
+			"The project ID that owns the named sandbox. When provided, takes precedence over OIDC project context.",
+		),
+	deleteOrphanSnapshots: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"When true, snapshots of the deleted sandbox that are not referenced by any other sandbox are also deleted asynchronously. Defaults to false.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listSessionCommandsPathSessionIdSchema = z
 	.string()
 	.describe("The unique identifier of the session to list commands for.")
@@ -100114,6 +106456,26 @@ export const listSessionCommandsErrorSchema = z.union([
 	listSessionCommandsStatus422Schema,
 	listSessionCommandsStatus429Schema,
 ]);
+
+export const listSessionCommandsPathSchema = z.object({
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session to list commands for.")
+		.meta({ examples: ["sbx_abc123"] }),
+});
+
+export const listSessionCommandsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const runSessionCommandPathSessionIdSchema = z
 	.string()
@@ -100232,6 +106594,26 @@ export const runSessionCommandBodySchema = z
 	})
 	.optional();
 
+export const runSessionCommandPathSchema = z.object({
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session in which to execute the command.")
+		.meta({ examples: ["sbx_abc123"] }),
+});
+
+export const runSessionCommandQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getSessionCommandPathSessionIdSchema = z
 	.string()
 	.describe("The unique identifier of the session containing the command.")
@@ -100293,6 +106675,37 @@ export const getSessionCommandErrorSchema = z.union([
 	getSessionCommandStatus422Schema,
 	getSessionCommandStatus429Schema,
 ]);
+
+export const getSessionCommandPathSchema = z.object({
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session containing the command.")
+		.meta({ examples: ["sbx_abc123"] }),
+	cmdId: z
+		.string()
+		.describe("The unique identifier of the command to retrieve.")
+		.meta({ examples: ["cmd_abc123"] }),
+});
+
+export const getSessionCommandQuerySchema = z.object({
+	wait: z
+		.enum(["true", "false"])
+		.optional()
+		.default("false")
+		.describe(
+			'If set to "true", the request will block until the command finishes execution. Useful for synchronously waiting for command completion.',
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const killSessionCommandPathCmdIdSchema = z
 	.string()
@@ -100358,6 +106771,30 @@ export const killSessionCommandBodySchema = z
 			.meta({ examples: [15] }),
 	})
 	.optional();
+
+export const killSessionCommandPathSchema = z.object({
+	cmdId: z
+		.string()
+		.describe("The unique identifier of the command to terminate.")
+		.meta({ examples: ["cmd_abc123"] }),
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session containing the command.")
+		.meta({ examples: ["sbx_abc123"] }),
+});
+
+export const killSessionCommandQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const writeSessionCommandStdinPathCmdIdSchema = z
 	.string()
@@ -100451,6 +106888,30 @@ export const writeSessionCommandStdinBodySchema = z
 	})
 	.optional();
 
+export const writeSessionCommandStdinPathSchema = z.object({
+	cmdId: z
+		.string()
+		.describe("The unique identifier of the command to write to.")
+		.meta({ examples: ["cmd_abc123"] }),
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session containing the command.")
+		.meta({ examples: ["sbx_abc123"] }),
+});
+
+export const writeSessionCommandStdinQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getSessionCommandLogsPathSessionIdSchema = z
 	.string()
 	.describe("The unique identifier of the session containing the command.")
@@ -100500,6 +106961,30 @@ export const getSessionCommandLogsErrorSchema = z.union([
 	getSessionCommandLogsStatus422Schema,
 	getSessionCommandLogsStatus429Schema,
 ]);
+
+export const getSessionCommandLogsPathSchema = z.object({
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session containing the command.")
+		.meta({ examples: ["sbx_abc123"] }),
+	cmdId: z
+		.string()
+		.describe("The unique identifier of the command to stream logs for.")
+		.meta({ examples: ["cmd_abc123"] }),
+});
+
+export const getSessionCommandLogsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const stopSessionPathSessionIdSchema = z
 	.string()
@@ -100566,6 +107051,26 @@ export const stopSessionErrorSchema = z.union([
 	stopSessionStatus500Schema,
 ]);
 
+export const stopSessionPathSchema = z.object({
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session to stop.")
+		.meta({ examples: ["sbx_abc123"] }),
+});
+
+export const stopSessionQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const extendSessionTimeoutPathSessionIdSchema = z
 	.string()
 	.describe("The unique identifier of the session to extend the timeout for.")
@@ -100629,6 +107134,26 @@ export const extendSessionTimeoutBodySchema = z
 			.meta({ examples: [300000] }),
 	})
 	.optional();
+
+export const extendSessionTimeoutPathSchema = z.object({
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session to extend the timeout for.")
+		.meta({ examples: ["sbx_abc123"] }),
+});
+
+export const extendSessionTimeoutQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateSessionNetworkPolicyPathSessionIdSchema = z
 	.string()
@@ -101004,6 +107529,26 @@ export const updateSessionNetworkPolicyBodySchema = z
 	])
 	.optional();
 
+export const updateSessionNetworkPolicyPathSchema = z.object({
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session to update the network policy for.")
+		.meta({ examples: ["sbx_abc123"] }),
+});
+
+export const updateSessionNetworkPolicyQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const readSessionFilePathSessionIdSchema = z
 	.string()
 	.describe("The unique identifier of the session to read the file from.")
@@ -101066,6 +107611,26 @@ export const readSessionFileBodySchema = z
 			.meta({ examples: ["dist/agent-output.md"] }),
 	})
 	.optional();
+
+export const readSessionFilePathSchema = z.object({
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session to read the file from.")
+		.meta({ examples: ["sbx_abc123"] }),
+});
+
+export const readSessionFileQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createSessionDirectoryPathSessionIdSchema = z
 	.string()
@@ -101137,6 +107702,26 @@ export const createSessionDirectoryBodySchema = z
 	})
 	.optional();
 
+export const createSessionDirectoryPathSchema = z.object({
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session to create the directory in.")
+		.meta({ examples: ["sbx_abc123"] }),
+});
+
+export const createSessionDirectoryQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const writeSessionFilesHeaderXCwdSchema = z
 	.string()
 	.optional()
@@ -101189,6 +107774,36 @@ export const writeSessionFilesErrorSchema = z.union([
 	writeSessionFilesStatus422Schema,
 	writeSessionFilesStatus429Schema,
 ]);
+
+export const writeSessionFilesPathSchema = z.object({
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session to write files to.")
+		.meta({ examples: ["sbx_abc123"] }),
+});
+
+export const writeSessionFilesQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const writeSessionFilesHeadersSchema = z.object({
+	"x-cwd": z
+		.string()
+		.optional()
+		.describe(
+			"The target directory where the tarball contents will be extracted. If not specified, files are extracted to the sandbox home directory.",
+		)
+		.meta({ examples: ["/home/vercel-sandbox"] }),
+});
 
 export const createSandboxesSessionsBySessionIdSnapshotV2PathSessionIdSchema = z
 	.string()
@@ -101259,6 +107874,26 @@ export const createSandboxesSessionsBySessionIdSnapshotV2BodySchema = z
 			),
 	})
 	.optional();
+
+export const createSandboxesSessionsBySessionIdSnapshotV2PathSchema = z.object({
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session to snapshot.")
+		.meta({ examples: ["sbx_abc123"] }),
+});
+
+export const createSandboxesSessionsBySessionIdSnapshotV2QuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createSandboxesByNameForkV2PathNameSchema = z
 	.string()
@@ -101837,6 +108472,34 @@ export const createSandboxesByNameForkV2BodySchema = z
 			.meta({ examples: [{ env: "staging", team: "platform" }] }),
 	})
 	.optional();
+
+export const createSandboxesByNameForkV2PathSchema = z.object({
+	name: z
+		.string()
+		.max(128)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe("Name of the source sandbox to fork."),
+});
+
+export const createSandboxesByNameForkV2QuerySchema = z.object({
+	projectId: z
+		.string()
+		.max(128)
+		.optional()
+		.describe(
+			"The ID of the project the source sandbox belongs to. Required unless authenticating with an OIDC token.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createSandboxesV3QueryTeamIdSchema = z
 	.string()
@@ -102468,6 +109131,19 @@ export const createSandboxesV3BodySchema = z
 	})
 	.optional();
 
+export const createSandboxesV3QuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createSandboxesSessionsBySessionIdSnapshotV3PathSessionIdSchema = z
 	.string()
 	.describe("The unique identifier of the session to snapshot.")
@@ -102537,6 +109213,26 @@ export const createSandboxesSessionsBySessionIdSnapshotV3BodySchema = z
 			),
 	})
 	.optional();
+
+export const createSandboxesSessionsBySessionIdSnapshotV3PathSchema = z.object({
+	sessionId: z
+		.string()
+		.describe("The unique identifier of the session to snapshot.")
+		.meta({ examples: ["sbx_abc123"] }),
+});
+
+export const createSandboxesSessionsBySessionIdSnapshotV3QuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createSandboxesByNameForkV3PathNameSchema = z
 	.string()
@@ -103120,6 +109816,34 @@ export const createSandboxesByNameForkV3BodySchema = z
 			.meta({ examples: [{ env: "staging", team: "platform" }] }),
 	})
 	.optional();
+
+export const createSandboxesByNameForkV3PathSchema = z.object({
+	name: z
+		.string()
+		.max(128)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe("Name of the source sandbox to fork."),
+});
+
+export const createSandboxesByNameForkV3QuerySchema = z.object({
+	projectId: z
+		.string()
+		.max(128)
+		.optional()
+		.describe(
+			"The ID of the project the source sandbox belongs to. Required unless authenticating with an OIDC token.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createSandboxesV4QueryTeamIdSchema = z
 	.string()
@@ -103756,6 +110480,19 @@ export const createSandboxesV4BodySchema = z
 	})
 	.optional();
 
+export const createSandboxesV4QuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const updateAttackChallengeModeQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -103804,6 +110541,19 @@ export const updateAttackChallengeModeBodySchema = z.union([
 		attackModeEnabled: z.boolean(),
 	}),
 ]);
+
+export const updateAttackChallengeModeQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getSecurityFirewallConfigStatus200Schema = z.object({
 	active: z
@@ -106448,6 +113198,20 @@ export const putFirewallConfigBodySchema = z.strictObject({
 	logHeaders: z.union([z.string(), z.array(z.string())]).optional(),
 });
 
+export const putFirewallConfigQuerySchema = z.object({
+	projectId: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const updateFirewallConfigQueryProjectIdSchema = z.string();
 
 export const updateFirewallConfigQueryTeamIdSchema = z
@@ -107164,6 +113928,20 @@ export const updateFirewallConfigBodySchema = z.union([
 	}),
 ]);
 
+export const updateFirewallConfigQuerySchema = z.object({
+	projectId: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getFirewallConfigQueryProjectIdSchema = z.string();
 
 export const getFirewallConfigQueryTeamIdSchema = z
@@ -107786,6 +114564,24 @@ export const getFirewallConfigErrorSchema = z.union([
 	getFirewallConfigStatus410Schema,
 ]);
 
+export const getFirewallConfigPathSchema = z.object({
+	configVersion: z.string().describe("The deployed configVersion for the firewall configuration"),
+});
+
+export const getFirewallConfigQuerySchema = z.object({
+	projectId: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteSecurityFirewallConfigByConfigVersionPathConfigVersionSchema = z
 	.string()
 	.describe("The deployed configVersion for the firewall configuration");
@@ -107815,6 +114611,10 @@ export const deleteSecurityFirewallConfigByConfigVersionErrorSchema = z.union([
 	deleteSecurityFirewallConfigByConfigVersionStatus410Schema,
 	deleteSecurityFirewallConfigByConfigVersionStatus500Schema,
 ]);
+
+export const deleteSecurityFirewallConfigByConfigVersionPathSchema = z.object({
+	configVersion: z.string().describe("The deployed configVersion for the firewall configuration"),
+});
 
 export const createSecurityFirewallConfigByConfigVersionActivatePathConfigVersionSchema = z
 	.string()
@@ -108388,6 +115188,10 @@ export const createSecurityFirewallConfigByConfigVersionActivateErrorSchema = z.
 	createSecurityFirewallConfigByConfigVersionActivateStatus500Schema,
 ]);
 
+export const createSecurityFirewallConfigByConfigVersionActivatePathSchema = z.object({
+	configVersion: z.string().describe("The deployed configVersion for the firewall configuration"),
+});
+
 export const getActiveAttackStatusQueryProjectIdSchema = z.string();
 
 export const getActiveAttackStatusQuerySinceSchema = z.number().min(1).optional();
@@ -108465,6 +115269,21 @@ export const getActiveAttackStatusErrorSchema = z.union([
 	getActiveAttackStatusStatus404Schema,
 	getActiveAttackStatusStatus410Schema,
 ]);
+
+export const getActiveAttackStatusQuerySchema = z.object({
+	projectId: z.string(),
+	since: z.number().min(1).optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getBypassIpQueryProjectIdSchema = z.string();
 
@@ -108562,6 +115381,38 @@ export const getBypassIpErrorSchema = z.union([
 	getBypassIpStatus410Schema,
 	getBypassIpStatus500Schema,
 ]);
+
+export const getBypassIpQuerySchema = z.object({
+	projectId: z.string(),
+	limit: z
+		.number()
+		.max(256)
+		.optional()
+		.meta({ examples: [10] }),
+	sourceIp: z.string().max(49).optional().describe("Filter by source IP"),
+	domain: z
+		.string()
+		.max(2544)
+		.regex(/([a-z]+[a-z.]+)$/)
+		.optional()
+		.describe("Filter by domain"),
+	projectScope: z.boolean().optional().describe("Filter by project scoped rules"),
+	offset: z
+		.string()
+		.max(2560)
+		.optional()
+		.describe("Used for pagination. Retrieves results after the provided id"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const addBypassIpQueryProjectIdSchema = z.string();
 
@@ -108677,6 +115528,20 @@ export const addBypassIpBodySchema = z
 	)
 	.optional();
 
+export const addBypassIpQuerySchema = z.object({
+	projectId: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const removeBypassIpQueryProjectIdSchema = z.string();
 
 export const removeBypassIpQueryTeamIdSchema = z
@@ -108747,6 +115612,20 @@ export const removeBypassIpBodySchema = z
 		}),
 	)
 	.optional();
+
+export const removeBypassIpQuerySchema = z.object({
+	projectId: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getConditionalBypassQueryProjectIdSchema = z.string();
 
@@ -108936,6 +115815,20 @@ export const getConditionalBypassErrorSchema = z.union([
 	getConditionalBypassStatus410Schema,
 ]);
 
+export const getConditionalBypassQuerySchema = z.object({
+	projectId: z.string(),
+	slug: z
+		.string()
+		.optional()
+		.meta({ examples: ["my-team-url-slug"] }),
+	domain: z.string().optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
 export const createConditionalBypassQueryProjectIdSchema = z.string();
 
 export const createConditionalBypassQuerySlugSchema = z
@@ -109095,6 +115988,19 @@ export const createConditionalBypassBodySchema = z
 	})
 	.optional();
 
+export const createConditionalBypassQuerySchema = z.object({
+	projectId: z.string(),
+	slug: z
+		.string()
+		.optional()
+		.meta({ examples: ["my-team-url-slug"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
 export const deleteConditionalBypassQueryProjectIdSchema = z.string();
 
 export const deleteConditionalBypassQuerySlugSchema = z
@@ -109131,6 +116037,20 @@ export const deleteConditionalBypassErrorSchema = z.union([
 	deleteConditionalBypassStatus404Schema,
 	deleteConditionalBypassStatus410Schema,
 ]);
+
+export const deleteConditionalBypassQuerySchema = z.object({
+	projectId: z.string(),
+	slug: z
+		.string()
+		.optional()
+		.meta({ examples: ["my-team-url-slug"] }),
+	domain: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
 
 export const getSecurityFirewallEventsQuerySortSchema = z
 	.enum(["startTime:desc", "startTime:asc"])
@@ -109234,6 +116154,38 @@ export const getSecurityFirewallEventsErrorSchema = z.union([
 	getSecurityFirewallEventsStatus500Schema,
 ]);
 
+export const getSecurityFirewallEventsQuerySchema = z.object({
+	sort: z.enum(["startTime:desc", "startTime:asc"]).optional(),
+	limit: z.number().min(1).max(5000).optional(),
+	cursor: z.string().optional(),
+	projectId: z.string(),
+	startTimestamp: z.number().optional(),
+	endTimestamp: z.number().optional(),
+	hosts: z.string().max(10000).optional(),
+	ip: z.array(z.string().max(45)).max(100).optional(),
+	isActive: z.boolean().optional(),
+	action: z
+		.array(z.enum(["deny", "challenge", "log", "rate_limit", "bypass"]))
+		.max(5)
+		.optional(),
+	actionType: z
+		.array(z.enum(["system-action", "customer-action"]))
+		.max(2)
+		.optional(),
+	ruleKind: z.enum(["system", "custom"]).optional(),
+	ruleId: z.array(z.string().max(128)).max(100).optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getSecurityFirewallEventsSummaryQueryProjectIdSchema = z.string();
 
 export const getSecurityFirewallEventsSummaryQueryStartTimestampSchema = z.number().optional();
@@ -109315,6 +116267,35 @@ export const getSecurityFirewallEventsSummaryErrorSchema = z.union([
 	getSecurityFirewallEventsSummaryStatus410Schema,
 	getSecurityFirewallEventsSummaryStatus500Schema,
 ]);
+
+export const getSecurityFirewallEventsSummaryQuerySchema = z.object({
+	projectId: z.string(),
+	startTimestamp: z.number().optional(),
+	endTimestamp: z.number().optional(),
+	hosts: z.string().max(10000).optional(),
+	ip: z.array(z.string().max(45)).max(100).optional(),
+	isActive: z.boolean().optional(),
+	action: z
+		.array(z.enum(["deny", "challenge", "log", "rate_limit", "bypass"]))
+		.max(5)
+		.optional(),
+	actionType: z
+		.array(z.enum(["system-action", "customer-action"]))
+		.max(2)
+		.optional(),
+	ruleKind: z.enum(["system", "custom"]).optional(),
+	ruleId: z.array(z.string().max(128)).max(100).optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const generateFirewallRuleQueryProjectIdSchema = z.string().optional();
 
@@ -109403,6 +116384,20 @@ export const generateFirewallRuleErrorSchema = z.union([
 	generateFirewallRuleStatus500Schema,
 ]);
 
+export const generateFirewallRuleQuerySchema = z.object({
+	projectId: z.string().optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createSpeedInsightsToggleQueryProjectIdSchema = z.string();
 
 export const createSpeedInsightsToggleStatus200Schema = z.object({
@@ -109437,6 +116432,10 @@ export const createSpeedInsightsToggleBodySchema = z
 		value: z.boolean(),
 	})
 	.optional();
+
+export const createSpeedInsightsToggleQuerySchema = z.object({
+	projectId: z.string(),
+});
 
 export const getStorageStoresByIdPathIdSchema = z.string();
 
@@ -109595,6 +116594,15 @@ export const getStorageStoresByIdErrorSchema = z.union([
 	getStorageStoresByIdStatus404Schema,
 	getStorageStoresByIdStatus410Schema,
 ]);
+
+export const getStorageStoresByIdPathSchema = z.object({
+	id: z.string(),
+});
+
+export const getStorageStoresByIdQuerySchema = z.object({
+	"skip-metadata": z.boolean().optional(),
+	"include-guides": z.boolean().optional(),
+});
 
 export const createStorageStoresBlobStatus200Schema = z.object({
 	store: z
@@ -109860,6 +116868,10 @@ export const deleteStorageStoresBlobByIdErrorSchema = z.union([
 	deleteStorageStoresBlobByIdStatus409Schema,
 	deleteStorageStoresBlobByIdStatus410Schema,
 ]);
+
+export const deleteStorageStoresBlobByIdPathSchema = z.object({
+	id: z.string(),
+});
 
 export const createIntegrationStoreDirectQueryTeamIdSchema = z
 	.string()
@@ -111408,6 +118420,19 @@ export const createIntegrationStoreDirectBodySchema = z
 	})
 	.optional();
 
+export const createIntegrationStoreDirectQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getTeamMembersQueryLimitSchema = z
 	.number()
 	.min(1)
@@ -111610,6 +118635,7 @@ export const getTeamMembersStatus200Schema = z.object({
 						"nsnb-redeploy-attribution-card",
 						"nsnb-request-access",
 						"nsnb-viewer-upgrade",
+						"org-admin-sync",
 						"organization-teams",
 						"saml",
 						"teams",
@@ -111702,6 +118728,60 @@ export const getTeamMembersErrorSchema = z.union([
 	getTeamMembersStatus410Schema,
 ]);
 
+export const getTeamMembersPathSchema = z.object({
+	teamId: z
+		.string()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const getTeamMembersQuerySchema = z.object({
+	limit: z
+		.number()
+		.min(1)
+		.optional()
+		.describe("Limit how many teams should be returned")
+		.meta({ examples: [20] }),
+	since: z
+		.number()
+		.optional()
+		.describe("Timestamp in milliseconds to only include members added since then.")
+		.meta({ examples: [1540095775951] }),
+	until: z
+		.number()
+		.optional()
+		.describe("Timestamp in milliseconds to only include members added until then.")
+		.meta({ examples: [1540095775951] }),
+	search: z.string().optional().describe("Search team members by their name, username, and email."),
+	role: z
+		.enum([
+			"OWNER",
+			"MEMBER",
+			"DEVELOPER",
+			"SECURITY",
+			"BILLING",
+			"VIEWER",
+			"VIEWER_FOR_PLUS",
+			"CONTRIBUTOR",
+		])
+		.optional()
+		.describe("Only return members with the specified team role.")
+		.meta({ examples: ["OWNER"] }),
+	excludeProject: z
+		.string()
+		.optional()
+		.describe("Exclude members who belong to the specified project."),
+	eligibleMembersForProjectId: z
+		.string()
+		.optional()
+		.describe("Include team members who are eligible to be members of the specified project."),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const inviteUserToTeamPathTeamIdSchema = z
 	.string()
 	.describe("The Team identifier to perform the request on behalf of.")
@@ -111781,6 +118861,21 @@ export const inviteUserToTeamBodySchema = z
 	)
 	.optional();
 
+export const inviteUserToTeamPathSchema = z.object({
+	teamId: z
+		.string()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const inviteUserToTeamQuerySchema = z.object({
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const requestAccessToTeamPathTeamIdSchema = z
 	.string()
 	.describe("The unique team identifier")
@@ -111829,6 +118924,7 @@ export const requestAccessToTeamStatus200Schema = z.object({
 				"nsnb-redeploy-attribution-card",
 				"nsnb-request-access",
 				"nsnb-viewer-upgrade",
+				"org-admin-sync",
 				"organization-teams",
 				"saml",
 				"teams",
@@ -111903,6 +118999,13 @@ export const requestAccessToTeamBodySchema = z.strictObject({
 	}),
 });
 
+export const requestAccessToTeamPathSchema = z.object({
+	teamId: z
+		.string()
+		.describe("The unique team identifier")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
 export const getTeamAccessRequestPathUserIdSchema = z
 	.string()
 	.describe("The unique user identifier");
@@ -111966,6 +119069,7 @@ export const getTeamAccessRequestStatus200Schema = z.object({
 				"nsnb-redeploy-attribution-card",
 				"nsnb-request-access",
 				"nsnb-viewer-upgrade",
+				"org-admin-sync",
 				"organization-teams",
 				"saml",
 				"teams",
@@ -112005,6 +119109,14 @@ export const getTeamAccessRequestErrorSchema = z.union([
 	getTeamAccessRequestStatus404Schema,
 	getTeamAccessRequestStatus410Schema,
 ]);
+
+export const getTeamAccessRequestPathSchema = z.object({
+	userId: z.string().describe("The unique user identifier"),
+	teamId: z
+		.string()
+		.describe("The unique team identifier")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
 
 export const joinTeamPathTeamIdSchema = z
 	.string()
@@ -112064,6 +119176,13 @@ export const joinTeamBodySchema = z.object({
 		.optional()
 		.describe("The invite code to join the team.")
 		.meta({ examples: ["fisdh38aejkeivn34nslfore9vjtn4ls"] }),
+});
+
+export const joinTeamPathSchema = z.object({
+	teamId: z
+		.string()
+		.describe("The unique team identifier")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
 });
 
 export const updateTeamMemberPathUidSchema = z
@@ -112175,6 +119294,17 @@ export const updateTeamMemberBodySchema = z.object({
 		.optional(),
 });
 
+export const updateTeamMemberPathSchema = z.object({
+	uid: z
+		.string()
+		.describe("The ID of the member.")
+		.meta({ examples: ["ndfasllgPyCtREAqxxdyFKb"] }),
+	teamId: z
+		.string()
+		.describe("The unique team identifier")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
 export const removeTeamMemberPathUidSchema = z
 	.string()
 	.describe("The user ID of the member.")
@@ -112218,6 +119348,25 @@ export const removeTeamMemberErrorSchema = z.union([
 	removeTeamMemberStatus503Schema,
 ]);
 
+export const removeTeamMemberPathSchema = z.object({
+	uid: z
+		.string()
+		.describe("The user ID of the member.")
+		.meta({ examples: ["ndlgr43fadlPyCtREAqxxdyFK"] }),
+	teamId: z
+		.string()
+		.describe("The unique team identifier")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const removeTeamMemberQuerySchema = z.object({
+	newDefaultTeamId: z
+		.string()
+		.optional()
+		.describe("The ID of the team to set as the new default team for the Northstar user.")
+		.meta({ examples: ["team_nllPyCtREAqxxdyFKbbMDlxd"] }),
+});
+
 export const getTeamQuerySlugSchema = z
 	.string()
 	.optional()
@@ -112249,6 +119398,20 @@ export const getTeamErrorSchema = z.union([
 	getTeamStatus404Schema,
 	getTeamStatus410Schema,
 ]);
+
+export const getTeamPathSchema = z.object({
+	teamId: z
+		.string()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const getTeamQuerySchema = z.object({
+	slug: z
+		.string()
+		.optional()
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const patchTeamPathTeamIdSchema = z
 	.string()
@@ -112322,7 +119485,7 @@ export const patchTeamBodySchema = z.strictObject({
 		.describe("The name of the team.")
 		.meta({ examples: ["My Team"] }),
 	previewDeploymentSuffix: z
-		.string()
+		.hostname()
 		.nullish()
 		.describe("Suffix that will be used for all preview deployments.")
 		.meta({ examples: ["example.dev"] }),
@@ -112675,6 +119838,21 @@ export const patchTeamBodySchema = z.strictObject({
 		.describe("Resource configuration for the team."),
 });
 
+export const patchTeamPathSchema = z.object({
+	teamId: z
+		.string()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const patchTeamQuerySchema = z.object({
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getTeamsQueryLimitSchema = z
 	.number()
 	.optional()
@@ -112721,6 +119899,24 @@ export const getTeamsErrorSchema = z.union([
 	getTeamsStatus410Schema,
 	getTeamsStatus500Schema,
 ]);
+
+export const getTeamsQuerySchema = z.object({
+	limit: z
+		.number()
+		.optional()
+		.describe("Maximum number of Teams which may be returned.")
+		.meta({ examples: [20] }),
+	since: z
+		.number()
+		.optional()
+		.describe("Timestamp (in milliseconds) to only include Teams created since then.")
+		.meta({ examples: [1540095775951] }),
+	until: z
+		.number()
+		.optional()
+		.describe("Timestamp (in milliseconds) to only include Teams created until then.")
+		.meta({ examples: [1540095775951] }),
+});
 
 export const createTeamStatus200Schema = z
 	.object({
@@ -112844,6 +120040,21 @@ export const postTeamDsyncRolesBodySchema = z
 	})
 	.optional();
 
+export const postTeamDsyncRolesPathSchema = z.object({
+	teamId: z
+		.string()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const postTeamDsyncRolesQuerySchema = z.object({
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteTeamQueryNewDefaultTeamIdSchema = z
 	.string()
 	.optional()
@@ -112920,6 +120131,26 @@ export const deleteTeamBodySchema = z.strictObject({
 		.describe("Optional array of objects that describe the reason why the team is being deleted."),
 });
 
+export const deleteTeamPathSchema = z.object({
+	teamId: z
+		.string()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const deleteTeamQuerySchema = z.object({
+	newDefaultTeamId: z
+		.string()
+		.optional()
+		.describe("Id of the team to be set as the new default team")
+		.meta({ examples: ["team_LLHUOMOoDlqOp8wPE4kFo9pE"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteTeamInviteCodePathInviteIdSchema = z
 	.string()
 	.describe("The Team invite code ID.")
@@ -112953,6 +120184,17 @@ export const deleteTeamInviteCodeErrorSchema = z.union([
 	deleteTeamInviteCodeStatus404Schema,
 	deleteTeamInviteCodeStatus410Schema,
 ]);
+
+export const deleteTeamInviteCodePathSchema = z.object({
+	inviteId: z
+		.string()
+		.describe("The Team invite code ID.")
+		.meta({ examples: ["2wn2hudbr4chb1ecywo9dvzo7g9sscs6mzcz8htdde0txyom4l"] }),
+	teamId: z
+		.string()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
 
 export const updateMicrofrontendsGroupPathGroupIdSchema = z.string();
 
@@ -113019,6 +120261,22 @@ export const updateMicrofrontendsGroupBodySchema = z
 	})
 	.optional();
 
+export const updateMicrofrontendsGroupPathSchema = z.object({
+	groupId: z.string(),
+	teamId: z
+		.string()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const updateMicrofrontendsGroupQuerySchema = z.object({
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteMicrofrontendsGroupPathGroupIdSchema = z
 	.string()
 	.describe("The microfrontend group ID to delete.")
@@ -113059,6 +120317,25 @@ export const deleteMicrofrontendsGroupErrorSchema = z.union([
 	deleteMicrofrontendsGroupStatus410Schema,
 	deleteMicrofrontendsGroupStatus500Schema,
 ]);
+
+export const deleteMicrofrontendsGroupPathSchema = z.object({
+	groupId: z
+		.string()
+		.describe("The microfrontend group ID to delete.")
+		.meta({ examples: ["mfe_"] }),
+	teamId: z
+		.string()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const deleteMicrofrontendsGroupQuerySchema = z.object({
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const uploadFileHeaderContentLengthSchema = z
 	.number()
@@ -113128,6 +120405,37 @@ export const uploadFileErrorSchema = z.union([
 ]);
 
 export const uploadFileBodySchema = z.instanceof(File).optional();
+
+export const uploadFileQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const uploadFileHeadersSchema = z.object({
+	"Content-Length": z.number().optional().describe("The file size in bytes"),
+	"x-vercel-digest": z
+		.string()
+		.max(40)
+		.optional()
+		.describe("The file SHA1 used to check the integrity"),
+	"x-now-digest": z
+		.string()
+		.max(40)
+		.optional()
+		.describe("The file SHA1 used to check the integrity"),
+	"x-now-size": z
+		.number()
+		.optional()
+		.describe("The file size as an alternative to `Content-Length`"),
+});
 
 export const listAuthTokensStatus200Schema = z.union([
 	z.strictObject({
@@ -113213,6 +120521,19 @@ export const createAuthTokenBodySchema = z.strictObject({
 	projectId: z.string().optional().describe("The ID of the project to scope this token to"),
 });
 
+export const createAuthTokenQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getAuthTokenPathTokenIdSchema = z
 	.string()
 	.describe(
@@ -113245,6 +120566,15 @@ export const getAuthTokenErrorSchema = z.union([
 	getAuthTokenStatus404Schema,
 	getAuthTokenStatus410Schema,
 ]);
+
+export const getAuthTokenPathSchema = z.object({
+	tokenId: z
+		.string()
+		.describe(
+			'The identifier of the token to retrieve. The special value "current" may be supplied, which returns the metadata for the token that the current HTTP request is authenticated with.',
+		)
+		.meta({ examples: ["5d9f2ebd38ddca62e5d51e9c1704c72530bdc8bfdd41e782a6687c48399e8391"] }),
+});
 
 export const deleteAuthTokenQueryReasonSchema = z
 	.enum(["logout"])
@@ -113295,6 +120625,30 @@ export const deleteAuthTokenErrorSchema = z.union([
 	deleteAuthTokenStatus404Schema,
 	deleteAuthTokenStatus410Schema,
 ]);
+
+export const deleteAuthTokenPathSchema = z.object({
+	tokenId: z
+		.string()
+		.describe(
+			'The identifier of the token to invalidate. The special value "current" may be supplied, which invalidates the token that the HTTP request was authenticated with.',
+		)
+		.meta({ examples: ["5d9f2ebd38ddca62e5d51e9c1704c72530bdc8bfdd41e782a6687c48399e8391"] }),
+});
+
+export const deleteAuthTokenQuerySchema = z.object({
+	reason: z
+		.enum(["logout"])
+		.optional()
+		.describe(
+			"Identifies an explicit logout for the deletion event. Only applies when tokenId is current.",
+		),
+	logoutSource: z
+		.enum(["v0", "vercel"])
+		.optional()
+		.describe(
+			"The product the caller is logging out of. Only applies when reason is logout and tokenId is current.",
+		),
+});
 
 export const getAuthUserStatus200Schema = z
 	.object({
@@ -113430,6 +120784,19 @@ export const createRepositoryBodySchema = z
 	})
 	.optional();
 
+export const createRepositoryQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listRepositoriesQueryProjectIdSchema = z
 	.string()
 	.describe(
@@ -113480,6 +120847,30 @@ export const listRepositoriesErrorSchema = z.union([
 	listRepositoriesStatus410Schema,
 ]);
 
+export const listRepositoriesQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.",
+		),
+	limit: z.int().min(1).max(1000).optional(),
+	cursor: z
+		.string()
+		.max(1024)
+		.optional()
+		.describe("Opaque pagination cursor returned by a previous list response."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getRepositoryQueryProjectIdSchema = z
 	.string()
 	.describe(
@@ -113524,6 +120915,28 @@ export const getRepositoryErrorSchema = z.union([
 	getRepositoryStatus410Schema,
 ]);
 
+export const getRepositoryPathSchema = z.object({
+	idOrName: z.string().max(255),
+});
+
+export const getRepositoryQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteRepositoryQueryProjectIdSchema = z
 	.string()
 	.describe(
@@ -113565,6 +120978,28 @@ export const deleteRepositoryErrorSchema = z.union([
 	deleteRepositoryStatus404Schema,
 	deleteRepositoryStatus410Schema,
 ]);
+
+export const deleteRepositoryPathSchema = z.object({
+	idOrName: z.string().max(255),
+});
+
+export const deleteRepositoryQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listRepositoryImagesQueryProjectIdSchema = z
 	.string()
@@ -113619,6 +121054,35 @@ export const listRepositoryImagesErrorSchema = z.union([
 	listRepositoryImagesStatus404Schema,
 	listRepositoryImagesStatus410Schema,
 ]);
+
+export const listRepositoryImagesPathSchema = z.object({
+	idOrName: z.string().max(255),
+});
+
+export const listRepositoryImagesQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.",
+		),
+	limit: z.int().min(1).max(100).optional(),
+	cursor: z
+		.string()
+		.max(1024)
+		.optional()
+		.describe("Opaque pagination cursor returned by a previous list response."),
+	untagged: z.boolean().optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const addRepositoryPermissionQueryProjectIdSchema = z
 	.string()
@@ -113685,6 +121149,28 @@ export const addRepositoryPermissionBodySchema = z
 	})
 	.optional();
 
+export const addRepositoryPermissionPathSchema = z.object({
+	idOrName: z.string().max(255),
+});
+
+export const addRepositoryPermissionQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const removeRepositoryPermissionQueryProjectIdSchema = z
 	.string()
 	.describe(
@@ -113746,6 +121232,28 @@ export const removeRepositoryPermissionBodySchema = z
 	})
 	.optional();
 
+export const removeRepositoryPermissionPathSchema = z.object({
+	idOrName: z.string().max(255),
+});
+
+export const removeRepositoryPermissionQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listRepositoryPermissionsQueryProjectIdSchema = z
 	.string()
 	.describe(
@@ -113798,6 +121306,34 @@ export const listRepositoryPermissionsErrorSchema = z.union([
 	listRepositoryPermissionsStatus410Schema,
 ]);
 
+export const listRepositoryPermissionsPathSchema = z.object({
+	idOrName: z.string().max(255),
+});
+
+export const listRepositoryPermissionsQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.",
+		),
+	limit: z.int().min(1).max(100).optional(),
+	cursor: z
+		.string()
+		.max(1024)
+		.optional()
+		.describe("Opaque pagination cursor returned by a previous list response."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const clearRepositoryPermissionsQueryProjectIdSchema = z
 	.string()
 	.describe(
@@ -113839,6 +121375,28 @@ export const clearRepositoryPermissionsErrorSchema = z.union([
 	clearRepositoryPermissionsStatus404Schema,
 	clearRepositoryPermissionsStatus410Schema,
 ]);
+
+export const clearRepositoryPermissionsPathSchema = z.object({
+	idOrName: z.string().max(255),
+});
+
+export const clearRepositoryPermissionsQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listRepositoryTagsQueryProjectIdSchema = z
 	.string()
@@ -113915,6 +121473,40 @@ export const listRepositoryTagsErrorSchema = z.union([
 	listRepositoryTagsStatus410Schema,
 ]);
 
+export const listRepositoryTagsPathSchema = z.object({
+	idOrName: z.string().max(255),
+});
+
+export const listRepositoryTagsQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.",
+		),
+	limit: z.int().min(1).max(100).optional(),
+	cursor: z.string().optional(),
+	sortBy: z
+		.enum(["updatedAt", "tag"])
+		.optional()
+		.default("updatedAt")
+		.describe("Field to sort the non-pinned tags by."),
+	sortOrder: z
+		.enum(["asc", "desc"])
+		.optional()
+		.default("desc")
+		.describe("Sort direction. Defaults to desc."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getRepositoryTagQueryProjectIdSchema = z
 	.string()
 	.describe(
@@ -113962,6 +121554,29 @@ export const getRepositoryTagErrorSchema = z.union([
 	getRepositoryTagStatus404Schema,
 	getRepositoryTagStatus410Schema,
 ]);
+
+export const getRepositoryTagPathSchema = z.object({
+	idOrName: z.string().max(255),
+	tag: z.string().max(255),
+});
+
+export const getRepositoryTagQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getRepositoryImageQueryProjectIdSchema = z
 	.string()
@@ -114014,6 +121629,32 @@ export const getRepositoryImageErrorSchema = z.union([
 	getRepositoryImageStatus410Schema,
 ]);
 
+export const getRepositoryImagePathSchema = z.object({
+	idOrName: z.string().max(255),
+	imageIdOrDigest: z
+		.string()
+		.max(255)
+		.describe("The internal image id (`image_...`) or the image manifest digest (`sha256:...`)."),
+});
+
+export const getRepositoryImageQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteRepositoryImageQueryProjectIdSchema = z
 	.string()
 	.describe(
@@ -114057,6 +121698,29 @@ export const deleteRepositoryImageErrorSchema = z.union([
 	deleteRepositoryImageStatus404Schema,
 	deleteRepositoryImageStatus410Schema,
 ]);
+
+export const deleteRepositoryImagePathSchema = z.object({
+	idOrName: z.string().max(255),
+	imageId: z.string().max(255),
+});
+
+export const deleteRepositoryImageQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"Project ID or name (slug) within the authenticated team. IDs take precedence over names. Missing or empty values return HTTP 400.",
+		),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getRootStatus200Schema = z.object({});
 
@@ -114137,6 +121801,35 @@ export const getByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestErrorSchema 
 	getByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus416Schema,
 ]);
 
+export const getByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathSchema = z.object({
+	teamSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository team slug component.")
+		.meta({ examples: ["team-slug"] }),
+	projectSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository project slug component.")
+		.meta({ examples: ["project-slug"] }),
+	repositoryName: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+		.describe("Single Docker repository name component.")
+		.meta({ examples: ["nginx"] }),
+	digest: z
+		.string()
+		.max(255)
+		.regex(/^[A-Za-z0-9_+.-]+:[A-Fa-f0-9]+$/)
+		.describe("Content-addressable digest (algorithm:hex).")
+		.meta({
+			examples: ["sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"],
+		}),
+});
+
 export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathTeamSlugSchema = z
 	.string()
 	.max(255)
@@ -114197,6 +121890,35 @@ export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestErrorSche
 	deleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus405Schema,
 	deleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus410Schema,
 ]);
+
+export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathSchema = z.object({
+	teamSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository team slug component.")
+		.meta({ examples: ["team-slug"] }),
+	projectSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository project slug component.")
+		.meta({ examples: ["project-slug"] }),
+	repositoryName: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+		.describe("Single Docker repository name component.")
+		.meta({ examples: ["nginx"] }),
+	digest: z
+		.string()
+		.max(255)
+		.regex(/^[A-Za-z0-9_+.-]+:[A-Fa-f0-9]+$/)
+		.describe("Content-addressable digest (algorithm:hex).")
+		.meta({
+			examples: ["sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"],
+		}),
+});
 
 export const getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathTeamSlugSchema = z
 	.string()
@@ -114261,6 +121983,33 @@ export const getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidErrorSc
 	getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410Schema,
 ]);
 
+export const getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathSchema = z.object({
+	teamSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository team slug component.")
+		.meta({ examples: ["team-slug"] }),
+	projectSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository project slug component.")
+		.meta({ examples: ["project-slug"] }),
+	repositoryName: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+		.describe("Single Docker repository name component.")
+		.meta({ examples: ["nginx"] }),
+	uuid: z
+		.string()
+		.max(40)
+		.regex(/^[a-f0-9]{40}$/)
+		.describe("Blob upload session identifier.")
+		.meta({ examples: ["0123456789abcdef0123456789abcdef01234567"] }),
+});
+
 export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathTeamSlugSchema = z
 	.string()
 	.max(255)
@@ -114324,6 +122073,33 @@ export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidErro
 	deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus404Schema,
 	deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410Schema,
 ]);
+
+export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathSchema = z.object({
+	teamSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository team slug component.")
+		.meta({ examples: ["team-slug"] }),
+	projectSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository project slug component.")
+		.meta({ examples: ["project-slug"] }),
+	repositoryName: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+		.describe("Single Docker repository name component.")
+		.meta({ examples: ["nginx"] }),
+	uuid: z
+		.string()
+		.max(40)
+		.regex(/^[a-f0-9]{40}$/)
+		.describe("Blob upload session identifier.")
+		.meta({ examples: ["0123456789abcdef0123456789abcdef01234567"] }),
+});
 
 export const updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathTeamSlugSchema = z
 	.string()
@@ -114396,6 +122172,33 @@ export const updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidErro
 	updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410Schema,
 	updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413Schema,
 ]);
+
+export const updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathSchema = z.object({
+	teamSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository team slug component.")
+		.meta({ examples: ["team-slug"] }),
+	projectSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository project slug component.")
+		.meta({ examples: ["project-slug"] }),
+	repositoryName: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+		.describe("Single Docker repository name component.")
+		.meta({ examples: ["nginx"] }),
+	uuid: z
+		.string()
+		.max(40)
+		.regex(/^[a-f0-9]{40}$/)
+		.describe("Blob upload session identifier.")
+		.meta({ examples: ["0123456789abcdef0123456789abcdef01234567"] }),
+});
 
 export const replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathTeamSlugSchema = z
 	.string()
@@ -114476,6 +122279,46 @@ export const replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidErr
 	replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413Schema,
 ]);
 
+export const replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathSchema = z.object({
+	teamSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository team slug component.")
+		.meta({ examples: ["team-slug"] }),
+	projectSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository project slug component.")
+		.meta({ examples: ["project-slug"] }),
+	repositoryName: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+		.describe("Single Docker repository name component.")
+		.meta({ examples: ["nginx"] }),
+	uuid: z
+		.string()
+		.max(40)
+		.regex(/^[a-f0-9]{40}$/)
+		.describe("Blob upload session identifier.")
+		.meta({ examples: ["0123456789abcdef0123456789abcdef01234567"] }),
+});
+
+export const replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidQuerySchema = z.object(
+	{
+		digest: z
+			.string()
+			.max(255)
+			.regex(/^[A-Za-z0-9_+.-]+:[A-Fa-f0-9]+$/)
+			.describe("Content-addressable digest (algorithm:hex).")
+			.meta({
+				examples: ["sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"],
+			}),
+	},
+);
+
 export const createByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsPathTeamSlugSchema = z
 	.string()
 	.max(255)
@@ -114540,6 +122383,44 @@ export const createByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsErrorSchem
 	createByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus404Schema,
 	createByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus410Schema,
 ]);
+
+export const createByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsPathSchema = z.object({
+	teamSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository team slug component.")
+		.meta({ examples: ["team-slug"] }),
+	projectSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository project slug component.")
+		.meta({ examples: ["project-slug"] }),
+	repositoryName: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+		.describe("Single Docker repository name component.")
+		.meta({ examples: ["nginx"] }),
+});
+
+export const createByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsQuerySchema = z.object({
+	mount: z
+		.string()
+		.max(255)
+		.regex(/^[A-Za-z0-9_+.-]+:[A-Fa-f0-9]+$/)
+		.optional()
+		.describe("Digest of the blob to mount from another repository."),
+	from: z
+		.string()
+		.max(255)
+		.regex(
+			/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?\\\/[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?\\\/[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/,
+		)
+		.optional()
+		.describe("Source repository to mount the blob from."),
+});
 
 export const replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathTeamSlugSchema =
 	z
@@ -114612,6 +122493,34 @@ export const replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceE
 		replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus413Schema,
 	]);
 
+export const replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathSchema =
+	z.object({
+		teamSlug: z
+			.string()
+			.max(255)
+			.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+			.describe("Single Docker repository team slug component.")
+			.meta({ examples: ["team-slug"] }),
+		projectSlug: z
+			.string()
+			.max(255)
+			.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+			.describe("Single Docker repository project slug component.")
+			.meta({ examples: ["project-slug"] }),
+		repositoryName: z
+			.string()
+			.max(255)
+			.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+			.describe("Single Docker repository name component.")
+			.meta({ examples: ["nginx"] }),
+		reference: z
+			.string()
+			.max(255)
+			.regex(/^(?:[a-zA-Z0-9_][a-zA-Z0-9._-]{0,127}|[A-Za-z0-9_+.-]+:[A-Fa-f0-9]+)$/)
+			.describe("Manifest reference: a tag or digest.")
+			.meta({ examples: ["latest"] }),
+	});
+
 export const getByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathTeamSlugSchema = z
 	.string()
 	.max(255)
@@ -114670,6 +122579,33 @@ export const getByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceError
 	getByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404Schema,
 	getByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410Schema,
 ]);
+
+export const getByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathSchema = z.object({
+	teamSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository team slug component.")
+		.meta({ examples: ["team-slug"] }),
+	projectSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository project slug component.")
+		.meta({ examples: ["project-slug"] }),
+	repositoryName: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+		.describe("Single Docker repository name component.")
+		.meta({ examples: ["nginx"] }),
+	reference: z
+		.string()
+		.max(255)
+		.regex(/^(?:[a-zA-Z0-9_][a-zA-Z0-9._-]{0,127}|[A-Za-z0-9_+.-]+:[A-Fa-f0-9]+)$/)
+		.describe("Manifest reference: a tag or digest.")
+		.meta({ examples: ["latest"] }),
+});
 
 export const deleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathTeamSlugSchema = z
 	.string()
@@ -114740,6 +122676,37 @@ export const deleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceEr
 	],
 );
 
+export const deleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathSchema = z.object(
+	{
+		teamSlug: z
+			.string()
+			.max(255)
+			.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+			.describe("Single Docker repository team slug component.")
+			.meta({ examples: ["team-slug"] }),
+		projectSlug: z
+			.string()
+			.max(255)
+			.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+			.describe("Single Docker repository project slug component.")
+			.meta({ examples: ["project-slug"] }),
+		repositoryName: z
+			.string()
+			.max(255)
+			.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+			.describe("Single Docker repository name component.")
+			.meta({ examples: ["nginx"] }),
+		reference: z
+			.string()
+			.max(255)
+			.regex(/^[A-Za-z0-9_+.-]+:[A-Fa-f0-9]+$/)
+			.describe("Content-addressable digest (algorithm:hex).")
+			.meta({
+				examples: ["sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"],
+			}),
+	},
+);
+
 export const getByTeamSlugByProjectSlugByRepositoryNameTagsListPathTeamSlugSchema = z
 	.string()
 	.max(255)
@@ -114801,6 +122768,36 @@ export const getByTeamSlugByProjectSlugByRepositoryNameTagsListErrorSchema = z.u
 	getByTeamSlugByProjectSlugByRepositoryNameTagsListStatus404Schema,
 	getByTeamSlugByProjectSlugByRepositoryNameTagsListStatus410Schema,
 ]);
+
+export const getByTeamSlugByProjectSlugByRepositoryNameTagsListPathSchema = z.object({
+	teamSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository team slug component.")
+		.meta({ examples: ["team-slug"] }),
+	projectSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository project slug component.")
+		.meta({ examples: ["project-slug"] }),
+	repositoryName: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+		.describe("Single Docker repository name component.")
+		.meta({ examples: ["nginx"] }),
+});
+
+export const getByTeamSlugByProjectSlugByRepositoryNameTagsListQuerySchema = z.object({
+	n: z.int().min(1).max(1000).optional(),
+	last: z
+		.string()
+		.max(1024)
+		.optional()
+		.describe("Opaque pagination cursor returned by a previous list response."),
+});
 
 export const getVercelCiRepositorySettingsQueryProviderSchema = z.enum([
 	"bitbucket",
@@ -114892,6 +122889,22 @@ export const getVercelCiRepositorySettingsErrorSchema = z.union([
 	getVercelCiRepositorySettingsStatus429Schema,
 	getVercelCiRepositorySettingsStatus500Schema,
 ]);
+
+export const getVercelCiRepositorySettingsQuerySchema = z.object({
+	provider: z.enum(["bitbucket", "cursor-origin", "github", "gitlab", "vercel"]),
+	organizationId: z.string(),
+	repository: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const updateVercelCiRepositorySettingsQueryProviderSchema = z.enum([
 	"bitbucket",
@@ -114989,6 +123002,22 @@ export const updateVercelCiRepositorySettingsBodySchema = z
 		ciEnabled: z.boolean(),
 	})
 	.optional();
+
+export const updateVercelCiRepositorySettingsQuerySchema = z.object({
+	provider: z.enum(["bitbucket", "cursor-origin", "github", "gitlab", "vercel"]),
+	organizationId: z.string(),
+	repository: z.string(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listVercelCiInvocationsQueryProviderSchema = z
 	.enum(["github", "gitlab", "bitbucket", "vercel"])
@@ -115237,6 +123266,59 @@ export const listVercelCiInvocationsErrorSchema = z.union([
 	listVercelCiInvocationsStatus503Schema,
 ]);
 
+export const listVercelCiInvocationsQuerySchema = z.object({
+	provider: z
+		.enum(["github", "gitlab", "bitbucket", "vercel"])
+		.optional()
+		.describe('Repository provider (e.g., \\"github\\").'),
+	repository: z.string().optional().describe('Repository slug (e.g., \\"vercel/next.js\\").'),
+	branchName: z.string().optional().describe('Branch name (e.g., \\"main\\").'),
+	snapshot: z.string().optional().describe("Snapshot/commit hash."),
+	status: z
+		.array(
+			z.enum([
+				"new",
+				"skipped",
+				"bootstrapping",
+				"bootstrapping_failed",
+				"snapshotted",
+				"sandbox_named",
+				"jobs_on_hive_clone_dispatched",
+				"jobs_on_hive_dispatched",
+				"jobs_on_hive_completed",
+				"jobs_on_hive_failed",
+				"awaiting_jobs",
+				"completed",
+			]),
+		)
+		.min(1)
+		.optional(),
+	conclusion: z
+		.array(z.enum(["succeeded", "failed", "skipped"]))
+		.min(1)
+		.optional(),
+	source: z
+		.array(z.enum(["vercel-ci", "vercel-native-checks"]))
+		.min(1)
+		.optional(),
+	authorGitHubId: z.string().optional(),
+	author: z.string().optional().describe("GitHub author login."),
+	createdAfter: z.number().optional(),
+	createdBefore: z.number().optional(),
+	limit: z.number().optional().describe("Number of results per page (default: 20, max: 100)."),
+	cursor: z.string().optional().describe("Pagination cursor from a previous response."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listVercelCiBranchesQueryQuerySchema = z.string().max(100).optional();
 
 export const listVercelCiBranchesQueryLimitSchema = z.number().min(1).max(50).optional();
@@ -115312,6 +123394,21 @@ export const listVercelCiBranchesErrorSchema = z.union([
 	listVercelCiBranchesStatus500Schema,
 	listVercelCiBranchesStatus503Schema,
 ]);
+
+export const listVercelCiBranchesQuerySchema = z.object({
+	query: z.string().max(100).optional(),
+	limit: z.number().min(1).max(50).optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createVercelCiTaskAnalysisQueryTeamIdSchema = z
 	.string()
@@ -115391,6 +123488,19 @@ export const createVercelCiTaskAnalysisBodySchema = z
 	})
 	.optional();
 
+export const createVercelCiTaskAnalysisQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getVercelCiTaskAnalysisPathAnalysisIdSchema = z.string();
 
 export const getVercelCiTaskAnalysisQueryTeamIdSchema = z
@@ -115458,6 +123568,23 @@ export const getVercelCiTaskAnalysisErrorSchema = z.union([
 	getVercelCiTaskAnalysisStatus429Schema,
 	getVercelCiTaskAnalysisStatus500Schema,
 ]);
+
+export const getVercelCiTaskAnalysisPathSchema = z.object({
+	analysisId: z.string(),
+});
+
+export const getVercelCiTaskAnalysisQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createVercelCiTaskConfigurationPullRequestPathAnalysisIdSchema = z.string();
 
@@ -115544,6 +123671,23 @@ export const createVercelCiTaskConfigurationPullRequestBodySchema = z
 	})
 	.optional();
 
+export const createVercelCiTaskConfigurationPullRequestPathSchema = z.object({
+	analysisId: z.string(),
+});
+
+export const createVercelCiTaskConfigurationPullRequestQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listVercelCiTaskAnalysisTasksPathAnalysisIdSchema = z.string();
 
 export const listVercelCiTaskAnalysisTasksQueryCursorSchema = z.string().optional();
@@ -115626,6 +123770,25 @@ export const listVercelCiTaskAnalysisTasksErrorSchema = z.union([
 	listVercelCiTaskAnalysisTasksStatus429Schema,
 	listVercelCiTaskAnalysisTasksStatus500Schema,
 ]);
+
+export const listVercelCiTaskAnalysisTasksPathSchema = z.object({
+	analysisId: z.string(),
+});
+
+export const listVercelCiTaskAnalysisTasksQuerySchema = z.object({
+	cursor: z.string().optional(),
+	limit: z.string().optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listVercelCiInvocationAttemptsPathInvocationIdSchema = z.string();
 
@@ -115799,6 +123962,23 @@ export const listVercelCiInvocationAttemptsErrorSchema = z.union([
 	listVercelCiInvocationAttemptsStatus429Schema,
 	listVercelCiInvocationAttemptsStatus500Schema,
 ]);
+
+export const listVercelCiInvocationAttemptsPathSchema = z.object({
+	invocationId: z.string(),
+});
+
+export const listVercelCiInvocationAttemptsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getVercelCiInvocationTreePathInvocationIdSchema = z.string();
 
@@ -116097,6 +124277,32 @@ export const getVercelCiInvocationTreeErrorSchema = z.union([
 	getVercelCiInvocationTreeStatus500Schema,
 ]);
 
+export const getVercelCiInvocationTreePathSchema = z.object({
+	invocationId: z.string(),
+});
+
+export const getVercelCiInvocationTreeQuerySchema = z.object({
+	attempt: z
+		.string()
+		.regex(/^[1-9][0-9]*$/)
+		.optional()
+		.describe("Invocation attempt to return. Defaults to the latest attempt."),
+	follow: z
+		.union([z.literal(0), z.literal(1)])
+		.optional()
+		.describe("When 1, stream the tree as newline-delimited JSON until the attempt finishes."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getVercelCiInvocationPathInvocationIdSchema = z.string();
 
 export const getVercelCiInvocationPathAttemptSchema = z.string();
@@ -116269,6 +124475,24 @@ export const getVercelCiInvocationErrorSchema = z.union([
 	getVercelCiInvocationStatus500Schema,
 ]);
 
+export const getVercelCiInvocationPathSchema = z.object({
+	invocationId: z.string(),
+	attempt: z.string(),
+});
+
+export const getVercelCiInvocationQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const retryVercelCiInvocationPathInvocationIdSchema = z.string();
 
 export const retryVercelCiInvocationPathAttemptSchema = z.string();
@@ -116340,6 +124564,24 @@ export const retryVercelCiInvocationErrorSchema = z.union([
 	retryVercelCiInvocationStatus429Schema,
 	retryVercelCiInvocationStatus500Schema,
 ]);
+
+export const retryVercelCiInvocationPathSchema = z.object({
+	invocationId: z.string(),
+	attempt: z.string(),
+});
+
+export const retryVercelCiInvocationQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listVercelCiJobDefinitionsPathInvocationIdSchema = z.string();
 
@@ -116419,6 +124661,24 @@ export const listVercelCiJobDefinitionsErrorSchema = z.union([
 	listVercelCiJobDefinitionsStatus500Schema,
 ]);
 
+export const listVercelCiJobDefinitionsPathSchema = z.object({
+	invocationId: z.string(),
+	attempt: z.string(),
+});
+
+export const listVercelCiJobDefinitionsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getVercelCiJobDefinitionPathInvocationIdSchema = z.string();
 
 export const getVercelCiJobDefinitionPathAttemptSchema = z.string();
@@ -116496,6 +124756,25 @@ export const getVercelCiJobDefinitionErrorSchema = z.union([
 	getVercelCiJobDefinitionStatus429Schema,
 	getVercelCiJobDefinitionStatus500Schema,
 ]);
+
+export const getVercelCiJobDefinitionPathSchema = z.object({
+	invocationId: z.string(),
+	attempt: z.string(),
+	jobDefinitionId: z.string(),
+});
+
+export const getVercelCiJobDefinitionQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listVercelCiJobRunsPathInvocationIdSchema = z.string();
 
@@ -116598,6 +124877,25 @@ export const listVercelCiJobRunsErrorSchema = z.union([
 	listVercelCiJobRunsStatus500Schema,
 ]);
 
+export const listVercelCiJobRunsPathSchema = z.object({
+	invocationId: z.string(),
+	attempt: z.string(),
+	jobDefinitionId: z.string(),
+});
+
+export const listVercelCiJobRunsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getVercelCiJobRunPathInvocationIdSchema = z.string();
 
 export const getVercelCiJobRunPathAttemptSchema = z.string();
@@ -116699,6 +124997,26 @@ export const getVercelCiJobRunErrorSchema = z.union([
 	getVercelCiJobRunStatus500Schema,
 ]);
 
+export const getVercelCiJobRunPathSchema = z.object({
+	invocationId: z.string(),
+	attempt: z.string(),
+	jobDefinitionId: z.string(),
+	runAttempt: z.string(),
+});
+
+export const getVercelCiJobRunQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listVercelCiTaskDefinitionsPathInvocationIdSchema = z.string();
 
 export const listVercelCiTaskDefinitionsPathAttemptSchema = z.string();
@@ -116793,6 +125111,26 @@ export const listVercelCiTaskDefinitionsErrorSchema = z.union([
 	listVercelCiTaskDefinitionsStatus429Schema,
 	listVercelCiTaskDefinitionsStatus500Schema,
 ]);
+
+export const listVercelCiTaskDefinitionsPathSchema = z.object({
+	invocationId: z.string(),
+	attempt: z.string(),
+	jobDefinitionId: z.string(),
+	runAttempt: z.string(),
+});
+
+export const listVercelCiTaskDefinitionsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listVercelCiTaskRunsPathInvocationIdSchema = z.string();
 
@@ -116912,6 +125250,27 @@ export const listVercelCiTaskRunsErrorSchema = z.union([
 	listVercelCiTaskRunsStatus500Schema,
 ]);
 
+export const listVercelCiTaskRunsPathSchema = z.object({
+	invocationId: z.string(),
+	attempt: z.string(),
+	jobDefinitionId: z.string(),
+	runAttempt: z.string(),
+});
+
+export const listVercelCiTaskRunsQuerySchema = z.object({
+	taskRunAttempt: z.string().optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getVercelCiInvocationLogsPathInvocationIdSchema = z.string();
 
 export const getVercelCiInvocationLogsPathAttemptSchema = z.string();
@@ -116994,6 +125353,32 @@ export const getVercelCiInvocationLogsErrorSchema = z.union([
 	getVercelCiInvocationLogsStatus429Schema,
 	getVercelCiInvocationLogsStatus500Schema,
 ]);
+
+export const getVercelCiInvocationLogsPathSchema = z.object({
+	invocationId: z.string(),
+	attempt: z.string(),
+});
+
+export const getVercelCiInvocationLogsQuerySchema = z.object({
+	level: z
+		.array(z.enum(["trace", "debug", "command", "info", "warn", "error", "systemError", "fatal"]))
+		.min(1)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.optional()
+		.describe("Only return log lines with one of these levels."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getVercelCiTaskLogsPathInvocationIdSchema = z.string();
 
@@ -117142,6 +125527,59 @@ export const getVercelCiTaskLogsErrorSchema = z.union([
 	getVercelCiTaskLogsStatus500Schema,
 ]);
 
+export const getVercelCiTaskLogsPathSchema = z.object({
+	invocationId: z.string(),
+	attempt: z.string(),
+});
+
+export const getVercelCiTaskLogsQuerySchema = z.object({
+	task: z
+		.array(z.string())
+		.min(1)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.optional()
+		.describe('Only return tasks with one of these names (e.g., \\"web#test\\").'),
+	conclusion: z
+		.array(z.enum(["succeeded", "cached", "failed", "skipped"]))
+		.min(1)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.optional()
+		.describe("Only return completed tasks with one of these conclusions."),
+	level: z
+		.array(z.enum(["trace", "debug", "command", "info", "warn", "error", "systemError", "fatal"]))
+		.min(1)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.optional()
+		.describe("Only return log lines with one of these levels."),
+	search: z
+		.string()
+		.max(256)
+		.optional()
+		.describe(
+			"Only return log lines containing this text, ignoring case. Tasks without matching lines are left out, `limit` is ignored, and at most 1000 lines are returned.",
+		),
+	limit: z
+		.number()
+		.optional()
+		.describe("Maximum number of tasks to return (default: 10, max: 25)."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const searchVercelCiLogsQueryInvocationSchema = z
 	.array(z.string().regex(/^invo1_[A-Za-z0-9_-]+:[1-9][0-9]*$/))
 	.min(1)
@@ -117272,6 +125710,39 @@ export const searchVercelCiLogsErrorSchema = z.union([
 	searchVercelCiLogsStatus500Schema,
 ]);
 
+export const searchVercelCiLogsQuerySchema = z.object({
+	invocation: z
+		.array(z.string().regex(/^invo1_[A-Za-z0-9_-]+:[1-9][0-9]*$/))
+		.min(1)
+		.max(50)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.describe('Invocation attempts to search, as \\"<invocationId>:<attempt>\\" (at most 50).'),
+	search: z
+		.string()
+		.max(256)
+		.describe("Only return log lines containing this text, ignoring case."),
+	level: z
+		.array(z.enum(["trace", "debug", "command", "info", "warn", "error", "systemError", "fatal"]))
+		.min(1)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.optional()
+		.describe("Only return log lines with one of these levels."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getVercelCiJobRunLogsPathInvocationIdSchema = z.string();
 
 export const getVercelCiJobRunLogsPathAttemptSchema = z.string();
@@ -117364,6 +125835,36 @@ export const getVercelCiJobRunLogsErrorSchema = z.union([
 	getVercelCiJobRunLogsStatus429Schema,
 	getVercelCiJobRunLogsStatus500Schema,
 ]);
+
+export const getVercelCiJobRunLogsPathSchema = z.object({
+	invocationId: z.string(),
+	attempt: z.string(),
+	jobDefinitionId: z.string(),
+	runAttempt: z.string(),
+});
+
+export const getVercelCiJobRunLogsQuerySchema = z.object({
+	follow: z.union([z.literal(0), z.literal(1)]).optional(),
+	since: z.number().optional(),
+	level: z
+		.array(z.enum(["trace", "debug", "command", "info", "warn", "error", "systemError", "fatal"]))
+		.min(1)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.optional()
+		.describe("Only return log lines with one of these levels."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getVercelCiTaskRunLogsPathInvocationIdSchema = z.string();
 
@@ -117463,6 +125964,41 @@ export const getVercelCiTaskRunLogsErrorSchema = z.union([
 	getVercelCiTaskRunLogsStatus500Schema,
 ]);
 
+export const getVercelCiTaskRunLogsPathSchema = z.object({
+	invocationId: z.string(),
+	attempt: z.string(),
+	jobDefinitionId: z.string(),
+	runAttempt: z.string(),
+	taskDefinitionId: z.string(),
+	taskRunAttempt: z.string(),
+});
+
+export const getVercelCiTaskRunLogsQuerySchema = z.object({
+	follow: z
+		.union([z.literal(0), z.literal(1)])
+		.optional()
+		.describe("When 1, stream log lines as newline-delimited JSON until the task run finishes."),
+	since: z.number().optional(),
+	level: z
+		.array(z.enum(["trace", "debug", "command", "info", "warn", "error", "systemError", "fatal"]))
+		.min(1)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.optional()
+		.describe("Only return log lines with one of these levels."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createWebInsightsToggleQueryProjectIdSchema = z.string();
 
 export const createWebInsightsToggleStatus200Schema = z.object({
@@ -117494,6 +126030,10 @@ export const createWebInsightsToggleBodySchema = z
 		value: z.boolean(),
 	})
 	.optional();
+
+export const createWebInsightsToggleQuerySchema = z.object({
+	projectId: z.string(),
+});
 
 export const aggregatePageviewsQueryProjectIdSchema = z
 	.string()
@@ -117647,6 +126187,64 @@ export const aggregatePageviewsErrorSchema = z.union([
 	aggregatePageviewsStatus410Schema,
 	aggregatePageviewsStatus503Schema,
 ]);
+
+export const aggregatePageviewsQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe("The project identifier or the project name")
+		.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] }),
+	by: z
+		.array(z.string().regex(/^(flags)(\/([0-9A-Za-z_]+|'([^']|'')*'))+$/))
+		.min(1)
+		.max(2)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.describe(
+			"Up to two dimensions used to break down results.\n\nAt most one time granularity is allowed: hour, day, week, month, year.\n\nOther dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm.\n\nJSON dimensions: flags. Used bare, it breaks down results by key, for example flags returns one group per flag name. With a key, it breaks down results by that key's value, for example flags/beta_banner. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/'my-flag'.",
+		)
+		.meta({ examples: [["day", "country"]] }),
+	since: z
+		.union([z.number(), z.string()])
+		.describe(
+			"Timestamp in milliseconds, or a valid Date string.\n\nSelects data from (including) this date and time.\nWill be adjusted according to the desired time granularity.",
+		)
+		.meta({ examples: ["2024-09-01T00:00:00.000Z"] }),
+	until: z
+		.union([z.number(), z.string()])
+		.describe(
+			"Timestamp in milliseconds, or a valid Date string.\n\nSelects data until (including) this date.\nWill be adjusted according to the desired time granularity.",
+		)
+		.meta({ examples: ["2024-09-08T00:00:00.000Z"] }),
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.default(10)
+		.describe(
+			'Number of distinct results, default to 10. Other results are grouped into "Others" group.',
+		)
+		.meta({ examples: [3] }),
+	filter: z
+		.string()
+		.max(2048)
+		.optional()
+		.describe(
+			"OData-compliant filter. Encode the value when sending it in a URL.\n\nAllows filtering on one or multiple dimensions. By default, filters for production environment only.\n\nSupported dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm.\n\nJSON dimensions filtered by key: flags/<name>, for example flags/beta_banner eq 'true'. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/'my-flag' eq 'true'.\n\nSupported operations include eq, ne, in, and logical operators and, or, not with parentheses. Functions such as startswith are supported by the OData parser.",
+		)
+		.meta({ examples: ["requestPath eq '/docs'"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const aggregateEventsQueryProjectIdSchema = z
 	.string()
@@ -117805,6 +126403,64 @@ export const aggregateEventsErrorSchema = z.union([
 	aggregateEventsStatus503Schema,
 ]);
 
+export const aggregateEventsQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe("The project identifier or the project name")
+		.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] }),
+	by: z
+		.array(z.string().regex(/^(flags|eventData)(\/([0-9A-Za-z_]+|'([^']|'')*'))+$/))
+		.min(1)
+		.max(2)
+		.refine((items) => new Set(items).size === items.length, {
+			message: "Array entries must be unique",
+		})
+		.describe(
+			"Up to two dimensions used to break down results.\n\nAt most one time granularity is allowed: hour, day, week, month, year.\n\nOther dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm, eventName.\n\nJSON dimensions: flags, eventData. Used bare, they break down results by key, for example flags returns one group per flag name. With a key, they break down results by that key's value, for example eventData/plan. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/'my-flag'.",
+		)
+		.meta({ examples: [["day", "eventName"]] }),
+	since: z
+		.union([z.number(), z.string()])
+		.describe(
+			"Timestamp in milliseconds, or a valid Date string.\n\nSelects data from (including) this date and time.\nWill be adjusted according to the desired time granularity.",
+		)
+		.meta({ examples: ["2024-09-01T00:00:00.000Z"] }),
+	until: z
+		.union([z.number(), z.string()])
+		.describe(
+			"Timestamp in milliseconds, or a valid Date string.\n\nSelects data until (including) this date.\nWill be adjusted according to the desired time granularity.",
+		)
+		.meta({ examples: ["2024-09-08T00:00:00.000Z"] }),
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.default(10)
+		.describe(
+			'Number of distinct results, default to 10. Other results are grouped into "Others" group.',
+		)
+		.meta({ examples: [3] }),
+	filter: z
+		.string()
+		.max(2048)
+		.optional()
+		.describe(
+			"OData-compliant filter. Encode the value when sending it in a URL.\n\nAllows filtering on one or multiple dimensions. By default, filters for production environment only.\n\nSupported dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm, eventName.\n\nJSON dimensions filtered by key: flags/<name>, eventData/<property>, for example eventData/plan eq 'pro'. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/'my-flag' eq 'true'.\n\nSupported operations include eq, ne, in, and logical operators and, or, not with parentheses. Functions such as startswith are supported by the OData parser.",
+		)
+		.meta({ examples: ["eventData/plan eq 'pro'"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const countPageviewsQueryProjectIdSchema = z
 	.string()
 	.describe("The project identifier or the project name")
@@ -117911,6 +126567,45 @@ export const countPageviewsErrorSchema = z.union([
 	countPageviewsStatus410Schema,
 	countPageviewsStatus503Schema,
 ]);
+
+export const countPageviewsQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe("The project identifier or the project name")
+		.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] }),
+	since: z
+		.union([z.number(), z.string()])
+		.optional()
+		.describe(
+			"Timestamp in milliseconds, or a valid Date string.\n\nSelects data from (including) this date and time.\nWill be adjusted according to the desired time granularity.",
+		)
+		.meta({ examples: ["2024-09-01T00:00:00.000Z"] }),
+	until: z
+		.union([z.number(), z.string()])
+		.optional()
+		.describe(
+			"Timestamp in milliseconds, or a valid Date string.\n\nSelects data until (including) this date.\nWill be adjusted according to the desired time granularity.",
+		)
+		.meta({ examples: ["2024-09-08T00:00:00.000Z"] }),
+	filter: z
+		.string()
+		.max(2048)
+		.optional()
+		.describe(
+			"OData-compliant filter. Encode the value when sending it in a URL.\n\nAllows filtering on one or multiple dimensions.\n\nSupported dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm.\n\nJSON dimensions filtered by key: flags/<name>, for example flags/beta_banner eq 'true'. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/'my-flag' eq 'true'.\n\nSupported operations include eq, ne, in, and logical operators and, or, not with parentheses. Functions such as startswith are supported by the OData parser.",
+		)
+		.meta({ examples: ["route eq '/home'"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const countEventsQueryProjectIdSchema = z
 	.string()
@@ -118020,6 +126715,45 @@ export const countEventsErrorSchema = z.union([
 	countEventsStatus410Schema,
 	countEventsStatus503Schema,
 ]);
+
+export const countEventsQuerySchema = z.object({
+	projectId: z
+		.string()
+		.describe("The project identifier or the project name")
+		.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] }),
+	since: z
+		.union([z.number(), z.string()])
+		.optional()
+		.describe(
+			"Timestamp in milliseconds, or a valid Date string.\n\nSelects data from (including) this date and time.\nWill be adjusted according to the desired time granularity.",
+		)
+		.meta({ examples: ["2024-09-01T00:00:00.000Z"] }),
+	until: z
+		.union([z.number(), z.string()])
+		.optional()
+		.describe(
+			"Timestamp in milliseconds, or a valid Date string.\n\nSelects data until (including) this date.\nWill be adjusted according to the desired time granularity.",
+		)
+		.meta({ examples: ["2024-09-08T00:00:00.000Z"] }),
+	filter: z
+		.string()
+		.max(2048)
+		.optional()
+		.describe(
+			"OData-compliant filter. Encode the value when sending it in a URL.\n\nAllows filtering on one or multiple dimensions.\n\nSupported dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm, eventName.\n\nJSON dimensions filtered by key: flags/<name>, eventData/<property>, for example eventData/plan eq 'pro'. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/'my-flag' eq 'true'.\n\nSupported operations include eq, ne, in, and logical operators and, or, not with parentheses. Functions such as startswith are supported by the OData parser.",
+		)
+		.meta({ examples: ["eventName eq 'signup'"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const createWebhookQueryTeamIdSchema = z
 	.string()
@@ -118327,6 +127061,19 @@ export const createWebhookBodySchema = z.strictObject({
 		.min(1)
 		.max(50)
 		.optional(),
+});
+
+export const createWebhookQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
 });
 
 export const getWebhooksQueryProjectIdSchema = z
@@ -118754,6 +127501,23 @@ export const getWebhooksErrorSchema = z.union([
 	getWebhooksStatus410Schema,
 ]);
 
+export const getWebhooksQuerySchema = z.object({
+	projectId: z
+		.string()
+		.regex(/^[a-zA-z0-9_]+$/)
+		.optional(),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getWebhookPathIdSchema = z.string();
 
 export const getWebhookQueryTeamIdSchema = z
@@ -118936,6 +127700,23 @@ export const getWebhookErrorSchema = z.union([
 	getWebhookStatus410Schema,
 ]);
 
+export const getWebhookPathSchema = z.object({
+	id: z.string(),
+});
+
+export const getWebhookQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteWebhookPathIdSchema = z.string();
 
 export const deleteWebhookQueryTeamIdSchema = z
@@ -118971,6 +127752,23 @@ export const deleteWebhookErrorSchema = z.union([
 	deleteWebhookStatus404Schema,
 	deleteWebhookStatus410Schema,
 ]);
+
+export const deleteWebhookPathSchema = z.object({
+	id: z.string(),
+});
+
+export const deleteWebhookQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const listDeploymentAliasesPathIdSchema = z
 	.string()
@@ -119066,6 +127864,26 @@ export const listDeploymentAliasesErrorSchema = z.union([
 	listDeploymentAliasesStatus410Schema,
 ]);
 
+export const listDeploymentAliasesPathSchema = z.object({
+	id: z
+		.string()
+		.describe("The ID of the deployment the aliases should be listed for")
+		.meta({ examples: ["dpl_FjvFJncQHQcZMznrUm9EoB8sFuPa"] }),
+});
+
+export const listDeploymentAliasesQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const assignAliasPathIdSchema = z
 	.string()
 	.describe("The deployment or alias ID or URL to assign from")
@@ -119144,6 +127962,26 @@ export const assignAliasBodySchema = z.object({
 			"The redirect property will take precedence over the deployment id from the URL and consists of a hostname (like test.com) to which the alias should redirect using status code 307",
 		)
 		.meta({ examples: [] }),
+});
+
+export const assignAliasPathSchema = z.object({
+	id: z
+		.string()
+		.describe("The deployment or alias ID or URL to assign from")
+		.meta({ examples: ["dpl_FjvFJncQHQcZMznrUm9EoB8sFuPa"] }),
+});
+
+export const assignAliasQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
 });
 
 export const listAliasesQueryDomainSchema = z
@@ -119407,6 +128245,54 @@ export const listAliasesErrorSchema = z.union([
 	listAliasesStatus410Schema,
 ]);
 
+export const listAliasesQuerySchema = z.object({
+	domain: z
+		.union([z.array(z.string()).max(20), z.string()])
+		.optional()
+		.describe("Get only aliases of the given domain name")
+		.meta({ examples: ["my-test-domain.com"] }),
+	from: z
+		.number()
+		.optional()
+		.describe("Get only aliases created after the provided timestamp")
+		.meta({ examples: [1540095775951] }),
+	limit: z
+		.number()
+		.optional()
+		.describe("Maximum number of aliases to list from a request")
+		.meta({ examples: [10] }),
+	projectId: z
+		.string()
+		.optional()
+		.describe("Filter aliases from the given `projectId`")
+		.meta({ examples: ["prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] }),
+	since: z
+		.number()
+		.optional()
+		.describe("Get aliases created after this JavaScript timestamp")
+		.meta({ examples: [1540095775941] }),
+	until: z
+		.number()
+		.optional()
+		.describe("Get aliases created before this JavaScript timestamp")
+		.meta({ examples: [1540095775951] }),
+	rollbackDeploymentId: z
+		.string()
+		.optional()
+		.describe("Get aliases that would be rolled back for the given deployment")
+		.meta({ examples: ["dpl_XXX"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getAliasQueryFromSchema = z
 	.number()
 	.optional()
@@ -119648,6 +128534,46 @@ export const getAliasErrorSchema = z.union([
 	getAliasStatus410Schema,
 ]);
 
+export const getAliasPathSchema = z.object({
+	idOrAlias: z
+		.string()
+		.describe("The alias or alias ID to be retrieved")
+		.meta({ examples: ["example.vercel.app"] }),
+});
+
+export const getAliasQuerySchema = z.object({
+	from: z
+		.number()
+		.optional()
+		.describe("Get the alias only if it was created after the provided timestamp")
+		.meta({ examples: [1540095775951] }),
+	projectId: z
+		.string()
+		.optional()
+		.describe("Get the alias only if it is assigned to the provided project ID")
+		.meta({ examples: ["prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] }),
+	since: z
+		.number()
+		.optional()
+		.describe("Get the alias only if it was created after this JavaScript timestamp")
+		.meta({ examples: [1540095775941] }),
+	until: z
+		.number()
+		.optional()
+		.describe("Get the alias only if it was created before this JavaScript timestamp")
+		.meta({ examples: [1540095775951] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteAliasPathAliasIdSchema = z
 	.string()
 	.describe("The ID or alias that will be removed")
@@ -119688,6 +128614,26 @@ export const deleteAliasErrorSchema = z.union([
 	deleteAliasStatus404Schema,
 	deleteAliasStatus410Schema,
 ]);
+
+export const deleteAliasPathSchema = z.object({
+	aliasId: z
+		.string()
+		.describe("The ID or alias that will be removed")
+		.meta({ examples: ["2WjyKQmM8ZnGcJsPWMrHRHrE"] }),
+});
+
+export const deleteAliasQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const patchUrlProtectionBypassPathIdSchema = z
 	.string()
@@ -119765,7 +128711,13 @@ export const patchUrlProtectionBypassBodySchema = z
 						email: z.email().describe("Specified email for the scoped bypass."),
 					}),
 				])
-				.and(z.unknown())
+				.and(
+					z.object({
+						access: z
+							.enum(["denied", "granted"])
+							.describe("Invitation status for the user scoped bypass."),
+					}),
+				)
 				.and(
 					z.object({
 						userId: z.string().optional().describe("Specified user id for the scoped bypass."),
@@ -119786,6 +128738,23 @@ export const patchUrlProtectionBypassBodySchema = z
 		}),
 	])
 	.optional();
+
+export const patchUrlProtectionBypassPathSchema = z.object({
+	id: z.string().describe("The alias or deployment ID"),
+});
+
+export const patchUrlProtectionBypassQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getCertByIdPathIdSchema = z.string().describe("The cert id");
 
@@ -119829,6 +128798,23 @@ export const getCertByIdErrorSchema = z.union([
 	getCertByIdStatus410Schema,
 ]);
 
+export const getCertByIdPathSchema = z.object({
+	id: z.string().describe("The cert id"),
+});
+
+export const getCertByIdQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const removeCertPathIdSchema = z.string().describe("The cert id to remove");
 
 export const removeCertQueryTeamIdSchema = z
@@ -119864,6 +128850,23 @@ export const removeCertErrorSchema = z.union([
 	removeCertStatus404Schema,
 	removeCertStatus410Schema,
 ]);
+
+export const removeCertPathSchema = z.object({
+	id: z.string().describe("The cert id to remove"),
+});
+
+export const removeCertQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getCertsQueryTeamIdSchema = z
 	.string()
@@ -119908,6 +128911,19 @@ export const getCertsErrorSchema = z.union([
 	getCertsStatus403Schema,
 	getCertsStatus410Schema,
 ]);
+
+export const getCertsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const issueCertQueryTeamIdSchema = z
 	.string()
@@ -119964,6 +128980,19 @@ export const issueCertBodySchema = z
 	})
 	.optional();
 
+export const issueCertQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const uploadCertQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -120016,6 +129045,19 @@ export const uploadCertBodySchema = z
 	})
 	.optional();
 
+export const uploadCertQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listDeploymentFilesPathIdSchema = z
 	.string()
 	.describe("The unique deployment identifier");
@@ -120053,6 +129095,23 @@ export const listDeploymentFilesErrorSchema = z.union([
 	listDeploymentFilesStatus404Schema,
 	listDeploymentFilesStatus410Schema,
 ]);
+
+export const listDeploymentFilesPathSchema = z.object({
+	id: z.string().describe("The unique deployment identifier"),
+});
+
+export const listDeploymentFilesQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getDeploymentFileContentsPathIdSchema = z
 	.string()
@@ -120098,6 +129157,25 @@ export const getDeploymentFileContentsErrorSchema = z.union([
 	getDeploymentFileContentsStatus404Schema,
 	getDeploymentFileContentsStatus410Schema,
 ]);
+
+export const getDeploymentFileContentsPathSchema = z.object({
+	id: z.string().describe("The unique deployment identifier"),
+	fileId: z.string().describe("The unique file identifier"),
+});
+
+export const getDeploymentFileContentsQuerySchema = z.object({
+	path: z.string().optional().describe("Path to the file to fetch (only for Git deployments)"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
 
 export const getDeploymentsQueryAppSchema = z
 	.string()
@@ -120259,15 +129337,11 @@ export const getDeploymentsStatus200Schema = z.object({
 				.meta({ examples: [1609492210000] }),
 			checks: z
 				.object({
-					"deployment-alias": z
-						.object({
-							completedAt: z.number().optional(),
-							startedAt: z.number(),
-							state: z.enum(["failed", "pending", "succeeded"]),
-						})
-						.describe(
-							"Detailed information about v2 deployment checks. Includes information about blocked workflows in the deployment lifecycle.",
-						),
+					"deployment-alias": z.object({
+						completedAt: z.number().optional(),
+						startedAt: z.number(),
+						state: z.enum(["failed", "pending", "succeeded"]),
+					}),
 				})
 				.optional()
 				.describe(
@@ -120723,6 +129797,86 @@ export const getDeploymentsErrorSchema = z.union([
 	getDeploymentsStatus422Schema,
 ]);
 
+export const getDeploymentsQuerySchema = z.object({
+	app: z
+		.string()
+		.optional()
+		.describe("Name of the deployment.")
+		.meta({ examples: ["docs"] }),
+	from: z
+		.number()
+		.optional()
+		.describe("Gets the deployment created after this Date timestamp. (default: current time)")
+		.meta({ examples: [1612948664566] }),
+	limit: z
+		.number()
+		.optional()
+		.describe("Maximum number of deployments to list from a request.")
+		.meta({ examples: [10] }),
+	projectId: z
+		.string()
+		.optional()
+		.describe("Filter deployments from the given ID or name.")
+		.meta({ examples: ["QmXGTs7mvAMMC7WW5ebrM33qKG32QK3h4vmQMjmY"] }),
+	projectIds: z
+		.array(z.string())
+		.min(1)
+		.max(20)
+		.optional()
+		.describe(
+			"Filter deployments from the given project IDs. Cannot be used when projectId is specified.",
+		)
+		.meta({ examples: [["prj_123", "prj_456"]] }),
+	target: z
+		.string()
+		.optional()
+		.describe("Filter deployments based on the environment.")
+		.meta({ examples: ["production"] }),
+	to: z
+		.number()
+		.optional()
+		.describe("Gets the deployment created before this Date timestamp. (default: current time)")
+		.meta({ examples: [1612948664566] }),
+	users: z
+		.string()
+		.optional()
+		.describe("Filter out deployments based on users who have created the deployment.")
+		.meta({ examples: ["kr1PsOIzqEL5Xg6M4VZcZosf,K4amb7K9dAt5R2vBJWF32bmY"] }),
+	since: z
+		.number()
+		.optional()
+		.describe("Get Deployments created after this JavaScript timestamp.")
+		.meta({ examples: [1540095775941] }),
+	until: z
+		.number()
+		.optional()
+		.describe("Get Deployments created before this JavaScript timestamp.")
+		.meta({ examples: [1540095775951] }),
+	state: z
+		.string()
+		.optional()
+		.describe(
+			"Filter deployments based on their state (`BUILDING`, `ERROR`, `INITIALIZING`, `QUEUED`, `READY`, `CANCELED`, `BLOCKED`)",
+		)
+		.meta({ examples: ["BUILDING,READY"] }),
+	rollbackCandidate: z
+		.boolean()
+		.optional()
+		.describe("Filter deployments based on their rollback candidacy"),
+	branch: z.string().optional().describe("Filter deployments based on the branch name"),
+	sha: z.string().optional().describe("Filter deployments based on the SHA"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const deleteDeploymentPathIdSchema = z
 	.string()
 	.describe("The ID of the deployment to be deleted")
@@ -120776,3 +129930,28 @@ export const deleteDeploymentErrorSchema = z.union([
 	deleteDeploymentStatus409Schema,
 	deleteDeploymentStatus410Schema,
 ]);
+
+export const deleteDeploymentPathSchema = z.object({
+	id: z
+		.string()
+		.describe("The ID of the deployment to be deleted")
+		.meta({ examples: ["dpl_5WJWYSyB7BpgTj3EuwF37WMRBXBtPQ2iTMJHJBJyRfd"] }),
+});
+
+export const deleteDeploymentQuerySchema = z.object({
+	url: z
+		.string()
+		.optional()
+		.describe("A Deployment or Alias URL. In case it is passed, the ID will be ignored")
+		.meta({ examples: ["https://files-orcin-xi.vercel.app/"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});

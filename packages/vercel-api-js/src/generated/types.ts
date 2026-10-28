@@ -34,7 +34,7 @@ export type AiGatewayProviderOptionBag = {
 };
 
 /**
- * @description For kind=router: option slices keyed by selector name; each selector owns its slice\'s shape.
+ * @description For kind=router: option slices keyed by selector name; each selector owns its slice's shape.
  * @type object
  */
 export type AiGatewayRouterSelectorOptionBag = {
@@ -171,7 +171,7 @@ export type AiGatewayVirtualModelConfig = {
 	inferenceRegion?:
 		| {
 				/**
-				 * @description Geo zone (e.g. \"us\", \"eu\").
+				 * @description Geo zone (e.g. "us", "eu").
 				 * @type string | undefined
 				 */
 				geoRegion?: string | undefined;
@@ -188,7 +188,7 @@ export type AiGatewayVirtualModelConfig = {
 					| {
 							[key: string]: {
 								/**
-								 * @description Geo zone (e.g. \"us\", \"eu\").
+								 * @description Geo zone (e.g. "us", "eu").
 								 * @type string | undefined
 								 */
 								geoRegion?: string | undefined;
@@ -223,7 +223,7 @@ export type AiGatewayVirtualModelConfig = {
 	 */
 	kind: string;
 	/**
-	 * @description For kind=router: ordered candidates, bare slugs/references or `{ slug, ...attributes }`. For kind=alias: ordered fallback model slugs, optionally led by one conditional `{ model, when }` entry, used when the primary model\'s answers match `when`.
+	 * @description For kind=router: ordered candidates, bare slugs/references or `{ slug, ...attributes }`. For kind=alias: ordered fallback model slugs, optionally led by one conditional `{ model, when }` entry, used when the primary model's answers match `when`.
 	 * @type array | undefined
 	 */
 	models?:
@@ -244,7 +244,7 @@ export type AiGatewayVirtualModelConfig = {
 		  )[]
 		| undefined;
 	/**
-	 * @description Canonical model slug this VMC maps to (e.g. \"creator/model\"). Not used by kind=router.
+	 * @description Canonical model slug this VMC maps to (e.g. "creator/model"). Not used by kind=router.
 	 * @type string | undefined
 	 */
 	modelSlug?: string | undefined;
@@ -296,23 +296,23 @@ export type AiGatewayVirtualModelConfig = {
 	 */
 	selector?: AiGatewayVirtualModelConfigSelectorEnumKey | undefined;
 	/**
-	 * @description For kind=router: option slices keyed by selector name; each selector owns its slice\'s shape.
+	 * @description For kind=router: option slices keyed by selector name; each selector owns its slice's shape.
 	 * @type object | undefined
 	 */
 	selectorOptions?:
 		| {
 				/**
-				 * @description For kind=router: option slices keyed by selector name; each selector owns its slice\'s shape.
+				 * @description For kind=router: option slices keyed by selector name; each selector owns its slice's shape.
 				 * @type object | undefined
 				 */
 				cost?: AiGatewayRouterSelectorOptionBag | undefined;
 				/**
-				 * @description For kind=router: option slices keyed by selector name; each selector owns its slice\'s shape.
+				 * @description For kind=router: option slices keyed by selector name; each selector owns its slice's shape.
 				 * @type object | undefined
 				 */
 				tps?: AiGatewayRouterSelectorOptionBag | undefined;
 				/**
-				 * @description For kind=router: option slices keyed by selector name; each selector owns its slice\'s shape.
+				 * @description For kind=router: option slices keyed by selector name; each selector owns its slice's shape.
 				 * @type object | undefined
 				 */
 				ttft?: AiGatewayRouterSelectorOptionBag | undefined;
@@ -395,7 +395,7 @@ export type AiGatewayRuleTypeEnumKey =
 	(typeof aiGatewayRuleTypeEnum)[keyof typeof aiGatewayRuleTypeEnum];
 
 /**
- * @description Public response shape for AI Gateway routing rules. Used so OpenAPI generation can avoid ElectroDB\'s recursive EntityItem types.
+ * @description Public response shape for AI Gateway routing rules. Used so OpenAPI generation can avoid ElectroDB's recursive EntityItem types.
  * @type object
  */
 export type AiGatewayRule = {
@@ -466,7 +466,7 @@ export type AiGatewayBudget = {
 	scopeId: string;
 	scopeType: AiGatewayBudgetScopeTypeEnumKey;
 	/**
-	 * @description Set when the row is inherited from the team\'s budget default.
+	 * @description Set when the row is inherited from the team's budget default.
 	 * @type string | undefined
 	 */
 	source?: "default" | undefined;
@@ -476,7 +476,7 @@ export type AiGatewayBudget = {
 export type AiGatewayBudgetList = {
 	budgets: AiGatewayBudget[];
 	/**
-	 * @description Paged requests only: `source: \'default\'` rows per scope type across the whole `scopeType`-filtered list, independent of the page and of `includeDefaultCovered`.
+	 * @description Paged requests only: `source: 'default'` rows per scope type across the whole `scopeType`-filtered list, independent of the page and of `includeDefaultCovered`.
 	 * @type object | undefined
 	 */
 	defaultCoveredCounts?:
@@ -841,7 +841,7 @@ export type ConnectConnector = {
 				crossInstallation: false | true;
 				isStaticCredential: false | true;
 				/**
-				 * @description Link to the page on the service where this connector\'s app-level permissions are declared and granted, when the service has one and it differs from `clientUrl`.
+				 * @description Link to the page on the service where this connector's app-level permissions are declared and granted, when the service has one and it differs from `clientUrl`.
 				 * @type string | undefined
 				 */
 				permissionsUrl?: string | undefined;
@@ -851,7 +851,7 @@ export type ConnectConnector = {
 				 */
 				requiresReinstallation?: (false | true) | undefined;
 				/**
-				 * @description Known allowed app-level scopes. For Slack this is the bot scope set configured on the app; for OAuth it is the connector\'s enabled `clientCredentials.scopes` configuration.
+				 * @description Known allowed app-level scopes. For Slack this is the bot scope set configured on the app; for OAuth it is the connector's enabled `clientCredentials.scopes` configuration.
 				 * @type array | undefined
 				 */
 				scopes?: string[] | undefined;
@@ -1001,7 +1001,7 @@ export type ConnectConnector = {
 	 */
 	name: string;
 	/**
-	 * @description Redirect URI registered with the third-party service for this connector, if any. Used by `startAuthorization`/`startInstallation` to replay the exact URI back to the provider\'s token endpoint. Absent on connectors created before this field was introduced; those callers fall back to the `https://connect.vercel.com/callback` default.
+	 * @description Redirect URI registered with the third-party service for this connector, if any. Used by `startAuthorization`/`startInstallation` to replay the exact URI back to the provider's token endpoint. Absent on connectors created before this field was introduced; those callers fall back to the `https://connect.vercel.com/callback` default.
 	 * @type string | undefined
 	 */
 	redirectUri?: string | undefined;
@@ -1011,7 +1011,7 @@ export type ConnectConnector = {
 	 */
 	reinstallAt?: number | undefined;
 	/**
-	 * @description Best-effort identifier of the third-party service this connector represents, independent of `type`. Examples: `\'slack\'`, `\'mcp.linear.app\'`, and `\'auth.example.com\'`. Always present in API responses.
+	 * @description Best-effort identifier of the third-party service this connector represents, independent of `type`. Examples: `'slack'`, `'mcp.linear.app'`, and `'auth.example.com'`. Always present in API responses.
 	 * @type string
 	 */
 	service: string;
@@ -1051,7 +1051,7 @@ export type ConnectConnector = {
 	 */
 	supportsTriggers: false | true;
 	/**
-	 * @description Which of the service\'s products/surfaces this connector points at.
+	 * @description Which of the service's products/surfaces this connector points at.
 	 * @type string | undefined
 	 */
 	target?: string | undefined;
@@ -1143,7 +1143,7 @@ export type ConnectConnector = {
 				 */
 				manualCredentialInput?: (false | true) | undefined;
 				/**
-				 * @description Known allowed user-level scopes. For Slack this is the user scope set configured on the app; for OAuth it is the connector\'s enabled `userAuthorization.scopes` configuration.
+				 * @description Known allowed user-level scopes. For Slack this is the user scope set configured on the app; for OAuth it is the connector's enabled `userAuthorization.scopes` configuration.
 				 * @type array | undefined
 				 */
 				scopes?: string[] | undefined;
@@ -1272,7 +1272,7 @@ export type ConnectConnectorCreateResult = {
 				crossInstallation: false | true;
 				isStaticCredential: false | true;
 				/**
-				 * @description Link to the page on the service where this connector\'s app-level permissions are declared and granted, when the service has one and it differs from `clientUrl`.
+				 * @description Link to the page on the service where this connector's app-level permissions are declared and granted, when the service has one and it differs from `clientUrl`.
 				 * @type string | undefined
 				 */
 				permissionsUrl?: string | undefined;
@@ -1282,7 +1282,7 @@ export type ConnectConnectorCreateResult = {
 				 */
 				requiresReinstallation?: (false | true) | undefined;
 				/**
-				 * @description Known allowed app-level scopes. For Slack this is the bot scope set configured on the app; for OAuth it is the connector\'s enabled `clientCredentials.scopes` configuration.
+				 * @description Known allowed app-level scopes. For Slack this is the bot scope set configured on the app; for OAuth it is the connector's enabled `clientCredentials.scopes` configuration.
 				 * @type array | undefined
 				 */
 				scopes?: string[] | undefined;
@@ -1432,7 +1432,7 @@ export type ConnectConnectorCreateResult = {
 	 */
 	name: string;
 	/**
-	 * @description Redirect URI registered with the third-party service for this connector, if any. Used by `startAuthorization`/`startInstallation` to replay the exact URI back to the provider\'s token endpoint. Absent on connectors created before this field was introduced; those callers fall back to the `https://connect.vercel.com/callback` default.
+	 * @description Redirect URI registered with the third-party service for this connector, if any. Used by `startAuthorization`/`startInstallation` to replay the exact URI back to the provider's token endpoint. Absent on connectors created before this field was introduced; those callers fall back to the `https://connect.vercel.com/callback` default.
 	 * @type string | undefined
 	 */
 	redirectUri?: string | undefined;
@@ -1442,7 +1442,7 @@ export type ConnectConnectorCreateResult = {
 	 */
 	reinstallAt?: number | undefined;
 	/**
-	 * @description Best-effort identifier of the third-party service this connector represents, independent of `type`. Examples: `\'slack\'`, `\'mcp.linear.app\'`, and `\'auth.example.com\'`. Always present in API responses.
+	 * @description Best-effort identifier of the third-party service this connector represents, independent of `type`. Examples: `'slack'`, `'mcp.linear.app'`, and `'auth.example.com'`. Always present in API responses.
 	 * @type string
 	 */
 	service: string;
@@ -1482,7 +1482,7 @@ export type ConnectConnectorCreateResult = {
 	 */
 	supportsTriggers: false | true;
 	/**
-	 * @description Which of the service\'s products/surfaces this connector points at.
+	 * @description Which of the service's products/surfaces this connector points at.
 	 * @type string | undefined
 	 */
 	target?: string | undefined;
@@ -1574,7 +1574,7 @@ export type ConnectConnectorCreateResult = {
 				 */
 				manualCredentialInput?: (false | true) | undefined;
 				/**
-				 * @description Known allowed user-level scopes. For Slack this is the user scope set configured on the app; for OAuth it is the connector\'s enabled `userAuthorization.scopes` configuration.
+				 * @description Known allowed user-level scopes. For Slack this is the user scope set configured on the app; for OAuth it is the connector's enabled `userAuthorization.scopes` configuration.
 				 * @type array | undefined
 				 */
 				scopes?: string[] | undefined;
@@ -1924,7 +1924,7 @@ export type ConnectConnectorCreateData =
 						 */
 						enabled: boolean;
 						/**
-						 * @description Default scopes to request when token params specify scopes: [\\\"*\\\"].
+						 * @description Default scopes to request when token params specify scopes: [\"*\"].
 						 * @type array | undefined
 						 */
 						scopes?: string[] | undefined;
@@ -1955,7 +1955,7 @@ export type ConnectConnectorCreateData =
 						 */
 						enabled: boolean;
 						/**
-						 * @description Default scopes to request when token params specify scopes: [\\\"*\\\"].
+						 * @description Default scopes to request when token params specify scopes: [\"*\"].
 						 * @type array | undefined
 						 */
 						scopes?: string[] | undefined;
@@ -2011,7 +2011,7 @@ export type ConnectConnectorCreateData =
 						 */
 						enabled?: boolean | undefined;
 						/**
-						 * @description Default scopes to request when token params specify scopes: [\\\"*\\\"].
+						 * @description Default scopes to request when token params specify scopes: [\"*\"].
 						 * @type array | undefined
 						 */
 						scopes?: string[] | undefined;
@@ -2081,7 +2081,7 @@ export type ConnectConnectorCreateData =
 	  }
 	| {
 			/**
-			 * @description Which subject the connector issues tokens for. Defaults to \\\"app\\\" (connector-level keys). \\\"user\\\" connectors store no connector-level values; each user supplies their own key during authorization.
+			 * @description Which subject the connector issues tokens for. Defaults to \"app\" (connector-level keys). \"user\" connectors store no connector-level values; each user supplies their own key during authorization.
 			 * @type string | undefined
 			 */
 			subjectType?: ConnectConnectorCreateDataSubjectTypeEnumKey | undefined;
@@ -2383,7 +2383,7 @@ export type ConnectConnectorCreateData =
 			 */
 			apiSecretKey: string;
 			/**
-			 * @description E.164 Sendblue lines this connector sends and receives on. Used as the connector\'s display name, and the only lines its webhooks are registered for; an empty array clears them, which also removes the webhook subscription.
+			 * @description E.164 Sendblue lines this connector sends and receives on. Used as the connector's display name, and the only lines its webhooks are registered for; an empty array clears them, which also removes the webhook subscription.
 			 * @type array | undefined
 			 */
 			phoneNumbers?: string[] | undefined;
@@ -2663,7 +2663,40 @@ export type ConnectCreateConnectorRequest = (
 	 */
 	data: ConnectConnectorCreateData;
 	/**
-	 * @description SHA-1 digest of a PNG or JPEG icon that is at least 640 by 640 pixels. This field does not accept a URL or image bytes.\n\nFirst compute the digest and upload the raw image with [POST /v2/files](https://vercel.com/docs/rest-api/deployments/upload-deployment-files). Send `Content-Length` and the same 40-character digest in `x-vercel-digest`. Then set `icon` to that digest.\n\n```js\nimport { createHash } from \'node:crypto\';\nimport { readFile } from \'node:fs/promises\';\n\nconst VERCEL_TOKEN = process.env.VERCEL_TOKEN;\nconst connectorId = \'scl_...\';\nconst bytes = await readFile(\'icon.png\');\nconst digest = createHash(\'sha1\').update(bytes).digest(\'hex\');\n\nawait fetch(\'https://api.vercel.com/v2/files\', {\n  method: \'POST\',\n  headers: {\n    Authorization: `Bearer ${VERCEL_TOKEN}`,\n    \'Content-Type\': \'application/octet-stream\',\n    \'Content-Length\': String(bytes.length),\n    \'x-vercel-digest\': digest,\n  },\n  body: bytes,\n});\n\nawait fetch(`https://api.vercel.com/v2/connect/connectors/${connectorId}`, {\n  method: \'PATCH\',\n  headers: {\n    Authorization: `Bearer ${VERCEL_TOKEN}`,\n    \'Content-Type\': \'application/json\',\n  },\n  body: JSON.stringify({ icon: digest }),\n});\n```\n
+	 * @description SHA-1 digest of a PNG or JPEG icon that is at least 640 by 640 pixels. This field does not accept a URL or image bytes.
+	 *
+	 * First compute the digest and upload the raw image with [POST /v2/files](https://vercel.com/docs/rest-api/deployments/upload-deployment-files). Send `Content-Length` and the same 40-character digest in `x-vercel-digest`. Then set `icon` to that digest.
+	 *
+	 * ```js
+	 * import { createHash } from 'node:crypto';
+	 * import { readFile } from 'node:fs/promises';
+	 *
+	 * const VERCEL_TOKEN = process.env.VERCEL_TOKEN;
+	 * const connectorId = 'scl_...';
+	 * const bytes = await readFile('icon.png');
+	 * const digest = createHash('sha1').update(bytes).digest('hex');
+	 *
+	 * await fetch('https://api.vercel.com/v2/files', {
+	 *   method: 'POST',
+	 *   headers: {
+	 *     Authorization: `Bearer ${VERCEL_TOKEN}`,
+	 *     'Content-Type': 'application/octet-stream',
+	 *     'Content-Length': String(bytes.length),
+	 *     'x-vercel-digest': digest,
+	 *   },
+	 *   body: bytes,
+	 * });
+	 *
+	 * await fetch(`https://api.vercel.com/v2/connect/connectors/${connectorId}`, {
+	 *   method: 'PATCH',
+	 *   headers: {
+	 *     Authorization: `Bearer ${VERCEL_TOKEN}`,
+	 *     'Content-Type': 'application/json',
+	 *   },
+	 *   body: JSON.stringify({ icon: digest }),
+	 * });
+	 * ```
+	 *
 	 * @pattern ^[0-9a-fA-F]{40}$
 	 * @type string | undefined
 	 */
@@ -2697,7 +2730,7 @@ export type ConnectCreateConnectorRequest = (
 	 */
 	connectionMethod?: string | undefined;
 	/**
-	 * @description Values for the selected connection method\'s template fields. Requires connectionMethod.
+	 * @description Values for the selected connection method's template fields. Requires connectionMethod.
 	 * @type object | undefined
 	 */
 	params?:
@@ -2706,7 +2739,7 @@ export type ConnectCreateConnectorRequest = (
 		  }
 		| undefined;
 	/**
-	 * @description Which of the service\'s targets this connector is for. Requires \\\"connectionMethod\\\" and must be one that method serves. Optional.
+	 * @description Which of the service's targets this connector is for. Requires \"connectionMethod\" and must be one that method serves. Optional.
 	 * @maxLength 64
 	 * @type string | undefined
 	 */
@@ -2832,7 +2865,7 @@ export type ConnectCreateConnectorRequest = (
 };
 
 /**
- * @description Existing authorizations no longer cover the connector\'s configured scopes, so they must be re-authorized.
+ * @description Existing authorizations no longer cover the connector's configured scopes, so they must be re-authorized.
  * @type object
  */
 export type ConnectReconsent = {
@@ -2905,7 +2938,7 @@ export type ConnectConnectorUpdateResult = {
 	 */
 	connector: ConnectConnector;
 	/**
-	 * @description Present when affected users must authorize the connector\'s new permissions.
+	 * @description Present when affected users must authorize the connector's new permissions.
 	 * @type object | undefined
 	 */
 	reconsentNeeded?: ConnectReconsent | undefined;
@@ -3235,7 +3268,7 @@ export type ConnectConnectorUpdateData =
 						 */
 						enabled: boolean;
 						/**
-						 * @description Default scopes to request when token params specify scopes: [\\\"*\\\"].
+						 * @description Default scopes to request when token params specify scopes: [\"*\"].
 						 * @type array | undefined
 						 */
 						scopes?: string[] | undefined;
@@ -3266,7 +3299,7 @@ export type ConnectConnectorUpdateData =
 						 */
 						enabled: boolean;
 						/**
-						 * @description Default scopes to request when token params specify scopes: [\\\"*\\\"].
+						 * @description Default scopes to request when token params specify scopes: [\"*\"].
 						 * @type array | undefined
 						 */
 						scopes?: string[] | undefined;
@@ -3322,7 +3355,7 @@ export type ConnectConnectorUpdateData =
 						 */
 						enabled?: boolean | undefined;
 						/**
-						 * @description Default scopes to request when token params specify scopes: [\\\"*\\\"].
+						 * @description Default scopes to request when token params specify scopes: [\"*\"].
 						 * @type array | undefined
 						 */
 						scopes?: string[] | undefined;
@@ -3908,7 +3941,7 @@ export type ConnectConnectorUpdateData =
 			 */
 			apiSecretKey?: string | undefined;
 			/**
-			 * @description E.164 Sendblue lines this connector sends and receives on. Used as the connector\'s display name, and the only lines its webhooks are registered for; an empty array clears them, which also removes the webhook subscription.
+			 * @description E.164 Sendblue lines this connector sends and receives on. Used as the connector's display name, and the only lines its webhooks are registered for; an empty array clears them, which also removes the webhook subscription.
 			 * @type array | undefined
 			 */
 			phoneNumbers?: string[] | undefined;
@@ -3986,7 +4019,40 @@ export type ConnectUpdateConnectorRequest = {
 	 */
 	data?: ConnectConnectorUpdateData | undefined;
 	/**
-	 * @description SHA-1 digest of a PNG or JPEG icon that is at least 640 by 640 pixels. This field does not accept a URL or image bytes.\n\nFirst compute the digest and upload the raw image with [POST /v2/files](https://vercel.com/docs/rest-api/deployments/upload-deployment-files). Send `Content-Length` and the same 40-character digest in `x-vercel-digest`. Then set `icon` to that digest.\n\n```js\nimport { createHash } from \'node:crypto\';\nimport { readFile } from \'node:fs/promises\';\n\nconst VERCEL_TOKEN = process.env.VERCEL_TOKEN;\nconst connectorId = \'scl_...\';\nconst bytes = await readFile(\'icon.png\');\nconst digest = createHash(\'sha1\').update(bytes).digest(\'hex\');\n\nawait fetch(\'https://api.vercel.com/v2/files\', {\n  method: \'POST\',\n  headers: {\n    Authorization: `Bearer ${VERCEL_TOKEN}`,\n    \'Content-Type\': \'application/octet-stream\',\n    \'Content-Length\': String(bytes.length),\n    \'x-vercel-digest\': digest,\n  },\n  body: bytes,\n});\n\nawait fetch(`https://api.vercel.com/v2/connect/connectors/${connectorId}`, {\n  method: \'PATCH\',\n  headers: {\n    Authorization: `Bearer ${VERCEL_TOKEN}`,\n    \'Content-Type\': \'application/json\',\n  },\n  body: JSON.stringify({ icon: digest }),\n});\n```\n
+	 * @description SHA-1 digest of a PNG or JPEG icon that is at least 640 by 640 pixels. This field does not accept a URL or image bytes.
+	 *
+	 * First compute the digest and upload the raw image with [POST /v2/files](https://vercel.com/docs/rest-api/deployments/upload-deployment-files). Send `Content-Length` and the same 40-character digest in `x-vercel-digest`. Then set `icon` to that digest.
+	 *
+	 * ```js
+	 * import { createHash } from 'node:crypto';
+	 * import { readFile } from 'node:fs/promises';
+	 *
+	 * const VERCEL_TOKEN = process.env.VERCEL_TOKEN;
+	 * const connectorId = 'scl_...';
+	 * const bytes = await readFile('icon.png');
+	 * const digest = createHash('sha1').update(bytes).digest('hex');
+	 *
+	 * await fetch('https://api.vercel.com/v2/files', {
+	 *   method: 'POST',
+	 *   headers: {
+	 *     Authorization: `Bearer ${VERCEL_TOKEN}`,
+	 *     'Content-Type': 'application/octet-stream',
+	 *     'Content-Length': String(bytes.length),
+	 *     'x-vercel-digest': digest,
+	 *   },
+	 *   body: bytes,
+	 * });
+	 *
+	 * await fetch(`https://api.vercel.com/v2/connect/connectors/${connectorId}`, {
+	 *   method: 'PATCH',
+	 *   headers: {
+	 *     Authorization: `Bearer ${VERCEL_TOKEN}`,
+	 *     'Content-Type': 'application/json',
+	 *   },
+	 *   body: JSON.stringify({ icon: digest }),
+	 * });
+	 * ```
+	 *
 	 * @pattern ^[0-9a-fA-F]{40}$
 	 * @type string | undefined
 	 */
@@ -4124,7 +4190,7 @@ export type ConnectProjectConnection = {
 			  }[]
 			| undefined;
 		/**
-		 * @description Same Vercel project ID as the connection\'s top-level `projectId`.
+		 * @description Same Vercel project ID as the connection's top-level `projectId`.
 		 * @type string
 		 */
 		id: string;
@@ -5680,6 +5746,7 @@ export const userEventPayloadSourceEnum = {
 	"nsnb-redeploy-attribution-card": "nsnb-redeploy-attribution-card",
 	"nsnb-request-access": "nsnb-request-access",
 	"nsnb-viewer-upgrade": "nsnb-viewer-upgrade",
+	"org-admin-sync": "org-admin-sync",
 	"organization-teams": "organization-teams",
 	saml: "saml",
 	teams: "teams",
@@ -5854,6 +5921,7 @@ export const originEnum = {
 	"nsnb-redeploy-attribution-card": "nsnb-redeploy-attribution-card",
 	"nsnb-request-access": "nsnb-request-access",
 	"nsnb-viewer-upgrade": "nsnb-viewer-upgrade",
+	"org-admin-sync": "org-admin-sync",
 	"organization-teams": "organization-teams",
 	saml: "saml",
 	teams: "teams",
@@ -7333,7 +7401,7 @@ export type UserEventTypeEnumKey = (typeof userEventTypeEnum)[keyof typeof userE
  */
 export type UserEvent = {
 	/**
-	 * @description The categories that group this event with related event types. An event can belong to multiple categories (e.g. a firewall event is both Firewall and Security). The first entry is the \"primary\" category. Use the `/events/types` endpoint to discover the full list of categories.
+	 * @description The categories that group this event with related event types. An event can belong to multiple categories (e.g. a firewall event is both Firewall and Security). The first entry is the "primary" category. Use the `/events/types` endpoint to discover the full list of categories.
 	 * @example ["deployment"]
 	 * @type array | undefined
 	 */
@@ -7360,7 +7428,7 @@ export type UserEvent = {
 		  }[]
 		| undefined;
 	/**
-	 * @description A list of \"entities\" within the event `text`. Useful for enhancing the displayed text with additional styling and links.
+	 * @description A list of "entities" within the event `text`. Useful for enhancing the displayed text with additional styling and links.
 	 * @type array
 	 */
 	entities: {
@@ -7476,7 +7544,7 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description Present on new events only. Equivalent to \"stripe\" when absent.
+						 * @description Present on new events only. Equivalent to "stripe" when absent.
 						 * @type string | undefined
 						 */
 						provider?: UserEventPayloadProviderEnumKey | undefined;
@@ -7486,12 +7554,12 @@ export type UserEvent = {
 						 */
 						providerAccount?: string | undefined;
 						/**
-						 * @description Present when `provider` is \"stripe\". Equivalent to `providerAccount`.
+						 * @description Present when `provider` is "stripe". Equivalent to `providerAccount`.
 						 * @type string | undefined
 						 */
 						stripeAccount?: string | undefined;
 						/**
-						 * @description Present when `provider` is \"stripe\".
+						 * @description Present when `provider` is "stripe".
 						 * @type string | undefined
 						 */
 						stripeOrganisation?: string | undefined;
@@ -7500,7 +7568,7 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description Present on new events only. Equivalent to \"stripe\" when absent.
+						 * @description Present on new events only. Equivalent to "stripe" when absent.
 						 * @type string | undefined
 						 */
 						provider?: UserEventPayloadProviderEnumKey | undefined;
@@ -7510,12 +7578,12 @@ export type UserEvent = {
 						 */
 						providerAccount?: string | undefined;
 						/**
-						 * @description Present when `provider` is \"stripe\". Equivalent to `providerAccount`.
+						 * @description Present when `provider` is "stripe". Equivalent to `providerAccount`.
 						 * @type string | undefined
 						 */
 						stripeAccount?: string | undefined;
 						/**
-						 * @description Present when `provider` is \"stripe\".
+						 * @description Present when `provider` is "stripe".
 						 * @type string | undefined
 						 */
 						stripeOrganisation?: string | undefined;
@@ -7523,7 +7591,7 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description Present on new events only. Equivalent to \"stripe\" when absent.
+						 * @description Present on new events only. Equivalent to "stripe" when absent.
 						 * @type string | undefined
 						 */
 						provider?: UserEventPayloadProviderEnumKey | undefined;
@@ -7533,12 +7601,12 @@ export type UserEvent = {
 						 */
 						providerAccount?: string | undefined;
 						/**
-						 * @description Present when `provider` is \"stripe\". Equivalent to `providerAccount`.
+						 * @description Present when `provider` is "stripe". Equivalent to `providerAccount`.
 						 * @type string | undefined
 						 */
 						stripeAccount?: string | undefined;
 						/**
-						 * @description Present when `provider` is \"stripe\".
+						 * @description Present when `provider` is "stripe".
 						 * @type string | undefined
 						 */
 						stripeOrganisation?: string | undefined;
@@ -7547,7 +7615,7 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description Present on new events only. Equivalent to \"stripe\" when absent.
+						 * @description Present on new events only. Equivalent to "stripe" when absent.
 						 * @type string | undefined
 						 */
 						provider?: UserEventPayloadProviderEnumKey | undefined;
@@ -7557,12 +7625,12 @@ export type UserEvent = {
 						 */
 						providerAccount?: string | undefined;
 						/**
-						 * @description Present when `provider` is \"stripe\". Equivalent to `providerAccount`.
+						 * @description Present when `provider` is "stripe". Equivalent to `providerAccount`.
 						 * @type string | undefined
 						 */
 						stripeAccount?: string | undefined;
 						/**
-						 * @description Present when `provider` is \"stripe\".
+						 * @description Present when `provider` is "stripe".
 						 * @type string | undefined
 						 */
 						stripeOrganisation?: string | undefined;
@@ -7571,7 +7639,7 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description Present on new events only. Equivalent to \"stripe\" when absent.
+						 * @description Present on new events only. Equivalent to "stripe" when absent.
 						 * @type string | undefined
 						 */
 						provider?: UserEventPayloadProviderEnumKey | undefined;
@@ -7581,7 +7649,7 @@ export type UserEvent = {
 						 */
 						providerAccount?: string | undefined;
 						/**
-						 * @description Present when `provider` is \"stripe\". Equivalent to `providerAccount`.
+						 * @description Present when `provider` is "stripe". Equivalent to `providerAccount`.
 						 * @type string | undefined
 						 */
 						stripeAccount?: string | undefined;
@@ -7590,7 +7658,7 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description Present on new events only. Equivalent to \"stripe\" when absent.
+						 * @description Present on new events only. Equivalent to "stripe" when absent.
 						 * @type string | undefined
 						 */
 						provider?: UserEventPayloadProviderEnumKey | undefined;
@@ -7600,12 +7668,12 @@ export type UserEvent = {
 						 */
 						providerAccount?: string | undefined;
 						/**
-						 * @description Present when `provider` is \"stripe\". Equivalent to `providerAccount`.
+						 * @description Present when `provider` is "stripe". Equivalent to `providerAccount`.
 						 * @type string | undefined
 						 */
 						stripeAccount?: string | undefined;
 						/**
-						 * @description Present when `provider` is \"stripe\".
+						 * @description Present when `provider` is "stripe".
 						 * @type string | undefined
 						 */
 						stripeOrganisation?: string | undefined;
@@ -7620,7 +7688,7 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description Present on new events only. Equivalent to \"stripe\" when absent.
+						 * @description Present on new events only. Equivalent to "stripe" when absent.
 						 * @type string | undefined
 						 */
 						provider?: UserEventPayloadProviderEnumKey | undefined;
@@ -7630,12 +7698,12 @@ export type UserEvent = {
 						 */
 						providerAccount?: string | undefined;
 						/**
-						 * @description Present when `provider` is \"stripe\". Equivalent to `providerAccount`.
+						 * @description Present when `provider` is "stripe". Equivalent to `providerAccount`.
 						 * @type string | undefined
 						 */
 						stripeAccount?: string | undefined;
 						/**
-						 * @description Present when `provider` is \"stripe\".
+						 * @description Present when `provider` is "stripe".
 						 * @type string | undefined
 						 */
 						stripeOrganisation?: string | undefined;
@@ -7689,7 +7757,7 @@ export type UserEvent = {
 							  } | null)
 							| undefined;
 						/**
-						 * @description True when the key was created to bypass all of the team\'s restrictions (the ZDR-only model restriction and the provider/model allowlist).
+						 * @description True when the key was created to bypass all of the team's restrictions (the ZDR-only model restriction and the provider/model allowlist).
 						 * @type boolean | undefined
 						 */
 						bypassAll?: (false | true) | undefined;
@@ -7967,7 +8035,7 @@ export type UserEvent = {
 						deployment?:
 							| ({
 									/**
-									 * @description A narrowed subset of the deployment\'s `readyStateReasonInternal` — only values in the public allowlist are permitted here. Callers should run their raw reason through `toAllowListedReadyStateReasonInternal` from `@api/events` before assigning. This keeps abuse / moderation / admin reasons out of the public activity log.
+									 * @description A narrowed subset of the deployment's `readyStateReasonInternal` — only values in the public allowlist are permitted here. Callers should run their raw reason through `toAllowListedReadyStateReasonInternal` from `@api/events` before assigning. This keeps abuse / moderation / admin reasons out of the public activity log.
 									 * @type string | undefined
 									 */
 									allowListedReadyStateReasonInternal?:
@@ -7996,7 +8064,7 @@ export type UserEvent = {
 						deployment?:
 							| ({
 									/**
-									 * @description A narrowed subset of the deployment\'s `readyStateReasonInternal` — only values in the public allowlist are permitted here. Callers should run their raw reason through `toAllowListedReadyStateReasonInternal` from `@api/events` before assigning. This keeps abuse / moderation / admin reasons out of the public activity log.
+									 * @description A narrowed subset of the deployment's `readyStateReasonInternal` — only values in the public allowlist are permitted here. Callers should run their raw reason through `toAllowListedReadyStateReasonInternal` from `@api/events` before assigning. This keeps abuse / moderation / admin reasons out of the public activity log.
 									 * @type string | undefined
 									 */
 									allowListedReadyStateReasonInternal?:
@@ -8095,7 +8163,7 @@ export type UserEvent = {
 									resources?:
 										| {
 												/**
-												 * @description Specific project IDs or all projects on the team (`[\'*\']`).
+												 * @description Specific project IDs or all projects on the team (`['*']`).
 												 * @type object
 												 */
 												projectIds: {
@@ -8117,7 +8185,7 @@ export type UserEvent = {
 									resources?:
 										| {
 												/**
-												 * @description Specific project IDs or all projects on the team (`[\'*\']`).
+												 * @description Specific project IDs or all projects on the team (`['*']`).
 												 * @type object
 												 */
 												projectIds: {
@@ -8142,7 +8210,7 @@ export type UserEvent = {
 						resources?:
 							| {
 									/**
-									 * @description Specific project IDs or all projects on the team (`[\'*\']`).
+									 * @description Specific project IDs or all projects on the team (`['*']`).
 									 * @type object
 									 */
 									projectIds: {
@@ -8168,24 +8236,24 @@ export type UserEvent = {
 						app?:
 							| {
 									/**
-									 * @description The App\'s ID.
+									 * @description The App's ID.
 									 * @type string
 									 */
 									id: string;
 									/**
-									 * @description The App\'s name at the moment this even was published (it may have changed since then).
+									 * @description The App's name at the moment this even was published (it may have changed since then).
 									 * @type string
 									 */
 									name: string;
 							  }
 							| undefined;
 						/**
-						 * @description The App\'s ID. Note that not all historical events have this field.
+						 * @description The App's ID. Note that not all historical events have this field.
 						 * @type string | undefined
 						 */
 						appId?: string | undefined;
 						/**
-						 * @description The App\'s name at the moment this even was published (it may have changed since then).
+						 * @description The App's name at the moment this even was published (it may have changed since then).
 						 * @type string
 						 */
 						appName: string;
@@ -8557,7 +8625,7 @@ export type UserEvent = {
 						deployment?:
 							| ({
 									/**
-									 * @description A narrowed subset of the deployment\'s `readyStateReasonInternal` — only values in the public allowlist are permitted here. Callers should run their raw reason through `toAllowListedReadyStateReasonInternal` from `@api/events` before assigning. This keeps abuse / moderation / admin reasons out of the public activity log.
+									 * @description A narrowed subset of the deployment's `readyStateReasonInternal` — only values in the public allowlist are permitted here. Callers should run their raw reason through `toAllowListedReadyStateReasonInternal` from `@api/events` before assigning. This keeps abuse / moderation / admin reasons out of the public activity log.
 									 * @type string | undefined
 									 */
 									allowListedReadyStateReasonInternal?:
@@ -8590,7 +8658,7 @@ export type UserEvent = {
 									authorized?: (false | true) | undefined;
 									authorizedBy?: string | undefined;
 									/**
-									 * @description Since 6 Nov 2025 The verification status of the commit. - \'verified\' if the commit is verified - \'unverified\' if the commit is not verified - \'unknown\' if the commit verification status is unknown or not supported
+									 * @description Since 6 Nov 2025 The verification status of the commit. - 'verified' if the commit is verified - 'unverified' if the commit is not verified - 'unknown' if the commit verification status is unknown or not supported
 									 * @type string | undefined
 									 */
 									commitVerification?: UserEventPayloadJobCommitVerificationEnumKey | undefined;
@@ -8732,7 +8800,7 @@ export type UserEvent = {
 									 */
 									committerGitUserType?: string | undefined;
 									/**
-									 * @description Since 6 Nov 2025 The verification status of the commit. - \'verified\' if the commit is verified - \'unverified\' if the commit is not verified - \'unknown\' if the commit verification status is unknown or not supported
+									 * @description Since 6 Nov 2025 The verification status of the commit. - 'verified' if the commit is verified - 'unverified' if the commit is not verified - 'unknown' if the commit verification status is unknown or not supported
 									 * @type string | undefined
 									 */
 									commitVerification?: UserEventPayloadJobCommitVerificationEnumKey | undefined;
@@ -8853,7 +8921,7 @@ export type UserEvent = {
 									 */
 									committerGitUserType?: string | undefined;
 									/**
-									 * @description Since 6 Nov 2025 The verification status of the commit. - \'verified\' if the commit is verified - \'unverified\' if the commit is not verified - \'unknown\' if the commit verification status is unknown or not supported
+									 * @description Since 6 Nov 2025 The verification status of the commit. - 'verified' if the commit is verified - 'unverified' if the commit is not verified - 'unknown' if the commit verification status is unknown or not supported
 									 * @type string | undefined
 									 */
 									commitVerification?: UserEventPayloadJobCommitVerificationEnumKey | undefined;
@@ -9003,7 +9071,7 @@ export type UserEvent = {
 										  }
 										| undefined;
 									/**
-									 * @description Since 6 Nov 2025 The verification status of the commit. - \'verified\' if the commit is verified - \'unverified\' if the commit is not verified - \'unknown\' if the commit verification status is unknown or not supported
+									 * @description Since 6 Nov 2025 The verification status of the commit. - 'verified' if the commit is verified - 'unverified' if the commit is not verified - 'unknown' if the commit verification status is unknown or not supported
 									 * @type string | undefined
 									 */
 									commitVerification?: UserEventPayloadJobCommitVerificationEnumKey | undefined;
@@ -9158,7 +9226,7 @@ export type UserEvent = {
 									authorized?: (false | true) | undefined;
 									authorizedBy?: string | undefined;
 									/**
-									 * @description Since 6 Nov 2025 The verification status of the commit. - \'verified\' if the commit is verified - \'unverified\' if the commit is not verified - \'unknown\' if the commit verification status is unknown or not supported
+									 * @description Since 6 Nov 2025 The verification status of the commit. - 'verified' if the commit is verified - 'unverified' if the commit is not verified - 'unknown' if the commit verification status is unknown or not supported
 									 * @type string | undefined
 									 */
 									commitVerification?: UserEventPayloadJobCommitVerificationEnumKey | undefined;
@@ -9271,7 +9339,7 @@ export type UserEvent = {
 									authorizedBy?: string | undefined;
 									beforeSha?: string | undefined;
 									/**
-									 * @description Since 6 Nov 2025 The verification status of the commit. - \'verified\' if the commit is verified - \'unverified\' if the commit is not verified - \'unknown\' if the commit verification status is unknown or not supported
+									 * @description Since 6 Nov 2025 The verification status of the commit. - 'verified' if the commit is verified - 'unverified' if the commit is not verified - 'unknown' if the commit verification status is unknown or not supported
 									 * @type string | undefined
 									 */
 									commitVerification?: UserEventPayloadJobCommitVerificationEnumKey | undefined;
@@ -9482,7 +9550,7 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description The blocked deployment\'s id (e.g. `dpl_…`). When present, the message links it to the deployment details (inspector) page. Optional so events emitted before this field was added still render.
+						 * @description The blocked deployment's id (e.g. `dpl_…`). When present, the message links it to the deployment details (inspector) page. Optional so events emitted before this field was added still render.
 						 * @type string | undefined
 						 */
 						deploymentId?: string | undefined;
@@ -9499,7 +9567,7 @@ export type UserEvent = {
 						 */
 						ruleProvenance: UserEventPayloadRuleProvenanceEnumKey;
 						/**
-						 * @description Classified deploy source, e.g. \'cli\', \'git\', \'integration\'.
+						 * @description Classified deploy source, e.g. 'cli', 'git', 'integration'.
 						 * @type string
 						 */
 						source: string;
@@ -10358,7 +10426,7 @@ export type UserEvent = {
 						 */
 						destinationBranch: string | null;
 						/**
-						 * @description \"owner/name\", or the raw request value if blocked before it resolved.
+						 * @description "owner/name", or the raw request value if blocked before it resolved.
 						 * @type string
 						 */
 						destinationRepo: string;
@@ -10382,7 +10450,7 @@ export type UserEvent = {
 						resultCommitSha: string | null;
 						sourceCommitSha: string | null;
 						/**
-						 * @description Source repository, \"owner/name\". Null when the pushed content was generated in-request (push-files-to-repo) rather than copied from a repository.
+						 * @description Source repository, "owner/name". Null when the pushed content was generated in-request (push-files-to-repo) rather than copied from a repository.
 						 * @type string
 						 */
 						sourceRepo: string | null;
@@ -12598,7 +12666,7 @@ export type UserEvent = {
 						projectId?: string | undefined;
 						projectName?: string | undefined;
 						/**
-						 * @description Stored when activity clients can\'t resolve the name, as for products.
+						 * @description Stored when activity clients can't resolve the name, as for products.
 						 * @type string | undefined
 						 */
 						scopeName?: string | undefined;
@@ -12693,7 +12761,7 @@ export type UserEvent = {
 						projectId?: string | undefined;
 						projectName?: string | undefined;
 						/**
-						 * @description Stored when activity clients can\'t resolve the name, as for products.
+						 * @description Stored when activity clients can't resolve the name, as for products.
 						 * @type string | undefined
 						 */
 						scopeName?: string | undefined;
@@ -12875,7 +12943,7 @@ export type UserEvent = {
 						 */
 						projectName?: string | undefined;
 						/**
-						 * @description Stored when activity clients can\'t resolve the name, as for products.
+						 * @description Stored when activity clients can't resolve the name, as for products.
 						 * @type string | undefined
 						 */
 						scopeName?: string | undefined;
@@ -12972,7 +13040,7 @@ export type UserEvent = {
 							 */
 							scope: UserEventPayloadNextScopeEnumKey;
 							/**
-							 * @description GitHub repos to scope automatic reviews to. Format: \"owner/repo\" (lowercase). Only used when scope=\'selected_repos\'.
+							 * @description GitHub repos to scope automatic reviews to. Format: "owner/repo" (lowercase). Only used when scope='selected_repos'.
 							 * @type array | undefined
 							 */
 							selectedRepos?: (string[] | null) | undefined;
@@ -12999,7 +13067,7 @@ export type UserEvent = {
 									 */
 									scope: UserEventPayloadPreviousScopeEnumKey;
 									/**
-									 * @description GitHub repos to scope automatic reviews to. Format: \"owner/repo\" (lowercase). Only used when scope=\'selected_repos\'.
+									 * @description GitHub repos to scope automatic reviews to. Format: "owner/repo" (lowercase). Only used when scope='selected_repos'.
 									 * @type array | undefined
 									 */
 									selectedRepos?: (string[] | null) | undefined;
@@ -13841,14 +13909,14 @@ export type UserEvent = {
 									};
 									clientId: string;
 									/**
-									 * @description the app\'s name at the time the event was published (it could have changed since then)
+									 * @description the app's name at the time the event was published (it could have changed since then)
 									 * @type string
 									 */
 									name: string;
 							  }
 							| undefined;
 						/**
-						 * @description the app\'s name at the time the event was published (it could have changed since then)
+						 * @description the app's name at the time the event was published (it could have changed since then)
 						 * @type string
 						 */
 						appName: string;
@@ -13965,7 +14033,7 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description A full point-in-time snapshot of an OIDC exchange policy, captured on every lifecycle event so the audit trail records exactly what the policy looked like. Mirrors the management endpoints\' public response shape.
+						 * @description A full point-in-time snapshot of an OIDC exchange policy, captured on every lifecycle event so the audit trail records exactly what the policy looked like. Mirrors the management endpoints' public response shape.
 						 * @type object
 						 */
 						policy: {
@@ -13993,7 +14061,7 @@ export type UserEvent = {
 							 */
 							name: string | null;
 							/**
-							 * @description Permission boundary (`[\'*\']` = the app\'s full declared permissions).
+							 * @description Permission boundary (`['*']` = the app's full declared permissions).
 							 * @type array
 							 */
 							permissions: string[];
@@ -14016,7 +14084,7 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description A full point-in-time snapshot of an OIDC exchange policy, captured on every lifecycle event so the audit trail records exactly what the policy looked like. Mirrors the management endpoints\' public response shape.
+						 * @description A full point-in-time snapshot of an OIDC exchange policy, captured on every lifecycle event so the audit trail records exactly what the policy looked like. Mirrors the management endpoints' public response shape.
 						 * @type object
 						 */
 						after: {
@@ -14044,7 +14112,7 @@ export type UserEvent = {
 							 */
 							name: string | null;
 							/**
-							 * @description Permission boundary (`[\'*\']` = the app\'s full declared permissions).
+							 * @description Permission boundary (`['*']` = the app's full declared permissions).
 							 * @type array
 							 */
 							permissions: string[];
@@ -14064,7 +14132,7 @@ export type UserEvent = {
 							updatedAt: number;
 						};
 						/**
-						 * @description A full point-in-time snapshot of an OIDC exchange policy, captured on every lifecycle event so the audit trail records exactly what the policy looked like. Mirrors the management endpoints\' public response shape.
+						 * @description A full point-in-time snapshot of an OIDC exchange policy, captured on every lifecycle event so the audit trail records exactly what the policy looked like. Mirrors the management endpoints' public response shape.
 						 * @type object
 						 */
 						before: {
@@ -14092,7 +14160,7 @@ export type UserEvent = {
 							 */
 							name: string | null;
 							/**
-							 * @description Permission boundary (`[\'*\']` = the app\'s full declared permissions).
+							 * @description Permission boundary (`['*']` = the app's full declared permissions).
 							 * @type array
 							 */
 							permissions: string[];
@@ -14151,45 +14219,45 @@ export type UserEvent = {
 						hasAuthorizationDetails?: (false | true) | undefined;
 						ip?: (string | null) | undefined;
 						/**
-						 * @description How the token was issued. Always `\'manual\'` for explicit PAT creation.
+						 * @description How the token was issued. Always `'manual'` for explicit PAT creation.
 						 * @type string
 						 */
 						origin: UserEventPayloadOriginEnumKey;
 						/**
-						 * @description Present when `scope` is `\'project\'`.
+						 * @description Present when `scope` is `'project'`.
 						 * @type string | undefined
 						 */
 						projectId?: string | undefined;
 						/**
-						 * @description Present when `scope` is `\'project\'`.
+						 * @description Present when `scope` is `'project'`.
 						 * @type string | undefined
 						 */
 						projectName?: string | undefined;
 						/**
-						 * @description Present when `scope` is `\'project\'`.
+						 * @description Present when `scope` is `'project'`.
 						 * @type string | undefined
 						 */
 						projectScope?: UserEventPayloadProjectScopeEnumKey | undefined;
 						reqId?: string | undefined;
 						reqUrl?: string | undefined;
 						/**
-						 * @description Scope of the token: - `\'user\'`: full-account token (not tied to any team). - `\'team\'`: scoped to a single team. - `\'project\'`: scoped to a single project within a team.
+						 * @description Scope of the token: - `'user'`: full-account token (not tied to any team). - `'team'`: scoped to a single team. - `'project'`: scoped to a single project within a team.
 						 * @type string
 						 */
 						scope: UserEventPayloadScopeEnumKey;
 						source?: "v0" | undefined;
 						/**
-						 * @description Present when `scope` is `\'team\'` or `\'project\'`.
+						 * @description Present when `scope` is `'team'` or `'project'`.
 						 * @type string | undefined
 						 */
 						teamId?: string | undefined;
 						/**
-						 * @description Present when `scope` is `\'team\'` or `\'project\'`.
+						 * @description Present when `scope` is `'team'` or `'project'`.
 						 * @type string | undefined
 						 */
 						teamSlug?: string | undefined;
 						/**
-						 * @description The token\'s public ID.
+						 * @description The token's public ID.
 						 * @type string
 						 */
 						tokenId: string;
@@ -14212,7 +14280,7 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description The token\'s public ID.
+						 * @description The token's public ID.
 						 * @type string
 						 */
 						actorTokenId: string;
@@ -14260,7 +14328,7 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description The token\'s public ID.
+						 * @description The token's public ID.
 						 * @type string
 						 */
 						actorTokenId: string;
@@ -14338,7 +14406,7 @@ export type UserEvent = {
 	principalId: string;
 	requestId?: string | undefined;
 	/**
-	 * @description The ID of the session that the principal\'s token belongs to, when it belongs to one.
+	 * @description The ID of the session that the principal's token belongs to, when it belongs to one.
 	 * @type string | undefined
 	 */
 	sessionId?: string | undefined;
@@ -14423,7 +14491,7 @@ export type UserEvent = {
 		  )[]
 		| undefined;
 	/**
-	 * @description If the principal delegated its authority (for example, a user delegating to an app), then this array contains the ID of the current actor. For example, if `principalId` is \"user123\" and `viaIds` is `[\"app456\"]`, we can say the event was triggered by - \"app456 on behalf of user123\", or - \"user123 via app4556\". Both are equivalent. Arbitrarily long chains of delegation can be represented. For example, if `principalId` is \"user123\" and `viaIds` is `[\"service1\", \"service2\"]`, we can say the event was triggered by \"user123 via service1 via service2\".
+	 * @description If the principal delegated its authority (for example, a user delegating to an app), then this array contains the ID of the current actor. For example, if `principalId` is "user123" and `viaIds` is `["app456"]`, we can say the event was triggered by - "app456 on behalf of user123", or - "user123 via app4556". Both are equivalent. Arbitrarily long chains of delegation can be represented. For example, if `principalId` is "user123" and `viaIds` is `["service1", "service2"]`, we can say the event was triggered by "user123 via service1 via service2".
 	 * @type array | undefined
 	 */
 	viaIds?: string[] | undefined;
@@ -16634,13 +16702,15 @@ export type APIKey = {
 	 */
 	teamId: string;
 	/**
-	 * @description The API key\'s purpose, i.e. what resources it can be used with.
+	 * @description The API key's purpose, i.e. what resources it can be used with.
 	 * @example ai-gateway
 	 * @type string
 	 */
 	purpose: string;
 	/**
-	 * @description The ID of the project that this API key grants access to.\n\nWhen this is unset, the API key grants access to all projects in the team.
+	 * @description The ID of the project that this API key grants access to.
+	 *
+	 * When this is unset, the API key grants access to all projects in the team.
 	 * @example prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB
 	 * @type string
 	 */
@@ -16691,7 +16761,9 @@ export type APIKey = {
 	 */
 	quota?: APIKeyQuota | undefined;
 	/**
-	 * @description Generic metadata attached to the API key.\n\nThe accepted shape depends on the key\'s `purpose` and is validated when the key is created. For `ai-gateway` keys this carries `environment` and `spendAttribution`.
+	 * @description Generic metadata attached to the API key.
+	 *
+	 * The accepted shape depends on the key's `purpose` and is validated when the key is created. For `ai-gateway` keys this carries `environment` and `spendAttribution`.
 	 * @type object | undefined
 	 */
 	metadata?:
@@ -16715,7 +16787,7 @@ export type Organization = {
 	avatar: string | null;
 	createdAt: string;
 	/**
-	 * @description The organization\'s display name. Optional: organizations created before the name attribute existed have no stored value. New orgs always get one (provided or slug-derived) via the service layer.
+	 * @description The organization's display name. Optional: organizations created before the name attribute existed have no stored value. New orgs always get one (provided or slug-derived) via the service layer.
 	 * @type string | undefined
 	 */
 	name?: string | undefined;
@@ -16725,7 +16797,7 @@ export type Organization = {
 	teamId: string;
 	updatedAt: string;
 	/**
-	 * @description The authenticated user\'s role in the organization. Present on read endpoints when the user holds an organization role.
+	 * @description The authenticated user's role in the organization. Present on read endpoints when the user holds an organization role.
 	 * @type string | undefined
 	 */
 	userRole?: string | undefined;
@@ -16739,6 +16811,14 @@ export const organizationTeamListItemBillingPlanEnum = {
 export type OrganizationTeamListItemBillingPlanEnumKey =
 	(typeof organizationTeamListItemBillingPlanEnum)[keyof typeof organizationTeamListItemBillingPlanEnum];
 
+export const organizationTeamListItemDsyncModeEnum = {
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type OrganizationTeamListItemDsyncModeEnumKey =
+	(typeof organizationTeamListItemDsyncModeEnum)[keyof typeof organizationTeamListItemDsyncModeEnum];
+
 export const organizationTeamListItemSsoModeEnum = {
 	organization: "organization",
 	team: "team",
@@ -16748,17 +16828,17 @@ export type OrganizationTeamListItemSsoModeEnumKey =
 	(typeof organizationTeamListItemSsoModeEnum)[keyof typeof organizationTeamListItemSsoModeEnum];
 
 /**
- * @description An org-team link enriched with the linked team\'s display fields, as returned by the list-teams endpoint. We project to an explicit flat interface instead of spreading the ElectroDB `OrganizationTeamItem` because its recursive generics break the OpenAPI generator (which would silently drop the route).
+ * @description An org-team link enriched with the linked team's display fields, as returned by the list-teams endpoint. We project to an explicit flat interface instead of spreading the ElectroDB `OrganizationTeamItem` because its recursive generics break the OpenAPI generator (which would silently drop the route).
  * @type object
  */
 export type OrganizationTeamListItem = {
 	/**
-	 * @description The ID of the file used as the Team\'s avatar, or `null` if none.
+	 * @description The ID of the file used as the Team's avatar, or `null` if none.
 	 * @type string
 	 */
 	avatar: string | null;
 	/**
-	 * @description Billing profile of the organization link: how this team settles within the organization. This is not the team\'s billing.plan or planIteration. Links with `enterprise` billing participate in organization-level billing and usage rollups. This field is optional for legacy links that have no stored profile.
+	 * @description Billing profile of the organization link: how this team settles within the organization. This is not the team's billing.plan or planIteration. Links with `enterprise` billing participate in organization-level billing and usage rollups. This field is optional for legacy links that have no stored profile.
 	 * @type string | undefined
 	 */
 	billingPlan?: OrganizationTeamListItemBillingPlanEnumKey | undefined;
@@ -16768,12 +16848,17 @@ export type OrganizationTeamListItem = {
 	 */
 	createdAt: string;
 	/**
+	 * @description Whether the organization's Directory Sync manages the team's memberships.
+	 * @type string
+	 */
+	dsyncMode: OrganizationTeamListItemDsyncModeEnumKey;
+	/**
 	 * @description Present only when the request sets `includeMemberCount=true`. Number of members on the Team, including pending memberships. Excludes email invitations that do not have a membership record.
 	 * @type number | undefined
 	 */
 	memberCount?: number | undefined;
 	/**
-	 * @description The Team\'s display name, or `null` if none has been set.
+	 * @description The Team's display name, or `null` if none has been set.
 	 * @type string
 	 */
 	name: string | null;
@@ -16783,13 +16868,13 @@ export type OrganizationTeamListItem = {
 	 */
 	organizationId: string;
 	/**
-	 * @description The Team\'s slug, unique across Vercel.
+	 * @description The Team's slug, unique across Vercel.
 	 * @type string
 	 */
 	slug: string;
 	ssoMode: OrganizationTeamListItemSsoModeEnumKey;
 	/**
-	 * @description The Team\'s unique identifier.
+	 * @description The Team's unique identifier.
 	 * @type string
 	 */
 	teamId: string;
@@ -16808,6 +16893,14 @@ export const organizationTeamBillingPlanEnum = {
 export type OrganizationTeamBillingPlanEnumKey =
 	(typeof organizationTeamBillingPlanEnum)[keyof typeof organizationTeamBillingPlanEnum];
 
+export const organizationTeamDsyncModeEnum = {
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type OrganizationTeamDsyncModeEnumKey =
+	(typeof organizationTeamDsyncModeEnum)[keyof typeof organizationTeamDsyncModeEnum];
+
 export const organizationTeamSsoModeEnum = {
 	organization: "organization",
 	team: "team",
@@ -16818,11 +16911,16 @@ export type OrganizationTeamSsoModeEnumKey =
 
 export type OrganizationTeam = {
 	/**
-	 * @description The child team\'s billing profile within the organization. Optional: links created before this attribute existed have no stored value.
+	 * @description The child team's billing profile within the organization. Optional: links created before this attribute existed have no stored value.
 	 * @type string | undefined
 	 */
 	billingPlan?: OrganizationTeamBillingPlanEnumKey | undefined;
 	createdAt: string;
+	/**
+	 * @description Whether the organization's Directory Sync manages the team's memberships.
+	 * @type string
+	 */
+	dsyncMode: OrganizationTeamDsyncModeEnumKey;
 	organizationId: string;
 	ssoMode: OrganizationTeamSsoModeEnumKey;
 	teamId: string;
@@ -16943,7 +17041,7 @@ export type NamedSandbox = {
 	 */
 	failoverRegions?: NamedSandboxFailoverRegionsEnumKey[] | undefined;
 	/**
-	 * @description Owner-qualified, digest-pinned reference of the container image the sandbox was created from (\"{team}/{project}/{repository}@{manifestDigest}\").
+	 * @description Owner-qualified, digest-pinned reference of the container image the sandbox was created from ("{team}/{project}/{repository}@{manifestDigest}").
 	 * @example my-team/my-project/my-repo@sha256:2c4e8f9a1b3d5e7f091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708
 	 * @type string | undefined
 	 */
@@ -17179,7 +17277,7 @@ export type SandboxNetworkPolicy = {
 	 */
 	allowedCIDRs?: string[] | undefined;
 	/**
-	 * @description List of domain names the sandbox is allowed to connect to. Supports wildcard patterns (e.g., \"*.vercel.com\" matches all subdomains).
+	 * @description List of domain names the sandbox is allowed to connect to. Supports wildcard patterns (e.g., "*.vercel.com" matches all subdomains).
 	 * @example ["*.example.com","api.vercel.com"]
 	 * @type array | undefined
 	 */
@@ -17196,7 +17294,7 @@ export type SandboxNetworkPolicy = {
 	 */
 	injectionRules?: SandboxInjectionRule[] | undefined;
 	/**
-	 * @description The network policy mode. - \'allow-all\': All traffic is allowed. - \'deny-all\': All traffic is blocked. - \'custom\': Traffic is controlled by explicit allow/deny rules.
+	 * @description The network policy mode. - 'allow-all': All traffic is allowed. - 'deny-all': All traffic is blocked. - 'custom': Traffic is controlled by explicit allow/deny rules.
 	 * @example custom
 	 * @type string
 	 */
@@ -17232,7 +17330,7 @@ export type SessionWorkloadTypeEnumKey =
 	(typeof sessionWorkloadTypeEnum)[keyof typeof sessionWorkloadTypeEnum];
 
 /**
- * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+ * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
  * @type object
  */
 export type Session = {
@@ -17936,6 +18034,7 @@ export const teamMembershipJoinedFromOriginEnum = {
 	"nsnb-redeploy-attribution-card": "nsnb-redeploy-attribution-card",
 	"nsnb-request-access": "nsnb-request-access",
 	"nsnb-viewer-upgrade": "nsnb-viewer-upgrade",
+	"org-admin-sync": "org-admin-sync",
 	"organization-teams": "organization-teams",
 	saml: "saml",
 	teams: "teams",
@@ -18073,7 +18172,7 @@ export type Team = {
 	 */
 	avatar: string | null;
 	/**
-	 * @description The team\'s billing plan.
+	 * @description The team's billing plan.
 	 * @type object
 	 */
 	billing: {
@@ -18308,7 +18407,7 @@ export type Team = {
 				 */
 				retentionAppliedAt?: number | undefined;
 				/**
-				 * @description When the customer chose \"keep my retention\" before reduce day.
+				 * @description When the customer chose "keep my retention" before reduce day.
 				 * @type number | undefined
 				 */
 				retentionOptOutAt?: number | undefined;
@@ -18339,7 +18438,7 @@ export type Team = {
 	 */
 	dpAccessRequestsMode?: TeamDpAccessRequestsModeEnumKey | undefined;
 	/**
-	 * @description Hostname that\'ll be matched with emails on sign-up to automatically join the Team.
+	 * @description Hostname that'll be matched with emails on sign-up to automatically join the Team.
 	 * @example example.com
 	 * @type string | undefined
 	 */
@@ -18365,7 +18464,7 @@ export type Team = {
 	 */
 	hideIpAddressesInLogDrains?: ((false | true) | null) | undefined;
 	/**
-	 * @description The Team\'s unique identifier.
+	 * @description The Team's unique identifier.
 	 * @example team_nllPyCtREAqxxdyFKbbMDlxd
 	 * @type string
 	 */
@@ -18454,7 +18553,7 @@ export type Team = {
 	 */
 	orgRootTeamId?: string | undefined;
 	/**
-	 * @description The organizationId for teams that belong to an organization (set on both the organization\'s root team and its child teams).
+	 * @description The organizationId for teams that belong to an organization (set on both the organization's root team and its child teams).
 	 * @example org_nllPyCtREAqxxdyFKbbMDlxd
 	 * @type string | undefined
 	 */
@@ -18558,7 +18657,7 @@ export type Team = {
 		  }
 		| undefined;
 	/**
-	 * @description When \"Single Sign-On (SAML)\" is configured, this object contains information regarding the configuration of the Identity Provider (IdP).
+	 * @description When "Single Sign-On (SAML)" is configured, this object contains information regarding the configuration of the Identity Provider (IdP).
 	 * @type object | undefined
 	 */
 	saml?:
@@ -18594,12 +18693,12 @@ export type Team = {
 							 */
 							state: string;
 							/**
-							 * @description Controls whether directory sync events are processed. - \'SETUP\': Directory connected but role mappings not yet configured. Events are acknowledged but not processed. - \'ACTIVE\': Fully configured. Events are processed normally. - undefined: Legacy directory (pre-feature), treat as \'ACTIVE\' for backwards compatibility.
+							 * @description Controls whether directory sync events are processed. - 'SETUP': Directory connected but role mappings not yet configured. Events are acknowledged but not processed. - 'ACTIVE': Fully configured. Events are processed normally. - undefined: Legacy directory (pre-feature), treat as 'ACTIVE' for backwards compatibility.
 							 * @type string | undefined
 							 */
 							syncState?: TeamSamlConnectionSyncStateEnumKey | undefined;
 							/**
-							 * @description The Identity Provider \"type\", for example Okta.
+							 * @description The Identity Provider "type", for example Okta.
 							 * @example OktaSAML
 							 * @type string
 							 */
@@ -18643,12 +18742,12 @@ export type Team = {
 							 */
 							state: string;
 							/**
-							 * @description Controls whether directory sync events are processed. - \'SETUP\': Directory connected but role mappings not yet configured. Events are acknowledged but not processed. - \'ACTIVE\': Fully configured. Events are processed normally. - undefined: Legacy directory (pre-feature), treat as \'ACTIVE\' for backwards compatibility.
+							 * @description Controls whether directory sync events are processed. - 'SETUP': Directory connected but role mappings not yet configured. Events are acknowledged but not processed. - 'ACTIVE': Fully configured. Events are processed normally. - undefined: Legacy directory (pre-feature), treat as 'ACTIVE' for backwards compatibility.
 							 * @type string | undefined
 							 */
 							syncState?: TeamSamlDirectorySyncStateEnumKey | undefined;
 							/**
-							 * @description The Identity Provider \"type\", for example Okta.
+							 * @description The Identity Provider "type", for example Okta.
 							 * @example OktaSAML
 							 * @type string
 							 */
@@ -18656,12 +18755,12 @@ export type Team = {
 					  }
 					| undefined;
 				/**
-				 * @description When `true`, interactions with the Team **must** be done with an authentication token that has been authenticated with the Team\'s SAML Single Sign-On provider.
+				 * @description When `true`, interactions with the Team **must** be done with an authentication token that has been authenticated with the Team's SAML Single Sign-On provider.
 				 * @type boolean
 				 */
 				enforced: false | true;
 				/**
-				 * @description When \"Directory Sync\" is configured, this object contains a mapping of which Directory Group (by ID) should be assigned to which Vercel Team roles and permissions, or an access group. Bare team roles are deprecated in favor of DirectorySyncRolesMapping.
+				 * @description When "Directory Sync" is configured, this object contains a mapping of which Directory Group (by ID) should be assigned to which Vercel Team roles and permissions, or an access group. Bare team roles are deprecated in favor of DirectorySyncRolesMapping.
 				 * @type object | undefined
 				 */
 				roles?:
@@ -18727,7 +18826,7 @@ export type Team = {
 		| (TeamSensitiveEnvironmentVariablePolicyEnumKey | null)
 		| undefined;
 	/**
-	 * @description The Team\'s slug, which is unique across the Vercel platform.
+	 * @description The Team's slug, which is unique across the Vercel platform.
 	 * @example my-team
 	 * @type string
 	 */
@@ -18812,6 +18911,7 @@ export const teamLimitedMembershipJoinedFromOriginEnum = {
 	"nsnb-redeploy-attribution-card": "nsnb-redeploy-attribution-card",
 	"nsnb-request-access": "nsnb-request-access",
 	"nsnb-viewer-upgrade": "nsnb-viewer-upgrade",
+	"org-admin-sync": "org-admin-sync",
 	"organization-teams": "organization-teams",
 	saml: "saml",
 	teams: "teams",
@@ -18907,13 +19007,13 @@ export type TeamLimited = {
 	 */
 	createdAt: number;
 	/**
-	 * @description The Team\'s unique identifier.
+	 * @description The Team's unique identifier.
 	 * @example team_nllPyCtREAqxxdyFKbbMDlxd
 	 * @type string
 	 */
 	id: string;
 	/**
-	 * @description Property indicating that this Team data contains only limited information, due to the authentication token missing privileges to read the full Team data or due to team having MFA enforced and the user not having MFA enabled. Re-login with the Team\'s configured SAML Single Sign-On provider in order to upgrade the authentication token with the necessary privileges.
+	 * @description Property indicating that this Team data contains only limited information, due to the authentication token missing privileges to read the full Team data or due to team having MFA enforced and the user not having MFA enabled. Re-login with the Team's configured SAML Single Sign-On provider in order to upgrade the authentication token with the necessary privileges.
 	 * @type boolean
 	 */
 	limited: true;
@@ -18970,13 +19070,13 @@ export type TeamLimited = {
 	 */
 	orgRootTeamId?: string | undefined;
 	/**
-	 * @description The organizationId for teams that belong to an organization (set on both the organization\'s root team and its child teams).
+	 * @description The organizationId for teams that belong to an organization (set on both the organization's root team and its child teams).
 	 * @example org_nllPyCtREAqxxdyFKbbMDlxd
 	 * @type string | undefined
 	 */
 	parentId?: string | undefined;
 	/**
-	 * @description When \"Single Sign-On (SAML)\" is configured, this object contains information that allows the client-side to identify whether or not this Team has SAML enforced.
+	 * @description When "Single Sign-On (SAML)" is configured, this object contains information that allows the client-side to identify whether or not this Team has SAML enforced.
 	 * @type object | undefined
 	 */
 	saml?:
@@ -19012,12 +19112,12 @@ export type TeamLimited = {
 							 */
 							state: string;
 							/**
-							 * @description Controls whether directory sync events are processed. - \'SETUP\': Directory connected but role mappings not yet configured. Events are acknowledged but not processed. - \'ACTIVE\': Fully configured. Events are processed normally. - undefined: Legacy directory (pre-feature), treat as \'ACTIVE\' for backwards compatibility.
+							 * @description Controls whether directory sync events are processed. - 'SETUP': Directory connected but role mappings not yet configured. Events are acknowledged but not processed. - 'ACTIVE': Fully configured. Events are processed normally. - undefined: Legacy directory (pre-feature), treat as 'ACTIVE' for backwards compatibility.
 							 * @type string | undefined
 							 */
 							syncState?: TeamLimitedSamlConnectionSyncStateEnumKey | undefined;
 							/**
-							 * @description The Identity Provider \"type\", for example Okta.
+							 * @description The Identity Provider "type", for example Okta.
 							 * @example OktaSAML
 							 * @type string
 							 */
@@ -19056,12 +19156,12 @@ export type TeamLimited = {
 							 */
 							state: string;
 							/**
-							 * @description Controls whether directory sync events are processed. - \'SETUP\': Directory connected but role mappings not yet configured. Events are acknowledged but not processed. - \'ACTIVE\': Fully configured. Events are processed normally. - undefined: Legacy directory (pre-feature), treat as \'ACTIVE\' for backwards compatibility.
+							 * @description Controls whether directory sync events are processed. - 'SETUP': Directory connected but role mappings not yet configured. Events are acknowledged but not processed. - 'ACTIVE': Fully configured. Events are processed normally. - undefined: Legacy directory (pre-feature), treat as 'ACTIVE' for backwards compatibility.
 							 * @type string | undefined
 							 */
 							syncState?: TeamLimitedSamlDirectorySyncStateEnumKey | undefined;
 							/**
-							 * @description The Identity Provider \"type\", for example Okta.
+							 * @description The Identity Provider "type", for example Okta.
 							 * @example OktaSAML
 							 * @type string
 							 */
@@ -19069,14 +19169,14 @@ export type TeamLimited = {
 					  }
 					| undefined;
 				/**
-				 * @description When `true`, interactions with the Team **must** be done with an authentication token that has been authenticated with the Team\'s SAML Single Sign-On provider.
+				 * @description When `true`, interactions with the Team **must** be done with an authentication token that has been authenticated with the Team's SAML Single Sign-On provider.
 				 * @type boolean
 				 */
 				enforced: false | true;
 		  }
 		| undefined;
 	/**
-	 * @description The Team\'s slug, which is unique across the Vercel platform.
+	 * @description The Team's slug, which is unique across the Vercel platform.
 	 * @example my-team
 	 * @type string
 	 */
@@ -19169,7 +19269,7 @@ export type AuthToken = {
 	 */
 	origin?: string | undefined;
 	/**
-	 * @description The token\'s prefix, for identification purposes.
+	 * @description The token's prefix, for identification purposes.
 	 * @example vcp_
 	 * @type string | undefined
 	 */
@@ -19346,7 +19446,7 @@ export type AuthUserSoftBlockReasonEnumKey =
  */
 export type AuthUser = {
 	/**
-	 * @description Context for the Update Account screen. Present only when `isAccountUpdateRequired` is true. `managedTeams` is empty for orphan mode (user matches an EMU domain but is not on the team).
+	 * @description Context for the Update Account screen. Present only when `isAccountUpdateRequired` is true. `managedTeams` is empty for orphan mode (user matches an EMU domain but is not on the team). When the teams the user must complete Update Account for include an organization's backing team, that team is listed as the organization, followed by the organization's Enterprise Managed root and child teams the user is a member of, including through Directory Sync group mappings.
 	 * @type object | undefined
 	 */
 	accountUpdateContext?:
@@ -19416,7 +19516,7 @@ export type AuthUser = {
 		  }
 		| undefined;
 	/**
-	 * @description The user\'s default team.
+	 * @description The user's default team.
 	 * @type string
 	 */
 	defaultTeamId: string | null;
@@ -19482,7 +19582,7 @@ export type AuthUser = {
 	 */
 	hasTrialAvailable: false | true;
 	/**
-	 * @description The User\'s unique identifier.
+	 * @description The User's unique identifier.
 	 * @example AEIIDYVk59zbFF2Sxfyxxmua
 	 * @type string
 	 */
@@ -19727,7 +19827,7 @@ export type AuthUser = {
 	 */
 	shouldShowEnterpriseManagedWelcome?: (false | true) | undefined;
 	/**
-	 * @description When the User account has been \"soft blocked\", this property will contain the date when the restriction was enacted, and the identifier for why.
+	 * @description When the User account has been "soft blocked", this property will contain the date when the restriction was enacted, and the identifier for why.
 	 * @type object
 	 */
 	softBlock: {
@@ -19741,7 +19841,7 @@ export type AuthUser = {
 		unpauseAt?: number | undefined;
 	} | null;
 	/**
-	 * @description Prefix that will be used in the URL of \"Preview\" deployments created by the User account.
+	 * @description Prefix that will be used in the URL of "Preview" deployments created by the User account.
 	 * @type string
 	 */
 	stagingPrefix: string;
@@ -19765,7 +19865,7 @@ export type AuthUserLimited = {
 	 */
 	avatar: string | null;
 	/**
-	 * @description The user\'s default team.
+	 * @description The user's default team.
 	 * @type string
 	 */
 	defaultTeamId: string | null;
@@ -19776,7 +19876,7 @@ export type AuthUserLimited = {
 	 */
 	email: string;
 	/**
-	 * @description The User\'s unique identifier.
+	 * @description The User's unique identifier.
 	 * @example AEIIDYVk59zbFF2Sxfyxxmua
 	 * @type string
 	 */
@@ -19886,7 +19986,7 @@ export type VcrImageListItemStatusEnumKey =
 	(typeof vcrImageListItemStatusEnum)[keyof typeof vcrImageListItemStatusEnum];
 
 /**
- * @description An image enriched with its tags and VHS-readiness status, as returned when listing a repository\'s images.
+ * @description An image enriched with its tags and VHS-readiness status, as returned when listing a repository's images.
  * @type object
  */
 export type VcrImageListItem = {
@@ -19937,7 +20037,7 @@ export type VcrImageListItem = {
 	 */
 	repositoryId: string;
 	/**
-	 * @description Total size in bytes of the image\'s resources (manifest, config and layer blobs) stored by the registry.
+	 * @description Total size in bytes of the image's resources (manifest, config and layer blobs) stored by the registry.
 	 * @type number
 	 */
 	sizeInBytes: number;
@@ -19947,7 +20047,7 @@ export type VcrImageListItem = {
 	 */
 	status: VcrImageListItemStatusEnumKey | null;
 	/**
-	 * @description Tags pointing at this image\'s manifest.
+	 * @description Tags pointing at this image's manifest.
 	 * @type array
 	 */
 	tags: string[];
@@ -19967,7 +20067,7 @@ export type VcrImageList = {
 };
 
 /**
- * @description A team\'s access grant to a Vercel Container Registry repository.
+ * @description A team's access grant to a Vercel Container Registry repository.
  * @type object
  */
 export type VcrRepositoryPermission = {
@@ -20015,7 +20115,7 @@ export const vcrTagStatusEnum = {
 export type VcrTagStatusEnumKey = (typeof vcrTagStatusEnum)[keyof typeof vcrTagStatusEnum];
 
 /**
- * @description A tag pointing at an image in a Vercel Container Registry repository, enriched with the backing image\'s metadata and VHS-readiness status.
+ * @description A tag pointing at an image in a Vercel Container Registry repository, enriched with the backing image's metadata and VHS-readiness status.
  * @type object
  */
 export type VcrTag = {
@@ -20060,7 +20160,7 @@ export type VcrTag = {
 	 */
 	pushedBy?: string | undefined;
 	/**
-	 * @description Total size in bytes of the image\'s resources (manifest, config and layer blobs) stored by the registry.
+	 * @description Total size in bytes of the image's resources (manifest, config and layer blobs) stored by the registry.
 	 * @type number
 	 */
 	sizeInBytes: number;
@@ -20252,7 +20352,7 @@ export type VcrImageDetail = {
 	 */
 	repositoryId: string;
 	/**
-	 * @description Total size in bytes of the image\'s resources (manifest, config and layer blobs) stored by the registry.
+	 * @description Total size in bytes of the image's resources (manifest, config and layer blobs) stored by the registry.
 	 * @type number
 	 */
 	sizeInBytes: number;
@@ -20262,7 +20362,7 @@ export type VcrImageDetail = {
 	 */
 	status: VcrImageDetailStatusEnumKey | null;
 	/**
-	 * @description Tags pointing at this image\'s manifest.
+	 * @description Tags pointing at this image's manifest.
 	 * @type array
 	 */
 	tags: string[];
@@ -20309,7 +20409,7 @@ export type FileTree = {
 	 */
 	contentType?: string | undefined;
 	/**
-	 * @description The file \"mode\" indicating file type and permissions.
+	 * @description The file "mode" indicating file type and permissions.
 	 * @type number
 	 */
 	mode: number;
@@ -20632,7 +20732,7 @@ export type UpdateAccessGroupBody = {
 				 */
 				projectId: string;
 				/**
-				 * @description The project role that will be added to this Access Group. \"null\" will remove this project level role.
+				 * @description The project role that will be added to this Access Group. "null" will remove this project level role.
 				 * @example ADMIN
 				 * @type string
 				 */
@@ -21081,7 +21181,7 @@ export type CreateAccessGroupBody = {
 				 */
 				projectId: string;
 				/**
-				 * @description The project role that will be added to this Access Group. \"null\" will remove this project level role.
+				 * @description The project role that will be added to this Access Group. "null" will remove this project level role.
 				 * @example ADMIN
 				 * @type string
 				 */
@@ -21441,7 +21541,7 @@ export type UpdateAccessGroupProjectBody = {
 	 * @example ADMIN
 	 * @type string
 	 */
-	role: UpdateAccessGroupProjectRequestRoleEnumKey;
+	role: UpdateAccessGroupProjectRequestRoleEnumKey | null;
 };
 
 export type UpdateAccessGroupProjectOptions = {
@@ -21567,7 +21667,7 @@ export type CreateAiGatewayByokCredentialBody =
 			 */
 			ownerId?: string | undefined;
 			/**
-			 * @description The provider slug this credential is for (e.g., \"openai\", \"anthropic\")
+			 * @description The provider slug this credential is for (e.g., "openai", "anthropic")
 			 * @type string
 			 */
 			providerSlug: string;
@@ -21601,12 +21701,12 @@ export type CreateAiGatewayByokCredentialBody =
 			mappings?:
 				| {
 						/**
-						 * @description The AI Gateway model slug (e.g., \"openai/gpt-5.4\")
+						 * @description The AI Gateway model slug (e.g., "openai/gpt-5.4")
 						 * @type string
 						 */
 						gatewayModelSlug: string;
 						/**
-						 * @description The customer\'s custom model ID (e.g., \"my-finetuned-gpt-5\")
+						 * @description The customer's custom model ID (e.g., "my-finetuned-gpt-5")
 						 * @type string
 						 */
 						customModelId: string;
@@ -22549,7 +22649,7 @@ export type CreateAiGatewayRuleQuery = {
 };
 
 /**
- * @description Public response shape for AI Gateway routing rules. Used so OpenAPI generation can avoid ElectroDB\'s recursive EntityItem types.
+ * @description Public response shape for AI Gateway routing rules. Used so OpenAPI generation can avoid ElectroDB's recursive EntityItem types.
  * @type object
  */
 export type CreateAiGatewayRuleStatus201 = AiGatewayRule;
@@ -22678,7 +22778,7 @@ export type UpdateAiGatewayRuleQuery = {
 };
 
 /**
- * @description Public response shape for AI Gateway routing rules. Used so OpenAPI generation can avoid ElectroDB\'s recursive EntityItem types.
+ * @description Public response shape for AI Gateway routing rules. Used so OpenAPI generation can avoid ElectroDB's recursive EntityItem types.
  * @type object
  */
 export type UpdateAiGatewayRuleStatus200 = AiGatewayRule;
@@ -22794,7 +22894,7 @@ export type ListAiGatewayBudgetsQuery = {
 	 */
 	scopeType?: ListAiGatewayBudgetsScopeTypeKey | undefined;
 	/**
-	 * @description Whether to include rows inherited from a budget default (`source: \"default\"`). Defaults to true.
+	 * @description Whether to include rows inherited from a budget default (`source: "default"`). Defaults to true.
 	 * @type string | undefined
 	 */
 	includeDefaultCovered?: ListAiGatewayBudgetsIncludeDefaultCoveredKey | undefined;
@@ -22920,12 +23020,12 @@ export type UpsertAiGatewayBudgetBody =
 	| {
 			scopeType: UpsertAiGatewayBudgetRequestScopeTypeEnumKey;
 			/**
-			 * @description Required when scopeType is \"project\".
+			 * @description Required when scopeType is "project".
 			 * @type string | undefined
 			 */
 			projectId?: string | undefined;
 			/**
-			 * @description Required when scopeType is \"user\".
+			 * @description Required when scopeType is "user".
 			 * @type string | undefined
 			 */
 			userId?: string | undefined;
@@ -22987,12 +23087,12 @@ export type ArchiveAiGatewayBudgetQuery = {
 	 */
 	scopeType: ArchiveAiGatewayBudgetScopeTypeKey;
 	/**
-	 * @description Required when scopeType is \"project\".
+	 * @description Required when scopeType is "project".
 	 * @type string | undefined
 	 */
 	projectId?: string | undefined;
 	/**
-	 * @description Required when scopeType is \"user\".
+	 * @description Required when scopeType is "user".
 	 * @type string | undefined
 	 */
 	userId?: string | undefined;
@@ -23327,7 +23427,7 @@ export type RecordEventsBody = {
 	 */
 	sessionId: string;
 	/**
-	 * @description One of `LOCAL` or `REMOTE`. `LOCAL` specifies that the cache event was from the user\'s filesystem cache. `REMOTE` specifies that the cache event is from a remote cache.
+	 * @description One of `LOCAL` or `REMOTE`. `LOCAL` specifies that the cache event was from the user's filesystem cache. `REMOTE` specifies that the cache event is from a remote cache.
 	 * @type string
 	 */
 	source: RecordEventsRequestSourceEnumKey;
@@ -24782,7 +24882,7 @@ export type BuyCreditsStatus200 =
 									  }[]
 									| undefined;
 								/**
-								 * @description The Orb customer\'s timezone when the intent was created. Omitted for legacy intents.
+								 * @description The Orb customer's timezone when the intent was created. Omitted for legacy intents.
 								 * @type string | undefined
 								 */
 								customerTimezone?: string | undefined;
@@ -24907,7 +25007,7 @@ export type BuyCreditsStatus200 =
 									  }[]
 									| undefined;
 								/**
-								 * @description The Orb customer\'s timezone when the intent was created. Omitted for legacy intents.
+								 * @description The Orb customer's timezone when the intent was created. Omitted for legacy intents.
 								 * @type string | undefined
 								 */
 								customerTimezone?: string | undefined;
@@ -25032,7 +25132,7 @@ export type BuyCreditsStatus200 =
 									  }[]
 									| undefined;
 								/**
-								 * @description The Orb customer\'s timezone when the intent was created. Omitted for legacy intents.
+								 * @description The Orb customer's timezone when the intent was created. Omitted for legacy intents.
 								 * @type string | undefined
 								 */
 								customerTimezone?: string | undefined;
@@ -25162,7 +25262,7 @@ export type BuyCreditsStatus200 =
 									  }[]
 									| undefined;
 								/**
-								 * @description The Orb customer\'s timezone when the intent was created. Omitted for legacy intents.
+								 * @description The Orb customer's timezone when the intent was created. Omitted for legacy intents.
 								 * @type string | undefined
 								 */
 								customerTimezone?: string | undefined;
@@ -29950,13 +30050,13 @@ export type ListConnectorsQuery = {
 	 */
 	sort?: ListConnectorsSortKey | undefined;
 	/**
-	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
 	 */
 	teamId?: string | undefined;
 	/**
-	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example my-team-url-slug
 	 * @type string | undefined
 	 */
@@ -30057,13 +30157,13 @@ export type GetConnectorPath = {
 
 export type GetConnectorQuery = {
 	/**
-	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
 	 */
 	teamId?: string | undefined;
 	/**
-	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example my-team-url-slug
 	 * @type string | undefined
 	 */
@@ -30164,13 +30264,13 @@ export type DeleteConnectorPath = {
 
 export type DeleteConnectorQuery = {
 	/**
-	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
 	 */
 	teamId?: string | undefined;
 	/**
-	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example my-team-url-slug
 	 * @type string | undefined
 	 */
@@ -30269,13 +30369,13 @@ export type DeleteConnectorResponse = DeleteConnectorStatus204;
 
 export type CreateConnectorQuery = {
 	/**
-	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
 	 */
 	teamId?: string | undefined;
 	/**
-	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example my-team-url-slug
 	 * @type string | undefined
 	 */
@@ -30388,13 +30488,13 @@ export type UpdateConnectorPath = {
 
 export type UpdateConnectorQuery = {
 	/**
-	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
 	 */
 	teamId?: string | undefined;
 	/**
-	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example my-team-url-slug
 	 * @type string | undefined
 	 */
@@ -30508,13 +30608,13 @@ export type ReplaceConnectorTriggerDestinationsPath = {
 
 export type ReplaceConnectorTriggerDestinationsQuery = {
 	/**
-	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
 	 */
 	teamId?: string | undefined;
 	/**
-	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example my-team-url-slug
 	 * @type string | undefined
 	 */
@@ -30702,13 +30802,13 @@ export type ListConnectorProjectConnectionsQuery = {
 	 */
 	cursor?: string | undefined;
 	/**
-	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
 	 */
 	teamId?: string | undefined;
 	/**
-	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example my-team-url-slug
 	 * @type string | undefined
 	 */
@@ -30801,13 +30901,13 @@ export type GetConnectorProjectConnectionPath = {
 
 export type GetConnectorProjectConnectionQuery = {
 	/**
-	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
 	 */
 	teamId?: string | undefined;
 	/**
-	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example my-team-url-slug
 	 * @type string | undefined
 	 */
@@ -30900,13 +31000,13 @@ export type UpsertConnectorProjectConnectionPath = {
 
 export type UpsertConnectorProjectConnectionQuery = {
 	/**
-	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
 	 */
 	teamId?: string | undefined;
 	/**
-	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example my-team-url-slug
 	 * @type string | undefined
 	 */
@@ -31018,13 +31118,13 @@ export type DeleteConnectorProjectConnectionPath = {
 
 export type DeleteConnectorProjectConnectionQuery = {
 	/**
-	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
 	 */
 	teamId?: string | undefined;
 	/**
-	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example my-team-url-slug
 	 * @type string | undefined
 	 */
@@ -31133,13 +31233,13 @@ export type ListProjectConnectorConnectionsQuery = {
 	 */
 	cursor?: string | undefined;
 	/**
-	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team ID that scopes the request. Do not send it with slug. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
 	 */
 	teamId?: string | undefined;
 	/**
-	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user\'s default team. The request returns 401 if no team can be selected.
+	 * @description The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.
 	 * @example my-team-url-slug
 	 * @type string | undefined
 	 */
@@ -31214,7 +31314,7 @@ export type GetConnectorTokenStatus200 = {
 	 */
 	authorizationId?: string | undefined;
 	/**
-	 * @description Claims extracted from the provider\'s tokens per the connector\'s `ForwardedClaims` allow-list. Currently sourced from the OIDC id_token only.
+	 * @description Claims extracted from the provider's tokens per the connector's `ForwardedClaims` allow-list. Currently sourced from the OIDC id_token only.
 	 * @type object | undefined
 	 */
 	claims?:
@@ -31361,7 +31461,7 @@ export type CreateConnectorAuthorizationRequestStatus200 = {
 		 */
 		id: string;
 		/**
-		 * @description The connector\'s own name: the operator-given client name, falling back to the client type\'s name for legacy rows without one.
+		 * @description The connector's own name: the operator-given client name, falling back to the client type's name for legacy rows without one.
 		 * @type string
 		 */
 		name: string;
@@ -31371,7 +31471,7 @@ export type CreateConnectorAuthorizationRequestStatus200 = {
 		 */
 		service?: string | undefined;
 		/**
-		 * @description Curated display name of the resolved service (e.g. \"Salesforce\"), present when the service is a known service. Suited for end-user surfaces like \"Sign in with {serviceName}\".
+		 * @description Curated display name of the resolved service (e.g. "Salesforce"), present when the service is a known service. Suited for end-user surfaces like "Sign in with {serviceName}".
 		 * @type string | undefined
 		 */
 		serviceName?: string | undefined;
@@ -31754,7 +31854,7 @@ export type PutProjectDaemonInstancesStatus404 = unknown;
 export type PutProjectDaemonInstancesStatus410 = unknown;
 
 /**
- * @description Instance count overrides for the given regions, for example { \\\"iad1\\\": 1 }. Overrides of regions not in the map are kept. A `null` count removes the region\'s override. An empty map removes all overrides.
+ * @description Instance count overrides for the given regions, for example { \"iad1\": 1 }. Overrides of regions not in the map are kept. A `null` count removes the region's override. An empty map removes all overrides.
  * @type object | undefined
  */
 export type PutProjectDaemonInstancesBody =
@@ -33079,7 +33179,7 @@ export type GetDeploymentStatus200 =
 			 */
 			readyState: GetDeploymentStatus200ReadyStateEnumKey;
 			/**
-			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
@@ -33247,10 +33347,6 @@ export type GetDeploymentStatus200 =
 			canceledAt?: number | undefined;
 			checks?:
 				| {
-						/**
-						 * @description Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.
-						 * @type object
-						 */
 						"deployment-alias": {
 							completedAt?: number | undefined;
 							startedAt: number;
@@ -33391,7 +33487,7 @@ export type GetDeploymentStatus200 =
 								 */
 								currentDeploymentAliases?: string[] | undefined;
 								/**
-								 * @description Optional description of the environment\'s purpose
+								 * @description Optional description of the environment's purpose
 								 * @type string | undefined
 								 */
 								description?: string | undefined;
@@ -33548,22 +33644,22 @@ export type GetDeploymentStatus200 =
 												 */
 												consumer: string;
 												/**
-												 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+												 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												initialDelaySeconds?: number | undefined;
 												/**
-												 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+												 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												maxConcurrency?: number | undefined;
 												/**
-												 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+												 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												maxDeliveries?: number | undefined;
 												/**
-												 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+												 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												retryAfterSeconds?: number | undefined;
@@ -33573,29 +33669,29 @@ export type GetDeploymentStatus200 =
 												 */
 												topic: string;
 												/**
-												 * @description Event type - must be \"queue/v1beta\" (REQUIRED)
+												 * @description Event type - must be "queue/v1beta" (REQUIRED)
 												 * @type string
 												 */
 												type: "queue/v1beta";
 										  }
 										| {
 												/**
-												 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+												 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												initialDelaySeconds?: number | undefined;
 												/**
-												 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+												 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												maxConcurrency?: number | undefined;
 												/**
-												 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+												 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												maxDeliveries?: number | undefined;
 												/**
-												 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+												 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												retryAfterSeconds?: number | undefined;
@@ -33605,14 +33701,14 @@ export type GetDeploymentStatus200 =
 												 */
 												topic: string;
 												/**
-												 * @description Event type - must be \"queue/v2beta\" (REQUIRED)
+												 * @description Event type - must be "queue/v2beta" (REQUIRED)
 												 * @type string
 												 */
 												type: "queue/v2beta";
 										  }
 										| {
 												/**
-												 * @description Event type - must be \"schedule/v1beta\" (REQUIRED)
+												 * @description Event type - must be "schedule/v1beta" (REQUIRED)
 												 * @type string
 												 */
 												type: "schedule/v1beta";
@@ -34021,7 +34117,7 @@ export type GetDeploymentStatus200 =
 				| (
 						| {
 								/**
-								 * @description The project name of the default app of this deployment\'s microfrontends group.
+								 * @description The project name of the default app of this deployment's microfrontends group.
 								 * @type string
 								 */
 								defaultAppProjectName: string;
@@ -34039,7 +34135,7 @@ export type GetDeploymentStatus200 =
 						  }
 						| {
 								/**
-								 * @description The project name of the default app of this deployment\'s microfrontends group.
+								 * @description The project name of the default app of this deployment's microfrontends group.
 								 * @type string
 								 */
 								defaultAppProjectName: string;
@@ -34055,7 +34151,7 @@ export type GetDeploymentStatus200 =
 								groupIds: string[];
 								isDefaultApp: true;
 								/**
-								 * @description The result of the microfrontends config upload during deployment creation / build. Only set for default app deployments. The config upload is attempted during deployment create, and then again during the build. If the config is not in the root directory, or the deployment is prebuilt, the config cannot be uploaded during deployment create. The upload during deployment build finds the config even if it\'s not in the root directory, as it has access to all files. Uploading the config during create is ideal, as then all child deployments are guaranteed to have access to the default app deployment config even if the default app has not yet started building. If the config is not uploaded, the child app will show as building until the config has been uploaded during the default app build. - `success` - The config was uploaded successfully, either when the deployment was created or during the build. - `waiting_on_build` - The config could not be uploaded during deployment create, will be attempted again during the build. - `no_config` - No config was found. Only set once the build has not found the config in any of the deployment\'s files. - `undefined` - Legacy deployments, or there was an error uploading the config during deployment create.
+								 * @description The result of the microfrontends config upload during deployment creation / build. Only set for default app deployments. The config upload is attempted during deployment create, and then again during the build. If the config is not in the root directory, or the deployment is prebuilt, the config cannot be uploaded during deployment create. The upload during deployment build finds the config even if it's not in the root directory, as it has access to all files. Uploading the config during create is ideal, as then all child deployments are guaranteed to have access to the default app deployment config even if the default app has not yet started building. If the config is not uploaded, the child app will show as building until the config has been uploaded during the default app build. - `success` - The config was uploaded successfully, either when the deployment was created or during the build. - `waiting_on_build` - The config could not be uploaded during deployment create, will be attempted again during the build. - `no_config` - No config was found. Only set once the build has not found the config in any of the deployment's files. - `undefined` - Legacy deployments, or there was an error uploading the config during deployment create.
 								 * @type string | undefined
 								 */
 								mfeConfigUploadState?:
@@ -34119,7 +34215,7 @@ export type GetDeploymentStatus200 =
 						 */
 						creator: {
 							/**
-							 * @description URL of the platform user\'s avatar image.
+							 * @description URL of the platform user's avatar image.
 							 * @type string | undefined
 							 */
 							avatar?: string | undefined;
@@ -34198,7 +34294,7 @@ export type GetDeploymentStatus200 =
 					| {
 							canceledAt?: number | undefined;
 							/**
-							 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+							 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 							 * @type number | undefined
 							 */
 							dataReceivedAt?: number | undefined;
@@ -34243,7 +34339,7 @@ export type GetDeploymentStatus200 =
 			readyState: GetDeploymentStatus200ReadyStateEnumKey;
 			readyStateReason?: string | undefined;
 			/**
-			 * @description Substate of deployment when readyState is \'READY\' Tracks whether or not deployment has seen production traffic: - STAGED: never seen production traffic - ROLLING: in the process of having production traffic gradually transitioned. - PROMOTED: has seen production traffic
+			 * @description Substate of deployment when readyState is 'READY' Tracks whether or not deployment has seen production traffic: - STAGED: never seen production traffic - ROLLING: in the process of having production traffic gradually transitioned. - PROMOTED: has seen production traffic
 			 * @type string | undefined
 			 */
 			readySubstate?: GetDeploymentStatus200ReadySubstateEnumKey | undefined;
@@ -34276,7 +34372,7 @@ export type GetDeploymentStatus200 =
 											 */
 											cores?: number | undefined;
 											/**
-											 * @description The build machine tier included with the customer\'s plan. For most customers this is standard; enhanced entitlements include enhanced, while `none` means every build is billed at its purchase type.
+											 * @description The build machine tier included with the customer's plan. For most customers this is standard; enhanced entitlements include enhanced, while `none` means every build is billed at its purchase type.
 											 * @type string | undefined
 											 */
 											defaultPurchaseType?:
@@ -34314,7 +34410,7 @@ export type GetDeploymentStatus200 =
 											 */
 											cores?: number | undefined;
 											/**
-											 * @description The build machine tier included with the customer\'s plan. For most customers this is standard; enhanced entitlements include enhanced, while `none` means every build is billed at its purchase type.
+											 * @description The build machine tier included with the customer's plan. For most customers this is standard; enhanced entitlements include enhanced, while `none` means every build is billed at its purchase type.
 											 * @type string | undefined
 											 */
 											defaultPurchaseType?:
@@ -34491,7 +34587,7 @@ export type GetDeploymentStatus200 =
 								override?: (false | true) | undefined;
 								respectOriginCacheControl?: (false | true) | undefined;
 								/**
-								 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service\'s internal route table and the object is preserved as-is (not folded into `dest`).
+								 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service's internal route table and the object is preserved as-is (not folded into `dest`).
 								 * @type string | undefined
 								 */
 								source?: string | undefined;
@@ -34586,7 +34682,7 @@ export type GetDeploymentStatus200 =
 										| {
 												buildCommand?: string | undefined;
 												/**
-												 * @description Buildpack runtime slug (e.g. \"ruby\").
+												 * @description Buildpack runtime slug (e.g. "ruby").
 												 * @type string | undefined
 												 */
 												buildpack?: string | undefined;
@@ -34610,7 +34706,7 @@ export type GetDeploymentStatus200 =
 																		 */
 																		env: string;
 																		/**
-																		 * @description Generated value shape, must be `\"url\"`.
+																		 * @description Generated value shape, must be `"url"`.
 																		 * @type string
 																		 */
 																		format: "url";
@@ -34620,7 +34716,7 @@ export type GetDeploymentStatus200 =
 																		 */
 																		service: string;
 																		/**
-																		 * @description If present, must be `\"service\"` for Service-to-Service HTTP bindings.
+																		 * @description If present, must be `"service"` for Service-to-Service HTTP bindings.
 																		 * @type string | undefined
 																		 */
 																		type?: "service" | undefined;
@@ -34708,22 +34804,22 @@ export type GetDeploymentStatus200 =
 																					 */
 																					consumer: string;
 																					/**
-																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					initialDelaySeconds?: number | undefined;
 																					/**
-																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxConcurrency?: number | undefined;
 																					/**
-																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxDeliveries?: number | undefined;
 																					/**
-																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					retryAfterSeconds?: number | undefined;
@@ -34733,29 +34829,29 @@ export type GetDeploymentStatus200 =
 																					 */
 																					topic: string;
 																					/**
-																					 * @description Event type - must be \"queue/v1beta\" (REQUIRED)
+																					 * @description Event type - must be "queue/v1beta" (REQUIRED)
 																					 * @type string
 																					 */
 																					type: "queue/v1beta";
 																			  }
 																			| {
 																					/**
-																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					initialDelaySeconds?: number | undefined;
 																					/**
-																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxConcurrency?: number | undefined;
 																					/**
-																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxDeliveries?: number | undefined;
 																					/**
-																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					retryAfterSeconds?: number | undefined;
@@ -34765,14 +34861,14 @@ export type GetDeploymentStatus200 =
 																					 */
 																					topic: string;
 																					/**
-																					 * @description Event type - must be \"queue/v2beta\" (REQUIRED)
+																					 * @description Event type - must be "queue/v2beta" (REQUIRED)
 																					 * @type string
 																					 */
 																					type: "queue/v2beta";
 																			  }
 																			| {
 																					/**
-																					 * @description Event type - must be \"schedule/v1beta\" (REQUIRED)
+																					 * @description Event type - must be "schedule/v1beta" (REQUIRED)
 																					 * @type string
 																					 */
 																					type: "schedule/v1beta";
@@ -34929,7 +35025,7 @@ export type GetDeploymentStatus200 =
 											 */
 											env: string;
 											/**
-											 * @description Generated value shape, must be `\"url\"`.
+											 * @description Generated value shape, must be `"url"`.
 											 * @type string
 											 */
 											format: "url";
@@ -34939,7 +35035,7 @@ export type GetDeploymentStatus200 =
 											 */
 											service: string;
 											/**
-											 * @description If present, must be `\"service\"` for Service-to-Service HTTP bindings.
+											 * @description If present, must be `"service"` for Service-to-Service HTTP bindings.
 											 * @type string | undefined
 											 */
 											type?: "service" | undefined;
@@ -34955,7 +35051,7 @@ export type GetDeploymentStatus200 =
 										| {
 												buildCommand?: string | undefined;
 												/**
-												 * @description Buildpack runtime slug (e.g. \"ruby\").
+												 * @description Buildpack runtime slug (e.g. "ruby").
 												 * @type string | undefined
 												 */
 												buildpack?: string | undefined;
@@ -34979,7 +35075,7 @@ export type GetDeploymentStatus200 =
 																		 */
 																		env: string;
 																		/**
-																		 * @description Generated value shape, must be `\"url\"`.
+																		 * @description Generated value shape, must be `"url"`.
 																		 * @type string
 																		 */
 																		format: "url";
@@ -34989,7 +35085,7 @@ export type GetDeploymentStatus200 =
 																		 */
 																		service: string;
 																		/**
-																		 * @description If present, must be `\"service\"` for Service-to-Service HTTP bindings.
+																		 * @description If present, must be `"service"` for Service-to-Service HTTP bindings.
 																		 * @type string | undefined
 																		 */
 																		type?: "service" | undefined;
@@ -35077,22 +35173,22 @@ export type GetDeploymentStatus200 =
 																					 */
 																					consumer: string;
 																					/**
-																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					initialDelaySeconds?: number | undefined;
 																					/**
-																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxConcurrency?: number | undefined;
 																					/**
-																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxDeliveries?: number | undefined;
 																					/**
-																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					retryAfterSeconds?: number | undefined;
@@ -35102,29 +35198,29 @@ export type GetDeploymentStatus200 =
 																					 */
 																					topic: string;
 																					/**
-																					 * @description Event type - must be \"queue/v1beta\" (REQUIRED)
+																					 * @description Event type - must be "queue/v1beta" (REQUIRED)
 																					 * @type string
 																					 */
 																					type: "queue/v1beta";
 																			  }
 																			| {
 																					/**
-																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					initialDelaySeconds?: number | undefined;
 																					/**
-																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxConcurrency?: number | undefined;
 																					/**
-																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxDeliveries?: number | undefined;
 																					/**
-																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					retryAfterSeconds?: number | undefined;
@@ -35134,14 +35230,14 @@ export type GetDeploymentStatus200 =
 																					 */
 																					topic: string;
 																					/**
-																					 * @description Event type - must be \"queue/v2beta\" (REQUIRED)
+																					 * @description Event type - must be "queue/v2beta" (REQUIRED)
 																					 * @type string
 																					 */
 																					type: "queue/v2beta";
 																			  }
 																			| {
 																					/**
-																					 * @description Event type - must be \"schedule/v1beta\" (REQUIRED)
+																					 * @description Event type - must be "schedule/v1beta" (REQUIRED)
 																					 * @type string
 																					 */
 																					type: "schedule/v1beta";
@@ -35250,7 +35346,7 @@ export type GetDeploymentStatus200 =
 								};
 								cleanUrls?: (false | true) | undefined;
 								/**
-								 * @description Command override for `runtime: \"container\"` services.
+								 * @description Command override for `runtime: "container"` services.
 								 * @type array | undefined
 								 */
 								command?: string[] | undefined;
@@ -35284,22 +35380,22 @@ export type GetDeploymentStatus200 =
 																	 */
 																	consumer: string;
 																	/**
-																	 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	initialDelaySeconds?: number | undefined;
 																	/**
-																	 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	maxConcurrency?: number | undefined;
 																	/**
-																	 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	maxDeliveries?: number | undefined;
 																	/**
-																	 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	retryAfterSeconds?: number | undefined;
@@ -35309,29 +35405,29 @@ export type GetDeploymentStatus200 =
 																	 */
 																	topic: string;
 																	/**
-																	 * @description Event type - must be \"queue/v1beta\" (REQUIRED)
+																	 * @description Event type - must be "queue/v1beta" (REQUIRED)
 																	 * @type string
 																	 */
 																	type: "queue/v1beta";
 															  }
 															| {
 																	/**
-																	 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	initialDelaySeconds?: number | undefined;
 																	/**
-																	 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	maxConcurrency?: number | undefined;
 																	/**
-																	 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	maxDeliveries?: number | undefined;
 																	/**
-																	 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	retryAfterSeconds?: number | undefined;
@@ -35341,14 +35437,14 @@ export type GetDeploymentStatus200 =
 																	 */
 																	topic: string;
 																	/**
-																	 * @description Event type - must be \"queue/v2beta\" (REQUIRED)
+																	 * @description Event type - must be "queue/v2beta" (REQUIRED)
 																	 * @type string
 																	 */
 																	type: "queue/v2beta";
 															  }
 															| {
 																	/**
-																	 * @description Event type - must be \"schedule/v1beta\" (REQUIRED)
+																	 * @description Event type - must be "schedule/v1beta" (REQUIRED)
 																	 * @type string
 																	 */
 																	type: "schedule/v1beta";
@@ -35847,7 +35943,7 @@ export type GetDeploymentStatus200 =
 													override?: (false | true) | undefined;
 													respectOriginCacheControl?: (false | true) | undefined;
 													/**
-													 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service\'s internal route table and the object is preserved as-is (not folded into `dest`).
+													 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service's internal route table and the object is preserved as-is (not folded into `dest`).
 													 * @type string | undefined
 													 */
 													source?: string | undefined;
@@ -35915,7 +36011,7 @@ export type GetDeploymentStatus200 =
 			source?: GetDeploymentStatus200SourceEnumKey | undefined;
 			status: GetDeploymentStatus200StatusEnumKey;
 			/**
-			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
@@ -35953,7 +36049,7 @@ export type GetDeploymentStatus200 =
 			 */
 			userAliases?: string[] | undefined;
 			/**
-			 * @description Since January 2025 User-configured deployment ID for skew protection with pre-built deployments. This is set when users configure a custom deploymentId in their next.config.js file. This allows Next.js to use skew protection even when deployments are pre-built outside of Vercel\'s build system.
+			 * @description Since January 2025 User-configured deployment ID for skew protection with pre-built deployments. This is set when users configure a custom deploymentId in their next.config.js file. This allows Next.js to use skew protection even when deployments are pre-built outside of Vercel's build system.
 			 * @example abc123
 			 * @type string | undefined
 			 */
@@ -36082,7 +36178,7 @@ export type GetDeploymentStatus200 =
 								 */
 								currentDeploymentAliases?: string[] | undefined;
 								/**
-								 * @description Optional description of the environment\'s purpose
+								 * @description Optional description of the environment's purpose
 								 * @type string | undefined
 								 */
 								description?: string | undefined;
@@ -36508,7 +36604,7 @@ export type GetDeploymentStatus200 =
 			readyState: GetDeploymentStatus200ReadyStateEnumKey;
 			readyStateReason?: string | undefined;
 			/**
-			 * @description Substate of deployment when readyState is \'READY\' Tracks whether or not deployment has seen production traffic: - STAGED: never seen production traffic - ROLLING: in the process of having production traffic gradually transitioned. - PROMOTED: has seen production traffic
+			 * @description Substate of deployment when readyState is 'READY' Tracks whether or not deployment has seen production traffic: - STAGED: never seen production traffic - ROLLING: in the process of having production traffic gradually transitioned. - PROMOTED: has seen production traffic
 			 * @type string | undefined
 			 */
 			readySubstate?: GetDeploymentStatus200ReadySubstateEnumKey | undefined;
@@ -36532,7 +36628,7 @@ export type GetDeploymentStatus200 =
 			source?: GetDeploymentStatus200SourceEnumKey | undefined;
 			status: GetDeploymentStatus200StatusEnumKey;
 			/**
-			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
@@ -36570,7 +36666,7 @@ export type GetDeploymentStatus200 =
 			 */
 			userAliases?: string[] | undefined;
 			/**
-			 * @description Since January 2025 User-configured deployment ID for skew protection with pre-built deployments. This is set when users configure a custom deploymentId in their next.config.js file. This allows Next.js to use skew protection even when deployments are pre-built outside of Vercel\'s build system.
+			 * @description Since January 2025 User-configured deployment ID for skew protection with pre-built deployments. This is set when users configure a custom deploymentId in their next.config.js file. This allows Next.js to use skew protection even when deployments are pre-built outside of Vercel's build system.
 			 * @example abc123
 			 * @type string | undefined
 			 */
@@ -37385,7 +37481,7 @@ export type CreateDeploymentStatus200 =
 			 */
 			readyState: CreateDeploymentStatus200ReadyStateEnumKey;
 			/**
-			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
@@ -37553,10 +37649,6 @@ export type CreateDeploymentStatus200 =
 			canceledAt?: number | undefined;
 			checks?:
 				| {
-						/**
-						 * @description Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.
-						 * @type object
-						 */
 						"deployment-alias": {
 							completedAt?: number | undefined;
 							startedAt: number;
@@ -37697,7 +37789,7 @@ export type CreateDeploymentStatus200 =
 								 */
 								currentDeploymentAliases?: string[] | undefined;
 								/**
-								 * @description Optional description of the environment\'s purpose
+								 * @description Optional description of the environment's purpose
 								 * @type string | undefined
 								 */
 								description?: string | undefined;
@@ -37854,22 +37946,22 @@ export type CreateDeploymentStatus200 =
 												 */
 												consumer: string;
 												/**
-												 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+												 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												initialDelaySeconds?: number | undefined;
 												/**
-												 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+												 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												maxConcurrency?: number | undefined;
 												/**
-												 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+												 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												maxDeliveries?: number | undefined;
 												/**
-												 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+												 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												retryAfterSeconds?: number | undefined;
@@ -37879,29 +37971,29 @@ export type CreateDeploymentStatus200 =
 												 */
 												topic: string;
 												/**
-												 * @description Event type - must be \"queue/v1beta\" (REQUIRED)
+												 * @description Event type - must be "queue/v1beta" (REQUIRED)
 												 * @type string
 												 */
 												type: "queue/v1beta";
 										  }
 										| {
 												/**
-												 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+												 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												initialDelaySeconds?: number | undefined;
 												/**
-												 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+												 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												maxConcurrency?: number | undefined;
 												/**
-												 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+												 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												maxDeliveries?: number | undefined;
 												/**
-												 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+												 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 												 * @type number | undefined
 												 */
 												retryAfterSeconds?: number | undefined;
@@ -37911,14 +38003,14 @@ export type CreateDeploymentStatus200 =
 												 */
 												topic: string;
 												/**
-												 * @description Event type - must be \"queue/v2beta\" (REQUIRED)
+												 * @description Event type - must be "queue/v2beta" (REQUIRED)
 												 * @type string
 												 */
 												type: "queue/v2beta";
 										  }
 										| {
 												/**
-												 * @description Event type - must be \"schedule/v1beta\" (REQUIRED)
+												 * @description Event type - must be "schedule/v1beta" (REQUIRED)
 												 * @type string
 												 */
 												type: "schedule/v1beta";
@@ -38329,7 +38421,7 @@ export type CreateDeploymentStatus200 =
 				| (
 						| {
 								/**
-								 * @description The project name of the default app of this deployment\'s microfrontends group.
+								 * @description The project name of the default app of this deployment's microfrontends group.
 								 * @type string
 								 */
 								defaultAppProjectName: string;
@@ -38347,7 +38439,7 @@ export type CreateDeploymentStatus200 =
 						  }
 						| {
 								/**
-								 * @description The project name of the default app of this deployment\'s microfrontends group.
+								 * @description The project name of the default app of this deployment's microfrontends group.
 								 * @type string
 								 */
 								defaultAppProjectName: string;
@@ -38363,7 +38455,7 @@ export type CreateDeploymentStatus200 =
 								groupIds: string[];
 								isDefaultApp: true;
 								/**
-								 * @description The result of the microfrontends config upload during deployment creation / build. Only set for default app deployments. The config upload is attempted during deployment create, and then again during the build. If the config is not in the root directory, or the deployment is prebuilt, the config cannot be uploaded during deployment create. The upload during deployment build finds the config even if it\'s not in the root directory, as it has access to all files. Uploading the config during create is ideal, as then all child deployments are guaranteed to have access to the default app deployment config even if the default app has not yet started building. If the config is not uploaded, the child app will show as building until the config has been uploaded during the default app build. - `success` - The config was uploaded successfully, either when the deployment was created or during the build. - `waiting_on_build` - The config could not be uploaded during deployment create, will be attempted again during the build. - `no_config` - No config was found. Only set once the build has not found the config in any of the deployment\'s files. - `undefined` - Legacy deployments, or there was an error uploading the config during deployment create.
+								 * @description The result of the microfrontends config upload during deployment creation / build. Only set for default app deployments. The config upload is attempted during deployment create, and then again during the build. If the config is not in the root directory, or the deployment is prebuilt, the config cannot be uploaded during deployment create. The upload during deployment build finds the config even if it's not in the root directory, as it has access to all files. Uploading the config during create is ideal, as then all child deployments are guaranteed to have access to the default app deployment config even if the default app has not yet started building. If the config is not uploaded, the child app will show as building until the config has been uploaded during the default app build. - `success` - The config was uploaded successfully, either when the deployment was created or during the build. - `waiting_on_build` - The config could not be uploaded during deployment create, will be attempted again during the build. - `no_config` - No config was found. Only set once the build has not found the config in any of the deployment's files. - `undefined` - Legacy deployments, or there was an error uploading the config during deployment create.
 								 * @type string | undefined
 								 */
 								mfeConfigUploadState?:
@@ -38427,7 +38519,7 @@ export type CreateDeploymentStatus200 =
 						 */
 						creator: {
 							/**
-							 * @description URL of the platform user\'s avatar image.
+							 * @description URL of the platform user's avatar image.
 							 * @type string | undefined
 							 */
 							avatar?: string | undefined;
@@ -38506,7 +38598,7 @@ export type CreateDeploymentStatus200 =
 					| {
 							canceledAt?: number | undefined;
 							/**
-							 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+							 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 							 * @type number | undefined
 							 */
 							dataReceivedAt?: number | undefined;
@@ -38551,7 +38643,7 @@ export type CreateDeploymentStatus200 =
 			readyState: CreateDeploymentStatus200ReadyStateEnumKey;
 			readyStateReason?: string | undefined;
 			/**
-			 * @description Substate of deployment when readyState is \'READY\' Tracks whether or not deployment has seen production traffic: - STAGED: never seen production traffic - ROLLING: in the process of having production traffic gradually transitioned. - PROMOTED: has seen production traffic
+			 * @description Substate of deployment when readyState is 'READY' Tracks whether or not deployment has seen production traffic: - STAGED: never seen production traffic - ROLLING: in the process of having production traffic gradually transitioned. - PROMOTED: has seen production traffic
 			 * @type string | undefined
 			 */
 			readySubstate?: CreateDeploymentStatus200ReadySubstateEnumKey | undefined;
@@ -38584,7 +38676,7 @@ export type CreateDeploymentStatus200 =
 											 */
 											cores?: number | undefined;
 											/**
-											 * @description The build machine tier included with the customer\'s plan. For most customers this is standard; enhanced entitlements include enhanced, while `none` means every build is billed at its purchase type.
+											 * @description The build machine tier included with the customer's plan. For most customers this is standard; enhanced entitlements include enhanced, while `none` means every build is billed at its purchase type.
 											 * @type string | undefined
 											 */
 											defaultPurchaseType?:
@@ -38622,7 +38714,7 @@ export type CreateDeploymentStatus200 =
 											 */
 											cores?: number | undefined;
 											/**
-											 * @description The build machine tier included with the customer\'s plan. For most customers this is standard; enhanced entitlements include enhanced, while `none` means every build is billed at its purchase type.
+											 * @description The build machine tier included with the customer's plan. For most customers this is standard; enhanced entitlements include enhanced, while `none` means every build is billed at its purchase type.
 											 * @type string | undefined
 											 */
 											defaultPurchaseType?:
@@ -38799,7 +38891,7 @@ export type CreateDeploymentStatus200 =
 								override?: (false | true) | undefined;
 								respectOriginCacheControl?: (false | true) | undefined;
 								/**
-								 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service\'s internal route table and the object is preserved as-is (not folded into `dest`).
+								 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service's internal route table and the object is preserved as-is (not folded into `dest`).
 								 * @type string | undefined
 								 */
 								source?: string | undefined;
@@ -38894,7 +38986,7 @@ export type CreateDeploymentStatus200 =
 										| {
 												buildCommand?: string | undefined;
 												/**
-												 * @description Buildpack runtime slug (e.g. \"ruby\").
+												 * @description Buildpack runtime slug (e.g. "ruby").
 												 * @type string | undefined
 												 */
 												buildpack?: string | undefined;
@@ -38918,7 +39010,7 @@ export type CreateDeploymentStatus200 =
 																		 */
 																		env: string;
 																		/**
-																		 * @description Generated value shape, must be `\"url\"`.
+																		 * @description Generated value shape, must be `"url"`.
 																		 * @type string
 																		 */
 																		format: "url";
@@ -38928,7 +39020,7 @@ export type CreateDeploymentStatus200 =
 																		 */
 																		service: string;
 																		/**
-																		 * @description If present, must be `\"service\"` for Service-to-Service HTTP bindings.
+																		 * @description If present, must be `"service"` for Service-to-Service HTTP bindings.
 																		 * @type string | undefined
 																		 */
 																		type?: "service" | undefined;
@@ -39016,22 +39108,22 @@ export type CreateDeploymentStatus200 =
 																					 */
 																					consumer: string;
 																					/**
-																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					initialDelaySeconds?: number | undefined;
 																					/**
-																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxConcurrency?: number | undefined;
 																					/**
-																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxDeliveries?: number | undefined;
 																					/**
-																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					retryAfterSeconds?: number | undefined;
@@ -39041,29 +39133,29 @@ export type CreateDeploymentStatus200 =
 																					 */
 																					topic: string;
 																					/**
-																					 * @description Event type - must be \"queue/v1beta\" (REQUIRED)
+																					 * @description Event type - must be "queue/v1beta" (REQUIRED)
 																					 * @type string
 																					 */
 																					type: "queue/v1beta";
 																			  }
 																			| {
 																					/**
-																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					initialDelaySeconds?: number | undefined;
 																					/**
-																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxConcurrency?: number | undefined;
 																					/**
-																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxDeliveries?: number | undefined;
 																					/**
-																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					retryAfterSeconds?: number | undefined;
@@ -39073,14 +39165,14 @@ export type CreateDeploymentStatus200 =
 																					 */
 																					topic: string;
 																					/**
-																					 * @description Event type - must be \"queue/v2beta\" (REQUIRED)
+																					 * @description Event type - must be "queue/v2beta" (REQUIRED)
 																					 * @type string
 																					 */
 																					type: "queue/v2beta";
 																			  }
 																			| {
 																					/**
-																					 * @description Event type - must be \"schedule/v1beta\" (REQUIRED)
+																					 * @description Event type - must be "schedule/v1beta" (REQUIRED)
 																					 * @type string
 																					 */
 																					type: "schedule/v1beta";
@@ -39237,7 +39329,7 @@ export type CreateDeploymentStatus200 =
 											 */
 											env: string;
 											/**
-											 * @description Generated value shape, must be `\"url\"`.
+											 * @description Generated value shape, must be `"url"`.
 											 * @type string
 											 */
 											format: "url";
@@ -39247,7 +39339,7 @@ export type CreateDeploymentStatus200 =
 											 */
 											service: string;
 											/**
-											 * @description If present, must be `\"service\"` for Service-to-Service HTTP bindings.
+											 * @description If present, must be `"service"` for Service-to-Service HTTP bindings.
 											 * @type string | undefined
 											 */
 											type?: "service" | undefined;
@@ -39263,7 +39355,7 @@ export type CreateDeploymentStatus200 =
 										| {
 												buildCommand?: string | undefined;
 												/**
-												 * @description Buildpack runtime slug (e.g. \"ruby\").
+												 * @description Buildpack runtime slug (e.g. "ruby").
 												 * @type string | undefined
 												 */
 												buildpack?: string | undefined;
@@ -39287,7 +39379,7 @@ export type CreateDeploymentStatus200 =
 																		 */
 																		env: string;
 																		/**
-																		 * @description Generated value shape, must be `\"url\"`.
+																		 * @description Generated value shape, must be `"url"`.
 																		 * @type string
 																		 */
 																		format: "url";
@@ -39297,7 +39389,7 @@ export type CreateDeploymentStatus200 =
 																		 */
 																		service: string;
 																		/**
-																		 * @description If present, must be `\"service\"` for Service-to-Service HTTP bindings.
+																		 * @description If present, must be `"service"` for Service-to-Service HTTP bindings.
 																		 * @type string | undefined
 																		 */
 																		type?: "service" | undefined;
@@ -39385,22 +39477,22 @@ export type CreateDeploymentStatus200 =
 																					 */
 																					consumer: string;
 																					/**
-																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					initialDelaySeconds?: number | undefined;
 																					/**
-																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxConcurrency?: number | undefined;
 																					/**
-																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxDeliveries?: number | undefined;
 																					/**
-																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					retryAfterSeconds?: number | undefined;
@@ -39410,29 +39502,29 @@ export type CreateDeploymentStatus200 =
 																					 */
 																					topic: string;
 																					/**
-																					 * @description Event type - must be \"queue/v1beta\" (REQUIRED)
+																					 * @description Event type - must be "queue/v1beta" (REQUIRED)
 																					 * @type string
 																					 */
 																					type: "queue/v1beta";
 																			  }
 																			| {
 																					/**
-																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					initialDelaySeconds?: number | undefined;
 																					/**
-																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxConcurrency?: number | undefined;
 																					/**
-																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					maxDeliveries?: number | undefined;
 																					/**
-																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																					 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																					 * @type number | undefined
 																					 */
 																					retryAfterSeconds?: number | undefined;
@@ -39442,14 +39534,14 @@ export type CreateDeploymentStatus200 =
 																					 */
 																					topic: string;
 																					/**
-																					 * @description Event type - must be \"queue/v2beta\" (REQUIRED)
+																					 * @description Event type - must be "queue/v2beta" (REQUIRED)
 																					 * @type string
 																					 */
 																					type: "queue/v2beta";
 																			  }
 																			| {
 																					/**
-																					 * @description Event type - must be \"schedule/v1beta\" (REQUIRED)
+																					 * @description Event type - must be "schedule/v1beta" (REQUIRED)
 																					 * @type string
 																					 */
 																					type: "schedule/v1beta";
@@ -39558,7 +39650,7 @@ export type CreateDeploymentStatus200 =
 								};
 								cleanUrls?: (false | true) | undefined;
 								/**
-								 * @description Command override for `runtime: \"container\"` services.
+								 * @description Command override for `runtime: "container"` services.
 								 * @type array | undefined
 								 */
 								command?: string[] | undefined;
@@ -39592,22 +39684,22 @@ export type CreateDeploymentStatus200 =
 																	 */
 																	consumer: string;
 																	/**
-																	 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	initialDelaySeconds?: number | undefined;
 																	/**
-																	 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	maxConcurrency?: number | undefined;
 																	/**
-																	 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	maxDeliveries?: number | undefined;
 																	/**
-																	 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	retryAfterSeconds?: number | undefined;
@@ -39617,29 +39709,29 @@ export type CreateDeploymentStatus200 =
 																	 */
 																	topic: string;
 																	/**
-																	 * @description Event type - must be \"queue/v1beta\" (REQUIRED)
+																	 * @description Event type - must be "queue/v1beta" (REQUIRED)
 																	 * @type string
 																	 */
 																	type: "queue/v1beta";
 															  }
 															| {
 																	/**
-																	 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	initialDelaySeconds?: number | undefined;
 																	/**
-																	 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	maxConcurrency?: number | undefined;
 																	/**
-																	 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	maxDeliveries?: number | undefined;
 																	/**
-																	 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																	 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																	 * @type number | undefined
 																	 */
 																	retryAfterSeconds?: number | undefined;
@@ -39649,14 +39741,14 @@ export type CreateDeploymentStatus200 =
 																	 */
 																	topic: string;
 																	/**
-																	 * @description Event type - must be \"queue/v2beta\" (REQUIRED)
+																	 * @description Event type - must be "queue/v2beta" (REQUIRED)
 																	 * @type string
 																	 */
 																	type: "queue/v2beta";
 															  }
 															| {
 																	/**
-																	 * @description Event type - must be \"schedule/v1beta\" (REQUIRED)
+																	 * @description Event type - must be "schedule/v1beta" (REQUIRED)
 																	 * @type string
 																	 */
 																	type: "schedule/v1beta";
@@ -40155,7 +40247,7 @@ export type CreateDeploymentStatus200 =
 													override?: (false | true) | undefined;
 													respectOriginCacheControl?: (false | true) | undefined;
 													/**
-													 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service\'s internal route table and the object is preserved as-is (not folded into `dest`).
+													 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service's internal route table and the object is preserved as-is (not folded into `dest`).
 													 * @type string | undefined
 													 */
 													source?: string | undefined;
@@ -40223,7 +40315,7 @@ export type CreateDeploymentStatus200 =
 			source?: CreateDeploymentStatus200SourceEnumKey | undefined;
 			status: CreateDeploymentStatus200StatusEnumKey;
 			/**
-			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
@@ -40261,7 +40353,7 @@ export type CreateDeploymentStatus200 =
 			 */
 			userAliases?: string[] | undefined;
 			/**
-			 * @description Since January 2025 User-configured deployment ID for skew protection with pre-built deployments. This is set when users configure a custom deploymentId in their next.config.js file. This allows Next.js to use skew protection even when deployments are pre-built outside of Vercel\'s build system.
+			 * @description Since January 2025 User-configured deployment ID for skew protection with pre-built deployments. This is set when users configure a custom deploymentId in their next.config.js file. This allows Next.js to use skew protection even when deployments are pre-built outside of Vercel's build system.
 			 * @example abc123
 			 * @type string | undefined
 			 */
@@ -40475,7 +40567,7 @@ export type CreateDeploymentBody = {
 	gitMetadata?:
 		| {
 				/**
-				 * @description The git repository\'s remote origin url
+				 * @description The git repository's remote origin url
 				 * @example https://github.com/vercel/next.js
 				 * @type string | undefined
 				 */
@@ -40746,7 +40838,7 @@ export type CreateDeploymentBody = {
 		  )
 		| undefined;
 	/**
-	 * @description An object containing the deployment\'s metadata. Multiple key-value pairs can be attached to a deployment. For deployments created with a Cursor Origin `gitSource`, Vercel automatically adds `cursorOriginDeployment`, `cursorOriginCommitSha`, `cursorOriginCommitRef`, `cursorOriginCommitMessage`, `cursorOriginCommitAuthorName`, `cursorOriginCommitAuthorEmail` when available, `cursorOriginOwner`, `cursorOriginRepo`, `cursorOriginRepoId`, and `cursorOriginPrId` for pull request deployments.
+	 * @description An object containing the deployment's metadata. Multiple key-value pairs can be attached to a deployment. For deployments created with a Cursor Origin `gitSource`, Vercel automatically adds `cursorOriginDeployment`, `cursorOriginCommitSha`, `cursorOriginCommitRef`, `cursorOriginCommitMessage`, `cursorOriginCommitAuthorName`, `cursorOriginCommitAuthorEmail` when available, `cursorOriginOwner`, `cursorOriginRepo`, `cursorOriginRepoId`, and `cursorOriginPrId` for pull request deployments.
 	 * @example {"foo":"bar"}
 	 * @type object | undefined
 	 */
@@ -40851,7 +40943,7 @@ export type CreateDeploymentBody = {
 	 */
 	target?: string | undefined;
 	/**
-	 * @description When `true` and `deploymentId` is passed in, the sha from the previous deployment\'s `gitSource` is removed forcing the latest commit to be used.
+	 * @description When `true` and `deploymentId` is passed in, the sha from the previous deployment's `gitSource` is removed forcing the latest commit to be used.
 	 * @type boolean | undefined
 	 */
 	withLatestCommit?: boolean | undefined;
@@ -41724,10 +41816,6 @@ export type CancelDeploymentStatus200 = {
 	canceledAt?: number | undefined;
 	checks?:
 		| {
-				/**
-				 * @description Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.
-				 * @type object
-				 */
 				"deployment-alias": {
 					completedAt?: number | undefined;
 					startedAt: number;
@@ -41868,7 +41956,7 @@ export type CancelDeploymentStatus200 = {
 						 */
 						currentDeploymentAliases?: string[] | undefined;
 						/**
-						 * @description Optional description of the environment\'s purpose
+						 * @description Optional description of the environment's purpose
 						 * @type string | undefined
 						 */
 						description?: string | undefined;
@@ -42025,22 +42113,22 @@ export type CancelDeploymentStatus200 = {
 										 */
 										consumer: string;
 										/**
-										 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+										 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 										 * @type number | undefined
 										 */
 										initialDelaySeconds?: number | undefined;
 										/**
-										 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+										 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 										 * @type number | undefined
 										 */
 										maxConcurrency?: number | undefined;
 										/**
-										 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+										 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 										 * @type number | undefined
 										 */
 										maxDeliveries?: number | undefined;
 										/**
-										 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+										 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 										 * @type number | undefined
 										 */
 										retryAfterSeconds?: number | undefined;
@@ -42050,29 +42138,29 @@ export type CancelDeploymentStatus200 = {
 										 */
 										topic: string;
 										/**
-										 * @description Event type - must be \"queue/v1beta\" (REQUIRED)
+										 * @description Event type - must be "queue/v1beta" (REQUIRED)
 										 * @type string
 										 */
 										type: "queue/v1beta";
 								  }
 								| {
 										/**
-										 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+										 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 										 * @type number | undefined
 										 */
 										initialDelaySeconds?: number | undefined;
 										/**
-										 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+										 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 										 * @type number | undefined
 										 */
 										maxConcurrency?: number | undefined;
 										/**
-										 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+										 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 										 * @type number | undefined
 										 */
 										maxDeliveries?: number | undefined;
 										/**
-										 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+										 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 										 * @type number | undefined
 										 */
 										retryAfterSeconds?: number | undefined;
@@ -42082,14 +42170,14 @@ export type CancelDeploymentStatus200 = {
 										 */
 										topic: string;
 										/**
-										 * @description Event type - must be \"queue/v2beta\" (REQUIRED)
+										 * @description Event type - must be "queue/v2beta" (REQUIRED)
 										 * @type string
 										 */
 										type: "queue/v2beta";
 								  }
 								| {
 										/**
-										 * @description Event type - must be \"schedule/v1beta\" (REQUIRED)
+										 * @description Event type - must be "schedule/v1beta" (REQUIRED)
 										 * @type string
 										 */
 										type: "schedule/v1beta";
@@ -42498,7 +42586,7 @@ export type CancelDeploymentStatus200 = {
 		| (
 				| {
 						/**
-						 * @description The project name of the default app of this deployment\'s microfrontends group.
+						 * @description The project name of the default app of this deployment's microfrontends group.
 						 * @type string
 						 */
 						defaultAppProjectName: string;
@@ -42516,7 +42604,7 @@ export type CancelDeploymentStatus200 = {
 				  }
 				| {
 						/**
-						 * @description The project name of the default app of this deployment\'s microfrontends group.
+						 * @description The project name of the default app of this deployment's microfrontends group.
 						 * @type string
 						 */
 						defaultAppProjectName: string;
@@ -42532,7 +42620,7 @@ export type CancelDeploymentStatus200 = {
 						groupIds: string[];
 						isDefaultApp: true;
 						/**
-						 * @description The result of the microfrontends config upload during deployment creation / build. Only set for default app deployments. The config upload is attempted during deployment create, and then again during the build. If the config is not in the root directory, or the deployment is prebuilt, the config cannot be uploaded during deployment create. The upload during deployment build finds the config even if it\'s not in the root directory, as it has access to all files. Uploading the config during create is ideal, as then all child deployments are guaranteed to have access to the default app deployment config even if the default app has not yet started building. If the config is not uploaded, the child app will show as building until the config has been uploaded during the default app build. - `success` - The config was uploaded successfully, either when the deployment was created or during the build. - `waiting_on_build` - The config could not be uploaded during deployment create, will be attempted again during the build. - `no_config` - No config was found. Only set once the build has not found the config in any of the deployment\'s files. - `undefined` - Legacy deployments, or there was an error uploading the config during deployment create.
+						 * @description The result of the microfrontends config upload during deployment creation / build. Only set for default app deployments. The config upload is attempted during deployment create, and then again during the build. If the config is not in the root directory, or the deployment is prebuilt, the config cannot be uploaded during deployment create. The upload during deployment build finds the config even if it's not in the root directory, as it has access to all files. Uploading the config during create is ideal, as then all child deployments are guaranteed to have access to the default app deployment config even if the default app has not yet started building. If the config is not uploaded, the child app will show as building until the config has been uploaded during the default app build. - `success` - The config was uploaded successfully, either when the deployment was created or during the build. - `waiting_on_build` - The config could not be uploaded during deployment create, will be attempted again during the build. - `no_config` - No config was found. Only set once the build has not found the config in any of the deployment's files. - `undefined` - Legacy deployments, or there was an error uploading the config during deployment create.
 						 * @type string | undefined
 						 */
 						mfeConfigUploadState?:
@@ -42596,7 +42684,7 @@ export type CancelDeploymentStatus200 = {
 				 */
 				creator: {
 					/**
-					 * @description URL of the platform user\'s avatar image.
+					 * @description URL of the platform user's avatar image.
 					 * @type string | undefined
 					 */
 					avatar?: string | undefined;
@@ -42675,7 +42763,7 @@ export type CancelDeploymentStatus200 = {
 			| {
 					canceledAt?: number | undefined;
 					/**
-					 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+					 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 					 * @type number | undefined
 					 */
 					dataReceivedAt?: number | undefined;
@@ -42720,7 +42808,7 @@ export type CancelDeploymentStatus200 = {
 	readyState: CancelDeploymentStatus200ReadyStateEnumKey;
 	readyStateReason?: string | undefined;
 	/**
-	 * @description Substate of deployment when readyState is \'READY\' Tracks whether or not deployment has seen production traffic: - STAGED: never seen production traffic - ROLLING: in the process of having production traffic gradually transitioned. - PROMOTED: has seen production traffic
+	 * @description Substate of deployment when readyState is 'READY' Tracks whether or not deployment has seen production traffic: - STAGED: never seen production traffic - ROLLING: in the process of having production traffic gradually transitioned. - PROMOTED: has seen production traffic
 	 * @type string | undefined
 	 */
 	readySubstate?: CancelDeploymentStatus200ReadySubstateEnumKey | undefined;
@@ -42753,7 +42841,7 @@ export type CancelDeploymentStatus200 = {
 									 */
 									cores?: number | undefined;
 									/**
-									 * @description The build machine tier included with the customer\'s plan. For most customers this is standard; enhanced entitlements include enhanced, while `none` means every build is billed at its purchase type.
+									 * @description The build machine tier included with the customer's plan. For most customers this is standard; enhanced entitlements include enhanced, while `none` means every build is billed at its purchase type.
 									 * @type string | undefined
 									 */
 									defaultPurchaseType?:
@@ -42791,7 +42879,7 @@ export type CancelDeploymentStatus200 = {
 									 */
 									cores?: number | undefined;
 									/**
-									 * @description The build machine tier included with the customer\'s plan. For most customers this is standard; enhanced entitlements include enhanced, while `none` means every build is billed at its purchase type.
+									 * @description The build machine tier included with the customer's plan. For most customers this is standard; enhanced entitlements include enhanced, while `none` means every build is billed at its purchase type.
 									 * @type string | undefined
 									 */
 									defaultPurchaseType?:
@@ -42968,7 +43056,7 @@ export type CancelDeploymentStatus200 = {
 						override?: (false | true) | undefined;
 						respectOriginCacheControl?: (false | true) | undefined;
 						/**
-						 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service\'s internal route table and the object is preserved as-is (not folded into `dest`).
+						 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service's internal route table and the object is preserved as-is (not folded into `dest`).
 						 * @type string | undefined
 						 */
 						source?: string | undefined;
@@ -43063,7 +43151,7 @@ export type CancelDeploymentStatus200 = {
 								| {
 										buildCommand?: string | undefined;
 										/**
-										 * @description Buildpack runtime slug (e.g. \"ruby\").
+										 * @description Buildpack runtime slug (e.g. "ruby").
 										 * @type string | undefined
 										 */
 										buildpack?: string | undefined;
@@ -43087,7 +43175,7 @@ export type CancelDeploymentStatus200 = {
 																 */
 																env: string;
 																/**
-																 * @description Generated value shape, must be `\"url\"`.
+																 * @description Generated value shape, must be `"url"`.
 																 * @type string
 																 */
 																format: "url";
@@ -43097,7 +43185,7 @@ export type CancelDeploymentStatus200 = {
 																 */
 																service: string;
 																/**
-																 * @description If present, must be `\"service\"` for Service-to-Service HTTP bindings.
+																 * @description If present, must be `"service"` for Service-to-Service HTTP bindings.
 																 * @type string | undefined
 																 */
 																type?: "service" | undefined;
@@ -43185,22 +43273,22 @@ export type CancelDeploymentStatus200 = {
 																			 */
 																			consumer: string;
 																			/**
-																			 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			initialDelaySeconds?: number | undefined;
 																			/**
-																			 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			maxConcurrency?: number | undefined;
 																			/**
-																			 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			maxDeliveries?: number | undefined;
 																			/**
-																			 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			retryAfterSeconds?: number | undefined;
@@ -43210,29 +43298,29 @@ export type CancelDeploymentStatus200 = {
 																			 */
 																			topic: string;
 																			/**
-																			 * @description Event type - must be \"queue/v1beta\" (REQUIRED)
+																			 * @description Event type - must be "queue/v1beta" (REQUIRED)
 																			 * @type string
 																			 */
 																			type: "queue/v1beta";
 																	  }
 																	| {
 																			/**
-																			 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			initialDelaySeconds?: number | undefined;
 																			/**
-																			 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			maxConcurrency?: number | undefined;
 																			/**
-																			 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			maxDeliveries?: number | undefined;
 																			/**
-																			 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			retryAfterSeconds?: number | undefined;
@@ -43242,14 +43330,14 @@ export type CancelDeploymentStatus200 = {
 																			 */
 																			topic: string;
 																			/**
-																			 * @description Event type - must be \"queue/v2beta\" (REQUIRED)
+																			 * @description Event type - must be "queue/v2beta" (REQUIRED)
 																			 * @type string
 																			 */
 																			type: "queue/v2beta";
 																	  }
 																	| {
 																			/**
-																			 * @description Event type - must be \"schedule/v1beta\" (REQUIRED)
+																			 * @description Event type - must be "schedule/v1beta" (REQUIRED)
 																			 * @type string
 																			 */
 																			type: "schedule/v1beta";
@@ -43406,7 +43494,7 @@ export type CancelDeploymentStatus200 = {
 									 */
 									env: string;
 									/**
-									 * @description Generated value shape, must be `\"url\"`.
+									 * @description Generated value shape, must be `"url"`.
 									 * @type string
 									 */
 									format: "url";
@@ -43416,7 +43504,7 @@ export type CancelDeploymentStatus200 = {
 									 */
 									service: string;
 									/**
-									 * @description If present, must be `\"service\"` for Service-to-Service HTTP bindings.
+									 * @description If present, must be `"service"` for Service-to-Service HTTP bindings.
 									 * @type string | undefined
 									 */
 									type?: "service" | undefined;
@@ -43432,7 +43520,7 @@ export type CancelDeploymentStatus200 = {
 								| {
 										buildCommand?: string | undefined;
 										/**
-										 * @description Buildpack runtime slug (e.g. \"ruby\").
+										 * @description Buildpack runtime slug (e.g. "ruby").
 										 * @type string | undefined
 										 */
 										buildpack?: string | undefined;
@@ -43456,7 +43544,7 @@ export type CancelDeploymentStatus200 = {
 																 */
 																env: string;
 																/**
-																 * @description Generated value shape, must be `\"url\"`.
+																 * @description Generated value shape, must be `"url"`.
 																 * @type string
 																 */
 																format: "url";
@@ -43466,7 +43554,7 @@ export type CancelDeploymentStatus200 = {
 																 */
 																service: string;
 																/**
-																 * @description If present, must be `\"service\"` for Service-to-Service HTTP bindings.
+																 * @description If present, must be `"service"` for Service-to-Service HTTP bindings.
 																 * @type string | undefined
 																 */
 																type?: "service" | undefined;
@@ -43554,22 +43642,22 @@ export type CancelDeploymentStatus200 = {
 																			 */
 																			consumer: string;
 																			/**
-																			 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			initialDelaySeconds?: number | undefined;
 																			/**
-																			 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			maxConcurrency?: number | undefined;
 																			/**
-																			 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			maxDeliveries?: number | undefined;
 																			/**
-																			 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			retryAfterSeconds?: number | undefined;
@@ -43579,29 +43667,29 @@ export type CancelDeploymentStatus200 = {
 																			 */
 																			topic: string;
 																			/**
-																			 * @description Event type - must be \"queue/v1beta\" (REQUIRED)
+																			 * @description Event type - must be "queue/v1beta" (REQUIRED)
 																			 * @type string
 																			 */
 																			type: "queue/v1beta";
 																	  }
 																	| {
 																			/**
-																			 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			initialDelaySeconds?: number | undefined;
 																			/**
-																			 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			maxConcurrency?: number | undefined;
 																			/**
-																			 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			maxDeliveries?: number | undefined;
 																			/**
-																			 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+																			 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 																			 * @type number | undefined
 																			 */
 																			retryAfterSeconds?: number | undefined;
@@ -43611,14 +43699,14 @@ export type CancelDeploymentStatus200 = {
 																			 */
 																			topic: string;
 																			/**
-																			 * @description Event type - must be \"queue/v2beta\" (REQUIRED)
+																			 * @description Event type - must be "queue/v2beta" (REQUIRED)
 																			 * @type string
 																			 */
 																			type: "queue/v2beta";
 																	  }
 																	| {
 																			/**
-																			 * @description Event type - must be \"schedule/v1beta\" (REQUIRED)
+																			 * @description Event type - must be "schedule/v1beta" (REQUIRED)
 																			 * @type string
 																			 */
 																			type: "schedule/v1beta";
@@ -43727,7 +43815,7 @@ export type CancelDeploymentStatus200 = {
 						};
 						cleanUrls?: (false | true) | undefined;
 						/**
-						 * @description Command override for `runtime: \"container\"` services.
+						 * @description Command override for `runtime: "container"` services.
 						 * @type array | undefined
 						 */
 						command?: string[] | undefined;
@@ -43761,22 +43849,22 @@ export type CancelDeploymentStatus200 = {
 															 */
 															consumer: string;
 															/**
-															 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+															 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 															 * @type number | undefined
 															 */
 															initialDelaySeconds?: number | undefined;
 															/**
-															 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+															 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 															 * @type number | undefined
 															 */
 															maxConcurrency?: number | undefined;
 															/**
-															 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+															 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 															 * @type number | undefined
 															 */
 															maxDeliveries?: number | undefined;
 															/**
-															 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+															 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 															 * @type number | undefined
 															 */
 															retryAfterSeconds?: number | undefined;
@@ -43786,29 +43874,29 @@ export type CancelDeploymentStatus200 = {
 															 */
 															topic: string;
 															/**
-															 * @description Event type - must be \"queue/v1beta\" (REQUIRED)
+															 * @description Event type - must be "queue/v1beta" (REQUIRED)
 															 * @type string
 															 */
 															type: "queue/v1beta";
 													  }
 													| {
 															/**
-															 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server\'s default configuration.
+															 * @description Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
 															 * @type number | undefined
 															 */
 															initialDelaySeconds?: number | undefined;
 															/**
-															 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+															 * @description Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 															 * @type number | undefined
 															 */
 															maxConcurrency?: number | undefined;
 															/**
-															 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server\'s default configuration.
+															 * @description Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
 															 * @type number | undefined
 															 */
 															maxDeliveries?: number | undefined;
 															/**
-															 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server\'s default configuration.
+															 * @description Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
 															 * @type number | undefined
 															 */
 															retryAfterSeconds?: number | undefined;
@@ -43818,14 +43906,14 @@ export type CancelDeploymentStatus200 = {
 															 */
 															topic: string;
 															/**
-															 * @description Event type - must be \"queue/v2beta\" (REQUIRED)
+															 * @description Event type - must be "queue/v2beta" (REQUIRED)
 															 * @type string
 															 */
 															type: "queue/v2beta";
 													  }
 													| {
 															/**
-															 * @description Event type - must be \"schedule/v1beta\" (REQUIRED)
+															 * @description Event type - must be "schedule/v1beta" (REQUIRED)
 															 * @type string
 															 */
 															type: "schedule/v1beta";
@@ -44324,7 +44412,7 @@ export type CancelDeploymentStatus200 = {
 											override?: (false | true) | undefined;
 											respectOriginCacheControl?: (false | true) | undefined;
 											/**
-											 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service\'s internal route table and the object is preserved as-is (not folded into `dest`).
+											 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service's internal route table and the object is preserved as-is (not folded into `dest`).
 											 * @type string | undefined
 											 */
 											source?: string | undefined;
@@ -44392,7 +44480,7 @@ export type CancelDeploymentStatus200 = {
 	source?: CancelDeploymentStatus200SourceEnumKey | undefined;
 	status: CancelDeploymentStatus200StatusEnumKey;
 	/**
-	 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+	 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 	 * @example null
 	 * @type string | undefined
 	 */
@@ -44430,7 +44518,7 @@ export type CancelDeploymentStatus200 = {
 	 */
 	userAliases?: string[] | undefined;
 	/**
-	 * @description Since January 2025 User-configured deployment ID for skew protection with pre-built deployments. This is set when users configure a custom deploymentId in their next.config.js file. This allows Next.js to use skew protection even when deployments are pre-built outside of Vercel\'s build system.
+	 * @description Since January 2025 User-configured deployment ID for skew protection with pre-built deployments. This is set when users configure a custom deploymentId in their next.config.js file. This allows Next.js to use skew protection even when deployments are pre-built outside of Vercel's build system.
 	 * @example abc123
 	 * @type string | undefined
 	 */
@@ -47418,7 +47506,7 @@ export type GetDomainConfigQuery = {
 	 */
 	projectIdOrName?: string | undefined;
 	/**
-	 * @description When true, the response will only include the nameservers assigned directly to the specified domain. When false and there are no nameservers assigned directly to the specified domain, the response will include the nameservers of the domain\'s parent zone.
+	 * @description When true, the response will only include the nameservers assigned directly to the specified domain. When false and there are no nameservers assigned directly to the specified domain, the response will include the nameservers of the domain's parent zone.
 	 * @type string | undefined
 	 */
 	strict?: GetDomainConfigStrictKey | undefined;
@@ -47461,7 +47549,7 @@ export type GetDomainConfigStatus200 = {
 	 */
 	acceptedChallenges: GetDomainConfigStatus200AcceptedChallengesEnumKey[];
 	/**
-	 * @description How we see the domain\'s configuration. - `CNAME`: Domain has a CNAME pointing to Vercel. - `A`: Domain\'s A record is resolving to Vercel. - `http`: Domain is resolving to Vercel but may be behind a Proxy. - `dns-01`: Domain is not resolving to Vercel but dns-01 challenge is enabled. - `null`: Domain is not resolving to Vercel.
+	 * @description How we see the domain's configuration. - `CNAME`: Domain has a CNAME pointing to Vercel. - `A`: Domain's A record is resolving to Vercel. - `http`: Domain is resolving to Vercel but may be behind a Proxy. - `dns-01`: Domain is not resolving to Vercel but dns-01 challenge is enabled. - `null`: Domain is not resolving to Vercel.
 	 * @type string
 	 */
 	configuredBy: GetDomainConfigStatus200ConfiguredByEnumKey | null;
@@ -47633,7 +47721,7 @@ export type ClaimDomainOwnershipStatus200 = {
 		 */
 		createdAt: number;
 		/**
-		 * @description An object containing information of the domain creator, including the user\'s id, username, and email.
+		 * @description An object containing information of the domain creator, including the user's id, username, and email.
 		 * @example {"id":"ZspSRT4ljIEEmMHgoDwKWDei","username":"vercel_user","email":"demo@example.com"}
 		 * @type object
 		 */
@@ -47929,7 +48017,7 @@ export type GetDomainStatus200 = {
 		 */
 		createdAt: number;
 		/**
-		 * @description An object containing information of the domain creator, including the user\'s id, username, and email.
+		 * @description An object containing information of the domain creator, including the user's id, username, and email.
 		 * @example {"id":"ZspSRT4ljIEEmMHgoDwKWDei","username":"vercel_user","email":"demo@example.com"}
 		 * @type object
 		 */
@@ -48114,7 +48202,7 @@ export type GetDomainsStatus200 = {
 		 */
 		createdAt: number;
 		/**
-		 * @description An object containing information of the domain creator, including the user\'s id, username, and email.
+		 * @description An object containing information of the domain creator, including the user's id, username, and email.
 		 * @example {"id":"ZspSRT4ljIEEmMHgoDwKWDei","username":"vercel_user","email":"demo@example.com"}
 		 * @type object
 		 */
@@ -48285,7 +48373,7 @@ export type CreateOrTransferDomainStatus200 = {
 		 */
 		createdAt: number;
 		/**
-		 * @description An object containing information of the domain creator, including the user\'s id, username, and email.
+		 * @description An object containing information of the domain creator, including the user's id, username, and email.
 		 * @example {"id":"ZspSRT4ljIEEmMHgoDwKWDei","username":"vercel_user","email":"demo@example.com"}
 		 * @type object
 		 */
@@ -48551,12 +48639,12 @@ export type PatchDomainBody =
 			 */
 			customNameservers?: string[] | undefined;
 			/**
-			 * @description Specifies whether this is a DNS zone that intends to use Vercel\'s nameservers.
+			 * @description Specifies whether this is a DNS zone that intends to use Vercel's nameservers.
 			 * @type boolean | undefined
 			 */
 			zone?: boolean | undefined;
 			/**
-			 * @description Encrypted Client Hello enrollment. \'auto\' leaves it to Vercel, \'disabled\' never enrolls and opts out of automatic enrollment.
+			 * @description Encrypted Client Hello enrollment. 'auto' leaves it to Vercel, 'disabled' never enrolls and opts out of automatic enrollment.
 			 * @type string | undefined
 			 */
 			echMode?: PatchDomainRequestEchModeEnumKey | undefined;
@@ -54905,7 +54993,7 @@ export type ListUserEventsQuery = {
 	 */
 	until?: string | undefined;
 	/**
-	 * @description Comma-delimited list of event \"types\" to filter the results by.
+	 * @description Comma-delimited list of event "types" to filter the results by.
 	 * @example login,team-member-join,domain-buy
 	 * @type string | undefined
 	 */
@@ -55574,7 +55662,7 @@ export type CreateFlagBody =
 				[key: string]: {
 					active: boolean;
 					/**
-					 * @description Allows linking this environment to another environment so this flag will be evaluated with the other flag\'s configuration
+					 * @description Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration
 					 * @type object | undefined
 					 */
 					reuse?:
@@ -55592,7 +55680,7 @@ export type CreateFlagBody =
 						  }
 						| undefined;
 					/**
-					 * @description Allows assigning targets to variants while bypassing the flag\'s rules
+					 * @description Allows assigning targets to variants while bypassing the flag's rules
 					 * @type object | undefined
 					 */
 					targets?:
@@ -56273,7 +56361,7 @@ export type UpdateFlagBody =
 						[key: string]: {
 							active: boolean;
 							/**
-							 * @description Allows linking this environment to another environment so this flag will be evaluated with the other flag\'s configuration
+							 * @description Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration
 							 * @type object | undefined
 							 */
 							reuse?:
@@ -56291,7 +56379,7 @@ export type UpdateFlagBody =
 								  }
 								| undefined;
 							/**
-							 * @description Allows assigning targets to variants while bypassing the flag\'s rules
+							 * @description Allows assigning targets to variants while bypassing the flag's rules
 							 * @type object | undefined
 							 */
 							targets?:
@@ -59683,7 +59771,7 @@ export type GetMemberStatus200 = {
 	globalUserId?: string | undefined;
 	id: string;
 	/**
-	 * @description \"The `ADMIN` role, by default, is provided to users capable of installing integrations, while the `USER` role can be granted to Vercel users with the Vercel `Billing` or Vercel `Viewer` role, which are considered to be Read-Only roles.\"
+	 * @description "The `ADMIN` role, by default, is provided to users capable of installing integrations, while the `USER` role can be granted to Vercel users with the Vercel `Billing` or Vercel `Viewer` role, which are considered to be Read-Only roles."
 	 * @type string
 	 */
 	role: GetMemberStatus200RoleEnumKey;
@@ -59947,7 +60035,7 @@ export type GetIntegrationResourcesStatus200 = {
 		 */
 		internalId: string;
 		/**
-		 * @description The configured metadata for the resource as defined by its product\'s Metadata Schema
+		 * @description The configured metadata for the resource as defined by its product's Metadata Schema
 		 * @type object | undefined
 		 */
 		metadata?:
@@ -59983,7 +60071,7 @@ export type GetIntegrationResourcesStatus200 = {
 		 */
 		productId: string;
 		/**
-		 * @description Any settings provided for the resource to support its product\'s protocols
+		 * @description Any settings provided for the resource to support its product's protocols
 		 * @type object | undefined
 		 */
 		protocolSettings?:
@@ -60132,7 +60220,7 @@ export type GetIntegrationResourceStatus200 = {
 	 */
 	internalId: string;
 	/**
-	 * @description The configured metadata for the resource as defined by its product\'s Metadata Schema
+	 * @description The configured metadata for the resource as defined by its product's Metadata Schema
 	 * @type object | undefined
 	 */
 	metadata?:
@@ -60163,7 +60251,7 @@ export type GetIntegrationResourceStatus200 = {
 	 */
 	productId: string;
 	/**
-	 * @description Any settings provided for the resource to support its product\'s protocols
+	 * @description Any settings provided for the resource to support its product's protocols
 	 * @type object | undefined
 	 */
 	protocolSettings?:
@@ -60412,7 +60500,7 @@ export type ImportResourceBody =
 			customClaims?:
 				| {
 						/**
-						 * @description Roles a deployment may request when minting a token. The selected role becomes the `sub` claim.
+						 * @description Roles a deployment may request when minting a token. The selected role is emitted as the `role` claim.
 						 * @type array | undefined
 						 */
 						roles?: string[] | undefined;
@@ -60667,7 +60755,7 @@ export type UpdateResourceBody =
 			customClaims?:
 				| {
 						/**
-						 * @description Roles a deployment may request when minting a token. The selected role becomes the `sub` claim.
+						 * @description Roles a deployment may request when minting a token. The selected role is emitted as the `role` claim.
 						 * @type array | undefined
 						 */
 						roles?: string[] | undefined;
@@ -60767,14 +60855,14 @@ export type SubmitBillingDataBody = {
 	 */
 	timestamp: string;
 	/**
-	 * @description End of Day, the UTC datetime for when the end of the billing/usage day is in UTC time. This tells us which day the usage data is for, and also allows for your \"end of day\" to be different from UTC 00:00:00. eod must be within the period dates, and cannot be older than 24h earlier from our server\'s current time.
+	 * @description End of Day, the UTC datetime for when the end of the billing/usage day is in UTC time. This tells us which day the usage data is for, and also allows for your "end of day" to be different from UTC 00:00:00. eod must be within the period dates, and cannot be older than 24h earlier from our server's current time.
 	 *
 	 * Format: `date-time`
 	 * @type string
 	 */
 	eod: string;
 	/**
-	 * @description Period for the billing cycle. The period end date cannot be older than 24 hours earlier than our current server\'s time.
+	 * @description Period for the billing cycle. The period end date cannot be older than 24 hours earlier than our current server's time.
 	 * @type object
 	 */
 	period: {
@@ -60797,24 +60885,24 @@ export type SubmitBillingDataBody = {
 	billing:
 		| {
 				/**
-				 * @description Partner\'s billing plan ID.
+				 * @description Partner's billing plan ID.
 				 * @type string
 				 */
 				billingPlanId: string;
 				/**
-				 * @description Partner\'s resource ID.
+				 * @description Partner's resource ID.
 				 * @type string | undefined
 				 */
 				resourceId?: string | undefined;
 				/**
-				 * @description Start and end are only needed if different from the period\'s start/end.
+				 * @description Start and end are only needed if different from the period's start/end.
 				 *
 				 * Format: `date-time`
 				 * @type string | undefined
 				 */
 				start?: string | undefined;
 				/**
-				 * @description Start and end are only needed if different from the period\'s start/end.
+				 * @description Start and end are only needed if different from the period's start/end.
 				 *
 				 * Format: `date-time`
 				 * @type string | undefined
@@ -60856,24 +60944,24 @@ export type SubmitBillingDataBody = {
 		| {
 				items: {
 					/**
-					 * @description Partner\'s billing plan ID.
+					 * @description Partner's billing plan ID.
 					 * @type string
 					 */
 					billingPlanId: string;
 					/**
-					 * @description Partner\'s resource ID.
+					 * @description Partner's resource ID.
 					 * @type string | undefined
 					 */
 					resourceId?: string | undefined;
 					/**
-					 * @description Start and end are only needed if different from the period\'s start/end.
+					 * @description Start and end are only needed if different from the period's start/end.
 					 *
 					 * Format: `date-time`
 					 * @type string | undefined
 					 */
 					start?: string | undefined;
 					/**
-					 * @description Start and end are only needed if different from the period\'s start/end.
+					 * @description Start and end are only needed if different from the period's start/end.
 					 *
 					 * Format: `date-time`
 					 * @type string | undefined
@@ -60915,24 +61003,24 @@ export type SubmitBillingDataBody = {
 				discounts?:
 					| {
 							/**
-							 * @description Partner\'s billing plan ID.
+							 * @description Partner's billing plan ID.
 							 * @type string
 							 */
 							billingPlanId: string;
 							/**
-							 * @description Partner\'s resource ID.
+							 * @description Partner's resource ID.
 							 * @type string | undefined
 							 */
 							resourceId?: string | undefined;
 							/**
-							 * @description Start and end are only needed if different from the period\'s start/end.
+							 * @description Start and end are only needed if different from the period's start/end.
 							 *
 							 * Format: `date-time`
 							 * @type string | undefined
 							 */
 							start?: string | undefined;
 							/**
-							 * @description Start and end are only needed if different from the period\'s start/end.
+							 * @description Start and end are only needed if different from the period's start/end.
 							 *
 							 * Format: `date-time`
 							 * @type string | undefined
@@ -60959,7 +61047,7 @@ export type SubmitBillingDataBody = {
 		  };
 	usage: {
 		/**
-		 * @description Partner\'s resource ID.
+		 * @description Partner's resource ID.
 		 * @type string | undefined
 		 */
 		resourceId?: string | undefined;
@@ -60969,12 +61057,17 @@ export type SubmitBillingDataBody = {
 		 */
 		name: string;
 		/**
-		 * @description \n              Type of the metric.\n              - total: measured total value, such as Database size\n              - interval: usage during the period, such as i/o or number of queries.\n              - rate: rate of usage, such as queries per second.\n
+		 * @description
+		 *               Type of the metric.
+		 *               - total: measured total value, such as Database size
+		 *               - interval: usage during the period, such as i/o or number of queries.
+		 *               - rate: rate of usage, such as queries per second.
+		 *
 		 * @type string
 		 */
 		type: SubmitBillingDataRequestUsageTypeEnumKey;
 		/**
-		 * @description Metric units. Example: \"GB\"
+		 * @description Metric units. Example: "GB"
 		 * @type string
 		 */
 		units: string;
@@ -61055,7 +61148,7 @@ export type SubmitInvoiceBody = {
 	 */
 	externalId?: string | undefined;
 	/**
-	 * @description Invoice date. Must be within the period\'s start and end.
+	 * @description Invoice date. Must be within the period's start and end.
 	 *
 	 * Format: `date-time`
 	 * @type string
@@ -61086,24 +61179,24 @@ export type SubmitInvoiceBody = {
 	};
 	items: {
 		/**
-		 * @description Partner\'s resource ID.
+		 * @description Partner's resource ID.
 		 * @type string | undefined
 		 */
 		resourceId?: string | undefined;
 		/**
-		 * @description Partner\'s billing plan ID.
+		 * @description Partner's billing plan ID.
 		 * @type string
 		 */
 		billingPlanId: string;
 		/**
-		 * @description Start and end are only needed if different from the period\'s start/end.
+		 * @description Start and end are only needed if different from the period's start/end.
 		 *
 		 * Format: `date-time`
 		 * @type string | undefined
 		 */
 		start?: string | undefined;
 		/**
-		 * @description Start and end are only needed if different from the period\'s start/end.
+		 * @description Start and end are only needed if different from the period's start/end.
 		 *
 		 * Format: `date-time`
 		 * @type string | undefined
@@ -61129,24 +61222,24 @@ export type SubmitInvoiceBody = {
 	discounts?:
 		| {
 				/**
-				 * @description Partner\'s resource ID.
+				 * @description Partner's resource ID.
 				 * @type string | undefined
 				 */
 				resourceId?: string | undefined;
 				/**
-				 * @description Partner\'s billing plan ID.
+				 * @description Partner's billing plan ID.
 				 * @type string
 				 */
 				billingPlanId: string;
 				/**
-				 * @description Start and end are only needed if different from the period\'s start/end.
+				 * @description Start and end are only needed if different from the period's start/end.
 				 *
 				 * Format: `date-time`
 				 * @type string | undefined
 				 */
 				start?: string | undefined;
 				/**
-				 * @description Start and end are only needed if different from the period\'s start/end.
+				 * @description Start and end are only needed if different from the period's start/end.
 				 *
 				 * Format: `date-time`
 				 * @type string | undefined
@@ -61276,7 +61369,7 @@ export type GetInvoiceStatus200 = {
 				 */
 				amount: string;
 				/**
-				 * @description Partner\'s billing plan ID.
+				 * @description Partner's billing plan ID.
 				 * @type string
 				 */
 				billingPlanId: string;
@@ -61286,7 +61379,7 @@ export type GetInvoiceStatus200 = {
 				 */
 				details?: string | undefined;
 				/**
-				 * @description Start and end are only needed if different from the period\'s start/end. ISO 8601 timestamp.
+				 * @description Start and end are only needed if different from the period's start/end. ISO 8601 timestamp.
 				 * @type string | undefined
 				 */
 				end?: string | undefined;
@@ -61296,12 +61389,12 @@ export type GetInvoiceStatus200 = {
 				 */
 				name: string;
 				/**
-				 * @description Partner\'s resource ID. If not specified, indicates installation-wide discount.
+				 * @description Partner's resource ID. If not specified, indicates installation-wide discount.
 				 * @type string | undefined
 				 */
 				resourceId?: string | undefined;
 				/**
-				 * @description Start and end are only needed if different from the period\'s start/end. ISO 8601 timestamp.
+				 * @description Start and end are only needed if different from the period's start/end. ISO 8601 timestamp.
 				 * @type string | undefined
 				 */
 				start?: string | undefined;
@@ -61333,7 +61426,7 @@ export type GetInvoiceStatus200 = {
 	 */
 	items: {
 		/**
-		 * @description Partner\'s billing plan ID.
+		 * @description Partner's billing plan ID.
 		 * @type string
 		 */
 		billingPlanId: string;
@@ -61343,7 +61436,7 @@ export type GetInvoiceStatus200 = {
 		 */
 		details?: string | undefined;
 		/**
-		 * @description Start and end are only needed if different from the period\'s start/end. ISO 8601 timestamp.
+		 * @description Start and end are only needed if different from the period's start/end. ISO 8601 timestamp.
 		 * @type string | undefined
 		 */
 		end?: string | undefined;
@@ -61363,12 +61456,12 @@ export type GetInvoiceStatus200 = {
 		 */
 		quantity: number;
 		/**
-		 * @description Partner\'s resource ID. If not specified, indicates installation-wide item.
+		 * @description Partner's resource ID. If not specified, indicates installation-wide item.
 		 * @type string | undefined
 		 */
 		resourceId?: string | undefined;
 		/**
-		 * @description Start and end are only needed if different from the period\'s start/end. ISO 8601 timestamp.
+		 * @description Start and end are only needed if different from the period's start/end. ISO 8601 timestamp.
 		 * @type string | undefined
 		 */
 		start?: string | undefined;
@@ -61378,7 +61471,7 @@ export type GetInvoiceStatus200 = {
 		 */
 		total: string;
 		/**
-		 * @description Units for item\'s quantity.
+		 * @description Units for item's quantity.
 		 * @type string
 		 */
 		units: string;
@@ -61389,7 +61482,7 @@ export type GetInvoiceStatus200 = {
 	 */
 	memo?: string | undefined;
 	/**
-	 * @description Amount still owed on the invoice, per the payment processor. Can be positive even for states \"refunded\" or \"refund_requested\", since a refund does not settle an unpaid remainder. A dollar-based decimal string. Absent when no payment data is available yet.
+	 * @description Amount still owed on the invoice, per the payment processor. Can be positive even for states "refunded" or "refund_requested", since a refund does not settle an unpaid remainder. A dollar-based decimal string. Absent when no payment data is available yet.
 	 * @type string | undefined
 	 */
 	outstandingTotal?: string | undefined;
@@ -61404,7 +61497,7 @@ export type GetInvoiceStatus200 = {
 	 */
 	paidTotal?: string | undefined;
 	/**
-	 * @description Requested refund amount not yet applied by the payment processor: \"refundTotal\" minus \"refundedTotal\". A dollar-based decimal string. Only present when a refund was requested or applied.
+	 * @description Requested refund amount not yet applied by the payment processor: "refundTotal" minus "refundedTotal". A dollar-based decimal string. Only present when a refund was requested or applied.
 	 * @type string | undefined
 	 */
 	pendingRefundTotal?: string | undefined;
@@ -61422,7 +61515,7 @@ export type GetInvoiceStatus200 = {
 	 */
 	refundedAt?: string | undefined;
 	/**
-	 * @description Total refund amount applied by the payment processor, on the same pre-tax basis as \"refundTotal\". Counts both money returned and debt cancelled on unpaid invoices. May be lower than \"refundTotal\", which is the requested amount. A dollar-based decimal string. Only present when a refund was requested or applied.
+	 * @description Total refund amount applied by the payment processor, on the same pre-tax basis as "refundTotal". Counts both money returned and debt cancelled on unpaid invoices. May be lower than "refundTotal", which is the requested amount. A dollar-based decimal string. Only present when a refund was requested or applied.
 	 * @type string | undefined
 	 */
 	refundedTotal?: string | undefined;
@@ -61437,7 +61530,7 @@ export type GetInvoiceStatus200 = {
 	 */
 	refundTotal?: string | undefined;
 	/**
-	 * @description Invoice state. Reports the payment state of the invoice; refund progress is reported separately via \"refundedTotal\" and \"pendingRefundTotal\". The states \"refunded\" and \"refund_requested\" only appear when the payment state cannot be determined.
+	 * @description Invoice state. Reports the payment state of the invoice; refund progress is reported separately via "refundedTotal" and "pendingRefundTotal". The states "refunded" and "refund_requested" only appear when the payment state cannot be determined.
 	 * @type string
 	 */
 	state: GetInvoiceStatus200StateEnumKey;
@@ -61575,17 +61668,17 @@ export type SubmitPrepaymentBalancesBody =
 			timestamp: string;
 			balances: {
 				/**
-				 * @description Partner\'s resource ID, exclude if credits are tied to the installation and not an individual resource.
+				 * @description Partner's resource ID, exclude if credits are tied to the installation and not an individual resource.
 				 * @type string | undefined
 				 */
 				resourceId?: string | undefined;
 				/**
-				 * @description A human-readable description of the credits the user currently has, e.g. \"2,000 Tokens\"
+				 * @description A human-readable description of the credits the user currently has, e.g. "2,000 Tokens"
 				 * @type string | undefined
 				 */
 				credit?: string | undefined;
 				/**
-				 * @description The name of the credits, for display purposes, e.g. \"Tokens\"
+				 * @description The name of the credits, for display purposes, e.g. "Tokens"
 				 * @type string | undefined
 				 */
 				nameLabel?: string | undefined;
@@ -61939,7 +62032,7 @@ export type GetConfigurationsStatus200 =
 			 */
 			deleteRequestedAt?: (number | null) | undefined;
 			/**
-			 * @description A timestamp that tells you when the configuration was disabled. Note: Configurations can be disabled when the associated user loses access to a team. They do not function during this time until the configuration is \'transferred\', meaning the associated user is changed to one with access to the team.
+			 * @description A timestamp that tells you when the configuration was disabled. Note: Configurations can be disabled when the associated user loses access to a team. They do not function during this time until the configuration is 'transferred', meaning the associated user is changed to one with access to the team.
 			 * @example 1558531915505
 			 * @type number | undefined
 			 */
@@ -61957,7 +62050,7 @@ export type GetConfigurationsStatus200 =
 			 */
 			id?: string | undefined;
 			/**
-			 * @description Defines the installation type. - \'external\' integrations are installed via the existing integrations flow - \'marketplace\' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume \'external\'
+			 * @description Defines the installation type. - 'external' integrations are installed via the existing integrations flow - 'marketplace' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume 'external'
 			 * @type string | undefined
 			 */
 			installationType?: GetConfigurationsStatus200InstallationTypeEnumKey | undefined;
@@ -61998,7 +62091,7 @@ export type GetConfigurationsStatus200 =
 			 */
 			source?: GetConfigurationsStatus200SourceEnumKey | undefined;
 			/**
-			 * @description The configuration status. Optional. If not defined, assume \'ready\'.
+			 * @description The configuration status. Optional. If not defined, assume 'ready'.
 			 * @type string | undefined
 			 */
 			status?: GetConfigurationsStatus200StatusEnumKey | undefined;
@@ -62058,7 +62151,7 @@ export type GetConfigurationsStatus200 =
 			 */
 			deleteRequestedAt?: (number | null) | undefined;
 			/**
-			 * @description A timestamp that tells you when the configuration was disabled. Note: Configurations can be disabled when the associated user loses access to a team. They do not function during this time until the configuration is \'transferred\', meaning the associated user is changed to one with access to the team.
+			 * @description A timestamp that tells you when the configuration was disabled. Note: Configurations can be disabled when the associated user loses access to a team. They do not function during this time until the configuration is 'transferred', meaning the associated user is changed to one with access to the team.
 			 * @example 1558531915505
 			 * @type number | undefined
 			 */
@@ -62076,7 +62169,7 @@ export type GetConfigurationsStatus200 =
 			 */
 			id: string;
 			/**
-			 * @description Defines the installation type. - \'external\' integrations are installed via the existing integrations flow - \'marketplace\' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume \'external\'
+			 * @description Defines the installation type. - 'external' integrations are installed via the existing integrations flow - 'marketplace' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume 'external'
 			 * @type string | undefined
 			 */
 			installationType?: GetConfigurationsStatus200InstallationTypeEnumKey | undefined;
@@ -62125,7 +62218,7 @@ export type GetConfigurationsStatus200 =
 			 */
 			source?: GetConfigurationsStatus200SourceEnumKey | undefined;
 			/**
-			 * @description The configuration status. Optional. If not defined, assume \'ready\'.
+			 * @description The configuration status. Optional. If not defined, assume 'ready'.
 			 * @type string | undefined
 			 */
 			status?: GetConfigurationsStatus200StatusEnumKey | undefined;
@@ -62325,7 +62418,7 @@ export type GetConfigurationStatus200 =
 			 */
 			deleteRequestedAt?: (number | null) | undefined;
 			/**
-			 * @description A timestamp that tells you when the configuration was disabled. Note: Configurations can be disabled when the associated user loses access to a team. They do not function during this time until the configuration is \'transferred\', meaning the associated user is changed to one with access to the team.
+			 * @description A timestamp that tells you when the configuration was disabled. Note: Configurations can be disabled when the associated user loses access to a team. They do not function during this time until the configuration is 'transferred', meaning the associated user is changed to one with access to the team.
 			 * @example 1558531915505
 			 * @type number | undefined
 			 */
@@ -62343,7 +62436,7 @@ export type GetConfigurationStatus200 =
 			 */
 			id: string;
 			/**
-			 * @description Defines the installation type. - \'external\' integrations are installed via the existing integrations flow - \'marketplace\' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume \'external\'
+			 * @description Defines the installation type. - 'external' integrations are installed via the existing integrations flow - 'marketplace' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume 'external'
 			 * @type string | undefined
 			 */
 			installationType?: GetConfigurationStatus200InstallationTypeEnumKey | undefined;
@@ -62396,7 +62489,7 @@ export type GetConfigurationStatus200 =
 			 */
 			source?: GetConfigurationStatus200SourceEnumKey | undefined;
 			/**
-			 * @description The configuration status. Optional. If not defined, assume \'ready\'.
+			 * @description The configuration status. Optional. If not defined, assume 'ready'.
 			 * @type string | undefined
 			 */
 			status?: GetConfigurationStatus200StatusEnumKey | undefined;
@@ -62507,7 +62600,7 @@ export type GetConfigurationStatus200 =
 			 */
 			deleteRequestedAt?: (number | null) | undefined;
 			/**
-			 * @description A timestamp that tells you when the configuration was disabled. Note: Configurations can be disabled when the associated user loses access to a team. They do not function during this time until the configuration is \'transferred\', meaning the associated user is changed to one with access to the team.
+			 * @description A timestamp that tells you when the configuration was disabled. Note: Configurations can be disabled when the associated user loses access to a team. They do not function during this time until the configuration is 'transferred', meaning the associated user is changed to one with access to the team.
 			 * @example 1558531915505
 			 * @type number | undefined
 			 */
@@ -62525,7 +62618,7 @@ export type GetConfigurationStatus200 =
 			 */
 			id: string;
 			/**
-			 * @description Defines the installation type. - \'external\' integrations are installed via the existing integrations flow - \'marketplace\' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume \'external\'
+			 * @description Defines the installation type. - 'external' integrations are installed via the existing integrations flow - 'marketplace' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume 'external'
 			 * @type string | undefined
 			 */
 			installationType?: GetConfigurationStatus200InstallationTypeEnumKey | undefined;
@@ -62566,7 +62659,7 @@ export type GetConfigurationStatus200 =
 			 */
 			source?: GetConfigurationStatus200SourceEnumKey | undefined;
 			/**
-			 * @description The configuration status. Optional. If not defined, assume \'ready\'.
+			 * @description The configuration status. Optional. If not defined, assume 'ready'.
 			 * @type string | undefined
 			 */
 			status?: GetConfigurationStatus200StatusEnumKey | undefined;
@@ -62626,7 +62719,7 @@ export type GetConfigurationStatus200 =
 			 */
 			deleteRequestedAt?: (number | null) | undefined;
 			/**
-			 * @description A timestamp that tells you when the configuration was disabled. Note: Configurations can be disabled when the associated user loses access to a team. They do not function during this time until the configuration is \'transferred\', meaning the associated user is changed to one with access to the team.
+			 * @description A timestamp that tells you when the configuration was disabled. Note: Configurations can be disabled when the associated user loses access to a team. They do not function during this time until the configuration is 'transferred', meaning the associated user is changed to one with access to the team.
 			 * @example 1558531915505
 			 * @type number | undefined
 			 */
@@ -62644,7 +62737,7 @@ export type GetConfigurationStatus200 =
 			 */
 			id?: string | undefined;
 			/**
-			 * @description Defines the installation type. - \'external\' integrations are installed via the existing integrations flow - \'marketplace\' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume \'external\'
+			 * @description Defines the installation type. - 'external' integrations are installed via the existing integrations flow - 'marketplace' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume 'external'
 			 * @type string | undefined
 			 */
 			installationType?: GetConfigurationStatus200InstallationTypeEnumKey | undefined;
@@ -62685,7 +62778,7 @@ export type GetConfigurationStatus200 =
 			 */
 			source?: GetConfigurationStatus200SourceEnumKey | undefined;
 			/**
-			 * @description The configuration status. Optional. If not defined, assume \'ready\'.
+			 * @description The configuration status. Optional. If not defined, assume 'ready'.
 			 * @type string | undefined
 			 */
 			status?: GetConfigurationStatus200StatusEnumKey | undefined;
@@ -64590,7 +64683,7 @@ export type DeleteIntegrationLogDrainResponse = DeleteIntegrationLogDrainStatus2
 
 export type CreateApiKeysStatus200 = {
 	/**
-	 * @description The API key\'s actual value. This value is only provided in this response, and can never be retrieved again in the future. Be sure to save it somewhere safe!
+	 * @description The API key's actual value. This value is only provided in this response, and can never be retrieved again in the future. Be sure to save it somewhere safe!
 	 * @example uRKJSTt0L4RaSkiMj41QTkxM
 	 * @type string
 	 */
@@ -64662,7 +64755,7 @@ export type CreateApiKeysRequestAiGatewayQuotaAlertThresholdsEnumKey =
 export type CreateApiKeysBody =
 	| {
 			/**
-			 * @description The API key\'s purpose, which restricts how it can be used.
+			 * @description The API key's purpose, which restricts how it can be used.
 			 * @type string
 			 */
 			purpose: string;
@@ -64679,7 +64772,7 @@ export type CreateApiKeysBody =
 			 */
 			name?: string | undefined;
 			/**
-			 * @description The API key\'s expiration, expressed as a UNIX timestamp in milliseconds.
+			 * @description The API key's expiration, expressed as a UNIX timestamp in milliseconds.
 			 * @type number | undefined
 			 */
 			expiresAt?: number | undefined;
@@ -64717,7 +64810,7 @@ export type CreateApiKeysBody =
 				  }
 				| undefined;
 			/**
-			 * @description Optional generic metadata for the API key. The accepted shape depends on the key\'s `purpose` and is validated on creation; for `ai-gateway` keys this accepts `environment`.
+			 * @description Optional generic metadata for the API key. The accepted shape depends on the key's `purpose` and is validated on creation; for `ai-gateway` keys this accepts `environment`.
 			 * @type object | undefined
 			 */
 			metadata?:
@@ -64902,7 +64995,7 @@ export type SignKmsMessageStatus200 = {
 	 */
 	algorithm: string;
 	/**
-	 * @description SHA-256 fingerprint of the signing key\'s public key (`SHA256:<base64>`).
+	 * @description SHA-256 fingerprint of the signing key's public key (`SHA256:<base64>`).
 	 * @type string
 	 */
 	fingerprint: string;
@@ -64976,7 +65069,7 @@ export type SignKmsTokenStatus200 = {
 	 */
 	algorithm: string;
 	/**
-	 * @description SHA-256 fingerprint of the signing key\'s public key (`SHA256:<base64>`).
+	 * @description SHA-256 fingerprint of the signing key's public key (`SHA256:<base64>`).
 	 * @type string
 	 */
 	fingerprint: string;
@@ -64986,7 +65079,7 @@ export type SignKmsTokenStatus200 = {
 	 */
 	keyId: string;
 	/**
-	 * @description Compact JWT signed by the issuer\'s active signing key.
+	 * @description Compact JWT signed by the issuer's active signing key.
 	 * @type string
 	 */
 	token: string;
@@ -65123,7 +65216,7 @@ export type ListKmsIssuersStatus200 = {
 			| {
 					createdAt: string;
 					/**
-					 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token\'s `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
+					 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token's `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
 					 * @type array
 					 */
 					environments: string[];
@@ -65164,7 +65257,7 @@ export type ListKmsIssuersStatus200 = {
 			certificatePem?: string | undefined;
 			createdAt: string;
 			/**
-			 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer\'s keys; omitted for generated keys.
+			 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer's keys; omitted for generated keys.
 			 * @type string | undefined
 			 */
 			importKeyId?: string | undefined;
@@ -65306,7 +65399,7 @@ export type CreateKmsIssuerStatus201 = {
 		| {
 				createdAt: string;
 				/**
-				 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token\'s `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
+				 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token's `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
 				 * @type array
 				 */
 				environments: string[];
@@ -65347,7 +65440,7 @@ export type CreateKmsIssuerStatus201 = {
 		certificatePem?: string | undefined;
 		createdAt: string;
 		/**
-		 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer\'s keys; omitted for generated keys.
+		 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer's keys; omitted for generated keys.
 		 * @type string | undefined
 		 */
 		importKeyId?: string | undefined;
@@ -65490,7 +65583,7 @@ export type CreateKmsIssuerBody =
 			 */
 			importKey?: string | undefined;
 			/**
-			 * @description The key id to use as the imported key\'s JWT/JWKS `kid`. Only allowed when `importKey` is provided. Not required to be unique; the addressable key id is the server-minted `keyId` returned in the response.
+			 * @description The key id to use as the imported key's JWT/JWKS `kid`. Only allowed when `importKey` is provided. Not required to be unique; the addressable key id is the server-minted `keyId` returned in the response.
 			 * @maxLength 128
 			 * @pattern ^[A-Za-z0-9._-]+$
 			 * @type string | undefined
@@ -65567,7 +65660,7 @@ export type CreateKmsSigningKeyStatus200 = {
 	certificatePem?: string | undefined;
 	createdAt: string;
 	/**
-	 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer\'s keys; omitted for generated keys.
+	 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer's keys; omitted for generated keys.
 	 * @type string | undefined
 	 */
 	importKeyId?: string | undefined;
@@ -65650,7 +65743,7 @@ export type CreateKmsSigningKeyBody =
 			 */
 			importKey?: string | undefined;
 			/**
-			 * @description The key id to use as the imported key\'s JWT/JWKS `kid`. Only allowed when `importKey` is provided. Not required to be unique; the addressable key id is the server-minted `keyId` returned in the response.
+			 * @description The key id to use as the imported key's JWT/JWKS `kid`. Only allowed when `importKey` is provided. Not required to be unique; the addressable key id is the server-minted `keyId` returned in the response.
 			 * @maxLength 128
 			 * @pattern ^[A-Za-z0-9._-]+$
 			 * @type string | undefined
@@ -65733,7 +65826,7 @@ export type ActivateKmsSigningKeyStatus200 = {
 	certificatePem?: string | undefined;
 	createdAt: string;
 	/**
-	 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer\'s keys; omitted for generated keys.
+	 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer's keys; omitted for generated keys.
 	 * @type string | undefined
 	 */
 	importKeyId?: string | undefined;
@@ -65895,7 +65988,7 @@ export type RevokeKmsSigningKeyStatus200 = {
 		| {
 				createdAt: string;
 				/**
-				 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token\'s `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
+				 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token's `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
 				 * @type array
 				 */
 				environments: string[];
@@ -65936,7 +66029,7 @@ export type RevokeKmsSigningKeyStatus200 = {
 		certificatePem?: string | undefined;
 		createdAt: string;
 		/**
-		 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer\'s keys; omitted for generated keys.
+		 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer's keys; omitted for generated keys.
 		 * @type string | undefined
 		 */
 		importKeyId?: string | undefined;
@@ -66084,7 +66177,7 @@ export type GetKmsIssuerStatus200 = {
 		| {
 				createdAt: string;
 				/**
-				 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token\'s `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
+				 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token's `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
 				 * @type array
 				 */
 				environments: string[];
@@ -66125,7 +66218,7 @@ export type GetKmsIssuerStatus200 = {
 		certificatePem?: string | undefined;
 		createdAt: string;
 		/**
-		 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer\'s keys; omitted for generated keys.
+		 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer's keys; omitted for generated keys.
 		 * @type string | undefined
 		 */
 		importKeyId?: string | undefined;
@@ -66270,7 +66363,7 @@ export type UpdateKmsIssuerStatus200 = {
 		| {
 				createdAt: string;
 				/**
-				 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token\'s `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
+				 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token's `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
 				 * @type array
 				 */
 				environments: string[];
@@ -66311,7 +66404,7 @@ export type UpdateKmsIssuerStatus200 = {
 		certificatePem?: string | undefined;
 		createdAt: string;
 		/**
-		 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer\'s keys; omitted for generated keys.
+		 * @description The caller-supplied key id (imported keys only), used as the JWT/JWKS `kid`. Not unique across an issuer's keys; omitted for generated keys.
 		 * @type string | undefined
 		 */
 		importKeyId?: string | undefined;
@@ -66486,7 +66579,7 @@ export type CreateKmsIssuerPolicyStatus201 =
 	| {
 			createdAt: string;
 			/**
-			 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token\'s `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
+			 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token's `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
 			 * @type array
 			 */
 			environments: string[];
@@ -66605,7 +66698,7 @@ export type UpdateKmsIssuerPolicyStatus200 =
 	| {
 			createdAt: string;
 			/**
-			 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token\'s `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
+			 * @description Environments whose OIDC tokens this grant authorizes. Each entry is either a system environment slug (`production`, `preview`, `development`) or a custom environment ID (prefixed `env_`). Custom environments are matched against the token's `custom_environment_id` claim (the stable ID); system environments against its `environment` claim.
 			 * @type array
 			 */
 			environments: string[];
@@ -68454,7 +68547,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 						 */
 						schedule: string;
 						/**
-						 * @description The origin of this definition. \'api\' means created via the API. Undefined means it originated from a deployment (vercel.json).
+						 * @description The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
 						 * @type string | undefined
 						 */
 						source?: "api" | undefined;
@@ -68508,7 +68601,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 */
 					currentDeploymentAliases?: string[] | undefined;
 					/**
-					 * @description Optional description of the environment\'s purpose
+					 * @description Optional description of the environment's purpose
 					 * @type string | undefined
 					 */
 					description?: string | undefined;
@@ -68670,7 +68763,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 			expirationDaysProduction?: number | undefined;
 		};
 		/**
-		 * @description Project shape. `null` on a rule list clears the project\'s override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don\'t share a type by accident.
+		 * @description Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
 		 * @type object | undefined
 		 */
 		deploymentPolicy?:
@@ -69045,7 +69138,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 			| ({
 					fromDeploymentId: string | null;
 					/**
-					 * @description If rolling back from a rolling release, fromDeploymentId captures the \"base\" of that rolling release, and fromRollingReleaseId captures the \"target\" of that rolling release.
+					 * @description If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
 					 * @type string | undefined
 					 */
 					fromRollingReleaseId?: string | undefined;
@@ -71130,13 +71223,13 @@ export type GetMicrofrontendsInGroupStatus200 = {
 									 */
 									excludeStatusCodes?: number[] | undefined;
 									/**
-									 * @description Seconds of ingest lag to allow for: the query\'s upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+									 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
 									 * @example 30
 									 * @type number | undefined
 									 */
 									ingestWatermarkSeconds?: number | undefined;
 									/**
-									 * @description A run fails only when the canary\'s error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
+									 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
 									 * @example 0.05
 									 * @type number | undefined
 									 */
@@ -71153,7 +71246,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 								 */
 								dryRun: false | true;
 								/**
-								 * @description Whether automated gating is enabled for this project\'s rollouts.
+								 * @description Whether automated gating is enabled for this project's rollouts.
 								 * @type boolean
 								 */
 								enabled: false | true;
@@ -71312,7 +71405,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 */
 					framework?: GetMicrofrontendsInGroupStatus200ProjectsServicesFrameworkEnumKey | undefined;
 					/**
-					 * @description Generic runtime, e.g. \'node\' | \'python\' | \'go\' | \'ruby\' | \'rust\' (Service.runtime). Omitted for static builds.
+					 * @description Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
 					 * @type string | undefined
 					 */
 					runtime?: string | undefined;
@@ -71339,7 +71432,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 			| {
 					canceledAt?: number | undefined;
 					/**
-					 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+					 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 					 * @type number | undefined
 					 */
 					dataReceivedAt?: number | undefined;
@@ -71477,7 +71570,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					samplingRules?:
 						| {
 								/**
-								 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain\'s delivery type when project tracing is computed; absent on configs persisted before this field existed.
+								 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
 								 * @type string | undefined
 								 */
 								destination?:
@@ -71517,7 +71610,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 		trustedSources?:
 			| ({
 					/**
-					 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run\'s repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
+					 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
 					 * @type boolean | undefined
 					 */
 					enableVercelCiSameRepository?: (false | true) | undefined;
@@ -71613,7 +71706,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 */
 					exceededAllowanceUntil?: number | undefined;
 					/**
-					 * @description Billing mode. Always \'flat\' for flat-rate projects.
+					 * @description Billing mode. Always 'flat' for flat-rate projects.
 					 * @type string
 					 */
 					kind: "flat";
@@ -71634,7 +71727,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 		vercelFlags?:
 			| {
 					/**
-					 * @description When Flags were enabled for the project, taken from the Flags settings row\'s `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
+					 * @description When Flags were enabled for the project, taken from the Flags settings row's `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
 					 * @type number | undefined
 					 */
 					enabledAt?: number | undefined;
@@ -71732,7 +71825,7 @@ export type GetMicrofrontendsConfigStatus200 = {
 							fallback: string;
 							local?: (string | number) | undefined;
 							/**
-							 * @description The task to run when starting the development server. Should reference a script in the package.json of the application. The default value is \"dev\". See https://vercel.com/docs/microfrontends/local-development.
+							 * @description The task to run when starting the development server. Should reference a script in the package.json of the application. The default value is "dev". See https://vercel.com/docs/microfrontends/local-development.
 							 * @type string | undefined
 							 */
 							task?: string | undefined;
@@ -71763,7 +71856,7 @@ export type GetMicrofrontendsConfigStatus200 = {
 									fallback?: string | undefined;
 									local?: (string | number) | undefined;
 									/**
-									 * @description The task to run when starting the development server. Should reference a script in the package.json of the application. The default value is \"dev\". See https://vercel.com/docs/microfrontends/local-development.
+									 * @description The task to run when starting the development server. Should reference a script in the package.json of the application. The default value is "dev". See https://vercel.com/docs/microfrontends/local-development.
 									 * @type string | undefined
 									 */
 									task?: string | undefined;
@@ -71907,7 +72000,7 @@ export type GetMicrofrontendsConfigForProjectStatus200 = {
 							fallback: string;
 							local?: (string | number) | undefined;
 							/**
-							 * @description The task to run when starting the development server. Should reference a script in the package.json of the application. The default value is \"dev\". See https://vercel.com/docs/microfrontends/local-development.
+							 * @description The task to run when starting the development server. Should reference a script in the package.json of the application. The default value is "dev". See https://vercel.com/docs/microfrontends/local-development.
 							 * @type string | undefined
 							 */
 							task?: string | undefined;
@@ -71938,7 +72031,7 @@ export type GetMicrofrontendsConfigForProjectStatus200 = {
 									fallback?: string | undefined;
 									local?: (string | number) | undefined;
 									/**
-									 * @description The task to run when starting the development server. Should reference a script in the package.json of the application. The default value is \"dev\". See https://vercel.com/docs/microfrontends/local-development.
+									 * @description The task to run when starting the development server. Should reference a script in the package.json of the application. The default value is "dev". See https://vercel.com/docs/microfrontends/local-development.
 									 * @type string | undefined
 									 */
 									task?: string | undefined;
@@ -72316,12 +72409,12 @@ export type CreateObservabilityQueryBody =
 			 */
 			aggregation?: string | undefined;
 			/**
-			 * @description Dimensions to group results by. JSON dimensions support nested refs, for example event_data/checkout_step. Nested keys containing characters that OData cannot parse as an identifier, such as \'-\', spaces, quotes, or \'/\', must be wrapped in single quotes (escape embedded single quotes by doubling them), for example flags/\'enable-comments-view\' or event_data/\'some property\'\'s/value\'.
+			 * @description Dimensions to group results by. JSON dimensions support nested refs, for example event_data/checkout_step. Nested keys containing characters that OData cannot parse as an identifier, such as '-', spaces, quotes, or '/', must be wrapped in single quotes (escape embedded single quotes by doubling them), for example flags/'enable-comments-view' or event_data/'some property''s/value'.
 			 * @type array | undefined
 			 */
 			groupBy?: string[] | undefined;
 			/**
-			 * @description Filter to apply to the query. JSON dimensions support nested refs, for example event_data/checkout_step eq \'payment\'. Nested keys containing characters that OData cannot parse as an identifier, such as \'-\', spaces, quotes, or \'/\', must be wrapped in single quotes (escape embedded single quotes by doubling them), for example flags/\'enable-comments-view\' eq true or event_data/\'some property\'\'s/value\' eq true.
+			 * @description Filter to apply to the query. JSON dimensions support nested refs, for example event_data/checkout_step eq 'payment'. Nested keys containing characters that OData cannot parse as an identifier, such as '-', spaces, quotes, or '/', must be wrapped in single quotes (escape embedded single quotes by doubling them), for example flags/'enable-comments-view' eq true or event_data/'some property''s/value' eq true.
 			 * @type string | undefined
 			 */
 			filter?: string | undefined;
@@ -72356,7 +72449,7 @@ export type CreateObservabilityQueryBody =
 			 */
 			endTime?: string | undefined;
 			/**
-			 * @description IANA timezone (e.g. Europe/Paris) used only to align calendar buckets (1d/1mo) to that zone\'s day/month boundaries. startTime/endTime and all output timestamps are always UTC. No effect on sub-day granularities.
+			 * @description IANA timezone (e.g. Europe/Paris) used only to align calendar buckets (1d/1mo) to that zone's day/month boundaries. startTime/endTime and all output timestamps are always UTC. No effect on sub-day granularities.
 			 * @type string | undefined
 			 */
 			bucketTimezone?: string | undefined;
@@ -72721,7 +72814,7 @@ export type ListOrganizationTeamsQuery = {
 	 */
 	cursor?: string | undefined;
 	/**
-	 * @description When true, includes each team\'s member count in the response.
+	 * @description When true, includes each team's member count in the response.
 	 * @type boolean | undefined
 	 */
 	includeMemberCount?: boolean | undefined;
@@ -72832,7 +72925,7 @@ export type AddOrganizationTeamBody =
 			  }
 	  ) & {
 			/**
-			 * @description Whether to create a new team under the organization (\\\"create\\\") or link an existing one (\\\"link\\\").
+			 * @description Whether to create a new team under the organization (\"create\") or link an existing one (\"link\").
 			 * @type string
 			 */
 			mode: AddOrganizationTeamRequestModeEnumKey;
@@ -73452,7 +73545,7 @@ export type GetRoutesStatus200 =
 				 */
 				rawDest?: string | undefined;
 				/**
-				 * @description Original source pattern provided by user (path-to-regexp or regex). Used to display the user\'s input in API responses.
+				 * @description Original source pattern provided by user (path-to-regexp or regex). Used to display the user's input in API responses.
 				 * @type string | undefined
 				 */
 				rawSrc?: string | undefined;
@@ -73612,7 +73705,7 @@ export type GetRoutesStatus200 =
 					override?: (false | true) | undefined;
 					respectOriginCacheControl?: (false | true) | undefined;
 					/**
-					 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service\'s internal route table and the object is preserved as-is (not folded into `dest`).
+					 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service's internal route table and the object is preserved as-is (not folded into `dest`).
 					 * @type string | undefined
 					 */
 					source?: string | undefined;
@@ -73743,7 +73836,7 @@ export type GetRoutesStatus200 =
 				 */
 				rawDest?: string | undefined;
 				/**
-				 * @description Original source pattern provided by user (path-to-regexp or regex). Used to display the user\'s input in API responses.
+				 * @description Original source pattern provided by user (path-to-regexp or regex). Used to display the user's input in API responses.
 				 * @type string | undefined
 				 */
 				rawSrc?: string | undefined;
@@ -73903,7 +73996,7 @@ export type GetRoutesStatus200 =
 					override?: (false | true) | undefined;
 					respectOriginCacheControl?: (false | true) | undefined;
 					/**
-					 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service\'s internal route table and the object is preserved as-is (not folded into `dest`).
+					 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service's internal route table and the object is preserved as-is (not folded into `dest`).
 					 * @type string | undefined
 					 */
 					source?: string | undefined;
@@ -74038,7 +74131,7 @@ export type GetRoutesStatus200 =
 				 */
 				rawDest?: string | undefined;
 				/**
-				 * @description Original source pattern provided by user (path-to-regexp or regex). Used to display the user\'s input in API responses.
+				 * @description Original source pattern provided by user (path-to-regexp or regex). Used to display the user's input in API responses.
 				 * @type string | undefined
 				 */
 				rawSrc?: string | undefined;
@@ -74198,7 +74291,7 @@ export type GetRoutesStatus200 =
 					override?: (false | true) | undefined;
 					respectOriginCacheControl?: (false | true) | undefined;
 					/**
-					 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service\'s internal route table and the object is preserved as-is (not folded into `dest`).
+					 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service's internal route table and the object is preserved as-is (not folded into `dest`).
 					 * @type string | undefined
 					 */
 					source?: string | undefined;
@@ -74647,7 +74740,7 @@ export type AddRouteStatus200 = {
 		 */
 		rawDest?: string | undefined;
 		/**
-		 * @description Original source pattern provided by user (path-to-regexp or regex). Used to display the user\'s input in API responses.
+		 * @description Original source pattern provided by user (path-to-regexp or regex). Used to display the user's input in API responses.
 		 * @type string | undefined
 		 */
 		rawSrc?: string | undefined;
@@ -74807,7 +74900,7 @@ export type AddRouteStatus200 = {
 			override?: (false | true) | undefined;
 			respectOriginCacheControl?: (false | true) | undefined;
 			/**
-			 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service\'s internal route table and the object is preserved as-is (not folded into `dest`).
+			 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service's internal route table and the object is preserved as-is (not folded into `dest`).
 			 * @type string | undefined
 			 */
 			source?: string | undefined;
@@ -75030,18 +75123,18 @@ export type AddRouteBody =
 				};
 			};
 			/**
-			 * @description Controls where the route is inserted. Defaults to \"end\" if omitted.
+			 * @description Controls where the route is inserted. Defaults to "end" if omitted.
 			 * @type object | undefined
 			 */
 			position?:
 				| {
 						/**
-						 * @description \"after\"/\"before\" require referenceId.
+						 * @description "after"/"before" require referenceId.
 						 * @type string | undefined
 						 */
 						placement?: AddRouteRequestPositionPlacementEnumKey | undefined;
 						/**
-						 * @description Route ID to insert after/before. Required for \"after\"/\"before\".
+						 * @description Route ID to insert after/before. Required for "after"/"before".
 						 * @type string | undefined
 						 */
 						referenceId?: string | undefined;
@@ -75301,7 +75394,7 @@ export type EditRouteStatus200 = {
 				 */
 				rawDest?: string | undefined;
 				/**
-				 * @description Original source pattern provided by user (path-to-regexp or regex). Used to display the user\'s input in API responses.
+				 * @description Original source pattern provided by user (path-to-regexp or regex). Used to display the user's input in API responses.
 				 * @type string | undefined
 				 */
 				rawSrc?: string | undefined;
@@ -75461,7 +75554,7 @@ export type EditRouteStatus200 = {
 					override?: (false | true) | undefined;
 					respectOriginCacheControl?: (false | true) | undefined;
 					/**
-					 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service\'s internal route table and the object is preserved as-is (not folded into `dest`).
+					 * @description Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service's internal route table and the object is preserved as-is (not folded into `dest`).
 					 * @type string | undefined
 					 */
 					source?: string | undefined;
@@ -76171,7 +76264,7 @@ export type GetProjectsQuery = {
 	 */
 	until?: number | undefined;
 	/**
-	 * @description Specifies whether PRs from Git forks should require a team member\'s authorization before it can be deployed
+	 * @description Specifies whether PRs from Git forks should require a team member's authorization before it can be deployed
 	 * @example 1
 	 * @type string | undefined
 	 */
@@ -76232,7 +76325,7 @@ export type GetProjectsQuery = {
 	 */
 	staticIpsEnabled?: GetProjectsStaticIpsEnabledKey | undefined;
 	/**
-	 * @description Filter results by effective build machine types. Accepts comma-separated values. Use \\\"elastic\\\" for projects with elastic selection and \\\"default\\\" for projects without a build machine type set.
+	 * @description Filter results by effective build machine types. Accepts comma-separated values. Use \"elastic\" for projects with elastic selection and \"default\" for projects without a build machine type set.
 	 * @example default,enhanced
 	 * @type string | undefined
 	 */
@@ -78593,13 +78686,13 @@ export type GetProjectsStatus200 =
 												 */
 												excludeStatusCodes?: number[] | undefined;
 												/**
-												 * @description Seconds of ingest lag to allow for: the query\'s upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+												 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
 												 * @example 30
 												 * @type number | undefined
 												 */
 												ingestWatermarkSeconds?: number | undefined;
 												/**
-												 * @description A run fails only when the canary\'s error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
+												 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
 												 * @example 0.05
 												 * @type number | undefined
 												 */
@@ -78616,7 +78709,7 @@ export type GetProjectsStatus200 =
 											 */
 											dryRun: false | true;
 											/**
-											 * @description Whether automated gating is enabled for this project\'s rollouts.
+											 * @description Whether automated gating is enabled for this project's rollouts.
 											 * @type boolean
 											 */
 											enabled: false | true;
@@ -78894,7 +78987,7 @@ export type GetProjectsStatus200 =
 						| {
 								canceledAt?: number | undefined;
 								/**
-								 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+								 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 								 * @type number | undefined
 								 */
 								dataReceivedAt?: number | undefined;
@@ -79025,7 +79118,7 @@ export type GetProjectsStatus200 =
 					trustedSources?:
 						| ({
 								/**
-								 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run\'s repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
+								 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
 								 * @type boolean | undefined
 								 */
 								enableVercelCiSameRepository?: (false | true) | undefined;
@@ -80032,13 +80125,13 @@ export type GetProjectsStatus200 =
 													 */
 													excludeStatusCodes?: number[] | undefined;
 													/**
-													 * @description Seconds of ingest lag to allow for: the query\'s upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+													 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
 													 * @example 30
 													 * @type number | undefined
 													 */
 													ingestWatermarkSeconds?: number | undefined;
 													/**
-													 * @description A run fails only when the canary\'s error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
+													 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
 													 * @example 0.05
 													 * @type number | undefined
 													 */
@@ -80055,7 +80148,7 @@ export type GetProjectsStatus200 =
 												 */
 												dryRun: false | true;
 												/**
-												 * @description Whether automated gating is enabled for this project\'s rollouts.
+												 * @description Whether automated gating is enabled for this project's rollouts.
 												 * @type boolean
 												 */
 												enabled: false | true;
@@ -80335,7 +80428,7 @@ export type GetProjectsStatus200 =
 							| {
 									canceledAt?: number | undefined;
 									/**
-									 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+									 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 									 * @type number | undefined
 									 */
 									dataReceivedAt?: number | undefined;
@@ -80466,7 +80559,7 @@ export type GetProjectsStatus200 =
 						trustedSources?:
 							| ({
 									/**
-									 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run\'s repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
+									 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
 									 * @type boolean | undefined
 									 */
 									enableVercelCiSameRepository?: (false | true) | undefined;
@@ -80850,7 +80943,7 @@ export type GetProjectsStatus200 =
 										 */
 										schedule: string;
 										/**
-										 * @description The origin of this definition. \'api\' means created via the API. Undefined means it originated from a deployment (vercel.json).
+										 * @description The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
 										 * @type string | undefined
 										 */
 										source?: "api" | undefined;
@@ -80904,7 +80997,7 @@ export type GetProjectsStatus200 =
 									 */
 									currentDeploymentAliases?: string[] | undefined;
 									/**
-									 * @description Optional description of the environment\'s purpose
+									 * @description Optional description of the environment's purpose
 									 * @type string | undefined
 									 */
 									description?: string | undefined;
@@ -81066,7 +81159,7 @@ export type GetProjectsStatus200 =
 							expirationDaysProduction?: number | undefined;
 						};
 						/**
-						 * @description Project shape. `null` on a rule list clears the project\'s override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don\'t share a type by accident.
+						 * @description Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
 						 * @type object | undefined
 						 */
 						deploymentPolicy?:
@@ -81441,7 +81534,7 @@ export type GetProjectsStatus200 =
 							| ({
 									fromDeploymentId: string | null;
 									/**
-									 * @description If rolling back from a rolling release, fromDeploymentId captures the \"base\" of that rolling release, and fromRollingReleaseId captures the \"target\" of that rolling release.
+									 * @description If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
 									 * @type string | undefined
 									 */
 									fromRollingReleaseId?: string | undefined;
@@ -83523,13 +83616,13 @@ export type GetProjectsStatus200 =
 													 */
 													excludeStatusCodes?: number[] | undefined;
 													/**
-													 * @description Seconds of ingest lag to allow for: the query\'s upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+													 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
 													 * @example 30
 													 * @type number | undefined
 													 */
 													ingestWatermarkSeconds?: number | undefined;
 													/**
-													 * @description A run fails only when the canary\'s error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
+													 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
 													 * @example 0.05
 													 * @type number | undefined
 													 */
@@ -83546,7 +83639,7 @@ export type GetProjectsStatus200 =
 												 */
 												dryRun: false | true;
 												/**
-												 * @description Whether automated gating is enabled for this project\'s rollouts.
+												 * @description Whether automated gating is enabled for this project's rollouts.
 												 * @type boolean
 												 */
 												enabled: false | true;
@@ -83704,7 +83797,7 @@ export type GetProjectsStatus200 =
 									 */
 									framework?: GetProjectsStatus200ProjectsServicesFrameworkEnumKey | undefined;
 									/**
-									 * @description Generic runtime, e.g. \'node\' | \'python\' | \'go\' | \'ruby\' | \'rust\' (Service.runtime). Omitted for static builds.
+									 * @description Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
 									 * @type string | undefined
 									 */
 									runtime?: string | undefined;
@@ -83729,7 +83822,7 @@ export type GetProjectsStatus200 =
 							| {
 									canceledAt?: number | undefined;
 									/**
-									 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+									 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 									 * @type number | undefined
 									 */
 									dataReceivedAt?: number | undefined;
@@ -83867,7 +83960,7 @@ export type GetProjectsStatus200 =
 									samplingRules?:
 										| {
 												/**
-												 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain\'s delivery type when project tracing is computed; absent on configs persisted before this field existed.
+												 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
 												 * @type string | undefined
 												 */
 												destination?:
@@ -83907,7 +84000,7 @@ export type GetProjectsStatus200 =
 						trustedSources?:
 							| ({
 									/**
-									 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run\'s repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
+									 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
 									 * @type boolean | undefined
 									 */
 									enableVercelCiSameRepository?: (false | true) | undefined;
@@ -84003,7 +84096,7 @@ export type GetProjectsStatus200 =
 									 */
 									exceededAllowanceUntil?: number | undefined;
 									/**
-									 * @description Billing mode. Always \'flat\' for flat-rate projects.
+									 * @description Billing mode. Always 'flat' for flat-rate projects.
 									 * @type string
 									 */
 									kind: "flat";
@@ -84024,7 +84117,7 @@ export type GetProjectsStatus200 =
 						vercelFlags?:
 							| {
 									/**
-									 * @description When Flags were enabled for the project, taken from the Flags settings row\'s `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
+									 * @description When Flags were enabled for the project, taken from the Flags settings row's `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
 									 * @type number | undefined
 									 */
 									enabledAt?: number | undefined;
@@ -85299,7 +85392,7 @@ export type CreateProjectStatus200 = {
 					 */
 					schedule: string;
 					/**
-					 * @description The origin of this definition. \'api\' means created via the API. Undefined means it originated from a deployment (vercel.json).
+					 * @description The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
 					 * @type string | undefined
 					 */
 					source?: "api" | undefined;
@@ -85353,7 +85446,7 @@ export type CreateProjectStatus200 = {
 				 */
 				currentDeploymentAliases?: string[] | undefined;
 				/**
-				 * @description Optional description of the environment\'s purpose
+				 * @description Optional description of the environment's purpose
 				 * @type string | undefined
 				 */
 				description?: string | undefined;
@@ -85515,7 +85608,7 @@ export type CreateProjectStatus200 = {
 		expirationDaysProduction?: number | undefined;
 	};
 	/**
-	 * @description Project shape. `null` on a rule list clears the project\'s override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don\'t share a type by accident.
+	 * @description Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
 	 * @type object | undefined
 	 */
 	deploymentPolicy?:
@@ -85887,7 +85980,7 @@ export type CreateProjectStatus200 = {
 		| ({
 				fromDeploymentId: string | null;
 				/**
-				 * @description If rolling back from a rolling release, fromDeploymentId captures the \"base\" of that rolling release, and fromRollingReleaseId captures the \"target\" of that rolling release.
+				 * @description If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
 				 * @type string | undefined
 				 */
 				fromRollingReleaseId?: string | undefined;
@@ -87958,13 +88051,13 @@ export type CreateProjectStatus200 = {
 								 */
 								excludeStatusCodes?: number[] | undefined;
 								/**
-								 * @description Seconds of ingest lag to allow for: the query\'s upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+								 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
 								 * @example 30
 								 * @type number | undefined
 								 */
 								ingestWatermarkSeconds?: number | undefined;
 								/**
-								 * @description A run fails only when the canary\'s error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
+								 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
 								 * @example 0.05
 								 * @type number | undefined
 								 */
@@ -87981,7 +88074,7 @@ export type CreateProjectStatus200 = {
 							 */
 							dryRun: false | true;
 							/**
-							 * @description Whether automated gating is enabled for this project\'s rollouts.
+							 * @description Whether automated gating is enabled for this project's rollouts.
 							 * @type boolean
 							 */
 							enabled: false | true;
@@ -88133,7 +88226,7 @@ export type CreateProjectStatus200 = {
 				 */
 				framework?: CreateProjectStatus200ServicesFrameworkEnumKey | undefined;
 				/**
-				 * @description Generic runtime, e.g. \'node\' | \'python\' | \'go\' | \'ruby\' | \'rust\' (Service.runtime). Omitted for static builds.
+				 * @description Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
 				 * @type string | undefined
 				 */
 				runtime?: string | undefined;
@@ -88158,7 +88251,7 @@ export type CreateProjectStatus200 = {
 		| {
 				canceledAt?: number | undefined;
 				/**
-				 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+				 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 				 * @type number | undefined
 				 */
 				dataReceivedAt?: number | undefined;
@@ -88296,7 +88389,7 @@ export type CreateProjectStatus200 = {
 				samplingRules?:
 					| {
 							/**
-							 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain\'s delivery type when project tracing is computed; absent on configs persisted before this field existed.
+							 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
 							 * @type string | undefined
 							 */
 							destination?:
@@ -88334,7 +88427,7 @@ export type CreateProjectStatus200 = {
 	trustedSources?:
 		| ({
 				/**
-				 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run\'s repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
+				 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
 				 * @type boolean | undefined
 				 */
 				enableVercelCiSameRepository?: (false | true) | undefined;
@@ -88430,7 +88523,7 @@ export type CreateProjectStatus200 = {
 				 */
 				exceededAllowanceUntil?: number | undefined;
 				/**
-				 * @description Billing mode. Always \'flat\' for flat-rate projects.
+				 * @description Billing mode. Always 'flat' for flat-rate projects.
 				 * @type string
 				 */
 				kind: "flat";
@@ -88451,7 +88544,7 @@ export type CreateProjectStatus200 = {
 	vercelFlags?:
 		| {
 				/**
-				 * @description When Flags were enabled for the project, taken from the Flags settings row\'s `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
+				 * @description When Flags were enabled for the project, taken from the Flags settings row's `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
 				 * @type number | undefined
 				 */
 				enabledAt?: number | undefined;
@@ -88816,7 +88909,7 @@ export type CreateProjectBody =
 			 * @description The framework that is being used for this project. When `null` is used no framework is selected
 			 * @type string | undefined
 			 */
-			framework?: CreateProjectRequestFrameworkEnumKey | undefined;
+			framework?: (CreateProjectRequestFrameworkEnumKey | null) | undefined;
 			/**
 			 * @description The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed
 			 * @type object | undefined
@@ -88824,7 +88917,7 @@ export type CreateProjectBody =
 			gitRepository?:
 				| {
 						/**
-						 * @description The name of the git repository. For example: \\\"vercel/next.js\\\"
+						 * @description The name of the git repository. For example: \"vercel/next.js\"
 						 * @type string
 						 */
 						repo: string;
@@ -88855,7 +88948,7 @@ export type CreateProjectBody =
 			 */
 			skipGitConnectDuringLink?: boolean | undefined;
 			/**
-			 * @description The Vercel Auth setting for the project (historically named \\\"SSO Protection\\\")
+			 * @description The Vercel Auth setting for the project (historically named \"SSO Protection\")
 			 * @type object | undefined
 			 */
 			ssoProtection?:
@@ -90283,7 +90376,7 @@ export type GetProjectStatus200 = {
 					 */
 					schedule: string;
 					/**
-					 * @description The origin of this definition. \'api\' means created via the API. Undefined means it originated from a deployment (vercel.json).
+					 * @description The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
 					 * @type string | undefined
 					 */
 					source?: "api" | undefined;
@@ -90337,7 +90430,7 @@ export type GetProjectStatus200 = {
 				 */
 				currentDeploymentAliases?: string[] | undefined;
 				/**
-				 * @description Optional description of the environment\'s purpose
+				 * @description Optional description of the environment's purpose
 				 * @type string | undefined
 				 */
 				description?: string | undefined;
@@ -90497,7 +90590,7 @@ export type GetProjectStatus200 = {
 		expirationDaysProduction?: number | undefined;
 	};
 	/**
-	 * @description Project shape. `null` on a rule list clears the project\'s override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don\'t share a type by accident.
+	 * @description Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
 	 * @type object | undefined
 	 */
 	deploymentPolicy?:
@@ -90888,7 +90981,7 @@ export type GetProjectStatus200 = {
 		| ({
 				fromDeploymentId: string | null;
 				/**
-				 * @description If rolling back from a rolling release, fromDeploymentId captures the \"base\" of that rolling release, and fromRollingReleaseId captures the \"target\" of that rolling release.
+				 * @description If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
 				 * @type string | undefined
 				 */
 				fromRollingReleaseId?: string | undefined;
@@ -92957,13 +93050,13 @@ export type GetProjectStatus200 = {
 								 */
 								excludeStatusCodes?: number[] | undefined;
 								/**
-								 * @description Seconds of ingest lag to allow for: the query\'s upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+								 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
 								 * @example 30
 								 * @type number | undefined
 								 */
 								ingestWatermarkSeconds?: number | undefined;
 								/**
-								 * @description A run fails only when the canary\'s error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
+								 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
 								 * @example 0.05
 								 * @type number | undefined
 								 */
@@ -92980,7 +93073,7 @@ export type GetProjectStatus200 = {
 							 */
 							dryRun: false | true;
 							/**
-							 * @description Whether automated gating is enabled for this project\'s rollouts.
+							 * @description Whether automated gating is enabled for this project's rollouts.
 							 * @type boolean
 							 */
 							enabled: false | true;
@@ -93130,7 +93223,7 @@ export type GetProjectStatus200 = {
 				 */
 				framework?: GetProjectStatus200ServicesFrameworkEnumKey | undefined;
 				/**
-				 * @description Generic runtime, e.g. \'node\' | \'python\' | \'go\' | \'ruby\' | \'rust\' (Service.runtime). Omitted for static builds.
+				 * @description Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
 				 * @type string | undefined
 				 */
 				runtime?: string | undefined;
@@ -93155,7 +93248,7 @@ export type GetProjectStatus200 = {
 		| {
 				canceledAt?: number | undefined;
 				/**
-				 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+				 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 				 * @type number | undefined
 				 */
 				dataReceivedAt?: number | undefined;
@@ -93293,7 +93386,7 @@ export type GetProjectStatus200 = {
 				samplingRules?:
 					| {
 							/**
-							 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain\'s delivery type when project tracing is computed; absent on configs persisted before this field existed.
+							 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
 							 * @type string | undefined
 							 */
 							destination?: GetProjectStatus200TracingSamplingRulesDestinationEnumKey | undefined;
@@ -93329,7 +93422,7 @@ export type GetProjectStatus200 = {
 	trustedSources?:
 		| ({
 				/**
-				 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run\'s repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
+				 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
 				 * @type boolean | undefined
 				 */
 				enableVercelCiSameRepository?: (false | true) | undefined;
@@ -93425,7 +93518,7 @@ export type GetProjectStatus200 = {
 				 */
 				exceededAllowanceUntil?: number | undefined;
 				/**
-				 * @description Billing mode. Always \'flat\' for flat-rate projects.
+				 * @description Billing mode. Always 'flat' for flat-rate projects.
 				 * @type string
 				 */
 				kind: "flat";
@@ -93446,7 +93539,7 @@ export type GetProjectStatus200 = {
 	vercelFlags?:
 		| {
 				/**
-				 * @description When Flags were enabled for the project, taken from the Flags settings row\'s `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
+				 * @description When Flags were enabled for the project, taken from the Flags settings row's `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
 				 * @type number | undefined
 				 */
 				enabledAt?: number | undefined;
@@ -94610,7 +94703,7 @@ export type UpdateProjectStatus200 = {
 					 */
 					schedule: string;
 					/**
-					 * @description The origin of this definition. \'api\' means created via the API. Undefined means it originated from a deployment (vercel.json).
+					 * @description The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
 					 * @type string | undefined
 					 */
 					source?: "api" | undefined;
@@ -94664,7 +94757,7 @@ export type UpdateProjectStatus200 = {
 				 */
 				currentDeploymentAliases?: string[] | undefined;
 				/**
-				 * @description Optional description of the environment\'s purpose
+				 * @description Optional description of the environment's purpose
 				 * @type string | undefined
 				 */
 				description?: string | undefined;
@@ -94826,7 +94919,7 @@ export type UpdateProjectStatus200 = {
 		expirationDaysProduction?: number | undefined;
 	};
 	/**
-	 * @description Project shape. `null` on a rule list clears the project\'s override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don\'t share a type by accident.
+	 * @description Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
 	 * @type object | undefined
 	 */
 	deploymentPolicy?:
@@ -95196,7 +95289,7 @@ export type UpdateProjectStatus200 = {
 		| ({
 				fromDeploymentId: string | null;
 				/**
-				 * @description If rolling back from a rolling release, fromDeploymentId captures the \"base\" of that rolling release, and fromRollingReleaseId captures the \"target\" of that rolling release.
+				 * @description If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
 				 * @type string | undefined
 				 */
 				fromRollingReleaseId?: string | undefined;
@@ -97267,13 +97360,13 @@ export type UpdateProjectStatus200 = {
 								 */
 								excludeStatusCodes?: number[] | undefined;
 								/**
-								 * @description Seconds of ingest lag to allow for: the query\'s upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+								 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
 								 * @example 30
 								 * @type number | undefined
 								 */
 								ingestWatermarkSeconds?: number | undefined;
 								/**
-								 * @description A run fails only when the canary\'s error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
+								 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
 								 * @example 0.05
 								 * @type number | undefined
 								 */
@@ -97290,7 +97383,7 @@ export type UpdateProjectStatus200 = {
 							 */
 							dryRun: false | true;
 							/**
-							 * @description Whether automated gating is enabled for this project\'s rollouts.
+							 * @description Whether automated gating is enabled for this project's rollouts.
 							 * @type boolean
 							 */
 							enabled: false | true;
@@ -97442,7 +97535,7 @@ export type UpdateProjectStatus200 = {
 				 */
 				framework?: UpdateProjectStatus200ServicesFrameworkEnumKey | undefined;
 				/**
-				 * @description Generic runtime, e.g. \'node\' | \'python\' | \'go\' | \'ruby\' | \'rust\' (Service.runtime). Omitted for static builds.
+				 * @description Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
 				 * @type string | undefined
 				 */
 				runtime?: string | undefined;
@@ -97467,7 +97560,7 @@ export type UpdateProjectStatus200 = {
 		| {
 				canceledAt?: number | undefined;
 				/**
-				 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+				 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 				 * @type number | undefined
 				 */
 				dataReceivedAt?: number | undefined;
@@ -97605,7 +97698,7 @@ export type UpdateProjectStatus200 = {
 				samplingRules?:
 					| {
 							/**
-							 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain\'s delivery type when project tracing is computed; absent on configs persisted before this field existed.
+							 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
 							 * @type string | undefined
 							 */
 							destination?:
@@ -97643,7 +97736,7 @@ export type UpdateProjectStatus200 = {
 	trustedSources?:
 		| ({
 				/**
-				 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run\'s repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
+				 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
 				 * @type boolean | undefined
 				 */
 				enableVercelCiSameRepository?: (false | true) | undefined;
@@ -97739,7 +97832,7 @@ export type UpdateProjectStatus200 = {
 				 */
 				exceededAllowanceUntil?: number | undefined;
 				/**
-				 * @description Billing mode. Always \'flat\' for flat-rate projects.
+				 * @description Billing mode. Always 'flat' for flat-rate projects.
 				 * @type string
 				 */
 				kind: "flat";
@@ -97760,7 +97853,7 @@ export type UpdateProjectStatus200 = {
 	vercelFlags?:
 		| {
 				/**
-				 * @description When Flags were enabled for the project, taken from the Flags settings row\'s `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
+				 * @description When Flags were enabled for the project, taken from the Flags settings row's `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
 				 * @type number | undefined
 				 */
 				enabledAt?: number | undefined;
@@ -98144,7 +98237,7 @@ export type UpdateProjectBody = {
 	 */
 	framework?: (UpdateProjectRequestFrameworkEnumKey | null) | undefined;
 	/**
-	 * @description Specifies whether PRs from Git forks should require a team member\'s authorization before it can be deployed
+	 * @description Specifies whether PRs from Git forks should require a team member's authorization before it can be deployed
 	 * @type boolean | undefined
 	 */
 	gitForkProtection?: boolean | undefined;
@@ -98195,7 +98288,9 @@ export type UpdateProjectBody = {
 	 */
 	resourceConfig?:
 		| {
-				buildMachineType?: UpdateProjectRequestResourceConfigBuildMachineTypeEnumKey | undefined;
+				buildMachineType?:
+					| (UpdateProjectRequestResourceConfigBuildMachineTypeEnumKey | null)
+					| undefined;
 				buildMachineSelection?:
 					| UpdateProjectRequestResourceConfigBuildMachineSelectionEnumKey
 					| undefined;
@@ -98264,13 +98359,13 @@ export type UpdateProjectBody = {
 	 */
 	serverlessFunctionZeroConfigFailover?: boolean | undefined;
 	/**
-	 * @description Deployments created before this absolute datetime have Skew Protection disabled. Value is in milliseconds since epoch to match \\\"createdAt\\\" fields.
+	 * @description Deployments created before this absolute datetime have Skew Protection disabled. Value is in milliseconds since epoch to match \"createdAt\" fields.
 	 * @minLength 0
 	 * @type integer | undefined
 	 */
 	skewProtectionBoundaryAt?: number | undefined;
 	/**
-	 * @description Deployments created before this rolling window have Skew Protection disabled. Value is in seconds to match \\\"revalidate\\\" fields.
+	 * @description Deployments created before this rolling window have Skew Protection disabled. Value is in seconds to match \"revalidate\" fields.
 	 * @minLength 0
 	 * @type integer | undefined
 	 */
@@ -99927,7 +100022,7 @@ export type UploadProjectAvatarStatus200 = {
 					 */
 					schedule: string;
 					/**
-					 * @description The origin of this definition. \'api\' means created via the API. Undefined means it originated from a deployment (vercel.json).
+					 * @description The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
 					 * @type string | undefined
 					 */
 					source?: "api" | undefined;
@@ -99981,7 +100076,7 @@ export type UploadProjectAvatarStatus200 = {
 				 */
 				currentDeploymentAliases?: string[] | undefined;
 				/**
-				 * @description Optional description of the environment\'s purpose
+				 * @description Optional description of the environment's purpose
 				 * @type string | undefined
 				 */
 				description?: string | undefined;
@@ -100143,7 +100238,7 @@ export type UploadProjectAvatarStatus200 = {
 		expirationDaysProduction?: number | undefined;
 	};
 	/**
-	 * @description Project shape. `null` on a rule list clears the project\'s override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don\'t share a type by accident.
+	 * @description Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
 	 * @type object | undefined
 	 */
 	deploymentPolicy?:
@@ -100518,7 +100613,7 @@ export type UploadProjectAvatarStatus200 = {
 		| ({
 				fromDeploymentId: string | null;
 				/**
-				 * @description If rolling back from a rolling release, fromDeploymentId captures the \"base\" of that rolling release, and fromRollingReleaseId captures the \"target\" of that rolling release.
+				 * @description If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
 				 * @type string | undefined
 				 */
 				fromRollingReleaseId?: string | undefined;
@@ -102593,13 +102688,13 @@ export type UploadProjectAvatarStatus200 = {
 								 */
 								excludeStatusCodes?: number[] | undefined;
 								/**
-								 * @description Seconds of ingest lag to allow for: the query\'s upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+								 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
 								 * @example 30
 								 * @type number | undefined
 								 */
 								ingestWatermarkSeconds?: number | undefined;
 								/**
-								 * @description A run fails only when the canary\'s error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
+								 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
 								 * @example 0.05
 								 * @type number | undefined
 								 */
@@ -102616,7 +102711,7 @@ export type UploadProjectAvatarStatus200 = {
 							 */
 							dryRun: false | true;
 							/**
-							 * @description Whether automated gating is enabled for this project\'s rollouts.
+							 * @description Whether automated gating is enabled for this project's rollouts.
 							 * @type boolean
 							 */
 							enabled: false | true;
@@ -102772,7 +102867,7 @@ export type UploadProjectAvatarStatus200 = {
 				 */
 				framework?: UploadProjectAvatarStatus200ServicesFrameworkEnumKey | undefined;
 				/**
-				 * @description Generic runtime, e.g. \'node\' | \'python\' | \'go\' | \'ruby\' | \'rust\' (Service.runtime). Omitted for static builds.
+				 * @description Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
 				 * @type string | undefined
 				 */
 				runtime?: string | undefined;
@@ -102797,7 +102892,7 @@ export type UploadProjectAvatarStatus200 = {
 		| {
 				canceledAt?: number | undefined;
 				/**
-				 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+				 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 				 * @type number | undefined
 				 */
 				dataReceivedAt?: number | undefined;
@@ -102935,7 +103030,7 @@ export type UploadProjectAvatarStatus200 = {
 				samplingRules?:
 					| {
 							/**
-							 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain\'s delivery type when project tracing is computed; absent on configs persisted before this field existed.
+							 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
 							 * @type string | undefined
 							 */
 							destination?:
@@ -102973,7 +103068,7 @@ export type UploadProjectAvatarStatus200 = {
 	trustedSources?:
 		| ({
 				/**
-				 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run\'s repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
+				 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
 				 * @type boolean | undefined
 				 */
 				enableVercelCiSameRepository?: (false | true) | undefined;
@@ -103069,7 +103164,7 @@ export type UploadProjectAvatarStatus200 = {
 				 */
 				exceededAllowanceUntil?: number | undefined;
 				/**
-				 * @description Billing mode. Always \'flat\' for flat-rate projects.
+				 * @description Billing mode. Always 'flat' for flat-rate projects.
 				 * @type string
 				 */
 				kind: "flat";
@@ -103090,7 +103185,7 @@ export type UploadProjectAvatarStatus200 = {
 	vercelFlags?:
 		| {
 				/**
-				 * @description When Flags were enabled for the project, taken from the Flags settings row\'s `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
+				 * @description When Flags were enabled for the project, taken from the Flags settings row's `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
 				 * @type number | undefined
 				 */
 				enabledAt?: number | undefined;
@@ -104275,7 +104370,7 @@ export type DeleteProjectAvatarStatus200 = {
 					 */
 					schedule: string;
 					/**
-					 * @description The origin of this definition. \'api\' means created via the API. Undefined means it originated from a deployment (vercel.json).
+					 * @description The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
 					 * @type string | undefined
 					 */
 					source?: "api" | undefined;
@@ -104329,7 +104424,7 @@ export type DeleteProjectAvatarStatus200 = {
 				 */
 				currentDeploymentAliases?: string[] | undefined;
 				/**
-				 * @description Optional description of the environment\'s purpose
+				 * @description Optional description of the environment's purpose
 				 * @type string | undefined
 				 */
 				description?: string | undefined;
@@ -104491,7 +104586,7 @@ export type DeleteProjectAvatarStatus200 = {
 		expirationDaysProduction?: number | undefined;
 	};
 	/**
-	 * @description Project shape. `null` on a rule list clears the project\'s override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don\'t share a type by accident.
+	 * @description Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
 	 * @type object | undefined
 	 */
 	deploymentPolicy?:
@@ -104866,7 +104961,7 @@ export type DeleteProjectAvatarStatus200 = {
 		| ({
 				fromDeploymentId: string | null;
 				/**
-				 * @description If rolling back from a rolling release, fromDeploymentId captures the \"base\" of that rolling release, and fromRollingReleaseId captures the \"target\" of that rolling release.
+				 * @description If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
 				 * @type string | undefined
 				 */
 				fromRollingReleaseId?: string | undefined;
@@ -106941,13 +107036,13 @@ export type DeleteProjectAvatarStatus200 = {
 								 */
 								excludeStatusCodes?: number[] | undefined;
 								/**
-								 * @description Seconds of ingest lag to allow for: the query\'s upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+								 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
 								 * @example 30
 								 * @type number | undefined
 								 */
 								ingestWatermarkSeconds?: number | undefined;
 								/**
-								 * @description A run fails only when the canary\'s error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
+								 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
 								 * @example 0.05
 								 * @type number | undefined
 								 */
@@ -106964,7 +107059,7 @@ export type DeleteProjectAvatarStatus200 = {
 							 */
 							dryRun: false | true;
 							/**
-							 * @description Whether automated gating is enabled for this project\'s rollouts.
+							 * @description Whether automated gating is enabled for this project's rollouts.
 							 * @type boolean
 							 */
 							enabled: false | true;
@@ -107120,7 +107215,7 @@ export type DeleteProjectAvatarStatus200 = {
 				 */
 				framework?: DeleteProjectAvatarStatus200ServicesFrameworkEnumKey | undefined;
 				/**
-				 * @description Generic runtime, e.g. \'node\' | \'python\' | \'go\' | \'ruby\' | \'rust\' (Service.runtime). Omitted for static builds.
+				 * @description Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
 				 * @type string | undefined
 				 */
 				runtime?: string | undefined;
@@ -107145,7 +107240,7 @@ export type DeleteProjectAvatarStatus200 = {
 		| {
 				canceledAt?: number | undefined;
 				/**
-				 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+				 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 				 * @type number | undefined
 				 */
 				dataReceivedAt?: number | undefined;
@@ -107283,7 +107378,7 @@ export type DeleteProjectAvatarStatus200 = {
 				samplingRules?:
 					| {
 							/**
-							 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain\'s delivery type when project tracing is computed; absent on configs persisted before this field existed.
+							 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
 							 * @type string | undefined
 							 */
 							destination?:
@@ -107321,7 +107416,7 @@ export type DeleteProjectAvatarStatus200 = {
 	trustedSources?:
 		| ({
 				/**
-				 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run\'s repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
+				 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
 				 * @type boolean | undefined
 				 */
 				enableVercelCiSameRepository?: (false | true) | undefined;
@@ -107417,7 +107512,7 @@ export type DeleteProjectAvatarStatus200 = {
 				 */
 				exceededAllowanceUntil?: number | undefined;
 				/**
-				 * @description Billing mode. Always \'flat\' for flat-rate projects.
+				 * @description Billing mode. Always 'flat' for flat-rate projects.
 				 * @type string
 				 */
 				kind: "flat";
@@ -107438,7 +107533,7 @@ export type DeleteProjectAvatarStatus200 = {
 	vercelFlags?:
 		| {
 				/**
-				 * @description When Flags were enabled for the project, taken from the Flags settings row\'s `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
+				 * @description When Flags were enabled for the project, taken from the Flags settings row's `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
 				 * @type number | undefined
 				 */
 				enabledAt?: number | undefined;
@@ -107672,7 +107767,7 @@ export type CreateCustomEnvironmentStatus201 = {
 	 */
 	currentDeploymentAliases?: string[] | undefined;
 	/**
-	 * @description Optional description of the environment\'s purpose
+	 * @description Optional description of the environment's purpose
 	 * @type string | undefined
 	 */
 	description?: string | undefined;
@@ -107780,7 +107875,7 @@ export type CreateCustomEnvironmentBody =
 			branchMatcher?:
 				| {
 						/**
-						 * @description Type of matcher. One of \"equals\", \"startsWith\", or \"endsWith\".
+						 * @description Type of matcher. One of "equals", "startsWith", or "endsWith".
 						 * @type string
 						 */
 						type: CreateCustomEnvironmentRequestBranchMatcherTypeEnumKey;
@@ -107883,7 +107978,7 @@ export type GetProjectsByIdOrNameCustomEnvironmentsStatus200EnvironmentsTypeEnum
 
 export type GetProjectsByIdOrNameCustomEnvironmentsStatus200 = {
 	/**
-	 * @description The maximum number of custom environments allowed either by the team\'s plan type or a custom override.
+	 * @description The maximum number of custom environments allowed either by the team's plan type or a custom override.
 	 * @type object
 	 */
 	accountLimit: {
@@ -107919,7 +108014,7 @@ export type GetProjectsByIdOrNameCustomEnvironmentsStatus200 = {
 		 */
 		currentDeploymentAliases?: string[] | undefined;
 		/**
-		 * @description Optional description of the environment\'s purpose
+		 * @description Optional description of the environment's purpose
 		 * @type string | undefined
 		 */
 		description?: string | undefined;
@@ -108104,7 +108199,7 @@ export type GetCustomEnvironmentStatus200 = {
 	 */
 	currentDeploymentAliases?: string[] | undefined;
 	/**
-	 * @description Optional description of the environment\'s purpose
+	 * @description Optional description of the environment's purpose
 	 * @type string | undefined
 	 */
 	description?: string | undefined;
@@ -108287,7 +108382,7 @@ export type UpdateCustomEnvironmentStatus200 = {
 	 */
 	currentDeploymentAliases?: string[] | undefined;
 	/**
-	 * @description Optional description of the environment\'s purpose
+	 * @description Optional description of the environment's purpose
 	 * @type string | undefined
 	 */
 	description?: string | undefined;
@@ -108393,7 +108488,7 @@ export type UpdateCustomEnvironmentBody =
 			branchMatcher?:
 				| ({
 						/**
-						 * @description Type of matcher. One of \"equals\", \"startsWith\", or \"endsWith\".
+						 * @description Type of matcher. One of "equals", "startsWith", or "endsWith".
 						 * @type string
 						 */
 						type: UpdateCustomEnvironmentRequestBranchMatcherTypeEnumKey;
@@ -108521,7 +108616,7 @@ export type RemoveCustomEnvironmentStatus200 = {
 	 */
 	currentDeploymentAliases?: string[] | undefined;
 	/**
-	 * @description Optional description of the environment\'s purpose
+	 * @description Optional description of the environment's purpose
 	 * @type string | undefined
 	 */
 	description?: string | undefined;
@@ -108679,7 +108774,7 @@ export type GetProjectDomainsQuery = {
 	 */
 	production?: GetProjectDomainsProductionKey | undefined;
 	/**
-	 * @description Filters on the target of the domain. Can be either \"production\", \"preview\"
+	 * @description Filters on the target of the domain. Can be either "production", "preview"
 	 * @type string | undefined
 	 */
 	target?: GetProjectDomainsTargetKey | undefined;
@@ -108695,7 +108790,7 @@ export type GetProjectDomainsQuery = {
 	 */
 	gitBranch?: string | undefined;
 	/**
-	 * @description Excludes redirect project domains when \"false\". Includes redirect project domains when \"true\" (default).
+	 * @description Excludes redirect project domains when "false". Includes redirect project domains when "true" (default).
 	 * @default 'true'
 	 * @type string | undefined
 	 */
@@ -112094,13 +112189,13 @@ export type GetRollingReleaseConfigStatus200 = {
 						 */
 						excludeStatusCodes?: number[] | undefined;
 						/**
-						 * @description Seconds of ingest lag to allow for: the query\'s upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+						 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
 						 * @example 30
 						 * @type number | undefined
 						 */
 						ingestWatermarkSeconds?: number | undefined;
 						/**
-						 * @description A run fails only when the canary\'s error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
+						 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
 						 * @example 0.05
 						 * @type number | undefined
 						 */
@@ -112117,7 +112212,7 @@ export type GetRollingReleaseConfigStatus200 = {
 					 */
 					dryRun: false | true;
 					/**
-					 * @description Whether automated gating is enabled for this project\'s rollouts.
+					 * @description Whether automated gating is enabled for this project's rollouts.
 					 * @type boolean
 					 */
 					enabled: false | true;
@@ -112586,7 +112681,7 @@ export type GetRollingReleaseStatus200 = {
 			 */
 			source?: GetRollingReleaseStatus200RollingReleaseCanaryDeploymentSourceEnumKey | undefined;
 			/**
-			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
@@ -112643,7 +112738,7 @@ export type GetRollingReleaseStatus200 = {
 			 */
 			source?: GetRollingReleaseStatus200RollingReleaseCurrentDeploymentSourceEnumKey | undefined;
 			/**
-			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
@@ -113016,7 +113111,7 @@ export type ApproveRollingReleaseStageStatus200 = {
 				| ApproveRollingReleaseStageStatus200RollingReleaseCanaryDeploymentSourceEnumKey
 				| undefined;
 			/**
-			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
@@ -113075,7 +113170,7 @@ export type ApproveRollingReleaseStageStatus200 = {
 				| ApproveRollingReleaseStageStatus200RollingReleaseCurrentDeploymentSourceEnumKey
 				| undefined;
 			/**
-			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
@@ -113464,7 +113559,7 @@ export type StartRollingReleaseStatus200 = {
 			 */
 			source?: StartRollingReleaseStatus200RollingReleaseCanaryDeploymentSourceEnumKey | undefined;
 			/**
-			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
@@ -113521,7 +113616,7 @@ export type StartRollingReleaseStatus200 = {
 			 */
 			source?: StartRollingReleaseStatus200RollingReleaseCurrentDeploymentSourceEnumKey | undefined;
 			/**
-			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
@@ -113910,7 +114005,7 @@ export type CompleteRollingReleaseStatus200 = {
 				| CompleteRollingReleaseStatus200RollingReleaseCanaryDeploymentSourceEnumKey
 				| undefined;
 			/**
-			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
@@ -113969,7 +114064,7 @@ export type CompleteRollingReleaseStatus200 = {
 				| CompleteRollingReleaseStatus200RollingReleaseCurrentDeploymentSourceEnumKey
 				| undefined;
 			/**
-			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the \"preview\" deployment.
+			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
@@ -114425,7 +114520,7 @@ export type UpdateProjectProtectionBypassBody = {
 	generate?:
 		| {
 				/**
-				 * @description Optional value of the secret to generate, don\'t send it for oauth2 tokens
+				 * @description Optional value of the secret to generate, don't send it for oauth2 tokens
 				 * @pattern ^[a-zA-Z0-9]{32}$
 				 * @type string | undefined
 				 */
@@ -115743,7 +115838,7 @@ export type UpdateMicrofrontendsStatus200 = {
 					 */
 					schedule: string;
 					/**
-					 * @description The origin of this definition. \'api\' means created via the API. Undefined means it originated from a deployment (vercel.json).
+					 * @description The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
 					 * @type string | undefined
 					 */
 					source?: "api" | undefined;
@@ -115797,7 +115892,7 @@ export type UpdateMicrofrontendsStatus200 = {
 				 */
 				currentDeploymentAliases?: string[] | undefined;
 				/**
-				 * @description Optional description of the environment\'s purpose
+				 * @description Optional description of the environment's purpose
 				 * @type string | undefined
 				 */
 				description?: string | undefined;
@@ -115959,7 +116054,7 @@ export type UpdateMicrofrontendsStatus200 = {
 		expirationDaysProduction?: number | undefined;
 	};
 	/**
-	 * @description Project shape. `null` on a rule list clears the project\'s override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don\'t share a type by accident.
+	 * @description Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
 	 * @type object | undefined
 	 */
 	deploymentPolicy?:
@@ -116334,7 +116429,7 @@ export type UpdateMicrofrontendsStatus200 = {
 		| ({
 				fromDeploymentId: string | null;
 				/**
-				 * @description If rolling back from a rolling release, fromDeploymentId captures the \"base\" of that rolling release, and fromRollingReleaseId captures the \"target\" of that rolling release.
+				 * @description If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
 				 * @type string | undefined
 				 */
 				fromRollingReleaseId?: string | undefined;
@@ -118409,13 +118504,13 @@ export type UpdateMicrofrontendsStatus200 = {
 								 */
 								excludeStatusCodes?: number[] | undefined;
 								/**
-								 * @description Seconds of ingest lag to allow for: the query\'s upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+								 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
 								 * @example 30
 								 * @type number | undefined
 								 */
 								ingestWatermarkSeconds?: number | undefined;
 								/**
-								 * @description A run fails only when the canary\'s error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
+								 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
 								 * @example 0.05
 								 * @type number | undefined
 								 */
@@ -118432,7 +118527,7 @@ export type UpdateMicrofrontendsStatus200 = {
 							 */
 							dryRun: false | true;
 							/**
-							 * @description Whether automated gating is enabled for this project\'s rollouts.
+							 * @description Whether automated gating is enabled for this project's rollouts.
 							 * @type boolean
 							 */
 							enabled: false | true;
@@ -118588,7 +118683,7 @@ export type UpdateMicrofrontendsStatus200 = {
 				 */
 				framework?: UpdateMicrofrontendsStatus200ServicesFrameworkEnumKey | undefined;
 				/**
-				 * @description Generic runtime, e.g. \'node\' | \'python\' | \'go\' | \'ruby\' | \'rust\' (Service.runtime). Omitted for static builds.
+				 * @description Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
 				 * @type string | undefined
 				 */
 				runtime?: string | undefined;
@@ -118613,7 +118708,7 @@ export type UpdateMicrofrontendsStatus200 = {
 		| {
 				canceledAt?: number | undefined;
 				/**
-				 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+				 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 				 * @type number | undefined
 				 */
 				dataReceivedAt?: number | undefined;
@@ -118751,7 +118846,7 @@ export type UpdateMicrofrontendsStatus200 = {
 				samplingRules?:
 					| {
 							/**
-							 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain\'s delivery type when project tracing is computed; absent on configs persisted before this field existed.
+							 * @description Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
 							 * @type string | undefined
 							 */
 							destination?:
@@ -118789,7 +118884,7 @@ export type UpdateMicrofrontendsStatus200 = {
 	trustedSources?:
 		| ({
 				/**
-				 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run\'s repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
+				 * @description Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
 				 * @type boolean | undefined
 				 */
 				enableVercelCiSameRepository?: (false | true) | undefined;
@@ -118885,7 +118980,7 @@ export type UpdateMicrofrontendsStatus200 = {
 				 */
 				exceededAllowanceUntil?: number | undefined;
 				/**
-				 * @description Billing mode. Always \'flat\' for flat-rate projects.
+				 * @description Billing mode. Always 'flat' for flat-rate projects.
 				 * @type string
 				 */
 				kind: "flat";
@@ -118906,7 +119001,7 @@ export type UpdateMicrofrontendsStatus200 = {
 	vercelFlags?:
 		| {
 				/**
-				 * @description When Flags were enabled for the project, taken from the Flags settings row\'s `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
+				 * @description When Flags were enabled for the project, taken from the Flags settings row's `createdAt`. Recorded by `@api/api-feature-flags` on flags sync.
 				 * @type number | undefined
 				 */
 				enabledAt?: number | undefined;
@@ -119339,7 +119434,7 @@ export type ListNamedSandboxesQuery = {
 	 */
 	status?: ListNamedSandboxesStatusKey | undefined;
 	/**
-	 * @description Filter sandboxes by tag. Format: \\\"key:value\\\". Only one tag filter is supported at a time.
+	 * @description Filter sandboxes by tag. Format: \"key:value\". Only one tag filter is supported at a time.
 	 */
 	tags?: (string | string[]) | undefined;
 	/**
@@ -119424,7 +119519,7 @@ export type CreateSandboxesV2Status200 = {
 	 */
 	sandbox: NamedSandbox;
 	/**
-	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 	 * @type object
 	 */
 	session: Session;
@@ -119539,13 +119634,13 @@ export type CreateSandboxesV2Body =
 				| (
 						| {
 								/**
-								 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+								 * @description The network access policy mode. Use \"allow-all\" to permit all outbound traffic. Use \"deny-all\" to block all outbound traffic. Use \"custom\" to specify explicit allow/deny rules.
 								 * @example custom
 								 * @type string
 								 */
 								mode: CreateSandboxesV2RequestNetworkPolicyModeEnumKey;
 								/**
-								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \"custom\". Supports wildcard patterns (e.g., \"*.example.com\" matches all subdomains).
 								 * @example ["api.github.com","*.npmjs.org"]
 								 * @type array | undefined
 								 */
@@ -121043,7 +121138,7 @@ export type GetSessionQuery = {
 export type GetSessionStatus200 = {
 	routes: SandboxPublicRoute[];
 	/**
-	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 	 * @type object
 	 */
 	session: Session;
@@ -121136,7 +121231,7 @@ export type GetNamedSandboxStatus200 = {
 	 */
 	sandbox: NamedSandbox;
 	/**
-	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 	 * @type object
 	 */
 	session: Session;
@@ -121250,7 +121345,7 @@ export type UpdateSandboxStatus200 =
 			 */
 			sandbox: NamedSandbox;
 			/**
-			 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+			 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 			 * @type object
 			 */
 			session: Session;
@@ -121422,13 +121517,13 @@ export type UpdateSandboxBody =
 				| (
 						| {
 								/**
-								 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+								 * @description The network access policy mode. Use \"allow-all\" to permit all outbound traffic. Use \"deny-all\" to block all outbound traffic. Use \"custom\" to specify explicit allow/deny rules.
 								 * @example custom
 								 * @type string
 								 */
 								mode: UpdateSandboxRequestNetworkPolicyModeEnumKey;
 								/**
-								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \"custom\". Supports wildcard patterns (e.g., \"*.example.com\" matches all subdomains).
 								 * @example ["api.github.com","*.npmjs.org"]
 								 * @type array | undefined
 								 */
@@ -122177,7 +122272,7 @@ export type GetSessionCommandWaitKey =
 
 export type GetSessionCommandQuery = {
 	/**
-	 * @description If set to \"true\", the request will block until the command finishes execution. Useful for synchronously waiting for command completion.
+	 * @description If set to "true", the request will block until the command finishes execution. Useful for synchronously waiting for command completion.
 	 * @default 'false'
 	 * @type string | undefined
 	 */
@@ -122533,7 +122628,7 @@ export type StopSessionQuery = {
 export type StopSessionStatus200 =
 	| {
 			/**
-			 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+			 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 			 * @type object
 			 */
 			session: Session;
@@ -122545,7 +122640,7 @@ export type StopSessionStatus200 =
 			 */
 			sandbox: NamedSandbox;
 			/**
-			 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+			 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 			 * @type object
 			 */
 			session: Session;
@@ -122622,7 +122717,7 @@ export type ExtendSessionTimeoutQuery = {
 
 export type ExtendSessionTimeoutStatus200 = {
 	/**
-	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 	 * @type object
 	 */
 	session: Session;
@@ -122706,7 +122801,7 @@ export type UpdateSessionNetworkPolicyQuery = {
 
 export type UpdateSessionNetworkPolicyStatus200 = {
 	/**
-	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 	 * @type object
 	 */
 	session: Session;
@@ -122743,13 +122838,13 @@ export type UpdateSessionNetworkPolicyBody =
 	| (
 			| {
 					/**
-					 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+					 * @description The network access policy mode. Use \"allow-all\" to permit all outbound traffic. Use \"deny-all\" to block all outbound traffic. Use \"custom\" to specify explicit allow/deny rules.
 					 * @example custom
 					 * @type string
 					 */
 					mode: UpdateSessionNetworkPolicyRequestModeEnumKey;
 					/**
-					 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+					 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \"custom\". Supports wildcard patterns (e.g., \"*.example.com\" matches all subdomains).
 					 * @example ["api.github.com","*.npmjs.org"]
 					 * @type array | undefined
 					 */
@@ -123381,7 +123476,7 @@ export type CreateSandboxesSessionsBySessionIdSnapshotV2Query = {
 
 export type CreateSandboxesSessionsBySessionIdSnapshotV2Status201 = {
 	/**
-	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 	 * @type object
 	 */
 	session: Session;
@@ -123484,7 +123579,7 @@ export type CreateSandboxesByNameForkV2Status200 = {
 	 */
 	sandbox: NamedSandbox;
 	/**
-	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 	 * @type object
 	 */
 	session: Session;
@@ -123581,13 +123676,13 @@ export type CreateSandboxesByNameForkV2Body =
 				| (
 						| {
 								/**
-								 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+								 * @description The network access policy mode. Use \"allow-all\" to permit all outbound traffic. Use \"deny-all\" to block all outbound traffic. Use \"custom\" to specify explicit allow/deny rules.
 								 * @example custom
 								 * @type string
 								 */
 								mode: CreateSandboxesByNameForkV2RequestNetworkPolicyModeEnumKey;
 								/**
-								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \"custom\". Supports wildcard patterns (e.g., \"*.example.com\" matches all subdomains).
 								 * @example ["api.github.com","*.npmjs.org"]
 								 * @type array | undefined
 								 */
@@ -124130,7 +124225,7 @@ export type CreateSandboxesV3Status200 = {
 	 */
 	sandbox: NamedSandbox;
 	/**
-	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 	 * @type object
 	 */
 	session: Session;
@@ -124235,13 +124330,13 @@ export type CreateSandboxesV3Body =
 				| (
 						| {
 								/**
-								 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+								 * @description The network access policy mode. Use \"allow-all\" to permit all outbound traffic. Use \"deny-all\" to block all outbound traffic. Use \"custom\" to specify explicit allow/deny rules.
 								 * @example custom
 								 * @type string
 								 */
 								mode: CreateSandboxesV3RequestNetworkPolicyModeEnumKey;
 								/**
-								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \"custom\". Supports wildcard patterns (e.g., \"*.example.com\" matches all subdomains).
 								 * @example ["api.github.com","*.npmjs.org"]
 								 * @type array | undefined
 								 */
@@ -124873,7 +124968,7 @@ export type CreateSandboxesSessionsBySessionIdSnapshotV3Query = {
 
 export type CreateSandboxesSessionsBySessionIdSnapshotV3Status201 = {
 	/**
-	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 	 * @type object
 	 */
 	session: Session;
@@ -124976,7 +125071,7 @@ export type CreateSandboxesByNameForkV3Status200 = {
 	 */
 	sandbox: NamedSandbox;
 	/**
-	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 	 * @type object
 	 */
 	session: Session;
@@ -125073,13 +125168,13 @@ export type CreateSandboxesByNameForkV3Body =
 				| (
 						| {
 								/**
-								 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+								 * @description The network access policy mode. Use \"allow-all\" to permit all outbound traffic. Use \"deny-all\" to block all outbound traffic. Use \"custom\" to specify explicit allow/deny rules.
 								 * @example custom
 								 * @type string
 								 */
 								mode: CreateSandboxesByNameForkV3RequestNetworkPolicyModeEnumKey;
 								/**
-								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \"custom\". Supports wildcard patterns (e.g., \"*.example.com\" matches all subdomains).
 								 * @example ["api.github.com","*.npmjs.org"]
 								 * @type array | undefined
 								 */
@@ -125624,7 +125719,7 @@ export type CreateSandboxesV4Status200 = {
 	 */
 	sandbox: NamedSandbox;
 	/**
-	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return \"session\" instead of \"sandbox\" as the response wrapper key.
+	 * @description This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
 	 * @type object
 	 */
 	session: Session;
@@ -125729,13 +125824,13 @@ export type CreateSandboxesV4Body =
 				| (
 						| {
 								/**
-								 * @description The network access policy mode. Use \\\"allow-all\\\" to permit all outbound traffic. Use \\\"deny-all\\\" to block all outbound traffic. Use \\\"custom\\\" to specify explicit allow/deny rules.
+								 * @description The network access policy mode. Use \"allow-all\" to permit all outbound traffic. Use \"deny-all\" to block all outbound traffic. Use \"custom\" to specify explicit allow/deny rules.
 								 * @example custom
 								 * @type string
 								 */
 								mode: CreateSandboxesV4RequestNetworkPolicyModeEnumKey;
 								/**
-								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \\\"custom\\\". Supports wildcard patterns (e.g., \\\"*.example.com\\\" matches all subdomains).
+								 * @description List of domain names the sandbox is allowed to connect to. Only applies when mode is \"custom\". Supports wildcard patterns (e.g., \"*.example.com\" matches all subdomains).
 								 * @example ["api.github.com","*.npmjs.org"]
 								 * @type array | undefined
 								 */
@@ -135499,6 +135594,7 @@ export const getTeamMembersStatus200MembersJoinedFromOriginEnum = {
 	"nsnb-redeploy-attribution-card": "nsnb-redeploy-attribution-card",
 	"nsnb-request-access": "nsnb-request-access",
 	"nsnb-viewer-upgrade": "nsnb-viewer-upgrade",
+	"org-admin-sync": "org-admin-sync",
 	"organization-teams": "organization-teams",
 	saml: "saml",
 	teams: "teams",
@@ -135870,6 +135966,7 @@ export const requestAccessToTeamStatus200JoinedFromOriginEnum = {
 	"nsnb-redeploy-attribution-card": "nsnb-redeploy-attribution-card",
 	"nsnb-request-access": "nsnb-request-access",
 	"nsnb-viewer-upgrade": "nsnb-viewer-upgrade",
+	"org-admin-sync": "org-admin-sync",
 	"organization-teams": "organization-teams",
 	saml: "saml",
 	teams: "teams",
@@ -136030,6 +136127,7 @@ export const getTeamAccessRequestStatus200JoinedFromOriginEnum = {
 	"nsnb-redeploy-attribution-card": "nsnb-redeploy-attribution-card",
 	"nsnb-request-access": "nsnb-request-access",
 	"nsnb-viewer-upgrade": "nsnb-viewer-upgrade",
+	"org-admin-sync": "org-admin-sync",
 	"organization-teams": "organization-teams",
 	saml: "saml",
 	teams: "teams",
@@ -136053,7 +136151,7 @@ export type GetTeamAccessRequestStatus200 = {
 		login?: string | undefined;
 	} | null;
 	/**
-	 * @description Current status of the membership. Will be `true` if confirmed, if pending it\'ll be `false`.
+	 * @description Current status of the membership. Will be `true` if confirmed, if pending it'll be `false`.
 	 * @example false
 	 * @type boolean
 	 */
@@ -136323,7 +136421,7 @@ export type UpdateTeamMemberBody = {
 				 */
 				projectId: string;
 				/**
-				 * @description The project role of the member that will be added. \\\"null\\\" will remove this project level role.
+				 * @description The project role of the member that will be added. \"null\" will remove this project level role.
 				 * @example ADMIN
 				 * @type string
 				 */
@@ -137589,7 +137687,7 @@ export type UpdateMicrofrontendsGroupBody =
 			 */
 			name?: string | undefined;
 			/**
-			 * @description The new fallback environment for the microfrontends group. Must be \"SAME_ENV\", \"PRODUCTION\", or a valid custom environment slug from the default app.
+			 * @description The new fallback environment for the microfrontends group. Must be "SAME_ENV", "PRODUCTION", or a valid custom environment slug from the default app.
 			 * @type string | undefined
 			 */
 			fallbackEnvironment?: string | undefined;
@@ -137838,7 +137936,7 @@ export type CreateAuthTokenQuery = {
  */
 export type CreateAuthTokenStatus200 = {
 	/**
-	 * @description The authentication token\'s actual value. This token is only provided in this response, and can never be retrieved again in the future. Be sure to save it somewhere safe!
+	 * @description The authentication token's actual value. This token is only provided in this response, and can never be retrieved again in the future. Be sure to save it somewhere safe!
 	 * @example uRKJSTt0L4RaSkiMj41QTkxM
 	 * @type string
 	 */
@@ -137893,7 +137991,7 @@ export type CreateAuthTokenResponse = CreateAuthTokenStatus200;
 
 export type GetAuthTokenPath = {
 	/**
-	 * @description The identifier of the token to retrieve. The special value \"current\" may be supplied, which returns the metadata for the token that the current HTTP request is authenticated with.
+	 * @description The identifier of the token to retrieve. The special value "current" may be supplied, which returns the metadata for the token that the current HTTP request is authenticated with.
 	 * @example 5d9f2ebd38ddca62e5d51e9c1704c72530bdc8bfdd41e782a6687c48399e8391
 	 * @type string
 	 */
@@ -137945,7 +138043,7 @@ export type GetAuthTokenResponse = GetAuthTokenStatus200;
 
 export type DeleteAuthTokenPath = {
 	/**
-	 * @description The identifier of the token to invalidate. The special value \"current\" may be supplied, which invalidates the token that the HTTP request was authenticated with.
+	 * @description The identifier of the token to invalidate. The special value "current" may be supplied, which invalidates the token that the HTTP request was authenticated with.
 	 * @example 5d9f2ebd38ddca62e5d51e9c1704c72530bdc8bfdd41e782a6687c48399e8391
 	 * @type string
 	 */
@@ -138513,7 +138611,7 @@ export type AddRepositoryPermissionQuery = {
 
 export type AddRepositoryPermissionStatus200 = {
 	/**
-	 * @description A team\'s access grant to a Vercel Container Registry repository.
+	 * @description A team's access grant to a Vercel Container Registry repository.
 	 * @type object
 	 */
 	permission: VcrRepositoryPermission;
@@ -138956,7 +139054,7 @@ export type GetRepositoryTagQuery = {
 
 export type GetRepositoryTagStatus200 = {
 	/**
-	 * @description A tag pointing at an image in a Vercel Container Registry repository, enriched with the backing image\'s metadata and VHS-readiness status.
+	 * @description A tag pointing at an image in a Vercel Container Registry repository, enriched with the backing image's metadata and VHS-readiness status.
 	 * @type object
 	 */
 	tag: VcrTag;
@@ -140282,17 +140380,17 @@ export type ListVercelCiInvocationsSourceEnumKey =
 
 export type ListVercelCiInvocationsQuery = {
 	/**
-	 * @description Repository provider (e.g., \\\"github\\\").
+	 * @description Repository provider (e.g., \"github\").
 	 * @type string | undefined
 	 */
 	provider?: ListVercelCiInvocationsProviderKey | undefined;
 	/**
-	 * @description Repository slug (e.g., \\\"vercel/next.js\\\").
+	 * @description Repository slug (e.g., \"vercel/next.js\").
 	 * @type string | undefined
 	 */
 	repository?: string | undefined;
 	/**
-	 * @description Branch name (e.g., \\\"main\\\").
+	 * @description Branch name (e.g., \"main\").
 	 * @type string | undefined
 	 */
 	branchName?: string | undefined;
@@ -140407,7 +140505,7 @@ export type ListVercelCiInvocationsStatus200 = {
 			  }
 			| undefined;
 		/**
-		 * @description The aggregate outcome of every job in the invocation. Omitted while jobs are still running. Any failed job → \"failed\"; any (non-cascade) skipped job → \"skipped\"; else \"succeeded\". Present on completed invocations written after the field shipped; absent on older rows.
+		 * @description The aggregate outcome of every job in the invocation. Omitted while jobs are still running. Any failed job → "failed"; any (non-cascade) skipped job → "skipped"; else "succeeded". Present on completed invocations written after the field shipped; absent on older rows.
 		 * @type object | undefined
 		 */
 		runConclusion?:
@@ -141069,7 +141167,7 @@ export type ListVercelCiInvocationAttemptsStatus200 = {
 			  }
 			| undefined;
 		/**
-		 * @description The aggregate outcome of every job in the invocation. Omitted while jobs are still running. Any failed job → \"failed\"; any (non-cascade) skipped job → \"skipped\"; else \"succeeded\". Present on completed invocations written after the field shipped; absent on older rows.
+		 * @description The aggregate outcome of every job in the invocation. Omitted while jobs are still running. Any failed job → "failed"; any (non-cascade) skipped job → "skipped"; else "succeeded". Present on completed invocations written after the field shipped; absent on older rows.
 		 * @type object | undefined
 		 */
 		runConclusion?:
@@ -141267,7 +141365,7 @@ export type GetVercelCiInvocationTreeStatus200 = {
 			  }
 			| undefined;
 		/**
-		 * @description The aggregate outcome of every job in the invocation. Omitted while jobs are still running. Any failed job → \"failed\"; any (non-cascade) skipped job → \"skipped\"; else \"succeeded\". Present on completed invocations written after the field shipped; absent on older rows.
+		 * @description The aggregate outcome of every job in the invocation. Omitted while jobs are still running. Any failed job → "failed"; any (non-cascade) skipped job → "skipped"; else "succeeded". Present on completed invocations written after the field shipped; absent on older rows.
 		 * @type object | undefined
 		 */
 		runConclusion?:
@@ -141556,7 +141654,7 @@ export type GetVercelCiInvocationStatus200 = {
 			  }
 			| undefined;
 		/**
-		 * @description The aggregate outcome of every job in the invocation. Omitted while jobs are still running. Any failed job → \"failed\"; any (non-cascade) skipped job → \"skipped\"; else \"succeeded\". Present on completed invocations written after the field shipped; absent on older rows.
+		 * @description The aggregate outcome of every job in the invocation. Omitted while jobs are still running. Any failed job → "failed"; any (non-cascade) skipped job → "skipped"; else "succeeded". Present on completed invocations written after the field shipped; absent on older rows.
 		 * @type object | undefined
 		 */
 		runConclusion?:
@@ -142509,7 +142607,7 @@ export type GetVercelCiTaskLogsLevelEnumKey =
 
 export type GetVercelCiTaskLogsQuery = {
 	/**
-	 * @description Only return tasks with one of these names (e.g., \\\"web#test\\\").
+	 * @description Only return tasks with one of these names (e.g., \"web#test\").
 	 * @type array | undefined
 	 */
 	task?: string[] | undefined;
@@ -142662,7 +142760,7 @@ export type SearchVercelCiLogsLevelEnumKey =
 
 export type SearchVercelCiLogsQuery = {
 	/**
-	 * @description Invocation attempts to search, as \\\"<invocationId>:<attempt>\\\" (at most 50).
+	 * @description Invocation attempts to search, as \"<invocationId>:<attempt>\" (at most 50).
 	 * @type array
 	 */
 	invocation: string[];
@@ -143088,23 +143186,35 @@ export type AggregatePageviewsQuery = {
 	 */
 	projectId: string;
 	/**
-	 * @description Up to two dimensions used to break down results.\n\nAt most one time granularity is allowed: hour, day, week, month, year.\n\nOther dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm.\n\nJSON dimensions: flags. Used bare, it breaks down results by key, for example flags returns one group per flag name. With a key, it breaks down results by that key\'s value, for example flags/beta_banner. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/\'my-flag\'.
+	 * @description Up to two dimensions used to break down results.
+	 *
+	 * At most one time granularity is allowed: hour, day, week, month, year.
+	 *
+	 * Other dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm.
+	 *
+	 * JSON dimensions: flags. Used bare, it breaks down results by key, for example flags returns one group per flag name. With a key, it breaks down results by that key's value, for example flags/beta_banner. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/'my-flag'.
 	 * @example ["day","country"]
 	 * @type array
 	 */
 	by: string[];
 	/**
-	 * @description Timestamp in milliseconds, or a valid Date string.\n\nSelects data from (including) this date and time.\nWill be adjusted according to the desired time granularity.
+	 * @description Timestamp in milliseconds, or a valid Date string.
+	 *
+	 * Selects data from (including) this date and time.
+	 * Will be adjusted according to the desired time granularity.
 	 * @example 2024-09-01T00:00:00.000Z
 	 */
 	since: number | string;
 	/**
-	 * @description Timestamp in milliseconds, or a valid Date string.\n\nSelects data until (including) this date.\nWill be adjusted according to the desired time granularity.
+	 * @description Timestamp in milliseconds, or a valid Date string.
+	 *
+	 * Selects data until (including) this date.
+	 * Will be adjusted according to the desired time granularity.
 	 * @example 2024-09-08T00:00:00.000Z
 	 */
 	until: number | string;
 	/**
-	 * @description Number of distinct results, default to 10. Other results are grouped into \"Others\" group.
+	 * @description Number of distinct results, default to 10. Other results are grouped into "Others" group.
 	 * @minLength 1
 	 * @maxLength 100
 	 * @default 10
@@ -143113,7 +143223,15 @@ export type AggregatePageviewsQuery = {
 	 */
 	limit?: number | undefined;
 	/**
-	 * @description OData-compliant filter. Encode the value when sending it in a URL.\n\nAllows filtering on one or multiple dimensions. By default, filters for production environment only.\n\nSupported dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm.\n\nJSON dimensions filtered by key: flags/<name>, for example flags/beta_banner eq \'true\'. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/\'my-flag\' eq \'true\'.\n\nSupported operations include eq, ne, in, and logical operators and, or, not with parentheses. Functions such as startswith are supported by the OData parser.
+	 * @description OData-compliant filter. Encode the value when sending it in a URL.
+	 *
+	 * Allows filtering on one or multiple dimensions. By default, filters for production environment only.
+	 *
+	 * Supported dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm.
+	 *
+	 * JSON dimensions filtered by key: flags/<name>, for example flags/beta_banner eq 'true'. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/'my-flag' eq 'true'.
+	 *
+	 * Supported operations include eq, ne, in, and logical operators and, or, not with parentheses. Functions such as startswith are supported by the OData parser.
 	 * @maxLength 2048
 	 * @example requestPath eq '/docs'
 	 * @type string | undefined
@@ -143241,23 +143359,35 @@ export type AggregateEventsQuery = {
 	 */
 	projectId: string;
 	/**
-	 * @description Up to two dimensions used to break down results.\n\nAt most one time granularity is allowed: hour, day, week, month, year.\n\nOther dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm, eventName.\n\nJSON dimensions: flags, eventData. Used bare, they break down results by key, for example flags returns one group per flag name. With a key, they break down results by that key\'s value, for example eventData/plan. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/\'my-flag\'.
+	 * @description Up to two dimensions used to break down results.
+	 *
+	 * At most one time granularity is allowed: hour, day, week, month, year.
+	 *
+	 * Other dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm, eventName.
+	 *
+	 * JSON dimensions: flags, eventData. Used bare, they break down results by key, for example flags returns one group per flag name. With a key, they break down results by that key's value, for example eventData/plan. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/'my-flag'.
 	 * @example ["day","eventName"]
 	 * @type array
 	 */
 	by: string[];
 	/**
-	 * @description Timestamp in milliseconds, or a valid Date string.\n\nSelects data from (including) this date and time.\nWill be adjusted according to the desired time granularity.
+	 * @description Timestamp in milliseconds, or a valid Date string.
+	 *
+	 * Selects data from (including) this date and time.
+	 * Will be adjusted according to the desired time granularity.
 	 * @example 2024-09-01T00:00:00.000Z
 	 */
 	since: number | string;
 	/**
-	 * @description Timestamp in milliseconds, or a valid Date string.\n\nSelects data until (including) this date.\nWill be adjusted according to the desired time granularity.
+	 * @description Timestamp in milliseconds, or a valid Date string.
+	 *
+	 * Selects data until (including) this date.
+	 * Will be adjusted according to the desired time granularity.
 	 * @example 2024-09-08T00:00:00.000Z
 	 */
 	until: number | string;
 	/**
-	 * @description Number of distinct results, default to 10. Other results are grouped into \"Others\" group.
+	 * @description Number of distinct results, default to 10. Other results are grouped into "Others" group.
 	 * @minLength 1
 	 * @maxLength 100
 	 * @default 10
@@ -143266,7 +143396,15 @@ export type AggregateEventsQuery = {
 	 */
 	limit?: number | undefined;
 	/**
-	 * @description OData-compliant filter. Encode the value when sending it in a URL.\n\nAllows filtering on one or multiple dimensions. By default, filters for production environment only.\n\nSupported dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm, eventName.\n\nJSON dimensions filtered by key: flags/<name>, eventData/<property>, for example eventData/plan eq \'pro\'. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/\'my-flag\' eq \'true\'.\n\nSupported operations include eq, ne, in, and logical operators and, or, not with parentheses. Functions such as startswith are supported by the OData parser.
+	 * @description OData-compliant filter. Encode the value when sending it in a URL.
+	 *
+	 * Allows filtering on one or multiple dimensions. By default, filters for production environment only.
+	 *
+	 * Supported dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm, eventName.
+	 *
+	 * JSON dimensions filtered by key: flags/<name>, eventData/<property>, for example eventData/plan eq 'pro'. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/'my-flag' eq 'true'.
+	 *
+	 * Supported operations include eq, ne, in, and logical operators and, or, not with parentheses. Functions such as startswith are supported by the OData parser.
 	 * @maxLength 2048
 	 * @example eventData/plan eq 'pro'
 	 * @type string | undefined
@@ -143398,17 +143536,31 @@ export type CountPageviewsQuery = {
 	 */
 	projectId: string;
 	/**
-	 * @description Timestamp in milliseconds, or a valid Date string.\n\nSelects data from (including) this date and time.\nWill be adjusted according to the desired time granularity.
+	 * @description Timestamp in milliseconds, or a valid Date string.
+	 *
+	 * Selects data from (including) this date and time.
+	 * Will be adjusted according to the desired time granularity.
 	 * @example 2024-09-01T00:00:00.000Z
 	 */
 	since?: (number | string) | undefined;
 	/**
-	 * @description Timestamp in milliseconds, or a valid Date string.\n\nSelects data until (including) this date.\nWill be adjusted according to the desired time granularity.
+	 * @description Timestamp in milliseconds, or a valid Date string.
+	 *
+	 * Selects data until (including) this date.
+	 * Will be adjusted according to the desired time granularity.
 	 * @example 2024-09-08T00:00:00.000Z
 	 */
 	until?: (number | string) | undefined;
 	/**
-	 * @description OData-compliant filter. Encode the value when sending it in a URL.\n\nAllows filtering on one or multiple dimensions.\n\nSupported dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm.\n\nJSON dimensions filtered by key: flags/<name>, for example flags/beta_banner eq \'true\'. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/\'my-flag\' eq \'true\'.\n\nSupported operations include eq, ne, in, and logical operators and, or, not with parentheses. Functions such as startswith are supported by the OData parser.
+	 * @description OData-compliant filter. Encode the value when sending it in a URL.
+	 *
+	 * Allows filtering on one or multiple dimensions.
+	 *
+	 * Supported dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm.
+	 *
+	 * JSON dimensions filtered by key: flags/<name>, for example flags/beta_banner eq 'true'. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/'my-flag' eq 'true'.
+	 *
+	 * Supported operations include eq, ne, in, and logical operators and, or, not with parentheses. Functions such as startswith are supported by the OData parser.
 	 * @maxLength 2048
 	 * @example route eq '/home'
 	 * @type string | undefined
@@ -143510,17 +143662,31 @@ export type CountEventsQuery = {
 	 */
 	projectId: string;
 	/**
-	 * @description Timestamp in milliseconds, or a valid Date string.\n\nSelects data from (including) this date and time.\nWill be adjusted according to the desired time granularity.
+	 * @description Timestamp in milliseconds, or a valid Date string.
+	 *
+	 * Selects data from (including) this date and time.
+	 * Will be adjusted according to the desired time granularity.
 	 * @example 2024-09-01T00:00:00.000Z
 	 */
 	since?: (number | string) | undefined;
 	/**
-	 * @description Timestamp in milliseconds, or a valid Date string.\n\nSelects data until (including) this date.\nWill be adjusted according to the desired time granularity.
+	 * @description Timestamp in milliseconds, or a valid Date string.
+	 *
+	 * Selects data until (including) this date.
+	 * Will be adjusted according to the desired time granularity.
 	 * @example 2024-09-08T00:00:00.000Z
 	 */
 	until?: (number | string) | undefined;
 	/**
-	 * @description OData-compliant filter. Encode the value when sending it in a URL.\n\nAllows filtering on one or multiple dimensions.\n\nSupported dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm, eventName.\n\nJSON dimensions filtered by key: flags/<name>, eventData/<property>, for example eventData/plan eq \'pro\'. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/\'my-flag\' eq \'true\'.\n\nSupported operations include eq, ne, in, and logical operators and, or, not with parentheses. Functions such as startswith are supported by the OData parser.
+	 * @description OData-compliant filter. Encode the value when sending it in a URL.
+	 *
+	 * Allows filtering on one or multiple dimensions.
+	 *
+	 * Supported dimensions: country, deviceType, environment, requestPath, referrerHostname, osName, browserName, route, utmSource, utmMedium, utmCampaign, utmContent, utmTerm, eventName.
+	 *
+	 * JSON dimensions filtered by key: flags/<name>, eventData/<property>, for example eventData/plan eq 'pro'. Wrap keys containing characters other than letters, digits, and underscores in single quotes, for example flags/'my-flag' eq 'true'.
+	 *
+	 * Supported operations include eq, ne, in, and logical operators and, or, not with parentheses. Functions such as startswith are supported by the OData parser.
 	 * @maxLength 2048
 	 * @example eventName eq 'signup'
 	 * @type string | undefined
@@ -144978,7 +145144,7 @@ export type ListAliasesStatus200 = {
 					applications:
 						| {
 								/**
-								 * @description This is always set. In production it is used as a pointer to each apps production deployment. For pre-production, it\'s used as the fallback if there is no deployment for the branch.
+								 * @description This is always set. In production it is used as a pointer to each apps production deployment. For pre-production, it's used as the fallback if there is no deployment for the branch.
 								 * @type string
 								 */
 								fallbackHost: string;
@@ -144995,7 +145161,7 @@ export type ListAliasesStatus200 = {
 								 */
 								branchAlias: string;
 								/**
-								 * @description This is always set. For branch aliases, it\'s used as the fallback if there is no deployment for the branch.
+								 * @description This is always set. For branch aliases, it's used as the fallback if there is no deployment for the branch.
 								 * @type string
 								 */
 								fallbackHost: string;
@@ -145290,7 +145456,7 @@ export type GetAliasStatus200 = {
 				applications:
 					| {
 							/**
-							 * @description This is always set. In production it is used as a pointer to each apps production deployment. For pre-production, it\'s used as the fallback if there is no deployment for the branch.
+							 * @description This is always set. In production it is used as a pointer to each apps production deployment. For pre-production, it's used as the fallback if there is no deployment for the branch.
 							 * @type string
 							 */
 							fallbackHost: string;
@@ -145307,7 +145473,7 @@ export type GetAliasStatus200 = {
 							 */
 							branchAlias: string;
 							/**
-							 * @description This is always set. For branch aliases, it\'s used as the fallback if there is no deployment for the branch.
+							 * @description This is always set. For branch aliases, it's used as the fallback if there is no deployment for the branch.
 							 * @type string
 							 */
 							fallbackHost: string;
@@ -145542,6 +145708,14 @@ export type PatchUrlProtectionBypassStatus410 = unknown;
 
 export type PatchUrlProtectionBypassStatus428 = unknown;
 
+export const patchUrlProtectionBypassRequestScopeAccessEnum = {
+	denied: "denied",
+	granted: "granted",
+} as const;
+
+export type PatchUrlProtectionBypassRequestScopeAccessEnumKey =
+	(typeof patchUrlProtectionBypassRequestScopeAccessEnum)[keyof typeof patchUrlProtectionBypassRequestScopeAccessEnum];
+
 export const patchUrlProtectionBypassRequestOverrideActionEnum = {
 	create: "create",
 	revoke: "revoke",
@@ -145599,26 +145773,31 @@ export type PatchUrlProtectionBypassBody =
 								 */
 								email: string;
 						  }
-					) &
-						unknown & {
-							/**
-							 * @description Specified user id for the scoped bypass.
-							 * @type string | undefined
-							 */
-							userId?: string | undefined;
-							/**
-							 * @description Specified email for the scoped bypass.
-							 *
-							 * Format: `email`
-							 * @type string | undefined
-							 */
-							email?: string | undefined;
-							/**
-							 * @description Invitation status for the user scoped bypass.
-							 * @type string | undefined
-							 */
-							access?: AccessEnumKey | undefined;
-						};
+					) & {
+						/**
+						 * @description Invitation status for the user scoped bypass.
+						 * @type string
+						 */
+						access: PatchUrlProtectionBypassRequestScopeAccessEnumKey;
+					} & {
+						/**
+						 * @description Specified user id for the scoped bypass.
+						 * @type string | undefined
+						 */
+						userId?: string | undefined;
+						/**
+						 * @description Specified email for the scoped bypass.
+						 *
+						 * Format: `email`
+						 * @type string | undefined
+						 */
+						email?: string | undefined;
+						/**
+						 * @description Invitation status for the user scoped bypass.
+						 * @type string | undefined
+						 */
+						access?: AccessEnumKey | undefined;
+					};
 			  }
 			| {
 					override: {
@@ -146548,10 +146727,6 @@ export type GetDeploymentsStatus200 = {
 		 */
 		checks?:
 			| {
-					/**
-					 * @description Detailed information about v2 deployment checks. Includes information about blocked workflows in the deployment lifecycle.
-					 * @type object
-					 */
 					"deployment-alias": {
 						completedAt?: number | undefined;
 						startedAt: number;
@@ -146610,7 +146785,7 @@ export type GetDeploymentsStatus200 = {
 			 */
 			gitlabLogin?: string | undefined;
 			/**
-			 * @description Principal type of the deployment creator. Defaults to `\"user\"` if absent (legacy deployments created before principal attribution was recorded).
+			 * @description Principal type of the deployment creator. Defaults to `"user"` if absent (legacy deployments created before principal attribution was recorded).
 			 * @type string | undefined
 			 */
 			type?: GetDeploymentsStatus200DeploymentsCreatorTypeEnumKey | undefined;
@@ -146713,7 +146888,7 @@ export type GetDeploymentsStatus200 = {
 		 */
 		oomReport?: "out-of-memory" | undefined;
 		/**
-		 * @description The ID of Secure Compute network used for this deployment\'s passive functions
+		 * @description The ID of Secure Compute network used for this deployment's passive functions
 		 * @type string | undefined
 		 */
 		passiveConnectConfigurationId?: string | undefined;
@@ -146729,7 +146904,7 @@ export type GetDeploymentsStatus200 = {
 					 */
 					creator: {
 						/**
-						 * @description URL of the platform user\'s avatar image.
+						 * @description URL of the platform user's avatar image.
 						 * @type string | undefined
 						 */
 						avatar?: string | undefined;
@@ -146798,7 +146973,7 @@ export type GetDeploymentsStatus200 = {
 						| (GetDeploymentsStatus200DeploymentsProjectSettingsFrameworkEnumKey | null)
 						| undefined;
 					/**
-					 * @description Since June \'23
+					 * @description Since June '23
 					 * @type object | undefined
 					 */
 					gitComments?:
@@ -146829,7 +147004,7 @@ export type GetDeploymentsStatus200 = {
 						| {
 								canceledAt?: number | undefined;
 								/**
-								 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads \"first free data point observed\", not necessarily \"first ever\".
+								 * @description When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
 								 * @type number | undefined
 								 */
 								dataReceivedAt?: number | undefined;
@@ -146873,7 +147048,7 @@ export type GetDeploymentsStatus200 = {
 		ready?: number | undefined;
 		readyState: GetDeploymentsStatus200DeploymentsReadyStateEnumKey;
 		/**
-		 * @description Substate of deployment when readyState is \'READY\' Tracks whether or not deployment has seen production traffic: - STAGED: never seen production traffic - ROLLING: in the process of gradually transitioning production traffic - PROMOTED: has seen production traffic
+		 * @description Substate of deployment when readyState is 'READY' Tracks whether or not deployment has seen production traffic: - STAGED: never seen production traffic - ROLLING: in the process of gradually transitioning production traffic - PROMOTED: has seen production traffic
 		 * @type string | undefined
 		 */
 		readySubstate?: GetDeploymentsStatus200DeploymentsReadySubstateEnumKey | undefined;

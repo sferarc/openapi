@@ -6997,6 +6997,7 @@ import type {
 	PostAccountsAccountIdBrandProtectionBrandsStatus404,
 	PostAccountsAccountIdBrandProtectionBrandsStatus429,
 	PostAccountsAccountIdBrandProtectionBrandsStatus500,
+	PostAccountsAccountIdBrandProtectionLogosBody,
 	PostAccountsAccountIdBrandProtectionLogosResponse,
 	PostAccountsAccountIdBrandProtectionLogosStatus400,
 	PostAccountsAccountIdBrandProtectionLogosStatus403,
@@ -8581,6 +8582,7 @@ import type {
 	SchemaValidationUpdateSettingsBody,
 	SchemaValidationUpdateSettingsResponse,
 	SchemaValidationUpdateSettingsStatus400,
+	ScimGroupsCreateBody,
 	ScimGroupsCreateResponse,
 	ScimGroupsCreateStatus400,
 	ScimGroupsDeleteResponse,
@@ -8589,8 +8591,10 @@ import type {
 	ScimGroupsGetStatus400,
 	ScimGroupsListResponse,
 	ScimGroupsListStatus400,
+	ScimGroupsPatchBody,
 	ScimGroupsPatchResponse,
 	ScimGroupsPatchStatus400,
+	ScimGroupsPutBody,
 	ScimGroupsPutResponse,
 	ScimGroupsPutStatus400,
 	ScimResourceTypesGetResponse,
@@ -8603,6 +8607,7 @@ import type {
 	ScimSchemasListStatus400,
 	ScimServiceProviderConfigGetResponse,
 	ScimServiceProviderConfigGetStatus400,
+	ScimUsersCreateBody,
 	ScimUsersCreateResponse,
 	ScimUsersCreateStatus400,
 	ScimUsersDeleteResponse,
@@ -8611,8 +8616,10 @@ import type {
 	ScimUsersGetStatus400,
 	ScimUsersListResponse,
 	ScimUsersListStatus400,
+	ScimUsersPatchBody,
 	ScimUsersPatchResponse,
 	ScimUsersPatchStatus400,
+	ScimUsersPutBody,
 	ScimUsersPutResponse,
 	ScimUsersPutStatus400,
 	SearchThreatIntelligenceBody,
@@ -56533,6 +56540,161 @@ export async function artAnalyticsQueryTopN(
 }
 
 /**
+ * @summary Query analytics datasets
+ * @description Executes a SQL query scoped to the account in the request path. API Gateway preserves the account path, and SQL API requires it to match the signed JWT account, so an accountTag predicate or JSON scope is not required. Explicit account scope must match the path account. Any zone restrictions must belong to that account. Query parameters, time ranges, output formats, authorization, and responses follow the legacy query endpoint.
+ * @link /accounts/{accountId}/analytics/sql
+ */
+export async function sqlApiQueryGetAccountScoped(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { accountId: string };
+		queryParams?: { query?: string };
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		SqlApiQueryGetAccountScopedResponse,
+		ErrorWrapper<
+			| SqlApiQueryGetAccountScopedStatus400
+			| SqlApiQueryGetAccountScopedStatus403
+			| SqlApiQueryGetAccountScopedStatus422
+			| SqlApiQueryGetAccountScopedStatus429
+			| SqlApiQueryGetAccountScopedStatus500
+			| SqlApiQueryGetAccountScopedStatus501
+			| SqlApiQueryGetAccountScopedStatus503
+			| SqlApiQueryGetAccountScopedStatus507
+		>,
+		null,
+		Record<string, string>,
+		{ query?: string },
+		{ accountId: string }
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/analytics/sql`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Query analytics datasets
+ * @description Executes a SQL query scoped to the account in the request path. API Gateway preserves the account path, and SQL API requires it to match the signed JWT account, so an accountTag predicate or JSON scope is not required. Explicit account scope must match the path account. Any zone restrictions must belong to that account. Query parameters, time ranges, output formats, authorization, and responses follow the legacy query endpoint.
+ * @link /accounts/{accountId}/analytics/sql
+ */
+export async function sqlApiQueryPostAccountScoped(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: { accountId: string };
+		body: SqlApiQueryPostAccountScopedBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		SqlApiQueryPostAccountScopedResponse,
+		ErrorWrapper<
+			| SqlApiQueryPostAccountScopedStatus400
+			| SqlApiQueryPostAccountScopedStatus403
+			| SqlApiQueryPostAccountScopedStatus422
+			| SqlApiQueryPostAccountScopedStatus429
+			| SqlApiQueryPostAccountScopedStatus500
+			| SqlApiQueryPostAccountScopedStatus501
+			| SqlApiQueryPostAccountScopedStatus503
+			| SqlApiQueryPostAccountScopedStatus507
+		>,
+		SqlApiQueryPostAccountScopedBody,
+		Record<string, string>,
+		Record<string, string>,
+		{ accountId: string }
+	>({
+		method: "POST",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/analytics/sql`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List available analytics datasets
+ * @description Returns the dataset catalogue for the account in the request path. API Gateway preserves the account path, and SQL API requires it to match the signed JWT account; account_tag is not required as a query parameter. If supplied, it must match the path account. Dataset and column discovery options are identical to the legacy introspection endpoint.
+ * @link /accounts/{accountId}/analytics/sql/introspection
+ */
+export async function sqlApiIntrospectionAccountScoped(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: { accountId: string };
+		queryParams?: {
+			include_columns?: boolean;
+			include_custom_attributes?: boolean;
+			include_attributes?: boolean;
+			include_wae?: boolean;
+			include_lex?: boolean;
+			dataset_name?: string;
+		};
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		SqlApiIntrospectionAccountScopedResponse,
+		ErrorWrapper<
+			| SqlApiIntrospectionAccountScopedStatus400
+			| SqlApiIntrospectionAccountScopedStatus403
+			| SqlApiIntrospectionAccountScopedStatus422
+			| SqlApiIntrospectionAccountScopedStatus500
+			| SqlApiIntrospectionAccountScopedStatus503
+		>,
+		null,
+		Record<string, string>,
+		{
+			include_columns?: boolean;
+			include_custom_attributes?: boolean;
+			include_attributes?: boolean;
+			include_wae?: boolean;
+			include_lex?: boolean;
+			dataset_name?: string;
+		},
+		{ accountId: string }
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/analytics/sql/introspection`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Execute an Analytics Engine SQL query via query parameter
  * @description Executes a SQL query against Workers Analytics Engine data. Pass the SQL query as a query parameter. The response uses newline-delimited JSON (NDJSON) by default, or a single JSON object when the query includes a FORMAT JSON clause. Use the POST method for longer queries that may exceed URL length limits.
  * @link /accounts/{accountId}/analytics_engine/sql
@@ -60408,10 +60570,12 @@ export async function getAccountsAccountIdBrandProtectionLogos(
 export async function postAccountsAccountIdBrandProtectionLogos(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { accountId: string };
+		body: PostAccountsAccountIdBrandProtectionLogosBody;
 		queryParams?: { tag?: string; match_type?: string; threshold?: number };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -60420,6 +60584,24 @@ export async function postAccountsAccountIdBrandProtectionLogos(
 
 	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
 		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const formData = new FormData();
+	if (body) {
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
+			}
+		}
 	}
 	const data = await request<
 		PostAccountsAccountIdBrandProtectionLogosResponse,
@@ -60431,7 +60613,7 @@ export async function postAccountsAccountIdBrandProtectionLogos(
 			| PostAccountsAccountIdBrandProtectionLogosStatus429
 			| PostAccountsAccountIdBrandProtectionLogosStatus500
 		>,
-		null,
+		FormData,
 		Record<string, string>,
 		{ tag?: string; match_type?: string; threshold?: number },
 		{ accountId: string }
@@ -60439,8 +60621,9 @@ export async function postAccountsAccountIdBrandProtectionLogos(
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/brand-protection/logos`,
 		queryParams,
+		body: formData,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "multipart/form-data", ...requestConfig.headers },
 	});
 
 	return data;
@@ -137296,9 +137479,11 @@ export async function scimGroupsList(
 export async function scimGroupsCreate(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { accountId: unknown };
+		body: ScimGroupsCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -137310,15 +137495,16 @@ export async function scimGroupsCreate(
 	const data = await request<
 		ScimGroupsCreateResponse,
 		ErrorWrapper<ScimGroupsCreateStatus400>,
-		null,
+		string,
 		Record<string, string>,
 		Record<string, string>,
 		{ accountId: unknown }
 	>({
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/scim/v2/Groups`,
+		body: body === undefined ? undefined : JSON.stringify(body),
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "application/scim+json", ...requestConfig.headers },
 	});
 
 	return data;
@@ -137412,9 +137598,11 @@ export async function scimGroupsGet(
 export async function scimGroupsPatch(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { accountId: unknown; groupId: unknown };
+		body: ScimGroupsPatchBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -137430,15 +137618,16 @@ export async function scimGroupsPatch(
 	const data = await request<
 		ScimGroupsPatchResponse,
 		ErrorWrapper<ScimGroupsPatchStatus400>,
-		null,
+		string,
 		Record<string, string>,
 		Record<string, string>,
 		{ accountId: unknown; groupId: unknown }
 	>({
 		method: "PATCH",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/scim/v2/Groups/${encodeURIComponent(String(pathParams.groupId))}`,
+		body: body === undefined ? undefined : JSON.stringify(body),
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "application/scim+json", ...requestConfig.headers },
 	});
 
 	return data;
@@ -137452,9 +137641,11 @@ export async function scimGroupsPatch(
 export async function scimGroupsPut(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { accountId: unknown; groupId: unknown };
+		body: ScimGroupsPutBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -137470,15 +137661,16 @@ export async function scimGroupsPut(
 	const data = await request<
 		ScimGroupsPutResponse,
 		ErrorWrapper<ScimGroupsPutStatus400>,
-		null,
+		string,
 		Record<string, string>,
 		Record<string, string>,
 		{ accountId: unknown; groupId: unknown }
 	>({
 		method: "PUT",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/scim/v2/Groups/${encodeURIComponent(String(pathParams.groupId))}`,
+		body: body === undefined ? undefined : JSON.stringify(body),
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "application/scim+json", ...requestConfig.headers },
 	});
 
 	return data;
@@ -137719,9 +137911,11 @@ export async function scimUsersList(
 export async function scimUsersCreate(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { accountId: unknown };
+		body: ScimUsersCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -137733,15 +137927,16 @@ export async function scimUsersCreate(
 	const data = await request<
 		ScimUsersCreateResponse,
 		ErrorWrapper<ScimUsersCreateStatus400>,
-		null,
+		string,
 		Record<string, string>,
 		Record<string, string>,
 		{ accountId: unknown }
 	>({
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/scim/v2/Users`,
+		body: body === undefined ? undefined : JSON.stringify(body),
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "application/scim+json", ...requestConfig.headers },
 	});
 
 	return data;
@@ -137835,9 +138030,11 @@ export async function scimUsersGet(
 export async function scimUsersPatch(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { accountId: unknown; userId: unknown };
+		body: ScimUsersPatchBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -137853,15 +138050,16 @@ export async function scimUsersPatch(
 	const data = await request<
 		ScimUsersPatchResponse,
 		ErrorWrapper<ScimUsersPatchStatus400>,
-		null,
+		string,
 		Record<string, string>,
 		Record<string, string>,
 		{ accountId: unknown; userId: unknown }
 	>({
 		method: "PATCH",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/scim/v2/Users/${encodeURIComponent(String(pathParams.userId))}`,
+		body: body === undefined ? undefined : JSON.stringify(body),
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "application/scim+json", ...requestConfig.headers },
 	});
 
 	return data;
@@ -137875,9 +138073,11 @@ export async function scimUsersPatch(
 export async function scimUsersPut(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: { accountId: unknown; userId: unknown };
+		body: ScimUsersPutBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -137893,15 +138093,16 @@ export async function scimUsersPut(
 	const data = await request<
 		ScimUsersPutResponse,
 		ErrorWrapper<ScimUsersPutStatus400>,
-		null,
+		string,
 		Record<string, string>,
 		Record<string, string>,
 		{ accountId: unknown; userId: unknown }
 	>({
 		method: "PUT",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/scim/v2/Users/${encodeURIComponent(String(pathParams.userId))}`,
+		body: body === undefined ? undefined : JSON.stringify(body),
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "application/scim+json", ...requestConfig.headers },
 	});
 
 	return data;
@@ -158004,161 +158205,6 @@ export async function dlpRiskScoreResetPost(
 }
 
 /**
- * @summary Query analytics datasets
- * @description Executes a SQL query scoped to the account in the request path. API Gateway preserves the account path, and SQL API requires it to match the signed JWT account, so an accountTag predicate or JSON scope is not required. Explicit account scope must match the path account. Any zone restrictions must belong to that account. Query parameters, time ranges, output formats, authorization, and responses follow the legacy query endpoint.
- * @link /accounts/{accountTag}/analytics/sql
- */
-export async function sqlApiQueryGetAccountScoped(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: { accountTag: string };
-		queryParams?: { query?: string };
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountTag == null || String(pathParams.accountTag) === "") {
-		throw new Error(`Missing required path parameter: accountTag`);
-	}
-	const data = await request<
-		SqlApiQueryGetAccountScopedResponse,
-		ErrorWrapper<
-			| SqlApiQueryGetAccountScopedStatus400
-			| SqlApiQueryGetAccountScopedStatus403
-			| SqlApiQueryGetAccountScopedStatus422
-			| SqlApiQueryGetAccountScopedStatus429
-			| SqlApiQueryGetAccountScopedStatus500
-			| SqlApiQueryGetAccountScopedStatus501
-			| SqlApiQueryGetAccountScopedStatus503
-			| SqlApiQueryGetAccountScopedStatus507
-		>,
-		null,
-		Record<string, string>,
-		{ query?: string },
-		{ accountTag: string }
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountTag))}/analytics/sql`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Query analytics datasets
- * @description Executes a SQL query scoped to the account in the request path. API Gateway preserves the account path, and SQL API requires it to match the signed JWT account, so an accountTag predicate or JSON scope is not required. Explicit account scope must match the path account. Any zone restrictions must belong to that account. Query parameters, time ranges, output formats, authorization, and responses follow the legacy query endpoint.
- * @link /accounts/{accountTag}/analytics/sql
- */
-export async function sqlApiQueryPostAccountScoped(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: { accountTag: string };
-		body: SqlApiQueryPostAccountScopedBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountTag == null || String(pathParams.accountTag) === "") {
-		throw new Error(`Missing required path parameter: accountTag`);
-	}
-	const data = await request<
-		SqlApiQueryPostAccountScopedResponse,
-		ErrorWrapper<
-			| SqlApiQueryPostAccountScopedStatus400
-			| SqlApiQueryPostAccountScopedStatus403
-			| SqlApiQueryPostAccountScopedStatus422
-			| SqlApiQueryPostAccountScopedStatus429
-			| SqlApiQueryPostAccountScopedStatus500
-			| SqlApiQueryPostAccountScopedStatus501
-			| SqlApiQueryPostAccountScopedStatus503
-			| SqlApiQueryPostAccountScopedStatus507
-		>,
-		SqlApiQueryPostAccountScopedBody,
-		Record<string, string>,
-		Record<string, string>,
-		{ accountTag: string }
-	>({
-		method: "POST",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountTag))}/analytics/sql`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List available analytics datasets
- * @description Returns the dataset catalogue for the account in the request path. API Gateway preserves the account path, and SQL API requires it to match the signed JWT account; account_tag is not required as a query parameter. If supplied, it must match the path account. Dataset and column discovery options are identical to the legacy introspection endpoint.
- * @link /accounts/{accountTag}/analytics/sql/introspection
- */
-export async function sqlApiIntrospectionAccountScoped(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: { accountTag: string };
-		queryParams?: {
-			include_columns?: boolean;
-			include_custom_attributes?: boolean;
-			include_attributes?: boolean;
-			include_wae?: boolean;
-			include_lex?: boolean;
-			dataset_name?: string;
-		};
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountTag == null || String(pathParams.accountTag) === "") {
-		throw new Error(`Missing required path parameter: accountTag`);
-	}
-	const data = await request<
-		SqlApiIntrospectionAccountScopedResponse,
-		ErrorWrapper<
-			| SqlApiIntrospectionAccountScopedStatus400
-			| SqlApiIntrospectionAccountScopedStatus403
-			| SqlApiIntrospectionAccountScopedStatus422
-			| SqlApiIntrospectionAccountScopedStatus500
-			| SqlApiIntrospectionAccountScopedStatus503
-		>,
-		null,
-		Record<string, string>,
-		{
-			include_columns?: boolean;
-			include_custom_attributes?: boolean;
-			include_attributes?: boolean;
-			include_wae?: boolean;
-			include_lex?: boolean;
-			dataset_name?: string;
-		},
-		{ accountTag: string }
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountTag))}/analytics/sql/introspection`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Rate Plan by Public Key
  * @description Gets a rate plan's details by its public key (e.g., 'teams_free', 'cf_pro_20_20'). This is a public catalog endpoint, so authentication is not enforced and credentials are accepted but not required.
  * @link /billing/rate_plans/{publicKey}
@@ -164705,7 +164751,8 @@ export async function aiSecurityCustomTopicsGet(
  * rules apply:
  * - A zone can hold at most 20 topics.
  * - `label` must be 2–20 characters, using only lowercase letters (a–z), digits (0–9), and hyphens.
- * - `topic` must be 2–50 printable ASCII characters.
+ * - `topic` must be 2–50 UTF-8 bytes. Text in any language is supported, including spaces, numbers,
+ *   punctuation, and symbols. Tabs, line breaks, invalid text, and invisible formatting characters are not allowed.
  * - Labels must be unique within the zone, and so must topic descriptions.
  * @link /zones/{zoneId}/ai-security/custom-topics
  */
@@ -192256,6 +192303,9 @@ export const operationsByPath = {
 	"POST /accounts/{accountId}/analytics/query/{dataset}/summary": artAnalyticsQuerySummary,
 	"POST /accounts/{accountId}/analytics/query/{dataset}/timeseries": artAnalyticsQueryTimeseries,
 	"POST /accounts/{accountId}/analytics/query/{dataset}/top-n": artAnalyticsQueryTopN,
+	"GET /accounts/{accountId}/analytics/sql": sqlApiQueryGetAccountScoped,
+	"POST /accounts/{accountId}/analytics/sql": sqlApiQueryPostAccountScoped,
+	"GET /accounts/{accountId}/analytics/sql/introspection": sqlApiIntrospectionAccountScoped,
 	"GET /accounts/{accountId}/analytics_engine/sql": analyticsEngineSqlQueryGet,
 	"POST /accounts/{accountId}/analytics_engine/sql": analyticsEngineSqlQueryPost,
 	"GET /accounts/{accountId}/argo/count_zones_enabled":
@@ -195510,9 +195560,6 @@ export const operationsByPath = {
 	"GET /accounts/{accountId}/zt_risk_scoring/summary": dlpRiskScoreSummaryGet,
 	"GET /accounts/{accountId}/zt_risk_scoring/{userId}": dlpRiskScoreSummaryGetForUser,
 	"POST /accounts/{accountId}/zt_risk_scoring/{userId}/reset": dlpRiskScoreResetPost,
-	"GET /accounts/{accountTag}/analytics/sql": sqlApiQueryGetAccountScoped,
-	"POST /accounts/{accountTag}/analytics/sql": sqlApiQueryPostAccountScoped,
-	"GET /accounts/{accountTag}/analytics/sql/introspection": sqlApiIntrospectionAccountScoped,
 	"GET /billing/rate_plans/{publicKey}": billingGetRatePlan,
 	"DELETE /certificates/{certificateId}": originCaRevokeCertificate,
 	"GET /certificates/{certificateId}": originCaGetCertificate,

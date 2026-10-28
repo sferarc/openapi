@@ -1,4 +1,4 @@
-import type { FetchImpl } from "./fetch";
+import type { FetchImpl, RequestInit } from "./fetch";
 import { compactObject } from "./lang";
 
 const defaultBaseUrl = "https://api.vercel.com";
@@ -85,7 +85,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 				? body
 				: requestHeaders["Content-Type"] === "application/json"
 					? JSON.stringify(body)
-					: (body as unknown as string);
+					: (body as RequestInit["body"]);
 
 		const fullUrl = `${baseUrl}${resolveUrl(url, queryParams)}`;
 
@@ -94,6 +94,8 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 			method: method.toUpperCase(),
 			body: payload,
 			headers: requestHeaders,
+			// fetch refuses a stream body unless the request is marked half duplex.
+			...(payload instanceof ReadableStream ? { duplex: "half" as const } : {}),
 		});
 
 		if (!response.ok) {

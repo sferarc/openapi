@@ -1,5 +1,71 @@
 # cloudflare-api-js
 
+## 2.1.0
+
+### Minor Changes
+
+- bbd22b5: [BREAKING] Removed and re-added the operations sqlApiQueryGetAccountScoped, sqlApiQueryPostAccountScoped, and sqlApiIntrospectionAccountScoped.
+
+### Patch Changes
+
+- bbd22b5: Simplified multiple type definitions by dropping excessive parentheses around intersections and unions.
+
+## 2.0.0
+
+### Major Changes
+
+- 49d548e: Breaking: a failed HTTP response now rejects with `{ status, payload }`, where `status` is the HTTP status code and `payload` is the parsed error body (or a description string when the body is not JSON). It used to reject with `{ name: "unknown", message }`, losing both. Code that reads `error.message` from a rejected call should read `error.status` and `error.payload` instead. Requests that never get a response still reject with `{ name: "unknown", message }`. In the Effect bindings, HTTP errors now fail with `ApiError` carrying the status instead of `NetworkError`.
+
+### Minor Changes
+
+- 2f77dce: Added endpoint to update a custom nameserver set for an account.
+- 5d38a89: Added several Cloudflare Workers Store (CWS) category operations such as cwsListCategoryApis, cwsListCategoryApplications, cwsListCategoryOperations, and cwsGetFilterSchema.
+- 5d38a89: Added user analytics dashboard operation userAnalyticsGetDashboard.
+- 5d38a89: Added new Radar annotation and anomaly retrieval operations (e.g., radarGetAnnotationById, radarGetTrafficAnomalyByUuid).
+- 5d38a89: Added new operation getHeartbeat for retrieving heartbeat status.
+- 5d38a89: Added new operation billingValidateAddress for validating billing addresses.
+- 5d38a89: Added support for Access SCIM group and user resource management (delete and get operations).
+- 5d38a89: Added new Artifacts API operations for namespace, repo, and file management (e.g., artifactsNamespacesCreate, artifactsNamespacesDelete, artifactsReposCreate).
+- 5d38a89: Added new aiSearchNamespace operations including delete, fetch, update, and multi-instance chat completion.
+- 5d38a89: [BREAKING] Remove operations no longer in the cloudflare-api-js OpenAPI spec: `accountBillingPayBadDebt`, `brapiGetDevtoolsBrowser`, `brapiGetDevtoolsBrowserAcquire`, `brapiGetDevtoolsPage`, `createLivestream`, `deleteImageDelete`, `getAccountsAccountIdV2Images`, `getImageGet`, `getImageGetBlob`, `getImageList`, `listPolicyLogs`, `metricsExportDelete`, `monolithHealthCheck`, `patchImageEdit`, `postDirectUploadLink`, `postImageUpload`, `putImageDirectUpload`, `streamMP4DownloadsCreateDownloads`, `streamMP4DownloadsDeleteDownloads`, `streamMP4DownloadsListDownloads`, `worSubscribeWorkflowInstanceEvents`.
+- 5d38a89: Added argoSmartRoutingGetCountZonesEnabledForUser and argoSmartRoutingGetCountZonesEnabledForAccount.
+- 5d38a89: Added workersAiAiGatewayWebSearch operation.
+- 5d38a89: Added K2-related operations including postK2Produce, getK2Subscriptions, and postK2Subscriptions.
+- 2f77dce: Added operations to set, get, and delete firewall payload logging keys for accounts and zones.
+- 5d38a89: Added support for managing Access user populations and users with new CRUD operations.
+- 5d38a89: Added new origin certificate operations: originCaListCertificates and originCaCreateCertificate.
+- 5d38a89: [BREAKING] Removed Image API operations including getImageList, postImageUpload, deleteImageDelete, getImageGet, patchImageEdit, putImageDirectUpload, getImageGetBlob, getAccountsAccountIdV2Images, and postDirectUploadLink, and replaced them with SQL API operations.
+- 5d38a89: [BREAKING] Removed aiSearch namespace management operations and re-added with possibly updated signatures or capabilities.
+- 5d38a89: Added postVerify operation for verification processes.
+- 5d38a89: Added abuse report management operations: listAbuseReports, listSubmittedAbuseReports, getSubmittedAbuseReport, and listSubmittedAbuseReportEmails.
+- 5164013: Add type UrlscannerGetScanV2Status200 for enhanced URL scanner scan status responses.
+- 5d38a89: Added domain- and account-related operations: zonesGet, zonesPost, accountDeletion, accountsAccountDetails, accountsUpdateAccount.
+- 5d38a89: Added ip address management operations for bulk IP and zone management (e.g. add/remove multiple IPs or zones).
+- 5d38a89: Added operations for provider templates and configurations (getProviderTemplate, getProviderConfiguration, getDomainSettings).
+- 2f77dce: Added Zero Trust Organization trust settings operations: get, update, and replace.
+- 952e2c8: Added operation deleteIndicatorDeleteBulk for bulk deletion of indicators.
+- 3684854: Add a `body` parameter to the operations that only take an `application/scim+json` request body, sent as JSON with that `Content-Type`. Before this, `scimUsersCreate`, `scimUsersPatch`, `scimUsersPut`, `scimGroupsCreate`, `scimGroupsPatch` and `scimGroupsPut` could not send the user or group they create or change.
+- b63eee1: Add a `body` parameter to `postAccountsAccountIdBrandProtectionLogos`, which had none. Its spec declares an `application/x-www-form-urlencoded` body with a binary `image` field, which form fields cannot carry, so the `image` `Blob` is sent as `multipart/form-data` instead. Whether Cloudflare accepts the multipart upload is unknown: no upload was tried against the API.
+
+### Patch Changes
+
+- 76653f2: Return `undefined` from `client.api` for `Object.prototype` names such as `constructor` or `toString`, instead of a namespace or an operation wrapper that calls the inherited method.
+- dc5ea2c: Resolve a binary response, such as a zip, an octet-stream, a PDF or an image, as a `Blob` instead of a string decoded as UTF-8, which corrupted the bytes of downloads like `chatsDownloadVersion` in `v0-api`, `downloadArtifact` in `vercel-api-js` and Workers KV values in `cloudflare-api-js`. A custom `fetchImpl` whose response has no `blob()` still gets the text.
+- 0cccd4d: Added the type PostAccountsAccountIdBrandProtectionLogosBody for the request body in the Brand Protection Logos endpoint.
+- 952e2c8: Added types for the deleteIndicatorDeleteBulk operation, including request and response types.
+- 2f77dce: Added new types and request bodies for R2 Data Catalog catalog activation and credential requests.
+- 2f77dce: Added new severity enums to RSS article/relevance/severity workflows and responses.
+- c3517ac: Added optional logging to various upload, patch, and create operations for improved diagnostics.
+- c80f59d: Resolve a 204 or an empty successful body to `undefined` instead of rejecting with a network error, and let a header such as `authorization` or `content-type` replace the default regardless of case instead of being sent alongside it
+- 21eaaa2: Reject a failed request with a real `Error` that names the method and path, gives the reason and keeps the original exception as `cause`, instead of a plain object with no stack, and keep the raw body text (up to 1000 characters) as the payload when an error response is not JSON, instead of the JSON parser's message. An aborted request rejects with the `AbortError` itself, so callers can tell it from a network failure.
+- 1fc5b21: Omit undefined query parameters and send arrays as repeated keys
+- 40d8746: Send array and object fields of a multipart body instead of dropping them: an array is sent as one part per item and an object as a JSON part, and a bigint field as a string. Before this, `workerScriptPutContent` and `workerVersionsUploadVersion` sent neither `files` nor `metadata`.
+- a761355: Percent-encode path parameters in generated operations, so a value containing `/`, `?`, `#` or `..` can no longer change which endpoint is called. Required path parameters now accept falsy values such as `0`.
+- 1a37cad: Keep the slashes in file path parameters, which the previous release percent-encoded as `%2F`, and leave existing `%XX` escapes in them untouched so values already passed through `encodeURI` are not encoded twice.
+- 613be44: `request()` now calls the generated operation instead of the raw fetcher, so path parameters are substituted, validated and percent-encoded the same way as through `api`. An unknown endpoint throws.
+- fe64135: Send a `ReadableStream` upload body with `duplex: "half"`. Without it, Node's `fetch` rejected the request with "duplex option is required when sending a body" before sending anything, so raw body operations such as `uploadArtifact` in `vercel-api-js` and `dlpDatasetsUploadVersion` in `cloudflare-api-js` failed whenever they were given a stream.
+- 9865850: Expose operations without a tag under `client.api.default` and the Effect `ApiService.default`, and merge tags that differ only in case or separators into one namespace instead of dropping all but the last.
+
 ## 1.1.0
 
 ### Minor Changes

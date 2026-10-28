@@ -1,5 +1,37 @@
 # keycloak-api
 
+## 2.1.0
+
+### Minor Changes
+
+- e3c84b0: [BREAKING] Several exported type definitions such as GETAdminRealmsRealmIdentityProviderInstancesQuery, GETAdminRealmsRealmUsersQuery, and others were modified, which may affect the expected request or response structure for these operations.
+
+## 2.0.0
+
+### Major Changes
+
+- 49d548e: Breaking: a failed HTTP response now rejects with `{ status, payload }`, where `status` is the HTTP status code and `payload` is the parsed error body (or a description string when the body is not JSON). It used to reject with `{ name: "unknown", message }`, losing both. Code that reads `error.message` from a rejected call should read `error.status` and `error.payload` instead. Requests that never get a response still reject with `{ name: "unknown", message }`. In the Effect bindings, HTTP errors now fail with `ApiError` carrying the status instead of `NetworkError`.
+
+### Minor Changes
+
+- cf4f867: Add POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserBody and POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserBody types for invite operations.
+- b63eee1: Add a `body` parameter to the operations that only take an `application/x-www-form-urlencoded` request body, sent as form fields. Before this, `pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUser` and `pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUser` could not send the `email`, `firstName`, `lastName` or `id` they need.
+
+### Patch Changes
+
+- dc5ea2c: Resolve a binary response, such as a zip, an octet-stream, a PDF or an image, as a `Blob` instead of a string decoded as UTF-8, which corrupted the bytes of downloads like `chatsDownloadVersion` in `v0-api`, `downloadArtifact` in `vercel-api-js` and Workers KV values in `cloudflare-api-js`. A custom `fetchImpl` whose response has no `blob()` still gets the text.
+- 9fca3e9: Export the `FetcherConfig` type from `keycloak-api/admin/components` and `keycloak-api/account/components`. The declarations of both entries referenced it from a private chunk, so a consumer emitting declarations for code that inferred an operation's parameters could not name it.
+- c80f59d: Resolve a 204 or an empty successful body to `undefined` instead of rejecting with a network error, and let a header such as `authorization` or `content-type` replace the default regardless of case instead of being sent alongside it
+- 21eaaa2: Reject a failed request with a real `Error` that names the method and path, gives the reason and keeps the original exception as `cause`, instead of a plain object with no stack, and keep the raw body text (up to 1000 characters) as the payload when an error response is not JSON, instead of the JSON parser's message. An aborted request rejects with the `AbortError` itself, so callers can tell it from a network failure.
+- 1fc5b21: Omit undefined query parameters and send arrays as repeated keys
+- 9f4c973: Add type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelBody for request body in the update user credential label operation.
+- 9f4c973: Add type PUTAdminRealmsRealmLocalizationLocaleKeyBody for request body in the update locale key operation.
+- a761355: Percent-encode path parameters in generated operations, so a value containing `/`, `?`, `#` or `..` can no longer change which endpoint is called. Required path parameters now accept falsy values such as `0`, and multipart bodies send number and boolean fields as strings instead of dropping them. Regenerated from the current upstream spec.
+- 1a37cad: Keep the slashes in file path parameters, which the previous release percent-encoded as `%2F`, and leave existing `%XX` escapes in them untouched so values already passed through `encodeURI` are not encoded twice.
+- 613be44: `request()` now calls the generated operation instead of the raw fetcher, so path parameters are substituted, validated and percent-encoded the same way as through `api`. An unknown endpoint throws.
+- fe64135: Send a `ReadableStream` upload body with `duplex: "half"`. Without it, Node's `fetch` rejected the request with "duplex option is required when sending a body" before sending anything, so raw body operations such as `uploadArtifact` in `vercel-api-js` and `dlpDatasetsUploadVersion` in `cloudflare-api-js` failed whenever they were given a stream.
+- 9865850: Expose operations without a tag under `client.api.default` and the Effect `ApiService.default`, and merge tags that differ only in case or separators into one namespace instead of dropping all but the last.
+
 ## 1.2.0
 
 ### Minor Changes

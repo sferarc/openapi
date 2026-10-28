@@ -142,7 +142,7 @@ export type ActionDrag = {
 };
 
 /**
- * @description Action type \"find_in_page\": Searches for a pattern within a loaded page.
+ * @description Action type "find_in_page": Searches for a pattern within a loaded page.
  * @type object
  */
 export type ActionFind = {
@@ -175,7 +175,7 @@ export type ActionMove = {
 };
 
 /**
- * @description Action type \"open_page\" - Opens a specific URL from search results.
+ * @description Action type "open_page" - Opens a specific URL from search results.
  * @type object
  */
 export type ActionOpenPage = {
@@ -218,7 +218,7 @@ export type ActionSearchSource = {
 };
 
 /**
- * @description Action type \"search\" - Performs a web search query.
+ * @description Action type "search" - Performs a web search query.
  * @type object
  */
 export type ActionSearch = {
@@ -471,7 +471,9 @@ export type FunctionToolAllowedCallersEnumKey =
 	(typeof functionToolAllowedCallersEnum)[keyof typeof functionToolAllowedCallersEnum];
 
 /**
- * @description Defines a function in your own code the model can choose to call.\n\nLearn more about [function calling](https://platform.openai.com/docs/guides/function-calling).
+ * @description Defines a function in your own code the model can choose to call.
+ *
+ * Learn more about [function calling](https://platform.openai.com/docs/guides/function-calling).
  * @type object
  */
 export type FunctionTool = {
@@ -567,7 +569,9 @@ export type RankingOptions = {
 };
 
 /**
- * @description A tool that searches for relevant content from uploaded files.\n\nLearn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).
+ * @description A tool that searches for relevant content from uploaded files.
+ *
+ * Learn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).
  * @type object
  */
 export type FileSearchTool = {
@@ -580,7 +584,9 @@ export type FileSearchTool = {
 };
 
 /**
- * @description A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+ * @description A tool that controls a virtual computer.
+ *
+ * Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
  * @type object
  */
 export type ComputerTool = {
@@ -600,7 +606,9 @@ export type ComputerUsePreviewToolEnvironmentEnumKey =
 	(typeof computerUsePreviewToolEnvironmentEnum)[keyof typeof computerUsePreviewToolEnvironmentEnum];
 
 /**
- * @description A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+ * @description A tool that controls a virtual computer.
+ *
+ * Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
  * @type object
  */
 export type ComputerUsePreviewTool = {
@@ -651,7 +659,10 @@ export type WebSearchToolSearchContextSizeKey =
 	(typeof webSearchToolSearchContextSize)[keyof typeof webSearchToolSearchContextSize];
 
 /**
- * @description Search the Internet for sources related to the prompt.\n\nLearn more about the\n[web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+ * @description Search the Internet for sources related to the prompt.
+ *
+ * Learn more about the
+ * [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
  * @type object
  */
 export type WebSearchTool = {
@@ -693,7 +704,11 @@ export type McpRequireApprovalMcpToolApprovalFilterNever = {
 };
 
 /**
- * @description Specify which of the MCP server\'s tools require approval.\n\nCan be\n`always`, `never`, or a filter object associated with tools\nthat require approval.
+ * @description Specify which of the MCP server's tools require approval.
+ *
+ * Can be
+ * `always`, `never`, or a filter object associated with tools
+ * that require approval.
  * @type object
  */
 export type McpRequireApprovalMcpToolApprovalFilter = {
@@ -731,7 +746,8 @@ export const mcpRequireApproval = {
 export type McpRequireApprovalKey = (typeof mcpRequireApproval)[keyof typeof mcpRequireApproval];
 
 /**
- * @description Give the model access to additional tools via remote Model Context Protocol\n(MCP) servers. [Learn more about MCP](https://platform.openai.com/docs/guides/tools-remote-mcp).
+ * @description Give the model access to additional tools via remote Model Context Protocol
+ * (MCP) servers. [Learn more about MCP](https://platform.openai.com/docs/guides/tools-remote-mcp).
  * @type object
  */
 export type Mcp = {
@@ -786,7 +802,9 @@ export type CodeInterpreterContainerCodeInterpreterToolAutoMemoryLimitKey =
 	(typeof codeInterpreterContainerCodeInterpreterToolAutoMemoryLimit)[keyof typeof codeInterpreterContainerCodeInterpreterToolAutoMemoryLimit];
 
 /**
- * @description Configuration for a code interpreter container.\n\nOptionally specify the IDs of the files to run the code on.
+ * @description Configuration for a code interpreter container.
+ *
+ * Optionally specify the IDs of the files to run the code on.
  * @type object
  */
 export type CodeInterpreterContainerCodeInterpreterToolAuto = {
@@ -824,7 +842,10 @@ export type ProgrammaticToolCalling = {
 };
 
 /**
- * @description Optional mask for inpainting.\n\nContains `image_url`\n(string, optional) and `file_id` (string, optional).
+ * @description Optional mask for inpainting.
+ *
+ * Contains `image_url`
+ * (string, optional) and `file_id` (string, optional).
  * @type object
  */
 export type ImageGenerationInputImageMask = {
@@ -1040,7 +1061,9 @@ export type CustomToolAllowedCallersEnumKey =
 	(typeof customToolAllowedCallersEnum)[keyof typeof customToolAllowedCallersEnum];
 
 /**
- * @description A custom tool that processes input using a specified format.\n\nLearn more about   [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
+ * @description A custom tool that processes input using a specified format.
+ *
+ * Learn more about   [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
  * @type object
  */
 export type CustomTool = {
@@ -1110,7 +1133,7 @@ export type ToolSearchTool = {
 };
 
 /**
- * @description The user\'s location.
+ * @description The user's location.
  * @type object
  */
 export type OpenaiTypesResponsesWebSearchPreviewToolUserLocation = {
@@ -1148,7 +1171,9 @@ export type WebSearchPreviewToolSearchContextSizeKey =
 	(typeof webSearchPreviewToolSearchContextSize)[keyof typeof webSearchPreviewToolSearchContextSize];
 
 /**
- * @description This tool searches the web for relevant results to use in a response.\n\nLearn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+ * @description This tool searches the web for relevant results to use in a response.
+ *
+ * Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
  * @type object
  */
 export type WebSearchPreviewTool = {
@@ -1369,7 +1394,9 @@ export type AgentCardSignature = {
 };
 
 /**
- * @description The AgentCard is a self-describing manifest for an agent.\nIt provides essential metadata including the agent\'s identity, capabilities,\nskills, supported communication methods, and security requirements.
+ * @description The AgentCard is a self-describing manifest for an agent.
+ * It provides essential metadata including the agent's identity, capabilities,
+ * skills, supported communication methods, and security requirements.
  * @type object
  */
 export type AgentCard = {
@@ -1525,7 +1552,8 @@ export type AgentKillSwitchConfigMethodEnumKey =
 	(typeof agentKillSwitchConfigMethodEnum)[keyof typeof agentKillSwitchConfigMethodEnum];
 
 /**
- * @description Webhook an admin fires to shut an agent down out of band. LiteLLM only\nmakes the call; whatever the endpoint does with it is the agent\'s business.
+ * @description Webhook an admin fires to shut an agent down out of band. LiteLLM only
+ * makes the call; whatever the endpoint does with it is the agent's business.
  * @type object
  */
 export type AgentKillSwitchConfig = {
@@ -1835,14 +1863,18 @@ export type AutoRouterCacheBucket = {
 	 */
 	hits: number;
 	/**
-	 * @description hits over this bucket\'s turns, as a percentage
+	 * @description hits over this bucket's turns, as a percentage
 	 * @type number
 	 */
 	hit_rate_pct: number;
 };
 
 /**
- * @description Prompt-caching behaviour of auto-routed turns, bucketed by what the router did.\n\nEvery in-order turn falls in exactly one bucket: the session stayed on the same model,\nvisited a model for the first time (cold by design), or returned to a model it had\nalready used. Out-of-order turns (cross-pod flush races) are counted but not bucketed.
+ * @description Prompt-caching behaviour of auto-routed turns, bucketed by what the router did.
+ *
+ * Every in-order turn falls in exactly one bucket: the session stayed on the same model,
+ * visited a model for the first time (cold by design), or returned to a model it had
+ * already used. Out-of-order turns (cross-pod flush races) are counted but not bucketed.
  * @type object
  */
 export type AutoRouterCacheStats = {
@@ -1877,7 +1909,7 @@ export type AutoRouterCacheStats = {
 	 */
 	unordered_turns: number;
 	/**
-	 * @description Return-to-tier misses where the model\'s recorded cache TTL had lapsed
+	 * @description Return-to-tier misses where the model's recorded cache TTL had lapsed
 	 * @type integer
 	 */
 	return_misses_expired: number;
@@ -1904,7 +1936,7 @@ export type AutoRouterCacheStats = {
 };
 
 /**
- * @description One auto-router\'s slice of the benchmarks.
+ * @description One auto-router's slice of the benchmarks.
  * @type object
  */
 export type AutoRouterBenchmarkGroup = {
@@ -1935,7 +1967,7 @@ export type AutoRouterBenchmarkGroup = {
 	 */
 	avg_tokens_per_session: number | null;
 	/**
-	 * @description What the selected days\' routed traffic actually cost
+	 * @description What the selected days' routed traffic actually cost
 	 * @type number
 	 */
 	spend: number;
@@ -1962,7 +1994,7 @@ export type AutoRouterBenchmarkGroup = {
 	 */
 	saved_spend: number | null;
 	/**
-	 * @description Part of saved_spend no router\'s daily rows account for, such as history recorded before per-router daily tracking; when set, baseline_spend and saved_pct are null
+	 * @description Part of saved_spend no router's daily rows account for, such as history recorded before per-router daily tracking; when set, baseline_spend and saved_pct are null
 	 */
 	unattributed_saved_spend?: (number | null) | undefined;
 	/**
@@ -1974,7 +2006,11 @@ export type AutoRouterBenchmarkGroup = {
 	 */
 	saved_pct: number | null;
 	/**
-	 * @description Prompt-caching behaviour of auto-routed turns, bucketed by what the router did.\n\nEvery in-order turn falls in exactly one bucket: the session stayed on the same model,\nvisited a model for the first time (cold by design), or returned to a model it had\nalready used. Out-of-order turns (cross-pod flush races) are counted but not bucketed.
+	 * @description Prompt-caching behaviour of auto-routed turns, bucketed by what the router did.
+	 *
+	 * Every in-order turn falls in exactly one bucket: the session stayed on the same model,
+	 * visited a model for the first time (cold by design), or returned to a model it had
+	 * already used. Out-of-order turns (cross-pod flush races) are counted but not bucketed.
 	 * @type object
 	 */
 	cache: AutoRouterCacheStats;
@@ -1989,7 +2025,7 @@ export type AutoRouterBenchmarkGroup = {
 	 */
 	router_type: string;
 	/**
-	 * @description Turns per tier, keyed by the tier name the routing decision recorded at request time (never re-derived at read time, since the tier-to-model mapping is mutable config). Tier names are scoped to this group\'s router_type and are not comparable across types: a complexity router reports \'SIMPLE\'/\'MEDIUM\'/\'COMPLEX\'/\'REASONING\', a quality router reports its numeric quality tier, and an adaptive router records no tier at all. Turns no tier served (the classifier fell back to default_model) are absent rather than pooled under a sentinel key, so the values may sum to less than turns
+	 * @description Turns per tier, keyed by the tier name the routing decision recorded at request time (never re-derived at read time, since the tier-to-model mapping is mutable config). Tier names are scoped to this group's router_type and are not comparable across types: a complexity router reports 'SIMPLE'/'MEDIUM'/'COMPLEX'/'REASONING', a quality router reports its numeric quality tier, and an adaptive router records no tier at all. Turns no tier served (the classifier fell back to default_model) are absent rather than pooled under a sentinel key, so the values may sum to less than turns
 	 * @type object | undefined
 	 */
 	tier_turns?:
@@ -2000,7 +2036,8 @@ export type AutoRouterBenchmarkGroup = {
 };
 
 /**
- * @description Auto-routed traffic in the window. Turns, spend and savings count requests on the selected UTC days;\nthe session averages and cache stats describe every session overlapping the window, whole.
+ * @description Auto-routed traffic in the window. Turns, spend and savings count requests on the selected UTC days;
+ * the session averages and cache stats describe every session overlapping the window, whole.
  * @type object
  */
 export type AutoRouterBenchmarkTotals = {
@@ -2031,7 +2068,7 @@ export type AutoRouterBenchmarkTotals = {
 	 */
 	avg_tokens_per_session: number | null;
 	/**
-	 * @description What the selected days\' routed traffic actually cost
+	 * @description What the selected days' routed traffic actually cost
 	 * @type number
 	 */
 	spend: number;
@@ -2058,7 +2095,7 @@ export type AutoRouterBenchmarkTotals = {
 	 */
 	saved_spend: number | null;
 	/**
-	 * @description Part of saved_spend no router\'s daily rows account for, such as history recorded before per-router daily tracking; when set, baseline_spend and saved_pct are null
+	 * @description Part of saved_spend no router's daily rows account for, such as history recorded before per-router daily tracking; when set, baseline_spend and saved_pct are null
 	 */
 	unattributed_saved_spend?: (number | null) | undefined;
 	/**
@@ -2070,7 +2107,11 @@ export type AutoRouterBenchmarkTotals = {
 	 */
 	saved_pct: number | null;
 	/**
-	 * @description Prompt-caching behaviour of auto-routed turns, bucketed by what the router did.\n\nEvery in-order turn falls in exactly one bucket: the session stayed on the same model,\nvisited a model for the first time (cold by design), or returned to a model it had\nalready used. Out-of-order turns (cross-pod flush races) are counted but not bucketed.
+	 * @description Prompt-caching behaviour of auto-routed turns, bucketed by what the router did.
+	 *
+	 * Every in-order turn falls in exactly one bucket: the session stayed on the same model,
+	 * visited a model for the first time (cold by design), or returned to a model it had
+	 * already used. Out-of-order turns (cross-pod flush races) are counted but not bucketed.
 	 * @type object
 	 */
 	cache: AutoRouterCacheStats;
@@ -2097,7 +2138,8 @@ export type AutoRouterBenchmarksResponse = {
 	 */
 	routers_in_scope: number;
 	/**
-	 * @description Auto-routed traffic in the window. Turns, spend and savings count requests on the selected UTC days;\nthe session averages and cache stats describe every session overlapping the window, whole.
+	 * @description Auto-routed traffic in the window. Turns, spend and savings count requests on the selected UTC days;
+	 * the session averages and cache stats describe every session overlapping the window, whole.
 	 * @type object
 	 */
 	totals: AutoRouterBenchmarkTotals;
@@ -2109,7 +2151,10 @@ export type AutoRouterBenchmarksResponse = {
 };
 
 /**
- * @description The built-in system prompt an auto-router\'s LLM classifier uses when none is configured.\n\nServed so the dashboard\'s prompt editor prefills the rubric the proxy actually sends, rather than\na copy in the frontend that drifts the moment the rubric is edited.
+ * @description The built-in system prompt an auto-router's LLM classifier uses when none is configured.
+ *
+ * Served so the dashboard's prompt editor prefills the rubric the proxy actually sends, rather than
+ * a copy in the frontend that drifts the moment the rubric is edited.
  * @type object
  */
 export type AutoRouterClassifierDefaultPromptResponse = {
@@ -2127,7 +2172,7 @@ export type TierDefinition = {
 	 */
 	name: string;
 	/**
-	 * @description What belongs in this tier; rendered as this tier\'s bullet in the classifier rubric. Required unless the name is a built-in tier (NON_REASONING, SIMPLE, MEDIUM, COMPLEX, REASONING), which inherits the built-in criteria when omitted
+	 * @description What belongs in this tier; rendered as this tier's bullet in the classifier rubric. Required unless the name is a built-in tier (NON_REASONING, SIMPLE, MEDIUM, COMPLEX, REASONING), which inherits the built-in criteria when omitted
 	 */
 	description?: (string | null) | undefined;
 };
@@ -2153,7 +2198,8 @@ export type ClassificationRubricKey =
 	(typeof classificationRubric)[keyof typeof classificationRubric];
 
 /**
- * @description A POST rather than query params: the classification sections are the operator\'s own text,\nwhich must not reach access logs through a URL.
+ * @description A POST rather than query params: the classification sections are the operator's own text,
+ * which must not reach access logs through a URL.
  * @type object
  */
 export type AutoRouterClassifierPromptPreviewRequest = {
@@ -2175,7 +2221,10 @@ export type AutoRouterClassifierPromptPreviewRequest = {
 };
 
 /**
- * @description Exactly the four built-in tiers the dashboard\'s preset prefill can apply.\n\nextra=\"forbid\" on purpose: a tier name this dashboard cannot apply would grey out or crash the\npicker, so such a catalog is rejected wholesale and the bundled one serves instead.
+ * @description Exactly the four built-in tiers the dashboard's preset prefill can apply.
+ *
+ * extra="forbid" on purpose: a tier name this dashboard cannot apply would grey out or crash the
+ * picker, so such a catalog is rejected wholesale and the bundled one serves instead.
  * @type object
  */
 export type AutoRouterPresetTiers = {
@@ -2186,12 +2235,19 @@ export type AutoRouterPresetTiers = {
 };
 
 /**
- * @description The complexity_router_config a preset prefills.\n\nOnly tiers is validated, because every dashboard consumer dereferences it; everything else\npasses through verbatim with unknown fields kept (extra=\"allow\"), so a catalog published after\nthis proxy shipped still serves its new fields intact.
+ * @description The complexity_router_config a preset prefills.
+ *
+ * Only tiers is validated, because every dashboard consumer dereferences it; everything else
+ * passes through verbatim with unknown fields kept (extra="allow"), so a catalog published after
+ * this proxy shipped still serves its new fields intact.
  * @type object
  */
 export type AutoRouterPresetConfig = {
 	/**
-	 * @description Exactly the four built-in tiers the dashboard\'s preset prefill can apply.\n\nextra=\"forbid\" on purpose: a tier name this dashboard cannot apply would grey out or crash the\npicker, so such a catalog is rejected wholesale and the bundled one serves instead.
+	 * @description Exactly the four built-in tiers the dashboard's preset prefill can apply.
+	 *
+	 * extra="forbid" on purpose: a tier name this dashboard cannot apply would grey out or crash the
+	 * picker, so such a catalog is rejected wholesale and the bundled one serves instead.
 	 * @type object
 	 */
 	tiers: AutoRouterPresetTiers;
@@ -2199,14 +2255,18 @@ export type AutoRouterPresetConfig = {
 };
 
 /**
- * @description One auto-router preset as served to the dashboard\'s template picker.
+ * @description One auto-router preset as served to the dashboard's template picker.
  * @type object
  */
 export type AutoRouterPresetRecord = {
 	label: string;
 	description: string;
 	/**
-	 * @description The complexity_router_config a preset prefills.\n\nOnly tiers is validated, because every dashboard consumer dereferences it; everything else\npasses through verbatim with unknown fields kept (extra=\"allow\"), so a catalog published after\nthis proxy shipped still serves its new fields intact.
+	 * @description The complexity_router_config a preset prefills.
+	 *
+	 * Only tiers is validated, because every dashboard consumer dereferences it; everything else
+	 * passes through verbatim with unknown fields kept (extra="allow"), so a catalog published after
+	 * this proxy shipped still serves its new fields intact.
 	 * @type object
 	 */
 	complexity_router_config: AutoRouterPresetConfig;
@@ -2254,7 +2314,7 @@ export type CustomDimension = {
 	 */
 	patterns?: string[] | undefined;
 	/**
-	 * @description \'binary\' scores 1 when any matcher hits. \'match_count\' scores 0.5 when one distinct matcher hits and 1 when two or more do; repeated occurrences of one matcher never raise it. Keywords are distinct case-insensitively, patterns by source, and a keyword and a pattern are always distinct from each other.
+	 * @description 'binary' scores 1 when any matcher hits. 'match_count' scores 0.5 when one distinct matcher hits and 1 when two or more do; repeated occurrences of one matcher never raise it. Keywords are distinct case-insensitively, patterns by source, and a keyword and a pattern are always distinct from each other.
 	 * @default 'binary'
 	 * @type string | undefined
 	 */
@@ -2470,12 +2530,16 @@ export type TrainedTierArtifact = {
 };
 
 /**
- * @description Whether the LLM classifier sees the images on the request it is classifying.\n\nOff by default because images cost far more than the text ask they arrive with, and the\nclassifier runs on every request. A turn whose complexity lives in the image (\"what is wrong in\nthis stack trace screenshot\") is invisible to a text-only classifier, which is what this buys.
+ * @description Whether the LLM classifier sees the images on the request it is classifying.
+ *
+ * Off by default because images cost far more than the text ask they arrive with, and the
+ * classifier runs on every request. A turn whose complexity lives in the image ("what is wrong in
+ * this stack trace screenshot") is invisible to a text-only classifier, which is what this buys.
  * @type object
  */
 export type ClassifierVisionConfig = {
 	/**
-	 * @description Forward image content to the classifier. Requires a classifier model declared supports_vision, on the deployment\'s model_info or in the model cost map; images stay stripped otherwise, so a classifier that cannot read them is never sent one. Declare model_info.supports_vision on the deployment to enable a model the cost map does not describe. Only inline data: URIs are forwarded. A request whose images are http(s) URLs still classifies on its text alone, because some providers fetch such a URL from the proxy rather than the provider, which would let a caller aim a proxy-side request at an address of their choosing.
+	 * @description Forward image content to the classifier. Requires a classifier model declared supports_vision, on the deployment's model_info or in the model cost map; images stay stripped otherwise, so a classifier that cannot read them is never sent one. Declare model_info.supports_vision on the deployment to enable a model the cost map does not describe. Only inline data: URIs are forwarded. A request whose images are http(s) URLs still classifies on its text alone, because some providers fetch such a URL from the proxy rather than the provider, which would let a caller aim a proxy-side request at an address of their choosing.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -2508,7 +2572,7 @@ export type ClassifierLLMConfigReasoningEffortKey =
  */
 export type ClassifierLLMConfig = {
 	/**
-	 * @description Model name (from the router\'s model_list) to call for classification
+	 * @description Model name (from the router's model_list) to call for classification
 	 * @type string
 	 */
 	model: string;
@@ -2534,17 +2598,17 @@ export type ClassifierLLMConfig = {
 	 */
 	circuit_breaker_enabled?: boolean | undefined;
 	/**
-	 * @description How long to skip this router\'s LLM classifier after a classification call times out. Requests use classifier_fallback during the cooldown. When it expires, one request probes the classifier while concurrent requests keep using the fallback; a successful probe closes the circuit and a failed probe restarts the cooldown.
+	 * @description How long to skip this router's LLM classifier after a classification call times out. Requests use classifier_fallback during the cooldown. When it expires, one request probes the classifier while concurrent requests keep using the fallback; a successful probe closes the circuit and a failed probe restarts the cooldown.
 	 * @default 30
 	 * @type number | undefined
 	 */
 	circuit_breaker_cooldown_seconds?: number | undefined;
 	/**
-	 * @description Which calibration examples the built-in rubric carries. \'agentic\' anchors routine installs, builds, multi-file edits, and standard debugging at MEDIUM, so ordinary engineering does not route to the most expensive tier; it suits agent, terminal, and coding-assistant traffic as well as mixed traffic. \'chat\' omits those engineering anchors, for a deployment serving only conversational traffic. \'business\' carries business/sales anchors and business-flavored tier criteria that keep routine drafting and summarizing off the expensive tiers and reserve the top tier for committing to decisions under tradeoffs; it suits sales, support, and go-to-market traffic. Every preset keeps the same four tiers, so this moves where the boundary sits without changing the taxonomy. Leave unset for \'legacy\', the rubric as it shipped before calibration examples existed, so an existing router\'s tier decisions and spend do not move on upgrade. Mutually exclusive with system_prompt, which replaces the rubric this would select. Only applies when classifier_type is \'llm\'.
+	 * @description Which calibration examples the built-in rubric carries. 'agentic' anchors routine installs, builds, multi-file edits, and standard debugging at MEDIUM, so ordinary engineering does not route to the most expensive tier; it suits agent, terminal, and coding-assistant traffic as well as mixed traffic. 'chat' omits those engineering anchors, for a deployment serving only conversational traffic. 'business' carries business/sales anchors and business-flavored tier criteria that keep routine drafting and summarizing off the expensive tiers and reserve the top tier for committing to decisions under tradeoffs; it suits sales, support, and go-to-market traffic. Every preset keeps the same four tiers, so this moves where the boundary sits without changing the taxonomy. Leave unset for 'legacy', the rubric as it shipped before calibration examples existed, so an existing router's tier decisions and spend do not move on upgrade. Mutually exclusive with system_prompt, which replaces the rubric this would select. Only applies when classifier_type is 'llm'.
 	 */
 	classification_rubric?: (ClassificationRubricKey | null) | undefined;
 	/**
-	 * @description Replaces the built-in complexity rubric as the classifier\'s entire system role. When set, neither the default rubric nor the context-window closing line is appended, so the prompt owns the whole taxonomy and the tier names SIMPLE/MEDIUM/COMPLEX/REASONING become whatever buckets it defines: a prompt that classifies data sensitivity routes on that instead of on difficulty. Two consequences of full replacement. The default rubric\'s closing paragraph is the classifier\'s prompt-injection defense, telling it that the caller\'s quoted system prompt and prior turns are material to judge and never instructions; a replacement that omits it lets a caller ask for a tier and get it. And the heuristic fallback still scores complexity, so a router on some other taxonomy wants classifier_fallback=\'default_model\'. Leave unset for the built-in rubric. Only applies when classifier_type is \'llm\'.
+	 * @description Replaces the built-in complexity rubric as the classifier's entire system role. When set, neither the default rubric nor the context-window closing line is appended, so the prompt owns the whole taxonomy and the tier names SIMPLE/MEDIUM/COMPLEX/REASONING become whatever buckets it defines: a prompt that classifies data sensitivity routes on that instead of on difficulty. Two consequences of full replacement. The default rubric's closing paragraph is the classifier's prompt-injection defense, telling it that the caller's quoted system prompt and prior turns are material to judge and never instructions; a replacement that omits it lets a caller ask for a tier and get it. And the heuristic fallback still scores complexity, so a router on some other taxonomy wants classifier_fallback='default_model'. Leave unset for the built-in rubric. Only applies when classifier_type is 'llm'.
 	 */
 	system_prompt?: (string | null) | undefined;
 };
@@ -2585,7 +2649,7 @@ export type CapabilityClassifierConfigResponseFormatEnumKey =
  */
 export type CapabilityClassifierConfig = {
 	/**
-	 * @description Tier used when the efficient model\'s forecasted solve probability meets the adjusted threshold
+	 * @description Tier used when the efficient model's forecasted solve probability meets the adjusted threshold
 	 * @type string
 	 */
 	efficient_tier: string;
@@ -2717,17 +2781,21 @@ export type ContextCompactionConfig = {
 };
 
 /**
- * @description One open/close delimiter pair a harness wraps injected context in.\n\nNormalizing here rather than at the scan is what makes matching case-insensitive: markers reach\nthe scan already lowered, so it lowercases only the haystack and never the needles. Stripping\nkeeps YAML indentation whitespace from becoming part of the delimiter.
+ * @description One open/close delimiter pair a harness wraps injected context in.
+ *
+ * Normalizing here rather than at the scan is what makes matching case-insensitive: markers reach
+ * the scan already lowered, so it lowercases only the haystack and never the needles. Stripping
+ * keeps YAML indentation whitespace from becoming part of the delimiter.
  * @type object
  */
 export type ReminderMarkerPair = {
 	/**
-	 * @description Opening delimiter, e.g. \'<system-reminder>\'
+	 * @description Opening delimiter, e.g. '<system-reminder>'
 	 * @type string
 	 */
 	open: string;
 	/**
-	 * @description Closing delimiter, e.g. \'</system-reminder>\'
+	 * @description Closing delimiter, e.g. '</system-reminder>'
 	 * @type string
 	 */
 	close: string;
@@ -2781,7 +2849,10 @@ export type RequestComplexityRouterConfigClassificationModeEnumKey =
 	(typeof requestComplexityRouterConfigClassificationModeEnum)[keyof typeof requestComplexityRouterConfigClassificationModeEnum];
 
 /**
- * @description The part of a complexity-router config a request can carry.\n\n`plugins` holds live RoutingPlugin objects, which no JSON body can express and which have no\nOpenAPI schema, so it is closed off here rather than left as an arbitrary-type field.
+ * @description The part of a complexity-router config a request can carry.
+ *
+ * `plugins` holds live RoutingPlugin objects, which no JSON body can express and which have no
+ * OpenAPI schema, so it is closed off here rather than left as an arbitrary-type field.
  * @type object
  */
 export type RequestComplexityRouterConfig = {
@@ -2800,13 +2871,13 @@ export type RequestComplexityRouterConfig = {
 		  }
 		| undefined;
 	/**
-	 * @description Add NON_REASONING as a fifth built-in tier below SIMPLE, for operational agent traffic that relays or reformats information rather than reasoning about it. Off by default: turning it on adds a rung to this router\'s ladder, a bullet to the LLM classifier\'s rubric, and a value the classifier may return, all of which move tier decisions and spend on an already-deployed router. Requires an LLM, Jev, or custom classifier plugin, since the heuristic scorers cannot produce the tier, and a model in `tiers` under the NON_REASONING key. Escalation still walks up from it, and it is never the savings baseline or a `heuristic_v2` prediction.
+	 * @description Add NON_REASONING as a fifth built-in tier below SIMPLE, for operational agent traffic that relays or reformats information rather than reasoning about it. Off by default: turning it on adds a rung to this router's ladder, a bullet to the LLM classifier's rubric, and a value the classifier may return, all of which move tier decisions and spend on an already-deployed router. Requires an LLM, Jev, or custom classifier plugin, since the heuristic scorers cannot produce the tier, and a model in `tiers` under the NON_REASONING key. Escalation still walks up from it, and it is never the savings baseline or a `heuristic_v2` prediction.
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	enable_non_reasoning_tier?: boolean | undefined;
 	/**
-	 * @description Operator-defined tier set replacing the built-in SIMPLE/MEDIUM/COMPLEX/REASONING. Each entry\'s name becomes a value the LLM classifier can return and its description becomes that tier\'s rubric bullet; entries named after a built-in tier may omit the description and inherit the built-in criteria. List order is ascending severity and decides which tier wins when several keyword_tier_rules match. Requires classifier_type \'llm\', \'oss_classifier\' or \'custom\', a fallback_tier, and `tiers` keys matching the defined names exactly. Escalation, adaptive selection, session affinity, plugins, tier_labels, and the calibration-example rubric presets are unavailable with a custom tier set: the first four are built on the built-in tier ladder, and the last two rename or exemplify tiers the set replaces.
+	 * @description Operator-defined tier set replacing the built-in SIMPLE/MEDIUM/COMPLEX/REASONING. Each entry's name becomes a value the LLM classifier can return and its description becomes that tier's rubric bullet; entries named after a built-in tier may omit the description and inherit the built-in criteria. List order is ascending severity and decides which tier wins when several keyword_tier_rules match. Requires classifier_type 'llm', 'oss_classifier' or 'custom', a fallback_tier, and `tiers` keys matching the defined names exactly. Escalation, adaptive selection, session affinity, plugins, tier_labels, and the calibration-example rubric presets are unavailable with a custom tier set: the first four are built on the built-in tier ladder, and the last two rename or exemplify tiers the set replaces.
 	 */
 	tier_definitions?: (TierDefinition[] | null) | undefined;
 	/**
@@ -2818,7 +2889,7 @@ export type RequestComplexityRouterConfig = {
 	 */
 	classification_prompt?: (string | null) | undefined;
 	/**
-	 * @description Replaces the calibration examples of the LLM classifier rubric, and nothing else. Written as example lines only: the router renders the \'Calibration examples:\' heading above them, after the per-tier bullets. Requires an LLM classifier and cannot be combined with classifier_llm_config.system_prompt. With built-in tiers the rubric preset still supplies the tier criteria and, unless classification_prompt replaces them, the classification instructions; a custom tier set ships no examples of its own, so the section renders only when this is set.
+	 * @description Replaces the calibration examples of the LLM classifier rubric, and nothing else. Written as example lines only: the router renders the 'Calibration examples:' heading above them, after the per-tier bullets. Requires an LLM classifier and cannot be combined with classifier_llm_config.system_prompt. With built-in tiers the rubric preset still supplies the tier criteria and, unless classification_prompt replaces them, the classification instructions; a custom tier set ships no examples of its own, so the section renders only when this is set.
 	 */
 	classification_examples?: (string | null) | undefined;
 	/**
@@ -2862,7 +2933,7 @@ export type RequestComplexityRouterConfig = {
 		  }
 		| undefined;
 	/**
-	 * @description Named dimensions added to the heuristic-v1 score. Each contributes its inline weight once when any keyword matches the current ask or a case-insensitive regex matches its first 2048 characters; scoring_mode \'match_count\' instead grades half weight for one distinct matcher and full for two or more. Regex quantifiers repeat one character or class at most 64 times. Unbounded quantifiers, repeated groups, backreferences and lookarounds are rejected. Conservative work limits include alternation paths, repeat lengths and subsequent matching: 2048 units per pattern, 8192 across the router. Only heuristic, heuristic_first and hybrid accept this field. Uses the existing heuristic tuning quota.
+	 * @description Named dimensions added to the heuristic-v1 score. Each contributes its inline weight once when any keyword matches the current ask or a case-insensitive regex matches its first 2048 characters; scoring_mode 'match_count' instead grades half weight for one distinct matcher and full for two or more. Regex quantifiers repeat one character or class at most 64 times. Unbounded quantifiers, repeated groups, backreferences and lookarounds are rejected. Conservative work limits include alternation paths, repeat lengths and subsequent matching: 2048 units per pattern, 8192 across the router. Only heuristic, heuristic_first and hybrid accept this field. Uses the existing heuristic tuning quota.
 	 * @default []
 	 * @type array | undefined
 	 */
@@ -2898,7 +2969,7 @@ export type RequestComplexityRouterConfig = {
 	 */
 	return_raw_model_name?: boolean | undefined;
 	/**
-	 * @description Classification strategy: local regex/keyword scoring, the bundled trained four-tier heuristic, an LLM tier-selection call, a Switchyard-compatible capability forecast, a joint Fuse V2 forecast, a custom classifier plugin, \'heuristic_first\', which scores locally and only pays for the LLM classifier when the local scorer does not confidently land a cheap tier, or \'hybrid\', which trusts the local scorer everywhere except when its score lands near a tier boundary, or \'oss_classifier\', a structured choice call using Jev, Laya or Bespoke Nimble
+	 * @description Classification strategy: local regex/keyword scoring, the bundled trained four-tier heuristic, an LLM tier-selection call, a Switchyard-compatible capability forecast, a joint Fuse V2 forecast, a custom classifier plugin, 'heuristic_first', which scores locally and only pays for the LLM classifier when the local scorer does not confidently land a cheap tier, or 'hybrid', which trusts the local scorer everywhere except when its score lands near a tier boundary, or 'oss_classifier', a structured choice call using Jev, Laya or Bespoke Nimble
 	 * @default 'heuristic'
 	 * @type string | undefined
 	 */
@@ -2917,24 +2988,24 @@ export type RequestComplexityRouterConfig = {
 	 */
 	heuristic_v2_artifact?: (TrainedTierArtifact | "ultrafeedback") | undefined;
 	/**
-	 * @description Minimum predicted success probability for standalone or chained heuristic_v2 to select a tier. The first tier meeting this threshold is selected. When none meets it, standalone heuristic_v2 selects REASONING and chained heuristic_v2 defers to the LLM judge. When omitted or null, uses the artifact\'s routing_threshold (0.75 for the bundled artifact). Ignored when heuristic_v2 is not selected
+	 * @description Minimum predicted success probability for standalone or chained heuristic_v2 to select a tier. The first tier meeting this threshold is selected. When none meets it, standalone heuristic_v2 selects REASONING and chained heuristic_v2 defers to the LLM judge. When omitted or null, uses the artifact's routing_threshold (0.75 for the bundled artifact). Ignored when heuristic_v2 is not selected
 	 */
 	heuristic_v2_success_threshold?: (number | null) | undefined;
 	/**
-	 * @description Configuration for the LLM classifier; required when classifier_type is \'llm\', \'capability\', \'heuristic_first\' or \'hybrid\'
+	 * @description Configuration for the LLM classifier; required when classifier_type is 'llm', 'capability', 'heuristic_first' or 'hybrid'
 	 */
 	classifier_llm_config?: (ClassifierLLMConfig | null) | undefined;
 	/**
-	 * @description Probability threshold policy required when classifier_type is \'capability\'. The classifier forecasts p_solve for efficient_tier, adjusts base_threshold using the capability-card boundary, and otherwise routes to capable_tier
+	 * @description Probability threshold policy required when classifier_type is 'capability'. The classifier forecasts p_solve for efficient_tier, adjusts base_threshold using the capability-card boundary, and otherwise routes to capable_tier
 	 */
 	capability_classifier_config?: (CapabilityClassifierConfig | null) | undefined;
 	opensource_classifier_config?: (OpenSourceClassifierConfig | null) | undefined;
 	/**
-	 * @description The highest tier the local scorer may decide on its own; required when classifier_type is \'heuristic_first\' and rejected otherwise. A request whose heuristic tier is at or below this one skips the LLM classifier and routes straight to that heuristic tier, so the classifier call is only paid for on traffic the scorer could not place cheaply. The scorer must also have produced at least one signal: a prompt where no dimension fired scores 0.0 and would otherwise land SIMPLE by default rather than by evidence. With local_heuristic \'heuristic_v2\', the predicted tier must meet its success threshold. Names a built-in tier, and may not name the highest one, since that would make the LLM classifier unreachable.
+	 * @description The highest tier the local scorer may decide on its own; required when classifier_type is 'heuristic_first' and rejected otherwise. A request whose heuristic tier is at or below this one skips the LLM classifier and routes straight to that heuristic tier, so the classifier call is only paid for on traffic the scorer could not place cheaply. The scorer must also have produced at least one signal: a prompt where no dimension fired scores 0.0 and would otherwise land SIMPLE by default rather than by evidence. With local_heuristic 'heuristic_v2', the predicted tier must meet its success threshold. Names a built-in tier, and may not name the highest one, since that would make the LLM classifier unreachable.
 	 */
 	heuristic_first_max_tier?: (string | null) | undefined;
 	/**
-	 * @description How close to a tier boundary a heuristic score has to land before the LLM classifier breaks the tie; required when classifier_type is \'hybrid\' and rejected otherwise. Everything further than this from every active boundary routes on the scorer\'s own tier with no classifier call, at any tier, which is what separates \'hybrid\' from \'heuristic_first\' and its cheap-tier ceiling. A prompt where no dimension fired still goes to the classifier, since the scorer has no opinion to be near a boundary with. With local_heuristic \'heuristic_v2\', a tier must meet its success threshold and its probability and all lower-tier probabilities must be further than this margin from that threshold. 0 escalates only scores or probabilities exactly on a boundary.
+	 * @description How close to a tier boundary a heuristic score has to land before the LLM classifier breaks the tie; required when classifier_type is 'hybrid' and rejected otherwise. Everything further than this from every active boundary routes on the scorer's own tier with no classifier call, at any tier, which is what separates 'hybrid' from 'heuristic_first' and its cheap-tier ceiling. A prompt where no dimension fired still goes to the classifier, since the scorer has no opinion to be near a boundary with. With local_heuristic 'heuristic_v2', a tier must meet its success threshold and its probability and all lower-tier probabilities must be further than this margin from that threshold. 0 escalates only scores or probabilities exactly on a boundary.
 	 */
 	hybrid_boundary_margin?: (number | null) | undefined;
 	/**
@@ -2943,19 +3014,19 @@ export type RequestComplexityRouterConfig = {
 	 */
 	classifier_plugin?: null | undefined;
 	/**
-	 * @description Timeout budget for the classifier plugin call, in milliseconds. On expiry the fallback path decides the tier. Only applies when classifier_type is \'custom\'.
+	 * @description Timeout budget for the classifier plugin call, in milliseconds. On expiry the fallback path decides the tier. Only applies when classifier_type is 'custom'.
 	 * @default 3000
 	 * @type integer | undefined
 	 */
 	classifier_plugin_timeout_ms?: number | undefined;
 	/**
-	 * @description What classifies the request when the LLM classifier errors, times out, or returns an unparseable response. \'heuristic\' runs the local complexity scorer, which is right when the classifier grades complexity too. \'default_model\' skips scoring and routes to default_model, which is what a classifier on some other taxonomy wants: a prompt that grades data sensitivity has no use for a complexity score, and scoring one produces a tier unrelated to what the operator configured. Requires default_model when set to \'default_model\'. Only applies when classifier_type is \'llm\', \'custom\', or \'heuristic_first\'.
+	 * @description What classifies the request when the LLM classifier errors, times out, or returns an unparseable response. 'heuristic' runs the local complexity scorer, which is right when the classifier grades complexity too. 'default_model' skips scoring and routes to default_model, which is what a classifier on some other taxonomy wants: a prompt that grades data sensitivity has no use for a complexity score, and scoring one produces a tier unrelated to what the operator configured. Requires default_model when set to 'default_model'. Only applies when classifier_type is 'llm', 'custom', or 'heuristic_first'.
 	 * @default 'heuristic'
 	 * @type string | undefined
 	 */
 	classifier_fallback?: RequestComplexityRouterConfigClassifierFallbackEnumKey | undefined;
 	/**
-	 * @description Number of prior user turns (tool output and harness reminders excluded) to include as context in the LLM or JEV classifier input, so a follow-up like \'now do the same for the streaming path\' is classified against what it refers to. Counts turns of both roles when classifier_context_include_assistant_turns is enabled. These turns are sent to the classifier model (the configured TypeSafe endpoint for JEV), which may be a different deployment or provider than the routed completion model; that call carries the current user ask and, except for Claude Code requests, the extracted system-role text in full. Claude Code system text is omitted to avoid classifying harness instructions; the routed completion still receives it. Set to 0 to omit prior turns and the conversation-depth summary; the current ask and selected system text are still sent. Applies to LLM and JEV classification.
+	 * @description Number of prior user turns (tool output and harness reminders excluded) to include as context in the LLM or JEV classifier input, so a follow-up like 'now do the same for the streaming path' is classified against what it refers to. Counts turns of both roles when classifier_context_include_assistant_turns is enabled. These turns are sent to the classifier model (the configured TypeSafe endpoint for JEV), which may be a different deployment or provider than the routed completion model; that call carries the current user ask and, except for Claude Code requests, the extracted system-role text in full. Claude Code system text is omitted to avoid classifying harness instructions; the routed completion still receives it. Set to 0 to omit prior turns and the conversation-depth summary; the current ask and selected system text are still sent. Applies to LLM and JEV classification.
 	 * @minLength 0
 	 * @default 3
 	 * @type integer | undefined
@@ -2969,11 +3040,11 @@ export type RequestComplexityRouterConfig = {
 	 */
 	classifier_context_budget_chars?: number | undefined;
 	/**
-	 * @description Optional cap on each individual prior turn\'s text, applied before classifier_context_budget_chars bounds the block. Unset by default, so one long turn may spend the whole budget, which is usually what a follow-up needs; set it when no single turn should dominate the context the classifier sees. A capped turn keeps its opening and its ending with the middle elided. Applies to LLM and JEV classification.
+	 * @description Optional cap on each individual prior turn's text, applied before classifier_context_budget_chars bounds the block. Unset by default, so one long turn may spend the whole budget, which is usually what a follow-up needs; set it when no single turn should dominate the context the classifier sees. A capped turn keeps its opening and its ending with the middle elided. Applies to LLM and JEV classification.
 	 */
 	classifier_context_per_turn_chars?: (number | null) | undefined;
 	/**
-	 * @description Include assistant turns in the classifier context window, so difficulty stated by the model rather than by the user stays visible: a plan the assistant calls complex, which the user approves with \'yes\', is classified on the work being approved instead of on the word \'yes\'. When enabled, classifier_context_window_size counts the last N turns of the conversation across both roles rather than the last N user turns, and assistant text is sent to the classifier model, which may be a different deployment or provider than the routed completion model. Assistant replies spend classifier_context_budget_chars alongside user turns, so raise it if the oldest turns stop being quoted once replies join the window. Off by default because enabling it shifts tier decisions, and therefore spend, for an already-deployed router. Applies to LLM and JEV classification.
+	 * @description Include assistant turns in the classifier context window, so difficulty stated by the model rather than by the user stays visible: a plan the assistant calls complex, which the user approves with 'yes', is classified on the work being approved instead of on the word 'yes'. When enabled, classifier_context_window_size counts the last N turns of the conversation across both roles rather than the last N user turns, and assistant text is sent to the classifier model, which may be a different deployment or provider than the routed completion model. Assistant replies spend classifier_context_budget_chars alongside user turns, so raise it if the oldest turns stop being quoted once replies join the window. Off by default because enabling it shifts tier decisions, and therefore spend, for an already-deployed router. Applies to LLM and JEV classification.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -2997,13 +3068,13 @@ export type RequestComplexityRouterConfig = {
 	 */
 	tier_distance_penalty?: number | undefined;
 	/**
-	 * @description When adaptive=True: \'all\' scores every pool model with a tier-distance penalty (soft floors); \'classified_tier\' Thompson-samples only inside the classified tier\'s pool
+	 * @description When adaptive=True: 'all' scores every pool model with a tier-distance penalty (soft floors); 'classified_tier' Thompson-samples only inside the classified tier's pool
 	 * @default 'all'
 	 * @type string | undefined
 	 */
 	adaptive_eligible?: RequestComplexityRouterConfigAdaptiveEligibleEnumKey | undefined;
 	/**
-	 * @description Case-sensitive phrases a user can include to force a bump to the next-higher complexity tier when they aren\'t satisfied with results (they can force a stronger model, but not choose which one). Defaults to [\'LITELLM ESCALATE\'] when unset; set to an empty list to disable.
+	 * @description Case-sensitive phrases a user can include to force a bump to the next-higher complexity tier when they aren't satisfied with results (they can force a stronger model, but not choose which one). Defaults to ['LITELLM ESCALATE'] when unset; set to an empty list to disable.
 	 */
 	escalation_keywords?: (string[] | null) | undefined;
 	/**
@@ -3011,13 +3082,13 @@ export type RequestComplexityRouterConfig = {
 	 */
 	keyword_tier_rules?: (KeywordTierRule[] | null) | undefined;
 	/**
-	 * @description Escalate mid-task to the next-higher configured tier when the assistant\'s own recent tool calls look stuck: the newest tool call repeats, or errors, at least stall_escalation_repeat_threshold times across the last stall_escalation_window calls. Both tests are anchored on the newest call, so a task that tried the same thing a few times and then moved on is not escalated on the strength of those older calls alone, while a retry loop broken up by an unrelated lookup still counts. One tier at most, on the same ladder escalation_keywords bumps along, and never above the highest configured tier. Detection re-runs on every classified turn from the tool calls visible in that request, so it needs no state and nothing survives past the task. Mutually exclusive with session_affinity and classification_mode=\'user_turn\', which both replay a held routing decision instead of classifying most turns, so this would never see the tool calls to look at. Off by default.
+	 * @description Escalate mid-task to the next-higher configured tier when the assistant's own recent tool calls look stuck: the newest tool call repeats, or errors, at least stall_escalation_repeat_threshold times across the last stall_escalation_window calls. Both tests are anchored on the newest call, so a task that tried the same thing a few times and then moved on is not escalated on the strength of those older calls alone, while a retry loop broken up by an unrelated lookup still counts. One tier at most, on the same ladder escalation_keywords bumps along, and never above the highest configured tier. Detection re-runs on every classified turn from the tool calls visible in that request, so it needs no state and nothing survives past the task. Mutually exclusive with session_affinity and classification_mode='user_turn', which both replay a held routing decision instead of classifying most turns, so this would never see the tool calls to look at. Off by default.
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	stall_escalation_enabled?: boolean | undefined;
 	/**
-	 * @description How many of the assistant\'s most recent tool calls stall detection looks at, oldest ones dropped as new calls happen. Counted across the whole visible conversation rather than reset at the newest human ask, so evidence from before a plain follow-up message like \'try again\' is still visible on the turn after it.
+	 * @description How many of the assistant's most recent tool calls stall detection looks at, oldest ones dropped as new calls happen. Counted across the whole visible conversation rather than reset at the newest human ask, so evidence from before a plain follow-up message like 'try again' is still visible on the turn after it.
 	 * @default 6
 	 * @type integer | undefined
 	 */
@@ -3030,41 +3101,41 @@ export type RequestComplexityRouterConfig = {
 	 */
 	stall_escalation_repeat_threshold?: number | undefined;
 	/**
-	 * @description When set, requests carrying a coding-agent plan-mode sentinel (Claude Code plan mode, VS Code Copilot Plan mode, Copilot CLI\'s exit_plan_mode tool) are routed to at least this tier: the classified tier still wins when it is higher, and the floor also overrides a session-affinity pin to a lower tier for exactly the turns carrying the sentinel, without rewriting the pin -- the first turn after plan mode exits routes as if plan mode had never happened. Names a built-in tier, or with tier_definitions set, one of the defined tier names (list order is ascending severity, same as keyword_tier_rules). Unset disables detection entirely. The sentinels ride in client-injected prompt text, so a caller who pastes one can spend up to this tier\'s models -- never down, and never outside the configured pools.
+	 * @description When set, requests carrying a coding-agent plan-mode sentinel (Claude Code plan mode, VS Code Copilot Plan mode, Copilot CLI's exit_plan_mode tool) are routed to at least this tier: the classified tier still wins when it is higher, and the floor also overrides a session-affinity pin to a lower tier for exactly the turns carrying the sentinel, without rewriting the pin -- the first turn after plan mode exits routes as if plan mode had never happened. Names a built-in tier, or with tier_definitions set, one of the defined tier names (list order is ascending severity, same as keyword_tier_rules). Unset disables detection entirely. The sentinels ride in client-injected prompt text, so a caller who pastes one can spend up to this tier's models -- never down, and never outside the configured pools.
 	 */
 	plan_mode_min_tier?: (string | null) | undefined;
 	/**
-	 * @description Additional case-sensitive literal sentinels that mark a request as plan mode, on top of the built-in Claude Code and Copilot ones. For clients whose plan-mode wording the built-ins don\'t cover, or after a client release changes its strings.
+	 * @description Additional case-sensitive literal sentinels that mark a request as plan mode, on top of the built-in Claude Code and Copilot ones. For clients whose plan-mode wording the built-ins don't cover, or after a client release changes its strings.
 	 */
 	plan_mode_patterns?: (string[] | null) | undefined;
 	/**
-	 * @description Set max_tokens on every routed request to the output ceiling of the tier model it lands on, replacing whatever the caller sent. A caller behind an auto-router cannot pick one value that fits every tier: the smallest tier\'s ceiling starves a bigger tier\'s thinking budget, and a bigger tier\'s ceiling is rejected by the smallest. The ceiling is the smallest max_output_tokens across the tier model\'s deployments, read from each deployment\'s model_info and then the model cost map; a tier model with a deployment whose ceiling is unknown keeps the caller\'s value. A max_tokens, max_completion_tokens or max_output_tokens in the tier\'s own litellm_params still wins. Set false to forward the caller\'s value unchanged.
+	 * @description Set max_tokens on every routed request to the output ceiling of the tier model it lands on, replacing whatever the caller sent. A caller behind an auto-router cannot pick one value that fits every tier: the smallest tier's ceiling starves a bigger tier's thinking budget, and a bigger tier's ceiling is rejected by the smallest. The ceiling is the smallest max_output_tokens across the tier model's deployments, read from each deployment's model_info and then the model cost map; a tier model with a deployment whose ceiling is unknown keeps the caller's value. A max_tokens, max_completion_tokens or max_output_tokens in the tier's own litellm_params still wins. Set false to forward the caller's value unchanged.
 	 * @default true
 	 * @type boolean | undefined
 	 */
 	max_tokens_from_tier_model?: boolean | undefined;
 	/**
-	 * @description Route a coding agent\'s own housekeeping calls to the cheapest configured tier without classifying them. A client names the conversation by quoting the whole session and asking for a title, so the ask reads as the session\'s engineering work and lands on the most expensive tier, which is the reverse of what the call is worth. Detection is a literal match against client-owned sentinels on the newest ask only, so it cannot fire on an earlier turn, and it never lowers what anyone else asked for: a keyword_tier_rule or a session pin still decides instead, and an escalation keyword or the plan-mode floor still raises the tier from here. Only the classifier is displaced, and its call is skipped, so a matched request costs nothing to route. Set false to classify these calls like any other.
+	 * @description Route a coding agent's own housekeeping calls to the cheapest configured tier without classifying them. A client names the conversation by quoting the whole session and asking for a title, so the ask reads as the session's engineering work and lands on the most expensive tier, which is the reverse of what the call is worth. Detection is a literal match against client-owned sentinels on the newest ask only, so it cannot fire on an earlier turn, and it never lowers what anyone else asked for: a keyword_tier_rule or a session pin still decides instead, and an escalation keyword or the plan-mode floor still raises the tier from here. Only the classifier is displaced, and its call is skipped, so a matched request costs nothing to route. Set false to classify these calls like any other.
 	 * @default true
 	 * @type boolean | undefined
 	 */
 	route_housekeeping_to_cheapest_tier?: boolean | undefined;
 	/**
-	 * @description Additional case-sensitive literal sentinels that mark a request as client housekeeping, on top of the built-in conversation-title ones. For clients whose wording the built-ins don\'t cover, or after a client release changes its strings.
+	 * @description Additional case-sensitive literal sentinels that mark a request as client housekeeping, on top of the built-in conversation-title ones. For clients whose wording the built-ins don't cover, or after a client release changes its strings.
 	 */
 	housekeeping_patterns?: (string[] | null) | undefined;
 	/**
-	 * @description Compact full conversation history near the selected deployment\'s input limit for Chat, Responses and Messages. Uses a capable configured tier model unless model is specified. Set false or null to disable. Stored and client-managed native history keep their existing behavior.
+	 * @description Compact full conversation history near the selected deployment's input limit for Chat, Responses and Messages. Uses a capable configured tier model unless model is specified. Set false or null to disable. Stored and client-managed native history keep their existing behavior.
 	 */
 	context_compaction?: (ContextCompactionConfig | false) | undefined;
 	/**
-	 * @description Escalate a request off a tier whose models provably cannot hold its prompt, before dispatch. The classifier scores complexity and never prompt size, so a long agentic session whose newest ask is trivial lands on a small-window tier and the provider rejects it with a context-window 400 that nothing retries. When every model of the decided tier has a declared window smaller than the estimated prompt, the request moves to the lowest configured tier with a model whose declared window fits; when only some of the tier\'s models fit, the pick is restricted to those and the tier keeps the request. Models with no resolvable window are never escalated away from and never escalated onto. Disabled by default: omit or set false to dispatch on complexity alone; set true to enable context-window escalation.
+	 * @description Escalate a request off a tier whose models provably cannot hold its prompt, before dispatch. The classifier scores complexity and never prompt size, so a long agentic session whose newest ask is trivial lands on a small-window tier and the provider rejects it with a context-window 400 that nothing retries. When every model of the decided tier has a declared window smaller than the estimated prompt, the request moves to the lowest configured tier with a model whose declared window fits; when only some of the tier's models fit, the pick is restricted to those and the tier keeps the request. Models with no resolvable window are never escalated away from and never escalated onto. Disabled by default: omit or set false to dispatch on complexity alone; set true to enable context-window escalation.
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	enable_context_window_escalation?: boolean | undefined;
 	/**
-	 * @description Fraction of a model\'s declared context window the estimated prompt must fit within. The token count is an estimate, so fitting against the full window would dispatch prompts that the provider\'s own tokenizer then rejects; 0.95 leaves room for that drift plus the response tokens.
+	 * @description Fraction of a model's declared context window the estimated prompt must fit within. The token count is an estimate, so fitting against the full window would dispatch prompts that the provider's own tokenizer then rejects; 0.95 leaves room for that drift plus the response tokens.
 	 * @maxLength 1
 	 * @default 0.95
 	 * @type number | undefined
@@ -3077,7 +3148,7 @@ export type RequestComplexityRouterConfig = {
 	 */
 	modality_routing?: boolean | undefined;
 	/**
-	 * @description Let modality_routing replace a kept session-affinity pin on the turns that carry an image. Without this, a session pinned to a text-only model fails every image turn with a provider 400, since the pin is exempt from the modality gate. When enabled, such a turn routes to a capable model for that request only and the stored pin is left untouched, so the next text turn replays the session\'s own model; the override is reported as cause modality_pin_override and is never itself pinned. Inert unless modality_routing is also enabled.
+	 * @description Let modality_routing replace a kept session-affinity pin on the turns that carry an image. Without this, a session pinned to a text-only model fails every image turn with a provider 400, since the pin is exempt from the modality gate. When enabled, such a turn routes to a capable model for that request only and the stored pin is left untouched, so the next text turn replays the session's own model; the override is reported as cause modality_pin_override and is never itself pinned. Inert unless modality_routing is also enabled.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -3101,7 +3172,7 @@ export type RequestComplexityRouterConfig = {
 	 */
 	match_threshold?: number | undefined;
 	/**
-	 * @description When to run the complexity classifier. \'every_request\' (the default) classifies every inference request, including the tool-result continuation turns of an agentic loop. \'user_turn\' classifies only requests whose newest turn is a new human ask and replays the session\'s held routing decision on continuation turns, which cuts classifier spend and eliminates mid-loop model switches. Continuations with no held decision to replay (no resolvable session_id, expired pin, fresh restart) still classify. Unlike session_affinity, a new human ask always re-classifies, so a session can still move tiers between asks. Suppressed when plugins are configured, for the same reason session_affinity is: a replayed decision would bypass the plugin pipeline.
+	 * @description When to run the complexity classifier. 'every_request' (the default) classifies every inference request, including the tool-result continuation turns of an agentic loop. 'user_turn' classifies only requests whose newest turn is a new human ask and replays the session's held routing decision on continuation turns, which cuts classifier spend and eliminates mid-loop model switches. Continuations with no held decision to replay (no resolvable session_id, expired pin, fresh restart) still classify. Unlike session_affinity, a new human ask always re-classifies, so a session can still move tiers between asks. Suppressed when plugins are configured, for the same reason session_affinity is: a replayed decision would bypass the plugin pipeline.
 	 * @default 'every_request'
 	 * @type string | undefined
 	 */
@@ -3113,7 +3184,7 @@ export type RequestComplexityRouterConfig = {
 	 */
 	cache_aware_routing?: boolean | undefined;
 	/**
-	 * @description Expected output tokens used in cache-aware cost comparisons; capped by each model\'s effective output limit.
+	 * @description Expected output tokens used in cache-aware cost comparisons; capped by each model's effective output limit.
 	 * @minLength 0
 	 * @default 1024
 	 * @type integer | undefined
@@ -3126,19 +3197,19 @@ export type RequestComplexityRouterConfig = {
 	 */
 	cache_aware_routing_timeout_ms?: number | undefined;
 	/**
-	 * @description When True and a session_id is resolvable on the request, pin the model chosen on the session\'s first turn and reuse it for every later turn, skipping re-classification. Off by default so every turn is classified on its own merits and routed to the cheapest adequate tier. Set True to keep a multi-turn session on one model, which preserves provider prompt caches and avoids cross-model conversation-history errors. Always implies the deployment pin regardless of deployment_affinity: the session sticks to one deployment of the pinned model, since freezing the model while re-shuffling its deployments would still go cache-cold.
+	 * @description When True and a session_id is resolvable on the request, pin the model chosen on the session's first turn and reuse it for every later turn, skipping re-classification. Off by default so every turn is classified on its own merits and routed to the cheapest adequate tier. Set True to keep a multi-turn session on one model, which preserves provider prompt caches and avoids cross-model conversation-history errors. Always implies the deployment pin regardless of deployment_affinity: the session sticks to one deployment of the pinned model, since freezing the model while re-shuffling its deployments would still go cache-cold.
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	session_affinity?: boolean | undefined;
 	/**
-	 * @description When True and a client session_id is resolvable, reuse the session\'s chosen model for each classified tier and its deployment within each model group. With session_affinity off, every turn is still classified: moving to another tier leaves the previous tier\'s model pin intact for a later return. Pins yield to current candidate, context, modality, and availability constraints. Adaptive selection chooses the initial model from its eligible pool, then reuses that choice per tier. This reduces avoidable provider prompt-cache misses; it does not guarantee cache hits. Set False to select models and load-balance deployments on every turn, unless session_affinity or user_turn classification requires a pin. Inert without a client session_id and suppressed when plugins are configured.
+	 * @description When True and a client session_id is resolvable, reuse the session's chosen model for each classified tier and its deployment within each model group. With session_affinity off, every turn is still classified: moving to another tier leaves the previous tier's model pin intact for a later return. Pins yield to current candidate, context, modality, and availability constraints. Adaptive selection chooses the initial model from its eligible pool, then reuses that choice per tier. This reduces avoidable provider prompt-cache misses; it does not guarantee cache hits. Set False to select models and load-balance deployments on every turn, unless session_affinity or user_turn classification requires a pin. Inert without a client session_id and suppressed when plugins are configured.
 	 * @default true
 	 * @type boolean | undefined
 	 */
 	deployment_affinity?: boolean | undefined;
 	/**
-	 * @description TTL for the session affinity pin; refreshed on every cache hit. Bounds both the session_affinity model pin and the deployment_affinity per-tier model and deployment pins, so it measures idle time for the session\'s routing decisions rather than total session length
+	 * @description TTL for the session affinity pin; refreshed on every cache hit. Bounds both the session_affinity model pin and the deployment_affinity per-tier model and deployment pins, so it measures idle time for the session's routing decisions rather than total session length
 	 * @default 3600
 	 * @type integer | undefined
 	 */
@@ -3156,7 +3227,12 @@ export type RequestComplexityRouterConfig = {
 };
 
 /**
- * @description A single request to classify against a complexity-router config that need not be saved yet.\n\nCarries the same fields the serving path carries, so a dry run classifies what a real turn\nwould classify. `messages`, `system` and `tools` are forwarded to the routing hook untranslated,\nwhich is why they are typed loosely: the hook reads whatever dialect the surface produced, and\nvalidating them against one surface\'s schema would reject the others.
+ * @description A single request to classify against a complexity-router config that need not be saved yet.
+ *
+ * Carries the same fields the serving path carries, so a dry run classifies what a real turn
+ * would classify. `messages`, `system` and `tools` are forwarded to the routing hook untranslated,
+ * which is why they are typed loosely: the hook reads whatever dialect the surface produced, and
+ * validating them against one surface's schema would reject the others.
  * @type object
  */
 export type AutoRouterRoutingTestRequest = {
@@ -3204,7 +3280,7 @@ export type AutoRouterRoutingTestRequest = {
 	 */
 	complexity_router_config: RequestComplexityRouterConfig;
 	/**
-	 * @description Test this saved deployment\'s server-side configuration instead of the supplied config and default model
+	 * @description Test this saved deployment's server-side configuration instead of the supplied config and default model
 	 */
 	saved_model_id?: (string | null) | undefined;
 	/**
@@ -3218,7 +3294,7 @@ export type AutoRouterRoutingTestRequest = {
 	 */
 	router_name?: string | undefined;
 	/**
-	 * @description Team the router is being created for. Required for a team admin, who may only test their own team\'s routers
+	 * @description Team the router is being created for. Required for a team admin, who may only test their own team's routers
 	 */
 	team_id?: (string | null) | undefined;
 };
@@ -3233,7 +3309,8 @@ export type StandardLoggingHeuristicV2Forecast = {
 };
 
 /**
- * @description Snapshot of the complexity scorer\'s tier boundaries at decision time, so a\nhistorical spend log row stays explainable after the router config changes.
+ * @description Snapshot of the complexity scorer's tier boundaries at decision time, so a
+ * historical spend log row stays explainable after the router config changes.
  * @type object
  */
 export type StandardLoggingRoutingDecisionTierBoundaries = {
@@ -3353,7 +3430,8 @@ export type StandardLoggingRoutingDecision = {
 	context_escalated?: boolean | undefined;
 	context_escalation_original_tier?: string | undefined;
 	/**
-	 * @description Snapshot of the complexity scorer\'s tier boundaries at decision time, so a\nhistorical spend log row stays explainable after the router config changes.
+	 * @description Snapshot of the complexity scorer's tier boundaries at decision time, so a
+	 * historical spend log row stays explainable after the router config changes.
 	 * @type object | undefined
 	 */
 	tier_boundaries?: StandardLoggingRoutingDecisionTierBoundaries | undefined;
@@ -3391,13 +3469,14 @@ export type AutoRouterRoutingTestResponse = {
 };
 
 /**
- * @description One auto-routed session as its own key sees it: what the last turn ran on, and what the session cost\nagainst the router\'s savings baseline (the priciest model in its hardest tier).
+ * @description One auto-routed session as its own key sees it: what the last turn ran on, and what the session cost
+ * against the router's savings baseline (the priciest model in its hardest tier).
  * @type object
  */
 export type AutoRouterSessionResponse = {
 	session_id: string;
 	/**
-	 * @description The auto-router alias the session\'s requests were sent to
+	 * @description The auto-router alias the session's requests were sent to
 	 * @type string
 	 */
 	router_name: string;
@@ -3417,7 +3496,7 @@ export type AutoRouterSessionResponse = {
 	 */
 	last_model: string;
 	/**
-	 * @description What the session\'s routed traffic actually cost, classifier calls included
+	 * @description What the session's routed traffic actually cost, classifier calls included
 	 * @type number
 	 */
 	spend: number;
@@ -3448,7 +3527,7 @@ export type AutoRouterSessionResponse = {
 	 */
 	baseline_model: string | null;
 	/**
-	 * @description Session turns recording each baseline model; more than one entry means the router\'s baseline changed mid-session; these counts do not imply savings coverage
+	 * @description Session turns recording each baseline model; more than one entry means the router's baseline changed mid-session; these counts do not imply savings coverage
 	 * @type object
 	 */
 	baseline_models: {
@@ -3489,7 +3568,11 @@ export type BlockUsers = {
 };
 
 /**
- * @description Represents user-controllable params for a LiteLLM_BudgetTable record.\n\nBudget-write paths use `model_fields.keys()` on this class as an allowlist\nfor user input. Keep server-managed fields (e.g. `budget_reset_at`) on\n`LiteLLM_BudgetTableFull` so they aren\'t user-settable.
+ * @description Represents user-controllable params for a LiteLLM_BudgetTable record.
+ *
+ * Budget-write paths use `model_fields.keys()` on this class as an allowlist
+ * for user input. Keep server-managed fields (e.g. `budget_reset_at`) on
+ * `LiteLLM_BudgetTableFull` so they aren't user-settable.
  * @type object
  */
 export type LiteLLMBudgetTable = {
@@ -3736,7 +3819,7 @@ export type BodyTestModelConnectionHealthTestConnectionPostModeKey =
 
 export type BodyTestModelConnectionHealthTestConnectionPost = {
 	/**
-	 * @description The mode to test the model with. If not provided, resolved the way /health does: the deployment\'s model_info.mode (only while the request tests the deployment\'s own model), then the mode the provider requires for that model, then the model cost map.
+	 * @description The mode to test the model with. If not provided, resolved the way /health does: the deployment's model_info.mode (only while the request tests the deployment's own model), then the mode the provider requires for that model, then the model cost map.
 	 */
 	mode?: (BodyTestModelConnectionHealthTestConnectionPostModeKey | null) | undefined;
 	/**
@@ -3972,7 +4055,11 @@ export type BudgetLimitEntry = {
 };
 
 /**
- * @description One budget as the Budgets page reads it, and as it comes back off the table.\n\nValidating the raw row through here is what makes `tpm_limit` / `rpm_limit`\nnumbers: they are `BigInt?` in the schema, which the query engine hands back as\ndecimal strings, and a quoted \"60000\" breaks arithmetic in the dashboard.
+ * @description One budget as the Budgets page reads it, and as it comes back off the table.
+ *
+ * Validating the raw row through here is what makes `tpm_limit` / `rpm_limit`
+ * numbers: they are `BigInt?` in the schema, which the query engine hands back as
+ * decimal strings, and a quoted "60000" breaks arithmetic in the dashboard.
  * @type object
  */
 export type BudgetListItem = {
@@ -4028,11 +4115,11 @@ export type BudgetNewRequest = {
 	 */
 	tpd_limit?: (number | null) | undefined;
 	/**
-	 * @description Max duration budget should be set for (e.g. \'1hr\', \'1d\', \'28d\')
+	 * @description Max duration budget should be set for (e.g. '1hr', '1d', '28d')
 	 */
 	budget_duration?: (string | null) | undefined;
 	/**
-	 * @description Max budget for each model (e.g. {\'gpt-4o\': {\'max_budget\': \'0.0000001\', \'budget_duration\': \'1d\', \'tpm_limit\': 1000, \'rpm_limit\': 1000}})
+	 * @description Max budget for each model (e.g. {'gpt-4o': {'max_budget': '0.0000001', 'budget_duration': '1d', 'tpm_limit': 1000, 'rpm_limit': 1000}})
 	 */
 	model_max_budget?:
 		| ({
@@ -4320,7 +4407,8 @@ export type BulkNewUserItemUserRoleKey =
 	(typeof bulkNewUserItemUserRole)[keyof typeof bulkNewUserItemUserRole];
 
 /**
- * @description One row of `POST /management/v1/users/bulk`: the `/user/new` body, with keys opt-in and invite emails\nunsupported. Unknown fields are rejected, as on every `/management/v1` request body.
+ * @description One row of `POST /management/v1/users/bulk`: the `/user/new` body, with keys opt-in and invite emails
+ * unsupported. Unknown fields are rejected, as on every `/management/v1` request body.
  * @type object
  */
 export type BulkNewUserItem = {
@@ -4443,7 +4531,8 @@ export type BulkNewUserRequest = {
 };
 
 /**
- * @description Outcome for one row of `POST /management/v1/users/bulk`. `teams` lists the teams the user was actually\nadded to.
+ * @description Outcome for one row of `POST /management/v1/users/bulk`. `teams` lists the teams the user was actually
+ * added to.
  * @type object
  */
 export type UserCreateResult = {
@@ -4481,7 +4570,7 @@ export type Member = {
 	 */
 	user_email?: (string | null) | undefined;
 	/**
-	 * @description The role of the user within the team. \'admin\' users can manage team settings and members, \'user\' is a regular team member
+	 * @description The role of the user within the team. 'admin' users can manage team settings and members, 'user' is a regular team member
 	 * @type string
 	 */
 	role: MemberRoleEnumKey;
@@ -4540,7 +4629,9 @@ export type BulkTeamMemberAddResponse = {
 };
 
 /**
- * @description One member\'s per-member limits, merge-patch style: a field left out of the row is\nuntouched, a field sent as null is cleared, and clearing the last limit drops the\nmember back to the team default.
+ * @description One member's per-member limits, merge-patch style: a field left out of the row is
+ * untouched, a field sent as null is cleared, and clearing the last limit drops the
+ * member back to the team default.
  * @type object
  */
 export type TeamMemberBudgetPatch = {
@@ -4570,7 +4661,8 @@ export type TeamMemberBudgetUpdateResultMaxBudgetSourceKey =
 	(typeof teamMemberBudgetUpdateResultMaxBudgetSource)[keyof typeof teamMemberBudgetUpdateResultMaxBudgetSource];
 
 /**
- * @description Outcome for one requested member, in request order, carrying the limits in force\nafter the write rather than the ones that were asked for.
+ * @description Outcome for one requested member, in request order, carrying the limits in force
+ * after the write rather than the ones that were asked for.
  * @type object
  */
 export type TeamMemberBudgetUpdateResult = {
@@ -4706,7 +4798,7 @@ export type KeyUpdateFieldsTpmLimitTypeKey =
 	(typeof keyUpdateFieldsTpmLimitType)[keyof typeof keyUpdateFieldsTpmLimitType];
 
 /**
- * @description Allowlist of bulk-broadcastable fields for /team/key/bulk_update; `extra=\"forbid\"` blocks RBAC/ownership/scope mutations even by team admins.
+ * @description Allowlist of bulk-broadcastable fields for /team/key/bulk_update; `extra="forbid"` blocks RBAC/ownership/scope mutations even by team admins.
  * @type object
  */
 export type KeyUpdateFields = {
@@ -4758,7 +4850,7 @@ export type BulkUpdateTeamKeysRequest = {
 	 */
 	all_keys_in_team?: boolean | undefined;
 	/**
-	 * @description Allowlist of bulk-broadcastable fields for /team/key/bulk_update; `extra=\"forbid\"` blocks RBAC/ownership/scope mutations even by team admins.
+	 * @description Allowlist of bulk-broadcastable fields for /team/key/bulk_update; `extra="forbid"` blocks RBAC/ownership/scope mutations even by team admins.
 	 * @type object
 	 */
 	update_fields: KeyUpdateFields;
@@ -5303,7 +5395,7 @@ export type CacheTestRequest = {
 
 export type CacheTestResponse = {
 	/**
-	 * @description Connection status: \'success\' or \'failed\'
+	 * @description Connection status: 'success' or 'failed'
 	 * @type string
 	 */
 	status: string;
@@ -5520,7 +5612,8 @@ export type CallbackLogsRequest = {
 };
 
 /**
- * @description Per-batch result: counts plus per-record failure detail so the caller can\ndistinguish a transient callback error from a structurally bad payload.
+ * @description Per-batch result: counts plus per-record failure detail so the caller can
+ * distinguish a transient callback error from a structurally bad payload.
  * @type object
  */
 export type CallbackLogsResponse = {
@@ -6541,7 +6634,8 @@ export type Click = {
 };
 
 /**
- * @description A complexity-router config to validate without saving, so a form can surface the\nbackend\'s own verdict inline instead of a raw 400 at write time.
+ * @description A complexity-router config to validate without saving, so a form can surface the
+ * backend's own verdict inline instead of a raw 400 at write time.
  * @type object
  */
 export type ComplexityRouterConfigValidationRequest = {
@@ -6549,7 +6643,7 @@ export type ComplexityRouterConfigValidationRequest = {
 		[key: string]: unknown;
 	};
 	/**
-	 * @description Team the router is being created for. Required for a team admin, who may only validate their own team\'s routers
+	 * @description Team the router is being created for. Required for a team admin, who may only validate their own team's routers
 	 */
 	team_id?: (string | null) | undefined;
 };
@@ -6560,7 +6654,10 @@ export type ComplexityRouterConfigValidationResponse = {
 };
 
 /**
- * @description The complexity router\'s shipped heuristic scorer defaults.\n\nThe dashboard prefills its Advanced scoring controls from these rather than keeping its own copy, so\na recalibration of the defaults cannot leave the form reporting numbers the router no longer uses.
+ * @description The complexity router's shipped heuristic scorer defaults.
+ *
+ * The dashboard prefills its Advanced scoring controls from these rather than keeping its own copy, so
+ * a recalibration of the defaults cannot leave the form reporting numbers the router no longer uses.
  * @type object
  */
 export type ComplexityScorerDefaults = {
@@ -6646,14 +6743,14 @@ export type CoordinationRedisSettingsResponse = {
 	 */
 	fields: CoordinationRedisSettingsField[];
 	/**
-	 * @description Where the proxy\'s coordination Redis comes from; null when it has none
+	 * @description Where the proxy's coordination Redis comes from; null when it has none
 	 */
 	source: CoordinationRedisSettingsResponseSourceKey | null;
 };
 
 export type CoordinationRedisTestResponse = {
 	/**
-	 * @description Connection status: \'healthy\' or \'unhealthy\'
+	 * @description Connection status: 'healthy' or 'unhealthy'
 	 * @type string
 	 */
 	status: string;
@@ -6914,7 +7011,11 @@ export type CustomToolCallOutputItemStatusKey =
 	(typeof customToolCallOutputItemStatus)[keyof typeof customToolCallOutputItemStatus];
 
 /**
- * @description A custom/freeform tool call output item (e.g. apply_patch).\n\nMirrors the ``custom_tool_call`` variant of OpenAI\'s Responses API output.\nUnlike ``OutputFunctionToolCall`` which uses ``arguments`` (JSON string),\nthis uses ``input`` (raw string) for the tool payload.
+ * @description A custom/freeform tool call output item (e.g. apply_patch).
+ *
+ * Mirrors the ``custom_tool_call`` variant of OpenAI's Responses API output.
+ * Unlike ``OutputFunctionToolCall`` which uses ``arguments`` (JSON string),
+ * this uses ``input`` (raw string) for the tool payload.
  * @type object
  */
 export type CustomToolCallOutputItem = {
@@ -6966,7 +7067,11 @@ export type CustomerResponseAllowedModelRegionKey =
 	(typeof customerResponseAllowedModelRegion)[keyof typeof customerResponseAllowedModelRegion];
 
 /**
- * @description Customer object returned by the /customer read+write endpoints.\n\nNests the full budget response model so server-managed budget fields\n(budget_reset_at, created_at) survive response_model filtering, rather than\nthe narrow write-allowlist shape LiteLLM_EndUserTable carries for internal use.
+ * @description Customer object returned by the /customer read+write endpoints.
+ *
+ * Nests the full budget response model so server-managed budget fields
+ * (budget_reset_at, created_at) survive response_model filtering, rather than
+ * the narrow write-allowlist shape LiteLLM_EndUserTable carries for internal use.
  * @type object
  */
 export type CustomerResponse = {
@@ -7133,7 +7238,7 @@ export type DailySpendMetadata = {
 	 */
 	total_api_keys?: (number | null) | undefined;
 	/**
-	 * @description Distinct API keys per entity over the requested range, set when the entity breakdown is included. When an entity\'s count exceeds api_key_limit, its api_key_breakdown lists only its keys among the top api_key_limit keys overall.
+	 * @description Distinct API keys per entity over the requested range, set when the entity breakdown is included. When an entity's count exceeds api_key_limit, its api_key_breakdown lists only its keys among the top api_key_limit keys overall.
 	 */
 	entity_total_api_keys?:
 		| ({
@@ -7211,7 +7316,7 @@ export type DefaultInternalUserParams = {
 	 */
 	max_budget?: (number | null) | undefined;
 	/**
-	 * @description Default budget duration for new users (e.g. \'daily\', \'weekly\', \'monthly\')
+	 * @description Default budget duration for new users (e.g. 'daily', 'weekly', 'monthly')
 	 */
 	budget_duration?: (string | null) | undefined;
 	/**
@@ -7225,7 +7330,8 @@ export type DefaultInternalUserParams = {
 };
 
 /**
- * @description Default parameters applied to every /team/new call for fields not explicitly provided in the request.\n`models` is the exception: it only applies to teams automatically created by LiteLLM via SSO Groups.
+ * @description Default parameters applied to every /team/new call for fields not explicitly provided in the request.
+ * `models` is the exception: it only applies to teams automatically created by LiteLLM via SSO Groups.
  * @type object
  */
 export type DefaultTeamSSOParams = {
@@ -7240,7 +7346,7 @@ export type DefaultTeamSSOParams = {
 	 */
 	max_budget?: (number | null) | undefined;
 	/**
-	 * @description Default budget duration for new teams, when not explicitly provided (e.g. \'24h\', \'7d\', \'30d\')
+	 * @description Default budget duration for new teams, when not explicitly provided (e.g. '24h', '7d', '30d')
 	 */
 	budget_duration?: (string | null) | undefined;
 	/**
@@ -7312,7 +7418,13 @@ export type DeleteProjectRequest = {
 };
 
 /**
- * @description Result of a delete response request\n\n{\n    \"id\": \"resp_6786a1bec27481909a17d673315b29f6\",\n    \"object\": \"response\",\n    \"deleted\": true\n}
+ * @description Result of a delete response request
+ *
+ * {
+ *     "id": "resp_6786a1bec27481909a17d673315b29f6",
+ *     "object": "response",
+ *     "deleted": true
+ * }
  * @type object
  */
 export type DeleteResponseResult = {
@@ -7341,7 +7453,7 @@ export type ModelResponse = {
 };
 
 /**
- * @description LiteLLM Params with \'model\' requirement - used for completions
+ * @description LiteLLM Params with 'model' requirement - used for completions
  * @type object
  */
 export type LiteLLMParams = {
@@ -7733,7 +7845,7 @@ export type ModelInfo = {
 export type Deployment = {
 	model_name: string;
 	/**
-	 * @description LiteLLM Params with \'model\' requirement - used for completions
+	 * @description LiteLLM Params with 'model' requirement - used for completions
 	 * @type object
 	 */
 	litellm_params: LiteLLMParams;
@@ -7936,7 +8048,7 @@ export type FallbackCreateRequestFallbackTypeEnumKey =
  */
 export type FallbackCreateRequest = {
 	/**
-	 * @description The model name to configure fallbacks for (e.g., \'gpt-3.5-turbo\')
+	 * @description The model name to configure fallbacks for (e.g., 'gpt-3.5-turbo')
 	 * @type string
 	 */
 	model: string;
@@ -7946,7 +8058,7 @@ export type FallbackCreateRequest = {
 	 */
 	fallback_models: string[];
 	/**
-	 * @description Type of fallback: \'general\' (default), \'context_window\', or \'content_policy\'
+	 * @description Type of fallback: 'general' (default), 'context_window', or 'content_policy'
 	 * @default 'general'
 	 * @type string | undefined
 	 */
@@ -8271,7 +8383,7 @@ export type RoutingGroup = {
 		  } | null)
 		| undefined;
 	/**
-	 * @description For priority groups, every model\'s priority. Lower numbers are tried first; equal numbers share traffic.
+	 * @description For priority groups, every model's priority. Lower numbers are tried first; equal numbers share traffic.
 	 */
 	model_priorities?:
 		| ({
@@ -8281,7 +8393,10 @@ export type RoutingGroup = {
 };
 
 /**
- * @description Use this to set a custom number of retries per exception type\nIf RateLimitErrorRetries = 3, then 3 retries will be made for RateLimitError\nMapping of Exception type to number of retries\nhttps://docs.litellm.ai/docs/exception_mapping
+ * @description Use this to set a custom number of retries per exception type
+ * If RateLimitErrorRetries = 3, then 3 retries will be made for RateLimitError
+ * Mapping of Exception type to number of retries
+ * https://docs.litellm.ai/docs/exception_mapping
  * @type object
  */
 export type RetryPolicy = {
@@ -8539,7 +8654,7 @@ export type GenerateKeyRequest = {
 	 */
 	auto_rotate?: (boolean | null) | undefined;
 	/**
-	 * @description How often to rotate this key (e.g., \'30d\', \'90d\'). Required if auto_rotate=True
+	 * @description How often to rotate this key (e.g., '30d', '90d'). Required if auto_rotate=True
 	 */
 	rotation_interval?: (string | null) | undefined;
 	organization_id?: (string | null) | undefined;
@@ -10530,7 +10645,7 @@ export type MCPSemanticFilterSettings = {
 	 */
 	enabled?: boolean | undefined;
 	/**
-	 * @description Embedding model to use for semantic similarity (e.g., \'text-embedding-3-small\', \'text-embedding-ada-002\')
+	 * @description Embedding model to use for semantic similarity (e.g., 'text-embedding-3-small', 'text-embedding-ada-002')
 	 * @default 'text-embedding-3-small'
 	 * @type string | undefined
 	 */
@@ -10567,7 +10682,7 @@ export type MCPSemanticFilterSettingsResponse = {
 };
 
 /**
- * @description `litellm_settings.mcp_tool_search`: how the native `mcp_tool_search` virtual tool ranks the caller\'s tools.
+ * @description `litellm_settings.mcp_tool_search`: how the native `mcp_tool_search` virtual tool ranks the caller's tools.
  * @type object
  */
 export type MCPToolSearchSettings = {
@@ -10706,11 +10821,11 @@ export type MemoryCreateRequest = {
 	 */
 	metadata?: (unknown | null) | undefined;
 	/**
-	 * @description Scope to this user. Defaults to the caller\'s user_id.
+	 * @description Scope to this user. Defaults to the caller's user_id.
 	 */
 	user_id?: (string | null) | undefined;
 	/**
-	 * @description Scope to this team. Defaults to the caller\'s team_id.
+	 * @description Scope to this team. Defaults to the caller's team_id.
 	 */
 	team_id?: (string | null) | undefined;
 };
@@ -10764,7 +10879,7 @@ export type ModelDeprecationInfo = {
 	 */
 	days_until_deprecation: number;
 	/**
-	 * @description \'deprecated\' if the date has passed, \'imminent\' if it falls within warn_within_days, \'upcoming\' otherwise.
+	 * @description 'deprecated' if the date has passed, 'imminent' if it falls within warn_within_days, 'upcoming' otherwise.
 	 * @type string
 	 */
 	status: ModelDeprecationInfoStatusEnumKey;
@@ -10791,7 +10906,7 @@ export type ModelDeprecationResponse = {
 	 */
 	upcoming?: ModelDeprecationInfo[] | undefined;
 	/**
-	 * @description The window (in days) used to bucket \'imminent\' models.
+	 * @description The window (in days) used to bucket 'imminent' models.
 	 * @type integer
 	 */
 	warn_within_days: number;
@@ -10932,11 +11047,11 @@ export type NewCustomerRequest = {
 	 */
 	tpd_limit?: (number | null) | undefined;
 	/**
-	 * @description Max duration budget should be set for (e.g. \'1hr\', \'1d\', \'28d\')
+	 * @description Max duration budget should be set for (e.g. '1hr', '1d', '28d')
 	 */
 	budget_duration?: (string | null) | undefined;
 	/**
-	 * @description Max budget for each model (e.g. {\'gpt-4o\': {\'max_budget\': \'0.0000001\', \'budget_duration\': \'1d\', \'tpm_limit\': 1000, \'rpm_limit\': 1000}})
+	 * @description Max budget for each model (e.g. {'gpt-4o': {'max_budget': '0.0000001', 'budget_duration': '1d', 'tpm_limit': 1000, 'rpm_limit': 1000}})
 	 */
 	model_max_budget?:
 		| ({
@@ -11260,7 +11375,7 @@ export type NewTeamRequest = {
 		  } | null)
 		| undefined;
 	/**
-	 * @description Max budget per model for every key on the team, overridable per key (e.g. {\'gpt-4o\': {\'max_budget\': 10, \'budget_duration\': \'1d\'}})
+	 * @description Max budget per model for every key on the team, overridable per key (e.g. {'gpt-4o': {'max_budget': 10, 'budget_duration': '1d'}})
 	 */
 	model_max_budget?:
 		| ({
@@ -11686,7 +11801,11 @@ export type OrganizationRequest = {
 };
 
 /**
- * @description Typed PATCH body for ``/v2/organization/{organization_id}`` (RFC 7396 merge-patch).\n\nPresence is read from ``model_fields_set``, so a sent field is written and an omitted one is\nleft untouched. ``extra=\"forbid\"`` makes an unknown key a 422 rather than a silent no-op, since\nthe contract hinges on which keys are present. See the endpoint for the per-field clear tokens.
+ * @description Typed PATCH body for ``/v2/organization/{organization_id}`` (RFC 7396 merge-patch).
+ *
+ * Presence is read from ``model_fields_set``, so a sent field is written and an omitted one is
+ * left untouched. ``extra="forbid"`` makes an unknown key a 422 rather than a silent no-op, since
+ * the contract hinges on which keys are present. See the endpoint for the per-field clear tokens.
  * @type object
  */
 export type OrganizationUpdateRequestV2 = {
@@ -11886,16 +12005,18 @@ export type PaginatedAuditLogResponse = {
 };
 
 /**
- * @description Settings for a specific guardrail on a passthrough endpoint.\n\nAllows field-level targeting for guardrail execution.
+ * @description Settings for a specific guardrail on a passthrough endpoint.
+ *
+ * Allows field-level targeting for guardrail execution.
  * @type object
  */
 export type PassThroughGuardrailSettings = {
 	/**
-	 * @description JSONPath expressions for input field targeting (pre_call). Examples: \'query\', \'documents[*].text\', \'messages[*].content\'. If not specified, guardrail runs on entire request payload.
+	 * @description JSONPath expressions for input field targeting (pre_call). Examples: 'query', 'documents[*].text', 'messages[*].content'. If not specified, guardrail runs on entire request payload.
 	 */
 	request_fields?: (string[] | null) | undefined;
 	/**
-	 * @description JSONPath expressions for output field targeting (post_call). Examples: \'results[*].text\', \'output\'. If not specified, guardrail runs on entire response payload.
+	 * @description JSONPath expressions for output field targeting (post_call). Examples: 'results[*].text', 'output'. If not specified, guardrail runs on entire response payload.
 	 */
 	response_fields?: (string[] | null) | undefined;
 };
@@ -11926,7 +12047,7 @@ export type PassThroughGenericEndpoint = {
 		  }
 		| undefined;
 	/**
-	 * @description Key-value pairs of default query parameters to be sent with every request to this endpoint. These can be overridden by client-provided query parameters. For example: {\'key\': \'default_value\', \'api_version\': \'2023-01\'}
+	 * @description Key-value pairs of default query parameters to be sent with every request to this endpoint. These can be overridden by client-provided query parameters. For example: {'key': 'default_value', 'api_version': '2023-01'}
 	 * @default {}
 	 * @type object | undefined
 	 */
@@ -11972,7 +12093,7 @@ export type PassThroughGenericEndpoint = {
 	 */
 	is_from_config?: boolean | undefined;
 	/**
-	 * @description List of HTTP methods this endpoint handles (e.g., [\'GET\', \'POST\']). If None or empty, all methods (GET, POST, PUT, DELETE, PATCH) are supported for backward compatibility. This allows the same path to have different targets for different HTTP methods.
+	 * @description List of HTTP methods this endpoint handles (e.g., ['GET', 'POST']). If None or empty, all methods (GET, POST, PUT, DELETE, PATCH) are supported for backward compatibility. This allows the same path to have different targets for different HTTP methods.
 	 */
 	methods?: (string[] | null) | undefined;
 };
@@ -11982,7 +12103,10 @@ export type PassThroughEndpointResponse = {
 };
 
 /**
- * @description Body of PATCH /team/{team_id}.\n\nIdentical to UpdateTeamRequest except team_id is optional, because PATCH takes it\nfrom the path. A team_id in the body is still accepted when it matches the path.
+ * @description Body of PATCH /team/{team_id}.
+ *
+ * Identical to UpdateTeamRequest except team_id is optional, because PATCH takes it
+ * from the path. A team_id in the body is still accepted when it matches the path.
  * @type object
  */
 export type PatchTeamRequest = {
@@ -12062,7 +12186,7 @@ export type PatchTeamRequest = {
 	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
 	default_team_member_models?: (string[] | null) | undefined;
 	/**
-	 * @description Max budget per model for every key on the team, overridable per key (e.g. {\'gpt-4o\': {\'max_budget\': 10, \'budget_duration\': \'1d\'}})
+	 * @description Max budget per model for every key on the team, overridable per key (e.g. {'gpt-4o': {'max_budget': 10, 'budget_duration': '1d'}})
 	 */
 	model_max_budget?:
 		| ({
@@ -12181,7 +12305,9 @@ export type Progress = {
 };
 
 /**
- * @description Marks the exact end of a reusable prompt prefix.\n\nThe breakpoint inherits its TTL from the request\'s `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
+ * @description Marks the exact end of a reusable prompt prefix.
+ *
+ * The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
  * @type object
  */
 export type PromptCacheBreakpoint = {
@@ -12238,7 +12364,7 @@ export type PromptTokensDetails = {
 };
 
 /**
- * @description Configuration for a single provider\'s budget settings
+ * @description Configuration for a single provider's budget settings
  * @type object
  */
 export type ProviderBudgetResponseObject = {
@@ -12252,7 +12378,8 @@ export type ProviderBudgetResponseObject = {
 };
 
 /**
- * @description Complete provider budget configuration and status.\nMaps provider names to their budget configs.
+ * @description Complete provider budget configuration and status.
+ * Maps provider names to their budget configs.
  * @type object
  */
 export type ProviderBudgetResponse = {
@@ -12478,7 +12605,7 @@ export type RegenerateKeyRequest = {
 	 */
 	auto_rotate?: (boolean | null) | undefined;
 	/**
-	 * @description How often to rotate this key (e.g., \'30d\', \'90d\'). Required if auto_rotate=True
+	 * @description How often to rotate this key (e.g., '30d', '90d'). Required if auto_rotate=True
 	 */
 	rotation_interval?: (string | null) | undefined;
 	organization_id?: (string | null) | undefined;
@@ -12637,7 +12764,10 @@ export type ResponseComputerToolCallStatusEnumKey =
 	(typeof responseComputerToolCallStatusEnum)[keyof typeof responseComputerToolCallStatusEnum];
 
 /**
- * @description A tool call to a computer use tool.\n\nSee the\n[computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.
+ * @description A tool call to a computer use tool.
+ *
+ * See the
+ * [computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.
  * @type object
  */
 export type ResponseComputerToolCall = {
@@ -12775,7 +12905,9 @@ export type ResponseInputImageDetailEnumKey =
 	(typeof responseInputImageDetailEnum)[keyof typeof responseInputImageDetailEnum];
 
 /**
- * @description An image input to the model.\n\nLearn about [image inputs](https://platform.openai.com/docs/guides/vision).
+ * @description An image input to the model.
+ *
+ * Learn about [image inputs](https://platform.openai.com/docs/guides/vision).
  * @type object
  */
 export type ResponseInputImage = {
@@ -12860,7 +12992,10 @@ export type ResponseFileSearchToolCallStatusEnumKey =
 	(typeof responseFileSearchToolCallStatusEnum)[keyof typeof responseFileSearchToolCallStatusEnum];
 
 /**
- * @description The results of a file search tool call.\n\nSee the\n[file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.
+ * @description The results of a file search tool call.
+ *
+ * See the
+ * [file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.
  * @type object
  */
 export type ResponseFileSearchToolCall = {
@@ -12873,7 +13008,12 @@ export type ResponseFileSearchToolCall = {
 };
 
 /**
- * @description JSON object response format.\n\nAn older method of generating JSON responses.\nUsing `json_schema` is recommended for models that support it. Note that the\nmodel will not generate JSON without a system or user message instructing it\nto do so.
+ * @description JSON object response format.
+ *
+ * An older method of generating JSON responses.
+ * Using `json_schema` is recommended for models that support it. Note that the
+ * model will not generate JSON without a system or user message instructing it
+ * to do so.
  * @type object
  */
 export type ResponseFormatJSONObject = {
@@ -12891,7 +13031,10 @@ export type ResponseFormatText = {
 };
 
 /**
- * @description JSON Schema response format.\n\nUsed to generate structured JSON responses.\nLearn more about [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs).
+ * @description JSON Schema response format.
+ *
+ * Used to generate structured JSON responses.
+ * Learn more about [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs).
  * @type object
  */
 export type ResponseFormatTextJSONSchemaConfigParam = {
@@ -12978,7 +13121,10 @@ export type ResponseFunctionToolCallStatusKey =
 	(typeof responseFunctionToolCallStatus)[keyof typeof responseFunctionToolCallStatus];
 
 /**
- * @description A tool call to run a function.\n\nSee the\n[function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.
+ * @description A tool call to run a function.
+ *
+ * See the
+ * [function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.
  * @type object
  */
 export type ResponseFunctionToolCall = {
@@ -13003,7 +13149,10 @@ export type ResponseFunctionToolCallItemStatusEnumKey =
 	(typeof responseFunctionToolCallItemStatusEnum)[keyof typeof responseFunctionToolCallItemStatusEnum];
 
 /**
- * @description A tool call to run a function.\n\nSee the\n[function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.
+ * @description A tool call to run a function.
+ *
+ * See the
+ * [function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.
  * @type object
  */
 export type ResponseFunctionToolCallItem = {
@@ -13052,7 +13201,10 @@ export type ResponseFunctionWebSearchStatusEnumKey =
 	(typeof responseFunctionWebSearchStatusEnum)[keyof typeof responseFunctionWebSearchStatusEnum];
 
 /**
- * @description The results of a web search tool call.\n\nSee the\n[web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.
+ * @description The results of a web search tool call.
+ *
+ * See the
+ * [web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.
  * @type object
  */
 export type ResponseFunctionWebSearch = {
@@ -13241,7 +13393,10 @@ export type ResponseReasoningItemStatusKey =
 	(typeof responseReasoningItemStatus)[keyof typeof responseReasoningItemStatus];
 
 /**
- * @description A description of the chain of thought used by a reasoning model while generating\na response. Be sure to include these items in your `input` to the Responses API\nfor subsequent turns of a conversation if you are manually\n[managing context](https://platform.openai.com/docs/guides/conversation-state).
+ * @description A description of the chain of thought used by a reasoning model while generating
+ * a response. Be sure to include these items in your `input` to the Responses API
+ * for subsequent turns of a conversation if you are manually
+ * [managing context](https://platform.openai.com/docs/guides/conversation-state).
  * @type object
  */
 export type ResponseReasoningItem = {
@@ -13307,7 +13462,12 @@ export type ResponseTextConfigParamVerbosityKey =
 	(typeof responseTextConfigParamVerbosity)[keyof typeof responseTextConfigParamVerbosity];
 
 /**
- * @description Configuration options for a text response from the model.\n\nCan be plain\ntext or structured JSON data. Learn more:\n- [Text inputs and outputs](https://platform.openai.com/docs/guides/text)\n- [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+ * @description Configuration options for a text response from the model.
+ *
+ * Can be plain
+ * text or structured JSON data. Learn more:
+ * - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
+ * - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
  * @type object
  */
 export type ResponseTextConfigParam = {
@@ -13354,7 +13514,8 @@ export type ToolChoiceTypesParamTypeEnumKey =
 	(typeof toolChoiceTypesParamTypeEnum)[keyof typeof toolChoiceTypesParamTypeEnum];
 
 /**
- * @description Indicates that the model should use a built-in tool to generate a response.\n[Learn more about built-in tools](https://platform.openai.com/docs/guides/tools).
+ * @description Indicates that the model should use a built-in tool to generate a response.
+ * [Learn more about built-in tools](https://platform.openai.com/docs/guides/tools).
  * @type object
  */
 export type ToolChoiceTypesParam = {
@@ -13600,26 +13761,29 @@ export type RevisionSave = {
 };
 
 /**
- * @description Configuration for mapping SSO groups to LiteLLM roles.\n\nThe system will look at the group_claim field in the SSO token to determine\nwhich role to assign the user based on the roles mapping.
+ * @description Configuration for mapping SSO groups to LiteLLM roles.
+ *
+ * The system will look at the group_claim field in the SSO token to determine
+ * which role to assign the user based on the roles mapping.
  * @type object
  */
 export type RoleMappings = {
 	/**
-	 * @description SSO Provider name (e.g., \'google\', \'microsoft\', \'generic\')
+	 * @description SSO Provider name (e.g., 'google', 'microsoft', 'generic')
 	 * @type string
 	 */
 	provider: string;
 	/**
-	 * @description The field name in the SSO token that contains the groups array (e.g., \'groups\', \'roles\')
+	 * @description The field name in the SSO token that contains the groups array (e.g., 'groups', 'roles')
 	 * @type string
 	 */
 	group_claim: string;
 	/**
-	 * @description Default role to assign if user\'s groups don\'t match any role mappings. Must be a valid LitellmUserRoles value (e.g., \'proxy_admin\', \'internal_user\', \'proxy_admin_viewer\')
+	 * @description Default role to assign if user's groups don't match any role mappings. Must be a valid LitellmUserRoles value (e.g., 'proxy_admin', 'internal_user', 'proxy_admin_viewer')
 	 */
 	default_role?: (LitellmUserRolesKey | null) | undefined;
 	/**
-	 * @description Mapping of LiteLLM role names to arrays of SSO group names. Example: {\'proxy_admin\': [\'group-1\', \'group-2\'], \'proxy_admin_viewer\': [\'group-3\']}
+	 * @description Mapping of LiteLLM role names to arrays of SSO group names. Example: {'proxy_admin': ['group-1', 'group-2'], 'proxy_admin_viewer': ['group-3']}
 	 * @type object | undefined
 	 */
 	roles?:
@@ -13722,12 +13886,15 @@ export type RunSource = {
 };
 
 /**
- * @description Configuration for mapping SSO JWT fields to team IDs.\n\nThis allows configuring team_ids_jwt_field via the database instead of\nrequiring config file changes and restarts.
+ * @description Configuration for mapping SSO JWT fields to team IDs.
+ *
+ * This allows configuring team_ids_jwt_field via the database instead of
+ * requiring config file changes and restarts.
  * @type object
  */
 export type TeamMappings = {
 	/**
-	 * @description The field name in the SSO/JWT token that contains the team IDs array (e.g., \'groups\', \'teams\'). Supports dot notation for nested fields.
+	 * @description The field name in the SSO/JWT token that contains the team IDs array (e.g., 'groups', 'teams'). Supports dot notation for nested fields.
 	 */
 	team_ids_jwt_field?: (string | null) | undefined;
 };
@@ -13778,7 +13945,7 @@ export type SSOConfig = {
 	 */
 	generic_userinfo_endpoint?: (string | null) | undefined;
 	/**
-	 * @description Space-separated OAuth scopes requested from the generic provider, e.g. \'openid email profile\'
+	 * @description Space-separated OAuth scopes requested from the generic provider, e.g. 'openid email profile'
 	 */
 	generic_scope?: (string | null) | undefined;
 	/**
@@ -13790,11 +13957,11 @@ export type SSOConfig = {
 	 */
 	saml_idp_metadata_xml?: (string | null) | undefined;
 	/**
-	 * @description SAML Service Provider entityID; defaults to the proxy\'s /sso/saml/metadata URL
+	 * @description SAML Service Provider entityID; defaults to the proxy's /sso/saml/metadata URL
 	 */
 	saml_sp_entity_id?: (string | null) | undefined;
 	/**
-	 * @description \'true\' to accept IdP-initiated (unsolicited) SAML responses, which cannot be browser-bound against login CSRF
+	 * @description 'true' to accept IdP-initiated (unsolicited) SAML responses, which cannot be browser-bound against login CSRF
 	 */
 	saml_allow_unsolicited?: (string | null) | undefined;
 	/**
@@ -13881,26 +14048,28 @@ export type SessionLogoutResponse = {
 };
 
 /**
- * @description Judge outcomes for one slice of a job\'s verdicts: a router tier, one of the\nmodels that served the real arm, or one scoped target (embedded on that target\'s\nown entry, so slices never need re-joining to a target by id).
+ * @description Judge outcomes for one slice of a job's verdicts: a router tier, one of the
+ * models that served the real arm, or one scoped target (embedded on that target's
+ * own entry, so slices never need re-joining to a target by id).
  * @type object
  */
 export type ShadowEvalSlice = {
 	group: string;
 	turn_count: number;
 	/**
-	 * @description Share of judged turns the real arm won, meaning the response the caller actually received: the key\'s own model in forward mode, the router\'s pick in reverse
+	 * @description Share of judged turns the real arm won, meaning the response the caller actually received: the key's own model in forward mode, the router's pick in reverse
 	 * @type number
 	 */
 	real_win_rate_pct: number;
 	/**
-	 * @description Share of judged turns the shadow arm won, meaning the duplicated response nobody was served: the router\'s pick in forward mode, baseline_model in reverse
+	 * @description Share of judged turns the shadow arm won, meaning the duplicated response nobody was served: the router's pick in forward mode, baseline_model in reverse
 	 * @type number
 	 */
 	shadow_win_rate_pct: number;
 	tie_rate_pct: number;
 	avg_judge_confidence: number;
 	/**
-	 * @description USD the real arm billed on this slice\'s judged turns, completion plus its own routing classifier when it routed, excluding turns litellm\'s response cache served for free
+	 * @description USD the real arm billed on this slice's judged turns, completion plus its own routing classifier when it routed, excluding turns litellm's response cache served for free
 	 * @default 0
 	 * @type number | undefined
 	 */
@@ -13912,7 +14081,7 @@ export type ShadowEvalSlice = {
 	 */
 	shadow_spend?: number | undefined;
 	/**
-	 * @description Judged turns litellm\'s response cache served, excluded from both spends: an adopted router would be served by the same cache, so those turns cost the same either way
+	 * @description Judged turns litellm's response cache served, excluded from both spends: an adopted router would be served by the same cache, so those turns cost the same either way
 	 * @default 0
 	 * @type integer | undefined
 	 */
@@ -13944,32 +14113,32 @@ export type ShadowEvalJobTargetResponse = {
 	 */
 	target_id: string;
 	/**
-	 * @description This target\'s sample-count ceiling: the whole budget for jobs created before max_budget existed, and the error-loop safety valve otherwise
+	 * @description This target's sample-count ceiling: the whole budget for jobs created before max_budget existed, and the error-loop safety valve otherwise
 	 * @type integer
 	 */
 	max_turns: number;
 	/**
-	 * @description This target\'s own USD budget for the eval\'s shadow and judge spend, independent of its siblings\'; None on jobs created before spend budgets existed, which max_turns alone bounds
+	 * @description This target's own USD budget for the eval's shadow and judge spend, independent of its siblings'; None on jobs created before spend budgets existed, which max_turns alone bounds
 	 */
 	max_budget?: (number | null) | undefined;
 	/**
-	 * @description When this target\'s slot was stamped free, whether its own budget ran out, the window closed, or an operator stopped the job; status is derived, so a spent budget reads completed even while this is still unset
+	 * @description When this target's slot was stamped free, whether its own budget ran out, the window closed, or an operator stopped the job; status is derived, so a spent budget reads completed even while this is still unset
 	 */
 	stopped_at?: (string | null) | undefined;
 	/**
-	 * @description This target\'s sampled attempts so far, judged and errored alike, the same count the sampler budgets against max_turns; populated on list and detail responses. Frozen at stopped_at once the target is stamped, so in-flight attempts landing after a stop never reclassify it
+	 * @description This target's sampled attempts so far, judged and errored alike, the same count the sampler budgets against max_turns; populated on list and detail responses. Frozen at stopped_at once the target is stamped, so in-flight attempts landing after a stop never reclassify it
 	 */
 	attempt_count?: (number | null) | undefined;
 	/**
-	 * @description This target\'s recorded shadow plus judge spend in USD, the same figure the sampler budgets against max_budget; populated on list and detail responses and frozen at stopped_at exactly like attempt_count
+	 * @description This target's recorded shadow plus judge spend in USD, the same figure the sampler budgets against max_budget; populated on list and detail responses and frozen at stopped_at exactly like attempt_count
 	 */
 	spend?: (number | null) | undefined;
 	/**
-	 * @description This target\'s own judged-verdict slice; detail endpoint only, None until a turn is judged
+	 * @description This target's own judged-verdict slice; detail endpoint only, None until a turn is judged
 	 */
 	verdicts?: (ShadowEvalSlice | null) | undefined;
 	/**
-	 * @description Display label resolved from the target\'s own row at read time: the key\'s alias, the team\'s alias, or the user\'s email; None when unset or deleted
+	 * @description Display label resolved from the target's own row at read time: the key's alias, the team's alias, or the user's email; None when unset or deleted
 	 */
 	target_alias?: (string | null) | undefined;
 	/**
@@ -13979,18 +14148,18 @@ export type ShadowEvalJobTargetResponse = {
 };
 
 /**
- * @description Stratified results of a shadow-eval job\'s verdicts so far.
+ * @description Stratified results of a shadow-eval job's verdicts so far.
  * @type object
  */
 export type ShadowEvalResult = {
 	by_tier: ShadowEvalSlice[];
 	/**
-	 * @description Sliced by the model that served the real arm: the keys\' incumbent models in forward mode, and in reverse the models the router itself picked
+	 * @description Sliced by the model that served the real arm: the keys' incumbent models in forward mode, and in reverse the models the router itself picked
 	 * @type array
 	 */
 	by_current_model: ShadowEvalSlice[];
 	/**
-	 * @description One slice per router arm, grouped on the router name. Every arm of a multi-router job is judged against the same real responses over the same sampled requests, so these slices compare routers head-to-head: like-for-like win rates and spends on identical traffic. Verdicts from before arm stamping existed count toward the job\'s own router
+	 * @description One slice per router arm, grouped on the router name. Every arm of a multi-router job is judged against the same real responses over the same sampled requests, so these slices compare routers head-to-head: like-for-like win rates and spends on identical traffic. Verdicts from before arm stamping existed count toward the job's own router
 	 * @default []
 	 * @type array | undefined
 	 */
@@ -14045,7 +14214,10 @@ export type ShadowEvalJobResponseStatusEnumKey =
 	(typeof shadowEvalJobResponseStatusEnum)[keyof typeof shadowEvalJobResponseStatusEnum];
 
 /**
- * @description A shadow-eval job over one or more targets, each with its own budget and stop state;\nstatus is derived from stopped_by, the targets\' stop and budget state, and ends_at,\nnever stored, so no writer anywhere can produce an inconsistent one. Aggregate\nfields are populated by the detail endpoint only and stay None on list responses.
+ * @description A shadow-eval job over one or more targets, each with its own budget and stop state;
+ * status is derived from stopped_by, the targets' stop and budget state, and ends_at,
+ * never stored, so no writer anywhere can produce an inconsistent one. Aggregate
+ * fields are populated by the detail endpoint only and stay None on list responses.
  * @type object
  */
 export type ShadowEvalJobResponse = {
@@ -14087,7 +14259,7 @@ export type ShadowEvalJobResponse = {
 	 */
 	ends_at: string;
 	/**
-	 * @description The operator who stopped the job early, recorded by the stop endpoint; \'unknown\' backfilled by migration for jobs that displayed stopped when the column arrived; None when the job ended on its own. Its presence is what makes a job read stopped rather than completed
+	 * @description The operator who stopped the job early, recorded by the stop endpoint; 'unknown' backfilled by migration for jobs that displayed stopped when the column arrived; None when the job ended on its own. Its presence is what makes a job read stopped rather than completed
 	 */
 	stopped_by?: (string | null) | undefined;
 	/**
@@ -14111,12 +14283,17 @@ export type ShadowEvalJobResponse = {
 	 */
 	results?: (ShadowEvalResult | null) | undefined;
 	/**
-	 * @description The first router, kept for callers that predate router_names; derived so the\ntwo fields can never disagree.
+	 * @description The first router, kept for callers that predate router_names; derived so the
+	 * two fields can never disagree.
 	 * @type string
 	 */
 	readonly router_name: string;
 	/**
-	 * @description Three recorded facts, no history-guessing: a stop is stopped_by (the migration\nbackfills it for every job that displayed stopped when the column arrived, so the\npre-column population is closed), completion is the window passing or every target\nspending its budget, and anything else is running. The all-targets-stamped fallback\ncovers only stops written by pre-column pods during a rolling deploy.
+	 * @description Three recorded facts, no history-guessing: a stop is stopped_by (the migration
+	 * backfills it for every job that displayed stopped when the column arrived, so the
+	 * pre-column population is closed), completion is the window passing or every target
+	 * spending its budget, and anything else is running. The all-targets-stamped fallback
+	 * covers only stops written by pre-column pods during a rolling deploy.
 	 * @type string
 	 */
 	readonly status: ShadowEvalJobResponseStatusEnumKey;
@@ -14328,18 +14505,23 @@ export type StartShadowEvalRequestDirectionEnumKey =
 	(typeof startShadowEvalRequestDirectionEnum)[keyof typeof startShadowEvalRequestDirectionEnum];
 
 /**
- * @description Start duplicating one or more targets\' traffic for blind comparison against an auto-router.\n\nA target is a virtual key, a team, or a user; each becomes its own leg with its own\nbudget and stop state. Team and user targets match on the identity every request\ncarries after auth (user_api_key_team_id / user_api_key_user_id), so they cover\nJWT-authenticated traffic, which presents no virtual key at all.
+ * @description Start duplicating one or more targets' traffic for blind comparison against an auto-router.
+ *
+ * A target is a virtual key, a team, or a user; each becomes its own leg with its own
+ * budget and stop state. Team and user targets match on the identity every request
+ * carries after auth (user_api_key_team_id / user_api_key_user_id), so they cover
+ * JWT-authenticated traffic, which presents no virtual key at all.
  * @type object
  */
 export type StartShadowEvalRequest = {
 	/**
-	 * @description Hashed virtual keys whose traffic will be shadowed. Combined with team_ids and user_ids the job needs at least one target and at most 100, which also bounds every read the job\'s endpoints make. Each target carries its own max_budget spend budget, so one exhausting its budget leaves the others sampling.
+	 * @description Hashed virtual keys whose traffic will be shadowed. Combined with team_ids and user_ids the job needs at least one target and at most 100, which also bounds every read the job's endpoints make. Each target carries its own max_budget spend budget, so one exhausting its budget leaves the others sampling.
 	 * @default []
 	 * @type array | undefined
 	 */
 	api_key_ids?: string[] | undefined;
 	/**
-	 * @description Teams whose traffic will be shadowed, matched on the team every authenticated request resolves to, so a team\'s JWT-auth and virtual-key traffic are both sampled
+	 * @description Teams whose traffic will be shadowed, matched on the team every authenticated request resolves to, so a team's JWT-auth and virtual-key traffic are both sampled
 	 * @default []
 	 * @type array | undefined
 	 */
@@ -14351,7 +14533,7 @@ export type StartShadowEvalRequest = {
 	 */
 	user_ids?: string[] | undefined;
 	/**
-	 * @description Model groups to narrow the sampled traffic to, matched on the group the caller requested and resolved through model_group_alias, so an alias and its target are one name. Empty samples every model the targets use. This ANDs with the targets: a job over a user and one model samples that user\'s requests on that model across every key they own, and none of their other traffic. Forward jobs only: a reverse job samples exactly the traffic its own router served, which no other model group can name
+	 * @description Model groups to narrow the sampled traffic to, matched on the group the caller requested and resolved through model_group_alias, so an alias and its target are one name. Empty samples every model the targets use. This ANDs with the targets: a job over a user and one model samples that user's requests on that model across every key they own, and none of their other traffic. Forward jobs only: a reverse job samples exactly the traffic its own router served, which no other model group can name
 	 * @default []
 	 * @type array | undefined
 	 */
@@ -14361,23 +14543,23 @@ export type StartShadowEvalRequest = {
 	 */
 	router_name?: (string | null) | undefined;
 	/**
-	 * @description The auto-routers under evaluation, at most 4. Every sampled request runs through every router listed and each arm is judged independently against the same real response, so routers compare head-to-head on identical traffic. More than one router requires direction \'forward\'. After validation this field always carries the full deduplicated set, whichever spelling the caller used
+	 * @description The auto-routers under evaluation, at most 4. Every sampled request runs through every router listed and each arm is judged independently against the same real response, so routers compare head-to-head on identical traffic. More than one router requires direction 'forward'. After validation this field always carries the full deduplicated set, whichever spelling the caller used
 	 * @default []
 	 * @type array | undefined
 	 */
 	router_names?: string[] | undefined;
 	/**
-	 * @description forward answers \'should this key adopt router_name\': it samples the requests the key did NOT route through the router and duplicates them through it. reverse answers \'is the router still worth it for a key already on it\': it samples the requests the router did serve and duplicates them against baseline_model. The response the caller received is always the real arm
+	 * @description forward answers 'should this key adopt router_name': it samples the requests the key did NOT route through the router and duplicates them through it. reverse answers 'is the router still worth it for a key already on it': it samples the requests the router did serve and duplicates them against baseline_model. The response the caller received is always the real arm
 	 * @default 'forward'
 	 * @type string | undefined
 	 */
 	direction?: StartShadowEvalRequestDirectionEnumKey | undefined;
 	/**
-	 * @description Required when direction is reverse and rejected otherwise: the fixed model the router\'s own responses are judged against. Must be a plain model rather than another auto-router
+	 * @description Required when direction is reverse and rejected otherwise: the fixed model the router's own responses are judged against. Must be a plain model rather than another auto-router
 	 */
 	baseline_model?: (string | null) | undefined;
 	/**
-	 * @description Percentage of each target\'s requests to duplicate through the router
+	 * @description Percentage of each target's requests to duplicate through the router
 	 * @minLength 0.1
 	 * @maxLength 100
 	 * @type number
@@ -14398,7 +14580,7 @@ export type StartShadowEvalRequest = {
 	 */
 	duration_days?: number | undefined;
 	/**
-	 * @description Per-target USD budget for the eval\'s own overhead, the shadow-arm and judge calls, priced with the same figures the spend pipeline bills. EACH scoped target samples until its recorded eval spend reaches this, so a job over N targets spends at most about N times max_budget; in-flight samples can overshoot the cap by one sampling cache window. Every router arm draws from the same per-target budget, so a multi-router job reaches it proportionally sooner
+	 * @description Per-target USD budget for the eval's own overhead, the shadow-arm and judge calls, priced with the same figures the spend pipeline bills. EACH scoped target samples until its recorded eval spend reaches this, so a job over N targets spends at most about N times max_budget; in-flight samples can overshoot the cap by one sampling cache window. Every router arm draws from the same per-target budget, so a multi-router job reaches it proportionally sooner
 	 * @minLength 0.01
 	 * @maxLength 10000
 	 * @default 10
@@ -14700,7 +14882,19 @@ export type TeamListResponse = {
 };
 
 /**
- * @description Request body for adding members to a team.\n\nExample:\n```json\n{\n    \"team_id\": \"45e3e396-ee08-4a61-a88e-16b3ce7e0849\",\n    \"member\": {\n        \"role\": \"user\",\n        \"user_id\": \"user123\"\n    },\n    \"max_budget_in_team\": 100.0\n}\n```
+ * @description Request body for adding members to a team.
+ *
+ * Example:
+ * ```json
+ * {
+ *     "team_id": "45e3e396-ee08-4a61-a88e-16b3ce7e0849",
+ *     "member": {
+ *         "role": "user",
+ *         "user_id": "user123"
+ *     },
+ *     "max_budget_in_team": 100.0
+ * }
+ * ```
  * @type object
  */
 export type TeamMemberAddRequest = {
@@ -14718,11 +14912,11 @@ export type TeamMemberAddRequest = {
 	 */
 	max_budget_in_team?: (number | null) | undefined;
 	/**
-	 * @description Duration after which this team member\'s budget resets (e.g. \'1h\', \'24h\', \'7d\', \'30d\'). If not set, the budget never resets.
+	 * @description Duration after which this team member's budget resets (e.g. '1h', '24h', '7d', '30d'). If not set, the budget never resets.
 	 */
 	budget_duration?: (string | null) | undefined;
 	/**
-	 * @description List of models this team member can access. If not set, inherits the team\'s default_team_member_models or all team models.
+	 * @description List of models this team member can access. If not set, inherits the team's default_team_member_models or all team models.
 	 */
 	allowed_models?: (string[] | null) | undefined;
 };
@@ -14734,7 +14928,7 @@ export type TeamMemberDeleteRequest = {
 };
 
 /**
- * @description Response for GET /team/{team_id}/members/me — caller\'s own membership row.
+ * @description Response for GET /team/{team_id}/members/me — caller's own membership row.
  * @type object
  */
 export type TeamMemberInfoResponse = {
@@ -14795,7 +14989,7 @@ export type TeamMemberUpdateRequest = {
 	 */
 	rpm_limit?: (number | null) | undefined;
 	/**
-	 * @description Duration after which this team member\'s budget resets (e.g. \'1h\', \'24h\', \'7d\', \'30d\'). If not set, the budget never resets.
+	 * @description Duration after which this team member's budget resets (e.g. '1h', '24h', '7d', '30d'). If not set, the budget never resets.
 	 */
 	budget_duration?: (string | null) | undefined;
 	/**
@@ -14826,7 +15020,10 @@ export type TeamMemberUpdateResponse = {
 };
 
 /**
- * @description One declared team metadata field from ``general_settings.team_metadata_schema``.\n\nAdvisory only: the UI uses it to prepopulate the team metadata form.\nEnforcement stays with ``custom_team_metadata_validate``.
+ * @description One declared team metadata field from ``general_settings.team_metadata_schema``.
+ *
+ * Advisory only: the UI uses it to prepopulate the team metadata form.
+ * Enforcement stays with ``custom_team_metadata_validate``.
  * @type object
  */
 export type TeamMetadataFieldSchema = {
@@ -14923,7 +15120,11 @@ export type TokenCountDetailsResponseLitellmCountSourceEnumKey =
 	(typeof tokenCountDetailsResponseLitellmCountSourceEnum)[keyof typeof tokenCountDetailsResponseLitellmCountSourceEnum];
 
 /**
- * @description Response structure for token count details with modality breakdown.\n\nExample:\n    {\'totalTokens\': 12, \'promptTokensDetails\': [{\'modality\': \'TEXT\', \'tokenCount\': 12}],\n     \'litellm_count_source\': \'provider\'}
+ * @description Response structure for token count details with modality breakdown.
+ *
+ * Example:
+ *     {'totalTokens': 12, 'promptTokensDetails': [{'modality': 'TEXT', 'tokenCount': 12}],
+ *      'litellm_count_source': 'provider'}
  * @type object
  */
 export type TokenCountDetailsResponse = {
@@ -15080,7 +15281,7 @@ export type Trace = {
 };
 
 /**
- * @description One agent seen in the caller\'s traces, for picking which agent\'s runs to look at.
+ * @description One agent seen in the caller's traces, for picking which agent's runs to look at.
  * @type object
  */
 export type TraceAgent = {
@@ -15748,7 +15949,20 @@ export type UpdateTeamMemberPermissionsRequest = {
 };
 
 /**
- * @description UpdateTeamRequest, used by /team/update when you need to update a team\n\nteam_id: str\nteam_alias: Optional[str] = None\norganization_id: Optional[str] = None\nmetadata: Optional[dict] = None\ntpm_limit: Optional[int] = None\nrpm_limit: Optional[int] = None\nmax_budget: Optional[float] = None\nmodels: Optional[list] = None\nblocked: Optional[bool] = None\nbudget_duration: Optional[str] = None\nguardrails: Optional[List[str]] = None\npolicies: Optional[List[str]] = None
+ * @description UpdateTeamRequest, used by /team/update when you need to update a team
+ *
+ * team_id: str
+ * team_alias: Optional[str] = None
+ * organization_id: Optional[str] = None
+ * metadata: Optional[dict] = None
+ * tpm_limit: Optional[int] = None
+ * rpm_limit: Optional[int] = None
+ * max_budget: Optional[float] = None
+ * models: Optional[list] = None
+ * blocked: Optional[bool] = None
+ * budget_duration: Optional[str] = None
+ * guardrails: Optional[List[str]] = None
+ * policies: Optional[List[str]] = None
  * @type object
  */
 export type UpdateTeamRequest = {
@@ -15828,7 +16042,7 @@ export type UpdateTeamRequest = {
 	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
 	default_team_member_models?: (string[] | null) | undefined;
 	/**
-	 * @description Max budget per model for every key on the team, overridable per key (e.g. {\'gpt-4o\': {\'max_budget\': 10, \'budget_duration\': \'1d\'}})
+	 * @description Max budget per model for every key on the team, overridable per key (e.g. {'gpt-4o': {'max_budget': 10, 'budget_duration': '1d'}})
 	 */
 	model_max_budget?:
 		| ({
@@ -15933,7 +16147,10 @@ export type UserInfoResponse = {
 };
 
 /**
- * @description Response model for GET /v2/user/info\n\nReturns ONLY the user object - no keys, no teams objects.\nThis is a lightweight alternative to UserInfoResponse.
+ * @description Response model for GET /v2/user/info
+ *
+ * Returns ONLY the user object - no keys, no teams objects.
+ * This is a lightweight alternative to UserInfoResponse.
  * @type object
  */
 export type UserInfoV2Response = {
@@ -16023,7 +16240,7 @@ export type WebSearchInterceptionSettings = {
 	 */
 	enabled?: boolean | undefined;
 	/**
-	 * @description LLM providers to intercept for (e.g. \'bedrock\', \'vertex_ai\'). Empty intercepts Bedrock only.
+	 * @description LLM providers to intercept for (e.g. 'bedrock', 'vertex_ai'). Empty intercepts Bedrock only.
 	 * @type array | undefined
 	 */
 	enabled_providers?: string[] | undefined;
@@ -16546,7 +16763,9 @@ export type ChatCompletionAudioObject = {
 	input_audio: InputAudio;
 	type: "input_audio";
 	/**
-	 * @description Marks the exact end of a reusable prompt prefix.\n\nThe breakpoint inherits its TTL from the request\'s `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
+	 * @description Marks the exact end of a reusable prompt prefix.
+	 *
+	 * The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
 	 * @type object | undefined
 	 */
 	prompt_cache_breakpoint?: PromptCacheBreakpoint | undefined;
@@ -16652,7 +16871,8 @@ export type ChatCompletionUserMessage = {
 };
 
 /**
- * @description Pydantic model for chat completion requests that includes both OpenAI standard fields\nand LiteLLM-specific parameters. This replaces the previous TypedDict version.
+ * @description Pydantic model for chat completion requests that includes both OpenAI standard fields
+ * and LiteLLM-specific parameters. This replaces the previous TypedDict version.
  * @type object
  */
 export type ProxyChatCompletionRequest = {
@@ -16913,7 +17133,9 @@ export type FunctionToolParamAllowedCallersEnumKey =
 	(typeof functionToolParamAllowedCallersEnum)[keyof typeof functionToolParamAllowedCallersEnum];
 
 /**
- * @description Defines a function in your own code the model can choose to call.\n\nLearn more about [function calling](https://platform.openai.com/docs/guides/function-calling).
+ * @description Defines a function in your own code the model can choose to call.
+ *
+ * Learn more about [function calling](https://platform.openai.com/docs/guides/function-calling).
  * @type object
  */
 export type FunctionToolParam = {
@@ -16934,7 +17156,9 @@ export type FunctionToolParam = {
 };
 
 /**
- * @description A tool that searches for relevant content from uploaded files.\n\nLearn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).
+ * @description A tool that searches for relevant content from uploaded files.
+ *
+ * Learn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).
  * @type object
  */
 export type FileSearchToolParam = {
@@ -16950,7 +17174,9 @@ export type FileSearchToolParam = {
 };
 
 /**
- * @description A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+ * @description A tool that controls a virtual computer.
+ *
+ * Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
  * @type object
  */
 export type OpenaiTypesResponsesComputerToolParamComputerToolParam = {
@@ -16969,7 +17195,9 @@ export type ComputerUsePreviewToolParamEnvironmentEnumKey =
 	(typeof computerUsePreviewToolParamEnvironmentEnum)[keyof typeof computerUsePreviewToolParamEnvironmentEnum];
 
 /**
- * @description A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+ * @description A tool that controls a virtual computer.
+ *
+ * Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
  * @type object
  */
 export type ComputerUsePreviewToolParam = {
@@ -17009,7 +17237,10 @@ export type WebSearchToolParamSearchContextSizeEnumKey =
 	(typeof webSearchToolParamSearchContextSizeEnum)[keyof typeof webSearchToolParamSearchContextSizeEnum];
 
 /**
- * @description Search the Internet for sources related to the prompt.\n\nLearn more about the\n[web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+ * @description Search the Internet for sources related to the prompt.
+ *
+ * Learn more about the
+ * [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
  * @type object
  */
 export type WebSearchToolParam = {
@@ -17127,7 +17358,9 @@ export type CustomToolParamAllowedCallersEnumKey =
 	(typeof customToolParamAllowedCallersEnum)[keyof typeof customToolParamAllowedCallersEnum];
 
 /**
- * @description A custom tool that processes input using a specified format.\n\nLearn more about   [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
+ * @description A custom tool that processes input using a specified format.
+ *
+ * Learn more about   [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
  * @type object
  */
 export type CustomToolParam = {
@@ -17170,7 +17403,7 @@ export type ToolSearchToolParam = {
 };
 
 /**
- * @description The user\'s location.
+ * @description The user's location.
  * @type object
  */
 export type OpenaiTypesResponsesWebSearchPreviewToolParamUserLocation = {
@@ -17207,7 +17440,9 @@ export type WebSearchPreviewToolParamSearchContextSizeEnumKey =
 	(typeof webSearchPreviewToolParamSearchContextSizeEnum)[keyof typeof webSearchPreviewToolParamSearchContextSizeEnum];
 
 /**
- * @description This tool searches the web for relevant results to use in a response.\n\nLearn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+ * @description This tool searches the web for relevant results to use in a response.
+ *
+ * Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
  * @type object
  */
 export type WebSearchPreviewToolParam = {
@@ -17407,7 +17642,8 @@ export type ComputerCallOutput = {
 };
 
 /**
- * @description Context management configuration entry for a request.\nSee https://developers.openai.com/api/docs/guides/compaction.
+ * @description Context management configuration entry for a request.
+ * See https://developers.openai.com/api/docs/guides/compaction.
  * @type object
  */
 export type ContextManagementEntry = {
@@ -17434,7 +17670,9 @@ export type ResponseInputTextParam = {
 	text: string;
 	type: "input_text";
 	/**
-	 * @description Marks the exact end of a reusable prompt prefix.\n\nThe breakpoint inherits its TTL from the request\'s `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
+	 * @description Marks the exact end of a reusable prompt prefix.
+	 *
+	 * The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
 	 * @type object | undefined
 	 */
 	prompt_cache_breakpoint?: PromptCacheBreakpoint | undefined;
@@ -17451,7 +17689,9 @@ export type ResponseInputImageParamDetailEnumKey =
 	(typeof responseInputImageParamDetailEnum)[keyof typeof responseInputImageParamDetailEnum];
 
 /**
- * @description An image input to the model.\n\nLearn about [image inputs](https://platform.openai.com/docs/guides/vision).
+ * @description An image input to the model.
+ *
+ * Learn about [image inputs](https://platform.openai.com/docs/guides/vision).
  * @type object
  */
 export type ResponseInputImageParam = {
@@ -17460,7 +17700,9 @@ export type ResponseInputImageParam = {
 	file_id?: (string | null) | undefined;
 	image_url?: (string | null) | undefined;
 	/**
-	 * @description Marks the exact end of a reusable prompt prefix.\n\nThe breakpoint inherits its TTL from the request\'s `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
+	 * @description Marks the exact end of a reusable prompt prefix.
+	 *
+	 * The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
 	 * @type object | undefined
 	 */
 	prompt_cache_breakpoint?: PromptCacheBreakpoint | undefined;
@@ -17487,7 +17729,9 @@ export type ResponseInputFileParam = {
 	file_url?: string | undefined;
 	filename?: string | undefined;
 	/**
-	 * @description Marks the exact end of a reusable prompt prefix.\n\nThe breakpoint inherits its TTL from the request\'s `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
+	 * @description Marks the exact end of a reusable prompt prefix.
+	 *
+	 * The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
 	 * @type object | undefined
 	 */
 	prompt_cache_breakpoint?: PromptCacheBreakpoint | undefined;
@@ -17512,7 +17756,11 @@ export type EasyInputMessageParamPhaseKey =
 	(typeof easyInputMessageParamPhase)[keyof typeof easyInputMessageParamPhase];
 
 /**
- * @description A message input to the model with a role indicating instruction following\nhierarchy. Instructions given with the `developer` or `system` role take\nprecedence over instructions given with the `user` role. Messages with the\n`assistant` role are presumed to have been generated by the model in previous\ninteractions.
+ * @description A message input to the model with a role indicating instruction following
+ * hierarchy. Instructions given with the `developer` or `system` role take
+ * precedence over instructions given with the `user` role. Messages with the
+ * `assistant` role are presumed to have been generated by the model in previous
+ * interactions.
  * @type object
  */
 export type EasyInputMessageParam = {
@@ -17543,7 +17791,9 @@ export type ResponseInputImageContentParamDetailKey =
 	(typeof responseInputImageContentParamDetail)[keyof typeof responseInputImageContentParamDetail];
 
 /**
- * @description An image input to the model.\n\nLearn about [image inputs](https://platform.openai.com/docs/guides/vision)
+ * @description An image input to the model.
+ *
+ * Learn about [image inputs](https://platform.openai.com/docs/guides/vision)
  * @type object
  */
 export type ResponseInputImageContentParam = {
@@ -17677,7 +17927,9 @@ export type ResponsesAPIRequestParamsMessageStatusEnumKey =
 	(typeof responsesAPIRequestParamsMessageStatusEnum)[keyof typeof responsesAPIRequestParamsMessageStatusEnum];
 
 /**
- * @description A message input to the model with a role indicating instruction following\nhierarchy. Instructions given with the `developer` or `system` role take\nprecedence over instructions given with the `user` role.
+ * @description A message input to the model with a role indicating instruction following
+ * hierarchy. Instructions given with the `developer` or `system` role take
+ * precedence over instructions given with the `user` role.
  * @type object
  */
 export type ResponsesAPIRequestParamsMessage = {
@@ -17769,7 +18021,10 @@ export const reasoningSummary = {
 export type ReasoningSummaryKey = (typeof reasoningSummary)[keyof typeof reasoningSummary];
 
 /**
- * @description **gpt-5 and o-series models only**\n\nConfiguration options for\n[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+ * @description **gpt-5 and o-series models only**
+ *
+ * Configuration options for
+ * [reasoning models](https://platform.openai.com/docs/guides/reasoning).
  * @type object
  */
 export type Reasoning = {
@@ -17824,7 +18079,10 @@ export type ResponseComputerToolCallParamStatusEnumKey =
 	(typeof responseComputerToolCallParamStatusEnum)[keyof typeof responseComputerToolCallParamStatusEnum];
 
 /**
- * @description A tool call to a computer use tool.\n\nSee the\n[computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.
+ * @description A tool call to a computer use tool.
+ *
+ * See the
+ * [computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.
  * @type object
  */
 export type ResponseComputerToolCallParam = {
@@ -17911,7 +18169,10 @@ export type ResponseFileSearchToolCallParamStatusEnumKey =
 	(typeof responseFileSearchToolCallParamStatusEnum)[keyof typeof responseFileSearchToolCallParamStatusEnum];
 
 /**
- * @description The results of a file search tool call.\n\nSee the\n[file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.
+ * @description The results of a file search tool call.
+ *
+ * See the
+ * [file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.
  * @type object
  */
 export type ResponseFileSearchToolCallParam = {
@@ -17942,7 +18203,10 @@ export type ResponseFunctionToolCallParamStatusEnumKey =
 	(typeof responseFunctionToolCallParamStatusEnum)[keyof typeof responseFunctionToolCallParamStatusEnum];
 
 /**
- * @description A tool call to run a function.\n\nSee the\n[function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.
+ * @description A tool call to run a function.
+ *
+ * See the
+ * [function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.
  * @type object
  */
 export type ResponseFunctionToolCallParam = {
@@ -17967,7 +18231,10 @@ export type ResponseFunctionWebSearchParamStatusEnumKey =
 	(typeof responseFunctionWebSearchParamStatusEnum)[keyof typeof responseFunctionWebSearchParamStatusEnum];
 
 /**
- * @description The results of a web search tool call.\n\nSee the\n[web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.
+ * @description The results of a web search tool call.
+ *
+ * See the
+ * [web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.
  * @type object
  */
 export type ResponseFunctionWebSearchParam = {
@@ -18042,7 +18309,10 @@ export type ResponseReasoningItemParamStatusEnumKey =
 	(typeof responseReasoningItemParamStatusEnum)[keyof typeof responseReasoningItemParamStatusEnum];
 
 /**
- * @description A description of the chain of thought used by a reasoning model while generating\na response. Be sure to include these items in your `input` to the Responses API\nfor subsequent turns of a conversation if you are manually\n[managing context](https://platform.openai.com/docs/guides/conversation-state).
+ * @description A description of the chain of thought used by a reasoning model while generating
+ * a response. Be sure to include these items in your `input` to the Responses API
+ * for subsequent turns of a conversation if you are manually
+ * [managing context](https://platform.openai.com/docs/guides/conversation-state).
  * @type object
  */
 export type ResponseReasoningItemParam = {
@@ -18179,7 +18449,8 @@ export type ShellCallOutput = {
 };
 
 /**
- * @description Shell tool for Responses API: run commands in hosted containers or local runtime.\nSee https://developers.openai.com/api/docs/guides/tools-shell.
+ * @description Shell tool for Responses API: run commands in hosted containers or local runtime.
+ * See https://developers.openai.com/api/docs/guides/tools-shell.
  * @type object
  */
 export type ShellToolParam = {
@@ -18525,7 +18796,11 @@ export type ContentFilterCategoryConfigSeverityThresholdEnumKey =
 	(typeof contentFilterCategoryConfigSeverityThresholdEnum)[keyof typeof contentFilterCategoryConfigSeverityThresholdEnum];
 
 /**
- * @description category: \"harmful_self_harm\"\n              enabled: true\n              action: \"BLOCK\"\n              severity_threshold: \"medium\"\n              category_file: \"/path/to/custom_file.yaml\"  # optional override
+ * @description category: "harmful_self_harm"
+ *               enabled: true
+ *               action: "BLOCK"
+ *               severity_threshold: "medium"
+ *               category_file: "/path/to/custom_file.yaml"  # optional override
  * @type object
  */
 export type ContentFilterCategoryConfig = {
@@ -18587,15 +18862,15 @@ export type ContentFilterPattern = {
 	 */
 	name?: (string | null) | undefined;
 	/**
-	 * @description Custom regex pattern. Required if pattern_type is \'regex\'
+	 * @description Custom regex pattern. Required if pattern_type is 'regex'
 	 */
 	pattern?: (string | null) | undefined;
 	/**
-	 * @description Name of prebuilt pattern (e.g., \'us_ssn\', \'credit_card\'). Required if pattern_type is \'prebuilt\'
+	 * @description Name of prebuilt pattern (e.g., 'us_ssn', 'credit_card'). Required if pattern_type is 'prebuilt'
 	 */
 	pattern_name?: (string | null) | undefined;
 	/**
-	 * @description Type of pattern: \'prebuilt\' for predefined patterns or \'regex\' for custom
+	 * @description Type of pattern: 'prebuilt' for predefined patterns or 'regex' for custom
 	 * @type string
 	 */
 	pattern_type: ContentFilterPatternPatternTypeEnumKey;
@@ -18711,11 +18986,11 @@ export type BaseLitellmParams = {
 	 */
 	experimental_use_latest_role_message_only?: (boolean | null) | undefined;
 	/**
-	 * @description Header names to forward from the client request to the guardrail (e.g. x-request-id). Only these headers\' values are sent; others may be omitted or sent as [present]. Used by generic_guardrail_api (similar to MCP extra_headers).
+	 * @description Header names to forward from the client request to the guardrail (e.g. x-request-id). Only these headers' values are sent; others may be omitted or sent as [present]. Used by generic_guardrail_api (similar to MCP extra_headers).
 	 */
 	extra_headers?: (string[] | null) | undefined;
 	/**
-	 * @description Whether to fail the request if the guardrail encounters an error. Implemented by guardrail=\'model_armor\', \'generic_guardrail_api\' and \'crowdstrike_aidr\'. True (default) raises the error. False logs a critical error and lets the request proceed, so only a valid guardrail response can block or modify it.
+	 * @description Whether to fail the request if the guardrail encounters an error. Implemented by guardrail='model_armor', 'generic_guardrail_api' and 'crowdstrike_aidr'. True (default) raises the error. False logs a critical error and lets the request proceed, so only a valid guardrail response can block or modify it.
 	 * @default true
 	 */
 	fail_on_error?: (boolean | null) | undefined;
@@ -18736,11 +19011,11 @@ export type BaseLitellmParams = {
 	 */
 	location?: (string | null) | undefined;
 	/**
-	 * @description when True, a flagged or raising logging_only request scan is logged and the response is still scanned, so both verdicts land. Only applies to mode logging_only and is ignored when logging_only_scope is \'input\' or \'output\'.
+	 * @description when True, a flagged or raising logging_only request scan is logged and the response is still scanned, so both verdicts land. Only applies to mode logging_only and is ignored when logging_only_scope is 'input' or 'output'.
 	 */
 	logging_only_continue_on_input_failure?: (boolean | null) | undefined;
 	/**
-	 * @description which direction a logging_only scan observes: \'input\' (request) or \'output\' (response); unset scans both directions. Only applies to mode logging_only; pre_call/post_call on the same guardrail keep blocking.
+	 * @description which direction a logging_only scan observes: 'input' (request) or 'output' (response); unset scans both directions. Only applies to mode logging_only; pre_call/post_call on the same guardrail keep blocking.
 	 */
 	logging_only_scope?: (BaseLitellmParamsLoggingOnlyScopeKey | null) | undefined;
 	/**
@@ -18752,23 +19027,23 @@ export type BaseLitellmParams = {
 	 */
 	mask_response_content?: (boolean | null) | undefined;
 	/**
-	 * @description Maximum decisions calls in flight at once on the guardrail in each proxy worker. Implemented by guardrail=\'decision_model\'.
+	 * @description Maximum decisions calls in flight at once on the guardrail in each proxy worker. Implemented by guardrail='decision_model'.
 	 */
 	max_concurrent_decision_calls?: (number | null) | undefined;
 	/**
-	 * @description Character budget for each text sent to the guardrail\'s model. Implemented by guardrail=\'decision_model\'.
+	 * @description Character budget for each text sent to the guardrail's model. Implemented by guardrail='decision_model'.
 	 */
 	max_input_chars?: (number | null) | undefined;
 	/**
-	 * @description Optional field if guardrail requires a \'model\' parameter
+	 * @description Optional field if guardrail requires a 'model' parameter
 	 */
 	model?: (string | null) | undefined;
 	/**
-	 * @description Action to take when sensitive data is detected. \'block\' raises an exception (default behavior). \'route\' reroutes the request to the model specified in sensitive_data_route_to_model.
+	 * @description Action to take when sensitive data is detected. 'block' raises an exception (default behavior). 'route' reroutes the request to the model specified in sensitive_data_route_to_model.
 	 */
 	on_sensitive_data?: (BaseLitellmParamsOnSensitiveDataKey | null) | undefined;
 	/**
-	 * @description For /v1/realtime sessions: \'warn\' speaks the violation message and continues; \'end_session\' speaks the message and closes the connection. For guardrail=\'mcp_security\': \'block\' rejects the request; \'alert\' only logs a warning.
+	 * @description For /v1/realtime sessions: 'warn' speaks the violation message and continues; 'end_session' speaks the message and closes the connection. For guardrail='mcp_security': 'block' rejects the request; 'alert' only logs a warning.
 	 */
 	on_violation?: (BaseLitellmParamsOnViolationKey | null) | undefined;
 	/**
@@ -18801,7 +19076,7 @@ export type BaseLitellmParams = {
 	 */
 	run_in_parallel?: (boolean | null) | undefined;
 	/**
-	 * @description For guardrail=\'model_armor\': omit the raw Model Armor response from caller-facing errors and logs by default. Set False to restore verbose output.
+	 * @description For guardrail='model_armor': omit the raw Model Armor response from caller-facing errors and logs by default. Set False to restore verbose output.
 	 * @default true
 	 */
 	sanitize_error_detail?: (boolean | null) | undefined;
@@ -18810,11 +19085,11 @@ export type BaseLitellmParams = {
 	 */
 	scan_only_tool_results?: (boolean | null) | undefined;
 	/**
-	 * @description When True, this pre_call guardrail always evaluates the request as it was before any guardrail in this hook ran, regardless of its position in the guardrails list -- so the YAML order of guardrails can never change whether this one blocks. Use only for block-only guardrails: any data this guardrail returns is discarded, same contract as run_in_parallel, since an earlier guardrail\'s masking must not be undone by this one.
+	 * @description When True, this pre_call guardrail always evaluates the request as it was before any guardrail in this hook ran, regardless of its position in the guardrails list -- so the YAML order of guardrails can never change whether this one blocks. Use only for block-only guardrails: any data this guardrail returns is discarded, same contract as run_in_parallel, since an earlier guardrail's masking must not be undone by this one.
 	 */
 	scan_raw_request?: (boolean | null) | undefined;
 	/**
-	 * @description Model to route requests to when sensitive data is detected and on_sensitive_data=\'route\'. This is typically an on-premise model for data privacy. The routing decision persists for the entire session.
+	 * @description Model to route requests to when sensitive data is detected and on_sensitive_data='route'. This is typically an on-premise model for data privacy. The routing decision persists for the entire session.
 	 */
 	sensitive_data_route_to_model?: (string | null) | undefined;
 	/**
@@ -18830,7 +19105,7 @@ export type BaseLitellmParams = {
 	 */
 	skip_tool_message_in_guardrail?: (boolean | null) | undefined;
 	/**
-	 * @description Implemented by guardrail=\'model_armor\'. When True, attachment references that carry no inline bytes (file_id, gs://, or http(s) URLs) pass through unscanned instead of blocking, while fail_on_error still governs real Model Armor API errors. Default False blocks them.
+	 * @description Implemented by guardrail='model_armor'. When True, attachment references that carry no inline bytes (file_id, gs://, or http(s) URLs) pass through unscanned instead of blocking, while fail_on_error still governs real Model Armor API errors. Default False blocks them.
 	 * @default false
 	 */
 	skip_unscannable_attachments?: (boolean | null) | undefined;
@@ -18860,7 +19135,7 @@ export type BaseLitellmParams = {
 	 */
 	timeout?: (number | null) | undefined;
 	/**
-	 * @description Behavior when a guardrail endpoint is unreachable due to network errors. Implemented by guardrail=\'generic_guardrail_api\', \'agent_365\', \'akto\', \'vigil_guard\', \'repelloai\', \'headroom\', \'compresr\', and \'typesafe\'. \'fail_closed\' raises an error (default). \'fail_open\' logs a critical error and allows the request to proceed. Also implemented by guardrail=\'decision_model\'.
+	 * @description Behavior when a guardrail endpoint is unreachable due to network errors. Implemented by guardrail='generic_guardrail_api', 'agent_365', 'akto', 'vigil_guard', 'repelloai', 'headroom', 'compresr', and 'typesafe'. 'fail_closed' raises an error (default). 'fail_open' logs a critical error and allows the request to proceed. Also implemented by guardrail='decision_model'.
 	 * @default 'fail_closed'
 	 * @type string | undefined
 	 */
@@ -18954,7 +19229,9 @@ export type BedrockChecksSensitiveInformationModel = {
 };
 
 /**
- * @description Inline `checks` config for the resource-less Bedrock InvokeGuardrailChecks API.\n\nInclude only the checks you want to run; at least one must be set.
+ * @description Inline `checks` config for the resource-less Bedrock InvokeGuardrailChecks API.
+ *
+ * Include only the checks you want to run; at least one must be set.
  * @type object
  */
 export type BedrockChecksConfigModel = {
@@ -18986,7 +19263,7 @@ export type CiscoAIDefenseRuleRuleNameEnumKey =
  */
 export type CiscoAIDefenseRule = {
 	/**
-	 * @description Optional list of entity types for the rule (e.g. \'Email Address\', \'Phone Number\'). Applies to rules such as PII, PCI, and PHI.
+	 * @description Optional list of entity types for the rule (e.g. 'Email Address', 'Phone Number'). Applies to rules such as PII, PCI, and PHI.
 	 */
 	entity_types?: (string[] | null) | undefined;
 	/**
@@ -19022,18 +19299,18 @@ export type CiscoAIDefenseGuardrailConfigModelOptionalParams = {
 	 */
 	enabled_rules?: (CiscoAIDefenseRule[] | null) | undefined;
 	/**
-	 * @description Behaviour when the Cisco AI Defense API is unavailable: \'allow\' proceeds without scanning (high availability), \'block\' rejects the request (maximum security).
+	 * @description Behaviour when the Cisco AI Defense API is unavailable: 'allow' proceeds without scanning (high availability), 'block' rejects the request (maximum security).
 	 * @default block
 	 */
 	fallback_on_error?:
 		| (CiscoAIDefenseGuardrailConfigModelOptionalParamsFallbackOnErrorKey | null)
 		| undefined;
 	/**
-	 * @description Override for the inspection endpoint path. Defaults to /api/v1/inspect/chat when inspection_type=\'chat\' and /api/v1/inspect/mcp when inspection_type=\'mcp\'.
+	 * @description Override for the inspection endpoint path. Defaults to /api/v1/inspect/chat when inspection_type='chat' and /api/v1/inspect/mcp when inspection_type='mcp'.
 	 */
 	inspect_path?: (string | null) | undefined;
 	/**
-	 * @description Which Cisco AI Defense inspection surface to use. \'chat\' scans LLM model conversations via /api/v1/inspect/chat. \'mcp\' scans MCP tool calls via /api/v1/inspect/mcp. Each guardrail instance targets exactly one surface; configure two guardrails to scan both chat and MCP traffic.
+	 * @description Which Cisco AI Defense inspection surface to use. 'chat' scans LLM model conversations via /api/v1/inspect/chat. 'mcp' scans MCP tool calls via /api/v1/inspect/mcp. Each guardrail instance targets exactly one surface; configure two guardrails to scan both chat and MCP traffic.
 	 * @default 'chat'
 	 * @type string | undefined
 	 */
@@ -19057,7 +19334,7 @@ export type CiscoAIDefenseGuardrailConfigModelOptionalParams = {
 	 */
 	integration_type?: (string | null) | undefined;
 	/**
-	 * @description Action to take when Cisco AI Defense flags content. \'block\' raises an HTTPException; \'monitor\' logs the detection and lets the request continue.
+	 * @description Action to take when Cisco AI Defense flags content. 'block' raises an HTTPException; 'monitor' logs the detection and lets the request continue.
 	 * @default block
 	 */
 	on_flagged_action?: (string | null) | undefined;
@@ -19159,7 +19436,7 @@ export type ToolPermissionRule = {
 	 */
 	id: string;
 	/**
-	 * @description Regex pattern applied to the tool\'s function name
+	 * @description Regex pattern applied to the tool's function name
 	 */
 	tool_name?: (string | null) | undefined;
 	/**
@@ -19280,7 +19557,7 @@ export type LitellmParamsUnreachableFallbackEnumKey =
 
 export type LitellmParams = {
 	/**
-	 * @description \'block\' raises an error; \'mask\' replaces the code block with a placeholder.
+	 * @description 'block' raises an error; 'mask' replaces the code block with a placeholder.
 	 * @default 'block'
 	 * @type string | undefined
 	 */
@@ -19294,11 +19571,11 @@ export type LitellmParams = {
 		  } | null)
 		| undefined;
 	/**
-	 * @description Custom advisory message template used when on_flagged=\'inject_system_message\'. Must contain a {reason} placeholder. Defaults to a generic advisory message if unset.
+	 * @description Custom advisory message template used when on_flagged='inject_system_message'. Must contain a {reason} placeholder. Defaults to a generic advisory message if unset.
 	 */
 	advisory_system_message?: (string | null) | undefined;
 	/**
-	 * @description Akto account ID for multi-tenant deployments. Env: AKTO_ACCOUNT_ID. Default: \'1000000\'.
+	 * @description Akto account ID for multi-tenant deployments. Env: AKTO_ACCOUNT_ID. Default: '1000000'.
 	 */
 	akto_account_id?: (string | null) | undefined;
 	/**
@@ -19312,7 +19589,7 @@ export type LitellmParams = {
 	 */
 	akto_base_url?: (string | null) | undefined;
 	/**
-	 * @description JSON object sent to Akto. \'policy_name\': comma-separated Akto policies to enforce (empty enforces all). Example: {\"policy_name\": \"PII Strict, Secrets\"}.
+	 * @description JSON object sent to Akto. 'policy_name': comma-separated Akto policies to enforce (empty enforces all). Example: {"policy_name": "PII Strict, Secrets"}.
 	 */
 	akto_metadata?:
 		| ({
@@ -19320,7 +19597,7 @@ export type LitellmParams = {
 		  } | null)
 		| undefined;
 	/**
-	 * @description Akto VXLAN ID. Env: AKTO_VXLAN_ID. Default: \'0\'.
+	 * @description Akto VXLAN ID. Env: AKTO_VXLAN_ID. Default: '0'.
 	 */
 	akto_vxlan_id?: (string | null) | undefined;
 	/**
@@ -19328,7 +19605,7 @@ export type LitellmParams = {
 	 */
 	anonymize_input?: (boolean | null) | undefined;
 	/**
-	 * @description Regional base URL for the Cisco AI Defense Inspection API. Defaults to https://us.api.inspect.aidefense.security.cisco.com. Supported regions: us (us-west-2), ap (ap-ne-1), eu (eu-central-1). The environment variable `CISCO_AI_DEFENSE_API_BASE` is consulted as a fallback. The endpoint path is derived from inspection_type (/api/v1/inspect/chat for \'chat\', /api/v1/inspect/mcp for \'mcp\').
+	 * @description Regional base URL for the Cisco AI Defense Inspection API. Defaults to https://us.api.inspect.aidefense.security.cisco.com. Supported regions: us (us-west-2), ap (ap-ne-1), eu (eu-central-1). The environment variable `CISCO_AI_DEFENSE_API_BASE` is consulted as a fallback. The endpoint path is derived from inspection_type (/api/v1/inspect/chat for 'chat', /api/v1/inspect/mcp for 'mcp').
 	 */
 	api_base?: (string | null) | undefined;
 	/**
@@ -19352,7 +19629,7 @@ export type LitellmParams = {
 	 */
 	application?: (string | null) | undefined;
 	/**
-	 * @description Application ID for Noma Security. Defaults to \'litellm\' if not provided
+	 * @description Application ID for Noma Security. Defaults to 'litellm' if not provided
 	 */
 	application_id?: (string | null) | undefined;
 	/**
@@ -19380,7 +19657,7 @@ export type LitellmParams = {
 	 */
 	aws_bedrock_runtime_endpoint?: (string | null) | undefined;
 	/**
-	 * @description External ID required by the target role\'s trust policy on sts:AssumeRole
+	 * @description External ID required by the target role's trust policy on sts:AssumeRole
 	 */
 	aws_external_id?: (string | null) | undefined;
 	/**
@@ -19464,7 +19741,7 @@ export type LitellmParams = {
 	 */
 	ccr_retrieval?: boolean | undefined;
 	/**
-	 * @description Inline Bedrock InvokeGuardrailChecks config for guardrail=\'bedrock\', or the predicate checks a decision_model guardrail scores for guardrail=\'decision_model\'
+	 * @description Inline Bedrock InvokeGuardrailChecks config for guardrail='bedrock', or the predicate checks a decision_model guardrail scores for guardrail='decision_model'
 	 */
 	checks?: (BedrockChecksConfigModel | DecisionModelCheck[] | null) | undefined;
 	/**
@@ -19474,11 +19751,11 @@ export type LitellmParams = {
 	 */
 	chunk_budget_chars?: number | undefined;
 	/**
-	 * @description Client id of the gateway\'s Entra app registration (a confidential client). Falls back to the AGENT365_CLIENT_ID environment variable.
+	 * @description Client id of the gateway's Entra app registration (a confidential client). Falls back to the AGENT365_CLIENT_ID environment variable.
 	 */
 	client_id?: (string | null) | undefined;
 	/**
-	 * @description Client secret of the gateway\'s Entra app registration, used to perform the On-Behalf-Of exchange. Falls back to the AGENT365_CLIENT_SECRET environment variable.
+	 * @description Client secret of the gateway's Entra app registration, used to perform the On-Behalf-Of exchange. Falls back to the AGENT365_CLIENT_SECRET environment variable.
 	 */
 	client_secret?: (string | null) | undefined;
 	/**
@@ -19507,11 +19784,11 @@ export type LitellmParams = {
 	 */
 	content_moderation_check?: (boolean | null) | undefined;
 	/**
-	 * @description Akto context the traffic belongs to: \'ENDPOINT\' (Atlas) or \'AGENTIC\' (Argus). Default: AGENTIC.
+	 * @description Akto context the traffic belongs to: 'ENDPOINT' (Atlas) or 'AGENTIC' (Argus). Default: AGENTIC.
 	 */
 	context_source?: (LitellmParamsContextSourceKey | null) | undefined;
 	/**
-	 * @description ApplyGuardrail: when True, post-call scans of a request with no grounding_source / query content parts send the system and developer messages as the grounding source and the latest user message as the query, so the guardrail\'s contextual grounding policy can score the response. Bedrock bills contextual grounding units for these scans and rejects queries, sources and responses over its contextual grounding length limits, so leave this off for guardrails without a contextual grounding policy. Default False: plain messages are never sent as grounding context.
+	 * @description ApplyGuardrail: when True, post-call scans of a request with no grounding_source / query content parts send the system and developer messages as the grounding source and the latest user message as the query, so the guardrail's contextual grounding policy can score the response. Bedrock bills contextual grounding units for these scans and rejects queries, sources and responses over its contextual grounding length limits, so leave this off for guardrails without a contextual grounding policy. Default False: plain messages are never sent as grounding context.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -19525,7 +19802,7 @@ export type LitellmParams = {
 	 */
 	custom_code?: (string | null) | undefined;
 	/**
-	 * @description For guardrail=\'decision_model\': the Decisions-API model that scores each check
+	 * @description For guardrail='decision_model': the Decisions-API model that scores each check
 	 */
 	decision_model?: (string | null) | undefined;
 	/**
@@ -19547,7 +19824,7 @@ export type LitellmParams = {
 	 */
 	deployment_name?: (string | null) | undefined;
 	/**
-	 * @description When True, block only when user intent is to run/execute; allow when intent is explain/refactor/don\'t run. Also block text-only execution requests (e.g. \'run `ls`\', \'read /etc/passwd\').
+	 * @description When True, block only when user intent is to run/execute; allow when intent is explain/refactor/don't run. Also block text-only execution requests (e.g. 'run `ls`', 'read /etc/passwd').
 	 * @default true
 	 * @type boolean | undefined
 	 */
@@ -19561,11 +19838,11 @@ export type LitellmParams = {
 		  } | null)
 		| undefined;
 	/**
-	 * @description Name of the detector inside the server (e.g., \'jailbreak-detector\')
+	 * @description Name of the detector inside the server (e.g., 'jailbreak-detector')
 	 */
 	detector_id?: (string | null) | undefined;
 	/**
-	 * @description Dictionary of detector configurations (e.g., {\'nsfw\': {\'enabled\': True}, \'toxicity\': {\'enabled\': True}}).
+	 * @description Dictionary of detector configurations (e.g., {'nsfw': {'enabled': True}, 'toxicity': {'enabled': True}}).
 	 */
 	detectors?:
 		| ({
@@ -19596,11 +19873,11 @@ export type LitellmParams = {
 	 */
 	experimental_use_latest_role_message_only?: (boolean | null) | undefined;
 	/**
-	 * @description Header names to forward from the client request to the guardrail (e.g. x-request-id). Only these headers\' values are sent; others may be omitted or sent as [present]. Used by generic_guardrail_api (similar to MCP extra_headers).
+	 * @description Header names to forward from the client request to the guardrail (e.g. x-request-id). Only these headers' values are sent; others may be omitted or sent as [present]. Used by generic_guardrail_api (similar to MCP extra_headers).
 	 */
 	extra_headers?: (string[] | null) | undefined;
 	/**
-	 * @description Whether to fail the request if the guardrail encounters an error. Implemented by guardrail=\'model_armor\', \'generic_guardrail_api\' and \'crowdstrike_aidr\'. True (default) raises the error. False logs a critical error and lets the request proceed, so only a valid guardrail response can block or modify it.
+	 * @description Whether to fail the request if the guardrail encounters an error. Implemented by guardrail='model_armor', 'generic_guardrail_api' and 'crowdstrike_aidr'. True (default) raises the error. False logs a critical error and lets the request proceed, so only a valid guardrail response can block or modify it.
 	 * @default true
 	 */
 	fail_on_error?: (boolean | null) | undefined;
@@ -19617,7 +19894,7 @@ export type LitellmParams = {
 	 */
 	grounding_check?: (boolean | null) | undefined;
 	/**
-	 * @description Strictness level for XecGuard context-grounding validation. \'BALANCED\' (default) treats INCOMPLETE answers as SAFE; \'STRICT\' flags them as UNSAFE. Grounding only runs in post_call when `metadata.xecguard_grounding_documents` is provided.
+	 * @description Strictness level for XecGuard context-grounding validation. 'BALANCED' (default) treats INCOMPLETE answers as SAFE; 'STRICT' flags them as UNSAFE. Grounding only runs in post_call when `metadata.xecguard_grounding_documents` is provided.
 	 */
 	grounding_strictness?: (LitellmParamsGroundingStrictnessKey | null) | undefined;
 	/**
@@ -19681,11 +19958,11 @@ export type LitellmParams = {
 	 */
 	location?: (string | null) | undefined;
 	/**
-	 * @description when True, a flagged or raising logging_only request scan is logged and the response is still scanned, so both verdicts land. Only applies to mode logging_only and is ignored when logging_only_scope is \'input\' or \'output\'.
+	 * @description when True, a flagged or raising logging_only request scan is logged and the response is still scanned, so both verdicts land. Only applies to mode logging_only and is ignored when logging_only_scope is 'input' or 'output'.
 	 */
 	logging_only_continue_on_input_failure?: (boolean | null) | undefined;
 	/**
-	 * @description which direction a logging_only scan observes: \'input\' (request) or \'output\' (response); unset scans both directions. Only applies to mode logging_only; pre_call/post_call on the same guardrail keep blocking.
+	 * @description which direction a logging_only scan observes: 'input' (request) or 'output' (response); unset scans both directions. Only applies to mode logging_only; pre_call/post_call on the same guardrail keep blocking.
 	 */
 	logging_only_scope?: (LitellmParamsLoggingOnlyScopeKey | null) | undefined;
 	/**
@@ -19702,11 +19979,11 @@ export type LitellmParams = {
 	 */
 	mask_response_content?: (boolean | null) | undefined;
 	/**
-	 * @description Maximum decisions calls in flight at once on the guardrail in each proxy worker. Implemented by guardrail=\'decision_model\'.
+	 * @description Maximum decisions calls in flight at once on the guardrail in each proxy worker. Implemented by guardrail='decision_model'.
 	 */
 	max_concurrent_decision_calls?: (number | null) | undefined;
 	/**
-	 * @description Character budget for each text sent to the guardrail\'s model. Implemented by guardrail=\'decision_model\'.
+	 * @description Character budget for each text sent to the guardrail's model. Implemented by guardrail='decision_model'.
 	 */
 	max_input_chars?: (number | null) | undefined;
 	/**
@@ -19744,21 +20021,21 @@ export type LitellmParams = {
 	 */
 	on_disallowed_action?: LitellmParamsOnDisallowedActionEnumKey | undefined;
 	/**
-	 * @description Action to take when content is flagged: \'block\' (raise exception), \'monitor\' (log only), or \'inject_system_message\' (append an advisory system message and let the LLM decide)
+	 * @description Action to take when content is flagged: 'block' (raise exception), 'monitor' (log only), or 'inject_system_message' (append an advisory system message and let the LLM decide)
 	 * @default block
 	 */
 	on_flagged?: (LitellmParamsOnFlaggedKey | null) | undefined;
 	/**
-	 * @description Action to take when content is flagged: \'block\' (raise exception) or \'monitor\' (log only)
+	 * @description Action to take when content is flagged: 'block' (raise exception) or 'monitor' (log only)
 	 * @default monitor
 	 */
 	on_flagged_action?: (string | null) | undefined;
 	/**
-	 * @description Action to take when sensitive data is detected. \'block\' raises an exception (default behavior). \'route\' reroutes the request to the model specified in sensitive_data_route_to_model.
+	 * @description Action to take when sensitive data is detected. 'block' raises an exception (default behavior). 'route' reroutes the request to the model specified in sensitive_data_route_to_model.
 	 */
 	on_sensitive_data?: (LitellmParamsOnSensitiveDataKey | null) | undefined;
 	/**
-	 * @description For /v1/realtime sessions: \'warn\' speaks the violation message and continues; \'end_session\' speaks the message and closes the connection. For guardrail=\'mcp_security\': \'block\' rejects the request; \'alert\' only logs a warning.
+	 * @description For /v1/realtime sessions: 'warn' speaks the violation message and continues; 'end_session' speaks the message and closes the connection. For guardrail='mcp_security': 'block' rejects the request; 'alert' only logs a warning.
 	 */
 	on_violation?: (LitellmParamsOnViolationKey | null) | undefined;
 	/**
@@ -19841,7 +20118,7 @@ export type LitellmParams = {
 	 */
 	presidio_ad_hoc_recognizers?: (string | null) | undefined;
 	/**
-	 * @description Maximum UTF-8 bytes of text sent in a single Presidio /analyze call. Longer texts are split into overlapping chunks of at most this size and the merged results are remapped onto the original text. Defaults to 500000; set it below your analyzer deployment\'s request body limit, leaving headroom for the rest of the analyze payload.
+	 * @description Maximum UTF-8 bytes of text sent in a single Presidio /analyze call. Longer texts are split into overlapping chunks of at most this size and the merged results are remapped onto the original text. Defaults to 500000; set it below your analyzer deployment's request body limit, leaving headroom for the rest of the analyze payload.
 	 */
 	presidio_analyze_chunk_size_bytes?: (number | null) | undefined;
 	/**
@@ -19857,11 +20134,11 @@ export type LitellmParams = {
 	 */
 	presidio_entities_deny_list?: ((PiiEntityTypeKey | string)[] | null) | undefined;
 	/**
-	 * @description Where to apply Presidio checks: \'input\' (user -> model), \'output\' (model -> user), or \'both\' (default).
+	 * @description Where to apply Presidio checks: 'input' (user -> model), 'output' (model -> user), or 'both' (default).
 	 */
 	presidio_filter_scope?: (LitellmParamsPresidioFilterScopeKey | null) | undefined;
 	/**
-	 * @description Language code for Presidio PII analysis (e.g., \'en\', \'de\', \'es\', \'fr\')
+	 * @description Language code for Presidio PII analysis (e.g., 'en', 'de', 'es', 'fr')
 	 * @default en
 	 */
 	presidio_language?: (string | null) | undefined;
@@ -19903,7 +20180,7 @@ export type LitellmParams = {
 	 */
 	run_in_parallel?: (boolean | null) | undefined;
 	/**
-	 * @description For guardrail=\'model_armor\': omit the raw Model Armor response from caller-facing errors and logs by default. Set False to restore verbose output.
+	 * @description For guardrail='model_armor': omit the raw Model Armor response from caller-facing errors and logs by default. Set False to restore verbose output.
 	 * @default true
 	 */
 	sanitize_error_detail?: (boolean | null) | undefined;
@@ -19912,7 +20189,7 @@ export type LitellmParams = {
 	 */
 	scan_only_tool_results?: (boolean | null) | undefined;
 	/**
-	 * @description When True, this pre_call guardrail always evaluates the request as it was before any guardrail in this hook ran, regardless of its position in the guardrails list -- so the YAML order of guardrails can never change whether this one blocks. Use only for block-only guardrails: any data this guardrail returns is discarded, same contract as run_in_parallel, since an earlier guardrail\'s masking must not be undone by this one.
+	 * @description When True, this pre_call guardrail always evaluates the request as it was before any guardrail in this hook ran, regardless of its position in the guardrails list -- so the YAML order of guardrails can never change whether this one blocks. Use only for block-only guardrails: any data this guardrail returns is discarded, same contract as run_in_parallel, since an earlier guardrail's masking must not be undone by this one.
 	 */
 	scan_raw_request?: (boolean | null) | undefined;
 	/**
@@ -19931,7 +20208,7 @@ export type LitellmParams = {
 	 */
 	send_user_api_key_user_id?: (boolean | null) | undefined;
 	/**
-	 * @description Model to route requests to when sensitive data is detected and on_sensitive_data=\'route\'. This is typically an on-premise model for data privacy. The routing decision persists for the entire session.
+	 * @description Model to route requests to when sensitive data is detected and on_sensitive_data='route'. This is typically an on-premise model for data privacy. The routing decision persists for the entire session.
 	 */
 	sensitive_data_route_to_model?: (string | null) | undefined;
 	/**
@@ -19963,7 +20240,7 @@ export type LitellmParams = {
 	 */
 	skip_tool_message_in_guardrail?: (boolean | null) | undefined;
 	/**
-	 * @description Implemented by guardrail=\'model_armor\'. When True, attachment references that carry no inline bytes (file_id, gs://, or http(s) URLs) pass through unscanned instead of blocking, while fail_on_error still governs real Model Armor API errors. Default False blocks them.
+	 * @description Implemented by guardrail='model_armor'. When True, attachment references that carry no inline bytes (file_id, gs://, or http(s) URLs) pass through unscanned instead of blocking, while fail_on_error still governs real Model Armor API errors. Default False blocks them.
 	 * @default false
 	 */
 	skip_unscannable_attachments?: (boolean | null) | undefined;
@@ -20009,13 +20286,13 @@ export type LitellmParams = {
 	 */
 	tracker_api_key?: (string | null) | undefined;
 	/**
-	 * @description Behavior when the headroom compression service is unreachable or errors. \'fail_closed\' raises an error (default). \'fail_open\' logs a critical error and forwards the request uncompressed instead of blocking it.
+	 * @description Behavior when the headroom compression service is unreachable or errors. 'fail_closed' raises an error (default). 'fail_open' logs a critical error and forwards the request uncompressed instead of blocking it.
 	 * @default 'fail_closed'
 	 * @type string | undefined
 	 */
 	unreachable_fallback?: LitellmParamsUnreachableFallbackEnumKey | undefined;
 	/**
-	 * @description If True and guardrail=\'noma\', route to the new Noma v2 implementation instead of the legacy implementation.
+	 * @description If True and guardrail='noma', route to the new Noma v2 implementation instead of the legacy implementation.
 	 * @default false
 	 */
 	use_v2?: (boolean | null) | undefined;
@@ -20034,7 +20311,7 @@ export type LitellmParams = {
 	 */
 	violation_message_template?: (string | null) | undefined;
 	/**
-	 * @description XecGuard scanning model identifier. Defaults to \'xecguard_v2\'.
+	 * @description XecGuard scanning model identifier. Defaults to 'xecguard_v2'.
 	 */
 	xecguard_model?: (string | null) | undefined;
 	[key: string]: unknown;
@@ -20385,7 +20662,7 @@ export type EnrichTemplateRequest = {
 	 */
 	competitors?: (string[] | null) | undefined;
 	/**
-	 * @description Refinement instruction for modifying the competitor list (e.g. \'add 10 more from Asia\')
+	 * @description Refinement instruction for modifying the competitor list (e.g. 'add 10 more from Asia')
 	 */
 	instruction?: (string | null) | undefined;
 	model?: (string | null) | undefined;
@@ -20494,7 +20771,9 @@ export type PolicyListResponse = {
 };
 
 /**
- * @description Context used to match a request against policies.\n\nContains the team alias, key alias, and model from the incoming request.
+ * @description Context used to match a request against policies.
+ *
+ * Contains the team alias, key alias, and model from the incoming request.
  * @type object
  */
 export type PolicyMatchContext = {
@@ -20522,7 +20801,9 @@ export type PolicyMatchContext = {
  */
 export type PolicyTestResponse = {
 	/**
-	 * @description Context used to match a request against policies.\n\nContains the team alias, key alias, and model from the incoming request.
+	 * @description Context used to match a request against policies.
+	 *
+	 * Contains the team alias, key alias, and model from the incoming request.
 	 * @type object
 	 */
 	context: PolicyMatchContext;
@@ -20570,7 +20851,7 @@ export type PolicyValidationError = {
 	 */
 	error_type: PolicyValidationErrorTypeKey;
 	/**
-	 * @description Specific field that caused the error (e.g., \'guardrails.add\', \'scope.teams\').
+	 * @description Specific field that caused the error (e.g., 'guardrails.add', 'scope.teams').
 	 */
 	field?: (string | null) | undefined;
 	/**
@@ -20590,7 +20871,11 @@ export type PolicyValidationError = {
 };
 
 /**
- * @description Response from policy validation.\n\n- `valid`: True if no blocking errors were found\n- `errors`: List of blocking errors (prevent policy from being applied)\n- `warnings`: List of non-blocking warnings (policy can still be applied)
+ * @description Response from policy validation.
+ *
+ * - `valid`: True if no blocking errors were found
+ * - `errors`: List of blocking errors (prevent policy from being applied)
+ * - `warnings`: List of non-blocking warnings (policy can still be applied)
  * @type object
  */
 export type PolicyValidationResponse = {
@@ -20736,14 +21021,14 @@ export type AttachmentImpactResponse = {
  */
 export type PipelineTestRequest = {
 	/**
-	 * @description Pipeline definition with \'mode\' and \'steps\'.
+	 * @description Pipeline definition with 'mode' and 'steps'.
 	 * @type object
 	 */
 	pipeline: {
 		[key: string]: unknown;
 	};
 	/**
-	 * @description Test messages to run through the pipeline, e.g. [{\'role\': \'user\', \'content\': \'...\'}].
+	 * @description Test messages to run through the pipeline, e.g. [{'role': 'user', 'content': '...'}].
 	 * @type array
 	 */
 	test_messages: {
@@ -20780,7 +21065,7 @@ export type PolicyAttachmentCreateRequest = {
 	 */
 	priority?: (number | null) | undefined;
 	/**
-	 * @description Use \'*\' for global scope (applies to all requests).
+	 * @description Use '*' for global scope (applies to all requests).
 	 */
 	scope?: (string | null) | undefined;
 	/**
@@ -20826,7 +21111,7 @@ export type PolicyAttachmentDBResponse = {
 	 */
 	default?: boolean | undefined;
 	/**
-	 * @description Where this attachment is defined: \'db\' (database) or \'config\' (config.yaml).
+	 * @description Where this attachment is defined: 'db' (database) or 'config' (config.yaml).
 	 * @default 'db'
 	 * @type string | undefined
 	 */
@@ -20929,7 +21214,7 @@ export type PolicyCreateRequest = {
 	 */
 	inherit?: (string | null) | undefined;
 	/**
-	 * @description Optional guardrail pipeline for ordered execution. Contains \'mode\' and \'steps\'.
+	 * @description Optional guardrail pipeline for ordered execution. Contains 'mode' and 'steps'.
 	 */
 	pipeline?:
 		| ({
@@ -20973,7 +21258,7 @@ export type PolicyDBResponse = {
 	 */
 	created_by?: (string | null) | undefined;
 	/**
-	 * @description Where this policy is defined: \'db\' (database) or \'config\' (config.yaml).
+	 * @description Where this policy is defined: 'db' (database) or 'config' (config.yaml).
 	 * @default 'db'
 	 * @type string | undefined
 	 */
@@ -21083,7 +21368,7 @@ export type PolicyMatchDetail = {
 	 */
 	guardrails_added?: string[] | undefined;
 	/**
-	 * @description How the policy was matched (e.g., \'tag:healthcare\', \'team:health-team\', \'scope:*\').
+	 * @description How the policy was matched (e.g., 'tag:healthcare', 'team:health-team', 'scope:*').
 	 * @type string
 	 */
 	matched_via: string;
@@ -21160,7 +21445,7 @@ export type PolicyUpdateRequest = {
 	 */
 	inherit?: (string | null) | undefined;
 	/**
-	 * @description Optional guardrail pipeline for ordered execution. Contains \'mode\' and \'steps\'.
+	 * @description Optional guardrail pipeline for ordered execution. Contains 'mode' and 'steps'.
 	 */
 	pipeline?:
 		| ({
@@ -21236,12 +21521,12 @@ export type PolicyVersionListResponse = {
 };
 
 /**
- * @description Request body for updating a policy version\'s status.
+ * @description Request body for updating a policy version's status.
  * @type object
  */
 export type PolicyVersionStatusUpdateRequest = {
 	/**
-	 * @description New status: \'published\' or \'production\'.
+	 * @description New status: 'published' or 'production'.
 	 * @type string
 	 */
 	version_status: string;
@@ -21290,7 +21575,9 @@ export type AgentConfigExecutionModeEnumKey =
 export type AgentConfig = {
 	access_group_ids?: (string[] | null) | undefined;
 	/**
-	 * @description The AgentCard is a self-describing manifest for an agent.\nIt provides essential metadata including the agent\'s identity, capabilities,\nskills, supported communication methods, and security requirements.
+	 * @description The AgentCard is a self-describing manifest for an agent.
+	 * It provides essential metadata including the agent's identity, capabilities,
+	 * skills, supported communication methods, and security requirements.
 	 * @type object | undefined
 	 */
 	agent_card_params?: AgentCard | undefined;
@@ -21388,7 +21675,9 @@ export type PatchAgentRequestExecutionModeEnumKey =
 export type PatchAgentRequest = {
 	access_group_ids?: (string[] | null) | undefined;
 	/**
-	 * @description The AgentCard is a self-describing manifest for an agent.\nIt provides essential metadata including the agent\'s identity, capabilities,\nskills, supported communication methods, and security requirements.
+	 * @description The AgentCard is a self-describing manifest for an agent.
+	 * It provides essential metadata including the agent's identity, capabilities,
+	 * skills, supported communication methods, and security requirements.
 	 * @type object | undefined
 	 */
 	agent_card_params?: AgentCard | undefined;
@@ -21430,7 +21719,7 @@ export type DiscoverAgentRequest = {
 	 */
 	discovery_mode?: DiscoveryModeKey | undefined;
 	/**
-	 * @description Mode-specific parameters. ``langgraph_platform`` requires ``{\'assistant_id\': <id>}``. ``well_known_fallback`` ignores this.
+	 * @description Mode-specific parameters. ``langgraph_platform`` requires ``{'assistant_id': <id>}``. ``well_known_fallback`` ignores this.
 	 */
 	params?:
 		| ({
@@ -21795,7 +22084,7 @@ export type ToolSpendResponse = {
 };
 
 /**
- * @description One spend log row for a tool call (for UI \"recent logs\" table).
+ * @description One spend log row for a tool call (for UI "recent logs" table).
  * @type object
  */
 export type ToolUsageLogEntry = {
@@ -21884,7 +22173,20 @@ export type SearchToolLiteLLMParams = {
 };
 
 /**
- * @description Search tool configuration.\n\nExample:\n    {\n        \"search_tool_id\": \"123e4567-e89b-12d3-a456-426614174000\",\n        \"search_tool_name\": \"litellm-search\",\n        \"litellm_params\": {\n            \"search_provider\": \"perplexity\",\n            \"api_key\": \"sk-...\"\n        },\n        \"search_tool_info\": {\n            \"description\": \"Perplexity search tool\"\n        }\n    }
+ * @description Search tool configuration.
+ *
+ * Example:
+ *     {
+ *         "search_tool_id": "123e4567-e89b-12d3-a456-426614174000",
+ *         "search_tool_name": "litellm-search",
+ *         "litellm_params": {
+ *             "search_provider": "perplexity",
+ *             "api_key": "sk-..."
+ *         },
+ *         "search_tool_info": {
+ *             "description": "Perplexity search tool"
+ *         }
+ *     }
  * @type object
  */
 export type SearchTool = {
@@ -21906,7 +22208,20 @@ export type SearchTool = {
 
 export type CreateSearchToolRequest = {
 	/**
-	 * @description Search tool configuration.\n\nExample:\n    {\n        \"search_tool_id\": \"123e4567-e89b-12d3-a456-426614174000\",\n        \"search_tool_name\": \"litellm-search\",\n        \"litellm_params\": {\n            \"search_provider\": \"perplexity\",\n            \"api_key\": \"sk-...\"\n        },\n        \"search_tool_info\": {\n            \"description\": \"Perplexity search tool\"\n        }\n    }
+	 * @description Search tool configuration.
+	 *
+	 * Example:
+	 *     {
+	 *         "search_tool_id": "123e4567-e89b-12d3-a456-426614174000",
+	 *         "search_tool_name": "litellm-search",
+	 *         "litellm_params": {
+	 *             "search_provider": "perplexity",
+	 *             "api_key": "sk-..."
+	 *         },
+	 *         "search_tool_info": {
+	 *             "description": "Perplexity search tool"
+	 *         }
+	 *     }
 	 * @type object
 	 */
 	search_tool: SearchTool;
@@ -21950,7 +22265,20 @@ export type TestSearchToolConnectionRequest = {
 
 export type UpdateSearchToolRequest = {
 	/**
-	 * @description Search tool configuration.\n\nExample:\n    {\n        \"search_tool_id\": \"123e4567-e89b-12d3-a456-426614174000\",\n        \"search_tool_name\": \"litellm-search\",\n        \"litellm_params\": {\n            \"search_provider\": \"perplexity\",\n            \"api_key\": \"sk-...\"\n        },\n        \"search_tool_info\": {\n            \"description\": \"Perplexity search tool\"\n        }\n    }
+	 * @description Search tool configuration.
+	 *
+	 * Example:
+	 *     {
+	 *         "search_tool_id": "123e4567-e89b-12d3-a456-426614174000",
+	 *         "search_tool_name": "litellm-search",
+	 *         "litellm_params": {
+	 *             "search_provider": "perplexity",
+	 *             "api_key": "sk-..."
+	 *         },
+	 *         "search_tool_info": {
+	 *             "description": "Perplexity search tool"
+	 *         }
+	 *     }
 	 * @type object
 	 */
 	search_tool: SearchTool;
@@ -22001,14 +22329,24 @@ export const MCPEnvVarScope = {
 export type MCPEnvVarScopeKey = (typeof MCPEnvVarScope)[keyof typeof MCPEnvVarScope];
 
 /**
- * @description One environment variable for an MCP server.\n\nVariables can be interpolated into ``static_headers`` using ``${NAME}``\nsyntax. ``scope=global`` values are stored on the server. ``scope=user``\nvalues are stored per-user in ``LiteLLM_MCPUserEnvVars`` and supplied by\neach user.
+ * @description One environment variable for an MCP server.
+ *
+ * Variables can be interpolated into ``static_headers`` using ``${NAME}``
+ * syntax. ``scope=global`` values are stored on the server. ``scope=user``
+ * values are stored per-user in ``LiteLLM_MCPUserEnvVars`` and supplied by
+ * each user.
  * @type object
  */
 export type MCPEnvVar = {
 	description?: (string | null) | undefined;
 	name: string;
 	/**
-	 * @description Scope for an MCP server environment variable.\n\n- ``global``: value is provided by the admin and used for all users.\n- ``user``: each user must provide their own value via the per-user\n  env-var endpoint. The admin-supplied ``value`` is treated as a\n  placeholder/hint and is not used at request time.
+	 * @description Scope for an MCP server environment variable.
+	 *
+	 * - ``global``: value is provided by the admin and used for all users.
+	 * - ``user``: each user must provide their own value via the per-user
+	 *   env-var endpoint. The admin-supplied ``value`` is treated as a
+	 *   placeholder/hint and is not used at request time.
 	 * @default 'global'
 	 * @type string | undefined
 	 */
@@ -22095,7 +22433,7 @@ export type LiteLLMMCPServerTable = {
 	allow_all_keys?: boolean | undefined;
 	allowed_tools?: string[] | undefined;
 	/**
-	 * @description Approval status: \'pending_review\', \'active\', \'rejected\'
+	 * @description Approval status: 'pending_review', 'active', 'rejected'
 	 * @default active
 	 */
 	approval_status?: (string | null) | undefined;
@@ -22182,7 +22520,7 @@ export type LiteLLMMCPServerTable = {
 		  } | null)
 		| undefined;
 	/**
-	 * @description Health status: \'healthy\', \'unhealthy\', \'unknown\', or \'reachable\' (requires include_reachability=true; authentication and tools unchecked)
+	 * @description Health status: 'healthy', 'unhealthy', 'unknown', or 'reachable' (requires include_reachability=true; authentication and tools unchecked)
 	 * @default unknown
 	 */
 	status?: (LiteLLMMCPServerTableStatusKey | null) | undefined;
@@ -22306,7 +22644,7 @@ export type MCPGatewaySessionsTerminateResponse = {
 };
 
 /**
- * @description Stores a user\'s OAuth2 token for an OpenAPI MCP server.
+ * @description Stores a user's OAuth2 token for an OpenAPI MCP server.
  * @type object
  */
 export type MCPOAuthUserCredentialRequest = {
@@ -22341,7 +22679,7 @@ export type MCPServerUserCredentialListItemCredentialTypeEnumKey =
 	(typeof MCPServerUserCredentialListItemCredentialTypeEnum)[keyof typeof MCPServerUserCredentialListItemCredentialTypeEnum];
 
 /**
- * @description One user\'s stored credential for an MCP server, as an admin sees it. Never carries the secret.
+ * @description One user's stored credential for an MCP server, as an admin sees it. Never carries the secret.
  * @type object
  */
 export type MCPServerUserCredentialListItem = {
@@ -22394,7 +22732,10 @@ export type MCPUserCredentialResponse = {
 };
 
 /**
- * @description Describes one per-user env var slot for the calling user.\n\nStored values are write-only: the status only reports whether a value\n``is_set`` and never echoes the decrypted secret back to the client.
+ * @description Describes one per-user env var slot for the calling user.
+ *
+ * Stored values are write-only: the status only reports whether a value
+ * ``is_set`` and never echoes the decrypted secret back to the client.
  * @type object
  */
 export type MCPUserEnvVarSpec = {
@@ -22408,7 +22749,7 @@ export type MCPUserEnvVarSpec = {
 };
 
 /**
- * @description Payload for storing the calling user\'s per-user env var values.
+ * @description Payload for storing the calling user's per-user env var values.
  * @type object
  */
 export type MCPUserEnvVarsRequest = {
@@ -22900,7 +23241,11 @@ export type HashicorpVaultConfig = {
 };
 
 /**
- * @description Response from POST /v1/realtime/client_secrets.\n\nBoth the top-level `value` and `session.client_secret.value`\nwill contain the encrypted token instead of the raw ephemeral key.\nThe `session` field is kept as a raw dict so unknown fields pass through.
+ * @description Response from POST /v1/realtime/client_secrets.
+ *
+ * Both the top-level `value` and `session.client_secret.value`
+ * will contain the encrypted token instead of the raw ephemeral key.
+ * The `session` field is kept as a raw dict so unknown fields pass through.
  * @type object
  */
 export type RealtimeClientSecretResponse = {
@@ -22914,7 +23259,10 @@ export type RealtimeClientSecretResponse = {
 };
 
 /**
- * @description Response from POST /v1/realtime/transcription_sessions.\n\n`client_secret.value` contains the encrypted token instead of the raw\nephemeral key. Unknown fields pass through unchanged.
+ * @description Response from POST /v1/realtime/transcription_sessions.
+ *
+ * `client_secret.value` contains the encrypted token instead of the raw
+ * ephemeral key. Unknown fields pass through unchanged.
  * @type object
  */
 export type RealtimeTranscriptionSessionResponse = {
@@ -23482,7 +23830,10 @@ export type PluginResponse = {
 };
 
 /**
- * @description Request body for registering a plugin in the marketplace.\n\nLiteLLM acts as a registry/discovery layer. Plugins are hosted on\nGitHub/GitLab/Bitbucket or as a zip archive on any https host and referenced by their source.
+ * @description Request body for registering a plugin in the marketplace.
+ *
+ * LiteLLM acts as a registry/discovery layer. Plugins are hosted on
+ * GitHub/GitLab/Bitbucket or as a zip archive on any https host and referenced by their source.
  * @type object
  */
 export type RegisterPluginRequest = {
@@ -23499,7 +23850,7 @@ export type RegisterPluginRequest = {
 	 */
 	description?: (string | null) | undefined;
 	/**
-	 * @description Skill domain (e.g., \'Productivity\')
+	 * @description Skill domain (e.g., 'Productivity')
 	 */
 	domain?: (string | null) | undefined;
 	/**
@@ -23511,17 +23862,21 @@ export type RegisterPluginRequest = {
 	 */
 	keywords?: (string[] | null) | undefined;
 	/**
-	 * @description Plugin name (kebab-case, e.g., \'my-plugin\')
+	 * @description Plugin name (kebab-case, e.g., 'my-plugin')
 	 * @pattern ^[a-z0-9-]+$
 	 * @type string
 	 */
 	name: string;
 	/**
-	 * @description Skill namespace within domain (e.g., \'workflows\')
+	 * @description Skill namespace within domain (e.g., 'workflows')
 	 */
 	namespace?: (string | null) | undefined;
 	/**
-	 * @description Plugin source reference. Supported formats:\n- GitHub: {\'source\': \'github\', \'repo\': \'org/repo\'}\n- Git URL: {\'source\': \'url\', \'url\': \'https://github.com/org/repo.git\'}\n- Git Subdir: {\'source\': \'git-subdir\', \'url\': \'https://github.com/org/repo.git\', \'path\': \'plugins/plugin-name\'}\n- Zip archive on any https host (e.g. S3): {\'source\': \'archive\', \'url\': \'https://bucket.s3.amazonaws.com/plugin.zip\', \'sha256\': \'<optional hex digest>\'}
+	 * @description Plugin source reference. Supported formats:
+	 * - GitHub: {'source': 'github', 'repo': 'org/repo'}
+	 * - Git URL: {'source': 'url', 'url': 'https://github.com/org/repo.git'}
+	 * - Git Subdir: {'source': 'git-subdir', 'url': 'https://github.com/org/repo.git', 'path': 'plugins/plugin-name'}
+	 * - Zip archive on any https host (e.g. S3): {'source': 'archive', 'url': 'https://bucket.s3.amazonaws.com/plugin.zip', 'sha256': '<optional hex digest>'}
 	 * @type object
 	 */
 	source: {
@@ -23557,7 +23912,12 @@ export type RegisterPluginResponse = {
 };
 
 /**
- * @description Request body for replacing an existing plugin.\n\nThe plugin name is the resource identity and is supplied as the path\nparameter, so it cannot be changed here. This is a full replace: omitted\nfields reset to their defaults, so version is cleared rather than\ndefaulting to the create-time \"1.0.0\".
+ * @description Request body for replacing an existing plugin.
+ *
+ * The plugin name is the resource identity and is supplied as the path
+ * parameter, so it cannot be changed here. This is a full replace: omitted
+ * fields reset to their defaults, so version is cleared rather than
+ * defaulting to the create-time "1.0.0".
  * @type object
  */
 export type UpdatePluginRequest = {
@@ -23574,7 +23934,7 @@ export type UpdatePluginRequest = {
 	 */
 	description?: (string | null) | undefined;
 	/**
-	 * @description Skill domain (e.g., \'Productivity\')
+	 * @description Skill domain (e.g., 'Productivity')
 	 */
 	domain?: (string | null) | undefined;
 	/**
@@ -23586,11 +23946,15 @@ export type UpdatePluginRequest = {
 	 */
 	keywords?: (string[] | null) | undefined;
 	/**
-	 * @description Skill namespace within domain (e.g., \'workflows\')
+	 * @description Skill namespace within domain (e.g., 'workflows')
 	 */
 	namespace?: (string | null) | undefined;
 	/**
-	 * @description Plugin source reference. Supported formats:\n- GitHub: {\'source\': \'github\', \'repo\': \'org/repo\'}\n- Git URL: {\'source\': \'url\', \'url\': \'https://github.com/org/repo.git\'}\n- Git Subdir: {\'source\': \'git-subdir\', \'url\': \'https://github.com/org/repo.git\', \'path\': \'plugins/plugin-name\'}\n- Zip archive on any https host (e.g. S3): {\'source\': \'archive\', \'url\': \'https://bucket.s3.amazonaws.com/plugin.zip\', \'sha256\': \'<optional hex digest>\'}
+	 * @description Plugin source reference. Supported formats:
+	 * - GitHub: {'source': 'github', 'repo': 'org/repo'}
+	 * - Git URL: {'source': 'url', 'url': 'https://github.com/org/repo.git'}
+	 * - Git Subdir: {'source': 'git-subdir', 'url': 'https://github.com/org/repo.git', 'path': 'plugins/plugin-name'}
+	 * - Zip archive on any https host (e.g. S3): {'source': 'archive', 'url': 'https://bucket.s3.amazonaws.com/plugin.zip', 'sha256': '<optional hex digest>'}
 	 * @type object
 	 */
 	source: {
@@ -24240,7 +24604,9 @@ export type UpdateJWTKeyMappingRequest = {
 };
 
 /**
- * @description Request payload for compliance check endpoints.\n\nMirrors the spend log fields needed for compliance evaluation.
+ * @description Request payload for compliance check endpoints.
+ *
+ * Mirrors the spend log fields needed for compliance evaluation.
  * @type object
  */
 export type ComplianceCheckRequest = {
@@ -27340,7 +27706,13 @@ export type DeleteResponseOpenaiV1ResponsesResponseIdDeletePath = {
 };
 
 /**
- * @description Result of a delete response request\n\n{\n    \"id\": \"resp_6786a1bec27481909a17d673315b29f6\",\n    \"object\": \"response\",\n    \"deleted\": true\n}
+ * @description Result of a delete response request
+ *
+ * {
+ *     "id": "resp_6786a1bec27481909a17d673315b29f6",
+ *     "object": "response",
+ *     "deleted": true
+ * }
  * @type object
  */
 export type DeleteResponseOpenaiV1ResponsesResponseIdDeleteStatus200 = DeleteResponseResult;
@@ -27395,7 +27767,13 @@ export type DeleteResponseResponsesResponseIdDeletePath = {
 };
 
 /**
- * @description Result of a delete response request\n\n{\n    \"id\": \"resp_6786a1bec27481909a17d673315b29f6\",\n    \"object\": \"response\",\n    \"deleted\": true\n}
+ * @description Result of a delete response request
+ *
+ * {
+ *     "id": "resp_6786a1bec27481909a17d673315b29f6",
+ *     "object": "response",
+ *     "deleted": true
+ * }
  * @type object
  */
 export type DeleteResponseResponsesResponseIdDeleteStatus200 = DeleteResponseResult;
@@ -27451,7 +27829,13 @@ export type DeleteResponseV1ResponsesResponseIdDeletePath = {
 };
 
 /**
- * @description Result of a delete response request\n\n{\n    \"id\": \"resp_6786a1bec27481909a17d673315b29f6\",\n    \"object\": \"response\",\n    \"deleted\": true\n}
+ * @description Result of a delete response request
+ *
+ * {
+ *     "id": "resp_6786a1bec27481909a17d673315b29f6",
+ *     "object": "response",
+ *     "deleted": true
+ * }
  * @type object
  */
 export type DeleteResponseV1ResponsesResponseIdDeleteStatus200 = DeleteResponseResult;
@@ -27910,7 +28294,10 @@ export type GetProviderFieldsPublicProvidersFieldsGetResponse =
 	GetProviderFieldsPublicProvidersFieldsGetStatus200;
 
 /**
- * @description The complexity router\'s shipped heuristic scorer defaults.\n\nThe dashboard prefills its Advanced scoring controls from these rather than keeping its own copy, so\na recalibration of the defaults cannot leave the form reporting numbers the router no longer uses.
+ * @description The complexity router's shipped heuristic scorer defaults.
+ *
+ * The dashboard prefills its Advanced scoring controls from these rather than keeping its own copy, so
+ * a recalibration of the defaults cannot leave the form reporting numbers the router no longer uses.
  * @type object
  */
 export type GetComplexityScorerDefaultsPublicComplexityRouterScorerDefaultsGetStatus200 =
@@ -29813,7 +30200,7 @@ export type ListFineTuningJobsFineTuningJobsGetQuery = {
 		| (ListFineTuningJobsFineTuningJobsGetCustomLlmProviderKey | null)
 		| undefined;
 	/**
-	 * @description Comma separated list of model names to filter by. Example: \'gpt-4o,gpt-4o-mini\'
+	 * @description Comma separated list of model names to filter by. Example: 'gpt-4o,gpt-4o-mini'
 	 */
 	target_model_names?: (string | null) | undefined;
 	after?: (string | null) | undefined;
@@ -29883,7 +30270,7 @@ export type ListFineTuningJobsV1FineTuningJobsGetQuery = {
 		| (ListFineTuningJobsV1FineTuningJobsGetCustomLlmProviderKey | null)
 		| undefined;
 	/**
-	 * @description Comma separated list of model names to filter by. Example: \'gpt-4o,gpt-4o-mini\'
+	 * @description Comma separated list of model names to filter by. Example: 'gpt-4o,gpt-4o-mini'
 	 */
 	target_model_names?: (string | null) | undefined;
 	after?: (string | null) | undefined;
@@ -31883,7 +32270,7 @@ export type DeleteKeyFnKeyDeletePostResponse = DeleteKeyFnKeyDeletePostStatus200
 
 export type InfoKeyFnKeyInfoGetQuery = {
 	/**
-	 * @description Key to look up. Pass the key\'s sha256 hash so the raw key stays out of URLs and access logs. Example key=\'d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa\'
+	 * @description Key to look up. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'
 	 */
 	key?: (string | null) | undefined;
 };
@@ -32131,21 +32518,21 @@ export type ListKeysKeyListGetQuery = {
 	 */
 	include_created_by_keys?: boolean | undefined;
 	/**
-	 * @description Column to sort by (e.g. \'user_id\', \'created_at\', \'spend\')
+	 * @description Column to sort by (e.g. 'user_id', 'created_at', 'spend')
 	 */
 	sort_by?: (string | null) | undefined;
 	/**
-	 * @description Sort order (\'asc\' or \'desc\')
+	 * @description Sort order ('asc' or 'desc')
 	 * @default 'desc'
 	 * @type string | undefined
 	 */
 	sort_order?: string | undefined;
 	/**
-	 * @description Expand related objects (e.g. \'user\')
+	 * @description Expand related objects (e.g. 'user')
 	 */
 	expand?: (string[] | null) | undefined;
 	/**
-	 * @description Filter by status: \'active\' (not blocked, not expired), \'expired\' (not blocked, past expiry), \'revoked\' (blocked) or \'deleted\' (archived keys). Omit to return live keys regardless of status.
+	 * @description Filter by status: 'active' (not blocked, not expired), 'expired' (not blocked, past expiry), 'revoked' (blocked) or 'deleted' (archived keys). Omit to return live keys regardless of status.
 	 */
 	status?: (string | null) | undefined;
 	/**
@@ -32161,13 +32548,13 @@ export type ListKeysKeyListGetQuery = {
 	 */
 	agent_id?: (string | null) | undefined;
 	/**
-	 * @description If true, match key_alias (any caller) and user_id (proxy admins only) as case-insensitive substrings instead of exact values. Defaults to false: /key/list matched these exactly before substring search was added, and an exact user_id filter must never return another user\'s keys.
+	 * @description If true, match key_alias (any caller) and user_id (proxy admins only) as case-insensitive substrings instead of exact values. Defaults to false: /key/list matched these exactly before substring search was added, and an exact user_id filter must never return another user's keys.
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	substring_matching?: boolean | undefined;
 	/**
-	 * @description Filter keys by expiration. \'expired\' returns keys whose expires is in the past; \'active\' returns keys that never expire or expire in the future. Omit to return keys regardless of expiration.
+	 * @description Filter keys by expiration. 'expired' returns keys whose expires is in the past; 'active' returns keys that never expire or expire in the future. Omit to return keys regardless of expiration.
 	 */
 	expires?: (string | null) | undefined;
 };
@@ -32381,7 +32768,10 @@ export type UserInfoV2V2UserInfoGetQuery = {
 };
 
 /**
- * @description Response model for GET /v2/user/info\n\nReturns ONLY the user object - no keys, no teams objects.\nThis is a lightweight alternative to UserInfoResponse.
+ * @description Response model for GET /v2/user/info
+ *
+ * Returns ONLY the user object - no keys, no teams objects.
+ * This is a lightweight alternative to UserInfoResponse.
  * @type object
  */
 export type UserInfoV2V2UserInfoGetStatus200 = UserInfoV2Response;
@@ -32486,7 +32876,7 @@ export type GetUsersUserListGetQuery = {
 	 */
 	user_email?: (string | null) | undefined;
 	/**
-	 * @description Combined search: matches users whose \'user_id\' or \'user_email\' contains the value (case-insensitive).
+	 * @description Combined search: matches users whose 'user_id' or 'user_email' contains the value (case-insensitive).
 	 */
 	search?: (string | null) | undefined;
 	/**
@@ -32509,11 +32899,11 @@ export type GetUsersUserListGetQuery = {
 	 */
 	page_size?: number | undefined;
 	/**
-	 * @description Column to sort by (e.g. \'user_id\', \'user_email\', \'created_at\', \'spend\')
+	 * @description Column to sort by (e.g. 'user_id', 'user_email', 'created_at', 'spend')
 	 */
 	sort_by?: (string | null) | undefined;
 	/**
-	 * @description Sort order (\'asc\' or \'desc\')
+	 * @description Sort order ('asc' or 'desc')
 	 * @default 'asc'
 	 * @type string | undefined
 	 */
@@ -32618,11 +33008,11 @@ export type GetUserDailyActivityUserDailyActivityGetQuery = {
 	 */
 	page_size?: number | undefined;
 	/**
-	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript\'s Date.getTimezoneOffset() convention.
+	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 	 */
 	timezone?: (number | null) | undefined;
 	/**
-	 * @description When the range ends on the caller\'s current local day, extend it to today\'s UTC bucket so spend written after the caller\'s local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -32680,11 +33070,11 @@ export type GetUserDailyActivityAggregatedUserDailyActivityAggregatedGetQuery = 
 	 */
 	user_id?: (string | null) | undefined;
 	/**
-	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript\'s Date.getTimezoneOffset() convention.
+	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 	 */
 	timezone?: (number | null) | undefined;
 	/**
-	 * @description When the range ends on the caller\'s current local day, extend it to today\'s UTC bucket so spend written after the caller\'s local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -32750,11 +33140,11 @@ export type GetUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGet
 	 */
 	user_id?: (string | null) | undefined;
 	/**
-	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript\'s Date.getTimezoneOffset() convention.
+	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 	 */
 	timezone?: (number | null) | undefined;
 	/**
-	 * @description When the range ends on the caller\'s current local day, extend it to today\'s UTC bucket so spend written after the caller\'s local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -32819,11 +33209,11 @@ export type GetUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearc
 	 */
 	user_id?: (string | null) | undefined;
 	/**
-	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript\'s Date.getTimezoneOffset() convention.
+	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 	 */
 	timezone?: (number | null) | undefined;
 	/**
-	 * @description When the range ends on the caller\'s current local day, extend it to today\'s UTC bucket so spend written after the caller\'s local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -32893,11 +33283,11 @@ export type GetUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopK
 	 */
 	user_id?: (string | null) | undefined;
 	/**
-	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript\'s Date.getTimezoneOffset() convention.
+	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 	 */
 	timezone?: (number | null) | undefined;
 	/**
-	 * @description When the range ends on the caller\'s current local day, extend it to today\'s UTC bucket so spend written after the caller\'s local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -32968,11 +33358,11 @@ export type GetUserDailyActivityExportUserDailyActivityExportGetQuery = {
 	 */
 	user_id?: (string | null) | undefined;
 	/**
-	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript\'s Date.getTimezoneOffset() convention.
+	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 	 */
 	timezone?: (number | null) | undefined;
 	/**
-	 * @description When the range ends on the caller\'s current local day, extend it to today\'s UTC bucket so spend written after the caller\'s local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -33031,11 +33421,11 @@ export type GetUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCache
 		 */
 		user_id?: (string | null) | undefined;
 		/**
-		 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript\'s Date.getTimezoneOffset() convention.
+		 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 		 */
 		timezone?: (number | null) | undefined;
 		/**
-		 * @description When the range ends on the caller\'s current local day, extend it to today\'s UTC bucket so spend written after the caller\'s local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+		 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 		 * @default false
 		 * @type boolean | undefined
 		 */
@@ -34355,7 +34745,20 @@ export type UpdateTeamTeamUpdatePostStatus200 = {
 export type UpdateTeamTeamUpdatePostStatus422 = HTTPValidationError;
 
 /**
- * @description UpdateTeamRequest, used by /team/update when you need to update a team\n\nteam_id: str\nteam_alias: Optional[str] = None\norganization_id: Optional[str] = None\nmetadata: Optional[dict] = None\ntpm_limit: Optional[int] = None\nrpm_limit: Optional[int] = None\nmax_budget: Optional[float] = None\nmodels: Optional[list] = None\nblocked: Optional[bool] = None\nbudget_duration: Optional[str] = None\nguardrails: Optional[List[str]] = None\npolicies: Optional[List[str]] = None
+ * @description UpdateTeamRequest, used by /team/update when you need to update a team
+ *
+ * team_id: str
+ * team_alias: Optional[str] = None
+ * organization_id: Optional[str] = None
+ * metadata: Optional[dict] = None
+ * tpm_limit: Optional[int] = None
+ * rpm_limit: Optional[int] = None
+ * max_budget: Optional[float] = None
+ * models: Optional[list] = None
+ * blocked: Optional[bool] = None
+ * budget_duration: Optional[str] = None
+ * guardrails: Optional[List[str]] = None
+ * policies: Optional[List[str]] = None
  * @type object
  */
 export type UpdateTeamTeamUpdatePostBody = UpdateTeamRequest;
@@ -34393,7 +34796,10 @@ export type PatchTeamTeamTeamIdPatchStatus200 = LiteLLMTeamTable;
 export type PatchTeamTeamTeamIdPatchStatus422 = HTTPValidationError;
 
 /**
- * @description Body of PATCH /team/{team_id}.\n\nIdentical to UpdateTeamRequest except team_id is optional, because PATCH takes it\nfrom the path. A team_id in the body is still accepted when it matches the path.
+ * @description Body of PATCH /team/{team_id}.
+ *
+ * Identical to UpdateTeamRequest except team_id is optional, because PATCH takes it
+ * from the path. A team_id in the body is still accepted when it matches the path.
  * @type object
  */
 export type PatchTeamTeamTeamIdPatchBody = PatchTeamRequest;
@@ -34420,7 +34826,19 @@ export type TeamMemberAddTeamMemberAddPostStatus200 = TeamAddMemberResponse;
 export type TeamMemberAddTeamMemberAddPostStatus422 = HTTPValidationError;
 
 /**
- * @description Request body for adding members to a team.\n\nExample:\n```json\n{\n    \"team_id\": \"45e3e396-ee08-4a61-a88e-16b3ce7e0849\",\n    \"member\": {\n        \"role\": \"user\",\n        \"user_id\": \"user123\"\n    },\n    \"max_budget_in_team\": 100.0\n}\n```
+ * @description Request body for adding members to a team.
+ *
+ * Example:
+ * ```json
+ * {
+ *     "team_id": "45e3e396-ee08-4a61-a88e-16b3ce7e0849",
+ *     "member": {
+ *         "role": "user",
+ *         "user_id": "user123"
+ *     },
+ *     "max_budget_in_team": 100.0
+ * }
+ * ```
  * @type object
  */
 export type TeamMemberAddTeamMemberAddPostBody = TeamMemberAddRequest;
@@ -34657,7 +35075,7 @@ export type TeamMemberMeTeamTeamIdMembersMeGetPath = {
 };
 
 /**
- * @description Response for GET /team/{team_id}/members/me — caller\'s own membership row.
+ * @description Response for GET /team/{team_id}/members/me — caller's own membership row.
  * @type object
  */
 export type TeamMemberMeTeamTeamIdMembersMeGetStatus200 = TeamMemberInfoResponse;
@@ -34793,27 +35211,27 @@ export type ListTeamV2V2TeamListGetSearchTeamIdMatchKey =
 
 export type ListTeamV2V2TeamListGetQuery = {
 	/**
-	 * @description Only return teams which this \'user_id\' belongs to
+	 * @description Only return teams which this 'user_id' belongs to
 	 */
 	user_id?: (string | null) | undefined;
 	/**
-	 * @description Only return teams which this \'organization_id\' belongs to
+	 * @description Only return teams which this 'organization_id' belongs to
 	 */
 	organization_id?: (string | null) | undefined;
 	/**
-	 * @description Only return teams which this \'team_id\' belongs to
+	 * @description Only return teams which this 'team_id' belongs to
 	 */
 	team_id?: (string | null) | undefined;
 	/**
-	 * @description Only return teams which this \'team_alias\' belongs to. Supports partial matching.
+	 * @description Only return teams which this 'team_alias' belongs to. Supports partial matching.
 	 */
 	team_alias?: (string | null) | undefined;
 	/**
-	 * @description Combined search: matches teams whose \'team_id\' matches the value OR whose \'team_alias\' contains it (case-insensitive).
+	 * @description Combined search: matches teams whose 'team_id' matches the value OR whose 'team_alias' contains it (case-insensitive).
 	 */
 	search?: (string | null) | undefined;
 	/**
-	 * @description How \'search\' matches \'team_id\': \'exact\' (default) or \'prefix\' for a case-sensitive prefix match.
+	 * @description How 'search' matches 'team_id': 'exact' (default) or 'prefix' for a case-sensitive prefix match.
 	 * @default 'exact'
 	 * @type string | undefined
 	 */
@@ -34834,17 +35252,17 @@ export type ListTeamV2V2TeamListGetQuery = {
 	 */
 	page_size?: number | undefined;
 	/**
-	 * @description Column to sort by (e.g. \'team_id\', \'team_alias\', \'created_at\')
+	 * @description Column to sort by (e.g. 'team_id', 'team_alias', 'created_at')
 	 */
 	sort_by?: (string | null) | undefined;
 	/**
-	 * @description Sort order (\'asc\' or \'desc\')
+	 * @description Sort order ('asc' or 'desc')
 	 * @default 'asc'
 	 * @type string | undefined
 	 */
 	sort_order?: string | undefined;
 	/**
-	 * @description Filter by status (e.g. \'deleted\')
+	 * @description Filter by status (e.g. 'deleted')
 	 */
 	status?: (string | null) | undefined;
 };
@@ -34876,7 +35294,7 @@ export type ListTeamV2V2TeamListGetResponse = ListTeamV2V2TeamListGetStatus200;
 
 export type ListTeamTeamListGetQuery = {
 	/**
-	 * @description Only return teams which this \'user_id\' belongs to
+	 * @description Only return teams which this 'user_id' belongs to
 	 */
 	user_id?: (string | null) | undefined;
 	organization_id?: (string | null) | undefined;
@@ -35255,7 +35673,11 @@ export type UpdateOrganizationV2V2OrganizationOrganizationIdPatchStatus200 =
 export type UpdateOrganizationV2V2OrganizationOrganizationIdPatchStatus422 = HTTPValidationError;
 
 /**
- * @description Typed PATCH body for ``/v2/organization/{organization_id}`` (RFC 7396 merge-patch).\n\nPresence is read from ``model_fields_set``, so a sent field is written and an omitted one is\nleft untouched. ``extra=\"forbid\"`` makes an unknown key a 422 rather than a silent no-op, since\nthe contract hinges on which keys are present. See the endpoint for the per-field clear tokens.
+ * @description Typed PATCH body for ``/v2/organization/{organization_id}`` (RFC 7396 merge-patch).
+ *
+ * Presence is read from ``model_fields_set``, so a sent field is written and an omitted one is
+ * left untouched. ``extra="forbid"`` makes an unknown key a 422 rather than a silent no-op, since
+ * the contract hinges on which keys are present. See the endpoint for the per-field clear tokens.
  * @type object
  */
 export type UpdateOrganizationV2V2OrganizationOrganizationIdPatchBody = OrganizationUpdateRequestV2;
@@ -35520,7 +35942,11 @@ export type UnblockUserCustomerUnblockPostResponses = {
 export type UnblockUserCustomerUnblockPostResponse = UnblockUserCustomerUnblockPostStatus200;
 
 /**
- * @description Customer object returned by the /customer read+write endpoints.\n\nNests the full budget response model so server-managed budget fields\n(budget_reset_at, created_at) survive response_model filtering, rather than\nthe narrow write-allowlist shape LiteLLM_EndUserTable carries for internal use.
+ * @description Customer object returned by the /customer read+write endpoints.
+ *
+ * Nests the full budget response model so server-managed budget fields
+ * (budget_reset_at, created_at) survive response_model filtering, rather than
+ * the narrow write-allowlist shape LiteLLM_EndUserTable carries for internal use.
  * @type object
  */
 export type NewEndUserCustomerNewPostStatus200 = CustomerResponse;
@@ -35559,7 +35985,11 @@ export type EndUserInfoCustomerInfoGetQuery = {
 };
 
 /**
- * @description Customer object returned by the /customer read+write endpoints.\n\nNests the full budget response model so server-managed budget fields\n(budget_reset_at, created_at) survive response_model filtering, rather than\nthe narrow write-allowlist shape LiteLLM_EndUserTable carries for internal use.
+ * @description Customer object returned by the /customer read+write endpoints.
+ *
+ * Nests the full budget response model so server-managed budget fields
+ * (budget_reset_at, created_at) survive response_model filtering, rather than
+ * the narrow write-allowlist shape LiteLLM_EndUserTable carries for internal use.
  * @type object
  */
 export type EndUserInfoCustomerInfoGetStatus200 = CustomerResponse;
@@ -35584,7 +36014,11 @@ export type EndUserInfoCustomerInfoGetResponses = {
 export type EndUserInfoCustomerInfoGetResponse = EndUserInfoCustomerInfoGetStatus200;
 
 /**
- * @description Customer object returned by the /customer read+write endpoints.\n\nNests the full budget response model so server-managed budget fields\n(budget_reset_at, created_at) survive response_model filtering, rather than\nthe narrow write-allowlist shape LiteLLM_EndUserTable carries for internal use.
+ * @description Customer object returned by the /customer read+write endpoints.
+ *
+ * Nests the full budget response model so server-managed budget fields
+ * (budget_reset_at, created_at) survive response_model filtering, rather than
+ * the narrow write-allowlist shape LiteLLM_EndUserTable carries for internal use.
  * @type object
  */
 export type UpdateEndUserCustomerUpdatePostStatus200 = CustomerResponse;
@@ -36059,7 +36493,7 @@ export type GetSpendCaptureRateSpendCaptureRateGetQuery = {
 	 */
 	threshold?: number | undefined;
 	/**
-	 * @description Scope the OpenAI bill to these project ids; omit to compare against the whole organization. Captured spend is never scoped, so pass every project LiteLLM\'s OpenAI keys belong to
+	 * @description Scope the OpenAI bill to these project ids; omit to compare against the whole organization. Captured spend is never scoped, so pass every project LiteLLM's OpenAI keys belong to
 	 */
 	project_ids?: (string[] | null) | undefined;
 };
@@ -36110,19 +36544,19 @@ export type GetGlobalSpendReportGlobalSpendReportGetQuery = {
 	 */
 	group_by?: (GetGlobalSpendReportGlobalSpendReportGetGroupByKey | null) | undefined;
 	/**
-	 * @description View spend for a specific api_key. Pass the key\'s sha256 hash so the raw key stays out of URLs and access logs. Example api_key=\'d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa\'
+	 * @description View spend for a specific api_key. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example api_key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'
 	 */
 	api_key?: (string | null) | undefined;
 	/**
-	 * @description View spend for a specific internal_user_id. Example internal_user_id=\'1234
+	 * @description View spend for a specific internal_user_id. Example internal_user_id='1234
 	 */
 	internal_user_id?: (string | null) | undefined;
 	/**
-	 * @description View spend for a specific team_id. Example team_id=\'1234
+	 * @description View spend for a specific team_id. Example team_id='1234
 	 */
 	team_id?: (string | null) | undefined;
 	/**
-	 * @description View spend for a specific customer_id. Example customer_id=\'1234. Can be used in conjunction with team_id as well.
+	 * @description View spend for a specific customer_id. Example customer_id='1234. Can be used in conjunction with team_id as well.
 	 */
 	customer_id?: (string | null) | undefined;
 };
@@ -36159,7 +36593,7 @@ export type GetKeySpendReportKeySpendReportGetQuery = {
 	 */
 	end_date?: (string | null) | undefined;
 	/**
-	 * @description View spend for a specific api_key. Proxy admin only; other callers are scoped to their own key. Pass the key\'s sha256 hash so the raw key stays out of URLs and access logs. Example api_key=\'d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa\'
+	 * @description View spend for a specific api_key. Proxy admin only; other callers are scoped to their own key. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example api_key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'
 	 */
 	api_key?: (string | null) | undefined;
 };
@@ -36237,7 +36671,7 @@ export type GetTeamSpendReportTeamSpendReportGetQuery = {
 	 */
 	end_date?: (string | null) | undefined;
 	/**
-	 * @description View spend for a specific team_id. Proxy admin only; other callers are scoped to their key\'s team.
+	 * @description View spend for a specific team_id. Proxy admin only; other callers are scoped to their key's team.
 	 */
 	team_id?: (string | null) | undefined;
 };
@@ -36429,11 +36863,11 @@ export type UiViewSpendLogsSpendLogsV2GetQuery = {
 	 */
 	status_filter?: (string | null) | undefined;
 	/**
-	 * @description Filter logs by cache state: \'hit\' or \'miss\'. Miss includes legacy rows with a null/unknown cache state
+	 * @description Filter logs by cache state: 'hit' or 'miss'. Miss includes legacy rows with a null/unknown cache state
 	 */
 	cache_hit_filter?: (string | null) | undefined;
 	/**
-	 * @description Filter logs by the credential the upstream call used: true for a client-forwarded Anthropic OAuth token, false for the deployment\'s configured key. Rows written before this flag existed match neither
+	 * @description Filter logs by the credential the upstream call used: true for a client-forwarded Anthropic OAuth token, false for the deployment's configured key. Rows written before this flag existed match neither
 	 */
 	used_client_oauth_token?: (boolean | null) | undefined;
 	/**
@@ -36461,7 +36895,7 @@ export type UiViewSpendLogsSpendLogsV2GetQuery = {
 	 */
 	end_user?: (string | null) | undefined;
 	/**
-	 * @description Filter logs by error code (e.g., \'404\', \'500\')
+	 * @description Filter logs by error code (e.g., '404', '500')
 	 */
 	error_code?: (string | null) | undefined;
 	/**
@@ -36492,7 +36926,7 @@ export type UiViewSpendLogsSpendLogsV2GetQuery = {
 	 */
 	group_by_session?: boolean | undefined;
 	/**
-	 * @description Keyset cursor \'<last_activity>|<api_key>|<session_key>\' from a previous group_by_session page. UI route only, honored when sorting by startTime
+	 * @description Keyset cursor '<last_activity>|<api_key>|<session_key>' from a previous group_by_session page. UI route only, honored when sorting by startTime
 	 */
 	session_cursor?: (string | null) | undefined;
 	/**
@@ -36596,7 +37030,8 @@ export type GlobalSpendResetGlobalSpendResetPostResponse =
 	GlobalSpendResetGlobalSpendResetPostStatus200;
 
 /**
- * @description Complete provider budget configuration and status.\nMaps provider names to their budget configs.
+ * @description Complete provider budget configuration and status.
+ * Maps provider names to their budget configs.
  * @type object
  */
 export type ProviderBudgetsProviderBudgetsGetStatus200 = ProviderBudgetResponse;
@@ -36756,7 +37191,8 @@ export type GetActiveTasksStatsDebugAsyncioTasksGetResponse =
 	GetActiveTasksStatsDebugAsyncioTasksGetStatus200;
 
 /**
- * @description Per-batch result: counts plus per-record failure detail so the caller can\ndistinguish a transient callback error from a structurally bad payload.
+ * @description Per-batch result: counts plus per-record failure detail so the caller can
+ * distinguish a transient callback error from a structurally bad payload.
  * @type object
  */
 export type IngestCallbackLogsV1RustControlPlaneLogsPostStatus200 = CallbackLogsResponse;
@@ -36920,7 +37356,8 @@ export type UpdateDefaultTeamSettingsUpdateDefaultTeamSettingsPatchStatus200 = u
 export type UpdateDefaultTeamSettingsUpdateDefaultTeamSettingsPatchStatus422 = HTTPValidationError;
 
 /**
- * @description Default parameters applied to every /team/new call for fields not explicitly provided in the request.\n`models` is the exception: it only applies to teams automatically created by LiteLLM via SSO Groups.
+ * @description Default parameters applied to every /team/new call for fields not explicitly provided in the request.
+ * `models` is the exception: it only applies to teams automatically created by LiteLLM via SSO Groups.
  * @type object
  */
 export type UpdateDefaultTeamSettingsUpdateDefaultTeamSettingsPatchBody = DefaultTeamSSOParams;
@@ -37185,7 +37622,7 @@ export type UpdateMcpToolSearchSettingsUpdateMcpToolSearchSettingsPatchStatus422
 	HTTPValidationError;
 
 /**
- * @description `litellm_settings.mcp_tool_search`: how the native `mcp_tool_search` virtual tool ranks the caller\'s tools.
+ * @description `litellm_settings.mcp_tool_search`: how the native `mcp_tool_search` virtual tool ranks the caller's tools.
  * @type object
  */
 export type UpdateMcpToolSearchSettingsUpdateMcpToolSearchSettingsPatchBody = MCPToolSearchSettings;
@@ -37891,7 +38328,10 @@ export type UpdateUsefulLinksModelHubUpdateUsefulLinksPostResponse =
 	UpdateUsefulLinksModelHubUpdateUsefulLinksPostStatus200;
 
 /**
- * @description The built-in system prompt an auto-router\'s LLM classifier uses when none is configured.\n\nServed so the dashboard\'s prompt editor prefills the rubric the proxy actually sends, rather than\na copy in the frontend that drifts the moment the rubric is edited.
+ * @description The built-in system prompt an auto-router's LLM classifier uses when none is configured.
+ *
+ * Served so the dashboard's prompt editor prefills the rubric the proxy actually sends, rather than
+ * a copy in the frontend that drifts the moment the rubric is edited.
  * @type object
  */
 export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus200 =
@@ -37901,7 +38341,8 @@ export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPo
 	HTTPValidationError;
 
 /**
- * @description A POST rather than query params: the classification sections are the operator\'s own text,\nwhich must not reach access logs through a URL.
+ * @description A POST rather than query params: the classification sections are the operator's own text,
+ * which must not reach access logs through a URL.
  * @type object
  */
 export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostBody =
@@ -37936,7 +38377,10 @@ export type GetAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromp
 };
 
 /**
- * @description The built-in system prompt an auto-router\'s LLM classifier uses when none is configured.\n\nServed so the dashboard\'s prompt editor prefills the rubric the proxy actually sends, rather than\na copy in the frontend that drifts the moment the rubric is edited.
+ * @description The built-in system prompt an auto-router's LLM classifier uses when none is configured.
+ *
+ * Served so the dashboard's prompt editor prefills the rubric the proxy actually sends, rather than
+ * a copy in the frontend that drifts the moment the rubric is edited.
  * @type object
  */
 export type GetAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGetStatus200 =
@@ -38177,7 +38621,8 @@ export type ValidateComplexityRouterConfigAutoRouterValidateComplexityRouterConf
 	HTTPValidationError;
 
 /**
- * @description A complexity-router config to validate without saving, so a form can surface the\nbackend\'s own verdict inline instead of a raw 400 at write time.
+ * @description A complexity-router config to validate without saving, so a form can surface the
+ * backend's own verdict inline instead of a raw 400 at write time.
  * @type object
  */
 export type ValidateComplexityRouterConfigAutoRouterValidateComplexityRouterConfigPostBody =
@@ -38236,7 +38681,12 @@ export type PreviewAutoRouterRoutingAutoRouterTestRoutingPostStatus200 =
 export type PreviewAutoRouterRoutingAutoRouterTestRoutingPostStatus422 = HTTPValidationError;
 
 /**
- * @description A single request to classify against a complexity-router config that need not be saved yet.\n\nCarries the same fields the serving path carries, so a dry run classifies what a real turn\nwould classify. `messages`, `system` and `tools` are forwarded to the routing hook untranslated,\nwhich is why they are typed loosely: the hook reads whatever dialect the surface produced, and\nvalidating them against one surface\'s schema would reject the others.
+ * @description A single request to classify against a complexity-router config that need not be saved yet.
+ *
+ * Carries the same fields the serving path carries, so a dry run classifies what a real turn
+ * would classify. `messages`, `system` and `tools` are forwarded to the routing hook untranslated,
+ * which is why they are typed loosely: the hook reads whatever dialect the surface produced, and
+ * validating them against one surface's schema would reject the others.
  * @type object
  */
 export type PreviewAutoRouterRoutingAutoRouterTestRoutingPostBody = AutoRouterRoutingTestRequest;
@@ -38313,7 +38763,8 @@ export type GetAutoRouterSessionAutoRouterSessionGetQuery = {
 };
 
 /**
- * @description One auto-routed session as its own key sees it: what the last turn ran on, and what the session cost\nagainst the router\'s savings baseline (the priciest model in its hardest tier).
+ * @description One auto-routed session as its own key sees it: what the last turn ran on, and what the session cost
+ * against the router's savings baseline (the priciest model in its hardest tier).
  * @type object
  */
 export type GetAutoRouterSessionAutoRouterSessionGetStatus200 = AutoRouterSessionResponse;
@@ -38339,7 +38790,10 @@ export type GetAutoRouterSessionAutoRouterSessionGetResponse =
 	GetAutoRouterSessionAutoRouterSessionGetStatus200;
 
 /**
- * @description A shadow-eval job over one or more targets, each with its own budget and stop state;\nstatus is derived from stopped_by, the targets\' stop and budget state, and ends_at,\nnever stored, so no writer anywhere can produce an inconsistent one. Aggregate\nfields are populated by the detail endpoint only and stay None on list responses.
+ * @description A shadow-eval job over one or more targets, each with its own budget and stop state;
+ * status is derived from stopped_by, the targets' stop and budget state, and ends_at,
+ * never stored, so no writer anywhere can produce an inconsistent one. Aggregate
+ * fields are populated by the detail endpoint only and stay None on list responses.
  * @type object
  */
 export type StartShadowEvalAutoRouterShadowEvalStartPostStatus201 = ShadowEvalJobResponse;
@@ -38347,7 +38801,12 @@ export type StartShadowEvalAutoRouterShadowEvalStartPostStatus201 = ShadowEvalJo
 export type StartShadowEvalAutoRouterShadowEvalStartPostStatus422 = HTTPValidationError;
 
 /**
- * @description Start duplicating one or more targets\' traffic for blind comparison against an auto-router.\n\nA target is a virtual key, a team, or a user; each becomes its own leg with its own\nbudget and stop state. Team and user targets match on the identity every request\ncarries after auth (user_api_key_team_id / user_api_key_user_id), so they cover\nJWT-authenticated traffic, which presents no virtual key at all.
+ * @description Start duplicating one or more targets' traffic for blind comparison against an auto-router.
+ *
+ * A target is a virtual key, a team, or a user; each becomes its own leg with its own
+ * budget and stop state. Team and user targets match on the identity every request
+ * carries after auth (user_api_key_team_id / user_api_key_user_id), so they cover
+ * JWT-authenticated traffic, which presents no virtual key at all.
  * @type object
  */
 export type StartShadowEvalAutoRouterShadowEvalStartPostBody = StartShadowEvalRequest;
@@ -38425,7 +38884,10 @@ export type GetShadowEvalJobAutoRouterShadowEvalJobIdGetPath = {
 };
 
 /**
- * @description A shadow-eval job over one or more targets, each with its own budget and stop state;\nstatus is derived from stopped_by, the targets\' stop and budget state, and ends_at,\nnever stored, so no writer anywhere can produce an inconsistent one. Aggregate\nfields are populated by the detail endpoint only and stay None on list responses.
+ * @description A shadow-eval job over one or more targets, each with its own budget and stop state;
+ * status is derived from stopped_by, the targets' stop and budget state, and ends_at,
+ * never stored, so no writer anywhere can produce an inconsistent one. Aggregate
+ * fields are populated by the detail endpoint only and stay None on list responses.
  * @type object
  */
 export type GetShadowEvalJobAutoRouterShadowEvalJobIdGetStatus200 = ShadowEvalJobResponse;
@@ -38455,7 +38917,10 @@ export type StopShadowEvalJobAutoRouterShadowEvalJobIdStopPostPath = {
 };
 
 /**
- * @description A shadow-eval job over one or more targets, each with its own budget and stop state;\nstatus is derived from stopped_by, the targets\' stop and budget state, and ends_at,\nnever stored, so no writer anywhere can produce an inconsistent one. Aggregate\nfields are populated by the detail endpoint only and stay None on list responses.
+ * @description A shadow-eval job over one or more targets, each with its own budget and stop state;
+ * status is derived from stopped_by, the targets' stop and budget state, and ends_at,
+ * never stored, so no writer anywhere can produce an inconsistent one. Aggregate
+ * fields are populated by the detail endpoint only and stay None on list responses.
  * @type object
  */
 export type StopShadowEvalJobAutoRouterShadowEvalJobIdStopPostStatus200 = ShadowEvalJobResponse;
@@ -41346,11 +41811,11 @@ export type GetAuditLogsAuditGetQuery = {
 	 */
 	search?: (string | null) | undefined;
 	/**
-	 * @description Column to sort by (e.g. \'updated_at\', \'action\', \'table_name\')
+	 * @description Column to sort by (e.g. 'updated_at', 'action', 'table_name')
 	 */
 	sort_by?: (string | null) | undefined;
 	/**
-	 * @description Sort order (\'asc\' or \'desc\')
+	 * @description Sort order ('asc' or 'desc')
 	 * @default 'desc'
 	 * @type string | undefined
 	 */
@@ -41797,7 +42262,11 @@ export type GoogleCountTokensModelsModelNameCountTokensPostPath = {
 };
 
 /**
- * @description Response structure for token count details with modality breakdown.\n\nExample:\n    {\'totalTokens\': 12, \'promptTokensDetails\': [{\'modality\': \'TEXT\', \'tokenCount\': 12}],\n     \'litellm_count_source\': \'provider\'}
+ * @description Response structure for token count details with modality breakdown.
+ *
+ * Example:
+ *     {'totalTokens': 12, 'promptTokensDetails': [{'modality': 'TEXT', 'tokenCount': 12}],
+ *      'litellm_count_source': 'provider'}
  * @type object
  */
 export type GoogleCountTokensModelsModelNameCountTokensPostStatus200 = TokenCountDetailsResponse;
@@ -41827,7 +42296,11 @@ export type GoogleCountTokensV1BetaModelsModelNameCountTokensPostPath = {
 };
 
 /**
- * @description Response structure for token count details with modality breakdown.\n\nExample:\n    {\'totalTokens\': 12, \'promptTokensDetails\': [{\'modality\': \'TEXT\', \'tokenCount\': 12}],\n     \'litellm_count_source\': \'provider\'}
+ * @description Response structure for token count details with modality breakdown.
+ *
+ * Example:
+ *     {'totalTokens': 12, 'promptTokensDetails': [{'modality': 'TEXT', 'tokenCount': 12}],
+ *      'litellm_count_source': 'provider'}
  * @type object
  */
 export type GoogleCountTokensV1BetaModelsModelNameCountTokensPostStatus200 =
@@ -42331,33 +42804,59 @@ export type AggregateMcpRouteMcpPatchResponses = {
  */
 export type AggregateMcpRouteMcpPatchResponse = AggregateMcpRouteMcpPatchStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPutPath = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostPath = {
 	toolset_name: string;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200 = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200 = {
 	[key: string]: unknown;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPutStatus422 = HTTPValidationError;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422 = HTTPValidationError;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPutOptions = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostOptions = {
 	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpPutPath;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpPutStatus422;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadPath = {
+	toolset_name: string;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200 = unknown;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422 = HTTPValidationError;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadOptions = {
+	body?: never | undefined;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
 
 export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath = {
 	toolset_name: string;
@@ -42384,6 +42883,32 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponses = {
  */
 export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchPath = {
+	toolset_name: string;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200 = unknown;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422 = HTTPValidationError;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchOptions = {
+	body?: never | undefined;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
 
 export type ToolsetMcpRouteToolsetToolsetNameMcpDeletePath = {
 	toolset_name: string;
@@ -42413,32 +42938,6 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponses = {
 export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadPath = {
-	toolset_name: string;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200 = unknown;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422 = HTTPValidationError;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadOptions = {
-	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
-
 export type ToolsetMcpRouteToolsetToolsetNameMcpGetPath = {
 	toolset_name: string;
 };
@@ -42467,195 +42966,33 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponses = {
 export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostPath = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpPutPath = {
 	toolset_name: string;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200 = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200 = {
 	[key: string]: unknown;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422 = HTTPValidationError;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPutStatus422 = HTTPValidationError;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostOptions = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpPutOptions = {
 	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpPutPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpPutStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchPath = {
-	toolset_name: string;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200 = unknown;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422 = HTTPValidationError;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchOptions = {
-	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpPutPath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpPutStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpPutStatus422 = HTTPValidationError;
-
-export type DynamicMcpRouteMcpServerNameMcpPutOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpPutPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpPutResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpPutStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpPutStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpPutResponse =
-	DynamicMcpRouteMcpServerNameMcpPutStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpOptionsPath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpOptionsStatus200 = unknown;
-
-export type DynamicMcpRouteMcpServerNameMcpOptionsStatus422 = HTTPValidationError;
-
-export type DynamicMcpRouteMcpServerNameMcpOptionsOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpOptionsPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpOptionsResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpOptionsStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpOptionsResponse =
-	DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpDeletePath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpDeleteStatus422 = HTTPValidationError;
-
-export type DynamicMcpRouteMcpServerNameMcpDeleteOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpDeleteResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpDeleteStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpDeleteResponse =
-	DynamicMcpRouteMcpServerNameMcpDeleteStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpHeadPath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpHeadStatus200 = unknown;
-
-export type DynamicMcpRouteMcpServerNameMcpHeadStatus422 = HTTPValidationError;
-
-export type DynamicMcpRouteMcpServerNameMcpHeadOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpHeadPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpHeadResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpHeadStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpHeadStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpHeadResponse =
-	DynamicMcpRouteMcpServerNameMcpHeadStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpGetPath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpGetStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpGetStatus422 = HTTPValidationError;
-
-export type DynamicMcpRouteMcpServerNameMcpGetOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpGetPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpGetResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpGetStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpGetResponse =
-	DynamicMcpRouteMcpServerNameMcpGetStatus200;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200;
 
 export type DynamicMcpRouteMcpServerNameMcpPostPath = {
 	mcp_server_name: string;
@@ -42685,6 +43022,58 @@ export type DynamicMcpRouteMcpServerNameMcpPostResponses = {
 export type DynamicMcpRouteMcpServerNameMcpPostResponse =
 	DynamicMcpRouteMcpServerNameMcpPostStatus200;
 
+export type DynamicMcpRouteMcpServerNameMcpHeadPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpHeadStatus200 = unknown;
+
+export type DynamicMcpRouteMcpServerNameMcpHeadStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpHeadOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpHeadPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpHeadResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpHeadStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpHeadStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpHeadResponse =
+	DynamicMcpRouteMcpServerNameMcpHeadStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpOptionsPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpOptionsStatus200 = unknown;
+
+export type DynamicMcpRouteMcpServerNameMcpOptionsStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpOptionsOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpOptionsPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpOptionsResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpOptionsStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpOptionsResponse =
+	DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
+
 export type DynamicMcpRouteMcpServerNameMcpPatchPath = {
 	mcp_server_name: string;
 };
@@ -42710,6 +43099,90 @@ export type DynamicMcpRouteMcpServerNameMcpPatchResponses = {
  */
 export type DynamicMcpRouteMcpServerNameMcpPatchResponse =
 	DynamicMcpRouteMcpServerNameMcpPatchStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpDeletePath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpDeleteStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpDeleteStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpDeleteOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpDeleteResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpDeleteStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpDeleteResponse =
+	DynamicMcpRouteMcpServerNameMcpDeleteStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpGetPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpGetStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpGetStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpGetOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpGetResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpGetStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpGetResponse =
+	DynamicMcpRouteMcpServerNameMcpGetStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpPutPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPutStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPutStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpPutOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpPutPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPutResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpPutStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpPutResponse =
+	DynamicMcpRouteMcpServerNameMcpPutStatus200;
 
 export type WebsocketVertexAiLivePassthroughEndpointStatus101 = unknown;
 
@@ -43657,7 +44130,9 @@ export type TestPolicyMatchingPolicyTestPostStatus200 = PolicyTestResponse;
 export type TestPolicyMatchingPolicyTestPostStatus422 = HTTPValidationError;
 
 /**
- * @description Context used to match a request against policies.\n\nContains the team alias, key alias, and model from the incoming request.
+ * @description Context used to match a request against policies.
+ *
+ * Contains the team alias, key alias, and model from the incoming request.
  * @type object
  */
 export type TestPolicyMatchingPolicyTestPostBody = PolicyMatchContext;
@@ -43680,7 +44155,11 @@ export type TestPolicyMatchingPolicyTestPostResponses = {
 export type TestPolicyMatchingPolicyTestPostResponse = TestPolicyMatchingPolicyTestPostStatus200;
 
 /**
- * @description Response from policy validation.\n\n- `valid`: True if no blocking errors were found\n- `errors`: List of blocking errors (prevent policy from being applied)\n- `warnings`: List of non-blocking warnings (policy can still be applied)
+ * @description Response from policy validation.
+ *
+ * - `valid`: True if no blocking errors were found
+ * - `errors`: List of blocking errors (prevent policy from being applied)
+ * - `warnings`: List of non-blocking warnings (policy can still be applied)
  * @type object
  */
 export type ValidatePolicyPolicyValidatePostStatus200 = PolicyValidationResponse;
@@ -44284,7 +44763,7 @@ export type UpdatePolicyVersionStatusPoliciesPolicyIdStatusPutStatus200 = Policy
 export type UpdatePolicyVersionStatusPoliciesPolicyIdStatusPutStatus422 = HTTPValidationError;
 
 /**
- * @description Request body for updating a policy version\'s status.
+ * @description Request body for updating a policy version's status.
  * @type object
  */
 export type UpdatePolicyVersionStatusPoliciesPolicyIdStatusPutBody =
@@ -44351,7 +44830,7 @@ export type GetAgentDailyActivityAgentDailyActivityGetResponse =
 
 export type GetAgentsV1AgentsGetQuery = {
 	/**
-	 * @description When true, performs a GET request to each agent\'s URL. Agents with reachable URLs (HTTP status < 500) and agents without a URL are returned; unreachable agents are filtered out.
+	 * @description When true, performs a GET request to each agent's URL. Agents with reachable URLs (HTTP status < 500) and agents without a URL are returned; unreachable agents are filtered out.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -46620,7 +47099,7 @@ export type HealthCheckServersV1McpServerHealthGetQuery = {
 	 */
 	server_ids?: (string[] | null) | undefined;
 	/**
-	 * @description Allow the \'reachable\' status for responding servers whose authentication is unchecked.
+	 * @description Allow the 'reachable' status for responding servers whose authentication is unchecked.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -46796,7 +47275,7 @@ export type FetchMcpServerV1McpServerServerIdGetPath = {
 
 export type FetchMcpServerV1McpServerServerIdGetQuery = {
 	/**
-	 * @description Allow the \'reachable\' status for responding servers whose authentication is unchecked.
+	 * @description Allow the 'reachable' status for responding servers whose authentication is unchecked.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -46911,7 +47390,7 @@ export type StoreMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPos
 	HTTPValidationError;
 
 /**
- * @description Stores a user\'s OAuth2 token for an OpenAPI MCP server.
+ * @description Stores a user's OAuth2 token for an OpenAPI MCP server.
  * @type object
  */
 export type StoreMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPostBody =
@@ -47221,7 +47700,7 @@ export type StoreMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostStatus200 = MCP
 export type StoreMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostStatus422 = HTTPValidationError;
 
 /**
- * @description Payload for storing the calling user\'s per-user env var values.
+ * @description Payload for storing the calling user's per-user env var values.
  * @type object
  */
 export type StoreMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostBody = MCPUserEnvVarsRequest;
@@ -47849,8 +48328,10 @@ export type AuthorizeCompleteAuthorizeCompletePostStatus200 = {
 
 export type AuthorizeCompleteAuthorizeCompletePostStatus422 = HTTPValidationError;
 
+export type AuthorizeCompleteAuthorizeCompletePostBody = BodyAuthorizeCompleteAuthorizeCompletePost;
+
 export type AuthorizeCompleteAuthorizeCompletePostOptions = {
-	body?: never | undefined;
+	body: AuthorizeCompleteAuthorizeCompletePostBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -47970,8 +48451,10 @@ export type IntrospectEndpointIntrospectPostStatus200 = {
 
 export type IntrospectEndpointIntrospectPostStatus422 = HTTPValidationError;
 
+export type IntrospectEndpointIntrospectPostBody = BodyIntrospectEndpointIntrospectPost;
+
 export type IntrospectEndpointIntrospectPostOptions = {
-	body?: never | undefined;
+	body: IntrospectEndpointIntrospectPostBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -48020,8 +48503,10 @@ export type RevokeEndpointRevokePostStatus200 = {
 
 export type RevokeEndpointRevokePostStatus422 = HTTPValidationError;
 
+export type RevokeEndpointRevokePostBody = BodyRevokeEndpointRevokePost;
+
 export type RevokeEndpointRevokePostOptions = {
-	body?: never | undefined;
+	body: RevokeEndpointRevokePostBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -48047,8 +48532,10 @@ export type TokenEndpointTokenPostStatus200 = {
 
 export type TokenEndpointTokenPostStatus422 = HTTPValidationError;
 
+export type TokenEndpointTokenPostBody = BodyTokenEndpointTokenPost;
+
 export type TokenEndpointTokenPostOptions = {
-	body?: never | undefined;
+	body: TokenEndpointTokenPostBody;
 	path?: never | undefined;
 	query?: TokenEndpointTokenPostQuery | undefined;
 	headers?: never | undefined;
@@ -48145,8 +48632,10 @@ export type TokenEndpointMcpServerNameTokenPostStatus200 = {
 
 export type TokenEndpointMcpServerNameTokenPostStatus422 = HTTPValidationError;
 
+export type TokenEndpointMcpServerNameTokenPostBody = BodyTokenEndpointMcpServerNameTokenPost;
+
 export type TokenEndpointMcpServerNameTokenPostOptions = {
-	body?: never | undefined;
+	body: TokenEndpointMcpServerNameTokenPostBody;
 	path: TokenEndpointMcpServerNameTokenPostPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -48621,7 +49110,11 @@ export type ProxyRealtimeCallsOpenaiV1RealtimeCallsPostResponse =
 	ProxyRealtimeCallsOpenaiV1RealtimeCallsPostStatus200;
 
 /**
- * @description Response from POST /v1/realtime/client_secrets.\n\nBoth the top-level `value` and `session.client_secret.value`\nwill contain the encrypted token instead of the raw ephemeral key.\nThe `session` field is kept as a raw dict so unknown fields pass through.
+ * @description Response from POST /v1/realtime/client_secrets.
+ *
+ * Both the top-level `value` and `session.client_secret.value`
+ * will contain the encrypted token instead of the raw ephemeral key.
+ * The `session` field is kept as a raw dict so unknown fields pass through.
  * @type object
  */
 export type CreateRealtimeClientSecretOpenaiV1RealtimeClientSecretsPostStatus200 =
@@ -48645,7 +49138,10 @@ export type CreateRealtimeClientSecretOpenaiV1RealtimeClientSecretsPostResponse 
 	CreateRealtimeClientSecretOpenaiV1RealtimeClientSecretsPostStatus200;
 
 /**
- * @description Response from POST /v1/realtime/transcription_sessions.\n\n`client_secret.value` contains the encrypted token instead of the raw\nephemeral key. Unknown fields pass through unchanged.
+ * @description Response from POST /v1/realtime/transcription_sessions.
+ *
+ * `client_secret.value` contains the encrypted token instead of the raw
+ * ephemeral key. Unknown fields pass through unchanged.
  * @type object
  */
 export type CreateRealtimeTranscriptionSessionOpenaiV1RealtimeTranscriptionSessionsPostStatus200 =
@@ -48739,7 +49235,11 @@ export type ProxyRealtimeCallsRealtimeCallsPostResponse =
 	ProxyRealtimeCallsRealtimeCallsPostStatus200;
 
 /**
- * @description Response from POST /v1/realtime/client_secrets.\n\nBoth the top-level `value` and `session.client_secret.value`\nwill contain the encrypted token instead of the raw ephemeral key.\nThe `session` field is kept as a raw dict so unknown fields pass through.
+ * @description Response from POST /v1/realtime/client_secrets.
+ *
+ * Both the top-level `value` and `session.client_secret.value`
+ * will contain the encrypted token instead of the raw ephemeral key.
+ * The `session` field is kept as a raw dict so unknown fields pass through.
  * @type object
  */
 export type CreateRealtimeClientSecretRealtimeClientSecretsPostStatus200 =
@@ -48763,7 +49263,10 @@ export type CreateRealtimeClientSecretRealtimeClientSecretsPostResponse =
 	CreateRealtimeClientSecretRealtimeClientSecretsPostStatus200;
 
 /**
- * @description Response from POST /v1/realtime/transcription_sessions.\n\n`client_secret.value` contains the encrypted token instead of the raw\nephemeral key. Unknown fields pass through unchanged.
+ * @description Response from POST /v1/realtime/transcription_sessions.
+ *
+ * `client_secret.value` contains the encrypted token instead of the raw
+ * ephemeral key. Unknown fields pass through unchanged.
  * @type object
  */
 export type CreateRealtimeTranscriptionSessionRealtimeTranscriptionSessionsPostStatus200 =
@@ -48808,7 +49311,11 @@ export type ProxyRealtimeCallsV1RealtimeCallsPostResponse =
 	ProxyRealtimeCallsV1RealtimeCallsPostStatus200;
 
 /**
- * @description Response from POST /v1/realtime/client_secrets.\n\nBoth the top-level `value` and `session.client_secret.value`\nwill contain the encrypted token instead of the raw ephemeral key.\nThe `session` field is kept as a raw dict so unknown fields pass through.
+ * @description Response from POST /v1/realtime/client_secrets.
+ *
+ * Both the top-level `value` and `session.client_secret.value`
+ * will contain the encrypted token instead of the raw ephemeral key.
+ * The `session` field is kept as a raw dict so unknown fields pass through.
  * @type object
  */
 export type CreateRealtimeClientSecretV1RealtimeClientSecretsPostStatus200 =
@@ -48832,7 +49339,10 @@ export type CreateRealtimeClientSecretV1RealtimeClientSecretsPostResponse =
 	CreateRealtimeClientSecretV1RealtimeClientSecretsPostStatus200;
 
 /**
- * @description Response from POST /v1/realtime/transcription_sessions.\n\n`client_secret.value` contains the encrypted token instead of the raw\nephemeral key. Unknown fields pass through unchanged.
+ * @description Response from POST /v1/realtime/transcription_sessions.
+ *
+ * `client_secret.value` contains the encrypted token instead of the raw
+ * ephemeral key. Unknown fields pass through unchanged.
  * @type object
  */
 export type CreateRealtimeTranscriptionSessionV1RealtimeTranscriptionSessionsPostStatus200 =
@@ -49600,7 +50110,7 @@ export type DecisionsDecisionsPostBody = {
 		  }
 		| {
 				/**
-				 * @description What to find in the input\'s image
+				 * @description What to find in the input's image
 				 * @type string
 				 */
 				instructions: string;
@@ -49682,7 +50192,7 @@ export type SystemoneSystemonePostBody = {
 					 */
 					data_base64: string;
 					/**
-					 * @description The image\'s format, in lowercase
+					 * @description The image's format, in lowercase
 					 * @type string
 					 */
 					format: FormatEnumKey;
@@ -49841,7 +50351,7 @@ export type SystemoneSystemonePostBody = {
 			  }
 			| {
 					/**
-					 * @description What to find, and in which image, such as \'the coffee mug in `photo`\'
+					 * @description What to find, and in which image, such as 'the coffee mug in `photo`'
 					 */
 					instructions:
 						| string
@@ -50026,7 +50536,7 @@ export type DecisionsV1DecisionsPostBody = {
 		  }
 		| {
 				/**
-				 * @description What to find in the input\'s image
+				 * @description What to find in the input's image
 				 * @type string
 				 */
 				instructions: string;
@@ -50100,7 +50610,7 @@ export type SystemoneV1SystemonePostBody = {
 					 */
 					data_base64: string;
 					/**
-					 * @description The image\'s format, in lowercase
+					 * @description The image's format, in lowercase
 					 * @type string
 					 */
 					format: FormatEnumKey;
@@ -50259,7 +50769,7 @@ export type SystemoneV1SystemonePostBody = {
 			  }
 			| {
 					/**
-					 * @description What to find, and in which image, such as \'the coffee mug in `photo`\'
+					 * @description What to find, and in which image, such as 'the coffee mug in `photo`'
 					 */
 					instructions:
 						| string
@@ -50393,7 +50903,10 @@ export type RegisterPluginClaudeCodePluginsPostStatus200 = RegisterPluginRespons
 export type RegisterPluginClaudeCodePluginsPostStatus422 = HTTPValidationError;
 
 /**
- * @description Request body for registering a plugin in the marketplace.\n\nLiteLLM acts as a registry/discovery layer. Plugins are hosted on\nGitHub/GitLab/Bitbucket or as a zip archive on any https host and referenced by their source.
+ * @description Request body for registering a plugin in the marketplace.
+ *
+ * LiteLLM acts as a registry/discovery layer. Plugins are hosted on
+ * GitHub/GitLab/Bitbucket or as a zip archive on any https host and referenced by their source.
  * @type object
  */
 export type RegisterPluginClaudeCodePluginsPostBody = RegisterPluginRequest;
@@ -50485,7 +50998,12 @@ export type UpdatePluginClaudeCodePluginsPluginNamePutStatus200 = RegisterPlugin
 export type UpdatePluginClaudeCodePluginsPluginNamePutStatus422 = HTTPValidationError;
 
 /**
- * @description Request body for replacing an existing plugin.\n\nThe plugin name is the resource identity and is supplied as the path\nparameter, so it cannot be changed here. This is a full replace: omitted\nfields reset to their defaults, so version is cleared rather than\ndefaulting to the create-time \"1.0.0\".
+ * @description Request body for replacing an existing plugin.
+ *
+ * The plugin name is the resource identity and is supplied as the path
+ * parameter, so it cannot be changed here. This is a full replace: omitted
+ * fields reset to their defaults, so version is cleared rather than
+ * defaulting to the create-time "1.0.0".
  * @type object
  */
 export type UpdatePluginClaudeCodePluginsPluginNamePutBody = UpdatePluginRequest;
@@ -51969,7 +52487,9 @@ export type CheckEuAiActComplianceComplianceEuAiActPostStatus200 = ComplianceRes
 export type CheckEuAiActComplianceComplianceEuAiActPostStatus422 = HTTPValidationError;
 
 /**
- * @description Request payload for compliance check endpoints.\n\nMirrors the spend log fields needed for compliance evaluation.
+ * @description Request payload for compliance check endpoints.
+ *
+ * Mirrors the spend log fields needed for compliance evaluation.
  * @type object
  */
 export type CheckEuAiActComplianceComplianceEuAiActPostBody = ComplianceCheckRequest;
@@ -52001,7 +52521,9 @@ export type CheckGdprComplianceComplianceGdprPostStatus200 = ComplianceResponse;
 export type CheckGdprComplianceComplianceGdprPostStatus422 = HTTPValidationError;
 
 /**
- * @description Request payload for compliance check endpoints.\n\nMirrors the spend log fields needed for compliance evaluation.
+ * @description Request payload for compliance check endpoints.
+ *
+ * Mirrors the spend log fields needed for compliance evaluation.
  * @type object
  */
 export type CheckGdprComplianceComplianceGdprPostBody = ComplianceCheckRequest;

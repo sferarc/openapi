@@ -2107,7 +2107,7 @@ export type ProductDetailSchema = {
 	 */
 	iconUrl: string;
 	/**
-	 * @description The product\'s availability in v0. \'in-review\' products only appear for teams with the review view and should be rendered as such.
+	 * @description The product's availability in v0. 'in-review' products only appear for teams with the review view and should be rendered as such.
 	 * @type string | undefined
 	 */
 	v0Availability?: ProductDetailSchemaV0AvailabilityEnumKey | undefined;
@@ -2172,7 +2172,7 @@ export type ProductListSchema = {
 		 */
 		iconUrl: string;
 		/**
-		 * @description The product\'s availability in v0. \'in-review\' products only appear for teams with the review view and should be rendered as such.
+		 * @description The product's availability in v0. 'in-review' products only appear for teams with the review view and should be rendered as such.
 		 * @type string | undefined
 		 */
 		v0Availability?: ProductListSchemaDataV0AvailabilityEnumKey | undefined;
@@ -2223,7 +2223,7 @@ export type ProductSummarySchema = {
 	 */
 	iconUrl: string;
 	/**
-	 * @description The product\'s availability in v0. \'in-review\' products only appear for teams with the review view and should be rendered as such.
+	 * @description The product's availability in v0. 'in-review' products only appear for teams with the review view and should be rendered as such.
 	 * @type string | undefined
 	 */
 	v0Availability?: ProductSummarySchemaV0AvailabilityEnumKey | undefined;
@@ -2569,7 +2569,7 @@ export type SearchResultItem = {
 	 */
 	id: string;
 	/**
-	 * @description Type of item returned, either \'chat\' or \'project\'.
+	 * @description Type of item returned, either 'chat' or 'project'.
 	 * @type string
 	 */
 	object: SearchResultItemObjectEnumKey;
@@ -2621,12 +2621,12 @@ export type UserDetailSchema = {
 	 */
 	name?: string | undefined;
 	/**
-	 * @description The user\'s email address.
+	 * @description The user's email address.
 	 * @type string
 	 */
 	email: string;
 	/**
-	 * @description URL to the user\'s avatar image.
+	 * @description URL to the user's avatar image.
 	 * @type string
 	 */
 	avatar: string;
@@ -2661,7 +2661,7 @@ export type UserPreferencesPostResponseSchema = {
 	 */
 	preferences: {
 		/**
-		 * @description The user\'s preferred method for receiving notifications.
+		 * @description The user's preferred method for receiving notifications.
 		 * @type object
 		 */
 		notifications: {
@@ -2690,11 +2690,11 @@ export type UserPreferencesResponseSchema = {
 	 */
 	object: "user_preferences";
 	/**
-	 * @description The user\'s current preferences, or null if errored.
+	 * @description The user's current preferences, or null if errored.
 	 */
 	preferences: {
 		/**
-		 * @description The user\'s preferred method for receiving notifications.
+		 * @description The user's preferred method for receiving notifications.
 		 * @type object
 		 */
 		notifications: {
@@ -2718,7 +2718,7 @@ export type UserPreferencesResponseSchema = {
  */
 export type UserPreferencesSchema = {
 	/**
-	 * @description The user\'s preferred method for receiving notifications.
+	 * @description The user's preferred method for receiving notifications.
 	 * @type object
 	 */
 	notifications: {
@@ -2756,12 +2756,12 @@ export type UserSummarySchema = {
 	 */
 	name?: string | undefined;
 	/**
-	 * @description The user\'s email address.
+	 * @description The user's email address.
 	 * @type string
 	 */
 	email: string;
 	/**
-	 * @description URL to the user\'s avatar image.
+	 * @description URL to the user's avatar image.
 	 * @type string
 	 */
 	avatar: string;
@@ -3226,7 +3226,11 @@ export type ChatsCreateBody = {
 		  }
 		| undefined;
 	/**
-	 * @description Controls how the response is delivered.\n\n- `\"sync\"`: The response is returned immediately with the HTTP request.\n- `\"async\"`: Returns a message placeholder immediately; use getById to poll for completion status and final output.\n- `\"experimental_stream\"`: Returns content parts as Server-Sent Events for real-time streaming.
+	 * @description Controls how the response is delivered.
+	 *
+	 * - `"sync"`: The response is returned immediately with the HTTP request.
+	 * - `"async"`: Returns a message placeholder immediately; use getById to poll for completion status and final output.
+	 * - `"experimental_stream"`: Returns content parts as Server-Sent Events for real-time streaming.
 	 * @default 'sync'
 	 * @type string | undefined
 	 */
@@ -3237,7 +3241,7 @@ export type ChatsCreateBody = {
 	 */
 	designSystemId?: (string | null) | undefined;
 	/**
-	 * @description Array of MCP server IDs to enable for this chat. When provided, only the specified servers will be used. When omitted, falls back to the user\'s enabled MCP servers.
+	 * @description Array of MCP server IDs to enable for this chat. When provided, only the specified servers will be used. When omitted, falls back to the user's enabled MCP servers.
 	 * @type array | undefined
 	 */
 	mcpServerIds?: string[] | undefined;
@@ -3353,7 +3357,10 @@ export type ChatsFindQuery = {
 	 */
 	offset?: number | undefined;
 	/**
-	 * @description Filters chats by their \"favorite\" status. Accepts `\"true\"` or `\"false\"` (as strings, not booleans).\n\n- `\"true\"`: returns only chats marked as favorites.\n- `\"false\"`: returns only non-favorite chats.
+	 * @description Filters chats by their "favorite" status. Accepts `"true"` or `"false"` (as strings, not booleans).
+	 *
+	 * - `"true"`: returns only chats marked as favorites.
+	 * - `"false"`: returns only non-favorite chats.
 	 * @type string | undefined
 	 */
 	isFavorite?: ChatsFindIsFavoriteKey | undefined;
@@ -3999,7 +4006,10 @@ export type ChatsFavoriteStatus500 = InternalServerError;
 
 export type ChatsFavoriteBody = {
 	/**
-	 * @description Specifies whether the chat should be marked as a favorite.\n\n- `\"true\"`: mark as favorite\n- `\"false\"`: remove from favorites
+	 * @description Specifies whether the chat should be marked as a favorite.
+	 *
+	 * - `"true"`: mark as favorite
+	 * - `"false"`: remove from favorites
 	 * @type boolean
 	 */
 	isFavorite: boolean;
@@ -4352,13 +4362,17 @@ export type ChatsSendMessageBody = {
 		  }
 		| undefined;
 	/**
-	 * @description Controls how the response is delivered.\n\n- `\"sync\"`: The response is returned immediately with the HTTP request.\n- `\"async\"`: Returns a message placeholder immediately; use getById to poll for completion status and final output.\n- `\"experimental_stream\"`: Returns content parts as Server-Sent Events for real-time streaming.
+	 * @description Controls how the response is delivered.
+	 *
+	 * - `"sync"`: The response is returned immediately with the HTTP request.
+	 * - `"async"`: Returns a message placeholder immediately; use getById to poll for completion status and final output.
+	 * - `"experimental_stream"`: Returns content parts as Server-Sent Events for real-time streaming.
 	 * @default 'sync'
 	 * @type string | undefined
 	 */
 	responseMode?: ChatsSendMessageRequestResponseModeEnumKey | undefined;
 	/**
-	 * @description Array of MCP server IDs to enable for this message. When provided, only the specified servers will be used. When omitted, falls back to the user\'s enabled MCP servers.
+	 * @description Array of MCP server IDs to enable for this message. When provided, only the specified servers will be used. When omitted, falls back to the user's enabled MCP servers.
 	 * @type array | undefined
 	 */
 	mcpServerIds?: string[] | undefined;
@@ -4704,7 +4718,7 @@ export type ChatsUpdateVersionBody = {
 	 */
 	files: {
 		/**
-		 * @description The full file path including extension (e.g., \"components/test.tsx\")
+		 * @description The full file path including extension (e.g., "components/test.tsx")
 		 * @type string
 		 */
 		name: string;
@@ -4776,7 +4790,7 @@ export type ChatsDownloadVersionIncludeDefaultFilesKey =
 
 export type ChatsDownloadVersionQuery = {
 	/**
-	 * @description The archive format for the download. Choose \"zip\" for broad compatibility or \"tarball\" for Unix/Linux systems.
+	 * @description The archive format for the download. Choose "zip" for broad compatibility or "tarball" for Unix/Linux systems.
 	 * @default 'zip'
 	 * @type string | undefined
 	 */
@@ -4867,7 +4881,7 @@ export type ChatsDeleteVersionFilesStatus500 = InternalServerError;
 
 export type ChatsDeleteVersionFilesBody = {
 	/**
-	 * @description Array of file paths to delete (e.g., [\"components/test.tsx\", \"lib/utils.ts\"])
+	 * @description Array of file paths to delete (e.g., ["components/test.tsx", "lib/utils.ts"])
 	 * @type array
 	 */
 	filePaths: string[];
@@ -5099,7 +5113,7 @@ export type ChatsResolveTaskBody = {
 		| {
 				type: "confirmed-steps";
 				/**
-				 * @description Names of integrations that were successfully connected (e.g. \"Neon\"). Pass an empty array to skip.
+				 * @description Names of integrations that were successfully connected (e.g. "Neon"). Pass an empty array to skip.
 				 * @default []
 				 * @type array | undefined
 				 */
@@ -5111,7 +5125,7 @@ export type ChatsResolveTaskBody = {
 				 */
 				connectedNpmRegistryIds?: string[] | undefined;
 				/**
-				 * @description Names of MCP presets that were connected (e.g. \"Linear\", \"Sentry\"). Pass an empty array to skip.
+				 * @description Names of MCP presets that were connected (e.g. "Linear", "Sentry"). Pass an empty array to skip.
 				 * @default []
 				 * @type array | undefined
 				 */
@@ -5170,7 +5184,7 @@ export type ChatsResolveTaskBody = {
 					 */
 					selectedLabels: string[];
 					/**
-					 * @description Free-form text input, used when the user selects \"Other\" or wants to add context.
+					 * @description Free-form text input, used when the user selects "Other" or wants to add context.
 					 * @minLength 1
 					 * @type string | undefined
 					 */
@@ -5197,15 +5211,15 @@ export type ChatsResolveTaskBody = {
 					 */
 					input: unknown;
 					/**
-					 * @description The tool\'s original human-readable name from the stopped task. Display-only; pass back unchanged. Capped at 100 characters, matching the cap applied when the name is ingested from the server.
+					 * @description The tool's original human-readable name from the stopped task. Display-only; pass back unchanged. Capped at 100 characters, matching the cap applied when the name is ingested from the server.
 					 */
 					toolDisplayName?: (string | null) | undefined;
 					/**
-					 * @description Label shown while the tool is running (e.g. \"Running migration\").
+					 * @description Label shown while the tool is running (e.g. "Running migration").
 					 */
 					taskNameActive?: (string | null) | undefined;
 					/**
-					 * @description Label shown after the tool completes (e.g. \"Migration complete\").
+					 * @description Label shown after the tool completes (e.g. "Migration complete").
 					 */
 					taskNameComplete?: (string | null) | undefined;
 					/**
@@ -5229,7 +5243,11 @@ export type ChatsResolveTaskBody = {
 				type: "vercel-connect-authorization";
 		  };
 	/**
-	 * @description Controls how the response is delivered.\n\n- `\"sync\"`: The response is returned immediately with the HTTP request.\n- `\"async\"`: Returns a message placeholder immediately; use getById to poll for completion status and final output.\n- `\"experimental_stream\"`: Returns content parts as Server-Sent Events for real-time streaming.
+	 * @description Controls how the response is delivered.
+	 *
+	 * - `"sync"`: The response is returned immediately with the HTTP request.
+	 * - `"async"`: Returns a message placeholder immediately; use getById to poll for completion status and final output.
+	 * - `"experimental_stream"`: Returns content parts as Server-Sent Events for real-time streaming.
 	 * @default 'sync'
 	 * @type string | undefined
 	 */
@@ -5402,7 +5420,7 @@ export type DeploymentsCreateResponse = DeploymentsCreateStatus200;
 
 export type DeploymentsGetByIdPath = {
 	/**
-	 * @description Path parameter \"deploymentId\"
+	 * @description Path parameter "deploymentId"
 	 * @type string
 	 */
 	deploymentId: string;
@@ -5452,7 +5470,7 @@ export type DeploymentsGetByIdResponse = DeploymentsGetByIdStatus200;
 
 export type DeploymentsDeletePath = {
 	/**
-	 * @description Path parameter \"deploymentId\"
+	 * @description Path parameter "deploymentId"
 	 * @type string
 	 */
 	deploymentId: string;
@@ -6234,7 +6252,7 @@ export type ProjectsCreateBody = {
 	 */
 	vercelProjectId?: string | undefined;
 	/**
-	 * @description The privacy setting for the project. For user accounts, this is always \"private\". For team/enterprise accounts, this can be either \"private\" or \"team\".
+	 * @description The privacy setting for the project. For user accounts, this is always "private". For team/enterprise accounts, this can be either "private" or "team".
 	 * @type string | undefined
 	 */
 	privacy?: ProjectsCreateRequestPrivacyEnumKey | undefined;
@@ -6373,7 +6391,7 @@ export type ProjectsUpdateBody = {
 	 */
 	instructions?: string | undefined;
 	/**
-	 * @description The privacy setting for the project. For user accounts, this must be \"private\". For team/enterprise accounts, this can be either \"private\" or \"team\".
+	 * @description The privacy setting for the project. For user accounts, this must be "private". For team/enterprise accounts, this can be either "private" or "team".
 	 * @type string | undefined
 	 */
 	privacy?: ProjectsUpdateRequestPrivacyEnumKey | undefined;
@@ -7314,31 +7332,31 @@ export type ChatsRestoreResponse = ChatsRestoreStatus200;
 
 export type ReportsGetUsageQuery = {
 	/**
-	 * @description Query parameter \"startDate\"
+	 * @description Query parameter "startDate"
 	 *
 	 * Format: `date-time`
 	 * @type string | undefined
 	 */
 	startDate?: string | undefined;
 	/**
-	 * @description Query parameter \"endDate\"
+	 * @description Query parameter "endDate"
 	 *
 	 * Format: `date-time`
 	 * @type string | undefined
 	 */
 	endDate?: string | undefined;
 	/**
-	 * @description Query parameter \"chatId\"
+	 * @description Query parameter "chatId"
 	 * @type string | undefined
 	 */
 	chatId?: string | undefined;
 	/**
-	 * @description Query parameter \"messageId\"
+	 * @description Query parameter "messageId"
 	 * @type string | undefined
 	 */
 	messageId?: string | undefined;
 	/**
-	 * @description Query parameter \"userId\"
+	 * @description Query parameter "userId"
 	 * @type string | undefined
 	 */
 	userId?: string | undefined;
@@ -7617,12 +7635,12 @@ export type ReportsGetUserActivityStatus200 = {
 			 */
 			name?: string | undefined;
 			/**
-			 * @description The user\'s email address.
+			 * @description The user's email address.
 			 * @type string
 			 */
 			email: string;
 			/**
-			 * @description URL to the user\'s avatar image.
+			 * @description URL to the user's avatar image.
 			 * @type string
 			 */
 			avatar: string;
@@ -7641,7 +7659,7 @@ export type ReportsGetUserActivityStatus200 = {
 			 */
 			updatedAt?: string | undefined;
 			/**
-			 * @description The user\'s v0 role
+			 * @description The user's v0 role
 			 */
 			teamV0Role: ReportsGetUserActivityStatus200DataUserTeamV0RoleKey | null;
 		};
@@ -7661,11 +7679,11 @@ export type ReportsGetUserActivityStatus200 = {
 		 */
 		activeDays: number;
 		/**
-		 * @description Timestamp of the user\'s first activity
+		 * @description Timestamp of the user's first activity
 		 */
 		firstActivity: string | null;
 		/**
-		 * @description Timestamp of the user\'s last activity
+		 * @description Timestamp of the user's last activity
 		 */
 		lastActivity: string | null;
 	}[];

@@ -10,19 +10,20 @@ function operationKey(node: ast.OperationNode): string | undefined {
 	return ast.isHttpOperationNode(node) ? `${node.method.toUpperCase()} ${node.path}` : undefined;
 }
 
-export function rawRequestBodyFallback(
+export function requestBodyFallback(
 	requestBody: ast.RequestBodyNode | undefined,
 ): ast.RequestBodyNode | undefined {
-	const entry = requestBody?.content?.find(
-		(item) => item.schema && !JSON_MEDIA_TYPE.test(item.contentType),
-	);
+	const withSchema = requestBody?.content?.filter((item) => item.schema) ?? [];
+	// A JSON suffix type such as application/scim+json keeps its typed schema, so it wins over raw bytes.
+	const entry = withSchema.find((item) => JSON_MEDIA_TYPE.test(item.contentType)) ?? withSchema[0];
 	if (!requestBody || !entry) return undefined;
 	return { ...requestBody, content: [entry] };
 }
 
 /**
  * Parses with `contentType` so JSON operations keep a single JSON body, then backfills the request
- * body of operations that only accept a non-JSON media type, which the adapter drops otherwise.
+ * body of operations that only accept another media type, `application/scim+json` included, which
+ * the adapter drops otherwise.
  */
 export function adapterOasWithRawBodies(options: AdapterOasOptions): Adapter {
 	const primary = adapterOas(options);
@@ -46,7 +47,7 @@ export function adapterOasWithRawBodies(options: AdapterOasOptions): Adapter {
 				...input,
 				operations: input.operations.map((node) => {
 					if (node.requestBody?.content?.length) return node;
-					const requestBody = rawRequestBodyFallback(fallbackBodies.get(operationKey(node)));
+					const requestBody = requestBodyFallback(fallbackBodies.get(operationKey(node)));
 					return requestBody ? { ...node, requestBody } : node;
 				}),
 			};

@@ -81,6 +81,7 @@ const RAW_BODY_TYPE = "Blob | ArrayBuffer | Uint8Array | ReadableStream | string
 
 const URL_ENCODED = "application/x-www-form-urlencoded";
 const MULTIPART = "multipart/form-data";
+const JSON_MEDIA_TYPE = /^application\/(?:[^;]*\+)?json\b/i;
 
 function requestContentType(content: ast.ContentNode | undefined): string {
 	const declared = content?.contentType ?? "application/json";
@@ -108,8 +109,11 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	const contentType = requestContentType(requestBodyContent);
 	const isFormData = contentType === MULTIPART;
 	const isUrlEncoded = contentType === URL_ENCODED;
+	// The fetchers stringify only application/json, so application/scim+json and the like are serialized here.
+	const isOtherJson = contentType !== "application/json" && JSON_MEDIA_TYPE.test(contentType);
 	const hasBody = Boolean(typeSchemas.request);
-	const isRawBody = hasBody && !isFormData && !isUrlEncoded && contentType !== "application/json";
+	const isRawBody =
+		hasBody && !isFormData && !isUrlEncoded && !isOtherJson && contentType !== "application/json";
 
 	// plugin-ts types each parameter from its schema, refs and unions included; query and header params stay optional as before.
 	const pathParamsType = typeSchemas.path?.name ?? "Record<string, never>";
@@ -145,7 +149,15 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	const generics = [
 		typeSchemas.response.name,
 		errorType,
-		bodyType ? (isFormData ? "FormData" : isUrlEncoded ? "URLSearchParams" : bodyType) : "null",
+		bodyType
+			? isFormData
+				? "FormData"
+				: isUrlEncoded
+					? "URLSearchParams"
+					: isOtherJson
+						? "string"
+						: bodyType
+			: "null",
 		headerParams.length > 0 ? headerParamsType : "Record<string, string>",
 		queryParams.length > 0 ? queryParamsType : "Record<string, string>",
 		pathParams.length > 0 ? pathParamsType : "Record<string, string>",
@@ -207,7 +219,9 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 			? "formData"
 			: isUrlEncoded
 				? "form"
-				: "body"
+				: isOtherJson
+					? "body === undefined ? undefined : JSON.stringify(body)"
+					: "body"
 		: undefined;
 
 	const urlTemplate = buildUrlTemplate(node.path);

@@ -5591,7 +5591,7 @@ export type GETAdminRealmsRealmIdentityProviderInstancesQuery = {
 	 */
 	realmOnly?: boolean | undefined;
 	/**
-	 * @description Filter specific providers by name. Search can be prefix (name*), contains (*name*) or exact (\"name\"). Default prefixed.
+	 * @description Filter specific providers by name. Search can be prefix (name*), contains (*name*) or exact ("name"). Default prefixed.
 	 * @type string | undefined
 	 */
 	search?: string | undefined;
@@ -6417,7 +6417,7 @@ export type GETAdminRealmsRealmOrganizationsQuery = {
 	 */
 	briefRepresentation?: boolean | undefined;
 	/**
-	 * @description Boolean which defines whether the param \'search\' must match exactly or not
+	 * @description Boolean which defines whether the param 'search' must match exactly or not
 	 * @type boolean | undefined
 	 */
 	exact?: boolean | undefined;
@@ -6430,7 +6430,7 @@ export type GETAdminRealmsRealmOrganizationsQuery = {
 	 */
 	first?: number | undefined;
 	/**
-	 * @description The alias of an identity provider, to only return the organizations linked to it. Cannot be combined with \'q\'
+	 * @description The alias of an identity provider, to only return the organizations linked to it. Cannot be combined with 'q'
 	 * @type string | undefined
 	 */
 	identityProvider?: string | undefined;
@@ -6443,7 +6443,7 @@ export type GETAdminRealmsRealmOrganizationsQuery = {
 	 */
 	max?: number | undefined;
 	/**
-	 * @description A query to search for custom attributes, in the format \'key1:value2 key2:value2\'
+	 * @description A query to search for custom attributes, in the format 'key1:value2 key2:value2'
 	 * @type string | undefined
 	 */
 	q?: string | undefined;
@@ -6522,17 +6522,17 @@ export type GETAdminRealmsRealmOrganizationsCountPath = {
 
 export type GETAdminRealmsRealmOrganizationsCountQuery = {
 	/**
-	 * @description Boolean which defines whether the param \'search\' must match exactly or not
+	 * @description Boolean which defines whether the param 'search' must match exactly or not
 	 * @type boolean | undefined
 	 */
 	exact?: boolean | undefined;
 	/**
-	 * @description The alias of an identity provider, to only count the organizations linked to it. Cannot be combined with \'q\'
+	 * @description The alias of an identity provider, to only count the organizations linked to it. Cannot be combined with 'q'
 	 * @type string | undefined
 	 */
 	identityProvider?: string | undefined;
 	/**
-	 * @description A query to search for custom attributes, in the format \'key1:value2 key2:value2\'
+	 * @description A query to search for custom attributes, in the format 'key1:value2 key2:value2'
 	 * @type string | undefined
 	 */
 	q?: string | undefined;
@@ -6872,7 +6872,7 @@ export type GETAdminRealmsRealmUsersQuery = {
 	 */
 	createdBefore?: string | undefined;
 	/**
-	 * @description A String contained in email, or the complete email, if param \"exact\" is true
+	 * @description A String contained in email, or the complete email, if param "exact" is true
 	 * @type string | undefined
 	 */
 	email?: string | undefined;
@@ -6887,7 +6887,7 @@ export type GETAdminRealmsRealmUsersQuery = {
 	 */
 	enabled?: boolean | undefined;
 	/**
-	 * @description Boolean which defines whether the params \"last\", \"first\", \"email\" and \"username\" must match exactly
+	 * @description Boolean which defines whether the params "last", "first", "email" and "username" must match exactly
 	 * @type boolean | undefined
 	 */
 	exact?: boolean | undefined;
@@ -6899,7 +6899,7 @@ export type GETAdminRealmsRealmUsersQuery = {
 	 */
 	first?: number | undefined;
 	/**
-	 * @description A String contained in firstName, or the complete firstName, if param \"exact\" is true
+	 * @description A String contained in firstName, or the complete firstName, if param "exact" is true
 	 * @type string | undefined
 	 */
 	firstName?: string | undefined;
@@ -6914,7 +6914,7 @@ export type GETAdminRealmsRealmUsersQuery = {
 	 */
 	idpUserId?: string | undefined;
 	/**
-	 * @description A String contained in lastName, or the complete lastName, if param \"exact\" is true
+	 * @description A String contained in lastName, or the complete lastName, if param "exact" is true
 	 * @type string | undefined
 	 */
 	lastName?: string | undefined;
@@ -6926,17 +6926,17 @@ export type GETAdminRealmsRealmUsersQuery = {
 	 */
 	max?: number | undefined;
 	/**
-	 * @description A query to search for custom attributes, in the format \'key1:value2 key2:value2\'
+	 * @description A query to search for custom attributes, in the format 'key1:value2 key2:value2'
 	 * @type string | undefined
 	 */
 	q?: string | undefined;
 	/**
-	 * @description A String contained in username, first or last name, or email. Default search behavior is prefix-based (e.g., foo or foo*). Use *foo* for infix search and \"foo\" for exact search.
+	 * @description A String contained in username, first or last name, or email. Default search behavior is prefix-based (e.g., foo or foo*). Use *foo* for infix search and "foo" for exact search.
 	 * @type string | undefined
 	 */
 	search?: string | undefined;
 	/**
-	 * @description A String contained in username, or the complete username, if param \"exact\" is true
+	 * @description A String contained in username, or the complete username, if param "exact" is true
 	 * @type string | undefined
 	 */
 	username?: string | undefined;
@@ -7087,7 +7087,7 @@ export type GETAdminRealmsRealmUsersCountQuery = {
 	 */
 	createdBefore?: string | undefined;
 	/**
-	 * @description A String contained in email, or the complete email, if param \"exact\" is true
+	 * @description A String contained in email, or the complete email, if param "exact" is true
 	 * @type string | undefined
 	 */
 	email?: string | undefined;
@@ -7102,12 +7102,12 @@ export type GETAdminRealmsRealmUsersCountQuery = {
 	 */
 	enabled?: boolean | undefined;
 	/**
-	 * @description Boolean which defines whether the params \"last\", \"first\", \"email\" and \"username\" must match exactly
+	 * @description Boolean which defines whether the params "last", "first", "email" and "username" must match exactly
 	 * @type boolean | undefined
 	 */
 	exact?: boolean | undefined;
 	/**
-	 * @description A String contained in firstName, or the complete firstName, if param \"exact\" is true
+	 * @description A String contained in firstName, or the complete firstName, if param "exact" is true
 	 * @type string | undefined
 	 */
 	firstName?: string | undefined;
@@ -7122,22 +7122,22 @@ export type GETAdminRealmsRealmUsersCountQuery = {
 	 */
 	idpUserId?: string | undefined;
 	/**
-	 * @description A String contained in lastName, or the complete lastName, if param \"exact\" is true
+	 * @description A String contained in lastName, or the complete lastName, if param "exact" is true
 	 * @type string | undefined
 	 */
 	lastName?: string | undefined;
 	/**
-	 * @description A query to search for custom attributes, in the format \'key1:value2 key2:value2\'
+	 * @description A query to search for custom attributes, in the format 'key1:value2 key2:value2'
 	 * @type string | undefined
 	 */
 	q?: string | undefined;
 	/**
-	 * @description A String contained in username, first or last name, or email. Default search behavior is prefix-based (e.g., foo or foo*). Use *foo* for infix search and \"foo\" for exact search.
+	 * @description A String contained in username, first or last name, or email. Default search behavior is prefix-based (e.g., foo or foo*). Use *foo* for infix search and "foo" for exact search.
 	 * @type string | undefined
 	 */
 	search?: string | undefined;
 	/**
-	 * @description A String contained in username, or the complete username, if param \"exact\" is true
+	 * @description A String contained in username, or the complete username, if param "exact" is true
 	 * @type string | undefined
 	 */
 	username?: string | undefined;
@@ -7269,7 +7269,7 @@ export type GETAdminRealmsRealmWorkflowsPath = {
 
 export type GETAdminRealmsRealmWorkflowsQuery = {
 	/**
-	 * @description Boolean which defines whether the param \'search\' must match exactly or not
+	 * @description Boolean which defines whether the param 'search' must match exactly or not
 	 * @type boolean | undefined
 	 */
 	exact?: boolean | undefined;
@@ -7528,7 +7528,7 @@ export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdPath = {
 
 export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdQuery = {
 	/**
-	 * @description Optional value representing the time to schedule the first workflow step. The value is either an integer representing the seconds from now, an integer followed by \'ms\' representing milliseconds from now, or an ISO-8601 date string.
+	 * @description Optional value representing the time to schedule the first workflow step. The value is either an integer representing the seconds from now, an integer followed by 'ms' representing milliseconds from now, or an ISO-8601 date string.
 	 * @type string | undefined
 	 */
 	notBefore?: string | undefined;
@@ -12212,7 +12212,7 @@ export type GETAdminRealmsRealmClientsClientUuidRolesRoleNamePath = {
 	 */
 	clientUuid: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -12255,7 +12255,7 @@ export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNamePath = {
 	 */
 	clientUuid: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -12306,7 +12306,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNamePath = {
 	 */
 	clientUuid: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -12352,7 +12352,7 @@ export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPath = {
 	 */
 	clientUuid: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -12396,7 +12396,7 @@ export type POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPath = {
 	 */
 	clientUuid: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -12443,7 +12443,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPath =
 	 */
 	clientUuid: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -12491,7 +12491,7 @@ export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesClientsTa
 		 */
 		clientUuid: string;
 		/**
-		 * @description role\'s name (not id!)
+		 * @description role's name (not id!)
 		 * @type string
 		 */
 		roleName: string;
@@ -12540,7 +12540,7 @@ export type GETAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesRealmPath
 	 */
 	clientUuid: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -13449,7 +13449,7 @@ export type GETAdminRealmsRealmGroupsGroupIdChildrenQuery = {
 	 */
 	briefRepresentation?: boolean | undefined;
 	/**
-	 * @description Boolean which defines whether the params \"search\" must match exactly or not
+	 * @description Boolean which defines whether the params "search" must match exactly or not
 	 * @type boolean | undefined
 	 */
 	exact?: boolean | undefined;
@@ -14540,7 +14540,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenPath = {
 
 export type GETAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenQuery = {
 	/**
-	 * @description Boolean which defines whether the params \"search\" must match exactly or not
+	 * @description Boolean which defines whether the params "search" must match exactly or not
 	 * @type boolean | undefined
 	 */
 	exact?: boolean | undefined;
@@ -15463,7 +15463,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasGroupsQue
 	 */
 	max?: number | undefined;
 	/**
-	 * @description A query to search for group attributes, in the format \'key1:value1 key2:value2\'
+	 * @description A query to search for group attributes, in the format 'key1:value1 key2:value2'
 	 * @type string | undefined
 	 */
 	q?: string | undefined;
@@ -15681,7 +15681,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdMembersQuery = {
 	 */
 	briefRepresentation?: boolean | undefined;
 	/**
-	 * @description Boolean which defines whether the param \'search\' must match exactly or not
+	 * @description Boolean which defines whether the param 'search' must match exactly or not
 	 * @type boolean | undefined
 	 */
 	exact?: boolean | undefined;
@@ -15707,7 +15707,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdMembersQuery = {
 	 */
 	membershipType?: string | undefined;
 	/**
-	 * @description A String representing either a member\'s username, e-mail, first name, or last name.
+	 * @description A String representing either a member's username, e-mail, first name, or last name.
 	 * @type string | undefined
 	 */
 	search?: string | undefined;
@@ -15831,8 +15831,14 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatu
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus500 = unknown;
 
+export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserBody =
+	| {
+			id?: string | undefined;
+	  }
+	| undefined;
+
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserOptions = {
-	body?: never | undefined;
+	body: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserBody;
 	path: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -15878,8 +15884,16 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus409 = u
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus500 = unknown;
 
+export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserBody =
+	| {
+			email?: string | undefined;
+			firstName?: string | undefined;
+			lastName?: string | undefined;
+	  }
+	| undefined;
+
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserOptions = {
-	body?: never | undefined;
+	body: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserBody;
 	path: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserPath;
 	query?: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserQuery | undefined;
 	headers?: never | undefined;
@@ -16485,7 +16499,7 @@ export type GETAdminRealmsRealmRolesRoleNamePath = {
 	 */
 	realm: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -16522,7 +16536,7 @@ export type PUTAdminRealmsRealmRolesRoleNamePath = {
 	 */
 	realm: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -16567,7 +16581,7 @@ export type DELETEAdminRealmsRealmRolesRoleNamePath = {
 	 */
 	realm: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -16608,7 +16622,7 @@ export type GETAdminRealmsRealmRolesRoleNameCompositesPath = {
 	 */
 	realm: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -16646,7 +16660,7 @@ export type POSTAdminRealmsRealmRolesRoleNameCompositesPath = {
 	 */
 	realm: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -16686,7 +16700,7 @@ export type DELETEAdminRealmsRealmRolesRoleNameCompositesPath = {
 	 */
 	realm: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -16726,7 +16740,7 @@ export type GETAdminRealmsRealmRolesRoleNameCompositesClientsTargetClientUuidPat
 	 */
 	realm: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
@@ -16766,7 +16780,7 @@ export type GETAdminRealmsRealmRolesRoleNameCompositesRealmPath = {
 	 */
 	realm: string;
 	/**
-	 * @description role\'s name (not id!)
+	 * @description role's name (not id!)
 	 * @type string
 	 */
 	roleName: string;
