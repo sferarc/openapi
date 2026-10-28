@@ -1,6 +1,6 @@
 import type { ResolverTs } from "@kubb/plugin-ts";
 import { File, Function as JSXFunction, type KubbReactNode } from "kubb/jsx";
-import type { ast } from "kubb/kit";
+import { ast } from "kubb/kit";
 
 type SchemaName = { name: string };
 
@@ -122,6 +122,20 @@ function buildParamObjectType(params: Param[], allOptional: boolean): string {
 
 const RAW_BODY_TYPE = "Blob | ArrayBuffer | Uint8Array | ReadableStream | string";
 
+const URL_ENCODED = "application/x-www-form-urlencoded";
+const MULTIPART = "multipart/form-data";
+
+function requestContentType(content: ast.ContentNode | undefined): string {
+	const declared = content?.contentType ?? "application/json";
+	if (declared !== URL_ENCODED || !content?.schema) return declared;
+	const binary = ast.findSchema(content.schema, {
+		predicate: (schema) => schema.type === "blob",
+		followRefs: true,
+	});
+	// A url-encoded body cannot carry a file, so a body with a binary field is sent as multipart.
+	return binary ? MULTIPART : declared;
+}
+
 type Props = {
 	name: string;
 	node: ast.HttpOperationNode;
@@ -134,9 +148,9 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	const headerParams = paramsAt(node, "header");
 
 	const requestBodyContent = node.requestBody?.content?.[0];
-	const contentType = requestBodyContent?.contentType ?? "application/json";
-	const isFormData = contentType === "multipart/form-data";
-	const isUrlEncoded = contentType === "application/x-www-form-urlencoded";
+	const contentType = requestContentType(requestBodyContent);
+	const isFormData = contentType === MULTIPART;
+	const isUrlEncoded = contentType === URL_ENCODED;
 	const hasBody = Boolean(typeSchemas.request);
 	const isRawBody = hasBody && !isFormData && !isUrlEncoded && contentType !== "application/json";
 
@@ -223,6 +237,7 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 \t\tfor (const [key, value] of Object.entries(body as Record<string, unknown>)) {
 \t\t\tfor (const item of Array.isArray(value) ? value : [value]) {
 \t\t\t\tif (item == null) continue;
+\t\t\t\tif (item instanceof Blob) throw new Error(\`Cannot send the file in field \${key} as application/x-www-form-urlencoded\`);
 \t\t\t\tform.append(key, typeof item === "object" ? JSON.stringify(item) : String(item));
 \t\t\t}
 \t\t}

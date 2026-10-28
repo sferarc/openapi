@@ -104,6 +104,26 @@
 				}
 			}
 		},
+		"/orgs/{org}/logos": {
+			"post": {
+				"operationId": "uploadLogo",
+				"tags": ["members"],
+				"parameters": [
+					{ "name": "org", "in": "path", "required": true, "schema": { "type": "string" } }
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": { "$ref": "#/components/schemas/LogoFile" }
+						}
+					}
+				},
+				"responses": {
+					"204": { "description": "Uploaded" }
+				}
+			}
+		},
 		"/health": {
 			"get": {
 				"operationId": "getHealth",
@@ -117,6 +137,17 @@
 							}
 						}
 					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"LogoFile": {
+				"type": "object",
+				"properties": {
+					"image": { "type": "string", "format": "binary" },
+					"tag": { "type": "string" }
 				}
 			}
 		}
