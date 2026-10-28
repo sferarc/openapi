@@ -6997,6 +6997,7 @@ import type {
 	PostAccountsAccountIdBrandProtectionBrandsStatus404,
 	PostAccountsAccountIdBrandProtectionBrandsStatus429,
 	PostAccountsAccountIdBrandProtectionBrandsStatus500,
+	PostAccountsAccountIdBrandProtectionLogosBody,
 	PostAccountsAccountIdBrandProtectionLogosResponse,
 	PostAccountsAccountIdBrandProtectionLogosStatus400,
 	PostAccountsAccountIdBrandProtectionLogosStatus403,
@@ -60408,10 +60409,12 @@ export async function getAccountsAccountIdBrandProtectionLogos(
 export async function postAccountsAccountIdBrandProtectionLogos(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: { accountId: string };
+		body: PostAccountsAccountIdBrandProtectionLogosBody;
 		queryParams?: { tag?: string; match_type?: string; threshold?: number };
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -60420,6 +60423,24 @@ export async function postAccountsAccountIdBrandProtectionLogos(
 
 	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
 		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const formData = new FormData();
+	if (body) {
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
+			}
+		}
 	}
 	const data = await request<
 		PostAccountsAccountIdBrandProtectionLogosResponse,
@@ -60431,7 +60452,7 @@ export async function postAccountsAccountIdBrandProtectionLogos(
 			| PostAccountsAccountIdBrandProtectionLogosStatus429
 			| PostAccountsAccountIdBrandProtectionLogosStatus500
 		>,
-		null,
+		FormData,
 		Record<string, string>,
 		{ tag?: string; match_type?: string; threshold?: number },
 		{ accountId: string }
@@ -60439,8 +60460,9 @@ export async function postAccountsAccountIdBrandProtectionLogos(
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/brand-protection/logos`,
 		queryParams,
+		body: formData,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "multipart/form-data", ...requestConfig.headers },
 	});
 
 	return data;
@@ -164705,7 +164727,8 @@ export async function aiSecurityCustomTopicsGet(
  * rules apply:
  * - A zone can hold at most 20 topics.
  * - `label` must be 2–20 characters, using only lowercase letters (a–z), digits (0–9), and hyphens.
- * - `topic` must be 2–50 printable ASCII characters.
+ * - `topic` must be 2–50 UTF-8 bytes. Text in any language is supported, including spaces, numbers,
+ *   punctuation, and symbols. Tabs, line breaks, invalid text, and invisible formatting characters are not allowed.
  * - Labels must be unique within the zone, and so must topic descriptions.
  * @link /zones/{zoneId}/ai-security/custom-topics
  */
