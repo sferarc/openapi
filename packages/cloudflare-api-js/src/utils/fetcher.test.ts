@@ -120,6 +120,15 @@ describe("fetcher", () => {
 		it("encodes reserved characters and spaces", async () => {
 			expect(await searchOf({ q: "a&b c" })).toBe("?q=a%26b+c");
 		});
+
+		it("sends an object as one key per property", async () => {
+			expect(
+				await searchOf({
+					start_end_params: { start: "2021-04-01", end: "2021-04-30", skip: undefined },
+					ipv4: "1.1.1.1",
+				}),
+			).toBe("?start=2021-04-01&end=2021-04-30&ipv4=1.1.1.1");
+		});
 	});
 });
 
