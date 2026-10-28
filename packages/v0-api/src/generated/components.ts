@@ -16,6 +16,7 @@ import type {
 	ChatsCreateStatus422,
 	ChatsCreateStatus429,
 	ChatsCreateStatus500,
+	ChatsDeletePath,
 	ChatsDeleteResponse,
 	ChatsDeleteStatus401,
 	ChatsDeleteStatus403,
@@ -26,6 +27,7 @@ import type {
 	ChatsDeleteStatus429,
 	ChatsDeleteStatus500,
 	ChatsDeleteVersionFilesBody,
+	ChatsDeleteVersionFilesPath,
 	ChatsDeleteVersionFilesResponse,
 	ChatsDeleteVersionFilesStatus401,
 	ChatsDeleteVersionFilesStatus403,
@@ -35,6 +37,8 @@ import type {
 	ChatsDeleteVersionFilesStatus422,
 	ChatsDeleteVersionFilesStatus429,
 	ChatsDeleteVersionFilesStatus500,
+	ChatsDownloadVersionPath,
+	ChatsDownloadVersionQuery,
 	ChatsDownloadVersionResponse,
 	ChatsDownloadVersionStatus401,
 	ChatsDownloadVersionStatus403,
@@ -45,6 +49,7 @@ import type {
 	ChatsDownloadVersionStatus429,
 	ChatsDownloadVersionStatus500,
 	ChatsFavoriteBody,
+	ChatsFavoritePath,
 	ChatsFavoriteResponse,
 	ChatsFavoriteStatus401,
 	ChatsFavoriteStatus403,
@@ -54,6 +59,8 @@ import type {
 	ChatsFavoriteStatus422,
 	ChatsFavoriteStatus429,
 	ChatsFavoriteStatus500,
+	ChatsFindMessagesPath,
+	ChatsFindMessagesQuery,
 	ChatsFindMessagesResponse,
 	ChatsFindMessagesStatus401,
 	ChatsFindMessagesStatus403,
@@ -63,6 +70,7 @@ import type {
 	ChatsFindMessagesStatus422,
 	ChatsFindMessagesStatus429,
 	ChatsFindMessagesStatus500,
+	ChatsFindQuery,
 	ChatsFindResponse,
 	ChatsFindStatus401,
 	ChatsFindStatus403,
@@ -72,6 +80,8 @@ import type {
 	ChatsFindStatus422,
 	ChatsFindStatus429,
 	ChatsFindStatus500,
+	ChatsFindVersionsPath,
+	ChatsFindVersionsQuery,
 	ChatsFindVersionsResponse,
 	ChatsFindVersionsStatus401,
 	ChatsFindVersionsStatus403,
@@ -82,6 +92,7 @@ import type {
 	ChatsFindVersionsStatus429,
 	ChatsFindVersionsStatus500,
 	ChatsForkBody,
+	ChatsForkPath,
 	ChatsForkResponse,
 	ChatsForkStatus401,
 	ChatsForkStatus403,
@@ -91,6 +102,7 @@ import type {
 	ChatsForkStatus422,
 	ChatsForkStatus429,
 	ChatsForkStatus500,
+	ChatsGetByIdPath,
 	ChatsGetByIdResponse,
 	ChatsGetByIdStatus401,
 	ChatsGetByIdStatus403,
@@ -100,6 +112,7 @@ import type {
 	ChatsGetByIdStatus422,
 	ChatsGetByIdStatus429,
 	ChatsGetByIdStatus500,
+	ChatsGetMessagePath,
 	ChatsGetMessageResponse,
 	ChatsGetMessageStatus401,
 	ChatsGetMessageStatus403,
@@ -109,6 +122,8 @@ import type {
 	ChatsGetMessageStatus422,
 	ChatsGetMessageStatus429,
 	ChatsGetMessageStatus500,
+	ChatsGetVersionPath,
+	ChatsGetVersionQuery,
 	ChatsGetVersionResponse,
 	ChatsGetVersionStatus401,
 	ChatsGetVersionStatus403,
@@ -129,6 +144,7 @@ import type {
 	ChatsInitStatus429,
 	ChatsInitStatus500,
 	ChatsResolveTaskBody,
+	ChatsResolveTaskPath,
 	ChatsResolveTaskResponse,
 	ChatsResolveTaskStatus401,
 	ChatsResolveTaskStatus403,
@@ -138,6 +154,7 @@ import type {
 	ChatsResolveTaskStatus422,
 	ChatsResolveTaskStatus429,
 	ChatsResolveTaskStatus500,
+	ChatsRestorePath,
 	ChatsRestoreResponse,
 	ChatsRestoreStatus401,
 	ChatsRestoreStatus403,
@@ -147,6 +164,7 @@ import type {
 	ChatsRestoreStatus422,
 	ChatsRestoreStatus429,
 	ChatsRestoreStatus500,
+	ChatsResumePath,
 	ChatsResumeResponse,
 	ChatsResumeStatus401,
 	ChatsResumeStatus403,
@@ -157,6 +175,7 @@ import type {
 	ChatsResumeStatus429,
 	ChatsResumeStatus500,
 	ChatsSendMessageBody,
+	ChatsSendMessagePath,
 	ChatsSendMessageResponse,
 	ChatsSendMessageStatus401,
 	ChatsSendMessageStatus403,
@@ -166,6 +185,7 @@ import type {
 	ChatsSendMessageStatus422,
 	ChatsSendMessageStatus429,
 	ChatsSendMessageStatus500,
+	ChatsStopPath,
 	ChatsStopResponse,
 	ChatsStopStatus401,
 	ChatsStopStatus403,
@@ -176,6 +196,7 @@ import type {
 	ChatsStopStatus429,
 	ChatsStopStatus500,
 	ChatsUpdateBody,
+	ChatsUpdatePath,
 	ChatsUpdateResponse,
 	ChatsUpdateStatus401,
 	ChatsUpdateStatus403,
@@ -186,6 +207,7 @@ import type {
 	ChatsUpdateStatus429,
 	ChatsUpdateStatus500,
 	ChatsUpdateVersionBody,
+	ChatsUpdateVersionPath,
 	ChatsUpdateVersionResponse,
 	ChatsUpdateVersionStatus401,
 	ChatsUpdateVersionStatus403,
@@ -205,6 +227,7 @@ import type {
 	DeploymentsCreateStatus422,
 	DeploymentsCreateStatus429,
 	DeploymentsCreateStatus500,
+	DeploymentsDeletePath,
 	DeploymentsDeleteResponse,
 	DeploymentsDeleteStatus401,
 	DeploymentsDeleteStatus403,
@@ -214,6 +237,7 @@ import type {
 	DeploymentsDeleteStatus422,
 	DeploymentsDeleteStatus429,
 	DeploymentsDeleteStatus500,
+	DeploymentsFindErrorsPath,
 	DeploymentsFindErrorsResponse,
 	DeploymentsFindErrorsStatus401,
 	DeploymentsFindErrorsStatus403,
@@ -223,6 +247,8 @@ import type {
 	DeploymentsFindErrorsStatus422,
 	DeploymentsFindErrorsStatus429,
 	DeploymentsFindErrorsStatus500,
+	DeploymentsFindLogsPath,
+	DeploymentsFindLogsQuery,
 	DeploymentsFindLogsResponse,
 	DeploymentsFindLogsStatus401,
 	DeploymentsFindLogsStatus403,
@@ -232,6 +258,7 @@ import type {
 	DeploymentsFindLogsStatus422,
 	DeploymentsFindLogsStatus429,
 	DeploymentsFindLogsStatus500,
+	DeploymentsFindQuery,
 	DeploymentsFindResponse,
 	DeploymentsFindStatus401,
 	DeploymentsFindStatus403,
@@ -241,6 +268,7 @@ import type {
 	DeploymentsFindStatus422,
 	DeploymentsFindStatus429,
 	DeploymentsFindStatus500,
+	DeploymentsGetByIdPath,
 	DeploymentsGetByIdResponse,
 	DeploymentsGetByIdStatus401,
 	DeploymentsGetByIdStatus403,
@@ -260,6 +288,7 @@ import type {
 	HooksCreateStatus422,
 	HooksCreateStatus429,
 	HooksCreateStatus500,
+	HooksDeletePath,
 	HooksDeleteResponse,
 	HooksDeleteStatus401,
 	HooksDeleteStatus403,
@@ -278,6 +307,7 @@ import type {
 	HooksFindStatus422,
 	HooksFindStatus429,
 	HooksFindStatus500,
+	HooksGetByIdPath,
 	HooksGetByIdResponse,
 	HooksGetByIdStatus401,
 	HooksGetByIdStatus403,
@@ -288,6 +318,7 @@ import type {
 	HooksGetByIdStatus429,
 	HooksGetByIdStatus500,
 	HooksUpdateBody,
+	HooksUpdatePath,
 	HooksUpdateResponse,
 	HooksUpdateStatus401,
 	HooksUpdateStatus403,
@@ -318,6 +349,7 @@ import type {
 	IntegrationsVercelProjectsFindStatus500,
 	McpServersCreateBody,
 	McpServersCreateOAuthAuthorizationUrlBody,
+	McpServersCreateOAuthAuthorizationUrlPath,
 	McpServersCreateOAuthAuthorizationUrlResponse,
 	McpServersCreateOAuthAuthorizationUrlStatus401,
 	McpServersCreateOAuthAuthorizationUrlStatus403,
@@ -336,6 +368,7 @@ import type {
 	McpServersCreateStatus422,
 	McpServersCreateStatus429,
 	McpServersCreateStatus500,
+	McpServersDeletePath,
 	McpServersDeleteResponse,
 	McpServersDeleteStatus401,
 	McpServersDeleteStatus403,
@@ -354,6 +387,7 @@ import type {
 	McpServersFindStatus422,
 	McpServersFindStatus429,
 	McpServersFindStatus500,
+	McpServersGetByIdPath,
 	McpServersGetByIdResponse,
 	McpServersGetByIdStatus401,
 	McpServersGetByIdStatus403,
@@ -364,6 +398,7 @@ import type {
 	McpServersGetByIdStatus429,
 	McpServersGetByIdStatus500,
 	McpServersUpdateBody,
+	McpServersUpdatePath,
 	McpServersUpdateResponse,
 	McpServersUpdateStatus401,
 	McpServersUpdateStatus403,
@@ -374,6 +409,7 @@ import type {
 	McpServersUpdateStatus429,
 	McpServersUpdateStatus500,
 	ProjectsAssignBody,
+	ProjectsAssignPath,
 	ProjectsAssignResponse,
 	ProjectsAssignStatus401,
 	ProjectsAssignStatus403,
@@ -385,6 +421,8 @@ import type {
 	ProjectsAssignStatus500,
 	ProjectsCreateBody,
 	ProjectsCreateEnvVarsBody,
+	ProjectsCreateEnvVarsPath,
+	ProjectsCreateEnvVarsQuery,
 	ProjectsCreateEnvVarsResponse,
 	ProjectsCreateEnvVarsStatus401,
 	ProjectsCreateEnvVarsStatus403,
@@ -404,6 +442,7 @@ import type {
 	ProjectsCreateStatus429,
 	ProjectsCreateStatus500,
 	ProjectsDeleteEnvVarsBody,
+	ProjectsDeleteEnvVarsPath,
 	ProjectsDeleteEnvVarsResponse,
 	ProjectsDeleteEnvVarsStatus401,
 	ProjectsDeleteEnvVarsStatus403,
@@ -413,6 +452,8 @@ import type {
 	ProjectsDeleteEnvVarsStatus422,
 	ProjectsDeleteEnvVarsStatus429,
 	ProjectsDeleteEnvVarsStatus500,
+	ProjectsDeletePath,
+	ProjectsDeleteQuery,
 	ProjectsDeleteResponse,
 	ProjectsDeleteStatus401,
 	ProjectsDeleteStatus403,
@@ -422,6 +463,8 @@ import type {
 	ProjectsDeleteStatus422,
 	ProjectsDeleteStatus429,
 	ProjectsDeleteStatus500,
+	ProjectsFindEnvVarsPath,
+	ProjectsFindEnvVarsQuery,
 	ProjectsFindEnvVarsResponse,
 	ProjectsFindEnvVarsStatus401,
 	ProjectsFindEnvVarsStatus403,
@@ -440,6 +483,7 @@ import type {
 	ProjectsFindStatus422,
 	ProjectsFindStatus429,
 	ProjectsFindStatus500,
+	ProjectsGetByChatIdPath,
 	ProjectsGetByChatIdResponse,
 	ProjectsGetByChatIdStatus401,
 	ProjectsGetByChatIdStatus403,
@@ -449,6 +493,7 @@ import type {
 	ProjectsGetByChatIdStatus422,
 	ProjectsGetByChatIdStatus429,
 	ProjectsGetByChatIdStatus500,
+	ProjectsGetByIdPath,
 	ProjectsGetByIdResponse,
 	ProjectsGetByIdStatus401,
 	ProjectsGetByIdStatus403,
@@ -458,6 +503,8 @@ import type {
 	ProjectsGetByIdStatus422,
 	ProjectsGetByIdStatus429,
 	ProjectsGetByIdStatus500,
+	ProjectsGetEnvVarPath,
+	ProjectsGetEnvVarQuery,
 	ProjectsGetEnvVarResponse,
 	ProjectsGetEnvVarStatus401,
 	ProjectsGetEnvVarStatus403,
@@ -469,6 +516,8 @@ import type {
 	ProjectsGetEnvVarStatus500,
 	ProjectsUpdateBody,
 	ProjectsUpdateEnvVarsBody,
+	ProjectsUpdateEnvVarsPath,
+	ProjectsUpdateEnvVarsQuery,
 	ProjectsUpdateEnvVarsResponse,
 	ProjectsUpdateEnvVarsStatus401,
 	ProjectsUpdateEnvVarsStatus403,
@@ -478,6 +527,7 @@ import type {
 	ProjectsUpdateEnvVarsStatus422,
 	ProjectsUpdateEnvVarsStatus429,
 	ProjectsUpdateEnvVarsStatus500,
+	ProjectsUpdatePath,
 	ProjectsUpdateResponse,
 	ProjectsUpdateStatus401,
 	ProjectsUpdateStatus403,
@@ -487,6 +537,7 @@ import type {
 	ProjectsUpdateStatus422,
 	ProjectsUpdateStatus429,
 	ProjectsUpdateStatus500,
+	RateLimitsFindQuery,
 	RateLimitsFindResponse,
 	RateLimitsFindStatus401,
 	RateLimitsFindStatus403,
@@ -496,6 +547,7 @@ import type {
 	RateLimitsFindStatus422,
 	RateLimitsFindStatus429,
 	RateLimitsFindStatus500,
+	ReportsGetAIUsageQuery,
 	ReportsGetAIUsageResponse,
 	ReportsGetAIUsageStatus401,
 	ReportsGetAIUsageStatus403,
@@ -505,6 +557,7 @@ import type {
 	ReportsGetAIUsageStatus422,
 	ReportsGetAIUsageStatus429,
 	ReportsGetAIUsageStatus500,
+	ReportsGetUsageQuery,
 	ReportsGetUsageResponse,
 	ReportsGetUsageStatus401,
 	ReportsGetUsageStatus403,
@@ -514,6 +567,7 @@ import type {
 	ReportsGetUsageStatus422,
 	ReportsGetUsageStatus429,
 	ReportsGetUsageStatus500,
+	ReportsGetUserActivityQuery,
 	ReportsGetUserActivityResponse,
 	ReportsGetUserActivityStatus401,
 	ReportsGetUserActivityStatus403,
@@ -523,6 +577,7 @@ import type {
 	ReportsGetUserActivityStatus422,
 	ReportsGetUserActivityStatus429,
 	ReportsGetUserActivityStatus500,
+	UserGetBillingQuery,
 	UserGetBillingResponse,
 	UserGetBillingStatus401,
 	UserGetBillingStatus403,
@@ -614,14 +669,7 @@ export async function chatsFind(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			limit?: number;
-			offset?: number;
-			isFavorite?: "true" | "false";
-			vercelProjectId?: string;
-			branch?: string;
-			metadata?: unknown;
-		};
+		queryParams?: Partial<ChatsFindQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -641,14 +689,7 @@ export async function chatsFind(
 		>,
 		null,
 		Record<string, string>,
-		{
-			limit?: number;
-			offset?: number;
-			isFavorite?: "true" | "false";
-			vercelProjectId?: string;
-			branch?: string;
-			metadata?: unknown;
-		},
+		Partial<ChatsFindQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -714,7 +755,7 @@ export async function chatsDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { chatId: string };
+		pathParams: ChatsDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -738,7 +779,7 @@ export async function chatsDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string }
+		ChatsDeletePath
 	>({
 		method: "DELETE",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}`,
@@ -759,7 +800,7 @@ export async function chatsGetById(
 		pathParams,
 		config,
 	}: {
-		pathParams: { chatId: string };
+		pathParams: ChatsGetByIdPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -783,7 +824,7 @@ export async function chatsGetById(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string }
+		ChatsGetByIdPath
 	>({
 		method: "GET",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}`,
@@ -805,7 +846,7 @@ export async function chatsUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { chatId: string };
+		pathParams: ChatsUpdatePath;
 		body: ChatsUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -830,7 +871,7 @@ export async function chatsUpdate(
 		ChatsUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string }
+		ChatsUpdatePath
 	>({
 		method: "PATCH",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}`,
@@ -853,7 +894,7 @@ export async function chatsFavorite(
 		body,
 		config,
 	}: {
-		pathParams: { chatId: string };
+		pathParams: ChatsFavoritePath;
 		body: ChatsFavoriteBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -878,7 +919,7 @@ export async function chatsFavorite(
 		ChatsFavoriteBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string }
+		ChatsFavoritePath
 	>({
 		method: "PUT",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/favorite`,
@@ -901,7 +942,7 @@ export async function chatsFork(
 		body,
 		config,
 	}: {
-		pathParams: { chatId: string };
+		pathParams: ChatsForkPath;
 		body: ChatsForkBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -926,7 +967,7 @@ export async function chatsFork(
 		ChatsForkBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string }
+		ChatsForkPath
 	>({
 		method: "POST",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/fork`,
@@ -948,7 +989,7 @@ export async function projectsGetByChatId(
 		pathParams,
 		config,
 	}: {
-		pathParams: { chatId: string };
+		pathParams: ProjectsGetByChatIdPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -972,7 +1013,7 @@ export async function projectsGetByChatId(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string }
+		ProjectsGetByChatIdPath
 	>({
 		method: "GET",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/project`,
@@ -994,8 +1035,8 @@ export async function chatsFindMessages(
 		queryParams,
 		config,
 	}: {
-		pathParams: { chatId: string };
-		queryParams?: { limit?: number; cursor?: string };
+		pathParams: ChatsFindMessagesPath;
+		queryParams?: Partial<ChatsFindMessagesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1018,8 +1059,8 @@ export async function chatsFindMessages(
 		>,
 		null,
 		Record<string, string>,
-		{ limit?: number; cursor?: string },
-		{ chatId: string }
+		Partial<ChatsFindMessagesQuery>,
+		ChatsFindMessagesPath
 	>({
 		method: "GET",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/messages`,
@@ -1042,7 +1083,7 @@ export async function chatsSendMessage(
 		body,
 		config,
 	}: {
-		pathParams: { chatId: string };
+		pathParams: ChatsSendMessagePath;
 		body: ChatsSendMessageBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1067,7 +1108,7 @@ export async function chatsSendMessage(
 		ChatsSendMessageBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string }
+		ChatsSendMessagePath
 	>({
 		method: "POST",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/messages`,
@@ -1089,7 +1130,7 @@ export async function chatsGetMessage(
 		pathParams,
 		config,
 	}: {
-		pathParams: { chatId: string; messageId: string };
+		pathParams: ChatsGetMessagePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1117,7 +1158,7 @@ export async function chatsGetMessage(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string; messageId: string }
+		ChatsGetMessagePath
 	>({
 		method: "GET",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/messages/${encodeURIComponent(String(pathParams.messageId))}`,
@@ -1139,8 +1180,8 @@ export async function chatsFindVersions(
 		queryParams,
 		config,
 	}: {
-		pathParams: { chatId: string };
-		queryParams?: { limit?: number; cursor?: string };
+		pathParams: ChatsFindVersionsPath;
+		queryParams?: Partial<ChatsFindVersionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1163,8 +1204,8 @@ export async function chatsFindVersions(
 		>,
 		null,
 		Record<string, string>,
-		{ limit?: number; cursor?: string },
-		{ chatId: string }
+		Partial<ChatsFindVersionsQuery>,
+		ChatsFindVersionsPath
 	>({
 		method: "GET",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions`,
@@ -1187,8 +1228,8 @@ export async function chatsGetVersion(
 		queryParams,
 		config,
 	}: {
-		pathParams: { chatId: string; versionId: string };
-		queryParams?: { includeDefaultFiles?: "true" | "false" };
+		pathParams: ChatsGetVersionPath;
+		queryParams?: Partial<ChatsGetVersionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1215,8 +1256,8 @@ export async function chatsGetVersion(
 		>,
 		null,
 		Record<string, string>,
-		{ includeDefaultFiles?: "true" | "false" },
-		{ chatId: string; versionId: string }
+		Partial<ChatsGetVersionQuery>,
+		ChatsGetVersionPath
 	>({
 		method: "GET",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}`,
@@ -1239,7 +1280,7 @@ export async function chatsUpdateVersion(
 		body,
 		config,
 	}: {
-		pathParams: { chatId: string; versionId: string };
+		pathParams: ChatsUpdateVersionPath;
 		body: ChatsUpdateVersionBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1268,7 +1309,7 @@ export async function chatsUpdateVersion(
 		ChatsUpdateVersionBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string; versionId: string }
+		ChatsUpdateVersionPath
 	>({
 		method: "PATCH",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}`,
@@ -1291,8 +1332,8 @@ export async function chatsDownloadVersion(
 		queryParams,
 		config,
 	}: {
-		pathParams: { chatId: string; versionId: string };
-		queryParams?: { format?: "zip" | "tarball"; includeDefaultFiles?: "true" | "false" };
+		pathParams: ChatsDownloadVersionPath;
+		queryParams?: Partial<ChatsDownloadVersionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1319,8 +1360,8 @@ export async function chatsDownloadVersion(
 		>,
 		null,
 		Record<string, string>,
-		{ format?: "zip" | "tarball"; includeDefaultFiles?: "true" | "false" },
-		{ chatId: string; versionId: string }
+		Partial<ChatsDownloadVersionQuery>,
+		ChatsDownloadVersionPath
 	>({
 		method: "GET",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}/download`,
@@ -1343,7 +1384,7 @@ export async function chatsDeleteVersionFiles(
 		body,
 		config,
 	}: {
-		pathParams: { chatId: string; versionId: string };
+		pathParams: ChatsDeleteVersionFilesPath;
 		body: ChatsDeleteVersionFilesBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1372,7 +1413,7 @@ export async function chatsDeleteVersionFiles(
 		ChatsDeleteVersionFilesBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string; versionId: string }
+		ChatsDeleteVersionFilesPath
 	>({
 		method: "POST",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}/files/delete`,
@@ -1394,7 +1435,7 @@ export async function chatsResume(
 		pathParams,
 		config,
 	}: {
-		pathParams: { chatId: string; messageId: string };
+		pathParams: ChatsResumePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1422,7 +1463,7 @@ export async function chatsResume(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string; messageId: string }
+		ChatsResumePath
 	>({
 		method: "POST",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/messages/${encodeURIComponent(String(pathParams.messageId))}/resume`,
@@ -1443,7 +1484,7 @@ export async function chatsStop(
 		pathParams,
 		config,
 	}: {
-		pathParams: { chatId: string; messageId: string };
+		pathParams: ChatsStopPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1471,7 +1512,7 @@ export async function chatsStop(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string; messageId: string }
+		ChatsStopPath
 	>({
 		method: "POST",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/messages/${encodeURIComponent(String(pathParams.messageId))}/stop`,
@@ -1493,7 +1534,7 @@ export async function chatsResolveTask(
 		body,
 		config,
 	}: {
-		pathParams: { chatId: string };
+		pathParams: ChatsResolveTaskPath;
 		body: ChatsResolveTaskBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1518,7 +1559,7 @@ export async function chatsResolveTask(
 		ChatsResolveTaskBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string }
+		ChatsResolveTaskPath
 	>({
 		method: "POST",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/tasks/resolve`,
@@ -1540,7 +1581,7 @@ export async function deploymentsFind(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { projectId?: string; chatId?: string; versionId?: string };
+		queryParams?: Partial<DeploymentsFindQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1560,7 +1601,7 @@ export async function deploymentsFind(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; chatId?: string; versionId?: string },
+		Partial<DeploymentsFindQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -1626,7 +1667,7 @@ export async function deploymentsGetById(
 		pathParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string };
+		pathParams: DeploymentsGetByIdPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1650,7 +1691,7 @@ export async function deploymentsGetById(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ deploymentId: string }
+		DeploymentsGetByIdPath
 	>({
 		method: "GET",
 		url: `/deployments/${encodeURIComponent(String(pathParams.deploymentId))}`,
@@ -1671,7 +1712,7 @@ export async function deploymentsDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string };
+		pathParams: DeploymentsDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1695,7 +1736,7 @@ export async function deploymentsDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ deploymentId: string }
+		DeploymentsDeletePath
 	>({
 		method: "DELETE",
 		url: `/deployments/${encodeURIComponent(String(pathParams.deploymentId))}`,
@@ -1717,8 +1758,8 @@ export async function deploymentsFindLogs(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string };
-		queryParams?: { since?: number };
+		pathParams: DeploymentsFindLogsPath;
+		queryParams?: Partial<DeploymentsFindLogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1741,8 +1782,8 @@ export async function deploymentsFindLogs(
 		>,
 		null,
 		Record<string, string>,
-		{ since?: number },
-		{ deploymentId: string }
+		Partial<DeploymentsFindLogsQuery>,
+		DeploymentsFindLogsPath
 	>({
 		method: "GET",
 		url: `/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/logs`,
@@ -1764,7 +1805,7 @@ export async function deploymentsFindErrors(
 		pathParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string };
+		pathParams: DeploymentsFindErrorsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1788,7 +1829,7 @@ export async function deploymentsFindErrors(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ deploymentId: string }
+		DeploymentsFindErrorsPath
 	>({
 		method: "GET",
 		url: `/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/errors`,
@@ -1888,7 +1929,7 @@ export async function hooksGetById(
 		pathParams,
 		config,
 	}: {
-		pathParams: { hookId: string };
+		pathParams: HooksGetByIdPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1912,7 +1953,7 @@ export async function hooksGetById(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ hookId: string }
+		HooksGetByIdPath
 	>({
 		method: "GET",
 		url: `/hooks/${encodeURIComponent(String(pathParams.hookId))}`,
@@ -1934,7 +1975,7 @@ export async function hooksUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { hookId: string };
+		pathParams: HooksUpdatePath;
 		body: HooksUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1959,7 +2000,7 @@ export async function hooksUpdate(
 		HooksUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ hookId: string }
+		HooksUpdatePath
 	>({
 		method: "PATCH",
 		url: `/hooks/${encodeURIComponent(String(pathParams.hookId))}`,
@@ -1981,7 +2022,7 @@ export async function hooksDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { hookId: string };
+		pathParams: HooksDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2005,7 +2046,7 @@ export async function hooksDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ hookId: string }
+		HooksDeletePath
 	>({
 		method: "DELETE",
 		url: `/hooks/${encodeURIComponent(String(pathParams.hookId))}`,
@@ -2184,7 +2225,7 @@ export async function projectsGetById(
 		pathParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
+		pathParams: ProjectsGetByIdPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2208,7 +2249,7 @@ export async function projectsGetById(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ projectId: string }
+		ProjectsGetByIdPath
 	>({
 		method: "GET",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}`,
@@ -2230,7 +2271,7 @@ export async function projectsUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { projectId: string };
+		pathParams: ProjectsUpdatePath;
 		body: ProjectsUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2255,7 +2296,7 @@ export async function projectsUpdate(
 		ProjectsUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ projectId: string }
+		ProjectsUpdatePath
 	>({
 		method: "PATCH",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}`,
@@ -2278,8 +2319,8 @@ export async function projectsDelete(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
-		queryParams?: { deleteAllChats?: "true" | "false" };
+		pathParams: ProjectsDeletePath;
+		queryParams?: Partial<ProjectsDeleteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2302,8 +2343,8 @@ export async function projectsDelete(
 		>,
 		null,
 		Record<string, string>,
-		{ deleteAllChats?: "true" | "false" },
-		{ projectId: string }
+		Partial<ProjectsDeleteQuery>,
+		ProjectsDeletePath
 	>({
 		method: "DELETE",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}`,
@@ -2326,7 +2367,7 @@ export async function projectsAssign(
 		body,
 		config,
 	}: {
-		pathParams: { projectId: string };
+		pathParams: ProjectsAssignPath;
 		body: ProjectsAssignBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2351,7 +2392,7 @@ export async function projectsAssign(
 		ProjectsAssignBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ projectId: string }
+		ProjectsAssignPath
 	>({
 		method: "POST",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/assign`,
@@ -2374,8 +2415,8 @@ export async function projectsFindEnvVars(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
-		queryParams?: { decrypted?: "true" | "false" };
+		pathParams: ProjectsFindEnvVarsPath;
+		queryParams?: Partial<ProjectsFindEnvVarsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2398,8 +2439,8 @@ export async function projectsFindEnvVars(
 		>,
 		null,
 		Record<string, string>,
-		{ decrypted?: "true" | "false" },
-		{ projectId: string }
+		Partial<ProjectsFindEnvVarsQuery>,
+		ProjectsFindEnvVarsPath
 	>({
 		method: "GET",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars`,
@@ -2423,9 +2464,9 @@ export async function projectsCreateEnvVars(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
+		pathParams: ProjectsCreateEnvVarsPath;
 		body: ProjectsCreateEnvVarsBody;
-		queryParams?: { decrypted?: "true" | "false" };
+		queryParams?: Partial<ProjectsCreateEnvVarsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2448,8 +2489,8 @@ export async function projectsCreateEnvVars(
 		>,
 		ProjectsCreateEnvVarsBody,
 		Record<string, string>,
-		{ decrypted?: "true" | "false" },
-		{ projectId: string }
+		Partial<ProjectsCreateEnvVarsQuery>,
+		ProjectsCreateEnvVarsPath
 	>({
 		method: "POST",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars`,
@@ -2474,9 +2515,9 @@ export async function projectsUpdateEnvVars(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
+		pathParams: ProjectsUpdateEnvVarsPath;
 		body: ProjectsUpdateEnvVarsBody;
-		queryParams?: { decrypted?: "true" | "false" };
+		queryParams?: Partial<ProjectsUpdateEnvVarsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2499,8 +2540,8 @@ export async function projectsUpdateEnvVars(
 		>,
 		ProjectsUpdateEnvVarsBody,
 		Record<string, string>,
-		{ decrypted?: "true" | "false" },
-		{ projectId: string }
+		Partial<ProjectsUpdateEnvVarsQuery>,
+		ProjectsUpdateEnvVarsPath
 	>({
 		method: "PATCH",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars`,
@@ -2524,7 +2565,7 @@ export async function projectsDeleteEnvVars(
 		body,
 		config,
 	}: {
-		pathParams: { projectId: string };
+		pathParams: ProjectsDeleteEnvVarsPath;
 		body: ProjectsDeleteEnvVarsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2549,7 +2590,7 @@ export async function projectsDeleteEnvVars(
 		ProjectsDeleteEnvVarsBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ projectId: string }
+		ProjectsDeleteEnvVarsPath
 	>({
 		method: "POST",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars/delete`,
@@ -2572,8 +2613,8 @@ export async function projectsGetEnvVar(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string; environmentVariableId: string };
-		queryParams?: { decrypted?: "true" | "false" };
+		pathParams: ProjectsGetEnvVarPath;
+		queryParams?: Partial<ProjectsGetEnvVarQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2603,8 +2644,8 @@ export async function projectsGetEnvVar(
 		>,
 		null,
 		Record<string, string>,
-		{ decrypted?: "true" | "false" },
-		{ projectId: string; environmentVariableId: string }
+		Partial<ProjectsGetEnvVarQuery>,
+		ProjectsGetEnvVarPath
 	>({
 		method: "GET",
 		url: `/projects/${encodeURIComponent(String(pathParams.projectId))}/env-vars/${encodeURIComponent(String(pathParams.environmentVariableId))}`,
@@ -2626,7 +2667,7 @@ export async function rateLimitsFind(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { scope?: string };
+		queryParams?: Partial<RateLimitsFindQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2646,7 +2687,7 @@ export async function rateLimitsFind(
 		>,
 		null,
 		Record<string, string>,
-		{ scope?: string },
+		Partial<RateLimitsFindQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -2705,7 +2746,7 @@ export async function userGetBilling(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { scope?: string };
+		queryParams?: Partial<UserGetBillingQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2725,7 +2766,7 @@ export async function userGetBilling(
 		>,
 		null,
 		Record<string, string>,
-		{ scope?: string },
+		Partial<UserGetBillingQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -2820,7 +2861,7 @@ export async function chatsRestore(
 		pathParams,
 		config,
 	}: {
-		pathParams: { chatId: string; versionId: string };
+		pathParams: ChatsRestorePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2848,7 +2889,7 @@ export async function chatsRestore(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ chatId: string; versionId: string }
+		ChatsRestorePath
 	>({
 		method: "POST",
 		url: `/chats/${encodeURIComponent(String(pathParams.chatId))}/versions/${encodeURIComponent(String(pathParams.versionId))}/restore`,
@@ -2869,15 +2910,7 @@ export async function reportsGetUsage(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			startDate?: string;
-			endDate?: string;
-			chatId?: string;
-			messageId?: string;
-			userId?: string;
-			limit?: number;
-			cursor?: string;
-		};
+		queryParams?: Partial<ReportsGetUsageQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2897,15 +2930,7 @@ export async function reportsGetUsage(
 		>,
 		null,
 		Record<string, string>,
-		{
-			startDate?: string;
-			endDate?: string;
-			chatId?: string;
-			messageId?: string;
-			userId?: string;
-			limit?: number;
-			cursor?: string;
-		},
+		Partial<ReportsGetUsageQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -2928,7 +2953,7 @@ export async function reportsGetAIUsage(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { start?: string; end?: string; cursor?: string; limit?: number };
+		queryParams?: Partial<ReportsGetAIUsageQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2948,7 +2973,7 @@ export async function reportsGetAIUsage(
 		>,
 		null,
 		Record<string, string>,
-		{ start?: string; end?: string; cursor?: string; limit?: number },
+		Partial<ReportsGetAIUsageQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -2971,7 +2996,7 @@ export async function reportsGetUserActivity(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { startDate?: string; endDate?: string };
+		queryParams?: Partial<ReportsGetUserActivityQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2991,7 +3016,7 @@ export async function reportsGetUserActivity(
 		>,
 		null,
 		Record<string, string>,
-		{ startDate?: string; endDate?: string },
+		Partial<ReportsGetUserActivityQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -3093,7 +3118,7 @@ export async function mcpServersGetById(
 		pathParams,
 		config,
 	}: {
-		pathParams: { mcpServerId: string };
+		pathParams: McpServersGetByIdPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3117,7 +3142,7 @@ export async function mcpServersGetById(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ mcpServerId: string }
+		McpServersGetByIdPath
 	>({
 		method: "GET",
 		url: `/mcp-servers/${encodeURIComponent(String(pathParams.mcpServerId))}`,
@@ -3139,7 +3164,7 @@ export async function mcpServersUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { mcpServerId: string };
+		pathParams: McpServersUpdatePath;
 		body: McpServersUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3164,7 +3189,7 @@ export async function mcpServersUpdate(
 		McpServersUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ mcpServerId: string }
+		McpServersUpdatePath
 	>({
 		method: "PATCH",
 		url: `/mcp-servers/${encodeURIComponent(String(pathParams.mcpServerId))}`,
@@ -3186,7 +3211,7 @@ export async function mcpServersDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { mcpServerId: string };
+		pathParams: McpServersDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3210,7 +3235,7 @@ export async function mcpServersDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ mcpServerId: string }
+		McpServersDeletePath
 	>({
 		method: "DELETE",
 		url: `/mcp-servers/${encodeURIComponent(String(pathParams.mcpServerId))}`,
@@ -3232,7 +3257,7 @@ export async function mcpServersCreateOAuthAuthorizationUrl(
 		body,
 		config,
 	}: {
-		pathParams: { mcpServerId: string };
+		pathParams: McpServersCreateOAuthAuthorizationUrlPath;
 		body: McpServersCreateOAuthAuthorizationUrlBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3257,7 +3282,7 @@ export async function mcpServersCreateOAuthAuthorizationUrl(
 		McpServersCreateOAuthAuthorizationUrlBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ mcpServerId: string }
+		McpServersCreateOAuthAuthorizationUrlPath
 	>({
 		method: "POST",
 		url: `/mcp-servers/${encodeURIComponent(String(pathParams.mcpServerId))}/oauth/authorize`,
