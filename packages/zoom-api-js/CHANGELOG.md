@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 2.1.2
+
+### Patch Changes
+
+- 8ddf0e9: Added several new type imports and extended type usages in components, enhancing type coverage and OpenAPI spec alignment in the client.
+
 ## 2.1.1
 
 ### Patch Changes

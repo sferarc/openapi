@@ -1,5 +1,12 @@
 # cloudflare-api-js
 
+## 2.2.0
+
+### Minor Changes
+
+- f619306: Added multiple new types and components for additional API data coverage and improved schema detail.
+- f619306: Added many new fields to various response types to provide richer and more detailed data across numerous API endpoints, especially in the Radar API responses.
+
 ## 2.1.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # v0-api
 
+## 1.0.4
+
+### Patch Changes
+
+- f554012: Improved import organization in generated component types for maintainability and clarity.
+
 ## 1.0.3
 
 ### Patch Changes

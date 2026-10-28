@@ -1,5 +1,11 @@
 # nuki-api-js
 
+## 2.0.2
+
+### Patch Changes
+
+- 16c15c8: No public API changes detected, only internal or structural code modifications present.
+
 ## 2.0.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # litellm-api
 
+## 2.0.3
+
+### Patch Changes
+
+- e674864: No exported operations or types were added or removed; only internal changes were made to the generated TypeScript client.
+
 ## 2.0.2
 
 ### Patch Changes
