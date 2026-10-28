@@ -3,7 +3,6 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
 	addMissingPathParams,
 	camelCasePathParams,
-	camelCaseProperties,
 	cleanOperationIds,
 	fetchSpec,
 	fixArrayItems,
@@ -337,18 +336,5 @@ describe("fixRegexPatterns", () => {
 			spec({}, { components: { schemas: { S: { example: { pattern: "/(" } } } } }),
 		);
 		expect((result.components as any).schemas.S.example.pattern).toBe("/(");
-	});
-});
-
-describe("camelCaseProperties", () => {
-	it("camelCases keys but keeps path keys under paths", () => {
-		const result = camelCaseProperties({
-			paths: { "/user_settings/{setting_id}": { get: { operation_id: "x" } } },
-			some_key: [{ nested_key: 1 }],
-		});
-		expect(result).toEqual({
-			paths: { "/user_settings/{setting_id}": { get: { operationId: "x" } } },
-			someKey: [{ nestedKey: 1 }],
-		});
 	});
 });

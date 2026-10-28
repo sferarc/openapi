@@ -1,7 +1,6 @@
 import {
 	addMissingPathParams,
 	baseConfig,
-	camelCaseProperties,
 	cleanOperationIds,
 	fetchSpec,
 	fixArrayItems,
@@ -37,7 +36,6 @@ export default defineConfig(async () => {
 	openAPIDocument = fixArrayItems(openAPIDocument);
 	openAPIDocument = fixUnionConstraints(openAPIDocument);
 	openAPIDocument = fixRegexPatterns(openAPIDocument);
-	openAPIDocument = camelCaseProperties(openAPIDocument);
 
 	return {
 		...baseConfig,

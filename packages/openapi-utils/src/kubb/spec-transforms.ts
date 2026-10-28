@@ -435,22 +435,3 @@ function isValidRegex(pattern: string): boolean {
 		return false;
 	}
 }
-
-export function camelCaseProperties(obj: any, isPathsObject = false): any {
-	if (Array.isArray(obj)) {
-		return obj.map((item) => camelCaseProperties(item, false));
-	}
-	if (obj !== null && typeof obj === "object") {
-		return Object.keys(obj).reduce((result, key) => {
-			if (isPathsObject && key.startsWith("/")) {
-				result[key] = camelCaseProperties(obj[key], false);
-			} else {
-				const camelKey = c.camel(key);
-				const isPathsChild = key === "paths";
-				result[camelKey] = camelCaseProperties(obj[key], isPathsChild);
-			}
-			return result;
-		}, {} as any);
-	}
-	return obj;
-}

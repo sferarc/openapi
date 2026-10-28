@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { FetchImpl } from "./fetch";
+import { chatsCreate } from "../generated/components";
+import type { FetchImpl, RequestInit } from "./fetch";
 import client from "./fetcher";
 
 const respond =
@@ -51,6 +52,20 @@ describe("fetcher", () => {
 		expect(error).toBeInstanceOf(Error);
 		expect((error as Error).cause).toBe(cause);
 		expect((error as Error).message).toBe("GET /thing failed: fetch failed");
+	});
+
+	it("sends a generated operation's JSON body as JSON", async () => {
+		let init: RequestInit | undefined;
+		const fetchImpl: FetchImpl = async (_url, requestInit) => {
+			init = requestInit;
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		await chatsCreate({ body: { message: "Build a landing page" }, config: { fetchImpl } });
+		expect(init?.headers).toMatchObject({ "Content-Type": "application/json" });
+		expect(init?.body).toBe(JSON.stringify({ message: "Build a landing page" }));
 	});
 
 	it("resolves a successful JSON response", async () => {
