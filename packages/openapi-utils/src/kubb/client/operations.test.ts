@@ -23,6 +23,7 @@ type Operation = (params?: Record<string, unknown>) => Promise<unknown>;
 
 let root: string;
 let source: string;
+let types: string;
 let operations: Record<
 	"getMember" | "getHealth" | "uploadScript" | "inviteMember" | "uploadLogo" | "createScimUser",
 	Operation
@@ -37,6 +38,7 @@ beforeAll(async () => {
 	expect(diagnostics.filter((diagnostic) => diagnostic.severity === "error")).toEqual([]);
 
 	source = readFileSync(join(root, "gen/components.ts"), "utf8");
+	types = readFileSync(join(root, "gen/types.ts"), "utf8");
 	operations = await import(join(root, "gen/components.ts"));
 }, 60_000);
 
@@ -79,6 +81,12 @@ describe("generated operations", () => {
 			`Missing required path parameter: ${field}`,
 		);
 		expect(fetchImpl).not.toHaveBeenCalled();
+	});
+
+	it("types responses that are not application/json from their own media type", () => {
+		expect(types).toMatch(/export type DownloadExportStatus200 = Blob;/);
+		expect(types).toMatch(/export type DownloadExportStatus404 = string;/);
+		expect(types).toMatch(/export type CreateScimUserStatus201 = \{\s*id\?: string/);
 	});
 
 	it("calls an operation without parameters", async () => {
