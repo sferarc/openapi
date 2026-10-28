@@ -1,5 +1,11 @@
 # vercel-api-js
 
+## 2.1.2
+
+### Patch Changes
+
+- 2aa0f3c: Updated types and operation signatures across many API endpoints to improve type safety and completeness of generated TypeScript client code.
+
 ## 2.1.1
 
 ### Patch Changes

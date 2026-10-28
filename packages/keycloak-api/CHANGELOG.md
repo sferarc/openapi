@@ -1,5 +1,11 @@
 # keycloak-api
 
+## 2.1.1
+
+### Patch Changes
+
+- 001eccb: Updated many admin API operation implementations, possibly due to spec changes or internal codegen improvements.
+
 ## 2.1.0
 
 ### Minor Changes
