@@ -7,11 +7,13 @@ import type { ErrorWrapper, FetcherConfig } from "../utils/fetcher";
 import defaultClient from "../utils/fetcher";
 import type {
 	AddBatchRegistrantsBody,
+	AddBatchRegistrantsPath,
 	AddBatchRegistrantsResponse,
 	AddBatchRegistrantsStatus400,
 	AddBatchRegistrantsStatus404,
 	AddBatchRegistrantsStatus429,
 	AddBatchWebinarRegistrantsBody,
+	AddBatchWebinarRegistrantsPath,
 	AddBatchWebinarRegistrantsResponse,
 	AddBatchWebinarRegistrantsStatus400,
 	AddBatchWebinarRegistrantsStatus404,
@@ -20,14 +22,20 @@ import type {
 	AddDeviceResponse,
 	AddDeviceStatus400,
 	AddDeviceStatus429,
+	AnalyticsDetailsPath,
+	AnalyticsDetailsQuery,
 	AnalyticsDetailsResponse,
 	AnalyticsDetailsStatus400,
 	AnalyticsDetailsStatus404,
 	AnalyticsDetailsStatus429,
+	AnalyticsSummaryPath,
+	AnalyticsSummaryQuery,
 	AnalyticsSummaryResponse,
 	AnalyticsSummaryStatus400,
 	AnalyticsSummaryStatus404,
 	AnalyticsSummaryStatus429,
+	AssginGroupPath,
+	AssginGroupQuery,
 	AssginGroupResponse,
 	AssginGroupStatus400,
 	AssginGroupStatus401,
@@ -38,67 +46,87 @@ import type {
 	AssigndevicetoauserCommonareaStatus400,
 	AssigndevicetoauserCommonareaStatus429,
 	ChangeDeviceAssociationBody,
+	ChangeDeviceAssociationPath,
 	ChangeDeviceAssociationResponse,
 	ChangeDeviceAssociationStatus400,
 	ChangeDeviceAssociationStatus404,
 	ChangeDeviceAssociationStatus429,
 	CreateBatchPollsBody,
+	CreateBatchPollsPath,
 	CreateBatchPollsResponse,
 	CreateBatchPollsStatus400,
 	CreateBatchPollsStatus404,
 	CreateBatchPollsStatus429,
 	CreateWebinarBrandingNameTagBody,
+	CreateWebinarBrandingNameTagPath,
 	CreateWebinarBrandingNameTagResponse,
 	CreateWebinarBrandingNameTagStatus400,
 	CreateWebinarBrandingNameTagStatus404,
 	CreateWebinarBrandingNameTagStatus429,
+	DeleteArchivedFilesPath,
 	DeleteArchivedFilesResponse,
 	DeleteArchivedFilesStatus400,
 	DeleteArchivedFilesStatus404,
 	DeleteArchivedFilesStatus429,
+	DeleteDevicePath,
 	DeleteDeviceResponse,
 	DeleteDeviceStatus400,
 	DeleteDeviceStatus404,
 	DeleteDeviceStatus429,
+	DeleteMeetingChatMessageByIdPath,
+	DeleteMeetingChatMessageByIdQuery,
 	DeleteMeetingChatMessageByIdResponse,
 	DeleteMeetingChatMessageByIdStatus400,
 	DeleteMeetingChatMessageByIdStatus404,
 	DeleteMeetingChatMessageByIdStatus429,
+	DeleteMeetingTranscriptPath,
 	DeleteMeetingTranscriptResponse,
 	DeleteMeetingTranscriptStatus400,
 	DeleteMeetingTranscriptStatus403,
 	DeleteMeetingTranscriptStatus404,
 	DeleteMeetingTranscriptStatus429,
+	DeletemeetingorwebinarsummaryPath,
 	DeletemeetingorwebinarsummaryResponse,
 	DeletemeetingorwebinarsummaryStatus400,
 	DeletemeetingorwebinarsummaryStatus403,
 	DeletemeetingorwebinarsummaryStatus404,
 	DeletemeetingorwebinarsummaryStatus429,
+	DeleteSIPPhonePhonesPath,
 	DeleteSIPPhonePhonesResponse,
 	DeleteSIPPhonePhonesStatus401,
 	DeleteSIPPhonePhonesStatus403,
 	DeleteSIPPhonePhonesStatus404,
 	DeleteSIPPhonePhonesStatus429,
+	DeleteWebinarBrandingNameTagPath,
+	DeleteWebinarBrandingNameTagQuery,
 	DeleteWebinarBrandingNameTagResponse,
 	DeleteWebinarBrandingNameTagStatus400,
 	DeleteWebinarBrandingNameTagStatus404,
 	DeleteWebinarBrandingNameTagStatus429,
+	DeleteWebinarBrandingVBPath,
+	DeleteWebinarBrandingVBQuery,
 	DeleteWebinarBrandingVBResponse,
 	DeleteWebinarBrandingVBStatus400,
 	DeleteWebinarBrandingVBStatus404,
 	DeleteWebinarBrandingVBStatus429,
+	DeleteWebinarBrandingWallpaperPath,
 	DeleteWebinarBrandingWallpaperResponse,
 	DeleteWebinarBrandingWallpaperStatus400,
 	DeleteWebinarBrandingWallpaperStatus404,
 	DeleteWebinarBrandingWallpaperStatus429,
+	DeleteWebinarChatMessageByIdPath,
+	DeleteWebinarChatMessageByIdQuery,
 	DeleteWebinarChatMessageByIdResponse,
 	DeleteWebinarChatMessageByIdStatus400,
 	DeleteWebinarChatMessageByIdStatus404,
 	DeleteWebinarChatMessageByIdStatus429,
+	DeleteWebinarRegistrantPath,
+	DeleteWebinarRegistrantQuery,
 	DeleteWebinarRegistrantResponse,
 	DeleteWebinarRegistrantStatus400,
 	DeleteWebinarRegistrantStatus404,
 	DeleteWebinarRegistrantStatus429,
+	DeleteZpaDeviceByVendorAndMacAddressPath,
 	DeleteZpaDeviceByVendorAndMacAddressResponse,
 	DeleteZpaDeviceByVendorAndMacAddressStatus400,
 	DeleteZpaDeviceByVendorAndMacAddressStatus404,
@@ -110,18 +138,21 @@ import type {
 	DeviceCreateStatus403,
 	DeviceCreateStatus404,
 	DeviceCreateStatus429,
+	DeviceDeletePath,
 	DeviceDeleteResponse,
 	DeviceDeleteStatus400,
 	DeviceDeleteStatus401,
 	DeviceDeleteStatus403,
 	DeviceDeleteStatus404,
 	DeviceDeleteStatus429,
+	DeviceListQuery,
 	DeviceListResponse,
 	DeviceListStatus400,
 	DeviceListStatus401,
 	DeviceListStatus403,
 	DeviceListStatus429,
 	DeviceUpdateBody,
+	DeviceUpdatePath,
 	DeviceUpdateResponse,
 	DeviceUpdateStatus400,
 	DeviceUpdateStatus401,
@@ -135,17 +166,21 @@ import type {
 	EnableSIPPhonePhonesStatus403,
 	EnableSIPPhonePhonesStatus404,
 	EnableSIPPhonePhonesStatus429,
+	GetArchivedFileStatisticsQuery,
 	GetArchivedFileStatisticsResponse,
 	GetArchivedFileStatisticsStatus400,
 	GetArchivedFileStatisticsStatus429,
+	GetArchivedFilesPath,
 	GetArchivedFilesResponse,
 	GetArchivedFilesStatus404,
 	GetArchivedFilesStatus429,
+	GetameetingsummaryPath,
 	GetameetingsummaryResponse,
 	GetameetingsummaryStatus400,
 	GetameetingsummaryStatus403,
 	GetameetingsummaryStatus404,
 	GetameetingsummaryStatus429,
+	GetBillingInvoicesReportsQuery,
 	GetBillingInvoicesReportsResponse,
 	GetBillingInvoicesReportsStatus400,
 	GetBillingInvoicesReportsStatus404,
@@ -153,227 +188,292 @@ import type {
 	GetBillingReportResponse,
 	GetBillingReportStatus400,
 	GetBillingReportStatus429,
+	GetDevicePath,
 	GetDeviceResponse,
 	GetDeviceStatus400,
 	GetDeviceStatus404,
 	GetDeviceStatus429,
+	GetdisclaimerreportQuery,
 	GetdisclaimerreportResponse,
 	GetdisclaimerreportStatus400,
 	GetdisclaimerreportStatus401,
 	GetdisclaimerreportStatus403,
 	GetdisclaimerreportStatus429,
+	GethistorymeetingandwebinarlistQuery,
 	GethistorymeetingandwebinarlistResponse,
 	GethistorymeetingandwebinarlistStatus400,
 	GethistorymeetingandwebinarlistStatus401,
 	GethistorymeetingandwebinarlistStatus403,
 	GethistorymeetingandwebinarlistStatus429,
+	GetMeetingLiveStreamDetailsPath,
 	GetMeetingLiveStreamDetailsResponse,
 	GetMeetingLiveStreamDetailsStatus400,
 	GetMeetingLiveStreamDetailsStatus404,
 	GetMeetingLiveStreamDetailsStatus429,
+	GetMeetingTranscriptPath,
 	GetMeetingTranscriptResponse,
 	GetMeetingTranscriptStatus403,
 	GetMeetingTranscriptStatus404,
 	GetMeetingTranscriptStatus429,
+	GetremotesupportreportQuery,
 	GetremotesupportreportResponse,
 	GetremotesupportreportStatus400,
 	GetremotesupportreportStatus401,
 	GetremotesupportreportStatus429,
 	GetSipDialingWithPasscodeBody,
+	GetSipDialingWithPasscodePath,
 	GetSipDialingWithPasscodeResponse,
 	GetSipDialingWithPasscodeStatus400,
 	GetSipDialingWithPasscodeStatus404,
 	GetSipDialingWithPasscodeStatus429,
+	GetTrackingSourcesPath,
 	GetTrackingSourcesResponse,
 	GetTrackingSourcesStatus400,
 	GetTrackingSourcesStatus404,
 	GetTrackingSourcesStatus429,
+	GetWebinarBrandingPath,
 	GetWebinarBrandingResponse,
 	GetWebinarBrandingStatus400,
 	GetWebinarBrandingStatus404,
 	GetWebinarBrandingStatus429,
+	GetWebinarLiveStreamDetailsPath,
 	GetWebinarLiveStreamDetailsResponse,
 	GetWebinarLiveStreamDetailsStatus400,
 	GetWebinarLiveStreamDetailsStatus404,
 	GetWebinarLiveStreamDetailsStatus429,
 	GetWebinarSipDialingWithPasscodeBody,
+	GetWebinarSipDialingWithPasscodePath,
 	GetWebinarSipDialingWithPasscodeResponse,
 	GetWebinarSipDialingWithPasscodeStatus400,
 	GetWebinarSipDialingWithPasscodeStatus429,
+	GetZpaDeviceListProfileSettingOfaUserQuery,
 	GetZpaDeviceListProfileSettingOfaUserResponse,
 	GetZpaDeviceListProfileSettingOfaUserStatus400,
 	GetZpaDeviceListProfileSettingOfaUserStatus401,
 	GetZpaDeviceListProfileSettingOfaUserStatus403,
 	GetZpaDeviceListProfileSettingOfaUserStatus429,
+	GetZpaVersioninfoPath,
 	GetZpaVersioninfoResponse,
 	GetZpaVersioninfoStatus400,
 	GetZpaVersioninfoStatus404,
 	GetZpaVersioninfoStatus429,
+	GetzdmgroupinfoQuery,
 	GetzdmgroupinfoResponse,
 	GetzdmgroupinfoStatus400,
 	GetzdmgroupinfoStatus403,
 	GetzdmgroupinfoStatus429,
 	InMeetingControlBody,
+	InMeetingControlPath,
 	InMeetingControlResponse,
 	InMeetingControlStatus400,
 	InMeetingControlStatus403,
 	InMeetingControlStatus404,
 	InMeetingControlStatus429,
+	ListArchivedFilesQuery,
 	ListArchivedFilesResponse,
 	ListArchivedFilesStatus400,
 	ListArchivedFilesStatus429,
+	ListArchiveFileDownloadAuditQuery,
 	ListArchiveFileDownloadAuditResponse,
 	ListArchiveFileDownloadAuditStatus400,
 	ListArchiveFileDownloadAuditStatus401,
 	ListArchiveFileDownloadAuditStatus429,
+	ListDevicesQuery,
 	ListDevicesResponse,
 	ListDevicesStatus400,
 	ListDevicesStatus429,
+	ListMeetingTemplatesPath,
 	ListMeetingTemplatesResponse,
 	ListMeetingTemplatesStatus400,
 	ListMeetingTemplatesStatus404,
 	ListMeetingTemplatesStatus429,
+	ListmeetingsummariesQuery,
 	ListmeetingsummariesResponse,
 	ListmeetingsummariesStatus400,
 	ListmeetingsummariesStatus403,
 	ListmeetingsummariesStatus429,
+	ListPastMeetingPollsPath,
 	ListPastMeetingPollsResponse,
 	ListPastMeetingPollsStatus400,
 	ListPastMeetingPollsStatus429,
+	ListPastMeetingQAPath,
 	ListPastMeetingQAResponse,
 	ListPastMeetingQAStatus401,
 	ListPastMeetingQAStatus404,
 	ListPastMeetingQAStatus429,
+	ListPastWebinarPollResultsPath,
 	ListPastWebinarPollResultsResponse,
 	ListPastWebinarPollResultsStatus400,
 	ListPastWebinarPollResultsStatus404,
 	ListPastWebinarPollResultsStatus429,
+	ListPastWebinarQAPath,
 	ListPastWebinarQAResponse,
 	ListPastWebinarQAStatus400,
 	ListPastWebinarQAStatus404,
 	ListPastWebinarQAStatus429,
+	ListSIPPhonePhonesQuery,
 	ListSIPPhonePhonesResponse,
 	ListSIPPhonePhonesStatus400,
 	ListSIPPhonePhonesStatus401,
 	ListSIPPhonePhonesStatus403,
 	ListSIPPhonePhonesStatus429,
+	ListUpcomingMeetingPath,
 	ListUpcomingMeetingResponse,
 	ListUpcomingMeetingStatus404,
 	ListUpcomingMeetingStatus429,
+	ListUserMeetingSummariesPath,
+	ListUserMeetingSummariesQuery,
 	ListUserMeetingSummariesResponse,
 	ListUserMeetingSummariesStatus400,
 	ListUserMeetingSummariesStatus403,
 	ListUserMeetingSummariesStatus404,
 	ListUserMeetingSummariesStatus429,
+	ListWebinarParticipantsPath,
+	ListWebinarParticipantsQuery,
 	ListWebinarParticipantsResponse,
 	ListWebinarParticipantsStatus400,
 	ListWebinarParticipantsStatus404,
 	ListWebinarParticipantsStatus429,
+	ListWebinarTemplatesPath,
 	ListWebinarTemplatesResponse,
 	ListWebinarTemplatesStatus400,
 	ListWebinarTemplatesStatus404,
 	ListWebinarTemplatesStatus429,
 	MeetingAppAddBody,
+	MeetingAppAddPath,
 	MeetingAppAddResponse,
 	MeetingAppAddStatus400,
 	MeetingAppAddStatus404,
 	MeetingAppAddStatus429,
+	MeetingAppDeletePath,
 	MeetingAppDeleteResponse,
 	MeetingAppDeleteStatus400,
 	MeetingAppDeleteStatus404,
 	MeetingAppDeleteStatus429,
 	MeetingCreateBody,
+	MeetingCreatePath,
 	MeetingCreateResponse,
 	MeetingCreateStatus400,
 	MeetingCreateStatus404,
 	MeetingCreateStatus429,
+	MeetingDeletePath,
+	MeetingDeleteQuery,
 	MeetingDeleteResponse,
 	MeetingDeleteStatus400,
 	MeetingDeleteStatus404,
 	MeetingDeleteStatus429,
+	MeetingInvitationPath,
 	MeetingInvitationResponse,
 	MeetingInvitationStatus400,
 	MeetingInvitationStatus404,
 	MeetingInvitationStatus429,
 	MeetingInviteLinksCreateBody,
+	MeetingInviteLinksCreatePath,
 	MeetingInviteLinksCreateResponse,
 	MeetingInviteLinksCreateStatus400,
 	MeetingInviteLinksCreateStatus404,
 	MeetingInviteLinksCreateStatus429,
+	MeetingLiveStreamingJoinTokenPath,
 	MeetingLiveStreamingJoinTokenResponse,
 	MeetingLiveStreamingJoinTokenStatus400,
 	MeetingLiveStreamingJoinTokenStatus404,
 	MeetingLiveStreamingJoinTokenStatus429,
 	MeetingLiveStreamStatusUpdateBody,
+	MeetingLiveStreamStatusUpdatePath,
 	MeetingLiveStreamStatusUpdateResponse,
 	MeetingLiveStreamStatusUpdateStatus400,
 	MeetingLiveStreamStatusUpdateStatus404,
 	MeetingLiveStreamStatusUpdateStatus429,
 	MeetingLiveStreamUpdateBody,
+	MeetingLiveStreamUpdatePath,
 	MeetingLiveStreamUpdateResponse,
 	MeetingLiveStreamUpdateStatus400,
 	MeetingLiveStreamUpdateStatus404,
 	MeetingLiveStreamUpdateStatus429,
+	MeetingLocalArchivingArchiveTokenPath,
 	MeetingLocalArchivingArchiveTokenResponse,
 	MeetingLocalArchivingArchiveTokenStatus400,
 	MeetingLocalArchivingArchiveTokenStatus404,
 	MeetingLocalArchivingArchiveTokenStatus429,
+	MeetingLocalRecordingJoinTokenPath,
+	MeetingLocalRecordingJoinTokenQuery,
 	MeetingLocalRecordingJoinTokenResponse,
 	MeetingLocalRecordingJoinTokenStatus400,
 	MeetingLocalRecordingJoinTokenStatus404,
 	MeetingLocalRecordingJoinTokenStatus429,
+	MeetingPath,
 	MeetingPollCreateBody,
+	MeetingPollCreatePath,
 	MeetingPollCreateResponse,
 	MeetingPollCreateStatus400,
 	MeetingPollCreateStatus404,
 	MeetingPollCreateStatus429,
+	MeetingPollDeletePath,
 	MeetingPollDeleteResponse,
 	MeetingPollDeleteStatus400,
 	MeetingPollDeleteStatus404,
 	MeetingPollDeleteStatus429,
+	MeetingPollGetPath,
 	MeetingPollGetResponse,
 	MeetingPollGetStatus400,
 	MeetingPollGetStatus404,
 	MeetingPollGetStatus429,
+	MeetingPollsPath,
+	MeetingPollsQuery,
 	MeetingPollsResponse,
 	MeetingPollsStatus400,
 	MeetingPollsStatus404,
 	MeetingPollsStatus429,
 	MeetingPollUpdateBody,
+	MeetingPollUpdatePath,
 	MeetingPollUpdateResponse,
 	MeetingPollUpdateStatus400,
 	MeetingPollUpdateStatus404,
 	MeetingPollUpdateStatus429,
+	MeetingQuery,
 	MeetingRecordingRegistrantCreateBody,
+	MeetingRecordingRegistrantCreatePath,
 	MeetingRecordingRegistrantCreateResponse,
 	MeetingRecordingRegistrantCreateStatus404,
 	MeetingRecordingRegistrantCreateStatus429,
 	MeetingRecordingRegistrantStatusBody,
+	MeetingRecordingRegistrantStatusPath,
 	MeetingRecordingRegistrantStatusResponse,
 	MeetingRecordingRegistrantStatusStatus404,
 	MeetingRecordingRegistrantStatusStatus429,
+	MeetingRecordingRegistrantsPath,
+	MeetingRecordingRegistrantsQuery,
 	MeetingRecordingRegistrantsResponse,
 	MeetingRecordingRegistrantsStatus404,
 	MeetingRecordingRegistrantsStatus429,
 	MeetingRegistrantCreateBody,
+	MeetingRegistrantCreatePath,
+	MeetingRegistrantCreateQuery,
 	MeetingRegistrantCreateResponse,
 	MeetingRegistrantCreateStatus400,
 	MeetingRegistrantCreateStatus404,
 	MeetingRegistrantCreateStatus429,
+	MeetingRegistrantGetPath,
 	MeetingRegistrantGetResponse,
 	MeetingRegistrantGetStatus400,
 	MeetingRegistrantGetStatus404,
 	MeetingRegistrantGetStatus429,
 	MeetingRegistrantQuestionUpdateBody,
+	MeetingRegistrantQuestionUpdatePath,
 	MeetingRegistrantQuestionUpdateResponse,
 	MeetingRegistrantQuestionUpdateStatus400,
 	MeetingRegistrantQuestionUpdateStatus404,
 	MeetingRegistrantQuestionUpdateStatus429,
 	MeetingRegistrantStatusBody,
+	MeetingRegistrantStatusPath,
+	MeetingRegistrantStatusQuery,
 	MeetingRegistrantStatusResponse,
 	MeetingRegistrantStatusStatus400,
 	MeetingRegistrantStatusStatus404,
 	MeetingRegistrantStatusStatus429,
+	MeetingRegistrantsPath,
+	MeetingRegistrantsQuery,
+	MeetingRegistrantsQuestionsGetPath,
 	MeetingRegistrantsQuestionsGetResponse,
 	MeetingRegistrantsQuestionsGetStatus400,
 	MeetingRegistrantsQuestionsGetStatus404,
@@ -384,11 +484,14 @@ import type {
 	MeetingRegistrantsStatus429,
 	MeetingResponse,
 	MeetingRTMSStatusUpdateBody,
+	MeetingRTMSStatusUpdatePath,
 	MeetingRTMSStatusUpdateResponse,
 	MeetingRTMSStatusUpdateStatus400,
 	MeetingRTMSStatusUpdateStatus403,
 	MeetingRTMSStatusUpdateStatus404,
 	MeetingRTMSStatusUpdateStatus429,
+	MeetingregistrantdeletePath,
+	MeetingregistrantdeleteQuery,
 	MeetingregistrantdeleteResponse,
 	MeetingregistrantdeleteStatus400,
 	MeetingregistrantdeleteStatus404,
@@ -397,171 +500,226 @@ import type {
 	MeetingStatus404,
 	MeetingStatus429,
 	MeetingStatusBody,
+	MeetingStatusPath,
 	MeetingStatusResponse,
 	MeetingStatusStatus400,
 	MeetingStatusStatus404,
 	MeetingStatusStatus429,
+	MeetingSurveyDeletePath,
 	MeetingSurveyDeleteResponse,
 	MeetingSurveyDeleteStatus400,
 	MeetingSurveyDeleteStatus404,
 	MeetingSurveyDeleteStatus429,
+	MeetingSurveyGetPath,
 	MeetingSurveyGetResponse,
 	MeetingSurveyGetStatus400,
 	MeetingSurveyGetStatus404,
 	MeetingSurveyGetStatus429,
 	MeetingSurveyUpdateBody,
+	MeetingSurveyUpdatePath,
 	MeetingSurveyUpdateResponse,
 	MeetingSurveyUpdateStatus400,
 	MeetingSurveyUpdateStatus404,
 	MeetingSurveyUpdateStatus429,
+	MeetingsPath,
+	MeetingsQuery,
 	MeetingsResponse,
 	MeetingsStatus400,
 	MeetingsStatus403,
 	MeetingsStatus404,
 	MeetingsStatus429,
 	MeetingTemplateCreateBody,
+	MeetingTemplateCreatePath,
 	MeetingTemplateCreateResponse,
 	MeetingTemplateCreateStatus400,
 	MeetingTemplateCreateStatus404,
 	MeetingTemplateCreateStatus429,
+	MeetingTokenPath,
+	MeetingTokenQuery,
 	MeetingTokenResponse,
 	MeetingTokenStatus400,
 	MeetingTokenStatus404,
 	MeetingTokenStatus429,
 	MeetingUpdateBody,
+	MeetingUpdatePath,
+	MeetingUpdateQuery,
 	MeetingUpdateResponse,
 	MeetingUpdateStatus400,
 	MeetingUpdateStatus401,
 	MeetingUpdateStatus404,
 	MeetingUpdateStatus429,
+	PastMeetingDetailsPath,
 	PastMeetingDetailsResponse,
 	PastMeetingDetailsStatus400,
 	PastMeetingDetailsStatus404,
 	PastMeetingDetailsStatus429,
+	PastMeetingParticipantsPath,
+	PastMeetingParticipantsQuery,
 	PastMeetingParticipantsResponse,
 	PastMeetingParticipantsStatus400,
 	PastMeetingParticipantsStatus404,
 	PastMeetingParticipantsStatus429,
+	PastMeetingsPath,
+	PastMeetingsQuery,
 	PastMeetingsResponse,
 	PastMeetingsStatus401,
 	PastMeetingsStatus404,
 	PastMeetingsStatus429,
+	PastWebinarsPath,
 	PastWebinarsResponse,
 	PastWebinarsStatus400,
 	PastWebinarsStatus404,
 	PastWebinarsStatus429,
+	RecordingDeleteOnePath,
+	RecordingDeleteOneQuery,
 	RecordingDeleteOneResponse,
 	RecordingDeleteOneStatus400,
 	RecordingDeleteOneStatus404,
 	RecordingDeleteOneStatus429,
+	RecordingDeletePath,
+	RecordingDeleteQuery,
 	RecordingDeleteResponse,
 	RecordingDeleteStatus400,
 	RecordingDeleteStatus404,
 	RecordingDeleteStatus429,
+	RecordingGetPath,
+	RecordingGetQuery,
 	RecordingGetResponse,
 	RecordingGetStatus400,
 	RecordingGetStatus404,
 	RecordingGetStatus429,
 	RecordingRegistrantQuestionUpdateBody,
+	RecordingRegistrantQuestionUpdatePath,
 	RecordingRegistrantQuestionUpdateResponse,
 	RecordingRegistrantQuestionUpdateStatus404,
 	RecordingRegistrantQuestionUpdateStatus429,
+	RecordingRegistrantsQuestionsGetPath,
 	RecordingRegistrantsQuestionsGetResponse,
 	RecordingRegistrantsQuestionsGetStatus404,
 	RecordingRegistrantsQuestionsGetStatus429,
 	RecordingSettingsUpdateBody,
+	RecordingSettingsUpdatePath,
 	RecordingSettingsUpdateResponse,
 	RecordingSettingsUpdateStatus404,
 	RecordingSettingsUpdateStatus429,
+	RecordingSettingUpdatePath,
 	RecordingSettingUpdateResponse,
 	RecordingSettingUpdateStatus404,
 	RecordingSettingUpdateStatus429,
 	RecordingStatusUpdateBody,
 	RecordingStatusUpdateOneBody,
+	RecordingStatusUpdateOnePath,
 	RecordingStatusUpdateOneResponse,
 	RecordingStatusUpdateOneStatus400,
 	RecordingStatusUpdateOneStatus404,
 	RecordingStatusUpdateOneStatus429,
+	RecordingStatusUpdatePath,
 	RecordingStatusUpdateResponse,
 	RecordingStatusUpdateStatus400,
 	RecordingStatusUpdateStatus404,
 	RecordingStatusUpdateStatus429,
+	RecordingsListPath,
+	RecordingsListQuery,
 	RecordingsListResponse,
 	RecordingsListStatus401,
 	RecordingsListStatus404,
 	RecordingsListStatus429,
+	ReportCloudRecordingQuery,
 	ReportCloudRecordingResponse,
 	ReportCloudRecordingStatus400,
 	ReportCloudRecordingStatus429,
+	ReportDailyQuery,
 	ReportDailyResponse,
 	ReportDailyStatus400,
 	ReportDailyStatus429,
+	ReportMeetingactivitylogsQuery,
 	ReportMeetingactivitylogsResponse,
 	ReportMeetingactivitylogsStatus400,
 	ReportMeetingactivitylogsStatus403,
 	ReportMeetingactivitylogsStatus404,
 	ReportMeetingactivitylogsStatus429,
+	ReportMeetingDetailsPath,
 	ReportMeetingDetailsResponse,
 	ReportMeetingDetailsStatus400,
 	ReportMeetingDetailsStatus404,
 	ReportMeetingDetailsStatus429,
+	ReportMeetingParticipantsPath,
+	ReportMeetingParticipantsQuery,
 	ReportMeetingParticipantsResponse,
 	ReportMeetingParticipantsStatus400,
 	ReportMeetingParticipantsStatus404,
 	ReportMeetingParticipantsStatus429,
+	ReportMeetingPollsPath,
 	ReportMeetingPollsResponse,
 	ReportMeetingPollsStatus400,
 	ReportMeetingPollsStatus404,
 	ReportMeetingPollsStatus429,
+	ReportMeetingQAPath,
 	ReportMeetingQAResponse,
 	ReportMeetingQAStatus400,
 	ReportMeetingQAStatus404,
 	ReportMeetingQAStatus429,
+	ReportMeetingSurveyPath,
 	ReportMeetingSurveyResponse,
 	ReportMeetingSurveyStatus400,
 	ReportMeetingSurveyStatus404,
 	ReportMeetingSurveyStatus429,
+	ReportMeetingsPath,
+	ReportMeetingsQuery,
 	ReportMeetingsResponse,
 	ReportMeetingsStatus400,
 	ReportMeetingsStatus404,
 	ReportMeetingsStatus429,
+	ReportOperationLogsQuery,
 	ReportOperationLogsResponse,
 	ReportOperationLogsStatus400,
 	ReportOperationLogsStatus429,
+	ReportSignInSignOutActivitiesQuery,
 	ReportSignInSignOutActivitiesResponse,
 	ReportSignInSignOutActivitiesStatus400,
 	ReportSignInSignOutActivitiesStatus429,
+	ReportTelephoneQuery,
 	ReportTelephoneResponse,
 	ReportTelephoneStatus400,
 	ReportTelephoneStatus401,
 	ReportTelephoneStatus403,
 	ReportTelephoneStatus429,
+	ReportUpcomingEventsQuery,
 	ReportUpcomingEventsResponse,
 	ReportUpcomingEventsStatus400,
 	ReportUpcomingEventsStatus429,
+	ReportUsersQuery,
 	ReportUsersResponse,
 	ReportUsersStatus400,
 	ReportUsersStatus429,
+	ReportWebinarDetailsPath,
 	ReportWebinarDetailsResponse,
 	ReportWebinarDetailsStatus400,
 	ReportWebinarDetailsStatus404,
 	ReportWebinarDetailsStatus429,
+	ReportWebinarParticipantsPath,
+	ReportWebinarParticipantsQuery,
 	ReportWebinarParticipantsResponse,
 	ReportWebinarParticipantsStatus400,
 	ReportWebinarParticipantsStatus404,
 	ReportWebinarParticipantsStatus429,
+	ReportWebinarPollsPath,
 	ReportWebinarPollsResponse,
 	ReportWebinarPollsStatus400,
 	ReportWebinarPollsStatus404,
 	ReportWebinarPollsStatus429,
+	ReportWebinarQAPath,
 	ReportWebinarQAResponse,
 	ReportWebinarQAStatus400,
 	ReportWebinarQAStatus404,
 	ReportWebinarQAStatus429,
+	ReportWebinarSurveyPath,
 	ReportWebinarSurveyResponse,
 	ReportWebinarSurveyStatus400,
 	ReportWebinarSurveyStatus404,
 	ReportWebinarSurveyStatus429,
+	SetWebinarBrandingVBPath,
+	SetWebinarBrandingVBQuery,
 	SetWebinarBrandingVBResponse,
 	SetWebinarBrandingVBStatus400,
 	SetWebinarBrandingVBStatus404,
@@ -569,15 +727,18 @@ import type {
 	TrackingfieldCreateBody,
 	TrackingfieldCreateResponse,
 	TrackingfieldCreateStatus429,
+	TrackingfieldDeletePath,
 	TrackingfieldDeleteResponse,
 	TrackingfieldDeleteStatus404,
 	TrackingfieldDeleteStatus429,
+	TrackingfieldGetPath,
 	TrackingfieldGetResponse,
 	TrackingfieldGetStatus404,
 	TrackingfieldGetStatus429,
 	TrackingfieldListResponse,
 	TrackingfieldListStatus429,
 	TrackingfieldUpdateBody,
+	TrackingfieldUpdatePath,
 	TrackingfieldUpdateResponse,
 	TrackingfieldUpdateStatus400,
 	TrackingfieldUpdateStatus404,
@@ -589,26 +750,31 @@ import type {
 	TspUpdateStatus400,
 	TspUpdateStatus429,
 	TspUrlUpdateBody,
+	TspUrlUpdatePath,
 	TspUrlUpdateResponse,
 	TspUrlUpdateStatus400,
 	TspUrlUpdateStatus404,
 	TspUrlUpdateStatus429,
 	UpdateArchivedFileBody,
+	UpdateArchivedFilePath,
 	UpdateArchivedFileResponse,
 	UpdateArchivedFileStatus400,
 	UpdateArchivedFileStatus404,
 	UpdateArchivedFileStatus429,
 	UpdateDeviceBody,
+	UpdateDevicePath,
 	UpdateDeviceResponse,
 	UpdateDeviceStatus400,
 	UpdateDeviceStatus404,
 	UpdateDeviceStatus429,
 	UpdateMeetingChatMessageByIdBody,
+	UpdateMeetingChatMessageByIdPath,
 	UpdateMeetingChatMessageByIdResponse,
 	UpdateMeetingChatMessageByIdStatus400,
 	UpdateMeetingChatMessageByIdStatus404,
 	UpdateMeetingChatMessageByIdStatus429,
 	UpdateSIPPhonePhonesBody,
+	UpdateSIPPhonePhonesPath,
 	UpdateSIPPhonePhonesResponse,
 	UpdateSIPPhonePhonesStatus400,
 	UpdateSIPPhonePhonesStatus401,
@@ -616,6 +782,7 @@ import type {
 	UpdateSIPPhonePhonesStatus404,
 	UpdateSIPPhonePhonesStatus429,
 	UpdateWebinarBrandingNameTagBody,
+	UpdateWebinarBrandingNameTagPath,
 	UpdateWebinarBrandingNameTagResponse,
 	UpdateWebinarBrandingNameTagStatus400,
 	UpdateWebinarBrandingNameTagStatus404,
@@ -625,139 +792,180 @@ import type {
 	UpgradeZpasAppStatus400,
 	UpgradeZpasAppStatus429,
 	UploadWebinarBrandingVBBody,
+	UploadWebinarBrandingVBPath,
 	UploadWebinarBrandingVBResponse,
 	UploadWebinarBrandingVBStatus400,
 	UploadWebinarBrandingVBStatus404,
 	UploadWebinarBrandingVBStatus429,
 	UploadWebinarBrandingWallpaperBody,
+	UploadWebinarBrandingWallpaperPath,
 	UploadWebinarBrandingWallpaperResponse,
 	UploadWebinarBrandingWallpaperStatus400,
 	UploadWebinarBrandingWallpaperStatus404,
 	UploadWebinarBrandingWallpaperStatus429,
+	UserPACsPath,
 	UserPACsResponse,
 	UserPACsStatus400,
 	UserPACsStatus404,
 	UserPACsStatus429,
 	UserTSPCreateBody,
+	UserTSPCreatePath,
 	UserTSPCreateResponse,
 	UserTSPCreateStatus400,
 	UserTSPCreateStatus404,
 	UserTSPCreateStatus429,
+	UserTSPDeletePath,
 	UserTSPDeleteResponse,
 	UserTSPDeleteStatus400,
 	UserTSPDeleteStatus404,
 	UserTSPDeleteStatus429,
+	UserTSPPath,
 	UserTSPResponse,
 	UserTSPStatus400,
 	UserTSPStatus404,
 	UserTSPStatus429,
+	UserTSPsPath,
 	UserTSPsResponse,
 	UserTSPsStatus400,
 	UserTSPsStatus404,
 	UserTSPsStatus429,
 	UserTSPUpdateBody,
+	UserTSPUpdatePath,
 	UserTSPUpdateResponse,
 	UserTSPUpdateStatus400,
 	UserTSPUpdateStatus404,
 	UserTSPUpdateStatus429,
+	WebinarAbsenteesPath,
+	WebinarAbsenteesQuery,
 	WebinarAbsenteesResponse,
 	WebinarAbsenteesStatus400,
 	WebinarAbsenteesStatus404,
 	WebinarAbsenteesStatus429,
 	WebinarCreateBody,
+	WebinarCreatePath,
 	WebinarCreateResponse,
 	WebinarCreateStatus400,
 	WebinarCreateStatus404,
 	WebinarCreateStatus429,
+	WebinarDeletePath,
+	WebinarDeleteQuery,
 	WebinarDeleteResponse,
 	WebinarDeleteStatus400,
 	WebinarDeleteStatus404,
 	WebinarDeleteStatus429,
 	WebinarInviteLinksCreateBody,
+	WebinarInviteLinksCreatePath,
 	WebinarInviteLinksCreateResponse,
 	WebinarInviteLinksCreateStatus400,
 	WebinarInviteLinksCreateStatus404,
 	WebinarInviteLinksCreateStatus429,
+	WebinarLiveStreamingJoinTokenPath,
 	WebinarLiveStreamingJoinTokenResponse,
 	WebinarLiveStreamingJoinTokenStatus400,
 	WebinarLiveStreamingJoinTokenStatus404,
 	WebinarLiveStreamingJoinTokenStatus429,
 	WebinarLiveStreamStatusUpdateBody,
+	WebinarLiveStreamStatusUpdatePath,
 	WebinarLiveStreamStatusUpdateResponse,
 	WebinarLiveStreamStatusUpdateStatus400,
 	WebinarLiveStreamStatusUpdateStatus404,
 	WebinarLiveStreamStatusUpdateStatus429,
 	WebinarLiveStreamUpdateBody,
+	WebinarLiveStreamUpdatePath,
 	WebinarLiveStreamUpdateResponse,
 	WebinarLiveStreamUpdateStatus400,
 	WebinarLiveStreamUpdateStatus404,
 	WebinarLiveStreamUpdateStatus429,
+	WebinarLocalArchivingArchiveTokenPath,
 	WebinarLocalArchivingArchiveTokenResponse,
 	WebinarLocalArchivingArchiveTokenStatus400,
 	WebinarLocalArchivingArchiveTokenStatus404,
 	WebinarLocalArchivingArchiveTokenStatus429,
+	WebinarLocalRecordingJoinTokenPath,
 	WebinarLocalRecordingJoinTokenResponse,
 	WebinarLocalRecordingJoinTokenStatus400,
 	WebinarLocalRecordingJoinTokenStatus404,
 	WebinarLocalRecordingJoinTokenStatus429,
 	WebinarPanelistCreateBody,
+	WebinarPanelistCreatePath,
 	WebinarPanelistCreateResponse,
 	WebinarPanelistCreateStatus400,
 	WebinarPanelistCreateStatus404,
 	WebinarPanelistCreateStatus429,
+	WebinarPanelistDeletePath,
 	WebinarPanelistDeleteResponse,
 	WebinarPanelistDeleteStatus400,
 	WebinarPanelistDeleteStatus404,
 	WebinarPanelistDeleteStatus429,
+	WebinarPanelistsDeletePath,
 	WebinarPanelistsDeleteResponse,
 	WebinarPanelistsDeleteStatus400,
 	WebinarPanelistsDeleteStatus404,
 	WebinarPanelistsDeleteStatus429,
+	WebinarPanelistsPath,
 	WebinarPanelistsResponse,
 	WebinarPanelistsStatus400,
 	WebinarPanelistsStatus404,
 	WebinarPanelistsStatus429,
+	WebinarPath,
 	WebinarPollCreateBody,
+	WebinarPollCreatePath,
 	WebinarPollCreateResponse,
 	WebinarPollCreateStatus400,
 	WebinarPollCreateStatus404,
 	WebinarPollCreateStatus429,
+	WebinarPollDeletePath,
 	WebinarPollDeleteResponse,
 	WebinarPollDeleteStatus400,
 	WebinarPollDeleteStatus404,
 	WebinarPollDeleteStatus429,
+	WebinarPollGetPath,
 	WebinarPollGetResponse,
 	WebinarPollGetStatus400,
 	WebinarPollGetStatus404,
 	WebinarPollGetStatus429,
+	WebinarPollsPath,
+	WebinarPollsQuery,
 	WebinarPollsResponse,
 	WebinarPollsStatus400,
 	WebinarPollsStatus404,
 	WebinarPollsStatus429,
 	WebinarPollUpdateBody,
+	WebinarPollUpdatePath,
 	WebinarPollUpdateResponse,
 	WebinarPollUpdateStatus400,
 	WebinarPollUpdateStatus404,
 	WebinarPollUpdateStatus429,
+	WebinarQuery,
 	WebinarRegistrantCreateBody,
+	WebinarRegistrantCreatePath,
+	WebinarRegistrantCreateQuery,
 	WebinarRegistrantCreateResponse,
 	WebinarRegistrantCreateStatus400,
 	WebinarRegistrantCreateStatus404,
 	WebinarRegistrantCreateStatus429,
+	WebinarRegistrantGetPath,
+	WebinarRegistrantGetQuery,
 	WebinarRegistrantGetResponse,
 	WebinarRegistrantGetStatus400,
 	WebinarRegistrantGetStatus404,
 	WebinarRegistrantGetStatus429,
 	WebinarRegistrantQuestionUpdateBody,
+	WebinarRegistrantQuestionUpdatePath,
 	WebinarRegistrantQuestionUpdateResponse,
 	WebinarRegistrantQuestionUpdateStatus400,
 	WebinarRegistrantQuestionUpdateStatus404,
 	WebinarRegistrantQuestionUpdateStatus429,
 	WebinarRegistrantStatusBody,
+	WebinarRegistrantStatusPath,
+	WebinarRegistrantStatusQuery,
 	WebinarRegistrantStatusResponse,
 	WebinarRegistrantStatusStatus400,
 	WebinarRegistrantStatusStatus404,
 	WebinarRegistrantStatusStatus429,
+	WebinarRegistrantsPath,
+	WebinarRegistrantsQuery,
+	WebinarRegistrantsQuestionsGetPath,
 	WebinarRegistrantsQuestionsGetResponse,
 	WebinarRegistrantsQuestionsGetStatus400,
 	WebinarRegistrantsQuestionsGetStatus404,
@@ -771,37 +979,48 @@ import type {
 	WebinarStatus404,
 	WebinarStatus429,
 	WebinarStatusBody,
+	WebinarStatusPath,
 	WebinarStatusResponse,
 	WebinarStatusStatus400,
 	WebinarStatusStatus404,
 	WebinarStatusStatus429,
+	WebinarSurveyDeletePath,
 	WebinarSurveyDeleteResponse,
 	WebinarSurveyDeleteStatus400,
 	WebinarSurveyDeleteStatus404,
 	WebinarSurveyDeleteStatus429,
+	WebinarSurveyGetPath,
 	WebinarSurveyGetResponse,
 	WebinarSurveyGetStatus400,
 	WebinarSurveyGetStatus404,
 	WebinarSurveyGetStatus429,
 	WebinarSurveyUpdateBody,
+	WebinarSurveyUpdatePath,
 	WebinarSurveyUpdateResponse,
 	WebinarSurveyUpdateStatus400,
 	WebinarSurveyUpdateStatus404,
 	WebinarSurveyUpdateStatus429,
+	WebinarsPath,
+	WebinarsQuery,
 	WebinarsResponse,
 	WebinarsStatus400,
 	WebinarsStatus404,
 	WebinarsStatus429,
 	WebinarTemplateCreateBody,
+	WebinarTemplateCreatePath,
 	WebinarTemplateCreateResponse,
 	WebinarTemplateCreateStatus400,
 	WebinarTemplateCreateStatus404,
 	WebinarTemplateCreateStatus429,
+	WebinarTokenPath,
+	WebinarTokenQuery,
 	WebinarTokenResponse,
 	WebinarTokenStatus400,
 	WebinarTokenStatus404,
 	WebinarTokenStatus429,
 	WebinarUpdateBody,
+	WebinarUpdatePath,
+	WebinarUpdateQuery,
 	WebinarUpdateResponse,
 	WebinarUpdateStatus400,
 	WebinarUpdateStatus404,
@@ -824,26 +1043,7 @@ export async function listArchivedFiles(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			page_size?: number;
-			next_page_token?: string;
-			from?: string;
-			to?: string;
-			query_date_type?: "meeting_start_time" | "archive_complete_time";
-			group_id?: string;
-			group_ids?: string;
-			file_type?:
-				| "MP4"
-				| "M4A"
-				| "CHAT"
-				| "CC"
-				| "CHAT_MESSAGE"
-				| "TRANSCRIPT"
-				| "SUB_GROUP_MEMBER_LOG"
-				| "AIC_COVERSATION"
-				| "POLL"
-				| "QA";
-		};
+		queryParams?: Partial<ListArchivedFilesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -854,26 +1054,7 @@ export async function listArchivedFiles(
 		ErrorWrapper<ListArchivedFilesStatus400 | ListArchivedFilesStatus429>,
 		null,
 		Record<string, string>,
-		{
-			page_size?: number;
-			next_page_token?: string;
-			from?: string;
-			to?: string;
-			query_date_type?: "meeting_start_time" | "archive_complete_time";
-			group_id?: string;
-			group_ids?: string;
-			file_type?:
-				| "MP4"
-				| "M4A"
-				| "CHAT"
-				| "CC"
-				| "CHAT_MESSAGE"
-				| "TRANSCRIPT"
-				| "SUB_GROUP_MEMBER_LOG"
-				| "AIC_COVERSATION"
-				| "POLL"
-				| "QA";
-		},
+		Partial<ListArchivedFilesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -901,7 +1082,7 @@ export async function listArchiveFileDownloadAudit(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { page_size?: number; next_page_token?: string; from?: string; to?: string };
+		queryParams?: Partial<ListArchiveFileDownloadAuditQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -916,7 +1097,7 @@ export async function listArchiveFileDownloadAudit(
 		>,
 		null,
 		Record<string, string>,
-		{ page_size?: number; next_page_token?: string; from?: string; to?: string },
+		Partial<ListArchiveFileDownloadAuditQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -945,7 +1126,7 @@ export async function getArchivedFileStatistics(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { from?: string; to?: string };
+		queryParams?: Partial<GetArchivedFileStatisticsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -956,7 +1137,7 @@ export async function getArchivedFileStatistics(
 		ErrorWrapper<GetArchivedFileStatisticsStatus400 | GetArchivedFileStatisticsStatus429>,
 		null,
 		Record<string, string>,
-		{ from?: string; to?: string },
+		Partial<GetArchivedFileStatisticsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -986,7 +1167,7 @@ export async function updateArchivedFile(
 		body,
 		config,
 	}: {
-		pathParams: { fileId: string };
+		pathParams: UpdateArchivedFilePath;
 		body?: UpdateArchivedFileBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1004,7 +1185,7 @@ export async function updateArchivedFile(
 		UpdateArchivedFileBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ fileId: string }
+		UpdateArchivedFilePath
 	>({
 		method: "PATCH",
 		url: `/archive_files/${encodeURIComponent(String(pathParams.fileId))}`,
@@ -1032,7 +1213,7 @@ export async function meetingLocalArchivingArchiveToken(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingLocalArchivingArchiveTokenPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1051,7 +1232,7 @@ export async function meetingLocalArchivingArchiveToken(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingLocalArchivingArchiveTokenPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/jointoken/local_archiving`,
@@ -1078,7 +1259,7 @@ export async function getArchivedFiles(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingUUID: string };
+		pathParams: GetArchivedFilesPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1093,7 +1274,7 @@ export async function getArchivedFiles(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingUUID: string }
+		GetArchivedFilesPath
 	>({
 		method: "GET",
 		url: `/past_meetings/${encodeURIComponent(String(pathParams.meetingUUID))}/archive_files`,
@@ -1119,7 +1300,7 @@ export async function deleteArchivedFiles(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingUUID: string };
+		pathParams: DeleteArchivedFilesPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1136,7 +1317,7 @@ export async function deleteArchivedFiles(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingUUID: string }
+		DeleteArchivedFilesPath
 	>({
 		method: "DELETE",
 		url: `/past_meetings/${encodeURIComponent(String(pathParams.meetingUUID))}/archive_files`,
@@ -1162,8 +1343,8 @@ export async function recordingGet(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
-		queryParams?: { include_fields?: string; ttl?: number };
+		pathParams: RecordingGetPath;
+		queryParams?: Partial<RecordingGetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1177,8 +1358,8 @@ export async function recordingGet(
 		ErrorWrapper<RecordingGetStatus400 | RecordingGetStatus404 | RecordingGetStatus429>,
 		null,
 		Record<string, string>,
-		{ include_fields?: string; ttl?: number },
-		{ meetingId: string }
+		Partial<RecordingGetQuery>,
+		RecordingGetPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/recordings`,
@@ -1206,8 +1387,8 @@ export async function recordingDelete(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
-		queryParams?: { action?: "trash" | "delete" };
+		pathParams: RecordingDeletePath;
+		queryParams?: Partial<RecordingDeleteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1221,8 +1402,8 @@ export async function recordingDelete(
 		ErrorWrapper<RecordingDeleteStatus400 | RecordingDeleteStatus404 | RecordingDeleteStatus429>,
 		null,
 		Record<string, string>,
-		{ action?: "trash" | "delete" },
-		{ meetingId: string }
+		Partial<RecordingDeleteQuery>,
+		RecordingDeletePath
 	>({
 		method: "DELETE",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/recordings`,
@@ -1246,14 +1427,8 @@ export async function analyticsDetails(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
-		queryParams?: {
-			page_size?: number;
-			next_page_token?: string;
-			from?: string;
-			to?: string;
-			type?: "by_view" | "by_download";
-		};
+		pathParams: AnalyticsDetailsPath;
+		queryParams?: Partial<AnalyticsDetailsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1267,14 +1442,8 @@ export async function analyticsDetails(
 		ErrorWrapper<AnalyticsDetailsStatus400 | AnalyticsDetailsStatus404 | AnalyticsDetailsStatus429>,
 		null,
 		Record<string, string>,
-		{
-			page_size?: number;
-			next_page_token?: string;
-			from?: string;
-			to?: string;
-			type?: "by_view" | "by_download";
-		},
-		{ meetingId: string }
+		Partial<AnalyticsDetailsQuery>,
+		AnalyticsDetailsPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/recordings/analytics_details`,
@@ -1298,8 +1467,8 @@ export async function analyticsSummary(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
-		queryParams?: { from?: string; to?: string };
+		pathParams: AnalyticsSummaryPath;
+		queryParams?: Partial<AnalyticsSummaryQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1313,8 +1482,8 @@ export async function analyticsSummary(
 		ErrorWrapper<AnalyticsSummaryStatus400 | AnalyticsSummaryStatus404 | AnalyticsSummaryStatus429>,
 		null,
 		Record<string, string>,
-		{ from?: string; to?: string },
-		{ meetingId: string }
+		Partial<AnalyticsSummaryQuery>,
+		AnalyticsSummaryPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/recordings/analytics_summary`,
@@ -1340,13 +1509,8 @@ export async function meetingRecordingRegistrants(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
-		queryParams?: {
-			status?: "pending" | "approved" | "denied";
-			page_size?: number;
-			page_number?: number;
-			next_page_token?: string;
-		};
+		pathParams: MeetingRecordingRegistrantsPath;
+		queryParams?: Partial<MeetingRecordingRegistrantsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1360,13 +1524,8 @@ export async function meetingRecordingRegistrants(
 		ErrorWrapper<MeetingRecordingRegistrantsStatus404 | MeetingRecordingRegistrantsStatus429>,
 		null,
 		Record<string, string>,
-		{
-			status?: "pending" | "approved" | "denied";
-			page_size?: number;
-			page_number?: number;
-			next_page_token?: string;
-		},
-		{ meetingId: bigint }
+		Partial<MeetingRecordingRegistrantsQuery>,
+		MeetingRecordingRegistrantsPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/recordings/registrants`,
@@ -1393,7 +1552,7 @@ export async function meetingRecordingRegistrantCreate(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingRecordingRegistrantCreatePath;
 		body?: MeetingRecordingRegistrantCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1411,7 +1570,7 @@ export async function meetingRecordingRegistrantCreate(
 		MeetingRecordingRegistrantCreateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingRecordingRegistrantCreatePath
 	>({
 		method: "POST",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/recordings/registrants`,
@@ -1438,7 +1597,7 @@ export async function recordingRegistrantsQuestionsGet(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: RecordingRegistrantsQuestionsGetPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1455,7 +1614,7 @@ export async function recordingRegistrantsQuestionsGet(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		RecordingRegistrantsQuestionsGetPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/recordings/registrants/questions`,
@@ -1482,7 +1641,7 @@ export async function recordingRegistrantQuestionUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: RecordingRegistrantQuestionUpdatePath;
 		body?: RecordingRegistrantQuestionUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1500,7 +1659,7 @@ export async function recordingRegistrantQuestionUpdate(
 		RecordingRegistrantQuestionUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		RecordingRegistrantQuestionUpdatePath
 	>({
 		method: "PATCH",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/recordings/registrants/questions`,
@@ -1528,7 +1687,7 @@ export async function meetingRecordingRegistrantStatus(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingRecordingRegistrantStatusPath;
 		body?: MeetingRecordingRegistrantStatusBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1546,7 +1705,7 @@ export async function meetingRecordingRegistrantStatus(
 		MeetingRecordingRegistrantStatusBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingRecordingRegistrantStatusPath
 	>({
 		method: "PUT",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/recordings/registrants/status`,
@@ -1573,7 +1732,7 @@ export async function recordingSettingUpdate(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: RecordingSettingUpdatePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1588,7 +1747,7 @@ export async function recordingSettingUpdate(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		RecordingSettingUpdatePath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/recordings/settings`,
@@ -1615,7 +1774,7 @@ export async function recordingSettingsUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: RecordingSettingsUpdatePath;
 		body?: RecordingSettingsUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1631,7 +1790,7 @@ export async function recordingSettingsUpdate(
 		RecordingSettingsUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		RecordingSettingsUpdatePath
 	>({
 		method: "PATCH",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/recordings/settings`,
@@ -1657,8 +1816,8 @@ export async function recordingDeleteOne(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: string; recordingId: string };
-		queryParams?: { action?: "trash" | "delete" };
+		pathParams: RecordingDeleteOnePath;
+		queryParams?: Partial<RecordingDeleteOneQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1678,8 +1837,8 @@ export async function recordingDeleteOne(
 		>,
 		null,
 		Record<string, string>,
-		{ action?: "trash" | "delete" },
-		{ meetingId: string; recordingId: string }
+		Partial<RecordingDeleteOneQuery>,
+		RecordingDeleteOnePath
 	>({
 		method: "DELETE",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/recordings/${encodeURIComponent(String(pathParams.recordingId))}`,
@@ -1706,7 +1865,7 @@ export async function recordingStatusUpdateOne(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: string; recordingId: string };
+		pathParams: RecordingStatusUpdateOnePath;
 		body?: RecordingStatusUpdateOneBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1730,7 +1889,7 @@ export async function recordingStatusUpdateOne(
 		RecordingStatusUpdateOneBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string; recordingId: string }
+		RecordingStatusUpdateOnePath
 	>({
 		method: "PUT",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/recordings/${encodeURIComponent(String(pathParams.recordingId))}/status`,
@@ -1759,7 +1918,7 @@ export async function recordingStatusUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { meetingUUID: string };
+		pathParams: RecordingStatusUpdatePath;
 		body?: RecordingStatusUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1779,7 +1938,7 @@ export async function recordingStatusUpdate(
 		RecordingStatusUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingUUID: string }
+		RecordingStatusUpdatePath
 	>({
 		method: "PUT",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingUUID))}/recordings/status`,
@@ -1810,19 +1969,8 @@ export async function recordingsList(
 		queryParams,
 		config,
 	}: {
-		pathParams: { userId: string };
-		queryParams?: {
-			page_size?: number;
-			next_page_token?: string;
-			mc?: string;
-			trash?: boolean;
-			from?: string;
-			to?: string;
-			trash_type?: string;
-			meeting_id?: number;
-			zra_status?: "all" | "added" | "not_added" | "processing";
-			recording_source_type?: "cloud_recording_only" | "my_notes_recording_only";
-		};
+		pathParams: RecordingsListPath;
+		queryParams?: Partial<RecordingsListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1836,19 +1984,8 @@ export async function recordingsList(
 		ErrorWrapper<RecordingsListStatus401 | RecordingsListStatus404 | RecordingsListStatus429>,
 		null,
 		Record<string, string>,
-		{
-			page_size?: number;
-			next_page_token?: string;
-			mc?: string;
-			trash?: boolean;
-			from?: string;
-			to?: string;
-			trash_type?: string;
-			meeting_id?: number;
-			zra_status?: "all" | "added" | "not_added" | "processing";
-			recording_source_type?: "cloud_recording_only" | "my_notes_recording_only";
-		},
-		{ userId: string }
+		Partial<RecordingsListQuery>,
+		RecordingsListPath
 	>({
 		method: "GET",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/recordings`,
@@ -1872,17 +2009,7 @@ export async function listDevices(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			search_text?: string;
-			platform_os?: "win" | "mac" | "ipad" | "iphone" | "android" | "linux";
-			is_enrolled_in_zdm?: boolean;
-			device_type?: -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-			device_vendor?: string;
-			device_model?: string;
-			device_status?: -1 | 0 | 1;
-			page_size?: number;
-			next_page_token?: string;
-		};
+		queryParams?: Partial<ListDevicesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1893,17 +2020,7 @@ export async function listDevices(
 		ErrorWrapper<ListDevicesStatus400 | ListDevicesStatus429>,
 		null,
 		Record<string, string>,
-		{
-			search_text?: string;
-			platform_os?: "win" | "mac" | "ipad" | "iphone" | "android" | "linux";
-			is_enrolled_in_zdm?: boolean;
-			device_type?: -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-			device_vendor?: string;
-			device_model?: string;
-			device_status?: -1 | 0 | 1;
-			page_size?: number;
-			next_page_token?: string;
-		},
+		Partial<ListDevicesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -1967,7 +2084,7 @@ export async function getzdmgroupinfo(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { page_size?: number; next_page_token?: string };
+		queryParams?: Partial<GetzdmgroupinfoQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1978,7 +2095,7 @@ export async function getzdmgroupinfo(
 		ErrorWrapper<GetzdmgroupinfoStatus400 | GetzdmgroupinfoStatus403 | GetzdmgroupinfoStatus429>,
 		null,
 		Record<string, string>,
-		{ page_size?: number; next_page_token?: string },
+		Partial<GetzdmgroupinfoQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -2043,7 +2160,7 @@ export async function getZpaDeviceListProfileSettingOfaUser(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { user_id?: string };
+		queryParams?: Partial<GetZpaDeviceListProfileSettingOfaUserQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2059,7 +2176,7 @@ export async function getZpaDeviceListProfileSettingOfaUser(
 		>,
 		null,
 		Record<string, string>,
-		{ user_id?: string },
+		Partial<GetZpaDeviceListProfileSettingOfaUserQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -2124,7 +2241,7 @@ export async function deleteZpaDeviceByVendorAndMacAddress(
 		pathParams,
 		config,
 	}: {
-		pathParams: { vendor: string; macAddress: string };
+		pathParams: DeleteZpaDeviceByVendorAndMacAddressPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2147,7 +2264,7 @@ export async function deleteZpaDeviceByVendorAndMacAddress(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ vendor: string; macAddress: string }
+		DeleteZpaDeviceByVendorAndMacAddressPath
 	>({
 		method: "DELETE",
 		url: `/devices/zpa/vendors/${encodeURIComponent(String(pathParams.vendor))}/mac_addresses/${encodeURIComponent(String(pathParams.macAddress))}`,
@@ -2171,7 +2288,7 @@ export async function getZpaVersioninfo(
 		pathParams,
 		config,
 	}: {
-		pathParams: { zdmGroupId: string };
+		pathParams: GetZpaVersioninfoPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2188,7 +2305,7 @@ export async function getZpaVersioninfo(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ zdmGroupId: string }
+		GetZpaVersioninfoPath
 	>({
 		method: "GET",
 		url: `/devices/zpa/zdm_groups/${encodeURIComponent(String(pathParams.zdmGroupId))}/versions`,
@@ -2211,7 +2328,7 @@ export async function getDevice(
 		pathParams,
 		config,
 	}: {
-		pathParams: { deviceId: string };
+		pathParams: GetDevicePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2226,7 +2343,7 @@ export async function getDevice(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ deviceId: string }
+		GetDevicePath
 	>({
 		method: "GET",
 		url: `/devices/${encodeURIComponent(String(pathParams.deviceId))}`,
@@ -2251,7 +2368,7 @@ export async function deleteDevice(
 		pathParams,
 		config,
 	}: {
-		pathParams: { deviceId: string };
+		pathParams: DeleteDevicePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2266,7 +2383,7 @@ export async function deleteDevice(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ deviceId: string }
+		DeleteDevicePath
 	>({
 		method: "DELETE",
 		url: `/devices/${encodeURIComponent(String(pathParams.deviceId))}`,
@@ -2292,7 +2409,7 @@ export async function updateDevice(
 		body,
 		config,
 	}: {
-		pathParams: { deviceId: string };
+		pathParams: UpdateDevicePath;
 		body?: UpdateDeviceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2308,7 +2425,7 @@ export async function updateDevice(
 		UpdateDeviceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ deviceId: string }
+		UpdateDevicePath
 	>({
 		method: "PATCH",
 		url: `/devices/${encodeURIComponent(String(pathParams.deviceId))}`,
@@ -2334,8 +2451,8 @@ export async function assginGroup(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deviceId: string };
-		queryParams?: { group_id?: string };
+		pathParams: AssginGroupPath;
+		queryParams?: Partial<AssginGroupQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2351,8 +2468,8 @@ export async function assginGroup(
 		>,
 		null,
 		Record<string, string>,
-		{ group_id?: string },
-		{ deviceId: string }
+		Partial<AssginGroupQuery>,
+		AssginGroupPath
 	>({
 		method: "PATCH",
 		url: `/devices/${encodeURIComponent(String(pathParams.deviceId))}/assign_group`,
@@ -2378,7 +2495,7 @@ export async function changeDeviceAssociation(
 		body,
 		config,
 	}: {
-		pathParams: { deviceId: string };
+		pathParams: ChangeDeviceAssociationPath;
 		body?: ChangeDeviceAssociationBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2398,7 +2515,7 @@ export async function changeDeviceAssociation(
 		ChangeDeviceAssociationBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ deviceId: string }
+		ChangeDeviceAssociationPath
 	>({
 		method: "PATCH",
 		url: `/devices/${encodeURIComponent(String(pathParams.deviceId))}/assignment`,
@@ -2423,7 +2540,7 @@ export async function deviceList(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { page_size?: number; page_number?: number; next_page_token?: string };
+		queryParams?: Partial<DeviceListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2436,7 +2553,7 @@ export async function deviceList(
 		>,
 		null,
 		Record<string, string>,
-		{ page_size?: number; page_number?: number; next_page_token?: string },
+		Partial<DeviceListQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -2505,7 +2622,7 @@ export async function deviceDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { deviceId: string };
+		pathParams: DeviceDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2526,7 +2643,7 @@ export async function deviceDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ deviceId: string }
+		DeviceDeletePath
 	>({
 		method: "DELETE",
 		url: `/h323/devices/${encodeURIComponent(String(pathParams.deviceId))}`,
@@ -2552,7 +2669,7 @@ export async function deviceUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { deviceId: string };
+		pathParams: DeviceUpdatePath;
 		body?: DeviceUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2574,7 +2691,7 @@ export async function deviceUpdate(
 		DeviceUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ deviceId: string }
+		DeviceUpdatePath
 	>({
 		method: "PATCH",
 		url: `/h323/devices/${encodeURIComponent(String(pathParams.deviceId))}`,
@@ -2603,7 +2720,7 @@ export async function meetingAppAdd(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingAppAddPath;
 		body?: MeetingAppAddBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2619,7 +2736,7 @@ export async function meetingAppAdd(
 		MeetingAppAddBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingAppAddPath
 	>({
 		method: "POST",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/open_apps`,
@@ -2647,7 +2764,7 @@ export async function meetingAppDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingAppDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2662,7 +2779,7 @@ export async function meetingAppDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingAppDeletePath
 	>({
 		method: "DELETE",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/open_apps`,
@@ -2689,8 +2806,8 @@ export async function deleteMeetingChatMessageById(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint; messageId: string };
-		queryParams?: { file_ids?: string };
+		pathParams: DeleteMeetingChatMessageByIdPath;
+		queryParams?: Partial<DeleteMeetingChatMessageByIdQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2712,8 +2829,8 @@ export async function deleteMeetingChatMessageById(
 		>,
 		null,
 		Record<string, string>,
-		{ file_ids?: string },
-		{ meetingId: bigint; messageId: string }
+		Partial<DeleteMeetingChatMessageByIdQuery>,
+		DeleteMeetingChatMessageByIdPath
 	>({
 		method: "DELETE",
 		url: `/live_meetings/${encodeURIComponent(String(pathParams.meetingId))}/chat/messages/${encodeURIComponent(String(pathParams.messageId))}`,
@@ -2739,7 +2856,7 @@ export async function updateMeetingChatMessageById(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint; messageId: string };
+		pathParams: UpdateMeetingChatMessageByIdPath;
 		body?: UpdateMeetingChatMessageByIdBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2763,7 +2880,7 @@ export async function updateMeetingChatMessageById(
 		UpdateMeetingChatMessageByIdBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint; messageId: string }
+		UpdateMeetingChatMessageByIdPath
 	>({
 		method: "PATCH",
 		url: `/live_meetings/${encodeURIComponent(String(pathParams.meetingId))}/chat/messages/${encodeURIComponent(String(pathParams.messageId))}`,
@@ -2795,7 +2912,7 @@ export async function inMeetingControl(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: InMeetingControlPath;
 		body?: InMeetingControlBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2816,7 +2933,7 @@ export async function inMeetingControl(
 		InMeetingControlBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		InMeetingControlPath
 	>({
 		method: "PATCH",
 		url: `/live_meetings/${encodeURIComponent(String(pathParams.meetingId))}/events`,
@@ -2844,8 +2961,8 @@ export async function meetingLocalRecordingJoinToken(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
-		queryParams?: { bypass_waiting_room?: boolean };
+		pathParams: MeetingLocalRecordingJoinTokenPath;
+		queryParams?: Partial<MeetingLocalRecordingJoinTokenQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2863,8 +2980,8 @@ export async function meetingLocalRecordingJoinToken(
 		>,
 		null,
 		Record<string, string>,
-		{ bypass_waiting_room?: boolean },
-		{ meetingId: bigint }
+		Partial<MeetingLocalRecordingJoinTokenQuery>,
+		MeetingLocalRecordingJoinTokenPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/jointoken/local_recording`,
@@ -2893,8 +3010,8 @@ export async function meetingToken(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
-		queryParams?: { type?: "closed_caption_token" };
+		pathParams: MeetingTokenPath;
+		queryParams?: Partial<MeetingTokenQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2908,8 +3025,8 @@ export async function meetingToken(
 		ErrorWrapper<MeetingTokenStatus400 | MeetingTokenStatus404 | MeetingTokenStatus429>,
 		null,
 		Record<string, string>,
-		{ type?: "closed_caption_token" },
-		{ meetingId: bigint }
+		Partial<MeetingTokenQuery>,
+		MeetingTokenPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/token`,
@@ -2938,7 +3055,7 @@ export async function addBatchRegistrants(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: AddBatchRegistrantsPath;
 		body?: AddBatchRegistrantsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2956,7 +3073,7 @@ export async function addBatchRegistrants(
 		AddBatchRegistrantsBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		AddBatchRegistrantsPath
 	>({
 		method: "POST",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/batch_registrants`,
@@ -2983,7 +3100,7 @@ export async function meetingInvitation(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingInvitationPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3000,7 +3117,7 @@ export async function meetingInvitation(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingInvitationPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/invitation`,
@@ -3027,7 +3144,7 @@ export async function meetingInviteLinksCreate(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingInviteLinksCreatePath;
 		body?: MeetingInviteLinksCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3047,7 +3164,7 @@ export async function meetingInviteLinksCreate(
 		MeetingInviteLinksCreateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingInviteLinksCreatePath
 	>({
 		method: "POST",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/invite_links`,
@@ -3076,14 +3193,8 @@ export async function meetingRegistrants(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
-		queryParams?: {
-			occurrence_id?: string;
-			status?: "pending" | "approved" | "denied";
-			page_size?: number;
-			page_number?: number;
-			next_page_token?: string;
-		};
+		pathParams: MeetingRegistrantsPath;
+		queryParams?: Partial<MeetingRegistrantsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3099,14 +3210,8 @@ export async function meetingRegistrants(
 		>,
 		null,
 		Record<string, string>,
-		{
-			occurrence_id?: string;
-			status?: "pending" | "approved" | "denied";
-			page_size?: number;
-			page_number?: number;
-			next_page_token?: string;
-		},
-		{ meetingId: bigint }
+		Partial<MeetingRegistrantsQuery>,
+		MeetingRegistrantsPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/registrants`,
@@ -3135,9 +3240,9 @@ export async function meetingRegistrantCreate(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingRegistrantCreatePath;
 		body?: MeetingRegistrantCreateBody;
-		queryParams?: { occurrence_ids?: string };
+		queryParams?: Partial<MeetingRegistrantCreateQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3155,8 +3260,8 @@ export async function meetingRegistrantCreate(
 		>,
 		MeetingRegistrantCreateBody,
 		Record<string, string>,
-		{ occurrence_ids?: string },
-		{ meetingId: bigint }
+		Partial<MeetingRegistrantCreateQuery>,
+		MeetingRegistrantCreatePath
 	>({
 		method: "POST",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/registrants`,
@@ -3185,7 +3290,7 @@ export async function meetingRegistrantsQuestionsGet(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingRegistrantsQuestionsGetPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3204,7 +3309,7 @@ export async function meetingRegistrantsQuestionsGet(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingRegistrantsQuestionsGetPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/registrants/questions`,
@@ -3232,7 +3337,7 @@ export async function meetingRegistrantQuestionUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingRegistrantQuestionUpdatePath;
 		body?: MeetingRegistrantQuestionUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3252,7 +3357,7 @@ export async function meetingRegistrantQuestionUpdate(
 		MeetingRegistrantQuestionUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingRegistrantQuestionUpdatePath
 	>({
 		method: "PATCH",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/registrants/questions`,
@@ -3283,9 +3388,9 @@ export async function meetingRegistrantStatus(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingRegistrantStatusPath;
 		body?: MeetingRegistrantStatusBody;
-		queryParams?: { occurrence_id?: string };
+		queryParams?: Partial<MeetingRegistrantStatusQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3303,8 +3408,8 @@ export async function meetingRegistrantStatus(
 		>,
 		MeetingRegistrantStatusBody,
 		Record<string, string>,
-		{ occurrence_id?: string },
-		{ meetingId: bigint }
+		Partial<MeetingRegistrantStatusQuery>,
+		MeetingRegistrantStatusPath
 	>({
 		method: "PUT",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/registrants/status`,
@@ -3332,7 +3437,7 @@ export async function meetingRegistrantGet(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint; registrantId: string };
+		pathParams: MeetingRegistrantGetPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3353,7 +3458,7 @@ export async function meetingRegistrantGet(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint; registrantId: string }
+		MeetingRegistrantGetPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/registrants/${encodeURIComponent(String(pathParams.registrantId))}`,
@@ -3384,8 +3489,8 @@ export async function meetingregistrantdelete(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: number; registrantId: string };
-		queryParams?: { occurrence_id?: string };
+		pathParams: MeetingregistrantdeletePath;
+		queryParams?: Partial<MeetingregistrantdeleteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3407,8 +3512,8 @@ export async function meetingregistrantdelete(
 		>,
 		null,
 		Record<string, string>,
-		{ occurrence_id?: string },
-		{ meetingId: number; registrantId: string }
+		Partial<MeetingregistrantdeleteQuery>,
+		MeetingregistrantdeletePath
 	>({
 		method: "DELETE",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/registrants/${encodeURIComponent(String(pathParams.registrantId))}`,
@@ -3436,7 +3541,7 @@ export async function meetingLiveStreamingJoinToken(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingLiveStreamingJoinTokenPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3455,7 +3560,7 @@ export async function meetingLiveStreamingJoinToken(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingLiveStreamingJoinTokenPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/jointoken/live_streaming`,
@@ -3482,7 +3587,7 @@ export async function getMeetingLiveStreamDetails(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: GetMeetingLiveStreamDetailsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3501,7 +3606,7 @@ export async function getMeetingLiveStreamDetails(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		GetMeetingLiveStreamDetailsPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/livestream`,
@@ -3528,7 +3633,7 @@ export async function meetingLiveStreamUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingLiveStreamUpdatePath;
 		body?: MeetingLiveStreamUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3548,7 +3653,7 @@ export async function meetingLiveStreamUpdate(
 		MeetingLiveStreamUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingLiveStreamUpdatePath
 	>({
 		method: "PATCH",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/livestream`,
@@ -3576,7 +3681,7 @@ export async function meetingLiveStreamStatusUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingLiveStreamStatusUpdatePath;
 		body?: MeetingLiveStreamStatusUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3596,7 +3701,7 @@ export async function meetingLiveStreamStatusUpdate(
 		MeetingLiveStreamStatusUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingLiveStreamStatusUpdatePath
 	>({
 		method: "PATCH",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/livestream/status`,
@@ -3623,7 +3728,7 @@ export async function getMeetingTranscript(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: GetMeetingTranscriptPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3640,7 +3745,7 @@ export async function getMeetingTranscript(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		GetMeetingTranscriptPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/transcript`,
@@ -3664,7 +3769,7 @@ export async function deleteMeetingTranscript(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: DeleteMeetingTranscriptPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3684,7 +3789,7 @@ export async function deleteMeetingTranscript(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		DeleteMeetingTranscriptPath
 	>({
 		method: "DELETE",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/transcript`,
@@ -3713,7 +3818,7 @@ export async function meetingRTMSStatusUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingRTMSStatusUpdatePath;
 		body?: MeetingRTMSStatusUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3734,7 +3839,7 @@ export async function meetingRTMSStatusUpdate(
 		MeetingRTMSStatusUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingRTMSStatusUpdatePath
 	>({
 		method: "PATCH",
 		url: `/live_meetings/${encodeURIComponent(String(pathParams.meetingId))}/rtms_app/status`,
@@ -3762,8 +3867,8 @@ export async function meeting(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
-		queryParams?: { occurrence_id?: string; show_previous_occurrences?: boolean };
+		pathParams: MeetingPath;
+		queryParams?: Partial<MeetingQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3777,8 +3882,8 @@ export async function meeting(
 		ErrorWrapper<MeetingStatus400 | MeetingStatus404 | MeetingStatus429>,
 		null,
 		Record<string, string>,
-		{ occurrence_id?: string; show_previous_occurrences?: boolean },
-		{ meetingId: bigint }
+		Partial<MeetingQuery>,
+		MeetingPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}`,
@@ -3806,12 +3911,8 @@ export async function meetingDelete(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
-		queryParams?: {
-			occurrence_id?: string;
-			schedule_for_reminder?: boolean;
-			cancel_meeting_reminder?: boolean;
-		};
+		pathParams: MeetingDeletePath;
+		queryParams?: Partial<MeetingDeleteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3825,8 +3926,8 @@ export async function meetingDelete(
 		ErrorWrapper<MeetingDeleteStatus400 | MeetingDeleteStatus404 | MeetingDeleteStatus429>,
 		null,
 		Record<string, string>,
-		{ occurrence_id?: string; schedule_for_reminder?: boolean; cancel_meeting_reminder?: boolean },
-		{ meetingId: bigint }
+		Partial<MeetingDeleteQuery>,
+		MeetingDeletePath
 	>({
 		method: "DELETE",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}`,
@@ -3857,9 +3958,9 @@ export async function meetingUpdate(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingUpdatePath;
 		body?: MeetingUpdateBody;
-		queryParams?: { occurrence_id?: string };
+		queryParams?: Partial<MeetingUpdateQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3878,8 +3979,8 @@ export async function meetingUpdate(
 		>,
 		MeetingUpdateBody,
 		Record<string, string>,
-		{ occurrence_id?: string },
-		{ meetingId: bigint }
+		Partial<MeetingUpdateQuery>,
+		MeetingUpdatePath
 	>({
 		method: "PATCH",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}`,
@@ -3908,7 +4009,7 @@ export async function getSipDialingWithPasscode(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: GetSipDialingWithPasscodePath;
 		body?: GetSipDialingWithPasscodeBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3928,7 +4029,7 @@ export async function getSipDialingWithPasscode(
 		GetSipDialingWithPasscodeBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		GetSipDialingWithPasscodePath
 	>({
 		method: "POST",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/sip_dialing`,
@@ -3956,7 +4057,7 @@ export async function meetingStatus(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingStatusPath;
 		body?: MeetingStatusBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3972,7 +4073,7 @@ export async function meetingStatus(
 		MeetingStatusBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingStatusPath
 	>({
 		method: "PUT",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/status`,
@@ -4000,7 +4101,7 @@ export async function pastMeetingDetails(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: PastMeetingDetailsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4017,7 +4118,7 @@ export async function pastMeetingDetails(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		PastMeetingDetailsPath
 	>({
 		method: "GET",
 		url: `/past_meetings/${encodeURIComponent(String(pathParams.meetingId))}`,
@@ -4045,8 +4146,8 @@ export async function pastMeetings(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
-		queryParams?: { from?: string; to?: string };
+		pathParams: PastMeetingsPath;
+		queryParams?: Partial<PastMeetingsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4060,8 +4161,8 @@ export async function pastMeetings(
 		ErrorWrapper<PastMeetingsStatus401 | PastMeetingsStatus404 | PastMeetingsStatus429>,
 		null,
 		Record<string, string>,
-		{ from?: string; to?: string },
-		{ meetingId: bigint }
+		Partial<PastMeetingsQuery>,
+		PastMeetingsPath
 	>({
 		method: "GET",
 		url: `/past_meetings/${encodeURIComponent(String(pathParams.meetingId))}/instances`,
@@ -4093,8 +4194,8 @@ export async function pastMeetingParticipants(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
-		queryParams?: { page_size?: number; next_page_token?: string };
+		pathParams: PastMeetingParticipantsPath;
+		queryParams?: Partial<PastMeetingParticipantsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4112,8 +4213,8 @@ export async function pastMeetingParticipants(
 		>,
 		null,
 		Record<string, string>,
-		{ page_size?: number; next_page_token?: string },
-		{ meetingId: string }
+		Partial<PastMeetingParticipantsQuery>,
+		PastMeetingParticipantsPath
 	>({
 		method: "GET",
 		url: `/past_meetings/${encodeURIComponent(String(pathParams.meetingId))}/participants`,
@@ -4143,7 +4244,7 @@ export async function listPastMeetingQA(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: ListPastMeetingQAPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4160,7 +4261,7 @@ export async function listPastMeetingQA(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		ListPastMeetingQAPath
 	>({
 		method: "GET",
 		url: `/past_meetings/${encodeURIComponent(String(pathParams.meetingId))}/qa`,
@@ -4189,16 +4290,8 @@ export async function meetings(
 		queryParams,
 		config,
 	}: {
-		pathParams: { userId: string };
-		queryParams?: {
-			type?: "scheduled" | "live" | "upcoming" | "upcoming_meetings" | "previous_meetings";
-			page_size?: number;
-			next_page_token?: string;
-			page_number?: number;
-			from?: string;
-			to?: string;
-			timezone?: string;
-		};
+		pathParams: MeetingsPath;
+		queryParams?: Partial<MeetingsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4212,16 +4305,8 @@ export async function meetings(
 		ErrorWrapper<MeetingsStatus400 | MeetingsStatus403 | MeetingsStatus404 | MeetingsStatus429>,
 		null,
 		Record<string, string>,
-		{
-			type?: "scheduled" | "live" | "upcoming" | "upcoming_meetings" | "previous_meetings";
-			page_size?: number;
-			next_page_token?: string;
-			page_number?: number;
-			from?: string;
-			to?: string;
-			timezone?: string;
-		},
-		{ userId: string }
+		Partial<MeetingsQuery>,
+		MeetingsPath
 	>({
 		method: "GET",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/meetings`,
@@ -4252,7 +4337,7 @@ export async function meetingCreate(
 		body,
 		config,
 	}: {
-		pathParams: { userId: string };
+		pathParams: MeetingCreatePath;
 		body?: MeetingCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4268,7 +4353,7 @@ export async function meetingCreate(
 		MeetingCreateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string }
+		MeetingCreatePath
 	>({
 		method: "POST",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/meetings`,
@@ -4298,7 +4383,7 @@ export async function listUpcomingMeeting(
 		pathParams,
 		config,
 	}: {
-		pathParams: { userId: string };
+		pathParams: ListUpcomingMeetingPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4313,7 +4398,7 @@ export async function listUpcomingMeeting(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string }
+		ListUpcomingMeetingPath
 	>({
 		method: "GET",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/upcoming_meetings`,
@@ -4341,7 +4426,7 @@ export async function userPACs(
 		pathParams,
 		config,
 	}: {
-		pathParams: { userId: string };
+		pathParams: UserPACsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4356,7 +4441,7 @@ export async function userPACs(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string }
+		UserPACsPath
 	>({
 		method: "GET",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/pac`,
@@ -4385,7 +4470,7 @@ export async function createBatchPolls(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: CreateBatchPollsPath;
 		body?: CreateBatchPollsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4401,7 +4486,7 @@ export async function createBatchPolls(
 		CreateBatchPollsBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		CreateBatchPollsPath
 	>({
 		method: "POST",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/batch_polls`,
@@ -4430,8 +4515,8 @@ export async function meetingPolls(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
-		queryParams?: { anonymous?: boolean };
+		pathParams: MeetingPollsPath;
+		queryParams?: Partial<MeetingPollsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4445,8 +4530,8 @@ export async function meetingPolls(
 		ErrorWrapper<MeetingPollsStatus400 | MeetingPollsStatus404 | MeetingPollsStatus429>,
 		null,
 		Record<string, string>,
-		{ anonymous?: boolean },
-		{ meetingId: bigint }
+		Partial<MeetingPollsQuery>,
+		MeetingPollsPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/polls`,
@@ -4476,7 +4561,7 @@ export async function meetingPollCreate(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingPollCreatePath;
 		body?: MeetingPollCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4494,7 +4579,7 @@ export async function meetingPollCreate(
 		MeetingPollCreateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingPollCreatePath
 	>({
 		method: "POST",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/polls`,
@@ -4522,7 +4607,7 @@ export async function meetingPollGet(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint; pollId: string };
+		pathParams: MeetingPollGetPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4541,7 +4626,7 @@ export async function meetingPollGet(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint; pollId: string }
+		MeetingPollGetPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/polls/${encodeURIComponent(String(pathParams.pollId))}`,
@@ -4570,7 +4655,7 @@ export async function meetingPollUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint; pollId: string };
+		pathParams: MeetingPollUpdatePath;
 		body?: MeetingPollUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4592,7 +4677,7 @@ export async function meetingPollUpdate(
 		MeetingPollUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint; pollId: string }
+		MeetingPollUpdatePath
 	>({
 		method: "PUT",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/polls/${encodeURIComponent(String(pathParams.pollId))}`,
@@ -4621,7 +4706,7 @@ export async function meetingPollDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint; pollId: string };
+		pathParams: MeetingPollDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4642,7 +4727,7 @@ export async function meetingPollDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint; pollId: string }
+		MeetingPollDeletePath
 	>({
 		method: "DELETE",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/polls/${encodeURIComponent(String(pathParams.pollId))}`,
@@ -4669,7 +4754,7 @@ export async function listPastMeetingPolls(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: ListPastMeetingPollsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4684,7 +4769,7 @@ export async function listPastMeetingPolls(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		ListPastMeetingPollsPath
 	>({
 		method: "GET",
 		url: `/past_meetings/${encodeURIComponent(String(pathParams.meetingId))}/polls`,
@@ -4710,7 +4795,7 @@ export async function reportSignInSignOutActivities(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { from?: string; to?: string; page_size?: number; next_page_token?: string };
+		queryParams?: Partial<ReportSignInSignOutActivitiesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4721,7 +4806,7 @@ export async function reportSignInSignOutActivities(
 		ErrorWrapper<ReportSignInSignOutActivitiesStatus400 | ReportSignInSignOutActivitiesStatus429>,
 		null,
 		Record<string, string>,
-		{ from?: string; to?: string; page_size?: number; next_page_token?: string },
+		Partial<ReportSignInSignOutActivitiesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4781,7 +4866,7 @@ export async function getBillingInvoicesReports(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { billing_id?: string };
+		queryParams?: Partial<GetBillingInvoicesReportsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4796,7 +4881,7 @@ export async function getBillingInvoicesReports(
 		>,
 		null,
 		Record<string, string>,
-		{ billing_id?: string },
+		Partial<GetBillingInvoicesReportsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4823,7 +4908,7 @@ export async function reportCloudRecording(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { from?: string; to?: string; group_id?: string };
+		queryParams?: Partial<ReportCloudRecordingQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4834,7 +4919,7 @@ export async function reportCloudRecording(
 		ErrorWrapper<ReportCloudRecordingStatus400 | ReportCloudRecordingStatus429>,
 		null,
 		Record<string, string>,
-		{ from?: string; to?: string; group_id?: string },
+		Partial<ReportCloudRecordingQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4861,7 +4946,7 @@ export async function reportDaily(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { year?: number; month?: number; group_id?: string };
+		queryParams?: Partial<ReportDailyQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4872,7 +4957,7 @@ export async function reportDaily(
 		ErrorWrapper<ReportDailyStatus400 | ReportDailyStatus429>,
 		null,
 		Record<string, string>,
-		{ year?: number; month?: number; group_id?: string },
+		Partial<ReportDailyQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4898,40 +4983,7 @@ export async function getdisclaimerreport(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			from?: string;
-			to?: string;
-			search_value?: string;
-			disclaimer_type?:
-				| "login"
-				| "joinMeeting"
-				| "recording"
-				| "remoteControl"
-				| "meetingConnector"
-				| "archive"
-				| "summary"
-				| "query"
-				| "AICompanion"
-				| "caption"
-				| "joinSDKMeeting"
-				| "NDI"
-				| "joinWebinar"
-				| "internalMMRGuestJoin"
-				| "liveStream"
-				| "phoneACR"
-				| "viewBOActivity"
-				| "webinarBO"
-				| "unmuteAudio"
-				| "joinOnZoom"
-				| "GDPR"
-				| "chinaMeeting"
-				| "zappJoin"
-				| "softUpdateReminder"
-				| "all";
-			group_id?: string;
-			page_size?: number;
-			next_page_token?: string;
-		};
+		queryParams?: Partial<GetdisclaimerreportQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4947,40 +4999,7 @@ export async function getdisclaimerreport(
 		>,
 		null,
 		Record<string, string>,
-		{
-			from?: string;
-			to?: string;
-			search_value?: string;
-			disclaimer_type?:
-				| "login"
-				| "joinMeeting"
-				| "recording"
-				| "remoteControl"
-				| "meetingConnector"
-				| "archive"
-				| "summary"
-				| "query"
-				| "AICompanion"
-				| "caption"
-				| "joinSDKMeeting"
-				| "NDI"
-				| "joinWebinar"
-				| "internalMMRGuestJoin"
-				| "liveStream"
-				| "phoneACR"
-				| "viewBOActivity"
-				| "webinarBO"
-				| "unmuteAudio"
-				| "joinOnZoom"
-				| "GDPR"
-				| "chinaMeeting"
-				| "zappJoin"
-				| "softUpdateReminder"
-				| "all";
-			group_id?: string;
-			page_size?: number;
-			next_page_token?: string;
-		},
+		Partial<GetdisclaimerreportQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5006,54 +5025,7 @@ export async function gethistorymeetingandwebinarlist(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			from?: string;
-			to?: string;
-			date_type?: "start_time" | "end_time";
-			meeting_type?: "meeting" | "webinar" | "all";
-			report_type?: "all" | "poll" | "survey" | "qa" | "resource" | "reaction";
-			search_key?: string;
-			page_size?: number;
-			next_page_token?: string;
-			group_id?: string;
-			meeting_feature?:
-				| "screen_sharing"
-				| "video_on"
-				| "remote_control"
-				| "closed_caption"
-				| "language_interpretation"
-				| "telephone_usage"
-				| "in_meeting_chat"
-				| "poll"
-				| "join_by_room"
-				| "waiting_room"
-				| "live_transcription"
-				| "reaction"
-				| "zoom_apps"
-				| "annotation"
-				| "raise_hand"
-				| "virtual_background"
-				| "whiteboard"
-				| "immersive_scene"
-				| "avatar"
-				| "switch_to_mobile"
-				| "file_sharing"
-				| "meeting_summary"
-				| "meeting_questions"
-				| "record_to_computer"
-				| "record_to_cloud"
-				| "live_translation"
-				| "registration"
-				| "smart_recording"
-				| "multi_speaker"
-				| "meeting_wallpaper"
-				| "gen_ai_virtual_background"
-				| "multi_share"
-				| "document_collaboration"
-				| "portrait_lighting"
-				| "personalized_audio_isolation"
-				| "color_themes";
-		};
+		queryParams?: Partial<GethistorymeetingandwebinarlistQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5069,54 +5041,7 @@ export async function gethistorymeetingandwebinarlist(
 		>,
 		null,
 		Record<string, string>,
-		{
-			from?: string;
-			to?: string;
-			date_type?: "start_time" | "end_time";
-			meeting_type?: "meeting" | "webinar" | "all";
-			report_type?: "all" | "poll" | "survey" | "qa" | "resource" | "reaction";
-			search_key?: string;
-			page_size?: number;
-			next_page_token?: string;
-			group_id?: string;
-			meeting_feature?:
-				| "screen_sharing"
-				| "video_on"
-				| "remote_control"
-				| "closed_caption"
-				| "language_interpretation"
-				| "telephone_usage"
-				| "in_meeting_chat"
-				| "poll"
-				| "join_by_room"
-				| "waiting_room"
-				| "live_transcription"
-				| "reaction"
-				| "zoom_apps"
-				| "annotation"
-				| "raise_hand"
-				| "virtual_background"
-				| "whiteboard"
-				| "immersive_scene"
-				| "avatar"
-				| "switch_to_mobile"
-				| "file_sharing"
-				| "meeting_summary"
-				| "meeting_questions"
-				| "record_to_computer"
-				| "record_to_cloud"
-				| "live_translation"
-				| "registration"
-				| "smart_recording"
-				| "multi_speaker"
-				| "meeting_wallpaper"
-				| "gen_ai_virtual_background"
-				| "multi_share"
-				| "document_collaboration"
-				| "portrait_lighting"
-				| "personalized_audio_isolation"
-				| "color_themes";
-		},
+		Partial<GethistorymeetingandwebinarlistQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5142,23 +5067,7 @@ export async function reportMeetingactivitylogs(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			from?: string;
-			to?: string;
-			page_size?: number;
-			next_page_token?: string;
-			meeting_number?: string;
-			search_key?: string;
-			activity_type?:
-				| "All Activities"
-				| "Meeting Created"
-				| "Meeting Started"
-				| "User Join"
-				| "User Left"
-				| "Remote Control"
-				| "In-Meeting Chat"
-				| "Meeting Ended";
-		};
+		queryParams?: Partial<ReportMeetingactivitylogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5174,23 +5083,7 @@ export async function reportMeetingactivitylogs(
 		>,
 		null,
 		Record<string, string>,
-		{
-			from?: string;
-			to?: string;
-			page_size?: number;
-			next_page_token?: string;
-			meeting_number?: string;
-			search_key?: string;
-			activity_type?:
-				| "All Activities"
-				| "Meeting Created"
-				| "Meeting Started"
-				| "User Join"
-				| "User Left"
-				| "Remote Control"
-				| "In-Meeting Chat"
-				| "Meeting Ended";
-		},
+		Partial<ReportMeetingactivitylogsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5218,7 +5111,7 @@ export async function reportMeetingDetails(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: ReportMeetingDetailsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5235,7 +5128,7 @@ export async function reportMeetingDetails(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		ReportMeetingDetailsPath
 	>({
 		method: "GET",
 		url: `/report/meetings/${encodeURIComponent(String(pathParams.meetingId))}`,
@@ -5265,12 +5158,8 @@ export async function reportMeetingParticipants(
 		queryParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
-		queryParams?: {
-			page_size?: number;
-			next_page_token?: string;
-			include_fields?: "registrant_id";
-		};
+		pathParams: ReportMeetingParticipantsPath;
+		queryParams?: Partial<ReportMeetingParticipantsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5288,8 +5177,8 @@ export async function reportMeetingParticipants(
 		>,
 		null,
 		Record<string, string>,
-		{ page_size?: number; next_page_token?: string; include_fields?: "registrant_id" },
-		{ meetingId: string }
+		Partial<ReportMeetingParticipantsQuery>,
+		ReportMeetingParticipantsPath
 	>({
 		method: "GET",
 		url: `/report/meetings/${encodeURIComponent(String(pathParams.meetingId))}/participants`,
@@ -5316,7 +5205,7 @@ export async function reportMeetingPolls(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: unknown };
+		pathParams: ReportMeetingPollsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5333,7 +5222,7 @@ export async function reportMeetingPolls(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: unknown }
+		ReportMeetingPollsPath
 	>({
 		method: "GET",
 		url: `/report/meetings/${encodeURIComponent(String(pathParams.meetingId))}/polls`,
@@ -5359,7 +5248,7 @@ export async function reportMeetingQA(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: ReportMeetingQAPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5374,7 +5263,7 @@ export async function reportMeetingQA(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		ReportMeetingQAPath
 	>({
 		method: "GET",
 		url: `/report/meetings/${encodeURIComponent(String(pathParams.meetingId))}/qa`,
@@ -5400,7 +5289,7 @@ export async function reportMeetingSurvey(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: ReportMeetingSurveyPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5417,7 +5306,7 @@ export async function reportMeetingSurvey(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		ReportMeetingSurveyPath
 	>({
 		method: "GET",
 		url: `/report/meetings/${encodeURIComponent(String(pathParams.meetingId))}/survey`,
@@ -5444,25 +5333,7 @@ export async function reportOperationLogs(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			from?: string;
-			to?: string;
-			page_size?: number;
-			next_page_token?: string;
-			category_type?:
-				| "all"
-				| "user"
-				| "user_settings"
-				| "account"
-				| "billing"
-				| "im"
-				| "recording"
-				| "phone_contacts"
-				| "webinar"
-				| "sub_account"
-				| "role"
-				| "zoom_rooms";
-		};
+		queryParams?: Partial<ReportOperationLogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5473,25 +5344,7 @@ export async function reportOperationLogs(
 		ErrorWrapper<ReportOperationLogsStatus400 | ReportOperationLogsStatus429>,
 		null,
 		Record<string, string>,
-		{
-			from?: string;
-			to?: string;
-			page_size?: number;
-			next_page_token?: string;
-			category_type?:
-				| "all"
-				| "user"
-				| "user_settings"
-				| "account"
-				| "billing"
-				| "im"
-				| "recording"
-				| "phone_contacts"
-				| "webinar"
-				| "sub_account"
-				| "role"
-				| "zoom_rooms";
-		},
+		Partial<ReportOperationLogsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5517,7 +5370,7 @@ export async function getremotesupportreport(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { from?: string; to?: string; next_page_token?: string; page_size?: string };
+		queryParams?: Partial<GetremotesupportreportQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5532,7 +5385,7 @@ export async function getremotesupportreport(
 		>,
 		null,
 		Record<string, string>,
-		{ from?: string; to?: string; next_page_token?: string; page_size?: string },
+		Partial<GetremotesupportreportQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5560,15 +5413,7 @@ export async function reportTelephone(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			type?: "1" | "2" | "3";
-			query_date_type?: "start_time" | "end_time" | "meeting_start_time" | "meeting_end_time";
-			from?: string;
-			to?: string;
-			page_size?: number;
-			page_number?: number;
-			next_page_token?: string;
-		};
+		queryParams?: Partial<ReportTelephoneQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5584,15 +5429,7 @@ export async function reportTelephone(
 		>,
 		null,
 		Record<string, string>,
-		{
-			type?: "1" | "2" | "3";
-			query_date_type?: "start_time" | "end_time" | "meeting_start_time" | "meeting_end_time";
-			from?: string;
-			to?: string;
-			page_size?: number;
-			page_number?: number;
-			next_page_token?: string;
-		},
+		Partial<ReportTelephoneQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5620,14 +5457,7 @@ export async function reportUpcomingEvents(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			from?: string;
-			to?: string;
-			page_size?: number;
-			next_page_token?: string;
-			type?: "meeting" | "webinar" | "all";
-			group_id?: string;
-		};
+		queryParams?: Partial<ReportUpcomingEventsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5638,14 +5468,7 @@ export async function reportUpcomingEvents(
 		ErrorWrapper<ReportUpcomingEventsStatus400 | ReportUpcomingEventsStatus429>,
 		null,
 		Record<string, string>,
-		{
-			from?: string;
-			to?: string;
-			page_size?: number;
-			next_page_token?: string;
-			type?: "meeting" | "webinar" | "all";
-			group_id?: string;
-		},
+		Partial<ReportUpcomingEventsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5679,15 +5502,7 @@ export async function reportUsers(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			type?: "active" | "inactive";
-			from?: string;
-			to?: string;
-			page_size?: number;
-			page_number?: number;
-			next_page_token?: string;
-			group_id?: string;
-		};
+		queryParams?: Partial<ReportUsersQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5698,15 +5513,7 @@ export async function reportUsers(
 		ErrorWrapper<ReportUsersStatus400 | ReportUsersStatus429>,
 		null,
 		Record<string, string>,
-		{
-			type?: "active" | "inactive";
-			from?: string;
-			to?: string;
-			page_size?: number;
-			page_number?: number;
-			next_page_token?: string;
-			group_id?: string;
-		},
+		Partial<ReportUsersQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5736,14 +5543,8 @@ export async function reportMeetings(
 		queryParams,
 		config,
 	}: {
-		pathParams: { userId: string };
-		queryParams?: {
-			from?: string;
-			to?: string;
-			page_size?: number;
-			next_page_token?: string;
-			type?: "past" | "pastOne" | "pastJoined";
-		};
+		pathParams: ReportMeetingsPath;
+		queryParams?: Partial<ReportMeetingsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5757,14 +5558,8 @@ export async function reportMeetings(
 		ErrorWrapper<ReportMeetingsStatus400 | ReportMeetingsStatus404 | ReportMeetingsStatus429>,
 		null,
 		Record<string, string>,
-		{
-			from?: string;
-			to?: string;
-			page_size?: number;
-			next_page_token?: string;
-			type?: "past" | "pastOne" | "pastJoined";
-		},
-		{ userId: string }
+		Partial<ReportMeetingsQuery>,
+		ReportMeetingsPath
 	>({
 		method: "GET",
 		url: `/report/users/${encodeURIComponent(String(pathParams.userId))}/meetings`,
@@ -5791,7 +5586,7 @@ export async function reportWebinarDetails(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: string };
+		pathParams: ReportWebinarDetailsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5808,7 +5603,7 @@ export async function reportWebinarDetails(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: string }
+		ReportWebinarDetailsPath
 	>({
 		method: "GET",
 		url: `/report/webinars/${encodeURIComponent(String(pathParams.webinarId))}`,
@@ -5835,12 +5630,8 @@ export async function reportWebinarParticipants(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: string };
-		queryParams?: {
-			page_size?: number;
-			next_page_token?: string;
-			include_fields?: "registrant_id";
-		};
+		pathParams: ReportWebinarParticipantsPath;
+		queryParams?: Partial<ReportWebinarParticipantsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5858,8 +5649,8 @@ export async function reportWebinarParticipants(
 		>,
 		null,
 		Record<string, string>,
-		{ page_size?: number; next_page_token?: string; include_fields?: "registrant_id" },
-		{ webinarId: string }
+		Partial<ReportWebinarParticipantsQuery>,
+		ReportWebinarParticipantsPath
 	>({
 		method: "GET",
 		url: `/report/webinars/${encodeURIComponent(String(pathParams.webinarId))}/participants`,
@@ -5886,7 +5677,7 @@ export async function reportWebinarPolls(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: string };
+		pathParams: ReportWebinarPollsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5903,7 +5694,7 @@ export async function reportWebinarPolls(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: string }
+		ReportWebinarPollsPath
 	>({
 		method: "GET",
 		url: `/report/webinars/${encodeURIComponent(String(pathParams.webinarId))}/polls`,
@@ -5929,7 +5720,7 @@ export async function reportWebinarQA(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: string };
+		pathParams: ReportWebinarQAPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5944,7 +5735,7 @@ export async function reportWebinarQA(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: string }
+		ReportWebinarQAPath
 	>({
 		method: "GET",
 		url: `/report/webinars/${encodeURIComponent(String(pathParams.webinarId))}/qa`,
@@ -5970,7 +5761,7 @@ export async function reportWebinarSurvey(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: string };
+		pathParams: ReportWebinarSurveyPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5987,7 +5778,7 @@ export async function reportWebinarSurvey(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: string }
+		ReportWebinarSurveyPath
 	>({
 		method: "GET",
 		url: `/report/webinars/${encodeURIComponent(String(pathParams.webinarId))}/survey`,
@@ -6015,7 +5806,7 @@ export async function listSIPPhonePhones(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { search_key?: string; page_size?: number; next_page_token?: string };
+		queryParams?: Partial<ListSIPPhonePhonesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6031,7 +5822,7 @@ export async function listSIPPhonePhones(
 		>,
 		null,
 		Record<string, string>,
-		{ search_key?: string; page_size?: number; next_page_token?: string },
+		Partial<ListSIPPhonePhonesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -6107,7 +5898,7 @@ export async function deleteSIPPhonePhones(
 		pathParams,
 		config,
 	}: {
-		pathParams: { phoneId: string };
+		pathParams: DeleteSIPPhonePhonesPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6127,7 +5918,7 @@ export async function deleteSIPPhonePhones(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ phoneId: string }
+		DeleteSIPPhonePhonesPath
 	>({
 		method: "DELETE",
 		url: `/sip_phones/phones/${encodeURIComponent(String(pathParams.phoneId))}`,
@@ -6156,7 +5947,7 @@ export async function updateSIPPhonePhones(
 		body,
 		config,
 	}: {
-		pathParams: { phoneId: string };
+		pathParams: UpdateSIPPhonePhonesPath;
 		body?: UpdateSIPPhonePhonesBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6178,7 +5969,7 @@ export async function updateSIPPhonePhones(
 		UpdateSIPPhonePhonesBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ phoneId: string }
+		UpdateSIPPhonePhonesPath
 	>({
 		method: "PATCH",
 		url: `/sip_phones/phones/${encodeURIComponent(String(pathParams.phoneId))}`,
@@ -6209,13 +6000,7 @@ export async function listmeetingsummaries(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			page_size?: number;
-			next_page_token?: string;
-			from?: string;
-			to?: string;
-			time_filter_field?: "summary_start_time" | "summary_created_time";
-		};
+		queryParams?: Partial<ListmeetingsummariesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6228,13 +6013,7 @@ export async function listmeetingsummaries(
 		>,
 		null,
 		Record<string, string>,
-		{
-			page_size?: number;
-			next_page_token?: string;
-			from?: string;
-			to?: string;
-			time_filter_field?: "summary_start_time" | "summary_created_time";
-		},
+		Partial<ListmeetingsummariesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -6266,7 +6045,7 @@ export async function getameetingsummary(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: GetameetingsummaryPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6286,7 +6065,7 @@ export async function getameetingsummary(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		GetameetingsummaryPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/meeting_summary`,
@@ -6315,7 +6094,7 @@ export async function deletemeetingorwebinarsummary(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: string };
+		pathParams: DeletemeetingorwebinarsummaryPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6335,7 +6114,7 @@ export async function deletemeetingorwebinarsummary(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: string }
+		DeletemeetingorwebinarsummaryPath
 	>({
 		method: "DELETE",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/meeting_summary`,
@@ -6366,14 +6145,8 @@ export async function listUserMeetingSummaries(
 		queryParams,
 		config,
 	}: {
-		pathParams: { userId: string };
-		queryParams?: {
-			page_size?: number;
-			next_page_token?: string;
-			from?: string;
-			to?: string;
-			time_filter_field?: "summary_start_time" | "summary_created_time";
-		};
+		pathParams: ListUserMeetingSummariesPath;
+		queryParams?: Partial<ListUserMeetingSummariesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6392,14 +6165,8 @@ export async function listUserMeetingSummaries(
 		>,
 		null,
 		Record<string, string>,
-		{
-			page_size?: number;
-			next_page_token?: string;
-			from?: string;
-			to?: string;
-			time_filter_field?: "summary_start_time" | "summary_created_time";
-		},
-		{ userId: string }
+		Partial<ListUserMeetingSummariesQuery>,
+		ListUserMeetingSummariesPath
 	>({
 		method: "GET",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/meeting_summaries`,
@@ -6424,7 +6191,7 @@ export async function meetingSurveyGet(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingSurveyGetPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6439,7 +6206,7 @@ export async function meetingSurveyGet(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingSurveyGetPath
 	>({
 		method: "GET",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/survey`,
@@ -6467,7 +6234,7 @@ export async function meetingSurveyDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingSurveyDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6484,7 +6251,7 @@ export async function meetingSurveyDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingSurveyDeletePath
 	>({
 		method: "DELETE",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/survey`,
@@ -6509,7 +6276,7 @@ export async function meetingSurveyUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { meetingId: bigint };
+		pathParams: MeetingSurveyUpdatePath;
 		body?: MeetingSurveyUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6527,7 +6294,7 @@ export async function meetingSurveyUpdate(
 		MeetingSurveyUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ meetingId: bigint }
+		MeetingSurveyUpdatePath
 	>({
 		method: "PATCH",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/survey`,
@@ -6628,7 +6395,7 @@ export async function userTSPs(
 		pathParams,
 		config,
 	}: {
-		pathParams: { userId: string };
+		pathParams: UserTSPsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6643,7 +6410,7 @@ export async function userTSPs(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string }
+		UserTSPsPath
 	>({
 		method: "GET",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/tsp`,
@@ -6671,7 +6438,7 @@ export async function userTSPCreate(
 		body,
 		config,
 	}: {
-		pathParams: { userId: string };
+		pathParams: UserTSPCreatePath;
 		body?: UserTSPCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6687,7 +6454,7 @@ export async function userTSPCreate(
 		UserTSPCreateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string }
+		UserTSPCreatePath
 	>({
 		method: "POST",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/tsp`,
@@ -6716,7 +6483,7 @@ export async function tspUrlUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { userId: string };
+		pathParams: TspUrlUpdatePath;
 		body?: TspUrlUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6732,7 +6499,7 @@ export async function tspUrlUpdate(
 		TspUrlUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string }
+		TspUrlUpdatePath
 	>({
 		method: "PATCH",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/tsp/settings`,
@@ -6760,7 +6527,7 @@ export async function userTSP(
 		pathParams,
 		config,
 	}: {
-		pathParams: { userId: string; tspId: "1" | "2" };
+		pathParams: UserTSPPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6779,7 +6546,7 @@ export async function userTSP(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string; tspId: "1" | "2" }
+		UserTSPPath
 	>({
 		method: "GET",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/tsp/${encodeURIComponent(String(pathParams.tspId))}`,
@@ -6806,7 +6573,7 @@ export async function userTSPDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { userId: string; tspId: "1" | "2" };
+		pathParams: UserTSPDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6825,7 +6592,7 @@ export async function userTSPDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string; tspId: "1" | "2" }
+		UserTSPDeletePath
 	>({
 		method: "DELETE",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/tsp/${encodeURIComponent(String(pathParams.tspId))}`,
@@ -6853,7 +6620,7 @@ export async function userTSPUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { userId: string; tspId: "1" | "2" };
+		pathParams: UserTSPUpdatePath;
 		body?: UserTSPUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6873,7 +6640,7 @@ export async function userTSPUpdate(
 		UserTSPUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string; tspId: "1" | "2" }
+		UserTSPUpdatePath
 	>({
 		method: "PATCH",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/tsp/${encodeURIComponent(String(pathParams.tspId))}`,
@@ -6901,7 +6668,7 @@ export async function listMeetingTemplates(
 		pathParams,
 		config,
 	}: {
-		pathParams: { userId: string };
+		pathParams: ListMeetingTemplatesPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6918,7 +6685,7 @@ export async function listMeetingTemplates(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string }
+		ListMeetingTemplatesPath
 	>({
 		method: "GET",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/meeting_templates`,
@@ -6947,7 +6714,7 @@ export async function meetingTemplateCreate(
 		body,
 		config,
 	}: {
-		pathParams: { userId: string };
+		pathParams: MeetingTemplateCreatePath;
 		body?: MeetingTemplateCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6967,7 +6734,7 @@ export async function meetingTemplateCreate(
 		MeetingTemplateCreateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string }
+		MeetingTemplateCreatePath
 	>({
 		method: "POST",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/meeting_templates`,
@@ -7065,7 +6832,7 @@ export async function trackingfieldGet(
 		pathParams,
 		config,
 	}: {
-		pathParams: { fieldId: string };
+		pathParams: TrackingfieldGetPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7080,7 +6847,7 @@ export async function trackingfieldGet(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ fieldId: string }
+		TrackingfieldGetPath
 	>({
 		method: "GET",
 		url: `/tracking_fields/${encodeURIComponent(String(pathParams.fieldId))}`,
@@ -7106,7 +6873,7 @@ export async function trackingfieldDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { fieldId: string };
+		pathParams: TrackingfieldDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7121,7 +6888,7 @@ export async function trackingfieldDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ fieldId: string }
+		TrackingfieldDeletePath
 	>({
 		method: "DELETE",
 		url: `/tracking_fields/${encodeURIComponent(String(pathParams.fieldId))}`,
@@ -7148,7 +6915,7 @@ export async function trackingfieldUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { fieldId: string };
+		pathParams: TrackingfieldUpdatePath;
 		body?: TrackingfieldUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7166,7 +6933,7 @@ export async function trackingfieldUpdate(
 		TrackingfieldUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ fieldId: string }
+		TrackingfieldUpdatePath
 	>({
 		method: "PATCH",
 		url: `/tracking_fields/${encodeURIComponent(String(pathParams.fieldId))}`,
@@ -7194,8 +6961,8 @@ export async function deleteWebinarChatMessageById(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint; messageId: string };
-		queryParams?: { file_ids?: string };
+		pathParams: DeleteWebinarChatMessageByIdPath;
+		queryParams?: Partial<DeleteWebinarChatMessageByIdQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7217,8 +6984,8 @@ export async function deleteWebinarChatMessageById(
 		>,
 		null,
 		Record<string, string>,
-		{ file_ids?: string },
-		{ webinarId: bigint; messageId: string }
+		Partial<DeleteWebinarChatMessageByIdQuery>,
+		DeleteWebinarChatMessageByIdPath
 	>({
 		method: "DELETE",
 		url: `/live_webinars/${encodeURIComponent(String(pathParams.webinarId))}/chat/messages/${encodeURIComponent(String(pathParams.messageId))}`,
@@ -7246,8 +7013,8 @@ export async function webinarAbsentees(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: string };
-		queryParams?: { occurrence_id?: string; page_size?: number; next_page_token?: string };
+		pathParams: WebinarAbsenteesPath;
+		queryParams?: Partial<WebinarAbsenteesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7261,8 +7028,8 @@ export async function webinarAbsentees(
 		ErrorWrapper<WebinarAbsenteesStatus400 | WebinarAbsenteesStatus404 | WebinarAbsenteesStatus429>,
 		null,
 		Record<string, string>,
-		{ occurrence_id?: string; page_size?: number; next_page_token?: string },
-		{ webinarId: string }
+		Partial<WebinarAbsenteesQuery>,
+		WebinarAbsenteesPath
 	>({
 		method: "GET",
 		url: `/past_webinars/${encodeURIComponent(String(pathParams.webinarId))}/absentees`,
@@ -7289,7 +7056,7 @@ export async function pastWebinars(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: PastWebinarsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7304,7 +7071,7 @@ export async function pastWebinars(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		PastWebinarsPath
 	>({
 		method: "GET",
 		url: `/past_webinars/${encodeURIComponent(String(pathParams.webinarId))}/instances`,
@@ -7332,8 +7099,8 @@ export async function listWebinarParticipants(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: string };
-		queryParams?: { page_size?: number; next_page_token?: string };
+		pathParams: ListWebinarParticipantsPath;
+		queryParams?: Partial<ListWebinarParticipantsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7351,8 +7118,8 @@ export async function listWebinarParticipants(
 		>,
 		null,
 		Record<string, string>,
-		{ page_size?: number; next_page_token?: string },
-		{ webinarId: string }
+		Partial<ListWebinarParticipantsQuery>,
+		ListWebinarParticipantsPath
 	>({
 		method: "GET",
 		url: `/past_webinars/${encodeURIComponent(String(pathParams.webinarId))}/participants`,
@@ -7379,7 +7146,7 @@ export async function listPastWebinarPollResults(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: string };
+		pathParams: ListPastWebinarPollResultsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7398,7 +7165,7 @@ export async function listPastWebinarPollResults(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: string }
+		ListPastWebinarPollResultsPath
 	>({
 		method: "GET",
 		url: `/past_webinars/${encodeURIComponent(String(pathParams.webinarId))}/polls`,
@@ -7425,7 +7192,7 @@ export async function listPastWebinarQA(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: string };
+		pathParams: ListPastWebinarQAPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7442,7 +7209,7 @@ export async function listPastWebinarQA(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: string }
+		ListPastWebinarQAPath
 	>({
 		method: "GET",
 		url: `/past_webinars/${encodeURIComponent(String(pathParams.webinarId))}/qa`,
@@ -7465,7 +7232,7 @@ export async function listWebinarTemplates(
 		pathParams,
 		config,
 	}: {
-		pathParams: { userId: string };
+		pathParams: ListWebinarTemplatesPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7482,7 +7249,7 @@ export async function listWebinarTemplates(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string }
+		ListWebinarTemplatesPath
 	>({
 		method: "GET",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/webinar_templates`,
@@ -7509,7 +7276,7 @@ export async function webinarTemplateCreate(
 		body,
 		config,
 	}: {
-		pathParams: { userId: string };
+		pathParams: WebinarTemplateCreatePath;
 		body?: WebinarTemplateCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7529,7 +7296,7 @@ export async function webinarTemplateCreate(
 		WebinarTemplateCreateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string }
+		WebinarTemplateCreatePath
 	>({
 		method: "POST",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/webinar_templates`,
@@ -7559,13 +7326,8 @@ export async function webinars(
 		queryParams,
 		config,
 	}: {
-		pathParams: { userId: string };
-		queryParams?: {
-			type?: "scheduled" | "upcoming";
-			page_size?: number;
-			page_number?: number;
-			include_events_webinar?: boolean;
-		};
+		pathParams: WebinarsPath;
+		queryParams?: Partial<WebinarsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7579,13 +7341,8 @@ export async function webinars(
 		ErrorWrapper<WebinarsStatus400 | WebinarsStatus404 | WebinarsStatus429>,
 		null,
 		Record<string, string>,
-		{
-			type?: "scheduled" | "upcoming";
-			page_size?: number;
-			page_number?: number;
-			include_events_webinar?: boolean;
-		},
-		{ userId: string }
+		Partial<WebinarsQuery>,
+		WebinarsPath
 	>({
 		method: "GET",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/webinars`,
@@ -7616,7 +7373,7 @@ export async function webinarCreate(
 		body,
 		config,
 	}: {
-		pathParams: { userId: string };
+		pathParams: WebinarCreatePath;
 		body?: WebinarCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7632,7 +7389,7 @@ export async function webinarCreate(
 		WebinarCreateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string }
+		WebinarCreatePath
 	>({
 		method: "POST",
 		url: `/users/${encodeURIComponent(String(pathParams.userId))}/webinars`,
@@ -7660,8 +7417,8 @@ export async function webinar(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: string };
-		queryParams?: { occurrence_id?: string; show_previous_occurrences?: boolean };
+		pathParams: WebinarPath;
+		queryParams?: Partial<WebinarQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7675,8 +7432,8 @@ export async function webinar(
 		ErrorWrapper<WebinarStatus400 | WebinarStatus404 | WebinarStatus429>,
 		null,
 		Record<string, string>,
-		{ occurrence_id?: string; show_previous_occurrences?: boolean },
-		{ webinarId: string }
+		Partial<WebinarQuery>,
+		WebinarPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}`,
@@ -7704,8 +7461,8 @@ export async function webinarDelete(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
-		queryParams?: { occurrence_id?: string; cancel_webinar_reminder?: boolean };
+		pathParams: WebinarDeletePath;
+		queryParams?: Partial<WebinarDeleteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7719,8 +7476,8 @@ export async function webinarDelete(
 		ErrorWrapper<WebinarDeleteStatus400 | WebinarDeleteStatus404 | WebinarDeleteStatus429>,
 		null,
 		Record<string, string>,
-		{ occurrence_id?: string; cancel_webinar_reminder?: boolean },
-		{ webinarId: bigint }
+		Partial<WebinarDeleteQuery>,
+		WebinarDeletePath
 	>({
 		method: "DELETE",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}`,
@@ -7750,9 +7507,9 @@ export async function webinarUpdate(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarUpdatePath;
 		body?: WebinarUpdateBody;
-		queryParams?: { occurrence_id?: string };
+		queryParams?: Partial<WebinarUpdateQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7766,8 +7523,8 @@ export async function webinarUpdate(
 		ErrorWrapper<WebinarUpdateStatus400 | WebinarUpdateStatus404 | WebinarUpdateStatus429>,
 		WebinarUpdateBody,
 		Record<string, string>,
-		{ occurrence_id?: string },
-		{ webinarId: bigint }
+		Partial<WebinarUpdateQuery>,
+		WebinarUpdatePath
 	>({
 		method: "PATCH",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}`,
@@ -7797,7 +7554,7 @@ export async function addBatchWebinarRegistrants(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: string };
+		pathParams: AddBatchWebinarRegistrantsPath;
 		body?: AddBatchWebinarRegistrantsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7817,7 +7574,7 @@ export async function addBatchWebinarRegistrants(
 		AddBatchWebinarRegistrantsBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: string }
+		AddBatchWebinarRegistrantsPath
 	>({
 		method: "POST",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/batch_registrants`,
@@ -7845,7 +7602,7 @@ export async function getWebinarBranding(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: GetWebinarBrandingPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7862,7 +7619,7 @@ export async function getWebinarBranding(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		GetWebinarBrandingPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/branding`,
@@ -7888,7 +7645,7 @@ export async function createWebinarBrandingNameTag(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: CreateWebinarBrandingNameTagPath;
 		body?: CreateWebinarBrandingNameTagBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7908,7 +7665,7 @@ export async function createWebinarBrandingNameTag(
 		CreateWebinarBrandingNameTagBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		CreateWebinarBrandingNameTagPath
 	>({
 		method: "POST",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/branding/name_tags`,
@@ -7936,8 +7693,8 @@ export async function deleteWebinarBrandingNameTag(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
-		queryParams?: { name_tag_ids?: string };
+		pathParams: DeleteWebinarBrandingNameTagPath;
+		queryParams?: Partial<DeleteWebinarBrandingNameTagQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7955,8 +7712,8 @@ export async function deleteWebinarBrandingNameTag(
 		>,
 		null,
 		Record<string, string>,
-		{ name_tag_ids?: string },
-		{ webinarId: bigint }
+		Partial<DeleteWebinarBrandingNameTagQuery>,
+		DeleteWebinarBrandingNameTagPath
 	>({
 		method: "DELETE",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/branding/name_tags`,
@@ -7983,7 +7740,7 @@ export async function updateWebinarBrandingNameTag(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint; nameTagId: string };
+		pathParams: UpdateWebinarBrandingNameTagPath;
 		body?: UpdateWebinarBrandingNameTagBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8007,7 +7764,7 @@ export async function updateWebinarBrandingNameTag(
 		UpdateWebinarBrandingNameTagBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint; nameTagId: string }
+		UpdateWebinarBrandingNameTagPath
 	>({
 		method: "PATCH",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/branding/name_tags/${encodeURIComponent(String(pathParams.nameTagId))}`,
@@ -8038,7 +7795,7 @@ export async function uploadWebinarBrandingVB(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: UploadWebinarBrandingVBPath;
 		body?: UploadWebinarBrandingVBBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8076,7 +7833,7 @@ export async function uploadWebinarBrandingVB(
 		FormData,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		UploadWebinarBrandingVBPath
 	>({
 		method: "POST",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/branding/virtual_backgrounds`,
@@ -8104,8 +7861,8 @@ export async function deleteWebinarBrandingVB(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
-		queryParams?: { ids?: string };
+		pathParams: DeleteWebinarBrandingVBPath;
+		queryParams?: Partial<DeleteWebinarBrandingVBQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8123,8 +7880,8 @@ export async function deleteWebinarBrandingVB(
 		>,
 		null,
 		Record<string, string>,
-		{ ids?: string },
-		{ webinarId: bigint }
+		Partial<DeleteWebinarBrandingVBQuery>,
+		DeleteWebinarBrandingVBPath
 	>({
 		method: "DELETE",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/branding/virtual_backgrounds`,
@@ -8152,8 +7909,8 @@ export async function setWebinarBrandingVB(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
-		queryParams?: { id?: string; set_default_for_all_panelists?: boolean };
+		pathParams: SetWebinarBrandingVBPath;
+		queryParams?: Partial<SetWebinarBrandingVBQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8169,8 +7926,8 @@ export async function setWebinarBrandingVB(
 		>,
 		null,
 		Record<string, string>,
-		{ id?: string; set_default_for_all_panelists?: boolean },
-		{ webinarId: bigint }
+		Partial<SetWebinarBrandingVBQuery>,
+		SetWebinarBrandingVBPath
 	>({
 		method: "PATCH",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/branding/virtual_backgrounds`,
@@ -8202,7 +7959,7 @@ export async function uploadWebinarBrandingWallpaper(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: UploadWebinarBrandingWallpaperPath;
 		body?: UploadWebinarBrandingWallpaperBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8240,7 +7997,7 @@ export async function uploadWebinarBrandingWallpaper(
 		FormData,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		UploadWebinarBrandingWallpaperPath
 	>({
 		method: "POST",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/branding/wallpaper`,
@@ -8267,7 +8024,7 @@ export async function deleteWebinarBrandingWallpaper(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: DeleteWebinarBrandingWallpaperPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8286,7 +8043,7 @@ export async function deleteWebinarBrandingWallpaper(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		DeleteWebinarBrandingWallpaperPath
 	>({
 		method: "DELETE",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/branding/wallpaper`,
@@ -8313,7 +8070,7 @@ export async function webinarInviteLinksCreate(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarInviteLinksCreatePath;
 		body?: WebinarInviteLinksCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8333,7 +8090,7 @@ export async function webinarInviteLinksCreate(
 		WebinarInviteLinksCreateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarInviteLinksCreatePath
 	>({
 		method: "POST",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/invite_links`,
@@ -8361,7 +8118,7 @@ export async function webinarLiveStreamingJoinToken(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarLiveStreamingJoinTokenPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8380,7 +8137,7 @@ export async function webinarLiveStreamingJoinToken(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarLiveStreamingJoinTokenPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/jointoken/live_streaming`,
@@ -8407,7 +8164,7 @@ export async function webinarLocalArchivingArchiveToken(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarLocalArchivingArchiveTokenPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8426,7 +8183,7 @@ export async function webinarLocalArchivingArchiveToken(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarLocalArchivingArchiveTokenPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/jointoken/local_archiving`,
@@ -8453,7 +8210,7 @@ export async function webinarLocalRecordingJoinToken(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarLocalRecordingJoinTokenPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8472,7 +8229,7 @@ export async function webinarLocalRecordingJoinToken(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarLocalRecordingJoinTokenPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/jointoken/local_recording`,
@@ -8500,7 +8257,7 @@ export async function getWebinarLiveStreamDetails(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: string };
+		pathParams: GetWebinarLiveStreamDetailsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8519,7 +8276,7 @@ export async function getWebinarLiveStreamDetails(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: string }
+		GetWebinarLiveStreamDetailsPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/livestream`,
@@ -8547,7 +8304,7 @@ export async function webinarLiveStreamUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarLiveStreamUpdatePath;
 		body?: WebinarLiveStreamUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8567,7 +8324,7 @@ export async function webinarLiveStreamUpdate(
 		WebinarLiveStreamUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarLiveStreamUpdatePath
 	>({
 		method: "PATCH",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/livestream`,
@@ -8596,7 +8353,7 @@ export async function webinarLiveStreamStatusUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarLiveStreamStatusUpdatePath;
 		body?: WebinarLiveStreamStatusUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8616,7 +8373,7 @@ export async function webinarLiveStreamStatusUpdate(
 		WebinarLiveStreamStatusUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarLiveStreamStatusUpdatePath
 	>({
 		method: "PATCH",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/livestream/status`,
@@ -8644,7 +8401,7 @@ export async function webinarPanelists(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarPanelistsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8659,7 +8416,7 @@ export async function webinarPanelists(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarPanelistsPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/panelists`,
@@ -8687,7 +8444,7 @@ export async function webinarPanelistCreate(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarPanelistCreatePath;
 		body?: WebinarPanelistCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8707,7 +8464,7 @@ export async function webinarPanelistCreate(
 		WebinarPanelistCreateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarPanelistCreatePath
 	>({
 		method: "POST",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/panelists`,
@@ -8734,7 +8491,7 @@ export async function webinarPanelistsDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarPanelistsDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8753,7 +8510,7 @@ export async function webinarPanelistsDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarPanelistsDeletePath
 	>({
 		method: "DELETE",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/panelists`,
@@ -8780,7 +8537,7 @@ export async function webinarPanelistDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint; panelistId: string };
+		pathParams: WebinarPanelistDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8803,7 +8560,7 @@ export async function webinarPanelistDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint; panelistId: string }
+		WebinarPanelistDeletePath
 	>({
 		method: "DELETE",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/panelists/${encodeURIComponent(String(pathParams.panelistId))}`,
@@ -8830,8 +8587,8 @@ export async function webinarPolls(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
-		queryParams?: { anonymous?: boolean };
+		pathParams: WebinarPollsPath;
+		queryParams?: Partial<WebinarPollsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8845,8 +8602,8 @@ export async function webinarPolls(
 		ErrorWrapper<WebinarPollsStatus400 | WebinarPollsStatus404 | WebinarPollsStatus429>,
 		null,
 		Record<string, string>,
-		{ anonymous?: boolean },
-		{ webinarId: bigint }
+		Partial<WebinarPollsQuery>,
+		WebinarPollsPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/polls`,
@@ -8874,7 +8631,7 @@ export async function webinarPollCreate(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarPollCreatePath;
 		body?: WebinarPollCreateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8892,7 +8649,7 @@ export async function webinarPollCreate(
 		WebinarPollCreateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarPollCreatePath
 	>({
 		method: "POST",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/polls`,
@@ -8919,7 +8676,7 @@ export async function webinarPollGet(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint; pollId: string };
+		pathParams: WebinarPollGetPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8938,7 +8695,7 @@ export async function webinarPollGet(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint; pollId: string }
+		WebinarPollGetPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/polls/${encodeURIComponent(String(pathParams.pollId))}`,
@@ -8965,7 +8722,7 @@ export async function webinarPollUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint; pollId: string };
+		pathParams: WebinarPollUpdatePath;
 		body?: WebinarPollUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8987,7 +8744,7 @@ export async function webinarPollUpdate(
 		WebinarPollUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint; pollId: string }
+		WebinarPollUpdatePath
 	>({
 		method: "PUT",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/polls/${encodeURIComponent(String(pathParams.pollId))}`,
@@ -9014,7 +8771,7 @@ export async function webinarPollDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint; pollId: string };
+		pathParams: WebinarPollDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9035,7 +8792,7 @@ export async function webinarPollDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint; pollId: string }
+		WebinarPollDeletePath
 	>({
 		method: "DELETE",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/polls/${encodeURIComponent(String(pathParams.pollId))}`,
@@ -9062,15 +8819,8 @@ export async function webinarRegistrants(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
-		queryParams?: {
-			occurrence_id?: string;
-			status?: "pending" | "approved" | "denied";
-			tracking_source_id?: string;
-			page_size?: number;
-			page_number?: number;
-			next_page_token?: string;
-		};
+		pathParams: WebinarRegistrantsPath;
+		queryParams?: Partial<WebinarRegistrantsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9086,15 +8836,8 @@ export async function webinarRegistrants(
 		>,
 		null,
 		Record<string, string>,
-		{
-			occurrence_id?: string;
-			status?: "pending" | "approved" | "denied";
-			tracking_source_id?: string;
-			page_size?: number;
-			page_number?: number;
-			next_page_token?: string;
-		},
-		{ webinarId: bigint }
+		Partial<WebinarRegistrantsQuery>,
+		WebinarRegistrantsPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/registrants`,
@@ -9123,9 +8866,9 @@ export async function webinarRegistrantCreate(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarRegistrantCreatePath;
 		body?: WebinarRegistrantCreateBody;
-		queryParams?: { occurrence_ids?: string };
+		queryParams?: Partial<WebinarRegistrantCreateQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9143,8 +8886,8 @@ export async function webinarRegistrantCreate(
 		>,
 		WebinarRegistrantCreateBody,
 		Record<string, string>,
-		{ occurrence_ids?: string },
-		{ webinarId: bigint }
+		Partial<WebinarRegistrantCreateQuery>,
+		WebinarRegistrantCreatePath
 	>({
 		method: "POST",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/registrants`,
@@ -9173,7 +8916,7 @@ export async function webinarRegistrantsQuestionsGet(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarRegistrantsQuestionsGetPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9192,7 +8935,7 @@ export async function webinarRegistrantsQuestionsGet(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarRegistrantsQuestionsGetPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/registrants/questions`,
@@ -9220,7 +8963,7 @@ export async function webinarRegistrantQuestionUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarRegistrantQuestionUpdatePath;
 		body?: WebinarRegistrantQuestionUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9240,7 +8983,7 @@ export async function webinarRegistrantQuestionUpdate(
 		WebinarRegistrantQuestionUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarRegistrantQuestionUpdatePath
 	>({
 		method: "PATCH",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/registrants/questions`,
@@ -9270,9 +9013,9 @@ export async function webinarRegistrantStatus(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarRegistrantStatusPath;
 		body?: WebinarRegistrantStatusBody;
-		queryParams?: { occurrence_id?: string };
+		queryParams?: Partial<WebinarRegistrantStatusQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9290,8 +9033,8 @@ export async function webinarRegistrantStatus(
 		>,
 		WebinarRegistrantStatusBody,
 		Record<string, string>,
-		{ occurrence_id?: string },
-		{ webinarId: bigint }
+		Partial<WebinarRegistrantStatusQuery>,
+		WebinarRegistrantStatusPath
 	>({
 		method: "PUT",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/registrants/status`,
@@ -9321,8 +9064,8 @@ export async function webinarRegistrantGet(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint; registrantId: string };
-		queryParams?: { occurrence_id?: string };
+		pathParams: WebinarRegistrantGetPath;
+		queryParams?: Partial<WebinarRegistrantGetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9342,8 +9085,8 @@ export async function webinarRegistrantGet(
 		>,
 		null,
 		Record<string, string>,
-		{ occurrence_id?: string },
-		{ webinarId: bigint; registrantId: string }
+		Partial<WebinarRegistrantGetQuery>,
+		WebinarRegistrantGetPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/registrants/${encodeURIComponent(String(pathParams.registrantId))}`,
@@ -9371,8 +9114,8 @@ export async function deleteWebinarRegistrant(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: number; registrantId: string };
-		queryParams?: { occurrence_id?: string };
+		pathParams: DeleteWebinarRegistrantPath;
+		queryParams?: Partial<DeleteWebinarRegistrantQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9394,8 +9137,8 @@ export async function deleteWebinarRegistrant(
 		>,
 		null,
 		Record<string, string>,
-		{ occurrence_id?: string },
-		{ webinarId: number; registrantId: string }
+		Partial<DeleteWebinarRegistrantQuery>,
+		DeleteWebinarRegistrantPath
 	>({
 		method: "DELETE",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/registrants/${encodeURIComponent(String(pathParams.registrantId))}`,
@@ -9423,7 +9166,7 @@ export async function getWebinarSipDialingWithPasscode(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: GetWebinarSipDialingWithPasscodePath;
 		body?: GetWebinarSipDialingWithPasscodeBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9441,7 +9184,7 @@ export async function getWebinarSipDialingWithPasscode(
 		GetWebinarSipDialingWithPasscodeBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		GetWebinarSipDialingWithPasscodePath
 	>({
 		method: "POST",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/sip_dialing`,
@@ -9469,7 +9212,7 @@ export async function webinarStatus(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarStatusPath;
 		body?: WebinarStatusBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9485,7 +9228,7 @@ export async function webinarStatus(
 		WebinarStatusBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarStatusPath
 	>({
 		method: "PUT",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/status`,
@@ -9513,7 +9256,7 @@ export async function webinarSurveyGet(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarSurveyGetPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9528,7 +9271,7 @@ export async function webinarSurveyGet(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarSurveyGetPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/survey`,
@@ -9555,7 +9298,7 @@ export async function webinarSurveyDelete(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarSurveyDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9572,7 +9315,7 @@ export async function webinarSurveyDelete(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarSurveyDeletePath
 	>({
 		method: "DELETE",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/survey`,
@@ -9597,7 +9340,7 @@ export async function webinarSurveyUpdate(
 		body,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: WebinarSurveyUpdatePath;
 		body?: WebinarSurveyUpdateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -9615,7 +9358,7 @@ export async function webinarSurveyUpdate(
 		WebinarSurveyUpdateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		WebinarSurveyUpdatePath
 	>({
 		method: "PATCH",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/survey`,
@@ -9646,8 +9389,8 @@ export async function webinarToken(
 		queryParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
-		queryParams?: { type?: "closed_caption_token" };
+		pathParams: WebinarTokenPath;
+		queryParams?: Partial<WebinarTokenQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9661,8 +9404,8 @@ export async function webinarToken(
 		ErrorWrapper<WebinarTokenStatus400 | WebinarTokenStatus404 | WebinarTokenStatus429>,
 		null,
 		Record<string, string>,
-		{ type?: "closed_caption_token" },
-		{ webinarId: bigint }
+		Partial<WebinarTokenQuery>,
+		WebinarTokenPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/token`,
@@ -9691,7 +9434,7 @@ export async function getTrackingSources(
 		pathParams,
 		config,
 	}: {
-		pathParams: { webinarId: bigint };
+		pathParams: GetTrackingSourcesPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9708,7 +9451,7 @@ export async function getTrackingSources(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ webinarId: bigint }
+		GetTrackingSourcesPath
 	>({
 		method: "GET",
 		url: `/webinars/${encodeURIComponent(String(pathParams.webinarId))}/tracking_sources`,
