@@ -16056,6 +16056,18 @@ export const modelListModelsGetResponseSchema = modelListModelsGetStatus200Schem
 
 export const modelListModelsGetErrorSchema = modelListModelsGetStatus422Schema;
 
+export const modelListModelsGetQuerySchema = z.object({
+	return_wildcard_routes: z.union([z.boolean(), z.null()]).optional().default(false),
+	team_id: z.union([z.string(), z.null()]).optional(),
+	include_model_access_groups: z.union([z.boolean(), z.null()]).optional().default(false),
+	only_model_access_groups: z.union([z.boolean(), z.null()]).optional().default(false),
+	include_metadata: z.union([z.boolean(), z.null()]).optional().default(false),
+	fallback_type: z.union([z.string(), z.null()]).optional(),
+	scope: z.union([z.string(), z.null()]).optional(),
+	healthy_only: z.union([z.boolean(), z.null()]).optional().default(false),
+	client_version: z.union([z.string(), z.null()]).optional(),
+});
+
 export const modelListV1ModelsGetQueryReturnWildcardRoutesSchema = z
 	.union([z.boolean(), z.null()])
 	.optional()
@@ -16101,6 +16113,18 @@ export const modelListV1ModelsGetResponseSchema = modelListV1ModelsGetStatus200S
 
 export const modelListV1ModelsGetErrorSchema = modelListV1ModelsGetStatus422Schema;
 
+export const modelListV1ModelsGetQuerySchema = z.object({
+	return_wildcard_routes: z.union([z.boolean(), z.null()]).optional().default(false),
+	team_id: z.union([z.string(), z.null()]).optional(),
+	include_model_access_groups: z.union([z.boolean(), z.null()]).optional().default(false),
+	only_model_access_groups: z.union([z.boolean(), z.null()]).optional().default(false),
+	include_metadata: z.union([z.boolean(), z.null()]).optional().default(false),
+	fallback_type: z.union([z.string(), z.null()]).optional(),
+	scope: z.union([z.string(), z.null()]).optional(),
+	healthy_only: z.union([z.boolean(), z.null()]).optional().default(false),
+	client_version: z.union([z.string(), z.null()]).optional(),
+});
+
 export const modelInfoModelsModelIdGetPathModelIdSchema = z.string();
 
 export const modelInfoModelsModelIdGetQueryTeamIdSchema = z
@@ -16120,6 +16144,15 @@ export const modelInfoModelsModelIdGetResponseSchema = modelInfoModelsModelIdGet
 
 export const modelInfoModelsModelIdGetErrorSchema = modelInfoModelsModelIdGetStatus422Schema;
 
+export const modelInfoModelsModelIdGetPathSchema = z.object({
+	model_id: z.string(),
+});
+
+export const modelInfoModelsModelIdGetQuerySchema = z.object({
+	team_id: z.union([z.string(), z.null()]).optional(),
+	healthy_only: z.union([z.boolean(), z.null()]).optional().default(false),
+});
+
 export const modelInfoV1ModelsModelIdGetPathModelIdSchema = z.string();
 
 export const modelInfoV1ModelsModelIdGetQueryTeamIdSchema = z
@@ -16138,6 +16171,15 @@ export const modelInfoV1ModelsModelIdGetStatus422Schema = HTTPValidationErrorSch
 export const modelInfoV1ModelsModelIdGetResponseSchema = modelInfoV1ModelsModelIdGetStatus200Schema;
 
 export const modelInfoV1ModelsModelIdGetErrorSchema = modelInfoV1ModelsModelIdGetStatus422Schema;
+
+export const modelInfoV1ModelsModelIdGetPathSchema = z.object({
+	model_id: z.string(),
+});
+
+export const modelInfoV1ModelsModelIdGetQuerySchema = z.object({
+	team_id: z.union([z.string(), z.null()]).optional(),
+	healthy_only: z.union([z.boolean(), z.null()]).optional().default(false),
+});
 
 export const chatCompletionOpenaiDeploymentsModelChatCompletionsPostPathModelSchema = z.union([
 	z.string(),
@@ -16233,6 +16275,10 @@ export const chatCompletionOpenaiDeploymentsModelChatCompletionsPostBodySchema =
 	fallbacks: z.union([z.array(z.string()), z.null()]).optional(),
 });
 
+export const chatCompletionOpenaiDeploymentsModelChatCompletionsPostPathSchema = z.object({
+	model: z.union([z.string(), z.null()]),
+});
+
 export const chatCompletionEnginesModelChatCompletionsPostPathModelSchema = z.union([
 	z.string(),
 	z.null(),
@@ -16290,6 +16336,10 @@ export const chatCompletionEnginesModelChatCompletionsPostBodySchema = z.object(
 	num_retries: z.union([z.int(), z.null()]).optional(),
 	context_window_fallback_dict: z.union([z.record(z.string(), z.string()), z.null()]).optional(),
 	fallbacks: z.union([z.array(z.string()), z.null()]).optional(),
+});
+
+export const chatCompletionEnginesModelChatCompletionsPostPathSchema = z.object({
+	model: z.union([z.string(), z.null()]),
 });
 
 export const chatCompletionChatCompletionsPostStatus200Schema = z.looseObject({});
@@ -16414,6 +16464,10 @@ export const completionOpenaiDeploymentsModelCompletionsPostResponseSchema =
 export const completionOpenaiDeploymentsModelCompletionsPostErrorSchema =
 	completionOpenaiDeploymentsModelCompletionsPostStatus422Schema;
 
+export const completionOpenaiDeploymentsModelCompletionsPostPathSchema = z.object({
+	model: z.union([z.string(), z.null()]),
+});
+
 export const completionEnginesModelCompletionsPostPathModelSchema = z.union([z.string(), z.null()]);
 
 export const completionEnginesModelCompletionsPostStatus200Schema = z.looseObject({});
@@ -16426,6 +16480,10 @@ export const completionEnginesModelCompletionsPostResponseSchema =
 export const completionEnginesModelCompletionsPostErrorSchema =
 	completionEnginesModelCompletionsPostStatus422Schema;
 
+export const completionEnginesModelCompletionsPostPathSchema = z.object({
+	model: z.union([z.string(), z.null()]),
+});
+
 export const completionCompletionsPostQueryModelSchema = z.union([z.string(), z.null()]).optional();
 
 export const completionCompletionsPostStatus200Schema = z.looseObject({});
@@ -16435,6 +16493,10 @@ export const completionCompletionsPostStatus422Schema = HTTPValidationErrorSchem
 export const completionCompletionsPostResponseSchema = completionCompletionsPostStatus200Schema;
 
 export const completionCompletionsPostErrorSchema = completionCompletionsPostStatus422Schema;
+
+export const completionCompletionsPostQuerySchema = z.object({
+	model: z.union([z.string(), z.null()]).optional(),
+});
 
 export const completionV1CompletionsPostQueryModelSchema = z
 	.union([z.string(), z.null()])
@@ -16447,6 +16509,10 @@ export const completionV1CompletionsPostStatus422Schema = HTTPValidationErrorSch
 export const completionV1CompletionsPostResponseSchema = completionV1CompletionsPostStatus200Schema;
 
 export const completionV1CompletionsPostErrorSchema = completionV1CompletionsPostStatus422Schema;
+
+export const completionV1CompletionsPostQuerySchema = z.object({
+	model: z.union([z.string(), z.null()]).optional(),
+});
 
 export const embeddingsOpenaiDeploymentsModelEmbeddingsPostPathModelSchema = z.union([
 	z.string(),
@@ -16480,6 +16546,10 @@ export const embeddingsOpenaiDeploymentsModelEmbeddingsPostBodySchema = z.object
 	logger_fn: z.union([z.string(), z.null()]).optional(),
 });
 
+export const embeddingsOpenaiDeploymentsModelEmbeddingsPostPathSchema = z.object({
+	model: z.union([z.string(), z.null()]),
+});
+
 export const embeddingsEnginesModelEmbeddingsPostPathModelSchema = z.union([z.string(), z.null()]);
 
 export const embeddingsEnginesModelEmbeddingsPostStatus200Schema = z.looseObject({});
@@ -16506,6 +16576,10 @@ export const embeddingsEnginesModelEmbeddingsPostBodySchema = z.object({
 	litellm_call_id: z.union([z.string(), z.null()]).optional(),
 	litellm_logging_obj: z.union([z.looseObject({}), z.null()]).optional(),
 	logger_fn: z.union([z.string(), z.null()]).optional(),
+});
+
+export const embeddingsEnginesModelEmbeddingsPostPathSchema = z.object({
+	model: z.union([z.string(), z.null()]),
 });
 
 export const embeddingsEmbeddingsPostStatus200Schema = z.looseObject({});
@@ -16632,6 +16706,10 @@ export const deleteAssistantAssistantsAssistantIdDeleteResponseSchema =
 export const deleteAssistantAssistantsAssistantIdDeleteErrorSchema =
 	deleteAssistantAssistantsAssistantIdDeleteStatus422Schema;
 
+export const deleteAssistantAssistantsAssistantIdDeletePathSchema = z.object({
+	assistant_id: z.string(),
+});
+
 export const deleteAssistantV1AssistantsAssistantIdDeletePathAssistantIdSchema = z.string();
 
 export const deleteAssistantV1AssistantsAssistantIdDeleteStatus200Schema = z.looseObject({});
@@ -16644,6 +16722,10 @@ export const deleteAssistantV1AssistantsAssistantIdDeleteResponseSchema =
 
 export const deleteAssistantV1AssistantsAssistantIdDeleteErrorSchema =
 	deleteAssistantV1AssistantsAssistantIdDeleteStatus422Schema;
+
+export const deleteAssistantV1AssistantsAssistantIdDeletePathSchema = z.object({
+	assistant_id: z.string(),
+});
 
 export const createThreadsThreadsPostStatus200Schema = z.looseObject({});
 
@@ -16663,6 +16745,10 @@ export const getThreadThreadsThreadIdGetResponseSchema = getThreadThreadsThreadI
 
 export const getThreadThreadsThreadIdGetErrorSchema = getThreadThreadsThreadIdGetStatus422Schema;
 
+export const getThreadThreadsThreadIdGetPathSchema = z.object({
+	thread_id: z.string(),
+});
+
 export const getThreadV1ThreadsThreadIdGetPathThreadIdSchema = z.string();
 
 export const getThreadV1ThreadsThreadIdGetStatus200Schema = z.looseObject({});
@@ -16674,6 +16760,10 @@ export const getThreadV1ThreadsThreadIdGetResponseSchema =
 
 export const getThreadV1ThreadsThreadIdGetErrorSchema =
 	getThreadV1ThreadsThreadIdGetStatus422Schema;
+
+export const getThreadV1ThreadsThreadIdGetPathSchema = z.object({
+	thread_id: z.string(),
+});
 
 export const addMessagesThreadsThreadIdMessagesPostPathThreadIdSchema = z.string();
 
@@ -16687,6 +16777,10 @@ export const addMessagesThreadsThreadIdMessagesPostResponseSchema =
 export const addMessagesThreadsThreadIdMessagesPostErrorSchema =
 	addMessagesThreadsThreadIdMessagesPostStatus422Schema;
 
+export const addMessagesThreadsThreadIdMessagesPostPathSchema = z.object({
+	thread_id: z.string(),
+});
+
 export const getMessagesThreadsThreadIdMessagesGetPathThreadIdSchema = z.string();
 
 export const getMessagesThreadsThreadIdMessagesGetStatus200Schema = z.looseObject({});
@@ -16698,6 +16792,10 @@ export const getMessagesThreadsThreadIdMessagesGetResponseSchema =
 
 export const getMessagesThreadsThreadIdMessagesGetErrorSchema =
 	getMessagesThreadsThreadIdMessagesGetStatus422Schema;
+
+export const getMessagesThreadsThreadIdMessagesGetPathSchema = z.object({
+	thread_id: z.string(),
+});
 
 export const addMessagesV1ThreadsThreadIdMessagesPostPathThreadIdSchema = z.string();
 
@@ -16711,6 +16809,10 @@ export const addMessagesV1ThreadsThreadIdMessagesPostResponseSchema =
 export const addMessagesV1ThreadsThreadIdMessagesPostErrorSchema =
 	addMessagesV1ThreadsThreadIdMessagesPostStatus422Schema;
 
+export const addMessagesV1ThreadsThreadIdMessagesPostPathSchema = z.object({
+	thread_id: z.string(),
+});
+
 export const getMessagesV1ThreadsThreadIdMessagesGetPathThreadIdSchema = z.string();
 
 export const getMessagesV1ThreadsThreadIdMessagesGetStatus200Schema = z.looseObject({});
@@ -16722,6 +16824,10 @@ export const getMessagesV1ThreadsThreadIdMessagesGetResponseSchema =
 
 export const getMessagesV1ThreadsThreadIdMessagesGetErrorSchema =
 	getMessagesV1ThreadsThreadIdMessagesGetStatus422Schema;
+
+export const getMessagesV1ThreadsThreadIdMessagesGetPathSchema = z.object({
+	thread_id: z.string(),
+});
 
 export const runThreadThreadsThreadIdRunsPostPathThreadIdSchema = z.string();
 
@@ -16735,6 +16841,10 @@ export const runThreadThreadsThreadIdRunsPostResponseSchema =
 export const runThreadThreadsThreadIdRunsPostErrorSchema =
 	runThreadThreadsThreadIdRunsPostStatus422Schema;
 
+export const runThreadThreadsThreadIdRunsPostPathSchema = z.object({
+	thread_id: z.string(),
+});
+
 export const runThreadV1ThreadsThreadIdRunsPostPathThreadIdSchema = z.string();
 
 export const runThreadV1ThreadsThreadIdRunsPostStatus200Schema = z.looseObject({});
@@ -16746,6 +16856,10 @@ export const runThreadV1ThreadsThreadIdRunsPostResponseSchema =
 
 export const runThreadV1ThreadsThreadIdRunsPostErrorSchema =
 	runThreadV1ThreadsThreadIdRunsPostStatus422Schema;
+
+export const runThreadV1ThreadsThreadIdRunsPostPathSchema = z.object({
+	thread_id: z.string(),
+});
 
 export const tokenCounterUtilsTokenCounterPostQueryCallEndpointSchema = z
 	.boolean()
@@ -16764,6 +16878,10 @@ export const tokenCounterUtilsTokenCounterPostErrorSchema =
 
 export const tokenCounterUtilsTokenCounterPostBodySchema = tokenCountRequestSchema;
 
+export const tokenCounterUtilsTokenCounterPostQuerySchema = z.object({
+	call_endpoint: z.boolean().optional().default(false),
+});
+
 export const supportedOpenaiParamsUtilsSupportedOpenaiParamsGetQueryModelSchema = z.string();
 
 export const supportedOpenaiParamsUtilsSupportedOpenaiParamsGetStatus200Schema = z.looseObject({});
@@ -16776,6 +16894,10 @@ export const supportedOpenaiParamsUtilsSupportedOpenaiParamsGetResponseSchema =
 
 export const supportedOpenaiParamsUtilsSupportedOpenaiParamsGetErrorSchema =
 	supportedOpenaiParamsUtilsSupportedOpenaiParamsGetStatus422Schema;
+
+export const supportedOpenaiParamsUtilsSupportedOpenaiParamsGetQuerySchema = z.object({
+	model: z.string(),
+});
 
 export const modelInfoLookupUtilsModelInfoGetQueryModelSchema = z.string();
 
@@ -16792,6 +16914,11 @@ export const modelInfoLookupUtilsModelInfoGetResponseSchema =
 
 export const modelInfoLookupUtilsModelInfoGetErrorSchema =
 	modelInfoLookupUtilsModelInfoGetStatus422Schema;
+
+export const modelInfoLookupUtilsModelInfoGetQuerySchema = z.object({
+	model: z.string(),
+	custom_llm_provider: z.union([z.string(), z.null()]).optional(),
+});
 
 export const transformRequestUtilsTransformRequestPostStatus200Schema = rawRequestTypedDictSchema;
 
@@ -16896,6 +17023,64 @@ export const modelInfoV2V2ModelInfoGetResponseSchema = modelInfoV2V2ModelInfoGet
 
 export const modelInfoV2V2ModelInfoGetErrorSchema = modelInfoV2V2ModelInfoGetStatus422Schema;
 
+export const modelInfoV2V2ModelInfoGetQuerySchema = z.object({
+	model: z.union([z.string(), z.null()]).optional().describe("Specify the model name (optional)"),
+	user_models_only: z
+		.union([z.boolean(), z.null()])
+		.optional()
+		.default(false)
+		.describe("Only return models added by this user"),
+	include_team_models: z
+		.union([z.boolean(), z.null()])
+		.optional()
+		.default(false)
+		.describe("Return all models across all teams user is in."),
+	debug: z.union([z.boolean(), z.null()]).optional().default(false),
+	page: z.int().min(1).optional().default(1).describe("Page number"),
+	size: z.int().min(1).optional().default(50).describe("Page size"),
+	search: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Search model names (case-insensitive partial match)"),
+	modelId: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Search for a specific model by its unique ID"),
+	teamId: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids",
+		),
+	sortBy: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Field to sort by. Options: model_name, created_at, updated_at, costs, status"),
+	sortOrder: z
+		.union([z.string(), z.null()])
+		.optional()
+		.default("asc")
+		.describe("Sort order. Options: asc, desc"),
+	exclude_auto_routers: z
+		.union([z.boolean(), z.null()])
+		.optional()
+		.default(false)
+		.describe(
+			"Omit auto-router deployments (litellm model prefixed `auto_router/`). They select among deployments rather than being deployments themselves, so a caller rendering a deployment list can leave them out. Defaults to false, so existing callers are unaffected",
+		),
+	access_group: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Only return deployments whose `model_info.access_groups` contains this access group",
+		),
+	wildcard_only: z
+		.union([z.boolean(), z.null()])
+		.optional()
+		.default(false)
+		.describe("Only return wildcard deployments, i.e. those whose `model_name` contains `*`"),
+});
+
 export const modelInfoV1V1ModelInfoGetQueryLitellmModelIdSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -16930,6 +17115,24 @@ export const modelInfoV1V1ModelInfoGetResponseSchema = modelInfoV1V1ModelInfoGet
 
 export const modelInfoV1V1ModelInfoGetErrorSchema = modelInfoV1V1ModelInfoGetStatus422Schema;
 
+export const modelInfoV1V1ModelInfoGetQuerySchema = z.object({
+	litellm_model_id: z.union([z.string(), z.null()]).optional(),
+	include_team_models: z
+		.union([z.boolean(), z.null()])
+		.optional()
+		.default(false)
+		.describe(
+			"When true, filter to deployments the caller can use via direct access or team membership.",
+		),
+	teamId: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids",
+		),
+	healthy_only: z.union([z.boolean(), z.null()]).optional().default(false),
+});
+
 export const modelInfoV1ModelInfoGetQueryLitellmModelIdSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -16962,6 +17165,24 @@ export const modelInfoV1ModelInfoGetResponseSchema = modelInfoV1ModelInfoGetStat
 
 export const modelInfoV1ModelInfoGetErrorSchema = modelInfoV1ModelInfoGetStatus422Schema;
 
+export const modelInfoV1ModelInfoGetQuerySchema = z.object({
+	litellm_model_id: z.union([z.string(), z.null()]).optional(),
+	include_team_models: z
+		.union([z.boolean(), z.null()])
+		.optional()
+		.default(false)
+		.describe(
+			"When true, filter to deployments the caller can use via direct access or team membership.",
+		),
+	teamId: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids",
+		),
+	healthy_only: z.union([z.boolean(), z.null()]).optional().default(false),
+});
+
 export const modelDeprecationsV1ModelDeprecationsGetQueryWarnWithinDaysSchema = z
 	.int()
 	.optional()
@@ -16978,6 +17199,10 @@ export const modelDeprecationsV1ModelDeprecationsGetResponseSchema =
 export const modelDeprecationsV1ModelDeprecationsGetErrorSchema =
 	modelDeprecationsV1ModelDeprecationsGetStatus422Schema;
 
+export const modelDeprecationsV1ModelDeprecationsGetQuerySchema = z.object({
+	warn_within_days: z.int().optional().default(30),
+});
+
 export const modelDeprecationsModelDeprecationsGetQueryWarnWithinDaysSchema = z
 	.int()
 	.optional()
@@ -16993,6 +17218,10 @@ export const modelDeprecationsModelDeprecationsGetResponseSchema =
 export const modelDeprecationsModelDeprecationsGetErrorSchema =
 	modelDeprecationsModelDeprecationsGetStatus422Schema;
 
+export const modelDeprecationsModelDeprecationsGetQuerySchema = z.object({
+	warn_within_days: z.int().optional().default(30),
+});
+
 export const modelGroupInfoModelGroupInfoGetQueryModelGroupSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -17006,6 +17235,10 @@ export const modelGroupInfoModelGroupInfoGetResponseSchema =
 
 export const modelGroupInfoModelGroupInfoGetErrorSchema =
 	modelGroupInfoModelGroupInfoGetStatus422Schema;
+
+export const modelGroupInfoModelGroupInfoGetQuerySchema = z.object({
+	model_group: z.union([z.string(), z.null()]).optional(),
+});
 
 export const homeGetStatus200Schema = z.looseObject({});
 
@@ -17438,6 +17671,10 @@ export const getResponseOpenaiV1ResponsesResponseIdGetResponseSchema =
 export const getResponseOpenaiV1ResponsesResponseIdGetErrorSchema =
 	getResponseOpenaiV1ResponsesResponseIdGetStatus422Schema;
 
+export const getResponseOpenaiV1ResponsesResponseIdGetPathSchema = z.object({
+	response_id: z.string(),
+});
+
 export const deleteResponseOpenaiV1ResponsesResponseIdDeletePathResponseIdSchema = z.string();
 
 export const deleteResponseOpenaiV1ResponsesResponseIdDeleteStatus200Schema =
@@ -17454,6 +17691,10 @@ export const deleteResponseOpenaiV1ResponsesResponseIdDeleteResponseSchema =
 export const deleteResponseOpenaiV1ResponsesResponseIdDeleteErrorSchema =
 	deleteResponseOpenaiV1ResponsesResponseIdDeleteStatus422Schema;
 
+export const deleteResponseOpenaiV1ResponsesResponseIdDeletePathSchema = z.object({
+	response_id: z.string(),
+});
+
 export const getResponseResponsesResponseIdGetPathResponseIdSchema = z.string();
 
 export const getResponseResponsesResponseIdGetStatus200Schema = responsesAPIResponseSchema;
@@ -17465,6 +17706,10 @@ export const getResponseResponsesResponseIdGetResponseSchema =
 
 export const getResponseResponsesResponseIdGetErrorSchema =
 	getResponseResponsesResponseIdGetStatus422Schema;
+
+export const getResponseResponsesResponseIdGetPathSchema = z.object({
+	response_id: z.string(),
+});
 
 export const deleteResponseResponsesResponseIdDeletePathResponseIdSchema = z.string();
 
@@ -17481,6 +17726,10 @@ export const deleteResponseResponsesResponseIdDeleteResponseSchema =
 export const deleteResponseResponsesResponseIdDeleteErrorSchema =
 	deleteResponseResponsesResponseIdDeleteStatus422Schema;
 
+export const deleteResponseResponsesResponseIdDeletePathSchema = z.object({
+	response_id: z.string(),
+});
+
 export const getResponseV1ResponsesResponseIdGetPathResponseIdSchema = z.string();
 
 export const getResponseV1ResponsesResponseIdGetStatus200Schema = responsesAPIResponseSchema;
@@ -17492,6 +17741,10 @@ export const getResponseV1ResponsesResponseIdGetResponseSchema =
 
 export const getResponseV1ResponsesResponseIdGetErrorSchema =
 	getResponseV1ResponsesResponseIdGetStatus422Schema;
+
+export const getResponseV1ResponsesResponseIdGetPathSchema = z.object({
+	response_id: z.string(),
+});
 
 export const deleteResponseV1ResponsesResponseIdDeletePathResponseIdSchema = z.string();
 
@@ -17508,6 +17761,10 @@ export const deleteResponseV1ResponsesResponseIdDeleteResponseSchema =
 export const deleteResponseV1ResponsesResponseIdDeleteErrorSchema =
 	deleteResponseV1ResponsesResponseIdDeleteStatus422Schema;
 
+export const deleteResponseV1ResponsesResponseIdDeletePathSchema = z.object({
+	response_id: z.string(),
+});
+
 export const getResponseInputItemsOpenaiV1ResponsesResponseIdInputItemsGetPathResponseIdSchema =
 	z.string();
 
@@ -17523,6 +17780,10 @@ export const getResponseInputItemsOpenaiV1ResponsesResponseIdInputItemsGetRespon
 export const getResponseInputItemsOpenaiV1ResponsesResponseIdInputItemsGetErrorSchema =
 	getResponseInputItemsOpenaiV1ResponsesResponseIdInputItemsGetStatus422Schema;
 
+export const getResponseInputItemsOpenaiV1ResponsesResponseIdInputItemsGetPathSchema = z.object({
+	response_id: z.string(),
+});
+
 export const getResponseInputItemsResponsesResponseIdInputItemsGetPathResponseIdSchema = z.string();
 
 export const getResponseInputItemsResponsesResponseIdInputItemsGetStatus200Schema =
@@ -17536,6 +17797,10 @@ export const getResponseInputItemsResponsesResponseIdInputItemsGetResponseSchema
 
 export const getResponseInputItemsResponsesResponseIdInputItemsGetErrorSchema =
 	getResponseInputItemsResponsesResponseIdInputItemsGetStatus422Schema;
+
+export const getResponseInputItemsResponsesResponseIdInputItemsGetPathSchema = z.object({
+	response_id: z.string(),
+});
 
 export const getResponseInputItemsV1ResponsesResponseIdInputItemsGetPathResponseIdSchema =
 	z.string();
@@ -17551,6 +17816,10 @@ export const getResponseInputItemsV1ResponsesResponseIdInputItemsGetResponseSche
 
 export const getResponseInputItemsV1ResponsesResponseIdInputItemsGetErrorSchema =
 	getResponseInputItemsV1ResponsesResponseIdInputItemsGetStatus422Schema;
+
+export const getResponseInputItemsV1ResponsesResponseIdInputItemsGetPathSchema = z.object({
+	response_id: z.string(),
+});
 
 export const compactResponseOpenaiV1ResponsesCompactPostStatus200Schema = z.looseObject({});
 
@@ -17597,6 +17866,10 @@ export const cancelResponseOpenaiV1ResponsesResponseIdCancelPostResponseSchema =
 export const cancelResponseOpenaiV1ResponsesResponseIdCancelPostErrorSchema =
 	cancelResponseOpenaiV1ResponsesResponseIdCancelPostStatus422Schema;
 
+export const cancelResponseOpenaiV1ResponsesResponseIdCancelPostPathSchema = z.object({
+	response_id: z.string(),
+});
+
 export const cancelResponseResponsesResponseIdCancelPostPathResponseIdSchema = z.string();
 
 export const cancelResponseResponsesResponseIdCancelPostStatus200Schema = z.looseObject({});
@@ -17608,6 +17881,10 @@ export const cancelResponseResponsesResponseIdCancelPostResponseSchema =
 
 export const cancelResponseResponsesResponseIdCancelPostErrorSchema =
 	cancelResponseResponsesResponseIdCancelPostStatus422Schema;
+
+export const cancelResponseResponsesResponseIdCancelPostPathSchema = z.object({
+	response_id: z.string(),
+});
 
 export const cancelResponseV1ResponsesResponseIdCancelPostPathResponseIdSchema = z.string();
 
@@ -17621,6 +17898,10 @@ export const cancelResponseV1ResponsesResponseIdCancelPostResponseSchema =
 
 export const cancelResponseV1ResponsesResponseIdCancelPostErrorSchema =
 	cancelResponseV1ResponsesResponseIdCancelPostStatus422Schema;
+
+export const cancelResponseV1ResponsesResponseIdCancelPostPathSchema = z.object({
+	response_id: z.string(),
+});
 
 export const publicModelHubPublicModelHubGetStatus200Schema = z.array(modelGroupInfoProxySchema);
 
@@ -17687,6 +17968,10 @@ export const getLitellmModelCostMapPublicLitellmModelCostMapGetResponseSchema =
 export const getLitellmModelCostMapPublicLitellmModelCostMapGetErrorSchema =
 	getLitellmModelCostMapPublicLitellmModelCostMapGetStatus422Schema;
 
+export const getLitellmModelCostMapPublicLitellmModelCostMapGetQuerySchema = z.object({
+	catalog_only: z.boolean().optional().default(false),
+});
+
 export const getLitellmBlogPostsPublicLitellmBlogPostsGetStatus200Schema = blogPostsResponseSchema;
 
 export const getLitellmBlogPostsPublicLitellmBlogPostsGetResponseSchema =
@@ -17735,6 +18020,10 @@ export const publicModelHubFacetPublicV1ModelHubFacetGetResponseSchema =
 
 export const publicModelHubFacetPublicV1ModelHubFacetGetErrorSchema =
 	publicModelHubFacetPublicV1ModelHubFacetGetStatus422Schema;
+
+export const publicModelHubFacetPublicV1ModelHubFacetGetPathSchema = z.object({
+	facet: z.enum(["providers", "modes", "features"]),
+});
 
 export const rerankRerankPostStatus200Schema = z.looseObject({});
 
@@ -17811,6 +18100,10 @@ export const videoStatusVideosVideoIdGetResponseSchema = videoStatusVideosVideoI
 
 export const videoStatusVideosVideoIdGetErrorSchema = videoStatusVideosVideoIdGetStatus422Schema;
 
+export const videoStatusVideosVideoIdGetPathSchema = z.object({
+	video_id: z.string(),
+});
+
 export const videoStatusV1VideosVideoIdGetPathVideoIdSchema = z.string();
 
 export const videoStatusV1VideosVideoIdGetStatus200Schema = z.looseObject({});
@@ -17822,6 +18115,10 @@ export const videoStatusV1VideosVideoIdGetResponseSchema =
 
 export const videoStatusV1VideosVideoIdGetErrorSchema =
 	videoStatusV1VideosVideoIdGetStatus422Schema;
+
+export const videoStatusV1VideosVideoIdGetPathSchema = z.object({
+	video_id: z.string(),
+});
 
 export const videoContentVideosVideoIdContentGetPathVideoIdSchema = z.string();
 
@@ -17835,6 +18132,10 @@ export const videoContentVideosVideoIdContentGetResponseSchema =
 export const videoContentVideosVideoIdContentGetErrorSchema =
 	videoContentVideosVideoIdContentGetStatus422Schema;
 
+export const videoContentVideosVideoIdContentGetPathSchema = z.object({
+	video_id: z.string(),
+});
+
 export const videoContentV1VideosVideoIdContentGetPathVideoIdSchema = z.string();
 
 export const videoContentV1VideosVideoIdContentGetStatus200Schema = z.unknown();
@@ -17846,6 +18147,10 @@ export const videoContentV1VideosVideoIdContentGetResponseSchema =
 
 export const videoContentV1VideosVideoIdContentGetErrorSchema =
 	videoContentV1VideosVideoIdContentGetStatus422Schema;
+
+export const videoContentV1VideosVideoIdContentGetPathSchema = z.object({
+	video_id: z.string(),
+});
 
 export const videoRemixVideosVideoIdRemixPostPathVideoIdSchema = z.string();
 
@@ -17859,6 +18164,10 @@ export const videoRemixVideosVideoIdRemixPostResponseSchema =
 export const videoRemixVideosVideoIdRemixPostErrorSchema =
 	videoRemixVideosVideoIdRemixPostStatus422Schema;
 
+export const videoRemixVideosVideoIdRemixPostPathSchema = z.object({
+	video_id: z.string(),
+});
+
 export const videoRemixV1VideosVideoIdRemixPostPathVideoIdSchema = z.string();
 
 export const videoRemixV1VideosVideoIdRemixPostStatus200Schema = z.looseObject({});
@@ -17870,6 +18179,10 @@ export const videoRemixV1VideosVideoIdRemixPostResponseSchema =
 
 export const videoRemixV1VideosVideoIdRemixPostErrorSchema =
 	videoRemixV1VideosVideoIdRemixPostStatus422Schema;
+
+export const videoRemixV1VideosVideoIdRemixPostPathSchema = z.object({
+	video_id: z.string(),
+});
 
 export const videoCreateCharacterVideosCharactersPostStatus200Schema = z.looseObject({});
 
@@ -17910,6 +18223,10 @@ export const videoGetCharacterVideosCharactersCharacterIdGetResponseSchema =
 export const videoGetCharacterVideosCharactersCharacterIdGetErrorSchema =
 	videoGetCharacterVideosCharactersCharacterIdGetStatus422Schema;
 
+export const videoGetCharacterVideosCharactersCharacterIdGetPathSchema = z.object({
+	character_id: z.string(),
+});
+
 export const videoGetCharacterV1VideosCharactersCharacterIdGetPathCharacterIdSchema = z.string();
 
 export const videoGetCharacterV1VideosCharactersCharacterIdGetStatus200Schema = z.looseObject({});
@@ -17922,6 +18239,10 @@ export const videoGetCharacterV1VideosCharactersCharacterIdGetResponseSchema =
 
 export const videoGetCharacterV1VideosCharactersCharacterIdGetErrorSchema =
 	videoGetCharacterV1VideosCharactersCharacterIdGetStatus422Schema;
+
+export const videoGetCharacterV1VideosCharactersCharacterIdGetPathSchema = z.object({
+	character_id: z.string(),
+});
 
 export const videoEditVideosEditsPostStatus200Schema = z.looseObject({});
 
@@ -17964,6 +18285,12 @@ export const listContainersContainersGetResponseSchema = listContainersContainer
 
 export const listContainersContainersGetErrorSchema = listContainersContainersGetStatus422Schema;
 
+export const listContainersContainersGetQuerySchema = z.object({
+	after: z.union([z.string(), z.null()]).optional(),
+	limit: z.union([z.int(), z.null()]).optional(),
+	order: z.union([z.string(), z.null()]).optional(),
+});
+
 export const createContainerV1ContainersPostStatus200Schema = z.looseObject({});
 
 export const createContainerV1ContainersPostResponseSchema =
@@ -17991,6 +18318,12 @@ export const listContainersV1ContainersGetResponseSchema =
 export const listContainersV1ContainersGetErrorSchema =
 	listContainersV1ContainersGetStatus422Schema;
 
+export const listContainersV1ContainersGetQuerySchema = z.object({
+	after: z.union([z.string(), z.null()]).optional(),
+	limit: z.union([z.int(), z.null()]).optional(),
+	order: z.union([z.string(), z.null()]).optional(),
+});
+
 export const retrieveContainerContainersContainerIdGetPathContainerIdSchema = z.string();
 
 export const retrieveContainerContainersContainerIdGetStatus200Schema = z.looseObject({});
@@ -18002,6 +18335,10 @@ export const retrieveContainerContainersContainerIdGetResponseSchema =
 
 export const retrieveContainerContainersContainerIdGetErrorSchema =
 	retrieveContainerContainersContainerIdGetStatus422Schema;
+
+export const retrieveContainerContainersContainerIdGetPathSchema = z.object({
+	container_id: z.string(),
+});
 
 export const deleteContainerContainersContainerIdDeletePathContainerIdSchema = z.string();
 
@@ -18015,6 +18352,10 @@ export const deleteContainerContainersContainerIdDeleteResponseSchema =
 export const deleteContainerContainersContainerIdDeleteErrorSchema =
 	deleteContainerContainersContainerIdDeleteStatus422Schema;
 
+export const deleteContainerContainersContainerIdDeletePathSchema = z.object({
+	container_id: z.string(),
+});
+
 export const retrieveContainerV1ContainersContainerIdGetPathContainerIdSchema = z.string();
 
 export const retrieveContainerV1ContainersContainerIdGetStatus200Schema = z.looseObject({});
@@ -18026,6 +18367,10 @@ export const retrieveContainerV1ContainersContainerIdGetResponseSchema =
 
 export const retrieveContainerV1ContainersContainerIdGetErrorSchema =
 	retrieveContainerV1ContainersContainerIdGetStatus422Schema;
+
+export const retrieveContainerV1ContainersContainerIdGetPathSchema = z.object({
+	container_id: z.string(),
+});
 
 export const deleteContainerV1ContainersContainerIdDeletePathContainerIdSchema = z.string();
 
@@ -18040,6 +18385,10 @@ export const deleteContainerV1ContainersContainerIdDeleteResponseSchema =
 export const deleteContainerV1ContainersContainerIdDeleteErrorSchema =
 	deleteContainerV1ContainersContainerIdDeleteStatus422Schema;
 
+export const deleteContainerV1ContainersContainerIdDeletePathSchema = z.object({
+	container_id: z.string(),
+});
+
 export const handlerContainerIdV1ContainersContainerIdFilesGetPathContainerIdSchema = z.string();
 
 export const handlerContainerIdV1ContainersContainerIdFilesGetStatus200Schema = z.looseObject({});
@@ -18052,6 +18401,10 @@ export const handlerContainerIdV1ContainersContainerIdFilesGetResponseSchema =
 
 export const handlerContainerIdV1ContainersContainerIdFilesGetErrorSchema =
 	handlerContainerIdV1ContainersContainerIdFilesGetStatus422Schema;
+
+export const handlerContainerIdV1ContainersContainerIdFilesGetPathSchema = z.object({
+	container_id: z.string(),
+});
 
 export const handlerMultipartUploadV1ContainersContainerIdFilesPostPathContainerIdSchema =
 	z.string();
@@ -18069,6 +18422,10 @@ export const handlerMultipartUploadV1ContainersContainerIdFilesPostResponseSchem
 export const handlerMultipartUploadV1ContainersContainerIdFilesPostErrorSchema =
 	handlerMultipartUploadV1ContainersContainerIdFilesPostStatus422Schema;
 
+export const handlerMultipartUploadV1ContainersContainerIdFilesPostPathSchema = z.object({
+	container_id: z.string(),
+});
+
 export const handlerContainerIdContainersContainerIdFilesGetPathContainerIdSchema = z.string();
 
 export const handlerContainerIdContainersContainerIdFilesGetStatus200Schema = z.looseObject({});
@@ -18081,6 +18438,10 @@ export const handlerContainerIdContainersContainerIdFilesGetResponseSchema =
 
 export const handlerContainerIdContainersContainerIdFilesGetErrorSchema =
 	handlerContainerIdContainersContainerIdFilesGetStatus422Schema;
+
+export const handlerContainerIdContainersContainerIdFilesGetPathSchema = z.object({
+	container_id: z.string(),
+});
 
 export const handlerMultipartUploadContainersContainerIdFilesPostPathContainerIdSchema = z.string();
 
@@ -18096,6 +18457,10 @@ export const handlerMultipartUploadContainersContainerIdFilesPostResponseSchema 
 
 export const handlerMultipartUploadContainersContainerIdFilesPostErrorSchema =
 	handlerMultipartUploadContainersContainerIdFilesPostStatus422Schema;
+
+export const handlerMultipartUploadContainersContainerIdFilesPostPathSchema = z.object({
+	container_id: z.string(),
+});
 
 export const handlerContainerFileV1ContainersContainerIdFilesFileIdGetPathContainerIdSchema =
 	z.string();
@@ -18113,6 +18478,11 @@ export const handlerContainerFileV1ContainersContainerIdFilesFileIdGetResponseSc
 
 export const handlerContainerFileV1ContainersContainerIdFilesFileIdGetErrorSchema =
 	handlerContainerFileV1ContainersContainerIdFilesFileIdGetStatus422Schema;
+
+export const handlerContainerFileV1ContainersContainerIdFilesFileIdGetPathSchema = z.object({
+	container_id: z.string(),
+	file_id: z.string(),
+});
 
 export const handlerContainerFileV1ContainersContainerIdFilesFileIdDeletePathContainerIdSchema =
 	z.string();
@@ -18132,6 +18502,11 @@ export const handlerContainerFileV1ContainersContainerIdFilesFileIdDeleteRespons
 export const handlerContainerFileV1ContainersContainerIdFilesFileIdDeleteErrorSchema =
 	handlerContainerFileV1ContainersContainerIdFilesFileIdDeleteStatus422Schema;
 
+export const handlerContainerFileV1ContainersContainerIdFilesFileIdDeletePathSchema = z.object({
+	container_id: z.string(),
+	file_id: z.string(),
+});
+
 export const handlerContainerFileContainersContainerIdFilesFileIdGetPathContainerIdSchema =
 	z.string();
 
@@ -18149,6 +18524,11 @@ export const handlerContainerFileContainersContainerIdFilesFileIdGetResponseSche
 
 export const handlerContainerFileContainersContainerIdFilesFileIdGetErrorSchema =
 	handlerContainerFileContainersContainerIdFilesFileIdGetStatus422Schema;
+
+export const handlerContainerFileContainersContainerIdFilesFileIdGetPathSchema = z.object({
+	container_id: z.string(),
+	file_id: z.string(),
+});
 
 export const handlerContainerFileContainersContainerIdFilesFileIdDeletePathContainerIdSchema =
 	z.string();
@@ -18168,6 +18548,11 @@ export const handlerContainerFileContainersContainerIdFilesFileIdDeleteResponseS
 export const handlerContainerFileContainersContainerIdFilesFileIdDeleteErrorSchema =
 	handlerContainerFileContainersContainerIdFilesFileIdDeleteStatus422Schema;
 
+export const handlerContainerFileContainersContainerIdFilesFileIdDeletePathSchema = z.object({
+	container_id: z.string(),
+	file_id: z.string(),
+});
+
 export const handlerBinaryContentV1ContainersContainerIdFilesFileIdContentGetPathContainerIdSchema =
 	z.string();
 
@@ -18185,6 +18570,11 @@ export const handlerBinaryContentV1ContainersContainerIdFilesFileIdContentGetRes
 
 export const handlerBinaryContentV1ContainersContainerIdFilesFileIdContentGetErrorSchema =
 	handlerBinaryContentV1ContainersContainerIdFilesFileIdContentGetStatus422Schema;
+
+export const handlerBinaryContentV1ContainersContainerIdFilesFileIdContentGetPathSchema = z.object({
+	container_id: z.string(),
+	file_id: z.string(),
+});
 
 export const handlerBinaryContentContainersContainerIdFilesFileIdContentGetPathContainerIdSchema =
 	z.string();
@@ -18204,6 +18594,11 @@ export const handlerBinaryContentContainersContainerIdFilesFileIdContentGetRespo
 export const handlerBinaryContentContainersContainerIdFilesFileIdContentGetErrorSchema =
 	handlerBinaryContentContainersContainerIdFilesFileIdContentGetStatus422Schema;
 
+export const handlerBinaryContentContainersContainerIdFilesFileIdContentGetPathSchema = z.object({
+	container_id: z.string(),
+	file_id: z.string(),
+});
+
 export const searchSearchPostQuerySearchToolNameSchema = z.union([z.string(), z.null()]).optional();
 
 export const searchSearchPostStatus200Schema = z.looseObject({});
@@ -18213,6 +18608,10 @@ export const searchSearchPostStatus422Schema = HTTPValidationErrorSchema;
 export const searchSearchPostResponseSchema = searchSearchPostStatus200Schema;
 
 export const searchSearchPostErrorSchema = searchSearchPostStatus422Schema;
+
+export const searchSearchPostQuerySchema = z.object({
+	search_tool_name: z.union([z.string(), z.null()]).optional(),
+});
 
 export const searchV1SearchPostQuerySearchToolNameSchema = z
 	.union([z.string(), z.null()])
@@ -18225,6 +18624,10 @@ export const searchV1SearchPostStatus422Schema = HTTPValidationErrorSchema;
 export const searchV1SearchPostResponseSchema = searchV1SearchPostStatus200Schema;
 
 export const searchV1SearchPostErrorSchema = searchV1SearchPostStatus422Schema;
+
+export const searchV1SearchPostQuerySchema = z.object({
+	search_tool_name: z.union([z.string(), z.null()]).optional(),
+});
 
 export const searchSearchSearchToolNamePostPathSearchToolNameSchema = z.union([
 	z.string(),
@@ -18241,6 +18644,10 @@ export const searchSearchSearchToolNamePostResponseSchema =
 export const searchSearchSearchToolNamePostErrorSchema =
 	searchSearchSearchToolNamePostStatus422Schema;
 
+export const searchSearchSearchToolNamePostPathSchema = z.object({
+	search_tool_name: z.union([z.string(), z.null()]),
+});
+
 export const searchV1SearchSearchToolNamePostPathSearchToolNameSchema = z.union([
 	z.string(),
 	z.null(),
@@ -18255,6 +18662,10 @@ export const searchV1SearchSearchToolNamePostResponseSchema =
 
 export const searchV1SearchSearchToolNamePostErrorSchema =
 	searchV1SearchSearchToolNamePostStatus422Schema;
+
+export const searchV1SearchSearchToolNamePostPathSchema = z.object({
+	search_tool_name: z.union([z.string(), z.null()]),
+});
 
 export const listSearchToolsSearchToolsGetStatus200Schema = z.looseObject({});
 
@@ -18288,6 +18699,15 @@ export const listAgentTracesV1TracesGetResponseSchema = listAgentTracesV1TracesG
 
 export const listAgentTracesV1TracesGetErrorSchema = listAgentTracesV1TracesGetStatus422Schema;
 
+export const listAgentTracesV1TracesGetQuerySchema = z.object({
+	start_ms: z
+		.union([z.int(), z.null()])
+		.optional()
+		.describe("Window start, unix ms. Default: 24h ago"),
+	end_ms: z.union([z.int(), z.null()]).optional().describe("Window end, unix ms. Default: now"),
+	cursor: z.union([z.string().max(512), z.null()]).optional(),
+});
+
 export const listTraceAgentsV1TracesAgentsGetQueryStartMsSchema = z
 	.union([z.int(), z.null()])
 	.optional();
@@ -18305,6 +18725,11 @@ export const listTraceAgentsV1TracesAgentsGetResponseSchema =
 
 export const listTraceAgentsV1TracesAgentsGetErrorSchema =
 	listTraceAgentsV1TracesAgentsGetStatus422Schema;
+
+export const listTraceAgentsV1TracesAgentsGetQuerySchema = z.object({
+	start_ms: z.union([z.int(), z.null()]).optional(),
+	end_ms: z.union([z.int(), z.null()]).optional(),
+});
 
 export const queryAgentTracesV1TracesQueryPostStatus200Schema = traceSQLResponseSchema;
 
@@ -18345,6 +18770,16 @@ export const getAgentTraceV1TracesTraceIdGetResponseSchema =
 export const getAgentTraceV1TracesTraceIdGetErrorSchema =
 	getAgentTraceV1TracesTraceIdGetStatus422Schema;
 
+export const getAgentTraceV1TracesTraceIdGetPathSchema = z.object({
+	trace_id: z.string(),
+});
+
+export const getAgentTraceV1TracesTraceIdGetQuerySchema = z.object({
+	trace_ref: z.string().optional().default(""),
+	cursor: z.union([z.string().max(512), z.null()]).optional(),
+	page_size: z.union([z.int().min(1).max(500), z.null()]).optional(),
+});
+
 export const getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetPathTraceIdSchema = z.string();
 
 export const getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetPathSpanIdSchema = z.string();
@@ -18364,6 +18799,15 @@ export const getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetResponseSchema =
 
 export const getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetErrorSchema =
 	getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetStatus422Schema;
+
+export const getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetPathSchema = z.object({
+	trace_id: z.string(),
+	span_id: z.string(),
+});
+
+export const getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetQuerySchema = z.object({
+	trace_ref: z.string().optional().default(""),
+});
 
 export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetPathTraceIdSchema = z.string();
 
@@ -18390,6 +18834,16 @@ export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetResponseSch
 export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetErrorSchema =
 	getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetStatus422Schema;
 
+export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetPathSchema = z.object({
+	trace_id: z.string(),
+	span_id: z.string(),
+});
+
+export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetQuerySchema = z.object({
+	trace_ref: z.string().optional().default(""),
+	cursor: z.union([z.string().max(512), z.null()]).optional(),
+});
+
 export const imageGenerationOpenaiDeploymentsModelImagesGenerationsPostPathModelSchema = z.union([
 	z.string(),
 	z.null(),
@@ -18407,6 +18861,10 @@ export const imageGenerationOpenaiDeploymentsModelImagesGenerationsPostResponseS
 export const imageGenerationOpenaiDeploymentsModelImagesGenerationsPostErrorSchema =
 	imageGenerationOpenaiDeploymentsModelImagesGenerationsPostStatus422Schema;
 
+export const imageGenerationOpenaiDeploymentsModelImagesGenerationsPostPathSchema = z.object({
+	model: z.union([z.string(), z.null()]),
+});
+
 export const imageGenerationImagesGenerationsPostQueryModelSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -18421,6 +18879,10 @@ export const imageGenerationImagesGenerationsPostResponseSchema =
 export const imageGenerationImagesGenerationsPostErrorSchema =
 	imageGenerationImagesGenerationsPostStatus422Schema;
 
+export const imageGenerationImagesGenerationsPostQuerySchema = z.object({
+	model: z.union([z.string(), z.null()]).optional(),
+});
+
 export const imageGenerationV1ImagesGenerationsPostQueryModelSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -18434,6 +18896,10 @@ export const imageGenerationV1ImagesGenerationsPostResponseSchema =
 
 export const imageGenerationV1ImagesGenerationsPostErrorSchema =
 	imageGenerationV1ImagesGenerationsPostStatus422Schema;
+
+export const imageGenerationV1ImagesGenerationsPostQuerySchema = z.object({
+	model: z.union([z.string(), z.null()]).optional(),
+});
 
 export const imageEditApiOpenaiDeploymentsModelImagesEditsPostPathModelSchema = z.union([
 	z.string(),
@@ -18454,6 +18920,10 @@ export const imageEditApiOpenaiDeploymentsModelImagesEditsPostErrorSchema =
 export const imageEditApiOpenaiDeploymentsModelImagesEditsPostBodySchema =
 	bodyImageEditApiOpenaiDeploymentsModelImagesEditsPostSchema.optional();
 
+export const imageEditApiOpenaiDeploymentsModelImagesEditsPostPathSchema = z.object({
+	model: z.union([z.string(), z.null()]),
+});
+
 export const imageEditApiImagesEditsPostQueryModelSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -18468,6 +18938,10 @@ export const imageEditApiImagesEditsPostErrorSchema = imageEditApiImagesEditsPos
 
 export const imageEditApiImagesEditsPostBodySchema =
 	bodyImageEditApiImagesEditsPostSchema.optional();
+
+export const imageEditApiImagesEditsPostQuerySchema = z.object({
+	model: z.union([z.string(), z.null()]).optional(),
+});
 
 export const imageEditApiV1ImagesEditsPostQueryModelSchema = z
 	.union([z.string(), z.null()])
@@ -18485,6 +18959,10 @@ export const imageEditApiV1ImagesEditsPostErrorSchema =
 
 export const imageEditApiV1ImagesEditsPostBodySchema =
 	bodyImageEditApiV1ImagesEditsPostSchema.optional();
+
+export const imageEditApiV1ImagesEditsPostQuerySchema = z.object({
+	model: z.union([z.string(), z.null()]).optional(),
+});
 
 export const createFineTuningJobFineTuningJobsPostStatus200Schema = z.looseObject({});
 
@@ -18525,6 +19003,16 @@ export const listFineTuningJobsFineTuningJobsGetResponseSchema =
 export const listFineTuningJobsFineTuningJobsGetErrorSchema =
 	listFineTuningJobsFineTuningJobsGetStatus422Schema;
 
+export const listFineTuningJobsFineTuningJobsGetQuerySchema = z.object({
+	custom_llm_provider: z.union([z.enum(["openai", "azure"]), z.null()]).optional(),
+	target_model_names: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Comma separated list of model names to filter by. Example: 'gpt-4o,gpt-4o-mini'"),
+	after: z.union([z.string(), z.null()]).optional(),
+	limit: z.union([z.int(), z.null()]).optional(),
+});
+
 export const createFineTuningJobV1FineTuningJobsPostStatus200Schema = z.looseObject({});
 
 export const createFineTuningJobV1FineTuningJobsPostStatus422Schema = HTTPValidationErrorSchema;
@@ -18564,6 +19052,16 @@ export const listFineTuningJobsV1FineTuningJobsGetResponseSchema =
 export const listFineTuningJobsV1FineTuningJobsGetErrorSchema =
 	listFineTuningJobsV1FineTuningJobsGetStatus422Schema;
 
+export const listFineTuningJobsV1FineTuningJobsGetQuerySchema = z.object({
+	custom_llm_provider: z.union([z.enum(["openai", "azure"]), z.null()]).optional(),
+	target_model_names: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Comma separated list of model names to filter by. Example: 'gpt-4o,gpt-4o-mini'"),
+	after: z.union([z.string(), z.null()]).optional(),
+	limit: z.union([z.int(), z.null()]).optional(),
+});
+
 export const retrieveFineTuningJobFineTuningJobsFineTuningJobIdGetPathFineTuningJobIdSchema =
 	z.string();
 
@@ -18583,6 +19081,14 @@ export const retrieveFineTuningJobFineTuningJobsFineTuningJobIdGetResponseSchema
 
 export const retrieveFineTuningJobFineTuningJobsFineTuningJobIdGetErrorSchema =
 	retrieveFineTuningJobFineTuningJobsFineTuningJobIdGetStatus422Schema;
+
+export const retrieveFineTuningJobFineTuningJobsFineTuningJobIdGetPathSchema = z.object({
+	fine_tuning_job_id: z.string(),
+});
+
+export const retrieveFineTuningJobFineTuningJobsFineTuningJobIdGetQuerySchema = z.object({
+	custom_llm_provider: z.union([z.enum(["openai", "azure"]), z.null()]).optional(),
+});
 
 export const retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetPathFineTuningJobIdSchema =
 	z.string();
@@ -18604,6 +19110,14 @@ export const retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetResponseSche
 export const retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetErrorSchema =
 	retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetStatus422Schema;
 
+export const retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetPathSchema = z.object({
+	fine_tuning_job_id: z.string(),
+});
+
+export const retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetQuerySchema = z.object({
+	custom_llm_provider: z.union([z.enum(["openai", "azure"]), z.null()]).optional(),
+});
+
 export const cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPostPathFineTuningJobIdSchema =
 	z.string();
 
@@ -18619,6 +19133,10 @@ export const cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPostResponseS
 export const cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPostErrorSchema =
 	cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPostStatus422Schema;
 
+export const cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPostPathSchema = z.object({
+	fine_tuning_job_id: z.string(),
+});
+
 export const cancelFineTuningJobV1FineTuningJobsFineTuningJobIdCancelPostPathFineTuningJobIdSchema =
 	z.string();
 
@@ -18633,6 +19151,10 @@ export const cancelFineTuningJobV1FineTuningJobsFineTuningJobIdCancelPostRespons
 
 export const cancelFineTuningJobV1FineTuningJobsFineTuningJobIdCancelPostErrorSchema =
 	cancelFineTuningJobV1FineTuningJobsFineTuningJobIdCancelPostStatus422Schema;
+
+export const cancelFineTuningJobV1FineTuningJobsFineTuningJobIdCancelPostPathSchema = z.object({
+	fine_tuning_job_id: z.string(),
+});
 
 export const getCredentialsCredentialsGetStatus200Schema = z.looseObject({});
 
@@ -18667,6 +19189,10 @@ export const getCredentialByNameCredentialsByNameCredentialNameGetResponseSchema
 export const getCredentialByNameCredentialsByNameCredentialNameGetErrorSchema =
 	getCredentialByNameCredentialsByNameCredentialNameGetStatus422Schema;
 
+export const getCredentialByNameCredentialsByNameCredentialNameGetPathSchema = z.object({
+	credential_name: z.string().describe("The credential name, percent-decoded; may contain slashes"),
+});
+
 export const getCredentialInternalIssuerJwksCredentialsCredentialNameJwksGetPathCredentialNameSchema =
 	z.string().describe("The credential name, percent-decoded; may contain slashes");
 
@@ -18681,6 +19207,10 @@ export const getCredentialInternalIssuerJwksCredentialsCredentialNameJwksGetResp
 
 export const getCredentialInternalIssuerJwksCredentialsCredentialNameJwksGetErrorSchema =
 	getCredentialInternalIssuerJwksCredentialsCredentialNameJwksGetStatus422Schema;
+
+export const getCredentialInternalIssuerJwksCredentialsCredentialNameJwksGetPathSchema = z.object({
+	credential_name: z.string().describe("The credential name, percent-decoded; may contain slashes"),
+});
 
 export const getCredentialByModelCredentialsByModelModelIdGetPathModelIdSchema = z
 	.string()
@@ -18697,6 +19227,10 @@ export const getCredentialByModelCredentialsByModelModelIdGetResponseSchema =
 export const getCredentialByModelCredentialsByModelModelIdGetErrorSchema =
 	getCredentialByModelCredentialsByModelModelIdGetStatus422Schema;
 
+export const getCredentialByModelCredentialsByModelModelIdGetPathSchema = z.object({
+	model_id: z.string().describe("The model ID to look up credentials for"),
+});
+
 export const deleteCredentialCredentialsCredentialNameDeletePathCredentialNameSchema = z
 	.string()
 	.describe("The credential name, percent-decoded; may contain slashes");
@@ -18711,6 +19245,10 @@ export const deleteCredentialCredentialsCredentialNameDeleteResponseSchema =
 
 export const deleteCredentialCredentialsCredentialNameDeleteErrorSchema =
 	deleteCredentialCredentialsCredentialNameDeleteStatus422Schema;
+
+export const deleteCredentialCredentialsCredentialNameDeletePathSchema = z.object({
+	credential_name: z.string().describe("The credential name, percent-decoded; may contain slashes"),
+});
 
 export const updateCredentialCredentialsCredentialNamePatchPathCredentialNameSchema = z
 	.string()
@@ -18729,6 +19267,10 @@ export const updateCredentialCredentialsCredentialNamePatchErrorSchema =
 
 export const updateCredentialCredentialsCredentialNamePatchBodySchema = updateCredentialItemSchema;
 
+export const updateCredentialCredentialsCredentialNamePatchPathSchema = z.object({
+	credential_name: z.string().describe("The credential name, percent-decoded; may contain slashes"),
+});
+
 export const createBatchBatchesPostQueryProviderSchema = z.union([z.string(), z.null()]).optional();
 
 export const createBatchBatchesPostStatus200Schema = z.looseObject({});
@@ -18738,6 +19280,10 @@ export const createBatchBatchesPostStatus422Schema = HTTPValidationErrorSchema;
 export const createBatchBatchesPostResponseSchema = createBatchBatchesPostStatus200Schema;
 
 export const createBatchBatchesPostErrorSchema = createBatchBatchesPostStatus422Schema;
+
+export const createBatchBatchesPostQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
 
 export const listBatchesBatchesGetQueryProviderSchema = z.union([z.string(), z.null()]).optional();
 
@@ -18757,6 +19303,13 @@ export const listBatchesBatchesGetResponseSchema = listBatchesBatchesGetStatus20
 
 export const listBatchesBatchesGetErrorSchema = listBatchesBatchesGetStatus422Schema;
 
+export const listBatchesBatchesGetQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+	limit: z.union([z.int(), z.null()]).optional(),
+	after: z.union([z.string(), z.null()]).optional(),
+	target_model_names: z.union([z.string(), z.null()]).optional(),
+});
+
 export const createBatchV1BatchesPostQueryProviderSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -18768,6 +19321,10 @@ export const createBatchV1BatchesPostStatus422Schema = HTTPValidationErrorSchema
 export const createBatchV1BatchesPostResponseSchema = createBatchV1BatchesPostStatus200Schema;
 
 export const createBatchV1BatchesPostErrorSchema = createBatchV1BatchesPostStatus422Schema;
+
+export const createBatchV1BatchesPostQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
 
 export const listBatchesV1BatchesGetQueryProviderSchema = z
 	.union([z.string(), z.null()])
@@ -18789,6 +19346,13 @@ export const listBatchesV1BatchesGetResponseSchema = listBatchesV1BatchesGetStat
 
 export const listBatchesV1BatchesGetErrorSchema = listBatchesV1BatchesGetStatus422Schema;
 
+export const listBatchesV1BatchesGetQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+	limit: z.union([z.int(), z.null()]).optional(),
+	after: z.union([z.string(), z.null()]).optional(),
+	target_model_names: z.union([z.string(), z.null()]).optional(),
+});
+
 export const createBatchProviderV1BatchesPostPathProviderSchema = z.union([z.string(), z.null()]);
 
 export const createBatchProviderV1BatchesPostStatus200Schema = z.looseObject({});
@@ -18800,6 +19364,10 @@ export const createBatchProviderV1BatchesPostResponseSchema =
 
 export const createBatchProviderV1BatchesPostErrorSchema =
 	createBatchProviderV1BatchesPostStatus422Schema;
+
+export const createBatchProviderV1BatchesPostPathSchema = z.object({
+	provider: z.union([z.string(), z.null()]),
+});
 
 export const listBatchesProviderV1BatchesGetPathProviderSchema = z.union([z.string(), z.null()]);
 
@@ -18825,6 +19393,16 @@ export const listBatchesProviderV1BatchesGetResponseSchema =
 export const listBatchesProviderV1BatchesGetErrorSchema =
 	listBatchesProviderV1BatchesGetStatus422Schema;
 
+export const listBatchesProviderV1BatchesGetPathSchema = z.object({
+	provider: z.union([z.string(), z.null()]),
+});
+
+export const listBatchesProviderV1BatchesGetQuerySchema = z.object({
+	limit: z.union([z.int(), z.null()]).optional(),
+	after: z.union([z.string(), z.null()]).optional(),
+	target_model_names: z.union([z.string(), z.null()]).optional(),
+});
+
 export const retrieveBatchBatchesBatchIdGetPathBatchIdSchema = z
 	.string()
 	.describe("The ID of the batch to retrieve");
@@ -18843,6 +19421,14 @@ export const retrieveBatchBatchesBatchIdGetResponseSchema =
 export const retrieveBatchBatchesBatchIdGetErrorSchema =
 	retrieveBatchBatchesBatchIdGetStatus422Schema;
 
+export const retrieveBatchBatchesBatchIdGetPathSchema = z.object({
+	batch_id: z.string().describe("The ID of the batch to retrieve"),
+});
+
+export const retrieveBatchBatchesBatchIdGetQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
+
 export const retrieveBatchV1BatchesBatchIdGetPathBatchIdSchema = z
 	.string()
 	.describe("The ID of the batch to retrieve");
@@ -18860,6 +19446,14 @@ export const retrieveBatchV1BatchesBatchIdGetResponseSchema =
 
 export const retrieveBatchV1BatchesBatchIdGetErrorSchema =
 	retrieveBatchV1BatchesBatchIdGetStatus422Schema;
+
+export const retrieveBatchV1BatchesBatchIdGetPathSchema = z.object({
+	batch_id: z.string().describe("The ID of the batch to retrieve"),
+});
+
+export const retrieveBatchV1BatchesBatchIdGetQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
 
 export const retrieveBatchProviderV1BatchesBatchIdGetPathProviderSchema = z.union([
 	z.string(),
@@ -18880,6 +19474,11 @@ export const retrieveBatchProviderV1BatchesBatchIdGetResponseSchema =
 export const retrieveBatchProviderV1BatchesBatchIdGetErrorSchema =
 	retrieveBatchProviderV1BatchesBatchIdGetStatus422Schema;
 
+export const retrieveBatchProviderV1BatchesBatchIdGetPathSchema = z.object({
+	provider: z.union([z.string(), z.null()]),
+	batch_id: z.string().describe("The ID of the batch to retrieve"),
+});
+
 export const cancelBatchBatchesBatchIdCancelPostPathBatchIdSchema = z.string();
 
 export const cancelBatchBatchesBatchIdCancelPostQueryProviderSchema = z
@@ -18896,6 +19495,14 @@ export const cancelBatchBatchesBatchIdCancelPostResponseSchema =
 export const cancelBatchBatchesBatchIdCancelPostErrorSchema =
 	cancelBatchBatchesBatchIdCancelPostStatus422Schema;
 
+export const cancelBatchBatchesBatchIdCancelPostPathSchema = z.object({
+	batch_id: z.string(),
+});
+
+export const cancelBatchBatchesBatchIdCancelPostQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
+
 export const cancelBatchV1BatchesBatchIdCancelPostPathBatchIdSchema = z.string();
 
 export const cancelBatchV1BatchesBatchIdCancelPostQueryProviderSchema = z
@@ -18911,6 +19518,14 @@ export const cancelBatchV1BatchesBatchIdCancelPostResponseSchema =
 
 export const cancelBatchV1BatchesBatchIdCancelPostErrorSchema =
 	cancelBatchV1BatchesBatchIdCancelPostStatus422Schema;
+
+export const cancelBatchV1BatchesBatchIdCancelPostPathSchema = z.object({
+	batch_id: z.string(),
+});
+
+export const cancelBatchV1BatchesBatchIdCancelPostQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
 
 export const cancelBatchProviderV1BatchesBatchIdCancelPostPathBatchIdSchema = z.string();
 
@@ -18930,6 +19545,11 @@ export const cancelBatchProviderV1BatchesBatchIdCancelPostResponseSchema =
 export const cancelBatchProviderV1BatchesBatchIdCancelPostErrorSchema =
 	cancelBatchProviderV1BatchesBatchIdCancelPostStatus422Schema;
 
+export const cancelBatchProviderV1BatchesBatchIdCancelPostPathSchema = z.object({
+	batch_id: z.string(),
+	provider: z.union([z.string(), z.null()]),
+});
+
 export const createFileFilesPostQueryProviderSchema = z.union([z.string(), z.null()]).optional();
 
 export const createFileFilesPostStatus200Schema = z.looseObject({});
@@ -18941,6 +19561,10 @@ export const createFileFilesPostResponseSchema = createFileFilesPostStatus200Sch
 export const createFileFilesPostErrorSchema = createFileFilesPostStatus422Schema;
 
 export const createFileFilesPostBodySchema = bodyCreateFileFilesPostSchema;
+
+export const createFileFilesPostQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
 
 export const listFilesFilesGetQueryProviderSchema = z.union([z.string(), z.null()]).optional();
 
@@ -18962,6 +19586,14 @@ export const listFilesFilesGetResponseSchema = listFilesFilesGetStatus200Schema;
 
 export const listFilesFilesGetErrorSchema = listFilesFilesGetStatus422Schema;
 
+export const listFilesFilesGetQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+	target_model_names: z.union([z.string(), z.null()]).optional(),
+	purpose: z.union([z.string(), z.null()]).optional(),
+	limit: z.union([z.int(), z.null()]).optional(),
+	after: z.union([z.string(), z.null()]).optional(),
+});
+
 export const createFileV1FilesPostQueryProviderSchema = z.union([z.string(), z.null()]).optional();
 
 export const createFileV1FilesPostStatus200Schema = z.looseObject({});
@@ -18973,6 +19605,10 @@ export const createFileV1FilesPostResponseSchema = createFileV1FilesPostStatus20
 export const createFileV1FilesPostErrorSchema = createFileV1FilesPostStatus422Schema;
 
 export const createFileV1FilesPostBodySchema = bodyCreateFileV1FilesPostSchema;
+
+export const createFileV1FilesPostQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
 
 export const listFilesV1FilesGetQueryProviderSchema = z.union([z.string(), z.null()]).optional();
 
@@ -18994,6 +19630,14 @@ export const listFilesV1FilesGetResponseSchema = listFilesV1FilesGetStatus200Sch
 
 export const listFilesV1FilesGetErrorSchema = listFilesV1FilesGetStatus422Schema;
 
+export const listFilesV1FilesGetQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+	target_model_names: z.union([z.string(), z.null()]).optional(),
+	purpose: z.union([z.string(), z.null()]).optional(),
+	limit: z.union([z.int(), z.null()]).optional(),
+	after: z.union([z.string(), z.null()]).optional(),
+});
+
 export const createFileProviderV1FilesPostPathProviderSchema = z.union([z.string(), z.null()]);
 
 export const createFileProviderV1FilesPostStatus200Schema = z.looseObject({});
@@ -19007,6 +19651,10 @@ export const createFileProviderV1FilesPostErrorSchema =
 	createFileProviderV1FilesPostStatus422Schema;
 
 export const createFileProviderV1FilesPostBodySchema = bodyCreateFileProviderV1FilesPostSchema;
+
+export const createFileProviderV1FilesPostPathSchema = z.object({
+	provider: z.union([z.string(), z.null()]),
+});
 
 export const listFilesProviderV1FilesGetPathProviderSchema = z.union([z.string(), z.null()]);
 
@@ -19032,6 +19680,17 @@ export const listFilesProviderV1FilesGetResponseSchema = listFilesProviderV1File
 
 export const listFilesProviderV1FilesGetErrorSchema = listFilesProviderV1FilesGetStatus422Schema;
 
+export const listFilesProviderV1FilesGetPathSchema = z.object({
+	provider: z.union([z.string(), z.null()]),
+});
+
+export const listFilesProviderV1FilesGetQuerySchema = z.object({
+	target_model_names: z.union([z.string(), z.null()]).optional(),
+	purpose: z.union([z.string(), z.null()]).optional(),
+	limit: z.union([z.int(), z.null()]).optional(),
+	after: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getFileContentFilesFileIdContentGetPathFileIdSchema = z.string();
 
 export const getFileContentFilesFileIdContentGetQueryProviderSchema = z
@@ -19048,6 +19707,14 @@ export const getFileContentFilesFileIdContentGetResponseSchema =
 export const getFileContentFilesFileIdContentGetErrorSchema =
 	getFileContentFilesFileIdContentGetStatus422Schema;
 
+export const getFileContentFilesFileIdContentGetPathSchema = z.object({
+	file_id: z.string(),
+});
+
+export const getFileContentFilesFileIdContentGetQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getFileContentV1FilesFileIdContentGetPathFileIdSchema = z.string();
 
 export const getFileContentV1FilesFileIdContentGetQueryProviderSchema = z
@@ -19063,6 +19730,14 @@ export const getFileContentV1FilesFileIdContentGetResponseSchema =
 
 export const getFileContentV1FilesFileIdContentGetErrorSchema =
 	getFileContentV1FilesFileIdContentGetStatus422Schema;
+
+export const getFileContentV1FilesFileIdContentGetPathSchema = z.object({
+	file_id: z.string(),
+});
+
+export const getFileContentV1FilesFileIdContentGetQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
 
 export const getFileContentProviderV1FilesFileIdContentGetPathFileIdSchema = z.string();
 
@@ -19082,6 +19757,11 @@ export const getFileContentProviderV1FilesFileIdContentGetResponseSchema =
 export const getFileContentProviderV1FilesFileIdContentGetErrorSchema =
 	getFileContentProviderV1FilesFileIdContentGetStatus422Schema;
 
+export const getFileContentProviderV1FilesFileIdContentGetPathSchema = z.object({
+	file_id: z.string(),
+	provider: z.union([z.string(), z.null()]),
+});
+
 export const getFileFilesFileIdGetPathFileIdSchema = z.string();
 
 export const getFileFilesFileIdGetQueryProviderSchema = z.union([z.string(), z.null()]).optional();
@@ -19093,6 +19773,14 @@ export const getFileFilesFileIdGetStatus422Schema = HTTPValidationErrorSchema;
 export const getFileFilesFileIdGetResponseSchema = getFileFilesFileIdGetStatus200Schema;
 
 export const getFileFilesFileIdGetErrorSchema = getFileFilesFileIdGetStatus422Schema;
+
+export const getFileFilesFileIdGetPathSchema = z.object({
+	file_id: z.string(),
+});
+
+export const getFileFilesFileIdGetQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
 
 export const deleteFileFilesFileIdDeletePathFileIdSchema = z.string();
 
@@ -19108,6 +19796,14 @@ export const deleteFileFilesFileIdDeleteResponseSchema = deleteFileFilesFileIdDe
 
 export const deleteFileFilesFileIdDeleteErrorSchema = deleteFileFilesFileIdDeleteStatus422Schema;
 
+export const deleteFileFilesFileIdDeletePathSchema = z.object({
+	file_id: z.string(),
+});
+
+export const deleteFileFilesFileIdDeleteQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getFileV1FilesFileIdGetPathFileIdSchema = z.string();
 
 export const getFileV1FilesFileIdGetQueryProviderSchema = z
@@ -19121,6 +19817,14 @@ export const getFileV1FilesFileIdGetStatus422Schema = HTTPValidationErrorSchema;
 export const getFileV1FilesFileIdGetResponseSchema = getFileV1FilesFileIdGetStatus200Schema;
 
 export const getFileV1FilesFileIdGetErrorSchema = getFileV1FilesFileIdGetStatus422Schema;
+
+export const getFileV1FilesFileIdGetPathSchema = z.object({
+	file_id: z.string(),
+});
+
+export const getFileV1FilesFileIdGetQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
 
 export const deleteFileV1FilesFileIdDeletePathFileIdSchema = z.string();
 
@@ -19138,6 +19842,14 @@ export const deleteFileV1FilesFileIdDeleteResponseSchema =
 export const deleteFileV1FilesFileIdDeleteErrorSchema =
 	deleteFileV1FilesFileIdDeleteStatus422Schema;
 
+export const deleteFileV1FilesFileIdDeletePathSchema = z.object({
+	file_id: z.string(),
+});
+
+export const deleteFileV1FilesFileIdDeleteQuerySchema = z.object({
+	provider: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getFileProviderV1FilesFileIdGetPathFileIdSchema = z.string();
 
 export const getFileProviderV1FilesFileIdGetPathProviderSchema = z.union([z.string(), z.null()]);
@@ -19151,6 +19863,11 @@ export const getFileProviderV1FilesFileIdGetResponseSchema =
 
 export const getFileProviderV1FilesFileIdGetErrorSchema =
 	getFileProviderV1FilesFileIdGetStatus422Schema;
+
+export const getFileProviderV1FilesFileIdGetPathSchema = z.object({
+	file_id: z.string(),
+	provider: z.union([z.string(), z.null()]),
+});
 
 export const deleteFileProviderV1FilesFileIdDeletePathFileIdSchema = z.string();
 
@@ -19168,6 +19885,11 @@ export const deleteFileProviderV1FilesFileIdDeleteResponseSchema =
 
 export const deleteFileProviderV1FilesFileIdDeleteErrorSchema =
 	deleteFileProviderV1FilesFileIdDeleteStatus422Schema;
+
+export const deleteFileProviderV1FilesFileIdDeletePathSchema = z.object({
+	file_id: z.string(),
+	provider: z.union([z.string(), z.null()]),
+});
 
 export const getPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetPathTeamIdSchema =
 	z.union([z.string(), z.null()]);
@@ -19188,6 +19910,14 @@ export const getPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetRespon
 export const getPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetErrorSchema =
 	getPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetStatus422Schema;
 
+export const getPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetPathSchema = z.object({
+	team_id: z.union([z.string(), z.null()]),
+});
+
+export const getPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetQuerySchema = z.object({
+	endpoint_id: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getPassThroughEndpointsConfigPassThroughEndpointGetQueryEndpointIdSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -19207,6 +19937,11 @@ export const getPassThroughEndpointsConfigPassThroughEndpointGetResponseSchema =
 
 export const getPassThroughEndpointsConfigPassThroughEndpointGetErrorSchema =
 	getPassThroughEndpointsConfigPassThroughEndpointGetStatus422Schema;
+
+export const getPassThroughEndpointsConfigPassThroughEndpointGetQuerySchema = z.object({
+	endpoint_id: z.union([z.string(), z.null()]).optional(),
+	team_id: z.union([z.string(), z.null()]).optional(),
+});
 
 export const createPassThroughEndpointsConfigPassThroughEndpointPostStatus200Schema = z.looseObject(
 	{},
@@ -19239,6 +19974,10 @@ export const deletePassThroughEndpointsConfigPassThroughEndpointDeleteResponseSc
 export const deletePassThroughEndpointsConfigPassThroughEndpointDeleteErrorSchema =
 	deletePassThroughEndpointsConfigPassThroughEndpointDeleteStatus422Schema;
 
+export const deletePassThroughEndpointsConfigPassThroughEndpointDeleteQuerySchema = z.object({
+	endpoint_id: z.string(),
+});
+
 export const updatePassThroughEndpointsConfigPassThroughEndpointEndpointIdPostPathEndpointIdSchema =
 	z.string();
 
@@ -19256,6 +19995,12 @@ export const updatePassThroughEndpointsConfigPassThroughEndpointEndpointIdPostEr
 
 export const updatePassThroughEndpointsConfigPassThroughEndpointEndpointIdPostBodySchema =
 	passThroughGenericEndpointSchema;
+
+export const updatePassThroughEndpointsConfigPassThroughEndpointEndpointIdPostPathSchema = z.object(
+	{
+		endpoint_id: z.string(),
+	},
+);
 
 export const testEndpointTestGetStatus200Schema = z.looseObject({});
 
@@ -19275,6 +20020,10 @@ export const healthServicesEndpointHealthServicesGetResponseSchema =
 export const healthServicesEndpointHealthServicesGetErrorSchema =
 	healthServicesEndpointHealthServicesGetStatus422Schema;
 
+export const healthServicesEndpointHealthServicesGetQuerySchema = z.object({
+	service: z.string().describe("Specify the service being hit."),
+});
+
 export const healthEndpointHealthGetQueryModelSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -19292,6 +20041,11 @@ export const healthEndpointHealthGetStatus422Schema = HTTPValidationErrorSchema;
 export const healthEndpointHealthGetResponseSchema = healthEndpointHealthGetStatus200Schema;
 
 export const healthEndpointHealthGetErrorSchema = healthEndpointHealthGetStatus422Schema;
+
+export const healthEndpointHealthGetQuerySchema = z.object({
+	model: z.union([z.string(), z.null()]).optional().describe("Specify the model name (optional)"),
+	model_id: z.union([z.string(), z.null()]).optional().describe("Specify the model ID (optional)"),
+});
 
 export const healthCheckHistoryEndpointHealthHistoryGetQueryModelSchema = z
 	.union([z.string(), z.null()])
@@ -19327,6 +20081,16 @@ export const healthCheckHistoryEndpointHealthHistoryGetResponseSchema =
 
 export const healthCheckHistoryEndpointHealthHistoryGetErrorSchema =
 	healthCheckHistoryEndpointHealthHistoryGetStatus422Schema;
+
+export const healthCheckHistoryEndpointHealthHistoryGetQuerySchema = z.object({
+	model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model name"),
+	status_filter: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter by status (healthy/unhealthy)"),
+	limit: z.int().min(1).max(1000).optional().default(100).describe("Number of records to return"),
+	offset: z.int().min(0).optional().default(0).describe("Number of records to skip"),
+});
 
 export const latestHealthChecksEndpointHealthLatestGetStatus200Schema = z.looseObject({});
 
@@ -19429,6 +20193,15 @@ export const generateKeyFnKeyGeneratePostErrorSchema = generateKeyFnKeyGenerateP
 
 export const generateKeyFnKeyGeneratePostBodySchema = generateKeyRequestSchema;
 
+export const generateKeyFnKeyGeneratePostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const generateServiceAccountKeyFnKeyServiceAccountGeneratePostHeaderLitellmChangedBySchema =
 	z
 		.union([z.string(), z.null()])
@@ -19452,6 +20225,15 @@ export const generateServiceAccountKeyFnKeyServiceAccountGeneratePostErrorSchema
 export const generateServiceAccountKeyFnKeyServiceAccountGeneratePostBodySchema =
 	generateKeyRequestSchema;
 
+export const generateServiceAccountKeyFnKeyServiceAccountGeneratePostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const updateKeyFnKeyUpdatePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -19468,6 +20250,15 @@ export const updateKeyFnKeyUpdatePostResponseSchema = updateKeyFnKeyUpdatePostSt
 export const updateKeyFnKeyUpdatePostErrorSchema = updateKeyFnKeyUpdatePostStatus422Schema;
 
 export const updateKeyFnKeyUpdatePostBodySchema = updateKeyRequestSchema;
+
+export const updateKeyFnKeyUpdatePostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const bulkUpdateKeysKeyBulkUpdatePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
@@ -19492,6 +20283,15 @@ export const bulkUpdateKeysKeyBulkUpdatePostBodySchema = bulkUpdateKeyRequestSch
 	"Request for bulk key updates",
 );
 
+export const bulkUpdateKeysKeyBulkUpdatePostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const bulkUpdateTeamKeysTeamKeyBulkUpdatePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -19515,6 +20315,15 @@ export const bulkUpdateTeamKeysTeamKeyBulkUpdatePostBodySchema =
 		"Apply one update payload to many keys inside a team; provide either `key_ids` or `all_keys_in_team=True`.",
 	);
 
+export const bulkUpdateTeamKeysTeamKeyBulkUpdatePostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const deleteKeyFnKeyDeletePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -19532,6 +20341,15 @@ export const deleteKeyFnKeyDeletePostErrorSchema = deleteKeyFnKeyDeletePostStatu
 
 export const deleteKeyFnKeyDeletePostBodySchema = keyRequestSchema;
 
+export const deleteKeyFnKeyDeletePostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const infoKeyFnKeyInfoGetQueryKeySchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -19546,6 +20364,15 @@ export const infoKeyFnKeyInfoGetStatus422Schema = HTTPValidationErrorSchema;
 export const infoKeyFnKeyInfoGetResponseSchema = infoKeyFnKeyInfoGetStatus200Schema;
 
 export const infoKeyFnKeyInfoGetErrorSchema = infoKeyFnKeyInfoGetStatus422Schema;
+
+export const infoKeyFnKeyInfoGetQuerySchema = z.object({
+	key: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Key to look up. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'",
+		),
+});
 
 export const migrateEncryptionEndpointCredentialsMigrateEncryptionPostQueryDryRunSchema = z
 	.boolean()
@@ -19564,6 +20391,14 @@ export const migrateEncryptionEndpointCredentialsMigrateEncryptionPostResponseSc
 
 export const migrateEncryptionEndpointCredentialsMigrateEncryptionPostErrorSchema =
 	migrateEncryptionEndpointCredentialsMigrateEncryptionPostStatus422Schema;
+
+export const migrateEncryptionEndpointCredentialsMigrateEncryptionPostQuerySchema = z.object({
+	dry_run: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe("If true, scan and report without writing any changes."),
+});
 
 export const checkEncryptionEndpointCredentialsMigrateEncryptionCheckGetStatus200Schema =
 	z.looseObject({});
@@ -19599,6 +20434,19 @@ export const regenerateKeyFnKeyRegeneratePostBodySchema = z
 	.union([regenerateKeyRequestSchema, z.null()])
 	.optional();
 
+export const regenerateKeyFnKeyRegeneratePostQuerySchema = z.object({
+	key: z.union([z.string(), z.null()]).optional(),
+});
+
+export const regenerateKeyFnKeyRegeneratePostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const regenerateKeyFnKeyKeyRegeneratePostPathKeySchema = z.union([z.string(), z.null()]);
 
 export const regenerateKeyFnKeyKeyRegeneratePostHeaderLitellmChangedBySchema = z
@@ -19625,6 +20473,19 @@ export const regenerateKeyFnKeyKeyRegeneratePostBodySchema = z
 	.union([regenerateKeyRequestSchema, z.null()])
 	.optional();
 
+export const regenerateKeyFnKeyKeyRegeneratePostPathSchema = z.object({
+	key: z.union([z.string(), z.null()]),
+});
+
+export const regenerateKeyFnKeyKeyRegeneratePostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const resetKeySpendFnKeyKeyResetSpendPostPathKeySchema = z.string();
 
 export const resetKeySpendFnKeyKeyResetSpendPostHeaderLitellmChangedBySchema = z
@@ -19645,6 +20506,19 @@ export const resetKeySpendFnKeyKeyResetSpendPostErrorSchema =
 	resetKeySpendFnKeyKeyResetSpendPostStatus422Schema;
 
 export const resetKeySpendFnKeyKeyResetSpendPostBodySchema = resetSpendRequestSchema;
+
+export const resetKeySpendFnKeyKeyResetSpendPostPathSchema = z.object({
+	key: z.string(),
+});
+
+export const resetKeySpendFnKeyKeyResetSpendPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const listKeysKeyListGetQueryPageSchema = z
 	.int()
@@ -19776,6 +20650,80 @@ export const listKeysKeyListGetResponseSchema = listKeysKeyListGetStatus200Schem
 
 export const listKeysKeyListGetErrorSchema = listKeysKeyListGetStatus422Schema;
 
+export const listKeysKeyListGetQuerySchema = z.object({
+	page: z.int().min(1).optional().default(1).describe("Page number"),
+	size: z.int().min(1).max(100).optional().default(10).describe("Page size"),
+	user_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter keys by user ID. Exact match by default; set substring_matching=true (admin only) for case-insensitive substring matching.",
+		),
+	team_id: z.union([z.string(), z.null()]).optional().describe("Filter keys by team ID"),
+	organization_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter keys by organization ID"),
+	key_hash: z.union([z.string(), z.null()]).optional().describe("Filter keys by key hash"),
+	key_alias: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter keys by key alias. Exact match by default; set substring_matching=true for case-insensitive substring matching.",
+		),
+	search: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Combined search: matches keys whose token (key hash) equals the value OR whose key_alias contains it (case-insensitive).",
+		),
+	return_full_object: z.boolean().optional().default(false).describe("Return full key object"),
+	include_team_keys: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe("Include all keys for teams that user is an admin of."),
+	include_created_by_keys: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe("Include keys created by the user"),
+	sort_by: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Column to sort by (e.g. 'user_id', 'created_at', 'spend')"),
+	sort_order: z.string().optional().default("desc").describe("Sort order ('asc' or 'desc')"),
+	expand: z
+		.union([z.array(z.string()), z.null()])
+		.optional()
+		.describe("Expand related objects (e.g. 'user')"),
+	status: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by status: 'active' (not blocked, not expired), 'expired' (not blocked, past expiry), 'revoked' (blocked) or 'deleted' (archived keys). Omit to return live keys regardless of status.",
+		),
+	project_id: z.union([z.string(), z.null()]).optional().describe("Filter keys by project ID"),
+	access_group_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter keys by access group ID"),
+	agent_id: z.union([z.string(), z.null()]).optional().describe("Filter keys by agent ID"),
+	substring_matching: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"If true, match key_alias (any caller) and user_id (proxy admins only) as case-insensitive substrings instead of exact values. Defaults to false: /key/list matched these exactly before substring search was added, and an exact user_id filter must never return another user's keys.",
+		),
+	expires: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter keys by expiration. 'expired' returns keys whose expires is in the past; 'active' returns keys that never expire or expire in the future. Omit to return keys regardless of expiration.",
+		),
+});
+
 export const keyAliasesKeyAliasesGetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -19809,6 +20757,19 @@ export const keyAliasesKeyAliasesGetResponseSchema = keyAliasesKeyAliasesGetStat
 
 export const keyAliasesKeyAliasesGetErrorSchema = keyAliasesKeyAliasesGetStatus422Schema;
 
+export const keyAliasesKeyAliasesGetQuerySchema = z.object({
+	page: z.int().min(1).optional().default(1).describe("Page number"),
+	size: z.int().min(1).max(100).optional().default(50).describe("Page size"),
+	search: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Search key aliases (case-insensitive partial match)"),
+	team_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter aliases to keys belonging to this team"),
+});
+
 export const blockKeyKeyBlockPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -19829,6 +20790,15 @@ export const blockKeyKeyBlockPostErrorSchema = blockKeyKeyBlockPostStatus422Sche
 
 export const blockKeyKeyBlockPostBodySchema = blockKeyRequestSchema;
 
+export const blockKeyKeyBlockPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const unblockKeyKeyUnblockPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -19845,6 +20815,15 @@ export const unblockKeyKeyUnblockPostResponseSchema = unblockKeyKeyUnblockPostSt
 export const unblockKeyKeyUnblockPostErrorSchema = unblockKeyKeyUnblockPostStatus422Schema;
 
 export const unblockKeyKeyUnblockPostBodySchema = blockKeyRequestSchema;
+
+export const unblockKeyKeyUnblockPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const keyHealthKeyHealthPostStatus200Schema = keyHealthResponseSchema;
 
@@ -19873,6 +20852,10 @@ export const userInfoUserInfoGetResponseSchema = userInfoUserInfoGetStatus200Sch
 
 export const userInfoUserInfoGetErrorSchema = userInfoUserInfoGetStatus422Schema;
 
+export const userInfoUserInfoGetQuerySchema = z.object({
+	user_id: z.union([z.string(), z.null()]).optional().describe("User ID in the request parameters"),
+});
+
 export const userInfoV2V2UserInfoGetQueryUserIdSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -19887,6 +20870,10 @@ export const userInfoV2V2UserInfoGetStatus422Schema = HTTPValidationErrorSchema;
 export const userInfoV2V2UserInfoGetResponseSchema = userInfoV2V2UserInfoGetStatus200Schema;
 
 export const userInfoV2V2UserInfoGetErrorSchema = userInfoV2V2UserInfoGetStatus422Schema;
+
+export const userInfoV2V2UserInfoGetQuerySchema = z.object({
+	user_id: z.union([z.string(), z.null()]).optional().describe("User ID in the request parameters"),
+});
 
 export const userUpdateUserUpdatePostStatus200Schema = z.looseObject({});
 
@@ -19919,6 +20906,15 @@ export const bulkUserUpdateUserBulkUpdatePostErrorSchema =
 export const bulkUserUpdateUserBulkUpdatePostBodySchema = bulkUpdateUserRequestSchema.describe(
 	"Request for bulk user updates",
 );
+
+export const bulkUserUpdateUserBulkUpdatePostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const getUsersUserListGetQueryRoleSchema = z
 	.union([z.string(), z.null()])
@@ -19993,6 +20989,37 @@ export const getUsersUserListGetResponseSchema = getUsersUserListGetStatus200Sch
 
 export const getUsersUserListGetErrorSchema = getUsersUserListGetStatus422Schema;
 
+export const getUsersUserListGetQuerySchema = z.object({
+	role: z.union([z.string(), z.null()]).optional().describe("Filter users by role"),
+	user_ids: z.union([z.string(), z.null()]).optional().describe("Get list of users by user_ids"),
+	sso_user_ids: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Get list of users by sso_user_id"),
+	user_email: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter users by partial email match"),
+	search: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Combined search: matches users whose 'user_id' or 'user_email' contains the value (case-insensitive).",
+		),
+	team: z.union([z.string(), z.null()]).optional().describe("Filter users by team id"),
+	page: z.int().min(1).optional().default(1).describe("Page number"),
+	page_size: z.int().min(1).max(100).optional().default(25).describe("Number of items per page"),
+	sort_by: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Column to sort by (e.g. 'user_id', 'user_email', 'created_at', 'spend')"),
+	sort_order: z.string().optional().default("asc").describe("Sort order ('asc' or 'desc')"),
+	organization_ids: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter users by organization membership. Comma-separated list of org IDs."),
+});
+
 export const deleteUserUserDeletePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -20009,6 +21036,15 @@ export const deleteUserUserDeletePostResponseSchema = deleteUserUserDeletePostSt
 export const deleteUserUserDeletePostErrorSchema = deleteUserUserDeletePostStatus422Schema;
 
 export const deleteUserUserDeletePostBodySchema = deleteUserRequestSchema;
+
+export const deleteUserUserDeletePostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const getUserDailyActivityUserDailyActivityGetQueryStartDateSchema = z
 	.union([z.string(), z.null()])
@@ -20078,6 +21114,37 @@ export const getUserDailyActivityUserDailyActivityGetResponseSchema =
 export const getUserDailyActivityUserDailyActivityGetErrorSchema =
 	getUserDailyActivityUserDailyActivityGetStatus422Schema;
 
+export const getUserDailyActivityUserDailyActivityGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Start date in YYYY-MM-DD format"),
+	end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
+	model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
+	api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+	user_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
+		),
+	page: z.int().min(1).optional().default(1).describe("Page number for pagination"),
+	page_size: z.int().min(1).max(1000).optional().default(50).describe("Items per page"),
+	timezone: z
+		.union([z.int(), z.null()])
+		.optional()
+		.describe(
+			"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
+		),
+	include_current_utc_day: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
+		),
+});
+
 export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryApiKeyLimitSchema = z
 	.int()
 	.min(1)
@@ -20140,6 +21207,36 @@ export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetRespons
 export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetErrorSchema =
 	getUserDailyActivityAggregatedUserDailyActivityAggregatedGetStatus422Schema;
 
+export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQuerySchema = z.object({
+	api_key_limit: z.int().min(1).max(1000).optional().default(100),
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Start date in YYYY-MM-DD format"),
+	end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
+	model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
+	api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+	user_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
+		),
+	timezone: z
+		.union([z.int(), z.null()])
+		.optional()
+		.describe(
+			"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
+		),
+	include_current_utc_day: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
+		),
+});
+
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryOffsetSchema =
 	z.int().min(0).optional().default(0);
 
@@ -20195,6 +21292,38 @@ export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGe
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetErrorSchema =
 	getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetStatus422Schema;
 
+export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQuerySchema =
+	z.object({
+		offset: z.int().min(0).optional().default(0),
+		limit: z.int().min(1).max(100).optional().default(50),
+		start_date: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe("Start date in YYYY-MM-DD format"),
+		end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
+		model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
+		api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+		user_id: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe(
+				"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
+			),
+		timezone: z
+			.union([z.int(), z.null()])
+			.optional()
+			.describe(
+				"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
+			),
+		include_current_utc_day: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe(
+				"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
+			),
+	});
+
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQuerySearchSchema =
 	z.string().min(1);
 
@@ -20249,6 +21378,38 @@ export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSear
 
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetErrorSchema =
 	getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetStatus422Schema;
+
+export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQuerySchema =
+	z.object({
+		search: z.string().min(1),
+		limit: z.int().min(1).max(100).optional().default(100),
+		start_date: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe("Start date in YYYY-MM-DD format"),
+		end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
+		model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
+		api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+		user_id: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe(
+				"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
+			),
+		timezone: z
+			.union([z.int(), z.null()])
+			.optional()
+			.describe(
+				"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
+			),
+		include_current_utc_day: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe(
+				"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
+			),
+	});
 
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema =
 	z.string().min(1);
@@ -20307,6 +21468,39 @@ export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTop
 
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetErrorSchema =
 	getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetStatus422Schema;
+
+export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQuerySchema =
+	z.object({
+		model_group: z.string().min(1),
+		by_model_group: z.boolean().optional().default(true),
+		limit: z.int().min(1).max(100).optional().default(5),
+		start_date: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe("Start date in YYYY-MM-DD format"),
+		end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
+		model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
+		api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+		user_id: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe(
+				"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
+			),
+		timezone: z
+			.union([z.int(), z.null()])
+			.optional()
+			.describe(
+				"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
+			),
+		include_current_utc_day: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe(
+				"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
+			),
+	});
 
 export const getUserDailyActivityExportUserDailyActivityExportGetQueryExportTypeSchema =
 	exportTypeSchema.optional().default("daily");
@@ -20371,6 +21565,37 @@ export const getUserDailyActivityExportUserDailyActivityExportGetResponseSchema 
 export const getUserDailyActivityExportUserDailyActivityExportGetErrorSchema =
 	getUserDailyActivityExportUserDailyActivityExportGetStatus422Schema;
 
+export const getUserDailyActivityExportUserDailyActivityExportGetQuerySchema = z.object({
+	export_type: exportTypeSchema.optional().default("daily"),
+	format: z.enum(["csv", "json"]).optional().default("csv"),
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Start date in YYYY-MM-DD format"),
+	end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
+	model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
+	api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+	user_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
+		),
+	timezone: z
+		.union([z.int(), z.null()])
+		.optional()
+		.describe(
+			"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
+		),
+	include_current_utc_day: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
+		),
+});
+
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryLimitSchema =
 	z.int().min(1).max(100).optional().default(20);
 
@@ -20423,6 +21648,37 @@ export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCach
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetErrorSchema =
 	getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetStatus422Schema;
 
+export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQuerySchema =
+	z.object({
+		limit: z.int().min(1).max(100).optional().default(20),
+		start_date: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe("Start date in YYYY-MM-DD format"),
+		end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
+		model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
+		api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+		user_id: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe(
+				"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
+			),
+		timezone: z
+			.union([z.int(), z.null()])
+			.optional()
+			.describe(
+				"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
+			),
+		include_current_utc_day: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe(
+				"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
+			),
+	});
+
 export const getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQueryApiKeyLimitSchema = z
 	.int()
 	.min(1)
@@ -20469,6 +21725,17 @@ export const getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetRespons
 export const getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetErrorSchema =
 	getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetStatus422Schema;
 
+export const getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQuerySchema = z.object({
+	api_key_limit: z.int().min(1).max(1000).optional().default(100),
+	team_ids: z.union([z.string(), z.null()]).optional(),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+	model: z.union([z.string(), z.null()]).optional(),
+	api_key: z.union([z.string(), z.null()]).optional(),
+	exclude_team_ids: z.union([z.string(), z.null()]).optional(),
+	timezone: z.union([z.int(), z.null()]).optional(),
+});
+
 export const getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQueryOffsetSchema =
 	z.int().min(0).optional().default(0);
 
@@ -20508,6 +21775,19 @@ export const getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGe
 export const getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetErrorSchema =
 	getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetStatus422Schema;
 
+export const getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQuerySchema =
+	z.object({
+		offset: z.int().min(0).optional().default(0),
+		limit: z.int().min(1).max(100).optional().default(50),
+		team_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_team_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
+
 export const getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQuerySearchSchema =
 	z.string().min(1);
 
@@ -20546,6 +21826,19 @@ export const getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSear
 
 export const getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetErrorSchema =
 	getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetStatus422Schema;
+
+export const getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQuerySchema =
+	z.object({
+		search: z.string().min(1),
+		limit: z.int().min(1).max(100).optional().default(100),
+		team_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_team_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
 
 export const getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema =
 	z.string().min(1);
@@ -20588,6 +21881,20 @@ export const getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTop
 
 export const getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetErrorSchema =
 	getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetStatus422Schema;
+
+export const getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQuerySchema =
+	z.object({
+		model_group: z.string().min(1),
+		by_model_group: z.boolean().optional().default(true),
+		limit: z.int().min(1).max(100).optional().default(5),
+		team_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_team_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
 
 export const getTeamDailyActivityExportTeamDailyActivityExportGetQueryExportTypeSchema =
 	exportTypeSchema.optional().default("daily");
@@ -20638,6 +21945,18 @@ export const getTeamDailyActivityExportTeamDailyActivityExportGetResponseSchema 
 export const getTeamDailyActivityExportTeamDailyActivityExportGetErrorSchema =
 	getTeamDailyActivityExportTeamDailyActivityExportGetStatus422Schema;
 
+export const getTeamDailyActivityExportTeamDailyActivityExportGetQuerySchema = z.object({
+	export_type: exportTypeSchema.optional().default("daily"),
+	format: z.enum(["csv", "json"]).optional().default("csv"),
+	team_ids: z.union([z.string(), z.null()]).optional(),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+	model: z.union([z.string(), z.null()]).optional(),
+	api_key: z.union([z.string(), z.null()]).optional(),
+	exclude_team_ids: z.union([z.string(), z.null()]).optional(),
+	timezone: z.union([z.int(), z.null()]).optional(),
+});
+
 export const getTagDailyActivityAggregatedTagDailyActivityAggregatedGetQueryApiKeyLimitSchema = z
 	.int()
 	.min(1)
@@ -20680,6 +21999,16 @@ export const getTagDailyActivityAggregatedTagDailyActivityAggregatedGetResponseS
 
 export const getTagDailyActivityAggregatedTagDailyActivityAggregatedGetErrorSchema =
 	getTagDailyActivityAggregatedTagDailyActivityAggregatedGetStatus422Schema;
+
+export const getTagDailyActivityAggregatedTagDailyActivityAggregatedGetQuerySchema = z.object({
+	api_key_limit: z.int().min(1).max(1000).optional().default(100),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+	model: z.union([z.string(), z.null()]).optional(),
+	api_key: z.union([z.string(), z.null()]).optional(),
+	tags: z.union([z.string(), z.null()]).optional(),
+	timezone: z.union([z.int(), z.null()]).optional(),
+});
 
 export const getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQueryOffsetSchema = z
 	.int()
@@ -20727,6 +22056,18 @@ export const getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetR
 export const getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetErrorSchema =
 	getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetStatus422Schema;
 
+export const getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQuerySchema =
+	z.object({
+		offset: z.int().min(0).optional().default(0),
+		limit: z.int().min(1).max(100).optional().default(50),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		tags: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
+
 export const getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQuerySearchSchema =
 	z.string().min(1);
 
@@ -20762,6 +22103,18 @@ export const getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearch
 
 export const getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetErrorSchema =
 	getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetStatus422Schema;
+
+export const getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQuerySchema =
+	z.object({
+		search: z.string().min(1),
+		limit: z.int().min(1).max(100).optional().default(100),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		tags: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
 
 export const getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema =
 	z.string().min(1);
@@ -20801,6 +22154,19 @@ export const getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKe
 
 export const getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetErrorSchema =
 	getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetStatus422Schema;
+
+export const getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQuerySchema =
+	z.object({
+		model_group: z.string().min(1),
+		by_model_group: z.boolean().optional().default(true),
+		limit: z.int().min(1).max(100).optional().default(5),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		tags: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
 
 export const getTagDailyActivityExportTagDailyActivityExportGetQueryExportTypeSchema =
 	exportTypeSchema.optional().default("daily");
@@ -20847,6 +22213,17 @@ export const getTagDailyActivityExportTagDailyActivityExportGetResponseSchema =
 export const getTagDailyActivityExportTagDailyActivityExportGetErrorSchema =
 	getTagDailyActivityExportTagDailyActivityExportGetStatus422Schema;
 
+export const getTagDailyActivityExportTagDailyActivityExportGetQuerySchema = z.object({
+	export_type: exportTypeSchema.optional().default("daily"),
+	format: z.enum(["csv", "json"]).optional().default("csv"),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+	model: z.union([z.string(), z.null()]).optional(),
+	api_key: z.union([z.string(), z.null()]).optional(),
+	tags: z.union([z.string(), z.null()]).optional(),
+	timezone: z.union([z.int(), z.null()]).optional(),
+});
+
 export const getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetQueryApiKeyLimitSchema =
 	z.int().min(1).max(1000).optional().default(100);
 
@@ -20882,6 +22259,18 @@ export const getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggr
 
 export const getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetErrorSchema =
 	getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetStatus422Schema;
+
+export const getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetQuerySchema =
+	z.object({
+		api_key_limit: z.int().min(1).max(1000).optional().default(100),
+		organization_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_organization_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
 
 export const getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQueryOffsetSchema =
 	z.int().min(0).optional().default(0);
@@ -20922,6 +22311,19 @@ export const getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivity
 export const getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetErrorSchema =
 	getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetStatus422Schema;
 
+export const getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQuerySchema =
+	z.object({
+		offset: z.int().min(0).optional().default(0),
+		limit: z.int().min(1).max(100).optional().default(50),
+		organization_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_organization_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
+
 export const getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQuerySearchSchema =
 	z.string().min(1);
 
@@ -20960,6 +22362,19 @@ export const getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivi
 
 export const getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetErrorSchema =
 	getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetStatus422Schema;
+
+export const getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQuerySchema =
+	z.object({
+		search: z.string().min(1),
+		limit: z.int().min(1).max(100).optional().default(100),
+		organization_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_organization_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
 
 export const getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema =
 	z.string().min(1);
@@ -21003,6 +22418,20 @@ export const getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAg
 export const getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetErrorSchema =
 	getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetStatus422Schema;
 
+export const getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQuerySchema =
+	z.object({
+		model_group: z.string().min(1),
+		by_model_group: z.boolean().optional().default(true),
+		limit: z.int().min(1).max(100).optional().default(5),
+		organization_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_organization_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
+
 export const getOrganizationDailyActivityExportOrganizationDailyActivityExportGetQueryExportTypeSchema =
 	exportTypeSchema.optional().default("daily");
 
@@ -21042,6 +22471,19 @@ export const getOrganizationDailyActivityExportOrganizationDailyActivityExportGe
 export const getOrganizationDailyActivityExportOrganizationDailyActivityExportGetErrorSchema =
 	getOrganizationDailyActivityExportOrganizationDailyActivityExportGetStatus422Schema;
 
+export const getOrganizationDailyActivityExportOrganizationDailyActivityExportGetQuerySchema =
+	z.object({
+		export_type: exportTypeSchema.optional().default("daily"),
+		format: z.enum(["csv", "json"]).optional().default("csv"),
+		organization_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_organization_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
+
 export const getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetQueryApiKeyLimitSchema =
 	z.int().min(1).max(1000).optional().default(100);
 
@@ -21077,6 +22519,18 @@ export const getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGe
 
 export const getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetErrorSchema =
 	getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetStatus422Schema;
+
+export const getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetQuerySchema =
+	z.object({
+		api_key_limit: z.int().min(1).max(1000).optional().default(100),
+		end_user_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_end_user_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
 
 export const getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQueryOffsetSchema =
 	z.int().min(0).optional().default(0);
@@ -21117,6 +22571,19 @@ export const getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregat
 export const getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetErrorSchema =
 	getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetStatus422Schema;
 
+export const getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQuerySchema =
+	z.object({
+		offset: z.int().min(0).optional().default(0),
+		limit: z.int().min(1).max(100).optional().default(50),
+		end_user_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_end_user_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
+
 export const getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQuerySearchSchema =
 	z.string().min(1);
 
@@ -21155,6 +22622,19 @@ export const getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggreg
 
 export const getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetErrorSchema =
 	getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetStatus422Schema;
+
+export const getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQuerySchema =
+	z.object({
+		search: z.string().min(1),
+		limit: z.int().min(1).max(100).optional().default(100),
+		end_user_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_end_user_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
 
 export const getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema =
 	z.string().min(1);
@@ -21197,6 +22677,20 @@ export const getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregated
 
 export const getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetErrorSchema =
 	getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetStatus422Schema;
+
+export const getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQuerySchema =
+	z.object({
+		model_group: z.string().min(1),
+		by_model_group: z.boolean().optional().default(true),
+		limit: z.int().min(1).max(100).optional().default(5),
+		end_user_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_end_user_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
 
 export const getCustomerDailyActivityExportCustomerDailyActivityExportGetQueryExportTypeSchema =
 	exportTypeSchema.optional().default("daily");
@@ -21246,6 +22740,18 @@ export const getCustomerDailyActivityExportCustomerDailyActivityExportGetRespons
 export const getCustomerDailyActivityExportCustomerDailyActivityExportGetErrorSchema =
 	getCustomerDailyActivityExportCustomerDailyActivityExportGetStatus422Schema;
 
+export const getCustomerDailyActivityExportCustomerDailyActivityExportGetQuerySchema = z.object({
+	export_type: exportTypeSchema.optional().default("daily"),
+	format: z.enum(["csv", "json"]).optional().default("csv"),
+	end_user_ids: z.union([z.string(), z.null()]).optional(),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+	model: z.union([z.string(), z.null()]).optional(),
+	api_key: z.union([z.string(), z.null()]).optional(),
+	exclude_end_user_ids: z.union([z.string(), z.null()]).optional(),
+	timezone: z.union([z.int(), z.null()]).optional(),
+});
+
 export const getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQueryApiKeyLimitSchema =
 	z.int().min(1).max(1000).optional().default(100);
 
@@ -21288,6 +22794,17 @@ export const getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetRespo
 export const getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetErrorSchema =
 	getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetStatus422Schema;
 
+export const getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQuerySchema = z.object({
+	api_key_limit: z.int().min(1).max(1000).optional().default(100),
+	agent_ids: z.union([z.string(), z.null()]).optional(),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+	model: z.union([z.string(), z.null()]).optional(),
+	api_key: z.union([z.string(), z.null()]).optional(),
+	exclude_agent_ids: z.union([z.string(), z.null()]).optional(),
+	timezone: z.union([z.int(), z.null()]).optional(),
+});
+
 export const getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQueryOffsetSchema =
 	z.int().min(0).optional().default(0);
 
@@ -21327,6 +22844,19 @@ export const getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeys
 export const getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetErrorSchema =
 	getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetStatus422Schema;
 
+export const getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQuerySchema =
+	z.object({
+		offset: z.int().min(0).optional().default(0),
+		limit: z.int().min(1).max(100).optional().default(50),
+		agent_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_agent_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
+
 export const getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQuerySearchSchema =
 	z.string().min(1);
 
@@ -21365,6 +22895,19 @@ export const getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSe
 
 export const getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetErrorSchema =
 	getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetStatus422Schema;
+
+export const getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQuerySchema =
+	z.object({
+		search: z.string().min(1),
+		limit: z.int().min(1).max(100).optional().default(100),
+		agent_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_agent_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
 
 export const getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema =
 	z.string().min(1);
@@ -21407,6 +22950,20 @@ export const getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelT
 
 export const getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetErrorSchema =
 	getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetStatus422Schema;
+
+export const getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQuerySchema =
+	z.object({
+		model_group: z.string().min(1),
+		by_model_group: z.boolean().optional().default(true),
+		limit: z.int().min(1).max(100).optional().default(5),
+		agent_ids: z.union([z.string(), z.null()]).optional(),
+		start_date: z.union([z.string(), z.null()]).optional(),
+		end_date: z.union([z.string(), z.null()]).optional(),
+		model: z.union([z.string(), z.null()]).optional(),
+		api_key: z.union([z.string(), z.null()]).optional(),
+		exclude_agent_ids: z.union([z.string(), z.null()]).optional(),
+		timezone: z.union([z.int(), z.null()]).optional(),
+	});
 
 export const getAgentDailyActivityExportAgentDailyActivityExportGetQueryExportTypeSchema =
 	exportTypeSchema.optional().default("daily");
@@ -21457,6 +23014,18 @@ export const getAgentDailyActivityExportAgentDailyActivityExportGetResponseSchem
 export const getAgentDailyActivityExportAgentDailyActivityExportGetErrorSchema =
 	getAgentDailyActivityExportAgentDailyActivityExportGetStatus422Schema;
 
+export const getAgentDailyActivityExportAgentDailyActivityExportGetQuerySchema = z.object({
+	export_type: exportTypeSchema.optional().default("daily"),
+	format: z.enum(["csv", "json"]).optional().default("csv"),
+	agent_ids: z.union([z.string(), z.null()]).optional(),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+	model: z.union([z.string(), z.null()]).optional(),
+	api_key: z.union([z.string(), z.null()]).optional(),
+	exclude_agent_ids: z.union([z.string(), z.null()]).optional(),
+	timezone: z.union([z.int(), z.null()]).optional(),
+});
+
 export const changePasswordUserPasswordChangePostStatus200Schema = changePasswordResponseSchema;
 
 export const changePasswordUserPasswordChangePostStatus422Schema = HTTPValidationErrorSchema;
@@ -21491,6 +23060,15 @@ export const newTeamTeamNewPostErrorSchema = newTeamTeamNewPostStatus422Schema;
 
 export const newTeamTeamNewPostBodySchema = newTeamRequestSchema;
 
+export const newTeamTeamNewPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const updateTeamTeamUpdatePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -21509,6 +23087,15 @@ export const updateTeamTeamUpdatePostErrorSchema = updateTeamTeamUpdatePostStatu
 export const updateTeamTeamUpdatePostBodySchema = updateTeamRequestSchema.describe(
 	"UpdateTeamRequest, used by /team/update when you need to update a team\n\nteam_id: str\nteam_alias: Optional[str] = None\norganization_id: Optional[str] = None\nmetadata: Optional[dict] = None\ntpm_limit: Optional[int] = None\nrpm_limit: Optional[int] = None\nmax_budget: Optional[float] = None\nmodels: Optional[list] = None\nblocked: Optional[bool] = None\nbudget_duration: Optional[str] = None\nguardrails: Optional[List[str]] = None\npolicies: Optional[List[str]] = None",
 );
+
+export const updateTeamTeamUpdatePostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const patchTeamTeamTeamIdPatchPathTeamIdSchema = z.string();
 
@@ -21530,6 +23117,19 @@ export const patchTeamTeamTeamIdPatchErrorSchema = patchTeamTeamTeamIdPatchStatu
 export const patchTeamTeamTeamIdPatchBodySchema = patchTeamRequestSchema.describe(
 	"Body of PATCH /team/{team_id}.\n\nIdentical to UpdateTeamRequest except team_id is optional, because PATCH takes it\nfrom the path. A team_id in the body is still accepted when it matches the path.",
 );
+
+export const patchTeamTeamTeamIdPatchPathSchema = z.object({
+	team_id: z.string(),
+});
+
+export const patchTeamTeamTeamIdPatchHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const teamMemberAddTeamMemberAddPostStatus200Schema = teamAddMemberResponseSchema;
 
@@ -21590,6 +23190,11 @@ export const resetTeamMemberSpendFnTeamTeamIdMemberUserIdResetSpendPostErrorSche
 export const resetTeamMemberSpendFnTeamTeamIdMemberUserIdResetSpendPostBodySchema =
 	resetSpendRequestSchema;
 
+export const resetTeamMemberSpendFnTeamTeamIdMemberUserIdResetSpendPostPathSchema = z.object({
+	team_id: z.string(),
+	user_id: z.string(),
+});
+
 export const resetTeamMemberBudgetFnTeamTeamIdMemberUserIdResetBudgetPostPathTeamIdSchema =
 	z.string();
 
@@ -21607,6 +23212,11 @@ export const resetTeamMemberBudgetFnTeamTeamIdMemberUserIdResetBudgetPostRespons
 
 export const resetTeamMemberBudgetFnTeamTeamIdMemberUserIdResetBudgetPostErrorSchema =
 	resetTeamMemberBudgetFnTeamTeamIdMemberUserIdResetBudgetPostStatus422Schema;
+
+export const resetTeamMemberBudgetFnTeamTeamIdMemberUserIdResetBudgetPostPathSchema = z.object({
+	team_id: z.string(),
+	user_id: z.string(),
+});
 
 export const bulkTeamMemberAddTeamBulkMemberAddPostStatus200Schema =
 	bulkTeamMemberAddResponseSchema.describe("Response for bulk team member add operations");
@@ -21639,6 +23249,15 @@ export const deleteTeamTeamDeletePostErrorSchema = deleteTeamTeamDeletePostStatu
 
 export const deleteTeamTeamDeletePostBodySchema = deleteTeamRequestSchema;
 
+export const deleteTeamTeamDeletePostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const teamInfoTeamInfoGetQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -21657,6 +23276,14 @@ export const teamInfoTeamInfoGetResponseSchema = teamInfoTeamInfoGetStatus200Sch
 
 export const teamInfoTeamInfoGetErrorSchema = teamInfoTeamInfoGetStatus422Schema;
 
+export const teamInfoTeamInfoGetQuerySchema = z.object({
+	team_id: z.string().optional().describe("Team ID in the request parameters"),
+	key_limit: z
+		.union([z.int().gt(0), z.null()])
+		.optional()
+		.describe("Limit the number of keys returned"),
+});
+
 export const teamMemberMeTeamTeamIdMembersMeGetPathTeamIdSchema = z.string();
 
 export const teamMemberMeTeamTeamIdMembersMeGetStatus200Schema =
@@ -21671,6 +23298,10 @@ export const teamMemberMeTeamTeamIdMembersMeGetResponseSchema =
 
 export const teamMemberMeTeamTeamIdMembersMeGetErrorSchema =
 	teamMemberMeTeamTeamIdMembersMeGetStatus422Schema;
+
+export const teamMemberMeTeamTeamIdMembersMeGetPathSchema = z.object({
+	team_id: z.string(),
+});
 
 export const blockTeamTeamBlockPostStatus200Schema = z.looseObject({});
 
@@ -21711,6 +23342,10 @@ export const listAvailableTeamsTeamAvailableGetResponseSchema =
 
 export const listAvailableTeamsTeamAvailableGetErrorSchema =
 	listAvailableTeamsTeamAvailableGetStatus422Schema;
+
+export const listAvailableTeamsTeamAvailableGetQuerySchema = z.object({
+	response_model: z.unknown().optional(),
+});
 
 export const listTeamV2V2TeamListGetQueryUserIdSchema = z
 	.union([z.string(), z.null()])
@@ -21788,6 +23423,46 @@ export const listTeamV2V2TeamListGetResponseSchema = listTeamV2V2TeamListGetStat
 
 export const listTeamV2V2TeamListGetErrorSchema = listTeamV2V2TeamListGetStatus422Schema;
 
+export const listTeamV2V2TeamListGetQuerySchema = z.object({
+	user_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Only return teams which this 'user_id' belongs to"),
+	organization_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Only return teams which this 'organization_id' belongs to"),
+	team_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Only return teams which this 'team_id' belongs to"),
+	team_alias: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Only return teams which this 'team_alias' belongs to. Supports partial matching."),
+	search: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Combined search: matches teams whose 'team_id' matches the value OR whose 'team_alias' contains it (case-insensitive).",
+		),
+	search_team_id_match: z
+		.enum(["exact", "prefix"])
+		.optional()
+		.default("exact")
+		.describe(
+			"How 'search' matches 'team_id': 'exact' (default) or 'prefix' for a case-sensitive prefix match.",
+		),
+	page: z.int().min(1).optional().default(1).describe("Page number for pagination"),
+	page_size: z.int().min(1).max(100).optional().default(10).describe("Number of teams per page"),
+	sort_by: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Column to sort by (e.g. 'team_id', 'team_alias', 'created_at')"),
+	sort_order: z.string().optional().default("asc").describe("Sort order ('asc' or 'desc')"),
+	status: z.union([z.string(), z.null()]).optional().describe("Filter by status (e.g. 'deleted')"),
+});
+
 export const listTeamTeamListGetQueryUserIdSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -21804,6 +23479,14 @@ export const listTeamTeamListGetStatus422Schema = HTTPValidationErrorSchema;
 export const listTeamTeamListGetResponseSchema = listTeamTeamListGetStatus200Schema;
 
 export const listTeamTeamListGetErrorSchema = listTeamTeamListGetStatus422Schema;
+
+export const listTeamTeamListGetQuerySchema = z.object({
+	user_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Only return teams which this 'user_id' belongs to"),
+	organization_id: z.union([z.string(), z.null()]).optional(),
+});
 
 export const teamModelAddTeamModelAddPostStatus200Schema = z.looseObject({});
 
@@ -21849,6 +23532,10 @@ export const teamMemberPermissionsTeamPermissionsListGetResponseSchema =
 
 export const teamMemberPermissionsTeamPermissionsListGetErrorSchema =
 	teamMemberPermissionsTeamPermissionsListGetStatus422Schema;
+
+export const teamMemberPermissionsTeamPermissionsListGetQuerySchema = z.object({
+	team_id: z.string().optional().describe("Team ID in the request parameters"),
+});
 
 export const updateTeamMemberPermissionsTeamPermissionsUpdatePostStatus200Schema = z.lazy(
 	() => liteLLMTeamTableSchema,
@@ -21932,6 +23619,17 @@ export const getTeamDailyActivityTeamDailyActivityGetResponseSchema =
 export const getTeamDailyActivityTeamDailyActivityGetErrorSchema =
 	getTeamDailyActivityTeamDailyActivityGetStatus422Schema;
 
+export const getTeamDailyActivityTeamDailyActivityGetQuerySchema = z.object({
+	team_ids: z.union([z.string(), z.null()]).optional(),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+	model: z.union([z.string(), z.null()]).optional(),
+	api_key: z.union([z.string(), z.null()]).optional(),
+	page: z.int().optional().default(1),
+	page_size: z.int().optional().default(10),
+	exclude_team_ids: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getTeamSpendByUserTeamSpendByUserGetQueryTeamIdsSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -21953,6 +23651,12 @@ export const getTeamSpendByUserTeamSpendByUserGetResponseSchema =
 
 export const getTeamSpendByUserTeamSpendByUserGetErrorSchema =
 	getTeamSpendByUserTeamSpendByUserGetStatus422Schema;
+
+export const getTeamSpendByUserTeamSpendByUserGetQuerySchema = z.object({
+	team_ids: z.union([z.string(), z.null()]).optional(),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+});
 
 export const ssoReadinessSsoReadinessGetStatus200Schema = z.looseObject({});
 
@@ -22015,6 +23719,17 @@ export const getOrganizationDailyActivityOrganizationDailyActivityGetResponseSch
 export const getOrganizationDailyActivityOrganizationDailyActivityGetErrorSchema =
 	getOrganizationDailyActivityOrganizationDailyActivityGetStatus422Schema;
 
+export const getOrganizationDailyActivityOrganizationDailyActivityGetQuerySchema = z.object({
+	organization_ids: z.union([z.string(), z.null()]).optional(),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+	model: z.union([z.string(), z.null()]).optional(),
+	api_key: z.union([z.string(), z.null()]).optional(),
+	page: z.int().optional().default(1),
+	page_size: z.int().optional().default(10),
+	exclude_organization_ids: z.union([z.string(), z.null()]).optional(),
+});
+
 export const updateOrganizationOrganizationUpdatePatchStatus200Schema =
 	liteLLMOrganizationTableWithMembersSchema.describe(
 		"Returned by the /organization/info endpoint and /organization/list endpoint",
@@ -22044,6 +23759,10 @@ export const updateOrganizationV2V2OrganizationOrganizationIdPatchBodySchema =
 	organizationUpdateRequestV2Schema.describe(
 		'Typed PATCH body for ``/v2/organization/{organization_id}`` (RFC 7396 merge-patch).\n\nPresence is read from ``model_fields_set``, so a sent field is written and an omitted one is\nleft untouched. ``extra="forbid"`` makes an unknown key a 422 rather than a silent no-op, since\nthe contract hinges on which keys are present. See the endpoint for the per-field clear tokens.',
 	);
+
+export const updateOrganizationV2V2OrganizationOrganizationIdPatchPathSchema = z.object({
+	organization_id: z.string(),
+});
 
 export const deleteOrganizationOrganizationDeleteDeleteStatus200Schema = z.array(
 	liteLLMOrganizationTableWithMembersSchema,
@@ -22083,6 +23802,19 @@ export const listOrganizationOrganizationListGetResponseSchema =
 export const listOrganizationOrganizationListGetErrorSchema =
 	listOrganizationOrganizationListGetStatus422Schema;
 
+export const listOrganizationOrganizationListGetQuerySchema = z.object({
+	org_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter organizations by exact organization_id match"),
+	org_alias: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter organizations by partial organization_alias match. Supports case-insensitive search.",
+		),
+});
+
 export const infoOrganizationOrganizationInfoGetQueryOrganizationIdSchema = z.string();
 
 export const infoOrganizationOrganizationInfoGetStatus200Schema =
@@ -22097,6 +23829,10 @@ export const infoOrganizationOrganizationInfoGetResponseSchema =
 
 export const infoOrganizationOrganizationInfoGetErrorSchema =
 	infoOrganizationOrganizationInfoGetStatus422Schema;
+
+export const infoOrganizationOrganizationInfoGetQuerySchema = z.object({
+	organization_id: z.string(),
+});
 
 export const deprecatedInfoOrganizationOrganizationInfoPostStatus200Schema = z.looseObject({});
 
@@ -22209,6 +23945,10 @@ export const endUserInfoCustomerInfoGetResponseSchema = endUserInfoCustomerInfoG
 
 export const endUserInfoCustomerInfoGetErrorSchema = endUserInfoCustomerInfoGetStatus422Schema;
 
+export const endUserInfoCustomerInfoGetQuerySchema = z.object({
+	end_user_id: z.string().describe("End User ID in the request parameters"),
+});
+
 export const updateEndUserCustomerUpdatePostStatus200Schema = customerResponseSchema.describe(
 	"Customer object returned by the /customer read+write endpoints.\n\nNests the full budget response model so server-managed budget fields\n(budget_reset_at, created_at) survive response_model filtering, rather than\nthe narrow write-allowlist shape LiteLLM_EndUserTable carries for internal use.",
 );
@@ -22289,6 +24029,17 @@ export const getCustomerDailyActivityCustomerDailyActivityGetResponseSchema =
 export const getCustomerDailyActivityCustomerDailyActivityGetErrorSchema =
 	getCustomerDailyActivityCustomerDailyActivityGetStatus422Schema;
 
+export const getCustomerDailyActivityCustomerDailyActivityGetQuerySchema = z.object({
+	end_user_ids: z.union([z.string(), z.null()]).optional(),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+	model: z.union([z.string(), z.null()]).optional(),
+	api_key: z.union([z.string(), z.null()]).optional(),
+	page: z.int().optional().default(1),
+	page_size: z.int().optional().default(10),
+	exclude_end_user_ids: z.union([z.string(), z.null()]).optional(),
+});
+
 export const listBudgetsManagementV1BudgetsGetStatus200Schema = listResponseBudgetListItemSchema;
 
 export const listBudgetsManagementV1BudgetsGetResponseSchema =
@@ -22334,6 +24085,17 @@ export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetResponseSchema 
 export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetErrorSchema =
 	listSpendLogEndUsersManagementV1SpendLogsEndUsersGetStatus422Schema;
 
+export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQuerySchema = z.object({
+	"filter[startTime][gte]": z.iso.datetime().describe("Window start (UTC when no offset is given)"),
+	"filter[startTime][lte]": z.iso.datetime().describe("Window end (UTC when no offset is given)"),
+	q: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Case-insensitive partial match on the end user id"),
+	page: z.int().min(1).optional().default(1).describe("Page number"),
+	page_size: z.int().min(1).max(100).optional().default(50).describe("Page size"),
+});
+
 export const listSpendLogUsersManagementV1SpendLogsUsersGetQueryFilterstartTimegteSchema = z.iso
 	.datetime()
 	.describe("Window start (UTC when no offset is given)");
@@ -22376,6 +24138,17 @@ export const listSpendLogUsersManagementV1SpendLogsUsersGetResponseSchema =
 export const listSpendLogUsersManagementV1SpendLogsUsersGetErrorSchema =
 	listSpendLogUsersManagementV1SpendLogsUsersGetStatus422Schema;
 
+export const listSpendLogUsersManagementV1SpendLogsUsersGetQuerySchema = z.object({
+	"filter[startTime][gte]": z.iso.datetime().describe("Window start (UTC when no offset is given)"),
+	"filter[startTime][lte]": z.iso.datetime().describe("Window end (UTC when no offset is given)"),
+	q: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Case-insensitive partial match on the internal user id"),
+	page: z.int().min(1).optional().default(1).describe("Page number"),
+	page_size: z.int().min(1).max(100).optional().default(50).describe("Page size"),
+});
+
 export const bulkDeleteTeamMembersActionManagementV1TeamsTeamIdMembersBulkDeletePostPathTeamIdSchema =
 	z.string();
 
@@ -22397,6 +24170,11 @@ export const bulkDeleteTeamMembersActionManagementV1TeamsTeamIdMembersBulkDelete
 	bulkTeamMemberDeleteRequestSchema.describe(
 		"Body of `POST /management/v1/teams/{team_id}/members/bulk_delete`.",
 	);
+
+export const bulkDeleteTeamMembersActionManagementV1TeamsTeamIdMembersBulkDeletePostPathSchema =
+	z.object({
+		team_id: z.string(),
+	});
 
 export const bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulkUpdatePostPathTeamIdSchema =
 	z.string();
@@ -22427,6 +24205,21 @@ export const bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulk
 	bulkTeamMemberBudgetUpdateRequestSchema.describe(
 		"Body of `POST /management/v1/teams/{team_id}/members/bulk_update`.",
 	);
+
+export const bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulkUpdatePostPathSchema =
+	z.object({
+		team_id: z.string(),
+	});
+
+export const bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulkUpdatePostHeadersSchema =
+	z.object({
+		"litellm-changed-by": z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe(
+				"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+			),
+	});
 
 export const bulkCreateUsersRouteManagementV1UsersBulkPostStatus200Schema =
 	bulkNewUserResponseSchema.describe("`data` holds one result per input row, in input order.");
@@ -22464,6 +24257,13 @@ export const bulkDeleteUsersActionManagementV1UsersBulkDeletePostErrorSchema =
 export const bulkDeleteUsersActionManagementV1UsersBulkDeletePostBodySchema =
 	bulkDeleteUserRequestSchema.describe("Body of `POST /management/v1/users/bulk_delete`.");
 
+export const bulkDeleteUsersActionManagementV1UsersBulkDeletePostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Who the caller is acting for; recorded on the audit log entries this call writes."),
+});
+
 export const viewSpendTagsSpendTagsGetQueryStartDateSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -22481,6 +24281,17 @@ export const viewSpendTagsSpendTagsGetStatus422Schema = HTTPValidationErrorSchem
 export const viewSpendTagsSpendTagsGetResponseSchema = viewSpendTagsSpendTagsGetStatus200Schema;
 
 export const viewSpendTagsSpendTagsGetErrorSchema = viewSpendTagsSpendTagsGetStatus422Schema;
+
+export const viewSpendTagsSpendTagsGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time from which to start viewing key spend"),
+	end_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time till which to view key spend"),
+});
 
 export const getSpendCaptureRateSpendCaptureRateGetQueryStartDateSchema = z.iso
 	.date()
@@ -22520,6 +24331,29 @@ export const getSpendCaptureRateSpendCaptureRateGetResponseSchema =
 
 export const getSpendCaptureRateSpendCaptureRateGetErrorSchema =
 	getSpendCaptureRateSpendCaptureRateGetStatus422Schema;
+
+export const getSpendCaptureRateSpendCaptureRateGetQuerySchema = z.object({
+	start_date: z.iso.date().describe("First UTC day of the range, YYYY-MM-DD"),
+	end_date: z.iso.date().describe("Last UTC day of the range, YYYY-MM-DD, inclusive"),
+	provider: z
+		.enum(["openai"])
+		.optional()
+		.default("openai")
+		.describe("Provider whose bill to compare against; needs OPENAI_ADMIN_KEY set on the proxy"),
+	threshold: z
+		.number()
+		.max(1)
+		.gt(0)
+		.optional()
+		.default(0.9)
+		.describe("Ratio under which the report flags below_threshold"),
+	project_ids: z
+		.union([z.array(z.string()), z.null()])
+		.optional()
+		.describe(
+			"Scope the OpenAI bill to these project ids; omit to compare against the whole organization. Captured spend is never scoped, so pass every project LiteLLM's OpenAI keys belong to",
+		),
+});
 
 export const getGlobalSpendReportGlobalSpendReportGetQueryStartDateSchema = z
 	.union([z.string(), z.null()])
@@ -22572,6 +24406,39 @@ export const getGlobalSpendReportGlobalSpendReportGetResponseSchema =
 export const getGlobalSpendReportGlobalSpendReportGetErrorSchema =
 	getGlobalSpendReportGlobalSpendReportGetStatus422Schema;
 
+export const getGlobalSpendReportGlobalSpendReportGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time from which to start viewing spend"),
+	end_date: z.union([z.string(), z.null()]).optional().describe("Time till which to view spend"),
+	group_by: z
+		.union([z.enum(["team", "customer", "api_key"]), z.null()])
+		.optional()
+		.default("team")
+		.describe("Group spend by internal team or customer or api_key"),
+	api_key: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"View spend for a specific api_key. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example api_key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'",
+		),
+	internal_user_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("View spend for a specific internal_user_id. Example internal_user_id='1234"),
+	team_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("View spend for a specific team_id. Example team_id='1234"),
+	customer_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"View spend for a specific customer_id. Example customer_id='1234. Can be used in conjunction with team_id as well.",
+		),
+});
+
 export const getKeySpendReportKeySpendReportGetQueryStartDateSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -22598,6 +24465,23 @@ export const getKeySpendReportKeySpendReportGetResponseSchema =
 
 export const getKeySpendReportKeySpendReportGetErrorSchema =
 	getKeySpendReportKeySpendReportGetStatus422Schema;
+
+export const getKeySpendReportKeySpendReportGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time from which to start viewing spend (YYYY-MM-DD)"),
+	end_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time till which to view spend (YYYY-MM-DD)"),
+	api_key: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"View spend for a specific api_key. Proxy admin only; other callers are scoped to their own key. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example api_key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'",
+		),
+});
 
 export const getUserSpendReportUserSpendReportGetQueryStartDateSchema = z
 	.union([z.string(), z.null()])
@@ -22626,6 +24510,23 @@ export const getUserSpendReportUserSpendReportGetResponseSchema =
 export const getUserSpendReportUserSpendReportGetErrorSchema =
 	getUserSpendReportUserSpendReportGetStatus422Schema;
 
+export const getUserSpendReportUserSpendReportGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time from which to start viewing spend (YYYY-MM-DD)"),
+	end_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time till which to view spend (YYYY-MM-DD)"),
+	internal_user_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"View spend for a specific internal_user_id. Proxy admin only; other callers are scoped to their own user_id.",
+		),
+});
+
 export const getTeamSpendReportTeamSpendReportGetQueryStartDateSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -22652,6 +24553,23 @@ export const getTeamSpendReportTeamSpendReportGetResponseSchema =
 
 export const getTeamSpendReportTeamSpendReportGetErrorSchema =
 	getTeamSpendReportTeamSpendReportGetStatus422Schema;
+
+export const getTeamSpendReportTeamSpendReportGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time from which to start viewing spend (YYYY-MM-DD)"),
+	end_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time till which to view spend (YYYY-MM-DD)"),
+	team_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"View spend for a specific team_id. Proxy admin only; other callers are scoped to their key's team.",
+		),
+});
 
 export const getOrganizationSpendReportOrganizationSpendReportGetQueryStartDateSchema = z
 	.union([z.string(), z.null()])
@@ -22683,6 +24601,23 @@ export const getOrganizationSpendReportOrganizationSpendReportGetResponseSchema 
 export const getOrganizationSpendReportOrganizationSpendReportGetErrorSchema =
 	getOrganizationSpendReportOrganizationSpendReportGetStatus422Schema;
 
+export const getOrganizationSpendReportOrganizationSpendReportGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time from which to start viewing spend (YYYY-MM-DD)"),
+	end_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time till which to view spend (YYYY-MM-DD)"),
+	organization_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"View spend for a specific organization_id. Proxy admins may pass any organization; org admins are scoped to organizations they administer.",
+		),
+});
+
 export const globalViewSpendTagsGlobalSpendTagsGetQueryStartDateSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -22707,6 +24642,18 @@ export const globalViewSpendTagsGlobalSpendTagsGetResponseSchema =
 
 export const globalViewSpendTagsGlobalSpendTagsGetErrorSchema =
 	globalViewSpendTagsGlobalSpendTagsGetStatus422Schema;
+
+export const globalViewSpendTagsGlobalSpendTagsGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time from which to start viewing key spend"),
+	end_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time till which to view key spend"),
+	tags: z.union([z.string(), z.null()]).optional().describe("comman separated tags to filter on"),
+});
 
 export const calculateSpendSpendCalculatePostStatus200Schema = z.object({
 	cost: z
@@ -22897,6 +24844,110 @@ export const uiViewSpendLogsSpendLogsV2GetResponseSchema =
 export const uiViewSpendLogsSpendLogsV2GetErrorSchema =
 	uiViewSpendLogsSpendLogsV2GetStatus422Schema;
 
+export const uiViewSpendLogsSpendLogsV2GetQuerySchema = z.object({
+	api_key: z.union([z.string(), z.null()]).optional().describe("Get spend logs based on api key"),
+	user_id: z.union([z.string(), z.null()]).optional().describe("Get spend logs based on user_id"),
+	request_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("request_id to get spend logs for specific request_id"),
+	session_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter spend logs by session_id (partial string match)"),
+	team_id: z.union([z.string(), z.null()]).optional().describe("Filter spend logs by team_id"),
+	min_spend: z
+		.union([z.number(), z.null()])
+		.optional()
+		.describe("Filter logs with spend greater than or equal to this value"),
+	max_spend: z
+		.union([z.number(), z.null()])
+		.optional()
+		.describe("Filter logs with spend less than or equal to this value"),
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time from which to start viewing key spend"),
+	end_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time till which to view key spend"),
+	page: z.int().min(1).optional().default(1).describe("Page number for pagination"),
+	page_size: z.int().min(1).max(1000).optional().default(50).describe("Number of items per page"),
+	status_filter: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter logs by status (e.g., success, failure)"),
+	cache_hit_filter: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter logs by cache state: 'hit' or 'miss'. Miss includes legacy rows with a null/unknown cache state",
+		),
+	used_client_oauth_token: z
+		.union([z.boolean(), z.null()])
+		.optional()
+		.describe(
+			"Filter logs by the credential the upstream call used: true for a client-forwarded Anthropic OAuth token, false for the deployment's configured key. Rows written before this flag existed match neither",
+		),
+	span_type: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter logs by span type: llm, agent, mcp, or batch"),
+	model: z.union([z.string(), z.null()]).optional().describe("Filter logs by model"),
+	model_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter logs by model ID (litellm model deployment id)"),
+	model_group: z.union([z.string(), z.null()]).optional().describe("Filter logs by model group"),
+	key_alias: z.union([z.string(), z.null()]).optional().describe("Filter logs by key alias"),
+	end_user: z.union([z.string(), z.null()]).optional().describe("Filter logs by end user"),
+	error_code: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter logs by error code (e.g., '404', '500')"),
+	error_message: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter logs by error message (partial string match)"),
+	sort_by: z
+		.string()
+		.optional()
+		.default("startTime")
+		.describe(
+			"Sort logs by field: spend, total_tokens, startTime, endTime, request_duration_ms, model, or ttft_ms",
+		),
+	sort_order: z
+		.union([z.string(), z.null()])
+		.optional()
+		.default("desc")
+		.describe("Sort order: asc or desc"),
+	exclude_internal_health_checks: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe("Exclude LiteLLM internal health check requests from results"),
+	group_by_session: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"Paginate over sessions instead of raw logs: one representative row per session, total counts sessions",
+		),
+	session_cursor: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Keyset cursor '<last_activity>|<api_key>|<session_key>' from a previous group_by_session page. UI route only, honored when sorting by startTime",
+		),
+	search: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Match a log whose request_id, litellm_call_id, api_key (hash), team_id, user, end_user, session_id, or model_id equals this value. request_id matches across all time; the other columns match inside start_date/end_date, which stay required",
+		),
+});
+
 export const viewSpendLogsSpendLogsGetQueryApiKeySchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -22939,6 +24990,32 @@ export const viewSpendLogsSpendLogsGetStatus422Schema = HTTPValidationErrorSchem
 export const viewSpendLogsSpendLogsGetResponseSchema = viewSpendLogsSpendLogsGetStatus200Schema;
 
 export const viewSpendLogsSpendLogsGetErrorSchema = viewSpendLogsSpendLogsGetStatus422Schema;
+
+export const viewSpendLogsSpendLogsGetQuerySchema = z.object({
+	api_key: z.union([z.string(), z.null()]).optional().describe("Get spend logs based on api key"),
+	user_id: z.union([z.string(), z.null()]).optional().describe("Get spend logs based on user_id"),
+	request_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"request_id to get spend logs for specific request_id. If none passed then pass spend logs for all requests",
+		),
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time from which to start viewing key spend"),
+	end_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Time till which to view key spend"),
+	summarize: z
+		.boolean()
+		.optional()
+		.default(true)
+		.describe(
+			"When start_date and end_date are provided, summarize=true returns aggregated data by date (legacy behavior), summarize=false returns filtered individual logs",
+		),
+});
 
 export const globalSpendResetGlobalSpendResetPostStatus200Schema = z.looseObject({});
 
@@ -23287,6 +25364,19 @@ export const addTeamCallbacksTeamTeamIdCallbackPostErrorSchema =
 
 export const addTeamCallbacksTeamTeamIdCallbackPostBodySchema = addTeamCallbackSchema;
 
+export const addTeamCallbacksTeamTeamIdCallbackPostPathSchema = z.object({
+	team_id: z.string(),
+});
+
+export const addTeamCallbacksTeamTeamIdCallbackPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const getTeamCallbacksTeamTeamIdCallbackGetPathTeamIdSchema = z.string();
 
 export const getTeamCallbacksTeamTeamIdCallbackGetStatus200Schema = z.looseObject({});
@@ -23298,6 +25388,10 @@ export const getTeamCallbacksTeamTeamIdCallbackGetResponseSchema =
 
 export const getTeamCallbacksTeamTeamIdCallbackGetErrorSchema =
 	getTeamCallbacksTeamTeamIdCallbackGetStatus422Schema;
+
+export const getTeamCallbacksTeamTeamIdCallbackGetPathSchema = z.object({
+	team_id: z.string(),
+});
 
 export const deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeletePathTeamIdSchema = z.string();
 
@@ -23323,6 +25417,20 @@ export const deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeleteResponseSchem
 export const deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeleteErrorSchema =
 	deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeleteStatus422Schema;
 
+export const deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeletePathSchema = z.object({
+	team_id: z.string(),
+	callback_name: z.string(),
+});
+
+export const deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeleteHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const disableTeamLoggingTeamTeamIdDisableLoggingPostPathTeamIdSchema = z.string();
 
 export const disableTeamLoggingTeamTeamIdDisableLoggingPostHeaderLitellmChangedBySchema = z
@@ -23342,6 +25450,19 @@ export const disableTeamLoggingTeamTeamIdDisableLoggingPostResponseSchema =
 
 export const disableTeamLoggingTeamTeamIdDisableLoggingPostErrorSchema =
 	disableTeamLoggingTeamTeamIdDisableLoggingPostStatus422Schema;
+
+export const disableTeamLoggingTeamTeamIdDisableLoggingPostPathSchema = z.object({
+	team_id: z.string(),
+});
+
+export const disableTeamLoggingTeamTeamIdDisableLoggingPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const newBudgetBudgetNewPostStatus200Schema = z.looseObject({});
 
@@ -23386,6 +25507,10 @@ export const budgetSettingsBudgetSettingsGetResponseSchema =
 export const budgetSettingsBudgetSettingsGetErrorSchema =
 	budgetSettingsBudgetSettingsGetStatus422Schema;
 
+export const budgetSettingsBudgetSettingsGetQuerySchema = z.object({
+	budget_id: z.string(),
+});
+
 export const listBudgetBudgetListGetStatus200Schema = z.looseObject({});
 
 export const listBudgetBudgetListGetResponseSchema = listBudgetBudgetListGetStatus200Schema;
@@ -23415,6 +25540,10 @@ export const patchModelModelModelIdUpdatePatchErrorSchema =
 
 export const patchModelModelModelIdUpdatePatchBodySchema = updateDeploymentSchema;
 
+export const patchModelModelModelIdUpdatePatchPathSchema = z.object({
+	model_id: z.string(),
+});
+
 export const blockModelModelBlockPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -23434,6 +25563,15 @@ export const blockModelModelBlockPostResponseSchema = blockModelModelBlockPostSt
 export const blockModelModelBlockPostErrorSchema = blockModelModelBlockPostStatus422Schema;
 
 export const blockModelModelBlockPostBodySchema = blockModelRequestSchema;
+
+export const blockModelModelBlockPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const unblockModelModelUnblockPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
@@ -23455,6 +25593,15 @@ export const unblockModelModelUnblockPostResponseSchema =
 export const unblockModelModelUnblockPostErrorSchema = unblockModelModelUnblockPostStatus422Schema;
 
 export const unblockModelModelUnblockPostBodySchema = blockModelRequestSchema;
+
+export const unblockModelModelUnblockPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const deleteModelModelDeletePostStatus200Schema = z.looseObject({});
 
@@ -23556,6 +25703,13 @@ export const getAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultProm
 export const getAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGetErrorSchema =
 	getAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGetStatus422Schema;
 
+export const getAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGetQuerySchema =
+	z.object({
+		context_window_size: z.int().optional().default(3),
+		tier_labels: z.union([z.string(), z.null()]).optional(),
+		classification_rubric: z.union([classificationRubricSchema, z.null()]).optional(),
+	});
+
 export const createModelGroupAccessGroupNewPostStatus200Schema = newModelGroupResponseSchema;
 
 export const createModelGroupAccessGroupNewPostStatus422Schema = HTTPValidationErrorSchema;
@@ -23586,6 +25740,10 @@ export const getAccessGroupInfoAccessGroupAccessGroupInfoGetResponseSchema =
 export const getAccessGroupInfoAccessGroupAccessGroupInfoGetErrorSchema =
 	getAccessGroupInfoAccessGroupAccessGroupInfoGetStatus422Schema;
 
+export const getAccessGroupInfoAccessGroupAccessGroupInfoGetPathSchema = z.object({
+	access_group: z.string(),
+});
+
 export const updateAccessGroupAccessGroupAccessGroupUpdatePutPathAccessGroupSchema = z.string();
 
 export const updateAccessGroupAccessGroupAccessGroupUpdatePutStatus200Schema =
@@ -23603,6 +25761,10 @@ export const updateAccessGroupAccessGroupAccessGroupUpdatePutErrorSchema =
 export const updateAccessGroupAccessGroupAccessGroupUpdatePutBodySchema =
 	updateModelGroupRequestSchema;
 
+export const updateAccessGroupAccessGroupAccessGroupUpdatePutPathSchema = z.object({
+	access_group: z.string(),
+});
+
 export const deleteAccessGroupAccessGroupAccessGroupDeleteDeletePathAccessGroupSchema = z.string();
 
 export const deleteAccessGroupAccessGroupAccessGroupDeleteDeleteStatus200Schema =
@@ -23617,6 +25779,10 @@ export const deleteAccessGroupAccessGroupAccessGroupDeleteDeleteResponseSchema =
 export const deleteAccessGroupAccessGroupAccessGroupDeleteDeleteErrorSchema =
 	deleteAccessGroupAccessGroupAccessGroupDeleteDeleteStatus422Schema;
 
+export const deleteAccessGroupAccessGroupAccessGroupDeleteDeletePathSchema = z.object({
+	access_group: z.string(),
+});
+
 export const getAccessGroupBudgetAccessGroupAccessGroupBudgetGetPathAccessGroupSchema = z.string();
 
 export const getAccessGroupBudgetAccessGroupAccessGroupBudgetGetStatus200Schema =
@@ -23630,6 +25796,10 @@ export const getAccessGroupBudgetAccessGroupAccessGroupBudgetGetResponseSchema =
 
 export const getAccessGroupBudgetAccessGroupAccessGroupBudgetGetErrorSchema =
 	getAccessGroupBudgetAccessGroupAccessGroupBudgetGetStatus422Schema;
+
+export const getAccessGroupBudgetAccessGroupAccessGroupBudgetGetPathSchema = z.object({
+	access_group: z.string(),
+});
 
 export const setAccessGroupBudgetAccessGroupAccessGroupBudgetPutPathAccessGroupSchema = z.string();
 
@@ -23648,6 +25818,10 @@ export const setAccessGroupBudgetAccessGroupAccessGroupBudgetPutErrorSchema =
 export const setAccessGroupBudgetAccessGroupAccessGroupBudgetPutBodySchema =
 	accessGroupBudgetRequestSchema;
 
+export const setAccessGroupBudgetAccessGroupAccessGroupBudgetPutPathSchema = z.object({
+	access_group: z.string(),
+});
+
 export const deleteAccessGroupBudgetAccessGroupAccessGroupBudgetDeletePathAccessGroupSchema =
 	z.string();
 
@@ -23662,6 +25836,10 @@ export const deleteAccessGroupBudgetAccessGroupAccessGroupBudgetDeleteResponseSc
 
 export const deleteAccessGroupBudgetAccessGroupAccessGroupBudgetDeleteErrorSchema =
 	deleteAccessGroupBudgetAccessGroupAccessGroupBudgetDeleteStatus422Schema;
+
+export const deleteAccessGroupBudgetAccessGroupAccessGroupBudgetDeletePathSchema = z.object({
+	access_group: z.string(),
+});
 
 export const validateComplexityRouterConfigAutoRouterValidateComplexityRouterConfigPostStatus200Schema =
 	complexityRouterConfigValidationResponseSchema;
@@ -23746,6 +25924,25 @@ export const getAutoRouterBenchmarksAutoRouterBenchmarksGetResponseSchema =
 export const getAutoRouterBenchmarksAutoRouterBenchmarksGetErrorSchema =
 	getAutoRouterBenchmarksAutoRouterBenchmarksGetStatus422Schema;
 
+export const getAutoRouterBenchmarksAutoRouterBenchmarksGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("YYYY-MM-DD UTC, inclusive (defaults to 30 days before end_date)"),
+	end_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("YYYY-MM-DD UTC, inclusive (defaults to today)"),
+	api_key: z
+		.union([z.string().min(1), z.null()])
+		.optional()
+		.describe("Filter to one virtual key token hash"),
+	user_id: z
+		.union([z.string().min(1), z.null()])
+		.optional()
+		.describe("Filter to one canonical internal user recorded on each turn"),
+});
+
 export const getAutoRouterSessionAutoRouterSessionGetQuerySessionIdSchema = z
 	.string()
 	.describe("The client session id (x-*-session-id header) the turns were sent under");
@@ -23762,6 +25959,12 @@ export const getAutoRouterSessionAutoRouterSessionGetResponseSchema =
 
 export const getAutoRouterSessionAutoRouterSessionGetErrorSchema =
 	getAutoRouterSessionAutoRouterSessionGetStatus422Schema;
+
+export const getAutoRouterSessionAutoRouterSessionGetQuerySchema = z.object({
+	session_id: z
+		.string()
+		.describe("The client session id (x-*-session-id header) the turns were sent under"),
+});
 
 export const startShadowEvalAutoRouterShadowEvalStartPostStatus201Schema =
 	shadowEvalJobResponseSchema.describe(
@@ -23812,6 +26015,18 @@ export const listShadowEvalJobsAutoRouterShadowEvalGetResponseSchema =
 export const listShadowEvalJobsAutoRouterShadowEvalGetErrorSchema =
 	listShadowEvalJobsAutoRouterShadowEvalGetStatus422Schema;
 
+export const listShadowEvalJobsAutoRouterShadowEvalGetQuerySchema = z.object({
+	target_type: z
+		.union([z.enum(["key", "team", "user"]), z.null()])
+		.optional()
+		.describe("Kind of target to filter on; requires target_id"),
+	target_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter to jobs that shadow this target, alone or alongside others"),
+	limit: z.int().min(1).max(200).optional().default(50).describe("Newest jobs to return"),
+});
+
 export const getShadowEvalJobAutoRouterShadowEvalJobIdGetPathJobIdSchema = z.string();
 
 export const getShadowEvalJobAutoRouterShadowEvalJobIdGetStatus200Schema =
@@ -23828,6 +26043,10 @@ export const getShadowEvalJobAutoRouterShadowEvalJobIdGetResponseSchema =
 export const getShadowEvalJobAutoRouterShadowEvalJobIdGetErrorSchema =
 	getShadowEvalJobAutoRouterShadowEvalJobIdGetStatus422Schema;
 
+export const getShadowEvalJobAutoRouterShadowEvalJobIdGetPathSchema = z.object({
+	job_id: z.string(),
+});
+
 export const stopShadowEvalJobAutoRouterShadowEvalJobIdStopPostPathJobIdSchema = z.string();
 
 export const stopShadowEvalJobAutoRouterShadowEvalJobIdStopPostStatus200Schema =
@@ -23843,6 +26062,10 @@ export const stopShadowEvalJobAutoRouterShadowEvalJobIdStopPostResponseSchema =
 
 export const stopShadowEvalJobAutoRouterShadowEvalJobIdStopPostErrorSchema =
 	stopShadowEvalJobAutoRouterShadowEvalJobIdStopPostStatus422Schema;
+
+export const stopShadowEvalJobAutoRouterShadowEvalJobIdStopPostPathSchema = z.object({
+	job_id: z.string(),
+});
 
 export const newTagTagNewPostStatus200Schema = z.looseObject({});
 
@@ -23894,6 +26117,19 @@ export const listTagsTagListGetResponseSchema = listTagsTagListGetStatus200Schem
 
 export const listTagsTagListGetErrorSchema = listTagsTagListGetStatus422Schema;
 
+export const listTagsTagListGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Optional start date (YYYY-MM-DD). When provided together with end_date, dynamic tags are limited to those active in the window. Stored tags are always returned.",
+		),
+	end_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Optional end date (YYYY-MM-DD). Must be given with start_date."),
+});
+
 export const deleteTagTagDeletePostStatus200Schema = z.looseObject({});
 
 export const deleteTagTagDeletePostStatus422Schema = HTTPValidationErrorSchema;
@@ -23942,6 +26178,16 @@ export const getTagDailyActivityTagDailyActivityGetResponseSchema =
 export const getTagDailyActivityTagDailyActivityGetErrorSchema =
 	getTagDailyActivityTagDailyActivityGetStatus422Schema;
 
+export const getTagDailyActivityTagDailyActivityGetQuerySchema = z.object({
+	tags: z.union([z.string(), z.null()]).optional(),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+	model: z.union([z.string(), z.null()]).optional(),
+	api_key: z.union([z.string(), z.null()]).optional(),
+	page: z.int().optional().default(1),
+	page_size: z.int().optional().default(10),
+});
+
 export const createWorkflowRunV1WorkflowsRunsPostStatus200Schema = z.looseObject({});
 
 export const createWorkflowRunV1WorkflowsRunsPostStatus422Schema = HTTPValidationErrorSchema;
@@ -23979,6 +26225,12 @@ export const listWorkflowRunsV1WorkflowsRunsGetResponseSchema =
 export const listWorkflowRunsV1WorkflowsRunsGetErrorSchema =
 	listWorkflowRunsV1WorkflowsRunsGetStatus422Schema;
 
+export const listWorkflowRunsV1WorkflowsRunsGetQuerySchema = z.object({
+	workflow_type: z.union([z.string(), z.null()]).optional(),
+	status: z.union([z.string(), z.null()]).optional(),
+	limit: z.int().min(1).max(250).optional().default(50),
+});
+
 export const getWorkflowRunV1WorkflowsRunsRunIdGetPathRunIdSchema = z.string();
 
 export const getWorkflowRunV1WorkflowsRunsRunIdGetStatus200Schema = z.looseObject({});
@@ -23990,6 +26242,10 @@ export const getWorkflowRunV1WorkflowsRunsRunIdGetResponseSchema =
 
 export const getWorkflowRunV1WorkflowsRunsRunIdGetErrorSchema =
 	getWorkflowRunV1WorkflowsRunsRunIdGetStatus422Schema;
+
+export const getWorkflowRunV1WorkflowsRunsRunIdGetPathSchema = z.object({
+	run_id: z.string(),
+});
 
 export const updateWorkflowRunV1WorkflowsRunsRunIdPatchPathRunIdSchema = z.string();
 
@@ -24004,6 +26260,10 @@ export const updateWorkflowRunV1WorkflowsRunsRunIdPatchErrorSchema =
 	updateWorkflowRunV1WorkflowsRunsRunIdPatchStatus422Schema;
 
 export const updateWorkflowRunV1WorkflowsRunsRunIdPatchBodySchema = workflowRunUpdateRequestSchema;
+
+export const updateWorkflowRunV1WorkflowsRunsRunIdPatchPathSchema = z.object({
+	run_id: z.string(),
+});
 
 export const appendWorkflowEventV1WorkflowsRunsRunIdEventsPostPathRunIdSchema = z.string();
 
@@ -24020,6 +26280,10 @@ export const appendWorkflowEventV1WorkflowsRunsRunIdEventsPostErrorSchema =
 
 export const appendWorkflowEventV1WorkflowsRunsRunIdEventsPostBodySchema =
 	workflowEventCreateRequestSchema;
+
+export const appendWorkflowEventV1WorkflowsRunsRunIdEventsPostPathSchema = z.object({
+	run_id: z.string(),
+});
 
 export const listWorkflowEventsV1WorkflowsRunsRunIdEventsGetPathRunIdSchema = z.string();
 
@@ -24041,6 +26305,14 @@ export const listWorkflowEventsV1WorkflowsRunsRunIdEventsGetResponseSchema =
 export const listWorkflowEventsV1WorkflowsRunsRunIdEventsGetErrorSchema =
 	listWorkflowEventsV1WorkflowsRunsRunIdEventsGetStatus422Schema;
 
+export const listWorkflowEventsV1WorkflowsRunsRunIdEventsGetPathSchema = z.object({
+	run_id: z.string(),
+});
+
+export const listWorkflowEventsV1WorkflowsRunsRunIdEventsGetQuerySchema = z.object({
+	limit: z.int().min(1).max(500).optional().default(100),
+});
+
 export const appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostPathRunIdSchema = z.string();
 
 export const appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostStatus200Schema = z.looseObject(
@@ -24058,6 +26330,10 @@ export const appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostErrorSchema =
 
 export const appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostBodySchema =
 	workflowMessageCreateRequestSchema;
+
+export const appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostPathSchema = z.object({
+	run_id: z.string(),
+});
 
 export const listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetPathRunIdSchema = z.string();
 
@@ -24078,6 +26354,14 @@ export const listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetResponseSchema =
 
 export const listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetErrorSchema =
 	listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetStatus422Schema;
+
+export const listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetPathSchema = z.object({
+	run_id: z.string(),
+});
+
+export const listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetQuerySchema = z.object({
+	limit: z.int().min(1).max(500).optional().default(100),
+});
 
 export const createMemoryV1MemoryPostStatus200Schema = liteLLMMemoryRowSchema;
 
@@ -24125,6 +26409,24 @@ export const listMemoryV1MemoryGetResponseSchema = listMemoryV1MemoryGetStatus20
 
 export const listMemoryV1MemoryGetErrorSchema = listMemoryV1MemoryGetStatus422Schema;
 
+export const listMemoryV1MemoryGetQuerySchema = z.object({
+	key: z.union([z.string(), z.null()]).optional().describe("Filter by exact key match."),
+	key_prefix: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by key prefix (Redis-style namespace scan). Mutually exclusive with `key`; if both are provided, `key_prefix` wins.",
+		),
+	search: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Match entries whose key starts with this value or whose memory_id equals it. Takes precedence over `key_prefix` and `key` when provided.",
+		),
+	page: z.int().min(1).optional().default(1),
+	page_size: z.int().min(1).max(500).optional().default(50),
+});
+
 export const getMemoryV1MemoryKeyGetPathKeySchema = z.string();
 
 export const getMemoryV1MemoryKeyGetStatus200Schema = liteLLMMemoryRowSchema;
@@ -24134,6 +26436,10 @@ export const getMemoryV1MemoryKeyGetStatus422Schema = HTTPValidationErrorSchema;
 export const getMemoryV1MemoryKeyGetResponseSchema = getMemoryV1MemoryKeyGetStatus200Schema;
 
 export const getMemoryV1MemoryKeyGetErrorSchema = getMemoryV1MemoryKeyGetStatus422Schema;
+
+export const getMemoryV1MemoryKeyGetPathSchema = z.object({
+	key: z.string(),
+});
 
 export const upsertMemoryV1MemoryKeyPutPathKeySchema = z.string();
 
@@ -24147,6 +26453,10 @@ export const upsertMemoryV1MemoryKeyPutErrorSchema = upsertMemoryV1MemoryKeyPutS
 
 export const upsertMemoryV1MemoryKeyPutBodySchema = memoryUpdateRequestSchema;
 
+export const upsertMemoryV1MemoryKeyPutPathSchema = z.object({
+	key: z.string(),
+});
+
 export const deleteMemoryV1MemoryKeyDeletePathKeySchema = z.string();
 
 export const deleteMemoryV1MemoryKeyDeleteStatus200Schema = memoryDeleteResponseSchema;
@@ -24158,6 +26468,10 @@ export const deleteMemoryV1MemoryKeyDeleteResponseSchema =
 
 export const deleteMemoryV1MemoryKeyDeleteErrorSchema =
 	deleteMemoryV1MemoryKeyDeleteStatus422Schema;
+
+export const deleteMemoryV1MemoryKeyDeletePathSchema = z.object({
+	key: z.string(),
+});
 
 export const listDatasetsLensDatasetsGetStatus200Schema = z.array(datasetSummarySchema);
 
@@ -24203,6 +26517,14 @@ export const readDatasetLensDatasetsDatasetIdGetResponseSchema =
 export const readDatasetLensDatasetsDatasetIdGetErrorSchema =
 	readDatasetLensDatasetsDatasetIdGetStatus422Schema;
 
+export const readDatasetLensDatasetsDatasetIdGetPathSchema = z.object({
+	dataset_id: z.string(),
+});
+
+export const readDatasetLensDatasetsDatasetIdGetQuerySchema = z.object({
+	revision: z.union([z.int().min(0), z.null()]).optional(),
+});
+
 export const saveRevisionLensDatasetsDatasetIdRevisionsPostPathDatasetIdSchema = z.string();
 
 export const saveRevisionLensDatasetsDatasetIdRevisionsPostStatus200Schema = datasetSchema;
@@ -24217,6 +26539,10 @@ export const saveRevisionLensDatasetsDatasetIdRevisionsPostErrorSchema =
 	saveRevisionLensDatasetsDatasetIdRevisionsPostStatus422Schema;
 
 export const saveRevisionLensDatasetsDatasetIdRevisionsPostBodySchema = revisionSaveSchema;
+
+export const saveRevisionLensDatasetsDatasetIdRevisionsPostPathSchema = z.object({
+	dataset_id: z.string(),
+});
 
 export const exportDatasetLensDatasetsDatasetIdExportGetPathDatasetIdSchema = z.string();
 
@@ -24234,6 +26560,14 @@ export const exportDatasetLensDatasetsDatasetIdExportGetResponseSchema =
 export const exportDatasetLensDatasetsDatasetIdExportGetErrorSchema =
 	exportDatasetLensDatasetsDatasetIdExportGetStatus422Schema;
 
+export const exportDatasetLensDatasetsDatasetIdExportGetPathSchema = z.object({
+	dataset_id: z.string(),
+});
+
+export const exportDatasetLensDatasetsDatasetIdExportGetQuerySchema = z.object({
+	revision: z.union([z.int().min(0), z.null()]).optional(),
+});
+
 export const evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetPathDatasetIdSchema =
 	z.string();
 
@@ -24250,6 +26584,11 @@ export const evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetResponseSche
 
 export const evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetErrorSchema =
 	evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetStatus422Schema;
+
+export const evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetPathSchema = z.object({
+	dataset_id: z.string(),
+	revision: z.int(),
+});
 
 export const readFeedbackLensFeedbackGetQueryTraceIdSchema = z
 	.union([z.string().min(1).max(128), z.null()])
@@ -24272,6 +26611,12 @@ export const readFeedbackLensFeedbackGetStatus422Schema = HTTPValidationErrorSch
 export const readFeedbackLensFeedbackGetResponseSchema = readFeedbackLensFeedbackGetStatus200Schema;
 
 export const readFeedbackLensFeedbackGetErrorSchema = readFeedbackLensFeedbackGetStatus422Schema;
+
+export const readFeedbackLensFeedbackGetQuerySchema = z.object({
+	trace_id: z.union([z.string().min(1).max(128), z.null()]).optional(),
+	session_id: z.union([z.string().min(1).max(512), z.null()]).optional(),
+	trace_ref: z.string().max(512).optional().default(""),
+});
 
 export const submitFeedbackLensFeedbackPutStatus200Schema = feedbackSchema;
 
@@ -24314,6 +26659,13 @@ export const deleteFeedbackLensFeedbackDeleteResponseSchema =
 
 export const deleteFeedbackLensFeedbackDeleteErrorSchema =
 	deleteFeedbackLensFeedbackDeleteStatus422Schema;
+
+export const deleteFeedbackLensFeedbackDeleteQuerySchema = z.object({
+	trace_id: z.union([z.string().min(1).max(128), z.null()]).optional(),
+	session_id: z.union([z.string().min(1).max(512), z.null()]).optional(),
+	trace_ref: z.string().max(512).optional().default(""),
+	user: z.string().max(256).optional().default(""),
+});
 
 export const feedbackSummaryLensFeedbackSummaryPostStatus200Schema = z.array(
 	traceFeedbackSummarySchema,
@@ -24363,6 +26715,10 @@ export const revokeIngestionKeyLensTracingKeysKeyIdDeleteResponseSchema =
 
 export const revokeIngestionKeyLensTracingKeysKeyIdDeleteErrorSchema =
 	revokeIngestionKeyLensTracingKeysKeyIdDeleteStatus422Schema;
+
+export const revokeIngestionKeyLensTracingKeysKeyIdDeletePathSchema = z.object({
+	key_id: z.string(),
+});
 
 export const ingestionCredentialsLensInternalIngestionCredentialsGetStatus200Schema =
 	ingestionSnapshotSchema;
@@ -24447,6 +26803,10 @@ export const updateLensLensLensIdPutErrorSchema = updateLensLensLensIdPutStatus4
 
 export const updateLensLensLensIdPutBodySchema = lensSettingsSchema;
 
+export const updateLensLensLensIdPutPathSchema = z.object({
+	lens_id: z.string(),
+});
+
 export const readLensLensLensIdGetPathLensIdSchema = z.string();
 
 export const readLensLensLensIdGetStatus200Schema = lensSchema;
@@ -24456,6 +26816,10 @@ export const readLensLensLensIdGetStatus422Schema = HTTPValidationErrorSchema;
 export const readLensLensLensIdGetResponseSchema = readLensLensLensIdGetStatus200Schema;
 
 export const readLensLensLensIdGetErrorSchema = readLensLensLensIdGetStatus422Schema;
+
+export const readLensLensLensIdGetPathSchema = z.object({
+	lens_id: z.string(),
+});
 
 export const runLensLensLensIdRunsPostPathLensIdSchema = z.string();
 
@@ -24469,6 +26833,10 @@ export const runLensLensLensIdRunsPostErrorSchema = runLensLensLensIdRunsPostSta
 
 export const runLensLensLensIdRunsPostBodySchema = runRequestSchema;
 
+export const runLensLensLensIdRunsPostPathSchema = z.object({
+	lens_id: z.string(),
+});
+
 export const listRunsLensLensIdRunsGetPathLensIdSchema = z.string();
 
 export const listRunsLensLensIdRunsGetQueryOffsetSchema = z.int().min(0).optional().default(0);
@@ -24480,6 +26848,14 @@ export const listRunsLensLensIdRunsGetStatus422Schema = HTTPValidationErrorSchem
 export const listRunsLensLensIdRunsGetResponseSchema = listRunsLensLensIdRunsGetStatus200Schema;
 
 export const listRunsLensLensIdRunsGetErrorSchema = listRunsLensLensIdRunsGetStatus422Schema;
+
+export const listRunsLensLensIdRunsGetPathSchema = z.object({
+	lens_id: z.string(),
+});
+
+export const listRunsLensLensIdRunsGetQuerySchema = z.object({
+	offset: z.int().min(0).optional().default(0),
+});
 
 export const readRunLensLensIdRunsJobIdGetPathLensIdSchema = z.string();
 
@@ -24494,6 +26870,11 @@ export const readRunLensLensIdRunsJobIdGetResponseSchema =
 
 export const readRunLensLensIdRunsJobIdGetErrorSchema =
 	readRunLensLensIdRunsJobIdGetStatus422Schema;
+
+export const readRunLensLensIdRunsJobIdGetPathSchema = z.object({
+	lens_id: z.string(),
+	job_id: z.string(),
+});
 
 export const readReviewsLensLensIdRunsJobIdReviewsGetPathLensIdSchema = z.string();
 
@@ -24515,6 +26896,15 @@ export const readReviewsLensLensIdRunsJobIdReviewsGetResponseSchema =
 export const readReviewsLensLensIdRunsJobIdReviewsGetErrorSchema =
 	readReviewsLensLensIdRunsJobIdReviewsGetStatus422Schema;
 
+export const readReviewsLensLensIdRunsJobIdReviewsGetPathSchema = z.object({
+	lens_id: z.string(),
+	job_id: z.string(),
+});
+
+export const readReviewsLensLensIdRunsJobIdReviewsGetQuerySchema = z.object({
+	after: z.int().min(0).optional().default(0),
+});
+
 export const cancelLensLensLensIdCancelPostPathLensIdSchema = z.string();
 
 export const cancelLensLensLensIdCancelPostStatus200Schema = lensSchema;
@@ -24526,6 +26916,10 @@ export const cancelLensLensLensIdCancelPostResponseSchema =
 
 export const cancelLensLensLensIdCancelPostErrorSchema =
 	cancelLensLensLensIdCancelPostStatus422Schema;
+
+export const cancelLensLensLensIdCancelPostPathSchema = z.object({
+	lens_id: z.string(),
+});
 
 export const updateFindingLensLensIdFindingsFindingIdPatchPathLensIdSchema = z.string();
 
@@ -24543,6 +26937,11 @@ export const updateFindingLensLensIdFindingsFindingIdPatchErrorSchema =
 	updateFindingLensLensIdFindingsFindingIdPatchStatus422Schema;
 
 export const updateFindingLensLensIdFindingsFindingIdPatchBodySchema = findingUpdateSchema;
+
+export const updateFindingLensLensIdFindingsFindingIdPatchPathSchema = z.object({
+	lens_id: z.string(),
+	finding_id: z.string(),
+});
 
 export const previewSampleLensPreviewSamplePostStatus200Schema = sampleSchema;
 
@@ -24583,6 +26982,10 @@ export const setWorkerBillingLensWorkersWorkerIdBillingKeyPutErrorSchema =
 
 export const setWorkerBillingLensWorkersWorkerIdBillingKeyPutBodySchema = workerBillingSchema;
 
+export const setWorkerBillingLensWorkersWorkerIdBillingKeyPutPathSchema = z.object({
+	worker_id: z.string(),
+});
+
 export const revokeWorkerLensWorkersWorkerIdDeletePathWorkerIdSchema = z.string();
 
 export const revokeWorkerLensWorkersWorkerIdDeleteStatus200Schema = z.boolean();
@@ -24595,6 +26998,10 @@ export const revokeWorkerLensWorkersWorkerIdDeleteResponseSchema =
 export const revokeWorkerLensWorkersWorkerIdDeleteErrorSchema =
 	revokeWorkerLensWorkersWorkerIdDeleteStatus422Schema;
 
+export const revokeWorkerLensWorkersWorkerIdDeletePathSchema = z.object({
+	worker_id: z.string(),
+});
+
 export const claimLensWorkerClaimPostQueryProtocolVersionSchema = z.int().optional().default(1);
 
 export const claimLensWorkerClaimPostQueryWorkerReleaseSchema = z.string().optional().default("");
@@ -24606,6 +27013,11 @@ export const claimLensWorkerClaimPostStatus422Schema = HTTPValidationErrorSchema
 export const claimLensWorkerClaimPostResponseSchema = claimLensWorkerClaimPostStatus200Schema;
 
 export const claimLensWorkerClaimPostErrorSchema = claimLensWorkerClaimPostStatus422Schema;
+
+export const claimLensWorkerClaimPostQuerySchema = z.object({
+	protocol_version: z.int().optional().default(1),
+	worker_release: z.string().optional().default(""),
+});
 
 export const progressLensWorkerLensIdJobIdProgressPostPathLensIdSchema = z.string();
 
@@ -24629,6 +27041,15 @@ export const progressLensWorkerLensIdJobIdProgressPostErrorSchema =
 
 export const progressLensWorkerLensIdJobIdProgressPostBodySchema = progressSchema;
 
+export const progressLensWorkerLensIdJobIdProgressPostPathSchema = z.object({
+	lens_id: z.string(),
+	job_id: z.string(),
+});
+
+export const progressLensWorkerLensIdJobIdProgressPostHeadersSchema = z.object({
+	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
+});
+
 export const cachedReviewsLensWorkerLensIdJobIdReviewsGetPathLensIdSchema = z.string();
 
 export const cachedReviewsLensWorkerLensIdJobIdReviewsGetPathJobIdSchema = z.string();
@@ -24650,6 +27071,15 @@ export const cachedReviewsLensWorkerLensIdJobIdReviewsGetResponseSchema =
 export const cachedReviewsLensWorkerLensIdJobIdReviewsGetErrorSchema =
 	cachedReviewsLensWorkerLensIdJobIdReviewsGetStatus422Schema;
 
+export const cachedReviewsLensWorkerLensIdJobIdReviewsGetPathSchema = z.object({
+	lens_id: z.string(),
+	job_id: z.string(),
+});
+
+export const cachedReviewsLensWorkerLensIdJobIdReviewsGetHeadersSchema = z.object({
+	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
+});
+
 export const sampleLensWorkerLensIdJobIdSampleGetPathLensIdSchema = z.string();
 
 export const sampleLensWorkerLensIdJobIdSampleGetPathJobIdSchema = z.string();
@@ -24669,6 +27099,15 @@ export const sampleLensWorkerLensIdJobIdSampleGetResponseSchema =
 
 export const sampleLensWorkerLensIdJobIdSampleGetErrorSchema =
 	sampleLensWorkerLensIdJobIdSampleGetStatus422Schema;
+
+export const sampleLensWorkerLensIdJobIdSampleGetPathSchema = z.object({
+	lens_id: z.string(),
+	job_id: z.string(),
+});
+
+export const sampleLensWorkerLensIdJobIdSampleGetHeadersSchema = z.object({
+	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
+});
 
 export const contentLensWorkerLensIdJobIdContentGetPathLensIdSchema = z.string();
 
@@ -24703,6 +27142,21 @@ export const contentLensWorkerLensIdJobIdContentGetResponseSchema =
 export const contentLensWorkerLensIdJobIdContentGetErrorSchema =
 	contentLensWorkerLensIdJobIdContentGetStatus422Schema;
 
+export const contentLensWorkerLensIdJobIdContentGetPathSchema = z.object({
+	lens_id: z.string(),
+	job_id: z.string(),
+});
+
+export const contentLensWorkerLensIdJobIdContentGetQuerySchema = z.object({
+	execution_id: z.string(),
+	cursor: z.string().optional().default(""),
+	offset: z.int().min(0).optional().default(0),
+});
+
+export const contentLensWorkerLensIdJobIdContentGetHeadersSchema = z.object({
+	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
+});
+
 export const modelLensWorkerLensIdJobIdModelPostPathLensIdSchema = z.string();
 
 export const modelLensWorkerLensIdJobIdModelPostPathJobIdSchema = z.string();
@@ -24724,6 +27178,15 @@ export const modelLensWorkerLensIdJobIdModelPostErrorSchema =
 	modelLensWorkerLensIdJobIdModelPostStatus422Schema;
 
 export const modelLensWorkerLensIdJobIdModelPostBodySchema = modelRequestSchema;
+
+export const modelLensWorkerLensIdJobIdModelPostPathSchema = z.object({
+	lens_id: z.string(),
+	job_id: z.string(),
+});
+
+export const modelLensWorkerLensIdJobIdModelPostHeadersSchema = z.object({
+	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
+});
 
 export const resultLensWorkerLensIdJobIdResultPostPathLensIdSchema = z.string();
 
@@ -24747,6 +27210,15 @@ export const resultLensWorkerLensIdJobIdResultPostErrorSchema =
 
 export const resultLensWorkerLensIdJobIdResultPostBodySchema = resultInputSchema;
 
+export const resultLensWorkerLensIdJobIdResultPostPathSchema = z.object({
+	lens_id: z.string(),
+	job_id: z.string(),
+});
+
+export const resultLensWorkerLensIdJobIdResultPostHeadersSchema = z.object({
+	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
+});
+
 export const heartbeatLensWorkerLensIdJobIdHeartbeatPostPathLensIdSchema = z.string();
 
 export const heartbeatLensWorkerLensIdJobIdHeartbeatPostPathJobIdSchema = z.string();
@@ -24766,6 +27238,15 @@ export const heartbeatLensWorkerLensIdJobIdHeartbeatPostResponseSchema =
 
 export const heartbeatLensWorkerLensIdJobIdHeartbeatPostErrorSchema =
 	heartbeatLensWorkerLensIdJobIdHeartbeatPostStatus422Schema;
+
+export const heartbeatLensWorkerLensIdJobIdHeartbeatPostPathSchema = z.object({
+	lens_id: z.string(),
+	job_id: z.string(),
+});
+
+export const heartbeatLensWorkerLensIdJobIdHeartbeatPostHeadersSchema = z.object({
+	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
+});
 
 export const evidenceContentLensLensIdExecutionsExecutionIdGetPathLensIdSchema = z.string();
 
@@ -24794,6 +27275,16 @@ export const evidenceContentLensLensIdExecutionsExecutionIdGetResponseSchema =
 export const evidenceContentLensLensIdExecutionsExecutionIdGetErrorSchema =
 	evidenceContentLensLensIdExecutionsExecutionIdGetStatus422Schema;
 
+export const evidenceContentLensLensIdExecutionsExecutionIdGetPathSchema = z.object({
+	lens_id: z.string(),
+	execution_id: z.string(),
+});
+
+export const evidenceContentLensLensIdExecutionsExecutionIdGetQuerySchema = z.object({
+	cursor: z.string().optional().default(""),
+	offset: z.int().min(0).optional().default(0),
+});
+
 export const listPluginsApiPluginsGetStatus200Schema = z.array(z.record(z.string(), z.string()));
 
 export const listPluginsApiPluginsGetResponseSchema = listPluginsApiPluginsGetStatus200Schema;
@@ -24812,6 +27303,10 @@ export const pluginAuthTokenApiPluginsAuthTokenGetResponseSchema =
 
 export const pluginAuthTokenApiPluginsAuthTokenGetErrorSchema =
 	pluginAuthTokenApiPluginsAuthTokenGetStatus422Schema;
+
+export const pluginAuthTokenApiPluginsAuthTokenGetQuerySchema = z.object({
+	plugin_name: z.string().optional().default("litellm-platform-plugin"),
+});
 
 export const predictCacheCostCostPredictCachePostStatus200Schema = cachePredictionResponseSchema;
 
@@ -24939,6 +27434,17 @@ export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetRes
 export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetErrorSchema =
 	getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetStatus422Schema;
 
+export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQuerySchema = z.object(
+	{
+		start_date: z.iso.datetime(),
+		end_date: z.iso.datetime(),
+		page_size: z.int().min(1).max(100).optional().default(50),
+		filter: z.enum(["all", "injected", "hits"]).optional().default("all"),
+		cursor_start_time: z.union([z.iso.datetime(), z.null()]).optional(),
+		cursor_request_id: z.union([z.string().min(1), z.null()]).optional(),
+	},
+);
+
 export const getRouterSettingsRouterSettingsGetStatus200Schema = routerSettingsResponseSchema;
 
 export const getRouterSettingsRouterSettingsGetResponseSchema =
@@ -24980,6 +27486,17 @@ export const getFallbackFallbackModelGetResponseSchema = getFallbackFallbackMode
 
 export const getFallbackFallbackModelGetErrorSchema = getFallbackFallbackModelGetStatus422Schema;
 
+export const getFallbackFallbackModelGetPathSchema = z.object({
+	model: z.string(),
+});
+
+export const getFallbackFallbackModelGetQuerySchema = z.object({
+	fallback_type: z
+		.enum(["general", "context_window", "content_policy"])
+		.optional()
+		.default("general"),
+});
+
 export const deleteFallbackFallbackModelDeletePathModelSchema = z.string();
 
 export const deleteFallbackFallbackModelDeleteQueryFallbackTypeSchema = z
@@ -24997,6 +27514,17 @@ export const deleteFallbackFallbackModelDeleteResponseSchema =
 
 export const deleteFallbackFallbackModelDeleteErrorSchema =
 	deleteFallbackFallbackModelDeleteStatus422Schema;
+
+export const deleteFallbackFallbackModelDeletePathSchema = z.object({
+	model: z.string(),
+});
+
+export const deleteFallbackFallbackModelDeleteQuerySchema = z.object({
+	fallback_type: z
+		.enum(["general", "context_window", "content_policy"])
+		.optional()
+		.default("general"),
+});
 
 export const getCacheSettingsCacheSettingsGetStatus200Schema = cacheSettingsResponseSchema;
 
@@ -25021,6 +27549,15 @@ export const updateCacheSettingsCacheSettingsPostErrorSchema =
 	updateCacheSettingsCacheSettingsPostStatus422Schema;
 
 export const updateCacheSettingsCacheSettingsPostBodySchema = cacheSettingsUpdateRequestSchema;
+
+export const updateCacheSettingsCacheSettingsPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const testCacheConnectionCacheSettingsTestPostStatus200Schema = cacheTestResponseSchema;
 
@@ -25063,6 +27600,15 @@ export const updateCoordinationRedisSettingsCoordinationRedisSettingsPostErrorSc
 export const updateCoordinationRedisSettingsCoordinationRedisSettingsPostBodySchema =
 	coordinationRedisSettingsRequestSchema;
 
+export const updateCoordinationRedisSettingsCoordinationRedisSettingsPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const checkCoordinationRedisConnectionCoordinationRedisSettingsTestPostStatus200Schema =
 	coordinationRedisTestResponseSchema;
 
@@ -25104,6 +27650,17 @@ export const getDailyActiveUsersTagDauGetResponseSchema =
 
 export const getDailyActiveUsersTagDauGetErrorSchema = getDailyActiveUsersTagDauGetStatus422Schema;
 
+export const getDailyActiveUsersTagDauGetQuerySchema = z.object({
+	tag_filter: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter by specific tag (optional)"),
+	tag_filters: z
+		.union([z.array(z.string()), z.null()])
+		.optional()
+		.describe("Filter by multiple specific tags (optional, takes precedence over tag_filter)"),
+});
+
 export const getWeeklyActiveUsersTagWauGetQueryTagFilterSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -25125,6 +27682,17 @@ export const getWeeklyActiveUsersTagWauGetResponseSchema =
 export const getWeeklyActiveUsersTagWauGetErrorSchema =
 	getWeeklyActiveUsersTagWauGetStatus422Schema;
 
+export const getWeeklyActiveUsersTagWauGetQuerySchema = z.object({
+	tag_filter: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter by specific tag (optional)"),
+	tag_filters: z
+		.union([z.array(z.string()), z.null()])
+		.optional()
+		.describe("Filter by multiple specific tags (optional, takes precedence over tag_filter)"),
+});
+
 export const getMonthlyActiveUsersTagMauGetQueryTagFilterSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -25145,6 +27713,17 @@ export const getMonthlyActiveUsersTagMauGetResponseSchema =
 
 export const getMonthlyActiveUsersTagMauGetErrorSchema =
 	getMonthlyActiveUsersTagMauGetStatus422Schema;
+
+export const getMonthlyActiveUsersTagMauGetQuerySchema = z.object({
+	tag_filter: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter by specific tag (optional)"),
+	tag_filters: z
+		.union([z.array(z.string()), z.null()])
+		.optional()
+		.describe("Filter by multiple specific tags (optional, takes precedence over tag_filter)"),
+});
 
 export const getTagSummaryTagSummaryGetQueryStartDateSchema = z
 	.string()
@@ -25173,6 +27752,19 @@ export const getTagSummaryTagSummaryGetStatus422Schema = HTTPValidationErrorSche
 export const getTagSummaryTagSummaryGetResponseSchema = getTagSummaryTagSummaryGetStatus200Schema;
 
 export const getTagSummaryTagSummaryGetErrorSchema = getTagSummaryTagSummaryGetStatus422Schema;
+
+export const getTagSummaryTagSummaryGetQuerySchema = z.object({
+	start_date: z.string().describe("Start date in YYYY-MM-DD format"),
+	end_date: z.string().describe("End date in YYYY-MM-DD format"),
+	tag_filter: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter by specific tag (optional)"),
+	tag_filters: z
+		.union([z.array(z.string()), z.null()])
+		.optional()
+		.describe("Filter by multiple specific tags (optional, takes precedence over tag_filter)"),
+});
 
 export const getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQueryTagFilterSchema = z
 	.union([z.string(), z.null()])
@@ -25211,6 +27803,19 @@ export const getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetResponseSchema =
 export const getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetErrorSchema =
 	getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetStatus422Schema;
 
+export const getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQuerySchema = z.object({
+	tag_filter: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter by specific tag (optional)"),
+	tag_filters: z
+		.union([z.array(z.string()), z.null()])
+		.optional()
+		.describe("Filter by multiple specific tags (optional, takes precedence over tag_filter)"),
+	page: z.int().min(1).optional().default(1).describe("Page number for pagination"),
+	page_size: z.int().min(1).max(1000).optional().default(50).describe("Items per page"),
+});
+
 export const getGatewayDailyActivityGatewayDailyActivityGetQueryStartDateSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -25232,6 +27837,14 @@ export const getGatewayDailyActivityGatewayDailyActivityGetResponseSchema =
 
 export const getGatewayDailyActivityGatewayDailyActivityGetErrorSchema =
 	getGatewayDailyActivityGatewayDailyActivityGetStatus422Schema;
+
+export const getGatewayDailyActivityGatewayDailyActivityGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Start date in YYYY-MM-DD format"),
+	end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
+});
 
 export const getEmailEventSettingsEmailEventSettingsGetStatus200Schema =
 	emailEventSettingsResponseSchema;
@@ -25339,6 +27952,54 @@ export const getAuditLogsAuditGetResponseSchema = getAuditLogsAuditGetStatus200S
 
 export const getAuditLogsAuditGetErrorSchema = getAuditLogsAuditGetStatus422Schema;
 
+export const getAuditLogsAuditGetQuerySchema = z.object({
+	page: z.int().min(1).optional().default(1),
+	page_size: z.int().min(1).max(100).optional().default(10),
+	changed_by: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter by user or system that performed the action"),
+	changed_by_api_key: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter by API key hash that performed the action"),
+	action: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter by action type (create, update, delete)"),
+	table_name: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter by table name that was modified"),
+	object_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter by ID of the object that was modified"),
+	start_date: z.union([z.string(), z.null()]).optional().describe("Filter logs after this date"),
+	end_date: z.union([z.string(), z.null()]).optional().describe("Filter logs before this date"),
+	object_team_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter by team_id present in before_value or updated_values JSON (PostgreSQL only)"),
+	object_key_hash: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by token (key hash) present in before_value or updated_values JSON (PostgreSQL only)",
+		),
+	search: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Match a row whose id, object_id, changed_by, or changed_by_api_key equals this value",
+		),
+	sort_by: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Column to sort by (e.g. 'updated_at', 'action', 'table_name')"),
+	sort_order: z.string().optional().default("desc").describe("Sort order ('asc' or 'desc')"),
+});
+
 export const getAuditLogByIdAuditIdGetPathIdSchema = z.string();
 
 export const getAuditLogByIdAuditIdGetStatus200Schema = auditLogResponseSchema.describe(
@@ -25358,6 +28019,10 @@ export const getAuditLogByIdAuditIdGetErrorSchema = z.union([
 	getAuditLogByIdAuditIdGetStatus422Schema,
 	getAuditLogByIdAuditIdGetStatus500Schema,
 ]);
+
+export const getAuditLogByIdAuditIdGetPathSchema = z.object({
+	id: z.string(),
+});
 
 export const availableEnterpriseUsersUserAvailableUsersGetStatus200Schema = z.looseObject({});
 
@@ -25420,6 +28085,10 @@ export const projectInfoProjectInfoGetResponseSchema = projectInfoProjectInfoGet
 
 export const projectInfoProjectInfoGetErrorSchema = projectInfoProjectInfoGetStatus422Schema;
 
+export const projectInfoProjectInfoGetQuerySchema = z.object({
+	project_id: z.string(),
+});
+
 export const listProjectsProjectListGetStatus200Schema = z.array(liteLLMProjectTableSchema);
 
 export const listProjectsProjectListGetResponseSchema = listProjectsProjectListGetStatus200Schema;
@@ -25457,6 +28126,10 @@ export const agentSkillsArchiveV1SkillsSkillIdArchiveGetResponseSchema =
 export const agentSkillsArchiveV1SkillsSkillIdArchiveGetErrorSchema =
 	agentSkillsArchiveV1SkillsSkillIdArchiveGetStatus422Schema;
 
+export const agentSkillsArchiveV1SkillsSkillIdArchiveGetPathSchema = z.object({
+	skill_id: z.string(),
+});
+
 export const googleGenerateContentModelsModelNameGenerateContentPostPathModelNameSchema =
 	z.string();
 
@@ -25473,6 +28146,10 @@ export const googleGenerateContentModelsModelNameGenerateContentPostResponseSche
 export const googleGenerateContentModelsModelNameGenerateContentPostErrorSchema =
 	googleGenerateContentModelsModelNameGenerateContentPostStatus422Schema;
 
+export const googleGenerateContentModelsModelNameGenerateContentPostPathSchema = z.object({
+	model_name: z.string(),
+});
+
 export const googleGenerateContentV1BetaModelsModelNameGenerateContentPostPathModelNameSchema =
 	z.string();
 
@@ -25487,6 +28164,10 @@ export const googleGenerateContentV1BetaModelsModelNameGenerateContentPostRespon
 
 export const googleGenerateContentV1BetaModelsModelNameGenerateContentPostErrorSchema =
 	googleGenerateContentV1BetaModelsModelNameGenerateContentPostStatus422Schema;
+
+export const googleGenerateContentV1BetaModelsModelNameGenerateContentPostPathSchema = z.object({
+	model_name: z.string(),
+});
 
 export const googleStreamGenerateContentModelsModelNameStreamGenerateContentPostPathModelNameSchema =
 	z.string();
@@ -25503,6 +28184,11 @@ export const googleStreamGenerateContentModelsModelNameStreamGenerateContentPost
 export const googleStreamGenerateContentModelsModelNameStreamGenerateContentPostErrorSchema =
 	googleStreamGenerateContentModelsModelNameStreamGenerateContentPostStatus422Schema;
 
+export const googleStreamGenerateContentModelsModelNameStreamGenerateContentPostPathSchema =
+	z.object({
+		model_name: z.string(),
+	});
+
 export const googleStreamGenerateContentV1BetaModelsModelNameStreamGenerateContentPostPathModelNameSchema =
 	z.string();
 
@@ -25517,6 +28203,11 @@ export const googleStreamGenerateContentV1BetaModelsModelNameStreamGenerateConte
 
 export const googleStreamGenerateContentV1BetaModelsModelNameStreamGenerateContentPostErrorSchema =
 	googleStreamGenerateContentV1BetaModelsModelNameStreamGenerateContentPostStatus422Schema;
+
+export const googleStreamGenerateContentV1BetaModelsModelNameStreamGenerateContentPostPathSchema =
+	z.object({
+		model_name: z.string(),
+	});
 
 export const googleCountTokensModelsModelNameCountTokensPostPathModelNameSchema = z.string();
 
@@ -25534,6 +28225,10 @@ export const googleCountTokensModelsModelNameCountTokensPostResponseSchema =
 export const googleCountTokensModelsModelNameCountTokensPostErrorSchema =
 	googleCountTokensModelsModelNameCountTokensPostStatus422Schema;
 
+export const googleCountTokensModelsModelNameCountTokensPostPathSchema = z.object({
+	model_name: z.string(),
+});
+
 export const googleCountTokensV1BetaModelsModelNameCountTokensPostPathModelNameSchema = z.string();
 
 export const googleCountTokensV1BetaModelsModelNameCountTokensPostStatus200Schema =
@@ -25549,6 +28244,10 @@ export const googleCountTokensV1BetaModelsModelNameCountTokensPostResponseSchema
 
 export const googleCountTokensV1BetaModelsModelNameCountTokensPostErrorSchema =
 	googleCountTokensV1BetaModelsModelNameCountTokensPostStatus422Schema;
+
+export const googleCountTokensV1BetaModelsModelNameCountTokensPostPathSchema = z.object({
+	model_name: z.string(),
+});
 
 export const createInteractionInteractionsPostStatus200Schema = z.looseObject({});
 
@@ -25572,6 +28271,10 @@ export const getInteractionInteractionsInteractionIdGetResponseSchema =
 export const getInteractionInteractionsInteractionIdGetErrorSchema =
 	getInteractionInteractionsInteractionIdGetStatus422Schema;
 
+export const getInteractionInteractionsInteractionIdGetPathSchema = z.object({
+	interaction_id: z.string(),
+});
+
 export const deleteInteractionInteractionsInteractionIdDeletePathInteractionIdSchema = z.string();
 
 export const deleteInteractionInteractionsInteractionIdDeleteStatus200Schema = z.looseObject({});
@@ -25585,6 +28288,10 @@ export const deleteInteractionInteractionsInteractionIdDeleteResponseSchema =
 export const deleteInteractionInteractionsInteractionIdDeleteErrorSchema =
 	deleteInteractionInteractionsInteractionIdDeleteStatus422Schema;
 
+export const deleteInteractionInteractionsInteractionIdDeletePathSchema = z.object({
+	interaction_id: z.string(),
+});
+
 export const getInteractionV1BetaInteractionsInteractionIdGetPathInteractionIdSchema = z.string();
 
 export const getInteractionV1BetaInteractionsInteractionIdGetStatus200Schema = z.looseObject({});
@@ -25597,6 +28304,10 @@ export const getInteractionV1BetaInteractionsInteractionIdGetResponseSchema =
 
 export const getInteractionV1BetaInteractionsInteractionIdGetErrorSchema =
 	getInteractionV1BetaInteractionsInteractionIdGetStatus422Schema;
+
+export const getInteractionV1BetaInteractionsInteractionIdGetPathSchema = z.object({
+	interaction_id: z.string(),
+});
 
 export const deleteInteractionV1BetaInteractionsInteractionIdDeletePathInteractionIdSchema =
 	z.string();
@@ -25614,6 +28325,10 @@ export const deleteInteractionV1BetaInteractionsInteractionIdDeleteResponseSchem
 export const deleteInteractionV1BetaInteractionsInteractionIdDeleteErrorSchema =
 	deleteInteractionV1BetaInteractionsInteractionIdDeleteStatus422Schema;
 
+export const deleteInteractionV1BetaInteractionsInteractionIdDeletePathSchema = z.object({
+	interaction_id: z.string(),
+});
+
 export const cancelInteractionInteractionsInteractionIdCancelPostPathInteractionIdSchema =
 	z.string();
 
@@ -25630,6 +28345,10 @@ export const cancelInteractionInteractionsInteractionIdCancelPostResponseSchema 
 export const cancelInteractionInteractionsInteractionIdCancelPostErrorSchema =
 	cancelInteractionInteractionsInteractionIdCancelPostStatus422Schema;
 
+export const cancelInteractionInteractionsInteractionIdCancelPostPathSchema = z.object({
+	interaction_id: z.string(),
+});
+
 export const cancelInteractionV1BetaInteractionsInteractionIdCancelPostPathInteractionIdSchema =
 	z.string();
 
@@ -25644,6 +28363,10 @@ export const cancelInteractionV1BetaInteractionsInteractionIdCancelPostResponseS
 
 export const cancelInteractionV1BetaInteractionsInteractionIdCancelPostErrorSchema =
 	cancelInteractionV1BetaInteractionsInteractionIdCancelPostStatus422Schema;
+
+export const cancelInteractionV1BetaInteractionsInteractionIdCancelPostPathSchema = z.object({
+	interaction_id: z.string(),
+});
 
 export const proxyMcpRouteMcpProxyGetStatus200Schema = z.looseObject({});
 
@@ -25714,6 +28437,10 @@ export const toolsetMcpRouteToolsetToolsetNameMcpPostResponseSchema =
 export const toolsetMcpRouteToolsetToolsetNameMcpPostErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema;
 
+export const toolsetMcpRouteToolsetToolsetNameMcpPostPathSchema = z.object({
+	toolset_name: z.string(),
+});
+
 export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathToolsetNameSchema = z.string();
 
 export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema = z.unknown();
@@ -25725,6 +28452,10 @@ export const toolsetMcpRouteToolsetToolsetNameMcpHeadResponseSchema =
 
 export const toolsetMcpRouteToolsetToolsetNameMcpHeadErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathSchema = z.object({
+	toolset_name: z.string(),
+});
 
 export const toolsetMcpRouteToolsetToolsetNameMcpOptionsPathToolsetNameSchema = z.string();
 
@@ -25738,6 +28469,10 @@ export const toolsetMcpRouteToolsetToolsetNameMcpOptionsResponseSchema =
 export const toolsetMcpRouteToolsetToolsetNameMcpOptionsErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422Schema;
 
+export const toolsetMcpRouteToolsetToolsetNameMcpOptionsPathSchema = z.object({
+	toolset_name: z.string(),
+});
+
 export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathToolsetNameSchema = z.string();
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema = z.unknown();
@@ -25749,6 +28484,10 @@ export const toolsetMcpRouteToolsetToolsetNameMcpPatchResponseSchema =
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPatchErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathSchema = z.object({
+	toolset_name: z.string(),
+});
 
 export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathToolsetNameSchema = z.string();
 
@@ -25762,6 +28501,10 @@ export const toolsetMcpRouteToolsetToolsetNameMcpDeleteResponseSchema =
 export const toolsetMcpRouteToolsetToolsetNameMcpDeleteErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema;
 
+export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathSchema = z.object({
+	toolset_name: z.string(),
+});
+
 export const toolsetMcpRouteToolsetToolsetNameMcpGetPathToolsetNameSchema = z.string();
 
 export const toolsetMcpRouteToolsetToolsetNameMcpGetStatus200Schema = z.looseObject({});
@@ -25773,6 +28516,10 @@ export const toolsetMcpRouteToolsetToolsetNameMcpGetResponseSchema =
 
 export const toolsetMcpRouteToolsetToolsetNameMcpGetErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpGetStatus422Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpGetPathSchema = z.object({
+	toolset_name: z.string(),
+});
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPutPathToolsetNameSchema = z.string();
 
@@ -25786,6 +28533,10 @@ export const toolsetMcpRouteToolsetToolsetNameMcpPutResponseSchema =
 export const toolsetMcpRouteToolsetToolsetNameMcpPutErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpPutStatus422Schema;
 
+export const toolsetMcpRouteToolsetToolsetNameMcpPutPathSchema = z.object({
+	toolset_name: z.string(),
+});
+
 export const dynamicMcpRouteMcpServerNameMcpPostPathMcpServerNameSchema = z.string();
 
 export const dynamicMcpRouteMcpServerNameMcpPostStatus200Schema = z.looseObject({});
@@ -25797,6 +28548,10 @@ export const dynamicMcpRouteMcpServerNameMcpPostResponseSchema =
 
 export const dynamicMcpRouteMcpServerNameMcpPostErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpPostStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPostPathSchema = z.object({
+	mcp_server_name: z.string(),
+});
 
 export const dynamicMcpRouteMcpServerNameMcpHeadPathMcpServerNameSchema = z.string();
 
@@ -25810,6 +28565,10 @@ export const dynamicMcpRouteMcpServerNameMcpHeadResponseSchema =
 export const dynamicMcpRouteMcpServerNameMcpHeadErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema;
 
+export const dynamicMcpRouteMcpServerNameMcpHeadPathSchema = z.object({
+	mcp_server_name: z.string(),
+});
+
 export const dynamicMcpRouteMcpServerNameMcpOptionsPathMcpServerNameSchema = z.string();
 
 export const dynamicMcpRouteMcpServerNameMcpOptionsStatus200Schema = z.unknown();
@@ -25821,6 +28580,10 @@ export const dynamicMcpRouteMcpServerNameMcpOptionsResponseSchema =
 
 export const dynamicMcpRouteMcpServerNameMcpOptionsErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpOptionsStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpOptionsPathSchema = z.object({
+	mcp_server_name: z.string(),
+});
 
 export const dynamicMcpRouteMcpServerNameMcpPatchPathMcpServerNameSchema = z.string();
 
@@ -25834,6 +28597,10 @@ export const dynamicMcpRouteMcpServerNameMcpPatchResponseSchema =
 export const dynamicMcpRouteMcpServerNameMcpPatchErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema;
 
+export const dynamicMcpRouteMcpServerNameMcpPatchPathSchema = z.object({
+	mcp_server_name: z.string(),
+});
+
 export const dynamicMcpRouteMcpServerNameMcpDeletePathMcpServerNameSchema = z.string();
 
 export const dynamicMcpRouteMcpServerNameMcpDeleteStatus200Schema = z.looseObject({});
@@ -25845,6 +28612,10 @@ export const dynamicMcpRouteMcpServerNameMcpDeleteResponseSchema =
 
 export const dynamicMcpRouteMcpServerNameMcpDeleteErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpDeletePathSchema = z.object({
+	mcp_server_name: z.string(),
+});
 
 export const dynamicMcpRouteMcpServerNameMcpGetPathMcpServerNameSchema = z.string();
 
@@ -25858,6 +28629,10 @@ export const dynamicMcpRouteMcpServerNameMcpGetResponseSchema =
 export const dynamicMcpRouteMcpServerNameMcpGetErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpGetStatus422Schema;
 
+export const dynamicMcpRouteMcpServerNameMcpGetPathSchema = z.object({
+	mcp_server_name: z.string(),
+});
+
 export const dynamicMcpRouteMcpServerNameMcpPutPathMcpServerNameSchema = z.string();
 
 export const dynamicMcpRouteMcpServerNameMcpPutStatus200Schema = z.looseObject({});
@@ -25869,6 +28644,10 @@ export const dynamicMcpRouteMcpServerNameMcpPutResponseSchema =
 
 export const dynamicMcpRouteMcpServerNameMcpPutErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpPutStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPutPathSchema = z.object({
+	mcp_server_name: z.string(),
+});
 
 export const websocketVertexAiLivePassthroughEndpointStatus101Schema = z.unknown();
 
@@ -25980,6 +28759,12 @@ export const listGuardrailSubmissionsGuardrailsSubmissionsGetResponseSchema =
 export const listGuardrailSubmissionsGuardrailsSubmissionsGetErrorSchema =
 	listGuardrailSubmissionsGuardrailsSubmissionsGetStatus422Schema;
 
+export const listGuardrailSubmissionsGuardrailsSubmissionsGetQuerySchema = z.object({
+	status: z.union([z.string(), z.null()]).optional(),
+	team_id: z.union([z.string(), z.null()]).optional(),
+	search: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getGuardrailSubmissionGuardrailsSubmissionsGuardrailIdGetPathGuardrailIdSchema =
 	z.string();
 
@@ -25994,6 +28779,10 @@ export const getGuardrailSubmissionGuardrailsSubmissionsGuardrailIdGetResponseSc
 
 export const getGuardrailSubmissionGuardrailsSubmissionsGuardrailIdGetErrorSchema =
 	getGuardrailSubmissionGuardrailsSubmissionsGuardrailIdGetStatus422Schema;
+
+export const getGuardrailSubmissionGuardrailsSubmissionsGuardrailIdGetPathSchema = z.object({
+	guardrail_id: z.string(),
+});
 
 export const approveGuardrailSubmissionGuardrailsSubmissionsGuardrailIdApprovePostPathGuardrailIdSchema =
 	z.string();
@@ -26010,6 +28799,11 @@ export const approveGuardrailSubmissionGuardrailsSubmissionsGuardrailIdApprovePo
 export const approveGuardrailSubmissionGuardrailsSubmissionsGuardrailIdApprovePostErrorSchema =
 	approveGuardrailSubmissionGuardrailsSubmissionsGuardrailIdApprovePostStatus422Schema;
 
+export const approveGuardrailSubmissionGuardrailsSubmissionsGuardrailIdApprovePostPathSchema =
+	z.object({
+		guardrail_id: z.string(),
+	});
+
 export const rejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPostPathGuardrailIdSchema =
 	z.string();
 
@@ -26024,6 +28818,11 @@ export const rejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPost
 
 export const rejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPostErrorSchema =
 	rejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPostStatus422Schema;
+
+export const rejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPostPathSchema =
+	z.object({
+		guardrail_id: z.string(),
+	});
 
 export const testCustomCodeGuardrailGuardrailsTestCustomCodePostStatus200Schema =
 	testCustomCodeGuardrailResponseSchema.describe(
@@ -26066,6 +28865,10 @@ export const getCategoryYamlGuardrailsUiCategoryYamlCategoryNameGetResponseSchem
 export const getCategoryYamlGuardrailsUiCategoryYamlCategoryNameGetErrorSchema =
 	getCategoryYamlGuardrailsUiCategoryYamlCategoryNameGetStatus422Schema;
 
+export const getCategoryYamlGuardrailsUiCategoryYamlCategoryNameGetPathSchema = z.object({
+	category_name: z.string(),
+});
+
 export const getMajorAirlinesGuardrailsUiMajorAirlinesGetStatus200Schema = z.looseObject({});
 
 export const getMajorAirlinesGuardrailsUiMajorAirlinesGetResponseSchema =
@@ -26099,6 +28902,15 @@ export const guardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetResponseSch
 
 export const guardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetErrorSchema =
 	guardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetStatus422Schema;
+
+export const guardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetPathSchema = z.object({
+	guardrail_id: z.string(),
+});
+
+export const guardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetQuerySchema = z.object({
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+});
 
 export const guardrailsUsageLogsGuardrailsUsageLogsGetQueryGuardrailIdSchema = z
 	.union([z.string(), z.null()])
@@ -26143,6 +28955,16 @@ export const guardrailsUsageLogsGuardrailsUsageLogsGetResponseSchema =
 export const guardrailsUsageLogsGuardrailsUsageLogsGetErrorSchema =
 	guardrailsUsageLogsGuardrailsUsageLogsGetStatus422Schema;
 
+export const guardrailsUsageLogsGuardrailsUsageLogsGetQuerySchema = z.object({
+	guardrail_id: z.union([z.string(), z.null()]).optional(),
+	policy_id: z.union([z.string(), z.null()]).optional(),
+	page: z.int().min(1).optional().default(1),
+	page_size: z.int().min(1).max(100).optional().default(50),
+	action: z.union([z.string(), z.null()]).optional(),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+});
+
 export const guardrailsUsageOverviewGuardrailsUsageOverviewGetQueryStartDateSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -26164,6 +28986,11 @@ export const guardrailsUsageOverviewGuardrailsUsageOverviewGetResponseSchema =
 
 export const guardrailsUsageOverviewGuardrailsUsageOverviewGetErrorSchema =
 	guardrailsUsageOverviewGuardrailsUsageOverviewGetStatus422Schema;
+
+export const guardrailsUsageOverviewGuardrailsUsageOverviewGetQuerySchema = z.object({
+	start_date: z.union([z.string(), z.null()]).optional().describe("YYYY-MM-DD"),
+	end_date: z.union([z.string(), z.null()]).optional().describe("YYYY-MM-DD"),
+});
 
 export const validateBlockedWordsFileGuardrailsValidateBlockedWordsFilePostStatus200Schema =
 	z.looseObject({});
@@ -26194,6 +29021,10 @@ export const deleteGuardrailGuardrailsGuardrailIdDeleteResponseSchema =
 export const deleteGuardrailGuardrailsGuardrailIdDeleteErrorSchema =
 	deleteGuardrailGuardrailsGuardrailIdDeleteStatus422Schema;
 
+export const deleteGuardrailGuardrailsGuardrailIdDeletePathSchema = z.object({
+	guardrail_id: z.string(),
+});
+
 export const getGuardrailInfoGuardrailsGuardrailIdGetPathGuardrailIdSchema = z.string();
 
 export const getGuardrailInfoGuardrailsGuardrailIdGetStatus200Schema = z.looseObject({});
@@ -26205,6 +29036,10 @@ export const getGuardrailInfoGuardrailsGuardrailIdGetResponseSchema =
 
 export const getGuardrailInfoGuardrailsGuardrailIdGetErrorSchema =
 	getGuardrailInfoGuardrailsGuardrailIdGetStatus422Schema;
+
+export const getGuardrailInfoGuardrailsGuardrailIdGetPathSchema = z.object({
+	guardrail_id: z.string(),
+});
 
 export const patchGuardrailGuardrailsGuardrailIdPatchPathGuardrailIdSchema = z.string();
 
@@ -26220,6 +29055,10 @@ export const patchGuardrailGuardrailsGuardrailIdPatchErrorSchema =
 
 export const patchGuardrailGuardrailsGuardrailIdPatchBodySchema = patchGuardrailRequestSchema;
 
+export const patchGuardrailGuardrailsGuardrailIdPatchPathSchema = z.object({
+	guardrail_id: z.string(),
+});
+
 export const updateGuardrailGuardrailsGuardrailIdPutPathGuardrailIdSchema = z.string();
 
 export const updateGuardrailGuardrailsGuardrailIdPutStatus200Schema = z.looseObject({});
@@ -26234,6 +29073,10 @@ export const updateGuardrailGuardrailsGuardrailIdPutErrorSchema =
 
 export const updateGuardrailGuardrailsGuardrailIdPutBodySchema = updateGuardrailRequestSchema;
 
+export const updateGuardrailGuardrailsGuardrailIdPutPathSchema = z.object({
+	guardrail_id: z.string(),
+});
+
 export const getGuardrailInfoGuardrailsGuardrailIdInfoGetPathGuardrailIdSchema = z.string();
 
 export const getGuardrailInfoGuardrailsGuardrailIdInfoGetStatus200Schema = z.looseObject({});
@@ -26246,6 +29089,10 @@ export const getGuardrailInfoGuardrailsGuardrailIdInfoGetResponseSchema =
 
 export const getGuardrailInfoGuardrailsGuardrailIdInfoGetErrorSchema =
 	getGuardrailInfoGuardrailsGuardrailIdInfoGetStatus422Schema;
+
+export const getGuardrailInfoGuardrailsGuardrailIdInfoGetPathSchema = z.object({
+	guardrail_id: z.string(),
+});
 
 export const policiesUsageOverviewPoliciesUsageOverviewGetQueryStartDateSchema = z
 	.union([z.string(), z.null()])
@@ -26269,6 +29116,11 @@ export const policiesUsageOverviewPoliciesUsageOverviewGetResponseSchema =
 export const policiesUsageOverviewPoliciesUsageOverviewGetErrorSchema =
 	policiesUsageOverviewPoliciesUsageOverviewGetStatus422Schema;
 
+export const policiesUsageOverviewPoliciesUsageOverviewGetQuerySchema = z.object({
+	start_date: z.union([z.string(), z.null()]).optional().describe("YYYY-MM-DD"),
+	end_date: z.union([z.string(), z.null()]).optional().describe("YYYY-MM-DD"),
+});
+
 export const listGuardrailsV2V2GuardrailsListGetStatus200Schema = listGuardrailsResponseSchema;
 
 export const listGuardrailsV2V2GuardrailsListGetResponseSchema =
@@ -26286,6 +29138,10 @@ export const getPolicyInfoPolicyInfoPolicyNameGetResponseSchema =
 
 export const getPolicyInfoPolicyInfoPolicyNameGetErrorSchema =
 	getPolicyInfoPolicyInfoPolicyNameGetStatus422Schema;
+
+export const getPolicyInfoPolicyInfoPolicyNameGetPathSchema = z.object({
+	policy_name: z.string(),
+});
 
 export const listPoliciesPolicyListGetStatus200Schema = policyListResponseSchema.describe(
 	"Response for /policy/list endpoint.",
@@ -26470,6 +29326,10 @@ export const deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteResponse
 export const deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteErrorSchema =
 	deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteStatus422Schema;
 
+export const deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeletePathSchema = z.object({
+	attachment_id: z.string(),
+});
+
 export const getPolicyAttachmentPoliciesAttachmentsAttachmentIdGetPathAttachmentIdSchema =
 	z.string();
 
@@ -26484,6 +29344,10 @@ export const getPolicyAttachmentPoliciesAttachmentsAttachmentIdGetResponseSchema
 
 export const getPolicyAttachmentPoliciesAttachmentsAttachmentIdGetErrorSchema =
 	getPolicyAttachmentPoliciesAttachmentsAttachmentIdGetStatus422Schema;
+
+export const getPolicyAttachmentPoliciesAttachmentsAttachmentIdGetPathSchema = z.object({
+	attachment_id: z.string(),
+});
 
 export const comparePolicyVersionsPoliciesCompareGetQueryVersionASchema = z.string();
 
@@ -26500,6 +29364,11 @@ export const comparePolicyVersionsPoliciesCompareGetResponseSchema =
 export const comparePolicyVersionsPoliciesCompareGetErrorSchema =
 	comparePolicyVersionsPoliciesCompareGetStatus422Schema;
 
+export const comparePolicyVersionsPoliciesCompareGetQuerySchema = z.object({
+	version_a: z.string(),
+	version_b: z.string(),
+});
+
 export const listPoliciesPoliciesListGetQueryVersionStatusSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -26513,6 +29382,10 @@ export const listPoliciesPoliciesListGetStatus422Schema = HTTPValidationErrorSch
 export const listPoliciesPoliciesListGetResponseSchema = listPoliciesPoliciesListGetStatus200Schema;
 
 export const listPoliciesPoliciesListGetErrorSchema = listPoliciesPoliciesListGetStatus422Schema;
+
+export const listPoliciesPoliciesListGetQuerySchema = z.object({
+	version_status: z.union([z.string(), z.null()]).optional(),
+});
 
 export const deleteAllPolicyVersionsPoliciesNamePolicyNameAllVersionsDeletePathPolicyNameSchema =
 	z.string();
@@ -26529,6 +29402,10 @@ export const deleteAllPolicyVersionsPoliciesNamePolicyNameAllVersionsDeleteRespo
 export const deleteAllPolicyVersionsPoliciesNamePolicyNameAllVersionsDeleteErrorSchema =
 	deleteAllPolicyVersionsPoliciesNamePolicyNameAllVersionsDeleteStatus422Schema;
 
+export const deleteAllPolicyVersionsPoliciesNamePolicyNameAllVersionsDeletePathSchema = z.object({
+	policy_name: z.string(),
+});
+
 export const listPolicyVersionsPoliciesNamePolicyNameVersionsGetPathPolicyNameSchema = z.string();
 
 export const listPolicyVersionsPoliciesNamePolicyNameVersionsGetStatus200Schema =
@@ -26542,6 +29419,10 @@ export const listPolicyVersionsPoliciesNamePolicyNameVersionsGetResponseSchema =
 
 export const listPolicyVersionsPoliciesNamePolicyNameVersionsGetErrorSchema =
 	listPolicyVersionsPoliciesNamePolicyNameVersionsGetStatus422Schema;
+
+export const listPolicyVersionsPoliciesNamePolicyNameVersionsGetPathSchema = z.object({
+	policy_name: z.string(),
+});
 
 export const createPolicyVersionPoliciesNamePolicyNameVersionsPostPathPolicyNameSchema = z.string();
 
@@ -26561,6 +29442,10 @@ export const createPolicyVersionPoliciesNamePolicyNameVersionsPostBodySchema =
 	policyVersionCreateRequestSchema.describe(
 		"Request body for creating a new policy version (draft).",
 	);
+
+export const createPolicyVersionPoliciesNamePolicyNameVersionsPostPathSchema = z.object({
+	policy_name: z.string(),
+});
 
 export const resolvePoliciesForContextPoliciesResolvePostQueryForceSyncSchema = z
 	.boolean()
@@ -26586,6 +29471,14 @@ export const resolvePoliciesForContextPoliciesResolvePostBodySchema =
 	policyResolveRequestSchema.describe(
 		"Request body for resolving effective policies/guardrails for a context.",
 	);
+
+export const resolvePoliciesForContextPoliciesResolvePostQuerySchema = z.object({
+	force_sync: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe("Force a DB sync before resolving. Default uses in-memory cache."),
+});
 
 export const testPipelinePoliciesTestPipelinePostStatus200Schema = z.looseObject({});
 
@@ -26613,6 +29506,10 @@ export const deletePolicyPoliciesPolicyIdDeleteResponseSchema =
 export const deletePolicyPoliciesPolicyIdDeleteErrorSchema =
 	deletePolicyPoliciesPolicyIdDeleteStatus422Schema;
 
+export const deletePolicyPoliciesPolicyIdDeletePathSchema = z.object({
+	policy_id: z.string(),
+});
+
 export const getPolicyPoliciesPolicyIdGetPathPolicyIdSchema = z.string();
 
 export const getPolicyPoliciesPolicyIdGetStatus200Schema = policyDBResponseSchema.describe(
@@ -26625,6 +29522,10 @@ export const getPolicyPoliciesPolicyIdGetResponseSchema =
 	getPolicyPoliciesPolicyIdGetStatus200Schema;
 
 export const getPolicyPoliciesPolicyIdGetErrorSchema = getPolicyPoliciesPolicyIdGetStatus422Schema;
+
+export const getPolicyPoliciesPolicyIdGetPathSchema = z.object({
+	policy_id: z.string(),
+});
 
 export const updatePolicyPoliciesPolicyIdPutPathPolicyIdSchema = z.string();
 
@@ -26644,6 +29545,10 @@ export const updatePolicyPoliciesPolicyIdPutBodySchema = policyUpdateRequestSche
 	"Request body for updating a policy.",
 );
 
+export const updatePolicyPoliciesPolicyIdPutPathSchema = z.object({
+	policy_id: z.string(),
+});
+
 export const getResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetPathPolicyIdSchema =
 	z.string();
 
@@ -26658,6 +29563,10 @@ export const getResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetResponseS
 
 export const getResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetErrorSchema =
 	getResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetStatus422Schema;
+
+export const getResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetPathSchema = z.object({
+	policy_id: z.string(),
+});
 
 export const updatePolicyVersionStatusPoliciesPolicyIdStatusPutPathPolicyIdSchema = z.string();
 
@@ -26677,6 +29586,10 @@ export const updatePolicyVersionStatusPoliciesPolicyIdStatusPutBodySchema =
 	policyVersionStatusUpdateRequestSchema.describe(
 		"Request body for updating a policy version's status.",
 	);
+
+export const updatePolicyVersionStatusPoliciesPolicyIdStatusPutPathSchema = z.object({
+	policy_id: z.string(),
+});
 
 export const getAgentDailyActivityAgentDailyActivityGetQueryAgentIdsSchema = z
 	.union([z.string(), z.null()])
@@ -26723,6 +29636,17 @@ export const getAgentDailyActivityAgentDailyActivityGetResponseSchema =
 export const getAgentDailyActivityAgentDailyActivityGetErrorSchema =
 	getAgentDailyActivityAgentDailyActivityGetStatus422Schema;
 
+export const getAgentDailyActivityAgentDailyActivityGetQuerySchema = z.object({
+	agent_ids: z.union([z.string(), z.null()]).optional(),
+	start_date: z.union([z.string(), z.null()]).optional(),
+	end_date: z.union([z.string(), z.null()]).optional(),
+	model: z.union([z.string(), z.null()]).optional(),
+	api_key: z.union([z.string(), z.null()]).optional(),
+	page: z.int().optional().default(1),
+	page_size: z.int().optional().default(10),
+	exclude_agent_ids: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getAgentsV1AgentsGetQueryHealthCheckSchema = z
 	.boolean()
 	.optional()
@@ -26753,6 +29677,29 @@ export const getAgentsV1AgentsGetStatus422Schema = HTTPValidationErrorSchema;
 export const getAgentsV1AgentsGetResponseSchema = getAgentsV1AgentsGetStatus200Schema;
 
 export const getAgentsV1AgentsGetErrorSchema = getAgentsV1AgentsGetStatus422Schema;
+
+export const getAgentsV1AgentsGetQuerySchema = z.object({
+	health_check: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"When true, performs a GET request to each agent's URL. Agents with reachable URLs (HTTP status < 500) and agents without a URL are returned; unreachable agents are filtered out.",
+		),
+	query: z
+		.union([z.string().min(1), z.null()])
+		.optional()
+		.describe(
+			"Describe the task in natural language to rank the agents you can reach by semantic similarity over their name, description, and skills. Each result carries a search_score. Requires litellm_settings.agent_search_embedding_model.",
+		),
+	top_k: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.default(5)
+		.describe("With query: the maximum number of ranked agents to return."),
+});
 
 export const createAgentV1AgentsPostStatus200Schema = agentResponseSchema;
 
@@ -26795,6 +29742,10 @@ export const deleteAgentV1AgentsAgentIdDeleteResponseSchema =
 export const deleteAgentV1AgentsAgentIdDeleteErrorSchema =
 	deleteAgentV1AgentsAgentIdDeleteStatus422Schema;
 
+export const deleteAgentV1AgentsAgentIdDeletePathSchema = z.object({
+	agent_id: z.string(),
+});
+
 export const getAgentByIdV1AgentsAgentIdGetPathAgentIdSchema = z.string();
 
 export const getAgentByIdV1AgentsAgentIdGetStatus200Schema = agentResponseSchema;
@@ -26806,6 +29757,10 @@ export const getAgentByIdV1AgentsAgentIdGetResponseSchema =
 
 export const getAgentByIdV1AgentsAgentIdGetErrorSchema =
 	getAgentByIdV1AgentsAgentIdGetStatus422Schema;
+
+export const getAgentByIdV1AgentsAgentIdGetPathSchema = z.object({
+	agent_id: z.string(),
+});
 
 export const patchAgentV1AgentsAgentIdPatchPathAgentIdSchema = z.string();
 
@@ -26821,6 +29776,10 @@ export const patchAgentV1AgentsAgentIdPatchErrorSchema =
 
 export const patchAgentV1AgentsAgentIdPatchBodySchema = patchAgentRequestSchema;
 
+export const patchAgentV1AgentsAgentIdPatchPathSchema = z.object({
+	agent_id: z.string(),
+});
+
 export const updateAgentV1AgentsAgentIdPutPathAgentIdSchema = z.string();
 
 export const updateAgentV1AgentsAgentIdPutStatus200Schema = agentResponseSchema;
@@ -26834,6 +29793,10 @@ export const updateAgentV1AgentsAgentIdPutErrorSchema =
 	updateAgentV1AgentsAgentIdPutStatus422Schema;
 
 export const updateAgentV1AgentsAgentIdPutBodySchema = agentConfigSchema;
+
+export const updateAgentV1AgentsAgentIdPutPathSchema = z.object({
+	agent_id: z.string(),
+});
 
 export const getAgentIdentityStatusV1AgentsAgentIdIdentityGetPathAgentIdSchema = z.string();
 
@@ -26849,6 +29812,10 @@ export const getAgentIdentityStatusV1AgentsAgentIdIdentityGetResponseSchema =
 export const getAgentIdentityStatusV1AgentsAgentIdIdentityGetErrorSchema =
 	getAgentIdentityStatusV1AgentsAgentIdIdentityGetStatus422Schema;
 
+export const getAgentIdentityStatusV1AgentsAgentIdIdentityGetPathSchema = z.object({
+	agent_id: z.string(),
+});
+
 export const triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostPathAgentIdSchema = z.string();
 
 export const triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostStatus200Schema =
@@ -26863,6 +29830,10 @@ export const triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostResponseSchema =
 export const triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostErrorSchema =
 	triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostStatus422Schema;
 
+export const triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostPathSchema = z.object({
+	agent_id: z.string(),
+});
+
 export const makeAgentPublicV1AgentsAgentIdMakePublicPostPathAgentIdSchema = z.string();
 
 export const makeAgentPublicV1AgentsAgentIdMakePublicPostStatus200Schema =
@@ -26876,6 +29847,10 @@ export const makeAgentPublicV1AgentsAgentIdMakePublicPostResponseSchema =
 
 export const makeAgentPublicV1AgentsAgentIdMakePublicPostErrorSchema =
 	makeAgentPublicV1AgentsAgentIdMakePublicPostStatus422Schema;
+
+export const makeAgentPublicV1AgentsAgentIdMakePublicPostPathSchema = z.object({
+	agent_id: z.string(),
+});
 
 export const listGeminiAgentsV1BetaAgentsGetStatus200Schema = z.looseObject({});
 
@@ -26899,6 +29874,10 @@ export const deleteGeminiAgentV1BetaAgentsNameDeleteResponseSchema =
 export const deleteGeminiAgentV1BetaAgentsNameDeleteErrorSchema =
 	deleteGeminiAgentV1BetaAgentsNameDeleteStatus422Schema;
 
+export const deleteGeminiAgentV1BetaAgentsNameDeletePathSchema = z.object({
+	name: z.string(),
+});
+
 export const getGeminiAgentV1BetaAgentsNameGetPathNameSchema = z.string();
 
 export const getGeminiAgentV1BetaAgentsNameGetStatus200Schema = z.looseObject({});
@@ -26910,6 +29889,10 @@ export const getGeminiAgentV1BetaAgentsNameGetResponseSchema =
 
 export const getGeminiAgentV1BetaAgentsNameGetErrorSchema =
 	getGeminiAgentV1BetaAgentsNameGetStatus422Schema;
+
+export const getGeminiAgentV1BetaAgentsNameGetPathSchema = z.object({
+	name: z.string(),
+});
 
 export const listGeminiAgentVersionsV1BetaAgentsNameVersionsGetPathNameSchema = z.string();
 
@@ -26924,6 +29907,10 @@ export const listGeminiAgentVersionsV1BetaAgentsNameVersionsGetResponseSchema =
 export const listGeminiAgentVersionsV1BetaAgentsNameVersionsGetErrorSchema =
 	listGeminiAgentVersionsV1BetaAgentsNameVersionsGetStatus422Schema;
 
+export const listGeminiAgentVersionsV1BetaAgentsNameVersionsGetPathSchema = z.object({
+	name: z.string(),
+});
+
 export const invokeAgentA2AA2AAgentIdPostPathAgentIdSchema = z.string();
 
 export const invokeAgentA2AA2AAgentIdPostStatus200Schema = z.looseObject({});
@@ -26934,6 +29921,10 @@ export const invokeAgentA2AA2AAgentIdPostResponseSchema =
 	invokeAgentA2AA2AAgentIdPostStatus200Schema;
 
 export const invokeAgentA2AA2AAgentIdPostErrorSchema = invokeAgentA2AA2AAgentIdPostStatus422Schema;
+
+export const invokeAgentA2AA2AAgentIdPostPathSchema = z.object({
+	agent_id: z.string(),
+});
 
 export const getAgentCardA2AAgentIdWellKnownAgentCardJsonGetPathAgentIdSchema = z.string();
 
@@ -26948,6 +29939,10 @@ export const getAgentCardA2AAgentIdWellKnownAgentCardJsonGetResponseSchema =
 export const getAgentCardA2AAgentIdWellKnownAgentCardJsonGetErrorSchema =
 	getAgentCardA2AAgentIdWellKnownAgentCardJsonGetStatus422Schema;
 
+export const getAgentCardA2AAgentIdWellKnownAgentCardJsonGetPathSchema = z.object({
+	agent_id: z.string(),
+});
+
 export const getAgentCardA2AAgentIdWellKnownAgentJsonGetPathAgentIdSchema = z.string();
 
 export const getAgentCardA2AAgentIdWellKnownAgentJsonGetStatus200Schema = z.looseObject({});
@@ -26959,6 +29954,10 @@ export const getAgentCardA2AAgentIdWellKnownAgentJsonGetResponseSchema =
 
 export const getAgentCardA2AAgentIdWellKnownAgentJsonGetErrorSchema =
 	getAgentCardA2AAgentIdWellKnownAgentJsonGetStatus422Schema;
+
+export const getAgentCardA2AAgentIdWellKnownAgentJsonGetPathSchema = z.object({
+	agent_id: z.string(),
+});
 
 export const invokeAgentA2AA2AAgentIdMessageSendPostPathAgentIdSchema = z.string();
 
@@ -26972,6 +29971,10 @@ export const invokeAgentA2AA2AAgentIdMessageSendPostResponseSchema =
 export const invokeAgentA2AA2AAgentIdMessageSendPostErrorSchema =
 	invokeAgentA2AA2AAgentIdMessageSendPostStatus422Schema;
 
+export const invokeAgentA2AA2AAgentIdMessageSendPostPathSchema = z.object({
+	agent_id: z.string(),
+});
+
 export const invokeAgentA2AV1A2AAgentIdMessageSendPostPathAgentIdSchema = z.string();
 
 export const invokeAgentA2AV1A2AAgentIdMessageSendPostStatus200Schema = z.looseObject({});
@@ -26983,6 +29986,10 @@ export const invokeAgentA2AV1A2AAgentIdMessageSendPostResponseSchema =
 
 export const invokeAgentA2AV1A2AAgentIdMessageSendPostErrorSchema =
 	invokeAgentA2AV1A2AAgentIdMessageSendPostStatus422Schema;
+
+export const invokeAgentA2AV1A2AAgentIdMessageSendPostPathSchema = z.object({
+	agent_id: z.string(),
+});
 
 export const discoverAgentCardV1A2ADiscoverPostStatus200Schema = discoverAgentResponseSchema;
 
@@ -27038,6 +30045,13 @@ export const vectorStoreListV1VectorStoresGetResponseSchema =
 export const vectorStoreListV1VectorStoresGetErrorSchema =
 	vectorStoreListV1VectorStoresGetStatus422Schema;
 
+export const vectorStoreListV1VectorStoresGetQuerySchema = z.object({
+	after: z.union([z.string(), z.null()]).optional(),
+	before: z.union([z.string(), z.null()]).optional(),
+	limit: z.union([z.int(), z.null()]).optional().default(20),
+	order: z.union([z.string(), z.null()]).optional().default("desc"),
+});
+
 export const vectorStoreCreateV1VectorStoresPostStatus200Schema = z.looseObject({});
 
 export const vectorStoreCreateV1VectorStoresPostResponseSchema =
@@ -27056,6 +30070,10 @@ export const vectorStoreDeleteV1VectorStoresVectorStoreIdDeleteResponseSchema =
 export const vectorStoreDeleteV1VectorStoresVectorStoreIdDeleteErrorSchema =
 	vectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus422Schema;
 
+export const vectorStoreDeleteV1VectorStoresVectorStoreIdDeletePathSchema = z.object({
+	vector_store_id: z.string(),
+});
+
 export const vectorStoreRetrieveV1VectorStoresVectorStoreIdGetPathVectorStoreIdSchema = z.string();
 
 export const vectorStoreRetrieveV1VectorStoresVectorStoreIdGetStatus200Schema = z.looseObject({});
@@ -27069,6 +30087,10 @@ export const vectorStoreRetrieveV1VectorStoresVectorStoreIdGetResponseSchema =
 export const vectorStoreRetrieveV1VectorStoresVectorStoreIdGetErrorSchema =
 	vectorStoreRetrieveV1VectorStoresVectorStoreIdGetStatus422Schema;
 
+export const vectorStoreRetrieveV1VectorStoresVectorStoreIdGetPathSchema = z.object({
+	vector_store_id: z.string(),
+});
+
 export const vectorStoreUpdateV1VectorStoresVectorStoreIdPostPathVectorStoreIdSchema = z.string();
 
 export const vectorStoreUpdateV1VectorStoresVectorStoreIdPostStatus200Schema = z.looseObject({});
@@ -27081,6 +30103,10 @@ export const vectorStoreUpdateV1VectorStoresVectorStoreIdPostResponseSchema =
 
 export const vectorStoreUpdateV1VectorStoresVectorStoreIdPostErrorSchema =
 	vectorStoreUpdateV1VectorStoresVectorStoreIdPostStatus422Schema;
+
+export const vectorStoreUpdateV1VectorStoresVectorStoreIdPostPathSchema = z.object({
+	vector_store_id: z.string(),
+});
 
 export const vectorStoreFileListV1VectorStoresVectorStoreIdFilesGetPathVectorStoreIdSchema =
 	z.string();
@@ -27098,6 +30124,10 @@ export const vectorStoreFileListV1VectorStoresVectorStoreIdFilesGetResponseSchem
 export const vectorStoreFileListV1VectorStoresVectorStoreIdFilesGetErrorSchema =
 	vectorStoreFileListV1VectorStoresVectorStoreIdFilesGetStatus422Schema;
 
+export const vectorStoreFileListV1VectorStoresVectorStoreIdFilesGetPathSchema = z.object({
+	vector_store_id: z.string(),
+});
+
 export const vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPostPathVectorStoreIdSchema =
 	z.string();
 
@@ -27112,6 +30142,10 @@ export const vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPostResponseSc
 
 export const vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPostErrorSchema =
 	vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPostStatus422Schema;
+
+export const vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPostPathSchema = z.object({
+	vector_store_id: z.string(),
+});
 
 export const vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePathVectorStoreIdSchema =
 	z.string();
@@ -27131,6 +30165,13 @@ export const vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteRe
 export const vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteErrorSchema =
 	vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteStatus422Schema;
 
+export const vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePathSchema = z.object(
+	{
+		vector_store_id: z.string(),
+		file_id: z.string(),
+	},
+);
+
 export const vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGetPathVectorStoreIdSchema =
 	z.string();
 
@@ -27148,6 +30189,11 @@ export const vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGetRes
 
 export const vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGetErrorSchema =
 	vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGetStatus422Schema;
+
+export const vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGetPathSchema = z.object({
+	vector_store_id: z.string(),
+	file_id: z.string(),
+});
 
 export const vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostPathVectorStoreIdSchema =
 	z.string();
@@ -27167,6 +30213,11 @@ export const vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostResp
 export const vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostErrorSchema =
 	vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostStatus422Schema;
 
+export const vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostPathSchema = z.object({
+	vector_store_id: z.string(),
+	file_id: z.string(),
+});
+
 export const vectorStoreFileContentV1VectorStoresVectorStoreIdFilesFileIdContentGetPathVectorStoreIdSchema =
 	z.string();
 
@@ -27185,6 +30236,12 @@ export const vectorStoreFileContentV1VectorStoresVectorStoreIdFilesFileIdContent
 export const vectorStoreFileContentV1VectorStoresVectorStoreIdFilesFileIdContentGetErrorSchema =
 	vectorStoreFileContentV1VectorStoresVectorStoreIdFilesFileIdContentGetStatus422Schema;
 
+export const vectorStoreFileContentV1VectorStoresVectorStoreIdFilesFileIdContentGetPathSchema =
+	z.object({
+		vector_store_id: z.string(),
+		file_id: z.string(),
+	});
+
 export const vectorStoreSearchV1VectorStoresVectorStoreIdSearchPostPathVectorStoreIdSchema =
 	z.string();
 
@@ -27200,6 +30257,10 @@ export const vectorStoreSearchV1VectorStoresVectorStoreIdSearchPostResponseSchem
 
 export const vectorStoreSearchV1VectorStoresVectorStoreIdSearchPostErrorSchema =
 	vectorStoreSearchV1VectorStoresVectorStoreIdSearchPostStatus422Schema;
+
+export const vectorStoreSearchV1VectorStoresVectorStoreIdSearchPostPathSchema = z.object({
+	vector_store_id: z.string(),
+});
 
 export const vectorStoreListVectorStoresGetQueryAfterSchema = z
 	.union([z.string(), z.null()])
@@ -27229,6 +30290,13 @@ export const vectorStoreListVectorStoresGetResponseSchema =
 export const vectorStoreListVectorStoresGetErrorSchema =
 	vectorStoreListVectorStoresGetStatus422Schema;
 
+export const vectorStoreListVectorStoresGetQuerySchema = z.object({
+	after: z.union([z.string(), z.null()]).optional(),
+	before: z.union([z.string(), z.null()]).optional(),
+	limit: z.union([z.int(), z.null()]).optional().default(20),
+	order: z.union([z.string(), z.null()]).optional().default("desc"),
+});
+
 export const vectorStoreCreateVectorStoresPostStatus200Schema = z.looseObject({});
 
 export const vectorStoreCreateVectorStoresPostResponseSchema =
@@ -27247,6 +30315,10 @@ export const vectorStoreDeleteVectorStoresVectorStoreIdDeleteResponseSchema =
 export const vectorStoreDeleteVectorStoresVectorStoreIdDeleteErrorSchema =
 	vectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus422Schema;
 
+export const vectorStoreDeleteVectorStoresVectorStoreIdDeletePathSchema = z.object({
+	vector_store_id: z.string(),
+});
+
 export const vectorStoreRetrieveVectorStoresVectorStoreIdGetPathVectorStoreIdSchema = z.string();
 
 export const vectorStoreRetrieveVectorStoresVectorStoreIdGetStatus200Schema = z.looseObject({});
@@ -27260,6 +30332,10 @@ export const vectorStoreRetrieveVectorStoresVectorStoreIdGetResponseSchema =
 export const vectorStoreRetrieveVectorStoresVectorStoreIdGetErrorSchema =
 	vectorStoreRetrieveVectorStoresVectorStoreIdGetStatus422Schema;
 
+export const vectorStoreRetrieveVectorStoresVectorStoreIdGetPathSchema = z.object({
+	vector_store_id: z.string(),
+});
+
 export const vectorStoreUpdateVectorStoresVectorStoreIdPostPathVectorStoreIdSchema = z.string();
 
 export const vectorStoreUpdateVectorStoresVectorStoreIdPostStatus200Schema = z.looseObject({});
@@ -27272,6 +30348,10 @@ export const vectorStoreUpdateVectorStoresVectorStoreIdPostResponseSchema =
 
 export const vectorStoreUpdateVectorStoresVectorStoreIdPostErrorSchema =
 	vectorStoreUpdateVectorStoresVectorStoreIdPostStatus422Schema;
+
+export const vectorStoreUpdateVectorStoresVectorStoreIdPostPathSchema = z.object({
+	vector_store_id: z.string(),
+});
 
 export const vectorStoreFileListVectorStoresVectorStoreIdFilesGetPathVectorStoreIdSchema =
 	z.string();
@@ -27289,6 +30369,10 @@ export const vectorStoreFileListVectorStoresVectorStoreIdFilesGetResponseSchema 
 export const vectorStoreFileListVectorStoresVectorStoreIdFilesGetErrorSchema =
 	vectorStoreFileListVectorStoresVectorStoreIdFilesGetStatus422Schema;
 
+export const vectorStoreFileListVectorStoresVectorStoreIdFilesGetPathSchema = z.object({
+	vector_store_id: z.string(),
+});
+
 export const vectorStoreFileCreateVectorStoresVectorStoreIdFilesPostPathVectorStoreIdSchema =
 	z.string();
 
@@ -27304,6 +30388,10 @@ export const vectorStoreFileCreateVectorStoresVectorStoreIdFilesPostResponseSche
 
 export const vectorStoreFileCreateVectorStoresVectorStoreIdFilesPostErrorSchema =
 	vectorStoreFileCreateVectorStoresVectorStoreIdFilesPostStatus422Schema;
+
+export const vectorStoreFileCreateVectorStoresVectorStoreIdFilesPostPathSchema = z.object({
+	vector_store_id: z.string(),
+});
 
 export const vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePathVectorStoreIdSchema =
 	z.string();
@@ -27323,6 +30411,11 @@ export const vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteResp
 export const vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteErrorSchema =
 	vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus422Schema;
 
+export const vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePathSchema = z.object({
+	vector_store_id: z.string(),
+	file_id: z.string(),
+});
+
 export const vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGetPathVectorStoreIdSchema =
 	z.string();
 
@@ -27340,6 +30433,11 @@ export const vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGetRespo
 
 export const vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGetErrorSchema =
 	vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGetStatus422Schema;
+
+export const vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGetPathSchema = z.object({
+	vector_store_id: z.string(),
+	file_id: z.string(),
+});
 
 export const vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostPathVectorStoreIdSchema =
 	z.string();
@@ -27359,6 +30457,11 @@ export const vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostRespon
 export const vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostErrorSchema =
 	vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostStatus422Schema;
 
+export const vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostPathSchema = z.object({
+	vector_store_id: z.string(),
+	file_id: z.string(),
+});
+
 export const vectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGetPathVectorStoreIdSchema =
 	z.string();
 
@@ -27377,6 +30480,12 @@ export const vectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGe
 export const vectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGetErrorSchema =
 	vectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGetStatus422Schema;
 
+export const vectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGetPathSchema =
+	z.object({
+		vector_store_id: z.string(),
+		file_id: z.string(),
+	});
+
 export const vectorStoreSearchVectorStoresVectorStoreIdSearchPostPathVectorStoreIdSchema =
 	z.string();
 
@@ -27392,6 +30501,10 @@ export const vectorStoreSearchVectorStoresVectorStoreIdSearchPostResponseSchema 
 
 export const vectorStoreSearchVectorStoresVectorStoreIdSearchPostErrorSchema =
 	vectorStoreSearchVectorStoresVectorStoreIdSearchPostStatus422Schema;
+
+export const vectorStoreSearchVectorStoresVectorStoreIdSearchPostPathSchema = z.object({
+	vector_store_id: z.string(),
+});
 
 export const listVectorStoresV1VectorStoreListGetQueryPageSchema = z.int().optional().default(1);
 
@@ -27410,6 +30523,11 @@ export const listVectorStoresV1VectorStoreListGetResponseSchema =
 
 export const listVectorStoresV1VectorStoreListGetErrorSchema =
 	listVectorStoresV1VectorStoreListGetStatus422Schema;
+
+export const listVectorStoresV1VectorStoreListGetQuerySchema = z.object({
+	page: z.int().optional().default(1),
+	page_size: z.int().optional().default(100),
+});
 
 export const deleteVectorStoreVectorStoreDeletePostStatus200Schema = z.looseObject({});
 
@@ -27454,6 +30572,11 @@ export const listVectorStoresVectorStoreListGetResponseSchema =
 export const listVectorStoresVectorStoreListGetErrorSchema =
 	listVectorStoresVectorStoreListGetStatus422Schema;
 
+export const listVectorStoresVectorStoreListGetQuerySchema = z.object({
+	page: z.int().optional().default(1),
+	page_size: z.int().optional().default(100),
+});
+
 export const newVectorStoreVectorStoreNewPostStatus200Schema = z.looseObject({});
 
 export const newVectorStoreVectorStoreNewPostStatus422Schema = HTTPValidationErrorSchema;
@@ -27492,6 +30615,10 @@ export const listToolsV1ToolListGetResponseSchema = listToolsV1ToolListGetStatus
 
 export const listToolsV1ToolListGetErrorSchema = listToolsV1ToolListGetStatus422Schema;
 
+export const listToolsV1ToolListGetQuerySchema = z.object({
+	input_policy: z.union([z.enum(["trusted", "untrusted", "blocked"]), z.null()]).optional(),
+});
+
 export const updateToolPolicyV1ToolPolicyPostStatus200Schema = toolPolicyUpdateResponseSchema;
 
 export const updateToolPolicyV1ToolPolicyPostStatus422Schema = HTTPValidationErrorSchema;
@@ -27528,6 +30655,14 @@ export const getToolSpendV1ToolSpendGetResponseSchema = getToolSpendV1ToolSpendG
 
 export const getToolSpendV1ToolSpendGetErrorSchema = getToolSpendV1ToolSpendGetStatus422Schema;
 
+export const getToolSpendV1ToolSpendGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("YYYY-MM-DD (defaults to 30 days ago)"),
+	end_date: z.union([z.string(), z.null()]).optional().describe("YYYY-MM-DD (defaults to today)"),
+});
+
 export const getToolV1ToolToolNameGetPathToolNameSchema = z.string();
 
 export const getToolV1ToolToolNameGetStatus200Schema = liteLLMToolTableRowSchema;
@@ -27537,6 +30672,10 @@ export const getToolV1ToolToolNameGetStatus422Schema = HTTPValidationErrorSchema
 export const getToolV1ToolToolNameGetResponseSchema = getToolV1ToolToolNameGetStatus200Schema;
 
 export const getToolV1ToolToolNameGetErrorSchema = getToolV1ToolToolNameGetStatus422Schema;
+
+export const getToolV1ToolToolNameGetPathSchema = z.object({
+	tool_name: z.string(),
+});
 
 export const getToolDetailV1ToolToolNameDetailGetPathToolNameSchema = z.string();
 
@@ -27549,6 +30688,10 @@ export const getToolDetailV1ToolToolNameDetailGetResponseSchema =
 
 export const getToolDetailV1ToolToolNameDetailGetErrorSchema =
 	getToolDetailV1ToolToolNameDetailGetStatus422Schema;
+
+export const getToolDetailV1ToolToolNameDetailGetPathSchema = z.object({
+	tool_name: z.string(),
+});
 
 export const getToolUsageLogsV1ToolToolNameLogsGetPathToolNameSchema = z.string();
 
@@ -27585,6 +30728,17 @@ export const getToolUsageLogsV1ToolToolNameLogsGetResponseSchema =
 export const getToolUsageLogsV1ToolToolNameLogsGetErrorSchema =
 	getToolUsageLogsV1ToolToolNameLogsGetStatus422Schema;
 
+export const getToolUsageLogsV1ToolToolNameLogsGetPathSchema = z.object({
+	tool_name: z.string(),
+});
+
+export const getToolUsageLogsV1ToolToolNameLogsGetQuerySchema = z.object({
+	page: z.int().min(1).optional().default(1),
+	page_size: z.int().min(1).max(100).optional().default(50),
+	start_date: z.union([z.string(), z.null()]).optional().describe("YYYY-MM-DD"),
+	end_date: z.union([z.string(), z.null()]).optional().describe("YYYY-MM-DD"),
+});
+
 export const deleteToolPolicyOverrideV1ToolToolNameOverridesDeletePathToolNameSchema = z.string();
 
 export const deleteToolPolicyOverrideV1ToolToolNameOverridesDeleteQueryTeamIdSchema = z
@@ -27609,6 +30763,18 @@ export const deleteToolPolicyOverrideV1ToolToolNameOverridesDeleteResponseSchema
 
 export const deleteToolPolicyOverrideV1ToolToolNameOverridesDeleteErrorSchema =
 	deleteToolPolicyOverrideV1ToolToolNameOverridesDeleteStatus422Schema;
+
+export const deleteToolPolicyOverrideV1ToolToolNameOverridesDeletePathSchema = z.object({
+	tool_name: z.string(),
+});
+
+export const deleteToolPolicyOverrideV1ToolToolNameOverridesDeleteQuerySchema = z.object({
+	team_id: z.union([z.string(), z.null()]).optional().describe("Team ID of the override to remove"),
+	key_hash: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Key hash of the override to remove"),
+});
 
 export const getModelInsightsModelInsightsGetQueryStartDateSchema = z
 	.union([z.string(), z.null()])
@@ -27636,6 +30802,19 @@ export const getModelInsightsModelInsightsGetResponseSchema =
 export const getModelInsightsModelInsightsGetErrorSchema =
 	getModelInsightsModelInsightsGetStatus422Schema;
 
+export const getModelInsightsModelInsightsGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("YYYY-MM-DD, defaults to 365 days ago"),
+	end_date: z.union([z.string(), z.null()]).optional().describe("YYYY-MM-DD, defaults to today"),
+	metric: z
+		.enum(["requests", "spend", "tokens"])
+		.optional()
+		.default("tokens")
+		.describe("Metric the top models are ranked by"),
+});
+
 export const getModelInsightTasksModelInsightsTasksGetQueryStartDateSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -27662,6 +30841,19 @@ export const getModelInsightTasksModelInsightsTasksGetResponseSchema =
 
 export const getModelInsightTasksModelInsightsTasksGetErrorSchema =
 	getModelInsightTasksModelInsightsTasksGetStatus422Schema;
+
+export const getModelInsightTasksModelInsightsTasksGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("YYYY-MM-DD, defaults to 365 days ago"),
+	end_date: z.union([z.string(), z.null()]).optional().describe("YYYY-MM-DD, defaults to today"),
+	metric: z
+		.enum(["requests", "spend", "tokens"])
+		.optional()
+		.default("spend")
+		.describe("Metric task shares are computed from"),
+});
 
 export const createSearchToolSearchToolsPostStatus200Schema = z.looseObject({});
 
@@ -27716,6 +30908,10 @@ export const deleteSearchToolSearchToolsSearchToolIdDeleteResponseSchema =
 export const deleteSearchToolSearchToolsSearchToolIdDeleteErrorSchema =
 	deleteSearchToolSearchToolsSearchToolIdDeleteStatus422Schema;
 
+export const deleteSearchToolSearchToolsSearchToolIdDeletePathSchema = z.object({
+	search_tool_id: z.string(),
+});
+
 export const getSearchToolInfoSearchToolsSearchToolIdGetPathSearchToolIdSchema = z.string();
 
 export const getSearchToolInfoSearchToolsSearchToolIdGetStatus200Schema = z.looseObject({});
@@ -27727,6 +30923,10 @@ export const getSearchToolInfoSearchToolsSearchToolIdGetResponseSchema =
 
 export const getSearchToolInfoSearchToolsSearchToolIdGetErrorSchema =
 	getSearchToolInfoSearchToolsSearchToolIdGetStatus422Schema;
+
+export const getSearchToolInfoSearchToolsSearchToolIdGetPathSchema = z.object({
+	search_tool_id: z.string(),
+});
 
 export const updateSearchToolSearchToolsSearchToolIdPutPathSearchToolIdSchema = z.string();
 
@@ -27741,6 +30941,10 @@ export const updateSearchToolSearchToolsSearchToolIdPutErrorSchema =
 	updateSearchToolSearchToolsSearchToolIdPutStatus422Schema;
 
 export const updateSearchToolSearchToolsSearchToolIdPutBodySchema = updateSearchToolRequestSchema;
+
+export const updateSearchToolSearchToolsSearchToolIdPutPathSchema = z.object({
+	search_tool_id: z.string(),
+});
 
 export const getMcpAccessGroupsV1McpAccessGroupsGetStatus200Schema = z.looseObject({});
 
@@ -27766,6 +30970,14 @@ export const discoverMcpServersV1McpDiscoverGetResponseSchema =
 
 export const discoverMcpServersV1McpDiscoverGetErrorSchema =
 	discoverMcpServersV1McpDiscoverGetStatus422Schema;
+
+export const discoverMcpServersV1McpDiscoverGetQuerySchema = z.object({
+	query: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Search filter for server names and descriptions"),
+	category: z.union([z.string(), z.null()]).optional().describe("Filter by category"),
+});
 
 export const makeMcpServersPublicV1McpMakePublicPostStatus202Schema = z.looseObject({});
 
@@ -27819,6 +31031,22 @@ export const fetchAllMcpServersV1McpServerGetResponseSchema =
 export const fetchAllMcpServersV1McpServerGetErrorSchema =
 	fetchAllMcpServersV1McpServerGetStatus422Schema;
 
+export const fetchAllMcpServersV1McpServerGetQuerySchema = z.object({
+	team_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter MCP servers by team scope. When provided, returns only servers the team has access to plus globally available (allow_all_keys) servers. Used by the Create Key UI to show team-scoped MCP servers.",
+		),
+	connected_app_view: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"Annotate each returned server with connected_app_reachable: whether a connected app authorized by the calling user (a gateway OAuth session) is served this server on the aggregate MCP endpoint.",
+		),
+});
+
 export const addMcpServerV1McpServerPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -27838,6 +31066,15 @@ export const addMcpServerV1McpServerPostErrorSchema = addMcpServerV1McpServerPos
 
 export const addMcpServerV1McpServerPostBodySchema = newMCPServerRequestSchema;
 
+export const addMcpServerV1McpServerPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const editMcpServerV1McpServerPutHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -27856,6 +31093,15 @@ export const editMcpServerV1McpServerPutResponseSchema = editMcpServerV1McpServe
 export const editMcpServerV1McpServerPutErrorSchema = editMcpServerV1McpServerPutStatus422Schema;
 
 export const editMcpServerV1McpServerPutBodySchema = updateMCPServerRequestSchema;
+
+export const editMcpServerV1McpServerPutHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const healthCheckServersV1McpServerHealthGetQueryServerIdsSchema = z
 	.union([z.array(z.string()), z.null()])
@@ -27879,6 +31125,20 @@ export const healthCheckServersV1McpServerHealthGetResponseSchema =
 
 export const healthCheckServersV1McpServerHealthGetErrorSchema =
 	healthCheckServersV1McpServerHealthGetStatus422Schema;
+
+export const healthCheckServersV1McpServerHealthGetQuerySchema = z.object({
+	server_ids: z
+		.union([z.array(z.string()), z.null()])
+		.optional()
+		.describe("Server IDs to check. If not provided, checks all accessible servers."),
+	include_reachability: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"Allow the 'reachable' status for responding servers whose authentication is unchecked.",
+		),
+});
 
 export const importMcpServersV1McpServerImportPostStatus200Schema =
 	MCPConnectorImportResponseSchema;
@@ -27912,6 +31172,15 @@ export const addSessionMcpServerV1McpServerOauthSessionPostErrorSchema =
 	addSessionMcpServerV1McpServerOauthSessionPostStatus422Schema;
 
 export const addSessionMcpServerV1McpServerOauthSessionPostBodySchema = newMCPServerRequestSchema;
+
+export const addSessionMcpServerV1McpServerOauthSessionPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const registerMcpServerV1McpServerRegisterPostStatus201Schema =
 	liteLLMMCPServerTableSchema.describe("Represents a LiteLLM_MCPServerTable record");
@@ -27951,6 +31220,19 @@ export const removeMcpServerV1McpServerServerIdDeleteResponseSchema =
 export const removeMcpServerV1McpServerServerIdDeleteErrorSchema =
 	removeMcpServerV1McpServerServerIdDeleteStatus422Schema;
 
+export const removeMcpServerV1McpServerServerIdDeletePathSchema = z.object({
+	server_id: z.string(),
+});
+
+export const removeMcpServerV1McpServerServerIdDeleteHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const fetchMcpServerV1McpServerServerIdGetPathServerIdSchema = z.string();
 
 export const fetchMcpServerV1McpServerServerIdGetQueryIncludeReachabilitySchema = z
@@ -27972,6 +31254,20 @@ export const fetchMcpServerV1McpServerServerIdGetResponseSchema =
 export const fetchMcpServerV1McpServerServerIdGetErrorSchema =
 	fetchMcpServerV1McpServerServerIdGetStatus422Schema;
 
+export const fetchMcpServerV1McpServerServerIdGetPathSchema = z.object({
+	server_id: z.string(),
+});
+
+export const fetchMcpServerV1McpServerServerIdGetQuerySchema = z.object({
+	include_reachability: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"Allow the 'reachable' status for responding servers whose authentication is unchecked.",
+		),
+});
+
 export const approveMcpServerSubmissionV1McpServerServerIdApprovePutPathServerIdSchema = z.string();
 
 export const approveMcpServerSubmissionV1McpServerServerIdApprovePutStatus200Schema =
@@ -27985,6 +31281,10 @@ export const approveMcpServerSubmissionV1McpServerServerIdApprovePutResponseSche
 
 export const approveMcpServerSubmissionV1McpServerServerIdApprovePutErrorSchema =
 	approveMcpServerSubmissionV1McpServerServerIdApprovePutStatus422Schema;
+
+export const approveMcpServerSubmissionV1McpServerServerIdApprovePutPathSchema = z.object({
+	server_id: z.string(),
+});
 
 export const deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeletePathServerIdSchema =
 	z.string();
@@ -28005,6 +31305,16 @@ export const deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialD
 
 export const deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteErrorSchema =
 	deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteStatus422Schema;
+
+export const deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeletePathSchema =
+	z.object({
+		server_id: z.string(),
+	});
+
+export const deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteQuerySchema =
+	z.object({
+		user_id: z.union([z.string().min(1), z.null()]).optional(),
+	});
 
 export const storeMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPostPathServerIdSchema =
 	z.string();
@@ -28028,6 +31338,11 @@ export const storeMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPo
 		"Stores a user's OAuth2 token for an OpenAPI MCP server.",
 	);
 
+export const storeMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPostPathSchema =
+	z.object({
+		server_id: z.string(),
+	});
+
 export const getMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentialStatusGetPathServerIdSchema =
 	z.string();
 
@@ -28045,6 +31360,11 @@ export const getMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredenti
 export const getMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentialStatusGetErrorSchema =
 	getMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentialStatusGetStatus422Schema;
 
+export const getMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentialStatusGetPathSchema =
+	z.object({
+		server_id: z.string(),
+	});
+
 export const unpinMcpServerToolsV1McpServerServerIdPinDeletePathServerIdSchema = z.string();
 
 export const unpinMcpServerToolsV1McpServerServerIdPinDeleteStatus200Schema = z.record(
@@ -28061,6 +31381,10 @@ export const unpinMcpServerToolsV1McpServerServerIdPinDeleteResponseSchema =
 export const unpinMcpServerToolsV1McpServerServerIdPinDeleteErrorSchema =
 	unpinMcpServerToolsV1McpServerServerIdPinDeleteStatus422Schema;
 
+export const unpinMcpServerToolsV1McpServerServerIdPinDeletePathSchema = z.object({
+	server_id: z.string(),
+});
+
 export const pinMcpServerToolsV1McpServerServerIdPinPostPathServerIdSchema = z.string();
 
 export const pinMcpServerToolsV1McpServerServerIdPinPostStatus200Schema = z.record(
@@ -28075,6 +31399,10 @@ export const pinMcpServerToolsV1McpServerServerIdPinPostResponseSchema =
 
 export const pinMcpServerToolsV1McpServerServerIdPinPostErrorSchema =
 	pinMcpServerToolsV1McpServerServerIdPinPostStatus422Schema;
+
+export const pinMcpServerToolsV1McpServerServerIdPinPostPathSchema = z.object({
+	server_id: z.string(),
+});
 
 export const rejectMcpServerSubmissionV1McpServerServerIdRejectPutPathServerIdSchema = z.string();
 
@@ -28092,6 +31420,10 @@ export const rejectMcpServerSubmissionV1McpServerServerIdRejectPutErrorSchema =
 
 export const rejectMcpServerSubmissionV1McpServerServerIdRejectPutBodySchema =
 	rejectMCPServerRequestSchema;
+
+export const rejectMcpServerSubmissionV1McpServerServerIdRejectPutPathSchema = z.object({
+	server_id: z.string(),
+});
 
 export const deleteMcpUserCredentialV1McpServerServerIdUserCredentialDeletePathServerIdSchema =
 	z.string();
@@ -28112,6 +31444,14 @@ export const deleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteRespo
 export const deleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteErrorSchema =
 	deleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteStatus422Schema;
 
+export const deleteMcpUserCredentialV1McpServerServerIdUserCredentialDeletePathSchema = z.object({
+	server_id: z.string(),
+});
+
+export const deleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteQuerySchema = z.object({
+	user_id: z.union([z.string().min(1), z.null()]).optional(),
+});
+
 export const storeMcpUserCredentialV1McpServerServerIdUserCredentialPostPathServerIdSchema =
 	z.string();
 
@@ -28130,6 +31470,10 @@ export const storeMcpUserCredentialV1McpServerServerIdUserCredentialPostErrorSch
 export const storeMcpUserCredentialV1McpServerServerIdUserCredentialPostBodySchema =
 	MCPUserCredentialRequestSchema;
 
+export const storeMcpUserCredentialV1McpServerServerIdUserCredentialPostPathSchema = z.object({
+	server_id: z.string(),
+});
+
 export const listMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetPathServerIdSchema =
 	z.string();
 
@@ -28145,6 +31489,12 @@ export const listMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetRe
 export const listMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetErrorSchema =
 	listMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetStatus422Schema;
 
+export const listMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetPathSchema = z.object(
+	{
+		server_id: z.string(),
+	},
+);
+
 export const clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePathServerIdSchema = z.string();
 
 export const clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus200Schema =
@@ -28159,6 +31509,10 @@ export const clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteResponseSche
 export const clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteErrorSchema =
 	clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus422Schema;
 
+export const clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePathSchema = z.object({
+	server_id: z.string(),
+});
+
 export const getMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGetPathServerIdSchema = z.string();
 
 export const getMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGetStatus200Schema =
@@ -28172,6 +31526,10 @@ export const getMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGetResponseSchema =
 
 export const getMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGetErrorSchema =
 	getMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGetStatus422Schema;
+
+export const getMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGetPathSchema = z.object({
+	server_id: z.string(),
+});
 
 export const storeMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostPathServerIdSchema = z.string();
 
@@ -28191,6 +31549,10 @@ export const storeMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostBodySchema =
 	MCPUserEnvVarsRequestSchema.describe(
 		"Payload for storing the calling user's per-user env var values.",
 	);
+
+export const storeMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostPathSchema = z.object({
+	server_id: z.string(),
+});
 
 export const deleteMcpGatewaySessionsV1McpSessionsDeleteQuerySessionIdPrefixSchema = z
 	.union([z.string().min(8), z.null()])
@@ -28212,6 +31574,11 @@ export const deleteMcpGatewaySessionsV1McpSessionsDeleteResponseSchema =
 
 export const deleteMcpGatewaySessionsV1McpSessionsDeleteErrorSchema =
 	deleteMcpGatewaySessionsV1McpSessionsDeleteStatus422Schema;
+
+export const deleteMcpGatewaySessionsV1McpSessionsDeleteQuerySchema = z.object({
+	session_id_prefix: z.union([z.string().min(8), z.null()]).optional(),
+	user_id: z.union([z.string().min(1), z.null()]).optional(),
+});
 
 export const getMcpGatewaySessionsV1McpSessionsGetStatus200Schema =
 	MCPGatewaySessionsResponseSchema;
@@ -28244,6 +31611,10 @@ export const addMcpToolsetV1McpToolsetPostErrorSchema =
 
 export const addMcpToolsetV1McpToolsetPostBodySchema = newMCPToolsetRequestSchema;
 
+export const addMcpToolsetV1McpToolsetPostHeadersSchema = z.object({
+	"litellm-changed-by": z.union([z.string(), z.null()]).optional(),
+});
+
 export const editMcpToolsetV1McpToolsetPutHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -28259,6 +31630,10 @@ export const editMcpToolsetV1McpToolsetPutErrorSchema =
 	editMcpToolsetV1McpToolsetPutStatus422Schema;
 
 export const editMcpToolsetV1McpToolsetPutBodySchema = updateMCPToolsetRequestSchema;
+
+export const editMcpToolsetV1McpToolsetPutHeadersSchema = z.object({
+	"litellm-changed-by": z.union([z.string(), z.null()]).optional(),
+});
 
 export const removeMcpToolsetV1McpToolsetToolsetIdDeletePathToolsetIdSchema = z.string();
 
@@ -28276,6 +31651,14 @@ export const removeMcpToolsetV1McpToolsetToolsetIdDeleteResponseSchema =
 export const removeMcpToolsetV1McpToolsetToolsetIdDeleteErrorSchema =
 	removeMcpToolsetV1McpToolsetToolsetIdDeleteStatus422Schema;
 
+export const removeMcpToolsetV1McpToolsetToolsetIdDeletePathSchema = z.object({
+	toolset_id: z.string(),
+});
+
+export const removeMcpToolsetV1McpToolsetToolsetIdDeleteHeadersSchema = z.object({
+	"litellm-changed-by": z.union([z.string(), z.null()]).optional(),
+});
+
 export const fetchMcpToolsetV1McpToolsetToolsetIdGetPathToolsetIdSchema = z.string();
 
 export const fetchMcpToolsetV1McpToolsetToolsetIdGetStatus200Schema = z.looseObject({});
@@ -28287,6 +31670,10 @@ export const fetchMcpToolsetV1McpToolsetToolsetIdGetResponseSchema =
 
 export const fetchMcpToolsetV1McpToolsetToolsetIdGetErrorSchema =
 	fetchMcpToolsetV1McpToolsetToolsetIdGetStatus422Schema;
+
+export const fetchMcpToolsetV1McpToolsetToolsetIdGetPathSchema = z.object({
+	toolset_id: z.string(),
+});
 
 export const listMcpUserCredentialsV1McpUserCredentialsGetStatus200Schema = z.array(
 	MCPUserCredentialListItemSchema,
@@ -28317,6 +31704,10 @@ export const oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGetResp
 export const oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGetErrorSchema =
 	oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGetStatus422Schema;
 
+export const oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGetQuerySchema = z.object({
+	mcp_server_name: z.union([z.string(), z.null()]).optional(),
+});
+
 export const oauthAuthorizationServerAggregateWellKnownOauthAuthorizationServerMcpGetStatus200Schema =
 	z.looseObject({});
 
@@ -28338,6 +31729,11 @@ export const oauthAuthorizationServerMcpStandardWellKnownOauthAuthorizationServe
 export const oauthAuthorizationServerMcpStandardWellKnownOauthAuthorizationServerMcpMcpServerNameGetErrorSchema =
 	oauthAuthorizationServerMcpStandardWellKnownOauthAuthorizationServerMcpMcpServerNameGetStatus422Schema;
 
+export const oauthAuthorizationServerMcpStandardWellKnownOauthAuthorizationServerMcpMcpServerNameGetPathSchema =
+	z.object({
+		mcp_server_name: z.string(),
+	});
+
 export const oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerMcpServerNameGetPathMcpServerNameSchema =
 	z.union([z.string(), z.null()]);
 
@@ -28353,6 +31749,11 @@ export const oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerMcpServ
 export const oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerMcpServerNameGetErrorSchema =
 	oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerMcpServerNameGetStatus422Schema;
 
+export const oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerMcpServerNameGetPathSchema =
+	z.object({
+		mcp_server_name: z.union([z.string(), z.null()]),
+	});
+
 export const oauthAuthorizationServerLegacyWellKnownOauthAuthorizationServerMcpServerNameMcpGetPathMcpServerNameSchema =
 	z.string();
 
@@ -28367,6 +31768,11 @@ export const oauthAuthorizationServerLegacyWellKnownOauthAuthorizationServerMcpS
 
 export const oauthAuthorizationServerLegacyWellKnownOauthAuthorizationServerMcpServerNameMcpGetErrorSchema =
 	oauthAuthorizationServerLegacyWellKnownOauthAuthorizationServerMcpServerNameMcpGetStatus422Schema;
+
+export const oauthAuthorizationServerLegacyWellKnownOauthAuthorizationServerMcpServerNameMcpGetPathSchema =
+	z.object({
+		mcp_server_name: z.string(),
+	});
 
 export const oauthProtectedResourceRootWellKnownOauthProtectedResourceGetStatus200Schema = z.record(
 	z.string(),
@@ -28397,6 +31803,11 @@ export const oauthProtectedResourceMcpStandardWellKnownOauthProtectedResourceMcp
 export const oauthProtectedResourceMcpStandardWellKnownOauthProtectedResourceMcpMcpServerNameGetErrorSchema =
 	oauthProtectedResourceMcpStandardWellKnownOauthProtectedResourceMcpMcpServerNameGetStatus422Schema;
 
+export const oauthProtectedResourceMcpStandardWellKnownOauthProtectedResourceMcpMcpServerNameGetPathSchema =
+	z.object({
+		mcp_server_name: z.string(),
+	});
+
 export const oauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGetPathMcpServerNameSchema =
 	z.union([z.string(), z.null()]);
 
@@ -28411,6 +31822,11 @@ export const oauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNa
 
 export const oauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGetErrorSchema =
 	oauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGetStatus422Schema;
+
+export const oauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGetPathSchema =
+	z.object({
+		mcp_server_name: z.union([z.string(), z.null()]),
+	});
 
 export const jwksJsonWellKnownJwksJsonGetStatus200Schema = z.looseObject({});
 
@@ -28461,6 +31877,18 @@ export const authorizeAuthorizeGetResponseSchema = authorizeAuthorizeGetStatus20
 
 export const authorizeAuthorizeGetErrorSchema = authorizeAuthorizeGetStatus422Schema;
 
+export const authorizeAuthorizeGetQuerySchema = z.object({
+	redirect_uri: z.string(),
+	client_id: z.union([z.string(), z.null()]).optional(),
+	state: z.string().optional().default(""),
+	mcp_server_name: z.union([z.string(), z.null()]).optional(),
+	code_challenge: z.union([z.string(), z.null()]).optional(),
+	code_challenge_method: z.union([z.string(), z.null()]).optional(),
+	response_type: z.union([z.string(), z.null()]).optional(),
+	scope: z.union([z.string(), z.null()]).optional(),
+	resource: z.union([z.string(), z.null()]).optional(),
+});
+
 export const authorizeCompleteAuthorizeCompletePostStatus200Schema = z.looseObject({});
 
 export const authorizeCompleteAuthorizeCompletePostStatus422Schema = HTTPValidationErrorSchema;
@@ -28485,6 +31913,10 @@ export const authorizeFlowAuthorizeFlowGetResponseSchema =
 
 export const authorizeFlowAuthorizeFlowGetErrorSchema =
 	authorizeFlowAuthorizeFlowGetStatus422Schema;
+
+export const authorizeFlowAuthorizeFlowGetQuerySchema = z.object({
+	flow: z.string(),
+});
 
 export const authorizeMcpSessionAuthorizeMcpSessionGetQueryRedirectUriSchema = z.string();
 
@@ -28521,6 +31953,16 @@ export const authorizeMcpSessionAuthorizeMcpSessionGetResponseSchema =
 export const authorizeMcpSessionAuthorizeMcpSessionGetErrorSchema =
 	authorizeMcpSessionAuthorizeMcpSessionGetStatus422Schema;
 
+export const authorizeMcpSessionAuthorizeMcpSessionGetQuerySchema = z.object({
+	redirect_uri: z.string(),
+	client_id: z.string(),
+	state: z.string().optional().default(""),
+	code_challenge: z.union([z.string(), z.null()]).optional(),
+	code_challenge_method: z.union([z.string(), z.null()]).optional(),
+	response_type: z.union([z.string(), z.null()]).optional(),
+	resource: z.union([z.string(), z.null()]).optional(),
+});
+
 export const callbackCallbackGetQueryCodeSchema = z.union([z.string(), z.null()]).optional();
 
 export const callbackCallbackGetQueryStateSchema = z.union([z.string(), z.null()]).optional();
@@ -28542,6 +31984,15 @@ export const callbackCallbackGetStatus422Schema = HTTPValidationErrorSchema;
 export const callbackCallbackGetResponseSchema = callbackCallbackGetStatus200Schema;
 
 export const callbackCallbackGetErrorSchema = callbackCallbackGetStatus422Schema;
+
+export const callbackCallbackGetQuerySchema = z.object({
+	code: z.union([z.string(), z.null()]).optional(),
+	state: z.union([z.string(), z.null()]).optional(),
+	iss: z.union([z.string(), z.null()]).optional(),
+	error: z.union([z.string(), z.null()]).optional(),
+	error_description: z.union([z.string(), z.null()]).optional(),
+	error_uri: z.union([z.string(), z.null()]).optional(),
+});
 
 export const introspectEndpointIntrospectPostStatus200Schema = z.looseObject({});
 
@@ -28568,6 +32019,10 @@ export const registerClientRegisterPostResponseSchema = registerClientRegisterPo
 
 export const registerClientRegisterPostErrorSchema = registerClientRegisterPostStatus422Schema;
 
+export const registerClientRegisterPostQuerySchema = z.object({
+	mcp_server_name: z.union([z.string(), z.null()]).optional(),
+});
+
 export const revokeEndpointRevokePostStatus200Schema = z.looseObject({});
 
 export const revokeEndpointRevokePostStatus422Schema = HTTPValidationErrorSchema;
@@ -28591,6 +32046,10 @@ export const tokenEndpointTokenPostResponseSchema = tokenEndpointTokenPostStatus
 export const tokenEndpointTokenPostErrorSchema = tokenEndpointTokenPostStatus422Schema;
 
 export const tokenEndpointTokenPostBodySchema = bodyTokenEndpointTokenPostSchema;
+
+export const tokenEndpointTokenPostQuerySchema = z.object({
+	mcp_server_name: z.union([z.string(), z.null()]).optional(),
+});
 
 export const authorizeMcpServerNameAuthorizeGetPathMcpServerNameSchema = z.union([
 	z.string(),
@@ -28635,6 +32094,21 @@ export const authorizeMcpServerNameAuthorizeGetResponseSchema =
 export const authorizeMcpServerNameAuthorizeGetErrorSchema =
 	authorizeMcpServerNameAuthorizeGetStatus422Schema;
 
+export const authorizeMcpServerNameAuthorizeGetPathSchema = z.object({
+	mcp_server_name: z.union([z.string(), z.null()]),
+});
+
+export const authorizeMcpServerNameAuthorizeGetQuerySchema = z.object({
+	redirect_uri: z.string(),
+	client_id: z.union([z.string(), z.null()]).optional(),
+	state: z.string().optional().default(""),
+	code_challenge: z.union([z.string(), z.null()]).optional(),
+	code_challenge_method: z.union([z.string(), z.null()]).optional(),
+	response_type: z.union([z.string(), z.null()]).optional(),
+	scope: z.union([z.string(), z.null()]).optional(),
+	resource: z.union([z.string(), z.null()]).optional(),
+});
+
 export const registerClientMcpServerNameRegisterPostPathMcpServerNameSchema = z.union([
 	z.string(),
 	z.null(),
@@ -28649,6 +32123,10 @@ export const registerClientMcpServerNameRegisterPostResponseSchema =
 
 export const registerClientMcpServerNameRegisterPostErrorSchema =
 	registerClientMcpServerNameRegisterPostStatus422Schema;
+
+export const registerClientMcpServerNameRegisterPostPathSchema = z.object({
+	mcp_server_name: z.union([z.string(), z.null()]),
+});
 
 export const tokenEndpointMcpServerNameTokenPostPathMcpServerNameSchema = z.union([
 	z.string(),
@@ -28667,6 +32145,10 @@ export const tokenEndpointMcpServerNameTokenPostErrorSchema =
 
 export const tokenEndpointMcpServerNameTokenPostBodySchema =
 	bodyTokenEndpointMcpServerNameTokenPostSchema;
+
+export const tokenEndpointMcpServerNameTokenPostPathSchema = z.object({
+	mcp_server_name: z.union([z.string(), z.null()]),
+});
 
 export const testConnectionMcpRestTestConnectionPostStatus200Schema = z.looseObject({});
 
@@ -28730,6 +32212,25 @@ export const listToolRestApiMcpRestToolsListGetResponseSchema =
 export const listToolRestApiMcpRestToolsListGetErrorSchema =
 	listToolRestApiMcpRestToolsListGetStatus422Schema;
 
+export const listToolRestApiMcpRestToolsListGetQuerySchema = z.object({
+	server_id: z.union([z.string(), z.null()]).optional().describe("The server id to list tools for"),
+	mcp_server_name: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter tools to a single MCP server by name or alias"),
+	toolset_name: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Filter tools to a single toolset by name"),
+	include_disabled_tools: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"Admin only. Return the full server tool catalog without the allowed_tools filter or per-key tool permissions, so the MCP settings UI can configure the allowlist. Ignored for non-admins.",
+		),
+});
+
 export const deleteCyberarkConfigConfigOverridesCyberarkDeleteHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -28750,6 +32251,15 @@ export const deleteCyberarkConfigConfigOverridesCyberarkDeleteResponseSchema =
 
 export const deleteCyberarkConfigConfigOverridesCyberarkDeleteErrorSchema =
 	deleteCyberarkConfigConfigOverridesCyberarkDeleteStatus422Schema;
+
+export const deleteCyberarkConfigConfigOverridesCyberarkDeleteHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const getCyberarkConfigConfigOverridesCyberarkGetStatus200Schema =
 	configOverrideSettingsResponseSchema.describe(
@@ -28783,6 +32293,15 @@ export const updateCyberarkConfigConfigOverridesCyberarkPostErrorSchema =
 export const updateCyberarkConfigConfigOverridesCyberarkPostBodySchema =
 	cyberArkConfigSchema.describe("Configuration for CyberArk Conjur secret manager integration.");
 
+export const updateCyberarkConfigConfigOverridesCyberarkPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const testCyberarkConnectionConfigOverridesCyberarkTestConnectionPostStatus200Schema =
 	z.record(z.string(), z.string());
 
@@ -28808,6 +32327,15 @@ export const deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteRespon
 
 export const deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteErrorSchema =
 	deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus422Schema;
+
+export const deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
 
 export const getHashicorpVaultConfigConfigOverridesHashicorpVaultGetStatus200Schema =
 	configOverrideSettingsResponseSchema.describe(
@@ -28842,6 +32370,15 @@ export const updateHashicorpVaultConfigConfigOverridesHashicorpVaultPostBodySche
 		"Configuration for Hashicorp Vault secret manager integration.",
 	);
 
+export const updateHashicorpVaultConfigConfigOverridesHashicorpVaultPostHeadersSchema = z.object({
+	"litellm-changed-by": z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
+		),
+});
+
 export const testHashicorpVaultConnectionConfigOverridesHashicorpVaultTestConnectionPostStatus200Schema =
 	z.looseObject({});
 
@@ -28872,6 +32409,10 @@ export const comprehendMedicalProxyRouteComprehendmedicalOperationPostResponseSc
 
 export const comprehendMedicalProxyRouteComprehendmedicalOperationPostErrorSchema =
 	comprehendMedicalProxyRouteComprehendmedicalOperationPostStatus422Schema;
+
+export const comprehendMedicalProxyRouteComprehendmedicalOperationPostPathSchema = z.object({
+	operation: z.string(),
+});
 
 export const layaProxyRouteLayaV1SystemonePostStatus200Schema = z.looseObject({});
 
@@ -28915,6 +32456,10 @@ export const transcribeProxyRouteTranscribeOperationPostResponseSchema =
 
 export const transcribeProxyRouteTranscribeOperationPostErrorSchema =
 	transcribeProxyRouteTranscribeOperationPostStatus422Schema;
+
+export const transcribeProxyRouteTranscribeOperationPostPathSchema = z.object({
+	operation: z.string(),
+});
 
 export const proxyRealtimeCallsRealtimeCallsPostStatus200Schema = z.looseObject({});
 
@@ -29012,6 +32557,26 @@ export const listSkillsV1SkillsGetResponseSchema = listSkillsV1SkillsGetStatus20
 
 export const listSkillsV1SkillsGetErrorSchema = listSkillsV1SkillsGetStatus422Schema;
 
+export const listSkillsV1SkillsGetQuerySchema = z.object({
+	limit: z.union([z.int(), z.null()]).optional().default(10),
+	after_id: z.union([z.string(), z.null()]).optional(),
+	before_id: z.union([z.string(), z.null()]).optional(),
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("anthropic"),
+	query: z
+		.union([z.string().min(1), z.null()])
+		.optional()
+		.describe(
+			"Describe what you need in natural language to rank the skills you can access by semantic similarity over their title and description. Each result carries a search_score. Only supported for custom_llm_provider=litellm_proxy. Requires litellm_settings.skill_search_embedding_model.",
+		),
+	top_k: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.default(5)
+		.describe("With query: the maximum number of ranked skills to return."),
+});
+
 export const createSkillV1SkillsPostQueryCustomLlmProviderSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -29026,6 +32591,10 @@ export const createSkillV1SkillsPostStatus422Schema = HTTPValidationErrorSchema;
 export const createSkillV1SkillsPostResponseSchema = createSkillV1SkillsPostStatus200Schema;
 
 export const createSkillV1SkillsPostErrorSchema = createSkillV1SkillsPostStatus422Schema;
+
+export const createSkillV1SkillsPostQuerySchema = z.object({
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("anthropic"),
+});
 
 export const deleteSkillV1SkillsSkillIdDeletePathSkillIdSchema = z.string();
 
@@ -29046,6 +32615,14 @@ export const deleteSkillV1SkillsSkillIdDeleteResponseSchema =
 export const deleteSkillV1SkillsSkillIdDeleteErrorSchema =
 	deleteSkillV1SkillsSkillIdDeleteStatus422Schema;
 
+export const deleteSkillV1SkillsSkillIdDeletePathSchema = z.object({
+	skill_id: z.string(),
+});
+
+export const deleteSkillV1SkillsSkillIdDeleteQuerySchema = z.object({
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("anthropic"),
+});
+
 export const getSkillV1SkillsSkillIdGetPathSkillIdSchema = z.string();
 
 export const getSkillV1SkillsSkillIdGetQueryCustomLlmProviderSchema = z
@@ -29062,6 +32639,14 @@ export const getSkillV1SkillsSkillIdGetStatus422Schema = HTTPValidationErrorSche
 export const getSkillV1SkillsSkillIdGetResponseSchema = getSkillV1SkillsSkillIdGetStatus200Schema;
 
 export const getSkillV1SkillsSkillIdGetErrorSchema = getSkillV1SkillsSkillIdGetStatus422Schema;
+
+export const getSkillV1SkillsSkillIdGetPathSchema = z.object({
+	skill_id: z.string(),
+});
+
+export const getSkillV1SkillsSkillIdGetQuerySchema = z.object({
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("anthropic"),
+});
 
 export const listEvalsV1EvalsGetQueryLimitSchema = z
 	.union([z.int(), z.null()])
@@ -29091,6 +32676,15 @@ export const listEvalsV1EvalsGetResponseSchema = listEvalsV1EvalsGetStatus200Sch
 
 export const listEvalsV1EvalsGetErrorSchema = listEvalsV1EvalsGetStatus422Schema;
 
+export const listEvalsV1EvalsGetQuerySchema = z.object({
+	limit: z.union([z.int(), z.null()]).optional().default(20),
+	after: z.union([z.string(), z.null()]).optional(),
+	before: z.union([z.string(), z.null()]).optional(),
+	order: z.union([z.string(), z.null()]).optional(),
+	order_by: z.union([z.string(), z.null()]).optional(),
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("openai"),
+});
+
 export const createEvalV1EvalsPostQueryCustomLlmProviderSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -29105,6 +32699,10 @@ export const createEvalV1EvalsPostStatus422Schema = HTTPValidationErrorSchema;
 export const createEvalV1EvalsPostResponseSchema = createEvalV1EvalsPostStatus200Schema;
 
 export const createEvalV1EvalsPostErrorSchema = createEvalV1EvalsPostStatus422Schema;
+
+export const createEvalV1EvalsPostQuerySchema = z.object({
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("openai"),
+});
 
 export const deleteEvalV1EvalsEvalIdDeletePathEvalIdSchema = z.string();
 
@@ -29125,6 +32723,14 @@ export const deleteEvalV1EvalsEvalIdDeleteResponseSchema =
 export const deleteEvalV1EvalsEvalIdDeleteErrorSchema =
 	deleteEvalV1EvalsEvalIdDeleteStatus422Schema;
 
+export const deleteEvalV1EvalsEvalIdDeletePathSchema = z.object({
+	eval_id: z.string(),
+});
+
+export const deleteEvalV1EvalsEvalIdDeleteQuerySchema = z.object({
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("openai"),
+});
+
 export const getEvalV1EvalsEvalIdGetPathEvalIdSchema = z.string();
 
 export const getEvalV1EvalsEvalIdGetQueryCustomLlmProviderSchema = z
@@ -29142,6 +32748,14 @@ export const getEvalV1EvalsEvalIdGetResponseSchema = getEvalV1EvalsEvalIdGetStat
 
 export const getEvalV1EvalsEvalIdGetErrorSchema = getEvalV1EvalsEvalIdGetStatus422Schema;
 
+export const getEvalV1EvalsEvalIdGetPathSchema = z.object({
+	eval_id: z.string(),
+});
+
+export const getEvalV1EvalsEvalIdGetQuerySchema = z.object({
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("openai"),
+});
+
 export const updateEvalV1EvalsEvalIdPostPathEvalIdSchema = z.string();
 
 export const updateEvalV1EvalsEvalIdPostQueryCustomLlmProviderSchema = z
@@ -29158,6 +32772,14 @@ export const updateEvalV1EvalsEvalIdPostStatus422Schema = HTTPValidationErrorSch
 export const updateEvalV1EvalsEvalIdPostResponseSchema = updateEvalV1EvalsEvalIdPostStatus200Schema;
 
 export const updateEvalV1EvalsEvalIdPostErrorSchema = updateEvalV1EvalsEvalIdPostStatus422Schema;
+
+export const updateEvalV1EvalsEvalIdPostPathSchema = z.object({
+	eval_id: z.string(),
+});
+
+export const updateEvalV1EvalsEvalIdPostQuerySchema = z.object({
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("openai"),
+});
 
 export const cancelEvalV1EvalsEvalIdCancelPostPathEvalIdSchema = z.string();
 
@@ -29177,6 +32799,14 @@ export const cancelEvalV1EvalsEvalIdCancelPostResponseSchema =
 
 export const cancelEvalV1EvalsEvalIdCancelPostErrorSchema =
 	cancelEvalV1EvalsEvalIdCancelPostStatus422Schema;
+
+export const cancelEvalV1EvalsEvalIdCancelPostPathSchema = z.object({
+	eval_id: z.string(),
+});
+
+export const cancelEvalV1EvalsEvalIdCancelPostQuerySchema = z.object({
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("openai"),
+});
 
 export const listRunsV1EvalsEvalIdRunsGetPathEvalIdSchema = z.string();
 
@@ -29213,6 +32843,18 @@ export const listRunsV1EvalsEvalIdRunsGetResponseSchema =
 
 export const listRunsV1EvalsEvalIdRunsGetErrorSchema = listRunsV1EvalsEvalIdRunsGetStatus422Schema;
 
+export const listRunsV1EvalsEvalIdRunsGetPathSchema = z.object({
+	eval_id: z.string(),
+});
+
+export const listRunsV1EvalsEvalIdRunsGetQuerySchema = z.object({
+	limit: z.union([z.int(), z.null()]).optional().default(20),
+	after: z.union([z.string(), z.null()]).optional(),
+	before: z.union([z.string(), z.null()]).optional(),
+	order: z.union([z.string(), z.null()]).optional(),
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("openai"),
+});
+
 export const createRunV1EvalsEvalIdRunsPostPathEvalIdSchema = z.string();
 
 export const createRunV1EvalsEvalIdRunsPostQueryCustomLlmProviderSchema = z
@@ -29231,6 +32873,14 @@ export const createRunV1EvalsEvalIdRunsPostResponseSchema =
 
 export const createRunV1EvalsEvalIdRunsPostErrorSchema =
 	createRunV1EvalsEvalIdRunsPostStatus422Schema;
+
+export const createRunV1EvalsEvalIdRunsPostPathSchema = z.object({
+	eval_id: z.string(),
+});
+
+export const createRunV1EvalsEvalIdRunsPostQuerySchema = z.object({
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("openai"),
+});
 
 export const deleteRunV1EvalsEvalIdRunsRunIdDeletePathEvalIdSchema = z.string();
 
@@ -29251,6 +32901,15 @@ export const deleteRunV1EvalsEvalIdRunsRunIdDeleteResponseSchema =
 
 export const deleteRunV1EvalsEvalIdRunsRunIdDeleteErrorSchema =
 	deleteRunV1EvalsEvalIdRunsRunIdDeleteStatus422Schema;
+
+export const deleteRunV1EvalsEvalIdRunsRunIdDeletePathSchema = z.object({
+	eval_id: z.string(),
+	run_id: z.string(),
+});
+
+export const deleteRunV1EvalsEvalIdRunsRunIdDeleteQuerySchema = z.object({
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("openai"),
+});
 
 export const getRunV1EvalsEvalIdRunsRunIdGetPathEvalIdSchema = z.string();
 
@@ -29273,6 +32932,15 @@ export const getRunV1EvalsEvalIdRunsRunIdGetResponseSchema =
 export const getRunV1EvalsEvalIdRunsRunIdGetErrorSchema =
 	getRunV1EvalsEvalIdRunsRunIdGetStatus422Schema;
 
+export const getRunV1EvalsEvalIdRunsRunIdGetPathSchema = z.object({
+	eval_id: z.string(),
+	run_id: z.string(),
+});
+
+export const getRunV1EvalsEvalIdRunsRunIdGetQuerySchema = z.object({
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("openai"),
+});
+
 export const cancelRunV1EvalsEvalIdRunsRunIdPostPathEvalIdSchema = z.string();
 
 export const cancelRunV1EvalsEvalIdRunsRunIdPostPathRunIdSchema = z.string();
@@ -29293,6 +32961,15 @@ export const cancelRunV1EvalsEvalIdRunsRunIdPostResponseSchema =
 
 export const cancelRunV1EvalsEvalIdRunsRunIdPostErrorSchema =
 	cancelRunV1EvalsEvalIdRunsRunIdPostStatus422Schema;
+
+export const cancelRunV1EvalsEvalIdRunsRunIdPostPathSchema = z.object({
+	eval_id: z.string(),
+	run_id: z.string(),
+});
+
+export const cancelRunV1EvalsEvalIdRunsRunIdPostQuerySchema = z.object({
+	custom_llm_provider: z.union([z.string(), z.null()]).optional().default("openai"),
+});
 
 export const decisionsDecisionsPostStatus200Schema = openAIDecisionResponseSchema;
 
@@ -29880,6 +33557,10 @@ export const getMarketplaceClaudeCodeMarketplaceJsonGetResponseSchema =
 export const getMarketplaceClaudeCodeMarketplaceJsonGetErrorSchema =
 	getMarketplaceClaudeCodeMarketplaceJsonGetStatus422Schema;
 
+export const getMarketplaceClaudeCodeMarketplaceJsonGetQuerySchema = z.object({
+	key: z.union([z.string(), z.null()]).optional(),
+});
+
 export const listPluginsClaudeCodePluginsGetQueryEnabledOnlySchema = z
 	.boolean()
 	.optional()
@@ -29896,6 +33577,10 @@ export const listPluginsClaudeCodePluginsGetResponseSchema =
 
 export const listPluginsClaudeCodePluginsGetErrorSchema =
 	listPluginsClaudeCodePluginsGetStatus422Schema;
+
+export const listPluginsClaudeCodePluginsGetQuerySchema = z.object({
+	enabled_only: z.boolean().optional().default(false),
+});
 
 export const registerPluginClaudeCodePluginsPostStatus200Schema =
 	registerPluginResponseSchema.describe("Response from plugin registration.");
@@ -29925,6 +33610,10 @@ export const deletePluginClaudeCodePluginsPluginNameDeleteResponseSchema =
 export const deletePluginClaudeCodePluginsPluginNameDeleteErrorSchema =
 	deletePluginClaudeCodePluginsPluginNameDeleteStatus422Schema;
 
+export const deletePluginClaudeCodePluginsPluginNameDeletePathSchema = z.object({
+	plugin_name: z.string(),
+});
+
 export const getPluginClaudeCodePluginsPluginNameGetPathPluginNameSchema = z.string();
 
 export const getPluginClaudeCodePluginsPluginNameGetStatus200Schema = z.looseObject({});
@@ -29936,6 +33625,10 @@ export const getPluginClaudeCodePluginsPluginNameGetResponseSchema =
 
 export const getPluginClaudeCodePluginsPluginNameGetErrorSchema =
 	getPluginClaudeCodePluginsPluginNameGetStatus422Schema;
+
+export const getPluginClaudeCodePluginsPluginNameGetPathSchema = z.object({
+	plugin_name: z.string(),
+});
 
 export const updatePluginClaudeCodePluginsPluginNamePutPathPluginNameSchema = z.string();
 
@@ -29955,6 +33648,10 @@ export const updatePluginClaudeCodePluginsPluginNamePutBodySchema =
 		'Request body for replacing an existing plugin.\n\nThe plugin name is the resource identity and is supplied as the path\nparameter, so it cannot be changed here. This is a full replace: omitted\nfields reset to their defaults, so version is cleared rather than\ndefaulting to the create-time "1.0.0".',
 	);
 
+export const updatePluginClaudeCodePluginsPluginNamePutPathSchema = z.object({
+	plugin_name: z.string(),
+});
+
 export const disablePluginClaudeCodePluginsPluginNameDisablePostPathPluginNameSchema = z.string();
 
 export const disablePluginClaudeCodePluginsPluginNameDisablePostStatus200Schema = z.looseObject({});
@@ -29967,6 +33664,10 @@ export const disablePluginClaudeCodePluginsPluginNameDisablePostResponseSchema =
 
 export const disablePluginClaudeCodePluginsPluginNameDisablePostErrorSchema =
 	disablePluginClaudeCodePluginsPluginNameDisablePostStatus422Schema;
+
+export const disablePluginClaudeCodePluginsPluginNameDisablePostPathSchema = z.object({
+	plugin_name: z.string(),
+});
 
 export const enablePluginClaudeCodePluginsPluginNameEnablePostPathPluginNameSchema = z.string();
 
@@ -29981,6 +33682,10 @@ export const enablePluginClaudeCodePluginsPluginNameEnablePostResponseSchema =
 export const enablePluginClaudeCodePluginsPluginNameEnablePostErrorSchema =
 	enablePluginClaudeCodePluginsPluginNameEnablePostStatus422Schema;
 
+export const enablePluginClaudeCodePluginsPluginNameEnablePostPathSchema = z.object({
+	plugin_name: z.string(),
+});
+
 export const getScimBaseScimV2GetQueryFeatureSchema = z.union([z.string(), z.null()]).optional();
 
 export const getScimBaseScimV2GetStatus200Schema = z.looseObject({});
@@ -29990,6 +33695,10 @@ export const getScimBaseScimV2GetStatus422Schema = HTTPValidationErrorSchema;
 export const getScimBaseScimV2GetResponseSchema = getScimBaseScimV2GetStatus200Schema;
 
 export const getScimBaseScimV2GetErrorSchema = getScimBaseScimV2GetStatus422Schema;
+
+export const getScimBaseScimV2GetQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
 
 export const getGroupsScimV2GroupsGetQueryStartIndexSchema = z.int().min(1).optional().default(1);
 
@@ -30009,6 +33718,13 @@ export const getGroupsScimV2GroupsGetResponseSchema = getGroupsScimV2GroupsGetSt
 
 export const getGroupsScimV2GroupsGetErrorSchema = getGroupsScimV2GroupsGetStatus422Schema;
 
+export const getGroupsScimV2GroupsGetQuerySchema = z.object({
+	startIndex: z.int().min(1).optional().default(1),
+	count: z.int().min(0).optional().default(10),
+	filter: z.union([z.string(), z.null()]).optional(),
+	feature: z.union([z.string(), z.null()]).optional(),
+});
+
 export const createGroupScimV2GroupsPostQueryFeatureSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -30022,6 +33738,10 @@ export const createGroupScimV2GroupsPostResponseSchema = createGroupScimV2Groups
 export const createGroupScimV2GroupsPostErrorSchema = createGroupScimV2GroupsPostStatus422Schema;
 
 export const createGroupScimV2GroupsPostBodySchema = SCIMGroupSchema;
+
+export const createGroupScimV2GroupsPostQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
 
 export const deleteGroupScimV2GroupsGroupIdDeletePathGroupIdSchema = z.string();
 
@@ -30039,6 +33759,14 @@ export const deleteGroupScimV2GroupsGroupIdDeleteResponseSchema =
 export const deleteGroupScimV2GroupsGroupIdDeleteErrorSchema =
 	deleteGroupScimV2GroupsGroupIdDeleteStatus422Schema;
 
+export const deleteGroupScimV2GroupsGroupIdDeletePathSchema = z.object({
+	group_id: z.string(),
+});
+
+export const deleteGroupScimV2GroupsGroupIdDeleteQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getGroupScimV2GroupsGroupIdGetPathGroupIdSchema = z.string();
 
 export const getGroupScimV2GroupsGroupIdGetQueryFeatureSchema = z
@@ -30054,6 +33782,14 @@ export const getGroupScimV2GroupsGroupIdGetResponseSchema =
 
 export const getGroupScimV2GroupsGroupIdGetErrorSchema =
 	getGroupScimV2GroupsGroupIdGetStatus422Schema;
+
+export const getGroupScimV2GroupsGroupIdGetPathSchema = z.object({
+	group_id: z.string(),
+});
+
+export const getGroupScimV2GroupsGroupIdGetQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
 
 export const patchGroupScimV2GroupsGroupIdPatchPathGroupIdSchema = z.string();
 
@@ -30073,6 +33809,14 @@ export const patchGroupScimV2GroupsGroupIdPatchErrorSchema =
 
 export const patchGroupScimV2GroupsGroupIdPatchBodySchema = SCIMPatchOpSchema;
 
+export const patchGroupScimV2GroupsGroupIdPatchPathSchema = z.object({
+	group_id: z.string(),
+});
+
+export const patchGroupScimV2GroupsGroupIdPatchQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
+
 export const updateGroupScimV2GroupsGroupIdPutPathGroupIdSchema = z.string();
 
 export const updateGroupScimV2GroupsGroupIdPutQueryFeatureSchema = z
@@ -30091,6 +33835,14 @@ export const updateGroupScimV2GroupsGroupIdPutErrorSchema =
 
 export const updateGroupScimV2GroupsGroupIdPutBodySchema = SCIMGroupSchema;
 
+export const updateGroupScimV2GroupsGroupIdPutPathSchema = z.object({
+	group_id: z.string(),
+});
+
+export const updateGroupScimV2GroupsGroupIdPutQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getResourceTypesScimV2ResourceTypesGetQueryFeatureSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -30104,6 +33856,10 @@ export const getResourceTypesScimV2ResourceTypesGetResponseSchema =
 
 export const getResourceTypesScimV2ResourceTypesGetErrorSchema =
 	getResourceTypesScimV2ResourceTypesGetStatus422Schema;
+
+export const getResourceTypesScimV2ResourceTypesGetQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
 
 export const getResourceTypeScimV2ResourceTypesResourceTypeIdGetPathResourceTypeIdSchema =
 	z.string();
@@ -30123,6 +33879,14 @@ export const getResourceTypeScimV2ResourceTypesResourceTypeIdGetResponseSchema =
 export const getResourceTypeScimV2ResourceTypesResourceTypeIdGetErrorSchema =
 	getResourceTypeScimV2ResourceTypesResourceTypeIdGetStatus422Schema;
 
+export const getResourceTypeScimV2ResourceTypesResourceTypeIdGetPathSchema = z.object({
+	resource_type_id: z.string(),
+});
+
+export const getResourceTypeScimV2ResourceTypesResourceTypeIdGetQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getSchemasScimV2SchemasGetQueryFeatureSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -30134,6 +33898,10 @@ export const getSchemasScimV2SchemasGetStatus422Schema = HTTPValidationErrorSche
 export const getSchemasScimV2SchemasGetResponseSchema = getSchemasScimV2SchemasGetStatus200Schema;
 
 export const getSchemasScimV2SchemasGetErrorSchema = getSchemasScimV2SchemasGetStatus422Schema;
+
+export const getSchemasScimV2SchemasGetQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
 
 export const getSchemaScimV2SchemasSchemaIdGetPathSchemaIdSchema = z.string();
 
@@ -30151,6 +33919,14 @@ export const getSchemaScimV2SchemasSchemaIdGetResponseSchema =
 export const getSchemaScimV2SchemasSchemaIdGetErrorSchema =
 	getSchemaScimV2SchemasSchemaIdGetStatus422Schema;
 
+export const getSchemaScimV2SchemasSchemaIdGetPathSchema = z.object({
+	schema_id: z.string(),
+});
+
+export const getSchemaScimV2SchemasSchemaIdGetQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getServiceProviderConfigScimV2ServiceProviderConfigGetQueryFeatureSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -30166,6 +33942,10 @@ export const getServiceProviderConfigScimV2ServiceProviderConfigGetResponseSchem
 
 export const getServiceProviderConfigScimV2ServiceProviderConfigGetErrorSchema =
 	getServiceProviderConfigScimV2ServiceProviderConfigGetStatus422Schema;
+
+export const getServiceProviderConfigScimV2ServiceProviderConfigGetQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
 
 export const getUsersScimV2UsersGetQueryStartIndexSchema = z.int().min(1).optional().default(1);
 
@@ -30183,6 +33963,13 @@ export const getUsersScimV2UsersGetResponseSchema = getUsersScimV2UsersGetStatus
 
 export const getUsersScimV2UsersGetErrorSchema = getUsersScimV2UsersGetStatus422Schema;
 
+export const getUsersScimV2UsersGetQuerySchema = z.object({
+	startIndex: z.int().min(1).optional().default(1),
+	count: z.int().min(0).optional().default(10),
+	filter: z.union([z.string(), z.null()]).optional(),
+	feature: z.union([z.string(), z.null()]).optional(),
+});
+
 export const createUserScimV2UsersPostQueryFeatureSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -30196,6 +33983,10 @@ export const createUserScimV2UsersPostResponseSchema = createUserScimV2UsersPost
 export const createUserScimV2UsersPostErrorSchema = createUserScimV2UsersPostStatus422Schema;
 
 export const createUserScimV2UsersPostBodySchema = SCIMUserInputSchema;
+
+export const createUserScimV2UsersPostQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
 
 export const deleteUserScimV2UsersUserIdDeletePathUserIdSchema = z.string();
 
@@ -30213,6 +34004,14 @@ export const deleteUserScimV2UsersUserIdDeleteResponseSchema =
 export const deleteUserScimV2UsersUserIdDeleteErrorSchema =
 	deleteUserScimV2UsersUserIdDeleteStatus422Schema;
 
+export const deleteUserScimV2UsersUserIdDeletePathSchema = z.object({
+	user_id: z.string(),
+});
+
+export const deleteUserScimV2UsersUserIdDeleteQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getUserScimV2UsersUserIdGetPathUserIdSchema = z.string();
 
 export const getUserScimV2UsersUserIdGetQueryFeatureSchema = z
@@ -30226,6 +34025,14 @@ export const getUserScimV2UsersUserIdGetStatus422Schema = HTTPValidationErrorSch
 export const getUserScimV2UsersUserIdGetResponseSchema = getUserScimV2UsersUserIdGetStatus200Schema;
 
 export const getUserScimV2UsersUserIdGetErrorSchema = getUserScimV2UsersUserIdGetStatus422Schema;
+
+export const getUserScimV2UsersUserIdGetPathSchema = z.object({
+	user_id: z.string(),
+});
+
+export const getUserScimV2UsersUserIdGetQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
 
 export const patchUserScimV2UsersUserIdPatchPathUserIdSchema = z.string();
 
@@ -30245,6 +34052,14 @@ export const patchUserScimV2UsersUserIdPatchErrorSchema =
 
 export const patchUserScimV2UsersUserIdPatchBodySchema = SCIMPatchOpSchema;
 
+export const patchUserScimV2UsersUserIdPatchPathSchema = z.object({
+	user_id: z.string(),
+});
+
+export const patchUserScimV2UsersUserIdPatchQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
+
 export const updateUserScimV2UsersUserIdPutPathUserIdSchema = z.string();
 
 export const updateUserScimV2UsersUserIdPutQueryFeatureSchema = z
@@ -30263,6 +34078,14 @@ export const updateUserScimV2UsersUserIdPutErrorSchema =
 
 export const updateUserScimV2UsersUserIdPutBodySchema = SCIMUserInputSchema;
 
+export const updateUserScimV2UsersUserIdPutPathSchema = z.object({
+	user_id: z.string(),
+});
+
+export const updateUserScimV2UsersUserIdPutQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
+
 export const listPlaceholdersScimV2PlaceholdersGetQueryFeatureSchema = z
 	.union([z.string(), z.null()])
 	.optional();
@@ -30276,6 +34099,10 @@ export const listPlaceholdersScimV2PlaceholdersGetResponseSchema =
 
 export const listPlaceholdersScimV2PlaceholdersGetErrorSchema =
 	listPlaceholdersScimV2PlaceholdersGetStatus422Schema;
+
+export const listPlaceholdersScimV2PlaceholdersGetQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
 
 export const mergePlaceholderScimV2PlaceholdersUserIdMergePostPathUserIdSchema = z.string();
 
@@ -30294,6 +34121,14 @@ export const mergePlaceholderScimV2PlaceholdersUserIdMergePostResponseSchema =
 
 export const mergePlaceholderScimV2PlaceholdersUserIdMergePostErrorSchema =
 	mergePlaceholderScimV2PlaceholdersUserIdMergePostStatus422Schema;
+
+export const mergePlaceholderScimV2PlaceholdersUserIdMergePostPathSchema = z.object({
+	user_id: z.string(),
+});
+
+export const mergePlaceholderScimV2PlaceholdersUserIdMergePostQuerySchema = z.object({
+	feature: z.union([z.string(), z.null()]).optional(),
+});
 
 export const deleteCloudzeroSettingsCloudzeroDeleteDeleteStatus200Schema =
 	cloudZeroInitResponseSchema.describe("Response model for CloudZero initialization");
@@ -30474,6 +34309,10 @@ export const listPromptsPromptsListGetResponseSchema = listPromptsPromptsListGet
 
 export const listPromptsPromptsListGetErrorSchema = listPromptsPromptsListGetStatus422Schema;
 
+export const listPromptsPromptsListGetQuerySchema = z.object({
+	environment: z.union([z.string(), z.null()]).optional(),
+});
+
 export const testPromptPromptsTestPostStatus200Schema = z.looseObject({});
 
 export const testPromptPromptsTestPostStatus422Schema = HTTPValidationErrorSchema;
@@ -30500,6 +34339,14 @@ export const deletePromptPromptsPromptIdDeleteResponseSchema =
 export const deletePromptPromptsPromptIdDeleteErrorSchema =
 	deletePromptPromptsPromptIdDeleteStatus422Schema;
 
+export const deletePromptPromptsPromptIdDeletePathSchema = z.object({
+	prompt_id: z.string(),
+});
+
+export const deletePromptPromptsPromptIdDeleteQuerySchema = z.object({
+	environment: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getPromptInfoPromptsPromptIdGetPathPromptIdSchema = z.string();
 
 export const getPromptInfoPromptsPromptIdGetQueryEnvironmentSchema = z
@@ -30515,6 +34362,14 @@ export const getPromptInfoPromptsPromptIdGetResponseSchema =
 
 export const getPromptInfoPromptsPromptIdGetErrorSchema =
 	getPromptInfoPromptsPromptIdGetStatus422Schema;
+
+export const getPromptInfoPromptsPromptIdGetPathSchema = z.object({
+	prompt_id: z.string(),
+});
+
+export const getPromptInfoPromptsPromptIdGetQuerySchema = z.object({
+	environment: z.union([z.string(), z.null()]).optional(),
+});
 
 export const patchPromptPromptsPromptIdPatchPathPromptIdSchema = z.string();
 
@@ -30534,6 +34389,14 @@ export const patchPromptPromptsPromptIdPatchErrorSchema =
 
 export const patchPromptPromptsPromptIdPatchBodySchema = patchPromptRequestSchema;
 
+export const patchPromptPromptsPromptIdPatchPathSchema = z.object({
+	prompt_id: z.string(),
+});
+
+export const patchPromptPromptsPromptIdPatchQuerySchema = z.object({
+	environment: z.union([z.string(), z.null()]).optional(),
+});
+
 export const updatePromptPromptsPromptIdPutPathPromptIdSchema = z.string();
 
 export const updatePromptPromptsPromptIdPutStatus200Schema = z.looseObject({});
@@ -30547,6 +34410,10 @@ export const updatePromptPromptsPromptIdPutErrorSchema =
 	updatePromptPromptsPromptIdPutStatus422Schema;
 
 export const updatePromptPromptsPromptIdPutBodySchema = promptSchema;
+
+export const updatePromptPromptsPromptIdPutPathSchema = z.object({
+	prompt_id: z.string(),
+});
 
 export const getPromptInfoPromptsPromptIdInfoGetPathPromptIdSchema = z.string();
 
@@ -30564,6 +34431,14 @@ export const getPromptInfoPromptsPromptIdInfoGetResponseSchema =
 export const getPromptInfoPromptsPromptIdInfoGetErrorSchema =
 	getPromptInfoPromptsPromptIdInfoGetStatus422Schema;
 
+export const getPromptInfoPromptsPromptIdInfoGetPathSchema = z.object({
+	prompt_id: z.string(),
+});
+
+export const getPromptInfoPromptsPromptIdInfoGetQuerySchema = z.object({
+	environment: z.union([z.string(), z.null()]).optional(),
+});
+
 export const getPromptVersionsPromptsPromptIdVersionsGetPathPromptIdSchema = z.string();
 
 export const getPromptVersionsPromptsPromptIdVersionsGetQueryEnvironmentSchema = z
@@ -30579,6 +34454,14 @@ export const getPromptVersionsPromptsPromptIdVersionsGetResponseSchema =
 
 export const getPromptVersionsPromptsPromptIdVersionsGetErrorSchema =
 	getPromptVersionsPromptsPromptIdVersionsGetStatus422Schema;
+
+export const getPromptVersionsPromptsPromptIdVersionsGetPathSchema = z.object({
+	prompt_id: z.string(),
+});
+
+export const getPromptVersionsPromptsPromptIdVersionsGetQuerySchema = z.object({
+	environment: z.union([z.string(), z.null()]).optional(),
+});
 
 export const convertPromptFileToJsonUtilsDotpromptJsonConverterPostStatus200Schema = z.looseObject(
 	{},
@@ -30621,6 +34504,10 @@ export const infoJwtKeyMappingJwtKeyMappingInfoGetResponseSchema =
 export const infoJwtKeyMappingJwtKeyMappingInfoGetErrorSchema =
 	infoJwtKeyMappingJwtKeyMappingInfoGetStatus422Schema;
 
+export const infoJwtKeyMappingJwtKeyMappingInfoGetQuerySchema = z.object({
+	id: z.string(),
+});
+
 export const listJwtKeyMappingsJwtKeyMappingListGetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -30645,6 +34532,11 @@ export const listJwtKeyMappingsJwtKeyMappingListGetResponseSchema =
 
 export const listJwtKeyMappingsJwtKeyMappingListGetErrorSchema =
 	listJwtKeyMappingsJwtKeyMappingListGetStatus422Schema;
+
+export const listJwtKeyMappingsJwtKeyMappingListGetQuerySchema = z.object({
+	page: z.int().min(1).optional().default(1).describe("Page number"),
+	size: z.int().min(1).max(100).optional().default(50).describe("Page size"),
+});
 
 export const createJwtKeyMappingJwtKeyMappingNewPostStatus200Schema = JWTKeyMappingResponseSchema;
 
@@ -30734,6 +34626,10 @@ export const deleteAccessGroupV1AccessGroupAccessGroupIdDeleteResponseSchema =
 export const deleteAccessGroupV1AccessGroupAccessGroupIdDeleteErrorSchema =
 	deleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus422Schema;
 
+export const deleteAccessGroupV1AccessGroupAccessGroupIdDeletePathSchema = z.object({
+	access_group_id: z.string(),
+});
+
 export const getAccessGroupV1AccessGroupAccessGroupIdGetPathAccessGroupIdSchema = z.string();
 
 export const getAccessGroupV1AccessGroupAccessGroupIdGetStatus200Schema = accessGroupResponseSchema;
@@ -30745,6 +34641,10 @@ export const getAccessGroupV1AccessGroupAccessGroupIdGetResponseSchema =
 
 export const getAccessGroupV1AccessGroupAccessGroupIdGetErrorSchema =
 	getAccessGroupV1AccessGroupAccessGroupIdGetStatus422Schema;
+
+export const getAccessGroupV1AccessGroupAccessGroupIdGetPathSchema = z.object({
+	access_group_id: z.string(),
+});
 
 export const updateAccessGroupV1AccessGroupAccessGroupIdPutPathAccessGroupIdSchema = z.string();
 
@@ -30762,6 +34662,10 @@ export const updateAccessGroupV1AccessGroupAccessGroupIdPutErrorSchema =
 
 export const updateAccessGroupV1AccessGroupAccessGroupIdPutBodySchema =
 	accessGroupUpdateRequestSchema;
+
+export const updateAccessGroupV1AccessGroupAccessGroupIdPutPathSchema = z.object({
+	access_group_id: z.string(),
+});
 
 export const listAccessGroupsV1UnifiedAccessGroupGetStatus200Schema =
 	z.array(accessGroupResponseSchema);
@@ -30795,6 +34699,10 @@ export const deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteResponseSch
 export const deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteErrorSchema =
 	deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus422Schema;
 
+export const deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePathSchema = z.object({
+	access_group_id: z.string(),
+});
+
 export const getAccessGroupV1UnifiedAccessGroupAccessGroupIdGetPathAccessGroupIdSchema = z.string();
 
 export const getAccessGroupV1UnifiedAccessGroupAccessGroupIdGetStatus200Schema =
@@ -30808,6 +34716,10 @@ export const getAccessGroupV1UnifiedAccessGroupAccessGroupIdGetResponseSchema =
 
 export const getAccessGroupV1UnifiedAccessGroupAccessGroupIdGetErrorSchema =
 	getAccessGroupV1UnifiedAccessGroupAccessGroupIdGetStatus422Schema;
+
+export const getAccessGroupV1UnifiedAccessGroupAccessGroupIdGetPathSchema = z.object({
+	access_group_id: z.string(),
+});
 
 export const updateAccessGroupV1UnifiedAccessGroupAccessGroupIdPutPathAccessGroupIdSchema =
 	z.string();
@@ -30826,3 +34738,7 @@ export const updateAccessGroupV1UnifiedAccessGroupAccessGroupIdPutErrorSchema =
 
 export const updateAccessGroupV1UnifiedAccessGroupAccessGroupIdPutBodySchema =
 	accessGroupUpdateRequestSchema;
+
+export const updateAccessGroupV1UnifiedAccessGroupAccessGroupIdPutPathSchema = z.object({
+	access_group_id: z.string(),
+});
