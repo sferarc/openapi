@@ -21,6 +21,9 @@ export const clientGenerator = defineGenerator<PluginClient>({
 					typeSchemas.request?.name,
 					typeSchemas.response.name,
 					...typeSchemas.errors.map((error) => error.name),
+					typeSchemas.path?.name,
+					typeSchemas.query?.name,
+					typeSchemas.headers?.name,
 				].filter((name): name is string => Boolean(name)),
 			),
 		);

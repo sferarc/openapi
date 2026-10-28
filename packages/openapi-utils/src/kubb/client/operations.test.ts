@@ -54,6 +54,17 @@ describe("generated operations", () => {
 		expect(source).not.toContain("pathParams.team-id");
 	});
 
+	it("types parameters with the plugin-ts types, refs and unions included", () => {
+		expect(source).toContain("pathParams: GetMemberPath;");
+		expect(source).toContain("queryParams?: Partial<GetMemberQuery>;");
+		expect(source).toContain("headers?: Partial<GetMemberHeaders>;");
+		expect(source).not.toMatch(/: unknown\b/);
+
+		const types = readFileSync(join(root, "gen/types.ts"), "utf8");
+		expect(types).toContain("cursor?: (Cursor | null) | undefined;");
+		expect(types).toContain("status?: (GetMemberStatusKey | number) | undefined;");
+	});
+
 	it("encodes path parameters, keeps a falsy value and forwards query and header params", async () => {
 		const fetchImpl = fakeFetch();
 		await operations.getMember({
