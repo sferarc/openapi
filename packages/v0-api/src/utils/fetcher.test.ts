@@ -135,6 +135,12 @@ describe("fetcher", () => {
 		it("encodes reserved characters and spaces", async () => {
 			expect(await searchOf({ q: "a&b c" })).toBe("?q=a%26b+c");
 		});
+
+		it("sends an object as deepObject keys", async () => {
+			expect(await searchOf({ metadata: { env: "prod", team: "a b", skip: undefined } })).toBe(
+				"?metadata%5Benv%5D=prod&metadata%5Bteam%5D=a+b",
+			);
+		});
 	});
 });
 
