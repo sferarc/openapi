@@ -1838,6 +1838,46 @@ export const chatsFindErrorSchema = z.union([
 	chatsFindStatus500Schema,
 ]);
 
+export const chatsFindQuerySchema = z.object({
+	limit: z
+		.number()
+		.max(60)
+		.optional()
+		.default(60)
+		.describe(
+			"Specifies the maximum number of chat records to return in a single response. Useful for paginating results when there are many chats.",
+		),
+	offset: z
+		.number()
+		.optional()
+		.default(0)
+		.describe(
+			"Determines the starting point for pagination. Used in conjunction with limit to retrieve a specific page of chat results.",
+		),
+	isFavorite: z
+		.enum(["true", "false"])
+		.optional()
+		.describe(
+			'Filters chats by their "favorite" status. Accepts `"true"` or `"false"` (as strings, not booleans).\n\n- `"true"`: returns only chats marked as favorites.\n- `"false"`: returns only non-favorite chats.',
+		),
+	vercelProjectId: z
+		.string()
+		.optional()
+		.describe(
+			"Filters chats by the linked Vercel project ID. Only returns chats associated with the specified Vercel project.",
+		),
+	branch: z
+		.string()
+		.optional()
+		.describe(
+			"Filters chats by the Git branch name. Only returns chats that have an active Git connection with the specified branch as the head.",
+		),
+	metadata: z
+		.record(z.string().min(1).max(40), z.string().max(500))
+		.optional()
+		.describe("Filters chats by metadata. Returns chats matching every supplied key-value pair."),
+});
+
 export const chatsInitStatus200Schema = chatDetailSchema.describe(
 	"Detailed representation of a chat, including its messages, files, versions, and model configuration.",
 );
@@ -2054,6 +2094,14 @@ export const chatsDeleteErrorSchema = z.union([
 	chatsDeleteStatus500Schema,
 ]);
 
+export const chatsDeletePathSchema = z.object({
+	chatId: z
+		.string()
+		.describe(
+			"The unique identifier of the chat to delete. This must be passed as a path parameter in the URL.",
+		),
+});
+
 export const chatsGetByIdPathChatIdSchema = z
 	.string()
 	.describe("The unique identifier of the chat to retrieve. Must be provided as a path parameter.");
@@ -2090,6 +2138,14 @@ export const chatsGetByIdErrorSchema = z.union([
 	chatsGetByIdStatus429Schema,
 	chatsGetByIdStatus500Schema,
 ]);
+
+export const chatsGetByIdPathSchema = z.object({
+	chatId: z
+		.string()
+		.describe(
+			"The unique identifier of the chat to retrieve. Must be provided as a path parameter.",
+		),
+});
 
 export const chatsUpdatePathChatIdSchema = z
 	.string()
@@ -2148,6 +2204,12 @@ export const chatsUpdateBodySchema = z.strictObject({
 		),
 });
 
+export const chatsUpdatePathSchema = z.object({
+	chatId: z
+		.string()
+		.describe("The unique identifier of the chat to update. Provided as a path parameter."),
+});
+
 export const chatsFavoritePathChatIdSchema = z
 	.string()
 	.describe("The unique identifier of the chat to update. Provided as a path parameter.");
@@ -2193,6 +2255,12 @@ export const chatsFavoriteBodySchema = z.strictObject({
 		.describe(
 			'Specifies whether the chat should be marked as a favorite.\n\n- `"true"`: mark as favorite\n- `"false"`: remove from favorites',
 		),
+});
+
+export const chatsFavoritePathSchema = z.object({
+	chatId: z
+		.string()
+		.describe("The unique identifier of the chat to update. Provided as a path parameter."),
 });
 
 export const chatsForkPathChatIdSchema = z
@@ -2249,6 +2317,12 @@ export const chatsForkBodySchema = z.strictObject({
 		),
 });
 
+export const chatsForkPathSchema = z.object({
+	chatId: z
+		.string()
+		.describe("The unique identifier of the chat to fork. Provided as a path parameter."),
+});
+
 export const projectsGetByChatIdPathChatIdSchema = z
 	.string()
 	.describe("The ID of the chat to retrieve the associated project for.");
@@ -2285,6 +2359,10 @@ export const projectsGetByChatIdErrorSchema = z.union([
 	projectsGetByChatIdStatus429Schema,
 	projectsGetByChatIdStatus500Schema,
 ]);
+
+export const projectsGetByChatIdPathSchema = z.object({
+	chatId: z.string().describe("The ID of the chat to retrieve the associated project for."),
+});
 
 export const chatsFindMessagesPathChatIdSchema = z
 	.string()
@@ -2345,6 +2423,27 @@ export const chatsFindMessagesErrorSchema = z.union([
 	chatsFindMessagesStatus429Schema,
 	chatsFindMessagesStatus500Schema,
 ]);
+
+export const chatsFindMessagesPathSchema = z.object({
+	chatId: z
+		.string()
+		.describe(
+			"The unique identifier of the chat to retrieve messages for. Provided as a path parameter.",
+		),
+});
+
+export const chatsFindMessagesQuerySchema = z.object({
+	limit: z
+		.number()
+		.min(1)
+		.max(150)
+		.optional()
+		.default(20)
+		.describe(
+			"Specifies the maximum number of message records to return in a single response. Useful for paginating results when there are many messages.",
+		),
+	cursor: z.string().optional().describe("Base64 encoded cursor containing pagination data"),
+});
 
 export const chatsSendMessagePathChatIdSchema = z
 	.string()
@@ -2488,6 +2587,14 @@ export const chatsSendMessageBodySchema = z.strictObject({
 		),
 });
 
+export const chatsSendMessagePathSchema = z.object({
+	chatId: z
+		.string()
+		.describe(
+			"The unique identifier of the chat to send the message to. Provided as a path parameter.",
+		),
+});
+
 export const chatsGetMessagePathChatIdSchema = z
 	.string()
 	.describe(
@@ -2530,6 +2637,17 @@ export const chatsGetMessageErrorSchema = z.union([
 	chatsGetMessageStatus429Schema,
 	chatsGetMessageStatus500Schema,
 ]);
+
+export const chatsGetMessagePathSchema = z.object({
+	chatId: z
+		.string()
+		.describe(
+			"The unique identifier of the chat containing the message. Provided as a path parameter.",
+		),
+	messageId: z
+		.string()
+		.describe("The unique identifier of the message to retrieve. Provided as a path parameter."),
+});
 
 export const chatsFindVersionsPathChatIdSchema = z
 	.string()
@@ -2594,6 +2712,27 @@ export const chatsFindVersionsErrorSchema = z.union([
 	chatsFindVersionsStatus500Schema,
 ]);
 
+export const chatsFindVersionsPathSchema = z.object({
+	chatId: z
+		.string()
+		.describe(
+			"The unique identifier of the chat to retrieve versions for. Provided as a path parameter.",
+		),
+});
+
+export const chatsFindVersionsQuerySchema = z.object({
+	limit: z
+		.number()
+		.min(1)
+		.max(150)
+		.optional()
+		.default(20)
+		.describe(
+			"Specifies the maximum number of version records to return in a single response. Useful for paginating results when there are many versions.",
+		),
+	cursor: z.string().optional().describe("Base64 encoded cursor containing pagination data"),
+});
+
 export const chatsGetVersionPathChatIdSchema = z
 	.string()
 	.describe(
@@ -2643,6 +2782,26 @@ export const chatsGetVersionErrorSchema = z.union([
 	chatsGetVersionStatus429Schema,
 	chatsGetVersionStatus500Schema,
 ]);
+
+export const chatsGetVersionPathSchema = z.object({
+	chatId: z
+		.string()
+		.describe(
+			"The unique identifier of the chat containing the version. Provided as a path parameter.",
+		),
+	versionId: z
+		.string()
+		.describe("The unique identifier of the version to retrieve. Provided as a path parameter."),
+});
+
+export const chatsGetVersionQuerySchema = z.object({
+	includeDefaultFiles: z
+		.enum(["true", "false"])
+		.optional()
+		.describe(
+			"When true, includes all default files (package.json, configuration files, etc.) that would be part of a ZIP download. When false or omitted, returns only the generated source files.",
+		),
+});
 
 export const chatsUpdateVersionPathChatIdSchema = z
 	.string()
@@ -2708,6 +2867,19 @@ export const chatsUpdateVersionBodySchema = z.strictObject({
 		.describe("Array of files to update with their new content"),
 });
 
+export const chatsUpdateVersionPathSchema = z.object({
+	chatId: z
+		.string()
+		.describe(
+			"The unique identifier of the chat containing the version to update. Provided as a path parameter.",
+		),
+	versionId: z
+		.string()
+		.describe(
+			"The unique identifier of the version (block) to update. Provided as a path parameter.",
+		),
+});
+
 export const chatsDownloadVersionPathChatIdSchema = z
 	.string()
 	.describe(
@@ -2764,6 +2936,33 @@ export const chatsDownloadVersionErrorSchema = z.union([
 	chatsDownloadVersionStatus500Schema,
 ]);
 
+export const chatsDownloadVersionPathSchema = z.object({
+	chatId: z
+		.string()
+		.describe(
+			"The unique identifier of the chat containing the version. Provided as a path parameter.",
+		),
+	versionId: z
+		.string()
+		.describe("The unique identifier of the version to download. Provided as a path parameter."),
+});
+
+export const chatsDownloadVersionQuerySchema = z.object({
+	format: z
+		.enum(["zip", "tarball"])
+		.optional()
+		.default("zip")
+		.describe(
+			'The archive format for the download. Choose "zip" for broad compatibility or "tarball" for Unix/Linux systems.',
+		),
+	includeDefaultFiles: z
+		.enum(["true", "false"])
+		.optional()
+		.describe(
+			"When true, includes all default files (package.json, configuration files, etc.) that would be part of a complete deployment. When false or omitted, returns only the generated source files.",
+		),
+});
+
 export const chatsDeleteVersionFilesPathChatIdSchema = z
 	.string()
 	.describe("The unique identifier of the chat containing the version to delete files from.");
@@ -2811,6 +3010,15 @@ export const chatsDeleteVersionFilesBodySchema = z.strictObject({
 		.describe('Array of file paths to delete (e.g., ["components/test.tsx", "lib/utils.ts"])'),
 });
 
+export const chatsDeleteVersionFilesPathSchema = z.object({
+	chatId: z
+		.string()
+		.describe("The unique identifier of the chat containing the version to delete files from."),
+	versionId: z
+		.string()
+		.describe("The unique identifier of the version (block) to delete files from."),
+});
+
 export const chatsResumePathChatIdSchema = z
 	.string()
 	.describe(
@@ -2851,6 +3059,17 @@ export const chatsResumeErrorSchema = z.union([
 	chatsResumeStatus429Schema,
 	chatsResumeStatus500Schema,
 ]);
+
+export const chatsResumePathSchema = z.object({
+	chatId: z
+		.string()
+		.describe(
+			"The unique identifier of the chat containing the message to resume. Provided as a path parameter.",
+		),
+	messageId: z
+		.string()
+		.describe("The identifier of the specific message to resume. Provided as a path parameter."),
+});
 
 export const chatsStopPathChatIdSchema = z
 	.string()
@@ -2894,6 +3113,17 @@ export const chatsStopErrorSchema = z.union([
 	chatsStopStatus429Schema,
 	chatsStopStatus500Schema,
 ]);
+
+export const chatsStopPathSchema = z.object({
+	chatId: z
+		.string()
+		.describe(
+			"The unique identifier of the chat containing the message to stop. Provided as a path parameter.",
+		),
+	messageId: z
+		.string()
+		.describe("The identifier of the specific message to stop. Provided as a path parameter."),
+});
 
 export const chatsResolveTaskPathChatIdSchema = z
 	.string()
@@ -3109,6 +3339,14 @@ export const chatsResolveTaskBodySchema = z.strictObject({
 		.describe("Overrides for the model behavior."),
 });
 
+export const chatsResolveTaskPathSchema = z.object({
+	chatId: z
+		.string()
+		.describe(
+			"The unique identifier of the chat containing the pending task. Provided as a path parameter.",
+		),
+});
+
 export const deploymentsFindQueryProjectIdSchema = z
 	.string()
 	.optional()
@@ -3155,6 +3393,12 @@ export const deploymentsFindErrorSchema = z.union([
 	deploymentsFindStatus429Schema,
 	deploymentsFindStatus500Schema,
 ]);
+
+export const deploymentsFindQuerySchema = z.object({
+	projectId: z.string().optional().describe("The ID of the project to find deployments for"),
+	chatId: z.string().describe("The ID of the chat to find deployments for"),
+	versionId: z.string().describe("The ID of the version to find deployments for"),
+});
 
 export const deploymentsCreateStatus200Schema = deploymentDetailSchema;
 
@@ -3228,6 +3472,10 @@ export const deploymentsGetByIdErrorSchema = z.union([
 	deploymentsGetByIdStatus500Schema,
 ]);
 
+export const deploymentsGetByIdPathSchema = z.object({
+	deploymentId: z.string().describe('Path parameter "deploymentId"'),
+});
+
 export const deploymentsDeletePathDeploymentIdSchema = z
 	.string()
 	.describe('Path parameter "deploymentId"');
@@ -3266,6 +3514,10 @@ export const deploymentsDeleteErrorSchema = z.union([
 	deploymentsDeleteStatus429Schema,
 	deploymentsDeleteStatus500Schema,
 ]);
+
+export const deploymentsDeletePathSchema = z.object({
+	deploymentId: z.string().describe('Path parameter "deploymentId"'),
+});
 
 export const deploymentsFindLogsPathDeploymentIdSchema = z
 	.string()
@@ -3331,6 +3583,23 @@ export const deploymentsFindLogsErrorSchema = z.union([
 	deploymentsFindLogsStatus500Schema,
 ]);
 
+export const deploymentsFindLogsPathSchema = z.object({
+	deploymentId: z
+		.string()
+		.describe(
+			"The unique identifier of the deployment to retrieve logs for. Provided as a path parameter.",
+		),
+});
+
+export const deploymentsFindLogsQuerySchema = z.object({
+	since: z
+		.number()
+		.optional()
+		.describe(
+			"A UNIX timestamp (in seconds) used to filter logs. Returns only log entries generated after the specified time.",
+		),
+});
+
 export const deploymentsFindErrorsPathDeploymentIdSchema = z
 	.string()
 	.describe(
@@ -3371,6 +3640,14 @@ export const deploymentsFindErrorsErrorSchema = z.union([
 	deploymentsFindErrorsStatus429Schema,
 	deploymentsFindErrorsStatus500Schema,
 ]);
+
+export const deploymentsFindErrorsPathSchema = z.object({
+	deploymentId: z
+		.string()
+		.describe(
+			"The unique identifier of the deployment to inspect for errors. Provided as a path parameter.",
+		),
+});
 
 export const hooksFindStatus200Schema = z.strictObject({
 	object: z.enum(["list"]),
@@ -3495,6 +3772,10 @@ export const hooksGetByIdErrorSchema = z.union([
 	hooksGetByIdStatus500Schema,
 ]);
 
+export const hooksGetByIdPathSchema = z.object({
+	hookId: z.string().describe("The unique identifier of the hook to retrieve."),
+});
+
 export const hooksUpdatePathHookIdSchema = z
 	.string()
 	.describe("The ID of the webhook to update. Provided as a path parameter.");
@@ -3551,6 +3832,10 @@ export const hooksUpdateBodySchema = z.strictObject({
 	url: z.url().optional().describe("A new URL to send webhook payloads to."),
 });
 
+export const hooksUpdatePathSchema = z.object({
+	hookId: z.string().describe("The ID of the webhook to update. Provided as a path parameter."),
+});
+
 export const hooksDeletePathHookIdSchema = z
 	.string()
 	.describe("The ID of the webhook to delete. Provided as a path parameter.");
@@ -3589,6 +3874,10 @@ export const hooksDeleteErrorSchema = z.union([
 	hooksDeleteStatus429Schema,
 	hooksDeleteStatus500Schema,
 ]);
+
+export const hooksDeletePathSchema = z.object({
+	hookId: z.string().describe("The ID of the webhook to delete. Provided as a path parameter."),
+});
 
 export const integrationsVercelProjectsFindStatus200Schema = z.strictObject({
 	object: z.enum(["list"]),
@@ -3808,6 +4097,10 @@ export const projectsGetByIdErrorSchema = z.union([
 	projectsGetByIdStatus500Schema,
 ]);
 
+export const projectsGetByIdPathSchema = z.object({
+	projectId: z.string().describe("The unique identifier of the project to retrieve."),
+});
+
 export const projectsUpdatePathProjectIdSchema = z
 	.string()
 	.describe("The unique identifier of the project to update. Provided as a path parameter.");
@@ -3870,6 +4163,12 @@ export const projectsUpdateBodySchema = z.strictObject({
 		),
 });
 
+export const projectsUpdatePathSchema = z.object({
+	projectId: z
+		.string()
+		.describe("The unique identifier of the project to update. Provided as a path parameter."),
+});
+
 export const projectsDeletePathProjectIdSchema = z
 	.string()
 	.describe(
@@ -3919,6 +4218,24 @@ export const projectsDeleteErrorSchema = z.union([
 	projectsDeleteStatus500Schema,
 ]);
 
+export const projectsDeletePathSchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"The unique identifier of the project to delete. This must be passed as a path parameter in the URL.",
+		),
+});
+
+export const projectsDeleteQuerySchema = z.object({
+	deleteAllChats: z
+		.enum(["true", "false"])
+		.optional()
+		.default("false")
+		.describe(
+			"If true, deletes all the chats associated with the given project ID. Deleting is permanent. Defaults to false.",
+		),
+});
+
 export const projectsAssignPathProjectIdSchema = z
 	.string()
 	.describe("The ID of the project to assign.");
@@ -3960,6 +4277,10 @@ export const projectsAssignErrorSchema = z.union([
 
 export const projectsAssignBodySchema = z.strictObject({
 	chatId: z.string().describe("The ID of the chat to assign the project to."),
+});
+
+export const projectsAssignPathSchema = z.object({
+	projectId: z.string().describe("The ID of the project to assign."),
 });
 
 export const projectsFindEnvVarsPathProjectIdSchema = z
@@ -4006,6 +4327,21 @@ export const projectsFindEnvVarsErrorSchema = z.union([
 	projectsFindEnvVarsStatus429Schema,
 	projectsFindEnvVarsStatus500Schema,
 ]);
+
+export const projectsFindEnvVarsPathSchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"The unique identifier of the project whose environment variables should be retrieved.",
+		),
+});
+
+export const projectsFindEnvVarsQuerySchema = z.object({
+	decrypted: z
+		.enum(["true", "false"])
+		.optional()
+		.describe("Whether to return decrypted values. Defaults to false (encrypted)."),
+});
 
 export const projectsCreateEnvVarsPathProjectIdSchema = z
 	.string()
@@ -4067,6 +4403,21 @@ export const projectsCreateEnvVarsBodySchema = z.strictObject({
 		),
 });
 
+export const projectsCreateEnvVarsPathSchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"The unique identifier of the project where environment variables should be created.",
+		),
+});
+
+export const projectsCreateEnvVarsQuerySchema = z.object({
+	decrypted: z
+		.enum(["true", "false"])
+		.optional()
+		.describe("Whether to return decrypted values. Defaults to false (encrypted)."),
+});
+
 export const projectsUpdateEnvVarsPathProjectIdSchema = z
 	.string()
 	.describe("The unique identifier of the project whose environment variables should be updated.");
@@ -4121,6 +4472,21 @@ export const projectsUpdateEnvVarsBodySchema = z.strictObject({
 		.describe("An array of environment variables to update with id and value fields."),
 });
 
+export const projectsUpdateEnvVarsPathSchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"The unique identifier of the project whose environment variables should be updated.",
+		),
+});
+
+export const projectsUpdateEnvVarsQuerySchema = z.object({
+	decrypted: z
+		.enum(["true", "false"])
+		.optional()
+		.describe("Whether to return decrypted values. Defaults to false (encrypted)."),
+});
+
 export const projectsDeleteEnvVarsPathProjectIdSchema = z
 	.string()
 	.describe("The unique identifier of the project whose environment variables should be deleted.");
@@ -4171,6 +4537,14 @@ export const projectsDeleteEnvVarsBodySchema = z.strictObject({
 		.describe("An array of environment variable IDs to delete."),
 });
 
+export const projectsDeleteEnvVarsPathSchema = z.object({
+	projectId: z
+		.string()
+		.describe(
+			"The unique identifier of the project whose environment variables should be deleted.",
+		),
+});
+
 export const projectsGetEnvVarPathProjectIdSchema = z
 	.string()
 	.describe("The unique identifier of the project that owns the environment variable.");
@@ -4219,6 +4593,22 @@ export const projectsGetEnvVarErrorSchema = z.union([
 	projectsGetEnvVarStatus429Schema,
 	projectsGetEnvVarStatus500Schema,
 ]);
+
+export const projectsGetEnvVarPathSchema = z.object({
+	projectId: z
+		.string()
+		.describe("The unique identifier of the project that owns the environment variable."),
+	environmentVariableId: z
+		.string()
+		.describe("The unique identifier of the environment variable to retrieve."),
+});
+
+export const projectsGetEnvVarQuerySchema = z.object({
+	decrypted: z
+		.enum(["true", "false"])
+		.optional()
+		.describe("Whether to return decrypted values. Defaults to false (encrypted)."),
+});
 
 export const rateLimitsFindQueryScopeSchema = z
 	.string()
@@ -4274,6 +4664,15 @@ export const rateLimitsFindErrorSchema = z.union([
 	rateLimitsFindStatus429Schema,
 	rateLimitsFindStatus500Schema,
 ]);
+
+export const rateLimitsFindQuerySchema = z.object({
+	scope: z
+		.string()
+		.optional()
+		.describe(
+			"The context or namespace to check rate limits for (e.g., a project slug or feature area).",
+		),
+});
 
 export const userGetStatus200Schema = userSummarySchemaSchema.describe(
 	"Details of the authenticated user, including profile and contact information.",
@@ -4381,6 +4780,13 @@ export const userGetBillingErrorSchema = z.union([
 	userGetBillingStatus429Schema,
 	userGetBillingStatus500Schema,
 ]);
+
+export const userGetBillingQuerySchema = z.object({
+	scope: z
+		.string()
+		.optional()
+		.describe("Filters billing data by a specific scope, such as a project ID or slug."),
+});
 
 export const userGetPlanStatus200Schema = z.strictObject({
 	object: z.enum(["plan"]),
@@ -4498,6 +4904,13 @@ export const chatsRestoreErrorSchema = z.union([
 	chatsRestoreStatus429Schema,
 	chatsRestoreStatus500Schema,
 ]);
+
+export const chatsRestorePathSchema = z.object({
+	chatId: z
+		.string()
+		.describe("The unique identifier of the chat containing the version to restore."),
+	versionId: z.string().describe("The unique identifier of the version to restore."),
+});
 
 export const reportsGetUsageQueryStartDateSchema = z.iso
 	.datetime()
@@ -4620,6 +5033,24 @@ export const reportsGetUsageErrorSchema = z.union([
 	reportsGetUsageStatus500Schema,
 ]);
 
+export const reportsGetUsageQuerySchema = z.object({
+	startDate: z.iso.datetime().optional().describe('Query parameter "startDate"'),
+	endDate: z.iso.datetime().optional().describe('Query parameter "endDate"'),
+	chatId: z.string().optional().describe('Query parameter "chatId"'),
+	messageId: z.string().optional().describe('Query parameter "messageId"'),
+	userId: z.string().optional().describe('Query parameter "userId"'),
+	limit: z
+		.number()
+		.min(1)
+		.max(150)
+		.optional()
+		.default(20)
+		.describe(
+			"Bounds the raw billing transactions scanned per ledger group and page. A page can contain more events than this value (large teams are scanned in parallel ledger groups), and a filtered page (chatId, userId, or messageId) can contain fewer or zero events while more data remains. Events are sorted newest-first within a page but not across pages on large teams. Always paginate with `pagination.hasMore` and `pagination.nextCursor` rather than stopping on an empty page.",
+		),
+	cursor: z.string().optional().describe("Base64 encoded cursor containing pagination data"),
+});
+
 export const reportsGetAIUsageQueryStartSchema = z.iso
 	.datetime()
 	.optional()
@@ -4701,6 +5132,22 @@ export const reportsGetAIUsageErrorSchema = z.union([
 	reportsGetAIUsageStatus429Schema,
 	reportsGetAIUsageStatus500Schema,
 ]);
+
+export const reportsGetAIUsageQuerySchema = z.object({
+	start: z.iso.datetime().optional().describe("Inclusive start datetime filter."),
+	end: z.iso.datetime().optional().describe("Exclusive end datetime filter."),
+	cursor: z
+		.string()
+		.optional()
+		.describe("Opaque cursor returned by a previous request for forward pagination."),
+	limit: z
+		.int()
+		.min(1)
+		.max(5000)
+		.optional()
+		.default(1000)
+		.describe("Maximum number of rows to return."),
+});
 
 export const reportsGetUserActivityQueryStartDateSchema = z.iso
 	.datetime()
@@ -4785,6 +5232,19 @@ export const reportsGetUserActivityErrorSchema = z.union([
 	reportsGetUserActivityStatus429Schema,
 	reportsGetUserActivityStatus500Schema,
 ]);
+
+export const reportsGetUserActivityQuerySchema = z.object({
+	startDate: z.iso
+		.datetime()
+		.optional()
+		.describe("Inclusive ISO timestamp lower bound for activity."),
+	endDate: z.iso
+		.datetime()
+		.optional()
+		.describe(
+			"Exclusive ISO timestamp upper bound for activity. Pass the end of the last day (e.g. 23:59:59.999) to include it.",
+		),
+});
 
 export const mcpServersFindStatus200Schema = z
 	.strictObject({
@@ -5043,6 +5503,10 @@ export const mcpServersGetByIdErrorSchema = z.union([
 	mcpServersGetByIdStatus500Schema,
 ]);
 
+export const mcpServersGetByIdPathSchema = z.object({
+	mcpServerId: z.string().describe("The ID of the MCP server to retrieve."),
+});
+
 export const mcpServersUpdatePathMcpServerIdSchema = z
 	.string()
 	.describe("The ID of the MCP server to update.");
@@ -5176,6 +5640,10 @@ export const mcpServersUpdateBodySchema = z.strictObject({
 	scope: z.enum(["team", "user"]).optional().describe("The scope of the MCP server."),
 });
 
+export const mcpServersUpdatePathSchema = z.object({
+	mcpServerId: z.string().describe("The ID of the MCP server to update."),
+});
+
 export const mcpServersDeletePathMcpServerIdSchema = z
 	.string()
 	.describe("The ID of the MCP server to delete.");
@@ -5214,6 +5682,10 @@ export const mcpServersDeleteErrorSchema = z.union([
 	mcpServersDeleteStatus429Schema,
 	mcpServersDeleteStatus500Schema,
 ]);
+
+export const mcpServersDeletePathSchema = z.object({
+	mcpServerId: z.string().describe("The ID of the MCP server to delete."),
+});
 
 export const mcpServersCreateOAuthAuthorizationUrlPathMcpServerIdSchema = z
 	.string()
@@ -5263,4 +5735,8 @@ export const mcpServersCreateOAuthAuthorizationUrlBodySchema = z.strictObject({
 		.describe(
 			"An absolute URL in your application where v0 redirects after OAuth completes. HTTPS is required in production.",
 		),
+});
+
+export const mcpServersCreateOAuthAuthorizationUrlPathSchema = z.object({
+	mcpServerId: z.string().describe("The ID of the OAuth MCP server to authorize."),
 });
