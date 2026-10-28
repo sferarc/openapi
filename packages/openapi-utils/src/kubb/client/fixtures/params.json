@@ -124,6 +124,33 @@
 				}
 			}
 		},
+		"/orgs/{org}/scim/Users": {
+			"post": {
+				"operationId": "createScimUser",
+				"tags": ["members"],
+				"parameters": [
+					{ "name": "org", "in": "path", "required": true, "schema": { "type": "string" } }
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/scim+json": {
+							"schema": {
+								"type": "object",
+								"required": ["userName"],
+								"properties": {
+									"userName": { "type": "string" },
+									"active": { "type": "boolean" }
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": { "description": "Created" }
+				}
+			}
+		},
 		"/health": {
 			"get": {
 				"operationId": "getHealth",
