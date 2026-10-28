@@ -273908,6 +273908,47 @@ export type ArtifactsReposTreeGetStatus404 = {
   success: false;
 };
 
+export type ArtifactsReposTreeGetStatus422 = {
+  errors: {
+    /**
+     * @minLength -9007199254740991
+     * @maxLength 9007199254740991
+     * @type integer
+     */
+    code: number;
+    /**
+     * @description
+     * Format: `uri`
+     * @type string | undefined
+     */
+    documentation_url?: string | undefined;
+    message: string;
+    source?: {
+      pointer?: string | undefined;
+    } | undefined;
+  }[];
+  messages: {
+    /**
+     * @minLength -9007199254740991
+     * @maxLength 9007199254740991
+     * @type integer
+     */
+    code: number;
+    /**
+     * @description
+     * Format: `uri`
+     * @type string | undefined
+     */
+    documentation_url?: string | undefined;
+    message: string;
+    source?: {
+      pointer?: string | undefined;
+    } | undefined;
+  }[];
+  result: object | null;
+  success: false;
+};
+
 export type ArtifactsReposTreeGetStatus500 = {
   errors: {
     /**
@@ -273962,6 +274003,7 @@ export type ArtifactsReposTreeGetResponses = {
   '401': ArtifactsReposTreeGetStatus401;
   '403': ArtifactsReposTreeGetStatus403;
   '404': ArtifactsReposTreeGetStatus404;
+  '422': ArtifactsReposTreeGetStatus422;
   '500': ArtifactsReposTreeGetStatus500;
 };
 
