@@ -117297,10 +117297,7 @@ export type WafProductApiBundleCustomTopic = {
     */
     label: string;
     /**
-     * @description Description of the topic category. Must contain only printable ASCII characters.
-     * @minLength 2
-     * @maxLength 50
-     * @pattern ^[ -~]+$
+     * @description Description of the topic category. Must contain 2–50 UTF-8 bytes. Text in any language is supported, including spaces, numbers, punctuation, and symbols. Tabs, line breaks, invalid text, and invisible formatting characters are not allowed.
      * @example credit card numbers
      * @type string
     */
@@ -273975,8 +273972,10 @@ export type PostAccountsAccountIdBrandProtectionLogosStatus429 = BrandProtection
 
 export type PostAccountsAccountIdBrandProtectionLogosStatus500 = BrandProtectionApiError;
 
+export type PostAccountsAccountIdBrandProtectionLogosBody = BrandProtectionApiImageFile;
+
 export type PostAccountsAccountIdBrandProtectionLogosOptions = {
-    body?: never | undefined;
+    body: PostAccountsAccountIdBrandProtectionLogosBody;
     path: PostAccountsAccountIdBrandProtectionLogosPath;
     query?: PostAccountsAccountIdBrandProtectionLogosQuery | undefined;
     headers?: never | undefined;
