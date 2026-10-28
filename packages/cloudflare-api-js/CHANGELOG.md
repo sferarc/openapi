@@ -1,5 +1,11 @@
 # cloudflare-api-js
 
+## 2.1.2
+
+### Patch Changes
+
+- c80b578: Send an object query parameter as one key per property (`start=2021-04-01&end=2021-04-30`), the spec's default form style, instead of `start_end_params=[object Object]`, so the date range on `passiveDnsByIpGetPassiveDnsByIp` reaches the API.
+
 ## 2.1.1
 
 ### Patch Changes
