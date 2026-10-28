@@ -17,10 +17,15 @@ describe("rawRequestBodyFallback", () => {
 		expect(body?.content?.map((c) => c.contentType)).toEqual(["application/octet-stream"]);
 	});
 
-	it("leaves JSON-like and url-encoded bodies to the JSON parse", () => {
-		const body = ast.factory.createRequestBody({
-			content: [content("application/vnd.api+json"), content("application/x-www-form-urlencoded")],
-		});
+	it("keeps a url-encoded body", () => {
+		const body = rawRequestBodyFallback(
+			ast.factory.createRequestBody({ content: [content("application/x-www-form-urlencoded")] }),
+		);
+		expect(body?.content?.map((c) => c.contentType)).toEqual(["application/x-www-form-urlencoded"]);
+	});
+
+	it("leaves JSON-like bodies to the JSON parse", () => {
+		const body = ast.factory.createRequestBody({ content: [content("application/vnd.api+json")] });
 		expect(rawRequestBodyFallback(body)).toBeUndefined();
 		expect(rawRequestBodyFallback(undefined)).toBeUndefined();
 	});

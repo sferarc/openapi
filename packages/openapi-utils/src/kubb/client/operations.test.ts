@@ -23,7 +23,10 @@ type Operation = (params?: Record<string, unknown>) => Promise<unknown>;
 
 let root: string;
 let source: string;
-let operations: Record<"getMember" | "getHealth" | "uploadScript", Operation>;
+let operations: Record<
+	"getMember" | "getHealth" | "uploadScript" | "inviteMember" | "uploadLogo",
+	Operation
+>;
 
 beforeAll(async () => {
 	root = mkdtempSync(join(tmpdir(), "openapi-utils-operations-"));
@@ -109,5 +112,56 @@ describe("generated operations", () => {
 		expect(form.get("size")).toBe("3");
 		expect(form.get("draft")).toBe("false");
 		expect(form.has("note")).toBe(false);
+	});
+
+	it("sends a url-encoded body as form fields with its content type", async () => {
+		const fetchImpl = fakeFetch();
+		await operations.inviteMember({
+			pathParams: { org: "acme" },
+			body: {
+				email: "a+b@example.com",
+				roles: ["admin", "billing"],
+				profile: { firstName: "Ada" },
+				notify: false,
+				note: null,
+			},
+			config: { fetchImpl },
+		});
+
+		const init = fetchImpl.mock.calls[0]![1];
+		expect(init.headers).toMatchObject({ "Content-Type": "application/x-www-form-urlencoded" });
+		expect(init.body).toBeInstanceOf(URLSearchParams);
+		expect(String(init.body)).toBe(
+			"email=a%2Bb%40example.com&roles=admin&roles=billing&profile=%7B%22firstName%22%3A%22Ada%22%7D&notify=false",
+		);
+	});
+
+	it("refuses a file in a url-encoded body instead of sending it as text", async () => {
+		const fetchImpl = fakeFetch();
+		await expect(
+			operations.inviteMember({
+				pathParams: { org: "acme" },
+				body: { email: "a@example.com", avatar: new Blob(["png"]) },
+				config: { fetchImpl },
+			}),
+		).rejects.toThrow("Cannot send the file in field avatar as application/x-www-form-urlencoded");
+		expect(fetchImpl).not.toHaveBeenCalled();
+	});
+
+	it("sends a url-encoded body with a binary field as multipart", async () => {
+		const fetchImpl = fakeFetch();
+		const image = new Blob(["png"], { type: "image/png" });
+		await operations.uploadLogo({
+			pathParams: { org: "acme" },
+			body: { image, tag: "brand" },
+			config: { fetchImpl },
+		});
+
+		const init = fetchImpl.mock.calls[0]![1];
+		expect(init.headers).toMatchObject({ "Content-Type": "multipart/form-data" });
+		const form = init.body as FormData;
+		expect(form).toBeInstanceOf(FormData);
+		expect(await (form.get("image") as Blob).text()).toBe("png");
+		expect(form.get("tag")).toBe("brand");
 	});
 });
