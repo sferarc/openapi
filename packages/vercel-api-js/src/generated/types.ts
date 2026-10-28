@@ -33247,10 +33247,6 @@ export type GetDeploymentStatus200 =
 			canceledAt?: number | undefined;
 			checks?:
 				| {
-						/**
-						 * @description Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.
-						 * @type object
-						 */
 						"deployment-alias": {
 							completedAt?: number | undefined;
 							startedAt: number;
@@ -37553,10 +37549,6 @@ export type CreateDeploymentStatus200 =
 			canceledAt?: number | undefined;
 			checks?:
 				| {
-						/**
-						 * @description Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.
-						 * @type object
-						 */
 						"deployment-alias": {
 							completedAt?: number | undefined;
 							startedAt: number;
@@ -41724,10 +41716,6 @@ export type CancelDeploymentStatus200 = {
 	canceledAt?: number | undefined;
 	checks?:
 		| {
-				/**
-				 * @description Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.
-				 * @type object
-				 */
 				"deployment-alias": {
 					completedAt?: number | undefined;
 					startedAt: number;
@@ -146548,10 +146536,6 @@ export type GetDeploymentsStatus200 = {
 		 */
 		checks?:
 			| {
-					/**
-					 * @description Detailed information about v2 deployment checks. Includes information about blocked workflows in the deployment lifecycle.
-					 * @type object
-					 */
 					"deployment-alias": {
 						completedAt?: number | undefined;
 						startedAt: number;

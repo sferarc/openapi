@@ -25333,15 +25333,11 @@ export const getDeploymentStatus200Schema = z.union([
 		canceledAt: z.number().optional(),
 		checks: z
 			.object({
-				"deployment-alias": z
-					.object({
-						completedAt: z.number().optional(),
-						startedAt: z.number(),
-						state: z.enum(["failed", "pending", "succeeded"]),
-					})
-					.describe(
-						"Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.",
-					),
+				"deployment-alias": z.object({
+					completedAt: z.number().optional(),
+					startedAt: z.number(),
+					state: z.enum(["failed", "pending", "succeeded"]),
+				}),
 			})
 			.optional(),
 		checksConclusion: z.enum(["canceled", "failed", "skipped", "succeeded"]).optional(),
@@ -28843,15 +28839,11 @@ export const createDeploymentStatus200Schema = z.union([
 		canceledAt: z.number().optional(),
 		checks: z
 			.object({
-				"deployment-alias": z
-					.object({
-						completedAt: z.number().optional(),
-						startedAt: z.number(),
-						state: z.enum(["failed", "pending", "succeeded"]),
-					})
-					.describe(
-						"Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.",
-					),
+				"deployment-alias": z.object({
+					completedAt: z.number().optional(),
+					startedAt: z.number(),
+					state: z.enum(["failed", "pending", "succeeded"]),
+				}),
 			})
 			.optional(),
 		checksConclusion: z.enum(["canceled", "failed", "skipped", "succeeded"]).optional(),
@@ -32155,15 +32147,11 @@ export const cancelDeploymentStatus200Schema = z
 		canceledAt: z.number().optional(),
 		checks: z
 			.object({
-				"deployment-alias": z
-					.object({
-						completedAt: z.number().optional(),
-						startedAt: z.number(),
-						state: z.enum(["failed", "pending", "succeeded"]),
-					})
-					.describe(
-						"Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.",
-					),
+				"deployment-alias": z.object({
+					completedAt: z.number().optional(),
+					startedAt: z.number(),
+					state: z.enum(["failed", "pending", "succeeded"]),
+				}),
 			})
 			.optional(),
 		checksConclusion: z.enum(["canceled", "failed", "skipped", "succeeded"]).optional(),
@@ -120259,15 +120247,11 @@ export const getDeploymentsStatus200Schema = z.object({
 				.meta({ examples: [1609492210000] }),
 			checks: z
 				.object({
-					"deployment-alias": z
-						.object({
-							completedAt: z.number().optional(),
-							startedAt: z.number(),
-							state: z.enum(["failed", "pending", "succeeded"]),
-						})
-						.describe(
-							"Detailed information about v2 deployment checks. Includes information about blocked workflows in the deployment lifecycle.",
-						),
+					"deployment-alias": z.object({
+						completedAt: z.number().optional(),
+						startedAt: z.number(),
+						state: z.enum(["failed", "pending", "succeeded"]),
+					}),
 				})
 				.optional()
 				.describe(
