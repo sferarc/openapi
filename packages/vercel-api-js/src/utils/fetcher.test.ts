@@ -96,6 +96,19 @@ describe("fetcher", () => {
 		).resolves.toEqual({ ok: true });
 	});
 
+	it.each(["application/x-ndjson", "application/jsonl", "application/stream+json; charset=utf-8"])(
+		"resolves a %s response to one value per line",
+		async (contentType) => {
+			await expect(
+				client({
+					url: "/thing",
+					method: "get",
+					fetchImpl: respond(200, '{"id":1}\r\n{"id":2}\n\n', contentType),
+				}),
+			).resolves.toEqual([{ id: 1 }, { id: 2 }]);
+		},
+	);
+
 	it("percent-encodes path parameters in generated operations", async () => {
 		let calledUrl = "";
 		const fetchImpl: FetchImpl = async (url) => {
