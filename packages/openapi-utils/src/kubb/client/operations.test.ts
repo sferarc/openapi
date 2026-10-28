@@ -10,11 +10,11 @@ const FETCHER = `
 export type FetcherConfig = { fetchImpl: (url: string, init: RequestInit) => Promise<Response> };
 export type ErrorWrapper<T> = { status: number; payload: T };
 
-export default async function client({ url, method, queryParams, headers, fetchImpl }: any) {
+export default async function client({ url, method, queryParams, headers, body, fetchImpl }: any) {
 	const query = new URLSearchParams(
 		Object.entries(queryParams ?? {}).filter(([, value]) => value != null) as [string, string][],
 	).toString();
-	const response = await fetchImpl(\`https://api.test\${url}\${query ? \`?\${query}\` : ""}\`, { method, headers });
+	const response = await fetchImpl(\`https://api.test\${url}\${query ? \`?\${query}\` : ""}\`, { method, headers, body });
 	return response.json();
 }
 `;
@@ -23,7 +23,7 @@ type Operation = (params?: Record<string, unknown>) => Promise<unknown>;
 
 let root: string;
 let source: string;
-let operations: Record<"getMember" | "getHealth", Operation>;
+let operations: Record<"getMember" | "getHealth" | "uploadScript", Operation>;
 
 beforeAll(async () => {
 	root = mkdtempSync(join(tmpdir(), "openapi-utils-operations-"));
@@ -82,5 +82,32 @@ describe("generated operations", () => {
 		const fetchImpl = fakeFetch();
 		await expect(operations.getHealth({ config: { fetchImpl } })).resolves.toEqual({ ok: true });
 		expect(fetchImpl.mock.calls[0]![0]).toBe("https://api.test/health");
+	});
+
+	it("sends array items as repeated parts and objects as JSON in a multipart body", async () => {
+		const fetchImpl = fakeFetch();
+		const worker = new Blob(["export default {}"], { type: "application/javascript+module" });
+		await operations.uploadScript({
+			pathParams: { name: "app" },
+			body: {
+				files: [worker, worker],
+				metadata: { main_module: "worker.js" },
+				tags: ["a", "b"],
+				size: 3,
+				draft: false,
+				note: null,
+			},
+			config: { fetchImpl },
+		});
+
+		const form = fetchImpl.mock.calls[0]![1].body;
+		expect(form).toBeInstanceOf(FormData);
+		if (!(form instanceof FormData)) return;
+		expect(form.getAll("files")).toHaveLength(2);
+		expect(form.get("metadata")).toBe('{"main_module":"worker.js"}');
+		expect(form.getAll("tags")).toEqual(["a", "b"]);
+		expect(form.get("size")).toBe("3");
+		expect(form.get("draft")).toBe("false");
+		expect(form.has("note")).toBe(false);
 	});
 });

@@ -31,6 +31,47 @@
 				}
 			}
 		},
+		"/scripts/{name}": {
+			"put": {
+				"operationId": "uploadScript",
+				"tags": ["scripts"],
+				"parameters": [
+					{ "name": "name", "in": "path", "required": true, "schema": { "type": "string" } }
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"required": ["metadata"],
+								"properties": {
+									"files": { "type": "array", "items": { "type": "string", "format": "binary" } },
+									"metadata": {
+										"type": "object",
+										"properties": { "main_module": { "type": "string" } }
+									},
+									"tags": { "type": "array", "items": { "type": "string" } },
+									"size": { "type": "integer" },
+									"draft": { "type": "boolean" },
+									"note": { "type": "string", "nullable": true }
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": { "type": "object", "properties": { "ok": { "type": "boolean" } } }
+							}
+						}
+					}
+				}
+			}
+		},
 		"/health": {
 			"get": {
 				"operationId": "getHealth",
