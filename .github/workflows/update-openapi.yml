@@ -8,7 +8,7 @@ on:
 jobs:
   openapi-gen:
     name: Update ${{ matrix.package }}
-    # The hourly run needs GIT_TOKEN and OPENAI_API_KEY, so it stays off until the
+    # The hourly run needs the HQ App secrets and OPENAI_API_KEY, so it stays off until the
     # repository variable SPEC_UPDATES_ENABLED is `true`. A manual run always works.
     if: github.event_name == 'workflow_dispatch' || vars.SPEC_UPDATES_ENABLED == 'true'
     runs-on: ubuntu-latest
@@ -52,11 +52,23 @@ jobs:
 
       - run: git add .
 
+      # Minted after the generate so a slow spec cannot outlive the token's one hour lifetime.
+      - name: Mint the sferarc-hq App token
+        id: app
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ secrets.HQ_APP_ID }}
+          private-key: ${{ secrets.HQ_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+          permission-contents: write
+          permission-pull-requests: write
+
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
-          token: ${{ secrets.GIT_TOKEN }}
+          token: ${{ steps.app.outputs.token }}
           commit-message: "Update OpenAPI Spec"
           committer: "SferaDev <SferaDev@users.noreply.github.com>"
           title: "[OpenAPI] Spec updates for ${{ matrix.package }}"
@@ -70,10 +82,10 @@ jobs:
       # Spec updates are mechanical regenerations gated by the same `Check` job as any
       # other PR, so they merge themselves rather than queueing up for a manual click.
       #
-      # The PAT is what makes this useful: a merge performed by `github.token` produces a
+      # The App token is what makes this useful: a merge performed by `github.token` produces a
       # push to main that triggers no workflows, so the Release job would never see the
-      # changeset this PR carries. Enabling auto-merge as the PAT's user attributes the
-      # merge to a real account and lets Release run.
+      # changeset this PR carries. Enabling auto-merge as the App attributes the merge to it
+      # and lets Release run.
       #
       # Idempotent — a rerun that only updates an existing PR re-enables what is already on.
       # Skipped on `closed`, which is what the action reports when the regenerated spec
@@ -81,5 +93,5 @@ jobs:
       - name: Enable auto-merge
         if: steps.cpr.outputs.pull-request-number && steps.cpr.outputs.pull-request-operation != 'closed'
         env:
-          GH_TOKEN: ${{ secrets.GIT_TOKEN }}
+          GH_TOKEN: ${{ steps.app.outputs.token }}
         run: gh pr merge --squash --auto "${{ steps.cpr.outputs.pull-request-number }}"
