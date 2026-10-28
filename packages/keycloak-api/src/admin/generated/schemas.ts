@@ -9178,6 +9178,12 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserErro
 	pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus500Schema,
 ]);
 
+export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserBodySchema = z
+	.object({
+		id: z.string().optional(),
+	})
+	.optional();
+
 export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
@@ -9208,6 +9214,14 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserErrorSchema 
 	pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus409Schema,
 	pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus500Schema,
 ]);
+
+export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserBodySchema = z
+	.object({
+		email: z.string().optional(),
+		firstName: z.string().optional(),
+		lastName: z.string().optional(),
+	})
+	.optional();
 
 export const gETAdminRealmsRealmOrganizationsOrgIdMembersMemberIdPathRealmSchema = z
 	.string()

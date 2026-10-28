@@ -15831,8 +15831,14 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatu
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus500 = unknown;
 
+export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserBody =
+	| {
+			id?: string | undefined;
+	  }
+	| undefined;
+
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserOptions = {
-	body?: never | undefined;
+	body: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserBody;
 	path: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -15878,8 +15884,16 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus409 = u
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus500 = unknown;
 
+export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserBody =
+	| {
+			email?: string | undefined;
+			firstName?: string | undefined;
+			lastName?: string | undefined;
+	  }
+	| undefined;
+
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserOptions = {
-	body?: never | undefined;
+	body: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserBody;
 	path: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserPath;
 	query?: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserQuery | undefined;
 	headers?: never | undefined;
