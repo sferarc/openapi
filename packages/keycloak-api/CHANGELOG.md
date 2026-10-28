@@ -1,5 +1,11 @@
 # keycloak-api
 
+## 2.1.0
+
+### Minor Changes
+
+- e3c84b0: [BREAKING] Several exported type definitions such as GETAdminRealmsRealmIdentityProviderInstancesQuery, GETAdminRealmsRealmUsersQuery, and others were modified, which may affect the expected request or response structure for these operations.
+
 ## 2.0.0
 
 ### Major Changes

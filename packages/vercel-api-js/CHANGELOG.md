@@ -1,5 +1,12 @@
 # vercel-api-js
 
+## 2.1.0
+
+### Minor Changes
+
+- 4a4d416: Added new enums organizationTeamListItemDsyncModeEnum and organizationTeamDsyncModeEnum and their corresponding key types.
+- 4a4d416: Added new enum value patchUrlProtectionBypassRequestScopeAccessEnum and its corresponding key type.
+
 ## 2.0.0
 
 ### Major Changes

@@ -1,5 +1,12 @@
 # litellm-api
 
+## 2.0.1
+
+### Patch Changes
+
+- f0a7687: Enhanced several response and request types with additional fields for improved detail and flexibility.
+- f0a7687: Added new enum values and fields across multiple types to expand configuration options and support new features.
+
 ## 2.0.0
 
 ### Major Changes

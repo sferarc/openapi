@@ -1,5 +1,15 @@
 # cloudflare-api-js
 
+## 2.1.0
+
+### Minor Changes
+
+- bbd22b5: [BREAKING] Removed and re-added the operations sqlApiQueryGetAccountScoped, sqlApiQueryPostAccountScoped, and sqlApiIntrospectionAccountScoped.
+
+### Patch Changes
+
+- bbd22b5: Simplified multiple type definitions by dropping excessive parentheses around intersections and unions.
+
 ## 2.0.0
 
 ### Major Changes
