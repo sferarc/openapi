@@ -9457,6 +9457,11 @@ export const userEventSchema = z
 					teamSlug: z.string().optional(),
 				}),
 				z.strictObject({
+					disabled: z.union([z.literal(false), z.literal(true)]).optional(),
+					actorName: z.string().optional(),
+					actorType: z.enum(["admin"]).optional(),
+				}),
+				z.strictObject({
 					isSystemInitiated: z.union([z.literal(false), z.literal(true)]).optional(),
 					next: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
 					previous: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
@@ -11477,6 +11482,7 @@ export const userEventSchema = z
 				"team-agent-billing-migration-decision-changed",
 				"team-avatar-update",
 				"team-collaboration-settings-updated",
+				"team-data-cache-user-disabled-updated",
 				"team-default-build-machine-updated",
 				"team-default-passport-updated",
 				"team-delete",
@@ -12323,6 +12329,7 @@ export const listEventTypeSchema = z
 				"team-agent-billing-migration-decision-changed",
 				"team-avatar-update",
 				"team-collaboration-settings-updated",
+				"team-data-cache-user-disabled-updated",
 				"team-default-build-machine-updated",
 				"team-default-passport-updated",
 				"team-delete",
@@ -13071,6 +13078,7 @@ export const listEventTypeSchema = z
 					"team-agent-billing-migration-decision-changed",
 					"team-avatar-update",
 					"team-collaboration-settings-updated",
+					"team-data-cache-user-disabled-updated",
 					"team-default-build-machine-updated",
 					"team-default-passport-updated",
 					"team-delete",
@@ -20438,18 +20446,93 @@ export const buyCreditsStatus200Schema = z.union([
 	}),
 	z.strictObject({
 		orbSubscriptionIntent: z.object({
-			configuration: z.discriminatedUnion("type", [
+			configuration: z.union([
+				z.strictObject({
+					options: z.object({
+						productAlias: z.string().describe("The alias of the product to set quantity for."),
+						quantity: z.number().describe("The quantity to set for the plan item."),
+					}),
+					output: z
+						.object({
+							changedResources: z
+								.array(
+									z.object({
+										addedResourceIds: z
+											.array(z.string())
+											.optional()
+											.describe("Resource IDs that were added."),
+										effectiveAt: z
+											.string()
+											.optional()
+											.describe(
+												"When this resource change should take effect for downstream consumers.",
+											),
+										productAlias: z.string().describe("The alias of the product that was changed."),
+										productId: z.string().describe("The ID of the product that was changed."),
+										quantity: z.number().describe("The resulting quantity after this change."),
+										removedResourceIds: z
+											.array(z.string())
+											.optional()
+											.describe("Resource IDs that were removed."),
+										resourceIds: z
+											.array(z.string())
+											.optional()
+											.describe("The full set of resource IDs after the change."),
+									}),
+								)
+								.optional()
+								.describe(
+									"Resources that were changed as part of this intent. Tracks all logical changes including the primary change and any side effects.",
+								),
+							customerTimezone: z
+								.string()
+								.optional()
+								.describe(
+									"The Orb customer's timezone when the intent was created. Omitted for legacy intents.",
+								),
+							effectiveBehavior: z
+								.enum(["end_of_term", "immediate"])
+								.describe("When the subscription change should take effect."),
+							metadata: z
+								.record(z.string(), z.string())
+								.optional()
+								.describe(
+									"Optional metadata associated with the intent to update the Orb subscription with.",
+								),
+							orbPriceId: z
+								.string()
+								.describe("The Orb price ID for the subscription item being modified."),
+							pendingSubscriptionChangeId: z
+								.string()
+								.optional()
+								.describe("The ID of the pending subscription change if there is one."),
+							pricingSource: z
+								.enum(["copper", "orb"])
+								.describe("The source used as the authoritative price for this intent."),
+							productId: z.string().describe("The product ID associated with this intent."),
+							referenceBillingPeriod: z
+								.object({
+									endDate: z
+										.string()
+										.describe("The exclusive end of the reference billing period."),
+									startDate: z
+										.string()
+										.describe("The inclusive start of the reference billing period."),
+								})
+								.optional()
+								.describe(
+									"The canonical reference-product billing period at intent creation. Omitted for historical intents.",
+								),
+						})
+						.describe("Output returned after configuring an OrbSubscriptionIntent."),
+					type: z.enum(["set_plan_item_quantity"]),
+				}),
 				z.strictObject({
 					options: z
 						.object({
 							productAlias: z.string().describe("The alias of the product to set quantity for."),
 							quantity: z.number().describe("The quantity to set for the plan item."),
-							resourceIds: z
-								.array(z.string())
-								.optional()
-								.describe(
-									"The resource IDs for the plan item. Only set if SKU requires resource entitlements.",
-								),
+							resourceIds: z.array(z.string()),
 						})
 						.describe("Configuration input options for setting plan item quantity."),
 					output: z

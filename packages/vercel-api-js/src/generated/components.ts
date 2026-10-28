@@ -7,6 +7,8 @@ import type { ErrorWrapper, FetcherConfig } from "../utils/fetcher";
 import defaultClient from "../utils/fetcher";
 import type {
 	AcceptProjectTransferRequestBody,
+	AcceptProjectTransferRequestPath,
+	AcceptProjectTransferRequestQuery,
 	AcceptProjectTransferRequestResponse,
 	AcceptProjectTransferRequestStatus400,
 	AcceptProjectTransferRequestStatus401,
@@ -15,6 +17,8 @@ import type {
 	AcceptProjectTransferRequestStatus410,
 	AcceptProjectTransferRequestStatus422,
 	ActivateKmsSigningKeyBody,
+	ActivateKmsSigningKeyPath,
+	ActivateKmsSigningKeyQuery,
 	ActivateKmsSigningKeyResponse,
 	ActivateKmsSigningKeyStatus400,
 	ActivateKmsSigningKeyStatus401,
@@ -23,6 +27,7 @@ import type {
 	ActivateKmsSigningKeyStatus409,
 	ActivateKmsSigningKeyStatus410,
 	AddBypassIpBody,
+	AddBypassIpQuery,
 	AddBypassIpResponse,
 	AddBypassIpStatus400,
 	AddBypassIpStatus401,
@@ -32,6 +37,7 @@ import type {
 	AddBypassIpStatus410,
 	AddBypassIpStatus500,
 	AddOrganizationTeamBody,
+	AddOrganizationTeamPath,
 	AddOrganizationTeamResponse,
 	AddOrganizationTeamStatus400,
 	AddOrganizationTeamStatus401,
@@ -41,6 +47,8 @@ import type {
 	AddOrganizationTeamStatus410,
 	AddOrganizationTeamStatus500,
 	AddProjectDomainBody,
+	AddProjectDomainPath,
+	AddProjectDomainQuery,
 	AddProjectDomainResponse,
 	AddProjectDomainStatus400,
 	AddProjectDomainStatus401,
@@ -50,6 +58,8 @@ import type {
 	AddProjectDomainStatus409,
 	AddProjectDomainStatus410,
 	AddProjectMemberBody,
+	AddProjectMemberPath,
+	AddProjectMemberQuery,
 	AddProjectMemberResponse,
 	AddProjectMemberStatus400,
 	AddProjectMemberStatus401,
@@ -58,6 +68,8 @@ import type {
 	AddProjectMemberStatus410,
 	AddProjectMemberStatus500,
 	AddRepositoryPermissionBody,
+	AddRepositoryPermissionPath,
+	AddRepositoryPermissionQuery,
 	AddRepositoryPermissionResponse,
 	AddRepositoryPermissionStatus400,
 	AddRepositoryPermissionStatus401,
@@ -65,6 +77,8 @@ import type {
 	AddRepositoryPermissionStatus404,
 	AddRepositoryPermissionStatus410,
 	AddRouteBody,
+	AddRoutePath,
+	AddRouteQuery,
 	AddRouteResponse,
 	AddRouteStatus400,
 	AddRouteStatus401,
@@ -73,6 +87,7 @@ import type {
 	AddRouteStatus409,
 	AddRouteStatus410,
 	AddRouteStatus500,
+	AggregateEventsQuery,
 	AggregateEventsResponse,
 	AggregateEventsStatus400,
 	AggregateEventsStatus401,
@@ -81,6 +96,7 @@ import type {
 	AggregateEventsStatus404,
 	AggregateEventsStatus410,
 	AggregateEventsStatus503,
+	AggregatePageviewsQuery,
 	AggregatePageviewsResponse,
 	AggregatePageviewsStatus400,
 	AggregatePageviewsStatus401,
@@ -90,6 +106,8 @@ import type {
 	AggregatePageviewsStatus410,
 	AggregatePageviewsStatus503,
 	ApproveRollingReleaseStageBody,
+	ApproveRollingReleaseStagePath,
+	ApproveRollingReleaseStageQuery,
 	ApproveRollingReleaseStageResponse,
 	ApproveRollingReleaseStageStatus400,
 	ApproveRollingReleaseStageStatus401,
@@ -97,6 +115,7 @@ import type {
 	ApproveRollingReleaseStageStatus404,
 	ApproveRollingReleaseStageStatus410,
 	ApproveRollingReleaseStageStatus500,
+	ArchiveAiGatewayBudgetDefaultQuery,
 	ArchiveAiGatewayBudgetDefaultResponse,
 	ArchiveAiGatewayBudgetDefaultStatus400,
 	ArchiveAiGatewayBudgetDefaultStatus401,
@@ -104,6 +123,7 @@ import type {
 	ArchiveAiGatewayBudgetDefaultStatus404,
 	ArchiveAiGatewayBudgetDefaultStatus410,
 	ArchiveAiGatewayBudgetDefaultStatus500,
+	ArchiveAiGatewayBudgetQuery,
 	ArchiveAiGatewayBudgetResponse,
 	ArchiveAiGatewayBudgetStatus400,
 	ArchiveAiGatewayBudgetStatus401,
@@ -112,6 +132,7 @@ import type {
 	ArchiveAiGatewayBudgetStatus410,
 	ArchiveAiGatewayBudgetStatus500,
 	ArtifactQueryBody,
+	ArtifactQueryQuery,
 	ArtifactQueryResponse,
 	ArtifactQueryStatus400,
 	ArtifactQueryStatus401,
@@ -120,6 +141,8 @@ import type {
 	ArtifactQueryStatus404,
 	ArtifactQueryStatus410,
 	AssignAliasBody,
+	AssignAliasPath,
+	AssignAliasQuery,
 	AssignAliasResponse,
 	AssignAliasStatus400,
 	AssignAliasStatus401,
@@ -129,6 +152,8 @@ import type {
 	AssignAliasStatus409,
 	AssignAliasStatus410,
 	BatchRemoveProjectEnvBody,
+	BatchRemoveProjectEnvPath,
+	BatchRemoveProjectEnvQuery,
 	BatchRemoveProjectEnvResponse,
 	BatchRemoveProjectEnvStatus400,
 	BatchRemoveProjectEnvStatus401,
@@ -137,6 +162,7 @@ import type {
 	BatchRemoveProjectEnvStatus409,
 	BatchRemoveProjectEnvStatus410,
 	BuyCreditsBody,
+	BuyCreditsQuery,
 	BuyCreditsResponse,
 	BuyCreditsStatus400,
 	BuyCreditsStatus401,
@@ -147,6 +173,7 @@ import type {
 	BuyCreditsStatus410,
 	BuyCreditsStatus500,
 	BuyDomainsBody,
+	BuyDomainsQuery,
 	BuyDomainsResponse,
 	BuyDomainsStatus400,
 	BuyDomainsStatus401,
@@ -154,24 +181,32 @@ import type {
 	BuyDomainsStatus429,
 	BuyDomainsStatus500,
 	BuySingleDomainBody,
+	BuySingleDomainPath,
+	BuySingleDomainQuery,
 	BuySingleDomainResponse,
 	BuySingleDomainStatus400,
 	BuySingleDomainStatus401,
 	BuySingleDomainStatus403,
 	BuySingleDomainStatus429,
 	BuySingleDomainStatus500,
+	CancelDeploymentPath,
+	CancelDeploymentQuery,
 	CancelDeploymentResponse,
 	CancelDeploymentStatus400,
 	CancelDeploymentStatus401,
 	CancelDeploymentStatus403,
 	CancelDeploymentStatus404,
 	CancelDeploymentStatus410,
+	ClaimDomainOwnershipPath,
+	ClaimDomainOwnershipQuery,
 	ClaimDomainOwnershipResponse,
 	ClaimDomainOwnershipStatus400,
 	ClaimDomainOwnershipStatus401,
 	ClaimDomainOwnershipStatus403,
 	ClaimDomainOwnershipStatus404,
 	ClaimDomainOwnershipStatus410,
+	ClearRepositoryPermissionsPath,
+	ClearRepositoryPermissionsQuery,
 	ClearRepositoryPermissionsResponse,
 	ClearRepositoryPermissionsStatus400,
 	ClearRepositoryPermissionsStatus401,
@@ -179,6 +214,8 @@ import type {
 	ClearRepositoryPermissionsStatus404,
 	ClearRepositoryPermissionsStatus410,
 	CompleteRollingReleaseBody,
+	CompleteRollingReleasePath,
+	CompleteRollingReleaseQuery,
 	CompleteRollingReleaseResponse,
 	CompleteRollingReleaseStatus400,
 	CompleteRollingReleaseStatus401,
@@ -186,12 +223,15 @@ import type {
 	CompleteRollingReleaseStatus404,
 	CompleteRollingReleaseStatus410,
 	ConnectIntegrationResourceToProjectBody,
+	ConnectIntegrationResourceToProjectPath,
+	ConnectIntegrationResourceToProjectQuery,
 	ConnectIntegrationResourceToProjectResponse,
 	ConnectIntegrationResourceToProjectStatus400,
 	ConnectIntegrationResourceToProjectStatus401,
 	ConnectIntegrationResourceToProjectStatus403,
 	ConnectIntegrationResourceToProjectStatus404,
 	ConnectIntegrationResourceToProjectStatus410,
+	CountEventsQuery,
 	CountEventsResponse,
 	CountEventsStatus400,
 	CountEventsStatus401,
@@ -200,6 +240,7 @@ import type {
 	CountEventsStatus404,
 	CountEventsStatus410,
 	CountEventsStatus503,
+	CountPageviewsQuery,
 	CountPageviewsResponse,
 	CountPageviewsStatus400,
 	CountPageviewsStatus401,
@@ -210,12 +251,15 @@ import type {
 	CountPageviewsStatus503,
 	CreateAccessGroupBody,
 	CreateAccessGroupProjectBody,
+	CreateAccessGroupProjectPath,
+	CreateAccessGroupProjectQuery,
 	CreateAccessGroupProjectResponse,
 	CreateAccessGroupProjectStatus400,
 	CreateAccessGroupProjectStatus401,
 	CreateAccessGroupProjectStatus403,
 	CreateAccessGroupProjectStatus404,
 	CreateAccessGroupProjectStatus410,
+	CreateAccessGroupQuery,
 	CreateAccessGroupResponse,
 	CreateAccessGroupStatus400,
 	CreateAccessGroupStatus401,
@@ -223,6 +267,7 @@ import type {
 	CreateAccessGroupStatus404,
 	CreateAccessGroupStatus410,
 	CreateAiGatewayByokCredentialBody,
+	CreateAiGatewayByokCredentialQuery,
 	CreateAiGatewayByokCredentialResponse,
 	CreateAiGatewayByokCredentialStatus400,
 	CreateAiGatewayByokCredentialStatus401,
@@ -231,6 +276,7 @@ import type {
 	CreateAiGatewayByokCredentialStatus410,
 	CreateAiGatewayByokCredentialStatus429,
 	CreateAiGatewayByokCredentialStatus500,
+	CreateAiGatewayRuleQuery,
 	CreateAiGatewayRuleResponse,
 	CreateAiGatewayRuleStatus400,
 	CreateAiGatewayRuleStatus401,
@@ -239,6 +285,7 @@ import type {
 	CreateAiGatewayRuleStatus409,
 	CreateAiGatewayRuleStatus410,
 	CreateAiGatewayRuleStatus500,
+	CreateAiGatewayVirtualModelConfigQuery,
 	CreateAiGatewayVirtualModelConfigResponse,
 	CreateAiGatewayVirtualModelConfigStatus400,
 	CreateAiGatewayVirtualModelConfigStatus401,
@@ -259,12 +306,15 @@ import type {
 	CreateApiKeysStatus429,
 	CreateApiKeysStatus500,
 	CreateAuthTokenBody,
+	CreateAuthTokenQuery,
 	CreateAuthTokenResponse,
 	CreateAuthTokenStatus400,
 	CreateAuthTokenStatus401,
 	CreateAuthTokenStatus403,
 	CreateAuthTokenStatus404,
 	CreateAuthTokenStatus410,
+	CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsPath,
+	CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsQuery,
 	CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsResponse,
 	CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus400,
 	CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus401,
@@ -273,6 +323,8 @@ import type {
 	CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus404,
 	CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsStatus410,
 	CreateCheckBody,
+	CreateCheckPath,
+	CreateCheckQuery,
 	CreateCheckResponse,
 	CreateCheckStatus400,
 	CreateCheckStatus401,
@@ -280,6 +332,7 @@ import type {
 	CreateCheckStatus404,
 	CreateCheckStatus410,
 	CreateConditionalBypassBody,
+	CreateConditionalBypassQuery,
 	CreateConditionalBypassResponse,
 	CreateConditionalBypassStatus400,
 	CreateConditionalBypassStatus401,
@@ -288,6 +341,7 @@ import type {
 	CreateConditionalBypassStatus409,
 	CreateConditionalBypassStatus410,
 	CreateConfigurableLogDrainBody,
+	CreateConfigurableLogDrainQuery,
 	CreateConfigurableLogDrainResponse,
 	CreateConfigurableLogDrainStatus400,
 	CreateConfigurableLogDrainStatus401,
@@ -295,6 +349,7 @@ import type {
 	CreateConfigurableLogDrainStatus404,
 	CreateConfigurableLogDrainStatus410,
 	CreateConnectorAuthorizationRequestBody,
+	CreateConnectorAuthorizationRequestPath,
 	CreateConnectorAuthorizationRequestResponse,
 	CreateConnectorAuthorizationRequestStatus400,
 	CreateConnectorAuthorizationRequestStatus401,
@@ -305,6 +360,7 @@ import type {
 	CreateConnectorAuthorizationRequestStatus422,
 	CreateConnectorAuthorizationRequestStatus500,
 	CreateConnectorBody,
+	CreateConnectorQuery,
 	CreateConnectorResponse,
 	CreateConnectorStatus400,
 	CreateConnectorStatus401,
@@ -318,6 +374,8 @@ import type {
 	CreateConnectorStatus502,
 	CreateConnectorStatus504,
 	CreateCustomEnvironmentBody,
+	CreateCustomEnvironmentPath,
+	CreateCustomEnvironmentQuery,
 	CreateCustomEnvironmentResponse,
 	CreateCustomEnvironmentStatus400,
 	CreateCustomEnvironmentStatus401,
@@ -329,6 +387,8 @@ import type {
 	CreateCustomEnvironmentStatus500,
 	CreateDeploymentBody,
 	CreateDeploymentCheckRunBody,
+	CreateDeploymentCheckRunPath,
+	CreateDeploymentCheckRunQuery,
 	CreateDeploymentCheckRunResponse,
 	CreateDeploymentCheckRunStatus400,
 	CreateDeploymentCheckRunStatus401,
@@ -336,6 +396,7 @@ import type {
 	CreateDeploymentCheckRunStatus404,
 	CreateDeploymentCheckRunStatus410,
 	CreateDeploymentCheckRunStatus500,
+	CreateDeploymentQuery,
 	CreateDeploymentResponse,
 	CreateDeploymentStatus400,
 	CreateDeploymentStatus401,
@@ -349,6 +410,7 @@ import type {
 	CreateDeploymentStatus500,
 	CreateDeploymentStatus503,
 	CreateDrainBody,
+	CreateDrainQuery,
 	CreateDrainResponse,
 	CreateDrainStatus400,
 	CreateDrainStatus401,
@@ -357,6 +419,7 @@ import type {
 	CreateDrainStatus404,
 	CreateDrainStatus410,
 	CreateEdgeConfigBody,
+	CreateEdgeConfigQuery,
 	CreateEdgeConfigResponse,
 	CreateEdgeConfigStatus400,
 	CreateEdgeConfigStatus401,
@@ -365,6 +428,8 @@ import type {
 	CreateEdgeConfigStatus404,
 	CreateEdgeConfigStatus410,
 	CreateEdgeConfigTokenBody,
+	CreateEdgeConfigTokenPath,
+	CreateEdgeConfigTokenQuery,
 	CreateEdgeConfigTokenResponse,
 	CreateEdgeConfigTokenStatus400,
 	CreateEdgeConfigTokenStatus401,
@@ -374,6 +439,7 @@ import type {
 	CreateEdgeConfigTokenStatus409,
 	CreateEdgeConfigTokenStatus410,
 	CreateEventBody,
+	CreateEventPath,
 	CreateEventResponse,
 	CreateEventStatus400,
 	CreateEventStatus401,
@@ -381,8 +447,12 @@ import type {
 	CreateEventStatus404,
 	CreateEventStatus410,
 	CreateFlagBody,
+	CreateFlagPath,
+	CreateFlagQuery,
 	CreateFlagResponse,
 	CreateFlagSegmentBody,
+	CreateFlagSegmentPath,
+	CreateFlagSegmentQuery,
 	CreateFlagSegmentResponse,
 	CreateFlagSegmentStatus400,
 	CreateFlagSegmentStatus401,
@@ -399,6 +469,7 @@ import type {
 	CreateFlagStatus409,
 	CreateFlagStatus410,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsBody,
+	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsPath,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsResponse,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus400,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus401,
@@ -406,6 +477,7 @@ import type {
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus404,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus410,
 	CreateIntegrationStoreDirectBody,
+	CreateIntegrationStoreDirectQuery,
 	CreateIntegrationStoreDirectResponse,
 	CreateIntegrationStoreDirectStatus400,
 	CreateIntegrationStoreDirectStatus401,
@@ -417,12 +489,15 @@ import type {
 	CreateIntegrationStoreDirectStatus500,
 	CreateKmsIssuerBody,
 	CreateKmsIssuerPolicyBody,
+	CreateKmsIssuerPolicyPath,
+	CreateKmsIssuerPolicyQuery,
 	CreateKmsIssuerPolicyResponse,
 	CreateKmsIssuerPolicyStatus400,
 	CreateKmsIssuerPolicyStatus401,
 	CreateKmsIssuerPolicyStatus403,
 	CreateKmsIssuerPolicyStatus404,
 	CreateKmsIssuerPolicyStatus410,
+	CreateKmsIssuerQuery,
 	CreateKmsIssuerResponse,
 	CreateKmsIssuerStatus400,
 	CreateKmsIssuerStatus401,
@@ -430,6 +505,8 @@ import type {
 	CreateKmsIssuerStatus404,
 	CreateKmsIssuerStatus410,
 	CreateKmsSigningKeyBody,
+	CreateKmsSigningKeyPath,
+	CreateKmsSigningKeyQuery,
 	CreateKmsSigningKeyResponse,
 	CreateKmsSigningKeyStatus400,
 	CreateKmsSigningKeyStatus401,
@@ -438,6 +515,7 @@ import type {
 	CreateKmsSigningKeyStatus409,
 	CreateKmsSigningKeyStatus410,
 	CreateLogDrainBody,
+	CreateLogDrainQuery,
 	CreateLogDrainResponse,
 	CreateLogDrainStatus400,
 	CreateLogDrainStatus401,
@@ -445,6 +523,7 @@ import type {
 	CreateLogDrainStatus404,
 	CreateLogDrainStatus410,
 	CreateMicrofrontendsGroupWithApplicationsBody,
+	CreateMicrofrontendsGroupWithApplicationsQuery,
 	CreateMicrofrontendsGroupWithApplicationsResponse,
 	CreateMicrofrontendsGroupWithApplicationsStatus400,
 	CreateMicrofrontendsGroupWithApplicationsStatus401,
@@ -453,6 +532,7 @@ import type {
 	CreateMicrofrontendsGroupWithApplicationsStatus410,
 	CreateMicrofrontendsGroupWithApplicationsStatus500,
 	CreateNetworkBody,
+	CreateNetworkQuery,
 	CreateNetworkResponse,
 	CreateNetworkStatus400,
 	CreateNetworkStatus401,
@@ -475,6 +555,7 @@ import type {
 	CreateObservabilityQueryStatus500,
 	CreateObservabilityQueryStatus503,
 	CreateOrganizationBody,
+	CreateOrganizationQuery,
 	CreateOrganizationResponse,
 	CreateOrganizationStatus400,
 	CreateOrganizationStatus401,
@@ -484,6 +565,7 @@ import type {
 	CreateOrganizationStatus410,
 	CreateOrganizationStatus500,
 	CreateOrTransferDomainBody,
+	CreateOrTransferDomainQuery,
 	CreateOrTransferDomainResponse,
 	CreateOrTransferDomainStatus400,
 	CreateOrTransferDomainStatus401,
@@ -493,6 +575,7 @@ import type {
 	CreateOrTransferDomainStatus409,
 	CreateOrTransferDomainStatus410,
 	CreatePrivateLinkEndpointBody,
+	CreatePrivateLinkEndpointQuery,
 	CreatePrivateLinkEndpointResponse,
 	CreatePrivateLinkEndpointStatus400,
 	CreatePrivateLinkEndpointStatus401,
@@ -504,6 +587,8 @@ import type {
 	CreatePrivateLinkEndpointStatus503,
 	CreateProjectBody,
 	CreateProjectCheckBody,
+	CreateProjectCheckPath,
+	CreateProjectCheckQuery,
 	CreateProjectCheckResponse,
 	CreateProjectCheckStatus400,
 	CreateProjectCheckStatus401,
@@ -512,6 +597,8 @@ import type {
 	CreateProjectCheckStatus410,
 	CreateProjectCheckStatus500,
 	CreateProjectEnvBody,
+	CreateProjectEnvPath,
+	CreateProjectEnvQuery,
 	CreateProjectEnvResponse,
 	CreateProjectEnvStatus400,
 	CreateProjectEnvStatus401,
@@ -522,6 +609,7 @@ import type {
 	CreateProjectEnvStatus410,
 	CreateProjectEnvStatus429,
 	CreateProjectEnvStatus500,
+	CreateProjectQuery,
 	CreateProjectResponse,
 	CreateProjectStatus400,
 	CreateProjectStatus401,
@@ -534,6 +622,8 @@ import type {
 	CreateProjectStatus429,
 	CreateProjectStatus500,
 	CreateProjectTransferRequestBody,
+	CreateProjectTransferRequestPath,
+	CreateProjectTransferRequestQuery,
 	CreateProjectTransferRequestResponse,
 	CreateProjectTransferRequestStatus400,
 	CreateProjectTransferRequestStatus401,
@@ -542,6 +632,8 @@ import type {
 	CreateProjectTransferRequestStatus409,
 	CreateProjectTransferRequestStatus410,
 	CreateRecordBody,
+	CreateRecordPath,
+	CreateRecordQuery,
 	CreateRecordResponse,
 	CreateRecordStatus400,
 	CreateRecordStatus401,
@@ -551,6 +643,7 @@ import type {
 	CreateRecordStatus409,
 	CreateRecordStatus410,
 	CreateRepositoryBody,
+	CreateRepositoryQuery,
 	CreateRepositoryResponse,
 	CreateRepositoryStatus400,
 	CreateRepositoryStatus401,
@@ -560,6 +653,8 @@ import type {
 	CreateRepositoryStatus409,
 	CreateRepositoryStatus410,
 	CreateSandboxesByNameForkV2Body,
+	CreateSandboxesByNameForkV2Path,
+	CreateSandboxesByNameForkV2Query,
 	CreateSandboxesByNameForkV2Response,
 	CreateSandboxesByNameForkV2Status400,
 	CreateSandboxesByNameForkV2Status401,
@@ -574,6 +669,8 @@ import type {
 	CreateSandboxesByNameForkV2Status502,
 	CreateSandboxesByNameForkV2Status503,
 	CreateSandboxesByNameForkV3Body,
+	CreateSandboxesByNameForkV3Path,
+	CreateSandboxesByNameForkV3Query,
 	CreateSandboxesByNameForkV3Response,
 	CreateSandboxesByNameForkV3Status400,
 	CreateSandboxesByNameForkV3Status401,
@@ -588,6 +685,8 @@ import type {
 	CreateSandboxesByNameForkV3Status502,
 	CreateSandboxesByNameForkV3Status503,
 	CreateSandboxesSessionsBySessionIdSnapshotV2Body,
+	CreateSandboxesSessionsBySessionIdSnapshotV2Path,
+	CreateSandboxesSessionsBySessionIdSnapshotV2Query,
 	CreateSandboxesSessionsBySessionIdSnapshotV2Response,
 	CreateSandboxesSessionsBySessionIdSnapshotV2Status400,
 	CreateSandboxesSessionsBySessionIdSnapshotV2Status401,
@@ -599,6 +698,8 @@ import type {
 	CreateSandboxesSessionsBySessionIdSnapshotV2Status429,
 	CreateSandboxesSessionsBySessionIdSnapshotV2Status500,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Body,
+	CreateSandboxesSessionsBySessionIdSnapshotV3Path,
+	CreateSandboxesSessionsBySessionIdSnapshotV3Query,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Response,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Status400,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Status401,
@@ -610,6 +711,7 @@ import type {
 	CreateSandboxesSessionsBySessionIdSnapshotV3Status429,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Status500,
 	CreateSandboxesV2Body,
+	CreateSandboxesV2Query,
 	CreateSandboxesV2Response,
 	CreateSandboxesV2Status400,
 	CreateSandboxesV2Status401,
@@ -624,6 +726,7 @@ import type {
 	CreateSandboxesV2Status502,
 	CreateSandboxesV2Status503,
 	CreateSandboxesV3Body,
+	CreateSandboxesV3Query,
 	CreateSandboxesV3Response,
 	CreateSandboxesV3Status400,
 	CreateSandboxesV3Status401,
@@ -638,6 +741,7 @@ import type {
 	CreateSandboxesV3Status502,
 	CreateSandboxesV3Status503,
 	CreateSandboxesV4Body,
+	CreateSandboxesV4Query,
 	CreateSandboxesV4Response,
 	CreateSandboxesV4Status400,
 	CreateSandboxesV4Status401,
@@ -652,6 +756,8 @@ import type {
 	CreateSandboxesV4Status502,
 	CreateSandboxesV4Status503,
 	CreateSdkKeyBody,
+	CreateSdkKeyPath,
+	CreateSdkKeyQuery,
 	CreateSdkKeyResponse,
 	CreateSdkKeyStatus400,
 	CreateSdkKeyStatus401,
@@ -660,6 +766,7 @@ import type {
 	CreateSdkKeyStatus404,
 	CreateSdkKeyStatus409,
 	CreateSdkKeyStatus410,
+	CreateSecurityFirewallConfigByConfigVersionActivatePath,
 	CreateSecurityFirewallConfigByConfigVersionActivateResponse,
 	CreateSecurityFirewallConfigByConfigVersionActivateStatus400,
 	CreateSecurityFirewallConfigByConfigVersionActivateStatus401,
@@ -669,6 +776,8 @@ import type {
 	CreateSecurityFirewallConfigByConfigVersionActivateStatus410,
 	CreateSecurityFirewallConfigByConfigVersionActivateStatus500,
 	CreateSessionDirectoryBody,
+	CreateSessionDirectoryPath,
+	CreateSessionDirectoryQuery,
 	CreateSessionDirectoryResponse,
 	CreateSessionDirectoryStatus400,
 	CreateSessionDirectoryStatus401,
@@ -678,6 +787,7 @@ import type {
 	CreateSessionDirectoryStatus422,
 	CreateSessionDirectoryStatus429,
 	CreateSharedEnvVariableBody,
+	CreateSharedEnvVariableQuery,
 	CreateSharedEnvVariableResponse,
 	CreateSharedEnvVariableStatus400,
 	CreateSharedEnvVariableStatus401,
@@ -686,6 +796,7 @@ import type {
 	CreateSharedEnvVariableStatus404,
 	CreateSharedEnvVariableStatus410,
 	CreateSpeedInsightsToggleBody,
+	CreateSpeedInsightsToggleQuery,
 	CreateSpeedInsightsToggleResponse,
 	CreateSpeedInsightsToggleStatus400,
 	CreateSpeedInsightsToggleStatus401,
@@ -711,6 +822,7 @@ import type {
 	CreateTeamStatus404,
 	CreateTeamStatus410,
 	CreateTraceSessionBody,
+	CreateTraceSessionQuery,
 	CreateTraceSessionResponse,
 	CreateTraceSessionStatus400,
 	CreateTraceSessionStatus401,
@@ -719,6 +831,7 @@ import type {
 	CreateTraceSessionStatus410,
 	CreateTraceSessionStatus422,
 	CreateVercelCiTaskAnalysisBody,
+	CreateVercelCiTaskAnalysisQuery,
 	CreateVercelCiTaskAnalysisResponse,
 	CreateVercelCiTaskAnalysisStatus400,
 	CreateVercelCiTaskAnalysisStatus401,
@@ -730,6 +843,8 @@ import type {
 	CreateVercelCiTaskAnalysisStatus500,
 	CreateVercelCiTaskAnalysisStatus503,
 	CreateVercelCiTaskConfigurationPullRequestBody,
+	CreateVercelCiTaskConfigurationPullRequestPath,
+	CreateVercelCiTaskConfigurationPullRequestQuery,
 	CreateVercelCiTaskConfigurationPullRequestResponse,
 	CreateVercelCiTaskConfigurationPullRequestStatus400,
 	CreateVercelCiTaskConfigurationPullRequestStatus401,
@@ -740,6 +855,7 @@ import type {
 	CreateVercelCiTaskConfigurationPullRequestStatus429,
 	CreateVercelCiTaskConfigurationPullRequestStatus500,
 	CreateWebhookBody,
+	CreateWebhookQuery,
 	CreateWebhookResponse,
 	CreateWebhookStatus400,
 	CreateWebhookStatus401,
@@ -747,6 +863,7 @@ import type {
 	CreateWebhookStatus404,
 	CreateWebhookStatus410,
 	CreateWebInsightsToggleBody,
+	CreateWebInsightsToggleQuery,
 	CreateWebInsightsToggleResponse,
 	CreateWebInsightsToggleStatus400,
 	CreateWebInsightsToggleStatus401,
@@ -754,6 +871,7 @@ import type {
 	CreateWebInsightsToggleStatus404,
 	CreateWebInsightsToggleStatus410,
 	DangerouslyDeleteBySrcImagesBody,
+	DangerouslyDeleteBySrcImagesQuery,
 	DangerouslyDeleteBySrcImagesResponse,
 	DangerouslyDeleteBySrcImagesStatus400,
 	DangerouslyDeleteBySrcImagesStatus401,
@@ -762,24 +880,31 @@ import type {
 	DangerouslyDeleteBySrcImagesStatus404,
 	DangerouslyDeleteBySrcImagesStatus410,
 	DangerouslyDeleteByTagsBody,
+	DangerouslyDeleteByTagsQuery,
 	DangerouslyDeleteByTagsResponse,
 	DangerouslyDeleteByTagsStatus400,
 	DangerouslyDeleteByTagsStatus401,
 	DangerouslyDeleteByTagsStatus403,
 	DangerouslyDeleteByTagsStatus404,
 	DangerouslyDeleteByTagsStatus410,
+	DeleteAccessGroupPath,
+	DeleteAccessGroupProjectPath,
+	DeleteAccessGroupProjectQuery,
 	DeleteAccessGroupProjectResponse,
 	DeleteAccessGroupProjectStatus400,
 	DeleteAccessGroupProjectStatus401,
 	DeleteAccessGroupProjectStatus403,
 	DeleteAccessGroupProjectStatus404,
 	DeleteAccessGroupProjectStatus410,
+	DeleteAccessGroupQuery,
 	DeleteAccessGroupResponse,
 	DeleteAccessGroupStatus400,
 	DeleteAccessGroupStatus401,
 	DeleteAccessGroupStatus403,
 	DeleteAccessGroupStatus404,
 	DeleteAccessGroupStatus410,
+	DeleteAiGatewayByokCredentialPath,
+	DeleteAiGatewayByokCredentialQuery,
 	DeleteAiGatewayByokCredentialResponse,
 	DeleteAiGatewayByokCredentialStatus400,
 	DeleteAiGatewayByokCredentialStatus401,
@@ -787,6 +912,7 @@ import type {
 	DeleteAiGatewayByokCredentialStatus404,
 	DeleteAiGatewayByokCredentialStatus410,
 	DeleteAiGatewayByokCredentialStatus500,
+	DeleteAiGatewayRuleQuery,
 	DeleteAiGatewayRuleResponse,
 	DeleteAiGatewayRuleStatus400,
 	DeleteAiGatewayRuleStatus401,
@@ -794,6 +920,8 @@ import type {
 	DeleteAiGatewayRuleStatus404,
 	DeleteAiGatewayRuleStatus410,
 	DeleteAiGatewayRuleStatus500,
+	DeleteAiGatewayVirtualModelConfigBySlugPath,
+	DeleteAiGatewayVirtualModelConfigBySlugQuery,
 	DeleteAiGatewayVirtualModelConfigBySlugResponse,
 	DeleteAiGatewayVirtualModelConfigBySlugStatus400,
 	DeleteAiGatewayVirtualModelConfigBySlugStatus401,
@@ -801,6 +929,7 @@ import type {
 	DeleteAiGatewayVirtualModelConfigBySlugStatus404,
 	DeleteAiGatewayVirtualModelConfigBySlugStatus410,
 	DeleteAiGatewayVirtualModelConfigBySlugStatus500,
+	DeleteAiGatewayVirtualModelConfigQuery,
 	DeleteAiGatewayVirtualModelConfigResponse,
 	DeleteAiGatewayVirtualModelConfigStatus400,
 	DeleteAiGatewayVirtualModelConfigStatus401,
@@ -808,24 +937,30 @@ import type {
 	DeleteAiGatewayVirtualModelConfigStatus404,
 	DeleteAiGatewayVirtualModelConfigStatus410,
 	DeleteAiGatewayVirtualModelConfigStatus500,
+	DeleteAliasPath,
+	DeleteAliasQuery,
 	DeleteAliasResponse,
 	DeleteAliasStatus400,
 	DeleteAliasStatus401,
 	DeleteAliasStatus403,
 	DeleteAliasStatus404,
 	DeleteAliasStatus410,
+	DeleteAllArtifactsQuery,
 	DeleteAllArtifactsResponse,
 	DeleteAllArtifactsStatus400,
 	DeleteAllArtifactsStatus401,
 	DeleteAllArtifactsStatus403,
 	DeleteAllArtifactsStatus404,
 	DeleteAllArtifactsStatus410,
+	DeleteAuthTokenPath,
+	DeleteAuthTokenQuery,
 	DeleteAuthTokenResponse,
 	DeleteAuthTokenStatus400,
 	DeleteAuthTokenStatus401,
 	DeleteAuthTokenStatus403,
 	DeleteAuthTokenStatus404,
 	DeleteAuthTokenStatus410,
+	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestResponse,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus400,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus401,
@@ -834,6 +969,7 @@ import type {
 	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus404,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus405,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus410,
+	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidResponse,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus400,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus401,
@@ -841,6 +977,7 @@ import type {
 	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus403,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus404,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410,
+	DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceResponse,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401,
@@ -848,24 +985,32 @@ import type {
 	DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404,
 	DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410,
+	DeleteConditionalBypassQuery,
 	DeleteConditionalBypassResponse,
 	DeleteConditionalBypassStatus400,
 	DeleteConditionalBypassStatus401,
 	DeleteConditionalBypassStatus403,
 	DeleteConditionalBypassStatus404,
 	DeleteConditionalBypassStatus410,
+	DeleteConfigurableLogDrainPath,
+	DeleteConfigurableLogDrainQuery,
 	DeleteConfigurableLogDrainResponse,
 	DeleteConfigurableLogDrainStatus400,
 	DeleteConfigurableLogDrainStatus401,
 	DeleteConfigurableLogDrainStatus403,
 	DeleteConfigurableLogDrainStatus404,
 	DeleteConfigurableLogDrainStatus410,
+	DeleteConfigurationPath,
+	DeleteConfigurationQuery,
 	DeleteConfigurationResponse,
 	DeleteConfigurationStatus400,
 	DeleteConfigurationStatus401,
 	DeleteConfigurationStatus403,
 	DeleteConfigurationStatus404,
 	DeleteConfigurationStatus410,
+	DeleteConnectorPath,
+	DeleteConnectorProjectConnectionPath,
+	DeleteConnectorProjectConnectionQuery,
 	DeleteConnectorProjectConnectionResponse,
 	DeleteConnectorProjectConnectionStatus400,
 	DeleteConnectorProjectConnectionStatus401,
@@ -877,6 +1022,7 @@ import type {
 	DeleteConnectorProjectConnectionStatus500,
 	DeleteConnectorProjectConnectionStatus501,
 	DeleteConnectorProjectConnectionStatus504,
+	DeleteConnectorQuery,
 	DeleteConnectorResponse,
 	DeleteConnectorStatus400,
 	DeleteConnectorStatus401,
@@ -890,6 +1036,8 @@ import type {
 	DeleteConnectorStatus502,
 	DeleteConnectorStatus503,
 	DeleteConnectorStatus504,
+	DeleteDeploymentPath,
+	DeleteDeploymentQuery,
 	DeleteDeploymentResponse,
 	DeleteDeploymentStatus400,
 	DeleteDeploymentStatus401,
@@ -897,6 +1045,8 @@ import type {
 	DeleteDeploymentStatus404,
 	DeleteDeploymentStatus409,
 	DeleteDeploymentStatus410,
+	DeleteDomainPath,
+	DeleteDomainQuery,
 	DeleteDomainResponse,
 	DeleteDomainStatus400,
 	DeleteDomainStatus401,
@@ -904,12 +1054,16 @@ import type {
 	DeleteDomainStatus404,
 	DeleteDomainStatus409,
 	DeleteDomainStatus410,
+	DeleteDrainPath,
+	DeleteDrainQuery,
 	DeleteDrainResponse,
 	DeleteDrainStatus400,
 	DeleteDrainStatus401,
 	DeleteDrainStatus403,
 	DeleteDrainStatus404,
 	DeleteDrainStatus410,
+	DeleteDrivePath,
+	DeleteDriveQuery,
 	DeleteDriveResponse,
 	DeleteDriveStatus400,
 	DeleteDriveStatus401,
@@ -919,7 +1073,11 @@ import type {
 	DeleteDriveStatus410,
 	DeleteDriveStatus422,
 	DeleteDriveStatus429,
+	DeleteEdgeConfigPath,
+	DeleteEdgeConfigQuery,
 	DeleteEdgeConfigResponse,
+	DeleteEdgeConfigSchemaPath,
+	DeleteEdgeConfigSchemaQuery,
 	DeleteEdgeConfigSchemaResponse,
 	DeleteEdgeConfigSchemaStatus400,
 	DeleteEdgeConfigSchemaStatus401,
@@ -935,6 +1093,8 @@ import type {
 	DeleteEdgeConfigStatus409,
 	DeleteEdgeConfigStatus410,
 	DeleteEdgeConfigTokensBody,
+	DeleteEdgeConfigTokensPath,
+	DeleteEdgeConfigTokensQuery,
 	DeleteEdgeConfigTokensResponse,
 	DeleteEdgeConfigTokensStatus400,
 	DeleteEdgeConfigTokensStatus401,
@@ -943,7 +1103,11 @@ import type {
 	DeleteEdgeConfigTokensStatus404,
 	DeleteEdgeConfigTokensStatus409,
 	DeleteEdgeConfigTokensStatus410,
+	DeleteFlagPath,
+	DeleteFlagQuery,
 	DeleteFlagResponse,
+	DeleteFlagSegmentPath,
+	DeleteFlagSegmentQuery,
 	DeleteFlagSegmentResponse,
 	DeleteFlagSegmentStatus400,
 	DeleteFlagSegmentStatus401,
@@ -959,36 +1123,46 @@ import type {
 	DeleteFlagStatus404,
 	DeleteFlagStatus409,
 	DeleteFlagStatus410,
+	DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPath,
 	DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdResponse,
 	DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus400,
 	DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus401,
 	DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus403,
 	DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus404,
 	DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus410,
+	DeleteIntegrationLogDrainPath,
+	DeleteIntegrationLogDrainQuery,
 	DeleteIntegrationLogDrainResponse,
 	DeleteIntegrationLogDrainStatus400,
 	DeleteIntegrationLogDrainStatus401,
 	DeleteIntegrationLogDrainStatus403,
 	DeleteIntegrationLogDrainStatus404,
 	DeleteIntegrationLogDrainStatus410,
+	DeleteIntegrationResourcePath,
 	DeleteIntegrationResourceResponse,
 	DeleteIntegrationResourceStatus400,
 	DeleteIntegrationResourceStatus401,
 	DeleteIntegrationResourceStatus403,
 	DeleteIntegrationResourceStatus404,
 	DeleteIntegrationResourceStatus410,
+	DeleteKmsIssuerPath,
+	DeleteKmsIssuerPolicyPath,
+	DeleteKmsIssuerPolicyQuery,
 	DeleteKmsIssuerPolicyResponse,
 	DeleteKmsIssuerPolicyStatus400,
 	DeleteKmsIssuerPolicyStatus401,
 	DeleteKmsIssuerPolicyStatus403,
 	DeleteKmsIssuerPolicyStatus404,
 	DeleteKmsIssuerPolicyStatus410,
+	DeleteKmsIssuerQuery,
 	DeleteKmsIssuerResponse,
 	DeleteKmsIssuerStatus400,
 	DeleteKmsIssuerStatus401,
 	DeleteKmsIssuerStatus403,
 	DeleteKmsIssuerStatus404,
 	DeleteKmsIssuerStatus410,
+	DeleteMicrofrontendsGroupPath,
+	DeleteMicrofrontendsGroupQuery,
 	DeleteMicrofrontendsGroupResponse,
 	DeleteMicrofrontendsGroupStatus400,
 	DeleteMicrofrontendsGroupStatus401,
@@ -996,6 +1170,8 @@ import type {
 	DeleteMicrofrontendsGroupStatus404,
 	DeleteMicrofrontendsGroupStatus410,
 	DeleteMicrofrontendsGroupStatus500,
+	DeleteNetworkPath,
+	DeleteNetworkQuery,
 	DeleteNetworkResponse,
 	DeleteNetworkStatus400,
 	DeleteNetworkStatus401,
@@ -1004,6 +1180,8 @@ import type {
 	DeleteNetworkStatus404,
 	DeleteNetworkStatus409,
 	DeleteNetworkStatus410,
+	DeletePrivateLinkEndpointPath,
+	DeletePrivateLinkEndpointQuery,
 	DeletePrivateLinkEndpointResponse,
 	DeletePrivateLinkEndpointStatus400,
 	DeletePrivateLinkEndpointStatus401,
@@ -1013,12 +1191,16 @@ import type {
 	DeletePrivateLinkEndpointStatus410,
 	DeletePrivateLinkEndpointStatus500,
 	DeletePrivateLinkEndpointStatus503,
+	DeleteProjectAvatarPath,
+	DeleteProjectAvatarQuery,
 	DeleteProjectAvatarResponse,
 	DeleteProjectAvatarStatus400,
 	DeleteProjectAvatarStatus401,
 	DeleteProjectAvatarStatus403,
 	DeleteProjectAvatarStatus404,
 	DeleteProjectAvatarStatus410,
+	DeleteProjectCheckPath,
+	DeleteProjectCheckQuery,
 	DeleteProjectCheckResponse,
 	DeleteProjectCheckStatus400,
 	DeleteProjectCheckStatus401,
@@ -1026,6 +1208,8 @@ import type {
 	DeleteProjectCheckStatus404,
 	DeleteProjectCheckStatus410,
 	DeleteProjectCheckStatus500,
+	DeleteProjectPath,
+	DeleteProjectQuery,
 	DeleteProjectResponse,
 	DeleteProjectStatus400,
 	DeleteProjectStatus401,
@@ -1034,6 +1218,7 @@ import type {
 	DeleteProjectStatus409,
 	DeleteProjectStatus410,
 	DeleteRedirectsBody,
+	DeleteRedirectsQuery,
 	DeleteRedirectsResponse,
 	DeleteRedirectsStatus400,
 	DeleteRedirectsStatus401,
@@ -1041,18 +1226,24 @@ import type {
 	DeleteRedirectsStatus404,
 	DeleteRedirectsStatus410,
 	DeleteRedirectsStatus500,
+	DeleteRepositoryImagePath,
+	DeleteRepositoryImageQuery,
 	DeleteRepositoryImageResponse,
 	DeleteRepositoryImageStatus400,
 	DeleteRepositoryImageStatus401,
 	DeleteRepositoryImageStatus403,
 	DeleteRepositoryImageStatus404,
 	DeleteRepositoryImageStatus410,
+	DeleteRepositoryPath,
+	DeleteRepositoryQuery,
 	DeleteRepositoryResponse,
 	DeleteRepositoryStatus400,
 	DeleteRepositoryStatus401,
 	DeleteRepositoryStatus403,
 	DeleteRepositoryStatus404,
 	DeleteRepositoryStatus410,
+	DeleteRollingReleaseConfigPath,
+	DeleteRollingReleaseConfigQuery,
 	DeleteRollingReleaseConfigResponse,
 	DeleteRollingReleaseConfigStatus400,
 	DeleteRollingReleaseConfigStatus401,
@@ -1060,6 +1251,8 @@ import type {
 	DeleteRollingReleaseConfigStatus404,
 	DeleteRollingReleaseConfigStatus410,
 	DeleteRoutesBody,
+	DeleteRoutesPath,
+	DeleteRoutesQuery,
 	DeleteRoutesResponse,
 	DeleteRoutesStatus400,
 	DeleteRoutesStatus401,
@@ -1068,6 +1261,8 @@ import type {
 	DeleteRoutesStatus409,
 	DeleteRoutesStatus410,
 	DeleteRoutesStatus500,
+	DeleteSandboxPath,
+	DeleteSandboxQuery,
 	DeleteSandboxResponse,
 	DeleteSandboxStatus400,
 	DeleteSandboxStatus401,
@@ -1076,6 +1271,8 @@ import type {
 	DeleteSandboxStatus410,
 	DeleteSandboxStatus422,
 	DeleteSandboxStatus429,
+	DeleteSdkKeyPath,
+	DeleteSdkKeyQuery,
 	DeleteSdkKeyResponse,
 	DeleteSdkKeyStatus400,
 	DeleteSdkKeyStatus401,
@@ -1084,6 +1281,7 @@ import type {
 	DeleteSdkKeyStatus404,
 	DeleteSdkKeyStatus409,
 	DeleteSdkKeyStatus410,
+	DeleteSecurityFirewallConfigByConfigVersionPath,
 	DeleteSecurityFirewallConfigByConfigVersionResponse,
 	DeleteSecurityFirewallConfigByConfigVersionStatus400,
 	DeleteSecurityFirewallConfigByConfigVersionStatus401,
@@ -1091,6 +1289,8 @@ import type {
 	DeleteSecurityFirewallConfigByConfigVersionStatus404,
 	DeleteSecurityFirewallConfigByConfigVersionStatus410,
 	DeleteSecurityFirewallConfigByConfigVersionStatus500,
+	DeleteSessionSnapshotPath,
+	DeleteSessionSnapshotQuery,
 	DeleteSessionSnapshotResponse,
 	DeleteSessionSnapshotStatus400,
 	DeleteSessionSnapshotStatus401,
@@ -1100,6 +1300,7 @@ import type {
 	DeleteSessionSnapshotStatus422,
 	DeleteSessionSnapshotStatus429,
 	DeleteSharedEnvVariableBody,
+	DeleteSharedEnvVariableQuery,
 	DeleteSharedEnvVariableResponse,
 	DeleteSharedEnvVariableStatus400,
 	DeleteSharedEnvVariableStatus401,
@@ -1107,6 +1308,7 @@ import type {
 	DeleteSharedEnvVariableStatus403,
 	DeleteSharedEnvVariableStatus404,
 	DeleteSharedEnvVariableStatus410,
+	DeleteStorageStoresBlobByIdPath,
 	DeleteStorageStoresBlobByIdResponse,
 	DeleteStorageStoresBlobByIdStatus400,
 	DeleteStorageStoresBlobByIdStatus401,
@@ -1115,12 +1317,15 @@ import type {
 	DeleteStorageStoresBlobByIdStatus409,
 	DeleteStorageStoresBlobByIdStatus410,
 	DeleteTeamBody,
+	DeleteTeamInviteCodePath,
 	DeleteTeamInviteCodeResponse,
 	DeleteTeamInviteCodeStatus400,
 	DeleteTeamInviteCodeStatus401,
 	DeleteTeamInviteCodeStatus403,
 	DeleteTeamInviteCodeStatus404,
 	DeleteTeamInviteCodeStatus410,
+	DeleteTeamPath,
+	DeleteTeamQuery,
 	DeleteTeamResponse,
 	DeleteTeamStatus400,
 	DeleteTeamStatus401,
@@ -1130,12 +1335,17 @@ import type {
 	DeleteTeamStatus409,
 	DeleteTeamStatus410,
 	DeleteTeamStatus503,
+	DeleteWebhookPath,
+	DeleteWebhookQuery,
 	DeleteWebhookResponse,
 	DeleteWebhookStatus400,
 	DeleteWebhookStatus401,
 	DeleteWebhookStatus403,
 	DeleteWebhookStatus404,
 	DeleteWebhookStatus410,
+	DownloadArtifactHeaders,
+	DownloadArtifactPath,
+	DownloadArtifactQuery,
 	DownloadArtifactResponse,
 	DownloadArtifactStatus400,
 	DownloadArtifactStatus401,
@@ -1144,6 +1354,8 @@ import type {
 	DownloadArtifactStatus404,
 	DownloadArtifactStatus410,
 	EditProjectEnvBody,
+	EditProjectEnvPath,
+	EditProjectEnvQuery,
 	EditProjectEnvResponse,
 	EditProjectEnvStatus400,
 	EditProjectEnvStatus401,
@@ -1154,6 +1366,7 @@ import type {
 	EditProjectEnvStatus429,
 	EditProjectEnvStatus500,
 	EditRedirectBody,
+	EditRedirectQuery,
 	EditRedirectResponse,
 	EditRedirectStatus400,
 	EditRedirectStatus401,
@@ -1162,6 +1375,8 @@ import type {
 	EditRedirectStatus410,
 	EditRedirectStatus500,
 	EditRouteBody,
+	EditRoutePath,
+	EditRouteQuery,
 	EditRouteResponse,
 	EditRouteStatus400,
 	EditRouteStatus401,
@@ -1170,6 +1385,8 @@ import type {
 	EditRouteStatus409,
 	EditRouteStatus410,
 	EditRouteStatus500,
+	EjectManagedConnectorPath,
+	EjectManagedConnectorQuery,
 	EjectManagedConnectorResponse,
 	EjectManagedConnectorStatus400,
 	EjectManagedConnectorStatus401,
@@ -1187,6 +1404,8 @@ import type {
 	ExchangeSsoTokenStatus403,
 	ExchangeSsoTokenStatus500,
 	ExtendSessionTimeoutBody,
+	ExtendSessionTimeoutPath,
+	ExtendSessionTimeoutQuery,
 	ExtendSessionTimeoutResponse,
 	ExtendSessionTimeoutStatus400,
 	ExtendSessionTimeoutStatus401,
@@ -1196,12 +1415,15 @@ import type {
 	ExtendSessionTimeoutStatus422,
 	ExtendSessionTimeoutStatus429,
 	ExtendSessionTimeoutStatus500,
+	FilterProjectEnvsPath,
+	FilterProjectEnvsQuery,
 	FilterProjectEnvsResponse,
 	FilterProjectEnvsStatus400,
 	FilterProjectEnvsStatus401,
 	FilterProjectEnvsStatus403,
 	FilterProjectEnvsStatus404,
 	FilterProjectEnvsStatus410,
+	FinalizeInstallationPath,
 	FinalizeInstallationResponse,
 	FinalizeInstallationStatus400,
 	FinalizeInstallationStatus401,
@@ -1209,6 +1431,8 @@ import type {
 	FinalizeInstallationStatus404,
 	FinalizeInstallationStatus410,
 	ForkDriveBody,
+	ForkDrivePath,
+	ForkDriveQuery,
 	ForkDriveResponse,
 	ForkDriveStatus400,
 	ForkDriveStatus401,
@@ -1220,6 +1444,7 @@ import type {
 	ForkDriveStatus422,
 	ForkDriveStatus429,
 	ForkDriveStatus503,
+	GenerateFirewallRuleQuery,
 	GenerateFirewallRuleResponse,
 	GenerateFirewallRuleStatus400,
 	GenerateFirewallRuleStatus401,
@@ -1229,6 +1454,8 @@ import type {
 	GenerateFirewallRuleStatus410,
 	GenerateFirewallRuleStatus500,
 	GenerateRouteBody,
+	GenerateRoutePath,
+	GenerateRouteQuery,
 	GenerateRouteResponse,
 	GenerateRouteStatus400,
 	GenerateRouteStatus401,
@@ -1237,18 +1464,22 @@ import type {
 	GenerateRouteStatus408,
 	GenerateRouteStatus410,
 	GenerateRouteStatus500,
+	GetAccountInfoPath,
 	GetAccountInfoResponse,
 	GetAccountInfoStatus400,
 	GetAccountInfoStatus401,
 	GetAccountInfoStatus403,
 	GetAccountInfoStatus404,
 	GetAccountInfoStatus410,
+	GetActiveAttackStatusQuery,
 	GetActiveAttackStatusResponse,
 	GetActiveAttackStatusStatus400,
 	GetActiveAttackStatusStatus401,
 	GetActiveAttackStatusStatus403,
 	GetActiveAttackStatusStatus404,
 	GetActiveAttackStatusStatus410,
+	GetAiGatewayByokCredentialPath,
+	GetAiGatewayByokCredentialQuery,
 	GetAiGatewayByokCredentialResponse,
 	GetAiGatewayByokCredentialStatus400,
 	GetAiGatewayByokCredentialStatus401,
@@ -1256,6 +1487,8 @@ import type {
 	GetAiGatewayByokCredentialStatus404,
 	GetAiGatewayByokCredentialStatus410,
 	GetAiGatewayByokCredentialStatus500,
+	GetAiGatewayVirtualModelConfigBySlugPath,
+	GetAiGatewayVirtualModelConfigBySlugQuery,
 	GetAiGatewayVirtualModelConfigBySlugResponse,
 	GetAiGatewayVirtualModelConfigBySlugStatus400,
 	GetAiGatewayVirtualModelConfigBySlugStatus401,
@@ -1263,6 +1496,7 @@ import type {
 	GetAiGatewayVirtualModelConfigBySlugStatus404,
 	GetAiGatewayVirtualModelConfigBySlugStatus410,
 	GetAiGatewayVirtualModelConfigBySlugStatus500,
+	GetAiGatewayVirtualModelConfigQuery,
 	GetAiGatewayVirtualModelConfigResponse,
 	GetAiGatewayVirtualModelConfigStatus400,
 	GetAiGatewayVirtualModelConfigStatus401,
@@ -1270,24 +1504,30 @@ import type {
 	GetAiGatewayVirtualModelConfigStatus404,
 	GetAiGatewayVirtualModelConfigStatus410,
 	GetAiGatewayVirtualModelConfigStatus500,
+	GetAliasPath,
+	GetAliasQuery,
 	GetAliasResponse,
 	GetAliasStatus400,
 	GetAliasStatus401,
 	GetAliasStatus403,
 	GetAliasStatus404,
 	GetAliasStatus410,
+	GetAllChecksPath,
+	GetAllChecksQuery,
 	GetAllChecksResponse,
 	GetAllChecksStatus400,
 	GetAllChecksStatus401,
 	GetAllChecksStatus403,
 	GetAllChecksStatus404,
 	GetAllChecksStatus410,
+	GetAllLogDrainsQuery,
 	GetAllLogDrainsResponse,
 	GetAllLogDrainsStatus400,
 	GetAllLogDrainsStatus401,
 	GetAllLogDrainsStatus403,
 	GetAllLogDrainsStatus404,
 	GetAllLogDrainsStatus410,
+	GetAuthTokenPath,
 	GetAuthTokenResponse,
 	GetAuthTokenStatus400,
 	GetAuthTokenStatus401,
@@ -1300,6 +1540,8 @@ import type {
 	GetAuthUserStatus403,
 	GetAuthUserStatus409,
 	GetAuthUserStatus410,
+	GetBillingPlansPath,
+	GetBillingPlansQuery,
 	GetBillingPlansResponse,
 	GetBillingPlansStatus400,
 	GetBillingPlansStatus401,
@@ -1307,6 +1549,7 @@ import type {
 	GetBillingPlansStatus404,
 	GetBillingPlansStatus410,
 	GetBulkAvailabilityBody,
+	GetBulkAvailabilityQuery,
 	GetBulkAvailabilityResponse,
 	GetBulkAvailabilityStatus400,
 	GetBulkAvailabilityStatus401,
@@ -1314,12 +1557,14 @@ import type {
 	GetBulkAvailabilityStatus429,
 	GetBulkAvailabilityStatus500,
 	GetBulkPriceBody,
+	GetBulkPriceQuery,
 	GetBulkPriceResponse,
 	GetBulkPriceStatus400,
 	GetBulkPriceStatus401,
 	GetBulkPriceStatus403,
 	GetBulkPriceStatus429,
 	GetBulkPriceStatus500,
+	GetBypassIpQuery,
 	GetBypassIpResponse,
 	GetBypassIpStatus400,
 	GetBypassIpStatus401,
@@ -1328,6 +1573,7 @@ import type {
 	GetBypassIpStatus404,
 	GetBypassIpStatus410,
 	GetBypassIpStatus500,
+	GetByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath,
 	GetByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestResponse,
 	GetByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus400,
 	GetByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus401,
@@ -1336,6 +1582,7 @@ import type {
 	GetByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus404,
 	GetByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus410,
 	GetByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus416,
+	GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath,
 	GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidResponse,
 	GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus400,
 	GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus401,
@@ -1343,6 +1590,7 @@ import type {
 	GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus403,
 	GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus404,
 	GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410,
+	GetByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath,
 	GetByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceResponse,
 	GetByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400,
 	GetByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401,
@@ -1350,6 +1598,8 @@ import type {
 	GetByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403,
 	GetByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404,
 	GetByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410,
+	GetByTeamSlugByProjectSlugByRepositoryNameTagsListPath,
+	GetByTeamSlugByProjectSlugByRepositoryNameTagsListQuery,
 	GetByTeamSlugByProjectSlugByRepositoryNameTagsListResponse,
 	GetByTeamSlugByProjectSlugByRepositoryNameTagsListStatus400,
 	GetByTeamSlugByProjectSlugByRepositoryNameTagsListStatus401,
@@ -1357,35 +1607,46 @@ import type {
 	GetByTeamSlugByProjectSlugByRepositoryNameTagsListStatus403,
 	GetByTeamSlugByProjectSlugByRepositoryNameTagsListStatus404,
 	GetByTeamSlugByProjectSlugByRepositoryNameTagsListStatus410,
+	GetCertByIdPath,
+	GetCertByIdQuery,
 	GetCertByIdResponse,
 	GetCertByIdStatus400,
 	GetCertByIdStatus401,
 	GetCertByIdStatus403,
 	GetCertByIdStatus404,
 	GetCertByIdStatus410,
+	GetCertsQuery,
 	GetCertsResponse,
 	GetCertsStatus400,
 	GetCertsStatus401,
 	GetCertsStatus403,
 	GetCertsStatus410,
+	GetCheckPath,
+	GetCheckQuery,
 	GetCheckResponse,
 	GetCheckStatus400,
 	GetCheckStatus401,
 	GetCheckStatus403,
 	GetCheckStatus404,
 	GetCheckStatus410,
+	GetConditionalBypassQuery,
 	GetConditionalBypassResponse,
 	GetConditionalBypassStatus400,
 	GetConditionalBypassStatus401,
 	GetConditionalBypassStatus403,
 	GetConditionalBypassStatus404,
 	GetConditionalBypassStatus410,
+	GetConfigurableLogDrainPath,
+	GetConfigurableLogDrainQuery,
 	GetConfigurableLogDrainResponse,
 	GetConfigurableLogDrainStatus400,
 	GetConfigurableLogDrainStatus401,
 	GetConfigurableLogDrainStatus403,
 	GetConfigurableLogDrainStatus404,
 	GetConfigurableLogDrainStatus410,
+	GetConfigurationPath,
+	GetConfigurationProductsPath,
+	GetConfigurationProductsQuery,
 	GetConfigurationProductsResponse,
 	GetConfigurationProductsStatus400,
 	GetConfigurationProductsStatus401,
@@ -1393,18 +1654,23 @@ import type {
 	GetConfigurationProductsStatus404,
 	GetConfigurationProductsStatus410,
 	GetConfigurationProductsStatus500,
+	GetConfigurationQuery,
 	GetConfigurationResponse,
 	GetConfigurationStatus400,
 	GetConfigurationStatus401,
 	GetConfigurationStatus403,
 	GetConfigurationStatus404,
 	GetConfigurationStatus410,
+	GetConfigurationsQuery,
 	GetConfigurationsResponse,
 	GetConfigurationsStatus400,
 	GetConfigurationsStatus401,
 	GetConfigurationsStatus403,
 	GetConfigurationsStatus404,
 	GetConfigurationsStatus410,
+	GetConnectorPath,
+	GetConnectorProjectConnectionPath,
+	GetConnectorProjectConnectionQuery,
 	GetConnectorProjectConnectionResponse,
 	GetConnectorProjectConnectionStatus400,
 	GetConnectorProjectConnectionStatus401,
@@ -1413,6 +1679,7 @@ import type {
 	GetConnectorProjectConnectionStatus409,
 	GetConnectorProjectConnectionStatus410,
 	GetConnectorProjectConnectionStatus500,
+	GetConnectorQuery,
 	GetConnectorResponse,
 	GetConnectorStatus400,
 	GetConnectorStatus401,
@@ -1425,6 +1692,7 @@ import type {
 	GetConnectorStatus501,
 	GetConnectorStatus504,
 	GetConnectorTokenBody,
+	GetConnectorTokenPath,
 	GetConnectorTokenResponse,
 	GetConnectorTokenStatus400,
 	GetConnectorTokenStatus401,
@@ -1435,18 +1703,24 @@ import type {
 	GetConnectorTokenStatus422,
 	GetConnectorTokenStatus429,
 	GetConnectorTokenStatus500,
+	GetContactInfoSchemaPath,
+	GetContactInfoSchemaQuery,
 	GetContactInfoSchemaResponse,
 	GetContactInfoSchemaStatus400,
 	GetContactInfoSchemaStatus401,
 	GetContactInfoSchemaStatus403,
 	GetContactInfoSchemaStatus429,
 	GetContactInfoSchemaStatus500,
+	GetCustomEnvironmentPath,
+	GetCustomEnvironmentQuery,
 	GetCustomEnvironmentResponse,
 	GetCustomEnvironmentStatus400,
 	GetCustomEnvironmentStatus401,
 	GetCustomEnvironmentStatus403,
 	GetCustomEnvironmentStatus404,
 	GetCustomEnvironmentStatus410,
+	GetDeploymentCheckRunPath,
+	GetDeploymentCheckRunQuery,
 	GetDeploymentCheckRunResponse,
 	GetDeploymentCheckRunStatus400,
 	GetDeploymentCheckRunStatus401,
@@ -1454,6 +1728,8 @@ import type {
 	GetDeploymentCheckRunStatus404,
 	GetDeploymentCheckRunStatus410,
 	GetDeploymentCheckRunStatus500,
+	GetDeploymentEventsPath,
+	GetDeploymentEventsQuery,
 	GetDeploymentEventsResponse,
 	GetDeploymentEventsStatus400,
 	GetDeploymentEventsStatus401,
@@ -1461,18 +1737,24 @@ import type {
 	GetDeploymentEventsStatus404,
 	GetDeploymentEventsStatus410,
 	GetDeploymentEventsStatus500,
+	GetDeploymentFeatureFlagsPath,
+	GetDeploymentFeatureFlagsQuery,
 	GetDeploymentFeatureFlagsResponse,
 	GetDeploymentFeatureFlagsStatus400,
 	GetDeploymentFeatureFlagsStatus401,
 	GetDeploymentFeatureFlagsStatus403,
 	GetDeploymentFeatureFlagsStatus404,
 	GetDeploymentFeatureFlagsStatus410,
+	GetDeploymentFileContentsPath,
+	GetDeploymentFileContentsQuery,
 	GetDeploymentFileContentsResponse,
 	GetDeploymentFileContentsStatus400,
 	GetDeploymentFileContentsStatus401,
 	GetDeploymentFileContentsStatus403,
 	GetDeploymentFileContentsStatus404,
 	GetDeploymentFileContentsStatus410,
+	GetDeploymentPath,
+	GetDeploymentQuery,
 	GetDeploymentResponse,
 	GetDeploymentStatus400,
 	GetDeploymentStatus401,
@@ -1480,6 +1762,7 @@ import type {
 	GetDeploymentStatus404,
 	GetDeploymentStatus410,
 	GetDeploymentStatus429,
+	GetDeploymentsQuery,
 	GetDeploymentsResponse,
 	GetDeploymentsStatus400,
 	GetDeploymentsStatus401,
@@ -1487,6 +1770,8 @@ import type {
 	GetDeploymentsStatus404,
 	GetDeploymentsStatus410,
 	GetDeploymentsStatus422,
+	GetDomainAuthCodePath,
+	GetDomainAuthCodeQuery,
 	GetDomainAuthCodeResponse,
 	GetDomainAuthCodeStatus400,
 	GetDomainAuthCodeStatus401,
@@ -1495,6 +1780,8 @@ import type {
 	GetDomainAuthCodeStatus409,
 	GetDomainAuthCodeStatus429,
 	GetDomainAuthCodeStatus500,
+	GetDomainAvailabilityPath,
+	GetDomainAvailabilityQuery,
 	GetDomainAvailabilityResponse,
 	GetDomainAvailabilityStatus400,
 	GetDomainAvailabilityStatus401,
@@ -1502,11 +1789,15 @@ import type {
 	GetDomainAvailabilityStatus404,
 	GetDomainAvailabilityStatus429,
 	GetDomainAvailabilityStatus500,
+	GetDomainConfigPath,
+	GetDomainConfigQuery,
 	GetDomainConfigResponse,
 	GetDomainConfigStatus400,
 	GetDomainConfigStatus401,
 	GetDomainConfigStatus403,
 	GetDomainConfigStatus410,
+	GetDomainContactVerificationPath,
+	GetDomainContactVerificationQuery,
 	GetDomainContactVerificationResponse,
 	GetDomainContactVerificationStatus400,
 	GetDomainContactVerificationStatus401,
@@ -1514,24 +1805,32 @@ import type {
 	GetDomainContactVerificationStatus404,
 	GetDomainContactVerificationStatus429,
 	GetDomainContactVerificationStatus500,
+	GetDomainPath,
+	GetDomainPricePath,
+	GetDomainPriceQuery,
 	GetDomainPriceResponse,
 	GetDomainPriceStatus400,
 	GetDomainPriceStatus401,
 	GetDomainPriceStatus403,
 	GetDomainPriceStatus429,
 	GetDomainPriceStatus500,
+	GetDomainProjectDomainsPath,
+	GetDomainProjectDomainsQuery,
 	GetDomainProjectDomainsResponse,
 	GetDomainProjectDomainsStatus400,
 	GetDomainProjectDomainsStatus401,
 	GetDomainProjectDomainsStatus403,
 	GetDomainProjectDomainsStatus404,
 	GetDomainProjectDomainsStatus410,
+	GetDomainQuery,
 	GetDomainResponse,
 	GetDomainStatus400,
 	GetDomainStatus401,
 	GetDomainStatus403,
 	GetDomainStatus404,
 	GetDomainStatus410,
+	GetDomainsQuery,
+	GetDomainsRecordsByRecordIdPath,
 	GetDomainsRecordsByRecordIdResponse,
 	GetDomainsRecordsByRecordIdStatus400,
 	GetDomainsRecordsByRecordIdStatus401,
@@ -1544,6 +1843,8 @@ import type {
 	GetDomainsStatus403,
 	GetDomainsStatus409,
 	GetDomainsStatus410,
+	GetDomainTransferInPath,
+	GetDomainTransferInQuery,
 	GetDomainTransferInResponse,
 	GetDomainTransferInStatus400,
 	GetDomainTransferInStatus401,
@@ -1551,12 +1852,16 @@ import type {
 	GetDomainTransferInStatus404,
 	GetDomainTransferInStatus429,
 	GetDomainTransferInStatus500,
+	GetDomainVerificationRecordPath,
+	GetDomainVerificationRecordQuery,
 	GetDomainVerificationRecordResponse,
 	GetDomainVerificationRecordStatus400,
 	GetDomainVerificationRecordStatus401,
 	GetDomainVerificationRecordStatus403,
 	GetDomainVerificationRecordStatus404,
 	GetDomainVerificationRecordStatus410,
+	GetDrainPath,
+	GetDrainQuery,
 	GetDrainResponse,
 	GetDrainStatus400,
 	GetDrainStatus401,
@@ -1564,6 +1869,7 @@ import type {
 	GetDrainStatus404,
 	GetDrainStatus410,
 	GetDrainStatus503,
+	GetDrainsQuery,
 	GetDrainsResponse,
 	GetDrainsStatus400,
 	GetDrainsStatus401,
@@ -1571,6 +1877,8 @@ import type {
 	GetDrainsStatus404,
 	GetDrainsStatus410,
 	GetDrainsStatus503,
+	GetDrivePath,
+	GetDriveQuery,
 	GetDriveResponse,
 	GetDriveStatus400,
 	GetDriveStatus401,
@@ -1579,31 +1887,43 @@ import type {
 	GetDriveStatus410,
 	GetDriveStatus422,
 	GetDriveStatus429,
+	GetEdgeConfigBackupPath,
+	GetEdgeConfigBackupQuery,
 	GetEdgeConfigBackupResponse,
 	GetEdgeConfigBackupStatus400,
 	GetEdgeConfigBackupStatus401,
 	GetEdgeConfigBackupStatus403,
 	GetEdgeConfigBackupStatus404,
 	GetEdgeConfigBackupStatus410,
+	GetEdgeConfigBackupsPath,
+	GetEdgeConfigBackupsQuery,
 	GetEdgeConfigBackupsResponse,
 	GetEdgeConfigBackupsStatus400,
 	GetEdgeConfigBackupsStatus401,
 	GetEdgeConfigBackupsStatus403,
 	GetEdgeConfigBackupsStatus404,
 	GetEdgeConfigBackupsStatus410,
+	GetEdgeConfigItemPath,
+	GetEdgeConfigItemQuery,
 	GetEdgeConfigItemResponse,
 	GetEdgeConfigItemStatus400,
 	GetEdgeConfigItemStatus401,
 	GetEdgeConfigItemStatus403,
 	GetEdgeConfigItemStatus404,
 	GetEdgeConfigItemStatus410,
+	GetEdgeConfigItemsPath,
+	GetEdgeConfigItemsQuery,
 	GetEdgeConfigItemsResponse,
 	GetEdgeConfigItemsStatus400,
 	GetEdgeConfigItemsStatus401,
 	GetEdgeConfigItemsStatus403,
 	GetEdgeConfigItemsStatus404,
 	GetEdgeConfigItemsStatus410,
+	GetEdgeConfigPath,
+	GetEdgeConfigQuery,
 	GetEdgeConfigResponse,
+	GetEdgeConfigSchemaPath,
+	GetEdgeConfigSchemaQuery,
 	GetEdgeConfigSchemaResponse,
 	GetEdgeConfigSchemaStatus400,
 	GetEdgeConfigSchemaStatus401,
@@ -1615,31 +1935,42 @@ import type {
 	GetEdgeConfigStatus403,
 	GetEdgeConfigStatus404,
 	GetEdgeConfigStatus410,
+	GetEdgeConfigsQuery,
 	GetEdgeConfigsResponse,
 	GetEdgeConfigsStatus400,
 	GetEdgeConfigsStatus401,
 	GetEdgeConfigsStatus403,
 	GetEdgeConfigsStatus404,
 	GetEdgeConfigsStatus410,
+	GetEdgeConfigTokenPath,
+	GetEdgeConfigTokenQuery,
 	GetEdgeConfigTokenResponse,
 	GetEdgeConfigTokenStatus400,
 	GetEdgeConfigTokenStatus401,
 	GetEdgeConfigTokenStatus403,
 	GetEdgeConfigTokenStatus404,
 	GetEdgeConfigTokenStatus410,
+	GetEdgeConfigTokensPath,
+	GetEdgeConfigTokensQuery,
 	GetEdgeConfigTokensResponse,
 	GetEdgeConfigTokensStatus400,
 	GetEdgeConfigTokensStatus401,
 	GetEdgeConfigTokensStatus403,
 	GetEdgeConfigTokensStatus404,
 	GetEdgeConfigTokensStatus410,
+	GetFirewallConfigPath,
+	GetFirewallConfigQuery,
 	GetFirewallConfigResponse,
 	GetFirewallConfigStatus400,
 	GetFirewallConfigStatus401,
 	GetFirewallConfigStatus403,
 	GetFirewallConfigStatus404,
 	GetFirewallConfigStatus410,
+	GetFlagPath,
+	GetFlagQuery,
 	GetFlagResponse,
+	GetFlagSegmentPath,
+	GetFlagSegmentQuery,
 	GetFlagSegmentResponse,
 	GetFlagSegmentStatus400,
 	GetFlagSegmentStatus401,
@@ -1647,6 +1978,8 @@ import type {
 	GetFlagSegmentStatus403,
 	GetFlagSegmentStatus404,
 	GetFlagSegmentStatus410,
+	GetFlagSettingsPath,
+	GetFlagSettingsQuery,
 	GetFlagSettingsResponse,
 	GetFlagSettingsStatus400,
 	GetFlagSettingsStatus401,
@@ -1660,30 +1993,35 @@ import type {
 	GetFlagStatus403,
 	GetFlagStatus404,
 	GetFlagStatus410,
+	GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath,
 	GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse,
 	GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400,
 	GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus401,
 	GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus403,
 	GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus404,
 	GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410,
+	GetIntegrationLogDrainsQuery,
 	GetIntegrationLogDrainsResponse,
 	GetIntegrationLogDrainsStatus400,
 	GetIntegrationLogDrainsStatus401,
 	GetIntegrationLogDrainsStatus403,
 	GetIntegrationLogDrainsStatus404,
 	GetIntegrationLogDrainsStatus410,
+	GetIntegrationResourcePath,
 	GetIntegrationResourceResponse,
 	GetIntegrationResourceStatus400,
 	GetIntegrationResourceStatus401,
 	GetIntegrationResourceStatus403,
 	GetIntegrationResourceStatus404,
 	GetIntegrationResourceStatus410,
+	GetIntegrationResourcesPath,
 	GetIntegrationResourcesResponse,
 	GetIntegrationResourcesStatus400,
 	GetIntegrationResourcesStatus401,
 	GetIntegrationResourcesStatus403,
 	GetIntegrationResourcesStatus404,
 	GetIntegrationResourcesStatus410,
+	GetInvoicePath,
 	GetInvoiceResponse,
 	GetInvoiceStatus400,
 	GetInvoiceStatus401,
@@ -1691,18 +2029,23 @@ import type {
 	GetInvoiceStatus404,
 	GetInvoiceStatus410,
 	GetInvoiceStatus429,
+	GetKmsIssuerPath,
+	GetKmsIssuerQuery,
 	GetKmsIssuerResponse,
 	GetKmsIssuerStatus400,
 	GetKmsIssuerStatus401,
 	GetKmsIssuerStatus403,
 	GetKmsIssuerStatus404,
 	GetKmsIssuerStatus410,
+	GetMemberPath,
 	GetMemberResponse,
 	GetMemberStatus400,
 	GetMemberStatus401,
 	GetMemberStatus403,
 	GetMemberStatus404,
 	GetMemberStatus410,
+	GetMicrofrontendsConfigForProjectPath,
+	GetMicrofrontendsConfigForProjectQuery,
 	GetMicrofrontendsConfigForProjectResponse,
 	GetMicrofrontendsConfigForProjectStatus400,
 	GetMicrofrontendsConfigForProjectStatus401,
@@ -1710,6 +2053,8 @@ import type {
 	GetMicrofrontendsConfigForProjectStatus404,
 	GetMicrofrontendsConfigForProjectStatus410,
 	GetMicrofrontendsConfigForProjectStatus500,
+	GetMicrofrontendsConfigPath,
+	GetMicrofrontendsConfigQuery,
 	GetMicrofrontendsConfigResponse,
 	GetMicrofrontendsConfigStatus400,
 	GetMicrofrontendsConfigStatus401,
@@ -1717,6 +2062,7 @@ import type {
 	GetMicrofrontendsConfigStatus404,
 	GetMicrofrontendsConfigStatus410,
 	GetMicrofrontendsConfigStatus500,
+	GetMicrofrontendsGroupsQuery,
 	GetMicrofrontendsGroupsResponse,
 	GetMicrofrontendsGroupsStatus400,
 	GetMicrofrontendsGroupsStatus401,
@@ -1724,12 +2070,16 @@ import type {
 	GetMicrofrontendsGroupsStatus404,
 	GetMicrofrontendsGroupsStatus410,
 	GetMicrofrontendsGroupsStatus500,
+	GetMicrofrontendsInGroupPath,
+	GetMicrofrontendsInGroupQuery,
 	GetMicrofrontendsInGroupResponse,
 	GetMicrofrontendsInGroupStatus400,
 	GetMicrofrontendsInGroupStatus401,
 	GetMicrofrontendsInGroupStatus403,
 	GetMicrofrontendsInGroupStatus404,
 	GetMicrofrontendsInGroupStatus410,
+	GetNamedSandboxPath,
+	GetNamedSandboxQuery,
 	GetNamedSandboxResponse,
 	GetNamedSandboxStatus400,
 	GetNamedSandboxStatus401,
@@ -1743,12 +2093,14 @@ import type {
 	GetNamedSandboxStatus500,
 	GetNamedSandboxStatus502,
 	GetNamedSandboxStatus503,
+	GetObservabilityConfigurationProjectsQuery,
 	GetObservabilityConfigurationProjectsResponse,
 	GetObservabilityConfigurationProjectsStatus400,
 	GetObservabilityConfigurationProjectsStatus401,
 	GetObservabilityConfigurationProjectsStatus403,
 	GetObservabilityConfigurationProjectsStatus404,
 	GetObservabilityConfigurationProjectsStatus410,
+	GetObservabilitySchemaByMetricIdPath,
 	GetObservabilitySchemaByMetricIdResponse,
 	GetObservabilitySchemaByMetricIdStatus400,
 	GetObservabilitySchemaByMetricIdStatus401,
@@ -1762,6 +2114,8 @@ import type {
 	GetObservabilitySchemaStatus404,
 	GetObservabilitySchemaStatus410,
 	GetOrCreateDriveBody,
+	GetOrCreateDrivePath,
+	GetOrCreateDriveQuery,
 	GetOrCreateDriveResponse,
 	GetOrCreateDriveStatus400,
 	GetOrCreateDriveStatus401,
@@ -1773,6 +2127,8 @@ import type {
 	GetOrCreateDriveStatus422,
 	GetOrCreateDriveStatus429,
 	GetOrCreateDriveStatus503,
+	GetOrderPath,
+	GetOrderQuery,
 	GetOrderResponse,
 	GetOrderStatus400,
 	GetOrderStatus401,
@@ -1780,18 +2136,24 @@ import type {
 	GetOrderStatus404,
 	GetOrderStatus429,
 	GetOrderStatus500,
+	GetOrganizationPath,
+	GetOrganizationQuery,
 	GetOrganizationResponse,
 	GetOrganizationStatus400,
 	GetOrganizationStatus401,
 	GetOrganizationStatus403,
 	GetOrganizationStatus404,
 	GetOrganizationStatus410,
+	GetProjectBoxesPath,
+	GetProjectBoxesQuery,
 	GetProjectBoxesResponse,
 	GetProjectBoxesStatus400,
 	GetProjectBoxesStatus401,
 	GetProjectBoxesStatus403,
 	GetProjectBoxesStatus404,
 	GetProjectBoxesStatus410,
+	GetProjectCheckPath,
+	GetProjectCheckQuery,
 	GetProjectCheckResponse,
 	GetProjectCheckStatus400,
 	GetProjectCheckStatus401,
@@ -1799,42 +2161,55 @@ import type {
 	GetProjectCheckStatus404,
 	GetProjectCheckStatus410,
 	GetProjectCheckStatus500,
+	GetProjectDomainPath,
+	GetProjectDomainQuery,
 	GetProjectDomainResponse,
 	GetProjectDomainStatus400,
 	GetProjectDomainStatus401,
 	GetProjectDomainStatus403,
 	GetProjectDomainStatus404,
 	GetProjectDomainStatus410,
+	GetProjectDomainsPath,
+	GetProjectDomainsQuery,
 	GetProjectDomainsResponse,
 	GetProjectDomainsStatus400,
 	GetProjectDomainsStatus401,
 	GetProjectDomainsStatus403,
 	GetProjectDomainsStatus404,
 	GetProjectDomainsStatus410,
+	GetProjectEnvPath,
+	GetProjectEnvQuery,
 	GetProjectEnvResponse,
 	GetProjectEnvStatus400,
 	GetProjectEnvStatus401,
 	GetProjectEnvStatus403,
 	GetProjectEnvStatus404,
 	GetProjectEnvStatus410,
+	GetProjectMembersPath,
+	GetProjectMembersQuery,
 	GetProjectMembersResponse,
 	GetProjectMembersStatus400,
 	GetProjectMembersStatus401,
 	GetProjectMembersStatus403,
 	GetProjectMembersStatus404,
 	GetProjectMembersStatus410,
+	GetProjectPath,
+	GetProjectQuery,
 	GetProjectResponse,
 	GetProjectStatus400,
 	GetProjectStatus401,
 	GetProjectStatus403,
 	GetProjectStatus404,
 	GetProjectStatus410,
+	GetProjectsByIdOrNameCustomEnvironmentsPath,
+	GetProjectsByIdOrNameCustomEnvironmentsQuery,
 	GetProjectsByIdOrNameCustomEnvironmentsResponse,
 	GetProjectsByIdOrNameCustomEnvironmentsStatus400,
 	GetProjectsByIdOrNameCustomEnvironmentsStatus401,
 	GetProjectsByIdOrNameCustomEnvironmentsStatus403,
 	GetProjectsByIdOrNameCustomEnvironmentsStatus404,
 	GetProjectsByIdOrNameCustomEnvironmentsStatus410,
+	GetProjectsQuery,
 	GetProjectsResponse,
 	GetProjectsStatus400,
 	GetProjectsStatus401,
@@ -1842,60 +2217,78 @@ import type {
 	GetProjectsStatus404,
 	GetProjectsStatus410,
 	GetProjectTokenBody,
+	GetProjectTokenPath,
+	GetProjectTokenQuery,
 	GetProjectTokenResponse,
 	GetProjectTokenStatus400,
 	GetProjectTokenStatus401,
 	GetProjectTokenStatus403,
 	GetProjectTokenStatus404,
 	GetProjectTokenStatus410,
+	GetProjectTraceQuery,
 	GetProjectTraceResponse,
 	GetProjectTraceStatus400,
 	GetProjectTraceStatus401,
 	GetProjectTraceStatus403,
 	GetProjectTraceStatus404,
 	GetProjectTraceStatus410,
+	GetRecordsPath,
+	GetRecordsQuery,
 	GetRecordsResponse,
 	GetRecordsStatus400,
 	GetRecordsStatus401,
 	GetRecordsStatus403,
 	GetRecordsStatus404,
 	GetRecordsStatus410,
+	GetRedirectsQuery,
 	GetRedirectsResponse,
 	GetRedirectsStatus400,
 	GetRedirectsStatus401,
 	GetRedirectsStatus403,
 	GetRedirectsStatus404,
 	GetRedirectsStatus410,
+	GetRepositoryImagePath,
+	GetRepositoryImageQuery,
 	GetRepositoryImageResponse,
 	GetRepositoryImageStatus400,
 	GetRepositoryImageStatus401,
 	GetRepositoryImageStatus403,
 	GetRepositoryImageStatus404,
 	GetRepositoryImageStatus410,
+	GetRepositoryPath,
+	GetRepositoryQuery,
 	GetRepositoryResponse,
 	GetRepositoryStatus400,
 	GetRepositoryStatus401,
 	GetRepositoryStatus403,
 	GetRepositoryStatus404,
 	GetRepositoryStatus410,
+	GetRepositoryTagPath,
+	GetRepositoryTagQuery,
 	GetRepositoryTagResponse,
 	GetRepositoryTagStatus400,
 	GetRepositoryTagStatus401,
 	GetRepositoryTagStatus403,
 	GetRepositoryTagStatus404,
 	GetRepositoryTagStatus410,
+	GetRollingReleaseBillingStatusPath,
+	GetRollingReleaseBillingStatusQuery,
 	GetRollingReleaseBillingStatusResponse,
 	GetRollingReleaseBillingStatusStatus400,
 	GetRollingReleaseBillingStatusStatus401,
 	GetRollingReleaseBillingStatusStatus403,
 	GetRollingReleaseBillingStatusStatus404,
 	GetRollingReleaseBillingStatusStatus410,
+	GetRollingReleaseConfigPath,
+	GetRollingReleaseConfigQuery,
 	GetRollingReleaseConfigResponse,
 	GetRollingReleaseConfigStatus400,
 	GetRollingReleaseConfigStatus401,
 	GetRollingReleaseConfigStatus403,
 	GetRollingReleaseConfigStatus404,
 	GetRollingReleaseConfigStatus410,
+	GetRollingReleasePath,
+	GetRollingReleaseQuery,
 	GetRollingReleaseResponse,
 	GetRollingReleaseStatus400,
 	GetRollingReleaseStatus401,
@@ -1909,24 +2302,32 @@ import type {
 	GetRootStatus403,
 	GetRootStatus404,
 	GetRootStatus410,
+	GetRoutesPath,
+	GetRoutesQuery,
 	GetRoutesResponse,
 	GetRoutesStatus400,
 	GetRoutesStatus401,
 	GetRoutesStatus403,
 	GetRoutesStatus404,
 	GetRoutesStatus410,
+	GetRouteVersionsPath,
+	GetRouteVersionsQuery,
 	GetRouteVersionsResponse,
 	GetRouteVersionsStatus400,
 	GetRouteVersionsStatus401,
 	GetRouteVersionsStatus403,
 	GetRouteVersionsStatus404,
 	GetRouteVersionsStatus410,
+	GetRuntimeLogsPath,
+	GetRuntimeLogsQuery,
 	GetRuntimeLogsResponse,
 	GetRuntimeLogsStatus400,
 	GetRuntimeLogsStatus401,
 	GetRuntimeLogsStatus403,
 	GetRuntimeLogsStatus404,
 	GetRuntimeLogsStatus410,
+	GetSdkKeysPath,
+	GetSdkKeysQuery,
 	GetSdkKeysResponse,
 	GetSdkKeysStatus400,
 	GetSdkKeysStatus401,
@@ -1940,6 +2341,7 @@ import type {
 	GetSecurityFirewallConfigStatus403,
 	GetSecurityFirewallConfigStatus404,
 	GetSecurityFirewallConfigStatus410,
+	GetSecurityFirewallEventsQuery,
 	GetSecurityFirewallEventsResponse,
 	GetSecurityFirewallEventsStatus400,
 	GetSecurityFirewallEventsStatus401,
@@ -1948,6 +2350,7 @@ import type {
 	GetSecurityFirewallEventsStatus408,
 	GetSecurityFirewallEventsStatus410,
 	GetSecurityFirewallEventsStatus500,
+	GetSecurityFirewallEventsSummaryQuery,
 	GetSecurityFirewallEventsSummaryResponse,
 	GetSecurityFirewallEventsSummaryStatus400,
 	GetSecurityFirewallEventsSummaryStatus401,
@@ -1956,6 +2359,8 @@ import type {
 	GetSecurityFirewallEventsSummaryStatus408,
 	GetSecurityFirewallEventsSummaryStatus410,
 	GetSecurityFirewallEventsSummaryStatus500,
+	GetSessionCommandLogsPath,
+	GetSessionCommandLogsQuery,
 	GetSessionCommandLogsResponse,
 	GetSessionCommandLogsStatus400,
 	GetSessionCommandLogsStatus401,
@@ -1964,6 +2369,8 @@ import type {
 	GetSessionCommandLogsStatus410,
 	GetSessionCommandLogsStatus422,
 	GetSessionCommandLogsStatus429,
+	GetSessionCommandPath,
+	GetSessionCommandQuery,
 	GetSessionCommandResponse,
 	GetSessionCommandStatus400,
 	GetSessionCommandStatus401,
@@ -1972,7 +2379,11 @@ import type {
 	GetSessionCommandStatus410,
 	GetSessionCommandStatus422,
 	GetSessionCommandStatus429,
+	GetSessionPath,
+	GetSessionQuery,
 	GetSessionResponse,
+	GetSessionSnapshotPath,
+	GetSessionSnapshotQuery,
 	GetSessionSnapshotResponse,
 	GetSessionSnapshotStatus400,
 	GetSessionSnapshotStatus401,
@@ -1989,60 +2400,77 @@ import type {
 	GetSessionStatus422,
 	GetSessionStatus429,
 	GetSessionStatus500,
+	GetSharedEnvVarPath,
+	GetSharedEnvVarQuery,
 	GetSharedEnvVarResponse,
 	GetSharedEnvVarStatus400,
 	GetSharedEnvVarStatus401,
 	GetSharedEnvVarStatus403,
 	GetSharedEnvVarStatus404,
 	GetSharedEnvVarStatus410,
+	GetStorageStoresByIdPath,
+	GetStorageStoresByIdQuery,
 	GetStorageStoresByIdResponse,
 	GetStorageStoresByIdStatus400,
 	GetStorageStoresByIdStatus401,
 	GetStorageStoresByIdStatus403,
 	GetStorageStoresByIdStatus404,
 	GetStorageStoresByIdStatus410,
+	GetSupportedTldsQuery,
 	GetSupportedTldsResponse,
 	GetSupportedTldsStatus400,
 	GetSupportedTldsStatus401,
 	GetSupportedTldsStatus403,
 	GetSupportedTldsStatus429,
 	GetSupportedTldsStatus500,
+	GetTeamAccessRequestPath,
 	GetTeamAccessRequestResponse,
 	GetTeamAccessRequestStatus400,
 	GetTeamAccessRequestStatus401,
 	GetTeamAccessRequestStatus403,
 	GetTeamAccessRequestStatus404,
 	GetTeamAccessRequestStatus410,
+	GetTeamMembersPath,
+	GetTeamMembersQuery,
 	GetTeamMembersResponse,
 	GetTeamMembersStatus400,
 	GetTeamMembersStatus401,
 	GetTeamMembersStatus403,
 	GetTeamMembersStatus404,
 	GetTeamMembersStatus410,
+	GetTeamPath,
+	GetTeamQuery,
 	GetTeamResponse,
 	GetTeamStatus400,
 	GetTeamStatus401,
 	GetTeamStatus403,
 	GetTeamStatus404,
 	GetTeamStatus410,
+	GetTeamsQuery,
 	GetTeamsResponse,
 	GetTeamsStatus400,
 	GetTeamsStatus401,
 	GetTeamsStatus403,
 	GetTeamsStatus410,
 	GetTeamsStatus500,
+	GetTldPath,
+	GetTldPricePath,
+	GetTldPriceQuery,
 	GetTldPriceResponse,
 	GetTldPriceStatus400,
 	GetTldPriceStatus401,
 	GetTldPriceStatus403,
 	GetTldPriceStatus429,
 	GetTldPriceStatus500,
+	GetTldQuery,
 	GetTldResponse,
 	GetTldStatus400,
 	GetTldStatus401,
 	GetTldStatus403,
 	GetTldStatus429,
 	GetTldStatus500,
+	GetVercelCiInvocationLogsPath,
+	GetVercelCiInvocationLogsQuery,
 	GetVercelCiInvocationLogsResponse,
 	GetVercelCiInvocationLogsStatus400,
 	GetVercelCiInvocationLogsStatus401,
@@ -2051,6 +2479,8 @@ import type {
 	GetVercelCiInvocationLogsStatus410,
 	GetVercelCiInvocationLogsStatus429,
 	GetVercelCiInvocationLogsStatus500,
+	GetVercelCiInvocationPath,
+	GetVercelCiInvocationQuery,
 	GetVercelCiInvocationResponse,
 	GetVercelCiInvocationStatus400,
 	GetVercelCiInvocationStatus401,
@@ -2059,6 +2489,8 @@ import type {
 	GetVercelCiInvocationStatus410,
 	GetVercelCiInvocationStatus429,
 	GetVercelCiInvocationStatus500,
+	GetVercelCiInvocationTreePath,
+	GetVercelCiInvocationTreeQuery,
 	GetVercelCiInvocationTreeResponse,
 	GetVercelCiInvocationTreeStatus400,
 	GetVercelCiInvocationTreeStatus401,
@@ -2067,6 +2499,8 @@ import type {
 	GetVercelCiInvocationTreeStatus410,
 	GetVercelCiInvocationTreeStatus429,
 	GetVercelCiInvocationTreeStatus500,
+	GetVercelCiJobDefinitionPath,
+	GetVercelCiJobDefinitionQuery,
 	GetVercelCiJobDefinitionResponse,
 	GetVercelCiJobDefinitionStatus400,
 	GetVercelCiJobDefinitionStatus401,
@@ -2075,6 +2509,8 @@ import type {
 	GetVercelCiJobDefinitionStatus410,
 	GetVercelCiJobDefinitionStatus429,
 	GetVercelCiJobDefinitionStatus500,
+	GetVercelCiJobRunLogsPath,
+	GetVercelCiJobRunLogsQuery,
 	GetVercelCiJobRunLogsResponse,
 	GetVercelCiJobRunLogsStatus400,
 	GetVercelCiJobRunLogsStatus401,
@@ -2083,6 +2519,8 @@ import type {
 	GetVercelCiJobRunLogsStatus410,
 	GetVercelCiJobRunLogsStatus429,
 	GetVercelCiJobRunLogsStatus500,
+	GetVercelCiJobRunPath,
+	GetVercelCiJobRunQuery,
 	GetVercelCiJobRunResponse,
 	GetVercelCiJobRunStatus400,
 	GetVercelCiJobRunStatus401,
@@ -2091,6 +2529,7 @@ import type {
 	GetVercelCiJobRunStatus410,
 	GetVercelCiJobRunStatus429,
 	GetVercelCiJobRunStatus500,
+	GetVercelCiRepositorySettingsQuery,
 	GetVercelCiRepositorySettingsResponse,
 	GetVercelCiRepositorySettingsStatus400,
 	GetVercelCiRepositorySettingsStatus401,
@@ -2100,6 +2539,8 @@ import type {
 	GetVercelCiRepositorySettingsStatus410,
 	GetVercelCiRepositorySettingsStatus429,
 	GetVercelCiRepositorySettingsStatus500,
+	GetVercelCiTaskAnalysisPath,
+	GetVercelCiTaskAnalysisQuery,
 	GetVercelCiTaskAnalysisResponse,
 	GetVercelCiTaskAnalysisStatus400,
 	GetVercelCiTaskAnalysisStatus401,
@@ -2108,6 +2549,8 @@ import type {
 	GetVercelCiTaskAnalysisStatus410,
 	GetVercelCiTaskAnalysisStatus429,
 	GetVercelCiTaskAnalysisStatus500,
+	GetVercelCiTaskLogsPath,
+	GetVercelCiTaskLogsQuery,
 	GetVercelCiTaskLogsResponse,
 	GetVercelCiTaskLogsStatus400,
 	GetVercelCiTaskLogsStatus401,
@@ -2116,6 +2559,8 @@ import type {
 	GetVercelCiTaskLogsStatus410,
 	GetVercelCiTaskLogsStatus429,
 	GetVercelCiTaskLogsStatus500,
+	GetVercelCiTaskRunLogsPath,
+	GetVercelCiTaskRunLogsQuery,
 	GetVercelCiTaskRunLogsResponse,
 	GetVercelCiTaskRunLogsStatus400,
 	GetVercelCiTaskRunLogsStatus401,
@@ -2124,6 +2569,7 @@ import type {
 	GetVercelCiTaskRunLogsStatus410,
 	GetVercelCiTaskRunLogsStatus429,
 	GetVercelCiTaskRunLogsStatus500,
+	GetVersionsQuery,
 	GetVersionsResponse,
 	GetVersionsStatus400,
 	GetVersionsStatus401,
@@ -2131,18 +2577,22 @@ import type {
 	GetVersionsStatus404,
 	GetVersionsStatus410,
 	GetVersionsStatus500,
+	GetWebhookPath,
+	GetWebhookQuery,
 	GetWebhookResponse,
 	GetWebhookStatus400,
 	GetWebhookStatus401,
 	GetWebhookStatus403,
 	GetWebhookStatus404,
 	GetWebhookStatus410,
+	GetWebhooksQuery,
 	GetWebhooksResponse,
 	GetWebhooksStatus400,
 	GetWebhooksStatus401,
 	GetWebhooksStatus403,
 	GetWebhooksStatus404,
 	GetWebhooksStatus410,
+	GitNamespacesQuery,
 	GitNamespacesResponse,
 	GitNamespacesStatus400,
 	GitNamespacesStatus401,
@@ -2152,6 +2602,7 @@ import type {
 	GitNamespacesStatus429,
 	GitNamespacesStatus500,
 	ImportResourceBody,
+	ImportResourcePath,
 	ImportResourceResponse,
 	ImportResourceStatus400,
 	ImportResourceStatus401,
@@ -2160,6 +2611,7 @@ import type {
 	ImportResourceStatus409,
 	ImportResourceStatus410,
 	InvalidateBySrcImagesBody,
+	InvalidateBySrcImagesQuery,
 	InvalidateBySrcImagesResponse,
 	InvalidateBySrcImagesStatus400,
 	InvalidateBySrcImagesStatus401,
@@ -2168,6 +2620,7 @@ import type {
 	InvalidateBySrcImagesStatus404,
 	InvalidateBySrcImagesStatus410,
 	InvalidateByTagsBody,
+	InvalidateByTagsQuery,
 	InvalidateByTagsResponse,
 	InvalidateByTagsStatus400,
 	InvalidateByTagsStatus401,
@@ -2175,6 +2628,8 @@ import type {
 	InvalidateByTagsStatus404,
 	InvalidateByTagsStatus410,
 	InviteUserToTeamBody,
+	InviteUserToTeamPath,
+	InviteUserToTeamQuery,
 	InviteUserToTeamResponse,
 	InviteUserToTeamStatus400,
 	InviteUserToTeamStatus401,
@@ -2183,6 +2638,7 @@ import type {
 	InviteUserToTeamStatus410,
 	InviteUserToTeamStatus503,
 	IssueCertBody,
+	IssueCertQuery,
 	IssueCertResponse,
 	IssueCertStatus400,
 	IssueCertStatus401,
@@ -2193,6 +2649,7 @@ import type {
 	IssueCertStatus449,
 	IssueCertStatus500,
 	JoinTeamBody,
+	JoinTeamPath,
 	JoinTeamResponse,
 	JoinTeamStatus400,
 	JoinTeamStatus401,
@@ -2202,6 +2659,8 @@ import type {
 	JoinTeamStatus410,
 	JoinTeamStatus503,
 	KillSessionCommandBody,
+	KillSessionCommandPath,
+	KillSessionCommandQuery,
 	KillSessionCommandResponse,
 	KillSessionCommandStatus400,
 	KillSessionCommandStatus401,
@@ -2210,24 +2669,30 @@ import type {
 	KillSessionCommandStatus410,
 	KillSessionCommandStatus422,
 	KillSessionCommandStatus429,
+	ListAccessGroupMembersPath,
+	ListAccessGroupMembersQuery,
 	ListAccessGroupMembersResponse,
 	ListAccessGroupMembersStatus400,
 	ListAccessGroupMembersStatus401,
 	ListAccessGroupMembersStatus403,
 	ListAccessGroupMembersStatus404,
 	ListAccessGroupMembersStatus410,
+	ListAccessGroupProjectsPath,
+	ListAccessGroupProjectsQuery,
 	ListAccessGroupProjectsResponse,
 	ListAccessGroupProjectsStatus400,
 	ListAccessGroupProjectsStatus401,
 	ListAccessGroupProjectsStatus403,
 	ListAccessGroupProjectsStatus404,
 	ListAccessGroupProjectsStatus410,
+	ListAccessGroupsQuery,
 	ListAccessGroupsResponse,
 	ListAccessGroupsStatus400,
 	ListAccessGroupsStatus401,
 	ListAccessGroupsStatus403,
 	ListAccessGroupsStatus404,
 	ListAccessGroupsStatus410,
+	ListAiGatewayBudgetDefaultsQuery,
 	ListAiGatewayBudgetDefaultsResponse,
 	ListAiGatewayBudgetDefaultsStatus400,
 	ListAiGatewayBudgetDefaultsStatus401,
@@ -2235,6 +2700,7 @@ import type {
 	ListAiGatewayBudgetDefaultsStatus404,
 	ListAiGatewayBudgetDefaultsStatus410,
 	ListAiGatewayBudgetDefaultsStatus500,
+	ListAiGatewayBudgetsQuery,
 	ListAiGatewayBudgetsResponse,
 	ListAiGatewayBudgetsStatus400,
 	ListAiGatewayBudgetsStatus401,
@@ -2242,6 +2708,7 @@ import type {
 	ListAiGatewayBudgetsStatus404,
 	ListAiGatewayBudgetsStatus410,
 	ListAiGatewayBudgetsStatus500,
+	ListAiGatewayByokCredentialsQuery,
 	ListAiGatewayByokCredentialsResponse,
 	ListAiGatewayByokCredentialsStatus400,
 	ListAiGatewayByokCredentialsStatus401,
@@ -2249,6 +2716,7 @@ import type {
 	ListAiGatewayByokCredentialsStatus404,
 	ListAiGatewayByokCredentialsStatus410,
 	ListAiGatewayByokCredentialsStatus500,
+	ListAiGatewayRoutersQuery,
 	ListAiGatewayRoutersResponse,
 	ListAiGatewayRoutersStatus400,
 	ListAiGatewayRoutersStatus401,
@@ -2256,6 +2724,7 @@ import type {
 	ListAiGatewayRoutersStatus404,
 	ListAiGatewayRoutersStatus410,
 	ListAiGatewayRoutersStatus500,
+	ListAiGatewayRulesQuery,
 	ListAiGatewayRulesResponse,
 	ListAiGatewayRulesStatus400,
 	ListAiGatewayRulesStatus401,
@@ -2263,6 +2732,7 @@ import type {
 	ListAiGatewayRulesStatus404,
 	ListAiGatewayRulesStatus410,
 	ListAiGatewayRulesStatus500,
+	ListAiGatewayVirtualModelConfigsQuery,
 	ListAiGatewayVirtualModelConfigsResponse,
 	ListAiGatewayVirtualModelConfigsStatus400,
 	ListAiGatewayVirtualModelConfigsStatus401,
@@ -2270,6 +2740,7 @@ import type {
 	ListAiGatewayVirtualModelConfigsStatus404,
 	ListAiGatewayVirtualModelConfigsStatus410,
 	ListAiGatewayVirtualModelConfigsStatus500,
+	ListAliasesQuery,
 	ListAliasesResponse,
 	ListAliasesStatus400,
 	ListAliasesStatus401,
@@ -2281,6 +2752,7 @@ import type {
 	ListAuthTokensStatus401,
 	ListAuthTokensStatus403,
 	ListAuthTokensStatus410,
+	ListBillingChargesQuery,
 	ListBillingChargesResponse,
 	ListBillingChargesStatus400,
 	ListBillingChargesStatus401,
@@ -2289,6 +2761,8 @@ import type {
 	ListBillingChargesStatus410,
 	ListBillingChargesStatus500,
 	ListBillingChargesStatus503,
+	ListCheckRunsPath,
+	ListCheckRunsQuery,
 	ListCheckRunsResponse,
 	ListCheckRunsStatus400,
 	ListCheckRunsStatus401,
@@ -2296,6 +2770,8 @@ import type {
 	ListCheckRunsStatus404,
 	ListCheckRunsStatus410,
 	ListCheckRunsStatus500,
+	ListConnectorProjectConnectionsPath,
+	ListConnectorProjectConnectionsQuery,
 	ListConnectorProjectConnectionsResponse,
 	ListConnectorProjectConnectionsStatus400,
 	ListConnectorProjectConnectionsStatus401,
@@ -2304,6 +2780,7 @@ import type {
 	ListConnectorProjectConnectionsStatus409,
 	ListConnectorProjectConnectionsStatus410,
 	ListConnectorProjectConnectionsStatus500,
+	ListConnectorsQuery,
 	ListConnectorsResponse,
 	ListConnectorsStatus400,
 	ListConnectorsStatus401,
@@ -2315,18 +2792,23 @@ import type {
 	ListConnectorsStatus500,
 	ListConnectorsStatus501,
 	ListConnectorsStatus504,
+	ListContractCommitmentsQuery,
 	ListContractCommitmentsResponse,
 	ListContractCommitmentsStatus400,
 	ListContractCommitmentsStatus401,
 	ListContractCommitmentsStatus403,
 	ListContractCommitmentsStatus404,
 	ListContractCommitmentsStatus410,
+	ListDeploymentAliasesPath,
+	ListDeploymentAliasesQuery,
 	ListDeploymentAliasesResponse,
 	ListDeploymentAliasesStatus400,
 	ListDeploymentAliasesStatus401,
 	ListDeploymentAliasesStatus403,
 	ListDeploymentAliasesStatus404,
 	ListDeploymentAliasesStatus410,
+	ListDeploymentCheckRunsPath,
+	ListDeploymentCheckRunsQuery,
 	ListDeploymentCheckRunsResponse,
 	ListDeploymentCheckRunsStatus400,
 	ListDeploymentCheckRunsStatus401,
@@ -2334,12 +2816,15 @@ import type {
 	ListDeploymentCheckRunsStatus404,
 	ListDeploymentCheckRunsStatus410,
 	ListDeploymentCheckRunsStatus500,
+	ListDeploymentFilesPath,
+	ListDeploymentFilesQuery,
 	ListDeploymentFilesResponse,
 	ListDeploymentFilesStatus400,
 	ListDeploymentFilesStatus401,
 	ListDeploymentFilesStatus403,
 	ListDeploymentFilesStatus404,
 	ListDeploymentFilesStatus410,
+	ListDrivesQuery,
 	ListDrivesResponse,
 	ListDrivesStatus400,
 	ListDrivesStatus401,
@@ -2348,11 +2833,14 @@ import type {
 	ListDrivesStatus410,
 	ListDrivesStatus422,
 	ListDrivesStatus429,
+	ListEventTypesQuery,
 	ListEventTypesResponse,
 	ListEventTypesStatus400,
 	ListEventTypesStatus401,
 	ListEventTypesStatus403,
 	ListEventTypesStatus410,
+	ListFlagLabelCountsPath,
+	ListFlagLabelCountsQuery,
 	ListFlagLabelCountsResponse,
 	ListFlagLabelCountsStatus400,
 	ListFlagLabelCountsStatus401,
@@ -2360,6 +2848,8 @@ import type {
 	ListFlagLabelCountsStatus403,
 	ListFlagLabelCountsStatus404,
 	ListFlagLabelCountsStatus410,
+	ListFlagLabelsPath,
+	ListFlagLabelsQuery,
 	ListFlagLabelsResponse,
 	ListFlagLabelsStatus400,
 	ListFlagLabelsStatus401,
@@ -2367,6 +2857,8 @@ import type {
 	ListFlagLabelsStatus403,
 	ListFlagLabelsStatus404,
 	ListFlagLabelsStatus410,
+	ListFlagSegmentsPath,
+	ListFlagSegmentsQuery,
 	ListFlagSegmentsResponse,
 	ListFlagSegmentsStatus400,
 	ListFlagSegmentsStatus401,
@@ -2374,6 +2866,8 @@ import type {
 	ListFlagSegmentsStatus403,
 	ListFlagSegmentsStatus404,
 	ListFlagSegmentsStatus410,
+	ListFlagsPath,
+	ListFlagsQuery,
 	ListFlagsResponse,
 	ListFlagsStatus400,
 	ListFlagsStatus401,
@@ -2381,6 +2875,8 @@ import type {
 	ListFlagsStatus403,
 	ListFlagsStatus404,
 	ListFlagsStatus410,
+	ListFlagsV2Path,
+	ListFlagsV2Query,
 	ListFlagsV2Response,
 	ListFlagsV2Status400,
 	ListFlagsV2Status401,
@@ -2389,6 +2885,8 @@ import type {
 	ListFlagsV2Status404,
 	ListFlagsV2Status410,
 	ListFlagsV2Status503,
+	ListFlagVersionsPath,
+	ListFlagVersionsQuery,
 	ListFlagVersionsResponse,
 	ListFlagVersionsStatus400,
 	ListFlagVersionsStatus401,
@@ -2396,12 +2894,14 @@ import type {
 	ListFlagVersionsStatus403,
 	ListFlagVersionsStatus404,
 	ListFlagVersionsStatus410,
+	ListKmsIssuersQuery,
 	ListKmsIssuersResponse,
 	ListKmsIssuersStatus400,
 	ListKmsIssuersStatus401,
 	ListKmsIssuersStatus403,
 	ListKmsIssuersStatus404,
 	ListKmsIssuersStatus410,
+	ListNamedSandboxesQuery,
 	ListNamedSandboxesResponse,
 	ListNamedSandboxesStatus400,
 	ListNamedSandboxesStatus401,
@@ -2410,6 +2910,7 @@ import type {
 	ListNamedSandboxesStatus410,
 	ListNamedSandboxesStatus422,
 	ListNamedSandboxesStatus429,
+	ListNetworksQuery,
 	ListNetworksResponse,
 	ListNetworksStatus400,
 	ListNetworksStatus401,
@@ -2421,18 +2922,23 @@ import type {
 	ListOrganizationsStatus401,
 	ListOrganizationsStatus403,
 	ListOrganizationsStatus410,
+	ListOrganizationTeamsPath,
+	ListOrganizationTeamsQuery,
 	ListOrganizationTeamsResponse,
 	ListOrganizationTeamsStatus400,
 	ListOrganizationTeamsStatus401,
 	ListOrganizationTeamsStatus403,
 	ListOrganizationTeamsStatus404,
 	ListOrganizationTeamsStatus410,
+	ListPrivateLinkEndpointsQuery,
 	ListPrivateLinkEndpointsResponse,
 	ListPrivateLinkEndpointsStatus400,
 	ListPrivateLinkEndpointsStatus401,
 	ListPrivateLinkEndpointsStatus403,
 	ListPrivateLinkEndpointsStatus404,
 	ListPrivateLinkEndpointsStatus410,
+	ListProjectChecksPath,
+	ListProjectChecksQuery,
 	ListProjectChecksResponse,
 	ListProjectChecksStatus400,
 	ListProjectChecksStatus401,
@@ -2440,42 +2946,55 @@ import type {
 	ListProjectChecksStatus404,
 	ListProjectChecksStatus410,
 	ListProjectChecksStatus500,
+	ListProjectConnectorConnectionsPath,
+	ListProjectConnectorConnectionsQuery,
 	ListProjectConnectorConnectionsResponse,
 	ListProjectConnectorConnectionsStatus400,
 	ListProjectConnectorConnectionsStatus401,
 	ListProjectConnectorConnectionsStatus403,
 	ListProjectConnectorConnectionsStatus404,
 	ListProjectConnectorConnectionsStatus410,
+	ListPromoteAliasesPath,
+	ListPromoteAliasesQuery,
 	ListPromoteAliasesResponse,
 	ListPromoteAliasesStatus400,
 	ListPromoteAliasesStatus401,
 	ListPromoteAliasesStatus403,
 	ListPromoteAliasesStatus404,
 	ListPromoteAliasesStatus410,
+	ListRepositoriesQuery,
 	ListRepositoriesResponse,
 	ListRepositoriesStatus400,
 	ListRepositoriesStatus401,
 	ListRepositoriesStatus403,
 	ListRepositoriesStatus404,
 	ListRepositoriesStatus410,
+	ListRepositoryImagesPath,
+	ListRepositoryImagesQuery,
 	ListRepositoryImagesResponse,
 	ListRepositoryImagesStatus400,
 	ListRepositoryImagesStatus401,
 	ListRepositoryImagesStatus403,
 	ListRepositoryImagesStatus404,
 	ListRepositoryImagesStatus410,
+	ListRepositoryPermissionsPath,
+	ListRepositoryPermissionsQuery,
 	ListRepositoryPermissionsResponse,
 	ListRepositoryPermissionsStatus400,
 	ListRepositoryPermissionsStatus401,
 	ListRepositoryPermissionsStatus403,
 	ListRepositoryPermissionsStatus404,
 	ListRepositoryPermissionsStatus410,
+	ListRepositoryTagsPath,
+	ListRepositoryTagsQuery,
 	ListRepositoryTagsResponse,
 	ListRepositoryTagsStatus400,
 	ListRepositoryTagsStatus401,
 	ListRepositoryTagsStatus403,
 	ListRepositoryTagsStatus404,
 	ListRepositoryTagsStatus410,
+	ListSessionCommandsPath,
+	ListSessionCommandsQuery,
 	ListSessionCommandsResponse,
 	ListSessionCommandsStatus400,
 	ListSessionCommandsStatus401,
@@ -2484,6 +3003,7 @@ import type {
 	ListSessionCommandsStatus410,
 	ListSessionCommandsStatus422,
 	ListSessionCommandsStatus429,
+	ListSessionSnapshotsQuery,
 	ListSessionSnapshotsResponse,
 	ListSessionSnapshotsStatus400,
 	ListSessionSnapshotsStatus401,
@@ -2492,6 +3012,7 @@ import type {
 	ListSessionSnapshotsStatus410,
 	ListSessionSnapshotsStatus422,
 	ListSessionSnapshotsStatus429,
+	ListSessionsQuery,
 	ListSessionsResponse,
 	ListSessionsStatus400,
 	ListSessionsStatus401,
@@ -2501,24 +3022,31 @@ import type {
 	ListSessionsStatus422,
 	ListSessionsStatus429,
 	ListSessionsStatus500,
+	ListSharedEnvVariableQuery,
 	ListSharedEnvVariableResponse,
 	ListSharedEnvVariableStatus400,
 	ListSharedEnvVariableStatus401,
 	ListSharedEnvVariableStatus403,
 	ListSharedEnvVariableStatus404,
 	ListSharedEnvVariableStatus410,
+	ListTeamFlagSettingsPath,
+	ListTeamFlagSettingsQuery,
 	ListTeamFlagSettingsResponse,
 	ListTeamFlagSettingsStatus400,
 	ListTeamFlagSettingsStatus401,
 	ListTeamFlagSettingsStatus403,
 	ListTeamFlagSettingsStatus404,
 	ListTeamFlagSettingsStatus410,
+	ListTeamFlagsPath,
+	ListTeamFlagsQuery,
 	ListTeamFlagsResponse,
 	ListTeamFlagsStatus400,
 	ListTeamFlagsStatus401,
 	ListTeamFlagsStatus403,
 	ListTeamFlagsStatus404,
 	ListTeamFlagsStatus410,
+	ListTeamFlagsV2Path,
+	ListTeamFlagsV2Query,
 	ListTeamFlagsV2Response,
 	ListTeamFlagsV2Status400,
 	ListTeamFlagsV2Status401,
@@ -2526,11 +3054,13 @@ import type {
 	ListTeamFlagsV2Status404,
 	ListTeamFlagsV2Status410,
 	ListTeamFlagsV2Status503,
+	ListUserEventsQuery,
 	ListUserEventsResponse,
 	ListUserEventsStatus400,
 	ListUserEventsStatus401,
 	ListUserEventsStatus403,
 	ListUserEventsStatus410,
+	ListVercelCiBranchesQuery,
 	ListVercelCiBranchesResponse,
 	ListVercelCiBranchesStatus400,
 	ListVercelCiBranchesStatus401,
@@ -2540,6 +3070,8 @@ import type {
 	ListVercelCiBranchesStatus429,
 	ListVercelCiBranchesStatus500,
 	ListVercelCiBranchesStatus503,
+	ListVercelCiInvocationAttemptsPath,
+	ListVercelCiInvocationAttemptsQuery,
 	ListVercelCiInvocationAttemptsResponse,
 	ListVercelCiInvocationAttemptsStatus400,
 	ListVercelCiInvocationAttemptsStatus401,
@@ -2548,6 +3080,7 @@ import type {
 	ListVercelCiInvocationAttemptsStatus410,
 	ListVercelCiInvocationAttemptsStatus429,
 	ListVercelCiInvocationAttemptsStatus500,
+	ListVercelCiInvocationsQuery,
 	ListVercelCiInvocationsResponse,
 	ListVercelCiInvocationsStatus400,
 	ListVercelCiInvocationsStatus401,
@@ -2557,6 +3090,8 @@ import type {
 	ListVercelCiInvocationsStatus429,
 	ListVercelCiInvocationsStatus500,
 	ListVercelCiInvocationsStatus503,
+	ListVercelCiJobDefinitionsPath,
+	ListVercelCiJobDefinitionsQuery,
 	ListVercelCiJobDefinitionsResponse,
 	ListVercelCiJobDefinitionsStatus400,
 	ListVercelCiJobDefinitionsStatus401,
@@ -2565,6 +3100,8 @@ import type {
 	ListVercelCiJobDefinitionsStatus410,
 	ListVercelCiJobDefinitionsStatus429,
 	ListVercelCiJobDefinitionsStatus500,
+	ListVercelCiJobRunsPath,
+	ListVercelCiJobRunsQuery,
 	ListVercelCiJobRunsResponse,
 	ListVercelCiJobRunsStatus400,
 	ListVercelCiJobRunsStatus401,
@@ -2573,6 +3110,8 @@ import type {
 	ListVercelCiJobRunsStatus410,
 	ListVercelCiJobRunsStatus429,
 	ListVercelCiJobRunsStatus500,
+	ListVercelCiTaskAnalysisTasksPath,
+	ListVercelCiTaskAnalysisTasksQuery,
 	ListVercelCiTaskAnalysisTasksResponse,
 	ListVercelCiTaskAnalysisTasksStatus400,
 	ListVercelCiTaskAnalysisTasksStatus401,
@@ -2582,6 +3121,8 @@ import type {
 	ListVercelCiTaskAnalysisTasksStatus410,
 	ListVercelCiTaskAnalysisTasksStatus429,
 	ListVercelCiTaskAnalysisTasksStatus500,
+	ListVercelCiTaskDefinitionsPath,
+	ListVercelCiTaskDefinitionsQuery,
 	ListVercelCiTaskDefinitionsResponse,
 	ListVercelCiTaskDefinitionsStatus400,
 	ListVercelCiTaskDefinitionsStatus401,
@@ -2590,6 +3131,8 @@ import type {
 	ListVercelCiTaskDefinitionsStatus410,
 	ListVercelCiTaskDefinitionsStatus429,
 	ListVercelCiTaskDefinitionsStatus500,
+	ListVercelCiTaskRunsPath,
+	ListVercelCiTaskRunsQuery,
 	ListVercelCiTaskRunsResponse,
 	ListVercelCiTaskRunsStatus400,
 	ListVercelCiTaskRunsStatus401,
@@ -2599,6 +3142,8 @@ import type {
 	ListVercelCiTaskRunsStatus429,
 	ListVercelCiTaskRunsStatus500,
 	LookupFlagLabelsBody,
+	LookupFlagLabelsPath,
+	LookupFlagLabelsQuery,
 	LookupFlagLabelsResponse,
 	LookupFlagLabelsStatus400,
 	LookupFlagLabelsStatus401,
@@ -2608,6 +3153,8 @@ import type {
 	LookupFlagLabelsStatus410,
 	LookupFlagLabelsStatus503,
 	MoveProjectDomainBody,
+	MoveProjectDomainPath,
+	MoveProjectDomainQuery,
 	MoveProjectDomainResponse,
 	MoveProjectDomainStatus400,
 	MoveProjectDomainStatus401,
@@ -2616,6 +3163,8 @@ import type {
 	MoveProjectDomainStatus409,
 	MoveProjectDomainStatus410,
 	PatchDomainBody,
+	PatchDomainPath,
+	PatchDomainQuery,
 	PatchDomainResponse,
 	PatchDomainStatus400,
 	PatchDomainStatus401,
@@ -2625,6 +3174,8 @@ import type {
 	PatchDomainStatus410,
 	PatchDomainStatus500,
 	PatchEdgeConfigItemsBody,
+	PatchEdgeConfigItemsPath,
+	PatchEdgeConfigItemsQuery,
 	PatchEdgeConfigItemsResponse,
 	PatchEdgeConfigItemsStatus400,
 	PatchEdgeConfigItemsStatus401,
@@ -2635,6 +3186,8 @@ import type {
 	PatchEdgeConfigItemsStatus410,
 	PatchEdgeConfigItemsStatus412,
 	PatchEdgeConfigSchemaBody,
+	PatchEdgeConfigSchemaPath,
+	PatchEdgeConfigSchemaQuery,
 	PatchEdgeConfigSchemaResponse,
 	PatchEdgeConfigSchemaStatus400,
 	PatchEdgeConfigSchemaStatus401,
@@ -2644,6 +3197,8 @@ import type {
 	PatchEdgeConfigSchemaStatus409,
 	PatchEdgeConfigSchemaStatus410,
 	PatchTeamBody,
+	PatchTeamPath,
+	PatchTeamQuery,
 	PatchTeamResponse,
 	PatchTeamStatus400,
 	PatchTeamStatus401,
@@ -2656,6 +3211,8 @@ import type {
 	PatchTeamStatus502,
 	PatchTeamStatus503,
 	PatchUrlProtectionBypassBody,
+	PatchUrlProtectionBypassPath,
+	PatchUrlProtectionBypassQuery,
 	PatchUrlProtectionBypassResponse,
 	PatchUrlProtectionBypassStatus400,
 	PatchUrlProtectionBypassStatus401,
@@ -2664,6 +3221,8 @@ import type {
 	PatchUrlProtectionBypassStatus409,
 	PatchUrlProtectionBypassStatus410,
 	PatchUrlProtectionBypassStatus428,
+	PauseProjectPath,
+	PauseProjectQuery,
 	PauseProjectResponse,
 	PauseProjectStatus400,
 	PauseProjectStatus401,
@@ -2672,6 +3231,8 @@ import type {
 	PauseProjectStatus410,
 	PauseProjectStatus500,
 	PostTeamDsyncRolesBody,
+	PostTeamDsyncRolesPath,
+	PostTeamDsyncRolesQuery,
 	PostTeamDsyncRolesResponse,
 	PostTeamDsyncRolesStatus400,
 	PostTeamDsyncRolesStatus401,
@@ -2679,6 +3240,7 @@ import type {
 	PostTeamDsyncRolesStatus404,
 	PostTeamDsyncRolesStatus410,
 	PutFirewallConfigBody,
+	PutFirewallConfigQuery,
 	PutFirewallConfigResponse,
 	PutFirewallConfigStatus400,
 	PutFirewallConfigStatus401,
@@ -2688,30 +3250,40 @@ import type {
 	PutFirewallConfigStatus410,
 	PutFirewallConfigStatus500,
 	PutProjectDaemonInstancesBody,
+	PutProjectDaemonInstancesPath,
+	PutProjectDaemonInstancesQuery,
 	PutProjectDaemonInstancesResponse,
 	PutProjectDaemonInstancesStatus400,
 	PutProjectDaemonInstancesStatus401,
 	PutProjectDaemonInstancesStatus403,
 	PutProjectDaemonInstancesStatus404,
 	PutProjectDaemonInstancesStatus410,
+	ReadAccessGroupPath,
+	ReadAccessGroupProjectPath,
+	ReadAccessGroupProjectQuery,
 	ReadAccessGroupProjectResponse,
 	ReadAccessGroupProjectStatus400,
 	ReadAccessGroupProjectStatus401,
 	ReadAccessGroupProjectStatus403,
 	ReadAccessGroupProjectStatus404,
 	ReadAccessGroupProjectStatus410,
+	ReadAccessGroupQuery,
 	ReadAccessGroupResponse,
 	ReadAccessGroupStatus400,
 	ReadAccessGroupStatus401,
 	ReadAccessGroupStatus403,
 	ReadAccessGroupStatus404,
 	ReadAccessGroupStatus410,
+	ReadNetworkPath,
+	ReadNetworkQuery,
 	ReadNetworkResponse,
 	ReadNetworkStatus400,
 	ReadNetworkStatus401,
 	ReadNetworkStatus403,
 	ReadNetworkStatus404,
 	ReadNetworkStatus410,
+	ReadPrivateLinkEndpointPath,
+	ReadPrivateLinkEndpointQuery,
 	ReadPrivateLinkEndpointResponse,
 	ReadPrivateLinkEndpointStatus400,
 	ReadPrivateLinkEndpointStatus401,
@@ -2719,6 +3291,8 @@ import type {
 	ReadPrivateLinkEndpointStatus404,
 	ReadPrivateLinkEndpointStatus410,
 	ReadSessionFileBody,
+	ReadSessionFilePath,
+	ReadSessionFileQuery,
 	ReadSessionFileResponse,
 	ReadSessionFileStatus400,
 	ReadSessionFileStatus401,
@@ -2728,6 +3302,8 @@ import type {
 	ReadSessionFileStatus422,
 	ReadSessionFileStatus429,
 	RecordEventsBody,
+	RecordEventsHeaders,
+	RecordEventsQuery,
 	RecordEventsResponse,
 	RecordEventsStatus400,
 	RecordEventsStatus401,
@@ -2736,6 +3312,7 @@ import type {
 	RecordEventsStatus404,
 	RecordEventsStatus410,
 	RemoveBypassIpBody,
+	RemoveBypassIpQuery,
 	RemoveBypassIpResponse,
 	RemoveBypassIpStatus400,
 	RemoveBypassIpStatus401,
@@ -2744,6 +3321,8 @@ import type {
 	RemoveBypassIpStatus404,
 	RemoveBypassIpStatus410,
 	RemoveBypassIpStatus500,
+	RemoveCertPath,
+	RemoveCertQuery,
 	RemoveCertResponse,
 	RemoveCertStatus400,
 	RemoveCertStatus401,
@@ -2751,12 +3330,15 @@ import type {
 	RemoveCertStatus404,
 	RemoveCertStatus410,
 	RemoveCustomEnvironmentBody,
+	RemoveCustomEnvironmentPath,
+	RemoveCustomEnvironmentQuery,
 	RemoveCustomEnvironmentResponse,
 	RemoveCustomEnvironmentStatus400,
 	RemoveCustomEnvironmentStatus401,
 	RemoveCustomEnvironmentStatus403,
 	RemoveCustomEnvironmentStatus404,
 	RemoveCustomEnvironmentStatus410,
+	RemoveOrganizationTeamPath,
 	RemoveOrganizationTeamResponse,
 	RemoveOrganizationTeamStatus400,
 	RemoveOrganizationTeamStatus401,
@@ -2765,6 +3347,8 @@ import type {
 	RemoveOrganizationTeamStatus409,
 	RemoveOrganizationTeamStatus410,
 	RemoveProjectDomainBody,
+	RemoveProjectDomainPath,
+	RemoveProjectDomainQuery,
 	RemoveProjectDomainResponse,
 	RemoveProjectDomainStatus400,
 	RemoveProjectDomainStatus401,
@@ -2772,6 +3356,8 @@ import type {
 	RemoveProjectDomainStatus404,
 	RemoveProjectDomainStatus409,
 	RemoveProjectDomainStatus410,
+	RemoveProjectEnvPath,
+	RemoveProjectEnvQuery,
 	RemoveProjectEnvResponse,
 	RemoveProjectEnvStatus400,
 	RemoveProjectEnvStatus401,
@@ -2779,12 +3365,16 @@ import type {
 	RemoveProjectEnvStatus404,
 	RemoveProjectEnvStatus409,
 	RemoveProjectEnvStatus410,
+	RemoveProjectMemberPath,
+	RemoveProjectMemberQuery,
 	RemoveProjectMemberResponse,
 	RemoveProjectMemberStatus400,
 	RemoveProjectMemberStatus401,
 	RemoveProjectMemberStatus403,
 	RemoveProjectMemberStatus404,
 	RemoveProjectMemberStatus410,
+	RemoveRecordPath,
+	RemoveRecordQuery,
 	RemoveRecordResponse,
 	RemoveRecordStatus400,
 	RemoveRecordStatus401,
@@ -2792,12 +3382,16 @@ import type {
 	RemoveRecordStatus404,
 	RemoveRecordStatus410,
 	RemoveRepositoryPermissionBody,
+	RemoveRepositoryPermissionPath,
+	RemoveRepositoryPermissionQuery,
 	RemoveRepositoryPermissionResponse,
 	RemoveRepositoryPermissionStatus400,
 	RemoveRepositoryPermissionStatus401,
 	RemoveRepositoryPermissionStatus403,
 	RemoveRepositoryPermissionStatus404,
 	RemoveRepositoryPermissionStatus410,
+	RemoveTeamMemberPath,
+	RemoveTeamMemberQuery,
 	RemoveTeamMemberResponse,
 	RemoveTeamMemberStatus400,
 	RemoveTeamMemberStatus401,
@@ -2806,6 +3400,8 @@ import type {
 	RemoveTeamMemberStatus410,
 	RemoveTeamMemberStatus503,
 	RenewDomainBody,
+	RenewDomainPath,
+	RenewDomainQuery,
 	RenewDomainResponse,
 	RenewDomainStatus400,
 	RenewDomainStatus401,
@@ -2813,6 +3409,8 @@ import type {
 	RenewDomainStatus404,
 	RenewDomainStatus429,
 	RenewDomainStatus500,
+	ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath,
+	ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidQuery,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidResponse,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus400,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus401,
@@ -2822,6 +3420,7 @@ import type {
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus408,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413,
+	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceResponse,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401,
@@ -2831,6 +3430,8 @@ import type {
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus413,
 	ReplaceConnectorTriggerDestinationsBody,
+	ReplaceConnectorTriggerDestinationsPath,
+	ReplaceConnectorTriggerDestinationsQuery,
 	ReplaceConnectorTriggerDestinationsResponse,
 	ReplaceConnectorTriggerDestinationsStatus400,
 	ReplaceConnectorTriggerDestinationsStatus401,
@@ -2842,6 +3443,7 @@ import type {
 	ReplaceConnectorTriggerDestinationsStatus500,
 	ReplaceConnectorTriggerDestinationsStatus501,
 	ReplaceConnectorTriggerDestinationsStatus504,
+	ReplaceDomainsByDomainRecordsPath,
 	ReplaceDomainsByDomainRecordsResponse,
 	ReplaceDomainsByDomainRecordsStatus400,
 	ReplaceDomainsByDomainRecordsStatus401,
@@ -2851,6 +3453,7 @@ import type {
 	ReplaceDomainsByDomainRecordsStatus410,
 	ReplaceDomainsByDomainRecordsStatus415,
 	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigBody,
+	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath,
 	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse,
 	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400,
 	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus401,
@@ -2860,6 +3463,7 @@ import type {
 	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410,
 	ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus412,
 	RequestAccessToTeamBody,
+	RequestAccessToTeamPath,
 	RequestAccessToTeamResponse,
 	RequestAccessToTeamStatus400,
 	RequestAccessToTeamStatus401,
@@ -2875,6 +3479,8 @@ import type {
 	RequestDeleteStatus402,
 	RequestDeleteStatus403,
 	RequestDeleteStatus410,
+	RequestPromotePath,
+	RequestPromoteQuery,
 	RequestPromoteResponse,
 	RequestPromoteStatus400,
 	RequestPromoteStatus401,
@@ -2883,6 +3489,8 @@ import type {
 	RequestPromoteStatus409,
 	RequestPromoteStatus410,
 	RequestPromoteStatus422,
+	RequestRollbackPath,
+	RequestRollbackQuery,
 	RequestRollbackResponse,
 	RequestRollbackStatus400,
 	RequestRollbackStatus401,
@@ -2892,12 +3500,16 @@ import type {
 	RequestRollbackStatus409,
 	RequestRollbackStatus410,
 	RequestRollbackStatus422,
+	RerequestCheckPath,
+	RerequestCheckQuery,
 	RerequestCheckResponse,
 	RerequestCheckStatus400,
 	RerequestCheckStatus401,
 	RerequestCheckStatus403,
 	RerequestCheckStatus404,
 	RerequestCheckStatus410,
+	RestartProjectDaemonInstancePath,
+	RestartProjectDaemonInstanceQuery,
 	RestartProjectDaemonInstanceResponse,
 	RestartProjectDaemonInstanceStatus400,
 	RestartProjectDaemonInstanceStatus401,
@@ -2906,6 +3518,8 @@ import type {
 	RestartProjectDaemonInstanceStatus409,
 	RestartProjectDaemonInstanceStatus410,
 	RestartProjectDaemonInstanceStatus500,
+	RestoreEdgeConfigBackupPath,
+	RestoreEdgeConfigBackupQuery,
 	RestoreEdgeConfigBackupResponse,
 	RestoreEdgeConfigBackupStatus400,
 	RestoreEdgeConfigBackupStatus401,
@@ -2916,6 +3530,7 @@ import type {
 	RestoreEdgeConfigBackupStatus410,
 	RestoreEdgeConfigBackupStatus412,
 	RestoreRedirectsBody,
+	RestoreRedirectsQuery,
 	RestoreRedirectsResponse,
 	RestoreRedirectsStatus400,
 	RestoreRedirectsStatus401,
@@ -2923,6 +3538,8 @@ import type {
 	RestoreRedirectsStatus404,
 	RestoreRedirectsStatus410,
 	RestoreRedirectsStatus500,
+	RetryVercelCiInvocationPath,
+	RetryVercelCiInvocationQuery,
 	RetryVercelCiInvocationResponse,
 	RetryVercelCiInvocationStatus400,
 	RetryVercelCiInvocationStatus401,
@@ -2933,6 +3550,7 @@ import type {
 	RetryVercelCiInvocationStatus429,
 	RetryVercelCiInvocationStatus500,
 	RevokeInstallationCredentialBody,
+	RevokeInstallationCredentialPath,
 	RevokeInstallationCredentialResponse,
 	RevokeInstallationCredentialStatus400,
 	RevokeInstallationCredentialStatus401,
@@ -2940,6 +3558,8 @@ import type {
 	RevokeInstallationCredentialStatus404,
 	RevokeInstallationCredentialStatus409,
 	RevokeInstallationCredentialStatus410,
+	RevokeKmsSigningKeyPath,
+	RevokeKmsSigningKeyQuery,
 	RevokeKmsSigningKeyResponse,
 	RevokeKmsSigningKeyStatus400,
 	RevokeKmsSigningKeyStatus401,
@@ -2948,6 +3568,7 @@ import type {
 	RevokeKmsSigningKeyStatus409,
 	RevokeKmsSigningKeyStatus410,
 	RotateInstallationCredentialBody,
+	RotateInstallationCredentialPath,
 	RotateInstallationCredentialResponse,
 	RotateInstallationCredentialStatus400,
 	RotateInstallationCredentialStatus401,
@@ -2956,6 +3577,8 @@ import type {
 	RotateInstallationCredentialStatus409,
 	RotateInstallationCredentialStatus410,
 	RunSessionCommandBody,
+	RunSessionCommandPath,
+	RunSessionCommandQuery,
 	RunSessionCommandResponse,
 	RunSessionCommandStatus400,
 	RunSessionCommandStatus401,
@@ -2965,12 +3588,14 @@ import type {
 	RunSessionCommandStatus422,
 	RunSessionCommandStatus429,
 	SearchDomainsBody,
+	SearchDomainsQuery,
 	SearchDomainsResponse,
 	SearchDomainsStatus400,
 	SearchDomainsStatus401,
 	SearchDomainsStatus403,
 	SearchDomainsStatus429,
 	SearchDomainsStatus500,
+	SearchRepoQuery,
 	SearchRepoResponse,
 	SearchRepoStatus400,
 	SearchRepoStatus401,
@@ -2980,6 +3605,7 @@ import type {
 	SearchRepoStatus429,
 	SearchRepoStatus500,
 	SearchRepoStatus502,
+	SearchVercelCiLogsQuery,
 	SearchVercelCiLogsResponse,
 	SearchVercelCiLogsStatus400,
 	SearchVercelCiLogsStatus401,
@@ -2989,6 +3615,7 @@ import type {
 	SearchVercelCiLogsStatus429,
 	SearchVercelCiLogsStatus500,
 	SignKmsMessageBody,
+	SignKmsMessagePath,
 	SignKmsMessageResponse,
 	SignKmsMessageStatus400,
 	SignKmsMessageStatus401,
@@ -2996,6 +3623,7 @@ import type {
 	SignKmsMessageStatus404,
 	SignKmsMessageStatus429,
 	SignKmsTokenBody,
+	SignKmsTokenPath,
 	SignKmsTokenResponse,
 	SignKmsTokenStatus400,
 	SignKmsTokenStatus401,
@@ -3003,6 +3631,7 @@ import type {
 	SignKmsTokenStatus404,
 	SignKmsTokenStatus429,
 	StageRedirectsBody,
+	StageRedirectsQuery,
 	StageRedirectsResponse,
 	StageRedirectsStatus400,
 	StageRedirectsStatus401,
@@ -3011,6 +3640,8 @@ import type {
 	StageRedirectsStatus410,
 	StageRedirectsStatus500,
 	StageRoutesBody,
+	StageRoutesPath,
+	StageRoutesQuery,
 	StageRoutesResponse,
 	StageRoutesStatus400,
 	StageRoutesStatus401,
@@ -3020,6 +3651,8 @@ import type {
 	StageRoutesStatus410,
 	StageRoutesStatus500,
 	StartRollingReleaseBody,
+	StartRollingReleasePath,
+	StartRollingReleaseQuery,
 	StartRollingReleaseResponse,
 	StartRollingReleaseStatus400,
 	StartRollingReleaseStatus401,
@@ -3028,6 +3661,7 @@ import type {
 	StartRollingReleaseStatus409,
 	StartRollingReleaseStatus410,
 	StartRollingReleaseStatus422,
+	StatusQuery,
 	StatusResponse,
 	StatusStatus400,
 	StatusStatus401,
@@ -3035,6 +3669,8 @@ import type {
 	StatusStatus403,
 	StatusStatus404,
 	StatusStatus410,
+	StopSessionPath,
+	StopSessionQuery,
 	StopSessionResponse,
 	StopSessionStatus400,
 	StopSessionStatus401,
@@ -3045,6 +3681,7 @@ import type {
 	StopSessionStatus429,
 	StopSessionStatus500,
 	SubmitBillingDataBody,
+	SubmitBillingDataPath,
 	SubmitBillingDataResponse,
 	SubmitBillingDataStatus400,
 	SubmitBillingDataStatus401,
@@ -3052,6 +3689,7 @@ import type {
 	SubmitBillingDataStatus404,
 	SubmitBillingDataStatus410,
 	SubmitInvoiceBody,
+	SubmitInvoicePath,
 	SubmitInvoiceResponse,
 	SubmitInvoiceStatus400,
 	SubmitInvoiceStatus401,
@@ -3060,6 +3698,7 @@ import type {
 	SubmitInvoiceStatus409,
 	SubmitInvoiceStatus410,
 	SubmitPrepaymentBalancesBody,
+	SubmitPrepaymentBalancesPath,
 	SubmitPrepaymentBalancesResponse,
 	SubmitPrepaymentBalancesStatus400,
 	SubmitPrepaymentBalancesStatus401,
@@ -3067,6 +3706,7 @@ import type {
 	SubmitPrepaymentBalancesStatus404,
 	SubmitPrepaymentBalancesStatus410,
 	TestDrainBody,
+	TestDrainQuery,
 	TestDrainResponse,
 	TestDrainStatus400,
 	TestDrainStatus401,
@@ -3075,18 +3715,24 @@ import type {
 	TestDrainStatus404,
 	TestDrainStatus410,
 	TransferInDomainBody,
+	TransferInDomainPath,
+	TransferInDomainQuery,
 	TransferInDomainResponse,
 	TransferInDomainStatus400,
 	TransferInDomainStatus401,
 	TransferInDomainStatus403,
 	TransferInDomainStatus429,
 	TransferInDomainStatus500,
+	UnlinkSharedEnvVariablePath,
+	UnlinkSharedEnvVariableQuery,
 	UnlinkSharedEnvVariableResponse,
 	UnlinkSharedEnvVariableStatus400,
 	UnlinkSharedEnvVariableStatus401,
 	UnlinkSharedEnvVariableStatus403,
 	UnlinkSharedEnvVariableStatus404,
 	UnlinkSharedEnvVariableStatus410,
+	UnpauseProjectPath,
+	UnpauseProjectQuery,
 	UnpauseProjectResponse,
 	UnpauseProjectStatus400,
 	UnpauseProjectStatus401,
@@ -3095,13 +3741,17 @@ import type {
 	UnpauseProjectStatus410,
 	UnpauseProjectStatus500,
 	UpdateAccessGroupBody,
+	UpdateAccessGroupPath,
 	UpdateAccessGroupProjectBody,
+	UpdateAccessGroupProjectPath,
+	UpdateAccessGroupProjectQuery,
 	UpdateAccessGroupProjectResponse,
 	UpdateAccessGroupProjectStatus400,
 	UpdateAccessGroupProjectStatus401,
 	UpdateAccessGroupProjectStatus403,
 	UpdateAccessGroupProjectStatus404,
 	UpdateAccessGroupProjectStatus410,
+	UpdateAccessGroupQuery,
 	UpdateAccessGroupResponse,
 	UpdateAccessGroupStatus400,
 	UpdateAccessGroupStatus401,
@@ -3109,6 +3759,8 @@ import type {
 	UpdateAccessGroupStatus404,
 	UpdateAccessGroupStatus410,
 	UpdateAiGatewayByokCredentialBody,
+	UpdateAiGatewayByokCredentialPath,
+	UpdateAiGatewayByokCredentialQuery,
 	UpdateAiGatewayByokCredentialResponse,
 	UpdateAiGatewayByokCredentialStatus400,
 	UpdateAiGatewayByokCredentialStatus401,
@@ -3116,6 +3768,7 @@ import type {
 	UpdateAiGatewayByokCredentialStatus404,
 	UpdateAiGatewayByokCredentialStatus410,
 	UpdateAiGatewayByokCredentialStatus500,
+	UpdateAiGatewayRuleQuery,
 	UpdateAiGatewayRuleResponse,
 	UpdateAiGatewayRuleStatus400,
 	UpdateAiGatewayRuleStatus401,
@@ -3123,6 +3776,8 @@ import type {
 	UpdateAiGatewayRuleStatus404,
 	UpdateAiGatewayRuleStatus410,
 	UpdateAiGatewayRuleStatus500,
+	UpdateAiGatewayVirtualModelConfigBySlugPath,
+	UpdateAiGatewayVirtualModelConfigBySlugQuery,
 	UpdateAiGatewayVirtualModelConfigBySlugResponse,
 	UpdateAiGatewayVirtualModelConfigBySlugStatus400,
 	UpdateAiGatewayVirtualModelConfigBySlugStatus401,
@@ -3131,6 +3786,7 @@ import type {
 	UpdateAiGatewayVirtualModelConfigBySlugStatus410,
 	UpdateAiGatewayVirtualModelConfigBySlugStatus429,
 	UpdateAiGatewayVirtualModelConfigBySlugStatus500,
+	UpdateAiGatewayVirtualModelConfigQuery,
 	UpdateAiGatewayVirtualModelConfigResponse,
 	UpdateAiGatewayVirtualModelConfigStatus400,
 	UpdateAiGatewayVirtualModelConfigStatus401,
@@ -3140,6 +3796,7 @@ import type {
 	UpdateAiGatewayVirtualModelConfigStatus429,
 	UpdateAiGatewayVirtualModelConfigStatus500,
 	UpdateApiKeyQuotaBody,
+	UpdateApiKeyQuotaPath,
 	UpdateApiKeyQuotaResponse,
 	UpdateApiKeyQuotaStatus400,
 	UpdateApiKeyQuotaStatus401,
@@ -3149,12 +3806,14 @@ import type {
 	UpdateApiKeyQuotaStatus429,
 	UpdateApiKeyQuotaStatus500,
 	UpdateAttackChallengeModeBody,
+	UpdateAttackChallengeModeQuery,
 	UpdateAttackChallengeModeResponse,
 	UpdateAttackChallengeModeStatus400,
 	UpdateAttackChallengeModeStatus401,
 	UpdateAttackChallengeModeStatus403,
 	UpdateAttackChallengeModeStatus404,
 	UpdateAttackChallengeModeStatus410,
+	UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath,
 	UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidResponse,
 	UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus400,
 	UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus401,
@@ -3165,6 +3824,8 @@ import type {
 	UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410,
 	UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413,
 	UpdateCheckBody,
+	UpdateCheckPath,
+	UpdateCheckQuery,
 	UpdateCheckResponse,
 	UpdateCheckStatus400,
 	UpdateCheckStatus401,
@@ -3173,6 +3834,8 @@ import type {
 	UpdateCheckStatus410,
 	UpdateCheckStatus413,
 	UpdateConnectorBody,
+	UpdateConnectorPath,
+	UpdateConnectorQuery,
 	UpdateConnectorResponse,
 	UpdateConnectorStatus400,
 	UpdateConnectorStatus401,
@@ -3186,6 +3849,8 @@ import type {
 	UpdateConnectorStatus502,
 	UpdateConnectorStatus504,
 	UpdateCustomEnvironmentBody,
+	UpdateCustomEnvironmentPath,
+	UpdateCustomEnvironmentQuery,
 	UpdateCustomEnvironmentResponse,
 	UpdateCustomEnvironmentStatus400,
 	UpdateCustomEnvironmentStatus401,
@@ -3195,6 +3860,8 @@ import type {
 	UpdateCustomEnvironmentStatus410,
 	UpdateCustomEnvironmentStatus500,
 	UpdateDeploymentCheckRunBody,
+	UpdateDeploymentCheckRunPath,
+	UpdateDeploymentCheckRunQuery,
 	UpdateDeploymentCheckRunResponse,
 	UpdateDeploymentCheckRunStatus400,
 	UpdateDeploymentCheckRunStatus401,
@@ -3204,6 +3871,8 @@ import type {
 	UpdateDeploymentCheckRunStatus413,
 	UpdateDeploymentCheckRunStatus500,
 	UpdateDomainAutoRenewBody,
+	UpdateDomainAutoRenewPath,
+	UpdateDomainAutoRenewQuery,
 	UpdateDomainAutoRenewResponse,
 	UpdateDomainAutoRenewStatus400,
 	UpdateDomainAutoRenewStatus401,
@@ -3212,6 +3881,8 @@ import type {
 	UpdateDomainAutoRenewStatus429,
 	UpdateDomainAutoRenewStatus500,
 	UpdateDomainNameserversBody,
+	UpdateDomainNameserversPath,
+	UpdateDomainNameserversQuery,
 	UpdateDomainNameserversResponse,
 	UpdateDomainNameserversStatus400,
 	UpdateDomainNameserversStatus401,
@@ -3220,6 +3891,8 @@ import type {
 	UpdateDomainNameserversStatus429,
 	UpdateDomainNameserversStatus500,
 	UpdateDrainBody,
+	UpdateDrainPath,
+	UpdateDrainQuery,
 	UpdateDrainResponse,
 	UpdateDrainStatus400,
 	UpdateDrainStatus401,
@@ -3228,6 +3901,8 @@ import type {
 	UpdateDrainStatus404,
 	UpdateDrainStatus410,
 	UpdateEdgeConfigBody,
+	UpdateEdgeConfigPath,
+	UpdateEdgeConfigQuery,
 	UpdateEdgeConfigResponse,
 	UpdateEdgeConfigStatus400,
 	UpdateEdgeConfigStatus401,
@@ -3237,6 +3912,7 @@ import type {
 	UpdateEdgeConfigStatus409,
 	UpdateEdgeConfigStatus410,
 	UpdateFirewallConfigBody,
+	UpdateFirewallConfigQuery,
 	UpdateFirewallConfigResponse,
 	UpdateFirewallConfigStatus400,
 	UpdateFirewallConfigStatus401,
@@ -3246,8 +3922,12 @@ import type {
 	UpdateFirewallConfigStatus410,
 	UpdateFirewallConfigStatus500,
 	UpdateFlagBody,
+	UpdateFlagPath,
+	UpdateFlagQuery,
 	UpdateFlagResponse,
 	UpdateFlagSegmentBody,
+	UpdateFlagSegmentPath,
+	UpdateFlagSegmentQuery,
 	UpdateFlagSegmentResponse,
 	UpdateFlagSegmentStatus400,
 	UpdateFlagSegmentStatus401,
@@ -3257,6 +3937,8 @@ import type {
 	UpdateFlagSegmentStatus409,
 	UpdateFlagSegmentStatus410,
 	UpdateFlagSettingsBody,
+	UpdateFlagSettingsPath,
+	UpdateFlagSettingsQuery,
 	UpdateFlagSettingsResponse,
 	UpdateFlagSettingsStatus400,
 	UpdateFlagSettingsStatus401,
@@ -3273,6 +3955,7 @@ import type {
 	UpdateFlagStatus409,
 	UpdateFlagStatus410,
 	UpdateInstallationBody,
+	UpdateInstallationPath,
 	UpdateInstallationResponse,
 	UpdateInstallationStatus400,
 	UpdateInstallationStatus401,
@@ -3280,6 +3963,7 @@ import type {
 	UpdateInstallationStatus404,
 	UpdateInstallationStatus410,
 	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdBody,
+	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPath,
 	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdResponse,
 	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus400,
 	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus401,
@@ -3287,6 +3971,7 @@ import type {
 	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus404,
 	UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus410,
 	UpdateIntegrationDeploymentActionBody,
+	UpdateIntegrationDeploymentActionPath,
 	UpdateIntegrationDeploymentActionResponse,
 	UpdateIntegrationDeploymentActionStatus400,
 	UpdateIntegrationDeploymentActionStatus401,
@@ -3294,6 +3979,7 @@ import type {
 	UpdateIntegrationDeploymentActionStatus404,
 	UpdateIntegrationDeploymentActionStatus410,
 	UpdateInvoiceBody,
+	UpdateInvoicePath,
 	UpdateInvoiceResponse,
 	UpdateInvoiceStatus400,
 	UpdateInvoiceStatus401,
@@ -3302,13 +3988,17 @@ import type {
 	UpdateInvoiceStatus409,
 	UpdateInvoiceStatus410,
 	UpdateKmsIssuerBody,
+	UpdateKmsIssuerPath,
 	UpdateKmsIssuerPolicyBody,
+	UpdateKmsIssuerPolicyPath,
+	UpdateKmsIssuerPolicyQuery,
 	UpdateKmsIssuerPolicyResponse,
 	UpdateKmsIssuerPolicyStatus400,
 	UpdateKmsIssuerPolicyStatus401,
 	UpdateKmsIssuerPolicyStatus403,
 	UpdateKmsIssuerPolicyStatus404,
 	UpdateKmsIssuerPolicyStatus410,
+	UpdateKmsIssuerQuery,
 	UpdateKmsIssuerResponse,
 	UpdateKmsIssuerStatus400,
 	UpdateKmsIssuerStatus401,
@@ -3317,12 +4007,16 @@ import type {
 	UpdateKmsIssuerStatus410,
 	UpdateMicrofrontendsBody,
 	UpdateMicrofrontendsGroupBody,
+	UpdateMicrofrontendsGroupPath,
+	UpdateMicrofrontendsGroupQuery,
 	UpdateMicrofrontendsGroupResponse,
 	UpdateMicrofrontendsGroupStatus400,
 	UpdateMicrofrontendsGroupStatus401,
 	UpdateMicrofrontendsGroupStatus403,
 	UpdateMicrofrontendsGroupStatus404,
 	UpdateMicrofrontendsGroupStatus410,
+	UpdateMicrofrontendsPath,
+	UpdateMicrofrontendsQuery,
 	UpdateMicrofrontendsResponse,
 	UpdateMicrofrontendsStatus400,
 	UpdateMicrofrontendsStatus401,
@@ -3332,6 +4026,8 @@ import type {
 	UpdateMicrofrontendsStatus410,
 	UpdateMicrofrontendsStatus500,
 	UpdateNetworkBody,
+	UpdateNetworkPath,
+	UpdateNetworkQuery,
 	UpdateNetworkResponse,
 	UpdateNetworkStatus400,
 	UpdateNetworkStatus401,
@@ -3339,6 +4035,8 @@ import type {
 	UpdateNetworkStatus404,
 	UpdateNetworkStatus410,
 	UpdateObservabilityConfigurationProjectBody,
+	UpdateObservabilityConfigurationProjectPath,
+	UpdateObservabilityConfigurationProjectQuery,
 	UpdateObservabilityConfigurationProjectResponse,
 	UpdateObservabilityConfigurationProjectStatus400,
 	UpdateObservabilityConfigurationProjectStatus401,
@@ -3347,6 +4045,7 @@ import type {
 	UpdateObservabilityConfigurationProjectStatus410,
 	UpdateObservabilityConfigurationProjectStatus429,
 	UpdateOrganizationBody,
+	UpdateOrganizationPath,
 	UpdateOrganizationResponse,
 	UpdateOrganizationStatus400,
 	UpdateOrganizationStatus401,
@@ -3355,6 +4054,8 @@ import type {
 	UpdateOrganizationStatus409,
 	UpdateOrganizationStatus410,
 	UpdatePrivateLinkEndpointBody,
+	UpdatePrivateLinkEndpointPath,
+	UpdatePrivateLinkEndpointQuery,
 	UpdatePrivateLinkEndpointResponse,
 	UpdatePrivateLinkEndpointStatus400,
 	UpdatePrivateLinkEndpointStatus401,
@@ -3366,6 +4067,8 @@ import type {
 	UpdatePrivateLinkEndpointStatus503,
 	UpdateProjectBody,
 	UpdateProjectCheckBody,
+	UpdateProjectCheckPath,
+	UpdateProjectCheckQuery,
 	UpdateProjectCheckResponse,
 	UpdateProjectCheckStatus400,
 	UpdateProjectCheckStatus401,
@@ -3374,6 +4077,8 @@ import type {
 	UpdateProjectCheckStatus410,
 	UpdateProjectCheckStatus500,
 	UpdateProjectDomainBody,
+	UpdateProjectDomainPath,
+	UpdateProjectDomainQuery,
 	UpdateProjectDomainResponse,
 	UpdateProjectDomainStatus400,
 	UpdateProjectDomainStatus401,
@@ -3381,7 +4086,10 @@ import type {
 	UpdateProjectDomainStatus404,
 	UpdateProjectDomainStatus409,
 	UpdateProjectDomainStatus410,
+	UpdateProjectPath,
 	UpdateProjectProtectionBypassBody,
+	UpdateProjectProtectionBypassPath,
+	UpdateProjectProtectionBypassQuery,
 	UpdateProjectProtectionBypassResponse,
 	UpdateProjectProtectionBypassStatus400,
 	UpdateProjectProtectionBypassStatus401,
@@ -3389,6 +4097,7 @@ import type {
 	UpdateProjectProtectionBypassStatus404,
 	UpdateProjectProtectionBypassStatus409,
 	UpdateProjectProtectionBypassStatus410,
+	UpdateProjectQuery,
 	UpdateProjectResponse,
 	UpdateProjectStatus400,
 	UpdateProjectStatus401,
@@ -3400,6 +4109,7 @@ import type {
 	UpdateProjectStatus428,
 	UpdateProjectStatus500,
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionBody,
+	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionPath,
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionResponse,
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus400,
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus401,
@@ -3409,6 +4119,8 @@ import type {
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus410,
 	UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionStatus422,
 	UpdateRecordBody,
+	UpdateRecordPath,
+	UpdateRecordQuery,
 	UpdateRecordResponse,
 	UpdateRecordStatus400,
 	UpdateRecordStatus401,
@@ -3418,9 +4130,11 @@ import type {
 	UpdateRecordStatus409,
 	UpdateRecordStatus410,
 	UpdateResourceBody,
+	UpdateResourcePath,
 	UpdateResourceResponse,
 	UpdateResourceSecretsBody,
 	UpdateResourceSecretsByIdBody,
+	UpdateResourceSecretsByIdPath,
 	UpdateResourceSecretsByIdResponse,
 	UpdateResourceSecretsByIdStatus400,
 	UpdateResourceSecretsByIdStatus401,
@@ -3428,6 +4142,7 @@ import type {
 	UpdateResourceSecretsByIdStatus404,
 	UpdateResourceSecretsByIdStatus409,
 	UpdateResourceSecretsByIdStatus410,
+	UpdateResourceSecretsPath,
 	UpdateResourceSecretsResponse,
 	UpdateResourceSecretsStatus400,
 	UpdateResourceSecretsStatus401,
@@ -3441,6 +4156,8 @@ import type {
 	UpdateResourceStatus404,
 	UpdateResourceStatus409,
 	UpdateResourceStatus410,
+	UpdateRollingReleaseConfigPath,
+	UpdateRollingReleaseConfigQuery,
 	UpdateRollingReleaseConfigResponse,
 	UpdateRollingReleaseConfigStatus400,
 	UpdateRollingReleaseConfigStatus401,
@@ -3448,6 +4165,8 @@ import type {
 	UpdateRollingReleaseConfigStatus404,
 	UpdateRollingReleaseConfigStatus410,
 	UpdateRouteVersionsBody,
+	UpdateRouteVersionsPath,
+	UpdateRouteVersionsQuery,
 	UpdateRouteVersionsResponse,
 	UpdateRouteVersionsStatus400,
 	UpdateRouteVersionsStatus401,
@@ -3457,6 +4176,8 @@ import type {
 	UpdateRouteVersionsStatus410,
 	UpdateRouteVersionsStatus500,
 	UpdateSandboxBody,
+	UpdateSandboxPath,
+	UpdateSandboxQuery,
 	UpdateSandboxResponse,
 	UpdateSandboxStatus400,
 	UpdateSandboxStatus401,
@@ -3468,6 +4189,8 @@ import type {
 	UpdateSandboxStatus429,
 	UpdateSandboxStatus500,
 	UpdateSessionNetworkPolicyBody,
+	UpdateSessionNetworkPolicyPath,
+	UpdateSessionNetworkPolicyQuery,
 	UpdateSessionNetworkPolicyResponse,
 	UpdateSessionNetworkPolicyStatus400,
 	UpdateSessionNetworkPolicyStatus401,
@@ -3478,6 +4201,7 @@ import type {
 	UpdateSessionNetworkPolicyStatus429,
 	UpdateSessionNetworkPolicyStatus500,
 	UpdateSharedEnvVariableBody,
+	UpdateSharedEnvVariableQuery,
 	UpdateSharedEnvVariableResponse,
 	UpdateSharedEnvVariableStatus400,
 	UpdateSharedEnvVariableStatus401,
@@ -3486,6 +4210,8 @@ import type {
 	UpdateSharedEnvVariableStatus404,
 	UpdateSharedEnvVariableStatus410,
 	UpdateStaticIpsBody,
+	UpdateStaticIpsPath,
+	UpdateStaticIpsQuery,
 	UpdateStaticIpsResponse,
 	UpdateStaticIpsStatus400,
 	UpdateStaticIpsStatus401,
@@ -3496,6 +4222,7 @@ import type {
 	UpdateStaticIpsStatus410,
 	UpdateStaticIpsStatus500,
 	UpdateTeamMemberBody,
+	UpdateTeamMemberPath,
 	UpdateTeamMemberResponse,
 	UpdateTeamMemberStatus400,
 	UpdateTeamMemberStatus401,
@@ -3506,6 +4233,7 @@ import type {
 	UpdateTeamMemberStatus410,
 	UpdateTeamMemberStatus500,
 	UpdateVercelCiRepositorySettingsBody,
+	UpdateVercelCiRepositorySettingsQuery,
 	UpdateVercelCiRepositorySettingsResponse,
 	UpdateVercelCiRepositorySettingsStatus400,
 	UpdateVercelCiRepositorySettingsStatus401,
@@ -3516,6 +4244,7 @@ import type {
 	UpdateVercelCiRepositorySettingsStatus429,
 	UpdateVercelCiRepositorySettingsStatus500,
 	UpdateVersionBody,
+	UpdateVersionQuery,
 	UpdateVersionResponse,
 	UpdateVersionStatus400,
 	UpdateVersionStatus401,
@@ -3523,6 +4252,9 @@ import type {
 	UpdateVersionStatus404,
 	UpdateVersionStatus410,
 	UpdateVersionStatus500,
+	UploadArtifactHeaders,
+	UploadArtifactPath,
+	UploadArtifactQuery,
 	UploadArtifactResponse,
 	UploadArtifactStatus400,
 	UploadArtifactStatus401,
@@ -3531,6 +4263,7 @@ import type {
 	UploadArtifactStatus404,
 	UploadArtifactStatus410,
 	UploadCertBody,
+	UploadCertQuery,
 	UploadCertResponse,
 	UploadCertStatus400,
 	UploadCertStatus401,
@@ -3538,6 +4271,8 @@ import type {
 	UploadCertStatus403,
 	UploadCertStatus404,
 	UploadCertStatus410,
+	UploadFileHeaders,
+	UploadFileQuery,
 	UploadFileResponse,
 	UploadFileStatus400,
 	UploadFileStatus401,
@@ -3545,6 +4280,8 @@ import type {
 	UploadFileStatus404,
 	UploadFileStatus410,
 	UploadFileStatus426,
+	UploadProjectAvatarPath,
+	UploadProjectAvatarQuery,
 	UploadProjectAvatarResponse,
 	UploadProjectAvatarStatus400,
 	UploadProjectAvatarStatus401,
@@ -3555,6 +4292,7 @@ import type {
 	UploadProjectAvatarStatus415,
 	UpsertAiGatewayBudgetBody,
 	UpsertAiGatewayBudgetDefaultBody,
+	UpsertAiGatewayBudgetDefaultQuery,
 	UpsertAiGatewayBudgetDefaultResponse,
 	UpsertAiGatewayBudgetDefaultStatus400,
 	UpsertAiGatewayBudgetDefaultStatus401,
@@ -3562,6 +4300,7 @@ import type {
 	UpsertAiGatewayBudgetDefaultStatus404,
 	UpsertAiGatewayBudgetDefaultStatus410,
 	UpsertAiGatewayBudgetDefaultStatus500,
+	UpsertAiGatewayBudgetQuery,
 	UpsertAiGatewayBudgetResponse,
 	UpsertAiGatewayBudgetStatus400,
 	UpsertAiGatewayBudgetStatus401,
@@ -3570,6 +4309,8 @@ import type {
 	UpsertAiGatewayBudgetStatus410,
 	UpsertAiGatewayBudgetStatus500,
 	UpsertConnectorProjectConnectionBody,
+	UpsertConnectorProjectConnectionPath,
+	UpsertConnectorProjectConnectionQuery,
 	UpsertConnectorProjectConnectionResponse,
 	UpsertConnectorProjectConnectionStatus400,
 	UpsertConnectorProjectConnectionStatus401,
@@ -3581,6 +4322,8 @@ import type {
 	UpsertConnectorProjectConnectionStatus500,
 	UpsertConnectorProjectConnectionStatus501,
 	UpsertConnectorProjectConnectionStatus504,
+	VerifyProjectDomainPath,
+	VerifyProjectDomainQuery,
 	VerifyProjectDomainResponse,
 	VerifyProjectDomainStatus400,
 	VerifyProjectDomainStatus401,
@@ -3588,6 +4331,8 @@ import type {
 	VerifyProjectDomainStatus404,
 	VerifyProjectDomainStatus410,
 	WriteSessionCommandStdinBody,
+	WriteSessionCommandStdinPath,
+	WriteSessionCommandStdinQuery,
 	WriteSessionCommandStdinResponse,
 	WriteSessionCommandStdinStatus400,
 	WriteSessionCommandStdinStatus401,
@@ -3599,6 +4344,9 @@ import type {
 	WriteSessionCommandStdinStatus429,
 	WriteSessionCommandStdinStatus502,
 	WriteSessionCommandStdinStatus504,
+	WriteSessionFilesHeaders,
+	WriteSessionFilesPath,
+	WriteSessionFilesQuery,
 	WriteSessionFilesResponse,
 	WriteSessionFilesStatus400,
 	WriteSessionFilesStatus401,
@@ -3620,8 +4368,8 @@ export async function readAccessGroup(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: ReadAccessGroupPath;
+		queryParams?: Partial<ReadAccessGroupQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3641,8 +4389,8 @@ export async function readAccessGroup(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<ReadAccessGroupQuery>,
+		ReadAccessGroupPath
 	>({
 		method: "GET",
 		url: `/v1/access-groups/${encodeURIComponent(String(pathParams.idOrName))}`,
@@ -3666,9 +4414,9 @@ export async function updateAccessGroup(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: UpdateAccessGroupPath;
 		body: UpdateAccessGroupBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateAccessGroupQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3688,8 +4436,8 @@ export async function updateAccessGroup(
 		>,
 		UpdateAccessGroupBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<UpdateAccessGroupQuery>,
+		UpdateAccessGroupPath
 	>({
 		method: "POST",
 		url: `/v1/access-groups/${encodeURIComponent(String(pathParams.idOrName))}`,
@@ -3713,8 +4461,8 @@ export async function deleteAccessGroup(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteAccessGroupPath;
+		queryParams?: Partial<DeleteAccessGroupQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3734,8 +4482,8 @@ export async function deleteAccessGroup(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<DeleteAccessGroupQuery>,
+		DeleteAccessGroupPath
 	>({
 		method: "DELETE",
 		url: `/v1/access-groups/${encodeURIComponent(String(pathParams.idOrName))}`,
@@ -3758,14 +4506,8 @@ export async function listAccessGroupMembers(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: {
-			limit?: number;
-			next?: string;
-			search?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: ListAccessGroupMembersPath;
+		queryParams?: Partial<ListAccessGroupMembersQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3785,8 +4527,8 @@ export async function listAccessGroupMembers(
 		>,
 		null,
 		Record<string, string>,
-		{ limit?: number; next?: string; search?: string; teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<ListAccessGroupMembersQuery>,
+		ListAccessGroupMembersPath
 	>({
 		method: "GET",
 		url: `/v1/access-groups/${encodeURIComponent(String(pathParams.idOrName))}/members`,
@@ -3808,16 +4550,7 @@ export async function listAccessGroups(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			projectId?: string;
-			search?: string;
-			membersLimit?: number;
-			projectsLimit?: number;
-			limit?: number;
-			next?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListAccessGroupsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3834,16 +4567,7 @@ export async function listAccessGroups(
 		>,
 		null,
 		Record<string, string>,
-		{
-			projectId?: string;
-			search?: string;
-			membersLimit?: number;
-			projectsLimit?: number;
-			limit?: number;
-			next?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListAccessGroupsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -3868,7 +4592,7 @@ export async function createAccessGroup(
 		config,
 	}: {
 		body: CreateAccessGroupBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateAccessGroupQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3885,7 +4609,7 @@ export async function createAccessGroup(
 		>,
 		CreateAccessGroupBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateAccessGroupQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -3910,8 +4634,8 @@ export async function listAccessGroupProjects(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { limit?: number; next?: string; teamId?: string; slug?: string };
+		pathParams: ListAccessGroupProjectsPath;
+		queryParams?: Partial<ListAccessGroupProjectsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3931,8 +4655,8 @@ export async function listAccessGroupProjects(
 		>,
 		null,
 		Record<string, string>,
-		{ limit?: number; next?: string; teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<ListAccessGroupProjectsQuery>,
+		ListAccessGroupProjectsPath
 	>({
 		method: "GET",
 		url: `/v1/access-groups/${encodeURIComponent(String(pathParams.idOrName))}/projects`,
@@ -3956,9 +4680,9 @@ export async function createAccessGroupProject(
 		queryParams,
 		config,
 	}: {
-		pathParams: { accessGroupIdOrName: string };
+		pathParams: CreateAccessGroupProjectPath;
 		body: CreateAccessGroupProjectBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateAccessGroupProjectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3978,8 +4702,8 @@ export async function createAccessGroupProject(
 		>,
 		CreateAccessGroupProjectBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ accessGroupIdOrName: string }
+		Partial<CreateAccessGroupProjectQuery>,
+		CreateAccessGroupProjectPath
 	>({
 		method: "POST",
 		url: `/v1/access-groups/${encodeURIComponent(String(pathParams.accessGroupIdOrName))}/projects`,
@@ -4003,8 +4727,8 @@ export async function readAccessGroupProject(
 		queryParams,
 		config,
 	}: {
-		pathParams: { accessGroupIdOrName: string; projectId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: ReadAccessGroupProjectPath;
+		queryParams?: Partial<ReadAccessGroupProjectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4028,8 +4752,8 @@ export async function readAccessGroupProject(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ accessGroupIdOrName: string; projectId: string }
+		Partial<ReadAccessGroupProjectQuery>,
+		ReadAccessGroupProjectPath
 	>({
 		method: "GET",
 		url: `/v1/access-groups/${encodeURIComponent(String(pathParams.accessGroupIdOrName))}/projects/${encodeURIComponent(String(pathParams.projectId))}`,
@@ -4053,9 +4777,9 @@ export async function updateAccessGroupProject(
 		queryParams,
 		config,
 	}: {
-		pathParams: { accessGroupIdOrName: string; projectId: string };
+		pathParams: UpdateAccessGroupProjectPath;
 		body: UpdateAccessGroupProjectBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateAccessGroupProjectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4079,8 +4803,8 @@ export async function updateAccessGroupProject(
 		>,
 		UpdateAccessGroupProjectBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ accessGroupIdOrName: string; projectId: string }
+		Partial<UpdateAccessGroupProjectQuery>,
+		UpdateAccessGroupProjectPath
 	>({
 		method: "PATCH",
 		url: `/v1/access-groups/${encodeURIComponent(String(pathParams.accessGroupIdOrName))}/projects/${encodeURIComponent(String(pathParams.projectId))}`,
@@ -4104,8 +4828,8 @@ export async function deleteAccessGroupProject(
 		queryParams,
 		config,
 	}: {
-		pathParams: { accessGroupIdOrName: string; projectId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteAccessGroupProjectPath;
+		queryParams?: Partial<DeleteAccessGroupProjectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4129,8 +4853,8 @@ export async function deleteAccessGroupProject(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ accessGroupIdOrName: string; projectId: string }
+		Partial<DeleteAccessGroupProjectQuery>,
+		DeleteAccessGroupProjectPath
 	>({
 		method: "DELETE",
 		url: `/v1/access-groups/${encodeURIComponent(String(pathParams.accessGroupIdOrName))}/projects/${encodeURIComponent(String(pathParams.projectId))}`,
@@ -4154,7 +4878,7 @@ export async function createAiGatewayByokCredential(
 		config,
 	}: {
 		body?: CreateAiGatewayByokCredentialBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateAiGatewayByokCredentialQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4173,7 +4897,7 @@ export async function createAiGatewayByokCredential(
 		>,
 		CreateAiGatewayByokCredentialBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateAiGatewayByokCredentialQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -4197,15 +4921,7 @@ export async function listAiGatewayByokCredentials(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			ownerId?: string;
-			providerSlug?: string;
-			includeDeleted?: "true" | "false";
-			decrypt?: "true" | "false";
-			includeModelMappings?: "true" | "false";
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListAiGatewayByokCredentialsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4223,15 +4939,7 @@ export async function listAiGatewayByokCredentials(
 		>,
 		null,
 		Record<string, string>,
-		{
-			ownerId?: string;
-			providerSlug?: string;
-			includeDeleted?: "true" | "false";
-			decrypt?: "true" | "false";
-			includeModelMappings?: "true" | "false";
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListAiGatewayByokCredentialsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4255,8 +4963,8 @@ export async function getAiGatewayByokCredential(
 		queryParams,
 		config,
 	}: {
-		pathParams: { credentialId: string };
-		queryParams?: { ownerId?: string; teamId?: string; slug?: string };
+		pathParams: GetAiGatewayByokCredentialPath;
+		queryParams?: Partial<GetAiGatewayByokCredentialQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4277,8 +4985,8 @@ export async function getAiGatewayByokCredential(
 		>,
 		null,
 		Record<string, string>,
-		{ ownerId?: string; teamId?: string; slug?: string },
-		{ credentialId: string }
+		Partial<GetAiGatewayByokCredentialQuery>,
+		GetAiGatewayByokCredentialPath
 	>({
 		method: "GET",
 		url: `/ai-gateway/byok-credentials/${encodeURIComponent(String(pathParams.credentialId))}`,
@@ -4302,9 +5010,9 @@ export async function updateAiGatewayByokCredential(
 		queryParams,
 		config,
 	}: {
-		pathParams: { credentialId: string };
+		pathParams: UpdateAiGatewayByokCredentialPath;
 		body?: UpdateAiGatewayByokCredentialBody;
-		queryParams?: { ownerId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateAiGatewayByokCredentialQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4325,8 +5033,8 @@ export async function updateAiGatewayByokCredential(
 		>,
 		UpdateAiGatewayByokCredentialBody,
 		Record<string, string>,
-		{ ownerId?: string; teamId?: string; slug?: string },
-		{ credentialId: string }
+		Partial<UpdateAiGatewayByokCredentialQuery>,
+		UpdateAiGatewayByokCredentialPath
 	>({
 		method: "PATCH",
 		url: `/ai-gateway/byok-credentials/${encodeURIComponent(String(pathParams.credentialId))}`,
@@ -4350,8 +5058,8 @@ export async function deleteAiGatewayByokCredential(
 		queryParams,
 		config,
 	}: {
-		pathParams: { credentialId: string };
-		queryParams?: { ownerId?: string; userId?: string; teamId?: string; slug?: string };
+		pathParams: DeleteAiGatewayByokCredentialPath;
+		queryParams?: Partial<DeleteAiGatewayByokCredentialQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4372,8 +5080,8 @@ export async function deleteAiGatewayByokCredential(
 		>,
 		null,
 		Record<string, string>,
-		{ ownerId?: string; userId?: string; teamId?: string; slug?: string },
-		{ credentialId: string }
+		Partial<DeleteAiGatewayByokCredentialQuery>,
+		DeleteAiGatewayByokCredentialPath
 	>({
 		method: "DELETE",
 		url: `/ai-gateway/byok-credentials/${encodeURIComponent(String(pathParams.credentialId))}`,
@@ -4395,7 +5103,7 @@ export async function createAiGatewayVirtualModelConfig(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateAiGatewayVirtualModelConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4415,7 +5123,7 @@ export async function createAiGatewayVirtualModelConfig(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateAiGatewayVirtualModelConfigQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -4438,14 +5146,7 @@ export async function getAiGatewayVirtualModelConfig(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			ownerId?: string;
-			virtualModelSlug?: string;
-			limit?: number;
-			cursor?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<GetAiGatewayVirtualModelConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4463,14 +5164,7 @@ export async function getAiGatewayVirtualModelConfig(
 		>,
 		null,
 		Record<string, string>,
-		{
-			ownerId?: string;
-			virtualModelSlug?: string;
-			limit?: number;
-			cursor?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<GetAiGatewayVirtualModelConfigQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4493,7 +5187,7 @@ export async function updateAiGatewayVirtualModelConfig(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateAiGatewayVirtualModelConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4512,7 +5206,7 @@ export async function updateAiGatewayVirtualModelConfig(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<UpdateAiGatewayVirtualModelConfigQuery>,
 		Record<string, string>
 	>({
 		method: "PATCH",
@@ -4535,15 +5229,7 @@ export async function deleteAiGatewayVirtualModelConfig(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			ownerId?: string;
-			virtualModelSlug?: string;
-			updatedBy?: string;
-			actingIp?: string;
-			actingUserAgent?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<DeleteAiGatewayVirtualModelConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4561,15 +5247,7 @@ export async function deleteAiGatewayVirtualModelConfig(
 		>,
 		null,
 		Record<string, string>,
-		{
-			ownerId?: string;
-			virtualModelSlug?: string;
-			updatedBy?: string;
-			actingIp?: string;
-			actingUserAgent?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<DeleteAiGatewayVirtualModelConfigQuery>,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -4592,14 +5270,7 @@ export async function listAiGatewayVirtualModelConfigs(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			ownerId?: string;
-			limit?: number;
-			cursor?: string;
-			includeArchived?: "true" | "false";
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListAiGatewayVirtualModelConfigsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4617,14 +5288,7 @@ export async function listAiGatewayVirtualModelConfigs(
 		>,
 		null,
 		Record<string, string>,
-		{
-			ownerId?: string;
-			limit?: number;
-			cursor?: string;
-			includeArchived?: "true" | "false";
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListAiGatewayVirtualModelConfigsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4648,8 +5312,8 @@ export async function getAiGatewayVirtualModelConfigBySlug(
 		queryParams,
 		config,
 	}: {
-		pathParams: { vmcSlug: string };
-		queryParams?: { ownerId?: string; teamId?: string; slug?: string };
+		pathParams: GetAiGatewayVirtualModelConfigBySlugPath;
+		queryParams?: Partial<GetAiGatewayVirtualModelConfigBySlugQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4670,8 +5334,8 @@ export async function getAiGatewayVirtualModelConfigBySlug(
 		>,
 		null,
 		Record<string, string>,
-		{ ownerId?: string; teamId?: string; slug?: string },
-		{ vmcSlug: string }
+		Partial<GetAiGatewayVirtualModelConfigBySlugQuery>,
+		GetAiGatewayVirtualModelConfigBySlugPath
 	>({
 		method: "GET",
 		url: `/ai-gateway/virtual-model-configs/${encodeURIComponent(String(pathParams.vmcSlug))}`,
@@ -4694,8 +5358,8 @@ export async function updateAiGatewayVirtualModelConfigBySlug(
 		queryParams,
 		config,
 	}: {
-		pathParams: { vmcSlug: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: UpdateAiGatewayVirtualModelConfigBySlugPath;
+		queryParams?: Partial<UpdateAiGatewayVirtualModelConfigBySlugQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4717,8 +5381,8 @@ export async function updateAiGatewayVirtualModelConfigBySlug(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ vmcSlug: string }
+		Partial<UpdateAiGatewayVirtualModelConfigBySlugQuery>,
+		UpdateAiGatewayVirtualModelConfigBySlugPath
 	>({
 		method: "PATCH",
 		url: `/ai-gateway/virtual-model-configs/${encodeURIComponent(String(pathParams.vmcSlug))}`,
@@ -4741,15 +5405,8 @@ export async function deleteAiGatewayVirtualModelConfigBySlug(
 		queryParams,
 		config,
 	}: {
-		pathParams: { vmcSlug: string };
-		queryParams?: {
-			ownerId?: string;
-			updatedBy?: string;
-			actingIp?: string;
-			actingUserAgent?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: DeleteAiGatewayVirtualModelConfigBySlugPath;
+		queryParams?: Partial<DeleteAiGatewayVirtualModelConfigBySlugQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4770,15 +5427,8 @@ export async function deleteAiGatewayVirtualModelConfigBySlug(
 		>,
 		null,
 		Record<string, string>,
-		{
-			ownerId?: string;
-			updatedBy?: string;
-			actingIp?: string;
-			actingUserAgent?: string;
-			teamId?: string;
-			slug?: string;
-		},
-		{ vmcSlug: string }
+		Partial<DeleteAiGatewayVirtualModelConfigBySlugQuery>,
+		DeleteAiGatewayVirtualModelConfigBySlugPath
 	>({
 		method: "DELETE",
 		url: `/ai-gateway/virtual-model-configs/${encodeURIComponent(String(pathParams.vmcSlug))}`,
@@ -4800,7 +5450,7 @@ export async function listAiGatewayRouters(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { ownerId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<ListAiGatewayRoutersQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4818,7 +5468,7 @@ export async function listAiGatewayRouters(
 		>,
 		null,
 		Record<string, string>,
-		{ ownerId?: string; teamId?: string; slug?: string },
+		Partial<ListAiGatewayRoutersQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4841,7 +5491,7 @@ export async function createAiGatewayRule(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateAiGatewayRuleQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4860,7 +5510,7 @@ export async function createAiGatewayRule(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateAiGatewayRuleQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -4883,13 +5533,7 @@ export async function listAiGatewayRules(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			includeDisabled?: "true" | "false";
-			limit?: number;
-			cursor?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListAiGatewayRulesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4907,13 +5551,7 @@ export async function listAiGatewayRules(
 		>,
 		null,
 		Record<string, string>,
-		{
-			includeDisabled?: "true" | "false";
-			limit?: number;
-			cursor?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListAiGatewayRulesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4936,7 +5574,7 @@ export async function updateAiGatewayRule(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateAiGatewayRuleQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4954,7 +5592,7 @@ export async function updateAiGatewayRule(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<UpdateAiGatewayRuleQuery>,
 		Record<string, string>
 	>({
 		method: "PATCH",
@@ -4977,7 +5615,7 @@ export async function deleteAiGatewayRule(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { ruleId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<DeleteAiGatewayRuleQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4995,7 +5633,7 @@ export async function deleteAiGatewayRule(
 		>,
 		null,
 		Record<string, string>,
-		{ ruleId?: string; teamId?: string; slug?: string },
+		Partial<DeleteAiGatewayRuleQuery>,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -5018,14 +5656,7 @@ export async function listAiGatewayBudgets(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			scopeType?: "team" | "project" | "user" | "api-key";
-			includeDefaultCovered?: "true" | "false";
-			limit?: number;
-			cursor?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListAiGatewayBudgetsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5043,14 +5674,7 @@ export async function listAiGatewayBudgets(
 		>,
 		null,
 		Record<string, string>,
-		{
-			scopeType?: "team" | "project" | "user" | "api-key";
-			includeDefaultCovered?: "true" | "false";
-			limit?: number;
-			cursor?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListAiGatewayBudgetsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5075,7 +5699,7 @@ export async function upsertAiGatewayBudget(
 		config,
 	}: {
 		body?: UpsertAiGatewayBudgetBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpsertAiGatewayBudgetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5093,7 +5717,7 @@ export async function upsertAiGatewayBudget(
 		>,
 		UpsertAiGatewayBudgetBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<UpsertAiGatewayBudgetQuery>,
 		Record<string, string>
 	>({
 		method: "PUT",
@@ -5117,13 +5741,7 @@ export async function archiveAiGatewayBudget(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			scopeType?: "team" | "project" | "user";
-			projectId?: string;
-			userId?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ArchiveAiGatewayBudgetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5141,13 +5759,7 @@ export async function archiveAiGatewayBudget(
 		>,
 		null,
 		Record<string, string>,
-		{
-			scopeType?: "team" | "project" | "user";
-			projectId?: string;
-			userId?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ArchiveAiGatewayBudgetQuery>,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -5170,7 +5782,7 @@ export async function listAiGatewayBudgetDefaults(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<ListAiGatewayBudgetDefaultsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5188,7 +5800,7 @@ export async function listAiGatewayBudgetDefaults(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<ListAiGatewayBudgetDefaultsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5213,7 +5825,7 @@ export async function upsertAiGatewayBudgetDefault(
 		config,
 	}: {
 		body?: UpsertAiGatewayBudgetDefaultBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpsertAiGatewayBudgetDefaultQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5231,7 +5843,7 @@ export async function upsertAiGatewayBudgetDefault(
 		>,
 		UpsertAiGatewayBudgetDefaultBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<UpsertAiGatewayBudgetDefaultQuery>,
 		Record<string, string>
 	>({
 		method: "PUT",
@@ -5255,11 +5867,7 @@ export async function archiveAiGatewayBudgetDefault(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			scopeType?: "team" | "project" | "api-key" | "user";
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ArchiveAiGatewayBudgetDefaultQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5277,7 +5885,7 @@ export async function archiveAiGatewayBudgetDefault(
 		>,
 		null,
 		Record<string, string>,
-		{ scopeType?: "team" | "project" | "api-key" | "user"; teamId?: string; slug?: string },
+		Partial<ArchiveAiGatewayBudgetDefaultQuery>,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -5303,8 +5911,8 @@ export async function recordEvents(
 		config,
 	}: {
 		body: RecordEventsBody;
-		queryParams?: { teamId?: string; slug?: string };
-		headers?: { "x-artifact-client-ci"?: string; "x-artifact-client-interactive"?: number };
+		queryParams?: Partial<RecordEventsQuery>;
+		headers?: Partial<RecordEventsHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5321,8 +5929,8 @@ export async function recordEvents(
 			| RecordEventsStatus410
 		>,
 		RecordEventsBody,
-		{ "x-artifact-client-ci"?: string; "x-artifact-client-interactive"?: number },
-		{ teamId?: string; slug?: string },
+		Partial<RecordEventsHeaders>,
+		Partial<RecordEventsQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -5346,7 +5954,7 @@ export async function status(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<StatusQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5364,7 +5972,7 @@ export async function status(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<StatusQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5390,18 +5998,10 @@ export async function uploadArtifact(
 		headers,
 		config,
 	}: {
-		pathParams: { hash: string };
+		pathParams: UploadArtifactPath;
 		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
-		queryParams?: { teamId?: string; slug?: string };
-		headers?: {
-			"Content-Length"?: number;
-			"x-artifact-duration"?: number;
-			"x-artifact-client-ci"?: string;
-			"x-artifact-client-interactive"?: number;
-			"x-artifact-tag"?: string;
-			"x-artifact-sha"?: string;
-			"x-artifact-dirty-hash"?: string;
-		};
+		queryParams?: Partial<UploadArtifactQuery>;
+		headers?: Partial<UploadArtifactHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5421,17 +6021,9 @@ export async function uploadArtifact(
 			| UploadArtifactStatus410
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
-		{
-			"Content-Length"?: number;
-			"x-artifact-duration"?: number;
-			"x-artifact-client-ci"?: string;
-			"x-artifact-client-interactive"?: number;
-			"x-artifact-tag"?: string;
-			"x-artifact-sha"?: string;
-			"x-artifact-dirty-hash"?: string;
-		},
-		{ teamId?: string; slug?: string },
-		{ hash: string }
+		Partial<UploadArtifactHeaders>,
+		Partial<UploadArtifactQuery>,
+		UploadArtifactPath
 	>({
 		method: "PUT",
 		url: `/v8/artifacts/${encodeURIComponent(String(pathParams.hash))}`,
@@ -5456,9 +6048,9 @@ export async function downloadArtifact(
 		headers,
 		config,
 	}: {
-		pathParams: { hash: string };
-		queryParams?: { teamId?: string; slug?: string };
-		headers?: { "x-artifact-client-ci"?: string; "x-artifact-client-interactive"?: number };
+		pathParams: DownloadArtifactPath;
+		queryParams?: Partial<DownloadArtifactQuery>;
+		headers?: Partial<DownloadArtifactHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5478,9 +6070,9 @@ export async function downloadArtifact(
 			| DownloadArtifactStatus410
 		>,
 		null,
-		{ "x-artifact-client-ci"?: string; "x-artifact-client-interactive"?: number },
-		{ teamId?: string; slug?: string },
-		{ hash: string }
+		Partial<DownloadArtifactHeaders>,
+		Partial<DownloadArtifactQuery>,
+		DownloadArtifactPath
 	>({
 		method: "GET",
 		url: `/v8/artifacts/${encodeURIComponent(String(pathParams.hash))}`,
@@ -5504,7 +6096,7 @@ export async function artifactQuery(
 		config,
 	}: {
 		body: ArtifactQueryBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<ArtifactQueryQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5522,7 +6114,7 @@ export async function artifactQuery(
 		>,
 		ArtifactQueryBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<ArtifactQueryQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -5546,7 +6138,7 @@ export async function deleteAllArtifacts(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<DeleteAllArtifactsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5563,7 +6155,7 @@ export async function deleteAllArtifacts(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<DeleteAllArtifactsQuery>,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -5586,7 +6178,7 @@ export async function listBillingCharges(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { from?: string; to?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<ListBillingChargesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5605,7 +6197,7 @@ export async function listBillingCharges(
 		>,
 		null,
 		Record<string, string>,
-		{ from?: string; to?: string; teamId?: string; slug?: string },
+		Partial<ListBillingChargesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5628,7 +6220,7 @@ export async function listContractCommitments(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<ListContractCommitmentsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5645,7 +6237,7 @@ export async function listContractCommitments(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<ListContractCommitmentsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5670,7 +6262,7 @@ export async function buyCredits(
 		config,
 	}: {
 		body: BuyCreditsBody;
-		queryParams?: { source?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<BuyCreditsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5690,7 +6282,7 @@ export async function buyCredits(
 		>,
 		BuyCreditsBody,
 		Record<string, string>,
-		{ source?: string; teamId?: string; slug?: string },
+		Partial<BuyCreditsQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -5716,7 +6308,7 @@ export async function stageRedirects(
 		config,
 	}: {
 		body?: StageRedirectsBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<StageRedirectsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5734,7 +6326,7 @@ export async function stageRedirects(
 		>,
 		StageRedirectsBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<StageRedirectsQuery>,
 		Record<string, string>
 	>({
 		method: "PUT",
@@ -5758,18 +6350,7 @@ export async function getRedirects(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			projectId?: string;
-			versionId?: string;
-			q?: string;
-			diff?: unknown;
-			page?: number;
-			per_page?: number;
-			sort_by?: "source" | "destination" | "statusCode";
-			sort_order?: "asc" | "desc";
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<GetRedirectsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5786,18 +6367,7 @@ export async function getRedirects(
 		>,
 		null,
 		Record<string, string>,
-		{
-			projectId?: string;
-			versionId?: string;
-			q?: string;
-			diff?: unknown;
-			page?: number;
-			per_page?: number;
-			sort_by?: "source" | "destination" | "statusCode";
-			sort_order?: "asc" | "desc";
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<GetRedirectsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5822,7 +6392,7 @@ export async function deleteRedirects(
 		config,
 	}: {
 		body?: DeleteRedirectsBody;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<DeleteRedirectsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5840,7 +6410,7 @@ export async function deleteRedirects(
 		>,
 		DeleteRedirectsBody,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
+		Partial<DeleteRedirectsQuery>,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -5866,7 +6436,7 @@ export async function editRedirect(
 		config,
 	}: {
 		body?: EditRedirectBody;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<EditRedirectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5884,7 +6454,7 @@ export async function editRedirect(
 		>,
 		EditRedirectBody,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
+		Partial<EditRedirectQuery>,
 		Record<string, string>
 	>({
 		method: "PATCH",
@@ -5910,7 +6480,7 @@ export async function restoreRedirects(
 		config,
 	}: {
 		body?: RestoreRedirectsBody;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<RestoreRedirectsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5928,7 +6498,7 @@ export async function restoreRedirects(
 		>,
 		RestoreRedirectsBody,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
+		Partial<RestoreRedirectsQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -5952,7 +6522,7 @@ export async function getVersions(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<GetVersionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5970,7 +6540,7 @@ export async function getVersions(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
+		Partial<GetVersionsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5995,7 +6565,7 @@ export async function updateVersion(
 		config,
 	}: {
 		body?: UpdateVersionBody;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateVersionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6013,7 +6583,7 @@ export async function updateVersion(
 		>,
 		UpdateVersionBody,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
+		Partial<UpdateVersionQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -6038,17 +6608,8 @@ export async function listProjectChecks(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
-		queryParams?: {
-			blocks?:
-				| "build-start"
-				| "deployment-start"
-				| "deployment-alias"
-				| "deployment-promotion"
-				| "none";
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: ListProjectChecksPath;
+		queryParams?: Partial<ListProjectChecksQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6069,17 +6630,8 @@ export async function listProjectChecks(
 		>,
 		null,
 		Record<string, string>,
-		{
-			blocks?:
-				| "build-start"
-				| "deployment-start"
-				| "deployment-alias"
-				| "deployment-promotion"
-				| "none";
-			teamId?: string;
-			slug?: string;
-		},
-		{ projectIdOrName: string }
+		Partial<ListProjectChecksQuery>,
+		ListProjectChecksPath
 	>({
 		method: "GET",
 		url: `/v2/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/checks`,
@@ -6103,9 +6655,9 @@ export async function createProjectCheck(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
+		pathParams: CreateProjectCheckPath;
 		body?: CreateProjectCheckBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateProjectCheckQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6126,8 +6678,8 @@ export async function createProjectCheck(
 		>,
 		CreateProjectCheckBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string }
+		Partial<CreateProjectCheckQuery>,
+		CreateProjectCheckPath
 	>({
 		method: "POST",
 		url: `/v2/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/checks`,
@@ -6151,8 +6703,8 @@ export async function getProjectCheck(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string; checkId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetProjectCheckPath;
+		queryParams?: Partial<GetProjectCheckQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6177,8 +6729,8 @@ export async function getProjectCheck(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string; checkId: string }
+		Partial<GetProjectCheckQuery>,
+		GetProjectCheckPath
 	>({
 		method: "GET",
 		url: `/v2/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/checks/${encodeURIComponent(String(pathParams.checkId))}`,
@@ -6202,9 +6754,9 @@ export async function updateProjectCheck(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string; checkId: string };
+		pathParams: UpdateProjectCheckPath;
 		body?: UpdateProjectCheckBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateProjectCheckQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6229,8 +6781,8 @@ export async function updateProjectCheck(
 		>,
 		UpdateProjectCheckBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string; checkId: string }
+		Partial<UpdateProjectCheckQuery>,
+		UpdateProjectCheckPath
 	>({
 		method: "PATCH",
 		url: `/v2/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/checks/${encodeURIComponent(String(pathParams.checkId))}`,
@@ -6254,8 +6806,8 @@ export async function deleteProjectCheck(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string; checkId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteProjectCheckPath;
+		queryParams?: Partial<DeleteProjectCheckQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6280,8 +6832,8 @@ export async function deleteProjectCheck(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string; checkId: string }
+		Partial<DeleteProjectCheckQuery>,
+		DeleteProjectCheckPath
 	>({
 		method: "DELETE",
 		url: `/v2/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/checks/${encodeURIComponent(String(pathParams.checkId))}`,
@@ -6304,8 +6856,8 @@ export async function listCheckRuns(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string; checkId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: ListCheckRunsPath;
+		queryParams?: Partial<ListCheckRunsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6330,8 +6882,8 @@ export async function listCheckRuns(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string; checkId: string }
+		Partial<ListCheckRunsQuery>,
+		ListCheckRunsPath
 	>({
 		method: "GET",
 		url: `/v2/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/checks/${encodeURIComponent(String(pathParams.checkId))}/runs`,
@@ -6354,8 +6906,8 @@ export async function listDeploymentCheckRuns(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: ListDeploymentCheckRunsPath;
+		queryParams?: Partial<ListDeploymentCheckRunsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6376,8 +6928,8 @@ export async function listDeploymentCheckRuns(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ deploymentId: string }
+		Partial<ListDeploymentCheckRunsQuery>,
+		ListDeploymentCheckRunsPath
 	>({
 		method: "GET",
 		url: `/v2/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/check-runs`,
@@ -6401,9 +6953,9 @@ export async function createDeploymentCheckRun(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string };
+		pathParams: CreateDeploymentCheckRunPath;
 		body?: CreateDeploymentCheckRunBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateDeploymentCheckRunQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6424,8 +6976,8 @@ export async function createDeploymentCheckRun(
 		>,
 		CreateDeploymentCheckRunBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ deploymentId: string }
+		Partial<CreateDeploymentCheckRunQuery>,
+		CreateDeploymentCheckRunPath
 	>({
 		method: "POST",
 		url: `/v2/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/check-runs`,
@@ -6449,8 +7001,8 @@ export async function getDeploymentCheckRun(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string; checkRunId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetDeploymentCheckRunPath;
+		queryParams?: Partial<GetDeploymentCheckRunQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6475,8 +7027,8 @@ export async function getDeploymentCheckRun(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ deploymentId: string; checkRunId: string }
+		Partial<GetDeploymentCheckRunQuery>,
+		GetDeploymentCheckRunPath
 	>({
 		method: "GET",
 		url: `/v2/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/check-runs/${encodeURIComponent(String(pathParams.checkRunId))}`,
@@ -6500,9 +7052,9 @@ export async function updateDeploymentCheckRun(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string; checkRunId: string };
+		pathParams: UpdateDeploymentCheckRunPath;
 		body?: UpdateDeploymentCheckRunBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateDeploymentCheckRunQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6528,8 +7080,8 @@ export async function updateDeploymentCheckRun(
 		>,
 		UpdateDeploymentCheckRunBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ deploymentId: string; checkRunId: string }
+		Partial<UpdateDeploymentCheckRunQuery>,
+		UpdateDeploymentCheckRunPath
 	>({
 		method: "PATCH",
 		url: `/v2/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/check-runs/${encodeURIComponent(String(pathParams.checkRunId))}`,
@@ -6555,9 +7107,9 @@ export async function createCheck(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string };
+		pathParams: CreateCheckPath;
 		body: CreateCheckBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateCheckQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6577,8 +7129,8 @@ export async function createCheck(
 		>,
 		CreateCheckBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ deploymentId: string }
+		Partial<CreateCheckQuery>,
+		CreateCheckPath
 	>({
 		method: "POST",
 		url: `/v1/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/checks`,
@@ -6603,8 +7155,8 @@ export async function getAllChecks(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetAllChecksPath;
+		queryParams?: Partial<GetAllChecksQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6624,8 +7176,8 @@ export async function getAllChecks(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ deploymentId: string }
+		Partial<GetAllChecksQuery>,
+		GetAllChecksPath
 	>({
 		method: "GET",
 		url: `/v1/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/checks`,
@@ -6649,8 +7201,8 @@ export async function getCheck(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string; checkId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetCheckPath;
+		queryParams?: Partial<GetCheckQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6674,8 +7226,8 @@ export async function getCheck(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ deploymentId: string; checkId: string }
+		Partial<GetCheckQuery>,
+		GetCheckPath
 	>({
 		method: "GET",
 		url: `/v1/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/checks/${encodeURIComponent(String(pathParams.checkId))}`,
@@ -6700,9 +7252,9 @@ export async function updateCheck(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string; checkId: string };
+		pathParams: UpdateCheckPath;
 		body: UpdateCheckBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateCheckQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6727,8 +7279,8 @@ export async function updateCheck(
 		>,
 		UpdateCheckBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ deploymentId: string; checkId: string }
+		Partial<UpdateCheckQuery>,
+		UpdateCheckPath
 	>({
 		method: "PATCH",
 		url: `/v1/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/checks/${encodeURIComponent(String(pathParams.checkId))}`,
@@ -6753,8 +7305,8 @@ export async function rerequestCheck(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string; checkId: string };
-		queryParams?: { autoUpdate?: boolean; teamId?: string; slug?: string };
+		pathParams: RerequestCheckPath;
+		queryParams?: Partial<RerequestCheckQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6778,8 +7330,8 @@ export async function rerequestCheck(
 		>,
 		null,
 		Record<string, string>,
-		{ autoUpdate?: boolean; teamId?: string; slug?: string },
-		{ deploymentId: string; checkId: string }
+		Partial<RerequestCheckQuery>,
+		RerequestCheckPath
 	>({
 		method: "POST",
 		url: `/v1/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/checks/${encodeURIComponent(String(pathParams.checkId))}/rerequest`,
@@ -6801,14 +7353,7 @@ export async function listNetworks(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			includeHostedZones?: boolean;
-			includePeeringConnections?: boolean;
-			includeProjects?: boolean;
-			search?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListNetworksQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6825,14 +7370,7 @@ export async function listNetworks(
 		>,
 		null,
 		Record<string, string>,
-		{
-			includeHostedZones?: boolean;
-			includePeeringConnections?: boolean;
-			includeProjects?: boolean;
-			search?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListNetworksQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -6857,7 +7395,7 @@ export async function createNetwork(
 		config,
 	}: {
 		body?: CreateNetworkBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateNetworkQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6876,7 +7414,7 @@ export async function createNetwork(
 		>,
 		CreateNetworkBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateNetworkQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -6901,8 +7439,8 @@ export async function deleteNetwork(
 		queryParams,
 		config,
 	}: {
-		pathParams: { networkId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteNetworkPath;
+		queryParams?: Partial<DeleteNetworkQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6924,8 +7462,8 @@ export async function deleteNetwork(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ networkId: string }
+		Partial<DeleteNetworkQuery>,
+		DeleteNetworkPath
 	>({
 		method: "DELETE",
 		url: `/v1/connect/networks/${encodeURIComponent(String(pathParams.networkId))}`,
@@ -6949,9 +7487,9 @@ export async function updateNetwork(
 		queryParams,
 		config,
 	}: {
-		pathParams: { networkId: string };
+		pathParams: UpdateNetworkPath;
 		body?: UpdateNetworkBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateNetworkQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6971,8 +7509,8 @@ export async function updateNetwork(
 		>,
 		UpdateNetworkBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ networkId: string }
+		Partial<UpdateNetworkQuery>,
+		UpdateNetworkPath
 	>({
 		method: "PATCH",
 		url: `/v1/connect/networks/${encodeURIComponent(String(pathParams.networkId))}`,
@@ -6996,8 +7534,8 @@ export async function readNetwork(
 		queryParams,
 		config,
 	}: {
-		pathParams: { networkId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: ReadNetworkPath;
+		queryParams?: Partial<ReadNetworkQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7017,8 +7555,8 @@ export async function readNetwork(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ networkId: string }
+		Partial<ReadNetworkQuery>,
+		ReadNetworkPath
 	>({
 		method: "GET",
 		url: `/v1/connect/networks/${encodeURIComponent(String(pathParams.networkId))}`,
@@ -7042,7 +7580,7 @@ export async function createPrivateLinkEndpoint(
 		config,
 	}: {
 		body?: CreatePrivateLinkEndpointBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreatePrivateLinkEndpointQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7062,7 +7600,7 @@ export async function createPrivateLinkEndpoint(
 		>,
 		CreatePrivateLinkEndpointBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreatePrivateLinkEndpointQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -7086,7 +7624,7 @@ export async function listPrivateLinkEndpoints(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<ListPrivateLinkEndpointsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7103,7 +7641,7 @@ export async function listPrivateLinkEndpoints(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
+		Partial<ListPrivateLinkEndpointsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -7127,8 +7665,8 @@ export async function readPrivateLinkEndpoint(
 		queryParams,
 		config,
 	}: {
-		pathParams: { endpointId: string };
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		pathParams: ReadPrivateLinkEndpointPath;
+		queryParams?: Partial<ReadPrivateLinkEndpointQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7148,8 +7686,8 @@ export async function readPrivateLinkEndpoint(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ endpointId: string }
+		Partial<ReadPrivateLinkEndpointQuery>,
+		ReadPrivateLinkEndpointPath
 	>({
 		method: "GET",
 		url: `/v1/networking/privatelink/endpoints/${encodeURIComponent(String(pathParams.endpointId))}`,
@@ -7172,8 +7710,8 @@ export async function deletePrivateLinkEndpoint(
 		queryParams,
 		config,
 	}: {
-		pathParams: { endpointId: string };
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		pathParams: DeletePrivateLinkEndpointPath;
+		queryParams?: Partial<DeletePrivateLinkEndpointQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7196,8 +7734,8 @@ export async function deletePrivateLinkEndpoint(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ endpointId: string }
+		Partial<DeletePrivateLinkEndpointQuery>,
+		DeletePrivateLinkEndpointPath
 	>({
 		method: "DELETE",
 		url: `/v1/networking/privatelink/endpoints/${encodeURIComponent(String(pathParams.endpointId))}`,
@@ -7221,9 +7759,9 @@ export async function updatePrivateLinkEndpoint(
 		queryParams,
 		config,
 	}: {
-		pathParams: { endpointId: string };
+		pathParams: UpdatePrivateLinkEndpointPath;
 		body?: UpdatePrivateLinkEndpointBody;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<UpdatePrivateLinkEndpointQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7246,8 +7784,8 @@ export async function updatePrivateLinkEndpoint(
 		>,
 		UpdatePrivateLinkEndpointBody,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ endpointId: string }
+		Partial<UpdatePrivateLinkEndpointQuery>,
+		UpdatePrivateLinkEndpointPath
 	>({
 		method: "PATCH",
 		url: `/v1/networking/privatelink/endpoints/${encodeURIComponent(String(pathParams.endpointId))}`,
@@ -7270,17 +7808,7 @@ export async function listConnectors(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			limit?: number;
-			cursor?: string;
-			projectId?: string;
-			search?: string;
-			type?: string;
-			service?: string;
-			sort?: "name" | "createdAt" | "updatedAt";
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListConnectorsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7302,17 +7830,7 @@ export async function listConnectors(
 		>,
 		null,
 		Record<string, string>,
-		{
-			limit?: number;
-			cursor?: string;
-			projectId?: string;
-			search?: string;
-			type?: string;
-			service?: string;
-			sort?: "name" | "createdAt" | "updatedAt";
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListConnectorsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -7336,8 +7854,8 @@ export async function getConnector(
 		queryParams,
 		config,
 	}: {
-		pathParams: { connector: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetConnectorPath;
+		queryParams?: Partial<GetConnectorQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7362,8 +7880,8 @@ export async function getConnector(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ connector: string }
+		Partial<GetConnectorQuery>,
+		GetConnectorPath
 	>({
 		method: "GET",
 		url: `/v1/connect/connectors/${encodeURIComponent(String(pathParams.connector))}`,
@@ -7386,8 +7904,8 @@ export async function deleteConnector(
 		queryParams,
 		config,
 	}: {
-		pathParams: { connector: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteConnectorPath;
+		queryParams?: Partial<DeleteConnectorQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7414,8 +7932,8 @@ export async function deleteConnector(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ connector: string }
+		Partial<DeleteConnectorQuery>,
+		DeleteConnectorPath
 	>({
 		method: "DELETE",
 		url: `/v1/connect/connectors/${encodeURIComponent(String(pathParams.connector))}`,
@@ -7439,7 +7957,7 @@ export async function createConnector(
 		config,
 	}: {
 		body?: CreateConnectorBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateConnectorQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7462,7 +7980,7 @@ export async function createConnector(
 		>,
 		CreateConnectorBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateConnectorQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -7488,9 +8006,9 @@ export async function updateConnector(
 		queryParams,
 		config,
 	}: {
-		pathParams: { connector: string };
+		pathParams: UpdateConnectorPath;
 		body: UpdateConnectorBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateConnectorQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7516,8 +8034,8 @@ export async function updateConnector(
 		>,
 		UpdateConnectorBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ connector: string }
+		Partial<UpdateConnectorQuery>,
+		UpdateConnectorPath
 	>({
 		method: "PATCH",
 		url: `/v2/connect/connectors/${encodeURIComponent(String(pathParams.connector))}`,
@@ -7542,9 +8060,9 @@ export async function replaceConnectorTriggerDestinations(
 		queryParams,
 		config,
 	}: {
-		pathParams: { connector: string };
+		pathParams: ReplaceConnectorTriggerDestinationsPath;
 		body: ReplaceConnectorTriggerDestinationsBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<ReplaceConnectorTriggerDestinationsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7569,8 +8087,8 @@ export async function replaceConnectorTriggerDestinations(
 		>,
 		ReplaceConnectorTriggerDestinationsBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ connector: string }
+		Partial<ReplaceConnectorTriggerDestinationsQuery>,
+		ReplaceConnectorTriggerDestinationsPath
 	>({
 		method: "PATCH",
 		url: `/v1/connect/connectors/${encodeURIComponent(String(pathParams.connector))}/trigger-destinations`,
@@ -7594,8 +8112,8 @@ export async function ejectManagedConnector(
 		queryParams,
 		config,
 	}: {
-		pathParams: { connector: string };
-		queryParams?: { slug?: string };
+		pathParams: EjectManagedConnectorPath;
+		queryParams?: Partial<EjectManagedConnectorQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7620,8 +8138,8 @@ export async function ejectManagedConnector(
 		>,
 		null,
 		Record<string, string>,
-		{ slug?: string },
-		{ connector: string }
+		Partial<EjectManagedConnectorQuery>,
+		EjectManagedConnectorPath
 	>({
 		method: "POST",
 		url: `/v1/connect/connectors/${encodeURIComponent(String(pathParams.connector))}/managed/eject`,
@@ -7644,8 +8162,8 @@ export async function listConnectorProjectConnections(
 		queryParams,
 		config,
 	}: {
-		pathParams: { connector: string };
-		queryParams?: { limit?: number; cursor?: string; teamId?: string; slug?: string };
+		pathParams: ListConnectorProjectConnectionsPath;
+		queryParams?: Partial<ListConnectorProjectConnectionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7667,8 +8185,8 @@ export async function listConnectorProjectConnections(
 		>,
 		null,
 		Record<string, string>,
-		{ limit?: number; cursor?: string; teamId?: string; slug?: string },
-		{ connector: string }
+		Partial<ListConnectorProjectConnectionsQuery>,
+		ListConnectorProjectConnectionsPath
 	>({
 		method: "GET",
 		url: `/v2/connect/connectors/${encodeURIComponent(String(pathParams.connector))}/projects`,
@@ -7691,8 +8209,8 @@ export async function getConnectorProjectConnection(
 		queryParams,
 		config,
 	}: {
-		pathParams: { connector: string; projectId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetConnectorProjectConnectionPath;
+		queryParams?: Partial<GetConnectorProjectConnectionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7718,8 +8236,8 @@ export async function getConnectorProjectConnection(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ connector: string; projectId: string }
+		Partial<GetConnectorProjectConnectionQuery>,
+		GetConnectorProjectConnectionPath
 	>({
 		method: "GET",
 		url: `/v1/connect/connectors/${encodeURIComponent(String(pathParams.connector))}/projects/${encodeURIComponent(String(pathParams.projectId))}`,
@@ -7743,9 +8261,9 @@ export async function upsertConnectorProjectConnection(
 		queryParams,
 		config,
 	}: {
-		pathParams: { connector: string; projectId: string };
+		pathParams: UpsertConnectorProjectConnectionPath;
 		body: UpsertConnectorProjectConnectionBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpsertConnectorProjectConnectionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7774,8 +8292,8 @@ export async function upsertConnectorProjectConnection(
 		>,
 		UpsertConnectorProjectConnectionBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ connector: string; projectId: string }
+		Partial<UpsertConnectorProjectConnectionQuery>,
+		UpsertConnectorProjectConnectionPath
 	>({
 		method: "POST",
 		url: `/v1/connect/connectors/${encodeURIComponent(String(pathParams.connector))}/projects/${encodeURIComponent(String(pathParams.projectId))}`,
@@ -7799,8 +8317,8 @@ export async function deleteConnectorProjectConnection(
 		queryParams,
 		config,
 	}: {
-		pathParams: { connector: string; projectId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteConnectorProjectConnectionPath;
+		queryParams?: Partial<DeleteConnectorProjectConnectionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7829,8 +8347,8 @@ export async function deleteConnectorProjectConnection(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ connector: string; projectId: string }
+		Partial<DeleteConnectorProjectConnectionQuery>,
+		DeleteConnectorProjectConnectionPath
 	>({
 		method: "DELETE",
 		url: `/v1/connect/connectors/${encodeURIComponent(String(pathParams.connector))}/projects/${encodeURIComponent(String(pathParams.projectId))}`,
@@ -7853,8 +8371,8 @@ export async function listProjectConnectorConnections(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
-		queryParams?: { limit?: number; cursor?: string; teamId?: string; slug?: string };
+		pathParams: ListProjectConnectorConnectionsPath;
+		queryParams?: Partial<ListProjectConnectorConnectionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7874,8 +8392,8 @@ export async function listProjectConnectorConnections(
 		>,
 		null,
 		Record<string, string>,
-		{ limit?: number; cursor?: string; teamId?: string; slug?: string },
-		{ projectId: string }
+		Partial<ListProjectConnectorConnectionsQuery>,
+		ListProjectConnectorConnectionsPath
 	>({
 		method: "GET",
 		url: `/v2/connect/projects/${encodeURIComponent(String(pathParams.projectId))}/connectors`,
@@ -7898,7 +8416,7 @@ export async function getConnectorToken(
 		body,
 		config,
 	}: {
-		pathParams: { connector: string };
+		pathParams: GetConnectorTokenPath;
 		body?: GetConnectorTokenBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7924,7 +8442,7 @@ export async function getConnectorToken(
 		GetConnectorTokenBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ connector: string }
+		GetConnectorTokenPath
 	>({
 		method: "POST",
 		url: `/v1/connect/token/${encodeURIComponent(String(pathParams.connector))}`,
@@ -7947,7 +8465,7 @@ export async function createConnectorAuthorizationRequest(
 		body,
 		config,
 	}: {
-		pathParams: { connector: string };
+		pathParams: CreateConnectorAuthorizationRequestPath;
 		body?: CreateConnectorAuthorizationRequestBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7972,7 +8490,7 @@ export async function createConnectorAuthorizationRequest(
 		CreateConnectorAuthorizationRequestBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ connector: string }
+		CreateConnectorAuthorizationRequestPath
 	>({
 		method: "POST",
 		url: `/v1/connect/authorize/${encodeURIComponent(String(pathParams.connector))}`,
@@ -7995,15 +8513,8 @@ export async function getProjectBoxes(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: {
-			limit?: string;
-			cursor?: string;
-			scopeType?: "target" | "branch" | "customEnvironment";
-			scopeValue?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetProjectBoxesPath;
+		queryParams?: Partial<GetProjectBoxesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8023,15 +8534,8 @@ export async function getProjectBoxes(
 		>,
 		null,
 		Record<string, string>,
-		{
-			limit?: string;
-			cursor?: string;
-			scopeType?: "target" | "branch" | "customEnvironment";
-			scopeValue?: string;
-			teamId?: string;
-			slug?: string;
-		},
-		{ idOrName: string }
+		Partial<GetProjectBoxesQuery>,
+		GetProjectBoxesPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/daemons`,
@@ -8055,9 +8559,9 @@ export async function putProjectDaemonInstances(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; daemonName: string };
+		pathParams: PutProjectDaemonInstancesPath;
 		body?: PutProjectDaemonInstancesBody;
-		queryParams?: { target?: "production" | "preview"; teamId?: string; slug?: string };
+		queryParams?: Partial<PutProjectDaemonInstancesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8081,8 +8585,8 @@ export async function putProjectDaemonInstances(
 		>,
 		PutProjectDaemonInstancesBody,
 		Record<string, string>,
-		{ target?: "production" | "preview"; teamId?: string; slug?: string },
-		{ idOrName: string; daemonName: string }
+		Partial<PutProjectDaemonInstancesQuery>,
+		PutProjectDaemonInstancesPath
 	>({
 		method: "PUT",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/daemons/${encodeURIComponent(String(pathParams.daemonName))}/instances`,
@@ -8106,8 +8610,8 @@ export async function restartProjectDaemonInstance(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; daemonName: string; instanceId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: RestartProjectDaemonInstancePath;
+		queryParams?: Partial<RestartProjectDaemonInstanceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8137,8 +8641,8 @@ export async function restartProjectDaemonInstance(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string; daemonName: string; instanceId: string }
+		Partial<RestartProjectDaemonInstanceQuery>,
+		RestartProjectDaemonInstancePath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/daemons/${encodeURIComponent(String(pathParams.daemonName))}/instances/${encodeURIComponent(String(pathParams.instanceId))}/restart`,
@@ -8161,20 +8665,8 @@ export async function getDeploymentEvents(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrUrl: string };
-		queryParams?: {
-			direction?: "backward" | "forward";
-			follow?: 0 | 1;
-			limit?: number;
-			name?: string;
-			since?: number;
-			until?: number;
-			statusCode?: unknown;
-			delimiter?: 0 | 1;
-			builds?: 0 | 1;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetDeploymentEventsPath;
+		queryParams?: Partial<GetDeploymentEventsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8195,20 +8687,8 @@ export async function getDeploymentEvents(
 		>,
 		null,
 		Record<string, string>,
-		{
-			direction?: "backward" | "forward";
-			follow?: 0 | 1;
-			limit?: number;
-			name?: string;
-			since?: number;
-			until?: number;
-			statusCode?: unknown;
-			delimiter?: 0 | 1;
-			builds?: 0 | 1;
-			teamId?: string;
-			slug?: string;
-		},
-		{ idOrUrl: string }
+		Partial<GetDeploymentEventsQuery>,
+		GetDeploymentEventsPath
 	>({
 		method: "GET",
 		url: `/v3/deployments/${encodeURIComponent(String(pathParams.idOrUrl))}/events`,
@@ -8231,12 +8711,7 @@ export async function updateIntegrationDeploymentAction(
 		body,
 		config,
 	}: {
-		pathParams: {
-			deploymentId: string;
-			integrationConfigurationId: string;
-			resourceId: string;
-			action: string;
-		};
+		pathParams: UpdateIntegrationDeploymentActionPath;
 		body?: UpdateIntegrationDeploymentActionBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -8273,7 +8748,7 @@ export async function updateIntegrationDeploymentAction(
 		UpdateIntegrationDeploymentActionBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ deploymentId: string; integrationConfigurationId: string; resourceId: string; action: string }
+		UpdateIntegrationDeploymentActionPath
 	>({
 		method: "PATCH",
 		url: `/v1/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/integrations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/actions/${encodeURIComponent(String(pathParams.action))}`,
@@ -8296,8 +8771,8 @@ export async function getDeployment(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrUrl: string };
-		queryParams?: { withGitRepoInfo?: string; teamId?: string; slug?: string };
+		pathParams: GetDeploymentPath;
+		queryParams?: Partial<GetDeploymentQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8318,8 +8793,8 @@ export async function getDeployment(
 		>,
 		null,
 		Record<string, string>,
-		{ withGitRepoInfo?: string; teamId?: string; slug?: string },
-		{ idOrUrl: string }
+		Partial<GetDeploymentQuery>,
+		GetDeploymentPath
 	>({
 		method: "GET",
 		url: `/v13/deployments/${encodeURIComponent(String(pathParams.idOrUrl))}`,
@@ -8343,12 +8818,7 @@ export async function createDeployment(
 		config,
 	}: {
 		body: CreateDeploymentBody;
-		queryParams?: {
-			forceNew?: "0" | "1";
-			skipAutoDetectionConfirmation?: "0" | "1";
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<CreateDeploymentQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8371,12 +8841,7 @@ export async function createDeployment(
 		>,
 		CreateDeploymentBody,
 		Record<string, string>,
-		{
-			forceNew?: "0" | "1";
-			skipAutoDetectionConfirmation?: "0" | "1";
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<CreateDeploymentQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -8401,8 +8866,8 @@ export async function cancelDeployment(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: CancelDeploymentPath;
+		queryParams?: Partial<CancelDeploymentQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8422,8 +8887,8 @@ export async function cancelDeployment(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<CancelDeploymentQuery>,
+		CancelDeploymentPath
 	>({
 		method: "PATCH",
 		url: `/v12/deployments/${encodeURIComponent(String(pathParams.id))}/cancel`,
@@ -8446,14 +8911,8 @@ export async function getRecords(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: string };
-		queryParams?: {
-			limit?: string;
-			since?: string;
-			until?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetRecordsPath;
+		queryParams?: Partial<GetRecordsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8473,8 +8932,8 @@ export async function getRecords(
 		>,
 		null,
 		Record<string, string>,
-		{ limit?: string; since?: string; until?: string; teamId?: string; slug?: string },
-		{ domain: string }
+		Partial<GetRecordsQuery>,
+		GetRecordsPath
 	>({
 		method: "GET",
 		url: `/v5/domains/${encodeURIComponent(String(pathParams.domain))}/records`,
@@ -8498,9 +8957,9 @@ export async function createRecord(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: string };
+		pathParams: CreateRecordPath;
 		body: CreateRecordBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateRecordQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8522,8 +8981,8 @@ export async function createRecord(
 		>,
 		CreateRecordBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ domain: string }
+		Partial<CreateRecordQuery>,
+		CreateRecordPath
 	>({
 		method: "POST",
 		url: `/v2/domains/${encodeURIComponent(String(pathParams.domain))}/records`,
@@ -8548,9 +9007,9 @@ export async function updateRecord(
 		queryParams,
 		config,
 	}: {
-		pathParams: { recordId: string };
+		pathParams: UpdateRecordPath;
 		body: UpdateRecordBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateRecordQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8572,8 +9031,8 @@ export async function updateRecord(
 		>,
 		UpdateRecordBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ recordId: string }
+		Partial<UpdateRecordQuery>,
+		UpdateRecordPath
 	>({
 		method: "PATCH",
 		url: `/v1/domains/records/${encodeURIComponent(String(pathParams.recordId))}`,
@@ -8594,7 +9053,7 @@ export async function replaceDomainsByDomainRecords(
 		pathParams,
 		config,
 	}: {
-		pathParams: { domain: string };
+		pathParams: ReplaceDomainsByDomainRecordsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8617,7 +9076,7 @@ export async function replaceDomainsByDomainRecords(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ domain: string }
+		ReplaceDomainsByDomainRecordsPath
 	>({
 		method: "PUT",
 		url: `/domains/${encodeURIComponent(String(pathParams.domain))}/records`,
@@ -8636,7 +9095,7 @@ export async function getDomainsRecordsByRecordId(
 		pathParams,
 		config,
 	}: {
-		pathParams: { recordId: string };
+		pathParams: GetDomainsRecordsByRecordIdPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8657,7 +9116,7 @@ export async function getDomainsRecordsByRecordId(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ recordId: string }
+		GetDomainsRecordsByRecordIdPath
 	>({
 		method: "GET",
 		url: `/domains/records/${encodeURIComponent(String(pathParams.recordId))}`,
@@ -8679,8 +9138,8 @@ export async function removeRecord(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: string; recordId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: RemoveRecordPath;
+		queryParams?: Partial<RemoveRecordQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8704,8 +9163,8 @@ export async function removeRecord(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ domain: string; recordId: string }
+		Partial<RemoveRecordQuery>,
+		RemoveRecordPath
 	>({
 		method: "DELETE",
 		url: `/v2/domains/${encodeURIComponent(String(pathParams.domain))}/records/${encodeURIComponent(String(pathParams.recordId))}`,
@@ -8729,7 +9188,7 @@ export async function searchDomains(
 		config,
 	}: {
 		body: SearchDomainsBody;
-		queryParams?: { teamId?: string };
+		queryParams?: Partial<SearchDomainsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8746,7 +9205,7 @@ export async function searchDomains(
 		>,
 		SearchDomainsBody,
 		Record<string, string>,
-		{ teamId?: string },
+		Partial<SearchDomainsQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -8770,7 +9229,7 @@ export async function getSupportedTlds(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string };
+		queryParams?: Partial<GetSupportedTldsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8787,7 +9246,7 @@ export async function getSupportedTlds(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string },
+		Partial<GetSupportedTldsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -8811,8 +9270,8 @@ export async function getTld(
 		queryParams,
 		config,
 	}: {
-		pathParams: { tld: unknown };
-		queryParams?: { teamId?: string };
+		pathParams: GetTldPath;
+		queryParams?: Partial<GetTldQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8828,8 +9287,8 @@ export async function getTld(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string },
-		{ tld: unknown }
+		Partial<GetTldQuery>,
+		GetTldPath
 	>({
 		method: "GET",
 		url: `/v1/registrar/tlds/${encodeURIComponent(String(pathParams.tld))}`,
@@ -8852,8 +9311,8 @@ export async function getTldPrice(
 		queryParams,
 		config,
 	}: {
-		pathParams: { tld: unknown };
-		queryParams?: { years?: string; teamId?: string };
+		pathParams: GetTldPricePath;
+		queryParams?: Partial<GetTldPriceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8873,8 +9332,8 @@ export async function getTldPrice(
 		>,
 		null,
 		Record<string, string>,
-		{ years?: string; teamId?: string },
-		{ tld: unknown }
+		Partial<GetTldPriceQuery>,
+		GetTldPricePath
 	>({
 		method: "GET",
 		url: `/v1/registrar/tlds/${encodeURIComponent(String(pathParams.tld))}/price`,
@@ -8897,8 +9356,8 @@ export async function getDomainAvailability(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: unknown };
-		queryParams?: { teamId?: string };
+		pathParams: GetDomainAvailabilityPath;
+		queryParams?: Partial<GetDomainAvailabilityQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8919,8 +9378,8 @@ export async function getDomainAvailability(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string },
-		{ domain: unknown }
+		Partial<GetDomainAvailabilityQuery>,
+		GetDomainAvailabilityPath
 	>({
 		method: "GET",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/availability`,
@@ -8943,8 +9402,8 @@ export async function getDomainPrice(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: unknown };
-		queryParams?: { years?: string; teamId?: string };
+		pathParams: GetDomainPricePath;
+		queryParams?: Partial<GetDomainPriceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8964,8 +9423,8 @@ export async function getDomainPrice(
 		>,
 		null,
 		Record<string, string>,
-		{ years?: string; teamId?: string },
-		{ domain: unknown }
+		Partial<GetDomainPriceQuery>,
+		GetDomainPricePath
 	>({
 		method: "GET",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/price`,
@@ -8989,7 +9448,7 @@ export async function getBulkPrice(
 		config,
 	}: {
 		body: GetBulkPriceBody;
-		queryParams?: { teamId?: string };
+		queryParams?: Partial<GetBulkPriceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9006,7 +9465,7 @@ export async function getBulkPrice(
 		>,
 		GetBulkPriceBody,
 		Record<string, string>,
-		{ teamId?: string },
+		Partial<GetBulkPriceQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -9032,7 +9491,7 @@ export async function getBulkAvailability(
 		config,
 	}: {
 		body: GetBulkAvailabilityBody;
-		queryParams?: { teamId?: string };
+		queryParams?: Partial<GetBulkAvailabilityQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9049,7 +9508,7 @@ export async function getBulkAvailability(
 		>,
 		GetBulkAvailabilityBody,
 		Record<string, string>,
-		{ teamId?: string },
+		Partial<GetBulkAvailabilityQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -9074,8 +9533,8 @@ export async function getContactInfoSchema(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: unknown };
-		queryParams?: { teamId?: string };
+		pathParams: GetContactInfoSchemaPath;
+		queryParams?: Partial<GetContactInfoSchemaQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9095,8 +9554,8 @@ export async function getContactInfoSchema(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string },
-		{ domain: unknown }
+		Partial<GetContactInfoSchemaQuery>,
+		GetContactInfoSchemaPath
 	>({
 		method: "GET",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/contact-info/schema`,
@@ -9119,8 +9578,8 @@ export async function getDomainAuthCode(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: unknown };
-		queryParams?: { teamId?: string };
+		pathParams: GetDomainAuthCodePath;
+		queryParams?: Partial<GetDomainAuthCodeQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9142,8 +9601,8 @@ export async function getDomainAuthCode(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string },
-		{ domain: unknown }
+		Partial<GetDomainAuthCodeQuery>,
+		GetDomainAuthCodePath
 	>({
 		method: "GET",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/auth-code`,
@@ -9167,9 +9626,9 @@ export async function buySingleDomain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: unknown };
+		pathParams: BuySingleDomainPath;
 		body: BuySingleDomainBody;
-		queryParams?: { teamId?: string };
+		queryParams?: Partial<BuySingleDomainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9189,8 +9648,8 @@ export async function buySingleDomain(
 		>,
 		BuySingleDomainBody,
 		Record<string, string>,
-		{ teamId?: string },
-		{ domain: unknown }
+		Partial<BuySingleDomainQuery>,
+		BuySingleDomainPath
 	>({
 		method: "POST",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/buy`,
@@ -9215,7 +9674,7 @@ export async function buyDomains(
 		config,
 	}: {
 		body: BuyDomainsBody;
-		queryParams?: { teamId?: string };
+		queryParams?: Partial<BuyDomainsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9232,7 +9691,7 @@ export async function buyDomains(
 		>,
 		BuyDomainsBody,
 		Record<string, string>,
-		{ teamId?: string },
+		Partial<BuyDomainsQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -9258,9 +9717,9 @@ export async function transferInDomain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: unknown };
+		pathParams: TransferInDomainPath;
 		body: TransferInDomainBody;
-		queryParams?: { teamId?: string };
+		queryParams?: Partial<TransferInDomainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9280,8 +9739,8 @@ export async function transferInDomain(
 		>,
 		TransferInDomainBody,
 		Record<string, string>,
-		{ teamId?: string },
-		{ domain: unknown }
+		Partial<TransferInDomainQuery>,
+		TransferInDomainPath
 	>({
 		method: "POST",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/transfer`,
@@ -9305,8 +9764,8 @@ export async function getDomainTransferIn(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: unknown };
-		queryParams?: { teamId?: string };
+		pathParams: GetDomainTransferInPath;
+		queryParams?: Partial<GetDomainTransferInQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9327,8 +9786,8 @@ export async function getDomainTransferIn(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string },
-		{ domain: unknown }
+		Partial<GetDomainTransferInQuery>,
+		GetDomainTransferInPath
 	>({
 		method: "GET",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/transfer`,
@@ -9352,9 +9811,9 @@ export async function renewDomain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: unknown };
+		pathParams: RenewDomainPath;
 		body: RenewDomainBody;
-		queryParams?: { teamId?: string };
+		queryParams?: Partial<RenewDomainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9375,8 +9834,8 @@ export async function renewDomain(
 		>,
 		RenewDomainBody,
 		Record<string, string>,
-		{ teamId?: string },
-		{ domain: unknown }
+		Partial<RenewDomainQuery>,
+		RenewDomainPath
 	>({
 		method: "POST",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/renew`,
@@ -9401,9 +9860,9 @@ export async function updateDomainAutoRenew(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: unknown };
+		pathParams: UpdateDomainAutoRenewPath;
 		body: UpdateDomainAutoRenewBody;
-		queryParams?: { teamId?: string };
+		queryParams?: Partial<UpdateDomainAutoRenewQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9424,8 +9883,8 @@ export async function updateDomainAutoRenew(
 		>,
 		UpdateDomainAutoRenewBody,
 		Record<string, string>,
-		{ teamId?: string },
-		{ domain: unknown }
+		Partial<UpdateDomainAutoRenewQuery>,
+		UpdateDomainAutoRenewPath
 	>({
 		method: "PATCH",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/auto-renew`,
@@ -9450,9 +9909,9 @@ export async function updateDomainNameservers(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: unknown };
+		pathParams: UpdateDomainNameserversPath;
 		body: UpdateDomainNameserversBody;
-		queryParams?: { teamId?: string };
+		queryParams?: Partial<UpdateDomainNameserversQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9473,8 +9932,8 @@ export async function updateDomainNameservers(
 		>,
 		UpdateDomainNameserversBody,
 		Record<string, string>,
-		{ teamId?: string },
-		{ domain: unknown }
+		Partial<UpdateDomainNameserversQuery>,
+		UpdateDomainNameserversPath
 	>({
 		method: "PATCH",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/nameservers`,
@@ -9498,8 +9957,8 @@ export async function getDomainContactVerification(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: unknown };
-		queryParams?: { teamId?: string };
+		pathParams: GetDomainContactVerificationPath;
+		queryParams?: Partial<GetDomainContactVerificationQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9520,8 +9979,8 @@ export async function getDomainContactVerification(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string },
-		{ domain: unknown }
+		Partial<GetDomainContactVerificationQuery>,
+		GetDomainContactVerificationPath
 	>({
 		method: "GET",
 		url: `/v1/registrar/domains/${encodeURIComponent(String(pathParams.domain))}/contact-verification`,
@@ -9544,8 +10003,8 @@ export async function getOrder(
 		queryParams,
 		config,
 	}: {
-		pathParams: { orderId: unknown };
-		queryParams?: { teamId?: string };
+		pathParams: GetOrderPath;
+		queryParams?: Partial<GetOrderQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9566,8 +10025,8 @@ export async function getOrder(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string },
-		{ orderId: unknown }
+		Partial<GetOrderQuery>,
+		GetOrderPath
 	>({
 		method: "GET",
 		url: `/v1/registrar/orders/${encodeURIComponent(String(pathParams.orderId))}`,
@@ -9590,13 +10049,8 @@ export async function getDomainConfig(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: string };
-		queryParams?: {
-			projectIdOrName?: string;
-			strict?: "true" | "false";
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetDomainConfigPath;
+		queryParams?: Partial<GetDomainConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9615,8 +10069,8 @@ export async function getDomainConfig(
 		>,
 		null,
 		Record<string, string>,
-		{ projectIdOrName?: string; strict?: "true" | "false"; teamId?: string; slug?: string },
-		{ domain: string }
+		Partial<GetDomainConfigQuery>,
+		GetDomainConfigPath
 	>({
 		method: "GET",
 		url: `/v6/domains/${encodeURIComponent(String(pathParams.domain))}/config`,
@@ -9639,8 +10093,8 @@ export async function getDomainVerificationRecord(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetDomainVerificationRecordPath;
+		queryParams?: Partial<GetDomainVerificationRecordQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9660,8 +10114,8 @@ export async function getDomainVerificationRecord(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ domain: string }
+		Partial<GetDomainVerificationRecordQuery>,
+		GetDomainVerificationRecordPath
 	>({
 		method: "GET",
 		url: `/v9/domains/${encodeURIComponent(String(pathParams.domain))}/verification`,
@@ -9684,8 +10138,8 @@ export async function claimDomainOwnership(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: ClaimDomainOwnershipPath;
+		queryParams?: Partial<ClaimDomainOwnershipQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9705,8 +10159,8 @@ export async function claimDomainOwnership(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ domain: string }
+		Partial<ClaimDomainOwnershipQuery>,
+		ClaimDomainOwnershipPath
 	>({
 		method: "POST",
 		url: `/v9/domains/${encodeURIComponent(String(pathParams.domain))}/claim`,
@@ -9729,14 +10183,8 @@ export async function getDomainProjectDomains(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: string };
-		queryParams?: {
-			limit?: number;
-			since?: number;
-			until?: number;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetDomainProjectDomainsPath;
+		queryParams?: Partial<GetDomainProjectDomainsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9756,8 +10204,8 @@ export async function getDomainProjectDomains(
 		>,
 		null,
 		Record<string, string>,
-		{ limit?: number; since?: number; until?: number; teamId?: string; slug?: string },
-		{ domain: string }
+		Partial<GetDomainProjectDomainsQuery>,
+		GetDomainProjectDomainsPath
 	>({
 		method: "GET",
 		url: `/v1/domains/${encodeURIComponent(String(pathParams.domain))}/project-domains`,
@@ -9780,8 +10228,8 @@ export async function getDomain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetDomainPath;
+		queryParams?: Partial<GetDomainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9801,8 +10249,8 @@ export async function getDomain(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ domain: string }
+		Partial<GetDomainQuery>,
+		GetDomainPath
 	>({
 		method: "GET",
 		url: `/v5/domains/${encodeURIComponent(String(pathParams.domain))}`,
@@ -9824,13 +10272,7 @@ export async function getDomains(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			limit?: number;
-			since?: number;
-			until?: number;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<GetDomainsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9847,7 +10289,7 @@ export async function getDomains(
 		>,
 		null,
 		Record<string, string>,
-		{ limit?: number; since?: number; until?: number; teamId?: string; slug?: string },
+		Partial<GetDomainsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -9872,7 +10314,7 @@ export async function createOrTransferDomain(
 		config,
 	}: {
 		body?: CreateOrTransferDomainBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateOrTransferDomainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9891,7 +10333,7 @@ export async function createOrTransferDomain(
 		>,
 		CreateOrTransferDomainBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateOrTransferDomainQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -9917,9 +10359,9 @@ export async function patchDomain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: string };
+		pathParams: PatchDomainPath;
 		body: PatchDomainBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<PatchDomainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9941,8 +10383,8 @@ export async function patchDomain(
 		>,
 		PatchDomainBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ domain: string }
+		Partial<PatchDomainQuery>,
+		PatchDomainPath
 	>({
 		method: "PATCH",
 		url: `/v3/domains/${encodeURIComponent(String(pathParams.domain))}`,
@@ -9966,8 +10408,8 @@ export async function deleteDomain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { domain: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteDomainPath;
+		queryParams?: Partial<DeleteDomainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9988,8 +10430,8 @@ export async function deleteDomain(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ domain: string }
+		Partial<DeleteDomainQuery>,
+		DeleteDomainPath
 	>({
 		method: "DELETE",
 		url: `/v6/domains/${encodeURIComponent(String(pathParams.domain))}`,
@@ -10012,8 +10454,8 @@ export async function getConfigurableLogDrain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetConfigurableLogDrainPath;
+		queryParams?: Partial<GetConfigurableLogDrainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10033,8 +10475,8 @@ export async function getConfigurableLogDrain(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<GetConfigurableLogDrainQuery>,
+		GetConfigurableLogDrainPath
 	>({
 		method: "GET",
 		url: `/v1/log-drains/${encodeURIComponent(String(pathParams.id))}`,
@@ -10057,8 +10499,8 @@ export async function deleteConfigurableLogDrain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteConfigurableLogDrainPath;
+		queryParams?: Partial<DeleteConfigurableLogDrainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10078,8 +10520,8 @@ export async function deleteConfigurableLogDrain(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<DeleteConfigurableLogDrainQuery>,
+		DeleteConfigurableLogDrainPath
 	>({
 		method: "DELETE",
 		url: `/v1/log-drains/${encodeURIComponent(String(pathParams.id))}`,
@@ -10101,14 +10543,7 @@ export async function getAllLogDrains(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			projectId?: string;
-			projectIdOrName?: string;
-			includeMetadata?: boolean;
-			includeDeliveryStats?: boolean;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<GetAllLogDrainsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10125,14 +10560,7 @@ export async function getAllLogDrains(
 		>,
 		null,
 		Record<string, string>,
-		{
-			projectId?: string;
-			projectIdOrName?: string;
-			includeMetadata?: boolean;
-			includeDeliveryStats?: boolean;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<GetAllLogDrainsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -10157,7 +10585,7 @@ export async function createConfigurableLogDrain(
 		config,
 	}: {
 		body: CreateConfigurableLogDrainBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateConfigurableLogDrainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10174,7 +10602,7 @@ export async function createConfigurableLogDrain(
 		>,
 		CreateConfigurableLogDrainBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateConfigurableLogDrainQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -10200,7 +10628,7 @@ export async function createDrain(
 		config,
 	}: {
 		body?: CreateDrainBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateDrainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10218,7 +10646,7 @@ export async function createDrain(
 		>,
 		CreateDrainBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateDrainQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -10242,13 +10670,7 @@ export async function getDrains(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			projectId?: string;
-			includeMetadata?: boolean;
-			includeDeliveryStats?: boolean;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<GetDrainsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10266,13 +10688,7 @@ export async function getDrains(
 		>,
 		null,
 		Record<string, string>,
-		{
-			projectId?: string;
-			includeMetadata?: boolean;
-			includeDeliveryStats?: boolean;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<GetDrainsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -10296,8 +10712,8 @@ export async function deleteDrain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteDrainPath;
+		queryParams?: Partial<DeleteDrainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10317,8 +10733,8 @@ export async function deleteDrain(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<DeleteDrainQuery>,
+		DeleteDrainPath
 	>({
 		method: "DELETE",
 		url: `/v1/drains/${encodeURIComponent(String(pathParams.id))}`,
@@ -10341,8 +10757,8 @@ export async function getDrain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { includeDeliveryStats?: boolean; teamId?: string; slug?: string };
+		pathParams: GetDrainPath;
+		queryParams?: Partial<GetDrainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10363,8 +10779,8 @@ export async function getDrain(
 		>,
 		null,
 		Record<string, string>,
-		{ includeDeliveryStats?: boolean; teamId?: string; slug?: string },
-		{ id: string }
+		Partial<GetDrainQuery>,
+		GetDrainPath
 	>({
 		method: "GET",
 		url: `/v1/drains/${encodeURIComponent(String(pathParams.id))}`,
@@ -10388,9 +10804,9 @@ export async function updateDrain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
+		pathParams: UpdateDrainPath;
 		body?: UpdateDrainBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateDrainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10411,8 +10827,8 @@ export async function updateDrain(
 		>,
 		UpdateDrainBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<UpdateDrainQuery>,
+		UpdateDrainPath
 	>({
 		method: "PATCH",
 		url: `/v1/drains/${encodeURIComponent(String(pathParams.id))}`,
@@ -10437,7 +10853,7 @@ export async function testDrain(
 		config,
 	}: {
 		body?: TestDrainBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<TestDrainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10455,7 +10871,7 @@ export async function testDrain(
 		>,
 		TestDrainBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<TestDrainQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -10481,7 +10897,7 @@ export async function invalidateByTags(
 		config,
 	}: {
 		body?: InvalidateByTagsBody;
-		queryParams?: { projectIdOrName?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<InvalidateByTagsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10498,7 +10914,7 @@ export async function invalidateByTags(
 		>,
 		InvalidateByTagsBody,
 		Record<string, string>,
-		{ projectIdOrName?: string; teamId?: string; slug?: string },
+		Partial<InvalidateByTagsQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -10524,7 +10940,7 @@ export async function dangerouslyDeleteByTags(
 		config,
 	}: {
 		body?: DangerouslyDeleteByTagsBody;
-		queryParams?: { projectIdOrName?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<DangerouslyDeleteByTagsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10541,7 +10957,7 @@ export async function dangerouslyDeleteByTags(
 		>,
 		DangerouslyDeleteByTagsBody,
 		Record<string, string>,
-		{ projectIdOrName?: string; teamId?: string; slug?: string },
+		Partial<DangerouslyDeleteByTagsQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -10567,7 +10983,7 @@ export async function invalidateBySrcImages(
 		config,
 	}: {
 		body?: InvalidateBySrcImagesBody;
-		queryParams?: { projectIdOrName?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<InvalidateBySrcImagesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10585,7 +11001,7 @@ export async function invalidateBySrcImages(
 		>,
 		InvalidateBySrcImagesBody,
 		Record<string, string>,
-		{ projectIdOrName?: string; teamId?: string; slug?: string },
+		Partial<InvalidateBySrcImagesQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -10611,7 +11027,7 @@ export async function dangerouslyDeleteBySrcImages(
 		config,
 	}: {
 		body?: DangerouslyDeleteBySrcImagesBody;
-		queryParams?: { projectIdOrName?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<DangerouslyDeleteBySrcImagesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10629,7 +11045,7 @@ export async function dangerouslyDeleteBySrcImages(
 		>,
 		DangerouslyDeleteBySrcImagesBody,
 		Record<string, string>,
-		{ projectIdOrName?: string; teamId?: string; slug?: string },
+		Partial<DangerouslyDeleteBySrcImagesQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -10653,7 +11069,7 @@ export async function getEdgeConfigs(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<GetEdgeConfigsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10670,7 +11086,7 @@ export async function getEdgeConfigs(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<GetEdgeConfigsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -10695,7 +11111,7 @@ export async function createEdgeConfig(
 		config,
 	}: {
 		body: CreateEdgeConfigBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateEdgeConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10713,7 +11129,7 @@ export async function createEdgeConfig(
 		>,
 		CreateEdgeConfigBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateEdgeConfigQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -10738,8 +11154,8 @@ export async function getEdgeConfig(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetEdgeConfigPath;
+		queryParams?: Partial<GetEdgeConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10759,8 +11175,8 @@ export async function getEdgeConfig(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string }
+		Partial<GetEdgeConfigQuery>,
+		GetEdgeConfigPath
 	>({
 		method: "GET",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}`,
@@ -10784,9 +11200,9 @@ export async function updateEdgeConfig(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string };
+		pathParams: UpdateEdgeConfigPath;
 		body: UpdateEdgeConfigBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateEdgeConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10808,8 +11224,8 @@ export async function updateEdgeConfig(
 		>,
 		UpdateEdgeConfigBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string }
+		Partial<UpdateEdgeConfigQuery>,
+		UpdateEdgeConfigPath
 	>({
 		method: "PUT",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}`,
@@ -10833,8 +11249,8 @@ export async function deleteEdgeConfig(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteEdgeConfigPath;
+		queryParams?: Partial<DeleteEdgeConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10855,8 +11271,8 @@ export async function deleteEdgeConfig(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string }
+		Partial<DeleteEdgeConfigQuery>,
+		DeleteEdgeConfigPath
 	>({
 		method: "DELETE",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}`,
@@ -10879,8 +11295,8 @@ export async function getEdgeConfigItems(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetEdgeConfigItemsPath;
+		queryParams?: Partial<GetEdgeConfigItemsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10900,8 +11316,8 @@ export async function getEdgeConfigItems(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string }
+		Partial<GetEdgeConfigItemsQuery>,
+		GetEdgeConfigItemsPath
 	>({
 		method: "GET",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/items`,
@@ -10925,9 +11341,9 @@ export async function patchEdgeConfigItems(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string };
+		pathParams: PatchEdgeConfigItemsPath;
 		body?: PatchEdgeConfigItemsBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<PatchEdgeConfigItemsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10950,8 +11366,8 @@ export async function patchEdgeConfigItems(
 		>,
 		PatchEdgeConfigItemsBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string }
+		Partial<PatchEdgeConfigItemsQuery>,
+		PatchEdgeConfigItemsPath
 	>({
 		method: "PATCH",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/items`,
@@ -10975,8 +11391,8 @@ export async function getEdgeConfigSchema(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetEdgeConfigSchemaPath;
+		queryParams?: Partial<GetEdgeConfigSchemaQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10996,8 +11412,8 @@ export async function getEdgeConfigSchema(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string }
+		Partial<GetEdgeConfigSchemaQuery>,
+		GetEdgeConfigSchemaPath
 	>({
 		method: "GET",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/schema`,
@@ -11021,9 +11437,9 @@ export async function patchEdgeConfigSchema(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string };
+		pathParams: PatchEdgeConfigSchemaPath;
 		body: PatchEdgeConfigSchemaBody;
-		queryParams?: { dryRun?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<PatchEdgeConfigSchemaQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11045,8 +11461,8 @@ export async function patchEdgeConfigSchema(
 		>,
 		PatchEdgeConfigSchemaBody,
 		Record<string, string>,
-		{ dryRun?: string; teamId?: string; slug?: string },
-		{ edgeConfigId: string }
+		Partial<PatchEdgeConfigSchemaQuery>,
+		PatchEdgeConfigSchemaPath
 	>({
 		method: "POST",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/schema`,
@@ -11070,8 +11486,8 @@ export async function deleteEdgeConfigSchema(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteEdgeConfigSchemaPath;
+		queryParams?: Partial<DeleteEdgeConfigSchemaQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11093,8 +11509,8 @@ export async function deleteEdgeConfigSchema(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string }
+		Partial<DeleteEdgeConfigSchemaQuery>,
+		DeleteEdgeConfigSchemaPath
 	>({
 		method: "DELETE",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/schema`,
@@ -11117,8 +11533,8 @@ export async function getEdgeConfigItem(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string; edgeConfigItemKey: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetEdgeConfigItemPath;
+		queryParams?: Partial<GetEdgeConfigItemQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11142,8 +11558,8 @@ export async function getEdgeConfigItem(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string; edgeConfigItemKey: string }
+		Partial<GetEdgeConfigItemQuery>,
+		GetEdgeConfigItemPath
 	>({
 		method: "GET",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/item/${encodeURIComponent(String(pathParams.edgeConfigItemKey))}`,
@@ -11166,8 +11582,8 @@ export async function getEdgeConfigTokens(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetEdgeConfigTokensPath;
+		queryParams?: Partial<GetEdgeConfigTokensQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11187,8 +11603,8 @@ export async function getEdgeConfigTokens(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string }
+		Partial<GetEdgeConfigTokensQuery>,
+		GetEdgeConfigTokensPath
 	>({
 		method: "GET",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/tokens`,
@@ -11212,9 +11628,9 @@ export async function deleteEdgeConfigTokens(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string };
+		pathParams: DeleteEdgeConfigTokensPath;
 		body: DeleteEdgeConfigTokensBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<DeleteEdgeConfigTokensQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11236,8 +11652,8 @@ export async function deleteEdgeConfigTokens(
 		>,
 		DeleteEdgeConfigTokensBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string }
+		Partial<DeleteEdgeConfigTokensQuery>,
+		DeleteEdgeConfigTokensPath
 	>({
 		method: "DELETE",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/tokens`,
@@ -11261,8 +11677,8 @@ export async function getEdgeConfigToken(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string; token: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetEdgeConfigTokenPath;
+		queryParams?: Partial<GetEdgeConfigTokenQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11286,8 +11702,8 @@ export async function getEdgeConfigToken(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string; token: string }
+		Partial<GetEdgeConfigTokenQuery>,
+		GetEdgeConfigTokenPath
 	>({
 		method: "GET",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/token/${encodeURIComponent(String(pathParams.token))}`,
@@ -11311,9 +11727,9 @@ export async function createEdgeConfigToken(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string };
+		pathParams: CreateEdgeConfigTokenPath;
 		body: CreateEdgeConfigTokenBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateEdgeConfigTokenQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11335,8 +11751,8 @@ export async function createEdgeConfigToken(
 		>,
 		CreateEdgeConfigTokenBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string }
+		Partial<CreateEdgeConfigTokenQuery>,
+		CreateEdgeConfigTokenPath
 	>({
 		method: "POST",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/token`,
@@ -11360,8 +11776,8 @@ export async function getEdgeConfigBackup(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string; edgeConfigBackupVersionId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetEdgeConfigBackupPath;
+		queryParams?: Partial<GetEdgeConfigBackupQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11388,8 +11804,8 @@ export async function getEdgeConfigBackup(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string; edgeConfigBackupVersionId: string }
+		Partial<GetEdgeConfigBackupQuery>,
+		GetEdgeConfigBackupPath
 	>({
 		method: "GET",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/backups/${encodeURIComponent(String(pathParams.edgeConfigBackupVersionId))}`,
@@ -11412,8 +11828,8 @@ export async function restoreEdgeConfigBackup(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string; edgeConfigBackupVersionId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: RestoreEdgeConfigBackupPath;
+		queryParams?: Partial<RestoreEdgeConfigBackupQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11443,8 +11859,8 @@ export async function restoreEdgeConfigBackup(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ edgeConfigId: string; edgeConfigBackupVersionId: string }
+		Partial<RestoreEdgeConfigBackupQuery>,
+		RestoreEdgeConfigBackupPath
 	>({
 		method: "POST",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/backups/${encodeURIComponent(String(pathParams.edgeConfigBackupVersionId))}/restore`,
@@ -11467,14 +11883,8 @@ export async function getEdgeConfigBackups(
 		queryParams,
 		config,
 	}: {
-		pathParams: { edgeConfigId: string };
-		queryParams?: {
-			next?: string;
-			limit?: number;
-			metadata?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetEdgeConfigBackupsPath;
+		queryParams?: Partial<GetEdgeConfigBackupsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11494,8 +11904,8 @@ export async function getEdgeConfigBackups(
 		>,
 		null,
 		Record<string, string>,
-		{ next?: string; limit?: number; metadata?: string; teamId?: string; slug?: string },
-		{ edgeConfigId: string }
+		Partial<GetEdgeConfigBackupsQuery>,
+		GetEdgeConfigBackupsPath
 	>({
 		method: "GET",
 		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/backups`,
@@ -11519,7 +11929,7 @@ export async function createSharedEnvVariable(
 		config,
 	}: {
 		body?: CreateSharedEnvVariableBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateSharedEnvVariableQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11537,7 +11947,7 @@ export async function createSharedEnvVariable(
 		>,
 		CreateSharedEnvVariableBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateSharedEnvVariableQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -11561,17 +11971,7 @@ export async function listSharedEnvVariable(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			search?: string;
-			projectId?: string;
-			ids?: string;
-			exclude_ids?: string;
-			"exclude-ids"?: string;
-			exclude_projectId?: string;
-			"exclude-projectId"?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListSharedEnvVariableQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11588,17 +11988,7 @@ export async function listSharedEnvVariable(
 		>,
 		null,
 		Record<string, string>,
-		{
-			search?: string;
-			projectId?: string;
-			ids?: string;
-			exclude_ids?: string;
-			"exclude-ids"?: string;
-			exclude_projectId?: string;
-			"exclude-projectId"?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListSharedEnvVariableQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -11623,7 +12013,7 @@ export async function updateSharedEnvVariable(
 		config,
 	}: {
 		body?: UpdateSharedEnvVariableBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateSharedEnvVariableQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11641,7 +12031,7 @@ export async function updateSharedEnvVariable(
 		>,
 		UpdateSharedEnvVariableBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<UpdateSharedEnvVariableQuery>,
 		Record<string, string>
 	>({
 		method: "PATCH",
@@ -11667,7 +12057,7 @@ export async function deleteSharedEnvVariable(
 		config,
 	}: {
 		body?: DeleteSharedEnvVariableBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<DeleteSharedEnvVariableQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11685,7 +12075,7 @@ export async function deleteSharedEnvVariable(
 		>,
 		DeleteSharedEnvVariableBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<DeleteSharedEnvVariableQuery>,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -11710,8 +12100,8 @@ export async function getSharedEnvVar(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetSharedEnvVarPath;
+		queryParams?: Partial<GetSharedEnvVarQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11731,8 +12121,8 @@ export async function getSharedEnvVar(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<GetSharedEnvVarQuery>,
+		GetSharedEnvVarPath
 	>({
 		method: "GET",
 		url: `/v1/env/${encodeURIComponent(String(pathParams.id))}`,
@@ -11755,8 +12145,8 @@ export async function unlinkSharedEnvVariable(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string; projectId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: UnlinkSharedEnvVariablePath;
+		queryParams?: Partial<UnlinkSharedEnvVariableQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11780,8 +12170,8 @@ export async function unlinkSharedEnvVariable(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string; projectId: string }
+		Partial<UnlinkSharedEnvVariableQuery>,
+		UnlinkSharedEnvVariablePath
 	>({
 		method: "PATCH",
 		url: `/v1/env/${encodeURIComponent(String(pathParams.id))}/unlink/${encodeURIComponent(String(pathParams.projectId))}`,
@@ -11803,19 +12193,7 @@ export async function listUserEvents(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			limit?: number;
-			since?: string;
-			until?: string;
-			types?: string;
-			userId?: string;
-			principalId?: string;
-			projectIds?: string;
-			entityId?: string;
-			withPayload?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListUserEventsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11831,19 +12209,7 @@ export async function listUserEvents(
 		>,
 		null,
 		Record<string, string>,
-		{
-			limit?: number;
-			since?: string;
-			until?: string;
-			types?: string;
-			userId?: string;
-			principalId?: string;
-			projectIds?: string;
-			entityId?: string;
-			withPayload?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListUserEventsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -11866,7 +12232,7 @@ export async function listEventTypes(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<ListEventTypesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11882,7 +12248,7 @@ export async function listEventTypes(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<ListEventTypesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -11906,19 +12272,8 @@ export async function listFlagsV2(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
-		queryParams?: {
-			state?: "active" | "archived";
-			limit?: number;
-			cursor?: string;
-			search?: string;
-			tags?: Array<string>;
-			createdBy?: string;
-			maintainerIds?: Array<string>;
-			includeMarketplaceFlags?: boolean;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: ListFlagsV2Path;
+		queryParams?: Partial<ListFlagsV2Query>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11940,19 +12295,8 @@ export async function listFlagsV2(
 		>,
 		null,
 		Record<string, string>,
-		{
-			state?: "active" | "archived";
-			limit?: number;
-			cursor?: string;
-			search?: string;
-			tags?: Array<string>;
-			createdBy?: string;
-			maintainerIds?: Array<string>;
-			includeMarketplaceFlags?: boolean;
-			teamId?: string;
-			slug?: string;
-		},
-		{ projectIdOrName: string }
+		Partial<ListFlagsV2Query>,
+		ListFlagsV2Path
 	>({
 		method: "GET",
 		url: `/v2/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/flags`,
@@ -11975,17 +12319,8 @@ export async function listFlags(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
-		queryParams?: {
-			state?: "active" | "archived";
-			withMetadata?: boolean;
-			limit?: number;
-			cursor?: string;
-			search?: string;
-			tags?: Array<string>;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: ListFlagsPath;
+		queryParams?: Partial<ListFlagsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12006,17 +12341,8 @@ export async function listFlags(
 		>,
 		null,
 		Record<string, string>,
-		{
-			state?: "active" | "archived";
-			withMetadata?: boolean;
-			limit?: number;
-			cursor?: string;
-			search?: string;
-			tags?: Array<string>;
-			teamId?: string;
-			slug?: string;
-		},
-		{ projectIdOrName: string }
+		Partial<ListFlagsQuery>,
+		ListFlagsPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/flags`,
@@ -12040,9 +12366,9 @@ export async function createFlag(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
+		pathParams: CreateFlagPath;
 		body?: CreateFlagBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateFlagQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12064,8 +12390,8 @@ export async function createFlag(
 		>,
 		CreateFlagBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string }
+		Partial<CreateFlagQuery>,
+		CreateFlagPath
 	>({
 		method: "PUT",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/flags`,
@@ -12089,8 +12415,8 @@ export async function getFlag(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string; flagIdOrSlug: string };
-		queryParams?: { ifMatch?: string; withMetadata?: boolean; teamId?: string; slug?: string };
+		pathParams: GetFlagPath;
+		queryParams?: Partial<GetFlagQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12115,8 +12441,8 @@ export async function getFlag(
 		>,
 		null,
 		Record<string, string>,
-		{ ifMatch?: string; withMetadata?: boolean; teamId?: string; slug?: string },
-		{ projectIdOrName: string; flagIdOrSlug: string }
+		Partial<GetFlagQuery>,
+		GetFlagPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/flags/${encodeURIComponent(String(pathParams.flagIdOrSlug))}`,
@@ -12140,9 +12466,9 @@ export async function updateFlag(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string; flagIdOrSlug: string };
+		pathParams: UpdateFlagPath;
 		body?: UpdateFlagBody;
-		queryParams?: { ifMatch?: string; withMetadata?: boolean; teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateFlagQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12168,8 +12494,8 @@ export async function updateFlag(
 		>,
 		UpdateFlagBody,
 		Record<string, string>,
-		{ ifMatch?: string; withMetadata?: boolean; teamId?: string; slug?: string },
-		{ projectIdOrName: string; flagIdOrSlug: string }
+		Partial<UpdateFlagQuery>,
+		UpdateFlagPath
 	>({
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/flags/${encodeURIComponent(String(pathParams.flagIdOrSlug))}`,
@@ -12193,8 +12519,8 @@ export async function deleteFlag(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string; flagIdOrSlug: string };
-		queryParams?: { ifMatch?: string; withMetadata?: boolean; teamId?: string; slug?: string };
+		pathParams: DeleteFlagPath;
+		queryParams?: Partial<DeleteFlagQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12220,8 +12546,8 @@ export async function deleteFlag(
 		>,
 		null,
 		Record<string, string>,
-		{ ifMatch?: string; withMetadata?: boolean; teamId?: string; slug?: string },
-		{ projectIdOrName: string; flagIdOrSlug: string }
+		Partial<DeleteFlagQuery>,
+		DeleteFlagPath
 	>({
 		method: "DELETE",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/flags/${encodeURIComponent(String(pathParams.flagIdOrSlug))}`,
@@ -12244,15 +12570,8 @@ export async function listFlagVersions(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string; flagIdOrSlug: string };
-		queryParams?: {
-			limit?: number;
-			cursor?: string;
-			environment?: string;
-			withMetadata?: boolean;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: ListFlagVersionsPath;
+		queryParams?: Partial<ListFlagVersionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12277,15 +12596,8 @@ export async function listFlagVersions(
 		>,
 		null,
 		Record<string, string>,
-		{
-			limit?: number;
-			cursor?: string;
-			environment?: string;
-			withMetadata?: boolean;
-			teamId?: string;
-			slug?: string;
-		},
-		{ projectIdOrName: string; flagIdOrSlug: string }
+		Partial<ListFlagVersionsQuery>,
+		ListFlagVersionsPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/flags/${encodeURIComponent(String(pathParams.flagIdOrSlug))}/versions`,
@@ -12308,8 +12620,8 @@ export async function getFlagSettings(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetFlagSettingsPath;
+		queryParams?: Partial<GetFlagSettingsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12330,8 +12642,8 @@ export async function getFlagSettings(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string }
+		Partial<GetFlagSettingsQuery>,
+		GetFlagSettingsPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/settings`,
@@ -12355,9 +12667,9 @@ export async function updateFlagSettings(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
+		pathParams: UpdateFlagSettingsPath;
 		body?: UpdateFlagSettingsBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateFlagSettingsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12379,8 +12691,8 @@ export async function updateFlagSettings(
 		>,
 		UpdateFlagSettingsBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string }
+		Partial<UpdateFlagSettingsQuery>,
+		UpdateFlagSettingsPath
 	>({
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/settings`,
@@ -12404,16 +12716,8 @@ export async function listFlagLabels(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
-		queryParams?: {
-			limit?: number;
-			cursor?: string;
-			search?: string;
-			entityKind?: string;
-			attributeKey?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: ListFlagLabelsPath;
+		queryParams?: Partial<ListFlagLabelsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12434,16 +12738,8 @@ export async function listFlagLabels(
 		>,
 		null,
 		Record<string, string>,
-		{
-			limit?: number;
-			cursor?: string;
-			search?: string;
-			entityKind?: string;
-			attributeKey?: string;
-			teamId?: string;
-			slug?: string;
-		},
-		{ projectIdOrName: string }
+		Partial<ListFlagLabelsQuery>,
+		ListFlagLabelsPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/labels`,
@@ -12466,14 +12762,8 @@ export async function listFlagLabelCounts(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
-		queryParams?: {
-			entityKind?: string;
-			limit?: number;
-			cursor?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: ListFlagLabelCountsPath;
+		queryParams?: Partial<ListFlagLabelCountsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12494,8 +12784,8 @@ export async function listFlagLabelCounts(
 		>,
 		null,
 		Record<string, string>,
-		{ entityKind?: string; limit?: number; cursor?: string; teamId?: string; slug?: string },
-		{ projectIdOrName: string }
+		Partial<ListFlagLabelCountsQuery>,
+		ListFlagLabelCountsPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/labels/counts`,
@@ -12519,9 +12809,9 @@ export async function lookupFlagLabels(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
+		pathParams: LookupFlagLabelsPath;
 		body?: LookupFlagLabelsBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<LookupFlagLabelsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12543,8 +12833,8 @@ export async function lookupFlagLabels(
 		>,
 		LookupFlagLabelsBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string }
+		Partial<LookupFlagLabelsQuery>,
+		LookupFlagLabelsPath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/labels/lookup`,
@@ -12568,8 +12858,8 @@ export async function listTeamFlagSettings(
 		queryParams,
 		config,
 	}: {
-		pathParams: { teamId: string };
-		queryParams?: { limit?: number; cursor?: string; slug?: string };
+		pathParams: ListTeamFlagSettingsPath;
+		queryParams?: Partial<ListTeamFlagSettingsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12589,8 +12879,8 @@ export async function listTeamFlagSettings(
 		>,
 		null,
 		Record<string, string>,
-		{ limit?: number; cursor?: string; slug?: string },
-		{ teamId: string }
+		Partial<ListTeamFlagSettingsQuery>,
+		ListTeamFlagSettingsPath
 	>({
 		method: "GET",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/feature-flags/settings`,
@@ -12613,19 +12903,8 @@ export async function listTeamFlagsV2(
 		queryParams,
 		config,
 	}: {
-		pathParams: { teamId: string };
-		queryParams?: {
-			state?: "active" | "archived";
-			limit?: number;
-			cursor?: string;
-			search?: string;
-			kind?: "boolean" | "string" | "number" | "json";
-			tags?: Array<string>;
-			createdBy?: string;
-			maintainerIds?: Array<string>;
-			includeMarketplaceFlags?: boolean;
-			slug?: string;
-		};
+		pathParams: ListTeamFlagsV2Path;
+		queryParams?: Partial<ListTeamFlagsV2Query>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12646,19 +12925,8 @@ export async function listTeamFlagsV2(
 		>,
 		null,
 		Record<string, string>,
-		{
-			state?: "active" | "archived";
-			limit?: number;
-			cursor?: string;
-			search?: string;
-			kind?: "boolean" | "string" | "number" | "json";
-			tags?: Array<string>;
-			createdBy?: string;
-			maintainerIds?: Array<string>;
-			includeMarketplaceFlags?: boolean;
-			slug?: string;
-		},
-		{ teamId: string }
+		Partial<ListTeamFlagsV2Query>,
+		ListTeamFlagsV2Path
 	>({
 		method: "GET",
 		url: `/v2/teams/${encodeURIComponent(String(pathParams.teamId))}/feature-flags/flags`,
@@ -12681,17 +12949,8 @@ export async function listTeamFlags(
 		queryParams,
 		config,
 	}: {
-		pathParams: { teamId: string };
-		queryParams?: {
-			state?: "active" | "archived";
-			withMetadata?: boolean;
-			limit?: number;
-			cursor?: string;
-			search?: string;
-			kind?: "boolean" | "string" | "number" | "json";
-			tags?: Array<string>;
-			slug?: string;
-		};
+		pathParams: ListTeamFlagsPath;
+		queryParams?: Partial<ListTeamFlagsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12711,17 +12970,8 @@ export async function listTeamFlags(
 		>,
 		null,
 		Record<string, string>,
-		{
-			state?: "active" | "archived";
-			withMetadata?: boolean;
-			limit?: number;
-			cursor?: string;
-			search?: string;
-			kind?: "boolean" | "string" | "number" | "json";
-			tags?: Array<string>;
-			slug?: string;
-		},
-		{ teamId: string }
+		Partial<ListTeamFlagsQuery>,
+		ListTeamFlagsPath
 	>({
 		method: "GET",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/feature-flags/flags`,
@@ -12745,9 +12995,9 @@ export async function createFlagSegment(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
+		pathParams: CreateFlagSegmentPath;
 		body?: CreateFlagSegmentBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateFlagSegmentQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12769,8 +13019,8 @@ export async function createFlagSegment(
 		>,
 		CreateFlagSegmentBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string }
+		Partial<CreateFlagSegmentQuery>,
+		CreateFlagSegmentPath
 	>({
 		method: "PUT",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/segments`,
@@ -12794,8 +13044,8 @@ export async function listFlagSegments(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
-		queryParams?: { withMetadata?: boolean; teamId?: string; slug?: string };
+		pathParams: ListFlagSegmentsPath;
+		queryParams?: Partial<ListFlagSegmentsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12816,8 +13066,8 @@ export async function listFlagSegments(
 		>,
 		null,
 		Record<string, string>,
-		{ withMetadata?: boolean; teamId?: string; slug?: string },
-		{ projectIdOrName: string }
+		Partial<ListFlagSegmentsQuery>,
+		ListFlagSegmentsPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/segments`,
@@ -12840,8 +13090,8 @@ export async function getFlagSegment(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string; segmentIdOrSlug: string };
-		queryParams?: { withMetadata?: boolean; teamId?: string; slug?: string };
+		pathParams: GetFlagSegmentPath;
+		queryParams?: Partial<GetFlagSegmentQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12866,8 +13116,8 @@ export async function getFlagSegment(
 		>,
 		null,
 		Record<string, string>,
-		{ withMetadata?: boolean; teamId?: string; slug?: string },
-		{ projectIdOrName: string; segmentIdOrSlug: string }
+		Partial<GetFlagSegmentQuery>,
+		GetFlagSegmentPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/segments/${encodeURIComponent(String(pathParams.segmentIdOrSlug))}`,
@@ -12890,8 +13140,8 @@ export async function deleteFlagSegment(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string; segmentIdOrSlug: string };
-		queryParams?: { withMetadata?: boolean; teamId?: string; slug?: string };
+		pathParams: DeleteFlagSegmentPath;
+		queryParams?: Partial<DeleteFlagSegmentQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12917,8 +13167,8 @@ export async function deleteFlagSegment(
 		>,
 		null,
 		Record<string, string>,
-		{ withMetadata?: boolean; teamId?: string; slug?: string },
-		{ projectIdOrName: string; segmentIdOrSlug: string }
+		Partial<DeleteFlagSegmentQuery>,
+		DeleteFlagSegmentPath
 	>({
 		method: "DELETE",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/segments/${encodeURIComponent(String(pathParams.segmentIdOrSlug))}`,
@@ -12942,9 +13192,9 @@ export async function updateFlagSegment(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string; segmentIdOrSlug: string };
+		pathParams: UpdateFlagSegmentPath;
 		body?: UpdateFlagSegmentBody;
-		queryParams?: { withMetadata?: boolean; teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateFlagSegmentQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12970,8 +13220,8 @@ export async function updateFlagSegment(
 		>,
 		UpdateFlagSegmentBody,
 		Record<string, string>,
-		{ withMetadata?: boolean; teamId?: string; slug?: string },
-		{ projectIdOrName: string; segmentIdOrSlug: string }
+		Partial<UpdateFlagSegmentQuery>,
+		UpdateFlagSegmentPath
 	>({
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/segments/${encodeURIComponent(String(pathParams.segmentIdOrSlug))}`,
@@ -12995,8 +13245,8 @@ export async function getDeploymentFeatureFlags(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetDeploymentFeatureFlagsPath;
+		queryParams?: Partial<GetDeploymentFeatureFlagsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13016,8 +13266,8 @@ export async function getDeploymentFeatureFlags(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ deploymentId: string }
+		Partial<GetDeploymentFeatureFlagsQuery>,
+		GetDeploymentFeatureFlagsPath
 	>({
 		method: "GET",
 		url: `/v1/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/feature-flags`,
@@ -13040,8 +13290,8 @@ export async function getSdkKeys(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetSdkKeysPath;
+		queryParams?: Partial<GetSdkKeysQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13062,8 +13312,8 @@ export async function getSdkKeys(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string }
+		Partial<GetSdkKeysQuery>,
+		GetSdkKeysPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/sdk-keys`,
@@ -13087,9 +13337,9 @@ export async function createSdkKey(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
+		pathParams: CreateSdkKeyPath;
 		body?: CreateSdkKeyBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateSdkKeyQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13111,8 +13361,8 @@ export async function createSdkKey(
 		>,
 		CreateSdkKeyBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string }
+		Partial<CreateSdkKeyQuery>,
+		CreateSdkKeyPath
 	>({
 		method: "PUT",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/sdk-keys`,
@@ -13136,8 +13386,8 @@ export async function deleteSdkKey(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string; hashKey: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteSdkKeyPath;
+		queryParams?: Partial<DeleteSdkKeyQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13163,8 +13413,8 @@ export async function deleteSdkKey(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string; hashKey: string }
+		Partial<DeleteSdkKeyQuery>,
+		DeleteSdkKeyPath
 	>({
 		method: "DELETE",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/sdk-keys/${encodeURIComponent(String(pathParams.hashKey))}`,
@@ -13186,11 +13436,7 @@ export async function gitNamespaces(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			host?: string;
-			provider?: "github" | "github-limited" | "github-custom-host" | "gitlab" | "bitbucket";
-			viewerMetadata?: boolean;
-		};
+		queryParams?: Partial<GitNamespacesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13209,11 +13455,7 @@ export async function gitNamespaces(
 		>,
 		null,
 		Record<string, string>,
-		{
-			host?: string;
-			provider?: "github" | "github-limited" | "github-custom-host" | "gitlab" | "bitbucket";
-			viewerMetadata?: boolean;
-		},
+		Partial<GitNamespacesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -13236,21 +13478,7 @@ export async function searchRepo(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			query?: string;
-			namespaceId?: unknown;
-			provider?:
-				| "github"
-				| "github-limited"
-				| "github-custom-host"
-				| "gitlab"
-				| "bitbucket"
-				| "cursor-origin";
-			installationId?: string;
-			host?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<SearchRepoQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13270,21 +13498,7 @@ export async function searchRepo(
 		>,
 		null,
 		Record<string, string>,
-		{
-			query?: string;
-			namespaceId?: unknown;
-			provider?:
-				| "github"
-				| "github-limited"
-				| "github-custom-host"
-				| "gitlab"
-				| "bitbucket"
-				| "cursor-origin";
-			installationId?: string;
-			host?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<SearchRepoQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -13308,24 +13522,8 @@ export async function getBillingPlans(
 		queryParams,
 		config,
 	}: {
-		pathParams: { integrationIdOrSlug: string; productIdOrSlug: string };
-		queryParams?: {
-			integrationConfigurationId?: string;
-			metadata?: string;
-			source?:
-				| "marketplace"
-				| "deploy-button"
-				| "external"
-				| "v0"
-				| "resource-claims"
-				| "cli"
-				| "oauth"
-				| "backoffice"
-				| "import-recommended-integrations"
-				| "organization";
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetBillingPlansPath;
+		queryParams?: Partial<GetBillingPlansQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13349,24 +13547,8 @@ export async function getBillingPlans(
 		>,
 		null,
 		Record<string, string>,
-		{
-			integrationConfigurationId?: string;
-			metadata?: string;
-			source?:
-				| "marketplace"
-				| "deploy-button"
-				| "external"
-				| "v0"
-				| "resource-claims"
-				| "cli"
-				| "oauth"
-				| "backoffice"
-				| "import-recommended-integrations"
-				| "organization";
-			teamId?: string;
-			slug?: string;
-		},
-		{ integrationIdOrSlug: string; productIdOrSlug: string }
+		Partial<GetBillingPlansQuery>,
+		GetBillingPlansPath
 	>({
 		method: "GET",
 		url: `/v1/integrations/integration/${encodeURIComponent(String(pathParams.integrationIdOrSlug))}/products/${encodeURIComponent(String(pathParams.productIdOrSlug))}/plans`,
@@ -13390,9 +13572,9 @@ export async function connectIntegrationResourceToProject(
 		queryParams,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; resourceId: string };
+		pathParams: ConnectIntegrationResourceToProjectPath;
 		body?: ConnectIntegrationResourceToProjectBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<ConnectIntegrationResourceToProjectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13419,8 +13601,8 @@ export async function connectIntegrationResourceToProject(
 		>,
 		ConnectIntegrationResourceToProjectBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ integrationConfigurationId: string; resourceId: string }
+		Partial<ConnectIntegrationResourceToProjectQuery>,
+		ConnectIntegrationResourceToProjectPath
 	>({
 		method: "POST",
 		url: `/v1/integrations/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/connections`,
@@ -13444,7 +13626,7 @@ export async function updateInstallation(
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string };
+		pathParams: UpdateInstallationPath;
 		body?: UpdateInstallationBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -13469,7 +13651,7 @@ export async function updateInstallation(
 		UpdateInstallationBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string }
+		UpdateInstallationPath
 	>({
 		method: "PATCH",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}`,
@@ -13491,7 +13673,7 @@ export async function getAccountInfo(
 		pathParams,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string };
+		pathParams: GetAccountInfoPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13515,7 +13697,7 @@ export async function getAccountInfo(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string }
+		GetAccountInfoPath
 	>({
 		method: "GET",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/account`,
@@ -13536,7 +13718,7 @@ export async function getMember(
 		pathParams,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; memberId: string };
+		pathParams: GetMemberPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13564,7 +13746,7 @@ export async function getMember(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; memberId: string }
+		GetMemberPath
 	>({
 		method: "GET",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/member/${encodeURIComponent(String(pathParams.memberId))}`,
@@ -13586,7 +13768,7 @@ export async function rotateInstallationCredential(
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string };
+		pathParams: RotateInstallationCredentialPath;
 		body?: RotateInstallationCredentialBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -13612,7 +13794,7 @@ export async function rotateInstallationCredential(
 		RotateInstallationCredentialBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string }
+		RotateInstallationCredentialPath
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/credentials/rotate`,
@@ -13635,7 +13817,7 @@ export async function revokeInstallationCredential(
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string };
+		pathParams: RevokeInstallationCredentialPath;
 		body?: RevokeInstallationCredentialBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -13661,7 +13843,7 @@ export async function revokeInstallationCredential(
 		RevokeInstallationCredentialBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string }
+		RevokeInstallationCredentialPath
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/credentials/revoke`,
@@ -13684,7 +13866,7 @@ export async function createEvent(
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string };
+		pathParams: CreateEventPath;
 		body: CreateEventBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -13709,7 +13891,7 @@ export async function createEvent(
 		CreateEventBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string }
+		CreateEventPath
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/events`,
@@ -13731,7 +13913,7 @@ export async function getIntegrationResources(
 		pathParams,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string };
+		pathParams: GetIntegrationResourcesPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13755,7 +13937,7 @@ export async function getIntegrationResources(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string }
+		GetIntegrationResourcesPath
 	>({
 		method: "GET",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources`,
@@ -13776,7 +13958,7 @@ export async function getIntegrationResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; resourceId: string };
+		pathParams: GetIntegrationResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13804,7 +13986,7 @@ export async function getIntegrationResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; resourceId: string }
+		GetIntegrationResourcePath
 	>({
 		method: "GET",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}`,
@@ -13825,7 +14007,7 @@ export async function deleteIntegrationResource(
 		pathParams,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; resourceId: string };
+		pathParams: DeleteIntegrationResourcePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13853,7 +14035,7 @@ export async function deleteIntegrationResource(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; resourceId: string }
+		DeleteIntegrationResourcePath
 	>({
 		method: "DELETE",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}`,
@@ -13875,7 +14057,7 @@ export async function importResource(
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; resourceId: string };
+		pathParams: ImportResourcePath;
 		body?: ImportResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -13905,7 +14087,7 @@ export async function importResource(
 		ImportResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; resourceId: string }
+		ImportResourcePath
 	>({
 		method: "PUT",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}`,
@@ -13928,7 +14110,7 @@ export async function updateResource(
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; resourceId: string };
+		pathParams: UpdateResourcePath;
 		body?: UpdateResourceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -13958,7 +14140,7 @@ export async function updateResource(
 		UpdateResourceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; resourceId: string }
+		UpdateResourcePath
 	>({
 		method: "PATCH",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}`,
@@ -13981,7 +14163,7 @@ export async function submitBillingData(
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string };
+		pathParams: SubmitBillingDataPath;
 		body: SubmitBillingDataBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14006,7 +14188,7 @@ export async function submitBillingData(
 		SubmitBillingDataBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string }
+		SubmitBillingDataPath
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing`,
@@ -14029,7 +14211,7 @@ export async function submitInvoice(
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string };
+		pathParams: SubmitInvoicePath;
 		body: SubmitInvoiceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14055,7 +14237,7 @@ export async function submitInvoice(
 		SubmitInvoiceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string }
+		SubmitInvoicePath
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing/invoices`,
@@ -14077,7 +14259,7 @@ export async function finalizeInstallation(
 		pathParams,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string };
+		pathParams: FinalizeInstallationPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14101,7 +14283,7 @@ export async function finalizeInstallation(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string }
+		FinalizeInstallationPath
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing/finalize`,
@@ -14122,7 +14304,7 @@ export async function getInvoice(
 		pathParams,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; invoiceId: string };
+		pathParams: GetInvoicePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14151,7 +14333,7 @@ export async function getInvoice(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; invoiceId: string }
+		GetInvoicePath
 	>({
 		method: "GET",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing/invoices/${encodeURIComponent(String(pathParams.invoiceId))}`,
@@ -14173,7 +14355,7 @@ export async function updateInvoice(
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; invoiceId: string };
+		pathParams: UpdateInvoicePath;
 		body: UpdateInvoiceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14203,7 +14385,7 @@ export async function updateInvoice(
 		UpdateInvoiceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; invoiceId: string }
+		UpdateInvoicePath
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing/invoices/${encodeURIComponent(String(pathParams.invoiceId))}/actions`,
@@ -14226,7 +14408,7 @@ export async function submitPrepaymentBalances(
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string };
+		pathParams: SubmitPrepaymentBalancesPath;
 		body?: SubmitPrepaymentBalancesBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14251,7 +14433,7 @@ export async function submitPrepaymentBalances(
 		SubmitPrepaymentBalancesBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string }
+		SubmitPrepaymentBalancesPath
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/billing/balance`,
@@ -14275,11 +14457,7 @@ export async function updateResourceSecrets(
 		body,
 		config,
 	}: {
-		pathParams: {
-			integrationConfigurationId: string;
-			integrationProductIdOrSlug: string;
-			resourceId: string;
-		};
+		pathParams: UpdateResourceSecretsPath;
 		body: UpdateResourceSecretsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14316,7 +14494,7 @@ export async function updateResourceSecrets(
 		UpdateResourceSecretsBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; integrationProductIdOrSlug: string; resourceId: string }
+		UpdateResourceSecretsPath
 	>({
 		method: "PUT",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/products/${encodeURIComponent(String(pathParams.integrationProductIdOrSlug))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/secrets`,
@@ -14339,7 +14517,7 @@ export async function updateResourceSecretsById(
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; resourceId: string };
+		pathParams: UpdateResourceSecretsByIdPath;
 		body?: UpdateResourceSecretsByIdBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14369,7 +14547,7 @@ export async function updateResourceSecretsById(
 		UpdateResourceSecretsByIdBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; resourceId: string }
+		UpdateResourceSecretsByIdPath
 	>({
 		method: "PUT",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/secrets`,
@@ -14391,13 +14569,7 @@ export async function getConfigurations(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			view?: "account" | "project";
-			installationType?: "marketplace" | "external" | "provisioning";
-			integrationIdOrSlug?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<GetConfigurationsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14414,13 +14586,7 @@ export async function getConfigurations(
 		>,
 		null,
 		Record<string, string>,
-		{
-			view?: "account" | "project";
-			installationType?: "marketplace" | "external" | "provisioning";
-			integrationIdOrSlug?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<GetConfigurationsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -14444,8 +14610,8 @@ export async function getConfiguration(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetConfigurationPath;
+		queryParams?: Partial<GetConfigurationQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14465,8 +14631,8 @@ export async function getConfiguration(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<GetConfigurationQuery>,
+		GetConfigurationPath
 	>({
 		method: "GET",
 		url: `/v1/integrations/configuration/${encodeURIComponent(String(pathParams.id))}`,
@@ -14489,8 +14655,8 @@ export async function deleteConfiguration(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteConfigurationPath;
+		queryParams?: Partial<DeleteConfigurationQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14510,8 +14676,8 @@ export async function deleteConfiguration(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<DeleteConfigurationQuery>,
+		DeleteConfigurationPath
 	>({
 		method: "DELETE",
 		url: `/v1/integrations/configuration/${encodeURIComponent(String(pathParams.id))}`,
@@ -14534,8 +14700,8 @@ export async function getConfigurationProducts(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetConfigurationProductsPath;
+		queryParams?: Partial<GetConfigurationProductsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14556,8 +14722,8 @@ export async function getConfigurationProducts(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<GetConfigurationProductsQuery>,
+		GetConfigurationProductsPath
 	>({
 		method: "GET",
 		url: `/v1/integrations/configuration/${encodeURIComponent(String(pathParams.id))}/products`,
@@ -14613,7 +14779,7 @@ export async function getIntegrationLogDrains(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<GetIntegrationLogDrainsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14630,7 +14796,7 @@ export async function getIntegrationLogDrains(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<GetIntegrationLogDrainsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -14655,7 +14821,7 @@ export async function createLogDrain(
 		config,
 	}: {
 		body: CreateLogDrainBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateLogDrainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14672,7 +14838,7 @@ export async function createLogDrain(
 		>,
 		CreateLogDrainBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateLogDrainQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -14697,8 +14863,8 @@ export async function deleteIntegrationLogDrain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteIntegrationLogDrainPath;
+		queryParams?: Partial<DeleteIntegrationLogDrainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14718,8 +14884,8 @@ export async function deleteIntegrationLogDrain(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<DeleteIntegrationLogDrainQuery>,
+		DeleteIntegrationLogDrainPath
 	>({
 		method: "DELETE",
 		url: `/v1/integrations/log-drains/${encodeURIComponent(String(pathParams.id))}`,
@@ -14783,7 +14949,7 @@ export async function updateApiKeyQuota(
 		body,
 		config,
 	}: {
-		pathParams: { apiKeyID: string };
+		pathParams: UpdateApiKeyQuotaPath;
 		body?: UpdateApiKeyQuotaBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14807,7 +14973,7 @@ export async function updateApiKeyQuota(
 		UpdateApiKeyQuotaBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ apiKeyID: string }
+		UpdateApiKeyQuotaPath
 	>({
 		method: "PATCH",
 		url: `/api-keys/${encodeURIComponent(String(pathParams.apiKeyID))}/quota`,
@@ -14830,7 +14996,7 @@ export async function signKmsMessage(
 		body,
 		config,
 	}: {
-		pathParams: { issuerId: string };
+		pathParams: SignKmsMessagePath;
 		body?: SignKmsMessageBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14852,7 +15018,7 @@ export async function signKmsMessage(
 		SignKmsMessageBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ issuerId: string }
+		SignKmsMessagePath
 	>({
 		method: "POST",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/sign/message`,
@@ -14875,7 +15041,7 @@ export async function signKmsToken(
 		body,
 		config,
 	}: {
-		pathParams: { issuerId: string };
+		pathParams: SignKmsTokenPath;
 		body?: SignKmsTokenBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -14897,7 +15063,7 @@ export async function signKmsToken(
 		SignKmsTokenBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ issuerId: string }
+		SignKmsTokenPath
 	>({
 		method: "POST",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/sign/token`,
@@ -14919,7 +15085,7 @@ export async function listKmsIssuers(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { limit?: number; next?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<ListKmsIssuersQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14936,7 +15102,7 @@ export async function listKmsIssuers(
 		>,
 		null,
 		Record<string, string>,
-		{ limit?: number; next?: string; teamId?: string; slug?: string },
+		Partial<ListKmsIssuersQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -14961,7 +15127,7 @@ export async function createKmsIssuer(
 		config,
 	}: {
 		body?: CreateKmsIssuerBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateKmsIssuerQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14978,7 +15144,7 @@ export async function createKmsIssuer(
 		>,
 		CreateKmsIssuerBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateKmsIssuerQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -15004,9 +15170,9 @@ export async function createKmsSigningKey(
 		queryParams,
 		config,
 	}: {
-		pathParams: { issuerId: string };
+		pathParams: CreateKmsSigningKeyPath;
 		body?: CreateKmsSigningKeyBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateKmsSigningKeyQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15027,8 +15193,8 @@ export async function createKmsSigningKey(
 		>,
 		CreateKmsSigningKeyBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ issuerId: string }
+		Partial<CreateKmsSigningKeyQuery>,
+		CreateKmsSigningKeyPath
 	>({
 		method: "POST",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/keys`,
@@ -15053,9 +15219,9 @@ export async function activateKmsSigningKey(
 		queryParams,
 		config,
 	}: {
-		pathParams: { issuerId: string; keyId: string };
+		pathParams: ActivateKmsSigningKeyPath;
 		body?: ActivateKmsSigningKeyBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<ActivateKmsSigningKeyQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15080,8 +15246,8 @@ export async function activateKmsSigningKey(
 		>,
 		ActivateKmsSigningKeyBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ issuerId: string; keyId: string }
+		Partial<ActivateKmsSigningKeyQuery>,
+		ActivateKmsSigningKeyPath
 	>({
 		method: "POST",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/keys/${encodeURIComponent(String(pathParams.keyId))}/activate`,
@@ -15105,8 +15271,8 @@ export async function revokeKmsSigningKey(
 		queryParams,
 		config,
 	}: {
-		pathParams: { issuerId: string; keyId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: RevokeKmsSigningKeyPath;
+		queryParams?: Partial<RevokeKmsSigningKeyQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15131,8 +15297,8 @@ export async function revokeKmsSigningKey(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ issuerId: string; keyId: string }
+		Partial<RevokeKmsSigningKeyQuery>,
+		RevokeKmsSigningKeyPath
 	>({
 		method: "POST",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/keys/${encodeURIComponent(String(pathParams.keyId))}/revoke`,
@@ -15155,8 +15321,8 @@ export async function getKmsIssuer(
 		queryParams,
 		config,
 	}: {
-		pathParams: { issuerId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetKmsIssuerPath;
+		queryParams?: Partial<GetKmsIssuerQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15176,8 +15342,8 @@ export async function getKmsIssuer(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ issuerId: string }
+		Partial<GetKmsIssuerQuery>,
+		GetKmsIssuerPath
 	>({
 		method: "GET",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}`,
@@ -15201,9 +15367,9 @@ export async function updateKmsIssuer(
 		queryParams,
 		config,
 	}: {
-		pathParams: { issuerId: string };
+		pathParams: UpdateKmsIssuerPath;
 		body?: UpdateKmsIssuerBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateKmsIssuerQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15223,8 +15389,8 @@ export async function updateKmsIssuer(
 		>,
 		UpdateKmsIssuerBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ issuerId: string }
+		Partial<UpdateKmsIssuerQuery>,
+		UpdateKmsIssuerPath
 	>({
 		method: "PATCH",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}`,
@@ -15248,8 +15414,8 @@ export async function deleteKmsIssuer(
 		queryParams,
 		config,
 	}: {
-		pathParams: { issuerId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteKmsIssuerPath;
+		queryParams?: Partial<DeleteKmsIssuerQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15269,8 +15435,8 @@ export async function deleteKmsIssuer(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ issuerId: string }
+		Partial<DeleteKmsIssuerQuery>,
+		DeleteKmsIssuerPath
 	>({
 		method: "DELETE",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}`,
@@ -15294,9 +15460,9 @@ export async function createKmsIssuerPolicy(
 		queryParams,
 		config,
 	}: {
-		pathParams: { issuerId: string };
+		pathParams: CreateKmsIssuerPolicyPath;
 		body?: CreateKmsIssuerPolicyBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateKmsIssuerPolicyQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15316,8 +15482,8 @@ export async function createKmsIssuerPolicy(
 		>,
 		CreateKmsIssuerPolicyBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ issuerId: string }
+		Partial<CreateKmsIssuerPolicyQuery>,
+		CreateKmsIssuerPolicyPath
 	>({
 		method: "POST",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/policies`,
@@ -15342,9 +15508,9 @@ export async function updateKmsIssuerPolicy(
 		queryParams,
 		config,
 	}: {
-		pathParams: { issuerId: string; kind: "project-grant"; policyKey: string };
+		pathParams: UpdateKmsIssuerPolicyPath;
 		body?: UpdateKmsIssuerPolicyBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateKmsIssuerPolicyQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15372,8 +15538,8 @@ export async function updateKmsIssuerPolicy(
 		>,
 		UpdateKmsIssuerPolicyBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ issuerId: string; kind: "project-grant"; policyKey: string }
+		Partial<UpdateKmsIssuerPolicyQuery>,
+		UpdateKmsIssuerPolicyPath
 	>({
 		method: "PATCH",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/policies/${encodeURIComponent(String(pathParams.kind))}/${encodeURIComponent(String(pathParams.policyKey))}`,
@@ -15397,8 +15563,8 @@ export async function deleteKmsIssuerPolicy(
 		queryParams,
 		config,
 	}: {
-		pathParams: { issuerId: string; kind: "project-grant" | "connex-grant"; policyKey: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteKmsIssuerPolicyPath;
+		queryParams?: Partial<DeleteKmsIssuerPolicyQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15426,8 +15592,8 @@ export async function deleteKmsIssuerPolicy(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ issuerId: string; kind: "project-grant" | "connex-grant"; policyKey: string }
+		Partial<DeleteKmsIssuerPolicyQuery>,
+		DeleteKmsIssuerPolicyPath
 	>({
 		method: "DELETE",
 		url: `/v1/kms/issuers/${encodeURIComponent(String(pathParams.issuerId))}/policies/${encodeURIComponent(String(pathParams.kind))}/${encodeURIComponent(String(pathParams.policyKey))}`,
@@ -15450,8 +15616,8 @@ export async function getRuntimeLogs(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string; deploymentId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetRuntimeLogsPath;
+		queryParams?: Partial<GetRuntimeLogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15475,8 +15641,8 @@ export async function getRuntimeLogs(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectId: string; deploymentId: string }
+		Partial<GetRuntimeLogsQuery>,
+		GetRuntimeLogsPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/deployments/${encodeURIComponent(String(pathParams.deploymentId))}/runtime-logs`,
@@ -15499,7 +15665,7 @@ export async function createInstallationsByIntegrationConfigurationIdResourcesBy
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; resourceId: string };
+		pathParams: CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsPath;
 		body?: CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -15528,7 +15694,7 @@ export async function createInstallationsByIntegrationConfigurationIdResourcesBy
 		CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; resourceId: string }
+		CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsPath
 	>({
 		method: "POST",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/experimentation/items`,
@@ -15551,7 +15717,7 @@ export async function updateInstallationsByIntegrationConfigurationIdResourcesBy
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; resourceId: string; itemId: string };
+		pathParams: UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPath;
 		body?: UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -15584,7 +15750,7 @@ export async function updateInstallationsByIntegrationConfigurationIdResourcesBy
 		UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; resourceId: string; itemId: string }
+		UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPath
 	>({
 		method: "PATCH",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/experimentation/items/${encodeURIComponent(String(pathParams.itemId))}`,
@@ -15606,7 +15772,7 @@ export async function deleteInstallationsByIntegrationConfigurationIdResourcesBy
 		pathParams,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; resourceId: string; itemId: string };
+		pathParams: DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15638,7 +15804,7 @@ export async function deleteInstallationsByIntegrationConfigurationIdResourcesBy
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; resourceId: string; itemId: string }
+		DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPath
 	>({
 		method: "DELETE",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/experimentation/items/${encodeURIComponent(String(pathParams.itemId))}`,
@@ -15659,7 +15825,7 @@ export async function getInstallationsByIntegrationConfigurationIdResourcesByRes
 		pathParams,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; resourceId: string };
+		pathParams: GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15687,7 +15853,7 @@ export async function getInstallationsByIntegrationConfigurationIdResourcesByRes
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; resourceId: string }
+		GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath
 	>({
 		method: "GET",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/experimentation/global-config`,
@@ -15709,7 +15875,7 @@ export async function replaceInstallationsByIntegrationConfigurationIdResourcesB
 		body,
 		config,
 	}: {
-		pathParams: { integrationConfigurationId: string; resourceId: string };
+		pathParams: ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath;
 		body?: ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -15740,7 +15906,7 @@ export async function replaceInstallationsByIntegrationConfigurationIdResourcesB
 		ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ integrationConfigurationId: string; resourceId: string }
+		ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath
 	>({
 		method: "PUT",
 		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/experimentation/global-config`,
@@ -15762,7 +15928,7 @@ export async function getMicrofrontendsGroups(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<GetMicrofrontendsGroupsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15780,7 +15946,7 @@ export async function getMicrofrontendsGroups(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<GetMicrofrontendsGroupsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -15804,8 +15970,8 @@ export async function getMicrofrontendsInGroup(
 		queryParams,
 		config,
 	}: {
-		pathParams: { groupId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetMicrofrontendsInGroupPath;
+		queryParams?: Partial<GetMicrofrontendsInGroupQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15825,8 +15991,8 @@ export async function getMicrofrontendsInGroup(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ groupId: string }
+		Partial<GetMicrofrontendsInGroupQuery>,
+		GetMicrofrontendsInGroupPath
 	>({
 		method: "GET",
 		url: `/v1/microfrontends/groups/${encodeURIComponent(String(pathParams.groupId))}/projects`,
@@ -15849,8 +16015,8 @@ export async function getMicrofrontendsConfig(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deploymentId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetMicrofrontendsConfigPath;
+		queryParams?: Partial<GetMicrofrontendsConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15871,8 +16037,8 @@ export async function getMicrofrontendsConfig(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ deploymentId: string }
+		Partial<GetMicrofrontendsConfigQuery>,
+		GetMicrofrontendsConfigPath
 	>({
 		method: "GET",
 		url: `/v1/microfrontends/${encodeURIComponent(String(pathParams.deploymentId))}/config`,
@@ -15895,8 +16061,8 @@ export async function getMicrofrontendsConfigForProject(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetMicrofrontendsConfigForProjectPath;
+		queryParams?: Partial<GetMicrofrontendsConfigForProjectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15917,8 +16083,8 @@ export async function getMicrofrontendsConfigForProject(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string }
+		Partial<GetMicrofrontendsConfigForProjectQuery>,
+		GetMicrofrontendsConfigForProjectPath
 	>({
 		method: "GET",
 		url: `/v1/microfrontends/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/production-mfe-config`,
@@ -15942,7 +16108,7 @@ export async function createMicrofrontendsGroupWithApplications(
 		config,
 	}: {
 		body?: CreateMicrofrontendsGroupWithApplicationsBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateMicrofrontendsGroupWithApplicationsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15960,7 +16126,7 @@ export async function createMicrofrontendsGroupWithApplications(
 		>,
 		CreateMicrofrontendsGroupWithApplicationsBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateMicrofrontendsGroupWithApplicationsQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -15984,7 +16150,7 @@ export async function getObservabilityConfigurationProjects(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<GetObservabilityConfigurationProjectsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16001,7 +16167,7 @@ export async function getObservabilityConfigurationProjects(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<GetObservabilityConfigurationProjectsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -16026,9 +16192,9 @@ export async function updateObservabilityConfigurationProject(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectIdOrName: string };
+		pathParams: UpdateObservabilityConfigurationProjectPath;
 		body?: UpdateObservabilityConfigurationProjectBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateObservabilityConfigurationProjectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16049,8 +16215,8 @@ export async function updateObservabilityConfigurationProject(
 		>,
 		UpdateObservabilityConfigurationProjectBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectIdOrName: string }
+		Partial<UpdateObservabilityConfigurationProjectQuery>,
+		UpdateObservabilityConfigurationProjectPath
 	>({
 		method: "PUT",
 		url: `/v1/observability/manage/configuration/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}`,
@@ -16146,7 +16312,7 @@ export async function getObservabilitySchemaByMetricId(
 		pathParams,
 		config,
 	}: {
-		pathParams: { metricId: string };
+		pathParams: GetObservabilitySchemaByMetricIdPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16167,7 +16333,7 @@ export async function getObservabilitySchemaByMetricId(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ metricId: string }
+		GetObservabilitySchemaByMetricIdPath
 	>({
 		method: "GET",
 		url: `/v2/observability/schema/${encodeURIComponent(String(pathParams.metricId))}`,
@@ -16190,7 +16356,7 @@ export async function createOrganization(
 		config,
 	}: {
 		body?: CreateOrganizationBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateOrganizationQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16209,7 +16375,7 @@ export async function createOrganization(
 		>,
 		CreateOrganizationBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateOrganizationQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -16266,8 +16432,8 @@ export async function getOrganization(
 		queryParams,
 		config,
 	}: {
-		pathParams: { organizationId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetOrganizationPath;
+		queryParams?: Partial<GetOrganizationQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16287,8 +16453,8 @@ export async function getOrganization(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ organizationId: string }
+		Partial<GetOrganizationQuery>,
+		GetOrganizationPath
 	>({
 		method: "GET",
 		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}`,
@@ -16311,7 +16477,7 @@ export async function updateOrganization(
 		body,
 		config,
 	}: {
-		pathParams: { organizationId: string };
+		pathParams: UpdateOrganizationPath;
 		body?: UpdateOrganizationBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16334,7 +16500,7 @@ export async function updateOrganization(
 		UpdateOrganizationBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ organizationId: string }
+		UpdateOrganizationPath
 	>({
 		method: "PATCH",
 		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}`,
@@ -16357,8 +16523,8 @@ export async function listOrganizationTeams(
 		queryParams,
 		config,
 	}: {
-		pathParams: { organizationId: string };
-		queryParams?: { cursor?: string; includeMemberCount?: boolean };
+		pathParams: ListOrganizationTeamsPath;
+		queryParams?: Partial<ListOrganizationTeamsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16378,8 +16544,8 @@ export async function listOrganizationTeams(
 		>,
 		null,
 		Record<string, string>,
-		{ cursor?: string; includeMemberCount?: boolean },
-		{ organizationId: string }
+		Partial<ListOrganizationTeamsQuery>,
+		ListOrganizationTeamsPath
 	>({
 		method: "GET",
 		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/teams`,
@@ -16402,7 +16568,7 @@ export async function addOrganizationTeam(
 		body,
 		config,
 	}: {
-		pathParams: { organizationId: string };
+		pathParams: AddOrganizationTeamPath;
 		body?: AddOrganizationTeamBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -16426,7 +16592,7 @@ export async function addOrganizationTeam(
 		AddOrganizationTeamBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ organizationId: string }
+		AddOrganizationTeamPath
 	>({
 		method: "POST",
 		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/teams`,
@@ -16448,7 +16614,7 @@ export async function removeOrganizationTeam(
 		pathParams,
 		config,
 	}: {
-		pathParams: { organizationId: string; targetTeamId: string };
+		pathParams: RemoveOrganizationTeamPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16474,7 +16640,7 @@ export async function removeOrganizationTeam(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ organizationId: string; targetTeamId: string }
+		RemoveOrganizationTeamPath
 	>({
 		method: "DELETE",
 		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/teams/${encodeURIComponent(String(pathParams.targetTeamId))}`,
@@ -16496,15 +16662,8 @@ export async function getProjectMembers(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: {
-			limit?: number;
-			since?: number;
-			until?: number;
-			search?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetProjectMembersPath;
+		queryParams?: Partial<GetProjectMembersQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16524,15 +16683,8 @@ export async function getProjectMembers(
 		>,
 		null,
 		Record<string, string>,
-		{
-			limit?: number;
-			since?: number;
-			until?: number;
-			search?: string;
-			teamId?: string;
-			slug?: string;
-		},
-		{ idOrName: string }
+		Partial<GetProjectMembersQuery>,
+		GetProjectMembersPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/members`,
@@ -16556,9 +16708,9 @@ export async function addProjectMember(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: AddProjectMemberPath;
 		body: AddProjectMemberBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<AddProjectMemberQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16579,8 +16731,8 @@ export async function addProjectMember(
 		>,
 		AddProjectMemberBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<AddProjectMemberQuery>,
+		AddProjectMemberPath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/members`,
@@ -16604,8 +16756,8 @@ export async function removeProjectMember(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; uid: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: RemoveProjectMemberPath;
+		queryParams?: Partial<RemoveProjectMemberQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16629,8 +16781,8 @@ export async function removeProjectMember(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string; uid: string }
+		Partial<RemoveProjectMemberQuery>,
+		RemoveProjectMemberPath
 	>({
 		method: "DELETE",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/members/${encodeURIComponent(String(pathParams.uid))}`,
@@ -16653,15 +16805,8 @@ export async function getRoutes(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
-		queryParams?: {
-			versionId?: string;
-			q?: string;
-			filter?: "rewrite" | "redirect" | "set_status" | "transform";
-			diff?: unknown;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetRoutesPath;
+		queryParams?: Partial<GetRoutesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16681,15 +16826,8 @@ export async function getRoutes(
 		>,
 		null,
 		Record<string, string>,
-		{
-			versionId?: string;
-			q?: string;
-			filter?: "rewrite" | "redirect" | "set_status" | "transform";
-			diff?: unknown;
-			teamId?: string;
-			slug?: string;
-		},
-		{ projectId: string }
+		Partial<GetRoutesQuery>,
+		GetRoutesPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes`,
@@ -16713,9 +16851,9 @@ export async function stageRoutes(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
+		pathParams: StageRoutesPath;
 		body?: StageRoutesBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<StageRoutesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16737,8 +16875,8 @@ export async function stageRoutes(
 		>,
 		StageRoutesBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectId: string }
+		Partial<StageRoutesQuery>,
+		StageRoutesPath
 	>({
 		method: "PUT",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes`,
@@ -16763,9 +16901,9 @@ export async function addRoute(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
+		pathParams: AddRoutePath;
 		body?: AddRouteBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<AddRouteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16787,8 +16925,8 @@ export async function addRoute(
 		>,
 		AddRouteBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectId: string }
+		Partial<AddRouteQuery>,
+		AddRoutePath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes`,
@@ -16813,9 +16951,9 @@ export async function deleteRoutes(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
+		pathParams: DeleteRoutesPath;
 		body?: DeleteRoutesBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<DeleteRoutesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16837,8 +16975,8 @@ export async function deleteRoutes(
 		>,
 		DeleteRoutesBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectId: string }
+		Partial<DeleteRoutesQuery>,
+		DeleteRoutesPath
 	>({
 		method: "DELETE",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes`,
@@ -16863,9 +17001,9 @@ export async function editRoute(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string; routeId: string };
+		pathParams: EditRoutePath;
 		body?: EditRouteBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<EditRouteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16891,8 +17029,8 @@ export async function editRoute(
 		>,
 		EditRouteBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectId: string; routeId: string }
+		Partial<EditRouteQuery>,
+		EditRoutePath
 	>({
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes/${encodeURIComponent(String(pathParams.routeId))}`,
@@ -16917,9 +17055,9 @@ export async function generateRoute(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
+		pathParams: GenerateRoutePath;
 		body?: GenerateRouteBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<GenerateRouteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16941,8 +17079,8 @@ export async function generateRoute(
 		>,
 		GenerateRouteBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectId: string }
+		Partial<GenerateRouteQuery>,
+		GenerateRoutePath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes/generate`,
@@ -16966,8 +17104,8 @@ export async function getRouteVersions(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetRouteVersionsPath;
+		queryParams?: Partial<GetRouteVersionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16987,8 +17125,8 @@ export async function getRouteVersions(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectId: string }
+		Partial<GetRouteVersionsQuery>,
+		GetRouteVersionsPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes/versions`,
@@ -17012,9 +17150,9 @@ export async function updateRouteVersions(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
+		pathParams: UpdateRouteVersionsPath;
 		body?: UpdateRouteVersionsBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateRouteVersionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17036,8 +17174,8 @@ export async function updateRouteVersions(
 		>,
 		UpdateRouteVersionsBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectId: string }
+		Partial<UpdateRouteVersionsQuery>,
+		UpdateRouteVersionsPath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/routes/versions`,
@@ -17060,27 +17198,7 @@ export async function getProjects(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			from?: string;
-			since?: number;
-			until?: number;
-			gitForkProtection?: "1" | "0";
-			limit?: string;
-			search?: string;
-			repo?: string;
-			repoId?: string;
-			repoUrl?: string;
-			excludeRepos?: string;
-			edgeConfigId?: string;
-			edgeConfigTokenId?: string;
-			deprecated?: boolean;
-			elasticConcurrencyEnabled?: "1" | "0";
-			staticIpsEnabled?: "0" | "1";
-			buildMachineTypes?: string;
-			buildQueueConfiguration?: "SKIP_NAMESPACE_QUEUE" | "WAIT_FOR_NAMESPACE_QUEUE";
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<GetProjectsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17097,27 +17215,7 @@ export async function getProjects(
 		>,
 		null,
 		Record<string, string>,
-		{
-			from?: string;
-			since?: number;
-			until?: number;
-			gitForkProtection?: "1" | "0";
-			limit?: string;
-			search?: string;
-			repo?: string;
-			repoId?: string;
-			repoUrl?: string;
-			excludeRepos?: string;
-			edgeConfigId?: string;
-			edgeConfigTokenId?: string;
-			deprecated?: boolean;
-			elasticConcurrencyEnabled?: "1" | "0";
-			staticIpsEnabled?: "0" | "1";
-			buildMachineTypes?: string;
-			buildQueueConfiguration?: "SKIP_NAMESPACE_QUEUE" | "WAIT_FOR_NAMESPACE_QUEUE";
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<GetProjectsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -17140,7 +17238,7 @@ export async function getProjectTrace(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { projectId?: string; requestId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<GetProjectTraceQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17157,7 +17255,7 @@ export async function getProjectTrace(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; requestId?: string; teamId?: string; slug?: string },
+		Partial<GetProjectTraceQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -17182,7 +17280,7 @@ export async function createProject(
 		config,
 	}: {
 		body?: CreateProjectBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateProjectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17204,7 +17302,7 @@ export async function createProject(
 		>,
 		CreateProjectBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateProjectQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -17230,9 +17328,9 @@ export async function getProjectToken(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: GetProjectTokenPath;
 		body?: GetProjectTokenBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<GetProjectTokenQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17252,8 +17350,8 @@ export async function getProjectToken(
 		>,
 		GetProjectTokenBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<GetProjectTokenQuery>,
+		GetProjectTokenPath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/token`,
@@ -17278,7 +17376,7 @@ export async function createTraceSession(
 		config,
 	}: {
 		body?: CreateTraceSessionBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateTraceSessionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17296,7 +17394,7 @@ export async function createTraceSession(
 		>,
 		CreateTraceSessionBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateTraceSessionQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -17321,8 +17419,8 @@ export async function getProject(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetProjectPath;
+		queryParams?: Partial<GetProjectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17342,8 +17440,8 @@ export async function getProject(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<GetProjectQuery>,
+		GetProjectPath
 	>({
 		method: "GET",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}`,
@@ -17367,9 +17465,9 @@ export async function updateProject(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: UpdateProjectPath;
 		body: UpdateProjectBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateProjectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17393,8 +17491,8 @@ export async function updateProject(
 		>,
 		UpdateProjectBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<UpdateProjectQuery>,
+		UpdateProjectPath
 	>({
 		method: "PATCH",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}`,
@@ -17418,8 +17516,8 @@ export async function deleteProject(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteProjectPath;
+		queryParams?: Partial<DeleteProjectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17440,8 +17538,8 @@ export async function deleteProject(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<DeleteProjectQuery>,
+		DeleteProjectPath
 	>({
 		method: "DELETE",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}`,
@@ -17465,9 +17563,9 @@ export async function uploadProjectAvatar(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: UploadProjectAvatarPath;
 		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UploadProjectAvatarQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17489,8 +17587,8 @@ export async function uploadProjectAvatar(
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<UploadProjectAvatarQuery>,
+		UploadProjectAvatarPath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/avatar`,
@@ -17514,8 +17612,8 @@ export async function deleteProjectAvatar(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteProjectAvatarPath;
+		queryParams?: Partial<DeleteProjectAvatarQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17535,8 +17633,8 @@ export async function deleteProjectAvatar(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<DeleteProjectAvatarQuery>,
+		DeleteProjectAvatarPath
 	>({
 		method: "DELETE",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/avatar`,
@@ -17560,9 +17658,9 @@ export async function updateStaticIps(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: UpdateStaticIpsPath;
 		body?: UpdateStaticIpsBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateStaticIpsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17585,8 +17683,8 @@ export async function updateStaticIps(
 		>,
 		UpdateStaticIpsBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<UpdateStaticIpsQuery>,
+		UpdateStaticIpsPath
 	>({
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/shared-connect-links`,
@@ -17611,9 +17709,9 @@ export async function createCustomEnvironment(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: CreateCustomEnvironmentPath;
 		body?: CreateCustomEnvironmentBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateCustomEnvironmentQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17636,8 +17734,8 @@ export async function createCustomEnvironment(
 		>,
 		CreateCustomEnvironmentBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<CreateCustomEnvironmentQuery>,
+		CreateCustomEnvironmentPath
 	>({
 		method: "POST",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/custom-environments`,
@@ -17661,8 +17759,8 @@ export async function getProjectsByIdOrNameCustomEnvironments(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { gitBranch?: string; teamId?: string; slug?: string };
+		pathParams: GetProjectsByIdOrNameCustomEnvironmentsPath;
+		queryParams?: Partial<GetProjectsByIdOrNameCustomEnvironmentsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17682,8 +17780,8 @@ export async function getProjectsByIdOrNameCustomEnvironments(
 		>,
 		null,
 		Record<string, string>,
-		{ gitBranch?: string; teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<GetProjectsByIdOrNameCustomEnvironmentsQuery>,
+		GetProjectsByIdOrNameCustomEnvironmentsPath
 	>({
 		method: "GET",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/custom-environments`,
@@ -17706,8 +17804,8 @@ export async function getCustomEnvironment(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; environmentSlugOrId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetCustomEnvironmentPath;
+		queryParams?: Partial<GetCustomEnvironmentQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17731,8 +17829,8 @@ export async function getCustomEnvironment(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string; environmentSlugOrId: string }
+		Partial<GetCustomEnvironmentQuery>,
+		GetCustomEnvironmentPath
 	>({
 		method: "GET",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/custom-environments/${encodeURIComponent(String(pathParams.environmentSlugOrId))}`,
@@ -17756,9 +17854,9 @@ export async function updateCustomEnvironment(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; environmentSlugOrId: string };
+		pathParams: UpdateCustomEnvironmentPath;
 		body?: UpdateCustomEnvironmentBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateCustomEnvironmentQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17784,8 +17882,8 @@ export async function updateCustomEnvironment(
 		>,
 		UpdateCustomEnvironmentBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string; environmentSlugOrId: string }
+		Partial<UpdateCustomEnvironmentQuery>,
+		UpdateCustomEnvironmentPath
 	>({
 		method: "PATCH",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/custom-environments/${encodeURIComponent(String(pathParams.environmentSlugOrId))}`,
@@ -17810,9 +17908,9 @@ export async function removeCustomEnvironment(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; environmentSlugOrId: string };
+		pathParams: RemoveCustomEnvironmentPath;
 		body?: RemoveCustomEnvironmentBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<RemoveCustomEnvironmentQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17836,8 +17934,8 @@ export async function removeCustomEnvironment(
 		>,
 		RemoveCustomEnvironmentBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string; environmentSlugOrId: string }
+		Partial<RemoveCustomEnvironmentQuery>,
+		RemoveCustomEnvironmentPath
 	>({
 		method: "DELETE",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/custom-environments/${encodeURIComponent(String(pathParams.environmentSlugOrId))}`,
@@ -17861,22 +17959,8 @@ export async function getProjectDomains(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: unknown };
-		queryParams?: {
-			production?: "true" | "false";
-			target?: "production" | "preview";
-			customEnvironmentId?: string;
-			gitBranch?: string;
-			redirects?: "true" | "false";
-			redirect?: string;
-			verified?: "true" | "false";
-			limit?: number;
-			since?: number;
-			until?: number;
-			order?: "ASC" | "DESC";
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetProjectDomainsPath;
+		queryParams?: Partial<GetProjectDomainsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17896,22 +17980,8 @@ export async function getProjectDomains(
 		>,
 		null,
 		Record<string, string>,
-		{
-			production?: "true" | "false";
-			target?: "production" | "preview";
-			customEnvironmentId?: string;
-			gitBranch?: string;
-			redirects?: "true" | "false";
-			redirect?: string;
-			verified?: "true" | "false";
-			limit?: number;
-			since?: number;
-			until?: number;
-			order?: "ASC" | "DESC";
-			teamId?: string;
-			slug?: string;
-		},
-		{ idOrName: unknown }
+		Partial<GetProjectDomainsQuery>,
+		GetProjectDomainsPath
 	>({
 		method: "GET",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/domains`,
@@ -17934,8 +18004,8 @@ export async function getProjectDomain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; domain: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetProjectDomainPath;
+		queryParams?: Partial<GetProjectDomainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17959,8 +18029,8 @@ export async function getProjectDomain(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string; domain: string }
+		Partial<GetProjectDomainQuery>,
+		GetProjectDomainPath
 	>({
 		method: "GET",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/domains/${encodeURIComponent(String(pathParams.domain))}`,
@@ -17984,9 +18054,9 @@ export async function updateProjectDomain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; domain: string };
+		pathParams: UpdateProjectDomainPath;
 		body: UpdateProjectDomainBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateProjectDomainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18011,8 +18081,8 @@ export async function updateProjectDomain(
 		>,
 		UpdateProjectDomainBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string; domain: string }
+		Partial<UpdateProjectDomainQuery>,
+		UpdateProjectDomainPath
 	>({
 		method: "PATCH",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/domains/${encodeURIComponent(String(pathParams.domain))}`,
@@ -18037,9 +18107,9 @@ export async function removeProjectDomain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; domain: string };
+		pathParams: RemoveProjectDomainPath;
 		body?: RemoveProjectDomainBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<RemoveProjectDomainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18064,8 +18134,8 @@ export async function removeProjectDomain(
 		>,
 		RemoveProjectDomainBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string; domain: string }
+		Partial<RemoveProjectDomainQuery>,
+		RemoveProjectDomainPath
 	>({
 		method: "DELETE",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/domains/${encodeURIComponent(String(pathParams.domain))}`,
@@ -18090,9 +18160,9 @@ export async function addProjectDomain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: AddProjectDomainPath;
 		body: AddProjectDomainBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<AddProjectDomainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18114,8 +18184,8 @@ export async function addProjectDomain(
 		>,
 		AddProjectDomainBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<AddProjectDomainQuery>,
+		AddProjectDomainPath
 	>({
 		method: "POST",
 		url: `/v10/projects/${encodeURIComponent(String(pathParams.idOrName))}/domains`,
@@ -18140,9 +18210,9 @@ export async function moveProjectDomain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; domain: string };
+		pathParams: MoveProjectDomainPath;
 		body?: MoveProjectDomainBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<MoveProjectDomainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18167,8 +18237,8 @@ export async function moveProjectDomain(
 		>,
 		MoveProjectDomainBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string; domain: string }
+		Partial<MoveProjectDomainQuery>,
+		MoveProjectDomainPath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/domains/${encodeURIComponent(String(pathParams.domain))}/move`,
@@ -18192,8 +18262,8 @@ export async function verifyProjectDomain(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; domain: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: VerifyProjectDomainPath;
+		queryParams?: Partial<VerifyProjectDomainQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18217,8 +18287,8 @@ export async function verifyProjectDomain(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string; domain: string }
+		Partial<VerifyProjectDomainQuery>,
+		VerifyProjectDomainPath
 	>({
 		method: "POST",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/domains/${encodeURIComponent(String(pathParams.domain))}/verify`,
@@ -18241,16 +18311,8 @@ export async function filterProjectEnvs(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: {
-			gitBranch?: string;
-			decrypt?: "true" | "false";
-			source?: string;
-			customEnvironmentId?: string;
-			customEnvironmentSlug?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: FilterProjectEnvsPath;
+		queryParams?: Partial<FilterProjectEnvsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18270,16 +18332,8 @@ export async function filterProjectEnvs(
 		>,
 		null,
 		Record<string, string>,
-		{
-			gitBranch?: string;
-			decrypt?: "true" | "false";
-			source?: string;
-			customEnvironmentId?: string;
-			customEnvironmentSlug?: string;
-			teamId?: string;
-			slug?: string;
-		},
-		{ idOrName: string }
+		Partial<FilterProjectEnvsQuery>,
+		FilterProjectEnvsPath
 	>({
 		method: "GET",
 		url: `/v10/projects/${encodeURIComponent(String(pathParams.idOrName))}/env`,
@@ -18303,9 +18357,9 @@ export async function createProjectEnv(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: CreateProjectEnvPath;
 		body: CreateProjectEnvBody;
-		queryParams?: { upsert?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<CreateProjectEnvQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18329,8 +18383,8 @@ export async function createProjectEnv(
 		>,
 		CreateProjectEnvBody,
 		Record<string, string>,
-		{ upsert?: string; teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<CreateProjectEnvQuery>,
+		CreateProjectEnvPath
 	>({
 		method: "POST",
 		url: `/v10/projects/${encodeURIComponent(String(pathParams.idOrName))}/env`,
@@ -18354,8 +18408,8 @@ export async function getProjectEnv(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetProjectEnvPath;
+		queryParams?: Partial<GetProjectEnvQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18379,8 +18433,8 @@ export async function getProjectEnv(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string; id: string }
+		Partial<GetProjectEnvQuery>,
+		GetProjectEnvPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/env/${encodeURIComponent(String(pathParams.id))}`,
@@ -18403,8 +18457,8 @@ export async function removeProjectEnv(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; id: string };
-		queryParams?: { customEnvironmentId?: string; teamId?: string; slug?: string };
+		pathParams: RemoveProjectEnvPath;
+		queryParams?: Partial<RemoveProjectEnvQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18429,8 +18483,8 @@ export async function removeProjectEnv(
 		>,
 		null,
 		Record<string, string>,
-		{ customEnvironmentId?: string; teamId?: string; slug?: string },
-		{ idOrName: string; id: string }
+		Partial<RemoveProjectEnvQuery>,
+		RemoveProjectEnvPath
 	>({
 		method: "DELETE",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/env/${encodeURIComponent(String(pathParams.id))}`,
@@ -18454,9 +18508,9 @@ export async function editProjectEnv(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; id: string };
+		pathParams: EditProjectEnvPath;
 		body: EditProjectEnvBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<EditProjectEnvQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18483,8 +18537,8 @@ export async function editProjectEnv(
 		>,
 		EditProjectEnvBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string; id: string }
+		Partial<EditProjectEnvQuery>,
+		EditProjectEnvPath
 	>({
 		method: "PATCH",
 		url: `/v9/projects/${encodeURIComponent(String(pathParams.idOrName))}/env/${encodeURIComponent(String(pathParams.id))}`,
@@ -18509,9 +18563,9 @@ export async function batchRemoveProjectEnv(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: BatchRemoveProjectEnvPath;
 		body?: BatchRemoveProjectEnvBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<BatchRemoveProjectEnvQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18532,8 +18586,8 @@ export async function batchRemoveProjectEnv(
 		>,
 		BatchRemoveProjectEnvBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<BatchRemoveProjectEnvQuery>,
+		BatchRemoveProjectEnvPath
 	>({
 		method: "DELETE",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/env`,
@@ -18557,8 +18611,8 @@ export async function getRollingReleaseBillingStatus(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetRollingReleaseBillingStatusPath;
+		queryParams?: Partial<GetRollingReleaseBillingStatusQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18578,8 +18632,8 @@ export async function getRollingReleaseBillingStatus(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<GetRollingReleaseBillingStatusQuery>,
+		GetRollingReleaseBillingStatusPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/rolling-release/billing`,
@@ -18602,8 +18656,8 @@ export async function getRollingReleaseConfig(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetRollingReleaseConfigPath;
+		queryParams?: Partial<GetRollingReleaseConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18623,8 +18677,8 @@ export async function getRollingReleaseConfig(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<GetRollingReleaseConfigQuery>,
+		GetRollingReleaseConfigPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/rolling-release/config`,
@@ -18647,8 +18701,8 @@ export async function deleteRollingReleaseConfig(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteRollingReleaseConfigPath;
+		queryParams?: Partial<DeleteRollingReleaseConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18668,8 +18722,8 @@ export async function deleteRollingReleaseConfig(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<DeleteRollingReleaseConfigQuery>,
+		DeleteRollingReleaseConfigPath
 	>({
 		method: "DELETE",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/rolling-release/config`,
@@ -18692,8 +18746,8 @@ export async function updateRollingReleaseConfig(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: UpdateRollingReleaseConfigPath;
+		queryParams?: Partial<UpdateRollingReleaseConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18713,8 +18767,8 @@ export async function updateRollingReleaseConfig(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<UpdateRollingReleaseConfigQuery>,
+		UpdateRollingReleaseConfigPath
 	>({
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/rolling-release/config`,
@@ -18737,8 +18791,8 @@ export async function getRollingRelease(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { state?: "ACTIVE" | "COMPLETE" | "ABORTED"; teamId?: string; slug?: string };
+		pathParams: GetRollingReleasePath;
+		queryParams?: Partial<GetRollingReleaseQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18758,8 +18812,8 @@ export async function getRollingRelease(
 		>,
 		null,
 		Record<string, string>,
-		{ state?: "ACTIVE" | "COMPLETE" | "ABORTED"; teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<GetRollingReleaseQuery>,
+		GetRollingReleasePath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/rolling-release`,
@@ -18783,9 +18837,9 @@ export async function approveRollingReleaseStage(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: ApproveRollingReleaseStagePath;
 		body?: ApproveRollingReleaseStageBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<ApproveRollingReleaseStageQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18806,8 +18860,8 @@ export async function approveRollingReleaseStage(
 		>,
 		ApproveRollingReleaseStageBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<ApproveRollingReleaseStageQuery>,
+		ApproveRollingReleaseStagePath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/rolling-release/approve-stage`,
@@ -18832,9 +18886,9 @@ export async function startRollingRelease(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: StartRollingReleasePath;
 		body?: StartRollingReleaseBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<StartRollingReleaseQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18856,8 +18910,8 @@ export async function startRollingRelease(
 		>,
 		StartRollingReleaseBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<StartRollingReleaseQuery>,
+		StartRollingReleasePath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/rolling-release/start`,
@@ -18882,9 +18936,9 @@ export async function completeRollingRelease(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: CompleteRollingReleasePath;
 		body?: CompleteRollingReleaseBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CompleteRollingReleaseQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18904,8 +18958,8 @@ export async function completeRollingRelease(
 		>,
 		CompleteRollingReleaseBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<CompleteRollingReleaseQuery>,
+		CompleteRollingReleasePath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/rolling-release/complete`,
@@ -18930,9 +18984,9 @@ export async function createProjectTransferRequest(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: CreateProjectTransferRequestPath;
 		body?: CreateProjectTransferRequestBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateProjectTransferRequestQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18953,8 +19007,8 @@ export async function createProjectTransferRequest(
 		>,
 		CreateProjectTransferRequestBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<CreateProjectTransferRequestQuery>,
+		CreateProjectTransferRequestPath
 	>({
 		method: "POST",
 		url: `/projects/${encodeURIComponent(String(pathParams.idOrName))}/transfer-request`,
@@ -18979,9 +19033,9 @@ export async function acceptProjectTransferRequest(
 		queryParams,
 		config,
 	}: {
-		pathParams: { code: string };
+		pathParams: AcceptProjectTransferRequestPath;
 		body?: AcceptProjectTransferRequestBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<AcceptProjectTransferRequestQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19002,8 +19056,8 @@ export async function acceptProjectTransferRequest(
 		>,
 		AcceptProjectTransferRequestBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ code: string }
+		Partial<AcceptProjectTransferRequestQuery>,
+		AcceptProjectTransferRequestPath
 	>({
 		method: "PUT",
 		url: `/projects/transfer-request/${encodeURIComponent(String(pathParams.code))}`,
@@ -19028,9 +19082,9 @@ export async function updateProjectProtectionBypass(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: UpdateProjectProtectionBypassPath;
 		body: UpdateProjectProtectionBypassBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateProjectProtectionBypassQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19051,8 +19105,8 @@ export async function updateProjectProtectionBypass(
 		>,
 		UpdateProjectProtectionBypassBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<UpdateProjectProtectionBypassQuery>,
+		UpdateProjectProtectionBypassPath
 	>({
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.idOrName))}/protection-bypass`,
@@ -19076,8 +19130,8 @@ export async function requestRollback(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string; deploymentId: string };
-		queryParams?: { description?: string; teamId?: string; slug?: string };
+		pathParams: RequestRollbackPath;
+		queryParams?: Partial<RequestRollbackQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19104,8 +19158,8 @@ export async function requestRollback(
 		>,
 		null,
 		Record<string, string>,
-		{ description?: string; teamId?: string; slug?: string },
-		{ projectId: string; deploymentId: string }
+		Partial<RequestRollbackQuery>,
+		RequestRollbackPath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/rollback/${encodeURIComponent(String(pathParams.deploymentId))}`,
@@ -19128,7 +19182,7 @@ export async function updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescr
 		body,
 		config,
 	}: {
-		pathParams: { projectId: string; deploymentId: string };
+		pathParams: UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionPath;
 		body?: UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -19156,7 +19210,7 @@ export async function updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescr
 		UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ projectId: string; deploymentId: string }
+		UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionPath
 	>({
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/rollback/${encodeURIComponent(String(pathParams.deploymentId))}/update-description`,
@@ -19180,9 +19234,9 @@ export async function updateMicrofrontends(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
+		pathParams: UpdateMicrofrontendsPath;
 		body?: UpdateMicrofrontendsBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateMicrofrontendsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19204,8 +19258,8 @@ export async function updateMicrofrontends(
 		>,
 		UpdateMicrofrontendsBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectId: string }
+		Partial<UpdateMicrofrontendsQuery>,
+		UpdateMicrofrontendsPath
 	>({
 		method: "PATCH",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/microfrontends`,
@@ -19229,8 +19283,8 @@ export async function requestPromote(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string; deploymentId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: RequestPromotePath;
+		queryParams?: Partial<RequestPromoteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19256,8 +19310,8 @@ export async function requestPromote(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectId: string; deploymentId: string }
+		Partial<RequestPromoteQuery>,
+		RequestPromotePath
 	>({
 		method: "POST",
 		url: `/v10/projects/${encodeURIComponent(String(pathParams.projectId))}/promote/${encodeURIComponent(String(pathParams.deploymentId))}`,
@@ -19280,15 +19334,8 @@ export async function listPromoteAliases(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
-		queryParams?: {
-			limit?: number;
-			since?: number;
-			until?: number;
-			failedOnly?: boolean;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: ListPromoteAliasesPath;
+		queryParams?: Partial<ListPromoteAliasesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19308,15 +19355,8 @@ export async function listPromoteAliases(
 		>,
 		null,
 		Record<string, string>,
-		{
-			limit?: number;
-			since?: number;
-			until?: number;
-			failedOnly?: boolean;
-			teamId?: string;
-			slug?: string;
-		},
-		{ projectId: string }
+		Partial<ListPromoteAliasesQuery>,
+		ListPromoteAliasesPath
 	>({
 		method: "GET",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/promote/aliases`,
@@ -19339,8 +19379,8 @@ export async function pauseProject(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: PauseProjectPath;
+		queryParams?: Partial<PauseProjectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19361,8 +19401,8 @@ export async function pauseProject(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectId: string }
+		Partial<PauseProjectQuery>,
+		PauseProjectPath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/pause`,
@@ -19385,8 +19425,8 @@ export async function unpauseProject(
 		queryParams,
 		config,
 	}: {
-		pathParams: { projectId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: UnpauseProjectPath;
+		queryParams?: Partial<UnpauseProjectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19407,8 +19447,8 @@ export async function unpauseProject(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ projectId: string }
+		Partial<UnpauseProjectQuery>,
+		UnpauseProjectPath
 	>({
 		method: "POST",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectId))}/unpause`,
@@ -19430,18 +19470,7 @@ export async function listNamedSandboxes(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			project?: string;
-			limit?: number;
-			sortBy?: "createdAt" | "name" | "statusUpdatedAt" | "currentSnapshotId";
-			namePrefix?: string;
-			cursor?: string;
-			sortOrder?: "asc" | "desc";
-			status?: "running" | "stopping" | "stopped";
-			tags?: unknown;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListNamedSandboxesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19460,18 +19489,7 @@ export async function listNamedSandboxes(
 		>,
 		null,
 		Record<string, string>,
-		{
-			project?: string;
-			limit?: number;
-			sortBy?: "createdAt" | "name" | "statusUpdatedAt" | "currentSnapshotId";
-			namePrefix?: string;
-			cursor?: string;
-			sortOrder?: "asc" | "desc";
-			status?: "running" | "stopping" | "stopped";
-			tags?: unknown;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListNamedSandboxesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -19496,7 +19514,7 @@ export async function createSandboxesV2(
 		config,
 	}: {
 		body?: CreateSandboxesV2Body;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateSandboxesV2Query>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19520,7 +19538,7 @@ export async function createSandboxesV2(
 		>,
 		CreateSandboxesV2Body,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateSandboxesV2Query>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -19544,16 +19562,7 @@ export async function listDrives(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			projectId?: string;
-			limit?: number;
-			cursor?: string;
-			sortBy?: "createdAt" | "updatedAt" | "name";
-			namePrefix?: string;
-			sortOrder?: "asc" | "desc";
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListDrivesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19572,16 +19581,7 @@ export async function listDrives(
 		>,
 		null,
 		Record<string, string>,
-		{
-			projectId?: string;
-			limit?: number;
-			cursor?: string;
-			sortBy?: "createdAt" | "updatedAt" | "name";
-			namePrefix?: string;
-			sortOrder?: "asc" | "desc";
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListDrivesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -19605,8 +19605,8 @@ export async function getDrive(
 		queryParams,
 		config,
 	}: {
-		pathParams: { nameOrId: string };
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		pathParams: GetDrivePath;
+		queryParams?: Partial<GetDriveQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19628,8 +19628,8 @@ export async function getDrive(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ nameOrId: string }
+		Partial<GetDriveQuery>,
+		GetDrivePath
 	>({
 		method: "GET",
 		url: `/v2/sandboxes/drives/${encodeURIComponent(String(pathParams.nameOrId))}`,
@@ -19653,9 +19653,9 @@ export async function getOrCreateDrive(
 		queryParams,
 		config,
 	}: {
-		pathParams: { name: string };
+		pathParams: GetOrCreateDrivePath;
 		body?: GetOrCreateDriveBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<GetOrCreateDriveQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19680,8 +19680,8 @@ export async function getOrCreateDrive(
 		>,
 		GetOrCreateDriveBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ name: string }
+		Partial<GetOrCreateDriveQuery>,
+		GetOrCreateDrivePath
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/drives/${encodeURIComponent(String(pathParams.name))}`,
@@ -19705,8 +19705,8 @@ export async function deleteDrive(
 		queryParams,
 		config,
 	}: {
-		pathParams: { name: string };
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		pathParams: DeleteDrivePath;
+		queryParams?: Partial<DeleteDriveQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19729,8 +19729,8 @@ export async function deleteDrive(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ name: string }
+		Partial<DeleteDriveQuery>,
+		DeleteDrivePath
 	>({
 		method: "DELETE",
 		url: `/v2/sandboxes/drives/${encodeURIComponent(String(pathParams.name))}`,
@@ -19754,9 +19754,9 @@ export async function forkDrive(
 		queryParams,
 		config,
 	}: {
-		pathParams: { name: string };
+		pathParams: ForkDrivePath;
 		body?: ForkDriveBody;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<ForkDriveQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19781,8 +19781,8 @@ export async function forkDrive(
 		>,
 		ForkDriveBody,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ name: string }
+		Partial<ForkDriveQuery>,
+		ForkDrivePath
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/drives/${encodeURIComponent(String(pathParams.name))}/fork`,
@@ -19805,15 +19805,7 @@ export async function listSessionSnapshots(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			project?: string;
-			name?: string;
-			limit?: number;
-			cursor?: string;
-			sortOrder?: "asc" | "desc";
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListSessionSnapshotsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19832,15 +19824,7 @@ export async function listSessionSnapshots(
 		>,
 		null,
 		Record<string, string>,
-		{
-			project?: string;
-			name?: string;
-			limit?: number;
-			cursor?: string;
-			sortOrder?: "asc" | "desc";
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListSessionSnapshotsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -19864,8 +19848,8 @@ export async function getSessionSnapshot(
 		queryParams,
 		config,
 	}: {
-		pathParams: { snapshotId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetSessionSnapshotPath;
+		queryParams?: Partial<GetSessionSnapshotQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19887,8 +19871,8 @@ export async function getSessionSnapshot(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ snapshotId: string }
+		Partial<GetSessionSnapshotQuery>,
+		GetSessionSnapshotPath
 	>({
 		method: "GET",
 		url: `/v2/sandboxes/snapshots/${encodeURIComponent(String(pathParams.snapshotId))}`,
@@ -19911,8 +19895,8 @@ export async function deleteSessionSnapshot(
 		queryParams,
 		config,
 	}: {
-		pathParams: { snapshotId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteSessionSnapshotPath;
+		queryParams?: Partial<DeleteSessionSnapshotQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19934,8 +19918,8 @@ export async function deleteSessionSnapshot(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ snapshotId: string }
+		Partial<DeleteSessionSnapshotQuery>,
+		DeleteSessionSnapshotPath
 	>({
 		method: "DELETE",
 		url: `/v2/sandboxes/snapshots/${encodeURIComponent(String(pathParams.snapshotId))}`,
@@ -19957,15 +19941,7 @@ export async function listSessions(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			project?: string;
-			name?: string;
-			limit?: number;
-			cursor?: string;
-			sortOrder?: "asc" | "desc";
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListSessionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19985,15 +19961,7 @@ export async function listSessions(
 		>,
 		null,
 		Record<string, string>,
-		{
-			project?: string;
-			name?: string;
-			limit?: number;
-			cursor?: string;
-			sortOrder?: "asc" | "desc";
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListSessionsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -20017,8 +19985,8 @@ export async function getSession(
 		queryParams,
 		config,
 	}: {
-		pathParams: { sessionId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetSessionPath;
+		queryParams?: Partial<GetSessionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20041,8 +20009,8 @@ export async function getSession(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ sessionId: string }
+		Partial<GetSessionQuery>,
+		GetSessionPath
 	>({
 		method: "GET",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}`,
@@ -20065,8 +20033,8 @@ export async function getNamedSandbox(
 		queryParams,
 		config,
 	}: {
-		pathParams: { name: string };
-		queryParams?: { projectId?: string; resume?: boolean; teamId?: string; slug?: string };
+		pathParams: GetNamedSandboxPath;
+		queryParams?: Partial<GetNamedSandboxQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20093,8 +20061,8 @@ export async function getNamedSandbox(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; resume?: boolean; teamId?: string; slug?: string },
-		{ name: string }
+		Partial<GetNamedSandboxQuery>,
+		GetNamedSandboxPath
 	>({
 		method: "GET",
 		url: `/v2/sandboxes/${encodeURIComponent(String(pathParams.name))}`,
@@ -20118,9 +20086,9 @@ export async function updateSandbox(
 		queryParams,
 		config,
 	}: {
-		pathParams: { name: string };
+		pathParams: UpdateSandboxPath;
 		body?: UpdateSandboxBody;
-		queryParams?: { projectId?: string; resume?: boolean; teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateSandboxQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20144,8 +20112,8 @@ export async function updateSandbox(
 		>,
 		UpdateSandboxBody,
 		Record<string, string>,
-		{ projectId?: string; resume?: boolean; teamId?: string; slug?: string },
-		{ name: string }
+		Partial<UpdateSandboxQuery>,
+		UpdateSandboxPath
 	>({
 		method: "PATCH",
 		url: `/v2/sandboxes/${encodeURIComponent(String(pathParams.name))}`,
@@ -20169,13 +20137,8 @@ export async function deleteSandbox(
 		queryParams,
 		config,
 	}: {
-		pathParams: { name: string };
-		queryParams?: {
-			projectId?: string;
-			deleteOrphanSnapshots?: boolean;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: DeleteSandboxPath;
+		queryParams?: Partial<DeleteSandboxQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20197,8 +20160,8 @@ export async function deleteSandbox(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; deleteOrphanSnapshots?: boolean; teamId?: string; slug?: string },
-		{ name: string }
+		Partial<DeleteSandboxQuery>,
+		DeleteSandboxPath
 	>({
 		method: "DELETE",
 		url: `/v2/sandboxes/${encodeURIComponent(String(pathParams.name))}`,
@@ -20221,8 +20184,8 @@ export async function listSessionCommands(
 		queryParams,
 		config,
 	}: {
-		pathParams: { sessionId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: ListSessionCommandsPath;
+		queryParams?: Partial<ListSessionCommandsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20244,8 +20207,8 @@ export async function listSessionCommands(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ sessionId: string }
+		Partial<ListSessionCommandsQuery>,
+		ListSessionCommandsPath
 	>({
 		method: "GET",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/cmd`,
@@ -20269,9 +20232,9 @@ export async function runSessionCommand(
 		queryParams,
 		config,
 	}: {
-		pathParams: { sessionId: string };
+		pathParams: RunSessionCommandPath;
 		body?: RunSessionCommandBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<RunSessionCommandQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20293,8 +20256,8 @@ export async function runSessionCommand(
 		>,
 		RunSessionCommandBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ sessionId: string }
+		Partial<RunSessionCommandQuery>,
+		RunSessionCommandPath
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/cmd`,
@@ -20318,8 +20281,8 @@ export async function getSessionCommand(
 		queryParams,
 		config,
 	}: {
-		pathParams: { sessionId: string; cmdId: string };
-		queryParams?: { wait?: "true" | "false"; teamId?: string; slug?: string };
+		pathParams: GetSessionCommandPath;
+		queryParams?: Partial<GetSessionCommandQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20345,8 +20308,8 @@ export async function getSessionCommand(
 		>,
 		null,
 		Record<string, string>,
-		{ wait?: "true" | "false"; teamId?: string; slug?: string },
-		{ sessionId: string; cmdId: string }
+		Partial<GetSessionCommandQuery>,
+		GetSessionCommandPath
 	>({
 		method: "GET",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/cmd/${encodeURIComponent(String(pathParams.cmdId))}`,
@@ -20370,9 +20333,9 @@ export async function killSessionCommand(
 		queryParams,
 		config,
 	}: {
-		pathParams: { cmdId: string; sessionId: string };
+		pathParams: KillSessionCommandPath;
 		body?: KillSessionCommandBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<KillSessionCommandQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20398,8 +20361,8 @@ export async function killSessionCommand(
 		>,
 		KillSessionCommandBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ cmdId: string; sessionId: string }
+		Partial<KillSessionCommandQuery>,
+		KillSessionCommandPath
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/cmd/${encodeURIComponent(String(pathParams.cmdId))}/kill`,
@@ -20424,9 +20387,9 @@ export async function writeSessionCommandStdin(
 		queryParams,
 		config,
 	}: {
-		pathParams: { cmdId: string; sessionId: string };
+		pathParams: WriteSessionCommandStdinPath;
 		body?: WriteSessionCommandStdinBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<WriteSessionCommandStdinQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20455,8 +20418,8 @@ export async function writeSessionCommandStdin(
 		>,
 		WriteSessionCommandStdinBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ cmdId: string; sessionId: string }
+		Partial<WriteSessionCommandStdinQuery>,
+		WriteSessionCommandStdinPath
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/cmd/${encodeURIComponent(String(pathParams.cmdId))}/stdin`,
@@ -20480,8 +20443,8 @@ export async function getSessionCommandLogs(
 		queryParams,
 		config,
 	}: {
-		pathParams: { sessionId: string; cmdId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetSessionCommandLogsPath;
+		queryParams?: Partial<GetSessionCommandLogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20507,8 +20470,8 @@ export async function getSessionCommandLogs(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ sessionId: string; cmdId: string }
+		Partial<GetSessionCommandLogsQuery>,
+		GetSessionCommandLogsPath
 	>({
 		method: "GET",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/cmd/${encodeURIComponent(String(pathParams.cmdId))}/logs`,
@@ -20531,8 +20494,8 @@ export async function stopSession(
 		queryParams,
 		config,
 	}: {
-		pathParams: { sessionId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: StopSessionPath;
+		queryParams?: Partial<StopSessionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20555,8 +20518,8 @@ export async function stopSession(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ sessionId: string }
+		Partial<StopSessionQuery>,
+		StopSessionPath
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/stop`,
@@ -20580,9 +20543,9 @@ export async function extendSessionTimeout(
 		queryParams,
 		config,
 	}: {
-		pathParams: { sessionId: string };
+		pathParams: ExtendSessionTimeoutPath;
 		body?: ExtendSessionTimeoutBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<ExtendSessionTimeoutQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20605,8 +20568,8 @@ export async function extendSessionTimeout(
 		>,
 		ExtendSessionTimeoutBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ sessionId: string }
+		Partial<ExtendSessionTimeoutQuery>,
+		ExtendSessionTimeoutPath
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/extend-timeout`,
@@ -20631,9 +20594,9 @@ export async function updateSessionNetworkPolicy(
 		queryParams,
 		config,
 	}: {
-		pathParams: { sessionId: string };
+		pathParams: UpdateSessionNetworkPolicyPath;
 		body?: UpdateSessionNetworkPolicyBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateSessionNetworkPolicyQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20656,8 +20619,8 @@ export async function updateSessionNetworkPolicy(
 		>,
 		UpdateSessionNetworkPolicyBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ sessionId: string }
+		Partial<UpdateSessionNetworkPolicyQuery>,
+		UpdateSessionNetworkPolicyPath
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/network-policy`,
@@ -20682,9 +20645,9 @@ export async function readSessionFile(
 		queryParams,
 		config,
 	}: {
-		pathParams: { sessionId: string };
+		pathParams: ReadSessionFilePath;
 		body?: ReadSessionFileBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<ReadSessionFileQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20706,8 +20669,8 @@ export async function readSessionFile(
 		>,
 		ReadSessionFileBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ sessionId: string }
+		Partial<ReadSessionFileQuery>,
+		ReadSessionFilePath
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/fs/read`,
@@ -20732,9 +20695,9 @@ export async function createSessionDirectory(
 		queryParams,
 		config,
 	}: {
-		pathParams: { sessionId: string };
+		pathParams: CreateSessionDirectoryPath;
 		body?: CreateSessionDirectoryBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateSessionDirectoryQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20756,8 +20719,8 @@ export async function createSessionDirectory(
 		>,
 		CreateSessionDirectoryBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ sessionId: string }
+		Partial<CreateSessionDirectoryQuery>,
+		CreateSessionDirectoryPath
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/fs/mkdir`,
@@ -20782,9 +20745,9 @@ export async function writeSessionFiles(
 		headers,
 		config,
 	}: {
-		pathParams: { sessionId: string };
-		queryParams?: { teamId?: string; slug?: string };
-		headers?: { "x-cwd"?: string };
+		pathParams: WriteSessionFilesPath;
+		queryParams?: Partial<WriteSessionFilesQuery>;
+		headers?: Partial<WriteSessionFilesHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20805,9 +20768,9 @@ export async function writeSessionFiles(
 			| WriteSessionFilesStatus429
 		>,
 		null,
-		{ "x-cwd"?: string },
-		{ teamId?: string; slug?: string },
-		{ sessionId: string }
+		Partial<WriteSessionFilesHeaders>,
+		Partial<WriteSessionFilesQuery>,
+		WriteSessionFilesPath
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/fs/write`,
@@ -20831,9 +20794,9 @@ export async function createSandboxesSessionsBySessionIdSnapshotV2(
 		queryParams,
 		config,
 	}: {
-		pathParams: { sessionId: string };
+		pathParams: CreateSandboxesSessionsBySessionIdSnapshotV2Path;
 		body?: CreateSandboxesSessionsBySessionIdSnapshotV2Body;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateSandboxesSessionsBySessionIdSnapshotV2Query>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20857,8 +20820,8 @@ export async function createSandboxesSessionsBySessionIdSnapshotV2(
 		>,
 		CreateSandboxesSessionsBySessionIdSnapshotV2Body,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ sessionId: string }
+		Partial<CreateSandboxesSessionsBySessionIdSnapshotV2Query>,
+		CreateSandboxesSessionsBySessionIdSnapshotV2Path
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/snapshot`,
@@ -20883,9 +20846,9 @@ export async function createSandboxesByNameForkV2(
 		queryParams,
 		config,
 	}: {
-		pathParams: { name: string };
+		pathParams: CreateSandboxesByNameForkV2Path;
 		body?: CreateSandboxesByNameForkV2Body;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<CreateSandboxesByNameForkV2Query>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20912,8 +20875,8 @@ export async function createSandboxesByNameForkV2(
 		>,
 		CreateSandboxesByNameForkV2Body,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ name: string }
+		Partial<CreateSandboxesByNameForkV2Query>,
+		CreateSandboxesByNameForkV2Path
 	>({
 		method: "POST",
 		url: `/v2/sandboxes/${encodeURIComponent(String(pathParams.name))}/fork`,
@@ -20938,7 +20901,7 @@ export async function createSandboxesV3(
 		config,
 	}: {
 		body?: CreateSandboxesV3Body;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateSandboxesV3Query>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20962,7 +20925,7 @@ export async function createSandboxesV3(
 		>,
 		CreateSandboxesV3Body,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateSandboxesV3Query>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -20988,9 +20951,9 @@ export async function createSandboxesSessionsBySessionIdSnapshotV3(
 		queryParams,
 		config,
 	}: {
-		pathParams: { sessionId: string };
+		pathParams: CreateSandboxesSessionsBySessionIdSnapshotV3Path;
 		body?: CreateSandboxesSessionsBySessionIdSnapshotV3Body;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateSandboxesSessionsBySessionIdSnapshotV3Query>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21014,8 +20977,8 @@ export async function createSandboxesSessionsBySessionIdSnapshotV3(
 		>,
 		CreateSandboxesSessionsBySessionIdSnapshotV3Body,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ sessionId: string }
+		Partial<CreateSandboxesSessionsBySessionIdSnapshotV3Query>,
+		CreateSandboxesSessionsBySessionIdSnapshotV3Path
 	>({
 		method: "POST",
 		url: `/v3/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/snapshot`,
@@ -21040,9 +21003,9 @@ export async function createSandboxesByNameForkV3(
 		queryParams,
 		config,
 	}: {
-		pathParams: { name: string };
+		pathParams: CreateSandboxesByNameForkV3Path;
 		body?: CreateSandboxesByNameForkV3Body;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<CreateSandboxesByNameForkV3Query>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21069,8 +21032,8 @@ export async function createSandboxesByNameForkV3(
 		>,
 		CreateSandboxesByNameForkV3Body,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ name: string }
+		Partial<CreateSandboxesByNameForkV3Query>,
+		CreateSandboxesByNameForkV3Path
 	>({
 		method: "POST",
 		url: `/v3/sandboxes/${encodeURIComponent(String(pathParams.name))}/fork`,
@@ -21095,7 +21058,7 @@ export async function createSandboxesV4(
 		config,
 	}: {
 		body?: CreateSandboxesV4Body;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateSandboxesV4Query>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21119,7 +21082,7 @@ export async function createSandboxesV4(
 		>,
 		CreateSandboxesV4Body,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateSandboxesV4Query>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -21145,7 +21108,7 @@ export async function updateAttackChallengeMode(
 		config,
 	}: {
 		body: UpdateAttackChallengeModeBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateAttackChallengeModeQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21162,7 +21125,7 @@ export async function updateAttackChallengeMode(
 		>,
 		UpdateAttackChallengeModeBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<UpdateAttackChallengeModeQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -21221,7 +21184,7 @@ export async function putFirewallConfig(
 		config,
 	}: {
 		body: PutFirewallConfigBody;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<PutFirewallConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21240,7 +21203,7 @@ export async function putFirewallConfig(
 		>,
 		PutFirewallConfigBody,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
+		Partial<PutFirewallConfigQuery>,
 		Record<string, string>
 	>({
 		method: "PUT",
@@ -21266,7 +21229,7 @@ export async function updateFirewallConfig(
 		config,
 	}: {
 		body: UpdateFirewallConfigBody;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<UpdateFirewallConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21285,7 +21248,7 @@ export async function updateFirewallConfig(
 		>,
 		UpdateFirewallConfigBody,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
+		Partial<UpdateFirewallConfigQuery>,
 		Record<string, string>
 	>({
 		method: "PATCH",
@@ -21310,8 +21273,8 @@ export async function getFirewallConfig(
 		queryParams,
 		config,
 	}: {
-		pathParams: { configVersion: string };
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		pathParams: GetFirewallConfigPath;
+		queryParams?: Partial<GetFirewallConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21331,8 +21294,8 @@ export async function getFirewallConfig(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ configVersion: string }
+		Partial<GetFirewallConfigQuery>,
+		GetFirewallConfigPath
 	>({
 		method: "GET",
 		url: `/v1/security/firewall/config/${encodeURIComponent(String(pathParams.configVersion))}`,
@@ -21354,7 +21317,7 @@ export async function deleteSecurityFirewallConfigByConfigVersion(
 		pathParams,
 		config,
 	}: {
-		pathParams: { configVersion: string };
+		pathParams: DeleteSecurityFirewallConfigByConfigVersionPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21376,7 +21339,7 @@ export async function deleteSecurityFirewallConfigByConfigVersion(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ configVersion: string }
+		DeleteSecurityFirewallConfigByConfigVersionPath
 	>({
 		method: "DELETE",
 		url: `/v1/security/firewall/config/${encodeURIComponent(String(pathParams.configVersion))}`,
@@ -21397,7 +21360,7 @@ export async function createSecurityFirewallConfigByConfigVersionActivate(
 		pathParams,
 		config,
 	}: {
-		pathParams: { configVersion: string };
+		pathParams: CreateSecurityFirewallConfigByConfigVersionActivatePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21420,7 +21383,7 @@ export async function createSecurityFirewallConfigByConfigVersionActivate(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ configVersion: string }
+		CreateSecurityFirewallConfigByConfigVersionActivatePath
 	>({
 		method: "POST",
 		url: `/v1/security/firewall/config/${encodeURIComponent(String(pathParams.configVersion))}/activate`,
@@ -21441,7 +21404,7 @@ export async function getActiveAttackStatus(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { projectId?: string; since?: number; teamId?: string; slug?: string };
+		queryParams?: Partial<GetActiveAttackStatusQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21458,7 +21421,7 @@ export async function getActiveAttackStatus(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; since?: number; teamId?: string; slug?: string },
+		Partial<GetActiveAttackStatusQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -21481,16 +21444,7 @@ export async function getBypassIp(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			projectId?: string;
-			limit?: number;
-			sourceIp?: string;
-			domain?: string;
-			projectScope?: boolean;
-			offset?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<GetBypassIpQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21509,16 +21463,7 @@ export async function getBypassIp(
 		>,
 		null,
 		Record<string, string>,
-		{
-			projectId?: string;
-			limit?: number;
-			sourceIp?: string;
-			domain?: string;
-			projectScope?: boolean;
-			offset?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<GetBypassIpQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -21543,7 +21488,7 @@ export async function addBypassIp(
 		config,
 	}: {
 		body?: AddBypassIpBody;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<AddBypassIpQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21562,7 +21507,7 @@ export async function addBypassIp(
 		>,
 		AddBypassIpBody,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
+		Partial<AddBypassIpQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -21588,7 +21533,7 @@ export async function removeBypassIp(
 		config,
 	}: {
 		body?: RemoveBypassIpBody;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<RemoveBypassIpQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21607,7 +21552,7 @@ export async function removeBypassIp(
 		>,
 		RemoveBypassIpBody,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
+		Partial<RemoveBypassIpQuery>,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -21631,7 +21576,7 @@ export async function getConditionalBypass(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { projectId?: string; slug?: string; domain?: string; teamId?: string };
+		queryParams?: Partial<GetConditionalBypassQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21648,7 +21593,7 @@ export async function getConditionalBypass(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; slug?: string; domain?: string; teamId?: string },
+		Partial<GetConditionalBypassQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -21673,7 +21618,7 @@ export async function createConditionalBypass(
 		config,
 	}: {
 		body?: CreateConditionalBypassBody;
-		queryParams?: { projectId?: string; slug?: string; teamId?: string };
+		queryParams?: Partial<CreateConditionalBypassQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21691,7 +21636,7 @@ export async function createConditionalBypass(
 		>,
 		CreateConditionalBypassBody,
 		Record<string, string>,
-		{ projectId?: string; slug?: string; teamId?: string },
+		Partial<CreateConditionalBypassQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -21715,7 +21660,7 @@ export async function deleteConditionalBypass(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { projectId?: string; slug?: string; domain?: string; teamId?: string };
+		queryParams?: Partial<DeleteConditionalBypassQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21732,7 +21677,7 @@ export async function deleteConditionalBypass(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; slug?: string; domain?: string; teamId?: string },
+		Partial<DeleteConditionalBypassQuery>,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -21755,23 +21700,7 @@ export async function getSecurityFirewallEvents(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			sort?: "startTime:desc" | "startTime:asc";
-			limit?: number;
-			cursor?: string;
-			projectId?: string;
-			startTimestamp?: number;
-			endTimestamp?: number;
-			hosts?: string;
-			ip?: Array<string>;
-			isActive?: boolean;
-			action?: Array<"deny" | "challenge" | "log" | "rate_limit" | "bypass">;
-			actionType?: Array<"system-action" | "customer-action">;
-			ruleKind?: "system" | "custom";
-			ruleId?: Array<string>;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<GetSecurityFirewallEventsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21790,23 +21719,7 @@ export async function getSecurityFirewallEvents(
 		>,
 		null,
 		Record<string, string>,
-		{
-			sort?: "startTime:desc" | "startTime:asc";
-			limit?: number;
-			cursor?: string;
-			projectId?: string;
-			startTimestamp?: number;
-			endTimestamp?: number;
-			hosts?: string;
-			ip?: Array<string>;
-			isActive?: boolean;
-			action?: Array<"deny" | "challenge" | "log" | "rate_limit" | "bypass">;
-			actionType?: Array<"system-action" | "customer-action">;
-			ruleKind?: "system" | "custom";
-			ruleId?: Array<string>;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<GetSecurityFirewallEventsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -21829,20 +21742,7 @@ export async function getSecurityFirewallEventsSummary(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			projectId?: string;
-			startTimestamp?: number;
-			endTimestamp?: number;
-			hosts?: string;
-			ip?: Array<string>;
-			isActive?: boolean;
-			action?: Array<"deny" | "challenge" | "log" | "rate_limit" | "bypass">;
-			actionType?: Array<"system-action" | "customer-action">;
-			ruleKind?: "system" | "custom";
-			ruleId?: Array<string>;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<GetSecurityFirewallEventsSummaryQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21861,20 +21761,7 @@ export async function getSecurityFirewallEventsSummary(
 		>,
 		null,
 		Record<string, string>,
-		{
-			projectId?: string;
-			startTimestamp?: number;
-			endTimestamp?: number;
-			hosts?: string;
-			ip?: Array<string>;
-			isActive?: boolean;
-			action?: Array<"deny" | "challenge" | "log" | "rate_limit" | "bypass">;
-			actionType?: Array<"system-action" | "customer-action">;
-			ruleKind?: "system" | "custom";
-			ruleId?: Array<string>;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<GetSecurityFirewallEventsSummaryQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -21897,7 +21784,7 @@ export async function generateFirewallRule(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<GenerateFirewallRuleQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21916,7 +21803,7 @@ export async function generateFirewallRule(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
+		Partial<GenerateFirewallRuleQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -21939,7 +21826,7 @@ export async function createSpeedInsightsToggle(
 		config,
 	}: {
 		body?: CreateSpeedInsightsToggleBody;
-		queryParams?: { projectId?: string };
+		queryParams?: Partial<CreateSpeedInsightsToggleQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21957,7 +21844,7 @@ export async function createSpeedInsightsToggle(
 		>,
 		CreateSpeedInsightsToggleBody,
 		Record<string, string>,
-		{ projectId?: string },
+		Partial<CreateSpeedInsightsToggleQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -21981,8 +21868,8 @@ export async function getStorageStoresById(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { "skip-metadata"?: boolean; "include-guides"?: boolean };
+		pathParams: GetStorageStoresByIdPath;
+		queryParams?: Partial<GetStorageStoresByIdQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22002,8 +21889,8 @@ export async function getStorageStoresById(
 		>,
 		null,
 		Record<string, string>,
-		{ "skip-metadata"?: boolean; "include-guides"?: boolean },
-		{ id: string }
+		Partial<GetStorageStoresByIdQuery>,
+		GetStorageStoresByIdPath
 	>({
 		method: "GET",
 		url: `/storage/stores/${encodeURIComponent(String(pathParams.id))}`,
@@ -22066,7 +21953,7 @@ export async function deleteStorageStoresBlobById(
 		pathParams,
 		config,
 	}: {
-		pathParams: { id: string };
+		pathParams: DeleteStorageStoresBlobByIdPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22088,7 +21975,7 @@ export async function deleteStorageStoresBlobById(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ id: string }
+		DeleteStorageStoresBlobByIdPath
 	>({
 		method: "DELETE",
 		url: `/storage/stores/blob/${encodeURIComponent(String(pathParams.id))}`,
@@ -22111,7 +21998,7 @@ export async function createIntegrationStoreDirect(
 		config,
 	}: {
 		body?: CreateIntegrationStoreDirectBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateIntegrationStoreDirectQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22131,7 +22018,7 @@ export async function createIntegrationStoreDirect(
 		>,
 		CreateIntegrationStoreDirectBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateIntegrationStoreDirectQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -22156,25 +22043,8 @@ export async function getTeamMembers(
 		queryParams,
 		config,
 	}: {
-		pathParams: { teamId: string };
-		queryParams?: {
-			limit?: number;
-			since?: number;
-			until?: number;
-			search?: string;
-			role?:
-				| "OWNER"
-				| "MEMBER"
-				| "DEVELOPER"
-				| "SECURITY"
-				| "BILLING"
-				| "VIEWER"
-				| "VIEWER_FOR_PLUS"
-				| "CONTRIBUTOR";
-			excludeProject?: string;
-			eligibleMembersForProjectId?: string;
-			slug?: string;
-		};
+		pathParams: GetTeamMembersPath;
+		queryParams?: Partial<GetTeamMembersQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22194,25 +22064,8 @@ export async function getTeamMembers(
 		>,
 		null,
 		Record<string, string>,
-		{
-			limit?: number;
-			since?: number;
-			until?: number;
-			search?: string;
-			role?:
-				| "OWNER"
-				| "MEMBER"
-				| "DEVELOPER"
-				| "SECURITY"
-				| "BILLING"
-				| "VIEWER"
-				| "VIEWER_FOR_PLUS"
-				| "CONTRIBUTOR";
-			excludeProject?: string;
-			eligibleMembersForProjectId?: string;
-			slug?: string;
-		},
-		{ teamId: string }
+		Partial<GetTeamMembersQuery>,
+		GetTeamMembersPath
 	>({
 		method: "GET",
 		url: `/v3/teams/${encodeURIComponent(String(pathParams.teamId))}/members`,
@@ -22236,9 +22089,9 @@ export async function inviteUserToTeam(
 		queryParams,
 		config,
 	}: {
-		pathParams: { teamId: string };
+		pathParams: InviteUserToTeamPath;
 		body?: InviteUserToTeamBody;
-		queryParams?: { slug?: string };
+		queryParams?: Partial<InviteUserToTeamQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22259,8 +22112,8 @@ export async function inviteUserToTeam(
 		>,
 		InviteUserToTeamBody,
 		Record<string, string>,
-		{ slug?: string },
-		{ teamId: string }
+		Partial<InviteUserToTeamQuery>,
+		InviteUserToTeamPath
 	>({
 		method: "POST",
 		url: `/v2/teams/${encodeURIComponent(String(pathParams.teamId))}/members`,
@@ -22284,7 +22137,7 @@ export async function requestAccessToTeam(
 		body,
 		config,
 	}: {
-		pathParams: { teamId: string };
+		pathParams: RequestAccessToTeamPath;
 		body: RequestAccessToTeamBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -22308,7 +22161,7 @@ export async function requestAccessToTeam(
 		RequestAccessToTeamBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ teamId: string }
+		RequestAccessToTeamPath
 	>({
 		method: "POST",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/request`,
@@ -22330,7 +22183,7 @@ export async function getTeamAccessRequest(
 		pathParams,
 		config,
 	}: {
-		pathParams: { userId: string; teamId: string };
+		pathParams: GetTeamAccessRequestPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22355,7 +22208,7 @@ export async function getTeamAccessRequest(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ userId: string; teamId: string }
+		GetTeamAccessRequestPath
 	>({
 		method: "GET",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/request/${encodeURIComponent(String(pathParams.userId))}`,
@@ -22377,7 +22230,7 @@ export async function joinTeam(
 		body,
 		config,
 	}: {
-		pathParams: { teamId: string };
+		pathParams: JoinTeamPath;
 		body: JoinTeamBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -22401,7 +22254,7 @@ export async function joinTeam(
 		JoinTeamBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ teamId: string }
+		JoinTeamPath
 	>({
 		method: "POST",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/members/teams/join`,
@@ -22424,7 +22277,7 @@ export async function updateTeamMember(
 		body,
 		config,
 	}: {
-		pathParams: { uid: string; teamId: string };
+		pathParams: UpdateTeamMemberPath;
 		body: UpdateTeamMemberBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -22453,7 +22306,7 @@ export async function updateTeamMember(
 		UpdateTeamMemberBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ uid: string; teamId: string }
+		UpdateTeamMemberPath
 	>({
 		method: "PATCH",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/members/${encodeURIComponent(String(pathParams.uid))}`,
@@ -22476,8 +22329,8 @@ export async function removeTeamMember(
 		queryParams,
 		config,
 	}: {
-		pathParams: { uid: string; teamId: string };
-		queryParams?: { newDefaultTeamId?: string };
+		pathParams: RemoveTeamMemberPath;
+		queryParams?: Partial<RemoveTeamMemberQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22502,8 +22355,8 @@ export async function removeTeamMember(
 		>,
 		null,
 		Record<string, string>,
-		{ newDefaultTeamId?: string },
-		{ uid: string; teamId: string }
+		Partial<RemoveTeamMemberQuery>,
+		RemoveTeamMemberPath
 	>({
 		method: "DELETE",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/members/${encodeURIComponent(String(pathParams.uid))}`,
@@ -22526,8 +22379,8 @@ export async function getTeam(
 		queryParams,
 		config,
 	}: {
-		pathParams: { teamId: string };
-		queryParams?: { slug?: string };
+		pathParams: GetTeamPath;
+		queryParams?: Partial<GetTeamQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22543,8 +22396,8 @@ export async function getTeam(
 		>,
 		null,
 		Record<string, string>,
-		{ slug?: string },
-		{ teamId: string }
+		Partial<GetTeamQuery>,
+		GetTeamPath
 	>({
 		method: "GET",
 		url: `/v2/teams/${encodeURIComponent(String(pathParams.teamId))}`,
@@ -22568,9 +22421,9 @@ export async function patchTeam(
 		queryParams,
 		config,
 	}: {
-		pathParams: { teamId: string };
+		pathParams: PatchTeamPath;
 		body: PatchTeamBody;
-		queryParams?: { slug?: string };
+		queryParams?: Partial<PatchTeamQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22595,8 +22448,8 @@ export async function patchTeam(
 		>,
 		PatchTeamBody,
 		Record<string, string>,
-		{ slug?: string },
-		{ teamId: string }
+		Partial<PatchTeamQuery>,
+		PatchTeamPath
 	>({
 		method: "PATCH",
 		url: `/v2/teams/${encodeURIComponent(String(pathParams.teamId))}`,
@@ -22619,7 +22472,7 @@ export async function getTeams(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { limit?: number; since?: number; until?: number };
+		queryParams?: Partial<GetTeamsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22636,7 +22489,7 @@ export async function getTeams(
 		>,
 		null,
 		Record<string, string>,
-		{ limit?: number; since?: number; until?: number },
+		Partial<GetTeamsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -22701,9 +22554,9 @@ export async function postTeamDsyncRoles(
 		queryParams,
 		config,
 	}: {
-		pathParams: { teamId: string };
+		pathParams: PostTeamDsyncRolesPath;
 		body?: PostTeamDsyncRolesBody;
-		queryParams?: { slug?: string };
+		queryParams?: Partial<PostTeamDsyncRolesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22723,8 +22576,8 @@ export async function postTeamDsyncRoles(
 		>,
 		PostTeamDsyncRolesBody,
 		Record<string, string>,
-		{ slug?: string },
-		{ teamId: string }
+		Partial<PostTeamDsyncRolesQuery>,
+		PostTeamDsyncRolesPath
 	>({
 		method: "POST",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/dsync-roles`,
@@ -22749,9 +22602,9 @@ export async function deleteTeam(
 		queryParams,
 		config,
 	}: {
-		pathParams: { teamId: string };
+		pathParams: DeleteTeamPath;
 		body: DeleteTeamBody;
-		queryParams?: { newDefaultTeamId?: string; slug?: string };
+		queryParams?: Partial<DeleteTeamQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22774,8 +22627,8 @@ export async function deleteTeam(
 		>,
 		DeleteTeamBody,
 		Record<string, string>,
-		{ newDefaultTeamId?: string; slug?: string },
-		{ teamId: string }
+		Partial<DeleteTeamQuery>,
+		DeleteTeamPath
 	>({
 		method: "DELETE",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}`,
@@ -22798,7 +22651,7 @@ export async function deleteTeamInviteCode(
 		pathParams,
 		config,
 	}: {
-		pathParams: { inviteId: string; teamId: string };
+		pathParams: DeleteTeamInviteCodePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22823,7 +22676,7 @@ export async function deleteTeamInviteCode(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ inviteId: string; teamId: string }
+		DeleteTeamInviteCodePath
 	>({
 		method: "DELETE",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/invites/${encodeURIComponent(String(pathParams.inviteId))}`,
@@ -22846,9 +22699,9 @@ export async function updateMicrofrontendsGroup(
 		queryParams,
 		config,
 	}: {
-		pathParams: { groupId: string; teamId: string };
+		pathParams: UpdateMicrofrontendsGroupPath;
 		body?: UpdateMicrofrontendsGroupBody;
-		queryParams?: { slug?: string };
+		queryParams?: Partial<UpdateMicrofrontendsGroupQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22872,8 +22725,8 @@ export async function updateMicrofrontendsGroup(
 		>,
 		UpdateMicrofrontendsGroupBody,
 		Record<string, string>,
-		{ slug?: string },
-		{ groupId: string; teamId: string }
+		Partial<UpdateMicrofrontendsGroupQuery>,
+		UpdateMicrofrontendsGroupPath
 	>({
 		method: "PATCH",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/microfrontends/${encodeURIComponent(String(pathParams.groupId))}`,
@@ -22897,8 +22750,8 @@ export async function deleteMicrofrontendsGroup(
 		queryParams,
 		config,
 	}: {
-		pathParams: { groupId: string; teamId: string };
-		queryParams?: { slug?: string };
+		pathParams: DeleteMicrofrontendsGroupPath;
+		queryParams?: Partial<DeleteMicrofrontendsGroupQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22923,8 +22776,8 @@ export async function deleteMicrofrontendsGroup(
 		>,
 		null,
 		Record<string, string>,
-		{ slug?: string },
-		{ groupId: string; teamId: string }
+		Partial<DeleteMicrofrontendsGroupQuery>,
+		DeleteMicrofrontendsGroupPath
 	>({
 		method: "DELETE",
 		url: `/v1/teams/${encodeURIComponent(String(pathParams.teamId))}/microfrontends/${encodeURIComponent(String(pathParams.groupId))}`,
@@ -22949,13 +22802,8 @@ export async function uploadFile(
 		config,
 	}: {
 		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
-		queryParams?: { teamId?: string; slug?: string };
-		headers?: {
-			"Content-Length"?: number;
-			"x-vercel-digest"?: string;
-			"x-now-digest"?: string;
-			"x-now-size"?: number;
-		};
+		queryParams?: Partial<UploadFileQuery>;
+		headers?: Partial<UploadFileHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22972,13 +22820,8 @@ export async function uploadFile(
 			| UploadFileStatus426
 		>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
-		{
-			"Content-Length"?: number;
-			"x-vercel-digest"?: string;
-			"x-now-digest"?: string;
-			"x-now-size"?: number;
-		},
-		{ teamId?: string; slug?: string },
+		Partial<UploadFileHeaders>,
+		Partial<UploadFileQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -23036,7 +22879,7 @@ export async function createAuthToken(
 		config,
 	}: {
 		body: CreateAuthTokenBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateAuthTokenQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23053,7 +22896,7 @@ export async function createAuthToken(
 		>,
 		CreateAuthTokenBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateAuthTokenQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -23077,7 +22920,7 @@ export async function getAuthToken(
 		pathParams,
 		config,
 	}: {
-		pathParams: { tokenId: string };
+		pathParams: GetAuthTokenPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23098,7 +22941,7 @@ export async function getAuthToken(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ tokenId: string }
+		GetAuthTokenPath
 	>({
 		method: "GET",
 		url: `/v5/user/tokens/${encodeURIComponent(String(pathParams.tokenId))}`,
@@ -23120,8 +22963,8 @@ export async function deleteAuthToken(
 		queryParams,
 		config,
 	}: {
-		pathParams: { tokenId: string };
-		queryParams?: { reason?: "logout"; logoutSource?: "v0" | "vercel" };
+		pathParams: DeleteAuthTokenPath;
+		queryParams?: Partial<DeleteAuthTokenQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23141,8 +22984,8 @@ export async function deleteAuthToken(
 		>,
 		null,
 		Record<string, string>,
-		{ reason?: "logout"; logoutSource?: "v0" | "vercel" },
-		{ tokenId: string }
+		Partial<DeleteAuthTokenQuery>,
+		DeleteAuthTokenPath
 	>({
 		method: "DELETE",
 		url: `/v3/user/tokens/${encodeURIComponent(String(pathParams.tokenId))}`,
@@ -23239,7 +23082,7 @@ export async function createRepository(
 		config,
 	}: {
 		body?: CreateRepositoryBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateRepositoryQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23258,7 +23101,7 @@ export async function createRepository(
 		>,
 		CreateRepositoryBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateRepositoryQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -23282,13 +23125,7 @@ export async function listRepositories(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			projectId?: string;
-			limit?: number;
-			cursor?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListRepositoriesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23305,7 +23142,7 @@ export async function listRepositories(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; limit?: number; cursor?: string; teamId?: string; slug?: string },
+		Partial<ListRepositoriesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -23329,8 +23166,8 @@ export async function getRepository(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		pathParams: GetRepositoryPath;
+		queryParams?: Partial<GetRepositoryQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23350,8 +23187,8 @@ export async function getRepository(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<GetRepositoryQuery>,
+		GetRepositoryPath
 	>({
 		method: "GET",
 		url: `/v1/vcr/repository/${encodeURIComponent(String(pathParams.idOrName))}`,
@@ -23374,8 +23211,8 @@ export async function deleteRepository(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		pathParams: DeleteRepositoryPath;
+		queryParams?: Partial<DeleteRepositoryQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23395,8 +23232,8 @@ export async function deleteRepository(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<DeleteRepositoryQuery>,
+		DeleteRepositoryPath
 	>({
 		method: "DELETE",
 		url: `/v1/vcr/repository/${encodeURIComponent(String(pathParams.idOrName))}`,
@@ -23419,15 +23256,8 @@ export async function listRepositoryImages(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: {
-			projectId?: string;
-			limit?: number;
-			cursor?: string;
-			untagged?: boolean;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: ListRepositoryImagesPath;
+		queryParams?: Partial<ListRepositoryImagesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23447,15 +23277,8 @@ export async function listRepositoryImages(
 		>,
 		null,
 		Record<string, string>,
-		{
-			projectId?: string;
-			limit?: number;
-			cursor?: string;
-			untagged?: boolean;
-			teamId?: string;
-			slug?: string;
-		},
-		{ idOrName: string }
+		Partial<ListRepositoryImagesQuery>,
+		ListRepositoryImagesPath
 	>({
 		method: "GET",
 		url: `/v1/vcr/repository/${encodeURIComponent(String(pathParams.idOrName))}/images`,
@@ -23479,9 +23302,9 @@ export async function addRepositoryPermission(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: AddRepositoryPermissionPath;
 		body?: AddRepositoryPermissionBody;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<AddRepositoryPermissionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23501,8 +23324,8 @@ export async function addRepositoryPermission(
 		>,
 		AddRepositoryPermissionBody,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<AddRepositoryPermissionQuery>,
+		AddRepositoryPermissionPath
 	>({
 		method: "POST",
 		url: `/v1/vcr/repository/${encodeURIComponent(String(pathParams.idOrName))}/permissions`,
@@ -23527,9 +23350,9 @@ export async function removeRepositoryPermission(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
+		pathParams: RemoveRepositoryPermissionPath;
 		body?: RemoveRepositoryPermissionBody;
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<RemoveRepositoryPermissionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23549,8 +23372,8 @@ export async function removeRepositoryPermission(
 		>,
 		RemoveRepositoryPermissionBody,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<RemoveRepositoryPermissionQuery>,
+		RemoveRepositoryPermissionPath
 	>({
 		method: "DELETE",
 		url: `/v1/vcr/repository/${encodeURIComponent(String(pathParams.idOrName))}/permissions`,
@@ -23574,14 +23397,8 @@ export async function listRepositoryPermissions(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: {
-			projectId?: string;
-			limit?: number;
-			cursor?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: ListRepositoryPermissionsPath;
+		queryParams?: Partial<ListRepositoryPermissionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23601,8 +23418,8 @@ export async function listRepositoryPermissions(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; limit?: number; cursor?: string; teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<ListRepositoryPermissionsQuery>,
+		ListRepositoryPermissionsPath
 	>({
 		method: "GET",
 		url: `/v1/vcr/repository/${encodeURIComponent(String(pathParams.idOrName))}/permissions`,
@@ -23625,8 +23442,8 @@ export async function clearRepositoryPermissions(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		pathParams: ClearRepositoryPermissionsPath;
+		queryParams?: Partial<ClearRepositoryPermissionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23646,8 +23463,8 @@ export async function clearRepositoryPermissions(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ idOrName: string }
+		Partial<ClearRepositoryPermissionsQuery>,
+		ClearRepositoryPermissionsPath
 	>({
 		method: "DELETE",
 		url: `/v1/vcr/repository/${encodeURIComponent(String(pathParams.idOrName))}/permissions/all`,
@@ -23670,16 +23487,8 @@ export async function listRepositoryTags(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string };
-		queryParams?: {
-			projectId?: string;
-			limit?: number;
-			cursor?: string;
-			sortBy?: "updatedAt" | "tag";
-			sortOrder?: "asc" | "desc";
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: ListRepositoryTagsPath;
+		queryParams?: Partial<ListRepositoryTagsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23699,16 +23508,8 @@ export async function listRepositoryTags(
 		>,
 		null,
 		Record<string, string>,
-		{
-			projectId?: string;
-			limit?: number;
-			cursor?: string;
-			sortBy?: "updatedAt" | "tag";
-			sortOrder?: "asc" | "desc";
-			teamId?: string;
-			slug?: string;
-		},
-		{ idOrName: string }
+		Partial<ListRepositoryTagsQuery>,
+		ListRepositoryTagsPath
 	>({
 		method: "GET",
 		url: `/v1/vcr/repository/${encodeURIComponent(String(pathParams.idOrName))}/tags`,
@@ -23731,8 +23532,8 @@ export async function getRepositoryTag(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; tag: string };
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		pathParams: GetRepositoryTagPath;
+		queryParams?: Partial<GetRepositoryTagQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23756,8 +23557,8 @@ export async function getRepositoryTag(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ idOrName: string; tag: string }
+		Partial<GetRepositoryTagQuery>,
+		GetRepositoryTagPath
 	>({
 		method: "GET",
 		url: `/v1/vcr/repository/${encodeURIComponent(String(pathParams.idOrName))}/tags/${encodeURIComponent(String(pathParams.tag))}`,
@@ -23780,8 +23581,8 @@ export async function getRepositoryImage(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; imageIdOrDigest: string };
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		pathParams: GetRepositoryImagePath;
+		queryParams?: Partial<GetRepositoryImageQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23805,8 +23606,8 @@ export async function getRepositoryImage(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ idOrName: string; imageIdOrDigest: string }
+		Partial<GetRepositoryImageQuery>,
+		GetRepositoryImagePath
 	>({
 		method: "GET",
 		url: `/v1/vcr/repository/${encodeURIComponent(String(pathParams.idOrName))}/images/${encodeURIComponent(String(pathParams.imageIdOrDigest))}`,
@@ -23829,8 +23630,8 @@ export async function deleteRepositoryImage(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrName: string; imageId: string };
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		pathParams: DeleteRepositoryImagePath;
+		queryParams?: Partial<DeleteRepositoryImageQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23854,8 +23655,8 @@ export async function deleteRepositoryImage(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
-		{ idOrName: string; imageId: string }
+		Partial<DeleteRepositoryImageQuery>,
+		DeleteRepositoryImagePath
 	>({
 		method: "DELETE",
 		url: `/v1/vcr/repository/${encodeURIComponent(String(pathParams.idOrName))}/images/${encodeURIComponent(String(pathParams.imageId))}`,
@@ -23911,7 +23712,7 @@ export async function getByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest(
 		pathParams,
 		config,
 	}: {
-		pathParams: { teamSlug: string; projectSlug: string; repositoryName: string; digest: string };
+		pathParams: GetByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23946,7 +23747,7 @@ export async function getByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ teamSlug: string; projectSlug: string; repositoryName: string; digest: string }
+		GetByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath
 	>({
 		method: "GET",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/blobs/${encodeURIComponent(String(pathParams.digest))}`,
@@ -23967,7 +23768,7 @@ export async function deleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest
 		pathParams,
 		config,
 	}: {
-		pathParams: { teamSlug: string; projectSlug: string; repositoryName: string; digest: string };
+		pathParams: DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24002,7 +23803,7 @@ export async function deleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ teamSlug: string; projectSlug: string; repositoryName: string; digest: string }
+		DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath
 	>({
 		method: "DELETE",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/blobs/${encodeURIComponent(String(pathParams.digest))}`,
@@ -24023,7 +23824,7 @@ export async function getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUu
 		pathParams,
 		config,
 	}: {
-		pathParams: { teamSlug: string; projectSlug: string; repositoryName: string; uuid: string };
+		pathParams: GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24057,7 +23858,7 @@ export async function getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUu
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ teamSlug: string; projectSlug: string; repositoryName: string; uuid: string }
+		GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath
 	>({
 		method: "GET",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/blobs/uploads/${encodeURIComponent(String(pathParams.uuid))}`,
@@ -24078,7 +23879,7 @@ export async function deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsB
 		pathParams,
 		config,
 	}: {
-		pathParams: { teamSlug: string; projectSlug: string; repositoryName: string; uuid: string };
+		pathParams: DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24112,7 +23913,7 @@ export async function deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsB
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ teamSlug: string; projectSlug: string; repositoryName: string; uuid: string }
+		DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath
 	>({
 		method: "DELETE",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/blobs/uploads/${encodeURIComponent(String(pathParams.uuid))}`,
@@ -24133,7 +23934,7 @@ export async function updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsB
 		pathParams,
 		config,
 	}: {
-		pathParams: { teamSlug: string; projectSlug: string; repositoryName: string; uuid: string };
+		pathParams: UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24169,7 +23970,7 @@ export async function updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsB
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ teamSlug: string; projectSlug: string; repositoryName: string; uuid: string }
+		UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath
 	>({
 		method: "PATCH",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/blobs/uploads/${encodeURIComponent(String(pathParams.uuid))}`,
@@ -24191,8 +23992,8 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploads
 		queryParams,
 		config,
 	}: {
-		pathParams: { teamSlug: string; projectSlug: string; repositoryName: string; uuid: string };
-		queryParams?: { digest?: string };
+		pathParams: ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath;
+		queryParams?: Partial<ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24227,8 +24028,8 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploads
 		>,
 		null,
 		Record<string, string>,
-		{ digest?: string },
-		{ teamSlug: string; projectSlug: string; repositoryName: string; uuid: string }
+		Partial<ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidQuery>,
+		ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath
 	>({
 		method: "PUT",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/blobs/uploads/${encodeURIComponent(String(pathParams.uuid))}`,
@@ -24251,8 +24052,8 @@ export async function createByTeamSlugByProjectSlugByRepositoryNameBlobsUploads(
 		queryParams,
 		config,
 	}: {
-		pathParams: { teamSlug: string; projectSlug: string; repositoryName: string };
-		queryParams?: { mount?: string; from?: string };
+		pathParams: CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsPath;
+		queryParams?: Partial<CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24281,8 +24082,8 @@ export async function createByTeamSlugByProjectSlugByRepositoryNameBlobsUploads(
 		>,
 		null,
 		Record<string, string>,
-		{ mount?: string; from?: string },
-		{ teamSlug: string; projectSlug: string; repositoryName: string }
+		Partial<CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsQuery>,
+		CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsPath
 	>({
 		method: "POST",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/blobs/uploads/`,
@@ -24304,12 +24105,7 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByR
 		pathParams,
 		config,
 	}: {
-		pathParams: {
-			teamSlug: string;
-			projectSlug: string;
-			repositoryName: string;
-			reference: string;
-		};
+		pathParams: ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24344,7 +24140,7 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByR
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ teamSlug: string; projectSlug: string; repositoryName: string; reference: string }
+		ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath
 	>({
 		method: "PUT",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/manifests/${encodeURIComponent(String(pathParams.reference))}`,
@@ -24365,12 +24161,7 @@ export async function getByTeamSlugByProjectSlugByRepositoryNameManifestsByRefer
 		pathParams,
 		config,
 	}: {
-		pathParams: {
-			teamSlug: string;
-			projectSlug: string;
-			repositoryName: string;
-			reference: string;
-		};
+		pathParams: GetByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24404,7 +24195,7 @@ export async function getByTeamSlugByProjectSlugByRepositoryNameManifestsByRefer
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ teamSlug: string; projectSlug: string; repositoryName: string; reference: string }
+		GetByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath
 	>({
 		method: "GET",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/manifests/${encodeURIComponent(String(pathParams.reference))}`,
@@ -24425,12 +24216,7 @@ export async function deleteByTeamSlugByProjectSlugByRepositoryNameManifestsByRe
 		pathParams,
 		config,
 	}: {
-		pathParams: {
-			teamSlug: string;
-			projectSlug: string;
-			repositoryName: string;
-			reference: string;
-		};
+		pathParams: DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24464,7 +24250,7 @@ export async function deleteByTeamSlugByProjectSlugByRepositoryNameManifestsByRe
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ teamSlug: string; projectSlug: string; repositoryName: string; reference: string }
+		DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath
 	>({
 		method: "DELETE",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/manifests/${encodeURIComponent(String(pathParams.reference))}`,
@@ -24486,8 +24272,8 @@ export async function getByTeamSlugByProjectSlugByRepositoryNameTagsList(
 		queryParams,
 		config,
 	}: {
-		pathParams: { teamSlug: string; projectSlug: string; repositoryName: string };
-		queryParams?: { n?: number; last?: string };
+		pathParams: GetByTeamSlugByProjectSlugByRepositoryNameTagsListPath;
+		queryParams?: Partial<GetByTeamSlugByProjectSlugByRepositoryNameTagsListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24516,8 +24302,8 @@ export async function getByTeamSlugByProjectSlugByRepositoryNameTagsList(
 		>,
 		null,
 		Record<string, string>,
-		{ n?: number; last?: string },
-		{ teamSlug: string; projectSlug: string; repositoryName: string }
+		Partial<GetByTeamSlugByProjectSlugByRepositoryNameTagsListQuery>,
+		GetByTeamSlugByProjectSlugByRepositoryNameTagsListPath
 	>({
 		method: "GET",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/tags/list`,
@@ -24539,13 +24325,7 @@ export async function getVercelCiRepositorySettings(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			provider?: "bitbucket" | "cursor-origin" | "github" | "gitlab" | "vercel";
-			organizationId?: string;
-			repository?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<GetVercelCiRepositorySettingsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24565,13 +24345,7 @@ export async function getVercelCiRepositorySettings(
 		>,
 		null,
 		Record<string, string>,
-		{
-			provider?: "bitbucket" | "cursor-origin" | "github" | "gitlab" | "vercel";
-			organizationId?: string;
-			repository?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<GetVercelCiRepositorySettingsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -24596,13 +24370,7 @@ export async function updateVercelCiRepositorySettings(
 		config,
 	}: {
 		body?: UpdateVercelCiRepositorySettingsBody;
-		queryParams?: {
-			provider?: "bitbucket" | "cursor-origin" | "github" | "gitlab" | "vercel";
-			organizationId?: string;
-			repository?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<UpdateVercelCiRepositorySettingsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24622,13 +24390,7 @@ export async function updateVercelCiRepositorySettings(
 		>,
 		UpdateVercelCiRepositorySettingsBody,
 		Record<string, string>,
-		{
-			provider?: "bitbucket" | "cursor-origin" | "github" | "gitlab" | "vercel";
-			organizationId?: string;
-			repository?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<UpdateVercelCiRepositorySettingsQuery>,
 		Record<string, string>
 	>({
 		method: "PATCH",
@@ -24652,36 +24414,7 @@ export async function listVercelCiInvocations(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			provider?: "github" | "gitlab" | "bitbucket" | "vercel";
-			repository?: string;
-			branchName?: string;
-			snapshot?: string;
-			status?: Array<
-				| "new"
-				| "skipped"
-				| "bootstrapping"
-				| "bootstrapping_failed"
-				| "snapshotted"
-				| "sandbox_named"
-				| "jobs_on_hive_clone_dispatched"
-				| "jobs_on_hive_dispatched"
-				| "jobs_on_hive_completed"
-				| "jobs_on_hive_failed"
-				| "awaiting_jobs"
-				| "completed"
-			>;
-			conclusion?: Array<"succeeded" | "failed" | "skipped">;
-			source?: Array<"vercel-ci" | "vercel-native-checks">;
-			authorGitHubId?: string;
-			author?: string;
-			createdAfter?: number;
-			createdBefore?: number;
-			limit?: number;
-			cursor?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListVercelCiInvocationsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24701,36 +24434,7 @@ export async function listVercelCiInvocations(
 		>,
 		null,
 		Record<string, string>,
-		{
-			provider?: "github" | "gitlab" | "bitbucket" | "vercel";
-			repository?: string;
-			branchName?: string;
-			snapshot?: string;
-			status?: Array<
-				| "new"
-				| "skipped"
-				| "bootstrapping"
-				| "bootstrapping_failed"
-				| "snapshotted"
-				| "sandbox_named"
-				| "jobs_on_hive_clone_dispatched"
-				| "jobs_on_hive_dispatched"
-				| "jobs_on_hive_completed"
-				| "jobs_on_hive_failed"
-				| "awaiting_jobs"
-				| "completed"
-			>;
-			conclusion?: Array<"succeeded" | "failed" | "skipped">;
-			source?: Array<"vercel-ci" | "vercel-native-checks">;
-			authorGitHubId?: string;
-			author?: string;
-			createdAfter?: number;
-			createdBefore?: number;
-			limit?: number;
-			cursor?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListVercelCiInvocationsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -24753,7 +24457,7 @@ export async function listVercelCiBranches(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { query?: string; limit?: number; teamId?: string; slug?: string };
+		queryParams?: Partial<ListVercelCiBranchesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24773,7 +24477,7 @@ export async function listVercelCiBranches(
 		>,
 		null,
 		Record<string, string>,
-		{ query?: string; limit?: number; teamId?: string; slug?: string },
+		Partial<ListVercelCiBranchesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -24798,7 +24502,7 @@ export async function createVercelCiTaskAnalysis(
 		config,
 	}: {
 		body?: CreateVercelCiTaskAnalysisBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateVercelCiTaskAnalysisQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24819,7 +24523,7 @@ export async function createVercelCiTaskAnalysis(
 		>,
 		CreateVercelCiTaskAnalysisBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateVercelCiTaskAnalysisQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -24844,8 +24548,8 @@ export async function getVercelCiTaskAnalysis(
 		queryParams,
 		config,
 	}: {
-		pathParams: { analysisId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetVercelCiTaskAnalysisPath;
+		queryParams?: Partial<GetVercelCiTaskAnalysisQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24867,8 +24571,8 @@ export async function getVercelCiTaskAnalysis(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ analysisId: string }
+		Partial<GetVercelCiTaskAnalysisQuery>,
+		GetVercelCiTaskAnalysisPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/task-analyses/${encodeURIComponent(String(pathParams.analysisId))}`,
@@ -24892,9 +24596,9 @@ export async function createVercelCiTaskConfigurationPullRequest(
 		queryParams,
 		config,
 	}: {
-		pathParams: { analysisId: string };
+		pathParams: CreateVercelCiTaskConfigurationPullRequestPath;
 		body?: CreateVercelCiTaskConfigurationPullRequestBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateVercelCiTaskConfigurationPullRequestQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24917,8 +24621,8 @@ export async function createVercelCiTaskConfigurationPullRequest(
 		>,
 		CreateVercelCiTaskConfigurationPullRequestBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ analysisId: string }
+		Partial<CreateVercelCiTaskConfigurationPullRequestQuery>,
+		CreateVercelCiTaskConfigurationPullRequestPath
 	>({
 		method: "POST",
 		url: `/v1/vercel-ci/task-analyses/${encodeURIComponent(String(pathParams.analysisId))}/pull-request`,
@@ -24942,8 +24646,8 @@ export async function listVercelCiTaskAnalysisTasks(
 		queryParams,
 		config,
 	}: {
-		pathParams: { analysisId: string };
-		queryParams?: { cursor?: string; limit?: string; teamId?: string; slug?: string };
+		pathParams: ListVercelCiTaskAnalysisTasksPath;
+		queryParams?: Partial<ListVercelCiTaskAnalysisTasksQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24966,8 +24670,8 @@ export async function listVercelCiTaskAnalysisTasks(
 		>,
 		null,
 		Record<string, string>,
-		{ cursor?: string; limit?: string; teamId?: string; slug?: string },
-		{ analysisId: string }
+		Partial<ListVercelCiTaskAnalysisTasksQuery>,
+		ListVercelCiTaskAnalysisTasksPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/task-analyses/${encodeURIComponent(String(pathParams.analysisId))}/tasks`,
@@ -24990,8 +24694,8 @@ export async function listVercelCiInvocationAttempts(
 		queryParams,
 		config,
 	}: {
-		pathParams: { invocationId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: ListVercelCiInvocationAttemptsPath;
+		queryParams?: Partial<ListVercelCiInvocationAttemptsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25013,8 +24717,8 @@ export async function listVercelCiInvocationAttempts(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ invocationId: string }
+		Partial<ListVercelCiInvocationAttemptsQuery>,
+		ListVercelCiInvocationAttemptsPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/attempts`,
@@ -25037,8 +24741,8 @@ export async function getVercelCiInvocationTree(
 		queryParams,
 		config,
 	}: {
-		pathParams: { invocationId: string };
-		queryParams?: { attempt?: string; follow?: 0 | 1; teamId?: string; slug?: string };
+		pathParams: GetVercelCiInvocationTreePath;
+		queryParams?: Partial<GetVercelCiInvocationTreeQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25060,8 +24764,8 @@ export async function getVercelCiInvocationTree(
 		>,
 		null,
 		Record<string, string>,
-		{ attempt?: string; follow?: 0 | 1; teamId?: string; slug?: string },
-		{ invocationId: string }
+		Partial<GetVercelCiInvocationTreeQuery>,
+		GetVercelCiInvocationTreePath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/tree`,
@@ -25084,8 +24788,8 @@ export async function getVercelCiInvocation(
 		queryParams,
 		config,
 	}: {
-		pathParams: { invocationId: string; attempt: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetVercelCiInvocationPath;
+		queryParams?: Partial<GetVercelCiInvocationQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25111,8 +24815,8 @@ export async function getVercelCiInvocation(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ invocationId: string; attempt: string }
+		Partial<GetVercelCiInvocationQuery>,
+		GetVercelCiInvocationPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/attempts/${encodeURIComponent(String(pathParams.attempt))}`,
@@ -25135,8 +24839,8 @@ export async function retryVercelCiInvocation(
 		queryParams,
 		config,
 	}: {
-		pathParams: { invocationId: string; attempt: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: RetryVercelCiInvocationPath;
+		queryParams?: Partial<RetryVercelCiInvocationQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25163,8 +24867,8 @@ export async function retryVercelCiInvocation(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ invocationId: string; attempt: string }
+		Partial<RetryVercelCiInvocationQuery>,
+		RetryVercelCiInvocationPath
 	>({
 		method: "POST",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/attempts/${encodeURIComponent(String(pathParams.attempt))}/retry`,
@@ -25187,8 +24891,8 @@ export async function listVercelCiJobDefinitions(
 		queryParams,
 		config,
 	}: {
-		pathParams: { invocationId: string; attempt: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: ListVercelCiJobDefinitionsPath;
+		queryParams?: Partial<ListVercelCiJobDefinitionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25214,8 +24918,8 @@ export async function listVercelCiJobDefinitions(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ invocationId: string; attempt: string }
+		Partial<ListVercelCiJobDefinitionsQuery>,
+		ListVercelCiJobDefinitionsPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/attempts/${encodeURIComponent(String(pathParams.attempt))}/job-definitions`,
@@ -25238,8 +24942,8 @@ export async function getVercelCiJobDefinition(
 		queryParams,
 		config,
 	}: {
-		pathParams: { invocationId: string; attempt: string; jobDefinitionId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetVercelCiJobDefinitionPath;
+		queryParams?: Partial<GetVercelCiJobDefinitionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25269,8 +24973,8 @@ export async function getVercelCiJobDefinition(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ invocationId: string; attempt: string; jobDefinitionId: string }
+		Partial<GetVercelCiJobDefinitionQuery>,
+		GetVercelCiJobDefinitionPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/attempts/${encodeURIComponent(String(pathParams.attempt))}/job-definitions/${encodeURIComponent(String(pathParams.jobDefinitionId))}`,
@@ -25293,8 +24997,8 @@ export async function listVercelCiJobRuns(
 		queryParams,
 		config,
 	}: {
-		pathParams: { invocationId: string; attempt: string; jobDefinitionId: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: ListVercelCiJobRunsPath;
+		queryParams?: Partial<ListVercelCiJobRunsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25324,8 +25028,8 @@ export async function listVercelCiJobRuns(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ invocationId: string; attempt: string; jobDefinitionId: string }
+		Partial<ListVercelCiJobRunsQuery>,
+		ListVercelCiJobRunsPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/attempts/${encodeURIComponent(String(pathParams.attempt))}/job-definitions/${encodeURIComponent(String(pathParams.jobDefinitionId))}/runs`,
@@ -25348,13 +25052,8 @@ export async function getVercelCiJobRun(
 		queryParams,
 		config,
 	}: {
-		pathParams: {
-			invocationId: string;
-			attempt: string;
-			jobDefinitionId: string;
-			runAttempt: string;
-		};
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetVercelCiJobRunPath;
+		queryParams?: Partial<GetVercelCiJobRunQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25388,8 +25087,8 @@ export async function getVercelCiJobRun(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ invocationId: string; attempt: string; jobDefinitionId: string; runAttempt: string }
+		Partial<GetVercelCiJobRunQuery>,
+		GetVercelCiJobRunPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/attempts/${encodeURIComponent(String(pathParams.attempt))}/job-definitions/${encodeURIComponent(String(pathParams.jobDefinitionId))}/runs/${encodeURIComponent(String(pathParams.runAttempt))}`,
@@ -25412,13 +25111,8 @@ export async function listVercelCiTaskDefinitions(
 		queryParams,
 		config,
 	}: {
-		pathParams: {
-			invocationId: string;
-			attempt: string;
-			jobDefinitionId: string;
-			runAttempt: string;
-		};
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: ListVercelCiTaskDefinitionsPath;
+		queryParams?: Partial<ListVercelCiTaskDefinitionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25452,8 +25146,8 @@ export async function listVercelCiTaskDefinitions(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ invocationId: string; attempt: string; jobDefinitionId: string; runAttempt: string }
+		Partial<ListVercelCiTaskDefinitionsQuery>,
+		ListVercelCiTaskDefinitionsPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/attempts/${encodeURIComponent(String(pathParams.attempt))}/job-definitions/${encodeURIComponent(String(pathParams.jobDefinitionId))}/runs/${encodeURIComponent(String(pathParams.runAttempt))}/task-definitions`,
@@ -25476,13 +25170,8 @@ export async function listVercelCiTaskRuns(
 		queryParams,
 		config,
 	}: {
-		pathParams: {
-			invocationId: string;
-			attempt: string;
-			jobDefinitionId: string;
-			runAttempt: string;
-		};
-		queryParams?: { taskRunAttempt?: string; teamId?: string; slug?: string };
+		pathParams: ListVercelCiTaskRunsPath;
+		queryParams?: Partial<ListVercelCiTaskRunsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25516,8 +25205,8 @@ export async function listVercelCiTaskRuns(
 		>,
 		null,
 		Record<string, string>,
-		{ taskRunAttempt?: string; teamId?: string; slug?: string },
-		{ invocationId: string; attempt: string; jobDefinitionId: string; runAttempt: string }
+		Partial<ListVercelCiTaskRunsQuery>,
+		ListVercelCiTaskRunsPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/attempts/${encodeURIComponent(String(pathParams.attempt))}/job-definitions/${encodeURIComponent(String(pathParams.jobDefinitionId))}/runs/${encodeURIComponent(String(pathParams.runAttempt))}/task-runs`,
@@ -25540,14 +25229,8 @@ export async function getVercelCiInvocationLogs(
 		queryParams,
 		config,
 	}: {
-		pathParams: { invocationId: string; attempt: string };
-		queryParams?: {
-			level?: Array<
-				"trace" | "debug" | "command" | "info" | "warn" | "error" | "systemError" | "fatal"
-			>;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetVercelCiInvocationLogsPath;
+		queryParams?: Partial<GetVercelCiInvocationLogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25573,14 +25256,8 @@ export async function getVercelCiInvocationLogs(
 		>,
 		null,
 		Record<string, string>,
-		{
-			level?: Array<
-				"trace" | "debug" | "command" | "info" | "warn" | "error" | "systemError" | "fatal"
-			>;
-			teamId?: string;
-			slug?: string;
-		},
-		{ invocationId: string; attempt: string }
+		Partial<GetVercelCiInvocationLogsQuery>,
+		GetVercelCiInvocationLogsPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/attempts/${encodeURIComponent(String(pathParams.attempt))}/logs`,
@@ -25603,18 +25280,8 @@ export async function getVercelCiTaskLogs(
 		queryParams,
 		config,
 	}: {
-		pathParams: { invocationId: string; attempt: string };
-		queryParams?: {
-			task?: Array<string>;
-			conclusion?: Array<"succeeded" | "cached" | "failed" | "skipped">;
-			level?: Array<
-				"trace" | "debug" | "command" | "info" | "warn" | "error" | "systemError" | "fatal"
-			>;
-			search?: string;
-			limit?: number;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetVercelCiTaskLogsPath;
+		queryParams?: Partial<GetVercelCiTaskLogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25640,18 +25307,8 @@ export async function getVercelCiTaskLogs(
 		>,
 		null,
 		Record<string, string>,
-		{
-			task?: Array<string>;
-			conclusion?: Array<"succeeded" | "cached" | "failed" | "skipped">;
-			level?: Array<
-				"trace" | "debug" | "command" | "info" | "warn" | "error" | "systemError" | "fatal"
-			>;
-			search?: string;
-			limit?: number;
-			teamId?: string;
-			slug?: string;
-		},
-		{ invocationId: string; attempt: string }
+		Partial<GetVercelCiTaskLogsQuery>,
+		GetVercelCiTaskLogsPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/attempts/${encodeURIComponent(String(pathParams.attempt))}/task-logs`,
@@ -25673,15 +25330,7 @@ export async function searchVercelCiLogs(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			invocation?: Array<string>;
-			search?: string;
-			level?: Array<
-				"trace" | "debug" | "command" | "info" | "warn" | "error" | "systemError" | "fatal"
-			>;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<SearchVercelCiLogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25700,15 +25349,7 @@ export async function searchVercelCiLogs(
 		>,
 		null,
 		Record<string, string>,
-		{
-			invocation?: Array<string>;
-			search?: string;
-			level?: Array<
-				"trace" | "debug" | "command" | "info" | "warn" | "error" | "systemError" | "fatal"
-			>;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<SearchVercelCiLogsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -25732,21 +25373,8 @@ export async function getVercelCiJobRunLogs(
 		queryParams,
 		config,
 	}: {
-		pathParams: {
-			invocationId: string;
-			attempt: string;
-			jobDefinitionId: string;
-			runAttempt: string;
-		};
-		queryParams?: {
-			follow?: 0 | 1;
-			since?: number;
-			level?: Array<
-				"trace" | "debug" | "command" | "info" | "warn" | "error" | "systemError" | "fatal"
-			>;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetVercelCiJobRunLogsPath;
+		queryParams?: Partial<GetVercelCiJobRunLogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25780,16 +25408,8 @@ export async function getVercelCiJobRunLogs(
 		>,
 		null,
 		Record<string, string>,
-		{
-			follow?: 0 | 1;
-			since?: number;
-			level?: Array<
-				"trace" | "debug" | "command" | "info" | "warn" | "error" | "systemError" | "fatal"
-			>;
-			teamId?: string;
-			slug?: string;
-		},
-		{ invocationId: string; attempt: string; jobDefinitionId: string; runAttempt: string }
+		Partial<GetVercelCiJobRunLogsQuery>,
+		GetVercelCiJobRunLogsPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/attempts/${encodeURIComponent(String(pathParams.attempt))}/job-definitions/${encodeURIComponent(String(pathParams.jobDefinitionId))}/runs/${encodeURIComponent(String(pathParams.runAttempt))}/logs`,
@@ -25812,23 +25432,8 @@ export async function getVercelCiTaskRunLogs(
 		queryParams,
 		config,
 	}: {
-		pathParams: {
-			invocationId: string;
-			attempt: string;
-			jobDefinitionId: string;
-			runAttempt: string;
-			taskDefinitionId: string;
-			taskRunAttempt: string;
-		};
-		queryParams?: {
-			follow?: 0 | 1;
-			since?: number;
-			level?: Array<
-				"trace" | "debug" | "command" | "info" | "warn" | "error" | "systemError" | "fatal"
-			>;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetVercelCiTaskRunLogsPath;
+		queryParams?: Partial<GetVercelCiTaskRunLogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25870,23 +25475,8 @@ export async function getVercelCiTaskRunLogs(
 		>,
 		null,
 		Record<string, string>,
-		{
-			follow?: 0 | 1;
-			since?: number;
-			level?: Array<
-				"trace" | "debug" | "command" | "info" | "warn" | "error" | "systemError" | "fatal"
-			>;
-			teamId?: string;
-			slug?: string;
-		},
-		{
-			invocationId: string;
-			attempt: string;
-			jobDefinitionId: string;
-			runAttempt: string;
-			taskDefinitionId: string;
-			taskRunAttempt: string;
-		}
+		Partial<GetVercelCiTaskRunLogsQuery>,
+		GetVercelCiTaskRunLogsPath
 	>({
 		method: "GET",
 		url: `/v1/vercel-ci/invocations/${encodeURIComponent(String(pathParams.invocationId))}/attempts/${encodeURIComponent(String(pathParams.attempt))}/job-definitions/${encodeURIComponent(String(pathParams.jobDefinitionId))}/runs/${encodeURIComponent(String(pathParams.runAttempt))}/task-definitions/${encodeURIComponent(String(pathParams.taskDefinitionId))}/runs/${encodeURIComponent(String(pathParams.taskRunAttempt))}/logs`,
@@ -25908,7 +25498,7 @@ export async function createWebInsightsToggle(
 		config,
 	}: {
 		body?: CreateWebInsightsToggleBody;
-		queryParams?: { projectId?: string };
+		queryParams?: Partial<CreateWebInsightsToggleQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25925,7 +25515,7 @@ export async function createWebInsightsToggle(
 		>,
 		CreateWebInsightsToggleBody,
 		Record<string, string>,
-		{ projectId?: string },
+		Partial<CreateWebInsightsToggleQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -25949,16 +25539,7 @@ export async function aggregatePageviews(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			projectId?: string;
-			by?: Array<unknown>;
-			since?: unknown;
-			until?: unknown;
-			limit?: number;
-			filter?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<AggregatePageviewsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25977,16 +25558,7 @@ export async function aggregatePageviews(
 		>,
 		null,
 		Record<string, string>,
-		{
-			projectId?: string;
-			by?: Array<unknown>;
-			since?: unknown;
-			until?: unknown;
-			limit?: number;
-			filter?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<AggregatePageviewsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -26009,16 +25581,7 @@ export async function aggregateEvents(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			projectId?: string;
-			by?: Array<unknown>;
-			since?: unknown;
-			until?: unknown;
-			limit?: number;
-			filter?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<AggregateEventsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26037,16 +25600,7 @@ export async function aggregateEvents(
 		>,
 		null,
 		Record<string, string>,
-		{
-			projectId?: string;
-			by?: Array<unknown>;
-			since?: unknown;
-			until?: unknown;
-			limit?: number;
-			filter?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<AggregateEventsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -26069,14 +25623,7 @@ export async function countPageviews(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			projectId?: string;
-			since?: unknown;
-			until?: unknown;
-			filter?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<CountPageviewsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26095,14 +25642,7 @@ export async function countPageviews(
 		>,
 		null,
 		Record<string, string>,
-		{
-			projectId?: string;
-			since?: unknown;
-			until?: unknown;
-			filter?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<CountPageviewsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -26125,14 +25665,7 @@ export async function countEvents(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			projectId?: string;
-			since?: unknown;
-			until?: unknown;
-			filter?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<CountEventsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26151,14 +25684,7 @@ export async function countEvents(
 		>,
 		null,
 		Record<string, string>,
-		{
-			projectId?: string;
-			since?: unknown;
-			until?: unknown;
-			filter?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<CountEventsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -26183,7 +25709,7 @@ export async function createWebhook(
 		config,
 	}: {
 		body: CreateWebhookBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<CreateWebhookQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26200,7 +25726,7 @@ export async function createWebhook(
 		>,
 		CreateWebhookBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<CreateWebhookQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -26224,7 +25750,7 @@ export async function getWebhooks(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { projectId?: string; teamId?: string; slug?: string };
+		queryParams?: Partial<GetWebhooksQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26241,7 +25767,7 @@ export async function getWebhooks(
 		>,
 		null,
 		Record<string, string>,
-		{ projectId?: string; teamId?: string; slug?: string },
+		Partial<GetWebhooksQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -26265,8 +25791,8 @@ export async function getWebhook(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetWebhookPath;
+		queryParams?: Partial<GetWebhookQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26286,8 +25812,8 @@ export async function getWebhook(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<GetWebhookQuery>,
+		GetWebhookPath
 	>({
 		method: "GET",
 		url: `/v1/webhooks/${encodeURIComponent(String(pathParams.id))}`,
@@ -26310,8 +25836,8 @@ export async function deleteWebhook(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteWebhookPath;
+		queryParams?: Partial<DeleteWebhookQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26331,8 +25857,8 @@ export async function deleteWebhook(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<DeleteWebhookQuery>,
+		DeleteWebhookPath
 	>({
 		method: "DELETE",
 		url: `/v1/webhooks/${encodeURIComponent(String(pathParams.id))}`,
@@ -26355,8 +25881,8 @@ export async function listDeploymentAliases(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: ListDeploymentAliasesPath;
+		queryParams?: Partial<ListDeploymentAliasesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26376,8 +25902,8 @@ export async function listDeploymentAliases(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<ListDeploymentAliasesQuery>,
+		ListDeploymentAliasesPath
 	>({
 		method: "GET",
 		url: `/v2/deployments/${encodeURIComponent(String(pathParams.id))}/aliases`,
@@ -26401,9 +25927,9 @@ export async function assignAlias(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: unknown };
+		pathParams: AssignAliasPath;
 		body: AssignAliasBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<AssignAliasQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26425,8 +25951,8 @@ export async function assignAlias(
 		>,
 		AssignAliasBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: unknown }
+		Partial<AssignAliasQuery>,
+		AssignAliasPath
 	>({
 		method: "POST",
 		url: `/v2/deployments/${encodeURIComponent(String(pathParams.id))}/aliases`,
@@ -26449,17 +25975,7 @@ export async function listAliases(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			domain?: unknown;
-			from?: number;
-			limit?: number;
-			projectId?: string;
-			since?: number;
-			until?: number;
-			rollbackDeploymentId?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<ListAliasesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26476,17 +25992,7 @@ export async function listAliases(
 		>,
 		null,
 		Record<string, string>,
-		{
-			domain?: unknown;
-			from?: number;
-			limit?: number;
-			projectId?: string;
-			since?: number;
-			until?: number;
-			rollbackDeploymentId?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<ListAliasesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -26510,15 +26016,8 @@ export async function getAlias(
 		queryParams,
 		config,
 	}: {
-		pathParams: { idOrAlias: string };
-		queryParams?: {
-			from?: number;
-			projectId?: string;
-			since?: number;
-			until?: number;
-			teamId?: string;
-			slug?: string;
-		};
+		pathParams: GetAliasPath;
+		queryParams?: Partial<GetAliasQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26538,15 +26037,8 @@ export async function getAlias(
 		>,
 		null,
 		Record<string, string>,
-		{
-			from?: number;
-			projectId?: string;
-			since?: number;
-			until?: number;
-			teamId?: string;
-			slug?: string;
-		},
-		{ idOrAlias: string }
+		Partial<GetAliasQuery>,
+		GetAliasPath
 	>({
 		method: "GET",
 		url: `/v4/aliases/${encodeURIComponent(String(pathParams.idOrAlias))}`,
@@ -26569,8 +26061,8 @@ export async function deleteAlias(
 		queryParams,
 		config,
 	}: {
-		pathParams: { aliasId: unknown };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: DeleteAliasPath;
+		queryParams?: Partial<DeleteAliasQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26590,8 +26082,8 @@ export async function deleteAlias(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ aliasId: unknown }
+		Partial<DeleteAliasQuery>,
+		DeleteAliasPath
 	>({
 		method: "DELETE",
 		url: `/v2/aliases/${encodeURIComponent(String(pathParams.aliasId))}`,
@@ -26615,9 +26107,9 @@ export async function patchUrlProtectionBypass(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
+		pathParams: PatchUrlProtectionBypassPath;
 		body?: PatchUrlProtectionBypassBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<PatchUrlProtectionBypassQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26639,8 +26131,8 @@ export async function patchUrlProtectionBypass(
 		>,
 		PatchUrlProtectionBypassBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<PatchUrlProtectionBypassQuery>,
+		PatchUrlProtectionBypassPath
 	>({
 		method: "PATCH",
 		url: `/aliases/${encodeURIComponent(String(pathParams.id))}/protection-bypass`,
@@ -26664,8 +26156,8 @@ export async function getCertById(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: GetCertByIdPath;
+		queryParams?: Partial<GetCertByIdQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26685,8 +26177,8 @@ export async function getCertById(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<GetCertByIdQuery>,
+		GetCertByIdPath
 	>({
 		method: "GET",
 		url: `/v8/certs/${encodeURIComponent(String(pathParams.id))}`,
@@ -26709,8 +26201,8 @@ export async function removeCert(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: RemoveCertPath;
+		queryParams?: Partial<RemoveCertQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26730,8 +26222,8 @@ export async function removeCert(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<RemoveCertQuery>,
+		RemoveCertPath
 	>({
 		method: "DELETE",
 		url: `/v8/certs/${encodeURIComponent(String(pathParams.id))}`,
@@ -26753,7 +26245,7 @@ export async function getCerts(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<GetCertsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26764,7 +26256,7 @@ export async function getCerts(
 		ErrorWrapper<GetCertsStatus400 | GetCertsStatus401 | GetCertsStatus403 | GetCertsStatus410>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<GetCertsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -26789,7 +26281,7 @@ export async function issueCert(
 		config,
 	}: {
 		body?: IssueCertBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<IssueCertQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26809,7 +26301,7 @@ export async function issueCert(
 		>,
 		IssueCertBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<IssueCertQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -26835,7 +26327,7 @@ export async function uploadCert(
 		config,
 	}: {
 		body?: UploadCertBody;
-		queryParams?: { teamId?: string; slug?: string };
+		queryParams?: Partial<UploadCertQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26853,7 +26345,7 @@ export async function uploadCert(
 		>,
 		UploadCertBody,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
+		Partial<UploadCertQuery>,
 		Record<string, string>
 	>({
 		method: "PUT",
@@ -26878,8 +26370,8 @@ export async function listDeploymentFiles(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { teamId?: string; slug?: string };
+		pathParams: ListDeploymentFilesPath;
+		queryParams?: Partial<ListDeploymentFilesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26899,8 +26391,8 @@ export async function listDeploymentFiles(
 		>,
 		null,
 		Record<string, string>,
-		{ teamId?: string; slug?: string },
-		{ id: string }
+		Partial<ListDeploymentFilesQuery>,
+		ListDeploymentFilesPath
 	>({
 		method: "GET",
 		url: `/v6/deployments/${encodeURIComponent(String(pathParams.id))}/files`,
@@ -26923,8 +26415,8 @@ export async function getDeploymentFileContents(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string; fileId: string };
-		queryParams?: { path?: string; teamId?: string; slug?: string };
+		pathParams: GetDeploymentFileContentsPath;
+		queryParams?: Partial<GetDeploymentFileContentsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26948,8 +26440,8 @@ export async function getDeploymentFileContents(
 		>,
 		null,
 		Record<string, string>,
-		{ path?: string; teamId?: string; slug?: string },
-		{ id: string; fileId: string }
+		Partial<GetDeploymentFileContentsQuery>,
+		GetDeploymentFileContentsPath
 	>({
 		method: "GET",
 		url: `/v8/deployments/${encodeURIComponent(String(pathParams.id))}/files/${encodeURIComponent(String(pathParams.fileId))}`,
@@ -26971,24 +26463,7 @@ export async function getDeployments(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			app?: string;
-			from?: number;
-			limit?: number;
-			projectId?: string;
-			projectIds?: Array<string>;
-			target?: string;
-			to?: number;
-			users?: string;
-			since?: number;
-			until?: number;
-			state?: string;
-			rollbackCandidate?: boolean;
-			branch?: string;
-			sha?: string;
-			teamId?: string;
-			slug?: string;
-		};
+		queryParams?: Partial<GetDeploymentsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -27006,24 +26481,7 @@ export async function getDeployments(
 		>,
 		null,
 		Record<string, string>,
-		{
-			app?: string;
-			from?: number;
-			limit?: number;
-			projectId?: string;
-			projectIds?: Array<string>;
-			target?: string;
-			to?: number;
-			users?: string;
-			since?: number;
-			until?: number;
-			state?: string;
-			rollbackCandidate?: boolean;
-			branch?: string;
-			sha?: string;
-			teamId?: string;
-			slug?: string;
-		},
+		Partial<GetDeploymentsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -27047,8 +26505,8 @@ export async function deleteDeployment(
 		queryParams,
 		config,
 	}: {
-		pathParams: { id: string };
-		queryParams?: { url?: string; teamId?: string; slug?: string };
+		pathParams: DeleteDeploymentPath;
+		queryParams?: Partial<DeleteDeploymentQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -27069,8 +26527,8 @@ export async function deleteDeployment(
 		>,
 		null,
 		Record<string, string>,
-		{ url?: string; teamId?: string; slug?: string },
-		{ id: string }
+		Partial<DeleteDeploymentQuery>,
+		DeleteDeploymentPath
 	>({
 		method: "DELETE",
 		url: `/v13/deployments/${encodeURIComponent(String(pathParams.id))}`,
