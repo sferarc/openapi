@@ -7877,6 +7877,21 @@ export type UserEvent = {
 						};
 				  }
 				| {
+						changes?:
+							| {
+									active?: (false | true) | undefined;
+									keyReplaced?: (false | true) | undefined;
+									previousName?: string | undefined;
+									zeroDataRetention?: (false | true) | undefined;
+							  }
+							| undefined;
+						credential: {
+							id: string;
+							name: string;
+							providerSlug: string;
+						};
+				  }
+				| {
 						added: string[];
 						changed: string[];
 						credential: {
@@ -21649,6 +21664,7 @@ export type CreateAiGatewayByokCredentialStatus201 = {
 	name: string;
 	ownerId: string;
 	providerSlug: string;
+	rotatedAt: number | null;
 	updatedAt: number;
 	zeroDataRetention: false | true;
 };
@@ -21828,6 +21844,7 @@ export type ListAiGatewayByokCredentialsStatus200 = {
 		name: string;
 		ownerId: string;
 		providerSlug: string;
+		rotatedAt: number | null;
 		updatedAt: number;
 		zeroDataRetention: false | true;
 	}[];
@@ -21899,6 +21916,7 @@ export type GetAiGatewayByokCredentialStatus200 = {
 	name: string;
 	ownerId: string;
 	providerSlug: string;
+	rotatedAt: number | null;
 	updatedAt: number;
 	zeroDataRetention: false | true;
 };
@@ -21969,6 +21987,7 @@ export type UpdateAiGatewayByokCredentialStatus200 = {
 	name: string;
 	ownerId: string;
 	providerSlug: string;
+	rotatedAt: number | null;
 	updatedAt: number;
 	zeroDataRetention: false | true;
 };
@@ -30569,6 +30588,8 @@ export type CreateConnectorStatus501 = unknown;
  */
 export type CreateConnectorStatus502 = ConnectError;
 
+export type CreateConnectorStatus503 = unknown;
+
 export type CreateConnectorStatus504 = unknown;
 
 /**
@@ -30595,6 +30616,7 @@ export type CreateConnectorResponses = {
 	"500": CreateConnectorStatus500;
 	"501": CreateConnectorStatus501;
 	"502": CreateConnectorStatus502;
+	"503": CreateConnectorStatus503;
 	"504": CreateConnectorStatus504;
 };
 
@@ -30802,6 +30824,8 @@ export type ReplaceConnectorTriggerDestinationsStatus500 = ConnectError;
 
 export type ReplaceConnectorTriggerDestinationsStatus501 = unknown;
 
+export type ReplaceConnectorTriggerDestinationsStatus503 = unknown;
+
 export type ReplaceConnectorTriggerDestinationsStatus504 = unknown;
 
 /**
@@ -30828,6 +30852,7 @@ export type ReplaceConnectorTriggerDestinationsResponses = {
 	"422": ReplaceConnectorTriggerDestinationsStatus422;
 	"500": ReplaceConnectorTriggerDestinationsStatus500;
 	"501": ReplaceConnectorTriggerDestinationsStatus501;
+	"503": ReplaceConnectorTriggerDestinationsStatus503;
 	"504": ReplaceConnectorTriggerDestinationsStatus504;
 };
 
@@ -31194,6 +31219,8 @@ export type UpsertConnectorProjectConnectionStatus500 = ConnectError;
 
 export type UpsertConnectorProjectConnectionStatus501 = unknown;
 
+export type UpsertConnectorProjectConnectionStatus503 = unknown;
+
 export type UpsertConnectorProjectConnectionStatus504 = unknown;
 
 /**
@@ -31220,6 +31247,7 @@ export type UpsertConnectorProjectConnectionResponses = {
 	"422": UpsertConnectorProjectConnectionStatus422;
 	"500": UpsertConnectorProjectConnectionStatus500;
 	"501": UpsertConnectorProjectConnectionStatus501;
+	"503": UpsertConnectorProjectConnectionStatus503;
 	"504": UpsertConnectorProjectConnectionStatus504;
 };
 

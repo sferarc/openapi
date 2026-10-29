@@ -372,6 +372,7 @@ import type {
 	CreateConnectorStatus500,
 	CreateConnectorStatus501,
 	CreateConnectorStatus502,
+	CreateConnectorStatus503,
 	CreateConnectorStatus504,
 	CreateCustomEnvironmentBody,
 	CreateCustomEnvironmentPath,
@@ -3442,6 +3443,7 @@ import type {
 	ReplaceConnectorTriggerDestinationsStatus422,
 	ReplaceConnectorTriggerDestinationsStatus500,
 	ReplaceConnectorTriggerDestinationsStatus501,
+	ReplaceConnectorTriggerDestinationsStatus503,
 	ReplaceConnectorTriggerDestinationsStatus504,
 	ReplaceDomainsByDomainRecordsPath,
 	ReplaceDomainsByDomainRecordsResponse,
@@ -4321,6 +4323,7 @@ import type {
 	UpsertConnectorProjectConnectionStatus422,
 	UpsertConnectorProjectConnectionStatus500,
 	UpsertConnectorProjectConnectionStatus501,
+	UpsertConnectorProjectConnectionStatus503,
 	UpsertConnectorProjectConnectionStatus504,
 	VerifyProjectDomainPath,
 	VerifyProjectDomainQuery,
@@ -7976,6 +7979,7 @@ export async function createConnector(
 			| CreateConnectorStatus500
 			| CreateConnectorStatus501
 			| CreateConnectorStatus502
+			| CreateConnectorStatus503
 			| CreateConnectorStatus504
 		>,
 		CreateConnectorBody,
@@ -8083,6 +8087,7 @@ export async function replaceConnectorTriggerDestinations(
 			| ReplaceConnectorTriggerDestinationsStatus422
 			| ReplaceConnectorTriggerDestinationsStatus500
 			| ReplaceConnectorTriggerDestinationsStatus501
+			| ReplaceConnectorTriggerDestinationsStatus503
 			| ReplaceConnectorTriggerDestinationsStatus504
 		>,
 		ReplaceConnectorTriggerDestinationsBody,
@@ -8288,6 +8293,7 @@ export async function upsertConnectorProjectConnection(
 			| UpsertConnectorProjectConnectionStatus422
 			| UpsertConnectorProjectConnectionStatus500
 			| UpsertConnectorProjectConnectionStatus501
+			| UpsertConnectorProjectConnectionStatus503
 			| UpsertConnectorProjectConnectionStatus504
 		>,
 		UpsertConnectorProjectConnectionBody,
