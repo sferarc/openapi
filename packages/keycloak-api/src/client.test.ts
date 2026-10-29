@@ -37,6 +37,18 @@ describe("KeycloakAdminApi.request", () => {
 		expect(urls).toEqual([]);
 	});
 
+	it("types request() params from the operation", () => {
+		const { client } = setup();
+		// Never called: tsc fails if a @ts-expect-error below stops finding an error.
+		const typeChecks = () => [
+			// @ts-expect-error pathParams needs realm
+			client.request("GET /admin/realms/{realm}", { pathParams: {} }),
+			// @ts-expect-error the operation has no such parameter
+			client.request("GET /admin/realms/{realm}", { pathParams: { realm: "a" }, nope: 1 }),
+		];
+		expect(typeChecks).toBeTypeOf("function");
+	});
+
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
 		await client.request("GET /admin/realms", {});
@@ -92,6 +104,21 @@ describe("KeycloakAccountApi.request", () => {
 			}),
 		).rejects.toThrow("Missing required path parameter: providerId");
 		expect(urls).toEqual([]);
+	});
+
+	it("types request() params from the operation", () => {
+		const { client } = setup();
+		// Never called: tsc fails if a @ts-expect-error below stops finding an error.
+		const typeChecks = () => [
+			// @ts-expect-error pathParams needs providerId
+			client.request("GET /account/linked-accounts/{providerId}", { pathParams: {} }),
+			client.request("GET /account/linked-accounts/{providerId}", {
+				pathParams: { providerId: "a" },
+				// @ts-expect-error the operation has no such parameter
+				nope: 1,
+			}),
+		];
+		expect(typeChecks).toBeTypeOf("function");
 	});
 
 	it("calls an endpoint without params", async () => {

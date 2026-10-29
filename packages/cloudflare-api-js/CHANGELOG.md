@@ -1,5 +1,17 @@
 # cloudflare-api-js
 
+## 2.3.1
+
+### Patch Changes
+
+- 3095560: Type the params of `request()` and `client.api` operations from the operation. They were typed as `{}`, so a missing path parameter, a wrong body or an unknown key compiled and failed only at runtime. Header parameters are kept under `headers`.
+
+## 2.3.0
+
+### Minor Changes
+
+- 2c6705d: [BREAKING] Changed 200 response types for SQL and Analytics Engine query operations to be a union of JSON and X-NDJSON (string array) response types.
+
 ## 2.2.3
 
 ### Patch Changes

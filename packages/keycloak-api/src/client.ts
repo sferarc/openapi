@@ -16,18 +16,16 @@ export interface KeycloakAccountApiOptions {
 	fetch?: FetchImpl;
 }
 
-type AdminRequestEndpointParams<T extends keyof typeof adminOperationsByPath> = Omit<
-	Parameters<(typeof adminOperationsByPath)[T]>[0],
-	keyof FetcherConfig
+type AdminRequestEndpointParams<T extends keyof typeof adminOperationsByPath> = NonNullable<
+	Parameters<(typeof adminOperationsByPath)[T]>[0]
 >;
 
 type AdminRequestEndpointResult<T extends keyof typeof adminOperationsByPath> = ReturnType<
 	(typeof adminOperationsByPath)[T]
 >;
 
-type AccountRequestEndpointParams<T extends keyof typeof accountOperationsByPath> = Omit<
-	Parameters<(typeof accountOperationsByPath)[T]>[0],
-	keyof FetcherConfig
+type AccountRequestEndpointParams<T extends keyof typeof accountOperationsByPath> = NonNullable<
+	Parameters<(typeof accountOperationsByPath)[T]>[0]
 >;
 
 type AccountRequestEndpointResult<T extends keyof typeof accountOperationsByPath> = ReturnType<

@@ -29,6 +29,20 @@ describe("V0Api.request", () => {
 		expect(urls).toEqual([]);
 	});
 
+	it("types request() and client.api params from the operation", () => {
+		const { client } = setup();
+		// Never called: tsc fails if a @ts-expect-error below stops finding an error.
+		const typeChecks = () => [
+			// @ts-expect-error pathParams needs chatId
+			client.request("GET /chats/{chatId}", { pathParams: {} }),
+			// @ts-expect-error the operation has no such parameter
+			client.request("GET /chats/{chatId}", { pathParams: { chatId: "a" }, nope: 1 }),
+			// @ts-expect-error pathParams needs chatId
+			client.api.chats.chatsGetById({ pathParams: {} }),
+		];
+		expect(typeChecks).toBeTypeOf("function");
+	});
+
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
 		await client.request("GET /chats", {});

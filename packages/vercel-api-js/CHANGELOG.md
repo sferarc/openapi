@@ -1,5 +1,17 @@
 # vercel-api-js
 
+## 2.3.1
+
+### Patch Changes
+
+- 3095560: Type the params of `request()`, `client.api` operations and the Effect `ApiService` and `effectByPath` from the operation. They were typed as `{}`, so a missing path parameter, a wrong body or an unknown key compiled and failed only at runtime. Header parameters are kept under `headers`.
+
+## 2.3.0
+
+### Minor Changes
+
+- d7ede78: Added the updateConditionalBypass operation and related types.
+
 ## 2.2.0
 
 ### Minor Changes

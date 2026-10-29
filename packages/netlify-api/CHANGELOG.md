@@ -1,5 +1,21 @@
 # netlify-api
 
+## 2.1.1
+
+### Patch Changes
+
+- 3095560: Type the params of `request()`, `client.api` operations and the Effect `ApiService` and `effectByPath` from the operation. They were typed as `{}`, so a missing path parameter, a wrong body or an unknown key compiled and failed only at runtime. Header parameters are kept under `headers`.
+
+## 2.1.0
+
+### Minor Changes
+
+- d0b6702: Added new operations getIdentityUser and lookupIdentityUser.
+
+### Patch Changes
+
+- d0b6702: Added new types for IdentityUser and parameters and responses for getIdentityUser and lookupIdentityUser operations.
+
 ## 2.0.3
 
 ### Patch Changes
