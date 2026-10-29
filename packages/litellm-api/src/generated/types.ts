@@ -42120,7 +42120,7 @@ export type AgentSkillsArchiveV1SkillsSkillIdArchiveGetPath = {
 	skill_id: string;
 };
 
-export type AgentSkillsArchiveV1SkillsSkillIdArchiveGetStatus200 = unknown;
+export type AgentSkillsArchiveV1SkillsSkillIdArchiveGetStatus200 = Blob;
 
 export type AgentSkillsArchiveV1SkillsSkillIdArchiveGetStatus422 = HTTPValidationError;
 
