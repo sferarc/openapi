@@ -249,6 +249,8 @@ import type {
 	GetEnvVarsResponse,
 	GetHookPath,
 	GetHookResponse,
+	GetIdentityUserPath,
+	GetIdentityUserResponse,
 	GetIndividualDnsRecordPath,
 	GetIndividualDnsRecordResponse,
 	GetLatestPluginRunsPath,
@@ -374,6 +376,9 @@ import type {
 	ListSitesResponse,
 	LockDeployPath,
 	LockDeployResponse,
+	LookupIdentityUserBody,
+	LookupIdentityUserPath,
+	LookupIdentityUserResponse,
 	MarkDevServerActivityPath,
 	MarkDevServerActivityResponse,
 	NotifyBuildStartPath,
@@ -3296,17 +3301,23 @@ export async function getLatestPluginRuns(
 	if (pathParams?.site_id == null || String(pathParams.site_id) === "") {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		packages: Array.isArray(queryParams.packages)
+			? queryParams.packages.join(",")
+			: queryParams.packages,
+	};
 	const data = await request<
 		GetLatestPluginRunsResponse,
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		Partial<GetLatestPluginRunsQuery>,
+		Record<string, unknown>,
 		GetLatestPluginRunsPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/plugin_runs/latest`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4454,17 +4465,23 @@ export async function createAgentRunner(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
+	const query = queryParams && {
+		...queryParams,
+		file_keys: Array.isArray(queryParams.file_keys)
+			? queryParams.file_keys.join(",")
+			: queryParams.file_keys,
+	};
 	const data = await request<
 		CreateAgentRunnerResponse,
 		ErrorWrapper<CreateAgentRunnerStatus404 | CreateAgentRunnerStatus422>,
 		null,
 		Record<string, string>,
-		Partial<CreateAgentRunnerQuery>,
+		Record<string, unknown>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/agent_runners`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4911,6 +4928,12 @@ export async function createAgentRunnerSession(
 	if (pathParams?.agent_runner_id == null || String(pathParams.agent_runner_id) === "") {
 		throw new Error(`Missing required path parameter: agent_runner_id`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		file_keys: Array.isArray(queryParams.file_keys)
+			? queryParams.file_keys.join(",")
+			: queryParams.file_keys,
+	};
 	const data = await request<
 		CreateAgentRunnerSessionResponse,
 		ErrorWrapper<
@@ -4923,12 +4946,12 @@ export async function createAgentRunnerSession(
 		>,
 		CreateAgentRunnerSessionBody,
 		Record<string, string>,
-		Partial<CreateAgentRunnerSessionQuery>,
+		Record<string, unknown>,
 		CreateAgentRunnerSessionPath
 	>({
 		method: "POST",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/sessions`,
-		queryParams,
+		queryParams: query,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -5435,6 +5458,93 @@ export async function deleteServiceInstance(
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/services/${encodeURIComponent(String(pathParams.addon))}/instances/${encodeURIComponent(String(pathParams.instance_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get an Identity user
+ * @description Returns one Identity user by ID. Agent runner tokens receive only the user's ID, email, confirmation, invitation, sign-in, password-reset and email-change timestamps, and the `provider` and `roles` fields of `app_metadata`.
+ * @link /sites/{site_id}/identity/{identity_id}/users/{user_id}
+ */
+export async function getIdentityUser(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetIdentityUserPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.site_id == null || String(pathParams.site_id) === "") {
+		throw new Error(`Missing required path parameter: site_id`);
+	}
+
+	if (pathParams?.identity_id == null || String(pathParams.identity_id) === "") {
+		throw new Error(`Missing required path parameter: identity_id`);
+	}
+
+	if (pathParams?.user_id == null || String(pathParams.user_id) === "") {
+		throw new Error(`Missing required path parameter: user_id`);
+	}
+	const data = await request<
+		GetIdentityUserResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetIdentityUserPath
+	>({
+		method: "GET",
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/identity/${encodeURIComponent(String(pathParams.identity_id))}/users/${encodeURIComponent(String(pathParams.user_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Look up an Identity user by email
+ * @description Returns the one Identity user with this exact email. Matching ignores case and trailing spaces. Partial matches and pagination are not supported, and an unknown email returns 404. Agent runner tokens receive the same restricted fields as `getIdentityUser`.
+ * @link /sites/{site_id}/identity/{identity_id}/users/lookup
+ */
+export async function lookupIdentityUser(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: LookupIdentityUserPath;
+		body: LookupIdentityUserBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.site_id == null || String(pathParams.site_id) === "") {
+		throw new Error(`Missing required path parameter: site_id`);
+	}
+
+	if (pathParams?.identity_id == null || String(pathParams.identity_id) === "") {
+		throw new Error(`Missing required path parameter: identity_id`);
+	}
+	const data = await request<
+		LookupIdentityUserResponse,
+		ErrorWrapper<Error>,
+		LookupIdentityUserBody,
+		Record<string, string>,
+		Record<string, string>,
+		LookupIdentityUserPath
+	>({
+		method: "POST",
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/identity/${encodeURIComponent(String(pathParams.identity_id))}/users/lookup`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7779,6 +7889,8 @@ export const operationsByPath = {
 	"GET /sites/{site_id}/services/{addon}/instances/{instance_id}": showServiceInstance,
 	"PUT /sites/{site_id}/services/{addon}/instances/{instance_id}": updateServiceInstance,
 	"DELETE /sites/{site_id}/services/{addon}/instances/{instance_id}": deleteServiceInstance,
+	"GET /sites/{site_id}/identity/{identity_id}/users/{user_id}": getIdentityUser,
+	"POST /sites/{site_id}/identity/{identity_id}/users/lookup": lookupIdentityUser,
 	"GET /services/": getServices,
 	"GET /services/{addonName}": showService,
 	"GET /services/{addonName}/manifest": showServiceManifest,
@@ -8047,6 +8159,10 @@ export const operationsByTag = {
 		updateServiceInstance,
 		deleteServiceInstance,
 	},
+	identityuser: {
+		getIdentityUser,
+		lookupIdentityUser,
+	},
 	service: {
 		getServices,
 		showService,
@@ -8281,6 +8397,10 @@ export const tagDictionary = {
 		POST: ["createServiceInstance"],
 		PUT: ["updateServiceInstance"],
 		DELETE: ["deleteServiceInstance"],
+	},
+	identityuser: {
+		GET: ["getIdentityUser"],
+		POST: ["lookupIdentityUser"],
 	},
 	service: {
 		GET: ["getServices", "showService", "showServiceManifest"],

@@ -941,6 +941,28 @@ export const formSchema = z.object({
 	created_at: z.string().optional(),
 });
 
+export const identityUserSchema = z.object({
+	id: z.string().optional(),
+	email: z.string().optional(),
+	aud: z.string().optional(),
+	role: z.string().optional(),
+	confirmed_at: z.string().optional(),
+	invited_at: z.string().optional(),
+	confirmation_sent_at: z.string().optional(),
+	recovery_sent_at: z.string().optional(),
+	email_change_sent_at: z.string().optional(),
+	last_sign_in_at: z.string().optional(),
+	app_metadata: z
+		.object({
+			provider: z.string().optional(),
+			roles: z.array(z.string()).optional(),
+		})
+		.optional(),
+	user_metadata: z.object({}).optional(),
+	created_at: z.string().optional(),
+	updated_at: z.string().optional(),
+});
+
 export const hookTypeSchema = z.object({
 	name: z.string().optional(),
 	events: z.array(z.string()).optional(),
@@ -10302,6 +10324,101 @@ export const deleteServiceInstancePathSchema = z.object({
 	site_id: z.string(),
 	addon: z.string(),
 	instance_id: z.string(),
+});
+
+export const getIdentityUserPathSiteIdSchema = z.string();
+
+export const getIdentityUserPathIdentityIdSchema = z
+	.string()
+	.describe("The site's Identity instance ID, returned as `identity_instance_id` by `getSite`.");
+
+export const getIdentityUserPathUserIdSchema = z.string().describe("The Identity user's UUID.");
+
+export const getIdentityUserStatus200Schema = z.object({
+	id: z.string().optional(),
+	email: z.string().optional(),
+	aud: z.string().optional(),
+	role: z.string().optional(),
+	confirmed_at: z.string().optional(),
+	invited_at: z.string().optional(),
+	confirmation_sent_at: z.string().optional(),
+	recovery_sent_at: z.string().optional(),
+	email_change_sent_at: z.string().optional(),
+	last_sign_in_at: z.string().optional(),
+	app_metadata: z
+		.object({
+			provider: z.string().optional(),
+			roles: z.array(z.string()).optional(),
+		})
+		.optional(),
+	user_metadata: z.object({}).optional(),
+	created_at: z.string().optional(),
+	updated_at: z.string().optional(),
+});
+
+export const getIdentityUserStatusDefaultSchema = z.object({
+	code: z.coerce.bigint().optional(),
+	message: z.string(),
+});
+
+export const getIdentityUserResponseSchema = getIdentityUserStatus200Schema;
+
+export const getIdentityUserErrorSchema = getIdentityUserStatusDefaultSchema;
+
+export const getIdentityUserPathSchema = z.object({
+	site_id: z.string(),
+	identity_id: z
+		.string()
+		.describe("The site's Identity instance ID, returned as `identity_instance_id` by `getSite`."),
+	user_id: z.string().describe("The Identity user's UUID."),
+});
+
+export const lookupIdentityUserPathSiteIdSchema = z.string();
+
+export const lookupIdentityUserPathIdentityIdSchema = z
+	.string()
+	.describe("The site's Identity instance ID, returned as `identity_instance_id` by `getSite`.");
+
+export const lookupIdentityUserStatus200Schema = z.object({
+	id: z.string().optional(),
+	email: z.string().optional(),
+	aud: z.string().optional(),
+	role: z.string().optional(),
+	confirmed_at: z.string().optional(),
+	invited_at: z.string().optional(),
+	confirmation_sent_at: z.string().optional(),
+	recovery_sent_at: z.string().optional(),
+	email_change_sent_at: z.string().optional(),
+	last_sign_in_at: z.string().optional(),
+	app_metadata: z
+		.object({
+			provider: z.string().optional(),
+			roles: z.array(z.string()).optional(),
+		})
+		.optional(),
+	user_metadata: z.object({}).optional(),
+	created_at: z.string().optional(),
+	updated_at: z.string().optional(),
+});
+
+export const lookupIdentityUserStatusDefaultSchema = z.object({
+	code: z.coerce.bigint().optional(),
+	message: z.string(),
+});
+
+export const lookupIdentityUserResponseSchema = lookupIdentityUserStatus200Schema;
+
+export const lookupIdentityUserErrorSchema = lookupIdentityUserStatusDefaultSchema;
+
+export const lookupIdentityUserBodySchema = z.object({
+	email: z.string(),
+});
+
+export const lookupIdentityUserPathSchema = z.object({
+	site_id: z.string(),
+	identity_id: z
+		.string()
+		.describe("The site's Identity instance ID, returned as `identity_instance_id` by `getSite`."),
 });
 
 export const getServicesQuerySearchSchema = z.string().optional();
