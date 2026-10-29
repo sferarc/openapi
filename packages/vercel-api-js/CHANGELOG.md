@@ -1,5 +1,15 @@
 # vercel-api-js
 
+## 2.4.0
+
+### Minor Changes
+
+- 7c23fda: Add the tarball `body` to `writeSessionFiles` (`POST /v2/sandboxes/sessions/{sessionId}/fs/write`), sent with `Content-Type: application/gzip`. Vercel's spec describes the gzipped tarball upload only in the operation's description and declares no request body, so the operation had no `body` parameter and sent the request without one. The body is required and typed as `Blob | ArrayBuffer | Uint8Array | ReadableStream | string`.
+
+### Patch Changes
+
+- f1610e4: Type the responses the API sends as something other than `application/json` instead of `unknown`: a download the client resolves as a `Blob` (a zip, PDF, image or `application/octet-stream`) is typed `Blob`, a text body such as `text/plain` or a PEM file is typed `string`, as is any other non-JSON body the client returns as text whatever its schema (Cloudflare's `multipart/form-data` snippet content), and an `application/scim+json` body gets its schema. For example `chatsDownloadVersion` in `v0-api`, `readSessionFile` in `vercel-api-js` and Cloudflare's PDF, screenshot and KV value downloads.
+
 ## 2.3.1
 
 ### Patch Changes
