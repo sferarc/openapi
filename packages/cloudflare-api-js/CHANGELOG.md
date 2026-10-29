@@ -1,5 +1,25 @@
 # cloudflare-api-js
 
+## 2.4.0
+
+### Minor Changes
+
+- 02ee659: Added rssArticleReprocess operation to allow reprocessing of RSS articles.
+- 02ee659: [BREAKING] Remove operations no longer in the cloudflare-api-js OpenAPI spec: `catalogSyncsCreate`, `catalogSyncsDelete`, `catalogSyncsList`, `catalogSyncsPatch`, `catalogSyncsPrebuiltPoliciesList`, `catalogSyncsRead`, `catalogSyncsRefresh`, `catalogSyncsUpdate`, `onrampsApply`, `onrampsCreate`, `onrampsDelete`, `onrampsExport`, `onrampsList`, `onrampsMwanAddrSpacePatch`, `onrampsMwanAddrSpaceRead`, `onrampsMwanAddrSpaceUpdate`, `onrampsPatch`, `onrampsPlan`, `onrampsRead`, `onrampsUpdate`, `providersCreate`, `providersDelete`, `providersDiscover`, `providersDiscoverAll`, `providersInitialSetup`, `providersList`, `providersPatch`, `providersRead`, `providersUpdate`, `resourcesCatalogExport`, `resourcesCatalogList`, `resourcesCatalogPolicyPreview`, `resourcesCatalogRead`.
+- 02ee659: [BREAKING] Removed all catalogSyncs, onramps, and providers operations and types related to MCN (Magic Cloud Network).
+- 02ee659: Added spendPoliciesList, spendPoliciesCreate, spendPoliciesActivity, spendPoliciesDelete, spendPoliciesGet, spendPoliciesUpdate, and spendPoliciesListAudit operations for billing spend policies management.
+- 02ee659: Added tenantLevelCustomNameserversListTenantCustomNameservers, tenantLevelCustomNameserversAddTenantCustomNameserver, and tenantLevelCustomNameserversDeleteTenantCustomNameserver operations for tenant-level custom nameservers.
+- 02ee659: Added emailDomainsChanges operation to fetch changes to email domains.
+- 02ee659: Renamed RealtimekitLivestreamBase and related types to RealtimekitLivestream and RealtimekitLivestreamSession, and changed status enum type.
+- 02ee659: [BREAKING] Replaced all Dos* types and operations for DDoS protection with new AdvancedDdosProtection* types and related operations.
+
+### Patch Changes
+
+- 02ee659: Removed types RealtimekitOverallStats, RealtimekitWebhookLog, and various types related to RealtimekitIdentity and RealtimekitSecret.
+- 02ee659: Changed type AaaFilterOptions from 'unknown[]' to 'object[]'.
+- 02ee659: Added new enums to AIGateway config result and request types, introducing 'S14' guardrails enums.
+- 02ee659: Changed many API response types (including GetHeartbeatStatus200, SqlApiQuery status codes, ArtifactsReposBlobGetStatus200, etc.) from 'unknown' to more specific types like 'string' or 'Blob'.
+
 ## 2.3.2
 
 ### Patch Changes

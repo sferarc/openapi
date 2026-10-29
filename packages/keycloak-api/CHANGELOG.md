@@ -1,5 +1,13 @@
 # keycloak-api
 
+## 2.1.6
+
+### Patch Changes
+
+- b8e5376: Changed response type of GET /admin/realms/{realm}/localization/{locale}/{key} from unknown to string.
+- b8e5376: Changed response type of GET /admin/realms/{realm}/identity-provider/instances/{alias}/mapper-types from unknown to an object.
+- b8e5376: Changed response type of POST /admin/realms/{realm}/clients/{clientUuid}/certificates/{attr}/download from unknown to Blob.
+
 ## 2.1.5
 
 ### Patch Changes

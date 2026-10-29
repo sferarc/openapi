@@ -1,5 +1,12 @@
 # v0-api
 
+## 1.0.10
+
+### Patch Changes
+
+- 7da7d51: Changed ChatsResumeStatus200 response type from unknown to string.
+- 7da7d51: Changed ChatsDownloadVersionStatus200 response type from unknown to Blob.
+
 ## 1.0.9
 
 ### Patch Changes
