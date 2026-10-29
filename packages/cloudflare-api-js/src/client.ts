@@ -70,6 +70,8 @@ type RequestEndpointResult<T extends keyof typeof operationsByPath> = ReturnType
 	(typeof operationsByPath)[T]
 >;
 
+type CallParams = Record<string, unknown> & { config?: Partial<FetcherConfig> };
+
 export class CloudflareApi {
 	#token: string;
 	#fetch: FetchImpl;
@@ -87,6 +89,12 @@ export class CloudflareApi {
 			token: this.#token,
 			fetchImpl: this.#fetch,
 		};
+	}
+
+	// The caller's per-call config, such as extra headers, layers over the client's own.
+	#withConfig(params: CallParams | undefined): CallParams {
+		const { config, ...rest } = params ?? {};
+		return { ...rest, config: { ...this.#config(), ...config } };
 	}
 
 	get api() {
@@ -112,8 +120,8 @@ export class CloudflareApi {
 
 								const method = operationsByTag[namespace][operation] as any;
 
-								return async (params: Record<string, unknown>) => {
-									return await method({ ...params, config: this.#config() });
+								return async (params?: CallParams) => {
+									return await method(this.#withConfig(params));
 								};
 							},
 						},
@@ -154,10 +162,7 @@ export class CloudflareApi {
 			: undefined;
 		if (!operation) throw new Error(`Unknown endpoint: ${endpoint}`);
 
-		const result = await operation({
-			...((params || {}) as Record<string, unknown>),
-			config: this.#config(),
-		});
+		const result = await operation(this.#withConfig(params as CallParams | undefined));
 		return result as RequestEndpointResult<Endpoint>;
 	}
 }

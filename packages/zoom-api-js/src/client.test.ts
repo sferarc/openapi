@@ -108,3 +108,35 @@ describe("ZoomApi.api", () => {
 		expect(client.api.archiving.listArchivedFiles).toBeTypeOf("function");
 	});
 });
+
+describe("ZoomApi per-call config", () => {
+	function setup() {
+		const headers: unknown[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			headers.push(init?.headers);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { headers, client: new ZoomApi({ token: "token", fetch }) };
+	}
+
+	it("sends the caller's headers from request() alongside the client's token", async () => {
+		const { headers, client } = setup();
+		await client.request("GET /archive_files", { config: { headers: { "X-Request-Id": "abc" } } });
+		expect(headers).toEqual([
+			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
+		]);
+	});
+
+	it("sends the caller's headers from the api proxy alongside the client's token", async () => {
+		const { headers, client } = setup();
+		await client.api.archiving.listArchivedFiles({
+			config: { headers: { "X-Request-Id": "abc" } },
+		});
+		expect(headers).toEqual([
+			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
+		]);
+	});
+});
