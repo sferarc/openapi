@@ -1,5 +1,11 @@
 # keycloak-api
 
+## 2.1.2
+
+### Patch Changes
+
+- 3b61252: Keep the `config` passed to `request()`, such as extra `headers`, instead of replacing it with the client's own.
+
 ## 2.1.1
 
 ### Patch Changes

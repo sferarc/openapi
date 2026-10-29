@@ -1,5 +1,11 @@
 # cloudflare-api-js
 
+## 2.2.2
+
+### Patch Changes
+
+- 3b61252: Keep the `config` passed to `request()` and `client.api` operations, such as extra `headers`, instead of replacing it with the client's own.
+
 ## 2.2.1
 
 ### Patch Changes

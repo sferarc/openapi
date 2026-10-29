@@ -1,5 +1,11 @@
 # v0-api
 
+## 1.0.5
+
+### Patch Changes
+
+- 3b61252: Keep the `config` passed to `request()` and `client.api` operations, such as extra `headers`, instead of replacing it with the client's own.
+
 ## 1.0.4
 
 ### Patch Changes
