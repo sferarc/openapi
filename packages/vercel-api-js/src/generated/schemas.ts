@@ -9467,6 +9467,26 @@ export const userEventSchema = z
 						.describe("Scopes requested by the model-authored plan."),
 				}),
 				z.strictObject({
+					eventId: z.string(),
+					occurredAt: z.number(),
+					sessionId: z.string(),
+					sessionKind: z.string().describe("Currently emitted session kinds: chat, investigation."),
+					surface: z
+						.string()
+						.describe(
+							"Currently emitted surfaces: dashboard, internal, slack, automation, github.",
+						),
+					branchRef: z.string().nullable(),
+					deploymentId: z.string(),
+					environment: z.string(),
+					findingId: z.string(),
+					findingNumber: z.number(),
+					projectId: z.string(),
+					projectName: z.string(),
+					severity: z.string(),
+					vulnerabilityClass: z.string(),
+				}),
+				z.strictObject({
 					next: z.enum(["auto-approval", "block", "manual-approval"]).nullable(),
 					previous: z.enum(["auto-approval", "block", "manual-approval"]).nullable(),
 					teamSlug: z.string().optional(),
@@ -11128,6 +11148,7 @@ export const userEventSchema = z
 				"firewall-bypass-deleted",
 				"firewall-conditional-bypass-created",
 				"firewall-conditional-bypass-deleted",
+				"firewall-conditional-bypass-updated",
 				"firewall-config-modified",
 				"firewall-config-promoted",
 				"firewall-config-removed",
@@ -11598,6 +11619,7 @@ export const userEventSchema = z
 				"vcr-repository-visibility-changed",
 				"vercel-agent-elevated-permissions-approved",
 				"vercel-agent-elevated-permissions-requested",
+				"vercel-agent-security-finding-created",
 				"vercel-agent-session-created",
 				"vercel-agent-team-trial-credits-applied",
 				"vercel-app-installation-request-dismissed",
@@ -11975,6 +11997,7 @@ export const listEventTypeSchema = z
 				"firewall-bypass-deleted",
 				"firewall-conditional-bypass-created",
 				"firewall-conditional-bypass-deleted",
+				"firewall-conditional-bypass-updated",
 				"firewall-config-modified",
 				"firewall-config-promoted",
 				"firewall-config-removed",
@@ -12445,6 +12468,7 @@ export const listEventTypeSchema = z
 				"vcr-repository-visibility-changed",
 				"vercel-agent-elevated-permissions-approved",
 				"vercel-agent-elevated-permissions-requested",
+				"vercel-agent-security-finding-created",
 				"vercel-agent-session-created",
 				"vercel-agent-team-trial-credits-applied",
 				"vercel-app-installation-request-dismissed",
@@ -12724,6 +12748,7 @@ export const listEventTypeSchema = z
 					"firewall-bypass-deleted",
 					"firewall-conditional-bypass-created",
 					"firewall-conditional-bypass-deleted",
+					"firewall-conditional-bypass-updated",
 					"firewall-config-modified",
 					"firewall-config-promoted",
 					"firewall-config-removed",
@@ -13194,6 +13219,7 @@ export const listEventTypeSchema = z
 					"vcr-repository-visibility-changed",
 					"vercel-agent-elevated-permissions-approved",
 					"vercel-agent-elevated-permissions-requested",
+					"vercel-agent-security-finding-created",
 					"vercel-agent-session-created",
 					"vercel-agent-team-trial-credits-applied",
 					"vercel-app-installation-request-dismissed",
@@ -116346,6 +116372,175 @@ export const createConditionalBypassBodySchema = z
 	.optional();
 
 export const createConditionalBypassQuerySchema = z.object({
+	projectId: z.string(),
+	slug: z
+		.string()
+		.optional()
+		.meta({ examples: ["my-team-url-slug"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const updateConditionalBypassQueryProjectIdSchema = z.string();
+
+export const updateConditionalBypassQuerySlugSchema = z
+	.string()
+	.optional()
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const updateConditionalBypassQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const updateConditionalBypassStatus200Schema = z.object({
+	condition: z.string(),
+	conditionGroup: z.array(
+		z.object({
+			conditions: z.array(
+				z.object({
+					key: z.string().optional(),
+					neg: z.union([z.literal(false), z.literal(true)]).optional(),
+					op: z.enum([
+						"eq",
+						"ex",
+						"gt",
+						"gte",
+						"inc",
+						"list",
+						"lt",
+						"lte",
+						"neq",
+						"nex",
+						"ninc",
+						"pre",
+						"re",
+						"sub",
+						"suf",
+					]),
+					type: z.enum([
+						"bot_category",
+						"bot_name",
+						"bot_protection",
+						"bot_status",
+						"cookie",
+						"domain_environment",
+						"environment",
+						"geo_as_number",
+						"geo_city",
+						"geo_continent",
+						"geo_country",
+						"geo_country_region",
+						"header",
+						"host",
+						"ip_address",
+						"ja3_digest",
+						"ja4_digest",
+						"method",
+						"path",
+						"protocol",
+						"query",
+						"rate_limit_api_id",
+						"raw_path",
+						"region",
+						"response_code",
+						"route",
+						"ruleset",
+						"scheme",
+						"server_action",
+						"shared_condition",
+						"target_path",
+						"traffic_source",
+						"trusted_source",
+						"user_agent",
+					]),
+					value: z.union([z.string(), z.number(), z.array(z.string())]).optional(),
+				}),
+			),
+		}),
+	),
+	createdAt: z.string(),
+	domain: z.string(),
+	id: z.string(),
+	note: z.string().optional(),
+	projectId: z.string(),
+	updatedAt: z.string(),
+});
+
+export const updateConditionalBypassStatus400Schema = z.unknown();
+
+export const updateConditionalBypassStatus401Schema = z.unknown();
+
+export const updateConditionalBypassStatus403Schema = z.unknown();
+
+export const updateConditionalBypassStatus404Schema = z.unknown();
+
+export const updateConditionalBypassStatus410Schema = z.unknown();
+
+export const updateConditionalBypassResponseSchema = updateConditionalBypassStatus200Schema;
+
+export const updateConditionalBypassErrorSchema = z.union([
+	updateConditionalBypassStatus400Schema,
+	updateConditionalBypassStatus401Schema,
+	updateConditionalBypassStatus403Schema,
+	updateConditionalBypassStatus404Schema,
+	updateConditionalBypassStatus410Schema,
+]);
+
+export const updateConditionalBypassBodySchema = z
+	.strictObject({
+		domain: z.string(),
+		conditionGroup: z
+			.array(
+				z.object({
+					conditions: z
+						.array(
+							z.union([
+								z.strictObject({
+									type: z.enum(["user_agent"]),
+									op: z.enum(["eq", "pre", "suf", "sub"]),
+									value: z.string().max(500),
+									key: z.enum(["user-agent"]).optional(),
+								}),
+								z.strictObject({
+									type: z.enum(["path"]),
+									op: z.enum(["eq", "pre", "suf", "sub"]),
+									value: z.string().max(500),
+								}),
+								z.strictObject({
+									type: z.enum(["header"]),
+									op: z.enum(["eq", "pre", "suf", "sub"]),
+									key: z
+										.string()
+										.max(128)
+										.regex(/^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/),
+									value: z.string().max(500),
+								}),
+								z.strictObject({
+									type: z.enum(["header"]),
+									op: z.enum(["ex"]),
+									key: z
+										.string()
+										.max(128)
+										.regex(/^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/),
+								}),
+							]),
+						)
+						.min(1)
+						.max(65),
+				}),
+			)
+			.min(1)
+			.max(25),
+		note: z.string().max(500).optional(),
+	})
+	.optional();
+
+export const updateConditionalBypassQuerySchema = z.object({
 	projectId: z.string(),
 	slug: z
 		.string()
