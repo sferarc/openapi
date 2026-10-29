@@ -30,6 +30,19 @@ export default defineConfig(async () => {
 		"get",
 		(op) => ({ ...op, operationId: "listPromoteAliases" }),
 	);
+	// The spec describes the gzipped tarball upload in prose only, so the operation had no body.
+	openAPIDocument = updateMethod(
+		openAPIDocument,
+		"/v2/sandboxes/sessions/{sessionId}/fs/write",
+		"post",
+		(op) => ({
+			...op,
+			requestBody: op.requestBody ?? {
+				required: true,
+				content: { "application/gzip": { schema: { type: "string", format: "binary" } } },
+			},
+		}),
+	);
 
 	openAPIDocument = sortArrays(openAPIDocument);
 	openAPIDocument = fixWrongGroupIds(openAPIDocument);

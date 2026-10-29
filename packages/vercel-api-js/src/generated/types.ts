@@ -123810,8 +123810,10 @@ export type WriteSessionFilesStatus422 = unknown;
 
 export type WriteSessionFilesStatus429 = unknown;
 
+export type WriteSessionFilesBody = Blob;
+
 export type WriteSessionFilesOptions = {
-	body?: never | undefined;
+	body: WriteSessionFilesBody;
 	path: WriteSessionFilesPath;
 	query?: WriteSessionFilesQuery | undefined;
 	headers?: WriteSessionFilesHeaders | undefined;

@@ -171,3 +171,27 @@ describe("VercelApi per-call config", () => {
 		]);
 	});
 });
+
+describe("VercelApi sandbox file upload", () => {
+	it("sends the tarball as the body of writeSessionFiles", async () => {
+		const { calls, fetch } = recordFetch(200, {});
+		const client = new VercelApi({ token: "token", fetch });
+		const tarball = new Blob([new Uint8Array([0x1f, 0x8b, 0x08])], { type: "application/gzip" });
+
+		await client.api.sandboxes.writeSessionFiles({
+			pathParams: { sessionId: "sbx_1" },
+			body: tarball,
+			headers: { "x-cwd": "/home/vercel-sandbox" },
+		});
+
+		expect(calls).toHaveLength(1);
+		expect(new URL(calls[0]?.url ?? "").pathname).toBe("/v2/sandboxes/sessions/sbx_1/fs/write");
+		expect(calls[0]?.init?.body).toBe(tarball);
+		expect(calls[0]?.init?.headers).toEqual(
+			expect.objectContaining({
+				"Content-Type": "application/gzip",
+				"x-cwd": "/home/vercel-sandbox",
+			}),
+		);
+	});
+});
