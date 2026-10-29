@@ -4802,7 +4802,10 @@ export type ChatsDownloadVersionQuery = {
 	includeDefaultFiles?: ChatsDownloadVersionIncludeDefaultFilesKey | undefined;
 };
 
-export type ChatsDownloadVersionStatus200 = unknown;
+/**
+ * @description ZIP archive containing the version files
+ */
+export type ChatsDownloadVersionStatus200 = Blob;
 
 export type ChatsDownloadVersionStatus401 = UnauthorizedError;
 
@@ -4924,7 +4927,11 @@ export type ChatsResumePath = {
 	messageId: string;
 };
 
-export type ChatsResumeStatus200 = unknown;
+/**
+ * @description A Server-Sent Events stream of chat and message delta events.
+ * @type string
+ */
+export type ChatsResumeStatus200 = string;
 
 export type ChatsResumeStatus401 = UnauthorizedError;
 
