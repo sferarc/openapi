@@ -94,7 +94,7 @@ export class KeycloakAccountApi {
 		const operation = findOperation(accountOperationsByPath, endpoint);
 		const result = await operation(
 			withConfig(params, {
-				baseUrl: `${this.#baseUrl}/realms/${this.#realm}`,
+				baseUrl: `${this.#baseUrl.replace(/\/+$/, "")}/realms/${this.#realm}`,
 				token: this.#token,
 				fetchImpl: this.#fetch,
 			}),
