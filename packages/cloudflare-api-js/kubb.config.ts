@@ -6,7 +6,12 @@ import {
 } from "@sferadev/openapi-utils";
 import c from "case";
 import { defineConfig } from "kubb";
-import type { OpenAPIObject, OperationObject, PathItemObject } from "openapi3-ts/oas30";
+import {
+	isReferenceObject,
+	type OpenAPIObject,
+	type OperationObject,
+	type PathItemObject,
+} from "openapi3-ts/oas30";
 
 export default defineConfig(async () => {
 	let openAPIDocument = await fetchSpec(
@@ -15,6 +20,23 @@ export default defineConfig(async () => {
 
 	openAPIDocument = cleanOperationIds(openAPIDocument);
 	openAPIDocument = camelCasePathParams(openAPIDocument);
+
+	// The spec marks this `explode: false`, but its description asks for repeated keys (`id=foo&id=bar`).
+	for (const parameter of openAPIDocument.paths?.["/organizations"]?.get?.parameters ?? []) {
+		const resolved = isReferenceObject(parameter)
+			? openAPIDocument.components?.parameters?.[
+					parameter.$ref.replace("#/components/parameters/", "")
+				]
+			: parameter;
+		if (
+			resolved &&
+			!isReferenceObject(resolved) &&
+			resolved.in === "query" &&
+			resolved.name === "id"
+		) {
+			resolved.explode = true;
+		}
+	}
 
 	openAPIDocument = deduplicateComponents(openAPIDocument, "schemas");
 	openAPIDocument = deduplicateComponents(openAPIDocument, "parameters");
