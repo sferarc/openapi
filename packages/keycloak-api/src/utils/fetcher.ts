@@ -59,7 +59,8 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 		const mergedHeaders: Record<string, string | undefined> = {
 			"Content-Type": "application/json",
 			Authorization: token ? `Bearer ${token}` : undefined,
-			Accept: "application/json",
+			// JAX-RS answers 406 when no @Produces matches, so endpoints that only produce bytes or text must stay acceptable.
+			Accept: "application/json, */*;q=0.8",
 		};
 		// Header names are case-insensitive: a caller's `authorization` replaces the default rather than joining it.
 		for (const [name, value] of Object.entries(headers ?? {})) {
