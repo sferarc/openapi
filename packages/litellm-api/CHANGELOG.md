@@ -1,5 +1,11 @@
 # litellm-api
 
+## 2.1.2
+
+### Patch Changes
+
+- 2c60bfb: Resolve a line-delimited JSON response (`application/x-ndjson`) to an array with one parsed value per line. Before this, the fetcher parsed the whole body as one JSON document, so `exportDatasetLensDatasetsDatasetIdExportGet` rejected with a JSON syntax error as soon as the export had two rows.
+
 ## 2.1.1
 
 ### Patch Changes
