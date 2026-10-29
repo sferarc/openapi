@@ -18,8 +18,7 @@ describe("V0Api.request", () => {
 	it("percent-encodes path params", async () => {
 		const { urls, client } = setup();
 		await client.request("GET /chats/{chatId}", { pathParams: { chatId: "a/b" } });
-		expect(urls).toHaveLength(1);
-		expect(new URL(urls[0] ?? "", "http://localhost").pathname).toMatch(/\/chats\/a%2Fb$/);
+		expect(urls).toEqual(["https://api.v0.dev/v1/chats/a%2Fb"]);
 	});
 
 	it("rejects a missing path param before calling fetch", async () => {
@@ -47,8 +46,7 @@ describe("V0Api.request", () => {
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
 		await client.request("GET /chats", {});
-		expect(urls).toHaveLength(1);
-		expect(new URL(urls[0] ?? "", "http://localhost").pathname).toMatch(/\/chats$/);
+		expect(urls).toEqual(["https://api.v0.dev/v1/chats"]);
 	});
 
 	it("rejects an unknown endpoint", async () => {

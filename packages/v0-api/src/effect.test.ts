@@ -21,6 +21,15 @@ describe("effect bindings", () => {
 		expect((error as ApiError).status).toBe(403);
 	});
 
+	it("call the v0 API when the layer sets no base URL", async () => {
+		const urls: string[] = [];
+		await run(async (url) => {
+			urls.push(url);
+			return new Response("{}", { status: 500 });
+		});
+		expect(urls).toEqual([`https://api.v0.dev/v1${endpoint.split(" ")[1]}`]);
+	});
+
 	it("fail with NetworkError when the request never completes", async () => {
 		const error = await run(async () => {
 			throw new TypeError("fetch failed");

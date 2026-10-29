@@ -1,6 +1,9 @@
 import type { FetchImpl } from "./fetch";
 import { compactObject } from "./lang";
 
+// The spec's server; the generated operations carry only the path.
+const defaultBaseUrl = "https://api.v0.dev/v1";
+
 export type FetcherConfig = {
 	baseUrl?: string;
 	token?: string | null;
@@ -51,7 +54,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 	queryParams,
 	signal,
 	token = null,
-	baseUrl = "",
+	baseUrl = defaultBaseUrl,
 	fetchImpl = fetch as FetchImpl,
 }: FetcherOptions<TBody, THeaders, TQueryParams, TPathParams>): Promise<TData> {
 	try {
