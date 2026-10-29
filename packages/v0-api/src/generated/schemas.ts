@@ -2905,7 +2905,9 @@ export const chatsDownloadVersionQueryIncludeDefaultFilesSchema = z
 		"When true, includes all default files (package.json, configuration files, etc.) that would be part of a complete deployment. When false or omitted, returns only the generated source files.",
 	);
 
-export const chatsDownloadVersionStatus200Schema = z.unknown();
+export const chatsDownloadVersionStatus200Schema = z
+	.instanceof(File)
+	.describe("ZIP archive containing the version files");
 
 export const chatsDownloadVersionStatus401Schema = unauthorizedErrorSchema;
 
@@ -3029,7 +3031,9 @@ export const chatsResumePathMessageIdSchema = z
 	.string()
 	.describe("The identifier of the specific message to resume. Provided as a path parameter.");
 
-export const chatsResumeStatus200Schema = z.unknown();
+export const chatsResumeStatus200Schema = z
+	.string()
+	.describe("A Server-Sent Events stream of chat and message delta events.");
 
 export const chatsResumeStatus401Schema = unauthorizedErrorSchema;
 
