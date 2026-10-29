@@ -54,7 +54,7 @@ The `effect` entrypoint exposes every operation as an `Effect`. It requires `eff
 import { Effect } from "effect";
 import { ApiService, makeApiLayer } from "vercel-api-js/effect";
 
-const program = ApiService.accessGroups.listAccessGroups({});
+const program = ApiService.accessGroups.listAccessGroups();
 
 await Effect.runPromise(
   program.pipe(Effect.provide(makeApiLayer({ token: process.env.VERCEL_TOKEN })))

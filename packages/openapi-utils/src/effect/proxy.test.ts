@@ -38,10 +38,8 @@ describe("createEffectApi", () => {
 	it("calls an operation without params", async () => {
 		const op = vi.fn(async (params: Params) => params);
 		const api = createEffectApi({ projects: { list: op } });
-		// The types require params, but JavaScript callers can omit them.
-		const list = api.projects.list as () => ReturnType<typeof api.projects.list>;
 
-		await run(list());
+		await run(api.projects.list());
 
 		expect(op).toHaveBeenCalledWith({ config: withSignal });
 	});
@@ -98,6 +96,22 @@ describe("param types", () => {
 			api.projects.list({ limit: "5" }),
 			// @ts-expect-error limit is a number
 			byPath["/projects"]({ limit: "5" }),
+		];
+		expect(typeChecks).toBeTypeOf("function");
+	});
+
+	it("makes params optional only when the operation requires none", () => {
+		const list = async (_: { limit?: number; config?: unknown } = {}) => null;
+		const get = async (_: { pathParams: { id: string }; config?: unknown }) => null;
+		const api = createEffectApi({ projects: { list, get } });
+		const byPath = createEffectByPath({ "/projects": list, "/projects/{id}": get });
+		const typeChecks = () => [
+			api.projects.list(),
+			byPath["/projects"](),
+			// @ts-expect-error pathParams is required
+			api.projects.get(),
+			// @ts-expect-error pathParams is required
+			byPath["/projects/{id}"](),
 		];
 		expect(typeChecks).toBeTypeOf("function");
 	});

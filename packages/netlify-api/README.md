@@ -84,7 +84,7 @@ The `effect` entrypoint exposes every operation as an `Effect`. It requires `eff
 import { Effect } from "effect";
 import { ApiService, makeApiLayer } from "netlify-api/effect";
 
-const program = ApiService.site.listSites({});
+const program = ApiService.site.listSites();
 
 await Effect.runPromise(
   program.pipe(Effect.provide(makeApiLayer({ token: process.env.NETLIFY_TOKEN })))
