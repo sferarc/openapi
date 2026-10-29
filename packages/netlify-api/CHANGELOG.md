@@ -1,5 +1,11 @@
 # netlify-api
 
+## 2.1.3
+
+### Patch Changes
+
+- 0e8ba15: Drop trailing slashes from a configured base URL (or Netlify `basePath`) so a value such as `http://localhost:4000/` no longer sends requests to `//path`.
+
 ## 2.1.2
 
 ### Patch Changes
