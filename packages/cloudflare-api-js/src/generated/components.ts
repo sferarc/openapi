@@ -26920,17 +26920,21 @@ export async function zonesGet(
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
+	const query = queryParams && {
+		...queryParams,
+		type: Array.isArray(queryParams.type) ? queryParams.type.join(",") : queryParams.type,
+	};
 	const data = await request<
 		ZonesGetResponse,
 		ErrorWrapper<ZonesGetStatus400>,
 		null,
 		Record<string, string>,
-		Partial<ZonesGetQuery>,
+		Record<string, unknown>,
 		Record<string, string>
 	>({
 		method: "GET",
 		url: `/zones`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -68794,17 +68798,21 @@ export async function d1GetDatabase(
 	if (pathParams?.databaseId == null || String(pathParams.databaseId) === "") {
 		throw new Error(`Missing required path parameter: databaseId`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		fields: Array.isArray(queryParams.fields) ? queryParams.fields.join(",") : queryParams.fields,
+	};
 	const data = await request<
 		D1GetDatabaseResponse,
 		ErrorWrapper<D1GetDatabaseStatus400>,
 		null,
 		Record<string, string>,
-		Partial<D1GetDatabaseQuery>,
+		Record<string, unknown>,
 		D1GetDatabasePath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/d1/database/${encodeURIComponent(String(pathParams.databaseId))}`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -69478,17 +69486,30 @@ export async function listFindingTypes(
 	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
 		throw new Error(`Missing required path parameter: accountId`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		vendors: Array.isArray(queryParams.vendors)
+			? queryParams.vendors.join(",")
+			: queryParams.vendors,
+		types: Array.isArray(queryParams.types) ? queryParams.types.join(",") : queryParams.types,
+		origins: Array.isArray(queryParams.origins)
+			? queryParams.origins.join(",")
+			: queryParams.origins,
+		severities: Array.isArray(queryParams.severities)
+			? queryParams.severities.join(",")
+			: queryParams.severities,
+	};
 	const data = await request<
 		ListFindingTypesResponse,
 		ErrorWrapper<ListFindingTypesStatus400 | ListFindingTypesStatus403 | ListFindingTypesStatus429>,
 		null,
 		Record<string, string>,
-		Partial<ListFindingTypesQuery>,
+		Record<string, unknown>,
 		ListFindingTypesPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/data-security/posture/finding_types`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -70019,6 +70040,12 @@ export async function listFindingInstances(
 	if (pathParams?.findingId == null || String(pathParams.findingId) === "") {
 		throw new Error(`Missing required path parameter: findingId`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		remediation_statuses: Array.isArray(queryParams.remediation_statuses)
+			? queryParams.remediation_statuses.join(",")
+			: queryParams.remediation_statuses,
+	};
 	const data = await request<
 		ListFindingInstancesResponse,
 		ErrorWrapper<
@@ -70026,12 +70053,12 @@ export async function listFindingInstances(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ListFindingInstancesQuery>,
+		Record<string, unknown>,
 		ListFindingInstancesPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/data-security/posture/findings/${encodeURIComponent(String(pathParams.findingId))}/instances`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -70622,17 +70649,23 @@ export async function listRemediationJobs(
 	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
 		throw new Error(`Missing required path parameter: accountId`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		triggered_by_actor: Array.isArray(queryParams.triggered_by_actor)
+			? queryParams.triggered_by_actor.join(",")
+			: queryParams.triggered_by_actor,
+	};
 	const data = await request<
 		ListRemediationJobsResponse,
 		ErrorWrapper<ListRemediationJobsStatus400 | ListRemediationJobsStatus429>,
 		null,
 		Record<string, string>,
-		Partial<ListRemediationJobsQuery>,
+		Record<string, unknown>,
 		ListRemediationJobsPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/data-security/posture/remediations/jobs`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -106201,17 +106234,21 @@ export async function mTlsCertificateManagementListMTlsCertificates(
 	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
 		throw new Error(`Missing required path parameter: accountId`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		type: Array.isArray(queryParams.type) ? queryParams.type.join(",") : queryParams.type,
+	};
 	const data = await request<
 		MTlsCertificateManagementListMTlsCertificatesResponse,
 		ErrorWrapper<MTlsCertificateManagementListMTlsCertificatesStatus400>,
 		null,
 		Record<string, string>,
-		Partial<MTlsCertificateManagementListMTlsCertificatesQuery>,
+		Record<string, unknown>,
 		MTlsCertificateManagementListMTlsCertificatesPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/mtls_certificates`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -115729,17 +115766,21 @@ export async function getAllRecordings(
 	if (pathParams?.appId == null || String(pathParams.appId) === "") {
 		throw new Error(`Missing required path parameter: appId`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		status: Array.isArray(queryParams.status) ? queryParams.status.join(",") : queryParams.status,
+	};
 	const data = await request<
 		GetAllRecordingsResponse,
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		Partial<GetAllRecordingsQuery>,
+		Record<string, unknown>,
 		GetAllRecordingsPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/realtime/kit/${encodeURIComponent(String(pathParams.appId))}/recordings`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -116892,17 +116933,23 @@ export async function sandboxRegistrarDomainDiscoverySearch(
 	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
 		throw new Error(`Missing required path parameter: accountId`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		extensions: Array.isArray(queryParams.extensions)
+			? queryParams.extensions.join(",")
+			: queryParams.extensions,
+	};
 	const data = await request<
 		SandboxRegistrarDomainDiscoverySearchResponse,
 		ErrorWrapper<SandboxRegistrarDomainDiscoverySearchStatus400>,
 		null,
 		Record<string, string>,
-		Partial<SandboxRegistrarDomainDiscoverySearchQuery>,
+		Record<string, unknown>,
 		SandboxRegistrarDomainDiscoverySearchPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/registrar-sandbox/domain-search`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -117444,17 +117491,23 @@ export async function registrarDomainDiscoverySearch(
 	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
 		throw new Error(`Missing required path parameter: accountId`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		extensions: Array.isArray(queryParams.extensions)
+			? queryParams.extensions.join(",")
+			: queryParams.extensions,
+	};
 	const data = await request<
 		RegistrarDomainDiscoverySearchResponse,
 		ErrorWrapper<RegistrarDomainDiscoverySearchStatus400>,
 		null,
 		Record<string, string>,
-		Partial<RegistrarDomainDiscoverySearchQuery>,
+		Record<string, unknown>,
 		RegistrarDomainDiscoverySearchPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/registrar/domain-search`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -122178,17 +122231,21 @@ export async function secretsStoreSecretsList(
 	if (pathParams?.storeId == null || String(pathParams.storeId) === "") {
 		throw new Error(`Missing required path parameter: storeId`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		scopes: Array.isArray(queryParams.scopes) ? queryParams.scopes.join(",") : queryParams.scopes,
+	};
 	const data = await request<
 		SecretsStoreSecretsListResponse,
 		ErrorWrapper<SecretsStoreSecretsListStatus400>,
 		null,
 		Record<string, string>,
-		Partial<SecretsStoreSecretsListQuery>,
+		Record<string, unknown>,
 		SecretsStoreSecretsListPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/secrets_store/stores/${encodeURIComponent(String(pathParams.storeId))}/secrets`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -167272,17 +167329,21 @@ export async function getZonesZoneIdentifierZarazConfigHistory(
 	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
 		throw new Error(`Missing required path parameter: zoneId`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		ids: Array.isArray(queryParams.ids) ? queryParams.ids.join(",") : queryParams.ids,
+	};
 	const data = await request<
 		GetZonesZoneIdentifierZarazConfigHistoryResponse,
 		ErrorWrapper<GetZonesZoneIdentifierZarazConfigHistoryStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetZonesZoneIdentifierZarazConfigHistoryQuery>,
+		Record<string, unknown>,
 		GetZonesZoneIdentifierZarazConfigHistoryPath
 	>({
 		method: "GET",
 		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/settings/zaraz/history/configs`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
