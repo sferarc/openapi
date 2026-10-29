@@ -3872,8 +3872,10 @@ export const gETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesPathRea
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesPathAliasSchema =
 	z.string();
 
-export const gETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesStatus200Schema =
-	z.unknown();
+export const gETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesStatus200Schema = z.record(
+	z.string(),
+	identityProviderMapperTypeRepresentationSchema,
+);
 
 export const gETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesResponseSchema =
 	gETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesStatus200Schema;
@@ -4142,7 +4144,7 @@ export const gETAdminRealmsRealmLocalizationLocaleKeyPathKeySchema = z.string();
 
 export const gETAdminRealmsRealmLocalizationLocaleKeyPathLocaleSchema = z.string();
 
-export const gETAdminRealmsRealmLocalizationLocaleKeyStatus200Schema = z.unknown();
+export const gETAdminRealmsRealmLocalizationLocaleKeyStatus200Schema = z.string();
 
 export const gETAdminRealmsRealmLocalizationLocaleKeyStatus403Schema = z.unknown();
 
@@ -7862,7 +7864,7 @@ export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadPathAt
 	z.string();
 
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadStatus200Schema =
-	z.unknown();
+	z.instanceof(File);
 
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadStatus200Schema;
@@ -7909,7 +7911,7 @@ export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDow
 	z.string();
 
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadStatus200Schema =
-	z.unknown();
+	z.instanceof(File);
 
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadStatus200Schema;

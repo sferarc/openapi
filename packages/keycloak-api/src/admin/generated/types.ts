@@ -5863,7 +5863,9 @@ export type GETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesPath = {
 	alias: string;
 };
 
-export type GETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesStatus200 = unknown;
+export type GETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesStatus200 = {
+	[key: string]: IdentityProviderMapperTypeRepresentation;
+};
 
 export type GETAdminRealmsRealmIdentityProviderInstancesAliasMapperTypesOptions = {
 	body?: never | undefined;
@@ -6275,7 +6277,7 @@ export type GETAdminRealmsRealmLocalizationLocaleKeyPath = {
 	locale: string;
 };
 
-export type GETAdminRealmsRealmLocalizationLocaleKeyStatus200 = unknown;
+export type GETAdminRealmsRealmLocalizationLocaleKeyStatus200 = string;
 
 export type GETAdminRealmsRealmLocalizationLocaleKeyStatus403 = unknown;
 
@@ -10670,7 +10672,7 @@ export type POSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadPath = 
 	attr: string;
 };
 
-export type POSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadStatus200 = unknown;
+export type POSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadStatus200 = Blob;
 
 export type POSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadBody =
 	| KeyStoreConfig
@@ -10750,7 +10752,7 @@ export type POSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDown
 };
 
 export type POSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadStatus200 =
-	unknown;
+	Blob;
 
 export type POSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadBody =
 	| KeyStoreConfig
