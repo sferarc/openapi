@@ -121,3 +121,37 @@ describe("VercelApi.api", () => {
 		expect(client.api.accessGroups.readAccessGroup).toBeTypeOf("function");
 	});
 });
+
+describe("VercelApi per-call config", () => {
+	function setup() {
+		const headers: unknown[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			headers.push(init?.headers);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { headers, client: new VercelApi({ token: "token", fetch }) };
+	}
+
+	it("sends the caller's headers from request() alongside the client's token", async () => {
+		const { headers, client } = setup();
+		await client.request("GET /v1/access-groups", {
+			config: { headers: { "X-Request-Id": "abc" } },
+		});
+		expect(headers).toEqual([
+			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
+		]);
+	});
+
+	it("sends the caller's headers from the api proxy alongside the client's token", async () => {
+		const { headers, client } = setup();
+		await client.api.accessGroups.listAccessGroups({
+			config: { headers: { "X-Request-Id": "abc" } },
+		});
+		expect(headers).toEqual([
+			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
+		]);
+	});
+});

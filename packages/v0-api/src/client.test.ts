@@ -58,3 +58,33 @@ describe("V0Api.api", () => {
 		expect(client.api.chats.chatsCreate).toBeTypeOf("function");
 	});
 });
+
+describe("V0Api per-call config", () => {
+	function setup() {
+		const headers: unknown[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			headers.push(init?.headers);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { headers, client: new V0Api({ token: "token", fetch }) };
+	}
+
+	it("sends the caller's headers from request() alongside the client's token", async () => {
+		const { headers, client } = setup();
+		await client.request("GET /chats", { config: { headers: { "X-Request-Id": "abc" } } });
+		expect(headers).toEqual([
+			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
+		]);
+	});
+
+	it("sends the caller's headers from the api proxy alongside the client's token", async () => {
+		const { headers, client } = setup();
+		await client.api.chats.chatsFind({ config: { headers: { "X-Request-Id": "abc" } } });
+		expect(headers).toEqual([
+			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
+		]);
+	});
+});
