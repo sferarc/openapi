@@ -3835,6 +3835,14 @@ import type {
 	UpdateCheckStatus404,
 	UpdateCheckStatus410,
 	UpdateCheckStatus413,
+	UpdateConditionalBypassBody,
+	UpdateConditionalBypassQuery,
+	UpdateConditionalBypassResponse,
+	UpdateConditionalBypassStatus400,
+	UpdateConditionalBypassStatus401,
+	UpdateConditionalBypassStatus403,
+	UpdateConditionalBypassStatus404,
+	UpdateConditionalBypassStatus410,
 	UpdateConnectorBody,
 	UpdateConnectorPath,
 	UpdateConnectorQuery,
@@ -21657,6 +21665,49 @@ export async function createConditionalBypass(
 }
 
 /**
+ * @summary Update conditional firewall bypass
+ * @description Update a conditional firewall bypass rule for a project domain. Replaces conditions and the note for the domain's existing rule. Omitting `note` clears it. The rule ID, domain, creator, and creation time are preserved. Missing or deleted rules are not created.
+ * @link /v1/security/firewall/bypass/rules
+ */
+export async function updateConditionalBypass(
+	{
+		body,
+		queryParams,
+		config,
+	}: {
+		body?: UpdateConditionalBypassBody;
+		queryParams?: Partial<UpdateConditionalBypassQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		UpdateConditionalBypassResponse,
+		ErrorWrapper<
+			| UpdateConditionalBypassStatus400
+			| UpdateConditionalBypassStatus401
+			| UpdateConditionalBypassStatus403
+			| UpdateConditionalBypassStatus404
+			| UpdateConditionalBypassStatus410
+		>,
+		UpdateConditionalBypassBody,
+		Record<string, string>,
+		Partial<UpdateConditionalBypassQuery>,
+		Record<string, string>
+	>({
+		method: "PUT",
+		url: `/v1/security/firewall/bypass/rules`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Delete conditional firewall bypass
  * @description Delete a conditional firewall bypass rule from a project domain.
  * @link /v1/security/firewall/bypass/rules
@@ -26945,6 +26996,7 @@ export const operationsByPath = {
 	"DELETE /v1/security/firewall/bypass": removeBypassIp,
 	"GET /v1/security/firewall/bypass/rules": getConditionalBypass,
 	"POST /v1/security/firewall/bypass/rules": createConditionalBypass,
+	"PUT /v1/security/firewall/bypass/rules": updateConditionalBypass,
 	"DELETE /v1/security/firewall/bypass/rules": deleteConditionalBypass,
 	"GET /v1/security/firewall/events": getSecurityFirewallEvents,
 	"GET /v1/security/firewall/events/summary": getSecurityFirewallEventsSummary,
@@ -27531,6 +27583,7 @@ export const operationsByTag = {
 		removeBypassIp,
 		getConditionalBypass,
 		createConditionalBypass,
+		updateConditionalBypass,
 		deleteConditionalBypass,
 		getSecurityFirewallEvents,
 		getSecurityFirewallEventsSummary,
@@ -28105,7 +28158,7 @@ export const tagDictionary = {
 			"getSecurityFirewallEvents",
 			"getSecurityFirewallEventsSummary",
 		],
-		PUT: ["putFirewallConfig"],
+		PUT: ["putFirewallConfig", "updateConditionalBypass"],
 		PATCH: ["updateFirewallConfig"],
 		DELETE: [
 			"deleteSecurityFirewallConfigByConfigVersion",

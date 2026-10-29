@@ -6888,6 +6888,7 @@ export const userEventTypeEnum = {
 	"firewall-bypass-deleted": "firewall-bypass-deleted",
 	"firewall-conditional-bypass-created": "firewall-conditional-bypass-created",
 	"firewall-conditional-bypass-deleted": "firewall-conditional-bypass-deleted",
+	"firewall-conditional-bypass-updated": "firewall-conditional-bypass-updated",
 	"firewall-config-modified": "firewall-config-modified",
 	"firewall-config-promoted": "firewall-config-promoted",
 	"firewall-config-removed": "firewall-config-removed",
@@ -7371,6 +7372,7 @@ export const userEventTypeEnum = {
 	"vcr-repository-visibility-changed": "vcr-repository-visibility-changed",
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
+	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -13152,6 +13154,30 @@ export type UserEvent = {
 						requestedScopes: string[];
 				  }
 				| {
+						eventId: string;
+						occurredAt: number;
+						sessionId: string;
+						/**
+						 * @description Currently emitted session kinds: chat, investigation.
+						 * @type string
+						 */
+						sessionKind: string;
+						/**
+						 * @description Currently emitted surfaces: dashboard, internal, slack, automation, github.
+						 * @type string
+						 */
+						surface: string;
+						branchRef: string | null;
+						deploymentId: string;
+						environment: string;
+						findingId: string;
+						findingNumber: number;
+						projectId: string;
+						projectName: string;
+						severity: string;
+						vulnerabilityClass: string;
+				  }
+				| {
 						next: UserEventPayloadNextEnumKey | null;
 						previous: UserEventPayloadPreviousEnumKey | null;
 						teamSlug?: string | undefined;
@@ -14803,6 +14829,7 @@ export const listEventTypeNameEnum = {
 	"firewall-bypass-deleted": "firewall-bypass-deleted",
 	"firewall-conditional-bypass-created": "firewall-conditional-bypass-created",
 	"firewall-conditional-bypass-deleted": "firewall-conditional-bypass-deleted",
+	"firewall-conditional-bypass-updated": "firewall-conditional-bypass-updated",
 	"firewall-config-modified": "firewall-config-modified",
 	"firewall-config-promoted": "firewall-config-promoted",
 	"firewall-config-removed": "firewall-config-removed",
@@ -15286,6 +15313,7 @@ export const listEventTypeNameEnum = {
 	"vcr-repository-visibility-changed": "vcr-repository-visibility-changed",
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
+	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -15568,6 +15596,7 @@ export const listEventTypeReplacedByEnum = {
 	"firewall-bypass-deleted": "firewall-bypass-deleted",
 	"firewall-conditional-bypass-created": "firewall-conditional-bypass-created",
 	"firewall-conditional-bypass-deleted": "firewall-conditional-bypass-deleted",
+	"firewall-conditional-bypass-updated": "firewall-conditional-bypass-updated",
 	"firewall-config-modified": "firewall-config-modified",
 	"firewall-config-promoted": "firewall-config-promoted",
 	"firewall-config-removed": "firewall-config-removed",
@@ -16051,6 +16080,7 @@ export const listEventTypeReplacedByEnum = {
 	"vcr-repository-visibility-changed": "vcr-repository-visibility-changed",
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
+	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -133212,6 +133242,201 @@ export type CreateConditionalBypassResponses = {
  * @description Union of all possible responses
  */
 export type CreateConditionalBypassResponse = CreateConditionalBypassStatus200;
+
+export type UpdateConditionalBypassQuery = {
+	projectId: string;
+	/**
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+};
+
+export const updateConditionalBypassStatus200ConditionGroupConditionsOpEnum = {
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	inc: "inc",
+	list: "list",
+	lt: "lt",
+	lte: "lte",
+	neq: "neq",
+	nex: "nex",
+	ninc: "ninc",
+	pre: "pre",
+	re: "re",
+	sub: "sub",
+	suf: "suf",
+} as const;
+
+export type UpdateConditionalBypassStatus200ConditionGroupConditionsOpEnumKey =
+	(typeof updateConditionalBypassStatus200ConditionGroupConditionsOpEnum)[keyof typeof updateConditionalBypassStatus200ConditionGroupConditionsOpEnum];
+
+export const updateConditionalBypassStatus200ConditionGroupConditionsTypeEnum = {
+	bot_category: "bot_category",
+	bot_name: "bot_name",
+	bot_protection: "bot_protection",
+	bot_status: "bot_status",
+	cookie: "cookie",
+	domain_environment: "domain_environment",
+	environment: "environment",
+	geo_as_number: "geo_as_number",
+	geo_city: "geo_city",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	header: "header",
+	host: "host",
+	ip_address: "ip_address",
+	ja3_digest: "ja3_digest",
+	ja4_digest: "ja4_digest",
+	method: "method",
+	path: "path",
+	protocol: "protocol",
+	query: "query",
+	rate_limit_api_id: "rate_limit_api_id",
+	raw_path: "raw_path",
+	region: "region",
+	response_code: "response_code",
+	route: "route",
+	ruleset: "ruleset",
+	scheme: "scheme",
+	server_action: "server_action",
+	shared_condition: "shared_condition",
+	target_path: "target_path",
+	traffic_source: "traffic_source",
+	trusted_source: "trusted_source",
+	user_agent: "user_agent",
+} as const;
+
+export type UpdateConditionalBypassStatus200ConditionGroupConditionsTypeEnumKey =
+	(typeof updateConditionalBypassStatus200ConditionGroupConditionsTypeEnum)[keyof typeof updateConditionalBypassStatus200ConditionGroupConditionsTypeEnum];
+
+export type UpdateConditionalBypassStatus200 = {
+	condition: string;
+	conditionGroup: {
+		conditions: {
+			key?: string | undefined;
+			neg?: (false | true) | undefined;
+			op: UpdateConditionalBypassStatus200ConditionGroupConditionsOpEnumKey;
+			type: UpdateConditionalBypassStatus200ConditionGroupConditionsTypeEnumKey;
+			value?: (string | number | string[]) | undefined;
+		}[];
+	}[];
+	createdAt: string;
+	domain: string;
+	id: string;
+	note?: string | undefined;
+	projectId: string;
+	updatedAt: string;
+};
+
+export type UpdateConditionalBypassStatus400 = unknown;
+
+export type UpdateConditionalBypassStatus401 = unknown;
+
+export type UpdateConditionalBypassStatus403 = unknown;
+
+export type UpdateConditionalBypassStatus404 = unknown;
+
+export type UpdateConditionalBypassStatus410 = unknown;
+
+export const updateConditionalBypassRequestConditionGroupConditionsOpEnum = {
+	eq: "eq",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+} as const;
+
+export type UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey =
+	(typeof updateConditionalBypassRequestConditionGroupConditionsOpEnum)[keyof typeof updateConditionalBypassRequestConditionGroupConditionsOpEnum];
+
+export type UpdateConditionalBypassBody =
+	| {
+			domain: string;
+			conditionGroup: {
+				conditions: (
+					| {
+							type: "user_agent";
+							op: UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							/**
+							 * @maxLength 500
+							 * @type string
+							 */
+							value: string;
+							key?: "user-agent" | undefined;
+					  }
+					| {
+							type: "path";
+							op: UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							/**
+							 * @maxLength 500
+							 * @type string
+							 */
+							value: string;
+					  }
+					| {
+							type: "header";
+							op: UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							/**
+							 * @maxLength 128
+							 * @pattern ^[!#$%&'*+.^_`|~0-9A-Za-z-]+$
+							 * @type string
+							 */
+							key: string;
+							/**
+							 * @maxLength 500
+							 * @type string
+							 */
+							value: string;
+					  }
+					| {
+							type: "header";
+							op: "ex";
+							/**
+							 * @maxLength 128
+							 * @pattern ^[!#$%&'*+.^_`|~0-9A-Za-z-]+$
+							 * @type string
+							 */
+							key: string;
+					  }
+				)[];
+			}[];
+			/**
+			 * @maxLength 500
+			 * @type string | undefined
+			 */
+			note?: string | undefined;
+	  }
+	| undefined;
+
+export type UpdateConditionalBypassOptions = {
+	body: UpdateConditionalBypassBody;
+	path?: never | undefined;
+	query: UpdateConditionalBypassQuery;
+	headers?: never | undefined;
+};
+
+export type UpdateConditionalBypassResponses = {
+	"200": UpdateConditionalBypassStatus200;
+	"400": UpdateConditionalBypassStatus400;
+	"401": UpdateConditionalBypassStatus401;
+	"403": UpdateConditionalBypassStatus403;
+	"404": UpdateConditionalBypassStatus404;
+	"410": UpdateConditionalBypassStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateConditionalBypassResponse = UpdateConditionalBypassStatus200;
 
 export type DeleteConditionalBypassQuery = {
 	projectId: string;
