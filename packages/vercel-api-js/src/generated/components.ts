@@ -20755,11 +20755,13 @@ export async function createSessionDirectory(
 export async function writeSessionFiles(
 	{
 		pathParams,
+		body,
 		queryParams,
 		headers,
 		config,
 	}: {
 		pathParams: WriteSessionFilesPath;
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: Partial<WriteSessionFilesQuery>;
 		headers?: Partial<WriteSessionFilesHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
@@ -20781,7 +20783,7 @@ export async function writeSessionFiles(
 			| WriteSessionFilesStatus422
 			| WriteSessionFilesStatus429
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Partial<WriteSessionFilesHeaders>,
 		Partial<WriteSessionFilesQuery>,
 		WriteSessionFilesPath
@@ -20789,8 +20791,9 @@ export async function writeSessionFiles(
 		method: "POST",
 		url: `/v2/sandboxes/sessions/${encodeURIComponent(String(pathParams.sessionId))}/fs/write`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: { "Content-Type": "application/gzip", ...headers, ...requestConfig.headers },
 	});
 
 	return data;

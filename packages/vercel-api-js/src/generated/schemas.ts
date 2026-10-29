@@ -108158,6 +108158,8 @@ export const writeSessionFilesErrorSchema = z.union([
 	writeSessionFilesStatus429Schema,
 ]);
 
+export const writeSessionFilesBodySchema = z.instanceof(File);
+
 export const writeSessionFilesPathSchema = z.object({
 	sessionId: z
 		.string()
