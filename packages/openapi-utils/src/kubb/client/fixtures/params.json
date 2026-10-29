@@ -39,6 +39,38 @@
 				}
 			}
 		},
+		"/zones": {
+			"get": {
+				"operationId": "listZones",
+				"tags": ["zones"],
+				"parameters": [
+					{
+						"name": "type",
+						"in": "query",
+						"explode": false,
+						"schema": { "type": "array", "items": { "type": "string" } }
+					},
+					{
+						"name": "filter.ids",
+						"in": "query",
+						"style": "pipeDelimited",
+						"schema": { "type": "array", "items": { "type": "integer" } }
+					},
+					{
+						"name": "tag",
+						"in": "query",
+						"schema": { "type": "array", "items": { "type": "string" } }
+					},
+					{ "name": "name", "in": "query", "explode": false, "schema": { "type": "string" } }
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": { "application/json": { "schema": { "type": "object" } } }
+					}
+				}
+			}
+		},
 		"/scripts/{name}": {
 			"put": {
 				"operationId": "uploadScript",

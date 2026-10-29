@@ -1,5 +1,28 @@
 # litellm-api
 
+## 2.1.0
+
+### Minor Changes
+
+- ca9b8c5: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpPut to toolsetMcpRouteToolsetToolsetNameMcpPatch, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpPatch to toolsetMcpRouteToolsetToolsetNameMcpDelete, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpHead to dynamicMcpRouteMcpServerNameMcpPost, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpOptions to toolsetMcpRouteToolsetToolsetNameMcpPut, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpHead to toolsetMcpRouteToolsetToolsetNameMcpPost, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpPut to dynamicMcpRouteMcpServerNameMcpPatch, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpPatch to dynamicMcpRouteMcpServerNameMcpDelete, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpDelete to toolsetMcpRouteToolsetToolsetNameMcpHead, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpPost to dynamicMcpRouteMcpServerNameMcpOptions, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpOptions to dynamicMcpRouteMcpServerNameMcpPut, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpPost to toolsetMcpRouteToolsetToolsetNameMcpOptions, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpDelete to dynamicMcpRouteMcpServerNameMcpHead, and updated its types accordingly.
+
+## 2.0.3
+
+### Patch Changes
+
+- e674864: No exported operations or types were added or removed; only internal changes were made to the generated TypeScript client.
+
 ## 2.0.2
 
 ### Patch Changes

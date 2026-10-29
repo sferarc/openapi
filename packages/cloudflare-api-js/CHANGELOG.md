@@ -1,5 +1,24 @@
 # cloudflare-api-js
 
+## 2.2.1
+
+### Patch Changes
+
+- 5104b70: Send an array query parameter that the spec marks `explode: false` as one comma-separated value (`?type=full,partial`) instead of repeating the key, so filters such as `type` on `zonesGet`, `ids` on `getZonesZoneIdentifierZarazConfigHistory` and `fields` on `d1GetDatabase` reach the API as documented. `id` on `GET /organizations` keeps repeated keys, as its description asks.
+
+## 2.2.0
+
+### Minor Changes
+
+- f619306: Added multiple new types and components for additional API data coverage and improved schema detail.
+- f619306: Added many new fields to various response types to provide richer and more detailed data across numerous API endpoints, especially in the Radar API responses.
+
+## 2.1.2
+
+### Patch Changes
+
+- c80b578: Send an object query parameter as one key per property (`start=2021-04-01&end=2021-04-30`), the spec's default form style, instead of `start_end_params=[object Object]`, so the date range on `passiveDnsByIpGetPassiveDnsByIp` reaches the API.
+
 ## 2.1.1
 
 ### Patch Changes

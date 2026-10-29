@@ -37,6 +37,18 @@ describe("CloudflareApi.request", () => {
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/accounts$/);
 	});
 
+	it("joins a non-exploded array query param into one comma-separated value", async () => {
+		const { urls, client } = setup();
+		await client.request("GET /zones", { queryParams: { type: ["full", "partial"], page: 2 } });
+		expect(new URL(urls[0] ?? "").search).toBe("?type=full%2Cpartial&page=2");
+	});
+
+	it("keeps repeated keys for the organization id filter", async () => {
+		const { urls, client } = setup();
+		await client.request("GET /organizations", { queryParams: { id: ["a", "b"] } });
+		expect(new URL(urls[0] ?? "").search).toBe("?id=a&id=b");
+	});
+
 	it("rejects an unknown endpoint", async () => {
 		const { client } = setup();
 		await expect(client.request("GET /nope" as never, {} as never)).rejects.toThrow(

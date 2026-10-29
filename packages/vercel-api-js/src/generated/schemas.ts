@@ -3530,6 +3530,21 @@ export const userEventSchema = z
 					}),
 				}),
 				z.strictObject({
+					changes: z
+						.object({
+							active: z.union([z.literal(false), z.literal(true)]).optional(),
+							keyReplaced: z.union([z.literal(false), z.literal(true)]).optional(),
+							previousName: z.string().optional(),
+							zeroDataRetention: z.union([z.literal(false), z.literal(true)]).optional(),
+						})
+						.optional(),
+					credential: z.object({
+						id: z.string(),
+						name: z.string(),
+						providerSlug: z.string(),
+					}),
+				}),
+				z.strictObject({
 					added: z.array(z.string()),
 					changed: z.array(z.string()),
 					credential: z.object({
@@ -17663,6 +17678,7 @@ export const createAiGatewayByokCredentialStatus201Schema = z.object({
 	name: z.string(),
 	ownerId: z.string(),
 	providerSlug: z.string(),
+	rotatedAt: z.number().nullable(),
 	updatedAt: z.number(),
 	zeroDataRetention: z.union([z.literal(false), z.literal(true)]),
 });
@@ -17814,6 +17830,7 @@ export const listAiGatewayByokCredentialsStatus200Schema = z.object({
 			name: z.string(),
 			ownerId: z.string(),
 			providerSlug: z.string(),
+			rotatedAt: z.number().nullable(),
 			updatedAt: z.number(),
 			zeroDataRetention: z.union([z.literal(false), z.literal(true)]),
 		}),
@@ -17905,6 +17922,7 @@ export const getAiGatewayByokCredentialStatus200Schema = z.object({
 	name: z.string(),
 	ownerId: z.string(),
 	providerSlug: z.string(),
+	rotatedAt: z.number().nullable(),
 	updatedAt: z.number(),
 	zeroDataRetention: z.union([z.literal(false), z.literal(true)]),
 });
@@ -17976,6 +17994,7 @@ export const updateAiGatewayByokCredentialStatus200Schema = z.object({
 	name: z.string(),
 	ownerId: z.string(),
 	providerSlug: z.string(),
+	rotatedAt: z.number().nullable(),
 	updatedAt: z.number(),
 	zeroDataRetention: z.union([z.literal(false), z.literal(true)]),
 });
@@ -25262,6 +25281,8 @@ export const createConnectorStatus502Schema = connectErrorSchema.describe(
 	"Error response returned by a Connect API operation.",
 );
 
+export const createConnectorStatus503Schema = z.unknown();
+
 export const createConnectorStatus504Schema = z.unknown();
 
 export const createConnectorResponseSchema = createConnectorStatus201Schema;
@@ -25277,6 +25298,7 @@ export const createConnectorErrorSchema = z.union([
 	createConnectorStatus500Schema,
 	createConnectorStatus501Schema,
 	createConnectorStatus502Schema,
+	createConnectorStatus503Schema,
 	createConnectorStatus504Schema,
 ]);
 
@@ -25474,6 +25496,8 @@ export const replaceConnectorTriggerDestinationsStatus500Schema = connectErrorSc
 
 export const replaceConnectorTriggerDestinationsStatus501Schema = z.unknown();
 
+export const replaceConnectorTriggerDestinationsStatus503Schema = z.unknown();
+
 export const replaceConnectorTriggerDestinationsStatus504Schema = z.unknown();
 
 export const replaceConnectorTriggerDestinationsResponseSchema =
@@ -25489,6 +25513,7 @@ export const replaceConnectorTriggerDestinationsErrorSchema = z.union([
 	replaceConnectorTriggerDestinationsStatus422Schema,
 	replaceConnectorTriggerDestinationsStatus500Schema,
 	replaceConnectorTriggerDestinationsStatus501Schema,
+	replaceConnectorTriggerDestinationsStatus503Schema,
 	replaceConnectorTriggerDestinationsStatus504Schema,
 ]);
 
@@ -25855,6 +25880,8 @@ export const upsertConnectorProjectConnectionStatus500Schema = connectErrorSchem
 
 export const upsertConnectorProjectConnectionStatus501Schema = z.unknown();
 
+export const upsertConnectorProjectConnectionStatus503Schema = z.unknown();
+
 export const upsertConnectorProjectConnectionStatus504Schema = z.unknown();
 
 export const upsertConnectorProjectConnectionResponseSchema =
@@ -25870,6 +25897,7 @@ export const upsertConnectorProjectConnectionErrorSchema = z.union([
 	upsertConnectorProjectConnectionStatus422Schema,
 	upsertConnectorProjectConnectionStatus500Schema,
 	upsertConnectorProjectConnectionStatus501Schema,
+	upsertConnectorProjectConnectionStatus503Schema,
 	upsertConnectorProjectConnectionStatus504Schema,
 ]);
 

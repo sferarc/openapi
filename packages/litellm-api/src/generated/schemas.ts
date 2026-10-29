@@ -28425,38 +28425,6 @@ export const aggregateMcpRouteMcpPatchStatus200Schema = z.unknown();
 
 export const aggregateMcpRouteMcpPatchResponseSchema = aggregateMcpRouteMcpPatchStatus200Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPostPathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema = z.looseObject({});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostPathSchema = z.object({
-	toolset_name: z.string(),
-});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema = z.unknown();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema = HTTPValidationErrorSchema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathSchema = z.object({
-	toolset_name: z.string(),
-});
-
 export const toolsetMcpRouteToolsetToolsetNameMcpOptionsPathToolsetNameSchema = z.string();
 
 export const toolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200Schema = z.unknown();
@@ -28473,51 +28441,19 @@ export const toolsetMcpRouteToolsetToolsetNameMcpOptionsPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathToolsetNameSchema = z.string();
+export const toolsetMcpRouteToolsetToolsetNameMcpPostPathToolsetNameSchema = z.string();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema = z.unknown();
+export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema = z.looseObject({});
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPostResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPostErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathSchema = z.object({
-	toolset_name: z.string(),
-});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema = z.looseObject({});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathSchema = z.object({
-	toolset_name: z.string(),
-});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpGetPathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpGetStatus200Schema = z.looseObject({});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpGetStatus422Schema = HTTPValidationErrorSchema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpGetResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpGetStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpGetErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpGetStatus422Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpGetPathSchema = z.object({
+export const toolsetMcpRouteToolsetToolsetNameMcpPostPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
@@ -28537,36 +28473,68 @@ export const toolsetMcpRouteToolsetToolsetNameMcpPutPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
-export const dynamicMcpRouteMcpServerNameMcpPostPathMcpServerNameSchema = z.string();
+export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathToolsetNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpPostStatus200Schema = z.looseObject({});
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema = z.looseObject({});
 
-export const dynamicMcpRouteMcpServerNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
 
-export const dynamicMcpRouteMcpServerNameMcpPostResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpPostStatus200Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPostErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpPostStatus422Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPostPathSchema = z.object({
-	mcp_server_name: z.string(),
+export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathSchema = z.object({
+	toolset_name: z.string(),
 });
 
-export const dynamicMcpRouteMcpServerNameMcpHeadPathMcpServerNameSchema = z.string();
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathToolsetNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema = z.unknown();
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema = z.unknown();
 
-export const dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema = HTTPValidationErrorSchema;
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema = HTTPValidationErrorSchema;
 
-export const dynamicMcpRouteMcpServerNameMcpHeadResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpHeadErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpHeadPathSchema = z.object({
-	mcp_server_name: z.string(),
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathSchema = z.object({
+	toolset_name: z.string(),
+});
+
+export const toolsetMcpRouteToolsetToolsetNameMcpGetPathToolsetNameSchema = z.string();
+
+export const toolsetMcpRouteToolsetToolsetNameMcpGetStatus200Schema = z.looseObject({});
+
+export const toolsetMcpRouteToolsetToolsetNameMcpGetStatus422Schema = HTTPValidationErrorSchema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpGetResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpGetStatus200Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpGetErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpGetStatus422Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpGetPathSchema = z.object({
+	toolset_name: z.string(),
+});
+
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathToolsetNameSchema = z.string();
+
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema = z.unknown();
+
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathSchema = z.object({
+	toolset_name: z.string(),
 });
 
 export const dynamicMcpRouteMcpServerNameMcpOptionsPathMcpServerNameSchema = z.string();
@@ -28585,19 +28553,35 @@ export const dynamicMcpRouteMcpServerNameMcpOptionsPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
-export const dynamicMcpRouteMcpServerNameMcpPatchPathMcpServerNameSchema = z.string();
+export const dynamicMcpRouteMcpServerNameMcpPostPathMcpServerNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema = z.unknown();
+export const dynamicMcpRouteMcpServerNameMcpPostStatus200Schema = z.looseObject({});
 
-export const dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
+export const dynamicMcpRouteMcpServerNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
 
-export const dynamicMcpRouteMcpServerNameMcpPatchResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema;
+export const dynamicMcpRouteMcpServerNameMcpPostResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpPostStatus200Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPatchErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema;
+export const dynamicMcpRouteMcpServerNameMcpPostErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpPostStatus422Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPatchPathSchema = z.object({
+export const dynamicMcpRouteMcpServerNameMcpPostPathSchema = z.object({
+	mcp_server_name: z.string(),
+});
+
+export const dynamicMcpRouteMcpServerNameMcpPutPathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpPutStatus200Schema = z.looseObject({});
+
+export const dynamicMcpRouteMcpServerNameMcpPutStatus422Schema = HTTPValidationErrorSchema;
+
+export const dynamicMcpRouteMcpServerNameMcpPutResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpPutStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPutErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpPutStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPutPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
@@ -28617,6 +28601,22 @@ export const dynamicMcpRouteMcpServerNameMcpDeletePathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
+export const dynamicMcpRouteMcpServerNameMcpHeadPathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema = z.unknown();
+
+export const dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema = HTTPValidationErrorSchema;
+
+export const dynamicMcpRouteMcpServerNameMcpHeadResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpHeadErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpHeadPathSchema = z.object({
+	mcp_server_name: z.string(),
+});
+
 export const dynamicMcpRouteMcpServerNameMcpGetPathMcpServerNameSchema = z.string();
 
 export const dynamicMcpRouteMcpServerNameMcpGetStatus200Schema = z.looseObject({});
@@ -28633,19 +28633,19 @@ export const dynamicMcpRouteMcpServerNameMcpGetPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
-export const dynamicMcpRouteMcpServerNameMcpPutPathMcpServerNameSchema = z.string();
+export const dynamicMcpRouteMcpServerNameMcpPatchPathMcpServerNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpPutStatus200Schema = z.looseObject({});
+export const dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema = z.unknown();
 
-export const dynamicMcpRouteMcpServerNameMcpPutStatus422Schema = HTTPValidationErrorSchema;
+export const dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
 
-export const dynamicMcpRouteMcpServerNameMcpPutResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpPutStatus200Schema;
+export const dynamicMcpRouteMcpServerNameMcpPatchResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPutErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpPutStatus422Schema;
+export const dynamicMcpRouteMcpServerNameMcpPatchErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPutPathSchema = z.object({
+export const dynamicMcpRouteMcpServerNameMcpPatchPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 

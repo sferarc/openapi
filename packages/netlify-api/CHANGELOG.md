@@ -1,5 +1,11 @@
 # netlify-api
 
+## 2.0.2
+
+### Patch Changes
+
+- 9fcd6a5: No public API changes in this diff.
+
 ## 2.0.1
 
 ### Patch Changes
