@@ -30,6 +30,20 @@ describe("CloudflareApi.request", () => {
 		expect(urls).toEqual([]);
 	});
 
+	it("types request() and client.api params from the operation", () => {
+		const { client } = setup();
+		// Never called: tsc fails if a @ts-expect-error below stops finding an error.
+		const typeChecks = () => [
+			// @ts-expect-error pathParams needs accountId
+			client.request("GET /accounts/{accountId}", { pathParams: {} }),
+			// @ts-expect-error the operation has no such parameter
+			client.request("GET /accounts/{accountId}", { pathParams: { accountId: "a" }, nope: 1 }),
+			// @ts-expect-error pathParams needs accountId
+			client.api.accounts.accountsAccountDetails({ pathParams: {} }),
+		];
+		expect(typeChecks).toBeTypeOf("function");
+	});
+
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
 		await client.request("GET /accounts", {});

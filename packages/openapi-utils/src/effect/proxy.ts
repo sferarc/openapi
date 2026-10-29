@@ -9,7 +9,7 @@ export type EffectApi<Tags extends Record<string, Record<string, (...args: any[]
 	[Tag in keyof Tags]: {
 		[Op in keyof Tags[Tag]]: Tags[Tag][Op] extends (params: infer P) => Promise<infer R>
 			? (
-					params: Omit<P, "config">,
+					params: Omit<NonNullable<P>, "config">,
 				) => Effect.Effect<R, ApiError | ValidationError | NetworkError, ApiConfig>
 			: Tags[Tag][Op] extends () => Promise<infer R>
 				? () => Effect.Effect<R, ApiError | ValidationError | NetworkError, ApiConfig>
@@ -20,7 +20,7 @@ export type EffectApi<Tags extends Record<string, Record<string, (...args: any[]
 export type EffectByPath<Paths extends Record<string, (...args: any[]) => any>> = {
 	[K in keyof Paths]: Paths[K] extends (params: infer P) => Promise<infer R>
 		? (
-				params: Omit<P, "config">,
+				params: Omit<NonNullable<P>, "config">,
 			) => Effect.Effect<R, ApiError | ValidationError | NetworkError, ApiConfig>
 		: Paths[K] extends () => Promise<infer R>
 			? () => Effect.Effect<R, ApiError | ValidationError | NetworkError, ApiConfig>

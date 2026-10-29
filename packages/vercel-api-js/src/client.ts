@@ -12,7 +12,7 @@ export type ApiClient = {
 	[Tag in keyof typeof operationsByTag]: {
 		[Method in keyof (typeof operationsByTag)[Tag]]: (typeof operationsByTag)[Tag][Method] extends infer Operation extends
 			(...args: any) => any
-			? Omit<Parameters<Operation>[0], keyof FetcherConfig> extends infer Params
+			? NonNullable<Parameters<Operation>[0]> extends infer Params
 				? RequiredKeys<Params> extends never
 					? (params?: Params) => ReturnType<Operation>
 					: (params: Params) => ReturnType<Operation>
@@ -45,7 +45,7 @@ export type ApiOperationParams<T extends ApiOperation> = T extends `${infer Tag}
 			? (typeof operationsByTag)[Tag][Operation] extends infer Operation extends (
 					...args: any
 				) => any
-				? Omit<Parameters<Operation>[0], keyof FetcherConfig>
+				? NonNullable<Parameters<Operation>[0]>
 				: never
 			: never
 		: never
@@ -61,9 +61,8 @@ export type ApiOperationResult<T extends ApiOperation> = T extends `${infer Tag}
 		: never
 	: never;
 
-type RequestEndpointParams<T extends keyof typeof operationsByPath> = Omit<
-	Parameters<(typeof operationsByPath)[T]>[0],
-	keyof FetcherConfig
+type RequestEndpointParams<T extends keyof typeof operationsByPath> = NonNullable<
+	Parameters<(typeof operationsByPath)[T]>[0]
 >;
 
 type RequestEndpointResult<T extends keyof typeof operationsByPath> = ReturnType<

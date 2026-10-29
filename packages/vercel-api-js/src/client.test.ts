@@ -30,6 +30,22 @@ describe("VercelApi.request", () => {
 		expect(urls).toEqual([]);
 	});
 
+	it("types request() and client.api params from the operation", () => {
+		const { client } = setup();
+		// Never called: tsc fails if a @ts-expect-error below stops finding an error.
+		const typeChecks = () => [
+			// @ts-expect-error pathParams needs idOrName
+			client.request("GET /v9/projects/{idOrName}", { pathParams: {} }),
+			// @ts-expect-error the operation has no such parameter
+			client.request("GET /v9/projects/{idOrName}", { pathParams: { idOrName: "a" }, nope: 1 }),
+			// @ts-expect-error pathParams needs idOrName
+			client.api.projects.getProject({ pathParams: {} }),
+			// Header parameters share the name `headers` with the fetcher config but are kept.
+			client.api.deployments.uploadFile({ headers: { "x-now-size": 1 } }),
+		];
+		expect(typeChecks).toBeTypeOf("function");
+	});
+
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
 		await client.request("GET /v1/access-groups", {});
