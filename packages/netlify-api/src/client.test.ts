@@ -30,6 +30,20 @@ describe("NetlifyApi.request", () => {
 		expect(urls).toEqual([]);
 	});
 
+	it("types request() and client.api params from the operation", () => {
+		const { client } = setup();
+		// Never called: tsc fails if a @ts-expect-error below stops finding an error.
+		const typeChecks = () => [
+			// @ts-expect-error pathParams needs site_id
+			client.request("GET /sites/{site_id}", { pathParams: {} }),
+			// @ts-expect-error the operation has no such parameter
+			client.request("GET /sites/{site_id}", { pathParams: { site_id: "a" }, nope: 1 }),
+			// @ts-expect-error pathParams needs site_id
+			client.api.site.getSite({ pathParams: {} }),
+		];
+		expect(typeChecks).toBeTypeOf("function");
+	});
+
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
 		await client.request("GET /sites", {});

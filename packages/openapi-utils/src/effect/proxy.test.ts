@@ -86,6 +86,23 @@ describe("createEffectByPath", () => {
 	});
 });
 
+describe("param types", () => {
+	it("keeps the params of an operation whose params argument is optional", () => {
+		// Generated operations default their params to {}, so Parameters gives `params | undefined`.
+		const op = async ({ limit }: { limit?: number; config?: unknown } = {}) => limit;
+		const api = createEffectApi({ projects: { list: op } });
+		const byPath = createEffectByPath({ "/projects": op });
+		// Never called: tsc fails if a @ts-expect-error below stops finding an error.
+		const typeChecks = () => [
+			// @ts-expect-error limit is a number
+			api.projects.list({ limit: "5" }),
+			// @ts-expect-error limit is a number
+			byPath["/projects"]({ limit: "5" }),
+		];
+		expect(typeChecks).toBeTypeOf("function");
+	});
+});
+
 describe("error mapping", () => {
 	it("maps a rejection with a status to ApiError", async () => {
 		const rejection = { status: 403, payload: { error: { code: "forbidden" } } };

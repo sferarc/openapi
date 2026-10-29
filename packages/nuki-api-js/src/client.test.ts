@@ -30,6 +30,20 @@ describe("NukiApi.request", () => {
 		expect(urls).toEqual([]);
 	});
 
+	it("types request() and client.api params from the operation", () => {
+		const { client } = setup();
+		// Never called: tsc fails if a @ts-expect-error below stops finding an error.
+		const typeChecks = () => [
+			// @ts-expect-error pathParams needs serviceId
+			client.request("GET /service/{serviceId}", { pathParams: {} }),
+			// @ts-expect-error the operation has no such parameter
+			client.request("GET /service/{serviceId}", { pathParams: { serviceId: "a" }, nope: 1 }),
+			// @ts-expect-error pathParams needs serviceId
+			client.api.service.getServiceResource({ pathParams: {} }),
+		];
+		expect(typeChecks).toBeTypeOf("function");
+	});
+
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
 		await client.request("GET /account", {});
