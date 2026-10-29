@@ -30,7 +30,7 @@ export type AaaDisplayName = string;
  * @example [{"AvailableValues":null,"ComparisonOperator":"==","Key":"zones","Range":"1-n"},{"AvailableValues":[{"Description":"Service-Level Objective of 99.7","ID":"99.7"},{"Description":"Service-Level Objective of 99.8","ID":"99.8"}],"ComparisonOperator":">=","Key":"slo","Range":"0-1"}]
  * @type array
  */
-export type AaaFilterOptions = unknown[];
+export type AaaFilterOptions = object[];
 
 /**
  * @description Use this value when creating and updating a notification policy.
@@ -13792,6 +13792,735 @@ export type AddressingSingleResponseBgp = AddressingApiResponseSingle & {
  */
 export type AddressingZoneIdentifier = string;
 
+export type AdvancedDdosProtectionDnsProtectionRule = {
+  /**
+   * @description Whether to block DNS ANY queries. Defaults to true.
+   * @type boolean
+   */
+  block_any_queries: boolean;
+  /**
+   * @description The burst sensitivity. Must be one of 'low', 'medium', 'high'.
+   * @type string
+   */
+  burst_sensitivity: string;
+  /**
+   * @description The creation timestamp of the DNS Protection rule.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  created_on: string;
+  /**
+   * @description The unique ID of the DNS Protection rule.
+   * @type string
+   */
+  id: string;
+  /**
+   * @description The mode for DNS Protection. Must be one of 'enabled', 'disabled', 'monitoring'.
+   * @type string
+   */
+  mode: string;
+  /**
+   * @description The last modification timestamp of the DNS Protection rule.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  modified_on: string;
+  /**
+   * @description The name of the DNS Protection rule. Value is relative to the 'scope' setting. For 'global' scope, name should be 'global'. For either the 'region' or 'datacenter' scope, name should be the actual name of the region or datacenter, e.g., 'wnam' or 'lax'.
+   * @type string
+   */
+  name: string;
+  /**
+   * @description The profile sensitivity. Recommended setting is 'low'. Must be one of 'low', 'medium', 'high', or 'very_high'.
+   * @type string
+   */
+  profile_sensitivity: string;
+  /**
+   * @description The rate sensitivity. Must be one of 'low', 'medium', 'high'.
+   * @type string
+   */
+  rate_sensitivity: string;
+  /**
+   * @description The scope for the DNS Protection rule. Must be one of 'global', 'region', or 'datacenter'.
+   * @type string
+   */
+  scope: string;
+};
+
+export type AdvancedDdosProtectionDnsProtectionRuleUpdate = {
+  /**
+   * @description The new value for whether to block DNS ANY queries. Optional.
+   * @type boolean | undefined
+   */
+  block_any_queries?: boolean | undefined;
+  /**
+   * @description The new burst sensitivity. Optional. Must be one of 'low', 'medium', 'high'.
+   * @type string | undefined
+   */
+  burst_sensitivity?: string | undefined;
+  /**
+   * @description The new mode for DNS Protection. Optional. Must be one of 'enabled', 'disabled', 'monitoring'.
+   * @type string | undefined
+   */
+  mode?: string | undefined;
+  /**
+   * @description The new profile sensitivity. Optional. Recommended setting is 'low'. Must be one of 'low', 'medium', 'high', or 'very_high'.
+   * @type string | undefined
+   */
+  profile_sensitivity?: string | undefined;
+  /**
+   * @description The new rate sensitivity. Optional. Must be one of 'low', 'medium', 'high'.
+   * @type string | undefined
+   */
+  rate_sensitivity?: string | undefined;
+};
+
+export type AdvancedDdosProtectionExpressionFilter = {
+  /**
+   * @description The creation timestamp of the expression filter.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  created_on: string;
+  /**
+   * @description The filter expression.
+   * @example ip.dst in { 192.0.2.0/24 198.51.100.0/24 } and tcp.srcport in { 80 443 10000..65535 }
+   * @type string
+   */
+  expression: string;
+  /**
+   * @description The unique ID of the expression filter.
+   * @type string
+   */
+  id: string;
+  /**
+   * @description The filter's mode. Must be one of 'enabled', 'disabled', 'monitoring'.
+   * @type string
+   */
+  mode: string;
+  /**
+   * @description The last modification timestamp of the expression filter.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  modified_on: string;
+};
+
+export type AdvancedDdosProtectionExpressionFilterUpdate = {
+  /**
+   * @description The new filter expression. Optional.
+   * @example ip.dst in { 192.0.2.0/24 198.51.100.0/24 } and tcp.srcport in { 80 443 10000..65535 }
+   * @type string | undefined
+   */
+  expression?: string | undefined;
+  /**
+   * @description The new mode for the filter. Optional. Must be one of 'enabled', 'disabled', 'monitoring'.
+   * @type string | undefined
+   */
+  mode?: string | undefined;
+};
+
+export type AdvancedDdosProtectionInfraPrefix = {
+  /**
+   * @description An optional comment describing the allowlist prefix.
+   * @type string
+   */
+  comment: string;
+  /**
+   * @description The creation timestamp of the allowlist prefix.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  created_on: string;
+  /**
+   * @description Whether to enable the allowlist prefix into effect. Defaults to false.
+   * @type boolean
+   */
+  enabled: boolean;
+  /**
+   * @description The unique ID of the allowlist prefix.
+   * @type string
+   */
+  id: string;
+  /**
+   * @description The last modification timestamp of the allowlist prefix.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  modified_on: string;
+  /**
+   * @description The allowlist prefix in CIDR format.
+   * @type string
+   */
+  prefix: string;
+};
+
+export type AdvancedDdosProtectionInfraPrefixUpdate = {
+  /**
+   * @description A comment describing the allowlist prefix. Optional.
+   * @type string | undefined
+   */
+  comment?: string | undefined;
+  /**
+   * @description Whether to enable the allowlist prefix into effect. Optional.
+   * @type boolean | undefined
+   */
+  enabled?: boolean | undefined;
+};
+
+export type AdvancedDdosProtectionNewDnsProtectionRule = {
+  /**
+   * @description Whether to block DNS ANY queries. Optional. Defaults to true.
+   * @type boolean | undefined
+   */
+  block_any_queries?: boolean | undefined;
+  /**
+   * @description The burst sensitivity. Must be one of 'low', 'medium', 'high'.
+   * @type string
+   */
+  burst_sensitivity: string;
+  /**
+   * @description The mode for DNS Protection. Must be one of 'enabled', 'disabled', 'monitoring'.
+   * @type string
+   */
+  mode: string;
+  /**
+   * @description The name of the DNS Protection rule. Value is relative to the 'scope' setting. For 'global' scope, name should be 'global'. For either the 'region' or 'datacenter' scope, name should be the actual name of the region or datacenter, e.g., 'wnam' or 'lax'.
+   * @type string
+   */
+  name: string;
+  /**
+   * @description The profile sensitivity. Recommended setting is 'low'. Must be one of 'low', 'medium', 'high', or 'very_high'.
+   * @type string
+   */
+  profile_sensitivity: string;
+  /**
+   * @description The rate sensitivity. Must be one of 'low', 'medium', 'high'.
+   * @type string
+   */
+  rate_sensitivity: string;
+  /**
+   * @description The scope for the DNS Protection rule. Must be one of 'global', 'region', or 'datacenter'.
+   * @type string
+   */
+  scope: string;
+};
+
+export type AdvancedDdosProtectionNewExpressionFilter = {
+  /**
+   * @description The filter expression.
+   * @example ip.dst in { 192.0.2.0/24 198.51.100.0/24 } and tcp.srcport in { 80 443 10000..65535 }
+   * @type string
+   */
+  expression: string;
+  /**
+   * @description The filter's mode. Must be one of 'enabled', 'disabled', 'monitoring'.
+   * @type string
+   */
+  mode: string;
+};
+
+export type AdvancedDdosProtectionNewInfraPrefix = {
+  /**
+   * @description An comment describing the allowlist prefix.
+   * @type string
+   */
+  comment: string;
+  /**
+   * @description Whether to enable the allowlist prefix into effect.
+   * @type boolean
+   */
+  enabled: boolean;
+  /**
+   * @description The allowlist prefix to add in CIDR format.
+   * @type string
+   */
+  prefix: string;
+};
+
+export type AdvancedDdosProtectionNewPrefix = {
+  /**
+   * @description A comment describing the prefix.
+   * @type string
+   */
+  comment: string;
+  /**
+   * @description Whether to exclude the prefix from protection.
+   * @type boolean
+   */
+  excluded: boolean;
+  /**
+   * @description The prefix to add in CIDR format.
+   * @example 192.0.2.0/24
+   * @type string
+   */
+  prefix: string;
+};
+
+export type AdvancedDdosProtectionNewSynProtectionRule = {
+  /**
+   * @description The burst sensitivity. Must be one of 'low', 'medium', 'high'.
+   * @type string
+   */
+  burst_sensitivity: string;
+  /**
+   * @description The type of mitigation. Must be one of 'challenge' or 'retransmit'. Optional. Defaults to 'challenge'.
+   * @type string | undefined
+   */
+  mitigation_type?: string | undefined;
+  /**
+   * @description The mode for SYN Protection. Must be one of 'enabled', 'disabled', 'monitoring'.
+   * @type string
+   */
+  mode: string;
+  /**
+   * @description The name of the SYN Protection rule. Value is relative to the 'scope' setting. For 'global' scope, name should be 'global'. For either the 'region' or 'datacenter' scope, name should be the actual name of the region or datacenter, e.g., 'wnam' or 'lax'.
+   * @type string
+   */
+  name: string;
+  /**
+   * @description The rate sensitivity. Must be one of 'low', 'medium', 'high'.
+   * @type string
+   */
+  rate_sensitivity: string;
+  /**
+   * @description The scope for the SYN Protection rule. Must be one of 'global', 'region', or 'datacenter'.
+   * @type string
+   */
+  scope: string;
+};
+
+export type AdvancedDdosProtectionNewTcpFlowProtectionRule = {
+  /**
+   * @description The burst sensitivity. Must be one of 'low', 'medium', 'high'.
+   * @type string
+   */
+  burst_sensitivity: string;
+  /**
+   * @description The mode for the TCP Flow Protection. Must be one of 'enabled', 'disabled', 'monitoring'.
+   * @type string
+   */
+  mode: string;
+  /**
+   * @description The name of the TCP Flow Protection rule. Value is relative to the 'scope' setting. For 'global' scope, name should be 'global'. For either the 'region' or 'datacenter' scope, name should be the actual name of the region or datacenter, e.g., 'wnam' or 'lax'.
+   * @type string
+   */
+  name: string;
+  /**
+   * @description The rate sensitivity. Must be one of 'low', 'medium', 'high'.
+   * @type string
+   */
+  rate_sensitivity: string;
+  /**
+   * @description The scope for the TCP Flow Protection rule.
+   * @type string
+   */
+  scope: string;
+};
+
+export type AdvancedDdosProtectionPrefix = {
+  /**
+   * @description A comment describing the prefix.
+   * @type string
+   */
+  comment: string;
+  /**
+   * @description The creation timestamp of the prefix.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  created_on: string;
+  /**
+   * @description Whether to exclude the prefix from protection.
+   * @type boolean
+   */
+  excluded: boolean;
+  /**
+   * @description The unique ID of the prefix.
+   * @type string
+   */
+  id: string;
+  /**
+   * @description The last modification timestamp of the prefix.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  modified_on: string;
+  /**
+   * @description The prefix in CIDR format.
+   * @example 192.0.2.0/24
+   * @type string
+   */
+  prefix: string;
+};
+
+export type AdvancedDdosProtectionPrefixUpdate = {
+  /**
+   * @description A new comment for the prefix. Optional.
+   * @type string | undefined
+   */
+  comment?: string | undefined;
+  /**
+   * @description Whether to exclude the prefix from protection. Optional.
+   * @type boolean | undefined
+   */
+  excluded?: boolean | undefined;
+};
+
+export type AdvancedDdosProtectionProtectionStatus = {
+  enabled: boolean;
+};
+
+export type AdvancedDdosProtectionSynProtectionRule = {
+  /**
+   * @description The burst sensitivity. Must be one of 'low', 'medium', 'high'.
+   * @type string
+   */
+  burst_sensitivity: string;
+  /**
+   * @description The creation timestamp of the SYN Protection rule.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  created_on: string;
+  /**
+   * @description The unique ID of the SYN Protection rule.
+   * @type string
+   */
+  id: string;
+  /**
+   * @description The type of mitigation for SYN Protection. Must be one of 'challenge' or 'retransmit'.
+   * @type string
+   */
+  mitigation_type: string;
+  /**
+   * @description The mode for SYN Protection. Must be one of 'enabled', 'disabled', 'monitoring'.
+   * @type string
+   */
+  mode: string;
+  /**
+   * @description The last modification timestamp of the SYN Protection rule.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  modified_on: string;
+  /**
+   * @description The name of the SYN Protection rule. Value is relative to the 'scope' setting. For 'global' scope, name should be 'global'. For either the 'region' or 'datacenter' scope, name should be the actual name of the region or datacenter, e.g., 'wnam' or 'lax'.
+   * @type string
+   */
+  name: string;
+  /**
+   * @description The rate sensitivity. Must be one of 'low', 'medium', 'high'.
+   * @type string
+   */
+  rate_sensitivity: string;
+  /**
+   * @description The scope for the SYN Protection rule. Must be one of 'global', 'region', or 'datacenter'.
+   * @type string
+   */
+  scope: string;
+};
+
+export type AdvancedDdosProtectionSynProtectionRuleUpdate = {
+  /**
+   * @description The new burst sensitivity. Optional. Must be one of 'low', 'medium', 'high'.
+   * @type string | undefined
+   */
+  burst_sensitivity?: string | undefined;
+  /**
+   * @description The new mitigation type. Optional. Must be one of 'challenge' or 'retransmit'.
+   * @type string | undefined
+   */
+  mitigation_type?: string | undefined;
+  /**
+   * @description The new mode for SYN Protection. Optional. Must be one of 'enabled', 'disabled', 'monitoring'.
+   * @type string | undefined
+   */
+  mode?: string | undefined;
+  /**
+   * @description The new rate sensitivity. Optional. Must be one of 'low', 'medium', 'high'.
+   * @type string | undefined
+   */
+  rate_sensitivity?: string | undefined;
+};
+
+export type AdvancedDdosProtectionTcpFlowProtectionRule = {
+  /**
+   * @description The burst sensitivity. Must be one of 'low', 'medium', 'high'.
+   * @type string
+   */
+  burst_sensitivity: string;
+  /**
+   * @description The creation timestamp of the TCP Flow Protection rule.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  created_on: string;
+  /**
+   * @description The unique ID of the TCP Flow Protection rule.
+   * @type string
+   */
+  id: string;
+  /**
+   * @description The mode for TCP Flow Protection. Must be one of 'enabled', 'disabled', 'monitoring'.
+   * @type string
+   */
+  mode: string;
+  /**
+   * @description The last modification timestamp of the TCP Flow Protection rule.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  modified_on: string;
+  /**
+   * @description The name of the TCP Flow Protection rule. Value is relative to the 'scope' setting. For 'global' scope, name should be 'global'. For either the 'region' or 'datacenter' scope, name should be the actual name of the region or datacenter, e.g., 'wnam' or 'lax'.
+   * @type string
+   */
+  name: string;
+  /**
+   * @description The rate sensitivity. Must be one of 'low', 'medium', 'high'.
+   * @type string
+   */
+  rate_sensitivity: string;
+  /**
+   * @description The scope for the TCP Flow Protection rule. Must be one of 'global', 'region', or 'datacenter'.
+   * @type string
+   */
+  scope: string;
+};
+
+export type AdvancedDdosProtectionTcpFlowProtectionRuleUpdate = {
+  /**
+   * @description The new burst sensitivity. Optional. Must be one of 'low', 'medium', 'high'.
+   * @type string | undefined
+   */
+  burst_sensitivity?: string | undefined;
+  /**
+   * @description The new mode for TCP Flow Protection. Optional. Must be one of 'enabled', 'disabled', 'monitoring'.
+   * @type string | undefined
+   */
+  mode?: string | undefined;
+  /**
+   * @description The new rate sensitivity. Optional. Must be one of 'low', 'medium', 'high'.
+   * @type string | undefined
+   */
+  rate_sensitivity?: string | undefined;
+};
+
+export type AdvancedDdosProtectionUpdateProtectionStatus = {
+  /**
+   * @description Enables or disables protection.
+   * @type boolean
+   */
+  enabled: boolean;
+};
+
+/**
+ * @example []
+ * @type array
+ */
+export type AdvancedDdosProtectionMessages = {
+  /**
+   * @minLength 1000
+   * @type integer
+   */
+  code: number;
+  documentation_url?: string | undefined;
+  message: string;
+  source?: {
+    pointer?: string | undefined;
+  } | undefined;
+}[];
+
+export type AdvancedDdosProtectionApiResponseCommon = {
+  /**
+   * @example []
+   * @type array
+   */
+  errors: AdvancedDdosProtectionMessages;
+  /**
+   * @example []
+   * @type array
+   */
+  messages: AdvancedDdosProtectionMessages;
+  /**
+   * @description Whether the API call was successful.
+   * @example true
+   * @type boolean
+   */
+  success: true;
+};
+
+export type AdvancedDdosProtectionApiResponseCollection = AdvancedDdosProtectionApiResponseCommon & {
+  result_info?: {
+    /**
+     * @description Total number of results for the requested service.
+     * @example 1
+     * @type number | undefined
+     */
+    count?: number | undefined;
+    /**
+     * @description Current page within paginated list of results.
+     * @example 1
+     * @type number | undefined
+     */
+    page?: number | undefined;
+    /**
+     * @description Number of results per page of results.
+     * @example 20
+     * @type number | undefined
+     */
+    per_page?: number | undefined;
+    /**
+     * @description Total results available without any search parameters.
+     * @example 2000
+     * @type number | undefined
+     */
+    total_count?: number | undefined;
+    /**
+     * @description The number of total pages in the entire result set.
+     * @example 100
+     * @type number | undefined
+     */
+    total_pages?: number | undefined;
+  } | undefined;
+};
+
+export type AdvancedDdosProtectionApiResponseCommonFailure = {
+  /**
+   * @example [{"code":7003,"message":"No route for the URI"}]
+   * @type array
+   */
+  errors: AdvancedDdosProtectionMessages;
+  /**
+   * @example []
+   * @type array
+   */
+  messages: AdvancedDdosProtectionMessages;
+  result: null;
+  /**
+   * @description Whether the API call was successful.
+   * @example false
+   * @type boolean
+   */
+  success: false;
+};
+
+export type AdvancedDdosProtectionApiResponseCommonPaginated = AdvancedDdosProtectionApiResponseCommon & {
+  result_info?: {
+    /**
+     * @description Total number of results for the requested service.
+     * @example 1
+     * @type number | undefined
+     */
+    count?: number | undefined;
+    /**
+     * @description Current page within paginated list of results.
+     * @example 1
+     * @type number | undefined
+     */
+    page?: number | undefined;
+    /**
+     * @description Number of results per page of results.
+     * @example 20
+     * @type number | undefined
+     */
+    per_page?: number | undefined;
+    /**
+     * @description Total results available without any search parameters.
+     * @example 2000
+     * @type number | undefined
+     */
+    total_count?: number | undefined;
+    /**
+     * @description The number of total pages in the entire result set.
+     * @example 100
+     * @type number | undefined
+     */
+    total_pages?: number | undefined;
+  } | undefined;
+};
+
+export type AdvancedDdosProtectionDnsProtectionRuleListResponse = AdvancedDdosProtectionApiResponseCollection & {
+  result?: AdvancedDdosProtectionDnsProtectionRule[] | undefined;
+};
+
+export type AdvancedDdosProtectionDnsProtectionRuleResponse = AdvancedDdosProtectionApiResponseCommon & {
+  result?: AdvancedDdosProtectionDnsProtectionRule | undefined;
+};
+
+export type AdvancedDdosProtectionExpressionFilterListResponse = AdvancedDdosProtectionApiResponseCollection & {
+  result?: AdvancedDdosProtectionExpressionFilter[] | undefined;
+};
+
+export type AdvancedDdosProtectionExpressionFilterResponse = AdvancedDdosProtectionApiResponseCommon & {
+  result?: AdvancedDdosProtectionExpressionFilter | undefined;
+};
+
+/**
+ * @description Identifier.
+ * @maxLength 32
+ * @example 023e105f4ecef8ad9ca31a8372d0c353
+ * @type string
+ */
+export type AdvancedDdosProtectionIdentifier = string;
+
+export type AdvancedDdosProtectionInfraPrefixListResponse = AdvancedDdosProtectionApiResponseCollection & {
+  result?: AdvancedDdosProtectionInfraPrefix[] | undefined;
+};
+
+export type AdvancedDdosProtectionInfraPrefixResponse = AdvancedDdosProtectionApiResponseCommon & {
+  result?: AdvancedDdosProtectionInfraPrefix | undefined;
+};
+
+export type AdvancedDdosProtectionPrefixListResponse = AdvancedDdosProtectionApiResponseCollection & {
+  result?: AdvancedDdosProtectionPrefix[] | undefined;
+};
+
+export type AdvancedDdosProtectionPrefixResponse = AdvancedDdosProtectionApiResponseCommon & {
+  result?: AdvancedDdosProtectionPrefix | undefined;
+};
+
+export type AdvancedDdosProtectionProtectionStatusResponse = AdvancedDdosProtectionApiResponseCommon & {
+  result?: AdvancedDdosProtectionProtectionStatus | undefined;
+};
+
+export type AdvancedDdosProtectionSynProtectionRuleListResponse = AdvancedDdosProtectionApiResponseCollection & {
+  result?: AdvancedDdosProtectionSynProtectionRule[] | undefined;
+};
+
+export type AdvancedDdosProtectionSynProtectionRuleResponse = AdvancedDdosProtectionApiResponseCommon & {
+  result?: AdvancedDdosProtectionSynProtectionRule | undefined;
+};
+
+export type AdvancedDdosProtectionTcpFlowProtectionRuleListResponse = AdvancedDdosProtectionApiResponseCollection & {
+  result?: AdvancedDdosProtectionTcpFlowProtectionRule[] | undefined;
+};
+
+export type AdvancedDdosProtectionTcpFlowProtectionRuleResponse = AdvancedDdosProtectionApiResponseCommon & {
+  result?: AdvancedDdosProtectionTcpFlowProtectionRule | undefined;
+};
+
+/**
+ * @description UUID.
+ * @maxLength 36
+ * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
+ * @type string
+ */
+export type AdvancedDdosProtectionUuid = string;
+
 export type AiAuditApiMessage = {
   /**
    * @minLength 1000
@@ -20742,6 +21471,543 @@ export type BillableUsageApiV2UsageResponse = {
 };
 
 /**
+ * @description Represents an API notice or error detail.
+ * @type object
+ */
+export type BillingSpendPoliciesMessage = {
+  /**
+   * @description Identifies the error or notice type.
+   * @type integer | undefined
+   */
+  code?: number | undefined;
+  /**
+   * @description Describes the error or notice.
+   * @type string
+   */
+  message: string;
+};
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type BillingSpendPoliciesApiResponseCommonFailure = {
+  /**
+   * @description Contains error details describing why the request failed.
+   * @type array
+   */
+  errors: BillingSpendPoliciesMessage[];
+  /**
+   * @description Contains informational notices about the response.
+   * @example []
+   * @type array
+   */
+  messages: BillingSpendPoliciesMessage[];
+  /**
+   * @description Contains the response payload (always null on failure).
+   * @type object
+   */
+  result: object | null;
+  /**
+   * @description Indicates whether the API call was successful.
+   * @example false
+   * @type boolean
+   */
+  success: false;
+};
+
+/**
+ * @description Represents a successful API response.
+ * @type object
+ */
+export type BillingSpendPoliciesApiResponseCommonSuccess = {
+  /**
+   * @description Always empty on success.
+   * @example []
+   * @type array
+   */
+  errors: BillingSpendPoliciesMessage[];
+  /**
+   * @description Contains informational notices about the response.
+   * @example []
+   * @type array
+   */
+  messages: BillingSpendPoliciesMessage[];
+  /**
+   * @description Indicates whether the API call was successful.
+   * @example true
+   * @type boolean
+   */
+  success: true;
+};
+
+/**
+ * @description Represents a Cloudflare resource identifier tag.
+ * @maxLength 32
+ * @pattern ^[0-9a-f]{32}$
+ * @example 023e105f4ecef8ad9ca31a8372d0c353
+ * @type string
+ */
+export type BillingSpendPoliciesIdentifier = string;
+
+export const billingSpendPoliciesPolicyAction = {
+  notification: 'notification',
+  usage_block: 'usage_block',
+} as const;
+
+export type BillingSpendPoliciesPolicyActionKey = (typeof billingSpendPoliciesPolicyAction)[keyof typeof billingSpendPoliciesPolicyAction];
+
+export const billingSpendPoliciesPolicyCurrentStateEnforcementDeliveryStatusEnum = {
+  pending: 'pending',
+  leased: 'leased',
+  retry: 'retry',
+  succeeded: 'succeeded',
+} as const;
+
+export type BillingSpendPoliciesPolicyCurrentStateEnforcementDeliveryStatusEnumKey = (typeof billingSpendPoliciesPolicyCurrentStateEnforcementDeliveryStatusEnum)[keyof typeof billingSpendPoliciesPolicyCurrentStateEnforcementDeliveryStatusEnum];
+
+export const billingSpendPoliciesPolicyCurrentStateEnforcementDesiredStateEnum = {
+  active: 'active',
+  inactive: 'inactive',
+} as const;
+
+export type BillingSpendPoliciesPolicyCurrentStateEnforcementDesiredStateEnumKey = (typeof billingSpendPoliciesPolicyCurrentStateEnforcementDesiredStateEnum)[keyof typeof billingSpendPoliciesPolicyCurrentStateEnforcementDesiredStateEnum];
+
+export const billingSpendPoliciesPolicyCurrentStateStatusEnum = {
+  disabled: 'disabled',
+  no_current_period: 'no_current_period',
+  unavailable: 'unavailable',
+  below_limit: 'below_limit',
+  approaching_limit: 'approaching_limit',
+  limit_reached: 'limit_reached',
+} as const;
+
+export type BillingSpendPoliciesPolicyCurrentStateStatusEnumKey = (typeof billingSpendPoliciesPolicyCurrentStateStatusEnum)[keyof typeof billingSpendPoliciesPolicyCurrentStateStatusEnum];
+
+/**
+ * @description Read-only state on list/get responses, evaluated from the latest owning projector snapshot at request time, independently of the API replica. Configuration enabled/version/ETag do not change when a cycle rolls over. Audit history remains unchanged. Missing during a rolling upgrade or on mutation responses; clients must treat missing state as unavailable. Balances are asynchronous estimates, not a synchronous usage read.
+ * @type object
+ */
+export type BillingSpendPoliciesPolicyCurrentState = {
+  /**
+   * @description
+   * Format: `int64`
+   * @type integer
+   */
+  balance_cents: bigint | null;
+  /**
+   * @description
+   * Format: `date-time`
+   * @type string
+   */
+  billing_period_end: string | null;
+  /**
+   * @description
+   * Format: `date-time`
+   * @type string
+   */
+  billing_period_start: string | null;
+  /**
+   * @description Durable desired cap and delivery bookkeeping for this policy, or null if no owned effect exists. Separate from threshold evaluation: pending/leased/retry can lag the new billing period. Succeeded with equal generations means delivery completed, not an EWC readback.
+   * @type object
+   */
+  enforcement: {
+    /**
+     * @description
+     * Format: `int64`
+     * @type integer
+     */
+    applied_generation: bigint;
+    delivery_status: BillingSpendPoliciesPolicyCurrentStateEnforcementDeliveryStatusEnumKey;
+    /**
+     * @description
+     * Format: `int64`
+     * @type integer
+     */
+    desired_generation: bigint;
+    desired_state: BillingSpendPoliciesPolicyCurrentStateEnforcementDesiredStateEnumKey;
+    /**
+     * @description
+     * Format: `date-time`
+     * @type string
+     */
+    expires_at: string | null;
+  } | null;
+  /**
+   * @description Evaluation time; not the timestamp of the latest usage event.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  evaluated_at: string;
+  /**
+   * @description Threshold evaluation, not proof of an edge cap. No current active period yields no_current_period for enabled policies; failed aggregate reads yield unavailable for enabled policies. Disabled policies report disabled. Neither no_current_period nor unavailable implies a zero balance or below-limit state. Operators may disable current-state reads, in which case current_state is omitted.
+   * @type string
+   */
+  status: BillingSpendPoliciesPolicyCurrentStateStatusEnumKey;
+};
+
+/**
+ * @description The unique identifier of the spend policy.
+ *
+ * Format: `uuid`
+ * @example 6f1c2b8e-3d4a-4f5b-9c6d-7e8f9a0b1c2d
+ * @type string
+ */
+export type BillingSpendPoliciesPolicyId = string;
+
+export const billingSpendPoliciesProductId = {
+  workers: 'workers',
+  durable_objects: 'durable_objects',
+} as const;
+
+export type BillingSpendPoliciesProductIdKey = (typeof billingSpendPoliciesProductId)[keyof typeof billingSpendPoliciesProductId];
+
+/**
+ * @description A spend policy.
+ * @type object
+ */
+export type BillingSpendPoliciesPolicy = {
+  /**
+   * @description Internal numeric ID of the account that owns the policy. This is not the account tag used in the path.
+   *
+   * Format: `int64`
+   * @example 1234567
+   * @type integer
+   */
+  account_id: bigint;
+  /**
+   * @description The action taken when the threshold is reached. `notification` sends an email to `notification_email`. `usage_block` blocks further usage of the product until the end of the billing period. Raising the threshold above the current balance, disabling the policy, or deleting it lifts the block early.
+   * @example notification
+   * @type string
+   */
+  action: BillingSpendPoliciesPolicyActionKey;
+  /**
+   * @description Read-only state on list/get responses, evaluated from the latest owning projector snapshot at request time, independently of the API replica. Configuration enabled/version/ETag do not change when a cycle rolls over. Audit history remains unchanged. Missing during a rolling upgrade or on mutation responses; clients must treat missing state as unavailable. Balances are asynchronous estimates, not a synchronous usage read.
+   * @type object | undefined
+   */
+  readonly current_state?: BillingSpendPoliciesPolicyCurrentState | undefined;
+  /**
+   * @description Whether the policy is evaluated.
+   * @example true
+   * @type boolean
+   */
+  enabled: boolean;
+  /**
+   * @description The unique identifier of the spend policy.
+   *
+   * Format: `uuid`
+   * @example 6f1c2b8e-3d4a-4f5b-9c6d-7e8f9a0b1c2d
+   * @type string
+   */
+  id: BillingSpendPoliciesPolicyId;
+  /**
+   * @description Display name of the policy.
+   * @example Workers cap
+   * @type string
+   */
+  name: string;
+  /**
+   * @description Email address that receives notifications. An empty string when none is set.
+   * @example billing@example.com
+   * @type string
+   */
+  notification_email: string;
+  /**
+   * @description The product the policy applies to: `workers` or `durable_objects`. Each product's balance and policies are separate. Both products support `notification` and `usage_block` policies on create and update.
+   * @example workers
+   * @type string
+   */
+  product_id: BillingSpendPoliciesProductIdKey;
+  /**
+   * @description The spend threshold for the current billing period, in US cents.
+   *
+   * Format: `int64`
+   * @example 100
+   * @type integer
+   */
+  threshold_cents: bigint;
+  /**
+   * @description Optimistic-concurrency version. It starts at 1 and goes up by one on every update or delete. This value is also returned in `ETag`.
+   *
+   * Format: `int64`
+   * @minLength 1
+   * @example 1
+   * @type integer
+   */
+  version: bigint;
+};
+
+export const billingSpendPoliciesPolicyActivityEventActionEnum = {
+  created: 'created',
+  updated: 'updated',
+  enabled: 'enabled',
+  disabled: 'disabled',
+  deleted: 'deleted',
+} as const;
+
+export type BillingSpendPoliciesPolicyActivityEventActionEnumKey = (typeof billingSpendPoliciesPolicyActivityEventActionEnum)[keyof typeof billingSpendPoliciesPolicyActivityEventActionEnum];
+
+export type BillingSpendPoliciesPolicyActivityEvent = {
+  action: BillingSpendPoliciesPolicyActivityEventActionEnumKey;
+  /**
+   * @description Verified actor identifier, unknown when absent, or trusted internal actor.
+   * @type string
+   */
+  actor: string;
+  details: {
+    /**
+     * @description A spend policy.
+     * @type object | undefined
+     */
+    after?: BillingSpendPoliciesPolicy | undefined;
+    /**
+     * @description Prior configuration; null on creation or if a previous revision is unavailable.
+     * @type object | undefined
+     */
+    before?: (BillingSpendPoliciesPolicy | null) | undefined;
+  };
+  /**
+   * @pattern ^[1-9][0-9]*$
+   * @type string
+   */
+  id: string;
+  /**
+   * @description
+   * Format: `date-time`
+   * @type string
+   */
+  occurred_at: string;
+  /**
+   * @description The unique identifier of the spend policy.
+   *
+   * Format: `uuid`
+   * @example 6f1c2b8e-3d4a-4f5b-9c6d-7e8f9a0b1c2d
+   * @type string
+   */
+  policy_id: BillingSpendPoliciesPolicyId;
+  /**
+   * @description
+   * Format: `int64`
+   * @minLength 1
+   * @type integer
+   */
+  policy_version: bigint;
+  product_id: string;
+};
+
+/**
+ * @description A successful response containing spend policy activity.
+ */
+export type BillingSpendPoliciesPolicyActivityResponse = BillingSpendPoliciesApiResponseCommonSuccess & {
+  result: BillingSpendPoliciesPolicyActivityEvent[];
+  result_info: {
+    /**
+     * @description Number of entries in this response.
+     * @minLength 0
+     * @type integer
+     */
+    count: number;
+    /**
+     * @description Opaque next-page token. Omitted when no older entries were visible at query time.
+     * @type string | undefined
+     */
+    cursor?: string | undefined;
+  };
+};
+
+export const billingSpendPoliciesPolicyAuditEntrySourceEnum = {
+  kafka: 'kafka',
+  policy_revision: 'policy_revision',
+} as const;
+
+export type BillingSpendPoliciesPolicyAuditEntrySourceEnumKey = (typeof billingSpendPoliciesPolicyAuditEntrySourceEnum)[keyof typeof billingSpendPoliciesPolicyAuditEntrySourceEnum];
+
+export const billingSpendPoliciesPolicyAuditEntryTriggerEnum = {
+  approaching_limit: 'approaching_limit',
+  limit_reached: 'limit_reached',
+} as const;
+
+export type BillingSpendPoliciesPolicyAuditEntryTriggerEnumKey = (typeof billingSpendPoliciesPolicyAuditEntryTriggerEnum)[keyof typeof billingSpendPoliciesPolicyAuditEntryTriggerEnum];
+
+/**
+ * @description A state transition recorded when the policy was evaluated against the account's balance.
+ * @type object
+ */
+export type BillingSpendPoliciesPolicyAuditEntry = {
+  /**
+   * @description The action taken when the threshold is reached. `notification` sends an email to `notification_email`. `usage_block` blocks further usage of the product until the end of the billing period. Raising the threshold above the current balance, disabling the policy, or deleting it lifts the block early.
+   * @example notification
+   * @type string
+   */
+  action: BillingSpendPoliciesPolicyActionKey;
+  /**
+   * @description The account's balance for the product at evaluation time, in US cents.
+   *
+   * Format: `int64`
+   * @example 104
+   * @type integer
+   */
+  balance_cents: bigint;
+  /**
+   * @description Exclusive end of the billing period that was evaluated.
+   *
+   * Format: `date-time`
+   * @example 2026-11-01T00:00:00Z
+   * @type string
+   */
+  billing_period_end: string;
+  /**
+   * @description Inclusive start of the billing period that was evaluated.
+   *
+   * Format: `date-time`
+   * @example 2026-10-01T00:00:00Z
+   * @type string
+   */
+  billing_period_start: string;
+  /**
+   * @description When the entry was recorded.
+   *
+   * Format: `date-time`
+   * @example 2026-10-14T12:34:56Z
+   * @type string
+   */
+  created_at: string;
+  /**
+   * @description The policy `version` that was evaluated.
+   *
+   * Format: `int64`
+   * @example 2
+   * @type integer
+   */
+  policy_version: bigint;
+  /**
+   * @description A human-readable explanation of the trigger.
+   * @example balance reached or exceeded the configured threshold
+   * @type string
+   */
+  reason: string;
+  /**
+   * @description What caused the evaluation. `kafka` means a balance update. `policy_revision` means a change to the policy.
+   * @example kafka
+   * @type string
+   */
+  source: BillingSpendPoliciesPolicyAuditEntrySourceEnumKey;
+  /**
+   * @description The policy threshold at evaluation time, in US cents.
+   *
+   * Format: `int64`
+   * @example 100
+   * @type integer
+   */
+  threshold_cents: bigint;
+  /**
+   * @description The state the balance moved into. `approaching_limit` means the balance is at least 80% of the threshold (rounded up to a whole cent), but below the threshold. `limit_reached` means the balance reached or exceeded the threshold.
+   * @example limit_reached
+   * @type string
+   */
+  trigger: BillingSpendPoliciesPolicyAuditEntryTriggerEnumKey;
+};
+
+/**
+ * @description A successful response containing spend policy audit entries.
+ */
+export type BillingSpendPoliciesPolicyAuditResponse = BillingSpendPoliciesApiResponseCommonSuccess & {
+  /**
+   * @description Audit entries, newest first. An empty array when there are none.
+   * @type array
+   */
+  result: BillingSpendPoliciesPolicyAuditEntry[];
+};
+
+/**
+ * @description A successful response confirming that a spend policy was deleted.
+ */
+export type BillingSpendPoliciesPolicyDeleteResponse = BillingSpendPoliciesApiResponseCommonSuccess & {
+  result: {
+    /**
+     * @description The unique identifier of the spend policy.
+     *
+     * Format: `uuid`
+     * @example 6f1c2b8e-3d4a-4f5b-9c6d-7e8f9a0b1c2d
+     * @type string
+     */
+    id: BillingSpendPoliciesPolicyId;
+  };
+};
+
+/**
+ * @description A spend policy as sent on create and on full replacement. Unknown fields and trailing JSON are rejected. Only the first 1 MiB of the body is read.
+ * @type object
+ */
+export type BillingSpendPoliciesPolicyInput = {
+  /**
+   * @description The action taken when the threshold is reached. `notification` sends an email to `notification_email`. `usage_block` blocks further usage of the product until the end of the billing period. Raising the threshold above the current balance, disabling the policy, or deleting it lifts the block early.
+   * @example notification
+   * @type string
+   */
+  action: BillingSpendPoliciesPolicyActionKey;
+  /**
+   * @description Whether the policy is evaluated.
+   * @example true
+   * @type boolean
+   */
+  enabled: boolean;
+  /**
+   * @description Display name of the policy. After surrounding whitespace is trimmed, it must be 1 to 200 bytes long. The value is stored as sent, untrimmed.
+   * @minLength 1
+   * @example Workers cap
+   * @type string
+   */
+  name: string;
+  /**
+   * @description Email address that receives notifications. Required when `action` is `notification`. When set, it must be a bare address (`user@example.com`); display-name forms such as `Name <user@example.com>` are rejected.
+   *
+   * Format: `email`
+   * @example billing@example.com
+   * @type string | undefined
+   */
+  notification_email?: string | undefined;
+  /**
+   * @description The product the policy applies to: `workers` or `durable_objects`. Each product's balance and policies are separate. Both products support `notification` and `usage_block` policies on create and update.
+   * @example workers
+   * @type string
+   */
+  product_id: BillingSpendPoliciesProductIdKey;
+  /**
+   * @description The spend threshold for the current billing period, in US cents. Must be greater than zero.
+   *
+   * Format: `int64`
+   * @minLength 1
+   * @example 100
+   * @type integer
+   */
+  threshold_cents: bigint;
+};
+
+/**
+ * @description A successful response containing a list of spend policies.
+ */
+export type BillingSpendPoliciesPolicyListResponse = BillingSpendPoliciesApiResponseCommonSuccess & {
+  /**
+   * @description The account's spend policies. An empty array when there are none.
+   * @type array
+   */
+  result: BillingSpendPoliciesPolicy[];
+};
+
+/**
+ * @description A successful response containing one spend policy.
+ */
+export type BillingSpendPoliciesPolicyResponse = BillingSpendPoliciesApiResponseCommonSuccess & {
+  /**
+   * @description A spend policy.
+   * @type object
+   */
+  result: BillingSpendPoliciesPolicy;
+};
+
+/**
  * @description Temporary migration flag tracking zones opted out of AI bots managed-rule updates.
  * @default false
  * @example false
@@ -21961,7 +23227,7 @@ export type BuildsPaginationInfo = {
 export type BuildsAPIResponse = {
   errors: BuildsApiError[];
   messages: string[];
-  result: object | null;
+  result: object | object[];
   result_info?: BuildsPaginationInfo | undefined;
   /**
    * @example true
@@ -22904,10 +24170,10 @@ export type BuildsCreateWorkerBuildSettingsInput = {
   /**
    * @description Whether builds reuse cached dependencies and build artifacts.
    * @default true
-   * @example false
+   * @example true
    * @type boolean | undefined
    */
-  build_caching_enabled?: BuildsBuildCachingEnabled | undefined;
+  build_caching_enabled?: boolean | undefined;
   /**
    * @description Command to build the Worker.
    * @example npm run build
@@ -45188,541 +46454,6 @@ export type DomainConnectNeededByStratus = {
   template_spec?: DomainConnectTemplateSpec | undefined;
 };
 
-export type DosDnsProtectionRule = {
-  /**
-   * @description Whether to block DNS ANY queries. Defaults to true.
-   * @type boolean
-   */
-  block_any_queries: boolean;
-  /**
-   * @description The burst sensitivity. Must be one of 'low', 'medium', 'high'.
-   * @type string
-   */
-  burst_sensitivity: string;
-  /**
-   * @description The creation timestamp of the DNS Protection rule.
-   *
-   * Format: `date-time`
-   * @type string
-   */
-  created_on: string;
-  /**
-   * @description The unique ID of the DNS Protection rule.
-   * @type string
-   */
-  id: string;
-  /**
-   * @description The mode for DNS Protection. Must be one of 'enabled', 'disabled', 'monitoring'.
-   * @type string
-   */
-  mode: string;
-  /**
-   * @description The last modification timestamp of the DNS Protection rule.
-   *
-   * Format: `date-time`
-   * @type string
-   */
-  modified_on: string;
-  /**
-   * @description The name of the DNS Protection rule. Value is relative to the 'scope' setting. For 'global' scope, name should be 'global'. For either the 'region' or 'datacenter' scope, name should be the actual name of the region or datacenter, e.g., 'wnam' or 'lax'.
-   * @type string
-   */
-  name: string;
-  /**
-   * @description The profile sensitivity. Recommended setting is 'low'. Must be one of 'low', 'medium', 'high', or 'very_high'.
-   * @type string
-   */
-  profile_sensitivity: string;
-  /**
-   * @description The rate sensitivity. Must be one of 'low', 'medium', 'high'.
-   * @type string
-   */
-  rate_sensitivity: string;
-  /**
-   * @description The scope for the DNS Protection rule. Must be one of 'global', 'region', or 'datacenter'.
-   * @type string
-   */
-  scope: string;
-};
-
-export type DosDnsProtectionRuleUpdate = {
-  /**
-   * @description The new value for whether to block DNS ANY queries. Optional.
-   * @type boolean | undefined
-   */
-  block_any_queries?: boolean | undefined;
-  /**
-   * @description The new burst sensitivity. Optional. Must be one of 'low', 'medium', 'high'.
-   * @type string | undefined
-   */
-  burst_sensitivity?: string | undefined;
-  /**
-   * @description The new mode for DNS Protection. Optional. Must be one of 'enabled', 'disabled', 'monitoring'.
-   * @type string | undefined
-   */
-  mode?: string | undefined;
-  /**
-   * @description The new profile sensitivity. Optional. Recommended setting is 'low'. Must be one of 'low', 'medium', 'high', or 'very_high'.
-   * @type string | undefined
-   */
-  profile_sensitivity?: string | undefined;
-  /**
-   * @description The new rate sensitivity. Optional. Must be one of 'low', 'medium', 'high'.
-   * @type string | undefined
-   */
-  rate_sensitivity?: string | undefined;
-};
-
-export type DosExpressionFilter = {
-  /**
-   * @description The creation timestamp of the expression filter.
-   *
-   * Format: `date-time`
-   * @type string
-   */
-  created_on: string;
-  /**
-   * @description The filter expression.
-   * @example ip.dst in { 192.0.2.0/24 198.51.100.0/24 } and tcp.srcport in { 80 443 10000..65535 }
-   * @type string
-   */
-  expression: string;
-  /**
-   * @description The unique ID of the expression filter.
-   * @type string
-   */
-  id: string;
-  /**
-   * @description The filter's mode. Must be one of 'enabled', 'disabled', 'monitoring'.
-   * @type string
-   */
-  mode: string;
-  /**
-   * @description The last modification timestamp of the expression filter.
-   *
-   * Format: `date-time`
-   * @type string
-   */
-  modified_on: string;
-};
-
-export type DosExpressionFilterUpdate = {
-  /**
-   * @description The new filter expression. Optional.
-   * @example ip.dst in { 192.0.2.0/24 198.51.100.0/24 } and tcp.srcport in { 80 443 10000..65535 }
-   * @type string | undefined
-   */
-  expression?: string | undefined;
-  /**
-   * @description The new mode for the filter. Optional. Must be one of 'enabled', 'disabled', 'monitoring'.
-   * @type string | undefined
-   */
-  mode?: string | undefined;
-};
-
-export type DosInfraPrefix = {
-  /**
-   * @description An optional comment describing the allowlist prefix.
-   * @type string
-   */
-  comment: string;
-  /**
-   * @description The creation timestamp of the allowlist prefix.
-   *
-   * Format: `date-time`
-   * @type string
-   */
-  created_on: string;
-  /**
-   * @description Whether to enable the allowlist prefix into effect. Defaults to false.
-   * @type boolean
-   */
-  enabled: boolean;
-  /**
-   * @description The unique ID of the allowlist prefix.
-   * @type string
-   */
-  id: string;
-  /**
-   * @description The last modification timestamp of the allowlist prefix.
-   *
-   * Format: `date-time`
-   * @type string
-   */
-  modified_on: string;
-  /**
-   * @description The allowlist prefix in CIDR format.
-   * @type string
-   */
-  prefix: string;
-};
-
-export type DosInfraPrefixUpdate = {
-  /**
-   * @description A comment describing the allowlist prefix. Optional.
-   * @type string | undefined
-   */
-  comment?: string | undefined;
-  /**
-   * @description Whether to enable the allowlist prefix into effect. Optional.
-   * @type boolean | undefined
-   */
-  enabled?: boolean | undefined;
-};
-
-export type DosNewDnsProtectionRule = {
-  /**
-   * @description Whether to block DNS ANY queries. Optional. Defaults to true.
-   * @type boolean | undefined
-   */
-  block_any_queries?: boolean | undefined;
-  /**
-   * @description The burst sensitivity. Must be one of 'low', 'medium', 'high'.
-   * @type string
-   */
-  burst_sensitivity: string;
-  /**
-   * @description The mode for DNS Protection. Must be one of 'enabled', 'disabled', 'monitoring'.
-   * @type string
-   */
-  mode: string;
-  /**
-   * @description The name of the DNS Protection rule. Value is relative to the 'scope' setting. For 'global' scope, name should be 'global'. For either the 'region' or 'datacenter' scope, name should be the actual name of the region or datacenter, e.g., 'wnam' or 'lax'.
-   * @type string
-   */
-  name: string;
-  /**
-   * @description The profile sensitivity. Recommended setting is 'low'. Must be one of 'low', 'medium', 'high', or 'very_high'.
-   * @type string
-   */
-  profile_sensitivity: string;
-  /**
-   * @description The rate sensitivity. Must be one of 'low', 'medium', 'high'.
-   * @type string
-   */
-  rate_sensitivity: string;
-  /**
-   * @description The scope for the DNS Protection rule. Must be one of 'global', 'region', or 'datacenter'.
-   * @type string
-   */
-  scope: string;
-};
-
-export type DosNewExpressionFilter = {
-  /**
-   * @description The filter expression.
-   * @example ip.dst in { 192.0.2.0/24 198.51.100.0/24 } and tcp.srcport in { 80 443 10000..65535 }
-   * @type string
-   */
-  expression: string;
-  /**
-   * @description The filter's mode. Must be one of 'enabled', 'disabled', 'monitoring'.
-   * @type string
-   */
-  mode: string;
-};
-
-export type DosNewInfraPrefix = {
-  /**
-   * @description An comment describing the allowlist prefix.
-   * @type string
-   */
-  comment: string;
-  /**
-   * @description Whether to enable the allowlist prefix into effect.
-   * @type boolean
-   */
-  enabled: boolean;
-  /**
-   * @description The allowlist prefix to add in CIDR format.
-   * @type string
-   */
-  prefix: string;
-};
-
-export type DosNewPrefix = {
-  /**
-   * @description A comment describing the prefix.
-   * @type string
-   */
-  comment: string;
-  /**
-   * @description Whether to exclude the prefix from protection.
-   * @type boolean
-   */
-  excluded: boolean;
-  /**
-   * @description The prefix to add in CIDR format.
-   * @example 192.0.2.0/24
-   * @type string
-   */
-  prefix: string;
-};
-
-export type DosNewSynProtectionRule = {
-  /**
-   * @description The burst sensitivity. Must be one of 'low', 'medium', 'high'.
-   * @type string
-   */
-  burst_sensitivity: string;
-  /**
-   * @description The type of mitigation. Must be one of 'challenge' or 'retransmit'. Optional. Defaults to 'challenge'.
-   * @type string | undefined
-   */
-  mitigation_type?: string | undefined;
-  /**
-   * @description The mode for SYN Protection. Must be one of 'enabled', 'disabled', 'monitoring'.
-   * @type string
-   */
-  mode: string;
-  /**
-   * @description The name of the SYN Protection rule. Value is relative to the 'scope' setting. For 'global' scope, name should be 'global'. For either the 'region' or 'datacenter' scope, name should be the actual name of the region or datacenter, e.g., 'wnam' or 'lax'.
-   * @type string
-   */
-  name: string;
-  /**
-   * @description The rate sensitivity. Must be one of 'low', 'medium', 'high'.
-   * @type string
-   */
-  rate_sensitivity: string;
-  /**
-   * @description The scope for the SYN Protection rule. Must be one of 'global', 'region', or 'datacenter'.
-   * @type string
-   */
-  scope: string;
-};
-
-export type DosNewTcpFlowProtectionRule = {
-  /**
-   * @description The burst sensitivity. Must be one of 'low', 'medium', 'high'.
-   * @type string
-   */
-  burst_sensitivity: string;
-  /**
-   * @description The mode for the TCP Flow Protection. Must be one of 'enabled', 'disabled', 'monitoring'.
-   * @type string
-   */
-  mode: string;
-  /**
-   * @description The name of the TCP Flow Protection rule. Value is relative to the 'scope' setting. For 'global' scope, name should be 'global'. For either the 'region' or 'datacenter' scope, name should be the actual name of the region or datacenter, e.g., 'wnam' or 'lax'.
-   * @type string
-   */
-  name: string;
-  /**
-   * @description The rate sensitivity. Must be one of 'low', 'medium', 'high'.
-   * @type string
-   */
-  rate_sensitivity: string;
-  /**
-   * @description The scope for the TCP Flow Protection rule.
-   * @type string
-   */
-  scope: string;
-};
-
-export type DosPrefix = {
-  /**
-   * @description A comment describing the prefix.
-   * @type string
-   */
-  comment: string;
-  /**
-   * @description The creation timestamp of the prefix.
-   *
-   * Format: `date-time`
-   * @type string
-   */
-  created_on: string;
-  /**
-   * @description Whether to exclude the prefix from protection.
-   * @type boolean
-   */
-  excluded: boolean;
-  /**
-   * @description The unique ID of the prefix.
-   * @type string
-   */
-  id: string;
-  /**
-   * @description The last modification timestamp of the prefix.
-   *
-   * Format: `date-time`
-   * @type string
-   */
-  modified_on: string;
-  /**
-   * @description The prefix in CIDR format.
-   * @example 192.0.2.0/24
-   * @type string
-   */
-  prefix: string;
-};
-
-export type DosPrefixUpdate = {
-  /**
-   * @description A new comment for the prefix. Optional.
-   * @type string | undefined
-   */
-  comment?: string | undefined;
-  /**
-   * @description Whether to exclude the prefix from protection. Optional.
-   * @type boolean | undefined
-   */
-  excluded?: boolean | undefined;
-};
-
-export type DosProtectionStatus = {
-  enabled: boolean;
-};
-
-export type DosSynProtectionRule = {
-  /**
-   * @description The burst sensitivity. Must be one of 'low', 'medium', 'high'.
-   * @type string
-   */
-  burst_sensitivity: string;
-  /**
-   * @description The creation timestamp of the SYN Protection rule.
-   *
-   * Format: `date-time`
-   * @type string
-   */
-  created_on: string;
-  /**
-   * @description The unique ID of the SYN Protection rule.
-   * @type string
-   */
-  id: string;
-  /**
-   * @description The type of mitigation for SYN Protection. Must be one of 'challenge' or 'retransmit'.
-   * @type string
-   */
-  mitigation_type: string;
-  /**
-   * @description The mode for SYN Protection. Must be one of 'enabled', 'disabled', 'monitoring'.
-   * @type string
-   */
-  mode: string;
-  /**
-   * @description The last modification timestamp of the SYN Protection rule.
-   *
-   * Format: `date-time`
-   * @type string
-   */
-  modified_on: string;
-  /**
-   * @description The name of the SYN Protection rule. Value is relative to the 'scope' setting. For 'global' scope, name should be 'global'. For either the 'region' or 'datacenter' scope, name should be the actual name of the region or datacenter, e.g., 'wnam' or 'lax'.
-   * @type string
-   */
-  name: string;
-  /**
-   * @description The rate sensitivity. Must be one of 'low', 'medium', 'high'.
-   * @type string
-   */
-  rate_sensitivity: string;
-  /**
-   * @description The scope for the SYN Protection rule. Must be one of 'global', 'region', or 'datacenter'.
-   * @type string
-   */
-  scope: string;
-};
-
-export type DosSynProtectionRuleUpdate = {
-  /**
-   * @description The new burst sensitivity. Optional. Must be one of 'low', 'medium', 'high'.
-   * @type string | undefined
-   */
-  burst_sensitivity?: string | undefined;
-  /**
-   * @description The new mitigation type. Optional. Must be one of 'challenge' or 'retransmit'.
-   * @type string | undefined
-   */
-  mitigation_type?: string | undefined;
-  /**
-   * @description The new mode for SYN Protection. Optional. Must be one of 'enabled', 'disabled', 'monitoring'.
-   * @type string | undefined
-   */
-  mode?: string | undefined;
-  /**
-   * @description The new rate sensitivity. Optional. Must be one of 'low', 'medium', 'high'.
-   * @type string | undefined
-   */
-  rate_sensitivity?: string | undefined;
-};
-
-export type DosTcpFlowProtectionRule = {
-  /**
-   * @description The burst sensitivity. Must be one of 'low', 'medium', 'high'.
-   * @type string
-   */
-  burst_sensitivity: string;
-  /**
-   * @description The creation timestamp of the TCP Flow Protection rule.
-   *
-   * Format: `date-time`
-   * @type string
-   */
-  created_on: string;
-  /**
-   * @description The unique ID of the TCP Flow Protection rule.
-   * @type string
-   */
-  id: string;
-  /**
-   * @description The mode for TCP Flow Protection. Must be one of 'enabled', 'disabled', 'monitoring'.
-   * @type string
-   */
-  mode: string;
-  /**
-   * @description The last modification timestamp of the TCP Flow Protection rule.
-   *
-   * Format: `date-time`
-   * @type string
-   */
-  modified_on: string;
-  /**
-   * @description The name of the TCP Flow Protection rule. Value is relative to the 'scope' setting. For 'global' scope, name should be 'global'. For either the 'region' or 'datacenter' scope, name should be the actual name of the region or datacenter, e.g., 'wnam' or 'lax'.
-   * @type string
-   */
-  name: string;
-  /**
-   * @description The rate sensitivity. Must be one of 'low', 'medium', 'high'.
-   * @type string
-   */
-  rate_sensitivity: string;
-  /**
-   * @description The scope for the TCP Flow Protection rule. Must be one of 'global', 'region', or 'datacenter'.
-   * @type string
-   */
-  scope: string;
-};
-
-export type DosTcpFlowProtectionRuleUpdate = {
-  /**
-   * @description The new burst sensitivity. Optional. Must be one of 'low', 'medium', 'high'.
-   * @type string | undefined
-   */
-  burst_sensitivity?: string | undefined;
-  /**
-   * @description The new mode for TCP Flow Protection. Optional. Must be one of 'enabled', 'disabled', 'monitoring'.
-   * @type string | undefined
-   */
-  mode?: string | undefined;
-  /**
-   * @description The new rate sensitivity. Optional. Must be one of 'low', 'medium', 'high'.
-   * @type string | undefined
-   */
-  rate_sensitivity?: string | undefined;
-};
-
-export type DosUpdateProtectionStatus = {
-  /**
-   * @description Enables or disables protection.
-   * @type boolean
-   */
-  enabled: boolean;
-};
-
 /**
  * @example []
  * @type array
@@ -45759,41 +46490,6 @@ export type DosApiResponseCommon = {
   success: true;
 };
 
-export type DosApiResponseCollection = DosApiResponseCommon & {
-  result_info?: {
-    /**
-     * @description Total number of results for the requested service.
-     * @example 1
-     * @type number | undefined
-     */
-    count?: number | undefined;
-    /**
-     * @description Current page within paginated list of results.
-     * @example 1
-     * @type number | undefined
-     */
-    page?: number | undefined;
-    /**
-     * @description Number of results per page of results.
-     * @example 20
-     * @type number | undefined
-     */
-    per_page?: number | undefined;
-    /**
-     * @description Total results available without any search parameters.
-     * @example 2000
-     * @type number | undefined
-     */
-    total_count?: number | undefined;
-    /**
-     * @description The number of total pages in the entire result set.
-     * @example 100
-     * @type number | undefined
-     */
-    total_pages?: number | undefined;
-  } | undefined;
-};
-
 export type DosApiResponseCommonFailure = {
   /**
    * @example [{"code":7003,"message":"No route for the URI"}]
@@ -45814,58 +46510,7 @@ export type DosApiResponseCommonFailure = {
   success: false;
 };
 
-export type DosApiResponseCommonPaginated = DosApiResponseCommon & {
-  result_info?: {
-    /**
-     * @description Total number of results for the requested service.
-     * @example 1
-     * @type number | undefined
-     */
-    count?: number | undefined;
-    /**
-     * @description Current page within paginated list of results.
-     * @example 1
-     * @type number | undefined
-     */
-    page?: number | undefined;
-    /**
-     * @description Number of results per page of results.
-     * @example 20
-     * @type number | undefined
-     */
-    per_page?: number | undefined;
-    /**
-     * @description Total results available without any search parameters.
-     * @example 2000
-     * @type number | undefined
-     */
-    total_count?: number | undefined;
-    /**
-     * @description The number of total pages in the entire result set.
-     * @example 100
-     * @type number | undefined
-     */
-    total_pages?: number | undefined;
-  } | undefined;
-};
-
 export type DosAsn = number;
-
-export type DosDnsProtectionRuleListResponse = DosApiResponseCollection & {
-  result?: DosDnsProtectionRule[] | undefined;
-};
-
-export type DosDnsProtectionRuleResponse = DosApiResponseCommon & {
-  result?: DosDnsProtectionRule | undefined;
-};
-
-export type DosExpressionFilterListResponse = DosApiResponseCollection & {
-  result?: DosExpressionFilter[] | undefined;
-};
-
-export type DosExpressionFilterResponse = DosApiResponseCommon & {
-  result?: DosExpressionFilter | undefined;
-};
 
 /**
  * @description Identifier.
@@ -45875,42 +46520,6 @@ export type DosExpressionFilterResponse = DosApiResponseCommon & {
  */
 export type DosIdentifier = string;
 
-export type DosInfraPrefixListResponse = DosApiResponseCollection & {
-  result?: DosInfraPrefix[] | undefined;
-};
-
-export type DosInfraPrefixResponse = DosApiResponseCommon & {
-  result?: DosInfraPrefix | undefined;
-};
-
-export type DosPrefixListResponse = DosApiResponseCollection & {
-  result?: DosPrefix[] | undefined;
-};
-
-export type DosPrefixResponse = DosApiResponseCommon & {
-  result?: DosPrefix | undefined;
-};
-
-export type DosProtectionStatusResponse = DosApiResponseCommon & {
-  result?: DosProtectionStatus | undefined;
-};
-
-export type DosSynProtectionRuleListResponse = DosApiResponseCollection & {
-  result?: DosSynProtectionRule[] | undefined;
-};
-
-export type DosSynProtectionRuleResponse = DosApiResponseCommon & {
-  result?: DosSynProtectionRule | undefined;
-};
-
-export type DosTcpFlowProtectionRuleListResponse = DosApiResponseCollection & {
-  result?: DosTcpFlowProtectionRule[] | undefined;
-};
-
-export type DosTcpFlowProtectionRuleResponse = DosApiResponseCommon & {
-  result?: DosTcpFlowProtectionRule | undefined;
-};
-
 /**
  * @description
  * Format: `date-time`
@@ -45918,14 +46527,6 @@ export type DosTcpFlowProtectionRuleResponse = DosApiResponseCommon & {
  * @type string
  */
 export type DosTimestamp = string;
-
-/**
- * @description UUID.
- * @maxLength 36
- * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
- * @type string
- */
-export type DosUuid = string;
 
 /**
  * @description A single approved sending source
@@ -50375,6 +50976,8 @@ export const emailEmailDomainDnsRecordRequiredForEnum = {
 export type EmailEmailDomainDnsRecordRequiredForEnumKey = (typeof emailEmailDomainDnsRecordRequiredForEnum)[keyof typeof emailEmailDomainDnsRecordRequiredForEnum];
 
 export const emailEmailDomainDnsRecordSelectorEnum = {
+  cf1: 'cf1',
+  cf2: 'cf2',
   s1: 's1',
   s2: 's2',
 } as const;
@@ -50411,7 +51014,7 @@ export type EmailEmailDomainDnsRecord = {
   /**
    * @description Exact owner name to publish in the customer's DNS.
    * @maxLength 253
-   * @example s1._domainkey.agents.customer.com
+   * @example cf1._domainkey.agents.customer.com
    * @type string
    */
   name: string;
@@ -50446,8 +51049,8 @@ export type EmailEmailDomainDnsRecord = {
    */
   required_for: EmailEmailDomainDnsRecordRequiredForEnumKey[];
   /**
-   * @description DKIM selector; present only for DKIM assignments.
-   * @example s1
+   * @description DKIM selector, the first label of name; present only for DKIM assignments. New enrollments use cf1 and cf2. Enrollments created before cf1 and cf2 keep s1 and s2.
+   * @example cf1
    * @type string | undefined
    */
   selector?: EmailEmailDomainDnsRecordSelectorEnumKey | undefined;
@@ -50486,7 +51089,7 @@ export type EmailEmailDomainCapabilityStatusEnumKey = (typeof emailEmailDomainCa
  */
 export type EmailEmailDomainCapability = {
   /**
-   * @description Machine-readable explanation. V1 reasons: customer_dns_invalid, customer_dns_indeterminate, and verification_invalid reflect customer ownership records; rollout_unacknowledged, sending_not_ready, routing_not_ready, worker_unavailable, platform_dependency_unavailable, platform_health_unavailable, platform_dns_invalid, platform_dns_indeterminate, publication_invalid, publication_unavailable, and validation_overdue reflect service readiness or internal evidence; deleting means teardown is in progress. Clients must tolerate unknown future values and treat the capability as unavailable.
+   * @description Machine-readable explanation. V1 reasons: policy_suspended denotes an unavailable capability; customer_dns_invalid, customer_dns_indeterminate, and verification_invalid reflect customer ownership records; rollout_unacknowledged, sending_not_ready, routing_not_ready, worker_unavailable, platform_dependency_unavailable, platform_health_unavailable, platform_health_stale, platform_dns_invalid, platform_dns_indeterminate, publication_invalid, publication_unavailable, and validation_overdue reflect service readiness or internal evidence; deleting means teardown is in progress. Clients must tolerate unknown future values and treat the capability as unavailable.
    * @example customer_dns_indeterminate
    * @type string | undefined
    */
@@ -50575,6 +51178,14 @@ export type EmailEmailDomain = {
    */
   account_id: EmailIdentifier;
   /**
+   * @description When the claim will enter blocked-first release if both ownership records remain continuously invalid. Absent outside that recovery period.
+   *
+   * Format: `date-time`
+   * @example 2099-01-31T12:00:00Z
+   * @type string | undefined
+   */
+  claim_release_at?: string | undefined;
+  /**
    * @description Opaque customer enrollment reference supplied at Create. The platform must map customers by this reference and EmailDomain ID, never by hostname alone.
    * @maxLength 128
    * @example customer-42-enrollment-1
@@ -50589,7 +51200,7 @@ export type EmailEmailDomain = {
   dns_management: 'external';
   /**
    * @description Four immutable assignments, including one Routing MX record. Included on single-resource responses and optionally on lists; operation examples show the complete set.
-   * @example [{"content":"token.s1.dkim.byod.chatgpt.email","name":"s1._domainkey.agents.customer.com","purpose":"dkim","required_for":["sending"],"selector":"s1","type":"CNAME","validation_status":"pending","verification_group":"ownership_any"},{"content":"token.s2.dkim.byod.chatgpt.email","name":"s2._domainkey.agents.customer.com","purpose":"dkim","required_for":["sending"],"selector":"s2","type":"CNAME","validation_status":"pending","verification_group":"ownership_any"},{"content":"token.rp.byod.chatgpt.email","name":"cf-bounce.agents.customer.com","purpose":"return_path","required_for":["sending"],"type":"CNAME","validation_status":"pending"},{"content":"route1.mx.cloudflare.net","name":"agents.customer.com","priority":10,"purpose":"routing","required_for":["routing"],"type":"MX","validation_status":"pending"}]
+   * @example [{"content":"token.s1.dkim.byod.chatgpt.email","name":"cf1._domainkey.agents.customer.com","purpose":"dkim","required_for":["sending"],"selector":"cf1","type":"CNAME","validation_status":"pending","verification_group":"ownership_any"},{"content":"token.s2.dkim.byod.chatgpt.email","name":"cf2._domainkey.agents.customer.com","purpose":"dkim","required_for":["sending"],"selector":"cf2","type":"CNAME","validation_status":"pending","verification_group":"ownership_any"},{"content":"token.rp.byod.chatgpt.email","name":"cf-bounce.agents.customer.com","purpose":"return_path","required_for":["sending"],"type":"CNAME","validation_status":"pending"},{"content":"route1.mx.cloudflare.net","name":"agents.customer.com","priority":10,"purpose":"routing","required_for":["routing"],"type":"MX","validation_status":"pending"}]
    * @type array | undefined
    */
   dns_records?: EmailEmailDomainDnsRecord[] | undefined;
@@ -50621,6 +51232,14 @@ export type EmailEmailDomain = {
    */
   lifecycle_status: EmailEmailDomainLifecycleStatusEnumKey;
   /**
+   * @description Last state change. Use the opaque change-feed cursor rather than comparing this value alone.
+   *
+   * Format: `date-time`
+   * @example 2099-01-01T12:00:00Z
+   * @type string
+   */
+  modified_at: string;
+  /**
    * @description Whether this exact domain can currently receive mail.
    * @example {"status":"pending_dns"}
    * @type object
@@ -50640,9 +51259,129 @@ export type EmailEmailDomain = {
   verification: EmailEmailDomainVerification;
 };
 
+export const emailEmailDomainTombstoneReasonEnum = {
+  deleted: 'deleted',
+  claim_released: 'claim_released',
+  expired: 'expired',
+  claim_lost: 'claim_lost',
+} as const;
+
+export type EmailEmailDomainTombstoneReasonEnumKey = (typeof emailEmailDomainTombstoneReasonEnum)[keyof typeof emailEmailDomainTombstoneReasonEnum];
+
+export type EmailEmailDomainTombstone = {
+  /**
+   * @description Canonical hostname released by the removal.
+   * @maxLength 253
+   * @example agents.customer.com
+   * @type string
+   */
+  hostname: string;
+  /**
+   * @description Identifier of the removed EmailDomain.
+   *
+   * Format: `uuid`
+   * @example 918f3a1a-04ed-4383-9cbe-df5e561d28f8
+   * @type string
+   */
+  id: string;
+  /**
+   * @description Time the removal completed.
+   *
+   * Format: `date-time`
+   * @example 2099-01-01T12:00:00Z
+   * @type string
+   */
+  modified_at: string;
+  /**
+   * @description Why the resource disappeared from the live inventory: deleted by DELETE or account deletion; claim_released after 30 days of lost ownership DNS; expired, an unverified candidate whose records must be published again under a new enrollment; claim_lost, an unverified candidate whose hostname another enrollment holds. Clients must tolerate unknown future values.
+   * @example deleted
+   * @type string
+   */
+  reason: EmailEmailDomainTombstoneReasonEnumKey;
+};
+
+export const emailEmailDomainChangeKindEnum = {
+  email_domain: 'email_domain',
+  tombstone: 'tombstone',
+} as const;
+
+export type EmailEmailDomainChangeKindEnumKey = (typeof emailEmailDomainChangeKindEnum)[keyof typeof emailEmailDomainChangeKindEnum];
+
+export type EmailEmailDomainChange = {
+  /**
+   * @description EmailDomain state at this change. Present only when kind is email_domain; DNS assignments are omitted.
+   * @example {"account_id":"9b0a4d77dfb881c1a3b7d61ea9443e19","dns_management":"external","hostname":"agents.customer.com","id":"918f3a1a-04ed-4383-9cbe-df5e561d28f8","lifecycle_status":"provisioned","modified_at":"2099-01-01T12:00:00Z","routing":{"status":"active"},"sending":{"status":"active"},"verification":{"status":"verified"}}
+   * @type object | undefined
+   */
+  email_domain?: EmailEmailDomain | undefined;
+  /**
+   * @description Change type. email_domain carries the domain state at this change; tombstone records a completed removal.
+   * @example email_domain
+   * @type string
+   */
+  kind: EmailEmailDomainChangeKindEnumKey;
+  /**
+   * @description Bounded reconciliation record for a completed removal. Present only when kind is tombstone.
+   * @example {"hostname":"agents.customer.com","id":"918f3a1a-04ed-4383-9cbe-df5e561d28f8","modified_at":"2099-01-01T12:00:00Z","reason":"deleted"}
+   * @type object | undefined
+   */
+  tombstone?: EmailEmailDomainTombstone | undefined;
+};
+
+export type EmailEmailDomainPlatformStatus = {
+  /**
+   * @description Shared platform Routing gate. A suspended value blocks Routing for every EmailDomain regardless of its domain-specific state.
+   * @example {"status":"active"}
+   * @type object
+   */
+  routing: EmailEmailDomainCapability;
+  /**
+   * @description Shared platform Sending gate. A suspended value blocks Sending for every EmailDomain regardless of its domain-specific state.
+   * @example {"status":"active"}
+   * @type object
+   */
+  sending: EmailEmailDomainCapability;
+};
+
+export type EmailEmailDomainChangeCollectionResponse = {
+  errors: object[];
+  messages: string[];
+  platform: EmailEmailDomainPlatformStatus;
+  result: EmailEmailDomainChange[];
+  result_info: {
+    /**
+     * @description Number of changes in this response.
+     * @minLength 0
+     * @example 2
+     * @type integer
+     */
+    count: number;
+    /**
+     * @description True when another retained page is already available from next_cursor.
+     * @example true
+     * @type boolean
+     */
+    has_more: boolean;
+    /**
+     * @description Opaque checkpoint for the next page or poll. Store it only after processing the response.
+     * @example eyJ2IjoyLCJ0cmFuc2FjdGlvbl9pZCI6NDIsImNoYW5nZV9pZCI6N30
+     * @type string
+     */
+    next_cursor: string;
+    /**
+     * @description Requested maximum number of changes per page.
+     * @minLength 1
+     * @example 20
+     * @type integer
+     */
+    per_page: number;
+  };
+  success: boolean;
+};
+
 export type EmailEmailDomainCollectionResponse = {
-  errors?: object[] | undefined;
-  messages?: string[] | undefined;
+  errors: object[];
+  messages: string[];
   result: EmailEmailDomain[];
   result_info: {
     /**
@@ -50690,7 +51429,7 @@ export type EmailEmailDomainErrorResponse = {
    */
   errors: {
     /**
-     * @description Stable numeric code: 2076 invalid request, 2077 invalid hostname, 2078 not found, 2079 forbidden, 2080 dependency unavailable, 2081 quota exceeded, 2082 verification rate limited, 2083 hostname reserved, 2084 invalid state, 2085 internal failure. Clients must tolerate unknown future values.
+     * @description Stable numeric code: 2076 invalid request, 2077 invalid hostname, 2078 not found, 2079 forbidden, 2080 dependency unavailable, 2081 quota exceeded, 2082 verification rate limited, 2083 hostname reserved, 2084 invalid state, 2085 internal failure, or 2086 expired change cursor. Clients must tolerate unknown future values.
      *
      * Format: `int64`
      * @minLength 2000
@@ -50712,7 +51451,7 @@ export type EmailEmailDomainErrorResponse = {
    */
   messages: {
     /**
-     * @description Stable numeric code: 2076 invalid request, 2077 invalid hostname, 2078 not found, 2079 forbidden, 2080 dependency unavailable, 2081 quota exceeded, 2082 verification rate limited, 2083 hostname reserved, 2084 invalid state, 2085 internal failure. Clients must tolerate unknown future values.
+     * @description Stable numeric code: 2076 invalid request, 2077 invalid hostname, 2078 not found, 2079 forbidden, 2080 dependency unavailable, 2081 quota exceeded, 2082 verification rate limited, 2083 hostname reserved, 2084 invalid state, 2085 internal failure, or 2086 expired change cursor. Clients must tolerate unknown future values.
      *
      * Format: `int64`
      * @minLength 2000
@@ -50737,8 +51476,8 @@ export type EmailEmailDomainErrorResponse = {
 };
 
 export type EmailEmailDomainResponse = {
-  errors?: object[] | undefined;
-  messages?: string[] | undefined;
+  errors: object[];
+  messages: string[];
   result: EmailEmailDomain;
   success: boolean;
 };
@@ -59936,8 +60675,6 @@ export type InfraAccountTag = string;
 
 /**
  * @description TLS settings for a connectivity service.
- *
- * If omitted, the default mode (`verify_full`) is used.
  * @type object
  */
 export type InfraApiTlsSettings = {
@@ -59947,10 +60684,25 @@ export type InfraApiTlsSettings = {
    * - `"verify_full"` — verify certificate chain and hostname (default)
    * - `"verify_ca"` — verify certificate chain only, skip hostname check
    * - `"disabled"` — do not verify the server certificate at all
+   *
+   * `disabled` cannot be combined with `certificate_authority`: a custom CA is
+   * only used to verify the server certificate.
    * @example verify_full
    * @type string
    */
   cert_verification_mode: string;
+  /**
+   * @description UUID of the custom CA certificate or chain.
+   * @example 705db030-8247-489b-80dd-0d6256e5950d
+   * @type string | undefined
+   */
+  certificate_authority?: (string | null) | undefined;
+  /**
+   * @description UUID of the mTLS client certificate and private key.
+   * @example a493fbb4-34bc-4218-a63c-61a9323ac725
+   * @type string | undefined
+   */
+  client_certificate?: (string | null) | undefined;
 };
 
 /**
@@ -60088,8 +60840,6 @@ export type InfraServiceCommon = {
   readonly service_id?: string | undefined;
   /**
    * @description TLS settings for a connectivity service.
-   *
-   * If omitted, the default mode (`verify_full`) is used.
    * @type object | undefined
    */
   tls_settings?: (InfraApiTlsSettings | null) | undefined;
@@ -65554,21 +66304,13 @@ export type LogpushValidateResponse = LogpushApiResponseCommon & {
   } | null) | undefined;
 };
 
-/**
- * @example []
- * @type array
- */
 export type LogshareMessages = {
   /**
    * @minLength 1000
    * @type integer
    */
   code: number;
-  documentation_url?: string | undefined;
   message: string;
-  source?: {
-    pointer?: string | undefined;
-  } | undefined;
 }[];
 
 export type LogshareApiResponseCommonFailure = {
@@ -65618,14 +66360,6 @@ export type LogshareFieldsResponse = {
    */
   key?: string | undefined;
 };
-
-/**
- * @description Identifier.
- * @maxLength 32
- * @example 023e105f4ecef8ad9ca31a8372d0c353
- * @type string
- */
-export type LogshareIdentifier = string;
 
 /**
  * @example {"ClientIP":"192.0.2.1","RayID":"41ddf1740f67442d","EdgeStartTimestamp":1526810289280000000}
@@ -71839,1075 +72573,6 @@ export type ManagedDefenseVulnerabilityDiscoveryScanListResponse = ManagedDefens
 
 export type ManagedDefenseVulnerabilityDiscoveryScanResponse = ManagedDefenseVulnerabilityDiscoverySuccessResponse & {
   result: ManagedDefenseVulnerabilityDiscoveryScan;
-};
-
-export type McnAccountId = string;
-
-export type McnApplyProgress = {
-  done: number;
-  total: number;
-};
-
-export type McnAwsTrustPolicy = {
-  aws_trust_policy: string;
-  item_type: string;
-};
-
-export type McnAzureSetup = {
-  azure_consent_url: string;
-  integration_identity_tag: string;
-  item_type: string;
-  tag_cli_command: string;
-};
-
-export type McnErrorMeta = {
-  l10n_key?: string | undefined;
-  loggable_error?: string | undefined;
-  template_data?: object | undefined;
-  trace_id?: string | undefined;
-};
-
-export type McnErrorSource = {
-  parameter?: string | undefined;
-  parameter_value_index?: number | undefined;
-  pointer?: string | undefined;
-};
-
-export const mcnErrorCodeEnum = {
-  '1001': 1001,
-  '1002': 1002,
-  '1003': 1003,
-  '1004': 1004,
-  '1005': 1005,
-  '1006': 1006,
-  '1007': 1007,
-  '1008': 1008,
-  '1009': 1009,
-  '1010': 1010,
-  '1011': 1011,
-  '1012': 1012,
-  '1013': 1013,
-  '1014': 1014,
-  '1015': 1015,
-  '1016': 1016,
-  '1017': 1017,
-  '1018': 1018,
-  '2001': 2001,
-  '2002': 2002,
-  '2003': 2003,
-  '2004': 2004,
-  '2005': 2005,
-  '2006': 2006,
-  '2007': 2007,
-  '2008': 2008,
-  '2009': 2009,
-  '2010': 2010,
-  '2011': 2011,
-  '2012': 2012,
-  '2013': 2013,
-  '2014': 2014,
-  '2015': 2015,
-  '2016': 2016,
-  '2017': 2017,
-  '2018': 2018,
-  '2019': 2019,
-  '2020': 2020,
-  '2021': 2021,
-  '2022': 2022,
-  '3001': 3001,
-  '3002': 3002,
-  '3003': 3003,
-  '3004': 3004,
-  '3005': 3005,
-  '3006': 3006,
-  '3007': 3007,
-  '4001': 4001,
-  '4002': 4002,
-  '4003': 4003,
-  '4004': 4004,
-  '4005': 4005,
-  '4006': 4006,
-  '4007': 4007,
-  '4008': 4008,
-  '4009': 4009,
-  '4010': 4010,
-  '4011': 4011,
-  '4012': 4012,
-  '4013': 4013,
-  '4014': 4014,
-  '4015': 4015,
-  '4016': 4016,
-  '4017': 4017,
-  '4018': 4018,
-  '4019': 4019,
-  '4020': 4020,
-  '4021': 4021,
-  '4022': 4022,
-  '4023': 4023,
-  '5001': 5001,
-  '5002': 5002,
-  '5003': 5003,
-  '5004': 5004,
-  '102000': 102000,
-  '102001': 102001,
-  '102002': 102002,
-  '102003': 102003,
-  '102004': 102004,
-  '102005': 102005,
-  '102006': 102006,
-  '102007': 102007,
-  '102008': 102008,
-  '102009': 102009,
-  '102010': 102010,
-  '102011': 102011,
-  '102012': 102012,
-  '102013': 102013,
-  '102014': 102014,
-  '102015': 102015,
-  '102016': 102016,
-  '102017': 102017,
-  '102018': 102018,
-  '102019': 102019,
-  '102020': 102020,
-  '102021': 102021,
-  '102022': 102022,
-  '102023': 102023,
-  '102024': 102024,
-  '102025': 102025,
-  '102026': 102026,
-  '102027': 102027,
-  '102028': 102028,
-  '102029': 102029,
-  '102030': 102030,
-  '102031': 102031,
-  '102032': 102032,
-  '102033': 102033,
-  '102034': 102034,
-  '102035': 102035,
-  '102036': 102036,
-  '102037': 102037,
-  '102038': 102038,
-  '102039': 102039,
-  '102040': 102040,
-  '102041': 102041,
-  '102042': 102042,
-  '102043': 102043,
-  '102044': 102044,
-  '102045': 102045,
-  '102046': 102046,
-  '102047': 102047,
-  '102048': 102048,
-  '102049': 102049,
-  '102050': 102050,
-  '102051': 102051,
-  '102052': 102052,
-  '102053': 102053,
-  '102054': 102054,
-  '102055': 102055,
-  '102056': 102056,
-  '102057': 102057,
-  '102058': 102058,
-  '102059': 102059,
-  '102060': 102060,
-  '102061': 102061,
-  '102062': 102062,
-  '102063': 102063,
-  '102064': 102064,
-  '102065': 102065,
-  '102066': 102066,
-  '102067': 102067,
-  '102068': 102068,
-  '102069': 102069,
-  '102070': 102070,
-  '102071': 102071,
-  '102072': 102072,
-  '103001': 103001,
-  '103002': 103002,
-  '103003': 103003,
-  '103004': 103004,
-  '103005': 103005,
-  '103006': 103006,
-  '103007': 103007,
-  '103008': 103008,
-} as const;
-
-export type McnErrorCodeEnumKey = (typeof mcnErrorCodeEnum)[keyof typeof mcnErrorCodeEnum];
-
-export type McnError = {
-  code: McnErrorCodeEnumKey;
-  documentation_url?: string | undefined;
-  message: string;
-  meta?: McnErrorMeta | undefined;
-  source?: McnErrorSource | undefined;
-};
-
-export type McnResponse = {
-  messages: McnError[];
-  success: boolean;
-};
-
-export type McnBadResponse = McnResponse & {
-  errors?: McnError[] | undefined;
-  result?: null | undefined;
-};
-
-/**
- * @description
- * Format: `uuid`
- * @type string
- */
-export type McnCatalogSyncDestinationId = string;
-
-export const mcnCatalogSyncDestinationType = {
-  NONE: 'NONE',
-  ZERO_TRUST_LIST: 'ZERO_TRUST_LIST',
-} as const;
-
-export type McnCatalogSyncDestinationTypeKey = (typeof mcnCatalogSyncDestinationType)[keyof typeof mcnCatalogSyncDestinationType];
-
-/**
- * @description
- * Format: `uuid`
- * @type string
- */
-export type McnCatalogSyncId = string;
-
-export const mcnCatalogSyncUpdateMode = {
-  AUTO: 'AUTO',
-  MANUAL: 'MANUAL',
-} as const;
-
-export type McnCatalogSyncUpdateModeKey = (typeof mcnCatalogSyncUpdateMode)[keyof typeof mcnCatalogSyncUpdateMode];
-
-export type McnCatalogSync = {
-  description: string;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  destination_id: McnCatalogSyncDestinationId;
-  destination_type: McnCatalogSyncDestinationTypeKey;
-  errors?: {
-    [key: string]: McnError;
-  } | undefined;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  id: McnCatalogSyncId;
-  includes_discoveries_until?: string | undefined;
-  last_attempted_update_at?: string | undefined;
-  last_successful_update_at?: string | undefined;
-  last_user_update_at: string;
-  name: string;
-  policy: string;
-  update_mode: McnCatalogSyncUpdateModeKey;
-};
-
-export type McnGoodResponse = McnResponse & {
-  errors?: McnError[] | undefined;
-};
-
-export type McnCatalogSyncsPrebuiltPolicy = {
-  applicable_destinations: McnCatalogSyncDestinationTypeKey[];
-  policy_description: string;
-  policy_name: string;
-  policy_string: string;
-};
-
-export type McnCatalogSyncsPrebuiltPoliciesResponse = McnGoodResponse & {
-  result?: McnCatalogSyncsPrebuiltPolicy[] | undefined;
-};
-
-/**
- * @description An IP address prefix in CIDR format.
- * @example 192.168.0.0/16
- * @type string
- */
-export type McnCidrPrefix = string;
-
-/**
- * @description
- * Format: `uuid`
- * @type string
- */
-export type McnPlatformClientId = string;
-
-export type McnCloudPlatformClient = {
-  client_type: 'MAGIC_WAN_CLOUD_ONRAMP';
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  id: McnPlatformClientId;
-  name: string;
-};
-
-export const mcnCloudType = {
-  AWS: 'AWS',
-  AZURE: 'AZURE',
-  GOOGLE: 'GOOGLE',
-  CLOUDFLARE: 'CLOUDFLARE',
-} as const;
-
-export type McnCloudTypeKey = (typeof mcnCloudType)[keyof typeof mcnCloudType];
-
-/**
- * @description
- * Format: `uuid`
- * @type string
- */
-export type McnConduitRouteId = string;
-
-/**
- * @description
- * Format: `uuid`
- * @type string
- */
-export type McnConduitTunnelId = string;
-
-export type McnCost = {
-  currency: string;
-  /**
-   * @description
-   * Format: `double`
-   * @type number
-   */
-  monthly_cost: number;
-};
-
-export type McnCostDiff = {
-  currency: string;
-  /**
-   * @description
-   * Format: `double`
-   * @type number
-   */
-  current_monthly_cost: number;
-  /**
-   * @description
-   * Format: `double`
-   * @type number
-   */
-  diff: number;
-  /**
-   * @description
-   * Format: `double`
-   * @type number
-   */
-  proposed_monthly_cost: number;
-};
-
-export type McnCreateCatalogSyncRequest = {
-  description?: string | undefined;
-  destination_type: McnCatalogSyncDestinationTypeKey;
-  name: string;
-  policy?: string | undefined;
-  update_mode: McnCatalogSyncUpdateModeKey;
-};
-
-export type McnCreateCatalogSyncResponse = McnGoodResponse & {
-  result?: McnCatalogSync | undefined;
-};
-
-/**
- * @description
- * Format: `uuid`
- * @type string
- */
-export type McnResourceId = string;
-
-export const mcnOnrampCloudType = {
-  AWS: 'AWS',
-  AZURE: 'AZURE',
-  GOOGLE: 'GOOGLE',
-} as const;
-
-export type McnOnrampCloudTypeKey = (typeof mcnOnrampCloudType)[keyof typeof mcnOnrampCloudType];
-
-/**
- * @description
- * Format: `uuid`
- * @type string
- */
-export type McnProviderId = string;
-
-export const mcnOnrampType = {
-  OnrampTypeSingle: 'OnrampTypeSingle',
-  OnrampTypeHub: 'OnrampTypeHub',
-} as const;
-
-export type McnOnrampTypeKey = (typeof mcnOnrampType)[keyof typeof mcnOnrampType];
-
-export type McnCreateOnrampRequest = {
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string | undefined
-   */
-  adopted_hub_id?: McnResourceId | undefined;
-  attached_hubs?: McnResourceId[] | undefined;
-  attached_vpcs?: McnResourceId[] | undefined;
-  /**
-   * @description Sets the cloud-side ASN. If unset or zero, the cloud's default ASN takes effect.
-   *
-   * Format: `uint32`
-   * @type integer | undefined
-   */
-  cloud_asn?: number | undefined;
-  cloud_type: McnOnrampCloudTypeKey;
-  description?: string | undefined;
-  /**
-   * @description Enables BGP routing. When enabling this feature, set both install_routes_in_cloud and install_routes_in_magic_wan to false.
-   * @type boolean
-   */
-  dynamic_routing: boolean;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string | undefined
-   */
-  hub_provider_id?: McnProviderId | undefined;
-  install_routes_in_cloud: boolean;
-  install_routes_in_magic_wan: boolean;
-  manage_hub_to_hub_attachments?: boolean | undefined;
-  manage_vpc_to_hub_attachments?: boolean | undefined;
-  name: string;
-  region?: string | undefined;
-  type: McnOnrampTypeKey;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string | undefined
-   */
-  vpc?: McnResourceId | undefined;
-};
-
-/**
- * @description
- * Format: `uuid`
- * @type string
- */
-export type McnOnrampId = string;
-
-export type McnYamlDiff = {
-  diff: string;
-  left_description: string;
-  left_yaml: string;
-  right_description: string;
-  right_yaml: string;
-};
-
-export const mcnPlannedAction = {
-  no_op: 'no_op',
-  create: 'create',
-  update: 'update',
-  replace: 'replace',
-  destroy: 'destroy',
-} as const;
-
-export type McnPlannedActionKey = (typeof mcnPlannedAction)[keyof typeof mcnPlannedAction];
-
-export const mcnResourceType = {
-  aws_customer_gateway: 'aws_customer_gateway',
-  aws_egress_only_internet_gateway: 'aws_egress_only_internet_gateway',
-  aws_internet_gateway: 'aws_internet_gateway',
-  aws_instance: 'aws_instance',
-  aws_network_interface: 'aws_network_interface',
-  aws_route: 'aws_route',
-  aws_route_table: 'aws_route_table',
-  aws_route_table_association: 'aws_route_table_association',
-  aws_subnet: 'aws_subnet',
-  aws_vpc: 'aws_vpc',
-  aws_vpc_ipv4_cidr_block_association: 'aws_vpc_ipv4_cidr_block_association',
-  aws_vpn_connection: 'aws_vpn_connection',
-  aws_vpn_connection_route: 'aws_vpn_connection_route',
-  aws_vpn_gateway: 'aws_vpn_gateway',
-  aws_security_group: 'aws_security_group',
-  aws_vpc_security_group_ingress_rule: 'aws_vpc_security_group_ingress_rule',
-  aws_vpc_security_group_egress_rule: 'aws_vpc_security_group_egress_rule',
-  aws_ec2_managed_prefix_list: 'aws_ec2_managed_prefix_list',
-  aws_ec2_transit_gateway: 'aws_ec2_transit_gateway',
-  aws_ec2_transit_gateway_prefix_list_reference: 'aws_ec2_transit_gateway_prefix_list_reference',
-  aws_ec2_transit_gateway_vpc_attachment: 'aws_ec2_transit_gateway_vpc_attachment',
-  azurerm_application_security_group: 'azurerm_application_security_group',
-  azurerm_lb: 'azurerm_lb',
-  azurerm_lb_backend_address_pool: 'azurerm_lb_backend_address_pool',
-  azurerm_lb_nat_pool: 'azurerm_lb_nat_pool',
-  azurerm_lb_nat_rule: 'azurerm_lb_nat_rule',
-  azurerm_lb_rule: 'azurerm_lb_rule',
-  azurerm_local_network_gateway: 'azurerm_local_network_gateway',
-  azurerm_network_interface: 'azurerm_network_interface',
-  azurerm_network_interface_application_security_group_association: 'azurerm_network_interface_application_security_group_association',
-  azurerm_network_interface_backend_address_pool_association: 'azurerm_network_interface_backend_address_pool_association',
-  azurerm_network_interface_security_group_association: 'azurerm_network_interface_security_group_association',
-  azurerm_network_security_group: 'azurerm_network_security_group',
-  azurerm_public_ip: 'azurerm_public_ip',
-  azurerm_route: 'azurerm_route',
-  azurerm_route_table: 'azurerm_route_table',
-  azurerm_subnet: 'azurerm_subnet',
-  azurerm_subnet_route_table_association: 'azurerm_subnet_route_table_association',
-  azurerm_virtual_machine: 'azurerm_virtual_machine',
-  azurerm_virtual_network_gateway_connection: 'azurerm_virtual_network_gateway_connection',
-  azurerm_virtual_network: 'azurerm_virtual_network',
-  azurerm_virtual_network_gateway: 'azurerm_virtual_network_gateway',
-  google_compute_network: 'google_compute_network',
-  google_compute_subnetwork: 'google_compute_subnetwork',
-  google_compute_vpn_gateway: 'google_compute_vpn_gateway',
-  google_compute_vpn_tunnel: 'google_compute_vpn_tunnel',
-  google_compute_route: 'google_compute_route',
-  google_compute_address: 'google_compute_address',
-  google_compute_global_address: 'google_compute_global_address',
-  google_compute_router: 'google_compute_router',
-  google_compute_interconnect_attachment: 'google_compute_interconnect_attachment',
-  google_compute_ha_vpn_gateway: 'google_compute_ha_vpn_gateway',
-  google_compute_forwarding_rule: 'google_compute_forwarding_rule',
-  google_compute_network_firewall_policy: 'google_compute_network_firewall_policy',
-  google_compute_network_firewall_policy_rule: 'google_compute_network_firewall_policy_rule',
-  cloudflare_static_route: 'cloudflare_static_route',
-  cloudflare_ipsec_tunnel: 'cloudflare_ipsec_tunnel',
-} as const;
-
-export type McnResourceTypeKey = (typeof mcnResourceType)[keyof typeof mcnResourceType];
-
-export type McnResourcePreview = {
-  cloud_type: McnCloudTypeKey;
-  detail: string;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  id: McnResourceId;
-  name: string;
-  resource_type: McnResourceTypeKey;
-  title: string;
-};
-
-export type McnResourceDiff = {
-  diff: McnYamlDiff;
-  keys_require_replace: string[];
-  monthly_cost_estimate_diff: McnCostDiff;
-  planned_action: McnPlannedActionKey;
-  resource: McnResourcePreview;
-};
-
-export type McnObservation = {
-  first_observed_at: string;
-  last_observed_at: string;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  provider_id: McnProviderId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  resource_id: McnResourceId;
-};
-
-export type McnStringItem = {
-  item_type: string;
-  string: string;
-};
-
-export type McnYamlItem = {
-  item_type: string;
-  yaml: string;
-};
-
-export type McnYamlDiffItem = {
-  item_type: string;
-  yaml_diff: McnYamlDiff;
-};
-
-export type McnResourcePreviewItem = {
-  item_type: string;
-  resource_preview: McnResourcePreview;
-};
-
-export type McnListItem = {
-  item_type: string;
-  list: (McnStringItem & {
-    item_type: 'mcn_string_item';
-  } | McnResourcePreviewItem & {
-    item_type: 'mcn_resource_preview_item';
-  })[];
-};
-
-export type McnResourceDetailsSectionItem = {
-  helpText?: string | undefined;
-  name?: string | undefined;
-  value?: (McnStringItem & {
-    item_type: 'mcn_string_item';
-  } | McnYamlItem & {
-    item_type: 'mcn_yaml_item';
-  } | McnYamlDiffItem & {
-    item_type: 'mcn_yaml_diff_item';
-  } | McnResourcePreviewItem & {
-    item_type: 'mcn_resource_preview_item';
-  } | McnListItem & {
-    item_type: 'mcn_list_item';
-  }) | undefined;
-};
-
-export type McnResourceDetailsSection = {
-  help_text?: string | undefined;
-  hidden_items: McnResourceDetailsSectionItem[];
-  name: string;
-  visible_items: McnResourceDetailsSectionItem[];
-};
-
-export type McnResourceDetails = {
-  account_id: McnAccountId;
-  cloud_type: McnCloudTypeKey;
-  config: {
-    [key: string]: unknown;
-  };
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  deployment_provider: McnProviderId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  id: McnResourceId;
-  managed: boolean;
-  managed_by?: McnCloudPlatformClient[] | undefined;
-  monthly_cost_estimate: McnCost;
-  name: string;
-  native_id: string;
-  observations: {
-    [key: string]: McnObservation;
-  };
-  provider_ids: McnProviderId[];
-  provider_names_by_id: {
-    [key: string]: string;
-  };
-  region: string;
-  resource_group: string;
-  resource_type: McnResourceTypeKey;
-  sections: McnResourceDetailsSection[];
-  state: {
-    [key: string]: unknown;
-  };
-  tags: {
-    [key: string]: string;
-  };
-  updated_at: string;
-  url: string;
-};
-
-export const mcnOnrampLifecycleState = {
-  OnrampNeedsApply: 'OnrampNeedsApply',
-  OnrampPendingPlan: 'OnrampPendingPlan',
-  OnrampPlanning: 'OnrampPlanning',
-  OnrampPlanFailed: 'OnrampPlanFailed',
-  OnrampPendingApproval: 'OnrampPendingApproval',
-  OnrampPendingApply: 'OnrampPendingApply',
-  OnrampApplying: 'OnrampApplying',
-  OnrampApplyFailed: 'OnrampApplyFailed',
-  OnrampActive: 'OnrampActive',
-  OnrampPendingDestroy: 'OnrampPendingDestroy',
-  OnrampDestroying: 'OnrampDestroying',
-  OnrampDestroyFailed: 'OnrampDestroyFailed',
-} as const;
-
-export type McnOnrampLifecycleStateKey = (typeof mcnOnrampLifecycleState)[keyof typeof mcnOnrampLifecycleState];
-
-export type McnPlanProgress = {
-  done: number;
-  total: number;
-};
-
-export type McnOnrampStatus = {
-  apply_progress: McnApplyProgress;
-  lifecycle_errors?: {
-    [key: string]: McnError;
-  } | undefined;
-  lifecycle_state: McnOnrampLifecycleStateKey;
-  plan_progress: McnPlanProgress;
-  routes: McnConduitRouteId[];
-  tunnels: McnConduitTunnelId[];
-};
-
-export type McnOnramp = {
-  attached_hubs?: McnResourceId[] | undefined;
-  attached_vpcs?: McnResourceId[] | undefined;
-  /**
-   * @description
-   * Format: `uint32`
-   * @type integer | undefined
-   */
-  cloud_asn?: number | undefined;
-  cloud_type: McnOnrampCloudTypeKey;
-  description?: string | undefined;
-  dynamic_routing: boolean;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string | undefined
-   */
-  hub?: McnResourceId | undefined;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  id: McnOnrampId;
-  install_routes_in_cloud: boolean;
-  install_routes_in_magic_wan: boolean;
-  last_applied_at?: string | undefined;
-  last_exported_at?: string | undefined;
-  last_planned_at?: string | undefined;
-  manage_hub_to_hub_attachments?: boolean | undefined;
-  manage_vpc_to_hub_attachments?: boolean | undefined;
-  name: string;
-  planned_monthly_cost_estimate?: McnCostDiff | undefined;
-  planned_resources?: McnResourceDiff[] | undefined;
-  planned_resources_unavailable?: boolean | undefined;
-  post_apply_monthly_cost_estimate?: McnCost | undefined;
-  post_apply_resources?: {
-    [key: string]: McnResourceDetails;
-  } | undefined;
-  post_apply_resources_unavailable?: boolean | undefined;
-  region?: string | undefined;
-  status?: McnOnrampStatus | undefined;
-  type: McnOnrampTypeKey;
-  updated_at: string;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string | undefined
-   */
-  vpc?: McnResourceId | undefined;
-  vpcs_by_id?: {
-    [key: string]: McnResourceDetails;
-  } | undefined;
-  /**
-   * @description The list of vpc IDs for which resource details failed to generate.
-   * @type array | undefined
-   */
-  vpcs_by_id_unavailable?: McnResourceId[] | undefined;
-};
-
-export type McnCreateOnrampResponse = McnGoodResponse & {
-  result?: McnOnramp | undefined;
-};
-
-export type McnCreateProviderRequest = {
-  cloud_type: McnCloudTypeKey;
-  description?: string | undefined;
-  friendly_name: string;
-};
-
-export const mcnProviderLifecycleState = {
-  ACTIVE: 'ACTIVE',
-  PENDING_SETUP: 'PENDING_SETUP',
-  RETIRED: 'RETIRED',
-} as const;
-
-export type McnProviderLifecycleStateKey = (typeof mcnProviderLifecycleState)[keyof typeof mcnProviderLifecycleState];
-
-export const mcnProviderDiscoveryStatus = {
-  UNSPECIFIED: 'UNSPECIFIED',
-  PENDING: 'PENDING',
-  DISCOVERING: 'DISCOVERING',
-  FAILED: 'FAILED',
-  SUCCEEDED: 'SUCCEEDED',
-} as const;
-
-export type McnProviderDiscoveryStatusKey = (typeof mcnProviderDiscoveryStatus)[keyof typeof mcnProviderDiscoveryStatus];
-
-export type McnProviderDiscoveryProgress = {
-  done: number;
-  total: number;
-  unit: string;
-};
-
-export type McnProviderStatus = {
-  credentials_good_since?: string | undefined;
-  credentials_missing_since?: string | undefined;
-  credentials_rejected_since?: string | undefined;
-  discovery_message?: string | undefined;
-  discovery_message_v2?: string | undefined;
-  discovery_progress: McnProviderDiscoveryProgress;
-  discovery_progress_v2: McnProviderDiscoveryProgress;
-  in_use_by?: McnCloudPlatformClient[] | undefined;
-  last_discovery_completed_at?: string | undefined;
-  last_discovery_completed_at_v2?: string | undefined;
-  last_discovery_started_at?: string | undefined;
-  last_discovery_started_at_v2?: string | undefined;
-  last_discovery_status: McnProviderDiscoveryStatusKey;
-  last_discovery_status_v2: McnProviderDiscoveryStatusKey;
-  last_updated?: string | undefined;
-  regions: string[];
-};
-
-export type McnProvider = {
-  aws_arn?: string | undefined;
-  azure_subscription_id?: string | undefined;
-  azure_tenant_id?: string | undefined;
-  cloud_type: McnCloudTypeKey;
-  description?: string | undefined;
-  friendly_name: string;
-  gcp_project_id?: string | undefined;
-  gcp_service_account_email?: string | undefined;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  id: McnProviderId;
-  last_updated: string;
-  lifecycle_state: McnProviderLifecycleStateKey;
-  state: McnProviderDiscoveryStatusKey;
-  state_v2: McnProviderDiscoveryStatusKey;
-  status?: McnProviderStatus | undefined;
-};
-
-export type McnCreateProviderResponse = McnGoodResponse & {
-  result?: McnProvider | undefined;
-};
-
-export type McnDeletedCatalogSync = {
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  id: McnCatalogSyncId;
-};
-
-export type McnDeleteCatalogSyncResponse = McnGoodResponse & {
-  result?: McnDeletedCatalogSync | undefined;
-};
-
-export type McnDeletedOnramp = {
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  id: McnOnrampId;
-};
-
-export type McnDeleteOnrampResponse = McnGoodResponse & {
-  result?: McnDeletedOnramp | undefined;
-};
-
-export type McnDeletedProvider = {
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  id: McnProviderId;
-};
-
-export type McnDeleteProviderResponse = McnGoodResponse & {
-  result?: McnDeletedProvider | undefined;
-};
-
-export type McnDeletedResource = {
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  id: McnResourceId;
-};
-
-export type McnDeleteResourceResponse = McnGoodResponse & {
-  result?: McnDeletedResource | undefined;
-};
-
-export type McnGcpSetup = {
-  integration_identity_tag: string;
-  item_type: string;
-  tag_cli_command: string;
-};
-
-export type McnMagicWanAddressSpace = {
-  prefixes: McnCidrPrefix[];
-};
-
-export type McnGetMagicWanAddressSpaceResponse = McnGoodResponse & {
-  result?: McnMagicWanAddressSpace | undefined;
-};
-
-export type McnGetOnrampResponse = McnGoodResponse & {
-  result?: McnOnramp | undefined;
-};
-
-export type McnResultInfo = {
-  /**
-   * @description The number of items in the current result set.
-   * @example 1
-   * @type integer
-   */
-  count: number;
-  /**
-   * @description The current page (starts from zero).
-   * @example 1
-   * @type integer
-   */
-  page: number;
-  /**
-   * @description The maximum number of items per page.
-   * @example 20
-   * @type integer
-   */
-  per_page: number;
-  /**
-   * @description The total number of items in the entire result set.
-   * @example 2000
-   * @type integer
-   */
-  total_count: number;
-  /**
-   * @description The number of total pages in the entire result set.
-   * @example 200
-   * @type integer | undefined
-   */
-  total_pages?: number | undefined;
-};
-
-export type McnResponseCollection = {
-  messages: McnError[];
-  result_info?: McnResultInfo | undefined;
-  success: boolean;
-};
-
-export type McnGoodResponseCollection = McnResponseCollection & {
-  errors?: McnError[] | undefined;
-};
-
-export type McnListOnrampsResponse = McnGoodResponse & {
-  result?: McnOnramp[] | undefined;
-};
-
-export type McnOnrampWithAccount = McnOnramp & {
-  account_id: McnAccountId;
-};
-
-export type McnPolicyResult = string;
-
-export type McnProviderInitialSetupResponse = McnGoodResponse & {
-  result?: (McnAwsTrustPolicy & {
-    item_type: 'mcn_aws_trust_policy';
-  } | McnAzureSetup & {
-    item_type: 'mcn_azure_setup';
-  } | McnGcpSetup & {
-    item_type: 'mcn_gcp_setup';
-  }) | undefined;
-};
-
-export type McnProviderWithAccount = McnProvider & {
-  account_id: McnAccountId;
-};
-
-export type McnReadAccountCatalogSyncResponse = McnGoodResponse & {
-  result?: McnCatalogSync | undefined;
-};
-
-export type McnReadAccountCatalogSyncsResponse = McnGoodResponse & {
-  result?: McnCatalogSync[] | undefined;
-};
-
-export type McnReadAccountProviderResponse = McnGoodResponse & {
-  result?: McnProvider | undefined;
-};
-
-export type McnReadAccountProvidersResponse = McnGoodResponse & {
-  result?: McnProvider[] | undefined;
-};
-
-export type McnReadAccountResourceResponse = McnGoodResponse & {
-  result?: McnResourceDetails | undefined;
-};
-
-export type McnReadAccountResourcesResponse = McnGoodResponseCollection & {
-  result?: McnResourceDetails[] | undefined;
-  result_info?: McnResultInfo | undefined;
-};
-
-export type McnRefreshCatalogSyncResponse = McnGoodResponse & {
-  result?: McnPolicyResult | undefined;
-};
-
-export type McnResourcesCatalogPolicyPreview = string;
-
-export type McnResourcesCatalogPolicyPreviewRequest = {
-  policy: string;
-};
-
-export type McnResourcesCatalogPolicyPreviewResponse = McnGoodResponse & {
-  result?: McnResourcesCatalogPolicyPreview | undefined;
-};
-
-export type McnUpdateCatalogSyncRequest = {
-  description?: string | undefined;
-  name?: string | undefined;
-  policy?: string | undefined;
-  update_mode?: McnCatalogSyncUpdateModeKey | undefined;
-};
-
-export type McnUpdateCatalogSyncResponse = McnGoodResponse & {
-  result?: McnCatalogSync | undefined;
-};
-
-export type McnUpdateMagicWanAddressSpaceRequest = {
-  prefixes: McnCidrPrefix[];
-};
-
-export type McnUpdateMagicWanAddressSpaceResponse = McnGoodResponse & {
-  result?: McnMagicWanAddressSpace | undefined;
-};
-
-export type McnUpdateOnrampRequest = {
-  attached_hubs?: McnResourceId[] | undefined;
-  attached_vpcs?: McnResourceId[] | undefined;
-  description?: string | undefined;
-  install_routes_in_cloud?: boolean | undefined;
-  install_routes_in_magic_wan?: boolean | undefined;
-  manage_hub_to_hub_attachments?: boolean | undefined;
-  manage_vpc_to_hub_attachments?: boolean | undefined;
-  name?: string | undefined;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string | undefined
-   */
-  vpc?: McnResourceId | undefined;
-};
-
-export type McnUpdateOnrampResponse = McnGoodResponse & {
-  result?: McnOnramp | undefined;
-};
-
-export type McnUpdateProviderRequest = {
-  aws_arn?: string | undefined;
-  azure_subscription_id?: string | undefined;
-  azure_tenant_id?: string | undefined;
-  description?: string | undefined;
-  friendly_name?: string | undefined;
-  gcp_project_id?: string | undefined;
-  gcp_service_account_email?: string | undefined;
-};
-
-export type McnUpdateProviderResponse = McnGoodResponse & {
-  result?: McnProvider | undefined;
 };
 
 /**
@@ -88345,42 +88010,6 @@ export type RealtimekitChatMessage = {
   chat_download_url_expiry: string;
 };
 
-export const realtimekitCreateChatChannelInfoVisibilityEnum = {
-  public: 'public',
-  private: 'private',
-} as const;
-
-export type RealtimekitCreateChatChannelInfoVisibilityEnumKey = (typeof realtimekitCreateChatChannelInfoVisibilityEnum)[keyof typeof realtimekitCreateChatChannelInfoVisibilityEnum];
-
-export type RealtimekitCreateChatChannelInfo = {
-  custom_participant_ids?: string[] | undefined;
-  display_name?: string | undefined;
-  visibility?: RealtimekitCreateChatChannelInfoVisibilityEnumKey | undefined;
-};
-
-export type RealtimekitDaywiseStats = {
-  /**
-   * @description Date in YYYY-MM-DD format
-   * @type string | undefined
-   */
-  date?: string | undefined;
-  /**
-   * @description Total recordings minutes consumed across all sessions in the given time period.
-   * @type number | undefined
-   */
-  recordings_minutes_consumed?: number | undefined;
-  /**
-   * @description Number of sessions_count happened in the given time period
-   * @type number | undefined
-   */
-  sessions_count?: number | undefined;
-  /**
-   * @description Total meetings minutes consumed across all sessions in the given time period.
-   * @type number | undefined
-   */
-  sessions_minutes_consumed?: number | undefined;
-};
-
 export type RealtimekitErrorResponse = {
   /**
    * @description Object containing details of the error that occurred
@@ -88408,6 +88037,41 @@ export type RealtimekitErrorResponse = {
   success: boolean;
 };
 
+export const realtimekitValidationIssueLocationEnum = {
+  path: 'path',
+  query: 'query',
+  body: 'body',
+} as const;
+
+export type RealtimekitValidationIssueLocationEnumKey = (typeof realtimekitValidationIssueLocationEnum)[keyof typeof realtimekitValidationIssueLocationEnum];
+
+/**
+ * @description A single request validation failure.
+ * @type object
+ */
+export type RealtimekitValidationIssue = {
+  /**
+   * @description Machine-readable validation error code.
+   * @type string
+   */
+  code: string;
+  /**
+   * @description Name of the field that failed validation.
+   * @type string
+   */
+  field: string;
+  /**
+   * @description Part of the request that failed validation.
+   * @type string
+   */
+  location: RealtimekitValidationIssueLocationEnumKey;
+  /**
+   * @description Human-readable description of the validation failure.
+   * @type string
+   */
+  message: string;
+};
+
 export type RealtimekitGenericErrorResponse = {
   error: {
     /**
@@ -88416,10 +88080,11 @@ export type RealtimekitGenericErrorResponse = {
      */
     code: number;
     /**
-     * @description Additional context about the error, when available.
-     * @type unknown | undefined
+     * @description Additional context about the error, when available. Validation errors return a list of issues; other errors may return an object with error-specific fields.
      */
-    details?: unknown | undefined;
+    details?: (RealtimekitValidationIssue[] | {
+      [key: string]: unknown;
+    }) | undefined;
     /**
      * @description Error message describing what went wrong.
      * @type string
@@ -88466,71 +88131,150 @@ export type RealtimekitInteractiveConfig = {
   type?: 'ID3' | undefined;
 };
 
-export const realtimekitLivestreamBaseStatusEnum = {
+export const realtimekitLivestreamStatusEnum = {
   LIVE: 'LIVE',
   IDLE: 'IDLE',
   ERRORED: 'ERRORED',
   INVOKED: 'INVOKED',
+  METRICS_READY: 'METRICS_READY',
 } as const;
 
-export type RealtimekitLivestreamBaseStatusEnumKey = (typeof realtimekitLivestreamBaseStatusEnum)[keyof typeof realtimekitLivestreamBaseStatusEnum];
+export type RealtimekitLivestreamStatusEnumKey = (typeof realtimekitLivestreamStatusEnum)[keyof typeof realtimekitLivestreamStatusEnum];
 
-export type RealtimekitLivestreamBase = {
+export type RealtimekitLivestream = {
   /**
-   * @description The timestamp at which the livestream was created. The time is returned in ISO format.
+   * @description Timestamp the livestream was created at, in ISO format.
    *
    * Format: `date-time`
-   * @type string | undefined
+   * @type string
    */
-  created_at?: string | undefined;
+  created_at: string;
   /**
-   * @description Specifies if the livestream was disabled.
-   * @type boolean | undefined
+   * @description Specifies if the livestream is disabled.
+   * @type boolean
    */
-  disabled?: boolean | undefined;
+  disabled: boolean;
   /**
-   * @description The livestream ID.
-   * @type string | undefined
+   * @description ID of the underlying Cloudflare Stream live input.
+   * @type string
    */
-  id?: string | undefined;
+  external_id: string;
+  /**
+   * @description ID of the livestream.
+   *
+   * Format: `uuid`
+   * @type string
+   */
+  id: string;
   /**
    * @description The server URL to which the RTMP encoder sends the video and audio data.
-   * @type string | undefined
+   * @type string
    */
-  ingest_server?: string | undefined;
+  ingest_server: string;
   /**
-   * @description ID of the meeting.
-   * @type string | undefined
+   * @description Specifies if the livestream is ingested manually by an RTMP encoder.
+   * @type boolean
    */
-  meeting_id?: (string | null) | undefined;
+  manual_ingest: boolean;
+  /**
+   * @description ID of the meeting being livestreamed, if any.
+   * @type string
+   */
+  meeting_id: string | null;
   /**
    * @description Name of the livestream.
-   * @type string | undefined
+   * @type string
    */
-  name?: (string | null) | undefined;
-  org_id?: string | undefined;
+  name: string | null;
   /**
    * @description The web address that viewers can use to watch the livestream.
-   * @type string | undefined
+   * @type string
    */
-  playback_url?: string | undefined;
+  playback_url: string;
   /**
-   * @description The status of the livestream.
-   * @type string | undefined
+   * @description Status of the livestream.
+   * @type string
    */
-  status?: RealtimekitLivestreamBaseStatusEnumKey | undefined;
+  status: RealtimekitLivestreamStatusEnumKey;
   /**
-   * @description Unique key for accessing each livestream.
-   * @type string | undefined
+   * @description Unique key for accessing each livestream. Empty if the livestream is disabled.
+   * @type string
    */
-  stream_key?: string | undefined;
+  stream_key: string;
   /**
-   * @description The timestamp at which the livestream was updated. The time is returned in ISO format.
+   * @description Timestamp the livestream was last updated at, in ISO format.
    *
    * Format: `date-time`
-   * @type string | undefined
+   * @type string
    */
-  updated_at?: string | undefined;
+  updated_at: string;
+};
+
+export type RealtimekitLivestreamSession = {
+  /**
+   * @description Timestamp the livestream session was created at, in ISO format.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  created_at: string;
+  /**
+   * @description Error message, if the livestream session failed.
+   * @type string
+   */
+  err_message: string | null;
+  /**
+   * @description ID of the livestream session.
+   *
+   * Format: `uuid`
+   * @type string
+   */
+  id: string;
+  /**
+   * @description The time duration for which the input was given or the meeting was streamed.
+   * @type number
+   */
+  ingest_seconds: number;
+  /**
+   * @description Timestamp the livestream session was invoked at, in ISO format.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  invoked_time: string | null;
+  /**
+   * @description ID of the livestream.
+   *
+   * Format: `uuid`
+   * @type string
+   */
+  livestream_id: string;
+  /**
+   * @description Timestamp the livestream session started at, in ISO format.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  started_time: string | null;
+  /**
+   * @description Timestamp the livestream session stopped at, in ISO format.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  stopped_time: string | null;
+  /**
+   * @description Timestamp the livestream session was last updated at, in ISO format.
+   *
+   * Format: `date-time`
+   * @type string
+   */
+  updated_at: string;
+  /**
+   * @description The total view time for which the viewers watched the stream.
+   * @type number
+   */
+  viewer_seconds: number;
 };
 
 export type RealtimekitLivestreamingConfig = {
@@ -88883,24 +88627,6 @@ export type RealtimekitMeeting = {
    * @type string
    */
   readonly updated_at: string;
-};
-
-export type RealtimekitOverallStats = {
-  /**
-   * @description Total recordings minutes consumed across all sessions in the given time period.
-   * @type number | undefined
-   */
-  recordings_minutes_consumed?: number | undefined;
-  /**
-   * @description Number of sessions_count happened in the given time period
-   * @type number | undefined
-   */
-  sessions_count?: number | undefined;
-  /**
-   * @description Total meetings minutes consumed across all sessions in the given time period.
-   * @type number | undefined
-   */
-  sessions_minutes_consumed?: number | undefined;
 };
 
 export type RealtimekitPagingInfo = {
@@ -90738,45 +90464,6 @@ export type RealtimekitWebhookEventsSuccessResponse = {
   success: boolean;
 };
 
-export type RealtimekitWebhookLog = {
-  /**
-   * @description Webhook event name.
-   * @type string | undefined
-   */
-  event?: string | undefined;
-  /**
-   * @description Headers sent with the webhook delivery attempt.
-   * @type object | undefined
-   */
-  headers?: {
-    [key: string]: string;
-  } | undefined;
-  /**
-   * @description ID of the webhook delivery log.
-   * @type string | undefined
-   */
-  id?: string | undefined;
-  /**
-   * @description Webhook delivery payload.
-   * @type object | undefined
-   */
-  payload?: {
-    [key: string]: unknown;
-  } | undefined;
-  /**
-   * @description HTTP status code returned by the webhook endpoint.
-   * @type integer | undefined
-   */
-  status_code?: number | undefined;
-  /**
-   * @description Timestamp for the webhook delivery attempt.
-   *
-   * Format: `date-time`
-   * @type string | undefined
-   */
-  timestamp?: string | undefined;
-};
-
 export const realtimekitWebhookRequestEventsEnum = {
   'meeting.started': 'meeting.started',
   'meeting.ended': 'meeting.ended',
@@ -90852,42 +90539,6 @@ export type RealtimekitAccountIdentifier = string;
  * @type string
  */
 export type RealtimekitAppId = string;
-
-/**
- * @description The date and time the item was created.
- *
- * Format: `date-time`
- * @example 2025-01-02T02:20:00Z
- * @type string
- */
-export type RealtimekitCreated = string;
-
-/**
- * @description A Cloudflare-generated unique identifier for a item.
- * @minLength 32
- * @maxLength 32
- * @example 2a95132c15732412d22c1476fa83f27a
- * @type string
- */
-export type RealtimekitIdentifier = string;
-
-/**
- * @description The date and time the item was last modified.
- *
- * Format: `date-time`
- * @example 2025-01-02T02:20:00Z
- * @type string
- */
-export type RealtimekitModified = string;
-
-/**
- * @description Bearer token
- * @minLength 64
- * @maxLength 64
- * @example 66bcf64aa8907b9f9d90ac17746a77ce394c393b92b3916633dc02846e608ad4
- * @type string
- */
-export type RealtimekitSecret = string;
 
 export const realtimekitStartReasonCallerTypeEnum = {
   ORGANIZATION: 'ORGANIZATION',
@@ -90977,8 +90628,6 @@ export type RealtimekitStopReason = {
    */
   reason?: RealtimekitStopReasonReasonEnumKey | undefined;
 };
-
-export type RealtimekitSuccess = boolean;
 
 /**
  * @example []
@@ -133878,7 +133527,7 @@ export type ZoneAnalyticsApiApiResponseCommon = {
    * @type array
    */
   messages: ZoneAnalyticsApiMessages;
-  result: object | unknown[] | string;
+  result: object | object[] | string;
   /**
    * @description Whether the API call was successful
    * @example true
@@ -138549,6 +138198,36 @@ export type ApiShieldUpdateConfigCredentialsSuccess = ApiShieldApiResponseCommon
   result: ApiShieldCredentials;
 };
 
+/**
+ * @example {"errors":[{"code":12002,"message":"Invalid request body"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
+export type BuildsBadRequest = BuildsErrorResponse;
+
+/**
+ * @example {"errors":[{"code":12049,"message":"Resource already exists"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
+export type BuildsConflict = BuildsErrorResponse;
+
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
+export type BuildsNotFound = BuildsErrorResponse;
+
+/**
+ * @example {"errors":[{"code":12051,"message":"Rate limit exceeded"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
+export type BuildsTooManyRequests = BuildsErrorResponse;
+
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
+export type BuildsUnauthorized = BuildsErrorResponse;
+
 export type LogpullBadRequestResponse = {
   errors?: {
     code?: number | undefined;
@@ -138685,11 +138364,6 @@ export type RealtimekitGetAllPresets = RealtimekitPagingResponse & {
   data?: RealtimekitPresetListItem[] | undefined;
 };
 
-export type RealtimekitGetDaywiseStats = {
-  data?: RealtimekitDaywiseStats[] | undefined;
-  succes?: boolean | undefined;
-};
-
 export type RealtimekitGetMeeting = RealtimekitGenericSuccessResponse & ({
   data?: RealtimekitMeeting | undefined;
 } & {
@@ -138710,11 +138384,6 @@ export type RealtimekitGetMeeting = RealtimekitGenericSuccessResponse & ({
     ai_config?: RealtimekitAIConfig | undefined;
   } | undefined;
 });
-
-export type RealtimekitGetOverallStats = {
-  data?: RealtimekitOverallStats | undefined;
-  success?: boolean | undefined;
-};
 
 export type RealtimekitGetParticipant = RealtimekitGenericSuccessResponse & {
   /**
@@ -139594,7 +139263,7 @@ export type WorkersWorkerProfileRequest = {
   profile_type?: WorkersWorkerProfileRequestProfileTypeEnumKey | undefined;
 };
 
-export type GetHeartbeatStatus200 = unknown;
+export type GetHeartbeatStatus200 = string;
 
 export type GetHeartbeatStatus503 = unknown;
 
@@ -139765,19 +139434,19 @@ export type SqlApiQueryGetStatus200 = SqlApiQueryGetStatus200Json | SqlApiQueryG
 
 export type SqlApiQueryGetStatus400 = AnalyticsSqlApiErrorResponse | AnalyticsSqlGatewayApiErrorResponse;
 
-export type SqlApiQueryGetStatus403 = unknown;
+export type SqlApiQueryGetStatus403 = string;
 
-export type SqlApiQueryGetStatus422 = unknown;
+export type SqlApiQueryGetStatus422 = string;
 
-export type SqlApiQueryGetStatus429 = unknown;
+export type SqlApiQueryGetStatus429 = string;
 
-export type SqlApiQueryGetStatus500 = unknown;
+export type SqlApiQueryGetStatus500 = string;
 
-export type SqlApiQueryGetStatus501 = unknown;
+export type SqlApiQueryGetStatus501 = string;
 
-export type SqlApiQueryGetStatus503 = unknown;
+export type SqlApiQueryGetStatus503 = string;
 
-export type SqlApiQueryGetStatus507 = unknown;
+export type SqlApiQueryGetStatus507 = string;
 
 export type SqlApiQueryGetOptions = {
   body?: never | undefined;
@@ -139817,19 +139486,19 @@ export type SqlApiQueryPostStatus200 = SqlApiQueryPostStatus200Json | SqlApiQuer
 
 export type SqlApiQueryPostStatus400 = AnalyticsSqlApiErrorResponse | AnalyticsSqlGatewayApiErrorResponse;
 
-export type SqlApiQueryPostStatus403 = unknown;
+export type SqlApiQueryPostStatus403 = string;
 
-export type SqlApiQueryPostStatus422 = unknown;
+export type SqlApiQueryPostStatus422 = string;
 
-export type SqlApiQueryPostStatus429 = unknown;
+export type SqlApiQueryPostStatus429 = string;
 
-export type SqlApiQueryPostStatus500 = unknown;
+export type SqlApiQueryPostStatus500 = string;
 
-export type SqlApiQueryPostStatus501 = unknown;
+export type SqlApiQueryPostStatus501 = string;
 
-export type SqlApiQueryPostStatus503 = unknown;
+export type SqlApiQueryPostStatus503 = string;
 
-export type SqlApiQueryPostStatus507 = unknown;
+export type SqlApiQueryPostStatus507 = string;
 
 /**
  * @example {"params":{"status":404},"query":"SELECT edgeResponseStatus FROM events.httpRequests WHERE edgeResponseStatus = $status LIMIT 10","scope":{"accountTag":"0123456789abcdef0123456789abcdef"},"time_range":{"end":"2026-01-02T00:00:00Z","start":"2026-01-01T00:00:00Z"}}
@@ -139922,13 +139591,13 @@ export type SqlApiIntrospectionStatus200 = AnalyticsSqlIntrospectionResponse;
 
 export type SqlApiIntrospectionStatus400 = AnalyticsSqlApiErrorResponse | AnalyticsSqlGatewayApiErrorResponse;
 
-export type SqlApiIntrospectionStatus403 = unknown;
+export type SqlApiIntrospectionStatus403 = string;
 
-export type SqlApiIntrospectionStatus422 = unknown;
+export type SqlApiIntrospectionStatus422 = string;
 
-export type SqlApiIntrospectionStatus500 = unknown;
+export type SqlApiIntrospectionStatus500 = string;
 
-export type SqlApiIntrospectionStatus503 = unknown;
+export type SqlApiIntrospectionStatus503 = string;
 
 export type SqlApiIntrospectionOptions = {
   body?: never | undefined;
@@ -174888,7 +174557,7 @@ export type RadarGetReportsDatasetDownloadPath = {
   alias: string;
 };
 
-export type RadarGetReportsDatasetDownloadStatus200 = unknown;
+export type RadarGetReportsDatasetDownloadStatus200 = string;
 
 export type RadarGetReportsDatasetDownloadStatus400 = {
   errors: {
@@ -225551,7 +225220,7 @@ export type McpPortalsApiListPortalsStatus200 = {
        */
       id: string;
       /**
-       * @description When true, the gateway worker uses the shared Cloudflare-owned OAuth callback endpoint as the redirect_uri for upstream on-behalf OAuth, instead of the customer portal hostname. Defaults to false (off); opt in per server by setting true.
+       * @description When true, per-user authorization uses the shared Cloudflare callback URL as the 'redirect_uri' instead of the portal callback URL. The default is false. Set 'is_shared_oauth_callback_enabled' to true to enable the shared Cloudflare callback URL for this MCP server.
        * @default false
        * @type boolean | undefined
        */
@@ -225917,7 +225586,7 @@ export type McpPortalsApiCreatePortalsStatus201 = {
        */
       id: string;
       /**
-       * @description When true, the gateway worker uses the shared Cloudflare-owned OAuth callback endpoint as the redirect_uri for upstream on-behalf OAuth, instead of the customer portal hostname. Defaults to false (off); opt in per server by setting true.
+       * @description When true, per-user authorization uses the shared Cloudflare callback URL as the 'redirect_uri' instead of the portal callback URL. The default is false. Set 'is_shared_oauth_callback_enabled' to true to enable the shared Cloudflare callback URL for this MCP server.
        * @default false
        * @type boolean | undefined
        */
@@ -226571,7 +226240,7 @@ export type McpPortalsApiFetchGatewaysStatus200 = {
        */
       id: string;
       /**
-       * @description When true, the gateway worker uses the shared Cloudflare-owned OAuth callback endpoint as the redirect_uri for upstream on-behalf OAuth, instead of the customer portal hostname. Defaults to false (off); opt in per server by setting true.
+       * @description When true, per-user authorization uses the shared Cloudflare callback URL as the 'redirect_uri' instead of the portal callback URL. The default is false. Set 'is_shared_oauth_callback_enabled' to true to enable the shared Cloudflare callback URL for this MCP server.
        * @default false
        * @type boolean | undefined
        */
@@ -226950,7 +226619,7 @@ export type McpPortalsApiUpdatePortalsStatus200 = {
        */
       id: string;
       /**
-       * @description When true, the gateway worker uses the shared Cloudflare-owned OAuth callback endpoint as the redirect_uri for upstream on-behalf OAuth, instead of the customer portal hostname. Defaults to false (off); opt in per server by setting true.
+       * @description When true, per-user authorization uses the shared Cloudflare callback URL as the 'redirect_uri' instead of the portal callback URL. The default is false. Set 'is_shared_oauth_callback_enabled' to true to enable the shared Cloudflare callback URL for this MCP server.
        * @default false
        * @type boolean | undefined
        */
@@ -227495,7 +227164,7 @@ export type McpPortalsApiListServersStatus200 = {
      */
     id: string;
     /**
-     * @description When true, the gateway worker uses the shared Cloudflare-owned OAuth callback endpoint as the redirect_uri for upstream on-behalf OAuth, instead of the customer portal hostname. Defaults to false (off); opt in per server by setting true.
+     * @description When true, per-user authorization uses the shared Cloudflare callback URL as the 'redirect_uri' instead of the portal callback URL. The default is false. Set 'is_shared_oauth_callback_enabled' to true to enable the shared Cloudflare callback URL for this MCP server.
      * @default false
      * @type boolean | undefined
      */
@@ -227781,7 +227450,7 @@ export type McpPortalsApiCreateServersStatus201 = {
      */
     id: string;
     /**
-     * @description When true, the gateway worker uses the shared Cloudflare-owned OAuth callback endpoint as the redirect_uri for upstream on-behalf OAuth, instead of the customer portal hostname. Defaults to false (off); opt in per server by setting true.
+     * @description When true, per-user authorization uses the shared Cloudflare callback URL as the 'redirect_uri' instead of the portal callback URL. The default is false. Set 'is_shared_oauth_callback_enabled' to true to enable the shared Cloudflare callback URL for this MCP server.
      * @default false
      * @type boolean | undefined
      */
@@ -227940,7 +227609,7 @@ export type McpPortalsApiCreateServersBody = {
    */
   auth_type: McpPortalsApiCreateServersRequestAuthTypeEnumKey;
   /**
-   * @description Pre-registered OAuth client_secret. Write-only - accepted on create/update when auth_credentials.auth_mode is 'manual'. Required when creating a manual OAuth server or converting an existing server to manual mode. Omit it on update to preserve the existing secret; provide it to rotate the secret. Stored AES-GCM-encrypted in server_oauth_secrets; never returned by read endpoints.
+   * @description Provides 'client_secret' for a pre-registered OAuth client. This field is accepted on create or update only when 'auth_credentials.auth_mode' is 'manual'. It is required when creating an MCP server with manual OAuth credentials or changing an existing server to use manual OAuth credentials. Omit 'client_secret' on update to preserve the existing secret. Provide a new 'client_secret' to rotate the secret. The secret is never returned by read, create, or update requests.
    * @type string | undefined
    */
   client_secret?: string | undefined;
@@ -227969,7 +227638,7 @@ export type McpPortalsApiCreateServersBody = {
    */
   id: string;
   /**
-   * @description When true, the gateway worker uses the shared Cloudflare-owned OAuth callback endpoint as the redirect_uri for upstream on-behalf OAuth, instead of the customer portal hostname. Defaults to false (off); opt in per server by setting true.
+   * @description When true, per-user authorization uses the shared Cloudflare callback URL as the 'redirect_uri' instead of the portal callback URL. The default is false. Set 'is_shared_oauth_callback_enabled' to true to enable the shared Cloudflare callback URL for this MCP server.
    * @default false
    * @type boolean | undefined
    */
@@ -228211,7 +227880,7 @@ export type McpPortalsApiDeleteServersStatus200 = {
      */
     id: string;
     /**
-     * @description When true, the gateway worker uses the shared Cloudflare-owned OAuth callback endpoint as the redirect_uri for upstream on-behalf OAuth, instead of the customer portal hostname. Defaults to false (off); opt in per server by setting true.
+     * @description When true, per-user authorization uses the shared Cloudflare callback URL as the 'redirect_uri' instead of the portal callback URL. The default is false. Set 'is_shared_oauth_callback_enabled' to true to enable the shared Cloudflare callback URL for this MCP server.
      * @default false
      * @type boolean | undefined
      */
@@ -228510,7 +228179,7 @@ export type McpPortalsApiFetchServersStatus200 = {
      */
     id: string;
     /**
-     * @description When true, the gateway worker uses the shared Cloudflare-owned OAuth callback endpoint as the redirect_uri for upstream on-behalf OAuth, instead of the customer portal hostname. Defaults to false (off); opt in per server by setting true.
+     * @description When true, per-user authorization uses the shared Cloudflare callback URL as the 'redirect_uri' instead of the portal callback URL. The default is false. Set 'is_shared_oauth_callback_enabled' to true to enable the shared Cloudflare callback URL for this MCP server.
      * @default false
      * @type boolean | undefined
      */
@@ -228809,7 +228478,7 @@ export type McpPortalsApiUpdateServersStatus200 = {
      */
     id: string;
     /**
-     * @description When true, the gateway worker uses the shared Cloudflare-owned OAuth callback endpoint as the redirect_uri for upstream on-behalf OAuth, instead of the customer portal hostname. Defaults to false (off); opt in per server by setting true.
+     * @description When true, per-user authorization uses the shared Cloudflare callback URL as the 'redirect_uri' instead of the portal callback URL. The default is false. Set 'is_shared_oauth_callback_enabled' to true to enable the shared Cloudflare callback URL for this MCP server.
      * @default false
      * @type boolean | undefined
      */
@@ -228970,7 +228639,7 @@ export type McpPortalsApiUpdateServersBody = {
    */
   auth_credentials?: string | undefined;
   /**
-   * @description Pre-registered OAuth client_secret. Write-only - accepted on create/update when auth_credentials.auth_mode is 'manual'. Required when creating a manual OAuth server or converting an existing server to manual mode. Omit it on update to preserve the existing secret; provide it to rotate the secret. Stored AES-GCM-encrypted in server_oauth_secrets; never returned by read endpoints.
+   * @description Provides 'client_secret' for a pre-registered OAuth client. This field is accepted on create or update only when 'auth_credentials.auth_mode' is 'manual'. It is required when creating an MCP server with manual OAuth credentials or changing an existing server to use manual OAuth credentials. Omit 'client_secret' on update to preserve the existing secret. Provide a new 'client_secret' to rotate the secret. The secret is never returned by read, create, or update requests.
    * @type string | undefined
    */
   client_secret?: string | undefined;
@@ -228982,7 +228651,7 @@ export type McpPortalsApiUpdateServersBody = {
    */
   description?: (string | null) | undefined;
   /**
-   * @description When true, the gateway worker uses the shared Cloudflare-owned OAuth callback endpoint as the redirect_uri for upstream on-behalf OAuth, instead of the customer portal hostname. Defaults to false (off); opt in per server by setting true.
+   * @description When true, per-user authorization uses the shared Cloudflare callback URL as the 'redirect_uri' instead of the portal callback URL. The default is false. Set 'is_shared_oauth_callback_enabled' to true to enable the shared Cloudflare callback URL for this MCP server.
    * @default false
    * @type boolean | undefined
    */
@@ -233463,7 +233132,15 @@ export type AccessSamlCertificatesGetPemPath = {
   samlCertSetId: AccessUuid;
 };
 
-export type AccessSamlCertificatesGetPemStatus200 = unknown;
+/**
+ * @example -----BEGIN CERTIFICATE-----
+ * MIIGAjCCA+qgAwIBAgIJAI7kymlF7CWT...
+ * ...certificate content...
+ * -----END CERTIFICATE-----
+ *
+ * @type string
+ */
+export type AccessSamlCertificatesGetPemStatus200 = string;
 
 export type AccessSamlCertificatesGetPemStatus400 = AccessApiResponseCommonFailure;
 
@@ -235886,7 +235563,7 @@ export type IpAddressManagementPrefixesDownloadLoaDocumentPath = {
   accountId: AddressingAccountIdentifier;
 };
 
-export type IpAddressManagementPrefixesDownloadLoaDocumentStatus200 = unknown;
+export type IpAddressManagementPrefixesDownloadLoaDocumentStatus200 = Blob;
 
 export type IpAddressManagementPrefixesDownloadLoaDocumentStatus400 = AddressingApiResponseCommonFailure;
 
@@ -242312,6 +241989,13 @@ export const aigConfigListGatewayStatus200ResultGuardrailsPromptS13Enum = {
 
 export type AigConfigListGatewayStatus200ResultGuardrailsPromptS13EnumKey = (typeof aigConfigListGatewayStatus200ResultGuardrailsPromptS13Enum)[keyof typeof aigConfigListGatewayStatus200ResultGuardrailsPromptS13Enum];
 
+export const aigConfigListGatewayStatus200ResultGuardrailsPromptS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigListGatewayStatus200ResultGuardrailsPromptS14EnumKey = (typeof aigConfigListGatewayStatus200ResultGuardrailsPromptS14Enum)[keyof typeof aigConfigListGatewayStatus200ResultGuardrailsPromptS14Enum];
+
 export const aigConfigListGatewayStatus200ResultGuardrailsPromptS2Enum = {
   FLAG: 'FLAG',
   BLOCK: 'BLOCK',
@@ -242409,6 +242093,13 @@ export const aigConfigListGatewayStatus200ResultGuardrailsResponseS13Enum = {
 } as const;
 
 export type AigConfigListGatewayStatus200ResultGuardrailsResponseS13EnumKey = (typeof aigConfigListGatewayStatus200ResultGuardrailsResponseS13Enum)[keyof typeof aigConfigListGatewayStatus200ResultGuardrailsResponseS13Enum];
+
+export const aigConfigListGatewayStatus200ResultGuardrailsResponseS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigListGatewayStatus200ResultGuardrailsResponseS14EnumKey = (typeof aigConfigListGatewayStatus200ResultGuardrailsResponseS14Enum)[keyof typeof aigConfigListGatewayStatus200ResultGuardrailsResponseS14Enum];
 
 export const aigConfigListGatewayStatus200ResultGuardrailsResponseS2Enum = {
   FLAG: 'FLAG',
@@ -242511,6 +242202,10 @@ export type AigConfigListGatewayStatus200ResultWorkersAiBillingModeEnumKey = (ty
 
 export type AigConfigListGatewayStatus200 = {
   result: {
+    /**
+     * @description Require authentication for gateway access. New gateways must have authentication enabled. Once enabled, authentication cannot be disabled.
+     * @type boolean | undefined
+     */
     authentication?: boolean | undefined;
     /**
      * @description Requires customer-provided provider credentials and prevents fallback to Unified Billing.
@@ -242562,6 +242257,7 @@ export type AigConfigListGatewayStatus200 = {
         S11?: AigConfigListGatewayStatus200ResultGuardrailsPromptS11EnumKey | undefined;
         S12?: AigConfigListGatewayStatus200ResultGuardrailsPromptS12EnumKey | undefined;
         S13?: AigConfigListGatewayStatus200ResultGuardrailsPromptS13EnumKey | undefined;
+        S14?: AigConfigListGatewayStatus200ResultGuardrailsPromptS14EnumKey | undefined;
         S2?: AigConfigListGatewayStatus200ResultGuardrailsPromptS2EnumKey | undefined;
         S3?: AigConfigListGatewayStatus200ResultGuardrailsPromptS3EnumKey | undefined;
         S4?: AigConfigListGatewayStatus200ResultGuardrailsPromptS4EnumKey | undefined;
@@ -242578,6 +242274,7 @@ export type AigConfigListGatewayStatus200 = {
         S11?: AigConfigListGatewayStatus200ResultGuardrailsResponseS11EnumKey | undefined;
         S12?: AigConfigListGatewayStatus200ResultGuardrailsResponseS12EnumKey | undefined;
         S13?: AigConfigListGatewayStatus200ResultGuardrailsResponseS13EnumKey | undefined;
+        S14?: AigConfigListGatewayStatus200ResultGuardrailsResponseS14EnumKey | undefined;
         S2?: AigConfigListGatewayStatus200ResultGuardrailsResponseS2EnumKey | undefined;
         S3?: AigConfigListGatewayStatus200ResultGuardrailsResponseS3EnumKey | undefined;
         S4?: AigConfigListGatewayStatus200ResultGuardrailsResponseS4EnumKey | undefined;
@@ -242861,6 +242558,13 @@ export const aigConfigCreateGatewayStatus200ResultGuardrailsPromptS13Enum = {
 
 export type AigConfigCreateGatewayStatus200ResultGuardrailsPromptS13EnumKey = (typeof aigConfigCreateGatewayStatus200ResultGuardrailsPromptS13Enum)[keyof typeof aigConfigCreateGatewayStatus200ResultGuardrailsPromptS13Enum];
 
+export const aigConfigCreateGatewayStatus200ResultGuardrailsPromptS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigCreateGatewayStatus200ResultGuardrailsPromptS14EnumKey = (typeof aigConfigCreateGatewayStatus200ResultGuardrailsPromptS14Enum)[keyof typeof aigConfigCreateGatewayStatus200ResultGuardrailsPromptS14Enum];
+
 export const aigConfigCreateGatewayStatus200ResultGuardrailsPromptS2Enum = {
   FLAG: 'FLAG',
   BLOCK: 'BLOCK',
@@ -242958,6 +242662,13 @@ export const aigConfigCreateGatewayStatus200ResultGuardrailsResponseS13Enum = {
 } as const;
 
 export type AigConfigCreateGatewayStatus200ResultGuardrailsResponseS13EnumKey = (typeof aigConfigCreateGatewayStatus200ResultGuardrailsResponseS13Enum)[keyof typeof aigConfigCreateGatewayStatus200ResultGuardrailsResponseS13Enum];
+
+export const aigConfigCreateGatewayStatus200ResultGuardrailsResponseS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigCreateGatewayStatus200ResultGuardrailsResponseS14EnumKey = (typeof aigConfigCreateGatewayStatus200ResultGuardrailsResponseS14Enum)[keyof typeof aigConfigCreateGatewayStatus200ResultGuardrailsResponseS14Enum];
 
 export const aigConfigCreateGatewayStatus200ResultGuardrailsResponseS2Enum = {
   FLAG: 'FLAG',
@@ -243060,6 +242771,10 @@ export type AigConfigCreateGatewayStatus200ResultWorkersAiBillingModeEnumKey = (
 
 export type AigConfigCreateGatewayStatus200 = {
   result: {
+    /**
+     * @description Require authentication for gateway access. New gateways must have authentication enabled. Once enabled, authentication cannot be disabled.
+     * @type boolean | undefined
+     */
     authentication?: boolean | undefined;
     /**
      * @description Requires customer-provided provider credentials and prevents fallback to Unified Billing.
@@ -243111,6 +242826,7 @@ export type AigConfigCreateGatewayStatus200 = {
         S11?: AigConfigCreateGatewayStatus200ResultGuardrailsPromptS11EnumKey | undefined;
         S12?: AigConfigCreateGatewayStatus200ResultGuardrailsPromptS12EnumKey | undefined;
         S13?: AigConfigCreateGatewayStatus200ResultGuardrailsPromptS13EnumKey | undefined;
+        S14?: AigConfigCreateGatewayStatus200ResultGuardrailsPromptS14EnumKey | undefined;
         S2?: AigConfigCreateGatewayStatus200ResultGuardrailsPromptS2EnumKey | undefined;
         S3?: AigConfigCreateGatewayStatus200ResultGuardrailsPromptS3EnumKey | undefined;
         S4?: AigConfigCreateGatewayStatus200ResultGuardrailsPromptS4EnumKey | undefined;
@@ -243127,6 +242843,7 @@ export type AigConfigCreateGatewayStatus200 = {
         S11?: AigConfigCreateGatewayStatus200ResultGuardrailsResponseS11EnumKey | undefined;
         S12?: AigConfigCreateGatewayStatus200ResultGuardrailsResponseS12EnumKey | undefined;
         S13?: AigConfigCreateGatewayStatus200ResultGuardrailsResponseS13EnumKey | undefined;
+        S14?: AigConfigCreateGatewayStatus200ResultGuardrailsResponseS14EnumKey | undefined;
         S2?: AigConfigCreateGatewayStatus200ResultGuardrailsResponseS2EnumKey | undefined;
         S3?: AigConfigCreateGatewayStatus200ResultGuardrailsResponseS3EnumKey | undefined;
         S4?: AigConfigCreateGatewayStatus200ResultGuardrailsResponseS4EnumKey | undefined;
@@ -243371,6 +243088,13 @@ export const aigConfigCreateGatewayRequestGuardrailsPromptS13Enum = {
 
 export type AigConfigCreateGatewayRequestGuardrailsPromptS13EnumKey = (typeof aigConfigCreateGatewayRequestGuardrailsPromptS13Enum)[keyof typeof aigConfigCreateGatewayRequestGuardrailsPromptS13Enum];
 
+export const aigConfigCreateGatewayRequestGuardrailsPromptS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigCreateGatewayRequestGuardrailsPromptS14EnumKey = (typeof aigConfigCreateGatewayRequestGuardrailsPromptS14Enum)[keyof typeof aigConfigCreateGatewayRequestGuardrailsPromptS14Enum];
+
 export const aigConfigCreateGatewayRequestGuardrailsPromptS2Enum = {
   FLAG: 'FLAG',
   BLOCK: 'BLOCK',
@@ -243468,6 +243192,13 @@ export const aigConfigCreateGatewayRequestGuardrailsResponseS13Enum = {
 } as const;
 
 export type AigConfigCreateGatewayRequestGuardrailsResponseS13EnumKey = (typeof aigConfigCreateGatewayRequestGuardrailsResponseS13Enum)[keyof typeof aigConfigCreateGatewayRequestGuardrailsResponseS13Enum];
+
+export const aigConfigCreateGatewayRequestGuardrailsResponseS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigCreateGatewayRequestGuardrailsResponseS14EnumKey = (typeof aigConfigCreateGatewayRequestGuardrailsResponseS14Enum)[keyof typeof aigConfigCreateGatewayRequestGuardrailsResponseS14Enum];
 
 export const aigConfigCreateGatewayRequestGuardrailsResponseS2Enum = {
   FLAG: 'FLAG',
@@ -243569,6 +243300,10 @@ export const aigConfigCreateGatewayRequestWorkersAiBillingModeEnum = {
 export type AigConfigCreateGatewayRequestWorkersAiBillingModeEnumKey = (typeof aigConfigCreateGatewayRequestWorkersAiBillingModeEnum)[keyof typeof aigConfigCreateGatewayRequestWorkersAiBillingModeEnum];
 
 export type AigConfigCreateGatewayBody = {
+  /**
+   * @description Require authentication for gateway access. New gateways must have authentication enabled. Once enabled, authentication cannot be disabled.
+   * @type boolean | undefined
+   */
   authentication?: boolean | undefined;
   /**
    * @description Requires customer-provided provider credentials and prevents fallback to Unified Billing.
@@ -243604,6 +243339,7 @@ export type AigConfigCreateGatewayBody = {
       S11?: AigConfigCreateGatewayRequestGuardrailsPromptS11EnumKey | undefined;
       S12?: AigConfigCreateGatewayRequestGuardrailsPromptS12EnumKey | undefined;
       S13?: AigConfigCreateGatewayRequestGuardrailsPromptS13EnumKey | undefined;
+      S14?: AigConfigCreateGatewayRequestGuardrailsPromptS14EnumKey | undefined;
       S2?: AigConfigCreateGatewayRequestGuardrailsPromptS2EnumKey | undefined;
       S3?: AigConfigCreateGatewayRequestGuardrailsPromptS3EnumKey | undefined;
       S4?: AigConfigCreateGatewayRequestGuardrailsPromptS4EnumKey | undefined;
@@ -243620,6 +243356,7 @@ export type AigConfigCreateGatewayBody = {
       S11?: AigConfigCreateGatewayRequestGuardrailsResponseS11EnumKey | undefined;
       S12?: AigConfigCreateGatewayRequestGuardrailsResponseS12EnumKey | undefined;
       S13?: AigConfigCreateGatewayRequestGuardrailsResponseS13EnumKey | undefined;
+      S14?: AigConfigCreateGatewayRequestGuardrailsResponseS14EnumKey | undefined;
       S2?: AigConfigCreateGatewayRequestGuardrailsResponseS2EnumKey | undefined;
       S3?: AigConfigCreateGatewayRequestGuardrailsResponseS3EnumKey | undefined;
       S4?: AigConfigCreateGatewayRequestGuardrailsResponseS4EnumKey | undefined;
@@ -248660,6 +248397,13 @@ export const aigConfigDeleteGatewayStatus200ResultGuardrailsPromptS13Enum = {
 
 export type AigConfigDeleteGatewayStatus200ResultGuardrailsPromptS13EnumKey = (typeof aigConfigDeleteGatewayStatus200ResultGuardrailsPromptS13Enum)[keyof typeof aigConfigDeleteGatewayStatus200ResultGuardrailsPromptS13Enum];
 
+export const aigConfigDeleteGatewayStatus200ResultGuardrailsPromptS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigDeleteGatewayStatus200ResultGuardrailsPromptS14EnumKey = (typeof aigConfigDeleteGatewayStatus200ResultGuardrailsPromptS14Enum)[keyof typeof aigConfigDeleteGatewayStatus200ResultGuardrailsPromptS14Enum];
+
 export const aigConfigDeleteGatewayStatus200ResultGuardrailsPromptS2Enum = {
   FLAG: 'FLAG',
   BLOCK: 'BLOCK',
@@ -248757,6 +248501,13 @@ export const aigConfigDeleteGatewayStatus200ResultGuardrailsResponseS13Enum = {
 } as const;
 
 export type AigConfigDeleteGatewayStatus200ResultGuardrailsResponseS13EnumKey = (typeof aigConfigDeleteGatewayStatus200ResultGuardrailsResponseS13Enum)[keyof typeof aigConfigDeleteGatewayStatus200ResultGuardrailsResponseS13Enum];
+
+export const aigConfigDeleteGatewayStatus200ResultGuardrailsResponseS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigDeleteGatewayStatus200ResultGuardrailsResponseS14EnumKey = (typeof aigConfigDeleteGatewayStatus200ResultGuardrailsResponseS14Enum)[keyof typeof aigConfigDeleteGatewayStatus200ResultGuardrailsResponseS14Enum];
 
 export const aigConfigDeleteGatewayStatus200ResultGuardrailsResponseS2Enum = {
   FLAG: 'FLAG',
@@ -248859,6 +248610,10 @@ export type AigConfigDeleteGatewayStatus200ResultWorkersAiBillingModeEnumKey = (
 
 export type AigConfigDeleteGatewayStatus200 = {
   result: {
+    /**
+     * @description Require authentication for gateway access. New gateways must have authentication enabled. Once enabled, authentication cannot be disabled.
+     * @type boolean | undefined
+     */
     authentication?: boolean | undefined;
     /**
      * @description Requires customer-provided provider credentials and prevents fallback to Unified Billing.
@@ -248910,6 +248665,7 @@ export type AigConfigDeleteGatewayStatus200 = {
         S11?: AigConfigDeleteGatewayStatus200ResultGuardrailsPromptS11EnumKey | undefined;
         S12?: AigConfigDeleteGatewayStatus200ResultGuardrailsPromptS12EnumKey | undefined;
         S13?: AigConfigDeleteGatewayStatus200ResultGuardrailsPromptS13EnumKey | undefined;
+        S14?: AigConfigDeleteGatewayStatus200ResultGuardrailsPromptS14EnumKey | undefined;
         S2?: AigConfigDeleteGatewayStatus200ResultGuardrailsPromptS2EnumKey | undefined;
         S3?: AigConfigDeleteGatewayStatus200ResultGuardrailsPromptS3EnumKey | undefined;
         S4?: AigConfigDeleteGatewayStatus200ResultGuardrailsPromptS4EnumKey | undefined;
@@ -248926,6 +248682,7 @@ export type AigConfigDeleteGatewayStatus200 = {
         S11?: AigConfigDeleteGatewayStatus200ResultGuardrailsResponseS11EnumKey | undefined;
         S12?: AigConfigDeleteGatewayStatus200ResultGuardrailsResponseS12EnumKey | undefined;
         S13?: AigConfigDeleteGatewayStatus200ResultGuardrailsResponseS13EnumKey | undefined;
+        S14?: AigConfigDeleteGatewayStatus200ResultGuardrailsResponseS14EnumKey | undefined;
         S2?: AigConfigDeleteGatewayStatus200ResultGuardrailsResponseS2EnumKey | undefined;
         S3?: AigConfigDeleteGatewayStatus200ResultGuardrailsResponseS3EnumKey | undefined;
         S4?: AigConfigDeleteGatewayStatus200ResultGuardrailsResponseS4EnumKey | undefined;
@@ -249235,6 +248992,13 @@ export const aigConfigFetchGatewayStatus200ResultGuardrailsPromptS13Enum = {
 
 export type AigConfigFetchGatewayStatus200ResultGuardrailsPromptS13EnumKey = (typeof aigConfigFetchGatewayStatus200ResultGuardrailsPromptS13Enum)[keyof typeof aigConfigFetchGatewayStatus200ResultGuardrailsPromptS13Enum];
 
+export const aigConfigFetchGatewayStatus200ResultGuardrailsPromptS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigFetchGatewayStatus200ResultGuardrailsPromptS14EnumKey = (typeof aigConfigFetchGatewayStatus200ResultGuardrailsPromptS14Enum)[keyof typeof aigConfigFetchGatewayStatus200ResultGuardrailsPromptS14Enum];
+
 export const aigConfigFetchGatewayStatus200ResultGuardrailsPromptS2Enum = {
   FLAG: 'FLAG',
   BLOCK: 'BLOCK',
@@ -249332,6 +249096,13 @@ export const aigConfigFetchGatewayStatus200ResultGuardrailsResponseS13Enum = {
 } as const;
 
 export type AigConfigFetchGatewayStatus200ResultGuardrailsResponseS13EnumKey = (typeof aigConfigFetchGatewayStatus200ResultGuardrailsResponseS13Enum)[keyof typeof aigConfigFetchGatewayStatus200ResultGuardrailsResponseS13Enum];
+
+export const aigConfigFetchGatewayStatus200ResultGuardrailsResponseS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigFetchGatewayStatus200ResultGuardrailsResponseS14EnumKey = (typeof aigConfigFetchGatewayStatus200ResultGuardrailsResponseS14Enum)[keyof typeof aigConfigFetchGatewayStatus200ResultGuardrailsResponseS14Enum];
 
 export const aigConfigFetchGatewayStatus200ResultGuardrailsResponseS2Enum = {
   FLAG: 'FLAG',
@@ -249434,6 +249205,10 @@ export type AigConfigFetchGatewayStatus200ResultWorkersAiBillingModeEnumKey = (t
 
 export type AigConfigFetchGatewayStatus200 = {
   result: {
+    /**
+     * @description Require authentication for gateway access. New gateways must have authentication enabled. Once enabled, authentication cannot be disabled.
+     * @type boolean | undefined
+     */
     authentication?: boolean | undefined;
     /**
      * @description Requires customer-provided provider credentials and prevents fallback to Unified Billing.
@@ -249485,6 +249260,7 @@ export type AigConfigFetchGatewayStatus200 = {
         S11?: AigConfigFetchGatewayStatus200ResultGuardrailsPromptS11EnumKey | undefined;
         S12?: AigConfigFetchGatewayStatus200ResultGuardrailsPromptS12EnumKey | undefined;
         S13?: AigConfigFetchGatewayStatus200ResultGuardrailsPromptS13EnumKey | undefined;
+        S14?: AigConfigFetchGatewayStatus200ResultGuardrailsPromptS14EnumKey | undefined;
         S2?: AigConfigFetchGatewayStatus200ResultGuardrailsPromptS2EnumKey | undefined;
         S3?: AigConfigFetchGatewayStatus200ResultGuardrailsPromptS3EnumKey | undefined;
         S4?: AigConfigFetchGatewayStatus200ResultGuardrailsPromptS4EnumKey | undefined;
@@ -249501,6 +249277,7 @@ export type AigConfigFetchGatewayStatus200 = {
         S11?: AigConfigFetchGatewayStatus200ResultGuardrailsResponseS11EnumKey | undefined;
         S12?: AigConfigFetchGatewayStatus200ResultGuardrailsResponseS12EnumKey | undefined;
         S13?: AigConfigFetchGatewayStatus200ResultGuardrailsResponseS13EnumKey | undefined;
+        S14?: AigConfigFetchGatewayStatus200ResultGuardrailsResponseS14EnumKey | undefined;
         S2?: AigConfigFetchGatewayStatus200ResultGuardrailsResponseS2EnumKey | undefined;
         S3?: AigConfigFetchGatewayStatus200ResultGuardrailsResponseS3EnumKey | undefined;
         S4?: AigConfigFetchGatewayStatus200ResultGuardrailsResponseS4EnumKey | undefined;
@@ -249810,6 +249587,13 @@ export const aigConfigUpdateGatewayStatus200ResultGuardrailsPromptS13Enum = {
 
 export type AigConfigUpdateGatewayStatus200ResultGuardrailsPromptS13EnumKey = (typeof aigConfigUpdateGatewayStatus200ResultGuardrailsPromptS13Enum)[keyof typeof aigConfigUpdateGatewayStatus200ResultGuardrailsPromptS13Enum];
 
+export const aigConfigUpdateGatewayStatus200ResultGuardrailsPromptS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigUpdateGatewayStatus200ResultGuardrailsPromptS14EnumKey = (typeof aigConfigUpdateGatewayStatus200ResultGuardrailsPromptS14Enum)[keyof typeof aigConfigUpdateGatewayStatus200ResultGuardrailsPromptS14Enum];
+
 export const aigConfigUpdateGatewayStatus200ResultGuardrailsPromptS2Enum = {
   FLAG: 'FLAG',
   BLOCK: 'BLOCK',
@@ -249907,6 +249691,13 @@ export const aigConfigUpdateGatewayStatus200ResultGuardrailsResponseS13Enum = {
 } as const;
 
 export type AigConfigUpdateGatewayStatus200ResultGuardrailsResponseS13EnumKey = (typeof aigConfigUpdateGatewayStatus200ResultGuardrailsResponseS13Enum)[keyof typeof aigConfigUpdateGatewayStatus200ResultGuardrailsResponseS13Enum];
+
+export const aigConfigUpdateGatewayStatus200ResultGuardrailsResponseS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigUpdateGatewayStatus200ResultGuardrailsResponseS14EnumKey = (typeof aigConfigUpdateGatewayStatus200ResultGuardrailsResponseS14Enum)[keyof typeof aigConfigUpdateGatewayStatus200ResultGuardrailsResponseS14Enum];
 
 export const aigConfigUpdateGatewayStatus200ResultGuardrailsResponseS2Enum = {
   FLAG: 'FLAG',
@@ -250009,6 +249800,10 @@ export type AigConfigUpdateGatewayStatus200ResultWorkersAiBillingModeEnumKey = (
 
 export type AigConfigUpdateGatewayStatus200 = {
   result: {
+    /**
+     * @description Require authentication for gateway access. New gateways must have authentication enabled. Once enabled, authentication cannot be disabled.
+     * @type boolean | undefined
+     */
     authentication?: boolean | undefined;
     /**
      * @description Requires customer-provided provider credentials and prevents fallback to Unified Billing.
@@ -250060,6 +249855,7 @@ export type AigConfigUpdateGatewayStatus200 = {
         S11?: AigConfigUpdateGatewayStatus200ResultGuardrailsPromptS11EnumKey | undefined;
         S12?: AigConfigUpdateGatewayStatus200ResultGuardrailsPromptS12EnumKey | undefined;
         S13?: AigConfigUpdateGatewayStatus200ResultGuardrailsPromptS13EnumKey | undefined;
+        S14?: AigConfigUpdateGatewayStatus200ResultGuardrailsPromptS14EnumKey | undefined;
         S2?: AigConfigUpdateGatewayStatus200ResultGuardrailsPromptS2EnumKey | undefined;
         S3?: AigConfigUpdateGatewayStatus200ResultGuardrailsPromptS3EnumKey | undefined;
         S4?: AigConfigUpdateGatewayStatus200ResultGuardrailsPromptS4EnumKey | undefined;
@@ -250076,6 +249872,7 @@ export type AigConfigUpdateGatewayStatus200 = {
         S11?: AigConfigUpdateGatewayStatus200ResultGuardrailsResponseS11EnumKey | undefined;
         S12?: AigConfigUpdateGatewayStatus200ResultGuardrailsResponseS12EnumKey | undefined;
         S13?: AigConfigUpdateGatewayStatus200ResultGuardrailsResponseS13EnumKey | undefined;
+        S14?: AigConfigUpdateGatewayStatus200ResultGuardrailsResponseS14EnumKey | undefined;
         S2?: AigConfigUpdateGatewayStatus200ResultGuardrailsResponseS2EnumKey | undefined;
         S3?: AigConfigUpdateGatewayStatus200ResultGuardrailsResponseS3EnumKey | undefined;
         S4?: AigConfigUpdateGatewayStatus200ResultGuardrailsResponseS4EnumKey | undefined;
@@ -250336,6 +250133,13 @@ export const aigConfigUpdateGatewayRequestGuardrailsPromptS13Enum = {
 
 export type AigConfigUpdateGatewayRequestGuardrailsPromptS13EnumKey = (typeof aigConfigUpdateGatewayRequestGuardrailsPromptS13Enum)[keyof typeof aigConfigUpdateGatewayRequestGuardrailsPromptS13Enum];
 
+export const aigConfigUpdateGatewayRequestGuardrailsPromptS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigUpdateGatewayRequestGuardrailsPromptS14EnumKey = (typeof aigConfigUpdateGatewayRequestGuardrailsPromptS14Enum)[keyof typeof aigConfigUpdateGatewayRequestGuardrailsPromptS14Enum];
+
 export const aigConfigUpdateGatewayRequestGuardrailsPromptS2Enum = {
   FLAG: 'FLAG',
   BLOCK: 'BLOCK',
@@ -250433,6 +250237,13 @@ export const aigConfigUpdateGatewayRequestGuardrailsResponseS13Enum = {
 } as const;
 
 export type AigConfigUpdateGatewayRequestGuardrailsResponseS13EnumKey = (typeof aigConfigUpdateGatewayRequestGuardrailsResponseS13Enum)[keyof typeof aigConfigUpdateGatewayRequestGuardrailsResponseS13Enum];
+
+export const aigConfigUpdateGatewayRequestGuardrailsResponseS14Enum = {
+  FLAG: 'FLAG',
+  BLOCK: 'BLOCK',
+} as const;
+
+export type AigConfigUpdateGatewayRequestGuardrailsResponseS14EnumKey = (typeof aigConfigUpdateGatewayRequestGuardrailsResponseS14Enum)[keyof typeof aigConfigUpdateGatewayRequestGuardrailsResponseS14Enum];
 
 export const aigConfigUpdateGatewayRequestGuardrailsResponseS2Enum = {
   FLAG: 'FLAG',
@@ -250534,6 +250345,10 @@ export const aigConfigUpdateGatewayRequestWorkersAiBillingModeEnum = {
 export type AigConfigUpdateGatewayRequestWorkersAiBillingModeEnumKey = (typeof aigConfigUpdateGatewayRequestWorkersAiBillingModeEnum)[keyof typeof aigConfigUpdateGatewayRequestWorkersAiBillingModeEnum];
 
 export type AigConfigUpdateGatewayBody = {
+  /**
+   * @description Require authentication for gateway access. New gateways must have authentication enabled. Once enabled, authentication cannot be disabled.
+   * @type boolean | undefined
+   */
   authentication?: boolean | undefined;
   /**
    * @description Requires customer-provided provider credentials and prevents fallback to Unified Billing.
@@ -250569,6 +250384,7 @@ export type AigConfigUpdateGatewayBody = {
       S11?: AigConfigUpdateGatewayRequestGuardrailsPromptS11EnumKey | undefined;
       S12?: AigConfigUpdateGatewayRequestGuardrailsPromptS12EnumKey | undefined;
       S13?: AigConfigUpdateGatewayRequestGuardrailsPromptS13EnumKey | undefined;
+      S14?: AigConfigUpdateGatewayRequestGuardrailsPromptS14EnumKey | undefined;
       S2?: AigConfigUpdateGatewayRequestGuardrailsPromptS2EnumKey | undefined;
       S3?: AigConfigUpdateGatewayRequestGuardrailsPromptS3EnumKey | undefined;
       S4?: AigConfigUpdateGatewayRequestGuardrailsPromptS4EnumKey | undefined;
@@ -250585,6 +250401,7 @@ export type AigConfigUpdateGatewayBody = {
       S11?: AigConfigUpdateGatewayRequestGuardrailsResponseS11EnumKey | undefined;
       S12?: AigConfigUpdateGatewayRequestGuardrailsResponseS12EnumKey | undefined;
       S13?: AigConfigUpdateGatewayRequestGuardrailsResponseS13EnumKey | undefined;
+      S14?: AigConfigUpdateGatewayRequestGuardrailsResponseS14EnumKey | undefined;
       S2?: AigConfigUpdateGatewayRequestGuardrailsResponseS2EnumKey | undefined;
       S3?: AigConfigUpdateGatewayRequestGuardrailsResponseS3EnumKey | undefined;
       S4?: AigConfigUpdateGatewayRequestGuardrailsResponseS4EnumKey | undefined;
@@ -261235,7 +261052,7 @@ export type AiSearchNamespaceInstanceGetItemContentPath = {
   namespace: string;
 };
 
-export type AiSearchNamespaceInstanceGetItemContentStatus200 = unknown;
+export type AiSearchNamespaceInstanceGetItemContentStatus200 = Blob;
 
 export type AiSearchNamespaceInstanceGetItemContentStatus400 = {
   errors: ({
@@ -267329,19 +267146,19 @@ export type SqlApiQueryGetAccountScopedStatus200 = SqlApiQueryGetAccountScopedSt
 
 export type SqlApiQueryGetAccountScopedStatus400 = AnalyticsSqlApiErrorResponse | AnalyticsSqlGatewayApiErrorResponse;
 
-export type SqlApiQueryGetAccountScopedStatus403 = unknown;
+export type SqlApiQueryGetAccountScopedStatus403 = string;
 
-export type SqlApiQueryGetAccountScopedStatus422 = unknown;
+export type SqlApiQueryGetAccountScopedStatus422 = string;
 
-export type SqlApiQueryGetAccountScopedStatus429 = unknown;
+export type SqlApiQueryGetAccountScopedStatus429 = string;
 
-export type SqlApiQueryGetAccountScopedStatus500 = unknown;
+export type SqlApiQueryGetAccountScopedStatus500 = string;
 
-export type SqlApiQueryGetAccountScopedStatus501 = unknown;
+export type SqlApiQueryGetAccountScopedStatus501 = string;
 
-export type SqlApiQueryGetAccountScopedStatus503 = unknown;
+export type SqlApiQueryGetAccountScopedStatus503 = string;
 
-export type SqlApiQueryGetAccountScopedStatus507 = unknown;
+export type SqlApiQueryGetAccountScopedStatus507 = string;
 
 export type SqlApiQueryGetAccountScopedOptions = {
   body?: never | undefined;
@@ -267390,19 +267207,19 @@ export type SqlApiQueryPostAccountScopedStatus200 = SqlApiQueryPostAccountScoped
 
 export type SqlApiQueryPostAccountScopedStatus400 = AnalyticsSqlApiErrorResponse | AnalyticsSqlGatewayApiErrorResponse;
 
-export type SqlApiQueryPostAccountScopedStatus403 = unknown;
+export type SqlApiQueryPostAccountScopedStatus403 = string;
 
-export type SqlApiQueryPostAccountScopedStatus422 = unknown;
+export type SqlApiQueryPostAccountScopedStatus422 = string;
 
-export type SqlApiQueryPostAccountScopedStatus429 = unknown;
+export type SqlApiQueryPostAccountScopedStatus429 = string;
 
-export type SqlApiQueryPostAccountScopedStatus500 = unknown;
+export type SqlApiQueryPostAccountScopedStatus500 = string;
 
-export type SqlApiQueryPostAccountScopedStatus501 = unknown;
+export type SqlApiQueryPostAccountScopedStatus501 = string;
 
-export type SqlApiQueryPostAccountScopedStatus503 = unknown;
+export type SqlApiQueryPostAccountScopedStatus503 = string;
 
-export type SqlApiQueryPostAccountScopedStatus507 = unknown;
+export type SqlApiQueryPostAccountScopedStatus507 = string;
 
 /**
  * @example {"params":{"status":404},"query":"SELECT edgeResponseStatus FROM events.httpRequests WHERE edgeResponseStatus = $status LIMIT 10","scope":{"accountTag":"0123456789abcdef0123456789abcdef"},"time_range":{"end":"2026-01-02T00:00:00Z","start":"2026-01-01T00:00:00Z"}}
@@ -267498,13 +267315,13 @@ export type SqlApiIntrospectionAccountScopedStatus200 = AnalyticsSqlIntrospectio
 
 export type SqlApiIntrospectionAccountScopedStatus400 = AnalyticsSqlApiErrorResponse | AnalyticsSqlGatewayApiErrorResponse;
 
-export type SqlApiIntrospectionAccountScopedStatus403 = unknown;
+export type SqlApiIntrospectionAccountScopedStatus403 = string;
 
-export type SqlApiIntrospectionAccountScopedStatus422 = unknown;
+export type SqlApiIntrospectionAccountScopedStatus422 = string;
 
-export type SqlApiIntrospectionAccountScopedStatus500 = unknown;
+export type SqlApiIntrospectionAccountScopedStatus500 = string;
 
-export type SqlApiIntrospectionAccountScopedStatus503 = unknown;
+export type SqlApiIntrospectionAccountScopedStatus503 = string;
 
 export type SqlApiIntrospectionAccountScopedOptions = {
   body?: never | undefined;
@@ -267556,19 +267373,19 @@ export type AnalyticsEngineSqlQueryGetStatus200XNdjson = string[];
 
 export type AnalyticsEngineSqlQueryGetStatus200 = AnalyticsEngineSqlQueryGetStatus200Json | AnalyticsEngineSqlQueryGetStatus200XNdjson;
 
-export type AnalyticsEngineSqlQueryGetStatus400 = unknown;
+export type AnalyticsEngineSqlQueryGetStatus400 = string;
 
-export type AnalyticsEngineSqlQueryGetStatus403 = unknown;
+export type AnalyticsEngineSqlQueryGetStatus403 = string;
 
-export type AnalyticsEngineSqlQueryGetStatus422 = unknown;
+export type AnalyticsEngineSqlQueryGetStatus422 = string;
 
-export type AnalyticsEngineSqlQueryGetStatus429 = unknown;
+export type AnalyticsEngineSqlQueryGetStatus429 = string;
 
-export type AnalyticsEngineSqlQueryGetStatus500 = unknown;
+export type AnalyticsEngineSqlQueryGetStatus500 = string;
 
-export type AnalyticsEngineSqlQueryGetStatus503 = unknown;
+export type AnalyticsEngineSqlQueryGetStatus503 = string;
 
-export type AnalyticsEngineSqlQueryGetStatus504 = unknown;
+export type AnalyticsEngineSqlQueryGetStatus504 = string;
 
 export type AnalyticsEngineSqlQueryGetOptions = {
   body?: never | undefined;
@@ -267619,19 +267436,19 @@ export type AnalyticsEngineSqlQueryPostStatus200XNdjson = string[];
 
 export type AnalyticsEngineSqlQueryPostStatus200 = AnalyticsEngineSqlQueryPostStatus200Json | AnalyticsEngineSqlQueryPostStatus200XNdjson;
 
-export type AnalyticsEngineSqlQueryPostStatus400 = unknown;
+export type AnalyticsEngineSqlQueryPostStatus400 = string;
 
-export type AnalyticsEngineSqlQueryPostStatus403 = unknown;
+export type AnalyticsEngineSqlQueryPostStatus403 = string;
 
-export type AnalyticsEngineSqlQueryPostStatus422 = unknown;
+export type AnalyticsEngineSqlQueryPostStatus422 = string;
 
-export type AnalyticsEngineSqlQueryPostStatus429 = unknown;
+export type AnalyticsEngineSqlQueryPostStatus429 = string;
 
-export type AnalyticsEngineSqlQueryPostStatus500 = unknown;
+export type AnalyticsEngineSqlQueryPostStatus500 = string;
 
-export type AnalyticsEngineSqlQueryPostStatus503 = unknown;
+export type AnalyticsEngineSqlQueryPostStatus503 = string;
 
-export type AnalyticsEngineSqlQueryPostStatus504 = unknown;
+export type AnalyticsEngineSqlQueryPostStatus504 = string;
 
 /**
  * @description Supply a SQL query to run against your Analytics Engine datasets. Use only SELECT statements. The service validates the query against a restricted SQL grammar before execution.
@@ -270524,7 +270341,7 @@ export type ArtifactsReposBlobGetPath = {
   hash: string;
 };
 
-export type ArtifactsReposBlobGetStatus200 = unknown;
+export type ArtifactsReposBlobGetStatus200 = Blob;
 
 export type ArtifactsReposBlobGetStatus400 = {
   errors: {
@@ -271205,7 +271022,7 @@ export type ArtifactsReposFileGetQuery = {
   path: string;
 };
 
-export type ArtifactsReposFileGetStatus200 = unknown;
+export type ArtifactsReposFileGetStatus200 = Blob;
 
 export type ArtifactsReposFileGetStatus400 = {
   errors: {
@@ -277397,6 +277214,658 @@ export type AccountBillingCreatePaymentIntentResponses = {
  * @description Union of all possible responses
  */
 export type AccountBillingCreatePaymentIntentResponse = AccountBillingCreatePaymentIntentStatus200;
+
+export type SpendPoliciesListPath = {
+  /**
+   * @description Identifies the Cloudflare account (account tag).
+   * @maxLength 32
+   * @pattern ^[0-9a-f]{32}$
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: BillingSpendPoliciesIdentifier;
+};
+
+/**
+ * @description A successful response containing a list of spend policies.
+ */
+export type SpendPoliciesListStatus200 = BillingSpendPoliciesPolicyListResponse;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesListStatus400 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesListStatus401 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesListStatus403 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesListStatus404 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesListStatus500 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesListStatus503 = BillingSpendPoliciesApiResponseCommonFailure;
+
+export type SpendPoliciesListOptions = {
+  body?: never | undefined;
+  path: SpendPoliciesListPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type SpendPoliciesListResponses = {
+  '200': SpendPoliciesListStatus200;
+  '400': SpendPoliciesListStatus400;
+  '401': SpendPoliciesListStatus401;
+  '403': SpendPoliciesListStatus403;
+  '404': SpendPoliciesListStatus404;
+  '500': SpendPoliciesListStatus500;
+  '503': SpendPoliciesListStatus503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type SpendPoliciesListResponse = SpendPoliciesListStatus200;
+
+export type SpendPoliciesCreatePath = {
+  /**
+   * @description Identifies the Cloudflare account (account tag).
+   * @maxLength 32
+   * @pattern ^[0-9a-f]{32}$
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: BillingSpendPoliciesIdentifier;
+};
+
+/**
+ * @description A successful response containing one spend policy.
+ */
+export type SpendPoliciesCreateStatus201 = BillingSpendPoliciesPolicyResponse;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesCreateStatus400 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesCreateStatus401 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesCreateStatus403 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesCreateStatus404 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesCreateStatus409 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesCreateStatus500 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesCreateStatus503 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description A spend policy as sent on create and on full replacement. Unknown fields and trailing JSON are rejected. Only the first 1 MiB of the body is read.
+ * @type object
+ */
+export type SpendPoliciesCreateBody = BillingSpendPoliciesPolicyInput;
+
+export type SpendPoliciesCreateOptions = {
+  body: SpendPoliciesCreateBody;
+  path: SpendPoliciesCreatePath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type SpendPoliciesCreateResponses = {
+  '201': SpendPoliciesCreateStatus201;
+  '400': SpendPoliciesCreateStatus400;
+  '401': SpendPoliciesCreateStatus401;
+  '403': SpendPoliciesCreateStatus403;
+  '404': SpendPoliciesCreateStatus404;
+  '409': SpendPoliciesCreateStatus409;
+  '500': SpendPoliciesCreateStatus500;
+  '503': SpendPoliciesCreateStatus503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type SpendPoliciesCreateResponse = SpendPoliciesCreateStatus201;
+
+export type SpendPoliciesActivityPath = {
+  /**
+   * @description Identifies the Cloudflare account (account tag).
+   * @maxLength 32
+   * @pattern ^[0-9a-f]{32}$
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: BillingSpendPoliciesIdentifier;
+};
+
+export type SpendPoliciesActivityQuery = {
+  /**
+   * @description Maximum number of audit entries to return. Defaults to 50. Values above 100 are capped at 100 rather than rejected.
+   * @minLength 1
+   * @default 50
+   * @example 50
+   * @type integer | undefined
+   */
+  limit?: number | undefined;
+  /**
+   * @description Opaque token from the preceding response's result_info.cursor. Pass it unchanged to retrieve older entries.
+   * @maxLength 1024
+   * @type string | undefined
+   */
+  cursor?: string | undefined;
+};
+
+/**
+ * @description A successful response containing spend policy activity.
+ */
+export type SpendPoliciesActivityStatus200 = BillingSpendPoliciesPolicyActivityResponse;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesActivityStatus400 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesActivityStatus401 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesActivityStatus403 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesActivityStatus404 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesActivityStatus500 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesActivityStatus503 = BillingSpendPoliciesApiResponseCommonFailure;
+
+export type SpendPoliciesActivityOptions = {
+  body?: never | undefined;
+  path: SpendPoliciesActivityPath;
+  query?: SpendPoliciesActivityQuery | undefined;
+  headers?: never | undefined;
+};
+
+export type SpendPoliciesActivityResponses = {
+  '200': SpendPoliciesActivityStatus200;
+  '400': SpendPoliciesActivityStatus400;
+  '401': SpendPoliciesActivityStatus401;
+  '403': SpendPoliciesActivityStatus403;
+  '404': SpendPoliciesActivityStatus404;
+  '500': SpendPoliciesActivityStatus500;
+  '503': SpendPoliciesActivityStatus503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type SpendPoliciesActivityResponse = SpendPoliciesActivityStatus200;
+
+export type SpendPoliciesDeletePath = {
+  /**
+   * @description Identifies the Cloudflare account (account tag).
+   * @maxLength 32
+   * @pattern ^[0-9a-f]{32}$
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: BillingSpendPoliciesIdentifier;
+  /**
+   * @description Identifies the spend policy.
+   *
+   * Format: `uuid`
+   * @example 6f1c2b8e-3d4a-4f5b-9c6d-7e8f9a0b1c2d
+   * @type string
+   */
+  policyId: BillingSpendPoliciesPolicyId;
+};
+
+export type SpendPoliciesDeleteHeaders = {
+  /**
+   * @description The policy `version` the change is based on, as returned in `ETag`. Quoted (`"3"`) and bare (`3`) values are both accepted. Weak ETags (`W/"3"`) and `*` are not.
+   * @pattern ^"?[1-9][0-9]*"?$
+   * @example "3"
+   * @type string
+   */
+  'If-Match': string;
+};
+
+/**
+ * @description A successful response confirming that a spend policy was deleted.
+ */
+export type SpendPoliciesDeleteStatus200 = BillingSpendPoliciesPolicyDeleteResponse;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesDeleteStatus400 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesDeleteStatus401 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesDeleteStatus403 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesDeleteStatus404 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesDeleteStatus412 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesDeleteStatus428 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesDeleteStatus500 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesDeleteStatus503 = BillingSpendPoliciesApiResponseCommonFailure;
+
+export type SpendPoliciesDeleteOptions = {
+  body?: never | undefined;
+  path: SpendPoliciesDeletePath;
+  query?: never | undefined;
+  headers: SpendPoliciesDeleteHeaders;
+};
+
+export type SpendPoliciesDeleteResponses = {
+  '200': SpendPoliciesDeleteStatus200;
+  '400': SpendPoliciesDeleteStatus400;
+  '401': SpendPoliciesDeleteStatus401;
+  '403': SpendPoliciesDeleteStatus403;
+  '404': SpendPoliciesDeleteStatus404;
+  '412': SpendPoliciesDeleteStatus412;
+  '428': SpendPoliciesDeleteStatus428;
+  '500': SpendPoliciesDeleteStatus500;
+  '503': SpendPoliciesDeleteStatus503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type SpendPoliciesDeleteResponse = SpendPoliciesDeleteStatus200;
+
+export type SpendPoliciesGetPath = {
+  /**
+   * @description Identifies the Cloudflare account (account tag).
+   * @maxLength 32
+   * @pattern ^[0-9a-f]{32}$
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: BillingSpendPoliciesIdentifier;
+  /**
+   * @description Identifies the spend policy.
+   *
+   * Format: `uuid`
+   * @example 6f1c2b8e-3d4a-4f5b-9c6d-7e8f9a0b1c2d
+   * @type string
+   */
+  policyId: BillingSpendPoliciesPolicyId;
+};
+
+/**
+ * @description A successful response containing one spend policy.
+ */
+export type SpendPoliciesGetStatus200 = BillingSpendPoliciesPolicyResponse;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesGetStatus400 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesGetStatus401 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesGetStatus403 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesGetStatus404 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesGetStatus500 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesGetStatus503 = BillingSpendPoliciesApiResponseCommonFailure;
+
+export type SpendPoliciesGetOptions = {
+  body?: never | undefined;
+  path: SpendPoliciesGetPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type SpendPoliciesGetResponses = {
+  '200': SpendPoliciesGetStatus200;
+  '400': SpendPoliciesGetStatus400;
+  '401': SpendPoliciesGetStatus401;
+  '403': SpendPoliciesGetStatus403;
+  '404': SpendPoliciesGetStatus404;
+  '500': SpendPoliciesGetStatus500;
+  '503': SpendPoliciesGetStatus503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type SpendPoliciesGetResponse = SpendPoliciesGetStatus200;
+
+export type SpendPoliciesUpdatePath = {
+  /**
+   * @description Identifies the Cloudflare account (account tag).
+   * @maxLength 32
+   * @pattern ^[0-9a-f]{32}$
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: BillingSpendPoliciesIdentifier;
+  /**
+   * @description Identifies the spend policy.
+   *
+   * Format: `uuid`
+   * @example 6f1c2b8e-3d4a-4f5b-9c6d-7e8f9a0b1c2d
+   * @type string
+   */
+  policyId: BillingSpendPoliciesPolicyId;
+};
+
+export type SpendPoliciesUpdateHeaders = {
+  /**
+   * @description The policy `version` the change is based on, as returned in `ETag`. Quoted (`"3"`) and bare (`3`) values are both accepted. Weak ETags (`W/"3"`) and `*` are not.
+   * @pattern ^"?[1-9][0-9]*"?$
+   * @example "3"
+   * @type string
+   */
+  'If-Match': string;
+};
+
+/**
+ * @description A successful response containing one spend policy.
+ */
+export type SpendPoliciesUpdateStatus200 = BillingSpendPoliciesPolicyResponse;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesUpdateStatus400 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesUpdateStatus401 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesUpdateStatus403 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesUpdateStatus404 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesUpdateStatus409 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesUpdateStatus412 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesUpdateStatus428 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesUpdateStatus500 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesUpdateStatus503 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description A spend policy as sent on create and on full replacement. Unknown fields and trailing JSON are rejected. Only the first 1 MiB of the body is read.
+ * @type object
+ */
+export type SpendPoliciesUpdateBody = BillingSpendPoliciesPolicyInput;
+
+export type SpendPoliciesUpdateOptions = {
+  body: SpendPoliciesUpdateBody;
+  path: SpendPoliciesUpdatePath;
+  query?: never | undefined;
+  headers: SpendPoliciesUpdateHeaders;
+};
+
+export type SpendPoliciesUpdateResponses = {
+  '200': SpendPoliciesUpdateStatus200;
+  '400': SpendPoliciesUpdateStatus400;
+  '401': SpendPoliciesUpdateStatus401;
+  '403': SpendPoliciesUpdateStatus403;
+  '404': SpendPoliciesUpdateStatus404;
+  '409': SpendPoliciesUpdateStatus409;
+  '412': SpendPoliciesUpdateStatus412;
+  '428': SpendPoliciesUpdateStatus428;
+  '500': SpendPoliciesUpdateStatus500;
+  '503': SpendPoliciesUpdateStatus503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type SpendPoliciesUpdateResponse = SpendPoliciesUpdateStatus200;
+
+export type SpendPoliciesListAuditPath = {
+  /**
+   * @description Identifies the Cloudflare account (account tag).
+   * @maxLength 32
+   * @pattern ^[0-9a-f]{32}$
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: BillingSpendPoliciesIdentifier;
+  /**
+   * @description Identifies the spend policy.
+   *
+   * Format: `uuid`
+   * @example 6f1c2b8e-3d4a-4f5b-9c6d-7e8f9a0b1c2d
+   * @type string
+   */
+  policyId: BillingSpendPoliciesPolicyId;
+};
+
+export type SpendPoliciesListAuditQuery = {
+  /**
+   * @description Maximum number of audit entries to return. Defaults to 50. Values above 100 are capped at 100 rather than rejected.
+   * @minLength 1
+   * @default 50
+   * @example 50
+   * @type integer | undefined
+   */
+  limit?: number | undefined;
+};
+
+/**
+ * @description A successful response containing spend policy audit entries.
+ */
+export type SpendPoliciesListAuditStatus200 = BillingSpendPoliciesPolicyAuditResponse;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesListAuditStatus400 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesListAuditStatus401 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesListAuditStatus403 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesListAuditStatus404 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesListAuditStatus500 = BillingSpendPoliciesApiResponseCommonFailure;
+
+/**
+ * @description Represents a failed API response.
+ * @type object
+ */
+export type SpendPoliciesListAuditStatus503 = BillingSpendPoliciesApiResponseCommonFailure;
+
+export type SpendPoliciesListAuditOptions = {
+  body?: never | undefined;
+  path: SpendPoliciesListAuditPath;
+  query?: SpendPoliciesListAuditQuery | undefined;
+  headers?: never | undefined;
+};
+
+export type SpendPoliciesListAuditResponses = {
+  '200': SpendPoliciesListAuditStatus200;
+  '400': SpendPoliciesListAuditStatus400;
+  '401': SpendPoliciesListAuditStatus401;
+  '403': SpendPoliciesListAuditStatus403;
+  '404': SpendPoliciesListAuditStatus404;
+  '500': SpendPoliciesListAuditStatus500;
+  '503': SpendPoliciesListAuditStatus503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type SpendPoliciesListAuditResponse = SpendPoliciesListAuditStatus200;
 
 export type AccountBillingGetUnpaidInvoicesPath = {
   /**
@@ -284301,7 +284770,10 @@ export type BrapiPostPdfQuery = {
   browser?: 'kitesurf' | undefined;
 };
 
-export type BrapiPostPdfStatus200 = unknown;
+/**
+ * @description PDF binary.
+ */
+export type BrapiPostPdfStatus200 = Blob;
 
 export type BrapiPostPdfStatus400 = {
   errors?: {
@@ -286167,6 +286639,10 @@ export type GetAccountLimitsStatus200 = BuildsAPIResponse & {
   result?: BuildsGetAccountLimitResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetAccountLimitsStatus401 = BuildsErrorResponse;
 
 export type GetAccountLimitsOptions = {
@@ -286208,6 +286684,10 @@ export type GetBuildsByVersionIdsStatus200 = BuildsAPIResponse & {
   result?: BuildsBuildsByVersionResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetBuildsByVersionIdsStatus401 = BuildsErrorResponse;
 
 export type GetBuildsByVersionIdsOptions = {
@@ -286249,6 +286729,10 @@ export type GetLatestBuildsByScriptsStatus200 = BuildsAPIResponse & {
   result?: BuildsLatestBuildsResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetLatestBuildsByScriptsStatus401 = BuildsErrorResponse;
 
 export type GetLatestBuildsByScriptsOptions = {
@@ -286288,8 +286772,16 @@ export type GetBuildByUuidStatus200 = BuildsAPIResponse & {
   result?: BuildsBuildResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetBuildByUuidStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetBuildByUuidStatus404 = BuildsErrorResponse;
 
 export type GetBuildByUuidOptions = {
@@ -286330,8 +286822,16 @@ export type CancelBuildByUuidStatus200 = BuildsAPIResponse & {
   result?: BuildsCanceledBuildResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CancelBuildByUuidStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CancelBuildByUuidStatus404 = BuildsErrorResponse;
 
 export type CancelBuildByUuidOptions = {
@@ -286381,8 +286881,16 @@ export type GetBuildLogsStatus200 = BuildsAPIResponse & {
   result?: BuildsBuildLogsResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetBuildLogsStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetBuildLogsStatus404 = BuildsErrorResponse;
 
 export type GetBuildLogsOptions = {
@@ -286416,6 +286924,10 @@ export type UpsertRepoConnectionStatus200 = BuildsAPIResponse & {
   result?: BuildsUpsertRepoConnectionResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpsertRepoConnectionStatus401 = BuildsErrorResponse;
 
 export type UpsertRepoConnectionBody = BuildsUpsertRepoConnectionRequest;
@@ -286455,8 +286967,16 @@ export type DeleteRepoConnectionPath = {
 
 export type DeleteRepoConnectionStatus200 = BuildsAPIResponse;
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type DeleteRepoConnectionStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type DeleteRepoConnectionStatus404 = BuildsErrorResponse;
 
 export type DeleteRepoConnectionOptions = {
@@ -286523,6 +287043,10 @@ export type GetWorkerConfigAutofillStatus200 = BuildsAPIResponse & {
   result?: BuildsConfigAutofillResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetWorkerConfigAutofillStatus401 = BuildsErrorResponse;
 
 export type GetWorkerConfigAutofillOptions = {
@@ -286574,6 +287098,10 @@ export type ListBuildTokensStatus200 = BuildsAPIResponse & {
   result_info?: BuildsPaginationInfo | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type ListBuildTokensStatus401 = BuildsErrorResponse;
 
 export type ListBuildTokensOptions = {
@@ -286606,6 +287134,10 @@ export type CreateBuildTokenStatus200 = BuildsAPIResponse & {
   result?: BuildsCreateBuildTokenResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreateBuildTokenStatus401 = BuildsErrorResponse;
 
 export type CreateBuildTokenBody = BuildsCreateBuildTokenRequest;
@@ -286645,8 +287177,16 @@ export type DeleteBuildTokenPath = {
 
 export type DeleteBuildTokenStatus200 = BuildsAPIResponse;
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type DeleteBuildTokenStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type DeleteBuildTokenStatus404 = BuildsErrorResponse;
 
 export type DeleteBuildTokenOptions = {
@@ -286680,6 +287220,10 @@ export type CreateTriggerStatus200 = BuildsAPIResponse & {
   result?: BuildsTriggerResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreateTriggerStatus401 = BuildsErrorResponse;
 
 export type CreateTriggerBody = BuildsCreateTriggerRequest;
@@ -286719,8 +287263,16 @@ export type DeleteTriggerPath = {
 
 export type DeleteTriggerStatus200 = BuildsAPIResponse;
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type DeleteTriggerStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type DeleteTriggerStatus404 = BuildsErrorResponse;
 
 export type DeleteTriggerOptions = {
@@ -286761,8 +287313,16 @@ export type UpdateTriggerStatus200 = BuildsAPIResponse & {
   result?: BuildsTriggerResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpdateTriggerStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpdateTriggerStatus404 = BuildsErrorResponse;
 
 export type UpdateTriggerBody = BuildsUpdateTriggerRequest;
@@ -286805,6 +287365,10 @@ export type CreateManualBuildStatus200 = BuildsAPIResponse & {
   result?: BuildsBuildResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreateManualBuildStatus401 = BuildsErrorResponse;
 
 export type CreateManualBuildBody = BuildsCreateBuildRequest;
@@ -286850,6 +287414,10 @@ export type ListEnvironmentVariablesStatus200 = BuildsAPIResponse & {
   result?: BuildsEnvironmentVariablesResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type ListEnvironmentVariablesStatus401 = BuildsErrorResponse;
 
 export type ListEnvironmentVariablesOptions = {
@@ -286893,8 +287461,16 @@ export type UpsertEnvironmentVariablesStatus200 = BuildsAPIResponse & {
   result?: BuildsEnvironmentVariablesResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpsertEnvironmentVariablesStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpsertEnvironmentVariablesStatus404 = BuildsErrorResponse;
 
 /**
@@ -286946,8 +287522,16 @@ export type DeleteEnvironmentVariablePath = {
 
 export type DeleteEnvironmentVariableStatus200 = BuildsAPIResponse;
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type DeleteEnvironmentVariableStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type DeleteEnvironmentVariableStatus404 = BuildsErrorResponse;
 
 export type DeleteEnvironmentVariableOptions = {
@@ -286986,8 +287570,16 @@ export type PurgeBuildCachePath = {
 
 export type PurgeBuildCacheStatus200 = BuildsAPIResponse;
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type PurgeBuildCacheStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type PurgeBuildCacheStatus404 = BuildsErrorResponse;
 
 export type PurgeBuildCacheOptions = {
@@ -287025,12 +287617,28 @@ export type CreateWorkerBuildStatus201 = BuildsAPIResponse & {
   result?: BuildsWorkerResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12002,"message":"Invalid request body"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreateWorkerBuildStatus400 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreateWorkerBuildStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreateWorkerBuildStatus404 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12049,"message":"Resource already exists"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreateWorkerBuildStatus409 = BuildsErrorResponse;
 
 /**
@@ -287097,6 +287705,10 @@ export type ListBuildsByScriptStatus200 = BuildsAPIResponse & {
   result_info?: BuildsPaginationInfo | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type ListBuildsByScriptStatus401 = BuildsErrorResponse;
 
 export type ListBuildsByScriptOptions = {
@@ -287135,6 +287747,10 @@ export type ListTriggersByScriptStatus200 = BuildsAPIResponse & {
   result?: BuildsTriggerResponse[] | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type ListTriggersByScriptStatus401 = BuildsErrorResponse;
 
 export type ListTriggersByScriptOptions = {
@@ -287173,6 +287789,10 @@ export type ListDeployHooksStatus200 = BuildsAPIResponse & {
   result?: BuildsDetailedDeployHookResponse[] | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type ListDeployHooksStatus401 = BuildsErrorResponse;
 
 export type ListDeployHooksOptions = {
@@ -287211,12 +287831,28 @@ export type CreateDeployHookStatus200 = BuildsAPIResponse & {
   result?: BuildsDeployHookResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12002,"message":"Invalid request body"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreateDeployHookStatus400 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreateDeployHookStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreateDeployHookStatus404 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12049,"message":"Resource already exists"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreateDeployHookStatus409 = BuildsErrorResponse;
 
 export type CreateDeployHookBody = BuildsCreateDeployHookRequest;
@@ -287267,8 +287903,16 @@ export type DeleteDeployHookStatus200 = BuildsAPIResponse & {
   result?: BuildsDeployHookResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type DeleteDeployHookStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type DeleteDeployHookStatus404 = BuildsErrorResponse;
 
 export type DeleteDeployHookOptions = {
@@ -287315,8 +287959,16 @@ export type GetDeployHookStatus200 = BuildsAPIResponse & {
   result?: BuildsDeployHookResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetDeployHookStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetDeployHookStatus404 = BuildsErrorResponse;
 
 export type GetDeployHookOptions = {
@@ -287363,12 +288015,28 @@ export type UpdateDeployHookStatus200 = BuildsAPIResponse & {
   result?: BuildsDeployHookResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12002,"message":"Invalid request body"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpdateDeployHookStatus400 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpdateDeployHookStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpdateDeployHookStatus404 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12049,"message":"Resource already exists"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpdateDeployHookStatus409 = BuildsErrorResponse;
 
 export type UpdateDeployHookBody = BuildsCreateDeployHookRequest;
@@ -287416,8 +288084,16 @@ export type DeleteWorkerBuildStatus200 = BuildsAPIResponse & {
   result?: string | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type DeleteWorkerBuildStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type DeleteWorkerBuildStatus404 = BuildsErrorResponse;
 
 export type DeleteWorkerBuildOptions = {
@@ -287461,8 +288137,16 @@ export type GetWorkerBuildStatus200 = BuildsAPIResponse & {
   result?: BuildsWorkerResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetWorkerBuildStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetWorkerBuildStatus404 = BuildsErrorResponse;
 
 export type GetWorkerBuildOptions = {
@@ -287522,10 +288206,22 @@ export type UpdateWorkerBuildStatus200 = BuildsAPIResponse & {
   result?: BuildsWorkerResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12002,"message":"Invalid request body"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpdateWorkerBuildStatus400 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpdateWorkerBuildStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpdateWorkerBuildStatus404 = BuildsErrorResponse;
 
 /**
@@ -287576,10 +288272,22 @@ export type MigrateWorkerToPreviewsStatus200 = BuildsAPIResponse & {
   result?: BuildsWorkerResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12002,"message":"Invalid request body"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type MigrateWorkerToPreviewsStatus400 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type MigrateWorkerToPreviewsStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type MigrateWorkerToPreviewsStatus404 = BuildsErrorResponse;
 
 /**
@@ -287645,6 +288353,10 @@ export type ListWorkerPreviewsStatus200 = BuildsAPIResponse & {
   result_info?: BuildsPaginationInfo | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type ListWorkerPreviewsStatus401 = BuildsErrorResponse;
 
 export type ListWorkerPreviewsOptions = {
@@ -287693,8 +288405,16 @@ export type GetWorkerPreviewStatus200 = BuildsAPIResponse & {
   result?: BuildsPreviewResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetWorkerPreviewStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type GetWorkerPreviewStatus404 = BuildsErrorResponse;
 
 export type GetWorkerPreviewOptions = {
@@ -287744,12 +288464,28 @@ export type UpdateWorkerPreviewStatus200 = BuildsAPIResponse & {
   result?: BuildsPreviewResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12002,"message":"Invalid request body"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpdateWorkerPreviewStatus400 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpdateWorkerPreviewStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpdateWorkerPreviewStatus404 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12049,"message":"Resource already exists"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type UpdateWorkerPreviewStatus409 = BuildsErrorResponse;
 
 /**
@@ -287822,8 +288558,16 @@ export type ListBuildsByPreviewStatus200 = BuildsAPIResponse & {
   result_info?: BuildsPaginationInfo | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type ListBuildsByPreviewStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type ListBuildsByPreviewStatus404 = BuildsErrorResponse;
 
 export type ListBuildsByPreviewOptions = {
@@ -287869,10 +288613,22 @@ export type CreatePreviewBuildStatus200 = BuildsAPIResponse & {
   result?: BuildsBuildResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12002,"message":"Invalid request body"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreatePreviewBuildStatus400 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreatePreviewBuildStatus401 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type CreatePreviewBuildStatus404 = BuildsErrorResponse;
 
 export type CreatePreviewBuildBody = BuildsCreateBuildRequest;
@@ -308746,7 +309502,7 @@ export type GetTakedownLetterPdfGetPath = {
   letterId: number;
 };
 
-export type GetTakedownLetterPdfGetStatus200 = unknown;
+export type GetTakedownLetterPdfGetStatus200 = Blob;
 
 export type GetTakedownLetterPdfGetStatus400 = unknown;
 
@@ -309475,7 +310231,11 @@ export type GetCollectionExportEndpointHeaders = {
   accept?: string | undefined;
 };
 
-export type GetCollectionExportEndpointStatus200 = unknown;
+/**
+ * @description CSV export
+ * @type string
+ */
+export type GetCollectionExportEndpointStatus200 = string;
 
 export type GetCollectionExportEndpointStatus404 = unknown;
 
@@ -312736,11 +313496,11 @@ export type PostRequestCreateStatus201 = {
    */
   id: string;
   /**
-   * @description Investigation UUID
+   * @description Linked Casefiles case UUID. Null until an analyst links a case to the request.
    * @example 75a73d09-5938-4544-aeba-ab791dcdb445
    * @type string
    */
-  investigation_id: string;
+  investigation_id: string | null;
   /**
    * @description Whether this is a free request
    * @type boolean
@@ -313506,11 +314266,11 @@ export type GetRequestReadStatus200 = {
    */
   id: string;
   /**
-   * @description Investigation UUID
+   * @description Linked Casefiles case UUID. Null until an analyst links a case to the request.
    * @example 75a73d09-5938-4544-aeba-ab791dcdb445
    * @type string
    */
-  investigation_id: string;
+  investigation_id: string | null;
   /**
    * @description Whether this is a free request
    * @type boolean
@@ -313790,11 +314550,11 @@ export type PutRequestUpdateStatus200 = {
    */
   id: string;
   /**
-   * @description Investigation UUID
+   * @description Linked Casefiles case UUID. Null until an analyst links a case to the request.
    * @example 75a73d09-5938-4544-aeba-ab791dcdb445
    * @type string
    */
-  investigation_id: string;
+  investigation_id: string | null;
   /**
    * @description Whether this is a free request
    * @type boolean
@@ -314480,7 +315240,7 @@ export type GetDashboardAssetDownloadPath = {
   assetId: string;
 };
 
-export type GetDashboardAssetDownloadStatus200 = unknown;
+export type GetDashboardAssetDownloadStatus200 = Blob;
 
 export type GetDashboardAssetDownloadStatus404 = unknown;
 
@@ -315199,6 +315959,16 @@ export const rssArticleListMinRelevance = {
 
 export type RssArticleListMinRelevanceKey = (typeof rssArticleListMinRelevance)[keyof typeof rssArticleListMinRelevance];
 
+export const rssArticleListSeverityEnum = {
+  informational: 'informational',
+  low: 'low',
+  medium: 'medium',
+  high: 'high',
+  critical: 'critical',
+} as const;
+
+export type RssArticleListSeverityEnumKey = (typeof rssArticleListSeverityEnum)[keyof typeof rssArticleListSeverityEnum];
+
 export type RssArticleListQuery = {
   /**
    * @description Opaque cursor from a previous response's `next_cursor`. When provided, pagination, ordering, totals, and article filters come from the cursor. Sending `per_page`, `sort`, `include_total`, or any article filter alongside it returns a 400 `CursorFilterConflictError`.
@@ -315324,6 +316094,12 @@ export type RssArticleListQuery = {
    * @type string | undefined
    */
   min_relevance?: RssArticleListMinRelevanceKey | undefined;
+  /**
+   * @description Beta. Repeatable intrinsic severity band filter. An article matches any selected band, the band reported as its severity. Excludes articles without a severity. Like the severity field, severity is reported only while the account has an active Priority Intelligence Requirement; otherwise no articles match.
+   * @example ["high","critical"]
+   * @type array | undefined
+   */
+  severity?: RssArticleListSeverityEnumKey[] | undefined;
   /**
    * @description Sort by fetched_at, published_at, title, or relevance (beta). Prefix the field with - for descending order; defaults to -fetched_at. -relevance lists the most relevant articles first, by pir_id or by each article's most relevant active PIR, with unscored articles last.
    * @pattern ^-?(fetched_at|published_at|title|relevance)$
@@ -316171,7 +316947,7 @@ export type RssArticleContentGetQuery = {
   format?: RssArticleContentGetFormatKey | undefined;
 };
 
-export type RssArticleContentGetStatus200 = unknown;
+export type RssArticleContentGetStatus200 = string;
 
 export type RssArticleContentGetStatus400 = unknown;
 
@@ -316191,6 +316967,164 @@ export type RssArticleContentGetResponses = {
  * @description Union of all possible responses
  */
 export type RssArticleContentGetResponse = RssArticleContentGetStatus200;
+
+export type RssArticleReprocessPath = {
+  accountId: string;
+  /**
+   * @description Threat Signals article UUID
+   *
+   * Format: `uuid`
+   * @type string
+   */
+  articleId: string;
+};
+
+export const rssArticleReprocessStatus200ErrorsReasonEnum = {
+  threat_signals_feed_limit: 'threat_signals_feed_limit',
+  free_custom_skills_disabled: 'free_custom_skills_disabled',
+  free_skill_run_disabled: 'free_skill_run_disabled',
+  free_tier_reconciliation_in_progress: 'free_tier_reconciliation_in_progress',
+  free_tier_reconciliation_failed: 'free_tier_reconciliation_failed',
+  raw_content_expired: 'raw_content_expired',
+  curated_visibility_changed: 'curated_visibility_changed',
+} as const;
+
+export type RssArticleReprocessStatus200ErrorsReasonEnumKey = (typeof rssArticleReprocessStatus200ErrorsReasonEnum)[keyof typeof rssArticleReprocessStatus200ErrorsReasonEnum];
+
+export const rssArticleReprocessStatus200MessagesReasonEnum = {
+  threat_signals_feed_limit: 'threat_signals_feed_limit',
+  free_custom_skills_disabled: 'free_custom_skills_disabled',
+  free_skill_run_disabled: 'free_skill_run_disabled',
+  free_tier_reconciliation_in_progress: 'free_tier_reconciliation_in_progress',
+  free_tier_reconciliation_failed: 'free_tier_reconciliation_failed',
+  raw_content_expired: 'raw_content_expired',
+  curated_visibility_changed: 'curated_visibility_changed',
+} as const;
+
+export type RssArticleReprocessStatus200MessagesReasonEnumKey = (typeof rssArticleReprocessStatus200MessagesReasonEnum)[keyof typeof rssArticleReprocessStatus200MessagesReasonEnum];
+
+export const rssArticleReprocessStatus200ResultOutcomeEnum = {
+  completed: 'completed',
+  failed: 'failed',
+  superseded: 'superseded',
+} as const;
+
+export type RssArticleReprocessStatus200ResultOutcomeEnumKey = (typeof rssArticleReprocessStatus200ResultOutcomeEnum)[keyof typeof rssArticleReprocessStatus200ResultOutcomeEnum];
+
+export const rssArticleReprocessStatus200ResultStepsOutcomeEnum = {
+  completed: 'completed',
+  noop: 'noop',
+  failed: 'failed',
+  skipped: 'skipped',
+} as const;
+
+export type RssArticleReprocessStatus200ResultStepsOutcomeEnumKey = (typeof rssArticleReprocessStatus200ResultStepsOutcomeEnum)[keyof typeof rssArticleReprocessStatus200ResultStepsOutcomeEnum];
+
+export const rssArticleReprocessStatus200ResultStepsStepEnum = {
+  content: 'content',
+  summary: 'summary',
+  indicators: 'indicators',
+  cves: 'cves',
+  ioc_context: 'ioc_context',
+  tags: 'tags',
+  event: 'event',
+} as const;
+
+export type RssArticleReprocessStatus200ResultStepsStepEnumKey = (typeof rssArticleReprocessStatus200ResultStepsStepEnum)[keyof typeof rssArticleReprocessStatus200ResultStepsStepEnum];
+
+export type RssArticleReprocessStatus200 = {
+  errors: {
+    code?: number | undefined;
+    /**
+     * @description The current count of custom feeds for the account.
+     * @minLength 0
+     * @type integer | undefined
+     */
+    custom_feed_count?: number | undefined;
+    /**
+     * @description The custom feed limit for the account.
+     * @minLength 0
+     * @type integer | undefined
+     */
+    custom_feed_limit?: number | undefined;
+    expected?: string | undefined;
+    message: string;
+    path?: string[] | undefined;
+    reason?: RssArticleReprocessStatus200ErrorsReasonEnumKey | undefined;
+  }[];
+  messages: {
+    code?: number | undefined;
+    /**
+     * @description The current count of custom feeds for the account.
+     * @minLength 0
+     * @type integer | undefined
+     */
+    custom_feed_count?: number | undefined;
+    /**
+     * @description The custom feed limit for the account.
+     * @minLength 0
+     * @type integer | undefined
+     */
+    custom_feed_limit?: number | undefined;
+    expected?: string | undefined;
+    message: string;
+    path?: string[] | undefined;
+    reason?: RssArticleReprocessStatus200MessagesReasonEnumKey | undefined;
+  }[];
+  result: {
+    /**
+     * @description
+     * Format: `uuid`
+     * @type string
+     */
+    article_id: string;
+    /**
+     * @description The article's Threat Event ID after the run, or null when it has none or its existence could not be confirmed. An existing Event is never updated by reprocessing.
+     * @type string
+     */
+    event_id: string | null;
+    /**
+     * @description `completed` when every step succeeded, `failed` when at least one step failed, or `superseded` when another reprocess took over the article during this run.
+     * @type string
+     */
+    outcome: RssArticleReprocessStatus200ResultOutcomeEnumKey;
+    /**
+     * @description True when the article returned to pending and the next feed poll will retry it.
+     * @type boolean
+     */
+    pending_retry: boolean;
+    /**
+     * @description Per-step result, in pipeline order.
+     * @type array
+     */
+    steps: {
+      outcome: RssArticleReprocessStatus200ResultStepsOutcomeEnumKey;
+      step: RssArticleReprocessStatus200ResultStepsStepEnumKey;
+    }[];
+  };
+  success: true;
+};
+
+export type RssArticleReprocessStatus400 = unknown;
+
+export type RssArticleReprocessBody = object | undefined;
+
+export type RssArticleReprocessOptions = {
+  body: RssArticleReprocessBody;
+  path: RssArticleReprocessPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type RssArticleReprocessResponses = {
+  '200': RssArticleReprocessStatus200;
+  '400': RssArticleReprocessStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type RssArticleReprocessResponse = RssArticleReprocessStatus200;
 
 export type RssArticleCustomSkillsListPath = {
   accountId: string;
@@ -318095,7 +319029,7 @@ export type RssFeedRawGetQuery = {
   format?: 'xml' | undefined;
 };
 
-export type RssFeedRawGetStatus200 = unknown;
+export type RssFeedRawGetStatus200 = string;
 
 export type RssFeedRawGetStatus400 = unknown;
 
@@ -332513,7 +333447,7 @@ export type GetCommandsCommandIdDownloadsFilenamePath = {
   filename: string;
 };
 
-export type GetCommandsCommandIdDownloadsFilenameStatus200 = unknown;
+export type GetCommandsCommandIdDownloadsFilenameStatus200 = Blob;
 
 export type GetCommandsCommandIdDownloadsFilenameStatus400 = DigitalExperienceMonitoringApiResponseCommonFailure;
 
@@ -343829,6 +344763,80 @@ export type EmailSecurityCreateSubmissionsResponses = {
  */
 export type EmailSecurityCreateSubmissionsResponse = EmailSecurityCreateSubmissionsStatus202;
 
+export type EmailDomainsChangesPath = {
+  /**
+   * @description Identifier.
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: EmailIdentifier;
+};
+
+export type EmailDomainsChangesQuery = {
+  /**
+   * @description Maximum changes to return in one page.
+   *
+   * Format: `int64`
+   * @minLength 1
+   * @maxLength 100
+   * @default 20
+   * @example 20
+   * @type integer | undefined
+   */
+  per_page?: bigint | undefined;
+  /**
+   * @description Opaque cursor returned by the previous change page. Omit it for the first page.
+   * @example eyJ2IjoyLCJ0cmFuc2FjdGlvbl9pZCI6NDIsImNoYW5nZV9pZCI6N30
+   * @type string | undefined
+   */
+  cursor?: string | undefined;
+  /**
+   * @description Optional RFC 3339 lower bound for the first request only. Values outside the retained history return error 2086. A value up to one minute ahead of the server clock is read as the current time; a later value returns 400.
+   *
+   * Format: `date-time`
+   * @example 2026-10-01T12:00:00Z
+   * @type string | undefined
+   */
+  modified_since?: string | undefined;
+};
+
+export type EmailDomainsChangesStatus200 = EmailEmailDomainChangeCollectionResponse;
+
+export type EmailDomainsChangesStatus400 = EmailEmailDomainErrorResponse;
+
+export type EmailDomainsChangesStatus403 = EmailEmailDomainErrorResponse;
+
+export type EmailDomainsChangesStatus404 = EmailEmailDomainErrorResponse;
+
+export type EmailDomainsChangesStatus409 = EmailEmailDomainErrorResponse;
+
+export type EmailDomainsChangesStatus500 = EmailEmailDomainErrorResponse;
+
+export type EmailDomainsChangesStatus503 = EmailEmailDomainErrorResponse;
+
+export type EmailDomainsChangesOptions = {
+  body?: never | undefined;
+  path: EmailDomainsChangesPath;
+  query?: EmailDomainsChangesQuery | undefined;
+  headers?: never | undefined;
+};
+
+export type EmailDomainsChangesResponses = {
+  '200': EmailDomainsChangesStatus200;
+  '400': EmailDomainsChangesStatus400;
+  '403': EmailDomainsChangesStatus403;
+  '404': EmailDomainsChangesStatus404;
+  '409': EmailDomainsChangesStatus409;
+  '500': EmailDomainsChangesStatus500;
+  '503': EmailDomainsChangesStatus503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type EmailDomainsChangesResponse = EmailDomainsChangesStatus200;
+
 export type EmailDomainsListPath = {
   /**
    * @description Identifier.
@@ -344812,7 +345820,7 @@ export type EmailSendingGetEmailMessagePath = {
   messageId: string;
 };
 
-export type EmailSendingGetEmailMessageStatus200 = unknown;
+export type EmailSendingGetEmailMessageStatus200 = string;
 
 export type EmailSendingGetEmailMessageStatus404 = EmailSendingEmailApiError;
 
@@ -353492,7 +354500,7 @@ export type CloudflareImagesBaseImagePath = {
   readonly accountId: ImagesAccountIdentifier;
 };
 
-export type CloudflareImagesBaseImageStatus200 = unknown;
+export type CloudflareImagesBaseImageStatus200 = Blob;
 
 export type CloudflareImagesBaseImageStatus400 = ImagesImageResponseBlob | ImagesApiResponseCommonFailure;
 
@@ -355918,7 +356926,7 @@ export type CustomIndicatorFeedsGetIndicatorFeedDataPath = {
   feedId: CustomIndicatorFeedsFeedId;
 };
 
-export type CustomIndicatorFeedsGetIndicatorFeedDataStatus200 = unknown;
+export type CustomIndicatorFeedsGetIndicatorFeedDataStatus200 = string;
 
 export type CustomIndicatorFeedsGetIndicatorFeedDataStatus400 = CustomIndicatorFeedsApiResponseCommonFailure;
 
@@ -360679,12 +361687,12 @@ export type DeleteDnsProtectionRulesForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type DeleteDnsProtectionRulesForAccountStatus200 = DosApiResponseCommon;
+export type DeleteDnsProtectionRulesForAccountStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeleteDnsProtectionRulesForAccountStatus400 = DosApiResponseCommonFailure;
+export type DeleteDnsProtectionRulesForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeleteDnsProtectionRulesForAccountOptions = {
   body?: never | undefined;
@@ -360710,7 +361718,7 @@ export type ListDnsProtectionRulesForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
 export type ListDnsProtectionRulesForAccountQuery = {
@@ -360740,9 +361748,9 @@ export type ListDnsProtectionRulesForAccountQuery = {
   direction?: string | undefined;
 };
 
-export type ListDnsProtectionRulesForAccountStatus200 = DosDnsProtectionRuleListResponse;
+export type ListDnsProtectionRulesForAccountStatus200 = AdvancedDdosProtectionDnsProtectionRuleListResponse;
 
-export type ListDnsProtectionRulesForAccountStatus400 = DosApiResponseCommonFailure;
+export type ListDnsProtectionRulesForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type ListDnsProtectionRulesForAccountOptions = {
   body?: never | undefined;
@@ -360768,18 +361776,18 @@ export type CreateDnsProtectionRulePath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type CreateDnsProtectionRuleStatus200 = DosDnsProtectionRuleResponse;
+export type CreateDnsProtectionRuleStatus200 = AdvancedDdosProtectionDnsProtectionRuleResponse;
 
-export type CreateDnsProtectionRuleStatus400 = DosApiResponseCommonFailure;
+export type CreateDnsProtectionRuleStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The new DNS Protection rule to add.
  * @type object
  */
-export type CreateDnsProtectionRuleBody = DosNewDnsProtectionRule;
+export type CreateDnsProtectionRuleBody = AdvancedDdosProtectionNewDnsProtectionRule;
 
 export type CreateDnsProtectionRuleOptions = {
   body: CreateDnsProtectionRuleBody;
@@ -360805,19 +361813,19 @@ export type DeleteDnsProtectionRulePath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the DNS Protection rule to delete.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  ruleId: DosUuid;
+  ruleId: AdvancedDdosProtectionUuid;
 };
 
-export type DeleteDnsProtectionRuleStatus200 = DosApiResponseCommon;
+export type DeleteDnsProtectionRuleStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeleteDnsProtectionRuleStatus400 = DosApiResponseCommonFailure;
+export type DeleteDnsProtectionRuleStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeleteDnsProtectionRuleOptions = {
   body?: never | undefined;
@@ -360843,19 +361851,19 @@ export type GetDnsProtectionRulePath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the DNS Protection rule.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  ruleId: DosUuid;
+  ruleId: AdvancedDdosProtectionUuid;
 };
 
-export type GetDnsProtectionRuleStatus200 = DosDnsProtectionRuleResponse;
+export type GetDnsProtectionRuleStatus200 = AdvancedDdosProtectionDnsProtectionRuleResponse;
 
-export type GetDnsProtectionRuleStatus400 = DosApiResponseCommonFailure;
+export type GetDnsProtectionRuleStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type GetDnsProtectionRuleOptions = {
   body?: never | undefined;
@@ -360881,25 +361889,25 @@ export type UpdateDnsProtectionRulePath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the DNS Protection rule to update.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  ruleId: DosUuid;
+  ruleId: AdvancedDdosProtectionUuid;
 };
 
-export type UpdateDnsProtectionRuleStatus200 = DosDnsProtectionRuleResponse;
+export type UpdateDnsProtectionRuleStatus200 = AdvancedDdosProtectionDnsProtectionRuleResponse;
 
-export type UpdateDnsProtectionRuleStatus400 = DosApiResponseCommonFailure;
+export type UpdateDnsProtectionRuleStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The updates to apply to the DNS Protection rule.
  * @type object
  */
-export type UpdateDnsProtectionRuleBody = DosDnsProtectionRuleUpdate;
+export type UpdateDnsProtectionRuleBody = AdvancedDdosProtectionDnsProtectionRuleUpdate;
 
 export type UpdateDnsProtectionRuleOptions = {
   body: UpdateDnsProtectionRuleBody;
@@ -360925,12 +361933,12 @@ export type DeleteAllowlistPrefixesForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type DeleteAllowlistPrefixesForAccountStatus200 = DosApiResponseCommon;
+export type DeleteAllowlistPrefixesForAccountStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeleteAllowlistPrefixesForAccountStatus400 = DosApiResponseCommonFailure;
+export type DeleteAllowlistPrefixesForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeleteAllowlistPrefixesForAccountOptions = {
   body?: never | undefined;
@@ -360956,7 +361964,7 @@ export type ListAllowlistPrefixesForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
 export type ListAllowlistPrefixesForAccountQuery = {
@@ -360986,9 +361994,9 @@ export type ListAllowlistPrefixesForAccountQuery = {
   direction?: string | undefined;
 };
 
-export type ListAllowlistPrefixesForAccountStatus200 = DosInfraPrefixListResponse;
+export type ListAllowlistPrefixesForAccountStatus200 = AdvancedDdosProtectionInfraPrefixListResponse;
 
-export type ListAllowlistPrefixesForAccountStatus400 = DosApiResponseCommonFailure;
+export type ListAllowlistPrefixesForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type ListAllowlistPrefixesForAccountOptions = {
   body?: never | undefined;
@@ -361014,18 +362022,18 @@ export type CreateAllowlistedPrefixPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type CreateAllowlistedPrefixStatus200 = DosInfraPrefixResponse;
+export type CreateAllowlistedPrefixStatus200 = AdvancedDdosProtectionInfraPrefixResponse;
 
-export type CreateAllowlistedPrefixStatus400 = DosApiResponseCommonFailure;
+export type CreateAllowlistedPrefixStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The new allowlist prefix to create.
  * @type object
  */
-export type CreateAllowlistedPrefixBody = DosNewInfraPrefix;
+export type CreateAllowlistedPrefixBody = AdvancedDdosProtectionNewInfraPrefix;
 
 export type CreateAllowlistedPrefixOptions = {
   body: CreateAllowlistedPrefixBody;
@@ -361051,19 +362059,19 @@ export type DeleteAllowlistPrefixPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the allowlist prefix to delete.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  prefixId: DosUuid;
+  prefixId: AdvancedDdosProtectionUuid;
 };
 
-export type DeleteAllowlistPrefixStatus200 = DosApiResponseCommon;
+export type DeleteAllowlistPrefixStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeleteAllowlistPrefixStatus400 = DosApiResponseCommonFailure;
+export type DeleteAllowlistPrefixStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeleteAllowlistPrefixOptions = {
   body?: never | undefined;
@@ -361089,19 +362097,19 @@ export type GetAllowlistPrefixPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the allowlist prefix.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  prefixId: DosUuid;
+  prefixId: AdvancedDdosProtectionUuid;
 };
 
-export type GetAllowlistPrefixStatus200 = DosInfraPrefixResponse;
+export type GetAllowlistPrefixStatus200 = AdvancedDdosProtectionInfraPrefixResponse;
 
-export type GetAllowlistPrefixStatus400 = DosApiResponseCommonFailure;
+export type GetAllowlistPrefixStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type GetAllowlistPrefixOptions = {
   body?: never | undefined;
@@ -361127,25 +362135,25 @@ export type UpdateAllowlistPrefixPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the allowlist prefix to update.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  prefixId: DosUuid;
+  prefixId: AdvancedDdosProtectionUuid;
 };
 
-export type UpdateAllowlistPrefixStatus200 = DosInfraPrefixResponse;
+export type UpdateAllowlistPrefixStatus200 = AdvancedDdosProtectionInfraPrefixResponse;
 
-export type UpdateAllowlistPrefixStatus400 = DosApiResponseCommonFailure;
+export type UpdateAllowlistPrefixStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The updates to apply to the allowlist prefix.
  * @type object
  */
-export type UpdateAllowlistPrefixBody = DosInfraPrefixUpdate;
+export type UpdateAllowlistPrefixBody = AdvancedDdosProtectionInfraPrefixUpdate;
 
 export type UpdateAllowlistPrefixOptions = {
   body: UpdateAllowlistPrefixBody;
@@ -361171,12 +362179,12 @@ export type DeletePrefixesForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type DeletePrefixesForAccountStatus200 = DosApiResponseCommon;
+export type DeletePrefixesForAccountStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeletePrefixesForAccountStatus400 = DosApiResponseCommonFailure;
+export type DeletePrefixesForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeletePrefixesForAccountOptions = {
   body?: never | undefined;
@@ -361202,7 +362210,7 @@ export type ListPrefixesForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
 export type ListPrefixesForAccountQuery = {
@@ -361232,9 +362240,9 @@ export type ListPrefixesForAccountQuery = {
   direction?: string | undefined;
 };
 
-export type ListPrefixesForAccountStatus200 = DosPrefixListResponse;
+export type ListPrefixesForAccountStatus200 = AdvancedDdosProtectionPrefixListResponse;
 
-export type ListPrefixesForAccountStatus400 = DosApiResponseCommonFailure;
+export type ListPrefixesForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type ListPrefixesForAccountOptions = {
   body?: never | undefined;
@@ -361260,18 +362268,18 @@ export type CreatePrefixPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type CreatePrefixStatus200 = DosPrefixResponse;
+export type CreatePrefixStatus200 = AdvancedDdosProtectionPrefixResponse;
 
-export type CreatePrefixStatus400 = DosApiResponseCommonFailure;
+export type CreatePrefixStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The new prefix to create.
  * @type object
  */
-export type CreatePrefixBody = DosNewPrefix;
+export type CreatePrefixBody = AdvancedDdosProtectionNewPrefix;
 
 export type CreatePrefixOptions = {
   body: CreatePrefixBody;
@@ -361297,18 +362305,18 @@ export type BulkCreatePrefixesPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type BulkCreatePrefixesStatus200 = DosPrefixListResponse;
+export type BulkCreatePrefixesStatus200 = AdvancedDdosProtectionPrefixListResponse;
 
-export type BulkCreatePrefixesStatus400 = DosApiResponseCommonFailure;
+export type BulkCreatePrefixesStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The list of new prefixes to create.
  * @type array
  */
-export type BulkCreatePrefixesBody = DosNewPrefix[];
+export type BulkCreatePrefixesBody = AdvancedDdosProtectionNewPrefix[];
 
 export type BulkCreatePrefixesOptions = {
   body: BulkCreatePrefixesBody;
@@ -361334,19 +362342,19 @@ export type DeletePrefixPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the prefix to delete.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  prefixId: DosUuid;
+  prefixId: AdvancedDdosProtectionUuid;
 };
 
-export type DeletePrefixStatus200 = DosApiResponseCommon;
+export type DeletePrefixStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeletePrefixStatus400 = DosApiResponseCommonFailure;
+export type DeletePrefixStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeletePrefixOptions = {
   body?: never | undefined;
@@ -361372,19 +362380,19 @@ export type GetPrefixPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the prefix.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  prefixId: DosUuid;
+  prefixId: AdvancedDdosProtectionUuid;
 };
 
-export type GetPrefixStatus200 = DosPrefixResponse;
+export type GetPrefixStatus200 = AdvancedDdosProtectionPrefixResponse;
 
-export type GetPrefixStatus400 = DosApiResponseCommonFailure;
+export type GetPrefixStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type GetPrefixOptions = {
   body?: never | undefined;
@@ -361410,25 +362418,25 @@ export type UpdatePrefixPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the prefix to update.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  prefixId: DosUuid;
+  prefixId: AdvancedDdosProtectionUuid;
 };
 
-export type UpdatePrefixStatus200 = DosPrefixResponse;
+export type UpdatePrefixStatus200 = AdvancedDdosProtectionPrefixResponse;
 
-export type UpdatePrefixStatus400 = DosApiResponseCommonFailure;
+export type UpdatePrefixStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The updates to apply to the prefix.
  * @type object
  */
-export type UpdatePrefixBody = DosPrefixUpdate;
+export type UpdatePrefixBody = AdvancedDdosProtectionPrefixUpdate;
 
 export type UpdatePrefixOptions = {
   body: UpdatePrefixBody;
@@ -361454,12 +362462,12 @@ export type DeleteSynProtectionFiltersForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type DeleteSynProtectionFiltersForAccountStatus200 = DosApiResponseCommon;
+export type DeleteSynProtectionFiltersForAccountStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeleteSynProtectionFiltersForAccountStatus400 = DosApiResponseCommonFailure;
+export type DeleteSynProtectionFiltersForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeleteSynProtectionFiltersForAccountOptions = {
   body?: never | undefined;
@@ -361485,7 +362493,7 @@ export type ListSynProtectionFiltersForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
 export type ListSynProtectionFiltersForAccountQuery = {
@@ -361520,9 +362528,9 @@ export type ListSynProtectionFiltersForAccountQuery = {
   direction?: string | undefined;
 };
 
-export type ListSynProtectionFiltersForAccountStatus200 = DosExpressionFilterListResponse;
+export type ListSynProtectionFiltersForAccountStatus200 = AdvancedDdosProtectionExpressionFilterListResponse;
 
-export type ListSynProtectionFiltersForAccountStatus400 = DosApiResponseCommonFailure;
+export type ListSynProtectionFiltersForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type ListSynProtectionFiltersForAccountOptions = {
   body?: never | undefined;
@@ -361548,18 +362556,18 @@ export type CreateSynProtectionFilterPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type CreateSynProtectionFilterStatus200 = DosExpressionFilterResponse;
+export type CreateSynProtectionFilterStatus200 = AdvancedDdosProtectionExpressionFilterResponse;
 
-export type CreateSynProtectionFilterStatus400 = DosApiResponseCommonFailure;
+export type CreateSynProtectionFilterStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The new filter to create.
  * @type object
  */
-export type CreateSynProtectionFilterBody = DosNewExpressionFilter;
+export type CreateSynProtectionFilterBody = AdvancedDdosProtectionNewExpressionFilter;
 
 export type CreateSynProtectionFilterOptions = {
   body: CreateSynProtectionFilterBody;
@@ -361585,19 +362593,19 @@ export type DeleteSynProtectionFilterPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the filter to delete.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  filterId: DosUuid;
+  filterId: AdvancedDdosProtectionUuid;
 };
 
-export type DeleteSynProtectionFilterStatus200 = DosApiResponseCommon;
+export type DeleteSynProtectionFilterStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeleteSynProtectionFilterStatus400 = DosApiResponseCommonFailure;
+export type DeleteSynProtectionFilterStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeleteSynProtectionFilterOptions = {
   body?: never | undefined;
@@ -361623,19 +362631,19 @@ export type GetSynProtectionFilterPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the filter to retrieve.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  filterId: DosUuid;
+  filterId: AdvancedDdosProtectionUuid;
 };
 
-export type GetSynProtectionFilterStatus200 = DosExpressionFilterResponse;
+export type GetSynProtectionFilterStatus200 = AdvancedDdosProtectionExpressionFilterResponse;
 
-export type GetSynProtectionFilterStatus400 = DosApiResponseCommonFailure;
+export type GetSynProtectionFilterStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type GetSynProtectionFilterOptions = {
   body?: never | undefined;
@@ -361661,25 +362669,25 @@ export type UpdateSynProtectionFilterPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the filter to update.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  filterId: DosUuid;
+  filterId: AdvancedDdosProtectionUuid;
 };
 
-export type UpdateSynProtectionFilterStatus200 = DosExpressionFilterResponse;
+export type UpdateSynProtectionFilterStatus200 = AdvancedDdosProtectionExpressionFilterResponse;
 
-export type UpdateSynProtectionFilterStatus400 = DosApiResponseCommonFailure;
+export type UpdateSynProtectionFilterStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The updates to apply to the filter.
  * @type object
  */
-export type UpdateSynProtectionFilterBody = DosExpressionFilterUpdate;
+export type UpdateSynProtectionFilterBody = AdvancedDdosProtectionExpressionFilterUpdate;
 
 export type UpdateSynProtectionFilterOptions = {
   body: UpdateSynProtectionFilterBody;
@@ -361705,12 +362713,12 @@ export type DeleteSynProtectionRulesForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type DeleteSynProtectionRulesForAccountStatus200 = DosApiResponseCommon;
+export type DeleteSynProtectionRulesForAccountStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeleteSynProtectionRulesForAccountStatus400 = DosApiResponseCommonFailure;
+export type DeleteSynProtectionRulesForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeleteSynProtectionRulesForAccountOptions = {
   body?: never | undefined;
@@ -361736,7 +362744,7 @@ export type ListSynProtectionRulesForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
 export type ListSynProtectionRulesForAccountQuery = {
@@ -361766,9 +362774,9 @@ export type ListSynProtectionRulesForAccountQuery = {
   direction?: string | undefined;
 };
 
-export type ListSynProtectionRulesForAccountStatus200 = DosSynProtectionRuleListResponse;
+export type ListSynProtectionRulesForAccountStatus200 = AdvancedDdosProtectionSynProtectionRuleListResponse;
 
-export type ListSynProtectionRulesForAccountStatus400 = DosApiResponseCommonFailure;
+export type ListSynProtectionRulesForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type ListSynProtectionRulesForAccountOptions = {
   body?: never | undefined;
@@ -361794,18 +362802,18 @@ export type CreateSynProtectionRulePath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type CreateSynProtectionRuleStatus200 = DosSynProtectionRuleResponse;
+export type CreateSynProtectionRuleStatus200 = AdvancedDdosProtectionSynProtectionRuleResponse;
 
-export type CreateSynProtectionRuleStatus400 = DosApiResponseCommonFailure;
+export type CreateSynProtectionRuleStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The new SYN Protection rule to add.
  * @type object
  */
-export type CreateSynProtectionRuleBody = DosNewSynProtectionRule;
+export type CreateSynProtectionRuleBody = AdvancedDdosProtectionNewSynProtectionRule;
 
 export type CreateSynProtectionRuleOptions = {
   body: CreateSynProtectionRuleBody;
@@ -361831,19 +362839,19 @@ export type DeleteSynProtectionRulePath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the SYN Protection rule to delete.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  ruleId: DosUuid;
+  ruleId: AdvancedDdosProtectionUuid;
 };
 
-export type DeleteSynProtectionRuleStatus200 = DosApiResponseCommon;
+export type DeleteSynProtectionRuleStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeleteSynProtectionRuleStatus400 = DosApiResponseCommonFailure;
+export type DeleteSynProtectionRuleStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeleteSynProtectionRuleOptions = {
   body?: never | undefined;
@@ -361869,19 +362877,19 @@ export type GetSynProtectionRulePath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the SYN Protection rule.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  ruleId: DosUuid;
+  ruleId: AdvancedDdosProtectionUuid;
 };
 
-export type GetSynProtectionRuleStatus200 = DosSynProtectionRuleResponse;
+export type GetSynProtectionRuleStatus200 = AdvancedDdosProtectionSynProtectionRuleResponse;
 
-export type GetSynProtectionRuleStatus400 = DosApiResponseCommonFailure;
+export type GetSynProtectionRuleStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type GetSynProtectionRuleOptions = {
   body?: never | undefined;
@@ -361907,25 +362915,25 @@ export type UpdateSynProtectionRulePath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the SYN Protection rule to update.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  ruleId: DosUuid;
+  ruleId: AdvancedDdosProtectionUuid;
 };
 
-export type UpdateSynProtectionRuleStatus200 = DosSynProtectionRuleResponse;
+export type UpdateSynProtectionRuleStatus200 = AdvancedDdosProtectionSynProtectionRuleResponse;
 
-export type UpdateSynProtectionRuleStatus400 = DosApiResponseCommonFailure;
+export type UpdateSynProtectionRuleStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The fields to update on the SYN Protection rule.
  * @type object
  */
-export type UpdateSynProtectionRuleBody = DosSynProtectionRuleUpdate;
+export type UpdateSynProtectionRuleBody = AdvancedDdosProtectionSynProtectionRuleUpdate;
 
 export type UpdateSynProtectionRuleOptions = {
   body: UpdateSynProtectionRuleBody;
@@ -361951,12 +362959,12 @@ export type DeleteTcpFlowProtectionFiltersForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type DeleteTcpFlowProtectionFiltersForAccountStatus200 = DosApiResponseCommon;
+export type DeleteTcpFlowProtectionFiltersForAccountStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeleteTcpFlowProtectionFiltersForAccountStatus400 = DosApiResponseCommonFailure;
+export type DeleteTcpFlowProtectionFiltersForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeleteTcpFlowProtectionFiltersForAccountOptions = {
   body?: never | undefined;
@@ -361982,7 +362990,7 @@ export type ListTcpFlowProtectionFiltersForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
 export type ListTcpFlowProtectionFiltersForAccountQuery = {
@@ -362017,9 +363025,9 @@ export type ListTcpFlowProtectionFiltersForAccountQuery = {
   direction?: string | undefined;
 };
 
-export type ListTcpFlowProtectionFiltersForAccountStatus200 = DosExpressionFilterListResponse;
+export type ListTcpFlowProtectionFiltersForAccountStatus200 = AdvancedDdosProtectionExpressionFilterListResponse;
 
-export type ListTcpFlowProtectionFiltersForAccountStatus400 = DosApiResponseCommonFailure;
+export type ListTcpFlowProtectionFiltersForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type ListTcpFlowProtectionFiltersForAccountOptions = {
   body?: never | undefined;
@@ -362045,18 +363053,18 @@ export type CreateTcpFlowProtectionFilterPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type CreateTcpFlowProtectionFilterStatus200 = DosExpressionFilterResponse;
+export type CreateTcpFlowProtectionFilterStatus200 = AdvancedDdosProtectionExpressionFilterResponse;
 
-export type CreateTcpFlowProtectionFilterStatus400 = DosApiResponseCommonFailure;
+export type CreateTcpFlowProtectionFilterStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The new filter to create.
  * @type object
  */
-export type CreateTcpFlowProtectionFilterBody = DosNewExpressionFilter;
+export type CreateTcpFlowProtectionFilterBody = AdvancedDdosProtectionNewExpressionFilter;
 
 export type CreateTcpFlowProtectionFilterOptions = {
   body: CreateTcpFlowProtectionFilterBody;
@@ -362082,19 +363090,19 @@ export type DeleteTcpFlowProtectionFilterPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the filter to delete.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  filterId: DosUuid;
+  filterId: AdvancedDdosProtectionUuid;
 };
 
-export type DeleteTcpFlowProtectionFilterStatus200 = DosApiResponseCommon;
+export type DeleteTcpFlowProtectionFilterStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeleteTcpFlowProtectionFilterStatus400 = DosApiResponseCommonFailure;
+export type DeleteTcpFlowProtectionFilterStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeleteTcpFlowProtectionFilterOptions = {
   body?: never | undefined;
@@ -362120,19 +363128,19 @@ export type GetTcpFlowProtectionFilterPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the filter to retrieve.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  filterId: DosUuid;
+  filterId: AdvancedDdosProtectionUuid;
 };
 
-export type GetTcpFlowProtectionFilterStatus200 = DosExpressionFilterResponse;
+export type GetTcpFlowProtectionFilterStatus200 = AdvancedDdosProtectionExpressionFilterResponse;
 
-export type GetTcpFlowProtectionFilterStatus400 = DosApiResponseCommonFailure;
+export type GetTcpFlowProtectionFilterStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type GetTcpFlowProtectionFilterOptions = {
   body?: never | undefined;
@@ -362158,25 +363166,25 @@ export type UpdateTcpFlowProtectionFilterPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the filter to update.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  filterId: DosUuid;
+  filterId: AdvancedDdosProtectionUuid;
 };
 
-export type UpdateTcpFlowProtectionFilterStatus200 = DosExpressionFilterResponse;
+export type UpdateTcpFlowProtectionFilterStatus200 = AdvancedDdosProtectionExpressionFilterResponse;
 
-export type UpdateTcpFlowProtectionFilterStatus400 = DosApiResponseCommonFailure;
+export type UpdateTcpFlowProtectionFilterStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The updates to apply to the filter.
  * @type object
  */
-export type UpdateTcpFlowProtectionFilterBody = DosExpressionFilterUpdate;
+export type UpdateTcpFlowProtectionFilterBody = AdvancedDdosProtectionExpressionFilterUpdate;
 
 export type UpdateTcpFlowProtectionFilterOptions = {
   body: UpdateTcpFlowProtectionFilterBody;
@@ -362202,12 +363210,12 @@ export type DeleteTcpFlowProtectionRulesForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type DeleteTcpFlowProtectionRulesForAccountStatus200 = DosApiResponseCommon;
+export type DeleteTcpFlowProtectionRulesForAccountStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeleteTcpFlowProtectionRulesForAccountStatus400 = DosApiResponseCommonFailure;
+export type DeleteTcpFlowProtectionRulesForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeleteTcpFlowProtectionRulesForAccountOptions = {
   body?: never | undefined;
@@ -362233,7 +363241,7 @@ export type ListTcpFlowProtectionRulesForAccountPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
 export type ListTcpFlowProtectionRulesForAccountQuery = {
@@ -362263,9 +363271,9 @@ export type ListTcpFlowProtectionRulesForAccountQuery = {
   direction?: string | undefined;
 };
 
-export type ListTcpFlowProtectionRulesForAccountStatus200 = DosTcpFlowProtectionRuleListResponse;
+export type ListTcpFlowProtectionRulesForAccountStatus200 = AdvancedDdosProtectionTcpFlowProtectionRuleListResponse;
 
-export type ListTcpFlowProtectionRulesForAccountStatus400 = DosApiResponseCommonFailure;
+export type ListTcpFlowProtectionRulesForAccountStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type ListTcpFlowProtectionRulesForAccountOptions = {
   body?: never | undefined;
@@ -362291,18 +363299,18 @@ export type CreateTcpFlowProtectionRulePath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type CreateTcpFlowProtectionRuleStatus200 = DosTcpFlowProtectionRuleResponse;
+export type CreateTcpFlowProtectionRuleStatus200 = AdvancedDdosProtectionTcpFlowProtectionRuleResponse;
 
-export type CreateTcpFlowProtectionRuleStatus400 = DosApiResponseCommonFailure;
+export type CreateTcpFlowProtectionRuleStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The new TCP Flow Protection rule.
  * @type object
  */
-export type CreateTcpFlowProtectionRuleBody = DosNewTcpFlowProtectionRule;
+export type CreateTcpFlowProtectionRuleBody = AdvancedDdosProtectionNewTcpFlowProtectionRule;
 
 export type CreateTcpFlowProtectionRuleOptions = {
   body: CreateTcpFlowProtectionRuleBody;
@@ -362328,19 +363336,19 @@ export type DeleteTcpFlowProtectionRulePath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the TCP Flow Protection rule to delete.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  ruleId: DosUuid;
+  ruleId: AdvancedDdosProtectionUuid;
 };
 
-export type DeleteTcpFlowProtectionRuleStatus200 = DosApiResponseCommon;
+export type DeleteTcpFlowProtectionRuleStatus200 = AdvancedDdosProtectionApiResponseCommon;
 
-export type DeleteTcpFlowProtectionRuleStatus400 = DosApiResponseCommonFailure;
+export type DeleteTcpFlowProtectionRuleStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type DeleteTcpFlowProtectionRuleOptions = {
   body?: never | undefined;
@@ -362366,19 +363374,19 @@ export type GetTcpFlowProtectionRulePath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the TCP Flow Protection rule.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  ruleId: DosUuid;
+  ruleId: AdvancedDdosProtectionUuid;
 };
 
-export type GetTcpFlowProtectionRuleStatus200 = DosTcpFlowProtectionRuleResponse;
+export type GetTcpFlowProtectionRuleStatus200 = AdvancedDdosProtectionTcpFlowProtectionRuleResponse;
 
-export type GetTcpFlowProtectionRuleStatus400 = DosApiResponseCommonFailure;
+export type GetTcpFlowProtectionRuleStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type GetTcpFlowProtectionRuleOptions = {
   body?: never | undefined;
@@ -362404,25 +363412,25 @@ export type UpdateTcpFlowProtectionRulePath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
   /**
    * @description The UUID of the TCP Flow Protection rule to update.
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
    * @type string
    */
-  ruleId: DosUuid;
+  ruleId: AdvancedDdosProtectionUuid;
 };
 
-export type UpdateTcpFlowProtectionRuleStatus200 = DosTcpFlowProtectionRuleResponse;
+export type UpdateTcpFlowProtectionRuleStatus200 = AdvancedDdosProtectionTcpFlowProtectionRuleResponse;
 
-export type UpdateTcpFlowProtectionRuleStatus400 = DosApiResponseCommonFailure;
+export type UpdateTcpFlowProtectionRuleStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The updates to apply to the TCP Flow Protection rule.
  * @type object
  */
-export type UpdateTcpFlowProtectionRuleBody = DosTcpFlowProtectionRuleUpdate;
+export type UpdateTcpFlowProtectionRuleBody = AdvancedDdosProtectionTcpFlowProtectionRuleUpdate;
 
 export type UpdateTcpFlowProtectionRuleOptions = {
   body: UpdateTcpFlowProtectionRuleBody;
@@ -362448,12 +363456,12 @@ export type GetProtectionStatusPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type GetProtectionStatusStatus200 = DosProtectionStatusResponse;
+export type GetProtectionStatusStatus200 = AdvancedDdosProtectionProtectionStatusResponse;
 
-export type GetProtectionStatusStatus400 = DosApiResponseCommonFailure;
+export type GetProtectionStatusStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 export type GetProtectionStatusOptions = {
   body?: never | undefined;
@@ -362479,18 +363487,18 @@ export type UpdateProtectionStatusPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: AdvancedDdosProtectionIdentifier;
 };
 
-export type UpdateProtectionStatusStatus200 = DosProtectionStatusResponse;
+export type UpdateProtectionStatusStatus200 = AdvancedDdosProtectionProtectionStatusResponse;
 
-export type UpdateProtectionStatusStatus400 = DosApiResponseCommonFailure;
+export type UpdateProtectionStatusStatus400 = AdvancedDdosProtectionApiResponseCommonFailure;
 
 /**
  * @description The update to apply to the protection status.
  * @type object
  */
-export type UpdateProtectionStatusBody = DosUpdateProtectionStatus;
+export type UpdateProtectionStatusBody = AdvancedDdosProtectionUpdateProtectionStatus;
 
 export type UpdateProtectionStatusOptions = {
   body: UpdateProtectionStatusBody;
@@ -363464,1545 +364472,6 @@ export type MagicInterconnectsUpdateInterconnectResponses = {
  * @description Union of all possible responses
  */
 export type MagicInterconnectsUpdateInterconnectResponse = MagicInterconnectsUpdateInterconnectStatus200;
-
-export type CatalogSyncsListPath = {
-  accountId: McnAccountId;
-};
-
-export type CatalogSyncsListStatus200 = McnReadAccountCatalogSyncsResponse;
-
-export type CatalogSyncsListStatus400 = McnBadResponse;
-
-export type CatalogSyncsListStatus401 = McnBadResponse;
-
-export type CatalogSyncsListStatus403 = McnBadResponse;
-
-export type CatalogSyncsListStatus404 = McnBadResponse;
-
-export type CatalogSyncsListStatus500 = McnBadResponse;
-
-export type CatalogSyncsListOptions = {
-  body?: never | undefined;
-  path: CatalogSyncsListPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type CatalogSyncsListResponses = {
-  '200': CatalogSyncsListStatus200;
-  '400': CatalogSyncsListStatus400;
-  '401': CatalogSyncsListStatus401;
-  '403': CatalogSyncsListStatus403;
-  '404': CatalogSyncsListStatus404;
-  '500': CatalogSyncsListStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CatalogSyncsListResponse = CatalogSyncsListStatus200;
-
-export type CatalogSyncsCreatePath = {
-  accountId: McnAccountId;
-};
-
-export type CatalogSyncsCreateHeaders = {
-  forwarded?: string | undefined;
-};
-
-export type CatalogSyncsCreateStatus201 = McnCreateCatalogSyncResponse;
-
-export type CatalogSyncsCreateStatus400 = McnBadResponse;
-
-export type CatalogSyncsCreateStatus401 = McnBadResponse;
-
-export type CatalogSyncsCreateStatus403 = McnBadResponse;
-
-export type CatalogSyncsCreateStatus409 = McnBadResponse;
-
-export type CatalogSyncsCreateStatus422 = McnBadResponse;
-
-export type CatalogSyncsCreateStatus500 = McnBadResponse;
-
-export type CatalogSyncsCreateBody = McnCreateCatalogSyncRequest;
-
-export type CatalogSyncsCreateOptions = {
-  body: CatalogSyncsCreateBody;
-  path: CatalogSyncsCreatePath;
-  query?: never | undefined;
-  headers?: CatalogSyncsCreateHeaders | undefined;
-};
-
-export type CatalogSyncsCreateResponses = {
-  '201': CatalogSyncsCreateStatus201;
-  '400': CatalogSyncsCreateStatus400;
-  '401': CatalogSyncsCreateStatus401;
-  '403': CatalogSyncsCreateStatus403;
-  '409': CatalogSyncsCreateStatus409;
-  '422': CatalogSyncsCreateStatus422;
-  '500': CatalogSyncsCreateStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CatalogSyncsCreateResponse = CatalogSyncsCreateStatus201;
-
-export type CatalogSyncsPrebuiltPoliciesListPath = {
-  accountId: McnAccountId;
-};
-
-export type CatalogSyncsPrebuiltPoliciesListQuery = {
-  /**
-   * @description Specify type of destination, omit to return all.
-   * @type string | undefined
-   */
-  destination_type?: McnCatalogSyncDestinationTypeKey | undefined;
-};
-
-export type CatalogSyncsPrebuiltPoliciesListStatus200 = McnCatalogSyncsPrebuiltPoliciesResponse;
-
-export type CatalogSyncsPrebuiltPoliciesListStatus400 = McnBadResponse;
-
-export type CatalogSyncsPrebuiltPoliciesListStatus401 = McnBadResponse;
-
-export type CatalogSyncsPrebuiltPoliciesListStatus403 = McnBadResponse;
-
-export type CatalogSyncsPrebuiltPoliciesListStatus500 = McnBadResponse;
-
-export type CatalogSyncsPrebuiltPoliciesListOptions = {
-  body?: never | undefined;
-  path: CatalogSyncsPrebuiltPoliciesListPath;
-  query?: CatalogSyncsPrebuiltPoliciesListQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type CatalogSyncsPrebuiltPoliciesListResponses = {
-  '200': CatalogSyncsPrebuiltPoliciesListStatus200;
-  '400': CatalogSyncsPrebuiltPoliciesListStatus400;
-  '401': CatalogSyncsPrebuiltPoliciesListStatus401;
-  '403': CatalogSyncsPrebuiltPoliciesListStatus403;
-  '500': CatalogSyncsPrebuiltPoliciesListStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CatalogSyncsPrebuiltPoliciesListResponse = CatalogSyncsPrebuiltPoliciesListStatus200;
-
-export type CatalogSyncsDeletePath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  syncId: McnCatalogSyncId;
-};
-
-export type CatalogSyncsDeleteQuery = {
-  delete_destination?: boolean | undefined;
-};
-
-export type CatalogSyncsDeleteStatus200 = McnDeleteCatalogSyncResponse;
-
-export type CatalogSyncsDeleteStatus400 = McnBadResponse;
-
-export type CatalogSyncsDeleteStatus401 = McnBadResponse;
-
-export type CatalogSyncsDeleteStatus403 = McnBadResponse;
-
-export type CatalogSyncsDeleteStatus404 = McnBadResponse;
-
-export type CatalogSyncsDeleteStatus409 = McnBadResponse;
-
-export type CatalogSyncsDeleteStatus500 = McnBadResponse;
-
-export type CatalogSyncsDeleteOptions = {
-  body?: never | undefined;
-  path: CatalogSyncsDeletePath;
-  query?: CatalogSyncsDeleteQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type CatalogSyncsDeleteResponses = {
-  '200': CatalogSyncsDeleteStatus200;
-  '400': CatalogSyncsDeleteStatus400;
-  '401': CatalogSyncsDeleteStatus401;
-  '403': CatalogSyncsDeleteStatus403;
-  '404': CatalogSyncsDeleteStatus404;
-  '409': CatalogSyncsDeleteStatus409;
-  '500': CatalogSyncsDeleteStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CatalogSyncsDeleteResponse = CatalogSyncsDeleteStatus200;
-
-export type CatalogSyncsReadPath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  syncId: McnCatalogSyncId;
-};
-
-export type CatalogSyncsReadStatus200 = McnReadAccountCatalogSyncResponse;
-
-export type CatalogSyncsReadStatus400 = McnBadResponse;
-
-export type CatalogSyncsReadStatus401 = McnBadResponse;
-
-export type CatalogSyncsReadStatus403 = McnBadResponse;
-
-export type CatalogSyncsReadStatus404 = McnBadResponse;
-
-export type CatalogSyncsReadStatus500 = McnBadResponse;
-
-export type CatalogSyncsReadOptions = {
-  body?: never | undefined;
-  path: CatalogSyncsReadPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type CatalogSyncsReadResponses = {
-  '200': CatalogSyncsReadStatus200;
-  '400': CatalogSyncsReadStatus400;
-  '401': CatalogSyncsReadStatus401;
-  '403': CatalogSyncsReadStatus403;
-  '404': CatalogSyncsReadStatus404;
-  '500': CatalogSyncsReadStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CatalogSyncsReadResponse = CatalogSyncsReadStatus200;
-
-export type CatalogSyncsPatchPath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  syncId: McnCatalogSyncId;
-};
-
-export type CatalogSyncsPatchStatus200 = McnUpdateCatalogSyncResponse;
-
-export type CatalogSyncsPatchStatus400 = McnBadResponse;
-
-export type CatalogSyncsPatchStatus401 = McnBadResponse;
-
-export type CatalogSyncsPatchStatus403 = McnBadResponse;
-
-export type CatalogSyncsPatchStatus404 = McnBadResponse;
-
-export type CatalogSyncsPatchStatus409 = McnBadResponse;
-
-export type CatalogSyncsPatchStatus422 = McnBadResponse;
-
-export type CatalogSyncsPatchStatus500 = McnBadResponse;
-
-export type CatalogSyncsPatchBody = McnUpdateCatalogSyncRequest;
-
-export type CatalogSyncsPatchOptions = {
-  body: CatalogSyncsPatchBody;
-  path: CatalogSyncsPatchPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type CatalogSyncsPatchResponses = {
-  '200': CatalogSyncsPatchStatus200;
-  '400': CatalogSyncsPatchStatus400;
-  '401': CatalogSyncsPatchStatus401;
-  '403': CatalogSyncsPatchStatus403;
-  '404': CatalogSyncsPatchStatus404;
-  '409': CatalogSyncsPatchStatus409;
-  '422': CatalogSyncsPatchStatus422;
-  '500': CatalogSyncsPatchStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CatalogSyncsPatchResponse = CatalogSyncsPatchStatus200;
-
-export type CatalogSyncsUpdatePath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  syncId: McnCatalogSyncId;
-};
-
-export type CatalogSyncsUpdateStatus200 = McnUpdateCatalogSyncResponse;
-
-export type CatalogSyncsUpdateStatus400 = McnBadResponse;
-
-export type CatalogSyncsUpdateStatus401 = McnBadResponse;
-
-export type CatalogSyncsUpdateStatus403 = McnBadResponse;
-
-export type CatalogSyncsUpdateStatus404 = McnBadResponse;
-
-export type CatalogSyncsUpdateStatus409 = McnBadResponse;
-
-export type CatalogSyncsUpdateStatus422 = McnBadResponse;
-
-export type CatalogSyncsUpdateStatus500 = McnBadResponse;
-
-export type CatalogSyncsUpdateBody = McnUpdateCatalogSyncRequest;
-
-export type CatalogSyncsUpdateOptions = {
-  body: CatalogSyncsUpdateBody;
-  path: CatalogSyncsUpdatePath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type CatalogSyncsUpdateResponses = {
-  '200': CatalogSyncsUpdateStatus200;
-  '400': CatalogSyncsUpdateStatus400;
-  '401': CatalogSyncsUpdateStatus401;
-  '403': CatalogSyncsUpdateStatus403;
-  '404': CatalogSyncsUpdateStatus404;
-  '409': CatalogSyncsUpdateStatus409;
-  '422': CatalogSyncsUpdateStatus422;
-  '500': CatalogSyncsUpdateStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CatalogSyncsUpdateResponse = CatalogSyncsUpdateStatus200;
-
-export type CatalogSyncsRefreshPath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  syncId: McnCatalogSyncId;
-};
-
-export type CatalogSyncsRefreshStatus200 = McnRefreshCatalogSyncResponse;
-
-export type CatalogSyncsRefreshStatus400 = McnBadResponse;
-
-export type CatalogSyncsRefreshStatus401 = McnBadResponse;
-
-export type CatalogSyncsRefreshStatus403 = McnBadResponse;
-
-export type CatalogSyncsRefreshStatus404 = McnBadResponse;
-
-export type CatalogSyncsRefreshStatus409 = McnBadResponse;
-
-export type CatalogSyncsRefreshStatus422 = McnBadResponse;
-
-export type CatalogSyncsRefreshStatus500 = McnBadResponse;
-
-export type CatalogSyncsRefreshOptions = {
-  body?: never | undefined;
-  path: CatalogSyncsRefreshPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type CatalogSyncsRefreshResponses = {
-  '200': CatalogSyncsRefreshStatus200;
-  '400': CatalogSyncsRefreshStatus400;
-  '401': CatalogSyncsRefreshStatus401;
-  '403': CatalogSyncsRefreshStatus403;
-  '404': CatalogSyncsRefreshStatus404;
-  '409': CatalogSyncsRefreshStatus409;
-  '422': CatalogSyncsRefreshStatus422;
-  '500': CatalogSyncsRefreshStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CatalogSyncsRefreshResponse = CatalogSyncsRefreshStatus200;
-
-export type OnrampsListPath = {
-  accountId: McnAccountId;
-};
-
-export type OnrampsListQuery = {
-  /**
-   * @description One of ["updated_at", "id", "cloud_type", "name"].
-   * @type string | undefined
-   */
-  order_by?: string | undefined;
-  desc?: boolean | undefined;
-  status?: boolean | undefined;
-  vpcs?: boolean | undefined;
-};
-
-export type OnrampsListStatus200 = McnListOnrampsResponse;
-
-export type OnrampsListStatus400 = McnBadResponse;
-
-export type OnrampsListStatus401 = McnBadResponse;
-
-export type OnrampsListStatus403 = McnBadResponse;
-
-export type OnrampsListStatus500 = McnBadResponse;
-
-export type OnrampsListOptions = {
-  body?: never | undefined;
-  path: OnrampsListPath;
-  query?: OnrampsListQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type OnrampsListResponses = {
-  '200': OnrampsListStatus200;
-  '400': OnrampsListStatus400;
-  '401': OnrampsListStatus401;
-  '403': OnrampsListStatus403;
-  '500': OnrampsListStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type OnrampsListResponse = OnrampsListStatus200;
-
-export type OnrampsCreatePath = {
-  accountId: McnAccountId;
-};
-
-export type OnrampsCreateHeaders = {
-  forwarded?: string | undefined;
-};
-
-export type OnrampsCreateStatus201 = McnCreateOnrampResponse;
-
-export type OnrampsCreateStatus400 = McnBadResponse;
-
-export type OnrampsCreateStatus401 = McnBadResponse;
-
-export type OnrampsCreateStatus403 = McnBadResponse;
-
-export type OnrampsCreateStatus409 = McnBadResponse;
-
-export type OnrampsCreateStatus422 = McnBadResponse;
-
-export type OnrampsCreateStatus500 = McnBadResponse;
-
-export type OnrampsCreateBody = McnCreateOnrampRequest;
-
-export type OnrampsCreateOptions = {
-  body: OnrampsCreateBody;
-  path: OnrampsCreatePath;
-  query?: never | undefined;
-  headers?: OnrampsCreateHeaders | undefined;
-};
-
-export type OnrampsCreateResponses = {
-  '201': OnrampsCreateStatus201;
-  '400': OnrampsCreateStatus400;
-  '401': OnrampsCreateStatus401;
-  '403': OnrampsCreateStatus403;
-  '409': OnrampsCreateStatus409;
-  '422': OnrampsCreateStatus422;
-  '500': OnrampsCreateStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type OnrampsCreateResponse = OnrampsCreateStatus201;
-
-export type OnrampsMwanAddrSpaceReadPath = {
-  accountId: McnAccountId;
-};
-
-export type OnrampsMwanAddrSpaceReadStatus200 = McnGetMagicWanAddressSpaceResponse;
-
-export type OnrampsMwanAddrSpaceReadStatus400 = McnBadResponse;
-
-export type OnrampsMwanAddrSpaceReadStatus401 = McnBadResponse;
-
-export type OnrampsMwanAddrSpaceReadStatus403 = McnBadResponse;
-
-export type OnrampsMwanAddrSpaceReadStatus404 = McnBadResponse;
-
-export type OnrampsMwanAddrSpaceReadStatus500 = McnBadResponse;
-
-export type OnrampsMwanAddrSpaceReadOptions = {
-  body?: never | undefined;
-  path: OnrampsMwanAddrSpaceReadPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type OnrampsMwanAddrSpaceReadResponses = {
-  '200': OnrampsMwanAddrSpaceReadStatus200;
-  '400': OnrampsMwanAddrSpaceReadStatus400;
-  '401': OnrampsMwanAddrSpaceReadStatus401;
-  '403': OnrampsMwanAddrSpaceReadStatus403;
-  '404': OnrampsMwanAddrSpaceReadStatus404;
-  '500': OnrampsMwanAddrSpaceReadStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type OnrampsMwanAddrSpaceReadResponse = OnrampsMwanAddrSpaceReadStatus200;
-
-export type OnrampsMwanAddrSpacePatchPath = {
-  accountId: McnAccountId;
-};
-
-export type OnrampsMwanAddrSpacePatchStatus200 = McnUpdateMagicWanAddressSpaceResponse;
-
-export type OnrampsMwanAddrSpacePatchStatus400 = McnBadResponse;
-
-export type OnrampsMwanAddrSpacePatchStatus401 = McnBadResponse;
-
-export type OnrampsMwanAddrSpacePatchStatus403 = McnBadResponse;
-
-export type OnrampsMwanAddrSpacePatchStatus404 = McnBadResponse;
-
-export type OnrampsMwanAddrSpacePatchStatus422 = McnBadResponse;
-
-export type OnrampsMwanAddrSpacePatchStatus500 = McnBadResponse;
-
-export type OnrampsMwanAddrSpacePatchBody = McnUpdateMagicWanAddressSpaceRequest;
-
-export type OnrampsMwanAddrSpacePatchOptions = {
-  body: OnrampsMwanAddrSpacePatchBody;
-  path: OnrampsMwanAddrSpacePatchPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type OnrampsMwanAddrSpacePatchResponses = {
-  '200': OnrampsMwanAddrSpacePatchStatus200;
-  '400': OnrampsMwanAddrSpacePatchStatus400;
-  '401': OnrampsMwanAddrSpacePatchStatus401;
-  '403': OnrampsMwanAddrSpacePatchStatus403;
-  '404': OnrampsMwanAddrSpacePatchStatus404;
-  '422': OnrampsMwanAddrSpacePatchStatus422;
-  '500': OnrampsMwanAddrSpacePatchStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type OnrampsMwanAddrSpacePatchResponse = OnrampsMwanAddrSpacePatchStatus200;
-
-export type OnrampsMwanAddrSpaceUpdatePath = {
-  accountId: McnAccountId;
-};
-
-export type OnrampsMwanAddrSpaceUpdateStatus200 = McnUpdateMagicWanAddressSpaceResponse;
-
-export type OnrampsMwanAddrSpaceUpdateStatus400 = McnBadResponse;
-
-export type OnrampsMwanAddrSpaceUpdateStatus401 = McnBadResponse;
-
-export type OnrampsMwanAddrSpaceUpdateStatus403 = McnBadResponse;
-
-export type OnrampsMwanAddrSpaceUpdateStatus404 = McnBadResponse;
-
-export type OnrampsMwanAddrSpaceUpdateStatus422 = McnBadResponse;
-
-export type OnrampsMwanAddrSpaceUpdateStatus500 = McnBadResponse;
-
-export type OnrampsMwanAddrSpaceUpdateBody = McnUpdateMagicWanAddressSpaceRequest;
-
-export type OnrampsMwanAddrSpaceUpdateOptions = {
-  body: OnrampsMwanAddrSpaceUpdateBody;
-  path: OnrampsMwanAddrSpaceUpdatePath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type OnrampsMwanAddrSpaceUpdateResponses = {
-  '200': OnrampsMwanAddrSpaceUpdateStatus200;
-  '400': OnrampsMwanAddrSpaceUpdateStatus400;
-  '401': OnrampsMwanAddrSpaceUpdateStatus401;
-  '403': OnrampsMwanAddrSpaceUpdateStatus403;
-  '404': OnrampsMwanAddrSpaceUpdateStatus404;
-  '422': OnrampsMwanAddrSpaceUpdateStatus422;
-  '500': OnrampsMwanAddrSpaceUpdateStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type OnrampsMwanAddrSpaceUpdateResponse = OnrampsMwanAddrSpaceUpdateStatus200;
-
-export type OnrampsDeletePath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  onrampId: McnOnrampId;
-};
-
-export type OnrampsDeleteQuery = {
-  destroy?: boolean | undefined;
-  force?: boolean | undefined;
-};
-
-export type OnrampsDeleteStatus200 = McnDeleteOnrampResponse;
-
-export type OnrampsDeleteStatus400 = McnBadResponse;
-
-export type OnrampsDeleteStatus401 = McnBadResponse;
-
-export type OnrampsDeleteStatus403 = McnBadResponse;
-
-export type OnrampsDeleteStatus404 = McnBadResponse;
-
-export type OnrampsDeleteStatus409 = McnBadResponse;
-
-export type OnrampsDeleteStatus500 = McnBadResponse;
-
-export type OnrampsDeleteOptions = {
-  body?: never | undefined;
-  path: OnrampsDeletePath;
-  query?: OnrampsDeleteQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type OnrampsDeleteResponses = {
-  '200': OnrampsDeleteStatus200;
-  '400': OnrampsDeleteStatus400;
-  '401': OnrampsDeleteStatus401;
-  '403': OnrampsDeleteStatus403;
-  '404': OnrampsDeleteStatus404;
-  '409': OnrampsDeleteStatus409;
-  '500': OnrampsDeleteStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type OnrampsDeleteResponse = OnrampsDeleteStatus200;
-
-export type OnrampsReadPath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  onrampId: McnOnrampId;
-};
-
-export type OnrampsReadQuery = {
-  status?: boolean | undefined;
-  vpcs?: boolean | undefined;
-  post_apply_resources?: boolean | undefined;
-  planned_resources?: boolean | undefined;
-};
-
-export type OnrampsReadStatus200 = McnGetOnrampResponse;
-
-export type OnrampsReadStatus400 = McnBadResponse;
-
-export type OnrampsReadStatus401 = McnBadResponse;
-
-export type OnrampsReadStatus403 = McnBadResponse;
-
-export type OnrampsReadStatus404 = McnBadResponse;
-
-export type OnrampsReadStatus500 = McnBadResponse;
-
-export type OnrampsReadOptions = {
-  body?: never | undefined;
-  path: OnrampsReadPath;
-  query?: OnrampsReadQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type OnrampsReadResponses = {
-  '200': OnrampsReadStatus200;
-  '400': OnrampsReadStatus400;
-  '401': OnrampsReadStatus401;
-  '403': OnrampsReadStatus403;
-  '404': OnrampsReadStatus404;
-  '500': OnrampsReadStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type OnrampsReadResponse = OnrampsReadStatus200;
-
-export type OnrampsPatchPath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  onrampId: McnOnrampId;
-};
-
-export type OnrampsPatchStatus200 = McnUpdateOnrampResponse;
-
-export type OnrampsPatchStatus400 = McnBadResponse;
-
-export type OnrampsPatchStatus401 = McnBadResponse;
-
-export type OnrampsPatchStatus403 = McnBadResponse;
-
-export type OnrampsPatchStatus404 = McnBadResponse;
-
-export type OnrampsPatchStatus409 = McnBadResponse;
-
-export type OnrampsPatchStatus422 = McnBadResponse;
-
-export type OnrampsPatchStatus500 = McnBadResponse;
-
-export type OnrampsPatchBody = McnUpdateOnrampRequest;
-
-export type OnrampsPatchOptions = {
-  body: OnrampsPatchBody;
-  path: OnrampsPatchPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type OnrampsPatchResponses = {
-  '200': OnrampsPatchStatus200;
-  '400': OnrampsPatchStatus400;
-  '401': OnrampsPatchStatus401;
-  '403': OnrampsPatchStatus403;
-  '404': OnrampsPatchStatus404;
-  '409': OnrampsPatchStatus409;
-  '422': OnrampsPatchStatus422;
-  '500': OnrampsPatchStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type OnrampsPatchResponse = OnrampsPatchStatus200;
-
-export type OnrampsUpdatePath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  onrampId: McnOnrampId;
-};
-
-export type OnrampsUpdateStatus200 = McnUpdateOnrampResponse;
-
-export type OnrampsUpdateStatus400 = McnBadResponse;
-
-export type OnrampsUpdateStatus401 = McnBadResponse;
-
-export type OnrampsUpdateStatus403 = McnBadResponse;
-
-export type OnrampsUpdateStatus404 = McnBadResponse;
-
-export type OnrampsUpdateStatus409 = McnBadResponse;
-
-export type OnrampsUpdateStatus422 = McnBadResponse;
-
-export type OnrampsUpdateStatus500 = McnBadResponse;
-
-export type OnrampsUpdateBody = McnUpdateOnrampRequest;
-
-export type OnrampsUpdateOptions = {
-  body: OnrampsUpdateBody;
-  path: OnrampsUpdatePath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type OnrampsUpdateResponses = {
-  '200': OnrampsUpdateStatus200;
-  '400': OnrampsUpdateStatus400;
-  '401': OnrampsUpdateStatus401;
-  '403': OnrampsUpdateStatus403;
-  '404': OnrampsUpdateStatus404;
-  '409': OnrampsUpdateStatus409;
-  '422': OnrampsUpdateStatus422;
-  '500': OnrampsUpdateStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type OnrampsUpdateResponse = OnrampsUpdateStatus200;
-
-export type OnrampsApplyPath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  onrampId: McnOnrampId;
-};
-
-export type OnrampsApplyStatus202 = McnGoodResponse;
-
-export type OnrampsApplyStatus400 = McnBadResponse;
-
-export type OnrampsApplyStatus401 = McnBadResponse;
-
-export type OnrampsApplyStatus403 = McnBadResponse;
-
-export type OnrampsApplyStatus404 = McnBadResponse;
-
-export type OnrampsApplyStatus409 = McnBadResponse;
-
-export type OnrampsApplyStatus500 = McnBadResponse;
-
-export type OnrampsApplyOptions = {
-  body?: never | undefined;
-  path: OnrampsApplyPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type OnrampsApplyResponses = {
-  '202': OnrampsApplyStatus202;
-  '400': OnrampsApplyStatus400;
-  '401': OnrampsApplyStatus401;
-  '403': OnrampsApplyStatus403;
-  '404': OnrampsApplyStatus404;
-  '409': OnrampsApplyStatus409;
-  '500': OnrampsApplyStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type OnrampsApplyResponse = OnrampsApplyStatus202;
-
-export type OnrampsExportPath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  onrampId: McnOnrampId;
-};
-
-export type OnrampsExportStatus201 = unknown;
-
-export type OnrampsExportStatus400 = McnBadResponse;
-
-export type OnrampsExportStatus401 = McnBadResponse;
-
-export type OnrampsExportStatus403 = McnBadResponse;
-
-export type OnrampsExportStatus404 = McnBadResponse;
-
-export type OnrampsExportStatus409 = McnBadResponse;
-
-export type OnrampsExportStatus500 = McnBadResponse;
-
-export type OnrampsExportOptions = {
-  body?: never | undefined;
-  path: OnrampsExportPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type OnrampsExportResponses = {
-  '201': OnrampsExportStatus201;
-  '400': OnrampsExportStatus400;
-  '401': OnrampsExportStatus401;
-  '403': OnrampsExportStatus403;
-  '404': OnrampsExportStatus404;
-  '409': OnrampsExportStatus409;
-  '500': OnrampsExportStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type OnrampsExportResponse = OnrampsExportStatus201;
-
-export type OnrampsPlanPath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  onrampId: McnOnrampId;
-};
-
-export type OnrampsPlanStatus202 = McnGoodResponse;
-
-export type OnrampsPlanStatus400 = McnBadResponse;
-
-export type OnrampsPlanStatus401 = McnBadResponse;
-
-export type OnrampsPlanStatus403 = McnBadResponse;
-
-export type OnrampsPlanStatus404 = McnBadResponse;
-
-export type OnrampsPlanStatus409 = McnBadResponse;
-
-export type OnrampsPlanStatus500 = McnBadResponse;
-
-export type OnrampsPlanOptions = {
-  body?: never | undefined;
-  path: OnrampsPlanPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type OnrampsPlanResponses = {
-  '202': OnrampsPlanStatus202;
-  '400': OnrampsPlanStatus400;
-  '401': OnrampsPlanStatus401;
-  '403': OnrampsPlanStatus403;
-  '404': OnrampsPlanStatus404;
-  '409': OnrampsPlanStatus409;
-  '500': OnrampsPlanStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type OnrampsPlanResponse = OnrampsPlanStatus202;
-
-export type ProvidersListPath = {
-  accountId: McnAccountId;
-};
-
-export type ProvidersListQuery = {
-  status?: boolean | undefined;
-  /**
-   * @description One of ["updated_at", "id", "cloud_type", "name"].
-   * @type string | undefined
-   */
-  order_by?: string | undefined;
-  desc?: boolean | undefined;
-  cloudflare?: boolean | undefined;
-};
-
-export type ProvidersListStatus200 = McnReadAccountProvidersResponse;
-
-export type ProvidersListStatus400 = McnBadResponse;
-
-export type ProvidersListStatus401 = McnBadResponse;
-
-export type ProvidersListStatus403 = McnBadResponse;
-
-export type ProvidersListStatus500 = McnBadResponse;
-
-export type ProvidersListOptions = {
-  body?: never | undefined;
-  path: ProvidersListPath;
-  query?: ProvidersListQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type ProvidersListResponses = {
-  '200': ProvidersListStatus200;
-  '400': ProvidersListStatus400;
-  '401': ProvidersListStatus401;
-  '403': ProvidersListStatus403;
-  '500': ProvidersListStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ProvidersListResponse = ProvidersListStatus200;
-
-export type ProvidersCreatePath = {
-  accountId: McnAccountId;
-};
-
-export type ProvidersCreateHeaders = {
-  forwarded?: string | undefined;
-};
-
-export type ProvidersCreateStatus201 = McnCreateProviderResponse;
-
-export type ProvidersCreateStatus400 = McnBadResponse;
-
-export type ProvidersCreateStatus401 = McnBadResponse;
-
-export type ProvidersCreateStatus403 = McnBadResponse;
-
-export type ProvidersCreateStatus409 = McnBadResponse;
-
-export type ProvidersCreateStatus422 = McnBadResponse;
-
-export type ProvidersCreateStatus500 = McnBadResponse;
-
-export type ProvidersCreateBody = McnCreateProviderRequest;
-
-export type ProvidersCreateOptions = {
-  body: ProvidersCreateBody;
-  path: ProvidersCreatePath;
-  query?: never | undefined;
-  headers?: ProvidersCreateHeaders | undefined;
-};
-
-export type ProvidersCreateResponses = {
-  '201': ProvidersCreateStatus201;
-  '400': ProvidersCreateStatus400;
-  '401': ProvidersCreateStatus401;
-  '403': ProvidersCreateStatus403;
-  '409': ProvidersCreateStatus409;
-  '422': ProvidersCreateStatus422;
-  '500': ProvidersCreateStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ProvidersCreateResponse = ProvidersCreateStatus201;
-
-export type ProvidersDiscoverAllPath = {
-  accountId: McnAccountId;
-};
-
-export type ProvidersDiscoverAllStatus202 = McnGoodResponse;
-
-export type ProvidersDiscoverAllStatus400 = McnBadResponse;
-
-export type ProvidersDiscoverAllStatus401 = McnBadResponse;
-
-export type ProvidersDiscoverAllStatus403 = McnBadResponse;
-
-export type ProvidersDiscoverAllStatus409 = McnBadResponse;
-
-export type ProvidersDiscoverAllStatus500 = McnBadResponse;
-
-export type ProvidersDiscoverAllOptions = {
-  body?: never | undefined;
-  path: ProvidersDiscoverAllPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type ProvidersDiscoverAllResponses = {
-  '202': ProvidersDiscoverAllStatus202;
-  '400': ProvidersDiscoverAllStatus400;
-  '401': ProvidersDiscoverAllStatus401;
-  '403': ProvidersDiscoverAllStatus403;
-  '409': ProvidersDiscoverAllStatus409;
-  '500': ProvidersDiscoverAllStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ProvidersDiscoverAllResponse = ProvidersDiscoverAllStatus202;
-
-export type ProvidersDeletePath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  providerId: McnProviderId;
-};
-
-export type ProvidersDeleteStatus200 = McnDeleteProviderResponse;
-
-export type ProvidersDeleteStatus400 = McnBadResponse;
-
-export type ProvidersDeleteStatus401 = McnBadResponse;
-
-export type ProvidersDeleteStatus403 = McnBadResponse;
-
-export type ProvidersDeleteStatus404 = McnBadResponse;
-
-export type ProvidersDeleteStatus500 = McnBadResponse;
-
-export type ProvidersDeleteOptions = {
-  body?: never | undefined;
-  path: ProvidersDeletePath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type ProvidersDeleteResponses = {
-  '200': ProvidersDeleteStatus200;
-  '400': ProvidersDeleteStatus400;
-  '401': ProvidersDeleteStatus401;
-  '403': ProvidersDeleteStatus403;
-  '404': ProvidersDeleteStatus404;
-  '500': ProvidersDeleteStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ProvidersDeleteResponse = ProvidersDeleteStatus200;
-
-export type ProvidersReadPath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  providerId: McnProviderId;
-};
-
-export type ProvidersReadQuery = {
-  status?: boolean | undefined;
-};
-
-export type ProvidersReadStatus200 = McnReadAccountProviderResponse;
-
-export type ProvidersReadStatus400 = McnBadResponse;
-
-export type ProvidersReadStatus401 = McnBadResponse;
-
-export type ProvidersReadStatus403 = McnBadResponse;
-
-export type ProvidersReadStatus404 = McnBadResponse;
-
-export type ProvidersReadStatus500 = McnBadResponse;
-
-export type ProvidersReadOptions = {
-  body?: never | undefined;
-  path: ProvidersReadPath;
-  query?: ProvidersReadQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type ProvidersReadResponses = {
-  '200': ProvidersReadStatus200;
-  '400': ProvidersReadStatus400;
-  '401': ProvidersReadStatus401;
-  '403': ProvidersReadStatus403;
-  '404': ProvidersReadStatus404;
-  '500': ProvidersReadStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ProvidersReadResponse = ProvidersReadStatus200;
-
-export type ProvidersPatchPath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  providerId: McnProviderId;
-};
-
-export type ProvidersPatchStatus200 = McnUpdateProviderResponse;
-
-export type ProvidersPatchStatus400 = McnBadResponse;
-
-export type ProvidersPatchStatus401 = McnBadResponse;
-
-export type ProvidersPatchStatus403 = McnBadResponse;
-
-export type ProvidersPatchStatus404 = McnBadResponse;
-
-export type ProvidersPatchStatus409 = McnBadResponse;
-
-export type ProvidersPatchStatus422 = McnBadResponse;
-
-export type ProvidersPatchStatus500 = McnBadResponse;
-
-export type ProvidersPatchBody = McnUpdateProviderRequest;
-
-export type ProvidersPatchOptions = {
-  body: ProvidersPatchBody;
-  path: ProvidersPatchPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type ProvidersPatchResponses = {
-  '200': ProvidersPatchStatus200;
-  '400': ProvidersPatchStatus400;
-  '401': ProvidersPatchStatus401;
-  '403': ProvidersPatchStatus403;
-  '404': ProvidersPatchStatus404;
-  '409': ProvidersPatchStatus409;
-  '422': ProvidersPatchStatus422;
-  '500': ProvidersPatchStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ProvidersPatchResponse = ProvidersPatchStatus200;
-
-export type ProvidersUpdatePath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  providerId: McnProviderId;
-};
-
-export type ProvidersUpdateStatus200 = McnUpdateProviderResponse;
-
-export type ProvidersUpdateStatus400 = McnBadResponse;
-
-export type ProvidersUpdateStatus401 = McnBadResponse;
-
-export type ProvidersUpdateStatus403 = McnBadResponse;
-
-export type ProvidersUpdateStatus404 = McnBadResponse;
-
-export type ProvidersUpdateStatus409 = McnBadResponse;
-
-export type ProvidersUpdateStatus422 = McnBadResponse;
-
-export type ProvidersUpdateStatus500 = McnBadResponse;
-
-export type ProvidersUpdateBody = McnUpdateProviderRequest;
-
-export type ProvidersUpdateOptions = {
-  body: ProvidersUpdateBody;
-  path: ProvidersUpdatePath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type ProvidersUpdateResponses = {
-  '200': ProvidersUpdateStatus200;
-  '400': ProvidersUpdateStatus400;
-  '401': ProvidersUpdateStatus401;
-  '403': ProvidersUpdateStatus403;
-  '404': ProvidersUpdateStatus404;
-  '409': ProvidersUpdateStatus409;
-  '422': ProvidersUpdateStatus422;
-  '500': ProvidersUpdateStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ProvidersUpdateResponse = ProvidersUpdateStatus200;
-
-export type ProvidersDiscoverPath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  providerId: McnProviderId;
-};
-
-export type ProvidersDiscoverQuery = {
-  v2?: boolean | undefined;
-};
-
-export type ProvidersDiscoverStatus202 = McnGoodResponse;
-
-export type ProvidersDiscoverStatus400 = McnBadResponse;
-
-export type ProvidersDiscoverStatus401 = McnBadResponse;
-
-export type ProvidersDiscoverStatus403 = McnBadResponse;
-
-export type ProvidersDiscoverStatus404 = McnBadResponse;
-
-export type ProvidersDiscoverStatus409 = McnBadResponse;
-
-export type ProvidersDiscoverStatus500 = McnBadResponse;
-
-export type ProvidersDiscoverOptions = {
-  body?: never | undefined;
-  path: ProvidersDiscoverPath;
-  query?: ProvidersDiscoverQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type ProvidersDiscoverResponses = {
-  '202': ProvidersDiscoverStatus202;
-  '400': ProvidersDiscoverStatus400;
-  '401': ProvidersDiscoverStatus401;
-  '403': ProvidersDiscoverStatus403;
-  '404': ProvidersDiscoverStatus404;
-  '409': ProvidersDiscoverStatus409;
-  '500': ProvidersDiscoverStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ProvidersDiscoverResponse = ProvidersDiscoverStatus202;
-
-export type ProvidersInitialSetupPath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  providerId: McnProviderId;
-};
-
-export type ProvidersInitialSetupStatus200 = McnProviderInitialSetupResponse;
-
-export type ProvidersInitialSetupStatus400 = McnBadResponse;
-
-export type ProvidersInitialSetupStatus401 = McnBadResponse;
-
-export type ProvidersInitialSetupStatus403 = McnBadResponse;
-
-export type ProvidersInitialSetupStatus404 = McnBadResponse;
-
-export type ProvidersInitialSetupStatus500 = McnBadResponse;
-
-export type ProvidersInitialSetupOptions = {
-  body?: never | undefined;
-  path: ProvidersInitialSetupPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type ProvidersInitialSetupResponses = {
-  '200': ProvidersInitialSetupStatus200;
-  '400': ProvidersInitialSetupStatus400;
-  '401': ProvidersInitialSetupStatus401;
-  '403': ProvidersInitialSetupStatus403;
-  '404': ProvidersInitialSetupStatus404;
-  '500': ProvidersInitialSetupStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ProvidersInitialSetupResponse = ProvidersInitialSetupStatus200;
-
-export type ResourcesCatalogListPath = {
-  accountId: McnAccountId;
-};
-
-export type ResourcesCatalogListQuery = {
-  provider_id?: string | undefined;
-  resource_type?: McnResourceTypeKey[] | undefined;
-  resource_id?: McnResourceId[] | undefined;
-  region?: string | undefined;
-  resource_group?: string | undefined;
-  managed?: boolean | undefined;
-  search?: string[] | undefined;
-  /**
-   * @description One of ["id", "resource_type", "region"].
-   * @type string | undefined
-   */
-  order_by?: string | undefined;
-  desc?: boolean | undefined;
-  /**
-   * @minLength 1
-   * @type integer | undefined
-   */
-  per_page?: number | undefined;
-  /**
-   * @minLength 1
-   * @type integer | undefined
-   */
-  page?: number | undefined;
-  cloudflare?: boolean | undefined;
-  v2?: boolean | undefined;
-};
-
-export type ResourcesCatalogListStatus200 = McnReadAccountResourcesResponse;
-
-export type ResourcesCatalogListStatus400 = McnBadResponse;
-
-export type ResourcesCatalogListStatus401 = McnBadResponse;
-
-export type ResourcesCatalogListStatus403 = McnBadResponse;
-
-export type ResourcesCatalogListStatus404 = McnBadResponse;
-
-export type ResourcesCatalogListStatus500 = McnBadResponse;
-
-export type ResourcesCatalogListOptions = {
-  body?: never | undefined;
-  path: ResourcesCatalogListPath;
-  query?: ResourcesCatalogListQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type ResourcesCatalogListResponses = {
-  '200': ResourcesCatalogListStatus200;
-  '400': ResourcesCatalogListStatus400;
-  '401': ResourcesCatalogListStatus401;
-  '403': ResourcesCatalogListStatus403;
-  '404': ResourcesCatalogListStatus404;
-  '500': ResourcesCatalogListStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ResourcesCatalogListResponse = ResourcesCatalogListStatus200;
-
-export type ResourcesCatalogExportPath = {
-  accountId: McnAccountId;
-};
-
-export type ResourcesCatalogExportQuery = {
-  provider_id?: string | undefined;
-  resource_type?: McnResourceTypeKey[] | undefined;
-  resource_id?: McnResourceId[] | undefined;
-  region?: string | undefined;
-  resource_group?: string | undefined;
-  search?: string[] | undefined;
-  /**
-   * @description One of ["id", "resource_type", "region"].
-   * @type string | undefined
-   */
-  order_by?: string | undefined;
-  desc?: boolean | undefined;
-  v2?: boolean | undefined;
-};
-
-export type ResourcesCatalogExportStatus200 = unknown;
-
-export type ResourcesCatalogExportStatus400 = McnBadResponse;
-
-export type ResourcesCatalogExportStatus401 = McnBadResponse;
-
-export type ResourcesCatalogExportStatus403 = McnBadResponse;
-
-export type ResourcesCatalogExportStatus404 = McnBadResponse;
-
-export type ResourcesCatalogExportStatus500 = McnBadResponse;
-
-export type ResourcesCatalogExportOptions = {
-  body?: never | undefined;
-  path: ResourcesCatalogExportPath;
-  query?: ResourcesCatalogExportQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type ResourcesCatalogExportResponses = {
-  '200': ResourcesCatalogExportStatus200;
-  '400': ResourcesCatalogExportStatus400;
-  '401': ResourcesCatalogExportStatus401;
-  '403': ResourcesCatalogExportStatus403;
-  '404': ResourcesCatalogExportStatus404;
-  '500': ResourcesCatalogExportStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ResourcesCatalogExportResponse = ResourcesCatalogExportStatus200;
-
-export type ResourcesCatalogPolicyPreviewPath = {
-  accountId: McnAccountId;
-};
-
-export type ResourcesCatalogPolicyPreviewStatus200 = McnResourcesCatalogPolicyPreviewResponse;
-
-export type ResourcesCatalogPolicyPreviewStatus400 = McnBadResponse;
-
-export type ResourcesCatalogPolicyPreviewStatus401 = McnBadResponse;
-
-export type ResourcesCatalogPolicyPreviewStatus403 = McnBadResponse;
-
-export type ResourcesCatalogPolicyPreviewStatus422 = McnBadResponse;
-
-export type ResourcesCatalogPolicyPreviewStatus500 = McnBadResponse;
-
-export type ResourcesCatalogPolicyPreviewBody = McnResourcesCatalogPolicyPreviewRequest;
-
-export type ResourcesCatalogPolicyPreviewOptions = {
-  body: ResourcesCatalogPolicyPreviewBody;
-  path: ResourcesCatalogPolicyPreviewPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type ResourcesCatalogPolicyPreviewResponses = {
-  '200': ResourcesCatalogPolicyPreviewStatus200;
-  '400': ResourcesCatalogPolicyPreviewStatus400;
-  '401': ResourcesCatalogPolicyPreviewStatus401;
-  '403': ResourcesCatalogPolicyPreviewStatus403;
-  '422': ResourcesCatalogPolicyPreviewStatus422;
-  '500': ResourcesCatalogPolicyPreviewStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ResourcesCatalogPolicyPreviewResponse = ResourcesCatalogPolicyPreviewStatus200;
-
-export type ResourcesCatalogReadPath = {
-  accountId: McnAccountId;
-  /**
-   * @description
-   * Format: `uuid`
-   * @type string
-   */
-  resourceId: McnResourceId;
-};
-
-export type ResourcesCatalogReadQuery = {
-  v2?: boolean | undefined;
-};
-
-export type ResourcesCatalogReadStatus200 = McnReadAccountResourceResponse;
-
-export type ResourcesCatalogReadStatus400 = McnBadResponse;
-
-export type ResourcesCatalogReadStatus401 = McnBadResponse;
-
-export type ResourcesCatalogReadStatus403 = McnBadResponse;
-
-export type ResourcesCatalogReadStatus404 = McnBadResponse;
-
-export type ResourcesCatalogReadStatus500 = McnBadResponse;
-
-export type ResourcesCatalogReadOptions = {
-  body?: never | undefined;
-  path: ResourcesCatalogReadPath;
-  query?: ResourcesCatalogReadQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type ResourcesCatalogReadResponses = {
-  '200': ResourcesCatalogReadStatus200;
-  '400': ResourcesCatalogReadStatus400;
-  '401': ResourcesCatalogReadStatus401;
-  '403': ResourcesCatalogReadStatus403;
-  '404': ResourcesCatalogReadStatus404;
-  '500': ResourcesCatalogReadStatus500;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ResourcesCatalogReadResponse = ResourcesCatalogReadStatus200;
 
 export type MconnConnectorsListPath = {
   /**
@@ -374139,7 +373608,7 @@ export type MagicPcapCollectionDownloadSimplePcapPath = {
   readonly accountId: MagicVisibilityPcapsIdentifier;
 };
 
-export type MagicPcapCollectionDownloadSimplePcapStatus200 = unknown;
+export type MagicPcapCollectionDownloadSimplePcapStatus200 = Blob;
 
 export type MagicPcapCollectionDownloadSimplePcapStatus400 = MagicVisibilityPcapsApiResponseCommonFailure;
 
@@ -381399,6 +380868,8 @@ export type GetAppsStatus200 = {
   success?: boolean | undefined;
 };
 
+export type GetAppsStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetAppsOptions = {
   body?: never | undefined;
   path: GetAppsPath;
@@ -381408,6 +380879,7 @@ export type GetAppsOptions = {
 
 export type GetAppsResponses = {
   '200': GetAppsStatus200;
+  '400': GetAppsStatus400;
 };
 
 /**
@@ -381446,6 +380918,8 @@ export type CreateAppStatus200 = {
   success?: boolean | undefined;
 };
 
+export type CreateAppStatus400 = RealtimekitGenericErrorResponse;
+
 export type CreateAppBody = {
   /**
    * @minLength 1
@@ -381463,6 +380937,7 @@ export type CreateAppOptions = {
 
 export type CreateAppResponses = {
   '200': CreateAppStatus200;
+  '400': CreateAppStatus400;
 };
 
 /**
@@ -381505,6 +380980,8 @@ export type GetAppStatus200 = {
   success?: boolean | undefined;
 };
 
+export type GetAppStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetAppOptions = {
   body?: never | undefined;
   path: GetAppPath;
@@ -381514,12 +380991,85 @@ export type GetAppOptions = {
 
 export type GetAppResponses = {
   '200': GetAppStatus200;
+  '400': GetAppStatus400;
 };
 
 /**
  * @description Union of all possible responses
  */
 export type GetAppResponse = GetAppStatus200;
+
+export type UpdateAppPath = {
+  /**
+   * @description The account identifier tag.
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: RealtimekitAccountIdentifier;
+  /**
+   * @description
+   * Format: `uuid`
+   * @type string
+   */
+  appId: string;
+};
+
+export type UpdateAppStatus200 = {
+  data: {
+    cf_account_tag?: (string | null) | undefined;
+    /**
+     * @description
+     * Format: `date-time`
+     * @type string | undefined
+     */
+    created_at?: string | undefined;
+    /**
+     * @description
+     * Format: `uuid`
+     * @type string | undefined
+     */
+    id?: string | undefined;
+    is_org_on_kv?: boolean | undefined;
+    name?: (string | null) | undefined;
+  };
+  success: true;
+};
+
+export type UpdateAppStatus400 = RealtimekitErrorResponse;
+
+export type UpdateAppStatus401 = RealtimekitErrorResponse;
+
+export type UpdateAppStatus404 = RealtimekitErrorResponse;
+
+export type UpdateAppBody = {
+  /**
+   * @description The app name. Leading and trailing whitespace is removed, and the name must contain at least one non-whitespace character.
+   * @maxLength 150
+   * @pattern \S
+   * @type string
+   */
+  name: string;
+};
+
+export type UpdateAppOptions = {
+  body: UpdateAppBody;
+  path: UpdateAppPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type UpdateAppResponses = {
+  '200': UpdateAppStatus200;
+  '400': UpdateAppStatus400;
+  '401': UpdateAppStatus401;
+  '404': UpdateAppStatus404;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateAppResponse = UpdateAppStatus200;
 
 export type GetOrgAnalyticsPath = {
   /**
@@ -381624,6 +381174,8 @@ export type GetOrgAnalyticsStatus200 = {
   success?: boolean | undefined;
 };
 
+export type GetOrgAnalyticsStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetOrgAnalyticsOptions = {
   body?: never | undefined;
   path: GetOrgAnalyticsPath;
@@ -381633,6 +381185,7 @@ export type GetOrgAnalyticsOptions = {
 
 export type GetOrgAnalyticsResponses = {
   '200': GetOrgAnalyticsStatus200;
+  '400': GetOrgAnalyticsStatus400;
 };
 
 /**
@@ -381692,17 +381245,19 @@ export type GetLivestreamAnalyticsDaywiseStatus200 = {
     date?: (string | null) | undefined;
     /**
      * @description Total time duration for which the input was given or the meeting was streamed.
-     * @type integer | undefined
+     * @type number | undefined
      */
     total_ingest_seconds?: number | undefined;
     /**
      * @description Total view time for which the viewers watched the stream.
-     * @type integer | undefined
+     * @type number | undefined
      */
     total_viewer_seconds?: number | undefined;
   }[] | undefined;
   success?: boolean | undefined;
 };
+
+export type GetLivestreamAnalyticsDaywiseStatus400 = RealtimekitGenericErrorResponse;
 
 export type GetLivestreamAnalyticsDaywiseOptions = {
   body?: never | undefined;
@@ -381713,6 +381268,7 @@ export type GetLivestreamAnalyticsDaywiseOptions = {
 
 export type GetLivestreamAnalyticsDaywiseResponses = {
   '200': GetLivestreamAnalyticsDaywiseStatus200;
+  '400': GetLivestreamAnalyticsDaywiseStatus400;
 };
 
 /**
@@ -381767,17 +381323,19 @@ export type GetLivestreamAnalyticsCompleteStatus200 = {
     count?: number | undefined;
     /**
      * @description Total time duration for which the input was given or the meeting was streamed.
-     * @type integer | undefined
+     * @type number | undefined
      */
     total_ingest_seconds?: number | undefined;
     /**
      * @description Total view time for which the viewers watched the stream.
-     * @type integer | undefined
+     * @type number | undefined
      */
     total_viewer_seconds?: number | undefined;
   } | undefined;
   success?: boolean | undefined;
 };
+
+export type GetLivestreamAnalyticsCompleteStatus400 = RealtimekitGenericErrorResponse;
 
 export type GetLivestreamAnalyticsCompleteOptions = {
   body?: never | undefined;
@@ -381788,6 +381346,7 @@ export type GetLivestreamAnalyticsCompleteOptions = {
 
 export type GetLivestreamAnalyticsCompleteResponses = {
   '200': GetLivestreamAnalyticsCompleteStatus200;
+  '400': GetLivestreamAnalyticsCompleteStatus400;
 };
 
 /**
@@ -381870,96 +381429,13 @@ export type FetchAllLivestreamsQuery = {
   sort_order?: FetchAllLivestreamsSortOrderKey | undefined;
 };
 
-export const fetchAllLivestreamsStatus200DataStatusEnum = {
-  LIVE: 'LIVE',
-  IDLE: 'IDLE',
-  ERRORED: 'ERRORED',
-  INVOKED: 'INVOKED',
-} as const;
-
-export type FetchAllLivestreamsStatus200DataStatusEnumKey = (typeof fetchAllLivestreamsStatus200DataStatusEnum)[keyof typeof fetchAllLivestreamsStatus200DataStatusEnum];
-
 export type FetchAllLivestreamsStatus200 = {
-  data?: {
-    /**
-     * @description Timestamp the object was created at. The time is returned in ISO format.
-     *
-     * Format: `date-time`
-     * @example 2023-07-15T11:48:34.753Z
-     * @type string | undefined
-     */
-    created_at?: string | undefined;
-    /**
-     * @description Specifies if the livestream was disabled.
-     * @type string | undefined
-     */
-    disabled?: string | undefined;
-    /**
-     * @description The ID of the livestream.
-     *
-     * Format: `uuid`
-     * @example 3fd739f4-3c41-456e-bfba-6ebd51e16d2d
-     * @type string | undefined
-     */
-    id?: string | undefined;
-    /**
-     * @description The server URL to which the RTMP encoder sends the video and audio data.
-     * @example rtmps://live.cloudflare.com:443/live/
-     * @type string | undefined
-     */
-    ingest_server?: string | undefined;
-    /**
-     * @description ID of the meeting.
-     * @type string | undefined
-     */
-    meeting_id?: string | undefined;
-    /**
-     * @description Name of the livestream.
-     * @example test
-     * @type string | undefined
-     */
-    name?: string | undefined;
-    paging?: {
-      /**
-       * @example 1
-       * @type integer | undefined
-       */
-      end_offset?: number | undefined;
-      /**
-       * @example 1
-       * @type integer | undefined
-       */
-      start_offset?: number | undefined;
-      /**
-       * @example 1
-       * @type integer | undefined
-       */
-      total_count?: number | undefined;
-    } | undefined;
-    /**
-     * @description The web address that viewers can use to watch the livestream.
-     * @example https://customer-s8oj0c1n5ek8ah1e.cloudflarestream.com/7de6a3fec0f9c05bf1df140950d3a237/manifest/video.m3u8
-     * @type string | undefined
-     */
-    playback_url?: string | undefined;
-    status?: FetchAllLivestreamsStatus200DataStatusEnumKey | undefined;
-    /**
-     * @description Unique key for accessing each livestream.
-     * @example f26566285faca6fbe2e79a73a66rsrrsrrsr3cde23a2bb7dbc6c2c1761b98f4e4
-     * @type string | undefined
-     */
-    stream_key?: string | undefined;
-    /**
-     * @description Timestamp the object was updated at. The time is returned in ISO format.
-     *
-     * Format: `date-time`
-     * @example 2023-07-15T11:48:34.753Z
-     * @type string | undefined
-     */
-    updated_at?: string | undefined;
-  } | undefined;
-  success?: boolean | undefined;
+  data: RealtimekitLivestream[];
+  paging: RealtimekitPagingInfo;
+  success: boolean;
 };
+
+export type FetchAllLivestreamsStatus400 = RealtimekitGenericErrorResponse;
 
 export type FetchAllLivestreamsOptions = {
   body?: never | undefined;
@@ -381970,6 +381446,7 @@ export type FetchAllLivestreamsOptions = {
 
 export type FetchAllLivestreamsResponses = {
   '200': FetchAllLivestreamsStatus200;
+  '400': FetchAllLivestreamsStatus400;
 };
 
 /**
@@ -381995,53 +381472,11 @@ export type GetV2LivestreamsLivestreamSessionIdPath = {
 };
 
 export type GetV2LivestreamsLivestreamSessionIdStatus200 = {
-  data?: {
-    /**
-     * @description Timestamp the object was created at. The time is returned in ISO format.
-     *
-     * Format: `date-time`
-     * @type string | undefined
-     */
-    created_at?: string | undefined;
-    /**
-     * @description The server URL to which the RTMP encoder sends the video and audio data.
-     * @type string | undefined
-     */
-    err_message?: string | undefined;
-    /**
-     * @description The livestream ID.
-     * @type string | undefined
-     */
-    id?: string | undefined;
-    /**
-     * @description Name of the livestream.
-     * @type integer | undefined
-     */
-    ingest_seconds?: number | undefined;
-    livestream_id?: string | undefined;
-    /**
-     * @description Unique key for accessing each livestream.
-     * @type string | undefined
-     */
-    started_time?: string | undefined;
-    /**
-     * @description The web address that viewers can use to watch the livestream.
-     * @type string | undefined
-     */
-    stopped_time?: string | undefined;
-    /**
-     * @description Timestamp the object was updated at. The time is returned in ISO format.
-     * @type string | undefined
-     */
-    updated_at?: string | undefined;
-    /**
-     * @description Specifies if the livestream was disabled.
-     * @type integer | undefined
-     */
-    viewer_seconds?: number | undefined;
-  } | undefined;
-  success?: boolean | undefined;
+  data: RealtimekitLivestreamSession;
+  success: boolean;
 };
+
+export type GetV2LivestreamsLivestreamSessionIdStatus400 = RealtimekitGenericErrorResponse;
 
 export type GetV2LivestreamsLivestreamSessionIdOptions = {
   body?: never | undefined;
@@ -382052,6 +381487,7 @@ export type GetV2LivestreamsLivestreamSessionIdOptions = {
 
 export type GetV2LivestreamsLivestreamSessionIdResponses = {
   '200': GetV2LivestreamsLivestreamSessionIdStatus200;
+  '400': GetV2LivestreamsLivestreamSessionIdStatus400;
 };
 
 /**
@@ -382089,139 +381525,16 @@ export type GetV2LivestreamSessionLivestreamIdQuery = {
   per_page?: number | undefined;
 };
 
-export const getV2LivestreamSessionLivestreamIdStatus200DataLivestreamStatusEnum = {
-  LIVE: 'LIVE',
-  IDLE: 'IDLE',
-  ERRORED: 'ERRORED',
-  INVOKED: 'INVOKED',
-} as const;
-
-export type GetV2LivestreamSessionLivestreamIdStatus200DataLivestreamStatusEnumKey = (typeof getV2LivestreamSessionLivestreamIdStatus200DataLivestreamStatusEnum)[keyof typeof getV2LivestreamSessionLivestreamIdStatus200DataLivestreamStatusEnum];
-
 export type GetV2LivestreamSessionLivestreamIdStatus200 = {
-  data?: {
-    livestream?: {
-      /**
-       * @description Timestamp the object was created at. The time is returned in ISO format.
-       * @type string | undefined
-       */
-      created_at?: string | undefined;
-      /**
-       * @description Specifies if the livestream was disabled.
-       * @type string | undefined
-       */
-      disabled?: string | undefined;
-      /**
-       * @description ID of the livestream.
-       * @type string | undefined
-       */
-      id?: string | undefined;
-      /**
-       * @description The server URL to which the RTMP encoder sends the video and audio data.
-       * @type string | undefined
-       */
-      ingest_server?: string | undefined;
-      /**
-       * @description The ID of the meeting.
-       * @type string | undefined
-       */
-      meeting_id?: string | undefined;
-      /**
-       * @description Name of the livestream.
-       * @type string | undefined
-       */
-      name?: string | undefined;
-      /**
-       * @description The web address that viewers can use to watch the livestream.
-       * @type string | undefined
-       */
-      playback_url?: string | undefined;
-      status?: GetV2LivestreamSessionLivestreamIdStatus200DataLivestreamStatusEnumKey | undefined;
-      /**
-       * @description Unique key for accessing each livestream.
-       * @type string | undefined
-       */
-      stream_key?: string | undefined;
-      /**
-       * @description Timestamp the object was updated at. The time is returned in ISO format.
-       * @type string | undefined
-       */
-      updated_at?: string | undefined;
-    } | undefined;
-    paging?: {
-      /**
-       * @example 1
-       * @type integer | undefined
-       */
-      end_offset?: number | undefined;
-      /**
-       * @example 1
-       * @type integer | undefined
-       */
-      start_offset?: number | undefined;
-      /**
-       * @example 1
-       * @type integer | undefined
-       */
-      total_count?: number | undefined;
-    } | undefined;
-    session?: {
-      /**
-       * @description Timestamp the object was created at. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      created_at?: string | undefined;
-      err_message?: string | undefined;
-      /**
-       * @description ID of the session.
-       * @type string | undefined
-       */
-      id?: string | undefined;
-      /**
-       * @description The time duration for which the input was given or the meeting was streamed.
-       * @type number | undefined
-       */
-      ingest_seconds?: number | undefined;
-      /**
-       * @description Timestamp the object was invoked. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      invoked_time?: string | undefined;
-      livestream_id?: string | undefined;
-      /**
-       * @description Timestamp the object was started. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      started_time?: string | undefined;
-      /**
-       * @description Timestamp the object was stopped. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      stopped_time?: string | undefined;
-      /**
-       * @description Timestamp the object was updated at. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      updated_at?: string | undefined;
-      /**
-       * @description The total view time for which the viewers watched the stream.
-       * @type number | undefined
-       */
-      viewer_seconds?: number | undefined;
-    } | undefined;
-  } | undefined;
-  success?: boolean | undefined;
+  data: {
+    livestream: RealtimekitLivestream;
+    sessions: RealtimekitLivestreamSession[];
+  };
+  paging: RealtimekitPagingInfo;
+  success: boolean;
 };
+
+export type GetV2LivestreamSessionLivestreamIdStatus400 = RealtimekitGenericErrorResponse;
 
 export type GetV2LivestreamSessionLivestreamIdOptions = {
   body?: never | undefined;
@@ -382232,6 +381545,7 @@ export type GetV2LivestreamSessionLivestreamIdOptions = {
 
 export type GetV2LivestreamSessionLivestreamIdResponses = {
   '200': GetV2LivestreamSessionLivestreamIdStatus200;
+  '400': GetV2LivestreamSessionLivestreamIdStatus400;
 };
 
 /**
@@ -382256,118 +381570,15 @@ export type GetV2ActiveLivestreamSessionDetailsPath = {
   livestreamId: string;
 };
 
-export const getV2ActiveLivestreamSessionDetailsStatus200DataLivestreamStatusEnum = {
-  LIVE: 'LIVE',
-  IDLE: 'IDLE',
-  ERRORED: 'ERRORED',
-  INVOKED: 'INVOKED',
-} as const;
-
-export type GetV2ActiveLivestreamSessionDetailsStatus200DataLivestreamStatusEnumKey = (typeof getV2ActiveLivestreamSessionDetailsStatus200DataLivestreamStatusEnum)[keyof typeof getV2ActiveLivestreamSessionDetailsStatus200DataLivestreamStatusEnum];
-
 export type GetV2ActiveLivestreamSessionDetailsStatus200 = {
-  data?: {
-    livestream?: {
-      /**
-       * @description Timestamp the object was created at. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      created_at?: string | undefined;
-      /**
-       * @description Specifies if the livestream was disabled.
-       * @type string | undefined
-       */
-      disabled?: string | undefined;
-      id?: string | undefined;
-      /**
-       * @description The server URL to which the RTMP encoder sends the video and audio data.
-       * @type string | undefined
-       */
-      ingest_server?: string | undefined;
-      /**
-       * @description ID of the meeting.
-       * @type string | undefined
-       */
-      meeting_id?: string | undefined;
-      /**
-       * @description Name of the livestream.
-       * @type string | undefined
-       */
-      name?: string | undefined;
-      /**
-       * @description The web address that viewers can use to watch the livestream.
-       * @type string | undefined
-       */
-      playback_url?: string | undefined;
-      status?: GetV2ActiveLivestreamSessionDetailsStatus200DataLivestreamStatusEnumKey | undefined;
-      /**
-       * @description Unique key for accessing each livestream.
-       * @type string | undefined
-       */
-      stream_key?: string | undefined;
-      /**
-       * @description Timestamp the object was updated at. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      updated_at?: string | undefined;
-    } | undefined;
-    session?: {
-      /**
-       * @description Timestamp the object was created at. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      created_at?: string | undefined;
-      err_message?: string | undefined;
-      id?: string | undefined;
-      /**
-       * @description The time duration for which the input was given or the meeting was streamed.
-       * @type string | undefined
-       */
-      ingest_seconds?: string | undefined;
-      /**
-       * @description Timestamp the object was invoked. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      invoked_time?: string | undefined;
-      livestream_id?: string | undefined;
-      /**
-       * @description Timestamp the object was started. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      started_time?: string | undefined;
-      /**
-       * @description Timestamp the object was stopped. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      stopped_time?: string | undefined;
-      /**
-       * @description Timestamp the object was updated at. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      updated_at?: string | undefined;
-      /**
-       * @description The total view time for which the viewers watched the stream.
-       * @type string | undefined
-       */
-      viewer_seconds?: string | undefined;
-    } | undefined;
-  } | undefined;
-  success?: boolean | undefined;
+  data: {
+    livestream: RealtimekitLivestream;
+    session: RealtimekitLivestreamSession;
+  };
+  success: boolean;
 };
+
+export type GetV2ActiveLivestreamSessionDetailsStatus400 = RealtimekitGenericErrorResponse;
 
 export type GetV2ActiveLivestreamSessionDetailsOptions = {
   body?: never | undefined;
@@ -382378,6 +381589,7 @@ export type GetV2ActiveLivestreamSessionDetailsOptions = {
 
 export type GetV2ActiveLivestreamSessionDetailsResponses = {
   '200': GetV2ActiveLivestreamSessionDetailsStatus200;
+  '400': GetV2ActiveLivestreamSessionDetailsStatus400;
 };
 
 /**
@@ -382451,6 +381663,8 @@ export type GetAllMeetingsStatus200 = RealtimekitPagingResponse & {
   data?: RealtimekitMeeting[] | undefined;
 };
 
+export type GetAllMeetingsStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetAllMeetingsOptions = {
   body?: never | undefined;
   path: GetAllMeetingsPath;
@@ -382460,6 +381674,7 @@ export type GetAllMeetingsOptions = {
 
 export type GetAllMeetingsResponses = {
   '200': GetAllMeetingsStatus200;
+  '400': GetAllMeetingsStatus400;
 };
 
 /**
@@ -382503,6 +381718,8 @@ export type CreateMeetingStatus201 = RealtimekitGenericSuccessResponse & ({
     ai_config?: RealtimekitAIConfig | undefined;
   } | undefined;
 });
+
+export type CreateMeetingStatus400 = RealtimekitGenericErrorResponse;
 
 /**
  * @description Create meeting body
@@ -382574,6 +381791,7 @@ export type CreateMeetingOptions = {
 
 export type CreateMeetingResponses = {
   '201': CreateMeetingStatus201;
+  '400': CreateMeetingStatus400;
 };
 
 /**
@@ -382629,6 +381847,8 @@ export type GetMeetingStatus200 = RealtimekitGenericSuccessResponse & ({
   } | undefined;
 });
 
+export type GetMeetingStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetMeetingStatus500 = RealtimekitGenericErrorResponse;
 
 export type GetMeetingOptions = {
@@ -382640,6 +381860,7 @@ export type GetMeetingOptions = {
 
 export type GetMeetingResponses = {
   '200': GetMeetingStatus200;
+  '400': GetMeetingStatus400;
   '500': GetMeetingStatus500;
 };
 
@@ -382691,6 +381912,8 @@ export type UpdateMeetingStatus200 = RealtimekitGenericSuccessResponse & ({
     ai_config?: RealtimekitAIConfig | undefined;
   } | undefined;
 });
+
+export type UpdateMeetingStatus400 = RealtimekitGenericErrorResponse;
 
 export type UpdateMeetingStatus500 = RealtimekitGenericErrorResponse;
 
@@ -382771,6 +381994,7 @@ export type UpdateMeetingOptions = {
 
 export type UpdateMeetingResponses = {
   '200': UpdateMeetingStatus200;
+  '400': UpdateMeetingStatus400;
   '500': UpdateMeetingStatus500;
 };
 
@@ -382822,6 +382046,8 @@ export type ReplaceMeetingStatus200 = RealtimekitGenericSuccessResponse & ({
     ai_config?: RealtimekitAIConfig | undefined;
   } | undefined;
 });
+
+export type ReplaceMeetingStatus400 = RealtimekitGenericErrorResponse;
 
 /**
  * @description Create meeting body
@@ -382893,6 +382119,7 @@ export type ReplaceMeetingOptions = {
 
 export type ReplaceMeetingResponses = {
   '200': ReplaceMeetingStatus200;
+  '400': ReplaceMeetingStatus400;
 };
 
 /**
@@ -382923,66 +382150,12 @@ export type GetV2MeetingsMeetingIdActiveLivestreamPath = {
   meetingId: string;
 };
 
-export const getV2MeetingsMeetingIdActiveLivestreamStatus200DataStatusEnum = {
-  LIVE: 'LIVE',
-  IDLE: 'IDLE',
-  ERRORED: 'ERRORED',
-  INVOKED: 'INVOKED',
-} as const;
-
-export type GetV2MeetingsMeetingIdActiveLivestreamStatus200DataStatusEnumKey = (typeof getV2MeetingsMeetingIdActiveLivestreamStatus200DataStatusEnum)[keyof typeof getV2MeetingsMeetingIdActiveLivestreamStatus200DataStatusEnum];
-
 export type GetV2MeetingsMeetingIdActiveLivestreamStatus200 = {
-  data?: {
-    /**
-     * @description Timestamp the object was created at. The time is returned in ISO format.
-     *
-     * Format: `date-time`
-     * @type string | undefined
-     */
-    created_at?: string | undefined;
-    /**
-     * @description Specifies if the livestream was disabled.
-     * @type string | undefined
-     */
-    disabled?: string | undefined;
-    /**
-     * @description The livestream ID.
-     * @type string | undefined
-     */
-    id?: string | undefined;
-    /**
-     * @description The server URL to which the RTMP encoder sends the video and audio data.
-     * @type string | undefined
-     */
-    ingest_server?: string | undefined;
-    meeting_id?: string | undefined;
-    /**
-     * @description Name of the livestream.
-     * @type string | undefined
-     */
-    name?: (string | null) | undefined;
-    /**
-     * @description The web address that viewers can use to watch the livestream.
-     * @type string | undefined
-     */
-    playback_url?: string | undefined;
-    status?: GetV2MeetingsMeetingIdActiveLivestreamStatus200DataStatusEnumKey | undefined;
-    /**
-     * @description Unique key for accessing each livestream.
-     * @type string | undefined
-     */
-    stream_key?: string | undefined;
-    /**
-     * @description Timestamp the object was updated at. The time is returned in ISO format.
-     *
-     * Format: `date-time`
-     * @type string | undefined
-     */
-    updated_at?: string | undefined;
-  } | undefined;
-  success?: boolean | undefined;
+  data: RealtimekitLivestream;
+  success: boolean;
 };
+
+export type GetV2MeetingsMeetingIdActiveLivestreamStatus400 = RealtimekitGenericErrorResponse;
 
 export type GetV2MeetingsMeetingIdActiveLivestreamOptions = {
   body?: never | undefined;
@@ -382993,6 +382166,7 @@ export type GetV2MeetingsMeetingIdActiveLivestreamOptions = {
 
 export type GetV2MeetingsMeetingIdActiveLivestreamResponses = {
   '200': GetV2MeetingsMeetingIdActiveLivestreamStatus200;
+  '400': GetV2MeetingsMeetingIdActiveLivestreamStatus400;
 };
 
 /**
@@ -383030,6 +382204,8 @@ export type StopLivestreamingStatus200 = {
   success?: boolean | undefined;
 };
 
+export type StopLivestreamingStatus400 = RealtimekitGenericErrorResponse;
+
 export type StopLivestreamingOptions = {
   body?: never | undefined;
   path: StopLivestreamingPath;
@@ -383039,6 +382215,7 @@ export type StopLivestreamingOptions = {
 
 export type StopLivestreamingResponses = {
   '200': StopLivestreamingStatus200;
+  '400': StopLivestreamingStatus400;
 };
 
 /**
@@ -383180,6 +382357,8 @@ export type KickAllParticipantsStatus200 = {
   success?: boolean | undefined;
 };
 
+export type KickAllParticipantsStatus400 = RealtimekitGenericErrorResponse;
+
 export type KickAllParticipantsOptions = {
   body?: never | undefined;
   path: KickAllParticipantsPath;
@@ -383189,6 +382368,7 @@ export type KickAllParticipantsOptions = {
 
 export type KickAllParticipantsResponses = {
   '200': KickAllParticipantsStatus200;
+  '400': KickAllParticipantsStatus400;
 };
 
 /**
@@ -383225,6 +382405,8 @@ export type MuteParticipantsStatus200 = {
   success?: boolean | undefined;
 };
 
+export type MuteParticipantsStatus400 = RealtimekitGenericErrorResponse;
+
 /**
  * @description Request body for muting participants in an active session. At least one of `participant_ids` or `custom_participant_ids` must contain a value.
  */
@@ -383246,6 +382428,7 @@ export type MuteParticipantsOptions = {
 
 export type MuteParticipantsResponses = {
   '200': MuteParticipantsStatus200;
+  '400': MuteParticipantsStatus400;
 };
 
 /**
@@ -383282,6 +382465,8 @@ export type MuteAllParticipantsStatus200 = {
   success?: boolean | undefined;
 };
 
+export type MuteAllParticipantsStatus400 = RealtimekitGenericErrorResponse;
+
 /**
  * @description Request body for muting all participants in an active session.
  * @type object
@@ -383304,6 +382489,7 @@ export type MuteAllParticipantsOptions = {
 
 export type MuteAllParticipantsResponses = {
   '200': MuteAllParticipantsStatus200;
+  '400': MuteAllParticipantsStatus400;
 };
 
 /**
@@ -383422,142 +382608,18 @@ export type LivestreamSessionDetailsQuery = {
   per_page?: number | undefined;
 };
 
-export const livestreamSessionDetailsStatus200DataLivestreamsStatusEnum = {
-  LIVE: 'LIVE',
-  INVOKED: 'INVOKED',
-  ERRORED: 'ERRORED',
-  IDLE: 'IDLE',
-} as const;
-
-export type LivestreamSessionDetailsStatus200DataLivestreamsStatusEnumKey = (typeof livestreamSessionDetailsStatus200DataLivestreamsStatusEnum)[keyof typeof livestreamSessionDetailsStatus200DataLivestreamsStatusEnum];
-
 export type LivestreamSessionDetailsStatus200 = {
-  data?: {
-    livestreams?: {
-      /**
-       * @description The timestamp at which the livestream was created. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      created_at?: string | undefined;
-      /**
-       * @description Specifies if the livestream was disabled.
-       * @type boolean | undefined
-       */
-      disabled?: boolean | undefined;
-      /**
-       * @description The livestream ID.
-       * @type string | undefined
-       */
-      id?: string | undefined;
-      /**
-       * @description The server URL to which the RTMP encoder sends the video and audio data.
-       * @type string | undefined
-       */
-      ingest_server?: string | undefined;
-      /**
-       * @description The ID of the meeting that was livestreamed.
-       * @type string | undefined
-       */
-      meeting_id?: string | undefined;
-      /**
-       * @description Name of the livestream.
-       * @type string | undefined
-       */
-      name?: (string | null) | undefined;
-      /**
-       * @description The web address that viewers can use to watch the livestream.
-       * @type string | undefined
-       */
-      playback_url?: string | undefined;
-      status?: LivestreamSessionDetailsStatus200DataLivestreamsStatusEnumKey | undefined;
-      /**
-       * @description Unique key for accessing each livestream.
-       * @type string | undefined
-       */
-      stream_key?: string | undefined;
-      /**
-       * @description The timestamp at which the livestream was updated. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      updated_at?: string | undefined;
-    }[] | undefined;
-    paging?: {
-      /**
-       * @example 1
-       * @type integer | undefined
-       */
-      end_offset?: number | undefined;
-      /**
-       * @example 1
-       * @type integer | undefined
-       */
-      start_offset?: number | undefined;
-      /**
-       * @example 1
-       * @type integer | undefined
-       */
-      total_count?: number | undefined;
-    } | undefined;
-    sessions?: {
-      /**
-       * @description The timestamp at which the livestream was created. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      created_at?: string | undefined;
-      err_message?: string | undefined;
-      /**
-       * @description The ID of the livestream session.
-       * @type string | undefined
-       */
-      id?: string | undefined;
-      /**
-       * @description The time duration for which the input was given or the meeting was streamed.
-       * @type string | undefined
-       */
-      ingest_seconds?: string | undefined;
-      /**
-       * @description The time at which the livestream was invoked.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      invoked_time?: string | undefined;
-      /**
-       * @description The ID of the livestream.
-       * @type string | undefined
-       */
-      livestream_id?: string | undefined;
-      /**
-       * @description The time at which the livestream was started.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      started_time?: string | undefined;
-      /**
-       * @description The time at which the livestream was stopped.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      stopped_time?: string | undefined;
-      /**
-       * @description The timestamp at which the livestream was updated. The time is returned in ISO format.
-       *
-       * Format: `date-time`
-       * @type string | undefined
-       */
-      updated_at?: string | undefined;
-    } | undefined;
-  } | undefined;
-  success?: boolean | undefined;
+  data: {
+    data: {
+      livestream: RealtimekitLivestream;
+      sessions: RealtimekitLivestreamSession[];
+    };
+    paging: RealtimekitPagingInfo;
+  };
+  success: boolean;
 };
+
+export type LivestreamSessionDetailsStatus400 = RealtimekitGenericErrorResponse;
 
 export type LivestreamSessionDetailsOptions = {
   body?: never | undefined;
@@ -383568,6 +382630,7 @@ export type LivestreamSessionDetailsOptions = {
 
 export type LivestreamSessionDetailsResponses = {
   '200': LivestreamSessionDetailsStatus200;
+  '400': LivestreamSessionDetailsStatus400;
 };
 
 /**
@@ -383603,36 +382666,55 @@ export const startLivestreamingStatus201DataStatusEnum = {
   IDLE: 'IDLE',
   ERRORED: 'ERRORED',
   INVOKED: 'INVOKED',
+  METRICS_READY: 'METRICS_READY',
 } as const;
 
 export type StartLivestreamingStatus201DataStatusEnumKey = (typeof startLivestreamingStatus201DataStatusEnum)[keyof typeof startLivestreamingStatus201DataStatusEnum];
 
 export type StartLivestreamingStatus201 = {
-  data?: {
+  data: {
     /**
-     * @description The livestream ID.
-     * @type string | undefined
+     * @description ID of the livestream.
+     *
+     * Format: `uuid`
+     * @type string
      */
-    id?: string | undefined;
+    id: string;
     /**
      * @description The server URL to which the RTMP encoder sends the video and audio data.
-     * @type string | undefined
+     * @type string
      */
-    ingest_server?: string | undefined;
+    ingest_server: string;
+    /**
+     * @description ID of the meeting being livestreamed, if any.
+     * @type string
+     */
+    meeting_id: string | null;
+    /**
+     * @description Name of the livestream.
+     * @type string
+     */
+    name: string | null;
     /**
      * @description The web address that viewers can use to watch the livestream.
-     * @type string | undefined
+     * @type string
      */
-    playback_url?: string | undefined;
-    status?: StartLivestreamingStatus201DataStatusEnumKey | undefined;
+    playback_url: string;
     /**
-     * @description Unique key for accessing each livestream.
-     * @type string | undefined
+     * @description Status of the livestream.
+     * @type string
      */
-    stream_key?: string | undefined;
-  } | undefined;
-  success?: boolean | undefined;
+    status: StartLivestreamingStatus201DataStatusEnumKey;
+    /**
+     * @description Unique key for accessing each livestream. Empty if the livestream is disabled.
+     * @type string
+     */
+    stream_key: string;
+  };
+  success: boolean;
 };
+
+export type StartLivestreamingStatus400 = RealtimekitGenericErrorResponse;
 
 export type StartLivestreamingBody = {
   /**
@@ -383663,6 +382745,7 @@ export type StartLivestreamingOptions = {
 
 export type StartLivestreamingResponses = {
   '201': StartLivestreamingStatus201;
+  '400': StartLivestreamingStatus400;
 };
 
 /**
@@ -383712,6 +382795,8 @@ export type GetMeetingParticipantsStatus200 = RealtimekitPagingResponse & {
   data?: RealtimekitParticipant[] | undefined;
 };
 
+export type GetMeetingParticipantsStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetMeetingParticipantsStatus500 = RealtimekitGenericErrorResponse;
 
 export type GetMeetingParticipantsOptions = {
@@ -383723,6 +382808,7 @@ export type GetMeetingParticipantsOptions = {
 
 export type GetMeetingParticipantsResponses = {
   '200': GetMeetingParticipantsStatus200;
+  '400': GetMeetingParticipantsStatus400;
   '500': GetMeetingParticipantsStatus500;
 };
 
@@ -383894,6 +382980,8 @@ export type DeleteMeetingParticipantStatus200 = RealtimekitGenericSuccessRespons
   } | undefined;
 };
 
+export type DeleteMeetingParticipantStatus400 = RealtimekitGenericErrorResponse;
+
 export type DeleteMeetingParticipantStatus500 = RealtimekitGenericErrorResponse;
 
 export type DeleteMeetingParticipantOptions = {
@@ -383905,6 +382993,7 @@ export type DeleteMeetingParticipantOptions = {
 
 export type DeleteMeetingParticipantResponses = {
   '200': DeleteMeetingParticipantStatus200;
+  '400': DeleteMeetingParticipantStatus400;
   '500': DeleteMeetingParticipantStatus500;
 };
 
@@ -383949,6 +383038,8 @@ export type GetMeetingParticipantStatus200 = RealtimekitGenericSuccessResponse &
   data: RealtimekitParticipant;
 };
 
+export type GetMeetingParticipantStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetMeetingParticipantStatus500 = RealtimekitGenericErrorResponse;
 
 export type GetMeetingParticipantOptions = {
@@ -383960,6 +383051,7 @@ export type GetMeetingParticipantOptions = {
 
 export type GetMeetingParticipantResponses = {
   '200': GetMeetingParticipantStatus200;
+  '400': GetMeetingParticipantStatus400;
   '500': GetMeetingParticipantStatus500;
 };
 
@@ -384022,6 +383114,8 @@ export type EditParticipantStatus200 = RealtimekitGenericSuccessResponse & {
   } | undefined;
 };
 
+export type EditParticipantStatus400 = RealtimekitGenericErrorResponse;
+
 export type EditParticipantStatus500 = RealtimekitGenericErrorResponse;
 
 export type EditParticipantBody = {
@@ -384054,6 +383148,7 @@ export type EditParticipantOptions = {
 
 export type EditParticipantResponses = {
   '200': EditParticipantStatus200;
+  '400': EditParticipantStatus400;
   '500': EditParticipantStatus500;
 };
 
@@ -384116,6 +383211,8 @@ export type ReplaceParticipantStatus200 = RealtimekitGenericSuccessResponse & {
   } | undefined;
 };
 
+export type ReplaceParticipantStatus400 = RealtimekitGenericErrorResponse;
+
 export type ReplaceParticipantStatus500 = RealtimekitGenericErrorResponse;
 
 export type ReplaceParticipantBody = {
@@ -384152,6 +383249,7 @@ export type ReplaceParticipantOptions = {
 
 export type ReplaceParticipantResponses = {
   '200': ReplaceParticipantStatus200;
+  '400': ReplaceParticipantStatus400;
   '500': ReplaceParticipantStatus500;
 };
 
@@ -384353,6 +383451,8 @@ export type GetPresetsStatus200 = RealtimekitPagingResponse & {
   data?: RealtimekitPresetListItem[] | undefined;
 };
 
+export type GetPresetsStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetPresetsOptions = {
   body?: never | undefined;
   path: GetPresetsPath;
@@ -384362,6 +383462,7 @@ export type GetPresetsOptions = {
 
 export type GetPresetsResponses = {
   '200': GetPresetsStatus200;
+  '400': GetPresetsStatus400;
 };
 
 /**
@@ -384411,6 +383512,8 @@ export type PostPresetsStatus201 = RealtimekitGenericSuccessResponse & {
   } & RealtimekitPreset;
 };
 
+export type PostPresetsStatus400 = RealtimekitGenericErrorResponse;
+
 export type PostPresetsBody = RealtimekitPreset;
 
 export type PostPresetsOptions = {
@@ -384422,6 +383525,7 @@ export type PostPresetsOptions = {
 
 export type PostPresetsResponses = {
   '201': PostPresetsStatus201;
+  '400': PostPresetsStatus400;
 };
 
 /**
@@ -384478,6 +383582,8 @@ export type DeletePresetsPresetIdStatus200 = RealtimekitGenericSuccessResponse &
   } & RealtimekitPreset;
 };
 
+export type DeletePresetsPresetIdStatus400 = RealtimekitGenericErrorResponse;
+
 export type DeletePresetsPresetIdOptions = {
   body?: never | undefined;
   path: DeletePresetsPresetIdPath;
@@ -384487,6 +383593,7 @@ export type DeletePresetsPresetIdOptions = {
 
 export type DeletePresetsPresetIdResponses = {
   '200': DeletePresetsPresetIdStatus200;
+  '400': DeletePresetsPresetIdStatus400;
 };
 
 /**
@@ -384543,6 +383650,8 @@ export type GetPresetsPresetIdStatus200 = RealtimekitGenericSuccessResponse & {
   } & RealtimekitPreset;
 };
 
+export type GetPresetsPresetIdStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetPresetsPresetIdOptions = {
   body?: never | undefined;
   path: GetPresetsPresetIdPath;
@@ -384552,6 +383661,7 @@ export type GetPresetsPresetIdOptions = {
 
 export type GetPresetsPresetIdResponses = {
   '200': GetPresetsPresetIdStatus200;
+  '400': GetPresetsPresetIdStatus400;
 };
 
 /**
@@ -384608,6 +383718,8 @@ export type PatchPresetsPresetIdStatus200 = RealtimekitGenericSuccessResponse & 
   } & RealtimekitPreset;
 };
 
+export type PatchPresetsPresetIdStatus400 = RealtimekitGenericErrorResponse;
+
 export type PatchPresetsPresetIdBody = RealtimekitUpdatePreset;
 
 export type PatchPresetsPresetIdOptions = {
@@ -384619,6 +383731,7 @@ export type PatchPresetsPresetIdOptions = {
 
 export type PatchPresetsPresetIdResponses = {
   '200': PatchPresetsPresetIdStatus200;
+  '400': PatchPresetsPresetIdStatus400;
 };
 
 /**
@@ -384675,6 +383788,8 @@ export type PutPresetsPresetIdStatus200 = RealtimekitGenericSuccessResponse & {
   } & RealtimekitPreset;
 };
 
+export type PutPresetsPresetIdStatus400 = RealtimekitGenericErrorResponse;
+
 export type PutPresetsPresetIdBody = RealtimekitPreset;
 
 export type PutPresetsPresetIdOptions = {
@@ -384686,6 +383801,7 @@ export type PutPresetsPresetIdOptions = {
 
 export type PutPresetsPresetIdResponses = {
   '200': PutPresetsPresetIdStatus200;
+  '400': PutPresetsPresetIdStatus400;
 };
 
 /**
@@ -384788,6 +383904,8 @@ export type GetAllRecordingsStatus200 = RealtimekitPagingResponse & {
   })[] | undefined;
 };
 
+export type GetAllRecordingsStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetAllRecordingsOptions = {
   body?: never | undefined;
   path: GetAllRecordingsPath;
@@ -384797,6 +383915,7 @@ export type GetAllRecordingsOptions = {
 
 export type GetAllRecordingsResponses = {
   '200': GetAllRecordingsStatus200;
+  '400': GetAllRecordingsStatus400;
 };
 
 /**
@@ -384827,6 +383946,8 @@ export type StartRecordingStatus200 = RealtimekitGenericSuccessResponse & {
     storage_config?: (RealtimekitStorageConfig | null) | undefined;
   } | undefined;
 };
+
+export type StartRecordingStatus400 = RealtimekitGenericErrorResponse;
 
 export type StartRecordingBody = {
   /**
@@ -384886,6 +384007,7 @@ export type StartRecordingOptions = {
 
 export type StartRecordingResponses = {
   '200': StartRecordingStatus200;
+  '400': StartRecordingStatus400;
 };
 
 /**
@@ -384959,6 +384081,8 @@ export type StartTrackRecordingForAMeetingStatus200 = RealtimekitGenericSuccessR
   } | undefined;
 };
 
+export type StartTrackRecordingForAMeetingStatus400 = RealtimekitGenericErrorResponse;
+
 /**
  * @description Starts audio track recording for an active meeting. Use `layers` only when you need to set a file name prefix. Selective track recording (`user_ids`) is in early beta contact support to use this feature.
  * @type object
@@ -384994,6 +384118,7 @@ export type StartTrackRecordingForAMeetingOptions = {
 
 export type StartTrackRecordingForAMeetingResponses = {
   '200': StartTrackRecordingForAMeetingStatus200;
+  '400': StartTrackRecordingForAMeetingStatus400;
 };
 
 /**
@@ -385032,6 +384157,8 @@ export type GetOneRecordingStatus200 = RealtimekitGenericSuccessResponse & {
   } | undefined;
 };
 
+export type GetOneRecordingStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetOneRecordingOptions = {
   body?: never | undefined;
   path: GetOneRecordingPath;
@@ -385041,6 +384168,7 @@ export type GetOneRecordingOptions = {
 
 export type GetOneRecordingResponses = {
   '200': GetOneRecordingStatus200;
+  '400': GetOneRecordingStatus400;
 };
 
 /**
@@ -385079,6 +384207,8 @@ export type PauseResumeStopRecordingStatus200 = RealtimekitGenericSuccessRespons
   } | undefined;
 };
 
+export type PauseResumeStopRecordingStatus400 = RealtimekitGenericErrorResponse;
+
 export const pauseResumeStopRecordingRequestActionEnum = {
   stop: 'stop',
   pause: 'pause',
@@ -385100,6 +384230,7 @@ export type PauseResumeStopRecordingOptions = {
 
 export type PauseResumeStopRecordingResponses = {
   '200': PauseResumeStopRecordingStatus200;
+  '400': PauseResumeStopRecordingStatus400;
 };
 
 /**
@@ -385209,6 +384340,8 @@ export type GetSessionsStatus200 = {
   success?: boolean | undefined;
 };
 
+export type GetSessionsStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetSessionsOptions = {
   body?: never | undefined;
   path: GetSessionsPath;
@@ -385218,6 +384351,7 @@ export type GetSessionsOptions = {
 
 export type GetSessionsResponses = {
   '200': GetSessionsStatus200;
+  '400': GetSessionsStatus400;
 };
 
 /**
@@ -385280,6 +384414,8 @@ export type GetParticipantDataFromPeerIdStatus200 = {
   success?: boolean | undefined;
 };
 
+export type GetParticipantDataFromPeerIdStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetParticipantDataFromPeerIdOptions = {
   body?: never | undefined;
   path: GetParticipantDataFromPeerIdPath;
@@ -385289,6 +384425,7 @@ export type GetParticipantDataFromPeerIdOptions = {
 
 export type GetParticipantDataFromPeerIdResponses = {
   '200': GetParticipantDataFromPeerIdStatus200;
+  '400': GetParticipantDataFromPeerIdStatus400;
 };
 
 /**
@@ -385333,6 +384470,8 @@ export type GetSessionDetailsStatus200 = {
   success?: boolean | undefined;
 };
 
+export type GetSessionDetailsStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetSessionDetailsOptions = {
   body?: never | undefined;
   path: GetSessionDetailsPath;
@@ -385342,6 +384481,7 @@ export type GetSessionDetailsOptions = {
 
 export type GetSessionDetailsResponses = {
   '200': GetSessionDetailsStatus200;
+  '400': GetSessionDetailsStatus400;
 };
 
 /**
@@ -385377,6 +384517,8 @@ export type GetSessionChatStatus200 = {
   success?: boolean | undefined;
 };
 
+export type GetSessionChatStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetSessionChatOptions = {
   body?: never | undefined;
   path: GetSessionChatPath;
@@ -385386,6 +384528,7 @@ export type GetSessionChatOptions = {
 
 export type GetSessionChatResponses = {
   '200': GetSessionChatStatus200;
+  '400': GetSessionChatStatus400;
 };
 
 /**
@@ -385428,72 +384571,15 @@ export type GetV2LivestreamsessionSessionMeetingIdActiveLivestreamQuery = {
   page_no?: number | undefined;
 };
 
-export const getV2LivestreamsessionSessionMeetingIdActiveLivestreamStatus200DataErrMessageEnum = {
-  LIVE: 'LIVE',
-  IDLE: 'IDLE',
-  ERRORED: 'ERRORED',
-  INVOKED: 'INVOKED',
-} as const;
-
-export type GetV2LivestreamsessionSessionMeetingIdActiveLivestreamStatus200DataErrMessageEnumKey = (typeof getV2LivestreamsessionSessionMeetingIdActiveLivestreamStatus200DataErrMessageEnum)[keyof typeof getV2LivestreamsessionSessionMeetingIdActiveLivestreamStatus200DataErrMessageEnum];
-
 export type GetV2LivestreamsessionSessionMeetingIdActiveLivestreamStatus200 = {
-  data?: {
-    /**
-     * @description Timestamp the object was created at. The time is returned in ISO format.
-     *
-     * Format: `date-time`
-     * @type string | undefined
-     */
-    created_at?: string | undefined;
-    err_message?: GetV2LivestreamsessionSessionMeetingIdActiveLivestreamStatus200DataErrMessageEnumKey | undefined;
-    /**
-     * @description The livestream session ID.
-     * @type string | undefined
-     */
-    id?: string | undefined;
-    /**
-     * @description The time duration for which the input was given or the meeting was streamed.
-     * @type number | undefined
-     */
-    ingest_seconds?: number | undefined;
-    /**
-     * @description Name of the livestream.
-     * @type string | undefined
-     */
-    invoked_time?: (string | null) | undefined;
-    /**
-     * @description The ID of the livestream.
-     * @type string | undefined
-     */
-    livestream_id?: string | undefined;
-    paging?: {
-      end_offset?: number | undefined;
-      start_offset?: number | undefined;
-      total_count?: number | undefined;
-    } | undefined;
-    /**
-     * @description Specifies if the livestream was disabled.
-     *
-     * Format: `date-time`
-     * @type string | undefined
-     */
-    stopped_time?: string | undefined;
-    /**
-     * @description Timestamp the object was updated at. The time is returned in ISO format.
-     *
-     * Format: `date-time`
-     * @type string | undefined
-     */
-    updated_at?: string | undefined;
-    /**
-     * @description The total view time for which the viewers watched the stream.
-     * @type number | undefined
-     */
-    viewer_seconds?: number | undefined;
-  } | undefined;
-  success?: boolean | undefined;
+  data: {
+    data: RealtimekitLivestreamSession[];
+    paging: RealtimekitPagingInfo;
+  };
+  success: boolean;
 };
+
+export type GetV2LivestreamsessionSessionMeetingIdActiveLivestreamStatus400 = RealtimekitGenericErrorResponse;
 
 export type GetV2LivestreamsessionSessionMeetingIdActiveLivestreamOptions = {
   body?: never | undefined;
@@ -385504,6 +384590,7 @@ export type GetV2LivestreamsessionSessionMeetingIdActiveLivestreamOptions = {
 
 export type GetV2LivestreamsessionSessionMeetingIdActiveLivestreamResponses = {
   '200': GetV2LivestreamsessionSessionMeetingIdActiveLivestreamStatus200;
+  '400': GetV2LivestreamsessionSessionMeetingIdActiveLivestreamStatus400;
 };
 
 /**
@@ -385598,6 +384685,8 @@ export type GetSessionParticipantsStatus200 = {
   success?: boolean | undefined;
 };
 
+export type GetSessionParticipantsStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetSessionParticipantsOptions = {
   body?: never | undefined;
   path: GetSessionParticipantsPath;
@@ -385607,6 +384696,7 @@ export type GetSessionParticipantsOptions = {
 
 export type GetSessionParticipantsResponses = {
   '200': GetSessionParticipantsStatus200;
+  '400': GetSessionParticipantsStatus400;
 };
 
 /**
@@ -385660,6 +384750,8 @@ export type GetParticipantDetailsStatus200 = {
   success?: boolean | undefined;
 };
 
+export type GetParticipantDetailsStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetParticipantDetailsOptions = {
   body?: never | undefined;
   path: GetParticipantDetailsPath;
@@ -385669,6 +384761,7 @@ export type GetParticipantDetailsOptions = {
 
 export type GetParticipantDetailsResponses = {
   '200': GetParticipantDetailsStatus200;
+  '400': GetParticipantDetailsStatus400;
 };
 
 /**
@@ -385703,6 +384796,8 @@ export type GetSessionSummaryStatus200 = {
   success?: boolean | undefined;
 };
 
+export type GetSessionSummaryStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetSessionSummaryOptions = {
   body?: never | undefined;
   path: GetSessionSummaryPath;
@@ -385712,6 +384807,7 @@ export type GetSessionSummaryOptions = {
 
 export type GetSessionSummaryResponses = {
   '200': GetSessionSummaryStatus200;
+  '400': GetSessionSummaryStatus400;
 };
 
 /**
@@ -385754,6 +384850,8 @@ export type PostSessionsSessionIdSummaryStatus200 = {
   success?: boolean | undefined;
 };
 
+export type PostSessionsSessionIdSummaryStatus400 = RealtimekitGenericErrorResponse;
+
 export type PostSessionsSessionIdSummaryOptions = {
   body?: never | undefined;
   path: PostSessionsSessionIdSummaryPath;
@@ -385763,6 +384861,7 @@ export type PostSessionsSessionIdSummaryOptions = {
 
 export type PostSessionsSessionIdSummaryResponses = {
   '200': PostSessionsSessionIdSummaryStatus200;
+  '400': PostSessionsSessionIdSummaryStatus400;
 };
 
 /**
@@ -385816,6 +384915,8 @@ export type GetSessionTranscriptStatus200 = {
   success?: boolean | undefined;
 };
 
+export type GetSessionTranscriptStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetSessionTranscriptOptions = {
   body?: never | undefined;
   path: GetSessionTranscriptPath;
@@ -385825,6 +384926,7 @@ export type GetSessionTranscriptOptions = {
 
 export type GetSessionTranscriptResponses = {
   '200': GetSessionTranscriptStatus200;
+  '400': GetSessionTranscriptStatus400;
 };
 
 /**
@@ -385929,6 +385031,8 @@ export type GetAllWebhookEventsPath = {
 
 export type GetAllWebhookEventsStatus200 = RealtimekitWebhookEventsSuccessResponse;
 
+export type GetAllWebhookEventsStatus400 = RealtimekitGenericErrorResponse;
+
 export type GetAllWebhookEventsOptions = {
   body?: never | undefined;
   path: GetAllWebhookEventsPath;
@@ -385938,6 +385042,7 @@ export type GetAllWebhookEventsOptions = {
 
 export type GetAllWebhookEventsResponses = {
   '200': GetAllWebhookEventsStatus200;
+  '400': GetAllWebhookEventsStatus400;
 };
 
 /**
@@ -386162,7 +385267,7 @@ export type AccountBillingGetReceiptPdfQuery = {
   doctype?: string | undefined;
 };
 
-export type AccountBillingGetReceiptPdfStatus200 = unknown;
+export type AccountBillingGetReceiptPdfStatus200 = Blob;
 
 export type AccountBillingGetReceiptPdfStatus400 = BillSubsApiApiResponseCommonFailure;
 
@@ -390740,9 +389845,19 @@ export type ScimGroupsListQuery = {
   filter?: string | undefined;
 };
 
-export type ScimGroupsListStatus200 = unknown;
+/**
+ * @description SCIM ListResponse envelope for Group resources (RFC 7644 Section 3.4.2).
+ *
+ * @type object
+ */
+export type ScimGroupsListStatus200 = IamScimGroupListResponse;
 
-export type ScimGroupsListStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimGroupsListStatus400 = IamScimErrorResponse;
 
 export type ScimGroupsListOptions = {
   body?: never | undefined;
@@ -390768,9 +389883,18 @@ export type ScimGroupsCreatePath = {
   accountId: IamAccountIdentifier;
 };
 
-export type ScimGroupsCreateStatus201 = unknown;
+/**
+ * @description A SCIM 2.0 Group resource representing an account user group (RFC 7643 Section 4.2). May be a system group (backed by a Cloudflare permission group, read-only except for member management) or a custom user group (full CRUD).
+ * @type object
+ */
+export type ScimGroupsCreateStatus201 = IamScimGroup;
 
-export type ScimGroupsCreateStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimGroupsCreateStatus400 = IamScimErrorResponse;
 
 /**
  * @description Request body for creating a SCIM Group. The `displayName` must not be empty and must not begin with `CF` (reserved for system groups).
@@ -390812,7 +389936,12 @@ export type ScimGroupsDeletePath = {
 
 export type ScimGroupsDeleteStatus204 = unknown;
 
-export type ScimGroupsDeleteStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimGroupsDeleteStatus400 = IamScimErrorResponse;
 
 export type ScimGroupsDeleteOptions = {
   body?: never | undefined;
@@ -390845,9 +389974,18 @@ export type ScimGroupsGetPath = {
   groupId: IamScimGroupIdentifier;
 };
 
-export type ScimGroupsGetStatus200 = unknown;
+/**
+ * @description A SCIM 2.0 Group resource representing an account user group (RFC 7643 Section 4.2). May be a system group (backed by a Cloudflare permission group, read-only except for member management) or a custom user group (full CRUD).
+ * @type object
+ */
+export type ScimGroupsGetStatus200 = IamScimGroup;
 
-export type ScimGroupsGetStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimGroupsGetStatus400 = IamScimErrorResponse;
 
 export type ScimGroupsGetOptions = {
   body?: never | undefined;
@@ -390880,9 +390018,18 @@ export type ScimGroupsPatchPath = {
   groupId: IamScimGroupIdentifier;
 };
 
-export type ScimGroupsPatchStatus200 = unknown;
+/**
+ * @description A SCIM 2.0 Group resource representing an account user group (RFC 7643 Section 4.2). May be a system group (backed by a Cloudflare permission group, read-only except for member management) or a custom user group (full CRUD).
+ * @type object
+ */
+export type ScimGroupsPatchStatus200 = IamScimGroup;
 
-export type ScimGroupsPatchStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimGroupsPatchStatus400 = IamScimErrorResponse;
 
 /**
  * @description Request body for a SCIM PATCH operation on a Group resource (RFC 7644 Section 3.5.2).
@@ -390922,9 +390069,18 @@ export type ScimGroupsPutPath = {
   groupId: IamScimGroupIdentifier;
 };
 
-export type ScimGroupsPutStatus200 = unknown;
+/**
+ * @description A SCIM 2.0 Group resource representing an account user group (RFC 7643 Section 4.2). May be a system group (backed by a Cloudflare permission group, read-only except for member management) or a custom user group (full CRUD).
+ * @type object
+ */
+export type ScimGroupsPutStatus200 = IamScimGroup;
 
-export type ScimGroupsPutStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimGroupsPutStatus400 = IamScimErrorResponse;
 
 /**
  * @description Request body for replacing a SCIM Group (PUT).
@@ -390956,9 +390112,19 @@ export type ScimResourceTypesListPath = {
   accountId: IamAccountIdentifier;
 };
 
-export type ScimResourceTypesListStatus200 = unknown;
+/**
+ * @description SCIM ListResponse envelope for ResourceType resources (RFC 7644 Section 4).
+ *
+ * @type object
+ */
+export type ScimResourceTypesListStatus200 = IamScimResourceTypeListResponse;
 
-export type ScimResourceTypesListStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimResourceTypesListStatus400 = IamScimErrorResponse;
 
 export type ScimResourceTypesListOptions = {
   body?: never | undefined;
@@ -390997,9 +390163,19 @@ export type ScimResourceTypesGetPath = {
   resourceTypeId: ScimResourceTypesGetResourceTypeIdKey;
 };
 
-export type ScimResourceTypesGetStatus200 = unknown;
+/**
+ * @description A SCIM ResourceType resource (RFC 7643 Section 6). Describes a category of SCIM resource (e.g. User, Group) and its associated schema.
+ *
+ * @type object
+ */
+export type ScimResourceTypesGetStatus200 = IamScimResourceType;
 
-export type ScimResourceTypesGetStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimResourceTypesGetStatus400 = IamScimErrorResponse;
 
 export type ScimResourceTypesGetOptions = {
   body?: never | undefined;
@@ -391025,9 +390201,19 @@ export type ScimSchemasListPath = {
   accountId: IamAccountIdentifier;
 };
 
-export type ScimSchemasListStatus200 = unknown;
+/**
+ * @description SCIM ListResponse envelope for Schema resources (RFC 7644 Section 4).
+ *
+ * @type object
+ */
+export type ScimSchemasListStatus200 = IamScimSchemaListResponse;
 
-export type ScimSchemasListStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimSchemasListStatus400 = IamScimErrorResponse;
 
 export type ScimSchemasListOptions = {
   body?: never | undefined;
@@ -391059,9 +390245,19 @@ export type ScimSchemasGetPath = {
   schemaId: string;
 };
 
-export type ScimSchemasGetStatus200 = unknown;
+/**
+ * @description A SCIM Schema resource (RFC 7643 Section 7). Defines the attributes of a SCIM resource type (e.g. User or Group).
+ *
+ * @type object
+ */
+export type ScimSchemasGetStatus200 = IamScimSchema;
 
-export type ScimSchemasGetStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimSchemasGetStatus400 = IamScimErrorResponse;
 
 export type ScimSchemasGetOptions = {
   body?: never | undefined;
@@ -391087,9 +390283,19 @@ export type ScimServiceProviderConfigGetPath = {
   accountId: IamAccountIdentifier;
 };
 
-export type ScimServiceProviderConfigGetStatus200 = unknown;
+/**
+ * @description The SCIM 2.0 Service Provider configuration (RFC 7643 Section 5). Describes which optional SCIM features Cloudflare supports. IdPs use this to auto-configure their SCIM integration.
+ *
+ * @type object
+ */
+export type ScimServiceProviderConfigGetStatus200 = IamScimServiceProviderConfig;
 
-export type ScimServiceProviderConfigGetStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimServiceProviderConfigGetStatus400 = IamScimErrorResponse;
 
 export type ScimServiceProviderConfigGetOptions = {
   body?: never | undefined;
@@ -391140,9 +390346,19 @@ export type ScimUsersListQuery = {
   filter?: string | undefined;
 };
 
-export type ScimUsersListStatus200 = unknown;
+/**
+ * @description SCIM ListResponse envelope for User resources (RFC 7644 Section 3.4.2).
+ *
+ * @type object
+ */
+export type ScimUsersListStatus200 = IamScimUserListResponse;
 
-export type ScimUsersListStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimUsersListStatus400 = IamScimErrorResponse;
 
 export type ScimUsersListOptions = {
   body?: never | undefined;
@@ -391168,9 +390384,19 @@ export type ScimUsersCreatePath = {
   accountId: IamAccountIdentifier;
 };
 
-export type ScimUsersCreateStatus201 = unknown;
+/**
+ * @description A SCIM 2.0 User resource representing an account member (RFC 7643 Section 4.1).
+ *
+ * @type object
+ */
+export type ScimUsersCreateStatus201 = IamScimUser;
 
-export type ScimUsersCreateStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimUsersCreateStatus400 = IamScimErrorResponse;
 
 /**
  * @description Request body for creating a SCIM User (POST). The `emails` field is required with a primary email matching `userName`, and `active` must be `true`.
@@ -391211,7 +390437,12 @@ export type ScimUsersDeletePath = {
 
 export type ScimUsersDeleteStatus204 = unknown;
 
-export type ScimUsersDeleteStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimUsersDeleteStatus400 = IamScimErrorResponse;
 
 export type ScimUsersDeleteOptions = {
   body?: never | undefined;
@@ -391243,9 +390474,19 @@ export type ScimUsersGetPath = {
   userId: IamScimUserIdentifier;
 };
 
-export type ScimUsersGetStatus200 = unknown;
+/**
+ * @description A SCIM 2.0 User resource representing an account member (RFC 7643 Section 4.1).
+ *
+ * @type object
+ */
+export type ScimUsersGetStatus200 = IamScimUser;
 
-export type ScimUsersGetStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimUsersGetStatus400 = IamScimErrorResponse;
 
 export type ScimUsersGetOptions = {
   body?: never | undefined;
@@ -391277,9 +390518,19 @@ export type ScimUsersPatchPath = {
   userId: IamScimUserIdentifier;
 };
 
-export type ScimUsersPatchStatus200 = unknown;
+/**
+ * @description A SCIM 2.0 User resource representing an account member (RFC 7643 Section 4.1).
+ *
+ * @type object
+ */
+export type ScimUsersPatchStatus200 = IamScimUser;
 
-export type ScimUsersPatchStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimUsersPatchStatus400 = IamScimErrorResponse;
 
 /**
  * @description Request body for a SCIM PATCH operation on a User resource (RFC 7644 Section 3.5.2).
@@ -391318,9 +390569,19 @@ export type ScimUsersPutPath = {
   userId: IamScimUserIdentifier;
 };
 
-export type ScimUsersPutStatus200 = unknown;
+/**
+ * @description A SCIM 2.0 User resource representing an account member (RFC 7643 Section 4.1).
+ *
+ * @type object
+ */
+export type ScimUsersPutStatus200 = IamScimUser;
 
-export type ScimUsersPutStatus400 = unknown;
+/**
+ * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
+ *
+ * @type object
+ */
+export type ScimUsersPutStatus400 = IamScimErrorResponse;
 
 /**
  * @description Request body for replacing a SCIM User (PUT). Only `schemas` and `userName` are required; other fields are optional.
@@ -395897,7 +395158,10 @@ export type WorkersKvNamespaceReadKeyValuePairPath = {
   readonly accountId: WorkersKvIdentifier;
 };
 
-export type WorkersKvNamespaceReadKeyValuePairStatus200 = unknown;
+/**
+ * @description A byte sequence to be stored, up to 25 MiB in length.
+ */
+export type WorkersKvNamespaceReadKeyValuePairStatus200 = Blob;
 
 export type WorkersKvNamespaceReadKeyValuePairStatus400 = WorkersKvApiResponseCommonFailure;
 
@@ -397873,7 +397137,14 @@ export type StreamSubtitlesCaptionsGetVttCaptionOrSubtitlePath = {
   accountId: StreamIdentifier2;
 };
 
-export type StreamSubtitlesCaptionsGetVttCaptionOrSubtitleStatus200 = unknown;
+/**
+ * @example 'WEBVTT
+ *  00:00:00.000 --> 00:00:02.480
+ *  This is example response'
+ *
+ * @type string
+ */
+export type StreamSubtitlesCaptionsGetVttCaptionOrSubtitleStatus200 = string;
 
 export type StreamSubtitlesCaptionsGetVttCaptionOrSubtitleStatus400 = StreamApiResponseCommonFailure;
 
@@ -398115,7 +397386,11 @@ export type StreamVideosRetreieveEmbedCodeHtmlPath = {
   accountId: StreamAccountIdentifier;
 };
 
-export type StreamVideosRetreieveEmbedCodeHtmlStatus200 = unknown;
+/**
+ * @example <stream id="ea95132c15732412d22c1476fa83f27a"></stream><script data-cfasync="false" defer type="text/javascript" src="https://embed.cloudflarestream.com/embed/we4g.fla9.latest.js"></script>
+ * @type string
+ */
+export type StreamVideosRetreieveEmbedCodeHtmlStatus200 = string;
 
 export type StreamVideosRetreieveEmbedCodeHtmlStatus400 = StreamApiResponseCommonFailure;
 
@@ -400599,7 +399874,11 @@ export type UrlscannerGetResponseTextPath = {
   accountId: string;
 };
 
-export type UrlscannerGetResponseTextStatus200 = unknown;
+/**
+ * @description Web resource text/image.
+ * @type string
+ */
+export type UrlscannerGetResponseTextStatus200 = string;
 
 export type UrlscannerGetResponseTextStatus400 = {
   errors: {
@@ -402660,7 +401939,10 @@ export type UrlscannerGetScanScreenshotQuery = {
   resolution?: UrlscannerGetScanScreenshotResolutionKey | undefined;
 };
 
-export type UrlscannerGetScanScreenshotStatus200 = unknown;
+/**
+ * @description PNG Image.
+ */
+export type UrlscannerGetScanScreenshotStatus200 = Blob;
 
 export type UrlscannerGetScanScreenshotStatus202 = {
   errors: {
@@ -402987,7 +402269,11 @@ export type UrlscannerGetScanDomV2Path = {
   accountId: string;
 };
 
-export type UrlscannerGetScanDomV2Status200 = unknown;
+/**
+ * @description HTML of webpage.
+ * @type string
+ */
+export type UrlscannerGetScanDomV2Status200 = string;
 
 export type UrlscannerGetScanDomV2Status400 = {
   errors: {
@@ -403408,7 +402694,11 @@ export type UrlscannerGetResponseV2Path = {
   accountId: string;
 };
 
-export type UrlscannerGetResponseV2Status200 = unknown;
+/**
+ * @description Web resource or image.
+ * @type string
+ */
+export type UrlscannerGetResponseV2Status200 = string;
 
 export type UrlscannerGetResponseV2Status400 = {
   errors: {
@@ -406129,7 +405419,10 @@ export type UrlscannerGetScanScreenshotV2Query = {
   resolution?: UrlscannerGetScanScreenshotV2ResolutionKey | undefined;
 };
 
-export type UrlscannerGetScanScreenshotV2Status200 = unknown;
+/**
+ * @description PNG Image.
+ */
+export type UrlscannerGetScanScreenshotV2Status200 = Blob;
 
 export type UrlscannerGetScanScreenshotV2Status400 = {
   errors: {
@@ -409818,7 +409111,16 @@ export type NamespaceWorkerGetScriptContentPath = {
   scriptName: WorkersScriptName;
 };
 
-export type NamespaceWorkerGetScriptContentStatus200 = unknown;
+/**
+ * @example export default {
+ *   async fetch(request, env, ctx) {
+ *     return new Response("Hello, world!");
+ *   }
+ * };
+ *
+ * @type string
+ */
+export type NamespaceWorkerGetScriptContentStatus200 = string;
 
 export type NamespaceWorkerGetScriptContentStatus400 = WorkersApiResponseCommonFailure;
 
@@ -417059,7 +416361,16 @@ export type WorkerScriptDownloadWorkerPath = {
   scriptName: WorkersScriptName;
 };
 
-export type WorkerScriptDownloadWorkerStatus200 = unknown;
+/**
+ * @example export default {
+ *   async fetch(request, env, ctx) {
+ *     return new Response("Hello, world!");
+ *   }
+ * };
+ *
+ * @type string
+ */
+export type WorkerScriptDownloadWorkerStatus200 = string;
 
 export type WorkerScriptDownloadWorkerStatus400 = WorkersApiResponseCommonFailure;
 
@@ -417267,7 +416578,16 @@ export type WorkerScriptGetContentPath = {
   scriptName: WorkersScriptName;
 };
 
-export type WorkerScriptGetContentStatus200 = unknown;
+/**
+ * @example export default {
+ *   async fetch(request, env, ctx) {
+ *     return new Response("Hello, world!");
+ *   }
+ * };
+ *
+ * @type string
+ */
+export type WorkerScriptGetContentStatus200 = string;
 
 export type WorkerScriptGetContentStatus400 = WorkersApiResponseCommonFailure;
 
@@ -418676,7 +417996,16 @@ export type WorkerEnvironmentGetScriptContentPath = {
   environmentName: WorkersEnvironment;
 };
 
-export type WorkerEnvironmentGetScriptContentStatus200 = unknown;
+/**
+ * @example export default {
+ *   async fetch(request, env, ctx) {
+ *     return new Response("Hello, world!");
+ *   }
+ * };
+ *
+ * @type string
+ */
+export type WorkerEnvironmentGetScriptContentStatus200 = string;
 
 export type WorkerEnvironmentGetScriptContentStatus400 = WorkersApiResponseCommonFailure;
 
@@ -420409,7 +419738,7 @@ export type ProfileWorkerVersionPath = {
   versionId: string;
 };
 
-export type ProfileWorkerVersionStatus200 = unknown;
+export type ProfileWorkerVersionStatus200 = string;
 
 export type ProfileWorkerVersionStatus400 = WorkersApiResponseCommonFailure;
 
@@ -433892,6 +433221,109 @@ export type TenantsListAccountsResponses = {
  */
 export type TenantsListAccountsResponse = TenantsListAccountsStatus200;
 
+export type TenantLevelCustomNameserversListTenantCustomNameserversPath = {
+  /**
+   * @description Tenant identifier tag.
+   * @maxLength 32
+   * @example 699d98642c564d2e855e9661899b7252
+   * @type string
+   */
+  tenantId: DnsCustomNameserversIdentifier3;
+};
+
+export type TenantLevelCustomNameserversListTenantCustomNameserversStatus200 = DnsCustomNameserversTcnsResponseCollection;
+
+export type TenantLevelCustomNameserversListTenantCustomNameserversStatus400 = DnsCustomNameserversTcnsResponseCollection & DnsCustomNameserversApiResponseCommonFailure;
+
+export type TenantLevelCustomNameserversListTenantCustomNameserversOptions = {
+  body?: never | undefined;
+  path: TenantLevelCustomNameserversListTenantCustomNameserversPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type TenantLevelCustomNameserversListTenantCustomNameserversResponses = {
+  '200': TenantLevelCustomNameserversListTenantCustomNameserversStatus200;
+  '400': TenantLevelCustomNameserversListTenantCustomNameserversStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type TenantLevelCustomNameserversListTenantCustomNameserversResponse = TenantLevelCustomNameserversListTenantCustomNameserversStatus200;
+
+export type TenantLevelCustomNameserversAddTenantCustomNameserverPath = {
+  /**
+   * @description Tenant identifier tag.
+   * @maxLength 32
+   * @example 699d98642c564d2e855e9661899b7252
+   * @type string
+   */
+  tenantId: DnsCustomNameserversIdentifier3;
+};
+
+export type TenantLevelCustomNameserversAddTenantCustomNameserverStatus200 = DnsCustomNameserversTcnsResponseSingle;
+
+export type TenantLevelCustomNameserversAddTenantCustomNameserverStatus400 = DnsCustomNameserversTcnsResponseSingle & DnsCustomNameserversApiResponseCommonFailure;
+
+export type TenantLevelCustomNameserversAddTenantCustomNameserverBody = DnsCustomNameserversCustomNSInput;
+
+export type TenantLevelCustomNameserversAddTenantCustomNameserverOptions = {
+  body: TenantLevelCustomNameserversAddTenantCustomNameserverBody;
+  path: TenantLevelCustomNameserversAddTenantCustomNameserverPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type TenantLevelCustomNameserversAddTenantCustomNameserverResponses = {
+  '200': TenantLevelCustomNameserversAddTenantCustomNameserverStatus200;
+  '400': TenantLevelCustomNameserversAddTenantCustomNameserverStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type TenantLevelCustomNameserversAddTenantCustomNameserverResponse = TenantLevelCustomNameserversAddTenantCustomNameserverStatus200;
+
+export type TenantLevelCustomNameserversDeleteTenantCustomNameserverPath = {
+  /**
+   * @description The FQDN of the name server.
+   *
+   * Format: `hostname`
+   * @example ns1.example.com
+   * @type string
+   */
+  customNsId: DnsCustomNameserversNsName;
+  /**
+   * @description Tenant identifier tag.
+   * @maxLength 32
+   * @example 699d98642c564d2e855e9661899b7252
+   * @type string
+   */
+  tenantId: DnsCustomNameserversIdentifier3;
+};
+
+export type TenantLevelCustomNameserversDeleteTenantCustomNameserverStatus200 = DnsCustomNameserversEmptyResponse3;
+
+export type TenantLevelCustomNameserversDeleteTenantCustomNameserverStatus400 = DnsCustomNameserversEmptyResponse3 & DnsCustomNameserversApiResponseCommonFailure;
+
+export type TenantLevelCustomNameserversDeleteTenantCustomNameserverOptions = {
+  body?: never | undefined;
+  path: TenantLevelCustomNameserversDeleteTenantCustomNameserverPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type TenantLevelCustomNameserversDeleteTenantCustomNameserverResponses = {
+  '200': TenantLevelCustomNameserversDeleteTenantCustomNameserverStatus200;
+  '400': TenantLevelCustomNameserversDeleteTenantCustomNameserverStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type TenantLevelCustomNameserversDeleteTenantCustomNameserverResponse = TenantLevelCustomNameserversDeleteTenantCustomNameserverStatus200;
+
 export type TenantsListEntitlementsPath = {
   /**
    * @description The ID of the tenant whose entitlement allocations to retrieve.
@@ -433959,109 +433391,6 @@ export type TenantsListMembershipsResponses = {
  * @description Union of all possible responses
  */
 export type TenantsListMembershipsResponse = TenantsListMembershipsStatus200;
-
-export type TenantLevelCustomNameserversListTenantCustomNameserversPath = {
-  /**
-   * @description Tenant identifier tag.
-   * @maxLength 32
-   * @example 699d98642c564d2e855e9661899b7252
-   * @type string
-   */
-  tenantTag: DnsCustomNameserversIdentifier3;
-};
-
-export type TenantLevelCustomNameserversListTenantCustomNameserversStatus200 = DnsCustomNameserversTcnsResponseCollection;
-
-export type TenantLevelCustomNameserversListTenantCustomNameserversStatus400 = DnsCustomNameserversTcnsResponseCollection & DnsCustomNameserversApiResponseCommonFailure;
-
-export type TenantLevelCustomNameserversListTenantCustomNameserversOptions = {
-  body?: never | undefined;
-  path: TenantLevelCustomNameserversListTenantCustomNameserversPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type TenantLevelCustomNameserversListTenantCustomNameserversResponses = {
-  '200': TenantLevelCustomNameserversListTenantCustomNameserversStatus200;
-  '400': TenantLevelCustomNameserversListTenantCustomNameserversStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type TenantLevelCustomNameserversListTenantCustomNameserversResponse = TenantLevelCustomNameserversListTenantCustomNameserversStatus200;
-
-export type TenantLevelCustomNameserversAddTenantCustomNameserverPath = {
-  /**
-   * @description Tenant identifier tag.
-   * @maxLength 32
-   * @example 699d98642c564d2e855e9661899b7252
-   * @type string
-   */
-  tenantTag: DnsCustomNameserversIdentifier3;
-};
-
-export type TenantLevelCustomNameserversAddTenantCustomNameserverStatus200 = DnsCustomNameserversTcnsResponseSingle;
-
-export type TenantLevelCustomNameserversAddTenantCustomNameserverStatus400 = DnsCustomNameserversTcnsResponseSingle & DnsCustomNameserversApiResponseCommonFailure;
-
-export type TenantLevelCustomNameserversAddTenantCustomNameserverBody = DnsCustomNameserversCustomNSInput;
-
-export type TenantLevelCustomNameserversAddTenantCustomNameserverOptions = {
-  body: TenantLevelCustomNameserversAddTenantCustomNameserverBody;
-  path: TenantLevelCustomNameserversAddTenantCustomNameserverPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type TenantLevelCustomNameserversAddTenantCustomNameserverResponses = {
-  '200': TenantLevelCustomNameserversAddTenantCustomNameserverStatus200;
-  '400': TenantLevelCustomNameserversAddTenantCustomNameserverStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type TenantLevelCustomNameserversAddTenantCustomNameserverResponse = TenantLevelCustomNameserversAddTenantCustomNameserverStatus200;
-
-export type TenantLevelCustomNameserversDeleteTenantCustomNameserverPath = {
-  /**
-   * @description The FQDN of the name server.
-   *
-   * Format: `hostname`
-   * @example ns1.example.com
-   * @type string
-   */
-  customNsId: DnsCustomNameserversNsName;
-  /**
-   * @description Tenant identifier tag.
-   * @maxLength 32
-   * @example 699d98642c564d2e855e9661899b7252
-   * @type string
-   */
-  tenantTag: DnsCustomNameserversIdentifier3;
-};
-
-export type TenantLevelCustomNameserversDeleteTenantCustomNameserverStatus200 = DnsCustomNameserversEmptyResponse3;
-
-export type TenantLevelCustomNameserversDeleteTenantCustomNameserverStatus400 = DnsCustomNameserversEmptyResponse3 & DnsCustomNameserversApiResponseCommonFailure;
-
-export type TenantLevelCustomNameserversDeleteTenantCustomNameserverOptions = {
-  body?: never | undefined;
-  path: TenantLevelCustomNameserversDeleteTenantCustomNameserverPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type TenantLevelCustomNameserversDeleteTenantCustomNameserverResponses = {
-  '200': TenantLevelCustomNameserversDeleteTenantCustomNameserverStatus200;
-  '400': TenantLevelCustomNameserversDeleteTenantCustomNameserverStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type TenantLevelCustomNameserversDeleteTenantCustomNameserverResponse = TenantLevelCustomNameserversDeleteTenantCustomNameserverStatus200;
 
 export type IpAccessRulesForAUserDeleteAnIpAccessRulePath = {
   /**
@@ -435113,8 +434442,16 @@ export type TriggerDeployHookStatus200 = BuildsAPIResponse & {
   result?: BuildsTriggerDeployHookResponse | undefined;
 };
 
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type TriggerDeployHookStatus404 = BuildsErrorResponse;
 
+/**
+ * @example {"errors":[{"code":12051,"message":"Rate limit exceeded"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
 export type TriggerDeployHookStatus429 = BuildsErrorResponse;
 
 export type TriggerDeployHookOptions = {
@@ -435134,136 +434471,6 @@ export type TriggerDeployHookResponses = {
  * @description Union of all possible responses
  */
 export type TriggerDeployHookResponse = TriggerDeployHookStatus200;
-
-export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsPath = {
-  /**
-   * @description Identifier
-   * @maxLength 32
-   * @example 023e105f4ecef8ad9ca31a8372d0c353
-   * @type string
-   */
-  readonly zoneIdentifier: ZoneAnalyticsApiIdentifier;
-};
-
-export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsQuery = {
-  /**
-   * @description The (exclusive) end of the requested time frame. This value can be a negative integer representing the number of minutes in the past relative to time the request is made, or can be an absolute timestamp that conforms to RFC 3339. If omitted, the time of the request is used.
-   * @default 0
-   * @example 2015-01-02T12:23:00Z
-   */
-  until?: ZoneAnalyticsApiUntil | undefined;
-  /**
-   * @description The (inclusive) beginning of the requested time frame. This value can be a negative integer representing the number of minutes in the past relative to time the request is made, or can be an absolute timestamp that conforms to RFC 3339. At this point in time, it cannot exceed a time in the past greater than one year.
-   *
-   * Ranges that the Cloudflare web application provides will provide the following period length for each point:
-   * - Last 60 minutes (from -59 to -1): 1 minute resolution
-   * - Last 7 hours (from -419 to -60): 15 minutes resolution
-   * - Last 15 hours (from -899 to -420): 30 minutes resolution
-   * - Last 72 hours (from -4320 to -900): 1 hour resolution
-   * - Older than 3 days (-525600 to -4320): 1 day resolution.
-   * @default -10080
-   * @example 2015-01-01T12:23:00Z
-   */
-  since?: (string | number) | undefined;
-  /**
-   * @description When set to true, the API will move the requested time window backward, until it finds a region with completely aggregated data.
-   *
-   * The API response _may not represent the requested time window_.
-   * @default true
-   * @type boolean | undefined
-   */
-  continuous?: boolean | undefined;
-};
-
-export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsStatus200 = ZoneAnalyticsApiColoResponse;
-
-export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsStatus400 = ZoneAnalyticsApiColoResponse & ZoneAnalyticsApiApiResponseCommonFailure;
-
-/**
- * @deprecated
- * @type object
- */
-export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsOptions = {
-  body?: never | undefined;
-  path: ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsPath;
-  query?: ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsResponses = {
-  '200': ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsStatus200;
-  '400': ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsResponse = ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsStatus200;
-
-export type ZoneAnalyticsDeprecatedGetDashboardPath = {
-  /**
-   * @description Identifier
-   * @maxLength 32
-   * @example 023e105f4ecef8ad9ca31a8372d0c353
-   * @type string
-   */
-  readonly zoneIdentifier: ZoneAnalyticsApiIdentifier;
-};
-
-export type ZoneAnalyticsDeprecatedGetDashboardQuery = {
-  /**
-   * @description The (exclusive) end of the requested time frame. This value can be a negative integer representing the number of minutes in the past relative to time the request is made, or can be an absolute timestamp that conforms to RFC 3339. If omitted, the time of the request is used.
-   * @default 0
-   * @example 2015-01-02T12:23:00Z
-   */
-  until?: ZoneAnalyticsApiUntil | undefined;
-  /**
-   * @description The (inclusive) beginning of the requested time frame. This value can be a negative integer representing the number of minutes in the past relative to time the request is made, or can be an absolute timestamp that conforms to RFC 3339. At this point in time, it cannot exceed a time in the past greater than one year.
-   *
-   * Ranges that the Cloudflare web application provides will provide the following period length for each point:
-   * - Last 60 minutes (from -59 to -1): 1 minute resolution
-   * - Last 7 hours (from -419 to -60): 15 minutes resolution
-   * - Last 15 hours (from -899 to -420): 30 minutes resolution
-   * - Last 72 hours (from -4320 to -900): 1 hour resolution
-   * - Older than 3 days (-525600 to -4320): 1 day resolution.
-   * @default -10080
-   * @example 2015-01-01T12:23:00Z
-   */
-  since?: (string | number) | undefined;
-  /**
-   * @description When set to true, the API will move the requested time window backward, until it finds a region with completely aggregated data.
-   *
-   * The API response _may not represent the requested time window_.
-   * @default true
-   * @type boolean | undefined
-   */
-  continuous?: boolean | undefined;
-};
-
-export type ZoneAnalyticsDeprecatedGetDashboardStatus200 = ZoneAnalyticsApiDashboardResponse;
-
-export type ZoneAnalyticsDeprecatedGetDashboardStatus400 = ZoneAnalyticsApiDashboardResponse & ZoneAnalyticsApiApiResponseCommonFailure;
-
-/**
- * @deprecated
- * @type object
- */
-export type ZoneAnalyticsDeprecatedGetDashboardOptions = {
-  body?: never | undefined;
-  path: ZoneAnalyticsDeprecatedGetDashboardPath;
-  query?: ZoneAnalyticsDeprecatedGetDashboardQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type ZoneAnalyticsDeprecatedGetDashboardResponses = {
-  '200': ZoneAnalyticsDeprecatedGetDashboardStatus200;
-  '400': ZoneAnalyticsDeprecatedGetDashboardStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ZoneAnalyticsDeprecatedGetDashboardResponse = ZoneAnalyticsDeprecatedGetDashboardStatus200;
 
 export type Zones0DeletePath = {
   /**
@@ -438105,6 +437312,136 @@ export type AiSecuritySettingsPutResponses = {
  * @description Union of all possible responses
  */
 export type AiSecuritySettingsPutResponse = AiSecuritySettingsPutStatus200;
+
+export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsPath = {
+  /**
+   * @description Identifier
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  readonly zoneId: ZoneAnalyticsApiIdentifier;
+};
+
+export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsQuery = {
+  /**
+   * @description The (exclusive) end of the requested time frame. This value can be a negative integer representing the number of minutes in the past relative to time the request is made, or can be an absolute timestamp that conforms to RFC 3339. If omitted, the time of the request is used.
+   * @default 0
+   * @example 2015-01-02T12:23:00Z
+   */
+  until?: ZoneAnalyticsApiUntil | undefined;
+  /**
+   * @description The (inclusive) beginning of the requested time frame. This value can be a negative integer representing the number of minutes in the past relative to time the request is made, or can be an absolute timestamp that conforms to RFC 3339. At this point in time, it cannot exceed a time in the past greater than one year.
+   *
+   * Ranges that the Cloudflare web application provides will provide the following period length for each point:
+   * - Last 60 minutes (from -59 to -1): 1 minute resolution
+   * - Last 7 hours (from -419 to -60): 15 minutes resolution
+   * - Last 15 hours (from -899 to -420): 30 minutes resolution
+   * - Last 72 hours (from -4320 to -900): 1 hour resolution
+   * - Older than 3 days (-525600 to -4320): 1 day resolution.
+   * @default -10080
+   * @example 2015-01-01T12:23:00Z
+   */
+  since?: (string | number) | undefined;
+  /**
+   * @description When set to true, the API will move the requested time window backward, until it finds a region with completely aggregated data.
+   *
+   * The API response _may not represent the requested time window_.
+   * @default true
+   * @type boolean | undefined
+   */
+  continuous?: boolean | undefined;
+};
+
+export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsStatus200 = ZoneAnalyticsApiColoResponse;
+
+export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsStatus400 = ZoneAnalyticsApiApiResponseCommonFailure;
+
+/**
+ * @deprecated
+ * @type object
+ */
+export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsOptions = {
+  body?: never | undefined;
+  path: ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsPath;
+  query?: ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsQuery | undefined;
+  headers?: never | undefined;
+};
+
+export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsResponses = {
+  '200': ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsStatus200;
+  '400': ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsResponse = ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsStatus200;
+
+export type ZoneAnalyticsDeprecatedGetDashboardPath = {
+  /**
+   * @description Identifier
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  readonly zoneId: ZoneAnalyticsApiIdentifier;
+};
+
+export type ZoneAnalyticsDeprecatedGetDashboardQuery = {
+  /**
+   * @description The (exclusive) end of the requested time frame. This value can be a negative integer representing the number of minutes in the past relative to time the request is made, or can be an absolute timestamp that conforms to RFC 3339. If omitted, the time of the request is used.
+   * @default 0
+   * @example 2015-01-02T12:23:00Z
+   */
+  until?: ZoneAnalyticsApiUntil | undefined;
+  /**
+   * @description The (inclusive) beginning of the requested time frame. This value can be a negative integer representing the number of minutes in the past relative to time the request is made, or can be an absolute timestamp that conforms to RFC 3339. At this point in time, it cannot exceed a time in the past greater than one year.
+   *
+   * Ranges that the Cloudflare web application provides will provide the following period length for each point:
+   * - Last 60 minutes (from -59 to -1): 1 minute resolution
+   * - Last 7 hours (from -419 to -60): 15 minutes resolution
+   * - Last 15 hours (from -899 to -420): 30 minutes resolution
+   * - Last 72 hours (from -4320 to -900): 1 hour resolution
+   * - Older than 3 days (-525600 to -4320): 1 day resolution.
+   * @default -10080
+   * @example 2015-01-01T12:23:00Z
+   */
+  since?: (string | number) | undefined;
+  /**
+   * @description When set to true, the API will move the requested time window backward, until it finds a region with completely aggregated data.
+   *
+   * The API response _may not represent the requested time window_.
+   * @default true
+   * @type boolean | undefined
+   */
+  continuous?: boolean | undefined;
+};
+
+export type ZoneAnalyticsDeprecatedGetDashboardStatus200 = ZoneAnalyticsApiDashboardResponse;
+
+export type ZoneAnalyticsDeprecatedGetDashboardStatus400 = ZoneAnalyticsApiApiResponseCommonFailure;
+
+/**
+ * @deprecated
+ * @type object
+ */
+export type ZoneAnalyticsDeprecatedGetDashboardOptions = {
+  body?: never | undefined;
+  path: ZoneAnalyticsDeprecatedGetDashboardPath;
+  query?: ZoneAnalyticsDeprecatedGetDashboardQuery | undefined;
+  headers?: never | undefined;
+};
+
+export type ZoneAnalyticsDeprecatedGetDashboardResponses = {
+  '200': ZoneAnalyticsDeprecatedGetDashboardStatus200;
+  '400': ZoneAnalyticsDeprecatedGetDashboardStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ZoneAnalyticsDeprecatedGetDashboardResponse = ZoneAnalyticsDeprecatedGetDashboardStatus200;
 
 export type ArgoAnalyticsForZoneArgoAnalyticsForAZonePath = {
   /**
@@ -444553,7 +443890,13 @@ export type DnsRecordsForAZoneExportDnsRecordsPath = {
   zoneId: DnsRecordsIdentifier;
 };
 
-export type DnsRecordsForAZoneExportDnsRecordsStatus200 = unknown;
+/**
+ * @description Exported BIND zone file.
+ * @example www.example.com. 300 IN  A 127.0.0.1
+ *
+ * @type string
+ */
+export type DnsRecordsForAZoneExportDnsRecordsStatus200 = string;
 
 export type DnsRecordsForAZoneExportDnsRecordsStatus400 = DnsRecordsApiResponseCommonFailure;
 
@@ -453596,7 +452939,7 @@ export type GetZonesZoneIdLogsRayidsRayIdPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  zoneId: LogshareIdentifier;
+  zoneId: LogshareZoneIdentifier;
   /**
    * @description Ray identifier.
    * @maxLength 16
@@ -453655,7 +452998,7 @@ export type GetZonesZoneIdLogsReceivedPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  zoneId: LogshareIdentifier;
+  zoneId: LogshareZoneIdentifier;
 };
 
 export type GetZonesZoneIdLogsReceivedQuery = {
@@ -453731,7 +453074,7 @@ export type GetZonesZoneIdLogsReceivedFieldsPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  zoneId: LogshareIdentifier;
+  zoneId: LogshareZoneIdentifier;
 };
 
 export type GetZonesZoneIdLogsReceivedFieldsStatus200 = LogshareFieldsResponse;
@@ -464486,7 +463829,11 @@ export type GetZoneSnippetContentPath = {
   snippetName: SnippetsSnippetName;
 };
 
-export type GetZoneSnippetContentStatus200 = unknown;
+/**
+ * @description Contain the snippet content response data.
+ * @type string
+ */
+export type GetZoneSnippetContentStatus200 = string;
 
 export type GetZoneSnippetContentStatus400 = SnippetsResponse & {
   result?: null | undefined;

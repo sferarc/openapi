@@ -2446,75 +2446,6 @@ import type {
 	CancelBuildByUuidResponse,
 	CancelBuildByUuidStatus401,
 	CancelBuildByUuidStatus404,
-	CatalogSyncsCreateBody,
-	CatalogSyncsCreateHeaders,
-	CatalogSyncsCreatePath,
-	CatalogSyncsCreateResponse,
-	CatalogSyncsCreateStatus400,
-	CatalogSyncsCreateStatus401,
-	CatalogSyncsCreateStatus403,
-	CatalogSyncsCreateStatus409,
-	CatalogSyncsCreateStatus422,
-	CatalogSyncsCreateStatus500,
-	CatalogSyncsDeletePath,
-	CatalogSyncsDeleteQuery,
-	CatalogSyncsDeleteResponse,
-	CatalogSyncsDeleteStatus400,
-	CatalogSyncsDeleteStatus401,
-	CatalogSyncsDeleteStatus403,
-	CatalogSyncsDeleteStatus404,
-	CatalogSyncsDeleteStatus409,
-	CatalogSyncsDeleteStatus500,
-	CatalogSyncsListPath,
-	CatalogSyncsListResponse,
-	CatalogSyncsListStatus400,
-	CatalogSyncsListStatus401,
-	CatalogSyncsListStatus403,
-	CatalogSyncsListStatus404,
-	CatalogSyncsListStatus500,
-	CatalogSyncsPatchBody,
-	CatalogSyncsPatchPath,
-	CatalogSyncsPatchResponse,
-	CatalogSyncsPatchStatus400,
-	CatalogSyncsPatchStatus401,
-	CatalogSyncsPatchStatus403,
-	CatalogSyncsPatchStatus404,
-	CatalogSyncsPatchStatus409,
-	CatalogSyncsPatchStatus422,
-	CatalogSyncsPatchStatus500,
-	CatalogSyncsPrebuiltPoliciesListPath,
-	CatalogSyncsPrebuiltPoliciesListQuery,
-	CatalogSyncsPrebuiltPoliciesListResponse,
-	CatalogSyncsPrebuiltPoliciesListStatus400,
-	CatalogSyncsPrebuiltPoliciesListStatus401,
-	CatalogSyncsPrebuiltPoliciesListStatus403,
-	CatalogSyncsPrebuiltPoliciesListStatus500,
-	CatalogSyncsReadPath,
-	CatalogSyncsReadResponse,
-	CatalogSyncsReadStatus400,
-	CatalogSyncsReadStatus401,
-	CatalogSyncsReadStatus403,
-	CatalogSyncsReadStatus404,
-	CatalogSyncsReadStatus500,
-	CatalogSyncsRefreshPath,
-	CatalogSyncsRefreshResponse,
-	CatalogSyncsRefreshStatus400,
-	CatalogSyncsRefreshStatus401,
-	CatalogSyncsRefreshStatus403,
-	CatalogSyncsRefreshStatus404,
-	CatalogSyncsRefreshStatus409,
-	CatalogSyncsRefreshStatus422,
-	CatalogSyncsRefreshStatus500,
-	CatalogSyncsUpdateBody,
-	CatalogSyncsUpdatePath,
-	CatalogSyncsUpdateResponse,
-	CatalogSyncsUpdateStatus400,
-	CatalogSyncsUpdateStatus401,
-	CatalogSyncsUpdateStatus403,
-	CatalogSyncsUpdateStatus404,
-	CatalogSyncsUpdateStatus409,
-	CatalogSyncsUpdateStatus422,
-	CatalogSyncsUpdateStatus500,
 	CertificatePacksDeleteAdvancedCertificateManagerCertificatePackPath,
 	CertificatePacksDeleteAdvancedCertificateManagerCertificatePackResponse,
 	CertificatePacksDeleteAdvancedCertificateManagerCertificatePackStatus400,
@@ -3087,6 +3018,7 @@ import type {
 	CreateApplicationStatus500,
 	CreateAppPath,
 	CreateAppResponse,
+	CreateAppStatus400,
 	CreateBuildTokenBody,
 	CreateBuildTokenPath,
 	CreateBuildTokenResponse,
@@ -3184,6 +3116,7 @@ import type {
 	CreateMeetingBody,
 	CreateMeetingPath,
 	CreateMeetingResponse,
+	CreateMeetingStatus400,
 	CreateOverrideCodeBody,
 	CreateOverrideCodePath,
 	CreateOverrideCodeResponse,
@@ -4127,6 +4060,7 @@ import type {
 	DeleteManagedTransformsStatus400,
 	DeleteMeetingParticipantPath,
 	DeleteMeetingParticipantResponse,
+	DeleteMeetingParticipantStatus400,
 	DeleteMeetingParticipantStatus500,
 	DeletePermissionDeletePath,
 	DeletePermissionDeleteResponse,
@@ -4156,6 +4090,7 @@ import type {
 	DeletePrefixStatus400,
 	DeletePresetsPresetIdPath,
 	DeletePresetsPresetIdResponse,
+	DeletePresetsPresetIdStatus400,
 	DeletePublicDeleteSendingSuppressionPath,
 	DeletePublicDeleteSendingSuppressionResponse,
 	DeletePublicDeleteSendingSuppressionStatus400,
@@ -5233,6 +5168,7 @@ import type {
 	EditParticipantBody,
 	EditParticipantPath,
 	EditParticipantResponse,
+	EditParticipantStatus400,
 	EditParticipantStatus500,
 	EditTargetEnvironmentBody,
 	EditTargetEnvironmentPath,
@@ -5252,6 +5188,15 @@ import type {
 	EditWorkerStatus404,
 	EditWorkerStatus409,
 	EditWorkerStatus500,
+	EmailDomainsChangesPath,
+	EmailDomainsChangesQuery,
+	EmailDomainsChangesResponse,
+	EmailDomainsChangesStatus400,
+	EmailDomainsChangesStatus403,
+	EmailDomainsChangesStatus404,
+	EmailDomainsChangesStatus409,
+	EmailDomainsChangesStatus500,
+	EmailDomainsChangesStatus503,
 	EmailDomainsCreateBody,
 	EmailDomainsCreatePath,
 	EmailDomainsCreateResponse,
@@ -5773,6 +5718,7 @@ import type {
 	FetchAllLivestreamsPath,
 	FetchAllLivestreamsQuery,
 	FetchAllLivestreamsResponse,
+	FetchAllLivestreamsStatus400,
 	FiltersCreateFiltersBody,
 	FiltersCreateFiltersPath,
 	FiltersCreateFiltersResponse,
@@ -6184,17 +6130,20 @@ import type {
 	GetAllMeetingsPath,
 	GetAllMeetingsQuery,
 	GetAllMeetingsResponse,
+	GetAllMeetingsStatus400,
 	GetAllowlistPrefixPath,
 	GetAllowlistPrefixResponse,
 	GetAllowlistPrefixStatus400,
 	GetAllRecordingsPath,
 	GetAllRecordingsQuery,
 	GetAllRecordingsResponse,
+	GetAllRecordingsStatus400,
 	GetAllSsoConnectorsPath,
 	GetAllSsoConnectorsResponse,
 	GetAllSsoConnectorsStatus400,
 	GetAllWebhookEventsPath,
 	GetAllWebhookEventsResponse,
+	GetAllWebhookEventsStatus400,
 	GetAllWebhooksPath,
 	GetAllWebhooksResponse,
 	GetAllWebhooksStatus401,
@@ -6216,9 +6165,11 @@ import type {
 	GetApplicationV2Status404,
 	GetAppPath,
 	GetAppResponse,
+	GetAppStatus400,
 	GetAppsPath,
 	GetAppsQuery,
 	GetAppsResponse,
+	GetAppsStatus400,
 	GetAssetSchemaPath,
 	GetAssetSchemaResponse,
 	GetAssetSchemaStatus401,
@@ -6591,9 +6542,11 @@ import type {
 	GetLivestreamAnalyticsCompletePath,
 	GetLivestreamAnalyticsCompleteQuery,
 	GetLivestreamAnalyticsCompleteResponse,
+	GetLivestreamAnalyticsCompleteStatus400,
 	GetLivestreamAnalyticsDaywisePath,
 	GetLivestreamAnalyticsDaywiseQuery,
 	GetLivestreamAnalyticsDaywiseResponse,
+	GetLivestreamAnalyticsDaywiseStatus400,
 	GetLogoMatchListPath,
 	GetLogoMatchListQuery,
 	GetLogoMatchListResponse,
@@ -6611,14 +6564,17 @@ import type {
 	GetMatchListStatus400,
 	GetMeetingParticipantPath,
 	GetMeetingParticipantResponse,
+	GetMeetingParticipantStatus400,
 	GetMeetingParticipantStatus500,
 	GetMeetingParticipantsPath,
 	GetMeetingParticipantsQuery,
 	GetMeetingParticipantsResponse,
+	GetMeetingParticipantsStatus400,
 	GetMeetingParticipantsStatus500,
 	GetMeetingPath,
 	GetMeetingQuery,
 	GetMeetingResponse,
+	GetMeetingStatus400,
 	GetMeetingStatus500,
 	GetMessageListPath,
 	GetMessageListQuery,
@@ -6631,15 +6587,19 @@ import type {
 	GetMessageReadStatus500,
 	GetOneRecordingPath,
 	GetOneRecordingResponse,
+	GetOneRecordingStatus400,
 	GetOrgAnalyticsPath,
 	GetOrgAnalyticsQuery,
 	GetOrgAnalyticsResponse,
+	GetOrgAnalyticsStatus400,
 	GetParticipantDataFromPeerIdPath,
 	GetParticipantDataFromPeerIdQuery,
 	GetParticipantDataFromPeerIdResponse,
+	GetParticipantDataFromPeerIdStatus400,
 	GetParticipantDetailsPath,
 	GetParticipantDetailsQuery,
 	GetParticipantDetailsResponse,
+	GetParticipantDetailsStatus400,
 	GetPermissionListPath,
 	GetPermissionListResponse,
 	GetPermissionListStatus400,
@@ -6699,8 +6659,10 @@ import type {
 	GetPresetsPath,
 	GetPresetsPresetIdPath,
 	GetPresetsPresetIdResponse,
+	GetPresetsPresetIdStatus400,
 	GetPresetsQuery,
 	GetPresetsResponse,
+	GetPresetsStatus400,
 	GetProtectionStatusPath,
 	GetProtectionStatusResponse,
 	GetProtectionStatusStatus400,
@@ -6878,20 +6840,26 @@ import type {
 	GetSecurityTxtStatus400,
 	GetSessionChatPath,
 	GetSessionChatResponse,
+	GetSessionChatStatus400,
 	GetSessionDetailsPath,
 	GetSessionDetailsQuery,
 	GetSessionDetailsResponse,
+	GetSessionDetailsStatus400,
 	GetSessionParticipantsPath,
 	GetSessionParticipantsQuery,
 	GetSessionParticipantsResponse,
+	GetSessionParticipantsStatus400,
 	GetSessionSummaryPath,
 	GetSessionSummaryResponse,
+	GetSessionSummaryStatus400,
 	GetSessionsPath,
 	GetSessionsQuery,
 	GetSessionsResponse,
+	GetSessionsStatus400,
 	GetSessionTranscriptPath,
 	GetSessionTranscriptQuery,
 	GetSessionTranscriptResponse,
+	GetSessionTranscriptStatus400,
 	GetSettingsPath,
 	GetSettingsResponse,
 	GetSettingsStatus400,
@@ -7011,16 +6979,21 @@ import type {
 	GetUserGetSelfStatus404,
 	GetV2ActiveLivestreamSessionDetailsPath,
 	GetV2ActiveLivestreamSessionDetailsResponse,
+	GetV2ActiveLivestreamSessionDetailsStatus400,
 	GetV2LivestreamSessionLivestreamIdPath,
 	GetV2LivestreamSessionLivestreamIdQuery,
 	GetV2LivestreamSessionLivestreamIdResponse,
+	GetV2LivestreamSessionLivestreamIdStatus400,
 	GetV2LivestreamsessionSessionMeetingIdActiveLivestreamPath,
 	GetV2LivestreamsessionSessionMeetingIdActiveLivestreamQuery,
 	GetV2LivestreamsessionSessionMeetingIdActiveLivestreamResponse,
+	GetV2LivestreamsessionSessionMeetingIdActiveLivestreamStatus400,
 	GetV2LivestreamsLivestreamSessionIdPath,
 	GetV2LivestreamsLivestreamSessionIdResponse,
+	GetV2LivestreamsLivestreamSessionIdStatus400,
 	GetV2MeetingsMeetingIdActiveLivestreamPath,
 	GetV2MeetingsMeetingIdActiveLivestreamResponse,
+	GetV2MeetingsMeetingIdActiveLivestreamStatus400,
 	GetV4AccountsByAccountIdK2StreamsByStreamIdPath,
 	GetV4AccountsByAccountIdK2StreamsByStreamIdResponse,
 	GetV4AccountsByAccountIdK2StreamsByStreamIdStatus400,
@@ -7595,6 +7568,7 @@ import type {
 	KeylessSslForAZoneListKeylessSslConfigurationsStatus400,
 	KickAllParticipantsPath,
 	KickAllParticipantsResponse,
+	KickAllParticipantsStatus400,
 	KickPartcipantsBody,
 	KickPartcipantsPath,
 	KickPartcipantsResponse,
@@ -7987,6 +7961,7 @@ import type {
 	LivestreamSessionDetailsPath,
 	LivestreamSessionDetailsQuery,
 	LivestreamSessionDetailsResponse,
+	LivestreamSessionDetailsStatus400,
 	LoadBalancerHealthcheckEventsListHealthcheckEventsQuery,
 	LoadBalancerHealthcheckEventsListHealthcheckEventsResponse,
 	LoadBalancerHealthcheckEventsListHealthcheckEventsStatus400,
@@ -8839,9 +8814,11 @@ import type {
 	MuteAllParticipantsBody,
 	MuteAllParticipantsPath,
 	MuteAllParticipantsResponse,
+	MuteAllParticipantsStatus400,
 	MuteParticipantsBody,
 	MuteParticipantsPath,
 	MuteParticipantsResponse,
+	MuteParticipantsStatus400,
 	NamespaceWorkerCreateBody,
 	NamespaceWorkerCreatePath,
 	NamespaceWorkerCreateResponse,
@@ -9066,109 +9043,6 @@ import type {
 	OauthClientsUpdateStatus400,
 	OauthScopesListResponse,
 	OauthScopesListStatus400,
-	OnrampsApplyPath,
-	OnrampsApplyResponse,
-	OnrampsApplyStatus400,
-	OnrampsApplyStatus401,
-	OnrampsApplyStatus403,
-	OnrampsApplyStatus404,
-	OnrampsApplyStatus409,
-	OnrampsApplyStatus500,
-	OnrampsCreateBody,
-	OnrampsCreateHeaders,
-	OnrampsCreatePath,
-	OnrampsCreateResponse,
-	OnrampsCreateStatus400,
-	OnrampsCreateStatus401,
-	OnrampsCreateStatus403,
-	OnrampsCreateStatus409,
-	OnrampsCreateStatus422,
-	OnrampsCreateStatus500,
-	OnrampsDeletePath,
-	OnrampsDeleteQuery,
-	OnrampsDeleteResponse,
-	OnrampsDeleteStatus400,
-	OnrampsDeleteStatus401,
-	OnrampsDeleteStatus403,
-	OnrampsDeleteStatus404,
-	OnrampsDeleteStatus409,
-	OnrampsDeleteStatus500,
-	OnrampsExportPath,
-	OnrampsExportResponse,
-	OnrampsExportStatus400,
-	OnrampsExportStatus401,
-	OnrampsExportStatus403,
-	OnrampsExportStatus404,
-	OnrampsExportStatus409,
-	OnrampsExportStatus500,
-	OnrampsListPath,
-	OnrampsListQuery,
-	OnrampsListResponse,
-	OnrampsListStatus400,
-	OnrampsListStatus401,
-	OnrampsListStatus403,
-	OnrampsListStatus500,
-	OnrampsMwanAddrSpacePatchBody,
-	OnrampsMwanAddrSpacePatchPath,
-	OnrampsMwanAddrSpacePatchResponse,
-	OnrampsMwanAddrSpacePatchStatus400,
-	OnrampsMwanAddrSpacePatchStatus401,
-	OnrampsMwanAddrSpacePatchStatus403,
-	OnrampsMwanAddrSpacePatchStatus404,
-	OnrampsMwanAddrSpacePatchStatus422,
-	OnrampsMwanAddrSpacePatchStatus500,
-	OnrampsMwanAddrSpaceReadPath,
-	OnrampsMwanAddrSpaceReadResponse,
-	OnrampsMwanAddrSpaceReadStatus400,
-	OnrampsMwanAddrSpaceReadStatus401,
-	OnrampsMwanAddrSpaceReadStatus403,
-	OnrampsMwanAddrSpaceReadStatus404,
-	OnrampsMwanAddrSpaceReadStatus500,
-	OnrampsMwanAddrSpaceUpdateBody,
-	OnrampsMwanAddrSpaceUpdatePath,
-	OnrampsMwanAddrSpaceUpdateResponse,
-	OnrampsMwanAddrSpaceUpdateStatus400,
-	OnrampsMwanAddrSpaceUpdateStatus401,
-	OnrampsMwanAddrSpaceUpdateStatus403,
-	OnrampsMwanAddrSpaceUpdateStatus404,
-	OnrampsMwanAddrSpaceUpdateStatus422,
-	OnrampsMwanAddrSpaceUpdateStatus500,
-	OnrampsPatchBody,
-	OnrampsPatchPath,
-	OnrampsPatchResponse,
-	OnrampsPatchStatus400,
-	OnrampsPatchStatus401,
-	OnrampsPatchStatus403,
-	OnrampsPatchStatus404,
-	OnrampsPatchStatus409,
-	OnrampsPatchStatus422,
-	OnrampsPatchStatus500,
-	OnrampsPlanPath,
-	OnrampsPlanResponse,
-	OnrampsPlanStatus400,
-	OnrampsPlanStatus401,
-	OnrampsPlanStatus403,
-	OnrampsPlanStatus404,
-	OnrampsPlanStatus409,
-	OnrampsPlanStatus500,
-	OnrampsReadPath,
-	OnrampsReadQuery,
-	OnrampsReadResponse,
-	OnrampsReadStatus400,
-	OnrampsReadStatus401,
-	OnrampsReadStatus403,
-	OnrampsReadStatus404,
-	OnrampsReadStatus500,
-	OnrampsUpdateBody,
-	OnrampsUpdatePath,
-	OnrampsUpdateResponse,
-	OnrampsUpdateStatus400,
-	OnrampsUpdateStatus401,
-	OnrampsUpdateStatus403,
-	OnrampsUpdateStatus404,
-	OnrampsUpdateStatus409,
-	OnrampsUpdateStatus422,
-	OnrampsUpdateStatus500,
 	OrganizationListOrganizationsQuery,
 	OrganizationListOrganizationsResponse,
 	OrganizationListOrganizationsStatus400,
@@ -9575,6 +9449,7 @@ import type {
 	PatchPresetsPresetIdBody,
 	PatchPresetsPresetIdPath,
 	PatchPresetsPresetIdResponse,
+	PatchPresetsPresetIdStatus400,
 	PatchPublicUpdateSendingSuppressionBody,
 	PatchPublicUpdateSendingSuppressionPath,
 	PatchPublicUpdateSendingSuppressionResponse,
@@ -9617,6 +9492,7 @@ import type {
 	PauseResumeStopRecordingBody,
 	PauseResumeStopRecordingPath,
 	PauseResumeStopRecordingResponse,
+	PauseResumeStopRecordingStatus400,
 	PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyPath,
 	PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyResponse,
 	PayloadLoggingKeysForAnAccountDeleteThePayloadLoggingKeyStatus400,
@@ -10207,6 +10083,7 @@ import type {
 	PostPresetsBody,
 	PostPresetsPath,
 	PostPresetsResponse,
+	PostPresetsStatus400,
 	PostPublicBulkCreateSendingSuppressionsBody,
 	PostPublicBulkCreateSendingSuppressionsPath,
 	PostPublicBulkCreateSendingSuppressionsResponse,
@@ -10246,6 +10123,7 @@ import type {
 	PostSearchLogoSimilarityStatus400,
 	PostSessionsSessionIdSummaryPath,
 	PostSessionsSessionIdSummaryResponse,
+	PostSessionsSessionIdSummaryStatus400,
 	PostTagCategoryCreateBody,
 	PostTagCategoryCreatePath,
 	PostTagCategoryCreateResponse,
@@ -10370,81 +10248,6 @@ import type {
 	ProfileWorkerVersionStatus429,
 	ProfileWorkerVersionStatus500,
 	ProfileWorkerVersionStatus503,
-	ProvidersCreateBody,
-	ProvidersCreateHeaders,
-	ProvidersCreatePath,
-	ProvidersCreateResponse,
-	ProvidersCreateStatus400,
-	ProvidersCreateStatus401,
-	ProvidersCreateStatus403,
-	ProvidersCreateStatus409,
-	ProvidersCreateStatus422,
-	ProvidersCreateStatus500,
-	ProvidersDeletePath,
-	ProvidersDeleteResponse,
-	ProvidersDeleteStatus400,
-	ProvidersDeleteStatus401,
-	ProvidersDeleteStatus403,
-	ProvidersDeleteStatus404,
-	ProvidersDeleteStatus500,
-	ProvidersDiscoverAllPath,
-	ProvidersDiscoverAllResponse,
-	ProvidersDiscoverAllStatus400,
-	ProvidersDiscoverAllStatus401,
-	ProvidersDiscoverAllStatus403,
-	ProvidersDiscoverAllStatus409,
-	ProvidersDiscoverAllStatus500,
-	ProvidersDiscoverPath,
-	ProvidersDiscoverQuery,
-	ProvidersDiscoverResponse,
-	ProvidersDiscoverStatus400,
-	ProvidersDiscoverStatus401,
-	ProvidersDiscoverStatus403,
-	ProvidersDiscoverStatus404,
-	ProvidersDiscoverStatus409,
-	ProvidersDiscoverStatus500,
-	ProvidersInitialSetupPath,
-	ProvidersInitialSetupResponse,
-	ProvidersInitialSetupStatus400,
-	ProvidersInitialSetupStatus401,
-	ProvidersInitialSetupStatus403,
-	ProvidersInitialSetupStatus404,
-	ProvidersInitialSetupStatus500,
-	ProvidersListPath,
-	ProvidersListQuery,
-	ProvidersListResponse,
-	ProvidersListStatus400,
-	ProvidersListStatus401,
-	ProvidersListStatus403,
-	ProvidersListStatus500,
-	ProvidersPatchBody,
-	ProvidersPatchPath,
-	ProvidersPatchResponse,
-	ProvidersPatchStatus400,
-	ProvidersPatchStatus401,
-	ProvidersPatchStatus403,
-	ProvidersPatchStatus404,
-	ProvidersPatchStatus409,
-	ProvidersPatchStatus422,
-	ProvidersPatchStatus500,
-	ProvidersReadPath,
-	ProvidersReadQuery,
-	ProvidersReadResponse,
-	ProvidersReadStatus400,
-	ProvidersReadStatus401,
-	ProvidersReadStatus403,
-	ProvidersReadStatus404,
-	ProvidersReadStatus500,
-	ProvidersUpdateBody,
-	ProvidersUpdatePath,
-	ProvidersUpdateResponse,
-	ProvidersUpdateStatus400,
-	ProvidersUpdateStatus401,
-	ProvidersUpdateStatus403,
-	ProvidersUpdateStatus404,
-	ProvidersUpdateStatus409,
-	ProvidersUpdateStatus422,
-	ProvidersUpdateStatus500,
 	PublicCreatePrefixBindingBody,
 	PublicCreatePrefixBindingPath,
 	PublicCreatePrefixBindingResponse,
@@ -10545,6 +10348,7 @@ import type {
 	PutPresetsPresetIdBody,
 	PutPresetsPresetIdPath,
 	PutPresetsPresetIdResponse,
+	PutPresetsPresetIdStatus400,
 	PutRequestUpdateBody,
 	PutRequestUpdatePath,
 	PutRequestUpdateResponse,
@@ -11879,9 +11683,11 @@ import type {
 	ReplaceMeetingBody,
 	ReplaceMeetingPath,
 	ReplaceMeetingResponse,
+	ReplaceMeetingStatus400,
 	ReplaceParticipantBody,
 	ReplaceParticipantPath,
 	ReplaceParticipantResponse,
+	ReplaceParticipantStatus400,
 	ReplaceParticipantStatus500,
 	ReplaceWebhookBody,
 	ReplaceWebhookPath,
@@ -11921,38 +11727,6 @@ import type {
 	ResetFindingSeverityStatus404,
 	ResetFindingSeverityStatus429,
 	ResetFindingSeverityStatus500,
-	ResourcesCatalogExportPath,
-	ResourcesCatalogExportQuery,
-	ResourcesCatalogExportResponse,
-	ResourcesCatalogExportStatus400,
-	ResourcesCatalogExportStatus401,
-	ResourcesCatalogExportStatus403,
-	ResourcesCatalogExportStatus404,
-	ResourcesCatalogExportStatus500,
-	ResourcesCatalogListPath,
-	ResourcesCatalogListQuery,
-	ResourcesCatalogListResponse,
-	ResourcesCatalogListStatus400,
-	ResourcesCatalogListStatus401,
-	ResourcesCatalogListStatus403,
-	ResourcesCatalogListStatus404,
-	ResourcesCatalogListStatus500,
-	ResourcesCatalogPolicyPreviewBody,
-	ResourcesCatalogPolicyPreviewPath,
-	ResourcesCatalogPolicyPreviewResponse,
-	ResourcesCatalogPolicyPreviewStatus400,
-	ResourcesCatalogPolicyPreviewStatus401,
-	ResourcesCatalogPolicyPreviewStatus403,
-	ResourcesCatalogPolicyPreviewStatus422,
-	ResourcesCatalogPolicyPreviewStatus500,
-	ResourcesCatalogReadPath,
-	ResourcesCatalogReadQuery,
-	ResourcesCatalogReadResponse,
-	ResourcesCatalogReadStatus400,
-	ResourcesCatalogReadStatus401,
-	ResourcesCatalogReadStatus403,
-	ResourcesCatalogReadStatus404,
-	ResourcesCatalogReadStatus500,
 	RestartHyperdrivePath,
 	RestartHyperdriveResponse,
 	RestartHyperdriveStatus400,
@@ -12002,6 +11776,10 @@ import type {
 	RssArticleRelevanceAggregateQuery,
 	RssArticleRelevanceAggregateResponse,
 	RssArticleRelevanceAggregateStatus400,
+	RssArticleReprocessBody,
+	RssArticleReprocessPath,
+	RssArticleReprocessResponse,
+	RssArticleReprocessStatus400,
 	RssArticleSeverityAggregatePath,
 	RssArticleSeverityAggregateQuery,
 	RssArticleSeverityAggregateResponse,
@@ -12700,6 +12478,74 @@ import type {
 	SpeedListTestHistoryQuery,
 	SpeedListTestHistoryResponse,
 	SpeedListTestHistoryStatus400,
+	SpendPoliciesActivityPath,
+	SpendPoliciesActivityQuery,
+	SpendPoliciesActivityResponse,
+	SpendPoliciesActivityStatus400,
+	SpendPoliciesActivityStatus401,
+	SpendPoliciesActivityStatus403,
+	SpendPoliciesActivityStatus404,
+	SpendPoliciesActivityStatus500,
+	SpendPoliciesActivityStatus503,
+	SpendPoliciesCreateBody,
+	SpendPoliciesCreatePath,
+	SpendPoliciesCreateResponse,
+	SpendPoliciesCreateStatus400,
+	SpendPoliciesCreateStatus401,
+	SpendPoliciesCreateStatus403,
+	SpendPoliciesCreateStatus404,
+	SpendPoliciesCreateStatus409,
+	SpendPoliciesCreateStatus500,
+	SpendPoliciesCreateStatus503,
+	SpendPoliciesDeleteHeaders,
+	SpendPoliciesDeletePath,
+	SpendPoliciesDeleteResponse,
+	SpendPoliciesDeleteStatus400,
+	SpendPoliciesDeleteStatus401,
+	SpendPoliciesDeleteStatus403,
+	SpendPoliciesDeleteStatus404,
+	SpendPoliciesDeleteStatus412,
+	SpendPoliciesDeleteStatus428,
+	SpendPoliciesDeleteStatus500,
+	SpendPoliciesDeleteStatus503,
+	SpendPoliciesGetPath,
+	SpendPoliciesGetResponse,
+	SpendPoliciesGetStatus400,
+	SpendPoliciesGetStatus401,
+	SpendPoliciesGetStatus403,
+	SpendPoliciesGetStatus404,
+	SpendPoliciesGetStatus500,
+	SpendPoliciesGetStatus503,
+	SpendPoliciesListAuditPath,
+	SpendPoliciesListAuditQuery,
+	SpendPoliciesListAuditResponse,
+	SpendPoliciesListAuditStatus400,
+	SpendPoliciesListAuditStatus401,
+	SpendPoliciesListAuditStatus403,
+	SpendPoliciesListAuditStatus404,
+	SpendPoliciesListAuditStatus500,
+	SpendPoliciesListAuditStatus503,
+	SpendPoliciesListPath,
+	SpendPoliciesListResponse,
+	SpendPoliciesListStatus400,
+	SpendPoliciesListStatus401,
+	SpendPoliciesListStatus403,
+	SpendPoliciesListStatus404,
+	SpendPoliciesListStatus500,
+	SpendPoliciesListStatus503,
+	SpendPoliciesUpdateBody,
+	SpendPoliciesUpdateHeaders,
+	SpendPoliciesUpdatePath,
+	SpendPoliciesUpdateResponse,
+	SpendPoliciesUpdateStatus400,
+	SpendPoliciesUpdateStatus401,
+	SpendPoliciesUpdateStatus403,
+	SpendPoliciesUpdateStatus404,
+	SpendPoliciesUpdateStatus409,
+	SpendPoliciesUpdateStatus412,
+	SpendPoliciesUpdateStatus428,
+	SpendPoliciesUpdateStatus500,
+	SpendPoliciesUpdateStatus503,
 	SqlApiIntrospectionAccountScopedPath,
 	SqlApiIntrospectionAccountScopedQuery,
 	SqlApiIntrospectionAccountScopedResponse,
@@ -12785,9 +12631,11 @@ import type {
 	StartLivestreamingBody,
 	StartLivestreamingPath,
 	StartLivestreamingResponse,
+	StartLivestreamingStatus400,
 	StartRecordingBody,
 	StartRecordingPath,
 	StartRecordingResponse,
+	StartRecordingStatus400,
 	StartSecurityCenterAccountScanBody,
 	StartSecurityCenterAccountScanPath,
 	StartSecurityCenterAccountScanResponse,
@@ -12799,8 +12647,10 @@ import type {
 	StartTrackRecordingForAMeetingBody,
 	StartTrackRecordingForAMeetingPath,
 	StartTrackRecordingForAMeetingResponse,
+	StartTrackRecordingForAMeetingStatus400,
 	StopLivestreamingPath,
 	StopLivestreamingResponse,
+	StopLivestreamingStatus400,
 	StoreCredentialsBody,
 	StoreCredentialsPath,
 	StoreCredentialsResponse,
@@ -13279,6 +13129,12 @@ import type {
 	UpdateAllowlistPrefixPath,
 	UpdateAllowlistPrefixResponse,
 	UpdateAllowlistPrefixStatus400,
+	UpdateAppBody,
+	UpdateAppPath,
+	UpdateAppResponse,
+	UpdateAppStatus400,
+	UpdateAppStatus401,
+	UpdateAppStatus404,
 	UpdateCniBody,
 	UpdateCniPath,
 	UpdateCniResponse,
@@ -13355,6 +13211,7 @@ import type {
 	UpdateMeetingBody,
 	UpdateMeetingPath,
 	UpdateMeetingResponse,
+	UpdateMeetingStatus400,
 	UpdateMeetingStatus500,
 	UpdatePolicyBody,
 	UpdatePolicyPath,
@@ -45704,6 +45561,345 @@ export async function accountBillingCreatePaymentIntent(
 }
 
 /**
+ * @summary List Spend Policies
+ * @description Returns every spend policy on the account that has not been deleted, including disabled ones. Results are sorted by `name`, then `id`. There is no pagination.
+ * @link /accounts/{accountId}/billing/spend-policies
+ */
+export async function spendPoliciesList(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: SpendPoliciesListPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		SpendPoliciesListResponse,
+		ErrorWrapper<
+			| SpendPoliciesListStatus400
+			| SpendPoliciesListStatus401
+			| SpendPoliciesListStatus403
+			| SpendPoliciesListStatus404
+			| SpendPoliciesListStatus500
+			| SpendPoliciesListStatus503
+		>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		SpendPoliciesListPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/billing/spend-policies`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create Spend Policy
+ * @description Creates a spend policy. Each account can have only one enabled `usage_block` policy per product. A second one returns `409`. There is no limit on `notification` policies.
+ * @link /accounts/{accountId}/billing/spend-policies
+ */
+export async function spendPoliciesCreate(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: SpendPoliciesCreatePath;
+		body: SpendPoliciesCreateBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		SpendPoliciesCreateResponse,
+		ErrorWrapper<
+			| SpendPoliciesCreateStatus400
+			| SpendPoliciesCreateStatus401
+			| SpendPoliciesCreateStatus403
+			| SpendPoliciesCreateStatus404
+			| SpendPoliciesCreateStatus409
+			| SpendPoliciesCreateStatus500
+			| SpendPoliciesCreateStatus503
+		>,
+		SpendPoliciesCreateBody,
+		Record<string, string>,
+		Record<string, string>,
+		SpendPoliciesCreatePath
+	>({
+		method: "POST",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/billing/spend-policies`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List Spend Policy Activity
+ * @description Returns configuration history from immutable policy revisions for the account, including deleted policies. Entries contain before/after values and verified actor attribution. Pages use descending revision IDs, not event or commit order; refresh the first page for new entries. This cursor is not an incremental consumer checkpoint.
+ * @link /accounts/{accountId}/billing/spend-policies/activity
+ */
+export async function spendPoliciesActivity(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: SpendPoliciesActivityPath;
+		queryParams?: Partial<SpendPoliciesActivityQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		SpendPoliciesActivityResponse,
+		ErrorWrapper<
+			| SpendPoliciesActivityStatus400
+			| SpendPoliciesActivityStatus401
+			| SpendPoliciesActivityStatus403
+			| SpendPoliciesActivityStatus404
+			| SpendPoliciesActivityStatus500
+			| SpendPoliciesActivityStatus503
+		>,
+		null,
+		Record<string, string>,
+		Partial<SpendPoliciesActivityQuery>,
+		SpendPoliciesActivityPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/billing/spend-policies/activity`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Spend Policy
+ * @description Soft-deletes the spend policy. The policy is disabled and no longer appears in list, get or audit responses. The `If-Match` header must equal the policy's current `version`.
+ * @link /accounts/{accountId}/billing/spend-policies/{policyId}
+ */
+export async function spendPoliciesDelete(
+	{
+		pathParams,
+		headers,
+		config,
+	}: {
+		pathParams: SpendPoliciesDeletePath;
+		headers?: Partial<SpendPoliciesDeleteHeaders>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.policyId == null || String(pathParams.policyId) === "") {
+		throw new Error(`Missing required path parameter: policyId`);
+	}
+	const data = await request<
+		SpendPoliciesDeleteResponse,
+		ErrorWrapper<
+			| SpendPoliciesDeleteStatus400
+			| SpendPoliciesDeleteStatus401
+			| SpendPoliciesDeleteStatus403
+			| SpendPoliciesDeleteStatus404
+			| SpendPoliciesDeleteStatus412
+			| SpendPoliciesDeleteStatus428
+			| SpendPoliciesDeleteStatus500
+			| SpendPoliciesDeleteStatus503
+		>,
+		null,
+		Partial<SpendPoliciesDeleteHeaders>,
+		Record<string, string>,
+		SpendPoliciesDeletePath
+	>({
+		method: "DELETE",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/billing/spend-policies/${encodeURIComponent(String(pathParams.policyId))}`,
+		...requestConfig,
+		headers: { ...headers, ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Spend Policy
+ * @description Returns one spend policy. The `ETag` response header holds the current `version`; send it as `If-Match` on a later update or delete.
+ * @link /accounts/{accountId}/billing/spend-policies/{policyId}
+ */
+export async function spendPoliciesGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: SpendPoliciesGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.policyId == null || String(pathParams.policyId) === "") {
+		throw new Error(`Missing required path parameter: policyId`);
+	}
+	const data = await request<
+		SpendPoliciesGetResponse,
+		ErrorWrapper<
+			| SpendPoliciesGetStatus400
+			| SpendPoliciesGetStatus401
+			| SpendPoliciesGetStatus403
+			| SpendPoliciesGetStatus404
+			| SpendPoliciesGetStatus500
+			| SpendPoliciesGetStatus503
+		>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		SpendPoliciesGetPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/billing/spend-policies/${encodeURIComponent(String(pathParams.policyId))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Spend Policy
+ * @description Replaces the whole spend policy. Every field is required, as on create; there are no partial updates and `PATCH` is not supported. The `If-Match` header must equal the policy's current `version`. On success, `version` goes up by one and the new value is returned in `ETag`.
+ * @link /accounts/{accountId}/billing/spend-policies/{policyId}
+ */
+export async function spendPoliciesUpdate(
+	{
+		pathParams,
+		body,
+		headers,
+		config,
+	}: {
+		pathParams: SpendPoliciesUpdatePath;
+		body: SpendPoliciesUpdateBody;
+		headers?: Partial<SpendPoliciesUpdateHeaders>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.policyId == null || String(pathParams.policyId) === "") {
+		throw new Error(`Missing required path parameter: policyId`);
+	}
+	const data = await request<
+		SpendPoliciesUpdateResponse,
+		ErrorWrapper<
+			| SpendPoliciesUpdateStatus400
+			| SpendPoliciesUpdateStatus401
+			| SpendPoliciesUpdateStatus403
+			| SpendPoliciesUpdateStatus404
+			| SpendPoliciesUpdateStatus409
+			| SpendPoliciesUpdateStatus412
+			| SpendPoliciesUpdateStatus428
+			| SpendPoliciesUpdateStatus500
+			| SpendPoliciesUpdateStatus503
+		>,
+		SpendPoliciesUpdateBody,
+		Partial<SpendPoliciesUpdateHeaders>,
+		Record<string, string>,
+		SpendPoliciesUpdatePath
+	>({
+		method: "PUT",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/billing/spend-policies/${encodeURIComponent(String(pathParams.policyId))}`,
+		body: body,
+		...requestConfig,
+		headers: { ...headers, ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List Spend Policy Audit Entries
+ * @description Returns the policy's evaluation history, newest first. At most one entry is recorded per trigger (`approaching_limit` or `limit_reached`), policy version and billing period, so a policy update can record a new entry without any change in balance. Disabled policies still return their history; deleted policies return `404`. There is no pagination: use `limit` to set how many entries come back.
+ * @link /accounts/{accountId}/billing/spend-policies/{policyId}/audit
+ */
+export async function spendPoliciesListAudit(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: SpendPoliciesListAuditPath;
+		queryParams?: Partial<SpendPoliciesListAuditQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.policyId == null || String(pathParams.policyId) === "") {
+		throw new Error(`Missing required path parameter: policyId`);
+	}
+	const data = await request<
+		SpendPoliciesListAuditResponse,
+		ErrorWrapper<
+			| SpendPoliciesListAuditStatus400
+			| SpendPoliciesListAuditStatus401
+			| SpendPoliciesListAuditStatus403
+			| SpendPoliciesListAuditStatus404
+			| SpendPoliciesListAuditStatus500
+			| SpendPoliciesListAuditStatus503
+		>,
+		null,
+		Record<string, string>,
+		Partial<SpendPoliciesListAuditQuery>,
+		SpendPoliciesListAuditPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/billing/spend-policies/${encodeURIComponent(String(pathParams.policyId))}/audit`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Get Unpaid Invoices
  * @description Gets unpaid invoice information for an account.
  * @link /accounts/{accountId}/billing/unpaid-invoice
@@ -63264,6 +63460,49 @@ export async function rssArticleContentGet(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/v2/threat-signals/articles/${encodeURIComponent(String(pathParams.articleId))}/content`,
 		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Reprocess a Threat Signals article
+ * @description Synchronously re-runs every processing step for a Threat Signals article: content acquisition, summary, indicator extraction, CVE tags, IOC context, and default tags. Replaces the article's summary, AI tags, and indicators; indicators no longer found are removed. Creates a Threat Event only when the article has none; an existing Event is never updated. Takes over the article from any queued processing. Requires a paid Threat Signals subscription and the Cloudforce One Write permission.
+ * @link /accounts/{accountId}/cloudforce-one/v2/threat-signals/articles/{articleId}/reprocess
+ */
+export async function rssArticleReprocess(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: RssArticleReprocessPath;
+		body?: RssArticleReprocessBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.articleId == null || String(pathParams.articleId) === "") {
+		throw new Error(`Missing required path parameter: articleId`);
+	}
+	const data = await request<
+		RssArticleReprocessResponse,
+		ErrorWrapper<RssArticleReprocessStatus400>,
+		RssArticleReprocessBody,
+		Record<string, string>,
+		Record<string, string>,
+		RssArticleReprocessPath
+	>({
+		method: "POST",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/v2/threat-signals/articles/${encodeURIComponent(String(pathParams.articleId))}/reprocess`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -84229,8 +84468,54 @@ export async function emailSecurityCreateSubmissions(
 }
 
 /**
+ * @summary List Email Domain changes
+ * @description Returns retained domain-specific state changes and completed-removal tombstones in a transaction-safe opaque order. The top-level platform field is the current shared gate and must be combined with each domain's state. Store next_cursor after processing every response, and continue immediately while has_more is true. To take a checkpoint, request this operation with modified_since set to the current time, follow has_more to the end, and save the final next_cursor; it replays every change committed after the first of those requests. Initial bootstrap and error 2086 recovery take a checkpoint, list the full inventory, then replay from the saved checkpoint, so changes made during the inventory are not lost. Only a tombstone proves that a domain was removed. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.
+ * @link /accounts/{accountId}/email/domain-changes
+ */
+export async function emailDomainsChanges(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: EmailDomainsChangesPath;
+		queryParams?: Partial<EmailDomainsChangesQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		EmailDomainsChangesResponse,
+		ErrorWrapper<
+			| EmailDomainsChangesStatus400
+			| EmailDomainsChangesStatus403
+			| EmailDomainsChangesStatus404
+			| EmailDomainsChangesStatus409
+			| EmailDomainsChangesStatus500
+			| EmailDomainsChangesStatus503
+		>,
+		null,
+		Record<string, string>,
+		Partial<EmailDomainsChangesQuery>,
+		EmailDomainsChangesPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/email/domain-changes`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary List Email Domains
- * @description Returns account-scoped domain status. DNS records are omitted unless requested; exact hostname filtering may return several candidates; retain the EmailDomain ID for each enrollment. Available only to the configured OpenAI pilot account behind a default-off gate. Authentication failures may use the gateway error envelope.
+ * @description Returns account-scoped domain status. DNS records are omitted unless requested; exact hostname filtering may return several candidates; retain the EmailDomain ID for each enrollment. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.
  * @link /accounts/{accountId}/email/domains
  */
 export async function emailDomainsList(
@@ -84275,7 +84560,7 @@ export async function emailDomainsList(
 
 /**
  * @summary Create an Email Domain
- * @description Creates a candidate and four DNS instructions. Rejects hostnames whose assigned Return-Path exceeds 201 ASCII characters. Creation follows read-only checks of the saved provider bundle and published exclusion. Hostnames inside an active full Cloudflare DNS zone return the generic hostname conflict error 2083. No per-domain provider DNS writes occur. Customer DNS observations remain pending and mail remains inactive. Unverified candidates may share a hostname. Supply an account-unique client_reference to retry the same enrollment safely; reuse with a different hostname returns error 2083. Final public-DNS, namespace protection and runtime readiness are separate gates. Available only to the configured OpenAI pilot account behind a default-off gate. Authentication failures may use the gateway error envelope.
+ * @description Creates a candidate and four DNS instructions. Rejects hostnames with more than 16 labels or whose assigned Return-Path exceeds 201 ASCII characters; error 2077 names the hostname rule that failed. Creation follows read-only checks of the saved provider bundle and published exclusion. Hostnames inside an active full Cloudflare DNS zone, including zones under a PSL private suffix such as workers.dev, or held by another enrollment, return the generic hostname conflict error 2083. While an earlier enrollment of this account with the same hostname or client_reference is being deleted, create returns error 2084 with Retry-After set to the expected completion time. No per-domain provider DNS writes occur. Customer DNS observations remain pending and mail remains inactive. Unverified candidates may share a hostname. Supply an account-unique client_reference to retry the same enrollment safely; reuse with a different hostname returns error 2089. A full domain quota returns error 2081 and frees only when domains are deleted or candidates expire, so it is not retryable; the create rate limit returns 429 with error 2088 and Retry-After. Requests rejected before the Cloudflare zone check do not count toward the rate limit. Final public-DNS, namespace protection and runtime readiness are separate gates. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.
  * @link /accounts/{accountId}/email/domains
  */
 export async function emailDomainsCreate(
@@ -84322,7 +84607,7 @@ export async function emailDomainsCreate(
 
 /**
  * @summary Delete an Email Domain
- * @description Requires an empty body. Unclaimed unpublished candidates are purged immediately. Claimed domains persist deleting state and retain claims until the deletion worker acknowledges safe revocation and token retirement. Repeated requests while deleting are idempotent. Available only to the configured OpenAI pilot account behind a default-off gate. Authentication failures may use the gateway error envelope.
+ * @description Requires an empty body. Unclaimed, unpublished candidates are removed immediately after token retirement. Acquired or published resources retain deleting state and claims until the deletion worker acknowledges safe revocation and token retirement: deletion completes after the last authorization FWDR may still hold has expired, up to about 31 minutes after the request. Until then the hostname and client_reference cannot be enrolled again. Repeated requests while deleting are idempotent. Retry-After is the expected time until GET returns 404; follow the Location header after it. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.
  * @link /accounts/{accountId}/email/domains/{emailDomainId}
  */
 export async function emailDomainsDelete(
@@ -84369,7 +84654,7 @@ export async function emailDomainsDelete(
 
 /**
  * @summary Get an Email Domain
- * @description Returns domain status and its four assigned DNS records. Shared provider health is reported by the capability states rather than duplicated on each DNS record. Expired unclaimed candidates and completed deletions return 404. Available only to the configured OpenAI pilot account behind a default-off gate. Authentication failures may use the gateway error envelope.
+ * @description Returns domain status and its four assigned DNS records. Shared provider health is reported by the capability states rather than duplicated on each DNS record. Expired unclaimed candidates and completed deletions return 404. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.
  * @link /accounts/{accountId}/email/domains/{emailDomainId}
  */
 export async function emailDomainsGet(
@@ -84415,7 +84700,7 @@ export async function emailDomainsGet(
 
 /**
  * @summary Verify an Email Domain
- * @description Requires an empty body. Schedules an expedited check and coalesces queued or leased work. It does not accept verification results, bypass activation gates, or perform customer DNS checks synchronously. Follow the Location header after Retry-After seconds until verification.observed_at appears or advances beyond the value in this 202 response; status may remain unchanged. Candidate expiry returns 404. Available only to the configured OpenAI pilot account behind a default-off gate. Authentication failures may use the gateway error envelope.
+ * @description Requires an empty body. Schedules an expedited check and coalesces queued or leased work. It does not accept verification results, bypass activation gates, or perform customer DNS checks synchronously. Follow the Location header after Retry-After seconds until verification.observed_at appears or advances beyond the value in this 202 response; status may remain unchanged. Candidate expiry returns 404. A repeat within 30 seconds returns error 2082 with the remaining cooldown in Retry-After. Only a request that schedules a check counts toward the account rate limit, error 2088. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.
  * @link /accounts/{accountId}/email/domains/{emailDomainId}/verify
  */
 export async function emailDomainsVerify(
@@ -99698,1562 +99983,6 @@ export async function magicInterconnectsUpdateInterconnect(
 }
 
 /**
- * @summary List Catalog Syncs
- * @description List Catalog Syncs (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/catalog-syncs
- */
-export async function catalogSyncsList(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: CatalogSyncsListPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		CatalogSyncsListResponse,
-		ErrorWrapper<
-			| CatalogSyncsListStatus400
-			| CatalogSyncsListStatus401
-			| CatalogSyncsListStatus403
-			| CatalogSyncsListStatus404
-			| CatalogSyncsListStatus500
-		>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		CatalogSyncsListPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/catalog-syncs`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Create Catalog Sync
- * @description Create a new Catalog Sync (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/catalog-syncs
- */
-export async function catalogSyncsCreate(
-	{
-		pathParams,
-		body,
-		headers,
-		config,
-	}: {
-		pathParams: CatalogSyncsCreatePath;
-		body: CatalogSyncsCreateBody;
-		headers?: Partial<CatalogSyncsCreateHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		CatalogSyncsCreateResponse,
-		ErrorWrapper<
-			| CatalogSyncsCreateStatus400
-			| CatalogSyncsCreateStatus401
-			| CatalogSyncsCreateStatus403
-			| CatalogSyncsCreateStatus409
-			| CatalogSyncsCreateStatus422
-			| CatalogSyncsCreateStatus500
-		>,
-		CatalogSyncsCreateBody,
-		Partial<CatalogSyncsCreateHeaders>,
-		Record<string, string>,
-		CatalogSyncsCreatePath
-	>({
-		method: "POST",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/catalog-syncs`,
-		body: body,
-		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List Prebuilt Policies
- * @description List prebuilt catalog sync policies (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/catalog-syncs/prebuilt-policies
- */
-export async function catalogSyncsPrebuiltPoliciesList(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: CatalogSyncsPrebuiltPoliciesListPath;
-		queryParams?: Partial<CatalogSyncsPrebuiltPoliciesListQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		CatalogSyncsPrebuiltPoliciesListResponse,
-		ErrorWrapper<
-			| CatalogSyncsPrebuiltPoliciesListStatus400
-			| CatalogSyncsPrebuiltPoliciesListStatus401
-			| CatalogSyncsPrebuiltPoliciesListStatus403
-			| CatalogSyncsPrebuiltPoliciesListStatus500
-		>,
-		null,
-		Record<string, string>,
-		Partial<CatalogSyncsPrebuiltPoliciesListQuery>,
-		CatalogSyncsPrebuiltPoliciesListPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/catalog-syncs/prebuilt-policies`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Delete Catalog Sync
- * @description Delete a Catalog Sync (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/catalog-syncs/{syncId}
- */
-export async function catalogSyncsDelete(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: CatalogSyncsDeletePath;
-		queryParams?: Partial<CatalogSyncsDeleteQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.syncId == null || String(pathParams.syncId) === "") {
-		throw new Error(`Missing required path parameter: syncId`);
-	}
-	const data = await request<
-		CatalogSyncsDeleteResponse,
-		ErrorWrapper<
-			| CatalogSyncsDeleteStatus400
-			| CatalogSyncsDeleteStatus401
-			| CatalogSyncsDeleteStatus403
-			| CatalogSyncsDeleteStatus404
-			| CatalogSyncsDeleteStatus409
-			| CatalogSyncsDeleteStatus500
-		>,
-		null,
-		Record<string, string>,
-		Partial<CatalogSyncsDeleteQuery>,
-		CatalogSyncsDeletePath
-	>({
-		method: "DELETE",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/catalog-syncs/${encodeURIComponent(String(pathParams.syncId))}`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Read Catalog Sync
- * @description Read a Catalog Sync (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/catalog-syncs/{syncId}
- */
-export async function catalogSyncsRead(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: CatalogSyncsReadPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.syncId == null || String(pathParams.syncId) === "") {
-		throw new Error(`Missing required path parameter: syncId`);
-	}
-	const data = await request<
-		CatalogSyncsReadResponse,
-		ErrorWrapper<
-			| CatalogSyncsReadStatus400
-			| CatalogSyncsReadStatus401
-			| CatalogSyncsReadStatus403
-			| CatalogSyncsReadStatus404
-			| CatalogSyncsReadStatus500
-		>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		CatalogSyncsReadPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/catalog-syncs/${encodeURIComponent(String(pathParams.syncId))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Patch Catalog Sync
- * @description Update a Catalog Sync (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/catalog-syncs/{syncId}
- */
-export async function catalogSyncsPatch(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: CatalogSyncsPatchPath;
-		body: CatalogSyncsPatchBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.syncId == null || String(pathParams.syncId) === "") {
-		throw new Error(`Missing required path parameter: syncId`);
-	}
-	const data = await request<
-		CatalogSyncsPatchResponse,
-		ErrorWrapper<
-			| CatalogSyncsPatchStatus400
-			| CatalogSyncsPatchStatus401
-			| CatalogSyncsPatchStatus403
-			| CatalogSyncsPatchStatus404
-			| CatalogSyncsPatchStatus409
-			| CatalogSyncsPatchStatus422
-			| CatalogSyncsPatchStatus500
-		>,
-		CatalogSyncsPatchBody,
-		Record<string, string>,
-		Record<string, string>,
-		CatalogSyncsPatchPath
-	>({
-		method: "PATCH",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/catalog-syncs/${encodeURIComponent(String(pathParams.syncId))}`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Update Catalog Sync
- * @description Update a Catalog Sync (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/catalog-syncs/{syncId}
- */
-export async function catalogSyncsUpdate(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: CatalogSyncsUpdatePath;
-		body: CatalogSyncsUpdateBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.syncId == null || String(pathParams.syncId) === "") {
-		throw new Error(`Missing required path parameter: syncId`);
-	}
-	const data = await request<
-		CatalogSyncsUpdateResponse,
-		ErrorWrapper<
-			| CatalogSyncsUpdateStatus400
-			| CatalogSyncsUpdateStatus401
-			| CatalogSyncsUpdateStatus403
-			| CatalogSyncsUpdateStatus404
-			| CatalogSyncsUpdateStatus409
-			| CatalogSyncsUpdateStatus422
-			| CatalogSyncsUpdateStatus500
-		>,
-		CatalogSyncsUpdateBody,
-		Record<string, string>,
-		Record<string, string>,
-		CatalogSyncsUpdatePath
-	>({
-		method: "PUT",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/catalog-syncs/${encodeURIComponent(String(pathParams.syncId))}`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Run Catalog Sync
- * @description Refresh a Catalog Sync's destination by running the sync policy against latest resource catalog (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/catalog-syncs/{syncId}/refresh
- */
-export async function catalogSyncsRefresh(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: CatalogSyncsRefreshPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.syncId == null || String(pathParams.syncId) === "") {
-		throw new Error(`Missing required path parameter: syncId`);
-	}
-	const data = await request<
-		CatalogSyncsRefreshResponse,
-		ErrorWrapper<
-			| CatalogSyncsRefreshStatus400
-			| CatalogSyncsRefreshStatus401
-			| CatalogSyncsRefreshStatus403
-			| CatalogSyncsRefreshStatus404
-			| CatalogSyncsRefreshStatus409
-			| CatalogSyncsRefreshStatus422
-			| CatalogSyncsRefreshStatus500
-		>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		CatalogSyncsRefreshPath
-	>({
-		method: "POST",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/catalog-syncs/${encodeURIComponent(String(pathParams.syncId))}/refresh`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List On-ramps
- * @description List On-ramps (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/onramps
- */
-export async function onrampsList(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: OnrampsListPath;
-		queryParams?: Partial<OnrampsListQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		OnrampsListResponse,
-		ErrorWrapper<
-			OnrampsListStatus400 | OnrampsListStatus401 | OnrampsListStatus403 | OnrampsListStatus500
-		>,
-		null,
-		Record<string, string>,
-		Partial<OnrampsListQuery>,
-		OnrampsListPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/onramps`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Create On-ramp
- * @description Create a new On-ramp (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/onramps
- */
-export async function onrampsCreate(
-	{
-		pathParams,
-		body,
-		headers,
-		config,
-	}: {
-		pathParams: OnrampsCreatePath;
-		body: OnrampsCreateBody;
-		headers?: Partial<OnrampsCreateHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		OnrampsCreateResponse,
-		ErrorWrapper<
-			| OnrampsCreateStatus400
-			| OnrampsCreateStatus401
-			| OnrampsCreateStatus403
-			| OnrampsCreateStatus409
-			| OnrampsCreateStatus422
-			| OnrampsCreateStatus500
-		>,
-		OnrampsCreateBody,
-		Partial<OnrampsCreateHeaders>,
-		Record<string, string>,
-		OnrampsCreatePath
-	>({
-		method: "POST",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/onramps`,
-		body: body,
-		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Read Magic WAN Address Space
- * @description Read the Magic WAN Address Space (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/onramps/magic_wan_address_space
- */
-export async function onrampsMwanAddrSpaceRead(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: OnrampsMwanAddrSpaceReadPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		OnrampsMwanAddrSpaceReadResponse,
-		ErrorWrapper<
-			| OnrampsMwanAddrSpaceReadStatus400
-			| OnrampsMwanAddrSpaceReadStatus401
-			| OnrampsMwanAddrSpaceReadStatus403
-			| OnrampsMwanAddrSpaceReadStatus404
-			| OnrampsMwanAddrSpaceReadStatus500
-		>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		OnrampsMwanAddrSpaceReadPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/onramps/magic_wan_address_space`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Patch Magic WAN Address Space
- * @description Update the Magic WAN Address Space (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/onramps/magic_wan_address_space
- */
-export async function onrampsMwanAddrSpacePatch(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: OnrampsMwanAddrSpacePatchPath;
-		body: OnrampsMwanAddrSpacePatchBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		OnrampsMwanAddrSpacePatchResponse,
-		ErrorWrapper<
-			| OnrampsMwanAddrSpacePatchStatus400
-			| OnrampsMwanAddrSpacePatchStatus401
-			| OnrampsMwanAddrSpacePatchStatus403
-			| OnrampsMwanAddrSpacePatchStatus404
-			| OnrampsMwanAddrSpacePatchStatus422
-			| OnrampsMwanAddrSpacePatchStatus500
-		>,
-		OnrampsMwanAddrSpacePatchBody,
-		Record<string, string>,
-		Record<string, string>,
-		OnrampsMwanAddrSpacePatchPath
-	>({
-		method: "PATCH",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/onramps/magic_wan_address_space`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Update Magic WAN Address Space
- * @description Update the Magic WAN Address Space (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/onramps/magic_wan_address_space
- */
-export async function onrampsMwanAddrSpaceUpdate(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: OnrampsMwanAddrSpaceUpdatePath;
-		body: OnrampsMwanAddrSpaceUpdateBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		OnrampsMwanAddrSpaceUpdateResponse,
-		ErrorWrapper<
-			| OnrampsMwanAddrSpaceUpdateStatus400
-			| OnrampsMwanAddrSpaceUpdateStatus401
-			| OnrampsMwanAddrSpaceUpdateStatus403
-			| OnrampsMwanAddrSpaceUpdateStatus404
-			| OnrampsMwanAddrSpaceUpdateStatus422
-			| OnrampsMwanAddrSpaceUpdateStatus500
-		>,
-		OnrampsMwanAddrSpaceUpdateBody,
-		Record<string, string>,
-		Record<string, string>,
-		OnrampsMwanAddrSpaceUpdatePath
-	>({
-		method: "PUT",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/onramps/magic_wan_address_space`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Delete On-ramp
- * @description Delete an On-ramp (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/onramps/{onrampId}
- */
-export async function onrampsDelete(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: OnrampsDeletePath;
-		queryParams?: Partial<OnrampsDeleteQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.onrampId == null || String(pathParams.onrampId) === "") {
-		throw new Error(`Missing required path parameter: onrampId`);
-	}
-	const data = await request<
-		OnrampsDeleteResponse,
-		ErrorWrapper<
-			| OnrampsDeleteStatus400
-			| OnrampsDeleteStatus401
-			| OnrampsDeleteStatus403
-			| OnrampsDeleteStatus404
-			| OnrampsDeleteStatus409
-			| OnrampsDeleteStatus500
-		>,
-		null,
-		Record<string, string>,
-		Partial<OnrampsDeleteQuery>,
-		OnrampsDeletePath
-	>({
-		method: "DELETE",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/onramps/${encodeURIComponent(String(pathParams.onrampId))}`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Read On-ramp
- * @description Read an On-ramp (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/onramps/{onrampId}
- */
-export async function onrampsRead(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: OnrampsReadPath;
-		queryParams?: Partial<OnrampsReadQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.onrampId == null || String(pathParams.onrampId) === "") {
-		throw new Error(`Missing required path parameter: onrampId`);
-	}
-	const data = await request<
-		OnrampsReadResponse,
-		ErrorWrapper<
-			| OnrampsReadStatus400
-			| OnrampsReadStatus401
-			| OnrampsReadStatus403
-			| OnrampsReadStatus404
-			| OnrampsReadStatus500
-		>,
-		null,
-		Record<string, string>,
-		Partial<OnrampsReadQuery>,
-		OnrampsReadPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/onramps/${encodeURIComponent(String(pathParams.onrampId))}`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Patch On-ramp
- * @description Update an On-ramp (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/onramps/{onrampId}
- */
-export async function onrampsPatch(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: OnrampsPatchPath;
-		body: OnrampsPatchBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.onrampId == null || String(pathParams.onrampId) === "") {
-		throw new Error(`Missing required path parameter: onrampId`);
-	}
-	const data = await request<
-		OnrampsPatchResponse,
-		ErrorWrapper<
-			| OnrampsPatchStatus400
-			| OnrampsPatchStatus401
-			| OnrampsPatchStatus403
-			| OnrampsPatchStatus404
-			| OnrampsPatchStatus409
-			| OnrampsPatchStatus422
-			| OnrampsPatchStatus500
-		>,
-		OnrampsPatchBody,
-		Record<string, string>,
-		Record<string, string>,
-		OnrampsPatchPath
-	>({
-		method: "PATCH",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/onramps/${encodeURIComponent(String(pathParams.onrampId))}`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Update On-ramp
- * @description Update an On-ramp (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/onramps/{onrampId}
- */
-export async function onrampsUpdate(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: OnrampsUpdatePath;
-		body: OnrampsUpdateBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.onrampId == null || String(pathParams.onrampId) === "") {
-		throw new Error(`Missing required path parameter: onrampId`);
-	}
-	const data = await request<
-		OnrampsUpdateResponse,
-		ErrorWrapper<
-			| OnrampsUpdateStatus400
-			| OnrampsUpdateStatus401
-			| OnrampsUpdateStatus403
-			| OnrampsUpdateStatus404
-			| OnrampsUpdateStatus409
-			| OnrampsUpdateStatus422
-			| OnrampsUpdateStatus500
-		>,
-		OnrampsUpdateBody,
-		Record<string, string>,
-		Record<string, string>,
-		OnrampsUpdatePath
-	>({
-		method: "PUT",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/onramps/${encodeURIComponent(String(pathParams.onrampId))}`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Apply On-ramp
- * @description Apply an On-ramp (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/onramps/{onrampId}/apply
- */
-export async function onrampsApply(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: OnrampsApplyPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.onrampId == null || String(pathParams.onrampId) === "") {
-		throw new Error(`Missing required path parameter: onrampId`);
-	}
-	const data = await request<
-		OnrampsApplyResponse,
-		ErrorWrapper<
-			| OnrampsApplyStatus400
-			| OnrampsApplyStatus401
-			| OnrampsApplyStatus403
-			| OnrampsApplyStatus404
-			| OnrampsApplyStatus409
-			| OnrampsApplyStatus500
-		>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		OnrampsApplyPath
-	>({
-		method: "POST",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/onramps/${encodeURIComponent(String(pathParams.onrampId))}/apply`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Export as Terraform
- * @description Export an On-ramp to terraform ready file(s) (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/onramps/{onrampId}/export
- */
-export async function onrampsExport(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: OnrampsExportPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.onrampId == null || String(pathParams.onrampId) === "") {
-		throw new Error(`Missing required path parameter: onrampId`);
-	}
-	const data = await request<
-		OnrampsExportResponse,
-		ErrorWrapper<
-			| OnrampsExportStatus400
-			| OnrampsExportStatus401
-			| OnrampsExportStatus403
-			| OnrampsExportStatus404
-			| OnrampsExportStatus409
-			| OnrampsExportStatus500
-		>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		OnrampsExportPath
-	>({
-		method: "POST",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/onramps/${encodeURIComponent(String(pathParams.onrampId))}/export`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Plan On-ramp
- * @description Plan an On-ramp (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/onramps/{onrampId}/plan
- */
-export async function onrampsPlan(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: OnrampsPlanPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.onrampId == null || String(pathParams.onrampId) === "") {
-		throw new Error(`Missing required path parameter: onrampId`);
-	}
-	const data = await request<
-		OnrampsPlanResponse,
-		ErrorWrapper<
-			| OnrampsPlanStatus400
-			| OnrampsPlanStatus401
-			| OnrampsPlanStatus403
-			| OnrampsPlanStatus404
-			| OnrampsPlanStatus409
-			| OnrampsPlanStatus500
-		>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		OnrampsPlanPath
-	>({
-		method: "POST",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/onramps/${encodeURIComponent(String(pathParams.onrampId))}/plan`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List Cloud Integrations
- * @description List Cloud Integrations (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/providers
- */
-export async function providersList(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: ProvidersListPath;
-		queryParams?: Partial<ProvidersListQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		ProvidersListResponse,
-		ErrorWrapper<
-			| ProvidersListStatus400
-			| ProvidersListStatus401
-			| ProvidersListStatus403
-			| ProvidersListStatus500
-		>,
-		null,
-		Record<string, string>,
-		Partial<ProvidersListQuery>,
-		ProvidersListPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/providers`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Create Cloud Integration
- * @description Create a new Cloud Integration (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/providers
- */
-export async function providersCreate(
-	{
-		pathParams,
-		body,
-		headers,
-		config,
-	}: {
-		pathParams: ProvidersCreatePath;
-		body: ProvidersCreateBody;
-		headers?: Partial<ProvidersCreateHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		ProvidersCreateResponse,
-		ErrorWrapper<
-			| ProvidersCreateStatus400
-			| ProvidersCreateStatus401
-			| ProvidersCreateStatus403
-			| ProvidersCreateStatus409
-			| ProvidersCreateStatus422
-			| ProvidersCreateStatus500
-		>,
-		ProvidersCreateBody,
-		Partial<ProvidersCreateHeaders>,
-		Record<string, string>,
-		ProvidersCreatePath
-	>({
-		method: "POST",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/providers`,
-		body: body,
-		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Run Discovery for All Integrations
- * @description Run discovery for all Cloud Integrations in an account (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/providers/discover
- */
-export async function providersDiscoverAll(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ProvidersDiscoverAllPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		ProvidersDiscoverAllResponse,
-		ErrorWrapper<
-			| ProvidersDiscoverAllStatus400
-			| ProvidersDiscoverAllStatus401
-			| ProvidersDiscoverAllStatus403
-			| ProvidersDiscoverAllStatus409
-			| ProvidersDiscoverAllStatus500
-		>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ProvidersDiscoverAllPath
-	>({
-		method: "POST",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/providers/discover`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Delete Cloud Integration
- * @description Delete a Cloud Integration (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/providers/{providerId}
- */
-export async function providersDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ProvidersDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.providerId == null || String(pathParams.providerId) === "") {
-		throw new Error(`Missing required path parameter: providerId`);
-	}
-	const data = await request<
-		ProvidersDeleteResponse,
-		ErrorWrapper<
-			| ProvidersDeleteStatus400
-			| ProvidersDeleteStatus401
-			| ProvidersDeleteStatus403
-			| ProvidersDeleteStatus404
-			| ProvidersDeleteStatus500
-		>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ProvidersDeletePath
-	>({
-		method: "DELETE",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/providers/${encodeURIComponent(String(pathParams.providerId))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Read Cloud Integration
- * @description Read a Cloud Integration (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/providers/{providerId}
- */
-export async function providersRead(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: ProvidersReadPath;
-		queryParams?: Partial<ProvidersReadQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.providerId == null || String(pathParams.providerId) === "") {
-		throw new Error(`Missing required path parameter: providerId`);
-	}
-	const data = await request<
-		ProvidersReadResponse,
-		ErrorWrapper<
-			| ProvidersReadStatus400
-			| ProvidersReadStatus401
-			| ProvidersReadStatus403
-			| ProvidersReadStatus404
-			| ProvidersReadStatus500
-		>,
-		null,
-		Record<string, string>,
-		Partial<ProvidersReadQuery>,
-		ProvidersReadPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/providers/${encodeURIComponent(String(pathParams.providerId))}`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Patch Cloud Integration
- * @description Update a Cloud Integration (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/providers/{providerId}
- */
-export async function providersPatch(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: ProvidersPatchPath;
-		body: ProvidersPatchBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.providerId == null || String(pathParams.providerId) === "") {
-		throw new Error(`Missing required path parameter: providerId`);
-	}
-	const data = await request<
-		ProvidersPatchResponse,
-		ErrorWrapper<
-			| ProvidersPatchStatus400
-			| ProvidersPatchStatus401
-			| ProvidersPatchStatus403
-			| ProvidersPatchStatus404
-			| ProvidersPatchStatus409
-			| ProvidersPatchStatus422
-			| ProvidersPatchStatus500
-		>,
-		ProvidersPatchBody,
-		Record<string, string>,
-		Record<string, string>,
-		ProvidersPatchPath
-	>({
-		method: "PATCH",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/providers/${encodeURIComponent(String(pathParams.providerId))}`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Update Cloud Integration
- * @description Update a Cloud Integration (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/providers/{providerId}
- */
-export async function providersUpdate(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: ProvidersUpdatePath;
-		body: ProvidersUpdateBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.providerId == null || String(pathParams.providerId) === "") {
-		throw new Error(`Missing required path parameter: providerId`);
-	}
-	const data = await request<
-		ProvidersUpdateResponse,
-		ErrorWrapper<
-			| ProvidersUpdateStatus400
-			| ProvidersUpdateStatus401
-			| ProvidersUpdateStatus403
-			| ProvidersUpdateStatus404
-			| ProvidersUpdateStatus409
-			| ProvidersUpdateStatus422
-			| ProvidersUpdateStatus500
-		>,
-		ProvidersUpdateBody,
-		Record<string, string>,
-		Record<string, string>,
-		ProvidersUpdatePath
-	>({
-		method: "PUT",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/providers/${encodeURIComponent(String(pathParams.providerId))}`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Run Discovery
- * @description Run discovery for a Cloud Integration (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/providers/{providerId}/discover
- */
-export async function providersDiscover(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: ProvidersDiscoverPath;
-		queryParams?: Partial<ProvidersDiscoverQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.providerId == null || String(pathParams.providerId) === "") {
-		throw new Error(`Missing required path parameter: providerId`);
-	}
-	const data = await request<
-		ProvidersDiscoverResponse,
-		ErrorWrapper<
-			| ProvidersDiscoverStatus400
-			| ProvidersDiscoverStatus401
-			| ProvidersDiscoverStatus403
-			| ProvidersDiscoverStatus404
-			| ProvidersDiscoverStatus409
-			| ProvidersDiscoverStatus500
-		>,
-		null,
-		Record<string, string>,
-		Partial<ProvidersDiscoverQuery>,
-		ProvidersDiscoverPath
-	>({
-		method: "POST",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/providers/${encodeURIComponent(String(pathParams.providerId))}/discover`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Get Cloud Integration Setup Config
- * @description Get initial configuration to complete Cloud Integration setup (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/providers/{providerId}/initial_setup
- */
-export async function providersInitialSetup(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ProvidersInitialSetupPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.providerId == null || String(pathParams.providerId) === "") {
-		throw new Error(`Missing required path parameter: providerId`);
-	}
-	const data = await request<
-		ProvidersInitialSetupResponse,
-		ErrorWrapper<
-			| ProvidersInitialSetupStatus400
-			| ProvidersInitialSetupStatus401
-			| ProvidersInitialSetupStatus403
-			| ProvidersInitialSetupStatus404
-			| ProvidersInitialSetupStatus500
-		>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ProvidersInitialSetupPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/providers/${encodeURIComponent(String(pathParams.providerId))}/initial_setup`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List Resources
- * @description List resources in the Resource Catalog (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/resources
- */
-export async function resourcesCatalogList(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: ResourcesCatalogListPath;
-		queryParams?: Partial<ResourcesCatalogListQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		ResourcesCatalogListResponse,
-		ErrorWrapper<
-			| ResourcesCatalogListStatus400
-			| ResourcesCatalogListStatus401
-			| ResourcesCatalogListStatus403
-			| ResourcesCatalogListStatus404
-			| ResourcesCatalogListStatus500
-		>,
-		null,
-		Record<string, string>,
-		Partial<ResourcesCatalogListQuery>,
-		ResourcesCatalogListPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/resources`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Export Resources
- * @description Export resources in the Resource Catalog as a JSON file (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/resources/export
- */
-export async function resourcesCatalogExport(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: ResourcesCatalogExportPath;
-		queryParams?: Partial<ResourcesCatalogExportQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		ResourcesCatalogExportResponse,
-		ErrorWrapper<
-			| ResourcesCatalogExportStatus400
-			| ResourcesCatalogExportStatus401
-			| ResourcesCatalogExportStatus403
-			| ResourcesCatalogExportStatus404
-			| ResourcesCatalogExportStatus500
-		>,
-		null,
-		Record<string, string>,
-		Partial<ResourcesCatalogExportQuery>,
-		ResourcesCatalogExportPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/resources/export`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Preview Rego Query
- * @description Preview Rego query result against the latest resource catalog (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/resources/policy-preview
- */
-export async function resourcesCatalogPolicyPreview(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: ResourcesCatalogPolicyPreviewPath;
-		body: ResourcesCatalogPolicyPreviewBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		ResourcesCatalogPolicyPreviewResponse,
-		ErrorWrapper<
-			| ResourcesCatalogPolicyPreviewStatus400
-			| ResourcesCatalogPolicyPreviewStatus401
-			| ResourcesCatalogPolicyPreviewStatus403
-			| ResourcesCatalogPolicyPreviewStatus422
-			| ResourcesCatalogPolicyPreviewStatus500
-		>,
-		ResourcesCatalogPolicyPreviewBody,
-		Record<string, string>,
-		Record<string, string>,
-		ResourcesCatalogPolicyPreviewPath
-	>({
-		method: "POST",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/resources/policy-preview`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Read Resource
- * @description Read an resource from the Resource Catalog (Closed Beta).
- * @link /accounts/{accountId}/magic/cloud/resources/{resourceId}
- */
-export async function resourcesCatalogRead(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: ResourcesCatalogReadPath;
-		queryParams?: Partial<ResourcesCatalogReadQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
-		throw new Error(`Missing required path parameter: resourceId`);
-	}
-	const data = await request<
-		ResourcesCatalogReadResponse,
-		ErrorWrapper<
-			| ResourcesCatalogReadStatus400
-			| ResourcesCatalogReadStatus401
-			| ResourcesCatalogReadStatus403
-			| ResourcesCatalogReadStatus404
-			| ResourcesCatalogReadStatus500
-		>,
-		null,
-		Record<string, string>,
-		Partial<ResourcesCatalogReadQuery>,
-		ResourcesCatalogReadPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cloud/resources/${encodeURIComponent(String(pathParams.resourceId))}`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary List Connectors
  * @description Lists Magic WAN Connectors.
  * @link /accounts/{accountId}/magic/connectors
@@ -113992,7 +112721,7 @@ export async function getApps(
 	}
 	const data = await request<
 		GetAppsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetAppsStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetAppsQuery>,
@@ -114031,7 +112760,7 @@ export async function createApp(
 	}
 	const data = await request<
 		CreateAppResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<CreateAppStatus400>,
 		CreateAppBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -114072,7 +112801,7 @@ export async function getApp(
 	}
 	const data = await request<
 		GetAppResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetAppStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -114080,6 +112809,49 @@ export async function getApp(
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/realtime/kit/apps/${encodeURIComponent(String(pathParams.appId))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update an app
+ * @description Update the name of an app in your account.
+ * @link /accounts/{accountId}/realtime/kit/apps/{appId}
+ */
+export async function updateApp(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: UpdateAppPath;
+		body: UpdateAppBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.appId == null || String(pathParams.appId) === "") {
+		throw new Error(`Missing required path parameter: appId`);
+	}
+	const data = await request<
+		UpdateAppResponse,
+		ErrorWrapper<UpdateAppStatus400 | UpdateAppStatus401 | UpdateAppStatus404>,
+		UpdateAppBody,
+		Record<string, string>,
+		Record<string, string>,
+		UpdateAppPath
+	>({
+		method: "PATCH",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/realtime/kit/apps/${encodeURIComponent(String(pathParams.appId))}`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -114114,7 +112886,7 @@ export async function getOrgAnalytics(
 	}
 	const data = await request<
 		GetOrgAnalyticsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetOrgAnalyticsStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetOrgAnalyticsQuery>,
@@ -114157,7 +112929,7 @@ export async function getLivestreamAnalyticsDaywise(
 	}
 	const data = await request<
 		GetLivestreamAnalyticsDaywiseResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetLivestreamAnalyticsDaywiseStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetLivestreamAnalyticsDaywiseQuery>,
@@ -114200,7 +112972,7 @@ export async function getLivestreamAnalyticsComplete(
 	}
 	const data = await request<
 		GetLivestreamAnalyticsCompleteResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetLivestreamAnalyticsCompleteStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetLivestreamAnalyticsCompleteQuery>,
@@ -114243,7 +113015,7 @@ export async function fetchAllLivestreams(
 	}
 	const data = await request<
 		FetchAllLivestreamsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<FetchAllLivestreamsStatus400>,
 		null,
 		Record<string, string>,
 		Partial<FetchAllLivestreamsQuery>,
@@ -114288,7 +113060,7 @@ export async function getV2LivestreamsLivestreamSessionId(
 	}
 	const data = await request<
 		GetV2LivestreamsLivestreamSessionIdResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetV2LivestreamsLivestreamSessionIdStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -114334,7 +113106,7 @@ export async function getV2LivestreamSessionLivestreamId(
 	}
 	const data = await request<
 		GetV2LivestreamSessionLivestreamIdResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetV2LivestreamSessionLivestreamIdStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetV2LivestreamSessionLivestreamIdQuery>,
@@ -114379,7 +113151,7 @@ export async function getV2ActiveLivestreamSessionDetails(
 	}
 	const data = await request<
 		GetV2ActiveLivestreamSessionDetailsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetV2ActiveLivestreamSessionDetailsStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -114421,7 +113193,7 @@ export async function getAllMeetings(
 	}
 	const data = await request<
 		GetAllMeetingsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetAllMeetingsStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetAllMeetingsQuery>,
@@ -114464,7 +113236,7 @@ export async function createMeeting(
 	}
 	const data = await request<
 		CreateMeetingResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<CreateMeetingStatus400>,
 		CreateMeetingBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -114511,7 +113283,7 @@ export async function getMeeting(
 	}
 	const data = await request<
 		GetMeetingResponse,
-		ErrorWrapper<GetMeetingStatus500>,
+		ErrorWrapper<GetMeetingStatus400 | GetMeetingStatus500>,
 		null,
 		Record<string, string>,
 		Partial<GetMeetingQuery>,
@@ -114558,7 +113330,7 @@ export async function updateMeeting(
 	}
 	const data = await request<
 		UpdateMeetingResponse,
-		ErrorWrapper<UpdateMeetingStatus500>,
+		ErrorWrapper<UpdateMeetingStatus400 | UpdateMeetingStatus500>,
 		UpdateMeetingBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -114605,7 +113377,7 @@ export async function replaceMeeting(
 	}
 	const data = await request<
 		ReplaceMeetingResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<ReplaceMeetingStatus400>,
 		ReplaceMeetingBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -114650,7 +113422,7 @@ export async function getV2MeetingsMeetingIdActiveLivestream(
 	}
 	const data = await request<
 		GetV2MeetingsMeetingIdActiveLivestreamResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetV2MeetingsMeetingIdActiveLivestreamStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -114694,7 +113466,7 @@ export async function stopLivestreaming(
 	}
 	const data = await request<
 		StopLivestreamingResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<StopLivestreamingStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -114829,7 +113601,7 @@ export async function kickAllParticipants(
 	}
 	const data = await request<
 		KickAllParticipantsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<KickAllParticipantsStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -114875,7 +113647,7 @@ export async function muteParticipants(
 	}
 	const data = await request<
 		MuteParticipantsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<MuteParticipantsStatus400>,
 		MuteParticipantsBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -114922,7 +113694,7 @@ export async function muteAllParticipants(
 	}
 	const data = await request<
 		MuteAllParticipantsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<MuteAllParticipantsStatus400>,
 		MuteAllParticipantsBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -115016,7 +113788,7 @@ export async function livestreamSessionDetails(
 	}
 	const data = await request<
 		LivestreamSessionDetailsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<LivestreamSessionDetailsStatus400>,
 		null,
 		Record<string, string>,
 		Partial<LivestreamSessionDetailsQuery>,
@@ -115063,7 +113835,7 @@ export async function startLivestreaming(
 	}
 	const data = await request<
 		StartLivestreamingResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<StartLivestreamingStatus400>,
 		StartLivestreamingBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -115110,7 +113882,7 @@ export async function getMeetingParticipants(
 	}
 	const data = await request<
 		GetMeetingParticipantsResponse,
-		ErrorWrapper<GetMeetingParticipantsStatus500>,
+		ErrorWrapper<GetMeetingParticipantsStatus400 | GetMeetingParticipantsStatus500>,
 		null,
 		Record<string, string>,
 		Partial<GetMeetingParticipantsQuery>,
@@ -115206,7 +113978,7 @@ export async function deleteMeetingParticipant(
 	}
 	const data = await request<
 		DeleteMeetingParticipantResponse,
-		ErrorWrapper<DeleteMeetingParticipantStatus500>,
+		ErrorWrapper<DeleteMeetingParticipantStatus400 | DeleteMeetingParticipantStatus500>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -115254,7 +114026,7 @@ export async function getMeetingParticipant(
 	}
 	const data = await request<
 		GetMeetingParticipantResponse,
-		ErrorWrapper<GetMeetingParticipantStatus500>,
+		ErrorWrapper<GetMeetingParticipantStatus400 | GetMeetingParticipantStatus500>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -115304,7 +114076,7 @@ export async function editParticipant(
 	}
 	const data = await request<
 		EditParticipantResponse,
-		ErrorWrapper<EditParticipantStatus500>,
+		ErrorWrapper<EditParticipantStatus400 | EditParticipantStatus500>,
 		EditParticipantBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -115355,7 +114127,7 @@ export async function replaceParticipant(
 	}
 	const data = await request<
 		ReplaceParticipantResponse,
-		ErrorWrapper<ReplaceParticipantStatus500>,
+		ErrorWrapper<ReplaceParticipantStatus400 | ReplaceParticipantStatus500>,
 		ReplaceParticipantBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -115500,7 +114272,7 @@ export async function getPresets(
 	}
 	const data = await request<
 		GetPresetsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetPresetsStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetPresetsQuery>,
@@ -115543,7 +114315,7 @@ export async function postPresets(
 	}
 	const data = await request<
 		PostPresetsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<PostPresetsStatus400>,
 		PostPresetsBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -115588,7 +114360,7 @@ export async function deletePresetsPresetId(
 	}
 	const data = await request<
 		DeletePresetsPresetIdResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<DeletePresetsPresetIdStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -115632,7 +114404,7 @@ export async function getPresetsPresetId(
 	}
 	const data = await request<
 		GetPresetsPresetIdResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetPresetsPresetIdStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -115678,7 +114450,7 @@ export async function patchPresetsPresetId(
 	}
 	const data = await request<
 		PatchPresetsPresetIdResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<PatchPresetsPresetIdStatus400>,
 		PatchPresetsPresetIdBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -115725,7 +114497,7 @@ export async function putPresetsPresetId(
 	}
 	const data = await request<
 		PutPresetsPresetIdResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<PutPresetsPresetIdStatus400>,
 		PutPresetsPresetIdBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -115772,7 +114544,7 @@ export async function getAllRecordings(
 	};
 	const data = await request<
 		GetAllRecordingsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetAllRecordingsStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, unknown>,
@@ -115815,7 +114587,7 @@ export async function startRecording(
 	}
 	const data = await request<
 		StartRecordingResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<StartRecordingStatus400>,
 		StartRecordingBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -115902,7 +114674,7 @@ export async function startTrackRecordingForAMeeting(
 	}
 	const data = await request<
 		StartTrackRecordingForAMeetingResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<StartTrackRecordingForAMeetingStatus400>,
 		StartTrackRecordingForAMeetingBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -115947,7 +114719,7 @@ export async function getOneRecording(
 	}
 	const data = await request<
 		GetOneRecordingResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetOneRecordingStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -115993,7 +114765,7 @@ export async function pauseResumeStopRecording(
 	}
 	const data = await request<
 		PauseResumeStopRecordingResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<PauseResumeStopRecordingStatus400>,
 		PauseResumeStopRecordingBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -116036,7 +114808,7 @@ export async function getSessions(
 	}
 	const data = await request<
 		GetSessionsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetSessionsStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetSessionsQuery>,
@@ -116083,7 +114855,7 @@ export async function getParticipantDataFromPeerId(
 	}
 	const data = await request<
 		GetParticipantDataFromPeerIdResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetParticipantDataFromPeerIdStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetParticipantDataFromPeerIdQuery>,
@@ -116130,7 +114902,7 @@ export async function getSessionDetails(
 	}
 	const data = await request<
 		GetSessionDetailsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetSessionDetailsStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetSessionDetailsQuery>,
@@ -116175,7 +114947,7 @@ export async function getSessionChat(
 	}
 	const data = await request<
 		GetSessionChatResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetSessionChatStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -116221,7 +114993,7 @@ export async function getV2LivestreamsessionSessionMeetingIdActiveLivestream(
 	}
 	const data = await request<
 		GetV2LivestreamsessionSessionMeetingIdActiveLivestreamResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetV2LivestreamsessionSessionMeetingIdActiveLivestreamStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetV2LivestreamsessionSessionMeetingIdActiveLivestreamQuery>,
@@ -116268,7 +115040,7 @@ export async function getSessionParticipants(
 	}
 	const data = await request<
 		GetSessionParticipantsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetSessionParticipantsStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetSessionParticipantsQuery>,
@@ -116319,7 +115091,7 @@ export async function getParticipantDetails(
 	}
 	const data = await request<
 		GetParticipantDetailsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetParticipantDetailsStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetParticipantDetailsQuery>,
@@ -116364,7 +115136,7 @@ export async function getSessionSummary(
 	}
 	const data = await request<
 		GetSessionSummaryResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetSessionSummaryStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -116408,7 +115180,7 @@ export async function postSessionsSessionIdSummary(
 	}
 	const data = await request<
 		PostSessionsSessionIdSummaryResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<PostSessionsSessionIdSummaryStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -116454,7 +115226,7 @@ export async function getSessionTranscript(
 	}
 	const data = await request<
 		GetSessionTranscriptResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetSessionTranscriptStatus400>,
 		null,
 		Record<string, string>,
 		Partial<GetSessionTranscriptQuery>,
@@ -116578,7 +115350,7 @@ export async function getAllWebhookEvents(
 	}
 	const data = await request<
 		GetAllWebhookEventsResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<GetAllWebhookEventsStatus400>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -142954,6 +141726,121 @@ export async function tenantsListAccounts(
 }
 
 /**
+ * @summary List Tenant Custom Nameservers
+ * @description Lists a tenant's custom nameservers.
+ * @link /tenants/{tenantId}/custom_ns
+ */
+export async function tenantLevelCustomNameserversListTenantCustomNameservers(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: TenantLevelCustomNameserversListTenantCustomNameserversPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.tenantId == null || String(pathParams.tenantId) === "") {
+		throw new Error(`Missing required path parameter: tenantId`);
+	}
+	const data = await request<
+		TenantLevelCustomNameserversListTenantCustomNameserversResponse,
+		ErrorWrapper<TenantLevelCustomNameserversListTenantCustomNameserversStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		TenantLevelCustomNameserversListTenantCustomNameserversPath
+	>({
+		method: "GET",
+		url: `/tenants/${encodeURIComponent(String(pathParams.tenantId))}/custom_ns`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Add Tenant Custom Nameserver
+ * @description Adds a custom nameserver for a tenant.
+ * @link /tenants/{tenantId}/custom_ns
+ */
+export async function tenantLevelCustomNameserversAddTenantCustomNameserver(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: TenantLevelCustomNameserversAddTenantCustomNameserverPath;
+		body: TenantLevelCustomNameserversAddTenantCustomNameserverBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.tenantId == null || String(pathParams.tenantId) === "") {
+		throw new Error(`Missing required path parameter: tenantId`);
+	}
+	const data = await request<
+		TenantLevelCustomNameserversAddTenantCustomNameserverResponse,
+		ErrorWrapper<TenantLevelCustomNameserversAddTenantCustomNameserverStatus400>,
+		TenantLevelCustomNameserversAddTenantCustomNameserverBody,
+		Record<string, string>,
+		Record<string, string>,
+		TenantLevelCustomNameserversAddTenantCustomNameserverPath
+	>({
+		method: "POST",
+		url: `/tenants/${encodeURIComponent(String(pathParams.tenantId))}/custom_ns`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Tenant Custom Nameserver
+ * @description Deletes a tenant's custom nameserver.
+ * @link /tenants/{tenantId}/custom_ns/{customNsId}
+ */
+export async function tenantLevelCustomNameserversDeleteTenantCustomNameserver(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: TenantLevelCustomNameserversDeleteTenantCustomNameserverPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customNsId == null || String(pathParams.customNsId) === "") {
+		throw new Error(`Missing required path parameter: customNsId`);
+	}
+
+	if (pathParams?.tenantId == null || String(pathParams.tenantId) === "") {
+		throw new Error(`Missing required path parameter: tenantId`);
+	}
+	const data = await request<
+		TenantLevelCustomNameserversDeleteTenantCustomNameserverResponse,
+		ErrorWrapper<TenantLevelCustomNameserversDeleteTenantCustomNameserverStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		TenantLevelCustomNameserversDeleteTenantCustomNameserverPath
+	>({
+		method: "DELETE",
+		url: `/tenants/${encodeURIComponent(String(pathParams.tenantId))}/custom_ns/${encodeURIComponent(String(pathParams.customNsId))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary List tenant entitlements
  * @description Retrieves the innate and custom entitlement allocations available to this tenant.
  * @link /tenants/{tenantId}/entitlements
@@ -143018,121 +141905,6 @@ export async function tenantsListMemberships(
 	>({
 		method: "GET",
 		url: `/tenants/${encodeURIComponent(String(pathParams.tenantId))}/memberships`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List Tenant Custom Nameservers
- * @description Lists a tenant's custom nameservers.
- * @link /tenants/{tenantTag}/custom_ns
- */
-export async function tenantLevelCustomNameserversListTenantCustomNameservers(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: TenantLevelCustomNameserversListTenantCustomNameserversPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.tenantTag == null || String(pathParams.tenantTag) === "") {
-		throw new Error(`Missing required path parameter: tenantTag`);
-	}
-	const data = await request<
-		TenantLevelCustomNameserversListTenantCustomNameserversResponse,
-		ErrorWrapper<TenantLevelCustomNameserversListTenantCustomNameserversStatus400>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		TenantLevelCustomNameserversListTenantCustomNameserversPath
-	>({
-		method: "GET",
-		url: `/tenants/${encodeURIComponent(String(pathParams.tenantTag))}/custom_ns`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Add Tenant Custom Nameserver
- * @description Adds a custom nameserver for a tenant.
- * @link /tenants/{tenantTag}/custom_ns
- */
-export async function tenantLevelCustomNameserversAddTenantCustomNameserver(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: TenantLevelCustomNameserversAddTenantCustomNameserverPath;
-		body: TenantLevelCustomNameserversAddTenantCustomNameserverBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.tenantTag == null || String(pathParams.tenantTag) === "") {
-		throw new Error(`Missing required path parameter: tenantTag`);
-	}
-	const data = await request<
-		TenantLevelCustomNameserversAddTenantCustomNameserverResponse,
-		ErrorWrapper<TenantLevelCustomNameserversAddTenantCustomNameserverStatus400>,
-		TenantLevelCustomNameserversAddTenantCustomNameserverBody,
-		Record<string, string>,
-		Record<string, string>,
-		TenantLevelCustomNameserversAddTenantCustomNameserverPath
-	>({
-		method: "POST",
-		url: `/tenants/${encodeURIComponent(String(pathParams.tenantTag))}/custom_ns`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Delete Tenant Custom Nameserver
- * @description Deletes a tenant's custom nameserver.
- * @link /tenants/{tenantTag}/custom_ns/{customNsId}
- */
-export async function tenantLevelCustomNameserversDeleteTenantCustomNameserver(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: TenantLevelCustomNameserversDeleteTenantCustomNameserverPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.customNsId == null || String(pathParams.customNsId) === "") {
-		throw new Error(`Missing required path parameter: customNsId`);
-	}
-
-	if (pathParams?.tenantTag == null || String(pathParams.tenantTag) === "") {
-		throw new Error(`Missing required path parameter: tenantTag`);
-	}
-	const data = await request<
-		TenantLevelCustomNameserversDeleteTenantCustomNameserverResponse,
-		ErrorWrapper<TenantLevelCustomNameserversDeleteTenantCustomNameserverStatus400>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		TenantLevelCustomNameserversDeleteTenantCustomNameserverPath
-	>({
-		method: "DELETE",
-		url: `/tenants/${encodeURIComponent(String(pathParams.tenantTag))}/custom_ns/${encodeURIComponent(String(pathParams.customNsId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -144135,86 +142907,6 @@ export async function triggerDeployHook(
 	>({
 		method: "POST",
 		url: `/workers/builds/deploy_hooks/${encodeURIComponent(String(pathParams.deployHookUuid))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Get analytics by Co-locations
- * @description This view provides a breakdown of analytics data by datacenter. Note: This is available to Enterprise customers only.
- * @deprecated
- * @link /zones/{zoneIdentifier}/analytics/colos
- */
-export async function zoneAnalyticsDeprecatedGetAnalyticsByCoLocations(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsPath;
-		queryParams?: Partial<ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.zoneIdentifier == null || String(pathParams.zoneIdentifier) === "") {
-		throw new Error(`Missing required path parameter: zoneIdentifier`);
-	}
-	const data = await request<
-		ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsResponse,
-		ErrorWrapper<ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsStatus400>,
-		null,
-		Record<string, string>,
-		Partial<ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsQuery>,
-		ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsPath
-	>({
-		method: "GET",
-		url: `/zones/${encodeURIComponent(String(pathParams.zoneIdentifier))}/analytics/colos`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Get dashboard
- * @description The dashboard view provides both totals and timeseries data for the given zone and time period across the entire Cloudflare network.
- * @deprecated
- * @link /zones/{zoneIdentifier}/analytics/dashboard
- */
-export async function zoneAnalyticsDeprecatedGetDashboard(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: ZoneAnalyticsDeprecatedGetDashboardPath;
-		queryParams?: Partial<ZoneAnalyticsDeprecatedGetDashboardQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.zoneIdentifier == null || String(pathParams.zoneIdentifier) === "") {
-		throw new Error(`Missing required path parameter: zoneIdentifier`);
-	}
-	const data = await request<
-		ZoneAnalyticsDeprecatedGetDashboardResponse,
-		ErrorWrapper<ZoneAnalyticsDeprecatedGetDashboardStatus400>,
-		null,
-		Record<string, string>,
-		Partial<ZoneAnalyticsDeprecatedGetDashboardQuery>,
-		ZoneAnalyticsDeprecatedGetDashboardPath
-	>({
-		method: "GET",
-		url: `/zones/${encodeURIComponent(String(pathParams.zoneIdentifier))}/analytics/dashboard`,
-		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -146812,6 +145504,86 @@ export async function aiSecuritySettingsPut(
 		method: "PUT",
 		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/ai-security/settings`,
 		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get analytics by Co-locations
+ * @description This view provides a breakdown of analytics data by datacenter. Note: This is available to Enterprise customers only.
+ * @deprecated
+ * @link /zones/{zoneId}/analytics/colos
+ */
+export async function zoneAnalyticsDeprecatedGetAnalyticsByCoLocations(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsPath;
+		queryParams?: Partial<ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
+		throw new Error(`Missing required path parameter: zoneId`);
+	}
+	const data = await request<
+		ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsResponse,
+		ErrorWrapper<ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsStatus400>,
+		null,
+		Record<string, string>,
+		Partial<ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsQuery>,
+		ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsPath
+	>({
+		method: "GET",
+		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/analytics/colos`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get dashboard
+ * @description The dashboard view provides both totals and timeseries data for the given zone and time period across the entire Cloudflare network.
+ * @deprecated
+ * @link /zones/{zoneId}/analytics/dashboard
+ */
+export async function zoneAnalyticsDeprecatedGetDashboard(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: ZoneAnalyticsDeprecatedGetDashboardPath;
+		queryParams?: Partial<ZoneAnalyticsDeprecatedGetDashboardQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
+		throw new Error(`Missing required path parameter: zoneId`);
+	}
+	const data = await request<
+		ZoneAnalyticsDeprecatedGetDashboardResponse,
+		ErrorWrapper<ZoneAnalyticsDeprecatedGetDashboardStatus400>,
+		null,
+		Record<string, string>,
+		Partial<ZoneAnalyticsDeprecatedGetDashboardQuery>,
+		ZoneAnalyticsDeprecatedGetDashboardPath
+	>({
+		method: "GET",
+		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/analytics/dashboard`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -165888,6 +164660,10 @@ export async function csamScannerGetSetting(
  * @description Update the CSAM Scanner configuration for a zone. Allows enabling or
  * disabling CSAM scanning, updating the notification email, and
  * configuring scanning sources.
+ * This is a partial update: fields omitted from `value` keep their
+ * current setting, and `sources` is merged per source (`null` clears
+ * all sources). Send an empty `email` to clear the notification
+ * address.
  * When a new email is provided, email verification is triggered
  * automatically. The `enabled` field is a toggle; the server may
  * adjust it based on whether the notification email is verified.
@@ -173393,6 +172169,13 @@ export const operationsByPath = {
 	"POST /accounts/{accountId}/billing/profile": accountBillingProfileCreateBillingProfile,
 	"PUT /accounts/{accountId}/billing/profile": accountBillingProfileUpdateBillingProfile,
 	"POST /accounts/{accountId}/billing/profile/payment-method": accountBillingCreatePaymentIntent,
+	"GET /accounts/{accountId}/billing/spend-policies": spendPoliciesList,
+	"POST /accounts/{accountId}/billing/spend-policies": spendPoliciesCreate,
+	"GET /accounts/{accountId}/billing/spend-policies/activity": spendPoliciesActivity,
+	"DELETE /accounts/{accountId}/billing/spend-policies/{policyId}": spendPoliciesDelete,
+	"GET /accounts/{accountId}/billing/spend-policies/{policyId}": spendPoliciesGet,
+	"PUT /accounts/{accountId}/billing/spend-policies/{policyId}": spendPoliciesUpdate,
+	"GET /accounts/{accountId}/billing/spend-policies/{policyId}/audit": spendPoliciesListAudit,
 	"GET /accounts/{accountId}/billing/unpaid-invoice": accountBillingGetUnpaidInvoices,
 	"GET /accounts/{accountId}/billing/usage": usageAnalyticsGetAccountBillingUsage,
 	"GET /accounts/{accountId}/botnet_feed/asn/{asnId}/day_report": botnetThreatFeedGetDayReport,
@@ -174009,6 +172792,8 @@ export const operationsByPath = {
 		rssArticleMarkRead,
 	"GET /accounts/{accountId}/cloudforce-one/v2/threat-signals/articles/{articleId}/content":
 		rssArticleContentGet,
+	"POST /accounts/{accountId}/cloudforce-one/v2/threat-signals/articles/{articleId}/reprocess":
+		rssArticleReprocess,
 	"GET /accounts/{accountId}/cloudforce-one/v2/threat-signals/articles/{articleId}/skills":
 		rssArticleCustomSkillsList,
 	"GET /accounts/{accountId}/cloudforce-one/v2/threat-signals/articles/{articleId}/skills/{skillId}/output":
@@ -174705,6 +173490,7 @@ export const operationsByPath = {
 		emailSecurityUpdateUrlIgnorePattern,
 	"GET /accounts/{accountId}/email-security/submissions": emailSecuritySubmissions,
 	"POST /accounts/{accountId}/email-security/submissions": emailSecurityCreateSubmissions,
+	"GET /accounts/{accountId}/email/domain-changes": emailDomainsChanges,
 	"GET /accounts/{accountId}/email/domains": emailDomainsList,
 	"POST /accounts/{accountId}/email/domains": emailDomainsCreate,
 	"DELETE /accounts/{accountId}/email/domains/{emailDomainId}": emailDomainsDelete,
@@ -175271,43 +174057,6 @@ export const operationsByPath = {
 		magicInterconnectsListInterconnectDetails,
 	"PUT /accounts/{accountId}/magic/cf_interconnects/{cfInterconnectId}":
 		magicInterconnectsUpdateInterconnect,
-	"GET /accounts/{accountId}/magic/cloud/catalog-syncs": catalogSyncsList,
-	"POST /accounts/{accountId}/magic/cloud/catalog-syncs": catalogSyncsCreate,
-	"GET /accounts/{accountId}/magic/cloud/catalog-syncs/prebuilt-policies":
-		catalogSyncsPrebuiltPoliciesList,
-	"DELETE /accounts/{accountId}/magic/cloud/catalog-syncs/{syncId}": catalogSyncsDelete,
-	"GET /accounts/{accountId}/magic/cloud/catalog-syncs/{syncId}": catalogSyncsRead,
-	"PATCH /accounts/{accountId}/magic/cloud/catalog-syncs/{syncId}": catalogSyncsPatch,
-	"PUT /accounts/{accountId}/magic/cloud/catalog-syncs/{syncId}": catalogSyncsUpdate,
-	"POST /accounts/{accountId}/magic/cloud/catalog-syncs/{syncId}/refresh": catalogSyncsRefresh,
-	"GET /accounts/{accountId}/magic/cloud/onramps": onrampsList,
-	"POST /accounts/{accountId}/magic/cloud/onramps": onrampsCreate,
-	"GET /accounts/{accountId}/magic/cloud/onramps/magic_wan_address_space": onrampsMwanAddrSpaceRead,
-	"PATCH /accounts/{accountId}/magic/cloud/onramps/magic_wan_address_space":
-		onrampsMwanAddrSpacePatch,
-	"PUT /accounts/{accountId}/magic/cloud/onramps/magic_wan_address_space":
-		onrampsMwanAddrSpaceUpdate,
-	"DELETE /accounts/{accountId}/magic/cloud/onramps/{onrampId}": onrampsDelete,
-	"GET /accounts/{accountId}/magic/cloud/onramps/{onrampId}": onrampsRead,
-	"PATCH /accounts/{accountId}/magic/cloud/onramps/{onrampId}": onrampsPatch,
-	"PUT /accounts/{accountId}/magic/cloud/onramps/{onrampId}": onrampsUpdate,
-	"POST /accounts/{accountId}/magic/cloud/onramps/{onrampId}/apply": onrampsApply,
-	"POST /accounts/{accountId}/magic/cloud/onramps/{onrampId}/export": onrampsExport,
-	"POST /accounts/{accountId}/magic/cloud/onramps/{onrampId}/plan": onrampsPlan,
-	"GET /accounts/{accountId}/magic/cloud/providers": providersList,
-	"POST /accounts/{accountId}/magic/cloud/providers": providersCreate,
-	"POST /accounts/{accountId}/magic/cloud/providers/discover": providersDiscoverAll,
-	"DELETE /accounts/{accountId}/magic/cloud/providers/{providerId}": providersDelete,
-	"GET /accounts/{accountId}/magic/cloud/providers/{providerId}": providersRead,
-	"PATCH /accounts/{accountId}/magic/cloud/providers/{providerId}": providersPatch,
-	"PUT /accounts/{accountId}/magic/cloud/providers/{providerId}": providersUpdate,
-	"POST /accounts/{accountId}/magic/cloud/providers/{providerId}/discover": providersDiscover,
-	"GET /accounts/{accountId}/magic/cloud/providers/{providerId}/initial_setup":
-		providersInitialSetup,
-	"GET /accounts/{accountId}/magic/cloud/resources": resourcesCatalogList,
-	"GET /accounts/{accountId}/magic/cloud/resources/export": resourcesCatalogExport,
-	"POST /accounts/{accountId}/magic/cloud/resources/policy-preview": resourcesCatalogPolicyPreview,
-	"GET /accounts/{accountId}/magic/cloud/resources/{resourceId}": resourcesCatalogRead,
 	"GET /accounts/{accountId}/magic/connectors": mconnConnectorsList,
 	"POST /accounts/{accountId}/magic/connectors": mconnConnectorsCreate,
 	"DELETE /accounts/{accountId}/magic/connectors/{connectorId}": mconnConnectorsDelete,
@@ -175702,6 +174451,7 @@ export const operationsByPath = {
 	"GET /accounts/{accountId}/realtime/kit/apps": getApps,
 	"POST /accounts/{accountId}/realtime/kit/apps": createApp,
 	"GET /accounts/{accountId}/realtime/kit/apps/{appId}": getApp,
+	"PATCH /accounts/{accountId}/realtime/kit/apps/{appId}": updateApp,
 	"GET /accounts/{accountId}/realtime/kit/{appId}/analytics/daywise": getOrgAnalytics,
 	"GET /accounts/{accountId}/realtime/kit/{appId}/analytics/livestreams/daywise":
 		getLivestreamAnalyticsDaywise,
@@ -176626,12 +175376,12 @@ export const operationsByPath = {
 	"GET /tenants/{tenantId}": tenantsRetrieveTenant,
 	"GET /tenants/{tenantId}/account_types": tenantsValidAccountTypes,
 	"GET /tenants/{tenantId}/accounts": tenantsListAccounts,
+	"GET /tenants/{tenantId}/custom_ns": tenantLevelCustomNameserversListTenantCustomNameservers,
+	"POST /tenants/{tenantId}/custom_ns": tenantLevelCustomNameserversAddTenantCustomNameserver,
+	"DELETE /tenants/{tenantId}/custom_ns/{customNsId}":
+		tenantLevelCustomNameserversDeleteTenantCustomNameserver,
 	"GET /tenants/{tenantId}/entitlements": tenantsListEntitlements,
 	"GET /tenants/{tenantId}/memberships": tenantsListMemberships,
-	"GET /tenants/{tenantTag}/custom_ns": tenantLevelCustomNameserversListTenantCustomNameservers,
-	"POST /tenants/{tenantTag}/custom_ns": tenantLevelCustomNameserversAddTenantCustomNameserver,
-	"DELETE /tenants/{tenantTag}/custom_ns/{customNsId}":
-		tenantLevelCustomNameserversDeleteTenantCustomNameserver,
 	"DELETE /user/firewall/access_rules/rules/{ruleId}": ipAccessRulesForAUserDeleteAnIpAccessRule,
 	"GET /user/firewall/access_rules/rules/{ruleId}": ipAccessRulesForAUserGetAnIpAccessRule,
 	"PATCH /user/firewall/access_rules/rules/{ruleId}": ipAccessRulesForAUserUpdateAnIpAccessRule,
@@ -176660,8 +175410,6 @@ export const operationsByPath = {
 	"PUT /user/tokens/{tokenId}": userApiTokensUpdateToken,
 	"PUT /user/tokens/{tokenId}/value": userApiTokensRollToken,
 	"POST /workers/builds/deploy_hooks/{deployHookUuid}": triggerDeployHook,
-	"GET /zones/{zoneIdentifier}/analytics/colos": zoneAnalyticsDeprecatedGetAnalyticsByCoLocations,
-	"GET /zones/{zoneIdentifier}/analytics/dashboard": zoneAnalyticsDeprecatedGetDashboard,
 	"DELETE /zones/{zoneId}": zones0Delete,
 	"GET /zones/{zoneId}": zones0Get,
 	"PATCH /zones/{zoneId}": zones0Patch,
@@ -176758,6 +175506,8 @@ export const operationsByPath = {
 	"PUT /zones/{zoneId}/ai-security/custom-topics": aiSecurityCustomTopicsPut,
 	"GET /zones/{zoneId}/ai-security/settings": aiSecuritySettingsGet,
 	"PUT /zones/{zoneId}/ai-security/settings": aiSecuritySettingsPut,
+	"GET /zones/{zoneId}/analytics/colos": zoneAnalyticsDeprecatedGetAnalyticsByCoLocations,
+	"GET /zones/{zoneId}/analytics/dashboard": zoneAnalyticsDeprecatedGetDashboard,
 	"GET /zones/{zoneId}/analytics/latency": argoAnalyticsForZoneArgoAnalyticsForAZone,
 	"GET /zones/{zoneId}/analytics/latency/colos":
 		argoAnalyticsForGeolocationArgoAnalyticsForAZoneAtDifferentPoPs,
@@ -178821,6 +177571,15 @@ export const operationsByTag = {
 		accountBillingProfileCreateBillingProfile,
 		accountBillingProfileUpdateBillingProfile,
 	},
+	spendPolicies: {
+		spendPoliciesList,
+		spendPoliciesCreate,
+		spendPoliciesActivity,
+		spendPoliciesDelete,
+		spendPoliciesGet,
+		spendPoliciesUpdate,
+		spendPoliciesListAudit,
+	},
 	usageAnalytics: {
 		usageAnalyticsGetAccountBillingUsage,
 		usageAnalyticsGetAccountMediaUsage,
@@ -179317,6 +178076,7 @@ export const operationsByTag = {
 		rssArticleGet,
 		rssArticleMarkRead,
 		rssArticleContentGet,
+		rssArticleReprocess,
 		rssArticleCustomSkillsList,
 		rssArticleSkillOutputGet,
 		rssArticleSkillRun,
@@ -180013,6 +178773,7 @@ export const operationsByTag = {
 		emailSecurityUpdateUrlIgnorePattern,
 	},
 	emailForPlatforms: {
+		emailDomainsChanges,
 		emailDomainsList,
 		emailDomainsCreate,
 		emailDomainsDelete,
@@ -180165,6 +178926,7 @@ export const operationsByTag = {
 		getApps,
 		createApp,
 		getApp,
+		updateApp,
 	},
 	definitions: {
 		flagshipGetDefinitions,
@@ -180605,47 +179367,6 @@ export const operationsByTag = {
 		magicInterconnectsUpdateMultipleInterconnects,
 		magicInterconnectsListInterconnectDetails,
 		magicInterconnectsUpdateInterconnect,
-	},
-	catalogSync: {
-		catalogSyncsList,
-		catalogSyncsCreate,
-		catalogSyncsPrebuiltPoliciesList,
-		catalogSyncsDelete,
-		catalogSyncsRead,
-		catalogSyncsPatch,
-		catalogSyncsUpdate,
-		catalogSyncsRefresh,
-	},
-	onRamps: {
-		onrampsList,
-		onrampsCreate,
-		onrampsMwanAddrSpaceRead,
-		onrampsMwanAddrSpacePatch,
-		onrampsMwanAddrSpaceUpdate,
-		onrampsDelete,
-		onrampsRead,
-		onrampsPatch,
-		onrampsUpdate,
-		onrampsApply,
-		onrampsExport,
-		onrampsPlan,
-	},
-	cloudIntegrations: {
-		providersList,
-		providersCreate,
-		providersDiscoverAll,
-		providersDelete,
-		providersRead,
-		providersPatch,
-		providersUpdate,
-		providersDiscover,
-		providersInitialSetup,
-	},
-	resources: {
-		resourcesCatalogList,
-		resourcesCatalogExport,
-		resourcesCatalogPolicyPreview,
-		resourcesCatalogRead,
 	},
 	magicConnectors: {
 		mconnConnectorsList,
@@ -181757,10 +180478,6 @@ export const operationsByTag = {
 		tenantLevelCustomNameserversAddTenantCustomNameserver,
 		tenantLevelCustomNameserversDeleteTenantCustomNameserver,
 	},
-	zoneAnalyticsDeprecated: {
-		zoneAnalyticsDeprecatedGetAnalyticsByCoLocations,
-		zoneAnalyticsDeprecatedGetDashboard,
-	},
 	zoneLevelAccessApplications: {
 		zoneLevelAccessApplicationsListAccessApplications,
 		zoneLevelAccessApplicationsAddABookmarkApplication,
@@ -181840,6 +180557,10 @@ export const operationsByTag = {
 		aiSecurityCustomTopicsPut,
 		aiSecuritySettingsGet,
 		aiSecuritySettingsPut,
+	},
+	zoneAnalyticsDeprecated: {
+		zoneAnalyticsDeprecatedGetAnalyticsByCoLocations,
+		zoneAnalyticsDeprecatedGetDashboard,
 	},
 	argoAnalyticsForZone: {
 		argoAnalyticsForZoneArgoAnalyticsForAZone,
@@ -183918,6 +182639,17 @@ export const tagDictionary = {
 		POST: ["accountBillingProfileCreateBillingProfile"],
 		PUT: ["accountBillingProfileUpdateBillingProfile"],
 	},
+	spendPolicies: {
+		GET: [
+			"spendPoliciesList",
+			"spendPoliciesActivity",
+			"spendPoliciesGet",
+			"spendPoliciesListAudit",
+		],
+		POST: ["spendPoliciesCreate"],
+		DELETE: ["spendPoliciesDelete"],
+		PUT: ["spendPoliciesUpdate"],
+	},
 	usageAnalytics: {
 		GET: [
 			"usageAnalyticsGetAccountBillingUsage",
@@ -184437,6 +183169,7 @@ export const tagDictionary = {
 		],
 		PATCH: ["rssArticleBulkMarkRead", "rssArticleMarkRead", "rssFeedUpdate", "rssSkillUpdate"],
 		POST: [
+			"rssArticleReprocess",
 			"rssArticleSkillRun",
 			"rssArticleTagGenerate",
 			"rssArticleTagAdd",
@@ -185125,7 +183858,7 @@ export const tagDictionary = {
 		],
 	},
 	emailForPlatforms: {
-		GET: ["emailDomainsList", "emailDomainsGet"],
+		GET: ["emailDomainsChanges", "emailDomainsList", "emailDomainsGet"],
 		POST: ["emailDomainsCreate", "emailDomainsVerify"],
 		DELETE: ["emailDomainsDelete"],
 	},
@@ -185296,6 +184029,7 @@ export const tagDictionary = {
 		POST: ["flagshipCreateApp", "createApp"],
 		DELETE: ["flagshipDeleteApp"],
 		PUT: ["flagshipUpdateApp"],
+		PATCH: ["updateApp"],
 	},
 	definitions: {
 		GET: ["flagshipGetDefinitions"],
@@ -185774,31 +184508,6 @@ export const tagDictionary = {
 	magicInterconnects: {
 		GET: ["magicInterconnectsListInterconnects", "magicInterconnectsListInterconnectDetails"],
 		PUT: ["magicInterconnectsUpdateMultipleInterconnects", "magicInterconnectsUpdateInterconnect"],
-	},
-	catalogSync: {
-		GET: ["catalogSyncsList", "catalogSyncsPrebuiltPoliciesList", "catalogSyncsRead"],
-		POST: ["catalogSyncsCreate", "catalogSyncsRefresh"],
-		DELETE: ["catalogSyncsDelete"],
-		PATCH: ["catalogSyncsPatch"],
-		PUT: ["catalogSyncsUpdate"],
-	},
-	onRamps: {
-		GET: ["onrampsList", "onrampsMwanAddrSpaceRead", "onrampsRead"],
-		POST: ["onrampsCreate", "onrampsApply", "onrampsExport", "onrampsPlan"],
-		PATCH: ["onrampsMwanAddrSpacePatch", "onrampsPatch"],
-		PUT: ["onrampsMwanAddrSpaceUpdate", "onrampsUpdate"],
-		DELETE: ["onrampsDelete"],
-	},
-	cloudIntegrations: {
-		GET: ["providersList", "providersRead", "providersInitialSetup"],
-		POST: ["providersCreate", "providersDiscoverAll", "providersDiscover"],
-		DELETE: ["providersDelete"],
-		PATCH: ["providersPatch"],
-		PUT: ["providersUpdate"],
-	},
-	resources: {
-		GET: ["resourcesCatalogList", "resourcesCatalogExport", "resourcesCatalogRead"],
-		POST: ["resourcesCatalogPolicyPreview"],
 	},
 	magicConnectors: {
 		GET: [
@@ -186929,12 +185638,6 @@ export const tagDictionary = {
 		POST: ["tenantLevelCustomNameserversAddTenantCustomNameserver"],
 		DELETE: ["tenantLevelCustomNameserversDeleteTenantCustomNameserver"],
 	},
-	zoneAnalyticsDeprecated: {
-		GET: [
-			"zoneAnalyticsDeprecatedGetAnalyticsByCoLocations",
-			"zoneAnalyticsDeprecatedGetDashboard",
-		],
-	},
 	zoneLevelAccessApplications: {
 		GET: [
 			"zoneLevelAccessApplicationsListAccessApplications",
@@ -187027,6 +185730,12 @@ export const tagDictionary = {
 	aiSecurityForApps: {
 		GET: ["aiSecurityCustomTopicsGet", "aiSecuritySettingsGet"],
 		PUT: ["aiSecurityCustomTopicsPut", "aiSecuritySettingsPut"],
+	},
+	zoneAnalyticsDeprecated: {
+		GET: [
+			"zoneAnalyticsDeprecatedGetAnalyticsByCoLocations",
+			"zoneAnalyticsDeprecatedGetDashboard",
+		],
 	},
 	argoAnalyticsForZone: {
 		GET: ["argoAnalyticsForZoneArgoAnalyticsForAZone"],
