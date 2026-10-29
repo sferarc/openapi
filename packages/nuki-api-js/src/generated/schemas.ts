@@ -684,10 +684,10 @@ export const restletSchema = z.object({
 	get logger() {
 		return loggerSchema.optional();
 	},
+	stopped: z.boolean().optional(),
 	get application() {
 		return applicationSchema.optional();
 	},
-	stopped: z.boolean().optional(),
 });
 
 export const parameterSchema = z.object({
@@ -785,6 +785,7 @@ export const referenceSchema = z.object({
 	schemeSpecificPart: z.string().optional(),
 	fragment: z.string().optional(),
 	extensions: z.string().optional(),
+	identifier: z.string().optional(),
 	matrix: z.string().optional(),
 	matrixAsForm: z.array(parameterSchema).optional(),
 	queryAsForm: z.array(parameterSchema).optional(),
@@ -808,7 +809,6 @@ export const referenceSchema = z.object({
 		return referenceSchema.optional();
 	},
 	hierarchical: z.boolean().optional(),
-	identifier: z.string().optional(),
 });
 
 export const metadataSchema = z.object({
@@ -872,10 +872,10 @@ export const metadataServiceSchema = z.object({
 		return mediaTypeSchema.optional();
 	},
 	allEncodingExtensionNames: z.array(z.string()).optional(),
-	allCharacterSetExtensionNames: z.array(z.string()).optional(),
 	allExtensionNames: z.array(z.string()).optional(),
 	allLanguageExtensionNames: z.array(z.string()).optional(),
 	allMediaTypeExtensionNames: z.array(z.string()).optional(),
+	allCharacterSetExtensionNames: z.array(z.string()).optional(),
 	stopped: z.boolean().optional(),
 });
 
@@ -899,15 +899,6 @@ export const statusServiceSchema = z.object({
 		return metadataServiceSchema.optional();
 	},
 	overwriting: z.boolean().optional(),
-	stopped: z.boolean().optional(),
-});
-
-export const rangeServiceSchema = z.object({
-	get context() {
-		return contextSchema.optional();
-	},
-	enabled: z.boolean().optional(),
-	started: z.boolean().optional(),
 	stopped: z.boolean().optional(),
 });
 
@@ -982,6 +973,15 @@ export const encoderServiceSchema = z.object({
 	stopped: z.boolean().optional(),
 });
 
+export const rangeServiceSchema = z.object({
+	get context() {
+		return contextSchema.optional();
+	},
+	enabled: z.boolean().optional(),
+	started: z.boolean().optional(),
+	stopped: z.boolean().optional(),
+});
+
 export const applicationSchema = z.object({
 	author: z.string().optional(),
 	get context() {
@@ -1016,9 +1016,6 @@ export const applicationSchema = z.object({
 	get converterService() {
 		return converterServiceSchema.optional();
 	},
-	get rangeService() {
-		return rangeServiceSchema.optional();
-	},
 	get taskService() {
 		return taskServiceSchema.optional();
 	},
@@ -1034,13 +1031,16 @@ export const applicationSchema = z.object({
 	get encoderService() {
 		return encoderServiceSchema.optional();
 	},
+	get rangeService() {
+		return rangeServiceSchema.optional();
+	},
 	get logger() {
 		return loggerSchema.optional();
 	},
+	stopped: z.boolean().optional(),
 	get application() {
 		return applicationSchema.optional();
 	},
-	stopped: z.boolean().optional(),
 });
 
 export const authenticationInfoSchema = z.object({
@@ -1647,8 +1647,8 @@ export const requestSchema = z.object({
 	entityAvailable: z.boolean().optional(),
 	expectingResponse: z.boolean().optional(),
 	synchronous: z.boolean().optional(),
-	entityAsText: z.string().optional(),
 	headers: z.array(headerSchema).optional(),
+	entityAsText: z.string().optional(),
 });
 
 export const reservationAccessTimesUpdateSchema = z.object({
@@ -1735,9 +1735,9 @@ export const responseSchema = z.object({
 	final: z.boolean().optional(),
 	confidential: z.boolean().optional(),
 	provisional: z.boolean().optional(),
+	headers: z.array(headerSchema).optional(),
 	entityAvailable: z.boolean().optional(),
 	entityAsText: z.string().optional(),
-	headers: z.array(headerSchema).optional(),
 });
 
 export const shsSubscriptionSchema = z.object({

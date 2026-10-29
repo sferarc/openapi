@@ -1586,8 +1586,8 @@ export type Restlet = {
 	owner?: string | undefined;
 	started?: boolean | undefined;
 	logger?: Logger | undefined;
-	application?: Application | undefined;
 	stopped?: boolean | undefined;
+	application?: Application | undefined;
 };
 
 export type Parameter = {
@@ -1676,6 +1676,7 @@ export type Reference = {
 	schemeSpecificPart?: string | undefined;
 	fragment?: string | undefined;
 	extensions?: string | undefined;
+	identifier?: string | undefined;
 	matrix?: string | undefined;
 	matrixAsForm?: Parameter[] | undefined;
 	queryAsForm?: Parameter[] | undefined;
@@ -1698,7 +1699,6 @@ export type Reference = {
 	segments?: string[] | undefined;
 	targetRef?: Reference | undefined;
 	hierarchical?: boolean | undefined;
-	identifier?: string | undefined;
 };
 
 export type Metadata = {
@@ -1746,10 +1746,10 @@ export type MetadataService = {
 	defaultLanguage?: Language | undefined;
 	defaultMediaType?: MediaType | undefined;
 	allEncodingExtensionNames?: string[] | undefined;
-	allCharacterSetExtensionNames?: string[] | undefined;
 	allExtensionNames?: string[] | undefined;
 	allLanguageExtensionNames?: string[] | undefined;
 	allMediaTypeExtensionNames?: string[] | undefined;
+	allCharacterSetExtensionNames?: string[] | undefined;
 	stopped?: boolean | undefined;
 };
 
@@ -1763,13 +1763,6 @@ export type StatusService = {
 	homeRef?: Reference | undefined;
 	metadataService?: MetadataService | undefined;
 	overwriting?: boolean | undefined;
-	stopped?: boolean | undefined;
-};
-
-export type RangeService = {
-	context?: Context | undefined;
-	enabled?: boolean | undefined;
-	started?: boolean | undefined;
 	stopped?: boolean | undefined;
 };
 
@@ -1840,6 +1833,13 @@ export type EncoderService = {
 	stopped?: boolean | undefined;
 };
 
+export type RangeService = {
+	context?: Context | undefined;
+	enabled?: boolean | undefined;
+	started?: boolean | undefined;
+	stopped?: boolean | undefined;
+};
+
 export type Application = {
 	author?: string | undefined;
 	context?: Context | undefined;
@@ -1856,15 +1856,15 @@ export type Application = {
 	connegService?: ConnegService | undefined;
 	metadataService?: MetadataService | undefined;
 	converterService?: ConverterService | undefined;
-	rangeService?: RangeService | undefined;
 	taskService?: TaskService | undefined;
 	tunnelService?: TunnelService | undefined;
 	connectorService?: ConnectorService | undefined;
 	decoderService?: DecoderService | undefined;
 	encoderService?: EncoderService | undefined;
+	rangeService?: RangeService | undefined;
 	logger?: Logger | undefined;
-	application?: Application | undefined;
 	stopped?: boolean | undefined;
+	application?: Application | undefined;
 };
 
 export type AuthenticationInfo = {
@@ -2840,8 +2840,8 @@ export type Request = {
 	entityAvailable?: boolean | undefined;
 	expectingResponse?: boolean | undefined;
 	synchronous?: boolean | undefined;
-	entityAsText?: string | undefined;
 	headers?: Header[] | undefined;
+	entityAsText?: string | undefined;
 };
 
 export type ReservationAccessTimesUpdate = {
@@ -2945,9 +2945,9 @@ export type Response = {
 	final?: boolean | undefined;
 	confidential?: boolean | undefined;
 	provisional?: boolean | undefined;
+	headers?: Header[] | undefined;
 	entityAvailable?: boolean | undefined;
 	entityAsText?: string | undefined;
-	headers?: Header[] | undefined;
 };
 
 export const shsSubscriptionTypeEnum = {
