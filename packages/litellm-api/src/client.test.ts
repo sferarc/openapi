@@ -99,8 +99,10 @@ describe("LiteLLMApi.api", () => {
 describe("LiteLLMApi per-call config", () => {
 	function setup() {
 		const headers: unknown[] = [];
+		const signals: unknown[] = [];
 		const fetch: FetchImpl = async (_url, init) => {
 			headers.push(init?.headers);
+			signals.push(init?.signal);
 			return new Response("{}", {
 				status: 200,
 				headers: { "content-type": "application/json" },
@@ -108,6 +110,7 @@ describe("LiteLLMApi per-call config", () => {
 		};
 		return {
 			headers,
+			signals,
 			client: new LiteLLMApi({ baseUrl: "https://api.example.com", token: "token", fetch }),
 		};
 	}
@@ -126,5 +129,13 @@ describe("LiteLLMApi per-call config", () => {
 		expect(headers).toEqual([
 			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
 		]);
+	});
+
+	it("passes the caller's signal to fetch from request() and the api proxy", async () => {
+		const { signals, client } = setup();
+		const { signal } = new AbortController();
+		await client.request("GET /routes", { config: { signal } });
+		await client.api.default.getRoutesRoutesGet({ config: { signal } });
+		expect(signals).toEqual([signal, signal]);
 	});
 });

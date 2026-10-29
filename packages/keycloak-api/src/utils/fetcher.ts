@@ -6,6 +6,7 @@ export type FetcherConfig = {
 	token?: string | null;
 	fetchImpl?: FetchImpl;
 	headers?: Record<string, any>;
+	signal?: AbortSignal | undefined;
 };
 
 /** What a failed request rejects with: the HTTP status and the parsed error body, or the raw body text, truncated, when it is not JSON. */
@@ -18,7 +19,6 @@ export type FetcherOptions<TBody, THeaders, TQueryParams, TPathParams> = {
 	headers?: THeaders | undefined;
 	queryParams?: TQueryParams | undefined;
 	pathParams?: TPathParams | undefined;
-	signal?: AbortSignal | undefined;
 } & FetcherConfig;
 
 const maxErrorBodyLength = 1000;

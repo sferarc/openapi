@@ -126,14 +126,16 @@ describe("ZoomApi.api", () => {
 describe("ZoomApi per-call config", () => {
 	function setup() {
 		const headers: unknown[] = [];
+		const signals: unknown[] = [];
 		const fetch: FetchImpl = async (_url, init) => {
 			headers.push(init?.headers);
+			signals.push(init?.signal);
 			return new Response("{}", {
 				status: 200,
 				headers: { "content-type": "application/json" },
 			}) as never;
 		};
-		return { headers, client: new ZoomApi({ token: "token", fetch }) };
+		return { headers, signals, client: new ZoomApi({ token: "token", fetch }) };
 	}
 
 	it("sends the caller's headers from request() alongside the client's token", async () => {
@@ -152,5 +154,13 @@ describe("ZoomApi per-call config", () => {
 		expect(headers).toEqual([
 			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
 		]);
+	});
+
+	it("passes the caller's signal to fetch from request() and the api proxy", async () => {
+		const { signals, client } = setup();
+		const { signal } = new AbortController();
+		await client.request("GET /archive_files", { config: { signal } });
+		await client.api.archiving.listArchivedFiles({ config: { signal } });
+		expect(signals).toEqual([signal, signal]);
 	});
 });
