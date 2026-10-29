@@ -1,5 +1,11 @@
 # vercel-api-js
 
+## 2.3.0
+
+### Minor Changes
+
+- d7ede78: Added the updateConditionalBypass operation and related types.
+
 ## 2.2.0
 
 ### Minor Changes
