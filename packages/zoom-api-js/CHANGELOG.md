@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 2.1.5
+
+### Patch Changes
+
+- 268b33e: Let `ApiService` and `effectByPath` operations that require no params be called without an argument, as `client.api` operations can. They required one, so `ApiService.<tag>.<operation>()` failed to compile and needed `({})`.
+
 ## 2.1.4
 
 ### Patch Changes
