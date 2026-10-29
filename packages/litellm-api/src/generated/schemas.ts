@@ -28116,7 +28116,7 @@ export const agentSkillsIndexWellKnownAgentSkillsIndexJsonGetResponseSchema =
 
 export const agentSkillsArchiveV1SkillsSkillIdArchiveGetPathSkillIdSchema = z.string();
 
-export const agentSkillsArchiveV1SkillsSkillIdArchiveGetStatus200Schema = z.unknown();
+export const agentSkillsArchiveV1SkillsSkillIdArchiveGetStatus200Schema = z.instanceof(File);
 
 export const agentSkillsArchiveV1SkillsSkillIdArchiveGetStatus422Schema = HTTPValidationErrorSchema;
 
