@@ -1,5 +1,17 @@
 # cloudflare-api-js
 
+## 2.3.0
+
+### Minor Changes
+
+- 2c6705d: [BREAKING] Changed 200 response types for SQL and Analytics Engine query operations to be a union of JSON and X-NDJSON (string array) response types.
+
+## 2.2.3
+
+### Patch Changes
+
+- 2c60bfb: Resolve a line-delimited JSON response (`application/x-ndjson`) to an array with one parsed value per line. Before this, the fetcher parsed the whole body as one JSON document, so `getCollectionExportEndpoint` rejected with a JSON syntax error as soon as the export had two lines.
+
 ## 2.2.2
 
 ### Patch Changes

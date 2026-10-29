@@ -9467,6 +9467,26 @@ export const userEventSchema = z
 						.describe("Scopes requested by the model-authored plan."),
 				}),
 				z.strictObject({
+					eventId: z.string(),
+					occurredAt: z.number(),
+					sessionId: z.string(),
+					sessionKind: z.string().describe("Currently emitted session kinds: chat, investigation."),
+					surface: z
+						.string()
+						.describe(
+							"Currently emitted surfaces: dashboard, internal, slack, automation, github.",
+						),
+					branchRef: z.string().nullable(),
+					deploymentId: z.string(),
+					environment: z.string(),
+					findingId: z.string(),
+					findingNumber: z.number(),
+					projectId: z.string(),
+					projectName: z.string(),
+					severity: z.string(),
+					vulnerabilityClass: z.string(),
+				}),
+				z.strictObject({
 					next: z.enum(["auto-approval", "block", "manual-approval"]).nullable(),
 					previous: z.enum(["auto-approval", "block", "manual-approval"]).nullable(),
 					teamSlug: z.string().optional(),
@@ -11128,6 +11148,7 @@ export const userEventSchema = z
 				"firewall-bypass-deleted",
 				"firewall-conditional-bypass-created",
 				"firewall-conditional-bypass-deleted",
+				"firewall-conditional-bypass-updated",
 				"firewall-config-modified",
 				"firewall-config-promoted",
 				"firewall-config-removed",
@@ -11598,6 +11619,7 @@ export const userEventSchema = z
 				"vcr-repository-visibility-changed",
 				"vercel-agent-elevated-permissions-approved",
 				"vercel-agent-elevated-permissions-requested",
+				"vercel-agent-security-finding-created",
 				"vercel-agent-session-created",
 				"vercel-agent-team-trial-credits-applied",
 				"vercel-app-installation-request-dismissed",
@@ -11975,6 +11997,7 @@ export const listEventTypeSchema = z
 				"firewall-bypass-deleted",
 				"firewall-conditional-bypass-created",
 				"firewall-conditional-bypass-deleted",
+				"firewall-conditional-bypass-updated",
 				"firewall-config-modified",
 				"firewall-config-promoted",
 				"firewall-config-removed",
@@ -12445,6 +12468,7 @@ export const listEventTypeSchema = z
 				"vcr-repository-visibility-changed",
 				"vercel-agent-elevated-permissions-approved",
 				"vercel-agent-elevated-permissions-requested",
+				"vercel-agent-security-finding-created",
 				"vercel-agent-session-created",
 				"vercel-agent-team-trial-credits-applied",
 				"vercel-app-installation-request-dismissed",
@@ -12724,6 +12748,7 @@ export const listEventTypeSchema = z
 					"firewall-bypass-deleted",
 					"firewall-conditional-bypass-created",
 					"firewall-conditional-bypass-deleted",
+					"firewall-conditional-bypass-updated",
 					"firewall-config-modified",
 					"firewall-config-promoted",
 					"firewall-config-removed",
@@ -13194,6 +13219,7 @@ export const listEventTypeSchema = z
 					"vcr-repository-visibility-changed",
 					"vercel-agent-elevated-permissions-approved",
 					"vercel-agent-elevated-permissions-requested",
+					"vercel-agent-security-finding-created",
 					"vercel-agent-session-created",
 					"vercel-agent-team-trial-credits-applied",
 					"vercel-app-installation-request-dismissed",
@@ -26774,7 +26800,7 @@ export const getDeploymentEventsQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const getDeploymentEventsStatus200Schema = z
+export const getDeploymentEventsStatus200SchemaJson = z
 	.array(
 		z.union([
 			z.strictObject({
@@ -26992,6 +27018,228 @@ export const getDeploymentEventsStatus200Schema = z
 		]),
 	)
 	.nullable();
+
+export const getDeploymentEventsStatus200SchemaStreamJson = z.array(
+	z.union([
+		z.strictObject({
+			created: z.number(),
+			payload: z.object({
+				created: z.number().optional(),
+				date: z.number(),
+				deploymentId: z.string(),
+				id: z.string(),
+				info: z
+					.object({
+						entrypoint: z.string().optional(),
+						name: z.string(),
+						path: z.string().optional(),
+						readyState: z.string().optional(),
+						serviceName: z.string().optional(),
+						step: z.string().optional(),
+						type: z.string(),
+					})
+					.optional(),
+				proxy: z
+					.object({
+						cacheId: z.string().optional(),
+						clientIp: z.string().optional(),
+						host: z.string(),
+						lambdaRegion: z.string().optional(),
+						method: z.string(),
+						path: z.string().optional(),
+						pathType: z.string().optional(),
+						pathTypeVariant: z.string().optional(),
+						referer: z.string().optional(),
+						region: z.string().optional(),
+						responseByteSize: z.number().optional(),
+						scheme: z.string().optional(),
+						statusCode: z.number().optional(),
+						timestamp: z.number(),
+						userAgent: z.array(z.string()).optional(),
+						vercelCache: z
+							.enum(["BYPASS", "HIT", "MISS", "PRERENDER", "REVALIDATED", "STALE"])
+							.optional(),
+						vercelId: z.string().optional(),
+						wafAction: z.enum(["bypass", "challenge", "deny", "log", "rate_limit"]).optional(),
+						wafRuleId: z.string().optional(),
+					})
+					.optional(),
+				requestId: z.string().optional(),
+				serial: z.string(),
+				statusCode: z.number().optional(),
+				text: z.string().optional(),
+			}),
+			type: z.enum([
+				"command",
+				"delimiter",
+				"deployment-state",
+				"edge-function-invocation",
+				"exit",
+				"fatal",
+				"metric",
+				"middleware",
+				"middleware-invocation",
+				"report",
+				"stderr",
+				"stdout",
+			]),
+		}),
+		z.strictObject({
+			created: z.number(),
+			date: z.number(),
+			deploymentId: z.string(),
+			id: z.string(),
+			info: z.object({
+				entrypoint: z.string().optional(),
+				name: z.string(),
+				path: z.string().optional(),
+				readyState: z.string().optional(),
+				serviceName: z.string().optional(),
+				step: z.string().optional(),
+				type: z.string(),
+			}),
+			level: z.enum(["error", "warning"]).optional(),
+			serial: z.string(),
+			text: z.string().optional(),
+			type: z.enum([
+				"command",
+				"delimiter",
+				"deployment-state",
+				"edge-function-invocation",
+				"exit",
+				"fatal",
+				"metric",
+				"middleware",
+				"middleware-invocation",
+				"report",
+				"stderr",
+				"stdout",
+			]),
+		}),
+		z.union([
+			z.strictObject({
+				created: z.number(),
+				payload: z.object({
+					created: z.number().optional(),
+					date: z.number(),
+					deploymentId: z.string(),
+					id: z.string(),
+					info: z
+						.object({
+							entrypoint: z.string().optional(),
+							name: z.string(),
+							path: z.string().optional(),
+							readyState: z.string().optional(),
+							serviceName: z.string().optional(),
+							step: z.string().optional(),
+							type: z.string(),
+						})
+						.optional(),
+					proxy: z
+						.object({
+							cacheId: z.string().optional(),
+							clientIp: z.string().optional(),
+							host: z.string(),
+							lambdaRegion: z.string().optional(),
+							method: z.string(),
+							path: z.string().optional(),
+							pathType: z.string().optional(),
+							pathTypeVariant: z.string().optional(),
+							referer: z.string().optional(),
+							region: z.string().optional(),
+							responseByteSize: z.number().optional(),
+							scheme: z.string().optional(),
+							statusCode: z.number().optional(),
+							timestamp: z.number(),
+							userAgent: z.array(z.string()).optional(),
+							vercelCache: z
+								.enum(["BYPASS", "HIT", "MISS", "PRERENDER", "REVALIDATED", "STALE"])
+								.optional(),
+							vercelId: z.string().optional(),
+							wafAction: z.enum(["bypass", "challenge", "deny", "log", "rate_limit"]).optional(),
+							wafRuleId: z.string().optional(),
+						})
+						.optional(),
+					requestId: z.string().optional(),
+					serial: z.string(),
+					statusCode: z.number().optional(),
+					text: z.string().optional(),
+				}),
+				type: z.enum([
+					"command",
+					"delimiter",
+					"deployment-state",
+					"edge-function-invocation",
+					"exit",
+					"fatal",
+					"metric",
+					"middleware",
+					"middleware-invocation",
+					"report",
+					"stderr",
+					"stdout",
+				]),
+			}),
+			z.strictObject({
+				created: z.number(),
+				date: z.number(),
+				deploymentId: z.string(),
+				id: z.string(),
+				info: z.object({
+					entrypoint: z.string().optional(),
+					name: z.string(),
+					path: z.string().optional(),
+					readyState: z.string().optional(),
+					serviceName: z.string().optional(),
+					step: z.string().optional(),
+					type: z.string(),
+				}),
+				level: z.enum(["error", "warning"]).optional(),
+				serial: z.string(),
+				text: z.string().optional(),
+				type: z.enum([
+					"command",
+					"delimiter",
+					"deployment-state",
+					"edge-function-invocation",
+					"exit",
+					"fatal",
+					"metric",
+					"middleware",
+					"middleware-invocation",
+					"report",
+					"stderr",
+					"stdout",
+				]),
+			}),
+			z.strictObject({
+				date: z.number(),
+				deploymentId: z.string(),
+				type: z.enum(["alias-assigned"]),
+				alias: z.array(z.string()),
+				aliasError: z
+					.object({
+						code: z.string(),
+						message: z.string(),
+					})
+					.nullable(),
+				aliasWarning: z
+					.object({
+						action: z.string().optional(),
+						code: z.string(),
+						link: z.string().optional(),
+						message: z.string(),
+					})
+					.nullable(),
+			}),
+		]),
+	]),
+);
+
+export const getDeploymentEventsStatus200Schema = z.union([
+	getDeploymentEventsStatus200SchemaJson,
+	getDeploymentEventsStatus200SchemaStreamJson,
+]);
 
 export const getDeploymentEventsStatus400Schema = z.unknown();
 
@@ -106605,11 +106853,35 @@ export const runSessionCommandQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const runSessionCommandStatus200Schema = z.object({
+export const runSessionCommandStatus200SchemaJson = z.object({
 	command: sessionCommandSchema.describe(
 		"This object represents a command run in a Vercel Sandbox session (v2 API).",
 	),
 });
+
+export const runSessionCommandStatus200SchemaXNdjson = z.array(
+	z.union([
+		z.strictObject({
+			data: z.object({
+				code: z.enum(["sandbox_stream_closed"]),
+				message: z.enum(["Sandbox stream was closed and is not accepting commands."]),
+			}),
+			stream: z.string(),
+		}),
+		z.strictObject({
+			command: sessionCommandSchema.describe(
+				"This object represents a command run in a Vercel Sandbox session (v2 API).",
+			),
+			data: z.string(),
+			stream: z.string(),
+		}),
+	]),
+);
+
+export const runSessionCommandStatus200Schema = z.union([
+	runSessionCommandStatus200SchemaJson,
+	runSessionCommandStatus200SchemaXNdjson,
+]);
 
 export const runSessionCommandStatus400Schema = z.unknown();
 
@@ -116100,6 +116372,175 @@ export const createConditionalBypassBodySchema = z
 	.optional();
 
 export const createConditionalBypassQuerySchema = z.object({
+	projectId: z.string(),
+	slug: z
+		.string()
+		.optional()
+		.meta({ examples: ["my-team-url-slug"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const updateConditionalBypassQueryProjectIdSchema = z.string();
+
+export const updateConditionalBypassQuerySlugSchema = z
+	.string()
+	.optional()
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const updateConditionalBypassQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const updateConditionalBypassStatus200Schema = z.object({
+	condition: z.string(),
+	conditionGroup: z.array(
+		z.object({
+			conditions: z.array(
+				z.object({
+					key: z.string().optional(),
+					neg: z.union([z.literal(false), z.literal(true)]).optional(),
+					op: z.enum([
+						"eq",
+						"ex",
+						"gt",
+						"gte",
+						"inc",
+						"list",
+						"lt",
+						"lte",
+						"neq",
+						"nex",
+						"ninc",
+						"pre",
+						"re",
+						"sub",
+						"suf",
+					]),
+					type: z.enum([
+						"bot_category",
+						"bot_name",
+						"bot_protection",
+						"bot_status",
+						"cookie",
+						"domain_environment",
+						"environment",
+						"geo_as_number",
+						"geo_city",
+						"geo_continent",
+						"geo_country",
+						"geo_country_region",
+						"header",
+						"host",
+						"ip_address",
+						"ja3_digest",
+						"ja4_digest",
+						"method",
+						"path",
+						"protocol",
+						"query",
+						"rate_limit_api_id",
+						"raw_path",
+						"region",
+						"response_code",
+						"route",
+						"ruleset",
+						"scheme",
+						"server_action",
+						"shared_condition",
+						"target_path",
+						"traffic_source",
+						"trusted_source",
+						"user_agent",
+					]),
+					value: z.union([z.string(), z.number(), z.array(z.string())]).optional(),
+				}),
+			),
+		}),
+	),
+	createdAt: z.string(),
+	domain: z.string(),
+	id: z.string(),
+	note: z.string().optional(),
+	projectId: z.string(),
+	updatedAt: z.string(),
+});
+
+export const updateConditionalBypassStatus400Schema = z.unknown();
+
+export const updateConditionalBypassStatus401Schema = z.unknown();
+
+export const updateConditionalBypassStatus403Schema = z.unknown();
+
+export const updateConditionalBypassStatus404Schema = z.unknown();
+
+export const updateConditionalBypassStatus410Schema = z.unknown();
+
+export const updateConditionalBypassResponseSchema = updateConditionalBypassStatus200Schema;
+
+export const updateConditionalBypassErrorSchema = z.union([
+	updateConditionalBypassStatus400Schema,
+	updateConditionalBypassStatus401Schema,
+	updateConditionalBypassStatus403Schema,
+	updateConditionalBypassStatus404Schema,
+	updateConditionalBypassStatus410Schema,
+]);
+
+export const updateConditionalBypassBodySchema = z
+	.strictObject({
+		domain: z.string(),
+		conditionGroup: z
+			.array(
+				z.object({
+					conditions: z
+						.array(
+							z.union([
+								z.strictObject({
+									type: z.enum(["user_agent"]),
+									op: z.enum(["eq", "pre", "suf", "sub"]),
+									value: z.string().max(500),
+									key: z.enum(["user-agent"]).optional(),
+								}),
+								z.strictObject({
+									type: z.enum(["path"]),
+									op: z.enum(["eq", "pre", "suf", "sub"]),
+									value: z.string().max(500),
+								}),
+								z.strictObject({
+									type: z.enum(["header"]),
+									op: z.enum(["eq", "pre", "suf", "sub"]),
+									key: z
+										.string()
+										.max(128)
+										.regex(/^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/),
+									value: z.string().max(500),
+								}),
+								z.strictObject({
+									type: z.enum(["header"]),
+									op: z.enum(["ex"]),
+									key: z
+										.string()
+										.max(128)
+										.regex(/^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/),
+								}),
+							]),
+						)
+						.min(1)
+						.max(65),
+				}),
+			)
+			.min(1)
+			.max(25),
+		note: z.string().max(500).optional(),
+	})
+	.optional();
+
+export const updateConditionalBypassQuerySchema = z.object({
 	projectId: z.string(),
 	slug: z
 		.string()

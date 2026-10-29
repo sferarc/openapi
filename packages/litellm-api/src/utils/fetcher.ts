@@ -39,6 +39,25 @@ const isBinary = (contentType: string) => {
 	return binaryMediaTypes.has(mediaType) || /^(image|audio|video|font)\//.test(mediaType);
 };
 
+// One JSON value per line, which a single JSON.parse rejects as soon as there are two lines.
+const lineDelimitedJsonMediaTypes = new Set([
+	"application/jsonl",
+	"application/jsonlines",
+	"application/ndjson",
+	"application/stream+json",
+	"application/x-jsonlines",
+	"application/x-ndjson",
+]);
+
+const isLineDelimitedJson = (contentType: string) =>
+	lineDelimitedJsonMediaTypes.has(contentType.split(";")[0]?.trim().toLowerCase() ?? "");
+
+const parseJsonLines = (text: string): unknown[] =>
+	text
+		.split(/\r?\n/)
+		.filter((line) => line.trim())
+		.map((line) => JSON.parse(line));
+
 class ResponseError {
 	constructor(readonly error: ErrorWrapper<unknown>) {}
 }
@@ -111,6 +130,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 		// A 204 or an empty body (common on DELETE) has nothing to parse.
 		const text = await response.text();
 		if (!text) return undefined as TData;
+		if (isLineDelimitedJson(contentType)) return parseJsonLines(text) as unknown as TData;
 		if (contentType.includes("json")) return JSON.parse(text);
 		return text as unknown as TData;
 	} catch (e) {

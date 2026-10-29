@@ -1,5 +1,11 @@
 # nuki-api-js
 
+## 2.1.0
+
+### Minor Changes
+
+- f9c79e2: [BREAKING] The RangeService type was removed and re-added in a different location or with changes.
+
 ## 2.0.3
 
 ### Patch Changes

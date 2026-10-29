@@ -1,5 +1,15 @@
 # netlify-api
 
+## 2.1.0
+
+### Minor Changes
+
+- d0b6702: Added new operations getIdentityUser and lookupIdentityUser.
+
+### Patch Changes
+
+- d0b6702: Added new types for IdentityUser and parameters and responses for getIdentityUser and lookupIdentityUser operations.
+
 ## 2.0.3
 
 ### Patch Changes

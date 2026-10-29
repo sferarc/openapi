@@ -6888,6 +6888,7 @@ export const userEventTypeEnum = {
 	"firewall-bypass-deleted": "firewall-bypass-deleted",
 	"firewall-conditional-bypass-created": "firewall-conditional-bypass-created",
 	"firewall-conditional-bypass-deleted": "firewall-conditional-bypass-deleted",
+	"firewall-conditional-bypass-updated": "firewall-conditional-bypass-updated",
 	"firewall-config-modified": "firewall-config-modified",
 	"firewall-config-promoted": "firewall-config-promoted",
 	"firewall-config-removed": "firewall-config-removed",
@@ -7371,6 +7372,7 @@ export const userEventTypeEnum = {
 	"vcr-repository-visibility-changed": "vcr-repository-visibility-changed",
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
+	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -13152,6 +13154,30 @@ export type UserEvent = {
 						requestedScopes: string[];
 				  }
 				| {
+						eventId: string;
+						occurredAt: number;
+						sessionId: string;
+						/**
+						 * @description Currently emitted session kinds: chat, investigation.
+						 * @type string
+						 */
+						sessionKind: string;
+						/**
+						 * @description Currently emitted surfaces: dashboard, internal, slack, automation, github.
+						 * @type string
+						 */
+						surface: string;
+						branchRef: string | null;
+						deploymentId: string;
+						environment: string;
+						findingId: string;
+						findingNumber: number;
+						projectId: string;
+						projectName: string;
+						severity: string;
+						vulnerabilityClass: string;
+				  }
+				| {
 						next: UserEventPayloadNextEnumKey | null;
 						previous: UserEventPayloadPreviousEnumKey | null;
 						teamSlug?: string | undefined;
@@ -14803,6 +14829,7 @@ export const listEventTypeNameEnum = {
 	"firewall-bypass-deleted": "firewall-bypass-deleted",
 	"firewall-conditional-bypass-created": "firewall-conditional-bypass-created",
 	"firewall-conditional-bypass-deleted": "firewall-conditional-bypass-deleted",
+	"firewall-conditional-bypass-updated": "firewall-conditional-bypass-updated",
 	"firewall-config-modified": "firewall-config-modified",
 	"firewall-config-promoted": "firewall-config-promoted",
 	"firewall-config-removed": "firewall-config-removed",
@@ -15286,6 +15313,7 @@ export const listEventTypeNameEnum = {
 	"vcr-repository-visibility-changed": "vcr-repository-visibility-changed",
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
+	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -15568,6 +15596,7 @@ export const listEventTypeReplacedByEnum = {
 	"firewall-bypass-deleted": "firewall-bypass-deleted",
 	"firewall-conditional-bypass-created": "firewall-conditional-bypass-created",
 	"firewall-conditional-bypass-deleted": "firewall-conditional-bypass-deleted",
+	"firewall-conditional-bypass-updated": "firewall-conditional-bypass-updated",
 	"firewall-config-modified": "firewall-config-modified",
 	"firewall-config-promoted": "firewall-config-promoted",
 	"firewall-config-removed": "firewall-config-removed",
@@ -16051,6 +16080,7 @@ export const listEventTypeReplacedByEnum = {
 	"vcr-repository-visibility-changed": "vcr-repository-visibility-changed",
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
+	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -32270,7 +32300,7 @@ export const getDeploymentEventsStatus200LevelEnum = {
 export type GetDeploymentEventsStatus200LevelEnumKey =
 	(typeof getDeploymentEventsStatus200LevelEnum)[keyof typeof getDeploymentEventsStatus200LevelEnum];
 
-export type GetDeploymentEventsStatus200 =
+export type GetDeploymentEventsStatus200Json =
 	| (
 			| {
 					created: number;
@@ -32433,6 +32463,167 @@ export type GetDeploymentEventsStatus200 =
 	  )[]
 	| null;
 
+export type GetDeploymentEventsStatus200StreamJson = (
+	| {
+			created: number;
+			payload: {
+				created?: number | undefined;
+				date: number;
+				deploymentId: string;
+				id: string;
+				info?:
+					| {
+							entrypoint?: string | undefined;
+							name: string;
+							path?: string | undefined;
+							readyState?: string | undefined;
+							serviceName?: string | undefined;
+							step?: string | undefined;
+							type: string;
+					  }
+					| undefined;
+				proxy?:
+					| {
+							cacheId?: string | undefined;
+							clientIp?: string | undefined;
+							host: string;
+							lambdaRegion?: string | undefined;
+							method: string;
+							path?: string | undefined;
+							pathType?: string | undefined;
+							pathTypeVariant?: string | undefined;
+							referer?: string | undefined;
+							region?: string | undefined;
+							responseByteSize?: number | undefined;
+							scheme?: string | undefined;
+							statusCode?: number | undefined;
+							timestamp: number;
+							userAgent?: string[] | undefined;
+							vercelCache?: GetDeploymentEventsStatus200PayloadProxyVercelCacheEnumKey | undefined;
+							vercelId?: string | undefined;
+							wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnumKey | undefined;
+							wafRuleId?: string | undefined;
+					  }
+					| undefined;
+				requestId?: string | undefined;
+				serial: string;
+				statusCode?: number | undefined;
+				text?: string | undefined;
+			};
+			type: GetDeploymentEventsStatus200TypeEnumKey;
+	  }
+	| {
+			created: number;
+			date: number;
+			deploymentId: string;
+			id: string;
+			info: {
+				entrypoint?: string | undefined;
+				name: string;
+				path?: string | undefined;
+				readyState?: string | undefined;
+				serviceName?: string | undefined;
+				step?: string | undefined;
+				type: string;
+			};
+			level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
+			serial: string;
+			text?: string | undefined;
+			type: GetDeploymentEventsStatus200TypeEnumKey;
+	  }
+	| (
+			| {
+					created: number;
+					payload: {
+						created?: number | undefined;
+						date: number;
+						deploymentId: string;
+						id: string;
+						info?:
+							| {
+									entrypoint?: string | undefined;
+									name: string;
+									path?: string | undefined;
+									readyState?: string | undefined;
+									serviceName?: string | undefined;
+									step?: string | undefined;
+									type: string;
+							  }
+							| undefined;
+						proxy?:
+							| {
+									cacheId?: string | undefined;
+									clientIp?: string | undefined;
+									host: string;
+									lambdaRegion?: string | undefined;
+									method: string;
+									path?: string | undefined;
+									pathType?: string | undefined;
+									pathTypeVariant?: string | undefined;
+									referer?: string | undefined;
+									region?: string | undefined;
+									responseByteSize?: number | undefined;
+									scheme?: string | undefined;
+									statusCode?: number | undefined;
+									timestamp: number;
+									userAgent?: string[] | undefined;
+									vercelCache?:
+										| GetDeploymentEventsStatus200PayloadProxyVercelCacheEnumKey
+										| undefined;
+									vercelId?: string | undefined;
+									wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnumKey | undefined;
+									wafRuleId?: string | undefined;
+							  }
+							| undefined;
+						requestId?: string | undefined;
+						serial: string;
+						statusCode?: number | undefined;
+						text?: string | undefined;
+					};
+					type: GetDeploymentEventsStatus200TypeEnumKey;
+			  }
+			| {
+					created: number;
+					date: number;
+					deploymentId: string;
+					id: string;
+					info: {
+						entrypoint?: string | undefined;
+						name: string;
+						path?: string | undefined;
+						readyState?: string | undefined;
+						serviceName?: string | undefined;
+						step?: string | undefined;
+						type: string;
+					};
+					level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
+					serial: string;
+					text?: string | undefined;
+					type: GetDeploymentEventsStatus200TypeEnumKey;
+			  }
+			| {
+					date: number;
+					deploymentId: string;
+					type: "alias-assigned";
+					alias: string[];
+					aliasError: {
+						code: string;
+						message: string;
+					} | null;
+					aliasWarning: {
+						action?: string | undefined;
+						code: string;
+						link?: string | undefined;
+						message: string;
+					} | null;
+			  }
+	  )
+)[];
+
+export type GetDeploymentEventsStatus200 =
+	| GetDeploymentEventsStatus200Json
+	| GetDeploymentEventsStatus200StreamJson;
+
 export type GetDeploymentEventsStatus400 = unknown;
 
 export type GetDeploymentEventsStatus401 = unknown;
@@ -32453,7 +32644,15 @@ export type GetDeploymentEventsOptions = {
 };
 
 export type GetDeploymentEventsResponses = {
-	"200": GetDeploymentEventsStatus200;
+	"200":
+		| {
+				contentType: "application/json";
+				data: GetDeploymentEventsStatus200Json;
+		  }
+		| {
+				contentType: "application/stream+json";
+				data: GetDeploymentEventsStatus200StreamJson;
+		  };
 	"400": GetDeploymentEventsStatus400;
 	"401": GetDeploymentEventsStatus401;
 	"403": GetDeploymentEventsStatus403;
@@ -122289,13 +122488,36 @@ export type RunSessionCommandQuery = {
 	slug?: string | undefined;
 };
 
-export type RunSessionCommandStatus200 = {
+export type RunSessionCommandStatus200Json = {
 	/**
 	 * @description This object represents a command run in a Vercel Sandbox session (v2 API).
 	 * @type object
 	 */
 	command: SessionCommand;
 };
+
+export type RunSessionCommandStatus200XNdjson = (
+	| {
+			data: {
+				code: "sandbox_stream_closed";
+				message: "Sandbox stream was closed and is not accepting commands.";
+			};
+			stream: string;
+	  }
+	| {
+			/**
+			 * @description This object represents a command run in a Vercel Sandbox session (v2 API).
+			 * @type object
+			 */
+			command: SessionCommand;
+			data: string;
+			stream: string;
+	  }
+)[];
+
+export type RunSessionCommandStatus200 =
+	| RunSessionCommandStatus200Json
+	| RunSessionCommandStatus200XNdjson;
 
 export type RunSessionCommandStatus400 = unknown;
 
@@ -122385,7 +122607,15 @@ export type RunSessionCommandOptions = {
 };
 
 export type RunSessionCommandResponses = {
-	"200": RunSessionCommandStatus200;
+	"200":
+		| {
+				contentType: "application/json";
+				data: RunSessionCommandStatus200Json;
+		  }
+		| {
+				contentType: "application/x-ndjson";
+				data: RunSessionCommandStatus200XNdjson;
+		  };
 	"400": RunSessionCommandStatus400;
 	"401": RunSessionCommandStatus401;
 	"403": RunSessionCommandStatus403;
@@ -133012,6 +133242,201 @@ export type CreateConditionalBypassResponses = {
  * @description Union of all possible responses
  */
 export type CreateConditionalBypassResponse = CreateConditionalBypassStatus200;
+
+export type UpdateConditionalBypassQuery = {
+	projectId: string;
+	/**
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+};
+
+export const updateConditionalBypassStatus200ConditionGroupConditionsOpEnum = {
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	inc: "inc",
+	list: "list",
+	lt: "lt",
+	lte: "lte",
+	neq: "neq",
+	nex: "nex",
+	ninc: "ninc",
+	pre: "pre",
+	re: "re",
+	sub: "sub",
+	suf: "suf",
+} as const;
+
+export type UpdateConditionalBypassStatus200ConditionGroupConditionsOpEnumKey =
+	(typeof updateConditionalBypassStatus200ConditionGroupConditionsOpEnum)[keyof typeof updateConditionalBypassStatus200ConditionGroupConditionsOpEnum];
+
+export const updateConditionalBypassStatus200ConditionGroupConditionsTypeEnum = {
+	bot_category: "bot_category",
+	bot_name: "bot_name",
+	bot_protection: "bot_protection",
+	bot_status: "bot_status",
+	cookie: "cookie",
+	domain_environment: "domain_environment",
+	environment: "environment",
+	geo_as_number: "geo_as_number",
+	geo_city: "geo_city",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	header: "header",
+	host: "host",
+	ip_address: "ip_address",
+	ja3_digest: "ja3_digest",
+	ja4_digest: "ja4_digest",
+	method: "method",
+	path: "path",
+	protocol: "protocol",
+	query: "query",
+	rate_limit_api_id: "rate_limit_api_id",
+	raw_path: "raw_path",
+	region: "region",
+	response_code: "response_code",
+	route: "route",
+	ruleset: "ruleset",
+	scheme: "scheme",
+	server_action: "server_action",
+	shared_condition: "shared_condition",
+	target_path: "target_path",
+	traffic_source: "traffic_source",
+	trusted_source: "trusted_source",
+	user_agent: "user_agent",
+} as const;
+
+export type UpdateConditionalBypassStatus200ConditionGroupConditionsTypeEnumKey =
+	(typeof updateConditionalBypassStatus200ConditionGroupConditionsTypeEnum)[keyof typeof updateConditionalBypassStatus200ConditionGroupConditionsTypeEnum];
+
+export type UpdateConditionalBypassStatus200 = {
+	condition: string;
+	conditionGroup: {
+		conditions: {
+			key?: string | undefined;
+			neg?: (false | true) | undefined;
+			op: UpdateConditionalBypassStatus200ConditionGroupConditionsOpEnumKey;
+			type: UpdateConditionalBypassStatus200ConditionGroupConditionsTypeEnumKey;
+			value?: (string | number | string[]) | undefined;
+		}[];
+	}[];
+	createdAt: string;
+	domain: string;
+	id: string;
+	note?: string | undefined;
+	projectId: string;
+	updatedAt: string;
+};
+
+export type UpdateConditionalBypassStatus400 = unknown;
+
+export type UpdateConditionalBypassStatus401 = unknown;
+
+export type UpdateConditionalBypassStatus403 = unknown;
+
+export type UpdateConditionalBypassStatus404 = unknown;
+
+export type UpdateConditionalBypassStatus410 = unknown;
+
+export const updateConditionalBypassRequestConditionGroupConditionsOpEnum = {
+	eq: "eq",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+} as const;
+
+export type UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey =
+	(typeof updateConditionalBypassRequestConditionGroupConditionsOpEnum)[keyof typeof updateConditionalBypassRequestConditionGroupConditionsOpEnum];
+
+export type UpdateConditionalBypassBody =
+	| {
+			domain: string;
+			conditionGroup: {
+				conditions: (
+					| {
+							type: "user_agent";
+							op: UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							/**
+							 * @maxLength 500
+							 * @type string
+							 */
+							value: string;
+							key?: "user-agent" | undefined;
+					  }
+					| {
+							type: "path";
+							op: UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							/**
+							 * @maxLength 500
+							 * @type string
+							 */
+							value: string;
+					  }
+					| {
+							type: "header";
+							op: UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							/**
+							 * @maxLength 128
+							 * @pattern ^[!#$%&'*+.^_`|~0-9A-Za-z-]+$
+							 * @type string
+							 */
+							key: string;
+							/**
+							 * @maxLength 500
+							 * @type string
+							 */
+							value: string;
+					  }
+					| {
+							type: "header";
+							op: "ex";
+							/**
+							 * @maxLength 128
+							 * @pattern ^[!#$%&'*+.^_`|~0-9A-Za-z-]+$
+							 * @type string
+							 */
+							key: string;
+					  }
+				)[];
+			}[];
+			/**
+			 * @maxLength 500
+			 * @type string | undefined
+			 */
+			note?: string | undefined;
+	  }
+	| undefined;
+
+export type UpdateConditionalBypassOptions = {
+	body: UpdateConditionalBypassBody;
+	path?: never | undefined;
+	query: UpdateConditionalBypassQuery;
+	headers?: never | undefined;
+};
+
+export type UpdateConditionalBypassResponses = {
+	"200": UpdateConditionalBypassStatus200;
+	"400": UpdateConditionalBypassStatus400;
+	"401": UpdateConditionalBypassStatus401;
+	"403": UpdateConditionalBypassStatus403;
+	"404": UpdateConditionalBypassStatus404;
+	"410": UpdateConditionalBypassStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateConditionalBypassResponse = UpdateConditionalBypassStatus200;
 
 export type DeleteConditionalBypassQuery = {
 	projectId: string;
