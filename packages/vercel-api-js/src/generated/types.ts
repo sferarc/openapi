@@ -32270,7 +32270,7 @@ export const getDeploymentEventsStatus200LevelEnum = {
 export type GetDeploymentEventsStatus200LevelEnumKey =
 	(typeof getDeploymentEventsStatus200LevelEnum)[keyof typeof getDeploymentEventsStatus200LevelEnum];
 
-export type GetDeploymentEventsStatus200 =
+export type GetDeploymentEventsStatus200Json =
 	| (
 			| {
 					created: number;
@@ -32433,6 +32433,167 @@ export type GetDeploymentEventsStatus200 =
 	  )[]
 	| null;
 
+export type GetDeploymentEventsStatus200StreamJson = (
+	| {
+			created: number;
+			payload: {
+				created?: number | undefined;
+				date: number;
+				deploymentId: string;
+				id: string;
+				info?:
+					| {
+							entrypoint?: string | undefined;
+							name: string;
+							path?: string | undefined;
+							readyState?: string | undefined;
+							serviceName?: string | undefined;
+							step?: string | undefined;
+							type: string;
+					  }
+					| undefined;
+				proxy?:
+					| {
+							cacheId?: string | undefined;
+							clientIp?: string | undefined;
+							host: string;
+							lambdaRegion?: string | undefined;
+							method: string;
+							path?: string | undefined;
+							pathType?: string | undefined;
+							pathTypeVariant?: string | undefined;
+							referer?: string | undefined;
+							region?: string | undefined;
+							responseByteSize?: number | undefined;
+							scheme?: string | undefined;
+							statusCode?: number | undefined;
+							timestamp: number;
+							userAgent?: string[] | undefined;
+							vercelCache?: GetDeploymentEventsStatus200PayloadProxyVercelCacheEnumKey | undefined;
+							vercelId?: string | undefined;
+							wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnumKey | undefined;
+							wafRuleId?: string | undefined;
+					  }
+					| undefined;
+				requestId?: string | undefined;
+				serial: string;
+				statusCode?: number | undefined;
+				text?: string | undefined;
+			};
+			type: GetDeploymentEventsStatus200TypeEnumKey;
+	  }
+	| {
+			created: number;
+			date: number;
+			deploymentId: string;
+			id: string;
+			info: {
+				entrypoint?: string | undefined;
+				name: string;
+				path?: string | undefined;
+				readyState?: string | undefined;
+				serviceName?: string | undefined;
+				step?: string | undefined;
+				type: string;
+			};
+			level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
+			serial: string;
+			text?: string | undefined;
+			type: GetDeploymentEventsStatus200TypeEnumKey;
+	  }
+	| (
+			| {
+					created: number;
+					payload: {
+						created?: number | undefined;
+						date: number;
+						deploymentId: string;
+						id: string;
+						info?:
+							| {
+									entrypoint?: string | undefined;
+									name: string;
+									path?: string | undefined;
+									readyState?: string | undefined;
+									serviceName?: string | undefined;
+									step?: string | undefined;
+									type: string;
+							  }
+							| undefined;
+						proxy?:
+							| {
+									cacheId?: string | undefined;
+									clientIp?: string | undefined;
+									host: string;
+									lambdaRegion?: string | undefined;
+									method: string;
+									path?: string | undefined;
+									pathType?: string | undefined;
+									pathTypeVariant?: string | undefined;
+									referer?: string | undefined;
+									region?: string | undefined;
+									responseByteSize?: number | undefined;
+									scheme?: string | undefined;
+									statusCode?: number | undefined;
+									timestamp: number;
+									userAgent?: string[] | undefined;
+									vercelCache?:
+										| GetDeploymentEventsStatus200PayloadProxyVercelCacheEnumKey
+										| undefined;
+									vercelId?: string | undefined;
+									wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnumKey | undefined;
+									wafRuleId?: string | undefined;
+							  }
+							| undefined;
+						requestId?: string | undefined;
+						serial: string;
+						statusCode?: number | undefined;
+						text?: string | undefined;
+					};
+					type: GetDeploymentEventsStatus200TypeEnumKey;
+			  }
+			| {
+					created: number;
+					date: number;
+					deploymentId: string;
+					id: string;
+					info: {
+						entrypoint?: string | undefined;
+						name: string;
+						path?: string | undefined;
+						readyState?: string | undefined;
+						serviceName?: string | undefined;
+						step?: string | undefined;
+						type: string;
+					};
+					level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
+					serial: string;
+					text?: string | undefined;
+					type: GetDeploymentEventsStatus200TypeEnumKey;
+			  }
+			| {
+					date: number;
+					deploymentId: string;
+					type: "alias-assigned";
+					alias: string[];
+					aliasError: {
+						code: string;
+						message: string;
+					} | null;
+					aliasWarning: {
+						action?: string | undefined;
+						code: string;
+						link?: string | undefined;
+						message: string;
+					} | null;
+			  }
+	  )
+)[];
+
+export type GetDeploymentEventsStatus200 =
+	| GetDeploymentEventsStatus200Json
+	| GetDeploymentEventsStatus200StreamJson;
+
 export type GetDeploymentEventsStatus400 = unknown;
 
 export type GetDeploymentEventsStatus401 = unknown;
@@ -32453,7 +32614,15 @@ export type GetDeploymentEventsOptions = {
 };
 
 export type GetDeploymentEventsResponses = {
-	"200": GetDeploymentEventsStatus200;
+	"200":
+		| {
+				contentType: "application/json";
+				data: GetDeploymentEventsStatus200Json;
+		  }
+		| {
+				contentType: "application/stream+json";
+				data: GetDeploymentEventsStatus200StreamJson;
+		  };
 	"400": GetDeploymentEventsStatus400;
 	"401": GetDeploymentEventsStatus401;
 	"403": GetDeploymentEventsStatus403;
@@ -122289,13 +122458,36 @@ export type RunSessionCommandQuery = {
 	slug?: string | undefined;
 };
 
-export type RunSessionCommandStatus200 = {
+export type RunSessionCommandStatus200Json = {
 	/**
 	 * @description This object represents a command run in a Vercel Sandbox session (v2 API).
 	 * @type object
 	 */
 	command: SessionCommand;
 };
+
+export type RunSessionCommandStatus200XNdjson = (
+	| {
+			data: {
+				code: "sandbox_stream_closed";
+				message: "Sandbox stream was closed and is not accepting commands.";
+			};
+			stream: string;
+	  }
+	| {
+			/**
+			 * @description This object represents a command run in a Vercel Sandbox session (v2 API).
+			 * @type object
+			 */
+			command: SessionCommand;
+			data: string;
+			stream: string;
+	  }
+)[];
+
+export type RunSessionCommandStatus200 =
+	| RunSessionCommandStatus200Json
+	| RunSessionCommandStatus200XNdjson;
 
 export type RunSessionCommandStatus400 = unknown;
 
@@ -122385,7 +122577,15 @@ export type RunSessionCommandOptions = {
 };
 
 export type RunSessionCommandResponses = {
-	"200": RunSessionCommandStatus200;
+	"200":
+		| {
+				contentType: "application/json";
+				data: RunSessionCommandStatus200Json;
+		  }
+		| {
+				contentType: "application/x-ndjson";
+				data: RunSessionCommandStatus200XNdjson;
+		  };
 	"400": RunSessionCommandStatus400;
 	"401": RunSessionCommandStatus401;
 	"403": RunSessionCommandStatus403;

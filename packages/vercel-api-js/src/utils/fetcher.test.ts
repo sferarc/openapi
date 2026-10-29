@@ -1,5 +1,9 @@
-import { describe, expect, it } from "vitest";
-import { createAccessGroup, readAccessGroup } from "../generated/components";
+import { describe, expect, expectTypeOf, it } from "vitest";
+import { createAccessGroup, readAccessGroup, runSessionCommand } from "../generated/components";
+import type {
+	RunSessionCommandStatus200Json,
+	RunSessionCommandStatus200XNdjson,
+} from "../generated/types";
 import type { FetchImpl, RequestInit } from "./fetch";
 import client from "./fetcher";
 
@@ -94,6 +98,32 @@ describe("fetcher", () => {
 				fetchImpl: respond(200, JSON.stringify({ ok: true })),
 			}),
 		).resolves.toEqual({ ok: true });
+	});
+
+	it.each(["application/x-ndjson", "application/jsonl", "application/stream+json; charset=utf-8"])(
+		"resolves a %s response to one value per line",
+		async (contentType) => {
+			await expect(
+				client({
+					url: "/thing",
+					method: "get",
+					fetchImpl: respond(200, '{"id":1}\r\n{"id":2}\n\n', contentType),
+				}),
+			).resolves.toEqual([{ id: 1 }, { id: 2 }]);
+		},
+	);
+
+	it("types runSessionCommand as its JSON body or the ndjson lines it resolves to with wait", async () => {
+		const line = { command: { id: "cmd_1", exitCode: 0 }, data: "", stream: "status" };
+		const result = await runSessionCommand({
+			pathParams: { sessionId: "sbx_1" },
+			body: { command: "npm", wait: true },
+			config: { fetchImpl: respond(200, `${JSON.stringify(line)}\n`, "application/x-ndjson") },
+		});
+		expectTypeOf(result).toEqualTypeOf<
+			RunSessionCommandStatus200Json | RunSessionCommandStatus200XNdjson
+		>();
+		expect(result).toEqual([line]);
 	});
 
 	it("percent-encodes path parameters in generated operations", async () => {

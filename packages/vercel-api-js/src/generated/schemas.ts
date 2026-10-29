@@ -26774,7 +26774,7 @@ export const getDeploymentEventsQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const getDeploymentEventsStatus200Schema = z
+export const getDeploymentEventsStatus200SchemaJson = z
 	.array(
 		z.union([
 			z.strictObject({
@@ -26992,6 +26992,228 @@ export const getDeploymentEventsStatus200Schema = z
 		]),
 	)
 	.nullable();
+
+export const getDeploymentEventsStatus200SchemaStreamJson = z.array(
+	z.union([
+		z.strictObject({
+			created: z.number(),
+			payload: z.object({
+				created: z.number().optional(),
+				date: z.number(),
+				deploymentId: z.string(),
+				id: z.string(),
+				info: z
+					.object({
+						entrypoint: z.string().optional(),
+						name: z.string(),
+						path: z.string().optional(),
+						readyState: z.string().optional(),
+						serviceName: z.string().optional(),
+						step: z.string().optional(),
+						type: z.string(),
+					})
+					.optional(),
+				proxy: z
+					.object({
+						cacheId: z.string().optional(),
+						clientIp: z.string().optional(),
+						host: z.string(),
+						lambdaRegion: z.string().optional(),
+						method: z.string(),
+						path: z.string().optional(),
+						pathType: z.string().optional(),
+						pathTypeVariant: z.string().optional(),
+						referer: z.string().optional(),
+						region: z.string().optional(),
+						responseByteSize: z.number().optional(),
+						scheme: z.string().optional(),
+						statusCode: z.number().optional(),
+						timestamp: z.number(),
+						userAgent: z.array(z.string()).optional(),
+						vercelCache: z
+							.enum(["BYPASS", "HIT", "MISS", "PRERENDER", "REVALIDATED", "STALE"])
+							.optional(),
+						vercelId: z.string().optional(),
+						wafAction: z.enum(["bypass", "challenge", "deny", "log", "rate_limit"]).optional(),
+						wafRuleId: z.string().optional(),
+					})
+					.optional(),
+				requestId: z.string().optional(),
+				serial: z.string(),
+				statusCode: z.number().optional(),
+				text: z.string().optional(),
+			}),
+			type: z.enum([
+				"command",
+				"delimiter",
+				"deployment-state",
+				"edge-function-invocation",
+				"exit",
+				"fatal",
+				"metric",
+				"middleware",
+				"middleware-invocation",
+				"report",
+				"stderr",
+				"stdout",
+			]),
+		}),
+		z.strictObject({
+			created: z.number(),
+			date: z.number(),
+			deploymentId: z.string(),
+			id: z.string(),
+			info: z.object({
+				entrypoint: z.string().optional(),
+				name: z.string(),
+				path: z.string().optional(),
+				readyState: z.string().optional(),
+				serviceName: z.string().optional(),
+				step: z.string().optional(),
+				type: z.string(),
+			}),
+			level: z.enum(["error", "warning"]).optional(),
+			serial: z.string(),
+			text: z.string().optional(),
+			type: z.enum([
+				"command",
+				"delimiter",
+				"deployment-state",
+				"edge-function-invocation",
+				"exit",
+				"fatal",
+				"metric",
+				"middleware",
+				"middleware-invocation",
+				"report",
+				"stderr",
+				"stdout",
+			]),
+		}),
+		z.union([
+			z.strictObject({
+				created: z.number(),
+				payload: z.object({
+					created: z.number().optional(),
+					date: z.number(),
+					deploymentId: z.string(),
+					id: z.string(),
+					info: z
+						.object({
+							entrypoint: z.string().optional(),
+							name: z.string(),
+							path: z.string().optional(),
+							readyState: z.string().optional(),
+							serviceName: z.string().optional(),
+							step: z.string().optional(),
+							type: z.string(),
+						})
+						.optional(),
+					proxy: z
+						.object({
+							cacheId: z.string().optional(),
+							clientIp: z.string().optional(),
+							host: z.string(),
+							lambdaRegion: z.string().optional(),
+							method: z.string(),
+							path: z.string().optional(),
+							pathType: z.string().optional(),
+							pathTypeVariant: z.string().optional(),
+							referer: z.string().optional(),
+							region: z.string().optional(),
+							responseByteSize: z.number().optional(),
+							scheme: z.string().optional(),
+							statusCode: z.number().optional(),
+							timestamp: z.number(),
+							userAgent: z.array(z.string()).optional(),
+							vercelCache: z
+								.enum(["BYPASS", "HIT", "MISS", "PRERENDER", "REVALIDATED", "STALE"])
+								.optional(),
+							vercelId: z.string().optional(),
+							wafAction: z.enum(["bypass", "challenge", "deny", "log", "rate_limit"]).optional(),
+							wafRuleId: z.string().optional(),
+						})
+						.optional(),
+					requestId: z.string().optional(),
+					serial: z.string(),
+					statusCode: z.number().optional(),
+					text: z.string().optional(),
+				}),
+				type: z.enum([
+					"command",
+					"delimiter",
+					"deployment-state",
+					"edge-function-invocation",
+					"exit",
+					"fatal",
+					"metric",
+					"middleware",
+					"middleware-invocation",
+					"report",
+					"stderr",
+					"stdout",
+				]),
+			}),
+			z.strictObject({
+				created: z.number(),
+				date: z.number(),
+				deploymentId: z.string(),
+				id: z.string(),
+				info: z.object({
+					entrypoint: z.string().optional(),
+					name: z.string(),
+					path: z.string().optional(),
+					readyState: z.string().optional(),
+					serviceName: z.string().optional(),
+					step: z.string().optional(),
+					type: z.string(),
+				}),
+				level: z.enum(["error", "warning"]).optional(),
+				serial: z.string(),
+				text: z.string().optional(),
+				type: z.enum([
+					"command",
+					"delimiter",
+					"deployment-state",
+					"edge-function-invocation",
+					"exit",
+					"fatal",
+					"metric",
+					"middleware",
+					"middleware-invocation",
+					"report",
+					"stderr",
+					"stdout",
+				]),
+			}),
+			z.strictObject({
+				date: z.number(),
+				deploymentId: z.string(),
+				type: z.enum(["alias-assigned"]),
+				alias: z.array(z.string()),
+				aliasError: z
+					.object({
+						code: z.string(),
+						message: z.string(),
+					})
+					.nullable(),
+				aliasWarning: z
+					.object({
+						action: z.string().optional(),
+						code: z.string(),
+						link: z.string().optional(),
+						message: z.string(),
+					})
+					.nullable(),
+			}),
+		]),
+	]),
+);
+
+export const getDeploymentEventsStatus200Schema = z.union([
+	getDeploymentEventsStatus200SchemaJson,
+	getDeploymentEventsStatus200SchemaStreamJson,
+]);
 
 export const getDeploymentEventsStatus400Schema = z.unknown();
 
@@ -106605,11 +106827,35 @@ export const runSessionCommandQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const runSessionCommandStatus200Schema = z.object({
+export const runSessionCommandStatus200SchemaJson = z.object({
 	command: sessionCommandSchema.describe(
 		"This object represents a command run in a Vercel Sandbox session (v2 API).",
 	),
 });
+
+export const runSessionCommandStatus200SchemaXNdjson = z.array(
+	z.union([
+		z.strictObject({
+			data: z.object({
+				code: z.enum(["sandbox_stream_closed"]),
+				message: z.enum(["Sandbox stream was closed and is not accepting commands."]),
+			}),
+			stream: z.string(),
+		}),
+		z.strictObject({
+			command: sessionCommandSchema.describe(
+				"This object represents a command run in a Vercel Sandbox session (v2 API).",
+			),
+			data: z.string(),
+			stream: z.string(),
+		}),
+	]),
+);
+
+export const runSessionCommandStatus200Schema = z.union([
+	runSessionCommandStatus200SchemaJson,
+	runSessionCommandStatus200SchemaXNdjson,
+]);
 
 export const runSessionCommandStatus400Schema = z.unknown();
 
