@@ -6302,6 +6302,22 @@ export const userEventPayloadPreviousScopeEnum = {
 export type UserEventPayloadPreviousScopeEnumKey =
 	(typeof userEventPayloadPreviousScopeEnum)[keyof typeof userEventPayloadPreviousScopeEnum];
 
+export const userEventPayloadNextProjectScopeEnum = {
+	all: "all",
+	selected: "selected",
+} as const;
+
+export type UserEventPayloadNextProjectScopeEnumKey =
+	(typeof userEventPayloadNextProjectScopeEnum)[keyof typeof userEventPayloadNextProjectScopeEnum];
+
+export const userEventPayloadPreviousProjectScopeEnum = {
+	all: "all",
+	selected: "selected",
+} as const;
+
+export type UserEventPayloadPreviousProjectScopeEnumKey =
+	(typeof userEventPayloadPreviousProjectScopeEnum)[keyof typeof userEventPayloadPreviousProjectScopeEnum];
+
 export const userEventPayloadNextEnum = {
 	basic: "basic",
 	elastic: "elastic",
@@ -6710,6 +6726,7 @@ export const userEventTypeEnum = {
 	"ai-gateway-virtual-model-config-updated": "ai-gateway-virtual-model-config-updated",
 	"ai-gateway-zero-data-retention-toggled": "ai-gateway-zero-data-retention-toggled",
 	"ai-omniagent": "ai-omniagent",
+	"ai-security-review": "ai-security-review",
 	"alert-investigation-project-allowlist-updated": "alert-investigation-project-allowlist-updated",
 	"alert-rule-created": "alert-rule-created",
 	"alert-rule-deleted": "alert-rule-deleted",
@@ -6938,9 +6955,11 @@ export const userEventTypeEnum = {
 	"integration-installation-completed": "integration-installation-completed",
 	"integration-installation-permission-updated": "integration-installation-permission-updated",
 	"integration-installation-removed": "integration-installation-removed",
+	"integration-previous-secret-revoked": "integration-previous-secret-revoked",
 	"integration-resource-redis-command-executed": "integration-resource-redis-command-executed",
 	"integration-resource-sql-query-executed": "integration-resource-sql-query-executed",
 	"integration-scope-changed": "integration-scope-changed",
+	"integration-secret-rotated": "integration-secret-rotated",
 	"invoice-modified": "invoice-modified",
 	"invoice-refunded": "invoice-refunded",
 	"kms-issuer-created": "kms-issuer-created",
@@ -7313,6 +7332,7 @@ export const userEventTypeEnum = {
 	"team-program-enrollment-changed": "team-program-enrollment-changed",
 	"team-remote-caching-purge": "team-remote-caching-purge",
 	"team-remote-caching-update": "team-remote-caching-update",
+	"team-runtime-cache-updated": "team-runtime-cache-updated",
 	"team-saml-enforced": "team-saml-enforced",
 	"team-saml-roles": "team-saml-roles",
 	"team-slug-update": "team-slug-update",
@@ -10554,6 +10574,11 @@ export type UserEvent = {
 						projectIds?: (string[] | "all") | undefined;
 				  }
 				| {
+						integrationId: string;
+						integrationName: string;
+						integrationSlug: string;
+				  }
+				| {
 						configurationId: string;
 						databaseName: string;
 						errorCode: string | null;
@@ -10628,6 +10653,7 @@ export type UserEvent = {
 						integrationId: string;
 						integrationName: string;
 						integrationSlug: string;
+						previousSecretExpiresAt: number | null;
 				  }
 				| {
 						algorithm: string;
@@ -13093,6 +13119,26 @@ export type UserEvent = {
 							| undefined;
 				  }
 				| {
+						/**
+						 * @description Mirrors the `security-review` setting value in `@api/api-settings`.
+						 * @type object
+						 */
+						next: {
+							enabled: false | true;
+							projectIds?: string[] | undefined;
+							projectScope: UserEventPayloadNextProjectScopeEnumKey;
+						};
+						/**
+						 * @description Mirrors the `security-review` setting value in `@api/api-settings`.
+						 * @type object
+						 */
+						previous: {
+							enabled: false | true;
+							projectIds?: string[] | undefined;
+							projectScope: UserEventPayloadPreviousProjectScopeEnumKey;
+						};
+				  }
+				| {
 						amount: string;
 						currency: string;
 						expiresAt: string;
@@ -13192,6 +13238,11 @@ export type UserEvent = {
 						next?: UserEventPayloadNextEnumKey | undefined;
 						previous?: UserEventPayloadPreviousEnumKey | undefined;
 						reason?: UserEventPayloadReasonEnumKey | undefined;
+				  }
+				| {
+						enrolled?: (false | true) | undefined;
+						actorName?: string | undefined;
+						actorType?: "admin" | undefined;
 				  }
 				| {
 						by: string;
@@ -14651,6 +14702,7 @@ export const listEventTypeNameEnum = {
 	"ai-gateway-virtual-model-config-updated": "ai-gateway-virtual-model-config-updated",
 	"ai-gateway-zero-data-retention-toggled": "ai-gateway-zero-data-retention-toggled",
 	"ai-omniagent": "ai-omniagent",
+	"ai-security-review": "ai-security-review",
 	"alert-investigation-project-allowlist-updated": "alert-investigation-project-allowlist-updated",
 	"alert-rule-created": "alert-rule-created",
 	"alert-rule-deleted": "alert-rule-deleted",
@@ -14879,9 +14931,11 @@ export const listEventTypeNameEnum = {
 	"integration-installation-completed": "integration-installation-completed",
 	"integration-installation-permission-updated": "integration-installation-permission-updated",
 	"integration-installation-removed": "integration-installation-removed",
+	"integration-previous-secret-revoked": "integration-previous-secret-revoked",
 	"integration-resource-redis-command-executed": "integration-resource-redis-command-executed",
 	"integration-resource-sql-query-executed": "integration-resource-sql-query-executed",
 	"integration-scope-changed": "integration-scope-changed",
+	"integration-secret-rotated": "integration-secret-rotated",
 	"invoice-modified": "invoice-modified",
 	"invoice-refunded": "invoice-refunded",
 	"kms-issuer-created": "kms-issuer-created",
@@ -15254,6 +15308,7 @@ export const listEventTypeNameEnum = {
 	"team-program-enrollment-changed": "team-program-enrollment-changed",
 	"team-remote-caching-purge": "team-remote-caching-purge",
 	"team-remote-caching-update": "team-remote-caching-update",
+	"team-runtime-cache-updated": "team-runtime-cache-updated",
 	"team-saml-enforced": "team-saml-enforced",
 	"team-saml-roles": "team-saml-roles",
 	"team-slug-update": "team-slug-update",
@@ -15418,6 +15473,7 @@ export const listEventTypeReplacedByEnum = {
 	"ai-gateway-virtual-model-config-updated": "ai-gateway-virtual-model-config-updated",
 	"ai-gateway-zero-data-retention-toggled": "ai-gateway-zero-data-retention-toggled",
 	"ai-omniagent": "ai-omniagent",
+	"ai-security-review": "ai-security-review",
 	"alert-investigation-project-allowlist-updated": "alert-investigation-project-allowlist-updated",
 	"alert-rule-created": "alert-rule-created",
 	"alert-rule-deleted": "alert-rule-deleted",
@@ -15646,9 +15702,11 @@ export const listEventTypeReplacedByEnum = {
 	"integration-installation-completed": "integration-installation-completed",
 	"integration-installation-permission-updated": "integration-installation-permission-updated",
 	"integration-installation-removed": "integration-installation-removed",
+	"integration-previous-secret-revoked": "integration-previous-secret-revoked",
 	"integration-resource-redis-command-executed": "integration-resource-redis-command-executed",
 	"integration-resource-sql-query-executed": "integration-resource-sql-query-executed",
 	"integration-scope-changed": "integration-scope-changed",
+	"integration-secret-rotated": "integration-secret-rotated",
 	"invoice-modified": "invoice-modified",
 	"invoice-refunded": "invoice-refunded",
 	"kms-issuer-created": "kms-issuer-created",
@@ -16021,6 +16079,7 @@ export const listEventTypeReplacedByEnum = {
 	"team-program-enrollment-changed": "team-program-enrollment-changed",
 	"team-remote-caching-purge": "team-remote-caching-purge",
 	"team-remote-caching-update": "team-remote-caching-update",
+	"team-runtime-cache-updated": "team-runtime-cache-updated",
 	"team-saml-enforced": "team-saml-enforced",
 	"team-saml-roles": "team-saml-roles",
 	"team-slug-update": "team-slug-update",
@@ -31393,6 +31452,78 @@ export type DeleteConnectorProjectConnectionResponses = {
  * @description Union of all possible responses
  */
 export type DeleteConnectorProjectConnectionResponse = DeleteConnectorProjectConnectionStatus204;
+
+export type DisconnectConnectorProjectEnvironmentPath = {
+	connector: string;
+	projectId: string;
+	/**
+	 * @description A built-in environment name or the stable env_* ID of a custom environment.
+	 */
+	environment: string | string;
+};
+
+export type DisconnectConnectorProjectEnvironmentQuery = {
+	/**
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+};
+
+export type DisconnectConnectorProjectEnvironmentStatus204 = unknown;
+
+export type DisconnectConnectorProjectEnvironmentStatus400 = unknown;
+
+export type DisconnectConnectorProjectEnvironmentStatus401 = unknown;
+
+export type DisconnectConnectorProjectEnvironmentStatus403 = unknown;
+
+export type DisconnectConnectorProjectEnvironmentStatus404 = unknown;
+
+export type DisconnectConnectorProjectEnvironmentStatus409 = unknown;
+
+export type DisconnectConnectorProjectEnvironmentStatus410 = unknown;
+
+export type DisconnectConnectorProjectEnvironmentStatus422 = unknown;
+
+export type DisconnectConnectorProjectEnvironmentStatus500 = unknown;
+
+export type DisconnectConnectorProjectEnvironmentStatus501 = unknown;
+
+export type DisconnectConnectorProjectEnvironmentStatus504 = unknown;
+
+export type DisconnectConnectorProjectEnvironmentOptions = {
+	body?: never | undefined;
+	path: DisconnectConnectorProjectEnvironmentPath;
+	query?: DisconnectConnectorProjectEnvironmentQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type DisconnectConnectorProjectEnvironmentResponses = {
+	"204": DisconnectConnectorProjectEnvironmentStatus204;
+	"400": DisconnectConnectorProjectEnvironmentStatus400;
+	"401": DisconnectConnectorProjectEnvironmentStatus401;
+	"403": DisconnectConnectorProjectEnvironmentStatus403;
+	"404": DisconnectConnectorProjectEnvironmentStatus404;
+	"409": DisconnectConnectorProjectEnvironmentStatus409;
+	"410": DisconnectConnectorProjectEnvironmentStatus410;
+	"422": DisconnectConnectorProjectEnvironmentStatus422;
+	"500": DisconnectConnectorProjectEnvironmentStatus500;
+	"501": DisconnectConnectorProjectEnvironmentStatus501;
+	"504": DisconnectConnectorProjectEnvironmentStatus504;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DisconnectConnectorProjectEnvironmentResponse =
+	DisconnectConnectorProjectEnvironmentStatus204;
 
 export type ListProjectConnectorConnectionsPath = {
 	/**
@@ -59763,6 +59894,7 @@ export const getBillingPlansSource = {
 	oauth: "oauth",
 	backoffice: "backoffice",
 	"import-recommended-integrations": "import-recommended-integrations",
+	"project-overview-recommended-integrations": "project-overview-recommended-integrations",
 	organization: "organization",
 } as const;
 
@@ -62293,6 +62425,7 @@ export const getConfigurationsStatus200SourceEnum = {
 	marketplace: "marketplace",
 	oauth: "oauth",
 	organization: "organization",
+	"project-overview-recommended-integrations": "project-overview-recommended-integrations",
 	"resource-claims": "resource-claims",
 	v0: "v0",
 } as const;
@@ -62696,6 +62829,7 @@ export const getConfigurationStatus200SourceEnum = {
 	marketplace: "marketplace",
 	oauth: "oauth",
 	organization: "organization",
+	"project-overview-recommended-integrations": "project-overview-recommended-integrations",
 	"resource-claims": "resource-claims",
 	v0: "v0",
 } as const;
@@ -62715,22 +62849,6 @@ export const getConfigurationStatus200StatusEnum = {
 
 export type GetConfigurationStatus200StatusEnumKey =
 	(typeof getConfigurationStatus200StatusEnum)[keyof typeof getConfigurationStatus200StatusEnum];
-
-export const getConfigurationStatus200TransferRequestBillingPlanScopeEnum = {
-	installation: "installation",
-	resource: "resource",
-} as const;
-
-export type GetConfigurationStatus200TransferRequestBillingPlanScopeEnumKey =
-	(typeof getConfigurationStatus200TransferRequestBillingPlanScopeEnum)[keyof typeof getConfigurationStatus200TransferRequestBillingPlanScopeEnum];
-
-export const getConfigurationStatus200TransferRequestBillingPlanTypeEnum = {
-	prepayment: "prepayment",
-	subscription: "subscription",
-} as const;
-
-export type GetConfigurationStatus200TransferRequestBillingPlanTypeEnumKey =
-	(typeof getConfigurationStatus200TransferRequestBillingPlanTypeEnum)[keyof typeof getConfigurationStatus200TransferRequestBillingPlanTypeEnum];
 
 export type GetConfigurationStatus200 =
 	| {
@@ -62851,57 +62969,6 @@ export type GetConfigurationStatus200 =
 			 * @type string | undefined
 			 */
 			teamId?: (string | null) | undefined;
-			transferRequest:
-				| {
-						approvedAt?: number | undefined;
-						approvedBy?: string | undefined;
-						authorizationId?: string | undefined;
-						billingPlan?:
-							| {
-									description: string;
-									id: string;
-									name: string;
-									paymentMethodRequired?: (false | true) | undefined;
-									preauthorizationAmount?: number | undefined;
-									scope?:
-										| GetConfigurationStatus200TransferRequestBillingPlanScopeEnumKey
-										| undefined;
-									type: GetConfigurationStatus200TransferRequestBillingPlanTypeEnumKey;
-							  }
-							| undefined;
-						createdAt: number;
-						discardedAt?: number | undefined;
-						discardedBy?: string | undefined;
-						expiresAt: number;
-						kind: "transfer-to-marketplace";
-						metadata?:
-							| {
-									[key: string]: unknown;
-							  }
-							| undefined;
-						requester: {
-							email?: string | undefined;
-							name: string;
-						};
-						requestId: string;
-						transferId: string;
-				  }
-				| {
-						approvedAt?: number | undefined;
-						approvedBy?: string | undefined;
-						authorizationId?: string | undefined;
-						createdAt: number;
-						discardedAt?: number | undefined;
-						discardedBy?: string | undefined;
-						expiresAt: number;
-						kind: "transfer-from-marketplace";
-						requester: {
-							email?: string | undefined;
-							name: string;
-						};
-						requestId: string;
-						transferId: string;
-				  };
 			type: "integration-configuration";
 			/**
 			 * @description A timestamp that tells you when the configuration was updated.
@@ -123619,7 +123686,7 @@ export type ReadSessionFileQuery = {
 	slug?: string | undefined;
 };
 
-export type ReadSessionFileStatus200 = unknown;
+export type ReadSessionFileStatus200 = Blob;
 
 export type ReadSessionFileStatus400 = unknown;
 
@@ -135926,6 +135993,7 @@ export const createIntegrationStoreDirectRequestSourceEnum = {
 	marketplace: "marketplace",
 	oauth: "oauth",
 	organization: "organization",
+	"project-overview-recommended-integrations": "project-overview-recommended-integrations",
 	"resource-claims": "resource-claims",
 	v0: "v0",
 } as const;

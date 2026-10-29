@@ -1344,6 +1344,19 @@ import type {
 	DeleteWebhookStatus403,
 	DeleteWebhookStatus404,
 	DeleteWebhookStatus410,
+	DisconnectConnectorProjectEnvironmentPath,
+	DisconnectConnectorProjectEnvironmentQuery,
+	DisconnectConnectorProjectEnvironmentResponse,
+	DisconnectConnectorProjectEnvironmentStatus400,
+	DisconnectConnectorProjectEnvironmentStatus401,
+	DisconnectConnectorProjectEnvironmentStatus403,
+	DisconnectConnectorProjectEnvironmentStatus404,
+	DisconnectConnectorProjectEnvironmentStatus409,
+	DisconnectConnectorProjectEnvironmentStatus410,
+	DisconnectConnectorProjectEnvironmentStatus422,
+	DisconnectConnectorProjectEnvironmentStatus500,
+	DisconnectConnectorProjectEnvironmentStatus501,
+	DisconnectConnectorProjectEnvironmentStatus504,
 	DownloadArtifactHeaders,
 	DownloadArtifactPath,
 	DownloadArtifactQuery,
@@ -8366,6 +8379,64 @@ export async function deleteConnectorProjectConnection(
 	>({
 		method: "DELETE",
 		url: `/v1/connect/connectors/${encodeURIComponent(String(pathParams.connector))}/projects/${encodeURIComponent(String(pathParams.projectId))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Disconnect a connector from a project environment
+ * @description Remove a connector's access and event destinations for one project environment. Other environments, the connector, and its provider installations are preserved. Preview disconnect removes destinations for every preview branch in the project. Disconnecting the last environment also releases the project-local UID. Safe to retry.
+ * @link /v1/connect/connectors/{connector}/projects/{projectId}/environments/{environment}
+ */
+export async function disconnectConnectorProjectEnvironment(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DisconnectConnectorProjectEnvironmentPath;
+		queryParams?: Partial<DisconnectConnectorProjectEnvironmentQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.connector == null || String(pathParams.connector) === "") {
+		throw new Error(`Missing required path parameter: connector`);
+	}
+
+	if (pathParams?.projectId == null || String(pathParams.projectId) === "") {
+		throw new Error(`Missing required path parameter: projectId`);
+	}
+
+	if (pathParams?.environment == null || String(pathParams.environment) === "") {
+		throw new Error(`Missing required path parameter: environment`);
+	}
+	const data = await request<
+		DisconnectConnectorProjectEnvironmentResponse,
+		ErrorWrapper<
+			| DisconnectConnectorProjectEnvironmentStatus400
+			| DisconnectConnectorProjectEnvironmentStatus401
+			| DisconnectConnectorProjectEnvironmentStatus403
+			| DisconnectConnectorProjectEnvironmentStatus404
+			| DisconnectConnectorProjectEnvironmentStatus409
+			| DisconnectConnectorProjectEnvironmentStatus410
+			| DisconnectConnectorProjectEnvironmentStatus422
+			| DisconnectConnectorProjectEnvironmentStatus500
+			| DisconnectConnectorProjectEnvironmentStatus501
+			| DisconnectConnectorProjectEnvironmentStatus504
+		>,
+		null,
+		Record<string, string>,
+		Partial<DisconnectConnectorProjectEnvironmentQuery>,
+		DisconnectConnectorProjectEnvironmentPath
+	>({
+		method: "DELETE",
+		url: `/v1/connect/connectors/${encodeURIComponent(String(pathParams.connector))}/projects/${encodeURIComponent(String(pathParams.projectId))}/environments/${encodeURIComponent(String(pathParams.environment))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -26690,6 +26761,8 @@ export const operationsByPath = {
 	"POST /v1/connect/connectors/{connector}/projects/{projectId}": upsertConnectorProjectConnection,
 	"DELETE /v1/connect/connectors/{connector}/projects/{projectId}":
 		deleteConnectorProjectConnection,
+	"DELETE /v1/connect/connectors/{connector}/projects/{projectId}/environments/{environment}":
+		disconnectConnectorProjectEnvironment,
 	"GET /v2/connect/projects/{projectId}/connectors": listProjectConnectorConnections,
 	"POST /v1/connect/token/{connector}": getConnectorToken,
 	"POST /v1/connect/authorize/{connector}": createConnectorAuthorizationRequest,
@@ -27233,6 +27306,7 @@ export const operationsByTag = {
 		getConnectorProjectConnection,
 		upsertConnectorProjectConnection,
 		deleteConnectorProjectConnection,
+		disconnectConnectorProjectEnvironment,
 		listProjectConnectorConnections,
 		getConnectorToken,
 		createConnectorAuthorizationRequest,
@@ -27791,7 +27865,11 @@ export const tagDictionary = {
 			"getConnectorProjectConnection",
 			"listProjectConnectorConnections",
 		],
-		DELETE: ["deleteConnector", "deleteConnectorProjectConnection"],
+		DELETE: [
+			"deleteConnector",
+			"deleteConnectorProjectConnection",
+			"disconnectConnectorProjectEnvironment",
+		],
 		POST: [
 			"createConnector",
 			"ejectManagedConnector",
