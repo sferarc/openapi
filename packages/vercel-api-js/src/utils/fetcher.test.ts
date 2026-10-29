@@ -153,6 +153,19 @@ describe("fetcher", () => {
 		expect(init?.body).toBe(JSON.stringify({ name: "Engineering" }));
 	});
 
+	it("joins a base URL that ends in a slash without doubling it", async () => {
+		let requested = "";
+		const fetchImpl: FetchImpl = async (url) => {
+			requested = url;
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		await client({ url: "/thing", method: "get", baseUrl: "https://example.com/v1/", fetchImpl });
+		expect(requested).toBe("https://example.com/v1/thing");
+	});
+
 	describe("query string", () => {
 		const searchOf = async (queryParams: Record<string, unknown>) => {
 			let requested = "";
