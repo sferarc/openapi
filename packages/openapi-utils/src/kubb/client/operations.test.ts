@@ -11,9 +11,12 @@ export type FetcherConfig = { fetchImpl: (url: string, init: RequestInit) => Pro
 export type ErrorWrapper<T> = { status: number; payload: T };
 
 export default async function client({ url, method, queryParams, headers, body, fetchImpl }: any) {
-	const query = new URLSearchParams(
-		Object.entries(queryParams ?? {}).filter(([, value]) => value != null) as [string, string][],
-	).toString();
+	const search = new URLSearchParams();
+	for (const [key, value] of Object.entries(queryParams ?? {})) {
+		if (value == null) continue;
+		for (const item of Array.isArray(value) ? value : [value]) search.append(key, String(item));
+	}
+	const query = search.toString();
 	const response = await fetchImpl(\`https://api.test\${url}\${query ? \`?\${query}\` : ""}\`, { method, headers, body });
 	return response.json();
 }
@@ -24,7 +27,13 @@ type Operation = (params?: Record<string, unknown>) => Promise<unknown>;
 let root: string;
 let source: string;
 let operations: Record<
-	"getMember" | "getHealth" | "uploadScript" | "inviteMember" | "uploadLogo" | "createScimUser",
+	| "getMember"
+	| "getHealth"
+	| "listZones"
+	| "uploadScript"
+	| "inviteMember"
+	| "uploadLogo"
+	| "createScimUser",
 	Operation
 >;
 
@@ -90,6 +99,21 @@ describe("generated operations", () => {
 			`Missing required path parameter: ${field}`,
 		);
 		expect(fetchImpl).not.toHaveBeenCalled();
+	});
+
+	it("joins non-exploded array query params and repeats exploded ones", async () => {
+		const fetchImpl = fakeFetch();
+		await operations.listZones({
+			queryParams: { type: ["full", "partial"], "filter.ids": [1, 2], tag: ["a", "b"], name: "x" },
+			config: { fetchImpl },
+		});
+		expect(fetchImpl.mock.calls[0]![0]).toBe(
+			"https://api.test/zones?type=full%2Cpartial&filter.ids=1%7C2&tag=a&tag=b&name=x",
+		);
+		expect(source).not.toContain("queryParams.name.join");
+
+		await operations.listZones({ config: { fetchImpl } });
+		expect(fetchImpl.mock.calls[1]![0]).toBe("https://api.test/zones");
 	});
 
 	it("calls an operation without parameters", async () => {

@@ -71,6 +71,34 @@ function getJSDocComments(node: ast.HttpOperationNode): string[] {
 
 type Param = { name: string; optional: boolean };
 
+const DELIMITERS: Partial<Record<ast.ParameterStyle, string>> = {
+	form: ",",
+	spaceDelimited: " ",
+	pipeDelimited: "|",
+};
+
+type DelimitedParam = { name: string; delimiter: string };
+
+// OpenAPI explodes a form array into repeated keys by default; with `explode: false`, or a delimited style, it is one joined value.
+function delimitedQueryParams(node: ast.HttpOperationNode): DelimitedParam[] {
+	return node.parameters.flatMap((param) => {
+		if (param.in !== "query") return [];
+		const style = param.style ?? "form";
+		const explode = param.explode ?? style === "form";
+		const delimiter = DELIMITERS[style];
+		if (explode || !delimiter) return [];
+		const isArray = ast.findSchema(param.schema, {
+			predicate: (schema) => schema.type === "array",
+			followRefs: true,
+		});
+		return isArray ? [{ name: param.name, delimiter }] : [];
+	});
+}
+
+function queryParam(name: string): string {
+	return IDENTIFIER.test(name) ? `queryParams.${name}` : `queryParams[${JSON.stringify(name)}]`;
+}
+
 function paramsAt(node: ast.HttpOperationNode, where: ast.ParameterLocation): Param[] {
 	return node.parameters
 		.filter((param) => param.in === where)
@@ -103,6 +131,7 @@ type Props = {
 export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNode {
 	const pathParams = paramsAt(node, "path");
 	const queryParams = paramsAt(node, "query");
+	const delimitedParams = delimitedQueryParams(node);
 	const headerParams = paramsAt(node, "header");
 
 	const requestBodyContent = node.requestBody?.content?.[0];
@@ -159,7 +188,11 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 						: bodyType
 			: "null",
 		headerParams.length > 0 ? headerParamsType : "Record<string, string>",
-		queryParams.length > 0 ? queryParamsType : "Record<string, string>",
+		delimitedParams.length > 0
+			? "Record<string, unknown>"
+			: queryParams.length > 0
+				? queryParamsType
+				: "Record<string, string>",
 		pathParams.length > 0 ? pathParamsType : "Record<string, string>",
 	];
 
@@ -214,6 +247,19 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 \t}\n`
 			: "";
 
+	const delimitedQueryBlock =
+		delimitedParams.length > 0
+			? `\tconst query = queryParams && {
+\t\t...queryParams,
+${delimitedParams
+	.map(
+		({ name, delimiter }) =>
+			`\t\t${JSON.stringify(name)}: Array.isArray(${queryParam(name)}) ? ${queryParam(name)}.join(${JSON.stringify(delimiter)}) : ${queryParam(name)},`,
+	)
+	.join("\n")}
+\t};\n`
+			: "";
+
 	const bodyExpression = hasBody
 		? isFormData
 			? "formData"
@@ -230,7 +276,8 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 		`method: ${JSON.stringify(node.method.toUpperCase())}`,
 		`url: \`${urlTemplate}\``,
 	];
-	if (queryParams.length > 0) clientCallParts.push("queryParams");
+	if (delimitedParams.length > 0) clientCallParts.push("queryParams: query");
+	else if (queryParams.length > 0) clientCallParts.push("queryParams");
 	if (bodyExpression !== undefined) clientCallParts.push(`body: ${bodyExpression}`);
 	clientCallParts.push("...requestConfig");
 	clientCallParts.push(`headers: { ${headerEntries.join(", ")} }`);
@@ -239,7 +286,7 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 
 	const body = `\tconst { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-${requiresPathParamChecks ? `\t${requiresPathParamChecks}\n` : ""}${formDataBlock}${urlEncodedBlock}\tconst data = await request<${generics.join(", ")}>(${callArgs});
+${requiresPathParamChecks ? `\t${requiresPathParamChecks}\n` : ""}${delimitedQueryBlock}${formDataBlock}${urlEncodedBlock}\tconst data = await request<${generics.join(", ")}>(${callArgs});
 
 \treturn data;`;
 

@@ -14,11 +14,11 @@ Authentication is npm trusted publishing: `id-token: write` lets npm exchange th
 
 The release job only runs when the repository variable `RELEASE_ENABLED` is `true` (`if:` in `release.yml`). The owner set it on 2026-10-28 at 15:30 UTC (`gh variable list`), so every push to `main` now runs the job and every changeset reaches a "Version Packages" PR.
 
-What happened on 2026-10-28 (`gh run list --workflow release.yml`):
+What happened on 2026-10-28 (`gh run list --workflow release.yml`, checked again on 2026-10-29):
 
-1. The version PRs #107, #116, #118 and #120 were opened by `changesets/action` with the `sferarc-hq` App token and merged on their own, so the App token and auto-merge work through the ruleset. They consumed every pending changeset: each client's `package.json` and `CHANGELOG.md` on `main` (4474feb) carry the bumped version (`cloudflare-api-js` 2.1.1, `keycloak-api` 2.1.0, `litellm-api` 2.0.2, `netlify-api` 2.0.1, `nuki-api-js` 2.0.1, `v0-api` 1.0.3, `vercel-api-js` 2.1.1, `zoom-api-js` 2.1.1).
-2. The publish run after each of those merges failed (runs 40742321131, 40755161663, 40771838753, 40774105723). In the last one, `changeset publish` rejected all eight clients with `ERR_PNPM_FAILED_TO_PUBLISH ... (status 404 Not Found)`, so nothing was published, tagged or released.
-3. npm still serves the versions published from the earlier monorepo (`npm view <package> version` on 2026-10-28: `cloudflare-api-js` 1.1.0, `keycloak-api` 1.2.0, `litellm-api` 1.1.0, `netlify-api` 1.4.1, `nuki-api-js` 1.2.0, `v0-api` 0.3.1, `vercel-api-js` 1.38.2, `zoom-api-js` 1.3.2). The newest git tags are from those releases too (`git tag -l`).
+1. The version PRs #107, #116, #118, #120, #122 and #131 were opened by `changesets/action` with the `sferarc-hq` App token and merged on their own, so the App token and auto-merge work through the ruleset. They consumed every pending changeset: each client's `package.json` and `CHANGELOG.md` on `main` (c1d8dea) carry the bumped version (`cloudflare-api-js` 2.2.0, `keycloak-api` 2.1.1, `litellm-api` 2.0.3, `netlify-api` 2.0.2, `nuki-api-js` 2.0.2, `v0-api` 1.0.4, `vercel-api-js` 2.1.2, `zoom-api-js` 2.1.2).
+2. The publish run after each of those merges failed (runs 40742321131, 40755161663, 40771838753, 40774105723, and 40789102913 after #131). In the last one, `changeset publish` rejected all eight clients with `ERR_PNPM_FAILED_TO_PUBLISH ... (status 404 Not Found)`, so nothing was published, tagged or released.
+3. npm still serves the versions published from the earlier monorepo (`npm view <package> version` on 2026-10-28: `cloudflare-api-js` 1.1.0, `keycloak-api` 1.2.0, `litellm-api` 1.1.0, `netlify-api` 1.4.1, `nuki-api-js` 1.2.0, `v0-api` 0.3.1, `vercel-api-js` 1.38.2, `zoom-api-js` 1.3.2). The newest git tags are from those releases too (`git tag -l`). On 2026-10-29 `npm view` still returned 1.1.0 for `cloudflare-api-js`, 1.38.2 for `vercel-api-js` and 0.3.1 for `v0-api`.
 
 The 404 is most likely the missing npm trusted publishers from the checklist below, since OIDC is the only credential the job has; that is unconfirmed, because the npm side cannot be read from this repository. Fixing it is the owner's step on npmjs.com. After that, rerunning the last failed run publishes every version npm lacks, the majors from the first version PR included.
 
@@ -44,6 +44,6 @@ Checked on 2026-10-28:
 
 ## Pending changesets
 
-As of 2026-10-28 (main at 4474feb), `.changeset/` holds no changesets besides `README.md` and `config.json`: the version PRs consumed them, and each client's `CHANGELOG.md` lists what they carried. Every user-facing change now needs its own changeset, because the next push to `main` turns it into a version PR (`pnpm changeset`, or the changeset `update-openapi.yml` writes, [[architecture/pipeline]]).
+As of 2026-10-29 (main at c1d8dea), `.changeset/` holds no changesets besides `README.md` and `config.json`: the version PRs consumed them, and each client's `CHANGELOG.md` lists what they carried. Every user-facing change now needs its own changeset, because the next push to `main` turns it into a version PR (`pnpm changeset`, or the changeset `update-openapi.yml` writes, [[architecture/pipeline]]).
 
 Before 2026-10-28 the pending changesets accumulated while publishing was off; the first version PR (#107) made a major of every published client, for Effect 4 ([[decisions/2026-10-08-effect-4-major]]) and the `{ status, payload }` HTTP error shape (#8, #9), and `@sferadev/openapi-utils` is bundled into each client since #1, which fixes installing `vercel-api-js` and `netlify-api` from npm once those versions are published.
