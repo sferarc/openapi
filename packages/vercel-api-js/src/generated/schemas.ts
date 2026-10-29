@@ -6756,6 +6756,11 @@ export const userEventSchema = z
 					projectIds: z.union([z.array(z.string()), z.enum(["all"])]).optional(),
 				}),
 				z.strictObject({
+					integrationId: z.string(),
+					integrationName: z.string(),
+					integrationSlug: z.string(),
+				}),
+				z.strictObject({
 					configurationId: z.string(),
 					databaseName: z.string(),
 					errorCode: z.string().nullable(),
@@ -6836,6 +6841,7 @@ export const userEventSchema = z
 					integrationId: z.string(),
 					integrationName: z.string(),
 					integrationSlug: z.string(),
+					previousSecretExpiresAt: z.number().nullable(),
 				}),
 				z.strictObject({
 					algorithm: z.string(),
@@ -9420,6 +9426,22 @@ export const userEventSchema = z
 						.describe("Automatic code review settings"),
 				}),
 				z.strictObject({
+					next: z
+						.object({
+							enabled: z.union([z.literal(false), z.literal(true)]),
+							projectIds: z.array(z.string()).optional(),
+							projectScope: z.enum(["all", "selected"]),
+						})
+						.describe("Mirrors the `security-review` setting value in `@api/api-settings`."),
+					previous: z
+						.object({
+							enabled: z.union([z.literal(false), z.literal(true)]),
+							projectIds: z.array(z.string()).optional(),
+							projectScope: z.enum(["all", "selected"]),
+						})
+						.describe("Mirrors the `security-review` setting value in `@api/api-settings`."),
+				}),
+				z.strictObject({
 					amount: z.string(),
 					currency: z.string(),
 					expiresAt: z.string(),
@@ -9516,6 +9538,11 @@ export const userEventSchema = z
 							"sustained-high-cpu",
 						])
 						.optional(),
+				}),
+				z.strictObject({
+					enrolled: z.union([z.literal(false), z.literal(true)]).optional(),
+					actorName: z.string().optional(),
+					actorType: z.enum(["admin"]).optional(),
 				}),
 				z.strictObject({
 					by: z.string(),
@@ -10971,6 +10998,7 @@ export const userEventSchema = z
 				"ai-gateway-virtual-model-config-updated",
 				"ai-gateway-zero-data-retention-toggled",
 				"ai-omniagent",
+				"ai-security-review",
 				"alert-investigation-project-allowlist-updated",
 				"alert-rule-created",
 				"alert-rule-deleted",
@@ -11196,9 +11224,11 @@ export const userEventSchema = z
 				"integration-installation-completed",
 				"integration-installation-permission-updated",
 				"integration-installation-removed",
+				"integration-previous-secret-revoked",
 				"integration-resource-redis-command-executed",
 				"integration-resource-sql-query-executed",
 				"integration-scope-changed",
+				"integration-secret-rotated",
 				"invoice-modified",
 				"invoice-refunded",
 				"kms-issuer-created",
@@ -11560,6 +11590,7 @@ export const userEventSchema = z
 				"team-program-enrollment-changed",
 				"team-remote-caching-purge",
 				"team-remote-caching-update",
+				"team-runtime-cache-updated",
 				"team-saml-enforced",
 				"team-saml-roles",
 				"team-slug-update",
@@ -11820,6 +11851,7 @@ export const listEventTypeSchema = z
 				"ai-gateway-virtual-model-config-updated",
 				"ai-gateway-zero-data-retention-toggled",
 				"ai-omniagent",
+				"ai-security-review",
 				"alert-investigation-project-allowlist-updated",
 				"alert-rule-created",
 				"alert-rule-deleted",
@@ -12045,9 +12077,11 @@ export const listEventTypeSchema = z
 				"integration-installation-completed",
 				"integration-installation-permission-updated",
 				"integration-installation-removed",
+				"integration-previous-secret-revoked",
 				"integration-resource-redis-command-executed",
 				"integration-resource-sql-query-executed",
 				"integration-scope-changed",
+				"integration-secret-rotated",
 				"invoice-modified",
 				"invoice-refunded",
 				"kms-issuer-created",
@@ -12409,6 +12443,7 @@ export const listEventTypeSchema = z
 				"team-program-enrollment-changed",
 				"team-remote-caching-purge",
 				"team-remote-caching-update",
+				"team-runtime-cache-updated",
 				"team-saml-enforced",
 				"team-saml-roles",
 				"team-slug-update",
@@ -12571,6 +12606,7 @@ export const listEventTypeSchema = z
 					"ai-gateway-virtual-model-config-updated",
 					"ai-gateway-zero-data-retention-toggled",
 					"ai-omniagent",
+					"ai-security-review",
 					"alert-investigation-project-allowlist-updated",
 					"alert-rule-created",
 					"alert-rule-deleted",
@@ -12796,9 +12832,11 @@ export const listEventTypeSchema = z
 					"integration-installation-completed",
 					"integration-installation-permission-updated",
 					"integration-installation-removed",
+					"integration-previous-secret-revoked",
 					"integration-resource-redis-command-executed",
 					"integration-resource-sql-query-executed",
 					"integration-scope-changed",
+					"integration-secret-rotated",
 					"invoice-modified",
 					"invoice-refunded",
 					"kms-issuer-created",
@@ -13160,6 +13198,7 @@ export const listEventTypeSchema = z
 					"team-program-enrollment-changed",
 					"team-remote-caching-purge",
 					"team-remote-caching-update",
+					"team-runtime-cache-updated",
 					"team-saml-enforced",
 					"team-saml-roles",
 					"team-slug-update",
@@ -26062,6 +26101,83 @@ export const deleteConnectorProjectConnectionQuerySchema = z.object({
 			"The team slug that scopes the request. Do not send it with teamId. If both are omitted, Vercel uses the team associated with the token or the authenticated user's default team. The request returns 401 if no team can be selected.",
 		)
 		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const disconnectConnectorProjectEnvironmentPathConnectorSchema = z.string();
+
+export const disconnectConnectorProjectEnvironmentPathProjectIdSchema = z.string();
+
+export const disconnectConnectorProjectEnvironmentPathEnvironmentSchema = z
+	.union([z.string(), z.string().regex(/^env_/)])
+	.describe("A built-in environment name or the stable env_* ID of a custom environment.");
+
+export const disconnectConnectorProjectEnvironmentQuerySlugSchema = z
+	.string()
+	.optional()
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const disconnectConnectorProjectEnvironmentQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const disconnectConnectorProjectEnvironmentStatus204Schema = z.unknown();
+
+export const disconnectConnectorProjectEnvironmentStatus400Schema = z.unknown();
+
+export const disconnectConnectorProjectEnvironmentStatus401Schema = z.unknown();
+
+export const disconnectConnectorProjectEnvironmentStatus403Schema = z.unknown();
+
+export const disconnectConnectorProjectEnvironmentStatus404Schema = z.unknown();
+
+export const disconnectConnectorProjectEnvironmentStatus409Schema = z.unknown();
+
+export const disconnectConnectorProjectEnvironmentStatus410Schema = z.unknown();
+
+export const disconnectConnectorProjectEnvironmentStatus422Schema = z.unknown();
+
+export const disconnectConnectorProjectEnvironmentStatus500Schema = z.unknown();
+
+export const disconnectConnectorProjectEnvironmentStatus501Schema = z.unknown();
+
+export const disconnectConnectorProjectEnvironmentStatus504Schema = z.unknown();
+
+export const disconnectConnectorProjectEnvironmentResponseSchema =
+	disconnectConnectorProjectEnvironmentStatus204Schema;
+
+export const disconnectConnectorProjectEnvironmentErrorSchema = z.union([
+	disconnectConnectorProjectEnvironmentStatus400Schema,
+	disconnectConnectorProjectEnvironmentStatus401Schema,
+	disconnectConnectorProjectEnvironmentStatus403Schema,
+	disconnectConnectorProjectEnvironmentStatus404Schema,
+	disconnectConnectorProjectEnvironmentStatus409Schema,
+	disconnectConnectorProjectEnvironmentStatus410Schema,
+	disconnectConnectorProjectEnvironmentStatus422Schema,
+	disconnectConnectorProjectEnvironmentStatus500Schema,
+	disconnectConnectorProjectEnvironmentStatus501Schema,
+	disconnectConnectorProjectEnvironmentStatus504Schema,
+]);
+
+export const disconnectConnectorProjectEnvironmentPathSchema = z.object({
+	connector: z.string(),
+	projectId: z.string(),
+	environment: z
+		.union([z.string(), z.string().regex(/^env_/)])
+		.describe("A built-in environment name or the stable env_* ID of a custom environment."),
+});
+
+export const disconnectConnectorProjectEnvironmentQuerySchema = z.object({
+	slug: z
+		.string()
+		.optional()
+		.meta({ examples: ["my-team-url-slug"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
 });
 
 export const listProjectConnectorConnectionsPathProjectIdSchema = z
@@ -50527,6 +50643,7 @@ export const getBillingPlansQuerySourceSchema = z
 		"oauth",
 		"backoffice",
 		"import-recommended-integrations",
+		"project-overview-recommended-integrations",
 		"organization",
 	])
 	.optional();
@@ -50627,6 +50744,7 @@ export const getBillingPlansQuerySchema = z.object({
 			"oauth",
 			"backoffice",
 			"import-recommended-integrations",
+			"project-overview-recommended-integrations",
 			"organization",
 		])
 		.optional(),
@@ -52441,6 +52559,7 @@ export const getConfigurationsStatus200Schema = z.union([
 					"marketplace",
 					"oauth",
 					"organization",
+					"project-overview-recommended-integrations",
 					"resource-claims",
 					"v0",
 				])
@@ -52613,6 +52732,7 @@ export const getConfigurationsStatus200Schema = z.union([
 					"marketplace",
 					"oauth",
 					"organization",
+					"project-overview-recommended-integrations",
 					"resource-claims",
 					"v0",
 				])
@@ -52810,6 +52930,7 @@ export const getConfigurationStatus200Schema = z.union([
 				"marketplace",
 				"oauth",
 				"organization",
+				"project-overview-recommended-integrations",
 				"resource-claims",
 				"v0",
 			])
@@ -52827,52 +52948,6 @@ export const getConfigurationStatus200Schema = z.union([
 			.nullish()
 			.describe("When the configuration was created for a team, this will show the ID of the team.")
 			.meta({ examples: ["team_nLlpyC6RE1qxydlFKbrxDlud"] }),
-		transferRequest: z.discriminatedUnion("kind", [
-			z.strictObject({
-				approvedAt: z.number().optional(),
-				approvedBy: z.string().optional(),
-				authorizationId: z.string().optional(),
-				billingPlan: z
-					.object({
-						description: z.string(),
-						id: z.string(),
-						name: z.string(),
-						paymentMethodRequired: z.union([z.literal(false), z.literal(true)]).optional(),
-						preauthorizationAmount: z.number().optional(),
-						scope: z.enum(["installation", "resource"]).optional(),
-						type: z.enum(["prepayment", "subscription"]),
-					})
-					.optional(),
-				createdAt: z.number(),
-				discardedAt: z.number().optional(),
-				discardedBy: z.string().optional(),
-				expiresAt: z.number(),
-				kind: z.enum(["transfer-to-marketplace"]),
-				metadata: z.looseObject({}).optional(),
-				requester: z.object({
-					email: z.string().optional(),
-					name: z.string(),
-				}),
-				requestId: z.string(),
-				transferId: z.string(),
-			}),
-			z.strictObject({
-				approvedAt: z.number().optional(),
-				approvedBy: z.string().optional(),
-				authorizationId: z.string().optional(),
-				createdAt: z.number(),
-				discardedAt: z.number().optional(),
-				discardedBy: z.string().optional(),
-				expiresAt: z.number(),
-				kind: z.enum(["transfer-from-marketplace"]),
-				requester: z.object({
-					email: z.string().optional(),
-					name: z.string(),
-				}),
-				requestId: z.string(),
-				transferId: z.string(),
-			}),
-		]),
 		type: z.enum(["integration-configuration"]),
 		updatedAt: z
 			.number()
@@ -52981,6 +53056,7 @@ export const getConfigurationStatus200Schema = z.union([
 				"marketplace",
 				"oauth",
 				"organization",
+				"project-overview-recommended-integrations",
 				"resource-claims",
 				"v0",
 			])
@@ -53112,6 +53188,7 @@ export const getConfigurationStatus200Schema = z.union([
 				"marketplace",
 				"oauth",
 				"organization",
+				"project-overview-recommended-integrations",
 				"resource-claims",
 				"v0",
 			])
@@ -107949,7 +108026,7 @@ export const readSessionFileQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const readSessionFileStatus200Schema = z.unknown();
+export const readSessionFileStatus200Schema = z.instanceof(File);
 
 export const readSessionFileStatus400Schema = z.unknown();
 
@@ -118942,6 +119019,7 @@ export const createIntegrationStoreDirectBodySchema = z
 				"marketplace",
 				"oauth",
 				"organization",
+				"project-overview-recommended-integrations",
 				"resource-claims",
 				"v0",
 			])
