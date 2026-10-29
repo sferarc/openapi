@@ -9,6 +9,29 @@ const respond =
 		new Response(body, { status, headers: { "content-type": contentType } }) as never;
 
 describe("fetcher", () => {
+	const requestedUrl = async (config: { baseUrl?: string }) => {
+		let requested = "";
+		const fetchImpl: FetchImpl = async (url) => {
+			requested = url;
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		await client({ url: "/chats", method: "get", fetchImpl, ...config });
+		return requested;
+	};
+
+	it("sends requests to the v0 API by default", async () => {
+		expect(await requestedUrl({})).toBe("https://api.v0.dev/v1/chats");
+	});
+
+	it("sends requests to a configured base URL", async () => {
+		expect(await requestedUrl({ baseUrl: "https://proxy.example/v1" })).toBe(
+			"https://proxy.example/v1/chats",
+		);
+	});
+
 	it("rejects an HTTP error with its status and parsed body", async () => {
 		await expect(
 			client({
