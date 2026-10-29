@@ -1,5 +1,11 @@
 # vercel-api-js
 
+## 2.1.3
+
+### Patch Changes
+
+- da5fd88: Added 503 (Service Unavailable) error response types for createConnector, replaceConnectorTriggerDestinations, and upsertConnectorProjectConnection operations.
+
 ## 2.1.2
 
 ### Patch Changes
