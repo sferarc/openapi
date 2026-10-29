@@ -1,6 +1,6 @@
 {
 	"name": "vercel-api-js",
-	"version": "2.1.3",
+	"version": "2.1.4",
 	"description": "Vercel auto-generated type-safe API client",
 	"type": "module",
 	"author": "SferaDev",
