@@ -54,7 +54,7 @@ The `effect` entrypoint exposes every operation as an `Effect`. It requires `eff
 import { Effect } from "effect";
 import { ApiService, makeApiLayer } from "v0-api/effect";
 
-const program = ApiService.chats.chatsFind({});
+const program = ApiService.chats.chatsFind();
 
 await Effect.runPromise(
   program.pipe(Effect.provide(makeApiLayer({ token: process.env.V0_API_KEY })))

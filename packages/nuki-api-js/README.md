@@ -54,7 +54,7 @@ The `effect` entrypoint exposes every operation as an `Effect`. It requires `eff
 import { Effect } from "effect";
 import { ApiService, makeApiLayer } from "nuki-api-js/effect";
 
-const program = ApiService.account.getAccountsResource({});
+const program = ApiService.account.getAccountsResource();
 
 await Effect.runPromise(
   program.pipe(Effect.provide(makeApiLayer({ token: process.env.NUKI_TOKEN })))

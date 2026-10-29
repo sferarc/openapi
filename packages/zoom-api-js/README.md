@@ -54,7 +54,7 @@ The `effect` entrypoint exposes every operation as an `Effect`. It requires `eff
 import { Effect } from "effect";
 import { ApiService, makeApiLayer } from "zoom-api-js/effect";
 
-const program = ApiService.archiving.listArchivedFiles({});
+const program = ApiService.archiving.listArchivedFiles();
 
 await Effect.runPromise(
   program.pipe(Effect.provide(makeApiLayer({ token: process.env.ZOOM_TOKEN })))

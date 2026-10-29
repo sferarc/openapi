@@ -5,26 +5,27 @@ import { ApiConfig, ApiError, NetworkError, ValidationError } from "./errors";
 // Type System
 // ============================================================================
 
+type RequiredKeys<T> = {
+	[K in keyof T]-?: {} extends Pick<T, K> ? never : K;
+}[keyof T];
+
+// The params argument is optional when the operation requires none of its fields, as in the Promise clients.
+type EffectOperation<Op> = Op extends (params: infer P) => Promise<infer R>
+	? Omit<NonNullable<P>, "config"> extends infer Params
+		? [RequiredKeys<Params>] extends [never]
+			? (params?: Params) => Effect.Effect<R, ApiError | ValidationError | NetworkError, ApiConfig>
+			: (params: Params) => Effect.Effect<R, ApiError | ValidationError | NetworkError, ApiConfig>
+		: never
+	: never;
+
 export type EffectApi<Tags extends Record<string, Record<string, (...args: any[]) => any>>> = {
 	[Tag in keyof Tags]: {
-		[Op in keyof Tags[Tag]]: Tags[Tag][Op] extends (params: infer P) => Promise<infer R>
-			? (
-					params: Omit<NonNullable<P>, "config">,
-				) => Effect.Effect<R, ApiError | ValidationError | NetworkError, ApiConfig>
-			: Tags[Tag][Op] extends () => Promise<infer R>
-				? () => Effect.Effect<R, ApiError | ValidationError | NetworkError, ApiConfig>
-				: never;
+		[Op in keyof Tags[Tag]]: EffectOperation<Tags[Tag][Op]>;
 	};
 };
 
 export type EffectByPath<Paths extends Record<string, (...args: any[]) => any>> = {
-	[K in keyof Paths]: Paths[K] extends (params: infer P) => Promise<infer R>
-		? (
-				params: Omit<NonNullable<P>, "config">,
-			) => Effect.Effect<R, ApiError | ValidationError | NetworkError, ApiConfig>
-		: Paths[K] extends () => Promise<infer R>
-			? () => Effect.Effect<R, ApiError | ValidationError | NetworkError, ApiConfig>
-			: never;
+	[K in keyof Paths]: EffectOperation<Paths[K]>;
 };
 
 // ============================================================================
