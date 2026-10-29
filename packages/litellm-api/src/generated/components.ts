@@ -24974,86 +24974,6 @@ export async function aggregateMcpRouteMcpPatch(
  * will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
-export async function toolsetMcpRouteToolsetToolsetNameMcpPost(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
-		throw new Error(`Missing required path parameter: toolset_name`);
-	}
-	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpPostResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpPostPath
-	>({
-		method: "POST",
-		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Toolset Mcp Route
- * @description Namespace a toolset as its own MCP endpoint.
- * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
- * @link /toolset/{toolset_name}/mcp
- */
-export async function toolsetMcpRouteToolsetToolsetNameMcpHead(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
-		throw new Error(`Missing required path parameter: toolset_name`);
-	}
-	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpHeadPath
-	>({
-		method: "HEAD",
-		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Toolset Mcp Route
- * @description Namespace a toolset as its own MCP endpoint.
- * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
- * @link /toolset/{toolset_name}/mcp
- */
 export async function toolsetMcpRouteToolsetToolsetNameMcpOptions(
 	{
 		pathParams,
@@ -25094,12 +25014,12 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpOptions(
  * will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
-export async function toolsetMcpRouteToolsetToolsetNameMcpPatch(
+export async function toolsetMcpRouteToolsetToolsetNameMcpPost(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25109,14 +25029,54 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpPatch(
 		throw new Error(`Missing required path parameter: toolset_name`);
 	}
 	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422>,
+		ToolsetMcpRouteToolsetToolsetNameMcpPostResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpPatchPath
+		ToolsetMcpRouteToolsetToolsetNameMcpPostPath
 	>({
-		method: "PATCH",
+		method: "POST",
+		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Toolset Mcp Route
+ * @description Namespace a toolset as its own MCP endpoint.
+ * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
+ * the toolset. Access is enforced: non-admin API keys must have the toolset
+ * listed in their object_permission.mcp_toolsets grant list, or the request
+ * will be rejected with a 403.
+ * @link /toolset/{toolset_name}/mcp
+ */
+export async function toolsetMcpRouteToolsetToolsetNameMcpPut(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPutPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
+		throw new Error(`Missing required path parameter: toolset_name`);
+	}
+	const data = await request<
+		ToolsetMcpRouteToolsetToolsetNameMcpPutResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPutStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ToolsetMcpRouteToolsetToolsetNameMcpPutPath
+	>({
+		method: "PUT",
 		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -25174,6 +25134,46 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpDelete(
  * will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
+export async function toolsetMcpRouteToolsetToolsetNameMcpHead(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
+		throw new Error(`Missing required path parameter: toolset_name`);
+	}
+	const data = await request<
+		ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ToolsetMcpRouteToolsetToolsetNameMcpHeadPath
+	>({
+		method: "HEAD",
+		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Toolset Mcp Route
+ * @description Namespace a toolset as its own MCP endpoint.
+ * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
+ * the toolset. Access is enforced: non-admin API keys must have the toolset
+ * listed in their object_permission.mcp_toolsets grant list, or the request
+ * will be rejected with a 403.
+ * @link /toolset/{toolset_name}/mcp
+ */
 export async function toolsetMcpRouteToolsetToolsetNameMcpGet(
 	{
 		pathParams,
@@ -25214,12 +25214,12 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpGet(
  * will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
-export async function toolsetMcpRouteToolsetToolsetNameMcpPut(
+export async function toolsetMcpRouteToolsetToolsetNameMcpPatch(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPutPath;
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25229,97 +25229,15 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpPut(
 		throw new Error(`Missing required path parameter: toolset_name`);
 	}
 	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpPutResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPutStatus422>,
+		ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpPutPath
+		ToolsetMcpRouteToolsetToolsetNameMcpPatchPath
 	>({
-		method: "PUT",
+		method: "PATCH",
 		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Dynamic Mcp Route
- * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
- * Resolution order:
- * 1. Registered MCP server alias / name
- * 2. Comma-separated list
- * 3. Toolset name (DB lookup, cached)
- * 4. MCP access group tag (DB lookup, cached)
- * @link /{mcp_server_name}/mcp
- */
-export async function dynamicMcpRouteMcpServerNameMcpPost(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpPostPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
-		throw new Error(`Missing required path parameter: mcp_server_name`);
-	}
-	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpPostResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPostStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpPostPath
-	>({
-		method: "POST",
-		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Dynamic Mcp Route
- * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
- * Resolution order:
- * 1. Registered MCP server alias / name
- * 2. Comma-separated list
- * 3. Toolset name (DB lookup, cached)
- * 4. MCP access group tag (DB lookup, cached)
- * @link /{mcp_server_name}/mcp
- */
-export async function dynamicMcpRouteMcpServerNameMcpHead(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpHeadPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
-		throw new Error(`Missing required path parameter: mcp_server_name`);
-	}
-	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpHeadResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpHeadStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpHeadPath
-	>({
-		method: "HEAD",
-		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -25378,12 +25296,12 @@ export async function dynamicMcpRouteMcpServerNameMcpOptions(
  * 4. MCP access group tag (DB lookup, cached)
  * @link /{mcp_server_name}/mcp
  */
-export async function dynamicMcpRouteMcpServerNameMcpPatch(
+export async function dynamicMcpRouteMcpServerNameMcpPost(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpPatchPath;
+		pathParams: DynamicMcpRouteMcpServerNameMcpPostPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25393,14 +25311,55 @@ export async function dynamicMcpRouteMcpServerNameMcpPatch(
 		throw new Error(`Missing required path parameter: mcp_server_name`);
 	}
 	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpPatchResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPatchStatus422>,
+		DynamicMcpRouteMcpServerNameMcpPostResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPostStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpPatchPath
+		DynamicMcpRouteMcpServerNameMcpPostPath
 	>({
-		method: "PATCH",
+		method: "POST",
+		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Dynamic Mcp Route
+ * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
+ * Resolution order:
+ * 1. Registered MCP server alias / name
+ * 2. Comma-separated list
+ * 3. Toolset name (DB lookup, cached)
+ * 4. MCP access group tag (DB lookup, cached)
+ * @link /{mcp_server_name}/mcp
+ */
+export async function dynamicMcpRouteMcpServerNameMcpPut(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DynamicMcpRouteMcpServerNameMcpPutPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
+		throw new Error(`Missing required path parameter: mcp_server_name`);
+	}
+	const data = await request<
+		DynamicMcpRouteMcpServerNameMcpPutResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPutStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DynamicMcpRouteMcpServerNameMcpPutPath
+	>({
+		method: "PUT",
 		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -25460,6 +25419,47 @@ export async function dynamicMcpRouteMcpServerNameMcpDelete(
  * 4. MCP access group tag (DB lookup, cached)
  * @link /{mcp_server_name}/mcp
  */
+export async function dynamicMcpRouteMcpServerNameMcpHead(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DynamicMcpRouteMcpServerNameMcpHeadPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
+		throw new Error(`Missing required path parameter: mcp_server_name`);
+	}
+	const data = await request<
+		DynamicMcpRouteMcpServerNameMcpHeadResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpHeadStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DynamicMcpRouteMcpServerNameMcpHeadPath
+	>({
+		method: "HEAD",
+		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Dynamic Mcp Route
+ * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
+ * Resolution order:
+ * 1. Registered MCP server alias / name
+ * 2. Comma-separated list
+ * 3. Toolset name (DB lookup, cached)
+ * 4. MCP access group tag (DB lookup, cached)
+ * @link /{mcp_server_name}/mcp
+ */
 export async function dynamicMcpRouteMcpServerNameMcpGet(
 	{
 		pathParams,
@@ -25501,12 +25501,12 @@ export async function dynamicMcpRouteMcpServerNameMcpGet(
  * 4. MCP access group tag (DB lookup, cached)
  * @link /{mcp_server_name}/mcp
  */
-export async function dynamicMcpRouteMcpServerNameMcpPut(
+export async function dynamicMcpRouteMcpServerNameMcpPatch(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpPutPath;
+		pathParams: DynamicMcpRouteMcpServerNameMcpPatchPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25516,14 +25516,14 @@ export async function dynamicMcpRouteMcpServerNameMcpPut(
 		throw new Error(`Missing required path parameter: mcp_server_name`);
 	}
 	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpPutResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPutStatus422>,
+		DynamicMcpRouteMcpServerNameMcpPatchResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPatchStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpPutPath
+		DynamicMcpRouteMcpServerNameMcpPatchPath
 	>({
-		method: "PUT",
+		method: "PATCH",
 		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -38624,15 +38624,15 @@ export const operationsByPath = {
 	"DELETE /mcp": aggregateMcpRouteMcpDelete,
 	"PATCH /mcp": aggregateMcpRouteMcpPatch,
 	"POST /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPost,
-	"PATCH /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPatch,
+	"PUT /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPut,
 	"DELETE /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpDelete,
 	"GET /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpGet,
-	"PUT /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPut,
+	"PATCH /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPatch,
 	"POST /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPost,
-	"PATCH /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPatch,
+	"PUT /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPut,
 	"DELETE /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpDelete,
 	"GET /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpGet,
-	"PUT /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPut,
+	"PATCH /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPatch,
 	"GET /vertex_ai/live": websocketVertexAiLivePassthroughEndpoint,
 	"GET /realtime": websocketRealtimeWebsocketEndpointGet,
 	"GET /v1/realtime": websocketRealtimeWebsocketEndpointGet2,
@@ -39127,20 +39127,20 @@ export const operationsByTag = {
 		aggregateMcpRouteMcpOptions,
 		aggregateMcpRouteMcpHead,
 		aggregateMcpRouteMcpPatch,
-		toolsetMcpRouteToolsetToolsetNameMcpPost,
-		toolsetMcpRouteToolsetToolsetNameMcpHead,
 		toolsetMcpRouteToolsetToolsetNameMcpOptions,
-		toolsetMcpRouteToolsetToolsetNameMcpPatch,
-		toolsetMcpRouteToolsetToolsetNameMcpDelete,
-		toolsetMcpRouteToolsetToolsetNameMcpGet,
+		toolsetMcpRouteToolsetToolsetNameMcpPost,
 		toolsetMcpRouteToolsetToolsetNameMcpPut,
-		dynamicMcpRouteMcpServerNameMcpPost,
-		dynamicMcpRouteMcpServerNameMcpHead,
+		toolsetMcpRouteToolsetToolsetNameMcpDelete,
+		toolsetMcpRouteToolsetToolsetNameMcpHead,
+		toolsetMcpRouteToolsetToolsetNameMcpGet,
+		toolsetMcpRouteToolsetToolsetNameMcpPatch,
 		dynamicMcpRouteMcpServerNameMcpOptions,
-		dynamicMcpRouteMcpServerNameMcpPatch,
-		dynamicMcpRouteMcpServerNameMcpDelete,
-		dynamicMcpRouteMcpServerNameMcpGet,
+		dynamicMcpRouteMcpServerNameMcpPost,
 		dynamicMcpRouteMcpServerNameMcpPut,
+		dynamicMcpRouteMcpServerNameMcpDelete,
+		dynamicMcpRouteMcpServerNameMcpHead,
+		dynamicMcpRouteMcpServerNameMcpGet,
+		dynamicMcpRouteMcpServerNameMcpPatch,
 	},
 	adaptiveRouter: {
 		getAdaptiveRouterStateAdaptiveRouterStateGet,
