@@ -1,5 +1,11 @@
 # litellm-api
 
+## 2.1.5
+
+### Patch Changes
+
+- ea94748: Changed the response type of AgentSkillsArchiveV1SkillsSkillIdArchiveGetStatus200 from unknown to Blob.
+
 ## 2.1.4
 
 ### Patch Changes

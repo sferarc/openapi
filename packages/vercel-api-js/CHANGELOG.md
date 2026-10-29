@@ -1,5 +1,17 @@
 # vercel-api-js
 
+## 2.5.0
+
+### Minor Changes
+
+- c9bc2e4: [BREAKING] Removed getConfigurationStatus200TransferRequestBillingPlanScopeEnum and getConfigurationStatus200TransferRequestBillingPlanTypeEnum types.
+- c9bc2e4: Added disconnectConnectorProjectEnvironment operation to disconnect a connector from a project environment.
+
+### Patch Changes
+
+- c9bc2e4: Added types for handling responses and query parameters for disconnectConnectorProjectEnvironment operation.
+- c9bc2e4: Changed the response type of ReadSessionFileStatus200 from unknown to Blob.
+
 ## 2.4.1
 
 ### Patch Changes
