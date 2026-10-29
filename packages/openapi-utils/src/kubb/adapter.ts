@@ -5,6 +5,19 @@ type AdapterOasOptions = NonNullable<Parameters<typeof adapterOas>[0]>;
 type Adapter = ReturnType<typeof adapterOas>;
 
 const JSON_MEDIA_TYPE = /[/+]json\b/i;
+// The schema types the adapter emits for a response without a usable body schema.
+const PLACEHOLDER_SCHEMA_TYPES = new Set(["any", "unknown", "void"]);
+// The media types every client's fetcher resolves as a Blob (`isBinary` in `src/utils/fetcher.ts`).
+const BINARY_MEDIA_TYPES = new Set([
+	"application/gzip",
+	"application/octet-stream",
+	"application/pdf",
+	"application/vnd.tcpdump.pcap",
+	"application/wasm",
+	"application/x-gzip",
+	"application/x-tar",
+	"application/zip",
+]);
 
 // Media types the client fetchers split into one JSON value per line (`isLineDelimitedJson`).
 const LINE_DELIMITED_JSON_MEDIA_TYPES = new Set([
@@ -21,18 +34,69 @@ const mediaType = (contentType: string) => contentType.split(";")[0]?.trim().toL
 const isLineDelimitedJson = (contentType: string) =>
 	LINE_DELIMITED_JSON_MEDIA_TYPES.has(mediaType(contentType));
 
+function isBinary(contentType: string): boolean {
+	const type = mediaType(contentType);
+	return BINARY_MEDIA_TYPES.has(type) || /^(image|audio|video|font)\//.test(type);
+}
+
 function operationKey(node: ast.OperationNode): string | undefined {
 	return ast.isHttpOperationNode(node) ? `${node.method.toUpperCase()} ${node.path}` : undefined;
+}
+
+// A JSON suffix type such as application/scim+json keeps its typed schema, so it wins over raw bytes.
+function preferredContent(entries: Array<ast.ContentNode>): ast.ContentNode | undefined {
+	return entries.find((item) => JSON_MEDIA_TYPE.test(item.contentType)) ?? entries[0];
+}
+
+function hasBodySchema(item: ast.ContentNode): boolean {
+	return item.schema !== undefined && !PLACEHOLDER_SCHEMA_TYPES.has(item.schema.type);
 }
 
 export function requestBodyFallback(
 	requestBody: ast.RequestBodyNode | undefined,
 ): ast.RequestBodyNode | undefined {
-	const withSchema = requestBody?.content?.filter((item) => item.schema) ?? [];
-	// A JSON suffix type such as application/scim+json keeps its typed schema, so it wins over raw bytes.
-	const entry = withSchema.find((item) => JSON_MEDIA_TYPE.test(item.contentType)) ?? withSchema[0];
+	const entry = preferredContent(requestBody?.content?.filter((item) => item.schema) ?? []);
 	if (!requestBody || !entry) return undefined;
 	return { ...requestBody, content: [entry] };
+}
+
+/**
+ * The content to type a response with when the spec declares no `application/json` for it, such
+ * as a zip download (`Blob`), a `text/plain` body or an `application/scim+json` resource.
+ */
+export function responseContentFallback(
+	response: ast.ResponseNode | undefined,
+): Array<ast.ContentNode> | undefined {
+	const content = response?.content ?? [];
+	if (content.some((item) => item.contentType === "application/json")) return undefined;
+	// A line-delimited schema describes one line, and json-seq is not split by the fetchers at all.
+	const entry = preferredContent(
+		content.filter(
+			(item) =>
+				hasBodySchema(item) &&
+				!isLineDelimitedJson(item.contentType) &&
+				mediaType(item.contentType) !== "application/json-seq",
+		),
+	);
+	if (!entry) return undefined;
+	// The server picks the media type for `*/*`, so the spec's schema is the best guess (Keycloak sends JSON).
+	if (JSON_MEDIA_TYPE.test(entry.contentType) || mediaType(entry.contentType) === "*/*")
+		return [entry];
+	// Specs often declare bytes as a plain `type: string`, but the fetchers resolve them as a Blob.
+	if (isBinary(entry.contentType)) {
+		const schema = ast.factory.createSchema({
+			type: "blob",
+			description: entry.schema?.description,
+		});
+		return [{ ...entry, schema }];
+	}
+	// Any other body comes back from `response.text()`, whatever the spec's schema says.
+	if (entry.schema?.type === "string") return [entry];
+	const schema = ast.factory.createSchema({
+		type: "string",
+		description: entry.schema?.description,
+	});
+	return [{ ...entry, schema }];
 }
 
 /**
@@ -59,10 +123,24 @@ export function responseWithLineDelimitedJson(
 	return { ...response, content: [...response.content, ...lines] };
 }
 
+function withFallbackResponse(
+	response: ast.ResponseNode,
+	everyMediaType: ast.ResponseNode | undefined,
+): ast.ResponseNode {
+	const content = response.content?.some(hasBodySchema)
+		? undefined
+		: responseContentFallback(everyMediaType);
+	return responseWithLineDelimitedJson(
+		content ? { ...response, content } : response,
+		everyMediaType,
+	);
+}
+
 /**
- * Parses with `contentType` so JSON operations keep a single JSON body, then backfills the request
- * body of operations that only accept another media type, `application/scim+json` included, which
- * the adapter drops otherwise, and adds the line-delimited variants of a JSON response.
+ * Parses with `contentType` so JSON operations keep a single JSON body, then backfills what the
+ * adapter drops otherwise: the request body of operations that only accept another media type,
+ * `application/scim+json` included, the type of responses that are not `application/json`, and the
+ * line-delimited variants of a JSON response.
  */
 export function adapterOasWithRawBodies(options: AdapterOasOptions): Adapter {
 	const primary = adapterOas(options);
@@ -87,7 +165,7 @@ export function adapterOasWithRawBodies(options: AdapterOasOptions): Adapter {
 				operations: input.operations.map((node) => {
 					const fallback = fallbackOperations.get(operationKey(node));
 					const responses = node.responses.map((response) =>
-						responseWithLineDelimitedJson(
+						withFallbackResponse(
 							response,
 							fallback?.responses.find((other) => other.statusCode === response.statusCode),
 						),

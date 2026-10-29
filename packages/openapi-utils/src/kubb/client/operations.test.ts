@@ -26,6 +26,7 @@ type Operation = (params?: Record<string, unknown>) => Promise<unknown>;
 
 let root: string;
 let source: string;
+let types: string;
 let operations: Record<
 	| "getMember"
 	| "getHealth"
@@ -46,6 +47,7 @@ beforeAll(async () => {
 	expect(diagnostics.filter((diagnostic) => diagnostic.severity === "error")).toEqual([]);
 
 	source = readFileSync(join(root, "gen/components.ts"), "utf8");
+	types = readFileSync(join(root, "gen/types.ts"), "utf8");
 	operations = await import(join(root, "gen/components.ts"));
 }, 60_000);
 
@@ -69,7 +71,6 @@ describe("generated operations", () => {
 		expect(source).toContain("headers?: Partial<GetMemberHeaders>;");
 		expect(source).not.toMatch(/: unknown\b/);
 
-		const types = readFileSync(join(root, "gen/types.ts"), "utf8");
 		expect(types).toContain("cursor?: (Cursor | null) | undefined;");
 		expect(types).toContain("status?: (GetMemberStatusKey | number) | undefined;");
 	});
@@ -99,6 +100,14 @@ describe("generated operations", () => {
 			`Missing required path parameter: ${field}`,
 		);
 		expect(fetchImpl).not.toHaveBeenCalled();
+	});
+
+	it("types responses that are not application/json from their own media type", () => {
+		expect(types).toMatch(/export type DownloadExportStatus200 = Blob;/);
+		expect(types).toMatch(/export type DownloadExportStatus404 = string;/);
+		expect(types).toMatch(/export type CreateScimUserStatus201 = \{\s*id\?: string/);
+		// The fetchers return a multipart body from response.text(), whatever its schema says.
+		expect(types).toMatch(/export type GetSnippetContentStatus200 = string;/);
 	});
 
 	it("joins non-exploded array query params and repeats exploded ones", async () => {
@@ -201,7 +210,6 @@ describe("generated operations", () => {
 	});
 
 	it("types a JSON response with an ndjson variant as the JSON body or an array of lines", () => {
-		const types = readFileSync(join(root, "gen/types.ts"), "utf8");
 		expect(types).toMatch(/export type RunCommandStatus200XNdjson = \{[^}]*\}\[\];/);
 		expect(types).toContain(
 			"export type RunCommandStatus200 = RunCommandStatus200Json | RunCommandStatus200XNdjson;",
