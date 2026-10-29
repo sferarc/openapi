@@ -1,6 +1,6 @@
 {
 	"name": "cloudflare-api-js",
-	"version": "2.2.2",
+	"version": "2.2.3",
 	"description": "Cloudflare auto-generated type-safe API client",
 	"type": "module",
 	"author": "SferaDev",
