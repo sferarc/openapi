@@ -175,6 +175,16 @@ describe("fetcher edge responses and headers", () => {
 		expect(headers.get("authorization")).toBe("Bearer caller");
 	});
 
+	it("prefers JSON but accepts the bytes and text some endpoints only produce", async () => {
+		const { headers } = await sent({ headers: {} });
+		expect(headers.get("accept")).toBe("application/json, */*;q=0.8");
+	});
+
+	it("lets a lowercase accept header replace the default", async () => {
+		const { headers } = await sent({ headers: { accept: "text/plain" } });
+		expect(headers.get("accept")).toBe("text/plain");
+	});
+
 	it("lets a lowercase content-type header replace the default", async () => {
 		const { headers, body } = await sent({
 			headers: { "content-type": "text/plain" },
