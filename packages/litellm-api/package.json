@@ -1,6 +1,6 @@
 {
 	"name": "litellm-api",
-	"version": "2.1.5",
+	"version": "2.1.6",
 	"description": "LiteLLM auto-generated type-safe API client",
 	"type": "module",
 	"author": "SferaDev",
