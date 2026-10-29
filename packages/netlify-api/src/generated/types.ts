@@ -1608,6 +1608,68 @@ export type Form = {
 	created_at?: string | undefined;
 };
 
+export type IdentityUser = {
+	id?: string | undefined;
+	email?: string | undefined;
+	aud?: string | undefined;
+	role?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	confirmed_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	invited_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	confirmation_sent_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	recovery_sent_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	email_change_sent_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	last_sign_in_at?: string | undefined;
+	app_metadata?:
+		| {
+				provider?: string | undefined;
+				roles?: string[] | undefined;
+		  }
+		| undefined;
+	user_metadata?: object | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	created_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	updated_at?: string | undefined;
+};
+
 export type HookType = {
 	name?: string | undefined;
 	events?: string[] | undefined;
@@ -15289,6 +15351,211 @@ export type DeleteServiceInstanceResponses = {
  * @description Union of all possible responses
  */
 export type DeleteServiceInstanceResponse = DeleteServiceInstanceStatus204;
+
+export type GetIdentityUserPath = {
+	site_id: string;
+	/**
+	 * @description The site's Identity instance ID, returned as `identity_instance_id` by `getSite`.
+	 * @type string
+	 */
+	identity_id: string;
+	/**
+	 * @description The Identity user's UUID.
+	 * @type string
+	 */
+	user_id: string;
+};
+
+export type GetIdentityUserStatus200 = {
+	id?: string | undefined;
+	email?: string | undefined;
+	aud?: string | undefined;
+	role?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	confirmed_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	invited_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	confirmation_sent_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	recovery_sent_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	email_change_sent_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	last_sign_in_at?: string | undefined;
+	app_metadata?:
+		| {
+				provider?: string | undefined;
+				roles?: string[] | undefined;
+		  }
+		| undefined;
+	user_metadata?: object | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	created_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	updated_at?: string | undefined;
+};
+
+export type GetIdentityUserStatusDefault = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+};
+
+export type GetIdentityUserOptions = {
+	body?: never | undefined;
+	path: GetIdentityUserPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetIdentityUserResponses = {
+	"200": GetIdentityUserStatus200;
+	default: GetIdentityUserStatusDefault;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetIdentityUserResponse = GetIdentityUserStatus200;
+
+export type LookupIdentityUserPath = {
+	site_id: string;
+	/**
+	 * @description The site's Identity instance ID, returned as `identity_instance_id` by `getSite`.
+	 * @type string
+	 */
+	identity_id: string;
+};
+
+export type LookupIdentityUserStatus200 = {
+	id?: string | undefined;
+	email?: string | undefined;
+	aud?: string | undefined;
+	role?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	confirmed_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	invited_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	confirmation_sent_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	recovery_sent_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	email_change_sent_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	last_sign_in_at?: string | undefined;
+	app_metadata?:
+		| {
+				provider?: string | undefined;
+				roles?: string[] | undefined;
+		  }
+		| undefined;
+	user_metadata?: object | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	created_at?: string | undefined;
+	/**
+	 * @description
+	 * Format: `dateTime`
+	 * @type string | undefined
+	 */
+	updated_at?: string | undefined;
+};
+
+export type LookupIdentityUserStatusDefault = {
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	code?: bigint | undefined;
+	message: string;
+};
+
+export type LookupIdentityUserBody = {
+	email: string;
+};
+
+export type LookupIdentityUserOptions = {
+	body: LookupIdentityUserBody;
+	path: LookupIdentityUserPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type LookupIdentityUserResponses = {
+	"200": LookupIdentityUserStatus200;
+	default: LookupIdentityUserStatusDefault;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type LookupIdentityUserResponse = LookupIdentityUserStatus200;
 
 export type GetServicesQuery = {
 	search?: string | undefined;

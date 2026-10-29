@@ -1,5 +1,46 @@
 # litellm-api
 
+## 2.1.2
+
+### Patch Changes
+
+- 2c60bfb: Resolve a line-delimited JSON response (`application/x-ndjson`) to an array with one parsed value per line. Before this, the fetcher parsed the whole body as one JSON document, so `exportDatasetLensDatasetsDatasetIdExportGet` rejected with a JSON syntax error as soon as the export had two rows.
+
+## 2.1.1
+
+### Patch Changes
+
+- 3b61252: Keep the `config` passed to `request()` and `client.api` operations, such as extra `headers`, instead of replacing it with the client's own.
+
+## 2.1.0
+
+### Minor Changes
+
+- ca9b8c5: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpPut to toolsetMcpRouteToolsetToolsetNameMcpPatch, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpPatch to toolsetMcpRouteToolsetToolsetNameMcpDelete, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpHead to dynamicMcpRouteMcpServerNameMcpPost, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpOptions to toolsetMcpRouteToolsetToolsetNameMcpPut, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpHead to toolsetMcpRouteToolsetToolsetNameMcpPost, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpPut to dynamicMcpRouteMcpServerNameMcpPatch, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpPatch to dynamicMcpRouteMcpServerNameMcpDelete, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpDelete to toolsetMcpRouteToolsetToolsetNameMcpHead, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpPost to dynamicMcpRouteMcpServerNameMcpOptions, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpOptions to dynamicMcpRouteMcpServerNameMcpPut, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpPost to toolsetMcpRouteToolsetToolsetNameMcpOptions, and updated its types accordingly.
+- ca9b8c5: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpDelete to dynamicMcpRouteMcpServerNameMcpHead, and updated its types accordingly.
+
+## 2.0.3
+
+### Patch Changes
+
+- e674864: No exported operations or types were added or removed; only internal changes were made to the generated TypeScript client.
+
+## 2.0.2
+
+### Patch Changes
+
+- 3babd7e: Type an operation's path, query and header parameters with the generated `<Operation>Path`, `<Operation>Query` and `<Operation>Headers` types instead of an inline object. A parameter whose schema is a `$ref`, a `oneOf`/`anyOf` union or an object used to be typed `unknown`, which accepted any value: Cloudflare's `accountId` path parameter and `per_page` query parameter, LiteLLM's nullable filters such as `team_id` and `start_date`, Vercel's `domain`, v0's `metadata` filter on `chatsFind` and Zoom's `meetingId`. Query and header parameters stay optional.
+
 ## 2.0.1
 
 ### Patch Changes

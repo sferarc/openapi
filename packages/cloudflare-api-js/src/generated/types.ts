@@ -139757,7 +139757,11 @@ export type SqlApiQueryGetQuery = {
   query: string;
 };
 
-export type SqlApiQueryGetStatus200 = AnalyticsSqlSqlQueryResponse | AnalyticsSqlClickHouseJsonQueryResponse | AnalyticsSqlLogExplorerQueryResponse;
+export type SqlApiQueryGetStatus200Json = AnalyticsSqlSqlQueryResponse | AnalyticsSqlClickHouseJsonQueryResponse | AnalyticsSqlLogExplorerQueryResponse;
+
+export type SqlApiQueryGetStatus200XNdjson = string[];
+
+export type SqlApiQueryGetStatus200 = SqlApiQueryGetStatus200Json | SqlApiQueryGetStatus200XNdjson;
 
 export type SqlApiQueryGetStatus400 = AnalyticsSqlApiErrorResponse | AnalyticsSqlGatewayApiErrorResponse;
 
@@ -139783,7 +139787,13 @@ export type SqlApiQueryGetOptions = {
 };
 
 export type SqlApiQueryGetResponses = {
-  '200': SqlApiQueryGetStatus200;
+  '200': {
+    contentType: 'application/json';
+    data: SqlApiQueryGetStatus200Json;
+  } | {
+    contentType: 'application/x-ndjson';
+    data: SqlApiQueryGetStatus200XNdjson;
+  };
   '400': SqlApiQueryGetStatus400;
   '403': SqlApiQueryGetStatus403;
   '422': SqlApiQueryGetStatus422;
@@ -139799,7 +139809,11 @@ export type SqlApiQueryGetResponses = {
  */
 export type SqlApiQueryGetResponse = SqlApiQueryGetStatus200;
 
-export type SqlApiQueryPostStatus200 = AnalyticsSqlSqlQueryResponse | AnalyticsSqlClickHouseJsonQueryResponse | AnalyticsSqlLogExplorerQueryResponse;
+export type SqlApiQueryPostStatus200Json = AnalyticsSqlSqlQueryResponse | AnalyticsSqlClickHouseJsonQueryResponse | AnalyticsSqlLogExplorerQueryResponse;
+
+export type SqlApiQueryPostStatus200XNdjson = string[];
+
+export type SqlApiQueryPostStatus200 = SqlApiQueryPostStatus200Json | SqlApiQueryPostStatus200XNdjson;
 
 export type SqlApiQueryPostStatus400 = AnalyticsSqlApiErrorResponse | AnalyticsSqlGatewayApiErrorResponse;
 
@@ -139831,7 +139845,13 @@ export type SqlApiQueryPostOptions = {
 };
 
 export type SqlApiQueryPostResponses = {
-  '200': SqlApiQueryPostStatus200;
+  '200': {
+    contentType: 'application/json';
+    data: SqlApiQueryPostStatus200Json;
+  } | {
+    contentType: 'application/x-ndjson';
+    data: SqlApiQueryPostStatus200XNdjson;
+  };
   '400': SqlApiQueryPostStatus400;
   '403': SqlApiQueryPostStatus403;
   '422': SqlApiQueryPostStatus422;
@@ -267301,7 +267321,11 @@ export type SqlApiQueryGetAccountScopedQuery = {
   query: string;
 };
 
-export type SqlApiQueryGetAccountScopedStatus200 = AnalyticsSqlSqlQueryResponse | AnalyticsSqlClickHouseJsonQueryResponse | AnalyticsSqlLogExplorerQueryResponse;
+export type SqlApiQueryGetAccountScopedStatus200Json = AnalyticsSqlSqlQueryResponse | AnalyticsSqlClickHouseJsonQueryResponse | AnalyticsSqlLogExplorerQueryResponse;
+
+export type SqlApiQueryGetAccountScopedStatus200XNdjson = string[];
+
+export type SqlApiQueryGetAccountScopedStatus200 = SqlApiQueryGetAccountScopedStatus200Json | SqlApiQueryGetAccountScopedStatus200XNdjson;
 
 export type SqlApiQueryGetAccountScopedStatus400 = AnalyticsSqlApiErrorResponse | AnalyticsSqlGatewayApiErrorResponse;
 
@@ -267327,7 +267351,13 @@ export type SqlApiQueryGetAccountScopedOptions = {
 };
 
 export type SqlApiQueryGetAccountScopedResponses = {
-  '200': SqlApiQueryGetAccountScopedStatus200;
+  '200': {
+    contentType: 'application/json';
+    data: SqlApiQueryGetAccountScopedStatus200Json;
+  } | {
+    contentType: 'application/x-ndjson';
+    data: SqlApiQueryGetAccountScopedStatus200XNdjson;
+  };
   '400': SqlApiQueryGetAccountScopedStatus400;
   '403': SqlApiQueryGetAccountScopedStatus403;
   '422': SqlApiQueryGetAccountScopedStatus422;
@@ -267352,7 +267382,11 @@ export type SqlApiQueryPostAccountScopedPath = {
   accountId: string;
 };
 
-export type SqlApiQueryPostAccountScopedStatus200 = AnalyticsSqlSqlQueryResponse | AnalyticsSqlClickHouseJsonQueryResponse | AnalyticsSqlLogExplorerQueryResponse;
+export type SqlApiQueryPostAccountScopedStatus200Json = AnalyticsSqlSqlQueryResponse | AnalyticsSqlClickHouseJsonQueryResponse | AnalyticsSqlLogExplorerQueryResponse;
+
+export type SqlApiQueryPostAccountScopedStatus200XNdjson = string[];
+
+export type SqlApiQueryPostAccountScopedStatus200 = SqlApiQueryPostAccountScopedStatus200Json | SqlApiQueryPostAccountScopedStatus200XNdjson;
 
 export type SqlApiQueryPostAccountScopedStatus400 = AnalyticsSqlApiErrorResponse | AnalyticsSqlGatewayApiErrorResponse;
 
@@ -267384,7 +267418,13 @@ export type SqlApiQueryPostAccountScopedOptions = {
 };
 
 export type SqlApiQueryPostAccountScopedResponses = {
-  '200': SqlApiQueryPostAccountScopedStatus200;
+  '200': {
+    contentType: 'application/json';
+    data: SqlApiQueryPostAccountScopedStatus200Json;
+  } | {
+    contentType: 'application/x-ndjson';
+    data: SqlApiQueryPostAccountScopedStatus200XNdjson;
+  };
   '400': SqlApiQueryPostAccountScopedStatus400;
   '403': SqlApiQueryPostAccountScopedStatus403;
   '422': SqlApiQueryPostAccountScopedStatus422;
@@ -267510,7 +267550,11 @@ export type AnalyticsEngineSqlQueryGetQuery = {
  *
  * @type object
  */
-export type AnalyticsEngineSqlQueryGetStatus200 = AnalyticsEngineJsonFormatResponse;
+export type AnalyticsEngineSqlQueryGetStatus200Json = AnalyticsEngineJsonFormatResponse;
+
+export type AnalyticsEngineSqlQueryGetStatus200XNdjson = string[];
+
+export type AnalyticsEngineSqlQueryGetStatus200 = AnalyticsEngineSqlQueryGetStatus200Json | AnalyticsEngineSqlQueryGetStatus200XNdjson;
 
 export type AnalyticsEngineSqlQueryGetStatus400 = unknown;
 
@@ -267534,7 +267578,13 @@ export type AnalyticsEngineSqlQueryGetOptions = {
 };
 
 export type AnalyticsEngineSqlQueryGetResponses = {
-  '200': AnalyticsEngineSqlQueryGetStatus200;
+  '200': {
+    contentType: 'application/json';
+    data: AnalyticsEngineSqlQueryGetStatus200Json;
+  } | {
+    contentType: 'application/x-ndjson';
+    data: AnalyticsEngineSqlQueryGetStatus200XNdjson;
+  };
   '400': AnalyticsEngineSqlQueryGetStatus400;
   '403': AnalyticsEngineSqlQueryGetStatus403;
   '422': AnalyticsEngineSqlQueryGetStatus422;
@@ -267563,7 +267613,11 @@ export type AnalyticsEngineSqlQueryPostPath = {
  *
  * @type object
  */
-export type AnalyticsEngineSqlQueryPostStatus200 = AnalyticsEngineJsonFormatResponse;
+export type AnalyticsEngineSqlQueryPostStatus200Json = AnalyticsEngineJsonFormatResponse;
+
+export type AnalyticsEngineSqlQueryPostStatus200XNdjson = string[];
+
+export type AnalyticsEngineSqlQueryPostStatus200 = AnalyticsEngineSqlQueryPostStatus200Json | AnalyticsEngineSqlQueryPostStatus200XNdjson;
 
 export type AnalyticsEngineSqlQueryPostStatus400 = unknown;
 
@@ -267593,7 +267647,13 @@ export type AnalyticsEngineSqlQueryPostOptions = {
 };
 
 export type AnalyticsEngineSqlQueryPostResponses = {
-  '200': AnalyticsEngineSqlQueryPostStatus200;
+  '200': {
+    contentType: 'application/json';
+    data: AnalyticsEngineSqlQueryPostStatus200Json;
+  } | {
+    contentType: 'application/x-ndjson';
+    data: AnalyticsEngineSqlQueryPostStatus200XNdjson;
+  };
   '400': AnalyticsEngineSqlQueryPostStatus400;
   '403': AnalyticsEngineSqlQueryPostStatus403;
   '422': AnalyticsEngineSqlQueryPostStatus422;
@@ -273908,6 +273968,47 @@ export type ArtifactsReposTreeGetStatus404 = {
   success: false;
 };
 
+export type ArtifactsReposTreeGetStatus422 = {
+  errors: {
+    /**
+     * @minLength -9007199254740991
+     * @maxLength 9007199254740991
+     * @type integer
+     */
+    code: number;
+    /**
+     * @description
+     * Format: `uri`
+     * @type string | undefined
+     */
+    documentation_url?: string | undefined;
+    message: string;
+    source?: {
+      pointer?: string | undefined;
+    } | undefined;
+  }[];
+  messages: {
+    /**
+     * @minLength -9007199254740991
+     * @maxLength 9007199254740991
+     * @type integer
+     */
+    code: number;
+    /**
+     * @description
+     * Format: `uri`
+     * @type string | undefined
+     */
+    documentation_url?: string | undefined;
+    message: string;
+    source?: {
+      pointer?: string | undefined;
+    } | undefined;
+  }[];
+  result: object | null;
+  success: false;
+};
+
 export type ArtifactsReposTreeGetStatus500 = {
   errors: {
     /**
@@ -273962,6 +274063,7 @@ export type ArtifactsReposTreeGetResponses = {
   '401': ArtifactsReposTreeGetStatus401;
   '403': ArtifactsReposTreeGetStatus403;
   '404': ArtifactsReposTreeGetStatus404;
+  '422': ArtifactsReposTreeGetStatus422;
   '500': ArtifactsReposTreeGetStatus500;
 };
 

@@ -1,5 +1,27 @@
 # netlify-api
 
+## 2.1.0
+
+### Minor Changes
+
+- d0b6702: Added new operations getIdentityUser and lookupIdentityUser.
+
+### Patch Changes
+
+- d0b6702: Added new types for IdentityUser and parameters and responses for getIdentityUser and lookupIdentityUser operations.
+
+## 2.0.3
+
+### Patch Changes
+
+- 3b61252: Keep the `config` passed to `request()` and `client.api` operations, such as extra `headers`, instead of replacing it with the client's own.
+
+## 2.0.2
+
+### Patch Changes
+
+- 9fcd6a5: No public API changes in this diff.
+
 ## 2.0.1
 
 ### Patch Changes

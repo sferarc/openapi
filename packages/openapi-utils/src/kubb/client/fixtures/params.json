@@ -12,6 +12,14 @@
 					{ "name": "member_id", "in": "path", "required": true, "schema": { "type": "integer" } },
 					{ "name": "fields", "in": "query", "required": true, "schema": { "type": "string" } },
 					{ "name": "limit", "in": "query", "required": false, "schema": { "type": "integer" } },
+					{ "name": "cursor", "in": "query", "schema": { "$ref": "#/components/schemas/Cursor" } },
+					{
+						"name": "status",
+						"in": "query",
+						"schema": {
+							"oneOf": [{ "type": "string", "enum": ["active", "invited"] }, { "type": "integer" }]
+						}
+					},
 					{
 						"name": "X-Trace-Id",
 						"in": "header",
@@ -27,6 +35,38 @@
 								"schema": { "type": "object", "properties": { "id": { "type": "integer" } } }
 							}
 						}
+					}
+				}
+			}
+		},
+		"/zones": {
+			"get": {
+				"operationId": "listZones",
+				"tags": ["zones"],
+				"parameters": [
+					{
+						"name": "type",
+						"in": "query",
+						"explode": false,
+						"schema": { "type": "array", "items": { "type": "string" } }
+					},
+					{
+						"name": "filter.ids",
+						"in": "query",
+						"style": "pipeDelimited",
+						"schema": { "type": "array", "items": { "type": "integer" } }
+					},
+					{
+						"name": "tag",
+						"in": "query",
+						"schema": { "type": "array", "items": { "type": "string" } }
+					},
+					{ "name": "name", "in": "query", "explode": false, "schema": { "type": "string" } }
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": { "application/json": { "schema": { "type": "object" } } }
 					}
 				}
 			}
@@ -182,6 +222,31 @@
 				}
 			}
 		},
+		"/snippets/{name}/content": {
+			"get": {
+				"operationId": "getSnippetContent",
+				"tags": ["snippets"],
+				"parameters": [
+					{ "name": "name", "in": "path", "required": true, "schema": { "type": "string" } }
+				],
+				"responses": {
+					"200": {
+						"description": "The snippet files",
+						"content": {
+							"multipart/form-data": {
+								"schema": {
+									"type": "object",
+									"additionalProperties": {
+										"type": "array",
+										"items": { "type": "string", "format": "binary" }
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/health": {
 			"get": {
 				"operationId": "getHealth",
@@ -197,10 +262,60 @@
 					}
 				}
 			}
+		},
+		"/commands": {
+			"post": {
+				"operationId": "runCommand",
+				"tags": ["commands"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"required": ["command"],
+								"properties": { "command": { "type": "string" }, "wait": { "type": "boolean" } }
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The command, or one status line per change with wait",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"required": ["command"],
+									"properties": { "command": { "$ref": "#/components/schemas/Command" } }
+								}
+							},
+							"application/x-ndjson": {
+								"schema": {
+									"type": "object",
+									"required": ["command", "stream"],
+									"properties": {
+										"command": { "$ref": "#/components/schemas/Command" },
+										"stream": { "type": "string" }
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"components": {
 		"schemas": {
+			"Command": {
+				"type": "object",
+				"required": ["id"],
+				"properties": {
+					"id": { "type": "string" },
+					"exitCode": { "type": "integer", "nullable": true }
+				}
+			},
+			"Cursor": { "type": "string", "nullable": true },
 			"LogoFile": {
 				"type": "object",
 				"properties": {

@@ -3530,6 +3530,21 @@ export const userEventSchema = z
 					}),
 				}),
 				z.strictObject({
+					changes: z
+						.object({
+							active: z.union([z.literal(false), z.literal(true)]).optional(),
+							keyReplaced: z.union([z.literal(false), z.literal(true)]).optional(),
+							previousName: z.string().optional(),
+							zeroDataRetention: z.union([z.literal(false), z.literal(true)]).optional(),
+						})
+						.optional(),
+					credential: z.object({
+						id: z.string(),
+						name: z.string(),
+						providerSlug: z.string(),
+					}),
+				}),
+				z.strictObject({
 					added: z.array(z.string()),
 					changed: z.array(z.string()),
 					credential: z.object({
@@ -9452,9 +9467,34 @@ export const userEventSchema = z
 						.describe("Scopes requested by the model-authored plan."),
 				}),
 				z.strictObject({
+					eventId: z.string(),
+					occurredAt: z.number(),
+					sessionId: z.string(),
+					sessionKind: z.string().describe("Currently emitted session kinds: chat, investigation."),
+					surface: z
+						.string()
+						.describe(
+							"Currently emitted surfaces: dashboard, internal, slack, automation, github.",
+						),
+					branchRef: z.string().nullable(),
+					deploymentId: z.string(),
+					environment: z.string(),
+					findingId: z.string(),
+					findingNumber: z.number(),
+					projectId: z.string(),
+					projectName: z.string(),
+					severity: z.string(),
+					vulnerabilityClass: z.string(),
+				}),
+				z.strictObject({
 					next: z.enum(["auto-approval", "block", "manual-approval"]).nullable(),
 					previous: z.enum(["auto-approval", "block", "manual-approval"]).nullable(),
 					teamSlug: z.string().optional(),
+				}),
+				z.strictObject({
+					disabled: z.union([z.literal(false), z.literal(true)]).optional(),
+					actorName: z.string().optional(),
+					actorType: z.enum(["admin"]).optional(),
 				}),
 				z.strictObject({
 					isSystemInitiated: z.union([z.literal(false), z.literal(true)]).optional(),
@@ -11108,6 +11148,7 @@ export const userEventSchema = z
 				"firewall-bypass-deleted",
 				"firewall-conditional-bypass-created",
 				"firewall-conditional-bypass-deleted",
+				"firewall-conditional-bypass-updated",
 				"firewall-config-modified",
 				"firewall-config-promoted",
 				"firewall-config-removed",
@@ -11477,6 +11518,7 @@ export const userEventSchema = z
 				"team-agent-billing-migration-decision-changed",
 				"team-avatar-update",
 				"team-collaboration-settings-updated",
+				"team-data-cache-user-disabled-updated",
 				"team-default-build-machine-updated",
 				"team-default-passport-updated",
 				"team-delete",
@@ -11577,6 +11619,7 @@ export const userEventSchema = z
 				"vcr-repository-visibility-changed",
 				"vercel-agent-elevated-permissions-approved",
 				"vercel-agent-elevated-permissions-requested",
+				"vercel-agent-security-finding-created",
 				"vercel-agent-session-created",
 				"vercel-agent-team-trial-credits-applied",
 				"vercel-app-installation-request-dismissed",
@@ -11954,6 +11997,7 @@ export const listEventTypeSchema = z
 				"firewall-bypass-deleted",
 				"firewall-conditional-bypass-created",
 				"firewall-conditional-bypass-deleted",
+				"firewall-conditional-bypass-updated",
 				"firewall-config-modified",
 				"firewall-config-promoted",
 				"firewall-config-removed",
@@ -12323,6 +12367,7 @@ export const listEventTypeSchema = z
 				"team-agent-billing-migration-decision-changed",
 				"team-avatar-update",
 				"team-collaboration-settings-updated",
+				"team-data-cache-user-disabled-updated",
 				"team-default-build-machine-updated",
 				"team-default-passport-updated",
 				"team-delete",
@@ -12423,6 +12468,7 @@ export const listEventTypeSchema = z
 				"vcr-repository-visibility-changed",
 				"vercel-agent-elevated-permissions-approved",
 				"vercel-agent-elevated-permissions-requested",
+				"vercel-agent-security-finding-created",
 				"vercel-agent-session-created",
 				"vercel-agent-team-trial-credits-applied",
 				"vercel-app-installation-request-dismissed",
@@ -12702,6 +12748,7 @@ export const listEventTypeSchema = z
 					"firewall-bypass-deleted",
 					"firewall-conditional-bypass-created",
 					"firewall-conditional-bypass-deleted",
+					"firewall-conditional-bypass-updated",
 					"firewall-config-modified",
 					"firewall-config-promoted",
 					"firewall-config-removed",
@@ -13071,6 +13118,7 @@ export const listEventTypeSchema = z
 					"team-agent-billing-migration-decision-changed",
 					"team-avatar-update",
 					"team-collaboration-settings-updated",
+					"team-data-cache-user-disabled-updated",
 					"team-default-build-machine-updated",
 					"team-default-passport-updated",
 					"team-delete",
@@ -13171,6 +13219,7 @@ export const listEventTypeSchema = z
 					"vcr-repository-visibility-changed",
 					"vercel-agent-elevated-permissions-approved",
 					"vercel-agent-elevated-permissions-requested",
+					"vercel-agent-security-finding-created",
 					"vercel-agent-session-created",
 					"vercel-agent-team-trial-credits-applied",
 					"vercel-app-installation-request-dismissed",
@@ -17655,6 +17704,7 @@ export const createAiGatewayByokCredentialStatus201Schema = z.object({
 	name: z.string(),
 	ownerId: z.string(),
 	providerSlug: z.string(),
+	rotatedAt: z.number().nullable(),
 	updatedAt: z.number(),
 	zeroDataRetention: z.union([z.literal(false), z.literal(true)]),
 });
@@ -17806,6 +17856,7 @@ export const listAiGatewayByokCredentialsStatus200Schema = z.object({
 			name: z.string(),
 			ownerId: z.string(),
 			providerSlug: z.string(),
+			rotatedAt: z.number().nullable(),
 			updatedAt: z.number(),
 			zeroDataRetention: z.union([z.literal(false), z.literal(true)]),
 		}),
@@ -17897,6 +17948,7 @@ export const getAiGatewayByokCredentialStatus200Schema = z.object({
 	name: z.string(),
 	ownerId: z.string(),
 	providerSlug: z.string(),
+	rotatedAt: z.number().nullable(),
 	updatedAt: z.number(),
 	zeroDataRetention: z.union([z.literal(false), z.literal(true)]),
 });
@@ -17968,6 +18020,7 @@ export const updateAiGatewayByokCredentialStatus200Schema = z.object({
 	name: z.string(),
 	ownerId: z.string(),
 	providerSlug: z.string(),
+	rotatedAt: z.number().nullable(),
 	updatedAt: z.number(),
 	zeroDataRetention: z.union([z.literal(false), z.literal(true)]),
 });
@@ -20438,18 +20491,93 @@ export const buyCreditsStatus200Schema = z.union([
 	}),
 	z.strictObject({
 		orbSubscriptionIntent: z.object({
-			configuration: z.discriminatedUnion("type", [
+			configuration: z.union([
+				z.strictObject({
+					options: z.object({
+						productAlias: z.string().describe("The alias of the product to set quantity for."),
+						quantity: z.number().describe("The quantity to set for the plan item."),
+					}),
+					output: z
+						.object({
+							changedResources: z
+								.array(
+									z.object({
+										addedResourceIds: z
+											.array(z.string())
+											.optional()
+											.describe("Resource IDs that were added."),
+										effectiveAt: z
+											.string()
+											.optional()
+											.describe(
+												"When this resource change should take effect for downstream consumers.",
+											),
+										productAlias: z.string().describe("The alias of the product that was changed."),
+										productId: z.string().describe("The ID of the product that was changed."),
+										quantity: z.number().describe("The resulting quantity after this change."),
+										removedResourceIds: z
+											.array(z.string())
+											.optional()
+											.describe("Resource IDs that were removed."),
+										resourceIds: z
+											.array(z.string())
+											.optional()
+											.describe("The full set of resource IDs after the change."),
+									}),
+								)
+								.optional()
+								.describe(
+									"Resources that were changed as part of this intent. Tracks all logical changes including the primary change and any side effects.",
+								),
+							customerTimezone: z
+								.string()
+								.optional()
+								.describe(
+									"The Orb customer's timezone when the intent was created. Omitted for legacy intents.",
+								),
+							effectiveBehavior: z
+								.enum(["end_of_term", "immediate"])
+								.describe("When the subscription change should take effect."),
+							metadata: z
+								.record(z.string(), z.string())
+								.optional()
+								.describe(
+									"Optional metadata associated with the intent to update the Orb subscription with.",
+								),
+							orbPriceId: z
+								.string()
+								.describe("The Orb price ID for the subscription item being modified."),
+							pendingSubscriptionChangeId: z
+								.string()
+								.optional()
+								.describe("The ID of the pending subscription change if there is one."),
+							pricingSource: z
+								.enum(["copper", "orb"])
+								.describe("The source used as the authoritative price for this intent."),
+							productId: z.string().describe("The product ID associated with this intent."),
+							referenceBillingPeriod: z
+								.object({
+									endDate: z
+										.string()
+										.describe("The exclusive end of the reference billing period."),
+									startDate: z
+										.string()
+										.describe("The inclusive start of the reference billing period."),
+								})
+								.optional()
+								.describe(
+									"The canonical reference-product billing period at intent creation. Omitted for historical intents.",
+								),
+						})
+						.describe("Output returned after configuring an OrbSubscriptionIntent."),
+					type: z.enum(["set_plan_item_quantity"]),
+				}),
 				z.strictObject({
 					options: z
 						.object({
 							productAlias: z.string().describe("The alias of the product to set quantity for."),
 							quantity: z.number().describe("The quantity to set for the plan item."),
-							resourceIds: z
-								.array(z.string())
-								.optional()
-								.describe(
-									"The resource IDs for the plan item. Only set if SKU requires resource entitlements.",
-								),
+							resourceIds: z.array(z.string()),
 						})
 						.describe("Configuration input options for setting plan item quantity."),
 					output: z
@@ -25179,6 +25307,8 @@ export const createConnectorStatus502Schema = connectErrorSchema.describe(
 	"Error response returned by a Connect API operation.",
 );
 
+export const createConnectorStatus503Schema = z.unknown();
+
 export const createConnectorStatus504Schema = z.unknown();
 
 export const createConnectorResponseSchema = createConnectorStatus201Schema;
@@ -25194,6 +25324,7 @@ export const createConnectorErrorSchema = z.union([
 	createConnectorStatus500Schema,
 	createConnectorStatus501Schema,
 	createConnectorStatus502Schema,
+	createConnectorStatus503Schema,
 	createConnectorStatus504Schema,
 ]);
 
@@ -25391,6 +25522,8 @@ export const replaceConnectorTriggerDestinationsStatus500Schema = connectErrorSc
 
 export const replaceConnectorTriggerDestinationsStatus501Schema = z.unknown();
 
+export const replaceConnectorTriggerDestinationsStatus503Schema = z.unknown();
+
 export const replaceConnectorTriggerDestinationsStatus504Schema = z.unknown();
 
 export const replaceConnectorTriggerDestinationsResponseSchema =
@@ -25406,6 +25539,7 @@ export const replaceConnectorTriggerDestinationsErrorSchema = z.union([
 	replaceConnectorTriggerDestinationsStatus422Schema,
 	replaceConnectorTriggerDestinationsStatus500Schema,
 	replaceConnectorTriggerDestinationsStatus501Schema,
+	replaceConnectorTriggerDestinationsStatus503Schema,
 	replaceConnectorTriggerDestinationsStatus504Schema,
 ]);
 
@@ -25772,6 +25906,8 @@ export const upsertConnectorProjectConnectionStatus500Schema = connectErrorSchem
 
 export const upsertConnectorProjectConnectionStatus501Schema = z.unknown();
 
+export const upsertConnectorProjectConnectionStatus503Schema = z.unknown();
+
 export const upsertConnectorProjectConnectionStatus504Schema = z.unknown();
 
 export const upsertConnectorProjectConnectionResponseSchema =
@@ -25787,6 +25923,7 @@ export const upsertConnectorProjectConnectionErrorSchema = z.union([
 	upsertConnectorProjectConnectionStatus422Schema,
 	upsertConnectorProjectConnectionStatus500Schema,
 	upsertConnectorProjectConnectionStatus501Schema,
+	upsertConnectorProjectConnectionStatus503Schema,
 	upsertConnectorProjectConnectionStatus504Schema,
 ]);
 
@@ -26663,7 +26800,7 @@ export const getDeploymentEventsQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const getDeploymentEventsStatus200Schema = z
+export const getDeploymentEventsStatus200SchemaJson = z
 	.array(
 		z.union([
 			z.strictObject({
@@ -26881,6 +27018,228 @@ export const getDeploymentEventsStatus200Schema = z
 		]),
 	)
 	.nullable();
+
+export const getDeploymentEventsStatus200SchemaStreamJson = z.array(
+	z.union([
+		z.strictObject({
+			created: z.number(),
+			payload: z.object({
+				created: z.number().optional(),
+				date: z.number(),
+				deploymentId: z.string(),
+				id: z.string(),
+				info: z
+					.object({
+						entrypoint: z.string().optional(),
+						name: z.string(),
+						path: z.string().optional(),
+						readyState: z.string().optional(),
+						serviceName: z.string().optional(),
+						step: z.string().optional(),
+						type: z.string(),
+					})
+					.optional(),
+				proxy: z
+					.object({
+						cacheId: z.string().optional(),
+						clientIp: z.string().optional(),
+						host: z.string(),
+						lambdaRegion: z.string().optional(),
+						method: z.string(),
+						path: z.string().optional(),
+						pathType: z.string().optional(),
+						pathTypeVariant: z.string().optional(),
+						referer: z.string().optional(),
+						region: z.string().optional(),
+						responseByteSize: z.number().optional(),
+						scheme: z.string().optional(),
+						statusCode: z.number().optional(),
+						timestamp: z.number(),
+						userAgent: z.array(z.string()).optional(),
+						vercelCache: z
+							.enum(["BYPASS", "HIT", "MISS", "PRERENDER", "REVALIDATED", "STALE"])
+							.optional(),
+						vercelId: z.string().optional(),
+						wafAction: z.enum(["bypass", "challenge", "deny", "log", "rate_limit"]).optional(),
+						wafRuleId: z.string().optional(),
+					})
+					.optional(),
+				requestId: z.string().optional(),
+				serial: z.string(),
+				statusCode: z.number().optional(),
+				text: z.string().optional(),
+			}),
+			type: z.enum([
+				"command",
+				"delimiter",
+				"deployment-state",
+				"edge-function-invocation",
+				"exit",
+				"fatal",
+				"metric",
+				"middleware",
+				"middleware-invocation",
+				"report",
+				"stderr",
+				"stdout",
+			]),
+		}),
+		z.strictObject({
+			created: z.number(),
+			date: z.number(),
+			deploymentId: z.string(),
+			id: z.string(),
+			info: z.object({
+				entrypoint: z.string().optional(),
+				name: z.string(),
+				path: z.string().optional(),
+				readyState: z.string().optional(),
+				serviceName: z.string().optional(),
+				step: z.string().optional(),
+				type: z.string(),
+			}),
+			level: z.enum(["error", "warning"]).optional(),
+			serial: z.string(),
+			text: z.string().optional(),
+			type: z.enum([
+				"command",
+				"delimiter",
+				"deployment-state",
+				"edge-function-invocation",
+				"exit",
+				"fatal",
+				"metric",
+				"middleware",
+				"middleware-invocation",
+				"report",
+				"stderr",
+				"stdout",
+			]),
+		}),
+		z.union([
+			z.strictObject({
+				created: z.number(),
+				payload: z.object({
+					created: z.number().optional(),
+					date: z.number(),
+					deploymentId: z.string(),
+					id: z.string(),
+					info: z
+						.object({
+							entrypoint: z.string().optional(),
+							name: z.string(),
+							path: z.string().optional(),
+							readyState: z.string().optional(),
+							serviceName: z.string().optional(),
+							step: z.string().optional(),
+							type: z.string(),
+						})
+						.optional(),
+					proxy: z
+						.object({
+							cacheId: z.string().optional(),
+							clientIp: z.string().optional(),
+							host: z.string(),
+							lambdaRegion: z.string().optional(),
+							method: z.string(),
+							path: z.string().optional(),
+							pathType: z.string().optional(),
+							pathTypeVariant: z.string().optional(),
+							referer: z.string().optional(),
+							region: z.string().optional(),
+							responseByteSize: z.number().optional(),
+							scheme: z.string().optional(),
+							statusCode: z.number().optional(),
+							timestamp: z.number(),
+							userAgent: z.array(z.string()).optional(),
+							vercelCache: z
+								.enum(["BYPASS", "HIT", "MISS", "PRERENDER", "REVALIDATED", "STALE"])
+								.optional(),
+							vercelId: z.string().optional(),
+							wafAction: z.enum(["bypass", "challenge", "deny", "log", "rate_limit"]).optional(),
+							wafRuleId: z.string().optional(),
+						})
+						.optional(),
+					requestId: z.string().optional(),
+					serial: z.string(),
+					statusCode: z.number().optional(),
+					text: z.string().optional(),
+				}),
+				type: z.enum([
+					"command",
+					"delimiter",
+					"deployment-state",
+					"edge-function-invocation",
+					"exit",
+					"fatal",
+					"metric",
+					"middleware",
+					"middleware-invocation",
+					"report",
+					"stderr",
+					"stdout",
+				]),
+			}),
+			z.strictObject({
+				created: z.number(),
+				date: z.number(),
+				deploymentId: z.string(),
+				id: z.string(),
+				info: z.object({
+					entrypoint: z.string().optional(),
+					name: z.string(),
+					path: z.string().optional(),
+					readyState: z.string().optional(),
+					serviceName: z.string().optional(),
+					step: z.string().optional(),
+					type: z.string(),
+				}),
+				level: z.enum(["error", "warning"]).optional(),
+				serial: z.string(),
+				text: z.string().optional(),
+				type: z.enum([
+					"command",
+					"delimiter",
+					"deployment-state",
+					"edge-function-invocation",
+					"exit",
+					"fatal",
+					"metric",
+					"middleware",
+					"middleware-invocation",
+					"report",
+					"stderr",
+					"stdout",
+				]),
+			}),
+			z.strictObject({
+				date: z.number(),
+				deploymentId: z.string(),
+				type: z.enum(["alias-assigned"]),
+				alias: z.array(z.string()),
+				aliasError: z
+					.object({
+						code: z.string(),
+						message: z.string(),
+					})
+					.nullable(),
+				aliasWarning: z
+					.object({
+						action: z.string().optional(),
+						code: z.string(),
+						link: z.string().optional(),
+						message: z.string(),
+					})
+					.nullable(),
+			}),
+		]),
+	]),
+);
+
+export const getDeploymentEventsStatus200Schema = z.union([
+	getDeploymentEventsStatus200SchemaJson,
+	getDeploymentEventsStatus200SchemaStreamJson,
+]);
 
 export const getDeploymentEventsStatus400Schema = z.unknown();
 
@@ -106494,11 +106853,35 @@ export const runSessionCommandQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const runSessionCommandStatus200Schema = z.object({
+export const runSessionCommandStatus200SchemaJson = z.object({
 	command: sessionCommandSchema.describe(
 		"This object represents a command run in a Vercel Sandbox session (v2 API).",
 	),
 });
+
+export const runSessionCommandStatus200SchemaXNdjson = z.array(
+	z.union([
+		z.strictObject({
+			data: z.object({
+				code: z.enum(["sandbox_stream_closed"]),
+				message: z.enum(["Sandbox stream was closed and is not accepting commands."]),
+			}),
+			stream: z.string(),
+		}),
+		z.strictObject({
+			command: sessionCommandSchema.describe(
+				"This object represents a command run in a Vercel Sandbox session (v2 API).",
+			),
+			data: z.string(),
+			stream: z.string(),
+		}),
+	]),
+);
+
+export const runSessionCommandStatus200Schema = z.union([
+	runSessionCommandStatus200SchemaJson,
+	runSessionCommandStatus200SchemaXNdjson,
+]);
 
 export const runSessionCommandStatus400Schema = z.unknown();
 
@@ -115989,6 +116372,175 @@ export const createConditionalBypassBodySchema = z
 	.optional();
 
 export const createConditionalBypassQuerySchema = z.object({
+	projectId: z.string(),
+	slug: z
+		.string()
+		.optional()
+		.meta({ examples: ["my-team-url-slug"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const updateConditionalBypassQueryProjectIdSchema = z.string();
+
+export const updateConditionalBypassQuerySlugSchema = z
+	.string()
+	.optional()
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const updateConditionalBypassQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const updateConditionalBypassStatus200Schema = z.object({
+	condition: z.string(),
+	conditionGroup: z.array(
+		z.object({
+			conditions: z.array(
+				z.object({
+					key: z.string().optional(),
+					neg: z.union([z.literal(false), z.literal(true)]).optional(),
+					op: z.enum([
+						"eq",
+						"ex",
+						"gt",
+						"gte",
+						"inc",
+						"list",
+						"lt",
+						"lte",
+						"neq",
+						"nex",
+						"ninc",
+						"pre",
+						"re",
+						"sub",
+						"suf",
+					]),
+					type: z.enum([
+						"bot_category",
+						"bot_name",
+						"bot_protection",
+						"bot_status",
+						"cookie",
+						"domain_environment",
+						"environment",
+						"geo_as_number",
+						"geo_city",
+						"geo_continent",
+						"geo_country",
+						"geo_country_region",
+						"header",
+						"host",
+						"ip_address",
+						"ja3_digest",
+						"ja4_digest",
+						"method",
+						"path",
+						"protocol",
+						"query",
+						"rate_limit_api_id",
+						"raw_path",
+						"region",
+						"response_code",
+						"route",
+						"ruleset",
+						"scheme",
+						"server_action",
+						"shared_condition",
+						"target_path",
+						"traffic_source",
+						"trusted_source",
+						"user_agent",
+					]),
+					value: z.union([z.string(), z.number(), z.array(z.string())]).optional(),
+				}),
+			),
+		}),
+	),
+	createdAt: z.string(),
+	domain: z.string(),
+	id: z.string(),
+	note: z.string().optional(),
+	projectId: z.string(),
+	updatedAt: z.string(),
+});
+
+export const updateConditionalBypassStatus400Schema = z.unknown();
+
+export const updateConditionalBypassStatus401Schema = z.unknown();
+
+export const updateConditionalBypassStatus403Schema = z.unknown();
+
+export const updateConditionalBypassStatus404Schema = z.unknown();
+
+export const updateConditionalBypassStatus410Schema = z.unknown();
+
+export const updateConditionalBypassResponseSchema = updateConditionalBypassStatus200Schema;
+
+export const updateConditionalBypassErrorSchema = z.union([
+	updateConditionalBypassStatus400Schema,
+	updateConditionalBypassStatus401Schema,
+	updateConditionalBypassStatus403Schema,
+	updateConditionalBypassStatus404Schema,
+	updateConditionalBypassStatus410Schema,
+]);
+
+export const updateConditionalBypassBodySchema = z
+	.strictObject({
+		domain: z.string(),
+		conditionGroup: z
+			.array(
+				z.object({
+					conditions: z
+						.array(
+							z.union([
+								z.strictObject({
+									type: z.enum(["user_agent"]),
+									op: z.enum(["eq", "pre", "suf", "sub"]),
+									value: z.string().max(500),
+									key: z.enum(["user-agent"]).optional(),
+								}),
+								z.strictObject({
+									type: z.enum(["path"]),
+									op: z.enum(["eq", "pre", "suf", "sub"]),
+									value: z.string().max(500),
+								}),
+								z.strictObject({
+									type: z.enum(["header"]),
+									op: z.enum(["eq", "pre", "suf", "sub"]),
+									key: z
+										.string()
+										.max(128)
+										.regex(/^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/),
+									value: z.string().max(500),
+								}),
+								z.strictObject({
+									type: z.enum(["header"]),
+									op: z.enum(["ex"]),
+									key: z
+										.string()
+										.max(128)
+										.regex(/^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/),
+								}),
+							]),
+						)
+						.min(1)
+						.max(65),
+				}),
+			)
+			.min(1)
+			.max(25),
+		note: z.string().max(500).optional(),
+	})
+	.optional();
+
+export const updateConditionalBypassQuerySchema = z.object({
 	projectId: z.string(),
 	slug: z
 		.string()

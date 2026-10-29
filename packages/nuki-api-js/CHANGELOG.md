@@ -1,5 +1,23 @@
 # nuki-api-js
 
+## 2.1.0
+
+### Minor Changes
+
+- f9c79e2: [BREAKING] The RangeService type was removed and re-added in a different location or with changes.
+
+## 2.0.3
+
+### Patch Changes
+
+- 3b61252: Keep the `config` passed to `request()` and `client.api` operations, such as extra `headers`, instead of replacing it with the client's own.
+
+## 2.0.2
+
+### Patch Changes
+
+- 16c15c8: No public API changes detected, only internal or structural code modifications present.
+
 ## 2.0.1
 
 ### Patch Changes

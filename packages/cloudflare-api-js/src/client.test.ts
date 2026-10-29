@@ -37,6 +37,18 @@ describe("CloudflareApi.request", () => {
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/accounts$/);
 	});
 
+	it("joins a non-exploded array query param into one comma-separated value", async () => {
+		const { urls, client } = setup();
+		await client.request("GET /zones", { queryParams: { type: ["full", "partial"], page: 2 } });
+		expect(new URL(urls[0] ?? "").search).toBe("?type=full%2Cpartial&page=2");
+	});
+
+	it("keeps repeated keys for the organization id filter", async () => {
+		const { urls, client } = setup();
+		await client.request("GET /organizations", { queryParams: { id: ["a", "b"] } });
+		expect(new URL(urls[0] ?? "").search).toBe("?id=a&id=b");
+	});
+
 	it("rejects an unknown endpoint", async () => {
 		const { client } = setup();
 		await expect(client.request("GET /nope" as never, {} as never)).rejects.toThrow(
@@ -111,5 +123,37 @@ describe("CloudflareApi.api", () => {
 		expect(client.api.health.toString).toBeUndefined();
 		expect(client.api.health.hasOwnProperty).toBeUndefined();
 		expect(client.api.health.getHeartbeat).toBeTypeOf("function");
+	});
+});
+
+describe("CloudflareApi per-call config", () => {
+	function setup() {
+		const headers: unknown[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			headers.push(init?.headers);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { headers, client: new CloudflareApi({ token: "token", fetch }) };
+	}
+
+	it("sends the caller's headers from request() alongside the client's token", async () => {
+		const { headers, client } = setup();
+		await client.request("GET /accounts", { config: { headers: { "X-Request-Id": "abc" } } });
+		expect(headers).toEqual([
+			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
+		]);
+	});
+
+	it("sends the caller's headers from the api proxy alongside the client's token", async () => {
+		const { headers, client } = setup();
+		await client.api.accounts.accountsListAccounts({
+			config: { headers: { "X-Request-Id": "abc" } },
+		});
+		expect(headers).toEqual([
+			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
+		]);
 	});
 });

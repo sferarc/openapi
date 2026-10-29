@@ -129,3 +129,33 @@ describe("NetlifyApi.api", () => {
 		expect(client.api.site.listSites).toBeTypeOf("function");
 	});
 });
+
+describe("NetlifyApi per-call config", () => {
+	function setup() {
+		const headers: unknown[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			headers.push(init?.headers);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { headers, client: new NetlifyApi({ token: "token", fetch }) };
+	}
+
+	it("sends the caller's headers from request() alongside the client's token", async () => {
+		const { headers, client } = setup();
+		await client.request("GET /sites", { config: { headers: { "X-Request-Id": "abc" } } });
+		expect(headers).toEqual([
+			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
+		]);
+	});
+
+	it("sends the caller's headers from the api proxy alongside the client's token", async () => {
+		const { headers, client } = setup();
+		await client.api.site.listSites({ config: { headers: { "X-Request-Id": "abc" } } });
+		expect(headers).toEqual([
+			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
+		]);
+	});
+});

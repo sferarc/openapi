@@ -6888,6 +6888,7 @@ export const userEventTypeEnum = {
 	"firewall-bypass-deleted": "firewall-bypass-deleted",
 	"firewall-conditional-bypass-created": "firewall-conditional-bypass-created",
 	"firewall-conditional-bypass-deleted": "firewall-conditional-bypass-deleted",
+	"firewall-conditional-bypass-updated": "firewall-conditional-bypass-updated",
 	"firewall-config-modified": "firewall-config-modified",
 	"firewall-config-promoted": "firewall-config-promoted",
 	"firewall-config-removed": "firewall-config-removed",
@@ -7270,6 +7271,7 @@ export const userEventTypeEnum = {
 	"team-agent-billing-migration-decision-changed": "team-agent-billing-migration-decision-changed",
 	"team-avatar-update": "team-avatar-update",
 	"team-collaboration-settings-updated": "team-collaboration-settings-updated",
+	"team-data-cache-user-disabled-updated": "team-data-cache-user-disabled-updated",
 	"team-default-build-machine-updated": "team-default-build-machine-updated",
 	"team-default-passport-updated": "team-default-passport-updated",
 	"team-delete": "team-delete",
@@ -7370,6 +7372,7 @@ export const userEventTypeEnum = {
 	"vcr-repository-visibility-changed": "vcr-repository-visibility-changed",
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
+	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -7869,6 +7872,21 @@ export type UserEvent = {
 						userName?: string | undefined;
 				  }
 				| {
+						credential: {
+							id: string;
+							name: string;
+							providerSlug: string;
+						};
+				  }
+				| {
+						changes?:
+							| {
+									active?: (false | true) | undefined;
+									keyReplaced?: (false | true) | undefined;
+									previousName?: string | undefined;
+									zeroDataRetention?: (false | true) | undefined;
+							  }
+							| undefined;
 						credential: {
 							id: string;
 							name: string;
@@ -13136,9 +13154,38 @@ export type UserEvent = {
 						requestedScopes: string[];
 				  }
 				| {
+						eventId: string;
+						occurredAt: number;
+						sessionId: string;
+						/**
+						 * @description Currently emitted session kinds: chat, investigation.
+						 * @type string
+						 */
+						sessionKind: string;
+						/**
+						 * @description Currently emitted surfaces: dashboard, internal, slack, automation, github.
+						 * @type string
+						 */
+						surface: string;
+						branchRef: string | null;
+						deploymentId: string;
+						environment: string;
+						findingId: string;
+						findingNumber: number;
+						projectId: string;
+						projectName: string;
+						severity: string;
+						vulnerabilityClass: string;
+				  }
+				| {
 						next: UserEventPayloadNextEnumKey | null;
 						previous: UserEventPayloadPreviousEnumKey | null;
 						teamSlug?: string | undefined;
+				  }
+				| {
+						disabled?: (false | true) | undefined;
+						actorName?: string | undefined;
+						actorType?: "admin" | undefined;
 				  }
 				| {
 						isSystemInitiated?: (false | true) | undefined;
@@ -14782,6 +14829,7 @@ export const listEventTypeNameEnum = {
 	"firewall-bypass-deleted": "firewall-bypass-deleted",
 	"firewall-conditional-bypass-created": "firewall-conditional-bypass-created",
 	"firewall-conditional-bypass-deleted": "firewall-conditional-bypass-deleted",
+	"firewall-conditional-bypass-updated": "firewall-conditional-bypass-updated",
 	"firewall-config-modified": "firewall-config-modified",
 	"firewall-config-promoted": "firewall-config-promoted",
 	"firewall-config-removed": "firewall-config-removed",
@@ -15164,6 +15212,7 @@ export const listEventTypeNameEnum = {
 	"team-agent-billing-migration-decision-changed": "team-agent-billing-migration-decision-changed",
 	"team-avatar-update": "team-avatar-update",
 	"team-collaboration-settings-updated": "team-collaboration-settings-updated",
+	"team-data-cache-user-disabled-updated": "team-data-cache-user-disabled-updated",
 	"team-default-build-machine-updated": "team-default-build-machine-updated",
 	"team-default-passport-updated": "team-default-passport-updated",
 	"team-delete": "team-delete",
@@ -15264,6 +15313,7 @@ export const listEventTypeNameEnum = {
 	"vcr-repository-visibility-changed": "vcr-repository-visibility-changed",
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
+	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -15546,6 +15596,7 @@ export const listEventTypeReplacedByEnum = {
 	"firewall-bypass-deleted": "firewall-bypass-deleted",
 	"firewall-conditional-bypass-created": "firewall-conditional-bypass-created",
 	"firewall-conditional-bypass-deleted": "firewall-conditional-bypass-deleted",
+	"firewall-conditional-bypass-updated": "firewall-conditional-bypass-updated",
 	"firewall-config-modified": "firewall-config-modified",
 	"firewall-config-promoted": "firewall-config-promoted",
 	"firewall-config-removed": "firewall-config-removed",
@@ -15928,6 +15979,7 @@ export const listEventTypeReplacedByEnum = {
 	"team-agent-billing-migration-decision-changed": "team-agent-billing-migration-decision-changed",
 	"team-avatar-update": "team-avatar-update",
 	"team-collaboration-settings-updated": "team-collaboration-settings-updated",
+	"team-data-cache-user-disabled-updated": "team-data-cache-user-disabled-updated",
 	"team-default-build-machine-updated": "team-default-build-machine-updated",
 	"team-default-passport-updated": "team-default-passport-updated",
 	"team-delete": "team-delete",
@@ -16028,6 +16080,7 @@ export const listEventTypeReplacedByEnum = {
 	"vcr-repository-visibility-changed": "vcr-repository-visibility-changed",
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
+	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -21641,6 +21694,7 @@ export type CreateAiGatewayByokCredentialStatus201 = {
 	name: string;
 	ownerId: string;
 	providerSlug: string;
+	rotatedAt: number | null;
 	updatedAt: number;
 	zeroDataRetention: false | true;
 };
@@ -21820,6 +21874,7 @@ export type ListAiGatewayByokCredentialsStatus200 = {
 		name: string;
 		ownerId: string;
 		providerSlug: string;
+		rotatedAt: number | null;
 		updatedAt: number;
 		zeroDataRetention: false | true;
 	}[];
@@ -21891,6 +21946,7 @@ export type GetAiGatewayByokCredentialStatus200 = {
 	name: string;
 	ownerId: string;
 	providerSlug: string;
+	rotatedAt: number | null;
 	updatedAt: number;
 	zeroDataRetention: false | true;
 };
@@ -21961,6 +22017,7 @@ export type UpdateAiGatewayByokCredentialStatus200 = {
 	name: string;
 	ownerId: string;
 	providerSlug: string;
+	rotatedAt: number | null;
 	updatedAt: number;
 	zeroDataRetention: false | true;
 };
@@ -24812,6 +24869,127 @@ export type BuyCreditsStatus200 =
 			orbSubscriptionIntent: {
 				configuration:
 					| {
+							options: {
+								/**
+								 * @description The alias of the product to set quantity for.
+								 * @type string
+								 */
+								productAlias: string;
+								/**
+								 * @description The quantity to set for the plan item.
+								 * @type number
+								 */
+								quantity: number;
+							};
+							/**
+							 * @description Output returned after configuring an OrbSubscriptionIntent.
+							 * @type object
+							 */
+							output: {
+								/**
+								 * @description Resources that were changed as part of this intent. Tracks all logical changes including the primary change and any side effects.
+								 * @type array | undefined
+								 */
+								changedResources?:
+									| {
+											/**
+											 * @description Resource IDs that were added.
+											 * @type array | undefined
+											 */
+											addedResourceIds?: string[] | undefined;
+											/**
+											 * @description When this resource change should take effect for downstream consumers.
+											 * @type string | undefined
+											 */
+											effectiveAt?: string | undefined;
+											/**
+											 * @description The alias of the product that was changed.
+											 * @type string
+											 */
+											productAlias: string;
+											/**
+											 * @description The ID of the product that was changed.
+											 * @type string
+											 */
+											productId: string;
+											/**
+											 * @description The resulting quantity after this change.
+											 * @type number
+											 */
+											quantity: number;
+											/**
+											 * @description Resource IDs that were removed.
+											 * @type array | undefined
+											 */
+											removedResourceIds?: string[] | undefined;
+											/**
+											 * @description The full set of resource IDs after the change.
+											 * @type array | undefined
+											 */
+											resourceIds?: string[] | undefined;
+									  }[]
+									| undefined;
+								/**
+								 * @description The Orb customer's timezone when the intent was created. Omitted for legacy intents.
+								 * @type string | undefined
+								 */
+								customerTimezone?: string | undefined;
+								/**
+								 * @description When the subscription change should take effect.
+								 * @type string
+								 */
+								effectiveBehavior: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnumKey;
+								/**
+								 * @description Optional metadata associated with the intent to update the Orb subscription with.
+								 * @type object | undefined
+								 */
+								metadata?:
+									| {
+											[key: string]: string;
+									  }
+									| undefined;
+								/**
+								 * @description The Orb price ID for the subscription item being modified.
+								 * @type string
+								 */
+								orbPriceId: string;
+								/**
+								 * @description The ID of the pending subscription change if there is one.
+								 * @type string | undefined
+								 */
+								pendingSubscriptionChangeId?: string | undefined;
+								/**
+								 * @description The source used as the authoritative price for this intent.
+								 * @type string
+								 */
+								pricingSource: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnumKey;
+								/**
+								 * @description The product ID associated with this intent.
+								 * @type string
+								 */
+								productId: string;
+								/**
+								 * @description The canonical reference-product billing period at intent creation. Omitted for historical intents.
+								 * @type object | undefined
+								 */
+								referenceBillingPeriod?:
+									| {
+											/**
+											 * @description The exclusive end of the reference billing period.
+											 * @type string
+											 */
+											endDate: string;
+											/**
+											 * @description The inclusive start of the reference billing period.
+											 * @type string
+											 */
+											startDate: string;
+									  }
+									| undefined;
+							};
+							type: "set_plan_item_quantity";
+					  }
+					| {
 							/**
 							 * @description Configuration input options for setting plan item quantity.
 							 * @type object
@@ -24827,11 +25005,7 @@ export type BuyCreditsStatus200 =
 								 * @type number
 								 */
 								quantity: number;
-								/**
-								 * @description The resource IDs for the plan item. Only set if SKU requires resource entitlements.
-								 * @type array | undefined
-								 */
-								resourceIds?: string[] | undefined;
+								resourceIds: string[];
 							};
 							/**
 							 * @description Output returned after configuring an OrbSubscriptionIntent.
@@ -30444,6 +30618,8 @@ export type CreateConnectorStatus501 = unknown;
  */
 export type CreateConnectorStatus502 = ConnectError;
 
+export type CreateConnectorStatus503 = unknown;
+
 export type CreateConnectorStatus504 = unknown;
 
 /**
@@ -30470,6 +30646,7 @@ export type CreateConnectorResponses = {
 	"500": CreateConnectorStatus500;
 	"501": CreateConnectorStatus501;
 	"502": CreateConnectorStatus502;
+	"503": CreateConnectorStatus503;
 	"504": CreateConnectorStatus504;
 };
 
@@ -30677,6 +30854,8 @@ export type ReplaceConnectorTriggerDestinationsStatus500 = ConnectError;
 
 export type ReplaceConnectorTriggerDestinationsStatus501 = unknown;
 
+export type ReplaceConnectorTriggerDestinationsStatus503 = unknown;
+
 export type ReplaceConnectorTriggerDestinationsStatus504 = unknown;
 
 /**
@@ -30703,6 +30882,7 @@ export type ReplaceConnectorTriggerDestinationsResponses = {
 	"422": ReplaceConnectorTriggerDestinationsStatus422;
 	"500": ReplaceConnectorTriggerDestinationsStatus500;
 	"501": ReplaceConnectorTriggerDestinationsStatus501;
+	"503": ReplaceConnectorTriggerDestinationsStatus503;
 	"504": ReplaceConnectorTriggerDestinationsStatus504;
 };
 
@@ -31069,6 +31249,8 @@ export type UpsertConnectorProjectConnectionStatus500 = ConnectError;
 
 export type UpsertConnectorProjectConnectionStatus501 = unknown;
 
+export type UpsertConnectorProjectConnectionStatus503 = unknown;
+
 export type UpsertConnectorProjectConnectionStatus504 = unknown;
 
 /**
@@ -31095,6 +31277,7 @@ export type UpsertConnectorProjectConnectionResponses = {
 	"422": UpsertConnectorProjectConnectionStatus422;
 	"500": UpsertConnectorProjectConnectionStatus500;
 	"501": UpsertConnectorProjectConnectionStatus501;
+	"503": UpsertConnectorProjectConnectionStatus503;
 	"504": UpsertConnectorProjectConnectionStatus504;
 };
 
@@ -32117,7 +32300,7 @@ export const getDeploymentEventsStatus200LevelEnum = {
 export type GetDeploymentEventsStatus200LevelEnumKey =
 	(typeof getDeploymentEventsStatus200LevelEnum)[keyof typeof getDeploymentEventsStatus200LevelEnum];
 
-export type GetDeploymentEventsStatus200 =
+export type GetDeploymentEventsStatus200Json =
 	| (
 			| {
 					created: number;
@@ -32280,6 +32463,167 @@ export type GetDeploymentEventsStatus200 =
 	  )[]
 	| null;
 
+export type GetDeploymentEventsStatus200StreamJson = (
+	| {
+			created: number;
+			payload: {
+				created?: number | undefined;
+				date: number;
+				deploymentId: string;
+				id: string;
+				info?:
+					| {
+							entrypoint?: string | undefined;
+							name: string;
+							path?: string | undefined;
+							readyState?: string | undefined;
+							serviceName?: string | undefined;
+							step?: string | undefined;
+							type: string;
+					  }
+					| undefined;
+				proxy?:
+					| {
+							cacheId?: string | undefined;
+							clientIp?: string | undefined;
+							host: string;
+							lambdaRegion?: string | undefined;
+							method: string;
+							path?: string | undefined;
+							pathType?: string | undefined;
+							pathTypeVariant?: string | undefined;
+							referer?: string | undefined;
+							region?: string | undefined;
+							responseByteSize?: number | undefined;
+							scheme?: string | undefined;
+							statusCode?: number | undefined;
+							timestamp: number;
+							userAgent?: string[] | undefined;
+							vercelCache?: GetDeploymentEventsStatus200PayloadProxyVercelCacheEnumKey | undefined;
+							vercelId?: string | undefined;
+							wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnumKey | undefined;
+							wafRuleId?: string | undefined;
+					  }
+					| undefined;
+				requestId?: string | undefined;
+				serial: string;
+				statusCode?: number | undefined;
+				text?: string | undefined;
+			};
+			type: GetDeploymentEventsStatus200TypeEnumKey;
+	  }
+	| {
+			created: number;
+			date: number;
+			deploymentId: string;
+			id: string;
+			info: {
+				entrypoint?: string | undefined;
+				name: string;
+				path?: string | undefined;
+				readyState?: string | undefined;
+				serviceName?: string | undefined;
+				step?: string | undefined;
+				type: string;
+			};
+			level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
+			serial: string;
+			text?: string | undefined;
+			type: GetDeploymentEventsStatus200TypeEnumKey;
+	  }
+	| (
+			| {
+					created: number;
+					payload: {
+						created?: number | undefined;
+						date: number;
+						deploymentId: string;
+						id: string;
+						info?:
+							| {
+									entrypoint?: string | undefined;
+									name: string;
+									path?: string | undefined;
+									readyState?: string | undefined;
+									serviceName?: string | undefined;
+									step?: string | undefined;
+									type: string;
+							  }
+							| undefined;
+						proxy?:
+							| {
+									cacheId?: string | undefined;
+									clientIp?: string | undefined;
+									host: string;
+									lambdaRegion?: string | undefined;
+									method: string;
+									path?: string | undefined;
+									pathType?: string | undefined;
+									pathTypeVariant?: string | undefined;
+									referer?: string | undefined;
+									region?: string | undefined;
+									responseByteSize?: number | undefined;
+									scheme?: string | undefined;
+									statusCode?: number | undefined;
+									timestamp: number;
+									userAgent?: string[] | undefined;
+									vercelCache?:
+										| GetDeploymentEventsStatus200PayloadProxyVercelCacheEnumKey
+										| undefined;
+									vercelId?: string | undefined;
+									wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnumKey | undefined;
+									wafRuleId?: string | undefined;
+							  }
+							| undefined;
+						requestId?: string | undefined;
+						serial: string;
+						statusCode?: number | undefined;
+						text?: string | undefined;
+					};
+					type: GetDeploymentEventsStatus200TypeEnumKey;
+			  }
+			| {
+					created: number;
+					date: number;
+					deploymentId: string;
+					id: string;
+					info: {
+						entrypoint?: string | undefined;
+						name: string;
+						path?: string | undefined;
+						readyState?: string | undefined;
+						serviceName?: string | undefined;
+						step?: string | undefined;
+						type: string;
+					};
+					level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
+					serial: string;
+					text?: string | undefined;
+					type: GetDeploymentEventsStatus200TypeEnumKey;
+			  }
+			| {
+					date: number;
+					deploymentId: string;
+					type: "alias-assigned";
+					alias: string[];
+					aliasError: {
+						code: string;
+						message: string;
+					} | null;
+					aliasWarning: {
+						action?: string | undefined;
+						code: string;
+						link?: string | undefined;
+						message: string;
+					} | null;
+			  }
+	  )
+)[];
+
+export type GetDeploymentEventsStatus200 =
+	| GetDeploymentEventsStatus200Json
+	| GetDeploymentEventsStatus200StreamJson;
+
 export type GetDeploymentEventsStatus400 = unknown;
 
 export type GetDeploymentEventsStatus401 = unknown;
@@ -32300,7 +32644,15 @@ export type GetDeploymentEventsOptions = {
 };
 
 export type GetDeploymentEventsResponses = {
-	"200": GetDeploymentEventsStatus200;
+	"200":
+		| {
+				contentType: "application/json";
+				data: GetDeploymentEventsStatus200Json;
+		  }
+		| {
+				contentType: "application/stream+json";
+				data: GetDeploymentEventsStatus200StreamJson;
+		  };
 	"400": GetDeploymentEventsStatus400;
 	"401": GetDeploymentEventsStatus401;
 	"403": GetDeploymentEventsStatus403;
@@ -122136,13 +122488,36 @@ export type RunSessionCommandQuery = {
 	slug?: string | undefined;
 };
 
-export type RunSessionCommandStatus200 = {
+export type RunSessionCommandStatus200Json = {
 	/**
 	 * @description This object represents a command run in a Vercel Sandbox session (v2 API).
 	 * @type object
 	 */
 	command: SessionCommand;
 };
+
+export type RunSessionCommandStatus200XNdjson = (
+	| {
+			data: {
+				code: "sandbox_stream_closed";
+				message: "Sandbox stream was closed and is not accepting commands.";
+			};
+			stream: string;
+	  }
+	| {
+			/**
+			 * @description This object represents a command run in a Vercel Sandbox session (v2 API).
+			 * @type object
+			 */
+			command: SessionCommand;
+			data: string;
+			stream: string;
+	  }
+)[];
+
+export type RunSessionCommandStatus200 =
+	| RunSessionCommandStatus200Json
+	| RunSessionCommandStatus200XNdjson;
 
 export type RunSessionCommandStatus400 = unknown;
 
@@ -122232,7 +122607,15 @@ export type RunSessionCommandOptions = {
 };
 
 export type RunSessionCommandResponses = {
-	"200": RunSessionCommandStatus200;
+	"200":
+		| {
+				contentType: "application/json";
+				data: RunSessionCommandStatus200Json;
+		  }
+		| {
+				contentType: "application/x-ndjson";
+				data: RunSessionCommandStatus200XNdjson;
+		  };
 	"400": RunSessionCommandStatus400;
 	"401": RunSessionCommandStatus401;
 	"403": RunSessionCommandStatus403;
@@ -132859,6 +133242,201 @@ export type CreateConditionalBypassResponses = {
  * @description Union of all possible responses
  */
 export type CreateConditionalBypassResponse = CreateConditionalBypassStatus200;
+
+export type UpdateConditionalBypassQuery = {
+	projectId: string;
+	/**
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+};
+
+export const updateConditionalBypassStatus200ConditionGroupConditionsOpEnum = {
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	inc: "inc",
+	list: "list",
+	lt: "lt",
+	lte: "lte",
+	neq: "neq",
+	nex: "nex",
+	ninc: "ninc",
+	pre: "pre",
+	re: "re",
+	sub: "sub",
+	suf: "suf",
+} as const;
+
+export type UpdateConditionalBypassStatus200ConditionGroupConditionsOpEnumKey =
+	(typeof updateConditionalBypassStatus200ConditionGroupConditionsOpEnum)[keyof typeof updateConditionalBypassStatus200ConditionGroupConditionsOpEnum];
+
+export const updateConditionalBypassStatus200ConditionGroupConditionsTypeEnum = {
+	bot_category: "bot_category",
+	bot_name: "bot_name",
+	bot_protection: "bot_protection",
+	bot_status: "bot_status",
+	cookie: "cookie",
+	domain_environment: "domain_environment",
+	environment: "environment",
+	geo_as_number: "geo_as_number",
+	geo_city: "geo_city",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	header: "header",
+	host: "host",
+	ip_address: "ip_address",
+	ja3_digest: "ja3_digest",
+	ja4_digest: "ja4_digest",
+	method: "method",
+	path: "path",
+	protocol: "protocol",
+	query: "query",
+	rate_limit_api_id: "rate_limit_api_id",
+	raw_path: "raw_path",
+	region: "region",
+	response_code: "response_code",
+	route: "route",
+	ruleset: "ruleset",
+	scheme: "scheme",
+	server_action: "server_action",
+	shared_condition: "shared_condition",
+	target_path: "target_path",
+	traffic_source: "traffic_source",
+	trusted_source: "trusted_source",
+	user_agent: "user_agent",
+} as const;
+
+export type UpdateConditionalBypassStatus200ConditionGroupConditionsTypeEnumKey =
+	(typeof updateConditionalBypassStatus200ConditionGroupConditionsTypeEnum)[keyof typeof updateConditionalBypassStatus200ConditionGroupConditionsTypeEnum];
+
+export type UpdateConditionalBypassStatus200 = {
+	condition: string;
+	conditionGroup: {
+		conditions: {
+			key?: string | undefined;
+			neg?: (false | true) | undefined;
+			op: UpdateConditionalBypassStatus200ConditionGroupConditionsOpEnumKey;
+			type: UpdateConditionalBypassStatus200ConditionGroupConditionsTypeEnumKey;
+			value?: (string | number | string[]) | undefined;
+		}[];
+	}[];
+	createdAt: string;
+	domain: string;
+	id: string;
+	note?: string | undefined;
+	projectId: string;
+	updatedAt: string;
+};
+
+export type UpdateConditionalBypassStatus400 = unknown;
+
+export type UpdateConditionalBypassStatus401 = unknown;
+
+export type UpdateConditionalBypassStatus403 = unknown;
+
+export type UpdateConditionalBypassStatus404 = unknown;
+
+export type UpdateConditionalBypassStatus410 = unknown;
+
+export const updateConditionalBypassRequestConditionGroupConditionsOpEnum = {
+	eq: "eq",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+} as const;
+
+export type UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey =
+	(typeof updateConditionalBypassRequestConditionGroupConditionsOpEnum)[keyof typeof updateConditionalBypassRequestConditionGroupConditionsOpEnum];
+
+export type UpdateConditionalBypassBody =
+	| {
+			domain: string;
+			conditionGroup: {
+				conditions: (
+					| {
+							type: "user_agent";
+							op: UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							/**
+							 * @maxLength 500
+							 * @type string
+							 */
+							value: string;
+							key?: "user-agent" | undefined;
+					  }
+					| {
+							type: "path";
+							op: UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							/**
+							 * @maxLength 500
+							 * @type string
+							 */
+							value: string;
+					  }
+					| {
+							type: "header";
+							op: UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							/**
+							 * @maxLength 128
+							 * @pattern ^[!#$%&'*+.^_`|~0-9A-Za-z-]+$
+							 * @type string
+							 */
+							key: string;
+							/**
+							 * @maxLength 500
+							 * @type string
+							 */
+							value: string;
+					  }
+					| {
+							type: "header";
+							op: "ex";
+							/**
+							 * @maxLength 128
+							 * @pattern ^[!#$%&'*+.^_`|~0-9A-Za-z-]+$
+							 * @type string
+							 */
+							key: string;
+					  }
+				)[];
+			}[];
+			/**
+			 * @maxLength 500
+			 * @type string | undefined
+			 */
+			note?: string | undefined;
+	  }
+	| undefined;
+
+export type UpdateConditionalBypassOptions = {
+	body: UpdateConditionalBypassBody;
+	path?: never | undefined;
+	query: UpdateConditionalBypassQuery;
+	headers?: never | undefined;
+};
+
+export type UpdateConditionalBypassResponses = {
+	"200": UpdateConditionalBypassStatus200;
+	"400": UpdateConditionalBypassStatus400;
+	"401": UpdateConditionalBypassStatus401;
+	"403": UpdateConditionalBypassStatus403;
+	"404": UpdateConditionalBypassStatus404;
+	"410": UpdateConditionalBypassStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateConditionalBypassResponse = UpdateConditionalBypassStatus200;
 
 export type DeleteConditionalBypassQuery = {
 	projectId: string;

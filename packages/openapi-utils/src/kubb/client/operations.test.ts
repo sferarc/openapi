@@ -11,9 +11,12 @@ export type FetcherConfig = { fetchImpl: (url: string, init: RequestInit) => Pro
 export type ErrorWrapper<T> = { status: number; payload: T };
 
 export default async function client({ url, method, queryParams, headers, body, fetchImpl }: any) {
-	const query = new URLSearchParams(
-		Object.entries(queryParams ?? {}).filter(([, value]) => value != null) as [string, string][],
-	).toString();
+	const search = new URLSearchParams();
+	for (const [key, value] of Object.entries(queryParams ?? {})) {
+		if (value == null) continue;
+		for (const item of Array.isArray(value) ? value : [value]) search.append(key, String(item));
+	}
+	const query = search.toString();
 	const response = await fetchImpl(\`https://api.test\${url}\${query ? \`?\${query}\` : ""}\`, { method, headers, body });
 	return response.json();
 }
@@ -25,7 +28,13 @@ let root: string;
 let source: string;
 let types: string;
 let operations: Record<
-	"getMember" | "getHealth" | "uploadScript" | "inviteMember" | "uploadLogo" | "createScimUser",
+	| "getMember"
+	| "getHealth"
+	| "listZones"
+	| "uploadScript"
+	| "inviteMember"
+	| "uploadLogo"
+	| "createScimUser",
 	Operation
 >;
 
@@ -54,6 +63,16 @@ describe("generated operations", () => {
 	it("reads non-identifier path parameters with bracket access", () => {
 		expect(source).toContain('pathParams["team-id"]');
 		expect(source).not.toContain("pathParams.team-id");
+	});
+
+	it("types parameters with the plugin-ts types, refs and unions included", () => {
+		expect(source).toContain("pathParams: GetMemberPath;");
+		expect(source).toContain("queryParams?: Partial<GetMemberQuery>;");
+		expect(source).toContain("headers?: Partial<GetMemberHeaders>;");
+		expect(source).not.toMatch(/: unknown\b/);
+
+		expect(types).toContain("cursor?: (Cursor | null) | undefined;");
+		expect(types).toContain("status?: (GetMemberStatusKey | number) | undefined;");
 	});
 
 	it("encodes path parameters, keeps a falsy value and forwards query and header params", async () => {
@@ -87,6 +106,23 @@ describe("generated operations", () => {
 		expect(types).toMatch(/export type DownloadExportStatus200 = Blob;/);
 		expect(types).toMatch(/export type DownloadExportStatus404 = string;/);
 		expect(types).toMatch(/export type CreateScimUserStatus201 = \{\s*id\?: string/);
+		// The fetchers return a multipart body from response.text(), whatever its schema says.
+		expect(types).toMatch(/export type GetSnippetContentStatus200 = string;/);
+	});
+
+	it("joins non-exploded array query params and repeats exploded ones", async () => {
+		const fetchImpl = fakeFetch();
+		await operations.listZones({
+			queryParams: { type: ["full", "partial"], "filter.ids": [1, 2], tag: ["a", "b"], name: "x" },
+			config: { fetchImpl },
+		});
+		expect(fetchImpl.mock.calls[0]![0]).toBe(
+			"https://api.test/zones?type=full%2Cpartial&filter.ids=1%7C2&tag=a&tag=b&name=x",
+		);
+		expect(source).not.toContain("queryParams.name.join");
+
+		await operations.listZones({ config: { fetchImpl } });
+		expect(fetchImpl.mock.calls[1]![0]).toBe("https://api.test/zones");
 	});
 
 	it("calls an operation without parameters", async () => {
@@ -171,6 +207,13 @@ describe("generated operations", () => {
 		expect(form).toBeInstanceOf(FormData);
 		expect(await (form.get("image") as Blob).text()).toBe("png");
 		expect(form.get("tag")).toBe("brand");
+	});
+
+	it("types a JSON response with an ndjson variant as the JSON body or an array of lines", () => {
+		expect(types).toMatch(/export type RunCommandStatus200XNdjson = \{[^}]*\}\[\];/);
+		expect(types).toContain(
+			"export type RunCommandStatus200 = RunCommandStatus200Json | RunCommandStatus200XNdjson;",
+		);
 	});
 
 	it("sends a JSON suffix body as JSON with its content type", async () => {

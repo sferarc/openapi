@@ -1,5 +1,48 @@
 # cloudflare-api-js
 
+## 2.3.0
+
+### Minor Changes
+
+- 2c6705d: [BREAKING] Changed 200 response types for SQL and Analytics Engine query operations to be a union of JSON and X-NDJSON (string array) response types.
+
+## 2.2.3
+
+### Patch Changes
+
+- 2c60bfb: Resolve a line-delimited JSON response (`application/x-ndjson`) to an array with one parsed value per line. Before this, the fetcher parsed the whole body as one JSON document, so `getCollectionExportEndpoint` rejected with a JSON syntax error as soon as the export had two lines.
+
+## 2.2.2
+
+### Patch Changes
+
+- 3b61252: Keep the `config` passed to `request()` and `client.api` operations, such as extra `headers`, instead of replacing it with the client's own.
+
+## 2.2.1
+
+### Patch Changes
+
+- 5104b70: Send an array query parameter that the spec marks `explode: false` as one comma-separated value (`?type=full,partial`) instead of repeating the key, so filters such as `type` on `zonesGet`, `ids` on `getZonesZoneIdentifierZarazConfigHistory` and `fields` on `d1GetDatabase` reach the API as documented. `id` on `GET /organizations` keeps repeated keys, as its description asks.
+
+## 2.2.0
+
+### Minor Changes
+
+- f619306: Added multiple new types and components for additional API data coverage and improved schema detail.
+- f619306: Added many new fields to various response types to provide richer and more detailed data across numerous API endpoints, especially in the Radar API responses.
+
+## 2.1.2
+
+### Patch Changes
+
+- c80b578: Send an object query parameter as one key per property (`start=2021-04-01&end=2021-04-30`), the spec's default form style, instead of `start_end_params=[object Object]`, so the date range on `passiveDnsByIpGetPassiveDnsByIp` reaches the API.
+
+## 2.1.1
+
+### Patch Changes
+
+- 3babd7e: Type an operation's path, query and header parameters with the generated `<Operation>Path`, `<Operation>Query` and `<Operation>Headers` types instead of an inline object. A parameter whose schema is a `$ref`, a `oneOf`/`anyOf` union or an object used to be typed `unknown`, which accepted any value: Cloudflare's `accountId` path parameter and `per_page` query parameter, LiteLLM's nullable filters such as `team_id` and `start_date`, Vercel's `domain`, v0's `metadata` filter on `chatsFind` and Zoom's `meetingId`. Query and header parameters stay optional.
+
 ## 2.1.0
 
 ### Minor Changes

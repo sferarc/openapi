@@ -34,11 +34,19 @@ type AccountRequestEndpointResult<T extends keyof typeof accountOperationsByPath
 	(typeof accountOperationsByPath)[T]
 >;
 
-type Operation = (params: Record<string, unknown>) => Promise<unknown>;
+type CallParams = Record<string, unknown> & { config?: Partial<FetcherConfig> };
+
+type Operation = (params: CallParams) => Promise<unknown>;
 
 function findOperation(operations: Record<string, unknown>, endpoint: string): Operation {
 	if (!Object.hasOwn(operations, endpoint)) throw new Error(`Unknown endpoint: ${endpoint}`);
 	return operations[endpoint] as Operation;
+}
+
+// The caller's per-call config, such as extra headers, layers over the client's own.
+function withConfig(params: unknown, clientConfig: FetcherConfig): CallParams {
+	const { config, ...rest } = (params ?? {}) as CallParams;
+	return { ...rest, config: { ...clientConfig, ...config } };
 }
 
 export class KeycloakAdminApi {
@@ -59,10 +67,9 @@ export class KeycloakAdminApi {
 		params: AdminRequestEndpointParams<Endpoint>,
 	) {
 		const operation = findOperation(adminOperationsByPath, endpoint);
-		const result = await operation({
-			...((params || {}) as Record<string, unknown>),
-			config: { baseUrl: this.#baseUrl, token: this.#token, fetchImpl: this.#fetch },
-		});
+		const result = await operation(
+			withConfig(params, { baseUrl: this.#baseUrl, token: this.#token, fetchImpl: this.#fetch }),
+		);
 		return result as AdminRequestEndpointResult<Endpoint>;
 	}
 }
@@ -87,14 +94,13 @@ export class KeycloakAccountApi {
 		params: AccountRequestEndpointParams<Endpoint>,
 	) {
 		const operation = findOperation(accountOperationsByPath, endpoint);
-		const result = await operation({
-			...((params || {}) as Record<string, unknown>),
-			config: {
+		const result = await operation(
+			withConfig(params, {
 				baseUrl: `${this.#baseUrl}/realms/${this.#realm}`,
 				token: this.#token,
 				fetchImpl: this.#fetch,
-			},
-		});
+			}),
+		);
 		return result as AccountRequestEndpointResult<Endpoint>;
 	}
 }

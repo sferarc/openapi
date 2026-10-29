@@ -1,5 +1,45 @@
 # vercel-api-js
 
+## 2.3.0
+
+### Minor Changes
+
+- d7ede78: Added the updateConditionalBypass operation and related types.
+
+## 2.2.0
+
+### Minor Changes
+
+- 2c60bfb: Resolve a line-delimited JSON response (`application/jsonl`, `application/x-ndjson`, `application/stream+json`) to an array with one parsed value per line. Before this, the fetcher parsed the whole body as one JSON document, so `listBillingCharges`, `listContractCommitments`, `getRuntimeLogs`, `getSessionCommandLogs`, `runSessionCommand` with `wait: true` and the streaming form of `getDeploymentEvents` rejected with a JSON syntax error as soon as the response had two lines.
+  
+  The first four only declare a line-delimited response, so their response types stay `unknown`. `runSessionCommand` and `getDeploymentEvents` also declare an `application/json` response, and their 200 types are now a union of that body and the array of lines: `RunSessionCommandStatus200` is `RunSessionCommandStatus200Json | RunSessionCommandStatus200XNdjson`, where the second is the array of status and log lines `wait: true` returns, and `GetDeploymentEventsStatus200` is `GetDeploymentEventsStatus200Json | GetDeploymentEventsStatus200StreamJson`. `RunSessionCommandStatus200` used to be the `{ command }` body alone, so code that reads `.command` from the result has to narrow it first, for example with `Array.isArray`.
+  
+  The client is regenerated for this, which also brings the 2.1.1 parameter types into the generated operations and adds the current spec's `team-data-cache-user-disabled-updated` user event type and the plan item quantity intent in the `buyCredits` response.
+
+## 2.1.4
+
+### Patch Changes
+
+- 3b61252: Keep the `config` passed to `request()` and `client.api` operations, such as extra `headers`, instead of replacing it with the client's own.
+
+## 2.1.3
+
+### Patch Changes
+
+- da5fd88: Added 503 (Service Unavailable) error response types for createConnector, replaceConnectorTriggerDestinations, and upsertConnectorProjectConnection operations.
+
+## 2.1.2
+
+### Patch Changes
+
+- 2aa0f3c: Updated types and operation signatures across many API endpoints to improve type safety and completeness of generated TypeScript client code.
+
+## 2.1.1
+
+### Patch Changes
+
+- 3babd7e: Type an operation's path, query and header parameters with the generated `<Operation>Path`, `<Operation>Query` and `<Operation>Headers` types instead of an inline object. A parameter whose schema is a `$ref`, a `oneOf`/`anyOf` union or an object used to be typed `unknown`, which accepted any value: Cloudflare's `accountId` path parameter and `per_page` query parameter, LiteLLM's nullable filters such as `team_id` and `start_date`, Vercel's `domain`, v0's `metadata` filter on `chatsFind` and Zoom's `meetingId`. Query and header parameters stay optional.
+
 ## 2.1.0
 
 ### Minor Changes

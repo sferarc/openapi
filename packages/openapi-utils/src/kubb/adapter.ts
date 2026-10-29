@@ -7,8 +7,6 @@ type Adapter = ReturnType<typeof adapterOas>;
 const JSON_MEDIA_TYPE = /[/+]json\b/i;
 // The schema types the adapter emits for a response without a usable body schema.
 const PLACEHOLDER_SCHEMA_TYPES = new Set(["any", "unknown", "void"]);
-// One JSON value per line: the schema describes a line, not the body the fetchers resolve.
-const LINE_DELIMITED_JSON = /ndjson|jsonl|json-seq|stream\+json/i;
 // The media types every client's fetcher resolves as a Blob (`isBinary` in `src/utils/fetcher.ts`).
 const BINARY_MEDIA_TYPES = new Set([
 	"application/gzip",
@@ -21,9 +19,24 @@ const BINARY_MEDIA_TYPES = new Set([
 	"application/zip",
 ]);
 
+// Media types the client fetchers split into one JSON value per line (`isLineDelimitedJson`).
+const LINE_DELIMITED_JSON_MEDIA_TYPES = new Set([
+	"application/jsonl",
+	"application/jsonlines",
+	"application/ndjson",
+	"application/stream+json",
+	"application/x-jsonlines",
+	"application/x-ndjson",
+]);
+
+const mediaType = (contentType: string) => contentType.split(";")[0]?.trim().toLowerCase() ?? "";
+
+const isLineDelimitedJson = (contentType: string) =>
+	LINE_DELIMITED_JSON_MEDIA_TYPES.has(mediaType(contentType));
+
 function isBinary(contentType: string): boolean {
-	const mediaType = contentType.split(";")[0]?.trim().toLowerCase() ?? "";
-	return BINARY_MEDIA_TYPES.has(mediaType) || /^(image|audio|video|font)\//.test(mediaType);
+	const type = mediaType(contentType);
+	return BINARY_MEDIA_TYPES.has(type) || /^(image|audio|video|font)\//.test(type);
 }
 
 function operationKey(node: ast.OperationNode): string | undefined {
@@ -56,39 +69,78 @@ export function responseContentFallback(
 ): Array<ast.ContentNode> | undefined {
 	const content = response?.content ?? [];
 	if (content.some((item) => item.contentType === "application/json")) return undefined;
+	// A line-delimited schema describes one line, and json-seq is not split by the fetchers at all.
 	const entry = preferredContent(
-		content.filter((item) => hasBodySchema(item) && !LINE_DELIMITED_JSON.test(item.contentType)),
+		content.filter(
+			(item) =>
+				hasBodySchema(item) &&
+				!isLineDelimitedJson(item.contentType) &&
+				mediaType(item.contentType) !== "application/json-seq",
+		),
 	);
 	if (!entry) return undefined;
-	if (!isBinary(entry.contentType)) return [entry];
+	// The server picks the media type for `*/*`, so the spec's schema is the best guess (Keycloak sends JSON).
+	if (JSON_MEDIA_TYPE.test(entry.contentType) || mediaType(entry.contentType) === "*/*")
+		return [entry];
 	// Specs often declare bytes as a plain `type: string`, but the fetchers resolve them as a Blob.
-	const schema = ast.factory.createSchema({ type: "blob", description: entry.schema?.description });
+	if (isBinary(entry.contentType)) {
+		const schema = ast.factory.createSchema({
+			type: "blob",
+			description: entry.schema?.description,
+		});
+		return [{ ...entry, schema }];
+	}
+	// Any other body comes back from `response.text()`, whatever the spec's schema says.
+	if (entry.schema?.type === "string") return [entry];
+	const schema = ast.factory.createSchema({
+		type: "string",
+		description: entry.schema?.description,
+	});
 	return [{ ...entry, schema }];
 }
 
-function withFallbackResponses(
-	node: ast.OperationNode,
-	everyMediaType: ast.OperationNode | undefined,
-): ast.OperationNode {
-	if (!ast.isHttpOperationNode(node) || !everyMediaType || !ast.isHttpOperationNode(everyMediaType))
-		return node;
-	let changed = false;
-	const responses = node.responses.map((response) => {
-		if (response.content?.some(hasBodySchema)) return response;
-		const content = responseContentFallback(
-			everyMediaType.responses.find((other) => other.statusCode === response.statusCode),
-		);
-		if (!content) return response;
-		changed = true;
-		return { ...response, content };
-	});
-	return changed ? { ...node, responses } : node;
+/**
+ * Adds the line-delimited JSON entries of `everyMediaType` to a response that already has a JSON
+ * body, each typed as an array of its line schema because that is what the fetcher resolves to, so
+ * plugin-ts emits the JSON body and the array of lines as one union.
+ */
+export function responseWithLineDelimitedJson(
+	response: ast.ResponseNode,
+	everyMediaType: ast.ResponseNode | undefined,
+): ast.ResponseNode {
+	const everyEntry = everyMediaType?.content ?? [];
+	// Without an application/json body the JSON parse leaves an `unknown` placeholder, which absorbs any union.
+	const hasJsonBody = everyEntry.some(
+		(entry) => entry.schema && mediaType(entry.contentType) === "application/json",
+	);
+	if (!response.content || !hasJsonBody) return response;
+	const lines = everyEntry.flatMap((entry) =>
+		entry.schema && isLineDelimitedJson(entry.contentType)
+			? [{ ...entry, schema: ast.factory.createSchema({ type: "array", items: [entry.schema] }) }]
+			: [],
+	);
+	if (!lines.length) return response;
+	return { ...response, content: [...response.content, ...lines] };
+}
+
+function withFallbackResponse(
+	response: ast.ResponseNode,
+	everyMediaType: ast.ResponseNode | undefined,
+): ast.ResponseNode {
+	const content = response.content?.some(hasBodySchema)
+		? undefined
+		: responseContentFallback(everyMediaType);
+	return responseWithLineDelimitedJson(
+		content ? { ...response, content } : response,
+		everyMediaType,
+	);
 }
 
 /**
  * Parses with `contentType` so JSON operations keep a single JSON body, then backfills what the
  * adapter drops otherwise: the request body of operations that only accept another media type,
- * `application/scim+json` included, and the type of responses that are not `application/json`.
+ * `application/scim+json` included, the type of responses that are not `application/json`, and the
+ * line-delimited variants of a JSON response.
  */
 export function adapterOasWithRawBodies(options: AdapterOasOptions): Adapter {
 	const primary = adapterOas(options);
@@ -110,12 +162,17 @@ export function adapterOasWithRawBodies(options: AdapterOasOptions): Adapter {
 			fallbackOperations.delete(undefined);
 			return {
 				...input,
-				operations: input.operations.map((primaryNode) => {
-					const fallbackNode = fallbackOperations.get(operationKey(primaryNode));
-					const node = withFallbackResponses(primaryNode, fallbackNode);
-					if (node.requestBody?.content?.length) return node;
-					const requestBody = requestBodyFallback(fallbackNode?.requestBody);
-					return requestBody ? { ...node, requestBody } : node;
+				operations: input.operations.map((node) => {
+					const fallback = fallbackOperations.get(operationKey(node));
+					const responses = node.responses.map((response) =>
+						withFallbackResponse(
+							response,
+							fallback?.responses.find((other) => other.statusCode === response.statusCode),
+						),
+					);
+					if (node.requestBody?.content?.length) return { ...node, responses };
+					const requestBody = requestBodyFallback(fallback?.requestBody);
+					return requestBody ? { ...node, responses, requestBody } : { ...node, responses };
 				}),
 			};
 		},

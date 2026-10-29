@@ -7,32 +7,45 @@ import type { ErrorWrapper, FetcherConfig } from "../utils/fetcher";
 import defaultClient from "../utils/fetcher";
 import type {
 	AddMemberToAccountBody,
+	AddMemberToAccountPath,
 	AddMemberToAccountResponse,
+	AgentRunnerCommitToBranchPath,
+	AgentRunnerCommitToBranchQuery,
 	AgentRunnerCommitToBranchResponse,
 	AgentRunnerCommitToBranchStatus400,
 	AgentRunnerCommitToBranchStatus409,
 	AgentRunnerCommitToBranchStatus422,
+	AgentRunnerPullRequestPath,
 	AgentRunnerPullRequestResponse,
 	AgentRunnerPullRequestStatus400,
 	AgentRunnerPullRequestStatus409,
 	AgentRunnerPullRequestStatus422,
 	AnswerAgentRunnerSessionBody,
+	AnswerAgentRunnerSessionPath,
 	AnswerAgentRunnerSessionResponse,
 	AnswerAgentRunnerSessionStatus400,
 	AnswerAgentRunnerSessionStatus422,
 	AnswerAgentRunnerSessionStatus429,
+	ArchiveAgentRunnerPath,
 	ArchiveAgentRunnerResponse,
 	ArchiveAgentRunnerStatus404,
 	ArchiveAgentRunnerStatus422,
+	CancelAccountPath,
 	CancelAccountResponse,
+	CancelSiteDeployPath,
 	CancelSiteDeployResponse,
+	ClearSiteDatabaseComputeSettingsPath,
 	ClearSiteDatabaseComputeSettingsResponse,
 	ClearSiteDatabaseComputeSettingsStatus403,
+	ConfigureDNSForSitePath,
 	ConfigureDNSForSiteResponse,
 	CreateAccountBody,
 	CreateAccountResponse,
+	CreateAgentRunnerQuery,
 	CreateAgentRunnerResponse,
 	CreateAgentRunnerSessionBody,
+	CreateAgentRunnerSessionPath,
+	CreateAgentRunnerSessionQuery,
 	CreateAgentRunnerSessionResponse,
 	CreateAgentRunnerSessionStatus400,
 	CreateAgentRunnerSessionStatus403,
@@ -42,258 +55,475 @@ import type {
 	CreateAgentRunnerSessionStatus429,
 	CreateAgentRunnerStatus404,
 	CreateAgentRunnerStatus422,
+	CreateAgentRunnerUploadUrlQuery,
 	CreateAgentRunnerUploadUrlResponse,
 	CreateAgentRunnerUploadUrlStatus400,
 	CreateAgentRunnerUploadUrlStatus422,
 	CreateDeployKeyResponse,
 	CreateDnsRecordBody,
+	CreateDnsRecordPath,
 	CreateDnsRecordResponse,
 	CreateDnsZoneBody,
 	CreateDnsZoneResponse,
 	CreateEnvVarsBody,
+	CreateEnvVarsPath,
+	CreateEnvVarsQuery,
 	CreateEnvVarsResponse,
 	CreateHookBySiteIdBody,
+	CreateHookBySiteIdQuery,
 	CreateHookBySiteIdResponse,
 	CreatePluginRunBody,
+	CreatePluginRunPath,
 	CreatePluginRunResponse,
 	CreateServiceInstanceBody,
+	CreateServiceInstancePath,
 	CreateServiceInstanceResponse,
 	CreateSiteAgentRunnerBody,
 	CreateSiteAgentRunnerHookBody,
+	CreateSiteAgentRunnerHookPath,
 	CreateSiteAgentRunnerHookResponse,
+	CreateSiteAgentRunnerPath,
 	CreateSiteAgentRunnerResponse,
 	CreateSiteAgentRunnerStatus400,
 	CreateSiteAgentRunnerStatus403,
 	CreateSiteAgentRunnerStatus404,
 	CreateSiteAgentRunnerStatus422,
 	CreateSiteAgentRunnerStatus429,
+	CreateSiteAssetPath,
+	CreateSiteAssetQuery,
 	CreateSiteAssetResponse,
 	CreateSiteBody,
 	CreateSiteBuildBody,
 	CreateSiteBuildHookBody,
+	CreateSiteBuildHookPath,
 	CreateSiteBuildHookResponse,
+	CreateSiteBuildPath,
+	CreateSiteBuildQuery,
 	CreateSiteBuildResponse,
 	CreateSiteBuildStatus400,
 	CreateSiteBuildStatus404,
 	CreateSiteBuildStatus422,
 	CreateSiteDatabaseBody,
 	CreateSiteDatabaseBranchBody,
+	CreateSiteDatabaseBranchPath,
 	CreateSiteDatabaseBranchResponse,
+	CreateSiteDatabasePath,
 	CreateSiteDatabaseResponse,
 	CreateSiteDatabaseSnapshotBody,
+	CreateSiteDatabaseSnapshotPath,
 	CreateSiteDatabaseSnapshotResponse,
 	CreateSiteDeployBody,
+	CreateSiteDeployPath,
+	CreateSiteDeployQuery,
 	CreateSiteDeployResponse,
 	CreateSiteDevServerHookBody,
+	CreateSiteDevServerHookPath,
 	CreateSiteDevServerHookResponse,
+	CreateSiteDevServerPath,
+	CreateSiteDevServerQuery,
 	CreateSiteDevServerResponse,
 	CreateSiteInTeamBody,
+	CreateSiteInTeamPath,
+	CreateSiteInTeamQuery,
 	CreateSiteInTeamResponse,
+	CreateSiteQuery,
 	CreateSiteResponse,
 	CreateSiteSnippetBody,
+	CreateSiteSnippetPath,
 	CreateSiteSnippetResponse,
 	CreateSplitTestBody,
+	CreateSplitTestPath,
 	CreateSplitTestResponse,
 	CreateTicketBody,
+	CreateTicketQuery,
 	CreateTicketResponse,
 	CreateTicketStatus401,
 	CreateTicketStatus422,
+	DeleteAgentRunnerPath,
 	DeleteAgentRunnerResponse,
+	DeleteAgentRunnerSessionPath,
 	DeleteAgentRunnerSessionResponse,
+	DeleteDeployKeyPath,
 	DeleteDeployKeyResponse,
+	DeleteDeployPath,
 	DeleteDeployResponse,
+	DeleteDnsRecordPath,
 	DeleteDnsRecordResponse,
+	DeleteDnsZonePath,
 	DeleteDnsZoneResponse,
+	DeleteEnvVarPath,
+	DeleteEnvVarQuery,
 	DeleteEnvVarResponse,
+	DeleteEnvVarValuePath,
+	DeleteEnvVarValueQuery,
 	DeleteEnvVarValueResponse,
+	DeleteHookPath,
 	DeleteHookResponse,
+	DeleteServiceInstancePath,
 	DeleteServiceInstanceResponse,
+	DeleteSiteAgentRunnerHookPath,
 	DeleteSiteAgentRunnerHookResponse,
+	DeleteSiteAssetPath,
 	DeleteSiteAssetResponse,
+	DeleteSiteBuildHookPath,
 	DeleteSiteBuildHookResponse,
+	DeleteSiteDatabaseBranchPath,
 	DeleteSiteDatabaseBranchResponse,
+	DeleteSiteDatabasePath,
 	DeleteSiteDatabaseResponse,
+	DeleteSiteDatabaseSnapshotPath,
 	DeleteSiteDatabaseSnapshotResponse,
+	DeleteSiteDeployPath,
 	DeleteSiteDeployResponse,
+	DeleteSiteDevServerHookPath,
 	DeleteSiteDevServerHookResponse,
+	DeleteSiteDevServersPath,
+	DeleteSiteDevServersQuery,
 	DeleteSiteDevServersResponse,
+	DeleteSiteFormPath,
 	DeleteSiteFormResponse,
+	DeleteSitePath,
 	DeleteSiteResponse,
+	DeleteSiteSnippetPath,
 	DeleteSiteSnippetResponse,
+	DeleteSubmissionPath,
 	DeleteSubmissionResponse,
+	DisableSitePath,
+	DisableSiteQuery,
 	DisableSiteResponse,
+	DisableSplitTestPath,
 	DisableSplitTestResponse,
+	EnableHookPath,
 	EnableHookResponse,
+	EnableSitePath,
 	EnableSiteResponse,
 	EnableSiteStatus422,
+	EnableSplitTestPath,
 	EnableSplitTestResponse,
+	ExchangeTicketPath,
 	ExchangeTicketResponse,
+	GetAccountAIGatewayTokenPath,
 	GetAccountAIGatewayTokenResponse,
 	GetAccountAIGatewayTokenStatus404,
+	GetAccountBuildStatusPath,
 	GetAccountBuildStatusResponse,
+	GetAccountMemberPath,
 	GetAccountMemberResponse,
+	GetAccountPath,
 	GetAccountResponse,
+	GetAgentRunnerDiffPath,
+	GetAgentRunnerDiffQuery,
 	GetAgentRunnerDiffResponse,
 	GetAgentRunnerDiffStatus404,
+	GetAgentRunnerPath,
 	GetAgentRunnerResponse,
+	GetAgentRunnerSessionPath,
 	GetAgentRunnerSessionResponse,
 	GetAIGatewayProvidersResponse,
+	GetAIGatewayTokenPath,
 	GetAIGatewayTokenResponse,
 	GetAIGatewayTokenStatus404,
+	GetAllCertificatesPath,
+	GetAllCertificatesQuery,
 	GetAllCertificatesResponse,
 	GetAllCertificatesStatus404,
 	GetAllCertificatesStatus422,
 	GetCurrentUserResponse,
+	GetDeployKeyPath,
 	GetDeployKeyResponse,
+	GetDeployPath,
 	GetDeployResponse,
+	GetDNSForSitePath,
 	GetDNSForSiteResponse,
+	GetDnsRecordsPath,
 	GetDnsRecordsResponse,
+	GetDnsZonePath,
 	GetDnsZoneResponse,
+	GetDnsZonesQuery,
 	GetDnsZonesResponse,
+	GetEnvVarPath,
+	GetEnvVarQuery,
 	GetEnvVarResponse,
+	GetEnvVarsPath,
+	GetEnvVarsQuery,
 	GetEnvVarsResponse,
+	GetHookPath,
 	GetHookResponse,
+	GetIdentityUserPath,
+	GetIdentityUserResponse,
+	GetIndividualDnsRecordPath,
 	GetIndividualDnsRecordResponse,
+	GetLatestPluginRunsPath,
+	GetLatestPluginRunsQuery,
 	GetLatestPluginRunsResponse,
+	GetServicesQuery,
 	GetServicesResponse,
+	GetSiteAgentRunnerHookPath,
 	GetSiteAgentRunnerHookResponse,
+	GetSiteAssetInfoPath,
 	GetSiteAssetInfoResponse,
+	GetSiteAssetPublicSignaturePath,
 	GetSiteAssetPublicSignatureResponse,
+	GetSiteBuildHookPath,
 	GetSiteBuildHookResponse,
+	GetSiteBuildPath,
 	GetSiteBuildResponse,
+	GetSiteDatabaseBranchPath,
+	GetSiteDatabaseBranchQuery,
 	GetSiteDatabaseBranchResponse,
 	GetSiteDatabaseBranchStatus404,
+	GetSiteDatabaseComputeSettingsPath,
 	GetSiteDatabaseComputeSettingsResponse,
 	GetSiteDatabaseComputeSettingsStatus403,
+	GetSiteDatabaseMigrationPath,
+	GetSiteDatabaseMigrationQuery,
 	GetSiteDatabaseMigrationResponse,
 	GetSiteDatabaseMigrationStatus404,
 	GetSiteDatabaseMigrationStatus423,
+	GetSiteDatabasePath,
+	GetSiteDatabaseQuery,
 	GetSiteDatabaseResponse,
+	GetSiteDeployPath,
 	GetSiteDeployResponse,
+	GetSiteDevServerHookPath,
 	GetSiteDevServerHookResponse,
+	GetSiteDevServerPath,
 	GetSiteDevServerResponse,
+	GetSiteEnvVarsPath,
+	GetSiteEnvVarsQuery,
 	GetSiteEnvVarsResponse,
+	GetSiteFileByPathNamePath,
 	GetSiteFileByPathNameResponse,
+	GetSiteMetadataPath,
 	GetSiteMetadataResponse,
+	GetSitePath,
+	GetSiteQuery,
 	GetSiteResponse,
+	GetSiteSnippetPath,
 	GetSiteSnippetResponse,
+	GetSplitTestPath,
 	GetSplitTestResponse,
+	GetSplitTestsPath,
 	GetSplitTestsResponse,
+	ListAccountAuditEventsPath,
+	ListAccountAuditEventsQuery,
 	ListAccountAuditEventsResponse,
+	ListAccountsForUserQuery,
 	ListAccountsForUserResponse,
 	ListAccountTypesForUserResponse,
+	ListAgentRunnerSessionsPath,
+	ListAgentRunnerSessionsQuery,
 	ListAgentRunnerSessionsResponse,
+	ListAgentRunnersQuery,
 	ListAgentRunnersResponse,
 	ListDeployKeysResponse,
+	ListFormSubmissionPath,
+	ListFormSubmissionQuery,
 	ListFormSubmissionResponse,
+	ListFormSubmissionsPath,
+	ListFormSubmissionsQuery,
 	ListFormSubmissionsResponse,
+	ListHooksBySiteIdQuery,
 	ListHooksBySiteIdResponse,
+	ListHookTypesQuery,
 	ListHookTypesResponse,
+	ListMembersForAccountPath,
 	ListMembersForAccountResponse,
 	ListPaymentMethodsForUserResponse,
+	ListServiceInstancesForSitePath,
 	ListServiceInstancesForSiteResponse,
+	ListSiteAgentRunnerHooksPath,
 	ListSiteAgentRunnerHooksResponse,
+	ListSiteAssetsPath,
 	ListSiteAssetsResponse,
+	ListSiteBuildHooksPath,
 	ListSiteBuildHooksResponse,
+	ListSiteBuildsPath,
+	ListSiteBuildsQuery,
 	ListSiteBuildsResponse,
+	ListSiteDatabaseBranchesPath,
 	ListSiteDatabaseBranchesResponse,
+	ListSiteDatabaseMigrationsPath,
+	ListSiteDatabaseMigrationsQuery,
 	ListSiteDatabaseMigrationsResponse,
 	ListSiteDatabaseMigrationsStatus404,
 	ListSiteDatabaseMigrationsStatus423,
+	ListSiteDatabaseSnapshotsPath,
 	ListSiteDatabaseSnapshotsResponse,
+	ListSiteDeployedBranchesPath,
 	ListSiteDeployedBranchesResponse,
+	ListSiteDeploysPath,
+	ListSiteDeploysQuery,
 	ListSiteDeploysResponse,
+	ListSiteDevServerHooksPath,
 	ListSiteDevServerHooksResponse,
+	ListSiteDevServersPath,
+	ListSiteDevServersQuery,
 	ListSiteDevServersResponse,
+	ListSiteFilesPath,
 	ListSiteFilesResponse,
+	ListSiteFormsPath,
 	ListSiteFormsResponse,
+	ListSiteSnippetsPath,
 	ListSiteSnippetsResponse,
+	ListSiteSubmissionsPath,
+	ListSiteSubmissionsQuery,
 	ListSiteSubmissionsResponse,
+	ListSitesForAccountPath,
+	ListSitesForAccountQuery,
 	ListSitesForAccountResponse,
+	ListSitesQuery,
 	ListSitesResponse,
+	LockDeployPath,
 	LockDeployResponse,
+	LookupIdentityUserBody,
+	LookupIdentityUserPath,
+	LookupIdentityUserResponse,
+	MarkDevServerActivityPath,
 	MarkDevServerActivityResponse,
+	NotifyBuildStartPath,
+	NotifyBuildStartQuery,
 	NotifyBuildStartResponse,
+	ProvisionSiteTLSCertificatePath,
+	ProvisionSiteTLSCertificateQuery,
 	ProvisionSiteTLSCertificateResponse,
 	ProvisionSiteTLSCertificateStatus422,
 	PurgeCacheBody,
 	PurgeCacheResponse,
 	PurgeCacheStatus400,
 	PurgeCacheStatus404,
+	RemoveAccountMemberPath,
 	RemoveAccountMemberResponse,
 	ResetSiteDatabaseBranchBody,
+	ResetSiteDatabaseBranchPath,
+	ResetSiteDatabaseBranchQuery,
 	ResetSiteDatabaseBranchResponse,
 	ResetSiteDatabaseBranchStatus400,
 	ResetSiteDatabaseBranchStatus404,
 	RestoreSiteDatabaseSnapshotBody,
+	RestoreSiteDatabaseSnapshotPath,
 	RestoreSiteDatabaseSnapshotResponse,
+	RestoreSiteDeployPath,
 	RestoreSiteDeployResponse,
+	RollbackSiteDeployPath,
 	RollbackSiteDeployResponse,
 	RunSiteDatabaseMigrationsBody,
+	RunSiteDatabaseMigrationsPath,
 	RunSiteDatabaseMigrationsResponse,
 	RunSiteDatabaseMigrationsStatus409,
 	RunSiteDatabaseMigrationsStatus422,
+	SearchSiteFunctionsPath,
+	SearchSiteFunctionsQuery,
 	SearchSiteFunctionsResponse,
 	SetEnvVarValueBody,
+	SetEnvVarValuePath,
+	SetEnvVarValueQuery,
 	SetEnvVarValueResponse,
 	SetSiteDatabaseBranchComputeSettingsBody,
+	SetSiteDatabaseBranchComputeSettingsPath,
 	SetSiteDatabaseBranchComputeSettingsResponse,
 	SetSiteDatabaseBranchComputeSettingsStatus403,
 	SetSiteDatabaseComputeSettingsBody,
+	SetSiteDatabaseComputeSettingsPath,
 	SetSiteDatabaseComputeSettingsResponse,
 	SetSiteDatabaseComputeSettingsStatus403,
+	ShowServiceInstancePath,
 	ShowServiceInstanceResponse,
+	ShowServiceManifestPath,
 	ShowServiceManifestResponse,
+	ShowServicePath,
 	ShowServiceResponse,
+	ShowSiteTLSCertificatePath,
 	ShowSiteTLSCertificateResponse,
+	ShowTicketPath,
 	ShowTicketResponse,
+	StopAgentRunnerPath,
 	StopAgentRunnerResponse,
+	StopAgentRunnerSessionPath,
 	StopAgentRunnerSessionResponse,
+	TransferDnsZonePath,
+	TransferDnsZoneQuery,
 	TransferDnsZoneResponse,
+	UnlinkSiteRepoPath,
 	UnlinkSiteRepoResponse,
 	UnlinkSiteRepoStatus404,
+	UnlockDeployPath,
 	UnlockDeployResponse,
 	UpdateAccountBody,
 	UpdateAccountMemberBody,
+	UpdateAccountMemberPath,
 	UpdateAccountMemberResponse,
+	UpdateAccountPath,
 	UpdateAccountResponse,
+	UpdateAgentRunnerPath,
 	UpdateAgentRunnerResponse,
+	UpdateAgentRunnerSessionPath,
+	UpdateAgentRunnerSessionQuery,
 	UpdateAgentRunnerSessionResponse,
 	UpdateDeployValidationsBody,
+	UpdateDeployValidationsPath,
 	UpdateDeployValidationsResponse,
 	UpdateDevServerStateBody,
+	UpdateDevServerStatePath,
 	UpdateDevServerStateResponse,
 	UpdateDevServerStateStatus409,
 	UpdateEnvVarBody,
+	UpdateEnvVarPath,
+	UpdateEnvVarQuery,
 	UpdateEnvVarResponse,
 	UpdateHookBody,
+	UpdateHookPath,
 	UpdateHookResponse,
 	UpdatePluginBody,
+	UpdatePluginPath,
 	UpdatePluginResponse,
 	UpdateServiceInstanceBody,
+	UpdateServiceInstancePath,
 	UpdateServiceInstanceResponse,
 	UpdateSiteAgentRunnerHookBody,
+	UpdateSiteAgentRunnerHookPath,
 	UpdateSiteAgentRunnerHookResponse,
+	UpdateSiteAssetPath,
+	UpdateSiteAssetQuery,
 	UpdateSiteAssetResponse,
 	UpdateSiteBody,
 	UpdateSiteBuildHookBody,
+	UpdateSiteBuildHookPath,
 	UpdateSiteBuildHookResponse,
 	UpdateSiteBuildLogBody,
+	UpdateSiteBuildLogPath,
 	UpdateSiteBuildLogResponse,
 	UpdateSiteDeployBody,
+	UpdateSiteDeployPath,
+	UpdateSiteDeployQuery,
 	UpdateSiteDeployResponse,
 	UpdateSiteDevServerHookBody,
+	UpdateSiteDevServerHookPath,
 	UpdateSiteDevServerHookResponse,
 	UpdateSiteMetadataBody,
+	UpdateSiteMetadataPath,
 	UpdateSiteMetadataResponse,
+	UpdateSitePath,
 	UpdateSiteResponse,
 	UpdateSiteSnippetBody,
+	UpdateSiteSnippetPath,
 	UpdateSiteSnippetResponse,
 	UpdateSplitTestBody,
+	UpdateSplitTestPath,
 	UpdateSplitTestResponse,
+	UploadDeployEdgeFunctionHeaders,
+	UploadDeployEdgeFunctionPath,
 	UploadDeployEdgeFunctionResponse,
+	UploadDeployFilePath,
+	UploadDeployFileQuery,
 	UploadDeployFileResponse,
+	UploadDeployFunctionHeaders,
+	UploadDeployFunctionPath,
+	UploadDeployFunctionQuery,
 	UploadDeployFunctionResponse,
+	UploadDeployServerHeaders,
+	UploadDeployServerPath,
+	UploadDeployServerQuery,
 	UploadDeployServerResponse,
 } from "./types";
 
@@ -307,12 +537,7 @@ export async function listSites(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			name?: string;
-			filter?: "all" | "owner" | "guest";
-			page?: number;
-			per_page?: number;
-		};
+		queryParams?: Partial<ListSitesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -323,7 +548,7 @@ export async function listSites(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ name?: string; filter?: "all" | "owner" | "guest"; page?: number; per_page?: number },
+		Partial<ListSitesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -348,7 +573,7 @@ export async function createSite(
 		config,
 	}: {
 		body: CreateSiteBody;
-		queryParams?: { configure_dns?: boolean };
+		queryParams?: Partial<CreateSiteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -359,7 +584,7 @@ export async function createSite(
 		ErrorWrapper<Error>,
 		CreateSiteBody,
 		Record<string, string>,
-		{ configure_dns?: boolean },
+		Partial<CreateSiteQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -384,8 +609,8 @@ export async function getSite(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { feature_flags?: string };
+		pathParams: GetSitePath;
+		queryParams?: Partial<GetSiteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -399,8 +624,8 @@ export async function getSite(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ feature_flags?: string },
-		{ site_id: string }
+		Partial<GetSiteQuery>,
+		GetSitePath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}`,
@@ -423,7 +648,7 @@ export async function updateSite(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: UpdateSitePath;
 		body: UpdateSiteBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -439,7 +664,7 @@ export async function updateSite(
 		UpdateSiteBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		UpdateSitePath
 	>({
 		method: "PATCH",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}`,
@@ -460,7 +685,7 @@ export async function deleteSite(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: DeleteSitePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -475,7 +700,7 @@ export async function deleteSite(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		DeleteSitePath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}`,
@@ -503,8 +728,8 @@ export async function provisionSiteTLSCertificate(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { certificate?: string; key?: string; ca_certificates?: string };
+		pathParams: ProvisionSiteTLSCertificatePath;
+		queryParams?: Partial<ProvisionSiteTLSCertificateQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -518,8 +743,8 @@ export async function provisionSiteTLSCertificate(
 		ErrorWrapper<ProvisionSiteTLSCertificateStatus422>,
 		null,
 		Record<string, string>,
-		{ certificate?: string; key?: string; ca_certificates?: string },
-		{ site_id: string }
+		Partial<ProvisionSiteTLSCertificateQuery>,
+		ProvisionSiteTLSCertificatePath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/ssl`,
@@ -540,7 +765,7 @@ export async function showSiteTLSCertificate(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ShowSiteTLSCertificatePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -555,7 +780,7 @@ export async function showSiteTLSCertificate(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ShowSiteTLSCertificatePath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/ssl`,
@@ -577,8 +802,8 @@ export async function getAllCertificates(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { domain?: string };
+		pathParams: GetAllCertificatesPath;
+		queryParams?: Partial<GetAllCertificatesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -592,8 +817,8 @@ export async function getAllCertificates(
 		ErrorWrapper<GetAllCertificatesStatus404 | GetAllCertificatesStatus422>,
 		null,
 		Record<string, string>,
-		{ domain?: string },
-		{ site_id: string }
+		Partial<GetAllCertificatesQuery>,
+		GetAllCertificatesPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/ssl/certificates`,
@@ -616,18 +841,8 @@ export async function getEnvVars(
 		queryParams,
 		config,
 	}: {
-		pathParams: { account_id: string };
-		queryParams?: {
-			context_name?:
-				| "all"
-				| "dev"
-				| "dev-server"
-				| "branch-deploy"
-				| "deploy-preview"
-				| "production";
-			scope?: "builds" | "functions" | "runtime" | "post-processing";
-			site_id?: string;
-		};
+		pathParams: GetEnvVarsPath;
+		queryParams?: Partial<GetEnvVarsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -641,18 +856,8 @@ export async function getEnvVars(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{
-			context_name?:
-				| "all"
-				| "dev"
-				| "dev-server"
-				| "branch-deploy"
-				| "deploy-preview"
-				| "production";
-			scope?: "builds" | "functions" | "runtime" | "post-processing";
-			site_id?: string;
-		},
-		{ account_id: string }
+		Partial<GetEnvVarsQuery>,
+		GetEnvVarsPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env`,
@@ -676,9 +881,9 @@ export async function createEnvVars(
 		queryParams,
 		config,
 	}: {
-		pathParams: { account_id: string };
+		pathParams: CreateEnvVarsPath;
 		body?: CreateEnvVarsBody;
-		queryParams?: { site_id?: string };
+		queryParams?: Partial<CreateEnvVarsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -692,8 +897,8 @@ export async function createEnvVars(
 		ErrorWrapper<Error>,
 		CreateEnvVarsBody,
 		Record<string, string>,
-		{ site_id?: string },
-		{ account_id: string }
+		Partial<CreateEnvVarsQuery>,
+		CreateEnvVarsPath
 	>({
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env`,
@@ -717,17 +922,8 @@ export async function getSiteEnvVars(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: {
-			context_name?:
-				| "all"
-				| "dev"
-				| "dev-server"
-				| "branch-deploy"
-				| "deploy-preview"
-				| "production";
-			scope?: "builds" | "functions" | "runtime" | "post_processing";
-		};
+		pathParams: GetSiteEnvVarsPath;
+		queryParams?: Partial<GetSiteEnvVarsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -741,17 +937,8 @@ export async function getSiteEnvVars(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{
-			context_name?:
-				| "all"
-				| "dev"
-				| "dev-server"
-				| "branch-deploy"
-				| "deploy-preview"
-				| "production";
-			scope?: "builds" | "functions" | "runtime" | "post_processing";
-		},
-		{ site_id: string }
+		Partial<GetSiteEnvVarsQuery>,
+		GetSiteEnvVarsPath
 	>({
 		method: "GET",
 		url: `/api/v1/sites/${encodeURIComponent(String(pathParams.site_id))}/env`,
@@ -774,8 +961,8 @@ export async function getEnvVar(
 		queryParams,
 		config,
 	}: {
-		pathParams: { account_id: string; key: string };
-		queryParams?: { site_id?: string };
+		pathParams: GetEnvVarPath;
+		queryParams?: Partial<GetEnvVarQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -793,8 +980,8 @@ export async function getEnvVar(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ site_id?: string },
-		{ account_id: string; key: string }
+		Partial<GetEnvVarQuery>,
+		GetEnvVarPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env/${encodeURIComponent(String(pathParams.key))}`,
@@ -818,9 +1005,9 @@ export async function updateEnvVar(
 		queryParams,
 		config,
 	}: {
-		pathParams: { account_id: string; key: string };
+		pathParams: UpdateEnvVarPath;
 		body?: UpdateEnvVarBody;
-		queryParams?: { site_id?: string };
+		queryParams?: Partial<UpdateEnvVarQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -838,8 +1025,8 @@ export async function updateEnvVar(
 		ErrorWrapper<Error>,
 		UpdateEnvVarBody,
 		Record<string, string>,
-		{ site_id?: string },
-		{ account_id: string; key: string }
+		Partial<UpdateEnvVarQuery>,
+		UpdateEnvVarPath
 	>({
 		method: "PUT",
 		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env/${encodeURIComponent(String(pathParams.key))}`,
@@ -864,9 +1051,9 @@ export async function setEnvVarValue(
 		queryParams,
 		config,
 	}: {
-		pathParams: { account_id: string; key: string };
+		pathParams: SetEnvVarValuePath;
 		body?: SetEnvVarValueBody;
-		queryParams?: { site_id?: string };
+		queryParams?: Partial<SetEnvVarValueQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -884,8 +1071,8 @@ export async function setEnvVarValue(
 		ErrorWrapper<Error>,
 		SetEnvVarValueBody,
 		Record<string, string>,
-		{ site_id?: string },
-		{ account_id: string; key: string }
+		Partial<SetEnvVarValueQuery>,
+		SetEnvVarValuePath
 	>({
 		method: "PATCH",
 		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env/${encodeURIComponent(String(pathParams.key))}`,
@@ -909,8 +1096,8 @@ export async function deleteEnvVar(
 		queryParams,
 		config,
 	}: {
-		pathParams: { account_id: string; key: string };
-		queryParams?: { site_id?: string };
+		pathParams: DeleteEnvVarPath;
+		queryParams?: Partial<DeleteEnvVarQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -928,8 +1115,8 @@ export async function deleteEnvVar(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ site_id?: string },
-		{ account_id: string; key: string }
+		Partial<DeleteEnvVarQuery>,
+		DeleteEnvVarPath
 	>({
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env/${encodeURIComponent(String(pathParams.key))}`,
@@ -952,8 +1139,8 @@ export async function deleteEnvVarValue(
 		queryParams,
 		config,
 	}: {
-		pathParams: { account_id: string; id: string; key: string };
-		queryParams?: { site_id?: string };
+		pathParams: DeleteEnvVarValuePath;
+		queryParams?: Partial<DeleteEnvVarValueQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -975,8 +1162,8 @@ export async function deleteEnvVarValue(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ site_id?: string },
-		{ account_id: string; id: string; key: string }
+		Partial<DeleteEnvVarValueQuery>,
+		DeleteEnvVarValuePath
 	>({
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/env/${encodeURIComponent(String(pathParams.key))}/value/${encodeURIComponent(String(pathParams.id))}`,
@@ -998,8 +1185,8 @@ export async function searchSiteFunctions(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { filter?: string };
+		pathParams: SearchSiteFunctionsPath;
+		queryParams?: Partial<SearchSiteFunctionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1013,8 +1200,8 @@ export async function searchSiteFunctions(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ filter?: string },
-		{ site_id: string }
+		Partial<SearchSiteFunctionsQuery>,
+		SearchSiteFunctionsPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/functions`,
@@ -1035,7 +1222,7 @@ export async function listSiteForms(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ListSiteFormsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1050,7 +1237,7 @@ export async function listSiteForms(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ListSiteFormsPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/forms`,
@@ -1071,7 +1258,7 @@ export async function deleteSiteForm(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; form_id: string };
+		pathParams: DeleteSiteFormPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1090,7 +1277,7 @@ export async function deleteSiteForm(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; form_id: string }
+		DeleteSiteFormPath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/forms/${encodeURIComponent(String(pathParams.form_id))}`,
@@ -1111,8 +1298,8 @@ export async function listSiteSubmissions(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { page?: number; per_page?: number };
+		pathParams: ListSiteSubmissionsPath;
+		queryParams?: Partial<ListSiteSubmissionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1126,8 +1313,8 @@ export async function listSiteSubmissions(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ page?: number; per_page?: number },
-		{ site_id: string }
+		Partial<ListSiteSubmissionsQuery>,
+		ListSiteSubmissionsPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/submissions`,
@@ -1148,7 +1335,7 @@ export async function listSiteFiles(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ListSiteFilesPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1163,7 +1350,7 @@ export async function listSiteFiles(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ListSiteFilesPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/files`,
@@ -1184,7 +1371,7 @@ export async function listSiteAssets(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ListSiteAssetsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1199,7 +1386,7 @@ export async function listSiteAssets(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ListSiteAssetsPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/assets`,
@@ -1221,8 +1408,8 @@ export async function createSiteAsset(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { name?: string; size?: bigint; content_type?: string; visibility?: string };
+		pathParams: CreateSiteAssetPath;
+		queryParams?: Partial<CreateSiteAssetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1236,8 +1423,8 @@ export async function createSiteAsset(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ name?: string; size?: bigint; content_type?: string; visibility?: string },
-		{ site_id: string }
+		Partial<CreateSiteAssetQuery>,
+		CreateSiteAssetPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/assets`,
@@ -1259,7 +1446,7 @@ export async function getSiteAssetInfo(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; asset_id: string };
+		pathParams: GetSiteAssetInfoPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1278,7 +1465,7 @@ export async function getSiteAssetInfo(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; asset_id: string }
+		GetSiteAssetInfoPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/assets/${encodeURIComponent(String(pathParams.asset_id))}`,
@@ -1300,8 +1487,8 @@ export async function updateSiteAsset(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string; asset_id: string };
-		queryParams?: { state?: string };
+		pathParams: UpdateSiteAssetPath;
+		queryParams?: Partial<UpdateSiteAssetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1319,8 +1506,8 @@ export async function updateSiteAsset(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ state?: string },
-		{ site_id: string; asset_id: string }
+		Partial<UpdateSiteAssetQuery>,
+		UpdateSiteAssetPath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/assets/${encodeURIComponent(String(pathParams.asset_id))}`,
@@ -1342,7 +1529,7 @@ export async function deleteSiteAsset(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; asset_id: string };
+		pathParams: DeleteSiteAssetPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1361,7 +1548,7 @@ export async function deleteSiteAsset(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; asset_id: string }
+		DeleteSiteAssetPath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/assets/${encodeURIComponent(String(pathParams.asset_id))}`,
@@ -1382,7 +1569,7 @@ export async function getSiteAssetPublicSignature(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; asset_id: string };
+		pathParams: GetSiteAssetPublicSignaturePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1401,7 +1588,7 @@ export async function getSiteAssetPublicSignature(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; asset_id: string }
+		GetSiteAssetPublicSignaturePath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/assets/${encodeURIComponent(String(pathParams.asset_id))}/public_signature`,
@@ -1421,7 +1608,7 @@ export async function getSiteFileByPathName(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; file_path: string };
+		pathParams: GetSiteFileByPathNamePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1440,7 +1627,7 @@ export async function getSiteFileByPathName(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; file_path: string }
+		GetSiteFileByPathNamePath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/files/${String(pathParams.file_path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
@@ -1494,7 +1681,7 @@ export async function listSiteSnippets(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ListSiteSnippetsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1509,7 +1696,7 @@ export async function listSiteSnippets(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ListSiteSnippetsPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/snippets`,
@@ -1530,7 +1717,7 @@ export async function createSiteSnippet(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: CreateSiteSnippetPath;
 		body: CreateSiteSnippetBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1546,7 +1733,7 @@ export async function createSiteSnippet(
 		CreateSiteSnippetBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		CreateSiteSnippetPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/snippets`,
@@ -1567,7 +1754,7 @@ export async function getSiteSnippet(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; snippet_id: string };
+		pathParams: GetSiteSnippetPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1586,7 +1773,7 @@ export async function getSiteSnippet(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; snippet_id: string }
+		GetSiteSnippetPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/snippets/${encodeURIComponent(String(pathParams.snippet_id))}`,
@@ -1607,7 +1794,7 @@ export async function updateSiteSnippet(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string; snippet_id: string };
+		pathParams: UpdateSiteSnippetPath;
 		body: UpdateSiteSnippetBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1627,7 +1814,7 @@ export async function updateSiteSnippet(
 		UpdateSiteSnippetBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; snippet_id: string }
+		UpdateSiteSnippetPath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/snippets/${encodeURIComponent(String(pathParams.snippet_id))}`,
@@ -1648,7 +1835,7 @@ export async function deleteSiteSnippet(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; snippet_id: string };
+		pathParams: DeleteSiteSnippetPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1667,7 +1854,7 @@ export async function deleteSiteSnippet(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; snippet_id: string }
+		DeleteSiteSnippetPath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/snippets/${encodeURIComponent(String(pathParams.snippet_id))}`,
@@ -1687,7 +1874,7 @@ export async function getSiteMetadata(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: GetSiteMetadataPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1702,7 +1889,7 @@ export async function getSiteMetadata(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		GetSiteMetadataPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/metadata`,
@@ -1723,7 +1910,7 @@ export async function updateSiteMetadata(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: UpdateSiteMetadataPath;
 		body: UpdateSiteMetadataBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1739,7 +1926,7 @@ export async function updateSiteMetadata(
 		UpdateSiteMetadataBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		UpdateSiteMetadataPath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/metadata`,
@@ -1760,7 +1947,7 @@ export async function listSiteBuildHooks(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ListSiteBuildHooksPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1775,7 +1962,7 @@ export async function listSiteBuildHooks(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ListSiteBuildHooksPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/build_hooks`,
@@ -1796,7 +1983,7 @@ export async function createSiteBuildHook(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: CreateSiteBuildHookPath;
 		body: CreateSiteBuildHookBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1812,7 +1999,7 @@ export async function createSiteBuildHook(
 		CreateSiteBuildHookBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		CreateSiteBuildHookPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/build_hooks`,
@@ -1833,7 +2020,7 @@ export async function getSiteBuildHook(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; id: string };
+		pathParams: GetSiteBuildHookPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1852,7 +2039,7 @@ export async function getSiteBuildHook(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; id: string }
+		GetSiteBuildHookPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/build_hooks/${encodeURIComponent(String(pathParams.id))}`,
@@ -1873,7 +2060,7 @@ export async function updateSiteBuildHook(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string; id: string };
+		pathParams: UpdateSiteBuildHookPath;
 		body: UpdateSiteBuildHookBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -1893,7 +2080,7 @@ export async function updateSiteBuildHook(
 		UpdateSiteBuildHookBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; id: string }
+		UpdateSiteBuildHookPath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/build_hooks/${encodeURIComponent(String(pathParams.id))}`,
@@ -1914,7 +2101,7 @@ export async function deleteSiteBuildHook(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; id: string };
+		pathParams: DeleteSiteBuildHookPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1933,7 +2120,7 @@ export async function deleteSiteBuildHook(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; id: string }
+		DeleteSiteBuildHookPath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/build_hooks/${encodeURIComponent(String(pathParams.id))}`,
@@ -1954,31 +2141,8 @@ export async function listSiteDeploys(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: {
-			"deploy-previews"?: boolean;
-			production?: boolean;
-			state?:
-				| "new"
-				| "pending_review"
-				| "accepted"
-				| "rejected"
-				| "enqueued"
-				| "building"
-				| "uploading"
-				| "uploaded"
-				| "preparing"
-				| "prepared"
-				| "processing"
-				| "processed"
-				| "ready"
-				| "error"
-				| "retrying";
-			branch?: string;
-			"latest-published"?: boolean;
-			page?: number;
-			per_page?: number;
-		};
+		pathParams: ListSiteDeploysPath;
+		queryParams?: Partial<ListSiteDeploysQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1992,31 +2156,8 @@ export async function listSiteDeploys(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{
-			"deploy-previews"?: boolean;
-			production?: boolean;
-			state?:
-				| "new"
-				| "pending_review"
-				| "accepted"
-				| "rejected"
-				| "enqueued"
-				| "building"
-				| "uploading"
-				| "uploaded"
-				| "preparing"
-				| "prepared"
-				| "processing"
-				| "processed"
-				| "ready"
-				| "error"
-				| "retrying";
-			branch?: string;
-			"latest-published"?: boolean;
-			page?: number;
-			per_page?: number;
-		},
-		{ site_id: string }
+		Partial<ListSiteDeploysQuery>,
+		ListSiteDeploysPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deploys`,
@@ -2039,31 +2180,9 @@ export async function createSiteDeploy(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: CreateSiteDeployPath;
 		body: CreateSiteDeployBody;
-		queryParams?: {
-			"deploy-previews"?: boolean;
-			production?: boolean;
-			state?:
-				| "new"
-				| "pending_review"
-				| "accepted"
-				| "rejected"
-				| "enqueued"
-				| "building"
-				| "uploading"
-				| "uploaded"
-				| "preparing"
-				| "prepared"
-				| "processing"
-				| "processed"
-				| "ready"
-				| "error"
-				| "retrying";
-			branch?: string;
-			"latest-published"?: boolean;
-			title?: string;
-		};
+		queryParams?: Partial<CreateSiteDeployQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2077,30 +2196,8 @@ export async function createSiteDeploy(
 		ErrorWrapper<Error>,
 		CreateSiteDeployBody,
 		Record<string, string>,
-		{
-			"deploy-previews"?: boolean;
-			production?: boolean;
-			state?:
-				| "new"
-				| "pending_review"
-				| "accepted"
-				| "rejected"
-				| "enqueued"
-				| "building"
-				| "uploading"
-				| "uploaded"
-				| "preparing"
-				| "prepared"
-				| "processing"
-				| "processed"
-				| "ready"
-				| "error"
-				| "retrying";
-			branch?: string;
-			"latest-published"?: boolean;
-			title?: string;
-		},
-		{ site_id: string }
+		Partial<CreateSiteDeployQuery>,
+		CreateSiteDeployPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deploys`,
@@ -2122,7 +2219,7 @@ export async function getSiteDeploy(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; deploy_id: string };
+		pathParams: GetSiteDeployPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2141,7 +2238,7 @@ export async function getSiteDeploy(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; deploy_id: string }
+		GetSiteDeployPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deploys/${encodeURIComponent(String(pathParams.deploy_id))}`,
@@ -2163,9 +2260,9 @@ export async function updateSiteDeploy(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string; deploy_id: string };
+		pathParams: UpdateSiteDeployPath;
 		body: UpdateSiteDeployBody;
-		queryParams?: { commit_ref?: string };
+		queryParams?: Partial<UpdateSiteDeployQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2183,8 +2280,8 @@ export async function updateSiteDeploy(
 		ErrorWrapper<Error>,
 		UpdateSiteDeployBody,
 		Record<string, string>,
-		{ commit_ref?: string },
-		{ site_id: string; deploy_id: string }
+		Partial<UpdateSiteDeployQuery>,
+		UpdateSiteDeployPath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deploys/${encodeURIComponent(String(pathParams.deploy_id))}`,
@@ -2207,7 +2304,7 @@ export async function deleteSiteDeploy(
 		pathParams,
 		config,
 	}: {
-		pathParams: { deploy_id: string; site_id: string };
+		pathParams: DeleteSiteDeployPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2226,7 +2323,7 @@ export async function deleteSiteDeploy(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ deploy_id: string; site_id: string }
+		DeleteSiteDeployPath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deploys/${encodeURIComponent(String(pathParams.deploy_id))}`,
@@ -2246,7 +2343,7 @@ export async function cancelSiteDeploy(
 		pathParams,
 		config,
 	}: {
-		pathParams: { deploy_id: string };
+		pathParams: CancelSiteDeployPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2261,7 +2358,7 @@ export async function cancelSiteDeploy(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ deploy_id: string }
+		CancelSiteDeployPath
 	>({
 		method: "POST",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/cancel`,
@@ -2282,7 +2379,7 @@ export async function restoreSiteDeploy(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; deploy_id: string };
+		pathParams: RestoreSiteDeployPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2301,7 +2398,7 @@ export async function restoreSiteDeploy(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; deploy_id: string }
+		RestoreSiteDeployPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/restore`,
@@ -2322,8 +2419,8 @@ export async function listSiteBuilds(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { page?: number; per_page?: number };
+		pathParams: ListSiteBuildsPath;
+		queryParams?: Partial<ListSiteBuildsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2337,8 +2434,8 @@ export async function listSiteBuilds(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ page?: number; per_page?: number },
-		{ site_id: string }
+		Partial<ListSiteBuildsQuery>,
+		ListSiteBuildsPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/builds`,
@@ -2365,18 +2462,9 @@ export async function createSiteBuild(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: CreateSiteBuildPath;
 		body?: CreateSiteBuildBody;
-		queryParams?: {
-			branch?: string;
-			clear_cache?: boolean;
-			commit_sha?: string;
-			draft?: boolean;
-			image?: string;
-			review_id?: number;
-			template_id?: string;
-			title?: string;
-		};
+		queryParams?: Partial<CreateSiteBuildQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2408,17 +2496,8 @@ export async function createSiteBuild(
 		ErrorWrapper<CreateSiteBuildStatus400 | CreateSiteBuildStatus404 | CreateSiteBuildStatus422>,
 		FormData,
 		Record<string, string>,
-		{
-			branch?: string;
-			clear_cache?: boolean;
-			commit_sha?: string;
-			draft?: boolean;
-			image?: string;
-			review_id?: number;
-			template_id?: string;
-			title?: string;
-		},
-		{ site_id: string }
+		Partial<CreateSiteBuildQuery>,
+		CreateSiteBuildPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/builds`,
@@ -2440,7 +2519,7 @@ export async function listSiteDeployedBranches(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ListSiteDeployedBranchesPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2455,7 +2534,7 @@ export async function listSiteDeployedBranches(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ListSiteDeployedBranchesPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/deployed-branches`,
@@ -2480,7 +2559,7 @@ export async function unlinkSiteRepo(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: UnlinkSiteRepoPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2495,7 +2574,7 @@ export async function unlinkSiteRepo(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		UnlinkSiteRepoPath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/unlink_repo`,
@@ -2516,7 +2595,7 @@ export async function enableSite(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: EnableSitePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2531,7 +2610,7 @@ export async function enableSite(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		EnableSitePath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/enable`,
@@ -2553,8 +2632,8 @@ export async function disableSite(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { reason?: string };
+		pathParams: DisableSitePath;
+		queryParams?: Partial<DisableSiteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2568,8 +2647,8 @@ export async function disableSite(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ reason?: string },
-		{ site_id: string }
+		Partial<DisableSiteQuery>,
+		DisableSitePath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/disable`,
@@ -2590,7 +2669,7 @@ export async function getSiteBuild(
 		pathParams,
 		config,
 	}: {
-		pathParams: { build_id: string };
+		pathParams: GetSiteBuildPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2605,7 +2684,7 @@ export async function getSiteBuild(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ build_id: string }
+		GetSiteBuildPath
 	>({
 		method: "GET",
 		url: `/builds/${encodeURIComponent(String(pathParams.build_id))}`,
@@ -2626,7 +2705,7 @@ export async function updateSiteBuildLog(
 		body,
 		config,
 	}: {
-		pathParams: { build_id: string };
+		pathParams: UpdateSiteBuildLogPath;
 		body: UpdateSiteBuildLogBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2642,7 +2721,7 @@ export async function updateSiteBuildLog(
 		UpdateSiteBuildLogBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ build_id: string }
+		UpdateSiteBuildLogPath
 	>({
 		method: "POST",
 		url: `/builds/${encodeURIComponent(String(pathParams.build_id))}/log`,
@@ -2664,8 +2743,8 @@ export async function notifyBuildStart(
 		queryParams,
 		config,
 	}: {
-		pathParams: { build_id: string };
-		queryParams?: { buildbot_version?: string; build_version?: string; task_id?: string };
+		pathParams: NotifyBuildStartPath;
+		queryParams?: Partial<NotifyBuildStartQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2679,8 +2758,8 @@ export async function notifyBuildStart(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ buildbot_version?: string; build_version?: string; task_id?: string },
-		{ build_id: string }
+		Partial<NotifyBuildStartQuery>,
+		NotifyBuildStartPath
 	>({
 		method: "POST",
 		url: `/builds/${encodeURIComponent(String(pathParams.build_id))}/start`,
@@ -2702,7 +2781,7 @@ export async function getAccountBuildStatus(
 		pathParams,
 		config,
 	}: {
-		pathParams: { account_id: string };
+		pathParams: GetAccountBuildStatusPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2717,7 +2796,7 @@ export async function getAccountBuildStatus(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ account_id: string }
+		GetAccountBuildStatusPath
 	>({
 		method: "GET",
 		url: `/${encodeURIComponent(String(pathParams.account_id))}/builds/status`,
@@ -2737,7 +2816,7 @@ export async function getDNSForSite(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: GetDNSForSitePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2752,7 +2831,7 @@ export async function getDNSForSite(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		GetDNSForSitePath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dns`,
@@ -2773,7 +2852,7 @@ export async function configureDNSForSite(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ConfigureDNSForSitePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2788,7 +2867,7 @@ export async function configureDNSForSite(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ConfigureDNSForSitePath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dns`,
@@ -2809,7 +2888,7 @@ export async function rollbackSiteDeploy(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: RollbackSiteDeployPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2824,7 +2903,7 @@ export async function rollbackSiteDeploy(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		RollbackSiteDeployPath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/rollback`,
@@ -2844,7 +2923,7 @@ export async function getDeploy(
 		pathParams,
 		config,
 	}: {
-		pathParams: { deploy_id: string };
+		pathParams: GetDeployPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2859,7 +2938,7 @@ export async function getDeploy(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ deploy_id: string }
+		GetDeployPath
 	>({
 		method: "GET",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}`,
@@ -2880,7 +2959,7 @@ export async function deleteDeploy(
 		pathParams,
 		config,
 	}: {
-		pathParams: { deploy_id: string };
+		pathParams: DeleteDeployPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2895,7 +2974,7 @@ export async function deleteDeploy(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ deploy_id: string }
+		DeleteDeployPath
 	>({
 		method: "DELETE",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}`,
@@ -2917,7 +2996,7 @@ export async function updateDeployValidations(
 		body,
 		config,
 	}: {
-		pathParams: { deploy_id: string };
+		pathParams: UpdateDeployValidationsPath;
 		body: UpdateDeployValidationsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -2933,7 +3012,7 @@ export async function updateDeployValidations(
 		UpdateDeployValidationsBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ deploy_id: string }
+		UpdateDeployValidationsPath
 	>({
 		method: "PATCH",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/validations_report`,
@@ -2955,7 +3034,7 @@ export async function lockDeploy(
 		pathParams,
 		config,
 	}: {
-		pathParams: { deploy_id: string };
+		pathParams: LockDeployPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2970,7 +3049,7 @@ export async function lockDeploy(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ deploy_id: string }
+		LockDeployPath
 	>({
 		method: "POST",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/lock`,
@@ -2990,7 +3069,7 @@ export async function unlockDeploy(
 		pathParams,
 		config,
 	}: {
-		pathParams: { deploy_id: string };
+		pathParams: UnlockDeployPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3005,7 +3084,7 @@ export async function unlockDeploy(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ deploy_id: string }
+		UnlockDeployPath
 	>({
 		method: "POST",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/unlock`,
@@ -3027,9 +3106,9 @@ export async function uploadDeployFile(
 		queryParams,
 		config,
 	}: {
-		pathParams: { deploy_id: string; path: string };
+		pathParams: UploadDeployFilePath;
 		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
-		queryParams?: { size?: number };
+		queryParams?: Partial<UploadDeployFileQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3047,8 +3126,8 @@ export async function uploadDeployFile(
 		ErrorWrapper<Error>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
-		{ size?: number },
-		{ deploy_id: string; path: string }
+		Partial<UploadDeployFileQuery>,
+		UploadDeployFilePath
 	>({
 		method: "PUT",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/files/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
@@ -3073,10 +3152,10 @@ export async function uploadDeployFunction(
 		headers,
 		config,
 	}: {
-		pathParams: { deploy_id: string; name: string };
+		pathParams: UploadDeployFunctionPath;
 		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
-		queryParams?: { runtime?: string; invocation_mode?: string; timeout?: number; size?: number };
-		headers?: { "X-Nf-Retry-Count"?: number };
+		queryParams?: Partial<UploadDeployFunctionQuery>;
+		headers?: Partial<UploadDeployFunctionHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3093,9 +3172,9 @@ export async function uploadDeployFunction(
 		UploadDeployFunctionResponse,
 		ErrorWrapper<Error>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
-		{ "X-Nf-Retry-Count"?: number },
-		{ runtime?: string; invocation_mode?: string; timeout?: number; size?: number },
-		{ deploy_id: string; name: string }
+		Partial<UploadDeployFunctionHeaders>,
+		Partial<UploadDeployFunctionQuery>,
+		UploadDeployFunctionPath
 	>({
 		method: "PUT",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/functions/${encodeURIComponent(String(pathParams.name))}`,
@@ -3122,10 +3201,10 @@ export async function uploadDeployServer(
 		headers,
 		config,
 	}: {
-		pathParams: { deploy_id: string; code_sha: string };
+		pathParams: UploadDeployServerPath;
 		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
-		queryParams?: { size?: number };
-		headers?: { "X-Nf-Retry-Count"?: number };
+		queryParams?: Partial<UploadDeployServerQuery>;
+		headers?: Partial<UploadDeployServerHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3142,9 +3221,9 @@ export async function uploadDeployServer(
 		UploadDeployServerResponse,
 		ErrorWrapper<Error>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
-		{ "X-Nf-Retry-Count"?: number },
-		{ size?: number },
-		{ deploy_id: string; code_sha: string }
+		Partial<UploadDeployServerHeaders>,
+		Partial<UploadDeployServerQuery>,
+		UploadDeployServerPath
 	>({
 		method: "PUT",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/server/${encodeURIComponent(String(pathParams.code_sha))}`,
@@ -3168,9 +3247,9 @@ export async function uploadDeployEdgeFunction(
 		headers,
 		config,
 	}: {
-		pathParams: { deploy_id: string; code_sha: string };
+		pathParams: UploadDeployEdgeFunctionPath;
 		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
-		headers?: { "X-Nf-Retry-Count"?: number };
+		headers?: Partial<UploadDeployEdgeFunctionHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3187,9 +3266,9 @@ export async function uploadDeployEdgeFunction(
 		UploadDeployEdgeFunctionResponse,
 		ErrorWrapper<Error>,
 		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
-		{ "X-Nf-Retry-Count"?: number },
+		Partial<UploadDeployEdgeFunctionHeaders>,
 		Record<string, string>,
-		{ deploy_id: string; code_sha: string }
+		UploadDeployEdgeFunctionPath
 	>({
 		method: "PUT",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/edge_functions/${encodeURIComponent(String(pathParams.code_sha))}`,
@@ -3212,8 +3291,8 @@ export async function getLatestPluginRuns(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { packages?: Array<string>; state?: string };
+		pathParams: GetLatestPluginRunsPath;
+		queryParams?: Partial<GetLatestPluginRunsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3222,17 +3301,23 @@ export async function getLatestPluginRuns(
 	if (pathParams?.site_id == null || String(pathParams.site_id) === "") {
 		throw new Error(`Missing required path parameter: site_id`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		packages: Array.isArray(queryParams.packages)
+			? queryParams.packages.join(",")
+			: queryParams.packages,
+	};
 	const data = await request<
 		GetLatestPluginRunsResponse,
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ packages?: Array<string>; state?: string },
-		{ site_id: string }
+		Record<string, unknown>,
+		GetLatestPluginRunsPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/plugin_runs/latest`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3251,7 +3336,7 @@ export async function createPluginRun(
 		body,
 		config,
 	}: {
-		pathParams: { deploy_id: string };
+		pathParams: CreatePluginRunPath;
 		body?: CreatePluginRunBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3267,7 +3352,7 @@ export async function createPluginRun(
 		CreatePluginRunBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ deploy_id: string }
+		CreatePluginRunPath
 	>({
 		method: "POST",
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/plugin_runs`,
@@ -3289,8 +3374,8 @@ export async function listFormSubmissions(
 		queryParams,
 		config,
 	}: {
-		pathParams: { form_id: string };
-		queryParams?: { page?: number; per_page?: number };
+		pathParams: ListFormSubmissionsPath;
+		queryParams?: Partial<ListFormSubmissionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3304,8 +3389,8 @@ export async function listFormSubmissions(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ page?: number; per_page?: number },
-		{ form_id: string }
+		Partial<ListFormSubmissionsQuery>,
+		ListFormSubmissionsPath
 	>({
 		method: "GET",
 		url: `/forms/${encodeURIComponent(String(pathParams.form_id))}/submissions`,
@@ -3327,7 +3412,7 @@ export async function listHooksBySiteId(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { site_id?: string; form_id?: string; event?: string };
+		queryParams?: Partial<ListHooksBySiteIdQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3338,7 +3423,7 @@ export async function listHooksBySiteId(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ site_id?: string; form_id?: string; event?: string },
+		Partial<ListHooksBySiteIdQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -3362,7 +3447,7 @@ export async function createHookBySiteId(
 		config,
 	}: {
 		body: CreateHookBySiteIdBody;
-		queryParams?: { site_id?: string };
+		queryParams?: Partial<CreateHookBySiteIdQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3373,7 +3458,7 @@ export async function createHookBySiteId(
 		ErrorWrapper<Error>,
 		CreateHookBySiteIdBody,
 		Record<string, string>,
-		{ site_id?: string },
+		Partial<CreateHookBySiteIdQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -3396,7 +3481,7 @@ export async function getHook(
 		pathParams,
 		config,
 	}: {
-		pathParams: { hook_id: string };
+		pathParams: GetHookPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3411,7 +3496,7 @@ export async function getHook(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ hook_id: string }
+		GetHookPath
 	>({
 		method: "GET",
 		url: `/hooks/${encodeURIComponent(String(pathParams.hook_id))}`,
@@ -3432,7 +3517,7 @@ export async function updateHook(
 		body,
 		config,
 	}: {
-		pathParams: { hook_id: string };
+		pathParams: UpdateHookPath;
 		body: UpdateHookBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3448,7 +3533,7 @@ export async function updateHook(
 		UpdateHookBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ hook_id: string }
+		UpdateHookPath
 	>({
 		method: "PUT",
 		url: `/hooks/${encodeURIComponent(String(pathParams.hook_id))}`,
@@ -3469,7 +3554,7 @@ export async function deleteHook(
 		pathParams,
 		config,
 	}: {
-		pathParams: { hook_id: string };
+		pathParams: DeleteHookPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3484,7 +3569,7 @@ export async function deleteHook(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ hook_id: string }
+		DeleteHookPath
 	>({
 		method: "DELETE",
 		url: `/hooks/${encodeURIComponent(String(pathParams.hook_id))}`,
@@ -3505,7 +3590,7 @@ export async function enableHook(
 		pathParams,
 		config,
 	}: {
-		pathParams: { hook_id: string };
+		pathParams: EnableHookPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3520,7 +3605,7 @@ export async function enableHook(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ hook_id: string }
+		EnableHookPath
 	>({
 		method: "POST",
 		url: `/hooks/${encodeURIComponent(String(pathParams.hook_id))}/enable`,
@@ -3541,7 +3626,7 @@ export async function listHookTypes(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { site_id?: string };
+		queryParams?: Partial<ListHookTypesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3552,7 +3637,7 @@ export async function listHookTypes(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ site_id?: string },
+		Partial<ListHookTypesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -3576,7 +3661,7 @@ export async function createTicket(
 		config,
 	}: {
 		body?: CreateTicketBody;
-		queryParams?: { client_id?: string };
+		queryParams?: Partial<CreateTicketQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3587,7 +3672,7 @@ export async function createTicket(
 		ErrorWrapper<CreateTicketStatus401 | CreateTicketStatus422>,
 		CreateTicketBody,
 		Record<string, string>,
-		{ client_id?: string },
+		Partial<CreateTicketQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -3610,7 +3695,7 @@ export async function showTicket(
 		pathParams,
 		config,
 	}: {
-		pathParams: { ticket_id: string };
+		pathParams: ShowTicketPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3625,7 +3710,7 @@ export async function showTicket(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ ticket_id: string }
+		ShowTicketPath
 	>({
 		method: "GET",
 		url: `/oauth/tickets/${encodeURIComponent(String(pathParams.ticket_id))}`,
@@ -3645,7 +3730,7 @@ export async function exchangeTicket(
 		pathParams,
 		config,
 	}: {
-		pathParams: { ticket_id: string };
+		pathParams: ExchangeTicketPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3660,7 +3745,7 @@ export async function exchangeTicket(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ ticket_id: string }
+		ExchangeTicketPath
 	>({
 		method: "POST",
 		url: `/oauth/tickets/${encodeURIComponent(String(pathParams.ticket_id))}/exchange`,
@@ -3732,7 +3817,7 @@ export async function getDeployKey(
 		pathParams,
 		config,
 	}: {
-		pathParams: { key_id: string };
+		pathParams: GetDeployKeyPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3747,7 +3832,7 @@ export async function getDeployKey(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ key_id: string }
+		GetDeployKeyPath
 	>({
 		method: "GET",
 		url: `/deploy_keys/${encodeURIComponent(String(pathParams.key_id))}`,
@@ -3767,7 +3852,7 @@ export async function deleteDeployKey(
 		pathParams,
 		config,
 	}: {
-		pathParams: { key_id: string };
+		pathParams: DeleteDeployKeyPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3782,7 +3867,7 @@ export async function deleteDeployKey(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ key_id: string }
+		DeleteDeployKeyPath
 	>({
 		method: "DELETE",
 		url: `/deploy_keys/${encodeURIComponent(String(pathParams.key_id))}`,
@@ -3805,9 +3890,9 @@ export async function createSiteInTeam(
 		queryParams,
 		config,
 	}: {
-		pathParams: { account_slug: string };
+		pathParams: CreateSiteInTeamPath;
 		body?: CreateSiteInTeamBody;
-		queryParams?: { configure_dns?: boolean };
+		queryParams?: Partial<CreateSiteInTeamQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3821,8 +3906,8 @@ export async function createSiteInTeam(
 		ErrorWrapper<Error>,
 		CreateSiteInTeamBody,
 		Record<string, string>,
-		{ configure_dns?: boolean },
-		{ account_slug: string }
+		Partial<CreateSiteInTeamQuery>,
+		CreateSiteInTeamPath
 	>({
 		method: "POST",
 		url: `/${encodeURIComponent(String(pathParams.account_slug))}/sites`,
@@ -3846,8 +3931,8 @@ export async function listSitesForAccount(
 		queryParams,
 		config,
 	}: {
-		pathParams: { account_slug: string };
-		queryParams?: { name?: string; page?: number; per_page?: number };
+		pathParams: ListSitesForAccountPath;
+		queryParams?: Partial<ListSitesForAccountQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3861,8 +3946,8 @@ export async function listSitesForAccount(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ name?: string; page?: number; per_page?: number },
-		{ account_slug: string }
+		Partial<ListSitesForAccountQuery>,
+		ListSitesForAccountPath
 	>({
 		method: "GET",
 		url: `/${encodeURIComponent(String(pathParams.account_slug))}/sites`,
@@ -3883,7 +3968,7 @@ export async function listMembersForAccount(
 		pathParams,
 		config,
 	}: {
-		pathParams: { account_slug: string };
+		pathParams: ListMembersForAccountPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3898,7 +3983,7 @@ export async function listMembersForAccount(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ account_slug: string }
+		ListMembersForAccountPath
 	>({
 		method: "GET",
 		url: `/${encodeURIComponent(String(pathParams.account_slug))}/members`,
@@ -3919,7 +4004,7 @@ export async function addMemberToAccount(
 		body,
 		config,
 	}: {
-		pathParams: { account_slug: string };
+		pathParams: AddMemberToAccountPath;
 		body: AddMemberToAccountBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -3935,7 +4020,7 @@ export async function addMemberToAccount(
 		AddMemberToAccountBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ account_slug: string }
+		AddMemberToAccountPath
 	>({
 		method: "POST",
 		url: `/${encodeURIComponent(String(pathParams.account_slug))}/members`,
@@ -3956,7 +4041,7 @@ export async function getAccountMember(
 		pathParams,
 		config,
 	}: {
-		pathParams: { account_slug: string; member_id: string };
+		pathParams: GetAccountMemberPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3975,7 +4060,7 @@ export async function getAccountMember(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ account_slug: string; member_id: string }
+		GetAccountMemberPath
 	>({
 		method: "GET",
 		url: `/${encodeURIComponent(String(pathParams.account_slug))}/members/${encodeURIComponent(String(pathParams.member_id))}`,
@@ -3996,7 +4081,7 @@ export async function updateAccountMember(
 		body,
 		config,
 	}: {
-		pathParams: { account_slug: string; member_id: string };
+		pathParams: UpdateAccountMemberPath;
 		body: UpdateAccountMemberBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4016,7 +4101,7 @@ export async function updateAccountMember(
 		UpdateAccountMemberBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ account_slug: string; member_id: string }
+		UpdateAccountMemberPath
 	>({
 		method: "PUT",
 		url: `/${encodeURIComponent(String(pathParams.account_slug))}/members/${encodeURIComponent(String(pathParams.member_id))}`,
@@ -4037,7 +4122,7 @@ export async function removeAccountMember(
 		pathParams,
 		config,
 	}: {
-		pathParams: { account_slug: string; member_id: string };
+		pathParams: RemoveAccountMemberPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4056,7 +4141,7 @@ export async function removeAccountMember(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ account_slug: string; member_id: string }
+		RemoveAccountMemberPath
 	>({
 		method: "DELETE",
 		url: `/${encodeURIComponent(String(pathParams.account_slug))}/members/${encodeURIComponent(String(pathParams.member_id))}`,
@@ -4128,7 +4213,7 @@ export async function listAccountsForUser(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { minimal?: boolean };
+		queryParams?: Partial<ListAccountsForUserQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4139,7 +4224,7 @@ export async function listAccountsForUser(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ minimal?: boolean },
+		Partial<ListAccountsForUserQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4194,7 +4279,7 @@ export async function getAccount(
 		pathParams,
 		config,
 	}: {
-		pathParams: { account_id: string };
+		pathParams: GetAccountPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4209,7 +4294,7 @@ export async function getAccount(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ account_id: string }
+		GetAccountPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}`,
@@ -4230,7 +4315,7 @@ export async function updateAccount(
 		body,
 		config,
 	}: {
-		pathParams: { account_id: string };
+		pathParams: UpdateAccountPath;
 		body?: UpdateAccountBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4246,7 +4331,7 @@ export async function updateAccount(
 		UpdateAccountBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ account_id: string }
+		UpdateAccountPath
 	>({
 		method: "PUT",
 		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}`,
@@ -4267,7 +4352,7 @@ export async function cancelAccount(
 		pathParams,
 		config,
 	}: {
-		pathParams: { account_id: string };
+		pathParams: CancelAccountPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4282,7 +4367,7 @@ export async function cancelAccount(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ account_id: string }
+		CancelAccountPath
 	>({
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}`,
@@ -4303,8 +4388,8 @@ export async function listAccountAuditEvents(
 		queryParams,
 		config,
 	}: {
-		pathParams: { account_id: string };
-		queryParams?: { query?: string; log_type?: string; page?: number; per_page?: number };
+		pathParams: ListAccountAuditEventsPath;
+		queryParams?: Partial<ListAccountAuditEventsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4318,8 +4403,8 @@ export async function listAccountAuditEvents(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ query?: string; log_type?: string; page?: number; per_page?: number },
-		{ account_id: string }
+		Partial<ListAccountAuditEventsQuery>,
+		ListAccountAuditEventsPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/audit`,
@@ -4341,19 +4426,7 @@ export async function listAgentRunners(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			site_id?: string;
-			account_id?: string;
-			page?: number;
-			per_page?: number;
-			state?: string;
-			title?: string;
-			branch?: string;
-			result_branch?: string;
-			user_id?: string;
-			from?: number;
-			to?: number;
-		};
+		queryParams?: Partial<ListAgentRunnersQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4364,19 +4437,7 @@ export async function listAgentRunners(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{
-			site_id?: string;
-			account_id?: string;
-			page?: number;
-			per_page?: number;
-			state?: string;
-			title?: string;
-			branch?: string;
-			result_branch?: string;
-			user_id?: string;
-			from?: number;
-			to?: number;
-		},
+		Partial<ListAgentRunnersQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4398,43 +4459,29 @@ export async function createAgentRunner(
 		queryParams,
 		config,
 	}: {
-		queryParams?: {
-			site_id?: string;
-			deploy_id?: string;
-			branch?: string;
-			prompt?: string;
-			agent?: string;
-			model?: string;
-			parent_agent_runner_id?: string;
-			dev_server_image?: string;
-			file_keys?: Array<string>;
-		};
+		queryParams?: Partial<CreateAgentRunnerQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
+	const query = queryParams && {
+		...queryParams,
+		file_keys: Array.isArray(queryParams.file_keys)
+			? queryParams.file_keys.join(",")
+			: queryParams.file_keys,
+	};
 	const data = await request<
 		CreateAgentRunnerResponse,
 		ErrorWrapper<CreateAgentRunnerStatus404 | CreateAgentRunnerStatus422>,
 		null,
 		Record<string, string>,
-		{
-			site_id?: string;
-			deploy_id?: string;
-			branch?: string;
-			prompt?: string;
-			agent?: string;
-			model?: string;
-			parent_agent_runner_id?: string;
-			dev_server_image?: string;
-			file_keys?: Array<string>;
-		},
+		Record<string, unknown>,
 		Record<string, string>
 	>({
 		method: "POST",
 		url: `/agent_runners`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4453,7 +4500,7 @@ export async function createSiteAgentRunner(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: CreateSiteAgentRunnerPath;
 		body: CreateSiteAgentRunnerBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -4475,7 +4522,7 @@ export async function createSiteAgentRunner(
 		CreateSiteAgentRunnerBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		CreateSiteAgentRunnerPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/agent_runners`,
@@ -4497,7 +4544,7 @@ export async function createAgentRunnerUploadUrl(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { account_id?: string; filename?: string; content_type?: string };
+		queryParams?: Partial<CreateAgentRunnerUploadUrlQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4508,7 +4555,7 @@ export async function createAgentRunnerUploadUrl(
 		ErrorWrapper<CreateAgentRunnerUploadUrlStatus400 | CreateAgentRunnerUploadUrlStatus422>,
 		null,
 		Record<string, string>,
-		{ account_id?: string; filename?: string; content_type?: string },
+		Partial<CreateAgentRunnerUploadUrlQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -4530,7 +4577,7 @@ export async function getAgentRunner(
 		pathParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string };
+		pathParams: GetAgentRunnerPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4545,7 +4592,7 @@ export async function getAgentRunner(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ agent_runner_id: string }
+		GetAgentRunnerPath
 	>({
 		method: "GET",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}`,
@@ -4565,7 +4612,7 @@ export async function updateAgentRunner(
 		pathParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string };
+		pathParams: UpdateAgentRunnerPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4580,7 +4627,7 @@ export async function updateAgentRunner(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ agent_runner_id: string }
+		UpdateAgentRunnerPath
 	>({
 		method: "PATCH",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}`,
@@ -4601,7 +4648,7 @@ export async function deleteAgentRunner(
 		pathParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string };
+		pathParams: DeleteAgentRunnerPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4616,7 +4663,7 @@ export async function deleteAgentRunner(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ agent_runner_id: string }
+		DeleteAgentRunnerPath
 	>({
 		method: "DELETE",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}`,
@@ -4637,7 +4684,7 @@ export async function stopAgentRunner(
 		pathParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string };
+		pathParams: StopAgentRunnerPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4652,7 +4699,7 @@ export async function stopAgentRunner(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ agent_runner_id: string }
+		StopAgentRunnerPath
 	>({
 		method: "POST",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/stop`,
@@ -4674,8 +4721,8 @@ export async function getAgentRunnerDiff(
 		queryParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string };
-		queryParams?: { page?: number; per_page?: number; strip_binary?: boolean };
+		pathParams: GetAgentRunnerDiffPath;
+		queryParams?: Partial<GetAgentRunnerDiffQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4689,8 +4736,8 @@ export async function getAgentRunnerDiff(
 		ErrorWrapper<GetAgentRunnerDiffStatus404>,
 		null,
 		Record<string, string>,
-		{ page?: number; per_page?: number; strip_binary?: boolean },
-		{ agent_runner_id: string }
+		Partial<GetAgentRunnerDiffQuery>,
+		GetAgentRunnerDiffPath
 	>({
 		method: "GET",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/diff`,
@@ -4711,7 +4758,7 @@ export async function archiveAgentRunner(
 		pathParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string };
+		pathParams: ArchiveAgentRunnerPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4726,7 +4773,7 @@ export async function archiveAgentRunner(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ agent_runner_id: string }
+		ArchiveAgentRunnerPath
 	>({
 		method: "POST",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/archive`,
@@ -4747,7 +4794,7 @@ export async function agentRunnerPullRequest(
 		pathParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string };
+		pathParams: AgentRunnerPullRequestPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4766,7 +4813,7 @@ export async function agentRunnerPullRequest(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ agent_runner_id: string }
+		AgentRunnerPullRequestPath
 	>({
 		method: "POST",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/pull_request`,
@@ -4788,8 +4835,8 @@ export async function agentRunnerCommitToBranch(
 		queryParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string };
-		queryParams?: { target_branch?: string };
+		pathParams: AgentRunnerCommitToBranchPath;
+		queryParams?: Partial<AgentRunnerCommitToBranchQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4807,8 +4854,8 @@ export async function agentRunnerCommitToBranch(
 		>,
 		null,
 		Record<string, string>,
-		{ target_branch?: string },
-		{ agent_runner_id: string }
+		Partial<AgentRunnerCommitToBranchQuery>,
+		AgentRunnerCommitToBranchPath
 	>({
 		method: "POST",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/commit`,
@@ -4830,15 +4877,8 @@ export async function listAgentRunnerSessions(
 		queryParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string };
-		queryParams?: {
-			page?: number;
-			per_page?: number;
-			state?: string;
-			from?: number;
-			to?: number;
-			order_by?: "asc" | "desc";
-		};
+		pathParams: ListAgentRunnerSessionsPath;
+		queryParams?: Partial<ListAgentRunnerSessionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4852,15 +4892,8 @@ export async function listAgentRunnerSessions(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{
-			page?: number;
-			per_page?: number;
-			state?: string;
-			from?: number;
-			to?: number;
-			order_by?: "asc" | "desc";
-		},
-		{ agent_runner_id: string }
+		Partial<ListAgentRunnerSessionsQuery>,
+		ListAgentRunnerSessionsPath
 	>({
 		method: "GET",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/sessions`,
@@ -4884,9 +4917,9 @@ export async function createAgentRunnerSession(
 		queryParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string };
+		pathParams: CreateAgentRunnerSessionPath;
 		body?: CreateAgentRunnerSessionBody;
-		queryParams?: { prompt?: string; agent?: string; model?: string; file_keys?: Array<string> };
+		queryParams?: Partial<CreateAgentRunnerSessionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4895,6 +4928,12 @@ export async function createAgentRunnerSession(
 	if (pathParams?.agent_runner_id == null || String(pathParams.agent_runner_id) === "") {
 		throw new Error(`Missing required path parameter: agent_runner_id`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		file_keys: Array.isArray(queryParams.file_keys)
+			? queryParams.file_keys.join(",")
+			: queryParams.file_keys,
+	};
 	const data = await request<
 		CreateAgentRunnerSessionResponse,
 		ErrorWrapper<
@@ -4907,12 +4946,12 @@ export async function createAgentRunnerSession(
 		>,
 		CreateAgentRunnerSessionBody,
 		Record<string, string>,
-		{ prompt?: string; agent?: string; model?: string; file_keys?: Array<string> },
-		{ agent_runner_id: string }
+		Record<string, unknown>,
+		CreateAgentRunnerSessionPath
 	>({
 		method: "POST",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/sessions`,
-		queryParams,
+		queryParams: query,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -4930,7 +4969,7 @@ export async function getAgentRunnerSession(
 		pathParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string; agent_runner_session_id: string };
+		pathParams: GetAgentRunnerSessionPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4952,7 +4991,7 @@ export async function getAgentRunnerSession(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ agent_runner_id: string; agent_runner_session_id: string }
+		GetAgentRunnerSessionPath
 	>({
 		method: "GET",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/sessions/${encodeURIComponent(String(pathParams.agent_runner_session_id))}`,
@@ -4973,8 +5012,8 @@ export async function updateAgentRunnerSession(
 		queryParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string; agent_runner_session_id: string };
-		queryParams?: { is_published?: boolean };
+		pathParams: UpdateAgentRunnerSessionPath;
+		queryParams?: Partial<UpdateAgentRunnerSessionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4995,8 +5034,8 @@ export async function updateAgentRunnerSession(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ is_published?: boolean },
-		{ agent_runner_id: string; agent_runner_session_id: string }
+		Partial<UpdateAgentRunnerSessionQuery>,
+		UpdateAgentRunnerSessionPath
 	>({
 		method: "PATCH",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/sessions/${encodeURIComponent(String(pathParams.agent_runner_session_id))}`,
@@ -5018,7 +5057,7 @@ export async function deleteAgentRunnerSession(
 		pathParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string; agent_runner_session_id: string };
+		pathParams: DeleteAgentRunnerSessionPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5040,7 +5079,7 @@ export async function deleteAgentRunnerSession(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ agent_runner_id: string; agent_runner_session_id: string }
+		DeleteAgentRunnerSessionPath
 	>({
 		method: "DELETE",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/sessions/${encodeURIComponent(String(pathParams.agent_runner_session_id))}`,
@@ -5061,7 +5100,7 @@ export async function stopAgentRunnerSession(
 		pathParams,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string; agent_runner_session_id: string };
+		pathParams: StopAgentRunnerSessionPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5083,7 +5122,7 @@ export async function stopAgentRunnerSession(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ agent_runner_id: string; agent_runner_session_id: string }
+		StopAgentRunnerSessionPath
 	>({
 		method: "POST",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/sessions/${encodeURIComponent(String(pathParams.agent_runner_session_id))}/stop`,
@@ -5105,7 +5144,7 @@ export async function answerAgentRunnerSession(
 		body,
 		config,
 	}: {
-		pathParams: { agent_runner_id: string; agent_runner_session_id: string };
+		pathParams: AnswerAgentRunnerSessionPath;
 		body: AnswerAgentRunnerSessionBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5132,7 +5171,7 @@ export async function answerAgentRunnerSession(
 		AnswerAgentRunnerSessionBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ agent_runner_id: string; agent_runner_session_id: string }
+		AnswerAgentRunnerSessionPath
 	>({
 		method: "POST",
 		url: `/agent_runners/${encodeURIComponent(String(pathParams.agent_runner_id))}/sessions/${encodeURIComponent(String(pathParams.agent_runner_session_id))}/answers`,
@@ -5154,8 +5193,8 @@ export async function listFormSubmission(
 		queryParams,
 		config,
 	}: {
-		pathParams: { submission_id: string };
-		queryParams?: { query?: string; page?: number; per_page?: number };
+		pathParams: ListFormSubmissionPath;
+		queryParams?: Partial<ListFormSubmissionQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5169,8 +5208,8 @@ export async function listFormSubmission(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ query?: string; page?: number; per_page?: number },
-		{ submission_id: string }
+		Partial<ListFormSubmissionQuery>,
+		ListFormSubmissionPath
 	>({
 		method: "GET",
 		url: `/submissions/${encodeURIComponent(String(pathParams.submission_id))}`,
@@ -5191,7 +5230,7 @@ export async function deleteSubmission(
 		pathParams,
 		config,
 	}: {
-		pathParams: { submission_id: string };
+		pathParams: DeleteSubmissionPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5206,7 +5245,7 @@ export async function deleteSubmission(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ submission_id: string }
+		DeleteSubmissionPath
 	>({
 		method: "DELETE",
 		url: `/submissions/${encodeURIComponent(String(pathParams.submission_id))}`,
@@ -5226,7 +5265,7 @@ export async function listServiceInstancesForSite(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ListServiceInstancesForSitePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5241,7 +5280,7 @@ export async function listServiceInstancesForSite(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ListServiceInstancesForSitePath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/service-instances`,
@@ -5262,7 +5301,7 @@ export async function createServiceInstance(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string; addon: string };
+		pathParams: CreateServiceInstancePath;
 		body: CreateServiceInstanceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5282,7 +5321,7 @@ export async function createServiceInstance(
 		CreateServiceInstanceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; addon: string }
+		CreateServiceInstancePath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/services/${encodeURIComponent(String(pathParams.addon))}/instances`,
@@ -5303,7 +5342,7 @@ export async function showServiceInstance(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; addon: string; instance_id: string };
+		pathParams: ShowServiceInstancePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5326,7 +5365,7 @@ export async function showServiceInstance(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; addon: string; instance_id: string }
+		ShowServiceInstancePath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/services/${encodeURIComponent(String(pathParams.addon))}/instances/${encodeURIComponent(String(pathParams.instance_id))}`,
@@ -5347,7 +5386,7 @@ export async function updateServiceInstance(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string; addon: string; instance_id: string };
+		pathParams: UpdateServiceInstancePath;
 		body: UpdateServiceInstanceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5371,7 +5410,7 @@ export async function updateServiceInstance(
 		UpdateServiceInstanceBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; addon: string; instance_id: string }
+		UpdateServiceInstancePath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/services/${encodeURIComponent(String(pathParams.addon))}/instances/${encodeURIComponent(String(pathParams.instance_id))}`,
@@ -5392,7 +5431,7 @@ export async function deleteServiceInstance(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; addon: string; instance_id: string };
+		pathParams: DeleteServiceInstancePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5415,10 +5454,97 @@ export async function deleteServiceInstance(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; addon: string; instance_id: string }
+		DeleteServiceInstancePath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/services/${encodeURIComponent(String(pathParams.addon))}/instances/${encodeURIComponent(String(pathParams.instance_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get an Identity user
+ * @description Returns one Identity user by ID. Agent runner tokens receive only the user's ID, email, confirmation, invitation, sign-in, password-reset and email-change timestamps, and the `provider` and `roles` fields of `app_metadata`.
+ * @link /sites/{site_id}/identity/{identity_id}/users/{user_id}
+ */
+export async function getIdentityUser(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetIdentityUserPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.site_id == null || String(pathParams.site_id) === "") {
+		throw new Error(`Missing required path parameter: site_id`);
+	}
+
+	if (pathParams?.identity_id == null || String(pathParams.identity_id) === "") {
+		throw new Error(`Missing required path parameter: identity_id`);
+	}
+
+	if (pathParams?.user_id == null || String(pathParams.user_id) === "") {
+		throw new Error(`Missing required path parameter: user_id`);
+	}
+	const data = await request<
+		GetIdentityUserResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetIdentityUserPath
+	>({
+		method: "GET",
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/identity/${encodeURIComponent(String(pathParams.identity_id))}/users/${encodeURIComponent(String(pathParams.user_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Look up an Identity user by email
+ * @description Returns the one Identity user with this exact email. Matching ignores case and trailing spaces. Partial matches and pagination are not supported, and an unknown email returns 404. Agent runner tokens receive the same restricted fields as `getIdentityUser`.
+ * @link /sites/{site_id}/identity/{identity_id}/users/lookup
+ */
+export async function lookupIdentityUser(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: LookupIdentityUserPath;
+		body: LookupIdentityUserBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.site_id == null || String(pathParams.site_id) === "") {
+		throw new Error(`Missing required path parameter: site_id`);
+	}
+
+	if (pathParams?.identity_id == null || String(pathParams.identity_id) === "") {
+		throw new Error(`Missing required path parameter: identity_id`);
+	}
+	const data = await request<
+		LookupIdentityUserResponse,
+		ErrorWrapper<Error>,
+		LookupIdentityUserBody,
+		Record<string, string>,
+		Record<string, string>,
+		LookupIdentityUserPath
+	>({
+		method: "POST",
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/identity/${encodeURIComponent(String(pathParams.identity_id))}/users/lookup`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5435,7 +5561,7 @@ export async function getServices(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { search?: string };
+		queryParams?: Partial<GetServicesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5446,7 +5572,7 @@ export async function getServices(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ search?: string },
+		Partial<GetServicesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5468,7 +5594,7 @@ export async function showService(
 		pathParams,
 		config,
 	}: {
-		pathParams: { addonName: string };
+		pathParams: ShowServicePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5483,7 +5609,7 @@ export async function showService(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ addonName: string }
+		ShowServicePath
 	>({
 		method: "GET",
 		url: `/services/${encodeURIComponent(String(pathParams.addonName))}`,
@@ -5503,7 +5629,7 @@ export async function showServiceManifest(
 		pathParams,
 		config,
 	}: {
-		pathParams: { addonName: string };
+		pathParams: ShowServiceManifestPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5518,7 +5644,7 @@ export async function showServiceManifest(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ addonName: string }
+		ShowServiceManifestPath
 	>({
 		method: "GET",
 		url: `/services/${encodeURIComponent(String(pathParams.addonName))}/manifest`,
@@ -5565,7 +5691,7 @@ export async function createSplitTest(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: CreateSplitTestPath;
 		body: CreateSplitTestBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5581,7 +5707,7 @@ export async function createSplitTest(
 		CreateSplitTestBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		CreateSplitTestPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/traffic_splits`,
@@ -5602,7 +5728,7 @@ export async function getSplitTests(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: GetSplitTestsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5617,7 +5743,7 @@ export async function getSplitTests(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		GetSplitTestsPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/traffic_splits`,
@@ -5638,7 +5764,7 @@ export async function updateSplitTest(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string; split_test_id: string };
+		pathParams: UpdateSplitTestPath;
 		body: UpdateSplitTestBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5658,7 +5784,7 @@ export async function updateSplitTest(
 		UpdateSplitTestBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; split_test_id: string }
+		UpdateSplitTestPath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/traffic_splits/${encodeURIComponent(String(pathParams.split_test_id))}`,
@@ -5679,7 +5805,7 @@ export async function getSplitTest(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; split_test_id: string };
+		pathParams: GetSplitTestPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5698,7 +5824,7 @@ export async function getSplitTest(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; split_test_id: string }
+		GetSplitTestPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/traffic_splits/${encodeURIComponent(String(pathParams.split_test_id))}`,
@@ -5718,7 +5844,7 @@ export async function enableSplitTest(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; split_test_id: string };
+		pathParams: EnableSplitTestPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5737,7 +5863,7 @@ export async function enableSplitTest(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; split_test_id: string }
+		EnableSplitTestPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/traffic_splits/${encodeURIComponent(String(pathParams.split_test_id))}/publish`,
@@ -5757,7 +5883,7 @@ export async function disableSplitTest(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; split_test_id: string };
+		pathParams: DisableSplitTestPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5776,7 +5902,7 @@ export async function disableSplitTest(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; split_test_id: string }
+		DisableSplitTestPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/traffic_splits/${encodeURIComponent(String(pathParams.split_test_id))}/unpublish`,
@@ -5830,7 +5956,7 @@ export async function getDnsZones(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { account_slug?: string };
+		queryParams?: Partial<GetDnsZonesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5841,7 +5967,7 @@ export async function getDnsZones(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ account_slug?: string },
+		Partial<GetDnsZonesQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5863,7 +5989,7 @@ export async function getDnsZone(
 		pathParams,
 		config,
 	}: {
-		pathParams: { zone_id: string };
+		pathParams: GetDnsZonePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5878,7 +6004,7 @@ export async function getDnsZone(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ zone_id: string }
+		GetDnsZonePath
 	>({
 		method: "GET",
 		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}`,
@@ -5898,7 +6024,7 @@ export async function deleteDnsZone(
 		pathParams,
 		config,
 	}: {
-		pathParams: { zone_id: string };
+		pathParams: DeleteDnsZonePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5913,7 +6039,7 @@ export async function deleteDnsZone(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ zone_id: string }
+		DeleteDnsZonePath
 	>({
 		method: "DELETE",
 		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}`,
@@ -5934,8 +6060,8 @@ export async function transferDnsZone(
 		queryParams,
 		config,
 	}: {
-		pathParams: { zone_id: string };
-		queryParams?: { account_id?: string; transfer_account_id?: string; transfer_user_id?: string };
+		pathParams: TransferDnsZonePath;
+		queryParams?: Partial<TransferDnsZoneQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5949,8 +6075,8 @@ export async function transferDnsZone(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ account_id?: string; transfer_account_id?: string; transfer_user_id?: string },
-		{ zone_id: string }
+		Partial<TransferDnsZoneQuery>,
+		TransferDnsZonePath
 	>({
 		method: "PUT",
 		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}/transfer`,
@@ -5971,7 +6097,7 @@ export async function getDnsRecords(
 		pathParams,
 		config,
 	}: {
-		pathParams: { zone_id: string };
+		pathParams: GetDnsRecordsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5986,7 +6112,7 @@ export async function getDnsRecords(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ zone_id: string }
+		GetDnsRecordsPath
 	>({
 		method: "GET",
 		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}/dns_records`,
@@ -6007,7 +6133,7 @@ export async function createDnsRecord(
 		body,
 		config,
 	}: {
-		pathParams: { zone_id: string };
+		pathParams: CreateDnsRecordPath;
 		body: CreateDnsRecordBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6023,7 +6149,7 @@ export async function createDnsRecord(
 		CreateDnsRecordBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ zone_id: string }
+		CreateDnsRecordPath
 	>({
 		method: "POST",
 		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}/dns_records`,
@@ -6044,7 +6170,7 @@ export async function getIndividualDnsRecord(
 		pathParams,
 		config,
 	}: {
-		pathParams: { zone_id: string; dns_record_id: string };
+		pathParams: GetIndividualDnsRecordPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6063,7 +6189,7 @@ export async function getIndividualDnsRecord(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ zone_id: string; dns_record_id: string }
+		GetIndividualDnsRecordPath
 	>({
 		method: "GET",
 		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}/dns_records/${encodeURIComponent(String(pathParams.dns_record_id))}`,
@@ -6083,7 +6209,7 @@ export async function deleteDnsRecord(
 		pathParams,
 		config,
 	}: {
-		pathParams: { zone_id: string; dns_record_id: string };
+		pathParams: DeleteDnsRecordPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6102,7 +6228,7 @@ export async function deleteDnsRecord(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ zone_id: string; dns_record_id: string }
+		DeleteDnsRecordPath
 	>({
 		method: "DELETE",
 		url: `/dns_zones/${encodeURIComponent(String(pathParams.zone_id))}/dns_records/${encodeURIComponent(String(pathParams.dns_record_id))}`,
@@ -6123,8 +6249,8 @@ export async function listSiteDevServers(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { page?: number; per_page?: number };
+		pathParams: ListSiteDevServersPath;
+		queryParams?: Partial<ListSiteDevServersQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6138,8 +6264,8 @@ export async function listSiteDevServers(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ page?: number; per_page?: number },
-		{ site_id: string }
+		Partial<ListSiteDevServersQuery>,
+		ListSiteDevServersPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_servers`,
@@ -6161,8 +6287,8 @@ export async function createSiteDevServer(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { branch?: string };
+		pathParams: CreateSiteDevServerPath;
+		queryParams?: Partial<CreateSiteDevServerQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6176,8 +6302,8 @@ export async function createSiteDevServer(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ branch?: string },
-		{ site_id: string }
+		Partial<CreateSiteDevServerQuery>,
+		CreateSiteDevServerPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_servers`,
@@ -6200,8 +6326,8 @@ export async function deleteSiteDevServers(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { branch?: string };
+		pathParams: DeleteSiteDevServersPath;
+		queryParams?: Partial<DeleteSiteDevServersQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6215,8 +6341,8 @@ export async function deleteSiteDevServers(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ branch?: string },
-		{ site_id: string }
+		Partial<DeleteSiteDevServersQuery>,
+		DeleteSiteDevServersPath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_servers`,
@@ -6237,7 +6363,7 @@ export async function getSiteDevServer(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; dev_server_id: string };
+		pathParams: GetSiteDevServerPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6256,7 +6382,7 @@ export async function getSiteDevServer(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; dev_server_id: string }
+		GetSiteDevServerPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_servers/${encodeURIComponent(String(pathParams.dev_server_id))}`,
@@ -6276,7 +6402,7 @@ export async function markDevServerActivity(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; dev_server_id: string };
+		pathParams: MarkDevServerActivityPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6295,7 +6421,7 @@ export async function markDevServerActivity(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; dev_server_id: string }
+		MarkDevServerActivityPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_servers/${encodeURIComponent(String(pathParams.dev_server_id))}/activity`,
@@ -6316,7 +6442,7 @@ export async function updateDevServerState(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string; dev_server_id: string };
+		pathParams: UpdateDevServerStatePath;
 		body: UpdateDevServerStateBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6336,7 +6462,7 @@ export async function updateDevServerState(
 		UpdateDevServerStateBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; dev_server_id: string }
+		UpdateDevServerStatePath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_servers/${encodeURIComponent(String(pathParams.dev_server_id))}/state`,
@@ -6357,7 +6483,7 @@ export async function listSiteDevServerHooks(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ListSiteDevServerHooksPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6372,7 +6498,7 @@ export async function listSiteDevServerHooks(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ListSiteDevServerHooksPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_server_hooks`,
@@ -6393,7 +6519,7 @@ export async function createSiteDevServerHook(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: CreateSiteDevServerHookPath;
 		body: CreateSiteDevServerHookBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6409,7 +6535,7 @@ export async function createSiteDevServerHook(
 		CreateSiteDevServerHookBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		CreateSiteDevServerHookPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_server_hooks`,
@@ -6430,7 +6556,7 @@ export async function getSiteDevServerHook(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; id: string };
+		pathParams: GetSiteDevServerHookPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6449,7 +6575,7 @@ export async function getSiteDevServerHook(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; id: string }
+		GetSiteDevServerHookPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_server_hooks/${encodeURIComponent(String(pathParams.id))}`,
@@ -6470,7 +6596,7 @@ export async function updateSiteDevServerHook(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string; id: string };
+		pathParams: UpdateSiteDevServerHookPath;
 		body: UpdateSiteDevServerHookBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6490,7 +6616,7 @@ export async function updateSiteDevServerHook(
 		UpdateSiteDevServerHookBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; id: string }
+		UpdateSiteDevServerHookPath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_server_hooks/${encodeURIComponent(String(pathParams.id))}`,
@@ -6511,7 +6637,7 @@ export async function deleteSiteDevServerHook(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; id: string };
+		pathParams: DeleteSiteDevServerHookPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6530,7 +6656,7 @@ export async function deleteSiteDevServerHook(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; id: string }
+		DeleteSiteDevServerHookPath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/dev_server_hooks/${encodeURIComponent(String(pathParams.id))}`,
@@ -6550,7 +6676,7 @@ export async function listSiteAgentRunnerHooks(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ListSiteAgentRunnerHooksPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6565,7 +6691,7 @@ export async function listSiteAgentRunnerHooks(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ListSiteAgentRunnerHooksPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/agent_runner_hooks`,
@@ -6586,7 +6712,7 @@ export async function createSiteAgentRunnerHook(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: CreateSiteAgentRunnerHookPath;
 		body: CreateSiteAgentRunnerHookBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6602,7 +6728,7 @@ export async function createSiteAgentRunnerHook(
 		CreateSiteAgentRunnerHookBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		CreateSiteAgentRunnerHookPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/agent_runner_hooks`,
@@ -6623,7 +6749,7 @@ export async function getSiteAgentRunnerHook(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; id: string };
+		pathParams: GetSiteAgentRunnerHookPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6642,7 +6768,7 @@ export async function getSiteAgentRunnerHook(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; id: string }
+		GetSiteAgentRunnerHookPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/agent_runner_hooks/${encodeURIComponent(String(pathParams.id))}`,
@@ -6663,7 +6789,7 @@ export async function updateSiteAgentRunnerHook(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string; id: string };
+		pathParams: UpdateSiteAgentRunnerHookPath;
 		body: UpdateSiteAgentRunnerHookBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6683,7 +6809,7 @@ export async function updateSiteAgentRunnerHook(
 		UpdateSiteAgentRunnerHookBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; id: string }
+		UpdateSiteAgentRunnerHookPath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/agent_runner_hooks/${encodeURIComponent(String(pathParams.id))}`,
@@ -6704,7 +6830,7 @@ export async function deleteSiteAgentRunnerHook(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; id: string };
+		pathParams: DeleteSiteAgentRunnerHookPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6723,7 +6849,7 @@ export async function deleteSiteAgentRunnerHook(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; id: string }
+		DeleteSiteAgentRunnerHookPath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/agent_runner_hooks/${encodeURIComponent(String(pathParams.id))}`,
@@ -6770,7 +6896,7 @@ export async function getAIGatewayToken(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: GetAIGatewayTokenPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6785,7 +6911,7 @@ export async function getAIGatewayToken(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		GetAIGatewayTokenPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/ai-gateway/token`,
@@ -6806,7 +6932,7 @@ export async function getAccountAIGatewayToken(
 		pathParams,
 		config,
 	}: {
-		pathParams: { account_id: string };
+		pathParams: GetAccountAIGatewayTokenPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6821,7 +6947,7 @@ export async function getAccountAIGatewayToken(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ account_id: string }
+		GetAccountAIGatewayTokenPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.account_id))}/ai-gateway/token`,
@@ -6843,7 +6969,7 @@ export async function createSiteDatabase(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: CreateSiteDatabasePath;
 		body?: CreateSiteDatabaseBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6859,7 +6985,7 @@ export async function createSiteDatabase(
 		CreateSiteDatabaseBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		CreateSiteDatabasePath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database`,
@@ -6882,8 +7008,8 @@ export async function getSiteDatabase(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { role?: "netlifydb_owner" | "netlifydb_readonly" };
+		pathParams: GetSiteDatabasePath;
+		queryParams?: Partial<GetSiteDatabaseQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6897,8 +7023,8 @@ export async function getSiteDatabase(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ role?: "netlifydb_owner" | "netlifydb_readonly" },
-		{ site_id: string }
+		Partial<GetSiteDatabaseQuery>,
+		GetSiteDatabasePath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database`,
@@ -6920,7 +7046,7 @@ export async function deleteSiteDatabase(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: DeleteSiteDatabasePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6935,7 +7061,7 @@ export async function deleteSiteDatabase(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		DeleteSiteDatabasePath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database`,
@@ -6957,7 +7083,7 @@ export async function createSiteDatabaseBranch(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: CreateSiteDatabaseBranchPath;
 		body: CreateSiteDatabaseBranchBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -6973,7 +7099,7 @@ export async function createSiteDatabaseBranch(
 		CreateSiteDatabaseBranchBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		CreateSiteDatabaseBranchPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/branch`,
@@ -6995,7 +7121,7 @@ export async function listSiteDatabaseBranches(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ListSiteDatabaseBranchesPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7010,7 +7136,7 @@ export async function listSiteDatabaseBranches(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ListSiteDatabaseBranchesPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/branches`,
@@ -7032,8 +7158,8 @@ export async function getSiteDatabaseBranch(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string; branch_id: string };
-		queryParams?: { role?: "netlifydb_owner" | "netlifydb_readonly" };
+		pathParams: GetSiteDatabaseBranchPath;
+		queryParams?: Partial<GetSiteDatabaseBranchQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7051,8 +7177,8 @@ export async function getSiteDatabaseBranch(
 		ErrorWrapper<GetSiteDatabaseBranchStatus404>,
 		null,
 		Record<string, string>,
-		{ role?: "netlifydb_owner" | "netlifydb_readonly" },
-		{ site_id: string; branch_id: string }
+		Partial<GetSiteDatabaseBranchQuery>,
+		GetSiteDatabaseBranchPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/branch/${encodeURIComponent(String(pathParams.branch_id))}`,
@@ -7074,7 +7200,7 @@ export async function deleteSiteDatabaseBranch(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; branch_id: string };
+		pathParams: DeleteSiteDatabaseBranchPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7093,7 +7219,7 @@ export async function deleteSiteDatabaseBranch(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; branch_id: string }
+		DeleteSiteDatabaseBranchPath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/branch/${encodeURIComponent(String(pathParams.branch_id))}`,
@@ -7116,9 +7242,9 @@ export async function resetSiteDatabaseBranch(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string; branch_id: string };
+		pathParams: ResetSiteDatabaseBranchPath;
 		body?: ResetSiteDatabaseBranchBody;
-		queryParams?: { force?: boolean; role?: "netlifydb_owner" | "netlifydb_readonly" };
+		queryParams?: Partial<ResetSiteDatabaseBranchQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7136,8 +7262,8 @@ export async function resetSiteDatabaseBranch(
 		ErrorWrapper<ResetSiteDatabaseBranchStatus400 | ResetSiteDatabaseBranchStatus404>,
 		ResetSiteDatabaseBranchBody,
 		Record<string, string>,
-		{ force?: boolean; role?: "netlifydb_owner" | "netlifydb_readonly" },
-		{ site_id: string; branch_id: string }
+		Partial<ResetSiteDatabaseBranchQuery>,
+		ResetSiteDatabaseBranchPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/branch/${encodeURIComponent(String(pathParams.branch_id))}/reset`,
@@ -7161,7 +7287,7 @@ export async function setSiteDatabaseBranchComputeSettings(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string; branch_id: string };
+		pathParams: SetSiteDatabaseBranchComputeSettingsPath;
 		body: SetSiteDatabaseBranchComputeSettingsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7181,7 +7307,7 @@ export async function setSiteDatabaseBranchComputeSettings(
 		SetSiteDatabaseBranchComputeSettingsBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; branch_id: string }
+		SetSiteDatabaseBranchComputeSettingsPath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/branch/${encodeURIComponent(String(pathParams.branch_id))}/compute/settings`,
@@ -7204,7 +7330,7 @@ export async function setSiteDatabaseComputeSettings(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: SetSiteDatabaseComputeSettingsPath;
 		body: SetSiteDatabaseComputeSettingsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7220,7 +7346,7 @@ export async function setSiteDatabaseComputeSettings(
 		SetSiteDatabaseComputeSettingsBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		SetSiteDatabaseComputeSettingsPath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/compute/settings`,
@@ -7242,7 +7368,7 @@ export async function getSiteDatabaseComputeSettings(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: GetSiteDatabaseComputeSettingsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7257,7 +7383,7 @@ export async function getSiteDatabaseComputeSettings(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		GetSiteDatabaseComputeSettingsPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/compute/settings`,
@@ -7278,7 +7404,7 @@ export async function clearSiteDatabaseComputeSettings(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ClearSiteDatabaseComputeSettingsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7293,7 +7419,7 @@ export async function clearSiteDatabaseComputeSettings(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ClearSiteDatabaseComputeSettingsPath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/compute/settings`,
@@ -7315,8 +7441,8 @@ export async function listSiteDatabaseMigrations(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
-		queryParams?: { branch?: string };
+		pathParams: ListSiteDatabaseMigrationsPath;
+		queryParams?: Partial<ListSiteDatabaseMigrationsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7330,8 +7456,8 @@ export async function listSiteDatabaseMigrations(
 		ErrorWrapper<ListSiteDatabaseMigrationsStatus404 | ListSiteDatabaseMigrationsStatus423>,
 		null,
 		Record<string, string>,
-		{ branch?: string },
-		{ site_id: string }
+		Partial<ListSiteDatabaseMigrationsQuery>,
+		ListSiteDatabaseMigrationsPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/migrations`,
@@ -7354,8 +7480,8 @@ export async function getSiteDatabaseMigration(
 		queryParams,
 		config,
 	}: {
-		pathParams: { site_id: string; name: string };
-		queryParams?: { branch?: string };
+		pathParams: GetSiteDatabaseMigrationPath;
+		queryParams?: Partial<GetSiteDatabaseMigrationQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7373,8 +7499,8 @@ export async function getSiteDatabaseMigration(
 		ErrorWrapper<GetSiteDatabaseMigrationStatus404 | GetSiteDatabaseMigrationStatus423>,
 		null,
 		Record<string, string>,
-		{ branch?: string },
-		{ site_id: string; name: string }
+		Partial<GetSiteDatabaseMigrationQuery>,
+		GetSiteDatabaseMigrationPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/migrations/${encodeURIComponent(String(pathParams.name))}`,
@@ -7397,7 +7523,7 @@ export async function runSiteDatabaseMigrations(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string; deploy_id: string };
+		pathParams: RunSiteDatabaseMigrationsPath;
 		body?: RunSiteDatabaseMigrationsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7417,7 +7543,7 @@ export async function runSiteDatabaseMigrations(
 		RunSiteDatabaseMigrationsBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; deploy_id: string }
+		RunSiteDatabaseMigrationsPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/migrations/${encodeURIComponent(String(pathParams.deploy_id))}`,
@@ -7440,7 +7566,7 @@ export async function createSiteDatabaseSnapshot(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: CreateSiteDatabaseSnapshotPath;
 		body?: CreateSiteDatabaseSnapshotBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7456,7 +7582,7 @@ export async function createSiteDatabaseSnapshot(
 		CreateSiteDatabaseSnapshotBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		CreateSiteDatabaseSnapshotPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/snapshot`,
@@ -7478,7 +7604,7 @@ export async function listSiteDatabaseSnapshots(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string };
+		pathParams: ListSiteDatabaseSnapshotsPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7493,7 +7619,7 @@ export async function listSiteDatabaseSnapshots(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string }
+		ListSiteDatabaseSnapshotsPath
 	>({
 		method: "GET",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/snapshots`,
@@ -7514,7 +7640,7 @@ export async function deleteSiteDatabaseSnapshot(
 		pathParams,
 		config,
 	}: {
-		pathParams: { site_id: string; snapshot_id: string };
+		pathParams: DeleteSiteDatabaseSnapshotPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7533,7 +7659,7 @@ export async function deleteSiteDatabaseSnapshot(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; snapshot_id: string }
+		DeleteSiteDatabaseSnapshotPath
 	>({
 		method: "DELETE",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/snapshot/${encodeURIComponent(String(pathParams.snapshot_id))}`,
@@ -7555,7 +7681,7 @@ export async function restoreSiteDatabaseSnapshot(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string; snapshot_id: string };
+		pathParams: RestoreSiteDatabaseSnapshotPath;
 		body?: RestoreSiteDatabaseSnapshotBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7575,7 +7701,7 @@ export async function restoreSiteDatabaseSnapshot(
 		RestoreSiteDatabaseSnapshotBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; snapshot_id: string }
+		RestoreSiteDatabaseSnapshotPath
 	>({
 		method: "POST",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/database/snapshot/${encodeURIComponent(String(pathParams.snapshot_id))}/restore`,
@@ -7598,7 +7724,7 @@ export async function updatePlugin(
 		body,
 		config,
 	}: {
-		pathParams: { site_id: string; _package: string };
+		pathParams: UpdatePluginPath;
 		body?: UpdatePluginBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -7618,7 +7744,7 @@ export async function updatePlugin(
 		UpdatePluginBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ site_id: string; _package: string }
+		UpdatePluginPath
 	>({
 		method: "PUT",
 		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/plugins/${encodeURIComponent(String(pathParams._package))}`,
@@ -7763,6 +7889,8 @@ export const operationsByPath = {
 	"GET /sites/{site_id}/services/{addon}/instances/{instance_id}": showServiceInstance,
 	"PUT /sites/{site_id}/services/{addon}/instances/{instance_id}": updateServiceInstance,
 	"DELETE /sites/{site_id}/services/{addon}/instances/{instance_id}": deleteServiceInstance,
+	"GET /sites/{site_id}/identity/{identity_id}/users/{user_id}": getIdentityUser,
+	"POST /sites/{site_id}/identity/{identity_id}/users/lookup": lookupIdentityUser,
 	"GET /services/": getServices,
 	"GET /services/{addonName}": showService,
 	"GET /services/{addonName}/manifest": showServiceManifest,
@@ -8031,6 +8159,10 @@ export const operationsByTag = {
 		updateServiceInstance,
 		deleteServiceInstance,
 	},
+	identityuser: {
+		getIdentityUser,
+		lookupIdentityUser,
+	},
 	service: {
 		getServices,
 		showService,
@@ -8265,6 +8397,10 @@ export const tagDictionary = {
 		POST: ["createServiceInstance"],
 		PUT: ["updateServiceInstance"],
 		DELETE: ["deleteServiceInstance"],
+	},
+	identityuser: {
+		GET: ["getIdentityUser"],
+		POST: ["lookupIdentityUser"],
 	},
 	service: {
 		GET: ["getServices", "showService", "showServiceManifest"],

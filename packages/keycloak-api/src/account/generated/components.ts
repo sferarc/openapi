@@ -6,26 +6,40 @@
 import type { ErrorWrapper, FetcherConfig } from "../../utils/fetcher";
 import defaultClient from "../../utils/fetcher";
 import type {
+	BuildLinkingUriPath,
+	BuildLinkingUriQuery,
 	BuildLinkingUriResponse,
+	CreateConsentPath,
 	CreateConsentResponse,
+	DeleteConsentPath,
 	DeleteConsentResponse,
+	DeleteCredentialPath,
 	DeleteCredentialResponse,
 	DeleteCurrentSessionResponse,
+	DeleteLinkedProviderPath,
 	DeleteLinkedProviderResponse,
+	DeleteSessionPath,
 	DeleteSessionResponse,
+	GetAccountQuery,
 	GetAccountResponse,
+	GetApplicationsQuery,
 	GetApplicationsResponse,
+	GetConsentPath,
 	GetConsentResponse,
+	GetCredentialsQuery,
 	GetCredentialsResponse,
 	GetDevicesResponse,
+	GetGroupsQuery,
 	GetGroupsResponse,
 	GetLinkedAccountsResponse,
 	GetOrganizationsResponse,
 	GetSessionsResponse,
 	UpdateAccountBody,
 	UpdateAccountResponse,
+	UpdateConsentPath,
 	UpdateConsentResponse,
 	UpdateCredentialLabelBody,
+	UpdateCredentialLabelPath,
 	UpdateCredentialLabelResponse,
 } from "./types";
 
@@ -39,7 +53,7 @@ export async function getAccount(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { userProfileMetadata?: boolean };
+		queryParams?: Partial<GetAccountQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -50,7 +64,7 @@ export async function getAccount(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ userProfileMetadata?: boolean },
+		Partial<GetAccountQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -105,7 +119,7 @@ export async function getApplications(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { name?: string };
+		queryParams?: Partial<GetApplicationsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -116,7 +130,7 @@ export async function getApplications(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ name?: string },
+		Partial<GetApplicationsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -138,7 +152,7 @@ export async function getConsent(
 		pathParams,
 		config,
 	}: {
-		pathParams: { clientId: string };
+		pathParams: GetConsentPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -153,7 +167,7 @@ export async function getConsent(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ clientId: string }
+		GetConsentPath
 	>({
 		method: "GET",
 		url: `/account/applications/${encodeURIComponent(String(pathParams.clientId))}/consent`,
@@ -173,7 +187,7 @@ export async function createConsent(
 		pathParams,
 		config,
 	}: {
-		pathParams: { clientId: string };
+		pathParams: CreateConsentPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -188,7 +202,7 @@ export async function createConsent(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ clientId: string }
+		CreateConsentPath
 	>({
 		method: "POST",
 		url: `/account/applications/${encodeURIComponent(String(pathParams.clientId))}/consent`,
@@ -208,7 +222,7 @@ export async function updateConsent(
 		pathParams,
 		config,
 	}: {
-		pathParams: { clientId: string };
+		pathParams: UpdateConsentPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -223,7 +237,7 @@ export async function updateConsent(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ clientId: string }
+		UpdateConsentPath
 	>({
 		method: "PUT",
 		url: `/account/applications/${encodeURIComponent(String(pathParams.clientId))}/consent`,
@@ -243,7 +257,7 @@ export async function deleteConsent(
 		pathParams,
 		config,
 	}: {
-		pathParams: { clientId: string };
+		pathParams: DeleteConsentPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -258,7 +272,7 @@ export async function deleteConsent(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ clientId: string }
+		DeleteConsentPath
 	>({
 		method: "DELETE",
 		url: `/account/applications/${encodeURIComponent(String(pathParams.clientId))}/consent`,
@@ -279,7 +293,7 @@ export async function getCredentials(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { type?: string; "user-credentials"?: boolean };
+		queryParams?: Partial<GetCredentialsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -290,7 +304,7 @@ export async function getCredentials(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ type?: string; "user-credentials"?: boolean },
+		Partial<GetCredentialsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -312,7 +326,7 @@ export async function deleteCredential(
 		pathParams,
 		config,
 	}: {
-		pathParams: { credentialId: string };
+		pathParams: DeleteCredentialPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -327,7 +341,7 @@ export async function deleteCredential(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ credentialId: string }
+		DeleteCredentialPath
 	>({
 		method: "DELETE",
 		url: `/account/credentials/${encodeURIComponent(String(pathParams.credentialId))}`,
@@ -348,7 +362,7 @@ export async function updateCredentialLabel(
 		body,
 		config,
 	}: {
-		pathParams: { credentialId: string };
+		pathParams: UpdateCredentialLabelPath;
 		body?: UpdateCredentialLabelBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -364,7 +378,7 @@ export async function updateCredentialLabel(
 		UpdateCredentialLabelBody,
 		Record<string, string>,
 		Record<string, string>,
-		{ credentialId: string }
+		UpdateCredentialLabelPath
 	>({
 		method: "PUT",
 		url: `/account/credentials/${encodeURIComponent(String(pathParams.credentialId))}/label`,
@@ -465,7 +479,7 @@ export async function deleteSession(
 		pathParams,
 		config,
 	}: {
-		pathParams: { sessionId: string };
+		pathParams: DeleteSessionPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -480,7 +494,7 @@ export async function deleteSession(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ sessionId: string }
+		DeleteSessionPath
 	>({
 		method: "DELETE",
 		url: `/account/sessions/${encodeURIComponent(String(pathParams.sessionId))}`,
@@ -529,8 +543,8 @@ export async function buildLinkingUri(
 		queryParams,
 		config,
 	}: {
-		pathParams: { providerId: string };
-		queryParams?: { redirectUri?: string };
+		pathParams: BuildLinkingUriPath;
+		queryParams?: Partial<BuildLinkingUriQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -544,8 +558,8 @@ export async function buildLinkingUri(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ redirectUri?: string },
-		{ providerId: string }
+		Partial<BuildLinkingUriQuery>,
+		BuildLinkingUriPath
 	>({
 		method: "GET",
 		url: `/account/linked-accounts/${encodeURIComponent(String(pathParams.providerId))}`,
@@ -566,7 +580,7 @@ export async function deleteLinkedProvider(
 		pathParams,
 		config,
 	}: {
-		pathParams: { providerId: string };
+		pathParams: DeleteLinkedProviderPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -581,7 +595,7 @@ export async function deleteLinkedProvider(
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		{ providerId: string }
+		DeleteLinkedProviderPath
 	>({
 		method: "DELETE",
 		url: `/account/linked-accounts/${encodeURIComponent(String(pathParams.providerId))}`,
@@ -601,7 +615,7 @@ export async function getGroups(
 		queryParams,
 		config,
 	}: {
-		queryParams?: { briefRepresentation?: boolean };
+		queryParams?: Partial<GetGroupsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -612,7 +626,7 @@ export async function getGroups(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		{ briefRepresentation?: boolean },
+		Partial<GetGroupsQuery>,
 		Record<string, string>
 	>({
 		method: "GET",

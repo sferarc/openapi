@@ -108,3 +108,38 @@ describe("KeycloakAccountApi.request", () => {
 		);
 	});
 });
+
+describe("Keycloak per-call config", () => {
+	function setup() {
+		const headers: unknown[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			headers.push(init?.headers);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		const options = { baseUrl: "https://keycloak.example.com", token: "token", fetch };
+		return {
+			headers,
+			admin: new KeycloakAdminApi(options),
+			account: new KeycloakAccountApi({ ...options, realm: "realm" }),
+		};
+	}
+
+	it("sends the caller's headers from the admin client alongside its token", async () => {
+		const { headers, admin } = setup();
+		await admin.request("GET /admin/realms", { config: { headers: { "X-Request-Id": "abc" } } });
+		expect(headers).toEqual([
+			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
+		]);
+	});
+
+	it("sends the caller's headers from the account client alongside its token", async () => {
+		const { headers, account } = setup();
+		await account.request("GET /account/", { config: { headers: { "X-Request-Id": "abc" } } });
+		expect(headers).toEqual([
+			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
+		]);
+	});
+});
