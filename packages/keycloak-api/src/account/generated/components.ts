@@ -544,7 +544,7 @@ export async function buildLinkingUri(
 		config,
 	}: {
 		pathParams: BuildLinkingUriPath;
-		queryParams?: Partial<BuildLinkingUriQuery>;
+		queryParams: BuildLinkingUriQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -558,7 +558,7 @@ export async function buildLinkingUri(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		Partial<BuildLinkingUriQuery>,
+		BuildLinkingUriQuery,
 		BuildLinkingUriPath
 	>({
 		method: "GET",
