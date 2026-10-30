@@ -30,7 +30,7 @@ Run alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`.
 
 ## Changeset script
 
-`.github/workflows/scripts/changeset.test.ts` tests `changeset.ts`, the pure parts that `changes.ts` imports when `update-openapi.yml` writes a changeset: the diff summary, entry resolution and its fallbacks, and changeset rendering (#27). The root `pnpm test` runs it after the turbo tests (`package.json`).
+`.github/workflows/scripts/changeset.test.ts` tests `changeset.ts`, the pure parts that `changes.ts` imports when `update-openapi.yml` writes a changeset: the diff summary, entry resolution and its fallbacks, and changeset rendering (#27). The root `pnpm test` runs it after the turbo tests (`package.json`). `package-exports.test.ts` next to it checks that every package's `exports` entry types `import` with `.d.mts` and `require` with `.d.cts` declarations ([[architecture/packages]]).
 
 ## What is not tested
 
