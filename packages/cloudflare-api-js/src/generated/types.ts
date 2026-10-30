@@ -98748,13 +98748,932 @@ export type RulesetsResultInfo = {
   } | undefined;
 };
 
+export type RulesetsRuleWritable = {
+  /**
+   * @description The action to perform when the rule matches.
+   * @pattern ^[a-z_]+$
+   * @type string | undefined
+   */
+  action?: RulesetsRuleAction | undefined;
+  /**
+   * @description The parameters configuring the rule's action.
+   * @default {}
+   * @type object | undefined
+   */
+  action_parameters?: object | undefined;
+  /**
+   * @description The categories of the rule.
+   * @type array | undefined
+   */
+  readonly categories?: RulesetsRuleCategories | undefined;
+  /**
+   * @description An informative description of the rule.
+   * @default ''
+   * @type string | undefined
+   */
+  description?: string | undefined;
+  enabled?: RulesetsRuleEnabled & boolean | undefined;
+  /**
+   * @description Configuration for exposed credential checking.
+   * @type object | undefined
+   */
+  exposed_credential_check?: RulesetsRuleExposedCredentialCheck | undefined;
+  /**
+   * @description The expression defining which traffic will match the rule.
+   * @minLength 1
+   * @example ip.src eq 1.1.1.1
+   * @type string | undefined
+   */
+  expression?: string | undefined;
+  /**
+   * @description The unique ID of the rule.
+   * @pattern ^[0-9a-f]{32}$
+   * @example 3a03d665bac047339bb530ecb439a90d
+   * @type string | undefined
+   */
+  id?: RulesetsRuleId | undefined;
+  /**
+   * @description The timestamp of when the rule was last modified.
+   *
+   * Format: `date-time`
+   * @example 2000-01-01T00:00:00Z
+   * @type string | undefined
+   */
+  readonly last_updated?: string | undefined;
+  /**
+   * @description An object configuring the rule's logging behavior.
+   * @type object | undefined
+   */
+  logging?: RulesetsRuleLogging | undefined;
+  /**
+   * @description An object configuring the rule's rate limit behavior.
+   * @type object | undefined
+   */
+  ratelimit?: RulesetsRuleRatelimit | undefined;
+  /**
+   * @description The reference of the rule (the rule's ID by default).
+   * @minLength 1
+   * @example my_ref
+   * @type string | undefined
+   */
+  ref?: string | undefined;
+  /**
+   * @description The version of the rule.
+   * @pattern ^[0-9]+$
+   * @example 1
+   * @type string | undefined
+   */
+  readonly version?: string | undefined;
+};
+
+export type RulesetsBlockRuleWritable = RulesetsRuleWritable & {
+  action?: 'block' | undefined;
+  action_parameters?: {
+    /**
+     * @description The response to show when the block is applied.
+     * @type object | undefined
+     */
+    response?: {
+      /**
+       * @description The content to return.
+       * @minLength 1
+       * @example {
+       *   "success": false,
+       *   "error": "you have been blocked"
+       * }
+       * @type string
+       */
+      content: string;
+      /**
+       * @description The type of the content to return.
+       * @minLength 1
+       * @example application/json
+       * @type string
+       */
+      content_type: string;
+      /**
+       * @description The status code to return.
+       * @minLength 400
+       * @maxLength 499
+       * @type integer
+       */
+      status_code: number;
+    } | undefined;
+  } | undefined;
+  /**
+   * @example Block the request.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsChallengeRuleWritable = RulesetsRuleWritable & {
+  action?: 'challenge' | undefined;
+  /**
+   * @example Issue an Interactive Challenge if the visitor has not solved an Interactive Challenge prior to the request.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export const rulesetsCompressResponseRuleWritableActionParametersAlgorithmsNameEnum = {
+  none: 'none',
+  auto: 'auto',
+  default: 'default',
+  gzip: 'gzip',
+  brotli: 'brotli',
+  zstd: 'zstd',
+} as const;
+
+export type RulesetsCompressResponseRuleWritableActionParametersAlgorithmsNameEnumKey = (typeof rulesetsCompressResponseRuleWritableActionParametersAlgorithmsNameEnum)[keyof typeof rulesetsCompressResponseRuleWritableActionParametersAlgorithmsNameEnum];
+
+export type RulesetsCompressResponseRuleWritable = RulesetsRuleWritable & {
+  action?: 'compress_response' | undefined;
+  action_parameters?: {
+    /**
+     * @description Custom order for compression algorithms.
+     * @type array
+     */
+    algorithms: {
+      /**
+       * @description Name of the compression algorithm to enable.
+       * @example none
+       * @type string | undefined
+       */
+      name?: RulesetsCompressResponseRuleWritableActionParametersAlgorithmsNameEnumKey | undefined;
+    }[];
+  } | undefined;
+  /**
+   * @example Modify the compression algorithm used in the response.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsDDoSDynamicRuleWritable = RulesetsRuleWritable & {
+  action?: 'ddos_dynamic' | undefined;
+  /**
+   * @example Perform a specific action according to a set of internal guidelines defined by Cloudflare.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsExecuteRuleWritable = RulesetsRuleWritable & {
+  action?: 'execute' | undefined;
+  action_parameters?: {
+    id: RulesetsRulesetId & string;
+    /**
+     * @description The configuration to use for matched data logging.
+     * @type object | undefined
+     */
+    matched_data?: RulesetsExecuteMatchedData | undefined;
+    /**
+     * @description A set of overrides to apply to the target ruleset.
+     * @type object | undefined
+     */
+    overrides?: RulesetsExecuteOverrides | undefined;
+  } | undefined;
+  /**
+   * @example Execute another ruleset.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsForceConnectionCloseRuleWritable = RulesetsRuleWritable & {
+  action?: 'force_connection_close' | undefined;
+  /**
+   * @example Close ongoing HTTP connections. This action does not block a request, but it forces the client to reconnect. For HTTP/2 and HTTP/3 connections, the connection will be closed even if it breaks other requests running on the same connection.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsJsChallengeRuleWritable = RulesetsRuleWritable & {
+  action?: 'js_challenge' | undefined;
+  /**
+   * @example Issue a non-interactive JavaScript Challenge if the visitor has not solved an Interactive Challenge, Managed Challenge, or JavaScript Challenge prior to the request.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsLogRuleWritable = RulesetsRuleWritable & {
+  action?: 'log' | undefined;
+  /**
+   * @example Log the request.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsLogCustomFieldRuleWritable = RulesetsRuleWritable & {
+  action?: 'log_custom_field' | undefined;
+  action_parameters?: {
+    /**
+     * @description The cookie fields to log.
+     * @type array | undefined
+     */
+    cookie_fields?: RulesetsLogCustomFieldCookieFields | undefined;
+    /**
+     * @description The raw response fields to log.
+     * @type array | undefined
+     */
+    raw_response_fields?: RulesetsLogCustomFieldRawResponseFields | undefined;
+    /**
+     * @description The raw request fields to log.
+     * @type array | undefined
+     */
+    request_fields?: RulesetsLogCustomFieldRequestFields | undefined;
+    /**
+     * @description The transformed response fields to log.
+     * @type array | undefined
+     */
+    response_fields?: RulesetsLogCustomFieldResponseFields | undefined;
+    /**
+     * @description The transformed request fields to log.
+     * @type array | undefined
+     */
+    transformed_request_fields?: RulesetsLogCustomFieldTransformedRequestFields | undefined;
+  } | undefined;
+  /**
+   * @example Log additional custom fields.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsManagedChallengeRuleWritable = RulesetsRuleWritable & {
+  action?: 'managed_challenge' | undefined;
+  /**
+   * @example Issue a Managed Challenge if the visitor has not solved a Managed Challenge or Interactive Challenge prior to the request.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsRedirectRuleWritable = RulesetsRuleWritable & {
+  action?: 'redirect' | undefined;
+  action_parameters?: {
+    /**
+     * @description A redirect based on a bulk list lookup.
+     * @type object | undefined
+     */
+    from_list?: RulesetsRedirectFromList | undefined;
+    /**
+     * @description A redirect based on the request properties.
+     * @type object | undefined
+     */
+    from_value?: RulesetsRedirectFromValue | undefined;
+  } | undefined;
+  /**
+   * @example Redirect the request.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsRewriteRuleWritable = RulesetsRuleWritable & {
+  action?: 'rewrite' | undefined;
+  action_parameters?: {
+    /**
+     * @description A map of headers to rewrite.
+     * @example {"client-http-version":{"expression":"http.request.version","operation":"set"}}
+     * @type object | undefined
+     */
+    headers?: RulesetsRewriteHeaders | undefined;
+    uri?: RulesetsRewriteUri | undefined;
+  } | undefined;
+  /**
+   * @example Rewrite properties of the request or response.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsRouteRuleWritable = RulesetsRuleWritable & {
+  action?: 'route' | undefined;
+  action_parameters?: {
+    /**
+     * @description A value to rewrite the HTTP host header to.
+     * @minLength 1
+     * @example static.example.com
+     * @type string | undefined
+     */
+    host_header?: RulesetsRouteHostHeader | undefined;
+    /**
+     * @description An origin to route to.
+     * @type object | undefined
+     */
+    origin?: RulesetsRouteOrigin | undefined;
+    /**
+     * @description A Server Name Indication (SNI) override.
+     * @type object | undefined
+     */
+    sni?: RulesetsRouteSNI | undefined;
+  } | undefined;
+  /**
+   * @example Select an origin server to route the request to.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsScoreRuleWritable = RulesetsRuleWritable & {
+  action?: 'score' | undefined;
+  action_parameters?: {
+    /**
+     * @description A delta to change the score by, which can be either positive or negative.
+     * @example 3
+     * @type integer
+     */
+    increment: RulesetsScoreIncrement;
+  } | undefined;
+  /**
+   * @example Increment the cumulative score.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsServeErrorRuleWritable = RulesetsRuleWritable & {
+  action?: 'serve_error' | undefined;
+  action_parameters?: {
+    /**
+     * @description The content type header to set with the error response.
+     * @example application/json
+     * @type string
+     */
+    content_type: RulesetsServeErrorContentTypeKey;
+    /**
+     * @description The status code to use for the error.
+     * @minLength 400
+     * @maxLength 999
+     * @example 500
+     * @type integer | undefined
+     */
+    status_code?: RulesetsServeErrorStatusCode | undefined;
+  } & ({
+    /**
+     * @description The response content.
+     * @minLength 1
+     * @example {
+     *   "error": "1xxx error occurred"
+     * }
+     * @type string
+     */
+    content: RulesetsServeErrorContent;
+  } | {
+    /**
+     * @description The name of a custom asset to serve as the error response.
+     * @minLength 1
+     * @example 500_errors
+     * @type string
+     */
+    asset_name: RulesetsServeErrorAssetName;
+  }) | undefined;
+  /**
+   * @example Customize the serving of errors.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsSetCacheControlRuleWritable = RulesetsRuleWritable & {
+  action?: 'set_cache_control' | undefined;
+  action_parameters?: {
+    /**
+     * @description A cache-control directive configuration.
+     */
+    immutable?: RulesetsSetCacheControlDirective | undefined;
+    /**
+     * @description A cache-control directive configuration that accepts a duration value in seconds.
+     */
+    'max-age'?: RulesetsSetCacheControlDirectiveWithValue | undefined;
+    /**
+     * @description A cache-control directive configuration.
+     */
+    'must-revalidate'?: RulesetsSetCacheControlDirective | undefined;
+    /**
+     * @description A cache-control directive configuration.
+     */
+    'must-understand'?: RulesetsSetCacheControlDirective | undefined;
+    /**
+     * @description A cache-control directive configuration that accepts optional qualifiers (header names).
+     */
+    'no-cache'?: RulesetsSetCacheControlDirectiveWithQualifiers | undefined;
+    /**
+     * @description A cache-control directive configuration.
+     */
+    'no-store'?: RulesetsSetCacheControlDirective | undefined;
+    /**
+     * @description A cache-control directive configuration.
+     */
+    'no-transform'?: RulesetsSetCacheControlDirective | undefined;
+    /**
+     * @description A cache-control directive configuration that accepts optional qualifiers (header names).
+     */
+    private?: RulesetsSetCacheControlDirectiveWithQualifiers | undefined;
+    /**
+     * @description A cache-control directive configuration.
+     */
+    'proxy-revalidate'?: RulesetsSetCacheControlDirective | undefined;
+    /**
+     * @description A cache-control directive configuration.
+     */
+    public?: RulesetsSetCacheControlDirective | undefined;
+    /**
+     * @description A cache-control directive configuration that accepts a duration value in seconds.
+     */
+    's-maxage'?: RulesetsSetCacheControlDirectiveWithValue | undefined;
+    /**
+     * @description A cache-control directive configuration that accepts a duration value in seconds.
+     */
+    'stale-if-error'?: RulesetsSetCacheControlDirectiveWithValue | undefined;
+    /**
+     * @description A cache-control directive configuration that accepts a duration value in seconds.
+     */
+    'stale-while-revalidate'?: RulesetsSetCacheControlDirectiveWithValue | undefined;
+  } | undefined;
+  /**
+   * @example Modify the cache-control header directives in an Origin response.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsSetCacheSettingsRuleWritable = RulesetsRuleWritable & {
+  action?: 'set_cache_settings' | undefined;
+  action_parameters?: {
+    /**
+     * @description A list of additional ports that caching should be enabled on.
+     * @type array | undefined
+     */
+    additional_cacheable_ports?: RulesetsSetCacheSettingsAdditionalCacheablePorts | undefined;
+    /**
+     * @description How long client browsers should cache the response. Cloudflare cache purge will not purge content cached on client browsers, so high browser TTLs may lead to stale content.
+     * @type object | undefined
+     */
+    browser_ttl?: RulesetsSetCacheSettingsBrowserTTL | undefined;
+    /**
+     * @description Whether the request's response from the origin is eligible for caching. Caching itself will still depend on the cache control header and your other caching configurations.
+     * @example true
+     * @type boolean | undefined
+     */
+    cache?: RulesetsSetCacheSettingsCache | undefined;
+    /**
+     * @description Which components of the request are included in or excluded from the cache key Cloudflare uses to store the response in cache.
+     * @type object | undefined
+     */
+    cache_key?: RulesetsSetCacheSettingsCacheKey | undefined;
+    /**
+     * @description Settings to determine whether the request's response from origin is eligible for Cache Reserve (requires a Cache Reserve add-on plan).
+     * @type object | undefined
+     */
+    cache_reserve?: RulesetsSetCacheSettingsCacheReserve | undefined;
+    /**
+     * @description How long the Cloudflare edge network should cache the response.
+     * @type object | undefined
+     */
+    edge_ttl?: RulesetsSetCacheSettingsEdgeTTL | undefined;
+    /**
+     * @description Whether Cloudflare will aim to strictly adhere to RFC 7234.
+     * @example true
+     * @type boolean | undefined
+     */
+    origin_cache_control?: RulesetsSetCacheSettingsOriginCacheControl | undefined;
+    /**
+     * @description Whether to generate Cloudflare error pages for issues from the origin server.
+     * @example true
+     * @type boolean | undefined
+     */
+    origin_error_page_passthru?: RulesetsSetCacheSettingsOriginErrorPagePassthru | undefined;
+    /**
+     * @description Controls whether Cloudflare fetches a large asset from the origin as a series of range requests instead of one whole-body request.
+     * @type object | undefined
+     */
+    origin_range_requests?: RulesetsSetCacheSettingsOriginRangeRequests | undefined;
+    /**
+     * @description A timeout value between two successive read operations to use for your origin server. Historically, the timeout value between two read options from Cloudflare to an origin server is 100 seconds. If you are attempting to reduce HTTP 524 errors because of timeouts from an origin server, try increasing this timeout value.
+     * @minLength 100
+     * @maxLength 6000
+     * @example 900
+     * @type integer | undefined
+     */
+    read_timeout?: RulesetsSetCacheSettingsReadTimeout | undefined;
+    /**
+     * @description Whether Cloudflare should respect strong ETag (entity tag) headers. If false, Cloudflare converts strong ETag headers to weak ETag headers.
+     * @example true
+     * @type boolean | undefined
+     */
+    respect_strong_etags?: RulesetsSetCacheSettingsRespectStrongEtags | undefined;
+    /**
+     * @description When to serve stale content from cache.
+     * @type object | undefined
+     */
+    serve_stale?: RulesetsSetCacheSettingsServeStale | undefined;
+    /**
+     * @description Configuration for shared dictionary compression. When set, Cloudflare injects Use-As-Dictionary headers on matching cacheable responses.
+     * @type object | undefined
+     */
+    shared_dictionary?: RulesetsSetCacheSettingsSharedDictionary | undefined;
+    /**
+     * @description Whether to strip ETag headers from the origin response before caching.
+     * @example true
+     * @type boolean | undefined
+     */
+    strip_etags?: RulesetsSetCacheSettingsStripETags | undefined;
+    /**
+     * @description Whether to strip Last-Modified headers from the origin response before caching.
+     * @example true
+     * @type boolean | undefined
+     */
+    strip_last_modified?: RulesetsSetCacheSettingsStripLastModified | undefined;
+    /**
+     * @description Whether to strip Set-Cookie headers from the origin response before caching.
+     * @example true
+     * @type boolean | undefined
+     */
+    strip_set_cookie?: RulesetsSetCacheSettingsStripSetCookie | undefined;
+    /**
+     * @description Controls how cached responses vary based on request headers. `default` is required by the API and applies to any Vary response header that does not have a per-header override.
+     * @type object | undefined
+     */
+    vary?: RulesetsSetCacheSettingsVary | undefined;
+  } | undefined;
+  /**
+   * @example Configure settings for how the response is cached.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsSetCacheTagsRuleWritable = RulesetsRuleWritable & {
+  action?: 'set_cache_tags' | undefined;
+  action_parameters?: ({
+    operation: RulesetsSetCacheTagsOperationKey & 'add';
+    /**
+     * @description A list of cache tag values.
+     * @type array
+     */
+    values: RulesetsSetCacheTagsValues;
+  } | {
+    /**
+     * @description An expression that evaluates to an array of cache tag values.
+     * @minLength 1
+     * @example http.request.uri.path.extension
+     * @type string
+     */
+    expression: RulesetsSetCacheTagsExpression;
+    operation: RulesetsSetCacheTagsOperationKey & 'add';
+  } | {
+    operation: RulesetsSetCacheTagsOperationKey & 'remove';
+    /**
+     * @description A list of cache tag values.
+     * @type array
+     */
+    values: RulesetsSetCacheTagsValues;
+  } | {
+    /**
+     * @description An expression that evaluates to an array of cache tag values.
+     * @minLength 1
+     * @example http.request.uri.path.extension
+     * @type string
+     */
+    expression: RulesetsSetCacheTagsExpression;
+    operation: RulesetsSetCacheTagsOperationKey & 'remove';
+  } | {
+    operation: RulesetsSetCacheTagsOperationKey & 'set';
+    /**
+     * @description A list of cache tag values.
+     * @type array
+     */
+    values: RulesetsSetCacheTagsValues;
+  } | {
+    /**
+     * @description An expression that evaluates to an array of cache tag values.
+     * @minLength 1
+     * @example http.request.uri.path.extension
+     * @type string
+     */
+    expression: RulesetsSetCacheTagsExpression;
+    operation: RulesetsSetCacheTagsOperationKey & 'set';
+  }) | undefined;
+  /**
+   * @example Modify the cache tags associated with the response.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export const rulesetsSetConfigRuleWritableActionParametersPolishEnum = {
+  off: 'off',
+  lossless: 'lossless',
+  lossy: 'lossy',
+  webp: 'webp',
+} as const;
+
+export type RulesetsSetConfigRuleWritableActionParametersPolishEnumKey = (typeof rulesetsSetConfigRuleWritableActionParametersPolishEnum)[keyof typeof rulesetsSetConfigRuleWritableActionParametersPolishEnum];
+
+export const rulesetsSetConfigRuleWritableActionParametersRequestBodyBufferingEnum = {
+  none: 'none',
+  standard: 'standard',
+  full: 'full',
+} as const;
+
+export type RulesetsSetConfigRuleWritableActionParametersRequestBodyBufferingEnumKey = (typeof rulesetsSetConfigRuleWritableActionParametersRequestBodyBufferingEnum)[keyof typeof rulesetsSetConfigRuleWritableActionParametersRequestBodyBufferingEnum];
+
+export const rulesetsSetConfigRuleWritableActionParametersResponseBodyBufferingEnum = {
+  none: 'none',
+  standard: 'standard',
+} as const;
+
+export type RulesetsSetConfigRuleWritableActionParametersResponseBodyBufferingEnumKey = (typeof rulesetsSetConfigRuleWritableActionParametersResponseBodyBufferingEnum)[keyof typeof rulesetsSetConfigRuleWritableActionParametersResponseBodyBufferingEnum];
+
+export const rulesetsSetConfigRuleWritableActionParametersSecurityLevelEnum = {
+  off: 'off',
+  essentially_off: 'essentially_off',
+  low: 'low',
+  medium: 'medium',
+  high: 'high',
+  under_attack: 'under_attack',
+} as const;
+
+export type RulesetsSetConfigRuleWritableActionParametersSecurityLevelEnumKey = (typeof rulesetsSetConfigRuleWritableActionParametersSecurityLevelEnum)[keyof typeof rulesetsSetConfigRuleWritableActionParametersSecurityLevelEnum];
+
+export const rulesetsSetConfigRuleWritableActionParametersSslEnum = {
+  off: 'off',
+  flexible: 'flexible',
+  full: 'full',
+  strict: 'strict',
+  origin_pull: 'origin_pull',
+} as const;
+
+export type RulesetsSetConfigRuleWritableActionParametersSslEnumKey = (typeof rulesetsSetConfigRuleWritableActionParametersSslEnum)[keyof typeof rulesetsSetConfigRuleWritableActionParametersSslEnum];
+
+export type RulesetsSetConfigRuleWritable = RulesetsRuleWritable & {
+  action?: 'set_config' | undefined;
+  action_parameters?: {
+    /**
+     * @description Whether to enable Automatic HTTPS Rewrites.
+     * @example true
+     * @type boolean | undefined
+     */
+    automatic_https_rewrites?: boolean | undefined;
+    /**
+     * @description Which file extensions to minify automatically.
+     * @type object | undefined
+     */
+    autominify?: RulesetsSetConfigAutominify | undefined;
+    /**
+     * @description Whether to enable Browser Integrity Check (BIC).
+     * @example true
+     * @type boolean | undefined
+     */
+    bic?: boolean | undefined;
+    /**
+     * @description Whether to enable content conversion (e.g., HTML to Markdown).
+     * @example true
+     * @type boolean | undefined
+     */
+    content_converter?: boolean | undefined;
+    /**
+     * @description Whether to disable Cloudflare Apps.
+     * @deprecated
+     * @type boolean | undefined
+     */
+    disable_apps?: true | undefined;
+    /**
+     * @description Whether to disable Pay Per Crawl.
+     * @type boolean | undefined
+     */
+    disable_pay_per_crawl?: true | undefined;
+    /**
+     * @description Whether to disable Real User Monitoring (RUM).
+     * @type boolean | undefined
+     */
+    disable_rum?: true | undefined;
+    /**
+     * @description Whether to disable Zaraz.
+     * @type boolean | undefined
+     */
+    disable_zaraz?: true | undefined;
+    /**
+     * @description Whether to enable Email Obfuscation.
+     * @example true
+     * @type boolean | undefined
+     */
+    email_obfuscation?: boolean | undefined;
+    /**
+     * @description Whether to enable Cloudflare Fonts.
+     * @example true
+     * @type boolean | undefined
+     */
+    fonts?: boolean | undefined;
+    /**
+     * @description Whether to enable Hotlink Protection.
+     * @example true
+     * @type boolean | undefined
+     */
+    hotlink_protection?: boolean | undefined;
+    /**
+     * @description Whether to enable Mirage.
+     * @deprecated
+     * @example true
+     * @type boolean | undefined
+     */
+    mirage?: boolean | undefined;
+    /**
+     * @description Whether to enable Opportunistic Encryption.
+     * @example true
+     * @type boolean | undefined
+     */
+    opportunistic_encryption?: boolean | undefined;
+    /**
+     * @description The Polish level to configure.
+     * @example off
+     * @type string | undefined
+     */
+    polish?: RulesetsSetConfigRuleWritableActionParametersPolishEnumKey | undefined;
+    /**
+     * @description Whether to redirect verified AI training crawlers to canonical URLs found in the HTML response.
+     * @example true
+     * @type boolean | undefined
+     */
+    redirects_for_ai_training?: boolean | undefined;
+    /**
+     * @description The request body buffering mode.
+     * @example standard
+     * @type string | undefined
+     */
+    request_body_buffering?: RulesetsSetConfigRuleWritableActionParametersRequestBodyBufferingEnumKey | undefined;
+    /**
+     * @description The response body buffering mode.
+     * @example standard
+     * @type string | undefined
+     */
+    response_body_buffering?: RulesetsSetConfigRuleWritableActionParametersResponseBodyBufferingEnumKey | undefined;
+    /**
+     * @description Whether to enable Rocket Loader.
+     * @example true
+     * @type boolean | undefined
+     */
+    rocket_loader?: boolean | undefined;
+    /**
+     * @description The Security Level to configure.
+     * @example off
+     * @type string | undefined
+     */
+    security_level?: RulesetsSetConfigRuleWritableActionParametersSecurityLevelEnumKey | undefined;
+    /**
+     * @description Whether to enable Server-Side Excludes.
+     * @example true
+     * @type boolean | undefined
+     */
+    server_side_excludes?: boolean | undefined;
+    /**
+     * @description The SSL level to configure.
+     * @example off
+     * @type string | undefined
+     */
+    ssl?: RulesetsSetConfigRuleWritableActionParametersSslEnumKey | undefined;
+    /**
+     * @description Whether to enable Signed Exchanges (SXG).
+     * @deprecated
+     * @example true
+     * @type boolean | undefined
+     */
+    sxg?: boolean | undefined;
+    /**
+     * @description Whether to serve the WebMCP bridge script, which exposes the page's tools to browser AI agents.
+     * @example true
+     * @type boolean | undefined
+     */
+    webmcp_enabled?: boolean | undefined;
+    /**
+     * @description Bundled WebMCP tool packs to activate for matching requests. An empty array disables all packs. Omitting this parameter leaves the pack selection unchanged. Does not enable the WebMCP bridge itself.
+     * @example ["c2pa","mcp-server-client"]
+     * @type array | undefined
+     */
+    webmcp_packs?: string[] | undefined;
+  } | undefined;
+  /**
+   * @example Configure settings for the request and response.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsSkipRuleWritable = RulesetsRuleWritable & {
+  action?: 'skip' | undefined;
+  action_parameters?: {
+    /**
+     * @description A phase to skip the execution of. This option is only compatible with the products option.
+     * @type string | undefined
+     */
+    phase?: RulesetsSkipPhaseKey | undefined;
+    /**
+     * @description A list of phases to skip the execution of. This option is incompatible with the rulesets option.
+     * @type array | undefined
+     */
+    phases?: RulesetsSkipPhases | undefined;
+    /**
+     * @description A list of legacy security products to skip the execution of.
+     * @type array | undefined
+     */
+    products?: RulesetsSkipProducts | undefined;
+    /**
+     * @description A mapping of ruleset IDs to a list of rule IDs in that ruleset to skip the execution of. This option is incompatible with the ruleset option.
+     * @example {"4814384a9e5d4991b9815dcfc25d2f1f":["8ac8bc2a661e475d940980f9317f28e1"]}
+     * @type object | undefined
+     */
+    rules?: RulesetsSkipRules | undefined;
+    /**
+     * @description A ruleset to skip the execution of. This option is incompatible with the rulesets option.
+     * @type string | undefined
+     */
+    ruleset?: RulesetsSkipRulesetKey | undefined;
+    /**
+     * @description A list of ruleset IDs to skip the execution of. This option is incompatible with the ruleset and phases options.
+     * @type array | undefined
+     */
+    rulesets?: RulesetsSkipRulesets | undefined;
+  } | undefined;
+  /**
+   * @example Skip executing rulesets, rules, phases, and other products.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsTransformResponseHTMLRuleWritable = RulesetsRuleWritable & {
+  action?: 'transform_response_html' | undefined;
+  action_parameters?: {
+    /**
+     * @description Enables the link maze transformation on the response.
+     * @type object
+     */
+    link_maze: object;
+  } | undefined;
+  /**
+   * @example Apply a HTML transformation to the response.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+};
+
+export type RulesetsRequestRuleWritable = RulesetsBlockRuleWritable & {
+  action: 'block';
+} | RulesetsChallengeRuleWritable & {
+  action: 'challenge';
+} | RulesetsCompressResponseRuleWritable & {
+  action: 'compress_response';
+} | RulesetsDDoSDynamicRuleWritable & {
+  action: 'ddos_dynamic';
+} | RulesetsExecuteRuleWritable & {
+  action: 'execute';
+} | RulesetsForceConnectionCloseRuleWritable & {
+  action: 'force_connection_close';
+} | RulesetsJsChallengeRuleWritable & {
+  action: 'js_challenge';
+} | RulesetsLogRuleWritable & {
+  action: 'log';
+} | RulesetsLogCustomFieldRuleWritable & {
+  action: 'log_custom_field';
+} | RulesetsManagedChallengeRuleWritable & {
+  action: 'managed_challenge';
+} | RulesetsRedirectRuleWritable & {
+  action: 'redirect';
+} | RulesetsRewriteRuleWritable & {
+  action: 'rewrite';
+} | RulesetsRouteRuleWritable & {
+  action: 'route';
+} | RulesetsScoreRuleWritable & {
+  action: 'score';
+} | RulesetsServeErrorRuleWritable & {
+  action: 'serve_error';
+} | RulesetsSetCacheControlRuleWritable & {
+  action: 'set_cache_control';
+} | RulesetsSetCacheSettingsRuleWritable & {
+  action: 'set_cache_settings';
+} | RulesetsSetCacheTagsRuleWritable & {
+  action: 'set_cache_tags';
+} | RulesetsSetConfigRuleWritable & {
+  action: 'set_config';
+} | RulesetsSkipRuleWritable & {
+  action: 'skip';
+} | RulesetsTransformResponseHTMLRuleWritable & {
+  action: 'transform_response_html';
+};
+
 /**
  * @description An object configuring where the rule will be placed.
  * @type object
  */
 export type RulesetsRulePosition = object;
 
-export type RulesetsRuleRequest = RulesetsRequestRule & {
+export type RulesetsRuleRequest = RulesetsRequestRuleWritable & {
   position?: (RulesetsRulePosition & {
     /**
      * @description The ID of another rule to place the rule before. An empty value causes the rule to be placed at the top.
@@ -102609,6 +103528,56 @@ export type SnippetsSnippetRulesResponse = SnippetsResponse & {
 };
 
 /**
+ * @description Lists snippet rules.
+ * @type array
+ */
+export type SnippetsSnippetRulesWritable = {
+  /**
+   * @description Provide an informative description of the rule.
+   * @default ''
+   * @example Execute my_snippet when IP address is 1.1.1.1.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+  /**
+   * @description Indicate whether to execute the rule.
+   * @default false
+   * @example true
+   * @type boolean | undefined
+   */
+  enabled?: boolean | undefined;
+  /**
+   * @description Define the expression that determines which traffic matches the rule.
+   * @minLength 1
+   * @example ip.src eq 1.1.1.1
+   * @type string
+   */
+  expression: string;
+  /**
+   * @description Specify the unique ID of the rule.
+   * @pattern ^[0-9a-f]{32}$
+   * @example 3a03d665bac047339bb530ecb439a90d
+   * @type string | undefined
+   */
+  readonly id?: string | undefined;
+  /**
+   * @description Specify the timestamp of when the rule was last modified.
+   *
+   * Format: `date-time`
+   * @example 2000-01-01T00:00:00Z
+   * @type string | undefined
+   */
+  readonly last_updated?: string | undefined;
+  /**
+   * @description Identify the snippet.
+   * @pattern ^[A-Za-z0-9_]+$
+   * @example my_snippet
+   * @type string
+   */
+  snippet_name: SnippetsSnippetName;
+}[];
+
+/**
  * @description Define a snippet rules object.
  * @type object
  */
@@ -102617,7 +103586,7 @@ export type SnippetsSnippetRulesRequest = {
    * @description Lists snippet rules.
    * @type array
    */
-  rules: SnippetsSnippetRulesSchema;
+  rules: SnippetsSnippetRulesWritable;
 };
 
 /**
@@ -137975,6 +138944,1610 @@ export type IntelSinkholesApiResponseCommonFailure2 = IntelSinkholesApiResponseC
  */
 export type LoadBalancingOriginHealthy2 = boolean;
 
+/**
+ * @description References an Organization in the Cloudflare data model.
+ * @type object
+ */
+export type OrganizationsApiOrganizationWritable = {
+  /**
+   * @description
+   * Format: `date-time`
+   * @type string | undefined
+   */
+  readonly create_time?: string | undefined;
+  /**
+   * @pattern ^[a-f0-9]{32}$
+   * @example a7b9c3d2e8f4a1b5c6d0e9f2a3b7c4d8
+   * @type string | undefined
+   */
+  readonly id?: OrganizationsApiOrganizationID | undefined;
+  readonly meta?: {
+    /**
+     * @description Ordered chain of organization tags from the root organization down to
+     * (and including) this organization itself. Root organizations return a
+     * single-element array containing their own tag; sub-organizations return
+     * `[rootTag, ...intermediateTags, parentTag, selfTag]`. Useful for
+     * constructing authorization scopes that need to cover every ancestor
+     * in the hierarchy.
+     * @type array | undefined
+     */
+    hierarchy_tags?: string[] | undefined;
+    managed_by?: string | undefined;
+    /**
+     * @description Enable features for Organizations.
+     * @type object | undefined
+     */
+    tenant_flags?: OrganizationsApiOrganizationFlags | undefined;
+    [key: string]: unknown;
+  } | undefined;
+  name: string;
+  parent?: {
+    /**
+     * @pattern ^[a-f0-9]{32}$
+     * @example a7b9c3d2e8f4a1b5c6d0e9f2a3b7c4d8
+     * @type string
+     */
+    id: OrganizationsApiOrganizationID;
+    readonly name?: string | undefined;
+  } | undefined;
+  profile?: OrganizationsApiProfile | undefined;
+};
+
+/**
+ * @description An email allow policy.
+ * @type object
+ */
+export type EmailSecurityAllowPolicyWritable = {
+  /**
+   * @maxLength 1024
+   * @example Trust all messages send from test@example.com
+   * @type string | undefined
+   */
+  comments?: (string | null) | undefined;
+  /**
+   * @description
+   * Format: `date-time`
+   * @example 2014-01-01T05:20:00.12345Z
+   * @type string | undefined
+   */
+  readonly created_at?: EmailSecurityTimestamp | undefined;
+  /**
+   * @description Timestamp at which the policy expires. After this time, Email Security ignores the policy. The value must lie in the future. Send `null` to clear the expiration.
+   *
+   * Format: `date-time`
+   * @example 2027-01-01T00:00:00Z
+   * @type string | undefined
+   */
+  expires_at?: (string | null) | undefined;
+  /**
+   * @description Allow policy identifier.
+   *
+   * Format: `uuid`
+   * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
+   * @type string | undefined
+   */
+  readonly id?: EmailSecurityAllowPolicyId | undefined;
+  /**
+   * @description Exempts messages from this sender from Spam, Spoof and Bulk dispositions only; Malicious and Suspicious dispositions still apply.
+   * @example false
+   * @type boolean | undefined
+   */
+  is_acceptable_sender?: boolean | undefined;
+  /**
+   * @description Bypasses all detections for messages to this recipient.
+   * @example false
+   * @type boolean | undefined
+   */
+  is_exempt_recipient?: boolean | undefined;
+  /**
+   * @description Deprecated as of July 1, 2025. Use `is_exempt_recipient` instead. End of life: July 1, 2026.
+   * @deprecated
+   * @example false
+   * @type boolean | undefined
+   */
+  is_recipient?: boolean | undefined;
+  /**
+   * @example false
+   * @type boolean | undefined
+   */
+  is_regex?: boolean | undefined;
+  /**
+   * @description Deprecated as of July 1, 2025. Use `is_trusted_sender` instead. End of life: July 1, 2026.
+   * @deprecated
+   * @example true
+   * @type boolean | undefined
+   */
+  is_sender?: boolean | undefined;
+  /**
+   * @description Deprecated as of July 1, 2025. Use `is_acceptable_sender` instead. End of life: July 1, 2026.
+   * @deprecated
+   * @example false
+   * @type boolean | undefined
+   */
+  is_spoof?: boolean | undefined;
+  /**
+   * @description Bypasses all detections and link following for messages from this sender.
+   * @example true
+   * @type boolean | undefined
+   */
+  is_trusted_sender?: boolean | undefined;
+  /**
+   * @description Deprecated, use `modified_at` instead. End of life: November 1, 2026.
+   *
+   * Format: `date-time`
+   * @deprecated
+   * @example 2014-01-01T05:20:00.12345Z
+   * @type string | undefined
+   */
+  readonly last_modified?: EmailSecurityTimestamp | undefined;
+  /**
+   * @description
+   * Format: `date-time`
+   * @example 2014-01-01T05:20:00.12345Z
+   * @type string | undefined
+   */
+  readonly modified_at?: EmailSecurityTimestamp | undefined;
+  /**
+   * @description The pattern value to match. The format depends on `pattern_type`: a valid email address for EMAIL (e.g. `user@example.com`), a valid domain name for DOMAIN (e.g. `example.com`), or a plain IPv4 or IPv6 address or CIDR block for IP (e.g. `1.2.3.4`, `1.2.3.0/24`, `2606:4700:4700::1111`, or `2606:4700:4700::/48`); the API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.
+   * @minLength 1
+   * @maxLength 1024
+   * @example test@example.com
+   * @type string | undefined
+   */
+  pattern?: string | undefined;
+  /**
+   * @description Type of pattern matching.
+   * - EMAIL: matches a full email address (e.g. `user@example.com`)
+   * - DOMAIN: matches a domain name (e.g. `example.com`)
+   * - IP: matches a plain IPv4 or IPv6 address (e.g. `1.2.3.4` or `2606:4700:4700::1111`) or CIDR block (e.g. `1.2.3.0/24` or `2606:4700:4700::/48`). The API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.
+   * - UNKNOWN: deprecated; you cannot use this when creating or updating policies, but it may appear on existing entries.
+   *
+   * @example EMAIL
+   * @type string | undefined
+   */
+  pattern_type?: EmailSecurityPatternTypeKey | undefined;
+  /**
+   * @description Enforce DMARC, SPF or DKIM authentication. When on, Email Security only honors policies that pass authentication.
+   * @example true
+   * @type boolean | undefined
+   */
+  verify_sender?: boolean | undefined;
+};
+
+/**
+ * @description Create an allow policy.
+ */
+export type EmailSecurityCreateAllowPolicyWritable = EmailSecurityAllowPolicyWritable & {
+  /**
+   * @description Bypasses all detections for messages to this recipient.
+   * @example false
+   * @type boolean
+   */
+  is_exempt_recipient: boolean;
+} & {
+  /**
+   * @description Bypasses all detections and link following for messages from this sender.
+   * @example true
+   * @type boolean
+   */
+  is_trusted_sender: boolean;
+} & {
+  /**
+   * @description Exempts messages from this sender from Spam, Spoof and Bulk dispositions only; Malicious and Suspicious dispositions still apply.
+   * @example false
+   * @type boolean
+   */
+  is_acceptable_sender: boolean;
+} & {
+  /**
+   * @description The pattern value to match. The format depends on `pattern_type`: a valid email address for EMAIL (e.g. `user@example.com`), a valid domain name for DOMAIN (e.g. `example.com`), or a plain IPv4 or IPv6 address or CIDR block for IP (e.g. `1.2.3.4`, `1.2.3.0/24`, `2606:4700:4700::1111`, or `2606:4700:4700::/48`); the API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.
+   * @minLength 1
+   * @maxLength 1024
+   * @example test@example.com
+   * @type string
+   */
+  pattern: string;
+} & {
+  /**
+   * @example false
+   * @type boolean
+   */
+  is_regex: boolean;
+} & {
+  /**
+   * @description Enforce DMARC, SPF or DKIM authentication. When on, Email Security only honors policies that pass authentication.
+   * @example true
+   * @type boolean
+   */
+  verify_sender: boolean;
+} & {
+  /**
+   * @description Type of pattern matching.
+   * - EMAIL: matches a full email address (e.g. `user@example.com`)
+   * - DOMAIN: matches a domain name (e.g. `example.com`)
+   * - IP: matches a plain IPv4 or IPv6 address (e.g. `1.2.3.4` or `2606:4700:4700::1111`) or CIDR block (e.g. `1.2.3.0/24` or `2606:4700:4700::/48`). The API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.
+   * - UNKNOWN: deprecated; you cannot use this when creating or updating policies, but it may appear on existing entries.
+   *
+   * @example EMAIL
+   * @type string
+   */
+  pattern_type: EmailSecurityPatternTypeKey;
+};
+
+/**
+ * @description Update an allow policy.
+ * @type object
+ */
+export type EmailSecurityUpdateAllowPolicyWritable = EmailSecurityAllowPolicyWritable;
+
+export type FirewallRuleWritable = {
+  /**
+   * @description The available actions that a rule can apply to a matched request.
+   * @example ["whitelist","block","challenge","js_challenge","managed_challenge"]
+   * @type array | undefined
+   */
+  readonly allowed_modes?: FirewallSchemasModeKey[] | undefined;
+  /**
+   * @description The rule configuration.
+   */
+  configuration: FirewallConfiguration;
+  /**
+   * @description The timestamp of when the rule was created.
+   *
+   * Format: `date-time`
+   * @example 2014-01-01T05:20:00.12345Z
+   * @type string | undefined
+   */
+  readonly created_on?: string | undefined;
+  /**
+   * @description The unique identifier of the IP Access rule.
+   * @maxLength 32
+   * @example 92f17202ed8bd63d69a66b86a49a8f6b
+   * @type string
+   */
+  readonly id: FirewallSchemasIdentifier;
+  /**
+   * @description The action to apply to a matched request.
+   * @example challenge
+   * @type string
+   */
+  mode: FirewallSchemasModeKey;
+  /**
+   * @description The timestamp of when the rule was last modified.
+   *
+   * Format: `date-time`
+   * @example 2014-01-01T05:20:00.12345Z
+   * @type string | undefined
+   */
+  readonly modified_on?: string | undefined;
+  /**
+   * @description An informative summary of the rule, typically used as a reminder or explanation.
+   * @example This rule is enabled because of an event that occurred on date X.
+   * @type string | undefined
+   */
+  notes?: FirewallNotes | undefined;
+};
+
+export const firewallSchemasRuleWritableScopeTypeEnum = {
+  user: 'user',
+  organization: 'organization',
+} as const;
+
+export type FirewallSchemasRuleWritableScopeTypeEnumKey = (typeof firewallSchemasRuleWritableScopeTypeEnum)[keyof typeof firewallSchemasRuleWritableScopeTypeEnum];
+
+export type FirewallSchemasRuleWritable = FirewallRuleWritable & {
+  /**
+   * @description All zones owned by the user will have the rule applied.
+   * @type object | undefined
+   */
+  readonly scope?: {
+    /**
+     * @description The contact email address of the user.
+     * @maxLength 90
+     * @example user@example.com
+     * @type string | undefined
+     */
+    email?: FirewallEmail | undefined;
+    /**
+     * @description Defines an identifier.
+     * @maxLength 32
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
+     * @type string | undefined
+     */
+    readonly id?: FirewallIdentifier | undefined;
+    /**
+     * @description Defines the scope of the rule.
+     * @example user
+     * @type string | undefined
+     */
+    readonly type?: FirewallSchemasRuleWritableScopeTypeEnumKey | undefined;
+  } | undefined;
+} & {
+  /**
+   * @description The unique identifier of the IP Access rule.
+   * @maxLength 32
+   * @example 92f17202ed8bd63d69a66b86a49a8f6b
+   * @type string
+   */
+  readonly id: FirewallSchemasIdentifier;
+} & {
+  /**
+   * @description The action to apply to a matched request.
+   * @example challenge
+   * @type string
+   */
+  mode: FirewallSchemasModeKey;
+} & {
+  /**
+   * @description The available actions that a rule can apply to a matched request.
+   * @example ["whitelist","block","challenge","js_challenge","managed_challenge"]
+   * @type array
+   */
+  readonly allowed_modes: FirewallSchemasModeKey[];
+} & {
+  /**
+   * @description The rule configuration.
+   */
+  configuration: FirewallConfiguration;
+} & {
+  /**
+   * @description All zones owned by the user will have the rule applied.
+   * @type object
+   */
+  readonly scope: {
+    /**
+     * @description The contact email address of the user.
+     * @maxLength 90
+     * @example user@example.com
+     * @type string | undefined
+     */
+    email?: FirewallEmail | undefined;
+    /**
+     * @description Defines an identifier.
+     * @maxLength 32
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
+     * @type string | undefined
+     */
+    readonly id?: FirewallIdentifier | undefined;
+    /**
+     * @description Defines the scope of the rule.
+     * @example user
+     * @type string | undefined
+     */
+    readonly type?: FirewallSchemasRuleWritableScopeTypeEnumKey | undefined;
+  };
+};
+
+export type LoadBalancingMonitorGroupWritable = {
+  /**
+   * @description The timestamp of when the monitor group was created
+   *
+   * Format: `date-time`
+   * @example 2014-01-01T05:20:00.12345Z
+   * @type string | undefined
+   */
+  readonly created_on?: string | undefined;
+  /**
+   * @description A short description of the monitor group
+   * @example Primary datacenter monitors
+   * @type string
+   */
+  description: string;
+  /**
+   * @description The ID of the Monitor Group to use for checking the health of origins within this pool.
+   * @type string | undefined
+   */
+  readonly id?: LoadBalancingMonitorGroupId | undefined;
+  /**
+   * @description List of monitors in this group
+   * @type array
+   */
+  members: LoadBalancingMonitorGroupMember[];
+  /**
+   * @description The timestamp of when the monitor group was last updated
+   *
+   * Format: `date-time`
+   * @example 2014-01-01T05:20:00.12345Z
+   * @type string | undefined
+   */
+  readonly modified_on?: string | undefined;
+};
+
+export type IamRoleWritable = {
+  /**
+   * @description Description of role's permissions.
+   * @example Administrative access to the entire Account
+   * @type string | undefined
+   */
+  readonly description?: string | undefined;
+  /**
+   * @description Role identifier tag.
+   * @maxLength 32
+   * @example 3536bcfad5faccb999b47003c79917fb
+   * @type string
+   */
+  id: IamRoleComponentsSchemasIdentifier;
+  /**
+   * @description Role name.
+   * @maxLength 120
+   * @example Account Administrator
+   * @type string | undefined
+   */
+  readonly name?: string | undefined;
+  /**
+   * @example {"analytics":{"read":true,"write":false},"zones":{"read":true,"write":true}}
+   * @type object | undefined
+   */
+  readonly permissions?: IamPermissions | undefined;
+};
+
+export const iamUpdateMemberWithRolesWritableStatusEnum = {
+  accepted: 'accepted',
+  pending: 'pending',
+} as const;
+
+export type IamUpdateMemberWithRolesWritableStatusEnumKey = (typeof iamUpdateMemberWithRolesWritableStatusEnum)[keyof typeof iamUpdateMemberWithRolesWritableStatusEnum];
+
+export type IamUpdateMemberWithRolesWritable = {
+  /**
+   * @description Membership identifier tag.
+   * @maxLength 32
+   * @example 4536bcfad5faccb111b47003c79917fa
+   * @type string | undefined
+   */
+  readonly id?: IamMembershipComponentsSchemasIdentifier | undefined;
+  /**
+   * @description Roles assigned to this member.
+   * @type array | undefined
+   */
+  roles?: IamRoleWritable[] | undefined;
+  /**
+   * @description A member's status in the account.
+   * @example accepted
+   * @type string | undefined
+   */
+  readonly status?: IamUpdateMemberWithRolesWritableStatusEnumKey | undefined;
+  /**
+   * @description Details of the user associated to the membership.
+   * @type object | undefined
+   */
+  readonly user?: {
+    /**
+     * @description The contact email address of the user.
+     * @maxLength 90
+     * @example user@example.com
+     * @type string
+     */
+    email: IamEmail;
+    /**
+     * @description User's first name
+     * @maxLength 60
+     * @example John
+     * @type string | undefined
+     */
+    first_name?: (IamFirstName | null) | undefined;
+    /**
+     * @description Identifier
+     * @minLength 32
+     * @maxLength 32
+     * @example 023e105f4ecef8ad9ca31a8372d0c353
+     * @type string | undefined
+     */
+    id?: IamCommonComponentsSchemasIdentifier | undefined;
+    /**
+     * @description User's last name
+     * @maxLength 60
+     * @example Appleseed
+     * @type string | undefined
+     */
+    last_name?: (IamLastName | null) | undefined;
+    /**
+     * @description Indicates whether two-factor authentication is enabled for the user account. Does not apply to API authentication.
+     * @default false
+     * @type boolean | undefined
+     */
+    readonly two_factor_authentication_enabled?: IamTwoFactorAuthenticationEnabled | undefined;
+  } | undefined;
+};
+
+/**
+ * @description A ruleset object.
+ * @type object
+ */
+export type RulesetsRulesetWritable = {
+  /**
+   * @description An informative description of the ruleset.
+   * @default ''
+   * @example A description for my ruleset.
+   * @type string | undefined
+   */
+  description?: string | undefined;
+  id?: RulesetsRulesetId & string | undefined;
+  /**
+   * @description The timestamp of when the ruleset was last modified.
+   *
+   * Format: `date-time`
+   * @example 2000-01-01T00:00:00Z
+   * @type string | undefined
+   */
+  readonly last_updated?: string | undefined;
+  /**
+   * @description The human-readable name of the ruleset.
+   * @minLength 1
+   * @example My ruleset
+   * @type string | undefined
+   */
+  name?: string | undefined;
+  readonly version?: RulesetsRulesetVersion & string | undefined;
+};
+
+/**
+ * @description The list of rules in the ruleset.
+ * @default []
+ * @type array
+ */
+export type RulesetsRequestRulesWritable = RulesetsRequestRuleWritable[];
+
+export type WorkersDomainWritable = {
+  /**
+   * @description ID of the TLS certificate issued for the domain.
+   *
+   * Format: `uuid`
+   * @example 9fdf92c8-64c2-4a3d-b1af-e15304961145
+   * @type string | undefined
+   */
+  readonly cert_id?: string | undefined;
+  /**
+   * @description Whether the configured hostname is routable for the domain. If disabled, then requests to the configured hostname will not be routed to the configured Worker. If disabled, then preview routing must be enabled, and only subdomains of the configured hostname will be routable.
+   * @default true
+   * @example true
+   * @type boolean
+   */
+  enabled: boolean;
+  /**
+   * @description Worker environment associated with the domain.
+   * @deprecated
+   * @example production
+   * @type string | undefined
+   */
+  readonly environment?: string | undefined;
+  /**
+   * @description Hostname of the domain. Can be either the zone apex or a subdomain of the zone. Requests to this hostname will be routed to the configured Worker.
+   * @example app.example.com
+   * @type string
+   */
+  hostname: string;
+  /**
+   * @description Immutable ID of the domain.
+   * @example dbe10b4bc17c295377eabd600e1787fd
+   * @type string | undefined
+   */
+  readonly id?: string | undefined;
+  /**
+   * @description Whether previews are routable for the domain. If enabled, previews will be routable as subdomains of the configured hostname. For example, if the configured hostname is `app.example.com`, then requests to `my-feature.app.example.com` will be routed to the preview with slug `my-feature`, if such a preview exists. If preview routing is disabled, then hostname routing must be enabled.
+   * @default false
+   * @example false
+   * @type boolean
+   */
+  previews_enabled: boolean;
+  /**
+   * @description Name of the Worker associated with the domain. Requests to the configured hostname will be routed to this Worker.
+   * @example my-worker
+   * @type string
+   */
+  service: string;
+  /**
+   * @description ID of the zone containing the domain hostname.
+   * @example 593c9c94de529bbbfaac7c53ced0447d
+   * @type string
+   */
+  zone_id: string;
+  /**
+   * @description Name of the zone containing the domain hostname.
+   * @example example.com
+   * @type string
+   */
+  zone_name: string;
+};
+
+export type WorkersDeploymentWritable = {
+  annotations?: {
+    /**
+     * @description Human-readable message about the deployment. Truncated to 1000 bytes if longer.
+     * @maxLength 1000
+     * @example Deploy bug fix.
+     * @type string | undefined
+     */
+    'workers/message'?: string | undefined;
+    /**
+     * @description Operation that triggered the creation of the deployment.
+     * @example deployment
+     * @type string | undefined
+     */
+    readonly 'workers/triggered_by'?: string | undefined;
+  } | undefined;
+  /**
+   * @description
+   * Format: `email`
+   * @type string | undefined
+   */
+  readonly author_email?: string | undefined;
+  /**
+   * @description Choose whether to apply Durable Object code updates immediately or defer them. When omitted, the default strategy applies.
+   */
+  code_update_strategy?: (WorkersCodeUpdateStrategy | null) | undefined;
+  /**
+   * @description
+   * Format: `date-time`
+   * @type string | undefined
+   */
+  readonly created_on?: string | undefined;
+  /**
+   * @description
+   * Format: `uuid`
+   * @type string | undefined
+   */
+  readonly id?: string | undefined;
+  /**
+   * @example api
+   * @type string | undefined
+   */
+  readonly source?: string | undefined;
+  strategy: 'percentage';
+  /**
+   * @description Worker versions included in this deployment. Each object must contain a `version_id` UUID and a `percentage`; percentages across all objects must total 100. In the `cf` CLI, pass the entire array as one JSON value to `--versions`, either inline, for example `--versions '[{"version_id":"023e105f-2a42-4f8b-a1c1-73f6a2a30c0f","percentage":100}]'`, or from a JSON file with `--versions @versions.json`.
+   * @example [{"percentage":100,"version_id":"023e105f-2a42-4f8b-a1c1-73f6a2a30c0f"}]
+   * @type array
+   */
+  versions: {
+    /**
+     * @description Percentage of traffic served by this version.
+     * @minLength 0.01
+     * @maxLength 100
+     * @example 100
+     * @type number
+     */
+    percentage: number;
+    /**
+     * @description Identifier of the Worker Version.
+     *
+     * Format: `uuid`
+     * @type string
+     */
+    version_id: string;
+  }[];
+};
+
+export const workersWorkerWritableObservabilityTracesPropagationPolicyEnum = {
+  authenticated: 'authenticated',
+  accept: 'accept',
+} as const;
+
+export type WorkersWorkerWritableObservabilityTracesPropagationPolicyEnumKey = (typeof workersWorkerWritableObservabilityTracesPropagationPolicyEnum)[keyof typeof workersWorkerWritableObservabilityTracesPropagationPolicyEnum];
+
+export type WorkersWorkerWritable = {
+  /**
+   * @description When the Worker was created.
+   *
+   * Format: `date-time`
+   * @type string | undefined
+   */
+  readonly created_on?: string | undefined;
+  /**
+   * @description When the Worker's most recent deployment was created. `null` if the Worker has never been deployed.
+   *
+   * Format: `date-time`
+   * @type string | undefined
+   */
+  readonly deployed_on?: (string | null) | undefined;
+  /**
+   * @description Immutable ID of the Worker.
+   * @example e8f70fdbc8b1fb0b8ddb1af166186758
+   * @type string | undefined
+   */
+  readonly id?: string | undefined;
+  /**
+   * @description Whether logpush is enabled for the Worker.
+   * @default false
+   * @type boolean
+   */
+  logpush: boolean;
+  /**
+   * @description Name of the Worker.
+   * @pattern ^[a-z0-9_][a-z0-9-_]*$
+   * @example my-worker
+   * @type string
+   */
+  name: string;
+  /**
+   * @description Observability settings for the Worker.
+   * @type object
+   */
+  observability: {
+    /**
+     * @description Whether observability is enabled for the Worker.
+     * @default false
+     * @type boolean | undefined
+     */
+    enabled?: boolean | undefined;
+    /**
+     * @description The sampling rate for observability. From 0 to 1 (1 = 100%, 0.1 = 10%).
+     * @default 1
+     * @example 1
+     * @type number | undefined
+     */
+    head_sampling_rate?: number | undefined;
+    /**
+     * @description Real-time Issues settings for the Worker.
+     * @type object | undefined
+     */
+    issues?: ({
+      /**
+       * @description Whether real-time Issues are enabled for the Worker.
+       * @default false
+       * @type boolean | undefined
+       */
+      enabled?: boolean | undefined;
+    } | null) | undefined;
+    /**
+     * @description Log settings for the Worker.
+     * @type object | undefined
+     */
+    logs?: {
+      /**
+       * @description A list of destinations where logs will be exported to.
+       * @default []
+       * @type array | undefined
+       */
+      destinations?: string[] | undefined;
+      /**
+       * @description Whether logs are enabled for the Worker.
+       * @default false
+       * @type boolean | undefined
+       */
+      enabled?: boolean | undefined;
+      /**
+       * @description The sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%).
+       * @default 1
+       * @example 1
+       * @type number | undefined
+       */
+      head_sampling_rate?: number | undefined;
+      /**
+       * @description Whether [invocation logs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/#invocation-logs) are enabled for the Worker.
+       * @default true
+       * @type boolean | undefined
+       */
+      invocation_logs?: boolean | undefined;
+      /**
+       * @description Whether log persistence is enabled for the Worker.
+       * @default true
+       * @type boolean | undefined
+       */
+      persist?: boolean | undefined;
+    } | undefined;
+    /**
+     * @description Whether query strings are removed from request URLs in logs and traces.
+     * @default false
+     * @type boolean | undefined
+     */
+    redact_query_string?: boolean | undefined;
+    /**
+     * @description Trace settings for the Worker.
+     * @type object | undefined
+     */
+    traces?: {
+      /**
+       * @description A list of destinations where traces will be exported to.
+       * @default []
+       * @type array | undefined
+       */
+      destinations?: string[] | undefined;
+      /**
+       * @description Whether traces are enabled for the Worker.
+       * @default false
+       * @type boolean | undefined
+       */
+      enabled?: boolean | undefined;
+      /**
+       * @description The sampling rate for traces. From 0 to 1 (1 = 100%, 0.1 = 10%).
+       * @default 1
+       * @example 1
+       * @type number | undefined
+       */
+      head_sampling_rate?: number | undefined;
+      /**
+       * @description Whether trace persistence is enabled for the Worker.
+       * @default true
+       * @type boolean | undefined
+       */
+      persist?: boolean | undefined;
+      /**
+       * @description Controls how inbound trace context (traceparent/tracestate) headers on incoming requests are handled. "authenticated" honors inbound trace context only when accompanied by a valid trace auth token. "accept" unconditionally accepts inbound trace context. Requires the trace propagation feature to be enabled. Returns null when the trace propagation feature is not enabled for the account.
+       * @type string | undefined
+       */
+      propagation_policy?: (WorkersWorkerWritableObservabilityTracesPropagationPolicyEnumKey | null) | undefined;
+    } | undefined;
+  };
+  /**
+   * @description Template configuration used when creating new Previews for this Worker.
+   * @type object | undefined
+   */
+  previews_base_config?: WorkersPreviewsBaseConfig | undefined;
+  /**
+   * @description Other resources that reference the Worker and depend on it existing.
+   * @type object | undefined
+   */
+  readonly references?: {
+    /**
+     * @description Other Workers that reference the Worker as an outbound for a dispatch namespace.
+     * @type array
+     */
+    dispatch_namespace_outbounds: {
+      /**
+       * @description ID of the dispatch namespace.
+       * @example e8f70fdbc8b1fb0b8ddb1af166186758
+       * @type string
+       */
+      namespace_id: string;
+      /**
+       * @description Name of the dispatch namespace.
+       * @example my-dispatch-namespace
+       * @type string
+       */
+      namespace_name: string;
+      /**
+       * @description ID of the Worker using the dispatch namespace.
+       * @example e8f70fdbc8b1fb0b8ddb1af166186758
+       * @type string
+       */
+      worker_id: string;
+      /**
+       * @description Name of the Worker using the dispatch namespace.
+       * @example my-worker
+       * @type string
+       */
+      worker_name: string;
+    }[];
+    /**
+     * @description Custom domains connected to the Worker.
+     * @type array
+     */
+    domains: {
+      /**
+       * @description ID of the TLS certificate issued for the custom domain.
+       * @type string
+       */
+      certificate_id: string;
+      /**
+       * @description Full hostname of the custom domain, including the zone name.
+       * @example my-worker.example.com
+       * @type string
+       */
+      hostname: string;
+      /**
+       * @description ID of the custom domain.
+       * @example e8f70fdbc8b1fb0b8ddb1af166186758
+       * @type string
+       */
+      id: string;
+      /**
+       * @description ID of the zone.
+       * @example e8f70fdbc8b1fb0b8ddb1af166186758
+       * @type string
+       */
+      zone_id: string;
+      /**
+       * @description Name of the zone.
+       * @example example.com
+       * @type string
+       */
+      zone_name: string;
+    }[];
+    /**
+     * @description Other Workers that reference Durable Object classes implemented by the Worker.
+     * @type array
+     */
+    durable_objects: {
+      /**
+       * @description ID of the Durable Object namespace being used.
+       * @example e8f70fdbc8b1fb0b8ddb1af166186758
+       * @type string
+       */
+      namespace_id: string;
+      /**
+       * @description Name of the Durable Object namespace being used.
+       * @example my-durable-object-namespace
+       * @type string
+       */
+      namespace_name: string;
+      /**
+       * @description ID of the Worker using the Durable Object implementation.
+       * @example e8f70fdbc8b1fb0b8ddb1af166186758
+       * @type string
+       */
+      worker_id: string;
+      /**
+       * @description Name of the Worker using the Durable Object implementation.
+       * @example my-worker
+       * @type string
+       */
+      worker_name: string;
+    }[];
+    /**
+     * @description Queues that send messages to the Worker.
+     * @type array
+     */
+    queues: {
+      /**
+       * @description ID of the queue consumer configuration.
+       * @example e8f70fdbc8b1fb0b8ddb1af166186758
+       * @type string
+       */
+      queue_consumer_id: string;
+      /**
+       * @description ID of the queue.
+       * @example e8f70fdbc8b1fb0b8ddb1af166186758
+       * @type string
+       */
+      queue_id: string;
+      /**
+       * @description Name of the queue.
+       * @example my-queue
+       * @type string
+       */
+      queue_name: string;
+    }[];
+    /**
+     * @description Other Workers that reference the Worker using [service bindings](https://developers.cloudflare.com/workers/runtime-apis/bindings/service-bindings/).
+     * @type array
+     */
+    workers: {
+      /**
+       * @description ID of the referencing Worker.
+       * @example e8f70fdbc8b1fb0b8ddb1af166186758
+       * @type string
+       */
+      id: string;
+      /**
+       * @description Name of the referencing Worker.
+       * @example my-worker
+       * @type string
+       */
+      name: string;
+    }[];
+  } | undefined;
+  /**
+   * @description Subdomain settings for the Worker.
+   * @type object
+   */
+  subdomain: {
+    /**
+     * @description Whether the *.workers.dev subdomain is enabled for the Worker.
+     * @default false
+     * @type boolean | undefined
+     */
+    enabled?: boolean | undefined;
+    /**
+     * @description Prepend a version or preview prefix to this host suffix to form the *.workers.dev [preview URL](https://developers.cloudflare.com/workers/configuration/previews/) the Worker would serve on once previews are enabled, e.g. `https://<prefix>-my-worker.my-subdomain.workers.dev`. Present whenever the account owns a workers.dev subdomain, regardless of whether `previews_enabled` is true, so presence does not imply preview URLs are currently live. Absent only when the account owns no workers.dev subdomain.
+     * @example -my-worker.my-subdomain.workers.dev
+     * @type string | undefined
+     */
+    readonly preview_url_suffix?: string | undefined;
+    /**
+     * @description Whether [preview URLs](https://developers.cloudflare.com/workers/configuration/previews/) are enabled for the Worker.
+     * @type boolean | undefined
+     */
+    previews_enabled?: boolean | undefined;
+    /**
+     * @description The address the Worker would serve on once its *.workers.dev subdomain is enabled. Present whenever the account owns a workers.dev subdomain, regardless of whether `enabled` is true, so presence does not imply the Worker is currently live at this URL. Absent only when the account owns no workers.dev subdomain.
+     *
+     * Format: `uri`
+     * @example https://my-worker.my-subdomain.workers.dev
+     * @type string | undefined
+     */
+    readonly url?: string | undefined;
+  };
+  /**
+   * @description Tags associated with the Worker.
+   * @default []
+   * @example ["my-team","my-public-api"]
+   * @type array
+   */
+  tags: string[];
+  /**
+   * @description Other Workers that should consume logs from the Worker.
+   * @default []
+   * @type array
+   */
+  tail_consumers: {
+    /**
+     * @description Name of the consumer Worker.
+     * @example my-tail-consumer
+     * @type string
+     */
+    name: string;
+  }[];
+  /**
+   * @description When the Worker was most recently updated.
+   *
+   * Format: `date-time`
+   * @type string | undefined
+   */
+  readonly updated_on?: string | undefined;
+};
+
+export type WorkersPreviewWritable = {
+  /**
+   * @description When the Preview was created.
+   *
+   * Format: `date-time`
+   * @type string | undefined
+   */
+  readonly created_on?: string | undefined;
+  /**
+   * @description When the Preview's most recent deployment was created. `null` if the Preview has never been deployed.
+   *
+   * Format: `date-time`
+   * @type string | undefined
+   */
+  readonly deployed_on?: (string | null) | undefined;
+  /**
+   * @description Immutable ID of the Preview.
+   * @pattern ^[0-9a-f]{32}$
+   * @example 63bafce9179948688866bb22268eb1c6
+   * @type string | undefined
+   */
+  readonly id?: string | undefined;
+  /**
+   * @description Whether logpush is enabled for the Preview.
+   * @default false
+   * @type boolean
+   */
+  logpush: boolean;
+  /**
+   * @description Human-readable name of the Preview.
+   * @maxLength 256
+   * @pattern ^[a-zA-Z0-9]([a-zA-Z0-9\-_/.+=]*[a-zA-Z0-9])?$
+   * @example feature/my-branch
+   * @type string
+   */
+  name: string;
+  /**
+   * @description Observability settings for the Preview.
+   * @type object
+   */
+  observability: {
+    /**
+     * @description Whether observability is enabled for the Preview.
+     * @default false
+     * @type boolean | undefined
+     */
+    enabled?: boolean | undefined;
+    /**
+     * @description The sampling rate for observability. From 0 to 1 (1 = 100%, 0.1 = 10%).
+     * @default 1
+     * @example 1
+     * @type number | undefined
+     */
+    head_sampling_rate?: number | undefined;
+    /**
+     * @description Real-time Issues settings for the Preview.
+     * @type object | undefined
+     */
+    issues?: ({
+      /**
+       * @description Whether real-time Issues are enabled for the Preview.
+       * @default false
+       * @type boolean | undefined
+       */
+      enabled?: boolean | undefined;
+    } | null) | undefined;
+    /**
+     * @description Log settings for the Preview.
+     * @type object | undefined
+     */
+    logs?: {
+      /**
+       * @description A list of destinations where logs will be exported to.
+       * @default []
+       * @type array | undefined
+       */
+      destinations?: string[] | undefined;
+      /**
+       * @description Whether logs are enabled for the Preview.
+       * @default false
+       * @type boolean | undefined
+       */
+      enabled?: boolean | undefined;
+      /**
+       * @description The sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%).
+       * @default 1
+       * @example 1
+       * @type number | undefined
+       */
+      head_sampling_rate?: number | undefined;
+      /**
+       * @description Whether invocation logs are enabled for the Preview.
+       * @default true
+       * @type boolean | undefined
+       */
+      invocation_logs?: boolean | undefined;
+      /**
+       * @description Whether log persistence is enabled for the Preview.
+       * @default true
+       * @type boolean | undefined
+       */
+      persist?: boolean | undefined;
+    } | undefined;
+    /**
+     * @description Whether query strings are removed from request URLs in logs and traces.
+     * @default false
+     * @type boolean | undefined
+     */
+    redact_query_string?: boolean | undefined;
+    /**
+     * @description Trace settings for the Preview.
+     * @type object | undefined
+     */
+    traces?: {
+      /**
+       * @description A list of destinations where traces will be exported to.
+       * @default []
+       * @type array | undefined
+       */
+      destinations?: string[] | undefined;
+      /**
+       * @description Whether traces are enabled for the Preview.
+       * @default false
+       * @type boolean | undefined
+       */
+      enabled?: boolean | undefined;
+      /**
+       * @description The sampling rate for traces. From 0 to 1 (1 = 100%, 0.1 = 10%).
+       * @default 1
+       * @example 1
+       * @type number | undefined
+       */
+      head_sampling_rate?: number | undefined;
+      /**
+       * @description Whether trace persistence is enabled for the Preview.
+       * @default true
+       * @type boolean | undefined
+       */
+      persist?: boolean | undefined;
+    } | undefined;
+  };
+  /**
+   * @description Immutable URL-safe identifier for the Preview.
+   * @example feature-my-branch
+   * @type string | undefined
+   */
+  readonly slug?: string | undefined;
+  /**
+   * @description Tags associated with the Preview.
+   * @default []
+   * @example ["my-team","my-preview"]
+   * @type array
+   */
+  tags: string[];
+  /**
+   * @description Other Workers that should consume logs from the Preview.
+   * @default []
+   * @type array
+   */
+  tail_consumers: {
+    /**
+     * @description Name of the consumer Worker.
+     * @example my-tail-consumer
+     * @type string
+     */
+    name: string;
+  }[];
+  /**
+   * @description When the Preview was most recently updated.
+   *
+   * Format: `date-time`
+   * @type string | undefined
+   */
+  readonly updated_on?: string | undefined;
+  /**
+   * @description Routable URLs for the Preview.
+   * @type array | undefined
+   */
+  readonly urls?: string[] | undefined;
+};
+
+export const workersVersionWritableAssetsConfigHtmlHandlingEnum = {
+  'auto-trailing-slash': 'auto-trailing-slash',
+  'force-trailing-slash': 'force-trailing-slash',
+  'drop-trailing-slash': 'drop-trailing-slash',
+  none: 'none',
+} as const;
+
+export type WorkersVersionWritableAssetsConfigHtmlHandlingEnumKey = (typeof workersVersionWritableAssetsConfigHtmlHandlingEnum)[keyof typeof workersVersionWritableAssetsConfigHtmlHandlingEnum];
+
+export const workersVersionWritableAssetsConfigNotFoundHandlingEnum = {
+  none: 'none',
+  '404-page': '404-page',
+  'single-page-application': 'single-page-application',
+} as const;
+
+export type WorkersVersionWritableAssetsConfigNotFoundHandlingEnumKey = (typeof workersVersionWritableAssetsConfigNotFoundHandlingEnum)[keyof typeof workersVersionWritableAssetsConfigNotFoundHandlingEnum];
+
+export const workersVersionWritableUsageModelEnum = {
+  standard: 'standard',
+  bundled: 'bundled',
+  unbound: 'unbound',
+} as const;
+
+export type WorkersVersionWritableUsageModelEnumKey = (typeof workersVersionWritableUsageModelEnum)[keyof typeof workersVersionWritableUsageModelEnum];
+
+export type WorkersVersionWritable = {
+  /**
+   * @description Metadata about the version.
+   * @type object | undefined
+   */
+  annotations?: {
+    /**
+     * @description Human-readable message about the version. Truncated to 1000 bytes if longer.
+     * @maxLength 1000
+     * @example Fixed bug.
+     * @type string | undefined
+     */
+    'workers/message'?: string | undefined;
+    /**
+     * @description User-provided identifier for the version. Maximum 100 bytes.
+     * @maxLength 100
+     * @example v1.0.1
+     * @type string | undefined
+     */
+    'workers/tag'?: string | undefined;
+    /**
+     * @description Operation that triggered the creation of the version.
+     * @example upload
+     * @type string | undefined
+     */
+    readonly 'workers/triggered_by'?: string | undefined;
+  } | undefined;
+  /**
+   * @description Configuration for assets within a Worker.
+   *
+   * [`_headers`](https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers) and
+   * [`_redirects`](https://developers.cloudflare.com/workers/static-assets/redirects/) files should be
+   * included as modules named `_headers` and `_redirects` with content type `text/plain`.
+   *
+   * @type object | undefined
+   */
+  assets?: {
+    /**
+     * @description Configuration for assets within a Worker.
+     * @type object | undefined
+     */
+    config?: {
+      /**
+       * @description The public URL path prefix under which assets are served. A null request value resets it to `/`; responses represent the root as `/`. All versions in a gradual deployment must use the same canonical value. To change it, first deploy the version containing the change at 100%.
+       * @default '/'
+       * @example /docs/
+       * @type string | undefined
+       */
+      base_path?: (string | null) | undefined;
+      /**
+       * @description Determines the redirects and rewrites of requests for HTML content.
+       * @default 'auto-trailing-slash'
+       * @example auto-trailing-slash
+       * @type string | undefined
+       */
+      html_handling?: WorkersVersionWritableAssetsConfigHtmlHandlingEnumKey | undefined;
+      /**
+       * @description Determines the response when a request does not match a static asset, and there is no Worker script.
+       * @default 'none'
+       * @example 404-page
+       * @type string | undefined
+       */
+      not_found_handling?: WorkersVersionWritableAssetsConfigNotFoundHandlingEnumKey | undefined;
+      /**
+       * @default false
+       */
+      run_worker_first?: (string[] | boolean) | undefined;
+    } | undefined;
+    /**
+     * @description Token provided upon successful upload of all files from a registered manifest.
+     * @type string | undefined
+     */
+    jwt?: string | undefined;
+  } | undefined;
+  /**
+   * @description Email of the user who created the version.
+   *
+   * Format: `email`
+   * @example user@example.com
+   * @type string | undefined
+   */
+  readonly author_email?: string | undefined;
+  /**
+   * @description Identifier of the user who created the version.
+   * @example 408cbcdfd4dda4617efef40b04d168a1
+   * @type string | undefined
+   */
+  readonly author_id?: string | undefined;
+  /**
+   * @description List of bindings attached to a Worker. You can find more about bindings on our docs: https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/#bindings.
+   * @example [{"name":"MY_ENV_VAR","text":"my_data","type":"plain_text"}]
+   * @type array | undefined
+   */
+  bindings?: WorkersBindings | undefined;
+  /**
+   * @description Global CacheW configuration for the Worker. When caching is on,
+   * the platform provisions a `cloudflare.app` zone for the Worker.
+   * A `type: worker` entry in the `exports` map can override this
+   * value for a single entrypoint.
+   *
+   * @type object | undefined
+   */
+  cache_options?: WorkersCacheOptions | undefined;
+  /**
+   * @description Date indicating targeted support in the Workers runtime. Backwards incompatible fixes to the runtime following this date will not affect this Worker.
+   * @example 2021-01-01T00:00:00Z
+   * @type string | undefined
+   */
+  compatibility_date?: WorkersCompatibilityDate | undefined;
+  /**
+   * @description Flags that enable or disable certain features in the Workers runtime. Used to enable upcoming features or opt in or out of specific changes not included in a `compatibility_date`.
+   * @default []
+   * @example ["nodejs_compat"]
+   * @type array | undefined
+   */
+  compatibility_flags?: WorkersCompatibilityFlags | undefined;
+  /**
+   * @description List of containers attached to a Worker. Containers can only be attached to Durable Object classes of this Worker script.
+   * @example [{"class_name":"MyDurableObject"}]
+   * @type array | undefined
+   */
+  containers?: WorkersContainers | undefined;
+  /**
+   * @description When the version was created.
+   *
+   * Format: `date-time`
+   * @type string | undefined
+   */
+  readonly created_on?: string | undefined;
+  /**
+   * @description Declarative exports for the version, including Durable Object
+   * classes (with their `storage` backend) and named Worker
+   * entrypoints. On reads, tombstoned lifecycle entries are
+   * omitted, so only live exports (`created` and
+   * `expecting-transfer`) are returned. `exports` and `migrations`
+   * are mutually exclusive on upload.
+   *
+   * @example {"Admin":{"cache":{"enabled":true},"type":"worker"},"Counter":{"storage":"sqlite","type":"durable-object"},"OldCounter":{"renamed_to":"Counter","state":"renamed","type":"durable-object"},"default":{"cache":{"enabled":false},"type":"worker"}}
+   * @type object | undefined
+   */
+  exports?: WorkersExportsConfigMap | undefined;
+  /**
+   * @description Summary of the declarative exports reconciliation that ran on
+   * this upload. Populated only when the uploaded metadata included
+   * an `exports` block. Durable Object entries drive reconciliation;
+   * `type: worker` entries do not contribute to this summary.
+   *
+   * @type object | undefined
+   */
+  readonly exports_reconciliation?: WorkersExportsReconciliationResult | undefined;
+  /**
+   * @description Version identifier.
+   *
+   * Format: `uuid`
+   * @type string | undefined
+   */
+  readonly id?: string | undefined;
+  /**
+   * @description Resource limits enforced at runtime.
+   * @type object | undefined
+   */
+  limits?: {
+    /**
+     * @description CPU time limit in milliseconds.
+     * @example 50
+     * @type integer | undefined
+     */
+    cpu_ms?: number | undefined;
+    /**
+     * @description Subrequest limit per request.
+     * @example 1000
+     * @type integer | undefined
+     */
+    subrequests?: number | undefined;
+  } | undefined;
+  /**
+   * @description The name of the main module in the `modules` array (e.g. the name of the module that exports a `fetch` handler).
+   * @example index.js
+   * @type string | undefined
+   */
+  main_module?: string | undefined;
+  /**
+   * @description Durable Object migration tag. Set when the version is deployed. Omitted if the version has not been deployed or the Worker does not use Durable Objects.
+   * @example v1
+   * @type string | undefined
+   */
+  readonly migration_tag?: string | undefined;
+  /**
+   * @description Migrations for Durable Objects associated with the version. Migrations are applied when the version is deployed.
+   */
+  migrations?: (WorkersSingleStepMigrations | WorkersMultipleStepMigrations) | undefined;
+  /**
+   * @description Code, sourcemaps, and other content used at runtime.
+   *
+   * This includes [`_headers`](https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers) and
+   * [`_redirects`](https://developers.cloudflare.com/workers/static-assets/redirects/) files used to configure
+   * [Static Assets](https://developers.cloudflare.com/workers/static-assets/). `_headers` and `_redirects` files should be
+   * included as modules named `_headers` and `_redirects` with content type `text/plain`.
+   *
+   * @type array | undefined
+   */
+  modules?: {
+    /**
+     * @description The base64-encoded module content.
+     * @example ZXhwb3J0IGRlZmF1bHQgewogIGFzeW5jIGZldGNoKHJlcXVlc3QsIGVudiwgY3R4KSB7CiAgICByZXR1cm4gbmV3IFJlc3BvbnNlKCdIZWxsbyBXb3JsZCEnKQogIH0KfQ==
+     * @type string
+     */
+    content_base64: string;
+    /**
+     * @description The content type of the module.
+     * @example application/javascript+module
+     * @type string
+     */
+    content_type: string;
+    /**
+     * @description The name of the module.
+     * @example index.js
+     * @type string
+     */
+    name: string;
+  }[] | undefined;
+  /**
+   * @description The integer version number, starting from one.
+   * @type integer | undefined
+   */
+  readonly number?: number | undefined;
+  /**
+   * @description The list of npm packages that were installed and used when this Worker
+   * version was built.
+   *
+   * @type array | undefined
+   */
+  package_dependencies?: {
+    /**
+     * @description The exact version that was resolved and installed by the package manager.
+     * @example 4.17.22
+     * @type string
+     */
+    installedVersion: string;
+    /**
+     * @description The npm package name.
+     * @example lodash
+     * @type string
+     */
+    name: string;
+    /**
+     * @description The version constraint as written in package.json.
+     * @example ^4.17.21
+     * @type string
+     */
+    packageJsonVersion: string;
+  }[] | undefined;
+  /**
+   * @description Configuration for [Smart Placement](https://developers.cloudflare.com/workers/configuration/smart-placement). Specify mode='smart' for Smart Placement, or one of region/hostname/host.
+   */
+  placement?: WorkersPlacementInfoNoStatus | undefined;
+  /**
+   * @description The client used to create the version.
+   * @example wrangler
+   * @type string | undefined
+   */
+  readonly source?: string | undefined;
+  /**
+   * @description Time in milliseconds spent on [Worker startup](https://developers.cloudflare.com/workers/platform/limits/#worker-startup-time).
+   * @example 10
+   * @type integer | undefined
+   */
+  readonly startup_time_ms?: number | undefined;
+  /**
+   * @description All routable URLs that always point to this version. Does not include alias URLs, since aliases can be updated to point to a different version.
+   * @example ["https://9387e76d-my-worker.my-subdomain.workers.dev"]
+   * @type array | undefined
+   */
+  readonly urls?: string[] | undefined;
+  /**
+   * @description Usage model for the version.
+   * @deprecated
+   * @default 'standard'
+   * @example standard
+   * @type string | undefined
+   */
+  usage_model?: WorkersVersionWritableUsageModelEnumKey | undefined;
+};
+
+/**
+ * @description A Managed Transform object.
+ * @type object
+ */
+export type RulesetsManagedTransformWritable = {
+  /**
+   * @description The Managed Transforms that this Managed Transform conflicts with.
+   * @type array | undefined
+   */
+  readonly conflicts_with?: (RulesetsManagedTransformId & string)[] | undefined;
+  /**
+   * @description Whether the Managed Transform is enabled.
+   * @example true
+   * @type boolean
+   */
+  enabled: boolean;
+  /**
+   * @description Whether the Managed Transform conflicts with the currently-enabled Managed Transforms.
+   * @example false
+   * @type boolean | undefined
+   */
+  readonly has_conflict?: boolean | undefined;
+  /**
+   * @description The human-readable identifier of the Managed Transform.
+   * @minLength 1
+   * @type string
+   */
+  id: RulesetsManagedTransformId;
+};
+
+/**
+ * @description A Managed Transforms patch object. Both fields are optional; only the sections provided will be updated.
+ * @type object
+ */
+export type RulesetsManagedTransformsPatchWritable = {
+  /**
+   * @description The list of Managed Request Transforms.
+   * @type array | undefined
+   */
+  managed_request_headers?: (RulesetsManagedTransformWritable & {
+    /**
+     * @example add_bot_protection_headers
+     * @type string | undefined
+     */
+    id?: string | undefined;
+  })[] | undefined;
+  /**
+   * @description The list of Managed Response Transforms.
+   * @type array | undefined
+   */
+  managed_response_headers?: (RulesetsManagedTransformWritable & {
+    /**
+     * @example add_security_headers
+     * @type string | undefined
+     */
+    id?: string | undefined;
+  })[] | undefined;
+};
+
+export type WorkersRouteWritable = {
+  /**
+   * @description Identifier.
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string | undefined
+   */
+  readonly id?: WorkersIdentifier | undefined;
+  /**
+   * @description Pattern to match incoming requests against. [Learn more](https://developers.cloudflare.com/workers/configuration/routing/routes/#matching-behavior).
+   * @example example.com/*
+   * @type string
+   */
+  pattern: string;
+  /**
+   * @description Name of the script to run if the route matches.
+   * @example my-workers-script
+   * @type string | undefined
+   */
+  script?: string | undefined;
+};
+
 export type AnalyticsSqlMalformedRequest = AnalyticsSqlApiErrorResponse | AnalyticsSqlGatewayApiErrorResponse;
 
 export type AnalyticsSqlQuerySuccess = AnalyticsSqlSqlQueryResponse | AnalyticsSqlClickHouseJsonQueryResponse | AnalyticsSqlLogExplorerQueryResponse;
@@ -139181,7 +141754,7 @@ export type RealtimekitUpdateMeetingBody = {
   transcribe_on_end?: boolean | undefined;
 };
 
-export type RulesetsCreateRuleset = RulesetsRulesetSchema & {
+export type RulesetsCreateRuleset = RulesetsRulesetWritable & {
   /**
    * @description The kind of the ruleset.
    * @example root
@@ -139199,7 +141772,7 @@ export type RulesetsCreateRuleset = RulesetsRulesetSchema & {
    * @default []
    * @type array | undefined
    */
-  rules?: RulesetsRequestRules | undefined;
+  rules?: RulesetsRequestRulesWritable | undefined;
 } & {
   /**
    * @description The human-readable name of the ruleset.
@@ -139224,16 +141797,16 @@ export type RulesetsCreateRuleset = RulesetsRulesetSchema & {
   phase: RulesetsRulesetPhaseKey;
 };
 
-export type RulesetsUpdateEntrypointRuleset = RulesetsRulesetSchema & {
+export type RulesetsUpdateEntrypointRuleset = RulesetsRulesetWritable & {
   /**
    * @description The list of rules in the ruleset.
    * @default []
    * @type array | undefined
    */
-  rules?: RulesetsRequestRules | undefined;
+  rules?: RulesetsRequestRulesWritable | undefined;
 };
 
-export type RulesetsUpdateRuleset = RulesetsRulesetSchema & {
+export type RulesetsUpdateRuleset = RulesetsRulesetWritable & {
   /**
    * @description The kind of the ruleset.
    * @example root
@@ -139251,7 +141824,7 @@ export type RulesetsUpdateRuleset = RulesetsRulesetSchema & {
    * @default []
    * @type array | undefined
    */
-  rules?: RulesetsRequestRules | undefined;
+  rules?: RulesetsRequestRulesWritable | undefined;
 };
 
 export const workersWorkerProfileRequestProfileTypeEnum = {
@@ -140324,7 +142897,7 @@ export type OrganizationsCreateUserOrganizationStatus400 = OrganizationsApiV4Err
  * @description References an Organization in the Cloudflare data model.
  * @type object
  */
-export type OrganizationsCreateUserOrganizationBody = Omit<NonNullable<OrganizationsApiOrganization>, 'create_time' | 'id' | 'meta'>;
+export type OrganizationsCreateUserOrganizationBody = Omit<NonNullable<OrganizationsApiOrganizationWritable>, 'create_time' | 'id' | 'meta'>;
 
 export type OrganizationsCreateUserOrganizationOptions = {
   body: OrganizationsCreateUserOrganizationBody;
@@ -341719,7 +344292,7 @@ export type EmailSecurityCreateAllowPolicyStatus400 = EmailSecurityApiResponseCo
 /**
  * @description Create an allow policy.
  */
-export type EmailSecurityCreateAllowPolicyBody = EmailSecurityCreateAllowPolicy;
+export type EmailSecurityCreateAllowPolicyBody = EmailSecurityCreateAllowPolicyWritable;
 
 export type EmailSecurityCreateAllowPolicyOptions = {
   body: EmailSecurityCreateAllowPolicyBody;
@@ -341778,7 +344351,7 @@ export type EmailSecurityBatchAllowPoliciesBody = {
    * @description Partial updates to apply — each entry carries the policy's ID and only the fields to change.
    * @type array
    */
-  patches: (EmailSecurityUpdateAllowPolicy & {
+  patches: (EmailSecurityUpdateAllowPolicyWritable & {
     /**
      * @description Allow policy identifier.
      *
@@ -341792,12 +344365,12 @@ export type EmailSecurityBatchAllowPoliciesBody = {
    * @description Allow policies to create.
    * @type array
    */
-  posts: EmailSecurityCreateAllowPolicy[];
+  posts: EmailSecurityCreateAllowPolicyWritable[];
   /**
    * @description Full replacements to apply — each entry carries the policy's ID and every field of its new value.
    * @type array
    */
-  puts: (EmailSecurityCreateAllowPolicy & {
+  puts: (EmailSecurityCreateAllowPolicyWritable & {
     /**
      * @description Allow policy identifier.
      *
@@ -341944,7 +344517,7 @@ export type EmailSecurityUpdateAllowPolicyStatus400 = EmailSecurityApiResponseCo
  * @description Update an allow policy.
  * @type object
  */
-export type EmailSecurityUpdateAllowPolicyBody = EmailSecurityUpdateAllowPolicy;
+export type EmailSecurityUpdateAllowPolicyBody = EmailSecurityUpdateAllowPolicyWritable;
 
 export type EmailSecurityUpdateAllowPolicyOptions = {
   body: EmailSecurityUpdateAllowPolicyBody;
@@ -341994,7 +344567,7 @@ export type EmailSecurityReplaceAllowPolicyStatus400 = EmailSecurityApiResponseC
 /**
  * @description Create an allow policy.
  */
-export type EmailSecurityReplaceAllowPolicyBody = EmailSecurityCreateAllowPolicy;
+export type EmailSecurityReplaceAllowPolicyBody = EmailSecurityCreateAllowPolicyWritable;
 
 export type EmailSecurityReplaceAllowPolicyOptions = {
   body: EmailSecurityReplaceAllowPolicyBody;
@@ -348915,7 +351488,7 @@ export type IpAccessRulesForAnAccountUpdateAnIpAccessRuleStatus200 = FirewallRes
 
 export type IpAccessRulesForAnAccountUpdateAnIpAccessRuleStatus400 = FirewallApiResponseCommonFailure;
 
-export type IpAccessRulesForAnAccountUpdateAnIpAccessRuleBody = FirewallSchemasRule;
+export type IpAccessRulesForAnAccountUpdateAnIpAccessRuleBody = FirewallSchemasRuleWritable;
 
 export type IpAccessRulesForAnAccountUpdateAnIpAccessRuleOptions = {
   body: IpAccessRulesForAnAccountUpdateAnIpAccessRuleBody;
@@ -357967,7 +360540,7 @@ export type AccountLoadBalancerMonitorGroupsCreateMonitorGroupStatus400 = LoadBa
 
 export type AccountLoadBalancerMonitorGroupsCreateMonitorGroupStatus412 = LoadBalancingApiResponseCommonFailure;
 
-export type AccountLoadBalancerMonitorGroupsCreateMonitorGroupBody = Omit<NonNullable<LoadBalancingMonitorGroup>, 'created_on' | 'id' | 'modified_on'>;
+export type AccountLoadBalancerMonitorGroupsCreateMonitorGroupBody = Omit<NonNullable<LoadBalancingMonitorGroupWritable>, 'created_on' | 'id' | 'modified_on'>;
 
 export type AccountLoadBalancerMonitorGroupsCreateMonitorGroupOptions = {
   body: AccountLoadBalancerMonitorGroupsCreateMonitorGroupBody;
@@ -358083,7 +360656,7 @@ export type AccountLoadBalancerMonitorGroupsPatchMonitorGroupStatus400 = LoadBal
 
 export type AccountLoadBalancerMonitorGroupsPatchMonitorGroupStatus412 = LoadBalancingApiResponseCommonFailure;
 
-export type AccountLoadBalancerMonitorGroupsPatchMonitorGroupBody = Omit<NonNullable<LoadBalancingMonitorGroup>, 'created_on' | 'id' | 'modified_on'>;
+export type AccountLoadBalancerMonitorGroupsPatchMonitorGroupBody = Omit<NonNullable<LoadBalancingMonitorGroupWritable>, 'created_on' | 'id' | 'modified_on'>;
 
 export type AccountLoadBalancerMonitorGroupsPatchMonitorGroupOptions = {
   body: AccountLoadBalancerMonitorGroupsPatchMonitorGroupBody;
@@ -358124,7 +360697,7 @@ export type AccountLoadBalancerMonitorGroupsUpdateMonitorGroupStatus400 = LoadBa
 
 export type AccountLoadBalancerMonitorGroupsUpdateMonitorGroupStatus412 = LoadBalancingApiResponseCommonFailure;
 
-export type AccountLoadBalancerMonitorGroupsUpdateMonitorGroupBody = Omit<NonNullable<LoadBalancingMonitorGroup>, 'created_on' | 'id' | 'modified_on'>;
+export type AccountLoadBalancerMonitorGroupsUpdateMonitorGroupBody = Omit<NonNullable<LoadBalancingMonitorGroupWritable>, 'created_on' | 'id' | 'modified_on'>;
 
 export type AccountLoadBalancerMonitorGroupsUpdateMonitorGroupOptions = {
   body: AccountLoadBalancerMonitorGroupsUpdateMonitorGroupBody;
@@ -368438,7 +371011,7 @@ export type AccountMembersUpdateMemberStatus200 = IamSingleMemberResponseWithPol
 
 export type AccountMembersUpdateMemberStatus400 = IamApiResponseCommonFailure;
 
-export type AccountMembersUpdateMemberBody = IamUpdateMemberWithRoles | IamUpdateMemberWithPolicies;
+export type AccountMembersUpdateMemberBody = IamUpdateMemberWithRolesWritable | IamUpdateMemberWithPolicies;
 
 export type AccountMembersUpdateMemberOptions = {
   body: AccountMembersUpdateMemberBody;
@@ -388212,7 +390785,7 @@ export type CreateAccountRulesetStatus400 = RulesetsResponse & {
   success?: false | undefined;
 };
 
-export type CreateAccountRulesetBody = RulesetsRulesetSchema & {
+export type CreateAccountRulesetBody = RulesetsRulesetWritable & {
   /**
    * @description The kind of the ruleset.
    * @example root
@@ -388230,7 +390803,7 @@ export type CreateAccountRulesetBody = RulesetsRulesetSchema & {
    * @default []
    * @type array | undefined
    */
-  rules?: RulesetsRequestRules | undefined;
+  rules?: RulesetsRequestRulesWritable | undefined;
 } & {
   /**
    * @description The human-readable name of the ruleset.
@@ -388390,13 +390963,13 @@ export type UpdateAccountEntrypointRulesetStatus400 = RulesetsResponse & {
   success?: false | undefined;
 };
 
-export type UpdateAccountEntrypointRulesetBody = RulesetsRulesetSchema & {
+export type UpdateAccountEntrypointRulesetBody = RulesetsRulesetWritable & {
   /**
    * @description The list of rules in the ruleset.
    * @default []
    * @type array | undefined
    */
-  rules?: RulesetsRequestRules | undefined;
+  rules?: RulesetsRequestRulesWritable | undefined;
 };
 
 export type UpdateAccountEntrypointRulesetOptions = {
@@ -388723,7 +391296,7 @@ export type UpdateAccountRulesetStatus400 = RulesetsResponse & {
   success?: false | undefined;
 };
 
-export type UpdateAccountRulesetBody = RulesetsRulesetSchema & {
+export type UpdateAccountRulesetBody = RulesetsRulesetWritable & {
   /**
    * @description The kind of the ruleset.
    * @example root
@@ -388741,7 +391314,7 @@ export type UpdateAccountRulesetBody = RulesetsRulesetSchema & {
    * @default []
    * @type array | undefined
    */
-  rules?: RulesetsRequestRules | undefined;
+  rules?: RulesetsRequestRulesWritable | undefined;
 };
 
 export type UpdateAccountRulesetOptions = {
@@ -388817,7 +391390,7 @@ export type CreateAccountRulesetRuleStatus400 = RulesetsResponse & {
   success?: false | undefined;
 };
 
-export type CreateAccountRulesetRuleBody = RulesetsRequestRule & {
+export type CreateAccountRulesetRuleBody = RulesetsRequestRuleWritable & {
   position?: (RulesetsRulePosition & {
     /**
      * @description The ID of another rule to place the rule before. An empty value causes the rule to be placed at the top.
@@ -389005,7 +391578,7 @@ export type UpdateAccountRulesetRuleStatus400 = RulesetsResponse & {
   success?: false | undefined;
 };
 
-export type UpdateAccountRulesetRuleBody = RulesetsRequestRule & {
+export type UpdateAccountRulesetRuleBody = RulesetsRequestRuleWritable & {
   position?: (RulesetsRulePosition & {
     /**
      * @description The ID of another rule to place the rule before. An empty value causes the rule to be placed at the top.
@@ -410040,7 +412613,7 @@ export type WorkersDomainsUpdateStatus200 = WorkersApiResponseCommon & {
 
 export type WorkersDomainsUpdateStatus400 = WorkersApiResponseCommonFailure;
 
-export type WorkersDomainsUpdateBody = WorkersDomain & {
+export type WorkersDomainsUpdateBody = WorkersDomainWritable & {
   /**
    * @description Hostname of the domain. Can be either the zone apex or a subdomain of the zone. Requests to this hostname will be routed to the configured Worker.
    * @example app.example.com
@@ -416756,7 +419329,7 @@ export type WorkerDeploymentsCreateDeploymentStatus200 = WorkersApiResponseCommo
 
 export type WorkerDeploymentsCreateDeploymentStatus400 = WorkersApiResponseCommonFailure;
 
-export type WorkerDeploymentsCreateDeploymentBody = Omit<NonNullable<WorkersDeployment>, 'author_email' | 'created_on' | 'id' | 'source'>;
+export type WorkerDeploymentsCreateDeploymentBody = Omit<NonNullable<WorkersDeploymentWritable>, 'author_email' | 'created_on' | 'id' | 'source'>;
 
 export type WorkerDeploymentsCreateDeploymentOptions = {
   body: WorkerDeploymentsCreateDeploymentBody;
@@ -418481,7 +421054,7 @@ export type CreateWorkerStatus500 = WorkersApiResponseCommonFailure & {
 /**
  * @description Worker creation parameters.
  */
-export type CreateWorkerBody = WorkersWorker & {
+export type CreateWorkerBody = WorkersWorkerWritable & {
   /**
    * @description Name of the Worker.
    * @pattern ^[a-z0-9_][a-z0-9-_]*$
@@ -418695,7 +421268,7 @@ export type EditWorkerStatus500 = WorkersApiResponseCommonFailure & {
 /**
  * @description Worker partial update parameters.
  */
-export type EditWorkerBody = WorkersWorker & object;
+export type EditWorkerBody = WorkersWorkerWritable & object;
 
 export type EditWorkerOptions = {
   body: EditWorkerBody;
@@ -418787,7 +421360,7 @@ export type UpdateWorkerStatus500 = WorkersApiResponseCommonFailure & {
 /**
  * @description Worker update parameters.
  */
-export type UpdateWorkerBody = WorkersWorker & {
+export type UpdateWorkerBody = WorkersWorkerWritable & {
   /**
    * @description Name of the Worker.
    * @pattern ^[a-z0-9_][a-z0-9-_]*$
@@ -418951,7 +421524,7 @@ export type WorkersPreviewsCreateStatus400 = WorkersApiResponseCommonFailure;
 /**
  * @description Preview creation parameters.
  */
-export type WorkersPreviewsCreateBody = WorkersPreview & {
+export type WorkersPreviewsCreateBody = WorkersPreviewWritable & {
   /**
    * @description Human-readable name of the Preview.
    * @maxLength 256
@@ -419100,7 +421673,7 @@ export type WorkersPreviewsEditStatus400 = WorkersApiResponseCommonFailure;
 /**
  * @description Preview partial update parameters.
  */
-export type WorkersPreviewsEditBody = WorkersPreview & object;
+export type WorkersPreviewsEditBody = WorkersPreviewWritable & object;
 
 export type WorkersPreviewsEditOptions = {
   body: WorkersPreviewsEditBody;
@@ -419161,7 +421734,7 @@ export type WorkersPreviewsUpdateStatus400 = WorkersApiResponseCommonFailure;
 /**
  * @description Preview update parameters.
  */
-export type WorkersPreviewsUpdateBody = WorkersPreview & {
+export type WorkersPreviewsUpdateBody = WorkersPreviewWritable & {
   /**
    * @description Human-readable name of the Preview.
    * @maxLength 256
@@ -419553,7 +422126,7 @@ export type CreateWorkerVersionStatus400 = WorkersApiResponseCommonFailure | Wor
  * @description Version creation parameters.
  * @type object
  */
-export type CreateWorkerVersionBody = Omit<NonNullable<WorkersVersion>, 'author_email' | 'author_id' | 'created_on' | 'id' | 'migration_tag' | 'number' | 'source' | 'startup_time_ms' | 'urls'>;
+export type CreateWorkerVersionBody = Omit<NonNullable<WorkersVersionWritable>, 'author_email' | 'author_id' | 'created_on' | 'id' | 'migration_tag' | 'number' | 'source' | 'startup_time_ms' | 'urls'>;
 
 export type CreateWorkerVersionOptions = {
   body: CreateWorkerVersionBody;
@@ -419650,7 +422223,7 @@ export type PatchLatestWorkerVersionStatus400 = WorkersApiResponseCommonFailure 
 /**
  * @description JSON Merge Patch to apply to the latest version. An empty object creates a new version with no changes.
  */
-export type PatchLatestWorkerVersionBody = WorkersVersion & object | undefined;
+export type PatchLatestWorkerVersionBody = WorkersVersionWritable & object | undefined;
 
 export type PatchLatestWorkerVersionOptions = {
   body: PatchLatestWorkerVersionBody;
@@ -425165,7 +427738,7 @@ export type OrganizationsModifyStatus400 = OrganizationsApiV4ErrorResponse;
  * to "name" currently.
  * @type object
  */
-export type OrganizationsModifyBody = Omit<NonNullable<OrganizationsApiOrganization>, 'create_time' | 'id' | 'meta'>;
+export type OrganizationsModifyBody = Omit<NonNullable<OrganizationsApiOrganizationWritable>, 'create_time' | 'id' | 'meta'>;
 
 export type OrganizationsModifyOptions = {
   body: OrganizationsModifyBody;
@@ -453181,7 +455754,7 @@ export type UpdateManagedTransformsStatus400 = RulesetsResponse & {
  * @description A Managed Transforms patch object. Both fields are optional; only the sections provided will be updated.
  * @type object
  */
-export type UpdateManagedTransformsBody = RulesetsManagedTransformsPatch;
+export type UpdateManagedTransformsBody = RulesetsManagedTransformsPatchWritable;
 
 export type UpdateManagedTransformsOptions = {
   body: UpdateManagedTransformsBody;
@@ -457672,7 +460245,7 @@ export type CreateZoneRulesetStatus400 = RulesetsResponse & {
   success?: false | undefined;
 };
 
-export type CreateZoneRulesetBody = RulesetsRulesetSchema & {
+export type CreateZoneRulesetBody = RulesetsRulesetWritable & {
   /**
    * @description The kind of the ruleset.
    * @example root
@@ -457690,7 +460263,7 @@ export type CreateZoneRulesetBody = RulesetsRulesetSchema & {
    * @default []
    * @type array | undefined
    */
-  rules?: RulesetsRequestRules | undefined;
+  rules?: RulesetsRequestRulesWritable | undefined;
 } & {
   /**
    * @description The human-readable name of the ruleset.
@@ -457850,13 +460423,13 @@ export type UpdateZoneEntrypointRulesetStatus400 = RulesetsResponse & {
   success?: false | undefined;
 };
 
-export type UpdateZoneEntrypointRulesetBody = RulesetsRulesetSchema & {
+export type UpdateZoneEntrypointRulesetBody = RulesetsRulesetWritable & {
   /**
    * @description The list of rules in the ruleset.
    * @default []
    * @type array | undefined
    */
-  rules?: RulesetsRequestRules | undefined;
+  rules?: RulesetsRequestRulesWritable | undefined;
 };
 
 export type UpdateZoneEntrypointRulesetOptions = {
@@ -458183,7 +460756,7 @@ export type UpdateZoneRulesetStatus400 = RulesetsResponse & {
   success?: false | undefined;
 };
 
-export type UpdateZoneRulesetBody = RulesetsRulesetSchema & {
+export type UpdateZoneRulesetBody = RulesetsRulesetWritable & {
   /**
    * @description The kind of the ruleset.
    * @example root
@@ -458201,7 +460774,7 @@ export type UpdateZoneRulesetBody = RulesetsRulesetSchema & {
    * @default []
    * @type array | undefined
    */
-  rules?: RulesetsRequestRules | undefined;
+  rules?: RulesetsRequestRulesWritable | undefined;
 };
 
 export type UpdateZoneRulesetOptions = {
@@ -458277,7 +460850,7 @@ export type CreateZoneRulesetRuleStatus400 = RulesetsResponse & {
   success?: false | undefined;
 };
 
-export type CreateZoneRulesetRuleBody = RulesetsRequestRule & {
+export type CreateZoneRulesetRuleBody = RulesetsRequestRuleWritable & {
   position?: (RulesetsRulePosition & {
     /**
      * @description The ID of another rule to place the rule before. An empty value causes the rule to be placed at the top.
@@ -458465,7 +461038,7 @@ export type UpdateZoneRulesetRuleStatus400 = RulesetsResponse & {
   success?: false | undefined;
 };
 
-export type UpdateZoneRulesetRuleBody = RulesetsRequestRule & {
+export type UpdateZoneRulesetRuleBody = RulesetsRequestRuleWritable & {
   position?: (RulesetsRulePosition & {
     /**
      * @description The ID of another rule to place the rule before. An empty value causes the rule to be placed at the top.
@@ -463587,7 +466160,7 @@ export type UpdateZoneSnippetRulesBody = {
    * @description Lists snippet rules.
    * @type array
    */
-  rules: SnippetsSnippetRulesSchema;
+  rules: SnippetsSnippetRulesWritable;
 };
 
 export type UpdateZoneSnippetRulesOptions = {
@@ -468137,7 +470710,7 @@ export type WorkerRoutesCreateRouteStatus200 = WorkersApiResponseCommon & {
 
 export type WorkerRoutesCreateRouteStatus400 = WorkersApiResponseCommonFailure;
 
-export type WorkerRoutesCreateRouteBody = Omit<NonNullable<WorkersRoute>, 'id'>;
+export type WorkerRoutesCreateRouteBody = Omit<NonNullable<WorkersRouteWritable>, 'id'>;
 
 export type WorkerRoutesCreateRouteOptions = {
   body: WorkerRoutesCreateRouteBody;
@@ -468267,7 +470840,7 @@ export type WorkerRoutesUpdateRouteStatus200 = WorkersApiResponseCommon & {
 
 export type WorkerRoutesUpdateRouteStatus400 = WorkersApiResponseCommonFailure;
 
-export type WorkerRoutesUpdateRouteBody = Omit<NonNullable<WorkersRoute>, 'id'>;
+export type WorkerRoutesUpdateRouteBody = Omit<NonNullable<WorkersRouteWritable>, 'id'>;
 
 export type WorkerRoutesUpdateRouteOptions = {
   body: WorkerRoutesUpdateRouteBody;

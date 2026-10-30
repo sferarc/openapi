@@ -8,6 +8,7 @@ import {
 	fixArrayItems,
 	fixRegexPatterns,
 	fixUnionConstraints,
+	optionalReadOnlyInRequestBodies,
 	renameReservedWords,
 	stripBasePathPrefix,
 } from "./spec-transforms";
@@ -373,5 +374,161 @@ describe("fixRegexPatterns", () => {
 			spec({}, { components: { schemas: { S: { example: { pattern: "/(" } } } } }),
 		);
 		expect((result.components as any).schemas.S.example.pattern).toBe("/(");
+	});
+});
+
+describe("optionalReadOnlyInRequestBodies", () => {
+	function rulesetSpec() {
+		return spec(
+			{
+				"/rulesets": {
+					post: {
+						requestBody: {
+							content: {
+								"application/json": {
+									schema: {
+										allOf: [{ $ref: "#/components/schemas/Ruleset" }],
+										required: ["name"],
+									},
+								},
+							},
+						},
+						responses: {
+							"200": {
+								description: "OK",
+								content: {
+									"application/json": { schema: { $ref: "#/components/schemas/Ruleset" } },
+								},
+							},
+						},
+					},
+				},
+			},
+			{
+				components: {
+					schemas: {
+						Ruleset: {
+							type: "object",
+							properties: {
+								id: { allOf: [{ $ref: "#/components/schemas/Id" }, { readOnly: true }] },
+								name: { type: "string" },
+								version: { type: "string", readOnly: true },
+								rules: { type: "array", items: { $ref: "#/components/schemas/Rule" } },
+							},
+							required: ["id", "version"],
+						},
+						Rule: {
+							type: "object",
+							properties: {
+								expression: { type: "string" },
+								last_updated: { type: "string", readOnly: true },
+								tunnel_id: { $ref: "#/components/schemas/Id" },
+							},
+							required: ["expression", "last_updated", "tunnel_id"],
+						},
+						Id: { type: "string", readOnly: true },
+					},
+				},
+			},
+		);
+	}
+
+	it("points request bodies at copies whose read-only properties are optional", () => {
+		const document = optionalReadOnlyInRequestBodies(rulesetSpec());
+		const schemas = document.components?.schemas ?? {};
+
+		expect(document.paths["/rulesets"]?.post?.requestBody).toEqual({
+			content: {
+				"application/json": {
+					schema: { allOf: [{ $ref: "#/components/schemas/RulesetWritable" }], required: ["name"] },
+				},
+			},
+		});
+		expect(schemas.RulesetWritable).toMatchObject({
+			properties: { rules: { items: { $ref: "#/components/schemas/RuleWritable" } } },
+		});
+		expect(schemas.RulesetWritable).not.toHaveProperty("required");
+		// A $ref to a read-only component also serves as a reference, so it stays required.
+		expect(schemas.RuleWritable).toMatchObject({ required: ["expression", "tunnel_id"] });
+	});
+
+	it("leaves responses and the original components alone", () => {
+		const original = rulesetSpec();
+		const document = optionalReadOnlyInRequestBodies(structuredClone(original));
+
+		expect(document.paths["/rulesets"]?.post?.responses).toEqual(
+			original.paths["/rulesets"]?.post?.responses,
+		);
+		expect(document.components?.schemas?.Ruleset).toEqual(original.components?.schemas?.Ruleset);
+		expect(document.components?.schemas?.Rule).toEqual(original.components?.schemas?.Rule);
+	});
+
+	it("follows a discriminator and a schema that contains itself", () => {
+		const document = optionalReadOnlyInRequestBodies(
+			spec(
+				{
+					"/nodes": {
+						post: {
+							requestBody: {
+								content: {
+									"application/json": {
+										schema: {
+											oneOf: [{ $ref: "#/components/schemas/Node" }],
+											discriminator: {
+												propertyName: "kind",
+												mapping: { node: "#/components/schemas/Node" },
+											},
+										},
+									},
+								},
+							},
+							responses: {},
+						},
+					},
+				},
+				{
+					components: {
+						schemas: {
+							Node: {
+								type: "object",
+								properties: {
+									id: { type: "string", readOnly: true },
+									kind: { type: "string" },
+									children: { type: "array", items: { $ref: "#/components/schemas/Node" } },
+								},
+								required: ["id", "kind"],
+							},
+						},
+					},
+				},
+			),
+		);
+
+		const media = document.paths["/nodes"]?.post?.requestBody;
+		expect(media).toMatchObject({
+			content: {
+				"application/json": {
+					schema: {
+						oneOf: [{ $ref: "#/components/schemas/NodeWritable" }],
+						discriminator: { mapping: { node: "#/components/schemas/NodeWritable" } },
+					},
+				},
+			},
+		});
+		expect(document.components?.schemas?.NodeWritable).toMatchObject({
+			required: ["kind"],
+			properties: { children: { items: { $ref: "#/components/schemas/NodeWritable" } } },
+		});
+	});
+
+	it("picks another name when the copy's type name is taken", () => {
+		const document = rulesetSpec();
+		const schemas = document.components?.schemas ?? {};
+		schemas.ruleset_writable = { type: "string" };
+
+		optionalReadOnlyInRequestBodies(document);
+
+		expect(schemas.RulesetWritable2).toBeDefined();
+		expect(schemas.ruleset_writable).toEqual({ type: "string" });
 	});
 });
