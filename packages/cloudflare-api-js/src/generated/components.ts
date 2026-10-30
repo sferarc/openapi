@@ -729,9 +729,6 @@ import type {
 	AccountsAccountDetailsPath,
 	AccountsAccountDetailsResponse,
 	AccountsAccountDetailsStatus400,
-	AccountsBatchMoveAccountsBody,
-	AccountsBatchMoveAccountsResponse,
-	AccountsBatchMoveAccountsStatus400,
 	AccountsBrowserExtensionConfigDeletePath,
 	AccountsBrowserExtensionConfigDeleteResponse,
 	AccountsBrowserExtensionConfigDeleteStatus400,
@@ -802,9 +799,11 @@ import type {
 	AccountsGetAccountProfilePath,
 	AccountsGetAccountProfileResponse,
 	AccountsGetAccountProfileStatus400,
+	AccountsGetAccountProfileStatus500,
 	AccountsListAccountOrganizationsPath,
 	AccountsListAccountOrganizationsResponse,
 	AccountsListAccountOrganizationsStatus400,
+	AccountsListAccountOrganizationsStatus500,
 	AccountsListAccountsQuery,
 	AccountsListAccountsResponse,
 	AccountsListAccountsStatus400,
@@ -860,10 +859,12 @@ import type {
 	AccountsModifyAccountProfilePath,
 	AccountsModifyAccountProfileResponse,
 	AccountsModifyAccountProfileStatus400,
+	AccountsModifyAccountProfileStatus500,
 	AccountsMoveAccountsBody,
 	AccountsMoveAccountsPath,
 	AccountsMoveAccountsResponse,
 	AccountsMoveAccountsStatus400,
+	AccountsMoveAccountsStatus500,
 	AccountsTurnstileWidgetCreateBody,
 	AccountsTurnstileWidgetCreatePath,
 	AccountsTurnstileWidgetCreateQuery,
@@ -8656,20 +8657,25 @@ import type {
 	MembersBatchCreatePath,
 	MembersBatchCreateResponse,
 	MembersBatchCreateStatus400,
+	MembersBatchCreateStatus500,
 	MembersCreateBody,
 	MembersCreatePath,
 	MembersCreateResponse,
 	MembersCreateStatus400,
+	MembersCreateStatus500,
 	MembersDeletePath,
 	MembersDeleteResponse,
 	MembersDeleteStatus400,
+	MembersDeleteStatus500,
 	MembersListPath,
 	MembersListQuery,
 	MembersListResponse,
 	MembersListStatus400,
+	MembersListStatus500,
 	MembersRetrievePath,
 	MembersRetrieveResponse,
 	MembersRetrieveStatus400,
+	MembersRetrieveStatus500,
 	MetricsExportListPath,
 	MetricsExportListResponse,
 	MetricsExportListStatus401,
@@ -9053,6 +9059,7 @@ import type {
 	OrganizationListOrganizationsQuery,
 	OrganizationListOrganizationsResponse,
 	OrganizationListOrganizationsStatus400,
+	OrganizationListOrganizationsStatus500,
 	OrganizationSharesListPath,
 	OrganizationSharesListQuery,
 	OrganizationSharesListResponse,
@@ -9061,31 +9068,40 @@ import type {
 	OrganizationsCreateUserOrganizationBody,
 	OrganizationsCreateUserOrganizationResponse,
 	OrganizationsCreateUserOrganizationStatus400,
+	OrganizationsCreateUserOrganizationStatus500,
 	OrganizationsDeletePath,
 	OrganizationsDeleteResponse,
 	OrganizationsDeleteStatus400,
+	OrganizationsDeleteStatus500,
+	OrganizationsGetAccountsHeaders,
 	OrganizationsGetAccountsPath,
 	OrganizationsGetAccountsQuery,
 	OrganizationsGetAccountsResponse,
 	OrganizationsGetAccountsStatus400,
+	OrganizationsGetAccountsStatus500,
 	OrganizationsGetProfilePath,
 	OrganizationsGetProfileResponse,
 	OrganizationsGetProfileStatus400,
+	OrganizationsGetProfileStatus500,
 	OrganizationsHandleOrganizationInviteBody,
 	OrganizationsHandleOrganizationInvitePath,
 	OrganizationsHandleOrganizationInviteResponse,
 	OrganizationsHandleOrganizationInviteStatus400,
+	OrganizationsHandleOrganizationInviteStatus500,
 	OrganizationsModifyBody,
 	OrganizationsModifyPath,
 	OrganizationsModifyProfileBody,
 	OrganizationsModifyProfilePath,
 	OrganizationsModifyProfileResponse,
 	OrganizationsModifyProfileStatus400,
+	OrganizationsModifyProfileStatus500,
 	OrganizationsModifyResponse,
 	OrganizationsModifyStatus400,
+	OrganizationsModifyStatus500,
 	OrganizationsRetrievePath,
 	OrganizationsRetrieveResponse,
 	OrganizationsRetrieveStatus400,
+	OrganizationsRetrieveStatus500,
 	OriginCaCreateCertificateBody,
 	OriginCaCreateCertificateResponse,
 	OriginCaCreateCertificateStatus400,
@@ -12944,20 +12960,10 @@ import type {
 	TenantLevelCustomNameserversListTenantCustomNameserversResponse,
 	TenantLevelCustomNameserversListTenantCustomNameserversStatus400,
 	TenantsListAccountsPath,
+	TenantsListAccountsQuery,
 	TenantsListAccountsResponse,
 	TenantsListAccountsStatus400,
-	TenantsListEntitlementsPath,
-	TenantsListEntitlementsResponse,
-	TenantsListEntitlementsStatus400,
-	TenantsListMembershipsPath,
-	TenantsListMembershipsResponse,
-	TenantsListMembershipsStatus400,
-	TenantsRetrieveTenantPath,
-	TenantsRetrieveTenantResponse,
-	TenantsRetrieveTenantStatus400,
-	TenantsValidAccountTypesPath,
-	TenantsValidAccountTypesResponse,
-	TenantsValidAccountTypesStatus400,
+	TenantsListAccountsStatus500,
 	TieredCachingGetTieredCachingSettingPath,
 	TieredCachingGetTieredCachingSettingResponse,
 	TieredCachingGetTieredCachingSettingStatus400,
@@ -13533,6 +13539,7 @@ import type {
 	UserEditUserStatus400,
 	UserListUserTenantsResponse,
 	UserListUserTenantsStatus400,
+	UserListUserTenantsStatus500,
 	UserLoadBalancerRegionsListRegionsQuery,
 	UserLoadBalancerRegionsListRegionsResponse,
 	UserLoadBalancerRegionsListRegionsStatus400,
@@ -14736,6 +14743,9 @@ import type {
 	ZeroTrustOrganizationCreateYourZeroTrustOrganizationPath,
 	ZeroTrustOrganizationCreateYourZeroTrustOrganizationResponse,
 	ZeroTrustOrganizationCreateYourZeroTrustOrganizationStatus400,
+	ZeroTrustOrganizationDeleteTrustSettingsPath,
+	ZeroTrustOrganizationDeleteTrustSettingsResponse,
+	ZeroTrustOrganizationDeleteTrustSettingsStatus400,
 	ZeroTrustOrganizationGetTrustSettingsPath,
 	ZeroTrustOrganizationGetTrustSettingsResponse,
 	ZeroTrustOrganizationGetTrustSettingsStatus400,
@@ -15469,40 +15479,6 @@ export async function accountCreation(
 }
 
 /**
- * @summary Batch move accounts
- * @description Batch move a collection of accounts to a specific organization. ⚠️ Not implemented.
- * @link /accounts/move
- */
-export async function accountsBatchMoveAccounts(
-	{
-		body,
-		config,
-	}: {
-		body: AccountsBatchMoveAccountsBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		AccountsBatchMoveAccountsResponse,
-		ErrorWrapper<AccountsBatchMoveAccountsStatus400>,
-		AccountsBatchMoveAccountsBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/accounts/move`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Query analytics datasets
  * @description Executes a SQL query against the analytics datasets available to the caller. SQL placeholders can be bound with query parameters named `param_<name>`, such as `param_status=404` for `$status`. A trailing `FORMAT JSON`, `FORMAT JSONEachRow`, `FORMAT TabSeparated`, or `FORMAT TSV` is supported for all datasets. Without FORMAT, each backend retains its existing default JSON response.
  * @link /analytics/sql
@@ -16021,7 +15997,8 @@ export async function oauthScopesList(
 
 /**
  * @summary List organizations the user has access to
- * @description Retrieve a list of organizations a particular user has access to.
+ * @description Retrieve a list of organizations a particular user has access to. At most one of
+ * `containing.account`, `containing.user`, or `containing.organization` may be provided.
  * @link /organizations
  */
 export async function organizationListOrganizations(
@@ -16037,7 +16014,7 @@ export async function organizationListOrganizations(
 
 	const data = await request<
 		OrganizationListOrganizationsResponse,
-		ErrorWrapper<OrganizationListOrganizationsStatus400>,
+		ErrorWrapper<OrganizationListOrganizationsStatus400 | OrganizationListOrganizationsStatus500>,
 		null,
 		Record<string, string>,
 		Partial<OrganizationListOrganizationsQuery>,
@@ -16056,7 +16033,11 @@ export async function organizationListOrganizations(
 /**
  * @summary Create organization
  * @description Create a new organization for a user. Sub-organization creation availability depends on
- * the organization's capabilities.
+ * the organization's capabilities. The optional `profile` object accepts partial profile
+ * details; its individual fields are not required. Organization names are limited to 65
+ * UTF-8 bytes. Each profile field is limited to 1,000 UTF-8 bytes, and a non-empty business
+ * email must be valid. At least one of business name, address, phone, or email must be
+ * non-empty to persist a profile.
  * @link /organizations
  */
 export async function organizationsCreateUserOrganization(
@@ -16072,7 +16053,9 @@ export async function organizationsCreateUserOrganization(
 
 	const data = await request<
 		OrganizationsCreateUserOrganizationResponse,
-		ErrorWrapper<OrganizationsCreateUserOrganizationStatus400>,
+		ErrorWrapper<
+			OrganizationsCreateUserOrganizationStatus400 | OrganizationsCreateUserOrganizationStatus500
+		>,
 		OrganizationsCreateUserOrganizationBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -26439,7 +26422,8 @@ export async function userSubscriptionUpdateUserSubscription(
 
 /**
  * @summary List user tenants
- * @description Retrieves list of tenants the authenticated user / method has access to.
+ * @description Retrieves the legacy Tenants associated with the authenticated user. Use `GET /organizations`
+ * to list modern Organizations the user has access to.
  * @link /user/tenants
  */
 export async function userListUserTenants(
@@ -26449,7 +26433,7 @@ export async function userListUserTenants(
 
 	const data = await request<
 		UserListUserTenantsResponse,
-		ErrorWrapper<UserListUserTenantsStatus400>,
+		ErrorWrapper<UserListUserTenantsStatus400 | UserListUserTenantsStatus500>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -31058,6 +31042,42 @@ export async function zeroTrustOrganizationRevokeAllAccessTokensForAUser(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/access/organizations/revoke_user`,
 		queryParams,
 		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Zero Trust organization trust settings
+ * @description Resets the trust settings for your Zero Trust organization.
+ * @link /accounts/{accountId}/access/organizations/trust_settings
+ */
+export async function zeroTrustOrganizationDeleteTrustSettings(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ZeroTrustOrganizationDeleteTrustSettingsPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		ZeroTrustOrganizationDeleteTrustSettingsResponse,
+		ErrorWrapper<ZeroTrustOrganizationDeleteTrustSettingsStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ZeroTrustOrganizationDeleteTrustSettingsPath
+	>({
+		method: "DELETE",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/access/organizations/trust_settings`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -63494,7 +63514,7 @@ export async function rssArticleContentGet(
 
 /**
  * @summary Reprocess a Threat Signals article
- * @description Synchronously re-runs every processing step for a Threat Signals article: content acquisition, summary, indicator extraction, CVE tags, IOC context, and default tags. Replaces the article's summary, AI tags, and indicators; indicators no longer found are removed. Creates a Threat Event only when the article has none; an existing Event is never updated. Takes over the article from any queued processing. Requires a paid Threat Signals subscription and the Cloudforce One Write permission.
+ * @description Synchronously re-runs every processing step for a Threat Signals article: pull content, clean content, extract IOCs, filter IOCs, summary, CVE tags, IOC context, article tags, and Event publication. Replaces the article's summary, AI tags, and indicators; indicators no longer found are removed. Creates a Threat Event only when the article has none; an existing Event is never updated. Takes over the article from any queued processing. Requires a paid Threat Signals subscription and the Cloudforce One Write permission.
  * @link /accounts/{accountId}/cloudforce-one/v2/threat-signals/articles/{articleId}/reprocess
  */
 export async function rssArticleReprocess(
@@ -105087,7 +105107,7 @@ export async function accountsMoveAccounts(
 	}
 	const data = await request<
 		AccountsMoveAccountsResponse,
-		ErrorWrapper<AccountsMoveAccountsStatus400>,
+		ErrorWrapper<AccountsMoveAccountsStatus400 | AccountsMoveAccountsStatus500>,
 		AccountsMoveAccountsBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -106095,7 +106115,9 @@ export async function accountsListAccountOrganizations(
 	}
 	const data = await request<
 		AccountsListAccountOrganizationsResponse,
-		ErrorWrapper<AccountsListAccountOrganizationsStatus400>,
+		ErrorWrapper<
+			AccountsListAccountOrganizationsStatus400 | AccountsListAccountOrganizationsStatus500
+		>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -109401,9 +109423,8 @@ export async function putV4AccountsByAccountIdPipelinesByPipelineNameDeprecated(
 /**
  * @summary Get account profile
  * @description Retrieves the business profile (name, email, phone, address, and external metadata)
- * associated with this account's parent organization customer record. Profiles can be shared
- * across accounts and organizations. Only available to members of an organization that
- * contains the account.
+ * associated with this account's customer record. Profiles can be shared across accounts and
+ * organizations. Only available to members of an organization that contains the account.
  * @link /accounts/{accountId}/profile
  */
 export async function accountsGetAccountProfile(
@@ -109422,7 +109443,7 @@ export async function accountsGetAccountProfile(
 	}
 	const data = await request<
 		AccountsGetAccountProfileResponse,
-		ErrorWrapper<AccountsGetAccountProfileStatus400>,
+		ErrorWrapper<AccountsGetAccountProfileStatus400 | AccountsGetAccountProfileStatus500>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -109439,10 +109460,11 @@ export async function accountsGetAccountProfile(
 
 /**
  * @summary Update account profile
- * @description Updates the business profile (name, email, phone, address, and external metadata) associated
- * with this account's parent organization customer record. Changes apply to every account and
- * organization sharing that profile. Omitted or empty fields are left unchanged. Only
- * available to members of an organization that contains the account.
+ * @description Partially updates the business profile (name, email, phone, address, and external metadata)
+ * associated with this account's parent organization customer record, creating the profile if
+ * it does not exist. Changes apply to every account and organization sharing that profile.
+ * Omitted, empty, or null fields are left unchanged. Each profile field is limited to 1,000
+ * UTF-8 bytes. Only available to members of an organization that contains the account.
  * @link /accounts/{accountId}/profile
  */
 export async function accountsModifyAccountProfile(
@@ -109463,7 +109485,7 @@ export async function accountsModifyAccountProfile(
 	}
 	const data = await request<
 		AccountsModifyAccountProfileResponse,
-		ErrorWrapper<AccountsModifyAccountProfileStatus400>,
+		ErrorWrapper<AccountsModifyAccountProfileStatus400 | AccountsModifyAccountProfileStatus500>,
 		AccountsModifyAccountProfileBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -140331,10 +140353,10 @@ export async function userSAccountMembershipsUpdateMembership(
 
 /**
  * @summary Delete organization
- * @description Delete an organization. The organization MUST be empty before deleting.
- * It must not contain any sub-organizations, accounts, members or users. Sub-organization
- * deletion availability depends on the organization's capabilities.
- * **Access Control:** Restricted to enterprise organizations.
+ * @description Delete an organization. It must not contain active sub-organizations or accounts. A root
+ * organization must also have no active managed users. Sub-organization deletion availability
+ * depends on the organization's capabilities.
+ * **Access Control:** Root deletion is restricted to enterprise organizations.
  * @link /organizations/{organizationId}
  */
 export async function organizationsDelete(
@@ -140353,7 +140375,7 @@ export async function organizationsDelete(
 	}
 	const data = await request<
 		OrganizationsDeleteResponse,
-		ErrorWrapper<OrganizationsDeleteStatus400>,
+		ErrorWrapper<OrganizationsDeleteStatus400 | OrganizationsDeleteStatus500>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -140389,7 +140411,7 @@ export async function organizationsRetrieve(
 	}
 	const data = await request<
 		OrganizationsRetrieveResponse,
-		ErrorWrapper<OrganizationsRetrieveStatus400>,
+		ErrorWrapper<OrganizationsRetrieveStatus400 | OrganizationsRetrieveStatus500>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -140406,7 +140428,8 @@ export async function organizationsRetrieve(
 
 /**
  * @summary Update organization
- * @description Update an organization's name.
+ * @description Update an organization's name. Supplying `parent_id` verifies the current parent; this
+ * endpoint cannot move an organization. Organization names are limited to 65 UTF-8 bytes.
  * @link /organizations/{organizationId}
  */
 export async function organizationsModify(
@@ -140427,7 +140450,7 @@ export async function organizationsModify(
 	}
 	const data = await request<
 		OrganizationsModifyResponse,
-		ErrorWrapper<OrganizationsModifyStatus400>,
+		ErrorWrapper<OrganizationsModifyStatus400 | OrganizationsModifyStatus500>,
 		OrganizationsModifyBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -140446,17 +140469,22 @@ export async function organizationsModify(
 /**
  * @summary List organization accounts
  * @description Retrieve the accounts immediately attached to a specific organization. Accounts
- * attached to sub-organizations are not included.
+ * attached to sub-organizations are not included. Use `page_token` and `page_size` for cursor
+ * pagination, or provide `page` and `per_page` together for legacy offset pagination. Cursor
+ * pagination takes precedence when requested. The default response uses Account fields;
+ * `Accept: application/json; legacy=true` requests the LegacyAccount representation.
  * @link /organizations/{organizationId}/accounts
  */
 export async function organizationsGetAccounts(
 	{
 		pathParams,
 		queryParams,
+		headers,
 		config,
 	}: {
 		pathParams: OrganizationsGetAccountsPath;
 		queryParams?: Partial<OrganizationsGetAccountsQuery>;
+		headers?: Partial<OrganizationsGetAccountsHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -140467,9 +140495,9 @@ export async function organizationsGetAccounts(
 	}
 	const data = await request<
 		OrganizationsGetAccountsResponse,
-		ErrorWrapper<OrganizationsGetAccountsStatus400>,
+		ErrorWrapper<OrganizationsGetAccountsStatus400 | OrganizationsGetAccountsStatus500>,
 		null,
-		Record<string, string>,
+		Partial<OrganizationsGetAccountsHeaders>,
 		Partial<OrganizationsGetAccountsQuery>,
 		OrganizationsGetAccountsPath
 	>({
@@ -140477,7 +140505,12 @@ export async function organizationsGetAccounts(
 		url: `/organizations/${encodeURIComponent(String(pathParams.organizationId))}/accounts`,
 		queryParams,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -140567,7 +140600,10 @@ export async function organizationsHandleOrganizationInvite(
 	}
 	const data = await request<
 		OrganizationsHandleOrganizationInviteResponse,
-		ErrorWrapper<OrganizationsHandleOrganizationInviteStatus400>,
+		ErrorWrapper<
+			| OrganizationsHandleOrganizationInviteStatus400
+			| OrganizationsHandleOrganizationInviteStatus500
+		>,
 		OrganizationsHandleOrganizationInviteBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -140696,7 +140732,7 @@ export async function membersList(
 	}
 	const data = await request<
 		MembersListResponse,
-		ErrorWrapper<MembersListStatus400>,
+		ErrorWrapper<MembersListStatus400 | MembersListStatus500>,
 		null,
 		Record<string, string>,
 		Partial<MembersListQuery>,
@@ -140735,7 +140771,7 @@ export async function membersCreate(
 	}
 	const data = await request<
 		MembersCreateResponse,
-		ErrorWrapper<MembersCreateStatus400>,
+		ErrorWrapper<MembersCreateStatus400 | MembersCreateStatus500>,
 		MembersCreateBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -140776,7 +140812,7 @@ export async function membersDelete(
 	}
 	const data = await request<
 		MembersDeleteResponse,
-		ErrorWrapper<MembersDeleteStatus400>,
+		ErrorWrapper<MembersDeleteStatus400 | MembersDeleteStatus500>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -140816,7 +140852,7 @@ export async function membersRetrieve(
 	}
 	const data = await request<
 		MembersRetrieveResponse,
-		ErrorWrapper<MembersRetrieveStatus400>,
+		ErrorWrapper<MembersRetrieveStatus400 | MembersRetrieveStatus500>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -140854,7 +140890,7 @@ export async function membersBatchCreate(
 	}
 	const data = await request<
 		MembersBatchCreateResponse,
-		ErrorWrapper<MembersBatchCreateStatus400>,
+		ErrorWrapper<MembersBatchCreateStatus400 | MembersBatchCreateStatus500>,
 		MembersBatchCreateBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -140872,7 +140908,9 @@ export async function membersBatchCreate(
 
 /**
  * @summary Get organization profile
- * @description Get an organizations profile if it exists.
+ * @description Retrieves the business profile (name, email, phone, address, and external metadata)
+ * associated with this organization's customer record. Profiles can be shared across
+ * accounts and organizations. Only available to members of the organization.
  * @link /organizations/{organizationId}/profile
  */
 export async function organizationsGetProfile(
@@ -140891,7 +140929,7 @@ export async function organizationsGetProfile(
 	}
 	const data = await request<
 		OrganizationsGetProfileResponse,
-		ErrorWrapper<OrganizationsGetProfileStatus400>,
+		ErrorWrapper<OrganizationsGetProfileStatus400 | OrganizationsGetProfileStatus500>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -140908,7 +140946,11 @@ export async function organizationsGetProfile(
 
 /**
  * @summary Modify organization profile.
- * @description Modify organization profile.
+ * @description Partially updates the business profile (name, email, phone, address, and external metadata)
+ * associated with this organization's customer record, creating the profile if it does not
+ * exist. Changes apply to every account and organization sharing that profile. Omitted,
+ * empty, or null fields are left unchanged. Each profile field is limited to 1,000 UTF-8
+ * bytes. Only available to members of the organization.
  * @link /organizations/{organizationId}/profile
  */
 export async function organizationsModifyProfile(
@@ -140929,7 +140971,7 @@ export async function organizationsModifyProfile(
 	}
 	const data = await request<
 		OrganizationsModifyProfileResponse,
-		ErrorWrapper<OrganizationsModifyProfileStatus400>,
+		ErrorWrapper<OrganizationsModifyProfileStatus400 | OrganizationsModifyProfileStatus500>,
 		OrganizationsModifyProfileBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -141983,88 +142025,21 @@ export async function postK2SubscriptionsBySubscriptionIdConsume(
 }
 
 /**
- * @summary Get tenant details
- * @description Retrieves a tenant's identity, status, metadata, contacts, and organizational units.
- * @link /tenants/{tenantId}
- */
-export async function tenantsRetrieveTenant(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: TenantsRetrieveTenantPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.tenantId == null || String(pathParams.tenantId) === "") {
-		throw new Error(`Missing required path parameter: tenantId`);
-	}
-	const data = await request<
-		TenantsRetrieveTenantResponse,
-		ErrorWrapper<TenantsRetrieveTenantStatus400>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		TenantsRetrieveTenantPath
-	>({
-		method: "GET",
-		url: `/tenants/${encodeURIComponent(String(pathParams.tenantId))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List tenant account types
- * @description Lists the account types this tenant is allowed to provision.
- * @link /tenants/{tenantId}/account_types
- */
-export async function tenantsValidAccountTypes(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: TenantsValidAccountTypesPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.tenantId == null || String(pathParams.tenantId) === "") {
-		throw new Error(`Missing required path parameter: tenantId`);
-	}
-	const data = await request<
-		TenantsValidAccountTypesResponse,
-		ErrorWrapper<TenantsValidAccountTypesStatus400>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		TenantsValidAccountTypesPath
-	>({
-		method: "GET",
-		url: `/tenants/${encodeURIComponent(String(pathParams.tenantId))}/account_types`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary List tenant accounts
- * @description Lists the Cloudflare accounts associated with this tenant.
+ * @description Lists the Cloudflare accounts associated with this tenant using the legacy Account response
+ * shape. Use `GET /organizations/{organization_id}/accounts` for the modern Account response.
+ * Use `page_token` and `page_size` for cursor pagination, or provide `page` and `per_page`
+ * together for legacy offset pagination. Cursor pagination takes precedence when requested.
  * @link /tenants/{tenantId}/accounts
  */
 export async function tenantsListAccounts(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: TenantsListAccountsPath;
+		queryParams?: Partial<TenantsListAccountsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -142075,14 +142050,15 @@ export async function tenantsListAccounts(
 	}
 	const data = await request<
 		TenantsListAccountsResponse,
-		ErrorWrapper<TenantsListAccountsStatus400>,
+		ErrorWrapper<TenantsListAccountsStatus400 | TenantsListAccountsStatus500>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<TenantsListAccountsQuery>,
 		TenantsListAccountsPath
 	>({
 		method: "GET",
 		url: `/tenants/${encodeURIComponent(String(pathParams.tenantId))}/accounts`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -142198,78 +142174,6 @@ export async function tenantLevelCustomNameserversDeleteTenantCustomNameserver(
 	>({
 		method: "DELETE",
 		url: `/tenants/${encodeURIComponent(String(pathParams.tenantId))}/custom_ns/${encodeURIComponent(String(pathParams.customNsId))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List tenant entitlements
- * @description Retrieves the innate and custom entitlement allocations available to this tenant.
- * @link /tenants/{tenantId}/entitlements
- */
-export async function tenantsListEntitlements(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: TenantsListEntitlementsPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.tenantId == null || String(pathParams.tenantId) === "") {
-		throw new Error(`Missing required path parameter: tenantId`);
-	}
-	const data = await request<
-		TenantsListEntitlementsResponse,
-		ErrorWrapper<TenantsListEntitlementsStatus400>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		TenantsListEntitlementsPath
-	>({
-		method: "GET",
-		url: `/tenants/${encodeURIComponent(String(pathParams.tenantId))}/entitlements`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List tenant memberships
- * @description Lists active Cloudflare users with memberships in this tenant.
- * @link /tenants/{tenantId}/memberships
- */
-export async function tenantsListMemberships(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: TenantsListMembershipsPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.tenantId == null || String(pathParams.tenantId) === "") {
-		throw new Error(`Missing required path parameter: tenantId`);
-	}
-	const data = await request<
-		TenantsListMembershipsResponse,
-		ErrorWrapper<TenantsListMembershipsStatus400>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		TenantsListMembershipsPath
-	>({
-		method: "GET",
-		url: `/tenants/${encodeURIComponent(String(pathParams.tenantId))}/memberships`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -171494,7 +171398,6 @@ export const operationsByPath = {
 	"GET /_heartbeat": getHeartbeat,
 	"GET /accounts": accountsListAccounts,
 	"POST /accounts": accountCreation,
-	"POST /accounts/move": accountsBatchMoveAccounts,
 	"GET /analytics/sql": sqlApiQueryGet,
 	"POST /analytics/sql": sqlApiQueryPost,
 	"GET /analytics/sql/introspection": sqlApiIntrospection,
@@ -172002,6 +171905,8 @@ export const operationsByPath = {
 		zeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettings,
 	"POST /accounts/{accountId}/access/organizations/revoke_user":
 		zeroTrustOrganizationRevokeAllAccessTokensForAUser,
+	"DELETE /accounts/{accountId}/access/organizations/trust_settings":
+		zeroTrustOrganizationDeleteTrustSettings,
 	"GET /accounts/{accountId}/access/organizations/trust_settings":
 		zeroTrustOrganizationGetTrustSettings,
 	"PATCH /accounts/{accountId}/access/organizations/trust_settings":
@@ -175712,15 +175617,11 @@ export const operationsByPath = {
 	"POST /subscriptions/{subscriptionId}/batches/{batchId}/nack":
 		postK2SubscriptionsBySubscriptionIdBatchesByBatchIdNack,
 	"POST /subscriptions/{subscriptionId}/consume": postK2SubscriptionsBySubscriptionIdConsume,
-	"GET /tenants/{tenantId}": tenantsRetrieveTenant,
-	"GET /tenants/{tenantId}/account_types": tenantsValidAccountTypes,
 	"GET /tenants/{tenantId}/accounts": tenantsListAccounts,
 	"GET /tenants/{tenantId}/custom_ns": tenantLevelCustomNameserversListTenantCustomNameservers,
 	"POST /tenants/{tenantId}/custom_ns": tenantLevelCustomNameserversAddTenantCustomNameserver,
 	"DELETE /tenants/{tenantId}/custom_ns/{customNsId}":
 		tenantLevelCustomNameserversDeleteTenantCustomNameserver,
-	"GET /tenants/{tenantId}/entitlements": tenantsListEntitlements,
-	"GET /tenants/{tenantId}/memberships": tenantsListMemberships,
 	"DELETE /user/firewall/access_rules/rules/{ruleId}": ipAccessRulesForAUserDeleteAnIpAccessRule,
 	"GET /user/firewall/access_rules/rules/{ruleId}": ipAccessRulesForAUserGetAnIpAccessRule,
 	"PATCH /user/firewall/access_rules/rules/{ruleId}": ipAccessRulesForAUserUpdateAnIpAccessRule,
@@ -176667,7 +176568,6 @@ export const operationsByTag = {
 	accounts: {
 		accountsListAccounts,
 		accountCreation,
-		accountsBatchMoveAccounts,
 		accountDeletion,
 		accountsAccountDetails,
 		accountsUpdateAccount,
@@ -177442,6 +177342,7 @@ export const operationsByTag = {
 		zeroTrustOrganizationGetYourZeroTrustOrganizationDohSettings,
 		zeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettings,
 		zeroTrustOrganizationRevokeAllAccessTokensForAUser,
+		zeroTrustOrganizationDeleteTrustSettings,
 		zeroTrustOrganizationGetTrustSettings,
 		zeroTrustOrganizationUpdateTrustSettings,
 		zeroTrustOrganizationReplaceTrustSettings,
@@ -180809,11 +180710,7 @@ export const operationsByTag = {
 		membersBatchCreate,
 	},
 	tenants: {
-		tenantsRetrieveTenant,
-		tenantsValidAccountTypes,
 		tenantsListAccounts,
-		tenantsListEntitlements,
-		tenantsListMemberships,
 	},
 	tenantLevelCustomNameservers: {
 		tenantLevelCustomNameserversListTenantCustomNameservers,
@@ -181637,7 +181534,7 @@ export const tagDictionary = {
 			"accountsListAccountOrganizations",
 			"accountsGetAccountProfile",
 		],
-		POST: ["accountCreation", "accountsBatchMoveAccounts", "accountsMoveAccounts"],
+		POST: ["accountCreation", "accountsMoveAccounts"],
 		DELETE: ["accountDeletion"],
 		PUT: ["accountsUpdateAccount", "accountsModifyAccountProfile"],
 	},
@@ -182500,6 +182397,7 @@ export const tagDictionary = {
 			"zeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettings",
 			"zeroTrustOrganizationReplaceTrustSettings",
 		],
+		DELETE: ["zeroTrustOrganizationDeleteTrustSettings"],
 		PATCH: ["zeroTrustOrganizationUpdateTrustSettings"],
 	},
 	accessReusablePolicies: {
@@ -185964,13 +185862,7 @@ export const tagDictionary = {
 		DELETE: ["membersDelete"],
 	},
 	tenants: {
-		GET: [
-			"tenantsRetrieveTenant",
-			"tenantsValidAccountTypes",
-			"tenantsListAccounts",
-			"tenantsListEntitlements",
-			"tenantsListMemberships",
-		],
+		GET: ["tenantsListAccounts"],
 	},
 	tenantLevelCustomNameservers: {
 		GET: ["tenantLevelCustomNameserversListTenantCustomNameservers"],
