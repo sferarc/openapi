@@ -892,7 +892,6 @@ import type {
 	POSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriorityResponse,
 	POSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriorityPath,
 	POSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriorityResponse,
-	POSTAdminRealmsRealmClientDescriptionConverterBody,
 	POSTAdminRealmsRealmClientDescriptionConverterPath,
 	POSTAdminRealmsRealmClientDescriptionConverterResponse,
 	POSTAdminRealmsRealmClientDescriptionConverterStatus403,
@@ -3357,7 +3356,7 @@ export async function pOSTAdminRealmsRealmClientDescriptionConverter(
 		config,
 	}: {
 		pathParams: POSTAdminRealmsRealmClientDescriptionConverterPath;
-		body?: POSTAdminRealmsRealmClientDescriptionConverterBody;
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3372,7 +3371,7 @@ export async function pOSTAdminRealmsRealmClientDescriptionConverter(
 			| POSTAdminRealmsRealmClientDescriptionConverterStatus403
 			| POSTAdminRealmsRealmClientDescriptionConverterStatus404
 		>,
-		POSTAdminRealmsRealmClientDescriptionConverterBody,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		POSTAdminRealmsRealmClientDescriptionConverterPath
@@ -3381,7 +3380,7 @@ export async function pOSTAdminRealmsRealmClientDescriptionConverter(
 		url: `/admin/realms/${encodeURIComponent(String(pathParams.realm))}/client-description-converter`,
 		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "text/plain", ...requestConfig.headers },
 	});
 
 	return data;
