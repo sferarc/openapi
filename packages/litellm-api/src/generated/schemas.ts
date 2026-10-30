@@ -24,7 +24,7 @@ export const accessGroupBudgetSchema = z.object({
 	max_budget: z.union([z.number(), z.null()]).optional(),
 	soft_budget: z.union([z.number(), z.null()]).optional(),
 	budget_duration: z.union([z.string(), z.null()]).optional(),
-	budget_reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const accessGroupBudgetRequestSchema = z.strictObject({
@@ -212,7 +212,7 @@ export const activitySchema = z.strictObject({
 	phase: z.enum(["load", "review", "group", "reconcile", "investigate"]),
 	label: z.string(),
 	execution_ids: z.array(z.string()).optional().default([]),
-	started_at: z.iso.datetime(),
+	started_at: z.iso.datetime({ offset: true }),
 	operations: z
 		.array(
 			z.enum([
@@ -886,7 +886,7 @@ export const agentIdentityBindingSchema = z.object({
 	required_roles: z.array(z.string()).optional().default([]),
 	required_scopes: z.array(z.string()).optional().default(["user_impersonation"]),
 	revision: z.string(),
-	last_authenticated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	last_authenticated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const agentKeySummarySchema = z.object({
@@ -973,8 +973,8 @@ export const agentResponseSchema = z.object({
 	kill_switch: z.union([agentKillSwitchConfigSchema, z.null()]).optional(),
 	keys: z.union([z.array(agentKeySummarySchema), z.null()]).optional(),
 	search_score: z.union([z.number(), z.null()]).optional(),
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	created_by: z.union([z.string(), z.null()]).optional(),
 	updated_by: z.union([z.string(), z.null()]).optional(),
 });
@@ -1046,7 +1046,7 @@ export const annotationURLCitationSchema = z
 export const auditLogResponseSchema = z
 	.object({
 		id: z.string(),
-		updated_at: z.iso.datetime(),
+		updated_at: z.iso.datetime({ offset: true }),
 		changed_by: z.string(),
 		changed_by_api_key: z.string(),
 		action: z.string(),
@@ -2357,7 +2357,7 @@ export const liteLLMBudgetTableSchema = z
 		budget_duration: z.union([z.string(), z.null()]).optional(),
 		allowed_models: z.union([z.array(z.string()), z.null()]).optional(),
 		temp_budget_increase: z.union([z.number(), z.null()]).optional(),
-		temp_budget_expiry: z.union([z.iso.datetime(), z.null()]).optional(),
+		temp_budget_expiry: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	})
 	.describe(
 		"Represents user-controllable params for a LiteLLM_BudgetTable record.\n\nBudget-write paths use `model_fields.keys()` on this class as an allowlist\nfor user input. Keep server-managed fields (e.g. `budget_reset_at`) on\n`LiteLLM_BudgetTableFull` so they aren't user-settable.",
@@ -2620,7 +2620,7 @@ export const budgetLimitEntrySchema = z
 	.object({
 		budget_duration: z.string(),
 		max_budget: z.number(),
-		reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	})
 	.describe("A single budget window with its own limit and independent reset schedule.");
 
@@ -2633,9 +2633,9 @@ export const budgetListItemSchema = z
 		rpm_limit: z.union([z.int(), z.null()]).optional(),
 		tpd_limit: z.union([z.int(), z.null()]).optional(),
 		budget_duration: z.union([z.string(), z.null()]).optional(),
-		budget_reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
-		created_at: z.iso.datetime(),
-		updated_at: z.iso.datetime(),
+		budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+		created_at: z.iso.datetime({ offset: true }),
+		updated_at: z.iso.datetime({ offset: true }),
 	})
 	.describe(
 		'One budget as the Budgets page reads it, and as it comes back off the table.\n\nValidating the raw row through here is what makes `tpm_limit` / `rpm_limit`\nnumbers: they are `BigInt?` in the schema, which the query engine hands back as\ndecimal strings, and a quoted "60000" breaks arithmetic in the dashboard.',
@@ -2678,7 +2678,7 @@ export const budgetNewRequestSchema = z.object({
 			"Max budget for each model (e.g. {'gpt-4o': {'max_budget': '0.0000001', 'budget_duration': '1d', 'tpm_limit': 1000, 'rpm_limit': 1000}})",
 		),
 	budget_reset_at: z
-		.union([z.iso.datetime(), z.null()])
+		.union([z.iso.datetime({ offset: true }), z.null()])
 		.optional()
 		.describe("Datetime when the budget is reset"),
 });
@@ -2692,7 +2692,7 @@ export const budgetReservationSchema = z.strictObject({
 	job_id: z.string(),
 	amount: z.number().min(0),
 	month: z.string(),
-	expires_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	expires_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const traceSourceSchema = z.strictObject({
@@ -3103,7 +3103,7 @@ export const keyUpdateFieldsSchema = z
 			.union([z.enum(["guaranteed_throughput", "best_effort_throughput", "dynamic"]), z.null()])
 			.optional(),
 		temp_budget_increase: z.union([z.number(), z.null()]).optional(),
-		temp_budget_expiry: z.union([z.iso.datetime(), z.null()]).optional(),
+		temp_budget_expiry: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		duration: z.union([z.string(), z.null()]).optional(),
 		tags: z.union([z.array(z.string()), z.null()]).optional(),
 		metadata: z.union([z.looseObject({}), z.null()]).optional(),
@@ -3913,8 +3913,8 @@ export const findingSchema = z.strictObject({
 	id: z.string(),
 	status: z.enum(["open", "resolved", "dismissed"]).optional().default("open"),
 	reason: z.string().optional().default(""),
-	first_seen: z.iso.datetime(),
-	last_seen: z.iso.datetime(),
+	first_seen: z.iso.datetime({ offset: true }),
+	last_seen: z.iso.datetime({ offset: true }),
 	occurrences: z.array(z.string()).optional().default([]),
 	revision: z.int(),
 	investigation_runs: z.array(z.string()).optional().default([]),
@@ -3928,7 +3928,7 @@ export const runAssessmentSchema = z.strictObject({
 });
 
 export const stepSchema = z.strictObject({
-	at: z.iso.datetime(),
+	at: z.iso.datetime({ offset: true }),
 	kind: z.enum(["stage", "model", "error"]),
 	label: z.string().max(200),
 	model: z.string().max(200).optional().default(""),
@@ -3976,7 +3976,7 @@ export const reviewSchema = z.strictObject({
 	cannot_assess: z.boolean().optional().default(false),
 	model: z.string(),
 	duration_ms: z.int().min(0),
-	at: z.iso.datetime(),
+	at: z.iso.datetime({ offset: true }),
 	tool_calls: z.array(toolCountSchema).optional().default([]),
 	extraction: z.union([extractionSchema, z.null()]).optional(),
 	content_version: z.string().optional().default(""),
@@ -3989,7 +3989,7 @@ export const inFlightSchema = z.strictObject({
 	execution_id: z.string(),
 	trace_id: z.string(),
 	agent: z.string(),
-	started_at: z.iso.datetime(),
+	started_at: z.iso.datetime({ offset: true }),
 });
 
 export const reviewVersionSchema = z.strictObject({
@@ -4004,15 +4004,15 @@ export const jobSchema = z.strictObject({
 		.optional()
 		.default("queued"),
 	stage: z.string().optional().default("Queued"),
-	created_at: z.iso.datetime(),
-	start: z.iso.datetime(),
-	end: z.iso.datetime(),
+	created_at: z.iso.datetime({ offset: true }),
+	start: z.iso.datetime({ offset: true }),
+	end: z.iso.datetime({ offset: true }),
 	settings: lensSettingsSchema,
 	revision: z.int(),
 	worker_id: z.union([z.string(), z.null()]).optional(),
-	lease_until: z.union([z.iso.datetime(), z.null()]).optional(),
+	lease_until: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	attempts: z.int().optional().default(0),
-	finished_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	finished_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	coverage: coverageSchema.optional().default({
 		eligible: 0,
 		selected: 0,
@@ -4324,9 +4324,9 @@ export const liteLLMBudgetTableFullSchema = z
 		budget_duration: z.union([z.string(), z.null()]).optional(),
 		allowed_models: z.union([z.array(z.string()), z.null()]).optional(),
 		temp_budget_increase: z.union([z.number(), z.null()]).optional(),
-		temp_budget_expiry: z.union([z.iso.datetime(), z.null()]).optional(),
-		budget_reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
-		created_at: z.iso.datetime(),
+		temp_budget_expiry: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+		budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+		created_at: z.iso.datetime({ offset: true }),
 	})
 	.describe("LiteLLM_BudgetTable + server-managed fields returned on API responses.");
 
@@ -4419,7 +4419,7 @@ export const datasetSchema = z.strictObject({
 	name: z.string(),
 	agent_name: z.string(),
 	team_id: z.string(),
-	created_at: z.iso.datetime(),
+	created_at: z.iso.datetime({ offset: true }),
 	revision: z.int(),
 	created_by: z.string(),
 	cases: z.array(datasetCaseSchema),
@@ -4436,7 +4436,7 @@ export const datasetSummarySchema = z.strictObject({
 	agent_name: z.string(),
 	revision: z.int(),
 	case_count: z.int(),
-	updated_at: z.iso.datetime(),
+	updated_at: z.iso.datetime({ offset: true }),
 });
 
 export const defaultInternalUserParamsSchema = z
@@ -4888,9 +4888,9 @@ export const modelInfoSchema = z.looseObject({
 	tiered_pricing: z.union([z.array(z.looseObject({})), z.null()]).optional(),
 	id: z.union([z.string(), z.null()]),
 	db_model: z.boolean().optional().default(false),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	updated_by: z.union([z.string(), z.null()]).optional(),
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	created_by: z.union([z.string(), z.null()]).optional(),
 	base_model: z.union([z.string(), z.null()]).optional(),
 	tier: z.union([z.enum(["free", "paid"]), z.null()]).optional(),
@@ -4902,8 +4902,8 @@ export const modelInfoSchema = z.looseObject({
 	access_windows: z.union([z.array(modelAccessWindowSchema), z.null()]).optional(),
 	ptu_count: z.union([z.int(), z.null()]).optional(),
 	cost_per_ptu_per_hour: z.union([z.number(), z.null()]).optional(),
-	ptu_effective_from: z.union([z.iso.datetime(), z.null()]).optional(),
-	ptu_effective_to: z.union([z.iso.datetime(), z.null()]).optional(),
+	ptu_effective_from: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	ptu_effective_to: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	allow_fail_open: z.union([z.boolean(), z.null()]).optional(),
 	enable_tag_filtering: z.union([z.boolean(), z.null()]).optional(),
 	internal_router_model: z.union([z.boolean(), z.null()]).optional(),
@@ -5107,8 +5107,8 @@ export const feedbackSchema = z.strictObject({
 	score: z.int().min(0).max(10),
 	comment: z.string(),
 	author: z.string(),
-	created_at: z.iso.datetime(),
-	updated_at: z.iso.datetime(),
+	created_at: z.iso.datetime({ offset: true }),
+	updated_at: z.iso.datetime({ offset: true }),
 });
 
 export const feedbackSubmissionSchema = z.strictObject({
@@ -5454,7 +5454,7 @@ export const generateKeyResponseSchema = z.object({
 	access_group_ids: z.union([z.array(z.string()), z.null()]).optional(),
 	key_name: z.union([z.string(), z.null()]).optional(),
 	key_type: z.union([z.string(), z.null()]).optional(),
-	expires: z.union([z.iso.datetime(), z.null()]).optional(),
+	expires: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	token_id: z.union([z.string(), z.null()]).optional(),
 	organization_id: z.union([z.string(), z.null()]).optional(),
 	project_id: z.union([z.string(), z.null()]).optional(),
@@ -5462,8 +5462,8 @@ export const generateKeyResponseSchema = z.object({
 	token: z.union([z.string(), z.null()]).optional(),
 	created_by: z.union([z.string(), z.null()]).optional(),
 	updated_by: z.union([z.string(), z.null()]).optional(),
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const genericResponseOutputItemContentAnnotationSchema = z
@@ -5560,7 +5560,7 @@ export const ingestionKeySchema = z.strictObject({
 	id: z.string(),
 	name: z.string(),
 	tenant: ingestionTenantSchema,
-	created_at: z.iso.datetime(),
+	created_at: z.iso.datetime({ offset: true }),
 	expires_at: z.union([z.int(), z.null()]),
 });
 
@@ -5573,7 +5573,7 @@ export const ingestionKeyCreatedSchema = z.strictObject({
 export const ingestionKeyRequestSchema = z.strictObject({
 	name: z.string().min(1).max(128).optional().default("Agent tracing"),
 	team_id: z.string().max(256).optional().default(""),
-	expires_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	expires_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const ingestionSnapshotSchema = z.strictObject({
@@ -5630,7 +5630,7 @@ export const userAPIKeyAuthSchema = z
 		spend: z.number().optional().default(0),
 		total_spend: z.number().optional().default(0),
 		max_budget: z.union([z.number(), z.null()]).optional(),
-		expires: z.union([z.string(), z.iso.datetime(), z.null()]).optional(),
+		expires: z.union([z.string(), z.iso.datetime({ offset: true }), z.null()]).optional(),
 		models: z.array(z.unknown()).optional().default([]),
 		aliases: z.looseObject({}).optional().default({}),
 		config: z.looseObject({}).optional().default({}),
@@ -5644,7 +5644,7 @@ export const userAPIKeyAuthSchema = z
 		rpm_limit: z.union([z.int(), z.null()]).optional(),
 		tpd_limit: z.union([z.int(), z.null()]).optional(),
 		budget_duration: z.union([z.string(), z.null()]).optional(),
-		budget_reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		allowed_cache_controls: z
 			.union([z.array(z.unknown()), z.null()])
 			.optional()
@@ -5663,20 +5663,20 @@ export const userAPIKeyAuthSchema = z
 		litellm_budget_table: z.union([z.looseObject({}), z.null()]).optional(),
 		budget_id: z.union([z.string(), z.null()]).optional(),
 		org_id: z.union([z.string(), z.null()]).optional(),
-		created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		created_by: z.union([z.string(), z.null()]).optional(),
-		updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		updated_by: z.union([z.string(), z.null()]).optional(),
-		settings_updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
-		last_active: z.union([z.iso.datetime(), z.null()]).optional(),
+		settings_updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+		last_active: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		object_permission_id: z.union([z.string(), z.null()]).optional(),
 		object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null()]).optional(),
 		access_group_ids: z.union([z.array(z.string()), z.null()]).optional(),
 		rotation_count: z.union([z.int(), z.null()]).optional().default(0),
 		auto_rotate: z.union([z.boolean(), z.null()]).optional().default(false),
 		rotation_interval: z.union([z.string(), z.null()]).optional(),
-		last_rotation_at: z.union([z.iso.datetime(), z.null()]).optional(),
-		key_rotation_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		last_rotation_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+		key_rotation_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		router_settings: z.union([z.looseObject({}), z.null()]).optional(),
 		budget_limits: z.union([z.array(z.looseObject({})), z.null()]).optional(),
 		team_spend: z.union([z.number(), z.null()]).optional(),
@@ -5741,7 +5741,7 @@ export const liteLLMDeletedVerificationTokenSchema = z
 		spend: z.number().optional().default(0),
 		total_spend: z.number().optional().default(0),
 		max_budget: z.union([z.number(), z.null()]).optional(),
-		expires: z.union([z.string(), z.iso.datetime(), z.null()]).optional(),
+		expires: z.union([z.string(), z.iso.datetime({ offset: true }), z.null()]).optional(),
 		models: z.array(z.unknown()).optional().default([]),
 		aliases: z.looseObject({}).optional().default({}),
 		config: z.looseObject({}).optional().default({}),
@@ -5755,7 +5755,7 @@ export const liteLLMDeletedVerificationTokenSchema = z
 		rpm_limit: z.union([z.int(), z.null()]).optional(),
 		tpd_limit: z.union([z.int(), z.null()]).optional(),
 		budget_duration: z.union([z.string(), z.null()]).optional(),
-		budget_reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		allowed_cache_controls: z
 			.union([z.array(z.unknown()), z.null()])
 			.optional()
@@ -5774,25 +5774,25 @@ export const liteLLMDeletedVerificationTokenSchema = z
 		litellm_budget_table: z.union([z.looseObject({}), z.null()]).optional(),
 		budget_id: z.union([z.string(), z.null()]).optional(),
 		org_id: z.union([z.string(), z.null()]).optional(),
-		created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		created_by: z.union([z.string(), z.null()]).optional(),
-		updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		updated_by: z.union([z.string(), z.null()]).optional(),
-		settings_updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
-		last_active: z.union([z.iso.datetime(), z.null()]).optional(),
+		settings_updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+		last_active: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		object_permission_id: z.union([z.string(), z.null()]).optional(),
 		object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null()]).optional(),
 		access_group_ids: z.union([z.array(z.string()), z.null()]).optional(),
 		rotation_count: z.union([z.int(), z.null()]).optional().default(0),
 		auto_rotate: z.union([z.boolean(), z.null()]).optional().default(false),
 		rotation_interval: z.union([z.string(), z.null()]).optional(),
-		last_rotation_at: z.union([z.iso.datetime(), z.null()]).optional(),
-		key_rotation_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		last_rotation_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+		key_rotation_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		router_settings: z.union([z.looseObject({}), z.null()]).optional(),
 		budget_limits: z.union([z.array(z.looseObject({})), z.null()]).optional(),
 		id: z.union([z.string(), z.null()]).optional(),
 		organization_id: z.union([z.string(), z.null()]).optional(),
-		deleted_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		deleted_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		deleted_by: z.union([z.string(), z.null()]).optional(),
 		deleted_by_api_key: z.union([z.string(), z.null()]).optional(),
 		litellm_changed_by: z.union([z.string(), z.null()]).optional(),
@@ -5840,15 +5840,15 @@ export const lensSchema = z.strictObject({
 	settings: lensSettingsSchema,
 	revision: z.int().optional().default(1),
 	version: z.int().optional().default(0),
-	created_at: z.iso.datetime(),
-	next_run_at: z.iso.datetime(),
-	last_scan_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.iso.datetime({ offset: true }),
+	next_run_at: z.iso.datetime({ offset: true }),
+	last_scan_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	jobs: z.array(jobSchema).optional().default([]),
 	findings: z.array(findingSchema).optional().default([]),
 	budget_month: z.string(),
 	spent: z.number().optional().default(0),
 	reservations: z.array(budgetReservationSchema).optional().default([]),
-	criteria_updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	criteria_updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const workerSchema = z.strictObject({
@@ -5856,7 +5856,7 @@ export const workerSchema = z.strictObject({
 	id: z.string(),
 	name: z.string(),
 	scope: scopeSchema,
-	last_seen: z.iso.datetime(),
+	last_seen: z.iso.datetime({ offset: true }),
 	revoked: z.boolean().optional().default(false),
 });
 
@@ -5984,7 +5984,7 @@ export const liteLLMTeamTableSchema = z.object({
 	default_team_member_models: z.union([z.array(z.string()), z.null()]).optional(),
 	spend: z.union([z.number(), z.null()]).optional(),
 	max_parallel_requests: z.union([z.int(), z.null()]).optional(),
-	budget_reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	model_id: z.union([z.int(), z.null()]).optional(),
 	model_spend: z
 		.union([z.looseObject({}), z.null()])
@@ -6001,8 +6001,8 @@ export const liteLLMTeamTableSchema = z.object({
 	},
 	object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null()]).optional(),
 	object_permission_id: z.union([z.string(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const liteLLMModelTableSchema = z.object({
@@ -6039,7 +6039,7 @@ export const liteLLMDeletedTeamTableSchema = z
 		default_team_member_models: z.union([z.array(z.string()), z.null()]).optional(),
 		spend: z.union([z.number(), z.null()]).optional(),
 		max_parallel_requests: z.union([z.int(), z.null()]).optional(),
-		budget_reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		model_id: z.union([z.int(), z.null()]).optional(),
 		model_spend: z
 			.union([z.looseObject({}), z.null()])
@@ -6056,10 +6056,10 @@ export const liteLLMDeletedTeamTableSchema = z
 		},
 		object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null()]).optional(),
 		object_permission_id: z.union([z.string(), z.null()]).optional(),
-		updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
-		created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+		created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		id: z.union([z.string(), z.null()]).optional(),
-		deleted_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		deleted_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		deleted_by: z.union([z.string(), z.null()]).optional(),
 		deleted_by_api_key: z.union([z.string(), z.null()]).optional(),
 		litellm_changed_by: z.union([z.string(), z.null()]).optional(),
@@ -6073,9 +6073,9 @@ export const liteLLMMemoryRowSchema = z.object({
 	metadata: z.union([z.unknown(), z.null()]).optional(),
 	user_id: z.union([z.string(), z.null()]).optional(),
 	team_id: z.union([z.string(), z.null()]).optional(),
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	created_by: z.union([z.string(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	updated_by: z.union([z.string(), z.null()]).optional(),
 });
 
@@ -6086,8 +6086,8 @@ export const liteLLMOrganizationMembershipTableSchema = z
 		user_role: z.union([z.string(), z.null()]).optional(),
 		spend: z.number().optional().default(0),
 		budget_id: z.union([z.string(), z.null()]).optional(),
-		created_at: z.iso.datetime(),
-		updated_at: z.iso.datetime(),
+		created_at: z.iso.datetime({ offset: true }),
+		updated_at: z.iso.datetime({ offset: true }),
 		user: z.union([z.unknown(), z.null()]).optional(),
 		litellm_budget_table: z.union([liteLLMBudgetTableSchema, z.null()]).optional(),
 		user_email: z.union([z.string(), z.null()]).optional(),
@@ -6102,7 +6102,7 @@ export const liteLLMUserTableSchema = z.object({
 	organization_id: z.union([z.string(), z.null()]).optional(),
 	object_permission_id: z.union([z.string(), z.null()]).optional(),
 	password_reset_required: z.union([z.boolean(), z.null()]).optional(),
-	last_breach_check_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	last_breach_check_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	teams: z.array(z.string()).optional().default([]),
 	user_role: z.union([z.string(), z.null()]).optional(),
 	max_budget: z.union([z.number(), z.null()]).optional(),
@@ -6114,7 +6114,7 @@ export const liteLLMUserTableSchema = z.object({
 	tpm_limit: z.union([z.int(), z.null()]).optional(),
 	rpm_limit: z.union([z.int(), z.null()]).optional(),
 	budget_duration: z.union([z.string(), z.null()]).optional(),
-	budget_reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	allowed_cache_controls: z.array(z.string()).optional().default([]),
 	policies: z.array(z.string()).optional().default([]),
 	model_spend: z
@@ -6125,8 +6125,8 @@ export const liteLLMUserTableSchema = z.object({
 		.union([z.looseObject({}), z.null()])
 		.optional()
 		.default({}),
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	organization_memberships: z
 		.union([z.array(liteLLMOrganizationMembershipTableSchema), z.null()])
 		.optional(),
@@ -6155,8 +6155,8 @@ export const liteLLMOrganizationTableWithMembersSchema = z
 		get teams() {
 			return z.array(liteLLMTeamTableSchema).optional().default([]);
 		},
-		created_at: z.iso.datetime(),
-		updated_at: z.iso.datetime(),
+		created_at: z.iso.datetime({ offset: true }),
+		updated_at: z.iso.datetime({ offset: true }),
 	})
 	.describe("Returned by the /organization/info endpoint and /organization/list endpoint");
 
@@ -6177,8 +6177,8 @@ export const liteLLMProjectTableSchema = z
 		object_permission_id: z.union([z.string(), z.null()]).optional(),
 		created_by: z.union([z.string(), z.null()]).optional(),
 		updated_by: z.union([z.string(), z.null()]).optional(),
-		created_at: z.union([z.iso.datetime(), z.null()]).optional(),
-		updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+		updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		litellm_budget_table: z.union([liteLLMBudgetTableSchema, z.null()]).optional(),
 		object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null()]).optional(),
 	})
@@ -6190,9 +6190,9 @@ export const liteLLMProxyModelTableSchema = z.object({
 	litellm_params: z.looseObject({}),
 	model_info: z.union([z.looseObject({}), z.null()]).optional(),
 	blocked: z.boolean().optional().default(false),
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	created_by: z.union([z.string(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	updated_by: z.union([z.string(), z.null()]).optional(),
 });
 
@@ -6206,8 +6206,8 @@ export const liteLLMSpendLogsSchema = z.object({
 	total_tokens: z.union([z.int(), z.null()]).optional().default(0),
 	prompt_tokens: z.union([z.int(), z.null()]).optional().default(0),
 	completion_tokens: z.union([z.int(), z.null()]).optional().default(0),
-	startTime: z.union([z.string(), z.iso.datetime(), z.null()]),
-	endTime: z.union([z.string(), z.iso.datetime(), z.null()]),
+	startTime: z.union([z.string(), z.iso.datetime({ offset: true }), z.null()]),
+	endTime: z.union([z.string(), z.iso.datetime({ offset: true }), z.null()]),
 	user: z.union([z.string(), z.null()]).optional().default(""),
 	metadata: z.union([z.unknown(), z.null()]).optional().default({}),
 	cache_hit: z.union([z.string(), z.null()]).optional().default("False"),
@@ -6216,8 +6216,8 @@ export const liteLLMSpendLogsSchema = z.object({
 	requester_ip_address: z.union([z.string(), z.null()]).optional(),
 	messages: z.union([z.string(), z.array(z.unknown()), z.looseObject({}), z.null()]),
 	response: z.union([z.string(), z.array(z.unknown()), z.looseObject({}), z.null()]),
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const liteLLMTeamMembershipSchema = z.object({
@@ -6239,7 +6239,7 @@ export const liteLLMUserTableWithKeyCountSchema = z.object({
 	organization_id: z.union([z.string(), z.null()]).optional(),
 	object_permission_id: z.union([z.string(), z.null()]).optional(),
 	password_reset_required: z.union([z.boolean(), z.null()]).optional(),
-	last_breach_check_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	last_breach_check_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	teams: z.array(z.string()).optional().default([]),
 	user_role: z.union([z.string(), z.null()]).optional(),
 	max_budget: z.union([z.number(), z.null()]).optional(),
@@ -6251,7 +6251,7 @@ export const liteLLMUserTableWithKeyCountSchema = z.object({
 	tpm_limit: z.union([z.int(), z.null()]).optional(),
 	rpm_limit: z.union([z.int(), z.null()]).optional(),
 	budget_duration: z.union([z.string(), z.null()]).optional(),
-	budget_reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	allowed_cache_controls: z.array(z.string()).optional().default([]),
 	policies: z.array(z.string()).optional().default([]),
 	model_spend: z
@@ -6262,8 +6262,8 @@ export const liteLLMUserTableWithKeyCountSchema = z.object({
 		.union([z.looseObject({}), z.null()])
 		.optional()
 		.default({}),
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	organization_memberships: z
 		.union([z.array(liteLLMOrganizationMembershipTableSchema), z.null()])
 		.optional(),
@@ -6278,7 +6278,7 @@ export const liteLLMVerificationTokenSchema = z.object({
 	spend: z.number().optional().default(0),
 	total_spend: z.number().optional().default(0),
 	max_budget: z.union([z.number(), z.null()]).optional(),
-	expires: z.union([z.string(), z.iso.datetime(), z.null()]).optional(),
+	expires: z.union([z.string(), z.iso.datetime({ offset: true }), z.null()]).optional(),
 	models: z.array(z.unknown()).optional().default([]),
 	aliases: z.looseObject({}).optional().default({}),
 	config: z.looseObject({}).optional().default({}),
@@ -6292,7 +6292,7 @@ export const liteLLMVerificationTokenSchema = z.object({
 	rpm_limit: z.union([z.int(), z.null()]).optional(),
 	tpd_limit: z.union([z.int(), z.null()]).optional(),
 	budget_duration: z.union([z.string(), z.null()]).optional(),
-	budget_reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	allowed_cache_controls: z
 		.union([z.array(z.unknown()), z.null()])
 		.optional()
@@ -6311,20 +6311,20 @@ export const liteLLMVerificationTokenSchema = z.object({
 	litellm_budget_table: z.union([z.looseObject({}), z.null()]).optional(),
 	budget_id: z.union([z.string(), z.null()]).optional(),
 	org_id: z.union([z.string(), z.null()]).optional(),
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	created_by: z.union([z.string(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	updated_by: z.union([z.string(), z.null()]).optional(),
-	settings_updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
-	last_active: z.union([z.iso.datetime(), z.null()]).optional(),
+	settings_updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	last_active: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	object_permission_id: z.union([z.string(), z.null()]).optional(),
 	object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null()]).optional(),
 	access_group_ids: z.union([z.array(z.string()), z.null()]).optional(),
 	rotation_count: z.union([z.int(), z.null()]).optional().default(0),
 	auto_rotate: z.union([z.boolean(), z.null()]).optional().default(false),
 	rotation_interval: z.union([z.string(), z.null()]).optional(),
-	last_rotation_at: z.union([z.iso.datetime(), z.null()]).optional(),
-	key_rotation_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	last_rotation_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	key_rotation_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	router_settings: z.union([z.looseObject({}), z.null()]).optional(),
 	budget_limits: z.union([z.array(z.looseObject({})), z.null()]).optional(),
 });
@@ -6621,7 +6621,7 @@ export const modelDeprecationResponseSchema = z.object({
 		.describe("Models with a future deprecation date outside the warn window."),
 	warn_within_days: z.int().describe("The window (in days) used to bucket 'imminent' models."),
 	checked_at: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.describe("UTC timestamp when the deprecation snapshot was generated."),
 });
 
@@ -6719,7 +6719,7 @@ export const newCustomerRequestSchema = z
 				"Max budget for each model (e.g. {'gpt-4o': {'max_budget': '0.0000001', 'budget_duration': '1d', 'tpm_limit': 1000, 'rpm_limit': 1000}})",
 			),
 		budget_reset_at: z
-			.union([z.iso.datetime(), z.null()])
+			.union([z.iso.datetime({ offset: true }), z.null()])
 			.optional()
 			.describe("Datetime when the budget is reset"),
 		user_id: z.string(),
@@ -6758,7 +6758,7 @@ export const newOrganizationRequestSchema = z.object({
 	budget_duration: z.union([z.string(), z.null()]).optional(),
 	allowed_models: z.union([z.array(z.string()), z.null()]).optional(),
 	temp_budget_increase: z.union([z.number(), z.null()]).optional(),
-	temp_budget_expiry: z.union([z.iso.datetime(), z.null()]).optional(),
+	temp_budget_expiry: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	organization_id: z.union([z.string(), z.null()]).optional(),
 	organization_alias: z.string(),
 	models: z.array(z.unknown()).optional().default([]),
@@ -6785,8 +6785,8 @@ export const newOrganizationResponseSchema = z.object({
 	litellm_budget_table: z.union([liteLLMBudgetTableSchema, z.null()]).optional(),
 	object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null()]).optional(),
 	object_permission_id: z.union([z.string(), z.null()]).optional(),
-	created_at: z.iso.datetime(),
-	updated_at: z.iso.datetime(),
+	created_at: z.iso.datetime({ offset: true }),
+	updated_at: z.iso.datetime({ offset: true }),
 });
 
 export const newProjectRequestSchema = z
@@ -6802,7 +6802,7 @@ export const newProjectRequestSchema = z
 		budget_duration: z.union([z.string(), z.null()]).optional(),
 		allowed_models: z.union([z.array(z.string()), z.null()]).optional(),
 		temp_budget_increase: z.union([z.number(), z.null()]).optional(),
-		temp_budget_expiry: z.union([z.iso.datetime(), z.null()]).optional(),
+		temp_budget_expiry: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		project_id: z.union([z.string(), z.null()]).optional(),
 		project_alias: z.union([z.string(), z.null()]).optional(),
 		description: z.union([z.string(), z.null()]).optional(),
@@ -6838,8 +6838,8 @@ export const newProjectResponseSchema = z
 		object_permission_id: z.union([z.string(), z.null()]).optional(),
 		created_by: z.union([z.string(), z.null()]).optional(),
 		updated_by: z.union([z.string(), z.null()]).optional(),
-		created_at: z.iso.datetime(),
-		updated_at: z.iso.datetime(),
+		created_at: z.iso.datetime({ offset: true }),
+		updated_at: z.iso.datetime({ offset: true }),
 		litellm_budget_table: z.union([liteLLMBudgetTableSchema, z.null()]).optional(),
 		object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null()]).optional(),
 	})
@@ -7054,7 +7054,7 @@ export const newUserResponseSchema = z.object({
 	access_group_ids: z.union([z.array(z.string()), z.null()]).optional(),
 	key_name: z.union([z.string(), z.null()]).optional(),
 	key_type: z.union([z.string(), z.null()]).optional(),
-	expires: z.union([z.iso.datetime(), z.null()]).optional(),
+	expires: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	token_id: z.union([z.string(), z.null()]).optional(),
 	organization_id: z.union([z.string(), z.null()]).optional(),
 	project_id: z.union([z.string(), z.null()]).optional(),
@@ -7062,8 +7062,8 @@ export const newUserResponseSchema = z.object({
 	token: z.union([z.string(), z.null()]).optional(),
 	created_by: z.union([z.string(), z.null()]).optional(),
 	updated_by: z.union([z.string(), z.null()]).optional(),
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	user_email: z.union([z.string(), z.null()]).optional(),
 	user_role: z
 		.union([
@@ -7436,7 +7436,7 @@ export const perUserAnalyticsResponseSchema = z
 	.describe("Response for per-user analytics");
 
 export const previewSchema = z.object({
-	as_of: z.union([z.iso.datetime(), z.null()]).optional(),
+	as_of: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	offset: z.int().min(0).optional().default(0),
 	selection: activitySelectionSchema,
 	lookback_hours: z.int().min(1).optional().default(24),
@@ -7476,7 +7476,7 @@ export const promptCacheBreakpointSchema = z
 
 export const promptCachingRequestSchema = z.object({
 	request_id: z.string(),
-	start_time: z.iso.datetime(),
+	start_time: z.iso.datetime({ offset: true }),
 	model: z.string(),
 	gateway_injected: z.boolean(),
 	cache_read_tokens: z.int(),
@@ -7486,7 +7486,7 @@ export const promptCachingRequestSchema = z.object({
 });
 
 export const promptCachingRequestCursorSchema = z.object({
-	start_time: z.iso.datetime(),
+	start_time: z.iso.datetime({ offset: true }),
 	request_id: z.string(),
 });
 
@@ -8481,8 +8481,8 @@ export const routerSettingsResponseSchema = z.object({
 export const runRequestSchema = z.strictObject({
 	settings: z.union([lensSettingsSchema, z.null()]).optional(),
 	lookback_hours: z.union([z.int().min(1), z.null()]).optional(),
-	start: z.union([z.iso.datetime(), z.null()]).optional(),
-	end: z.union([z.iso.datetime(), z.null()]).optional(),
+	start: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	end: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	agent_name: z.union([z.string().max(200), z.null()]).optional(),
 });
 
@@ -8688,7 +8688,7 @@ export const shadowEvalJobTargetResponseSchema = z
 				"This target's own USD budget for the eval's shadow and judge spend, independent of its siblings'; None on jobs created before spend budgets existed, which max_turns alone bounds",
 			),
 		stopped_at: z
-			.union([z.iso.datetime(), z.null()])
+			.union([z.iso.datetime({ offset: true }), z.null()])
 			.optional()
 			.describe(
 				"When this target's slot was stamped free, whether its own budget ran out, the window closed, or an operator stopped the job; status is derived, so a spent budget reads completed even while this is still unset",
@@ -8806,8 +8806,8 @@ export const shadowEvalJobResponseSchema = z
 		baseline_model: z.union([z.string(), z.null()]).optional(),
 		judge_model: z.string(),
 		shadow_percentage: z.number(),
-		created_at: z.iso.datetime(),
-		ends_at: z.iso.datetime(),
+		created_at: z.iso.datetime({ offset: true }),
+		ends_at: z.iso.datetime({ offset: true }),
 		stopped_by: z
 			.union([z.string(), z.null()])
 			.optional()
@@ -9170,7 +9170,7 @@ export const teamAddMemberResponseSchema = z.object({
 	default_team_member_models: z.union([z.array(z.string()), z.null()]).optional(),
 	spend: z.union([z.number(), z.null()]).optional(),
 	max_parallel_requests: z.union([z.int(), z.null()]).optional(),
-	budget_reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	model_id: z.union([z.int(), z.null()]).optional(),
 	model_spend: z
 		.union([z.looseObject({}), z.null()])
@@ -9187,8 +9187,8 @@ export const teamAddMemberResponseSchema = z.object({
 	},
 	object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null()]).optional(),
 	object_permission_id: z.union([z.string(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	updated_users: z.array(liteLLMUserTableSchema),
 	updated_team_memberships: z.array(liteLLMTeamMembershipSchema),
 });
@@ -9229,7 +9229,7 @@ export const teamListItemSchema = z
 		default_team_member_models: z.union([z.array(z.string()), z.null()]).optional(),
 		spend: z.union([z.number(), z.null()]).optional(),
 		max_parallel_requests: z.union([z.int(), z.null()]).optional(),
-		budget_reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		model_id: z.union([z.int(), z.null()]).optional(),
 		model_spend: z
 			.union([z.looseObject({}), z.null()])
@@ -9246,8 +9246,8 @@ export const teamListItemSchema = z
 		},
 		object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null()]).optional(),
 		object_permission_id: z.union([z.string(), z.null()]).optional(),
-		updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
-		created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+		created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		members_count: z.int().optional().default(0),
 		keys_count: z.int().optional().default(0),
 		access_group_models: z.union([z.array(z.string()), z.null()]).optional(),
@@ -9364,7 +9364,7 @@ export const teamMemberUpdateRequestSchema = z.object({
 			"Temporary additive budget increase for this team member, active until temp_budget_expiry",
 		),
 	temp_budget_expiry: z
-		.union([z.iso.datetime(), z.null()])
+		.union([z.iso.datetime({ offset: true }), z.null()])
 		.optional()
 		.describe("UTC expiry for temp_budget_increase"),
 });
@@ -9379,7 +9379,7 @@ export const teamMemberUpdateResponseSchema = z.object({
 	budget_duration: z.union([z.string(), z.null()]).optional(),
 	allowed_models: z.union([z.array(z.string()), z.null()]).optional(),
 	temp_budget_increase: z.union([z.number(), z.null()]).optional(),
-	temp_budget_expiry: z.union([z.iso.datetime(), z.null()]).optional(),
+	temp_budget_expiry: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const teamMetadataFieldSchemaSchema = z
@@ -9506,7 +9506,7 @@ export const traceAgentSchema = z
 		name: z.string(),
 		runs: z.int().min(0),
 		failed_runs: z.int().min(0),
-		last_seen: z.iso.datetime(),
+		last_seen: z.iso.datetime({ offset: true }),
 		frameworks: z.array(z.string()).optional().default([]),
 	})
 	.describe("One agent seen in the caller's traces, for picking which agent's runs to look at.");
@@ -9645,7 +9645,7 @@ export const traceSignalsSchema = z.strictObject({
 	status: z.enum(["unclassified", "pending", "classified", "failed"]),
 	flags: z.array(signalFlagSchema).optional().default([]),
 	model: z.string().optional().default(""),
-	classified_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	classified_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const transformRequestBodySchema = z.object({
@@ -9816,7 +9816,7 @@ export const updateKeyRequestSchema = z.object({
 	access_group_ids: z.union([z.array(z.string()), z.null()]).optional(),
 	soft_budget: z.union([z.number(), z.null()]).optional(),
 	temp_budget_increase: z.union([z.number(), z.null()]).optional(),
-	temp_budget_expiry: z.union([z.iso.datetime(), z.null()]).optional(),
+	temp_budget_expiry: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	auto_rotate: z.union([z.boolean(), z.null()]).optional(),
 	rotation_interval: z.union([z.string(), z.null()]).optional(),
 	organization_id: z.union([z.string(), z.null()]).optional(),
@@ -9846,7 +9846,7 @@ export const updateProjectRequestSchema = z
 		budget_duration: z.union([z.string(), z.null()]).optional(),
 		allowed_models: z.union([z.array(z.string()), z.null()]).optional(),
 		temp_budget_increase: z.union([z.number(), z.null()]).optional(),
-		temp_budget_expiry: z.union([z.iso.datetime(), z.null()]).optional(),
+		temp_budget_expiry: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		project_id: z.string(),
 		project_alias: z.union([z.string(), z.null()]).optional(),
 		description: z.union([z.string(), z.null()]).optional(),
@@ -10007,10 +10007,10 @@ export const userInfoV2ResponseSchema = z
 		rpm_limit: z.union([z.int(), z.null()]).optional(),
 		models: z.array(z.string()).optional().default([]),
 		budget_duration: z.union([z.string(), z.null()]).optional(),
-		budget_reset_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		metadata: z.union([z.looseObject({}), z.null()]).optional(),
-		created_at: z.union([z.iso.datetime(), z.null()]).optional(),
-		updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+		updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		sso_user_id: z.union([z.string(), z.null()]).optional(),
 		teams: z.array(z.string()).optional().default([]),
 		object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null()]).optional(),
@@ -13179,13 +13179,13 @@ export const litellmParamsSchema = z.looseObject({
 });
 
 export const guardrailSchema = z.object({
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	guardrail_id: z.union([z.string(), z.null()]).optional(),
 	guardrail_info: z.union([z.looseObject({}), z.null()]).optional(),
 	guardrail_name: z.string(),
 	litellm_params: litellmParamsSchema,
 	policy_template: z.union([z.string(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const createGuardrailRequestSchema = z.object({
@@ -13195,29 +13195,29 @@ export const createGuardrailRequestSchema = z.object({
 export const GUARDRAILDEFINITIONLOCATIONSchema = z.enum(["db", "config"]);
 
 export const guardrailInfoResponseSchema = z.object({
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	guardrail_definition_location: GUARDRAILDEFINITIONLOCATIONSchema.optional().default("config"),
 	guardrail_id: z.union([z.string(), z.null()]).optional(),
 	guardrail_info: z.union([z.looseObject({}), z.null()]).optional(),
 	guardrail_name: z.string(),
 	litellm_params: z.union([baseLitellmParamsSchema, z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const guardrailSubmissionItemSchema = z.object({
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	guardrail_id: z.string(),
 	guardrail_info: z.union([z.looseObject({}), z.null()]).optional(),
 	guardrail_name: z.string(),
 	litellm_params: z.union([z.looseObject({}), z.null()]).optional(),
-	reviewed_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	reviewed_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	status: z.string(),
-	submitted_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	submitted_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	submitted_by_email: z.union([z.string(), z.null()]).optional(),
 	submitted_by_user_id: z.union([z.string(), z.null()]).optional(),
 	team_guardrail: z.boolean().optional().default(false),
 	team_id: z.union([z.string(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const guardrailSubmissionSummarySchema = z.object({
@@ -13271,7 +13271,7 @@ export const registerGuardrailResponseSchema = z.object({
 	guardrail_id: z.string(),
 	guardrail_name: z.string(),
 	status: z.string(),
-	submitted_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	submitted_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const testCustomCodeGuardrailRequestSchema = z
@@ -13721,7 +13721,7 @@ export const policyAttachmentDBResponseSchema = z
 	.object({
 		attachment_id: z.string().describe("Unique ID of the attachment."),
 		created_at: z
-			.union([z.iso.datetime(), z.null()])
+			.union([z.iso.datetime({ offset: true }), z.null()])
 			.optional()
 			.describe("When the attachment was created."),
 		created_by: z.union([z.string(), z.null()]).optional().describe("Who created the attachment."),
@@ -13748,7 +13748,7 @@ export const policyAttachmentDBResponseSchema = z
 		tags: z.array(z.string()).optional().describe("Tag patterns."),
 		teams: z.array(z.string()).optional().describe("Team patterns."),
 		updated_at: z
-			.union([z.iso.datetime(), z.null()])
+			.union([z.iso.datetime({ offset: true }), z.null()])
 			.optional()
 			.describe("When the attachment was last updated."),
 		updated_by: z
@@ -13814,7 +13814,7 @@ export const policyDBResponseSchema = z
 			.optional()
 			.describe("Policy condition."),
 		created_at: z
-			.union([z.iso.datetime(), z.null()])
+			.union([z.iso.datetime({ offset: true }), z.null()])
 			.optional()
 			.describe("When the policy was created."),
 		created_by: z.union([z.string(), z.null()]).optional().describe("Who created the policy."),
@@ -13843,15 +13843,15 @@ export const policyDBResponseSchema = z
 		policy_id: z.string().describe("Unique ID of the policy."),
 		policy_name: z.string().describe("Name of the policy."),
 		production_at: z
-			.union([z.iso.datetime(), z.null()])
+			.union([z.iso.datetime({ offset: true }), z.null()])
 			.optional()
 			.describe("When this version was promoted to production."),
 		published_at: z
-			.union([z.iso.datetime(), z.null()])
+			.union([z.iso.datetime({ offset: true }), z.null()])
 			.optional()
 			.describe("When this version was published."),
 		updated_at: z
-			.union([z.iso.datetime(), z.null()])
+			.union([z.iso.datetime({ offset: true }), z.null()])
 			.optional()
 			.describe("When the policy was last updated."),
 		updated_by: z.union([z.string(), z.null()]).optional().describe("Who last updated the policy."),
@@ -14048,7 +14048,7 @@ export const managedAgentIdentityStatusSchema = z.object({
 	execution_mode: z.enum(["autonomous", "delegated", "both"]).optional().default("autonomous"),
 	identity: z.union([agentIdentityBindingSchema, z.null()]).optional(),
 	identity_managed: z.boolean().optional().default(false),
-	last_authenticated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	last_authenticated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const patchAgentRequestSchema = z.object({
@@ -14117,13 +14117,13 @@ export const indexCreateRequestSchema = z.object({
 
 export const liteLLMManagedVectorStoreIndexSchema = z
 	.object({
-		created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		created_by: z.union([z.string(), z.null()]).optional(),
 		id: z.string(),
 		index_info: z.union([z.looseObject({}), z.null()]).optional(),
 		index_name: z.string(),
 		litellm_params: indexCreateLiteLLMParamsSchema,
-		updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		updated_by: z.union([z.string(), z.null()]).optional(),
 	})
 	.describe(
@@ -14137,13 +14137,13 @@ export const indexListResponseSchema = z.object({
 
 export const liteLLMManagedVectorStoreSchema = z
 	.object({
-		created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		custom_llm_provider: z.string().optional(),
 		is_config: z.boolean().optional(),
 		litellm_credential_name: z.union([z.string(), z.null()]).optional(),
 		litellm_params: z.union([z.looseObject({}), z.null()]).optional(),
 		team_id: z.union([z.string(), z.null()]).optional(),
-		updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		user_id: z.union([z.string(), z.null()]).optional(),
 		vector_store_description: z.union([z.string(), z.null()]).optional(),
 		vector_store_id: z.string().optional(),
@@ -14163,13 +14163,13 @@ export const liteLLMManagedVectorStoreListResponseSchema = z
 	.describe("Response format for listing vector stores");
 
 export const liteLLMManagedVectorStoresTableSchema = z.object({
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	custom_llm_provider: z.string(),
 	is_config: z.boolean().optional().default(false),
 	litellm_credential_name: z.union([z.string(), z.null()]).optional(),
 	litellm_params: z.union([z.looseObject({}), z.null()]).optional(),
 	team_id: z.union([z.string(), z.null()]).optional(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	user_id: z.union([z.string(), z.null()]).optional(),
 	vector_store_description: z.union([z.string(), z.null()]).optional(),
 	vector_store_id: z.string(),
@@ -14206,32 +14206,32 @@ export const toolDiscoveryUserSchema = z.object({
 export const liteLLMToolTableRowSchema = z.object({
 	assignments: z.union([z.looseObject({}), z.null()]).optional(),
 	call_count: z.int().optional().default(0),
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	created_by: z.union([z.string(), z.null()]).optional(),
 	input_policy: z.enum(["trusted", "untrusted", "blocked"]).optional().default("untrusted"),
 	key_alias: z.union([z.string(), z.null()]).optional(),
 	key_hash: z.union([z.string(), z.null()]).optional(),
-	last_used_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	last_used_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	origin: z.union([z.string(), z.null()]).optional(),
 	output_policy: z.enum(["trusted", "untrusted"]).optional().default("untrusted"),
 	team_id: z.union([z.string(), z.null()]).optional(),
 	tool_id: z.string(),
 	tool_name: z.string(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	updated_by: z.union([z.string(), z.null()]).optional(),
 	user: z.union([toolDiscoveryUserSchema, z.null()]).optional(),
 	user_agent: z.union([z.string(), z.null()]).optional(),
 });
 
 export const toolPolicyOverrideRowSchema = z.object({
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	input_policy: z.enum(["trusted", "untrusted", "blocked"]).optional().default("blocked"),
 	key_alias: z.union([z.string(), z.null()]).optional(),
 	key_hash: z.union([z.string(), z.null()]).optional(),
 	override_id: z.string(),
 	team_id: z.union([z.string(), z.null()]).optional(),
 	tool_name: z.string(),
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 });
 
 export const toolDetailResponseSchema = z.object({
@@ -14536,7 +14536,7 @@ export const liteLLMMCPServerTableSchema = z
 		byok_description: z.array(z.string()).optional(),
 		command: z.union([z.string(), z.null()]).optional(),
 		connected_app_reachable: z.union([z.boolean(), z.null()]).optional(),
-		created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		created_by: z.union([z.string(), z.null()]).optional(),
 		credentials: z.union([MCPCredentialsSchema, z.null()]).optional(),
 		dcr_bridge: z.union([z.boolean(), z.null()]).optional(),
@@ -14555,7 +14555,7 @@ export const liteLLMMCPServerTableSchema = z
 			.default(false)
 			.describe("Whether this server is defined in config and is read-only."),
 		issuer: z.union([z.string(), z.null()]).optional(),
-		last_health_check: z.union([z.iso.datetime(), z.null()]).optional(),
+		last_health_check: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		max_concurrent_requests: z.union([z.int(), z.null()]).optional(),
 		mcp_access_groups: z.array(z.string()).optional(),
 		mcp_info: z.union([z.looseObject({}), z.null()]).optional(),
@@ -14567,7 +14567,7 @@ export const liteLLMMCPServerTableSchema = z
 		pinned_tools: z.union([z.record(z.string(), pinnedMCPToolSchema), z.null()]).optional(),
 		registration_url: z.union([z.string(), z.null()]).optional(),
 		review_notes: z.union([z.string(), z.null()]).optional(),
-		reviewed_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		reviewed_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		rpm: z.union([z.int(), z.null()]).optional(),
 		server_id: z.string(),
 		server_name: z.union([z.string(), z.null()]).optional(),
@@ -14582,7 +14582,7 @@ export const liteLLMMCPServerTableSchema = z
 				"Health status: 'healthy', 'unhealthy', 'unknown', or 'reachable' (requires include_reachability=true; authentication and tools unchecked)",
 			),
 		subject_token_type: z.union([z.string(), z.null()]).optional(),
-		submitted_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		submitted_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		submitted_by: z.union([z.string(), z.null()]).optional(),
 		teams: z.array(z.record(z.string(), z.union([z.string(), z.null()]))).optional(),
 		timeout: z.union([z.number(), z.null()]).optional(),
@@ -14592,7 +14592,7 @@ export const liteLLMMCPServerTableSchema = z
 		tool_name_to_description: z.union([z.record(z.string(), z.string()), z.null()]).optional(),
 		tool_name_to_display_name: z.union([z.record(z.string(), z.string()), z.null()]).optional(),
 		transport: z.enum(["sse", "http", "stdio"]),
-		updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+		updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		updated_by: z.union([z.string(), z.null()]).optional(),
 		url: z.union([z.string(), z.null()]).optional(),
 	})
@@ -14832,7 +14832,7 @@ export const newMCPServerRequestSchema = z.object({
 	static_headers: z.union([z.record(z.string(), z.string()), z.null()]).optional(),
 	subject_token_type: z.union([z.string(), z.null()]).optional(),
 	submitted_at: z
-		.union([z.iso.datetime(), z.null()])
+		.union([z.iso.datetime({ offset: true }), z.null()])
 		.optional()
 		.describe("Server-managed: set by the endpoint; caller values are overridden."),
 	submitted_by: z
@@ -15652,7 +15652,7 @@ export const SCIMUserInputSchema = z.object({
 export const cloudZeroExportRequestSchema = z
 	.object({
 		end_time_utc: z
-			.union([z.iso.datetime(), z.null()])
+			.union([z.iso.datetime({ offset: true }), z.null()])
 			.optional()
 			.describe("End time for data export in UTC"),
 		limit: z
@@ -15665,7 +15665,7 @@ export const cloudZeroExportRequestSchema = z
 			.default("replace_hourly")
 			.describe("CloudZero operation type (replace_hourly or sum)"),
 		start_time_utc: z
-			.union([z.iso.datetime(), z.null()])
+			.union([z.iso.datetime({ offset: true }), z.null()])
 			.optional()
 			.describe("Start time for data export in UTC"),
 	})
@@ -15748,7 +15748,7 @@ export const vantageDryRunRequestSchema = z
 export const vantageExportRequestSchema = z
 	.object({
 		end_time_utc: z
-			.union([z.iso.datetime(), z.null()])
+			.union([z.iso.datetime({ offset: true }), z.null()])
 			.optional()
 			.describe("End time for data export in UTC"),
 		limit: z
@@ -15756,7 +15756,7 @@ export const vantageExportRequestSchema = z
 			.optional()
 			.describe("Optional limit on number of records to export (default: no limit)"),
 		start_time_utc: z
-			.union([z.iso.datetime(), z.null()])
+			.union([z.iso.datetime({ offset: true }), z.null()])
 			.optional()
 			.describe("Start time for data export in UTC"),
 	})
@@ -15858,13 +15858,13 @@ export const promptInfoSchema = z.looseObject({
 });
 
 export const promptSpecSchema = z.object({
-	created_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	created_by: z.union([z.string(), z.null()]).optional(),
 	environment: z.union([z.string(), z.null()]).optional().default("development"),
 	litellm_params: promptLiteLLMParamsSchema,
 	prompt_id: z.string(),
 	prompt_info: promptInfoSchema,
-	updated_at: z.union([z.iso.datetime(), z.null()]).optional(),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	version: z.union([z.int(), z.null()]).optional(),
 });
 
@@ -15915,7 +15915,7 @@ export const deleteJWTKeyMappingRequestSchema = z.object({
 });
 
 export const JWTKeyMappingResponseSchema = z.object({
-	created_at: z.iso.datetime(),
+	created_at: z.iso.datetime({ offset: true }),
 	created_by: z.union([z.string(), z.null()]).optional(),
 	description: z.union([z.string(), z.null()]).optional(),
 	id: z.string(),
@@ -15923,7 +15923,7 @@ export const JWTKeyMappingResponseSchema = z.object({
 	jwt_claim_name: z.string(),
 	jwt_claim_value: z.string(),
 	jwt_issuer: z.union([z.string(), z.null()]).optional(),
-	updated_at: z.iso.datetime(),
+	updated_at: z.iso.datetime({ offset: true }),
 	updated_by: z.union([z.string(), z.null()]).optional(),
 });
 
@@ -15996,10 +15996,10 @@ export const accessGroupResponseSchema = z.object({
 	assigned_keys: z.array(accessGroupResourceSchema),
 	assigned_team_ids: z.array(z.string()),
 	assigned_teams: z.array(accessGroupResourceSchema),
-	created_at: z.iso.datetime(),
+	created_at: z.iso.datetime({ offset: true }),
 	created_by: z.union([z.string(), z.null()]).optional(),
 	description: z.union([z.string(), z.null()]).optional(),
-	updated_at: z.iso.datetime(),
+	updated_at: z.iso.datetime({ offset: true }),
 	updated_by: z.union([z.string(), z.null()]).optional(),
 });
 
@@ -24046,10 +24046,10 @@ export const listBudgetsManagementV1BudgetsGetResponseSchema =
 	listBudgetsManagementV1BudgetsGetStatus200Schema;
 
 export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryFilterstartTimegteSchema =
-	z.iso.datetime().describe("Window start (UTC when no offset is given)");
+	z.iso.datetime({ offset: true }).describe("Window start (UTC when no offset is given)");
 
 export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryFilterstartTimelteSchema =
-	z.iso.datetime().describe("Window end (UTC when no offset is given)");
+	z.iso.datetime({ offset: true }).describe("Window end (UTC when no offset is given)");
 
 export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryQSchema = z
 	.union([z.string(), z.null()])
@@ -24086,8 +24086,12 @@ export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetErrorSchema =
 	listSpendLogEndUsersManagementV1SpendLogsEndUsersGetStatus422Schema;
 
 export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQuerySchema = z.object({
-	"filter[startTime][gte]": z.iso.datetime().describe("Window start (UTC when no offset is given)"),
-	"filter[startTime][lte]": z.iso.datetime().describe("Window end (UTC when no offset is given)"),
+	"filter[startTime][gte]": z.iso
+		.datetime({ offset: true })
+		.describe("Window start (UTC when no offset is given)"),
+	"filter[startTime][lte]": z.iso
+		.datetime({ offset: true })
+		.describe("Window end (UTC when no offset is given)"),
 	q: z
 		.union([z.string(), z.null()])
 		.optional()
@@ -24097,11 +24101,11 @@ export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQuerySchema = z
 });
 
 export const listSpendLogUsersManagementV1SpendLogsUsersGetQueryFilterstartTimegteSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.describe("Window start (UTC when no offset is given)");
 
 export const listSpendLogUsersManagementV1SpendLogsUsersGetQueryFilterstartTimelteSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.describe("Window end (UTC when no offset is given)");
 
 export const listSpendLogUsersManagementV1SpendLogsUsersGetQueryQSchema = z
@@ -24139,8 +24143,12 @@ export const listSpendLogUsersManagementV1SpendLogsUsersGetErrorSchema =
 	listSpendLogUsersManagementV1SpendLogsUsersGetStatus422Schema;
 
 export const listSpendLogUsersManagementV1SpendLogsUsersGetQuerySchema = z.object({
-	"filter[startTime][gte]": z.iso.datetime().describe("Window start (UTC when no offset is given)"),
-	"filter[startTime][lte]": z.iso.datetime().describe("Window end (UTC when no offset is given)"),
+	"filter[startTime][gte]": z.iso
+		.datetime({ offset: true })
+		.describe("Window start (UTC when no offset is given)"),
+	"filter[startTime][lte]": z.iso
+		.datetime({ offset: true })
+		.describe("Window end (UTC when no offset is given)"),
 	q: z
 		.union([z.string(), z.null()])
 		.optional()
@@ -27399,10 +27407,10 @@ export const estimateCostCostEstimatePostBodySchema = costEstimateRequestSchema.
 );
 
 export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQueryStartDateSchema =
-	z.iso.datetime();
+	z.iso.datetime({ offset: true });
 
 export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQueryEndDateSchema =
-	z.iso.datetime();
+	z.iso.datetime({ offset: true });
 
 export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQueryPageSizeSchema = z
 	.int()
@@ -27417,7 +27425,7 @@ export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQue
 	.default("all");
 
 export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQueryCursorStartTimeSchema =
-	z.union([z.iso.datetime(), z.null()]).optional();
+	z.union([z.iso.datetime({ offset: true }), z.null()]).optional();
 
 export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQueryCursorRequestIdSchema =
 	z.union([z.string().min(1), z.null()]).optional();
@@ -27436,11 +27444,11 @@ export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetErr
 
 export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQuerySchema = z.object(
 	{
-		start_date: z.iso.datetime(),
-		end_date: z.iso.datetime(),
+		start_date: z.iso.datetime({ offset: true }),
+		end_date: z.iso.datetime({ offset: true }),
 		page_size: z.int().min(1).max(100).optional().default(50),
 		filter: z.enum(["all", "injected", "hits"]).optional().default("all"),
-		cursor_start_time: z.union([z.iso.datetime(), z.null()]).optional(),
+		cursor_start_time: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		cursor_request_id: z.union([z.string().min(1), z.null()]).optional(),
 	},
 );

@@ -19,7 +19,7 @@ export const listArchivedFilesQueryNextPageTokenSchema = z
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
 export const listArchivedFilesQueryFromSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe(
 		"The query start date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `to` query parameter value cannot exceed seven days.",
@@ -27,7 +27,7 @@ export const listArchivedFilesQueryFromSchema = z.iso
 	.meta({ examples: ["2021-03-11T05:41:36Z"] });
 
 export const listArchivedFilesQueryToSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe(
 		"The query end date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `from` query parameter value cannot exceed seven days.",
@@ -78,7 +78,7 @@ export const listArchivedFilesQueryFileTypeSchema = z
 
 export const listArchivedFilesStatus200Schema = z.object({
 	from: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The queried start date.")
 		.meta({ examples: ["2021-03-12T02:12:27Z"] }),
@@ -150,13 +150,13 @@ export const listArchivedFilesStatus200Schema = z.object({
 								)
 								.meta({ examples: ["jchill@example.com"] }),
 							participant_join_time: z.iso
-								.datetime()
+								.datetime({ offset: true })
 								.describe(
 									"The join time for the generated recording file. If this value is returned when the individual value is `true`, it is the recording file's participant join time. When the individual value is `false`, it returns the join time for the archiving gateway.",
 								)
 								.meta({ examples: ["2021-03-12T02:07:27Z"] }),
 							participant_leave_time: z.iso
-								.datetime()
+								.datetime({ offset: true })
 								.describe(
 									"The leave time for the generated recording file. If this value is returned when the individual value is `true`, it is the recording file's participant leave time. When the individual value is `false`, it returns the leave time for the archiving gateway.",
 								)
@@ -216,7 +216,7 @@ export const listArchivedFilesStatus200Schema = z.object({
 					)
 					.describe("Information about the archive files."),
 				complete_time: z
-					.union([z.iso.datetime(), z.enum([""])])
+					.union([z.iso.datetime({ offset: true }), z.enum([""])])
 					.describe("The meeting or webinar's archive completion time.")
 					.meta({ examples: ["2021-03-12T02:57:27Z"] }),
 				duration: z
@@ -259,7 +259,7 @@ export const listArchivedFilesStatus200Schema = z.object({
 					.describe("The number of archived files returned in the API call response.")
 					.meta({ examples: [2] }),
 				start_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.describe("The meeting or webinar's start time.")
 					.meta({ examples: ["2021-04-26T05:23:18Z"] }),
 				timezone: z
@@ -362,7 +362,7 @@ export const listArchivedFilesStatus200Schema = z.object({
 		.describe("The number of records returned within a single API call.")
 		.meta({ examples: [20] }),
 	to: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The queried end date.")
 		.meta({ examples: ["2021-03-12T02:12:27Z"] }),
@@ -400,14 +400,14 @@ export const listArchivedFilesQuerySchema = z.object({
 		)
 		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
 	from: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The query start date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `to` query parameter value cannot exceed seven days.",
 		)
 		.meta({ examples: ["2021-03-11T05:41:36Z"] }),
 	to: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The query end date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `from` query parameter value cannot exceed seven days.",
@@ -470,7 +470,7 @@ export const listArchiveFileDownloadAuditQueryNextPageTokenSchema = z
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
 export const listArchiveFileDownloadAuditQueryFromSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe(
 		"The query start date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `to` query parameter value cannot exceed seven days.",
@@ -478,7 +478,7 @@ export const listArchiveFileDownloadAuditQueryFromSchema = z.iso
 	.meta({ examples: ["2026-06-17T00:00:00Z"] });
 
 export const listArchiveFileDownloadAuditQueryToSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe(
 		"The query end date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `from` query parameter value cannot exceed seven days.",
@@ -487,7 +487,7 @@ export const listArchiveFileDownloadAuditQueryToSchema = z.iso
 
 export const listArchiveFileDownloadAuditStatus200Schema = z.object({
 	from: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The queried start date.")
 		.meta({ examples: ["2026-06-17T00:00:00Z"] }),
@@ -515,7 +515,7 @@ export const listArchiveFileDownloadAuditStatus200Schema = z.object({
 											.describe("The IP address from which the archived file was downloaded.")
 											.meta({ examples: ["10.0.0.1"] }),
 										download_timestamps: z
-											.array(z.iso.datetime())
+											.array(z.iso.datetime({ offset: true }))
 											.describe("The timestamps of downloads from this source IP address.")
 											.meta({ examples: [["2026-06-17T01:02:03Z", "2026-06-17T03:04:05Z"]] }),
 										total_download_count: z
@@ -523,12 +523,12 @@ export const listArchiveFileDownloadAuditStatus200Schema = z.object({
 											.describe("The total number of downloads from this source IP address.")
 											.meta({ examples: [2] }),
 										first_download_time: z.iso
-											.datetime()
+											.datetime({ offset: true })
 											.optional()
 											.describe("The first download time from this source IP address.")
 											.meta({ examples: ["2026-06-17T01:02:03Z"] }),
 										last_download_time: z.iso
-											.datetime()
+											.datetime({ offset: true })
 											.optional()
 											.describe("The most recent download time from this source IP address.")
 											.meta({ examples: ["2026-06-17T03:04:05Z"] }),
@@ -555,7 +555,7 @@ export const listArchiveFileDownloadAuditStatus200Schema = z.object({
 		.describe("The number of records returned within a single API call.")
 		.meta({ examples: [30] }),
 	to: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The queried end date.")
 		.meta({ examples: ["2026-06-23T23:59:59Z"] }),
@@ -592,14 +592,14 @@ export const listArchiveFileDownloadAuditQuerySchema = z.object({
 		)
 		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
 	from: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The query start date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `to` query parameter value cannot exceed seven days.",
 		)
 		.meta({ examples: ["2026-06-17T00:00:00Z"] }),
 	to: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The query end date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `from` query parameter value cannot exceed seven days.",
@@ -608,7 +608,7 @@ export const listArchiveFileDownloadAuditQuerySchema = z.object({
 });
 
 export const getArchivedFileStatisticsQueryFromSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe(
 		"The query start date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `to` query parameter value cannot exceed seven days.",
@@ -616,7 +616,7 @@ export const getArchivedFileStatisticsQueryFromSchema = z.iso
 	.meta({ examples: ["2021-03-11T05:41:36Z"] });
 
 export const getArchivedFileStatisticsQueryToSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe(
 		"The query end date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `from` query parameter value cannot exceed seven days.",
@@ -625,12 +625,12 @@ export const getArchivedFileStatisticsQueryToSchema = z.iso
 
 export const getArchivedFileStatisticsStatus200Schema = z.object({
 	from: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The queried start date.")
 		.meta({ examples: ["2021-03-18T05:41:36Z"] }),
 	to: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The queried end date.")
 		.meta({ examples: ["2021-03-18T05:41:36Z"] }),
@@ -704,14 +704,14 @@ export const getArchivedFileStatisticsErrorSchema = z.union([
 
 export const getArchivedFileStatisticsQuerySchema = z.object({
 	from: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The query start date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `to` query parameter value cannot exceed seven days.",
 		)
 		.meta({ examples: ["2021-03-11T05:41:36Z"] }),
 	to: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The query end date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `from` query parameter value cannot exceed seven days.",
@@ -875,13 +875,13 @@ export const getArchivedFilesStatus200Schema = z.object({
 					)
 					.meta({ examples: ["jchill@example.com"] }),
 				participant_join_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.describe(
 						"The join time for the generated recording file. If this value is returned when the individual value is true, then it is the recording file's participant join time. When the individual value is false, it returns the join time for the archiving gateway.",
 					)
 					.meta({ examples: ["2021-03-12T02:07:27Z"] }),
 				participant_leave_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.describe(
 						"The leave time for the generated recording file. If this value is returned when the individual value is true, then it is the recording file's participant leave time. When the individual value is false, it returns the leave time for the archiving gateway.",
 					)
@@ -935,7 +935,7 @@ export const getArchivedFilesStatus200Schema = z.object({
 		)
 		.describe("Information about the archive files."),
 	complete_time: z
-		.union([z.iso.datetime(), z.enum([""])])
+		.union([z.iso.datetime({ offset: true }), z.enum([""])])
 		.describe("The meeting or webinar's archive completion time.")
 		.meta({ examples: ["2021-03-12T02:57:27Z"] }),
 	duration: z
@@ -978,7 +978,7 @@ export const getArchivedFilesStatus200Schema = z.object({
 		.describe("The number of archived files returned in the API call response.")
 		.meta({ examples: [2] }),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.describe("The meeting or webinar's start time.")
 		.meta({ examples: ["2021-04-26T05:23:18Z"] }),
 	timezone: z
@@ -1171,7 +1171,7 @@ export const recordingGetStatus200Schema = z
 			)
 			.meta({ examples: [22] }),
 		start_time: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The time when the meeting started.")
 			.meta({ examples: ["2021-03-18T05:41:36Z"] }),
@@ -1455,14 +1455,14 @@ export const recordingGetStatus200Schema = z
 						.describe("The URL where the recording file can be opened and played.")
 						.meta({ examples: ["https://example.com/rec/play/Qg75t7xZBtEbAkjdlgbfdngBBBB"] }),
 					recording_end: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe(
 							"The recording file's end time. This is included in the general query response.",
 						)
 						.meta({ examples: ["2021-06-30T22:14:57Z"] }),
 					recording_start: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("The recording file's start time.")
 						.meta({ examples: ["2021-06-30T22:14:57Z"] }),
@@ -1651,7 +1651,7 @@ export const analyticsDetailsStatus200Schema = z.object({
 		.array(
 			z.object({
 				date_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("Explicit time to watch or download the recording.")
 					.meta({ examples: ["2021-07-04T22:14:57Z"] }),
@@ -3079,7 +3079,7 @@ export const recordingsListStatus200Schema = z
 							)
 							.meta({ examples: [22] }),
 						start_time: z.iso
-							.datetime()
+							.datetime({ offset: true })
 							.optional()
 							.describe("The time when the meeting started.")
 							.meta({ examples: ["2021-03-18T05:41:36Z"] }),
@@ -4761,7 +4761,7 @@ export const meetingAppAddStatus201Schema = z.object({
 		)
 		.meta({ examples: [92674392836] }),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"For scheduled meetings only. Meeting start date-time in UTC/GMT, such as `2020-03-31T12:02:00Z`.",
@@ -5869,7 +5869,7 @@ export const meetingRegistrantsStatus200Schema = z
 					})
 					.extend({
 						create_time: z.iso
-							.datetime()
+							.datetime({ offset: true })
 							.optional()
 							.describe("The time when the registrant registered.")
 							.meta({ examples: ["2022-03-22T05:59:09Z"] }),
@@ -5996,7 +5996,7 @@ export const meetingRegistrantCreateStatus201Schema = z.object({
 		.describe("The registrant's ID.")
 		.meta({ examples: ["fdgsfh2ey82fuh"] }),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The meeting's start time.")
 		.meta({ examples: ["2021-07-13T21:44:51Z"] }),
@@ -6022,7 +6022,7 @@ export const meetingRegistrantCreateStatus201Schema = z.object({
 					)
 					.meta({ examples: ["1648194360000"] }),
 				start_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("Start time.")
 					.meta({ examples: ["2022-03-25T07:46:00Z"] }),
@@ -6680,7 +6680,7 @@ export const meetingRegistrantGetStatus200Schema = z
 	})
 	.extend({
 		create_time: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The registrant's registration date and time.")
 			.meta({ examples: ["2022-03-22T05:58:44Z"] }),
@@ -7293,7 +7293,7 @@ export const meetingStatus200Schema = z
 			.describe("The meeting description.")
 			.meta({ examples: ["My Meeting"] }),
 		created_at: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The creation time. ")
 			.meta({ examples: ["2022-03-25T07:29:29Z"] }),
@@ -7347,7 +7347,7 @@ export const meetingStatus200Schema = z
 						)
 						.meta({ examples: ["1648194360000"] }),
 					start_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Start time.")
 						.meta({ examples: ["2022-03-25T07:46:00Z"] }),
@@ -7385,7 +7385,7 @@ export const meetingStatus200Schema = z
 		recurrence: z
 			.object({
 				end_date_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe(
 						"Select the final date when the meeting will recur before it is canceled. Should be in UTC time, such as 2017-11-25T12:00:00Z. (Cannot be used with `end_times`.)",
@@ -8262,7 +8262,7 @@ export const meetingStatus200Schema = z
 			.optional()
 			.describe("Meeting settings."),
 		start_time: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe(
 				"Meeting start time in GMT or UTC. Start time will not be returned if the meeting is an **instant** meeting. \n",
@@ -8544,7 +8544,7 @@ export const meetingUpdateBodySchema = z
 		recurrence: z
 			.object({
 				end_date_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe(
 						"Select the final date when the meeting recurs before it is canceled. Should be in UTC time, such as 2017-11-25T12:00:00Z. Cannot be used with `end_times`.",
@@ -9398,7 +9398,7 @@ export const meetingUpdateBodySchema = z
 			.optional()
 			.describe("Meeting settings."),
 		start_time: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe(
 				"Meeting start time. When using a format like `yyyy-MM-dd'T'HH:mm:ss'Z'`, always use GMT time. When using a format like `yyyy-MM-dd'T'HH:mm:ss`, use local time and specify the time zone. Only used for scheduled meetings and recurring meetings with a fixed time.",
@@ -9620,12 +9620,12 @@ export const pastMeetingDetailsStatus200Schema = z.object({
 		.describe("The meeting's duration, in minutes.")
 		.meta({ examples: [60] }),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The meeting's start date and time.")
 		.meta({ examples: ["2021-07-13T21:44:51Z"] }),
 	end_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The meeting's end date and time.")
 		.meta({ examples: ["2021-07-13T23:00:51Z"] }),
@@ -9743,7 +9743,7 @@ export const pastMeetingsStatus200Schema = z
 			.array(
 				z.object({
 					start_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Start time")
 						.meta({ examples: ["2022-03-26T05:37:59Z"] }),
@@ -9891,12 +9891,12 @@ export const pastMeetingParticipantsStatus200Schema = z.object({
 					)
 					.meta({ examples: ["jchill@example.com"] }),
 				join_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The participant's join time.")
 					.meta({ examples: ["2022-03-23T06:58:09Z"] }),
 				leave_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The participant's leave time.")
 					.meta({ examples: ["2022-03-23T07:02:28Z"] }),
@@ -10024,7 +10024,7 @@ export const listPastMeetingQAStatus200Schema = z.object({
 		)
 		.optional(),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The meeting's start time.")
 		.meta({ examples: ["2022-03-26T06:44:14Z"] }),
@@ -10158,7 +10158,7 @@ export const meetingsStatus200Schema = z
 						)
 						.meta({ examples: ["My Meeting"] }),
 					created_at: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Time of creation.")
 						.meta({ examples: ["2022-03-23T05:31:16Z"] }),
@@ -10190,7 +10190,7 @@ export const meetingsStatus200Schema = z
 						)
 						.meta({ examples: ["97891943927"] }),
 					start_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Meeting start time.")
 						.meta({ examples: ["2022-03-23T06:00:00Z"] }),
@@ -10346,7 +10346,7 @@ export const meetingCreateStatus201Schema = z
 			.describe("Agenda")
 			.meta({ examples: ["My Meeting"] }),
 		created_at: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The date and time when this meeting was created.")
 			.meta({ examples: ["2022-03-25T07:29:29Z"] }),
@@ -10400,7 +10400,7 @@ export const meetingCreateStatus201Schema = z
 						)
 						.meta({ examples: ["1648194360000"] }),
 					start_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Start time.")
 						.meta({ examples: ["2022-03-25T07:46:00Z"] }),
@@ -10440,7 +10440,7 @@ export const meetingCreateStatus201Schema = z
 		recurrence: z
 			.object({
 				end_date_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe(
 						"Select the final date when the meeting will recur before it is canceled. Should be in UTC time, such as 2017-11-25T12:00:00Z. Cannot be used with `end_times`.",
@@ -11317,7 +11317,7 @@ export const meetingCreateStatus201Schema = z
 			.optional()
 			.describe("Meeting settings."),
 		start_time: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("Meeting start date-time in UTC/GMT, such as `2020-03-31T12:02:00Z`.")
 			.meta({ examples: ["2022-03-25T07:29:29Z"] }),
@@ -11466,7 +11466,7 @@ export const meetingCreateBodySchema = z
 		recurrence: z
 			.object({
 				end_date_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe(
 						"This field selects the final date when the meeting will recur before it is canceled. Should be in UTC time, such as 2017-11-25T12:00:00Z. Cannot be used with `end_times`.",
@@ -12270,7 +12270,7 @@ export const meetingCreateBodySchema = z
 			.optional()
 			.describe("Information about the meeting's settings."),
 		start_time: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe(
 				"The meeting's start time. This field is only used for scheduled or recurring meetings with a fixed time. This supports local time and GMT formats. \n* To set a meeting's start time in GMT, use the `yyyy-MM-ddTHH:mm:ssZ` date-time format, such as `2020-03-31T12:02:00Z`. \n* To set a meeting's start time using a specific timezone, use the `yyyy-MM-ddTHH:mm:ss` date-time format and specify the [timezone ID](/docs/api/references/abbreviations/#timezones) in the `timezone` field. If you do not specify a timezone, the `timezone` value defaults to your Zoom account's timezone. You can also use `UTC` for the `timezone` value.\n\n**Note:** If `start_time` is not specified or is set to a past value, it defaults to the current time.",
@@ -12374,7 +12374,7 @@ export const listUpcomingMeetingStatus200Schema = z.object({
 					)
 					.meta({ examples: [2] }),
 				start_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The meeting's start time.")
 					.meta({ examples: ["2022-03-23T06:00:00Z"] }),
@@ -12389,7 +12389,7 @@ export const listUpcomingMeetingStatus200Schema = z.object({
 					.describe("The timezone to format the meeting start time.")
 					.meta({ examples: ["America/Los_Angeles"] }),
 				created_at: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The meeting creation time.")
 					.meta({ examples: ["2022-03-23T05:31:16Z"] }),
@@ -13991,7 +13991,7 @@ export const listPastMeetingPollsStatus200Schema = z.object({
 								.describe("Answer submitted by the user.")
 								.meta({ examples: ["Good"] }),
 							date_time: z.iso
-								.datetime()
+								.datetime({ offset: true })
 								.optional()
 								.describe("Date and time at which the answer to the poll was submitted.")
 								.meta({ examples: ["2022-03-26T05:37:59Z"] }),
@@ -14012,7 +14012,7 @@ export const listPastMeetingPollsStatus200Schema = z.object({
 		)
 		.optional(),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The start time of the meeting.")
 		.meta({ examples: ["2022-03-26T05:37:59Z"] }),
@@ -14089,7 +14089,7 @@ export const reportSignInSignOutActivitiesStatus200Schema = z
 						.describe("The IP address of the user's device.")
 						.meta({ examples: ["192.0.2.1"] }),
 					time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Time during which the activity occurred.")
 						.meta({ examples: ["2019-09-15T19:13:41Z"] }),
@@ -15520,7 +15520,7 @@ export const reportMeetingDetailsStatus200Schema = z.object({
 		.describe("Meeting duration.")
 		.meta({ examples: [2] }),
 	end_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("Meeting end time.")
 		.meta({ examples: ["2022-03-15T07:42:22Z"] }),
@@ -15537,7 +15537,7 @@ export const reportMeetingDetailsStatus200Schema = z.object({
 		.describe("Number of meeting participants.")
 		.meta({ examples: [2] }),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("Meeting start time.")
 		.meta({ examples: ["2022-03-15T07:40:46Z"] }),
@@ -15706,12 +15706,12 @@ export const reportMeetingParticipantsStatus200Schema = z
 						)
 						.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
 					join_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Participant join time.")
 						.meta({ examples: ["2022-03-23T06:58:09Z"] }),
 					leave_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Participant leave time.")
 						.meta({ examples: ["2022-03-23T07:02:28Z"] }),
@@ -15839,7 +15839,7 @@ export const reportMeetingPollsStatus200Schema = z.object({
 		)
 		.meta({ examples: ["4444AAAiAAAAAiAiAiiAii=="] }),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The meeting's start time.")
 		.meta({ examples: ["2022-02-01T12:34:12.66Z"] }),
@@ -16053,7 +16053,7 @@ export const reportMeetingQAStatus200Schema = z.object({
 		.optional()
 		.describe("Array of meeting question objects."),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("Meeting start time.")
 		.meta({ examples: ["2022-03-15T07:40:46Z"] }),
@@ -16108,7 +16108,7 @@ export const reportMeetingSurveyStatus200Schema = z.object({
 		)
 		.meta({ examples: ["4444AAAiAAAAAiAiAiiAii=="] }),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The meeting's start time.")
 		.meta({ examples: ["2022-02-01T12:34:12.66Z"] }),
@@ -16297,7 +16297,7 @@ export const reportOperationLogsStatus200Schema = z
 						.describe("The user who performed the operation.")
 						.meta({ examples: ["admin@example.com"] }),
 					time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("The time at which the operation was performed.")
 						.meta({ examples: ["2022-01-25T17:52:16Z"] }),
@@ -16645,7 +16645,7 @@ export const reportTelephoneStatus200Schema = z
 						.describe("Call leg duration")
 						.meta({ examples: [2] }),
 					end_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Call leg end time")
 						.meta({ examples: ["2022-03-15T07:42:22Z"] }),
@@ -16692,7 +16692,7 @@ export const reportTelephoneStatus200Schema = z
 						.describe("The number that is signaled to Zoom. ")
 						.meta({ examples: ["+1 8243"] }),
 					start_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Call leg start time")
 						.meta({ examples: ["2022-03-15T07:40:46Z"] }),
@@ -17312,7 +17312,7 @@ export const reportMeetingsStatus200Schema = z
 						.describe("The meeting's duration.")
 						.meta({ examples: [6] }),
 					end_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("The meeting's end date and time.")
 						.meta({ examples: ["2020-07-15T23:30:19Z"] }),
@@ -17341,7 +17341,7 @@ export const reportMeetingsStatus200Schema = z
 						)
 						.meta({ examples: ["Zoom"] }),
 					start_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("The meeting's start date and time.")
 						.meta({ examples: ["2019-07-15T23:24:52Z"] }),
@@ -17565,7 +17565,7 @@ export const reportWebinarDetailsStatus200Schema = z.object({
 		.describe("Meeting duration.")
 		.meta({ examples: [2] }),
 	end_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("Meeting end time.")
 		.meta({ examples: ["2022-03-15T07:42:22Z"] }),
@@ -17582,7 +17582,7 @@ export const reportWebinarDetailsStatus200Schema = z.object({
 		.describe("Number of meeting participants.")
 		.meta({ examples: [4] }),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("Meeting start time.")
 		.meta({ examples: ["2022-03-15T07:40:46Z"] }),
@@ -17752,12 +17752,12 @@ export const reportWebinarParticipantsStatus200Schema = z
 						)
 						.meta({ examples: ["ABCDEF123456"] }),
 					join_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("The participant's join time.")
 						.meta({ examples: ["2019-02-01T12:34:12.66Z"] }),
 					leave_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("The participant's leave time.")
 						.meta({ examples: ["2019-02-01T12:54:12.66Z"] }),
@@ -17940,7 +17940,7 @@ export const reportWebinarPollsStatus200Schema = z.object({
 		.optional()
 		.describe("Information about the webinar questions."),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The webinar's start time.")
 		.meta({ examples: ["2022-02-01T12:34:12.66Z"] }),
@@ -18103,7 +18103,7 @@ export const reportWebinarQAStatus200Schema = z.object({
 		.optional()
 		.describe("Array of webinar question objects."),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("Webinar start time.")
 		.meta({ examples: ["2022-03-15T07:40:46Z"] }),
@@ -18160,7 +18160,7 @@ export const reportWebinarSurveyStatus200Schema = z.object({
 		)
 		.meta({ examples: ["4444AAAiAAAAAiAiAiiAii=="] }),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The webinar's start time.")
 		.meta({ examples: ["2022-02-01T12:34:12.66Z"] }),
@@ -19005,7 +19005,7 @@ export const listmeetingsummariesQueryNextPageTokenSchema = z
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
 export const listmeetingsummariesQueryFromSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe(
 		"The start date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.",
@@ -19013,7 +19013,7 @@ export const listmeetingsummariesQueryFromSchema = z.iso
 	.meta({ examples: ["2023-10-19T07:00:00Z"] });
 
 export const listmeetingsummariesQueryToSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe(
 		"The end date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.",
@@ -19043,14 +19043,14 @@ export const listmeetingsummariesStatus200Schema = z.object({
 		)
 		.meta({ examples: ["Tva2CuIdTgsv8wAnhyAdU3m06Y2HuLQtlh3"] }),
 	from: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The start date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format, used to retrieve the meeting summaries' creation date range.",
 		)
 		.meta({ examples: ["2023-10-19T07:00:00Z"] }),
 	to: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The end date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format, used to retrieve the meeting summaries' creation date range.",
@@ -19089,32 +19089,32 @@ export const listmeetingsummariesStatus200Schema = z.object({
 					.describe("Meeting topic.")
 					.meta({ examples: ["My Meeting"] }),
 				meeting_start_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The meeting's start date and time.")
 					.meta({ examples: ["2019-07-15T23:24:52Z"] }),
 				meeting_end_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The meeting's end date and time.")
 					.meta({ examples: ["2020-07-15T23:30:19Z"] }),
 				summary_start_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The summary's start date and time.")
 					.meta({ examples: ["2019-07-15T23:24:52Z"] }),
 				summary_end_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The summary's end date and time.")
 					.meta({ examples: ["2020-07-15T23:30:19Z"] }),
 				summary_created_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The date and time when the meeting summary was created.")
 					.meta({ examples: ["2019-07-15T23:24:52Z"] }),
 				summary_last_modified_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The date and time when the meeting summary was last modified.")
 					.meta({ examples: ["2020-07-15T23:30:19Z"] }),
@@ -19154,14 +19154,14 @@ export const listmeetingsummariesQuerySchema = z.object({
 		)
 		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
 	from: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The start date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.",
 		)
 		.meta({ examples: ["2023-10-19T07:00:00Z"] }),
 	to: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The end date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.",
@@ -19215,32 +19215,32 @@ export const getameetingsummaryStatus200Schema = z.object({
 		.describe("The meeting topic.")
 		.meta({ examples: ["My Meeting"] }),
 	meeting_start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The meeting's start date and time.")
 		.meta({ examples: ["2019-07-15T23:24:52Z"] }),
 	meeting_end_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The meeting's end date and time.")
 		.meta({ examples: ["2020-07-15T23:30:19Z"] }),
 	summary_start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The summary's start date and time.")
 		.meta({ examples: ["2019-07-15T23:24:52Z"] }),
 	summary_end_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The summary's end date and time.")
 		.meta({ examples: ["2020-07-15T23:30:19Z"] }),
 	summary_created_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The date and time when the meeting summary was created.")
 		.meta({ examples: ["2019-07-15T23:24:52Z"] }),
 	summary_last_modified_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The date and time when the meeting summary was last modified.")
 		.meta({ examples: ["2020-07-15T23:30:19Z"] }),
@@ -19402,7 +19402,7 @@ export const listUserMeetingSummariesQueryNextPageTokenSchema = z
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
 export const listUserMeetingSummariesQueryFromSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe(
 		"The start date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.",
@@ -19410,7 +19410,7 @@ export const listUserMeetingSummariesQueryFromSchema = z.iso
 	.meta({ examples: ["2023-10-19T07:00:00Z"] });
 
 export const listUserMeetingSummariesQueryToSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe(
 		"The end date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.",
@@ -19440,14 +19440,14 @@ export const listUserMeetingSummariesStatus200Schema = z.object({
 		)
 		.meta({ examples: ["Tva2CuIdTgsv8wAnhyAdU3m06Y2HuLQtlh3"] }),
 	from: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The start date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format, used to retrieve the meeting summaries' creation date range.",
 		)
 		.meta({ examples: ["2023-10-19T07:00:00Z"] }),
 	to: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The end date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format, used to retrieve the meeting summaries' creation date range.",
@@ -19486,32 +19486,32 @@ export const listUserMeetingSummariesStatus200Schema = z.object({
 					.describe("The meeting topic.")
 					.meta({ examples: ["My Meeting"] }),
 				meeting_start_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The meeting's start date and time.")
 					.meta({ examples: ["2019-07-15T23:24:52Z"] }),
 				meeting_end_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The meeting's end date and time.")
 					.meta({ examples: ["2020-07-15T23:30:19Z"] }),
 				summary_start_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The summary's start date and time.")
 					.meta({ examples: ["2019-07-15T23:24:52Z"] }),
 				summary_end_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The summary's end date and time.")
 					.meta({ examples: ["2020-07-15T23:30:19Z"] }),
 				summary_created_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The date and time when the meeting summary was created.")
 					.meta({ examples: ["2019-07-15T23:24:52Z"] }),
 				summary_last_modified_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The date and time when the meeting summary was last modified.")
 					.meta({ examples: ["2020-07-15T23:30:19Z"] }),
@@ -19563,14 +19563,14 @@ export const listUserMeetingSummariesQuerySchema = z.object({
 		)
 		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
 	from: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The start date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.",
 		)
 		.meta({ examples: ["2023-10-19T07:00:00Z"] }),
 	to: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"The end date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.",
@@ -21322,7 +21322,7 @@ export const webinarAbsenteesStatus200Schema = z
 					})
 					.extend({
 						create_time: z.iso
-							.datetime()
+							.datetime({ offset: true })
 							.optional()
 							.describe("The time when the registrant registered.")
 							.meta({ examples: ["2022-03-22T05:59:09Z"] }),
@@ -21403,7 +21403,7 @@ export const pastWebinarsStatus200Schema = z
 			.array(
 				z.object({
 					start_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Start time.")
 						.meta({ examples: ["2022-03-26T06:44:14Z"] }),
@@ -21525,12 +21525,12 @@ export const listWebinarParticipantsStatus200Schema = z.object({
 					)
 					.meta({ examples: ["jchill@example.com"] }),
 				join_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The participant's join time.")
 					.meta({ examples: ["2019-02-01T12:34:12.66Z"] }),
 				leave_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The participant's leave time.")
 					.meta({ examples: ["2019-02-01T12:54:12.66Z"] }),
@@ -21651,7 +21651,7 @@ export const listPastWebinarPollResultsStatus200Schema = z.object({
 								.describe("Answer submitted by the user.")
 								.meta({ examples: ["Good"] }),
 							date_time: z.iso
-								.datetime()
+								.datetime({ offset: true })
 								.optional()
 								.describe("Date and time when the answer to the poll was submitted.")
 								.meta({ examples: ["2022-03-26T05:37:59Z"] }),
@@ -21672,7 +21672,7 @@ export const listPastWebinarPollResultsStatus200Schema = z.object({
 		)
 		.optional(),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The webinar's start time.")
 		.meta({ examples: ["2022-03-26T05:37:59Z"] }),
@@ -21760,7 +21760,7 @@ export const listPastWebinarQAStatus200Schema = z.object({
 		)
 		.optional(),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The webinar's start time.")
 		.meta({ examples: ["2022-03-26T06:44:14Z"] }),
@@ -22013,7 +22013,7 @@ export const webinarsStatus200Schema = z
 						)
 						.meta({ examples: ["Learn more about Zoom APIs"] }),
 					created_at: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("The webinar's creation time.")
 						.meta({ examples: ["2021-07-01T22:00:00Z"] }),
@@ -22038,7 +22038,7 @@ export const webinarsStatus200Schema = z
 						.describe("The URL to join the webinar.")
 						.meta({ examples: ["https://example.com/j/11111"] }),
 					start_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("The webinar's start time.")
 						.meta({ examples: ["2021-07-13T21:00:00Z"] }),
@@ -22181,7 +22181,7 @@ export const webinarCreateStatus201Schema = z
 			.describe("The webinar's agenda.")
 			.meta({ examples: ["My Webinar"] }),
 		created_at: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("Creation time.")
 			.meta({ examples: ["2022-03-26T07:18:32Z"] }),
@@ -22222,7 +22222,7 @@ export const webinarCreateStatus201Schema = z
 						)
 						.meta({ examples: ["1648194360000"] }),
 					start_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Start time.")
 						.meta({ examples: ["2022-03-25T07:46:00Z"] }),
@@ -22258,7 +22258,7 @@ export const webinarCreateStatus201Schema = z
 		recurrence: z
 			.object({
 				end_date_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe(
 						"A date when the webinar will recur before it is canceled. Should be in UTC time, such as 2017-11-25T12:00:00Z. Can't be used with `end_times`.",
@@ -22856,7 +22856,7 @@ export const webinarCreateStatus201Schema = z
 			.optional()
 			.describe("Webinar settings."),
 		start_time: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("Webinar start time in GMT/UTC.")
 			.meta({ examples: ["2022-03-26T07:18:32Z"] }),
@@ -23002,7 +23002,7 @@ export const webinarCreateBodySchema = z
 		recurrence: z
 			.object({
 				end_date_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe(
 						"Select a date when the webinar will recur before it is canceled. Should be in UTC time, such as `2017-11-25T12:00:00Z`. Cannot be used with `end_times`.",
@@ -23572,7 +23572,7 @@ export const webinarCreateBodySchema = z
 			.optional()
 			.describe("Create webinar settings."),
 		start_time: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe(
 				"Webinar start time. We support two formats for `start_time` - local time and GMT.  \n  \n\nTo set time as GMT the format should be `yyyy-MM-dd`T`HH:mm:ssZ`.\n\nTo set time using a specific timezone, use `yyyy-MM-dd`T`HH:mm:ss` format and specify the timezone [ID](/docs/api/references/abbreviations/#timezones) in the `timezone` field OR leave it blank and the timezone set on your Zoom account will be used. You can also set the time as UTC as the timezone field.\n\nThe `start_time` should only be used for scheduled and / or recurring webinars with fixed time.",
@@ -23734,7 +23734,7 @@ export const webinarStatus200Schema = z
 			.describe("Webinar agenda.")
 			.meta({ examples: ["My webinar"] }),
 		created_at: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("Create time.")
 			.meta({ examples: ["2022-03-26T07:18:32Z"] }),
@@ -23775,7 +23775,7 @@ export const webinarStatus200Schema = z
 						)
 						.meta({ examples: ["1648194360000"] }),
 					start_time: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Start time.")
 						.meta({ examples: ["2022-03-25T07:46:00Z"] }),
@@ -23811,7 +23811,7 @@ export const webinarStatus200Schema = z
 		recurrence: z
 			.object({
 				end_date_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe(
 						"Select a date when the webinar will recur before it is canceled. Should be in UTC time, such as 2017-11-25T12:00:00Z. Cannot be used with `end_times`.",
@@ -24402,7 +24402,7 @@ export const webinarStatus200Schema = z
 			.optional()
 			.describe("Webinar settings."),
 		start_time: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("Webinar start time in GMT/UTC.")
 			.meta({ examples: ["2022-03-26T07:18:32Z"] }),
@@ -24660,7 +24660,7 @@ export const webinarUpdateBodySchema = z
 		recurrence: z
 			.object({
 				end_date_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe(
 						"Select the final date when the meeting will recur before it is canceled. Should be in UTC time, such as 2017-11-25T12:00:00Z. Cannot be used with `end_times`.",
@@ -25219,7 +25219,7 @@ export const webinarUpdateBodySchema = z
 			.optional()
 			.describe("Webinar settings."),
 		start_time: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe(
 				"Webinar start time, in the format `yyyy-MM-dd'T'HH:mm:ss'Z'`. Should be in GMT time. In the format `yyyy-MM-dd'T'HH:mm:ss`. This should be in local time and the timezone should be specified. Only used for scheduled webinars and recurring webinars with a fixed time.",
@@ -26505,7 +26505,7 @@ export const webinarPanelistCreateStatus201Schema = z.object({
 		.describe("Webinar ID.")
 		.meta({ examples: ["95204914252"] }),
 	updated_at: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The time when the panelist was added.")
 		.meta({ examples: ["2022-03-26T07:30:16Z"] }),
@@ -27934,7 +27934,7 @@ export const webinarRegistrantsStatus200Schema = z
 					})
 					.extend({
 						create_time: z.iso
-							.datetime()
+							.datetime({ offset: true })
 							.optional()
 							.describe("The time when the registrant registered.")
 							.meta({ examples: ["2022-03-22T05:59:09Z"] }),
@@ -28055,7 +28055,7 @@ export const webinarRegistrantCreateStatus201Schema = z.object({
 		.describe("The registrant's ID.")
 		.meta({ examples: ["fdgsfh2ey82fuh"] }),
 	start_time: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The webinar's start time.")
 		.meta({ examples: ["2021-07-13T21:44:51Z"] }),
@@ -28099,7 +28099,7 @@ export const webinarRegistrantCreateStatus201Schema = z.object({
 					)
 					.meta({ examples: ["1648194360000"] }),
 				start_time: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("Start time.")
 					.meta({ examples: ["2022-03-25T07:46:00Z"] }),
@@ -28777,7 +28777,7 @@ export const webinarRegistrantGetStatus200Schema = z
 	.and(
 		z.object({
 			create_time: z.iso
-				.datetime()
+				.datetime({ offset: true })
 				.optional()
 				.meta({ examples: ["2022-03-26T06:44:14Z"] }),
 			join_url: z

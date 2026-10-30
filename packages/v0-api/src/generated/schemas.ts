@@ -16,7 +16,7 @@ export const chatDetailSchema = z
 			.optional()
 			.describe("Deprecated title field preserved for backward compatibility."),
 		createdAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.describe("The ISO timestamp representing when the chat was created."),
 		updatedAt: z.string().optional().describe("The ISO timestamp of the last update to the chat."),
 		favorite: z.boolean().describe("Indicates whether the chat is marked as a favorite."),
@@ -47,10 +47,10 @@ export const chatDetailSchema = z
 					.optional()
 					.describe("URL to retrieve a screenshot of this version."),
 				createdAt: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.describe("The date and time when the version was created, in ISO 8601 format."),
 				updatedAt: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The date and time when the version was last updated, in ISO 8601 format."),
 				files: z
@@ -155,7 +155,7 @@ export const chatDetailSchema = z
 						.string()
 						.describe("The ISO timestamp representing when the message was created."),
 					updatedAt: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("The ISO timestamp representing when the message was last updated."),
 					type: z
@@ -294,7 +294,7 @@ export const chatSummarySchema = z
 			.optional()
 			.describe("Deprecated title field preserved for backward compatibility."),
 		createdAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.describe("The ISO timestamp representing when the chat was created."),
 		updatedAt: z.string().optional().describe("The ISO timestamp of the last update to the chat."),
 		favorite: z.boolean().describe("Indicates whether the chat is marked as a favorite."),
@@ -325,10 +325,10 @@ export const chatSummarySchema = z
 					.optional()
 					.describe("URL to retrieve a screenshot of this version."),
 				createdAt: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.describe("The date and time when the version was created, in ISO 8601 format."),
 				updatedAt: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The date and time when the version was last updated, in ISO 8601 format."),
 			})
@@ -492,7 +492,9 @@ export const hookEventDetailSchema = z
 			.optional()
 			.default("pending")
 			.describe("The delivery status of the webhook (e.g., delivered, failed)."),
-		createdAt: z.iso.datetime().describe("Timestamp of when the webhook event was triggered."),
+		createdAt: z.iso
+			.datetime({ offset: true })
+			.describe("Timestamp of when the webhook event was triggered."),
 	})
 	.describe("Detailed record of a webhook event, including its type, status, and timestamp.");
 
@@ -691,7 +693,7 @@ export const messageDetailSchema = z
 			),
 		createdAt: z.string().describe("The ISO timestamp representing when the message was created."),
 		updatedAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The ISO timestamp representing when the message was last updated."),
 		type: z
@@ -833,7 +835,7 @@ export const messageSummarySchema = z
 			),
 		createdAt: z.string().describe("The ISO timestamp representing when the message was created."),
 		updatedAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The ISO timestamp representing when the message was last updated."),
 		type: z
@@ -982,7 +984,7 @@ export const messageSummaryListSchema = z
 						.string()
 						.describe("The ISO timestamp representing when the message was created."),
 					updatedAt: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("The ISO timestamp representing when the message was last updated."),
 					type: z
@@ -1142,10 +1144,10 @@ export const projectDetailSchema = z
 			.optional()
 			.describe("Optional ID of the linked Vercel project, if connected."),
 		createdAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.describe("The ISO timestamp representing when the project was created."),
 		updatedAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The ISO timestamp of the most recent update, if available."),
 		apiUrl: z.url().describe("The API endpoint URL for accessing this project programmatically."),
@@ -1172,7 +1174,7 @@ export const projectDetailSchema = z
 						.optional()
 						.describe("Deprecated title field preserved for backward compatibility."),
 					createdAt: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.describe("The ISO timestamp representing when the chat was created."),
 					updatedAt: z
 						.string()
@@ -1208,10 +1210,10 @@ export const projectDetailSchema = z
 								.optional()
 								.describe("URL to retrieve a screenshot of this version."),
 							createdAt: z.iso
-								.datetime()
+								.datetime({ offset: true })
 								.describe("The date and time when the version was created, in ISO 8601 format."),
 							updatedAt: z.iso
-								.datetime()
+								.datetime({ offset: true })
 								.optional()
 								.describe(
 									"The date and time when the version was last updated, in ISO 8601 format.",
@@ -1241,10 +1243,10 @@ export const projectSummarySchema = z
 			.optional()
 			.describe("Optional ID of the linked Vercel project, if connected."),
 		createdAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.describe("The ISO timestamp representing when the project was created."),
 		updatedAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The ISO timestamp of the most recent update, if available."),
 		apiUrl: z.url().describe("The API endpoint URL for accessing this project programmatically."),
@@ -1268,10 +1270,10 @@ export const searchResultItemSchema = z
 			.describe("Type of item returned, either 'chat' or 'project'."),
 		name: z.string().describe("The display name of the item."),
 		createdAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.describe("The ISO timestamp representing when the item was created."),
 		updatedAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The ISO timestamp of the last update to the item."),
 		apiUrl: z.string().describe("API endpoint for accessing the item programmatically."),
@@ -1287,9 +1289,11 @@ export const userDetailSchemaSchema = z.strictObject({
 	name: z.string().optional().describe("Optional full name of the user."),
 	email: z.string().describe("The user's email address."),
 	avatar: z.string().describe("URL to the user's avatar image."),
-	createdAt: z.iso.datetime().describe("The ISO timestamp representing when the user was created."),
+	createdAt: z.iso
+		.datetime({ offset: true })
+		.describe("The ISO timestamp representing when the user was created."),
 	updatedAt: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The ISO timestamp of the last update to the user."),
 });
@@ -1361,10 +1365,10 @@ export const userSummarySchemaSchema = z
 		email: z.string().describe("The user's email address."),
 		avatar: z.string().describe("URL to the user's avatar image."),
 		createdAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.describe("The ISO timestamp representing when the user was created."),
 		updatedAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The ISO timestamp of the last update to the user."),
 	})
@@ -1398,10 +1402,10 @@ export const versionDetailSchema = z
 		demoUrl: z.string().optional().describe("Optional URL for previewing the generated output."),
 		screenshotUrl: z.string().optional().describe("URL to retrieve a screenshot of this version."),
 		createdAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.describe("The date and time when the version was created, in ISO 8601 format."),
 		updatedAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The date and time when the version was last updated, in ISO 8601 format."),
 		files: z
@@ -1431,10 +1435,10 @@ export const versionSummarySchema = z
 		demoUrl: z.string().optional().describe("Optional URL for previewing the generated output."),
 		screenshotUrl: z.string().optional().describe("URL to retrieve a screenshot of this version."),
 		createdAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.describe("The date and time when the version was created, in ISO 8601 format."),
 		updatedAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The date and time when the version was last updated, in ISO 8601 format."),
 	})
@@ -1462,10 +1466,10 @@ export const versionSummaryListSchema = z
 						.optional()
 						.describe("URL to retrieve a screenshot of this version."),
 					createdAt: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.describe("The date and time when the version was created, in ISO 8601 format."),
 					updatedAt: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("The date and time when the version was last updated, in ISO 8601 format."),
 				}),
@@ -1755,7 +1759,7 @@ export const chatsFindStatus200Schema = z.strictObject({
 				.optional()
 				.describe("Deprecated title field preserved for backward compatibility."),
 			createdAt: z.iso
-				.datetime()
+				.datetime({ offset: true })
 				.describe("The ISO timestamp representing when the chat was created."),
 			updatedAt: z
 				.string()
@@ -1789,10 +1793,10 @@ export const chatsFindStatus200Schema = z.strictObject({
 						.optional()
 						.describe("URL to retrieve a screenshot of this version."),
 					createdAt: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.describe("The date and time when the version was created, in ISO 8601 format."),
 					updatedAt: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("The date and time when the version was last updated, in ISO 8601 format."),
 					darkScreenshotUrl: z
@@ -4917,12 +4921,12 @@ export const chatsRestorePathSchema = z.object({
 });
 
 export const reportsGetUsageQueryStartDateSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe('Query parameter "startDate"');
 
 export const reportsGetUsageQueryEndDateSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe('Query parameter "endDate"');
 
@@ -4990,7 +4994,7 @@ export const reportsGetUsageStatus200Schema = z.strictObject({
 				.optional()
 				.describe("Details of the authenticated user, including profile and contact information."),
 			createdAt: z.iso
-				.datetime()
+				.datetime({ offset: true })
 				.describe("The ISO timestamp representing when the usage event was created."),
 		}),
 	),
@@ -5038,8 +5042,8 @@ export const reportsGetUsageErrorSchema = z.union([
 ]);
 
 export const reportsGetUsageQuerySchema = z.object({
-	startDate: z.iso.datetime().optional().describe('Query parameter "startDate"'),
-	endDate: z.iso.datetime().optional().describe('Query parameter "endDate"'),
+	startDate: z.iso.datetime({ offset: true }).optional().describe('Query parameter "startDate"'),
+	endDate: z.iso.datetime({ offset: true }).optional().describe('Query parameter "endDate"'),
 	chatId: z.string().optional().describe('Query parameter "chatId"'),
 	messageId: z.string().optional().describe('Query parameter "messageId"'),
 	userId: z.string().optional().describe('Query parameter "userId"'),
@@ -5056,12 +5060,12 @@ export const reportsGetUsageQuerySchema = z.object({
 });
 
 export const reportsGetAIUsageQueryStartSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe("Inclusive start datetime filter.");
 
 export const reportsGetAIUsageQueryEndSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe("Exclusive end datetime filter.");
 
@@ -5138,8 +5142,8 @@ export const reportsGetAIUsageErrorSchema = z.union([
 ]);
 
 export const reportsGetAIUsageQuerySchema = z.object({
-	start: z.iso.datetime().optional().describe("Inclusive start datetime filter."),
-	end: z.iso.datetime().optional().describe("Exclusive end datetime filter."),
+	start: z.iso.datetime({ offset: true }).optional().describe("Inclusive start datetime filter."),
+	end: z.iso.datetime({ offset: true }).optional().describe("Exclusive end datetime filter."),
 	cursor: z
 		.string()
 		.optional()
@@ -5154,12 +5158,12 @@ export const reportsGetAIUsageQuerySchema = z.object({
 });
 
 export const reportsGetUserActivityQueryStartDateSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe("Inclusive ISO timestamp lower bound for activity.");
 
 export const reportsGetUserActivityQueryEndDateSchema = z.iso
-	.datetime()
+	.datetime({ offset: true })
 	.optional()
 	.describe(
 		"Exclusive ISO timestamp upper bound for activity. Pass the end of the last day (e.g. 23:59:59.999) to include it.",
@@ -5178,10 +5182,10 @@ export const reportsGetUserActivityStatus200Schema = z.strictObject({
 				email: z.string().describe("The user's email address."),
 				avatar: z.string().describe("URL to the user's avatar image."),
 				createdAt: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.describe("The ISO timestamp representing when the user was created."),
 				updatedAt: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The ISO timestamp of the last update to the user."),
 				teamV0Role: z
@@ -5192,18 +5196,18 @@ export const reportsGetUserActivityStatus200Schema = z.strictObject({
 			messageCount: z.number().describe("Total number of messages sent by the user"),
 			activeDays: z.number().describe("Number of distinct days the user was active"),
 			firstActivity: z
-				.union([z.iso.datetime(), z.null()])
+				.union([z.iso.datetime({ offset: true }), z.null()])
 				.describe("Timestamp of the user's first activity"),
 			lastActivity: z
-				.union([z.iso.datetime(), z.null()])
+				.union([z.iso.datetime({ offset: true }), z.null()])
 				.describe("Timestamp of the user's last activity"),
 		}),
 	),
 	meta: z.strictObject({
 		totalCount: z.number(),
 		dateRange: z.strictObject({
-			start: z.union([z.iso.datetime(), z.null()]),
-			end: z.union([z.iso.datetime(), z.null()]),
+			start: z.union([z.iso.datetime({ offset: true }), z.null()]),
+			end: z.union([z.iso.datetime({ offset: true }), z.null()]),
 		}),
 	}),
 });
@@ -5239,11 +5243,11 @@ export const reportsGetUserActivityErrorSchema = z.union([
 
 export const reportsGetUserActivityQuerySchema = z.object({
 	startDate: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("Inclusive ISO timestamp lower bound for activity."),
 	endDate: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe(
 			"Exclusive ISO timestamp upper bound for activity. Pass the end of the last day (e.g. 23:59:59.999) to include it.",
@@ -5271,9 +5275,11 @@ export const mcpServersFindStatus200Schema = z
 						"Authentication type for the MCP server. Sensitive values like tokens and headers are not returned.",
 					),
 				scope: z.enum(["team", "user"]).describe("The scope of the MCP server (user or team)."),
-				createdAt: z.iso.datetime().describe("The ISO timestamp when the MCP server was created."),
+				createdAt: z.iso
+					.datetime({ offset: true })
+					.describe("The ISO timestamp when the MCP server was created."),
 				updatedAt: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("The ISO timestamp when the MCP server was last updated."),
 			}),
@@ -5328,9 +5334,11 @@ export const mcpServersCreateStatus200Schema = z
 				"Authentication type for the MCP server. Sensitive values like tokens and headers are not returned.",
 			),
 		scope: z.enum(["team", "user"]).describe("The scope of the MCP server (user or team)."),
-		createdAt: z.iso.datetime().describe("The ISO timestamp when the MCP server was created."),
+		createdAt: z.iso
+			.datetime({ offset: true })
+			.describe("The ISO timestamp when the MCP server was created."),
 		updatedAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The ISO timestamp when the MCP server was last updated."),
 	})
@@ -5470,9 +5478,11 @@ export const mcpServersGetByIdStatus200Schema = z
 				"Authentication type for the MCP server. Sensitive values like tokens and headers are not returned.",
 			),
 		scope: z.enum(["team", "user"]).describe("The scope of the MCP server (user or team)."),
-		createdAt: z.iso.datetime().describe("The ISO timestamp when the MCP server was created."),
+		createdAt: z.iso
+			.datetime({ offset: true })
+			.describe("The ISO timestamp when the MCP server was created."),
 		updatedAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The ISO timestamp when the MCP server was last updated."),
 	})
@@ -5533,9 +5543,11 @@ export const mcpServersUpdateStatus200Schema = z
 				"Authentication type for the MCP server. Sensitive values like tokens and headers are not returned.",
 			),
 		scope: z.enum(["team", "user"]).describe("The scope of the MCP server (user or team)."),
-		createdAt: z.iso.datetime().describe("The ISO timestamp when the MCP server was created."),
+		createdAt: z.iso
+			.datetime({ offset: true })
+			.describe("The ISO timestamp when the MCP server was created."),
 		updatedAt: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The ISO timestamp when the MCP server was last updated."),
 	})
@@ -5700,7 +5712,9 @@ export const mcpServersCreateOAuthAuthorizationUrlStatus200Schema = z.strictObje
 	mcpServerId: z.string().describe("The MCP server being authorized."),
 	url: z.url().describe("The provider authorization URL to redirect the user to."),
 	state: z.string().describe("The OAuth state value. This expires after 5 minutes."),
-	expiresAt: z.iso.datetime().describe("The ISO timestamp when the authorization URL expires."),
+	expiresAt: z.iso
+		.datetime({ offset: true })
+		.describe("The ISO timestamp when the authorization URL expires."),
 });
 
 export const mcpServersCreateOAuthAuthorizationUrlStatus401Schema = unauthorizedErrorSchema;
